@@ -4,6 +4,7 @@ import { pinballHandCue } from "./bind-pinball-hand.js";
 import { pulseHandCue } from "./bind-pulse-hand.js";
 import { scoutHandCue } from "./bind-scout-hand.js";
 import { snakeBodyCue } from "./bind-snake-body.js";
+import { throatCue } from "./bind-throat.js";
 import { vaneCue } from "./bind-vane.js";
 import { wardenHandCue } from "./bind-warden-hand.js";
 
@@ -47,7 +48,11 @@ export type HandEvent = Extract<
       // And THE PULSE's one, on the only object the pair owns together.
       | "pulseBrace"
       | "pulseSlip"
-      | "pulseArrest";
+      | "pulseArrest"
+      // And THE THROAT's two, the gullet handing out a control as it loses one.
+      | "throatCinch"
+      | "throatSlip"
+      | "throatHaul";
   }
 >;
 
@@ -76,6 +81,9 @@ const HAND_EVENTS = new Set<string>([
   "pulseBrace",
   "pulseSlip",
   "pulseArrest",
+  "throatCinch",
+  "throatSlip",
+  "throatHaul",
 ]);
 
 /** Whether this is one of the hands above, and not a boss's own event. */
@@ -105,6 +113,10 @@ export function handCue(e: HandEvent, cols: number): Cue {
     case "scoutSlip":
     case "scoutPrime":
       return scoutHandCue(e);
+    case "throatCinch":
+    case "throatSlip":
+    case "throatHaul":
+      return throatCue(e, cols);
     default:
       return pulseHandCue(e);
   }

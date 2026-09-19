@@ -83,4 +83,9 @@ export const SILENT_BOSS_B = [
   // pin stands on a lobe the field is already drawing.
   "undertowPinned",
   "undertowFreed",
+  // THE THROAT's two hands, no burst until the look lane draws them: both
+  // stand on the tube, which is a fixture the field draws every frame.
+  "throatCinch",
+  "throatSlip",
+  "throatHaul",
 ] as const satisfies readonly SimEvent["type"][];

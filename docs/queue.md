@@ -215,6 +215,67 @@ waiting on.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
+## THE THROAT's own clock is silent: no inhale, no choke, no swallow, no eversion
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/sim/src/events-throat.ts`, `packages/sim/src/throat-step.ts`, `packages/sim/src/throat-feed.ts`, `packages/audio/src/bind-throat.ts`, `packages/audio/src/sounds/boss-throat.ts`, `packages/audio/src/catalogue.ts`, `docs/spec/bosses.md`
+- **Where:** cloud
+
+The gullet's two *hands* got sounds on 19 September 2026 — `throatCinch`,
+`throatSlip`, `throatHaul` — and that lane deliberately stopped there, because
+the item it came out of was about the gestures. What is still silent is the
+boss's own clock, which is four moments and all four of them things the pair
+has to hear without looking:
+
+- **The inhale.** `throatBreathes` returns true and nothing is said. It is the
+  beat player 2 has been counting down out loud, and it is the one beat in the
+  fight where being wrong costs a ring.
+- **The swallow**, `throatFed`: a body taken out of the mouth, and a slack ring
+  *re-tightened*. That is the boss healing off the pair's own habit and it is
+  the one thing in this fight they are punished for not hearing.
+- **The choke**, `throatChoked`: a gum arriving on the mouth's row and a ring
+  going slack for good. The payoff for the arithmetic sentence the pair says to
+  each other, and currently the pilot learns he got it right by watching.
+- **The eversion**, in `stepThroat`'s `everts` arm, which runs under THE SLOW
+  for `throatEvertBeats` and is the fight's whole ending.
+
+Four sounds in the existing `boss-throat.ts`, four arms on the existing
+`throatCue`, and four `events-throat.ts` names — every registration point is
+already wired, so the lane is the sounds themselves and the events that say
+them. The swallow and the choke are opposites and have to be heard as such: one
+re-tightens a ring, the other loses one for good. All four stay out of the
+300-3000 Hz band, because the pair is saying a column and a count to each other
+the entire fight (`docs/spec/audio.md` §1).
+
+## `bun run queue done <n>` removes the wrong entry when the lane wrote a finding
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `tools/queue/run.ts`, `tools/queue/queue.ts`, `docs/queue.md`
+- **Where:** cloud
+
+It happened, and it silently deleted an item nobody had worked. The lane
+closing item 18 first wrote its own finding into this file — which is what the
+preamble above *requires*, in the same commit as the work that found it — and
+that entry sorted above the one being closed. `bun run queue done 18` then
+removed THE UNDERTOW's look entry instead, reported the title it had removed,
+and exited zero. It was noticed only because the reported title was read; the
+fix was to restore the entry by hand out of `git show HEAD:docs/queue.md` and
+re-run `done` with a title.
+
+**The two rules are in conflict and the tool is the place to settle it.** An
+index printed by `bun run queue` at the start of a sitting is stale the moment
+the same sitting obeys the file-a-finding rule, and every lane that obeys it is
+exposed. `take` has the same hole for the same reason.
+
+The smallest fix that actually closes it: make `done` and `take` refuse a bare
+number, and print the title form in the listing so the number is never the
+thing that gets copied. Or, if a number is worth keeping for typing: have
+`queue next`/`take` record the *title* it handed out and have `done <n>` check
+the number still resolves to it, failing loudly when it does not. Either way
+the current behaviour — delete something, name it, exit zero — is the one
+outcome that must not survive, because the entry is gone from the file and only
+a reader of the output would know.
+
 ## The phone's back gesture leaves the game instead of asking
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -648,24 +709,6 @@ The owner, 18 September 2026: a picture is judged by an eye on a real frame,
 which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
-
-## THE THROAT changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-throat-changes-state-more-than-once-and-asks
-- **Files:** `packages/sim/src/config-throat.ts`, `packages/sim/src/throat-hash.ts`, `packages/sim/src/throat-pull.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on the ordinary panel, over 5 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
 
 ## THE THROAT's picture looks like something real
 

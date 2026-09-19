@@ -154,4 +154,11 @@ export const INGEST_SILENT_BOSS_B = [
   // Her other ten are on the first page, with the floor they answer.
   "undertowPinned",
   "undertowFreed",
+  // THE THROAT's two hands on the gullet, silent until the look lane draws
+  // them: the pinched ring darkens off `cinchBeat` and the mouth's column is
+  // derived every frame, so both are already on the picture
+  // (`sim/throat-hand.ts`, `throat-draw.ts`).
+  "throatCinch",
+  "throatSlip",
+  "throatHaul",
 ] as const satisfies readonly SimEvent["type"][];

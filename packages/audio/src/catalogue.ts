@@ -34,6 +34,7 @@ import { BOSS_SINEW_SOUNDS } from "./sounds/boss-sinew.js";
 import { BOSS_SNAKE_BODY_SOUNDS } from "./sounds/boss-snake-body.js";
 import { BOSS_SURGE_SOUNDS } from "./sounds/boss-surge.js";
 import { BOSS_TASTER_SOUNDS } from "./sounds/boss-taster.js";
+import { BOSS_THROAT_SOUNDS } from "./sounds/boss-throat.js";
 import { BOSS_UNDERTOW_SOUNDS } from "./sounds/boss-undertow.js";
 import { BOSS_VANE_SOUNDS } from "./sounds/boss-vane.js";
 import { BOSS_WARDEN_SOUNDS } from "./sounds/boss-warden.js";
@@ -85,6 +86,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_DIASTOLE_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
+  ...BOSS_THROAT_SOUNDS,
   ...BOSS_SNAKE_BODY_SOUNDS,
   ...BOSS_PINBALL_HAND_SOUNDS,
   ...BOSS_SCOUT_HAND_SOUNDS,

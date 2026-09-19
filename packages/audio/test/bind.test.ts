@@ -88,6 +88,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-hive.ts", "export type HiveEvent ="],
     ["packages/sim/src/events-instar.ts", "export type InstarEvent ="],
     ["packages/sim/src/events-filament.ts", "export type FilamentEvent ="],
+    ["packages/sim/src/events-throat.ts", "export type ThroatEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -156,6 +157,9 @@ const SAMPLES: Record<string, SimEvent> = {
   scoutReel: { type: "scoutReel" },
   scoutSlip: { type: "scoutSlip" },
   scoutPrime: { type: "scoutPrime" },
+  throatCinch: { type: "throatCinch", col: 3 },
+  throatSlip: { type: "throatSlip", col: 3 },
+  throatHaul: { type: "throatHaul", col: 4 },
   pulseBrace: { type: "pulseBrace", player: 1 },
   pulseSlip: { type: "pulseSlip", player: 2 },
   pulseArrest: { type: "pulseArrest" },

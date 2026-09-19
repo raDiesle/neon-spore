@@ -1,4 +1,4 @@
-import type { ThroatState } from "./throat.js";
+import { type ThroatState, throatMouthCol } from "./throat.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -91,7 +91,7 @@ export function throatHeard(world: World, player: 1 | 2, command: Command): void
 function ringHeard(world: World, b: ThroatState, player: 1 | 2, on: boolean): void {
   if (player !== 2) return;
   if (!on) {
-    throatRelease(b);
+    throatRelease(world, b);
     return;
   }
   // A thumb already on one stays where it is. There is one cinch however many
@@ -100,6 +100,7 @@ function ringHeard(world: World, b: ThroatState, player: 1 | 2, on: boolean): vo
   // for nothing.
   if (throatCinched(b) || !throatCinchable(b)) return;
   b.cinchBeat = world.beat;
+  world.events.push({ type: "throatCinch", col: throatMouthCol(world.cfg, b, world.beat) });
 }
 
 function tubeHeard(
@@ -123,9 +124,18 @@ function tubeHeard(
  * (`throatBreathes`).
  *
  * One place for `releasePin`'s reason — a lift and a tear cost the pair the
- * same thing and have to be one line, so that the day this fight gets a sound
- * there is one place to put it.
+ * same thing and have to be one line, and that day came: `throatSlip` is said
+ * once here and both ways of losing the ring reach it (`events-throat.ts`).
+ *
+ * Silent when there was nothing cinched, which is the guard and not a nicety.
+ * A thumb that is down sends `on: true` every tick and a thumb lifting sends
+ * one `on: false`, but a thumb that never landed on a ring at all — a drag
+ * across the tube in `still`, a peer's command arriving after the cap already
+ * tore it out — still ends in a lift, and a slip on every one of those would
+ * be a sound for a window that never opened.
  */
-export function throatRelease(b: ThroatState): void {
+export function throatRelease(world: World, b: ThroatState): void {
+  if (!throatCinched(b)) return;
   b.cinchBeat = -1;
+  world.events.push({ type: "throatSlip", col: throatMouthCol(world.cfg, b, world.beat) });
 }

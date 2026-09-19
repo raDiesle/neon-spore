@@ -20,6 +20,7 @@ import type { SpliceEvent } from "./events-splice.js";
 import type { StareEvent } from "./events-stare.js";
 import type { SurgeEvent } from "./events-surge.js";
 import type { TasterEvent } from "./events-taster.js";
+import type { ThroatEvent } from "./events-throat.js";
 import type { UndertowEvent } from "./events-undertow.js";
 import type { VaneEvent } from "./events-vane.js";
 import type { WardenEvent } from "./events-warden.js";
@@ -69,7 +70,8 @@ export type BossEvent =
   | SnakeEvent
   | PinballEvent
   | ScoutEvent
-  | PulseEvent;
+  | PulseEvent
+  | ThroatEvent;
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
@@ -93,6 +95,7 @@ export type { SpliceEvent } from "./events-splice.js";
 export type { StareEvent } from "./events-stare.js";
 export type { SurgeEvent } from "./events-surge.js";
 export type { TasterEvent } from "./events-taster.js";
+export type { ThroatEvent } from "./events-throat.js";
 export type { UndertowEvent } from "./events-undertow.js";
 export type { VaneEvent } from "./events-vane.js";
 export type { WardenEvent } from "./events-warden.js";

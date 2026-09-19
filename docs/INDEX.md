@@ -498,6 +498,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
 | `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
+| `packages/sim/src/events-throat.ts` | **What THE THROAT's two hands do that neither screen already says**, as three events (`throat-hand.ts`) |
 | `packages/sim/src/events-ledger.ts` | **Everything THE LEDGER does that neither screen already says**, as events |
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
@@ -1604,6 +1605,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-warden-hand.ts` | THE WARDEN's hold, throw and slam, cued at the hatch's column |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-diastole.ts` | THE DIASTOLE's two, in a file of their own for `bind-gorge.ts`' reason |
 

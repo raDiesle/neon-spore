@@ -173,4 +173,13 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "a thumb landing on one of the two beads the pair is drawing together. Same argument.",
   "boss.batonParted":
     "the drawing-together window closed short, and the bead that waited shaken back to the top of the arm. Same argument.",
+  // THE THROAT's two hands on the gullet. The subject is the tube itself — a
+  // fixture hanging from the top of the field with nothing of it among the
+  // creatures — so there is no body a sheet could card (`sim/throat.ts`).
+  "boss.throatCinch":
+    "player 2's thumb landing on a ring the pair has already choked: the gullet stops breathing while she holds it. What it is on is THE THROAT's tube, a fixture that is not a creature and stands on no card.",
+  "boss.throatSlip":
+    "that hold lost — lifted, or torn out of her thumb when its beats ran out — and the gullet breathing again. Same argument.",
+  "boss.throatHaul":
+    "player 1 dragging the whole tube a column sideways, which is the only way in this fight to take a body back out of the mouth. Same argument.",
 };

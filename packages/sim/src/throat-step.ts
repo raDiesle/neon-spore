@@ -124,7 +124,7 @@ function throatBreathes(world: World, b: ThroatState): boolean {
   if (throatCinched(b)) {
     if (!throatInhales(cfg, b, world.beat)) return false;
     b.breath = Math.min(cfg.throatCinchBeats, b.breath + 1);
-    if (b.breath >= cfg.throatCinchBeats) throatRelease(b);
+    if (b.breath >= cfg.throatCinchBeats) throatRelease(world, b);
     return false;
   }
   if (b.breath <= 0) return throatInhales(cfg, b, world.beat);
@@ -155,6 +155,12 @@ function throatHaul(world: World, b: ThroatState): void {
   const cfg = world.cfg;
   const standing = throatMouthCol(cfg, b, world.beat);
   b.mouthFrom = throatSnap(cfg, standing + step, throatStride(cfg, b));
+  // Said here and not where the carry was heard, because the column in the
+  // event is the one the mouth *landed* on and `throatSnap` is what decides
+  // it. A `throatHaul` pushed from the tick would have to do this arithmetic
+  // a second time to know what to pan, and the second copy is the one that
+  // would disagree the day the snap changes.
+  world.events.push({ type: "throatHaul", col: b.mouthFrom });
 }
 
 /**

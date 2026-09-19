@@ -9952,3 +9952,31 @@ separate pages — and choosing them before the first field was written would
 have cost nothing.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-throat-changes-state — the gullet's two hands say something
+
+Lane B of the same entry, split before it was started: a creature is its
+simulation, then its look — and here, then its sound. The cinch, the slip and
+the haul became `events-throat.ts`, THE VANE's shape exactly, because that
+boss is the precedent for a fixture whose only events are the pair's own hands
+on it. The registration is nine places and none of them is optional; the
+design question was where each event is *said*, and it is where each one
+lands: the cinch and the slip on the tick in `throat-hand.ts`, the haul on the
+beat in `throat-step.ts`, where `throatSnap` has already decided which column
+it moved to.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | `events-vane.ts`, `bind-vane.ts`, `boss-vane.ts` and `bind-choreographed-b.ts` as the models, then grepping `vanePin` across the tree for every place a new events file has to be named |
+| writing | 55 | the three events, the emission in two files, `bind-throat.ts`, `boss-throat.ts`, nine registrations, five sim cases, §11.19 and the follow-on queue entry |
+| looking | 0 | none available: three sounds are a thing an ear judges and this session has none — it lands unverified |
+| friction | 10 | `bun run queue done 18` removed the wrong entry, because the number shifted the moment this lane's own finding was written above it |
+| landing | 20 | `check:fast`, the index, restoring the entry the number ate, and the commit |
+
+**The bottleneck was `queue done` taking a number.** The queue's own rule says
+a finding is written in the turn it is found and committed with the work — so
+a lane that obeys it has changed the numbering before it closes its own item,
+and the index it read at the start of the sitting is stale by the end. The
+title form works and the number form is a trap laid by the rule next to it.
+
+*Measured: the rows above are the session's own estimate.*

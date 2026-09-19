@@ -250,6 +250,66 @@ describe("the pilot's haul", () => {
   });
 });
 
+/** Every event the gullet said across these beats, in order. `step` clears
+ * `world.events` at the top of every tick, so a run of beats has to be
+ * collected as it goes. */
+function said(world: World, n: number, held: Command | null = null, player: 1 | 2 = 2): string[] {
+  const seen: string[] = [];
+  for (let i = 0; i < n * TPB; i++) {
+    const cmds: TimedCommand[] = held === null ? [] : [{ tick: world.tick, player, command: held }];
+    step(world, cmds);
+    for (const e of world.events) if (e.type.startsWith("throat")) seen.push(e.type);
+  }
+  return seen;
+}
+
+describe("what the gullet says out loud", () => {
+  it("says the cinch once however long the thumb stays down", () => {
+    const world = open("open", CFG.throatRings - 1);
+    // One landing and one tear across a whole cap: a thumb that is down sends
+    // `on: true` on every tick of it, and a cinch said per tick would be the
+    // loudest sound in the game for a gesture that happened once.
+    expect(said(world, CFG.throatCinchBeats, ring(true))).toEqual(["throatCinch", "throatSlip"]);
+  });
+
+  it("says the same slip whether the thumb lifted or the cap took it", () => {
+    const lifted = open("open", CFG.throatRings - 1);
+    said(lifted, 1, ring(true));
+    expect(said(lifted, 1, ring(false))).toEqual(["throatSlip"]);
+    // A lift and a tear cost the pair the same thing, so they are one line
+    // (`throatRelease`) — and the pair has to be able to act on the sound
+    // without being told which of the two it was.
+    const torn = open("open", CFG.throatRings - 1);
+    expect(said(torn, CFG.throatCinchBeats, ring(true)).at(-1)).toBe("throatSlip");
+  });
+
+  it("is silent on a lift that let go of nothing", () => {
+    const world = open("still", 0);
+    // Nothing is choked yet, so her thumb landed on no ring at all. A slip
+    // here would be a window shutting that never opened.
+    expect(said(world, 2, ring(false))).toEqual([]);
+    expect(said(world, 2, ring(true))).toEqual([]);
+  });
+
+  it("says the haul on the beat it lands, in the column it landed on", () => {
+    const world = open("open", CFG.throatRings - 1);
+    const b = tube(world);
+    once(world, 1, carry(CFG.throatHaulMilli));
+    // Nothing on the tick the carry was heard: the mouth has not moved yet
+    // and the column in the event is the one `throatSnap` settled on.
+    expect(world.events.filter((e) => e.type === "throatHaul")).toHaveLength(0);
+    const heard = said(world, 1);
+    expect(heard).toEqual(["throatHaul"]);
+    expect(b.mouthFrom).toBe(HOME + 1);
+  });
+
+  it("says nothing for a haul the phase refused", () => {
+    const world = open("quick", 2);
+    once(world, 1, carry(CFG.throatHaulMilli));
+    expect(said(world, 2)).toEqual([]);
+  });
+});
+
 describe("both hands on the wire", () => {
   it("are in the fingerprint, so two devices cannot spend them differently", () => {
     const held = open("open", CFG.throatRings - 1);

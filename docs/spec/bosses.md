@@ -3062,9 +3062,18 @@ gullet above: reaching `open` needs four gums flung into a walking mouth, and
 fields. The arithmetic is proved in `sim/test/throat-hands.test.ts` and the
 words in `render/test/boss-cue-throat.test.ts`.
 
-**The sounds are not built.** THE THROAT has no `events-*.ts` at all — no
-inhale, no choke, no eversion, and now no cinch or haul. It is a lane of its
-own (`docs/queue.md`).
+**The two hands have sounds; the gullet's own clock still does not.** The
+cinch, the slip and the haul are `events-throat.ts`, bound in
+`audio/bind-throat.ts` and panned to the mouth's own column, because a fixture
+has no body to point at and the column is the one number this fight says out
+loud. Both hands are heard on the tick and both are *said* where they land: the
+cinch and the slip in `throat-hand.ts`, the haul on the beat in `throat-step.ts`
+where `throatSnap` settles which column it moved to. A lift and a tear are one
+`throatSlip`, because they cost the pair the same thing.
+
+**The gullet itself is still silent** — no inhale, no choke, no swallow, no
+eversion. Those are the fight's clock rather than the pair's hands, and they
+are a lane of their own (`docs/queue.md`).
 
 **Never watched at tempo.** Whether a pair can hold a column and a count at 96
 BPM while one of them is timing a thumb is a thing a person finds out with
