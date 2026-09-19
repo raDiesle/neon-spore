@@ -391,7 +391,15 @@ they hang, every column an `atBoss` strip (`scuttleNextCol`) because the
 seed hangs them over columns no authored column reaches; the twins are
 shot at the top of their columns between strikes, the pods struck on the
 frame rather than thrown, and the seed is chosen so that neither is.
-THE ANTIPHON's, the same day, is the wrong candidate first — a decoy's colour
+THE ANTIPHON's guide was rewritten 19 September 2026, when the body learnt to
+say `STILL`: three steps and a one-line shared half for the boss with the
+longest rehearsal in the game, and between them they had never named the turn
+the pilot's one handle makes — the field has said `TURN` since the handle
+shipped — nor the window she alone is shown, nor that a wrong answer widens the
+rail for good, nor that the last organ is their own ship. All four are written
+now, and the arithmetic stays in the briefing because the field says no shape,
+no colour and no column in either direction. Its film, the same day, is the
+wrong candidate first — a decoy's colour
 in the decoy's column, and the rail one wider for the rest of the fight —
 then six organs taken where they stand, every column an `atBoss` strip
 (`sim/boss-answer.ts`) because the rail is laid on any of the eleven, the

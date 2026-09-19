@@ -22,6 +22,48 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-antiphon — a third stale entry, and a still nobody was told about
+
+The ninth of this family. Its entry said *it says nothing on the field at all*
+and `TURN` had stood on the organ's grip mark since the handle shipped — the
+third entry in a row to miss a word a boss builds in its own drawing rather than
+in a reading, which is the finding I filed yesterday, and the reason I greped
+`antiphon-*.ts` for `drawCueText` before opening anything else. That grep is now
+the first thing I do on one of these and it has paid twice.
+
+**What this boss may say is almost nothing, and proving that was the lane.** Two
+words were candidates and both had to be refused. No `MOVE`, because the organ's
+shape is his and its column is hers and he has to put the cannon in a column he
+cannot see: the word would be her rail on his screen and its silence the same
+leak by subtraction. No `FIRE`, because she is already told *when* twice on her
+own screen — the rail's candidates are drawn at `RAIL_R * grow` and reach full
+size exactly as `antiphonGrowBeats` runs out, which is the beat a bolt stops
+being a guess, and the window gauge falls from that same beat. I had drafted a
+`STILL`-then-`FIRE` pair before reading `antiphon-draw.ts` line 112 and threw the
+second half away.
+
+What was left is the real one: at six pits the body stops breathing and stands
+four beats with nothing out of it, every bolt refused, and then grows their own
+ship. `STILL` on the body, hers, safe because `drawBody` takes `still` whatever
+the role. The film had the window on the wrong screen — *two pits, now eight
+beats*, on the seat that cannot see a window — and the guide had never named the
+turn, the window, the widening rail or the ship.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `antiphon.ts`, `antiphon-shot.ts` and `config-antiphon.ts` for the fight, `antiphon-grip.ts` for the word already there, and `antiphon-draw.ts`'s loop for which branches are *not* gated by the role, which is where three of the four findings were |
+| writing | 30 | a new reading page with the argument for two refusals, five cases in a new test file, both guide halves, two film pages and a doc paragraph, three spec pages and a queue entry for the film's missing turn |
+| looking | 0 | nothing new is drawn: the word and its placement shipped with the family |
+| friction | 5 | half a reading drafted against the simulation and thrown away once the drawing said she could already see the moment |
+| landing | 20 | `check:fast`, `index`, `lint`, the commit and the land |
+
+**The bottleneck was ruling words out, and the evidence for that is always in
+`render/`.** Whether a word is allowed is never a fact about the simulation: it
+is a fact about which screen draws which branch, and on this boss the deciding
+line was a radius multiplied by a grow phase. Two of the three lanes today have
+turned on exactly that, and nothing in the repository points a lane at it — the
+readings' comments do, once written, which is the whole reason they are long.
+
 ## 2026-09-19 — queue-the-scuttle — two presses of hers over one slide of his
 
 The eighth of this family, and the first whose entry was right: THE SCUTTLE said

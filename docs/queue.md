@@ -900,28 +900,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE ANTIPHON: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-antiphon-the-field-says-the-word-and-the-bri
-- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/render/src/antiphon-grip.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It already says `TURN`, one word per standing organ, on the pilot's screen —
-built in its own drawing rather than in `boss-cue.ts`, because the mark rides
-a handle (`antiphon-grip.ts`, corrected 19 September 2026: this entry used to
-say it said nothing, which is what a grep of the readings answers for a handle
-boss). So the words half is the pit's other moments, if it has any, and not a
-reading page from nothing.
-Its briefing is a 20-page rehearsal (`packages/content/src/scenes/the-antiphon.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE ANTIPHON changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2160,3 +2138,31 @@ entries name them; a line at the foot of `new-boss` pointing at it; and the
 entries' `section 6.1` references left alone, because they still resolve. Then
 decide whether `limits.test.ts` should count a skill at all — a file loaded
 into a session's context has the same reason to be short as one a person reads.
+
+## THE ANTIPHON's film never turns the organ, and the field asks for it
+
+- **Found:** 2026-09-19, claude/queue-the-antiphon-says-the-word
+- **Files:** `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scene-types.ts`, `packages/content/test/scene-films.test.ts`, `packages/render/src/antiphon-grip.ts`
+- **Where:** cloud
+
+The organ has said `TURN` on its grip mark since the handle shipped, and the
+twenty-page rehearsal neither performs a turn nor mentions one. So the one
+handle the pilot has on this boss is a word on the field with nothing behind it:
+a pair that reads the film learns to describe, to slide and to fire, and never
+learns that the organ moves under a thumb, turns a whole turn in
+`antiphonTurnBeats` and may show lobes the rail's decoys hide. The guide's
+pilot half says it as of 19 September 2026, which is why this is a film gap and
+not a silent one.
+
+What to do: one `drag` act on `antiphonOrgan` with `hand: 1`, in the first
+cycle, held long enough that the turn is visible — THE SURGE's film is the shape
+(`{ tick, drag: "surgeBulb", hand: 1, by, until }`, `scene-drag.ts`) — and the
+page at tick 600 rewritten from *say it again, she names it* to what the turn
+buys, since her half of the guide now carries the asking. The turn changes
+`s.turnTicks` and nothing else, so no strip, fire or ward in the film moves and
+the wave is still won; `scene-films.test.ts` holds the sequence and will need
+the new act counted. Check the caption stays inside the 28 characters
+`scene-pages.test.ts` allows.
+
+The other twenty-odd films are not in this: the turn is the only handle in the
+game whose film shows no hand on it (`docs/spec/briefings.md`).

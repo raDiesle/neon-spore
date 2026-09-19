@@ -139,9 +139,9 @@ export const WAVES_ACT_7E: Wave[] = [
     sentence:
       "The one that grows a thing nobody has a word for, and one of you has to say it anyway.",
     guide: {
-      both: "Describe the organ; find it on the rail; shoot it in its column and colour. Six pits.",
-      p1: "1. Say the organ's shape in your own words: lobes, leaning, hollow.\n2. Keep going until your partner names a column.\n3. Slide the cannon there.\n4. From three pits, slide under whatever falls.",
-      p2: "1. Listen, and find the candidate on the rail.\n2. Say its column and its colour. If you cannot tell, ask what would tell them apart.\n3. Load the colour and fire once the cannon is there.",
+      both: "Describe the organ; find it on the rail; shoot it in its column and colour. Six pits, and the last organ is your own ship. From three pits, what the rail rejected falls at you.",
+      p1: "1. Say its shape in your words: lobes, leaning, hollow.\n2. Turn it under your thumb: it looks, it never answers.\n3. Cannon to the column she calls; you cannot see it.\n4. From five pits one a cycle is a shape you named.",
+      p2: "1. Find the one he describes. Ask what tells them apart.\n2. Say its column and colour. Fire when the cannon is there.\n3. A wrong one widens the rail for the rest.\n4. The window is fourteen beats, eight from two pits.",
       scene: "theAntiphon",
     },
     entries: [],

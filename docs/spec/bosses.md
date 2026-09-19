@@ -6036,6 +6036,44 @@ the same way twice (`sim/test/antiphon.test.ts`, nineteen). Nothing was
 drawn, nothing was watched, and whether fourteen beats is a conversation
 or a wait is the owner's.
 
+**The words** (`render/src/antiphon-grip.ts` and
+`render/src/boss-cue-read-p.ts`, 19 September 2026, page sixteen of the
+readings). Two, and both of them are about a moment rather than a thing, because
+**no word here may name the shape, the colour or the column**. `TURN` on the
+organ's grip mark while no thumb rests on it, which shipped with the handle: the
+pilot's, because the organ hangs on his screen alone, and one word per standing
+organ because a thumb on either of a pit's twins turns both — the turn is
+`s.turnTicks`, one number for the pair. It names no candidate: turning is how he
+*looks*, it sinks nothing and answers nothing.
+
+**No `MOVE`, and this is the boss the rule was written for.** The organ's shape
+is his and its colour and column are hers; she has to find the one he is
+describing and fire its colour into its column, and he has to put the cannon
+there, which he cannot see either. A `MOVE` on his hull would be her rail read
+out on his screen, and a `MOVE` that went out the beat he arrived would say he
+had arrived — the leak by subtraction §11.29 found. **And no `FIRE`, for the
+other reason: she is already told *when*, twice, on her own screen.** The rail's
+candidates are drawn at `RAIL_R * grow` and reach full size exactly as
+`antiphonGrowBeats` runs out, which is the beat a bolt stops being a guess
+(`antiphonStruck`'s `standing`), and the window gauge beside them sits full until
+that beat and falls from it. *Which* is the whole question, and the field says
+the verb and never the answer.
+
+**What was missing is the still** (`boss-cue-read-p.ts`, and its own page because
+page three is at 229 of 250). At `antiphonPits` the body stops breathing, rims
+bright and stands for `antiphonStillBeats` with nothing out of it at all, so
+every bolt is refused, and then grows their own ship. Four beats of a trigger
+that has quietly stopped working, on the beat before the fight asks its hardest
+question, and neither screen said so. `STILL` on the body's middle, hers because
+the press is hers, and safe because the stilling is drawn to **both** — `drawBody`
+takes `still` whatever the role. Nothing to him there: the organs are gone, so
+`TURN` goes quiet by itself and turning nothing is not a thing to ask for.
+Nothing in the rest between cycles either, where her rail is empty and an empty
+rail says so, nor on a spilled candidate or a fired organ, which arrive as
+ordinary bodies down ordinary columns. Proved in
+`render/test/boss-cue-antiphon.test.ts`, the cannon walked across the field with
+an organ standing for the silence that matters.
+
 **The rehearsal** (`content/src/scenes/the-antiphon.ts`, 18 September
 2026, twenty pages over 3,720 ticks, seed 1): the wrong candidate first —
 a decoy's colour in the decoy's column, the body hardened and the rail
@@ -6054,7 +6092,13 @@ reads a candidate whose shape is a pit as described, never rejected
 (`sim/test/antiphon.test.ts`, the nineteenth). Not shown: a sunk organ
 and the body it fires, and a pit grown again — the twins take the fight
 from four pits to six in one cycle. Every page is on a control or on the
-hull (`docs/queue.md`, the gauge item); the film takes no hit.
+hull (`docs/queue.md`, the gauge item); the film takes no hit. Two of its
+pages moved on 19 September 2026: *two pits, now eight beats* was on the
+pilot's screen and the window is drawn beside the rail and nowhere else, so
+the page named a number its reader cannot see and the seat racing it was not
+told; and *six pits, it goes still* is `STILL` on her screen now, so his page
+says the length instead. The film still never turns the organ, which is a
+queue entry rather than a page here.
 
 ## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you
 

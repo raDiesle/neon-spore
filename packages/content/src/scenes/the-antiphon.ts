@@ -28,6 +28,17 @@ import type { GuideScene } from "../scene-types.js";
  * second strip ninety-five ticks after the first so the first is a pit
  * before `atBoss` is asked again.
  *
+ * **And the pages the field took over.** The body says `STILL` for the four
+ * beats before the ship, hers because the press is hers
+ * (`render/boss-cue-read-p.ts`), so the page that announced the still says the
+ * length instead — a number no word may carry. The organ has said `TURN` since
+ * the handle shipped (`render/antiphon-grip.ts`), and no page here has ever
+ * turned it or said what turning buys: the guide says it now, and the film owes
+ * a turn (`docs/queue.md`). What stays written is every number and every
+ * column, and there is a great deal of it, because this boss's split is the
+ * whole encounter: the field says no shape, no colour and no column in either
+ * direction.
+ *
  * **What was turned down is the field.** From the third pit every decoy on
  * the rail arrives as a body at the top of its column, and a body in the
  * next organ's column would stop the bolt: so each is taken where it falls
@@ -128,7 +139,10 @@ export const THE_ANTIPHON: GuideScene = {
       text: "FIRE ITS COLOUR · A PIT",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 1320, seat: 1, text: "TWO PITS · NOW EIGHT BEATS", anchor: { at: "boss" } },
+    // The window is drawn beside the rail and nowhere else (`drawWindow` inside
+    // `showsAntiphonRail`), so this page was on the screen that cannot see the
+    // number it names, and the seat racing it was not told.
+    { tick: 1320, seat: 2, text: "TWO PITS · EIGHT BEATS NOW", anchor: { at: "boss" } },
     {
       tick: 1500,
       seat: 2,
@@ -171,7 +185,10 @@ export const THE_ANTIPHON: GuideScene = {
       text: "SHOOT THE FOUR THAT FALL",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 2760, seat: 1, text: "SIX PITS · IT GOES STILL", anchor: { at: "boss" } },
+    // `STILL` stands on the body for her now (`render/boss-cue-read-p.ts`) and
+    // the stilling is drawn to both screens, so what is left to write is the
+    // number the word cannot say.
+    { tick: 2760, seat: 1, text: "FOUR BEATS · NOTHING LANDS", anchor: { at: "boss" } },
     {
       tick: 2940,
       seat: 2,

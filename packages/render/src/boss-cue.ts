@@ -14,6 +14,7 @@ import { orreryCues } from "./boss-cue-read-l.js";
 import { candleCues } from "./boss-cue-read-m.js";
 import { gorgeCues } from "./boss-cue-read-n.js";
 import { ledgerCues } from "./boss-cue-read-o.js";
+import { antiphonCues } from "./boss-cue-read-p.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -147,6 +148,8 @@ function cuesOf(
       return leadCues(l, world, boss);
     case "scuttle":
       return scuttleCues(l, world, boss);
+    case "antiphon":
+      return antiphonCues(l, world, boss);
     case "diastole":
       return diastoleCues(l, world, boss);
     case "orrery":
