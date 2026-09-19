@@ -37,10 +37,10 @@ const SPORES = 11;
 const SPORE = 0.2;
 const DIM = 0.24;
 /** How far out the packing reaches, as a share of the body's smaller radius,
- * and how fast it turns on the contour clock. Exported with the pins so a
- * strike that sets the spores loose (`slick:hit`'s neighbour, `bulb:hit`)
- * starts each one from where the pair last saw it, rather than from a second
- * copy of this packing. */
+ * and how fast it turns on the contour clock. Exported with the pins so
+ * `scatter` (`body-hit-scatter.ts`, THE WISP's strike — born a `bulb-hit`
+ * candidate, sent to the wisp when the owner chose `pop` for the bulb's own
+ * hit) can reuse this packing's shape rather than keep a second copy of it. */
 export const SPORE_REACH = 0.62;
 export const SPORE_SPIN = 0.42;
 

@@ -12208,3 +12208,33 @@ copy their shape rather than invent a third one** — once `menuWiring` and
 `buildSeats` were in hand, both pulls were mechanical.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-scatter-is-the-wisps-strike — the queue item landed first from another lane
+
+The queue item was already taken and landed by a concurrent session
+(0bf14988, "Give SCATTER's own page back to the wisp it actually strikes")
+before this lane's own investigation finished — same conclusion, reached
+independently: `body-hit.ts`'s `WISP_HIT: scatter` pairing was right,
+`tools/versus/DECIDED.md`'s `bulb:hit` / `pop` entry says `scatter` moved to
+the wisp on purpose, and the header's four "the bulb" mentions were prose
+never carried over from the candidate it started as. That commit rewrote
+`body-hit-scatter.ts`'s header but did not touch `body-spores.ts`'s own
+comment on `SPORE_REACH`/`SPORE_SPIN`, which this lane's reading had also
+turned up as stale: it still named `bulb:hit` as the packing's consumer,
+the same leftover in a different file. Fixed that one comment to name
+`scatter` (`body-hit-scatter.ts`, THE WISP's strike) instead.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `body-hit-scatter.ts`, `body-hit.ts`, `body-spores.ts`, `body-interior.ts`, `bullet-hit.ts`, `git log -p` on `body-hit.ts`, `tools/versus/DECIDED.md`'s `bulb:hit` and `slick:hit` entries |
+| writing | 5 | the one comment in `body-spores.ts`, this entry |
+| looking | 0 | none — a comment-only fix, nothing a frame draws changed |
+| friction | 15 | a first pass was made outside a worktree on `main` and had to be redone in the proper lane worktree; `bun install`'s lockfile-version mismatch needed the pinned `~/.cache/neon-spore-bun` bun; the queue item's own commit landed on `origin/main` mid-lane, so the rebase conflicted on `body-hit-scatter.ts` and the whole file's worth of this lane's own fix there had to be dropped in favour of the already-landed one |
+| landing | 15 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast`, the commit, the rebase that found the collision |
+
+**The bottleneck was a second session landing the same finding first**: the
+header fix was correct and tested but had to be thrown away at rebase time
+once `origin/main` already carried an equivalent one, leaving only the one
+file the other lane's own commit had not reached.
+
+*Measured: the rows above are the session's own estimate.*
