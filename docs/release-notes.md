@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 05e9eefd — A comment that names its own subject names something the tree has
+
+The finding was one comment asserting a capability the function beside it never had, and the question was whether a check could have caught it. Two were measured rather than argued about: every backticked camelCase identifier in a source comment is 6,452 claims with 205 misses, nearly all platform globals and so an allowlist that rots; restricted to identifiers whose head word is a word of the comment's own file name it is 1,523 claims with 18 misses and not one global. The second is `doc-drift-names.test.ts`, the fifth of doc-drift's claim checks and the first about an identifier rather than a path.
+
 ## 2026-09-19 · 1762eafa — Queue what THE LEAD's landing could not look at
 
 The landing ran without `--unverified`, so the three things a cloud session cannot judge about a new handle went unqueued: the picture of the held stalk with its ring and dial, the still watched at tempo with a thumb on it, and the lean through the still that `leadAskedAngle` had pinned upright until this lane read it.

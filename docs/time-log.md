@@ -12341,3 +12341,5 @@ moved to `GUIDE_LOOK`.
 comment at the `*/`, and the parse error it raises names a line four lines
 further on in a file that had just been written — two minutes of reading the
 wrong thing before the terminator was the obvious answer.
+
+*Measured: 17 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
