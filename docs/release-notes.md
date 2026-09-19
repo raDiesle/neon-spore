@@ -15,6 +15,10 @@ The follow-on this session filed alongside SceneAct.worldCol: read every scene f
 
 ## 2026-09-19 · be45f90f — A cancelled pointer carries no point, so it cannot fire a shot or a tap
 
+## 2026-09-19 · 8995ded7 — THE HIVE learns to say CARRY and PRESS, and the briefing comes down
+
+An open breach's column stands in the same place on both screens — only its colour is split between the pilot and the navigator — so unlike THE WELL, which has no honest cue at all, THE HIVE's reach was never the secret a word could leak. CARRY / MOVE now marks the cannon, the pilot's, whenever an open breach waits unsealed and he has not reached it; PRESS / FIRE replaces it on the breach itself, the navigator's, the instant his cannon arrives. Neither word ever says the colour or which of two twinned breaches to take first — that stays theirs to say out loud.
+
 ## 2026-09-19 · 7242eec6 — Split boss-cue-read-c.ts into one page per boss (THE LEAD, SCUTTLE, DIASTOLE)
 
 Page three of the readings held three bosses at 229 lines, and 19 September 2026's own update to the queue finding said the split to make now was one page a boss, matching THE THROAT, THE ORRERY and THE LEDGER's earlier moves to pages eleven, twelve and fifteen. THE LEAD stays in boss-cue-read-c.ts, trimmed to just leadCues; THE SCUTTLE moves to a new boss-cue-read-t.ts and THE DIASTOLE to a new boss-cue-read-u.ts, letters rather than page numbers for boss-cue-read-s.ts's own reason — a sibling lane is writing page v the same day, and a number here would describe whichever lands first.

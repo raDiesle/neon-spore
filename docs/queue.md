@@ -915,6 +915,23 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
+## THE HIVE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-the-hive-the-field-says-the-word-and-the-briefin
+- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
+
+It says nothing on the field at all.
+It has no rehearsal, only the three prose lines.
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
 ## THE HIVE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2145,6 +2162,20 @@ question that prompted this one.
 2 commits landed, ending in *THE SURGE spits a rock, and the pilot wards it without letting go*, from a session that could not look at it. The commit touched 27 more files. What went unchecked:
 
 - the picture of the rock coming out of the bulb's underside, and THE SURGE watched at tempo with a rock in the air
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
+
+## Unverified at 8995ded7: the reach and the shot on a real frame — a cloud sessio…
+
+- **Found:** 2026-09-19, claude/queue-the-hive-says-the-word
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/waves/act-7f.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue.ts`
+
+*THE HIVE learns to say CARRY and PRESS, and the briefing comes down* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
+
+- the reach and the shot on a real frame — a cloud session has no screen
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
