@@ -1027,22 +1027,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE WELL: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/scenes/the-well.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says nothing on the field at all.
-Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-well.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE WELL changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2263,3 +2247,74 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE WELL's warning ring is empty on the one screen it is drawn on
+
+- **Found:** 2026-09-19, claude/queue-the-well-says-the-word
+- **Files:** `packages/render/src/well-arrivals.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/well.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/waves/act-8.ts`
+- **Asks:** Should the pilot's clock carry warning marks of its own, or is being warned of nothing the split this boss is for?
+
+`well-arrivals.ts` bends the flat field's warning strip into a ring outside the
+well's rim, and draws the crossing rock's mark inside the seam — eighty lines of
+polar arithmetic with a paragraph over each half. On the shipped wave it draws
+**nothing at all**, ever.
+
+Two predicates that have never been asked about each other meet here.
+`showsWell` is `showsCannon`, so the ring is only ever drawn on the pilot's
+screen; `radarBlips` gates every entry on `showsRadar(l.role, kind)`, and every
+body THE WELL's wave sends is a `slick` or a `bulb`, both `radar: "p2"`. Over
+seventy beats of the wave the navigator's flat strip carries sixty-four marks and
+the pilot's ring carries nought
+(`packages/render/test/boss-cue-well.test.ts`, the last case). The only role that
+ever sees the ring fill is `test`, which shows everything.
+
+So the file is live only for a well wave carrying a p1-radar kind — a rock, a
+torch, a mine — and no such wave exists. It is not dead code, but nothing proves
+it draws either, and the crossing mark in particular has never been drawn on a
+screen anybody plays: a crossing rock is a `meteor`, which is `radar: "p1"`, so
+it would draw — on a wave nobody has authored.
+
+Three answers, and they are different work:
+
+1. **Leave it, and say so.** The split is the design: the navigator holds the
+   strip and the pilot has to be told. Then `well-arrivals.ts` gets a paragraph
+   saying it is drawn for waves not yet written, and a frame test builds one so
+   the arithmetic is proved rather than assumed.
+2. **Give the pilot the ring.** `radarBlips` takes the role, so a well could ask
+   for every blip regardless of owner — which hands one seat the other's half of
+   the picture and is against `docs/spec/systems.md` 5.2 unless the owner wants
+   it for this boss.
+3. **Author a well wave with rocks in it.** That is a wave, not a fix, and it
+   would also give the plate something to do — nothing THE WELL sends today is
+   wardable (`isWardable` is false for a slick and a bulb), so the dome and its
+   trigger are dead for the whole wave.
+
+## The drawn dome is on both screens, and a reading page argues that it is not
+
+- **Found:** 2026-09-19, claude/queue-the-well-says-the-word
+- **Files:** `packages/render/src/boss-cue-read-q.ts`, `packages/render/src/shield.ts`, `packages/render/src/hull.ts`, `packages/render/src/view-role.ts`
+
+THE CAIRN's reading licenses one of its five silences like this: *the plate is on
+her screen and not his (`showsShield`), so a `GUARD` that went out when the dome
+was under a rock would hand him the column he is never shown.*
+
+`showsShield` does not say that. It gates the **band** — player 2's half of the
+panel, its strip and its lobes (`band.ts`, `band-lobes.ts`, `slabs.ts`,
+`touch-band.ts`) — and nothing else. The dome itself is a swelling of the hull
+membrane: `drawHull` calls `drawShieldRim` unconditionally, `rimSpan` has no role
+test, `LobePositions` is built once per frame from the pose with no role in it,
+and THE WELL's own ring does the same (`drawWellShield`). **Both seats are drawn
+where the plate is standing, on every wave in the game.**
+
+The silence THE CAIRN reaches is probably still right, but the reason under it is
+not the one written down, and a reading page is exactly the kind of file a later
+lane copies an argument out of. Two things to do:
+
+1. Correct the sentence in `boss-cue-read-q.ts`, and say what the real licence
+   is — the plate's *column* is drawn to both, what is player 2's alone is the
+   strip that moves it and therefore the intention.
+2. Put the distinction somewhere it can be found: `view-role.ts`'s header lists
+   its predicates as *what that seat is allowed to be shown*, and the two
+   `shows` that gate a panel rather than a picture are not marked as such. One
+   line each, and a row in `purity.test.ts`'s table of rules that must be called
+   rather than re-derived.

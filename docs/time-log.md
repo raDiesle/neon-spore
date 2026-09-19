@@ -22,6 +22,59 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-well — the boss that may not be given a word, and the briefing that had to carry all of it
+
+The twelfth of this family and the first whose answer is **nothing**. THE WELL
+has no state, no `stepWell`, no clock, no phase, no health, no gesture and no
+body — `bossFillsWave` is false and `bossHoldsWave` is the one *no* in the game
+— so there is no moment for a word to stand on. And on the clock a mark's own
+angle **is** its hour, because `well-face.ts` prints that lane's numeral on the
+ring just outside the rim, so every word it could carry would be a column, which
+is the first thing `docs/decisions.md` #34 forbids. It is the second boss read
+and left silent (THE PULSE was the first) and the only one that could not have
+been anything else. It gets a page rather than a line on `cuesOf`'s `default`,
+because a boss sitting in the default is a boss nobody has read, and this family
+has now been wrong about that three times.
+
+**The defect is the reason for the design, and it names the wrong seat's
+control.** `render/well.ts`'s `showsWell` and `bosses.md` §11.12 both argue that
+the navigator keeps the flat field *because they hold the only dome, and the
+question a dome answers is how near is it*. The dome is two hands:
+`shield` slides it and is player 2's, **`guard` triggers it and is player 1's** —
+*half of every ward*, in `controls.ts`'s own words. So the seat that has to
+answer *how near is it* is the pilot, and he is the seat this design hands the
+picture that reads distance worst. The split is right; the reason was backwards,
+and both places are rewritten.
+
+**And the briefing had never said the one thing that is actually asymmetric.**
+The pilot's clock carries no warning marks at all: `showsWell` is `showsCannon`,
+`radarBlips` gates on `showsRadar`, and every body this wave sends is a `slick`
+or a `bulb` — both `radar: "p2"`. Sixty-four marks on her strip over seventy
+beats, nought on his ring. His half had instead spent a step on *say the hour you
+are on*, a number she is drawn outright, and hers on *move the plate*, which
+answers nothing in a wave with nothing wardable in it. Two queue entries go with
+the lane: the empty ring is an **Asks**, and THE CAIRN's reading licenses a
+silence from `showsShield` when `showsShield` gates the panel and not the drawn
+dome.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 120 | the two template commits end to end, then the boss's own files for `drawCueText` — which came back empty, so a reading page and not a `well-word.ts`; then the seven `render/well-*.ts` and `touch-well.ts` line by line, noting every branch that is and is not role-gated, which is where the answer turned out to be; `sim/well.ts`, `wave-boss.ts`, `boss-others.ts` and `boss-kinds.ts` for the four places this boss is a `return`; `content/controls.ts` against both halves of the guide and all four film captions; `hull.ts`, `shield.ts`, `band.ts` and `band-lobes.ts` to find out which `shows` gates a panel and which gates a picture; and the family's own precedents for a silence — THE PULSE's `default`, THE GORGE's fourth, THE LEAD's absence-by-subtraction |
+| writing | 25 | `wellCues` and the argument for saying nothing, four cases in a new `boss-cue-well.test.ts`, the guide's three halves measured against the 220 before they went in, the film's *And the pages the field took over* paragraph, `The words` and a `The rehearsal` §11.12 never had, two corrections to §11.12 and two paragraphs in `briefings.md`, and the two queue entries |
+| looking | 0 | nothing is drawn and nothing changed: the frame this lane leaves is the frame it found, which is the whole result |
+| friction | 15 | three lanes share the machine, so the rows below sum past this lane's own clock and are deliberately not shaved — a 60-second run of three content tests and a 2-second `lint` over 3 105 files are the same two commands a quiet machine answers in a fraction of that, and the waiting is real minutes either way; `bun run queue take` again recorded the claim under a branch derived from the title rather than the one this lane is on, which is already an entry |
+| landing | 15 | the typecheck, `lint`, `check:fast`, the commit and the push — no budget row moved, because the frame is byte-identical: a boss that fell through `default` returning nothing now reaches a `case` returning nothing |
+
+**The bottleneck was proving a negative.** Every other lane in this family ends
+with a word and a place, and a test fails if either is wrong. This one ends with
+an argument that nothing may be said, and no test can fail on an argument — so
+the whole of it had to be read out of the drawing rather than out of the
+simulation, and the two facts that make it airtight (the numeral ring printing
+the lane's own number beside any mark, and the pilot's ring never filling) are
+both in files that say nothing about each other. The two probes that turned those
+from claims into numbers took four minutes; finding out which two claims to probe
+took two hours.
+
 ## 2026-09-19 — queue-the-antiphon — a third stale entry, and a still nobody was told about
 
 The ninth of this family. Its entry said *it says nothing on the field at all*
