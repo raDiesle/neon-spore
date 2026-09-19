@@ -2021,6 +2021,7 @@ gesture on a phone, which is what this game is played with.
 ## A crank sampled once a frame can be read as a turn the other way
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-a-crank-sampled-once-a-frame-can-be-read-as-a-tu
 - **Files:** `apps/game/src/input.ts`, `packages/sim/src/bearing.ts`, `apps/game/test/input-pc.test.ts`
 - **Where:** cloud
 
