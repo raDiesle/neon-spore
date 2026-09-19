@@ -841,23 +841,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE SURGE: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-surge-the-field-says-the-word-and-the-briefi
-- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-surge.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says nothing on the field at all.
-Its briefing is a 11-page rehearsal (`packages/content/src/scenes/the-surge.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE SURGE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2159,3 +2142,33 @@ no `pattern`, failing only if the document is gone. That is a real second kind
 of row and it would want the owner's word: it makes the table two things, and
 the reason it is one thing today is that a rule nothing can test is a rule
 that goes quiet.
+
+## A handle boss's word is invisible to a search of the readings
+
+- **Found:** 2026-09-19, claude/queue-the-surge-the-field-says-the-word-and-the-briefi
+- **Files:** `docs/queue.md`, `packages/render/src/boss-cue.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/surge-grip.ts`, `.claude/skills/new-boss/SKILL.md`
+- **Where:** cloud
+
+THE SINEW's and THE SURGE's *the field says the word* entries both said the boss
+said nothing on the field, and both were wrong: a **handle** boss builds its cue
+in its own drawing — `sinew-handles.ts` and `surge-grip.ts` call `drawCueText`
+directly — because the mark rides a whip or a swell that `World` does not keep.
+So `boss-cue.ts` has no `case` for either, and a lane that greps the readings
+finds an absence that is not there. On THE SURGE that cost a whole reading page,
+written and thrown away, and only `surge-frame.test.ts` counting two `HOLD`s
+where it allows one caught it.
+
+Two things to do, and the second is the one that stops it happening again:
+
+1. Correct every remaining entry of this family that names a boss with a handle
+   before a lane picks it up, by grepping that boss's own `render/*-draw.ts`,
+   `*-handles.ts` or `*-grip.ts` for `drawCueText`. THE BALLOON's pair is the
+   next one (`balloon-handles.ts`).
+2. Put the check in `.claude/skills/new-boss` §6.1, in one line: a boss's words
+   are `boss-cue.ts`'s **or** its own drawing's, and the drawing is where a
+   handle's are. A reader of that section has no way to know that today.
+
+The stronger version, if the owner wants it, is a test: every `BossKind` with a
+`DragTarget` of its own either has a `case` in `boss-cue.ts` or a `drawCueText`
+call in its drawing, and the table naming which is in one place. That is the
+`copies-table.ts` idiom pointed at a seam rather than a number.

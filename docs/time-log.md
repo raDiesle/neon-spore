@@ -47,6 +47,56 @@ time. Fifteen other places had to be told a state exists, and all but three
 were found by a red test rather than by reading anything, one 145-second check
 at a time; `docs/queue.md` already carries the entry for that, and this lane
 added the three it was missing.
+## 2026-09-19 — queue-the-surge — a boss beaten by letting go, with no word for it
+
+The sixth of this family, and its entry said *it says nothing on the field at
+all* while the bulb had said `HOLD` since the grip marks shipped — THE SINEW's
+staleness word for word, and I wrote the whole first draft against the entry
+rather than the file. What was genuinely missing is the **lift**, which is the
+entire boss: the only gesture that counts is both thumbs off within a beat of
+each other with the pressure at the notch, and the grip, the lance's fill, the
+ready gate and the warden's tether have spent the game training the pair to hold
+on. A boss beaten by letting go with nothing on the field about letting go. So
+`LIFT` beside the `HOLD` that was already there, in `surge-word.ts` beside
+`surge-grip.ts` — `sinew-word.ts`'s seam, because the mark rides the bulb's
+swell and the vent's sink and a reading off `World` would put the word where the
+mark is not.
+
+**The whole difficulty was that a word going out is information.** The pilot is
+shown the band and not the pressure and the navigator the other way round, so
+the first draft of `HOLD` stood while the pressure was *under* the band — and
+that word vanishing at the band's top is the navigator's gauge read out on the
+pilot's glass, by its own absence, which is the one thing this encounter is
+made of. It stands over the band too now: a thumb there is useless rather than
+refused and the game takes it, and that is the price of saying no number.
+`LIFT` is safe for THE SINEW's reason exactly — *inside the band* is already
+told to both seats, because `surgeNear` throws a burst at the bulb on every
+screen and opens THE SLOW.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `surge.ts`, `surge-step.ts`, `surge-seam.ts` and `config-surge.ts`, then `surge-fx.ts` and `view-role-clocks.ts` for the one question the lane turned on: whether *in the band* is a fact both seats already have. Not `surge-grip.ts`, which is the twenty minutes that would have saved the writing below |
+| writing | 45 | a whole reading page written against the stale entry and thrown away, then `surge-word.ts` and its argument, seven cases, both prose halves and the shared line, two film pages, §11.28's new paragraph, briefings §3.2 |
+| looking | 0 | none: the words are `drawCueText`'s and the marks are where `surgeBulbCircle` already answers a thumb |
+| friction | 20 | the thrown-away page, caught by `surge-frame.test.ts` counting two `HOLD`s where it allows one — which is the test that already knew the word existed; and two documentation edits applied twice over, because my own replacement text ended with the anchor it matched on |
+| landing | 10 | `lint`, `check:fast`, the commit and `land`'s own full check |
+
+**The bottleneck was believing the queue entry over the code, and it cost a
+whole file.** Both handle bosses' entries say *it says nothing on the field at
+all* and both are wrong the same way: a handle boss builds its word in the
+drawing, so `boss-cue.ts` has no case for it and a search of the readings finds
+nothing. I read that absence as the finding on THE SINEW too, but there I opened
+`sinew-handles.ts` first; here I wrote a reading page and a test against
+`bossCue` before a frame test told me the word was already on the glass. **The
+check is one grep** — the boss's own `*-grip.ts`, `*-handles.ts` or `*-draw.ts`
+for `drawCueText` — and every remaining entry in this family that names a handle
+gets it before anything is written.
+
+The other half of the lane is the real argument and it went quickly because
+`sinew-word.ts` had already made it: every candidate word for these two is a
+number in disguise, and the only way to clear one is to find the event that
+already tells both seats the same fact — `sinewEnter`'s pips, `surgeNear`'s
+burst. That is where a handle boss's lane should start after the grep.
 
 ## 2026-09-19 — queue-the-ledger — a guide addressed to the wrong thumb
 

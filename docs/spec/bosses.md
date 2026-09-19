@@ -5226,6 +5226,35 @@ gums and a jolt; the slits do not gape wider with the pressure; the
 eversion is a fold of the outline, not a second body turned out of the
 first. The owner's eye decides all three.
 
+**The words** (`render/src/surge-word.ts`, 19 September 2026, beside
+`surge-grip.ts` for THE SINEW's reason: the mark rides the bulb's swell and the
+vent's sink, which are the drawing's own). Two, and which one a seat gets is
+that seat's own thumb. `HOLD` on this seat's grip mark for a thumb that is
+**off**, which shipped with the marks and is drawn as one word because the word
+is the kind (`boss-cue-text.ts`) — nothing on either band says a thumb charges
+it, since the bulb is a `DragTarget` out on the field and not a lobe, so this is
+THE SINEW's `PULL` on a free ring. And `LIFT`, in THE STARE's `STILL`, for a
+thumb that is **on** while the pressure is inside the band: the one gesture that
+counts is both thumbs off within a beat of each other, and it is the gesture
+the grip, the lance's fill, the ready gate and the warden's tether have all
+trained out of the pair. **Neither word carries a number, and that is the
+whole care in it.** *Inside the band* is already told to both seats — the
+pressure arriving throws a burst at the bulb on every screen and opens THE
+SLOW (`surgeNear`) — so `LIFT` adds the verb and no reading; and `HOLD`
+deliberately does not tell *under* the band from *over* it, because a word
+that went out at the band's top would be the gauge itself, told by its own
+absence, to the seat who cannot see it. Over the band a thumb is useless
+rather than refused and the game takes it, which is the price of saying no
+number. **Three silences**: a thumb already on outside the band and a thumb
+already off inside it, which are `gripBrakes`' rule both ways round — the
+second is a seat whose half of the lift is done, and `liftTick` is waiting on
+the other hand; while the bulb refuses a thumb, where no thumb takes
+hold — `surge-grip.ts`'s own `refusing` — and once it has gone out. Nothing
+about the gums either:
+they are the shipped body the pair swipes out of the air, and a word on one
+would be the field narrating the wave rather than the boss. Proved in
+`render/test/boss-cue-surge.test.ts`.
+
 **The rehearsal** (`content/src/scenes/the-surge.ts`, 17 September 2026,
 eleven pages over 2040 ticks): three holds on the bulb. The first is the
 lesson — the pilot's thumb, then the navigator's, the field slowing as the
@@ -5245,8 +5274,12 @@ names. Each caption points at the bulb (`render/handle-place.ts` answers
 thumb is the grip mark on its flank (`surge-grip.ts`); no ghost thumb rides
 the handle, as none does THE BALLOON's or THE SINEW's. The burst and its gums
 and the eversion at the fifth notch are the last two pages' words and
-otherwise the prose; the film takes no hit and points at no retries.
-`content/test/scene-films.test.ts` holds the sequence.
+otherwise the prose; the film takes no hit and points at no retries. Its
+*thumb on it* page came out when the bulb learnt to say `HOLD`, and says what
+no word on one thumb can — the two of them feed one number, and each seat is
+shown half of the seam — and its *off on his word* page says the tolerance
+instead. Everything with a number in it stays written, because the field says
+none of those. `content/test/scene-films.test.ts` holds the sequence.
 
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 dead centre with the seam shut, no pressure and no thumb, and sends nothing;

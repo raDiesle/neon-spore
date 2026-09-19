@@ -6,6 +6,7 @@ import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type Point, surgeBulbCircle } from "./surge-shape.js";
+import { surgeWord } from "./surge-word.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -24,7 +25,10 @@ import { bossOf } from "./touch-field.js";
  *
  * The grip marks carry no pull arc: a ring that filled with the pressure
  * would put the navigator's number on the pilot's screen
- * (`view-role-clocks.ts`). Held is held, and that is all a mark says.
+ * (`view-role-clocks.ts`). Held is held, and that is all a *mark* says; what
+ * the **word** under it says is `surge-word.ts`'s, and it is `HOLD` while the
+ * thumb is off and `LIFT` once it is on with the pressure in the band — the
+ * gesture this whole boss is, which the marks shipped without.
  *
  * The **rest** a thumb is tested against is the bulb's circle on the row
  * the simulation hangs it at (`surge-shape.ts`), never the eased or swollen
@@ -91,17 +95,20 @@ export function drawSurgeGrips(
       pull: 0,
       time,
     });
-    if (held || refusing) continue;
-    // **The cue** (`decisions.md` #34, `boss-cue-text.ts`): the word says the
-    // gesture and the kind says it is a hold, which is the whole of this boss.
+    // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). Which word, and the
+    // three silences, are `surge-word.ts`'s — the argument is long and the one
+    // thing it must not do is say a number. What is this file's is *where*: the
+    // mark rides the bulb's swell and the vent's sink, which are the drawing's
+    // own, so a reading off `World` would put the word where the mark is not.
+    //
     // On the seat whose mark it is and not on the other's — what the pair must
     // see of each other here is the *thumb*, and the ring says that by filling.
-    // Built here because the mark rides the bulb's swell and its sink, which
-    // are the drawing's own.
+    const say = surgeWord(cfg, s, player, refusing);
+    if (say === null) continue;
     const cue: BossCue = {
       seat: player,
-      kind: "HOLD",
-      word: "HOLD",
+      kind: say.kind,
+      word: say.word,
       x,
       y,
       halfW: r,

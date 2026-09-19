@@ -350,7 +350,13 @@ the colours are the seed's, the second socket is a column no authored strip
 reaches and the plate is carried there by `atBoss` — the one boss answered
 with the plate rather than the cannon — and the bill for every shot and the
 fifth return the plate must step out from under are the prose, because a
-thumb lifting off is the one gesture a film shows badly. THE SURGE's, the
+thumb lifting off is the one gesture a film shows badly. THE SURGE's guide was rewritten 19
+September 2026, when the bulb learnt to say `HOLD` and `LIFT`: both halves had
+spent their first step on *put your thumb on the bulb and keep it there*, word
+for word, and neither had ever named the three things the notches change — from
+the second the bulb keeps its charge with no hand on it and eats what the wave
+sends, from the third a thumb charges at double and a burst shuts a notch again.
+Each half now opens on the gauge only that seat can see. Its film, the
 same day, is three holds on one handle both seats hold — the first film
 whose acts say whose hand each is (`SceneAct.hand`), because the bulb is one
 `DragTarget` for either thumb — and the middle hold is the mistake, a thumb

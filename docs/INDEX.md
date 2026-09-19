@@ -1521,6 +1521,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/surge-gauge.ts` | **THE SURGE's seam**: the dark line round the bulb's equator, and the gauge read along it by seat (§11.28) |
 | `packages/render/src/surge-grip.ts` | **THE SURGE's one handle, taken by both seats**: the bulb itself |
 | `packages/render/src/surge-shape.ts` | **Where THE SURGE is**, in field pixels: the bulb's centre, its two radii, its outline |
+| `packages/render/src/surge-word.ts` | **What THE SURGE is asking of one thumb**, and the three silences beside the one that shipped |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |
 | `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes and, once, its body — the half of the boss that is *above* the hull line |

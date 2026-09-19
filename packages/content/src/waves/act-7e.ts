@@ -78,9 +78,9 @@ export const WAVES_ACT_7E: Wave[] = [
     name: "THE SURGE",
     sentence: "The one you beat by letting go, and only if you both let go at once.",
     guide: {
-      both: "Both thumbs on the bulb charge it. Let go together inside the band. Five notches.",
-      p1: "1. Put your thumb on the bulb and keep it there.\n2. Say when the field slows: that is the band.\n3. Count your partner down: three, two, one, OFF.\n4. Lift on OFF, never alone.",
-      p2: "1. Put your thumb on the bulb and keep it there.\n2. Read the pressure out loud every beat.\n3. Lift your thumb on your partner's OFF, the same instant. Over the band it bursts.",
+      both: "Both thumbs on the bulb charge it. Let go together inside the band. Five notches, and from the second it keeps what it has and feeds on the wave.",
+      p1: "1. Only you see the band. Say OFF as the pressure reaches it.\n2. Lift on OFF, never alone: one thumb loses it.\n3. From the second notch it holds the charge with no hand on.\n4. From the third, a burst shuts a notch.",
+      p2: "1. Only you see the pressure. Read it out every beat.\n2. Lift the instant OFF is called. Over the band it bursts.\n3. From the second notch it stops leaking between tries.\n4. From the third your thumb adds double.",
       scene: "theSurge",
     },
     entries: [
