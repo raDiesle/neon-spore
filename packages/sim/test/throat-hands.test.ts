@@ -275,7 +275,10 @@ describe("what the gullet says out loud", () => {
   it("says the same slip whether the thumb lifted or the cap took it", () => {
     const lifted = open("open", CFG.throatRings - 1);
     said(lifted, 1, ring(true));
-    expect(said(lifted, 1, ring(false))).toEqual(["throatSlip"]);
+    // The breath is back on the beat the ring is: `open` inhales every beat,
+    // and the slip landing before it on the same tick is the order the pair
+    // hears the bargain end in (`throat-step.ts`).
+    expect(said(lifted, 1, ring(false))).toEqual(["throatSlip", "throatInhale"]);
     // A lift and a tear cost the pair the same thing, so they are one line
     // (`throatRelease`) — and the pair has to be able to act on the sound
     // without being told which of the two it was.
@@ -299,7 +302,10 @@ describe("what the gullet says out loud", () => {
     // and the column in the event is the one `throatSnap` settled on.
     expect(world.events.filter((e) => e.type === "throatHaul")).toHaveLength(0);
     const heard = said(world, 1);
-    expect(heard).toEqual(["throatHaul"]);
+    // The haul is spent before the breath is taken, which is the order
+    // `stepThroat` runs them in and the order the column matters in: the mouth
+    // has already moved when the gullet draws.
+    expect(heard).toEqual(["throatHaul", "throatInhale"]);
     expect(b.mouthFrom).toBe(HOME + 1);
   });
 

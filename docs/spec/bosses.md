@@ -3062,18 +3062,38 @@ gullet above: reaching `open` needs four gums flung into a walking mouth, and
 fields. The arithmetic is proved in `sim/test/throat-hands.test.ts` and the
 words in `render/test/boss-cue-throat.test.ts`.
 
-**The two hands have sounds; the gullet's own clock still does not.** The
-cinch, the slip and the haul are `events-throat.ts`, bound in
-`audio/bind-throat.ts` and panned to the mouth's own column, because a fixture
-has no body to point at and the column is the one number this fight says out
-loud. Both hands are heard on the tick and both are *said* where they land: the
-cinch and the slip in `throat-hand.ts`, the haul on the beat in `throat-step.ts`
-where `throatSnap` settles which column it moved to. A lift and a tear are one
-`throatSlip`, because they cost the pair the same thing.
+**The two hands have sounds.** The cinch, the slip and the haul are
+`events-throat.ts`, bound in `audio/bind-throat.ts` and panned to the mouth's
+own column, because a fixture has no body to point at and the column is the one
+number this fight says out loud. Both hands are heard on the tick and both are
+*said* where they land: the cinch and the slip in `throat-hand.ts`, the haul on
+the beat in `throat-step.ts` where `throatSnap` settles which column it moved
+to. A lift and a tear are one `throatSlip`, because they cost the pair the same
+thing.
 
-**The gullet itself is still silent** — no inhale, no choke, no swallow, no
-eversion. Those are the fight's clock rather than the pair's hands, and they
-are a lane of their own (`docs/queue.md`).
+**And so does the gullet's own clock, since 19 September 2026** — the inhale,
+the choke, the swallow and the eversion, on the same seven-name union and the
+same pan. The hands are receipts for what the pair did; these four are what the
+boss did, which is the half of the fight neither screen spells out while both
+players are looking at the other half of their own. The breath is the count
+player 2 has been saying out loud, so it is pushed **after** the
+`throatBreathes` gate and **before** `throatFed`: the bill for a mouthful
+arrives after the moment she was counting to and not instead of it. The choke is
+pushed **before** the `throatSpent` return, so a gum landing on the last ring
+— the best shot in the fight — is never the one shot with no sound. The swallow
+is one event however many bodies were taken, because what the pair is owed is
+the fact that a ring they had already paid for came back. The eversion is said
+beside `openSlow` on the beat the last ring went slack, not on the beat the boss
+is nulled, because the sound is the ending *starting* and THE SLOW is open for
+`throatEvertBeats` after it.
+
+**The four are heard and not drawn.** Every one of them is a state the field
+already carries — the phase and its `phaseBeat`, `chokedBeat`, `fedBeat`, the
+eversion under THE SLOW — so a burst on top would be a look and goes to VERSUS
+rather than onto the field (`docs/looks.md`). They are in the silent lists in
+`render/effects-ingest-silent-boss-b.ts` and `effects-spark-silent-boss-b.ts`
+for that reason and not for want of a lane. The order they are said in, and that
+an empty mouth says nothing, are in `sim/test/throat-clock-heard.test.ts`.
 
 **Never watched at tempo.** Whether a pair can hold a column and a count at 96
 BPM while one of them is timing a thumb is a thing a person finds out with

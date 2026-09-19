@@ -225,39 +225,6 @@ waiting on.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## THE THROAT's own clock is silent: no inhale, no choke, no swallow, no eversion
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-the-throats-own-clock-is-silent-no-inhale-no-cho
-- **Files:** `packages/sim/src/events-throat.ts`, `packages/sim/src/throat-step.ts`, `packages/sim/src/throat-feed.ts`, `packages/audio/src/bind-throat.ts`, `packages/audio/src/sounds/boss-throat.ts`, `packages/audio/src/catalogue.ts`, `docs/spec/bosses.md`
-- **Where:** cloud
-
-The gullet's two *hands* got sounds on 19 September 2026 — `throatCinch`,
-`throatSlip`, `throatHaul` — and that lane deliberately stopped there, because
-the item it came out of was about the gestures. What is still silent is the
-boss's own clock, which is four moments and all four of them things the pair
-has to hear without looking:
-
-- **The inhale.** `throatBreathes` returns true and nothing is said. It is the
-  beat player 2 has been counting down out loud, and it is the one beat in the
-  fight where being wrong costs a ring.
-- **The swallow**, `throatFed`: a body taken out of the mouth, and a slack ring
-  *re-tightened*. That is the boss healing off the pair's own habit and it is
-  the one thing in this fight they are punished for not hearing.
-- **The choke**, `throatChoked`: a gum arriving on the mouth's row and a ring
-  going slack for good. The payoff for the arithmetic sentence the pair says to
-  each other, and currently the pilot learns he got it right by watching.
-- **The eversion**, in `stepThroat`'s `everts` arm, which runs under THE SLOW
-  for `throatEvertBeats` and is the fight's whole ending.
-
-Four sounds in the existing `boss-throat.ts`, four arms on the existing
-`throatCue`, and four `events-throat.ts` names — every registration point is
-already wired, so the lane is the sounds themselves and the events that say
-them. The swallow and the choke are opposites and have to be heard as such: one
-re-tightens a ring, the other loses one for good. All four stay out of the
-300-3000 Hz band, because the pair is saying a column and a count to each other
-the entire fight (`docs/spec/audio.md` §1).
-
 ## The phone's back gesture leaves the game instead of asking
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim

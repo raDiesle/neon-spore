@@ -9,19 +9,24 @@ import { vaneCue } from "./bind-vane.js";
 import { wardenHandCue } from "./bind-warden-hand.js";
 
 /**
- * **The hands the §6.2 lanes added to bosses that had already shipped**, cut
- * off `bind-choreographed.ts` the day SNAKE's two took that file over its
+ * **The events added to bosses that had already shipped**, cut off
+ * `bind-choreographed.ts` the day SNAKE's two took that file over its
  * 250-line limit.
  *
- * The seam is not arbitrary. Everything next door is a boss's *own* events,
- * named by prefix because a boss of that page arrives with nine or ten at
- * once; these are the two or three a **shipped** boss gains when the owner's
- * standing brief gives it another gesture (`.claude/skills/new-boss` §6.2), and
+ * The seam is not arbitrary. Everything next door is a boss arriving whole,
+ * named by prefix because a boss of that page brings nine or ten events at
+ * once; these are the two or three a **shipped** boss gains afterwards, and
  * they have to be named one by one because the rest of that boss's events were
  * bound in `bind.ts` years of commits earlier. One page per kind of arrival,
- * and this one grows by three names per boss the brief reaches.
+ * and this one grows by a handful of names per boss the briefs reach.
+ *
+ * Mostly those are the §6.2 hands — a gesture the owner's standing brief gave
+ * a boss that did not have one (`.claude/skills/new-boss` §6.2) — which is why
+ * this page was called the hands until THE THROAT's clock arrived here too:
+ * four moments that were always in that boss and were always silent, added on
+ * exactly the same terms and for exactly the same reason the hands are here.
  */
-export type HandEvent = Extract<
+export type AddedEvent = Extract<
   SimEvent,
   {
     type: // THE WARDEN's second and third: `wardenDown` and the rope's three are
@@ -49,10 +54,9 @@ export type HandEvent = Extract<
       | "pulseBrace"
       | "pulseSlip"
       | "pulseArrest"
-      // And THE THROAT's two, the gullet handing out a control as it loses one.
-      | "throatCinch"
-      | "throatSlip"
-      | "throatHaul";
+      // And THE THROAT's two, the gullet handing out a control as it loses one,
+      // with the four of its own clock that shipped silent beside them.
+      | `throat${string}`;
   }
 >;
 
@@ -60,9 +64,13 @@ export type HandEvent = Extract<
  * Every name above as a set, so the page next door asks one question instead
  * of carrying a `case` per event. Three names a boss is three lines there and
  * that file is at its limit; here they are three lines it was going to have
- * anyway.
+ * anyway. THE THROAT is a prefix rather than a list because it is the one boss
+ * on this page whose events *all* arrive here, so there is nothing next door
+ * for the prefix to collide with.
  */
-const HAND_EVENTS = new Set<string>([
+const THROAT = "throat";
+
+const ADDED_EVENTS = new Set<string>([
   "wardenHold",
   "wardenThrow",
   "wardenSlam",
@@ -81,17 +89,14 @@ const HAND_EVENTS = new Set<string>([
   "pulseBrace",
   "pulseSlip",
   "pulseArrest",
-  "throatCinch",
-  "throatSlip",
-  "throatHaul",
 ]);
 
-/** Whether this is one of the hands above, and not a boss's own event. */
-export function isHandEvent(e: { type: string }): e is HandEvent {
-  return HAND_EVENTS.has(e.type);
+/** Whether this is one of the names above, and not a boss arriving whole. */
+export function isAddedEvent(e: { type: string }): e is AddedEvent {
+  return ADDED_EVENTS.has(e.type) || e.type.startsWith(THROAT);
 }
 
-export function handCue(e: HandEvent, cols: number): Cue {
+export function addedCue(e: AddedEvent, cols: number): Cue {
   switch (e.type) {
     case "wardenHold":
     case "wardenThrow":
@@ -113,9 +118,17 @@ export function handCue(e: HandEvent, cols: number): Cue {
     case "scoutSlip":
     case "scoutPrime":
       return scoutHandCue(e);
+    // Named one by one although the union above is a prefix, because the
+    // narrowing is what makes a throat event added tomorrow a type error here
+    // rather than a silence: `throatCue` takes the prefix, so a `default` arm
+    // would swallow it and the set below would still have let it through.
     case "throatCinch":
     case "throatSlip":
     case "throatHaul":
+    case "throatInhale":
+    case "throatChoke":
+    case "throatSwallow":
+    case "throatEvert":
       return throatCue(e, cols);
     default:
       return pulseHandCue(e);

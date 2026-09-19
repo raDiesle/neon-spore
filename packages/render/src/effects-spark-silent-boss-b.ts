@@ -88,4 +88,11 @@ export const SILENT_BOSS_B = [
   "throatCinch",
   "throatSlip",
   "throatHaul",
+  // And its clock's four, no burst for the same reason: the breath, the choke,
+  // the swallow and the eversion are all states of a fixture the field redraws
+  // every frame, and a shower over any of them is a look (`docs/looks.md`).
+  "throatInhale",
+  "throatChoke",
+  "throatSwallow",
+  "throatEvert",
 ] as const satisfies readonly SimEvent["type"][];

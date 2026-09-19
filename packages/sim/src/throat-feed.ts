@@ -59,6 +59,11 @@ export function throatChoked(world: World, b: ThroatState): void {
   removeCreatures(world, taken);
   b.slack = Math.min(cfg.throatRings, b.slack + taken.length);
   b.chokedBeat = world.beat;
+  // Before the spent test, because a gum that lands on the last ring is still
+  // a gum landing: the eversion follows on the next `stepThroat` and this is
+  // the hit that earned it. Missing it would make the best shot in the fight
+  // the one shot with no sound.
+  world.events.push({ type: "throatChoke", col: mouth });
   if (throatSpent(cfg, b)) return;
   openSlow(world, cfg.slowBeats);
 }
@@ -96,4 +101,8 @@ export function throatFed(world: World, b: ThroatState): void {
   removeCreatures(world, eaten);
   b.slack = Math.max(0, b.slack - fed);
   b.fedBeat = world.beat;
+  // Once however many it took, because the sound says *the boss healed* and a
+  // mouthful of three is one swallow to look at. What the pair is owed here is
+  // the fact, and the fact is a ring they had already paid for coming back.
+  world.events.push({ type: "throatSwallow", col: mouth });
 }

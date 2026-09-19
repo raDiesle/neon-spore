@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { antiphonCue } from "./bind-antiphon.js";
 import { batonCue } from "./bind-baton.js";
 import { candleCue } from "./bind-candle.js";
-import { type HandEvent, handCue, isHandEvent } from "./bind-choreographed-b.js";
+import { type AddedEvent, addedCue, isAddedEvent } from "./bind-choreographed-b.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { diastoleCue } from "./bind-diastole.js";
@@ -53,15 +53,15 @@ type ChoreographedEvent =
           | `diastole${string}`;
       }
     >
-  // And the hands the §6.2 brief added to bosses that had already shipped,
-  // which have to be named one by one (`bind-choreographed-b.ts`).
-  | HandEvent;
+  // And the events added to bosses that had already shipped, which have to be
+  // named one by one over there (`bind-choreographed-b.ts`).
+  | AddedEvent;
 
 export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
-  // The hands the §6.2 brief added to bosses that had already shipped, asked
-  // as one question rather than as a `case` each: this file is at its limit
-  // and that list grows by three names per boss (`bind-choreographed-b.ts`).
-  if (isHandEvent(e)) return handCue(e, cols);
+  // The events added to bosses that had already shipped, asked as one question
+  // rather than as a `case` each: this file is at its limit and that list
+  // grows by a handful of names per boss (`bind-choreographed-b.ts`).
+  if (isAddedEvent(e)) return addedCue(e, cols);
   switch (e.type) {
     case "batonLaunch":
     case "batonStruck":

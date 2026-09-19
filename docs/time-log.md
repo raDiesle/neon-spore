@@ -10059,3 +10059,33 @@ things survived as real defects — a canvas with no `touch-action` and a crank
 sampled once a frame — and both went in the queue rather than in the answer.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — throat-clock-heard — four sounds for what the boss does
+
+THE THROAT's two hands had shipped with sounds and the gullet's own clock had
+not: the inhale the navigator counts down to, the choke a flung gum lands as,
+the swallow that buys a ring back, and the eversion. All four are things the
+pair has to hear while it is looking at the other half of its own screen. Four
+names on `events-throat.ts`, four push sites chosen by what each sound is a
+fact *about*, four `SoundDef`s under the speech band, and both render silent
+lists widened because an effect would be a look.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the queue entry, `throat-step.ts` and `throat-feed.ts` for the order the clock runs in, `throat-clock.ts` for the cadence, then `band.ts` and `grain.ts` for what a sound is allowed to cost |
+| writing | 55 | four events, four push sites with the reason each is where it is, four sounds, the throat/added rename across `bind-choreographed*.ts`, twelve tests in `throat-clock-heard.test.ts`, and the spec paragraphs |
+| looking | 0 | nothing here is drawn — by design: the four states are already on the field and a burst would be a look |
+| friction | 15 | two sounds were over the speech-band budget on paper and were redesigned before being written; `assertNever` in two render files and two doc-count tests in `catalogue.test.ts` each failed once and had to be chased to the file that owns the number |
+| landing | 15 | `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was the speech band, and it was the right one.** A wet tube
+everting wants a long low-passed roar from 700 Hz down, and 700 Hz is inside
+the band the pair talks in — `bandFraction` put it at half a second of
+occupancy against a 0.16 s budget, five times over, and `judgeBand` would have
+refused it. The fix was not a quieter sound but a split one: the body moved
+entirely under the band (a lowpass 260 → 110) and the tear moved entirely above
+it (a highpass 3600 → 6400), which is louder than the original and costs
+nothing. Doing that arithmetic by hand against `band.ts` before writing the
+layers cost a quarter of an hour and saved the same again in failed runs.
+
+*Measured: the rows above are the session's own estimate.*

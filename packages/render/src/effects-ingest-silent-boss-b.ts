@@ -161,4 +161,15 @@ export const INGEST_SILENT_BOSS_B = [
   "throatCinch",
   "throatSlip",
   "throatHaul",
+  // And the gullet's own clock, which got sounds on 19 September 2026 and no
+  // effects with them: every one of the four is a state the field is already
+  // drawing — the breath off the phase and `phaseBeat`, the choke and the
+  // swallow off `chokedBeat` and `fedBeat`, the eversion off the phase itself
+  // under THE SLOW. A burst here would be a second sentence over a picture
+  // that already says it, and changing what the fight *looks* like is a look
+  // and goes to VERSUS (`docs/looks.md`).
+  "throatInhale",
+  "throatChoke",
+  "throatSwallow",
+  "throatEvert",
 ] as const satisfies readonly SimEvent["type"][];

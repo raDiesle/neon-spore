@@ -93,6 +93,10 @@ export function stepThroat(world: World, b: ThroatState): void {
     // the one thing in this fight nobody may press anything during, which is
     // exactly what THE SLOW is for (`docs/decisions.md` #33).
     openSlow(world, cfg.throatEvertBeats);
+    // Said on the beat the last ring went slack and not on the beat the boss
+    // is nulled, because the sound is the ending starting: THE SLOW is open
+    // for `throatEvertBeats` after this and the pair watches the whole turn.
+    world.events.push({ type: "throatEvert", col: b.mouthFrom });
     return;
   }
   // The pilot's carry, before the breath: what a haul buys is a mouth that is
@@ -100,6 +104,10 @@ export function stepThroat(world: World, b: ThroatState): void {
   // would be a column moved off an empty mouth.
   throatHaul(world, b);
   if (!throatBreathes(world, b)) return;
+  // The breath itself, before what it costs: player 2 has been counting down
+  // to this beat out loud, and a swallow heard in the same tick is the bill
+  // arriving *after* the moment she was counting to rather than instead of it.
+  world.events.push({ type: "throatInhale", col: throatMouthCol(cfg, b, world.beat) });
   throatFed(world, b);
   throatLift(world, b);
 }
