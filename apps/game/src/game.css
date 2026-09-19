@@ -12,12 +12,24 @@ body {
   color: #f2e9dc;
   font-family: "Courier New", monospace;
   touch-action: none;
+  /* A drag that reaches the top or the bottom of a page that cannot scroll is
+     still a pull-to-refresh or an overscroll glow on a phone, and the field is
+     played with two thumbs that live at the edges. `overflow: hidden` above
+     stops the page moving; this stops the browser's own gesture standing in
+     front of it. */
+  overscroll-behavior: none;
   user-select: none;
 }
 canvas {
   display: block;
   width: 100%;
   height: 100%;
+  /* `touch-action` is not inherited: it is read off the element the gesture
+     starts on, and the compositor decides before the first `pointerdown` is
+     dispatched — which is the one case `preventDefault` cannot undo. Stating
+     it on `html, body` leaves the canvas itself at `auto`, so a two-thumb
+     gesture starting on the field could still be taken for a pinch. */
+  touch-action: none;
 }
 
 /* The view switch. Always there, in every mode — it is the one piece of

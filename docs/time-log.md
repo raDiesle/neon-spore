@@ -10584,3 +10584,27 @@ where paying rope out is something that can be seen. A test that had asserted
 on `crankAtMilli` alone would have passed against either version.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-field-canvas-states-no-touch-action-and-the — two lines of glass
+
+`touch-action: none` was on `html, body` and not on `canvas`, and the property
+is not inherited: it is read off the element the gesture starts on, by the
+compositor, before the first `pointerdown` is dispatched — the one case
+`preventDefault` cannot undo. `overscroll-behavior` was on the menu sheet and
+nowhere on the field's page. Both are now stated and both are held by a test
+that reads the stylesheet.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `game.css`'s first two rules and `view-switch.test.ts` for how this repo reads a stylesheet in a test |
+| writing | 10 | the two declarations with the reason beside each, and three cases over a small rule-block reader |
+| looking | 5 | both declarations taken back out by hand, two cases red, and green again |
+| friction | 5 | the first rule-block regex anchored each match on the previous `}` and so consumed it, which silently skipped every second rule — `0 rules for html, body` on a file that plainly has one |
+| landing | 10 | `format`, `lint`, `index`, the full `check` at 152s and the landing |
+
+**The bottleneck was that the fix is two lines and the test is thirty.** That
+is the right ratio here rather than a complaint: a declaration nobody can see
+the absence of is exactly the kind that gets dropped by the next lane tidying
+a stylesheet, and the case says in its own words why each one is there.
+
+*Measured: the rows above are the session's own estimate.*

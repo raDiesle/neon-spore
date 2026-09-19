@@ -1975,34 +1975,6 @@ a frame without going in `Effects` and being cleared in `Effects.reset()`
 It is local because choosing between four of these is looking at four of
 these, at tempo, on a phone-shaped screen.
 
-## The field canvas states no `touch-action` and the page no `overscroll-behavior`
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-the-field-canvas-states-no-touch-action-and-the
-- **Files:** `apps/game/src/game.css`, `apps/game/test/`
-- **Where:** cloud
-
-Found while answering the owner's question about whether a native app would
-take input better. The press path itself is already as good as a wrapper would
-make it — `pointerdown` on the canvas, `preventDefault` in a non-passive
-listener, `setPointerCapture`, no tap highlight, no context menu, and the press
-is pushed into the buffer synchronously (`input.ts:153-159`). Two lines of
-glass are missing under it.
-
-`touch-action: none` is set on `html, body` (`game.css:5-16`) and **not on
-`canvas`** (`game.css:17-21`). `touch-action` is not inherited: it is read off
-the element the gesture starts on and its ancestors' *scroll* behaviour, and
-the decision is made by the compositor before the first `pointerdown` is
-dispatched — which is exactly the case `preventDefault` cannot undo. And
-`overscroll-behavior` appears once in the app, on the menu sheet
-(`menu.css:166`), never on the field's page.
-
-To do: `touch-action: none` on the `canvas` rule and `overscroll-behavior:
-none` on `html, body`, and one test that reads `game.css` and asserts both —
-`apps/game/test/view-switch.test.ts` is the shape, it already reads that file.
-Nothing else changes, and the thing being defended against is a two-thumb
-gesture on a phone, which is what this game is played with.
-
 ## THE CANDLE's film says column 3 and its acts say column 2
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
