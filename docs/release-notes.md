@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 516ba5f9 — THE CANDLE: the last step is two gestures, one of them on the picture
+
+THE CANDLE answered every beat of its fight on the ordinary panel, and the last step answered it with the trigger that had stopped counting. It has six phases now where it had five, and three gestures where it had one.
+
 ## 2026-09-19 · 5e57534f — THE CURTAIN says the column, and the briefing comes down
 
 The field now writes MOVE on the pilot's cannon: the core's own column while it is bare, a soft lobe's while it is covered. It shipped with SHOVE on the sheet and FIRE on the bared core, two words that name a gesture each and neither of which names the lane it is spent in — curtainStruck is a no-op unless the shot leaves the top of the core's own column, and curtainHemStruck takes a lobe off only in the column the fabric is struck in. So the pilot's whole job was unsaid on his own band, and it is the guide's third step for him in as many words: put the cannon in the core's column.
