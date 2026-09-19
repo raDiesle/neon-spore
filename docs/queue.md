@@ -2038,6 +2038,7 @@ that goes quiet.
 ## A handle boss's word is invisible to a search of the readings
 
 - **Found:** 2026-09-19, claude/queue-the-surge-the-field-says-the-word-and-the-briefi
+- **Taken:** 2026-09-19, claude/queue-a-handle-bosss-word-is-invisible-to-a-search-of
 - **Files:** `docs/queue.md`, `packages/render/src/boss-cue.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/surge-grip.ts`, `.claude/skills/new-boss/SKILL.md`
 - **Where:** cloud
 
