@@ -1163,6 +1163,7 @@ walking mouth, which is the other half of this entry.
 ## `boss-cue-read-c.ts` is at 245 lines, and the sixth boss on it grew
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-boss-cue-read-c-ts-is-at-245-lines-and-the-sixth
 - **Files:** `packages/render/src/boss-cue-read-c.ts`, `packages/render/src/boss-cue.ts`
 - **Where:** cloud
 
