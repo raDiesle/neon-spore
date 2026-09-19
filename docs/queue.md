@@ -2041,6 +2041,7 @@ have now to be true.
 ## THE REPRISE's first stretch is not at the walls its three files say it is
 
 - **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
+- **Taken:** 2026-09-19, claude/queue-docs-spec-bosses-md-names-a-waves-act-file-by-an (claim: claude/queue-the-reprises-first-stretch-is-not-at-the-walls-i)
 - **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/src/scenes/the-reprise.ts`, `docs/spec/bosses.md`
 - **Asks:** Move the three entries to the walls, or correct the three paragraphs that say they are there?
 - **Answered:** 19 September 2026 — move the three entries to columns 0, 3 and 6 (mapping to the true walls, 0 and 10, and the middle). Sayability is this game's whole control scheme (`CLAUDE.md`: *talking is not a help, it is the control scheme*), and *left wall, middle, right wall* is the design's own reason for this shape; correcting the prose instead keeps the shipped wave but throws away the reason it was built this way. Sized work: the wave data in `act-10.ts`, the film in `the-reprise.ts` (its five acts move with it, and `scene-reprise.test.ts` is re-run rather than re-written), and `bun run check`.
