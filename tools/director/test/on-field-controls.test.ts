@@ -83,6 +83,12 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  * `sim/sinew-hand.ts` with nothing drawn to take hold of, then given their
  * rows with the look (`field-controls-sinew.ts`, `docs/spec/bosses.md`
  * §11.26).
+ *
+ * `candleWick` is the third to make that walk, and in two halves of one lane
+ * rather than two lanes: the pull was heard by `sim/candle-hand.ts` with
+ * nothing on the screen to take hold of, and the look gave it a wick to hang
+ * on, a ring round the flame and a row (`render/candle-grip.ts`,
+ * `field-controls-candle.ts`, `docs/spec/bosses.md` §11.22).
  */
 function documentedDragTarget(target: DragTarget): DragTarget {
   switch (target) {
@@ -98,6 +104,7 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "balloonRight":
     case "sinewLeft":
     case "sinewRight":
+    case "candleWick":
       return target;
     // `surgeBulb` is the same again, and the first one target both seats
     // send: heard by `sim/surge-hand.ts`, answered anywhere on the bulb by
@@ -214,23 +221,16 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // THE UNDERTOW's two thumbs, both the navigator's and both on the hull
     // itself: a pin is a second plate on a standing lobe, and the free hauls
     // the plate off a pilot the floor unseated (`sim/undertow-hand.ts`). Sim
-    // lane only so far, as the twelve above.
+    // lane only so far, as the thirteen above.
     case "undertowPin":
     case "undertowFree":
       return target;
     // THE THROAT's two, and the only pair the fight hands out as it loses: a
     // thumb on a ring already gone slack holds the gullet's breath, and in
     // `open` a carry drags the tube itself a column off its meal
-    // (`sim/throat-hand.ts`). Sim lane only so far, as the fourteen above.
+    // (`sim/throat-hand.ts`). Sim lane only so far, as the fifteen above.
     case "throatRing":
     case "throatTube":
-      return target;
-    // THE CANDLE's wick, and the only handle in the list a seat takes hold of
-    // in the dark: at the last glow no shot counts and the pilot pulls the
-    // flame down off it, which leaves the navigator's beam the one thing that
-    // finishes the fight (`sim/candle-hand.ts`). Sim lane only so far, as the
-    // sixteen above.
-    case "candleWick":
       return target;
     default:
       return assertNever(target);
@@ -278,6 +278,7 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "fleetBreach",
         "fleetRake",
         "fleetWreck",
+        "candleWick",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {

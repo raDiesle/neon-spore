@@ -3904,6 +3904,33 @@ boss stays installed; when the sim takes it away the black lifts over one
 beat — the design's wave-end light coming up on a field the pair never saw.
 Proved on both screens in `render/test/candle-frame.test.ts`.
 
+**The last step's own picture** (`render/candle-grip.ts`, 19 September 2026).
+The boss is a point of light and nothing else, so there was nothing on the
+screen to take hold of: the pull shipped heard by the simulation and drawn
+nowhere, which is the half of a lane the split names. The look gives the glow
+the one part a candle has besides its flame — a wick hanging from the shelf
+the light hangs on, straight down the column it is over, exactly
+`candlePinchMilli` long in pixels so the travel is **one-to-one with the
+thumb** and the flame comes off under his finger. THE STARE's lid remaps its
+pull onto the eye's own height because a lid the simulation calls shut has to
+*look* shut; nothing here has to look like anything. The flame rides the stem
+— `candleFlameY` in `candle-glow.ts`, and the halos go down with it, because
+a light that stayed put while its flame came away would be two things — and
+the ring round it is drawn **on both screens**, THE MAZE's, THE WARDEN's and
+THE LID's arrangement rather than THE STARE's: the gauge closing into a whole
+circle is the navigator's cue, since the instant it closes is the instant her
+beam starts being worth something. Whose thumb it is is said once, by `PULL`
+on the glow, and no hint is drawn under the ring. At `smoking` there is no
+flame drawn at all: an ember at the stem's tip and a plume of six fading
+segments wandering off it, and **the ember is the clock** — it swells through
+four fixed reaches and flickers from three to eleven a second as the wick
+comes back towards a flame, which is the whole of `candleSmokeBeats` spent on
+the one thing left in a black frame. The reaches are quantised because
+`haloSprite` bakes a canvas per colour *and* radius, so a reach that swelled
+smoothly would bake one a frame. Proved in `candle-frame.test.ts`: the travel
+as arithmetic off `candlePinchMilli`, the stem and its ring on all three
+screens at the last step, and an ember with no flame at `smoking`.
+
 **Corner light first** (the design's step 1, landed 17 September 2026): the
 black does not fall evenly. It is a front (`candleDarkAt`, `candle-dark.ts`)
 that starts at the side the sky's one corner light stands on — bottom right,

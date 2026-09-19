@@ -10,7 +10,9 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { candleDarkAt } from "../src/candle-dark.js";
-import type { ViewRole } from "../src/layout.js";
+import { candleGlowY } from "../src/candle-glow.js";
+import { candleWickAt, candleWickReach, candleWickRest } from "../src/candle-grip.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
   CFG,
@@ -18,6 +20,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
 
@@ -237,5 +240,71 @@ describe("THE CANDLE's dark", () => {
     expect(at(perBeat - 1)).toBeGreaterThan(plain);
     expect(at(perBeat + 1)).toBeGreaterThan(plain);
     expect(at(frames.length - 1)).toBe(plain);
+  });
+});
+
+/**
+ * The wick, the flame on it and the ember after it — the last step's own
+ * picture (`candle-grip.ts`).
+ *
+ * The travel is checked as arithmetic rather than off the log, because the
+ * stub keeps a path's fills and not its points: where the ring is standing is
+ * a function of the depth, and the one thing that would break it silently is
+ * the reach coming from somewhere other than `candlePinchMilli`. What the
+ * frames are asked is the other half — that the stem and its ring are on the
+ * screen at all at `last`, on both seats, and that at `smoking` there is an
+ * ember where the flame was and no flame anywhere.
+ */
+describe("THE CANDLE's wick", () => {
+  it("carries the flame the thumb's own distance, and no further", () => {
+    const l = computeLayout(VIEWPORT, CFG, "p1");
+    const world = opened();
+    const c = glow(world);
+    c.phase = "last";
+    c.glow = 1;
+    c.pinchMilli = 0;
+    expect(candleWickAt(l, CFG, c).y).toBe(candleGlowY(l));
+    c.pinchMilli = CFG.candlePinchMilli;
+    const rest = candleWickRest(l, CFG, c);
+    expect(candleWickAt(l, CFG, c).y).toBeCloseTo(rest.y + candleWickReach(l, CFG), 6);
+    // Half way down is half the reach: one-to-one with the thumb, which is
+    // the whole reason the wick is `candlePinchMilli` long in the picture.
+    c.pinchMilli = Math.round(CFG.candlePinchMilli / 2);
+    expect(candleWickAt(l, CFG, c).y - rest.y).toBeCloseTo(candleWickReach(l, CFG) / 2, 3);
+  });
+
+  it.each(ROLES)("draws the stem and its ring at the last step, on %s", (role) => {
+    const before = opened();
+    darkened(before);
+    glow(before).glow = 1;
+    const plain = drawn(before, role, 3).text;
+    expect(plain).not.toContain(PALETTE.emberRim);
+    const world = opened();
+    darkened(world);
+    const c = glow(world);
+    c.glow = 1;
+    c.phase = "last";
+    c.phaseBeat = world.beat;
+    c.pinchMilli = Math.round(CFG.candlePinchMilli / 2);
+    const held = drawn(world, role, 3).text;
+    // The stem is `ember`; the ring under a thumb strokes `emberRim` and runs
+    // its dial in it, and the flame is still there in front of both.
+    expect(held).toContain(PALETTE.ember);
+    expect(held).toContain(PALETTE.emberRim);
+    expect(held).toContain(PALETTE.podRim);
+  });
+
+  it("leaves an ember and no flame once the flame is off the wick", () => {
+    const world = opened();
+    darkened(world);
+    const c = glow(world);
+    c.glow = 1;
+    c.phase = "smoking";
+    c.phaseBeat = world.beat;
+    c.pinchMilli = 0;
+    const smoke = drawn(world, "p2", 3).text;
+    expect(smoke).toContain(PALETTE.emberRim);
+    expect(smoke).not.toContain(PALETTE.podRim);
+    expect(count(smoke, BLACK)).toBeGreaterThan(0);
   });
 });

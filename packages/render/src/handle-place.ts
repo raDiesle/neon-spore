@@ -8,6 +8,7 @@ import {
   wardenHandleMilli,
 } from "@neon-spore/sim";
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
+import { candleWickAt } from "./candle-grip.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
@@ -121,6 +122,15 @@ export function handleCircle(
     // bulb on the field.
     const s = world.boss?.kind === "surge" ? world.boss : null;
     return s === null ? null : surgeBulbCircle(l, cfg, s);
+  }
+  if (target === "candleWick") {
+    // THE CANDLE's flame, and the one handle on this field that is a light:
+    // where it is standing is the wick's root plus the pilot's thumb, which
+    // is `candle-grip.ts`' own answer. Null on a field with no glow, and on
+    // every phase but the last — the caption may only point at a handle a
+    // hand can be on, and the flame is not one four phases out of six.
+    const b = world.boss?.kind === "candle" ? world.boss : null;
+    return b === null || b.phase !== "last" ? null : candleWickAt(l, cfg, b);
   }
   if (target === "wardenTether") {
     const b = world.boss?.kind === "warden" ? world.boss : null;

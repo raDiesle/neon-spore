@@ -31,6 +31,13 @@ import { showsCandleFace } from "./view-role-clocks.js";
  * screen alone, while it is drifting and turning. It is not drawn at the last
  * step — it eats nothing then, and the design's step 13 is *there is nothing
  * left to work out*.
+ *
+ * **At the last step the light travels.** The flame is a handle then, and the
+ * pilot carries it down the wick and off the end (`candle-grip.ts`); the halo
+ * goes with it, because the flame is the light and a light that stayed put
+ * while its flame came away would be two things. At `smoking` there is no
+ * flame here at all — the ember on the wick's tip is the whole of what is
+ * left, and it is drawn next door.
  */
 
 /** Tiles above the middle of row 0 the flame hangs. THE DIASTOLE's shelf. */
@@ -44,6 +51,23 @@ const HANG = 0.52;
  */
 export function candleGlowY(l: Layout): number {
   return tileCY(l, 0) - l.tile * HANG;
+}
+
+/**
+ * Where the flame *is* this frame: the wick's root, plus however far the
+ * pilot's thumb has carried it down the wick (`candle-grip.ts`). One-to-one
+ * with the thumb, because `pinchMilli` is thousandths of a tile and so is
+ * this: the light ends up under his finger rather than somewhere that tracks
+ * it. Nought on every phase but `last`, so every other frame this is the root
+ * and the two answers are one.
+ *
+ * The **root** is what the cue asks for and keeps asking for: the one word
+ * the field says about this boss stands where the wick hangs from, and a word
+ * that rode down with the flame would be a label on the thing his own thumb
+ * is covering (`boss-cue-read-m.ts`).
+ */
+export function candleFlameY(l: Layout, c: CandleState): number {
+  return candleGlowY(l) + (c.pinchMilli * l.tile) / 1000;
 }
 
 /** The halo's reach in tiles at full glow, and at nothing. */
@@ -67,10 +91,14 @@ export function drawCandleGlow(
   time: number,
   role: ViewRole,
 ): void {
-  if (c.glow <= 0 || c.phase === "out") return;
+  // Nothing at `smoking`: the glow still says one step, but the flame that
+  // step was is off the wick and in the pilot's hand. What is left of the
+  // light is the ember on the tip, which `candle-grip.ts` draws — and the
+  // field going almost black is the phase's own picture.
+  if (c.glow <= 0 || c.phase === "out" || c.phase === "smoking") return;
   const share = c.glow / cfg.candleGlowSteps;
   const x = tileCX(l, c.col);
-  const y = candleGlowY(l);
+  const y = candleFlameY(l, c);
   const throb = 1 - THROB * (0.5 + 0.5 * Math.sin(time * THROB_HZ * 2 * Math.PI));
   const reach = Math.round(l.tile * (REACH_OUT + (REACH_FULL - REACH_OUT) * share));
 

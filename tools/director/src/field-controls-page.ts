@@ -1,23 +1,6 @@
 import type { FieldControlDef } from "./field-control-def.js";
-import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
-import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
-import { BATON_CONTROLS } from "./field-controls-baton.js";
-import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
-import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
-import { FLEET_CONTROLS } from "./field-controls-fleet.js";
-import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
-import { GORGE_CONTROLS } from "./field-controls-gorge.js";
-import { GUM_CONTROLS } from "./field-controls-gum.js";
-import { INSTAR_CONTROLS } from "./field-controls-instar.js";
-import { MAZE_CONTROLS } from "./field-controls-maze.js";
-import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
-import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
-import { QUEEN_CONTROLS } from "./field-controls-queen.js";
-import { SINEW_CONTROLS } from "./field-controls-sinew.js";
-import { STARE_CONTROLS } from "./field-controls-stare.js";
-import { SURGE_CONTROLS } from "./field-controls-surge.js";
+import { BOSS_FIELD_CONTROLS } from "./field-controls-bosses.js";
 import { tetherExamples } from "./field-controls-tether.js";
-import { WARDEN_CONTROLS } from "./field-controls-warden.js";
 
 /**
  * The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on
@@ -33,6 +16,11 @@ import { WARDEN_CONTROLS } from "./field-controls-warden.js";
  * THE PUSH arrived — `field-control-def.ts`, re-exported below so nothing that
  * reached for a `FieldControlDef` through here had to move — and how a row is
  * *drawn* to `field-controls-rows.ts` (12 September 2026): each names its pose.
+ *
+ * The fourth cut is the first that moved rows rather than machinery: every
+ * boss's own row is in `field-controls-bosses.ts`, spread in below in one
+ * place, and what is left here is the handles the game has always had
+ * (19 September 2026). The page grows now only when the game does.
  */
 
 export type { FieldControlDef } from "./field-control-def.js";
@@ -208,29 +196,9 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     sends: ["drag"],
     pose: "CHOIR · TWO VOICES",
   },
-  // THE BALLOON's two (`field-controls-balloon.ts`), after the pilot's four handles.
-  ...BALLOON_CONTROLS,
-  ...GUM_CONTROLS,
-  // THE ORRERY's ring: a whole orbit rather than a circle on a body (`field-controls-orrery.ts`).
-  ...ORRERY_CONTROLS,
-  // THE SINEW's two: a pair adding into one sum, not a side each (`field-controls-sinew.ts`).
-  ...SINEW_CONTROLS,
-  ...SURGE_CONTROLS, // THE SURGE's one, the first taken by both seats.
-  ...ANTIPHON_CONTROLS, // THE ANTIPHON's one, the first on one screen only.
-  // THE INSTAR's marks, one target that is six gestures (`field-controls-instar.ts`).
-  ...INSTAR_CONTROLS,
-  // THE FILAMENT's line, the first that is a trace; THE BULB QUEEN's marks, whose seat is not told.
-  ...FILAMENT_CONTROLS,
-  ...STARE_CONTROLS, // THE STARE's lid, the first on a boss that is not its body.
-  ...QUEEN_CONTROLS,
-  ...DIASTOLE_CONTROLS, // THE DIASTOLE's clamp, the second whose seat is not told.
-  ...BATON_CONTROLS, // THE BATON's arm, the first whose seat the beat decides.
-  ...MIRROR_CONTROLS, // THE MIRROR's lobes, two gestures on one target (`field-controls-mirror.ts`).
-  ...GORGE_CONTROLS, // THE GORGE's pinch and pry, one target whose seat says the gesture.
-  ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).
-  ...FLEET_CONTROLS, // THE FLEET's plume, rake and wreck, on its chart (`field-controls-fleet.ts`).
-  ...GAUGE_CONTROLS, // THE GAUGE's needle under a jam and its band under a bind (`field-controls-gauge.ts`).
-  ...WARDEN_CONTROLS, // THE WARDEN's thumb and swipe, its second and third hands (`field-controls-warden.ts`).
+  // Every boss's own rows, in the order they were built, next door:
+  // `field-controls-bosses.ts`.
+  ...BOSS_FIELD_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

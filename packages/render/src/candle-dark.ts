@@ -1,6 +1,7 @@
 import { beatSeconds, type CandleState, candleBoss, guardArmed } from "@neon-spore/sim";
 import type { AfterImage } from "./after-image.js";
 import { drawCandleGlow } from "./candle-glow.js";
+import { drawCandleWick } from "./candle-grip.js";
 import { smoothstep } from "./ease.js";
 import type { Effects } from "./effects.js";
 import { rgba } from "./hex.js";
@@ -191,5 +192,9 @@ export function drawCandleField(
   }
   ctx.globalAlpha = 1;
   drawLit(ctx, l, img, view.time, afterSeconds(c, world.cfg.candleGlowSteps, spb), darkAt);
+  // The wick under the light and the glow over it: the ring is a circle round
+  // the flame, so the flame is painted into the middle of it rather than
+  // behind its fill (`candle-grip.ts`).
+  drawCandleWick(ctx, l, world.cfg, c, world.beat, view.beatPhase, view.time);
   drawCandleGlow(ctx, l, c, world.cfg, view.time, view.role);
 }

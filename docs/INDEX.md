@@ -1499,6 +1499,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/candle-dark.ts` | **THE CANDLE's dark**: the field going black |
 | `packages/render/src/candle-glow.ts` | **THE CANDLE's glow**: its health, and the only steady light in the field |
+| `packages/render/src/candle-grip.ts` | THE CANDLE's wick: the stem, the ring on the flame and the ember after it |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
 | `packages/render/src/cairn-hand.ts` | The hand on THE CAIRN, drawn over the stack by the boss pass — the ordinary ring closed round every stone still standing, and the word PULL |
 | `packages/render/src/cairn-look.ts` | THE ONE RECORD A CANDIDATE **PILE** PATCHES |
@@ -2232,6 +2233,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/entry-fields-moult.ts` | **THE MOULT's one per-arrival fact**: what it is carrying for the beats it is wearing its cargo rather than… |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
@@ -2250,6 +2252,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-diastole.ts` | THE DIASTOLE's clamp, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-warden.ts` | THE WARDEN's thumb and swipe, the director's two rows |
+| `tools/director/src/field-controls-candle.ts` | THE CANDLE's wick: the ON THE FIELD row for the one handle taken hold of in the dark |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

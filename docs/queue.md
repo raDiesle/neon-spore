@@ -687,24 +687,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE CANDLE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-candle-changes-state-more-than-once-and-asks
-- **Files:** `packages/sim/src/candle-hash.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/candle.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on the ordinary panel, over 5 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE CANDLE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2195,3 +2177,36 @@ way `hash-coverage.test.ts` already reports its misses. The case keeps its one
 `expect` and its `loadedTimeout(150)` budget; nothing about what is enforced
 changes, only how much of it one run says. The check that it worked: put two
 files over the limit on a scratch branch and see both named.
+
+## The file-size notice is deaf to a lane that edits through Bash
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `.claude/settings.json`, `tools/hooks/after-edit-size.ts`,
+  `tools/hooks/payload.ts`
+- **Where:** cloud
+
+`after-edit-size.ts` exists so a page nearing the 250-line ceiling is heard
+about while the seam can still be chosen, and its own header counts the cost
+of learning it late: 375 minutes across 27 lanes, the largest named cause of
+friction in `docs/time-log.md`. It is registered under the matcher
+`Edit|Write|MultiEdit` and reads `tool_input.file_path`, so it fires for those
+three tools and nothing else.
+
+A session told to do its file changes through Bash — a heredoc, a `sed -i`, a
+short `python3` script, which is what an auto-mode lane is instructed to do —
+never hears it. This lane wrote seven files that way, took
+`field-controls-page.ts` to 251 lines, and found out from `check:fast` two
+minutes later, exactly as lanes did before the hook was written. The hook is
+not wrong; it is bound to half the ways a file is written.
+
+To do: add a `Bash` matcher entry pointing at the same script, and give it a
+branch that finds the paths a command touched. `tool_input.file_path` is
+absent for Bash, so the payload carries `tool_input.command` instead: pull
+candidate paths out of it with a pattern for the shapes that actually write
+(`> path`, `>> path`, `sed -i … path`, `tee path`, and an `open(path,'w')`
+inside a `python3` heredoc), keep the ones that exist under
+`packages|apps|tools`, and run `counted`/`lineCount`/`notice` over each. It
+must stay silent when it can parse nothing rather than guess, and it must
+never block — the header's rule. The check that it worked: append a line to a
+file already near the ceiling with a heredoc and see the notice; run a `cat`
+of the same file and see nothing.

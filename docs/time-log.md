@@ -10301,3 +10301,31 @@ in `docs/queue.md`: the twelve are discoverable from one another and nothing
 names them in one place.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-candle, half two — the wick drawn
+
+The other half of the same lane, and the one that put something on the screen
+to take hold of: a stem the exact length of `candlePinchMilli`, a ring round
+the flame on both screens, and an ember whose flicker is the count player 2 is
+firing against. The row on the ON THE FIELD tab, the spec paragraph and the
+frame tests came with it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | none: half one had already read every file this half touches, an hour earlier |
+| writing | 10 | `candle-grip.ts`, `candleFlameY`, the two chain entries, the director row, the spec paragraph, the controls table row and three frame tests |
+| looking | 0 | none, and it is the gap in this half: what the wick looks like at tempo is unverified |
+| friction | 5 | registering one row took `field-controls-page.ts` to 251 lines, one over the hard ceiling, so the whole boss half of the list had to be handed to `field-controls-bosses.ts` before anything could be checked; then `lint` wanted the new file's imports sorted, which `format` does not do |
+| landing | 5 | `imports:sort`, `index`, two `check:fast` runs and `bun run land --keep` |
+
+**The bottleneck was the 250-line ceiling again, one row further on.** The
+half before it spent its last hour handing four pages to their second pages
+for the same reason, and this half spent its only friction doing a fifth. The
+ceiling is right and the tests that enforce it are right, and
+`tools/hooks/after-edit-size.ts` exists precisely so a full page is heard
+about while there is still a choice about the seam. It said nothing here:
+its matcher is `Edit|Write|MultiEdit`, and this session writes its files
+through Bash, so every edit went past it silently and the page was found full
+by the suite, as it was before the hook was written. That is queued.
+
+*Measured: the rows above are the session's own estimate.*
