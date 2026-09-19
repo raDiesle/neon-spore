@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 6d2d271d — Give THE REPRISE's rehearsal its own corrected split, pilot's colour not gap
+
+The film's header still said the pilot's half of the blind kills was "the gap" and told him to COUNT THE GAPS BETWEEN THEM, both describing a timing-derived second kill that boss-cue-read-s.ts rules out by name: nothing in this boss is timed to an arrival, because that would turn the one thing it is made of into a reaction. The corrected design — already right in bosses.md §11.15 and act-10.ts's header — has the navigator's half as the column and the pilot's as the colour.
+
 ## 2026-09-19 · c87fd78b — Close THE REPRISE's tear ask: already answered, file the rehearsal's own drift
 
 ## 2026-09-19 · aba93954 — THE GAUGE learns to say what it just did
