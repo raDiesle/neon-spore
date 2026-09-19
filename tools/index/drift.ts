@@ -10,9 +10,16 @@
  * repository would have failed if they had not been.
  *
  * So this is the half that can fail without regenerating anything. It does not
- * read the prose, which is the point of curating it. It reads the two things
- * in a row that go stale on their own: a backticked name that moved, and a
- * count of something the file's own header counts differently.
+ * read the prose, which is the point of curating it. It reads the three things
+ * in a row that go stale on their own: a backticked name that moved, a count
+ * of something the file's own header counts differently, and a **proper name
+ * in capitals** the file has never heard of.
+ *
+ * The third was added on 19 September 2026, after the row for
+ * `boss-cue-read-c.ts` went on naming THE ORRERY for a week after that boss
+ * moved out of the file — green every run, repaired by hand, and precisely the
+ * failure the paragraph above says this exists to stop. It found seven more of
+ * the same across the 2,300 rows the moment it was written.
  */
 
 const WORD_NUMBERS: Record<string, number> = {
@@ -133,6 +140,56 @@ export function headerCommentText(source: string): string {
 const CODE_FILE = /^[\w.@/-]+\.(ts|tsx|js|md|json|css|html|svg|sh)$/;
 const IDENTIFIER = /^[A-Za-z_$][\w$]*$/;
 
+/**
+ * Words this repository writes in capitals that are grammar rather than a name.
+ *
+ * Every boss, round and sheet is spelled in capitals here — THE ORRERY, BULB
+ * QUEEN, SNAKE, NOT BUILT YET — so a run of capitals in a row is a claim about
+ * *which* thing the file is, and the cheapest claim there is to check. The
+ * words below are the ones that turn up inside those names and carry none of
+ * the meaning.
+ */
+const NOT_A_NAME = new Set([
+  "THE",
+  "AND",
+  "OR",
+  "OF",
+  "IT",
+  "IS",
+  "NOT",
+  "NO",
+  "IN",
+  "ON",
+  "TO",
+  "AN",
+  "AT",
+  "BY",
+  "UP",
+  "SO",
+  "IF",
+  "AS",
+  "BE",
+  "DO",
+  "GO",
+  "WE",
+]);
+
+/**
+ * The proper names a piece of prose claims, once each.
+ *
+ * Word by word rather than whole-run, because a run is a run only in the row:
+ * a file wraps `THE BULB QUEEN` across two lines and would be read as not
+ * having said it. Each word carries the claim on its own — a row that names
+ * `QUEEN` about a file with no queen in it is wrong whatever stands beside it.
+ * Backticked spans are cut out first: an identifier and a file name are
+ * already checked, by their own rules, against what a *name* means.
+ */
+export function namesIn(text: string): string[] {
+  const prose = text.replaceAll(/`[^`]*`/g, " ");
+  const found = [...prose.matchAll(/\b[A-Z]{2,}\b/g)].map((m) => m[0]);
+  return [...new Set(found)].filter((name) => !NOT_A_NAME.has(name));
+}
+
 export interface DriftContext {
   /** The source of the file the row names. */
   readonly source: string;
@@ -148,7 +205,10 @@ export interface DriftContext {
  * backticked file name has to be a file. A count has to agree with the
  * header's own count *of the same subject*: "five bosses" against "six
  * bosses" is a disagreement, while a number the header simply never mentions
- * is prose, and prose is not this check's business.
+ * is prose, and prose is not this check's business. And a name in capitals
+ * has to be somewhere in the file, in any case — the file's own words for a
+ * boss are as often `fenceGapsOf` as *THE FENCE*, so this asks whether the
+ * name is in the source at all rather than whether the header shouts it.
  */
 export function driftInRow(rowText: string, context: DriftContext): string[] {
   const complaints: string[] = [];
@@ -162,6 +222,13 @@ export function driftInRow(rowText: string, context: DriftContext): string[] {
       }
     } else if (IDENTIFIER.test(name) && !new RegExp(`\\b${name}\\b`).test(source)) {
       complaints.push(`names \`${name}\`, which the file does not mention`);
+    }
+  }
+
+  const words = source.toLowerCase();
+  for (const name of namesIn(rowText)) {
+    if (!words.includes(name.toLowerCase())) {
+      complaints.push(`names ${name}, which the file never mentions`);
     }
   }
 

@@ -10644,3 +10644,30 @@ the absence of is exactly the kind that gets dropped by the next lane tidying
 a stylesheet, and the case says in its own words why each one is there.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-indexs-drift-check-reads-a-count-but-not-a-l — the third thing a row gets wrong
+
+`drift.ts` read a backticked name and a count, and every boss, round and sheet
+in this repository is written in capitals — so the one kind of claim a row
+makes most often was the one nothing checked. It now fails a name in capitals
+the file never mentions, word by word and against the whole source rather than
+the header, because a file's own word for a boss is as often `fenceGapsOf` as
+THE FENCE.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `drift.ts` whole, `drift.test.ts`'s two halves, and the row-by-row walker in it |
+| writing | 15 | `namesIn`, the third rule in `driftInRow`, six cases, and the eight repairs |
+| looking | 15 | four passes over the whole index measuring what a rule would flag before writing it |
+| friction | 10 | the first two rules were wrong and the index said so: case-sensitive against the header flagged 42 healthy rows, case-insensitive flagged 41, whole-source word-by-word flagged 8 and every one was real |
+| landing | 10 | `format`, `lint`, `index`, the full `check` at 152s and the landing |
+
+**The bottleneck was that a check like this is only worth what its false
+positive rate is, and that cannot be reasoned about.** Three plausible
+readings of the same rule differed by a factor of five on the same 2,312 rows,
+and the only way to know was to run each one over the tree and read the list.
+Twenty of the forty-five minutes went on that, and it is the part that would
+have been skipped by a lane in a hurry — which would have landed a check that
+cried wolf forty times and been deleted within the week.
+
+*Measured: the rows above are the session's own estimate.*

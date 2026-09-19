@@ -5,7 +5,7 @@ import { SPORE_PINS, SPORE_REACH, SPORE_SPIN } from "./body-spores.js";
 import { mixHex, rgba } from "./hex.js";
 
 /**
- * SCATTER — the spores are set loose.
+ * SCATTER — THE WISP's strike: the spores are set loose.
  *
  * The bulb is a spore case: eleven spheres packed three deep inside it
  * (`body-spores.ts`), and the shipped kill throws squares and wedges of skin

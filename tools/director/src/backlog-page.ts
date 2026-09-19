@@ -1,6 +1,6 @@
 /**
- * The backlog page: a full-screen sheet over the editor, listing what the
- * design has agreed to and the game does not have.
+ * The backlog page — the NOT BUILT YET sheet: a full-screen sheet over the
+ * editor, listing what the design has agreed to and the game does not have.
  *
  * Full-screen rather than a fourth column, because this is not something you
  * consult while placing a creature — it is what you read *before* deciding

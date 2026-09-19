@@ -1,6 +1,7 @@
 /**
- * The backlog: everything the design has agreed to and the game does not have,
- * arranged by what it would become rather than by which file it was written in.
+ * The backlog — NOT BUILT YET on the menu: everything the design has agreed
+ * to and the game does not have, arranged by what it would become rather than
+ * by which file it was written in.
  *
  * **One page now, and it is the bosses.** MECHANICS was the other, and the
  * owner asked for it off on 17 September 2026. What it held was a rendering of

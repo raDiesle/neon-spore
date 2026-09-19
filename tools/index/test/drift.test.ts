@@ -2,7 +2,7 @@ import { describe, expect, setDefaultTimeout, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { loadedTimeout } from "../../test/repo-time.js";
-import { countsIn, driftInRow, headerCommentText } from "../drift.js";
+import { countsIn, driftInRow, headerCommentText, namesIn } from "../drift.js";
 import { parseRows } from "../index.js";
 
 // What this file is allowed to take, scaled to how busy the machine is
@@ -114,10 +114,53 @@ describe("driftInRow", () => {
     expect(driftInRow("read by `step.ts`", { source, resolvesFile })).toEqual([]);
   });
 
+  /**
+   * The failure that earned this: the row for `boss-cue-read-c.ts` named THE
+   * ORRERY for a week after that boss moved out of the file, green every run.
+   * A count and a backticked name were both already read; a name in capitals
+   * is the third thing in a row that goes stale by itself, and in this
+   * repository every boss, round and sheet is spelled that way.
+   */
+  test("catches a row naming a boss its file no longer mentions", () => {
+    const source = "/** THE LEDGER, THE LEAD and THE SCUTTLE read here. */\nexport const c = 1;";
+    const text = "THE LEDGER, THE LEAD, THE SCUTTLE and THE ORRERY read on the hull";
+    expect(driftInRow(text, { source, resolvesFile })).toEqual([
+      "names ORRERY, which the file never mentions",
+    ]);
+  });
+
+  test("says nothing about a boss its file still names, however it spells it", () => {
+    // A file's own word for a boss is as often `fenceGapsOf` as THE FENCE, so
+    // the question is whether the name is in the source at all — not whether
+    // the header shouts it back in the row's own capitals.
+    const source = "/** The fence's row under the map. */\nexport const fenceGapsOf = 1;";
+    expect(driftInRow("THE FENCE's row under the map", { source, resolvesFile })).toEqual([]);
+  });
+
   test("leaves prose, commands and phrases alone", () => {
     const source = "/** The world. */\nexport const world = 1;";
     const text = "`GET /api/waves`, and the base-revision token that refuses a clobber";
     expect(driftInRow(text, { source, resolvesFile })).toEqual([]);
+  });
+});
+
+describe("namesIn", () => {
+  test("takes a name once, however many times a row says it", () => {
+    expect(namesIn("SNAKE eats, and SNAKE sheds")).toEqual(["SNAKE"]);
+  });
+
+  test("leaves the capitals that are grammar rather than a name", () => {
+    // Every one of these turns up inside a real name — THE ORRERY, NOT BUILT
+    // YET — and carries none of the claim.
+    expect(namesIn("THE ORRERY AND THE VANE")).toEqual(["ORRERY", "VANE"]);
+  });
+
+  test("leaves a backticked span to the rules that already read one", () => {
+    expect(namesIn("`GET /api/waves` and `MIRROR_STEPS`")).toEqual([]);
+  });
+
+  test("leaves an ordinary word alone, whatever case the sentence starts in", () => {
+    expect(namesIn("The hull is drawn once a frame")).toEqual([]);
   });
 });
 

@@ -2,7 +2,7 @@ import type { Strike } from "./body-hit.js";
 import { mixHex, rgba } from "./hex.js";
 
 /**
- * SHOCK — the body takes the hit before it goes.
+ * SHOCK — THE THROB's strike: the body takes the hit before it goes.
  *
  * The other two answers start with the case already failing. This one spends
  * its first tenth of a second on the **impact**: the bolt came up the column

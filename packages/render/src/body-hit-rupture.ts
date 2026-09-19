@@ -3,7 +3,7 @@ import type { Strike } from "./body-hit.js";
 import { mixHex } from "./hex.js";
 
 /**
- * RUPTURE — the sac tears open along its own veins.
+ * RUPTURE — THE RIND's strike: the sac tears open along its own veins.
  *
  * The slick is drawn as two sacs with a nucleus and nine veins each
  * (`body-bloom.ts`), and the shipped kill is blind to that: five squares and

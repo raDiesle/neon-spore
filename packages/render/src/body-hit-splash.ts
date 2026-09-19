@@ -3,7 +3,7 @@ import type { Strike } from "./body-hit.js";
 import { mixHex } from "./hex.js";
 
 /**
- * SPLASH — the sac was full of liquid, and the shot lets it out.
+ * SPLASH — THE ECHO's strike: the sac was full of liquid, and the shot lets it out.
  *
  * A slick is the wettest word in the game and its kill has never been wet.
  * This is the shot going into a bag of fluid from below: on the beat the

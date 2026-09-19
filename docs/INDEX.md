@@ -2124,7 +2124,7 @@ place — the generator keeps whatever is there.
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
 | `tools/land/unverified.ts` | what a landing could not check, turned into a queue entry a later session drains |
 | `tools/land/toolchain.ts` | Where a landing meets the bun it runs on rather than the tree it lands: the pin's refusal and the frozen install |
-| `tools/director/src/cell-config-gaps.ts` | THE GRATE's row under the map: one chip per column, lit where the wall is open |
+| `tools/director/src/cell-config-gaps.ts` | THE FENCE's row under the map: one chip per column, lit where the wall is open |
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |
 | `tools/perf/measure.ts` | One performance run, taken off a real browser driving the real bundle |
 | `tools/perf/run.ts` | `bun run perf` — what a frame costs, wave by wave, at phone speed |

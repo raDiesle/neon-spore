@@ -1851,29 +1851,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The index's drift check reads a count but not a list of names
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-the-indexs-drift-check-reads-a-count-but-not-a-l
-- **Files:** `tools/index/drift.ts`, `tools/index/test/index.test.ts`
-- **Where:** cloud
-
-`generateIndex` passes an existing row through byte for byte on purpose, and
-`drift.ts` is the half that catches a row gone wrong without regenerating it.
-It reads the two things that go stale on their own — a backticked name that
-moved, and a count of something the header counts differently. A **list of
-proper names** is a third, and it is the one this lane hit: the row for
-`packages/render/src/boss-cue-read-c.ts` said *THE LEDGER, THE LEAD, THE
-SCUTTLE, THE DIASTOLE and THE ORRERY*, the file's own header lost THE ORRERY,
-`bun run index` stayed green, and the row was repaired by hand — which is
-exactly the failure the file's own comment says it exists to stop.
-
-To do: in `drift.ts`, for every run of two or more capitals in a row's text
-(`THE ORRERY`, `BULB QUEEN`, `SNAKE`, `PINBALL`), fail when that run is absent
-from the file's own header comment. Case-sensitive and whole-run, so ordinary
-prose cannot trip it. Two cases: a row naming a boss its file no longer
-mentions is caught; a row naming one it still does is not.
-
 ## Unverified at 501beac7: the PNG of MOVE and BURN standing on a real frame was n…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -2104,3 +2081,27 @@ The stronger version, if the owner wants it, is a test: every `BossKind` with a
 `DragTarget` of its own either has a `case` in `boss-cue.ts` or a `drawCueText`
 call in its drawing, and the table naming which is in one place. That is the
 `copies-table.ts` idiom pointed at a seam rather than a number.
+
+## SCATTER is THE WISP's strike and its page describes a bulb
+
+- **Found:** 2026-09-19, claude/queue-the-indexs-drift-check-reads-a-count-but-not-a-l
+- **Files:** `packages/render/src/body-hit-scatter.ts`, `packages/render/src/body-hit.ts`, `packages/render/src/body-spores.ts`
+- **Where:** cloud
+
+Turned up by the index's new proper-name check, which wanted to know why the
+row for `body-hit-scatter.ts` named THE WISP when the file never said so. The
+code is unambiguous — `body-hit.ts:120` is `WISP_HIT … strike: scatter` — so
+the row was right and the title line has been given the boss. What is left is
+the header's body, which calls the thing being killed **the bulb** four times
+over: *the bulb is a spore case*, *eleven spheres packed three deep inside
+it*, *well above where the bulb was*. `BULB_HIT` is a different strike
+(`pop`), so both cannot be true.
+
+Either the page describes a kill that moved from the bulb to the wisp and the
+prose was never brought over, or the pairing in `body-hit.ts` is the thing
+that is wrong and the drawing is a bulb's. This lane could not tell which from
+the code, and the picture is the evidence.
+
+To do: settle which body SCATTER belongs to, then make the page and the
+pairing agree. `body-spores.ts`'s eleven pins are the third voice — whichever
+body owns those owns this kill.

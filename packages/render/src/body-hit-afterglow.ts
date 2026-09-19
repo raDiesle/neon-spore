@@ -3,7 +3,7 @@ import type { Strike } from "./body-hit.js";
 import { mixHex, rgba } from "./hex.js";
 
 /**
- * AFTERGLOW — the nucleus is the last thing to go.
+ * AFTERGLOW — THE DART's strike: the nucleus is the last thing to go.
  *
  * The two answers beside this are about material: skin and fluid. This is
  * about **light**, because the slick's interior is a nucleus that sends a
