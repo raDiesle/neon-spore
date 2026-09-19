@@ -1938,6 +1938,7 @@ these, at tempo, on a phone-shaped screen.
 ## THE CANDLE's film says column 3 and its acts say column 2
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-the-candles-film-says-column-3-and-its-acts-say
 - **Files:** `packages/content/src/scenes/the-candle.ts`, `packages/content/test/scene-pages.test.ts`
 - **Where:** cloud
 
