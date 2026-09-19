@@ -74,7 +74,7 @@ bun run queue status   # DONE, IDLE or BUSY — is anything still being worked o
 bun run queue next     # hand out the first free item: branch + Taken: on main
 bun run queue take <n> # the same claim, without opening a lane for it
 bun run queue release <n>  # give back an item that was handed out, not started
-bun run queue done <n> # take an entry out once it has landed
+bun run queue done "<title>"  # take an entry out once it has landed — never <n>
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run index          # regenerate the file map in docs/INDEX.md
 ```

@@ -22,7 +22,7 @@
  * 2026 two sessions did the same six items in parallel for want of it.
  */
 
-import type { Item } from "./queue.js";
+import type { Item, Match } from "./queue.js";
 
 const PREFIX = "claude/queue-";
 
@@ -104,6 +104,54 @@ export function heldElsewhere(
 ): string | undefined {
   if (branchFor(item) === head) return undefined;
   return claimOn(item, refs);
+}
+
+/**
+ * **The guard a position has to get past**, and it is not the same guard for
+ * every verb.
+ *
+ * `heldElsewhere` above is the half that asks who is standing on the item, and
+ * it is enough for a verb that can be undone: `release` by a stale number gives
+ * a free item back, which is a sentence saying nobody was on it and nothing
+ * else. It is **not** enough for `done`, and 19 September 2026 is why. A lane
+ * closing an item had first written its own finding into `docs/queue.md` —
+ * which the queue's own preamble *requires*, in the commit that found it — and
+ * that entry sorted above the one being closed. The listing the lane had read a
+ * few minutes earlier was stale by exactly one row. `done 18` resolved onto a
+ * free entry nobody had worked, removed it, named it, and exited zero.
+ *
+ * So the two rules are in conflict — file a finding as you go, and read your
+ * number off a list — and this is the place to settle it: **a removal is never
+ * taken off a position.** `done` passes `removes`, and then a number gets no
+ * further however free the entry it landed on is. The refusal prints the title
+ * the number *did* resolve to, so the caller reads the same sentence that
+ * caught the incident, except now before the deletion rather than after it.
+ *
+ * A title is let through both halves, and that is the deliberate way out: a
+ * caller who wrote the words out has said which entry they mean, and no amount
+ * of renumbering can move what they said onto another one.
+ */
+export function refuseNumbered(
+  m: Match,
+  verb: string,
+  held: string | undefined,
+  removes: boolean,
+): void {
+  if (m.how === "title") return;
+  const say = `bun run queue ${verb} ${JSON.stringify(m.item.title)}`;
+  if (removes) {
+    throw new Error(
+      `${verb} takes a title, not a position: the listing renumbers the moment an ` +
+        `entry leaves the file, and this lane may have added one itself. ` +
+        `${JSON.stringify(m.item.title)} is what that number is on now — ` +
+        `if it is the one you mean, say it: ${say}`,
+    );
+  }
+  if (!held) return;
+  throw new Error(
+    `${JSON.stringify(m.item.title)} is taken — ${held} — and a position is not a name: ` +
+      `the listing renumbers. Say it in words if you mean it: ${say}`,
+  );
 }
 
 /** The items nobody has taken, in queue order. */

@@ -9980,3 +9980,37 @@ and the index it read at the start of the sitting is stale by the end. The
 title form works and the number form is a trap laid by the rule next to it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-bun-run-queue-done-n — a removal is never taken off a position
+
+The trap this sitting fell into an hour earlier, closed. `done` had one guard
+already — refuse a number for an item somebody *else* holds — and the hole was
+the case nobody had thought to ask about: a number that has drifted onto a
+**free** entry passes, deletes it, names it and exits zero. The guard moved out
+of `run.ts` into `claim.ts` beside the paragraph that argues for it, gained a
+`removes` flag, and `done` now refuses every number while printing the title
+that number *was* on. That last part is the fix, not decoration: the incident
+was caught only because the removed title was read, and now it is read before
+the deletion rather than after.
+
+`take` and `release` keep their numbers on purpose. Both can be given straight
+back, and typing a title to claim something is the friction that would push a
+sitting back onto positions everywhere else.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `run.ts`'s five commands, `match`/`pick` in `queue.ts`, `claimOn`/`heldElsewhere` in `claim.ts`, and the three documents that state the interface |
+| writing | 20 | `refuseNumbered`, rewiring `done` and `release`, five cases, the preamble paragraph, `CLAUDE.md` and `docs/commands.md` |
+| looking | 0 | nothing is drawn; the proof is `bun run queue done 1` refusing on the real file and leaving it unchanged |
+| friction | 5 | one Biome wrap after the new import list grew past a line |
+| landing | 10 | `format`, `check:fast` twice, `queue done` by title, the commit, `bun run land --keep` |
+
+**The bottleneck was deciding how far to go.** The entry proposed two fixes —
+refuse numbers everywhere, or have `take` record the title and `done <n>`
+verify it still resolves to the same one. The second is more machinery for a
+narrower guarantee, and it cannot help a `done` on an item claimed in an
+earlier sitting. Refusing the number for the one destructive verb is smaller,
+total, and explainable in a sentence; the twenty minutes went on convincing
+myself the reversible verbs did not need the same treatment.
+
+*Measured: the rows above are the session's own estimate.*

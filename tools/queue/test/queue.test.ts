@@ -1,7 +1,15 @@
 import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { branchFor, claimOn, slugFor, statusLines, statusOf, unclaimed } from "../claim.js";
+import {
+  branchFor,
+  claimOn,
+  refuseNumbered,
+  slugFor,
+  statusLines,
+  statusOf,
+  unclaimed,
+} from "../claim.js";
 import { removeItem } from "../edit.js";
 import { problemsIn, refuseUnlessWhole } from "../problems.js";
 import { promptFor } from "../prompt.js";
@@ -319,6 +327,46 @@ describe("pick", () => {
   it("says which of the two ways it landed, which is what `done` is guarded by", () => {
     expect(match(items, "1").how).toBe("number");
     expect(match(items, "Split the wave").how).toBe("title");
+  });
+});
+
+describe("what a position is allowed to do", () => {
+  const items = order(
+    parseItems(ENTRY, "queue"),
+    parseItems(ENTRY.replace("Split", "Finish"), "parked"),
+  );
+  const numbered = match(items, "1");
+  const named = match(items, "Split the wave");
+
+  it("refuses a number for `done` even when the entry is free", () => {
+    // 19 September 2026: the lane had filed its own finding above the item it
+    // was closing, so the number it had read a minute earlier was one row
+    // stale. The entry it landed on was nobody's, which is exactly why the
+    // holder check let it through and the entry went.
+    expect(() => refuseNumbered(numbered, "done", undefined, true)).toThrow(/takes a title/);
+  });
+
+  it("names what that number was on, so the wrong one is caught before the deletion", () => {
+    expect(() => refuseNumbered(numbered, "done", undefined, true)).toThrow(
+      /Finish the wave editor's cell panel/,
+    );
+  });
+
+  it("lets a title through, which is the way out", () => {
+    expect(() => refuseNumbered(named, "done", undefined, true)).not.toThrow();
+    expect(() =>
+      refuseNumbered(named, "release", "claude/queue-someone-else", false),
+    ).not.toThrow();
+  });
+
+  it("lets a number through for a verb that only gives something back", () => {
+    expect(() => refuseNumbered(numbered, "release", undefined, false)).not.toThrow();
+  });
+
+  it("still refuses a number for `release` when somebody else is standing on it", () => {
+    expect(() => refuseNumbered(numbered, "release", "claude/queue-someone-else", false)).toThrow(
+      /is taken/,
+    );
   });
 });
 

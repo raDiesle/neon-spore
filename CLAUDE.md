@@ -119,7 +119,9 @@ it only in the report, and never offer it as a background-task chip. The test:
 **A queue item is claimed before any work starts** — `bun run queue next` for
 one in its own lane, `bun run queue take <n|title>` when draining several in one
 sitting — and never one the list shows as taken. Finish it, `bun run queue done
-<n|title>`, land.
+"<title>"`, land. **`done` takes the title and refuses a number**: the listing
+renumbers the moment an entry leaves the file, and a lane that filed a finding
+has changed it itself.
 
 **A topic that needs the owner's answer is queued too**, with
 `- **Asks:** <question?>` under `Files:`, when there is decided, sized work in

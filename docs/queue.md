@@ -82,7 +82,7 @@ re-reads before it works; the entry itself is left as it was.
 `bun run queue next` *hands out* the first free one: it creates that item's
 branch, writes a `Taken:` line into the entry on `main` and pushes it, then
 prints a prompt naming the branch. The session checks that branch out in its own
-worktree, does the item, removes the entry with `bun run queue done <n|title>`,
+worktree, does the item, removes the entry with `bun run queue done "<title>"`,
 and lands; the entry goes and the branch goes with it, which releases the item
 at the moment the work reaches `main`. If a handed-out item is never started,
 `bun run queue release <n|title>` gives it back — the line comes off `main` and
@@ -99,6 +99,16 @@ and in that time other lanes land. Three entries in one morning were read
 against a tree that had moved — one was a third stale before it was claimed,
 one had its files rewritten under a landing that was already checking, and both
 cost more than the fetch would have.
+
+**A number is for reading, not for removing.** `take` and `release` accept the
+position a listing printed, because both can be given straight back. `done`
+does not: a removal off a stale position is the one mistake nothing in the tree
+records, and on 19 September 2026 it deleted a free entry nobody had worked and
+exited zero. What made the number stale was this file's own first rule — the
+lane had written its finding in above the item it was closing, as it is
+required to. So the two rules are settled in the tool: `done` takes the title,
+prints what the number *would* have been on, and removes nothing until somebody
+has said the words (`tools/queue/claim.ts`, `refuseNumbered`).
 
 **Marking one ongoing without opening a lane.** A session already in a worktree
 that picks an item up itself — draining several in one sitting, rather than
@@ -246,36 +256,6 @@ them. The swallow and the choke are opposites and have to be heard as such: one
 re-tightens a ring, the other loses one for good. All four stay out of the
 300-3000 Hz band, because the pair is saying a column and a count to each other
 the entire fight (`docs/spec/audio.md` §1).
-
-## `bun run queue done <n>` removes the wrong entry when the lane wrote a finding
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-bun-run-queue-done-n-removes-the-wrong-entry-whe
-- **Files:** `tools/queue/run.ts`, `tools/queue/queue.ts`, `docs/queue.md`
-- **Where:** cloud
-
-It happened, and it silently deleted an item nobody had worked. The lane
-closing item 18 first wrote its own finding into this file — which is what the
-preamble above *requires*, in the same commit as the work that found it — and
-that entry sorted above the one being closed. `bun run queue done 18` then
-removed THE UNDERTOW's look entry instead, reported the title it had removed,
-and exited zero. It was noticed only because the reported title was read; the
-fix was to restore the entry by hand out of `git show HEAD:docs/queue.md` and
-re-run `done` with a title.
-
-**The two rules are in conflict and the tool is the place to settle it.** An
-index printed by `bun run queue` at the start of a sitting is stale the moment
-the same sitting obeys the file-a-finding rule, and every lane that obeys it is
-exposed. `take` has the same hole for the same reason.
-
-The smallest fix that actually closes it: make `done` and `take` refuse a bare
-number, and print the title form in the listing so the number is never the
-thing that gets copied. Or, if a number is worth keeping for typing: have
-`queue next`/`take` record the *title* it handed out and have `done <n>` check
-the number still resolves to it, failing loudly when it does not. Either way
-the current behaviour — delete something, name it, exit zero — is the one
-outcome that must not survive, because the entry is gone from the file and only
-a reader of the output would know.
 
 ## The phone's back gesture leaves the game instead of asking
 
