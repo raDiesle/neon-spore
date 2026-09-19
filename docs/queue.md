@@ -652,6 +652,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE THROAT changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-the-throat-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/config-throat.ts`, `packages/sim/src/throat-hash.ts`, `packages/sim/src/throat-pull.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
