@@ -1950,3 +1950,17 @@ THE TASTER and THE SINEW are about fifty lines together, which leaves both
 pages a lane's worth of room. `waves.ts` gains one import and one spread; the
 new page's header says what `act-7e.ts`'s says about why it is a page of seven
 and not an act of its own.
+
+## Unverified at 2154cbd2: THE THROAT's four cues on a real frame — the PNG of the…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-c.ts`
+
+*THE THROAT says the word on the beat it is worth something* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
+
+- THE THROAT's four cues on a real frame — the PNG of the words standing over the gum, the body in the mouth and the rock in the gullet was never taken
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

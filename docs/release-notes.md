@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 2154cbd2 — THE THROAT says the word on the beat it is worth something
+
+The field's whole reading of THE THROAT was `FLING`, on any gum, anywhere, in every phase. A gum flies level along the row it was on when the thumb lifted (`gumSwiped`) and `throatChoked` refuses one arriving on any row but the mouth's, so a word that stood for a twenty-beat fall asked for a gesture worth something on one beat of it. The reading is `boss-cue-read-k.ts` now, a page of its own: `FLING` on a gum standing on the mouth's row and never before it; `FIRE` to the navigator, or `MOVE` to the pilot when the carriage is elsewhere, on a living body held in the mouth with one inhale to live; `BRAKE` on both screens for a rock climbing the gullet with no hand on it; and nothing at all while the tube everts. Three things stay deliberately silent — a rock already standing in the mouth, which no bolt answers (`isWardable`); a body a hand is already braking (`gripBrakes`); and the column and the count, which are the pair's own sentence.
+
 ## 2026-09-19 · 188832fe — The room takes the view switch away, and not the view
 
 Choosing P1 in the game's view switch hid the switch itself, so the desk view was a door that locked behind whoever walked through it. The switch went with the test rig on 3 September on the reading that a room has already dealt a seat, which is true in a room and not at a desk; the seat cards left as the way back live on the menu's rig page, three undocumented presses of the spore away with nothing on the screen saying so. So the switch now goes under `body.in-room` rather than `body.player-view`: it stands in every view solo, it still goes on a phone that was dealt a seat, and LEAVE ROOM on the front page of the menu stays the way out of that.
