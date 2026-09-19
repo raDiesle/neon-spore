@@ -55,6 +55,31 @@ split**, since the move itself was mechanical: four separate greps
 (`docs/spec/`, test comments, scene comments, `docs/INDEX.md`) each turned up
 one more citation a plain `git mv` would have left stale.
 
+## 2026-09-19 — queue-the-hive-says-the-word — the boss whose secret was never the column
+
+THE WELL, read the same day, turned out to have no word at all — every candidate
+leaked the one thing its clock keeps secret. THE HIVE looked like the same
+question at first (a column and a colour split across two screens) and turned
+out to be THE SCUTTLE's shape instead: an open breach's column is drawn the
+same on both glasses, only its colour split, so a cue naming the reach leaks
+nothing either seat does not already hold. The two secrets that are real — the
+colour and the swell — stay the pair's to say out loud, and the field only
+marks the two moments a thumb has work: `CARRY` to reach an open breach,
+`PRESS` once the cannon is under it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | `hive.ts`, `hive-shot.ts`, `hive-step.ts`, `hive-draw.ts`, `hive-shape.ts`, then THE SCUTTLE's own reading page for the precedent that decided the shape |
+| writing | 25 | `boss-cue-read-v.ts`, its wiring into `boss-cue.ts`, `boss-cue-hive.test.ts`, the guide trim, `bosses.md` §11.14, `briefings.md` |
+| looking | 0 | a cloud session's rule: the PNG is queued unverified |
+| friction | 0 | none — `bunx tsc --noEmit`, the new test file and `bun run lint` all passed first try once the file's own header comment was moved back above its consts, for `docs/INDEX.md`'s sake |
+| landing | 15 | `check:fast`, `index` (by hand, once, for the row the tool would not rewrite), `lint`, the commit and the land |
+
+**The bottleneck was deciding the shape rather than building it**: THE WELL's
+precedent (no cue at all) and THE SCUTTLE's (a gated `MOVE`/`FIRE` pair) look
+alike from the queue entry alone, and only reading where each boss draws its
+column — on one screen or both — tells them apart.
+
 ## 2026-09-19 — queue-the-ledger-changes-state — four hands on one cord
 
 THE TASTER's lane one boss earlier had it easy: its fan is drawn whole on both

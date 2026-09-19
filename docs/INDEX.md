@@ -826,6 +826,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-s.ts` | **What THE REPRISE is asking for** — the readings' page `s` |
 | `packages/render/src/boss-cue-read-t.ts` | **What THE SCUTTLE is asking for** — the readings' page `t` |
 | `packages/render/src/boss-cue-read-u.ts` | **What THE DIASTOLE is asking for** — the readings' page `u` |
+| `packages/render/src/boss-cue-read-v.ts` | **What THE HIVE is asking for** — the readings' page `v`, a letter rather |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |

@@ -2144,6 +2144,19 @@ the colour on the navigator's screen and the swell on the pilot's, she could
 fire what she saw and he could slide to what he saw, and nobody needed to
 say anything at all.
 
+**The field says the word too, since 19 September 2026** (`render/boss-cue-read-v.ts`).
+An open breach stands in the same column on both screens — nothing about
+its place is split, only its colour — so the column was never the secret a
+cue could leak. `CARRY` / `MOVE` marks the cannon, his, whenever an open
+breach stands unsealed and he has not yet reached it; `PRESS` / `FIRE`
+replaces it on the breach itself, hers, the instant `world.cannonCol`
+agrees with it. Neither word ever says which colour or which of two
+twinned breaches to take first — that pair of sentences is still the
+fight's, said out loud (`docs/decisions.md` #34's second rule). The
+briefing came down with it: the pilot no longer has to be told which open
+breach to reach, only the colour and the swell, which are his and hers to
+say regardless of what the field marks.
+
 **Where this departs from the design, and why.** The design left four
 things open and called each a decision rather than a detail; here is each,
 by name. *An insect is a rock, warded and never shot*: a body the cannon

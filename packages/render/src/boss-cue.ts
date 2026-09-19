@@ -20,6 +20,7 @@ import { wellCues } from "./boss-cue-read-r.js";
 import { repriseCues } from "./boss-cue-read-s.js";
 import { scuttleCues } from "./boss-cue-read-t.js";
 import { diastoleCues } from "./boss-cue-read-u.js";
+import { hiveCues } from "./boss-cue-read-v.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -169,6 +170,8 @@ function cuesOf(
       return cairnCues(l, world, boss);
     case "reprise":
       return repriseCues(l, world, boss);
+    case "hive":
+      return hiveCues(l, world, boss);
     case "splice":
       return spliceCues(l, world, boss, beatPhase);
     case "mirror":

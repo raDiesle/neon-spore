@@ -1036,6 +1036,20 @@ rather than corrected: the tear twitches on every echoed arrival, on both
 screens, so the gaps between arrivals are a thing the picture now draws and the
 half worth keeping for him is the colour.
 
+THE HIVE's guide was rewritten 19 September 2026, when the field learnt to say
+`CARRY` and `PRESS` for the reach and the shot (`render/boss-cue-read-v.ts`).
+Its pilot's second step had read *slide the cannon under the breach your
+partner names* — a column he was already shown, in the colour only he reads,
+so naming it was never hers to do. `CARRY` / `MOVE` stands on his own strip
+whenever an open breach waits unsealed and he has not reached it yet;
+`PRESS` / `FIRE` replaces it on the breach itself, hers, the beat his cannon
+does. Neither word says the colour, nor which of two twinned breaches to take
+first — that pair of sentences is the fight, and stays his and hers to say.
+The step that named the breach for him is gone; the three that are still
+theirs — the colour as it opens, the swell three beats ahead, and getting
+there before it does — are unchanged, because none of them is a place the
+field may mark.
+
 #### The ghost thumb is derived, never authored
 
 A scene names a control and, for a strip, a column. Where that control *is*
