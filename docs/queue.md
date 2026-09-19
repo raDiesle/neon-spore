@@ -2333,3 +2333,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 58c05186: the box's picture on a real frame — a cloud session has…
+
+- **Found:** 2026-09-19, claude/queue-the-instar-says-the-word
+- **Files:** `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/waves/act-7e.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/boss-cue.ts`
+
+*THE INSTAR's scanner box learns the kind line the owner asked for* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
+
+- the box's picture on a real frame — a cloud session has no screen
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
