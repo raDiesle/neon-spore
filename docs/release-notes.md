@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 67e4aa15 — THE THROAT's clock is heard: inhale, choke, swallow, eversion
+
+The two hands on the gullet had sounds and the gullet itself did not. Its own clock is four moments, and all four are things the pair has to hear while both players are looking at the other half of their own screen: the breath player 2 has been counting down to, a flung gum landing, a mouthful bought back, and the tube turning through its own mouth.
+
 ## 2026-09-19 · 93b3a069 — Queue the wave-lost candidates and two input findings
 
 The owner asked for VERSUS alternatives to the WAVE LOST veil — much slower, far fewer elements, a single slime or a splash coming toward the viewer — and that is a look, so it goes in the queue as a local item rather than onto the field. The entry records what ships (thirteen rivulets, 3.4 seconds, the ship's violet), names the seam as LOST_LOOK.veil plus a directory under tools/versus/candidates, proposes four candidates with the owner's two first, and holds three rules: the breach stays visible, RETRY WAVE and QUIT may not move, and nothing outlives a frame without going in Effects.
