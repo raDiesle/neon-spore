@@ -196,9 +196,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE TASTER",
     sentence: "The one where the colour you keep firing is the colour that stops working.",
     guide: {
-      both: "Strike each blade off with the colour it is not. Never shoot a column whose blade is gone. The last two only the beam opens.",
-      p1: "1. Say the colour on the next blade.\n2. Hold the cannon on that blade's column.\n3. Never slide to a column whose blade is already gone.\n4. On the last two, hold the column for the beam.",
-      p2: "1. Fire the other colour: always the one the blade is not.\n2. Keep the two colours you have fired level, or the next blade grows in the one you use most.\n3. On the last two, hold a colour for the beam.",
+      both: "Strike each blade off with the colour it is not. Four shots into the gaps stop the fan re-edging. The last two only the beam opens.",
+      p1: "1. Say the colour on the next blade.\n2. Hold the cannon on that blade's column.\n3. Once it hurries, park in a gap: four shots there stop the re-edge.\n4. On the last two, any column of the crest will do.",
+      p2: "1. Fire the colour the blade is not.\n2. Keep the colours level: the next blade takes the one you use most.\n3. A gap takes either, and still feeds the count.\n4. On the last two, hold the colour you have fired least.",
       scene: "theTaster",
     },
     entries: [

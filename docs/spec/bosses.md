@@ -4555,7 +4555,11 @@ muzzle before the first edge sets are spread across two pages. The film takes
 no hit and ends before the first shot leaves the window; the hurrying, the
 crest cut and the beam are the guide's prose. Proved in
 `content/test/scene-films.test.ts` as the grows, sets, fires, the thickening,
-the pare and both shears in order, with no cut, no close and nothing out.
+the pare and both shears in order, with no cut, no close and nothing out. One
+page was rewritten on 19 September 2026, when the field learnt to say the
+column: `PLAYER 1 HOLDS THE NEXT ONE` became `EVERY SHOT FEEDS THE COUNT`,
+which is this fight's trap and was nowhere in the briefing at all
+([briefings](briefings.md) §7).
 
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 centred with nothing out of the crest, opens from the middle outward one blade
@@ -4580,6 +4584,34 @@ does not inherit (`render/test/taster-frame.test.ts`). One still frame of the
 fight has been looked at; **nothing of it has been watched at tempo**, and the
 wave went into `tools/perf/baseline.json` unweighed.
 
+**What the field says** (`render/src/boss-cue-read-b.ts`, 19 September 2026,
+[decisions](../decisions.md) #34). It shipped with `HOLD` / `BURN` on a closed
+fan and `PRESS` / `SHEAR` while one stood, two words about the verb and nothing
+about the lane — THE GORGE's and THE CURTAIN's finding of the same morning, a
+third time. Every shot into this boss is read off the column it leaves in
+(`tasterBladeAt`), and the crest has **three** of them, which are three
+different fights: a **standing blade**, struck off by the colour it did not grow
+toward (`SHEAR`); the **soft crest** where one used to be, which takes either
+colour, counts nothing on the balance sheet, and whose `tasterCrestCuts` shots
+cut it through so the fan can never re-edge (`CUT`, the simulation's own word);
+and a blade **still growing**, where the shot is simply spent.
+
+`CARRY` / `MOVE` is the pilot's, and it is careful about that third column. It
+stands while his own has nothing that can be answered **and** some other column
+can — never merely because his blade is growing, since that blade will stand in
+his column and a word that walked him off it is THE CANDLE's defect a fourth
+time. At the top of the fight nothing can be answered anywhere and nothing is
+said. The words about the fan stand on the fan's middle and never on a blade
+(*which* blade is the pair's own sentence); `CUT` stands on his own column,
+where the crest is already open and his cannon is already parked, so it names
+nothing he is not looking at. The colour is never said, and the colour the beam
+has to be is shown to neither seat (`tasterWeak`).
+
+**The crest was the half the briefing had backwards.** Both guide halves said
+*never shoot a column whose blade is gone*, which is the opposite of the rule:
+those four shots into the gaps are the only answer to the third movement
+(`reEdge`, and `taster-step.ts` says so in as many words). Corrected with this
+lane. `render/test/boss-cue-taster.test.ts` proves the six cases.
 ## 11.26 THE SINEW — the boss that asks how hard, not when
 
 > The one where the answer is a magnitude, and neither of you can see the

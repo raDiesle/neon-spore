@@ -8,7 +8,6 @@ import {
   gorgeBoss,
   startWave,
   step,
-  type TasterState,
   tasterBoss,
   ticksPerBeat,
   undertowBoss,
@@ -44,8 +43,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * `boss-cue-read-m.ts` and the column that reading found, and THE GORGE's to
  * `boss-cue-gorge.test.ts` the same day with `boss-cue-read-n.ts`, for the same
  * reason twice over — the column was missing there too. THE CURTAIN's went to
- * `boss-cue-curtain.test.ts` an hour later, for the third time: its reading
- * stayed in `boss-cue-read.ts`, which has the room, and its cases did not.
+ * `boss-cue-curtain.test.ts` an hour later, for the third time, and THE
+ * TASTER's to `boss-cue-taster.test.ts` after it, for the fourth: both readings
+ * stayed where they were, which had the room, and their cases did not.
  *
  * The readings are asked **directly** rather than through a frame, for
  * `undertow-frame.test.ts`' reason turned around: what a pixel proves is that
@@ -78,12 +78,6 @@ function opened(kind: Parameters<typeof waveWith>[0], beats = 1): World {
   return world;
 }
 
-/** The word this seat is given, or nothing. */
-function word(world: World, role: ViewRole): string | null {
-  const l = LAYOUT[role];
-  return bossCue(l, world, 0, HULL(l))?.word ?? null;
-}
-
 /** The whole cue this seat is given. */
 function cue(world: World, role: ViewRole): BossCue | null {
   const l = LAYOUT[role];
@@ -94,21 +88,6 @@ function boss<T>(found: T | null, what: string): T {
   if (found === null) throw new Error(`the ${what} wave installed no boss`);
   return found;
 }
-
-describe("THE TASTER", () => {
-  it("asks the navigator to shear while the fan stands, and to burn once it closes", () => {
-    const world = opened("taster");
-    const t: TasterState = boss(tasterBoss(world), "taster");
-    const blade = t.blades[0];
-    if (blade === undefined) throw new Error("no blade 0");
-    blade.setBeat = world.beat;
-    blade.edge = "red";
-    expect(word(world, "p2")).toBe("SHEAR");
-    expect(word(world, "p1")).toBeNull();
-    t.shorn = t.blades.length - CFG.tasterClosedBlades;
-    expect(word(world, "p2")).toBe("BURN");
-  });
-});
 
 describe("what a cue may say", () => {
   /** Every cue six arrangements produce, on every seat. */

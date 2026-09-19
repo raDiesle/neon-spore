@@ -81,10 +81,16 @@ export const THE_TASTER: GuideScene = {
       text: "CYAN AGAIN · STRUCK OFF",
       anchor: { at: "control", control: "fireCyan" },
     },
+    // PLAYER 1 HOLDS THE NEXT ONE stood here. The field says his column now —
+    // `CARRY` / `MOVE` on the cannon while the one he is in has nothing that can
+    // be answered (`boss-cue-read-b.ts`) — so the page takes the half no cue may
+    // carry, and in this fight it is the trap itself: the ledger counted the
+    // colour of every shot before it got anywhere, the gaps included
+    // (`taster-shot.ts`, `sim/spend.ts`).
     {
       tick: 1140,
       seat: 1,
-      text: "PLAYER 1 HOLDS THE NEXT ONE",
+      text: "EVERY SHOT FEEDS THE COUNT",
       anchor: { at: "control", control: "cannon" },
     },
     {

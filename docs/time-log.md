@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-taster — a word per column, and a guide that was wrong
+
+The third of these in a row and the first to find something worse than a stale
+page. Every shot into THE TASTER is read off the column it leaves in, and the
+crest has three of them — a standing blade, the soft crest where one used to be,
+and a blade still growing. The middle one had no word on the field at all, and
+it is the answer to the fight's third movement: four shots into the gaps and the
+fan can never re-edge. Both guide halves said *never shoot a column whose blade
+is gone*, which is the flat opposite of that.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `taster.ts`, `taster-shot.ts`, `taster-step.ts`, `taster-read.ts` and the two splits; longer than the lane before it because the fan's three columns are the finding and none of them was in the entry |
+| writing | 10 | `CUT` and the pilot's column, six cases, one film page, both prose halves, the spec's two sections |
+| looking | 0 | none: no pixel moved that `taster-frame.test.ts` does not already take |
+| friction | 5 | `check:fast` passed a test file whose import block `lint` then refused, a second time — `format` does not sort and `imports:sort` is not in either check, so the order is always: `check:fast`, then `lint`, then `imports:sort`, then `lint` again |
+| landing | 10 | `lint`, `imports:sort`, `check:fast` — 5,354 tests across 40 shards, 141 s wall — the commit and `land`'s own full check |
+
+**The bottleneck was the fight, not the words, and it paid for itself.** Reading
+`taster-shot.ts` closely enough to see that the crest takes either colour is
+what found the guide saying the opposite. A lane that had only moved the verbs
+around would have left it.
+
 ## 2026-09-19 — queue-the-curtain — two words, neither with a lane
 
 The same finding as the lane before it, on the boss next door: `SHOVE` on the

@@ -619,12 +619,15 @@ hand still draws.
 | THE GORGE | `ONE MORE · IT BURSTS` | `FOUR BEATS OR IT TORCHES` | `PRESS` / `PIERCE` on the intake, hers alone, while the cannon is under it — beside `HOLD` / `PINCH` on his |
 | THE CURTAIN | `HOLD IT · CARRY IT FOUR OVER` | `FOUR OVER AND IT IS CLEAR` | `CARRY` / `SHOVE` on the sheet — `CARRY` is the kind line, so the page was saying the field's word to get to its count |
 | THE CURTAIN | `FIRE ITS COLOUR AS IT BARES` | `ITS COLOUR OR IT FIRES BACK` | `PRESS` / `FIRE` on the core, hers alone, once the cannon is in its column |
+| THE TASTER | `PLAYER 1 HOLDS THE NEXT ONE` | `EVERY SHOT FEEDS THE COUNT` | `CARRY` / `MOVE` on the cannon, his alone, while the column he is in has nothing that can be answered |
 
-**Two other films of the twelve had nothing to take, and that is the useful
-half of the result.** THE TASTER and THE DIASTOLE spend their pages on a
-colour, a count or which screen holds which half — `THE OTHER COLOUR ·
-ALWAYS`, `PLAYER 2 HOLDS RED · ON 15` — and a cue may never say any of those
-(#34's *reconsider if*). THE GORGE was a third here and gave up one page on
+**One other film of the twelve had nothing to take, and that is the useful half
+of the result.** THE DIASTOLE spends its pages on a colour, a count or which
+screen holds which half — `PLAYER 2 HOLDS RED · ON 15` — and a cue may never say
+any of those (#34's *reconsider if*). THE TASTER was a second here and gave up
+one page on 19 September 2026, to the column rather than to a verb; `THE OTHER
+COLOUR · ALWAYS` is still the shape of the nine that stayed. THE GORGE was a
+third here and gave up one page on
 19 September 2026, which is the whole of what its reading could take: twelve
 of its thirteen pages are the colour, the count, the wrong colour's cost or
 which screen holds which half, and `FOUR CYAN · IT GOES CLEAR` is still one of
@@ -695,6 +698,24 @@ kind line rather than the verb: `CARRY` over `SHOVE` was what
 ever for. His third prose step was the field's word outright — *when they say
 BARE, put the cannon in the core's column* — and takes the roll-back clock in
 its place; hers takes the column she has to name and the lobe each hit drops.
+
+THE TASTER's one row is the same morning and the fourth reading to find the same
+thing. Every shot into that fan is read off the column it leaves in, and the
+crest has three of them: a standing blade to shear, the soft crest where one
+used to be, and a blade still growing where the shot is spent. The middle one
+had no word at all, and it is the answer to the fight's third movement — four
+shots into the gaps and the fan can never re-edge — so the reading gained `CUT`
+and the pilot gained `MOVE` for the column that answers nothing. His page went
+with it: the field says his column now, and what it cannot say is the trap, that
+the ledger counted the colour of every shot before it got anywhere, the gaps
+included.
+
+**And this lane found a briefing that was not stale but wrong.** Both of THE
+TASTER's prose halves said *never shoot a column whose blade is gone*, which is
+the flat opposite of the rule — those shots are the only thing that stops the
+re-edge (`sim/taster-step.ts`, `reEdge`). A page the field has taken over is
+read again by whoever takes it over, which is how this was found at all, and it
+is the strongest argument for doing these lanes that has come out of them.
 
 THE UNDERTOW's three later rows are 18 September 2026, when its reading grew
 from four moments to all five of the fight's phases (`boss-cue-read-j.ts`) and
