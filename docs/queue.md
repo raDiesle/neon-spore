@@ -2199,6 +2199,7 @@ what the rest of this file holds.
 ## A cloud shell's own `bun` is not the pinned one, silently
 
 - **Found:** 2026-09-19, claude/queue-cloud-shell-bun-not-pinned
+- **Taken:** 2026-09-19, claude/queue-a-cloud-shells-own-bun-is-not-the-pinned-one-sil
 - **Files:** `tools/hooks/session-start.ts`
 - **Where:** cloud
 
