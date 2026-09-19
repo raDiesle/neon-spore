@@ -2199,3 +2199,18 @@ alignment and assert the readout says so rather than showing nothing.
 `orreryRingHeard` already guards the one case that would have been a real
 defect — `if (b.brokeBeat === world.beat) return;`, a ring wound off and the
 next one wound on in the same beat.
+
+## Unverified at ce22d819: THE ORRERY's rehearsal film watched at tempo — the thre…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/test/scene-films.test.ts`
+
+*THE ORRERY: a shot cracks a ring and the pilot's thumb takes it off* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
+
+- THE ORRERY's rehearsal film watched at tempo — the three winds, the split one around the rock, and whether a turn and a half an organ feels like a decision
+- the OPEN mark seen on a real frame of the cracked ring
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

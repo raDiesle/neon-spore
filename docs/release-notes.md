@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · ce22d819 — THE ORRERY: a shot cracks a ring and the pilot's thumb takes it off
+
+A landed shot no longer takes a ring away. It jams the ring two organs short of the bottom and stops its drift, and the shaft stays shut until the pilot winds the gap home — the detent that lands it on slot 0 is what takes the ring off. So every ring costs two gestures off two seats, her count and his trigger and then his thumb, and the pair has one sentence to learn: shoot it, then turn it open.
+
 ## 2026-09-19 · 1172a97b — THE CANDLE says the word on the field, and the briefing comes down
 
 The field now writes MOVE on the cannon the whole time it is out from under the glow, and FIRE on the glow once it is under it. The shipped reading put MOVE on the cannon only while the boss was eating and the pilot stood in the column it faces, which is the one moment he must stand his ground: where the flame is turned at the glow's own column, a bolt is eaten but the beam is not, so the word walked him off the only column a shot lands from. The column the glow hangs over drifts every few beats and is the whole of the pilot's job; nothing on his band said so, and it was the guide's first line.
