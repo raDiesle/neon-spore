@@ -690,6 +690,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE CANDLE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-the-candle-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/candle-hash.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/candle.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
