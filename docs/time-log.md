@@ -22,6 +22,54 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-cairn — the word it had none of, and the clock it may not be timed on
+
+The eighth of this family, and the first whose boss had **no word for the gesture
+it is named after**. THE CAIRN fell through `cuesOf`'s `default` on the one fight
+where both bands are dead: no bolt reaches the pile and the shield has nothing to
+turn on a thing that is not falling, so the only answer to it is a grip carried
+sideways across the stack, and a pair meeting it with nothing on the field would
+spend the opening firing at a body a bolt goes straight past. `CARRY` over `PULL`
+now stands on the stack, `seat: null` because the carry is either seat's, going
+quiet only for the beat of quiet a carry costs — THE CURTAIN's `SHOVE` on the
+same gesture.
+
+**The work was deciding it is one word and not two.** The obviously useful word
+is *pull now, it is about to choose for you* — and it is forbidden: the shed's
+column, its lane and the ring shaking on the stone that is going are drawn on
+player 1's screen alone, so a word that arrived or hurried as the patience ran
+out would be his gauge read out on her glass by its own arrival, which is THE
+LEAD's finding one boss on. And the ward cannot be cued either, because what
+comes away is a plain `meteor` and no boss's reading cues an ordinary body (THE
+GORGE's fourth silence) — with seven able to be in the air at once, a frame on
+one would say that one is the dangerous one when what is dangerous is that there
+are several.
+
+**The defect was a cadence backwards.** The navigator's half said *move the plate
+under the rock your partner calls first, then under the one you pulled*, and the
+order is the other way round by twelve beats against twenty: every departure
+resets the shed clock and redraws the column, so the called rock is eight beats
+from even starting while the rock already in the air is twelve from the hull. A
+dome sent to the announced lane first stands in an empty column for eight beats
+and the rock they pulled themselves lands. Both halves are rewritten; the pilot's
+had also spent a step on the gesture the field now says.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the pile's own `drawCueText` grep first, which is the entry this family filed yesterday and came back empty — so a reading page and not a `cairn-word.ts`; then `sim/cairn.ts` for the two ways a unit leaves, the six `render/cairn-*.ts` for which of them is on one screen, `content/controls.ts` and the fixture's `["guard"]` group against the guide's actual text, and five reading pages for the house precedents a `seat: null` carry already has |
+| writing | 15 | `cairnCues` with the argument for one word and its five silences, six cases in a new `boss-cue-cairn.test.ts`, the guide's three halves, two film captions with the paragraph naming which cue took each verb, `The words` and a `The rehearsal` §11.11 never had, two rows and a paragraph in `briefings.md`, the two queue entries, and THE CAIRN's four op-count rows remeasured — a cue is a scan frame and two lines of text, so `fillRect` is four higher on every frame and `fillText` two, on both seats because the word stands on both |
+| looking | 0 | nothing new is drawn: the cue text and its placement shipped with the family |
+| friction | 10 | a comment written beside a wave entry is deleted by the director's next save — `serialize.ts` keeps only the file's own header — and nothing says so to a wave author, so it passed `lint`, the typecheck and `packages/content`'s tests and was caught by a round-trip test in another package 130 seconds into `check:fast`, which is a queue entry; a queue title over 80 characters is another red check at the same distance; `bun run index` does not rewrite a blurb whose *header* changed — it reports only rows added and dropped, and the line itself is hand-written — so `boss-cue-read-d.ts`'s row was stale after the edit and had to be corrected by hand and re-checked; and `bun run queue take` recorded the claim under a branch this lane is not on, which is the finding filed in `docs/queue.md` |
+| landing | 15 | two `check:fast` runs at ~150 s — the first came back with five red tests, four of them the lane's own housekeeping (the budget rows, the wave comment, the file's 250 lines, the queue title) and none of them the work — plus a 67-second rerun of those four, `lint` twice with an `imports:sort` between, `index` twice, the commit and the push |
+
+**The bottleneck was licensing the word rather than writing it.** Every candidate
+this boss offers is a reading of something one seat alone is shown — the pile's
+patience, the lane it chose, where the dome is standing — and the only word left
+is the one that is true from the first beat to the last and identical on both
+screens. Proving *that* takes reading both screens' pictures end to end and two
+of the family's earlier findings, and no test can fail on any of it, so all of it
+is in the comment.
+
 ## 2026-09-19 — queue-the-lead — the word that cannot exist, and the beat the stalk already added
 
 The seventh of this family and the first whose finding is an **absence**. THE

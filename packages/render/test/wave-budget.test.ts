@@ -517,57 +517,63 @@ const SCENES: readonly Scene[] = [
     // is before each mark, so `fill` fell by more than a quarter and the
     // radial gradients by half — the ordered log with the window is the log
     // without it minus whole marks (`cairn-window.test.ts`).
+    // All four rows were remeasured on 19 September 2026, when the field learnt
+    // to say `PULL` on the stack (`boss-cue-read-d.ts`): a cue is a scan frame
+    // and two lines of text, so `fillRect` is four higher on every frame and
+    // `fillText` two, and the frame's own interference is the `stroke` and
+    // `save` either side of it. The word stands on both screens, because the
+    // carry is either seat's, so both seats' rows moved by the same amount.
     rows: {
       p1: [
         {
-          fillRect: 60,
-          stroke: 159,
-          fill: 287,
+          fillRect: 64,
+          stroke: 162,
+          fill: 283,
           clip: 14,
-          save: 179,
+          save: 181,
           drawImage: 49,
           createLinearGradient: 132,
           createRadialGradient: 79,
           "new Path2D": 70,
-          fillText: 4,
+          fillText: 6,
         },
         {
-          fillRect: 60,
-          stroke: 161,
-          fill: 288,
+          fillRect: 64,
+          stroke: 164,
+          fill: 284,
           clip: 14,
-          save: 179,
+          save: 181,
           drawImage: 49,
           createLinearGradient: 121,
           createRadialGradient: 57,
           "new Path2D": 45,
-          fillText: 4,
+          fillText: 6,
         },
       ],
       p2: [
         {
-          fillRect: 59,
-          stroke: 162,
-          fill: 294,
+          fillRect: 63,
+          stroke: 165,
+          fill: 290,
           clip: 14,
-          save: 180,
+          save: 182,
           drawImage: 48,
           createLinearGradient: 131,
           createRadialGradient: 79,
           "new Path2D": 68,
-          fillText: 4,
+          fillText: 6,
         },
         {
-          fillRect: 59,
-          stroke: 164,
-          fill: 295,
+          fillRect: 63,
+          stroke: 167,
+          fill: 291,
           clip: 14,
-          save: 180,
+          save: 182,
           drawImage: 48,
           createLinearGradient: 120,
           createRadialGradient: 57,
           "new Path2D": 45,
-          fillText: 4,
+          fillText: 6,
         },
       ],
     },

@@ -803,7 +803,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-draw.ts` | **The cue this screen is owed, drawn**: the frame on the mark, and the two lines beside it |
 | `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER and THE VANE are asking for** — page two of the readings |
 | `packages/render/src/boss-cue-read-c.ts` | **What THE LEDGER, THE LEAD, THE SCUTTLE and THE DIASTOLE are asking for** — page three of the readings |
-| `packages/render/src/boss-cue-read-d.ts` | **What THE STARE is asking for** — page four of the readings |
+| `packages/render/src/boss-cue-read-d.ts` | **What THE STARE and THE CAIRN are asking for** — page four of the readings |
 | `packages/render/src/boss-cue-read-e.ts` | **What the rounds are asking for** — page five of the readings, starting with THE MIRROR |
 | `packages/render/src/boss-cue-read-f.ts` | **What the bosses with a handle on the field are asking for** — page six of the readings |
 | `packages/render/src/boss-cue-read-g.ts` | **What the rounds drawn as a chart are asking for** — page seven of the readings, opened for THE FLEET |
