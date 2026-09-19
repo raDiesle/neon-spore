@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · fcd0ee34 — THE GORGE says the column, and the briefing comes down
+
+The field now writes MOVE on the cannon whenever it is out of the column a shot is owed in — a full intake, or the mouth — and keeps the navigator's word back until he is there. The shipped reading said every gesture the fight has, PIERCE and PINCH over a full intake and BURN or PRY over the mouth, and never named the column any of them has to be taken in: a bolt and the beam both leave the cannon's own column and gorgeStruck is a no-op outside it, so the pilot held a whole fight with one word on his screen and nothing at all on the two moments it cannot be finished without him. It is THE CANDLE's defect of this morning the other way round — there the word walked him off the only column a shot lands from, here there was no word.
+
 ## 2026-09-19 · 08b02f8b — THE ORRERY says TURN when the rings can never line up again
 
 The three orbits share factors on purpose and the pilot's thumb writes an anchor, so one stray organ can wind the rings into a parity where the shaft never opens on any beat. Six of the outer ring's eight positions are one. Nothing was wrong when it happened — a shot on a shut shaft costs nothing and the rings go on turning — so the pair went on counting towards a beat that was not coming, and patience made it worse. That is the one failure a co-op fight cannot afford to be silent about.
