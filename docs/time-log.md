@@ -11075,3 +11075,29 @@ only work was placing them correctly on a table that had to keep every
 number unique while growing by two.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-cloud-shell-bun-not-pinned — a false 35-test failure, from the wrong `bun`
+
+`bun run check` came back with 35 failures in `apps/server/test/*` after a
+docs-only commit that could not plausibly have caused them. `bun --version`
+showed `1.3.11`, the image's own, rather than the pinned `1.4.2` this repo's
+`.bun-version` requires: `session-start.ts`'s `PATH` fix had not taken in
+this continued session. Filed as its own entry rather than fixed here,
+because the fix belongs in `tools/check` and `tools/land` themselves and this
+lane's file is a skill document.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the 35 failure names and the first one's file, `apps/server/test/room.test.ts` |
+| writing | 10 | the queue entry |
+| looking | 0 | none needed |
+| friction | 20 | a standalone re-run of the failing file timed out entirely rather than reproducing the shard's flake-shaped failures, which is what pointed at the toolchain rather than the test; `bun --version` was the check that found it |
+| landing | 10 | `format`, the queue's own test, and this landing |
+
+**The bottleneck was trusting the check's own report over the binary that
+produced it.** Thirty-five timeouts naming a comment in the test file itself
+about wall-clock flakiness under load read as a known, harmless pattern; it
+took running the file alone and watching it fail completely, not flakily, to
+ask which `bun` was answering.
+
+*Measured: the rows above are the session's own estimate.*
