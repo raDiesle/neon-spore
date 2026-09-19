@@ -2241,3 +2241,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 419e7ce9: THE LEDGER's two new words on a real frame: ROOT and PU…
+
+- **Found:** 2026-09-19, claude/queue-the-ledger-changes-state-more-than-once-and-asks
+- **Files:** `docs/INDEX.md`, `docs/cloud-session.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-ledger.ts`
+
+*THE LEDGER: four hands on one cord, one per movement* landed from a session that could not look at it. The commit touched 27 more files. What went unchecked:
+
+- THE LEDGER's two new words on a real frame: ROOT and PULL were never seen on a phone, and nothing is drawn for the foot, the plug, the hauled bead or the hauled cord
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
