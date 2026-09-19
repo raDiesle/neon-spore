@@ -1805,36 +1805,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The line ceiling now hears Bash, and is still deaf to PowerShell
-
-- **Found:** 2026-09-19, claude/queue-the-file-size-notice-is-deaf-to-a-lane-that-edit
-- **Taken:** 2026-09-19, claude/queue-a-frame-test-that-counts-a-colour-has-no-way-to (claim: claude/queue-the-line-ceiling-now-hears-bash-and-is-still-dea)
-- **Files:** `.claude/settings.json`, `tools/hooks/written-paths.ts`,
-  `tools/hooks/shell-words.ts`
-- **Where:** cloud
-
-`after-edit-size.ts` is registered under `Bash` now and `written-paths.ts`
-recovers the files a bash line wrote, which closes the hole a lane on this
-machine falls into. The other shell is still open. `guard.ts` was widened to
-`Bash|PowerShell` for exactly this reason once already — on Windows the
-session's primary shell is the separate PowerShell tool, and a rule bound to
-one of the two is unenforced the moment the command is typed into the other.
-
-The parsing is not simply reusable across the two. `commandsIn` already takes a
-dialect and would split a PowerShell line correctly, and `>` and `>>` mean the
-same thing in both — but the shapes that actually write there are
-`Set-Content`, `Add-Content` and `Out-File -FilePath`, with the path behind a
-named parameter rather than in operand position, and `sed`, `tee` and a
-`python3` heredoc are all absent. So it is a second table, not a second
-argument.
-
-To do: add a `PowerShell` matcher beside the `Bash` one, give `writtenPaths` a
-dialect it passes through to `commandsIn`, and put the three cmdlets in a table
-of their own beside `operands`. The rule stays the one this hook is built on:
-silence when it can parse nothing, never a guess, never a block. The check that
-it worked is the one the Bash half took — a line appended to a file near the
-ceiling is heard about, and a `Get-Content` of the same file says nothing.
-
 ## The COPIES table cannot carry a row that points at a document
 
 - **Found:** 2026-09-19, claude/queue-a-new-boss-state-is-twelve-registrations-and-not

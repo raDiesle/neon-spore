@@ -3,7 +3,7 @@ import { repoPath, touched } from "../after-edit-size.ts";
 import { guardsDeterminism } from "../after-sim-edit.ts";
 import { counted, LIMIT, lineCount, mark, notice } from "../file-size.ts";
 import { formats } from "../format-edited.ts";
-import { editedPath, shellCommand, stopHookActive } from "../payload.ts";
+import { editedPath, shellCommand, stopHookActive, toolName } from "../payload.ts";
 import { writtenPaths } from "../written-paths.ts";
 
 /**
@@ -192,6 +192,16 @@ describe("the command line a shell tool was given", () => {
   });
 });
 
+describe("the tool name a payload names", () => {
+  it("comes back whole, and is null for a payload that names none", () => {
+    expect(toolName({ tool_name: "PowerShell" })).toBe("PowerShell");
+    expect(toolName({ tool_name: "" })).toBeNull();
+    expect(toolName({ tool_name: 42 })).toBeNull();
+    expect(toolName({})).toBeNull();
+    expect(toolName(null)).toBeNull();
+  });
+});
+
 /**
  * The four shapes that write a file in this repository, recovered from the
  * command line — the half of the hook that was missing while it was bound to
@@ -250,6 +260,56 @@ describe("the paths a bash line looks like it wrote", () => {
   });
 });
 
+/**
+ * The same four shapes, read from a PowerShell line instead — `Set-Content`,
+ * `Add-Content` and `Out-File` in place of the redirection, `sed` and `tee`
+ * that dialect does not have.
+ */
+describe("the paths a PowerShell line looks like it wrote", () => {
+  it("takes the named -Path or -FilePath argument", () => {
+    expect(
+      writtenPaths("Set-Content -Path packages/sim/src/step.ts -Value 'x'", "powershell"),
+    ).toEqual(["packages/sim/src/step.ts"]);
+    expect(
+      writtenPaths("Add-Content -Path apps/game/src/shell.ts -Value 'x'", "powershell"),
+    ).toEqual(["apps/game/src/shell.ts"]);
+    expect(
+      writtenPaths("Get-Content x.ts | Out-File -FilePath tools/queue/run.ts", "powershell"),
+    ).toEqual(["tools/queue/run.ts"]);
+  });
+
+  it("matches the cmdlet and its flag case-insensitively", () => {
+    expect(writtenPaths("set-content -path tools/queue/run.ts 'x'", "powershell")).toEqual([
+      "tools/queue/run.ts",
+    ]);
+  });
+
+  it("falls back to the bare positional path only when nothing else is flagged", () => {
+    expect(writtenPaths("Set-Content tools/queue/run.ts 'x'", "powershell")).toEqual([
+      "tools/queue/run.ts",
+    ]);
+  });
+
+  it("says nothing when a flag could be hiding the path instead of naming it", () => {
+    // No -FilePath named, and -Encoding is a flag: the first operand could be
+    // that flag's own value rather than the path, so this says nothing rather
+    // than guessing wrong.
+    expect(writtenPaths("Get-Content x.ts | Out-File -Encoding utf8", "powershell")).toEqual([]);
+  });
+
+  it("says nothing about a command that only reads, and takes >/>> as in bash", () => {
+    expect(writtenPaths("Get-Content packages/sim/src/step.ts", "powershell")).toEqual([]);
+    expect(writtenPaths("echo hi > apps/game/src/shell.ts", "powershell")).toEqual([
+      "apps/game/src/shell.ts",
+    ]);
+  });
+
+  it("never reads a Python heredoc's open — that shape does not exist in PowerShell", () => {
+    const write = "python3 - <<'PY'\nopen('packages/sim/src/step.ts', 'w').write(s)\nPY";
+    expect(writtenPaths(write, "powershell")).toEqual([]);
+  });
+});
+
 describe("what the size hook decides a payload touched", () => {
   const root = "/home/me/neon-spore";
 
@@ -273,5 +333,16 @@ describe("what the size hook decides a payload touched", () => {
       [],
     );
     expect(touched(root, null)).toEqual([]);
+  });
+
+  it("reads a PowerShell line in its own dialect, named by tool_name", () => {
+    // Bash and PowerShell would read this identically as a bare word, `-i`
+    // included — the dialect only matters once a command carries a named
+    // flag the two shells spell differently, which is what `Set-Content`
+    // exercises here.
+    const command = "Set-Content -Path packages/sim/src/step.ts -Value 'x'";
+    expect(touched(process.cwd(), { tool_name: "PowerShell", tool_input: { command } })).toEqual([
+      "packages/sim/src/step.ts",
+    ]);
   });
 });

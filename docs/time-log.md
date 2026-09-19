@@ -11524,3 +11524,38 @@ tree, and only running it against real data showed that reading was too
 blunt to land.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-line-ceiling-now-hears-bash-and-is-still-dea — a second table, not a second argument
+
+`after-edit-size.ts` heard a Bash line's writes through `written-paths.ts`,
+and nothing PowerShell typed, because the settings matcher was `Bash` alone
+and `writtenPaths` always parsed in the posix dialect. `shell-words.ts` — one
+of the entry's own three named files — turned out to need no change at all:
+`commandsIn` was already made fully dialect-aware for `guard.ts`'s sake, and
+`>`/`>>` redirection is spelled the same in both shells, so the gap was
+narrower than the entry's file list suggested. What PowerShell actually needs
+is its own table: `Set-Content`, `Add-Content` and `Out-File` carry their path
+behind a named flag rather than as a bare operand, so `written-paths.ts` grew
+a `PS_WRITERS` map and a `psFiles()` reader that checks the named flag first
+and falls back to the first operand only when the rest of the line carries no
+flag at all — the same conservatism `sedFiles` already uses for a scriptless
+`sed`, so a `-Encoding utf8` with no `-FilePath` stays silence rather than a
+guess. `payload.ts` gained a `tool_name` accessor, `after-edit-size.ts` now
+reuses `guard.ts`'s already-exported `dialectFor` rather than re-deriving it,
+and the settings matcher widened to `Bash|PowerShell`, matching the guard's
+own.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, and all five files it touches or names: `written-paths.ts`, `shell-words.ts`, `.claude/settings.json`, `after-edit-size.ts`, `payload.ts`, `guard.ts` |
+| writing | 30 | `PS_WRITERS`/`psFiles()`, the `writtenPaths` dialect parameter, the `tool_name` field and accessor, the `after-edit-size.ts` wiring, the matcher, and the new PowerShell test cases in `edited.test.ts` and `wiring.test.ts` |
+| looking | 0 | none — no picture involved |
+| friction | 0 | none |
+| landing | 20 | `format` (one import-order fix), `lint`, `tsc --noEmit`, the two touched test files, then the full `check` (18,488 tests) |
+
+**The bottleneck was confirming what didn't need to change**: `shell-words.ts`
+was named in the entry but already dialect-complete, and taking that on faith
+instead of reading it would have meant editing a file with nothing wrong with
+it.
+
+*Measured: the rows above are the session's own estimate.*

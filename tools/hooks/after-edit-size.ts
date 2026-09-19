@@ -37,7 +37,8 @@
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { counted, lineCount, notice } from "./file-size.ts";
-import { editedPath, readPayload, shellCommand } from "./payload.ts";
+import { dialectFor } from "./guard.ts";
+import { editedPath, readPayload, shellCommand, toolName } from "./payload.ts";
 import { writtenPaths } from "./written-paths.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -63,7 +64,8 @@ export function repoPath(root: string, path: string | null): string | null {
  */
 export function touched(root: string, payload: Parameters<typeof editedPath>[0]): string[] {
   const command = shellCommand(payload);
-  const raw = command === null ? [editedPath(payload)] : writtenPaths(command);
+  const raw =
+    command === null ? [editedPath(payload)] : writtenPaths(command, dialectFor(toolName(payload)));
   const rels = raw.map((path) => repoPath(root, path));
   return [...new Set(rels.filter((rel): rel is string => rel !== null && counted(rel)))];
 }

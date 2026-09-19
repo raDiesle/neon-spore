@@ -19,6 +19,8 @@ export interface HookPayload {
   session_id?: unknown;
   /** `SessionStart` only: `startup`, `resume`, `clear` or `compact`. */
   source?: unknown;
+  /** The tool that ran: `"Bash"`, `"PowerShell"`, `"Edit"`, and so on. */
+  tool_name?: unknown;
 }
 
 /** The payload on stdin, or `null` when it is absent or not JSON. */
@@ -56,6 +58,18 @@ export function editedPath(payload: HookPayload | null): string | null {
  */
 export function shellCommand(payload: HookPayload | null): string | null {
   const raw = payload?.tool_input?.command;
+  return typeof raw === "string" && raw !== "" ? raw : null;
+}
+
+/**
+ * The tool name a payload names, or null when it names none.
+ *
+ * `guard.ts`'s own `dialectFor` reads this straight off the parsed JSON
+ * because it is the only hook that ever needed it; a second hook needing the
+ * same field is the reason this accessor exists rather than a second `?.`.
+ */
+export function toolName(payload: HookPayload | null): string | null {
+  const raw = payload?.tool_name;
   return typeof raw === "string" && raw !== "" ? raw : null;
 }
 

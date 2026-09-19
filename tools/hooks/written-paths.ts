@@ -21,10 +21,20 @@
  * the decision — and because a shape added here later (PowerShell's
  * `Set-Content`, a `cp` over a tracked file) is a test in `edited.test.ts`
  * rather than a second reading of the hook.
+ *
+ * **PowerShell is a second table, not a second argument.** `commandsIn`
+ * already reads both dialects (`shell-words.ts`) and `>`/`>>` mean the same
+ * thing in both, so `redirected` needs nothing extra — but the shapes that
+ * actually write there, `Set-Content`, `Add-Content` and `Out-File`, carry
+ * their path behind a *named* parameter rather than in operand position, and
+ * `sed`, `tee` and a Python heredoc are all absent. The rule stays the one
+ * this file is built on: a command it cannot read is silence, not a guess —
+ * so a path is only read off the position `PS_WRITERS` names when nothing
+ * else in the line could be confused for it.
  */
 
 import { heredocBodies } from "./heredoc.ts";
-import { commandsIn } from "./shell-words.ts";
+import { commandsIn, type Dialect } from "./shell-words.ts";
 
 /** A word the shell reads as an option, never as the file being written. */
 function isFlag(word: string): boolean {
@@ -122,12 +132,54 @@ function opened(body: string): string[] {
 }
 
 /**
+ * PowerShell cmdlets that write a file, and which named parameter carries the
+ * path — matched case-insensitively, the way PowerShell itself reads them.
+ */
+const PS_WRITERS: Record<string, string> = {
+  "set-content": "-path",
+  "add-content": "-path",
+  "out-file": "-filepath",
+};
+
+/**
+ * Files a PowerShell command writes: `Set-Content`, `Add-Content` and
+ * `Out-File`, read off the named flag `PS_WRITERS` gives that cmdlet.
+ *
+ * The flag is read first because it is unambiguous. A bare positional path —
+ * `Set-Content file.ts "x"` — is taken only when `rest` carries no flag at
+ * all, the same conservatism `sedFiles` uses for a scriptless `sed`: a flag
+ * present anywhere (`-Encoding utf8` with the path itself unnamed) means the
+ * first operand might be that flag's value rather than the path, and this
+ * would rather say nothing than guess wrong.
+ */
+function psFiles(args: readonly string[]): string[] {
+  const name = program(args).toLowerCase();
+  const flag = PS_WRITERS[name];
+  if (flag === undefined) return [];
+  const rest = args.slice(1);
+  for (let i = 0; i < rest.length; i++) {
+    if ((rest[i] ?? "").toLowerCase() === flag) {
+      const value = rest[i + 1] ?? "";
+      return value !== "" && !isFlag(value) ? [value] : [];
+    }
+  }
+  if (rest.some((arg) => isFlag(arg))) return [];
+  const first = rest[0] ?? "";
+  return first !== "" && !isFlag(first) ? [first] : [];
+}
+
+/**
  * Every path `line` looks like it wrote, in the order it named them and once
  * each. An empty list is the ordinary answer for a command that only reads.
  */
-export function writtenPaths(line: string): string[] {
+export function writtenPaths(line: string, dialect: Dialect = "posix"): string[] {
   const found: string[] = [];
-  for (const args of commandsIn(line)) found.push(...redirected(args), ...operands(args));
-  for (const body of heredocBodies(line)) found.push(...opened(body));
+  for (const args of commandsIn(line, dialect)) {
+    found.push(...redirected(args));
+    found.push(...(dialect === "powershell" ? psFiles(args) : operands(args)));
+  }
+  if (dialect === "posix") {
+    for (const body of heredocBodies(line)) found.push(...opened(body));
+  }
   return [...new Set(found.map((path) => path.replaceAll("\\", "/")).filter((p) => p !== ""))];
 }

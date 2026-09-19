@@ -89,7 +89,7 @@ describe("the hooks settings.json actually starts", () => {
     const matchers = entries
       .filter((entry) => entry.hooks?.some((hook) => hook.command?.includes("after-edit-size.ts")))
       .map((entry) => entry.matcher ?? "");
-    for (const tool of ["Edit", "Write", "MultiEdit", "Bash"]) {
+    for (const tool of ["Edit", "Write", "MultiEdit", "Bash", "PowerShell"]) {
       const heard = matchers.some((matcher) => new RegExp(matcher || "$^").test(tool));
       expect({ tool, heard }).toEqual({ tool, heard: true });
     }
