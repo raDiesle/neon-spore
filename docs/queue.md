@@ -2126,6 +2126,7 @@ worktree whose `HEAD` is not `branchFor(item)` names `HEAD`.
 ## A comment inside a wave entry is deleted by the director's next save
 
 - **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
+- **Taken:** 2026-09-19, claude/queue-a-comment-inside-a-wave-entry-is-deleted-by-the
 - **Files:** `tools/director/src/serialize.ts`, `packages/content/src/waves/act-8.ts`, `.claude/skills/new-wave/SKILL.md`
 
 `serialize.ts` regenerates an act's whole array from the parsed waves and keeps
