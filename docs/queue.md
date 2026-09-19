@@ -1214,6 +1214,7 @@ round. Whoever writes it takes both names off `OWED` in the same commit.
 ## THE SCOUT's laden and heavy have no card, because no hand flies the little ship
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Taken:** 2026-09-19, main (claim: claude/queue-the-scouts-laden-and-heavy-have-no-card-because)
 - **Files:** `tools/director/test/boss-states.test.ts`, `tools/director/src/poses-bosses-rounds-b.ts`, `tools/director/src/boss-hands-rounds.ts`, `packages/content/test/scout-flight.test.ts`
 
 The §6.2 sim lane gave THE SCOUT a second axis of state — what the motes
