@@ -1967,6 +1967,7 @@ which bosses are finished — the owner's to make, not a lane's.
 ## `.claude/skills/new-boss/SKILL.md` is seven lines over the ceiling
 
 - **Found:** 2026-09-19, claude/queue-a-handle-bosss-word-is-invisible-to-a-search-of
+- **Taken:** 2026-09-19, claude/queue-the-antiphons-film-never-turns-the-organ-and-the (claim: claude/queue-claude-skills-new-boss-skill-md-is-seven-lines-o)
 - **Files:** `.claude/skills/new-boss/SKILL.md`
 - **Where:** cloud
 
