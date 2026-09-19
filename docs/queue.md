@@ -2129,6 +2129,7 @@ a lane can add a phase and go green in one `bun run check`, not four.
 ## The 250-line ceiling reports one file per run, so a wide lane pays for four runs
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-the-250-line-ceiling-reports-one-file-per-run-so
 - **Files:** `packages/sim/test/limits.test.ts`
 - **Where:** cloud
 
