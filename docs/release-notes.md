@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 17ed660e — THE ANTIPHON: the navigator pulls a candidate off her rail
+
+The boss answered everything on the ordinary panel. It now has a second gesture, and it is on the picture: the navigator carries a candidate down off her rail and it is crossed off. Its column leaves the cycle, a bolt into it is nothing, and it cannot spill on them when a pit ends the cycle. Pull off the one he is describing and the cycle hardens exactly as firing at a decoy does, so getting it wrong costs what getting it wrong already cost. The rule is one short sentence — pull off the ones you know are wrong — and every refusal in it follows from that sentence rather than from a rule of its own: a carry shorter than antiphonPullMilli, a rail pulled at before the organ stands, a second pull on one already crossed, and the pilot's thumb, which is dropped without a sound because the rail is hers.
+
 ## 2026-09-19 · 31cab165 — Give THE SCOUT's laden and heavy a hand that survives the flight
 
 THE MAZE, THE GAUGE and THE MIRROR each earn their played states with a hand of their own; THE SCOUT's little ship had none, so `laden` and `heavy` sat on the OWED list with no pose. Lifting the "deliberately stupid" autopilot straight out of `scout-flight.test.ts` typechecked but threw on every run: that autopilot is measured safe on the arena's seven authored columns, and a pose flies it remapped to `POSE_CONFIG.cols` (eleven) — every mote and the hazard's own speed stretch with it, but the ship's fixed top speed and turn rate do not, so the same flight runs long and meets the hazard on a beat the narrow measurement never had to survive.

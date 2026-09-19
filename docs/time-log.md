@@ -12663,3 +12663,5 @@ event type, and a new boss event falls through to `default: return lateCue(e,
 cols)` and is refused as not assignable to `LateEvent` — an error in a file the
 brief never names, found only by running the typecheck after everything the
 brief did name was already done. It is queued.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
