@@ -9,11 +9,11 @@ import type { GuideScene } from "../scene-types.js";
  * and are taken. On the twelfth beat the field goes dark and the tear at the
  * top counts them; the same three come back down the same columns at the
  * same spacing, and the pair answers from what it said. The navigator's
- * half is the column and the pilot's is the gap, so the two blind kills are
- * a page each: the cannon slid to a column that was said, and slid again
- * three beats on because three beats were counted. A kill is drawn whole
- * over a body nothing drew (`render/unseen.ts`), which is how the page can
- * show a shot landing on an empty field.
+ * half is the column and the pilot's is the colour, so the two blind kills
+ * are a page each: the trigger fires the colour he said, and the cannon
+ * slides to the column she said. A kill is drawn whole over a body nothing
+ * drew (`render/unseen.ts`), which is how the page can show a shot landing
+ * on an empty field.
  *
  * The third body is the one nobody said, and it is the cost: the cannon
  * stays where it is, the tear shuts behind the last body sent, and the body
@@ -76,7 +76,7 @@ export const THE_REPRISE: GuideScene = {
     {
       tick: 420,
       seat: 1,
-      text: "COUNT THE GAPS BETWEEN THEM",
+      text: "SLIDE AND SAY THE COLOUR",
       anchor: { at: "control", control: "cannon" },
     },
     // `CARRY` / `MOVE` stands on his cannon from this exact beat, and the tear
@@ -98,7 +98,7 @@ export const THE_REPRISE: GuideScene = {
     {
       tick: 1080,
       seat: 1,
-      text: "THREE BEATS ON · THE MIDDLE",
+      text: "THE MIDDLE · SHE SAID SO",
       anchor: { at: "control", control: "cannon" },
     },
     { tick: 1260, seat: 2, text: "THE THIRD · NOBODY SAID IT", anchor: { at: "hull" } },

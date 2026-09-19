@@ -12025,3 +12025,37 @@ plus writing down the adjacent thing found along the way rather than
 guessing at a fix for it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-reprises-own-rehearsal-may-still-teach-the-s — the gap that was never a page
+
+The follow-on finding from the previous lane's landing was right: the film's
+own header still said *"the navigator's half is the column and the pilot's
+is the gap,"* and one page told the pilot to `COUNT THE GAPS BETWEEN THEM` —
+both describing a timing-derived second blind kill that `boss-cue-read-s.ts`
+rules out by name (*"nothing here is timed to an arrival... it would turn the
+one thing this boss is made of into a reaction"*). Read against that file and
+against the four already-correct references (`bosses.md` §11.15, `act-10.ts`'s
+header, and the film's own tick-900 and tick-720 pages, which already had it
+right), the fix was three sentences and two step captions, not a rewrite: the
+header now says the pilot's half is the colour, the tick-420 page asks him to
+watch and say it (`SLIDE AND SAY THE COLOUR`, mirroring the navigator's own
+`FIRE AND SAY WHERE IT WAS`), and the tick-1080 page says the second blind
+slide is told rather than counted (`THE MIDDLE · SHE SAID SO`). The "gaps" in
+the header's closing paragraph, about what the seed does and does not author,
+stayed — that one means the beat spacing between the three falls, a different
+and correct use of the word.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `boss-cue-read-s.ts` in full, the film's acts and steps mapped against it, `scene-pages.test.ts` for the 28-character caption limit |
+| writing | 10 | the header rewrite, the two step captions, this entry |
+| looking | 0 | none — no picture involved |
+| friction | 0 | none |
+| landing | 10 | `bunx tsc --noEmit`, `scenes.test.ts`/`scene-pages.test.ts`/`scene-reprise.test.ts`/`scenes-prose.test.ts` (23 pass), `format`, `lint`, `bun run queue done`, the commit |
+
+**The bottleneck was reading `boss-cue-read-s.ts` closely enough to be sure**
+which two of the film's nine pages were actually stale — four already read
+correctly, and the wrong fix here would have been rewriting the ones that
+didn't need it.
+
+*Measured: the rows above are the session's own estimate.*

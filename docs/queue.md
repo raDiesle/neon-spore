@@ -2121,27 +2121,3 @@ whose rows would put this file over 250 hands its own last boss's rows to a
 new `sound-link-none-c.ts`, spread into `NO_SUBJECT` next to `NO_SUBJECT_B`
 the way that one is spread into `NO_SUBJECT` today — never the rows the lane
 itself is adding, and never a fight to squeeze a paragraph shorter instead.
-
-## THE REPRISE's own rehearsal may still teach the split by gap rather than colour
-
-- **Found:** 2026-09-19, claude/queue-the-reprises-tear-draws-the-pilots-half-of-the-r
-- **Taken:** 2026-09-19, main (claim: claude/queue-the-reprises-own-rehearsal-may-still-teach-the-s)
-- **Files:** `packages/content/src/scenes/the-reprise.ts`
-- **Where:** cloud
-
-Landing *THE REPRISE's tear draws the pilot's half of the record on both
-screens* found that `docs/spec/bosses.md` §11.15 and `waves/act-10.ts`'s own
-header already read the corrected split — the navigator keeps the columns,
-the pilot keeps the colours — but `scenes/the-reprise.ts`'s header still
-says, of the same fight, *"the navigator's half is the column and the
-pilot's is the gap"* and has the pilot's blind page read `COUNT THE GAPS
-BETWEEN THEM` rather than a colour.
-
-Whether this is actually stale is not settled here. The rehearsal's `acts`
-do carry both a cannon slide (a column) and a fire (a colour) after the dark,
-so the scene may be deliberately teaching the *timing* half of the record as
-a separate, easier first pass before the guide's colour-reading wording
-existed — in which case the fix is only in the words, not the acts — or it
-may simply not have been touched when the colour framing landed. Reading it
-against the corrected design, and against whatever `boss-cue-read-s.ts` and
-its own words expect the pilot's blind page to be about, decides which.
