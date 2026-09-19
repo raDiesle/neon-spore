@@ -2166,29 +2166,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## A film's authored column may have rounded somewhere the author did not mean
-
-- **Found:** 2026-09-19, claude/queue-a-film-cannot-put-a-hand-on-four-of-the-eleven-c
-- **Taken:** 2026-09-19, claude/queue-a-cancelled-touch-fires-the-command-as-if-the-th (claim: claude/queue-a-films-authored-column-may-have-rounded-somewhe)
-- **Files:** `packages/content/src/scenes/`
-- **Where:** cloud
-
-*A film cannot put a hand on four of the eleven columns the field has* gave
-`SceneAct` a `worldCol` sibling to `col`, for a hand that has to land on a
-specific world column `mapCol` cannot reach (world columns 1, 4, 6 and 9 on
-the eleven the field ships). Adding the field and wiring `actCol` to read it
-was this entry's own sized work; auditing the films already written for it
-was not, and is what this entry is.
-
-Every `col` on every act in `packages/content/src/scenes/*.ts` goes through
-`mapCol` silently today. A cannon act that lands one column off from what its
-own prose or its own guide claims is a film that teaches a shot the pair
-cannot reproduce — the kind of drift THE REPRISE's first stretch turned out
-to be (`docs/queue.md`, landed 19 September 2026, a `Wave` rather than a
-`SceneAct` but the identical arithmetic). Read each scene file's header and
-its acts' authored `col` values against `mapCol(col, 11)`'s image — 0, 2, 3,
-5, 7, 8, 10 — and against what `docs/spec/bosses.md` says the film shows; a
-mismatch is fixed either by moving the authored `col` to the wall or middle it
-was meant to land on, or, when the film genuinely needs a column `mapCol`
-cannot reach, by switching that act to `worldCol`.

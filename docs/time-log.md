@@ -11889,3 +11889,44 @@ named `touch-glass.test.ts`, which reads a stylesheet and dispatches nothing;
 wiring, for `releaseAll`'s two escapes.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-films-authored-column-may-have-rounded-somewhe — an audit that found nothing to fix
+
+Building the entry's own method: read every scene file's header and its
+acts' authored `col` values against `mapCol(col, 11)`'s image — 0, 2, 3, 5,
+7, 8, 10 — and against what each file's own prose says the film shows. The
+entry's own note that this is real separate work from `worldCol`'s own
+sizing held; what it did not predict is that it comes back clean.
+
+Eighteen of the eighty scene files name a specific column in their own
+prose (`grep -lE "column (one|two|...|[0-9])\b|world column"`), which is
+where an author's stated claim could actually be checked against `mapCol`'s
+arithmetic — a file that never writes a column number down cannot disagree
+with one. Every one of the eighteen checked out: THE CANDLE, THE WELL, THE
+GORGE, THE SPLICE and THE THIRD SHOT state the authored-to-world mapping
+explicitly and correctly, several already caught by their own test (THE
+CANDLE's own header names the exact confusion this entry was filed to find,
+already resolved and tested); THE ANTIPHON, THE DIASTOLE, THE CURTAIN, THE
+LEDGER, THE SCUTTLE and THE TASTER name a world column `mapCol` cannot reach
+and already route around it with `atBoss`/`atBody` rather than an authored
+`col`; THE LEAD and THE THROAT's column numbers describe the simulated
+body's own free movement, never an authored act, so `mapCol` never touches
+them; THE VANE and THE DART are proved by their own test walking the whole
+film; THE STARE, THE LEAK and TWO ROCKS use the same authored value for two
+related acts, so the two land together regardless of what `mapCol` sends
+that value to. No code changed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | all eighteen files' headers and acts, cross-checked against `mapCol`'s image by hand |
+| writing | 5 | a scratch script printing each scene's authored columns and their `mapCol` results, to check against by eye |
+| looking | 0 | none — no picture involved |
+| friction | 0 | none |
+| landing | 5 | no source changed, so `check:fast`'s scope was empty; this entry, unusually, has nothing else to verify |
+
+**The bottleneck was reading eighteen files' worth of prose carefully enough
+to trust a "no bug" verdict** rather than any arithmetic — the game's own
+authors had already caught and guarded against this exact class of mistake
+everywhere it was checkable from the text.
+
+*Measured: the rows above are the session's own estimate.*
