@@ -2089,41 +2089,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A queue claim names a branch the lane is not on
-
-- **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
-- **Taken:** 2026-09-19, claude/queue-a-queue-claim-names-a-branch-the-lane-is-not-on
-- **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `docs/commands.md`
-
-A claim is written in two places on purpose (`claim.ts`'s header): a branch, which
-is instant and shared between worktrees, and the `Taken:` line, which is what a
-clone can see. But the branch is not the lane's — it is **derived from the title**
-by `branchFor`/`slugFor`, and `take` creates it and writes its name into the
-`Taken:` line whatever branch the lane is actually on.
-
-A session started on a branch of its own — which is what happens whenever several
-lanes are dealt out by a coordinator rather than by `queue next` — therefore ends
-up with two branches and a claim naming the one nobody is working in. Three things
-follow, and none of them says anything:
-
-1. `bun run queue` lists the item as ongoing under a branch that holds one commit
-   and no work, so the listing cannot be used to find the lane, and a live lane
-   cannot be told from an abandoned claim.
-2. `heldElsewhere` compares `branchFor(item)` with `HEAD`, so the lane holding the
-   item reads as somebody else's from inside its own worktree. `done` and
-   `release` only get past that because the caller wrote the title out.
-3. `done` will not drop the claim branch, because it holds a commit that is not on
-   `main` — so it is left standing after the work lands and the next sweep is the
-   only thing that can clear it.
-
-Three of the three lanes running on 19 September 2026 are in this state at once;
-`git branch --list 'claude/*'` shows both branches for each of them.
-
-What to do: have `take` record the branch it is actually on, and say in one line
-when that is not the derived one, so the listing and the sweep are both looking at
-the ref the work is on. The check is a test over `takenMark`: a claim made from a
-worktree whose `HEAD` is not `branchFor(item)` names `HEAD`.
-
 ## Unverified at 8ddc2c93: THE CAIRN's PULL seen on a real frame over a seven-ston…
 
 - **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word

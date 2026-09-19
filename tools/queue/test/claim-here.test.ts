@@ -107,11 +107,17 @@ describe("a claim on an entry only the lane has", () => {
   );
 
   it(
-    "writes the Taken: line into the working copy",
+    // This tree is on "lane", not the derived `branch` — exactly the shape a
+    // session dealt a branch of its own is in, so the mark below is the one
+    // this whole item asked for: the tree's real branch first, the derived
+    // one after it, rather than only the derived one naming nobody's work.
+    "writes the Taken: line into the working copy, naming the branch the tree is really on",
     async () => {
       const md = await readFile(join(root, "docs", "queue.md"), "utf8");
       const marked = parseItems(md, "queue").find((i) => i.title === item.title);
-      expect(marked?.taken).toMatch(new RegExp(`^\\d{4}-\\d{2}-\\d{2}, ${branch}$`));
+      expect(marked?.taken).toMatch(
+        new RegExp(`^\\d{4}-\\d{2}-\\d{2}, lane \\(claim: ${branch}\\)$`),
+      );
     },
     repoTimeout(1),
   );

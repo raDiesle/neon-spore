@@ -34,9 +34,14 @@ export function hasBranch(branch: string): boolean {
   return git("rev-parse", "--verify", "--quiet", `refs/heads/${branch}`).ok;
 }
 
-/** The branch this tree is standing on, or "" when it is on a detached HEAD. */
-export function headBranch(): string {
-  const r = git("rev-parse", "--abbrev-ref", "HEAD");
+/**
+ * The branch this tree is standing on, or "" when it is on a detached HEAD.
+ * `root` defaults to the real repository; `claim` below asks it of the
+ * worktree it was given, which a test points at a scratch repository of
+ * its own.
+ */
+export function headBranch(root = ROOT): string {
+  const r = gitIn(root, "rev-parse", "--abbrev-ref", "HEAD");
   return r.ok && r.out !== "HEAD" ? r.out : "";
 }
 
@@ -191,7 +196,11 @@ export function claim(item: Item, root = ROOT): string {
   const branch = branchFor(item);
   const made = gitIn(root, "branch", branch, TRUNK);
   if (!made.ok) throw new Error(`could not claim ${JSON.stringify(item.title)}: ${made.err}`);
-  const mark = takenMark(branch, new Date().toISOString().slice(0, 10));
+  // The branch creation above does not check anything out, so the worktree's
+  // own `HEAD` is still whatever it was — the branch a coordinator dealt this
+  // session, most of the time, and `branch` itself only when the claim came
+  // from `bun run queue next` (`takenMark`).
+  const mark = takenMark(branch, new Date().toISOString().slice(0, 10), headBranch(root));
   const edit = (md: string) => markTaken(md, item.title, mark);
   try {
     if (!trunkHas(item, root)) {

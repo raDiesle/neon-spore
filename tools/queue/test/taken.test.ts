@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { branchFor, claimOn, heldElsewhere, takenMark, unclaimed } from "../claim.js";
+import { branchFor, claimOn, heldElsewhere, takenMark, unclaimed, workedBranch } from "../claim.js";
 import { clearTaken, markTaken, removeItem, takenIn } from "../edit.js";
 import { parseItems } from "../queue.js";
 
@@ -37,6 +37,46 @@ const TITLE = "Split the wave editor's cell panel";
 describe("takenMark", () => {
   it("says the day and the branch, in the order Found: uses", () => {
     expect(MARK).toBe("2026-09-04, claude/queue-split-the-wave-editors-cell-panel");
+  });
+
+  it("says only the derived branch when the worktree is standing on it", () => {
+    expect(
+      takenMark(
+        "claude/queue-split-the-wave-editors-cell-panel",
+        "2026-09-04",
+        "claude/queue-split-the-wave-editors-cell-panel",
+      ),
+    ).toBe(MARK);
+  });
+
+  it("says nothing extra when nobody asked for the actual branch at all", () => {
+    expect(
+      takenMark("claude/queue-split-the-wave-editors-cell-panel", "2026-09-04", undefined),
+    ).toBe(MARK);
+  });
+
+  it("names the real branch first when a session was dealt one of its own", () => {
+    expect(
+      takenMark("claude/queue-split-the-wave-editors-cell-panel", "2026-09-04", "claude/task-abc"),
+    ).toBe("2026-09-04, claude/task-abc (claim: claude/queue-split-the-wave-editors-cell-panel)");
+  });
+});
+
+describe("workedBranch", () => {
+  it("is the branch on an ordinary mark, with no claim branch to tell apart from it", () => {
+    expect(workedBranch(MARK)).toBe("claude/queue-split-the-wave-editors-cell-panel");
+  });
+
+  it("is the real branch, not the derived one, when a mark carries both", () => {
+    expect(
+      workedBranch(
+        "2026-09-04, claude/task-abc (claim: claude/queue-split-the-wave-editors-cell-panel)",
+      ),
+    ).toBe("claude/task-abc");
+  });
+
+  it("is empty for a mark with no comma to find the branch after", () => {
+    expect(workedBranch("")).toBe("");
   });
 });
 
@@ -108,6 +148,14 @@ describe("a claim read off the file", () => {
       "claude/queue-split-the-wave-editors-cell-panel",
     );
   });
+
+  it("answers with the real branch once the mark names one, even with the derived ref live", () => {
+    const dealt = parseItems(
+      markTaken(ONE, TITLE, takenMark(branchFor(held), "2026-09-19", "claude/task-abc")),
+      "queue",
+    )[0]!;
+    expect(claimOn(dealt, [branchFor(held)])).toBe("claude/task-abc");
+  });
 });
 
 describe("draining a marked entry", () => {
@@ -131,6 +179,21 @@ describe("heldElsewhere", () => {
 
   it("lets the tree standing on the claim through — it is the session that took it", () => {
     expect(heldElsewhere(held, [claim], claim)).toBeUndefined();
+  });
+
+  it("lets a session dealt a branch of its own through too, off the mark's own answer", () => {
+    // The exact shape 19 September 2026 was about: a worktree whose HEAD is
+    // not `branchFor(item)` because the coordinator dealt it a branch, not
+    // `bun run queue next`. The claim branch is in `refs` — the mutex is real
+    // — but nobody is standing on it, and the mark says which branch is.
+    const dealt = parseItems(
+      markTaken(ONE, TITLE, takenMark(claim, "2026-09-19", "claude/task-abc")),
+      "queue",
+    )[0]!;
+    expect(heldElsewhere(dealt, [claim], "claude/task-abc")).toBeUndefined();
+    // A third session, on neither branch, still reads it as held — by the
+    // real branch the mark names, which is the one worth reading.
+    expect(heldElsewhere(dealt, [claim], "claude/some-other-lane")).toBe("claude/task-abc");
   });
 
   it("leaves an item nobody holds removable, as it was before the guard", () => {

@@ -61,9 +61,33 @@ function bare(ref: string): string {
   return ref.startsWith("origin/") ? ref.slice("origin/".length) : ref;
 }
 
-/** What one `Taken:` line says: the day it was claimed, and the branch holding it. */
-export function takenMark(branch: string, today: string): string {
-  return `${today}, ${branch}`;
+/**
+ * What one `Taken:` line says: the day it was claimed, and the branch holding
+ * it — `branch` when nobody said otherwise.
+ *
+ * `actual` is the branch the worktree making the claim really stands on,
+ * asked for separately because it is not always `branch`: a session dealt one
+ * of its own by a coordinator commits there and never touches the derived
+ * `claude/queue-<slug>` again, so a mark naming only `branch` sent both the
+ * listing and `heldElsewhere` looking for work that was never going to be on
+ * it (19 September 2026). Said when it differs; left off for the ordinary
+ * case, a session standing on the branch its own item derives.
+ */
+export function takenMark(branch: string, today: string, actual?: string): string {
+  if (!actual || actual === branch) return `${today}, ${branch}`;
+  return `${today}, ${actual} (claim: ${branch})`;
+}
+
+/**
+ * The branch a `Taken:` mark says the work is really on — the one after the
+ * date, and before the parenthesised claim branch when there is one.
+ */
+export function workedBranch(mark: string): string {
+  const comma = mark.indexOf(", ");
+  if (comma === -1) return "";
+  const rest = mark.slice(comma + 2);
+  const paren = rest.indexOf(" (claim:");
+  return (paren === -1 ? rest : rest.slice(0, paren)).trim();
 }
 
 /**
@@ -74,10 +98,18 @@ export function takenMark(branch: string, today: string): string {
  * entry itself and so cannot outlive it either. The line is what answers in a
  * clone that has never seen the branch, and it is the one that would have
  * spoken up on 3 September 2026.
+ *
+ * **Which branch it names is the mark's to say, once the derived one is known
+ * to be live.** A ref existing only says somebody has this; it says nothing
+ * about which worktree, and a session dealt a branch of its own never stands
+ * on the derived one at all. So the answer is `workedBranch` of the mark when
+ * the mark has one, and the derived branch only when nothing said otherwise —
+ * which is every claim `bun run queue next` ever made, where the two are the
+ * same branch.
  */
 export function claimOn(item: Item, refs: readonly string[]): string | undefined {
   const branch = branchFor(item);
-  if (refs.some((r) => bare(r.trim()) === branch)) return branch;
+  if (refs.some((r) => bare(r.trim()) === branch)) return workedBranch(item.taken || "") || branch;
   return item.taken || undefined;
 }
 
@@ -96,6 +128,11 @@ export function claimOn(item: Item, refs: readonly string[]): string | undefined
  * So a claim is asked about before a number is obeyed. The two ways past it are
  * the two that cannot be a stale number: the tree whose own `HEAD` is the claim
  * — the session that took the item — and a caller who wrote the title out.
+ *
+ * **The tree's own `HEAD` is not always `branchFor(item)`**, which is the
+ * whole reason `takenMark` learned a second branch: a session dealt a branch
+ * of its own reads as somebody else's from inside its own worktree unless the
+ * mark's own answer is asked too.
  */
 export function heldElsewhere(
   item: Item,
@@ -103,6 +140,7 @@ export function heldElsewhere(
   head: string,
 ): string | undefined {
   if (branchFor(item) === head) return undefined;
+  if (head !== "" && workedBranch(item.taken || "") === head) return undefined;
   return claimOn(item, refs);
 }
 

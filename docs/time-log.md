@@ -11330,3 +11330,34 @@ why this lane wrote the eight-line comment into `act-8.ts` itself, ran the
 suite, read the failure, and only then reverted it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-queue-claim-names-a-branch-the-lane-is-not-on — the mark now names the branch the tree is really on
+
+`claim()` always wrote `branchFor(item)` into the `Taken:` line, whatever
+branch the worktree making the claim was actually standing on — true for
+`bun run queue next`, false for a session dealt a branch of its own by a
+coordinator, which is the shape three of the sessions running today were in.
+`takenMark` now takes the worktree's real branch and says it first, with the
+derived one after it in parentheses only when the two differ; `workedBranch`
+reads it back. `claimOn` answers with the real branch once the mark names
+one, even while the derived branch's ref is still live, and `heldElsewhere`
+recognises a session standing on that real branch as the one that took the
+item, rather than reading it as somebody else's from inside its own worktree.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `claim.ts`, `repo.ts` and the existing tests, to find where `branchFor(item)` was written down as the answer and find that `claim-here.test.ts` already stood a worktree on a branch other than the derived one — it just asserted the bug |
+| writing | 30 | `takenMark`'s third parameter, `workedBranch`, the `claimOn` and `heldElsewhere` changes, and `headBranch` learning a `root` so a test can ask it of a scratch repository |
+| looking | 0 | none needed |
+| friction | 10 | the first version of `claimOn`'s fix only changed which text answered when the branch had gone stale; the branch-is-live path still returned the bare derived name, which is the path a listing actually hits while the claim is fresh — caught by a test that named the wrong branch as the answer |
+| landing | 15 | `format`, `lint`, the full queue suite (116 tests), and the full `check` |
+
+**The bottleneck was that the fix looked done twice before it was.** The
+first pass fixed `takenMark`'s own shape and passed every existing test,
+because none of them asked what the listing shows *while a claim is live* —
+only what `Taken:` says once nobody but a clone can see it. The second pass,
+prompted by writing the exact test the entry asked for, found `claimOn` still
+preferring the bare branch over the mark whenever the ref existed, which is
+every claim for as long as the work is actually happening.
+
+*Measured: the rows above are the session's own estimate.*
