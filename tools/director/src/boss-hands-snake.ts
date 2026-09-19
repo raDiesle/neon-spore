@@ -1,11 +1,11 @@
 import {
   type SnakeRound,
+  type SnakeState,
+  type SnakeTile,
   snakePointAt,
   snakeResting,
   snakeRound,
   snakeShotStop,
-  type SnakeState,
-  type SnakeTile,
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
