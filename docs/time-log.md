@@ -11680,3 +11680,30 @@ later rather than a seam chosen by a lane that owns neither skill.
 counts were all already known before any code was written.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-docs-spec-bosses-md-names-a-waves-act-file-by-an — one stale citation, thirteen confirmed sound
+
+Swept `docs/spec/bosses.md` for every `act-[0-9]+[a-z]?\.ts` citation (14
+of them, all act seven) and checked each against the boss actually named
+beside it, against the tree each act file currently holds. THE UNDERTOW
+(line 3334) was the one genuinely stale: cited as `act-7c.ts`'s own
+arrivals, but it has opened `act-7d.ts` since an earlier lane's 18
+September split. One near-miss: THE VANE at line 2604 reads as a citation
+at first glance, but the paragraph is about THE DIASTOLE's own mechanic and
+only compares it to THE VANE's by name — the `act-7c.ts` cited there is
+THE DIASTOLE's, correctly. The other thirteen, including the ten this
+session's own earlier rename touched, all checked out.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | every citation against `wc -l`/`grep`'s ground truth of what each act-7 file actually holds today |
+| writing | 5 | the one line that needed it |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 15 | `format`, `lint`, `doc-drift.test.ts`, `tsc --noEmit`, then the full `check` (18,490 tests) |
+
+**The bottleneck was telling a real citation from a comparison that merely
+looks like one** — THE VANE's mention needed reading in full before it could
+be ruled out, which is most of why this took longer than a one-line fix.
+
+*Measured: the rows above are the session's own estimate.*

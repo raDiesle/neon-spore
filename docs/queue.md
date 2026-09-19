@@ -2088,30 +2088,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## `docs/spec/bosses.md` names a wave's act file by an old one
-
-- **Found:** 2026-09-19, claude/queue-act-7d-ts-is-eight-under-the-ceiling-and-a-guide
-- **Taken:** 2026-09-19, claude/queue-whether-limits-test-ts-should-count-a-md-skill-f (claim: claude/queue-docs-spec-bosses-md-names-a-waves-act-file-by-an)
-- **Files:** `docs/spec/bosses.md`
-- **Where:** cloud
-
-Moving THE TASTER and THE SINEW off `act-7d.ts` needed ten citations in this
-file corrected — the two of their own plus eight more that shared a page with
-them and moved letters (this lane's own work, `docs/queue.md`'s *`act-7d.ts`
-is eight under the ceiling* entry). Fixing those found a stale one this lane's
-diff does not touch and did not cause: THE UNDERTOW (§ around line 3334) is
-cited as `act-7c.ts`'s own arrivals, but `act-7d.ts`'s own header says THE
-UNDERTOW came over from `act-7c.ts` on 18 September 2026 and opens *that*
-page instead. `tools/test/doc-drift.test.ts` only proves a cited file still
-exists, not that the boss named beside it is still in it, so this class of
-drift is invisible to `bun run check` — which is exactly how ten citations
-went unnoticed through today's own rename until this lane went looking.
-
-To do: grep this file for every `act-7[a-z]\.ts` (and, in case the same thing
-happened to earlier acts, every `act-\d+[a-z]?\.ts`) citation, and for each
-one open the named file and confirm the boss named beside it is actually
-there — `grep -rn "id: \"theX\"" packages/content/src/waves/` finds where a
-wave actually lives. THE UNDERTOW is one instance found so far; there may be
-others this lane's own search (limited to the pages it was already touching)
-did not cover.

@@ -3331,7 +3331,7 @@ count, a width in thousandths and whether it was widened into — and the list
 of them is the whole of the state (`sim/undertow.ts`, hashed in
 `sim/undertow-hash.ts`). It is a fixture, not a body (`bossFillsWave ===
 false`), and the arrivals around it are the wave's own
-(`content/src/waves/act-7c.ts`, plain slicks from the fourth push on, as the
+(`content/src/waves/act-7d.ts`, plain slicks from the fourth push on, as the
 design page's step 8 asks).
 
 **The rule, in one sentence.** A plate bows for `undertowBowBeats` (4) and a
