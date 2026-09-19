@@ -10037,3 +10037,25 @@ banked only ever appears to someone who has found the control. The hand is
 minutes went on proving it rather than assuming it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-input-and-the-lost-screen — the answer was three entries
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the whole press path — `input.ts`, `game.css`, `touch.ts` and `touch-drag.ts`, `bullets.ts`, `step.ts`, `command-locks.ts`, `delay.ts`, `crank.ts` and `bearing.ts` — then `lost-look.ts`, `lost-blood.ts`, `lost-shut.ts` and `lost-answer.ts` for what the lost screen already draws |
+| writing | 25 | three `##` entries in `docs/queue.md`: the owner's wave-lost candidates, and the two findings the reading turned up |
+| looking | 0 | nothing is drawn by this lane; the candidates it asks for are drawn by the local lane that takes the entry |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was proving the press path is already as good as a wrapper
+would make it**, because that is the half of the owner's question a queue
+entry cannot carry. Every plausible cause of a press that does not land had to
+be read in the file that owns it before "a native app would not help with
+this" could be said: the non-passive `preventDefault` and the pointer capture,
+the synchronous push into the buffer, the delayed lockstep's floor and
+ceiling, and the four places the rules swallow a press on purpose. Only two
+things survived as real defects — a canvas with no `touch-action` and a crank
+sampled once a frame — and both went in the queue rather than in the answer.
+
+*Measured: the rows above are the session's own estimate.*

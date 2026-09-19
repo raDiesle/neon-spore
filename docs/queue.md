@@ -2103,3 +2103,124 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## WAVE LOST bleeds thirteen fast rivulets: slower and fewer wants candidates
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/render/src/lost-blood.ts`, `packages/render/src/lost-shut.ts`, `packages/render/src/lost-look.ts`, `packages/render/src/lost-screen.ts`, `tools/versus/candidates/registry.ts`, `docs/versus.md`
+- **Where:** local
+
+The owner, 19 September 2026: *"Create some versus alternatives animations for
+the wave lost overlay — what now is the many fast falling down purple drops.
+Alternatives should be much slower and less elements. Maybe a single slime
+flowing full width top to middle of the screen in some red, or a red splash
+like it is coming from the game screen and splashing towards the user
+perspective."*
+
+**What ships is thirteen.** `lost-blood.ts` runs `RUNS = 13` rivulets, each
+crossing the screen in `FALL = 3.4` seconds with `WANDER = 9` pixels of drift,
+`WIDE = 12` at the head, in `HUE = PALETTE.hull` — the ship's violet. It was
+asked for by name on 16 September 2026 (*alien blood flowing from top to
+bottom, all across the full width*), which is why it is on the field and not
+in a slot, and `shutVeil` calls `bleed` rather than owning it
+(`lost-shut.ts:195`). Every rivulet is a function of `age` and its own index:
+no state, nothing in `Effects`, and the screen draws the same twice on one
+tick. **A candidate keeps that property or it is not a candidate.**
+
+**The seam already exists and it is `LOST_LOOK.veil`** (`lost-look.ts:90`), so
+an alternative is a whole `paint` function in a directory under
+`tools/versus/candidates/` plus `bun run versus index` — not a retune of the
+four constants above. The shipped SHUT plates are the current `veil` and they
+call `bleed` at the end of their own paint; an answer that wants different
+fluid replaces the paint and leaves `bleed` where it is for the one that
+still uses it.
+
+**Four worth drawing, the owner's two first:**
+
+- **One slime, top to the middle.** A single body the full width of the phone,
+  crawling down and stopping half-way rather than running off the foot, with a
+  hanging lower edge that goes on sagging after the body has stopped. One
+  element instead of thirteen and the slowest thing on the screen, which is
+  the ask read straight.
+- **A splash toward the viewer.** Thrown from the middle of the field outward,
+  drops growing and thinning as they approach — the glass of the phone taking
+  it rather than the field bleeding down behind it. It is the only one of the
+  four that puts the pair on the wrong side of the screen, and it is also the
+  one that risks covering the breach.
+- **One rivulet, wide and slow.** The shipped effect with `RUNS` at one, twice
+  the width and four times the fall — the cheapest possible answer, and worth
+  drawing for exactly that reason: if it reads as well as the other three the
+  other three are not owed.
+- **A pool that rises from the foot.** Nothing falls at all; a level creeps up
+  from the bottom edge and stops under the buttons. It is the one that never
+  crosses the breach on its way anywhere, and the only one that says *this is
+  not over* rather than *something burst*.
+
+**Red is not free.** WAVE LOST is already written in red and the bodies are
+red (`palette.ts`); the shipped violet was chosen so the screen was not one
+colour (`lost-blood.ts`'s header). The owner has now asked for red twice over,
+so a candidate in red is drawn — but at least one of the four stays violet so
+the choice is on the screen rather than in this file.
+
+**Three rules hold whichever wins.** The breach must still be visible under
+it: the field stays greyed beneath this screen so the pair can look at where
+it got through, and a treatment that covers it takes the lesson away
+(`lost-screen.ts`). **RETRY WAVE and QUIT may not move** — `apps/game/src/lost.ts`
+hit-tests the boxes `lostButtons` hands out, and a look that moved them would
+move the picture and not the thumb (`lost-answer.ts`). And nothing may outlive
+a frame without going in `Effects` and being cleared in `Effects.reset()`
+(`render/test/restart.test.ts`).
+
+It is local because choosing between four of these is looking at four of
+these, at tempo, on a phone-shaped screen.
+
+## The field canvas states no `touch-action` and the page no `overscroll-behavior`
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/game.css`, `apps/game/test/`
+- **Where:** cloud
+
+Found while answering the owner's question about whether a native app would
+take input better. The press path itself is already as good as a wrapper would
+make it — `pointerdown` on the canvas, `preventDefault` in a non-passive
+listener, `setPointerCapture`, no tap highlight, no context menu, and the press
+is pushed into the buffer synchronously (`input.ts:153-159`). Two lines of
+glass are missing under it.
+
+`touch-action: none` is set on `html, body` (`game.css:5-16`) and **not on
+`canvas`** (`game.css:17-21`). `touch-action` is not inherited: it is read off
+the element the gesture starts on and its ancestors' *scroll* behaviour, and
+the decision is made by the compositor before the first `pointerdown` is
+dispatched — which is exactly the case `preventDefault` cannot undo. And
+`overscroll-behavior` appears once in the app, on the menu sheet
+(`menu.css:166`), never on the field's page.
+
+To do: `touch-action: none` on the `canvas` rule and `overscroll-behavior:
+none` on `html, body`, and one test that reads `game.css` and asserts both —
+`apps/game/test/view-switch.test.ts` is the shape, it already reads that file.
+Nothing else changes, and the thing being defended against is a two-thumb
+gesture on a phone, which is what this game is played with.
+
+## A crank sampled once a frame can be read as a turn the other way
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/input.ts`, `packages/sim/src/bearing.ts`, `apps/game/test/input-pc.test.ts`
+- **Where:** cloud
+
+`MAX_BEARING_STEP` is half a turn, and a step past it is read as that much of
+a turn **the other way** (`crank.ts:120-133`, `instar-hand.ts`). Its own
+comment carries the assumption: *a real finger reports many times a second and
+cannot cover half a circle between two of them* (`bearing.ts:43-52`). The
+browser does not report a finger many times a second to this app — it
+coalesces moves to roughly one per animation frame, and `getCoalescedEvents`
+is not called anywhere in the repository. So the true sample rate on the crank,
+THE INSTAR's `turn` mark and THE ORRERY's ring is ~60 Hz, and half a turn of a
+small crank inside 16.7 ms is a flick a thumb can make.
+
+To do: read `e.getCoalescedEvents()` in the `pointermove` handler
+(`input.ts:160-168`) and push one command per sample, falling back to the event
+itself where the method is absent; the fake DOM in `apps/game/test/fake-dom.ts`
+needs the same. A case that flicks a crank past half a turn in one frame and
+comes out wound forward is the proof. It costs nothing on the cannon and the
+shield, which report a column and are idempotent — the gain is entirely on the
+three gestures that read a bearing.
