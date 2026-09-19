@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · e4829c67 — A cloud shell's own bun is not the pinned one, silently
+
 ## 2026-09-19 · d51c5b3a — The drawn dome is on both screens, and a reading page argues that it is not
 
 ## 2026-09-19 · 628baa61 — THE REPRISE says two words over an empty field, and the plate leaves its guide
