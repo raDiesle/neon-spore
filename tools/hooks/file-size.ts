@@ -33,6 +33,16 @@ export const LIMIT = 250;
 export const MARK_SHARE = 0.88;
 
 /**
+ * `.claude/skills/new-boss/SKILL.md` reached 257 lines on 19 September 2026
+ * with nothing saying a word, because `counted` only ever looked at `.ts`
+ * source. A skill is loaded into every session's context the same way
+ * `CLAUDE.md` is — the reason a `.ts` file is held to this ceiling in the
+ * first place — and no other `.md` in the repository carries that cost, so
+ * this is the one exception `counted` makes for the extension
+ * (`docs/queue.md`, 19 September 2026).
+ */
+
+/**
  * `waves.ts` used to be the one file that could not be split by the lane that
  * fills it: the director rewrote the `WAVES` array in place, and
  * `serialize.ts` found `export const WAVES: Wave[] = [` and regenerated
@@ -60,8 +70,16 @@ export const MARK_SHARE = 0.88;
  *
  * A new entry is a promise to split a file later, and the only reason to make
  * one is that the split is a real decision the current lane cannot make.
+ *
+ * **Two skills joined it on 19 September 2026**, the day the ceiling first
+ * reached `.md` files: `new-tutorial` and `delegate` were already over, and
+ * splitting either is the same real decision — which half of a skill a
+ * session reads first — a lane fixing the check itself should not make.
  */
-export const KNOWN_LONG: Record<string, number> = {};
+export const KNOWN_LONG: Record<string, number> = {
+  ".claude/skills/new-tutorial/SKILL.md": 270,
+  ".claude/skills/delegate/SKILL.md": 294,
+};
 
 /** What a file is held to: its own recorded maximum, or the ceiling. */
 export function ceiling(rel: string): number {
@@ -92,9 +110,14 @@ export function mark(rel: string): number {
  * session is furthest from wanting it. `packages/sim/test/source-scan.ts`
  * keeps the same directory out of the guards that read source; this is the
  * half the hook and `limits.test.ts` share.
+ *
+ * **A skill's own `SKILL.md` is the one `.md` file this reaches**, checked
+ * before the `.ts` rule below rather than folded into it, since nothing else
+ * about a skill file matches that rule at all.
  */
 export function counted(rel: string): boolean {
   const p = rel.replaceAll("\\", "/");
+  if (/^\.claude\/skills\/[^/]+\/SKILL\.md$/.test(p)) return true;
   if (!p.endsWith(".ts") || p.endsWith(".test.ts")) return false;
   if (p.includes("node_modules/") || p.includes("dist/") || p.includes("/test/")) return false;
   if (p.includes("tools/probe/scratch/")) return false;

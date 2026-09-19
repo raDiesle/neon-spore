@@ -2089,31 +2089,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Whether `limits.test.ts` should count a `.md` skill file at all
-
-- **Found:** 2026-09-19, claude/queue-claude-skills-new-boss-skill-md-is-seven-lines-o
-- **Taken:** 2026-09-19, claude/record-owner-answers-19sep (claim: claude/queue-whether-limits-test-ts-should-count-a-md-skill-f)
-- **Files:** `packages/sim/test/limits.test.ts`, `tools/hooks/file-size.ts`, `.claude/skills/`
-- **Asks:** Should a skill's `SKILL.md` be brought under the same ~250-line ceiling `limits.test.ts` and `tools/hooks/file-size.ts` hold `.ts` source to, or is a skill left to be judged by eye the way the rest of `docs/` is?
-- **Answered:** 19 September 2026 — add `.md` files under `.claude/skills/` to `counted()`'s reach, with `KNOWN_LONG` open to a skill that argues for one. A skill is loaded into every session's context the same way `CLAUDE.md` is, which is the reason a `.ts` file is held to this ceiling in the first place, and this entry's own overage — 257 lines unnoticed by anything — is the proof that "judged by eye" already missed one.
-
-`.claude/skills/new-boss/SKILL.md` reached 257 lines on 19 September 2026 with
-no test or hook saying anything, because `counted()` in `limits.test.ts` only
-looks at `.ts` files under `packages|apps|tools` and `written-paths.ts`'s hook
-only watches paths a lane's own edits touch that match the same rule. Splitting
-that file (this entry's own fix, `.claude/skills/new-boss-more`) removes the one
-overage found so far, but nothing stops the next skill from growing past it
-unnoticed — a skill is loaded into every session's context the way `CLAUDE.md`
-is, which is the same reason a `.ts` file is kept short, and no other `.md` in
-the repo carries that cost.
-
-Two answers, and they are different work: add `.md` files under
-`.claude/skills/` to `counted()`'s reach (a few lines, the same ceiling,
-`KNOWN_LONG` open to a skill that argues for one); or leave skills to be judged
-the way the rest of `docs/` already is — by a lane noticing and filing an entry
-like this one, the way this file's own preamble already asks of everything
-else. Not sized until the owner picks one.
-
 ## `docs/spec/bosses.md` names a wave's act file by an old one
 
 - **Found:** 2026-09-19, claude/queue-act-7d-ts-is-eight-under-the-ceiling-and-a-guide

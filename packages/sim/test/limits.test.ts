@@ -33,11 +33,16 @@ function sourceFiles(): string[] {
   // outside one — `tools/versus/prompt.ts` at 509 lines went over the limit,
   // and past twice the limit, without this test ever looking at it.
   //
+  // A second glob for the one `.md` `counted` also reaches: a skill's own
+  // `SKILL.md`, held to the same ceiling since 19 September 2026 for the same
+  // reason `.ts` source is (`docs/queue.md`).
+  //
   // Filtered while the paths are still the glob's own relative ones, which is
   // what `counted` answers about: an absolute path under a checkout that
   // happens to live in a directory called `apps` is not an `apps/` file.
-  const glob = new Glob("{packages,apps,tools}/**/*.ts");
-  return [...glob.scanSync(ROOT)]
+  const ts = [...new Glob("{packages,apps,tools}/**/*.ts").scanSync(ROOT)];
+  const skills = [...new Glob(".claude/skills/**/*.md").scanSync(ROOT)];
+  return [...ts, ...skills]
     .map((f) => f.replaceAll("\\", "/"))
     .filter(counted)
     .map((f) => join(ROOT, f));

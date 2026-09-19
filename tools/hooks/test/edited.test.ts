@@ -128,6 +128,12 @@ describe("which files the line ceiling reaches", () => {
   it("does not care how the path was spelled", () => {
     expect(counted("tools\\hooks\\file-size.ts")).toBe(true);
   });
+
+  it("takes a skill's own SKILL.md, and no other .md", () => {
+    expect(counted(".claude/skills/new-boss/SKILL.md")).toBe(true);
+    expect(counted(".claude/skills/new-boss/README.md")).toBe(false);
+    expect(counted("docs/spec/bosses.md")).toBe(false);
+  });
 });
 
 describe("what a file's line count is measured against", () => {

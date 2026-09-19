@@ -11655,3 +11655,28 @@ forward.
 own precedent; this was transcription.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-whether-limits-test-ts-should-count-a-md-skill-f — the ratchet's second kind of file
+
+Building the decision this same session recorded earlier: `counted()` now
+returns true for a skill's own `SKILL.md`, checked ahead of the `.ts` rule
+since nothing else about the path matches it, and `limits.test.ts`'s
+`sourceFiles()` gained a second glob to actually find them. Flipping the
+switch immediately failed two skills already over the line —
+`new-tutorial` (270) and `delegate` (294) — so both joined `KNOWN_LONG` at
+their current length, the same ratchet the module's own history describes
+for the five tool entry points it was first seeded with: a promise to split
+later rather than a seam chosen by a lane that owns neither skill.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `file-size.ts`, `limits.test.ts`, and every `SKILL.md`'s line count to see which would go red on landing |
+| writing | 15 | the `counted()` branch, the `KNOWN_LONG` entries, the second glob, and a test case for the new branch |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 15 | `format`, `lint`, the two touched test files, then the full `check` (18,490 tests) |
+
+**No real bottleneck** — the decision, the exact two offenders and their
+counts were all already known before any code was written.
+
+*Measured: the rows above are the session's own estimate.*
