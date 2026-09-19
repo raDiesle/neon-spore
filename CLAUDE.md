@@ -102,7 +102,7 @@ A session started from a phone clones `origin` and never sees this checkout.
   `bun run perf` is *unverified*. **The relay is not**: `bun run relay:check:all`
   starts a wrangler, runs the four checks and stops it, and it works here.
 - **Its servers need a host**: `PREVIEW_HOST=127.0.0.1`, `DIRECTOR_HOST=127.0.0.1`.
-- **Two at once is the ceiling**, on different packages.
+- **As many at once as are reasonable**, on different packages.
 
 The reasoning, and what a cloud session needs once running: `docs/cloud-session.md`.
 

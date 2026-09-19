@@ -304,9 +304,20 @@ the landing. Every branch still has to arrive on a **linear** `main`, one after
 another, so three branches are three rebases onto a `main` that moved under all
 of them — and the conflict surfaces where the work is expensive rather than
 where it was cheap. A session landing its own branch does not change that; it
-only moves who does the rebase. Two at once, on
+only moves who does the rebase.
+
+**The ceiling was two, and the owner lifted it on 19 September 2026**: *"So
+parallelize. If it's my rule of max 2 cloud sessions, change it. I allow you to
+parallelize as many are reasonable on cloud or local."* So: as many as are
+reasonable, on
 different packages, each naming its branch in the prompt so no two sessions
-reach for the same one. Prefer the work the sandbox can actually finish:
+reach for the same one. What decides *reasonable* is the paragraph above and
+the one below rather than a number — the rebases queue, so the cost of one more
+session is the conflict surface it adds on `main`, and a lane whose files
+nobody else is in costs almost nothing while three lanes in `render/` cost each
+other. The queue's own claim is what keeps two sessions off one item
+(`bun run queue take`), and it is the mechanism to lean on now that the count
+is not capped. Prefer the work the sandbox can actually finish:
 `sim`, `content` and `net` are covered by `bun test`, while a wave's timing or
 anything in `render` comes back needing an eye here regardless, and running
 four of those in parallel only builds a queue in front of the one machine that
