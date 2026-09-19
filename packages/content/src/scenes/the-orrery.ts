@@ -131,13 +131,13 @@ export const THE_ORRERY: GuideScene = {
     {
       tick: 1800,
       seat: 2,
-      text: "NAKED · HOLD RED · THE BEAM",
+      text: "NAKED · A BOLT IS SPENT",
       anchor: { at: "control", control: "fireRed" },
     },
     {
       tick: 1980,
       seat: 1,
-      text: "HOLD THE MIDDLE · IT STANDS",
+      text: "THE BEAM USES YOUR COLUMN",
       anchor: { at: "control", control: "cannon" },
     },
     {

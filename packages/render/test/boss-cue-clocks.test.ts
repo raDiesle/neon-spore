@@ -5,7 +5,6 @@ import {
   type DiastoleState,
   type LeadState,
   type LedgerState,
-  type OrreryState,
   type ScuttleState,
   startWave,
   step,
@@ -25,16 +24,17 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **The five older choreographed bosses, and what the field is allowed to say
- * about them** (`render/src/boss-cue-read-c.ts`). THE THROAT was a sixth until
- * its fight was read whole; its cases are in `boss-cue-throat.test.ts`.
+ * **The four older choreographed bosses, and what the field is allowed to say
+ * about them** (`render/src/boss-cue-read-c.ts`). THE THROAT was a fifth and
+ * THE ORRERY a sixth until each fight was read whole; their cases are in
+ * `boss-cue-throat.test.ts` and `boss-cue-orrery.test.ts`.
  *
  * Half of this file is about **silence**, which is the unusual thing to test
  * and the reason it is worth a file. Each of these fights is a number the pair
- * says out loud — which beat the gaps line up, where the cord roots next,
- * where the body will be when the shot lands — and a cue that lit at the right
- * moment would answer it. So THE ORRERY's open shaft, THE DIASTOLE's
- * coincidence and THE LEAD's column each have a case here asserting that
+ * says out loud — where the cord roots next, where the body will be when the
+ * shot lands, which beat the two chambers coincide — and a cue that lit at the
+ * right moment would answer it. So THE DIASTOLE's coincidence and THE LEAD's
+ * column each have a case here asserting that
  * **nothing is drawn**, and those cases are the ones that would catch a lane
  * making this boss "clearer" by taking its subject away (`decisions.md` #34,
  * *reconsider if a cue starts carrying a column, a colour or a count*).
@@ -70,9 +70,9 @@ function word(world: World, role: ViewRole): string | null {
  * The boss this wave installed, as the state its own file names it.
  *
  * The cast is the point of the helper and not a shortcut around it: every one
- * of these has an `xxxBoss` narrower in `packages/sim` except THE ORRERY, and
- * six imports to narrow six unions in a test that then writes to all of them
- * would be longer than the fights it is about. The `kind` check is what makes
+ * of these has an `xxxBoss` narrower in `packages/sim`, and four imports to
+ * narrow four unions in a test that then writes to all of them would be longer
+ * than the fights it is about. The `kind` check is what makes
  * it safe — a wave that installed the wrong boss throws here rather than
  * passing a test with no boss in it.
  */
@@ -210,32 +210,5 @@ describe("THE DIASTOLE", () => {
     b.clampUntil = world.beat;
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
-  });
-});
-
-describe("THE ORRERY", () => {
-  it("is silent while the rings turn — the open beat is the whole boss", () => {
-    const world = opened("orrery");
-    const b = installed<OrreryState>(world, "orrery");
-    b.phase = "rings";
-    // Every beat of a full orbit, so a cue that lit on the open one is caught
-    // wherever in the cycle this world happens to have started.
-    for (let i = 0; i < 24; i++) {
-      // Held, so a boss the step nulled cannot make this pass by saying
-      // nothing about a fight that is over.
-      expect(world.boss?.kind).toBe("orrery");
-      expect(word(world, "p1")).toBeNull();
-      expect(word(world, "p2")).toBeNull();
-      for (let t = 0; t < TPB; t++) step(world, []);
-      b.phase = "rings";
-    }
-  });
-
-  it("names the beam once every ring is off", () => {
-    const world = opened("orrery");
-    const b = installed<OrreryState>(world, "orrery");
-    b.phase = "naked";
-    expect(word(world, "p2")).toBe("BURN");
-    expect(word(world, "p1")).toBeNull();
   });
 });

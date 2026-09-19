@@ -123,8 +123,8 @@ export const WAVES_ACT_7D: Wave[] = [
     sentence: "The one where you each see two of the three rings.",
     guide: {
       both: "Shoot the core up the middle column, on a beat when every ring's gap is at the bottom.",
-      p1: "1. Keep the cannon in the middle column.\n2. Say when the middle ring's gap is at the bottom.\n3. Count with your partner to the beat all the gaps meet, and say it.",
-      p2: "1. Load the core's colour and say it. It changes each time a ring comes off.\n2. Say when the inner ring's gap is at the bottom.\n3. Fire on the beat you both counted to.\n4. All rings gone: hold the colour for the beam.",
+      p1: "1. The middle ring is yours alone. The outer one you both see.\n2. Say when the middle ring's gap is at the bottom.\n3. Count with your partner to the beat all three gaps meet, and say it.",
+      p2: "1. The inner ring is yours alone, and so is the core's colour. Say the colour — it changes with each ring.\n2. Say when the inner ring's gap is at the bottom.\n3. Fire on the beat you both counted. A wrong colour costs.",
       scene: "theOrrery",
     },
     entries: [],

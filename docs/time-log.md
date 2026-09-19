@@ -10014,3 +10014,26 @@ total, and explainable in a sentence; the twenty minutes went on convincing
 myself the reversible verbs did not need the same treatment.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-orrery-the-field-says-the-word — the column was the silence
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the seven `orrery*.ts` in `sim`, `orrery-shape.ts` and `orrery-grab.ts`, `boss-cue.ts` and both pages that hold a reading of a choreographed boss, `view-role-clocks.ts`, the film, the wave entry and `.claude/skills/new-boss` §6.1 |
+| writing | 35 | `boss-cue-read-l.ts` and its argument, seven cases in a new test file, the two pages of the film, both prose halves, the record in `bosses.md` and the two rows in `briefings.md` |
+| looking | 0 | nothing new is drawn; the proof is the seven cases and the silences among them, and the PNG is queued unverified |
+| friction | 10 | `bun run index` passed a row naming a boss its file no longer mentions — repaired by hand and queued; and the first rewrite of the navigator's half went over `briefing.test.ts`'s 220 characters |
+| landing | 20 | `check:fast` twice, the commit, `queue done`, `bun run land --keep` |
+
+**The bottleneck was deciding what the pilot's hand on a ring is owed.** The
+fight hands him a handle nobody tells him about (`orrery-grab.ts`), and a
+`TURN` on it is the obvious fifth word. Four conditions were weighed and all
+four rejected: the last ring standing cues an optional control for a third of
+the fight; a window off `phaseBeat` needs a `SimConfig` field only render would
+read and misses the middle break entirely; anything keyed to `orreryNextOpen`
+leaks the beat, which is the boss; and a word that waits for a bearing already
+banked only ever appears to someone who has found the control. The hand is
+*offered* rather than asked for, and that is §6.2's lane — but the twenty
+minutes went on proving it rather than assuming it.
+
+*Measured: the rows above are the session's own estimate.*

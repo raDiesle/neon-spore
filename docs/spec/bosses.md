@@ -3668,7 +3668,44 @@ the outer ring gone; cyan on 27 for 28, the inner ring alone; red held from
 eleven rocks — nine shed, two spat on beats 16 and 20 — is warded by an
 `atBody` shield the beat before it lands with a guard after it, because the
 seed decides their columns and none is one an authored strip reaches. Thirteen
-pages, six the navigator's; none on the hand, which the film does not use.
+pages, six the navigator's; none on the hand, which the film does not use. Two
+of them were rewritten on 19 September 2026, when the field learnt to say the
+column: `NAKED · HOLD RED · THE BEAM` lost the verb and became `NAKED · A BOLT
+IS SPENT`, and `HOLD THE MIDDLE · IT STANDS` became `THE BEAM USES YOUR
+COLUMN` — the reason each seat must stand where it does, which is the thing a
+word on the glass cannot say ([briefings](briefings.md) §7).
+
+**What the field says** (`render/src/boss-cue-read-l.ts`, 19 September 2026,
+[decisions](../decisions.md) #34). It shipped on 18 September with one word —
+`HOLD` / `BURN` on the naked core — and that word was right and was not the
+fight. **The silence that mattered was the column.** A bolt and the beam both
+leave the cannon's own column (`fire.ts`), the core hangs over exactly one for
+the whole fight (`orreryCoreCol`, which is `midCol`), and `spitting` spends
+itself throwing rocks down every column but that one to drive the pilot off it
+(`orrery-step.ts`) — and nothing on his band said so. `CARRY` / `MOVE` stands
+on his carriage whenever it is off the core's column, in every phase the fight
+has one, and it retires guide step p1-1 — as `BURN` retires the navigator's
+step naming the beam.
+
+**The beam is behind it**, which is THE THROAT's and THE UNDERTOW's pairing a
+third time: the colour buttons are hers and they fire straight up *his* column,
+so while his carriage is off it she is told nothing at all rather than told to
+`BURN` up an empty lane. Once he is parked, `HOLD` / `BURN` on the core in
+`naked` — and quiet while `priming`, for `gripBrakes`' reason. Nothing at all
+once the core is out.
+
+**And the three silences are the boss.** Not the open beat:
+`orreryShaftOpen`, `orreryNextOpen` and `orreryGapSlot` are deliberately not
+read in that file, because a word appearing on the beat every gap meets would
+*be* this fight. Not the colour: `b.color` is not read either. Not the shed and
+spat rocks: `spit` and `organCol` both refuse the core's column, so every one
+of them is an ordinary body answered by the ordinary shield loop, and a word
+pointing at one would be the field arguing against its own `MOVE`. The pilot's
+hand on a ring has no word yet and that is a decision with an argument behind
+it, written out in the file: the hand is *offered* rather than asked for — a
+`TURN` that lit when a turn would help would say the alignment out loud, and
+one that stood whenever a ring was turnable would stand for the whole fight.
+Proved on both screens, with the silences: `render/test/boss-cue-orrery.test.ts`.
 
 ## 11.22 THE CANDLE — the boss fought in the dark
 

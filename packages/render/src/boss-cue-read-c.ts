@@ -9,7 +9,6 @@ import {
   leadPassing,
   ledgerNext,
   ledgerPhase,
-  type OrreryState,
   type ScuttleState,
   scuttleShootable,
   scuttleSocketCol,
@@ -27,27 +26,25 @@ import {
   ledgerSocketPoint,
   ledgerTaut,
 } from "./ledger-shape.js";
-import { orreryCorePoint } from "./orrery-shape.js";
 import { scuttleLockBox } from "./scuttle-draw.js";
 import { scuttleRowY } from "./scuttle-shape.js";
 
 /**
- * **What THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE ORRERY are
- * asking for** — page three of the readings, on the seam the two before it
- * draw. THE THROAT was a sixth here until its fight was read whole and outgrew
- * a paragraph; it has page eleven to itself (`boss-cue-read-k.ts`).
+ * **What THE LEDGER, THE LEAD, THE SCUTTLE and THE DIASTOLE are asking for**
+ * — page three of the readings, on the seam the two before it draw. THE THROAT
+ * was a fifth here until its fight was read whole and outgrew a paragraph, and
+ * THE ORRERY a sixth for the same reason a day later; they have pages eleven
+ * and twelve to themselves (`boss-cue-read-k.ts`, `boss-cue-read-l.ts`).
  *
- * These five are the older half of the choreographed page and the half whose
+ * These four are the older half of the choreographed page and the half whose
  * whole difficulty is a **number the pair says out loud**: which beat the gaps
  * line up, where the cord will root next, where the body will be when the shot
  * gets there. So the rule that decides almost every line below is #34's third:
  * **it says the verb and never the answer.**
  *
- * That is why three of them are quieter than their fights are busy. THE ORRERY
- * is told nothing at all while its rings turn — a word appearing on the beat
- * the shaft opens would *be* the boss, and there would be nothing left to
- * agree about. THE DIASTOLE says nothing about either count. THE LEAD says
- * nothing about where the body will be. What each of them is given instead is
+ * That is why two of them are quieter than their fights are busy. THE DIASTOLE
+ * says nothing about either count. THE LEAD says nothing about where the body
+ * will be. What each of them is given instead is
  * the moment its **verb changes** and nothing on the panel says so: the
  * trigger stops working and only the beam lands. A pair that has learned the
  * fight needs that sentence once and never needs to be told the number.
@@ -198,20 +195,4 @@ export function diastoleCues(l: Layout, world: World, b: DiastoleState): readonl
     return [markAt(1, "HOLD", "CLAMP", tileCX(l, diastoleChamberCol(world.cfg, 1)), y, l, 79)];
   }
   return diastoleClampHolds(b, world.beat) ? [burn] : [];
-}
-
-/**
- * THE ORRERY. **Nothing while the rings turn.** The fight is which beat every
- * gap stands at the bottom at once, neither seat can see all three rings, and
- * a cue that lit on the open beat would answer the only question this boss
- * asks. `orreryShaftOpen` is deliberately not read in this file.
- *
- * One word, once every ring is off: the core underneath takes nothing but the
- * lance (`orrery-shot.ts`). The rings are gone by then, so there is no longer
- * a prediction to spoil — what is left is a verb the panel does not name.
- */
-export function orreryCues(l: Layout, world: World, b: OrreryState): readonly BossCue[] {
-  if (b.phase !== "naked") return [];
-  const at = orreryCorePoint(l, world.cfg);
-  return [markAt(2, "HOLD", "BURN", at.x, at.y, l, 58)];
 }

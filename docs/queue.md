@@ -705,24 +705,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE ORRERY: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-orrery-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says `BURN` on the naked core, which is
-what one lane could reach and not the whole fight.
-It has no rehearsal, only the three prose lines.
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE ORRERY changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2085,3 +2067,25 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## The index's drift check reads a count but not a list of names
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `tools/index/drift.ts`, `tools/index/test/index.test.ts`
+- **Where:** cloud
+
+`generateIndex` passes an existing row through byte for byte on purpose, and
+`drift.ts` is the half that catches a row gone wrong without regenerating it.
+It reads the two things that go stale on their own — a backticked name that
+moved, and a count of something the header counts differently. A **list of
+proper names** is a third, and it is the one this lane hit: the row for
+`packages/render/src/boss-cue-read-c.ts` said *THE LEDGER, THE LEAD, THE
+SCUTTLE, THE DIASTOLE and THE ORRERY*, the file's own header lost THE ORRERY,
+`bun run index` stayed green, and the row was repaired by hand — which is
+exactly the failure the file's own comment says it exists to stop.
+
+To do: in `drift.ts`, for every run of two or more capitals in a row's text
+(`THE ORRERY`, `BULB QUEEN`, `SNAKE`, `PINBALL`), fail when that run is absent
+from the file's own header comment. Case-sensitive and whole-run, so ordinary
+prose cannot trip it. Two cases: a row naming a boss its file no longer
+mentions is caught; a row naming one it still does is not.

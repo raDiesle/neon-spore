@@ -605,6 +605,8 @@ hand still draws.
 | THE UNDERTOW | `THE MAW TAKES THE NEAR ONE` | `PLAYER 1 CANNOT REACH BOTH` | the same, on the one of the pair he is under — and nothing on the other |
 | THE THROAT | `PLAYER 2 CLEARS IT WITH RED` | `A SHOT STILL KILLS IT THERE` | `PRESS` / `FIRE` on a living body standing in the mouth, hers, while his carriage is in the mouth's column |
 | THE THROAT | `SWIPED LEVEL INTO THE MOUTH` | `IT FLIES THE WAY YOU SWIPE` | `CARRY` / `FLING` on a gum, his alone, on the one beat it is on the mouth's row |
+| THE ORRERY | `NAKED · HOLD RED · THE BEAM` | `NAKED · A BOLT IS SPENT` | `HOLD` / `BURN` on the core, hers alone, once every ring is off and no lobe is already filling |
+| THE ORRERY | `HOLD THE MIDDLE · IT STANDS` | `THE BEAM USES YOUR COLUMN` | `CARRY` / `MOVE` on the cannon, his alone, whenever it is off the core's column — in every phase the fight has one |
 
 **Three other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER and THE DIASTOLE spend their pages
@@ -618,12 +620,22 @@ the six that stayed). A film that reads as unprunable against this rule is a fil
 already teaching the split rather than the verb, which is what the checklist's
 first question has been asking for all along.
 
-THE ORRERY carries a cue; its prose halves were left whole, because every
-sentence in them that names the beam names the column or the colour with it,
-and its film (18 September 2026) is the same — `NAKED · HOLD RED · THE BEAM`
-names the colour. THE LEAD's, THE SCUTTLE's and THE ANTIPHON's films came on
-17 and 18 September 2026 with no page that is the cue's verb alone: their
-holds name the column or the colour.
+THE ORRERY was read that way on 18 September 2026 and re-read on the 19th,
+and the second reading is why it has rows above. The first one looked at a
+fight that said `BURN` once and concluded the prose was safe, because every
+sentence in it that names the beam names the column or the colour with it.
+What that missed is that the *column* was the silence: a bolt and the beam
+both leave the cannon's own column, the core hangs over one column for the
+whole fight, and `spitting` spends itself trying to drive the pilot off it —
+so `1. Keep the cannon in the middle column` was a step the field could say
+and did not (`boss-cue-read-l.ts`). It says it now, and both of the pages
+above went with it, and so did the navigator's fourth step, which named the
+beam that `BURN` now names. What is left of the two halves is the split
+picture, the sentence each seat has to say and what a wrong colour costs. **A prose half is only safe against the reading the fight
+currently has**, which is the lesson of this row and of THE THROAT's.
+THE LEAD's, THE SCUTTLE's and THE ANTIPHON's films came on 17 and 18 September
+2026 with no page that is the cue's verb alone: their holds name the column or
+the colour.
 
 THE UNDERTOW's three later rows are 18 September 2026, when its reading grew
 from four moments to all five of the fight's phases (`boss-cue-read-j.ts`) and
