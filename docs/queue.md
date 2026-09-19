@@ -2170,6 +2170,7 @@ what the rest of this file holds.
 ## A film's authored column may have rounded somewhere the author did not mean
 
 - **Found:** 2026-09-19, claude/queue-a-film-cannot-put-a-hand-on-four-of-the-eleven-c
+- **Taken:** 2026-09-19, claude/queue-a-cancelled-touch-fires-the-command-as-if-the-th (claim: claude/queue-a-films-authored-column-may-have-rounded-somewhe)
 - **Files:** `packages/content/src/scenes/`
 - **Where:** cloud
 
