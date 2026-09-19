@@ -235,30 +235,6 @@ waiting on.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## A comment can describe the fix rather than the bug, and nothing catches it
-
-- **Found:** 2026-09-19, claude/queue-the-instar-says-the-word
-- **Taken:** 2026-09-19, claude/task-queue-work-ym2eim (claim: claude/queue-a-comment-can-describe-the-fix-rather-than-the-b)
-- **Files:** `packages/content/test/scenes-prose.test.ts`
-
-`scenes-prose.test.ts`'s own comment on THE INSTAR claimed, before this lane,
-that its marks already carried "the kind of action" over the gesture in their
-scanner box — but `drawInstarWord` took no such argument, and only the word
-half of that box had ever been drawn (`docs/queue.md`'s own entry this commit
-closes, `docs/time-log.md`'s `queue-the-instar` entry). Nothing failed: the
-comment sits beside a `STILL_PROSE` array the test only checks for membership,
-so a sentence describing a feature that does not exist yet is never exercised
-by anything. The queue's own test for what belongs here — *could a fresh
-session finish this alone and prove it with `bun run check`?* — is about work,
-not about whether a comment is true, and a doc-drift test such as
-`tools/test/doc-drift.test.ts` only holds a path in backticks to existing, not
-a claim in prose to the code it is beside. Whether a lint or a review habit
-could catch a comment asserting a capability its own file's exported functions
-do not have — greping for the noun phrase against the signatures near it,
-say — is worth ten minutes before the next one is found the same way, by
-accident, while reading for something else.
-
-
 ## The phone's back gesture leaves the game instead of asking
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -2126,3 +2102,42 @@ global this repository can legitimately name, and harvesting them the way
 nothing has to remember. Add them as a second set, drop the head-word
 restriction, and see what the 205 falls to; if it falls under a dozen the
 restriction can go entirely and the check triples its reach in the same run.
+
+## Nothing but `bun run push` can reconcile the trunk, so it is done by hand
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `tools/land/reconcile.ts`, `tools/land/push.ts`, `tools/land/run.ts`, `tools/land/replay.ts`, `tools/land/queue-merge.ts`, `CLAUDE.md`
+- **Where:** cloud
+
+`bun run land` refuses while the trunk is behind — *bring the trunk up first,
+or the check is a result about a history nobody else will have* — and says
+nothing about how. `CLAUDE.md` answers for it twice, once with
+`git merge --ff-only origin/main`, which cannot work on a trunk that has landed
+anything of its own, and once with the conflict rule: for `docs/queue.md` and
+`docs/release-notes.md` take origin's copy whole and re-append only your own
+entry. So a session rebases the trunk by hand.
+
+**Taking origin's copy whole reinstates a `queue done`.** A removal is not an
+entry to re-append, it is an entry to keep removed, and origin's copy still
+has it — this lane closed an item, rebased the trunk twice while other sessions
+pushed, and found the closed entry back in the listing afterwards, marked taken
+by the branch that had already landed it. `tools/land/queue-merge.ts` gets this
+exactly right and says so in `record-merge.ts`' own header — *a queue entry is
+meant to be removed, so that merge drops what a side dropped* — and
+`reconcile.ts` is `replay.ts` pointed at the trunk and `origin/main`, settling
+all four records the same way. Neither is reachable from a shell: `bun run push`
+is the only caller, and a session that is landing rather than sending has no
+way to ask for it.
+
+The trunk moved four times during one item here, each time costing a hand
+rebase of six commits, three conflict resolutions and two rounds of correcting
+release-note shas the rebase had just invalidated — about fifteen minutes that
+`reconcile` would have spent in seconds, and one silent wrong answer.
+
+What to do: give the reconciliation a command of its own — a `reconcile` script
+calling `reconcile(root, TRUNK)` the way `push.ts` does — and have `land`'s
+refusal name it instead of leaving the session to the rule. Then cut the
+conflict sentence in `CLAUDE.md` down to the generated file and the genuine
+disagreement, since the records are no longer anybody's to resolve by hand.
+Keep that edit to the one paragraph: every session pays for a change to that
+file.
