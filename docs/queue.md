@@ -2159,6 +2159,7 @@ worth having, and fullscreen (above) removes neither.
 ## A cancelled touch fires the command as if the thumb had been lifted
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-effects-spark-silent-boss-ts-is-at-the-250-line (claim: claude/queue-a-cancelled-touch-fires-the-command-as-if-the-th)
 - **Files:** `apps/game/src/input.ts`, `apps/game/test/touch-glass.test.ts`, `packages/render/src/touch.ts`
 - **Where:** cloud
 
