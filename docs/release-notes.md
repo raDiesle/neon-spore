@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 188832fe — The room takes the view switch away, and not the view
+
+Choosing P1 in the game's view switch hid the switch itself, so the desk view was a door that locked behind whoever walked through it. The switch went with the test rig on 3 September on the reading that a room has already dealt a seat, which is true in a room and not at a desk; the seat cards left as the way back live on the menu's rig page, three undocumented presses of the spore away with nothing on the screen saying so. So the switch now goes under `body.in-room` rather than `body.player-view`: it stands in every view solo, it still goes on a phone that was dealt a seat, and LEAVE ROOM on the front page of the menu stays the way out of that.
+
 ## 2026-09-19 · 104891cc — A tutorial never says the wave was lost
 
 A guide's film is a real world stepped by the real `step`, so a page that teaches a breach by letting one happen loses its wave like any other world — and the screen that answers a lost wave came up inside the tutorial plate, RETRY WAVE and QUIT asking about a run the pair are not playing. TORCH, BULB QUEEN, THE LURE and THE COIL each have such a page. The film goes on standing on its last frame instead, which is what it does between pages.
