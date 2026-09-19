@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 05c48636 — THE WELL is the one boss that may not be given a word, and its briefing carries all of it
+
+THE WELL is the twelfth of this family and the first whose answer is nothing. It has no state, no stepWell, no clock, no phase, no health, no gesture and no body: bossFillsWave is false, bossHoldsWave is the one no in the game, and boss-others returns before it on every clock there is. A cue is one word at the moment the fight wants something, and this fight has no moments. It is the second boss read against #34 and left silent — THE PULSE was the first — and the only one that could not have been anything else. Its own drawing was grepped for drawCueText first and came back empty, so this is a reading page and not a well-word.ts.
+
 ## 2026-09-19 · a892e07a — Queue: a cloud shell's own bun is not the pinned one, silently
 
 ## 2026-09-19 · 2c0cc8c5 — `new-boss-state`'s twelve registrations are fourteen
