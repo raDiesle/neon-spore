@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 481133e5 — THE SURGE gets the word for the gesture it is named after
+
+THE SURGE is beaten by letting go and had nothing on the field about letting go. Its grip marks have said HOLD to a thumb that is off since they shipped, and the one gesture that counts — both thumbs off the glass within a beat of each other with the pressure at the notch — had no word at all, against a game whose grip, lance fill, ready gate and warden tether have all trained the pair to hold on. So LIFT, in THE STARE's STILL, on the mark of a thumb that is on while the pressure is inside the band. The choosing moved to `surge-word.ts` beside the drawing, THE SINEW's seam: the mark rides the bulb's swell and the vent's sink, so a reading off `World` would put the word where the mark is not.
+
 ## 2026-09-19 · 5bbd6ec4 — The twelve registrations a new boss state costs are written down together
 
 ## 2026-09-19 · 0110dba2 — THE CURTAIN jams its rail, and the hem is the second gesture
