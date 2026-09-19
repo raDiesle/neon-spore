@@ -1,5 +1,5 @@
 /**
- * THE SURGE's twelve, in a file of their own for `boss-gorge.ts`' reason.
+ * THE SURGE's thirteen, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **sac under pressure**, and everything here is wet and
  * closed where THE SINEW's was taut: a thumb on the glass is a soft press
@@ -85,6 +85,15 @@ export const BOSS_SURGE_SOUNDS: SoundDef[] = [
     use: "THE SURGE throwing one gum down one of its columns after a burst.",
     level: 0.32,
     layers: [tick(0.22, 0, 3800), after(0.03, soft(0.5, spore(260, 0.12, 0.18, 40)))],
+  },
+  {
+    id: "boss.surgeRock",
+    family: "boss",
+    blurb: "A rock spat out of the bulb's underside: a dry cough and a weight falling.",
+    status: "bound",
+    use: "THE SURGE spitting a rock at the ship while both thumbs are on it.",
+    level: 0.38,
+    layers: [thud(210, 90, 0.18, 0.26), after(0.05, air(2600, 1400, 0.24, 0.1, 1.2))],
   },
   {
     id: "boss.surgeLost",

@@ -77,6 +77,8 @@ export function drawSurgeGrips(
   time: number,
   /** Whether the bulb takes no thumb now — sealing or everting: no word. */
   refusing: boolean,
+  /** Whether a rock the bulb spat is still falling: the word that outranks the rest. */
+  warding: boolean,
 ): void {
   const r = handleRadius(l, cfg) * GRIP_R;
   for (const side of [-1, 1] as const) {
@@ -103,7 +105,7 @@ export function drawSurgeGrips(
     //
     // On the seat whose mark it is and not on the other's — what the pair must
     // see of each other here is the *thumb*, and the ring says that by filling.
-    const say = surgeWord(cfg, s, player, refusing);
+    const say = surgeWord(cfg, s, player, refusing, warding);
     if (say === null) continue;
     const cue: BossCue = {
       seat: player,

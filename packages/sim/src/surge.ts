@@ -29,6 +29,14 @@ import type { World } from "./world.js";
  * `surgeCloseNotches` a burst **closes** a notch again. The last notch's
  * band ends one under the burst.
  *
+ * **From `surgeRockNotches` open it spits a rock**, every `surgeRockBeats`
+ * beats it has both thumbs on it, down its own columns at the ship. Nothing
+ * on the bulb answers a rock: the shield does, and the shield is the pilot's
+ * thumb, which is on the bulb. So the pair has to **let go on purpose** to
+ * ward it — the charge lost, nobody hurt — and take hold again after, which
+ * is this boss's own question asked at the one moment stopping costs
+ * something (`docs/spec/bosses-choreographed.md` §9 step 7).
+ *
  * **A burst throws gums**, `surgeBurstGums` of them, down the bulb's own
  * columns from where it hangs — the shipped body the pair swipes away in the
  * air (`gum.ts`), and one that reaches the ship is the ship's ordinary
@@ -60,6 +68,10 @@ export interface SurgeState {
   nearBeat: number;
   /** `world.beat` of the last burst; `-1` before the first. */
   burstBeat: number;
+  /** `world.beat` the last rock was spat on; `-1` before the first. */
+  rockBeat: number;
+  /** The id of that rock while it is still on the field; `-1` once it is gone. */
+  rockId: number;
   /** `world.beat` the last notch opened and the eversion began; `-1` while the bulb holds. */
   evertBeat: number;
   /** `world.beat` the eversion finished on; `-1` while it has not. */
@@ -117,6 +129,21 @@ export function surgeHoldsCharge(s: SurgeState, cfg: SimConfig): boolean {
 /** What one hand adds a beat now: the step, or twice it from `surgeDoubleNotches`. */
 export function surgeChargePerHand(s: SurgeState, cfg: SimConfig): number {
   return s.notches >= cfg.surgeDoubleNotches ? cfg.surgeChargeMilli * 2 : cfg.surgeChargeMilli;
+}
+
+/**
+ * **Whether a rock the bulb spat is still in the air** — the beats the pair
+ * has to ward it, and the fight's third gesture.
+ *
+ * Asked of the field rather than of a clock, because the rock is an ordinary
+ * rock from the moment it leaves and the field is the only thing that knows
+ * what became of it: turned at the shield, or landed on the hull. THE CAIRN's
+ * rule exactly — *from then on it is an ordinary rock and nothing here knows
+ * anything more about it* — with the one id kept back so the bulb can be
+ * asked whether its own is still falling.
+ */
+export function surgeWarding(s: SurgeState, world: World): boolean {
+  return s.rockId >= 0 && world.creatures.some((c) => c.id === s.rockId);
 }
 
 /** Whether the bulb is still re-sealing from a burst: no hand takes hold. */

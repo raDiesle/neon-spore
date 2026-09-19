@@ -8,8 +8,8 @@
  * The pressure, the notches and the two hands are read off `SurgeState`
  * every frame (`surge.ts`). What is *not* in the world a frame later is the
  * moment a thumb went on or came off, the pressure crossing into a notch's
- * band, the vent, the burst, the charge lost — so each of these is one such
- * edge. Every one names a column, because the ear pans on one: the bulb's
+ * band, the vent, the burst, the rock spat, the charge lost — so each of
+ * these is one such edge. Every one names a column, because the ear pans on one: the bulb's
  * own, or the side of it a seat's thumb is drawn on.
  */
 
@@ -34,6 +34,8 @@ export type SurgeEvent =
   | ({ type: "surgeBurst"; gums: number } & SurgeColEvent)
   /** One gum thrown out of the bulb, down `col` from `row`. */
   | ({ type: "surgeGum"; row: number } & SurgeColEvent)
+  /** A rock spat at the ship while both thumbs were on it, down `col` from `row`. */
+  | ({ type: "surgeRock"; row: number } & SurgeColEvent)
   /** The last thumb came off short of the band, or late: the charge did not count. */
   | ({ type: "surgeLost" } & SurgeColEvent)
   /** A body reached the bulb and was taken into it, from `row`. */

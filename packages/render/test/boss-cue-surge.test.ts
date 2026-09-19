@@ -75,8 +75,8 @@ function hung(): { world: World; s: SurgeState } {
 
 /** What this seat's mark would carry, with the drawing's one transient passed
  * as the drawing passes it. */
-function say(s: SurgeState, player: 1 | 2, refusing = false): SurgeWord | null {
-  return surgeWord(CFG, s, player, refusing);
+function say(s: SurgeState, player: 1 | 2, refusing = false, warding = false): SurgeWord | null {
+  return surgeWord(CFG, s, player, refusing, warding);
 }
 
 /** The pressure put in the middle of the notch's band. */
@@ -169,5 +169,43 @@ describe("THE SURGE's word", () => {
     expect(drawn("p1", lifting)).toContain("LIFT");
     expect(drawn("p1", lifting)).not.toContain("HOLD");
     expect(drawn("p2", lifting)).toContain("LIFT");
+  });
+});
+
+describe("THE SURGE's rock", () => {
+  it("takes the pilot's charge off him for the hull, and leaves the navigator's alone", () => {
+    const { s } = hung();
+    // Both thumbs off, the pressure under the band: the charge is what each
+    // mark says, and a rock of the bulb's in the air is worth more than it on
+    // the one seat that can answer it.
+    expect(say(s, 1)?.word).toBe("HOLD");
+    expect(say(s, 1, false, true)).toEqual({ kind: "PRESS", word: "SHIELD" });
+    expect(say(s, 2, false, true)?.word).toBe("HOLD");
+  });
+
+  it("fills the pilot's silence, on a thumb already down outside the band", () => {
+    const { s } = hung();
+    s.heldP1 = true;
+    s.heldP2 = true;
+    expect(say(s, 1)).toBeNull();
+    expect(say(s, 1, false, true)).toEqual({ kind: "PRESS", word: "SHIELD" });
+    expect(say(s, 2, false, true)).toBeNull();
+  });
+
+  it("never takes the lift, which is one beat wide where a rock is ten", () => {
+    const { s } = hung();
+    s.heldP1 = true;
+    s.heldP2 = true;
+    inBand(s);
+    expect(say(s, 1, false, true)).toEqual({ kind: "STILL", word: "LIFT" });
+    expect(say(s, 2, false, true)).toEqual({ kind: "STILL", word: "LIFT" });
+  });
+
+  it("says nothing at all while the bulb is refusing a thumb", () => {
+    const { s } = hung();
+    s.heldP1 = true;
+    s.heldP2 = true;
+    expect(say(s, 1, true, true)).toBeNull();
+    expect(say(s, 2, true, true)).toBeNull();
   });
 });

@@ -37,7 +37,7 @@ done.
 |---|---|---|---|
 | 1 | `packages/sim/src/boss-phases.ts` | the phase's name on the boss's row, if the boss keeps its phases there rather than by hand | `tools/director/test/boss-states.test.ts` |
 | 2 | `packages/sim/src/drag-targets*.ts` | the new gesture as a member of `DragTarget` or `Hold["kind"]` — a gesture not in one of them is a wish, not a `Command` | typecheck, everywhere the union is switched on |
-| 3 | `packages/sim/src/bosses-clocks.ts` | a re-export of every new **predicate** the boss's own file exports. It is a hop: `index.ts` reaches one through `boss-surface*.ts`, which imports from `bosses.ts`, which re-exports this — so naming it in the surface page alone fails on the file in the middle | typecheck: `error TS2305: Module './bosses.js' has no exported member`, which names the wrong file of the three |
+| 3 | `packages/sim/src/bosses-clocks.ts` **and** `boss-surface-clocks.ts` | a re-export of every new **predicate** the boss's own file exports, in **both** hops. `index.ts` reaches one through `boss-surface-clocks.ts`, which imports from `bosses.ts`, which re-exports `bosses-clocks.ts` — so either page alone leaves the predicate invisible outside `sim`, and `surgeWarding` on 19 September 2026 was written into the second and missed in the first | typecheck: `error TS2305: … has no exported member`, naming the file that tried to import it rather than the hop that lacks it |
 | 4 | `packages/audio/src/bind-choreographed.ts` | a `case` per new **event**, whether or not it makes a sound. Without one the event falls through `default:` into whichever boss the switch ends on | typecheck: `Type '{ type: "…" } & …Event' is not assignable to '…Event'` — a sentence about a boss you never touched |
 | 5 | `packages/net/src/command-fields.ts` | which fields the new target's command carries over the wire | `packages/net/test/command-codec.test.ts` |
 | 6 | `packages/net/test/command-codec.test.ts` — `ACCEPTED` | one `Command` per new target, `on: true` and `on: false`, with the fields the pilot's hand actually sends | its own round-trip case |
@@ -45,14 +45,17 @@ done.
 | 8 | `packages/render/src/effects-ingest-silent-boss*.ts` | one row per new event that leaves nothing behind for the next frame | the silent-effects cases in `packages/render/test` |
 | 9 | `packages/render/src/effects-spark-silent-boss*.ts` | the same list for the spark side — **it is a second list, not the same one** | `packages/render/test/effects-spark.test.ts` |
 | 10 | `packages/audio/test/bind.test.ts` — `SAMPLES` | one sample event per new event type, keyed by type. The case compares the keys against every event the simulation declares, so a new event with no sample is red whether or not it makes a sound | its own case at the foot of the file |
-| 11 | `tools/director/src/sound-link-none.ts` — `NO_SUBJECT` | one reason per new *bound* sound that has nothing to draw. A sentence, not a placeholder: the rule is that every bound sound gets a picture, and this is the written exception | `tools/director/test/sound-link.test.ts` |
+| 11 | `tools/director/src/sound-link.ts` — `BY_ID`, or `sound-link-none*.ts` — `NO_SUBJECT` | a **picture** per new *bound* sound, and a written reason only where there is nothing to draw. Which of the two is the question the row asks, and the test fails into the exception list either way: a rock the bulb spits is a `METEOR` the sheet has had all along, and only a thing with no contour earns the sentence | `tools/director/test/sound-link.test.ts` |
 | 12 | `tools/director/src/poses-bosses-hands-*.ts` | a pose card per new state, on the page for the kind of thing that earns it — a shot, a beat, a handle, a clock | `tools/director/test/poses.test.ts`, `boss-states.test.ts` |
 | 13 | `tools/director/src/boss-hands-*.ts` | the hand that **drives the world into** the new state. Without it `poses.test.ts` throws `the world never reached …` rather than naming a missing card, which is the one failure here that does not read as what it is | `tools/director/test/poses.test.ts` |
 | 14 | `tools/director/test/on-field-controls.test.ts` — `documentedDragTarget` | a `case` per new target, with a sentence saying what the seat takes hold of | its own case |
 
 And the counts, which are prose rather than a list and go stale silently:
 
-- `docs/INDEX.md` — run `bun run index`, never edit it by hand
+- `docs/INDEX.md` — run `bun run index` for the new file's row, never write one
+  by hand. It **keeps the blurb that is already there**, so a header reworded
+  in this lane (a boss's *twelve* becoming its *thirteen*) leaves a stale row
+  the generator reports nothing about; that one is fixed in place
 - `docs/spec/bosses.md` — the boss's own section, and the fight's description
 - `docs/spec/audio.md` — the two counts in its tables, if a sound was added
 - `tools/director/src/ship-fields-choreo.ts` and `ship-notes-choreo.ts` — one

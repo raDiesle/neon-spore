@@ -5,6 +5,7 @@ import {
   surgeHands,
   surgeHoldsCharge,
   surgeSealing,
+  surgeWarding,
   type World,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
@@ -88,7 +89,7 @@ export function drawSurge(
   ctx.globalAlpha = fade;
   drawBody(ctx, cfg, s, c, rx, ry, time, pressure, sealing, inside, showsSurgePressure(l.role));
   drawSurgeGauge(ctx, l, cfg, s, c, rx, ry, time, everting);
-  if (!everting) drawSurgeGrips(ctx, l, cfg, s, c, rx, ry, time, sealing);
+  if (!everting) drawSurgeGrips(ctx, l, cfg, s, c, rx, ry, time, sealing, surgeWarding(s, world));
   ctx.restore();
 }
 

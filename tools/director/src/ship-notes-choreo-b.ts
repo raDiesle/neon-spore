@@ -70,7 +70,11 @@ export const CHOREO_NOTES_B = {
     "and surgeBurstBeats in which nothing takes hold. From surgeHoldNotches " +
     "it holds its charge and eats what falls in for surgeAbsorbMilli each, " +
     "from surgeDoubleNotches a thumb charges double, from surgeCloseNotches " +
-    "a burst shuts a notch. The last vent everts it over surgeEvertBeats and " +
+    "a burst shuts a notch. From surgeRockNotches it spits a rock down its " +
+    "own columns every surgeRockBeats beats it has both thumbs on it, which " +
+    "only the shield answers — and the shield is on the panel, so the pilot " +
+    "wards with his other thumb and neither hand comes off the bulb. The " +
+    "last vent everts it over surgeEvertBeats and " +
     "holds the wave surgeOutBeats more. Nothing about it is authored per " +
     "wave. See sim/surge.ts, sim/config-surge.ts.",
   "THE LEAD — the boss you shoot where it will be":

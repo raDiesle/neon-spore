@@ -48,14 +48,42 @@ import type { BossCue } from "./boss-cue.js";
  *   it. Over the band a thumb is useless rather than refused and the game takes
  *   the press, which is what saying no number costs here.
  *
- * **Three silences.** A thumb already on outside the band, and a thumb already
- * off inside it: `gripBrakes`' rule both ways round, and the second is a seat
- * whose half of the lift is done — `liftTick` is waiting on the *other* hand,
- * and a word telling this one to let go of nothing is the second prompt system
- * this family exists to close. And nothing at all while the bulb refuses a
- * thumb, which is `surge-grip.ts`'s `refusing` and the first of
- * `boss-cue.ts`'s three rules: a verb the game is about to refuse is worse than
- * no verb.
+ * **The rock the bulb spits is a third word, and only the pilot gets it.**
+ * From its first notch the bulb spits a rock down its own columns every
+ * `surgeRockBeats` beats it has both thumbs on it (`sim/surge-rock.ts`), and
+ * the only thing that answers a rock is the shield, which is the pilot's.
+ * So he is told `SHIELD` and she is told nothing new — she cannot ward, and
+ * a word telling her about a rock she has no answer to is the second prompt
+ * system this family exists to close.
+ *
+ * **Neither seat has to let go of the bulb for it.** The bulb is out on the
+ * field and the shield is on the panel, so the ward is the pilot's other
+ * thumb and the charge goes on climbing under the two that are already down.
+ * That is the shipped fight and not a concession: wave 78 sends four ordinary
+ * rocks of its own while the pair is holding (`content/waves/act-7f.ts`), and
+ * the bulb's is the same rock arriving on the boss's clock instead of the
+ * wave's.
+ *
+ * **`SHIELD` is the target's own name**, numberless like the other two and
+ * inside the fifty words of English a pair is assumed to share
+ * (`.claude/skills/new-boss` §2).
+ *
+ * **It outranks the charge and never the lift.** A hull is worth more than a
+ * step of pressure, so `SHIELD` takes the place of `HOLD` and fills both of
+ * this seat's silences; but a rock falls for ten beats and a band is open for
+ * one, so `LIFT` stays where it is. A screen saying `SHIELD` at the seat who
+ * has one beat to lift would cost the notch to save a hull that had nine
+ * beats left.
+ *
+ * **Three silences, and the rock fills two of them on one mark.** A thumb
+ * already on outside the band, and a thumb already off inside it:
+ * `gripBrakes`' rule both ways round, and the second is a seat whose half of
+ * the lift is done — `liftTick` is waiting on the *other* hand, and a word
+ * telling this one to let go of nothing is the second prompt system this
+ * family exists to close. And nothing at all while the bulb refuses a thumb,
+ * which is `surge-grip.ts`'s `refusing` and the first of `boss-cue.ts`'s
+ * three rules: a verb the game is about to refuse is worse than no verb —
+ * and that one the rock does not fill either, for the same reason.
  */
 export interface SurgeWord {
   kind: BossCue["kind"];
@@ -65,23 +93,33 @@ export interface SurgeWord {
 /** The charge that is on offer while a thumb is off, and the lift once it counts. */
 const CHARGE: SurgeWord = { kind: "HOLD", word: "HOLD" };
 const LIFT: SurgeWord = { kind: "STILL", word: "LIFT" };
+/** The rock in the air, on the one seat that can answer it. */
+const WARD: SurgeWord = { kind: "PRESS", word: "SHIELD" };
 
 /**
  * The one word this seat's grip mark carries this frame, or nothing.
  *
- * The two words are the two ways the thumb and the band agree, and the two
- * silences are the two ways they do not — a thumb on inside the band is the
- * lift, a thumb off outside it is the charge, and the other pair is a seat
- * already doing its half or with no half left to do.
+ * Read top down, and the order is what it costs to be wrong: the lift is one
+ * beat and takes both thumbs, so nothing displaces it; a rock of the bulb's
+ * in the air is the hull, so it displaces the charge on the pilot's mark and
+ * fills both of his silences; and the two words left are the two ways the
+ * thumb and the band agree, the two silences the two ways they do not — a
+ * thumb on inside the band is the lift, a thumb off outside it is the charge,
+ * and the other pair is a seat already doing its half or with no half left to
+ * do.
  */
 export function surgeWord(
   cfg: SimConfig,
   s: SurgeState,
   player: 1 | 2,
   refusing: boolean,
+  warding: boolean,
 ): SurgeWord | null {
   if (refusing || s.outBeat >= 0) return null;
   const held = surgeHeld(s, player);
-  if (held !== surgeInBand(s, cfg)) return null;
-  return held ? LIFT : CHARGE;
+  const band = surgeInBand(s, cfg);
+  if (held && band) return LIFT;
+  if (warding && player === 1) return WARD;
+  if (held !== band) return null;
+  return CHARGE;
 }

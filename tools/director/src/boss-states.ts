@@ -49,9 +49,10 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // (`sinewHeld`, `sinewInZone`, `sinewSwinging`, `sinewCaught`,
   // `SinewState.fallBeat`, `outBeat`).
   sinew: ["hanging", "held", "swinging", "caught", "falling", "out"],
-  // Shut, the pressure in the band, sealing again after a burst, everting,
-  // out (`surgeInBand`, `surgeSealing`, `surgeEverting`).
-  surge: ["shut", "band", "sealing", "everting", "out"],
+  // Shut, the pressure in the band, a rock of its own still falling, sealing
+  // again after a burst, everting, out (`surgeInBand`, `surgeWarding`,
+  // `surgeSealing`, `surgeEverting`).
+  surge: ["shut", "band", "warding", "sealing", "everting", "out"],
   // Pacing a column a beat, running two, still, passing the ship, down
   // (`leadRunning`, `leadStill`, `leadPassing`, `leadDown`).
   lead: ["pacing", "running", "still", "passing", "down"],

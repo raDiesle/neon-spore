@@ -11593,6 +11593,34 @@ already grown past the point where appending past it stays order-preserving**
 — the fix cost more than the line-count problem did, because the letter is a
 position in the game's order and not just a filename.
 
+## 2026-09-19 — task-queue-work-ym2eim — THE SURGE's third gesture
+
+The bulb now spits a rock while both thumbs are on it, which is the spec's own
+unbuilt step 7. Nothing on the bulb answers a rock — the shield does, and the
+shield is on the panel while the bulb is out on the field, so the pilot wards
+with his other thumb and neither hand comes off the glass. The pilot is told
+`SHIELD` and the navigator nothing, neither word a number; the new state is
+`warding`, and the spits are counted in beats with **both** hands on, so
+letting go stops them as well as the charge. The rehearsal film wards two of
+them.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | §9's step table for the one unbuilt row, `surge-word.ts`'s argument that no word may be a number, `surge-seam.ts` for why a spat body starts the row under the bulb, and `waves/act-7f.ts` for what the wave already throws while the pair is holding |
+| writing | 80 | `surge-rock.ts`, the two state fields and the hash, the event through render, audio and the director, the word, four sim tests and four word tests, the rehearsal's two wards and its new page, and the two spec sections |
+| looking | 0 | none available: the picture of a rock leaving the bulb's underside is the unverified half and lands as its own lane |
+| friction | 45 | the re-export hop `boss-surface-clocks.ts` was missed; `docs/INDEX.md` and `docs/spec/audio.md` were found stale by red tests rather than by the list; the bulb ate its own rock a vent later; and the film's page stack would not take a twelfth page |
+| landing | 25 | four `check:fast` runs, one full `check`, and `land`'s own |
+
+**The bottleneck was a gesture invented where the wave already had one.** The
+first build had the pilot let go of the bulb on purpose to ward, take hold
+again and pay the charge — a third thing to learn, in a boss whose whole
+difficulty is the one thing it already asks. Wave 78 sends four ordinary rocks
+of its own while the pair holds the bulb, so the pilot has always warded with
+his other thumb and never let go, and half a session's simulation, words, poses
+and spec had to be unwritten to say the shipped thing instead. **Read what the
+wave already throws before designing what the boss throws.**
+
 *Measured: the rows above are the session's own estimate.*
 
 ## 2026-09-19 — record-owner-answers-19sep — ten questions, ten decisions, none of them built yet

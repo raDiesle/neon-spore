@@ -11,7 +11,9 @@ import type { SurgeState } from "./surge.js";
  * decides whether the second was inside the beat — two devices disagreeing
  * about either would have one phone venting and the other bursting. The
  * band and the row are not here because they are not kept — they are read
- * off the notches, which are.
+ * off the notches, which are. **The spat rock's id is**: two devices
+ * disagreeing about which rock is the bulb's would have one phone telling
+ * the pilot to ward and the other saying nothing.
  */
 export function surgeHashParts(s: SurgeState): number[] {
   return [
@@ -22,6 +24,8 @@ export function surgeHashParts(s: SurgeState): number[] {
     s.liftTick,
     s.nearBeat,
     s.burstBeat,
+    s.rockBeat,
+    s.rockId,
     s.evertBeat,
     s.outBeat,
   ];

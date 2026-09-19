@@ -7,7 +7,7 @@ import { PALETTE, STROKE } from "./palette.js";
 /**
  * What THE SURGE leaves behind a frame: the row the bulb sinks through
  * after a vent, the jolt a burst puts through the body, the jet a vent
- * throws up out of the seam, and the bursts its twelve receipts throw.
+ * throws up out of the seam, and the bursts its thirteen receipts throw.
  *
  * Everything else about the boss is drawn off the world every frame
  * (`surge-draw.ts`). The three here are THE SINEW's exception said three
@@ -22,7 +22,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * everything that outlives its frame (`restart.test.ts`).
  *
  * The bursts go through `Sparks` like any other event's and are read here,
- * above the loop, for THE SINEW's reason: the twelve are one family and the
+ * above the loop, for THE SINEW's reason: the thirteen are one family and the
  * spark table is at its limit. The ones with no row on them are thrown at
  * the bulb as it was last drawn, which `note` is told every frame.
  */
@@ -116,6 +116,9 @@ export class SurgeFx {
           break;
         case "surgeGum":
           burst(tileCX(l, e.col), tileCY(l, e.row), 4, PALETTE.hull);
+          break;
+        case "surgeRock":
+          burst(tileCX(l, e.col), tileCY(l, e.row), 4, PALETTE.rock);
           break;
         case "surgeLost":
           atBulb(3, PALETTE.dim);

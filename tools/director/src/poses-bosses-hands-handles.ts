@@ -4,6 +4,7 @@ import {
   sinewSwinging,
   surgeInBand,
   surgeSealing,
+  surgeWarding,
   type World,
 } from "@neon-spore/sim";
 import {
@@ -103,6 +104,18 @@ export const HANDLE_HAND_POSES: Pose[] = [
       hand: surgeHand,
       want: surge((w, s) => surgeInBand(s, w.cfg) && (s.heldP1 || s.heldP2)),
       hold: 3,
+    },
+  ),
+  bossPose(
+    "surge",
+    "warding",
+    "A rock spat out of the bulb with both thumbs on it. P1 wards it with his other thumb; P2 holds on.",
+    {
+      crop: F,
+      hand: surgeHand,
+      want: surge((w, s) => surgeWarding(s, w)),
+      hold: 3,
+      budgetBeats: 120,
     },
   ),
   bossPose(

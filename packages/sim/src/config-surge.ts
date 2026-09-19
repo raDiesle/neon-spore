@@ -3,7 +3,8 @@
  * charges the bulb and how fast it leaks, where the notches sit on the
  * gauge and how wide the band round each is, from how many open the bulb
  * holds its charge and feeds on the field, what a burst throws and costs,
- * where the bulb hangs, and how long the eversion takes (`surge.ts`,
+ * from how many it spits a rock at the ship and how often, where the bulb
+ * hangs, and how long the eversion takes (`surge.ts`,
  * `docs/spec/bosses-choreographed.md` §9).
  *
  * Its own file for `config-sinew.ts`' reason: `SimConfig` extends it rather
@@ -45,6 +46,10 @@ export interface SurgeConfig {
   surgeBurstGums: number;
   /** Beats after a burst in which no hand can take hold: the bulb is re-sealing. */
   surgeBurstBeats: number;
+  /** Notches open from which the bulb spits a rock at the ship while both thumbs are on it. */
+  surgeRockNotches: number;
+  /** Beats between one spat rock and the next. */
+  surgeRockBeats: number;
   /** Row the bulb hangs at with the seam shut. A notch open is a row lower. */
   surgeBulbRow: number;
   /** Columns the bulb spans, centred on `midCol`: what it absorbs, and where its gums come from. */
@@ -69,6 +74,13 @@ export interface SurgeConfig {
  * the bulb keeps what it has and eats what reaches it, 450 a body — a whole
  * notch's step — and a burst throws three gums and, from the third notch,
  * closes one. The bulb starts on row 3 and is on row 7 by the last notch.
+ *
+ * **The rock is the one number here that is not on the gauge.** From the
+ * first notch open, six beats of two thumbs on the bulb buys a rock down at
+ * the ship, and the only hand that can turn it is the pilot's — which is on
+ * the bulb. Six beats because two thumbs climb a band's width in about five:
+ * a rock that came faster would be the fight, and one that came slower would
+ * never land inside a charge.
  */
 export const SURGE_DEFAULTS: SurgeConfig = {
   surgeNotches: 5,
@@ -84,6 +96,8 @@ export const SURGE_DEFAULTS: SurgeConfig = {
   surgeAbsorbMilli: 450,
   surgeBurstGums: 3,
   surgeBurstBeats: 2,
+  surgeRockNotches: 1,
+  surgeRockBeats: 6,
   surgeBulbRow: 3,
   surgeBulbCols: 3,
   surgeNearSlowBeats: 2,

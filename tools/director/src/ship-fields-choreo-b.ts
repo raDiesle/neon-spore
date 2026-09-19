@@ -75,6 +75,8 @@ export const CHOREO_FIELD_GROUP_B = {
   surgeAbsorbMilli: "THE SURGE — the boss beaten by letting go",
   surgeBurstGums: "THE SURGE — the boss beaten by letting go",
   surgeBurstBeats: "THE SURGE — the boss beaten by letting go",
+  surgeRockNotches: "THE SURGE — the boss beaten by letting go",
+  surgeRockBeats: "THE SURGE — the boss beaten by letting go",
   surgeBulbRow: "THE SURGE — the boss beaten by letting go",
   surgeBulbCols: "THE SURGE — the boss beaten by letting go",
   surgeNearSlowBeats: "THE SURGE — the boss beaten by letting go",

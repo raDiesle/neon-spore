@@ -665,7 +665,7 @@ describe("the rehearsal for THE LEDGER", () => {
 });
 
 describe("the rehearsal for THE SURGE", () => {
-  it("vents two notches with both thumbs off together, and loses the charge between them to a thumb off alone", () => {
+  it("vents two notches with both thumbs off together, loses the charge between them to a thumb off alone, and shields the rocks the seam spits meanwhile", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theSurge");
     const run = new SceneRun(sceneScript("theSurge", wave, DEFAULT_CONFIG));
     const seen: string[] = [];
@@ -678,9 +678,12 @@ describe("the rehearsal for THE SURGE", () => {
           seen.push(`vent ${e.notches} row ${e.row} @${run.world.beat}`);
         else if (e.type === "surgeNear" || e.type === "surgeLost")
           seen.push(`${e.type} @${run.world.beat}`);
+        else if (e.type === "surgeRock") seen.push(`rock ${e.col} @${run.world.beat}`);
+        else if (e.type === "deflect") seen.push(`deflect ${e.col} @${run.world.beat}`);
         else if (
           e.type === "surgeBurst" ||
           e.type === "surgeGum" ||
+          e.type === "surgeAbsorb" ||
           e.type === "surgeEvert" ||
           e.type === "breach" ||
           e.type === "waveFailed"
@@ -693,6 +696,12 @@ describe("the rehearsal for THE SURGE", () => {
     // the first notch. The second hold the pilot leaves alone at 800, the
     // navigator two beats later — lost. The third is the first again at the
     // second notch, 1400. No burst, no gum, no eversion, no hull.
+    //
+    // From the first notch the seam spits a rock every six beats it is held,
+    // so the second hold spits one and the third two, and each is warded a
+    // beat off the hull by the pilot's other thumb — his first one is on the
+    // bulb throughout. The last is still falling when the stack runs out, and
+    // nothing is absorbed: a bulb does not eat what it threw at the ship.
     expect(seen).toEqual([
       "surgeGrip 1 @2",
       "surgeGrip 2 @3",
@@ -702,15 +711,20 @@ describe("the rehearsal for THE SURGE", () => {
       "vent 1 row 4 @8",
       "surgeGrip 1 @12",
       "surgeGrip 2 @12",
+      "rock 5 @13",
       "surgeRelease 1 @16",
       "surgeRelease 2 @18",
       "surgeLost @18",
       "surgeGrip 1 @19",
       "surgeGrip 2 @19",
+      "rock 5 @20",
+      "deflect 5 @23",
       "surgeNear @25",
+      "rock 4 @26",
       "surgeRelease 1 @26",
       "surgeRelease 2 @26",
       "vent 2 row 5 @26",
+      "deflect 5 @30",
     ]);
   });
 });

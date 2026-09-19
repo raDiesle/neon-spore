@@ -265,6 +265,7 @@ const SAMPLES: Record<string, SimEvent> = {
   surgeVent: { type: "surgeVent", col: 5, notches: 1, row: 4 },
   surgeBurst: { type: "surgeBurst", col: 5, gums: 3 },
   surgeGum: { type: "surgeGum", col: 4, row: 4 },
+  surgeRock: { type: "surgeRock", col: 4, row: 4 },
   surgeLost: { type: "surgeLost", col: 5 },
   surgeAbsorb: { type: "surgeAbsorb", col: 5, row: 4 },
   surgeClose: { type: "surgeClose", col: 5, notches: 2 },

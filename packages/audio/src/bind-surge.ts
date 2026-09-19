@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason.
+ * THE SURGE's thirteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one of them is panned, and here the pan says less than anywhere
  * else in the game: the bulb hangs in the middle column and every event is
@@ -23,6 +23,7 @@ export function surgeCue(
         | "surgeVent"
         | "surgeBurst"
         | "surgeGum"
+        | "surgeRock"
         | "surgeLost"
         | "surgeAbsorb"
         | "surgeClose"
@@ -49,6 +50,8 @@ export function surgeCue(
       return { id: "boss.surgeBurst", pan };
     case "surgeGum":
       return { id: "boss.surgeGum", pan };
+    case "surgeRock":
+      return { id: "boss.surgeRock", pan };
     case "surgeLost":
       return { id: "boss.surgeLost", pan };
     case "surgeAbsorb":

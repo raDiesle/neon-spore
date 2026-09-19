@@ -18,6 +18,7 @@ import {
   surgeHeld,
   surgeInBand,
   surgeNotchMilli,
+  surgeWarding,
   type TimedCommand,
   ticksPerBeat,
   type World,
@@ -37,7 +38,10 @@ import {
  * a lift over the band, or the pressure reaching the top of the gauge on
  * the beat, **bursts** — thumbs thrown off, gums thrown down its columns,
  * nothing taking hold for two beats, and from the third notch a notch
- * closed; that from the second notch it holds its charge and eats what
+ * closed; that from its first notch it spits a rock at the ship every
+ * `surgeRockBeats` beats it has both thumbs on it, which only the shield
+ * answers, so the pair has to let go on purpose to ward it; that from the
+ * second notch it holds its charge and eats what
  * reaches it; that from the third a thumb charges it at double; that the
  * last notch's band ends one under the burst; and that the last vent
  * everts it and the wave ends after.
@@ -62,6 +66,7 @@ function surge(world: World): SurgeState {
 }
 
 const gums = (world: World) => world.creatures.filter((c) => c.kind === "gum");
+const rocks = (world: World) => world.creatures.filter((c) => c.kind === "meteor");
 
 /** One seat's thumb on the bulb, or off it. */
 const thumb = (tick: number, player: 1 | 2, on: boolean): TimedCommand => ({
@@ -410,5 +415,90 @@ describe("two devices playing it", () => {
     expect(run(3)).toBe(run(3));
     expect(run(7)).toBe(run(7));
     expect(run(3)).not.toBe(run(7));
+  });
+});
+
+describe("the rock", () => {
+  /** Both thumbs on with one notch open, on a beat: the spit's own gate. */
+  function notched(world: World, s: SurgeState): void {
+    s.notches = 1;
+    runTo(world, world.tick + TPB - (world.tick % TPB));
+    grab(world);
+  }
+
+  it("is spat down the bulb's own columns from the row under it, with both thumbs on", () => {
+    const world = install();
+    const s = surge(world);
+    notched(world, s);
+    const row = surgeBulbRow(s, CFG);
+    const seen = runTo(world, world.tick + TPB);
+    expect(seen.has("surgeRock")).toBe(true);
+    const thrown = rocks(world);
+    expect(thrown.length).toBe(1);
+    const left = surgeBulbLeft(CFG);
+    expect(thrown[0]?.col).toBeGreaterThanOrEqual(left);
+    expect(thrown[0]?.col).toBeLessThan(left + surgeBulbSpan(CFG));
+    expect(thrown[0]?.fromRow).toBe(row + 1);
+    expect(thrown[0]?.id).toBe(s.rockId);
+    expect(surgeWarding(s, world)).toBe(true);
+  });
+
+  it("waits surgeRockBeats between one and the next, and counts only beats with both thumbs on", () => {
+    const world = install();
+    const s = surge(world);
+    notched(world, s);
+    runTo(world, world.tick + TPB);
+    expect(rocks(world).length).toBe(1);
+    const at = s.rockBeat;
+    // Short of the wait: nothing more, however many beats go by held.
+    runTo(world, world.tick + TPB * (CFG.surgeRockBeats - 2));
+    expect(s.rockBeat).toBe(at);
+    // One thumb off stops the clock as well as the charge.
+    const t = world.tick;
+    runTo(world, t + TPB * 4, [thumb(t, 2, false)]);
+    expect(s.rockBeat).toBe(at);
+    // And on again, the wait long since up, it spits at once.
+    const back = world.tick;
+    runTo(world, back + TPB + 1, [thumb(back, 2, true)]);
+    expect(s.rockBeat).toBeGreaterThan(at);
+  });
+
+  it("stops being the bulb's the beat it leaves the field", () => {
+    const world = install();
+    const s = surge(world);
+    notched(world, s);
+    runTo(world, world.tick + TPB);
+    const id = s.rockId;
+    expect(id).toBeGreaterThanOrEqual(0);
+    world.creatures = world.creatures.filter((c) => c.id !== id);
+    runTo(world, world.tick + TPB);
+    expect(surgeWarding(s, world)).toBe(false);
+    expect(s.rockId).toBe(-1);
+  });
+
+  it("is not eaten by the bulb the vent sinks onto it", () => {
+    const world = install();
+    const s = surge(world);
+    notched(world, s);
+    runTo(world, world.tick + TPB);
+    const id = s.rockId;
+    expect(id).toBeGreaterThanOrEqual(0);
+    // A vent sinks the bulb a row, onto the row its own rock left from: the
+    // `fromRow` rule stops covering it there, and only the id still does.
+    s.notches += 1;
+    const before = s.pressureMilli;
+    const seen = runTo(world, world.tick + TPB * 2);
+    expect(seen.has("surgeAbsorb")).toBe(false);
+    expect(s.pressureMilli).toBeGreaterThanOrEqual(before);
+    expect(surgeWarding(s, world)).toBe(true);
+  });
+
+  it("does not spit before its first notch is open", () => {
+    const world = install();
+    const s = surge(world);
+    grab(world);
+    runTo(world, world.tick + TPB * (CFG.surgeRockBeats + 2));
+    expect(rocks(world)).toEqual([]);
+    expect(surgeWarding(s, world)).toBe(false);
   });
 });

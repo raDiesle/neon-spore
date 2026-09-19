@@ -135,6 +135,11 @@ const BY_ID: Record<string, Subject> = {
   "boss.markReal": QUEEN,
   "boss.torchDrop": shape("TORCH"),
   "boss.torchWarn": shape("TORCH"),
+  // THE SURGE's twelve are on the other page with no picture between them,
+  // because a sac over the middle column is not a card. Its thirteenth is:
+  // what the bulb spits is an ordinary rock from the moment it leaves, and
+  // the rock is what the pair is being told to shield (`sim/surge-rock.ts`).
+  "boss.surgeRock": shape("METEOR"),
 
   "mirror.showFireRed": control("fireRed"),
   "mirror.showFireCyan": control("fireCyan"),

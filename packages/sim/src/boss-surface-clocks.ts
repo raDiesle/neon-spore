@@ -208,6 +208,7 @@ export {
   surgeInBand,
   surgeNotchMilli,
   surgeSealing,
+  surgeWarding,
   TASTER_PHASES,
   type TasterBlade,
   type TasterEntry,

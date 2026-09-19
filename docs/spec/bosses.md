@@ -5501,11 +5501,29 @@ be a vent the pair could not see they had earned. *Nothing is timed on a
 call*: steps 3, 6 and 11 give 900 ms for the beat to be called, and the game
 never evaluates speech (`CLAUDE.md` rule 5) — the band stands as long as the
 pressure is in it, and what a late call costs is the pressure climbing out
-the far side. *Step 7's ward is the field's own*: a rock on this wave falls
-down its column as every rock does and the guard's window is the guard's;
-what the design asks for — let go, guard, take hold again — is exactly what
-two thumbs on the glass and a rock over the hull already demand, with the
-lost charge as the price. *THE SLOW opens on the band, not on the vent*: the
+the far side. *Step 7's ward is the field's own, and from 19 September 2026 the
+bulb sends the rock itself*: from `surgeRockNotches` open it spits one
+`meteor` down a column it covers every `surgeRockBeats` beats it has **both**
+thumbs on it (`sim/surge-rock.ts`), and from the moment it leaves it is an
+ordinary rock — the shield turns it, the hull is scarred by it, and nothing
+about it is this boss's but its id, kept back so the bulb can be asked
+whether its own is still falling (`surgeWarding`). What that buys is the
+design's gesture on the boss's own clock rather than the wave's: the only
+thing that answers a rock is the shield, and the shield is on the panel while
+the bulb is out on the field — so the pilot wards with his **other** thumb,
+neither hand comes off the glass, and the charge climbs through the whole
+fall. That is the shipped fight rather than a concession: wave 78 already
+sends four ordinary rocks of its own while the pair is holding
+(`content/waves/act-7f.ts`), and the bulb's is the same rock arriving on the
+boss's clock. Both thumbs rather than one, because the beats counted are the
+beats **held**: letting go stops the spitting as well as the charging, so a
+pair that never takes hold is never asked. The field says it in one word, and
+only to the seat that can answer it: `SHIELD` to the pilot
+(`render/surge-word.ts`), over the charge and never over the lift — a hull is
+worth more than a step of pressure, and a rock falls for ten beats where a
+band is open for one. The navigator is told nothing new, because a word about
+a rock she has no answer to is a second prompt system. What is still the
+field's own is the rest: the fall, the guard's window, the scar. *THE SLOW opens on the band, not on the vent*: the
 design's own case for it is the release window made visible as tissue, and
 the vent is a beat already spent; a pressure that leaves the band and comes
 back opens it again, because the window is what is slowed. *The inner body
@@ -5542,7 +5560,7 @@ both at once: the grips are where the thumbs are shown, not where they
 must land. A **burst** pinches the bulb dim and shut for `surgeBurstBeats`
 with the grips greyed and wordless; the last **vent** everts it, the body
 folding through its own equator over `surgeEvertBeats` with the inside
-coming out pale, and then it fades over `surgeOutBeats`. The twelve events
+coming out pale, and then it fades over `surgeOutBeats`. The thirteen events
 are one family read above `Effects`' loop (`surge-fx.ts`): a burst per
 event in its column — the grip's at its flank, the vent's and the burst's
 at the bulb, the gum's and the absorbed rock's at their row — a **sink** of

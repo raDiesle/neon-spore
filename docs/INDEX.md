@@ -550,6 +550,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/surge-hash.ts` | What THE SURGE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/surge-seam.ts` | **The three ends of a charge**: the vent, the burst and the loss |
 | `packages/sim/src/surge-step.ts` | THE SURGE's clock — the charge, the leak, the feeding, the burst at the top of the gauge, the eversion |
+| `packages/sim/src/surge-rock.ts` | **The rock THE SURGE spits while the pair is charging it** — the fight's third gesture |
 | `packages/sim/src/surge.ts` | THE SURGE: whether you can stop |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/pinball-hand.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
@@ -1614,7 +1615,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-hive.ts` | THE HIVE's nine, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-surge.ts` | THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-surge.ts` | THE SURGE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scout-hand.ts` | THE SCOUT's two hands on its picture, in a file of their own for `bind-pinball-hand.ts`' reason |
 | `packages/audio/src/bind-stare.ts` | THE STARE's three, in a file of their own for `bind-gorge.ts`' reason |

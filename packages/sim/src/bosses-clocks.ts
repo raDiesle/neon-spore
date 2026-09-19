@@ -201,6 +201,7 @@ export {
   surgeInBand,
   surgeNotchMilli,
   surgeSealing,
+  surgeWarding,
 } from "./surge.js";
 // THE TASTER keeps no clock but the growth and the re-edge: what it holds is
 // a fan of eleven blades, and the colour of every one of them was read off

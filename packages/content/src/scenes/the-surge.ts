@@ -1,8 +1,8 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * THE SURGE's rehearsal: three holds on one bulb, and the two that count are
- * the ones both thumbs come off together.
+ * THE SURGE's rehearsal: three holds on one bulb, the two that count are the
+ * ones both thumbs come off together, and the rocks it spits while they hold.
  *
  * A ribbed bulb hangs over the middle with a seam round it, and a thumb on
  * it from either seat charges it a step a beat; two thumbs, two steps. Along
@@ -25,6 +25,18 @@ import type { GuideScene } from "../scene-types.js";
  * gauge, and the second notch vents. Nothing is rolled: the pressure is
  * arithmetic and the band is the notch's, so every lift below is at a
  * number the film can name.
+ *
+ * **And the rocks, which are the only thing in it that is not the bulb.**
+ * From the first notch the seam spits one down its own columns every six
+ * beats it has both thumbs on it (`sim/surge-rock.ts`), so the second hold
+ * spits one and the third spits two, and a film without the shield breaches
+ * at the first. **No hand comes off the bulb to ward one**: the bulb is out
+ * on the field and the shield is on the panel, so it is the pilot's other
+ * thumb and the charge goes on climbing under the two already down — which
+ * is what the field says too, `SHIELD` taking the place of his `HOLD` and
+ * never of his `LIFT` (`render/surge-word.ts`). The third is still in the
+ * air when the stack runs out, which is the honest picture: the seam does
+ * not stop spitting because the pages did.
  *
  * **The one handle both seats hold.** `surgeBulb` is one `DragTarget` for
  * either thumb, so each act says whose hand it is (`SceneAct.hand`) — the
@@ -70,6 +82,12 @@ export const THE_SURGE: GuideScene = {
     // And again, at the second notch: 1350, and both off at 1400.
     { tick: 1140, drag: "surgeBulb", hand: 1, by: 1141, until: 1580 },
     { tick: 1150, drag: "surgeBulb", hand: 2, by: 1151, until: 1588 },
+    // And the two rocks the seam spat while they were holding, each warded a
+    // beat off the hull: the shield is the pilot's other thumb, so no hand
+    // comes off the bulb for one and the charge climbs through both. The film
+    // would breach at 1380 without the first of them.
+    { tick: 1320, control: "guard" },
+    { tick: 1740, control: "guard" },
   ],
   steps: [
     {
@@ -119,10 +137,17 @@ export const THE_SURGE: GuideScene = {
       anchor: { at: "handle", target: "surgeBulb" },
     },
     {
+      // The one page in this film that points at the panel, because it is the
+      // one gesture in it that is on one: the seam spits a rock down its own
+      // columns every six beats it is held, and the shield is the only answer
+      // to a rock the game has ever had. It stands where the third hold's
+      // *wait for the slow* page stood, which said over again what the first
+      // hold's third page says: a stack of eleven is what 2040 ticks holds at
+      // a page and a half a second, so a new page is a page given back.
       tick: 1260,
       seat: 1,
-      text: "WAIT FOR THE SLOW · COUNT",
-      anchor: { at: "handle", target: "surgeBulb" },
+      text: "IT SPITS ROCKS · SHIELD THEM",
+      anchor: { at: "control", control: "guard" },
     },
     {
       tick: 1440,

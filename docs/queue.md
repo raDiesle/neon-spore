@@ -2258,3 +2258,48 @@ put the spread on the perf page beside the frame cost — worst of the last
 hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
+
+## `effects-spark-silent-boss.ts` is at the 250-line ceiling exactly
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/render/src/effects-spark-silent-boss.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
+- **Where:** cloud
+
+THE SURGE's `surgeRock` took the spark page to exactly 250 lines on 19
+September 2026, which is the ceiling and not under it. The next event added to
+any boss listed there goes over, and the lane that adds it pays the split on
+top of its own work — which is the tax this entry exists to stop.
+
+Take the seam now, by the rule the page's own header carries: **the last boss
+on the page hands itself to the `-b` page**, never the boss a lane is working
+on, with the comment that explains its rows going with it. The ingest page is
+at 245 and the two lists are kept in step by hand, so whatever crosses on one
+side is worth looking at on the other; `packages/render/test` proves both still
+name every silent event.
+
+## A film cannot put a hand on four of the eleven columns the field has
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/content/src/queue.ts`, `packages/content/src/scene-act-types.ts`, `packages/content/src/scene-script.ts`
+- **Where:** cloud
+
+A `SceneAct`'s `col` goes through `mapCol`, which rounds an authored column
+0..6 onto 0..`cols - 1`. On the eleven columns the game ships that is
+`round(col * 10 / 6)`, whose image is 0, 2, 3, 5, 7, 8, 10 — **world columns
+1, 4, 6 and 9 cannot be written down**. THE SURGE's rehearsal met it on 19
+September 2026: the bulb spits its third rock down world column 4, no
+authored column names it, and the film's only honest ending was to let that
+rock still be in the air when the pages run out.
+
+Nothing is wrong with `mapCol` where it came from — a wave authored on seven
+columns must spread over eleven, and the walls and the middle have to land on
+the walls and the middle. The gap is that a **film** is not a wave: its acts
+are a hand on a specific column of the field the pair is actually looking at,
+and a boss's own event reports that column in world space. So a film needs a
+way to say *this world column*, beside the authored one every wave uses — a
+sibling field on `SceneAct` read as it stands, the way `tile`'s `row` already
+is, with the two mutually exclusive and `scenes.test.ts` holding them apart.
+
+Then check the films already written for a `col` that rounded somewhere the
+author did not mean: the rounding is silent today, and a cannon act that lands
+one column off is a film that teaches a shot the pair cannot reproduce.

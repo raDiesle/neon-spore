@@ -192,7 +192,7 @@ export const SILENT_BOSS = [
   "ledgerRoll",
   "ledgerPull",
   "ledgerHaul",
-  // THE SURGE's twelve are one family read above the loop by
+  // THE SURGE's thirteen are one family read above the loop by
   // `surge-fx.ts`, never rows here (`docs/spec/bosses.md` §11.28).
   "surgeSettle",
   "surgeGrip",
@@ -201,6 +201,7 @@ export const SILENT_BOSS = [
   "surgeVent",
   "surgeBurst",
   "surgeGum",
+  "surgeRock",
   "surgeLost",
   "surgeAbsorb",
   "surgeClose",
