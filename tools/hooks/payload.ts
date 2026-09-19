@@ -14,7 +14,7 @@
 
 /** What a hook is given. Every field is optional: a payload is another program's. */
 export interface HookPayload {
-  tool_input?: { file_path?: unknown };
+  tool_input?: { file_path?: unknown; command?: unknown };
   stop_hook_active?: unknown;
   session_id?: unknown;
   /** `SessionStart` only: `startup`, `resume`, `clear` or `compact`. */
@@ -42,6 +42,21 @@ export function editedPath(payload: HookPayload | null): string | null {
   const raw = payload?.tool_input?.file_path;
   if (typeof raw !== "string" || raw === "") return null;
   return raw.replaceAll("\\", "/");
+}
+
+/**
+ * The command line a shell tool was given, or null when the payload names none.
+ *
+ * `Edit`, `Write` and `MultiEdit` carry a `file_path` and `Bash` carries this
+ * instead, so a hook that wants to know which files a tool touched has two
+ * places to look rather than one. Separate accessors rather than one that
+ * answers either, because the two are read differently: a path is a path, and
+ * a command line is a sentence that has to be parsed before it names anything
+ * (`written-paths.ts`).
+ */
+export function shellCommand(payload: HookPayload | null): string | null {
+  const raw = payload?.tool_input?.command;
+  return typeof raw === "string" && raw !== "" ? raw : null;
 }
 
 /**

@@ -2147,40 +2147,6 @@ way `hash-coverage.test.ts` already reports its misses. The case keeps its one
 changes, only how much of it one run says. The check that it worked: put two
 files over the limit on a scratch branch and see both named.
 
-## The file-size notice is deaf to a lane that edits through Bash
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-the-file-size-notice-is-deaf-to-a-lane-that-edit
-- **Files:** `.claude/settings.json`, `tools/hooks/after-edit-size.ts`,
-  `tools/hooks/payload.ts`
-- **Where:** cloud
-
-`after-edit-size.ts` exists so a page nearing the 250-line ceiling is heard
-about while the seam can still be chosen, and its own header counts the cost
-of learning it late: 375 minutes across 27 lanes, the largest named cause of
-friction in `docs/time-log.md`. It is registered under the matcher
-`Edit|Write|MultiEdit` and reads `tool_input.file_path`, so it fires for those
-three tools and nothing else.
-
-A session told to do its file changes through Bash — a heredoc, a `sed -i`, a
-short `python3` script, which is what an auto-mode lane is instructed to do —
-never hears it. This lane wrote seven files that way, took
-`field-controls-page.ts` to 251 lines, and found out from `check:fast` two
-minutes later, exactly as lanes did before the hook was written. The hook is
-not wrong; it is bound to half the ways a file is written.
-
-To do: add a `Bash` matcher entry pointing at the same script, and give it a
-branch that finds the paths a command touched. `tool_input.file_path` is
-absent for Bash, so the payload carries `tool_input.command` instead: pull
-candidate paths out of it with a pattern for the shapes that actually write
-(`> path`, `>> path`, `sed -i … path`, `tee path`, and an `open(path,'w')`
-inside a `python3` heredoc), keep the ones that exist under
-`packages|apps|tools`, and run `counted`/`lineCount`/`notice` over each. It
-must stay silent when it can parse nothing rather than guess, and it must
-never block — the header's rule. The check that it worked: append a line to a
-file already near the ceiling with a heredoc and see the notice; run a `cat`
-of the same file and see nothing.
-
 ## Unverified at a5f99af6: THE CANDLE's wick and ember watched at tempo — the stem…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -2194,3 +2160,32 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## The line ceiling now hears Bash, and is still deaf to PowerShell
+
+- **Found:** 2026-09-19, claude/queue-the-file-size-notice-is-deaf-to-a-lane-that-edit
+- **Files:** `.claude/settings.json`, `tools/hooks/written-paths.ts`,
+  `tools/hooks/shell-words.ts`
+- **Where:** cloud
+
+`after-edit-size.ts` is registered under `Bash` now and `written-paths.ts`
+recovers the files a bash line wrote, which closes the hole a lane on this
+machine falls into. The other shell is still open. `guard.ts` was widened to
+`Bash|PowerShell` for exactly this reason once already — on Windows the
+session's primary shell is the separate PowerShell tool, and a rule bound to
+one of the two is unenforced the moment the command is typed into the other.
+
+The parsing is not simply reusable across the two. `commandsIn` already takes a
+dialect and would split a PowerShell line correctly, and `>` and `>>` mean the
+same thing in both — but the shapes that actually write there are
+`Set-Content`, `Add-Content` and `Out-File -FilePath`, with the path behind a
+named parameter rather than in operand position, and `sed`, `tee` and a
+`python3` heredoc are all absent. So it is a second table, not a second
+argument.
+
+To do: add a `PowerShell` matcher beside the `Bash` one, give `writtenPaths` a
+dialect it passes through to `commandsIn`, and put the three cmdlets in a table
+of their own beside `operands`. The rule stays the one this hook is built on:
+silence when it can parse nothing, never a guess, never a block. The check that
+it worked is the one the Bash half took — a line appended to a file near the
+ceiling is heard about, and a `Get-Content` of the same file says nothing.

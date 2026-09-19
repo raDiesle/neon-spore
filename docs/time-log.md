@@ -10401,3 +10401,30 @@ through Bash, so every edit went past it silently and the page was found full
 by the suite, as it was before the hook was written. That is queued.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-file-size-notice-is-deaf-to-a-lane-that-edit — the hook that could not hear half the edits
+
+The lane before this one wrote its files through Bash, took a page to 251
+lines, and found out from the suite — and then wrote down why, which is the
+only reason this was a queue entry rather than a shrug. `after-edit-size.ts`
+is registered under `Bash` now, and `written-paths.ts` reads the files a
+command wrote out of the command line: a redirection's target, a `sed -i`'s
+operands behind its script, what `tee` is handed, and a `python3` heredoc's
+`open` in a mode that writes. A command it cannot read is silence.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `cloud-session.md` and `CLAUDE.md` first, then `after-edit-size.ts`, `file-size.ts`, `payload.ts`, `shell-words.ts`, `heredoc.ts` and the three hook test files |
+| writing | 20 | `written-paths.ts`, the hook's `touched`, `shellCommand`, the `Bash` matcher, eleven cases in `edited.test.ts` and one in `wiring.test.ts` |
+| looking | 5 | four payloads fed to the hook by hand: a heredoc append, a `cat` of the same file, two files written in one line, and an ordinary `Edit` |
+| friction | 5 | `commandsIn` hands back `sed`'s script as an operand, so the first pass named `s/x/y/` as a file; reading the one rule of `sed`'s grammar that matters — where the script sits with and without `-e` — was the fix |
+| landing | 10 | `bun install`, `format`, `index`, the full `check` at 146s, and the landing |
+
+**The bottleneck was that the parsing reaches exactly as far as the shapes it
+was written for.** Widening it is cheap and being wrong is not: a path this
+invents is a sentence about a file the lane never touched, which costs more
+than the silence it replaces. PowerShell is the half still open, and it is
+queued rather than guessed at — its cmdlets put the path behind a named
+parameter, so it is a second table and not a second argument.
+
+*Measured: the rows above are the session's own estimate.*

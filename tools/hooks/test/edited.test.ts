@@ -1,9 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { repoPath } from "../after-edit-size.ts";
+import { repoPath, touched } from "../after-edit-size.ts";
 import { guardsDeterminism } from "../after-sim-edit.ts";
 import { counted, LIMIT, lineCount, mark, notice } from "../file-size.ts";
 import { formats } from "../format-edited.ts";
-import { editedPath, stopHookActive } from "../payload.ts";
+import { editedPath, shellCommand, stopHookActive } from "../payload.ts";
+import { writtenPaths } from "../written-paths.ts";
 
 /**
  * The two `PostToolUse` hooks, and the payload reader underneath them.
@@ -176,5 +177,101 @@ describe("the path the size hook is given", () => {
     expect(repoPath(root, "/home/me/elsewhere/step.ts")).toBeNull();
     expect(repoPath(root, root)).toBeNull();
     expect(repoPath(root, null)).toBeNull();
+  });
+});
+
+describe("the command line a shell tool was given", () => {
+  it("comes back whole, and is null for a payload that names none", () => {
+    expect(shellCommand({ tool_input: { command: "sed -i s/a/b/ x.ts" } })).toBe(
+      "sed -i s/a/b/ x.ts",
+    );
+    expect(shellCommand({ tool_input: { file_path: "x.ts" } })).toBeNull();
+    expect(shellCommand({ tool_input: { command: "" } })).toBeNull();
+    expect(shellCommand({ tool_input: { command: 42 } })).toBeNull();
+    expect(shellCommand(null)).toBeNull();
+  });
+});
+
+/**
+ * The four shapes that write a file in this repository, recovered from the
+ * command line — the half of the hook that was missing while it was bound to
+ * `Edit|Write|MultiEdit` and a lane was told to use Bash.
+ */
+describe("the paths a bash line looks like it wrote", () => {
+  it("takes the target of a redirection, appending or not", () => {
+    expect(writtenPaths("cat > packages/sim/src/step.ts <<'EOF'\nx\nEOF")).toEqual([
+      "packages/sim/src/step.ts",
+    ]);
+    expect(writtenPaths("echo hi >> apps/game/src/shell.ts")).toEqual(["apps/game/src/shell.ts"]);
+  });
+
+  it("takes a sed that edits in place, and nothing from one that reads", () => {
+    expect(writtenPaths("sed -i 's/a/b/' tools/queue/run.ts")).toEqual(["tools/queue/run.ts"]);
+    expect(writtenPaths("sed --in-place -e 's/a/b/' tools/queue/run.ts")).toEqual([
+      "tools/queue/run.ts",
+    ]);
+    expect(writtenPaths("sed -n '1,5p' tools/queue/run.ts")).toEqual([]);
+  });
+
+  it("takes what tee is handed", () => {
+    expect(writtenPaths("echo x | tee -a tools/queue/run.ts")).toEqual(["tools/queue/run.ts"]);
+  });
+
+  it("takes a python heredoc's open, only when the mode writes", () => {
+    const write = "python3 - <<'PY'\nopen('packages/sim/src/step.ts', 'w').write(s)\nPY";
+    expect(writtenPaths(write)).toEqual(["packages/sim/src/step.ts"]);
+    const read = "python3 - <<'PY'\ns = open('packages/sim/src/step.ts').read()\nPY";
+    expect(writtenPaths(read)).toEqual([]);
+  });
+
+  it("says nothing at all about a command that only reads", () => {
+    // Silence is the answer it owes when it cannot parse a write. A path it
+    // invented would be a sentence about a file the lane never touched.
+    for (const line of [
+      "cat packages/sim/src/step.ts",
+      "grep -n x packages/sim/src/step.ts",
+      "bun run check",
+      "sed -n '1,5p' a.ts < packages/sim/src/step.ts",
+    ]) {
+      expect({ line, wrote: writtenPaths(line) }).toEqual({ line, wrote: [] });
+    }
+  });
+
+  it("names a file written twice in one line only once", () => {
+    const line = "echo a > tools/queue/run.ts && echo b >> tools/queue/run.ts";
+    expect(writtenPaths(line)).toEqual(["tools/queue/run.ts"]);
+  });
+
+  it("keeps every file of a line that wrote several", () => {
+    // The lane that found this wrote seven files in a turn and heard about
+    // none of them; one path per command line would have heard about one.
+    const line = "echo a > packages/sim/src/step.ts; sed -i 's/x/y/' apps/game/src/shell.ts";
+    expect(writtenPaths(line)).toEqual(["packages/sim/src/step.ts", "apps/game/src/shell.ts"]);
+  });
+});
+
+describe("what the size hook decides a payload touched", () => {
+  const root = "/home/me/neon-spore";
+
+  it("is the declared path, for an edit tool", () => {
+    expect(
+      touched(root, { tool_input: { file_path: `${root}/packages/sim/src/step.ts` } }),
+    ).toEqual(["packages/sim/src/step.ts"]);
+  });
+
+  it("is what the command wrote, for a bash line", () => {
+    const command = "echo a > packages/sim/src/step.ts; sed -i 's/x/y/' apps/game/src/shell.ts";
+    expect(touched(process.cwd(), { tool_input: { command } })).toEqual([
+      "packages/sim/src/step.ts",
+      "apps/game/src/shell.ts",
+    ]);
+  });
+
+  it("drops what the ceiling does not reach, whichever tool named it", () => {
+    expect(touched(root, { tool_input: { file_path: `${root}/docs/queue.md` } })).toEqual([]);
+    expect(touched(process.cwd(), { tool_input: { command: "echo a > docs/queue.md" } })).toEqual(
+      [],
+    );
+    expect(touched(root, null)).toEqual([]);
   });
 });

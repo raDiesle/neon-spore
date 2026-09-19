@@ -77,6 +77,24 @@ describe("the hooks settings.json actually starts", () => {
     }
   });
 
+  /**
+   * The same failure again, and the reason this file keeps growing: a hook can
+   * be perfect and still be bound to half the ways its subject happens. The
+   * line ceiling was registered for the three edit tools only, so a lane told
+   * to write its files through Bash — a heredoc, a `sed -i`, a short `python3`
+   * script — heard nothing until `check:fast` went red.
+   */
+  it("puts the line ceiling behind Bash as well as the edit tools", async () => {
+    const entries = (await settings()).hooks?.PostToolUse ?? [];
+    const matchers = entries
+      .filter((entry) => entry.hooks?.some((hook) => hook.command?.includes("after-edit-size.ts")))
+      .map((entry) => entry.matcher ?? "");
+    for (const tool of ["Edit", "Write", "MultiEdit", "Bash"]) {
+      const heard = matchers.some((matcher) => new RegExp(matcher || "$^").test(tool));
+      expect({ tool, heard }).toEqual({ tool, heard: true });
+    }
+  });
+
   it("leaves no shell script behind in .claude/hooks", async () => {
     // The directory is gone with the last of them. If one comes back, it is
     // either wired through `bash` again or wired to nothing at all.

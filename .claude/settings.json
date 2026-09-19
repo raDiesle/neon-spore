@@ -68,6 +68,15 @@
             "command": "bun tools/hooks/after-edit-size.ts"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun tools/hooks/after-edit-size.ts"
+          }
+        ]
       }
     ],
     "Stop": [
