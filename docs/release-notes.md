@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 5619d0ed — Release notes for one landing
+
+## 2026-09-19 · 8995ded7 — THE HIVE learns to say CARRY and PRESS, and the briefing comes down
+
+An open breach's column stands in the same place on both screens — only its colour is split between the pilot and the navigator — so unlike THE WELL, which has no honest cue at all, THE HIVE's reach was never the secret a word could leak. CARRY / MOVE now marks the cannon, the pilot's, whenever an open breach waits unsealed and he has not reached it; PRESS / FIRE replaces it on the breach itself, the navigator's, the instant his cannon arrives. Neither word ever says the colour or which of two twinned breaches to take first — that stays theirs to say out loud.
+
 ## 2026-09-19 · 1256e2c5 — Audit a film's authored columns against mapCol's image: nothing to fix
 
 The follow-on this session filed alongside SceneAct.worldCol: read every scene file's header and its acts' authored col values against mapCol(col, 11)'s image — 0, 2, 3, 5, 7, 8, 10 — and against what each file's own prose says the film shows.
