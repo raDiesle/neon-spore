@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 0c7934d1 — Draw THE CURTAIN's jam and give its hem a ring to lift
+
+The second half of the boss's queue entry, split before it was started and landed on its own: the jammed rail and the lifted hem were in the simulation with nothing on the glass showing either, so the fight changed state and the picture did not. The look exemption is **(b), a look with no shipped alternative** — there was no drawing of these two states to put a candidate against.
+
 ## 2026-09-19 · 7043bfc3 — The index says when a row names a boss its file never heard of
 
 ## 2026-09-19 · 018686fd — THE LEAD says the two words it can, and no column to the pilot

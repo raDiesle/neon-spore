@@ -2137,3 +2137,17 @@ more than one — the same shape as `hash-coverage.test.ts`, which collects and
 reports the whole list rather than throwing on the first. Either way the check
 is that a lane reaching for a shared colour is told so by a red test rather
 than by a frame test that quietly measures the wrong thing.
+
+## Unverified at 0c7934d1: THE CURTAIN's jammed rail and lifted hem seen by an eye…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/content/src/scenes/the-curtain.ts`, `packages/content/test/scene-films.test.ts`
+
+*Draw THE CURTAIN's jam and give its hem a ring to lift* landed from a session that could not look at it. The commit touched 9 more files. What went unchecked:
+
+- THE CURTAIN's jammed rail and lifted hem seen by an eye: the bar fading over the jam's count, the hem gathering under the rail at a full lift, the gap opening over the core, and the rehearsal's eleventh page at tempo. No PNG was taken.
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
