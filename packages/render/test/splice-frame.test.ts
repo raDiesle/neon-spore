@@ -109,8 +109,11 @@ describe("THE SPLICE, drawn", () => {
 
   it("shows the numbers to one seat and not the other", () => {
     // The split written as a predicate rather than as a count of draws: the
-    // pilot holds the cannon and the maw, so the tangle is the navigator's,
-    // and a seat that could see both halves would be a seat playing alone.
+    // pilot holds the cannon and the navigator the only maw, so the tangle is
+    // hers — she is the seat that cannot reach a mouth — and a seat that could
+    // see both halves would be a seat playing alone. This comment said the
+    // pilot held both buttons until 19 September 2026, which is what
+    // `sim/splice.ts` said too; the panel is `["cannon", "mawTake"]`.
     expect(showsSpliceTangle("p1")).toBe(false);
     expect(showsSpliceTangle("p2")).toBe(true);
     // The director's own seat sees everything, the way it does everywhere else.

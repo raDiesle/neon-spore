@@ -2,7 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { curtainCues, queenCues } from "./boss-cue-read.js";
 import { tasterCues, vaneCues } from "./boss-cue-read-b.js";
 import { diastoleCues, leadCues, scuttleCues } from "./boss-cue-read-c.js";
-import { stareCues } from "./boss-cue-read-d.js";
+import { spliceCues, stareCues } from "./boss-cue-read-d.js";
 import { gaugeCues, mazeCues, mirrorCues } from "./boss-cue-read-e.js";
 import { wardenCues } from "./boss-cue-read-f.js";
 import { fleetCues, snakeCues } from "./boss-cue-read-g.js";
@@ -155,6 +155,8 @@ function cuesOf(
       return queenCues(l, world, boss, beatPhase);
     case "stare":
       return stareCues(l, world, boss);
+    case "splice":
+      return spliceCues(l, world, boss, beatPhase);
     case "mirror":
       return mirrorCues(l, world, boss);
     case "maze":

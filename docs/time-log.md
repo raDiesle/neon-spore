@@ -22,6 +22,47 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-splice — one word, and the mouth it must not stand on
+
+The eighth of this family, and the first whose whole difficulty was **where** the
+word may stand rather than what it may say. THE SPLICE has one gesture per seat —
+he slides the cannon under a mouth, she opens the only maw — and *which mouth* is
+the entire fight, so neither gesture can be named: a mark on the mouth the cannon
+is under would hand his half of the sentence to the seat who is shown no cannon.
+What is left is the maw standing busy, `WAIT` in THE STARE's `STILL` for the two
+beats a number is in the air, which is the one moment a control in this fight has
+quietly stopped working and the failure the film was built around.
+
+The obvious place for it was the mouth the number is coming to, and that would
+have been the defect: the frame would stand there from the first beat of the
+flight and trace the straw to its end for the seat whose whole job is tracing
+straws. So the word rides the number instead, at the point `drawFlight` already
+draws the token at — `spliceFlightAt`, which both callers now share rather than
+keeping two copies of one lerp.
+
+**And the boss's own file described its panel backwards.** `sim/splice.ts` said
+the navigator *has no SUCK* and the pilot *holds the cannon and the maw*; the
+panel is `["cannon", "mawTake"]` and has been since the wave shipped, so the maw
+is player 2's. The film's paragraph and a comment in `splice-frame.test.ts` had
+copied it. Nothing could catch it — `applyCommand` seat-checks nothing, so the
+code was right and only the prose was wrong — and it is the first thing a lane
+reads when deciding whose glass a word goes on. Its header also pointed at a
+`config-splice.ts` that has never existed, which is a queue entry of its own:
+32 basenames are named in backticks by comments and exist nowhere in the tree.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `splice*.ts` across sim, render and content for what each screen is shown, `controls.ts` and `control-sets-table.ts` for who holds which button, THE LEAD's and THE SURGE's lanes end to end, and `splice-*.ts` greped for `drawCueText` first — the entry this family filed yesterday |
+| writing | 10 | `spliceCues` with the argument for the one word and the four silences, `spliceFlightAt` shared with the drawing, seven cases in a new `boss-cue-splice.test.ts`, three guide halves, one film caption and the paragraph over it, the spec's `The words` and `The rehearsal`, and three backwards paragraphs put right |
+| looking | 0 | nothing new is drawn: the frame, the verb and the kind line shipped with the family |
+| friction | 5 | two things, neither in the repository's gift. `bun run index` keeps a row's hand-written text on purpose, so a header rewritten under an existing row leaves the file map quietly stale while `index --check` stays green — the row was edited by hand. And a sibling lane on the same machine shares this session's scratchpad, `rm -f`'d the agreed `check.log` and started its own run into it, so the first green check vanished mid-read and the second went to a lane-specific name |
+| landing | 10 | two `check:fast` runs, the second at eight minutes of wall clock because two lanes were sharing the machine-wide shard cap, plus `index`, `lint`, the commit and the push |
+
+**The bottleneck was choosing the mark's place**, which on this boss is the whole
+licence test: the two seats' halves are a column and a path, the word itself was
+settled in a minute, and everything after that was working out which of the three
+places it could stand hands a seat something it is not shown.
+
 ## 2026-09-19 — queue-the-lead — the word that cannot exist, and the beat the stalk already added
 
 The seventh of this family and the first whose finding is an **absence**. THE

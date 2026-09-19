@@ -11,8 +11,7 @@ import { headerTop } from "./round-header.js";
 import {
   drawStraws,
   drawStubs,
-  spliceAt,
-  spliceCurve,
+  spliceFlightAt,
   spliceMouthY,
   spliceTopY,
 } from "./splice-straws.js";
@@ -149,6 +148,11 @@ function drawNumbers(
  * clipped to the band over the mouths, so the same travel simply arrives out
  * of the fade a beat before it lands — which is the moment the pair is
  * actually waiting on.
+ *
+ * **The place comes out of `spliceFlightAt`** rather than out of a lerp of its
+ * own, because the cue's frame stands on this same point on the seat that holds
+ * the maw (`boss-cue-read-d.ts`): a word beside the number rather than round it
+ * would be the picture and the field disagreeing about where the answer is.
  */
 function drawFlight(
   ctx: CanvasRenderingContext2D,
@@ -174,9 +178,8 @@ function drawFlight(
       ctx.lineWidth = 1;
     }
   }
-  if (s.feedFrom === -1) return;
-  const t = Math.max(0, Math.min(1, (beat + beatPhase - s.feedBeat) / cfg.spliceFeedBeats));
-  const at = spliceAt(spliceCurve(l, cfg, s, s.feedFrom), t);
+  const at = spliceFlightAt(l, cfg, s, beat + beatPhase);
+  if (at === null) return;
   const mouthY = spliceMouthY(l, cfg);
   // On the pilot's screen the straw above the band does not exist, so neither
   // does the number on it: it comes out of the fade rather than floating over

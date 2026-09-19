@@ -63,11 +63,13 @@ import type { Wave } from "../wave-types.js";
  * plating, a straw out of each running the height of the field, and a number
  * at the far end of every one. Three rounds, two straws then three then four
  * (`spliceStraws`), and the only thing authored is how long the pair has —
- * sixteen beats, then twenty-four, then thirty-two. That is about six beats a
- * feed throughout, two of which are the number's own travel, so what the count
- * really buys is four beats a straw to trace one and say it. The figures are
- * written here rather than beside the entry because the director rewrites that
- * line whenever anybody saves the wave (`tools/director/src/serialize-boss.ts`)
+ * sixteen beats, then twenty-four, then thirty-two. Against two straws, then
+ * three, then four, that is **eight beats a feed throughout**, two of which are
+ * the number's own travel — and the travel is spent from the same clock, which
+ * `stepSplice` only stops *checking* while something is in the air — so what
+ * the count really buys is six beats a straw to trace one and say it. The
+ * figures are written here rather than beside the entry because the director
+ * rewrites that line whenever anybody saves the wave (`tools/director/src/serialize-boss.ts`)
  * and a comment inside it would not survive.
  *
  * It is played on a panel of its own with **two buttons, one a seat**
@@ -77,6 +79,13 @@ import type { Wave } from "../wave-types.js";
  * and cannot see past the first hand's width of any straw. So a feed is a
  * sentence each way — *the third mouth from the left*, *I am on it* — and
  * neither seat is sitting with nothing to press.
+ *
+ * **The field says one word on it and no more** (`render/boss-cue-read-d.ts`,
+ * 19 September 2026): `WAIT` on the number coming down its straw, on the seat
+ * holding the maw, for the beats her one button is busy. Neither gesture can be
+ * named — a mark on the mouth the cannon is under would be player 1's half of
+ * the sentence handed to player 2, who is shown no cannon — so the guide's two
+ * halves are the counting and the clock rather than the slide and the press.
  *
  * **THE MINE is the act's third wave**, and it is here for THE SPLICE's reason
  * exactly: this file had room and no other did. It is a wisp that never hops,
@@ -175,9 +184,9 @@ export const WAVES_ACT_9: Wave[] = [
     sentence:
       "The one where the number is at the other end of the straw, and only one of you can see it.",
     guide: {
-      both: "Feed the straws in order, one, two, three: stand the cannon under the right mouth and open the maw.",
-      p1: "1. Count the mouths from the left.\n2. Slide the cannon under the mouth your partner names.\n3. Say THERE when you are under it.\n4. Wait two beats for the answer, then go to the next.",
-      p2: "1. Trace straw number one down to its mouth.\n2. Say which mouth it leaves, counting from the left.\n3. Open the maw when your partner says THERE.\n4. Then straw two, then three.",
+      both: "Straws run the height of the field and cross. Player 2 sees where each goes and the number on it; player 1 sees only the mouths and holds the cannon. Only player 2 can open the maw. Feed them 1, 2, 3. A wrong feed or a spent clock takes the hull and the wave. Three rounds: two straws, then three, then four.",
+      p1: "1. Count the mouths from the left; a ring marks the one you are under.\n2. Slide to the one your partner names, then say THERE: they cannot see the cannon.\n3. The two beats a number falls are yours: be on the next mouth.",
+      p2: "1. Trace 1 down to its mouth, count from the left, say it.\n2. Only you can open the maw, and only on your partner's THERE.\n3. Eight beats a straw: the two it falls come off your clock. Trace the next then.",
       scene: "theSplice",
     },
     entries: [],
