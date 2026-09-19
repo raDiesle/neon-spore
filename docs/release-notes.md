@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 401d8796 — The cards a hand earns say what P1 and P2 do, in short words
+
+The sixty-six boss cards a hand on the controls earns now read as one short sentence of state and then what each seat does — "Two plates off, the eye's drift one column wide. P1 hauls the rope; P2 pins the eye and fires up its column." — in place of the paragraph of prose each carried. Two players who may not share a language read these cards, so the form is short words, under 120 characters, and a state that asks nothing of a seat says so in two ("P2 waits"). THE FLEET's three cards were already written this way and are the model.
+
 ## 2026-09-19 · 67e4aa15 — THE THROAT's clock is heard: inhale, choke, swallow, eversion
 
 The two hands on the gullet had sounds and the gullet itself did not. Its own clock is four moments, and all four are things the pair has to hear while both players are looking at the other half of their own screen: the breath player 2 has been counting down to, a flung gum landing, a mouthful bought back, and the tube turning through its own mouth.
