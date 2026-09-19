@@ -11486,3 +11486,41 @@ entry only asked for one file split and one pointer, not a repo-wide
 renumbering.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-frame-test-that-counts-a-colour-has-no-way-to — a shared colour is only a problem beside the cue
+
+`frame-harness.ts`'s `count(text, colour)` proves a thing is drawn by
+counting its hex in the canvas log, which is only a proof while the colour
+belongs to the one thing being asked about — THE CURTAIN's jam bar found the
+gap by being stroked in `PALETTE.rock`, also the cue word's fill
+(`boss-cue-text.ts`) and the target lock's (`boss-cue-draw.ts`). The first
+design tried — every counted colour checked against every file in
+`render/src` that draws with it — failed almost everywhere it ran: `red`
+alone is drawn by 95 files, `text` by 78, `rock` by 87, because the palette is
+shared **on purpose** across bosses that never share a frame. The actual
+ambiguity is narrower: only the cue chrome (`boss-cue-text.ts`,
+`boss-cue-draw.ts`) can stand over *any* boss's own picture on the same
+frame, so a colour shared with a boss's own material only causes THE
+CURTAIN's exact failure when the chrome is one of the files sharing it.
+Rescoped to that, the check flags exactly one colour — `rock` — matching the
+one historical incident and finding a live second one: THE ANTIPHON's own
+frame test also counted `PALETTE.rock`, ambiguously, between the grip mark
+and the word under it. Fixed by pairing the held state (mark, no word) against
+none instead of the un-held state (mark and word both), which isolates the
+mark; the one remaining share is a documented, reviewed exception, the same
+shape as `hash-coverage.test.ts`'s `EXCEPTIONS`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `frame-harness.ts`, `palette.ts`, `hash-coverage.test.ts`'s shape, and the seventeen frame tests' own `count` functions |
+| writing | 25 | `frame-colours.test.ts`, twice — the first version against the whole tree, the second rescoped to the cue chrome once the first ran |
+| looking | 30 | running the first version and reading what it actually found — 19 colours flagged, only one of them (`rock`) a real collision — then `boss-cue-text.ts`/`boss-cue-draw.ts`/`antiphon-grip.ts`/`handle-draw.ts` to see whether the live `rock` finding was a real bug or a sound test wearing an ambiguous colour |
+| friction | 15 | the first, whole-tree design would have failed the suite on landing for colours that were never the bug this entry described — caught by running it before trusting the design, not by re-reading the entry's own wording harder |
+| landing | 20 | `format`, `lint`, `tsc --noEmit`, the two touched test files, then the full `check` (18,480 tests) |
+
+**The bottleneck was the false start**, not the fix: the entry's own wording
+("checked against every file... that draws with it") reads as the whole
+tree, and only running it against real data showed that reading was too
+blunt to land.
+
+*Measured: the rows above are the session's own estimate.*

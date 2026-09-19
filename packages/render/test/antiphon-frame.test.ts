@@ -206,11 +206,14 @@ describe("THE ANTIPHON's body", () => {
   });
 
   it("draws the organ's grip with the word on the pilot's screen, and neither on the navigator's", () => {
-    // The grip mark is the one thing on this body in the rock's grey, and
-    // the word under it the one text; a held mark loses the word.
+    // The mark is drawn in the rock's grey whether or not a thumb holds it;
+    // the word under it shares that same fill (`boss-cue-text.ts`) and shows
+    // only while nothing holds the mark, so a count taken while the word can
+    // also be showing cannot tell the mark from the word sitting under it —
+    // a held mark can, since the word is gone and the mark is not
+    // (`frame-colours.test.ts`'s EXCEPTIONS for why this pairing is the fix).
     const none = frame("p1", () => {});
     const up = frame("p1", (w) => void grown(w));
-    expect(count(up.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
     expect(turnWord(up.words)).toBe(true);
     expect(turnWord(none.words)).toBe(false);
     const held = frame("p1", (w) => {
@@ -218,6 +221,7 @@ describe("THE ANTIPHON's body", () => {
     });
     expect(turnWord(held.words)).toBe(false);
     expect(held.text).not.toBe(up.text);
+    expect(count(held.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
     const hers = frame("p2", (w) => void grown(w));
     expect(count(hers.text, PALETTE.rock)).toBe(count(frame("p2", () => {}).text, PALETTE.rock));
     expect(turnWord(hers.words)).toBe(false);
