@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 2c0cc8c5 — `new-boss-state`'s twelve registrations are fourteen
+
 ## 2026-09-19 · 419e7ce9 — THE LEDGER: four hands on one cord, one per movement
 
 The fight shipped answered entirely from the panel — one sentence said eleven times with a different column in it — which is the shape §6.2 asks every shipped boss to leave behind. What decided where a handle could go here is that half of one drawn object is off each screen: he is shown the returns coming down the cord and she the socket they land in, so a thumb may only be put on the part of the cord its own seat can see.
