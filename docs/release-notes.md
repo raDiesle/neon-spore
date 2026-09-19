@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 3b4e55b7 — Queue what THE LEAD's landing could not look at
+
+The landing ran without `--unverified`, so the three things a cloud session cannot judge about a new handle went unqueued: the picture of the held stalk with its ring and dial, the still watched at tempo with a thumb on it, and the lean through the still that `leadAskedAngle` had pinned upright until this lane read it.
+
 ## 2026-09-19 · 68e8f9db — THE LEAD's still is a handle, and her thumb buys the beam its fill
 
 The fight shipped with four states and no gesture: pacing, running, forecasting and the still, every one of them answered on the panel. The still is the one of them a hand may reach into. `grippable.ts` refuses a thumb on a boss body because a thumb there would steer every shot into it, and steering a shot to where a body *will be* is the whole question this boss asks — but with one segment left `leadShootable` is false and `lead-shot.ts` registers no flight at all, so a thumb on the stalk steers nothing. What it gives instead is time: `leadHoldBeats` is eight against a still of four, and the beam costs `lancePrimeBeats` of three. One more run at the pass, and no third.
