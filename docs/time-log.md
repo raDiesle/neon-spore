@@ -10702,3 +10702,29 @@ that out. A frame test that counts a colour is only as good as that colour
 being unique on the frame, and nothing in the harness says which are.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-candles-film-says-column-3-and-its-acts-say — two numbers, two coordinate systems
+
+The entry read the film's doc block against its own acts — *faces column 3*
+against `{ tick: 1185, control: "cannon", col: 2 }` — and asked which of the
+two was off by one. Neither. An act is authored on seven columns and the field
+has eleven, so `mapCol(2)` is 3, and the film performs exactly what the block
+describes: stepped headless, `candleFed` fires at tick 1236 on column 3. The
+block now says which column it is counting in, and `scene-candle.test.ts`
+holds the film's one mistake to landing.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the film whole, `SceneRun`, `candle-step.ts`'s `candleFed` and `scene-drag.test.ts` for a harness to copy |
+| writing | 10 | the doc block's correction and three cases |
+| looking | 10 | a scratch probe stepping the film to 1320 and printing `faceCol`, `phase` and the events, then the act moved to `col: 3` to watch all three cases go red |
+| friction | 5 | `git checkout` on the one file to undo the scratch edit took the doc correction with it, which is the cost of proving a test bites by editing the source under it |
+| landing | 10 | `format`, `lint`, `index`, the full `check` at 156s and the landing |
+
+**The bottleneck was that nothing in the file said which units it counted
+in.** Every number in the block is the field's and the one number beside it is
+the author's, and a reader has no way to know that — the previous lane spent
+its time reaching the same wrong conclusion this one had to rule out. The
+answer was one `mapCol` call away and nothing pointed at it.
+
+*Measured: the rows above are the session's own estimate.*

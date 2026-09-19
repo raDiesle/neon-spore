@@ -24,10 +24,20 @@ import type { GuideScene } from "../scene-types.js";
  * so every slide under it says `atBoss` and `bossAnswerCol` reads the glow's
  * column at the moment the thumb goes down. The one slide that is not under
  * it is the mistake — the cannon put on the faced column on purpose — and
- * that column is authored, which is why the seed is 8: it faces column 3 for
- * eight beats running from the moment it starts eating, and 3 is one of the
- * seven columns an authored strip reaches; and it drifts between 3 and 6 the
- * whole film, so the glow is never far from the middle of the screen.
+ * that column is authored, which is why the seed is 8: it faces **the field's
+ * column 3** for eight beats running from the moment it starts eating, and
+ * that column is one an authored strip can reach; and it drifts between the
+ * field's 5 and 6 the whole film, so the glow is never far from the middle of
+ * the screen.
+ *
+ * **The act at 1185 says `col: 2`, and the two numbers are the same column.**
+ * An act is authored on seven columns and the field has eleven, so a film's
+ * numbers go through `mapCol` before the world sees them — and `mapCol(2)` is
+ * 3. Every other number in this block is the field's, because that is what the
+ * boss reports and what a person watching counts. A lane read the doc against
+ * the act, took 3 against 2 for an off-by-one and went looking for a shot that
+ * is never eaten; `scene-candle.test.ts` answers that question now rather than
+ * leaving it to be asked again.
  *
  * On player 2's pages the cannon slides under the glow a moment before she
  * fires. That is player 1 doing his half — the glow moves every three beats
