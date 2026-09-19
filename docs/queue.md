@@ -1886,6 +1886,7 @@ body owns those owns this kill.
 ## A frame test that counts a colour has no way to know the colour is shared
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-claude-skills-new-boss-skill-md-is-seven-lines-o (claim: claude/queue-a-frame-test-that-counts-a-colour-has-no-way-to)
 - **Files:** `packages/render/test/frame-harness.ts`,
   `packages/render/src/palette.ts`
 - **Where:** cloud
