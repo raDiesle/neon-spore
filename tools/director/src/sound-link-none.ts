@@ -195,6 +195,8 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.ledgerLast": "the fifth return, the one to let through. Same argument.",
   "boss.ledgerHeld":
     "the last return warded anyway and refused. What it marks is nothing happening.",
+  "boss.ledgerPlug":
+    "the navigator's thumb going into the socket, which rolls what lands there back onto the cord. What it marks is a hand on a hole in the plating: the hole is the root's, and a hand is not a card (`sim/ledger-hand.ts`).",
   "boss.ledgerTear":
     "the cord out of the ship and the halves parting. Like boss.gorgeOut, what this marks is a frame with nothing under its top — an absence rather than a thing standing anywhere.",
   // THE SINEW's fourteen. The boss is a rope the sheet has no card for, and

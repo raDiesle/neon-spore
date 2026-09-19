@@ -38,6 +38,17 @@ export interface LedgerConfig {
   ledgerSlowBeats: number;
   /** Beats the halves take to part once the cord has torn out. */
   ledgerOutBeats: number;
+  /**
+   * Beats of plug the whole fight allows — the navigator's thumb in the socket,
+   * rolling what lands there back onto the cord (`ledger-hand.ts`).
+   *
+   * A budget and not a cooldown, because what it is buying is a column she
+   * could not reach in time, and a fight that handed that back every few beats
+   * would be a fight with no columns in it.
+   */
+  ledgerPlugBeats: number;
+  /** Thousandths of a tile the cord must be hauled to tear it out by hand. */
+  ledgerHaulMilli: number;
 }
 
 /**
@@ -60,4 +71,11 @@ export const LEDGER_DEFAULTS: LedgerConfig = {
   ledgerSocketStep: 1,
   ledgerSlowBeats: 1,
   ledgerOutBeats: 3,
+  // Three beats of grace, which is one cadence at the floor and a beat over:
+  // enough to roll one bill over and be somewhere by the next, and not enough
+  // to hold the socket shut while the cord fills up.
+  ledgerPlugBeats: 3,
+  // Most of a tile and a half down, the interlock's depth (`tasterPryMilli`):
+  // far enough that a thumb resting on the cord never tears it out.
+  ledgerHaulMilli: 1900,
 };

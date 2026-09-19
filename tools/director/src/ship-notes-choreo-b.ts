@@ -29,8 +29,13 @@ export const CHOREO_NOTES_B = {
     "shot the cannon takes and a warded return is thrown back up it, " +
     "widening the seam for nothing. The last return is the one to let " +
     "through: unwarded it tears the cord out and the halves part over " +
-    "ledgerOutBeats. Nothing about it is authored per wave. See " +
-    "sim/ledger.ts, sim/config-ledger.ts.",
+    "ledgerOutBeats. Every movement has a hand in it: she walks the cord's " +
+    "foot along the plating while it roots, plugs the socket to roll a " +
+    "return back onto the cord for ledgerPlugBeats of the whole fight, he " +
+    "hauls the soonest return a beat down while it whips, and he tears the " +
+    "cord out by hand over ledgerHaulMilli once it is taut and the plate " +
+    "has left the socket. Nothing about it is authored per wave. See " +
+    "sim/ledger.ts, sim/config-ledger.ts, sim/ledger-hand.ts.",
   "THE SINEW — the boss that asks how hard, not when":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §8: " +
     "the boss whose question is a magnitude. A mass sinewMassCols wide hangs " +

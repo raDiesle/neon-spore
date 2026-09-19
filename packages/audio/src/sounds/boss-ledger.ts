@@ -1,5 +1,5 @@
 /**
- * THE LEDGER's eleven, in a file of their own for `boss-taster.ts`' reason.
+ * THE LEDGER's twelve, in a file of their own for `boss-taster.ts`' reason.
  *
  * The boss is **one cord**, and everything here is that cord under load:
  * rooting is a thing driven into plating, a return is a bead travelling down
@@ -126,6 +126,25 @@ export const BOSS_LEDGER_SOUNDS: SoundDef[] = [
     use: "THE LEDGER's last return warded anyway — it goes back up, and the fight holds open.",
     level: 0.34,
     layers: [metal(3600, 0.46, 0.22, 200), after(0.1, soft(0.4, sub(88, 0.4, 0.24)))],
+  },
+  {
+    id: "boss.ledgerPlug",
+    // A stopper in a hole in plating, and the only sound the four hands
+    // brought: the other four borrow one of the eleven, because each of them
+    // is a thing this cord already does happening again by hand
+    // (`bind-ledger.ts`). Nothing of it is in the speech band — a thumb going
+    // into the socket is said while the navigator is saying the column, which
+    // is the one sentence this fight is played with (`docs/spec/audio.md` §1).
+    family: "boss",
+    blurb: "A stopper going into the socket: one dull seat, and the hole closing over it.",
+    status: "bound",
+    use: "THE LEDGER's socket plugged — what lands there is rolled back onto the cord, not warded.",
+    level: 0.3,
+    layers: [
+      thud(190, 74, 0.16, 0.34),
+      after(0.04, sub(64, 0.4, 0.26)),
+      after(0.06, soft(0.35, air(5200, 4400, 0.22, 0.1, 1.2))),
+    ],
   },
   {
     id: "boss.ledgerTear",

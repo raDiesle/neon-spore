@@ -15,8 +15,13 @@ import type { Color } from "./types.js";
  * **Every one of them names a column**, which is unusual in this game and is
  * the boss itself: a fight whose whole subject is *which column the plate has
  * to be in* has nothing to say that is not about one. The two that are about
- * the body rather than the hull say the seam's column, the six about the return
- * say the socket's, and the ear can pan the difference (`bind-ledger.ts`).
+ * the body rather than the hull say the seam's column, the rest say the
+ * socket's, and the ear can pan the difference (`bind-ledger.ts`).
+ *
+ * The last five are the hands (`ledger-hand.ts`), and they keep the rule
+ * without being asked to: a foot walked along the plating, a thumb in the
+ * socket, a bill rolled over, a return hauled down and the cord hauled out are
+ * every one of them a thing that happened in one column of the hull.
  */
 
 /** The column the thing happened over. */
@@ -46,4 +51,14 @@ export type LedgerEvent =
   /** They warded it anyway: it is refused, and the fight holds open. */
   | ({ type: "ledgerHeld" } & LedgerColEvent)
   /** The cord tears out of the ship and the halves part: it is over. */
-  | ({ type: "ledgerTear" } & LedgerColEvent);
+  | ({ type: "ledgerTear" } & LedgerColEvent)
+  /** The navigator walked the cord's foot along the plating before it seated. */
+  | ({ type: "ledgerFoot" } & LedgerColEvent)
+  /** Her thumb is in the socket: what lands there is rolled over, not warded. */
+  | ({ type: "ledgerPlug"; beats: number } & LedgerColEvent)
+  /** A return rolled over on a plugged socket — back on the cord, nothing paid. */
+  | ({ type: "ledgerRoll"; beats: number } & LedgerColEvent)
+  /** The pilot hauled a return a beat down the cord: `beats` are left of it. */
+  | ({ type: "ledgerPull"; beats: number } & LedgerColEvent)
+  /** He hauled the cord itself out of the plating, with the plate already gone. */
+  | ({ type: "ledgerHaul" } & LedgerColEvent);

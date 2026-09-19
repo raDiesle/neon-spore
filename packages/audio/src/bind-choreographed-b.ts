@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
+import { ledgerCue } from "./bind-ledger.js";
 import { pinballHandCue } from "./bind-pinball-hand.js";
 import { pulseHandCue } from "./bind-pulse-hand.js";
 import { scoutHandCue } from "./bind-scout-hand.js";
@@ -63,7 +64,16 @@ export type AddedEvent = Extract<
       // answering in one lane rather than three (`sim/taster-hand.ts`).
       | "tasterPin"
       | "tasterWipe"
-      | "tasterPry";
+      | "tasterPry"
+      // And THE LEDGER's five, which are four hands: the foot, the plug, the
+      // bill the plug rolls over, the return hauled down and the cord hauled
+      // out (`sim/ledger-hand.ts`). The first boss to arrive here with a
+      // gesture in every movement of its fight.
+      | "ledgerFoot"
+      | "ledgerPlug"
+      | "ledgerRoll"
+      | "ledgerPull"
+      | "ledgerHaul";
   }
 >;
 
@@ -99,6 +109,11 @@ const ADDED_EVENTS = new Set<string>([
   "tasterPin",
   "tasterWipe",
   "tasterPry",
+  "ledgerFoot",
+  "ledgerPlug",
+  "ledgerRoll",
+  "ledgerPull",
+  "ledgerHaul",
 ]);
 
 /** Whether this is one of the names above, and not a boss arriving whole. */
@@ -115,6 +130,16 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "tasterWipe":
     case "tasterPry":
       return tasterCue(e, cols);
+    // And THE LEDGER's five, for that reason said about a socket: the eleven
+    // next door are all panned to the column they happened in, and a second
+    // file answering *where* for this boss would be the one fight in the game
+    // whose ear could disagree with itself (`bind-ledger.ts`).
+    case "ledgerFoot":
+    case "ledgerPlug":
+    case "ledgerRoll":
+    case "ledgerPull":
+    case "ledgerHaul":
+      return ledgerCue(e, cols);
     case "wardenHold":
     case "wardenThrow":
     case "wardenSlam":

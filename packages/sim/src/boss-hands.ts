@@ -7,6 +7,7 @@ import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
 import { instarHeard } from "./instar-hand.js";
+import { ledgerHandsHeard } from "./ledger-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
@@ -106,4 +107,10 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // worth something (`taster-hand.ts`). What a pin came to over the beat is
   // counted in `taster-step.ts`, with the fan's own clock.
   for (const c of commands) tasterHandsHeard(world, c.player, c.command);
+  // THE LEDGER's four thumbs on its own cord, on the tick because the foot is
+  // where the thumb is now, a plug is in the socket when it lands, and the tick
+  // the cord comes out of the plating is the tick the wave is over
+  // (`ledger-hand.ts`). What a plug came to over the beat is counted in
+  // `ledger-step.ts`, with the cord's own clock.
+  for (const c of commands) ledgerHandsHeard(world, c.player, c.command);
 }

@@ -91,7 +91,7 @@ export function patchBossC(boss: BossState): void {
     boss.warded = 1;
     boss.rootBeat = 1;
     boss.outBeat = 5;
-    boss.beads = [{ beat: 6, span: 3, last: false }];
+    boss.beads = [{ beat: 6, span: 3, last: false, pulled: false }];
   }
   if (boss.kind === "surge") {
     // A notch open, some pressure, both thumbs on, and every clock that only

@@ -22,6 +22,45 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-ledger-changes-state — four hands on one cord
+
+THE TASTER's lane one boss earlier had it easy: its fan is drawn whole on both
+screens, so *whose thumb may reach which handle* was a question about free
+hands. This fight hides half of one drawn object from each seat — he is shown
+the returns coming down the cord and she the socket they land in — and a handle
+a seat cannot see is not a handle. So the seats were decided before the
+gestures were: the foot and the plug are hers because the socket end is hers,
+the pull and the haul are his because the cord's length is his.
+
+The plug is the one worth reading. The fight had exactly one answer to a bill
+arriving in a column the plate was owed out of — lose the wave — and a thumb in
+the socket now rolls that bill back onto the cord for a cadence. It is rationed
+rather than cooled down (`ledgerPlugBeats`, three beats for the encounter),
+counts nothing as warded, and is refused in `taut`, because the last return is
+the one return nobody may refuse and a socket that could be stoppered on the
+fifth bill would let a pair play the end of this fight the way they played all
+of it.
+
+Two of the four got a word on the field and two deliberately did not. `PLUG`
+would be the field choosing which of two columns the plate is owed in, which is
+the design's own step 8; `HAUL` would be the last movement's whole content
+handed over in four letters.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the fight's seven simulation files, `ledger-read.ts` for which half of the cord each seat is shown, and the twelve registrations in `.claude/skills/new-boss-state` |
+| writing | 60 | `ledger-hand.ts`, the roll and the plug's beat in `ledger-step.ts`, five events, two config fields, twenty-two tests of the hands, two cue words and their two cases, and the fight's own section |
+| looking | 0 | nothing is drawn for the four hands yet: the look is its own lane, and a cloud session cannot judge a frame |
+| friction | 30 | twenty of it on thirty-four red websocket tests that were the image's Bun and not the change — the pin is on `PATH` and a shell that never got it is silently back on 1.3.11 — plus three pages full at once and a cue rule written against a plate that turned out to teleport |
+| landing | 20 | `check:fast`, `index`, the commit, the rebase and the land |
+
+**The bottleneck was a rule I wrote before reading the control it was about.**
+The first cue said `PLUG` when the socket was further away than the beats left,
+which reads as sound design and is nonsense: `shieldCol` is an absolute control
+and the plate arrives the tick she names a column. Two minutes in
+`commands.ts` before writing the line would have saved the line, its test and
+the argument in the header above it — the same lesson the last four lanes wrote
+down about pictures, said about a command.
 ## 2026-09-19 — queue-the-antiphon — a third stale entry, and a still nobody was told about
 
 The ninth of this family. Its entry said *it says nothing on the field at all*

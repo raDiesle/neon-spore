@@ -6,10 +6,12 @@ import {
   type LedgerBead,
   type LedgerState,
   ledgerCadence,
+  ledgerPlugs,
   ledgerWalk,
   ledgerWhips,
 } from "./ledger.js";
 import { tearCord, widenSeam } from "./ledger-bead.js";
+import { ledgerHandsFresh } from "./ledger-hand.js";
 import { nextInt } from "./rng.js";
 import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
@@ -48,6 +50,7 @@ export function installLedger(world: World): LedgerState {
     warded: 0,
     rootBeat: world.beat,
     outBeat: -1,
+    ...ledgerHandsFresh(cfg.ledgerPlugBeats),
   };
 }
 
@@ -142,6 +145,52 @@ function last(world: World, t: LedgerState, b: LedgerBead): LedgerBead | null {
   return { ...b, beat: world.beat + ledgerCadence(t, world.cfg) };
 }
 
+/**
+ * **A return rolled over on a plugged socket** — the navigator's thumb in the
+ * hole, and the bill put back on the cord a cadence later.
+ *
+ * Nothing is warded and nothing is whipped: the pair has not answered this
+ * return, they have refused to take it today, and the sheet says so — `rolled`
+ * is its own count beside `warded` rather than a second kind of ward, because
+ * a fight that scored a plug as a deflection would be telling them their half
+ * worked when what they did was move the problem (`ward`).
+ *
+ * It comes back on the **current** cadence, which is shorter than the one it
+ * was born on if the seam has widened since: a bill rolled over is a bill owed
+ * with less time in it, and that is the whole of what it costs beyond the
+ * grace itself (`ledgerCadence`, `ledgerPlugBeats`).
+ */
+function roll(world: World, t: LedgerState, b: LedgerBead): LedgerBead {
+  const beats = ledgerCadence(t, world.cfg);
+  t.rolled += 1;
+  world.events.push({ type: "ledgerRoll", col: t.socket, beats });
+  return { ...b, beat: world.beat + beats, span: beats, pulled: false };
+}
+
+/**
+ * **What the plug costs, counted on the beat.**
+ *
+ * The thumb is in or out on the tick (`ledger-hand.ts`) and paid for here, one
+ * beat at a time, out of a budget for the whole fight. Spending it on the beat
+ * rather than the tick is the same ruling THE THROAT's cinch has: a hand that
+ * landed and lifted between two beats has rolled nothing over, and charging it
+ * would be charging her for a thumb that never stopped a bill.
+ *
+ * At nought the socket spits the thumb out and will not take it again. So does
+ * a movement that must not be plugged — the grace runs out, or the fifth
+ * return goes on the cord, and either way the hole is open when it matters
+ * (`ledgerPlugs`).
+ */
+function stepLedgerHands(world: World, t: LedgerState): void {
+  if (!t.plug) return;
+  if (!ledgerPlugs(t, world.cfg, world.beat)) {
+    t.plug = false;
+    return;
+  }
+  t.plugBeats -= 1;
+  if (t.plugBeats <= 0) t.plug = false;
+}
+
 /** Every return that has reached the socket this beat, in the order it started. */
 function landing(world: World, t: LedgerState): void {
   const kept: LedgerBead[] = [];
@@ -156,7 +205,8 @@ function landing(world: World, t: LedgerState): void {
       kept.push(held);
       continue;
     }
-    if (answered(world, t)) ward(world, t);
+    if (t.plug) kept.push(roll(world, t, b));
+    else if (answered(world, t)) ward(world, t);
     else bill(world, t);
     slide(world, t);
   }
@@ -184,6 +234,7 @@ export function stepLedger(world: World, t: LedgerState): void {
   }
   landing(world, t);
   if (t.outBeat >= 0) return;
+  stepLedgerHands(world, t);
   for (const b of t.beads) {
     if (b.beat - world.beat === 1) {
       openSlow(world, cfg.ledgerSlowBeats);

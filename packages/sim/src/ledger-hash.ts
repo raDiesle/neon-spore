@@ -25,7 +25,15 @@ export function ledgerHashParts(t: LedgerState): number[] {
     t.rootBeat,
     t.outBeat,
     t.beads.length,
+    // The four hands, which move the same three things the clock does — where
+    // the cord is rooted, when a return lands, and whether the fight is over —
+    // so a device that missed one would be a device disagreeing about all of it.
+    t.foot,
+    t.plug ? 1 : 0,
+    t.plugBeats,
+    t.rolled,
+    t.haulMilli,
   ];
-  for (const b of t.beads) out.push(b.beat, b.span, b.last ? 1 : 0);
+  for (const b of t.beads) out.push(b.beat, b.span, b.last ? 1 : 0, b.pulled ? 1 : 0);
   return out;
 }

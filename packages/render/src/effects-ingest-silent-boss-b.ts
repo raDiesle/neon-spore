@@ -12,7 +12,9 @@ import type { SimEvent } from "@neon-spore/sim";
  * rather than the lane cutting its own rows out of the middle. THE FLEET's
  * five followed the same day, when THE CURTAIN's jam put page one over
  * again — and THE TASTER's three hands would have put it over a third time
- * had they not already gone.
+ * had they not already gone. THE SCUTTLE's ten came over the same way when
+ * THE LEDGER's four hands put page one over a fourth: page one hands its
+ * **last** boss across, never the rows the lane is working on.
  * `INGEST_SILENT` spreads this in place after the first page, so the guard
  * and the type it narrows by are unchanged.
  *
@@ -197,4 +199,18 @@ export const INGEST_SILENT_BOSS_B = [
   "throatChoke",
   "throatSwallow",
   "throatEvert",
+  // THE SCUTTLE's ten are read as one family above the loop by
+  // `scuttle-fx.ts` (`Effects.scuttle`), the way THE LEAD's are: a burst per
+  // event at the socket or the column, the jolt of a throw, the plate that
+  // tumbles off on a strike (`docs/spec/bosses.md` §11.30).
+  "scuttleEnter",
+  "scuttleLoose",
+  "scuttleThrow",
+  "scuttleStruck",
+  "scuttleRebuff",
+  "scuttleSlack",
+  "scuttleWind",
+  "scuttleLast",
+  "scuttleDown",
+  "scuttleOut",
 ] as const satisfies readonly SimEvent["type"][];

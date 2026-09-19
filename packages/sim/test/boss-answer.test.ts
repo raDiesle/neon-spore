@@ -127,7 +127,7 @@ describe("the column a boss is answered from", () => {
     g.socket = 6;
     expect(bossAnswerCol(world)).toBe(6);
     // The last return is the one to let land: no column is the answer.
-    g.beads.push({ beat: world.beat + 2, span: 2, last: true });
+    g.beads.push({ beat: world.beat + 2, span: 2, last: true, pulled: false });
     expect(bossAnswerCol(world)).toBeNull();
     g.beads = [];
     g.outBeat = world.beat;

@@ -246,10 +246,21 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // growing blade while the fan is `fanning`, the navigator wipes a soft
     // column while it is `hurrying`, and the pilot prises the `closed`
     // interlock open for her beam (`sim/taster-hand.ts`). Sim lane only so
-    // far, as the eighteen above.
+    // far, as the nineteen above.
     case "tasterBlade":
     case "tasterGap":
     case "tasterLock":
+    // THE LEDGER's four, the first set whose seats were decided by what each
+    // seat is shown of one drawn object: the navigator walks the cord's foot
+    // along the plating while it is `rooting` and plugs the socket from
+    // `paying` on, and the pilot hauls the soonest return a beat down while
+    // the cord is `whipping` and tears the cord out by hand once it is `taut`
+    // and she has carried the plate out of the socket's column
+    // (`sim/ledger-hand.ts`). Sim lane only so far, as the twenty-two above.
+    case "ledgerFoot":
+    case "ledgerSocket":
+    case "ledgerBead":
+    case "ledgerCord":
       return target;
     default:
       return assertNever(target);

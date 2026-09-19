@@ -28,6 +28,8 @@ export const CHOREO_FIELD_GROUP_B = {
   ledgerSocketStep: "THE LEDGER — the boss that bills your own hull for every shot",
   ledgerSlowBeats: "THE LEDGER — the boss that bills your own hull for every shot",
   ledgerOutBeats: "THE LEDGER — the boss that bills your own hull for every shot",
+  ledgerPlugBeats: "THE LEDGER — the boss that bills your own hull for every shot",
+  ledgerHaulMilli: "THE LEDGER — the boss that bills your own hull for every shot",
   // SinewConfig — how many fibres, how far a handle pulls, how wide the band
   // is and how much it narrows per fibre, where it can sit, how long a hold
   // takes, how long a snap throws the hands off, how far apart both hands

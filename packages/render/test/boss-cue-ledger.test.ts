@@ -83,7 +83,7 @@ function paying(): { world: World; t: LedgerState } {
 /** The same, with one return on its way down. */
 function coming(): { world: World; t: LedgerState } {
   const { world, t } = paying();
-  t.beads = [{ beat: world.beat + 2, span: 4, last: false }];
+  t.beads = [{ beat: world.beat + 2, span: 4, last: false, pulled: false }];
   return { world, t };
 }
 
@@ -127,7 +127,7 @@ describe("THE LEDGER's words", () => {
 
   it("says nothing about the last return, which is the one they must not ward", () => {
     const { world, t } = coming();
-    t.beads = [{ beat: world.beat + 2, span: 4, last: true }];
+    t.beads = [{ beat: world.beat + 2, span: 4, last: true, pulled: false }];
     t.socket = world.shieldCol === 0 ? 1 : 0;
     // Her `MOVE` goes with it: a word about the socket on the beat the plate is
     // meant to be leaving it is worse than none.
@@ -146,15 +146,35 @@ describe("THE LEDGER's words", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("says nothing while the cord is still going in, or once it has torn out", () => {
+  it("asks her for the cord's foot while it is still going in, and him for nothing", () => {
     const { world, t } = paying();
     world.cannonCol = ledgerSeamCol(t, CFG);
     t.rootBeat = world.beat;
+    // The body cannot be hurt yet and no return is owed, so the one thing
+    // either seat can do in this movement is walk the foot along the plating
+    // before it seats (`sim/ledger-hand.ts`).
+    const hers = cue(world, "p2");
+    expect(hers?.word).toBe("ROOT");
+    expect(hers?.kind).toBe("CARRY");
     expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
     t.rootBeat = world.beat - CFG.ledgerRootBeats;
     t.outBeat = world.beat;
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
+  });
+
+  it("offers him the return itself once the cord whips and the plate is already there", () => {
+    const { world, t } = coming();
+    t.socket = world.shieldCol;
+    t.seam = CFG.ledgerWhipSeam;
+    // A warded return is the weapon from here, and the pair is ahead of the
+    // cord: the bead is worth hauling down rather than waiting for.
+    const his = cue(world, "p1");
+    expect(his?.word).toBe("PULL");
+    expect(his?.kind).toBe("PRESS");
+    // And it goes back to the trigger on the beat it lands, which is the one
+    // word that has ever stood on a bead.
+    t.beads = [{ beat: world.beat + 1, span: 4, last: false, pulled: false }];
+    expect(word(world, "p1")).toBe("GUARD");
   });
 });

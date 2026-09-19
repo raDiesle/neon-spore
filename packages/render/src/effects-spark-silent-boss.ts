@@ -184,6 +184,14 @@ export const SILENT_BOSS = [
   "ledgerLast",
   "ledgerHeld",
   "ledgerTear",
+  // And the four hands' five, thrown by the same file for the same reason:
+  // each of them names a column too — the foot, the socket, the bill rolled
+  // over, the return hauled down and the cord hauled out (`sim/ledger-hand.ts`).
+  "ledgerFoot",
+  "ledgerPlug",
+  "ledgerRoll",
+  "ledgerPull",
+  "ledgerHaul",
   // THE SURGE's twelve are one family read above the loop by
   // `surge-fx.ts`, never rows here (`docs/spec/bosses.md` §11.28).
   "surgeSettle",

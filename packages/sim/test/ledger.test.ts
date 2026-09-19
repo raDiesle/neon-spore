@@ -89,7 +89,7 @@ function shot(world: World, col: number, color: Color, lance = false): Bullet {
 
 /** One return standing in the socket this beat: the state, not the wait. */
 function arriving(world: World, t: LedgerState, last = false): void {
-  t.beads = [{ beat: world.beat, span: CFG.ledgerCadenceBeats, last }];
+  t.beads = [{ beat: world.beat, span: CFG.ledgerCadenceBeats, last, pulled: false }];
 }
 
 /** The plate in the socket's column with the trigger inside its window. */
@@ -268,7 +268,7 @@ describe("a return landing", () => {
 
   it("slows the beat as the soonest return takes its last one", () => {
     const { world, t } = rooted();
-    t.beads = [{ beat: world.beat + 1, span: 3, last: false }];
+    t.beads = [{ beat: world.beat + 1, span: 3, last: false, pulled: false }];
     expect(slowing(world)).toBe(false);
     stepLedger(world, t);
     expect(slowing(world)).toBe(true);

@@ -28,7 +28,7 @@ function reroll(world: World): "red" | "cyan" {
  */
 export function startBead(world: World, t: LedgerState, last: boolean): void {
   const beats = ledgerCadence(t, world.cfg);
-  const bead: LedgerBead = { beat: world.beat + beats, span: beats, last };
+  const bead: LedgerBead = { beat: world.beat + beats, span: beats, last, pulled: false };
   t.beads.push(bead);
   world.events.push({
     type: last ? "ledgerLast" : "ledgerBead",

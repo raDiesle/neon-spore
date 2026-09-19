@@ -52,6 +52,11 @@ import type { World } from "./world.js";
  * - **out** — the cord tears out of the ship, the halves part, and the boss
  *   stands `ledgerOutBeats` more so the wave cannot end on the same beat.
  *
+ * **Every movement has a hand in it** (`ledger-hand.ts`): the foot of the cord
+ * while it is `rooting`, the navigator's thumb in the socket from `paying`,
+ * the pilot's on a return while the cord is `whipping`, and his haul on the
+ * cord itself when it is `taut`.
+ *
  * **It is a fixture and not a body** (`bossFillsWave`): it falls nothing, and
  * the arrivals the pair has to choose whether to answer are the wave's own.
  * The clock is `ledger-step.ts`, the shot `ledger-shot.ts`, the fingerprint
@@ -78,6 +83,8 @@ export interface LedgerBead {
   span: number;
   /** The one that parts the halves: not the pair's to stop (`ledgerLetThrough`). */
   last: boolean;
+  /** Whether the pilot's thumb has already hauled this one a beat down the cord. */
+  pulled: boolean;
 }
 
 /** Everything THE LEDGER remembers between beats. */
@@ -101,6 +108,16 @@ export interface LedgerState {
   rootBeat: number;
   /** `world.beat` the cord tore out on; `-1` while it holds. */
   outBeat: number;
+  /** The socket the cord's foot was grabbed in while it pays out; `-1` for none. */
+  foot: number;
+  /** Whether the navigator's thumb is in the socket, rolling what lands there over. */
+  plug: boolean;
+  /** Beats of plug the fight has left — the pair's whole grace, spent by the beat. */
+  plugBeats: number;
+  /** Returns rolled over rather than warded: the other half of what the cord counts. */
+  rolled: number;
+  /** How far the pilot has hauled the cord, in thousandths of a tile. */
+  haulMilli: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than six. */
@@ -196,6 +213,24 @@ export function ledgerWalk(t: LedgerState, cfg: SimConfig): { col: number; walk:
   if (next >= 0 && next <= cfg.cols - 1) return { col: next, walk: t.walk };
   const turned = t.socket - t.walk * cfg.ledgerSocketStep;
   return { col: Math.max(0, Math.min(cfg.cols - 1, turned)), walk: -t.walk };
+}
+
+/**
+ * **Whether the socket may be plugged at all**, which is three questions the
+ * hand would otherwise ask in a row: there is grace left, the cord is carrying
+ * bills the pair is allowed to roll over, and this is not the movement the
+ * rolling would rob them of.
+ *
+ * `taut` is the exclusion that matters. A plug is *the* answer to a return
+ * nobody can reach, and the last return is the one return nobody is meant to:
+ * a socket that could be stoppered on the fifth bill would let a pair play the
+ * end of this fight the way they played all of it, which is the one thing the
+ * movement exists to take away (`ledgerLetThrough`).
+ */
+export function ledgerPlugs(t: LedgerState, cfg: SimConfig, beat: number): boolean {
+  if (t.plugBeats <= 0) return false;
+  const phase = ledgerPhase(t, cfg, beat);
+  return phase === "paying" || phase === "whipping";
 }
 
 /**

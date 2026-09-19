@@ -173,6 +173,15 @@ export const INGEST_SILENT_BOSS = [
   "ledgerLast",
   "ledgerHeld",
   "ledgerTear",
+  // And the four hands' five the same way: a foot walked along the plating, a
+  // thumb in the socket, a bill rolled back onto the cord, a return hauled a
+  // beat down it and the cord hauled out by hand are all of them a state of
+  // the boss, and the boss is drawn every frame (`sim/ledger-hand.ts`).
+  "ledgerFoot",
+  "ledgerPlug",
+  "ledgerRoll",
+  "ledgerPull",
+  "ledgerHaul",
   // THE SINEW's thirteen are read as one family above the loop by
   // `sinew-fx.ts` (`Effects.sinew`), the way the two above are: a burst per
   // event at the mass or the handle, the flash on a snap, the hull's shock
@@ -225,20 +234,6 @@ export const INGEST_SILENT_BOSS = [
   "leadWall",
   "leadDown",
   "leadOut",
-  // THE SCUTTLE's ten are read as one family above the loop by
-  // `scuttle-fx.ts` (`Effects.scuttle`), the way THE LEAD's are: a burst per
-  // event at the socket or the column, the jolt of a throw, the plate that
-  // tumbles off on a strike (`docs/spec/bosses.md` §11.30).
-  "scuttleEnter",
-  "scuttleLoose",
-  "scuttleThrow",
-  "scuttleStruck",
-  "scuttleRebuff",
-  "scuttleSlack",
-  "scuttleWind",
-  "scuttleLast",
-  "scuttleDown",
-  "scuttleOut",
   "tether",
   "eyeOpen",
   "wardenDown",

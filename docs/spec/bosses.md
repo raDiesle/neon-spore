@@ -5116,6 +5116,48 @@ clock, her column — warding with the halves swapped from every other wave in
 the game, and the one sentence in this fight that is never the same twice is
 hers: the column, every time, before the beat.
 
+**The four hands, one per movement** (`sim/ledger-hand.ts`, added 19 September
+2026 for §6.2 of `.claude/skills/new-boss`). The fight shipped answered
+entirely from the panel — one sentence said eleven times with a different
+column in it — and what decided where a handle could go is that **half of one
+drawn object is off each screen**: a thumb may only be put on the part of the
+cord its own seat can see, so whose hand each movement wants was settled before
+it was asked.
+
+- **`ledgerFoot`**, the navigator's, while the cord is `rooting`. Her carry
+  walks the cord's foot along the plating before it seats, `fromMilli` from the
+  column she grabbed it in, and the walk is re-aimed at the far wall from
+  wherever she leaves it. It turns the two beats nothing could happen in into
+  the fight's opening decision: a root against a wall walks one way for the
+  whole encounter, a root in the middle turns.
+- **`ledgerSocket`**, hers, from `paying` and through `whipping`. Her thumb in
+  the socket plugs it, and a return landing on a plugged socket is **rolled
+  over** — refused, back on the cord a cadence later, the root sliding under it
+  as always, nothing warded and nothing whipped (`rolled` is its own count
+  beside `warded`, because a plug is not a deflection). It is rationed rather
+  than timed: `ledgerPlugBeats` (3) for the whole fight, spent on the beat, and
+  at nought the socket will not take a thumb again. It cannot be put in during
+  `taut`, which is the exclusion the movement exists for.
+- **`ledgerBead`**, the pilot's, while the cord is `whipping`. His thumb on the
+  soonest return hauls it **one beat down**, once per bead, and it is refused
+  where it would put two returns on one beat — the root slides between two
+  landings, so the second would arrive in a column the plate has just left.
+  From `ledgerWhipSeam` a warded return is the weapon, so a pair ahead of the
+  cord can run it faster than the boss meters it out.
+- **`ledgerCord`**, his, on the `taut` cord. His carry hauls it `fromYMilli`
+  against `ledgerHaulMilli` (1900) and tears it out of the plating — **only
+  while the plate is out of the socket's column**, so it is the same letting-go
+  said with a hand instead of with a wait, and he cannot see the column he is
+  refused for. She can.
+
+**Two of the four get a word on the field and two do not** (`boss-cue-read-o.ts`).
+`ROOT` stands in `rooting`, which used to be the movement with nothing in it,
+and `PULL` stands on the bead in `whipping` once the plate is already in the
+socket, giving it back to `GUARD` on the beat it lands. The plug is a choice
+about which of two columns the plate is owed in, which is the design's step 8
+said about the hull, and the haul is the last movement's whole content: a word
+naming either handle would be the pair's own answer handed over.
+
 **Where this departs from the design, and why.** Eight places, each argued by
 name. *There is no scar and no fight carried on over it*: steps 4, 7 and 10 all
 end a missed ward in "a scar in the socket column" with the fight continuing,

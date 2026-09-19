@@ -1,4 +1,5 @@
 import {
+  type LedgerBead,
   type LedgerState,
   ledgerNext,
   ledgerPhase,
@@ -62,9 +63,25 @@ import {
  *   (`boss-cue-read-m.ts`): a word over something already being answered
  *   teaches the pair to stop reading the words.
  *
- * And nothing in `rooting`, where the cord is still going in and the body
- * cannot be hurt, nor in `out`, where the halves are parting and the wave is
- * held `ledgerOutBeats` so it cannot end on the same beat.
+ * **Two more words, for two of the four hands** (`sim/ledger-hand.ts`).
+ * `ROOT` stands in `rooting`, which used to be the one movement with nothing
+ * in it: the body cannot be hurt and no return is owed, and the foot of the
+ * cord can be walked along the plating before it seats, which decides where
+ * the whole walk starts. `PULL` stands on the bead in `whipping` when the
+ * plate is already in the socket — from there a warded return widens the seam
+ * for nothing, so a pair that is ahead of the cord is better off hauling the
+ * next bill down than waiting for it. It gives the bead back to `GUARD` on the
+ * beat it lands, because one word stands on one thing.
+ *
+ * **The other two hands get no word, and that is the same rule twice.** The
+ * plug is a choice about which of two columns the plate is owed in, which is
+ * step 8's question said about the hull instead of the cannon, and a field
+ * that picked for her would be answering it. The haul is worse: the whole of
+ * the last movement is the pair working out that this return is not theirs,
+ * and a word naming the handle is that answer handed over in four letters.
+ *
+ * And nothing in `out`, where the halves are parting and the wave is held
+ * `ledgerOutBeats` so it cannot end on the same beat.
  *
  * **Every mark is on the half of the picture its own seat holds.** `GUARD`
  * rides the bead, which is the pilot's (`showsLedgerBead`); the socket's `MOVE`
@@ -111,20 +128,32 @@ export function ledgerCues(
 ): readonly BossCue[] {
   const cfg = world.cfg;
   const phase = ledgerPhase(t, cfg, world.beat);
-  if (phase === "out" || phase === "rooting") return [];
+  if (phase === "out") return [];
+  // The cord paying out is the one movement with nothing coming and nothing
+  // owed, and it is hers: the foot is walked along the plating before it
+  // seats, and where it seats is where the whole walk starts
+  // (`sim/ledger-hand.ts`).
+  if (phase === "rooting") {
+    const at = ledgerSocketPoint(l, t);
+    return [markAt(2, "CARRY", "ROOT", at.x, at.y, l, 54)];
+  }
   const next = ledgerNext(t);
   if (next?.last === true) return [];
   if (next !== null) {
     const out: BossCue[] = [];
+    const left = next.beat - world.beat;
     if (world.shieldCol !== t.socket) {
       const at = ledgerSocketPoint(l, t);
       out.push(markAt(2, "CARRY", "MOVE", at.x, at.y, l, 52));
     }
-    const from = ledgerRootPoint(l, cfg, t);
-    const to = ledgerSocketPoint(l, t);
-    const u = ledgerBeadU(next, world.beat, beatPhase);
-    const bead = ledgerCordAt(l, from, to, ledgerTaut(cfg, t), 0, u);
-    out.push(markAt(1, "PRESS", "GUARD", bead.x, bead.y, l, 53));
+    const at = cordAt(l, cfg, t, next, world.beat, beatPhase);
+    // Waiting with the plate already in the socket is the pair ahead of the
+    // cord, and from `ledgerWhipSeam` hits a warded return is the weapon: the
+    // bead is worth hauling down rather than waiting for. One word on the
+    // bead, never two — `GUARD` is the beat it lands on and this is every beat
+    // before it.
+    const pull = phase === "whipping" && world.shieldCol === t.socket && left > 1 && !next.pulled;
+    out.push(markAt(1, "PRESS", pull ? "PULL" : "GUARD", at.x, at.y, l, 53));
     return out;
   }
   if (phase !== "paying") return [];
@@ -134,4 +163,18 @@ export function ledgerCues(
   }
   if (priming(world)) return [];
   return [markAt(2, "PRESS", "FIRE", ledgerSeamX(l, cfg, t), ledgerBodyY(l).mid, l, 92)];
+}
+
+/** Where a return has got to down the cord: the one point three marks stand on. */
+function cordAt(
+  l: Layout,
+  cfg: World["cfg"],
+  t: LedgerState,
+  bead: LedgerBead,
+  beat: number,
+  beatPhase: number,
+): { x: number; y: number } {
+  const from = ledgerRootPoint(l, cfg, t);
+  const to = ledgerSocketPoint(l, t);
+  return ledgerCordAt(l, from, to, ledgerTaut(cfg, t), 0, ledgerBeadU(bead, beat, beatPhase));
 }

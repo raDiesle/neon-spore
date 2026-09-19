@@ -24,6 +24,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "scoutLine", "scoutPrime", "pulseMeter", "batonSocket", "undertowPin", "undertowFree",
   "throatRing", "throatTube", "candleWick", "curtainHem",
   "tasterBlade", "tasterGap", "tasterLock",
+  "ledgerFoot", "ledgerSocket", "ledgerBead", "ledgerCord",
 ];
 
 export const isColor = (x: unknown): x is Color =>

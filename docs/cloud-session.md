@@ -212,6 +212,22 @@ session-start: bun 1.3.11 is below 1.4.2; pinned /root/.cache/neon-spore-bun/bun
 session-start: could not pin bun 1.4.2; leaving the image's 1.3.11
 ```
 
+**The pin is on `PATH`, and a shell that did not inherit it is back on 1.3.11
+without saying so.** `$CLAUDE_ENV_FILE` puts it in front for the session, and a
+command run some other way — a tool call that builds its own environment, a
+background job, anything started from a shell the file never reached — gets the
+image's Bun and the twenty-five red websocket cases above, which then read as
+*thirty-four tests my change broke* rather than as the known trap. On 19
+September 2026 a lane spent twenty minutes on that: it stashed its whole branch
+to prove the reds were there without it, which they were, and only the
+`bun test v1.3.11` in the header of its own output said why. So read that line
+before believing a red suite in `apps/server`, and when it is the image's
+number, prefix the command:
+
+```
+PATH=/root/.cache/neon-spore-bun:$PATH bun run check:fast
+```
+
 The first is the ordinary case and needs nothing. **The second is the only time
 the manual route is the right one** — the registry was unreachable, or the
 binary would not run — and it is:

@@ -144,6 +144,20 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "tasterGap", on: true, fromMilli: 1200, id: 3 },
   { kind: "drag", target: "tasterLock", on: true, fromMilli: 0, fromYMilli: 1900 },
   { kind: "drag", target: "tasterLock", on: false, fromMilli: 0, fromYMilli: 0 },
+  // THE LEDGER's four, and none of them carries an `id`: there is one cord,
+  // one hole in the plating, and the bead a thumb is on is the lowest one
+  // drawn (`sim/ledger-hand.ts`). The foot is `fromMilli` and its **sign is
+  // the whole message** — which way along the hull she walked it — the plug
+  // and the pull say nothing but *down* and *up*, and the haul is `fromYMilli`
+  // alone, read against `ledgerHaulMilli`.
+  { kind: "drag", target: "ledgerFoot", on: true, fromMilli: -2100 },
+  { kind: "drag", target: "ledgerFoot", on: false, fromMilli: 0 },
+  { kind: "drag", target: "ledgerSocket", on: true, fromMilli: 0 },
+  { kind: "drag", target: "ledgerSocket", on: false, fromMilli: 0 },
+  { kind: "drag", target: "ledgerBead", on: true, fromMilli: 0 },
+  { kind: "drag", target: "ledgerBead", on: false, fromMilli: 0 },
+  { kind: "drag", target: "ledgerCord", on: true, fromMilli: 0, fromYMilli: 1900 },
+  { kind: "drag", target: "ledgerCord", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -276,6 +290,10 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   tasterBlade: true,
   tasterGap: true,
   tasterLock: true,
+  ledgerFoot: true,
+  ledgerSocket: true,
+  ledgerBead: true,
+  ledgerCord: true,
   crank: true,
   orreryRing: true,
 };

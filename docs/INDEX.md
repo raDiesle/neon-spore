@@ -456,6 +456,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
 | `packages/sim/src/ledger-bead.ts` | **What a bill is**: one hit down the seam, and one return on the cord |
 | `packages/sim/src/ledger-hash.ts` | What THE LEDGER puts into `hashWorld`, and nothing else |
+| `packages/sim/src/ledger-hand.ts` | **THE LEDGER's four hands on its own cord**, off the wire, on the tick |
 | `packages/sim/src/ledger-shot.ts` | **What a shot costs against THE LEDGER**, which is the boss: the seam takes the hit |
 | `packages/sim/src/ledger-step.ts` | THE LEDGER's clock — the returns coming down the cord, the root walking along the hull, and the tear |
 | `packages/sim/src/ledger.ts` | THE LEDGER: whose body takes it |
@@ -490,6 +491,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-state-mine.ts` | **THE MINE's two fields**, a count and a seat, and between them they are the whole of a body that never moves |
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
 | `packages/sim/src/drag-targets-b.ts` | **Every thing on this field a hand may take hold of, the second page** — the names from THE FLEET's chart on |
+| `packages/sim/src/drag-targets-c.ts` | **Every thing on this field a hand may take hold of, the third page** — the names from THE TASTER's fan on |
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/diastole-hash.ts` | what THE DIASTOLE puts into the world fingerprint, and nothing else |
 | `packages/sim/src/diastole-hand.ts` | **The one hand on THE DIASTOLE**: the clamp, player 1's thumb on the right chamber while it beats alone |

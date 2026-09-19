@@ -97,7 +97,8 @@ function rooted(world: World): LedgerState {
 function bills(world: World, n: number): LedgerState {
   const t = rooted(world);
   const span = CFG.ledgerCadenceBeats;
-  for (let i = 0; i < n; i++) t.beads.push({ beat: world.beat + 1 + i, span, last: false });
+  for (let i = 0; i < n; i++)
+    t.beads.push({ beat: world.beat + 1 + i, span, last: false, pulled: false });
   return t;
 }
 
@@ -250,7 +251,12 @@ describe("THE LEDGER's cord", () => {
     const t = rooted(held);
     t.seam = CFG.ledgerSeamHits;
     // The seam is full, so the cadence is at its floor: `ledgerCadenceMinBeats`.
-    t.beads.push({ beat: held.beat + 2, span: CFG.ledgerCadenceMinBeats, last: true });
+    t.beads.push({
+      beat: held.beat + 2,
+      span: CFG.ledgerCadenceMinBeats,
+      last: true,
+      pulled: false,
+    });
     for (const role of ROLES) {
       expect(drawn(held, role, 3).calls).toBeGreaterThan(drawn(bare, role, 3).calls);
     }
