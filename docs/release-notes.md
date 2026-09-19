@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 2d96af7d — Take ViewState.clearTop out, and the fifteen-file plumbing it left dead
+
+Nothing has set ViewState.clearTop since the rehearsal's own seat draw moved a film's picture below the tutorial plate on 18 September 2026, so every function threading it — headerTop/headerLift (round-header.ts) and everything that called them across the ship's chrome, THE FLEET's chart, THE GAUGE's dial, THE SPLICE's clock, the boss cue reading, the coordinate grid and three more rounds — was answering "no band" every frame for nothing. Removed the field and the whole call graph that read it.
+
 ## 2026-09-19 · ad83e41d — Queue the trunk reconcile that only `bun run push` can reach
 
 A hand resolution of `docs/queue.md` that takes origin's copy whole, as `CLAUDE.md` says to, reinstates an entry `bun run queue done` had removed: a removal is not an entry to re-append. This lane found one of its own closed items back in the listing, still marked taken by the branch that had landed it. `tools/land/queue-merge.ts` and `reconcile.ts` get the same merge right, and neither is reachable from a shell — `push.ts` is the only caller.
