@@ -4,6 +4,7 @@ import {
   createWorld,
   type LedgerState,
   ledgerBoss,
+  ledgerSeamCol,
   startWave,
   step,
   ticksPerBeat,
@@ -215,11 +216,17 @@ describe("THE LEDGER's cord", () => {
     const three = { p1: 0, p2: 0 } as Record<ViewRole, number>;
     const said: Record<ViewRole, string[]> = { p1: [], p2: [], test: [] };
     for (const role of ROLES) {
+      // Both frames are silent of cues on her screen, so the only thing
+      // between them is the beads: an empty cord with the cannon off the seam
+      // asks *him* for the column, and a loaded one with the plate already in
+      // the socket asks her for nothing (`boss-cue-read-o.ts`).
       const bare = open();
-      rooted(bare);
+      const idle = rooted(bare);
+      bare.cannonCol = ledgerSeamCol(idle, CFG) === 0 ? 1 : 0;
       empty[role] = drawn(bare, role, 3).calls;
       const loaded = open();
-      bills(loaded, 3);
+      const busy = bills(loaded, 3);
+      busy.socket = loaded.shieldCol;
       const frame = drawn(loaded, role, 3);
       three[role] = frame.calls;
       said[role] = numbers(frame);

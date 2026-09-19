@@ -55,9 +55,9 @@ export const WAVES_ACT_7E: Wave[] = [
     name: "THE LEDGER",
     sentence: "The one where every hit you land comes back at your own hull.",
     guide: {
-      both: "Hit the split five times. Every hit comes back down the cord four beats later: ward it in the socket, or lose the wave. Let the last one land.",
-      p1: "1. Stand the cannon on the middle column.\n2. Trigger the plate on the beat the return lands, in the column your partner calls.\n3. Once the split is open, fire at nothing else.\n4. The last return: do not stop it.",
-      p2: "1. Load the colour the split shows.\n2. Say which column the socket has walked to, every time.\n3. Move the plate there before the beat.\n4. On the last return, take the plate out of that column.",
+      both: "Hit the split five times in the colour it shows. Every hit comes back down the cord four beats later, a beat sooner each time after, down to two. Ward it in the socket or lose the wave. Let the last one land.",
+      p1: "1. Only you see the return coming. Count it down aloud.\n2. Trigger on the beat it lands; the column is hers.\n3. From the second hit every shot is billed, and every ward widens the split.\n4. The last one: do not press.",
+      p2: "1. Only you see the socket. Say the column it walks to, every time.\n2. Load the colour the split shows; it fires up his column.\n3. Plate in the socket before his beat.\n4. On the last return, move the plate off it.",
       scene: "theLedger",
     },
     entries: [

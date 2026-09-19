@@ -22,6 +22,41 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-ledger — a guide addressed to the wrong thumb
+
+The fifth of this family and the fourth in a row to find the same hole: the
+seam is **one column of eleven**, the two either side of it are the body's own
+plating, a bolt leaves the cannon's own column, and nothing on the field ever
+said so. A pair aiming at the silhouette gets `ledgerRefused`, which looks
+exactly like a colour mistake. So `CARRY MOVE` on the cannon and `PRESS FIRE`
+on the seam, on the empty cord — the movement a shot is owed in — and the two
+words that shipped, `GUARD` and the socket's `MOVE`, on the movement after it.
+The reading moved to its own page, THE THROAT's and THE ORRERY's precedent.
+
+The guide was worse than stale in two places. It told the **pilot** *once the
+split is open, fire at nothing else*, and the pilot has no press that fires —
+`fireRed` and `fireCyan` are player 2's (`content/src/controls.ts`). And it
+said nothing at all about the movement the design put step 8 in: from
+`ledgerWhipSeam` hits every shot is billed whatever it was aimed at, and a
+warded return is thrown back up the cord and widens the split for free, so the
+plate finishes the fight and the cannon is a liability. That is also why the
+field goes quiet about the seam from there — which shot to spend is theirs.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `ledger.ts`, `ledger-step.ts`, `ledger-shot.ts` and `ledger-bead.ts` end to end, `view-role-clocks.ts` for the split, and `controls.ts` for who holds which press — the last of those is what found the guide talking to the wrong seat |
+| writing | 30 | the new page and its argument, two words, seven cases in a file of their own, both prose halves and the shared line, one film page, §11.27's new paragraph, briefings §3.2 |
+| looking | 0 | none: no pixel moved that `ledger-frame.test.ts` does not already take |
+| friction | 5 | one `useOptionalChain` warning, and a first draft of the shared line that said *five beats the first time* — `widenSeam` increments the seam **before** `startBead` reads the cadence, so the first return is four and the nominal five is never a cadence anybody sees |
+| landing | 10 | `lint`, `imports:sort`, `check:fast`, the commit and `land`'s own full check |
+
+**The bottleneck was that the guide had to be checked against `controls.ts`,
+not against the fight.** Four lanes of this family have been read by opening
+the simulation and asking what the field is not saying. This one's worst defect
+was not in the simulation at all: a step telling player 1 to stop firing reads
+perfectly until you look up whose thumb `fireRed` is. Every remaining guide in
+this family is worth the same two minutes.
+
 ## 2026-09-19 — queue-the-sinew — the mechanic nobody can diagnose from a screen
 
 The fourth of these, and the first whose entry was wrong about the boss rather

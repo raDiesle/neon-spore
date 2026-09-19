@@ -4,7 +4,6 @@ import {
   createWorld,
   type DiastoleState,
   type LeadState,
-  type LedgerState,
   type ScuttleState,
   startWave,
   step,
@@ -24,10 +23,11 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **The four older choreographed bosses, and what the field is allowed to say
- * about them** (`render/src/boss-cue-read-c.ts`). THE THROAT was a fifth and
- * THE ORRERY a sixth until each fight was read whole; their cases are in
- * `boss-cue-throat.test.ts` and `boss-cue-orrery.test.ts`.
+ * **The three older choreographed bosses, and what the field is allowed to say
+ * about them** (`render/src/boss-cue-read-c.ts`). THE THROAT was a fourth, THE
+ * ORRERY a fifth and THE LEDGER the first until each fight was read whole;
+ * their cases are in `boss-cue-throat.test.ts`, `boss-cue-orrery.test.ts` and
+ * `boss-cue-ledger.test.ts`.
  *
  * Half of this file is about **silence**, which is the unusual thing to test
  * and the reason it is worth a file. Each of these fights is a number the pair
@@ -81,37 +81,6 @@ function installed<T>(world: World, kind: string): T {
   if (b === null || b.kind !== kind) throw new Error(`the ${kind} wave installed no ${kind}`);
   return b as unknown as T;
 }
-
-describe("THE LEDGER", () => {
-  const paying = (): { world: World; t: LedgerState } => {
-    const world = opened("ledger", 6);
-    const t = installed<LedgerState>(world, "ledger");
-    t.rootBeat = world.beat - CFG.ledgerRootBeats;
-    t.beads = [{ beat: world.beat + 2, span: 4, last: false }];
-    return { world, t };
-  };
-
-  it("puts the trigger on the pilot and the plate on the navigator", () => {
-    const { world, t } = paying();
-    t.socket = world.shieldCol === 0 ? 1 : 0;
-    expect(word(world, "p1")).toBe("GUARD");
-    expect(word(world, "p2")).toBe("MOVE");
-  });
-
-  it("stops asking her to move once the plate is where the cord roots", () => {
-    const { world, t } = paying();
-    t.socket = world.shieldCol;
-    expect(word(world, "p2")).toBeNull();
-    expect(word(world, "p1")).toBe("GUARD");
-  });
-
-  it("says nothing about the last return, which is the one they must not ward", () => {
-    const { world, t } = paying();
-    t.beads = [{ beat: world.beat + 2, span: 4, last: true }];
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
-  });
-});
 
 describe("THE LEAD", () => {
   it("is silent while the pair is working out where the body will be", () => {

@@ -338,7 +338,14 @@ left to the prose — and its guide rewritten 19 September 2026, when the
 handles started saying *PULL*, *HOLD*, *SWAY* and *LIFT* themselves: each
 half now opens on the gauge only that seat can see and spends a step on the
 half of the fight the field is not allowed to say, his on what *LIFT* means
-and hers on the tell nobody else has, a sum sliding with her hand still. THE LEDGER's, the same day, is two hits and two returns, both warded:
+and hers on the tell nobody else has, a sum sliding with her hand still. THE LEDGER's guide was rewritten 19 September 2026, when the seam's column
+went onto the field: it had told the **pilot** to fire at nothing else once the
+split was open, which is a press he does not have, and had told nobody that
+from the second hit every shot is billed and every ward widens the split for
+free. Each half now opens on the gauge only that seat can see — his the return
+coming down, hers the socket — and its cadence says *four beats, a beat sooner
+each time after, down to two* rather than four flat. Its film, the same day, is
+two hits and two returns, both warded:
 the colours are the seed's, the second socket is a column no authored strip
 reaches and the plate is carried there by `atBoss` — the one boss answered
 with the plate rather than the cannon — and the bill for every shot and the

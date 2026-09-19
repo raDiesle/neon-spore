@@ -5,10 +5,7 @@ import {
   diastoleClamped,
   diastoleClampHolds,
   type LeadState,
-  type LedgerState,
   leadPassing,
-  ledgerNext,
-  ledgerPhase,
   type ScuttleState,
   scuttleShootable,
   scuttleSocketCol,
@@ -19,24 +16,22 @@ import type { BossCue } from "./boss-cue.js";
 import { diastoleY } from "./diastole-draw.js";
 import { type Layout, tileCX } from "./layout.js";
 import { leadRidgeY } from "./lead-shape.js";
-import {
-  ledgerBeadU,
-  ledgerCordAt,
-  ledgerRootPoint,
-  ledgerSocketPoint,
-  ledgerTaut,
-} from "./ledger-shape.js";
 import { scuttleLockBox } from "./scuttle-draw.js";
 import { scuttleRowY } from "./scuttle-shape.js";
 
 /**
- * **What THE LEDGER, THE LEAD, THE SCUTTLE and THE DIASTOLE are asking for**
+ * **What THE LEAD, THE SCUTTLE and THE DIASTOLE are asking for**
  * — page three of the readings, on the seam the two before it draw. THE THROAT
  * was a fifth here until its fight was read whole and outgrew a paragraph, and
  * THE ORRERY a sixth for the same reason a day later; they have pages eleven
  * and twelve to themselves (`boss-cue-read-k.ts`, `boss-cue-read-l.ts`).
  *
- * These four are the older half of the choreographed page and the half whose
+ * **THE LEDGER was the first here and has gone** to page fifteen
+ * (`boss-cue-read-o.ts`), on the day its reading grew the movement before the
+ * shot: the column the seam runs down, which nothing on the field had ever
+ * named. Three are left.
+ *
+ * These three are the older half of the choreographed page and the half whose
  * whole difficulty is a **number the pair says out loud**: which beat the gaps
  * line up, where the cord will root next, where the body will be when the shot
  * gets there. So the rule that decides almost every line below is #34's third:
@@ -65,46 +60,6 @@ function markAt(
   wide = 1,
 ): BossCue {
   return { seat, kind, word, x, y, halfW: l.tile * HALF_W * wide, halfH: l.tile * HALF_H, seed };
-}
-
-/**
- * THE LEDGER. The fight is *act, consequence, answer the consequence*, and
- * both halves of the answer are cued because neither seat's half is on the
- * panel.
- *
- * `GUARD` stands on the return coming down the cord, which is **the pilot's**
- * picture (`showsLedgerBead`) and the beat he has to press on. `MOVE` stands
- * on the socket, which is **hers** (`showsLedgerSocket`), and only while the
- * plate is not already in that column — a word over a shield that is standing
- * where it should be is a word that teaches the pair to stop reading it.
- *
- * **The last return is not cued at all**, and that is deliberate: the one
- * moment this fight is built for is the bill the pair must *not* answer
- * (`ledgerLetThrough`), and a field that said so would take the payoff of ten
- * minutes' training and hand it over in a word.
- */
-export function ledgerCues(
-  l: Layout,
-  world: World,
-  t: LedgerState,
-  beatPhase: number,
-): readonly BossCue[] {
-  const cfg = world.cfg;
-  const phase = ledgerPhase(t, cfg, world.beat);
-  if (phase === "out" || phase === "rooting") return [];
-  const next = ledgerNext(t);
-  if (next === null || next.last) return [];
-  const out: BossCue[] = [];
-  if (world.shieldCol !== t.socket) {
-    const at = ledgerSocketPoint(l, t);
-    out.push(markAt(2, "CARRY", "MOVE", at.x, at.y, l, 52));
-  }
-  const from = ledgerRootPoint(l, cfg, t);
-  const to = ledgerSocketPoint(l, t);
-  const u = ledgerBeadU(next, world.beat, beatPhase);
-  const bead = ledgerCordAt(l, from, to, ledgerTaut(cfg, t), 0, u);
-  out.push(markAt(1, "PRESS", "GUARD", bead.x, bead.y, l, 53));
-  return out;
 }
 
 /**

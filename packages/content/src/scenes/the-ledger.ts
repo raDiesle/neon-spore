@@ -30,6 +30,14 @@ import type { GuideScene } from "../scene-types.js";
  * other says *where*, and the pages are dealt to the seat that can see what
  * the page is about. The colour is on the body and on both screens.
  *
+ * **And the page that said *fire it up the seam* no longer does.** The field
+ * says `FIRE` on the seam and `MOVE` on the cannon while it is not under it
+ * (`render/boss-cue-read-o.ts`), which is the column this rehearsal used to be
+ * the only thing carrying. What the page says instead is the part neither word
+ * can: the bolt leaves *his* column, so the two of them are one gesture, and
+ * the columns either side of the seam are the body's own plating. The colour
+ * stays written, because the field never says a colour.
+ *
  * **What is prose.** The bill for a shot at anything else, and the fifth
  * return that the plate must *not* stand under: the second is the one
  * gesture in the game that is a thumb lifting off, which no film shows well,
@@ -69,7 +77,10 @@ export const THE_LEDGER: GuideScene = {
     {
       tick: 360,
       seat: 2,
-      text: "FIRE IT UP THE SEAM",
+      // FIRE now stands on the seam itself (`render/boss-cue-read-o.ts`), so
+      // this page says the half of it a word on the body cannot: the bolt
+      // leaves *his* column, and the two either side of the seam are plating.
+      text: "IT FIRES UP HIS COLUMN",
       anchor: { at: "control", control: "fireCyan" },
     },
     { tick: 540, seat: 1, text: "THE HIT COMES BACK · 4 BEATS", anchor: { at: "hull" } },

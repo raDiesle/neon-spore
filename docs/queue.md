@@ -810,24 +810,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE LEDGER: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-ledger-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says `MOVE` on the walked socket and `GUARD` on the bead riding down, which is
-what one lane could reach and not the whole fight.
-Its briefing is a 9-page rehearsal (`packages/content/src/scenes/the-ledger.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE LEDGER changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

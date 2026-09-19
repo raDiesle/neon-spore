@@ -4988,6 +4988,28 @@ columns, which the simulation dropped for the owner's rule; and the body's
 lobed back is `ledgerHalfPath`'s own rather than a silhouette off the sheet.
 The owner's eye decides all three.
 
+**The words** (`render/src/boss-cue-read-o.ts`, 19 September 2026, its own
+page). Four, and the cord's own state picks the pair of them. While a return is
+coming down, `PRESS GUARD` rides the bead on the pilot's screen and `CARRY
+MOVE` stands in the socket on the navigator's while her plate is not in that
+column — the half of the fight that happens after a shot, and what shipped
+first. While the cord is **empty** a shot is owed instead: `CARRY MOVE` on the
+cannon while it is not under the seam, then `PRESS FIRE` on the seam once it
+is, which is THE CANDLE's pairing and the answer to the thing nothing on the
+field had ever said. The seam is one column of eleven, the two either side of
+it are the body's own plating, and a bolt leaves the cannon's own column — so a
+pair aiming at the silhouette got a refusal that looks exactly like a colour
+mistake, and *stand the cannon on the middle column* was the pilot's first
+guide line and nowhere else. **The colour is never said**: the seam wears it,
+on both screens. **Three silences.** Nothing from the beat the last return goes
+on the cord, `GUARD` and both `MOVE`s included, because it is the one bill the
+pair must not answer and a word about the socket while the plate is meant to be
+leaving it is worse than none. Nothing about the seam from `ledgerWhipSeam`
+hits, where every shot is billed and a warded return widens the split for
+free — whether to spend a shot on the body is the design's step 8 and the
+pair's own question. And nothing while a colour is held. Proved in
+`render/test/boss-cue-ledger.test.ts`.
+
 **The rehearsal** (`content/src/scenes/the-ledger.ts`, 17 September 2026,
 ten pages over 1860 ticks): the cord rooted in the hull, the colour the seam
 shows loaded and fired up the middle column by the navigator, the bead coming
@@ -5003,7 +5025,9 @@ plate rather than the cannon: the socket wherever it has walked to, and
 nothing under the last return or once the cord is out. The bill for a shot at
 anything else and the fifth return the plate must step out from under are the
 last two pages' words and otherwise the prose; the film takes no hit and
-points at no retries. `content/test/scene-films.test.ts` holds the sequence.
+points at no retries. Its *fire it up the seam* page came out when the field
+learnt to say `FIRE` there, and says the part no word on the body can — the
+bolt leaves *his* column, so the two of them are one gesture. `content/test/scene-films.test.ts` holds the sequence.
 
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 centred with the cord in the middle column, the seam empty and nothing arriving
