@@ -1959,6 +1959,7 @@ what the rest of this file holds.
 ## A new boss event needs a row in bind-choreographed.ts that the skill omits
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, main (claim: claude/queue-a-new-boss-event-needs-a-row-in-bind-choreograph)
 - **Files:** `.claude/skills/new-boss-state/SKILL.md`, `packages/audio/src/bind-choreographed.ts`
 
 `.claude/skills/new-boss-state` lists twelve registrations a new boss state
