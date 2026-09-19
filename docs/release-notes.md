@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 324c9c53 — Queue the supervise-stop test that is red only under load
+
+It failed one shard of a full check on a lane that deleted eighteen lines of a document, and passes alone in 50ms. Its no-polling claim rests on the supervisor awaiting its child on every path out; either that is untrue and the supervisor has the bug, or `kill(pid, 0)` is answering for a zombie the parent has not been scheduled to reap. The entry says to settle which before touching either, because the two fixes are opposite.
+
+## 2026-09-19 · 72b997c3 — Close the queue's THE CURTAIN entry — both halves landed
+
+The boss now has four named states, a gesture in each, the jam and the lifted hem drawn, the ON THE FIELD row, the prose row and an eleventh rehearsal page.
+
 ## 2026-09-19 · 921ac8fe — THE CANDLE's film and its doc block count in different columns
 
 ## 2026-09-19 · 0c7934d1 — Draw THE CURTAIN's jam and give its hem a ring to lift
