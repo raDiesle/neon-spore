@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 1256e2c5 — Audit a film's authored columns against mapCol's image: nothing to fix
+
+The follow-on this session filed alongside SceneAct.worldCol: read every scene file's header and its acts' authored col values against mapCol(col, 11)'s image — 0, 2, 3, 5, 7, 8, 10 — and against what each file's own prose says the film shows.
+
 ## 2026-09-19 · be45f90f — A cancelled pointer carries no point, so it cannot fire a shot or a tap
 
 ## 2026-09-19 · 7242eec6 — Split boss-cue-read-c.ts into one page per boss (THE LEAD, SCUTTLE, DIASTOLE)
