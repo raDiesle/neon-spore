@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 0110dba2 — THE CURTAIN jams its rail, and the hem is the second gesture
+
+The boss asked one thing over and over: shove the sheet off the core, fire up the column. It is four named states now and a different gesture in each. A core hit that does not end the fight drops a bolt into the rail — pinned for `curtainPinBeats`, the shove refused whole and the tear with it, the roll-back clock held so the fabric does not snap back the beat the jam lifts. The way to the core in that state is the hem: the pilot alone puts a thumb under it and carries it up past `curtainLiftMilli`, and the gap over the core is open while it is held and shut the tick it is not. So `hung` is shove and fire, `pinned` is lift and fire, `torn` is fire, `out` is silence.
+
 ## 2026-09-19 · 80d22a88 — The line ceiling names every file it caught, not the first
 
 ## 2026-09-19 · fba51f32 — The line ceiling is heard by a lane that writes through Bash
