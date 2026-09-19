@@ -708,6 +708,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE ORRERY: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-the-orrery-the-field-says-the-word-and-the-brief
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
 - **Where:** cloud
 
