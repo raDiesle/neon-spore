@@ -705,4 +705,17 @@ export const COPIES: Copy[] = [
     owner: "packages/render/src/touch-field.ts",
     pattern: /field\.boss\??\.kind\s*===/,
   },
+  {
+    // **A `ViewRole` as a seat number.** Eleven call sites wrote this ternary
+    // out by hand before `seatOf` existed — two of them as a same-named
+    // private function apiece — and three of the eleven had it backwards,
+    // `role === "p1" ? 1 : 2`, which answers `test` the other way round from
+    // every other caller's own default. Both spellings are banned: the
+    // question a re-derivation answers wrong is never which one somebody
+    // meant to write, only which default for `test` it quietly picked.
+    call: "seatOf",
+    owner: "packages/render/src/view-role.ts",
+    pattern: /role\s*===\s*"p2"\s*\?\s*2\s*:\s*1|role\s*===\s*"p1"\s*\?\s*1\s*:\s*2/,
+    strip: false,
+  },
 ];

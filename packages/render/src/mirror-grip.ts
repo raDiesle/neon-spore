@@ -11,7 +11,7 @@ import type { PlaceHand } from "./ship-hand.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { CANNON_R, CANNON_UP, SHIELD_R, SHIELD_UP } from "./touch-ship.js";
-import type { ViewRole } from "./view-role.js";
+import { seatOf } from "./view-role.js";
 
 /**
  * **THE MIRROR's two lobes as a control**, for the two gestures that ask a
@@ -114,11 +114,6 @@ export function mirrorHandPlace(cfg: SimConfig, m: MirrorState): PlaceHand {
     const id = on === "shield" ? 1 : 0;
     return { at: mirrorLobeCircle(l, cfg, id, lobeCol(m, shieldCol, id)), turn: 0, flip: true };
   };
-}
-
-/** The seat a screen is, for the rings; a test screen is shown player 1's. */
-function seatOf(role: ViewRole): 1 | 2 {
-  return role === "p2" ? 2 : 1;
 }
 
 const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));

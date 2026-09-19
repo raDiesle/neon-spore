@@ -1,7 +1,7 @@
 import { WAVES, type WaveGuide } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { GUIDE_LOOK } from "./guide-look.js";
-import type { Layout, ViewRole } from "./layout.js";
+import { type Layout, seatOf, type ViewRole } from "./layout.js";
 import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { PALETTE } from "./palette.js";
 import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
@@ -93,7 +93,7 @@ export function drawProsePage(
       y += LINE;
     }
   } else {
-    const mineSeat: 1 | 2 = role === "p2" ? 2 : 1;
+    const mineSeat: 1 | 2 = seatOf(role);
     const otherSeat: 1 | 2 = mineSeat === 1 ? 2 : 1;
     y = block(ctx, mid, y, age, line, half(mineSeat, both, true, names), PALETTE.shieldRim);
     ctx.font = BODY;

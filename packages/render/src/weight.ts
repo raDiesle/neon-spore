@@ -8,7 +8,7 @@ import {
 import { creatureCenter, livingRadius } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { strokeGlow } from "./glow.js";
-import type { Layout } from "./layout.js";
+import { type Layout, seatOf } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -47,7 +47,7 @@ const BITE = 0.34;
  */
 export function pressSeats(role: Layout["role"]): (1 | 2)[] {
   if (role === "test") return [1, 2];
-  return [role === "p1" ? 1 : 2];
+  return [seatOf(role)];
 }
 
 /**

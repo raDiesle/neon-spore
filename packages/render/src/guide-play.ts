@@ -16,7 +16,7 @@ import {
   type SimEvent,
   type World,
 } from "@neon-spore/sim";
-import type { ViewRole } from "./layout.js";
+import { seatOf, type ViewRole } from "./layout.js";
 
 /**
  * The clock a rehearsal runs on, and the page it is running.
@@ -108,7 +108,7 @@ export class ScenePlay {
    * by the stage, before anything is drawn.
    */
   update(world: World, dt: number, role: ViewRole, stated?: Stated): boolean {
-    const seat: 1 | 2 = role === "p2" ? 2 : 1;
+    const seat: 1 | 2 = seatOf(role);
     // Not `??`, for `ViewState.guide`'s reason: `null` is a host saying this
     // draft has no guide, and falling through to the shipped wave's would play
     // a rehearsal the author has just taken off.

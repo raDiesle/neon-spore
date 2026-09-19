@@ -2,7 +2,7 @@ import { type Creature, mineFuseLeft, mineSeenBy, type World } from "@neon-spore
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 import { flatRadius } from "./creature-place.js";
-import type { Layout } from "./layout.js";
+import { type Layout, seatOf } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { shipTopFoot } from "./ship-top-chrome.js";
 import { fuseRow } from "./ship-top-rows.js";
@@ -42,7 +42,7 @@ function fuseOf(world: World, c: Creature): { left: number; full: number } {
  */
 export function showsMine(l: Layout, c: Creature): boolean {
   if (l.role === "test") return true;
-  return mineSeenBy(c) === (l.role === "p1" ? 1 : 2);
+  return mineSeenBy(c) === seatOf(l.role);
 }
 
 /** Every mine on the field. Exported so the body pass and the flat pass ask

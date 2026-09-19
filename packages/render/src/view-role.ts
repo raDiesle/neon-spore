@@ -30,6 +30,18 @@
 export type ViewRole = "p1" | "p2" | "test";
 
 /**
+ * The role as a seat number, for the code that keys off `1 | 2` rather than
+ * off `"p1" | "p2"` — a lane, a lobe, a `HandleWords`. `test` reads as seat 1.
+ *
+ * Eleven call sites had this re-derived before this existed to be called
+ * instead: eight wrote the ternary this way, two of them as a same-named
+ * private function apiece; three wrote it the other way round, `role ===
+ * "p1" ? 1 : 2`, which reads `test` as seat 2 — safe only because all three
+ * already returned early on `test` before reaching their own ternary.
+ */
+export const seatOf = (role: ViewRole): 1 | 2 => (role === "p2" ? 2 : 1);
+
+/**
  * Whose **strip** the cannon's lane is on — the band a thumb can reach, not
  * the muzzle itself: `drawHull` draws the swelling on both screens alike, so
  * this gates a control, not a picture (`band.ts`, `touch-band.ts`).

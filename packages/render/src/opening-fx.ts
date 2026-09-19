@@ -6,7 +6,7 @@ import {
   onReadyPage,
   type World,
 } from "@neon-spore/sim";
-import type { ViewRole } from "./layout.js";
+import { seatOf, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
 
@@ -234,7 +234,7 @@ export function openingKey(world: World, role: ViewRole): string {
   // every loss: keyed by the count so a second loss of one wave is a new page.
   if (lostAsks(world)) return `${world.wave}|lost|${world.retries}`;
   if (!briefingHolds(world)) return "";
-  const seat: 1 | 2 = role === "p2" ? 2 : 1;
+  const seat: 1 | 2 = seatOf(role);
   if (!guideHolds(world)) return `${world.wave}|intro`;
   const page = guidePage(world, seat);
   return `${world.wave}|${page}${onReadyPage(world, seat) ? "|ready" : ""}`;

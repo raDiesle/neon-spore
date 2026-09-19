@@ -11391,3 +11391,34 @@ the file it now points to — because a wrong repoint would be a second,
 quieter version of the same defect this item exists to remove.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-purity-test-ts-s-table-cannot-carry-a-render-only-rule — a `ViewRole` as a seat number was written out by hand eleven times
+
+`role === "p2" ? 2 : 1` was eleven call sites: eight wrote it that way, two of
+them as a same-named private `seatOf`; three wrote it backwards, `role ===
+"p1" ? 1 : 2`, safe only because each of those three already returned early
+on `"test"` before reaching it. `seatOf(role: ViewRole): 1 | 2` now lives in
+`view-role.ts` and is re-exported from `layout.ts` and the package index; all
+eleven call it. The open question this entry started as — `purity.test.ts`'s
+`GUARDED` cannot hold a render rule, so where does the check live — turned
+out to already be answered: `copies-table.ts`/`copies.test.ts` is the
+general "called, not re-derived" table `CLAUDE.md` names, scans the whole
+tree rather than `GUARDED`'s two directories, and already had a
+`packages/render`-owned row (`muzzleCenterY`). Added `seatOf` beside it
+rather than writing a second table, closing both this entry and the older
+`role === "p2" ? 2 : 1` finding it was standing on.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `view-role.ts`, `layout.ts`'s re-export list, then finding the eleventh call site (`audio.ts`) the entry's own eight/nine count had missed |
+| writing | 25 | `seatOf`, the eleven call-site edits, and the `COPIES` row |
+| looking | 15 | `copies-table.ts` and `copies.test.ts` in full, to check whether the entry's premise — that no existing table can hold this — was actually true |
+| friction | 10 | the `COPIES` row's default `strip: true` blanks every string literal to `""` before matching, so a pattern built on `"p2"`/`"p1"` never matched anything until `strip: false` was set, same as the one existing render-owned row already does |
+| landing | 15 | `format`, `lint`, `tsc --noEmit`, the full `check` (18,458 tests) |
+
+**The bottleneck was trusting the entry's own claim that no table could hold
+the rule**, which cost nothing directly but shaped the first twenty minutes
+around designing a second `GUARDED`-style file before `copies-table.ts` was
+read closely enough to see it already scans past `GUARDED` entirely.
+
+*Measured: the rows above are the session's own estimate.*

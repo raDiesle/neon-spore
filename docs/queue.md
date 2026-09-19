@@ -1399,29 +1399,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `role === "p2" ? 2 : 1` is written out in eight files, and it is a rule
-
-- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
-- **Files:** `packages/render/src/view-role.ts`, `packages/render/src/briefing.ts`, `packages/render/src/guide-play.ts`, `packages/render/src/guide-prose.ts`, `packages/render/src/opening-fx.ts`, `packages/render/src/mirror-grip.ts`, `packages/render/src/pulse-lane.ts`, `packages/render/src/pulse-round.ts`, `packages/render/src/fleet-grip-draw.ts`, `apps/game/src/audio.ts`, `packages/sim/test/purity.test.ts`
-
-Which seat a screen is, is one fact with one answer, and eight files work it
-out for themselves: `briefing.ts:114`, `guide-play.ts:111`,
-`guide-prose.ts:96`, `opening-fx.ts:237`, `mirror-grip.ts:121`,
-`pulse-lane.ts:75`, `pulse-round.ts:117` and `fleet-grip-draw.ts:32`, with a
-ninth in `apps/game/src/audio.ts:45`. Five of them name the result `seat`,
-one names it `mineSeat`, two return it from a local `seatOf`. THE FLEET's
-wound made the eighth, which is what turned a coincidence into a rule.
-
-Export one `seatOf(role: ViewRole): 1 | 2` from
-`packages/render/src/view-role.ts`, beside `showsFleetHulls` — the file that
-already owns what a role means — and have all of them call it. Delete the two
-local `seatOf`s. `apps/game/src/audio.ts` may import it or keep its own; say
-which in the commit.
-
-Then add the row to the table in `packages/sim/test/purity.test.ts` that
-carries the rules which must be **called, not re-derived**, so the ninth copy
-is a red test rather than a review catch.
-
 ## Unverified at b6f46254: THE FLEET's wound seen on a real frame: no PNG was take…
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -2257,26 +2234,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## `purity.test.ts`'s table cannot carry a render-only rule
-
-- **Found:** 2026-09-19, claude/queue-the-drawn-dome-is-on-both-screens-and-a-reading
-- **Files:** `packages/sim/test/purity.test.ts`
-
-Two open entries in this file each say to add a row to `packages/sim/test/purity.test.ts`'s
-table for a rule about `packages/render` — *the plate's column is drawn to both
-screens, `showsShield` only gates the strip that moves it* (this entry's own
-fix, landed beside it) and *`role === "p2" ? 2 : 1` must be called as
-`seatOf`, not re-derived*. Neither row can go there: `GUARDED` in that file is
-`["packages/sim/src", "packages/content/src"]`, and every predicate and every
-call site named by both entries lives in `packages/render` or `apps/game`,
-outside it. A row added anyway would match nothing and pass silently, which
-is worse than no row.
-
-This entry's own fix went into `view-role.ts`'s doc comments instead, which is
-the whole of what a cloud session can verify from source. The `seatOf` entry
-is still open with the same gap: either wants a second, `packages/render`-scoped
-table with its own `GUARDED`, in a new render-side test file, or `purity.test.ts`
-is the wrong name for what CLAUDE.md calls "the table of rules that must be
-called, not re-derived" and the phrase should point at whichever file ends up
-holding it.

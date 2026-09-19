@@ -13,6 +13,7 @@
  */
 
 import { Mixer } from "@neon-spore/audio";
+import { seatOf } from "@neon-spore/render";
 import type { SimEvent, World } from "@neon-spore/sim";
 import { readSettings } from "./settings.js";
 
@@ -42,7 +43,7 @@ export function bindAudio(canvas: HTMLCanvasElement, seat: () => "p1" | "p2" | "
     // `test` is both halves on one screen, so it hears both halves. A room
     // with two people in it is exactly what it is not.
     if (role === "test") return 2;
-    return role === "p2" ? 2 : 1;
+    return seatOf(role);
   };
 
   // Every one of these is a gesture a browser accepts as consent. `unlock` is

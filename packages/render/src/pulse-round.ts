@@ -5,7 +5,7 @@ import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
 import { frame, surfaceSampler } from "./hull-frame.js";
-import type { Layout } from "./layout.js";
+import { type Layout, seatOf } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPulseDrops } from "./pulse-drop.js";
 import { drawArrivals, drawSockets } from "./pulse-fall.js";
@@ -114,7 +114,7 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // `WAVES` for a host actually playing them, so an explicit `view.controls`
   // wins when one is given.
   const set = view.controls === undefined ? controlSetForWave(world.wave) : view.controls;
-  const seat: 1 | 2 = view.role === "p2" ? 2 : 1;
+  const seat: 1 | 2 = seatOf(view.role);
   const other: 1 | 2 = seat === 1 ? 2 : 1;
   const skin = seatSkin(view.role);
 

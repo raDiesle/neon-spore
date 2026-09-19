@@ -11,7 +11,7 @@ import {
 import { GUIDE_LOOK } from "./guide-look.js";
 import { drawProsePage } from "./guide-prose.js";
 import type { GuideStage } from "./guide-scene.js";
-import type { Layout, ViewRole } from "./layout.js";
+import { type Layout, seatOf, type ViewRole } from "./layout.js";
 import { drawLostScreen } from "./lost-screen.js";
 import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { drawReadyPage } from "./ready-page.js";
@@ -113,7 +113,7 @@ export function drawWaveOpening(
     scene.draw(ctx, l, view);
     return;
   }
-  const seat: 1 | 2 = role === "p2" ? 2 : 1;
+  const seat: 1 | 2 = seatOf(role);
   const pages = guidePages(world);
   // The gate: the field is behind this rather than covered, which is the whole
   // point of the page — it is the wave they are about to play (`ready-page.ts`).

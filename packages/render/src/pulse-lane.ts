@@ -1,6 +1,6 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { SurfaceY } from "./hull-frame.js";
-import { bandLobes, type Layout, type ViewRole } from "./layout.js";
+import { bandLobes, type Layout, seatOf, type ViewRole } from "./layout.js";
 import { pulseLobeIds } from "./pulse-button.js";
 
 /**
@@ -72,7 +72,7 @@ export function pulseField(
    * the arrows enter below the meter, wherever the meter is. */
   lift = 0,
 ): PulseField {
-  const seat: 1 | 2 = role === "p2" ? 2 : 1;
+  const seat: 1 | 2 = seatOf(role);
   const lobes = bandLobes(l, set, seat);
   // The four ids this seat's panel carries, asked of the file that draws them
   // rather than spelled out again — a second copy of how a lane is named is a

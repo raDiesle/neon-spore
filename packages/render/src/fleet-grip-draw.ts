@@ -6,7 +6,7 @@ import { drawGripRing } from "./grip-rings.js";
 import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import type { ViewRole } from "./view-role.js";
+import { seatOf } from "./view-role.js";
 
 /**
  * **What the wound looks like while it is being worked** — the plume out of
@@ -26,11 +26,6 @@ const RAKE_WORDS: HandleWords = { seat: 1, mine: "RAKE", theirs: "PILOT'S" };
 const KEEP_WORDS: HandleWords = { seat: 1, mine: "HOLD", theirs: "PILOT'S" };
 const BREACH_WORDS: HandleWords = { seat: 2, mine: "HOLD", theirs: "NAVIGATOR'S" };
 const WRECK_WORDS: HandleWords = { seat: 2, mine: "PULL", theirs: "NAVIGATOR'S" };
-
-/** Which of the two seats this screen is. */
-function seatOf(role: ViewRole): 1 | 2 {
-  return role === "p2" ? 2 : 1;
-}
 
 /** This seat's ring under this state: whether a thumb is on it, and its word. */
 function gripOf(b: FleetState, seat: 1 | 2): { held: boolean; words: HandleWords } {

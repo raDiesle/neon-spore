@@ -7,6 +7,7 @@ import type { Viewport } from "./renderer.js";
 export { bandLobes, type Lobe } from "./band-lobes.js";
 
 export {
+  seatOf,
   showsCannon,
   showsCodex,
   showsFleetHulls,

@@ -84,6 +84,7 @@ export {
   type Lobe,
   type Stage,
   type Strip,
+  seatOf,
   showsCannon,
   showsShield,
   tileCX,
