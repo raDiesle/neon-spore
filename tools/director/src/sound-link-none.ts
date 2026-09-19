@@ -139,7 +139,7 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.gorgeMouth": "the last whole intake becoming the mouth. Same argument.",
   "boss.gorgeOut":
     "the sack ruptured along its width by the beam. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
-  // THE CURTAIN's ten. The boss is a sheet the sheet has no card for, and
+  // THE CURTAIN's thirteen. The boss is a sheet the sheet has no card for, and
   // what these mark is fabric moving, never a body standing anywhere.
   "boss.curtainUnroll":
     "the sheet unrolling across the top of the frame. It is seven columns wide, which is not a card (`sim/curtain.ts`).",
@@ -150,6 +150,9 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.curtainLobeOff": "a lobe dropping out of the hem. Same argument.",
   "boss.curtainCoreHit": "the bare core rung in its own colour. Same argument.",
   "boss.curtainFire": "the core letting a torch go down its column. Same argument.",
+  "boss.curtainPin": "the rail jammed by a hit on the core. A rail is not a body. Same argument.",
+  "boss.curtainJam": "a shove that found the rail jammed and moved nothing. Same argument.",
+  "boss.curtainLift": "the hem carried up to the top of its travel. Same argument.",
   "boss.curtainTear": "the sheet tearing off its rail. Same argument.",
   "boss.curtainOut":
     "the core going out. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",

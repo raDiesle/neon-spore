@@ -1,11 +1,14 @@
 /**
- * THE CURTAIN's ten, in a file of their own for `boss-gorge.ts`' reason.
+ * THE CURTAIN's thirteen, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **sheet of fabric on a rail**, and everything here is dry
  * where THE GORGE's was wet: a shove is cloth dragged over a bar, a re-roll
  * is the same drag slower, a lobe coming off is a weight dropping out of a
  * hem, and the tear is the one long sound on the page. The core behind it is
  * the only hard thing — a hit on it rings, and its fire is a torch leaving.
+ * The three the jam brought are the rail rather than the cloth: a bolt
+ * dropping into it, a shove that finds it and stops dead, and the hem
+ * carried up to the top of its travel.
  * Low and soft under the band, or short and high above it, as ever
  * (docs/spec/audio.md §1).
  */
@@ -98,6 +101,39 @@ export const BOSS_CURTAIN_SOUNDS: SoundDef[] = [
     layers: [
       noise(0.36, { type: "highpass", freq: 3000, toFreq: 6000, q: 0.8 }, 0.01, 0.06, 0.4),
       after(0.08, sub(60, 0.5, 0.3)),
+    ],
+  },
+  {
+    id: "boss.curtainPin",
+    family: "boss",
+    blurb: "A bolt dropping into the rail: a hard metal knock and the bar ringing shut.",
+    status: "bound",
+    use: "THE CURTAIN's rail jammed by a core hit — no shove will move the sheet for a while.",
+    level: 0.44,
+    layers: [thud(220, 90, 0.2, 0.5), after(0.03, soft(0.6, glint(2600, 0.34, 0.12)))],
+  },
+  {
+    id: "boss.curtainJam",
+    family: "boss",
+    blurb: "A shove that finds the bar locked: the rasp starts and stops dead against it.",
+    status: "bound",
+    use: "THE CURTAIN shoved while the rail is jammed — the sheet does not move at all.",
+    level: 0.34,
+    layers: [
+      noise(0.07, { type: "highpass", freq: 3200, toFreq: 3600, q: 0.8 }, 0.01, 0.02, 0.35),
+      after(0.06, thud(140, 110, 0.1, 0.4)),
+    ],
+  },
+  {
+    id: "boss.curtainLift",
+    family: "boss",
+    blurb: "The hem coming up to the top of its travel: a rising slide opening into air.",
+    status: "bound",
+    use: "THE CURTAIN's hem carried high enough that the gap over the core is open.",
+    level: 0.4,
+    layers: [
+      noise(0.28, { type: "highpass", freq: 2600, toFreq: 6400, q: 0.9 }, 0.02, 0.1, 0.35),
+      after(0.22, glint(5200, 0.26, 0.12)),
     ],
   },
   {

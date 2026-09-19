@@ -66,8 +66,8 @@ export function drawCurtain(
   // is bare, a shadow on the navigator's while it is covered, and nothing on
   // the pilot's — his eyes are the hem's.
   if (bare || showsCurtainShadow(l.role)) {
-    const out = c.outBeat >= 0 ? (beat - c.outBeat + beatPhase) / cfg.curtainOutBeats : 0;
-    const naked = c.tornBeat >= 0;
+    const out = c.phase === "out" ? (beat - c.phaseBeat + beatPhase) / cfg.curtainOutBeats : 0;
+    const naked = c.phase === "torn";
     drawCurtainCore(ctx, l, tileCX(l, c.coreCol), cy, c.coreColor, bare, naked, out, time);
   }
 

@@ -162,8 +162,11 @@ export const CHOREO_NOTES = {
     "curtainSoftCount lobes go soft and a shot into one takes it off; at " +
     "curtainLightLobes off it slides two columns a shove. A bare core hit in " +
     "its colour drops its nearest lobe and drifts; the wrong colour fires at " +
-    "once; curtainCoreHits end it, holding the wave curtainOutBeats more. A " +
-    "hem with no lobe left tears off at the next shove and the naked core " +
+    "once; curtainCoreHits end it, holding the wave curtainOutBeats more. " +
+    "A hit that does not end it jams the rail for curtainPinBeats: no shove " +
+    "moves the sheet at all, and the way back to the core is the hem, " +
+    "carried up curtainLiftMilli and held, which bares it while it is held. " +
+    "A hem with no lobe left tears off at the next shove and the naked core " +
     "fires every curtainNakedFireBeats. Nothing about it is authored per " +
     "wave. See sim/curtain.ts, sim/config-curtain.ts.",
   "THE TASTER — the boss that grows its armour in the colour you have been spending":

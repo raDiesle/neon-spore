@@ -103,6 +103,20 @@ function markAt(
  * picture and not his (`showsCurtainShadow`). On the pilot's screen, where
  * the core is only a suspicion, there is no mark and no word.
  *
+ * `LIFT` is the pilot's, and it stands where `SHOVE` stood, on the sheet's
+ * middle: while the rail is jammed the shove is refused whole
+ * (`curtain-shove.ts`) and the hem carried *up* is the only way back to the
+ * core, so the one word the fabric wears changes rather than a second one
+ * joining it. It is on the sheet and not on the core's column because the
+ * handle is the whole hem — the gap opens over the core wherever the core is,
+ * and a mark on that column would hand the pilot the half of the fight that
+ * is hers.
+ *
+ * **One word per state, and never two on the same thumb**: `SHOVE` while it
+ * hangs, `LIFT` while it is pinned, `FIRE` once the core is bare, and nothing
+ * once it is out. Short words, because the two people reading them may not
+ * share a language.
+ *
  * **Three silences.** The core's **colour**, which is hers alone and the one
  * thing she has to say out loud — the wrong colour is answered with a rock
  * down the column at once (`curtainStruck`), and a field that named it would
@@ -111,7 +125,7 @@ function markAt(
  * it cannot end on the same one.
  */
 export function curtainCues(l: Layout, world: World, c: CurtainState): readonly BossCue[] {
-  if (c.outBeat >= 0) return [];
+  if (c.phase === "out") return [];
   const y = tileCY(l, world.cfg.curtainRow);
   const at = (col: number) => markAt(1, "CARRY", "MOVE", tileCX(l, col), l.hullY, l, 43);
   if (curtainCoreBare(world, c)) {
@@ -124,10 +138,15 @@ export function curtainCues(l: Layout, world: World, c: CurtainState): readonly 
   if (c.soft.length > 0 && !c.soft.some((i) => body.col + i === world.cannonCol)) {
     out.push(at(world.cannonCol));
   }
+  const mid = tileCX(l, body.col + (CURTAIN_COLS - 1) / 2);
+  if (c.phase === "pinned") {
+    // The rail is jammed and no shove will move it: the word on the sheet is
+    // the hem, carried up and held until the gap over the core opens.
+    out.push(markAt(1, "CARRY", "LIFT", mid, y, l, 37, 2));
+    return out;
+  }
   if (carryIsReady(world, body)) {
-    out.push(
-      markAt(null, "CARRY", "SHOVE", tileCX(l, body.col + (CURTAIN_COLS - 1) / 2), y, l, 36, 2),
-    );
+    out.push(markAt(null, "CARRY", "SHOVE", mid, y, l, 36, 2));
   }
   return out;
 }

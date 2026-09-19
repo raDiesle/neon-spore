@@ -1,6 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
 import { curtainBody, curtainBoss, curtainCoreBare } from "./curtain.js";
-import { curtainDrift, curtainFire, curtainLobeOff } from "./curtain-step.js";
+import { curtainDrift, curtainFire, curtainLobeOff, enterCurtain } from "./curtain-step.js";
 import { creatureLane } from "./mid-beat.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -33,12 +33,12 @@ export function curtainHemStruck(world: World, b: Bullet, hit: Creature): void {
 /**
  * **A shot that nothing on the field stopped, leaving through the top** of
  * the core's column while the core is bare. Its own colour hurts it: the
- * lobe nearest it drops, and it drifts. The other colour is answered with a
- * rock down the column at once.
+ * lobe nearest it drops, it drifts, and the rail jams behind it. The other
+ * colour is answered with a rock down the column at once.
  */
 export function curtainStruck(world: World, b: Bullet): void {
   const c = curtainBoss(world);
-  if (c === null || c.outBeat >= 0 || b.col !== c.coreCol) return;
+  if (c === null || c.phase === "out" || b.col !== c.coreCol) return;
   if (!curtainCoreBare(world, c)) return;
   if (b.color !== c.coreColor) {
     missedColor(world);
@@ -50,7 +50,7 @@ export function curtainStruck(world: World, b: Bullet): void {
   const left = world.cfg.curtainCoreHits - c.coreHits;
   world.events.push({ type: "curtainCoreHit", col: c.coreCol, left });
   if (left <= 0) {
-    c.outBeat = world.beat;
+    enterCurtain(world, c, "out");
     world.events.push({ type: "curtainOut", col: c.coreCol });
     return;
   }
@@ -68,4 +68,12 @@ export function curtainStruck(world: World, b: Bullet): void {
     if (nearest >= 0) curtainLobeOff(world, c, body, nearest);
   }
   curtainDrift(world, c, body);
+  // **The jam.** The sheet the core just drifted under is the sheet the pair
+  // cannot now shove: for `curtainPinBeats` the rail holds and the way back to
+  // the core is the hem, lifted and held (`curtain-hand.ts`). A torn sheet has
+  // no rail to jam, so a naked core is answered the way it always was.
+  if (c.phase === "hung" && body !== undefined) {
+    enterCurtain(world, c, "pinned");
+    world.events.push({ type: "curtainPin", col: c.coreCol, beats: world.cfg.curtainPinBeats });
+  }
 }

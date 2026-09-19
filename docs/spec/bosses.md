@@ -4259,8 +4259,10 @@ loop leaves it alone and it is never a bolt's target), `CURTAIN_COLS` (7)
 wide at `curtainRow` (1), grippable by either seat, and the hand on it means
 *pull* (`sim/hand.ts`). The core is no creature: a column and a colour in the
 state (`sim/curtain.ts`, hashed in `sim/curtain-hash.ts`), with seven `lobes`
-along the hem, the indexes of the `soft` ones this cycle, the hits taken, and
-five beat stamps — soft set drawn, last fire, last moved or held, torn, out.
+along the hem, the indexes of the `soft` ones this cycle, the hits taken,
+three beat stamps — soft set drawn, last fire, last moved or held — and the
+**phase**: one of `CURTAIN_PHASES` (`hung`, `pinned`, `torn`, `out`) with the
+beat it was entered on and how far the hem has been carried up in it.
 It fills its wave (`bossFillsWave`): `act-7d.ts`'s "THE CURTAIN" has no
 arrivals and nothing falls but what the core fires.
 
@@ -4284,10 +4286,20 @@ lobes still over the field; every other lobe is cloth and bounces it. With
 columns. Nobody holding it for `curtainRerollBeats` (4) rolls it a column
 back toward its middle over the core. A **bare hem** cannot hold its rail:
 the next shove **tears** the sheet off (`curtainTear`, the creature gone), the
-core hangs naked and fires every `curtainNakedFireBeats` (2). The
+core hangs naked and fires every `curtainNakedFireBeats` (2). A hit that does
+**not** end the fight drops a bolt into the rail (`curtainPin`): for
+`curtainPinBeats` (6) the sheet is **pinned** and a shove is refused whole
+(`curtainJam`, and the tear with it — a jammed rail cannot be torn off), the
+roll-back clock is held so the fabric does not snap back the beat the jam
+lifts, and the way to the core is the other gesture. Pinned, the pilot alone
+puts a thumb under the **hem** and carries it **up**: past `curtainLiftMilli`
+(1250) the gap over the core is open and it counts as bare (`curtainLift`,
+`curtainHemHigh`) — **while it is held**, and shut the tick the thumb leaves,
+so the pair fires into a hand that is still holding. The
 `curtainCoreHits`-th (3) hit in its colour puts it **out**, and the boss stays
 installed `curtainOutBeats` (2) more so the wave cannot end on the beat the
-core does.
+core does. So the fight is four states and a gesture each: `hung` shove and
+fire, `pinned` lift and fire, `torn` fire, `out` nothing.
 
 **The split is the eyes.** Player 1 is shown which lobes are soft and nothing
 of the core while it is covered; player 2 is shown the core's shadow and its
@@ -4328,8 +4340,11 @@ third of a tile through the beat — a sheet moved by its top edge. The core is
 drawn first and the fabric over it, which is the whole of the occlusion: no
 z-order was added, a covered core is a colour through a grey. Covered, it is
 a halo and a dimmed disc in its colour; bare, a five-lobed blob rimmed in its
-colour with a bright centre; naked (torn), the same blob pulsing, because it
-is firing faster; going out, the blob fading over `curtainOutBeats`. The hand
+colour with a bright centre; naked (`torn`), the same blob pulsing, because it
+is firing faster; going out (`out`), the blob fading over `curtainOutBeats`.
+**The jam and the lifted hem are not drawn yet** — the phase moves, the sheet
+does not show it — and that is the second half of this lane, owed with the
+hem's own ring and the field's ON THE FIELD row. The hand
 ring is drawn here over the sheet, THE CAIRN's reason (`grip.ts` skips a body
 whose hand means "pull"), closing on the middle of whatever part of the
 fabric is on the field, so a sheet shoved mostly off the wall still has a
@@ -4337,7 +4352,7 @@ place to hold it by. The split is the eyes (`showsCurtainSoft`,
 `showsCurtainShadow`): the pilot's screen lights the soft lobes in the hull's
 rim with a breathing halo and shows nothing of a covered core; the
 navigator's shows the shadow and every lobe the same grey; a bare core is
-plain on both. The ten events are one family read above `Effects`' loop
+plain on both. The thirteen events are one family read above `Effects`' loop
 (`curtain-fx.ts`): each throws its burst in its column, and `curtainTear`
 keeps the sheet — its width, where it hung — falling and crumpling out of the
 picture over four beats after the body is gone from the world, the one thing
@@ -4377,7 +4392,18 @@ CANDLE's pairing — off the core's column she is told nothing rather than told
 to fire up a lane `curtainStruck` refuses. Three silences: the core's
 **colour**, hers alone and the one thing she has to say out loud, with a rock
 down the column the cost of the other one; the **hem** on her screen; and
-nothing in `out`. `render/test/boss-cue-curtain.test.ts` proves the six cases.
+nothing in `out`.
+
+`LIFT` is the third word and the one the jam brought. While the rail is
+**pinned** no shove moves the sheet, so `SHOVE` would be a word for a gesture
+the simulation refuses — the cue's arm for that state puts `LIFT` on the
+sheet's middle instead, the pilot's alone because the hem is his thumb
+(`curtainHemHeard` takes nothing from seat two), and says nothing to her until
+the hem is high enough to bare the core, when the fight is the bare core's
+again and `FIRE` stands where it always does. The middle rather than the
+core's column, so the word does not hand him her half of the fight. Three
+short words over four states, one gesture each, and no state with two:
+`render/test/boss-cue-curtain.test.ts` proves the eight cases.
 
 **The rehearsal** (`content/src/scenes/the-curtain.ts`, 17 September 2026,
 ten pages over 2400 ticks): the core hiding, its shadow on player 2's
@@ -4399,7 +4425,11 @@ rewritten on 19 September 2026, when the field learnt to say the column:
 `CARRY` is the kind line the cue draws over `SHOVE` and the count was all the
 page was ever for; and `FIRE ITS COLOUR AS IT BARES` became `ITS COLOUR OR IT
 FIRES BACK`, the colour being hers alone and the rock a wrong one buys being
-what no word on the glass may carry ([briefings](briefings.md) §7).
+what no word on the glass may carry ([briefings](briefings.md) §7). **It
+still has no page for the jam**, and it wants one: an eleventh whose act is the
+hem carried up and held, anchored `{ at: "handle", target: "curtainHem" }` the
+way THE CANDLE's wick page is. The anchor wants the hem's ring, which is the
+look, so the page comes with it.
 
 **Never watched at tempo.** What the tests say is the mechanism: it unrolls
 seven wide and centred with the core under it and two soft lobes drawn; the
@@ -4411,7 +4441,14 @@ bolt and a hard one bounces it; a covered core is nothing; its own colour
 drops the nearest lobe and drifts it back under cover; the other colour is a
 rock down the column; a bare core fires on its count and a covered one counts
 nothing; a bare hem tears on the next shove and the naked core fires faster;
-a sheet nobody holds rolls back a column on its count and not while held; the
+a sheet nobody holds rolls back a column on its count and not while held;
+a hit that does not end it pins the rail for its count, refuses the shove
+whole and the tear with it, and hands the rail back with the hem flat; the
+pilot's thumb under a pinned hem bares the core past `curtainLiftMilli` and
+covers it again the tick it lets go, a thousandth short does nothing, the
+navigator's thumb is dropped, a hung rail does not answer it at all, the core
+fires up its column while it is held, and a lifted hem fingerprints
+differently from a flat one (`sim/test/curtain-hem.test.ts`); the
 third hit puts it out with the wave held two beats after and cleared once it
 is gone; and the same run fingerprints the same way twice and differently for
 another seed (`sim/test/curtain.test.ts`). The look has been seen in a frame

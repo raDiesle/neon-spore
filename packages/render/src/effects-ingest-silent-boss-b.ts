@@ -9,7 +9,8 @@ import type { SimEvent } from "@neon-spore/sim";
  * first page itself was cut on: the order the bosses were built in. THE
  * CAIRN's two came over on 19 September 2026 for the same reason and by the
  * same rule — page one went over, so page one handed its last boss across
- * rather than the lane cutting its own rows out of the middle.
+ * rather than the lane cutting its own rows out of the middle. THE FLEET's
+ * five followed the same day, when THE CURTAIN's jam put page one over again.
  * `INGEST_SILENT` spreads this in place after the first page, so the guard
  * and the type it narrows by are unchanged.
  *
@@ -183,4 +184,15 @@ export const INGEST_SILENT_BOSS_B = [
   "throatChoke",
   "throatSwallow",
   "throatEvert",
+  // THE FLEET is drawn straight off the world every frame — the marks from
+  // `struck`, the sinking from `sunkBeat` — with one exception, and the
+  // exception is read above this loop by an `ingest` of its own: a salvo is
+  // in the air for `FLEET_SHELL_BEATS` after the tick that resolved it, so
+  // the shell, its shadow and the burst it makes are `FleetFx`'s
+  // (`fleet-fx.ts`).
+  "fleetSalvo",
+  "fleetSplash",
+  "fleetHit",
+  "fleetSunk",
+  "fleetDown",
 ] as const satisfies readonly SimEvent["type"][];

@@ -1,6 +1,6 @@
 import { pullFromCairn } from "./cairn.js";
 import { hullRow } from "./config.js";
-import { curtainShoved } from "./curtain-step.js";
+import { curtainShoved } from "./curtain-shove.js";
 import { gripsCreature } from "./grip.js";
 import { carryDir, spend } from "./grip-push-dir.js";
 import { gumIsFlung, gumSwiped } from "./gum.js";

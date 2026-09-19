@@ -111,6 +111,9 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "curtainLobeOff":
     case "curtainCoreHit":
     case "curtainFire":
+    case "curtainPin":
+    case "curtainJam":
+    case "curtainLift":
     case "curtainTear":
     case "curtainOut":
       return curtainCue(e, cols);

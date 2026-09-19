@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE CURTAIN's ten, in a file of their own for `bind-gorge.ts`' reason.
+ * THE CURTAIN's thirteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one of them is panned, because every one of them names a column —
  * and here the column is the whole sentence: which lobe is soft, which
@@ -24,6 +24,9 @@ export function curtainCue(
         | "curtainLobeOff"
         | "curtainCoreHit"
         | "curtainFire"
+        | "curtainPin"
+        | "curtainJam"
+        | "curtainLift"
         | "curtainTear"
         | "curtainOut";
     }
@@ -50,6 +53,14 @@ export function curtainCue(
       return { id: "boss.curtainCoreHit", pan };
     case "curtainFire":
       return { id: "boss.curtainFire", pan };
+    case "curtainPin":
+      return { id: "boss.curtainPin", pan };
+    case "curtainJam":
+      // The shove that found the rail jammed: the sheet did not move, so the
+      // sound is the hands' side and nothing after it.
+      return { id: "boss.curtainJam", pan };
+    case "curtainLift":
+      return { id: "boss.curtainLift", pan };
     case "curtainTear":
       return { id: "boss.curtainTear", pan };
     case "curtainOut":

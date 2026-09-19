@@ -35,8 +35,15 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * own band. It is THE GORGE's case of the same morning
  * (`boss-cue-gorge.test.ts`).
  *
+ * **A third word joined them when the rail learnt to jam.** A core hit that
+ * does not end the fight pins the rail for `curtainPinBeats`, the shove is
+ * refused whole, and the way back to the core is the hem carried **up** and
+ * held (`sim/curtain-hand.ts`) — so `LIFT` stands on the sheet in that state
+ * and `SHOVE` does not, which is one gesture per state and the whole point of
+ * the cue having an arm per state.
+ *
  * The states are set rather than played into, as in `boss-cue-candle.test.ts`:
- * the roll-back, the soft redraw and the tear are proved in
+ * the roll-back, the soft redraw, the jam and the tear are proved in
  * `sim/test/curtain*.test.ts`.
  */
 
@@ -121,7 +128,8 @@ describe("THE CURTAIN", () => {
   it("asks the navigator alone for the shot once the core is bare and he is under it", () => {
     const world = opened();
     const c = installed(world);
-    c.tornBeat = world.beat;
+    c.phase = "torn";
+    c.phaseBeat = world.beat;
     world.cannonCol = c.coreCol;
     expect(word(world, "p2")).toBe("FIRE");
     // The pilot is not drawn the shadow, so he is not drawn a mark on it.
@@ -131,7 +139,8 @@ describe("THE CURTAIN", () => {
   it("holds her shot back while the cannon is out of the core's column", () => {
     const world = opened();
     const c = installed(world);
-    c.tornBeat = world.beat;
+    c.phase = "torn";
+    c.phaseBeat = world.beat;
     world.cannonCol = other(c.coreCol);
     // THE CANDLE's pairing: a `FIRE` up a lane `curtainStruck` refuses is
     // worse than no word, so it waits behind his column.
@@ -139,11 +148,38 @@ describe("THE CURTAIN", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
+  it("asks the pilot for the hem once a hit has jammed the rail", () => {
+    const world = opened();
+    const c = installed(world);
+    c.phase = "pinned";
+    c.phaseBeat = world.beat;
+    world.cannonCol = softCol(world, c);
+    // No shove moves a jammed rail, so the word on the sheet is the other
+    // gesture and it is the pilot's alone (`sim/curtain-hand.ts`).
+    expect(word(world, "p1")).toBe("LIFT");
+    expect(cue(world, "p1")?.kind).toBe("CARRY");
+    // And she is not told to shove a sheet that will not go.
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("asks her for the shot while the hem is held at the top", () => {
+    const world = opened();
+    const c = installed(world);
+    c.phase = "pinned";
+    c.phaseBeat = world.beat;
+    c.liftMilli = CFG.curtainLiftMilli;
+    world.cannonCol = c.coreCol;
+    // The gap over the core is open while it is held, so the fight is the
+    // bare core's for as long as the thumb stays there.
+    expect(word(world, "p2")).toBe("FIRE");
+    expect(word(world, "p1")).toBeNull();
+  });
+
   it("says nothing at all once the core has gone out", () => {
     const world = opened();
     const c = installed(world);
-    c.tornBeat = world.beat;
-    c.outBeat = world.beat;
+    c.phase = "out";
+    c.phaseBeat = world.beat;
     world.cannonCol = c.coreCol;
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();

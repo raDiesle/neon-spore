@@ -31,6 +31,15 @@ import type { World } from "./world.js";
  * the fabric rolls back over the core `curtainRerollBeats` after the last
  * hand leaves it, so the sentence has to be said before it is stale.
  *
+ * **Four states, and each asks for a different hand** (`CURTAIN_PHASES`,
+ * `.claude/skills/new-boss` §6.2). While it is `hung` the gesture is the
+ * shove and the shot; a hit **pins** the rail for `curtainPinBeats`, and a
+ * pinned rail does not slide at all — what gives instead is the hem, which
+ * the pilot lifts and holds to open a gap over the core (`curtain-hand.ts`);
+ * a bare hem under a shove leaves it `torn`, the core naked and firing; the
+ * last hit puts it `out`. Three words for the pair to say, and no more:
+ * **SHOVE**, **FIRE**, **LIFT**.
+ *
  * **It is a body and a fixture at once.** The fabric is a creature of kind
  * `"curtain"` — a boss body like THE CAIRN's pile (`kinds.ts`), so the fall
  * loop leaves it alone and the ordinary carry moves it — and the core is not
@@ -42,6 +51,19 @@ import type { World } from "./world.js";
  * numbers `config-curtain.ts`. This file is the shape and the questions
  * asked of it.
  */
+
+/**
+ * The four states, in the order one fight walks them.
+ *
+ * `hung` is the sheet on its rail, shoved along it by either seat's hands.
+ * `pinned` is the rail jammed by a hit for `curtainPinBeats`: the shove does
+ * nothing and the hem is the way through. `torn` is the sheet off the rail
+ * and the core naked. `out` is the last hit, and the beats the frame has
+ * before the wave may end (`stepCurtain`).
+ */
+export const CURTAIN_PHASES = ["hung", "pinned", "torn", "out"] as const;
+
+export type CurtainPhase = (typeof CURTAIN_PHASES)[number];
 
 /** Everything THE CURTAIN remembers between beats. */
 export interface CurtainState {
@@ -64,10 +86,16 @@ export interface CurtainState {
   fireBeat: number;
   /** `world.beat` the fabric last moved, or was last held. The roll-back counts from here. */
   moveBeat: number;
-  /** `world.beat` the sheet tore off the rail; `-1` while it hangs. */
-  tornBeat: number;
-  /** `world.beat` the core went out; `-1` while it stands. */
-  outBeat: number;
+  /** Which of the four states it is in. */
+  phase: CurtainPhase;
+  /** `world.beat` the phase was entered. Every phase clock counts from here. */
+  phaseBeat: number;
+  /**
+   * How far **up** the pilot has carried the hem, in thousandths of a tile,
+   * cut to `curtainLiftMilli`. Zero with no hand on it, and zero again the
+   * moment the phase moves (`enterCurtain`).
+   */
+  liftMilli: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
@@ -86,9 +114,24 @@ export function curtainCovers(body: Creature, col: number): boolean {
   return col >= body.col && col < body.col + CURTAIN_COLS;
 }
 
-/** Whether the core can be shot: torn off, or the fabric shoved clear of it. */
+/**
+ * Whether the hem is held clear of the core: the lift carried its whole
+ * `curtainLiftMilli` and still held there. Only while the rail is `pinned` —
+ * a sheet free to slide gives sideways rather than lifting, and a hem that
+ * could be lifted from `hung` would be a second way to do the shove's job
+ * (`curtain-hand.ts`).
+ */
+export function curtainHemHigh(c: CurtainState, cfg: SimConfig): boolean {
+  return c.phase === "pinned" && c.liftMilli >= cfg.curtainLiftMilli;
+}
+
+/**
+ * Whether the core can be shot: the sheet torn off, the fabric shoved clear
+ * of it, or the hem held up over it.
+ */
 export function curtainCoreBare(world: World, c: CurtainState): boolean {
-  if (c.tornBeat >= 0) return true;
+  if (c.phase === "torn") return true;
+  if (curtainHemHigh(c, world.cfg)) return true;
   const body = curtainBody(world, c);
   return body === undefined || !curtainCovers(body, c.coreCol);
 }

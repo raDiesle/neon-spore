@@ -128,6 +128,12 @@ const ACCEPTED: Command[] = [
   // wanders sideways, so `fromMilli` rides along at nought (`sim/candle-hand.ts`).
   { kind: "drag", target: "candleWick", on: true, fromMilli: 0, fromYMilli: 1500 },
   { kind: "drag", target: "candleWick", on: false, fromMilli: 0, fromYMilli: 0 },
+  // THE CURTAIN's hem, carried **up** rather than down: the codec has to keep
+  // a negative `fromYMilli` whole, because the lift is read off its size
+  // against `curtainLiftMilli` (`sim/curtain-hand.ts`). A sign dropped on the
+  // wire is a gap one device thinks is open and the other thinks is shut.
+  { kind: "drag", target: "curtainHem", on: true, fromMilli: 0, fromYMilli: -1250 },
+  { kind: "drag", target: "curtainHem", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -256,6 +262,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   throatRing: true,
   throatTube: true,
   candleWick: true,
+  curtainHem: true,
   crank: true,
   orreryRing: true,
 };

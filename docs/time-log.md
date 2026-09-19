@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-curtain-states — a second gesture, and fifteen places that had to be told
+
+The first half of the boss's own queue entry: THE CURTAIN was two beat stamps
+and one gesture, and it is four named phases and three now. A core hit that
+does not end the fight jams the rail for `curtainPinBeats`, the shove is
+refused whole and the tear with it, and the way back to the core is the hem,
+carried **up** past `curtainLiftMilli` by the pilot alone and held — the gap
+is open while the thumb is there and shut the tick it leaves. One gesture per
+state, `SHOVE` / `LIFT` / `FIRE`, and `out` silent. The look is the second
+half and is not in this commit.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `curtain*.ts`, THE CANDLE's `phase`/`phaseBeat` as the shape to copy, and `scene-drag.ts` for what a new handle owes a film |
+| writing | 15 | the phase field through every reader, two new sim files, twelve sim cases, the three events with their sounds and binds, the cue's fourth arm with two more cases, the director's hand and card, and the two spec sections |
+| looking | 0 | none: nothing new is drawn yet, which is why the look is a separate lane |
+| friction | 10 | a new sim case ran six beats to prove the jam holds and `curtainPinBeats` is six, so the rail handed itself back mid-assertion; `curtain-step.ts` went over 250 lines and had to be split; then `effects-ingest-silent-boss.ts` did too, and two documents' counts went red one full check apart |
+| landing | 15 | four `check:fast` runs at 145 s each, `lint`, `format`, the commit, and a rebase onto a trunk that had moved |
+
+**The bottleneck was the registration surface, not the fight.** The simulation
+— the jam, the lift, the phase — is two small files and was right the first
+time. Fifteen other places had to be told a state exists, and all but three
+were found by a red test rather than by reading anything, one 145-second check
+at a time; `docs/queue.md` already carries the entry for that, and this lane
+added the three it was missing.
+
 ## 2026-09-19 — queue-the-ledger — a guide addressed to the wrong thumb
 
 The fifth of this family and the fourth in a row to find the same hole: the

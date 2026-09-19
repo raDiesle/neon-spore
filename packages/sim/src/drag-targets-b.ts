@@ -28,7 +28,8 @@ export type DragTargetB =
   | "undertowFree"
   | "throatRing"
   | "throatTube"
-  | "candleWick";
+  | "candleWick"
+  | "curtainHem";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -166,4 +167,21 @@ export type DragTargetB =
  * Player 1's alone, for `queenMark`'s reason — her hands are the trigger and
  * the lobe, and the fight ends on the two of them doing different things —
  * and her press is dropped without a sound.
+ */
+
+/**
+ * `curtainHem` is the forty-fifth, and the only handle in this union that is
+ * a **way past** the fight's own first gesture rather than a gesture of its
+ * own standing. THE CURTAIN is shoved along its rail by either seat's hands,
+ * and a hit jams that rail for `curtainPinBeats` (`curtain-shove.ts`): while
+ * it is jammed the pilot takes the hem under the core's shadow and carries it
+ * **up**, `fromYMilli` negated against `curtainLiftMilli` the way THE STARE's
+ * lid is read. No `id`: there is one sheet, and it is the boss.
+ *
+ * What it buys is a gap rather than a phase — the one hold in this union whose
+ * whole worth is that it is still held. The core is bare while the hem is at
+ * the top and covered the tick it is not (`curtainHemHigh`), so the shot has
+ * to be fired into a hand that has not let go. Player 1's alone, for
+ * `candleWick`'s reason: the shadow to call is already hers, and the fight
+ * ends on the two of them doing different things.
  */

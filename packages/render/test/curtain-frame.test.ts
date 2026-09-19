@@ -161,7 +161,8 @@ describe("THE CURTAIN's fabric", () => {
     const world = hung();
     const c = worn(world);
     world.creatures = world.creatures.filter((b) => b.id !== c.creatureId);
-    c.tornBeat = world.beat;
+    c.phase = "torn";
+    c.phaseBeat = world.beat;
     const text = drawn(world, "p1", 3).text;
     // The core's rim, which the pilot never saw while it was covered, and
     // fewer of the hem's grey than a hanging sheet names.
@@ -181,9 +182,10 @@ describe("THE CURTAIN's fabric", () => {
     // Far enough in that a beat before the out is still a beat of the fight.
     for (let i = 0; i < 4 * TPB; i++) step(world, []);
     const c = bared(world);
-    c.outBeat = world.beat;
+    c.phase = "out";
+    c.phaseBeat = world.beat;
     const going = count(drawn(world, role, 3).text, PALETTE.redRim);
-    c.outBeat = world.beat - CFG.curtainOutBeats - 1;
+    c.phaseBeat = world.beat - CFG.curtainOutBeats - 1;
     const gone = count(drawn(world, role, 3).text, PALETTE.redRim);
     expect(going).toBeGreaterThan(gone);
   });

@@ -297,7 +297,7 @@ describe("the sheet tearing", () => {
     bareHem(c);
     const seen = runTo(world, TPB * 4, carry(body.id, 2, TPB * 4, 1));
     expect(fabric(world)).toBeUndefined();
-    expect(c.tornBeat).toBeGreaterThanOrEqual(0);
+    expect(c.phase).toBe("torn");
     expect(curtainCoreBare(world, c)).toBe(true);
     expect(seen.has("curtainTear")).toBe(true);
   });
@@ -307,10 +307,11 @@ describe("the sheet tearing", () => {
     const c = curtain(world);
     bareHem(c);
     runTo(world, TPB * 4, carry((fabric(world) as Creature).id, 2, TPB * 4, 1));
-    const torn = c.tornBeat;
+    const torn = c.phaseBeat;
     runTo(world, world.tick + TPB * (CFG.curtainNakedFireBeats + 1));
     expect(torches(world).length).toBeGreaterThanOrEqual(1);
-    expect(c.tornBeat).toBe(torn);
+    expect(c.phase).toBe("torn");
+    expect(c.phaseBeat).toBe(torn);
   });
 });
 
@@ -351,7 +352,7 @@ describe("the core going out", () => {
       curtainStruck(world, shot(world, c.coreCol, c.coreColor));
     }
     expect(c.coreHits).toBe(CFG.curtainCoreHits);
-    expect(c.outBeat).toBeGreaterThanOrEqual(0);
+    expect(c.phase).toBe("out");
     expect(world.events.some((e) => e.type === "curtainOut")).toBe(true);
     expect(world.boss).not.toBeNull();
     runTo(world, world.tick + TPB * (CFG.curtainOutBeats + 1));

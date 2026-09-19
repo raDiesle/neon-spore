@@ -46,6 +46,12 @@ const thumb = (on: boolean, color: Color): Press => ({
 /** The cannon is free: nothing of the pair's is on its way up. */
 const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null;
 
+/** THE CURTAIN's hem, carried `milli` **up** from where the thumb grabbed. */
+const hemUp = (milli: number): Press => ({
+  player: 1,
+  command: { kind: "drag", target: "curtainHem", on: true, fromMilli: 0, fromYMilli: -milli },
+});
+
 /** THE GORGE's intakes, outermost first: the order the sack is pierced in. */
 const GORGE_ORDER = [0, 6, 1, 5, 2, 4, 3];
 
@@ -98,14 +104,22 @@ export const gorgeHand: Hand = (w) => {
  * lobes: every core hit drops a lobe as well, so a hand that took the core
  * would put it out before the fabric was bare — the tear is the pilot's
  * shove with nothing left to shove (`curtainTorn`).
+ *
+ * **Pinned, the hand changes gesture**, because the fight does: a hit jams
+ * the rail for `curtainPinBeats` and the shove is refused whole, so the
+ * pilot's thumb goes under the hem and holds it at the top instead. The gap
+ * over the core is open while it is held and shuts the tick it is not
+ * (`sim/curtain-hand.ts`), so the press is sent every tick rather than once.
  */
 export function curtainHandWith(core: boolean): Hand {
   return (w) => {
     const c = curtainBoss(w);
-    if (c === null || c.outBeat >= 0) return [];
+    if (c === null || c.phase === "out") return [];
     const body = curtainBody(w, c);
     const out: Press[] = [];
-    if (body !== undefined) {
+    if (c.phase === "pinned") {
+      out.push(hemUp(w.cfg.curtainLiftMilli));
+    } else if (body !== undefined) {
       const dir = shoveDir(w, c, body);
       const spent = w.pushP1?.cols ?? 0;
       out.push({ player: 1, command: { kind: "grip", id: body.id } });

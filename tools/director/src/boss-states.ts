@@ -38,9 +38,12 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // Running the wave, sending a stretch of it back, held by a hand
   // (`repriseEchoing`, `repriseHeld`).
   reprise: ["running", "echoing", "held"],
-  // Lobes on, one softened, the core bare, torn, out (`curtainSoftAt`,
-  // `curtainCoreBare`, `CurtainState.tornBeat`, `outBeat`).
-  curtain: ["covered", "soft", "bare", "torn", "out"],
+  // Two axes, as SNAKE's and PINBALL's are (`boss-phases.ts`): what the core
+  // is behind the cloth — covered, a lobe softened, bare — and what the rail
+  // is, which is `CURTAIN_PHASES` minus the one it hangs in. `pinned` is the
+  // state a hit leaves it in, and the one the hem is lifted in
+  // (`curtainSoftAt`, `curtainCoreBare`, `CurtainState.phase`).
+  curtain: ["covered", "soft", "bare", "pinned", "torn", "out"],
   // Hanging on its rope, a fibre held in the band, swinging off a snap,
   // falling, out (`sinewHeld`, `sinewInZone`, `sinewSwinging`,
   // `SinewState.fallBeat`, `outBeat`).

@@ -96,18 +96,28 @@ export const FIELD_HAND_POSES: Pose[] = [
   ),
   bossPose(
     "curtain",
+    "pinned",
+    "A hit jammed the rail; no shove moves it. P1 lifts the hem and holds; P2 fires the core's colour.",
+    { hand: curtainHand, want: (w) => w.boss?.kind === "curtain" && w.boss.phase === "pinned" },
+  ),
+  bossPose(
+    "curtain",
     "torn",
     "Every lobe gone and the fabric torn. P1 shoves with nothing left to shove; P2 fires at the bare core.",
     {
       hand: curtainHandWith(false),
-      want: (w) => w.boss?.kind === "curtain" && w.boss.tornBeat >= 0,
+      want: (w) => w.boss?.kind === "curtain" && w.boss.phase === "torn",
     },
   ),
   bossPose(
     "curtain",
     "out",
     "Three hits on the bare core and the curtain out. P1 aims at the wave again; P2 fires.",
-    { hand: curtainHand, want: (w) => w.boss?.kind === "curtain" && w.boss.outBeat >= 0, hold: 6 },
+    {
+      hand: curtainHand,
+      want: (w) => w.boss?.kind === "curtain" && w.boss.phase === "out",
+      hold: 6,
+    },
   ),
   bossPose(
     "scuttle",

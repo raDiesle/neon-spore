@@ -57,6 +57,13 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // (`sim/candle-hand.ts`), so a film that does not say means all the way
   // down — there is no half-pull that does anything.
   if (target === "candleWick") return cfg.candlePinchMilli;
+  // THE CURTAIN's hem is the same pull turned over: it is carried **up**, and
+  // the gap over the core opens at `curtainLiftMilli` and not a thousandth
+  // before (`sim/curtain-hand.ts`). The sign is the direction, so a film that
+  // does not say means all the way to the top — and a film that wrote this
+  // number positive would be a hand pulling the hem down over the core it is
+  // meant to be baring.
+  if (target === "curtainHem") return -cfg.curtainLiftMilli;
   return cfg.mazeTurnMilli;
 }
 

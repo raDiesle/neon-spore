@@ -533,7 +533,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
+| `packages/sim/src/curtain-hand.ts` | **The one hand on THE CURTAIN that is not the shove**: the hem |
 | `packages/sim/src/curtain-shot.ts` | The two moments a shot meets THE CURTAIN, both on the **tick**: a bolt into the fabric |
+| `packages/sim/src/curtain-shove.ts` | **The shove**: two hands on the sheet, carrying it along its rail |
 | `packages/sim/src/curtain-step.ts` | THE CURTAIN's clock — the soft lobes redrawn, the roll-back, the core's fire, the beats after the last hit |
 | `packages/sim/src/curtain.ts` | THE CURTAIN: what it is standing in front of |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
@@ -1583,7 +1585,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-pulse-hand.ts` | THE PULSE's hand on the bar, in a file of their own for `bind-scout-hand.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
-| `packages/audio/src/bind-curtain.ts` | THE CURTAIN's ten, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-curtain.ts` | THE CURTAIN's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |

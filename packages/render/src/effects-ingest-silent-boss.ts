@@ -19,8 +19,9 @@ import type { SimEvent } from "@neon-spore/sim";
  * **This page is full, and gives a boss back rather than grow.** From THE
  * CAIRN on the rows are on the second, `effects-ingest-silent-boss-b.ts`. The
  * boundary moved a boss earlier when THE CANDLE's two new rows put this page
- * over its limit: the seam is build order, so it is the *last* boss here that
- * goes next door, never the one being worked on.
+ * over its limit, and again when THE CURTAIN's three did: the seam is build
+ * order, so it is the *last* boss here that goes next door, never the one
+ * being worked on.
  */
 export const INGEST_SILENT_BOSS = [
   // THE MIRROR's four, read above the loop by an `ingest` of their own before
@@ -112,7 +113,7 @@ export const INGEST_SILENT_BOSS = [
   "gorgeSpit",
   "gorgeMouth",
   "gorgeOut",
-  // THE CURTAIN's ten, read above the loop by `curtain-fx.ts` the way THE
+  // THE CURTAIN's thirteen, read above the loop by `curtain-fx.ts` the way THE
   // GORGE's are: the sheet, its lobes and the shadow behind it are drawn off
   // the boss every frame, and the tear is the one that outlives its frame.
   "curtainUnroll",
@@ -123,6 +124,9 @@ export const INGEST_SILENT_BOSS = [
   "curtainLobeOff",
   "curtainCoreHit",
   "curtainFire",
+  "curtainPin",
+  "curtainJam",
+  "curtainLift",
   "curtainTear",
   "curtainOut",
   // THE TASTER's twelve, read above the loop by `taster-fx.ts` the way THE
@@ -235,15 +239,4 @@ export const INGEST_SILENT_BOSS = [
   "mazeProbe",
   "mazeVerdict",
   "mazeDown",
-  // THE FLEET is drawn straight off the world every frame — the marks from
-  // `struck`, the sinking from `sunkBeat` — with one exception, and the
-  // exception is read above this loop by an `ingest` of its own: a salvo is
-  // in the air for `FLEET_SHELL_BEATS` after the tick that resolved it, so
-  // the shell, its shadow and the burst it makes are `FleetFx`'s
-  // (`fleet-fx.ts`).
-  "fleetSalvo",
-  "fleetSplash",
-  "fleetHit",
-  "fleetSunk",
-  "fleetDown",
 ] as const satisfies readonly SimEvent["type"][];

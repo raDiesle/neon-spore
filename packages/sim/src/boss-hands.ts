@@ -1,6 +1,7 @@
 import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
 import { candleWickHeard } from "./candle-hand.js";
+import { curtainHemHeard } from "./curtain-hand.js";
 import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
@@ -93,4 +94,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // the wick is the tick her beam starts being worth something, and the count
   // it is raced against starts there (`candle-hand.ts`).
   for (const c of commands) candleWickHeard(world, c.player, c.command);
+  // THE CURTAIN's lift on the hem, on the tick because the gap over the core
+  // is open only while the thumb is at the top, and a lift answered on the
+  // next beat would be a gap the pilot had already let go of
+  // (`curtain-hand.ts`). The shove itself stays on the beat, with the carry.
+  for (const c of commands) curtainHemHeard(world, c.player, c.command);
 }

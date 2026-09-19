@@ -2,8 +2,9 @@
  * THE CURTAIN's numbers — the row the fabric hangs at, how much of it must
  * stay on the field, how often the soft lobes are redrawn and how many, how
  * many lobes off make it light, how often the core fires and how often once
- * it is naked, how long the fabric waits before it rolls back, how many hits
- * end the core, and how long the fight stands after (`curtain.ts`,
+ * it is naked, how long the fabric waits before it rolls back, how long a hit
+ * jams the rail and how far the hem is lifted while it is jammed, how many
+ * hits end the core, and how long the fight stands after (`curtain.ts`,
  * `docs/spec/bosses-choreographed.md` §6).
  *
  * Its own file for `config-gorge.ts`' reason: `SimConfig` extends it rather
@@ -31,6 +32,10 @@ export interface CurtainConfig {
   curtainNakedFireBeats: number;
   /** Beats with no hand on the fabric before it rolls one column back over the core. */
   curtainRerollBeats: number;
+  /** Beats a hit jams the rail: no shove moves the fabric, and the hem is the way through. */
+  curtainPinBeats: number;
+  /** Thousandths of a tile the hem is carried up before the gap over the core is open. */
+  curtainLiftMilli: number;
   /** Hits in its own colour that end the core. */
   curtainCoreHits: number;
   /** Beats the fight stands after the core goes, before the wave may end. */
@@ -45,6 +50,12 @@ export interface CurtainConfig {
  * naked; four beats of nobody holding the fabric and it rolls a column back;
  * three hits end it. Each hit drops a lobe, so the hem is bare by the third
  * shove cycle at the latest and the last one tears it off.
+ *
+ * A hit also jams the rail for six beats — one shove cycle's worth, so the
+ * pair is never waiting on it with nothing to do — and the hem is lifted a
+ * tile and a quarter in that time, a little under THE CANDLE's pull
+ * (`candlePinchMilli`) because it is carried against a rail rather than down
+ * a column and wants to read as heavier per millimetre, not longer.
  */
 export const CURTAIN_DEFAULTS: CurtainConfig = {
   curtainRow: 1,
@@ -55,6 +66,8 @@ export const CURTAIN_DEFAULTS: CurtainConfig = {
   curtainFireBeats: 4,
   curtainNakedFireBeats: 2,
   curtainRerollBeats: 4,
+  curtainPinBeats: 6,
+  curtainLiftMilli: 1250,
   curtainCoreHits: 3,
   curtainOutBeats: 2,
 };

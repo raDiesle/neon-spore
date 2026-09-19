@@ -2127,6 +2127,18 @@ Then make `purity.test.ts`'s called-not-re-derived table carry a row pointing
 at it, which is the mechanism that file exists for. The check that it worked:
 a lane can add a phase and go green in one `bun run check`, not four.
 
+**A second lane confirmed it and added three the list above does not have.**
+THE CURTAIN gained four phases and one drag target (19 September 2026,
+`claude/task-queue-work-ym2eim`): on top of the twelve,
+`content/src/scene-drag.ts`'s `tautMilli` and `pullsDown` want an arm per new
+handle or a film carries the wrong distance **silently**;
+`tools/director/src/boss-states.ts` wants the state named in `BOSS_PHASES` or
+`BY_HAND`, and the choice between the two is a judgement no red test makes for
+you; and a *field* boss's pose goes in `poses-bosses-hands-field.ts` with its
+hand in `boss-hands-field.ts`, which is the shot bosses' pair under different
+names. So the count is fifteen, and two of the three are files a lane reading
+the twelve above would still not open.
+
 ## Unverified at a5f99af6: THE CANDLE's wick and ember watched at tempo — the stem…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

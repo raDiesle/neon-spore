@@ -157,6 +157,8 @@ export const CHOREO_FIELD_GROUP = {
   curtainFireBeats: "THE CURTAIN — the boss that is in the way",
   curtainNakedFireBeats: "THE CURTAIN — the boss that is in the way",
   curtainRerollBeats: "THE CURTAIN — the boss that is in the way",
+  curtainPinBeats: "THE CURTAIN — the boss that is in the way",
+  curtainLiftMilli: "THE CURTAIN — the boss that is in the way",
   curtainCoreHits: "THE CURTAIN — the boss that is in the way",
   curtainOutBeats: "THE CURTAIN — the boss that is in the way",
   // TasterConfig — how many blades the fan holds, the two windows it tastes

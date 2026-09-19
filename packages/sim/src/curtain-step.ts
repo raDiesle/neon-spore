@@ -1,32 +1,36 @@
 import {
+  type CurtainPhase,
   type CurtainState,
   curtainBody,
-  curtainBoss,
   curtainCoreBare,
   curtainLobesLeft,
-  curtainReach,
-  curtainStride,
 } from "./curtain.js";
 import { removeCreatures } from "./field.js";
 import { gripCount } from "./grip.js";
 import { nextInt } from "./rng.js";
 import { NO_SHELL } from "./shell.js";
-import { bodyCenterCol, CURTAIN_COLS } from "./span.js";
+import { CURTAIN_COLS } from "./span.js";
 import { spawnOne } from "./spawn.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE CURTAIN's clock — the soft lobes redrawn, the roll-back, the core's
- * fire, the beats after the last hit — and the three moments the pair's
- * hands and shots meet it: the fabric shoved (`curtainShoved`, from the
- * carry) — and the pieces the shots spend, which `curtain-shot.ts` calls
- * from the tick: a lobe off, a rock fired, the core drifting.
+ * THE CURTAIN's clock — the soft lobes redrawn, the jam running down, the
+ * core's fire, the beats after the last hit — and the pieces every other
+ * half of the fight spends: a lobe off, a rock fired, the core drifting, a
+ * state entered.
  *
  * Everything here runs on the **beat** from `stepBoss`, after the carry has
- * moved the fabric for this beat; the shots are next door and on the tick,
- * because a lobe that waited for the next beat to come off would be a shot
- * the pair watched vanish into cloth.
+ * moved the fabric for this beat. The two halves that are not on the beat are
+ * next door and were each cut off this file at the 250-line limit: the shots
+ * (`curtain-shot.ts`), because a lobe that waited for the next beat to come
+ * off would be a shot the pair watched vanish into cloth, and the hem's lift
+ * (`curtain-hand.ts`), because a gap that waited would be one the pilot had
+ * already let go of. **The shove — with the jam and the tear it
+ * ends in — is `curtain-shove.ts`**, cut when the jam took this file one
+ * line over: everything there is the pair's hands on the cloth, and
+ * nothing there is the clock. The roll-back stayed here with the count it
+ * answers.
  */
 
 /** Install it from the wave's own `boss:` entry. There is nothing to author. */
@@ -60,13 +64,31 @@ export function installCurtain(world: World): CurtainState {
     softBeat: world.beat,
     fireBeat: world.beat,
     moveBeat: world.beat,
-    tornBeat: -1,
-    outBeat: -1,
+    phase: "hung",
+    phaseBeat: world.beat,
+    liftMilli: 0,
   };
   world.events.push({ type: "curtainUnroll", col, width: CURTAIN_COLS });
   world.events.push({ type: "curtainShadow", col: c.coreCol, color: c.coreColor });
   drawSoft(world, c, body);
   return c;
+}
+
+/**
+ * Into a state, and the clock with it — `enterCandle`'s shape and for its
+ * reason: every count in this fight is `world.beat - c.phaseBeat`, so the one
+ * place the phase moves is the one place the clock is set. What the state
+ * *says* is pushed by the caller, because only the caller knows the column.
+ *
+ * The hem's carry is left behind wherever it goes. It is read while `pinned`
+ * and nowhere else, and a depth kept across a state would have the next lift
+ * start where the last one stopped.
+ */
+export function enterCurtain(world: World, c: CurtainState, phase: CurtainPhase): void {
+  if (c.phase === phase) return;
+  c.phase = phase;
+  c.phaseBeat = world.beat;
+  c.liftMilli = 0;
 }
 
 /**
@@ -128,45 +150,46 @@ export function curtainDrift(world: World, c: CurtainState, body: Creature | und
 }
 
 /**
- * **The carry, at boss scale.** Both hands are already reconciled by the
- * time this is called — `carryDir` has cancelled two thumbs going opposite
- * ways and `spend` has charged the ones that won — so what is left is one
- * direction and a stride. A bare hem cannot hold its rail and the shove
- * tears the sheet off instead of moving it.
+ * One beat of the curtain, after the carry has had this beat's shove.
+ *
+ * The jam runs down on its own count and hands the rail back. The fabric's
+ * glide is closed off unless it moved this beat; a hand on it — or a jam —
+ * holds the roll-back clock, and without either it rolls a column back on its
+ * count. The soft set is redrawn on its count. A bare core fires on its
+ * count, faster once it is naked; a covered one counts nothing, so a hem
+ * lifted over it is a gap that shoots back. After the last hit the fight
+ * stands `curtainOutBeats` and goes.
  */
-export function curtainShoved(
-  world: World,
-  body: Creature,
-  dir: -1 | 1,
-  paid: readonly (1 | 2)[],
-): void {
-  const c = curtainBoss(world);
-  if (c === null || c.creatureId !== body.id) return;
-  for (const player of paid) {
-    world.events.push({
-      type: "carry",
-      player,
-      col: bodyCenterCol(body, body.col),
-      row: body.row,
-      dir,
-    });
-  }
-  if (curtainLobesLeft(c) === 0) {
-    removeCreatures(world, [body.id]);
-    c.soft = [];
-    c.tornBeat = world.beat;
-    c.fireBeat = world.beat;
-    world.events.push({ type: "curtainTear", col: c.coreCol });
+export function stepCurtain(world: World, c: CurtainState): void {
+  const cfg = world.cfg;
+  if (c.phase === "out") {
+    // Nulled here rather than at the hit, so the frame has its beats of the
+    // core going out before the wave is allowed to end (`bossHoldsWave`).
+    if (world.beat - c.phaseBeat >= cfg.curtainOutBeats) {
+      removeCreatures(world, [c.creatureId]);
+      world.boss = null;
+    }
     return;
   }
-  const stride = curtainStride(c, world.cfg);
-  const reach = curtainReach(world.cfg);
-  const to = Math.max(reach.min, Math.min(reach.max, body.col + dir * stride));
-  if (to === body.col) return;
-  body.fromCol = body.col;
-  body.col = to;
-  c.moveBeat = world.beat;
-  world.events.push({ type: "curtainShove", col: to, dir, stride });
+  if (c.phase === "pinned" && world.beat - c.phaseBeat >= cfg.curtainPinBeats) {
+    enterCurtain(world, c, "hung");
+  }
+  const body = curtainBody(world, c);
+  if (body !== undefined) {
+    if (c.moveBeat !== world.beat) body.fromCol = body.col;
+    // A jammed rail holds the roll-back clock as a hand does: it cannot slide
+    // either way, so the fabric coming back over the core the tick the jam
+    // lifted would be a column the pair was never given the chance to keep.
+    if (gripCount(world, body.id) > 0 || c.phase === "pinned") c.moveBeat = world.beat;
+    else if (world.beat - c.moveBeat >= cfg.curtainRerollBeats) reroll(world, c, body);
+    if (world.beat - c.softBeat >= cfg.curtainSoftBeats) drawSoft(world, c, body);
+  }
+  if (!curtainCoreBare(world, c)) {
+    c.fireBeat = world.beat;
+    return;
+  }
+  const every = c.phase === "torn" ? cfg.curtainNakedFireBeats : cfg.curtainFireBeats;
+  if (world.beat - c.fireBeat >= every) curtainFire(world, c);
 }
 
 /** Nobody held it: one column back toward the core's shadow standing under its middle. */
@@ -177,39 +200,4 @@ function reroll(world: World, c: CurtainState, body: Creature): void {
   body.col += dir;
   c.moveBeat = world.beat;
   world.events.push({ type: "curtainReroll", col: body.col, dir: dir > 0 ? 1 : -1 });
-}
-
-/**
- * One beat of the curtain, after the carry has had this beat's shove.
- *
- * The fabric's glide is closed off unless it moved this beat; a hand on it
- * holds the roll-back clock, and without one it rolls a column back on its
- * count. The soft set is redrawn on its count. A bare core fires on its
- * count, faster once it is naked; a covered one counts nothing. After the
- * last hit the fight stands `curtainOutBeats` and goes.
- */
-export function stepCurtain(world: World, c: CurtainState): void {
-  const cfg = world.cfg;
-  if (c.outBeat >= 0) {
-    // Nulled here rather than at the hit, so the frame has its beats of the
-    // core going out before the wave is allowed to end (`bossHoldsWave`).
-    if (world.beat - c.outBeat >= cfg.curtainOutBeats) {
-      removeCreatures(world, [c.creatureId]);
-      world.boss = null;
-    }
-    return;
-  }
-  const body = curtainBody(world, c);
-  if (body !== undefined) {
-    if (c.moveBeat !== world.beat) body.fromCol = body.col;
-    if (gripCount(world, body.id) > 0) c.moveBeat = world.beat;
-    else if (world.beat - c.moveBeat >= cfg.curtainRerollBeats) reroll(world, c, body);
-    if (world.beat - c.softBeat >= cfg.curtainSoftBeats) drawSoft(world, c, body);
-  }
-  if (!curtainCoreBare(world, c)) {
-    c.fireBeat = world.beat;
-    return;
-  }
-  const every = c.tornBeat >= 0 ? cfg.curtainNakedFireBeats : cfg.curtainFireBeats;
-  if (world.beat - c.fireBeat >= every) curtainFire(world, c);
 }

@@ -232,6 +232,14 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "throatRing":
     case "throatTube":
       return target;
+    // THE CURTAIN's hem, the pilot's alone and heard only while the rail is
+    // jammed: carried **up** past `curtainLiftMilli`, it holds a gap open over
+    // the core for as long as the thumb stays there (`sim/curtain-hand.ts`).
+    // Sim lane only so far, as the seventeen above — the hem has nothing drawn
+    // to take hold of until this boss's look lane, which is the same walk
+    // `candleWick` made one boss earlier.
+    case "curtainHem":
+      return target;
     default:
       return assertNever(target);
   }

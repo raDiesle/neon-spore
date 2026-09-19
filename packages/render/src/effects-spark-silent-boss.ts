@@ -113,7 +113,7 @@ export const SILENT_BOSS = [
   "gorgeSpit",
   "gorgeMouth",
   "gorgeOut",
-  // THE CURTAIN's ten: one family, read above the loop by `curtain-fx.ts`
+  // THE CURTAIN's thirteen: one family, read above the loop by `curtain-fx.ts`
   // the way THE GORGE's is.
   "curtainUnroll",
   "curtainShadow",
@@ -123,6 +123,9 @@ export const SILENT_BOSS = [
   "curtainLobeOff",
   "curtainCoreHit",
   "curtainFire",
+  "curtainPin",
+  "curtainJam",
+  "curtainLift",
   "curtainTear",
   "curtainOut",
   // THE TASTER's twelve, read above the loop by `taster-fx.ts` the way THE

@@ -114,12 +114,14 @@ export function patchBossB(boss: BossState): void {
     boss.pryBeat = 2;
   }
   if (boss.kind === "curtain") {
-    // One lobe off, one hit in, and both clocks that only a tear or an end
-    // set given a beat — the walk cannot flip a zero it never sees change.
+    // One lobe off, one hit in, and the state moved off the one it is hung
+    // in with a beat and a lifted hem under it — the walk cannot flip a zero
+    // it never sees change, and `hung` is index nought of `CURTAIN_PHASES`.
     boss.lobes[0] = false;
     boss.coreHits = 1;
-    boss.tornBeat = 3;
-    boss.outBeat = 4;
+    boss.phase = "pinned";
+    boss.phaseBeat = 3;
+    boss.liftMilli = 900;
   }
   if (boss.kind === "taster") {
     // One blade out of the crest with its edge already set, so `edge` is a

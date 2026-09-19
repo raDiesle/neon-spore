@@ -11,9 +11,15 @@ import type { Color } from "./types.js";
  * Where the fabric hangs, which lobes stand and which are soft, and where
  * the core is are all read off `CurtainState` and its body every frame
  * (`curtain.ts`). What is *not* in the world a frame later is the moment the
- * fabric moved, a lobe came off, the core took a hit or fired, the sheet
- * tore — so each of these is one such edge, and every one names a column,
- * because a column is the whole of what the pair has to say to each other.
+ * fabric moved, a lobe came off, the core took a hit or fired, the rail
+ * jammed, a shove found it jammed, the hem came up, the sheet tore — so each
+ * of these is one such edge, and every one names a column, because a column
+ * is the whole of what the pair has to say to each other.
+ *
+ * **How far the hem has come is not one of these.** `liftMilli` is in the
+ * world every frame (`curtain.ts`), so a half-lifted hem is drawn from the
+ * state; the edge worth an event is the tick it reaches the top and the gap
+ * opens.
  */
 
 /** A column's worth of THE CURTAIN, for the events that name one. */
@@ -39,6 +45,12 @@ export type CurtainEvent =
   | ({ type: "curtainCoreHit"; left: number } & CurtainColEvent)
   /** The core let a rock go down `col`. */
   | ({ type: "curtainFire" } & CurtainColEvent)
+  /** A hit jammed the rail over the core in `col`: no shove moves the fabric for `beats`. */
+  | ({ type: "curtainPin"; beats: number } & CurtainColEvent)
+  /** A shove against a jammed rail: the fabric did not move, and `col` is its left edge still. */
+  | ({ type: "curtainJam"; dir: -1 | 1 } & CurtainColEvent)
+  /** The hem came all the way up and the gap over the core in `col` is open. */
+  | ({ type: "curtainLift" } & CurtainColEvent)
   /** The hem was bare and the shove tore the sheet off the rail: the core hangs naked in `col`. */
   | ({ type: "curtainTear" } & CurtainColEvent)
   /** The last hit: the core is out in `col`, and the fight is over. */
