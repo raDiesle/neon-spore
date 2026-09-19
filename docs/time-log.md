@@ -11052,3 +11052,26 @@ on the measurement against fifteen on the fix, and either reading would have
 been landed with confidence on the reasoning alone.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-new-boss-state-s-twelve-registrations-are-fourte — two more rows, found by typecheck rather than a test
+
+THE SINEW's catch added a predicate and an event rather than a phase and a
+drag target, and met two registrations the twelve-row table never named,
+both typecheck failures. This lane wrote them down as rows 3 and 4, beside
+the other typecheck row, renumbered the rest to fourteen, and retitled the
+section to say why two of them came from a different boss.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry's two error strings, then `bosses-clocks.ts` and `bind-choreographed.ts` to confirm both sites still read the way the entry described |
+| writing | 20 | two new rows with their real error text, the table renumbered from twelve to fourteen, the section's opening paragraph and frontmatter description updated to match |
+| looking | 0 | none needed: the change is prose and a table, not a picture |
+| friction | 10 | renumbering after inserting the new rows left two rows both numbered 5; fixed by renumbering the existing rows downward first and inserting after |
+| landing | 15 | `format`, `lint`, `tools/index/test/drift.test.ts`, and the full `check` |
+
+**The bottleneck was renumbering in the wrong order**, not finding what to
+write: the entry named both sites and both error strings exactly, so the
+only work was placing them correctly on a table that had to keep every
+number unique while growing by two.
+
+*Measured: the rows above are the session's own estimate.*

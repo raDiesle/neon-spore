@@ -2199,35 +2199,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `new-boss-state`'s twelve registrations are fourteen
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-new-boss-state-s-twelve-registrations-are-fourte
-- **Files:** `.claude/skills/new-boss-state/SKILL.md`
-- **Where:** cloud
-
-THE SINEW's catch added one predicate and one event and met two registrations
-the table does not carry. Both are typecheck failures rather than red tests,
-which is why the lane that wrote the table never saw them — it added a phase
-and a drag target, not a predicate and an event.
-
-`packages/sim/src/bosses-clocks.ts` is a hop: a new predicate exported from a
-boss's own file reaches `index.ts` through `boss-surface*.ts`, which imports
-from `bosses.ts`, which re-exports `bosses-clocks.ts`. Naming it only in the
-surface page gives `error TS2305: Module './bosses.js' has no exported member`,
-which names the wrong file of the three.
-
-`packages/audio/src/bind-choreographed.ts` is a `case` per new event. Without
-one the event falls through the `default:` arm into whichever boss the switch
-ends on, so the error is `Type '{ type: "sinewCatch" } & SinewColEvent' is not
-assignable to 'UndertowEvent'` — a sentence about a boss the lane never
-touched, and the one failure on this list that does not read as what it is.
-
-To do: two rows on the table, numbered between the existing 2 and 3 (both are
-typecheck rows and belong beside `drag-targets*.ts`), each with the error text
-it actually produces in the "Goes red in" column, since that is how a lane
-meets them. `.claude/skills/new-boss/SKILL.md` §6.2 needs no change.
-
 ## Unverified at c59c2b1e: THE SINEW's caught tendon has no picture yet: the swing…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

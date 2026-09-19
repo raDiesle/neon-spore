@@ -1,6 +1,6 @@
 ---
 name: new-boss-state
-description: Add a phase, a gesture or an event to a boss that already ships in Neon Spore — the twelve registrations outside the simulation that a red test will otherwise hand over one at a time, each with the file, what it wants and the test that goes red without it. Use when giving a shipped boss a new phase, state, drag target, hold or sound.
+description: Add a phase, a gesture or an event to a boss that already ships in Neon Spore — the fourteen registrations outside the simulation that a red test or the typecheck will otherwise hand over one at a time, each with the file, what it wants and what goes red without it. Use when giving a shipped boss a new phase, state, drag target, hold or sound.
 ---
 
 # Adding a state to a boss that already ships
@@ -16,11 +16,19 @@ discoverable *from one another*: the pose card cannot go red until the hand
 can drive the world into the new phase, and the hand cannot be written until
 the phase exists. So a lane meets them one `bun run check` at a time, minutes
 a round, and the four runs that lane paid are what the list below buys back.
+THE SINEW's catch, the same day, added a predicate and an event and met two
+more that nothing on this list had named.
 
-None of it is hard. Every red test names its own fix. **Do all twelve before
+None of it is hard. Every row names its own fix. **Do all fourteen before
 the first check**, and the check is one run.
 
-## The twelve
+## The fourteen
+
+Twelve of them are THE CANDLE's. Two more came from THE SINEW's catch, which
+added a predicate and an event rather than a phase and a target — and both are
+**typecheck** failures rather than red tests, which is why the lane that first
+wrote this table never met them. They are rows 3 and 4, beside the other
+typecheck row.
 
 Work top to bottom: a row's test cannot go red until the rows above it are
 done.
@@ -29,16 +37,18 @@ done.
 |---|---|---|---|
 | 1 | `packages/sim/src/boss-phases.ts` | the phase's name on the boss's row, if the boss keeps its phases there rather than by hand | `tools/director/test/boss-states.test.ts` |
 | 2 | `packages/sim/src/drag-targets*.ts` | the new gesture as a member of `DragTarget` or `Hold["kind"]` — a gesture not in one of them is a wish, not a `Command` | typecheck, everywhere the union is switched on |
-| 3 | `packages/net/src/command-fields.ts` | which fields the new target's command carries over the wire | `packages/net/test/command-codec.test.ts` |
-| 4 | `packages/net/test/command-codec.test.ts` — `ACCEPTED` | one `Command` per new target, `on: true` and `on: false`, with the fields the pilot's hand actually sends | its own round-trip case |
-| 5 | `packages/net/test/command-codec.test.ts` — `EVERY_TARGET` | one `true` per new `DragTarget`. A separate list from `ACCEPTED`, and both are hand-kept | its own coverage case |
-| 6 | `packages/render/src/effects-ingest-silent-boss*.ts` | one row per new event that leaves nothing behind for the next frame | the silent-effects cases in `packages/render/test` |
-| 7 | `packages/render/src/effects-spark-silent-boss*.ts` | the same list for the spark side — **it is a second list, not the same one** | `packages/render/test/effects-spark.test.ts` |
-| 8 | `packages/audio/test/bind.test.ts` — `SAMPLES` | one sample event per new event type, keyed by type. The case compares the keys against every event the simulation declares, so a new event with no sample is red whether or not it makes a sound | its own case at the foot of the file |
-| 9 | `tools/director/src/sound-link-none.ts` — `NO_SUBJECT` | one reason per new *bound* sound that has nothing to draw. A sentence, not a placeholder: the rule is that every bound sound gets a picture, and this is the written exception | `tools/director/test/sound-link.test.ts` |
-| 10 | `tools/director/src/poses-bosses-hands-*.ts` | a pose card per new state, on the page for the kind of thing that earns it — a shot, a beat, a handle, a clock | `tools/director/test/poses.test.ts`, `boss-states.test.ts` |
-| 11 | `tools/director/src/boss-hands-*.ts` | the hand that **drives the world into** the new state. Without it `poses.test.ts` throws `the world never reached …` rather than naming a missing card, which is the one failure here that does not read as what it is | `tools/director/test/poses.test.ts` |
-| 12 | `tools/director/test/on-field-controls.test.ts` — `documentedDragTarget` | a `case` per new target, with a sentence saying what the seat takes hold of | its own case |
+| 3 | `packages/sim/src/bosses-clocks.ts` | a re-export of every new **predicate** the boss's own file exports. It is a hop: `index.ts` reaches one through `boss-surface*.ts`, which imports from `bosses.ts`, which re-exports this — so naming it in the surface page alone fails on the file in the middle | typecheck: `error TS2305: Module './bosses.js' has no exported member`, which names the wrong file of the three |
+| 4 | `packages/audio/src/bind-choreographed.ts` | a `case` per new **event**, whether or not it makes a sound. Without one the event falls through `default:` into whichever boss the switch ends on | typecheck: `Type '{ type: "…" } & …Event' is not assignable to '…Event'` — a sentence about a boss you never touched |
+| 5 | `packages/net/src/command-fields.ts` | which fields the new target's command carries over the wire | `packages/net/test/command-codec.test.ts` |
+| 6 | `packages/net/test/command-codec.test.ts` — `ACCEPTED` | one `Command` per new target, `on: true` and `on: false`, with the fields the pilot's hand actually sends | its own round-trip case |
+| 7 | `packages/net/test/command-codec.test.ts` — `EVERY_TARGET` | one `true` per new `DragTarget`. A separate list from `ACCEPTED`, and both are hand-kept | its own coverage case |
+| 8 | `packages/render/src/effects-ingest-silent-boss*.ts` | one row per new event that leaves nothing behind for the next frame | the silent-effects cases in `packages/render/test` |
+| 9 | `packages/render/src/effects-spark-silent-boss*.ts` | the same list for the spark side — **it is a second list, not the same one** | `packages/render/test/effects-spark.test.ts` |
+| 10 | `packages/audio/test/bind.test.ts` — `SAMPLES` | one sample event per new event type, keyed by type. The case compares the keys against every event the simulation declares, so a new event with no sample is red whether or not it makes a sound | its own case at the foot of the file |
+| 11 | `tools/director/src/sound-link-none.ts` — `NO_SUBJECT` | one reason per new *bound* sound that has nothing to draw. A sentence, not a placeholder: the rule is that every bound sound gets a picture, and this is the written exception | `tools/director/test/sound-link.test.ts` |
+| 12 | `tools/director/src/poses-bosses-hands-*.ts` | a pose card per new state, on the page for the kind of thing that earns it — a shot, a beat, a handle, a clock | `tools/director/test/poses.test.ts`, `boss-states.test.ts` |
+| 13 | `tools/director/src/boss-hands-*.ts` | the hand that **drives the world into** the new state. Without it `poses.test.ts` throws `the world never reached …` rather than naming a missing card, which is the one failure here that does not read as what it is | `tools/director/test/poses.test.ts` |
+| 14 | `tools/director/test/on-field-controls.test.ts` — `documentedDragTarget` | a `case` per new target, with a sentence saying what the seat takes hold of | its own case |
 
 And the counts, which are prose rather than a list and go stale silently:
 
