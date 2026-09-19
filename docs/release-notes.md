@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 58a70de2 — The cloud-session ceiling of two is lifted
+
+Both `CLAUDE.md` and `docs/cloud-session.md` said two cloud sessions at once was the ceiling. The owner lifted it, 19 September 2026: "So parallelize. If it's my rule of max 2 cloud sessions, change it. I allow you to parallelize as many are reasonable on cloud or local."
+
+## 2026-09-19 · f9a2ed40 — THE LEDGER names the column, and its guide stops talking to the wrong thumb
+
+THE LEDGER said GUARD on the return coming down the cord and MOVE on the walked socket, which is the half of the fight that happens after a shot. What neither word said is where the shot goes. The seam is one column of eleven, the two either side of it are the body's own plating, and a bolt leaves the cannon's own column — so a pair aiming at the silhouette gets a refusal that looks exactly like a colour mistake (`ledgerRefused`). CARRY MOVE stands on the cannon while it is not under the seam and PRESS FIRE on the seam once it is, on the empty cord, which is the movement a shot is owed in. The reading moved to its own page (`boss-cue-read-o.ts`), THE THROAT's and THE ORRERY's precedent.
+
 ## 2026-09-19 · df800ad1 — THE SINEW says two more words, and withholds every number
 
 THE SINEW's handles said PULL on a free ring and SWAY once the mass was falling, and said both of them only while the ring was free — so the one hand the fall is asking anything of, the one already on, was the hand told nothing. The reading is its own page now (`render/sinew-word.ts`) and it says HOLD while the sum is inside the zone, which is the verb a pair pulling toward a target gets wrong, and LIFT in THE STARE's STILL once the band's whole top less the slack is under the zone's foot — the beat pulling harder stops being possible and only both thumbs coming off resets it, which is the one mechanic in this fight nobody can diagnose from a screen. LIFT takes a free ring's PULL away with it rather than arguing with itself.
