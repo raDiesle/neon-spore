@@ -9861,3 +9861,5 @@ signal.** The entry recommended a flag over the layout number and was right for
 a reason it did not know: the number had already stopped being set the day
 before, so the mode it was standing in for was gone and the collision it was
 sized for could not happen.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

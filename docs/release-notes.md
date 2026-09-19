@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 104891cc — A tutorial never says the wave was lost
+
+A guide's film is a real world stepped by the real `step`, so a page that teaches a breach by letting one happen loses its wave like any other world — and the screen that answers a lost wave came up inside the tutorial plate, RETRY WAVE and QUIT asking about a run the pair are not playing. TORCH, BULB QUEEN, THE LURE and THE COIL each have such a page. The film goes on standing on its last frame instead, which is what it does between pages.
+
 ## 2026-09-19 · 424e7fc4 — A wave row opens the field, and on a phone the field is the screen
 
 The wave list's rows grow a third opener. WAVE, GAME and MAP are the header's own three views in the header's own order, and each of them selects the wave and goes there in one press — GAME was the one destination that still cost the menu, which is why the picture was, in the owner's words, impossible to see. And the phone's GAME view now opens on the field rather than on ten full-width rows of transport: the stage is ordered first and given the whole of `main`, with its padding and its column line gone, and the RUN strip sits one thumb-flick under the fold where the 15 September rule wants it — a phone showing the field without the transport is a field nobody can start.
