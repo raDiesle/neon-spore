@@ -1872,6 +1872,7 @@ what the rest of this file holds.
 ## The index's drift check reads a count but not a list of names
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-the-indexs-drift-check-reads-a-count-but-not-a-l
 - **Files:** `tools/index/drift.ts`, `tools/index/test/index.test.ts`
 - **Where:** cloud
 
