@@ -1808,6 +1808,7 @@ what the rest of this file holds.
 ## The line ceiling now hears Bash, and is still deaf to PowerShell
 
 - **Found:** 2026-09-19, claude/queue-the-file-size-notice-is-deaf-to-a-lane-that-edit
+- **Taken:** 2026-09-19, claude/queue-a-frame-test-that-counts-a-colour-has-no-way-to (claim: claude/queue-the-line-ceiling-now-hears-bash-and-is-still-dea)
 - **Files:** `.claude/settings.json`, `tools/hooks/written-paths.ts`,
   `tools/hooks/shell-words.ts`
 - **Where:** cloud
