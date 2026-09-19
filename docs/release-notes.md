@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · a50ebc91 — A queue claim names a branch the lane is not on
+
 ## 2026-09-19 · bbfe85c5 — A comment inside a wave entry is deleted by the director's next save
 
 ## 2026-09-19 · e4829c67 — A cloud shell's own bun is not the pinned one, silently
