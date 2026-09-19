@@ -2092,6 +2092,7 @@ what the rest of this file holds.
 ## A queue claim names a branch the lane is not on
 
 - **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
+- **Taken:** 2026-09-19, claude/queue-a-queue-claim-names-a-branch-the-lane-is-not-on
 - **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `docs/commands.md`
 
 A claim is written in two places on purpose (`claim.ts`'s header): a branch, which
