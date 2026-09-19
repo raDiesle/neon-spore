@@ -115,6 +115,49 @@ both in files that say nothing about each other. The two probes that turned thos
 from claims into numbers took four minutes; finding out which two claims to probe
 took two hours.
 
+## 2026-09-19 — queue-the-instar — the owner's own brief, half built for two days
+
+The tenth of this family, and the first where the finding was not a missing
+word but a missing *line*. THE INSTAR's scanner box (`instar-word.ts`) has drawn
+one word per mark since 17 September 2026, and the comment describing it in
+`scenes-prose.test.ts` already claimed the box carried "the kind of action"
+too — but `drawInstarWord` took no `kind` argument at all, and the owner's own
+brief for this exact box, from the same day, asked for both lines from the
+start: *"one word … and above it what kind of action is required"*
+(`bosses.md` §11.32). Two days of `docs/decisions.md` #34 readings on other
+bosses built exactly that second line everywhere else in the game
+(`boss-cue-text.ts`) and left the box it generalised from one line short.
+
+**The fix reads as an addition, not a rewrite.** `drawInstarWord` grew an
+optional `kind` parameter that draws a second, smaller line above the word
+inside the same bracketed box, widening it only when a line is given and
+skipping it when `kind` equals `word` — `boss-cue-text.ts`'s own rule, so a
+`turn` mark's `TURN` still reads once. THE STARE's and THE FILAMENT's calls,
+which name a seat rather than an action, pass no `kind` and are unchanged.
+`instar-marks.ts` gained a `CueKind` per gesture (`CARRY` for a pull or a
+swipe, `PRESS` for a tap, `TURN`, `HOLD`) and passes it only for a mark's own
+seat; the dim, owner's-name line is untouched. With both lines finally on the
+mark, the guide's line telling the pair to go find it — the box already says
+where — came off, and both halves dropped from three steps to two.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `instar.ts`, `instar-marks.ts`, `instar-word.ts`, the three callers of `drawInstarWord`, `bosses.md` §11.32 for the owner's original brief, and `scenes-prose.test.ts`'s comment, which turned out to already be describing the fix rather than the bug |
+| writing | 20 | the two-line box, the gesture-to-kind table, a new test file for the box asked directly, the guide's two rewritten halves, `boss-cue.ts` and `boss-cue-text.ts`'s doc updates naming a fourth self-drawn cue |
+| looking | 0 | a cloud session's rule: the PNG is queued unverified |
+| friction | 0 | none — `bunx tsc --noEmit`, the frame tests and the lint pass went green first try |
+| landing | 15 | `check:fast`, `index`, `lint`, the commit and the land |
+
+**The bottleneck was the same one THE LEAD's entry named: a comment already
+described the fixed state, and only running the code proved it wrong.** A
+docstring or a test comment that describes what a file is *for* rather than
+what it *does* is a claim nobody is re-checking; this one had been sitting a
+line ahead of the code for two days, unchallenged because nothing failed. The
+queue's own test — *could a fresh session finish this alone and prove it with
+`bun run check`?* — should probably also ask whether the fresh session can
+tell the difference between a comment and the thing it describes; that is a
+finding for `docs/queue.md`, not a fix for this file.
+
 ## 2026-09-19 — queue-the-antiphon — a third stale entry, and a still nobody was told about
 
 The ninth of this family. Its entry said *it says nothing on the field at all*

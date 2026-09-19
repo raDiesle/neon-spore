@@ -37,7 +37,9 @@ import { showsCannon, showsShield } from "./view-role.js";
  * function from the state the simulation already keeps to at most one cue —
  * and it adds nothing to `packages/sim`, nothing to `hashWorld` and nothing
  * to the wire. A cue that needed a field would be an authored beat list, which
- * is THE INSTAR's job and a different tool (`sim/instar.ts`).
+ * is THE INSTAR's job and a different tool (`sim/instar.ts`) — its marks speak
+ * this file's `CueKind` too, over their own ring rather than through a `case`
+ * here, THE SINEW's, THE SURGE's and THE ANTIPHON's way (`boss-cue-text.ts`).
  *
  * **Three rules it inherits, all from #34.**
  *

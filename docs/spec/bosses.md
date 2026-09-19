@@ -6470,13 +6470,20 @@ briefing*. Both are in the picture.
   flaring ring for a tap, three chevrons for the swipe, a three-quarter
   arc for the turn, two thumbs for the hold (`instar-glyphs.ts`); a
   progress arc round it filling as the part gives; a **dot** once done;
-  and over each a **word in a scanner box** — PULL DOWN, PULL UP, TAP TAP,
-  SWIPE DOWN, TURN, HOLD BOTH — bright and the gesture's on the seat whose
-  it is, dim and *PILOT'S* or *NAVIGATOR'S* on the other
-  (`instar-word.ts`, `instarMarkIsMine` in `view-role-clocks-b.ts`). The
-  split of this boss is the hands, not the eyes: **both screens see the
-  same body**, and the only thing a seat is told is which marks are its
-  own.
+  and over each a **scanner box of two lines**, bright on the seat whose
+  mark it is — the gesture (PULL DOWN, PULL UP, TAP TAP, SWIPE DOWN, TURN,
+  HOLD BOTH) and, above it, the kind of action it is (CARRY, PRESS, TURN,
+  HOLD) — dim and one line, *PILOT'S* or *NAVIGATOR'S*, on the other
+  (`instar-word.ts`, `instarMarkIsMine` in `view-role-clocks-b.ts`). **The
+  kind line is 19 September 2026's finding**: the owner's own brief for
+  this box asked for it from the start (*"one word … and above it what
+  kind of action is required"*) and only the word ever landed, until this
+  box was made to draw the second line `docs/decisions.md` #34 generalised
+  from it — the same `CueKind` vocabulary (`boss-cue.ts`), a turn's `TURN`
+  over `TURN` drawn once, THE SINEW's, THE SURGE's and THE ANTIPHON's own
+  rule (`boss-cue-text.ts`). The split of this boss is the hands, not the
+  eyes: **both screens see the same body**, and the only thing a seat is
+  told is which marks are its own.
 - **The window is shown, not said**: a second ring outside each mark
   **closes on it** over `windowBeats`, brightening as it shrinks, and the
   marks **grow out of their parts** over the last two fifths of the morph,
@@ -6496,9 +6503,12 @@ briefing*. Both are in the picture.
   mark so every move is a bearing off the mark (`turnAbout`, `touch-drag.ts`).
   The director has the row, its pose (*THE JAW HALF PULLED*) and the
   [controls](controls.md) row.
-- **The briefing says less**: the guide names the rule — the body says
-  what to do and where, in red, one step at a time, before the ring closes
-  — and whose mark is bright, and leaves every gesture to the word over it.
+- **The briefing says less, and less again 19 September 2026**: the guide
+  names the rule — the body marks where it wants a hand, whose mark is
+  bright, and that the ring closes — and leaves the gesture and its kind
+  to the two words over the mark, which is what let it drop the line that
+  told the pair to go find the bright mark: the two lines it now reads say
+  where as loud as what.
 
 **The sounds are bound** (`audio/bind-instar.ts`): a cue per event, panned to
 the mark's column, the landing pitched a shade higher each step.

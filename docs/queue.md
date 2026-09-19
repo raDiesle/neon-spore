@@ -225,6 +225,28 @@ waiting on.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
+## A comment can describe the fix rather than the bug, and nothing catches it
+
+- **Found:** 2026-09-19, claude/queue-the-instar-says-the-word
+- **Files:** `packages/content/test/scenes-prose.test.ts`
+
+`scenes-prose.test.ts`'s own comment on THE INSTAR claimed, before this lane,
+that its marks already carried "the kind of action" over the gesture in their
+scanner box — but `drawInstarWord` took no such argument, and only the word
+half of that box had ever been drawn (`docs/queue.md`'s own entry this commit
+closes, `docs/time-log.md`'s `queue-the-instar` entry). Nothing failed: the
+comment sits beside a `STILL_PROSE` array the test only checks for membership,
+so a sentence describing a feature that does not exist yet is never exercised
+by anything. The queue's own test for what belongs here — *could a fresh
+session finish this alone and prove it with `bun run check`?* — is about work,
+not about whether a comment is true, and a doc-drift test such as
+`tools/test/doc-drift.test.ts` only holds a path in backticks to existing, not
+a claim in prose to the code it is beside. Whether a lint or a review habit
+could catch a comment asserting a capability its own file's exported functions
+do not have — greping for the noun phrase against the signatures near it,
+say — is worth ten minutes before the next one is found the same way, by
+accident, while reading for something else.
+
 ## The phone's back gesture leaves the game instead of asking
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -942,25 +964,6 @@ The owner, 18 September 2026: a picture is judged by an eye on a real frame,
 which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
-
-## THE INSTAR: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-instar-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-Its marks already carry a word in a scanner box
-(`packages/render/src/instar-word.ts`), written before the cue was
-generalised — so this lane's work is making the two one thing.
-It has no rehearsal, only the three prose lines.
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
 
 ## THE CAIRN changes state more than once, and asks for more than one gesture
 
