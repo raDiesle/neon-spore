@@ -11,6 +11,10 @@ commit message that read wrong, and the history is where that lives.
 
 ## 2026-09-19 · c87fd78b — Close THE REPRISE's tear ask: already answered, file the rehearsal's own drift
 
+## 2026-09-19 · aba93954 — THE GAUGE learns to say what it just did
+
+The round emitted no SimEvent at all, so packages/audio had nothing to bind and every call — a landed mark, a miss, the valve jamming, the band winding tight — happened in total silence, worse now that a jam is the one thing in the round the pilot cannot see coming. gaugeHeard now pushes gaugeMark or gaugeMiss on every call, and gaugeJam or gaugeBind beside it when the same call sticks the valve or winds the band; all four are bound in the catalogue panned to the middle, since the needle and band are drawn on the plate rather than over a column, and added to both render-side silent lists since nothing new is drawn — the plate already redraws its own state every frame.
+
 ## 2026-09-19 · 5619d0ed — Release notes for one landing
 
 ## 2026-09-19 · 8995ded7 — THE HIVE learns to say CARRY and PRESS, and the briefing comes down
