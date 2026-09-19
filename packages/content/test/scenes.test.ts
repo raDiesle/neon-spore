@@ -1,6 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, failHolds, SceneRun, type SimEvent } from "@neon-spore/sim";
-import { type ControlId, control, controlHeld, controlSetForWave, setHas } from "../src/index.js";
+import {
+  type ControlId,
+  control,
+  controlHeld,
+  controlSetForWave,
+  type SceneAct,
+  setHas,
+} from "../src/index.js";
 import { dragSeat } from "../src/scene-drag.js";
 import { sceneScript } from "../src/scene-script.js";
 import { SCENES, type SceneId, stepAt } from "../src/scenes.js";
@@ -24,6 +31,11 @@ const SCENE_IDS = Object.keys(SCENES) as SceneId[];
 const USED = WAVES.map((w, i) => ({ wave: i, id: w.guide?.scene })).filter(
   (u): u is { wave: number; id: SceneId } => u.id !== undefined,
 );
+
+/** The column an act names, whichever of the two mutually exclusive fields
+ * carries it (`SceneAct.worldCol`) — everywhere below that used to read
+ * `act.col` alone. */
+const namedCol = (act: SceneAct): number | undefined => act.col ?? act.worldCol;
 
 describe("the rehearsals a guide can show", () => {
   it("is named by a wave, so no film is written and left unwired", () => {
@@ -99,9 +111,10 @@ describe("the rehearsals a guide can show", () => {
         // A tap says where and never when it lets go: it is instant and
         // complete on the press, so there is nothing to release.
         if (act.tap) {
-          expect(act.col, `${id}: a tap at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
-            0,
-          );
+          expect(
+            namedCol(act),
+            `${id}: a tap at tick ${act.tick} has no column`,
+          ).toBeGreaterThanOrEqual(0);
           expect(act.until, `${id}: a tap at tick ${act.tick} lets go`).toBeUndefined();
           continue;
         }
@@ -109,9 +122,10 @@ describe("the rehearsals a guide can show", () => {
         // else: a tile is the whole command (`tapTile`), and a row only a
         // tile carries — on any other act it would be a number nothing reads.
         if (act.tile !== undefined) {
-          expect(act.col, `${id}: a tile at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
-            0,
-          );
+          expect(
+            namedCol(act),
+            `${id}: a tile at tick ${act.tick} has no column`,
+          ).toBeGreaterThanOrEqual(0);
           expect(act.row, `${id}: a tile at tick ${act.tick} has no row`).toBeGreaterThanOrEqual(0);
           expect(act.until, `${id}: a tile at tick ${act.tick} lets go`).toBeUndefined();
           continue;
@@ -130,9 +144,10 @@ describe("the rehearsals a guide can show", () => {
           ).toBe(true);
           continue;
         }
-        expect(act.col, `${id}: a hold at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
-          0,
-        );
+        expect(
+          namedCol(act),
+          `${id}: a hold at tick ${act.tick} has no column`,
+        ).toBeGreaterThanOrEqual(0);
         expect(act.until ?? -1, `${id}: a hold at tick ${act.tick} never lets go`).toBeGreaterThan(
           act.tick,
         );
@@ -164,9 +179,35 @@ describe("the rehearsals a guide can show", () => {
       for (const act of SCENES[id].acts) {
         if (!act.control) continue;
         const form = control(act.control).form;
-        expect(act.col === undefined, `${id}: ${act.control} carries the wrong argument`).toBe(
-          form !== "strip",
-        );
+        expect(
+          namedCol(act) === undefined,
+          `${id}: ${act.control} carries the wrong argument`,
+        ).toBe(form !== "strip");
+      }
+    }
+  });
+
+  it("names a world column or an authored one, never both, and never off the field", () => {
+    // `worldCol` exists for the hole `mapCol` cannot fill on its own — an
+    // authored 0..6 has no way to land on world column 1, 4, 6 or 9 on the
+    // eleven-column field (`SceneAct.worldCol`) — and `actCol` reads it
+    // first, so an act naming both would be one whose authored `col` is
+    // silently thrown away.
+    for (const id of SCENE_IDS) {
+      for (const act of SCENES[id].acts) {
+        if (act.worldCol === undefined) continue;
+        expect(
+          act.col,
+          `${id}: an act at tick ${act.tick} names both a world column and an authored one`,
+        ).toBeUndefined();
+        expect(
+          act.worldCol,
+          `${id}: an act at tick ${act.tick} names a world column off the field`,
+        ).toBeGreaterThanOrEqual(0);
+        expect(
+          act.worldCol,
+          `${id}: an act at tick ${act.tick} names a world column off the field`,
+        ).toBeLessThan(DEFAULT_CONFIG.cols);
       }
     }
   });

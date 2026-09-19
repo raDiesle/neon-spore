@@ -116,12 +116,15 @@ function gripCommands(act: SceneAct, cols: number): SceneCommand[] {
 
 /**
  * The real column an act names: the authored one put through the wave's own
- * remapping. One line, and it is a function because three callers wanted it —
- * a press, a grip, and the ghost hand over on the drawing side
- * (`render/guide-thumb.ts`), which had its own copy of the same expression.
+ * remapping, or the world one stated outright. A function because three
+ * callers wanted it — a press, a grip, and the ghost hand over on the drawing
+ * side (`render/guide-thumb.ts`), which had its own copy of the same
+ * expression — and now four have a hole `mapCol` cannot fill on their own:
+ * `worldCol` is read first and `col` not at all when it is set
+ * (`SceneAct.worldCol`).
  */
 export function actCol(act: SceneAct, cols: number): number {
-  return mapCol(act.col ?? 0, cols);
+  return act.worldCol ?? mapCol(act.col ?? 0, cols);
 }
 
 /** The control an act is on, or a loud failure: a grip is handled above, and

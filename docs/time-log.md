@@ -11763,3 +11763,36 @@ which columns they stood in.
 needed touching were already known from the entry itself.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-film-cannot-put-a-hand-on-four-of-the-eleven-c — a sibling field for the column mapCol cannot reach
+
+Building this session's own recorded decision (a sibling field, not a second
+remap): `SceneAct` gained `worldCol`, read by `actCol` before `col` goes
+anywhere near `mapCol` — one line in `scene-script.ts`, since every caller
+(a press, a grip, a drag by column, the ghost thumb) already goes through
+that one function. `scenes.test.ts` gained a `namedCol` helper so the three
+places that required `act.col` now accept either, plus a new test holding
+the two mutually exclusive and `worldCol` on the field. `guide-hand.ts`'s
+tap-thumb guard checked `act.col === undefined` on its own, which would have
+silently stopped drawing the ghost thumb for a tap ever authored with
+`worldCol` instead — fixed as a latent bug the entry's own field flushed out,
+not a change any film asked for yet. Filed the audit of existing films'
+`col` values against `mapCol`'s image as its own entry rather than doing it
+here: the Files list this entry shipped with named the three core files and
+not `scenes/`, and it is real, separate work.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `scene-act-types.ts`, `scene-script.ts`, `queue.ts`, `scene-drag.ts`, `guide-hand.ts`, `guide-thumb.ts` and `scenes.test.ts`, to find every place `col` becomes a real one |
+| writing | 20 | the field, its doc comment, the `actCol` line, the test helper and its three call sites, the new mutual-exclusivity test, the `guide-hand.ts` guard fix, the follow-on queue entry |
+| looking | 0 | none — no picture involved |
+| friction | 5 | the first `bun run lint` caught an import-sort `biome` wanted, `imports:sort` fixed and was read before committing |
+| landing | 15 | `tsc --noEmit`, `scenes.test.ts`, `format`/`lint`, then the full `check` (18,510 tests) |
+
+**The bottleneck was finding every caller of `actCol`** rather than writing
+the field itself — four call sites across three files, one of which
+(`guide-hand.ts`'s tap guard) was reading `act.col` on its own rather than
+going through the function, which is exactly the kind of copy this entry's
+whole shape exists to catch.
+
+*Measured: the rows above are the session's own estimate.*

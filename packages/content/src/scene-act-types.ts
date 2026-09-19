@@ -30,6 +30,22 @@ export interface SceneAct {
   /** Where a strip is dragged to, in authored columns. Absent on a lobe. */
   col?: number;
   /**
+   * **Where a strip is dragged to, in the field's own columns** — the sibling
+   * `col` cannot always be, and the reason is `mapCol`'s: authoring runs 0..6
+   * and the shipped field has eleven, so `mapCol`'s image is 0, 2, 3, 5, 7, 8,
+   * 10 and world columns 1, 4, 6 and 9 have no authored column that lands on
+   * them at all. A wave is written once and stretched over whatever `cols` the
+   * config gives it, so it has to stay on the seven; a **film** is written
+   * against the field the pair is actually looking at and its acts report a
+   * boss's own column in world space, so it needs a way to say *this one*
+   * beside the authored one every wave uses.
+   *
+   * `actCol` reads this first and `col` not at all when it is set — the two
+   * are mutually exclusive, which `test/scenes.test.ts` holds, the way `tile`'s
+   * `row` sits beside its own `col` rather than replacing it.
+   */
+  worldCol?: number;
+  /**
    * **Put the strip where the body is**, instead of in an authored column.
    *
    * `col` goes through `mapCol`, which on the eleven columns the game ships

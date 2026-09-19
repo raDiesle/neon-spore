@@ -113,7 +113,7 @@ export function tapThumb(
 ): { x: number; y: number; r: number } | null {
   if (seat !== 2) return null;
   for (const act of scene.acts) {
-    if (!act.tap || act.col === undefined) continue;
+    if (!act.tap || (act.col === undefined && act.worldCol === undefined)) continue;
     if (tick < act.tick - LEAD_TICKS || tick > act.tick + TRAIL_TICKS) continue;
     // The same body the command lands on: the lowest in the column, which is
     // `sim/scene-aim.ts`' rule, asked here rather than re-derived — a thumb

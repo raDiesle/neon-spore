@@ -2221,34 +2221,6 @@ at 245 and the two lists are kept in step by hand, so whatever crosses on one
 side is worth looking at on the other; `packages/render/test` proves both still
 name every silent event.
 
-## A film cannot put a hand on four of the eleven columns the field has
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, main (claim: claude/queue-a-film-cannot-put-a-hand-on-four-of-the-eleven-c)
-- **Files:** `packages/content/src/queue.ts`, `packages/content/src/scene-act-types.ts`, `packages/content/src/scene-script.ts`
-- **Where:** cloud
-
-A `SceneAct`'s `col` goes through `mapCol`, which rounds an authored column
-0..6 onto 0..`cols - 1`. On the eleven columns the game ships that is
-`round(col * 10 / 6)`, whose image is 0, 2, 3, 5, 7, 8, 10 — **world columns
-1, 4, 6 and 9 cannot be written down**. THE SURGE's rehearsal met it on 19
-September 2026: the bulb spits its third rock down world column 4, no
-authored column names it, and the film's only honest ending was to let that
-rock still be in the air when the pages run out.
-
-Nothing is wrong with `mapCol` where it came from — a wave authored on seven
-columns must spread over eleven, and the walls and the middle have to land on
-the walls and the middle. The gap is that a **film** is not a wave: its acts
-are a hand on a specific column of the field the pair is actually looking at,
-and a boss's own event reports that column in world space. So a film needs a
-way to say *this world column*, beside the authored one every wave uses — a
-sibling field on `SceneAct` read as it stands, the way `tile`'s `row` already
-is, with the two mutually exclusive and `scenes.test.ts` holding them apart.
-
-Then check the films already written for a `col` that rounded somewhere the
-author did not mean: the rounding is silent today, and a cannon act that lands
-one column off is a film that teaches a shot the pair cannot reproduce.
-
 ## Unverified at be40d473: the picture of the rock coming out of the bulb's unders…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -2262,3 +2234,28 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A film's authored column may have rounded somewhere the author did not mean
+
+- **Found:** 2026-09-19, claude/queue-a-film-cannot-put-a-hand-on-four-of-the-eleven-c
+- **Files:** `packages/content/src/scenes/`
+- **Where:** cloud
+
+*A film cannot put a hand on four of the eleven columns the field has* gave
+`SceneAct` a `worldCol` sibling to `col`, for a hand that has to land on a
+specific world column `mapCol` cannot reach (world columns 1, 4, 6 and 9 on
+the eleven the field ships). Adding the field and wiring `actCol` to read it
+was this entry's own sized work; auditing the films already written for it
+was not, and is what this entry is.
+
+Every `col` on every act in `packages/content/src/scenes/*.ts` goes through
+`mapCol` silently today. A cannon act that lands one column off from what its
+own prose or its own guide claims is a film that teaches a shot the pair
+cannot reproduce — the kind of drift THE REPRISE's first stretch turned out
+to be (`docs/queue.md`, landed 19 September 2026, a `Wave` rather than a
+`SceneAct` but the identical arithmetic). Read each scene file's header and
+its acts' authored `col` values against `mapCol(col, 11)`'s image — 0, 2, 3,
+5, 7, 8, 10 — and against what `docs/spec/bosses.md` says the film shows; a
+mismatch is fixed either by moving the authored `col` to the wall or middle it
+was meant to land on, or, when the film genuinely needs a column `mapCol`
+cannot reach, by switching that act to `worldCol`.
