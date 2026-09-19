@@ -3,7 +3,9 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
   type OrreryState,
+  orreryAdrift,
   orreryCoreCol,
+  orreryOrbit,
   startWave,
   step,
   ticksPerBeat,
@@ -44,6 +46,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * thing to do in it and no beat to keep, which is the third condition
  * `boss-cue-read-l.ts` said it did not have: `OPEN`, on the grip, on his seat
  * and ahead of the column.
+ *
+ * **And a second word the rings alone cannot say.** The orbits share factors
+ * and the pilot's thumb writes an anchor, so one stray organ leaves the boss
+ * in a parity with no open beat in it ever (`sim/orrery-beat.ts`). That is a
+ * beat count the pair can go on making forever, so the field says `TURN` —
+ * the only word here that is not about a gesture the picture already implies.
  *
  * The states are set rather than played into, as in `boss-cue-throat.test.ts`:
  * the clock under the rings is proved in `sim/test/orrery*.test.ts`, and a
@@ -149,6 +157,45 @@ describe("THE ORRERY", () => {
     // word stands — #34's second rule.
     expect(mark?.y).not.toBe(LAYOUT.p1.hullY);
     expect(mark?.y).toBeLessThan(LAYOUT.p1.hullY);
+  });
+
+  it("names a parity with no open beat in it, on the pilot's seat alone", () => {
+    const world = opened();
+    const b = installed(world);
+    b.phase = "rings";
+    // One organ of thumb, which is all it takes: six of the outer ring's
+    // eight positions have no alignment behind them at all.
+    b.from[0] = ((b.from[0] ?? 0) + 1) % orreryOrbit(CFG, 0);
+    expect(orreryAdrift(CFG, b, world.beat)).toBe(true);
+    const mark = cue(world, "p1");
+    expect(mark?.word).toBe("TURN");
+    expect(mark?.kind).toBe("TURN");
+    // The ring is his hand every beat of the fight (`sim/orrery-hand.ts`).
+    expect(word(world, "p2")).toBeNull();
+    // On the grip and not on the hull line, for `OPEN`'s reason: where the
+    // thumb goes is where the word stands.
+    expect(mark?.y).toBeLessThan(LAYOUT.p1.hullY);
+  });
+
+  it("puts that parity ahead of the column, because the lane is worth nothing yet", () => {
+    const world = opened();
+    const b = installed(world);
+    b.phase = "rings";
+    b.from[0] = ((b.from[0] ?? 0) + 1) % orreryOrbit(CFG, 0);
+    world.cannonCol = orreryCoreCol(CFG) + 1;
+    // A carriage in the right lane is a carriage waiting for a beat that is
+    // not coming, so the rings come first (`boss-cue-read-l.ts`).
+    expect(word(world, "p1")).toBe("TURN");
+  });
+
+  it("gives the cracked ring its own word rather than this one", () => {
+    const world = opened();
+    const b = installed(world);
+    b.phase = "seized";
+    // A jam shuts the shaft on every beat too, so both readings are true of
+    // it — and the one with an end to its count is the one that is said.
+    expect(orreryAdrift(CFG, b, world.beat)).toBe(true);
+    expect(word(world, "p1")).toBe("OPEN");
   });
 
   it("asks the pilot back onto the core's column, and only him", () => {

@@ -54,6 +54,28 @@ export {
   batonMayStrip,
   batonMergeSocket,
   batonSwelling,
+  // THE SINEW's whole surface (19 September 2026), out of order and on this
+  // page for THE BATON's reason three lines up: `orreryAdrift` arrived and
+  // page one was exactly at its limit, so a block had to cross the seam.
+  // This one crossed because it is the only block on that page with no
+  // comment inside it — every name is read off `sinew.ts`'s own header — so
+  // the move costs page one nothing but the lines.
+  type SinewEntry,
+  type SinewState,
+  sinewBandMilli,
+  sinewBoss,
+  sinewDecaying,
+  sinewGone,
+  sinewHeld,
+  sinewInZone,
+  sinewMassLeft,
+  sinewMassRow,
+  sinewPull,
+  sinewSum,
+  sinewSwinging,
+  sinewWalked,
+  sinewZone,
+  sinewZoneWidth,
   // THE STARE's lid (18 September 2026): three questions the first page had
   // no room for. The lid's own picture reads them the way the eye's reads
   // `stareLooking`, and the director's STATES sheet reads them too.

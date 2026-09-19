@@ -10176,3 +10176,25 @@ at `seized` until their budget ran out. A state added to a boss is a state
 owed a card and a hand.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-orrerys-hand-can-wind-the-rings-into-a-parit — the word for a beat that is not coming
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `orrery-beat.ts`, `boss-cue-read-l.ts` and `config-orrery.ts`, whose header already argued the orbits share factors on purpose and so named the defect before the probe found it |
+| writing | 45 | `orreryCycle` and `orreryAdrift`, the `TURN` reading ahead of the column, nine cases in a new test file, three in the cue's, a spec paragraph |
+| looking | 10 | one throwaway test against a live world, printing `orreryNextOpen` for all eight winds of the outer ring |
+| friction | 20 | two `noUncheckedIndexedAccess` errors on `b.from[0]` in the new tests; a biome sort and format; and one name taking `boss-surface-clocks.ts` a line over its ceiling, which is a test and so was paid on the spot — THE SINEW's block across the seam page two was already cut along |
+| landing | 15 | `index`, `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was the ceiling, and it was not the ceiling's fault: one
+exported name took a barrel page to 251 lines and the first instinct was to
+queue it.** It is a test, so it was work now, and it cost a third of the
+friction. The lesson underneath is the opposite one and worth more: the probe
+came first and it cost ten minutes. The queue entry described the parity as a
+thing that *can* happen; eight lines of throwaway test said six of the outer
+ring's eight positions are one, and the number went straight into the
+reading's comment, the test's name and the spec. A defect whose size is
+measured before it is discussed does not get discussed.
+
+*Measured: the rows above are the session's own estimate.*

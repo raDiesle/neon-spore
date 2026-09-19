@@ -3420,6 +3420,23 @@ do, no beat to keep, and the answer is not in the word. `OPEN` stands on the
 grip, on the pilot's seat alone, ahead of the column
 (`render/boss-cue-read-l.ts`).
 
+**There is a second such moment, and the hand makes it.** The orbits share
+factors on purpose, so an alignment exists only where the three anchors agree
+modulo what they share — and a thumb writes an anchor. One stray organ can
+therefore leave the rings in an arrangement that never lines up again: six of
+the outer ring's eight positions are one, measured. Nothing is broken by it —
+a shot on a shut shaft costs nothing and the rings go on turning — but the
+pair is then counting towards a beat that is not coming, and it is the one
+failure in this fight that patience makes worse. `orreryAdrift` asks
+`orreryNextOpen` over exactly one full cycle, the least common multiple of the
+standing rings' orbits (`orreryCycle`, 24 beats at the top of the fight):
+inside that horizon *not yet* and *never* are the same answer, which is what
+turns a search that ran out into a fact about the fight. The field then says
+`TURN`, on the grip and ahead of the column, and it is honest in both
+directions — turning the ring under the hand always reaches a parity that
+aligns, because that ring runs through every residue of its own orbit while
+the ones behind it hold still.
+
 **It fills its own wave, which is the third departure — and the page asks for
 this one to be said out loud with its reason.** THE DIASTOLE's lane wrote down
 that a boss on that page is fed by its wave and not by itself. This is the

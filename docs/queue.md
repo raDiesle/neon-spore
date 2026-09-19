@@ -2174,33 +2174,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE ORRERY's hand can wind the rings into a parity with no alignment in it
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-the-orrerys-hand-can-wind-the-rings-into-a-parit
-- **Files:** `packages/sim/src/orrery-hand.ts`, `packages/sim/src/orrery.ts`, `packages/sim/test/orrery-hand.test.ts`
-- **Where:** cloud
-
-The three orbits are 8, 6 and 4, which share factors on purpose
-(`docs/spec/bosses.md` §11.21). An alignment exists only when the three
-anchors agree modulo those common factors, and **the pilot's thumb writes an
-anchor** — so a wind of one stray organ can put the next open beat out of
-reach for up to three more organs, and `orreryNextOpen` returns `-1` in the
-meantime. Nothing names this: the navigator's readout goes blank with no
-reason given, and the only way out is to keep turning.
-
-Nothing here is broken — a shot on a shut shaft costs nothing and the ring
-keeps drifting — but a pair whose readout has gone blank cannot tell a
-temporary parity from a bug, and `orreryNextOpen` is the one number that seat
-ever wants. Decide what the readout says when there is no open beat ahead
-(*turn* is the honest answer, and it is also the answer to what the pilot
-should do), and test the parity directly: write an anchor set with no
-alignment and assert the readout says so rather than showing nothing.
-
-`orreryRingHeard` already guards the one case that would have been a real
-defect — `if (b.brokeBeat === world.beat) return;`, a ring wound off and the
-next one wound on in the same beat.
-
 ## Unverified at ce22d819: THE ORRERY's rehearsal film watched at tempo — the thre…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

@@ -1,4 +1,10 @@
-import { type OrreryState, orreryCoreCol, priming, type World } from "@neon-spore/sim";
+import {
+  type OrreryState,
+  orreryAdrift,
+  orreryCoreCol,
+  priming,
+  type World,
+} from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { type Layout, tileCX } from "./layout.js";
 import { orreryRingCircle } from "./orrery-grab.js";
@@ -64,6 +70,16 @@ import { orreryCorePoint } from "./orrery-shape.js";
  *   shaft is shut until it is wound home, and there is then one thing to do
  *   and no beat to keep. So the word stands only there, and it names the
  *   gesture and nothing about where the gap is.
+ *   **And a fourth, which is the hand's own doing.** The orbits share factors
+ *   (`config-orrery.ts`) and a thumb writes an anchor, so one stray organ can
+ *   leave the rings in a parity that never lines up again — six of the outer
+ *   ring's eight positions do. `orreryAdrift` is that question asked over a
+ *   full cycle, which is the horizon past which *not yet* and *never* are the
+ *   same word. There `TURN` is not the alignment said out loud, because there
+ *   is no alignment: it is the field saying the beat the pair is counting
+ *   towards is not coming, and the only failure in this fight that patience
+ *   makes worse. So the silence is still the rule and both breaks in it are
+ *   states the pair cannot read off the rings themselves.
  * - **While the lance is filling.** `BURN` goes quiet the moment a colour is
  *   held, for `gripBrakes`' reason: a word over something already being
  *   answered teaches the pair to stop reading the words. What is left on her
@@ -88,7 +104,7 @@ function markAt(
 }
 
 /**
- * THE ORRERY. Three moments, and each is one word on one seat.
+ * THE ORRERY. Four moments, and each is one word on one seat.
  *
  * **Nothing at all once it is out.** The lance has stood in the core, THE SLOW
  * is open for the whole of it and the boss is already beaten
@@ -124,6 +140,19 @@ export function orreryCues(l: Layout, world: World, b: OrreryState): readonly Bo
   if (b.phase === "seized") {
     const on = orreryRingCircle(l, cfg, b);
     return on === null ? [] : [markAt(1, "TURN", "OPEN", on.x, on.y, l, 57)];
+  }
+  // **And a parity with no alignment in it, ahead of the column for the same
+  // reason.** The shaft cannot open on any beat from here, so a carriage in
+  // the right lane is a carriage waiting for nothing — the thumb has to move
+  // the rings before the column is worth a word.
+  //
+  // `TURN` under the turn glyph rather than `OPEN`, and the pair of them is
+  // the distinction the fight turns on: `OPEN` is a gap two detents from the
+  // bottom and a count that ends, `TURN` is a count that does not. One word
+  // each, and neither says a slot, a colour or a beat.
+  if (orreryAdrift(cfg, b, world.beat)) {
+    const on = orreryRingCircle(l, cfg, b);
+    return on === null ? [] : [markAt(1, "TURN", "TURN", on.x, on.y, l, 60)];
   }
   if (world.cannonCol !== orreryCoreCol(cfg)) {
     return [markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 59)];

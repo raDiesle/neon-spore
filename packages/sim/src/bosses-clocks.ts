@@ -126,6 +126,7 @@ export {
 // The same rings asked about a beat that has not happened yet, which is the
 // whole of what the navigator's readout is made of (`orrery-beat.ts`).
 export {
+  orreryAdrift,
   orreryGapSlot,
   orreryNextOpen,
   orreryRingOpen,
