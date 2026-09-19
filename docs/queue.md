@@ -831,6 +831,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE ANTIPHON changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/task-queue-work-ym2eim (claim: claude/queue-the-antiphon-changes-state-more-than-once-and-as)
 - **Files:** `packages/sim/src/antiphon-hand.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
@@ -1981,7 +1982,7 @@ the object and the object names the page. The same paragraph is worth a line
 in `.claude/skills/new-boss-state`, whose counts section says *one row per new
 `SimConfig` field* without saying which of the four files it goes in.
 
-## Unverified at 3248b068: the picture of a carried part and its ring, watched at…
+## Unverified at 5780141b: the picture of a carried part and its ring, watched at…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`, `packages/audio/src/bind-choreographed.ts`

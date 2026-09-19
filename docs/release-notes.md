@@ -18,7 +18,8 @@ THE MAZE, THE GAUGE and THE MIRROR each earn their played states with a hand of 
 ## 2026-09-19 · 8fd508be — Split THE RIND into act-4b.ts, ten lines ahead of the ceiling
 
 ## 2026-09-19 · 6db42a92 — Give --unverified a second door after a landing forgets it
-## 2026-09-19 · 3248b068 — THE SCUTTLE: the pilot carries a hanging part a column along the frame
+
+## 2026-09-19 · 5780141b — THE SCUTTLE: the pilot carries a hanging part a column along the frame
 
 The frame hangs a part under its socket and throws it down that socket's column, and the only answer the pair had was her bolt in the column his cannon already stood in. So the boss changed state once and asked for one gesture, and the queue asked for the rest: the pilot may now take a hanging part under his thumb and carry it one column along the slab, once a cycle, and the throw — and the strike — comes down the column he put it in rather than the socket's. It is refused on the wind-up, where the last part is burned where it stands, and it costs nothing when the frame has no column that way, so the carry is still there to spend the other way.
 
