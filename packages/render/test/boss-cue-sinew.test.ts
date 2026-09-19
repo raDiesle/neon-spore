@@ -25,7 +25,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE SINEW's word, and the three silences**
+ * **THE SINEW's word, and the silences**
  * (`render/src/sinew-word.ts`).
  *
  * It said `PULL` on a free ring and `SWAY` once the mass was falling, and it
@@ -172,14 +172,27 @@ describe("THE SINEW's word", () => {
     expect(say(world, 1)).toBeNull();
   });
 
-  it("says nothing while the handles are swinging, or once the mass is down", () => {
+  it("asks both seats to carry apart while the handles are swinging", () => {
     const world = hung();
     const s = inZone(world);
-    expect(say(world, 1, { swinging: true })).toBeNull();
-    expect(say(world, 2, { swinging: true })).toBeNull();
+    // It goes to a held ring and a free one alike: one hand out is not a
+    // catch, and the seat thrown off has nothing else to read
+    // (`sim/sinew-hand.ts`).
+    for (const player of [1, 2] as const) {
+      expect(say(world, player, { swinging: true })).toEqual({ kind: "CARRY", word: "APART" });
+    }
+    s.pullP1Milli = -1;
+    s.pullP2Milli = -1;
+    expect(say(world, 1, { swinging: true })).toEqual({ kind: "CARRY", word: "APART" });
+  });
+
+  it("says nothing once the mass is down", () => {
+    const world = hung();
+    const s = inZone(world);
     s.outBeat = world.beat;
     expect(say(world, 1)).toBeNull();
     expect(say(world, 2, { falling: true })).toBeNull();
+    expect(say(world, 1, { swinging: true })).toBeNull();
   });
 
   it("draws the word it chose, on the seat whose thumb it is", () => {

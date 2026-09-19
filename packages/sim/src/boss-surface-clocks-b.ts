@@ -64,6 +64,8 @@ export {
   type SinewState,
   sinewBandMilli,
   sinewBoss,
+  sinewCatching,
+  sinewCaught,
   sinewDecaying,
   sinewGone,
   sinewHeld,

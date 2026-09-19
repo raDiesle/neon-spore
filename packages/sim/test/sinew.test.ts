@@ -252,8 +252,10 @@ describe("the snap-back", () => {
     expect(seen.has("sinewSnap")).toBe(true);
     expect(seen.has("sinewRelease")).toBe(true);
     expect(seen.has("sinewRock")).toBe(true);
-    expect(sinewHeld(s, 1)).toBe(false);
-    expect(sinewHeld(s, 2)).toBe(false);
+    // Thrown off: a finger still on the glass is a grip again on the next tick,
+    // but the pull it carries is nought for as long as the whip lasts.
+    expect(s.pullP1Milli).toBe(0);
+    expect(s.pullP2Milli).toBe(0);
     expect(s.fibres).toBe(CFG.sinewFibres);
     const fallen = rocks(world);
     expect(fallen.length).toBe(CFG.sinewSnapRocks);
@@ -263,13 +265,70 @@ describe("the snap-back", () => {
       expect(r.col).toBeLessThan(left + CFG.sinewMassCols);
       expect(r.fromRow).toBe(CFG.sinewMassRow);
     }
-    // Swinging: a hand on the glass takes nothing.
+    // Swinging: a hand takes hold again, but it is hauling on nothing.
     runTo(world, world.tick + 2, [pull(world.tick, 1, 300), pull(world.tick + 1, 2, 300)]);
-    expect(sinewHeld(s, 1)).toBe(false);
+    expect(sinewHeld(s, 1)).toBe(true);
+    expect(s.pullP1Milli).toBe(0);
     // And after the swing, it is a hand again.
     const at = world.tick + TPB * CFG.sinewSnapBeats;
     runTo(world, at + 1, [pull(at, 1, 300)]);
     expect(s.pullP1Milli).toBe(300);
+  });
+});
+
+describe("the catch", () => {
+  /** Snap the tendon, and stop on the first tick of the swing. */
+  function snapped(world: World): SinewState {
+    const s = sinew(world);
+    const reach = CFG.sinewReachMilli;
+    runTo(world, TPB + 2, hold(1, TPB + 2, reach, reach));
+    return s;
+  }
+
+  /** Both hands carried outward, `apart` each, for a beat. */
+  const carry = (world: World, apart: number): Set<string> =>
+    runTo(world, world.tick + TPB, hold(world.tick, world.tick + TPB, 0, 0, -apart, apart));
+
+  it("ends the swing early when both hands are carried apart", () => {
+    const world = install();
+    const s = snapped(world);
+    const seen = carry(world, CFG.sinewCatchMilli);
+    expect(seen.has("sinewCatch")).toBe(true);
+    expect(s.catchBeat).toBeGreaterThanOrEqual(0);
+    expect(s.snapBeat).toBe(-1);
+    // The swing is over on the beat it was caught on, so a pull takes again.
+    const at = world.tick;
+    runTo(world, at + 2, [pull(at, 1, 300)]);
+    expect(s.pullP1Milli).toBe(300);
+  });
+
+  it("wants both hands, outward, and far enough", () => {
+    for (const [s1, s2] of [
+      [-CFG.sinewCatchMilli, 0],
+      [CFG.sinewCatchMilli, -CFG.sinewCatchMilli],
+      [-(CFG.sinewCatchMilli - 1), CFG.sinewCatchMilli - 1],
+    ] as const) {
+      const world = install();
+      const s = snapped(world);
+      const at = world.tick;
+      const seen = runTo(world, at + TPB, hold(at, at + TPB, 0, 0, s1, s2));
+      expect(seen.has("sinewCatch")).toBe(false);
+      expect(s.catchBeat).toBe(-1);
+      expect(s.snapBeat).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  it("is spent by the next snap, so the two clocks are never both reading", () => {
+    const world = install();
+    const s = snapped(world);
+    carry(world, CFG.sinewCatchMilli);
+    expect(s.catchBeat).toBeGreaterThanOrEqual(0);
+    const reach = CFG.sinewReachMilli;
+    const at = world.tick;
+    const seen = runTo(world, at + TPB + 2, hold(at, at + TPB + 2, reach, reach));
+    expect(seen.has("sinewSnap")).toBe(true);
+    expect(s.catchBeat).toBe(-1);
+    expect(s.snapBeat).toBeGreaterThanOrEqual(0);
   });
 });
 

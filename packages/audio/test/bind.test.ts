@@ -252,6 +252,7 @@ const SAMPLES: Record<string, SimEvent> = {
   sinewPart: { type: "sinewPart", col: 5, fibres: 5, row: 6 },
   sinewSnap: { type: "sinewSnap", col: 5, rocks: 1 },
   sinewRock: { type: "sinewRock", col: 5, row: 6 },
+  sinewCatch: { type: "sinewCatch", col: 5 },
   sinewSlack: { type: "sinewSlack", col: 5, slackMilli: 60 },
   sinewFall: { type: "sinewFall", col: 5, row: 11 },
   sinewSwing: { type: "sinewSwing", col: 4, dir: -1 },

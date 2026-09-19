@@ -45,9 +45,10 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // (`curtainSoftAt`, `curtainCoreBare`, `CurtainState.phase`).
   curtain: ["covered", "soft", "bare", "pinned", "torn", "out"],
   // Hanging on its rope, a fibre held in the band, swinging off a snap,
-  // falling, out (`sinewHeld`, `sinewInZone`, `sinewSwinging`,
+  // caught out of that swing by both hands carried apart, falling, out
+  // (`sinewHeld`, `sinewInZone`, `sinewSwinging`, `sinewCaught`,
   // `SinewState.fallBeat`, `outBeat`).
-  sinew: ["hanging", "held", "swinging", "falling", "out"],
+  sinew: ["hanging", "held", "swinging", "caught", "falling", "out"],
   // Shut, the pressure in the band, sealing again after a burst, everting,
   // out (`surgeInBand`, `surgeSealing`, `surgeEverting`).
   surge: ["shut", "band", "sealing", "everting", "out"],

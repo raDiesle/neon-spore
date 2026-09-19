@@ -36,6 +36,8 @@ export type SinewEvent =
   | ({ type: "sinewSnap"; rocks: number } & SinewColEvent)
   /** One rock shaken out of the mass, from `row` down `col`. */
   | ({ type: "sinewRock"; row: number } & SinewColEvent)
+  /** Both hands carried outward caught the swinging tendon: the snap-back is over early. */
+  | ({ type: "sinewCatch" } & SinewColEvent)
   /** The tendon went slack another step under a hand; `slackMilli` is the whole of it. */
   | ({ type: "sinewSlack"; slackMilli: number } & SinewColEvent)
   /** The last fibre parted: the mass is falling from `row`. */

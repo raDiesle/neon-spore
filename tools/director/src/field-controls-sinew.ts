@@ -26,7 +26,11 @@ export const SINEW_CONTROLS: readonly FieldControlDef[] = [
       "Held inside the zone for sinewHoldBeats the pips round the collar fill " +
       "and a fibre parts; pulled past the zone's top the tendon snaps back, " +
       "both hands are thrown off for sinewSnapBeats and the mass sheds a rock " +
-      "(sim/sinew-hand.ts, sim/sinew-step.ts). Once the last fibre has parted " +
+      "(sim/sinew-hand.ts, sim/sinew-step.ts). A hand may land on a handle " +
+      "while it is still whipping, but its pull is nought for those beats: " +
+      "what it is read for there is **sideways**, and both hands carried " +
+      "**apart** past sinewCatchMilli — his left, hers right — catch the " +
+      "tendon and end the swing on that beat. Once the last fibre has parted " +
       "and the mass is falling, the same handle is carried **sideways** " +
       "instead, past sinewSwayMilli: both hands the same way walk the mass a " +
       "column a beat, and it has to be sinewClearCols from the middle to " +
@@ -54,7 +58,9 @@ export const SINEW_CONTROLS: readonly FieldControlDef[] = [
       "sinewDecayFibres parted the tendon goes slack under any hand — the sum " +
       "creeps down while either is holding — and only both letting go " +
       "resets it, so the pair re-grips between fibres and says the number " +
-      "again (sim/sinew-step.ts).",
+      "again (sim/sinew-step.ts). Sideways means two different things on this " +
+      "handle and never in the same beat: **apart** catches a swing, and " +
+      "**the same way** walks the falling mass.",
     source: "touch.ts — sinewHandleUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "sinewRight",

@@ -10958,3 +10958,32 @@ seven times later. That is the whole value of the item and none of its
 description.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — task-queue-work-ym2eim — THE SINEW's second gesture
+
+The boss had a dead state: for the two beats after a snap-back the simulation
+refused every press and the field said nothing, and the shipped pose card for
+it read *"both take hold again"* — a pose for waiting. A hand may now land on a
+whipping handle with its pull pinned to nought, and both hands carried **apart**
+past `sinewCatchMilli` catch the tendon and end the swing on that beat. The
+word is `APART`, the sixth state is `caught`, and sideways now means two things
+in this fight that are never on the field together: apart catches a swing, the
+same way walks the falling mass.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the 14-step spec, `sinew-step.ts`'s branches, `sinew-word.ts`'s argument for its silences, and `sinewHandleUnder` — to find that the gesture was already reachable on the picture and only the sim refused it |
+| writing | 55 | the catch across six sim files, the word, the sound, the hand and the pose card, and the six edits to `bosses.md` |
+| looking | 0 | none available: the PNG of a caught tendon is the unverified half and lands as its own lane |
+| friction | 30 | a string insertion without its `+` operators broke the typecheck in six places and the first repair script used 0-based indices against 1-based line numbers; two registrations not on `new-boss-state`'s table were found one typecheck at a time; `bosses-clocks.ts` went two lines over its ceiling and handed THE UNDERTOW to page two |
+| landing | 20 | `format`, three `check:fast` runs and `land`'s own full check |
+
+**The bottleneck was that the two undocumented registrations are typecheck
+errors naming the wrong file.** The twelve-row table buys back exactly the
+rounds it lists, and this lane paid two more on rows it does not have: a
+re-export hop that reports a missing member on `bosses.js` when the name is
+missing from `bosses-clocks.ts`, and a missing `case` that reports an
+assignment to `UndertowEvent`. Neither is hard once seen and neither is
+findable by reading. Both are queued.
+
+*Measured: the rows above are the session's own estimate.*

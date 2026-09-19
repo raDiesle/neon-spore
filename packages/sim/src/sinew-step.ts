@@ -16,7 +16,7 @@ import {
   sinewZone,
   sinewZoneWidth,
 } from "./sinew.js";
-import { releaseSinew } from "./sinew-hand.js";
+import { catchSinew, releaseSinew } from "./sinew-hand.js";
 import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -45,6 +45,7 @@ export function installSinew(world: World): SinewState {
     zoneLowMilli: 0,
     holdBeat: -1,
     snapBeat: -1,
+    catchBeat: -1,
     fallBeat: -1,
     outBeat: -1,
   };
@@ -108,6 +109,9 @@ function shedRock(world: World, s: SinewState): void {
 function snap(world: World, s: SinewState): void {
   const cfg = world.cfg;
   s.snapBeat = world.beat;
+  // The catch that bought the last swing's beats back is spent: two clocks
+  // that could both read would be a tendon steady and whipping at once.
+  s.catchBeat = -1;
   s.holdBeat = -1;
   releaseSinew(world, s, 1);
   releaseSinew(world, s, 2);
@@ -177,9 +181,15 @@ function fall(world: World, s: SinewState): void {
  * One beat of the tendon.
  *
  * After the mass lands it stands `sinewOutBeats` and goes. While it falls,
- * the fall. Otherwise: the slack creeps if it is time; then the sum is read
- * against the zone — over the top is a snap, inside is the hold counting or
- * the fibre parting, under is the hold starting over.
+ * the fall. While the handles swing, the one thing that can happen is the
+ * catch — both hands carried outward end the swing here. Otherwise: the slack
+ * creeps if it is time; then the sum is read against the zone — over the top
+ * is a snap, inside is the hold counting or the fibre parting, under is the
+ * hold starting over.
+ *
+ * The catch returns either way: caught, the beat is spent on the catching and
+ * the tendon is read again from the next one; uncaught, the swing has beats
+ * left to run and the sum is a pair of hands pinned to nought.
  */
 export function stepSinew(world: World, s: SinewState): void {
   const cfg = world.cfg;
@@ -193,7 +203,10 @@ export function stepSinew(world: World, s: SinewState): void {
     fall(world, s);
     return;
   }
-  if (sinewSwinging(s, world)) return;
+  if (sinewSwinging(s, world)) {
+    catchSinew(world, s);
+    return;
+  }
   if (sinewDecaying(s, cfg) && (sinewHeld(s, 1) || sinewHeld(s, 2))) {
     s.slackMilli = Math.min(sinewBandMilli(cfg), s.slackMilli + cfg.sinewDecayMilli);
     world.events.push({ type: "sinewSlack", col: s.massCol, slackMilli: s.slackMilli });

@@ -1,4 +1,4 @@
-import { type SinewState, sinewBoss, sinewHeld, sinewSwinging } from "./sinew.js";
+import { type SinewState, sinewBoss, sinewCatching, sinewHeld, sinewSwinging } from "./sinew.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -47,9 +47,12 @@ export function releaseSinew(world: World, s: SinewState, player: 1 | 2): void {
  * gesture a message was would be a device the other one cannot check.
  * `fromYMilli` is how far *down* the hand has come from where it grabbed
  * and `fromMilli` how far sideways, both cut to `sinewReachMilli`; a pull
- * upward is no pull. While the handles are swinging from a snap-back nothing
- * takes hold, and a finger that never left the glass is a hand again the
- * beat they stop.
+ * upward is no pull.
+ *
+ * **A swinging handle is taken hold of sideways only.** A hand may land on one
+ * while the snap-back is still whipping it, but its pull is pinned to nought
+ * for as long as that lasts: nobody hauls on a rope that is not there yet.
+ * What the sway is for in those beats is `catchSinew` below.
  */
 export function sinewHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
@@ -61,9 +64,10 @@ export function sinewHeard(world: World, player: 1 | 2, command: Command): void 
     releaseSinew(world, s, player);
     return;
   }
-  if (s.outBeat >= 0 || sinewSwinging(s, world)) return;
+  if (s.outBeat >= 0) return;
   const reach = world.cfg.sinewReachMilli;
-  const pull = Math.max(0, Math.min(reach, Math.round(command.fromYMilli ?? 0)));
+  const whipped = sinewSwinging(s, world);
+  const pull = whipped ? 0 : Math.max(0, Math.min(reach, Math.round(command.fromYMilli ?? 0)));
   const sway = Math.max(-reach, Math.min(reach, Math.round(command.fromMilli)));
   if (!sinewHeld(s, player))
     world.events.push({ type: "sinewGrip", player, col: handCol(world, s, player) });
@@ -74,4 +78,27 @@ export function sinewHeard(world: World, player: 1 | 2, command: Command): void 
     s.pullP2Milli = pull;
     s.swayP2Milli = sway;
   }
+}
+
+/**
+ * **The catch**, on the beat, while the handles are swinging
+ * (`sinew-step.ts`).
+ *
+ * Both hands on and carried outward past `sinewCatchMilli` and the snap-back
+ * is over on this beat rather than on its last: the swing's clock is thrown
+ * away, the slack goes with it, and the pair pulls again from here. Uncaught,
+ * the swing runs exactly the beats it always did, so the gesture only ever
+ * buys time and never costs any — which is what lets it be asked for in the
+ * one state where neither player has anything else to do.
+ *
+ * The slack is the second half of the reward and the honest one: it is what
+ * both hands letting go would have cleared, and a pair that caught the tendon
+ * never let go.
+ */
+export function catchSinew(world: World, s: SinewState): void {
+  if (!sinewCatching(s, world.cfg)) return;
+  s.snapBeat = -1;
+  s.catchBeat = world.beat;
+  s.slackMilli = 0;
+  world.events.push({ type: "sinewCatch", col: s.massCol });
 }

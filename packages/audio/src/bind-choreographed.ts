@@ -150,6 +150,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "sinewPart":
     case "sinewSnap":
     case "sinewRock":
+    case "sinewCatch":
     case "sinewSlack":
     case "sinewFall":
     case "sinewSwing":

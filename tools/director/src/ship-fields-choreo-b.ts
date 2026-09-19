@@ -30,7 +30,8 @@ export const CHOREO_FIELD_GROUP_B = {
   ledgerOutBeats: "THE LEDGER — the boss that bills your own hull for every shot",
   // SinewConfig — how many fibres, how far a handle pulls, how wide the band
   // is and how much it narrows per fibre, where it can sit, how long a hold
-  // takes, how long a snap throws the hands off and how many rocks it sheds,
+  // takes, how long a snap throws the hands off, how far apart both hands
+  // catch the swing it leaves, and how many rocks it sheds,
   // where the mass hangs and how wide it is, when the slack starts and how
   // fast it creeps, THE SLOW on a part, the fall, the sway, the columns that
   // count as clear and how long it holds the wave after (`config-sinew.ts`).
@@ -41,6 +42,7 @@ export const CHOREO_FIELD_GROUP_B = {
   sinewZoneLowMilli: "THE SINEW — the boss that asks how hard, not when",
   sinewHoldBeats: "THE SINEW — the boss that asks how hard, not when",
   sinewSnapBeats: "THE SINEW — the boss that asks how hard, not when",
+  sinewCatchMilli: "THE SINEW — the boss that asks how hard, not when",
   sinewSnapRocks: "THE SINEW — the boss that asks how hard, not when",
   sinewSnapRocksLast: "THE SINEW — the boss that asks how hard, not when",
   sinewMassRow: "THE SINEW — the boss that asks how hard, not when",

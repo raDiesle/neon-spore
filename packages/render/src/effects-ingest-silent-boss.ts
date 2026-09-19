@@ -185,6 +185,7 @@ export const INGEST_SILENT_BOSS = [
   "sinewPart",
   "sinewSnap",
   "sinewRock",
+  "sinewCatch",
   "sinewSlack",
   "sinewFall",
   "sinewSwing",

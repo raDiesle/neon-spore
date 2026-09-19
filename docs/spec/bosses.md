@@ -4857,8 +4857,8 @@ build — and it is the one boss on that page the cannon cannot hurt at all.
 state (`sim/sinew.ts`, hashed in `sim/sinew-hash.ts`) is the column the mass
 hangs over, the `fibres` left, each seat's pull and sway in thousandths of a
 tile (a pull of −1 is a hand off), the slack the rope has crept, where this
-fibre's zone sits, and four beat stamps — the hold began, the last snap, the
-fall began, out. There are `sinewFibres` (6) to part. The mass hangs at `sinewMassRow` (5) plus one row per fibre
+fibre's zone sits, and five beat stamps — the hold began, the last snap, the
+last catch, the fall began, out. There are `sinewFibres` (6) to part. The mass hangs at `sinewMassRow` (5) plus one row per fibre
 gone, `sinewMassCols` (3) wide, and hurts nothing until it falls. It does not
 fill its wave (`bossFillsWave`): `act-7d.ts`'s "THE SINEW" carries its own
 arrivals, because step 7 — *let go, shoot, take hold again* — is a decision
@@ -4875,7 +4875,12 @@ step, rolled fresh from the rng for every fibre from `sinewZoneLowMilli` (600)
 up to the band's top (twice a handle's reach). A sum over the zone's top is a
 **snap** (`sinewSnap`): both hands are thrown off, no handle can be taken for
 `sinewSnapBeats` (2), and `sinewSnapRocks` (1) meteor comes out of the mass
-into a column of its span — `sinewSnapRocksLast` (3) on the last fibre. A sum
+into a column of its span — `sinewSnapRocksLast` (3) on the last fibre. A hand
+may land on a whipping handle in those beats but its pull is pinned to nought;
+both hands carried **apart** past `sinewCatchMilli` (400) — the pilot's left,
+the navigator's right — **catch** the tendon (`sinewCatch`), which ends the
+swing on that beat and clears the slack with it, so the gesture only ever buys
+beats back and never costs any. A sum
 out of the zone the other way, or a hand lifted, restarts the count
 (`sinewLoose`). Each part sinks the mass a row and opens THE SLOW for
 `sinewPartSlowBeats` (2). From `sinewDecayFibres` (4) gone the rope **creeps
@@ -4897,7 +4902,7 @@ know where to go — the design's own sentence, and the first time the split
 has been put on a scalar. The sentence between them is *harder — a little —
 stop — hold* and then a count.
 
-**Where this departs from the design, and why.** Nine places, each argued by
+**Where this departs from the design, and why.** Ten places, each argued by
 name. *THE SLOW opens on the part, not on entering the zone*: the design's
 "the moment the sum enters the zone is a SLOW" would fire every time a wobble
 re-entered it — a slow the pair trips over rather than earns — and the part
@@ -4930,9 +4935,14 @@ it falls. *Nothing is timed on a call*: steps 3 and 6 give 900 ms for the
 zone to be said, and the game never evaluates speech (`CLAUDE.md` rule 5) —
 the zone stands until the fibre parts, and what a late call costs is the
 beats it takes. *The mass does not swing on a snap*: the swing after a snap
-is the look's; what the simulation keeps of it is the `sinewSnapBeats` no
-hand can be taken, and a finger that never left the glass is a hand again
-when they are over.
+is the look's; what the simulation keeps of it is the `sinewSnapBeats` in which
+a hand can take hold but cannot pull, and a finger that never left the glass is
+pulling again when they are over. *The catch is not in the design at all*: step
+13's snap-back left both seats with nothing to do for two beats and the field
+with nothing it could honestly say, which is a dead state on the one boss whose
+whole subject is what the pair does with a number — so the beats now have an
+answer that costs nothing when it is missed (19 September 2026,
+`sim/sinew-hand.ts`).
 
 **The look** (`render/sinew-draw.ts`, `sinew-shape.ts`, `sinew-fibres.ts`,
 `sinew-band.ts`, `sinew-handles.ts`, `sinew-fx.ts`). A root a fifth of a
@@ -4959,25 +4969,30 @@ right, yours bright and theirs dim; each rests a tile and a half outside the
 mass's edge and is carried down by its own pull and sideways by its own
 sway, and the ring is the game's own handle ring (`handle-draw.ts`) with the
 word the fight is asking of *this* seat's hand under it
-(`sinew-word.ts`): *PULL* on a free ring; *SWAY* once the mass is falling,
+(`sinew-word.ts`): *PULL* on a free ring; *APART* while the handles are
+swinging, on both rings alike, because one hand out is not a catch; *SWAY* once
+the mass is falling,
 on a hand already on as much as a hand off, because the walk wants both
 carried the same way; *HOLD* while the sum is inside the zone, which is the
 verb a pair pulling toward a target gets wrong; and *LIFT*, in THE STARE's
 `STILL`, once the band's whole top less the slack is under the zone's foot —
 the beat pulling harder stops being possible and only both thumbs coming off
 resets it, which is why a free ring's *PULL* goes out with it rather than
-arguing. Nothing while the handles are swinging, nothing over the zone's top
+arguing. *APART* and *SWAY* are never on the field together: the swing is over
+before the last fibre parts, and the fall has no tendon left to catch. Nothing
+over the zone's top
 and **nothing about how much, in either direction**: the zone is on his
 screen and the sum on hers, so *harder*, *ease off* and *you are over* are
 each one seat's gauge read out on the other's glass, which is the whole
 encounter (`render/test/boss-cue-sinew.test.ts`). On a snap the handles go ember
 and whip with a decaying sine for `sinewSnapBeats`, the field flashes in the
-hull's rim for a beat, and nothing answers a press — `sinewHandleUnder`
-tests the press against the **rest** circle, so a handle mid-whip is still
-where it is grabbed from. The fall lowers the mass a row a beat between rows
+hull's rim for a beat, and a press is answered as a grip with no pull in it —
+`sinewHandleUnder` tests the press against the **rest** circle, so a handle
+mid-whip is still where it is grabbed from, and the two sideways carries that
+catch it are the fight's one gesture that is not a pull. The fall lowers the mass a row a beat between rows
 (`sinewMassRowNow`), the sway carries it, and landed clear it settles into
 the hull's surface and fades over `sinewOutBeats`; landed on the ship it
-goes ember and stays. The thirteen events are one family read above
+goes ember and stays. The fourteen events are one family read above
 `Effects`' loop (`sinew-fx.ts`): a burst per event in its column — the hand's
 at its side of the mass, the tendon's at the mass — the flash on a snap and
 `hull-shock.ts` on either landing, cleared on restart. The pair is on both

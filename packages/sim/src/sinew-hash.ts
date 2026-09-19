@@ -25,6 +25,7 @@ export function sinewHashParts(s: SinewState): number[] {
     s.zoneLowMilli,
     s.holdBeat,
     s.snapBeat,
+    s.catchBeat,
     s.fallBeat,
     s.outBeat,
   ];

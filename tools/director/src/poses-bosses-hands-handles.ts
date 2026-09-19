@@ -1,7 +1,15 @@
-import { sinewHeld, sinewSwinging, surgeInBand, surgeSealing, type World } from "@neon-spore/sim";
+import {
+  sinewCaught,
+  sinewHeld,
+  sinewSwinging,
+  surgeInBand,
+  surgeSealing,
+  type World,
+} from "@neon-spore/sim";
 import {
   filamentHand,
   instarHand,
+  sinewCatchHand,
   sinewHand,
   sinewSnapHand,
   surgeHand,
@@ -18,7 +26,10 @@ import { bossPose } from "./poses-bosses-kit.js";
  * state is there. Two states are posed with a hand that plays it *wrong* on
  * purpose, because the state is the fight's answer to that: THE SINEW's
  * snap-back comes of pulling past the zone, THE SURGE's sealing of never
- * letting go.
+ * letting go. A third is posed with a hand that plays the *answer* to one of
+ * those: the catch is reached by snapping the tendon first and then taking
+ * both handles back mid-whip, so its card is a wrong pull and a right
+ * recovery in one run.
  */
 
 const F = "full" as const;
@@ -53,6 +64,17 @@ export const HANDLE_HAND_POSES: Pose[] = [
     "swinging",
     "Pulled past the zone and the tendon snapped back. P1 lets go; P2 lets go, and both take hold again.",
     { crop: F, hand: sinewSnapHand, want: sinew((w, s) => sinewSwinging(s, w)), hold: 6 },
+  ),
+  bossPose(
+    "sinew",
+    "caught",
+    "The swinging tendon caught before it settled. P1 carries his handle left; P2 carries hers right.",
+    {
+      crop: F,
+      hand: sinewCatchHand,
+      want: sinew((w, s) => sinewCaught(s, w.cfg, w.beat)),
+      hold: 6,
+    },
   ),
   bossPose(
     "sinew",

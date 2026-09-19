@@ -161,6 +161,7 @@ export const SILENT_BOSS = [
   "sinewPart",
   "sinewSnap",
   "sinewRock",
+  "sinewCatch",
   "sinewSlack",
   "sinewFall",
   "sinewSwing",

@@ -197,7 +197,7 @@ export const NO_SUBJECT: Record<string, string> = {
     "the last return warded anyway and refused. What it marks is nothing happening.",
   "boss.ledgerTear":
     "the cord out of the ship and the halves parting. Like boss.gorgeOut, what this marks is a frame with nothing under its top — an absence rather than a thing standing anywhere.",
-  // THE SINEW's thirteen. The boss is a rope the sheet has no card for, and
+  // THE SINEW's fourteen. The boss is a rope the sheet has no card for, and
   // what these mark is a pull, a hold and a fall, never a body standing anywhere.
   "boss.sinewSettle":
     "the tendon taking the mass's weight over the middle column. It is a rope, which is not a card (`sim/sinew.ts`).",
@@ -208,6 +208,7 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.sinewPart": "a fibre parting under a hold kept. Same argument.",
   "boss.sinewSnap": "the rope whipping back and the hands thrown off. Same argument.",
   "boss.sinewRock": "a rock shaken out of the mass. Same argument.",
+  "boss.sinewCatch": "both hands carried outward catching the whipping rope. Same argument.",
   "boss.sinewSlack": "the rope creeping slack under a held hand. Same argument.",
   "boss.sinewFall": "the last fibre gone and the mass falling. Same argument.",
   "boss.sinewSwing": "the falling mass walked a column. Same argument.",

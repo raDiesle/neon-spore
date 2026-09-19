@@ -152,6 +152,7 @@ export function patchBossB(boss: BossState): void {
     boss.slackMilli = 20;
     boss.holdBeat = 2;
     boss.snapBeat = 3;
+    boss.catchBeat = 6;
     boss.fallBeat = 4;
     boss.outBeat = 5;
   }

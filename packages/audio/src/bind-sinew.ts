@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE SINEW's fourteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one of them is panned, and here the pan is the one thing the ear
  * can add to the picture: the mass hangs in one column and the two handles
@@ -24,6 +24,7 @@ export function sinewCue(
         | "sinewPart"
         | "sinewSnap"
         | "sinewRock"
+        | "sinewCatch"
         | "sinewSlack"
         | "sinewFall"
         | "sinewSwing"
@@ -53,6 +54,8 @@ export function sinewCue(
       return { id: "boss.sinewSnap", pan, pitch: e.rocks > 1 ? 0.85 : 1 };
     case "sinewRock":
       return { id: "boss.sinewRock", pan };
+    case "sinewCatch":
+      return { id: "boss.sinewCatch", pan };
     case "sinewSlack":
       return { id: "boss.sinewSlack", pan };
     case "sinewFall":

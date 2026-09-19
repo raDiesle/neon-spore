@@ -1,11 +1,12 @@
 /**
- * THE SINEW's thirteen, in a file of their own for `boss-gorge.ts`' reason.
+ * THE SINEW's fourteen, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **rope under load**, and everything here is taut where THE
  * CURTAIN's was dry: a grip is a hand closing on a wet cord, the hold
  * counting is the cord creaking under a weight, a fibre parting is a single
  * strand letting go with a twang, and the snap is the whole rope whipping
- * back. The mass at the end of it is the only heavy thing — it sinks a row
+ * back — and the catch is that crack stopped halfway, which is the one sound
+ * on the page that is a thing *not* happening. The mass at the end of it is the only heavy thing — it sinks a row
  * with a thud, and the fall is the long sound on the page, ending clear at
  * the wall or on the hull. Low and soft under the band, or short and high
  * above it, as ever (docs/spec/audio.md §1).
@@ -93,6 +94,21 @@ export const BOSS_SINEW_SOUNDS: SoundDef[] = [
     use: "THE SINEW throwing one rock out of the mass after a snap.",
     level: 0.34,
     layers: [tick(0.24, 0, 4000), after(0.03, thud(220, 90, 0.16, 0.3))],
+  },
+  {
+    id: "boss.sinewCatch",
+    family: "boss",
+    blurb: "Two hands closing on a whipping rope: the air cut off short and the cord going still.",
+    status: "bound",
+    use: "THE SINEW caught — both hands carried outward end a snap-back early.",
+    level: 0.4,
+    layers: [
+      // The snap's own rush, shorter and falling instead of rising: the whip
+      // is the sound this one interrupts.
+      noise(0.07, { type: "highpass", freq: 5200, toFreq: 2200, q: 0.9 }, 0.002, 0.02, 0.5),
+      after(0.05, soft(0.6, thud(180, 120, 0.18, 0.34))),
+      after(0.09, glint(1800, 0.12, 0.22)),
+    ],
   },
   {
     id: "boss.sinewSlack",

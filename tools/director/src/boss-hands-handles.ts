@@ -13,6 +13,7 @@ import {
   instarStep,
   NO_GRAB,
   sinewBoss,
+  sinewCaught,
   sinewInZone,
   sinewSwinging,
   sinewZone,
@@ -82,6 +83,24 @@ export const sinewSnapHand: Hand = (w) => {
   if (s === null || sinewSwinging(s, w) || !sinewInZone(s, w.cfg)) return sinewHand(w);
   const reach = w.cfg.sinewReachMilli;
   return [tendon(1, true, reach), tendon(2, true, reach)];
+};
+
+/**
+ * THE SINEW's hands catching a whipping tendon: a snap first, then both
+ * hands taken back onto the swinging handles and carried **apart** — the
+ * pilot's left, the navigator's right — which ends the swing on that beat
+ * (`sinewCatching`, `sim/sinew-hand.ts`). It keeps holding them apart for
+ * the beats the catch lasts, because the pull that would otherwise be sent
+ * is the one that would snap the tendon again and take the state away.
+ */
+export const sinewCatchHand: Hand = (w) => {
+  const s = sinewBoss(w);
+  if (s === null || s.outBeat >= 0 || s.fallBeat >= 0) return [];
+  const reach = w.cfg.sinewReachMilli;
+  if (sinewSwinging(s, w) || sinewCaught(s, w.cfg, w.beat)) {
+    return [tendon(1, true, 0, -reach), tendon(2, true, 0, reach)];
+  }
+  return sinewSnapHand(w);
 };
 
 /** A thumb on or off THE SURGE's bulb. */

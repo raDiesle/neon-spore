@@ -40,7 +40,9 @@ export const CHOREO_NOTES_B = {
     "sinewZoneNarrowMilli per fibre gone, rolled from sinewZoneLowMilli up, " +
     "for sinewHoldBeats; over it the fibre snaps, throws the hands off for " +
     "sinewSnapBeats and sheds sinewSnapRocks rocks — sinewSnapRocksLast on " +
-    "the last. From sinewDecayFibres gone the rope creeps sinewDecayMilli " +
+    "the last. A hand may land on a whipping handle but cannot pull on it; " +
+    "both carried sinewCatchMilli apart catch the tendon and end the swing " +
+    "that beat. From sinewDecayFibres gone the rope creeps sinewDecayMilli " +
     "slack a beat under a held hand until both come off. A part opens THE " +
     "SLOW sinewPartSlowBeats. The last part drops the mass over " +
     "sinewFallBeats; both handles swayed sinewSwayMilli the same way walk it " +

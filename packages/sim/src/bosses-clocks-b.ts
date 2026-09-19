@@ -13,7 +13,11 @@
  * the one thing on this page the seam above does not explain: they arrived on
  * 18 September 2026 with the §6.2 lane (`baton-hand.ts`) and page one was
  * exactly at its limit, so the choice was this page or a third. The rest of
- * the arm's names are still next door.
+ * the arm's names are still next door. **THE UNDERTOW is here for the same
+ * reason and nothing else** — 19 September 2026, when THE SINEW's catch added
+ * two names to page one and it was at its limit again. It was the last boss on
+ * that page, which is the rule (`.claude/skills/new-boss-state`): the page
+ * gives a boss back rather than grow, and never the boss being worked on.
  *
  * THE SCUTTLE is a clock in the plainest sense on the page: its whole
  * difficulty is the beats a part hangs before it is thrown, which is a count
@@ -172,6 +176,24 @@ export { throatCinchable, throatCinched, throatHauling } from "./throat-hand.js"
 // the next inhale will swallow it, since the swallow and the fall's refusal are
 // one rule (`throat-pull.ts`). Read by the cue, never written out again.
 export { throatHolds } from "./throat-pull.js";
+// THE UNDERTOW is a clock the pair says out loud too — beats a plate bows,
+// beats a lobe stands — with the difference that it counts *under* the field.
+export {
+  UNDERTOW_BREACH_STAGES,
+  UNDERTOW_PHASES,
+  type UndertowBreach,
+  type UndertowBreachStage,
+  type UndertowPhase,
+  type UndertowState,
+  undertowBoss,
+  undertowBreachAt,
+  undertowLastCol,
+  undertowLobeAt,
+  undertowPinned,
+  undertowPlateBeside,
+  undertowUnseated,
+} from "./undertow.js";
+export { undertowBowBeats } from "./undertow-step.js";
 // THE VANE's two hands (18 September 2026): where the arm is standing once a
 // thumb has pinned it, and whether the bearing is open under each of its three
 // phases. A clock on this page's terms — the pin runs for `vanePinBeats` and

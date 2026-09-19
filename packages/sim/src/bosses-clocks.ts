@@ -155,6 +155,8 @@ export {
   type SinewState,
   sinewBandMilli,
   sinewBoss,
+  sinewCatching,
+  sinewCaught,
   sinewDecaying,
   sinewGone,
   sinewHeld,
@@ -230,21 +232,3 @@ export {
   throatMouthRow,
   throatStride,
 } from "./throat.js";
-// THE UNDERTOW is a clock the pair says out loud too — beats a plate bows,
-// beats a lobe stands — with the difference that it counts *under* the field.
-export {
-  UNDERTOW_BREACH_STAGES,
-  UNDERTOW_PHASES,
-  type UndertowBreach,
-  type UndertowBreachStage,
-  type UndertowPhase,
-  type UndertowState,
-  undertowBoss,
-  undertowBreachAt,
-  undertowLastCol,
-  undertowLobeAt,
-  undertowPinned,
-  undertowPlateBeside,
-  undertowUnseated,
-} from "./undertow.js";
-export { undertowBowBeats } from "./undertow-step.js";

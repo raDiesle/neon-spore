@@ -30,8 +30,10 @@ export interface SinewConfig {
   sinewZoneLowMilli: number;
   /** Beats the sum has to sit inside the zone before a fibre parts. */
   sinewHoldBeats: number;
-  /** Beats after a snap-back in which no hand can take hold: the handles are swinging. */
+  /** Beats a snap-back throws the handles about for: a hand on one in these steers, it does not pull. */
   sinewSnapBeats: number;
+  /** Sideways pull, in thousandths, each hand needs outward to catch a swinging tendon. */
+  sinewCatchMilli: number;
   /** Rocks a snap-back shakes out of the mass. */
   sinewSnapRocks: number;
   /** Rocks the snap-back on the last fibre shakes out — a mass that low, whipped, sheds more. */
@@ -62,7 +64,9 @@ export interface SinewConfig {
  * Read as one fight: six fibres, a band of two thousand, a zone 480 wide that
  * narrows by 80 a fibre until the last is the 80 just under the band's top —
  * one hand at the limit and the other all but, and the top itself a snap. Four beats held parts one; a snap costs two
- * beats and a rock, three on the last. The mass starts on row 5 and is on
+ * beats and a rock, three on the last, and those two beats are bought back by
+ * both hands carried 400 outward — two fifths of a reach, far enough that it
+ * is a gesture and not a wobble. The mass starts on row 5 and is on
  * row 10 by the last fibre, four rows over the hull; when it falls it has
  * four beats to be walked three columns.
  */
@@ -74,6 +78,7 @@ export const SINEW_DEFAULTS: SinewConfig = {
   sinewZoneLowMilli: 600,
   sinewHoldBeats: 4,
   sinewSnapBeats: 2,
+  sinewCatchMilli: 400,
   sinewSnapRocks: 1,
   sinewSnapRocksLast: 3,
   sinewMassRow: 5,

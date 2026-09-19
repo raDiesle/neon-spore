@@ -20,7 +20,12 @@ import type { World } from "./world.js";
  * row lower for every one parted, and the zone is re-rolled, narrower, after
  * each. Pull past the zone's top and the tendon **snaps back**: both hands
  * are thrown off for `sinewSnapBeats`, and the mass is whipped hard enough to
- * shed a rock into one of its own columns. From `sinewDecayFibres` parted the
+ * shed a rock into one of its own columns. **A whipping tendon can be
+ * caught**: a hand may take hold of a swinging handle, but only sideways —
+ * carry both outward past `sinewCatchMilli` and the swing ends on that beat,
+ * the slack goes, and the pair has its grip back beats early. It is the one
+ * gesture in the fight that is not a pull, and the only one the field asks
+ * for while both hands are off. From `sinewDecayFibres` parted the
  * tendon goes **slack** under a hand — the sum creeps down while anyone is
  * holding, and only both letting go resets it — so the pair has to re-grip
  * between fibres and say the number again. The last fibre's zone is the step
@@ -63,6 +68,8 @@ export interface SinewState {
   holdBeat: number;
   /** `world.beat` of the last snap-back; `-1` before the first. */
   snapBeat: number;
+  /** `world.beat` a swinging tendon was caught on; `-1` before the first catch and after the next snap. */
+  catchBeat: number;
   /** `world.beat` the last fibre parted on and the mass began to fall; `-1` while it hangs. */
   fallBeat: number;
   /** `world.beat` the mass landed on; `-1` while it has not. */
@@ -131,9 +138,33 @@ export function sinewDecaying(s: SinewState, cfg: SimConfig): boolean {
   return s.fibres > 1 && sinewGone(s, cfg) >= cfg.sinewDecayFibres;
 }
 
-/** Whether the handles are still swinging from a snap-back: no hand takes hold. */
+/** Whether the handles are still swinging from a snap-back: a hand on one steers, it cannot pull. */
 export function sinewSwinging(s: SinewState, world: World): boolean {
   return s.snapBeat >= 0 && world.beat - s.snapBeat < world.cfg.sinewSnapBeats;
+}
+
+/**
+ * Whether both hands are on and carried **outward** far enough to catch a
+ * swinging tendon: player 1's handle is the left one, so its sway is
+ * negative, and player 2's is the right.
+ *
+ * Outward and not the same way, which is the whole point of asking for it: the
+ * fall already reads both hands carried the *same* way (`sinewWalked`), so the
+ * two sideways gestures in this fight cannot be confused for one another. A
+ * pair crossing their hands is a pair doing nothing, and it costs them nothing.
+ */
+export function sinewCatching(s: SinewState, cfg: SimConfig): boolean {
+  if (!sinewHeld(s, 1) || !sinewHeld(s, 2)) return false;
+  return s.swayP1Milli <= -cfg.sinewCatchMilli && s.swayP2Milli >= cfg.sinewCatchMilli;
+}
+
+/**
+ * Whether the tendon is still steady from a catch: the beats the snap-back
+ * would have gone on swinging for, given back. The hands pull again from the
+ * first of them — what is left is the picture saying which beats were bought.
+ */
+export function sinewCaught(s: SinewState, cfg: SimConfig, beat: number): boolean {
+  return s.catchBeat >= 0 && beat - s.catchBeat < cfg.sinewSnapBeats;
 }
 
 /**
