@@ -261,6 +261,7 @@ return to in the stack.
 ## Choosing P1 in the game's view switch hides the switch itself
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-choosing-p1-in-the-games-view-switch-hides-the-s
 - **Files:** `apps/game/src/view.ts`, `apps/game/src/game.css`, `apps/game/src/menu-seats.ts`, `apps/game/src/testing.ts`, `apps/game/src/at-a-desk.ts`, `tools/director/src/stage-transport.ts`
 
 The owner, 18 September 2026: *"When I switch in game test view to p1, I cannot
