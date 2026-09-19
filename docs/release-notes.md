@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · a892e07a — Queue: a cloud shell's own bun is not the pinned one, silently
+
 ## 2026-09-19 · 2c0cc8c5 — `new-boss-state`'s twelve registrations are fourteen
 
 ## 2026-09-19 · 419e7ce9 — THE LEDGER: four hands on one cord, one per movement
