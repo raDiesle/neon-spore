@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 424e7fc4 — A wave row opens the field, and on a phone the field is the screen
+
+The wave list's rows grow a third opener. WAVE, GAME and MAP are the header's own three views in the header's own order, and each of them selects the wave and goes there in one press — GAME was the one destination that still cost the menu, which is why the picture was, in the owner's words, impossible to see. And the phone's GAME view now opens on the field rather than on ten full-width rows of transport: the stage is ordered first and given the whole of `main`, with its padding and its column line gone, and the RUN strip sits one thumb-flick under the fold where the 15 September rule wants it — a phone showing the field without the transport is a field nobody can start.
+
 ## 2026-09-18 · 3142b10c — Five things the owner asked for, with the line that causes each
 
 Four findings queued at the head of the list and one already there raised to the top. Each entry names the cause in the tree rather than repeating what was seen: there is no `popstate` listener anywhere in `apps/game/src`, so the phone's back gesture leaves; `briefing.ts` asks `lostAsks` before `guideHolds`, so a rehearsal that takes a hit paints RETRY WAVE inside the tutorial plate; `view.ts` sets the class `game.css` hides `#viewSwitch` under, so choosing P1 hides the switch itself; and the falling entrance the owner wants on every guide page already ships in `text-drop.ts` and is drawn on the ready page alone, so that item is reuse and a rest with nothing over it, not a new animation. Each `Asks:` names the options its answer picks between.
