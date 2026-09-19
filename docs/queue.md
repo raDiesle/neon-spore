@@ -2166,6 +2166,7 @@ files over the limit on a scratch branch and see both named.
 ## The file-size notice is deaf to a lane that edits through Bash
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-the-file-size-notice-is-deaf-to-a-lane-that-edit
 - **Files:** `.claude/settings.json`, `tools/hooks/after-edit-size.ts`,
   `tools/hooks/payload.ts`
 - **Where:** cloud
