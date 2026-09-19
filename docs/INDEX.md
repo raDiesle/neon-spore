@@ -1663,6 +1663,7 @@ place — the generator keeps whatever is there.
 | `apps/game/build.ts` | What `bun build ./index.html --outdir=dist --minify --sourcemap` used to be, as a script |
 | `apps/game/preview.ts` | Which checkout this one serves |
 | `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |
+| `apps/game/src/coalesced.ts` | Every position a `pointermove` actually carries, not just the last one |
 | `apps/game/src/canvas-sheets.ts` | The two pages drawn on the game's own canvas over a frame |
 | `apps/game/src/link-clock.ts` | The room's wall clock: the only part of the game that asks what time it is |
 | `apps/game/src/progress.ts` | How far this device has got, kept on this device |

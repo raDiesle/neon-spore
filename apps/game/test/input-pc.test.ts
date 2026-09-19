@@ -42,6 +42,20 @@ describe("a held control on a PC", () => {
   });
 });
 
+/**
+ * The other half of a pointer path, and the one this file can actually hold:
+ * whether the handler asks for the samples at all. What the samples are worth
+ * is `apps/game/test/coalesced.test.ts` and the flick case in
+ * `packages/sim/test/crank.test.ts`.
+ */
+describe("a drag read at more than one position a frame", () => {
+  it("pushes a command per sample the move carried, not one per event", () => {
+    expect(inputSource).toMatch(
+      /for \(const sample of samplesOf\(e\)\) \{\s*const at = inStage\(sample\);[\s\S]*?const t = touchMove\(layout\(\), hold, at\.x, at\.y\);\s*if \(t\?\.command\) buffer\.push\(from\(t\), t\.command\);/,
+    );
+  });
+});
+
 describe("telling a PC player the keys exist", () => {
   it("bindControls shows the hint once, over the canvas it was given", () => {
     expect(inputSource).toMatch(/showKeyHint\(canvas\)/);

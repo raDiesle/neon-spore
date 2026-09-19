@@ -2002,31 +2002,6 @@ none` on `html, body`, and one test that reads `game.css` and asserts both —
 Nothing else changes, and the thing being defended against is a two-thumb
 gesture on a phone, which is what this game is played with.
 
-## A crank sampled once a frame can be read as a turn the other way
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-a-crank-sampled-once-a-frame-can-be-read-as-a-tu
-- **Files:** `apps/game/src/input.ts`, `packages/sim/src/bearing.ts`, `apps/game/test/input-pc.test.ts`
-- **Where:** cloud
-
-`MAX_BEARING_STEP` is half a turn, and a step past it is read as that much of
-a turn **the other way** (`crank.ts:120-133`, `instar-hand.ts`). Its own
-comment carries the assumption: *a real finger reports many times a second and
-cannot cover half a circle between two of them* (`bearing.ts:43-52`). The
-browser does not report a finger many times a second to this app — it
-coalesces moves to roughly one per animation frame, and `getCoalescedEvents`
-is not called anywhere in the repository. So the true sample rate on the crank,
-THE INSTAR's `turn` mark and THE ORRERY's ring is ~60 Hz, and half a turn of a
-small crank inside 16.7 ms is a flick a thumb can make.
-
-To do: read `e.getCoalescedEvents()` in the `pointermove` handler
-(`input.ts:160-168`) and push one command per sample, falling back to the event
-itself where the method is absent; the fake DOM in `apps/game/test/fake-dom.ts`
-needs the same. A case that flicks a crank past half a turn in one frame and
-comes out wound forward is the proof. It costs nothing on the cannon and the
-shield, which report a column and are idempotent — the gain is entirely on the
-three gestures that read a bearing.
-
 ## THE CANDLE's film says column 3 and its acts say column 2
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

@@ -6,6 +6,7 @@ import {
   touchMove,
   touchUp,
 } from "@neon-spore/render";
+import { samplesOf } from "./coalesced.js";
 import type { Bindings } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
@@ -162,9 +163,17 @@ export function bindControls({
     const p = inStage(e);
     const hold = p && holding.get(e.pointerId);
     if (!hold) return hover(e, p);
-    hand.down(layout(), hold, p.x, p.y);
-    const t = touchMove(layout(), hold, p.x, p.y);
-    if (t?.command) buffer.push(from(t), t.command);
+    // Every position the move carries, not only the last: a browser coalesces
+    // moves to one event a frame, and a gesture read as a bearing is read
+    // backwards when a hand covers half a turn between two samples
+    // (`coalesced.ts`, `sim/bearing.ts`).
+    for (const sample of samplesOf(e)) {
+      const at = inStage(sample);
+      if (!at) continue;
+      hand.down(layout(), hold, at.x, at.y);
+      const t = touchMove(layout(), hold, at.x, at.y);
+      if (t?.command) buffer.push(from(t), t.command);
+    }
   });
   const up = (e: PointerEvent): void => {
     const hold = holding.get(e.pointerId);

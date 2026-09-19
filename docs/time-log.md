@@ -10558,3 +10558,29 @@ time. The check that it worked is not in this lane: it is the next lane that
 adds a phase going green in one `bun run check`.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-crank-sampled-once-a-frame-can-be-read-as-a-tu — the samples in between
+
+The browser coalesces pointer moves to roughly one an animation frame and
+keeps the rest on the event, and nothing here ever asked for them. Three
+gestures read a bearing, and `MAX_BEARING_STEP` is built on the assumption
+that a finger reports far faster than that — so a flick past half a turn in
+one frame paid the winch out while the hand was winding in. `samplesOf` in
+`apps/game/src/coalesced.ts` is the whole fix, and the handler pushes one
+command per sample.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `input.ts`'s pointer handlers, `bearing.ts`, `crank.ts`'s `crankHeard`, and `crank.test.ts` for the shape of a case |
+| writing | 15 | `coalesced.ts`, the handler's loop, three cases on `samplesOf`, the flick case and the wiring assertion |
+| looking | 10 | the flick case twice wrong before it was right — see below |
+| friction | 10 | the arm hangs at the ceiling, so the first two attempts proved nothing: a pay-out is clamped there and a backwards read is invisible. Winding 800 in first is what made the two halves differ |
+| landing | 10 | `format`, `lint`, `index`, the full `check` at 154s and the landing |
+
+**The bottleneck was that the failing state had to be reachable before it
+could be shown.** The mechanic is four lines of arithmetic and the case that
+proves it is twenty, almost all of them getting the world into a position
+where paying rope out is something that can be seen. A test that had asserted
+on `crankAtMilli` alone would have passed against either version.
+
+*Measured: the rows above are the session's own estimate.*

@@ -95,6 +95,43 @@ describe("a hand on the crank", () => {
     expect(out - world.reachMilli).toBe(50 * CFG.windTilesPerTurn);
   });
 
+  /**
+   * The reason `apps/game/src/coalesced.ts` exists, stated where the rule is.
+   *
+   * A step past `MAX_BEARING_STEP` is read as that much of a turn the other
+   * way, on the assumption that a real finger reports many times a second and
+   * cannot cover half a circle between two samples. The browser coalesces
+   * moves to one event a frame, so until the app read the samples in between
+   * it was handed one bearing per 16.7 ms — and a thumb can flick a small
+   * crank past half a turn in that. The winch then paid out while the hand
+   * was winding in.
+   */
+  it("winds a flick forward when the samples in between are handed over", () => {
+    // Wound in a little first, the way the case above does it: an arm at the
+    // ceiling has no rope left to pay, so a backwards read would be invisible.
+    const wind = (world: World) => {
+      step(world, [turn(0)]);
+      step(world, [turn(400)]);
+      step(world, [turn(800)]);
+    };
+
+    const flicked = hanging();
+    wind(flicked);
+    const wasFlicked = flicked.reachMilli;
+    // One event a frame: 800 to 400 in one step, which is 600 forward and so
+    // the shorter way round backwards. The arm pays out while the hand winds.
+    step(flicked, [turn(400)]);
+    expect(flicked.reachMilli - wasFlicked).toBe(400 * CFG.windTilesPerTurn);
+
+    const sampled = hanging();
+    wind(sampled);
+    const wasSampled = sampled.reachMilli;
+    // The same flick, with the move's own samples read out of it. Every step
+    // is inside the mark, so the whole 600 is wound in.
+    for (const at of [0, 200, 400]) step(sampled, [turn(at)]);
+    expect(wasSampled - sampled.reachMilli).toBe(600 * CFG.windTilesPerTurn);
+  });
+
   it("stops at the top of the field however long the hand keeps paying out", () => {
     const world = hanging();
     const ceiling = world.reachMilli;
