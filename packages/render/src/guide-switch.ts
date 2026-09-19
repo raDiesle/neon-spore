@@ -11,7 +11,7 @@ import type { SeatNames } from "./seat-name.js";
  * can *follow* — a cut between two screens that look alike is a screen that
  * seems to have changed by itself, and the whole lesson of the tutorial is that
  * there are two devices and they carry different halves. So the picture slides
- * (`guide-scene.ts` owns the slide) and a lit seam travels with the join.
+ * (`guide-slide.ts` owns the slide) and a lit seam travels with the join.
  *
  * **The band itself left this file on 16 September 2026.** It had been through
  * six answers here — a word across the middle of the picture that arrived with

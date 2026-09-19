@@ -1094,7 +1094,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/filament-fx.ts` | What THE FILAMENT leaves behind a frame: the **whip** of a filament snapping back to its free end |
 | `packages/render/src/filament-grip.ts` | **A thumb on THE FILAMENT's line**: the pilot's on the head, the navigator's on the tail |
 | `packages/render/src/filament-shape.ts` | **Where THE FILAMENT is**, in field pixels: the body hung over the top of the field above row 0 — a bundle |
-| `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the clock, which seat is showing, and the switch between them |
+| `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the state — which page, which seat, whether it has finished — beside the slide and the page it draws |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
 | `packages/render/src/guide-tide-caption.ts` | The words, the ring and the scrim |
 | `packages/render/src/guide-tide-caption-box.ts` | Where a page's caption plate goes, and what is written in it |
@@ -1105,6 +1105,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-tide.ts` | the band across the top of every page of a guide: the living top, and the badge naming the seat |
 | `packages/render/src/guide-seat.ts` | one seat's screen inside a guide's rehearsal, drawn through the shipping four passes |
 | `packages/render/src/guide-switch.ts` | the slide from one player's screen to the other in a tutorial: the lit seam, and what the band naming the seat has to be told |
+| `packages/render/src/guide-slide.ts` | The move from one seat's screen to the other, drawn |
 | `packages/render/src/band-channel.ts` | A STRIP, AS A CHANNEL CUT IN THE TISSUE |
 | `packages/render/src/band-ground.ts` | WHAT THE CONTROL PANEL IS MADE OF |
 | `packages/render/src/band-seam.ts` | WHERE THE SHIP ENDS AND THE PANEL BEGINS — WHICH IS NOWHERE |

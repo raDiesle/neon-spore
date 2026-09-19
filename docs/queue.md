@@ -1397,35 +1397,6 @@ The first is recommended unless the director turns out to want it: the reason
 it exists is gone, and a number nothing sets is a number nobody can trust when
 it comes back.
 
-## `guide-scene.ts` is three pieces at 227 lines, and the seam is the slide
-
-- **Found:** 2026-09-19, claude/queue-a-rehearsal-that-takes-a-hit-draws-the-lost-scre
-- **Taken:** 2026-09-19, main (claim: claude/queue-guide-scene-ts-is-three-pieces-at-227-lines-and)
-- **Files:** `packages/render/src/guide-scene.ts`, `packages/render/src/guide-film.ts`, `packages/render/src/guide-switch.ts`, `packages/render/src/guide-play.ts`
-- **Where:** cloud
-
-`tools/hooks/after-edit-size.ts` fires on every edit to this file now — 227
-lines, 23 under the ceiling — and it is right that the seam should be chosen
-while a diff is touching it rather than in the panic of a file that has grown
-past 250. It has already been split once, along the clock (`guide-play.ts`) and
-the layout (`guide-film.ts`), so the cut is not obvious; here is the one the
-next lane should weigh.
-
-`draw` is two jobs stacked: **the slide** — the outgoing seat's screen going off
-to the left, the incoming one following it in, the seam between them and the
-clip that holds both to the picture — and **the page**, which is the caption,
-the hands, the band, the rim and the nav bar. The slide is the part that reads
-off `pageSwitch`, needs `handedSeat` twice, and owns the private `seat` method;
-the page is the part that reads off `GUIDE_LOOK`. A `guide-slide.ts` beside
-`guide-switch.ts`, taking the picture's layout, the two seats and `k`, and
-giving back nothing, takes `seat` and about forty lines with it and leaves
-`GuideStage` a class about state with one short `draw`.
-
-The other candidate is worse and should be said so it is not tried: moving the
-`GUIDE_LOOK` calls out leaves a file that is all plumbing and a file that is all
-one-liners, and splits the two halves of a single `ctx.save()`/`restore()` pair
-across a module boundary.
-
 ## A phone in TEST mode has nowhere to put two bands and the rig
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

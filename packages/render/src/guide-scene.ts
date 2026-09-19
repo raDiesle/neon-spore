@@ -1,11 +1,11 @@
-import type { ControlSet } from "@neon-spore/content";
 import { framePhase, type World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
 import { drawHands, filmLayout, seatLayout } from "./guide-film.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { ScenePlay, type Stated } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
-import { drawSwitchSeam, pageSwitch } from "./guide-switch.js";
+import { drawSlide } from "./guide-slide.js";
+import { pageSwitch } from "./guide-switch.js";
 import { handedSeat } from "./handover.js";
 import type { Layout, ViewRole } from "./layout.js";
 
@@ -44,6 +44,13 @@ import type { Layout, ViewRole } from "./layout.js";
  * It is render state that outlives a frame, so it lives where the renderer can
  * clear it, and it clears both seats' `Effects` every time the world underneath
  * is rebuilt — `beat`, `tick` and `nextId` start at 0 again (`restart.test.ts`).
+ *
+ * **Three jobs, and this is the state.** The clock is `guide-play.ts`, the
+ * slide's own picture — the two screens sliding past each other, clipped —
+ * is `guide-slide.ts`, and what is left here is `GuideStage` itself: what a
+ * page is, whether it has finished, and the one short `draw` that lays the
+ * page's own parts — the caption, the hands, the band and the bar — beside
+ * whichever slide is playing (`docs/queue.md`, 19 September 2026).
  */
 
 export class GuideStage {
@@ -156,17 +163,21 @@ export class GuideStage {
     // **The picture starts under the band** (`top`, `guide-film.ts`), so
     // nothing hung over row 0 is drawn behind the plate.
     ctx.translate(0, top);
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(0, 0, l.width, l.height);
-    ctx.clip();
     // The outgoing screen slides off to the left and the incoming one follows
-    // it in from the right, so the eye is carried across rather than cut.
-    if (from !== null && k < 1)
-      this.seat(ctx, l, handedSeat(from, run.world), -l.width * k, time, set);
-    this.seat(ctx, l, shown, from === null ? 0 : l.width * (1 - k), time, set);
-    if (from !== null && k < 1) drawSwitchSeam(ctx, l, l.width * (1 - k));
-    ctx.restore();
+    // it in from the right, so the eye is carried across rather than cut,
+    // clipped to the film's own rectangle (`guide-slide.ts`).
+    drawSlide(
+      ctx,
+      l,
+      this.seats,
+      run,
+      this.play.events,
+      shown,
+      from === null ? null : handedSeat(from, run.world),
+      k,
+      time,
+      set,
+    );
 
     const phase = framePhase(run.world);
     GUIDE_LOOK.caption(ctx, l, run.world, set, step, run.tick, phase, names);
@@ -189,39 +200,5 @@ export class GuideStage {
       pointer: view.pointer,
       nudge: this.nudgedAt === null ? undefined : this.play.shown - this.nudgedAt,
     });
-  }
-
-  private seat(
-    ctx: CanvasRenderingContext2D,
-    l: Layout,
-    seat: 1 | 2,
-    dx: number,
-    time: number,
-    set: ControlSet,
-  ): void {
-    const run = this.play.run;
-    if (!run) return;
-    ctx.save();
-    ctx.translate(dx, 0);
-    const own = seatLayout(l, seat, run.world); // the outgoing seat's own fold
-    this.seats[seat - 1]!.draw(ctx, own, {
-      world: run.world,
-      beatPhase: framePhase(run.world),
-      role: own.role,
-      time,
-      // A frame's own seconds, so a lobe eases at the speed it eases at on a
-      // phone rather than at the speed the rehearsal's ticks happen to arrive.
-      dt: 1 / 60,
-      events: this.play.events,
-      running: true,
-      controls: set,
-      // **Nothing stands over this screen**: since 18 September 2026 the
-      // picture is laid out below the band (`guide-film.ts`), so a round's
-      // header no longer has to drop under it (`round-header.ts`).
-      // **And a film is not a run the pair can lose**: the screen a lost wave
-      // puts up asks about a wave nobody is playing (`briefing.ts`).
-      rehearsal: true,
-    });
-    ctx.restore();
   }
 }

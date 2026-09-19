@@ -12238,3 +12238,36 @@ once `origin/main` already carried an equivalent one, leaving only the one
 file the other lane's own commit had not reached.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-guide-scene-ts-is-three-pieces-at-227-lines-and — the third seam, cut early
+
+`guide-scene.ts` was 227 lines, 23 under the ceiling, and the entry had
+already weighed the two ways to cut it and said which one was worse: pulling
+the `GUIDE_LOOK` calls out instead would have left one file of plumbing and
+one of one-liners, and split a single `ctx.save()`/`restore()` pair across a
+module boundary. The seam it named was the slide — the private `seat`
+method and the clip/two-draws/seam block in `draw` that reads off
+`pageSwitch` and calls `handedSeat` twice — which came out to a new
+`guide-slide.ts`, `drawSlide(ctx, l, seats, run, events, shown, from, k,
+time, set)`, taking `ScenePlay`'s `events` as its own parameter rather than
+reaching for `this.play` the way the method it replaces did. `GuideStage`
+is now state and one `draw` that lays the page's own parts beside whichever
+slide `drawSlide` produces. One stale cross-reference from `guide-switch.ts`
+("`guide-scene.ts` owns the slide") was caught and repointed, and
+`bun run index` added the new file's row — `guide-scene.ts`'s own, which the
+tool leaves alone once written, was corrected by hand to stop describing a
+clock that was always `guide-play.ts`'s.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `guide-scene.ts`, `guide-play.ts`, `guide-switch.ts`, `guide-seat.ts`'s `ViewState` for the `events` field's real type |
+| writing | 25 | `guide-slide.ts`, the `draw` call site, removing the old `seat` method, the header notes in both files, the `docs/INDEX.md` rows |
+| looking | 0 | none |
+| friction | 5 | first pass read `events` off `run` instead of `this.play` — `SceneRun` has no such field, caught by `tsc` before it ever reached a test |
+| landing | 15 | `bunx tsc --noEmit`, eleven `guide-*` test files plus `frame.test.ts` (85 pass), `limits.test.ts`, `doc-drift.test.ts`, `index.test.ts`, `format`, `lint`, `bun run queue done`, the commit |
+
+**The bottleneck was the one field that lived on the wrong object** — every
+other piece of the `seat` method carried over by name; `events` needed
+tracing to `ScenePlay` before the extraction would typecheck.
+
+*Measured: the rows above are the session's own estimate.*
