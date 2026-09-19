@@ -2092,6 +2092,7 @@ what the rest of this file holds.
 ## Whether `limits.test.ts` should count a `.md` skill file at all
 
 - **Found:** 2026-09-19, claude/queue-claude-skills-new-boss-skill-md-is-seven-lines-o
+- **Taken:** 2026-09-19, claude/record-owner-answers-19sep (claim: claude/queue-whether-limits-test-ts-should-count-a-md-skill-f)
 - **Files:** `packages/sim/test/limits.test.ts`, `tools/hooks/file-size.ts`, `.claude/skills/`
 - **Asks:** Should a skill's `SKILL.md` be brought under the same ~250-line ceiling `limits.test.ts` and `tools/hooks/file-size.ts` hold `.ts` source to, or is a skill left to be judged by eye the way the rest of `docs/` is?
 - **Answered:** 19 September 2026 — add `.md` files under `.claude/skills/` to `counted()`'s reach, with `KNOWN_LONG` open to a skill that argues for one. A skill is loaded into every session's context the same way `CLAUDE.md` is, which is the reason a `.ts` file is held to this ceiling in the first place, and this entry's own overage — 257 lines unnoticed by anything — is the proof that "judged by eye" already missed one.
