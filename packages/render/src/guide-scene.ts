@@ -218,6 +218,9 @@ export class GuideStage {
       // **Nothing stands over this screen**: since 18 September 2026 the
       // picture is laid out below the band (`guide-film.ts`), so a round's
       // header no longer has to drop under it (`round-header.ts`).
+      // **And a film is not a run the pair can lose**: the screen a lost wave
+      // puts up asks about a wave nobody is playing (`briefing.ts`).
+      rehearsal: true,
     });
     ctx.restore();
   }

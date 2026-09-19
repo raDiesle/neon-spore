@@ -5,15 +5,16 @@ import {
   DEFAULT_CONFIG,
   guidePages,
   guideStepHeard,
+  lostAsks,
   startWave,
 } from "@neon-spore/sim";
 import { HANG_MS } from "../../../tools/test/cpu-time.js";
 import { drawWaveOpening } from "../src/briefing.js";
-import { GUIDE_LOOK } from "../src/guide-look.js";
+import { ScenePlay } from "../src/guide-play.js";
 import { GuideStage } from "../src/guide-scene.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { OpeningFx } from "../src/opening-fx.js";
-import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
@@ -32,27 +33,29 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 const WALK_MS = HANG_MS;
 
 /**
- * A rehearsal whose picture is the lost screen keeps it under the plate.
+ * A rehearsal never draws the lost screen.
  *
  * A film plays the game, and the game's screens are part of the game — so a
- * page whose inner world has lost the wave draws the whole lost screen at the
- * film's size, and WAVE LOST landed 73 pixels down with the tutorial plate on
- * top of it. TORCH, BULB QUEEN, THE LURE and THE COIL each have such a page.
+ * page whose inner world has lost the wave used to draw the whole RETRY WAVE /
+ * QUIT screen inside the tutorial plate. TORCH, BULB QUEEN, THE LURE and THE
+ * COIL each have such a page. It was fitted under the band so that at least
+ * nothing collided, and the owner's answer of 18 September 2026 was that the
+ * collision was the smaller half of the problem: *when on a wave Tutorial/guide
+ * it shows hull/ship damage, it should not show the 'wave lost'.* The screen
+ * asks a question about a run nobody is playing, and neither of its two buttons
+ * is a thing a thumb on that page can press.
  *
- * Nothing on that screen can step out from under the band on its own: its
- * words are a candidate's to place (`lost-look.ts`) and its buttons are
- * hit-tested where they are drawn (`apps/game/src/lost.ts`). So the screen is
- * fitted instead — foot pinned, top lifted to the band, centred across
- * (`briefing.ts`, `inThePage`).
+ * So the net is the same one it always was — the two words the lost screen's
+ * record does *not* own, RETRY WAVE and QUIT, which a candidate may not rewrite
+ * (`lost-look.ts`) — and what it asks has flipped: those words are on no page
+ * of any film at all.
  *
- * **The net is cut the other way round from the two sweeps beside it.**
- * `guide-plate-room.test.ts` and `guide-grid-room.test.ts` name the words they
- * are looking for, which works while the words are the round's own and fails
- * the moment a look is voted on: the lost screen's header is a record, and a
- * candidate may say something else entirely. So this finds the page by the two
- * words the record does *not* own — RETRY WAVE and QUIT, drawn outside it —
- * and then asks that everything in the band on that page be the guide's own
- * chrome. Whatever the screen says, it says it below the plate.
+ * **A sweep that finds nothing has to say why.** A film that never loses its
+ * wave would pass this without the guard in `briefing.ts` existing, so a second
+ * `ScenePlay` is run beside the stage on the same clock: it holds the same
+ * inner world, and the case fails unless some page of some film really did lose
+ * it. Then that same lost world, drawn as the game rather than as a page, is
+ * asked for its buttons — which is the one assertion that names the flag.
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
@@ -62,35 +65,34 @@ const PHONE = { width: 390, height: 844, dpr: 1 };
 
 /** The buttons, which say this page is the lost screen (`lost-screen.ts`). */
 const BUTTONS = /^RETRY WAVE$|^QUIT$/;
-/** What a guide draws over its own film, and the only thing allowed in the band. */
-const CHROME = /^TUTORIAL$|^PLAYER \d+ · SCREEN$|^BACK$|^REPLAY$/;
 
 beforeAll(installCanvasGlobals);
 
-/** Whether a word's box crosses the band the chrome stands in. */
-function inPlateBand(t: TextBox): boolean {
-  return t.y < GUIDE_LOOK.bandFoot && t.y + t.h > 0;
-}
-
-describe("a rehearsal whose picture is the lost screen", () => {
+describe("a rehearsal whose world has lost the wave", () => {
   const films = WAVES.map((w, i) => (w.guide?.scene ? i : -1)).filter((i) => i >= 0);
 
   for (const role of ROLES) {
     it(
-      `draws it clear of the tutorial plate, for ${role}`,
+      `draws no lost screen, for ${role}`,
       () => {
         expect(films.length, "no wave carries a film").toBeGreaterThan(0);
         const { ctx } = stubCanvas();
         const l = computeLayout(PHONE, CFG, role);
-        let seen = 0;
+        let lost = 0;
         for (const i of films) {
           const world = createWorld(CFG, 3);
           startWave(world, i, [], [], null, true, waveGuideSteps(i));
           const stage = new GuideStage();
+          // The same film on the same clock, for the one thing the drawing
+          // cannot be asked: whether the world under it has failed.
+          const play = new ScenePlay();
           for (let page = 0; page < guidePages(world); page++) {
             // Past the switch, so the page is where it will stand, and far
             // enough in that a scene which loses its wave has lost it.
-            for (let f = 0; f < 90; f++) stage.update(world, 1 / 60, role);
+            for (let f = 0; f < 90; f++) {
+              stage.update(world, 1 / 60, role);
+              play.update(world, 1 / 60, role);
+            }
             ctx.texts = [];
             drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
               role,
@@ -98,21 +100,30 @@ describe("a rehearsal whose picture is the lost screen", () => {
               time: 1.5,
               fx: new OpeningFx(),
             });
-            if (ctx.texts.some((t) => BUTTONS.test(t.text))) {
-              seen++;
-              expect(
-                ctx.texts
-                  .filter((t) => !CHROME.test(t.text) && inPlateBand(t))
-                  .map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
-                `${WAVES[i]?.name} page ${page + 1}: the lost screen under the plate`,
-              ).toEqual([]);
-            }
+            const said = ctx.texts.map((t) => t.text).filter((t) => BUTTONS.test(t));
+            expect(
+              said,
+              `${WAVES[i]?.name} page ${page + 1}: the lost screen inside a film`,
+            ).toEqual([]);
             ctx.texts = undefined;
+            const inner = play.run?.world;
+            if (inner && lostAsks(inner)) {
+              lost++;
+              // The same world on the game's own screen still stops on it: the
+              // page is what is different, not the world (`briefing.ts`).
+              ctx.texts = [];
+              drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, inner, { role });
+              expect(
+                ctx.texts.some((t) => BUTTONS.test(t.text)),
+                `${WAVES[i]?.name} page ${page + 1}: a lost world drew no screen off a page either`,
+              ).toBe(true);
+              ctx.texts = undefined;
+            }
             guideStepHeard(world, 1, false);
             guideStepHeard(world, 2, false);
           }
         }
-        expect(seen, "no rehearsal drew the lost screen at all").toBeGreaterThan(0);
+        expect(lost, "no rehearsal ever lost its wave").toBeGreaterThan(0);
       },
       WALK_MS,
     );

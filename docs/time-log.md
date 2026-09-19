@@ -9835,3 +9835,29 @@ the band under the field is `#stage`'s own aspect reserve — `min(100cqh,
 fill.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-rehearsal-that-takes-a-hit — a flag, not a layout number
+
+A page of a film that teaches a breach loses its wave in its own world, and
+`drawWaveOpening` asked `lostAsks` before it asked anything about where it was
+drawing — so RETRY WAVE and QUIT were painted inside the tutorial plate, about a
+run nobody was playing. `ViewState.rehearsal` says what `clearTop` was being
+read as, the lost branch skips on it, and the fitting that used to shrink the
+screen under the band came out with it. The sweep that held the screen *under*
+the plate now holds it off the film altogether, and proves the film really
+loses its wave by running a second `ScenePlay` beside the stage on the same
+clock.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the entry, `briefing.ts`, `lost-screen.ts`, `guide-scene.ts` and `guide-play.ts`, and the grep that found `clearTop` has no producer left |
+| writing | 20 | one field, one condition, three call sites, the fitting removed, and `guide-lost-room.test.ts` rewritten the other way round |
+| looking | 0 | none: what changed is a screen no longer drawn, and the ops say so |
+| friction | 5 | `after-edit-size.ts` blocks every edit to `guide-scene.ts` at 227 lines, so a two-line comment had to be cut to one and the seam queued |
+| landing | 20 | the inverse run that proves the test catches it, `check:fast` at 4,932 tests, the two findings and the commit |
+
+**The bottleneck was reading `clearTop` far enough to be sure it was the wrong
+signal.** The entry recommended a flag over the layout number and was right for
+a reason it did not know: the number had already stopped being set the day
+before, so the mode it was standing in for was gone and the collision it was
+sized for could not happen.

@@ -258,49 +258,6 @@ screen the game already has under another name. Either way `sign-in.ts`'s
 `replaceState` stays a replace: pushing there would put a sign-in nobody can
 return to in the stack.
 
-## A rehearsal that takes a hit draws the lost screen inside the tutorial plate
-
-- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-a-rehearsal-that-takes-a-hit-draws-the-lost-scre
-- **Files:** `packages/render/src/briefing.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/guide-play.ts`, `packages/sim/src/scene.ts`, `packages/sim/src/wave-fail.ts`, `packages/render/test/frame-pair.test.ts`
-- **Where:** cloud
-
-The owner, 18 September 2026: *"In game, when on a wave Tutorial/guide it shows
-hull/ship damage, it should not show the 'wave lost'."*
-
-**It is the rehearsal's world, not the pair's.** The field cannot be hit while a
-guide holds — all three opening states stop the wave (`sim/briefing.ts`) — but a
-guide page is a real world of its own, built and stepped by the real `step`
-(`SceneRun`, `scene.ts`), and a script that teaches a breach by letting one
-happen calls `failWave` in that world like any other. Then `drawWaveOpening`
-asks `lostAsks(world)` **before** it asks `guideHolds(world)`, so the whole
-RETRY WAVE / QUIT screen is painted over the film — inside the tutorial plate,
-at the film's size, offering two buttons about a wave nobody is playing.
-
-The behaviour is not an accident that slipped in: `briefing.ts` carries a
-comment saying a rehearsal whose world has lost the wave draws this screen and
-that `clearTop` is how it is made to fit. So the fix is deciding it was the
-wrong answer, not finding a bug.
-
-Two ways, and they differ in what a guide is allowed to show:
-
-- **The rehearsal's world never fails.** A flag on the built world, or `failWave`
-  returning early for a scene — one guard in `scene.ts` or `wave-fail.ts`, and
-  the film simply plays on through the hit. Cheapest, and it costs the guides
-  the one thing a hit teaches best: what the screen does when you are hit.
-- **The drawing skips it while it is inside a rehearsal.** `drawWaveOpening`
-  already receives the signal in all but name — `clearTop` is present on a
-  rehearsal and absent on the game — but reading a layout number as a mode is
-  the kind of thing that goes wrong silently, so a plain `rehearsal: true` on
-  `OpeningView` is the better shape. One line of order, and the held field goes
-  on being drawn under the plate the way it is between pages.
-
-The second is recommended: it leaves the simulation alone, and *the guide may
-show a hit* stays true. Either way the proof is a frame — `frame-pair.test.ts`
-already stands a world up with a guide holding, and the case to add is a
-rehearsal whose world has failed, asserting the lost screen's own marks are not
-in the ops.
-
 ## Choosing P1 in the game's view switch hides the switch itself
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -1922,3 +1879,69 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `ViewState.clearTop` has no caller left that sets it
+
+- **Found:** 2026-09-19, claude/queue-a-rehearsal-that-takes-a-hit-draws-the-lost-scre
+- **Files:** `packages/render/src/renderer.ts`, `packages/render/src/round-header.ts`, `packages/render/src/siren.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`, `packages/render/src/ship-top-rows.ts`, `packages/render/src/ship-top-chrome.ts`, `packages/render/src/gauge-round.ts`, `packages/render/src/fleet-chart.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/splice-draw.ts`, `packages/render/src/coord-axes.ts`, `packages/render/src/mine.ts`, `packages/render/src/hud.ts`
+- **Where:** cloud
+
+`clearTop` is the foot of a band a frame has to keep out of, and it was set by
+exactly one thing: the rehearsal's own seat draw, which handed its film the
+tutorial plate's foot so that a round's header and the HUD's lower rows dropped
+under it. On 18 September 2026 the film was laid out **below** the band instead
+(`guide-film.ts`), and the seat draw stopped setting it — the comment where it
+used to be says so. Nothing has set it since. `grep -rn 'clearTop:' packages
+apps tools` finds declarations, parameters and test call sites, and no producer.
+
+So every one of those files carries a parameter that is `undefined` on every
+frame the game draws, and `headerTop`/`headerLift` are two functions whose only
+job is to answer "no band" fifteen times a frame. The tests keep it alive:
+`alarm-room.test.ts`, `fuse-row.test.ts`, `boss-cue.test.ts` and
+`guide-unseen.test.ts` each pass `GUIDE_LOOK.bandFoot` by hand, so the plumbing
+is covered and unreachable at the same time — which is the shape that makes
+dead code survive a sweep.
+
+Two ways, and the choice is about whether a band can come back:
+
+- **Take it out.** The field off `ViewState`, the parameter off each function,
+  `round-header.ts` with it, and the four tests' hand-passed cases with it. One
+  mechanical diff across ~15 files, nothing on screen moves, and a band that
+  returns later is a new argument threaded again from scratch.
+- **Keep it and give it a producer.** Something still wants this shape — the
+  director's TEST stage cuts a taller band of its own — so the honest version
+  is one caller that sets it rather than fifteen that read it. Whoever takes
+  this should look at `tools/director/src/stage-transport.ts` first and say
+  whether that band is a `clearTop` or a smaller stage.
+
+The first is recommended unless the director turns out to want it: the reason
+it exists is gone, and a number nothing sets is a number nobody can trust when
+it comes back.
+
+## `guide-scene.ts` is three pieces at 227 lines, and the seam is the slide
+
+- **Found:** 2026-09-19, claude/queue-a-rehearsal-that-takes-a-hit-draws-the-lost-scre
+- **Files:** `packages/render/src/guide-scene.ts`, `packages/render/src/guide-film.ts`, `packages/render/src/guide-switch.ts`, `packages/render/src/guide-play.ts`
+- **Where:** cloud
+
+`tools/hooks/after-edit-size.ts` fires on every edit to this file now — 227
+lines, 23 under the ceiling — and it is right that the seam should be chosen
+while a diff is touching it rather than in the panic of a file that has grown
+past 250. It has already been split once, along the clock (`guide-play.ts`) and
+the layout (`guide-film.ts`), so the cut is not obvious; here is the one the
+next lane should weigh.
+
+`draw` is two jobs stacked: **the slide** — the outgoing seat's screen going off
+to the left, the incoming one following it in, the seam between them and the
+clip that holds both to the picture — and **the page**, which is the caption,
+the hands, the band, the rim and the nav bar. The slide is the part that reads
+off `pageSwitch`, needs `handedSeat` twice, and owns the private `seat` method;
+the page is the part that reads off `GUIDE_LOOK`. A `guide-slide.ts` beside
+`guide-switch.ts`, taking the picture's layout, the two seats and `k`, and
+giving back nothing, takes `seat` and about forty lines with it and leaves
+`GuideStage` a class about state with one short `draw`.
+
+The other candidate is worse and should be said so it is not tried: moving the
+`GUIDE_LOOK` calls out leaves a file that is all plumbing and a file that is all
+one-liners, and splits the two halves of a single `ctx.save()`/`restore()` pair
+across a module boundary.

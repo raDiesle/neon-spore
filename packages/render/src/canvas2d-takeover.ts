@@ -52,6 +52,7 @@ export function drawTakeover(
       names: view.names,
       pointer: view.pointer,
       guide: view.guide,
+      rehearsal: view.rehearsal,
     });
     return true;
   }
@@ -70,6 +71,7 @@ export function drawTakeover(
       names: view.names,
       pointer: view.pointer,
       guide: view.guide,
+      rehearsal: view.rehearsal,
     });
     return true;
   }

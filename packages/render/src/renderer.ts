@@ -111,6 +111,22 @@ export interface ViewState {
    */
   clearTop?: number;
   /**
+   * Whether this frame is a page of a rehearsal rather than the game.
+   *
+   * A guide's film is a real world stepped by the real `step`
+   * (`guide-play.ts`), so a page that teaches a breach by letting one happen
+   * loses its wave like any other world — and the screen that answers a lost
+   * wave asks a question about the run the pair are not playing. So the one
+   * thing the film does not play is that screen (`briefing.ts`).
+   *
+   * A flag rather than a layout number: `clearTop` was once present on a
+   * rehearsal and absent on the game, and the first cut of this read it as a
+   * mode. A number that means a band's foot stops meaning "inside a film" the
+   * moment the film stops needing the band, which is exactly what happened to
+   * it on 18 September 2026 — and nothing says so out loud.
+   */
+  rehearsal?: boolean;
+  /**
    * Bodies only, on flat black: no backdrop, no radar, no grid, no ship, no
    * band and no HUD — just what `drawBodies` puts on the field.
    *

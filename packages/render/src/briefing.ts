@@ -73,10 +73,9 @@ export interface OpeningView {
   /** The wave's guide, stated by a host whose `world.wave` does not index the
    * shipped `WAVES` — see `ViewState.guide`. */
   guide?: WaveGuide | null;
-  /** The foot of a band this drawing must keep out of, when it is being drawn
-   * inside something else: a rehearsal's film under the tutorial plate
-   * (`ViewState.clearTop`). Absent on the game itself, which has no band. */
-  clearTop?: number;
+  /** Whether this is a page of a rehearsal rather than the game, which is what
+   * decides whether a lost wave gets its screen (`ViewState.rehearsal`). */
+  rehearsal?: boolean;
 }
 
 export function drawWaveOpening(
@@ -88,16 +87,19 @@ export function drawWaveOpening(
   const { role, scene, fx, names } = view;
   // A lost wave's screen stands where an opening would: the field is held
   // under it, and the pair's answer is what opens the next page (`lost-screen.ts`).
-  if (lostAsks(world)) {
+  //
+  // **Except inside a rehearsal, which has no run to lose.** A film is a real
+  // world and a page that teaches a breach loses its wave in it, so this used
+  // to paint RETRY WAVE and QUIT inside the tutorial plate — two buttons about
+  // a wave nobody is playing, and neither of them a thing a thumb on that page
+  // can press. The owner, 18 September 2026: *when on a wave Tutorial/guide it
+  // shows hull/ship damage, it should not show the 'wave lost'.* The film goes
+  // on standing on its last frame instead, which is what it does between pages.
+  if (lostAsks(world) && !view.rehearsal) {
     drawLostScreen(ctx, l, world, {
       age: fx?.age ?? SETTLED_AGE,
       pointer: view.pointer,
       surfaceY: view.surfaceY,
-      // A page of a rehearsal whose world has lost the wave draws this whole
-      // screen at the film's size, so its stamp lands in the band the tutorial
-      // plate stands in. The screen answers by fitting itself
-      // (`lost-screen.ts`); on the game, where there is no band, this is absent.
-      clearTop: view.clearTop,
     });
     return;
   }

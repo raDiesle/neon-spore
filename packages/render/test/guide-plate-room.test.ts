@@ -71,9 +71,9 @@ const WALK_MS = HANG_MS;
  * the siren and drop with it now, held by `alarm-room.test.ts`. THE WISP's
  * lattice is an ordinary wave's, outside this net for the same reason, and is
  * held by `guide-grid-room.test.ts`. The lost screen used as a page's subject
- * is on four waves of which only BULB QUEEN is a boss, and its words are a
- * record a candidate may rewrite, so it is found by its buttons rather than by
- * a word in the filter below: `guide-lost-room.test.ts`. What is left is the
+ * is out of the band by being out of the film altogether — the owner took it
+ * off a rehearsal on 18 September 2026 — and the sweep that holds it there is
+ * `guide-lost-room.test.ts`. What is left is the
  * three labels glued to bodies that happen to stand high — THE BEATBOX's
  * count, THE VEER's, THE JAM's `LURE` — and they are left on purpose: the
  * owner's answer of 17 September 2026 is that a label on a body **stays as it
