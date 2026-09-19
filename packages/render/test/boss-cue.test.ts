@@ -43,7 +43,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * `boss-cue-read-j.ts`; both are still in the sweep at the foot of this file,
  * which is about what a cue may *contain* and wants every boss in it. THE
  * CANDLE's went to `boss-cue-candle.test.ts` on 19 September 2026, with
- * `boss-cue-read-m.ts` and the column that reading found.
+ * `boss-cue-read-m.ts` and the column that reading found, and THE GORGE's to
+ * `boss-cue-gorge.test.ts` the same day with `boss-cue-read-n.ts`, for the same
+ * reason twice over — the column was missing there too.
  *
  * The readings are asked **directly** rather than through a frame, for
  * `undertow-frame.test.ts`' reason turned around: what a pixel proves is that
@@ -92,47 +94,6 @@ function boss<T>(found: T | null, what: string): T {
   if (found === null) throw new Error(`the ${what} wave installed no boss`);
   return found;
 }
-
-describe("THE GORGE", () => {
-  it("is silent while it is being fed — the fight is not shooting", () => {
-    const world = opened("gorge");
-    boss(gorgeBoss(world), "gorge");
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
-  });
-
-  it("asks for the pierce on the navigator's screen once an intake comes full", () => {
-    const world = opened("gorge");
-    const g: GorgeState = boss(gorgeBoss(world), "gorge");
-    const k = g.intakes[2];
-    if (k === undefined) throw new Error("no intake 2");
-    k.beads = CFG.gorgeFullBeads;
-    k.color = "red";
-    k.fullBeat = world.beat;
-    expect(word(world, "p2")).toBe("PIERCE");
-    // And the pilot for the pinch on it, until his thumb is down.
-    expect(word(world, "p1")).toBe("PINCH");
-    expect(cue(world, "p1")?.kind).toBe("HOLD");
-    g.pinch = 2;
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBe("PIERCE");
-  });
-
-  it("asks for the beam once it is gorged, the pry once the beam is filling", () => {
-    const world = opened("gorge");
-    const g: GorgeState = boss(gorgeBoss(world), "gorge");
-    g.mouth = 3;
-    g.ruptures = CFG.gorgeMouthRuptures;
-    expect(word(world, "p2")).toBe("BURN");
-    expect(cue(world, "p2")?.kind).toBe("HOLD");
-    expect(word(world, "p1")).toBeNull();
-    world.prime = { tick: world.tick, color: "red", spent: false };
-    expect(word(world, "p2")).toBe("PRY");
-    g.pry = 3;
-    g.pryBeat = world.beat;
-    expect(word(world, "p2")).toBe("BURN");
-  });
-});
 
 describe("THE CURTAIN", () => {
   it("asks either seat for the shove while the core is covered", () => {

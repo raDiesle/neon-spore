@@ -89,10 +89,16 @@ export const THE_GORGE: GuideScene = {
       text: "FOUR CYAN · IT GOES CLEAR",
       anchor: { at: "control", control: "fireCyan" },
     },
+    // ONE MORE · IT BURSTS stood here. From the beat the fourth bead goes in,
+    // the field says PIERCE on her screen and PINCH on his
+    // (`render/boss-cue-read-n.ts`), so the page's verb is the field's twice
+    // over. What no cue may carry is the clock under it: `gorgeVentBeats` is
+    // four, it is the only warning the pair gets (`config-gorge.ts`), and it
+    // is the whole reason his other thumb is on the lobe.
     {
       tick: 1500,
       seat: 2,
-      text: "ONE MORE · IT BURSTS",
+      text: "FOUR BEATS OR IT TORCHES",
       anchor: { at: "control", control: "fireCyan" },
     },
     {

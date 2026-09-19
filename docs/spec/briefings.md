@@ -616,13 +616,17 @@ hand still draws.
 | THE CANDLE | `IT DRIFTS · PLAYER 1 FOLLOWS` | `IT DRIFTS EVERY FEW BEATS` | `CARRY` / `MOVE` on the cannon, his alone, whenever it is off the glow's column |
 | THE CANDLE | `PLAYER 2 FIRES WHERE HE SAYS` | `FIVE HITS PUT IT OUT` | both of the above at once — her verb stands on the glow and goes quiet the moment his cannon leaves its column |
 | THE CANDLE | `PLAYER 2 FIRES · CLEAR` | `OFF ITS FACE · IT DIMS` | the same `PRESS` / `FIRE`; the clearing is the half it cannot say, because only he is drawn the cone |
+| THE GORGE | `ONE MORE · IT BURSTS` | `FOUR BEATS OR IT TORCHES` | `PRESS` / `PIERCE` on the intake, hers alone, while the cannon is under it — beside `HOLD` / `PINCH` on his |
 
-**Three other films of the twelve had nothing to take, and that is the useful
-half of the result.** THE GORGE, THE TASTER and THE DIASTOLE spend their pages
-on a colour, a count or which screen holds which half — `FOUR CYAN · IT GOES
-CLEAR`, `THE OTHER COLOUR · ALWAYS`, `PLAYER 2 HOLDS RED · ON 15` — and a cue
-may never say any of those (#34's *reconsider if*). THE THROAT was a fourth
-here until 19 September 2026: its film was unprunable against a reading that
+**Two other films of the twelve had nothing to take, and that is the useful
+half of the result.** THE TASTER and THE DIASTOLE spend their pages on a
+colour, a count or which screen holds which half — `THE OTHER COLOUR ·
+ALWAYS`, `PLAYER 2 HOLDS RED · ON 15` — and a cue may never say any of those
+(#34's *reconsider if*). THE GORGE was a third here and gave up one page on
+19 September 2026, which is the whole of what its reading could take: twelve
+of its thirteen pages are the colour, the count, the wrong colour's cost or
+which screen holds which half, and `FOUR CYAN · IT GOES CLEAR` is still one of
+them. THE THROAT was a fourth here until 19 September 2026: its film was unprunable against a reading that
 said one word, and two of its pages became verbs the moment the fight learnt
 the other two (its rows above; `ONLY PLAYER 2 SEES THE COUNT` is still one of
 the six that stayed). A film that reads as unprunable against this rule is a film
@@ -661,6 +665,22 @@ their seat and their anchor and took the half a cue may never carry: the colour
 rule, the drift, the count. Both prose halves changed with them, because the
 pilot's second step — *keep the cannon off that column while it eats* — was
 the field's old defect written down.
+
+THE GORGE's one row is 19 September 2026 as well, and it is the *opposite*
+failure to THE CANDLE's: nothing on the field was wrong, there was simply no
+word for the pilot at all. Its reading said `PIERCE` and `PINCH` over a full
+intake and `BURN` or `PRY` over the mouth — every gesture the fight has — and
+never once named the column those gestures have to be taken in, though a bolt
+and the beam both leave the cannon's own (`fire.ts`) and `gorgeStruck` is a
+no-op outside it. So `MOVE` stands on his cannon wherever the column is *not*
+his own choice, which is a full intake and the mouth and nowhere else: while an
+intake is merely filling the column is his to pick and say, and a word there
+would overrule the one decision this boss exists to hand him. The page that
+came off is the pierce beat, and what it took is the clock a cue may never
+carry — `gorgeVentBeats` is four, and it is the only warning the pair gets.
+Both prose halves changed with it: the pilot's *hold the cannon there* is the
+field's now, and neither half had caught up with the pinch and the pry the
+fight grew the day before.
 
 THE UNDERTOW's three later rows are 18 September 2026, when its reading grew
 from four moments to all five of the fight's phases (`boss-cue-read-j.ts`) and

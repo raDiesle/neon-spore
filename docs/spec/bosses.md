@@ -4052,7 +4052,13 @@ the guide's prose. Every column is authored — the sack does not move — and
 the seed matters to nothing. No page is anchored at `retries` and the film
 takes no hit. Proved in `content/test/scene-films.test.ts` as the seventeen
 swallows, emptyings, fulls, ruptures, the spit and the break, beat by beat,
-with nothing venting and no mouth.
+with nothing venting and no mouth. One of its pages was rewritten on 19
+September 2026, when the field learnt to say the column: `ONE MORE · IT BURSTS`
+became `FOUR BEATS OR IT TORCHES`, because from the beat the fourth bead goes
+in the field says `PIERCE` on her screen and `PINCH` on his, and the four-beat
+vent is the half no word on the glass may carry ([briefings](briefings.md) §7).
+The other twelve had nothing to give up — they are the colour, the count, the
+wrong colour's cost and which screen holds which half.
 
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 centred and empty, swallows in its columns and nowhere else, lets a bead go
@@ -4123,7 +4129,7 @@ nearest first when two overlap, with the intake's index on the command and
 on the hold (`gorgeGripUnder`, under `handleUnder`). The three events throw
 their bursts with the sack's other nine (`gorge-fx.ts`): the two thumbs
 small and white, the clench in the sack's rock. The cue speaks to the seat
-that owes the gesture (`boss-cue-read.ts`): `PINCH` on the pilot over the
+that owes the gesture (`boss-cue-read-n.ts`): `PINCH` on the pilot over the
 intake come full until his thumb is down, beside `PIERCE` on the navigator;
 and on the mouth `BURN`, then `PRY` once a lobe is filling and no thumb is
 on it, then `BURN` again under the pry — the order the pry is meant to be
@@ -4132,6 +4138,50 @@ taken in. Two rows on the director's CONTROLS tab (`field-controls-gorge.ts`,
 intakes ring for which seat, the thumb answered and refused, the held ring
 heavier and the dial emptying, and all three screens drawn with a pinch and
 a pry on them. A look with no shipped alternative.
+
+**What the field says** (`render/src/boss-cue-read-n.ts`, 19 September 2026,
+[decisions](../decisions.md) #34). It shipped with every gesture the fight has
+and **no word at all about the column any of them is taken in**: `PIERCE` and
+`PINCH` over a full intake, `BURN` and `PRY` over the mouth, and nothing on the
+pilot's screen but a thumb that stops a clock. A bolt and the beam both leave
+the cannon's own column (`fire.ts`) and `gorgeStruck` is a no-op outside it, so
+a pierce fired from anywhere else does not land and the beam that ends the fight
+only ends it standing in the mouth's column — the one thing the fight cannot be
+finished without him doing, unsaid.
+
+`CARRY` / `MOVE` stands on his cannon, and **only where the column is not his
+own choice**. That is the reading's whole judgement. The fight is *stop
+shooting, except at one column, in one colour*, and which column is his to pick
+and say — he is the seat shown the bead tally under every lobe
+(`showsGorgeTally`) — so a word that sent him anywhere while an intake was
+merely filling would be the field overruling the one decision this boss exists
+to hand him. Twice the column is forced instead: a **full intake**, pierceable
+by any colour with `gorgeVentBeats` on it, and the **mouth**, which does not
+move and is the only place the fight ends. It never tells him to leave a column
+a shot is already owed in, so where both want him the pierce he can take now
+outranks the beam he cannot, and his pinch is holding the vent meanwhile. THE
+ORRERY's `MOVE` is a park and THE CANDLE's is a chase; this one is a park with
+a clock nowhere near it.
+
+**And her words go quiet while the cannon is elsewhere**, THE CANDLE's and THE
+THROAT's pairing: one gesture across two seats, so she is told nothing rather
+than told to `PIERCE` up a lane the shot cannot reach the intake from. It costs
+her nothing — the ring on the lobe nearest full stands either way.
+
+**Four silences, each a decision.** Nothing while it is being fed, because the
+restraint is the fight and a word over a sack that wants to be left alone would
+be the boss asking for its own dinner. **No `PRY` until the mouth is full**,
+which shipped and came out: `gorgeStruck` ends the fight on `bullet.lance &&
+gorgeFull` alone, and a pry taken short of that clenches at `gorgePryBeats` and
+spits a bead for nothing, so `BURN` stands in the meantime and is both the wait
+and the work. Nothing on a **spat body** — it is a body, broken by its own
+colour like anything else, and a frame on it and not on the wave's own arrivals
+falling beside it would say the sack's is the dangerous one when what is
+dangerous is that there are now two things to answer at once. And nothing on
+the **torch a vent throws**: the pinch is the answer to it and the pinch is
+cued. Nothing at all in `out`. `render/test/boss-cue-gorge.test.ts` proves the
+nine cases, among them the two the old reading had wrong and the full intake
+whose pinch and pierce the mouth's early return was eating.
 
 ## 11.24 THE CURTAIN — the boss that is in the way
 

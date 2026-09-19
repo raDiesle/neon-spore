@@ -157,9 +157,9 @@ export const WAVES_ACT_7D: Wave[] = [
     sentence:
       "The one that eats your shots, and the only way to hurt it is to overfeed exactly one part of it.",
     guide: {
-      both: "Fill one intake with four beads of one colour, then one more shot pierces it. Four intakes.",
-      p1: "1. Pick a column and say it.\n2. Hold the cannon there while your partner fills it.\n3. Say the count: four beads, then one more.\n4. Trigger the plate on bodies: a shot past one is a bead in the wrong place.",
-      p2: "1. Say which intake is nearest full and the colour it wants.\n2. Load it and fire only up the column your partner holds.\n3. When it clears, say so and fire once more.\n4. The last fills itself: hold its colour, the beam.",
+      both: "Fill one intake with four beads of one colour, then one more shot pierces it. A full one torches its column in four beats.",
+      p1: "1. Pick a column and say it.\n2. Pinch a full one: it waits, and the four beats restart when you lift.\n3. Say the count: four beads, then one more.\n4. Trigger the plate on bodies: a shot past one is a bead.",
+      p2: "1. Say which intake is nearest full and its colour.\n2. Its colour fills it; the other takes a bead out.\n3. Any colour pierces a full one.\n4. The last fills itself: pry it late, with the beam filling, or it clenches.",
       scene: "theGorge",
     },
     entries: [

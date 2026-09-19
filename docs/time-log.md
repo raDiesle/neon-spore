@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-gorge — the column nobody was telling the pilot
+
+The field said every gesture THE GORGE has and never named the column any of
+them is taken in, which is the one thing the fight cannot be finished without
+the pilot doing. The lane's work was not the four words added or moved but
+deciding **where** the field may name a column at all: a full intake and the
+mouth, where the column is forced, and never while an intake is merely filling,
+where it is his own choice and the only decision this boss exists to hand him.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `gorge.ts` and the four files under it, the two `showsGorge` splits, and THE CANDLE's lane of the morning as the shape this one takes |
+| writing | 10 | the reading on its own page, nine cases, one film page, both prose halves and the two spec sections |
+| looking | 0 | none: no pixel moved that a frame test does not already take |
+| friction | 5 | the image's Bun is 1.3.11 against a pinned 1.4.2 and `session-start.ts` had not run, so `bun install` and the landing both had to wait on an `npm install bun@1.4.2`; the shallow clone needed `--unshallow` before anything could count commits; and `queue next` handed out an `ASKS THE OWNER` entry, which had to be released by hand |
+| landing | 10 | `format`, `check:fast` — 5,345 tests across 39 shards, 141 s wall — the commit and `land`'s own full check |
+
+**The bottleneck was reading the fight, not writing the words.** The queue entry
+says what is missing and says nothing about which silences are decisions, and
+that judgement is spread across five files in `packages/sim` and the two
+`view-role` splits — none of it is in the file the words are written in.
+
 ## 2026-09-18 — queue-tree-walk-timeout — a flake with a number behind it
 
 `tools/test/tree-walk.test.ts` read eighteen hundred files on bun's flat
