@@ -12,7 +12,8 @@ import type { GuideScene } from "../scene-types.js";
  *
  * Four pages: what player 1 sees, what player 2 sees, the turn, and the shot.
  * The third page is the one the film exists for, and it is not staged: a morph
- * lands on its own clock (`veilOnMorph`) on the tick before the page opens, so
+ * lands on its own clock (`veilMorphBeats`) on the tick before the page opens,
+ * so
  * player 1, who read the inside on the first page, opens the third to a body
  * that is the other colour now — the word went stale between two looks, which
  * is the wave. It used to open before the morph and close after it; since 12

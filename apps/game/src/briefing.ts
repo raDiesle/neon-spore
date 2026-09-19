@@ -52,8 +52,9 @@ export interface BriefingOptions {
  * for a NEXT the pair presses when they are ready to move on, and a BACK beside
  * it — and a press anywhere that meant NEXT would put BACK out of reach on half
  * the screen. So the targets are the drawn ones, and they come from
- * `navButtons` and `readyButtonBox`, which is the same geometry the drawing
- * uses: a button cannot be answered where it is not drawn.
+ * `navHit` and `onNavBar` (`render/guide-look.ts`), which hit-test against the
+ * same `GUIDE_LOOK.buttons` the bar draws from: a button cannot be answered
+ * where it is not drawn.
  *
  * **READY is a hold, not a tap, and the target is the whole page.** The circle
  * fills for as long as the thumb is down and empties if it lifts before READY

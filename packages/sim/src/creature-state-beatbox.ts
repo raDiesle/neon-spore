@@ -8,7 +8,7 @@
  * Its own file rather than three more entries in `creature-state.ts`, and for
  * `creature-state-fence.ts`'s reason with rather more of it: these three only
  * mean anything against each other. Whether the run is still open is the last
- * two compared against the shared beat (`beatboxBroke`), and whether it was
+ * two compared against the shared beat (`beatboxLapsed`), and whether it was
  * right is the first two compared against one another (`beatboxCorrect`) —
  * neither question can be asked of any one of them alone.
  *
@@ -44,7 +44,7 @@ export interface BeatboxState {
   /**
    * The beat the last tap landed on, and absent on a box nobody has touched.
    * With the count above it is the whole of "is this run still going": a beat
-   * that passed with no tap on it ends the run (`beatboxBroke`).
+   * that passed with no tap on it ends the run (`beatboxLapsed`).
    *
    * A moment and not a countdown, for `Creature.veilStruckTick`'s reason: the
    * grace is a length the config owns, and a stored number ticking down would

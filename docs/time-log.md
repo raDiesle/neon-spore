@@ -12307,3 +12307,37 @@ other piece of the `seat` method carried over by name; `events` needed
 tracing to `ScenePlay` before the extraction would typecheck.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — task-queue-work-ym2eim — a comment that names its own subject names something real
+
+The entry asked whether a lint could catch a comment asserting a capability its
+file does not have, and the answer was found by measuring two candidate checks
+rather than by arguing about them. Unrestricted, every backticked camelCase
+identifier in a source comment is 6,452 claims with 205 misses, nearly all of
+them platform globals — an allowlist, and an allowlist rots. Restricted to
+identifiers whose head word is a word of the comment's own file name, it is
+1,523 claims with 18 misses and not one platform global, which is a check that
+ships the day it is written.
+
+Triaging the 18 is where the design came from. Three were event types, which
+exist only as string-literal union members, so the harvester learned quoted
+words. Ten were a comment deliberately naming what the tree no longer has — a
+number the owner cut, an event retired with its creature, a `SimConfig` field a
+paragraph argues against — which is how this repository's headers are written
+and should stay, so those became `REMEMBERED`, keyed by file *and* name because
+`navButtons` is remembered in `guide-nav.ts` and was live drift in
+`briefing.ts`. Four were real: `beatboxBroke` for `beatboxLapsed`, `dartPath`
+for `drawDartGuides`, `veilOnMorph` for `veilMorphBeats`, and the
+`navButtons`/`readyButtonBox` pair in `briefing.ts` naming geometry that had
+moved to `GUIDE_LOOK`.
+
+- **reading** — 45
+- **writing** — 60
+- **looking** — 0
+- **friction** — 15
+- **landing** — 25
+
+**The bottleneck:** a block comment that contains `packages/*/src` ends the
+comment at the `*/`, and the parse error it raises names a line four lines
+further on in a file that had just been written — two minutes of reading the
+wrong thing before the terminator was the obvious answer.

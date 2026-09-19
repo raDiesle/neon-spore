@@ -258,6 +258,7 @@ do not have — greping for the noun phrase against the signatures near it,
 say — is worth ten minutes before the next one is found the same way, by
 accident, while reading for something else.
 
+
 ## The phone's back gesture leaves the game instead of asking
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -2059,7 +2060,7 @@ are records of what was written on the day and are not swept. `bun run check`
 proves the sweep: `tools/test/doc-drift.test.ts` holds the documents, and the
 comments are a typecheck away from nothing.
 
-## Unverified at dad6b24d: the PNG of the held stalk, with its ring and its d…
+## Unverified at 4674a3bb: the PNG of the held stalk, with its ring and its d…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-lead.ts`, `packages/audio/src/sounds/boss-lead.ts`
@@ -2098,3 +2099,30 @@ git the way `note-commit.ts` does, and calls `renderUnverified` and
 `appendEntry` — so the entry that gets written is the tool's, not a lane's
 recollection of its shape. A line in the commands document, and the cloud
 session's rule gains a sentence saying the flag has an afterwards.
+
+## A lib list would unlock the other 4,929 identifier claims in comments
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `tools/test/doc-names.ts`, `tools/test/doc-drift-names.test.ts`
+- **Where:** cloud
+
+`ownSubjectClaims` restricts the new check to identifiers whose head word is a
+word of the comment's own file name — 1,523 of the 6,452 backticked camelCase
+identifiers a source comment names. The restriction was measured, not guessed:
+unrestricted, 205 claims name nothing, and nearly all 205 are platform globals
+(`AudioContext`, `Path2D`, `blockConcurrencyWhile`,
+`accelerationIncludingGravity`) that a comment is entitled to name. A
+hand-kept allowlist of those would rot, which is what this test exists to stop.
+
+So the 4,929 claims outside a file's own subject go unasked, and drift hides
+there: `readyButtonBox` in `apps/game/src/briefing.ts` named nothing for days
+and was found by hand rather than by the check, because its head word is
+`ready` and its file is `briefing.ts`.
+
+The list that is not hand-kept already exists — TypeScript ships it.
+`lib.dom.d.ts`, `lib.es*.d.ts` and `@cloudflare/workers-types` declare every
+global this repository can legitimately name, and harvesting them the way
+`declaredNames` harvests the tree turns the allowlist into a derived file
+nothing has to remember. Add them as a second set, drop the head-word
+restriction, and see what the 205 falls to; if it falls under a dozen the
+restriction can go entirely and the check triples its reach in the same run.

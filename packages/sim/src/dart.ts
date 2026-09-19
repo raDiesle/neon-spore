@@ -58,8 +58,8 @@ export function dartHeading(c: Creature): DartDir {
  * could only appear on the beat it hung: half of every cycle said nothing, and
  * the pair had one beat to say a column and act on it. With the roll moved one
  * beat forward the picture is continuous — while it runs, the arrow already
- * names the side of the *next* diagonal, and `dartPath` in render/ can draw
- * both segments at once.
+ * names the side of the *next* diagonal, and `drawDartGuides` in render/
+ * (`dart-path.ts`) can draw both segments at once.
  *
  * The invariant that makes it honest: `dartNext` is always rolled from the
  * column the move it describes will *start* in, so the edge test in

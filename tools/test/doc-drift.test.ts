@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { DEFAULT_CONFIG } from "../../packages/sim/src/config.js";
 import { parseItems } from "../queue/queue.js";
 import { existsIn } from "../queue/stale.js";
+import { commentSpans, sourceFiles } from "./doc-names.js";
 import {
   BY_NAME,
   docFiles,
@@ -28,7 +29,9 @@ import { loadedTimeout } from "./repo-time.js";
  * hundred times the prose and had no such check at all.
  *
  * Four things here, each the same shape: a claim a document — or, for the
- * fourth, a source comment — makes that the tree settles without reading it.
+ * fourth, a source comment — makes that the tree settles without reading it. A
+ * fifth is next door in `doc-drift-names.test.ts`, asking the same of an
+ * identifier a comment names in its own file's subject.
  *
  * **A path is either there or it is not** — 2,211 backticked paths under `docs/`
  * on the day this was written, of which seven named nothing, across five
@@ -181,35 +184,6 @@ describe("a queue entry", () => {
     });
   }
 });
-
-/** Every `.ts` under `packages/*` / `apps/*`'s own `src`, repository-relative. */
-function sourceFiles(): string[] {
-  const glob = new Bun.Glob("{packages,apps}/*/src/**/*.ts");
-  return [...glob.scanSync({ cwd: ROOT })].sort();
-}
-
-/**
- * The comment text of a source file — `//` to end of line and `/* … *\/` —
- * with string and template literals skipped, so a `//` inside a quoted route
- * is not read as one. The same token shape `commentSpans` in
- * `tools/director/src/serialize.ts` matches, kept here rather than imported:
- * that one compares a wave file's comments before and after a save, this one
- * reads what a comment says, and the two agree on nothing but the tokens.
- */
-function commentSpans(source: string): string[] {
-  const tokens =
-    /`(?:[^`\\]|\\.)*`|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\/\*[\s\S]*?\*\/|(?:^|[^:])\/\/[^\n]*/gm;
-  const found: string[] = [];
-  for (const [text] of source.matchAll(tokens)) {
-    if (text.startsWith("/*")) {
-      found.push(text);
-      continue;
-    }
-    const slash = text.indexOf("//");
-    if (slash !== -1) found.push(text.slice(slash));
-  }
-  return found;
-}
 
 /**
  * Whether a backticked span is a claim about a `.ts`/`.tsx` neighbour worth
