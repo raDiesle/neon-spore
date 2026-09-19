@@ -1,44 +1,36 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
-import {
-  ANTIPHON_SHIP,
-  type AntiphonState,
-  antiphonBoss,
-  createWorld,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import type { TextBox } from "./canvas-stub.js";
 import {
-  CFG,
-  FRAME_TIMEOUT_MS,
-  installCanvasGlobals,
-  ROLES,
-  runFrames,
-  VIEWPORT,
-  waveWith,
-} from "./frame-harness.js";
+  bare,
+  count,
+  down,
+  drawn,
+  frame,
+  grown,
+  hung,
+  ship,
+  TPB,
+  turnWord,
+} from "./antiphon-frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE ANTIPHON's body, its pits, its organ, its rail and its end, on all
- * three screens.
+ * THE ANTIPHON's body, its pits, its organ and its end, on all three
+ * screens.
  *
  * The states are **set** rather than played to, `scuttle-frame.test.ts`'s
  * arrangement: `sim/test/antiphon.test.ts` proves the cycle, the pit, the
  * hardening and the ship, and what this file asks is whether every branch
- * of the picture is one a canvas accepts — bare, an organ up, twins, a rail
- * out, pitted, still, the ship, down, gone — and the two things nothing
- * else in the suite could catch: that the **organ** is on the pilot's
- * screen and not the navigator's, that the **rail** is on the navigator's
- * and not the pilot's; and that the eruption is a transient the next run
- * does not inherit.
+ * of the picture is one a canvas accepts — bare, an organ up, twins, pitted,
+ * still, the ship, down, gone — and the one thing nothing else in the suite
+ * could catch: that the **organ** is on the pilot's screen and not the
+ * navigator's; and that the eruption is a transient the next run does not
+ * inherit. Her rail is the mirror of it, at `antiphon-rail-frame.test.ts`.
  */
 
 beforeAll(() => {
@@ -46,98 +38,7 @@ beforeAll(() => {
   for (const role of ROLES) drawn(hung(), role, 3);
 });
 
-const TPB = ticksPerBeat(CFG);
 const L = computeLayout(VIEWPORT, CFG, "test");
-
-/** A world with the body up, stepped enough beats that every `*Beat` set in the past is one it has seen. */
-function hung(): World {
-  const world = createWorld(CFG, 3);
-  const index = waveWith("antiphon");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < TPB * (CFG.antiphonOutBeats + 2); i++) step(world, []);
-  return world;
-}
-
-/** The body bare: nothing standing, nothing on the rail, no pit. */
-function bare(world: World): AntiphonState {
-  const s = antiphonBoss(world);
-  if (s === null) throw new Error("the antiphon wave grew no body");
-  s.organs = [];
-  s.rail = [];
-  s.pits = [];
-  s.extra = 0;
-  s.cycleBeat = world.beat;
-  s.stillBeat = -1;
-  s.downBeat = -1;
-  s.turnTicks = 0;
-  s.heldP1 = false;
-  s.heldP2 = false;
-  return s;
-}
-
-/** One organ grown over column 4, red, on a rail of three. */
-function grown(world: World, shape = 1): AntiphonState {
-  const s = bare(world);
-  s.organs = [{ shape, col: 4, color: "red", grownBeat: world.beat - CFG.antiphonGrowBeats }];
-  s.rail = [
-    { shape: 0, col: 2, color: "cyan" },
-    { shape, col: 4, color: "red" },
-    { shape: 3, col: 6, color: "red" },
-  ];
-  return s;
-}
-
-/** Their own ship, on a rail of hulls. */
-function ship(world: World): AntiphonState {
-  const s = grown(world, ANTIPHON_SHIP);
-  for (const c of s.rail) c.shape = ANTIPHON_SHIP;
-  s.pits = [0, 5, 9, 12, 2, 7];
-  return s;
-}
-
-/** The right ship was fired a beat ago. */
-function down(world: World): AntiphonState {
-  const s = ship(world);
-  s.organs = [];
-  s.rail = [];
-  s.downBeat = world.beat - 1;
-  return s;
-}
-
-function drawn(
-  world: World,
-  role: ViewRole,
-  ticks: number,
-): { calls: number; text: string; words: string[] } {
-  const log: string[] = [];
-  const texts: TextBox[] = [];
-  const { ctx } = runFrames(world, role, ticks, {
-    every: 3,
-    onCanvas: (c) => {
-      c.log = log;
-      c.texts = texts;
-    },
-  });
-  return { calls: ctx.calls, text: log.join("|"), words: texts.map((t) => t.text) };
-}
-
-const turnWord = (words: string[]): boolean => words.some((w) => w.includes("TURN"));
-const pullWord = (words: string[]): string[] => words.filter((w) => w.includes("PULL"));
-
-function count(text: string, colour: string): number {
-  return text.split(colour).length - 1;
-}
-
-/** Three frames, with the body bare and then set as `arrange` says. */
-function frame(
-  role: ViewRole,
-  arrange: (world: World) => void,
-): { calls: number; text: string; words: string[] } {
-  const world = hung();
-  bare(world);
-  arrange(world);
-  return drawn(world, role, 9);
-}
 
 describe("THE ANTIPHON's body", () => {
   it.each(ROLES)("draws the body on %s", (role) => {
@@ -170,30 +71,6 @@ describe("THE ANTIPHON's body", () => {
       }).text;
     expect(at(2)).toBe(at(6));
     expect(alone("p1")).not.toBe(frame("p1", (w) => (grown(w, 9).rail = [])).text);
-  });
-
-  it("puts the rail on the navigator's screen and not the pilot's", () => {
-    // A rail out is the candidates' rims in their colours where it is shown,
-    // and the window's thread under it; on the pilot's the same rail is nothing.
-    const railed = (role: ViewRole) => frame(role, (w) => void grown(w)).text;
-    const none = (role: ViewRole) => frame(role, () => {}).text;
-    const rim = (text: string, hex: string) => count(text, hex);
-    expect(rim(railed("p2"), PALETTE.redRim)).toBeGreaterThan(rim(none("p2"), PALETTE.redRim));
-    expect(rim(railed("p2"), PALETTE.cyanRim)).toBeGreaterThan(rim(none("p2"), PALETTE.cyanRim));
-    expect(rim(railed("test"), PALETTE.redRim)).toBeGreaterThan(rim(none("test"), PALETTE.redRim));
-    expect(rim(railed("p1"), PALETTE.redRim)).toBe(rim(none("p1"), PALETTE.redRim));
-    expect(count(railed("p2"), PALETTE.shieldRim)).toBeGreaterThan(
-      count(railed("p1"), PALETTE.shieldRim),
-    );
-    // And nothing on her screen marks the organ: the organ moved to another
-    // candidate's place is the same picture.
-    const organIs = (col: number) =>
-      frame("p2", (w) => {
-        const s = grown(w);
-        const c = s.rail.find((r) => r.col === col);
-        if (c) s.organs = [{ ...c, grownBeat: w.beat - CFG.antiphonGrowBeats }];
-      }).text;
-    expect(organIs(4)).toBe(organIs(6));
   });
 
   it("stands twins a gap apart on the pilot's screen", () => {
@@ -281,35 +158,10 @@ describe("THE ANTIPHON's body", () => {
     const gone = frame(role, (w) => {
       down(w).downBeat = w.beat - CFG.antiphonOutBeats - 1;
     });
-    const none = frame(role, (w) => {
+    const none = frame(role, (w: World) => {
       w.boss = null;
     });
     expect(gone.text).toBe(none.text);
-  });
-
-  it("rings the candidates she may still pull, and strokes the ones she has", () => {
-    // The ring and the stroke are both the dim tone, so a count cannot tell
-    // one from the other; what a crossing has to be is a *different picture*
-    // on her screen and the same one on his, which is the leak that matters.
-    const railed = (role: ViewRole) => frame(role, (w) => void grown(w)).text;
-    const crossed = (role: ViewRole) =>
-      frame(role, (w) => {
-        grown(w).crossed = [0];
-      }).text;
-    expect(crossed("p2")).not.toBe(railed("p2"));
-    expect(crossed("p1")).toBe(railed("p1"));
-  });
-
-  it("fills the ring under her thumb, and says nothing of it on his screen", () => {
-    const held = (role: ViewRole) =>
-      frame(role, (w) => {
-        grown(w).heldRail = 0;
-      });
-    const loose = (role: ViewRole) => frame(role, (w) => void grown(w));
-    expect(count(held("p2").text, PALETTE.text)).toBeGreaterThan(
-      count(loose("p2").text, PALETTE.text),
-    );
-    expect(held("p1").text).toBe(loose("p1").text);
   });
 
   it("keeps the eruption as a transient the next run does not inherit", () => {
@@ -346,21 +198,5 @@ describe("THE ANTIPHON's word", () => {
     const world = hung();
     grown(world);
     expect(turnWord(drawn(world, "p2", 3).words)).toBe(false);
-  });
-
-  it("says PULL once under her rail, and never on his screen", () => {
-    // One word under the middle of the rail rather than one per candidate: a
-    // word on the candidate she should cross off would be her own reading
-    // handed back to her (`boss-cue-read-p.ts`).
-    const world = hung();
-    grown(world);
-    expect(pullWord(drawn(world, "p2", 3).words).length).toBe(1);
-    expect(pullWord(drawn(world, "p1", 3).words)).toEqual([]);
-  });
-
-  it("takes the word away while her thumb is on a candidate", () => {
-    const world = hung();
-    grown(world).heldRail = 1;
-    expect(pullWord(drawn(world, "p2", 3).words)).toEqual([]);
   });
 });

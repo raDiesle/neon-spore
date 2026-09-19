@@ -12706,3 +12706,40 @@ world, and each fix came from reading exactly the tick the run went wrong
 rather than from re-reading the source a second time.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-antiphons-frame-test-is-366-lines-and-its-to — a seam the touch test had already drawn
+
+THE ANTIPHON's frame test (366 lines) and touch test (242) both split along
+the same line: the organ, on the pilot's screen, and the rail, its mirror on
+the navigator's. The touch test had already drawn that seam as two describe
+blocks (`a thumb on THE ANTIPHON's organ` / `...'s rail`) and its own header
+said so in words — splitting it was a cut at an existing joint, not a new one.
+The frame test's organ and rail cases were interleaved instead, one `describe`
+each covering both, so the cut there meant reading every `it()` for which
+screen its assertions were actually about.
+
+Moving the rail cases out was not by itself enough: `antiphon-frame.test.ts`
+minus five tests was still 299 lines, because both new files need the same
+`hung`/`bare`/`grown`/`drawn`/`frame` setup, and copying it into both would
+have put one or the other back over 250 the moment either file grew again.
+`frame-harness.ts` already holds the pattern this repo uses for exactly that —
+a non-test support file the test files share — so `antiphon-frame-harness.ts`
+and `antiphon-touch-harness.ts` hold the setup once each, and every one of the
+four resulting test files (86–202 lines) sits well under the ceiling with
+room to grow. Neither test file's assertions changed; only where the plumbing
+that builds their worlds lives did.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | both existing test files in full, `frame-harness.ts`'s own pattern for a shared non-test support file |
+| writing | 30 | `antiphon-frame-harness.ts`, `antiphon-touch-harness.ts`, the four resulting test files |
+| looking | 0 | none — no picture changed |
+| friction | 15 | the organ-only split of `antiphon-frame.test.ts` came in at 299 lines, still over the ceiling, until the shared setup moved to a harness file; one `import type` lint fix after that |
+| landing | 10 | `bunx tsc --noEmit`, the four antiphon test files (39 pass), `limits.test.ts`, `bun run lint`, `format`, `bun run queue done`, the commit |
+
+**The bottleneck was that splitting by content is not the same as splitting
+by line count** — moving the right tests to the right file left the kept file
+still over the ceiling, because the shared setup both files need was being
+counted twice; the fix was to stop counting it twice.
+
+*Measured: the rows above are the session's own estimate.*

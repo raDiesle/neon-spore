@@ -1975,24 +1975,6 @@ wants the new event in the boss's own `case` group, goes red in the typecheck
 reach the binder at all. The `-b` and `-c` pages of that binder take the same
 rule and are worth naming in the same row.
 
-## THE ANTIPHON's frame test is 366 lines and its touch test is 242
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-snakes-gorge-and-shed-have-no-card-because-no-ha (claim: claude/queue-the-antiphons-frame-test-is-366-lines-and-its-to)
-- **Files:** `packages/render/test/antiphon-frame.test.ts`, `packages/render/test/antiphon-touch.test.ts`
-
-Both are at or over the ~250-line ceiling: the frame test at 366 and the touch
-test at 242, and the rail's second handle put lines into both. A test file is
-split by what it proves rather than by where the cut falls evenly — the body
-and its organs on one page, the rail and its rings on another — so the header
-of each says one thing and a reader looking for the crossing does not read the
-growth first.
-
-What to do: take the rail out of both. The frame test's organ cases stay where
-they are and its rail cases move to a page of their own beside them; the touch
-test splits the same way, on the same seam, so the two pages pair. Neither
-file changes what it asserts.
-
 ## Unverified at 17ed660e: the picture of a candidate coming off the rail — its ri…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
