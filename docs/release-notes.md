@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 66d998c4 — Name bind-choreographed's -b and -c pages in the new-boss-state row
+
 ## 2026-09-19 · b4caa3b5 — Split THE ANTIPHON's frame and touch tests along the organ/rail seam
 
 ## 2026-09-19 · bcbb3c25 — Sort boss-hands-snake.ts's imports
