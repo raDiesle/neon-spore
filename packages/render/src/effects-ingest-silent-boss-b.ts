@@ -213,4 +213,14 @@ export const INGEST_SILENT_BOSS_B = [
   "scuttleLast",
   "scuttleDown",
   "scuttleOut",
+  // THE GAUGE's four, the first events this round has had at all: the needle,
+  // the band, the jam and the bind are every one of them world state, read off
+  // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame
+  // (`render/gauge.ts`, `docs/queue.md`, 19 September 2026). Sound is what was
+  // missing, not a picture — nothing about a mark, a miss, a jam or a bind
+  // outlives the frame it happens on.
+  "gaugeMark",
+  "gaugeMiss",
+  "gaugeJam",
+  "gaugeBind",
 ] as const satisfies readonly SimEvent["type"][];

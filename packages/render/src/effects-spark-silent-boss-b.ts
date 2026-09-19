@@ -140,4 +140,12 @@ export const SILENT_BOSS_B = [
   "throatChoke",
   "throatSwallow",
   "throatEvert",
+  // THE GAUGE's four, the first events this round has had at all: no burst,
+  // because a mark, a miss, a jam and a bind are every one of them a state the
+  // plate already redraws every frame (`render/gauge.ts`). Sound is what was
+  // missing, and it is bound instead (`packages/audio/src/bind-gauge.ts`).
+  "gaugeMark",
+  "gaugeMiss",
+  "gaugeJam",
+  "gaugeBind",
 ] as const satisfies readonly SimEvent["type"][];

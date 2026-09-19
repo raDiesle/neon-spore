@@ -1157,25 +1157,6 @@ are both on the boss's own picture, and neither could be photographed —
 reaching the phase that offers either needs four gums flung sideways into a
 walking mouth, which is the other half of this entry.
 
-## THE GAUGE is the only boss with no events and no sound
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-gauge-is-the-only-boss-with-no-events-and-no
-- **Files:** `packages/sim/src/events.ts`, `packages/sim/src/gauge.ts`, `packages/sim/src/gauge-hand.ts`, `packages/audio/src/catalogue.ts`, `packages/audio/test/bind.test.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
-- **Where:** cloud
-
-The round emits no `SimEvent` at all, so `packages/audio` has nothing to bind
-and the whole of THE GAUGE is silent — a call that lands, a call that misses,
-the valve jamming and the band winding tight all happen without a sound. Every
-other boss has a cue per event (`.claude/skills/new-boss` §4). The two new
-states make it worse, because a jam is the one thing in the round the pilot
-cannot see coming and an ear would tell him instantly.
-
-Add a `gaugeMark`, `gaugeMiss`, `gaugeJam` and `gaugeBind` to the events union
-(`events.ts` is at its limit — a comment per line added), push them from
-`gaugeHeard`, bind one sound each in the catalogue panned to the middle
-column, and take them off the silent list or draw them.
-
 ## boss-cue-read-e.ts is at 248 lines with three readings in it
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2150,6 +2131,26 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `sound-link-none-b.ts` is at 245 lines, and THE GAUGE's four just filled it
+
+- **Found:** 2026-09-19, claude/queue-the-gauge-sound
+- **Files:** `tools/director/src/sound-link-none-b.ts`, `tools/director/src/sound-link-none.ts`
+
+Giving THE GAUGE its first four events (`docs/queue.md`'s own *THE GAUGE is
+the only boss with no events and no sound*, this commit) cost this page its
+last comfortable margin: THE THROAT's six were already on it, and THE GAUGE's
+four brought it to 245 of 250. The next round or boss whose added events have
+nothing to draw — and every one so far has needed a written reason here,
+never a picture — has nowhere left on this page, and `sound-link-none.ts`
+itself says its own page is full and hands its *last* boss across rather than
+splitting mid-page.
+
+Cut it the way that page's own comment says the seam moves: the next lane
+whose rows would put this file over 250 hands its own last boss's rows to a
+new `sound-link-none-c.ts`, spread into `NO_SUBJECT` next to `NO_SUBJECT_B`
+the way that one is spread into `NO_SUBJECT` today — never the rows the lane
+itself is adding, and never a fight to squeeze a paragraph shorter instead.
 
 ## THE REPRISE's own rehearsal may still teach the split by gap rather than colour
 

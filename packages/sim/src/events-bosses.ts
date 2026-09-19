@@ -4,6 +4,7 @@ import type { CandleEvent } from "./events-candle.js";
 import type { CurtainEvent } from "./events-curtain.js";
 import type { DiastoleEvent } from "./events-diastole.js";
 import type { FilamentEvent } from "./events-filament.js";
+import type { GaugeEvent } from "./events-gauge.js";
 import type { GorgeEvent } from "./events-gorge.js";
 import type { HiveEvent } from "./events-hive.js";
 import type { InstarEvent } from "./events-instar.js";
@@ -71,7 +72,8 @@ export type BossEvent =
   | PinballEvent
   | ScoutEvent
   | PulseEvent
-  | ThroatEvent;
+  | ThroatEvent
+  | GaugeEvent;
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
@@ -79,6 +81,7 @@ export type { CandleEvent } from "./events-candle.js";
 export type { CurtainEvent } from "./events-curtain.js";
 export type { DiastoleEvent } from "./events-diastole.js";
 export type { FilamentEvent } from "./events-filament.js";
+export type { GaugeEvent } from "./events-gauge.js";
 export type { GorgeEvent } from "./events-gorge.js";
 export type { HiveEvent } from "./events-hive.js";
 export type { InstarEvent } from "./events-instar.js";

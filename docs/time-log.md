@@ -22,6 +22,40 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-gauge-sound — a call's two answers, and the two states they leave behind
+
+THE GAUGE was the only boss with no `SimEvent` at all, so the four new ones
+split along the shape the round already had rather than along the finding's
+own words: a call's two answers, `gaugeMark` and `gaugeMiss`, and the two
+states each can leave the *other* seat in, `gaugeJam` and `gaugeBind`, all
+four pushed from the one `gaugeHeard` that already decided them.
+
+`events.ts` was not actually at its limit — 240 of 250 — but the convention
+several rounds already use for an event added after they shipped
+(`events-pulse.ts`, `events-scout.ts`) is a file of the round's own rather
+than a line spent in the shared one, so `events-gauge.ts` follows that instead
+and costs `events-bosses.ts` three lines rather than `events.ts` any at all.
+The four are bound in `bind-gauge.ts`, panned to the middle the finding asked
+for: the needle and the band are both drawn on the plate rather than over a
+column, so there is no lane for either sound to stand in.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `gauge.ts`, `gauge-hand.ts`, `events.ts`, `events-bosses.ts`, `events-pulse.ts` for the file-of-its-own convention, `bind.ts`/`bind-choreographed(-b).ts`/`bind-pulse-hand.ts` for how a round's hand is bound, and the two silent lists |
+| writing | 5 | `events-gauge.ts`, `bind-gauge.ts`, `sounds/boss-gauge.ts`, the two pushes in `gauge.ts`, and the wiring into `events-bosses.ts` and `catalogue.ts` |
+| looking | 0 | sound, not a picture — and a cloud session cannot hear one either |
+| friction | 5 | two full `check:fast` runs turned up two more places a new `SimEvent` has to answer to that the finding never named |
+| landing | 5 | `check:fast` twice more, `queue done`, the commit and the push |
+
+**The bottleneck was the finding naming three files and missing three more.**
+`docs/INDEX.md` needed `bun run index` for the two new files, and
+`tools/director/test/sound-link.test.ts` wanted a written reason in
+`sound-link-none-b.ts` for four bound sounds with nothing to draw — on top of
+the two silent lists (`effects-ingest-silent-boss-b.ts`,
+`effects-spark-silent-boss-b.ts`) the finding did name. A new event answers to
+five places outside the simulation, not three, and only two full runs of
+`check:fast` caught the other two, one file apart each time.
+
 ## 2026-09-19 — queue-boss-cue-read-c-split — one boss, one page
 
 Page three of the readings had already shed THE THROAT, THE ORRERY and THE

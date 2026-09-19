@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
+import { gaugeCue } from "./bind-gauge.js";
 import { ledgerCue } from "./bind-ledger.js";
 import { pinballHandCue } from "./bind-pinball-hand.js";
 import { pulseHandCue } from "./bind-pulse-hand.js";
@@ -73,7 +74,14 @@ export type AddedEvent = Extract<
       | "ledgerPlug"
       | "ledgerRoll"
       | "ledgerPull"
-      | "ledgerHaul";
+      | "ledgerHaul"
+      // And THE GAUGE's four, the first sounds this round has had at all: a
+      // call's two answers, and what each can cost the seat not making it
+      // (`sim/events-gauge.ts`).
+      | "gaugeMark"
+      | "gaugeMiss"
+      | "gaugeJam"
+      | "gaugeBind";
   }
 >;
 
@@ -114,6 +122,10 @@ const ADDED_EVENTS = new Set<string>([
   "ledgerRoll",
   "ledgerPull",
   "ledgerHaul",
+  "gaugeMark",
+  "gaugeMiss",
+  "gaugeJam",
+  "gaugeBind",
 ]);
 
 /** Whether this is one of the names above, and not a boss arriving whole. */
@@ -140,6 +152,11 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "ledgerPull":
     case "ledgerHaul":
       return ledgerCue(e, cols);
+    case "gaugeMark":
+    case "gaugeMiss":
+    case "gaugeJam":
+    case "gaugeBind":
+      return gaugeCue(e);
     case "wardenHold":
     case "wardenThrow":
     case "wardenSlam":

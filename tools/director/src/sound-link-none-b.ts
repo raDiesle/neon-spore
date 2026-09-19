@@ -231,4 +231,15 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "the mouth taking what stood in it, and a slack ring drawing tight again. Same argument — the body that was eaten is gone by the time it is heard.",
   "boss.throatEvert":
     "the last ring gone slack and the tube turning through its own mouth. Same argument, and there is no contour for it: the eversion is the fixture unmaking itself.",
+  // THE GAUGE's four, the round's first sounds at all. The subject is a dial
+  // and a band on a plate, and the round has thrown the field away like the
+  // others (`sim/events-gauge.ts`, `docs/spec/interludes.md`).
+  "boss.gaugeMark":
+    "a call landing between the two marks. The needle's, and the sheet has no card for a dial.",
+  "boss.gaugeMiss":
+    "a call that missed — free the first time, and the valve sticks beside it. Same argument.",
+  "boss.gaugeJam":
+    "the miss beside this one sticking the valve: the needle answers his hand until the next call lands. Same argument.",
+  "boss.gaugeBind":
+    "the mark beside this one winding the band tight: she cannot call while her thumb is not holding it open. Same argument.",
 };

@@ -177,6 +177,12 @@ export function gaugeSeated(world: World, gauge: GaugeState): boolean {
  * the picture, for the reason the rest of the split is: a pilot who could call
  * would be playing both halves of a round whose only content is that he cannot
  * see the marks, and both devices have to agree exactly which presses counted.
+ *
+ * A call also reports itself, in `events-gauge.ts`: `gaugeMark` or
+ * `gaugeMiss`, and `gaugeJam` or `gaugeBind` beside it when the same call
+ * sticks the valve or winds the band. Both of the second pair are facts about
+ * the *other* seat's half, which is exactly why an ear says them faster than
+ * an eye finding the other screen could (`docs/queue.md`, 19 September 2026).
  */
 export function gaugeHeard(world: World, gauge: GaugeState, player: 1 | 2, command: Command): void {
   if (command.kind === "valve") {
@@ -208,13 +214,17 @@ export function gaugeHeard(world: World, gauge: GaugeState, player: 1 | 2, comma
     // free — time, and the pair was going to spend that anyway — so what it
     // costs now is the control itself, until the next call lands.
     gauge.jamBeat = world.beat;
+    world.events.push({ type: "gaugeMiss" });
+    world.events.push({ type: "gaugeJam" });
     return;
   }
   gauge.marks += 1;
   gauge.jamBeat = -1;
+  world.events.push({ type: "gaugeMark" });
   // Every other mark winds the band tight, and the one after it lets it go:
   // the round alternates between the two states rather than ending in one.
   gauge.boundBeat = gauge.marks % world.cfg.gaugeBindMarks === 0 ? world.beat : -1;
+  if (gauge.boundBeat !== -1) world.events.push({ type: "gaugeBind" });
   // A mark spends the band it was made on: the next one is somewhere else and
   // the pair has to find it again from words alone.
   drawBand(world, gauge);

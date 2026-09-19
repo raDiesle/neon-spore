@@ -280,10 +280,21 @@ paper rather than as the one lit thing on her screen.
 
 **What is not built.** Neither state has a pose of its own in the director's
 gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live
-inside rather than a picture of either. And the round has no events and no
-audio binding at all, which the two new states make worth fixing: a jam is the
-one thing in the round the pilot cannot see coming, and an ear would tell him
-instantly. Both are in [the queue](../queue.md).
+inside rather than a picture of either. That one is still in
+[the queue](../queue.md).
+
+**The round has sound now** (19 September 2026): `gaugeMark`, `gaugeMiss`,
+`gaugeJam` and `gaugeBind`, in `packages/sim/src/events-gauge.ts`, pushed from
+`gaugeHeard` — a call answers with a mark or a miss, and a miss beside it jams
+the valve while a mark beside it can wind the band. All four are bound in
+`packages/audio/src/bind-gauge.ts`, panned to the middle: the needle and the
+band are both drawn on the plate rather than over a column, so there is no
+lane for either sound to stand in. The picture needed nothing beside them —
+the needle, the band, the jam and the bind are all read off the round's own
+state every frame already (`render/gauge.ts`), so all four are on the render
+silent list rather than drawing anything new. The jam is the one of the four
+that mattered most: it is the one thing in the round the pilot cannot see
+coming, and an ear tells him instantly where the eye never could.
 
 What a round **may** do is give — a pod or two for the act about to start
 ([systems](systems.md#57-power-ups--the-pod-built)). That is not built. Pods are

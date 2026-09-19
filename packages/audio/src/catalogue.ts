@@ -19,6 +19,7 @@ import { BOSS_CANDLE_SOUNDS } from "./sounds/boss-candle.js";
 import { BOSS_CURTAIN_SOUNDS } from "./sounds/boss-curtain.js";
 import { BOSS_DIASTOLE_SOUNDS } from "./sounds/boss-diastole.js";
 import { BOSS_FILAMENT_SOUNDS } from "./sounds/boss-filament.js";
+import { BOSS_GAUGE_SOUNDS } from "./sounds/boss-gauge.js";
 import { BOSS_GORGE_SOUNDS } from "./sounds/boss-gorge.js";
 import { BOSS_HIVE_SOUNDS } from "./sounds/boss-hive.js";
 import { BOSS_INSTAR_SOUNDS } from "./sounds/boss-instar.js";
@@ -91,6 +92,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_PINBALL_HAND_SOUNDS,
   ...BOSS_SCOUT_HAND_SOUNDS,
   ...BOSS_PULSE_HAND_SOUNDS,
+  ...BOSS_GAUGE_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
   ...FLEET_SOUNDS,
   ...SPLICE_SOUNDS,
