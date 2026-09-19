@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 1c8a9902 — Which seat a screen is gets one answer now, called from eleven places
+
 ## 2026-09-19 · e8a2b601 — A comment naming a bare neighbour is checked against the tree, and 32 were wrong
 
 ## 2026-09-19 · a50ebc91 — A queue claim names a branch the lane is not on
