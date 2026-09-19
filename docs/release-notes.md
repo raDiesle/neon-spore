@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 93b3a069 — Queue the wave-lost candidates and two input findings
+
+The owner asked for VERSUS alternatives to the WAVE LOST veil — much slower, far fewer elements, a single slime or a splash coming toward the viewer — and that is a look, so it goes in the queue as a local item rather than onto the field. The entry records what ships (thirteen rivulets, 3.4 seconds, the ship's violet), names the seam as LOST_LOOK.veil plus a directory under tools/versus/candidates, proposes four candidates with the owner's two first, and holds three rules: the breach stays visible, RETRY WAVE and QUIT may not move, and nothing outlives a frame without going in Effects.
+
 ## 2026-09-19 · 501beac7 — THE ORRERY says the column, and the briefing comes down
 
 The fight said BURN on the naked core and nothing anywhere else, which was honest about the beat — three rings, one gap each, split across two phones — and silent about the column. A bolt and the beam both leave the cannon's own column, the core hangs over exactly one for the whole fight, and the spitting phase spends itself throwing rocks down every column but that one to drive the pilot off it. Nothing on his band said so, and it was the guide's first line.
