@@ -2067,6 +2067,7 @@ what the rest of this file holds.
 ## `supervise-stop.test.ts` goes red under a full sharded run and green on its own
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-supervise-stop-test-ts-goes-red-under-a-full-sha
 - **Files:** `tools/dev/test/supervise-stop.test.ts`, `tools/dev/supervise.ts`
 - **Where:** cloud
 
