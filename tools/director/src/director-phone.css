@@ -80,13 +80,59 @@
      acts on it (15 September 2026). A phone showing the field without the
      transport is a field nobody can start, and the strip is already a column
      of full-width rows, so it reads on a phone exactly as it does beside the
-     field. The `.stage-col` rule below is the more specific of the two and
-     keeps the field's own flex column. */
+     field. The `.stage-col` rules below are the more specific of each pair and
+     keep the field's own flex column.
+
+     **THE FIELD IS THE SCREEN, AND THE STRIP IS UNDER IT** (18 September
+     2026). The owner: *"when I am in game mode, the screen is fully focused
+     and nothing else left right top bottom is disturbing to play. Only menu
+     button allows me to select another wave."*
+
+     RUN is the earlier of the two sections in `index.html`, so until now the
+     view opened on ten full-width rows of transport — ⏸, ↺ WAVE, ▣ SHEET,
+     DIFFICULTY and its picker and its note, BRIEFINGS, three role buttons, ⌨
+     KEYS — and the picture was a scroll below them. Nothing was hidden; the
+     field was simply never the thing on screen, which is the *"impossible to
+     see it"* of the same day's other sentence.
+
+     Three declarations undo it, and none of them is read above the
+     breakpoint. `main` is a flex column **for this view alone**, so the two
+     sections take an order rather than the grid's document order. The field
+     takes `order: -1` and a flex basis of the whole of `main` — which is the
+     body grid's `1fr` row and therefore a definite height, so `100%` resolves
+     rather than collapsing to its content. And `main` scrolls, which is what
+     puts the strip under the fold instead of beside the picture: the
+     transport is one thumb-flick away and no part of it is over the field.
+
+     The field's own section also gives up its padding and its border here.
+     Ten pixels of panel down each edge and a line at the right is exactly the
+     "left right top bottom" the ask names, and on a phone there is no second
+     column for that border to divide from.
+
+     Seen at 375x812 on 19 September 2026: the field stops about 67px short of
+     the foot, and that band is not this block failing to fill. `#stage` keeps
+     the renderer's aspect at `min(100cqh, 100cqw / 0.56)` (director-field.css),
+     which on a 375-wide phone is 669px tall whichever way `main` is sized — the
+     canvas is width-limited here, so the band is the aspect's own reserve and
+     a taller `main` only makes it deeper. Do not try to close it by giving the
+     stage more height; the only thing that would close it is cropping the
+     wave. */
+  main[data-view="game"] {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
   main[data-view="game"] > section[data-view="game"] {
     display: block;
+    flex: 0 0 auto;
   }
   main[data-view="game"] > section.stage-col[data-view="game"] {
     display: flex;
+    order: -1;
+    flex: 0 0 100%;
+    min-height: 0;
+    padding: 0;
+    border-right: 0;
   }
   main[data-view="map"] > section.brush-col[data-view="map"] {
     display: flex;
@@ -114,16 +160,19 @@
   #brushCol {
     width: auto;
   }
-  /* **THE TWO WAYS OUT OF A ROW**, which exist only here: on a phone the
+  /* **THE THREE WAYS OUT OF A ROW**, which exist only here: on a phone the
      three views are one at a time, so a wave and the view it should open in
      have to be one press. Getting from a wave to its map was three, and two
-     of them were the menu (`rail-open.ts`). 44px wide, which is the platform
+     of them were the menu (`rail-open.ts`); getting to the field was the menu
+     and nothing else until 18 September 2026. 44px wide, which is the platform
      guideline for a target a thumb has to hit — the same number the game's own
      panel is measured against — and the height comes from the row it sits in,
-     which is taller than that already.
+     which is taller than that already. Three of them is 132px of a 375px row,
+     which the name is sized against by `min-width: 0` on the row's own button
+     rather than by giving a thumb less than the guideline.
 
      Smaller than the wave's own name and tracked out, because the word is a
-     destination and not part of the list: 86 rows each ending in two labels
+     destination and not part of the list: 86 rows each ending in three labels
      would read as a second column of names at the list's own size. */
   #waveList .row-open {
     display: block;

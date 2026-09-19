@@ -7,18 +7,20 @@ import type { Store } from "../src/state.js";
 import { type FakeDom, FakeEl, installDom } from "./fake-dom.js";
 
 /**
- * The two ways out of a row in the wave list.
+ * The three ways out of a row in the wave list.
  *
  * The owner, 17 September 2026: *"when on mobile, I want to be able from the
  * list of waves for each wave to directly open the wave details or map
- * editor."* It was three presses and two of them were the menu.
+ * editor."* It was three presses and two of them were the menu. And on 18
+ * September, of the third view: *"on mobile, navigate from list of waves
+ * directly to game, should open the game screen."*
  *
  * What is worth holding is not the words but the four decisions: the row's
  * own press still only selects, so reading down the list is still reading down
  * the list; an opener selects **and** goes, in one press, so the view never
- * opens on the wave that was already showing; the view it goes to is the one
- * the owner named; and on a desktop, where all four columns are on screen at
- * once, the two buttons are not there at all.
+ * opens on the wave that was already showing; the views it goes to are the
+ * three the header has and in the header's own order; and on a desktop, where
+ * all four columns are on screen at once, the buttons are not there at all.
  */
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
@@ -48,7 +50,7 @@ function openers(list: FakeEl, at: number): FakeEl[] {
 }
 
 describe("a row in the wave list", () => {
-  it("opens the wave's own fields and its map, and nothing else", () => {
+  it("opens the wave's own fields, the field and its map, and nothing else", () => {
     const { list, dom } = page(true);
     try {
       bindRail(
@@ -56,7 +58,7 @@ describe("a row in the wave list", () => {
         () => {},
         () => {},
       );
-      expect(openers(list, 3).map((b) => b.dataset.open)).toEqual(["wave", "map"]);
+      expect(openers(list, 3).map((b) => b.dataset.open)).toEqual(["wave", "game", "map"]);
     } finally {
       dom.restore();
     }
@@ -74,9 +76,29 @@ describe("a row in the wave list", () => {
         () => picked.push(s.index),
         () => {},
       );
-      openers(list, 5)[1]?.click();
+      openers(list, 5)[2]?.click();
       expect(picked, "the map opened without the wave being selected").toEqual([5]);
       expect(main.getAttribute("data-view")).toBe("map");
+    } finally {
+      dom.restore();
+    }
+  });
+
+  it("takes the middle opener to the field, which is the view the tool is for", () => {
+    // The 18 September ask, and the one destination that still cost the menu:
+    // every other way to the picture was `#menuToggle` and the GAME item.
+    const { list, dom, main } = page(true);
+    const picked: number[] = [];
+    try {
+      const s = store(0);
+      bindRail(
+        s,
+        () => picked.push(s.index),
+        () => {},
+      );
+      openers(list, 9)[1]?.click();
+      expect(picked, "the field opened without the wave being selected").toEqual([9]);
+      expect(main.getAttribute("data-view")).toBe("game");
     } finally {
       dom.restore();
     }
@@ -111,7 +133,7 @@ describe("a row in the wave list", () => {
         () => {},
         () => {},
       );
-      openers(list, 2)[1]?.click();
+      openers(list, 2)[2]?.click();
       expect(s.index, "the wave was not selected").toBe(2);
       expect(main.getAttribute("data-view"), "a desk was switched to a phone view").toBeNull();
     } finally {

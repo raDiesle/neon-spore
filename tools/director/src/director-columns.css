@@ -164,10 +164,10 @@ section.collapsed .column-body {
   gap: 2px;
   margin-bottom: 10px;
 }
-/* A row is the wave's own button and the two ways out of it (`rail-open.ts`).
-   The name takes the width and the two openers take only what their word
-   needs, so a desktop list reads exactly as it did before they existed — see
-   the `display: none` under them. */
+/* A row is the wave's own button and the three ways out of it (`rail-open.ts`).
+   The name takes the width and the openers take only what their word needs,
+   so a desktop list reads exactly as it did before they existed — see the
+   `display: none` under them. */
 .wave-row {
   display: flex;
   gap: 2px;

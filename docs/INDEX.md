@@ -2179,7 +2179,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
 | `tools/director/src/rail-symbols.ts` | **THE ROW OF SYMBOLS OVER THE FILTER**: the rail's own four marks, made pressable |
 | `tools/director/src/rail-list.ts` | ONE ROW OF THE WAVE LIST, AND WHAT IS ON IT |
-| `tools/director/src/rail-open.ts` | THE TWO WAYS OUT OF A ROW IN THE WAVE LIST |
+| `tools/director/src/rail-open.ts` | THE THREE WAYS OUT OF A ROW IN THE WAVE LIST |
 | `tools/director/src/reprise-editor.ts` | THE REPRISE's panel, which is one number |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |

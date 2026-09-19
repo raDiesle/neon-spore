@@ -9806,3 +9806,32 @@ count. Reading the parser before the second attempt would have cost two
 minutes.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — task-queue-work-ym2eim — The phone's GAME view: a row that goes there, and a field that fills it
+
+Queue item one, both halves. A third opener on every row in the wave list —
+WAVE, GAME, MAP, the header's own three in the header's own order — and a
+phone GAME view whose field is the screen rather than a scroll below ten rows
+of transport. The RUN strip keeps its place under the fold, one thumb-flick
+away, because a phone showing the field without the transport is a field
+nobody can start.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `rail-open.ts`, `phone-view.ts`, `mobile-menu.ts`, the four director sheets and the body grid above them, `phone-map.test.ts`, `stylesheet-order.test.ts`, `shot-flags.ts` |
+| writing | 25 | the third way in `WAYS`, three rules in the phone block, `phone-game.test.ts`, the two comments that carry the reasoning |
+| looking | 15 | two shots at 375x812 through `bun run shot --serve`: the GAME view, and the rows with three openers on them |
+| friction | 5 | `bun run index` keeps hand-written row text, so a retitled file's row in `docs/INDEX.md` had to be edited by hand |
+| landing | 10 | `check:fast`, `queue done`, the commit, the land |
+
+**The bottleneck was not knowing this session could take the picture.** The
+entry asks for three things checked on a real 375px viewport and nothing else
+answers them; `bun run shot --serve` starts a director, shoots and stops it in
+one foreground process, which is exactly what a sandbox session is allowed to
+do, and it was written for that. Fifteen minutes of looking replaced an
+`--unverified` line, and the shot settled the one thing the sheets could not:
+the band under the field is `#stage`'s own aspect reserve — `min(100cqh,
+100cqw / 0.56)` is 669px tall at 375 wide — and not a layout that failed to
+fill.
+
+*Measured: the rows above are the session's own estimate.*
