@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · a8631f40 — The field's canvas refuses the browser's own gestures
+
 ## 2026-09-19 · 1e207710 — A pointer move is read at every position it carried, not just the last
 
 ## 2026-09-19 · 481133e5 — THE SURGE gets the word for the gesture it is named after
