@@ -116,7 +116,10 @@ cost lands with `bun run land --unverified "<what>"` — repeatable, one per
 thing — and the landing writes a single `## Unverified at <sha>:` entry into
 `docs/queue.md` beside the technical findings. A session at a machine that can
 look claims it with `bun run queue next`, opens it, and removes it with
-`bun run queue done`.
+`bun run queue done`. **The flag has an afterwards**, for a session that
+lands and only then remembers what it never watched: `bun run unverified
+<sha> --unverified "<what>"` writes the same entry from an already-landed
+commit, without needing the lane `land` claimed it from.
 
 That is a reversal of what the rest of this section argues, made by the owner on
 9 September 2026, and it is a narrow one. The objection below is to a list the

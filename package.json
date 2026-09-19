@@ -42,6 +42,7 @@
     "sweep": "bun run tools/land/run.ts --sweep",
     "push": "bun run tools/land/push.ts",
     "reconcile": "bun run tools/land/reconcile-run.ts",
+    "unverified": "bun run tools/land/unverified-run.ts",
     "scope": "bun run tools/hooks/scope.ts",
     "versus": "bun run tools/versus/run.ts",
     "frames": "bun run tools/frames/run.ts",

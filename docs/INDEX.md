@@ -2145,6 +2145,7 @@ place — the generator keeps whatever is there.
 | `tools/running.ts` | Where a server that took an OS-assigned port writes the number down |
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
 | `tools/land/unverified.ts` | what a landing could not check, turned into a queue entry a later session drains |
+| `tools/land/unverified-run.ts` | `bun run unverified <sha> --unverified "<what>" [--unverified "<what>" ...]` |
 | `tools/land/toolchain.ts` | Where a landing meets the bun it runs on rather than the tree it lands: the pin's refusal and the frozen install |
 | `tools/director/src/cell-config-gaps.ts` | THE FENCE's row under the map: one chip per column, lit where the wall is open |
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |

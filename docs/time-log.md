@@ -12452,3 +12452,38 @@ restriction, and the numbers said not to; writing that down took longer than
 running the harvester did.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-landing-that-forgot-unverified-has-no-way-to-w — the second door
+
+`--unverified` was parsed off a landing's own argv and written by the same
+commit that moved the trunk, with no second way in: from `main` a landing
+refuses because a trunk is landed on rather than landing, and from the spent
+lane it refuses because the branch carries nothing `main` has not got. The
+entry that found this hit both refusals and wrote the entry by hand instead —
+exactly the drift `filesLine`'s path-only rule was hardened against once
+already. `tools/land/unverified-run.ts` is the second door: `bun run
+unverified <sha> --unverified "<what>"` reads an already-landed commit's
+files and subjects out of git the way `note-commit.ts` does and calls
+`renderUnverified`/`appendEntry` directly, so the entry a forgetful session
+writes is the tool's shape, not its memory of it. One trap needed handling by
+hand: the sha a session actually has after `bun run land` is the closing
+banner's, and that sha is the release-notes commit `writeNotes` lands on top
+of the real work — an entry built from it would have named
+`docs/release-notes.md` as the file nobody looked at. The tool now recognises
+that commit by its own generated subject and steps to its parent, verified
+against both a banner sha and a work sha in this session before it shipped.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `unverified.ts`, `note-commit.ts`, `notes.ts`'s `parseLanded`/`Landed`, `run.ts`'s own landing sequence |
+| writing | 25 | `unverified-run.ts`, the `package.json`/`docs/commands.md` lines, `docs/cloud-session.md`'s new sentence |
+| looking | 0 | none |
+| friction | 15 | the first version queued an entry against `docs/release-notes.md` when fed the banner's own sha — caught by running it for real against a just-landed commit before trusting it, not by a test |
+| landing | 20 | `bunx tsc --noEmit`, `bun run index` (one new row), `doc-drift`/`land` test files, a full `bun run check` (18,576 tests), `format`, `bun run queue done`, the commit |
+
+**The bottleneck was the sha a session actually has**, not the tool's own
+logic — the entry assumed "the already-landed sha" was unambiguous, and
+running the first draft against a real landing found that the sha `bun run
+land` hands back last names a commit about nothing a session ever touched.
+
+*Measured: the rows above are the session's own estimate.*
