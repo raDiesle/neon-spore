@@ -10800,3 +10800,29 @@ next §6.2 lane should add its hands together for that reason rather than one
 per landing.
 
 *Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-19 — queue-a-handle-bosss-word-is-invisible-to-a-search-of — where a handle keeps its words
+
+A handle boss builds its cue in its own drawing rather than in `boss-cue.ts`,
+because the mark rides something `World` does not keep — so a lane that greps
+the readings finds an absence that is not there. THE ANTIPHON's entry said it
+said nothing on the field; it says `TURN`, one word per standing organ, and has
+since `antiphon-grip.ts` was written. The entry is corrected and `new-boss`
+§6.1 now says where to look.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | every `drawCueText` caller, `boss-cue.ts`'s cases, `antiphon-grip.ts`'s cue, and the eight remaining entries of that family |
+| writing | 10 | the paragraph in §6.1, THE ANTIPHON's entry, and two entries for what was left |
+| looking | 0 | none: the answer is a grep and a union, and both are text |
+| friction | 0 | none |
+| landing | 10 | `format`, `lint`, the full `check` and the landing |
+
+**The bottleneck was checking the other seven entries rather than fixing the
+one.** Only THE ANTIPHON's was wrong, and knowing that took reading all eight
+against `boss-cue.ts` and against each boss's own files — which is the same
+work the entry says a lane picking one up would do, done once here instead of
+seven times later. That is the whole value of the item and none of its
+description.
+
+*Measured: the rows above are the session's own estimate.*

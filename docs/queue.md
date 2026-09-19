@@ -904,10 +904,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Taken:** 2026-09-19, claude/queue-the-antiphon-the-field-says-the-word-and-the-bri
-- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/render/src/antiphon-grip.ts`, `packages/content/test/scenes-prose.test.ts`
 - **Where:** cloud
 
-It says nothing on the field at all.
+It already says `TURN`, one word per standing organ, on the pilot's screen —
+built in its own drawing rather than in `boss-cue.ts`, because the mark rides
+a handle (`antiphon-grip.ts`, corrected 19 September 2026: this entry used to
+say it said nothing, which is what a grep of the readings answers for a handle
+boss). So the words half is the pit's other moments, if it has any, and not a
+reading page from nothing.
 Its briefing is a 20-page rehearsal (`packages/content/src/scenes/the-antiphon.ts`).
 
 The owner, 18 September 2026: a boss's words are cloud work — the cue table and
@@ -1993,37 +1998,6 @@ of row and it would want the owner's word: it makes the table two things, and
 the reason it is one thing today is that a rule nothing can test is a rule
 that goes quiet.
 
-## A handle boss's word is invisible to a search of the readings
-
-- **Found:** 2026-09-19, claude/queue-the-surge-the-field-says-the-word-and-the-briefi
-- **Taken:** 2026-09-19, claude/queue-a-handle-bosss-word-is-invisible-to-a-search-of
-- **Files:** `docs/queue.md`, `packages/render/src/boss-cue.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/surge-grip.ts`, `.claude/skills/new-boss/SKILL.md`
-- **Where:** cloud
-
-THE SINEW's and THE SURGE's *the field says the word* entries both said the boss
-said nothing on the field, and both were wrong: a **handle** boss builds its cue
-in its own drawing — `sinew-handles.ts` and `surge-grip.ts` call `drawCueText`
-directly — because the mark rides a whip or a swell that `World` does not keep.
-So `boss-cue.ts` has no `case` for either, and a lane that greps the readings
-finds an absence that is not there. On THE SURGE that cost a whole reading page,
-written and thrown away, and only `surge-frame.test.ts` counting two `HOLD`s
-where it allows one caught it.
-
-Two things to do, and the second is the one that stops it happening again:
-
-1. Correct every remaining entry of this family that names a boss with a handle
-   before a lane picks it up, by grepping that boss's own `render/*-draw.ts`,
-   `*-handles.ts` or `*-grip.ts` for `drawCueText`. THE BALLOON's pair is the
-   next one (`balloon-handles.ts`).
-2. Put the check in `.claude/skills/new-boss` §6.1, in one line: a boss's words
-   are `boss-cue.ts`'s **or** its own drawing's, and the drawing is where a
-   handle's are. A reader of that section has no way to know that today.
-
-The stronger version, if the owner wants it, is a test: every `BossKind` with a
-`DragTarget` of its own either has a `case` in `boss-cue.ts` or a `drawCueText`
-call in its drawing, and the table naming which is in one place. That is the
-`copies-table.ts` idiom pointed at a seam rather than a number.
-
 ## SCATTER is THE WISP's strike and its page describes a bulb
 
 - **Found:** 2026-09-19, claude/queue-the-indexs-drift-check-reads-a-count-but-not-a-l
@@ -2135,3 +2109,53 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Nothing holds a handle boss to having a word
+
+- **Found:** 2026-09-19, claude/queue-a-handle-bosss-word-is-invisible-to-a-search-of
+- **Files:** `packages/render/src/boss-cue.ts`, `packages/sim/src/drag-targets.ts`, `packages/sim/src/drag-targets-b.ts`
+- **Asks:** Is a handle with no word a defect a check should fail, with a named list of the ones not built yet; or is it the ordinary state of a boss that is not finished, and the skill's sentence enough?
+- **Where:** cloud
+
+The half of the entry above that was left to the owner, and it is still his to
+settle. A boss's words are either a `case` in `boss-cue.ts` or a `drawCueText`
+call in its own drawing, and now that the skill says so, a lane will find them.
+What nothing says is that a boss with a handle ought to have any.
+
+A test would be *every `BossKind` with a `DragTarget` of its own has one or the
+other*, and it cannot be written from the tree as it stands: nothing maps a
+target to the boss that owns it. `antiphonOrgan`, `instarMark`, `surgeBulb`,
+`sinewLeft`, `balloonLeft` and twenty more are a flat union, and the mapping
+would be a new hand-kept table — which is the thing this repository writes a
+`copies-table.ts` row about rather than adds lightly.
+
+It would also be red on the day it landed. THE INSTAR has `instarMark` and says
+its word in a scanner box of its own that predates the cue; THE BALLOON has a
+pair of handles and says nothing. Both are work nobody has started, so the test
+needs an allowance list beside it, and an allowance list is a statement about
+which bosses are finished — the owner's to make, not a lane's.
+
+## `.claude/skills/new-boss/SKILL.md` is seven lines over the ceiling
+
+- **Found:** 2026-09-19, claude/queue-a-handle-bosss-word-is-invisible-to-a-search-of
+- **Files:** `.claude/skills/new-boss/SKILL.md`
+- **Where:** cloud
+
+It stood at 247 lines on 19 September 2026 and two lanes added to it the same
+day — a two-line pointer at `.claude/skills/new-boss-state`, and six lines in
+§6.1 saying where a handle boss keeps its words. It is at 257 now. Nothing
+enforces the ceiling on a `.md` file (`limits.test.ts` reads `.ts` only), which
+is why it went past without a word from anything.
+
+The seam is already drawn in the file: §6 *Enhancing a boss that already
+shipped* is three self-contained briefs that queue entries link to by number,
+and it is the half that grows — every "the field says the word" and "changes
+state more than once" entry points at 6.1 or 6.2. Sections 1 to 5 are how a
+boss is designed from nothing, which is a different job and a different reader.
+
+To do: `.claude/skills/new-boss-more` (or a better name) carrying §6 whole,
+with the three section numbers kept exactly as they are, since a dozen queue
+entries name them; a line at the foot of `new-boss` pointing at it; and the
+entries' `section 6.1` references left alone, because they still resolve. Then
+decide whether `limits.test.ts` should count a skill at all — a file loaded
+into a session's context has the same reason to be short as one a person reads.

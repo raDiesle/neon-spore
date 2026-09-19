@@ -157,6 +157,13 @@ can act, and never a column, a colour or a count (`docs/decisions.md` #34,
 fourth is in `boss-cue-read.ts`: **a mark stands only on something this seat is
 already shown.**
 
+**A boss's words are `boss-cue.ts`'s or its own drawing's**, and a handle's are
+the drawing's — the mark rides a whip or a swell `World` does not keep, so
+`sinew-handles.ts`, `surge-grip.ts` and `antiphon-grip.ts` call `drawCueText`
+with no `case` next door. Grep the boss's own `*-draw.ts`, `*-handles.ts` and
+`*-grip.ts` before concluding it says nothing: on THE SURGE that absence cost a
+reading page, written and thrown away.
+
 Then take the wave's briefing down to what the fight cannot say — which half of
 the picture is on which phone, what a mistake costs, and the sentence the pair
 has to say to each other — and if nothing is left, take the film off the wave
