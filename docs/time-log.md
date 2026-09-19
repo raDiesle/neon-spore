@@ -10428,3 +10428,29 @@ queued rather than guessed at — its cmdlets put the path behind a named
 parameter, so it is a second table and not a second argument.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-250-line-ceiling-reports-one-file-per-run-so — four facts the first run already had
+
+`limits.test.ts` called `expect` inside its loop, so the first file over the
+ceiling threw and the 559 after it went unlooked-at. A lane that filled four
+pages at once met them one at a time, re-reading the tree between each. Every
+loop in the file collects now and asserts on the whole list afterwards, the
+way `hash-coverage.test.ts` reports its misses — one `expect` and one
+`loadedTimeout` budget each, and nothing about what is enforced changed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `limits.test.ts` whole, and `hash-coverage.test.ts`'s reporting for the shape to copy |
+| writing | 5 | four loops turned inside out: the ceiling, the two `KNOWN_LONG` cases and the control-byte case |
+| looking | 5 | two scratch files at 253 and 261 lines put in the tree, and both named in one run |
+| friction | 0 | none |
+| landing | 10 | `format`, `lint`, the full `check` and the landing |
+
+**The bottleneck was that there was no bottleneck, and that is the finding.**
+The fix is four lines of rearrangement and it was queued rather than done on
+the spot four separate times, because each time the lane meeting it was in
+the middle of something else and paying the cost one run at a time looked
+cheaper than stopping. A cost paid in two-minute instalments is the kind that
+never gets a lane of its own until somebody writes it down.
+
+*Measured: the rows above are the session's own estimate.*

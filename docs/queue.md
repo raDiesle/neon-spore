@@ -2126,28 +2126,6 @@ Then make `purity.test.ts`'s called-not-re-derived table carry a row pointing
 at it, which is the mechanism that file exists for. The check that it worked:
 a lane can add a phase and go green in one `bun run check`, not four.
 
-## The 250-line ceiling reports one file per run, so a wide lane pays for four runs
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-the-250-line-ceiling-reports-one-file-per-run-so
-- **Files:** `packages/sim/test/limits.test.ts`
-- **Where:** cloud
-
-`limits.test.ts:52` loops the source files and calls `expect` **inside the
-loop**, so the first file over the limit throws and every file after it goes
-unreported. On a lane that adds one row to several lists at once — a new boss
-state does exactly that — four pages sat two or three lines over their ceiling
-and the suite named them one at a time: fix, run the 560 files again, meet the
-next one. Four `check:fast` runs at two and a half minutes each, to learn four
-facts the first run already had in hand.
-
-To do: collect the offenders into an array inside the loop and assert on the
-whole array afterwards, with the message listing every file and its count, the
-way `hash-coverage.test.ts` already reports its misses. The case keeps its one
-`expect` and its `loadedTimeout(150)` budget; nothing about what is enforced
-changes, only how much of it one run says. The check that it worked: put two
-files over the limit on a scratch branch and see both named.
-
 ## Unverified at a5f99af6: THE CANDLE's wick and ember watched at tempo — the stem…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

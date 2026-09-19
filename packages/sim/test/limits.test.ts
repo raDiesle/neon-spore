@@ -15,6 +15,14 @@ import { loadedTimeout } from "../../../tools/test/repo-time.js";
  * `tools/hooks/file-size.ts`, because `after-edit-size.ts` says a file is
  * filling up at the moment it is written and has to mean the same thing by it.
  * This file is still the rule — the hook only ever warns.
+ *
+ * **Every case here reports all of its offenders, not the first.** An `expect`
+ * inside the loop throws on the first file over, and everything after it goes
+ * unlooked-at — so a lane that added one row to several lists at once met four
+ * full pages one at a time, re-reading 560 files between each. Four runs at
+ * two and a half minutes, for four facts the first run already had in hand.
+ * So each loop collects and the assertion comes after it: one `expect`, one
+ * budget, and a failure that names every file and its count at once.
  */
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
@@ -51,12 +59,14 @@ describe("file size limits", () => {
   it(
     "keeps source files under the limit",
     async () => {
+      const over: string[] = [];
       for (const file of files) {
         const rel = relative(ROOT, file).replaceAll("\\", "/");
         if (rel in KNOWN_LONG) continue;
         const lines = await linesIn(file);
-        expect(lines, `${rel} has ${lines} lines, limit is ${LIMIT}`).toBeLessThanOrEqual(LIMIT);
+        if (lines > LIMIT) over.push(`${rel} has ${lines} lines, limit is ${LIMIT}`);
       }
+      expect(over).toEqual([]);
       // Fifteen hundred files read in one case, and what that costs is the
       // machine rather than the work: 145 ms alone on the cloud image on 18
       // September 2026, and past five seconds under `bun run check`'s eight
@@ -68,23 +78,25 @@ describe("file size limits", () => {
   );
 
   it("does not let a known long file grow", async () => {
+    const grown: string[] = [];
     for (const file of files) {
       const rel = relative(ROOT, file).replaceAll("\\", "/");
       if (!(rel in KNOWN_LONG)) continue;
       const lines = await linesIn(file);
       const max = KNOWN_LONG[rel]!;
-      expect(lines, `${rel} has ${lines} lines, known max is ${max}`).toBeLessThanOrEqual(max);
+      if (lines > max) grown.push(`${rel} has ${lines} lines, known max is ${max}`);
     }
+    expect(grown).toEqual([]);
   });
 
   it("drops a known long file once it is short enough", async () => {
+    const shrunk: string[] = [];
     for (const [rel] of Object.entries(KNOWN_LONG)) {
       const file = join(ROOT, ...rel.split("/"));
       const lines = await linesIn(file);
-      expect(lines, `${rel} is now ${lines} lines — delete it from KNOWN_LONG`).toBeGreaterThan(
-        LIMIT,
-      );
+      if (lines <= LIMIT) shrunk.push(`${rel} is now ${lines} lines — delete it from KNOWN_LONG`);
     }
+    expect(shrunk).toEqual([]);
   });
 });
 
@@ -103,12 +115,15 @@ describe("source files are text", () => {
   it(
     "has no control byte but tab, LF and CR in any of them",
     async () => {
+      const binary: string[] = [];
       for (const file of files) {
         const bytes = new Uint8Array(await Bun.file(file).arrayBuffer());
         const at = bytes.findIndex((b) => b < 0x20 && b !== 0x09 && b !== 0x0a && b !== 0x0d);
+        if (at === -1) continue;
         const rel = relative(ROOT, file).replaceAll(sep, "/");
-        expect(at, `${rel} has byte 0x${bytes[at]?.toString(16)} at offset ${at}`).toBe(-1);
+        binary.push(`${rel} has byte 0x${bytes[at]?.toString(16)} at offset ${at}`);
       }
+      expect(binary).toEqual([]);
       // The same fifteen hundred files, read as bytes rather than as text: 253 ms
       // alone on the cloud image, 18 September 2026, and on the same load curve
       // as everything else that walks the tree (`tools/test/repo-time.ts`).
