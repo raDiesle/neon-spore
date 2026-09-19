@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · ad83e41d — Queue the trunk reconcile that only `bun run push` can reach
+
+A hand resolution of `docs/queue.md` that takes origin's copy whole, as `CLAUDE.md` says to, reinstates an entry `bun run queue done` had removed: a removal is not an entry to re-append. This lane found one of its own closed items back in the listing, still marked taken by the branch that had landed it. `tools/land/queue-merge.ts` and `reconcile.ts` get the same merge right, and neither is reachable from a shell — `push.ts` is the only caller.
+
 ## 2026-09-19 · 05e9eefd — A comment that names its own subject names something the tree has
 
 The finding was one comment asserting a capability the function beside it never had, and the question was whether a check could have caught it. Two were measured rather than argued about: every backticked camelCase identifier in a source comment is 6,452 claims with 205 misses, nearly all platform globals and so an allowlist that rots; restricted to identifiers whose head word is a word of the comment's own file name it is 1,523 claims with 18 misses and not one global. The second is `doc-drift-names.test.ts`, the fifth of doc-drift's claim checks and the first about an identifier rather than a path.
