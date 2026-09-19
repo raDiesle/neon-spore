@@ -996,23 +996,6 @@ unverified part; queue it with `bun run land --unverified`.
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
 
-## THE CAIRN: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-cairn-the-field-says-the-word-and-the-briefi
-- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/scenes/the-cairn.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says nothing on the field at all.
-Its briefing is a 5-page rehearsal (`packages/content/src/scenes/the-cairn.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE CAIRN changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2198,3 +2181,71 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A queue claim names a branch the lane is not on
+
+- **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
+- **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `docs/commands.md`
+
+A claim is written in two places on purpose (`claim.ts`'s header): a branch, which
+is instant and shared between worktrees, and the `Taken:` line, which is what a
+clone can see. But the branch is not the lane's — it is **derived from the title**
+by `branchFor`/`slugFor`, and `take` creates it and writes its name into the
+`Taken:` line whatever branch the lane is actually on.
+
+A session started on a branch of its own — which is what happens whenever several
+lanes are dealt out by a coordinator rather than by `queue next` — therefore ends
+up with two branches and a claim naming the one nobody is working in. Three things
+follow, and none of them says anything:
+
+1. `bun run queue` lists the item as ongoing under a branch that holds one commit
+   and no work, so the listing cannot be used to find the lane, and a live lane
+   cannot be told from an abandoned claim.
+2. `heldElsewhere` compares `branchFor(item)` with `HEAD`, so the lane holding the
+   item reads as somebody else's from inside its own worktree. `done` and
+   `release` only get past that because the caller wrote the title out.
+3. `done` will not drop the claim branch, because it holds a commit that is not on
+   `main` — so it is left standing after the work lands and the next sweep is the
+   only thing that can clear it.
+
+Three of the three lanes running on 19 September 2026 are in this state at once;
+`git branch --list 'claude/*'` shows both branches for each of them.
+
+What to do: have `take` record the branch it is actually on, and say in one line
+when that is not the derived one, so the listing and the sweep are both looking at
+the ref the work is on. The check is a test over `takenMark`: a claim made from a
+worktree whose `HEAD` is not `branchFor(item)` names `HEAD`.
+
+## A comment inside a wave entry is deleted by the director's next save
+
+- **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
+- **Files:** `tools/director/src/serialize.ts`, `packages/content/src/waves/act-8.ts`, `.claude/skills/new-wave/SKILL.md`
+
+`serialize.ts` regenerates an act's whole array from the parsed waves and keeps
+only **that file's own header and doc comment** byte for byte. So a comment
+written beside a wave — the reason a guide half says what it says, which is
+exactly what a lane rewriting a briefing wants to leave behind — is gone the next
+time anybody saves from the editor, and the diff that deletes it is a diff nobody
+will read as a deletion.
+
+Nothing says so to a wave author. No entry in the tree has such a comment, so
+there is no example to copy and no absence to notice: `bun run lint`, the
+typecheck and `packages/content`'s own tests all pass, and the only thing that
+speaks up is `tools/director/test/wave-save.test.ts` — a round-trip in a
+different package, about 130 seconds into `check:fast`. This lane wrote an
+eight-line comment above `theCairn`'s `guide` and found out that way.
+
+Two things to do:
+
+1. Say it in `.claude/skills/new-wave`, in one line: a wave's *data* is the
+   director's and carries no comments — the reasoning goes in the file's header,
+   in `docs/spec/briefings.md` or beside the code that reads it.
+2. Make the failure say what it is. `wave-save.test.ts` fails as a text diff of
+   two 97-wave files, which names neither the wave nor the cause; a serializer
+   that is losing a comment can say so, because it can see the comment it is
+   dropping.
+
+The stronger version, if the owner wants it: `serialize.ts` refuses to write when
+the file it is replacing holds a comment inside the array, and names it. A rule
+that is a red check on the lane that broke it is worth more than a line in a
+skill nobody re-reads.

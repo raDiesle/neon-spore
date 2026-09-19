@@ -1790,6 +1790,54 @@ because every one of them is a body the field still has to answer. `cairnShedBea
 is the patience, and it is the fight's whole difficulty — shorten it and a pair
 who stop to clear the air are handed a lane they did not choose.
 
+**The words** (`render/src/boss-cue-read-q.ts`, 19 September 2026, page
+seventeen: it was written onto page four beside THE STARE's and moved off it the
+same day, when THE SPLICE's `WAIT` took that page and two readings would have
+carried it past 250 lines). One, `CARRY` over `PULL` on the middle of the stack, and it is the
+word for **the gesture this boss is named after** — which it did not have: the
+reading fell through `cuesOf`'s default and the field said nothing at all, on
+the one boss where both bands are dead. Nothing fired reaches the pile and the
+shield has nothing to turn on it, so a pair with no word would open the fight
+firing at a body a bolt goes straight past. The seat is `null`, because the
+carry is (`grip-push.ts`): a thumb on the stack drags a rock out whoever it
+belongs to, both screens are drawn the pile whole and both the ring once a hand
+is on it, which is THE CURTAIN's `SHOVE` on the same gesture. It goes quiet only
+for the beat of quiet a carry costs (`carryIsReady`), and that silence is
+symmetrical — a rock has just left and `units` has dropped, which both screens
+count. **And it is deliberately not timed on the clock, which is this lane's
+finding.** The obviously useful word is *pull now, it is about to choose for
+you*, and it is forbidden: the shed's column, its lane and the ring shaking on
+the stone that is going are drawn on player 1's screen alone
+(`showsCairnSettle`), so a word that arrived, hurried or changed as the patience
+ran out would be his gauge read out on her glass by its own arrival — THE LEAD's
+finding one boss on. The word is the same word on beat one and on beat seven of
+the eight, on both screens. **Five silences**, and each is the fight: the lane
+the pile chose, which is the column said across the voice delay; **which side**,
+the one thing about this fight either of them decides; **how many**, the
+question the whole encounter exists to make her answer; **the ward**, because
+what comes away is a plain `meteor` and no boss's reading cues an ordinary body
+(THE GORGE's fourth silence) — with seven able to be in the air at once, a frame
+on one would say that one is the dangerous one when what is dangerous is that
+there are several; and **the trigger's own beat**, since the plate is on her
+screen and not his (`showsShield`) and a `GUARD` that went out when the dome was
+under a rock would hand him the column he is never shown. Proved in
+`render/test/boss-cue-cairn.test.ts`, the clock's whole silence with it.
+
+**The rehearsal** (`content/src/scenes/the-cairn.ts`, 13 September 2026, five
+pages over 1680 ticks): the pilot's thumb resting on the pile through a whole
+page with nothing happening, then the same thumb carried right and one rock
+leaving the stack's right; the lane filling on his screen and on nothing hers
+shows, while the pulled rock is still in the air; the dome slid under that rock
+and turned; and the rock the pile let go of on its own reaching the hull, which
+is the wave's sentence. The timing is the pile's own arithmetic — a pull at beat
+six puts the next shed at fourteen, the pulled rock lands at eighteen and the
+shed one at twenty-six — and `content/test/scene-films.test.ts` holds the
+sequence. Its first two pages came down when the field learnt to say `PULL`
+(19 September 2026) and say the halves the word may not: that nothing either
+control fires reaches the pile, and that the side the thumb goes is the lane the
+rock comes down. The dome page kept its verb, because the ward is one of the
+reading's own silences.
+
 ## 11.12 THE WELL — the field turned inside out, on one phone
 
 > The one where the lane beside it is the other end of the field.

@@ -170,9 +170,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE CAIRN",
     sentence: "The one where the rock you did not pull is the one that lands.",
     guide: {
-      both: "Pull rocks out of the pile, one at a time, and ward each one. Nothing you fire touches it.",
-      p1: "1. Say the column the pile is about to drop a rock into by itself. Keep saying it.\n2. When your partner asks, take hold of the pile and drag sideways: a rock comes out on your side.\n3. Trigger the plate under every rock.",
-      p2: "1. Say how many rocks you can take, and which side to pull from.\n2. Move the plate under the rock your partner calls first, then under the one you pulled.\n3. Drag the pile sideways yourself when there is room.",
+      both: "Take the pile apart by hand and ward every rock that comes away; nothing either of you fires reaches it. Leave it standing eight beats and it drops one itself, into a lane only the pilot is shown.",
+      p1: "1. Only you see the lane it drops into by itself. Say that column — it is redrawn every time a rock leaves.\n2. Eight beats of patience, and every pull resets it.\n3. Trigger the plate under every rock.",
+      p2: "1. Say how many you can be under, and which side to pull.\n2. Ward the one you pulled first: twelve beats. Theirs is eight behind it, and only if the pile stands.\n3. Your colours are dead: a rock is warded, not shot.",
       scene: "theCairn",
     },
     entries: [],

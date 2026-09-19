@@ -678,6 +678,8 @@ hand still draws.
 | THE CURTAIN | `HOLD IT · CARRY IT FOUR OVER` | `FOUR OVER AND IT IS CLEAR` | `CARRY` / `SHOVE` on the sheet — `CARRY` is the kind line, so the page was saying the field's word to get to its count |
 | THE CURTAIN | `FIRE ITS COLOUR AS IT BARES` | `ITS COLOUR OR IT FIRES BACK` | `PRESS` / `FIRE` on the core, hers alone, once the cannon is in its column |
 | THE TASTER | `PLAYER 1 HOLDS THE NEXT ONE` | `EVERY SHOT FEEDS THE COUNT` | `CARRY` / `MOVE` on the cannon, his alone, while the column he is in has nothing that can be answered |
+| THE CAIRN | `A STILL THUMB MOVES NOTHING` | `NO SHOT REACHES THIS PILE` | `CARRY` / `PULL` on the stack, either seat's — `CARRY` is the kind line, so the page was saying *a thumb carried across the field* in its own words |
+| THE CAIRN | `CARRIED RIGHT · ONE FALLS` | `THE SIDE YOU GO IS ITS LANE` | the same word; the side is the silence it leaves, and the one thing about this fight either of them decides |
 
 **One other film of the twelve had nothing to take, and that is the useful half
 of the result.** THE DIASTOLE spends its pages on a colour, a count or which
@@ -911,6 +913,36 @@ lapsed. Every page of its film is a count or a colour, so there was nothing for
 a wider verb to take, and that is the second way this rule can come back empty:
 the first is a film already teaching the split, and this is a fight whose whole
 content is the number neither cue may say.
+
+THE CAIRN's two rows are 19 September 2026, and it is the first boss in this
+section that said **nothing at all** — its reading fell through `cuesOf`'s
+default, on the one fight where both bands are dead: no bolt reaches the pile
+and the shield has nothing to turn on a thing that is not falling, so the only
+answer to it is a grip carried sideways across the stack, and that gesture is
+the boss's whole name. `CARRY` / `PULL` stands on it now, either seat's, for as
+long as there is a pile (`boss-cue-read-q.ts`). **What the field must not say is
+the clock**, and that is why this boss gets one word and not two: the pile lets a
+rock go by itself after eight beats, and the column, its lane and the ring on the
+stone that is going are the pilot's picture alone (`showsCairnSettle`) — so a
+word that arrived or hurried as the patience ran out would be his gauge read out
+on her glass by its own arrival, which is THE LEAD's finding one boss on. The
+word is identical on beat one and beat seven, on both screens.
+
+**And this lane found a briefing that was not stale but backwards**, which is THE
+TASTER's case a second time. The navigator's second step read *move the plate
+under the rock your partner calls first, then under the one you pulled* — and the
+order is the other way round by twelve beats against twenty. Every departure
+resets the shed clock and redraws the column (`letGo` in `sim/cairn.ts`), so the
+called rock is eight beats from even starting while the rock already in the air
+is twelve from the hull: a dome sent to the announced lane first stands in an
+empty column for eight beats and the rock they pulled themselves lands. Her half
+says the pulled one first now and carries both numbers. His had spent a step on
+*take hold of the pile and drag sideways*, which the field says, and it carries
+the patience and the redraw instead — the column is drawn again every time a rock
+leaves, either way, which neither half had ever said. The film's first two pages
+went with it (its rows above); the dome page kept its verb, because the ward is
+one of the reading's own silences — what comes away is an ordinary rock, and no
+boss's reading cues one.
 
 #### The ghost thumb is derived, never authored
 

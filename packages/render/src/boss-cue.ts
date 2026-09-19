@@ -15,6 +15,7 @@ import { candleCues } from "./boss-cue-read-m.js";
 import { gorgeCues } from "./boss-cue-read-n.js";
 import { ledgerCues } from "./boss-cue-read-o.js";
 import { antiphonCues } from "./boss-cue-read-p.js";
+import { cairnCues } from "./boss-cue-read-q.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -158,6 +159,8 @@ function cuesOf(
       return queenCues(l, world, boss, beatPhase);
     case "stare":
       return stareCues(l, world, boss);
+    case "cairn":
+      return cairnCues(l, world, boss);
     case "splice":
       return spliceCues(l, world, boss, beatPhase);
     case "mirror":
