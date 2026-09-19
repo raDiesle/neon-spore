@@ -434,6 +434,7 @@ left hanging.
 - **Found:** 2026-09-17, claude/task-queue-progress-abb7a3
 - **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves.ts`
 - **Asks:** When a page in the middle splits, do the later letters shift up, or do waves migrate between pages?
+- **Answered:** 19 September 2026 — shift the letters. Migrating waves only postpones the same overflow one page later, and lifting the prose costs separating a wave's reasoning from its figures, which is the thing these headers exist to keep together. This is now the standing convention rather than a one-off pick: the same day, a different entry (*`act-7d.ts` is eight under the ceiling*) hit this exact shape of overflow — a full-enough middle page (`act-7e.ts`) sitting between the page that needed to shed waves (`act-7d.ts`) and the end of the chain — and was resolved the same way, giving the new page the letter and shifting the old `act-7e.ts` to `act-7f.ts`. `act-7e.ts`'s own header now cites this entry by name as the precedent, so it stays rather than closing: `act-7c.ts` is the page closest to needing this again (241 of 250 lines as of that same landing).
 
 `act-7c.ts` is at 248 lines of 250 and `act-7d.ts` at 247. `act-7e.ts` has 98,
 so act seven holds 593 lines against a budget of 750 across its three pages:
@@ -1866,32 +1867,6 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## Nothing holds a handle boss to having a word
-
-- **Found:** 2026-09-19, claude/queue-a-handle-bosss-word-is-invisible-to-a-search-of
-- **Files:** `packages/render/src/boss-cue.ts`, `packages/sim/src/drag-targets.ts`, `packages/sim/src/drag-targets-b.ts`
-- **Asks:** Is a handle with no word a defect a check should fail, with a named list of the ones not built yet; or is it the ordinary state of a boss that is not finished, and the skill's sentence enough?
-- **Where:** cloud
-- **Answered:** 19 September 2026 — the skill's sentence is enough; no new check. A hard-failing test needs the hand-kept target-to-boss table this entry says nothing here builds lightly, and it would be red on landing for two known-unfinished bosses, which then needs an allowance list that is itself a statement of which bosses count as finished — more infrastructure than the value it buys, given `.claude/skills/new-boss-more` §6.1 already tells a lane starting this work to look.
-
-The half of the entry above that was left to the owner, and it is still his to
-settle. A boss's words are either a `case` in `boss-cue.ts` or a `drawCueText`
-call in its own drawing, and now that the skill says so, a lane will find them.
-What nothing says is that a boss with a handle ought to have any.
-
-A test would be *every `BossKind` with a `DragTarget` of its own has one or the
-other*, and it cannot be written from the tree as it stands: nothing maps a
-target to the boss that owns it. `antiphonOrgan`, `instarMark`, `surgeBulb`,
-`sinewLeft`, `balloonLeft` and twenty more are a flat union, and the mapping
-would be a new hand-kept table — which is the thing this repository writes a
-`copies-table.ts` row about rather than adds lightly.
-
-It would also be red on the day it landed. THE INSTAR has `instarMark` and says
-its word in a scanner box of its own that predates the cue; THE BALLOON has a
-pair of handles and says nothing. Both are work nobody has started, so the test
-needs an allowance list beside it, and an allowance list is a statement about
-which bosses are finished — the owner's to make, not a lane's.
 
 ## Unverified at e71733bc: THE SPLICE's WAIT seen at tempo over the tangle
 

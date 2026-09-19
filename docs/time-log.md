@@ -11628,3 +11628,30 @@ the one entry left undecided is the one whose answer the owner asked to see
 before committing to it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — record-owner-answers-19sep-followup — the twelfth answer, and the one that closed on the spot
+
+Two more from the same batch: the owner deferred *Act seven has no room* to
+this lane once he'd seen the plain-language answer to "what is act 7," and
+the coordinator relayed his go-ahead for shift-the-letters. Recorded it as
+the standing convention rather than a one-off, since a different entry
+landed earlier today (`act-7d.ts is eight under the ceiling`) already hit
+this exact shape of overflow and resolved it the same way — `act-7e.ts`'s
+own header now cites this queue entry by name, so it stays rather than
+closing once decided. *Nothing holds a handle boss to having a word*
+resolved to "no new check," which needed no code at all, so it closed
+outright with `bun run queue done` rather than carrying an Answered line
+forward.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, and the current line counts of every act-7 file to say whether its 17 September premise (7c and 7d both near-full) still holds |
+| writing | 10 | the Answered line, citing this session's own earlier landing as precedent |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 15 | `format`, `lint`, `doc-drift.test.ts`, `tsc --noEmit`, then the full `check` (18,489 tests) |
+
+**No real bottleneck** — the decision was already made by the earlier entry's
+own precedent; this was transcription.
+
+*Measured: the rows above are the session's own estimate.*
