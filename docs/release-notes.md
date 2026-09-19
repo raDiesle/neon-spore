@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 80d22a88 — The line ceiling names every file it caught, not the first
+
 ## 2026-09-19 · fba51f32 — The line ceiling is heard by a lane that writes through Bash
 
 ## 2026-09-19 · 58a70de2 — The cloud-session ceiling of two is lifted
