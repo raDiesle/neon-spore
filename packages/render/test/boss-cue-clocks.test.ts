@@ -11,7 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
+import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -99,6 +99,42 @@ describe("THE LEAD", () => {
     s.passBeat = world.beat;
     expect(word(world, "p2")).toBe("BURN");
     expect(cue(world, "p2")?.kind).toBe("HOLD");
+    expect(word(world, "p1")).toBeNull();
+  });
+
+  it("asks her to hold off while it stands dead, where nothing touches it", () => {
+    const world = opened("lead");
+    const s = installed<LeadState>(world, "lead");
+    s.segments = 1;
+    s.stillBeat = world.beat;
+    // Four beats of a refused bolt and a beam the plating answers
+    // (`sim/lead-shot.ts`), and the word is the kind so the screen says one
+    // thing. It stands on the body, which is drawn at `s.col` on her screen
+    // alone (`lead-shape.ts`).
+    const hers = cue(world, "p2");
+    expect(hers?.word).toBe("STILL");
+    expect(hers?.kind).toBe("STILL");
+    expect(hers?.x).toBe(tileCX(LAYOUT.p2, s.col));
+    // His four beats are the stalk's: on the last of them it leans the way the
+    // pass will go, which is his picture and his to say (`settleLean`).
+    expect(word(world, "p1")).toBeNull();
+  });
+
+  it("says no column to the pilot at any point, because its absence is the column", () => {
+    const world = opened("lead");
+    const s = installed<LeadState>(world, "lead");
+    // Pacing, running, forecasting, still and passing: he is never shown where
+    // the body is (`showsLeadCol`), so a `MOVE` going out as he arrived would
+    // hand him the one term of the sum that is hers (`decisions.md` #34).
+    for (const segments of [5, 4, 2, 1]) {
+      s.segments = segments;
+      s.stillBeat = -1;
+      s.passBeat = -1;
+      world.cannonCol = s.col === 0 ? 1 : 0;
+      expect(word(world, "p1")).toBeNull();
+    }
+    s.segments = 1;
+    s.passBeat = world.beat;
     expect(word(world, "p1")).toBeNull();
   });
 });

@@ -22,6 +22,41 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-lead — the word that cannot exist, and the beat the stalk already added
+
+The seventh of this family and the first whose finding is an **absence**. THE
+LEAD's split is the strictest in the game — the pilot is shown the lean and never
+the column, the navigator the column and never the lean — so the `MOVE` the last
+four lanes each gave the pilot cannot be given here: it goes out the beat he
+arrives, and on this boss its own silence would hand him the column. What is left
+is the two moments the trigger stops working and both are hers: `STILL` for the
+four beats it stands dead, where `leadStruck` refuses a bolt and a beam is the
+plating's answer, and `BURN` on the pass that only the beam standing in its
+column ends. `STILL` is safe because standing dead is drawn to both seats; what
+it does not say is that the pilot has four beats of work in there.
+
+The guide was wrong twice over. It told the pilot to *say the turn a beat early
+from the second segment* — `leadForecastSegments` is 2, so the stalk had already
+started doing it for him and he was being asked to double-count — and its shared
+line named neither the pace change at the first hit nor the still at all. And
+rewriting it I dropped the pilot's cannon step, which every neighbouring boss in
+this act carries; re-reading the four beside it put it back.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `lead-*.ts` for what each screen is allowed to know, `config-lead.ts` for the four numbers the guide names, and `*-grip.ts`/`*-handles.ts` greped for `drawCueText` first, which is the entry this family filed yesterday |
+| writing | 25 | `leadCues` with the argument for why no `MOVE` can exist, two cases in `boss-cue-clocks.test.ts`, the guide's three halves, two film captions with a paragraph saying which cue took each verb, and the spec's `The words` page |
+| looking | 0 | nothing new is drawn: the cue text and its placement shipped with the family |
+| friction | 10 | a `sed` pattern with an apostrophe in it died on the shell rather than the file, twice; and the pilot's fourth step went over the 220 characters a guide half is allowed, which only the full `check:fast` says, so the four steps were cut to fit after a 150-second run |
+| landing | 20 | two `check:fast` runs at 150 s, `index`, `lint`, the commit and the land |
+
+**The bottleneck was proving a word must not exist**, which costs more than
+writing one. Four of this family's lanes reached for `MOVE` first and this one
+had to establish that the pilot is never shown `s.col`, that no other reading's
+`MOVE` stands on anything he is not already drawn, and that a word appearing only
+sometimes is a reading of the thing it appears for — none of which a test can
+fail on, so all of it is in the comment.
+
 ## 2026-09-19 — queue-the-curtain-states — a second gesture, and fifteen places that had to be told
 
 The first half of the boss's own queue entry: THE CURTAIN was two beat stamps
@@ -47,6 +82,7 @@ time. Fifteen other places had to be told a state exists, and all but three
 were found by a red test rather than by reading anything, one 145-second check
 at a time; `docs/queue.md` already carries the entry for that, and this lane
 added the three it was missing.
+
 ## 2026-09-19 — queue-the-surge — a boss beaten by letting go, with no word for it
 
 The sixth of this family, and its entry said *it says nothing on the field at

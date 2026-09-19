@@ -362,7 +362,17 @@ whose acts say whose hand each is (`SceneAct.hand`), because the bulb is one
 `DragTarget` for either thumb — and the middle hold is the mistake, a thumb
 off alone with the charge lost under the other; the burst, its gums and the
 eversion at the fifth notch are the last two pages' words and the prose.
-THE LEAD's, the same day, is the mistake first — a shot at where the body
+THE LEAD's guide was rewritten 19 September 2026, when the field learnt to say
+`STILL` and `BURN`: the pilot's half had told him to *say the turn a beat early*
+from the second segment, and `leadForecastSegments` is 2, so the stalk had
+already started doing it for him and he was being asked to double-count; the
+shared line named neither the pace change at the first hit nor the still at all.
+It is the one guide in the game with no word to lean on for *where it will be*,
+because the pilot is never shown the column and a cue that appeared only
+sometimes would be the column by its own absence — so the pilot's half carries
+the arithmetic itself, two ahead at a walk and four at a run, inside the 220
+characters a half is allowed (`render/test/briefing.test.ts`). Its film, the same
+day, is the mistake first — a shot at where the body
 is, missed and turned round — and then four at where it will be, every one
 an `atBoss` strip answered by the sum itself (`leadLead`, two beats on);
 the run's litter is laid around, since a rock stands in its column for the

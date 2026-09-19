@@ -6,6 +6,7 @@ import {
   diastoleClampHolds,
   type LeadState,
   leadPassing,
+  leadStill,
   type ScuttleState,
   scuttleShootable,
   scuttleSocketCol,
@@ -63,19 +64,53 @@ function markAt(
 }
 
 /**
- * THE LEAD. Silent for the whole of the fight it is named for — *where it will
- * be* is a number the pair computes out of her column and his lean, and a cue
- * anywhere near it would be the arithmetic done for them.
+ * THE LEAD. **Silent for the whole of the fight it is named for**, and both of
+ * its words are about the last movement.
  *
- * One word, on the pass: with one segment left the body stops dead, then runs
- * for the wall, and **only the beam standing in its column** ends it. Nothing
- * on the panel says that the trigger has stopped working, and a pair firing
- * ordinary shots at a body that cannot be hurt by them is a pair who thinks
- * they are missing.
+ * *Where it will be* is a number the pair computes out of her column and his
+ * lean, and a cue anywhere near it would be the arithmetic done for them. This
+ * boss's split is the strictest in the game: the pilot is shown the lean and
+ * **never** the column, the navigator the column and never the lean
+ * (`showsLeadLean`, `showsLeadCol`). So there is no `MOVE` here and there
+ * cannot be one — the word four of these readings give the pilot goes out the
+ * beat he arrives, and on this boss its *absence* would tell him the column he
+ * is not shown. Every other reading's `MOVE` stands on a column the game is
+ * already drawing him.
+ *
+ * What is left is the two moments the trigger **stops working**, and both are
+ * hers, because the presses are hers (`content/src/controls.ts`).
+ *
+ * - **`STILL`, while it stands dead.** At one segment the body stops where it
+ *   was hit for `leadStillBeats`, the shots in the air are thrown away, and
+ *   from then until the pass *nothing touches it at all*: `leadStruck` refuses
+ *   a bolt and a beam up any column is the plating's answer
+ *   (`sim/lead-shot.ts`). Four beats of a trigger that has quietly stopped
+ *   working, which is this boss's own sentence and was true of this boss.
+ *   `STILL` is the kind and the word, THE STARE's arrangement, so the screen
+ *   says one thing.
+ * - **`BURN`, on the pass.** It runs for the farther wall at `leadPassCols` a
+ *   beat and **only the beam standing in its column** ends it; a pass that
+ *   reaches the wall is another still and a pass back.
+ *
+ * **The mark stands on the body, and only she is shown the body.** The stalk's
+ * foot is drawn at `s.col` on her screen and at the middle of the field on his
+ * (`lead-shape.ts`), so a seat-2 cue at `tileCX(l, s.col)` names the thing she
+ * is already looking at and `cueSeen` keeps it off his glass.
+ *
+ * **And `STILL` hands her nothing she has not got.** Standing dead is drawn to
+ * both seats — the stalk goes upright, the mound changes and the lock dims to
+ * half (`lead-draw.ts`, and the angle is nought whatever the role) — so the
+ * word adds the verb and no reading. What it does *not* say is that the pilot
+ * has four beats of work in there: on the last of them the stalk leans the way
+ * the pass will go (`settleLean`, `leadPassDir`), which is his picture, his to
+ * say, and the guide's to explain.
  */
 export function leadCues(l: Layout, _world: World, s: LeadState): readonly BossCue[] {
-  if (!leadPassing(s)) return [];
-  return [markAt(2, "HOLD", "BURN", tileCX(l, s.col), leadRidgeY(l).mid, l, 54)];
+  if (leadPassing(s)) {
+    return [markAt(2, "HOLD", "BURN", tileCX(l, s.col), leadRidgeY(l).mid, l, 54)];
+  }
+  if (!leadStill(s)) return [];
+  return [markAt(2, "STILL", "STILL", tileCX(l, s.col), leadRidgeY(l).mid, l, 95)];
 }
 
 /**

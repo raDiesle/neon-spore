@@ -38,6 +38,15 @@ import type { GuideScene } from "../scene-types.js";
  * second at 2 — and the rock at 2, which lands three beats after the body
  * is down, is warded by the same shield with a second guard.
  *
+ * **And the two pages the field took over.** It says `STILL` on the body for
+ * the four beats nothing can touch it and `BURN` on it through the pass
+ * (`render/boss-cue-read-c.ts`), so the page that said *it stops dead* says why
+ * nothing lands instead, and the page that said *hold the beam in its way* says
+ * whose lane the beam leaves by. Everything with a number or a direction in it
+ * stays written, and there is a great deal of it: this boss's split is the
+ * strictest in the game, so the field says no column and no lean at all and the
+ * sum is the whole rehearsal.
+ *
  * **The pass and the beam.** With one segment the body stops dead at the
  * right wall and the stalk stands upright; on the still's last beat it leans
  * the pass's way. The cannon is put in column 8 and a colour held three beats
@@ -100,11 +109,15 @@ export const THE_LEAD: GuideScene = {
       text: "GUARD ITS TORCH · TWO MORE",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 900, seat: 2, text: "ONE LEFT · IT STOPS DEAD", anchor: { at: "boss" } },
+    // `STILL` stands on the body for the four beats it does (`boss-cue-read-c.ts`),
+    // so the page says the part the word cannot: *why* nothing lands.
+    { tick: 900, seat: 2, text: "NOTHING TOUCHES IT NOW", anchor: { at: "boss" } },
     {
       tick: 1080,
       seat: 2,
-      text: "HOLD THE BEAM IN ITS WAY",
+      // `BURN` stands on the body through the pass, so what is left to write is
+      // whose lane the beam leaves by — the other half of the one gesture.
+      text: "IT LEAVES THE CANNON'S LANE",
       anchor: { at: "control", control: "fireRed" },
     },
     {

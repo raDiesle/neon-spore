@@ -101,9 +101,9 @@ export const WAVES_ACT_7E: Wave[] = [
     name: "THE LEAD",
     sentence: "The one you shoot where it will be, not where it is.",
     guide: {
-      both: "Shoot the walking body where it will be, not where it is. One segment a hit. On the last, hold the beam in its path.",
-      p1: "1. Say LEFT or RIGHT every beat: where it goes next.\n2. From the second segment, say the turn a beat early.\n3. Slide the cannon under the column it will be in.\n4. On the last segment, keep the cannon in its path.",
-      p2: "1. Say the column it stands in, every beat.\n2. Fire the beat your partner says the cannon is under where it will be.\n3. On the last segment, hold a colour for the beam.",
+      both: "Shoot the walking body where it will be, not where it is. Five segments, and it paces faster from the first hit. On the last it stands dead for four beats, then only the beam in its path.",
+      p1: "1. Say LEFT or RIGHT every beat: where it goes next.\n2. Cannon two ahead of her column, four on a run.\n3. With two left the stalk adds the beat for you.\n4. On the last it stands dead, then leans the way out. Say it.",
+      p2: "1. Say the column it stands in, every beat.\n2. Fire when your partner says the cannon is under where it will be.\n3. While it stands dead nothing touches it. Hold the colour then, and beam it on the run.",
       scene: "theLead",
     },
     entries: [

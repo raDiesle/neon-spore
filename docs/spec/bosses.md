@@ -5453,6 +5453,41 @@ the ridge does not show the walls it turns at; the torch and the rock are
 the field's own creatures with a burst over the column and no fall drawn
 out of the body. The owner's eye decides all three.
 
+**The words** (`render/src/boss-cue-read-c.ts`, 19 September 2026, beside THE
+SCUTTLE's and THE DIASTOLE's). Two, and both are about the last movement: this
+boss is **silent for the whole of the fight it is named for**. *Where it will
+be* is a number the pair computes out of her column and his lean, and a cue
+anywhere near it would be the arithmetic done for them — the split here is the
+strictest in the game, the pilot shown the lean and never the column, the
+navigator the column and never the lean (`showsLeadLean`, `showsLeadCol`). **So
+there is no `MOVE` here and there cannot be one**, which is true of no other
+boss in the family: the word four of the other readings give the pilot goes out the beat he
+arrives, and on this boss its *absence* would tell him the column he is not
+shown. A word whose silence reads is as bad as one that says too much, and every
+other reading's `MOVE` stands on a column the game is already drawing him. What
+is left is the two moments the trigger **stops working**, and both are hers
+because the presses are hers (`content/src/controls.ts`). `STILL` on the body
+while it stands dead: at one segment it stops where it was hit for
+`leadStillBeats`, the shots in the air are thrown away, and from then until the
+pass nothing touches it at all — `leadStruck` refuses a bolt and a beam up any
+column is the plating's answer (`sim/lead-shot.ts`). Four beats of a trigger
+that has quietly stopped working, which is the sentence this whole family exists
+for and was true of this boss; the word is the kind, THE STARE's arrangement, so
+the screen says one thing (`boss-cue-text.ts`). And `BURN` on the pass, which
+**only the beam standing in its column** ends — a pass that reaches the wall is
+another still and a pass back. The mark stands on the body at
+`tileCX(l, s.col)`, and only she is shown the body: the stalk's foot is drawn at
+`s.col` on her screen and at the middle of the field on his (`lead-shape.ts`),
+so the word names the thing she is already looking at and `cueSeen` keeps it off
+his glass. **And `STILL` hands her nothing she has not got.** Standing dead is
+drawn to both seats — the stalk goes upright, the mound changes and the lock
+dims to half (`lead-draw.ts`, and the angle is nought whatever the role) — so
+the word adds the verb and no reading. What it does not say is that the pilot has
+four beats of work in there: on the last of them the stalk leans the way the pass
+will go (`settleLean`, `leadPassDir`), which is his picture, his to say, and the
+guide's to explain. Proved in `render/test/boss-cue-clocks.test.ts`, the pilot's
+whole silence with it.
+
 **The rehearsal** (`content/src/scenes/the-lead.ts`, 17 September 2026,
 eight pages over 1500 ticks): the mistake first — a shot at column 7, where
 the body stands on beat 2, judged on beat 4 against column 9, a miss and the
@@ -5472,6 +5507,11 @@ is down. With one segment it stops at the right wall; the cannon is put in
 pass comes through at three a beat, 10 to 7. Every page is on a control or
 the hull — the body is a fixture and no anchor names one, the gauge item in
 `docs/queue.md`. The film takes no hit and points at no retries.
+Its *it stops dead* page came out when the field learnt to say `STILL` and
+says why nothing lands instead; its *hold the beam in its way* page says whose
+lane the beam leaves by. Everything with a number or a direction in it stays
+written, and there is a great deal of it: the field says no column and no lean
+at all here, so the sum is the whole rehearsal.
 `content/test/scene-films.test.ts` holds the sequence.
 
 **Never watched at tempo.** What the tests say is the mechanism: it
