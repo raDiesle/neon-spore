@@ -736,7 +736,6 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE CURTAIN changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-curtain-changes-state-more-than-once-and-ask
 - **Files:** `packages/sim/src/config-curtain.ts`, `packages/sim/src/curtain-hash.ts`, `packages/sim/src/curtain-shot.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
