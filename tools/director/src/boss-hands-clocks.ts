@@ -18,6 +18,7 @@ import {
   tasterBoss,
   tasterLifted,
   tasterPhase,
+  tasterPried,
   tasterWindow,
   type World,
 } from "@neon-spore/sim";
@@ -46,6 +47,17 @@ const thumb = (on: boolean, color: Color): Press => ({
   player: 2,
   command: { kind: "prime", on, color },
 });
+/** THE TASTER's interlock, hauled all the way apart by the pilot (`sim/taster-hand.ts`). */
+const pry = (cfg: SimConfig): Press => ({
+  player: 1,
+  command: {
+    kind: "drag",
+    target: "tasterLock",
+    on: true,
+    fromMilli: 0,
+    fromYMilli: cfg.tasterPryMilli,
+  },
+});
 
 /** The cannon is free: nothing of the pair's is on its way up. */
 const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null;
@@ -62,7 +74,10 @@ const TASTER_MARGIN = 3;
  * cut through — four bolts into a shorn column (`tasterLifted`). Closed,
  * only a beam in the colour the pair has spent *least* of opens it, judged
  * after the beam's own spend: the hand fires the majority colour into the
- * crest until the margin is safe, then holds the minority down.
+ * crest until the margin is safe, then hauls the interlock apart and holds
+ * the minority down inside the same tick. The two go together because the
+ * window is `tasterPryBeats` and the fill is `lancePrimeBeats`, and starting
+ * the fill after the haul is the only order that lands inside it.
  */
 export const tasterHand: Hand = (w) => {
   const t = tasterBoss(w);
@@ -75,8 +90,14 @@ export const tasterHand: Hand = (w) => {
     const red = spentOver(w, tasterWindow(t, w.cfg), "red");
     const cyan = spentOver(w, tasterWindow(t, w.cfg), "cyan");
     const hi: Color = red >= cyan ? "red" : "cyan";
-    if (Math.abs(red - cyan) >= TASTER_MARGIN)
-      return w.prime === null ? [thumb(true, otherColor(hi))] : [];
+    if (Math.abs(red - cyan) >= TASTER_MARGIN) {
+      const out: Press[] = [];
+      // Again if the window shut with nothing in it: the fan locks back over
+      // the body and the haul is simply made afresh (`taster-step.ts`).
+      if (!tasterPried(t, w.beat, w.cfg)) out.push(pry(w.cfg));
+      if (w.prime === null) out.push(thumb(true, otherColor(hi)));
+      return out;
+    }
     return free(w) ? [fire(hi)] : [];
   }
   if (phase === "hurrying" && !tasterLifted(t)) {

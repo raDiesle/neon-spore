@@ -1,7 +1,9 @@
 import {
   type TasterState,
   tasterBladeAt,
+  tasterLifted,
   tasterPhase,
+  tasterPried,
   vaneOpen,
   vaneSplitCol,
   type World,
@@ -92,6 +94,29 @@ function markAt(
  * colour the beam has to be is shown to neither (`tasterWeak`). The word is the
  * verb alone.
  *
+ * **Three of the movements say a word about a thumb rather than about a shot**
+ * since 19 September 2026, because three of them are answered by one
+ * (`sim/taster-hand.ts`). Each stands where its own hand goes, and each is the
+ * most urgent thing its seat has in that movement:
+ *
+ * - `PIN` / `HOLD`, his, while the fan is `fanning` and a blade is growing
+ *   unheld. On the fan's middle and not on a blade, for the rule above: *which*
+ *   blade is not the question — any growing one will do — and three are out at
+ *   once there. It goes the moment his thumb is down, because a word about a
+ *   thing already being done teaches nothing (`gripBrakes`).
+ * - `WIPE` / `CARRY`, hers, while the fan is `hurrying` and the crest can still
+ *   be cut. On **the soft column itself**, which is `CUT`'s exception and for
+ *   its reason: the gap is already open on her screen and it is the one place
+ *   her thumb may land, so the mark names nothing she is not looking at.
+ * - `PRY` / `CARRY`, his, on a `closed` fan that is not open yet. The word this
+ *   fight ended on used to be hers alone; now his comes first, and `BURN` waits
+ *   for the interlock to be apart — a beam at a shut fan is refused, so `BURN`
+ *   there would be the field asking for the one thing that cannot work.
+ *
+ * `WIPE` is the one word of the three the game did not already have. It earns
+ * its place the way `CUT` did: the hand is a *second* way into the same gap,
+ * and a seat told to `CUT` with a thumb would reach for the trigger.
+ *
  * Nothing in `out`, where the fan is unlocking outward and the wave is held
  * `tasterOutBeats` so it cannot end on the same beat.
  */
@@ -103,15 +128,36 @@ export function tasterCues(l: Layout, world: World, t: TasterState): readonly Bo
   const move = () => markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 43);
   const here = tasterBladeAt(t, world.cannonCol);
   if (phase === "closed") {
-    // The interlock is over the whole body and the beam reaches it from any
-    // column the crest spans, so the one wrong column is one off the crest.
+    // Shut, the fight is his carry and hers is refused; open, it is her beam
+    // and his hands are back on the carriage. The interlock is over the whole
+    // body and the beam reaches it from any column the crest spans, so the one
+    // wrong column is one off the crest.
+    if (!tasterPried(t, world.beat, world.cfg)) return [markAt(1, "CARRY", "PRY", x, y, l, 45, 2)];
     return here < 0 ? [move()] : [markAt(2, "HOLD", "BURN", x, y, l, 41, 2)];
   }
+  const out: BossCue[] = [];
   const k = here < 0 ? undefined : t.blades[here];
-  if (k?.shorn === true) return [markAt(2, "PRESS", "CUT", tileCX(l, world.cannonCol), y, l, 44)];
-  if (k !== undefined && k.setBeat >= 0) return [markAt(2, "PRESS", "SHEAR", x, y, l, 42, 2)];
+  // Hers, the shot: the column his cannon is standing in, and what it does
+  // there. A shot is the more urgent of her two, since the carry has no beat
+  // it has to land on.
+  if (k?.shorn === true) out.push(markAt(2, "PRESS", "CUT", tileCX(l, world.cannonCol), y, l, 44));
+  else if (k !== undefined && k.setBeat >= 0) out.push(markAt(2, "PRESS", "SHEAR", x, y, l, 42, 2));
+  // Hers, the carry, on the leftmost soft column so the mark does not wander
+  // along the crest as the fan thins. Only while the crest can still be cut.
+  const soft = phase === "hurrying" && !tasterLifted(t) ? t.blades.findIndex((b) => b.shorn) : -1;
+  if (soft >= 0) out.push(markAt(2, "CARRY", "WIPE", tileCX(l, t.col + soft), y, l, 46));
+  // His, and the more urgent of his two: a blade about to decide is a thing
+  // with a beat on it, and the carriage is not.
+  const growing = t.blades.some((b) => !b.shorn && b.growBeat >= 0 && b.setBeat < 0);
+  if (phase === "fanning" && t.pin < 0 && growing)
+    out.push(markAt(1, "HOLD", "PIN", x, y, l, 47, 2));
+  // His, unchanged: the column he is in answers nothing and some other one
+  // would. It is added rather than returned instead of hers, so a word for her
+  // never takes his away (`bossCue` shows each seat its own first cue).
+  const answerable = k?.shorn === true || (k !== undefined && k.setBeat >= 0);
   const somewhere = t.blades.some((b) => b.shorn || b.setBeat >= 0);
-  return somewhere ? [move()] : [];
+  if (!answerable && somewhere) out.push(move());
+  return out;
 }
 
 /**

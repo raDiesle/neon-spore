@@ -9,7 +9,11 @@ import {
   tasterLifted,
   tasterOrder,
   tasterPhase,
+  tasterPinSpent,
+  tasterPried,
+  tasterStanding,
 } from "./taster.js";
+import { tasterHandsFresh } from "./taster-hand.js";
 import type { World } from "./world.js";
 
 /**
@@ -42,6 +46,7 @@ export function installTaster(world: World): TasterState {
     crest: 0,
     liftBeat: -1,
     edgeBeat: world.beat,
+    ...tasterHandsFresh(),
     outBeat: -1,
   };
 }
@@ -59,15 +64,28 @@ export function installTaster(world: World): TasterState {
  */
 function setEdges(world: World, t: TasterState): void {
   const cfg = world.cfg;
+  const spent = tasterPinSpent(t, cfg);
   for (let i = 0; i < t.blades.length; i++) {
     const k = t.blades[i];
     if (k === undefined || k.shorn || k.growBeat < 0 || k.setBeat >= 0) continue;
     if (world.beat - k.growBeat < cfg.tasterGrowBeats) continue;
+    // **The pinned blade does not decide.** Its growth is up and its colour is
+    // not: the pilot's thumb is holding it there, and what he has bought is the
+    // beats between now and `tasterPinBeats` (`taster-hand.ts`).
+    const held = t.pin === i;
+    if (held && !spent) continue;
     k.edge = tasterLean(world, t) ?? (nextInt(world.rng, 2) === 0 ? "red" : "cyan");
     k.layers = 1;
     k.setBeat = world.beat;
     world.events.push({ type: "tasterSet", col: t.col + i, color: k.edge });
     openSlow(world, cfg.tasterSlowBeats);
+    if (!held) continue;
+    // Held to the end, and the edge came up heavy for it: the bet's other
+    // side, and the reason a pin is not a free look at the ledger.
+    k.layers = cfg.tasterThickMax;
+    world.events.push({ type: "tasterThick", col: t.col + i, layers: k.layers });
+    t.pin = -1;
+    t.pinBeats = 0;
   }
 }
 
@@ -111,14 +129,59 @@ function reEdge(world: World, t: TasterState): void {
 }
 
 /**
+ * **What the pilot's thumb came to over the beat**, and what the interlock did
+ * while it was open.
+ *
+ * The two counts the hands are judged by, kept here rather than in
+ * `taster-hand.ts` for `undertow-hand.ts`' reason turned round: a thumb is a
+ * thing that happens on the tick, and *how long it has been there* is a thing
+ * that happens on the beat, and this is the file the beat is in.
+ *
+ * A pin whose blade went while it was held — struck off by the other seat, or
+ * decided past the hold — is a thumb on nothing, and the hold goes with it.
+ * The count is **not** reset by a slip, for the reason THE UNDERTOW's free is
+ * not: a count that punished a dropped move would ask a phone for the one
+ * thing it cannot promise (`docs/spec/latency.md`); a thumb genuinely lifted
+ * clears it in `taster-hand.ts`, where the lift is heard.
+ */
+function stepTasterHands(world: World, t: TasterState): void {
+  const cfg = world.cfg;
+  if (t.pin >= 0) {
+    const k = t.blades[t.pin];
+    if (k === undefined || k.shorn || k.setBeat >= 0) {
+      t.pin = -1;
+      t.pinBeats = 0;
+    } else if (t.pinBeats < cfg.tasterPinBeats) t.pinBeats += 1;
+  }
+  // The window shutting undone: the last blades fold back over the body and
+  // the pair pays for it in the one currency this movement has, which is the
+  // pry and the fill again. `tasterClose` because that is what it is — the
+  // same two edges locking, and the sound the fan already had for it.
+  if (t.pryBeat >= 0 && !tasterPried(t, world.beat, cfg)) {
+    t.pryBeat = -1;
+    t.pryMilli = 0;
+    world.events.push({
+      type: "tasterClose",
+      col: t.col + Math.floor(t.blades.length / 2),
+      left: tasterStanding(t),
+    });
+  }
+}
+
+/**
  * One beat of the fan.
  *
- * Colours set first, so a blade that has just decided frees its place for the
- * next one on the same beat rather than on the one after. Then the fan grows —
- * one blade at a time until the pair has taken two, `tasterFanBlades` after
- * that — and then, once it is hurrying, the re-edge on its own count. A closed
- * fan does none of it: it has stopped growing and stopped tasting, and the
- * only thing left in the fight is the beam.
+ * The hands are counted first, so a pin that has just run out is spent on this
+ * beat's `setEdges` rather than on the next one. Then colours set, so a blade
+ * that has just decided frees its place for the next one on the same beat.
+ * Then the fan grows — one blade at a time until the pair has taken two,
+ * `tasterFanBlades` after that — and then, once it is hurrying, the re-edge on
+ * its own count.
+ *
+ * **A closed fan does none of that and is no longer idle.** It has stopped
+ * growing and stopped tasting, and what is left in the fight is the pilot's
+ * carry and the beam behind it — so the window the carry opened is counted
+ * here, and the fan locking again is the one thing this file does in `closed`.
  */
 export function stepTaster(world: World, t: TasterState): void {
   const cfg = world.cfg;
@@ -128,6 +191,7 @@ export function stepTaster(world: World, t: TasterState): void {
     if (world.beat - t.outBeat >= cfg.tasterOutBeats) world.boss = null;
     return;
   }
+  stepTasterHands(world, t);
   const phase = tasterPhase(t, cfg);
   if (phase === "closed") return;
   setEdges(world, t);

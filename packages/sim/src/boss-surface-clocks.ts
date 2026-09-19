@@ -223,6 +223,7 @@ export {
   tasterLifted,
   tasterOrder,
   tasterPhase,
+  tasterPried,
   tasterSoft,
   tasterStanding,
   tasterWindow,

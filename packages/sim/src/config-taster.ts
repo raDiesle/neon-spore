@@ -3,7 +3,8 @@
  * tastes over is and what it shortens to, how long a blade takes to grow, how
  * thick the majority colour can make one, when the fan starts growing three at
  * a time and when it starts re-edging, how many blades are left when it closes
- * over its own body, how many cuts open the crest for good, and how long it
+ * over its own body, how many cuts open the crest for good, what each of the
+ * three hands on the picture costs, and how long it
  * stands after the beam (`taster.ts`,
  * `docs/spec/bosses-choreographed.md` §4).
  *
@@ -39,6 +40,14 @@ export interface TasterConfig {
   tasterClosedBlades: number;
   /** Shots into the soft crest that open it for good, and stop the re-edging. */
   tasterCrestCuts: number;
+  /** Beats the pilot's thumb may hold a growing blade out of its decision. */
+  tasterPinBeats: number;
+  /** Thousandths of a tile the navigator carries a thumb across a soft column to cut it. */
+  tasterWipeMilli: number;
+  /** Thousandths of a tile the pilot carries the interlock to prise it apart. */
+  tasterPryMilli: number;
+  /** Beats the prised interlock stands open, which is the beam's whole window. */
+  tasterPryBeats: number;
   /** Beats THE SLOW holds as a blade's colour crystallises. */
   tasterSlowBeats: number;
   /** Beats the fan stands unlocked after the beam, before the wave may end. */
@@ -54,6 +63,17 @@ export interface TasterConfig {
  * time from the second gap, a twelve-beat window and a re-edge every eight from
  * the sixth, four shots into the gaps to cut the crest and stop that, and at
  * nine gone the last two close over the body for the beam.
+ *
+ * **The three hands are priced against clocks the pair already has.** Three
+ * beats of pin is most of a four-beat growth and never all of it, so a pinned
+ * blade still decides and the pilot has bought a conversation rather than a
+ * reprieve. The two carries are a tile apart on purpose — a wipe is a thumb
+ * skimming an open gap and a pry is a thumb hauling two locked edges off each
+ * other — because the hands have to feel different from one another under a
+ * thumb that cannot look. And `tasterPryBeats` is twice `lancePrimeBeats`: the
+ * interlock stands open six beats, the beam takes three to fill, and the three
+ * left over are the pair's whole margin — the margin THE CANDLE's smoke gives,
+ * read off the same number (`config-candle.ts`).
  */
 export const TASTER_DEFAULTS: TasterConfig = {
   tasterBlades: 11,
@@ -67,6 +87,10 @@ export const TASTER_DEFAULTS: TasterConfig = {
   tasterEdgeBeats: 8,
   tasterClosedBlades: 2,
   tasterCrestCuts: 4,
+  tasterPinBeats: 3,
+  tasterWipeMilli: 900,
+  tasterPryMilli: 1900,
+  tasterPryBeats: 6,
   tasterSlowBeats: 1,
   tasterOutBeats: 2,
 };

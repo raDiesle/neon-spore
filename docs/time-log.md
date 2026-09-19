@@ -10769,3 +10769,32 @@ its time reaching the same wrong conclusion this one had to rule out. The
 answer was one `mapCol` call away and nothing pointed at it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-taster-changes-state — three thumbs on one fan
+
+The §6.2 ask on a boss whose fight was one gesture played eleven times with the
+colour the only thing that ever changed. What made the handles easy is the one
+thing this boss is unusual for: **no part of it is hidden from either seat** —
+its split is two numbers, not the picture — so the question was never *who can
+see this* but *whose hands are free in this movement*. One per movement came
+out of that: the pilot pins a growing blade while three grow at once, the
+navigator wipes a gap without spending the colour the boss is tasting, and the
+pilot hauls the interlock apart for the beam that used to end the fight alone.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | `CLAUDE.md`, `docs/cloud-session.md`, §6.2, THE CANDLE's landed lane end to end as the pattern, then THE TASTER's six simulation files, its cue, its sounds and its director rows |
+| writing | 45 | `taster-hand.ts`, the six state fields and their hash, the pin in `setEdges`, the two clocks in the step, the pry gate on the interlock, three words, three sounds, twenty-one hand tests and seven cue cases, §11.25 and the wave's two guide halves |
+| looking | 0 | none: nothing is drawn for any of the three yet, which is the whole of what this lane leaves undone |
+| friction | 15 | a full `bun test` left running in the background took the box for twenty minutes and timed out every targeted run until it was killed; two of the three new sounds were written into the 300–3000 Hz speech band and had to be re-voiced above it; and the pin's tests were arranged at beat nought, where a blade cannot have been growing for four beats |
+| landing | 10 | `format`, `check:fast`, the commit and `land`'s own full check |
+
+**The bottleneck was the bookkeeping, not the design.** The three hands took
+about a quarter of the writing and the twenty-one files they are a name in took
+the rest: the union and its page-two prose, the wire's list, the codec's two
+tables, the director's four config rows, its note, its three sound rows and its
+control table, both silent-effects pages — one of which went over its ceiling
+and handed THE FLEET across — and the two audio counts in the spec. A boss that
+gains one handle pays most of that; a boss that gains three pays it once. The
+next §6.2 lane should add its hands together for that reason rather than one
+per landing.

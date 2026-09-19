@@ -180,11 +180,16 @@ export const CHOREO_NOTES = {
     "tasterFanShorn gone it grows tasterFanBlades at a time; from " +
     "tasterHurryShorn the window shortens to tasterFastWindowBeats and every " +
     "standing blade re-edges every tasterEdgeBeats, until tasterCrestCuts " +
-    "shots into the gaps open the crest and stop it. With tasterClosedBlades " +
-    "left the fan closes over the body and only the beam in the colour they " +
-    "have spent least of opens it, holding the wave tasterOutBeats more. " +
-    "Nothing about it is authored per wave. See sim/taster.ts, " +
-    "sim/spend.ts, sim/config-taster.ts.",
+    "cuts into the gaps open the crest and stop it. With tasterClosedBlades " +
+    "left the fan closes over the body and nothing reaches it until player 1 " +
+    "has carried the interlock tasterPryMilli apart; it stands open " +
+    "tasterPryBeats, and the beam in the colour they have spent least of ends " +
+    "it inside that, holding the wave tasterOutBeats more. Three of its " +
+    "movements are answered on the fan itself: player 1 holds a growing blade " +
+    "out of its decision for tasterPinBeats, after which it sets thick, and " +
+    "player 2 carries a thumb tasterWipeMilli across a soft column to cut the " +
+    "crest without spending a colour. Nothing about it is authored per wave. " +
+    "See sim/taster.ts, sim/taster-hand.ts, sim/spend.ts, sim/config-taster.ts.",
   // THE LEDGER and everything after it (`ship-notes-choreo-b.ts`).
   ...CHOREO_NOTES_B,
   "THE STARE — an eye that freezes whoever it looks at":

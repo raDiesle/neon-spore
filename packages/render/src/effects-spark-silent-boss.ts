@@ -128,7 +128,7 @@ export const SILENT_BOSS = [
   "curtainLift",
   "curtainTear",
   "curtainOut",
-  // THE TASTER's twelve, read above the loop by `taster-fx.ts` the way THE
+  // THE TASTER's fifteen, read above the loop by `taster-fx.ts` the way THE
   // GORGE's and THE CURTAIN's are: the crest, the fan and every edge on it are
   // drawn off the boss each frame, and the two that outlive a frame are a
   // blade tumbling off and the shiver down the crest when the fan re-edges.
@@ -145,6 +145,11 @@ export const SILENT_BOSS = [
   "tasterTaste",
   "tasterClose",
   "tasterRefused",
+  // The three hands the same way: a thumb throws nothing, and what the thumb
+  // is doing is on the boss (`sim/taster-hand.ts`).
+  "tasterPin",
+  "tasterWipe",
+  "tasterPry",
   "tasterOut",
   // THE SINEW's thirteen are one family read above the loop by
   // `sinew-fx.ts`, never rows here (`docs/spec/bosses.md` §11.26).
@@ -232,15 +237,4 @@ export const SILENT_BOSS = [
   "antiphonShip",
   "antiphonBurst",
   "antiphonOut",
-  // THE HIVE's nine are one family read above the loop by `hive-fx.ts`,
-  // never rows here (`docs/spec/bosses.md` §11.14).
-  "hiveEnter",
-  "hiveSwell",
-  "hiveOpen",
-  "hiveSpill",
-  "hiveSkin",
-  "hiveWrong",
-  "hiveSeal",
-  "hiveDown",
-  "hiveOut",
 ] as const satisfies readonly SimEvent["type"][];

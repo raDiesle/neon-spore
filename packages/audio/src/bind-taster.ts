@@ -2,9 +2,9 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason.
+ * THE TASTER's fifteen, in a file of their own for `bind-gorge.ts`' reason.
  *
- * Ten of them name a column and are panned to it, because a column is a
+ * Thirteen of them name a column and are panned to it, because a column is a
  * blade: which one just grew, set, thickened or came off is the whole of what
  * the pair has to say to each other, and player 2's screen does not carry the
  * ledger that says why.
@@ -19,6 +19,11 @@ import { type Cue, panForCol } from "./bind.js";
  * `tasterThick` and `tasterPare` are pitched by thickness, in opposite
  * directions: thicker is lower, pared is higher, so the ear hears the edge
  * being worked without counting layers.
+ *
+ * **The three hands all name a column and are all panned to it**, the pry
+ * included: the interlock stands over the middle of the crest and that is
+ * where its event is raised, so a pan read off the column is the same answer
+ * `tasterRise` gives and one fewer special case (`sim/taster-hand.ts`).
  */
 export function tasterCue(
   e: Extract<
@@ -36,6 +41,9 @@ export function tasterCue(
         | "tasterTaste"
         | "tasterClose"
         | "tasterRefused"
+        | "tasterPin"
+        | "tasterWipe"
+        | "tasterPry"
         | "tasterOut";
     }
   >,
@@ -74,6 +82,12 @@ export function tasterCue(
       return { id: "boss.tasterClose", pan: panForCol(e.col, cols) };
     case "tasterRefused":
       return { id: "boss.tasterRefused", pan: panForCol(e.col, cols) };
+    case "tasterPin":
+      return { id: "boss.tasterPin", pan: panForCol(e.col, cols) };
+    case "tasterWipe":
+      return { id: "boss.tasterWipe", pan: panForCol(e.col, cols) };
+    case "tasterPry":
+      return { id: "boss.tasterPry", pan: panForCol(e.col, cols) };
     case "tasterOut":
       return { id: "boss.tasterOut", pan: panForCol(e.col, cols) };
   }

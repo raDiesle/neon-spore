@@ -4,6 +4,7 @@ import { pinballHandCue } from "./bind-pinball-hand.js";
 import { pulseHandCue } from "./bind-pulse-hand.js";
 import { scoutHandCue } from "./bind-scout-hand.js";
 import { snakeBodyCue } from "./bind-snake-body.js";
+import { tasterCue } from "./bind-taster.js";
 import { throatCue } from "./bind-throat.js";
 import { vaneCue } from "./bind-vane.js";
 import { wardenHandCue } from "./bind-warden-hand.js";
@@ -56,7 +57,13 @@ export type AddedEvent = Extract<
       | "pulseArrest"
       // And THE THROAT's two, the gullet handing out a control as it loses one,
       // with the four of its own clock that shipped silent beside them.
-      | `throat${string}`;
+      | `throat${string}`
+      // And THE TASTER's three, one per movement of its fight — the first boss
+      // to arrive here three at a time, and the reason the brief is worth
+      // answering in one lane rather than three (`sim/taster-hand.ts`).
+      | "tasterPin"
+      | "tasterWipe"
+      | "tasterPry";
   }
 >;
 
@@ -89,6 +96,9 @@ const ADDED_EVENTS = new Set<string>([
   "pulseBrace",
   "pulseSlip",
   "pulseArrest",
+  "tasterPin",
+  "tasterWipe",
+  "tasterPry",
 ]);
 
 /** Whether this is one of the names above, and not a boss arriving whole. */
@@ -98,6 +108,13 @@ export function isAddedEvent(e: { type: string }): e is AddedEvent {
 
 export function addedCue(e: AddedEvent, cols: number): Cue {
   switch (e.type) {
+    // THE TASTER's three go back to its own page: the other twelve are bound
+    // there and a second file panning this boss would be two answers to which
+    // column a blade stands over (`bind-taster.ts`).
+    case "tasterPin":
+    case "tasterWipe":
+    case "tasterPry":
+      return tasterCue(e, cols);
     case "wardenHold":
     case "wardenThrow":
     case "wardenSlam":

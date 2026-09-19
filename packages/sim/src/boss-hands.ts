@@ -12,6 +12,7 @@ import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
+import { tasterHandsHeard } from "./taster-hand.js";
 import { throatHeard } from "./throat-hand.js";
 import type { TimedCommand } from "./types.js";
 import { undertowHandsHeard } from "./undertow-hand.js";
@@ -99,4 +100,10 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // next beat would be a gap the pilot had already let go of
   // (`curtain-hand.ts`). The shove itself stays on the beat, with the carry.
   for (const c of commands) curtainHemHeard(world, c.player, c.command);
+  // THE TASTER's three thumbs on its own fan, on the tick because a pin is
+  // down when it lands, the cut a carry makes is where the thumb is now, and
+  // the tick the interlock comes apart is the tick her beam starts being
+  // worth something (`taster-hand.ts`). What a pin came to over the beat is
+  // counted in `taster-step.ts`, with the fan's own clock.
+  for (const c of commands) tasterHandsHeard(world, c.player, c.command);
 }

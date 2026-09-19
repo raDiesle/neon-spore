@@ -129,7 +129,7 @@ export const INGEST_SILENT_BOSS = [
   "curtainLift",
   "curtainTear",
   "curtainOut",
-  // THE TASTER's twelve, read above the loop by `taster-fx.ts` the way THE
+  // THE TASTER's fifteen, read above the loop by `taster-fx.ts` the way THE
   // CURTAIN's are. What the fan is — which blades stand, what each edge is,
   // how thick it is, which gaps are soft and how wet — is on the boss and is
   // drawn off it every frame (`taster-draw.ts`). The two that are not in the
@@ -148,6 +148,12 @@ export const INGEST_SILENT_BOSS = [
   "tasterTaste",
   "tasterClose",
   "tasterRefused",
+  // The three hands leave nothing behind either: which blade is pinned, how
+  // far a carry has gone and whether the interlock stands open are all on the
+  // boss and drawn off it every frame (`sim/taster-hand.ts`).
+  "tasterPin",
+  "tasterWipe",
+  "tasterPry",
   "tasterOut",
   // THE LEDGER's eleven, read above the loop by `ledger-fx.ts` the way THE
   // TASTER's are. The body, the seam's width, where the cord is rooted and how

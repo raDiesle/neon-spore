@@ -162,8 +162,8 @@ export const CHOREO_FIELD_GROUP = {
   curtainCoreHits: "THE CURTAIN — the boss that is in the way",
   curtainOutBeats: "THE CURTAIN — the boss that is in the way",
   // TasterConfig — how many blades the fan holds, the two windows it tastes
-  // over, how long a blade grows, and the counts that move the fight along
-  // (`config-taster.ts`).
+  // over, how long a blade grows, the counts that move the fight along, and
+  // what each of the three thumbs on the fan costs (`config-taster.ts`).
   tasterBlades: "THE TASTER — the boss that grows its armour in the colour you have been spending",
   tasterWindowBeats:
     "THE TASTER — the boss that grows its armour in the colour you have been spending",
@@ -184,6 +184,14 @@ export const CHOREO_FIELD_GROUP = {
   tasterClosedBlades:
     "THE TASTER — the boss that grows its armour in the colour you have been spending",
   tasterCrestCuts:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterPinBeats:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterWipeMilli:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterPryMilli:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterPryBeats:
     "THE TASTER — the boss that grows its armour in the colour you have been spending",
   tasterSlowBeats:
     "THE TASTER — the boss that grows its armour in the colour you have been spending",

@@ -24,11 +24,13 @@ import {
   tasterLifted,
   tasterOrder,
   tasterPhase,
+  tasterPried,
   tasterSoft,
   tasterStanding,
   tasterWeak,
   tasterWindow,
 } from "../src/taster.js";
+import { tasterHandsHeard } from "../src/taster-hand.js";
 import { tasterStruck } from "../src/taster-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 
@@ -313,6 +315,31 @@ describe("the interlock", () => {
     return { world, t };
   }
 
+  /** The pilot's carry, all the way down: the interlock apart and the window open. */
+  function pryOpen(world: World, t: TasterState): void {
+    tasterHandsHeard(world, 1, {
+      kind: "drag",
+      target: "tasterLock",
+      on: true,
+      fromMilli: 0,
+      fromYMilli: CFG.tasterPryMilli,
+    });
+    expect(tasterPried(t, world.beat, CFG)).toBe(true);
+  }
+
+  it("refuses the beam itself while the interlock is still shut", () => {
+    const { world, t } = closed();
+    spend(world, 5, "red");
+    // The colour is the right one; the fan is not open, and that is checked
+    // first, because *early* and *wrong colour* are two different sentences
+    // for the pair to say (`taster-shot.ts`).
+    tasterStruck(world, shot(world, t.col, "cyan", true));
+    expect(t.outBeat).toBe(-1);
+    expect(world.balance.colorHits).toBe(0);
+    expect(world.balance.colorMisses).toBe(0);
+    expect(world.events.some((e) => e.type === "tasterRefused")).toBe(true);
+  });
+
   it("refuses a single bolt of either colour, and counts nothing for it", () => {
     const { world, t } = closed();
     const col = t.blades.length - 1 + t.col;
@@ -327,6 +354,7 @@ describe("the interlock", () => {
   it("opens to the beam in the colour the pair has spent least of", () => {
     const { world, t } = closed();
     spend(world, 5, "red");
+    pryOpen(world, t);
     expect(tasterWeak(world, t)).toBe("cyan");
     tasterStruck(world, shot(world, t.col, "cyan", true));
     expect(t.outBeat).toBe(world.beat);
@@ -338,6 +366,7 @@ describe("the interlock", () => {
   it("refuses the beam in the colour it has been fed, and counts that miss", () => {
     const { world, t } = closed();
     spend(world, 5, "red");
+    pryOpen(world, t);
     tasterStruck(world, shot(world, t.col, "red", true));
     expect(t.outBeat).toBe(-1);
     expect(world.balance.colorMisses).toBe(1);
@@ -348,6 +377,7 @@ describe("the interlock", () => {
     const { world, t } = closed();
     spend(world, 3, "red");
     spend(world, 3, "cyan");
+    pryOpen(world, t);
     expect(tasterWeak(world, t)).toBeNull();
     tasterStruck(world, shot(world, t.col, "cyan", true));
     tasterStruck(world, shot(world, t.col, "red", true));
@@ -358,6 +388,7 @@ describe("the interlock", () => {
   it("holds the wave for its last beats, then goes", () => {
     const { world, t } = closed();
     spend(world, 5, "red");
+    pryOpen(world, t);
     tasterStruck(world, shot(world, t.col, "cyan", true));
     beats(world, CFG.tasterOutBeats - 1);
     expect(tasterBoss(world)).not.toBeNull();
@@ -368,6 +399,7 @@ describe("the interlock", () => {
   it("takes nothing more once the beam has gone in", () => {
     const { world, t } = closed();
     spend(world, 5, "red");
+    pryOpen(world, t);
     tasterStruck(world, shot(world, t.col, "cyan", true));
     const hits = world.balance.colorHits;
     tasterStruck(world, shot(world, t.col, "cyan", true));

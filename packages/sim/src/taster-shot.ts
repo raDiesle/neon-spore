@@ -6,6 +6,7 @@ import {
   tasterBoss,
   tasterLifted,
   tasterPhase,
+  tasterPried,
   tasterStanding,
   tasterWeak,
 } from "./taster.js";
@@ -25,6 +26,10 @@ import type { World } from "./world.js";
  * pair watched a correct shot pass through. The two halves also read the ledger
  * from opposite ends: the clock asks what the pair has been *leaning* on, and
  * this file asks, once, at the end, what they are *short* of.
+ *
+ * **The interlock's answer is three-part since 19 September 2026** — open, then
+ * the right colour, then out — and the first part is a thumb and not a shot at
+ * all (`taster-hand.ts`). Nothing else here moved.
  */
 
 /** The last blades interlock over the body, and no bolt touches them again. */
@@ -49,7 +54,7 @@ function shear(world: World, t: TasterState, i: number, k: TasterBlade): void {
 }
 
 /**
- * A shot into the crest where a blade used to be — the design's *soft and
+ * A cut into the crest where a blade used to be — the design's *soft and
  * visibly wet*, and player 1's own job.
  *
  * **It counts nothing on the balance sheet**, either way. That sheet counts
@@ -59,8 +64,14 @@ function shear(world: World, t: TasterState, i: number, k: TasterBlade): void {
  * colour they are short of. The cost of it is elsewhere and it is the whole
  * trap — every shot into the crest is still a colour spent, and the ledger
  * counted it before it got here.
+ *
+ * **Exported because the crest has two ways in**: a bolt, and the navigator's
+ * thumb carried across it, which makes the same cut and spends nothing at all
+ * (`taster-hand.ts`). Two counts of `tasterCrestCuts` would be two answers to
+ * *is the crest through yet*, which is the one thing both seats read off the
+ * same picture — so there is one, and it lives on the side that shipped first.
  */
-function cut(world: World, t: TasterState, i: number): void {
+export function tasterCut(world: World, t: TasterState, i: number): void {
   t.crest += 1;
   world.events.push({ type: "tasterCrest", col: t.col + i, cuts: t.crest });
   if (t.crest >= world.cfg.tasterCrestCuts && !tasterLifted(t)) {
@@ -96,7 +107,7 @@ export function tasterStruck(world: World, bullet: Bullet): void {
     return;
   }
   if (k.shorn) {
-    cut(world, t, i);
+    tasterCut(world, t, i);
     return;
   }
   if (k.edge === null) return;
@@ -118,14 +129,22 @@ export function tasterStruck(world: World, bullet: Bullet): void {
 /**
  * The closed fan, which is edged in both colours at once: **no bolt of either
  * touches it**, and the one thing that opens it is the beam in the colour the
- * ledger says the pair has spent least of.
+ * ledger says the pair has spent least of — into an interlock the pilot's
+ * carry has hauled apart, and inside the beats it stands open.
  *
- * A refused bolt counts nothing — there is no colour of bolt that would have
- * worked, so it is not a colour moment at all — and the beam counts both ways,
- * because by then it is the only colour question left in the fight.
+ * **The pry is checked before the colour**, and the order is the whole of what
+ * the pair has to coordinate: a beam that came to a shut fan is early, and a
+ * beam in the wrong colour to an open one is wrong, and those are two
+ * different sentences to say to each other. A shut fan therefore counts
+ * nothing on the balance sheet either way — there was no colour that would
+ * have worked, so it is not a colour moment (`balance.ts`) — and an open one
+ * counts both ways, because by then the colour is the only question left.
+ *
+ * A refused bolt counts nothing for its own reason, which has not changed: a
+ * single shot never reached this fan and never will.
  */
 function interlock(world: World, t: TasterState, bullet: Bullet, col: number): void {
-  if (!bullet.lance) {
+  if (!bullet.lance || !tasterPried(t, world.beat, world.cfg)) {
     world.events.push({ type: "tasterRefused", col });
     return;
   }

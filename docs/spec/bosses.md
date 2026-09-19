@@ -4540,12 +4540,49 @@ at once — the design's *it noticed* — until the crest has been cut through
 bolt of either colour, counts nothing on the balance sheet, and is still a
 colour spent into the ledger, which is the whole trap. With two blades left
 they **interlock** over the body and no single bolt of either colour touches
-them: only **the beam in the colour the ledger says the pair has spent least
-of** opens the fan (`tasterWeak`, `tasterOut`), and the boss stays installed
-`tasterOutBeats` (2) beats more so the wave cannot end on the beat the fan
-does. The beat an edge sets is the one beat of this fight given THE SLOW,
-`tasterSlowBeats` (1), because it is the moment the pair learns whether their
-last conversation worked.
+them: nothing reaches the interlock at all until the pilot has hauled it
+apart, and then **the beam in the colour the ledger says the pair has spent
+least of** opens the fan (`tasterWeak`, `tasterOut`), and the boss stays
+installed `tasterOutBeats` (2) beats more so the wave cannot end on the beat
+the fan does. The beat an edge sets is the one beat of this fight given THE
+SLOW, `tasterSlowBeats` (1), because it is the moment the pair learns whether
+their last conversation worked.
+
+**Three movements are answered on the fan and not on the panel**
+(`sim/taster-hand.ts`, 19 September 2026, the §6.2 ask). The fight shipped as
+one gesture played eleven times with the colour the only thing that changed,
+and what made handles easy here is that **no part of this boss is hidden from
+either seat** — the split is the two numbers, not the picture — so the only
+question was whose hands are free in which movement.
+
+- **`fanning` is the pilot's pin** (`tasterBlade`, `id` the column). Three
+  blades grow at once there and all three read the same ledger, so all three
+  arrive in one colour. His thumb on a growing blade holds it out of its
+  decision for `tasterPinBeats` (3) beats, which is the navigator's window to
+  turn the ledger it will read; held to the end it decides anyway and comes up
+  at `tasterThickMax` layers, so a pin is a bet and not a pause. Three beats is
+  most of a four-beat growth and never all of it.
+- **`hurrying` is the navigator's wipe** (`tasterGap`, `id` the column). Her
+  thumb carried `tasterWipeMilli` (900) across a soft column makes the same cut
+  a bolt into it makes — and it is **the only move in this fight that spends no
+  colour**, which is the answer to the trap the crest is. The sign of the carry
+  says nothing: a gap is wiped from either side. The cut lands the thousandth
+  the carry passes the distance and not on the lift, because a lift that never
+  arrived is gone for good (`latency.md`), and one cut per grab.
+- **`closed` is the pilot's pry** (`tasterLock`, no `id`: there is one
+  interlock and it is the boss). `fromYMilli` against `tasterPryMilli` (1900),
+  read the way THE CANDLE's wick is, and what it buys is `tasterPryBeats` (6)
+  beats in which her beam is worth something — outside them the fan refuses it
+  exactly as it refuses a bolt, and the window shutting undone locks the fan
+  again with `tasterClose` and the pry to make afresh. Six beats against
+  `lancePrimeBeats` (3) leaves the pair three beats of margin, which is the
+  margin THE CANDLE's smoke gives read off the same number. He may let go the
+  moment it is open: the window is a beat count and not a hold, and his hands
+  are the cannon she still needs under the crest.
+
+So the fight ends on the two seats doing different things inside one window
+rather than on a seventh bolt, and every movement of it now asks something the
+one before it did not.
 
 **Where this departs from the design, and why.** Four places, each argued by
 name. *The rock throw is dropped*: the design's step 7 has a blade sweeping
@@ -4628,10 +4665,14 @@ that hang over the field with nothing on the grid moved into
 files along, and the half of that dispatch that grows.
 
 **What the look does not have.** THE SLOW's beat has no picture of its own
-beyond the glint the edge throws as it sets; a blade does not lean under a
-hand, because no hand reaches this boss; the notch is one sheen for all the
+beyond the glint the edge throws as it sets; the notch is one sheen for all the
 gaps rather than a depth each; and the wave's guide is prose rather than a film
-(`content/test/scenes-prose.test.ts`). Those four are the owner's eye.
+(`content/test/scenes-prose.test.ts`). **And the three hands are not drawn at
+all yet**: the pin, the wipe and the pry are heard and hashed, and nothing on
+either screen shows a held blade, a thumb crossing a gap or a half-opened
+interlock — that is the look lane, and with it the rings a thumb reaches for
+(`field-controls-*.ts`, the walk `candleWick` made). Those four are the owner's
+eye.
 
 **The rehearsal** (`content/src/scenes/the-taster.ts`, 17 September 2026,
 ten pages over 1920 ticks): a blade growing while red is fired at it, two

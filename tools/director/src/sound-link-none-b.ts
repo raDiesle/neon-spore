@@ -25,6 +25,24 @@
  * not the rock's (`sim/hive.ts`).
  */
 export const NO_SUBJECT_B: Record<string, string> = {
+  // THE SURGE's twelve came over on 19 September 2026, by the same rule and
+  // for the same reason THE LEAD's did: page one went over, so page one handed
+  // its last boss across. The boss is a sac over the middle column, which is
+  // not a card (`sim/surge.ts`).
+  "boss.surgeSettle":
+    "the bulb taking its place over the middle column. It is a sac, which is not a card (`sim/surge.ts`).",
+  "boss.surgeGrip": "a thumb on the glass. Same argument.",
+  "boss.surgeRelease": "a thumb off the glass. Same argument.",
+  "boss.surgeNear": "the pressure coming into the band. Same argument.",
+  "boss.surgeVent": "a notch of the seam parting. Same argument.",
+  "boss.surgeBurst": "the sac bursting and the thumbs thrown off. Same argument.",
+  "boss.surgeGum": "a gum thrown down one of its columns. Same argument.",
+  "boss.surgeLost": "the charge lost to a release missed. Same argument.",
+  "boss.surgeAbsorb": "a body eaten into the bulb. Same argument.",
+  "boss.surgeClose": "a notch shutting again after a burst. Same argument.",
+  "boss.surgeEvert": "the last notch gone and the sac turning inside out. Same argument.",
+  "boss.surgeOut":
+    "the bulb gone. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.leadEnter":
     "the body taking its place over the middle column. It is a walker on a stalk, which is not a card (`sim/lead.ts`).",
   "boss.leadPace": "one pace along the top of the field. Same argument.",

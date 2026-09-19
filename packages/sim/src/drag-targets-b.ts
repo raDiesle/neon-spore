@@ -29,7 +29,10 @@ export type DragTargetB =
   | "throatRing"
   | "throatTube"
   | "candleWick"
-  | "curtainHem";
+  | "curtainHem"
+  | "tasterBlade"
+  | "tasterGap"
+  | "tasterLock";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -184,4 +187,38 @@ export type DragTargetB =
  * to be fired into a hand that has not let go. Player 1's alone, for
  * `candleWick`'s reason: the shadow to call is already hers, and the fight
  * ends on the two of them doing different things.
+ */
+
+/**
+ * `tasterBlade`, `tasterGap` and `tasterLock` are the forty-sixth, -seventh and
+ * -eighth, and the first three that are **one per movement of one fight**.
+ * THE FLEET's three are one gesture per state of a *hull*; these are a
+ * different seat's hand in each of three movements of the same boss, which is
+ * the §6.2 ask taken literally (`taster-hand.ts`).
+ *
+ * They are also the first set on a boss **no part of which is hidden from
+ * either seat**. Every other split in this game keeps some of the body off one
+ * screen, so whose thumb may reach a handle is half decided by who can see it;
+ * the fan is drawn whole on both, and what decides here is only whose hands
+ * are free in that movement (`render/src/taster-read.ts`).
+ *
+ * `tasterBlade` is the pilot's thumb on a blade that is out of the crest and
+ * has not decided, in `fanning` alone. It holds the blade out of its decision
+ * for `tasterPinBeats`, which is the navigator's window to turn the ledger the
+ * blade will read. `id` is the column, for `undertowPin`'s reason: three grow
+ * at once there, and which one he took is the whole of what the hand says.
+ *
+ * `tasterGap` is the navigator's carry across a column a blade was struck off
+ * in, in `hurrying` alone, and it cuts the crest the way a bolt into that
+ * column does — with **no colour spent**, which is the one move in this fight
+ * the boss cannot taste. `id` is the column and `fromMilli` is the carry;
+ * unlike `pinTable` and `throatTube` its **sign says nothing**, because a gap
+ * is wiped from either side.
+ *
+ * `tasterLock` is the pilot's carry on the closed interlock, `fromYMilli`
+ * against `tasterPryMilli` the way THE CANDLE's wick is read. No `id`: there
+ * is one interlock, and it is the boss. What it buys is the window behind it
+ * — `tasterPryBeats` in which her beam is worth something and outside which
+ * the fan refuses it — so the fight ends on the two seats doing different
+ * things inside one window, and not on a seventh bolt.
  */

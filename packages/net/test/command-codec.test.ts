@@ -134,6 +134,16 @@ const ACCEPTED: Command[] = [
   // wire is a gap one device thinks is open and the other thinks is shut.
   { kind: "drag", target: "curtainHem", on: true, fromMilli: 0, fromYMilli: -1250 },
   { kind: "drag", target: "curtainHem", on: false, fromMilli: 0, fromYMilli: 0 },
+  // THE TASTER's three. The pin says only which blade the thumb is on, so both
+  // carries ride at nought; the wipe is `fromMilli` with **no meaning in its
+  // sign**, either way across the gap; the pry is `fromYMilli` alone, with no
+  // `id`, because there is one interlock (`sim/taster-hand.ts`).
+  { kind: "drag", target: "tasterBlade", on: true, fromMilli: 0, id: 5 },
+  { kind: "drag", target: "tasterBlade", on: false, fromMilli: 0, id: 5 },
+  { kind: "drag", target: "tasterGap", on: true, fromMilli: -1200, id: 3 },
+  { kind: "drag", target: "tasterGap", on: true, fromMilli: 1200, id: 3 },
+  { kind: "drag", target: "tasterLock", on: true, fromMilli: 0, fromYMilli: 1900 },
+  { kind: "drag", target: "tasterLock", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -263,6 +273,9 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   throatTube: true,
   candleWick: true,
   curtainHem: true,
+  tasterBlade: true,
+  tasterGap: true,
+  tasterLock: true,
   crank: true,
   orreryRing: true,
 };

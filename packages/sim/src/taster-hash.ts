@@ -14,9 +14,31 @@ import type { TasterState } from "./taster.js";
  * not here because it is not kept: it is read off the count shorn and the out
  * beat, which are. What the pair has *spent* is not here either — it is not the
  * boss's, it is the world's, and `hash.ts` pushes it beside the rng.
+ *
+ * **The three hands are all six of them here** (`taster-hand.ts`). Two devices
+ * that disagreed about the pin would disagree about which beat a blade decides
+ * on, which is the same desync as the edge one row up; two that disagreed
+ * about the pry would disagree about whether her beam did anything at all.
+ * `wiped` is a flag about a carry in progress and goes in for the reason the
+ * depths do: it is what says whether the *next* thousandth of that carry is a
+ * cut or nothing.
  */
 export function tasterHashParts(t: TasterState): number[] {
-  const out = [t.col, t.blades.length, t.shorn, t.crest, t.liftBeat, t.edgeBeat, t.outBeat];
+  const out = [
+    t.col,
+    t.blades.length,
+    t.shorn,
+    t.crest,
+    t.liftBeat,
+    t.edgeBeat,
+    t.pin,
+    t.pinBeats,
+    t.wipe,
+    t.wiped ? 1 : 0,
+    t.pryMilli,
+    t.pryBeat,
+    t.outBeat,
+  ];
   for (const k of t.blades) {
     out.push(
       k.edge === null ? 0 : k.edge === "red" ? 1 : 2,

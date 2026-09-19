@@ -1,5 +1,5 @@
 /**
- * THE TASTER's twelve, in a file of their own for `boss-gorge.ts`' reason.
+ * THE TASTER's fifteen, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is **eleven blades**, and everything here is a blade being worked:
  * growing is a whetstone, setting is a single struck edge, thickening is that
@@ -10,6 +10,13 @@
  * Thin and bright above the band or short and low under it, and the two the
  * pair hears dozens of times — `tasterThick` and `tasterPare` — are the
  * shortest (docs/spec/audio.md §1).
+ *
+ * **The three hands are the only things here that are not metal being worked**,
+ * and that is deliberate: a thumb is not an edge, and the pair should be able
+ * to hear the difference between what they did to the fan and what the fan did
+ * to itself. A pin is a finger stopping a ringing blade dead, a wipe is a hand
+ * dragged over something soft, and the pry is the one heavy sound of the three
+ * because it is two locked edges coming off each other (`sim/taster-hand.ts`).
  */
 
 import { after, air, burst, chime, glint, metal, noise, soft, spore, sub, thud } from "../grain.js";
@@ -135,6 +142,51 @@ export const BOSS_TASTER_SOUNDS: SoundDef[] = [
     use: "THE TASTER's interlock refusing a single shot — it counts nothing either way.",
     level: 0.3,
     layers: [soft(0.6, metal(3000, 0.12, 0.22, 160)), after(0.02, thud(210, 120, 0.1, 0.22))],
+  },
+  {
+    id: "boss.tasterPin",
+    family: "boss",
+    blurb:
+      "A ringing edge stopped dead by a finger: the tone cut short, with the touch left on it.",
+    status: "bound",
+    use: "THE TASTER's blade held out of its decision by player 1's thumb.",
+    level: 0.3,
+    layers: [metal(5000, 0.1, 0.1, 210), after(0.05, soft(0.6, thud(220, 150, 0.08, 0.2)))],
+    // Shorter than `tasterSet`, which is the same blade allowed to ring: a pin
+    // is that sound with the end taken off it.
+  },
+  {
+    id: "boss.tasterWipe",
+    family: "boss",
+    blurb:
+      "A hand dragged across something soft: a low sweep with a wet hiss over it, and no edge in it.",
+    status: "bound",
+    use: "THE TASTER's soft crest cut by player 2's thumb rather than by a bolt — the cut that spends no colour.",
+    level: 0.32,
+    // The hiss is high-passed well clear of a voice and the weight of it is
+    // under one, which is `tasterCrest`'s shape stretched into a drag: the
+    // crest's two sounds are the same gap answered by a bolt and by a hand.
+    layers: [
+      noise(0.28, { type: "highpass", freq: 5200, toFreq: 4200, q: 0.9 }, 0.04, 0.08, 0.34),
+      after(0.06, soft(0.6, thud(170, 110, 0.18, 0.3))),
+    ],
+  },
+  {
+    id: "boss.tasterPry",
+    family: "boss",
+    blurb:
+      "Two locked edges hauled off each other: a heavy grinding part, then the gap standing open.",
+    status: "bound",
+    use: "THE TASTER's interlock carried apart by player 1 — the beam has tasterPryBeats to land.",
+    level: 0.5,
+    // The grind is the longest thing in this file and so is the one that most
+    // had to stay off a voice: high-passed above the band, with the body of it
+    // under one, and the edges ringing at the top on the way out.
+    layers: [
+      noise(0.32, { type: "highpass", freq: 4400, toFreq: 5600, q: 1 }, 0.02, 0.06, 0.46),
+      after(0.08, sub(56, 0.5, 0.38)),
+      after(0.24, metal(4600, 0.3, 0.2, 150)),
+    ],
   },
   {
     id: "boss.tasterOut",

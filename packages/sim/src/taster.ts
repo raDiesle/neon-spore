@@ -39,16 +39,29 @@ import type { World } from "./world.js";
  *
  * - **opening** — one blade at a time, the whole rule and nothing else.
  * - **fanning**, after `tasterFanShorn` gone — `tasterFanBlades` grow at once,
- *   and they all read the same ledger, so three arrive in one colour.
+ *   and they all read the same ledger, so three arrive in one colour. The
+ *   pilot's thumb on a growing blade **pins** it, and it cannot decide while he
+ *   holds it: `tasterPinBeats` of ledger bought at the price of a blade that
+ *   comes up thick when the hold runs out.
  * - **hurrying**, after `tasterHurryShorn` — the window shortens to
  *   `tasterFastWindowBeats`, and every `tasterEdgeBeats` every standing blade
  *   **re-edges** to the current majority: a shiver along the crest, and the
- *   pair's earlier work undone unless they have cut the crest through.
+ *   pair's earlier work undone unless they have cut the crest through. The
+ *   navigator's thumb carried `tasterWipeMilli` across a soft column cuts it
+ *   by hand — the same cut a bolt makes, and **the only one in this fight
+ *   that spends no colour**.
  * - **closed**, with `tasterClosedBlades` left — the last blades interlock over
- *   the body, edged in both colours, and no single bolt touches them. Only the
- *   beam in the colour the ledger says the pair has spent **least** of opens it.
+ *   the body, edged in both colours, and nothing reaches them at all until the
+ *   pilot has carried the interlock `tasterPryMilli` apart. It stands open
+ *   `tasterPryBeats`, and in that window the beam in the colour the ledger says
+ *   the pair has spent **least** of opens it.
  * - **out** — the fan unlocks outward and the boss stands `tasterOutBeats` more
  *   so the wave cannot end on the same beat.
+ *
+ * **Three of those are answered on the picture rather than on the panel** (the
+ * §6.2 ask): the fan is the one thing both screens see whole, so it is the one
+ * part of this fight either thumb can point at, and each movement asks a
+ * different hand of a different seat (`taster-hand.ts`).
  *
  * **It is a fixture and not a body** (`bossFillsWave`): it falls nothing at all,
  * and the arrivals the pair answers — which are what loads the ledger in the
@@ -92,6 +105,18 @@ export interface TasterState {
   liftBeat: number;
   /** `world.beat` the fan last re-edged on. */
   edgeBeat: number;
+  /** The blade the pilot's thumb is holding out of its decision; `-1` for none. */
+  pin: number;
+  /** Beats that pin has stood, spent at `tasterPinBeats`. */
+  pinBeats: number;
+  /** The soft column the navigator's thumb is on; `-1` for none. */
+  wipe: number;
+  /** Whether the carry under way has already spent its cut. */
+  wiped: boolean;
+  /** How far the pilot has carried the interlock, in thousandths of a tile. */
+  pryMilli: number;
+  /** `world.beat` the interlock was prised open on; `-1` while it is shut. */
+  pryBeat: number;
   /** `world.beat` the beam ended it on; `-1` while it stands. */
   outBeat: number;
 }
@@ -197,4 +222,28 @@ export function tasterOrder(width: number): number[] {
     if (d > 0 && mid - d >= 0) out.push(mid - d);
   }
   return out;
+}
+
+/**
+ * **Whether the interlock stands prised apart**, and therefore whether the
+ * beam reaches anything at all.
+ *
+ * A pure function of the beat the pilot's carry reached the bottom on, for
+ * `tasterPhase`'s reason said about a window rather than a movement: a flag
+ * stepped down once a beat would be read by `tasterStruck` on the tick, which
+ * is the other side of `onBeat` from where it was written, and the tick a
+ * beam lands on is the whole of what this window decides.
+ */
+export function tasterPried(t: TasterState, beat: number, cfg: SimConfig): boolean {
+  return t.pryBeat >= 0 && beat - t.pryBeat < cfg.tasterPryBeats;
+}
+
+/**
+ * **Whether the pin has run out**, which is the beat the held blade decides
+ * anyway and comes up thick. One place rather than three, because the step
+ * and the hand disagreeing about it would be a blade the pilot thinks he is
+ * still holding (`packages/sim/test/purity.test.ts`).
+ */
+export function tasterPinSpent(t: TasterState, cfg: SimConfig): boolean {
+  return t.pin >= 0 && t.pinBeats >= cfg.tasterPinBeats;
 }

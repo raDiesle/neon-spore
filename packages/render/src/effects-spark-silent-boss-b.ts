@@ -14,11 +14,24 @@ import type { SimEvent } from "@neon-spore/sim";
  * THE INSTAR's eleven came over on 19 September 2026 for the same reason
  * and by the same rule — page one went over, so page one handed its last
  * boss across rather than the lane cutting its own rows out of the middle.
+ * THE HIVE's nine followed the same day, when THE TASTER's three hands put
+ * page one over again.
  *
  * Every row means what it means there — *no burst answers this event* — and
  * the reasons stay with the rows.
  */
 export const SILENT_BOSS_B = [
+  // THE HIVE's nine are one family read above the loop by `hive-fx.ts`,
+  // never rows here (`docs/spec/bosses.md` §11.14).
+  "hiveEnter",
+  "hiveSwell",
+  "hiveOpen",
+  "hiveSpill",
+  "hiveSkin",
+  "hiveWrong",
+  "hiveSeal",
+  "hiveDown",
+  "hiveOut",
   // THE INSTAR's eleven are one family read above the loop by
   // `instar-fx.ts`, never rows here (`docs/spec/bosses.md` §11.32).
   "instarEnter",

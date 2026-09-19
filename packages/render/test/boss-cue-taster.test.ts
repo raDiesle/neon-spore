@@ -40,6 +40,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  *
  * The states are set rather than played into, as in `boss-cue-candle.test.ts`:
  * the grow, the set and the re-edge are proved in `sim/test/taster*.test.ts`.
+ *
+ * Three more words went in on 19 September 2026 with the three hands
+ * (`sim/taster-hand.ts`): `PIN` while the fan is `fanning`, `WIPE` while it is
+ * `hurrying`, and `PRY` before `BURN` on the closed interlock. What is checked
+ * here is the same thing as ever — the right seat, in the right movement, on
+ * something that seat is already shown.
  */
 
 beforeAll(installCanvasGlobals);
@@ -150,16 +156,103 @@ describe("THE TASTER", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("asks for the beam once the fan closes, from any column the crest spans", () => {
+  it("asks him to prise the interlock apart before it asks her for anything", () => {
     const world = opened();
     const t = installed(world);
     standing(world, t, 0);
     t.shorn = t.blades.length - CFG.tasterClosedBlades;
+    // A beam at a shut fan is refused (`tasterStruck`), so `BURN` here would
+    // be the field asking for the one thing that cannot work.
+    expect(word(world, "p1")).toBe("PRY");
+    expect(cue(world, "p1")?.kind).toBe("CARRY");
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("asks for the beam once it is open, from any column the crest spans", () => {
+    const world = opened();
+    const t = installed(world);
+    standing(world, t, 0);
+    t.shorn = t.blades.length - CFG.tasterClosedBlades;
+    t.pryBeat = world.beat;
     expect(word(world, "p2")).toBe("BURN");
     expect(cue(world, "p2")?.kind).toBe("HOLD");
     world.cannonCol = t.col + t.blades.length - 1;
     expect(word(world, "p2")).toBe("BURN");
     expect(word(world, "p1")).toBeNull();
+  });
+
+  it("asks him to pin a growing blade while three are coming out at once", () => {
+    const world = opened();
+    const t = installed(world);
+    standing(world, t, 4);
+    t.shorn = CFG.tasterFanShorn;
+    const growing = t.blades[6];
+    if (growing === undefined) throw new Error("no blade 6");
+    growing.growBeat = world.beat;
+    expect(word(world, "p1")).toBe("PIN");
+    expect(cue(world, "p1")?.kind).toBe("HOLD");
+    // On the fan and never on one blade: any growing blade will do, and three
+    // are out at once there.
+    expect(cue(world, "p1")?.x).toBe(tileCX(LAYOUT.p1, t.col + (t.blades.length - 1) / 2));
+    // Hers is unchanged: the cannon is under a standing blade.
+    expect(word(world, "p2")).toBe("SHEAR");
+  });
+
+  it("stops saying PIN the moment his thumb is on one", () => {
+    const world = opened();
+    const t = installed(world);
+    t.shorn = CFG.tasterFanShorn;
+    const growing = t.blades[6];
+    if (growing === undefined) throw new Error("no blade 6");
+    growing.growBeat = world.beat;
+    expect(word(world, "p1")).toBe("PIN");
+    t.pin = 6;
+    expect(word(world, "p1")).not.toBe("PIN");
+  });
+
+  it("asks her to wipe a gap while the fan is hurrying, on the gap itself", () => {
+    const world = opened();
+    const t = installed(world);
+    shorn(world, t, 0);
+    t.shorn = CFG.tasterHurryShorn;
+    // His cannon is on the gap, so `CUT` is her first word and `WIPE` her
+    // second — both about the same column, one with a bolt and one with a
+    // thumb. Off the gap, the carry is what is left.
+    expect(word(world, "p2")).toBe("CUT");
+    world.cannonCol = t.col + t.blades.length - 1;
+    const hers = cue(world, "p2");
+    expect(hers?.word).toBe("WIPE");
+    expect(hers?.kind).toBe("CARRY");
+    expect(hers?.x).toBe(tileCX(LAYOUT.p2, t.col));
+  });
+
+  it("stops saying WIPE once the crest is cut through", () => {
+    const world = opened();
+    const t = installed(world);
+    shorn(world, t, 0);
+    t.shorn = CFG.tasterHurryShorn;
+    world.cannonCol = t.col + t.blades.length - 1;
+    expect(word(world, "p2")).toBe("WIPE");
+    t.liftBeat = world.beat;
+    expect(word(world, "p2")).not.toBe("WIPE");
+  });
+
+  it("gives the three new words their own interference", () => {
+    const world = opened();
+    const t = installed(world);
+    t.shorn = t.blades.length - CFG.tasterClosedBlades;
+    const pry = cue(world, "p1");
+    t.shorn = CFG.tasterFanShorn;
+    const growing = t.blades[6];
+    if (growing === undefined) throw new Error("no blade 6");
+    growing.growBeat = world.beat;
+    const pin = cue(world, "p1");
+    shorn(world, t, 0);
+    t.shorn = CFG.tasterHurryShorn;
+    world.cannonCol = t.col + t.blades.length - 1;
+    const wipe = cue(world, "p2");
+    const seeds = [pry?.seed, pin?.seed, wipe?.seed];
+    expect(new Set(seeds).size).toBe(seeds.length);
   });
 
   it("says nothing at all once the beam has opened it", () => {

@@ -241,6 +241,15 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // on the fabric's own edge and a row (`render/curtain-grip.ts`,
     // `field-controls-curtain.ts`, `docs/spec/bosses.md` §11.24).
     case "curtainHem":
+    // THE TASTER's three, one per movement of one fight and the first set on a
+    // boss no part of which is hidden from either seat: the pilot pins a
+    // growing blade while the fan is `fanning`, the navigator wipes a soft
+    // column while it is `hurrying`, and the pilot prises the `closed`
+    // interlock open for her beam (`sim/taster-hand.ts`). Sim lane only so
+    // far, as the eighteen above.
+    case "tasterBlade":
+    case "tasterGap":
+    case "tasterLock":
       return target;
     default:
       return assertNever(target);

@@ -324,6 +324,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/throat-feed.ts` | **The two things that change THE THROAT's health**, and they are opposite gestures — which is the boss |
 | `packages/sim/src/throat.ts` | THE THROAT: the one boss you answer by **giving it something** |
 | `packages/sim/src/taster-hash.ts` | What THE TASTER puts into `hashWorld`, and nothing else |
+| `packages/sim/src/taster-hand.ts` | **THE TASTER's three thumbs on its own fan**, off the wire, on the tick |
 | `packages/sim/src/taster-shot.ts` | **What a shot does to THE TASTER**, which is the whole of the inverted rule |
 | `packages/sim/src/taster-step.ts` | THE TASTER's clock — the crest arriving, a blade coming out of it, its colour setting on the ledger |
 | `packages/sim/src/taster.ts` | THE TASTER: what you have already spent |
