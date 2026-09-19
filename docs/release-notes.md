@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 08b02f8b — THE ORRERY says TURN when the rings can never line up again
+
+The three orbits share factors on purpose and the pilot's thumb writes an anchor, so one stray organ can wind the rings into a parity where the shaft never opens on any beat. Six of the outer ring's eight positions are one. Nothing was wrong when it happened — a shot on a shut shaft costs nothing and the rings go on turning — so the pair went on counting towards a beat that was not coming, and patience made it worse. That is the one failure a co-op fight cannot afford to be silent about.
+
 ## 2026-09-19 · ce22d819 — THE ORRERY: a shot cracks a ring and the pilot's thumb takes it off
 
 A landed shot no longer takes a ring away. It jams the ring two organs short of the bottom and stops its drift, and the shaft stays shut until the pilot winds the gap home — the detent that lands it on slot 0 is what takes the ring off. So every ring costs two gestures off two seats, her count and his trigger and then his thumb, and the pair has one sentence to learn: shoot it, then turn it open.
