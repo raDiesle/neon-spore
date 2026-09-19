@@ -609,6 +609,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/living-look-handed.ts` | **How the bodies answered by two hands are drawn** |
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
 | `packages/content/src/waves/act-4.ts` | act four, opening on THE WISP; filled the day THE GYRE was written |
+| `packages/content/src/waves/act-4b.ts` | The tail of act four, cut off `act-4.ts` at ten lines under the 250-line ceiling rather than at it |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |

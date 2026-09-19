@@ -1211,24 +1211,6 @@ need to be good — a pose runs until the state arrives and throws if it does
 not — but it does need to avoid the meteors and its own tail, which is the
 round. Whoever writes it takes both names off `OWED` in the same commit.
 
-## `packages/content/src/waves/act-4.ts` is ten lines under the ceiling
-
-- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
-- **Taken:** 2026-09-19, main (claim: claude/queue-packages-content-src-waves-act-4-ts-is-ten-lines)
-- **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/waves.ts`
-
-240 lines of 250, and `tools/hooks/after-edit-size.ts` asked for the seam to be
-chosen while the diff that found it was still open — it was not, because that
-diff was two lines of a guide and the split is not about it.
-
-The convention act seven is built on is that a full page is cut at its **end**
-and the overflow takes the next letter (`act-7c.ts` → `act-7d.ts`), and act
-four has no letters yet, so the cut here is the cheap one: the tail of the act
-into an `act-4b.ts` beside it, spread in sequence by `waves.ts`. Act seven's
-own entry above is the same question asked where the answer is expensive
-because the page that filled is not the last one; this one is still the last
-one, and it costs a file and a line.
-
 ## THE SCOUT's laden and heavy have no card, because no hand flies the little ship
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn

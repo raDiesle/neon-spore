@@ -6,6 +6,7 @@ import { WAVES_ACT_2 } from "./waves/act-2.js";
 import { WAVES_ACT_3 } from "./waves/act-3.js";
 import { WAVES_ACT_3B } from "./waves/act-3b.js";
 import { WAVES_ACT_4 } from "./waves/act-4.js";
+import { WAVES_ACT_4B } from "./waves/act-4b.js";
 import { WAVES_ACT_5 } from "./waves/act-5.js";
 import { WAVES_ACT_6 } from "./waves/act-6.js";
 import { WAVES_ACT_7 } from "./waves/act-7.js";
@@ -47,6 +48,7 @@ export const WAVES: Wave[] = [
   ...WAVES_ACT_3,
   ...WAVES_ACT_3B,
   ...WAVES_ACT_4,
+  ...WAVES_ACT_4B,
   ...WAVES_ACT_5,
   ...WAVES_ACT_6,
   ...WAVES_ACT_7,

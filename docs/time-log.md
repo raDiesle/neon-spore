@@ -12487,3 +12487,35 @@ running the first draft against a real landing found that the sha `bun run
 land` hands back last names a commit about nothing a session ever touched.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-packages-content-src-waves-act-4-ts-is-ten-lines — a page split, ahead of the fill
+
+`act-4.ts` was at 240 of its 250-line ceiling, and the entry that found it
+wanted the seam chosen while nothing forced it — the two-line diff that
+tripped the hook was a guide edit that had nothing to do with the split. The
+convention was already written down twice, in `act-3b.ts` and in `waves.ts`
+itself: an act file is a page rather than a chapter, cut where it fills up,
+so the tail moves to the next letter and `waves.ts` splices it back into the
+same order. `THE RIND` was the whole tail — the last wave in the file — so it
+and its "in three figures" prose moved to a new `act-4b.ts`, spliced between
+`act-4` and `act-5`. The one place that had to know about a new act file by
+name rather than by pattern was `tools/director/src/waves-acts.ts`'
+`ACT_FILES`, which the director's save walks in order to decide which file
+each wave lands in; `waves-memo.test.ts`'s own "every act file on disk is in
+ACT_FILES" test would have caught a missed registration, and confirmed this
+one didn't need catching.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `act-4.ts`, `act-3.ts`/`act-3b.ts` as the precedent, `waves.ts`, `waves-acts.ts`, `waves-memo.test.ts` |
+| writing | 20 | `act-4b.ts`, trimming `act-4.ts`, the two header comments, `waves.ts`'s import and splice, `ACT_FILES`'s new row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 15 | `bunx tsc --noEmit`, `waves-memo`/`limits`/`doc-drift`/`serialize`/`wave-save`/`rind` tests, a full `bun run check` (18,577 tests), `format`, `bun run index`, `bun run queue done`, the commit |
+
+**The bottleneck was deciding how much to cut**, not the mechanics of
+cutting it — the file was ten lines from the edge rather than over it, so the
+tail that earns a companion file is one wave, not the half `act-3` needed
+when it was actually full.
+
+*Measured: the rows above are the session's own estimate.*
