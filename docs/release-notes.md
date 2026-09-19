@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 628baa61 — THE REPRISE says two words over an empty field, and the plate leaves its guide
+
+THE REPRISE is the twelfth of this family and the only boss in the game whose fight is a field with nothing on it, which turns the licence test inside out: everywhere else the question is which of the two screens is drawn the thing a word implies, and here neither screen is drawn anything at all. The answer is the tear at the top of the field, which both seats hold — no showsX anywhere in reprise-draw.ts, reprise-fx.ts or boss-draw.ts's unconditional call of them — and which is shut to a seam while a stretch runs seen. So CARRY over MOVE stands on the pilot's cannon and PRESS over FIRE on the mouth of the tear, hers, for exactly as long as repriseEchoing and not one beat longer. The reading had fallen through cuesOf's default and the boss builds no cue in its own drawing either, so the absence was real, and it is the one fight where it costs most: a field with no body drawn on it asks for nothing by its own picture, and the instinct a pair brings to an empty screen is to wait.
+
 ## 2026-09-19 · 58c05186 — THE INSTAR's scanner box learns the kind line the owner asked for
 
 ## 2026-09-19 · 05c48636 — THE WELL is the one boss that may not be given a word, and its briefing carries all of it

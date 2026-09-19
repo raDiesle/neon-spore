@@ -2409,3 +2409,17 @@ The options:
 `content/test/guided-entries.test.ts` is where a check for this would go if the
 owner wants the claim held by something: a wave whose prose names a wall and
 whose entries reach no wall is the general form.
+
+## Unverified at 628baa61: the tear's own frame against its teeth, and both cues o…
+
+- **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-reprise.ts`, `packages/content/src/waves/act-10.ts`, `packages/render/src/boss-cue-read-s.ts`
+
+*THE REPRISE says two words over an empty field, and the plate leaves its guide* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
+
+- the tear's own frame against its teeth, and both cues on a real frame — a cloud session has no screen
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
