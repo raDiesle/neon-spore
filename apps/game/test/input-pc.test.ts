@@ -36,9 +36,16 @@ describe("a held control on a PC", () => {
     );
   });
 
-  it("pointerup and pointercancel still answer the normal lift, on top of the two escapes above", () => {
-    expect(inputSource).toMatch(/canvas\.addEventListener\("pointerup", up\)/);
-    expect(inputSource).toMatch(/canvas\.addEventListener\("pointercancel", up\)/);
+  it("answers the normal lift for pointerup, with the point it lifted at", () => {
+    expect(inputSource).toMatch(
+      /canvas\.addEventListener\("pointerup", \(e\) => up\(e, inStage\(e\) \?\? undefined\)\)/,
+    );
+  });
+
+  it("answers pointercancel with no point at all — the browser took the gesture, not the player, so a half-finished swipe or a cannon tap it cut short fires nothing, the same as releaseAll's own escapes", () => {
+    expect(inputSource).toMatch(
+      /canvas\.addEventListener\("pointercancel", \(e\) => up\(e, undefined\)\)/,
+    );
   });
 });
 

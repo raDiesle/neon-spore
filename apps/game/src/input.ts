@@ -175,16 +175,23 @@ export function bindControls({
       if (t?.command) buffer.push(from(t), t.command);
     }
   });
-  const up = (e: PointerEvent): void => {
+  const up = (e: PointerEvent, at: { x: number; y: number } | undefined): void => {
     const hold = holding.get(e.pointerId);
     if (!hold) return;
     holding.delete(e.pointerId);
     hand.clear();
-    const t = touchUp(layout(), hold, field(), inStage(e) ?? undefined);
+    const t = touchUp(layout(), hold, field(), at);
     if (t?.command) buffer.push(from(t), t.command);
   };
-  canvas.addEventListener("pointerup", up);
-  canvas.addEventListener("pointercancel", up);
+  canvas.addEventListener("pointerup", (e) => up(e, inStage(e) ?? undefined));
+  // A cancel is the browser taking the gesture away — a system edge swipe, a
+  // palm, an incoming call, the compositor deciding a drag was a scroll after
+  // all — never a decision the player made, so it carries no point to
+  // `touchUp`: the same "no point to report" `releaseAll` gives a lift with
+  // nothing to say, for the identical reason. A half-finished swipe or a
+  // cannon tap the browser cut short fires nothing; a hold that only lets go
+  // still lets go, because that half is not in question.
+  canvas.addEventListener("pointercancel", (e) => up(e, undefined));
   canvas.addEventListener("contextmenu", (e) => e.preventDefault());
   // A mouse that left the picture is not over anything, and the ring it lit
   // has to go out with it — `pointermove` stops arriving the moment it does.

@@ -11856,3 +11856,36 @@ by the entry itself; the only judgement call was which boss counted as
 "last," and the page's own comments already answered that.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-cancelled-touch-fires-the-command-as-if-the-th — a cancel carries no point, the way releaseAll's escapes never do
+
+Building the entry's own diagnosis: `pointerup` and `pointercancel` shared one
+handler that always read `inStage(e)` and handed it to `touchUp` as the point
+the finger lifted at, so a gesture the browser took away — a system edge
+swipe, a palm, the compositor deciding a drag was a scroll — was delivered
+as if the player had finished it. `touchUp` itself already had the right
+contract for this (a `shot` or a `cannon` tap with no point fires nothing,
+already proved in `touch.test.ts`), so the fix stayed in `input.ts`: `up` now
+takes the point as a parameter, `pointerup` still asks `inStage(e)` for one
+and `pointercancel` passes none. A hold that only lets go — a drag, a grip, a
+held lobe — still lets go regardless, since that half was never in question;
+it's only the swipe direction and the tap-vs-slide read that a lost gesture
+has no business answering. `input-pc.test.ts` proves the wiring the way its
+neighbouring tests already do — this repo's `bun test` carries no DOM, so
+every case in that file is a source-text match rather than a dispatched
+event, and the two new tests are that same shape.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `input.ts`'s handler wiring, `touch.ts`'s `touchUp` contract for an absent point, and `input-pc.test.ts`'s existing style to find the real test rig (the entry's own `touch-glass.test.ts` citation turned out to read CSS, not dispatch anything) |
+| writing | 10 | splitting `up` to take the point as a parameter, the two listener bindings, and the two replacement tests |
+| looking | 0 | none — no picture involved |
+| friction | 5 | the entry's cited test file was the wrong one; found the actual rig by grep rather than guessing |
+| landing | 15 | `tsc --noEmit`, `input-pc.test.ts` and `touch.test.ts`, `format`/`lint`, then the full `check` |
+
+**The bottleneck was finding the real test rig.** The entry's own Files list
+named `touch-glass.test.ts`, which reads a stylesheet and dispatches nothing;
+`input-pc.test.ts` next door was the file already proving this exact class of
+wiring, for `releaseAll`'s two escapes.
+
+*Measured: the rows above are the session's own estimate.*

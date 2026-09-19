@@ -2129,30 +2129,6 @@ of asking*, from the other end: that entry catches the gesture once it has
 happened, this one keeps the thumb out of the corner where it happens. Both are
 worth having, and fullscreen (above) removes neither.
 
-## A cancelled touch fires the command as if the thumb had been lifted
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-effects-spark-silent-boss-ts-is-at-the-250-line (claim: claude/queue-a-cancelled-touch-fires-the-command-as-if-the-th)
-- **Files:** `apps/game/src/input.ts`, `apps/game/test/touch-glass.test.ts`, `packages/render/src/touch.ts`
-- **Where:** cloud
-
-`input.ts` binds `pointercancel` to the same handler as `pointerup`, and that
-handler calls `touchUp` **with a point** and pushes whatever command comes
-back. So a gesture the browser takes away — a system edge swipe, a palm, an
-incoming call, the compositor deciding the drag was a scroll after all — is
-delivered to the simulation as the gesture the player completed.
-
-The file already argues the other way three lines above, in `releaseAll`:
-*"No point to report, so a half-finished swipe fires nothing — see `touchUp`.
-Losing the window is not a shot the player took."* A cancel is that sentence
-exactly. It should drop the hold, clear the hand and push nothing.
-
-It matters most where the lift *is* the answer rather than the end of one: THE
-SURGE judges a charge on two thumbs leaving the glass, so a cancelled touch
-there is a vent or a burst the pair did not ask for and cannot see the cause
-of. `touch-glass.test.ts` and `fake-dom.ts` already dispatch pointer events at
-the rig, so the case is one test: press, cancel, and the buffer is empty.
-
 ## Nothing says how long a thumb waits for the field to answer it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
