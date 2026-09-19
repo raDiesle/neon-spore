@@ -2043,6 +2043,7 @@ game whose film shows no hand on it (`docs/spec/briefings.md`).
 ## A comment may name a source file that does not exist, and thirty-two do
 
 - **Found:** 2026-09-19, claude/queue-the-splice-says-the-word
+- **Taken:** 2026-09-19, main (claim: claude/queue-a-comment-may-name-a-source-file-that-does-not-e)
 - **Files:** `packages/sim/src/splice.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/gland-join.ts`, `packages/content/src/creatures-hazards.ts`, `tools/test/doc-drift.test.ts`
 - **Where:** cloud
 
