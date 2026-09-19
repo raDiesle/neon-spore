@@ -2206,6 +2206,7 @@ question that prompted this one.
 ## `effects-spark-silent-boss.ts` is at the 250-line ceiling exactly
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-a-film-cannot-put-a-hand-on-four-of-the-eleven-c (claim: claude/queue-effects-spark-silent-boss-ts-is-at-the-250-line)
 - **Files:** `packages/render/src/effects-spark-silent-boss.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
 - **Where:** cloud
 
