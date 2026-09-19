@@ -1869,10 +1869,24 @@ wider clock and the picture is never wrong.
 well is a skin: the pair says the same word about the same lane and the round is
 the wave it already was. Flipped on one, the pair holds two pictures of one
 field — the pilot's clock and the navigator's rows — which is this game's own
-control scheme pointed at its board. The pilot gets the clock because the cannon
-is its hand; the navigator keeps the flat field because they hold the only dome
-and the question a dome answers is *how near is it*, which a ring of rows
-answers badly and a row answers exactly.
+control scheme pointed at its board. The pilot gets the clock because his act is
+a **lane** and a clock names lanes better than anything else this game draws:
+the numerals stand on a ring outside the rim, so the hour is read rather than
+counted across. The navigator keeps the flat field because her act is a
+**moment** — *now*, into whichever column the cannon is standing in — and a
+moment needs the evenly paced rows, and because she holds the only warning
+strip: everything a well wave sends is announced on her screen and on nothing
+his shows (`radarBlips`, `showsRadar`; `render/test/boss-cue-well.test.ts`
+counts it).
+
+**This paragraph used to give a different reason, and it was wrong** (corrected
+19 September 2026). It said the navigator keeps the flat field *because they
+hold the only dome, and the question a dome answers is how near is it*. The dome
+is two hands and always has been: `shield` slides it and is player 2's, and
+**`guard` triggers it and is player 1's** — *half of every ward*
+(`content/src/controls.ts`). So the seat that has to answer *how near is it* is
+the pilot, and he is the seat this design hands the picture that reads distance
+worst. The split is still right; the reason for it was the other way round.
 
 **The seam is at twelve.** The field has two walls; rolled into a circle they
 meet, so the sector straight above the ship carries no column, the hull ring is
@@ -1899,11 +1913,60 @@ an even pitch, so the rows near the ship take four fifths of the radius and the
 far ones crowd against the rim, which is the field's own depth cue arrived at
 from the other side.
 
-**What it does not draw yet**, each one queued: the transients other than a
-kill's burst, a crossing rock's blip, and the two hit tests that would let the
-ship's lobes and a body be taken hold of where they are drawn. Until those land
-the pilot's field answers no finger at all on a well wave and the rails do
-everything, which is what `touch-ship.ts` has always said they can.
+**What it does not draw yet**, queued: the transients drawn *on the hull* — a
+crater, a scar, a deflected rock's tumble — which are placed against a hull line
+the ring at the middle has not got (`well-ship.ts`). The rest of this paragraph
+was stale for six days and is corrected here (19 September 2026): the crossing
+rock's blip went in on 13 September (`well-arrivals.ts`, `drawWellCrossing`), and
+so did both hit tests — `touch-well.ts` answers a finger on the ship's lobes and
+on a body where the circle draws them, and `touch.ts` calls it. The pilot's field
+is not dead to a thumb, and has not been since.
+
+**The words** (`render/src/boss-cue-read-r.ts`, 19 September 2026, page eighteen
+of the readings). **None, and THE WELL is the only boss in the game that could
+not have had any.** It is the second read against `docs/decisions.md` #34 and
+left silent — THE PULSE was the first — and the first where the reason is the
+boss rather than the round it is played in. A cue is *one word at the moment the
+fight wants something*, and this fight has no moments: no state, no `stepWell`,
+no clock, no phase, no health, no gesture and no body, `bossFillsWave` false so
+everything that falls is the wave author's own, and `bossHoldsWave` the one *no*
+in the game (`sim/well.ts`, `boss-kinds.ts`). **And every word it could say would
+be a column.** That is a fact about the drawing, not the simulation: on the flat
+field a mark over a body says *here* and the column is still a number the pair
+has to get out of their mouths, but on the clock the mark's own angle **is** the
+hour, because `well-face.ts` prints that lane's numeral on the ring just outside
+the rim. A place is information (#34's third inherited rule), and here a place is
+a printed number — `SHOOT` on this picture is `SHOOT COLUMN 4` drawn instead of
+spelled. The two seats close it: the pilot holds the clock and his only act is to
+be in a lane, so a mark on the right lane is the answer and a mark on the wrong
+one is the answer by subtraction (THE LEAD's finding); the navigator is never
+drawn the well at all, so a word about it on her glass would stand on a picture
+she is not shown. The seam is the one place that is not a lane, and it is
+furniture rather than a moment — drawn bright and closed from the first frame,
+and a finger in it refused outright (`touch-well.ts`, `wellCol` returns null), so
+a word there would be an instruction on a thumb the game will not answer. **The
+silence is safe because it is total**: no frame of any well wave on either screen
+carries a cue, so there is no beat whose emptiness means anything. Proved in
+`render/test/boss-cue-well.test.ts`, every beat of the wave and both ends of the
+rail.
+
+**The rehearsal** (`content/src/scenes/the-well.ts`, 13 September 2026, four
+pages over 1,230 ticks): the navigator's flat field with a red body coming down
+the fourth column; the same body, still falling, simply at four o'clock on the
+pilot's clock, the seat switch itself doing the folding; the fold back, with the
+cannon standing in the fourth column where the pilot put it and the navigator's
+red taking the body — *nothing falls differently and nothing fires differently*,
+shown rather than said; and the seam, the cannon carried to one o'clock and then
+to eleven, going the long way round through every hour between because that is
+the distance it is. **No page of it came down when the readings were written (19
+September 2026), and it is the only film in the set where that is a property of
+the boss**: the field says nothing here and cannot be made to, so no caption was
+saying a word the fight now says. All four pages are the split or the seam, which
+a briefing keeps in every case. What the pair was missing turned out not to be a
+verb at all but two readings of a picture — that the pilot's clock carries no
+warning marks, and that his rings crowd at the rim — and both went into the
+wave's own guide, because neither is a thing a thumb does and a rehearsal page is
+a thumb landing on something.
 
 ## 11.13 THE SPLICE — straws fed in the order the numbers say
 

@@ -205,9 +205,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE WELL",
     sentence: "The one where the lane beside it is the other end of the field.",
     guide: {
-      both: "The same field, drawn as a clock on one screen. Play it as usual: columns are hours.",
-      p1: "1. Your cannon is the clock's hand: slide it to the hour your partner says.\n2. Do not try to cross the gap above the ship: eleven and one are the two ends, not neighbours.\n3. Say the hour you are on.",
-      p2: "1. Say the column early, as a number: they hear it as an hour.\n2. Say how near a thing is: rows are rings on their screen and crowd together.\n3. Move the plate and fire as usual.",
+      both: "The same field, drawn as a clock on one screen and as rows on the other. Columns are hours, so column four is four o'clock and the cannon is the hand. Only the navigator is drawn the warning strip and evenly spaced rows; the pilot is drawn the seam, where the field's two walls meet above the ship and his rail ends.",
+      p1: "1. Your clock carries no warning marks: every arrival is on their strip alone.\n2. Over the rim, four beats of falling is a third of a tile; the last beat is that again.\n3. Eleven and one are your rail's two ends.",
+      p2: "1. You hold the only strip. Say a thing is coming, and its column, early: they hear a number as an hour.\n2. Rows are even here and crowded at their rim, so how soon is yours to say.\n3. Your plate is dead this wave.",
       scene: "theWell",
     },
     entries: [

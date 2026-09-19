@@ -16,7 +16,11 @@ import type { GuideScene } from "../scene-types.js";
  *
  * On that page the pilot's own thumb carries the cannon to four o'clock: on
  * the ring the cannon is the clock's hand, and the strip that moves it is the
- * one both screens share. The third page folds back — the navigator's flat
+ * same straight rail it has been all game — the projection bends the field and
+ * leaves the band alone, which is why one hour across the top of the picture is
+ * the whole width of a phone under the hand. (The rail itself is his: player
+ * 1's half of the band is drawn on `showsCannon` and nowhere else,
+ * `render/band-lobes.ts`.) The third page folds back — the navigator's flat
  * field again, the cannon standing in the fourth column where the pilot put
  * it, and the navigator's red taking the body: *nothing falls differently and
  * nothing fires differently*, shown rather than said.
@@ -26,6 +30,20 @@ import type { GuideScene } from "../scene-types.js";
  * of the gap over the ship and look like neighbours. The cannon on the ring
  * goes round the long way, through every hour between, because that is the
  * distance it is. The caption sits on the strip, where the thumb is.
+ *
+ * **And the pages the field took over: none, and this is the only film in the
+ * set where that is a property of the boss rather than of the prose.** THE WELL
+ * says nothing on either screen and cannot be made to — it has no state, no
+ * step, no clock and no gesture, so there is no moment for a word to stand on,
+ * and on the clock a mark's own angle *is* its hour, printed beside it on the
+ * numeral ring, so every word it could carry would be a column
+ * (`render/boss-cue-read-r.ts`, `docs/decisions.md` #34). So no caption here
+ * lost a verb, because no cue took one: all four pages are the split or the
+ * seam, which is what a briefing keeps in every case. What the pair is missing
+ * is not a verb but two readings of a picture — that the pilot's clock carries
+ * no warning marks at all, and that his rings crowd at the rim — and both went
+ * into the wave's own guide rather than here, because neither is a thing a
+ * thumb does and a rehearsal page is a thumb landing on something.
  *
  * The body is authored in column two, which `mapCol` puts in world column
  * three: four o'clock, the hour the wave's own guide names. It comes down a

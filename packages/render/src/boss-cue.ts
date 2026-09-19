@@ -16,6 +16,7 @@ import { gorgeCues } from "./boss-cue-read-n.js";
 import { ledgerCues } from "./boss-cue-read-o.js";
 import { antiphonCues } from "./boss-cue-read-p.js";
 import { cairnCues } from "./boss-cue-read-q.js";
+import { wellCues } from "./boss-cue-read-r.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -181,6 +182,16 @@ function cuesOf(
       return pinballCues(l, world, boss);
     case "scout":
       return scoutCues(l, world, boss);
+    // **THE WELL is read and silent, which is why it is a `case` and not a
+    // fall-through.** Its answer is THE PULSE's below, but it gets a page of
+    // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is
+    // a boss nobody has read yet, and this family has now been wrong three
+    // times about a boss that "says nothing". It has no state, no step, no
+    // clock and no gesture, so there is no moment for a word to stand on; and
+    // on the clock a mark's own angle is its hour, printed beside it on the
+    // numeral ring, so every word it could say would be a column.
+    case "well":
+      return wellCues(l, world);
     // **THE PULSE is here on purpose, and it is the only one that is.** Every
     // other kind falling through is a boss nobody has read yet; this one was
     // read on 18 September 2026 and came back with nothing the field may say.

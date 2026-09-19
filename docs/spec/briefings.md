@@ -944,6 +944,43 @@ went with it (its rows above); the dome page kept its verb, because the ward is
 one of the reading's own silences — what comes away is an ordinary rock, and no
 boss's reading cues one.
 
+THE WELL has **no row either, and it is the second entry of that kind** — THE
+PULSE's above is the first. Read 19 September 2026 and left silent on purpose
+(`boss-cue-read-r.ts`, [bosses](bosses.md) §11.12): this boss has no state, no
+step, no clock, no phase and no gesture, so there is no moment for a word to
+stand on, and on the clock a mark's own angle *is* its hour — `well-face.ts`
+prints that lane's numeral on the ring just outside the rim — so every word it
+could say would carry a column, which is what #34 forbids first. The difference
+from THE PULSE is where the reason sits: there it is the round's design, here it
+is the boss, and THE WELL is the only one in the game that could not have had a
+word whatever it was built out of. So none of its four film pages came down, and
+they are the split and the seam rather than a verb: *player 2 sees the flat
+field*, *player 1 sees four o'clock*, *player 2 fires the same lane*, *one to
+eleven · the long way*. It is the sixth film to read as unprunable against this
+rule.
+
+**THE WELL's guide was rewritten 19 September 2026 anyway, and that is the
+result worth having.** The rule cuts both ways: a fight that says nothing has to
+be carried entirely by the briefing, and this one's was three steps of what the
+pair could already see. The pilot's half had told him to *slide it to the hour
+your partner says* — which the shared line says — and to *say the hour you are
+on*, a number the navigator is drawn outright: the cannon's own swelling is on
+the hull on both screens (`drawHull` takes `LobePositions`, no role gate) and her
+two colours fire up his column by definition. Meanwhile **neither half had said
+the one thing that is actually asymmetric**: the pilot's clock carries no warning
+marks at all. Every body a well wave sends is a `slick` or a `bulb`, both
+`radar: "p2"`, and `radarBlips` gates on `showsRadar` while the well is drawn on
+`showsCannon` — so the ring `well-arrivals.ts` bends round his rim is empty for
+the whole wave, and the navigator's strip carries all of it
+(`render/test/boss-cue-well.test.ts` counts sixty-four against nought). His half
+opens on that now, and on the crowd at the rim: four beats of a fall over the rim
+move a body a third of a tile, and the last beat before the hull moves it that
+far by itself (`BEND` in `render/well.ts`). Hers opens on holding the only strip
+and on *how soon* being hers alone, and her last step says her plate is **dead**
+this wave — nothing it sends is wardable, and `hull.ts` says in as many words
+that the shield has nothing to say to a slick. It had read *move the plate and
+fire as usual*.
+
 #### The ghost thumb is derived, never authored
 
 A scene names a control and, for a strip, a column. Where that control *is*
