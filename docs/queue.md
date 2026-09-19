@@ -1724,6 +1724,7 @@ what the rest of this file holds.
 ## The COPIES table cannot carry a row that points at a document
 
 - **Found:** 2026-09-19, claude/queue-a-new-boss-state-is-twelve-registrations-and-not
+- **Taken:** 2026-09-19, main (claim: claude/queue-the-copies-table-cannot-carry-a-row-that-points)
 - **Files:** `packages/sim/test/copies-table.ts`, `packages/sim/test/copies.test.ts`
 - **Where:** cloud
 
