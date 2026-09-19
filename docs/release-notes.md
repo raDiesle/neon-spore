@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 0c445730 — Give reconciling the trunk its own command
+
 ## 2026-09-19 · 2d96af7d — Take ViewState.clearTop out, and the fifteen-file plumbing it left dead
 
 Nothing has set ViewState.clearTop since the rehearsal's own seat draw moved a film's picture below the tutorial plate on 18 September 2026, so every function threading it — headerTop/headerLift (round-header.ts) and everything that called them across the ship's chrome, THE FLEET's chart, THE GAUGE's dial, THE SPLICE's clock, the boss cue reading, the coordinate grid and three more rounds — was answering "no band" every frame for nothing. Removed the field and the whole call graph that read it.
