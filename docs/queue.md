@@ -1192,6 +1192,7 @@ them; the three events are on both silent lists until they are drawn.
 ## SNAKE's gorge and shed have no card, because no hand can drive the body to them
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Taken:** 2026-09-19, main (claim: claude/queue-snakes-gorge-and-shed-have-no-card-because-no-ha)
 - **Files:** `tools/director/test/boss-states.test.ts`, `tools/director/src/poses-bosses-rounds.ts`, `tools/director/src/boss-hands-rounds.ts`, `packages/sim/src/snake.ts`
 
 The §6.2 sim lane gave SNAKE a second axis of state — what the body has become,
