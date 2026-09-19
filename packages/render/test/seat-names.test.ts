@@ -110,12 +110,6 @@ describe("the siren's place", () => {
     expect(x + REACH + pillWidth(seatChip("p2", longest))).toBeLessThanOrEqual(l.width - SIREN_PAD);
     expect(x - REACH - pillWidth(seatChip("p1", longest))).toBeGreaterThanOrEqual(0);
   });
-
-  it("drops under a rehearsal's plate the way a round's header does", () => {
-    // The plate is top left and a long name's chip reaches under it.
-    expect(sirenCentre(l, longest, 60).y).toBeGreaterThan(sirenCentre(l, longest).y);
-    expect(sirenCentre(l, longest, 60).y).toBeGreaterThanOrEqual(60);
-  });
 });
 
 describe("the word under a hand", () => {

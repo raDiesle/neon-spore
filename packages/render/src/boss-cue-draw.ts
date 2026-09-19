@@ -28,15 +28,12 @@ export function drawBossCue(
   /** The plating without the cannon on it, for the one boss whose marks stand
    * on lobes coming up through it (`undertow-lobe.ts`). */
   skinY: SurfaceY = () => l.hullY,
-  /** Where the picture starts, when something stands over it: a rehearsal's
-   * band (`ViewState.clearTop`). Absent on the game itself. */
-  clearTop?: number,
 ): void {
-  const cue = bossCue(l, world, beatPhase, skinY, clearTop);
+  const cue = bossCue(l, world, beatPhase, skinY);
   if (cue === null) return;
   // Only where nothing already marks the place: `BossCue.framed`.
   if (cue.framed !== false) {
     drawTargetLock(ctx, cue.x, cue.y, cue.halfW, cue.halfH, PALETTE.rock, time, 0.85, cue.seed);
   }
-  drawCueText(ctx, cue, time, clearTop);
+  drawCueText(ctx, cue, time);
 }

@@ -23,9 +23,12 @@ import type { SeatNames } from "./seat-name.js";
  * question every answer to that slot is asked.
  *
  * The things the band had to be true of are now the record's to state:
- * `GUIDE_LOOK.bandFoot` is where it ends, a caption keeps clear of that
- * (`guide-tide-caption.ts`) and a round's header drops under it
- * (`round-header.ts`).
+ * `GUIDE_LOOK.bandFoot` is where it ends, and a caption keeps clear of that
+ * (`guide-tide-caption.ts`). A round's header used to drop under it too, back
+ * when a rehearsal's seat draw handed the band's foot on as `ViewState.clearTop`
+ * — that stopped being true on 18 September 2026 (`guide-film.ts`), and the
+ * header code that still read it came out on 19 September 2026
+ * (`docs/queue.md`).
  */
 
 /** How far the seam's glow reaches either side of the join. */

@@ -159,7 +159,7 @@ export function drawBoss(
   // and, on one screen of the two, the whole tangle over them
   // (`splice-draw.ts`).
   if (boss.kind === "splice") {
-    drawSplice(ctx, l, world.cfg, boss, world.cannonCol, world.beat, view.beatPhase, view.clearTop);
+    drawSplice(ctx, l, world.cfg, boss, world.cannonCol, world.beat, view.beatPhase);
     return;
   }
 
@@ -182,15 +182,15 @@ export function drawBoss(
   // and is cleared with everything else in `Effects.reset` (`fleet-fx.ts`).
   if (boss.kind === "fleet") {
     const fleet = effects.boss.fleet;
-    drawFleetChart(ctx, l, world, boss, view.beatPhase, view.time, view.clearTop);
-    drawFleetHulls(ctx, l, world, boss, view.beatPhase, fleet, view.clearTop);
-    drawFleetMarks(ctx, l, world, boss, fleet, view.clearTop);
-    drawFleetSights(ctx, l, world, boss, view.beatPhase, view.clearTop);
+    drawFleetChart(ctx, l, world, boss, view.beatPhase, view.time);
+    drawFleetHulls(ctx, l, world, boss, view.beatPhase, fleet);
+    drawFleetMarks(ctx, l, world, boss, fleet);
+    drawFleetSights(ctx, l, world, boss, view.beatPhase);
     // The wound the flood and the wreck are worked on, over the record and
     // under the salvoes — a shell in the air still lands on top of it
     // (`fleet-grip-draw.ts`).
-    drawFleetGrip(ctx, l, world, boss, view.beatPhase, view.time, view.clearTop);
-    const chart = chartOf(l, world, view.clearTop);
+    drawFleetGrip(ctx, l, world, boss, view.beatPhase, view.time);
+    const chart = chartOf(l, world);
     // The five moments of the wound, over the picture of it and under the
     // salvoes: each is one seat doing something the other cannot see, so the
     // ring stands on both screens (`fleet-grip-fx.ts`).

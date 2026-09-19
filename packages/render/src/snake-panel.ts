@@ -32,7 +32,7 @@ export function drawTitle(
   top: number,
 ): void {
   // The name's baseline; the two rows hang off it. The caller says where the
-  // top is, because a rehearsal has a plate there (`round-header.ts`).
+  // top is.
   const y = top;
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 16px "Courier New",monospace';

@@ -69,11 +69,8 @@ export function drawGrid(
   flash: number,
   beatPhase: number,
   grid = 0,
-  /** The foot of a rehearsal's plate, which the grid's axes move under
-   * (`coord-grid.ts`). */
-  clearTop = 0,
 ): void {
-  drawCoordGrid(ctx, l, flash, grid, clearTop);
+  drawCoordGrid(ctx, l, flash, grid);
 
   // The travelling beat (`drawBeatSweep`) is off: see its note.
   void beatPhase;

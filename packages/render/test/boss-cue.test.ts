@@ -196,23 +196,14 @@ describe("the cue on a real frame", () => {
 });
 
 /**
- * **The kind line keeps out of whatever stands over the picture.**
+ * **The kind line keeps out of the canvas's own top edge.**
  *
- * On the game itself nothing does and the line sits over the mark. A rehearsal
- * puts a band across the top — 104 pixels of TUTORIAL over PLAYER n · SCREEN —
- * and draws the cue like anything else (`guide-seat.ts` → `drawBodies`), so a
- * boss whose mark stands high wrote PRESS or HOLD inside it until 18 September
- * 2026. The line drops off `headerTop` now, the way a round's header does —
- * capped by its own verb, so a mark that is itself inside the band keeps its
- * cue whole and goes behind the plate with it rather than leaving a lone
- * PRESS below (`boss-cue-text.ts`).
+ * The line sits over the mark unless the mark stands close enough to the top
+ * that it would run off screen, in which case the kind line is pushed below
+ * the verb instead (`boss-cue-text.ts`).
  */
-describe("the cue and a band over the picture", () => {
-  const BAND = 104;
-  /** A band deeper than the mark stands from the top, so both lines must move. */
-  const DEEP = 400;
-
-  function drawn(clearTop: number | undefined): TextBox[] {
+describe("the cue's kind line", () => {
+  function drawn(): TextBox[] {
     const world = opened("gorge");
     const g: GorgeState = boss(gorgeBoss(world), "gorge");
     g.mouth = 3;
@@ -220,42 +211,17 @@ describe("the cue and a band over the picture", () => {
     const { ctx } = stubCanvas();
     ctx.texts = [];
     const l = computeLayout(VIEWPORT, CFG, "p2");
-    drawBossCue(
-      ctx as unknown as CanvasRenderingContext2D,
-      l,
-      world,
-      0,
-      0,
-      () => l.hullY,
-      clearTop,
-    );
+    drawBossCue(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0, () => l.hullY);
     return ctx.texts;
   }
 
-  function said(clearTop: number | undefined): { kind: TextBox; word: TextBox } {
-    const texts = drawn(clearTop);
+  it("stands over the mark", () => {
+    const texts = drawn();
     const kind = texts.find((t) => t.text === "HOLD");
     const word = texts.find((t) => t.text === "BURN");
     expect(kind, "no kind line drawn").toBeTruthy();
     expect(word, "no verb drawn").toBeTruthy();
-    return { kind: kind as TextBox, word: word as TextBox };
-  }
-
-  it("stands over the mark when nothing stands over the picture", () => {
-    const { kind, word } = said(undefined);
-    expect(kind.y).toBeLessThan(word.y);
-  });
-
-  it("keeps both lines out of the band when one does", () => {
-    const { kind, word } = said(BAND);
-    expect(kind.y, "the kind line is under the tutorial band").toBeGreaterThanOrEqual(BAND);
-    expect(word.y, "the verb is under the tutorial band").toBeGreaterThanOrEqual(BAND);
-  });
-
-  it("puts the kind line under the verb when the mark is inside the band", () => {
-    const { kind, word } = said(DEEP);
-    expect(word.y, "the verb is under the band").toBeGreaterThanOrEqual(DEEP);
-    expect(kind.y, "the kind line is over the verb with no room for it").toBeGreaterThan(word.y);
+    expect((kind as TextBox).y).toBeLessThan((word as TextBox).y);
   });
 });
 

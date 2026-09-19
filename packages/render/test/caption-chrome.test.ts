@@ -67,7 +67,7 @@ function pagesOf(name: string, role: ViewRole): Page[] {
   const out: Page[] = [];
   scene.steps.forEach((step: SceneStep, i: number) => {
     run.restart(stepSpan(scene, i).from);
-    const foot = shipTopFoot(l, run.world, BAND_FOOT);
+    const foot = shipTopFoot(l, run.world);
     const box = captionBox(
       ctx as unknown as CanvasRenderingContext2D,
       l,
@@ -116,16 +116,9 @@ describe("shipTopFoot", () => {
   const filmL = (role: ViewRole) =>
     filmLayout(computeLayout(PHONE, CFG, role), CFG, role === "p1" ? 1 : 2).l;
 
-  it("reaches under the band while a call is up", () => {
-    const foot = shipTopFoot(filmL("p1"), runOf("TORCH").world, BAND_FOOT);
+  it("reaches past the top of the picture while a call is up, well short of the band", () => {
+    const foot = shipTopFoot(filmL("p1"), runOf("TORCH").world);
     expect(foot, "TORCH's own rehearsal wrote nothing at the top").not.toBeNull();
-    expect(foot as number).toBeGreaterThan(BAND_FOOT);
-  });
-
-  it("stays where it was when no plate is over the screen", () => {
-    // The clearance is a rehearsal's alone: the running game's own frame does
-    // not move, which is what makes the whole of this a fix and not a look.
-    const bare = shipTopFoot(filmL("p1"), runOf("TORCH").world, undefined);
-    expect(bare as number).toBeLessThan(BAND_FOOT);
+    expect(foot as number).toBeLessThan(BAND_FOOT);
   });
 });

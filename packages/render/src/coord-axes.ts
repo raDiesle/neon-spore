@@ -89,38 +89,18 @@ export function colNumber(col: number): string {
  * lower clears every one of them, and a letter sitting on
  * the line under its own column is where a board writes one anyway.
  */
-export function drawAxes(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  shown: number,
-  clearTop: number,
-): void {
+export function drawAxes(ctx: CanvasRenderingContext2D, l: Layout, shown: number): void {
   const size = Math.max(7, Math.min(11, l.tile * 0.3));
   ctx.font = `${Math.round(size)}px "Courier New",monospace`;
   ctx.fillStyle = PALETTE.dim;
   ctx.globalAlpha = shown * 0.55;
 
-  // **Under a rehearsal's plate the axes move down inside their own grid**,
-  // which is the one thing they can do: THE FLEET's chart stands on the field
-  // and drops as a block (`fleet-chart.ts`), and this lattice *is* the field.
-  // So the letters hang at the foot of the first row that clears the plate and
-  // the numbers of the rows above it are not drawn at all — a label is only
-  // ever read on the one glance that turns a tile into a word, and a row whose
-  // number is behind a plate is a row nobody is reading a number off anyway.
-  // The owner's answer of 17 September 2026, which asked for a chart to drop
-  // as a block; this is that answer where the block cannot move.
-  //
   // A whole font size above the baseline is the ascent used for both: the caps
   // of a monospace digit reach about eight tenths of it, and the rest is the
-  // breath that keeps a letter off the slime hanging under the plate.
-  let letters = 0;
-  while (letters < l.rows - 1 && l.gridTop + (letters + 1) * l.tile - size * 1.3 < clearTop) {
-    letters++;
-  }
-
+  // breath that keeps a letter off the line above it.
   ctx.textAlign = "center";
   ctx.textBaseline = "bottom";
-  const ly = l.gridTop + (letters + 1) * l.tile - size * 0.3;
+  const ly = l.gridTop + l.tile - size * 0.3;
   for (let c = 0; c < l.cols; c++) {
     ctx.fillText(colLabel(c), l.gridLeft + (c + 0.5) * l.tile, ly);
   }
@@ -129,7 +109,6 @@ export function drawAxes(
   ctx.textBaseline = "middle";
   for (let r = 0; r < l.rows; r++) {
     const y = l.gridTop + (r + 0.5) * l.tile;
-    if (y - size < clearTop) continue;
     ctx.fillText(rowLabel(r), l.gridLeft + size * 0.3, y);
   }
 

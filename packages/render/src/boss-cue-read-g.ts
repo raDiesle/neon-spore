@@ -74,17 +74,12 @@ const TILE_HALF = 0.44;
  * be an invitation to press nothing — THE MAZE's argument about a handle the
  * ship has taken away, on a button instead.
  */
-export function fleetCues(
-  l: Layout,
-  world: World,
-  f: FleetState,
-  clearTop: number | undefined,
-): readonly BossCue[] {
-  if (f.phase !== "hunt") return fleetHoleCues(l, world, f, clearTop);
+export function fleetCues(l: Layout, world: World, f: FleetState): readonly BossCue[] {
+  if (f.phase !== "hunt") return fleetHoleCues(l, world, f);
   if (world.beat - f.firedBeat < world.cfg.fleetSalvoRestBeats) return [];
   if (fleetStruck(world, f, f.aimCol, f.aimRow)) return [];
   if (fleetShipAt(f.ships, f.aimCol, f.aimRow) === -1) return [];
-  const c = chartOf(l, world, clearTop);
+  const c = chartOf(l, world);
   if (c.tile <= 0) return [];
   const half = c.tile * SIGHTS_HALF;
   return [
@@ -113,13 +108,8 @@ export function fleetCues(
  * is not the hunt's silence broken: the plume is on both screens, and what
  * she is told is what her thumb does, never where the ship lies.
  */
-function fleetHoleCues(
-  l: Layout,
-  world: World,
-  f: FleetState,
-  clearTop: number | undefined,
-): readonly BossCue[] {
-  const c = chartOf(l, world, clearTop);
+function fleetHoleCues(l: Layout, world: World, f: FleetState): readonly BossCue[] {
+  const c = chartOf(l, world);
   if (c.tile <= 0 || f.holed < 0) return [];
   const half = c.tile * SIGHTS_HALF;
   const at = { x: chartX(c, f.holeCol), y: chartY(c, f.holeRow), halfW: half, halfH: half };
@@ -172,16 +162,11 @@ function tileMid(a: Arena, col: number, row: number): { x: number; y: number } {
  * Nothing at all outside `play` — the fold is a picture, the verdict is over,
  * and a crashed body has no head to spit out of.
  */
-export function snakeCues(
-  l: Layout,
-  world: World,
-  s: SnakeState,
-  clearTop: number | undefined,
-): readonly BossCue[] {
+export function snakeCues(l: Layout, world: World, s: SnakeState): readonly BossCue[] {
   if (s.phase !== "play" || snakeCrashed(s)) return [];
   const head = s.body[0];
   if (head === undefined) return [];
-  const a = snakeArena(l, world.cfg, { clearTop });
+  const a = snakeArena(l, world.cfg);
   if (a.tile <= 0) return [];
   const half = a.tile * TILE_HALF;
   const out: BossCue[] = [];

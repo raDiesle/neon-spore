@@ -67,8 +67,8 @@ function drawSeat(
     running: true,
     controls: set,
     // **Nothing stands over this screen**: since 18 September 2026 the
-    // picture is laid out below the band (`guide-film.ts`), so a round's
-    // header no longer has to drop under it (`round-header.ts`).
+    // picture is laid out below the band (`guide-film.ts`), so nothing here
+    // hands a header a foot to drop under any more.
     // **And a film is not a run the pair can lose**: the screen a lost wave
     // puts up asks about a wave nobody is playing (`briefing.ts`).
     rehearsal: true,

@@ -154,23 +154,21 @@ export function drawOverlays(
 ): void {
   const { armed: isArmed, open: isOpen, scene, fx, surfaceY } = state;
   drawHud(ctx, l, view);
-  // Both calls hang off the siren below them, so both take the same clearance
-  // it does when a rehearsal's plate is over the top of the screen.
-  drawTorchAlarm(ctx, l, world, view.time, view.clearTop);
+  drawTorchAlarm(ctx, l, world, view.time);
   // And the pilot's own call, on the pilot's screen alone (`magnet-alarm.ts`).
-  drawMagnetAlarm(ctx, l, world, view.time, view.clearTop);
+  drawMagnetAlarm(ctx, l, world, view.time);
   // Over the HUD and under the band: the one instrument that says *talk*, for
   // every creature that needs it. It is an overlay rather than part of the
   // field because it is about the pair rather than about anything standing in
   // a column (`siren.ts`).
-  drawCommsSiren(ctx, l, world, view.time, view.names, view.clearTop);
+  drawCommsSiren(ctx, l, world, view.time, view.names);
   // And the blind seat's mine counts, which are the bottom row of that same
   // cluster (`ship-top-rows.ts`). They were drawn with the field, among the
   // bodies, and could be neither placed under the chrome — the field pass is
-  // never handed `clearTop` — nor kept out from behind a body standing in the
-  // top row. A count somebody's own arrival can cover is not a count
-  // (`mine.ts`).
-  drawMineFuses(ctx, l, world, view.clearTop);
+  // never handed the top row's own clearance — nor kept out from behind a
+  // body standing in the top row. A count somebody's own arrival can cover is
+  // not a count (`mine.ts`).
+  drawMineFuses(ctx, l, world);
   drawBand(
     ctx,
     l,

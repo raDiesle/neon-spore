@@ -7,7 +7,6 @@ import {
 } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { headerTop } from "./round-header.js";
 import {
   drawStraws,
   drawStubs,
@@ -41,7 +40,6 @@ export function drawSplice(
   cannonCol: number,
   beat: number,
   beatPhase: number,
-  clearTop?: number,
 ): void {
   const full = showsSpliceTangle(l.role);
   if (full) drawStraws(ctx, l, cfg, s);
@@ -49,7 +47,7 @@ export function drawSplice(
   drawMouths(ctx, l, cfg, s, full, cannonCol, beat, beatPhase);
   if (full) drawNumbers(ctx, l, cfg, s);
   drawFlight(ctx, l, cfg, s, cannonCol, beat, beatPhase, full);
-  if (full) drawClock(ctx, l, cfg, s, beat, clearTop);
+  if (full) drawClock(ctx, l, cfg, s, beat);
 }
 
 /**
@@ -207,12 +205,9 @@ function drawFlight(
  * they should be listening. The navigator is the one deciding how much to say,
  * so they are the one who is told how long they have.
  *
- * **It is a readout at a fixed offset from the top of the screen**, which is
- * what `round-header.ts` is for: on a rehearsal the tutorial plate stands in
- * the same band, and the clock drops under it (`clearTop`) the way every
- * round's name does. Only the clock moves — the straws, the mouths and the
- * numbers are on the field, not in the strip. `boss-draw.ts` hands the
- * clearance down, since the `ViewState` is in hand there and not here.
+ * **It is a readout at a fixed offset from the top of the screen.** Only the
+ * clock moves — the straws, the mouths and the numbers are on the field, not
+ * in the strip.
  */
 function drawClock(
   ctx: CanvasRenderingContext2D,
@@ -220,7 +215,6 @@ function drawClock(
   cfg: SimConfig,
   s: SpliceState,
   beat: number,
-  clearTop: number | undefined,
 ): void {
   const left = Math.max(0, spliceCurrent(s).beats - (beat - s.roundBeat));
   const wanted = spliceWanted(s);
@@ -230,7 +224,7 @@ function drawClock(
   ctx.fillText(
     `${wanted === -1 ? s.topOf.length : s.fed + 1} OF ${s.topOf.length} · ${left}`,
     l.gridLeft + l.gridWidth / 2,
-    headerTop({ clearTop }, spliceTopY(l, cfg) - l.tile * 0.7),
+    spliceTopY(l, cfg) - l.tile * 0.7,
   );
   ctx.textAlign = "start";
 }

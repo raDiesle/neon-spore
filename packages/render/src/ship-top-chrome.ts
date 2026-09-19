@@ -9,10 +9,9 @@ import { torchAlarmFoot } from "./torch-alarm.js";
  *
  * Three things are written there and none of them belongs to the field: the
  * siren's dial with the duty word under it, TORCH's call, and THE MAGNET's.
- * All three hang off the same cluster and all three drop together under a
- * rehearsal's plate (`sirenDrop`), so the row they end on is not a constant
- * anybody can copy — it depends on the plate, on which of them is up, and on
- * which seat is looking.
+ * All three hang off the same cluster, so the row they end on is not a
+ * constant anybody can copy — it depends on which of them is up and on which
+ * seat is looking.
  *
  * **It exists because a rehearsal's caption box was landing on it.** The band
  * used to cover all three, so the caption had nothing to collide with; the
@@ -26,13 +25,9 @@ import { torchAlarmFoot } from "./torch-alarm.js";
  * again here, which is the rule `caption-anchor.ts` already plays by: a row
  * that moves takes its own clearance with it.
  */
-export function shipTopFoot(l: Layout, world: World, clearTop: number | undefined): number | null {
+export function shipTopFoot(l: Layout, world: World): number | null {
   let foot: number | null = null;
-  for (const y of [
-    sirenFoot(l, world, clearTop),
-    torchAlarmFoot(l, world, clearTop),
-    magnetAlarmFoot(l, world, clearTop),
-  ]) {
+  for (const y of [sirenFoot(l, world), torchAlarmFoot(l, world), magnetAlarmFoot(l, world)]) {
     if (y !== null && (foot === null || y > foot)) foot = y;
   }
   return foot;

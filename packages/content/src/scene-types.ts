@@ -38,9 +38,9 @@ export interface GuideScene {
   /**
    * Rows in the film's pinball table. PINBALL's header sits in the air above
    * its first pins, which on a rehearsal is where the corner plate stands, and
-   * its board hangs from the ceiling with nowhere to drop to
-   * (`render/src/round-header.ts`). A row fewer is the owner's answer of 10
-   * September 2026: the same board, one row lower, the header in its top row.
+   * its board hangs from the ceiling with nowhere to drop to. A row fewer is
+   * the owner's answer of 10 September 2026: the same board, one row lower,
+   * the header in its top row.
    */
   pinballRows?: number;
   seed: number;

@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, controlSetForWave } from "@neon-spore/content";
 import { createWorld, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { seatRole } from "../src/guide-film.js";
-import { GUIDE_LOOK } from "../src/guide-look.js";
 import { SeatView } from "../src/guide-seat.js";
 import { computeLayout } from "../src/layout.js";
 import {
@@ -53,7 +52,6 @@ function oneSeatFrame(world: World, seat: 1 | 2): number {
     events: [],
     running: true,
     controls: controlSetForWave(waveWith("reprise")),
-    clearTop: GUIDE_LOOK.bandFoot,
   });
   return ctx.calls;
 }

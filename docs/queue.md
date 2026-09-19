@@ -1321,45 +1321,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `ViewState.clearTop` has no caller left that sets it
-
-- **Found:** 2026-09-19, claude/queue-a-rehearsal-that-takes-a-hit-draws-the-lost-scre
-- **Taken:** 2026-09-19, claude/queue-guide-scene-ts-is-three-pieces-at-227-lines-and (claim: claude/queue-viewstate-cleartop-has-no-caller-left-that-sets)
-- **Files:** `packages/render/src/renderer.ts`, `packages/render/src/round-header.ts`, `packages/render/src/siren.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`, `packages/render/src/ship-top-rows.ts`, `packages/render/src/ship-top-chrome.ts`, `packages/render/src/gauge-round.ts`, `packages/render/src/fleet-chart.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/splice-draw.ts`, `packages/render/src/coord-axes.ts`, `packages/render/src/mine.ts`, `packages/render/src/hud.ts`
-- **Where:** cloud
-
-`clearTop` is the foot of a band a frame has to keep out of, and it was set by
-exactly one thing: the rehearsal's own seat draw, which handed its film the
-tutorial plate's foot so that a round's header and the HUD's lower rows dropped
-under it. On 18 September 2026 the film was laid out **below** the band instead
-(`guide-film.ts`), and the seat draw stopped setting it — the comment where it
-used to be says so. Nothing has set it since. `grep -rn 'clearTop:' packages
-apps tools` finds declarations, parameters and test call sites, and no producer.
-
-So every one of those files carries a parameter that is `undefined` on every
-frame the game draws, and `headerTop`/`headerLift` are two functions whose only
-job is to answer "no band" fifteen times a frame. The tests keep it alive:
-`alarm-room.test.ts`, `fuse-row.test.ts`, `boss-cue.test.ts` and
-`guide-unseen.test.ts` each pass `GUIDE_LOOK.bandFoot` by hand, so the plumbing
-is covered and unreachable at the same time — which is the shape that makes
-dead code survive a sweep.
-
-Two ways, and the choice is about whether a band can come back:
-
-- **Take it out.** The field off `ViewState`, the parameter off each function,
-  `round-header.ts` with it, and the four tests' hand-passed cases with it. One
-  mechanical diff across ~15 files, nothing on screen moves, and a band that
-  returns later is a new argument threaded again from scratch.
-- **Keep it and give it a producer.** Something still wants this shape — the
-  director's TEST stage cuts a taller band of its own — so the honest version
-  is one caller that sets it rather than fifteen that read it. Whoever takes
-  this should look at `tools/director/src/stage-transport.ts` first and say
-  whether that band is a `clearTop` or a smaller stage.
-
-The first is recommended unless the director turns out to want it: the reason
-it exists is gone, and a number nothing sets is a number nobody can trust when
-it comes back.
-
 ## A phone in TEST mode has nowhere to put two bands and the rig
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

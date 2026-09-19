@@ -82,12 +82,12 @@ gets all three for free (`render/src/guide-switch.ts`, `guide-nav.ts`,
   a gate.
 
 A boss round's own header makes room for the band rather than the other way
-round: the film says where it ends (`ViewState.clearTop`, `BANNER_H`) and the
-round's name, its rows and whatever hangs off them drop under it as one block
-(`render/src/round-header.ts`). PINBALL, whose board hangs from the ceiling,
-has no room to drop into and shortens its film's table by a row instead
-(`GuideScene.pinballRows`). `render/test/guide-plate-room.test.ts` holds that
-no word of any boss rehearsal is drawn in the band, edge to edge, and
+round: the film's whole picture is laid out below the band's foot
+(`GUIDE_LOOK.bandFoot`, `render/src/guide-film.ts`), squeezed rather than
+slid so nothing a round draws has to move to clear it. PINBALL, whose board
+hangs from the ceiling, has no room to give up and shortens its film's table
+by a row instead (`GuideScene.pinballRows`). `guide-plate-room.test.ts` holds
+that no word of any boss rehearsal is drawn in the band, edge to edge, and
 `render/test/guide-frame.test.ts` draws the band, the flash and the welcome.
 
 ### Every page belongs to a seat — with exactly one exception

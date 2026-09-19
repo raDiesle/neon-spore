@@ -12343,3 +12343,45 @@ further on in a file that had just been written — two minutes of reading the
 wrong thing before the terminator was the obvious answer.
 
 *Measured: 17 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-19 — queue-viewstate-cleartop-has-no-caller-left-that-sets — a dead parameter, twice as wide as it looked
+
+The entry named fifteen files; `grep -rln clearTop` found thirty-three, plus
+four more surfaced by `headerTop\|headerLift` and `round-header` that the
+entry's own `clearTop:` grep had missed because they read a plain
+positional argument. `tools/director/src/stage-transport.ts` carried no
+trace of it, settling the entry's own branch in favour of taking the field
+out rather than giving it a producer. `ViewState.clearTop`, `round-header.ts`
+(`headerTop`/`headerLift`, both always degenerate once `clearTop` is always
+`undefined`), and every threaded parameter came out across the full call
+graph: `siren.ts`, `ship-top-rows/chrome.ts`, `torch`/`magnet-alarm.ts`,
+`hud.ts`, `fleet-chart/marks/hulls/grip-draw.ts`, `boss-draw.ts`,
+`gauge-round/title/grip.ts`, `splice-draw.ts`, `boss-cue*.ts`,
+`coord-axes/grid.ts`, `field.ts`, `frame-field.ts`, `round-draw.ts`,
+`snake-draw/round/panel.ts`, `pinball-round.ts`, `scout-round.ts`, and
+`pulse-round/lane/meter.ts`, plus the eight test files that kept the dead
+plumbing reachable. Two call sites turned out to be real, live producers the
+`clearTop:` grep never caught, because neither passes the word `clearTop`
+at all: `guide-tide-caption-box.ts` and `caption-anchor.ts` each hand a
+literal `BAND_FOOT`/`GUIDE_LOOK.bandFoot` into `shipTopFoot`/`runLineBox` to
+place a caption relative to where the chrome would sit *if* a plate still
+pushed it down — a computation that stopped matching the true, undropped
+render the moment the film's picture moved below the band on 18 September
+2026, and would have kept computing a stale floor forever if this pass had
+stopped at the entry's own file list.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 45 | the entry, `stage-transport.ts`, tracing `clearTop`'s real call graph past the entry's own grep, the two `BAND_FOOT`-literal call sites and what they were actually for |
+| writing | 100 | ~30 source files' parameter and doc-comment cuts, 8 test files rewritten to drop the dead scenarios, `docs/INDEX.md`'s stale row, the `new-tutorial` skill's stale paragraph |
+| looking | 0 | none |
+| friction | 15 | the `new-tutorial` skill's rewrite pushed it 2 lines past its grandfathered 270-line cap in `KNOWN_LONG`, caught by `limits.test.ts` and trimmed back rather than raising the cap |
+| landing | 25 | `bunx tsc --noEmit`, two full `bun run check` passes (18,531 tests), `format` (2 files), `bun run queue done`, the commit |
+
+**The bottleneck was the two producers the entry's own search missed** —
+the mechanical two-thirds of the diff was fast once the scope was known, but
+finding it was known required tracing every caller of `shipTopFoot` and
+`runLineBox` by hand rather than trusting a single grep for the word
+`clearTop`.
+
+*Measured: the rows above are the session's own estimate.*

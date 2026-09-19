@@ -44,7 +44,10 @@ const WALK_MS = HANG_MS;
  * window, the stage, the tally. Until 10 September 2026 the plate sat on top
  * of all of it on every boss rehearsal in the game, so two things were in one
  * place and neither was legible. The plate is right and the header is right;
- * this holds that the header has dropped out from under it (`round-header.ts`).
+ * this holds that the header stays out from under it. Each round's own header
+ * used to drop clear of the plate one element at a time; since 18 September
+ * 2026 the whole picture is laid out below the band instead
+ * (`guide-film.ts`), so there is nothing left for a header to drop under.
  *
  * The check is on the words themselves: the box a round's own name occupies,
  * and the box the run's line occupies, against the band the chrome stands in.
@@ -68,7 +71,7 @@ const WALK_MS = HANG_MS;
  * MAGNET's are the ship's own chrome rather than a round's, so they are on
  * every wave that sends one and on none of the boss waves this sweep walks —
  * a word added to the filter below would never have matched. They hang off
- * the siren and drop with it now, held by `alarm-room.test.ts`. THE WISP's
+ * the siren, held by `alarm-room.test.ts`. THE WISP's
  * lattice is an ordinary wave's, outside this net for the same reason, and is
  * held by `guide-grid-room.test.ts`. The lost screen used as a page's subject
  * is out of the band by being out of the film altogether — the owner took it
@@ -80,9 +83,9 @@ const WALK_MS = HANG_MS;
  * is**, because clearance would tear it off the thing it names.
  *
  * **THE SPLICE's clock is swept here since 17 September 2026**: `1 OF 2 · 26`
- * on the seat shown the tangle is a readout at a fixed offset from the top,
- * and it drops under the plate off `headerTop` the way a name does
- * (`splice-draw.ts`).
+ * on the seat shown the tangle is a readout at a fixed offset from the top of
+ * the picture, and the picture starts below the band (`splice-draw.ts`,
+ * `guide-film.ts`).
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
@@ -116,8 +119,8 @@ const RUN_LINE = /^\d+:\d{2}( ·|$)/;
  * Four bosses put a word under the band — THE GORGE's intakes had the kind
  * line in it, and THE CANDLE's glow, THE DIASTOLE's bridge and THE SCUTTLE's
  * borrowed lock box stand in the band with their marks, so the verb was in it
- * too. The kind line drops off `headerTop` now and goes under the verb when
- * there is no room over it, and the verb takes the same floor.
+ * too. Since then the picture — cue included — is laid out below the band
+ * altogether (`guide-film.ts`), which is what keeps both lines out of it now.
  *
  * **A word the plate covers is the tutorial covering the one thing the field
  * was built to say for it**, which is why these move and THE BEATBOX's count
@@ -151,11 +154,12 @@ const CUE_WORD =
  *
  * **THE FLEET**: the chart's axis, which is a letter across the foot and a
  * number down the gutter, and the square names the marks and the sights write
- * on it — a letter and a digit together. The whole chart drops under the band
- * now rather than moving its numbers to the other edge (`fleet-chart.ts`).
+ * on it — a letter and a digit together. The whole chart stands on the
+ * picture, which starts below the band, rather than moving its numbers to the
+ * other edge (`fleet-chart.ts`).
  *
  * **THE SPLICE**: its own clock — which number of how many, and the beats
- * left — which drops under the plate with the rest of its header.
+ * left — which stands on the picture with the rest of its header.
  */
 const ALSO: Record<string, RegExp> = {
   "THE FLEET": /^[A-K]$|^[A-K][0-9]{1,2}$|^[0-9]{1,2}$/,

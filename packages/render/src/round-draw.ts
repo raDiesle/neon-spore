@@ -50,6 +50,6 @@ export function drawRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewSt
   const round = ROUND_DRAWS[view.world.boss?.kind ?? ""];
   if (round === undefined) return false;
   round(ctx, l, view);
-  drawBossCue(ctx, l, view.world, view.beatPhase, view.time, () => l.hullY, view.clearTop);
+  drawBossCue(ctx, l, view.world, view.beatPhase, view.time, () => l.hullY);
   return true;
 }

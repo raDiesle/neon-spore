@@ -11,7 +11,6 @@ import { drawPinBlast, drawPinTake } from "./pinball-blast.js";
 import { drawPinPieces } from "./pinball-piece.js";
 import { drawPinBall, drawPinResting, drawPinWalls, pinTable } from "./pinball-table.js";
 import type { ViewState } from "./renderer.js";
-import { headerTop } from "./round-header.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
 
@@ -104,9 +103,8 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
 
   ctx.textAlign = "center";
   drawPinWalls(ctx, table);
-  // The header hangs in the air above the first pins, from wherever the top
-  // is: the table's own, or under a rehearsal's plate (`round-header.ts`).
-  const top = headerTop(view, table.y + table.tile * 0.52);
+  // The header hangs in the air above the first pins, from the table's own top.
+  const top = table.y + table.tile * 0.52;
   drawTitle(ctx, l, table, view.role, boss, top);
   drawTally(ctx, l, view, boss, top + table.tile * 0.92);
 

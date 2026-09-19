@@ -75,10 +75,8 @@ function fieldWith(seat: 1 | 2, boss: GaugeState | null): Field {
   };
 }
 
-const needleAt = (l: Layout, g: GaugeState) =>
-  gaugeNeedleGrip(l, DEFAULT_CONFIG, gaugeDial(l, undefined), g);
-const bandAt = (l: Layout, g: GaugeState) =>
-  gaugeBandGrip(l, DEFAULT_CONFIG, gaugeDial(l, undefined), g);
+const needleAt = (l: Layout, g: GaugeState) => gaugeNeedleGrip(l, DEFAULT_CONFIG, gaugeDial(l), g);
+const bandAt = (l: Layout, g: GaugeState) => gaugeBandGrip(l, DEFAULT_CONFIG, gaugeDial(l), g);
 
 describe("a thumb on the needle", () => {
   it("is the pilot's, under a jam, and nobody else's", () => {
@@ -109,7 +107,7 @@ describe("a thumb on the needle", () => {
     const jammed = playing({ jamBeat: 3 });
     const field = fieldWith(1, jammed);
     const at = needleAt(l, jammed);
-    const dial = gaugeDial(l, undefined);
+    const dial = gaugeDial(l);
     const hold = touchDown(l, at.x, at.y, field)?.hold as Hold;
     // Straight left of the middle is three quarters of a turn clockwise from
     // the top, which is the nought end of the dial (`sim/gauge-hand.ts`).
@@ -158,7 +156,7 @@ function strokes(role: ViewRole, g: GaugeState): number {
     ctx as unknown as CanvasRenderingContext2D,
     l,
     DEFAULT_CONFIG,
-    gaugeDial(l, undefined),
+    gaugeDial(l),
     g,
     role,
     1.2,

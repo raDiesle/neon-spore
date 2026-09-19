@@ -6,7 +6,6 @@ import { drawHull } from "./hull.js";
 import { frame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
-import { headerTop } from "./round-header.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
 import { drawSnakeBody, snakeSlide } from "./snake-body.js";
@@ -86,10 +85,9 @@ export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // The header hugs the arena. On a screen where the width is what limits the
   // tiles, the arena is shorter than the air it was given and stands on the
   // hull, so the name comes down to meet it rather than leaving the gap at
-  // the top; under a rehearsal's plate the name drops and the arena's top
-  // follows (`round-header.ts`, `snakeArena`).
-  const arena = snakeArena(l, world.cfg, view);
-  const top = Math.max(headerTop(view, l.playHeight * SNAKE_NAME_Y), arena.y - SNAKE_HEADER);
+  // the top (`snakeArena`).
+  const arena = snakeArena(l, world.cfg);
+  const top = Math.max(l.playHeight * SNAKE_NAME_Y, arena.y - SNAKE_HEADER);
   drawTitle(ctx, l, view.role, boss, top);
   drawTally(ctx, l, view, boss, top + 30);
   drawArena(ctx, arena);

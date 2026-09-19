@@ -77,7 +77,7 @@ describe("THE GAUGE", () => {
     expect(c?.word).toBe("CALL");
     expect(c?.kind).toBe("PRESS");
     expect(c?.seat).toBe(2);
-    const tip = gaugeNeedleTip(gaugeDial(LAYOUT.p2, undefined), g);
+    const tip = gaugeNeedleTip(gaugeDial(LAYOUT.p2), g);
     expect(c?.x).toBeCloseTo(tip.x, 6);
     expect(c?.y).toBeCloseTo(tip.y, 6);
   });
@@ -132,7 +132,7 @@ describe("THE GAUGE", () => {
     expect(c?.word).toBe("TURN");
     expect(c?.kind).toBe("TURN");
     expect(c?.seat).toBe(1);
-    const tip = gaugeNeedleTip(gaugeDial(LAYOUT.p1, undefined), g);
+    const tip = gaugeNeedleTip(gaugeDial(LAYOUT.p1), g);
     expect(c?.x).toBeCloseTo(tip.x, 6);
     // And gone while he is swinging it: a word over a needle already under a
     // thumb is the field narrating him.
@@ -148,7 +148,7 @@ describe("THE GAUGE", () => {
     const c = cue(world, "p2");
     expect(c?.word).toBe("OPEN");
     expect(c?.kind).toBe("HOLD");
-    const mid = gaugeBandMid(gaugeDial(LAYOUT.p2, undefined), g);
+    const mid = gaugeBandMid(gaugeDial(LAYOUT.p2), g);
     expect(c?.x).toBeCloseTo(mid.x, 6);
     expect(c?.y).toBeCloseTo(mid.y, 6);
     // Her thumb is the answer to it, so it goes the moment she gives it.

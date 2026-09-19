@@ -127,13 +127,7 @@ const NONE: readonly BossCue[] = [];
  * twelve imported guards whose whole body is `boss.kind === "x"` would be the
  * same list written twice.
  */
-function cuesOf(
-  l: Layout,
-  world: World,
-  beatPhase: number,
-  skinY: SurfaceY,
-  clearTop: number | undefined,
-): readonly BossCue[] {
+function cuesOf(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): readonly BossCue[] {
   const boss = world.boss;
   if (boss === null) return NONE;
   switch (boss.kind) {
@@ -180,15 +174,15 @@ function cuesOf(
     case "maze":
       return mazeCues(l, world, boss);
     case "gauge":
-      return gaugeCues(l, world, boss, clearTop);
+      return gaugeCues(l, world, boss);
     case "warden":
       return wardenCues(l, world, boss, skinY);
     case "fleet":
-      return fleetCues(l, world, boss, clearTop);
+      return fleetCues(l, world, boss);
     case "vane":
       return vaneCues(l, world);
     case "snake":
-      return snakeCues(l, world, boss, clearTop);
+      return snakeCues(l, world, boss);
     case "pinball":
       return pinballCues(l, world, boss);
     case "scout":
@@ -223,12 +217,8 @@ export function bossCue(
   world: World,
   beatPhase: number,
   skinY: SurfaceY,
-  /** Where the picture starts, when a rehearsal's band stands over it
-   * (`ViewState.clearTop`). One round's geometry moves with it: THE GAUGE's
-   * dial gives up radius rather than its top edge (`gauge-round.ts`). */
-  clearTop?: number,
 ): BossCue | null {
-  for (const cue of cuesOf(l, world, beatPhase, skinY, clearTop)) {
+  for (const cue of cuesOf(l, world, beatPhase, skinY)) {
     if (cueSeen(cue, l.role)) return cue;
   }
   return null;

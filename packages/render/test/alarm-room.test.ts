@@ -1,7 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildQueue, WAVES, waveGuideSteps } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/sim";
-import { GUIDE_LOOK } from "../src/guide-look.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMagnetAlarm } from "../src/magnet-alarm.js";
 import { alarmRows } from "../src/ship-top-rows.js";
@@ -14,19 +13,9 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * The two calls the ship's own chrome writes, under a rehearsal's plate.
- *
- * TORCH's line and THE MAGNET's are the same sentence in two voices — *this is
- * the call, and here is what to say* — and both are right-aligned to the
- * siren's own edge, directly under its dial. They were placed at fixed offsets
- * from the top of the screen, so a rehearsal's plate covered both: measured 16
- * September 2026 at 170,58 and 206,72, against a band whose foot is 104.
- *
- * The dial had already learned to drop (`sirenCentre`). These two now drop by
- * the same amount rather than working out a clearance of their own, which is
- * the whole of the fix: `headerTop` at each would have clamped all three to
- * one line and stacked the two calls on the dial itself. So the check is not
- * only *below the band* but *still in the same arrangement*.
+ * The two calls the ship's own chrome writes: TORCH's line and THE MAGNET's,
+ * the same sentence in two voices — *this is the call, and here is what to
+ * say* — both right-aligned to the siren's own edge, directly under its dial.
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
@@ -58,13 +47,13 @@ function atWave(name: string, kind: string): World {
   return world;
 }
 
-type Draw = (ctx: CanvasRenderingContext2D, clearTop?: number) => void;
+type Draw = (ctx: CanvasRenderingContext2D) => void;
 
-/** The one row this alarm writes, at a given clearance. */
-function row(draw: Draw, clearTop?: number): TextBox {
+/** The one row this alarm writes. */
+function row(draw: Draw): TextBox {
   const { ctx } = stubCanvas();
   ctx.texts = [];
-  draw(ctx as unknown as CanvasRenderingContext2D, clearTop);
+  draw(ctx as unknown as CanvasRenderingContext2D);
   const texts = (ctx.texts ?? []) as TextBox[];
   expect(
     texts.map((t) => t.text),
@@ -78,50 +67,29 @@ const ALARMS: { name: string; wave: string; kind: string; draw: Draw }[] = [
     name: "TORCH's call",
     wave: "TORCH",
     kind: "torch",
-    draw: (ctx, clearTop) => {
+    draw: (ctx) => {
       const l = computeLayout(PHONE, CFG, SEAT);
-      drawTorchAlarm(ctx, l, atWave("TORCH", "torch"), 0, clearTop);
+      drawTorchAlarm(ctx, l, atWave("TORCH", "torch"), 0);
     },
   },
   {
     name: "THE MAGNET's call",
     wave: "THE MAGNET",
     kind: "magnet",
-    draw: (ctx, clearTop) => {
+    draw: (ctx) => {
       const l = computeLayout(PHONE, CFG, SEAT);
-      drawMagnetAlarm(ctx, l, atWave("THE MAGNET", "magnet"), 0, clearTop);
+      drawMagnetAlarm(ctx, l, atWave("THE MAGNET", "magnet"), 0);
     },
   },
 ];
 
-describe("an alarm row under a rehearsal's plate", () => {
+describe("an alarm row", () => {
   for (const alarm of ALARMS) {
-    it(`${alarm.name} is clear of the plate's band`, () => {
-      const under = row(alarm.draw, GUIDE_LOOK.bandFoot);
-      expect(
-        under.y,
-        `"${under.text}" at ${Math.round(under.x)},${Math.round(under.y)} is still in the band`,
-      ).toBeGreaterThanOrEqual(GUIDE_LOOK.bandFoot);
-    });
-
-    it(`${alarm.name} is where it was when no plate is up`, () => {
-      // The clearance is a rehearsal's alone. Nothing about the running game's
-      // own frame moves, which is what makes this a fix and not a look.
-      const bare = row(alarm.draw);
-      const named = row(alarm.draw, undefined);
-      expect(named.y).toBe(bare.y);
-      expect(bare.y).toBeLessThan(GUIDE_LOOK.bandFoot);
-    });
-
     it(`${alarm.name} keeps its distance from the siren it hangs off`, () => {
       const l = computeLayout(PHONE, CFG, SEAT);
       const bare = row(alarm.draw);
-      const under = row(alarm.draw, GUIDE_LOOK.bandFoot);
       const dial = sirenCentre(l).y;
-      const dropped = sirenCentre(l, undefined, GUIDE_LOOK.bandFoot).y;
-      // The same gap under the dial at both: the cluster moved as one thing.
-      expect(under.y - dropped).toBeCloseTo(bare.y - dial, 5);
-      expect(under.y - dropped).toBeGreaterThan(0);
+      expect(bare.y).toBeGreaterThan(dial);
     });
   }
 
@@ -132,27 +100,22 @@ describe("an alarm row under a rehearsal's plate", () => {
     // are up on TORCH's own wave.
     const l = computeLayout(PHONE, CFG, SEAT);
     const world = atWave("TORCH", "torch");
-    const foot = sirenFoot(l, world, undefined);
+    const foot = sirenFoot(l, world);
     expect(foot, "TORCH's wave raises no call, so this checks nothing").not.toBeNull();
-    expect(alarmRows(l, world, undefined).torch).toBeGreaterThanOrEqual(foot as number);
+    expect(alarmRows(l, world).torch).toBeGreaterThanOrEqual(foot as number);
   });
 
   it("leaves the stack where it was on a wave with no call at all", () => {
     const l = computeLayout(PHONE, CFG, SEAT);
     const quiet = createWorld(CFG, 3);
     startWave(quiet, 0, [], [], null, false, 0);
-    expect(sirenFoot(l, quiet, undefined)).toBeNull();
-    expect(alarmRows(l, quiet, undefined).torch).toBe(56);
+    expect(sirenFoot(l, quiet)).toBeNull();
+    expect(alarmRows(l, quiet).torch).toBe(56);
   });
 
   it("keeps the two bands apart from each other, on one screen", () => {
-    // A wave carrying both is a thing a director could author. Asked of one
-    // world rather than measured across two, because where the stack starts
-    // depends on whether that world's siren is up (`ship-top-rows.ts`).
     const l = computeLayout(PHONE, CFG, SEAT);
-    for (const clearTop of [undefined, GUIDE_LOOK.bandFoot]) {
-      const rows = alarmRows(l, atWave("TORCH", "torch"), clearTop);
-      expect(rows.magnet - rows.torch).toBeGreaterThanOrEqual(12);
-    }
+    const rows = alarmRows(l, atWave("TORCH", "torch"));
+    expect(rows.magnet - rows.torch).toBeGreaterThanOrEqual(12);
   });
 });

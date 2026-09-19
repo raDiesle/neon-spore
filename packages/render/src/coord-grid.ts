@@ -90,10 +90,6 @@ export function drawCoordGrid(
   l: Layout,
   flash: number,
   shown: number,
-  /** The foot of whatever stands over the top of the screen — a rehearsal's
-   * plate. The lattice cannot move under it, being the field itself, so the
-   * axes move inside it (`drawAxes`). */
-  clearTop = 0,
 ): void {
   if (shown <= 0.01 || l.tile <= 0) return;
   ctx.save();
@@ -128,7 +124,7 @@ export function drawCoordGrid(
     }
   }
 
-  drawAxes(ctx, l, shown, clearTop);
+  drawAxes(ctx, l, shown);
   ctx.restore();
 }
 

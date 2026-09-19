@@ -2,7 +2,6 @@ import type { World } from "@neon-spore/sim";
 import { commsCall } from "./comms.js";
 import { dutyWord } from "./duty.js";
 import type { Layout } from "./layout.js";
-import { headerLift, headerTop } from "./round-header.js";
 import type { SeatNames } from "./seat-name.js";
 import { DIAL_R, drawDial, TICK } from "./siren-dial.js";
 import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
@@ -63,39 +62,17 @@ const DUTY_HALF = 4;
  * a copy of them, so the label follows the dial if it ever moves.
  *
  * The dial is the middle of the screen, whatever the names measure: a chip
- * grows outward from it on its own side. `clearTop` is a rehearsal's corner
- * plate (`ViewState.clearTop`): the plate is top left and a long name's chip
- * reaches under it, so the cluster drops beneath the plate the way a round's
- * header does (`round-header.ts`), by the same rule.
+ * grows outward from it on its own side.
  */
-export function sirenCentre(
-  l: Layout,
-  _names?: SeatNames,
-  clearTop?: number,
-): { x: number; y: number } {
-  return { x: l.width / 2, y: headerTop({ clearTop }, TOP + DIAL_R) };
-}
-
-/**
- * How far the whole top-centre cluster has dropped under a rehearsal's plate.
- *
- * Two rows hang directly off this cluster and are drawn by other files —
- * TORCH's call and THE MAGNET's (`torch-alarm.ts`, `magnet-alarm.ts`), both
- * right-aligned to `SIREN_PAD` because they finish the sentence the dial's
- * chips start. They are placed at their own fixed offsets, so they have to
- * move by the same amount the dial did rather than work out a clearance of
- * their own: `headerTop` at each would clamp all three to one line and stack
- * the two calls on the dial itself.
- */
-export function sirenDrop(clearTop: number | undefined): number {
-  return headerLift({ clearTop }, TOP + DIAL_R);
+export function sirenCentre(l: Layout, _names?: SeatNames): { x: number; y: number } {
+  return { x: l.width / 2, y: TOP + DIAL_R };
 }
 
 /**
  * The lowest row the whole cluster claims — the duty word's, under the dial —
  * or null when no call is on and the siren is not drawn at all.
  */
-export function sirenFoot(l: Layout, world: World, clearTop: number | undefined): number | null {
+export function sirenFoot(l: Layout, world: World): number | null {
   if (!commsCall(world)) return null;
   // The duty word's row is held whether or not this seat owes one *this*
   // beat: `dutyWord` answers per beat, and a row that came and went with it
@@ -104,7 +81,7 @@ export function sirenFoot(l: Layout, world: World, clearTop: number | undefined)
   // rows under it move once, with that.
   //
   // The word is drawn on its middle, so half of it hangs under its baseline.
-  return sirenCentre(l, undefined, clearTop).y + DIAL_R + DUTY_DROP + DUTY_HALF;
+  return sirenCentre(l).y + DIAL_R + DUTY_DROP + DUTY_HALF;
 }
 
 export function drawCommsSiren(
@@ -116,8 +93,6 @@ export function drawCommsSiren(
    * to talk, and a name is what the other one would actually be called
    * (`siren-seats.ts`). */
   names?: SeatNames,
-  /** The bottom of a plate over the top left, when a rehearsal has one up. */
-  clearTop?: number,
 ): void {
   const call = commsCall(world);
   if (!call) return;
@@ -126,7 +101,7 @@ export function drawCommsSiren(
   // before player 2 everywhere else on the screen. Stacking both chips under
   // the dial put them in a column, and a column has no left and no right, so
   // there was nothing to line either of them up with.
-  const { x: cx, y: cy } = sirenCentre(l, names, clearTop);
+  const { x: cx, y: cy } = sirenCentre(l, names);
   // Each chip is as wide as the word in it, so the two reaches are worked out
   // one at a time rather than shared: a pair called Bo and Anne-Marie have
   // chips of two different widths and the dial stays between them.

@@ -21,8 +21,7 @@ export function drawGaugeTitle(
   top: number,
 ): void {
   // Where the name sits, and the two rows keep their distance from it. The
-  // caller says where the top is, because a rehearsal has a plate there
-  // (`round-header.ts`).
+  // caller says where the top is.
   const y = top;
   ctx.fillStyle = PALETTE.hull;
   ctx.font = '600 16px "Courier New",monospace';

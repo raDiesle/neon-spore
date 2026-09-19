@@ -1,8 +1,6 @@
 import type { SimConfig, SnakeState } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import type { ViewState } from "./renderer.js";
-import { headerTop } from "./round-header.js";
 import { drawSnakeEnemy, drawSnakePoint } from "./snake-items.js";
 
 /**
@@ -69,15 +67,10 @@ export const SNAKE_HEADER = 46;
  *
  * Square tiles and a whole number of them: a grid whose tiles were half a
  * pixel out is a grid a pair cannot count along, and counting along it is how
- * a tile gets said out loud. Under a rehearsal's plate the header drops and
- * the arena's top follows; its floor is the hull and stays (`round-header.ts`).
+ * a tile gets said out loud. Its floor is the hull.
  */
-export function snakeArena(
-  l: Layout,
-  cfg: SimConfig,
-  view: Pick<ViewState, "clearTop"> = {},
-): Arena {
-  const top = headerTop(view, l.playHeight * SNAKE_NAME_Y) + SNAKE_HEADER;
+export function snakeArena(l: Layout, cfg: SimConfig): Arena {
+  const top = l.playHeight * SNAKE_NAME_Y + SNAKE_HEADER;
   const bottom = l.hullY;
   const tile = Math.max(1, Math.min(l.gridWidth / cfg.snakeCols, (bottom - top) / cfg.snakeRows));
   const w = tile * cfg.snakeCols;

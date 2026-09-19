@@ -1,6 +1,5 @@
 import type { BossCue } from "./boss-cue.js";
 import { PALETTE } from "./palette.js";
-import { headerTop } from "./round-header.js";
 
 /**
  * **A cue's two lines, drawn**: the verb under the mark, the kind of action
@@ -47,12 +46,10 @@ const KIND_GAP = 9;
 
 /**
  * The kind line never leaves the canvas, whatever the mark is standing on —
- * and never leaves the *picture* either. On the game itself the two are the
- * same edge; where something stands over the picture the floor is `headerTop`,
- * the same one a round's whole header drops off (`round-header.ts`), rather
- * than this constant on its own: any boss whose mark stands high — THE BATON's
- * bead in the top socket, THE CANDLE's glow, THE GORGE's intakes, THE
- * SCUTTLE's lock at `gridTop` — would otherwise put PRESS or HOLD under it.
+ * and never leaves the *picture* either: any boss whose mark stands high —
+ * THE BATON's bead in the top socket, THE CANDLE's glow, THE GORGE's
+ * intakes, THE SCUTTLE's lock at `gridTop` — would otherwise put PRESS or
+ * HOLD under it.
  */
 const TOP_EDGE = 10;
 
@@ -62,22 +59,14 @@ const KIND_ALPHA = 0.7;
 /** A line's height: the least the kind line stands off the verb, either side. */
 const KIND_DROP = 11;
 
-export function drawCueText(
-  ctx: CanvasRenderingContext2D,
-  cue: BossCue,
-  time: number,
-  /** Where the picture starts, when something stands over it. Absent on the
-   * game itself, and on a rehearsal since the film's picture moved below the
-   * band (`guide-film.ts`). */
-  clearTop?: number,
-): void {
+export function drawCueText(ctx: CanvasRenderingContext2D, cue: BossCue, time: number): void {
   ctx.save();
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.rock;
   // The same breath THE CHOIR's prompt has: a word that sat still would read
   // as part of the boss rather than as a thing the machine is saying now.
   const breath = 0.55 + 0.35 * ((Math.sin(time * 4.4) + 1) / 2);
-  const floor = headerTop({ clearTop }, TOP_EDGE);
+  const floor = TOP_EDGE;
   ctx.globalAlpha = breath;
   ctx.font = WORD_FONT;
   const wordY = Math.max(cue.y + cue.halfH + WORD_GAP, floor);
@@ -99,11 +88,9 @@ export function drawCueText(
 
 /**
  * Where the kind line goes: over the verb, or under it when there is no room
- * over it.
- *
- * On the game itself nothing stands over the picture, the floor is the canvas's
- * own edge and the line is over the mark, which is where it belongs. Where
- * something does stand over it, three things come out of the floor:
+ * over it. The floor is the canvas's own top edge, and the line is over the
+ * mark, which is where it belongs, unless the mark is close enough to that
+ * edge that the line would run off screen:
  *
  * - a mark under it with its line poking in — THE GORGE's intakes — has the
  *   line pushed down to the floor and nothing else moves;

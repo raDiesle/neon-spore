@@ -61,14 +61,9 @@ import type { Layout } from "./layout.js";
  * press nothing — THE MAZE's argument about a handle the ship has taken away,
  * on a button instead.
  */
-export function gaugeCues(
-  l: Layout,
-  world: World,
-  g: GaugeState,
-  clearTop: number | undefined,
-): readonly BossCue[] {
+export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly BossCue[] {
   if (g.phase !== "play") return [];
-  const dial = gaugeDial(l, clearTop);
+  const dial = gaugeDial(l);
   const out: BossCue[] = [];
   if (callReady(world, g)) {
     const tip = gaugeNeedleTip(dial, g);

@@ -1,6 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
-import { sirenDrop, sirenFoot } from "./siren.js";
+import { sirenFoot } from "./siren.js";
 
 /**
  * The rows the two alarm bands are written on, stacked under the siren.
@@ -35,13 +35,9 @@ const GAP = 2;
 const STEP = ALARM_HEIGHT + 2;
 
 /** Where each band's top edge goes on this screen. */
-export function alarmRows(
-  l: Layout,
-  world: World,
-  clearTop: number | undefined,
-): { torch: number; magnet: number } {
-  const under = sirenFoot(l, world, clearTop);
-  const torch = Math.max(TORCH_TOP + sirenDrop(clearTop), under === null ? 0 : under + GAP);
+export function alarmRows(l: Layout, world: World): { torch: number; magnet: number } {
+  const under = sirenFoot(l, world);
+  const torch = Math.max(TORCH_TOP, under === null ? 0 : under + GAP);
   return { torch, magnet: torch + STEP };
 }
 

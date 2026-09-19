@@ -82,7 +82,7 @@ export function drawFieldBack(
   // and under everything a player has to read (`ship-air.ts`).
   drawShipAir(ctx, l, view.time, seatSkin(view.role));
   drawRadar(ctx, l, world, view.time);
-  drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase, grid, view.clearTop);
+  drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase, grid);
 }
 
 /** Everything that lives on the field between the two hulls. */
@@ -233,7 +233,7 @@ export function drawBodies(
   drawBoss(ctx, l, view, effects, skinY);
   // And over it, the one word it is asking for — on the seat that can answer,
   // beside the mark where the answer goes (`boss-cue.ts`, `decisions.md` #34).
-  drawBossCue(ctx, l, world, view.beatPhase, view.time, skinY, view.clearTop);
+  drawBossCue(ctx, l, world, view.beatPhase, view.time, skinY);
   drawPods(ctx, l, world.pods, view.time);
   // And over one of them, on one screen: the frame that says this pod is a lie
   // (`husk-mark.ts`). It is drawn after the pods rather than inside them for

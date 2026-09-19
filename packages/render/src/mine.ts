@@ -91,15 +91,7 @@ export function drawMineBody(b: Body): void {
  * mine: everything the ship writes at the top of the screen is in one stack,
  * and this is the bottom of it.
  */
-export function drawMineFuses(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  /** The foot of a plate over the top of the screen, when a rehearsal has one
-   * up (`ViewState.clearTop`) — the chrome above these rings drops under it,
-   * so they drop with it. */
-  clearTop?: number,
-): void {
+export function drawMineFuses(ctx: CanvasRenderingContext2D, l: Layout, world: World): void {
   const blind = mines(world).filter((c) => !showsMine(l, c));
   if (blind.length === 0) return;
   const fuses = blind
@@ -107,7 +99,7 @@ export function drawMineFuses(
     .sort((a, b) => a.left - b.left);
   const r = l.tile * 0.42;
   const gap = r * 2.6;
-  const y = fuseRow(l, r, r + pipRadius(r), shipTopFoot(l, world, clearTop));
+  const y = fuseRow(l, r, r + pipRadius(r), shipTopFoot(l, world));
   const x0 = l.gridLeft + l.gridWidth / 2 - (gap * (fuses.length - 1)) / 2;
   for (const [i, f] of fuses.entries()) {
     drawFuseRing(ctx, x0 + gap * i, y, r, f, f.color, 0);

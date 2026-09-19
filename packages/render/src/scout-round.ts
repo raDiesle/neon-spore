@@ -13,7 +13,6 @@ import { frame } from "./hull-frame.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
-import { headerTop } from "./round-header.js";
 import { drawScoutHazards, drawScoutHome, drawScoutMotes, drawScoutWalls } from "./scout-draw.js";
 import { drawScout } from "./scout-ship.js";
 import { seatSkin } from "./seat-skin.js";
@@ -79,7 +78,7 @@ export function drawScoutRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   drawScoutWalls(ctx, l, cfg);
 
   ctx.textAlign = "center";
-  const top = headerTop(view, l.gridTop + l.tile * 0.52);
+  const top = l.gridTop + l.tile * 0.52;
   drawTitle(ctx, l, view.role, boss, top);
   drawTally(ctx, l, view, boss, top + l.tile * 0.92);
 

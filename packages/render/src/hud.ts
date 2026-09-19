@@ -3,7 +3,6 @@ import { drawBalanceSheet } from "./balance.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
-import { headerTop } from "./round-header.js";
 
 /**
  * Readouts over the field: the run's line and the guard balance.
@@ -26,18 +25,8 @@ import { headerTop } from "./round-header.js";
  * captions point here now, at the count going up (`caption-anchor.ts`), and
  * they ask rather than knowing so a moved readout takes them with it.
  */
-export function runLineBox(
-  l: Layout,
-  clearTop?: number,
-): { x: number; y: number; w: number; h: number } {
-  // Under the band on a page of film, for the reason the guard row below
-  // already drops: the band is opaque and is drawn after the field, so a row
-  // left where it was is a readout nobody can see — and a caption anchored on
-  // it would be pointing at a covered word. `clearTop` is the band's foot
-  // (`ViewState.clearTop`, set from `GUIDE_LOOK.bandFoot`); absent everywhere
-  // else, which is the live game, the director and every frame test.
-  const y = clearTop === undefined ? 11 : clearTop + 6;
-  return { x: 10, y, w: Math.min(120, l.width * 0.4), h: 12 };
+export function runLineBox(l: Layout): { x: number; y: number; w: number; h: number } {
+  return { x: 10, y: 11, w: Math.min(120, l.width * 0.4), h: 12 };
 }
 
 /**
@@ -59,7 +48,7 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
   ctx.font = '10px "Courier New",monospace';
   ctx.textAlign = "left";
 
-  const line = runLineBox(l, view.clearTop);
+  const line = runLineBox(l);
   ctx.fillStyle = PALETTE.dim;
   ctx.fillText(runLine(world), line.x, line.y + line.h - 3);
 
@@ -67,13 +56,7 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
     ctx.font = '9px "Courier New",monospace';
     ctx.fillStyle = "#6F639F";
     const late = world.guard.mistimed > 0 ? `  (${world.guard.mistimed} late)` : "";
-    // The third row of the corner, and the one a rehearsal's plate would
-    // otherwise cover: it drops under the plate the way a round's header does.
-    ctx.fillText(
-      `Guard ${world.guard.deflected}/${world.guard.tries}${late}`,
-      10,
-      headerTop(view, 48),
-    );
+    ctx.fillText(`Guard ${world.guard.deflected}/${world.guard.tries}${late}`, 10, 48);
   }
 }
 

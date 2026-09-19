@@ -89,9 +89,9 @@ export function captionBox(
   // it since 16 September 2026, so a caption stopping at the band's foot
   // stops on top of whichever of them is up — TORCH's call read as `-4 · CALL
   // IT` on its own rehearsal, and the duty word `PULL` was half a word. Asked
-  // of the files that draw them, because the row they end on depends on the
-  // plate and on which seat is looking (`ship-top-chrome.ts`).
-  const floor = Math.max(BAND_FOOT, shipTopFoot(l, world, BAND_FOOT) ?? 0);
+  // of the files that draw them, because the row they end on depends on
+  // which seat is looking (`ship-top-chrome.ts`).
+  const floor = Math.max(BAND_FOOT, shipTopFoot(l, world) ?? 0);
   const below = above < floor || covered;
   const y = below ? Math.max(floor, point.y + ring + point.clear + LEAD) : above;
   return { point, ring, below, lines, x, y, w, h };

@@ -4,7 +4,6 @@ import { bossAnchor } from "./caption-anchor-boss.js";
 import { creatureHalfAxes } from "./creature-axes.js";
 import { creatureCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
-import { GUIDE_LOOK } from "./guide-look.js";
 import { handleCircle } from "./handles.js";
 import { runLineBox } from "./hud.js";
 import { bandLobes, type Layout, tileCX } from "./layout.js";
@@ -169,11 +168,8 @@ export function anchorPoint(
   if (anchor.at === "boss") return bossAnchor(l, world, anchor.part, beatPhase);
   if (anchor.at === "hull") return { x: l.width / 2, y: l.hullY, r: l.tile, clear: CLEAR };
   // The run's line in the corner, where a hit shows as the retry count going
-  // up. `drawHud` owns where it is; this asks it rather than knowing — and
-  // asks for the place it is in *on a page of film*, which is under the band:
-  // every caller of this file is drawing a guide page, and the row drops there
-  // (`hud.ts`).
-  const line = runLineBox(l, GUIDE_LOOK.bandFoot);
+  // up. `drawHud` owns where it is; this asks it rather than knowing.
+  const line = runLineBox(l);
   return { x: line.x + line.w / 2, y: line.y + line.h / 2, r: 12, clear: CLEAR };
 }
 

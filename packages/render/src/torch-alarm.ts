@@ -44,18 +44,14 @@ export function torchWarning(world: World, lead: number): TorchWarning | null {
 }
 
 /**
- * The lowest this band reaches on a screen with a plate at `clearTop`, or null
- * when no torch is close enough to be called. For whoever has to keep off it:
- * a rehearsal's caption box is placed around what the ship has already
- * written (`ship-top-chrome.ts`). Where the band *goes* is `ship-top-rows.ts`.
+ * The lowest this band reaches, or null when no torch is close enough to be
+ * called. For whoever has to keep off it: a rehearsal's caption box is placed
+ * around what the ship has already written (`ship-top-chrome.ts`). Where the
+ * band *goes* is `ship-top-rows.ts`.
  */
-export function torchAlarmFoot(
-  l: Layout,
-  world: World,
-  clearTop: number | undefined,
-): number | null {
+export function torchAlarmFoot(l: Layout, world: World): number | null {
   if (!torchWarning(world, world.cfg.radarLead)) return null;
-  return alarmRows(l, world, clearTop).torch + ALARM_HEIGHT;
+  return alarmRows(l, world).torch + ALARM_HEIGHT;
 }
 
 export function drawTorchAlarm(
@@ -63,14 +59,11 @@ export function drawTorchAlarm(
   l: Layout,
   world: World,
   time: number,
-  /** The foot of a plate over the top of the screen, when a rehearsal has one
-   * up (`ViewState.clearTop`). */
-  clearTop?: number,
 ): void {
   const warning = torchWarning(world, world.cfg.radarLead);
   if (!warning) return;
 
-  const top = alarmRows(l, world, clearTop).torch;
+  const top = alarmRows(l, world).torch;
   const pulse = 0.55 + 0.45 * Math.sin(time * 7);
   // `col` is the torch's leftmost column (see `spanCenterCol` in sim/types.ts),
   // so the band runs from that column's left edge to the right edge of the

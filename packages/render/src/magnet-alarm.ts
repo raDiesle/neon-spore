@@ -46,13 +46,9 @@ export function magnetCall(l: Layout, world: World): number | null {
 /** The lowest this band reaches, or null on a screen not being told to aim —
  * the navigator's, or a wave with no magnet due (`torch-alarm.ts`). Where the
  * band goes, under TORCH's own, is `ship-top-rows.ts`. */
-export function magnetAlarmFoot(
-  l: Layout,
-  world: World,
-  clearTop: number | undefined,
-): number | null {
+export function magnetAlarmFoot(l: Layout, world: World): number | null {
   if (magnetCall(l, world) === null) return null;
-  return alarmRows(l, world, clearTop).magnet + ALARM_HEIGHT;
+  return alarmRows(l, world).magnet + ALARM_HEIGHT;
 }
 
 export function drawMagnetAlarm(
@@ -60,14 +56,11 @@ export function drawMagnetAlarm(
   l: Layout,
   world: World,
   time: number,
-  /** The foot of a plate over the top of the screen, when a rehearsal has one
-   * up (`ViewState.clearTop`). */
-  clearTop?: number,
 ): void {
   const col = magnetCall(l, world);
   if (col === null) return;
 
-  const top = alarmRows(l, world, clearTop).magnet;
+  const top = alarmRows(l, world).magnet;
   const pulse = 0.55 + 0.45 * Math.sin(time * 7);
   const left = l.gridLeft + col * l.tile;
   const right = left + l.tile;

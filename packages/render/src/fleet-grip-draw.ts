@@ -78,11 +78,9 @@ export function drawFleetGrip(
   b: FleetState,
   beatPhase: number,
   time: number,
-  /** The foot of whatever stands over the top of the screen, which the chart drops under. */
-  clearTop?: number,
 ): void {
   if (b.phase === "hunt") return;
-  const c = chartOf(l, world, clearTop);
+  const c = chartOf(l, world);
   if (c.tile <= 0) return;
   const hole = fleetHoleCircle(c, b);
 

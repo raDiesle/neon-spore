@@ -69,9 +69,7 @@ export function gaugeBandGrip(l: Layout, cfg: SimConfig, dial: Dial, g: GaugeSta
 export function gaugeGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const g = bossOf(field, "gauge");
   if (g === null || g.phase !== "play") return null;
-  // The live screen's dial, which is the only one a finger ever lands on: a
-  // rehearsal's film is lower (`clearTop`) and takes no input.
-  const dial = gaugeDial(l, undefined);
+  const dial = gaugeDial(l);
   if (field.seat === 1 && gaugeJammed(g) && hitCircle(gaugeNeedleGrip(l, field.cfg, dial, g), x, y))
     return needleTouch(dial);
   if (field.seat === 2 && gaugeBound(g) && hitCircle(gaugeBandGrip(l, field.cfg, dial, g), x, y))

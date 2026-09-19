@@ -7,7 +7,6 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { GUIDE_LOOK } from "../src/guide-look.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { drawMineFuses } from "../src/mine.js";
 import { sirenCentre, sirenFoot } from "../src/siren.js";
@@ -47,7 +46,7 @@ beforeAll(installCanvasGlobals);
  * are spaced evenly around the ring, so their mean is its middle.
  *
  * `alarm-room.test.ts` is the same stack from the other end — the two calls
- * that hang under the dial, and a rehearsal's plate over all of it.
+ * that hang under the dial.
  */
 describe("the blind seat's fuse count", () => {
   /** One mine, drawn to player 2 — so `SEAT` above is the seat that gets the
@@ -68,10 +67,10 @@ describe("the blind seat's fuse count", () => {
   }
 
   /** Where the one ring stands and how big it is, off the frame. */
-  function ring(l: Layout, world: World, clearTop?: number): { x: number; y: number; r: number } {
+  function ring(l: Layout, world: World): { x: number; y: number; r: number } {
     const { ctx } = stubCanvas();
     ctx.log = [];
-    drawMineFuses(ctx as unknown as CanvasRenderingContext2D, l, world, clearTop);
+    drawMineFuses(ctx as unknown as CanvasRenderingContext2D, l, world);
     const pips = (ctx.log ?? [])
       .map((line) => /^arc\(([-\d.]+), ([-\d.]+),/.exec(line))
       .filter((m): m is RegExpExecArray => m !== null)
@@ -90,7 +89,7 @@ describe("the blind seat's fuse count", () => {
     it(`stands clear of the siren's dial on ${name}`, () => {
       const l = computeLayout(viewport, CFG, SEAT);
       const world = mined();
-      expect(sirenFoot(l, world, undefined), "no mine stands, so the dial is dark").not.toBeNull();
+      expect(sirenFoot(l, world), "no mine stands, so the dial is dark").not.toBeNull();
       const { x, y, r } = ring(l, world);
       const dial = sirenCentre(l);
       const apart = Math.hypot(x - dial.x, y - dial.y);
@@ -100,17 +99,6 @@ describe("the blind seat's fuse count", () => {
       ).toBeGreaterThan(DIAL_R + r);
     });
   }
-
-  it("drops with the rest of the cluster under a rehearsal's plate", () => {
-    const l = computeLayout(LAPTOP, CFG, SEAT);
-    const world = mined();
-    const bare = ring(l, world);
-    const under = ring(l, world, GUIDE_LOOK.bandFoot);
-    expect(under.y - bare.y).toBeCloseTo(
-      sirenCentre(l, undefined, GUIDE_LOOK.bandFoot).y - sirenCentre(l).y,
-      5,
-    );
-  });
 
   it("is where it was on a screen whose field already starts below the chrome", () => {
     // The phone's own frame does not move, which is what makes this a fix and

@@ -13,7 +13,6 @@ import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
-import { headerTop } from "./round-header.js";
 import { slabPanel } from "./slabs.js";
 
 /**
@@ -21,12 +20,9 @@ import { slabPanel } from "./slabs.js";
  * cue that stands on its needle (`boss-cue-read-w.ts`).
  *
  * The plate the dial is cut into starts a breath under the title's last row.
- * On the game's own screen that costs nothing; under a rehearsal's plate the
- * title is lower and the dial gives up radius rather than its top edge
- * (`round-header.ts`), which is why `clearTop` reaches this far in.
  */
-export function gaugeDial(l: Layout, clearTop: number | undefined): Dial {
-  const top = headerTop({ clearTop }, l.playHeight * 0.14);
+export function gaugeDial(l: Layout): Dial {
+  const top = l.playHeight * 0.14;
   const cy = l.playHeight * 0.62;
   return {
     cx: l.width / 2,
@@ -70,8 +66,8 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   drawEdge(ctx, l);
 
   ctx.textAlign = "center";
-  drawGaugeTitle(ctx, l, view.role, headerTop(view, l.playHeight * 0.14));
-  const dial = gaugeDial(l, view.clearTop);
+  drawGaugeTitle(ctx, l, view.role, l.playHeight * 0.14);
+  const dial = gaugeDial(l);
   drawGauge(ctx, dial, view.world.cfg, boss, {
     showMarks: showsGaugeMarks(view.role),
     beat: view.world.beat,

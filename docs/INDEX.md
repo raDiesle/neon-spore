@@ -1026,7 +1026,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pinball-round.ts` | PINBALL over the whole stage |
 | `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
-| `packages/render/src/round-header.ts` | Where a round's header starts: on its own line, or under a plate that stands over it |
 | `packages/render/src/snake-head.ts` | The head, shut and open |
 | `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |

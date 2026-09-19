@@ -99,18 +99,6 @@ export interface ViewState {
    */
   names?: SeatNames;
   /**
-   * How far down from the top of the screen something else already stands.
-   *
-   * A rehearsal carries a plate top left — TUTORIAL over PLAYER n · SCREEN —
-   * that is always there and never fades (`guide-switch.ts`), and a boss round
-   * draws a header of its own in the same band. Neither is wrong; what was
-   * missing was that a header had never had to make room. So the film says
-   * where the plate ends, and a round's header and the HUD's lower rows start
-   * under it (`round-header.ts`). Unset by the game itself, where there is no
-   * plate and every header sits where it always has.
-   */
-  clearTop?: number;
-  /**
    * Whether this frame is a page of a rehearsal rather than the game.
    *
    * A guide's film is a real world stepped by the real `step`
@@ -119,11 +107,13 @@ export interface ViewState {
    * wave asks a question about the run the pair are not playing. So the one
    * thing the film does not play is that screen (`briefing.ts`).
    *
-   * A flag rather than a layout number: `clearTop` was once present on a
-   * rehearsal and absent on the game, and the first cut of this read it as a
-   * mode. A number that means a band's foot stops meaning "inside a film" the
-   * moment the film stops needing the band, which is exactly what happened to
-   * it on 18 September 2026 — and nothing says so out loud.
+   * A flag rather than a layout number: this used to be `clearTop`, how far
+   * down from the top of the screen a rehearsal's plate stood, present on a
+   * rehearsal and absent on the game — and the first cut of this read it as a
+   * mode. On 18 September 2026 the film's own seat draw moved the plate below
+   * the picture instead (`guide-film.ts`) and nothing set `clearTop` again;
+   * it and the header code that read it (round-header.ts) came out on
+   * 19 September 2026 (`docs/queue.md`).
    */
   rehearsal?: boolean;
   /**
