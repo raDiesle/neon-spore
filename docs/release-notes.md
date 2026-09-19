@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 2f5f0a8b — Split THE GAUGE's reading off boss-cue-read-e.ts onto its own page
+
+boss-cue-read-e.ts had grown to three readings — THE MIRROR, THE MAZE and THE GAUGE — after THE GAUGE's own reading grew from one arm to three when the round gained its jam and its bind. It is now boss-cue-read-w.ts, the next unclaimed page letter (the finding's own -f.ts had since been spent on THE WARDEN), with the convention the recent sibling splits established: its own file-level doc comment addressed to its own fight, its own copy of the markAt builder, and boss-cue.ts's import and switch repointed at it. THE MIRROR and THE MAZE stay on page e.
+
 ## 2026-09-19 · 6d2d271d — Give THE REPRISE's rehearsal its own corrected split, pilot's colour not gap
 
 The film's header still said the pilot's half of the blind kills was "the gap" and told him to COUNT THE GAPS BETWEEN THEM, both describing a timing-derived second kill that boss-cue-read-s.ts rules out by name: nothing in this boss is timed to an arrival, because that would turn the one thing it is made of into a reaction. The corrected design — already right in bosses.md §11.15 and act-10.ts's header — has the navigator's half as the column and the pilot's as the colour.
