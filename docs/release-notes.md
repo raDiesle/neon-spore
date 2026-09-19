@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 95415c8e — THE ANTIPHON says the still, and refuses the two words that would answer it
+
+THE ANTIPHON's queue entry said it says nothing on the field at all, and TURN has stood on the organ's grip mark since the handle shipped. That is the third entry in this family to miss a word a boss builds in its own drawing rather than in a reading, which is the finding filed yesterday and the reason a grep of the boss's own files for drawCueText is now the first thing one of these lanes does.
+
 ## 2026-09-19 · f4dbe528 — Where a handle boss keeps its words, said in the skill that sends a lane looking
 
 ## 2026-09-19 · fbdcfa17 — THE TASTER: three thumbs on the fan, one per movement
