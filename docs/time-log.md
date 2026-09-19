@@ -11796,3 +11796,30 @@ going through the function, which is exactly the kind of copy this entry's
 whole shape exists to catch.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-effects-spark-silent-boss-ts-is-at-the-250-line — the last boss goes next door, again
+
+Building the seam the page's own header names: the last boss on
+`effects-spark-silent-boss.ts` hands itself to the `-b` page, never the boss
+a lane happens to be working on. `surgeRock` had already taken the page to
+exactly 250 lines with nothing to spare, so THE ANTIPHON — the boss whose
+block sat last — moved: its ten-row block and its comment to
+`effects-spark-silent-boss-b.ts`, appended after THE FILAMENT's, and both
+files' headers got a sentence recording why. Checked the ingest side per the
+entry's own note that the two lists are kept in step by hand: it is at 245,
+under the ceiling, and THE ANTIPHON already lives on its own `-b` page there
+from an earlier cut, so nothing on that side needed moving.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | both spark pages and the ingest pages, to find the last boss on the page at the ceiling and confirm the ingest side needed nothing |
+| writing | 10 | moving THE ANTIPHON's block and comment, and the two header sentences recording the move |
+| looking | 0 | none — no picture involved |
+| friction | 0 | none |
+| landing | 15 | `tsc --noEmit`, `effects-spark.test.ts`, `limits.test.ts`, `format`/`lint`, then the full `check` |
+
+**No real bottleneck** — the rule and the file to apply it to were both named
+by the entry itself; the only judgement call was which boss counted as
+"last," and the page's own comments already answered that.
+
+*Measured: the rows above are the session's own estimate.*

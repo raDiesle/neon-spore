@@ -15,7 +15,10 @@ import type { SimEvent } from "@neon-spore/sim";
  * and by the same rule — page one went over, so page one handed its last
  * boss across rather than the lane cutting its own rows out of the middle.
  * THE HIVE's nine followed the same day, when THE TASTER's three hands put
- * page one over again.
+ * page one over again. THE ANTIPHON's ten followed later the same day, when
+ * `surgeRock` had already taken page one to exactly 250 lines and the next
+ * boss to land there was going to go over regardless of which one it was
+ * (`docs/queue.md`).
  *
  * Every row means what it means there — *no burst answers this event* — and
  * the reasons stay with the rows.
@@ -59,6 +62,18 @@ export const SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
+  // THE ANTIPHON's ten: what sparks is one family read above the loop by
+  // `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
+  "antiphonEnter",
+  "antiphonGrow",
+  "antiphonPit",
+  "antiphonHarden",
+  "antiphonSink",
+  "antiphonSpill",
+  "antiphonStill",
+  "antiphonShip",
+  "antiphonBurst",
+  "antiphonOut",
   // THE MIRROR's pin throws a ring off both lobes, not a burst: `mirror-grip-fx.ts`.
   "mirrorGrip",
   // THE GORGE's two thumbs and the clench throw theirs from `gorge-fx.ts`,

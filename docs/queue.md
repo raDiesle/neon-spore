@@ -2203,25 +2203,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## `effects-spark-silent-boss.ts` is at the 250-line ceiling exactly
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-a-film-cannot-put-a-hand-on-four-of-the-eleven-c (claim: claude/queue-effects-spark-silent-boss-ts-is-at-the-250-line)
-- **Files:** `packages/render/src/effects-spark-silent-boss.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
-- **Where:** cloud
-
-THE SURGE's `surgeRock` took the spark page to exactly 250 lines on 19
-September 2026, which is the ceiling and not under it. The next event added to
-any boss listed there goes over, and the lane that adds it pays the split on
-top of its own work — which is the tax this entry exists to stop.
-
-Take the seam now, by the rule the page's own header carries: **the last boss
-on the page hands itself to the `-b` page**, never the boss a lane is working
-on, with the comment that explains its rows going with it. The ingest page is
-at 245 and the two lists are kept in step by hand, so whatever crosses on one
-side is worth looking at on the other; `packages/render/test` proves both still
-name every silent event.
-
 ## Unverified at be40d473: the picture of the rock coming out of the bulb's unders…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

@@ -18,8 +18,12 @@ import type { SimEvent } from "@neon-spore/sim";
  * page is full.** From THE INSTAR on the rows are on the second,
  * `effects-spark-silent-boss-b.ts`, and that is where the next boss's go.
  * The boundary moved a boss earlier when THE CANDLE's two new rows put this
- * page over its limit again: the seam is build order, so it is the *last*
- * boss here that goes next door, never the one being worked on.
+ * page over its limit again, and again on 19 September 2026 when THE
+ * ANTIPHON's own ten did — `surgeRock` had already taken this page to
+ * exactly 250 lines, the ceiling and not under it, so the next boss to land
+ * here was already going to go over (`docs/queue.md`): the seam is build
+ * order, so it is the *last* boss here that goes next door, never the one
+ * being worked on.
  * The property that had to survive the split is the same one that file explains
  * — `SILENT` keeps its literal member types through the spread, so `isSilent`
  * still narrows and `burstFor`'s `assertNever` still catches an event named
@@ -235,16 +239,4 @@ export const SILENT_BOSS = [
   "scuttleLast",
   "scuttleDown",
   "scuttleOut",
-  // THE ANTIPHON's ten: what sparks is one family read above the loop by
-  // `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
-  "antiphonEnter",
-  "antiphonGrow",
-  "antiphonPit",
-  "antiphonHarden",
-  "antiphonSink",
-  "antiphonSpill",
-  "antiphonStill",
-  "antiphonShip",
-  "antiphonBurst",
-  "antiphonOut",
 ] as const satisfies readonly SimEvent["type"][];
