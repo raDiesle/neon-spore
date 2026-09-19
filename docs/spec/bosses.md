@@ -2486,7 +2486,7 @@ band's plan (`docs/queue.md`). Every angle on all three screens, the seat
 word and the gaze proved both ways, and the flash proved a transient the
 next run does not inherit: `render/test/stare-frame.test.ts`.
 
-**The cue** (`render/boss-cue-read-e.ts`, 18 September 2026) is `STILL`, on
+**The cue** (`render/boss-cue-read-d.ts`, 18 September 2026) is `STILL`, on
 the watched seat alone, at the foot of the gaze, from the beat the look lands
 until it lifts — and nothing during the tell, on any screen. The tell is the
 fight: who the eye chose is the answer, the other seat's to say, and a cue

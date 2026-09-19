@@ -1140,24 +1140,6 @@ are both on the boss's own picture, and neither could be photographed —
 reaching the phase that offers either needs four gums flung sideways into a
 walking mouth, which is the other half of this entry.
 
-## boss-cue-read-e.ts is at 248 lines with three readings in it
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-boss-cue-read-e-split (claim: claude/queue-boss-cue-read-e-ts-is-at-248-lines-with-three-re)
-- **Files:** `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue.ts`
-- **Where:** cloud
-
-THE MIRROR, THE MAZE and THE GAUGE share the file, and THE GAUGE's reading
-grew from one arm to three when the round gained its two states. The next
-round to be read has nowhere to go, and neither does a fourth arm on any of
-the three.
-
-Cut it the way the four pages before it were cut: a `boss-cue-read-f.ts` with
-THE GAUGE in it, the `markAt` builder shared rather than copied a sixth time
-(it is identical in all five pages — a row in `copies-table.ts` would be
-better than a comment saying so), and the dispatch in `boss-cue.ts` pointed at
-the new page.
-
 ## THE GAUGE's two new states have no pose in the director's gallery
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

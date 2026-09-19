@@ -12145,3 +12145,34 @@ duplicate a weaker version of a check that exists. No code changed;
 was actually asking for.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-boss-cue-read-e-split
+
+Split `boss-cue-read-e.ts` the way the sibling pages before it were split
+(`boss-cue-read-c.ts` → `-t.ts`/`-u.ts`, `boss-cue-read-v.ts`): THE GAUGE's
+reading, grown to three arms, went to a new page of its own — `-w.ts` rather
+than the finding's own `-f.ts`, since that letter was already spent on THE
+WARDEN by the time this lane started — with its own file-level doc comment,
+its own copy of `markAt`, and `boss-cue.ts`'s import and switch repointed.
+THE MIRROR and THE MAZE stayed on page `e`. Walked every cross-reference to
+`boss-cue-read-e.ts` in `docs/spec/` and `packages/render/src` and moved the
+ones that were actually about THE GAUGE (`gauge.ts` ×2, `gauge-round.ts`,
+`gauge-grip.ts`, `scenes/the-gauge.ts`, `boss-cue-gauge.test.ts`,
+`interludes.md`) to the new page, leaving the MIRROR/MAZE ones alone. Found
+and fixed one unrelated stale reference along the way: `bosses.md`'s STARE
+section pointed at `boss-cue-read-e.ts` for `STILL`, when that cue has lived
+in `boss-cue-read-d.ts` since THE STARE and THE SPLICE were split there.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `CLAUDE.md`, the queue entry, `boss-cue-read-e.ts`/`boss-cue.ts`, three recently-split sibling pages for the convention, and every cross-reference the grep turned up |
+| writing | 20 | the two split files, `boss-cue.ts`'s import/switch, the doc and comment cross-references, this note |
+| looking | 0 | none — no picture involved |
+| friction | 10 | this checkout's `bun` (1.3.11) was below the repo's pinned 1.4.2, so `check:fast` refused until a pinned copy was installed to `~/.cache/neon-spore-bun` per its own error message |
+| landing | 15 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast` (41 shards), `bun run index`, `bun run land` |
+
+**Bottleneck:** the worktree's ambient `bun` did not match `.bun-version`, so
+every check was blocked until the pinned binary was installed by hand — pure
+setup tax, no relation to the split itself.
+
+*Measured: the rows above are the session's own estimate.*

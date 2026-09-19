@@ -214,7 +214,7 @@ for it.
 judgement uses, so the pair can never call a needle the screen shows between
 the marks and be told it was not.
 
-**What the field says** (`render/src/boss-cue-read-e.ts`, 18 September 2026,
+**What the field says** (`render/src/boss-cue-read-w.ts`, 18 September 2026,
 `docs/decisions.md` #34). Three words now, two hers and one his.
 
 Hers are her own verbs at the moment each will land: `PRESS` / `CALL` on the

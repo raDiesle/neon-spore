@@ -810,7 +810,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER and THE VANE are asking for** — page two of the readings |
 | `packages/render/src/boss-cue-read-c.ts` | **What THE LEAD is asking for** — page three of the readings, its page alone |
 | `packages/render/src/boss-cue-read-d.ts` | **What the bosses whose ask is a stop are asking for** — page four of the readings: THE STARE and THE SPLICE |
-| `packages/render/src/boss-cue-read-e.ts` | **What the rounds are asking for** — page five of the readings, starting with THE MIRROR |
+| `packages/render/src/boss-cue-read-e.ts` | **What the rounds are asking for** — page five of the readings: THE MIRROR and THE MAZE |
 | `packages/render/src/boss-cue-read-f.ts` | **What the bosses with a handle on the field are asking for** — page six of the readings |
 | `packages/render/src/boss-cue-read-g.ts` | **What the rounds drawn as a chart are asking for** — page seven of the readings, opened for THE FLEET |
 | `packages/render/src/boss-cue-read-h.ts` | **What the round that kept the ship is asking for** — page eight of the readings, opened for PINBALL |
@@ -828,6 +828,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-t.ts` | **What THE SCUTTLE is asking for** — the readings' page `t` |
 | `packages/render/src/boss-cue-read-u.ts` | **What THE DIASTOLE is asking for** — the readings' page `u` |
 | `packages/render/src/boss-cue-read-v.ts` | **What THE HIVE is asking for** — the readings' page `v`, a letter rather |
+| `packages/render/src/boss-cue-read-w.ts` | **What THE GAUGE is asking for** — the readings' page `w` |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |

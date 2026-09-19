@@ -49,7 +49,7 @@ export const THE_GAUGE: GuideScene = {
     // PLAYER 2 CALLS IT stood here, and the field writes `PRESS` / `CALL` on
     // the end of the needle the moment it stands between the marks, on her
     // screen and not on his (`decisions.md` #34,
-    // `render/boss-cue-read-e.ts`). What no cue may say is what a call *does*:
+    // `render/boss-cue-read-w.ts`). What no cue may say is what a call *does*:
     // a mark spends the band it was made on, the next one is somewhere else,
     // and the pair has to find it again from words alone. That is the round,
     // and this is now the page that says it.

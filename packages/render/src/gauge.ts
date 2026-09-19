@@ -182,7 +182,7 @@ function drawCall(
 
 /**
  * The end of the needle. Exported because the cue frames it at the moment it
- * is seated (`boss-cue-read-e.ts`): the needle is the only thing on this
+ * is seated (`boss-cue-read-w.ts`): the needle is the only thing on this
  * screen that moves, so the word goes on it and not on the button, and a
  * second opinion about where its end is would be a frame beside its own
  * needle.
@@ -197,7 +197,7 @@ const NEEDLE_REACH = 0.94;
 /**
  * The middle of the band, out at the rim. Exported for the cue, which frames
  * it while it is wound tight and asks her to hold it open
- * (`boss-cue-read-e.ts`): the band is on her screen alone, so the mark stands
+ * (`boss-cue-read-w.ts`): the band is on her screen alone, so the mark stands
  * on something she is already shown, and a second opinion about where its
  * middle is would be a frame beside its own band.
  */

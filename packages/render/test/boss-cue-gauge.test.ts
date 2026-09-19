@@ -25,7 +25,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE GAUGE, and the three words the field may say about it**
- * (`render/src/boss-cue-read-e.ts`).
+ * (`render/src/boss-cue-read-w.ts`).
  *
  * The round is the sharpest knowledge split in the game — she has the marks
  * and he has the valve — so most of this file is about what is *not* said.

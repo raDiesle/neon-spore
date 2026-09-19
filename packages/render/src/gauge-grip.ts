@@ -42,7 +42,7 @@ import type { ViewRole } from "./view-role.js";
  * No dial on either ring. THE GORGE's pry carries one because its window runs
  * out on a clock; both of these last exactly as long as the thumb does, and
  * the settle a lifted needle costs is the *other* seat's problem to hear about
- * — her call is refused, and the cue over it goes out (`boss-cue-read-e.ts`).
+ * — her call is refused, and the cue over it goes out (`boss-cue-read-w.ts`).
  */
 
 /** The ring on the end of the needle: where the cue's frame already stands. */

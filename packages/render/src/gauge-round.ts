@@ -18,7 +18,7 @@ import { slabPanel } from "./slabs.js";
 
 /**
  * **The dial, in pixels** — one circle, asked for by the picture and by the
- * cue that stands on its needle (`boss-cue-read-e.ts`).
+ * cue that stands on its needle (`boss-cue-read-w.ts`).
  *
  * The plate the dial is cut into starts a breath under the title's last row.
  * On the game's own screen that costs nothing; under a rehearsal's plate the
