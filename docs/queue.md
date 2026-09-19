@@ -1066,6 +1066,7 @@ section 6.1.
 ## THE CAIRN: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-the-cairn-the-field-says-the-word-and-the-briefi
 - **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/scenes/the-cairn.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
 - **Where:** cloud
 
