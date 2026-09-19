@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 9ee9b34d — Move THE REPRISE's first stretch to the true walls
+
 ## 2026-09-19 · 72154245 — Queue: THE SURGE's third gesture is done
 
 Its states, its third word and the rock that earns them landed in be40d473.
