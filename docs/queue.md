@@ -1214,6 +1214,7 @@ round. Whoever writes it takes both names off `OWED` in the same commit.
 ## `packages/content/src/waves/act-4.ts` is ten lines under the ceiling
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Taken:** 2026-09-19, main (claim: claude/queue-packages-content-src-waves-act-4-ts-is-ten-lines)
 - **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/waves.ts`
 
 240 lines of 250, and `tools/hooks/after-edit-size.ts` asked for the seam to be
