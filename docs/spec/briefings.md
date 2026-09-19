@@ -505,6 +505,16 @@ describing the panel backwards — the navigator with no SUCK and the pilot hold
 both buttons — against `["cannon", "mawTake"]`, which is what a lane deciding
 whose glass a word goes on reads first.
 
+THE INSTAR's guide was rewritten 19 September 2026, when its own scanner box
+learnt to say the kind of action over the gesture, the two lines `boss-cue.ts`'s
+readings draw everywhere else. That box predates #34 — the owner's own brief for
+it asked for both lines from 17 September 2026 (`bosses.md` §11.32), and only
+the gesture ever landed — so the guide had been carrying the line the box now
+says on its own: *find the bright mark with a word over it*. With the box
+naming what and how, the guide only needs to say that a bright mark is the
+pair's own and a dim one is watched, and drops from three steps to two on each
+phone.
+
 A wave with a film keeps its prose as well: the three strings are what the pair
 reads on a phone that has already watched the film once.
 

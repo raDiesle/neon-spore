@@ -28,6 +28,13 @@ import { headerTop } from "./round-header.js";
  * second time would be a word standing where the ring is not. Those three
  * build a `BossCue` where they draw it and call in here, which is how all
  * fifteen come to speak in one voice without one of them guessing at geometry.
+ *
+ * **THE INSTAR speaks the same two lines in a scanner box of its own**
+ * (`instar-word.ts`) rather than through a `BossCue` and this file: its ring
+ * wants up to two words up at once, one per seat, which this file's *one cue
+ * at a time* was never built to hold. What it does take from here is the
+ * vocabulary — `boss-cue.ts`'s `CueKind` — so the grammar a pilot learns on
+ * one boss is the grammar he reads on the next.
  */
 
 /** The verb, and the line over it. THE CHOIR's hand, and a smaller one. */

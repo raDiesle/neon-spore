@@ -51,8 +51,10 @@ const STILL_PROSE = [
   // it). Its guide names the rule and leaves the gestures to the body: each
   // mark carries its own word in a scanner box with the kind of action over it,
   // which is the case `docs/decisions.md` #34 says a briefing gives its words
-  // back to. So this one may stay prose — the lane to open is not a film but
-  // the question of whether a boss that says its own verbs wants one.
+  // back to — and, until 19 September 2026, only the word half of that box had
+  // ever been drawn (`render/instar-word.ts`). With the kind line landed the
+  // question this comment used to carry is answered: no film, a guide of two
+  // lines a phone, and every gesture the box's to say.
   "THE INSTAR",
   // And THE FILAMENT, drawn 18 September 2026 (`render/filament-draw.ts` and
   // the three files beside it, `bosses.md` §11.33) with its film still owed:

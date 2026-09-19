@@ -10,6 +10,7 @@ import {
   NO_BEARING,
   type SimConfig,
 } from "@neon-spore/sim";
+import type { CueKind } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
@@ -23,17 +24,19 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
 /**
  * **THE INSTAR's marks: the only control on the screen.** A red ring on the
  * part the script wants moved, the gesture drawn inside it
- * (`instar-glyphs.ts`), the word for it in a scanner box over it
- * (`instar-word.ts`), a progress arc that fills as the part gives, and
- * **the window**: a second ring closing in on the mark from outside over the
- * step's `windowBeats`, so how long is left is read off the picture and not
- * off a number — the world teaches the pair, and the word is only the name
- * of what the ring already shows.
+ * (`instar-glyphs.ts`), the word for it and the kind of action over that in a
+ * scanner box over it (`instar-word.ts`), a progress arc that fills as the
+ * part gives, and **the window**: a second ring closing in on the mark from
+ * outside over the step's `windowBeats`, so how long is left is read off the
+ * picture and not off a number — the world teaches the pair, and the two
+ * lines are only the name of what the ring already shows.
  *
  * Whose the mark is, is the split of this boss (`view-role-clocks-b.ts`):
- * on the seat it wants, the ring is bright and the word is the gesture; on
- * the other, the ring is dim and the word is *PILOT'S* or *NAVIGATOR'S*,
- * because that seat's job is to watch it and say when it is done.
+ * on the seat it wants, the ring is bright and the box carries the kind and
+ * the gesture (`docs/decisions.md` #34's own vocabulary, `boss-cue.ts`); on
+ * the other, the ring is dim and the box carries one line, *PILOT'S* or
+ * *NAVIGATOR'S*, because that seat's job is to watch it and say when it is
+ * done.
  *
  * Nothing is drawn but in the `act` phase, save the **anticipation**: over
  * the last part of a morph the marks glow up faintly on the parts they are
@@ -45,19 +48,26 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * refuses the wrong thumb and says so (`sim/instar-hand.ts`).
  */
 
-export const INSTAR_WORDS: Record<InstarGesture, string> = {
-  pullDown: "PULL DOWN",
-  pullUp: "PULL UP",
-  tap: "TAP TAP",
-  swipeDown: "SWIPE DOWN",
-  turn: "TURN",
-  hold: "HOLD BOTH",
+/**
+ * The six gestures' verbs, and the `CueKind` each reduces to — #34's own
+ * four (`boss-cue.ts`): a press of a button, a hold of one, a thumb carried,
+ * a turn of the crank. A pull and a swipe are both a carry, one held at its
+ * depth and one let go on the lift; a tap is the press repeated.
+ */
+export const INSTAR_WORDS: Record<InstarGesture, { kind: CueKind; word: string }> = {
+  pullDown: { kind: "CARRY", word: "PULL DOWN" },
+  pullUp: { kind: "CARRY", word: "PULL UP" },
+  tap: { kind: "PRESS", word: "TAP TAP" },
+  swipeDown: { kind: "CARRY", word: "SWIPE DOWN" },
+  turn: { kind: "TURN", word: "TURN" },
+  hold: { kind: "HOLD", word: "HOLD BOTH" },
 };
 
-/** The word a seat reads over a mark: the gesture on its own, the owner's name on the other. */
-export function instarMarkWord(mark: InstarMark, role: ViewRole): string {
+/** The two lines a seat reads over a mark: the kind and the gesture on its
+ * own mark, the owner's name alone on its partner's. */
+export function instarMarkWord(mark: InstarMark, role: ViewRole): { kind?: CueKind; word: string } {
   if (instarMarkIsMine(role, mark.seat)) return INSTAR_WORDS[mark.gesture];
-  return mark.seat === "p1" ? "PILOT'S" : "NAVIGATOR'S";
+  return { word: mark.seat === "p1" ? "PILOT'S" : "NAVIGATOR'S" };
 }
 
 /** The morph's last stretch over which the marks glow up on their parts. */
@@ -105,7 +115,8 @@ export function drawInstarMarks(
     drawWindow(ctx, at.x, at.y, r, left, mine);
     // Beside the ring, clear of the window ring at its widest, away from the middle.
     const side = mark.xMilli < 500 ? -1 : 1;
-    drawInstarWord(ctx, l, instarMarkWord(mark, role), at.x + side * r * 3.1, at.y, side, mine);
+    const { kind, word } = instarMarkWord(mark, role);
+    drawInstarWord(ctx, l, word, at.x + side * r * 3.1, at.y, side, mine, kind);
   });
 }
 

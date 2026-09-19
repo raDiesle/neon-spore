@@ -16,11 +16,29 @@ import { PALETTE, STROKE } from "./palette.js";
  * for the same reason: what the marks say during the wave is not said
  * before it (`content/src/waves/act-7e.ts`).
  *
+ * **And, since 19 September 2026, the kind line the owner's own brief asked
+ * for and this box never drew** (`bosses.md` §11.32: *"one word … and above
+ * it what kind of action is required"*). `docs/decisions.md` #34 generalised
+ * that idea into a `CueKind` line over the verb everywhere else in the game
+ * (`boss-cue-text.ts`); this box drew the verb alone until this box and that
+ * reading were made to say the same two lines — `kind`, optional so THE
+ * STARE's and THE FILAMENT's own calls, which name a seat rather than an
+ * action, still draw one line. `boss-cue-text.ts`'s own rule travels with it:
+ * a kind that equals the word — a `turn` mark's `TURN` over `TURN` — draws
+ * once.
+ *
  * Its own file because `instar-marks.ts` was at its limit with the rings.
  */
 
 /** The word's size, in tiles — THE WARDEN's loud hint (`handle-draw.ts`). */
 const FONT_TILES = 0.3;
+
+/** The kind line's size, against the word's — `boss-cue-text.ts`'s own
+ * ratio (8px over 11), the grammar of the instruction sat over its verb. */
+const KIND_TILES = FONT_TILES * (8 / 11);
+
+/** Between the kind line and the word, in tiles. */
+const KIND_GAP_TILES = FONT_TILES * 0.35;
 
 export function drawInstarWord(
   ctx: CanvasRenderingContext2D,
@@ -30,20 +48,37 @@ export function drawInstarWord(
   y: number,
   side: -1 | 1,
   mine: boolean,
+  /** The action's grammar, over the verb — one of `boss-cue.ts`'s `CueKind`
+   * strings. Left out for a call that names a seat rather than an action. */
+  kind?: string,
 ): void {
   ctx.save();
-  ctx.font = `600 ${Math.round(l.tile * FONT_TILES)}px system-ui, sans-serif`;
+  const wordFont = `600 ${Math.round(l.tile * FONT_TILES)}px system-ui, sans-serif`;
+  const kindFont = `600 ${Math.round(l.tile * KIND_TILES)}px system-ui, sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const w = ctx.measureText(word).width;
+  ctx.font = wordFont;
+  const wordW = ctx.measureText(word).width;
+  const say = kind !== undefined && kind !== word;
+  ctx.font = kindFont;
+  const kindW = say ? ctx.measureText(kind).width : 0;
+  const w = Math.max(wordW, kindW);
   const h = l.tile * FONT_TILES;
+  const kindH = l.tile * KIND_TILES;
+  const gap = l.tile * KIND_GAP_TILES;
   const pad = h * 0.45;
   // Kept on the glass, the way a handle's hint is; `x` is the box's near edge.
   const cx = Math.min(Math.max(x + side * (w / 2 + pad), w / 2 + pad), l.width - w / 2 - pad);
+  // Both lines centred on `y`, the way the single line always was — the ring
+  // it stands beside does not move when a second line joins it.
+  const blockH = say ? kindH + gap + h : h;
+  const blockTop = y - blockH / 2;
+  const kindY = blockTop + kindH / 2;
+  const wordY = blockTop + (say ? kindH + gap : 0) + h / 2;
   const left = cx - w / 2 - pad;
   const right = cx + w / 2 + pad;
-  const top = y - h / 2 - pad * 0.6;
-  const bottom = y + h / 2 + pad * 0.6;
+  const top = blockTop - pad * 0.6;
+  const bottom = wordY + h / 2 + pad * 0.6;
   const tick = h * 0.5;
   // A dark backing, so the word reads over the body's plates.
   ctx.fillStyle = PALETTE.background;
@@ -67,6 +102,12 @@ export function drawInstarWord(
   }
   ctx.stroke();
   ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-  ctx.fillText(word, cx, y);
+  ctx.font = wordFont;
+  ctx.fillText(word, cx, wordY);
+  if (say) {
+    ctx.globalAlpha = (mine ? 0.9 : 0.45) * 0.8;
+    ctx.font = kindFont;
+    ctx.fillText(kind, cx, kindY);
+  }
   ctx.restore();
 }
