@@ -9,14 +9,28 @@ import type { Layout } from "./layout.js";
  * it, and because one boss a page is where these files have been going since
  * pages eleven and twelve (`docs/queue.md`, the line-count entry).
  *
- * **It already said one word, and its queue entry did not know.** `TURN` has
- * stood on the organ's grip mark since the handle shipped
- * (`antiphon-grip.ts`) — a handle boss builds its cue in its own drawing, so a
- * search of the readings finds an absence that is not there, which is the third
- * entry in this family to carry that mistake and the reason the entry exists.
- * The word is the kind, so the screen says one thing
- * (`boss-cue-text.ts`), and it is the pilot's because the organ hangs on his
- * screen alone (`showsAntiphonOrgan`).
+ * **It already said two words, and neither of them is on this page.** `TURN`
+ * has stood on the organ's grip mark since the handle shipped
+ * (`antiphon-grip.ts`) and `PULL` stands under the rail beside it
+ * (`antiphon-rail-grip.ts`) — a handle boss builds its cue in its own drawing,
+ * so a search of the readings finds an absence that is not there, which is the
+ * third entry in this family to carry that mistake and the reason the entry
+ * exists. Each word is its kind, so the screen says one thing
+ * (`boss-cue-text.ts`), and each belongs to the seat its handle is drawn to:
+ * `TURN` to the pilot, because the organ hangs on his screen alone
+ * (`showsAntiphonOrgan`), and `PULL` to the navigator, because the rail hangs
+ * on hers (`showsAntiphonRail`).
+ *
+ * **`PULL` leaks nothing, by the rule the rest of this page is written to.**
+ * It says the verb and never the answer: one word under the middle of the rail
+ * rather than one per candidate, so it names no column and no colour, and the
+ * thing it offers her is a candidate *she* has already ruled out by listening
+ * to him. Every candidate still in keeps its ring and the crossed ones take a
+ * stroke, so the rail says what she has said and nothing the boss knows. It is
+ * drawn only on the screen the rail is on, and the sound the crossing makes is
+ * seated to that phone for the same reason (`audio/bind-antiphon.ts`): a pan
+ * on his would hand him a column she had eliminated without either of them
+ * saying it, which is the whole of what this boss is for.
  *
  * **What no word may ever say here is the column, and this is the boss the rule
  * was written for.** The organ's shape is his and its colour and column are
@@ -72,8 +86,10 @@ const HALF_W = 0.72;
 const HALF_H = 0.66;
 
 /**
- * THE ANTIPHON. **One word, and it is the four beats the trigger stops
- * working**; the rest of this fight is a conversation the field must not join.
+ * THE ANTIPHON. **One word on this page, and it is the four beats the trigger
+ * stops working**; the two on the handles are drawn where the handles are
+ * (`antiphon-grip.ts`, `antiphon-rail-grip.ts`), and the rest of this fight is
+ * a conversation the field must not join.
  */
 export function antiphonCues(l: Layout, world: World, s: AntiphonState): readonly BossCue[] {
   if (!antiphonStill(s)) return [];

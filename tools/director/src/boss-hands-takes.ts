@@ -1,6 +1,8 @@
 import {
   antiphonBoss,
+  antiphonCrossed,
   antiphonGrown,
+  antiphonIsOrgan,
   type Color,
   cairnState,
   spliceRound,
@@ -103,4 +105,34 @@ export const antiphonHand: Hand = (w) => {
   if (o === undefined) return [];
   if (w.cannonCol !== o.col) return [aim(o.col)];
   return free(w) ? [fire(o.color)] : [];
+};
+
+/**
+ * THE ANTIPHON's other hand, the navigator's: she carries a candidate down
+ * off her rail and it stops counting (`sim/antiphon-hand.ts`). Nothing may be
+ * pulled before the organ stands, so the hand waits the growth out, and it
+ * takes the first candidate that is neither an organ nor already crossed —
+ * a decoy, because pulling the organ off is the same mistake as firing at
+ * one, and the pose wants the crossing rather than the punishment.
+ */
+export const antiphonPullHand: Hand = (w) => {
+  const s = antiphonBoss(w);
+  if (s === null || s.downBeat >= 0) return [];
+  const o = s.organs[0];
+  if (o === undefined || !antiphonGrown(o, w.cfg, w.beat)) return [];
+  const id = s.rail.findIndex((c, i) => !antiphonIsOrgan(s, c) && !antiphonCrossed(s, i));
+  if (id < 0) return [];
+  return [
+    {
+      player: 2,
+      command: {
+        kind: "drag",
+        target: "antiphonRail",
+        on: true,
+        fromMilli: 0,
+        fromYMilli: w.cfg.antiphonPullMilli,
+        id,
+      },
+    },
+  ];
 };

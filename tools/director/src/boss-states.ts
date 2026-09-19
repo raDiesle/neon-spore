@@ -61,9 +61,10 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // column along the frame, winding the last one back, down (`scuttleAttached`,
   // `ScuttleState.held`, `scuttleSwingable`, `scuttleWinding`, `scuttleDown`).
   scuttle: ["attached", "held", "swung", "winding", "down"],
-  // The organs cycling, the rail still for a pick, down (`antiphonStruck`,
+  // The organs cycling, a candidate crossed off her rail, the rail still for a
+  // pick, down (`antiphonStruck`, `antiphonCrossed`, `AntiphonState.crossed`,
   // `AntiphonState.stillBeat`, `antiphonDown`).
-  antiphon: ["cycling", "still", "down"],
+  antiphon: ["cycling", "pulled", "still", "down"],
   // Sealed, a cell open, spilling, down (`hiveOpen`, `HiveState.spillBeat`,
   // `hiveDown`).
   hive: ["sealed", "open", "spilling", "down"],

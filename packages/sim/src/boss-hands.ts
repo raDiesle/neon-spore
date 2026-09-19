@@ -1,4 +1,4 @@
-import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
+import { antiphonHeard, antiphonPulled, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
 import { candleWickHeard } from "./candle-hand.js";
 import { curtainHemHeard } from "./curtain-hand.js";
@@ -54,6 +54,10 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // turn a shape a finger is watching (`antiphon-hand.ts`).
   for (const c of commands) antiphonHeard(world, c.player, c.command);
   stepAntiphonTurn(world);
+  // Her pull on the rail, on the tick for `scuttle-hand.ts`' reason: the carry
+  // is where the thumb is now, and a pull answered on the next beat could be
+  // answered after the bolt it was meant to make safe (`antiphon-hand.ts`).
+  for (const c of commands) antiphonPulled(world, c.player, c.command);
   // THE INSTAR's marks, on the tick because a tap is a tap when it lands and
   // a pull is where the thumb is now (`instar-hand.ts`).
   for (const c of commands) instarHeard(world, c.player, c.command);

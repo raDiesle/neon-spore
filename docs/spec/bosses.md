@@ -6222,9 +6222,10 @@ index under `antiphonShapes` (16) with a colour, a column and the beat it
 began pushing out on; the **rail** of candidates, each a shape, a colour
 and a column, the organs among them in the seed's order; the **pits**, the
 shapes described so far, which are the health and the record; the
-**extra** candidates wrong answers have added to every rail since; and
-three beat stamps — the cycle began, the surface went still, the right
-ship was fired. Like THE SCUTTLE it **fills its wave** (`bossFillsWave`):
+**extra** candidates wrong answers have added to every rail since; the
+places on the rail the navigator has **crossed** off and the one her thumb
+rests on now (`heldRail`, -1 for none); and three beat stamps — the cycle
+began, the surface went still, the right ship was fired. Like THE SCUTTLE it **fills its wave** (`bossFillsWave`):
 `act-7f.ts`'s "THE ANTIPHON" has no entries at all, because every arrival
 in the fight is a candidate the pair rejected or an organ they left alone.
 
@@ -6356,7 +6357,8 @@ the organ drawn on the pilot's and not the navigator's — and the same
 picture there whichever column it stands over — the rail drawn on the
 navigator's and not the pilot's — and the same picture there whichever
 candidate is the organ — twins, the pits, the still, the ship, the fade,
-the gone, and the eruption's reset (nineteen).
+the gone, the rings and the strokes on the rail with the word under them,
+and the eruption's reset (twelve).
 
 **The turn under a hand.** The design's one concept that wants no time
 effect: *while either seat rests a hand on the organ, it turns slowly in
@@ -6390,6 +6392,44 @@ and `FIELD_CONTROLS`, [controls](controls.md) and a gallery pose carry it.
 own** as an escalation so the description has to say which way up — that
 is a rate, and the one this paragraph refuses.
 
+**The pull off the rail.** The second gesture, 19 September 2026, and the
+one that changes the fight: *pull off the ones you know are wrong.*
+`antiphonRail` is a `DragTarget` (`sim/drag-targets-c.ts`) carrying the
+place on the rail as its `id` — the rail is never re-ordered, so a
+crossing stays where it was made — heard by `sim/antiphon-hand.ts` from
+**player 2 alone**, the pilot's dropped without a sound as `queenMark`
+drops the other seat's. Her thumb on a candidate is `heldRail` and nothing
+else; carrying it `antiphonPullMilli` (400) of a tile down, with the organ
+all the way out, **crosses it off**: its place joins `crossed`, an
+`antiphonPull` event says its column and how many candidates are left, and
+from then a bolt in its column and its colour is nothing rather than a
+hardening (`sim/antiphon-shot.ts`) and it cannot fall on them when a pit
+ends the cycle (`antiphonSpillPits`, `sim/antiphon-step.ts`). Pull off
+**the one he is describing** and the cycle hardens exactly as firing at a
+decoy does, so three crossings are three risks where a bolt is one, and
+the gesture buys nothing free. Nothing may be pulled before the organ
+stands, a candidate crosses off once, and the next cycle gives the whole
+rail back — `crossed` and `heldRail` are cleared with the rest. All of it
+is in the hash, and in `sim/test/antiphon-pull.test.ts` (eleven).
+
+On the screen it is the rail's own handle (`render/antiphon-rail-grip.ts`),
+hers because `showsAntiphonRail` draws the rail to her alone and a handle a
+seat cannot see is not a handle: a grip ring on **every** candidate still
+in, never on one — a ring on the one she ought to cross off would be her
+own reading handed back to her — filling under her thumb while it rests,
+and a stroke through each one she has crossed, so a list read out loud
+shows where she is in it. The hit test is the candidate's resting circle at
+its perch, thumb-sized rather than contour-sized, nearest wins, which is
+`creatureAt`'s rule. Whether a pull *takes* is the simulation's to refuse,
+so a thumb may rest on a candidate while the rail is still growing and the
+ring fills under it, which is the picture of a hand held ready. The
+crossing's sound is **seated to her phone** (`audio/bind-antiphon.ts`,
+`boss.antiphonPull`): a pan on his would hand him a column she had
+eliminated without either of them saying it, which is the whole of what
+this boss is for. `FIELD_CONTROLS`' second ANTIPHON row, `render/handles.ts`
+and a gallery pose carry it. Never watched at tempo: the picture of a
+candidate coming off the rail is *unverified*.
+
 **Never watched at tempo.** What the tests say is the mechanism: it rises
 smooth with nothing on the rail and nothing on the field; it holds its
 wave and fills it; it rests and grows one organ on a rail of distinct
@@ -6405,20 +6445,31 @@ family from `antiphonTightPits`; every rejected candidate falls from
 and the cycle ends with the second; a pit grows again from
 `antiphonEchoPits`; with every pit taken it goes still, grows the ship on
 a rail of ships, and the right one bursts it; the wrong ship hardens and
-the ship grows again with no second still; and the same run fingerprints
+the ship grows again with no second still; a candidate carried down off
+the rail is crossed off on her seat and nobody else's, never before the
+organ stands, never twice, and once crossed it neither hardens the cycle
+nor spills on them, while the organ pulled off hardens like a decoy
+(`sim/test/antiphon-pull.test.ts`); and the same run fingerprints
 the same way twice (`sim/test/antiphon.test.ts`, nineteen). Nothing was
 drawn, nothing was watched, and whether fourteen beats is a conversation
 or a wait is the owner's.
 
 **The words** (`render/src/antiphon-grip.ts` and
 `render/src/boss-cue-read-p.ts`, 19 September 2026, page sixteen of the
-readings). Two, and both of them are about a moment rather than a thing, because
+readings). Three, and every one of them is about a moment rather than a thing,
+because
 **no word here may name the shape, the colour or the column**. `TURN` on the
 organ's grip mark while no thumb rests on it, which shipped with the handle: the
 pilot's, because the organ hangs on his screen alone, and one word per standing
 organ because a thumb on either of a pit's twins turns both — the turn is
 `s.turnTicks`, one number for the pair. It names no candidate: turning is how he
-*looks*, it sinks nothing and answers nothing.
+*looks*, it sinks nothing and answers nothing. `PULL` under the middle of her
+rail while no thumb rests on a candidate (`render/src/antiphon-rail-grip.ts`):
+hers, because the rail hangs on her screen alone, and one word for the whole
+rail rather than one per candidate, so it names no column and no colour. What
+it offers her is a candidate *she* has already ruled out by listening to him,
+and the crossing's sound is seated to her phone for the same reason, so the
+field says the verb and she keeps the answer.
 
 **No `MOVE`, and this is the boss the rule was written for.** The organ's shape
 is his and its colour and column are hers; she has to find the one he is

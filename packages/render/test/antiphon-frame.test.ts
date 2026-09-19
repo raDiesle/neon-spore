@@ -122,6 +122,7 @@ function drawn(
 }
 
 const turnWord = (words: string[]): boolean => words.some((w) => w.includes("TURN"));
+const pullWord = (words: string[]): string[] => words.filter((w) => w.includes("PULL"));
 
 function count(text: string, colour: string): number {
   return text.split(colour).length - 1;
@@ -222,7 +223,13 @@ describe("THE ANTIPHON's body", () => {
     expect(turnWord(held.words)).toBe(false);
     expect(held.text).not.toBe(up.text);
     expect(count(held.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
-    const hers = frame("p2", (w) => void grown(w));
+    // Her screen never takes the organ's mark. Her own rail carries a word in
+    // that same grey (`antiphon-rail-grip.ts`), so the count is read with her
+    // thumb resting on a candidate, which takes PULL away and leaves behind
+    // only whatever the organ would have added.
+    const hers = frame("p2", (w) => {
+      grown(w).heldRail = 0;
+    });
     expect(count(hers.text, PALETTE.rock)).toBe(count(frame("p2", () => {}).text, PALETTE.rock));
     expect(turnWord(hers.words)).toBe(false);
   });
@@ -280,6 +287,31 @@ describe("THE ANTIPHON's body", () => {
     expect(gone.text).toBe(none.text);
   });
 
+  it("rings the candidates she may still pull, and strokes the ones she has", () => {
+    // The ring and the stroke are both the dim tone, so a count cannot tell
+    // one from the other; what a crossing has to be is a *different picture*
+    // on her screen and the same one on his, which is the leak that matters.
+    const railed = (role: ViewRole) => frame(role, (w) => void grown(w)).text;
+    const crossed = (role: ViewRole) =>
+      frame(role, (w) => {
+        grown(w).crossed = [0];
+      }).text;
+    expect(crossed("p2")).not.toBe(railed("p2"));
+    expect(crossed("p1")).toBe(railed("p1"));
+  });
+
+  it("fills the ring under her thumb, and says nothing of it on his screen", () => {
+    const held = (role: ViewRole) =>
+      frame(role, (w) => {
+        grown(w).heldRail = 0;
+      });
+    const loose = (role: ViewRole) => frame(role, (w) => void grown(w));
+    expect(count(held("p2").text, PALETTE.text)).toBeGreaterThan(
+      count(loose("p2").text, PALETTE.text),
+    );
+    expect(held("p1").text).toBe(loose("p1").text);
+  });
+
   it("keeps the eruption as a transient the next run does not inherit", () => {
     const fx = new Effects();
     fx.boss.antiphon.note([0, 5, 9]);
@@ -314,5 +346,21 @@ describe("THE ANTIPHON's word", () => {
     const world = hung();
     grown(world);
     expect(turnWord(drawn(world, "p2", 3).words)).toBe(false);
+  });
+
+  it("says PULL once under her rail, and never on his screen", () => {
+    // One word under the middle of the rail rather than one per candidate: a
+    // word on the candidate she should cross off would be her own reading
+    // handed back to her (`boss-cue-read-p.ts`).
+    const world = hung();
+    grown(world);
+    expect(pullWord(drawn(world, "p2", 3).words).length).toBe(1);
+    expect(pullWord(drawn(world, "p1", 3).words)).toEqual([]);
+  });
+
+  it("takes the word away while her thumb is on a candidate", () => {
+    const world = hung();
+    grown(world).heldRail = 1;
+    expect(pullWord(drawn(world, "p2", 3).words)).toEqual([]);
   });
 });

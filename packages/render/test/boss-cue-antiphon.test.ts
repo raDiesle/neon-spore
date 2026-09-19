@@ -32,7 +32,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * Its queue entry said *it says nothing on the field at all* and `TURN` had
  * stood on the organ's grip mark since the handle shipped — the third entry in
  * this family to miss a word a boss builds in its own drawing rather than in a
- * reading (`antiphon-grip.ts`, and `antiphon-frame.test.ts` draws it).
+ * reading (`antiphon-grip.ts`, and `antiphon-frame.test.ts` draws it). `PULL`
+ * under her rail is the second of those (`antiphon-rail-grip.ts`), drawn where
+ * its handle is and asserted where the handle is asserted: what this page has
+ * to keep saying is that the **reading** stays silent while both are up, since
+ * a word from here would go out on a screen that has no handle to explain it.
  *
  * Most of this file is about **silence**, which on this boss is the design
  * rather than a caution. The organ's shape is the pilot's and its colour and

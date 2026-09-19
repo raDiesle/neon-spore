@@ -1,4 +1,10 @@
-import { type AntiphonState, antiphonBoss, antiphonGrown, antiphonOrganAt } from "./antiphon.js";
+import {
+  type AntiphonState,
+  antiphonBoss,
+  antiphonCrossed,
+  antiphonGrown,
+  antiphonOrganAt,
+} from "./antiphon.js";
 import { antiphonHarden, antiphonPit } from "./antiphon-step.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
@@ -35,8 +41,14 @@ export function antiphonStruck(world: World, b: Bullet): void {
     if (b.color === o.color) antiphonPit(world, s, o);
     return;
   }
-  const decoy = s.rail.find((c) => c.col === b.col && c.color === b.color);
-  if (decoy !== undefined) antiphonHarden(world, s, b.col);
+  // A candidate she has pulled off the rail is no longer a candidate: a bolt
+  // into its column and colour is nothing, unsaid, as a bolt into an empty
+  // column is. That is the whole of what the pull buys her — the column is
+  // safe to be wrong in (`antiphon-hand.ts`).
+  const decoy = s.rail.findIndex(
+    (c, i) => c.col === b.col && c.color === b.color && !antiphonCrossed(s, i),
+  );
+  if (decoy >= 0) antiphonHarden(world, s, b.col);
 }
 
 /** Whether an organ stands, grown all the way out. */

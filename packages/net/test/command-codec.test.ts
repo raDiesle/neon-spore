@@ -173,6 +173,13 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "scuttlePart", on: true, fromMilli: 600, id: 4 },
   { kind: "drag", target: "scuttlePart", on: true, fromMilli: -600, id: 4 },
   { kind: "drag", target: "scuttlePart", on: false, fromMilli: 0, id: 4 },
+  // THE ANTIPHON's rail, the navigator's: `id` is the index on the rail and
+  // `fromYMilli` the pull down off it, one direction only, because up off a
+  // rail hung over the top of the field is off the screen
+  // (`sim/antiphon-hand.ts`). The lift carries the same id, so a codec that
+  // dropped it would leave her ring lit under a thumb that had gone.
+  { kind: "drag", target: "antiphonRail", on: true, fromMilli: 0, fromYMilli: 600, id: 2 },
+  { kind: "drag", target: "antiphonRail", on: false, fromMilli: 0, fromYMilli: 0, id: 2 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -311,6 +318,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   ledgerCord: true,
   leadStalk: true,
   scuttlePart: true,
+  antiphonRail: true,
   crank: true,
   orreryRing: true,
 };

@@ -308,6 +308,7 @@ const SAMPLES: Record<string, SimEvent> = {
   antiphonGrow: { type: "antiphonGrow", col: 4, shape: 7, organs: 1 },
   antiphonPit: { type: "antiphonPit", col: 4, shape: 7, pits: 3 },
   antiphonHarden: { type: "antiphonHarden", col: 8, rail: 4 },
+  antiphonPull: { type: "antiphonPull", col: 3, left: 2 },
   antiphonSink: { type: "antiphonSink", col: 4, fired: true },
   antiphonSpill: { type: "antiphonSpill", col: 2, color: "cyan" },
   antiphonStill: { type: "antiphonStill", col: 5 },

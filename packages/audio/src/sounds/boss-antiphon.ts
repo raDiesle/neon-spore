@@ -1,5 +1,5 @@
 /**
- * THE ANTIPHON's ten, in a file of their own for `boss-scuttle.ts`' reason.
+ * THE ANTIPHON's eleven, in a file of their own for `boss-scuttle.ts`' reason.
  *
  * The boss is a **smooth body that grows things out of itself**, and
  * everything here is wet and slow where THE SCUTTLE's was dry and quick: the
@@ -7,8 +7,10 @@
  * that ends in a wet click as the contour resolves; the pit is the one crisp
  * sound on the page, the organ shrivelling in on a step, pitched up as the
  * pits mount; the harden is the same push run backwards and dulled, from the
- * decoy's column; the sink is the organ drawing back under the surface, a
- * settle, lower when it fired first; the spill is bodies dropping off the
+ * decoy's column; the pull is the one sound that is not the boss's at all,
+ * a candidate sliding off the rail under her thumb, dry and small, and it
+ * plays on her phone alone; the sink is the organ drawing back under the
+ * surface, a settle, lower when it fired first; the spill is bodies off the
  * rail. The still is the long one, the surface going glassy; the ship is a
  * push with the hull's own metal in it; the burst is every pit at once, and
  * the out is the body going down on nothing. Low and soft under the band, or
@@ -77,6 +79,19 @@ export const BOSS_ANTIPHON_SOUNDS: SoundDef[] = [
     layers: [
       noise(0.24, { type: "bandpass", freq: 1200, toFreq: 400, q: 2.2 }, 0.01, 0.1, 0.35),
       after(0.16, thud(160, 90, 0.14, 0.3)),
+    ],
+  },
+  {
+    id: "boss.antiphonPull",
+    family: "boss",
+    blurb:
+      "A candidate dragged down off the rail: a short dry slide and the click of it letting go.",
+    status: "bound",
+    use: "THE ANTIPHON, the navigator crossing one off — her phone only, because the column is hers to say out loud.",
+    level: 0.26,
+    layers: [
+      noise(0.18, { type: "bandpass", freq: 2200, toFreq: 700, q: 3.2 }, 0.01, 0.08, 0.3),
+      after(0.12, tick(0.1, 0, 1800)),
     ],
   },
   {

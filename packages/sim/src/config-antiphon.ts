@@ -1,7 +1,8 @@
 /**
  * THE ANTIPHON's numbers — how many contours the body can grow and how they
  * fall into families, how many pits end the fight, how long an organ takes
- * to push out and how long it is given once it has, how wide the rail is
+ * to push out and how long it is given once it has, how far a thumb pulls a
+ * candidate off the rail, how wide the rail is
  * and how wide a wrong answer makes it, from which pit the rail closes in
  * on one family, from which the rejected candidates arrive as bodies, from
  * which two organs grow at once, from which an organ left alone fires, from
@@ -54,6 +55,8 @@ export interface AntiphonConfig {
   antiphonOutBeats: number;
   /** Beats one whole turn of the organ takes under a resting thumb. */
   antiphonTurnBeats: number;
+  /** How far down a thumb must carry a candidate to pull it off the rail, in thousandths of a tile. */
+  antiphonPullMilli: number;
 }
 
 /**
@@ -84,4 +87,5 @@ export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonShipRail: 3,
   antiphonOutBeats: 3,
   antiphonTurnBeats: 8,
+  antiphonPullMilli: 400,
 };

@@ -1447,6 +1447,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/antiphon-fx.ts` | What THE ANTIPHON leaves behind a frame |
 | `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-grip.ts` |  |
+| `packages/render/src/antiphon-rail-grip.ts` | **THE ANTIPHON's second handle: the rail, on the one screen it hangs on** — a ring on every candidate… |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
 | `packages/render/src/beatbox-wave.ts` | **The wave of sound a miscounted box sends at the ship**, and the picture this creature is named for |

@@ -1,5 +1,11 @@
 import { repriseEchoing, repriseHeld, spliceRound, type World } from "@neon-spore/sim";
-import { antiphonHand, cairnHand, spliceHand, undertowHand } from "./boss-hands-takes.js";
+import {
+  antiphonHand,
+  antiphonPullHand,
+  cairnHand,
+  spliceHand,
+  undertowHand,
+} from "./boss-hands-takes.js";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -75,6 +81,18 @@ export const TAKE_HAND_POSES: Pose[] = [
       want: (w) => w.boss?.kind === "undertow" && w.boss.phase === "taken",
       hold: TPB * 2,
       budgetBeats: 150,
+    },
+  ),
+  bossPose(
+    "antiphon",
+    "pulled",
+    "A candidate crossed off the rail. P2 drags one she is sure is wrong off it; P1 waits on the organ he can see.",
+    {
+      crop: F,
+      hand: antiphonPullHand,
+      want: (w) => w.boss?.kind === "antiphon" && w.boss.crossed.length > 0,
+      hold: 6,
+      budgetBeats: 100,
     },
   ),
   bossPose(

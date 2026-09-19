@@ -13,8 +13,10 @@ import type { World } from "./world.js";
  * a **rail** of candidates, each a shape with a colour and a column, one of
  * which is the organ; she has to find the one he is describing and fire its
  * colour into its column, and he has to put the cannon there, which he
- * cannot see either. Two descriptions crossing is the boss
- * (`docs/spec/bosses-choreographed.md` §12; the split is the look's,
+ * cannot see either. She may also **pull a candidate off the rail** when she
+ * is sure it is not the one — it stops counting, and pulling the organ off
+ * costs her the cycle (`antiphon-hand.ts`). Two descriptions crossing is the
+ * boss (`docs/spec/bosses-choreographed.md` §12; the split is the look's,
  * `render/view-role-clocks-b.ts`). The game never listens: it arranges for
  * the pair to have to build a vocabulary and gives them nothing to build it
  * out of (`CLAUDE.md` rule 5, untouched).
@@ -84,6 +86,16 @@ export interface AntiphonState {
   /** Whose thumbs rest on the organ now — the turn goes on while either does. */
   heldP1: boolean;
   heldP2: boolean;
+  /**
+   * Rail indices the navigator has pulled off this cycle, in the order she
+   * pulled them; empty again as each cycle grows (`antiphon-hand.ts`).
+   * Indices and not candidates, because the rail is never re-ordered and a
+   * crossed candidate stays in its place on her screen with a line through
+   * it.
+   */
+  crossed: number[];
+  /** The rail index her thumb rests on now, `-1` for none — the ring fills under it. */
+  heldRail: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
@@ -161,6 +173,11 @@ export function antiphonHeld(s: AntiphonState, player: 1 | 2): boolean {
 export function antiphonTurnMilli(s: AntiphonState, cfg: SimConfig): number {
   const ticks = ticksPerBeat(cfg) * cfg.antiphonTurnBeats;
   return Math.floor(((s.turnTicks % ticks) * 1000) / ticks);
+}
+
+/** Whether a candidate on the rail has been pulled off this cycle: a bolt into it is nothing, and it cannot spill. */
+export function antiphonCrossed(s: AntiphonState, i: number): boolean {
+  return s.crossed.includes(i);
 }
 
 /** Whether the body is collapsing after the right ship. */

@@ -84,7 +84,7 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.scuttleDown": "the last part taken by the beam in the wind-up. Same argument.",
   "boss.scuttleOut":
     "the frame gone. What this marks is a field with nothing over its top — an absence like ui.waveClear rather than a thing standing anywhere.",
-  // THE ANTIPHON's ten share it too: the boss is a body that grows contours
+  // THE ANTIPHON's eleven share it too: the boss is a body that grows contours
   // no card has — that is the whole question of it — and what falls off its
   // rail is a slick or a bulb, which have their cards (`sim/antiphon.ts`).
   "boss.antiphonEnter":
@@ -93,6 +93,8 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "an organ pushing out of the surface. Its contour is one nobody has a word for, which is the point; a card would name it.",
   "boss.antiphonPit": "an organ shrivelling to a pit. Same argument.",
   "boss.antiphonHarden": "the organ hardening on a wrong answer. Same argument.",
+  "boss.antiphonPull":
+    "a candidate carried down off the rail and crossed off. What her thumb takes hold of is one of those contours nobody has a word for, and the moment is a gesture rather than a thing standing anywhere on the field.",
   "boss.antiphonSink": "an organ drawing back under the surface. Same argument.",
   "boss.antiphonSpill":
     "a rejected candidate falling as a body. What falls is a slick or a bulb, with its own card; the spill is the rail's.",

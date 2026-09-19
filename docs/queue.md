@@ -828,24 +828,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE ANTIPHON changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/task-queue-work-ym2eim (claim: claude/queue-the-antiphon-changes-state-more-than-once-and-as)
-- **Files:** `packages/sim/src/antiphon-hand.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on the ordinary panel, over 8 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE ANTIPHON's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1995,3 +1977,39 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A new boss event needs a row in bind-choreographed.ts that the skill omits
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `.claude/skills/new-boss-state/SKILL.md`, `packages/audio/src/bind-choreographed.ts`
+
+`.claude/skills/new-boss-state` lists twelve registrations a new boss state
+needs, worked top to bottom before the first check. There is a thirteenth it
+does not name: the choreographed binder's own switch. A new boss event falls
+through to `default: return lateCue(e, cols)` and the typecheck refuses it as
+not assignable to `LateEvent` — an error in a file the brief never mentions,
+four pages away from the event's declaration, and the only clue is the event's
+own name in the message. THE ANTIPHON's `antiphonPull` paid for it this lane.
+
+What to do: a thirteenth row in the table — file `packages/audio/src/bind-choreographed.ts`,
+wants the new event in the boss's own `case` group, goes red in the typecheck
+— placed after the `SAMPLES` row, since the sample is what makes the event
+reach the binder at all. The `-b` and `-c` pages of that binder take the same
+rule and are worth naming in the same row.
+
+## THE ANTIPHON's frame test is 366 lines and its touch test is 242
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/render/test/antiphon-frame.test.ts`, `packages/render/test/antiphon-touch.test.ts`
+
+Both are at or over the ~250-line ceiling: the frame test at 366 and the touch
+test at 242, and the rail's second handle put lines into both. A test file is
+split by what it proves rather than by where the cut falls evenly — the body
+and its organs on one page, the rail and its rings on another — so the header
+of each says one thing and a reader looking for the crossing does not read the
+growth first.
+
+What to do: take the rail out of both. The frame test's organ cases stay where
+they are and its rail cases move to a page of their own beside them; the touch
+test splits the same way, on the same seam, so the two pages pair. Neither
+file changes what it asserts.

@@ -2,6 +2,7 @@ import {
   ANTIPHON_SHIP,
   type AntiphonOrgan,
   type AntiphonState,
+  antiphonCrossed,
   antiphonFull,
   antiphonIsOrgan,
   antiphonRailSize,
@@ -51,6 +52,8 @@ export function installAntiphon(world: World): AntiphonState {
     turnTicks: 0,
     heldP1: false,
     heldP2: false,
+    crossed: [],
+    heldRail: -1,
   };
   world.events.push({ type: "antiphonEnter", col: midCol(world.cfg) });
   return s;
@@ -65,6 +68,11 @@ function arrive(world: World, col: number, color: Color): void {
 function endCycle(world: World, s: AntiphonState): void {
   s.organs = [];
   s.rail = [];
+  // The crossings go with the rail they were made on: they are indices into
+  // it, and the next rail is a different length. A thumb still down is let
+  // go of for the same reason — what it was resting on no longer exists.
+  s.crossed = [];
+  s.heldRail = -1;
   s.cycleBeat = world.beat;
 }
 
@@ -119,7 +127,11 @@ export function antiphonPit(world: World, s: AntiphonState, o: AntiphonOrgan): v
   // twin already taken this cycle is a pit and no organ, and is not rejected:
   // shapes are distinct across a rail (`antiphon-rail.ts`), so a candidate
   // whose shape is a pit is one the pair described, never one it turned down.
-  const rejected = s.rail.filter((c) => !antiphonIsOrgan(s, c) && !s.pits.includes(c.shape));
+  // A candidate she pulled off the rail is out of the cycle altogether: it
+  // does not fall on them when the cycle ends, which is what the pull buys.
+  const rejected = s.rail.filter(
+    (c, i) => !antiphonIsOrgan(s, c) && !s.pits.includes(c.shape) && !antiphonCrossed(s, i),
+  );
   s.organs = s.organs.filter((x) => x !== o);
   world.events.push({ type: "antiphonPit", col: o.col, shape: o.shape, pits: s.pits.length });
   if (s.organs.length > 0) return;

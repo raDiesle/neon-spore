@@ -276,6 +276,15 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // twenty-seven above.
     case "scuttlePart":
       return target;
+    // `antiphonRail` is the navigator's half of the boss whose other handle
+    // is the pilot's: she carries a candidate down off her rail, `id` naming
+    // its place on it, and it stops counting — a bolt into that column and
+    // colour is nothing, and it cannot fall on them when the cycle ends
+    // (`sim/antiphon-hand.ts`). Pull the one he is describing and the cycle
+    // hardens, exactly as firing at a decoy does, so it is a risk rather
+    // than a free elimination (`docs/spec/bosses.md` §11.31).
+    case "antiphonRail":
+      return target;
     default:
       return assertNever(target);
   }

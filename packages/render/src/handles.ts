@@ -1,5 +1,6 @@
 import { NO_TETHER } from "@neon-spore/sim";
 import { antiphonOrganUnder } from "./antiphon-grip.js";
+import { antiphonRailUnder } from "./antiphon-rail-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
 import { candleWickUnder } from "./candle-grip.js";
 import { curtainHemUnder } from "./curtain-grip.js";
@@ -98,7 +99,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     candleWickUnder(l, x, y, field) ?? // THE CANDLE's flame, at the last step, in the dark (`candle-grip.ts`).
     curtainHemUnder(l, x, y, field) ?? // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).
     leadStalkUnder(l, x, y, field) ?? // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
-    scuttlePartUnder(l, x, y, field) // THE SCUTTLE's hanging parts, while one may still be carried (`scuttle-grip.ts`).
+    scuttlePartUnder(l, x, y, field) ?? // THE SCUTTLE's hanging parts, while one may still be carried (`scuttle-grip.ts`).
+    antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }
 

@@ -19,7 +19,8 @@ export type DragTargetC =
   | "ledgerBead"
   | "ledgerCord"
   | "leadStalk"
-  | "scuttlePart";
+  | "scuttlePart"
+  | "antiphonRail";
 
 /**
  * `tasterBlade`, `tasterGap` and `tasterLock` are the forty-sixth, -seventh and
@@ -145,4 +146,44 @@ export type DragTargetC =
  * is burned where it stands, and a column the pilot could move under her beam
  * would make the one moment this fight ends on a moving target
  * (`scuttle-hand.ts`).
+ */
+
+/**
+ * `antiphonRail` is the fifty-fifth, and the **second handle on a boss that
+ * already had one** — the first in this union to be a boss's *other* hand
+ * rather than its only one. `antiphonOrgan` is the pilot's thumb resting on
+ * the organ, and it is a viewing angle: it changes nothing, by design. This
+ * one changes the fight, and it is the navigator's.
+ *
+ * What it buys is **an answer that is not a shot**. Every other way this pair
+ * can say anything to the boss is a bolt in a colour up a column, which is
+ * one guess and one punishment; the rail in front of her holds three to six
+ * candidates and she is often sure about two of them long before she is sure
+ * about the third. The pull is that certainty spent: she carries a candidate
+ * down off the rail, `fromYMilli` against `antiphonPullMilli`, and it stops
+ * counting — a bolt into its column and colour is nothing rather than a
+ * hardening, and it cannot fall on them when the cycle ends on a pit. The
+ * rule is one sentence in any language: *pull off the ones you know are
+ * wrong.*
+ *
+ * **The cost is the bolt's own**, and that is what keeps it from being free:
+ * pull off the one he is describing and the cycle hardens exactly as firing a
+ * decoy does. Three candidates crossed off is three of those risks where a
+ * bolt is one, so there is nothing to work out and no way to play it that
+ * beats describing the shape.
+ *
+ * **The navigator's alone**, and decided as THE LEAD's stalk was, by what
+ * each seat is drawn: `showsAntiphonRail` puts the rail on her screen and
+ * never on his, and a handle a seat cannot see is not a handle. His press is
+ * dropped without a sound, and — this one alone in this union — **the sound
+ * is seated too** (`audio/bind-antiphon.ts`): a pan on his phone would hand
+ * him a column she had eliminated, which is the one thing this boss exists to
+ * make them say out loud.
+ *
+ * `id` is the index on the rail, for `scuttlePart`'s reason: three to six
+ * stand at once and which one she took is most of what the hand says. It is
+ * an index and not a column because a crossing has to stay where it was
+ * made, so the rail is never re-ordered. `fromYMilli` is the pull and its
+ * sign is not the point — only *down*, as `candleWick`'s is, because up off
+ * a rail hung over the top of the field is off the screen.
  */

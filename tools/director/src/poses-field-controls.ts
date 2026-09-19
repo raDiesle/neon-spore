@@ -19,7 +19,7 @@ import {
   POSE_TPB as TPB,
   until,
 } from "./pose-kit.js";
-import { ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
+import { ANTIPHON_PULL, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
 import { SURGE_HOLD } from "./poses-field-controls-surge.js";
 
@@ -240,6 +240,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     SINEW_PULL,
     SURGE_HOLD,
     ANTIPHON_TURN,
+    ANTIPHON_PULL,
     INSTAR_PULL,
     GUIDE_HOLD,
   ],

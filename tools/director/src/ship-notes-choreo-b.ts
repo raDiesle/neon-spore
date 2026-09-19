@@ -137,7 +137,11 @@ export const CHOREO_NOTES_B = {
     "antiphonStillBeats and grows the ship on a rail of antiphonShipRail; " +
     "the right one bursts it over antiphonOutBeats. A thumb resting on the " +
     "organ turns it in place, a whole turn in antiphonTurnBeats, and it " +
-    "stops when the thumb lifts. See sim/antiphon.ts, sim/config-antiphon.ts.",
+    "stops when the thumb lifts. The navigator carries a candidate " +
+    "antiphonPullMilli down off her rail to cross it off: a bolt into its " +
+    "column and colour is nothing and it cannot fall on them, but pull off " +
+    "the organ and the cycle hardens as a decoy's bolt does. See " +
+    "sim/antiphon.ts, sim/config-antiphon.ts.",
   "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling":
     "Designed on 16 September 2026 in docs/spec/bosses.md §11.14: the boss " +
     "you seal, on a clock nothing slows. hiveSites sites are sown across the " +

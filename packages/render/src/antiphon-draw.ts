@@ -10,6 +10,7 @@ import {
 } from "@neon-spore/sim";
 import type { AntiphonFx } from "./antiphon-fx.js";
 import { drawAntiphonGrip } from "./antiphon-grip.js";
+import { drawAntiphonRailGrip } from "./antiphon-rail-grip.js";
 import {
   antiphonBodyPath,
   antiphonCentre,
@@ -112,6 +113,9 @@ export function drawAntiphon(
       drawContour(ctx, l, c, antiphonPerch(l, c.col), RAIL_R * grow, hex, rim, time, fade, lobes);
     }
     drawWindow(ctx, l, cfg, antiphonWindowLeft(s, cfg, beat, beatPhase), fade);
+    // Her rings on the rail, over the candidates so each stands on its own
+    // (`antiphon-rail-grip.ts`).
+    drawAntiphonRailGrip(ctx, l, cfg, s, time, fade);
   }
   ctx.restore();
 }

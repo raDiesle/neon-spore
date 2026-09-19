@@ -1,7 +1,7 @@
 import type { FieldControlDef } from "./field-control-def.js";
 
 /**
- * THE ANTIPHON's one handle, in a file of its own.
+ * THE ANTIPHON's two handles, one to a screen, in a file of their own.
  *
  * The same split `field-controls-surge.ts` made, for the same reason —
  * `field-controls-page.ts` is at its limit — and with the one thing no row
@@ -11,6 +11,9 @@ import type { FieldControlDef } from "./field-control-def.js";
  * never on the screen shown the rail, so on the navigator's it is not
  * there to press (`render/antiphon-grip.ts`, `sim/antiphon-hand.ts`,
  * `docs/spec/bosses.md` §11.31).
+ *
+ * The rail below is the mirror of it: her screen only, and the one gesture
+ * on this boss that changes the fight (`render/antiphon-rail-grip.ts`).
  */
 export const ANTIPHON_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -33,5 +36,27 @@ export const ANTIPHON_CONTROLS: readonly FieldControlDef[] = [
     dragTarget: "antiphonOrgan",
     sends: ["drag"],
     pose: "ANTIPHON · A THUMB ON THE ORGAN",
+  },
+  {
+    name: "THE ANTIPHON'S RAIL",
+    where:
+      "any candidate hanging on the rail over the columns, on the screen " +
+      "shown the rail, which is player 2's; nowhere on player 1's",
+    seat: "player 2 on her screen; player 2 on the test screen — a ring on each candidate still in",
+    gesture: "grab and drag",
+    does:
+      "Carrying a candidate down off the rail, antiphonPullMilli of a tile, " +
+      "crosses it off: a bolt into its column and colour is nothing rather " +
+      "than a hardening, and it cannot fall on them when the cycle ends. " +
+      "Pull off the one he is describing and the cycle hardens, exactly as " +
+      "firing at a decoy does, so each crossing is a risk of its own " +
+      "(sim/antiphon-hand.ts). Nothing may be pulled before the organ has " +
+      "grown all the way out, and a crossed candidate takes a stroke " +
+      "through it instead of a ring.",
+    source: "touch.ts — antiphonRailUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "antiphonRail",
+    sends: ["drag"],
+    pose: "ANTIPHON · A CANDIDATE OFF THE RAIL",
   },
 ];

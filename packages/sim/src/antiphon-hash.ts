@@ -12,6 +12,13 @@ import type { AntiphonCandidate, AntiphonState } from "./antiphon.js";
  * show her a rail the other's organ is not on. Every list goes in with its
  * length ahead of it, and a candidate is three numbers rather than one, so
  * two rails that differ in one column cannot fold into the same number.
+ *
+ * **The crossings go in as indices into that rail**, in the order she pulled
+ * them, and `heldRail` shifted off nought so its `-1` is a code and not a
+ * subtraction. A rail she has pulled two candidates off is a different fight
+ * from one she has pulled none off — a bolt into a crossed column is nothing,
+ * and a crossed candidate cannot spill — so the two worlds must not fold
+ * together (`antiphon-hand.ts`).
  */
 export function antiphonHashParts(s: AntiphonState): number[] {
   const out = [
@@ -24,6 +31,8 @@ export function antiphonHashParts(s: AntiphonState): number[] {
     s.organs.length,
     s.rail.length,
     s.pits.length,
+    s.crossed.length,
+    s.heldRail + 1,
   ];
   for (const o of s.organs) {
     candidate(out, o);
@@ -31,6 +40,7 @@ export function antiphonHashParts(s: AntiphonState): number[] {
   }
   for (const c of s.rail) candidate(out, c);
   for (const p of s.pits) out.push(p);
+  for (const i of s.crossed) out.push(i + 1);
   return out;
 }
 

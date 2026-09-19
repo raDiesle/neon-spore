@@ -35,6 +35,7 @@ export {
   type AntiphonOrgan,
   type AntiphonState,
   antiphonBoss,
+  antiphonCrossed,
   antiphonDown,
   antiphonFamilyOf,
   antiphonFull,

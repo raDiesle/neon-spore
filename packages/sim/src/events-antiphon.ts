@@ -12,9 +12,10 @@ import type { Color } from "./types.js";
  * every frame (`antiphon.ts`). What is *not* in the world a frame later is
  * the moment an organ pushed out, the pit it shrivelled to, the hardening
  * a wrong candidate cost, an organ sinking back with its window run out,
- * a rejected candidate arriving as a body, the still, the ship and the
- * eruption. Every one names a column, because the ear pans on one: the
- * organ's own, or the middle for the body as a whole.
+ * a rejected candidate arriving as a body, the candidate she pulled off the
+ * rail, the still, the ship and the eruption. Every one names a column,
+ * because the ear pans on one: the organ's own, or the middle for the body as
+ * a whole.
  */
 
 /** A column's worth of THE ANTIPHON, for the ear to pan on. */
@@ -32,6 +33,8 @@ export type AntiphonEvent =
   | ({ type: "antiphonPit"; shape: number; pits: number } & AntiphonColEvent)
   /** A decoy's colour arrived in the decoy's column: the organs hardened, and the next rail is `rail` wide. */
   | ({ type: "antiphonHarden"; rail: number } & AntiphonColEvent)
+  /** She pulled a candidate off her rail: `left` still stand on it, and nothing in `col` counts any more. */
+  | ({ type: "antiphonPull"; left: number } & AntiphonColEvent)
   /** The organ over `col` stood its window out and sank back healed; `fired` says it sent a body down first. */
   | ({ type: "antiphonSink"; fired: boolean } & AntiphonColEvent)
   /** A candidate a pit rejected arrived as a body in its `color` down `col`. */

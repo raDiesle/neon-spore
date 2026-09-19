@@ -204,6 +204,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "antiphonEnter":
     case "antiphonGrow":
     case "antiphonPit":
+    case "antiphonPull":
     case "antiphonHarden":
     case "antiphonSink":
     case "antiphonSpill":

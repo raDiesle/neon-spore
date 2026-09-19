@@ -12629,3 +12629,37 @@ declaration, not a file the row may be written into. Twice: once for
 `scuttleSwingMilli`, once for its note. It is queued.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-19 — task-queue-work-ym2eim — THE ANTIPHON's second gesture, and a thirteenth registration
+
+The queue asked for several states and a gesture reached on the picture rather
+than the panel. The rule the new one carries is one short sentence — *pull off
+the ones you know are wrong* — because the owner asked for mechanics a player
+in another language can follow: the navigator carries a candidate down off her
+rail, it is crossed off, its column leaves the cycle, and a bolt into it is
+nothing. Pulling off the one he is describing hardens the cycle exactly as
+firing at a decoy does, so the gesture costs something to get wrong without
+needing a rule of its own to say so.
+
+The rail is the second handle on this boss and the first on the navigator's
+screen: a ring on every candidate still in, a fill under her thumb, a stroke
+through each crossed one, and `PULL` under the middle of the rail rather than
+one word per candidate, so the field says the verb and never the answer. The
+crossing's sound is seated to her phone for the same reason — a pan on his
+would hand him a column she had eliminated without either of them saying it,
+which is the whole of what this boss is for.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the eight `antiphon*.ts` pages, `scuttle-hand.ts` and `antiphon-grip.ts` for the pattern, `.claude/skills/new-boss-state`, and §11.31 |
+| writing | 70 | `antiphon-hand.ts`, the rail fields in `antiphon.ts`, `antiphon-rail-grip.ts`, the eleven pull cases, the two poses, the twelve registrations and §11.31's new section |
+| looking | 0 | the picture is a second lane and a cloud session cannot judge it |
+| friction | 20 | a thirteenth registration outside the skill's table; a frame-test count in `docs/spec/bosses.md` that matched nothing; the new test file written five lines over its ceiling |
+| landing | 20 | `check:fast`, the sort, two counts in `docs/spec/audio.md`, the controls row, `queue done` and the push |
+
+**The bottleneck was a thirteenth registration that exists outside the twelve
+the skill lists.** `packages/audio/src/bind-choreographed.ts` switches on the
+event type, and a new boss event falls through to `default: return lateCue(e,
+cols)` and is refused as not assignable to `LateEvent` — an error in a file the
+brief never names, found only by running the typecheck after everything the
+brief did name was already done. It is queued.

@@ -41,7 +41,7 @@ export const INGEST_SILENT_BOSS_B = [
   // next door is the dust off the seam and the whole of the transient.
   "cairnPulled",
   "cairnShed",
-  // THE ANTIPHON's ten leave nothing behind for the next frame here: the
+  // THE ANTIPHON's eleven leave nothing behind for the next frame here: the
   // body, the organs, the rail and the pits are read off the state every
   // frame, and what outlives a frame — the eruption of every pit — and the
   // bursts are one family read above the loop by `antiphon-fx.ts`, never
@@ -50,6 +50,7 @@ export const INGEST_SILENT_BOSS_B = [
   "antiphonGrow",
   "antiphonPit",
   "antiphonHarden",
+  "antiphonPull",
   "antiphonSink",
   "antiphonSpill",
   "antiphonStill",

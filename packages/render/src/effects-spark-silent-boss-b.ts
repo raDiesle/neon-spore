@@ -62,12 +62,13 @@ export const SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
-  // THE ANTIPHON's ten: what sparks is one family read above the loop by
+  // THE ANTIPHON's eleven: what sparks is one family read above the loop by
   // `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
   "antiphonEnter",
   "antiphonGrow",
   "antiphonPit",
   "antiphonHarden",
+  "antiphonPull",
   "antiphonSink",
   "antiphonSpill",
   "antiphonStill",
