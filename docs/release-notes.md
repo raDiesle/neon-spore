@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 4cac045f — A stop that arrives before the watcher is up still takes the child
+
 ## 2026-09-19 · c59c2b1e — THE SINEW answers its snap-back: both hands carried APART catch the tendon
 
 The boss had a dead state. For the two beats after a snap-back `sinewHeard` refused every press and `sinewWord` said nothing, so the pair waited and the field waited with them — and the shipped pose card for `swinging` read "P1 lets go; P2 lets go, and both take hold again", which is a picture of waiting. Six states, five gestures, and one of them nothing.
