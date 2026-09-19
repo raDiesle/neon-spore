@@ -2303,3 +2303,17 @@ is, with the two mutually exclusive and `scenes.test.ts` holding them apart.
 Then check the films already written for a `col` that rounded somewhere the
 author did not mean: the rounding is silent today, and a cannon act that lands
 one column off is a film that teaches a shot the pair cannot reproduce.
+
+## Unverified at be40d473: the picture of the rock coming out of the bulb's unders…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `.claude/skills/new-boss-state/SKILL.md`, `.claude/skills/new-boss/SKILL.md`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`
+
+2 commits landed, ending in *THE SURGE spits a rock, and the pilot wards it without letting go*, from a session that could not look at it. The commit touched 27 more files. What went unchecked:
+
+- the picture of the rock coming out of the bulb's underside, and THE SURGE watched at tempo with a rock in the air
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

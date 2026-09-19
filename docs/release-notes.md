@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · be40d473 — THE SURGE spits a rock, and the pilot wards it without letting go
+
+The bulb now spits a rock while both thumbs are on it, which is the spec's own unbuilt step 7 (`bosses-choreographed.md` §9). From `surgeRockNotches` open, every `surgeRockBeats` beats with both hands on, one rock falls down the bulb's own columns at the ship. Nothing on the bulb answers a rock: the shield does, and the shield is on the panel while the bulb is out on the field — so the pilot wards with his other thumb, neither hand comes off the glass, and the charge climbs through the whole fall. Held through unwarded, the hull takes a scar.
+
+## 2026-09-19 · 7ca9a340 — Queue: six findings on the mobile experience, and two rules the owner set
+
+The owner asked for what would make the game better on a phone, as queue entries rather than as a report: the field being the whole of the screen and staying that way, and a thumb that is not competing with the phone's own gestures.
+
 ## 2026-09-19 · a583c855 — Fix THE UNDERTOW's stale act-file citation in docs/spec/bosses.md
 
 ## 2026-09-19 · f94bdf6d — Hold a skill's SKILL.md to the same line ceiling as .ts source
