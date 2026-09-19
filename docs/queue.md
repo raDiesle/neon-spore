@@ -88,6 +88,16 @@ at the moment the work reaches `main`. If a handed-out item is never started,
 `bun run queue release <n|title>` gives it back — the line comes off `main` and
 the branch is deleted.
 
+**Say in one sentence what an item is about, at the moment it is claimed.**
+The owner, 19 September 2026: *whenever you take something new from queue, can
+you write one sentence what it is about.* A title is a label and most of them
+are written to be found rather than read — *THE SURGE changes state more than
+once*, *boss-cue-read-c.ts at 245 lines* — so a session draining five in a row
+reports five titles and he cannot tell from any of them what is about to change
+in his game. The sentence goes in the report the moment `take` or `next`
+returns, before the work starts, and it says what the item is in plain words:
+not the entry restated, and not a plan. One line, one item.
+
 **The trunk comes up before each item, not once at the top of the sitting.**
 The owner, 18 September 2026, on a session that drained five in a row: *before
 starting a new task from queue, make sure to be up to date from main.*
@@ -2089,3 +2099,162 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## The field is fullscreen only for the players who installed it
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/public/manifest.webmanifest`, `apps/game/src/shell.ts`, `apps/game/src/install.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-settings.ts`
+- **Where:** local
+
+The owner, 19 September 2026: *the game screen is always the core focus for
+the player to use and 100% fitting.*
+
+The manifest already says `"display": "fullscreen"` and
+`"orientation": "portrait"`, and both are right — **and both apply only to the
+installed shortcut**. A pair who opened a link and never pressed INSTALL, which
+is the pair the join flow is built for, plays inside a browser tab: an address
+bar over the picture, a navigation bar under it, and a stage the renderer has
+to fit into what is left. Nothing in `apps/game/src` ever calls
+`requestFullscreen`, and `grep` finds the word only in two doc comments.
+
+The work is one call, and the whole of its difficulty is **where it is called
+from**: `requestFullscreen` is refused outside a user gesture, so it has to
+hang off a press the pair makes anyway on their way onto the field. There are
+three such presses already — the READY hold in `join-room-step.ts`, the last
+page of the intro, and PLAY on the menu — and the right one is the last press
+before the field, once, per run.
+
+Two things ride along with it and cannot be had any other way:
+`screen.orientation.lock("portrait")` is refused outside fullscreen, and a
+phone turned sideways mid-wave is a field re-laid-out under four thumbs; and a
+fullscreen document is the one state in which the platform's own edge gestures
+stop being the first thing a thumb at the edge does.
+
+It needs a row in the settings menu that turns it off, because fullscreen on a
+desktop browser is not what a person testing wants, and because a player who
+was put in fullscreen without being asked and cannot find the way out will
+close the tab rather than the game.
+
+## Nothing keeps the screen awake, and a long hold looks like an empty room
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/shell.ts`, `apps/game/src/run-state.ts`, `apps/game/src/loop.ts`
+- **Where:** local
+
+`navigator.wakeLock` appears nowhere in the tree. A phone dims and then locks
+on an idle timer that counts *touches*, and this game is played in long holds:
+a thumb resting on THE SURGE's bulb, a hand on a handle, a guard held through a
+volley. A pair three minutes into an act with both thumbs down and no tap for
+forty seconds is exactly the input a phone reads as an abandoned page — and the
+other phone is still in the room, so the dim is a desync the pair has to talk
+their way out of.
+
+`navigator.wakeLock.request("screen")` when a run opens, released when it ends.
+The one thing that is easy to get wrong: **the lock is dropped when the tab is
+hidden and is not given back**, so it has to be re-requested on
+`visibilitychange` — which is the same event the link already watches. Wrap the
+call: it rejects on a battery-saver phone and on every browser that does not
+have it, and a rejection is not a reason for the run not to start.
+
+## The stage is sized from a number the address bar moves
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/viewport.ts`, `apps/game/src/game.css`, `packages/render/src/layout.ts`
+- **Where:** local
+
+`bindViewport` sizes the renderer from `window.innerWidth` and
+`window.innerHeight`, and `computeLayout` divides that height into the play
+area and the control band. On a phone in a tab, `innerHeight` is not one
+number: it grows by the height of the address bar the moment the bar collapses
+and shrinks again when it comes back, and every one of those is a `resize` this
+file answers by re-laying the whole field out.
+
+What that costs is not a redraw. `bandTop` is a share of the height, so the
+band moves; the strips and the lobes move with it; and a thumb already resting
+on a lobe is now resting beside it, mid-wave, without having moved. The pair's
+own report of this is *it sometimes does not react*.
+
+Three parts, and the third is the one that matters:
+
+- Read `visualViewport` where it exists rather than `window.innerHeight` —
+  it is the rectangle actually showing, and it reports the change as it
+  animates rather than after.
+- `100dvh` in `game.css` for the same reason on the CSS side.
+- **Freeze the stage's height for the length of a run.** A field that is
+  measured once when the wave opens and not again until it ends is the whole
+  of the fix; a resize during a run is a thing to survive, not a thing to
+  honour. Outside a run — the menu, the join screen — it should keep
+  answering, because a keyboard opening over the room code is a resize that
+  has to be obeyed.
+
+## The band runs to the screen's edges, where the phone's own gestures start
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/render/src/layout.ts`, `packages/render/src/strip-band.ts`, `apps/game/src/game.css`, `packages/sim/src/config-view.ts`
+- **Where:** local
+
+`computeLayout` puts `bandTop` at `height - bandHeight` and the strips run the
+full width, so the band's outer edge is the window's outer edge on all three
+sides. On a phone those three edges are taken: the bottom strip is under the
+home indicator on an iPhone and under the gesture bar on Android, and the left
+and right edges are where the back swipe starts. The game's own CSS furniture
+already respects `env(safe-area-inset-*)`; the picture the game is played on
+does not, because it is drawn on a canvas that covers the window.
+
+The fix is a gutter the renderer knows about rather than a CSS one: the four
+`env(safe-area-inset-*)` values read once and handed to `computeLayout` as an
+inset, so the band is laid out inside the rectangle the phone actually lets a
+thumb have. `bandSoloPct` then measures the usable height rather than the
+window's.
+
+It is the same complaint as *the phone's back gesture leaves the game instead
+of asking*, from the other end: that entry catches the gesture once it has
+happened, this one keeps the thumb out of the corner where it happens. Both are
+worth having, and fullscreen (above) removes neither.
+
+## A cancelled touch fires the command as if the thumb had been lifted
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/input.ts`, `apps/game/test/touch-glass.test.ts`, `packages/render/src/touch.ts`
+- **Where:** cloud
+
+`input.ts` binds `pointercancel` to the same handler as `pointerup`, and that
+handler calls `touchUp` **with a point** and pushes whatever command comes
+back. So a gesture the browser takes away — a system edge swipe, a palm, an
+incoming call, the compositor deciding the drag was a scroll after all — is
+delivered to the simulation as the gesture the player completed.
+
+The file already argues the other way three lines above, in `releaseAll`:
+*"No point to report, so a half-finished swipe fires nothing — see `touchUp`.
+Losing the window is not a shot the player took."* A cancel is that sentence
+exactly. It should drop the hold, clear the hand and push nothing.
+
+It matters most where the lift *is* the answer rather than the end of one: THE
+SURGE judges a charge on two thumbs leaving the glass, so a cancelled touch
+there is a vent or a burst the pair did not ask for and cannot see the cause
+of. `touch-glass.test.ts` and `fake-dom.ts` already dispatch pointer events at
+the rig, so the case is one test: press, cancel, and the buffer is empty.
+
+## Nothing says how long a thumb waits for the field to answer it
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/input-buffer.ts`, `apps/game/src/loop.ts`, `apps/game/src/perf-page.ts`, `apps/game/src/coalesced.ts`
+- **Where:** local
+
+The owner, 19 September 2026, asking whether a native app would take input
+better: *it sometimes does not react.*
+
+Nothing in the tree can answer that, because nothing measures it. A press
+crosses four gaps before the field moves — the browser's own touch-to-event
+delay, the wait for the next `requestAnimationFrame`, the lockstep's scheduled
+delay in `input-buffer.ts`, and the beat the simulation applies it on — and
+three of the four are ours. Which one the pair is feeling decides whether a
+native shell would fix anything at all, and the honest answer today is that
+nobody knows.
+
+The work is a counter, not a rewrite: stamp each press with the event's own
+`timeStamp` as it enters the buffer, stamp the frame that draws its effect, and
+put the spread on the perf page beside the frame cost — worst of the last
+hundred, not the mean, because the complaint is about the bad ones. Then the
+three entries above can be judged rather than argued about, and so can the
+question that prompted this one.

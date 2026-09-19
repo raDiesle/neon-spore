@@ -51,6 +51,18 @@ a costume on, and a field boss that stops the field is a round.
   kind of action over it, on the seat that can act: `render/src/boss-cue.ts`
   is the reading and a new boss adds its own arm to it. It never says a
   column, a colour or a count — that is the sentence the pair has to say.
+- **A player works it out without being taught, in short words.** The owner,
+  19 September 2026: *I expect they are easy to understand and follow by
+  players. No complex logic which players cannot understand. Also players may
+  be in another language, so easy and short words are crucial* — and, the same
+  day, *better to skip hard to understand mechanics of bosses.* So a boss whose
+  rule takes more than a sentence to state is cut down until it does not, and
+  every word the field says is one a pair with fifty words of English between
+  them can act on: `SHUT`, `LIFT`, `APART`, `BURN`. Rules that follow from it:
+  a cue is one word and never two; a state nobody can name is a state nobody
+  can call for; **a gesture the pair cannot discover by trying it is a gesture
+  that needs cutting, not explaining**. `tools/director/test/boss-states.test.ts`
+  holds the written half of this at 120 characters a card.
 - **A round is never repeated.** Eleven rounds, eleven acts, each thrown away.
 - **Presentation is the hull's reaction, not the frame's.** No split screen,
   no zoom, no camera.
@@ -172,6 +184,13 @@ feedback on a boss says one, with the date, in his words where he gave them.**
 - **Likes** a colour spent when the picture needs one, over a rule kept — the
   clown's nose (`palette.ts`); and slow motion on the dramatic action, if
   both screens start and end it together (`decisions.md` #33).
+- **Said twice more, 19 September 2026:** *in general, when I build mechanics
+  or bosses, I expect they are easy to understand and follow by players. No
+  complex logic which players cannot understand. Also players may be in
+  another language, so easy and short words are crucial*; and *better to skip
+  hard to understand mechanics of bosses*. That is THE TELL's verdict made
+  general, and it is now a rule in §2 rather than a preference here: when a
+  design and its simplicity disagree, the design loses.
 - **Rules he set:** every hull damage fails the whole wave (12 September
   2026, `wave-fail.ts`); a round is never repeated; no health bar; nothing
   written for the pair to read aloud; a look is never changed under him
