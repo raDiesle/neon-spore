@@ -1362,6 +1362,7 @@ what the rest of this file holds.
 ## `ViewState.clearTop` has no caller left that sets it
 
 - **Found:** 2026-09-19, claude/queue-a-rehearsal-that-takes-a-hit-draws-the-lost-scre
+- **Taken:** 2026-09-19, claude/queue-guide-scene-ts-is-three-pieces-at-227-lines-and (claim: claude/queue-viewstate-cleartop-has-no-caller-left-that-sets)
 - **Files:** `packages/render/src/renderer.ts`, `packages/render/src/round-header.ts`, `packages/render/src/siren.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`, `packages/render/src/ship-top-rows.ts`, `packages/render/src/ship-top-chrome.ts`, `packages/render/src/gauge-round.ts`, `packages/render/src/fleet-chart.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/splice-draw.ts`, `packages/render/src/coord-axes.ts`, `packages/render/src/mine.ts`, `packages/render/src/hud.ts`
 - **Where:** cloud
 
