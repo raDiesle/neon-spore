@@ -1469,6 +1469,7 @@ what a phone cannot do is *reach* that strip.
 ## `apps/game` has two files at the ceiling, and both were stepped around
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, main (claim: claude/queue-apps-game-has-two-files-at-the-ceiling-and-both)
 - **Files:** `apps/game/src/main.ts`, `apps/game/src/join.ts`, `apps/game/src/shell.ts`, `apps/game/src/shell-menu.ts`, `apps/game/src/menu-seats.ts`
 
 `main.ts` is 248 lines and `join.ts` 243, so `tools/hooks/after-edit-size.ts`
