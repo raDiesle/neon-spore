@@ -2092,6 +2092,7 @@ what the rest of this file holds.
 ## `docs/spec/bosses.md` names a wave's act file by an old one
 
 - **Found:** 2026-09-19, claude/queue-act-7d-ts-is-eight-under-the-ceiling-and-a-guide
+- **Taken:** 2026-09-19, claude/queue-whether-limits-test-ts-should-count-a-md-skill-f (claim: claude/queue-docs-spec-bosses-md-names-a-waves-act-file-by-an)
 - **Files:** `docs/spec/bosses.md`
 - **Where:** cloud
 
