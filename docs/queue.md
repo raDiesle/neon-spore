@@ -218,6 +218,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The phone's GAME view opens on the strip, and no row in the wave list goes there
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Taken:** 2026-09-19, claude/queue-the-phones-game-view-opens-on-the-strip-and-no-r
 - **Files:** `tools/director/src/rail-open.ts`, `tools/director/src/director-phone.css`, `tools/director/index.html`, `tools/director/test/rail-open.test.ts`, `tools/director/test/phone-map.test.ts`, `tools/director/src/director-field.css`
 
 The owner, 18 September 2026: *"on mobile, navigate from list of waves
