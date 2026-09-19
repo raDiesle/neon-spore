@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · a583c855 — Fix THE UNDERTOW's stale act-file citation in docs/spec/bosses.md
+
 ## 2026-09-19 · f94bdf6d — Hold a skill's SKILL.md to the same line ceiling as .ts source
 
 ## 2026-09-19 · 338f5a26 — Record shift-the-letters as the standing act-seven convention, close one ask
