@@ -652,6 +652,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE THROAT: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-the-throat-the-field-says-the-word-and-the-brief
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
 - **Where:** cloud
 
