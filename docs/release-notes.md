@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 31cab165 — Give THE SCOUT's laden and heavy a hand that survives the flight
+
+THE MAZE, THE GAUGE and THE MIRROR each earn their played states with a hand of their own; THE SCOUT's little ship had none, so `laden` and `heavy` sat on the OWED list with no pose. Lifting the "deliberately stupid" autopilot straight out of `scout-flight.test.ts` typechecked but threw on every run: that autopilot is measured safe on the arena's seven authored columns, and a pose flies it remapped to `POSE_CONFIG.cols` (eleven) — every mote and the hazard's own speed stretch with it, but the ship's fixed top speed and turn rate do not, so the same flight runs long and meets the hazard on a beat the narrow measurement never had to survive.
+
 ## 2026-09-19 · 2c63d846 — Retire the "new-boss has no §6" finding — it already moved
 
 ## 2026-09-19 · 8fd508be — Split THE RIND into act-4b.ts, ten lines ahead of the ceiling
