@@ -158,6 +158,55 @@ queue's own test — *could a fresh session finish this alone and prove it with
 tell the difference between a comment and the thing it describes; that is a
 finding for `docs/queue.md`, not a fix for this file.
 
+## 2026-09-19 — queue-the-reprise — a briefing that sent both seats to a dead control
+
+The twelfth of this family, and the only boss in the game whose fight is **a
+field with nothing on it**. That turns the licence test inside out: everywhere
+else the question is which of the two screens is drawn the thing a word implies,
+and here neither screen is drawn anything at all. The answer is the tear at the
+top of the field — drawn on both seats, with no `showsX` anywhere near it and
+none in `reprise-draw.ts`, `reprise-fx.ts` or `boss-draw.ts`'s call of them — and
+once that line is read, almost every question the lane had answers itself. The
+grep of the boss's own files for `drawCueText` came back genuinely empty, so it
+is a reading page and not a `reprise-word.ts`.
+
+`CARRY` / `MOVE` on the pilot's cannon and `PRESS` / `FIRE` on the tear, hers,
+both gated on `repriseEchoing` and nothing else. What had to be argued is the
+sixth silence: `closeEcho` runs the beat the echo's **last body is sent** rather
+than the beat it lands, so both words go out while bodies nothing drew are still
+falling — and they have to, because a word that stayed up would announce one by
+standing there, which is what `unseen.ts` exists to make impossible and what the
+film's last three pages are the cost of.
+
+**The defect is the whole answering half of the briefing.** Both seats were sent
+to the plate — *trigger the plate on your count*, *move the plate and fire on
+those columns* — and nothing in this wave can be warded: every entry carries a
+colour, so every body is a `slick` or a `bulb`, and `isWardable` is the meteor
+kinds and `volley`. `sim/hull.ts` says it in as many words. Two of the guide's
+six steps were spent on a control that cannot touch this fight, the cannon was
+not in the pilot's half at all, and *fire on those columns* put the choosing of a
+column on the seat that holds neither the strip nor a picture of it. The film had
+known all along: its ten acts are the cannon and the two colours. A second number
+went with it — *the gaps: two beats, then three*, where the first stretch's are
+three and three and the second's are two, four and three.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 60 | the `drawCueText` grep first, empty, which is this family's own finding; then `sim/reprise.ts` and `reprise-state.ts` for what a cursor is and when an echo closes, `render/reprise-draw.ts` and `reprise-fx.ts` line by line for a role gate that is not there, `boss-draw.ts`'s unconditional call of them, `view-role.ts` and `unseen.ts` for what the split actually is, five reading pages for the house's `MOVE`, `FIRE` and `GUARD` precedents, both template commits end to end, and `content/controls.ts`, `sim/kinds.ts` and `sim/hull.ts` against the guide's six sentences — which is where the defect is |
+| writing | 50 | `repriseCues` with its six silences and the argument for the gate, `repriseTearCenter` exported from the drawing so the mark is not spelled twice, six cases in a new `boss-cue-reprise.test.ts`, the guide's three halves measured before they were written, two film captions with the paragraph naming which cue took each verb, `The words` and a rewritten split paragraph in §11.15, two rows and three paragraphs in `briefings.md`, and two queue entries |
+| looking | 0 | nothing new is drawn: the cue's frame and its two lines shipped with the family, and no PNG could be taken from here |
+| friction | 35 | the wave cannot be **played** to the beat its echo closes — a pair pressing nothing loses it to the hull at wave beat 16 and `step` stops advancing there, which is not obvious from anything and cost a probe to find, so two cases set the three fields `closeEcho` writes instead and say why; plus the day's own tax, three lanes on one machine, which is also why the rows below sum to more than the lane's wall clock rather than less |
+| landing | 30 | `check:fast`, `lint` twice with an `imports:sort` between, `index`, the commit and the push |
+
+**The bottleneck was proving the briefing wrong, not licensing the words.** For
+once the cue was cheap — one line in `boss-draw.ts` settles that both seats hold
+the tear, and everything else follows — and the expensive half was reading
+`controls.ts`, `kinds.ts` and `hull.ts` against six sentences of prose to
+establish that the shield cannot touch this wave. Nothing anywhere fails when a
+guide names a control the fight cannot use: `briefing.test.ts` counts characters,
+`scenes.test.ts` checks that a *film* only presses a control the panel carries,
+and the prose between them is checked by nobody.
+
 ## 2026-09-19 — queue-the-antiphon — a third stale entry, and a still nobody was told about
 
 The ninth of this family. Its entry said *it says nothing on the field at all*

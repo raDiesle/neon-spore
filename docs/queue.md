@@ -1058,23 +1058,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE REPRISE: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-reprise-the-field-says-the-word-and-the-brie
-- **Files:** `packages/content/src/waves/act-10.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says nothing on the field at all.
-It has no rehearsal, only the three prose lines.
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE REPRISE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2347,3 +2330,82 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE REPRISE's tear draws the pilot's half of the record on both screens
+
+- **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
+- **Files:** `packages/render/src/reprise-fx.ts`, `packages/render/src/reprise-draw.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/view-role.ts`, `packages/content/src/waves/act-10.ts`
+- **Asks:** Should the tear's two signals be split by seat — the count to one phone and the swallow to the other — or does the pair keep both and the record split stay where this lane put it?
+
+THE REPRISE is designed around a record the pair divides and says out loud:
+*the navigator keeps the columns and the pilot keeps the order and the gaps*
+(`bosses.md` §11.15, and the act's own header). Half of that is already drawn.
+
+`drawReprise` is called from `boss-draw.ts` with no role gate at all, and
+nothing in `reprise-draw.ts` or `reprise-fx.ts` takes a `ViewRole` — this is the
+only boss in the game with a split in its briefing and no `showsX` predicate
+anywhere near its picture. So **both** seats are drawn the tooth row shortening
+and the swallow clenching on every echoed arrival, which is the gap between two
+arrivals, drawn, on the glass of the seat who was supposed to be told it. The
+pilot's authored half is the one thing the picture already gives away.
+
+It is not a leak in the licence-test sense — it is symmetrical, so no word built
+on it hands either seat the other's half, which is what let this lane put two
+words on the field at all (`boss-cue-read-s.ts`). It is a **design** hole: a
+split briefing whose two halves are not both secret is a split that stops making
+the pair talk, and the lane worked around it by moving the pilot's half from the
+gaps to the colours, which are not drawn once the field is dark.
+
+The options the answer picks between:
+
+1. **Leave it.** Both seats see the count and the swallow; the record split is
+   columns against colours, as the guide now reads, and §11.15's *the order and
+   the gaps* is corrected to match. Nothing in `render/` moves. This is what
+   ships today.
+2. **Split the picture.** A `showsRepriseCount` beside the others in
+   `view-role.ts`: the teeth on one seat and the swallow on the other, so each
+   phone holds half of *how many* and *one has just gone* and the pair has to
+   put them together out loud. That is the fight this boss was described as
+   having, and it is four lines of predicate plus two branches in `drawOwed`.
+   It also changes what a word may stand on — `boss-cue-read-s.ts`'s whole
+   licence is that the tear is on both screens — so the cue and its test move
+   with it, and that is why this is an ask rather than a lane.
+
+Either way `bosses.md` §11.15 and `act-10.ts`'s header need the sentence they
+have now to be true.
+
+## THE REPRISE's first stretch is not at the walls its three files say it is
+
+- **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
+- **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/src/scenes/the-reprise.ts`, `docs/spec/bosses.md`
+- **Asks:** Move the three entries to the walls, or correct the three paragraphs that say they are there?
+
+Three files say THE REPRISE opens on **one body at each wall and one in the
+middle** — *the shape THE WELL's wave is built on, and the shortest thing two
+people can agree on out loud*. It does not. The first stretch is authored at
+columns 1, 3 and 5 of the seven a wave is written in, and `mapCol` puts those at
+2, 5 and 8 of the eleven the field has (`content/src/queue.ts`,
+`round(col * (cols - 1) / 6)`). The walls are 0 and 10, and nothing in this wave
+ever stands in either of them.
+
+It matters because the claim is a claim about **sayability**, which is the whole
+reason the figure was chosen: *left wall, middle, right wall* is three words two
+people can get across a voice delay, and *third from the left, middle, third from
+the right* is not. The rehearsal repeats the shape and the same three columns, so
+a pair is taught the harder sentence twice.
+
+The options:
+
+1. **Move the entries** to authored columns 0, 3 and 6 — which map to 0, 5 and 10
+   — in the wave and in its film, and leave the three paragraphs alone. It is a
+   change to wave data, so it is the director's file and the owner's call; the
+   film's five acts move with it and `scene-reprise.test.ts` is re-run rather
+   than re-written, since its receipt is about which bodies were drawn and not
+   about which columns they were in.
+2. **Correct the prose** in all three places to say what the wave does — three
+   evenly spread and none of them at a wall — and lose the argument about
+   sayability, or replace it with one about the shape being symmetrical.
+
+`content/test/guided-entries.test.ts` is where a check for this would go if the
+owner wants the claim held by something: a wave whose prose names a wall and
+whose entries reach no wall is the general form.

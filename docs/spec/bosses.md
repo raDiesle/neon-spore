@@ -2260,12 +2260,19 @@ and the two are one number because the first stretch runs from the wave's own
 start.
 
 **The split is the fight.** Both screens go blank together, so neither seat can
-read the answer off the other's, and what is left to divide is the record: the
-navigator keeps the columns and the pilot keeps the order and the gaps. Neither
-half is a wave on its own — a column with no beat on it is a dome held in the
-wrong second, and a count with no column is a cannon fired at nothing. The
-strip stays silent for an echoed body, and so does the siren: an arrival nobody
-can see announces nothing (`radar-blip.ts`, `comms.ts`).
+read the answer off the other's, and what is left to divide is the record. It is
+divided the way the **panel** already divides the answer, which the guide had
+wrong until 19 September 2026: only `cannon` picks the column a bolt goes up and
+it is player 1's strip, only `fireRed` and `fireCyan` fire and they are player
+2's lobes — so the navigator keeps the columns and the pilot keeps the colours,
+and each of them holds the half the other has to be told
+(`content/src/controls.ts`). Neither half is a wave on its own: a column with no
+colour said over it is a bolt up an empty lane, and a colour with no column is a
+cannon parked in the dark. **The plate is not in this fight at all** — every
+entry carries a colour, so every body is a `slick` or a `bulb`, and `isWardable`
+is the meteor kinds and `volley`. The strip stays silent for an echoed body, and
+so does the siren: an arrival nobody can see announces nothing
+(`radar-blip.ts`, `comms.ts`).
 
 **What is drawn is a tear and a tally, and nothing else.** The field's own top
 edge is torn open at the middle column, lifted and flared at both ends, with
@@ -2294,6 +2301,48 @@ box's row of dots — and each one was a column handed to the pair for nothing.
 The kill is the exception and is drawn whole: it is fed by an event and drawn
 from the outline the body had, so the pair learns it was right by seeing the
 kill and never by seeing the body (`body-hit.ts`).
+
+**The words** (`render/src/boss-cue-read-s.ts`, 19 September 2026, the readings'
+page `s`). Two, and they stand for exactly as long as the tear is open:
+`CARRY` / `MOVE` on the pilot's cannon where it stands, and `PRESS` / `FIRE` on
+the mouth of the tear, the navigator's. The reading said nothing before that —
+this boss builds no cue in its own drawing either, so the absence was real — and
+it is the one fight in the game where that costs the most: **a field with no
+body drawn on it asks for nothing by its own picture**, and the instinct a pair
+brings to an empty screen is to wait until they can see something. One body on
+the hull fails the wave.
+
+**The gate is `repriseEchoing` and nothing else, and that is the whole licence.**
+The tear is drawn on both seats with no `showsX` anywhere near it and is shut to
+a seam while a stretch runs seen, so an echo running is a fact both screens
+already hold in the same picture: a word that appears with it says nothing new,
+and — the half of the test that catches more lanes — its absence says nothing
+either. Nothing here reads `left`, `cursor`, `from` or `held`. `MOVE` is **not**
+suppressed when the cannon is already in the right column, because the column it
+would be under is an unseen body's and a word that went out on it would be that
+body marked by its own absence, which is the one thing `unseen.ts` exists to make
+impossible.
+
+**Six silences.** The column, because the mark for the press stands on the tear,
+which hangs on `midCol` and does not move sideways for anything. The colour,
+because half of what the pair had to remember is which of the two buttons a body
+takes. The count, because the teeth already draw it on both screens and #34's
+*reconsider if* names a count outright. The beat, because the swallow already
+says *one has just gone* and a word that arrived with it would say *now* on the
+beat a body enters rather than the beat it comes into reach. The lance, because
+`HOLD` / `BURN` is the family's word wherever a column holds several and whether
+one does is the answer here. And the sixth, which is the wave: `closeEcho` runs
+on the beat the echo's **last body is sent**, not the beat it lands, so the tear
+shuts and both words go out while bodies nothing drew are still falling — a word
+that stayed up would announce, by standing there, the body nobody said. Proved in
+`render/test/boss-cue-reprise.test.ts`, that last silence with it.
+
+**And the briefing had sent both seats to the plate**, which cannot touch this
+fight: every entry carries a colour, so every body is a `slick` or a `bulb`, and
+`isWardable` is the meteor kinds and `volley` (`sim/hull.ts`: *the shield has
+nothing to say to a slick*). The guide asks for the cannon and the two colours
+now, which is what its own film had been showing all along
+([briefings](briefings.md) §3.4).
 
 **The rehearsal** (`content/src/scenes/the-reprise.ts`) is one stretch and
 its echo: three bodies, one at each wall and one in the middle, fall seen and

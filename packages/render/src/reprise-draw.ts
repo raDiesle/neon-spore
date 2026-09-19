@@ -79,6 +79,27 @@ function tearPoints(px: number, y0: number, w: number, lift: number): Point[] {
   ];
 }
 
+/**
+ * **The middle of the mouth the tear holds open**, for the one word this boss
+ * says to the navigator (`boss-cue-read-s.ts`).
+ *
+ * Exported rather than spelled a second time in the reading, which is
+ * `vane-draw.ts`'s arrangement for `vaneBearingY` and for its reason: a mark
+ * worked out twice is a mark standing where the picture is not. The place is
+ * the *rest* pose deliberately — the middle column, half the mouth's depth
+ * below the field's own top edge — and it does not take `swallow` or `open`,
+ * because a frame that breathed with the tear would be the count's own
+ * movement said a second time, and a cue is a reading of `World` and never of
+ * `Effects`.
+ *
+ * It does not move sideways for anything, which is the whole reason a word may
+ * stand here at all: the tear hangs on `midCol` whichever column the body it
+ * has just sent is falling down.
+ */
+export function repriseTearCenter(l: Layout, cfg: SimConfig): { x: number; y: number } {
+  return { x: tileCX(l, midCol(cfg)), y: l.gridTop + l.tile * DEEP * 0.5 };
+}
+
 export function drawReprise(
   ctx: CanvasRenderingContext2D,
   l: Layout,

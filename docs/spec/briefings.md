@@ -690,6 +690,8 @@ hand still draws.
 | THE TASTER | `PLAYER 1 HOLDS THE NEXT ONE` | `EVERY SHOT FEEDS THE COUNT` | `CARRY` / `MOVE` on the cannon, his alone, while the column he is in has nothing that can be answered |
 | THE CAIRN | `A STILL THUMB MOVES NOTHING` | `NO SHOT REACHES THIS PILE` | `CARRY` / `PULL` on the stack, either seat's — `CARRY` is the kind line, so the page was saying *a thumb carried across the field* in its own words |
 | THE CAIRN | `CARRIED RIGHT · ONE FALLS` | `THE SIDE YOU GO IS ITS LANE` | the same word; the side is the silence it leaves, and the one thing about this fight either of them decides |
+| THE REPRISE | `DARK · THE TEAR COUNTS THEM` | `DARK · SAY THE COLOURS NOW` | `CARRY` / `MOVE` on his cannon from the beat the tear opens — and the count the rest of the page named is drawn on both screens anyway |
+| THE REPRISE | `SAID · SLIDE AND FIRE BLIND` | `RED BECAUSE THEY SAID SO` | `PRESS` / `FIRE` on the tear, hers, for the whole of the echo — and the `SLIDE` was never hers to do, which is the guide's own defect in a caption |
 
 **One other film of the twelve had nothing to take, and that is the useful half
 of the result.** THE DIASTOLE spends its pages on a colour, a count or which
@@ -990,6 +992,49 @@ and on *how soon* being hers alone, and her last step says her plate is **dead**
 this wave — nothing it sends is wardable, and `hull.ts` says in as many words
 that the shield has nothing to say to a slick. It had read *move the plate and
 fire as usual*.
+
+THE REPRISE's guide was rewritten 19 September 2026, when the field learnt to
+say two words over a screen with nothing on it. It had said nothing at all — its
+own drawing calls no `drawCueText` and the reading fell through `cuesOf`'s
+default — and this is the one fight where that costs the most, because a field
+with no body drawn on it asks for nothing by its own picture and the instinct it
+meets is to wait. `CARRY` / `MOVE` on the pilot's cannon and `PRESS` / `FIRE` on
+the tear, hers, both standing for exactly as long as `repriseEchoing` and not one
+beat longer (`boss-cue-read-s.ts`). The gate is the whole licence: the tear is
+drawn on **both** seats with no `showsX` near it and is shut to a seam while a
+stretch runs seen, so the word's arrival and its absence each say a thing both
+screens are already shown. What it must not say is the column — the mark for the
+press stands on the tear, which hangs on `midCol` and does not move sideways for
+anything — nor the colour, nor the count the teeth already draw, nor the beat the
+swallow already twitches on.
+
+**And the defect here is the whole answering half of the briefing.** Both seats
+were sent to the plate: *trigger the plate on your count* and *move the plate and
+fire on those columns*. Nothing in this wave can be warded. Every one of its
+seven entries carries a colour, so every body is a `slick` or a `bulb`
+(`livingKindForColor`), and `isWardable` is the meteor kinds and `volley` —
+`sim/hull.ts` puts it in as many words, *the shield has nothing to say to a
+slick*. Two of the guide's six steps were spent on a control that cannot touch
+this fight, and a pair holding the dome under a remembered column watches the
+body fall through it onto the hull, which fails the whole wave
+(`sim/wave-fail.ts`; `scene-reprise.test.ts` watches it happen at beat 33). The
+cannon, meanwhile — the only strip in the game that picks a column, and player
+1's — was not in his half at all, and *fire on those columns* put the choosing of
+one on the seat that holds neither the strip nor a picture of it (`showsCannon`).
+The halves now follow the panel: she keeps the columns and says them, he keeps
+the colours and says them, and each holds the half the other has to be told. The
+film had known all along — its ten acts are `cannon`, `fireRed` and `fireCyan`
+and it never touches `guard` or `shield` — except on one page, which told the
+navigator to slide.
+
+**A second number went with it.** The pilot's half had read *say the gaps out
+loud: two beats, then three*. The wave's first stretch is authored at beats 0, 3
+and 6, so its gaps are three and three; the second stretch's are two, four and
+three. Neither of the guide's numbers is a gap this wave has, and the film had
+the right one on its own page (`THREE BEATS ON · THE MIDDLE`). The line is gone
+rather than corrected: the tear twitches on every echoed arrival, on both
+screens, so the gaps between arrivals are a thing the picture now draws and the
+half worth keeping for him is the colour.
 
 #### The ghost thumb is derived, never authored
 
