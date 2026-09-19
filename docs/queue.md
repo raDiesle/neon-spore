@@ -2123,41 +2123,6 @@ when that is not the derived one, so the listing and the sweep are both looking 
 the ref the work is on. The check is a test over `takenMark`: a claim made from a
 worktree whose `HEAD` is not `branchFor(item)` names `HEAD`.
 
-## A comment inside a wave entry is deleted by the director's next save
-
-- **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
-- **Taken:** 2026-09-19, claude/queue-a-comment-inside-a-wave-entry-is-deleted-by-the
-- **Files:** `tools/director/src/serialize.ts`, `packages/content/src/waves/act-8.ts`, `.claude/skills/new-wave/SKILL.md`
-
-`serialize.ts` regenerates an act's whole array from the parsed waves and keeps
-only **that file's own header and doc comment** byte for byte. So a comment
-written beside a wave — the reason a guide half says what it says, which is
-exactly what a lane rewriting a briefing wants to leave behind — is gone the next
-time anybody saves from the editor, and the diff that deletes it is a diff nobody
-will read as a deletion.
-
-Nothing says so to a wave author. No entry in the tree has such a comment, so
-there is no example to copy and no absence to notice: `bun run lint`, the
-typecheck and `packages/content`'s own tests all pass, and the only thing that
-speaks up is `tools/director/test/wave-save.test.ts` — a round-trip in a
-different package, about 130 seconds into `check:fast`. This lane wrote an
-eight-line comment above `theCairn`'s `guide` and found out that way.
-
-Two things to do:
-
-1. Say it in `.claude/skills/new-wave`, in one line: a wave's *data* is the
-   director's and carries no comments — the reasoning goes in the file's header,
-   in `docs/spec/briefings.md` or beside the code that reads it.
-2. Make the failure say what it is. `wave-save.test.ts` fails as a text diff of
-   two 97-wave files, which names neither the wave nor the cause; a serializer
-   that is losing a comment can say so, because it can see the comment it is
-   dropping.
-
-The stronger version, if the owner wants it: `serialize.ts` refuses to write when
-the file it is replacing holds a comment inside the array, and names it. A rule
-that is a red check on the lane that broke it is worth more than a line in a
-skill nobody re-reads.
-
 ## Unverified at 8ddc2c93: THE CAIRN's PULL seen on a real frame over a seven-ston…
 
 - **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word

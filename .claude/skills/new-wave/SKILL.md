@@ -32,6 +32,13 @@ field and remapped at runtime; `beat` is the offset from the start of the wave.
 `color`: a fixed colour, or `null` with `kind: "meteor"` for the rock, which
 carries none.
 
+**A wave's data is the director's, and carries no comments of its own**: the
+editor regenerates the whole array from what a `Wave` holds, and a comment
+written beside an entry is gone the next time anybody saves from the page,
+silently. The reasoning behind a wave goes in the file's own header, in
+`docs/spec/briefings.md`, or beside the code that reads whatever the wave is
+demonstrating.
+
 ## 2a. A guide, if and only if the wave introduces something
 
 The wave opens on its number, its name and its sentence — plain text on the

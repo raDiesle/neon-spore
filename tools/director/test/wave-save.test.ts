@@ -3,6 +3,7 @@ import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
+import { droppedComments } from "../src/serialize.js";
 import {
   REAL_FILES,
   readWaves,
@@ -196,7 +197,19 @@ test("a save against unchanged files still writes, and hands back the new token"
   // holds the serializer to that), so the token is unchanged — but it is the
   // *rehashed* one, which is what lets a page save twice without reloading.
   expect(body.token).toBe(await wavesToken(copy));
-  expect(await actTexts(copy)).toEqual(before);
+  const after = await actTexts(copy);
+  // `toEqual` below would fail this on a dropped comment too, as a diff of
+  // two 97-wave files that names neither the wave nor the cause — the exact
+  // failure a lane met writing one beside `theCairn`'s `guide` and had to
+  // find by hand. Asked first and by name, because `serializeWaveArray` can
+  // see the comment it is dropping and this is where that shows.
+  for (const [i, act] of copy.acts.entries()) {
+    const gone = droppedComments(before[i]!, after[i]!, act.exportName);
+    if (gone.length > 0) {
+      throw new Error(`${act.rel} lost a comment this save could not carry: ${gone[0]}`);
+    }
+  }
+  expect(after).toEqual(before);
 });
 
 test("a save into the copy leaves the checked-in files untouched, to the mtime", async () => {

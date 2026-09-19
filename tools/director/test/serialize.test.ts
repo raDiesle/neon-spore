@@ -2,7 +2,7 @@ import { expect, test } from "bun:test";
 import { WAVES_ACT_1 } from "../../../packages/content/src/waves/act-1.js";
 import { WAVES_ACT_2 } from "../../../packages/content/src/waves/act-2.js";
 import { WAVES_ACT_3 } from "../../../packages/content/src/waves/act-3.js";
-import { serializeWaveArray } from "../src/serialize.js";
+import { droppedComments, serializeWaveArray } from "../src/serialize.js";
 
 const ACTS = [
   {
@@ -164,4 +164,47 @@ test("every wave the real acts hold is written back with its id", async () => {
       expect(written, `${wave.name} was written without its id`).toContain(`id: "${wave.id}"`);
     }
   }
+});
+
+/**
+ * `droppedComments` is what turns the round trip's own failure from an
+ * unreadable diff of two 97-wave files into the sentence `wave-save.test.ts`
+ * throws before it: the comment, named, rather than every byte around it.
+ */
+const HEADER = "// a header comment, preserved byte for byte\nexport const WAVES_ACT_1: Wave[] = [";
+
+test("droppedComments names a line comment the array lost", () => {
+  const before = `${HEADER}\n  {\n    id: "a",\n  },\n  // a reason worth keeping\n  {\n    id: "b",\n  },\n];\n`;
+  const after = `${HEADER}\n  {\n    id: "a",\n  },\n  {\n    id: "b",\n  },\n];\n`;
+  expect(droppedComments(before, after, "WAVES_ACT_1")).toEqual(["// a reason worth keeping"]);
+});
+
+test("droppedComments names a block comment the array lost", () => {
+  const before = `${HEADER}\n  /* why theCairn's guide says what it says */\n  {\n    id: "a",\n  },\n];\n`;
+  const after = `${HEADER}\n  {\n    id: "a",\n  },\n];\n`;
+  expect(droppedComments(before, after, "WAVES_ACT_1")).toEqual([
+    "/* why theCairn's guide says what it says */",
+  ]);
+});
+
+test("droppedComments says nothing when the comment survived the save", () => {
+  const source = `${HEADER}\n  // still here\n  {\n    id: "a",\n  },\n];\n`;
+  expect(droppedComments(source, source, "WAVES_ACT_1")).toEqual([]);
+});
+
+test("droppedComments is not fooled by // inside a wave's own string", () => {
+  // The same string, unabridged — a real save never drops field text, only a
+  // comment. This is here so the scan that finds a real dropped comment does
+  // not also fire on a URL an author typed.
+  const before = `${HEADER}\n  {\n    id: "a",\n    sentence: "see http://example.com for the rest",\n  },\n];\n`;
+  expect(droppedComments(before, before, "WAVES_ACT_1")).toEqual([]);
+});
+
+test("droppedComments ignores a comment outside the array's own marker", () => {
+  // The header above the marker is preserved byte for byte by
+  // `serializeWaveArray` itself and never reaches this function's region — a
+  // comment lost there would be a different bug, in a different place.
+  const before = `// a header comment\nexport const WAVES_ACT_1: Wave[] = [\n  {\n    id: "a",\n  },\n];\n`;
+  const after = `export const WAVES_ACT_1: Wave[] = [\n  {\n    id: "a",\n  },\n];\n`;
+  expect(droppedComments(before, after, "WAVES_ACT_1")).toEqual([]);
 });

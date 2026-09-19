@@ -11301,3 +11301,32 @@ directly was the same claim as `bun run check` actually refusing, and running
 the real binary to settle it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-comment-inside-a-wave-entry-is-deleted-by-the — the serializer can see what it drops
+
+`serializeWaveArray` regenerates a wave array from parsed `Wave` data alone,
+so a comment written beside an entry — the reason a guide half says what it
+says — vanishes on the next save with nothing at the point of loss to say
+so, and `wave-save.test.ts` caught it only as an unreadable diff of two
+97-wave files. Added `droppedComments(before, after, exportName)` to
+`serialize.ts`, which scans each side's own array region for comments (a
+small tokenizer that skips string and template bodies, so a URL typed into a
+wave's own text is never mistaken for one) and named the one this round trip
+was about to lose before the generic `toEqual`. Also said, in one line in
+`.claude/skills/new-wave`, that a wave's data carries no comments of its own.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `serialize.ts`'s marker logic, `source-scan.ts`'s `stripNonCode` for the pattern to reuse, and `wave-save.test.ts` for where the round trip that would meet this lives |
+| writing | 25 | `commentSpans`, `droppedComments`, the test wiring in `wave-save.test.ts`, six unit tests in `serialize.test.ts`, and the skill line |
+| looking | 0 | none needed |
+| friction | 0 | none — the marker logic already existed to copy |
+| landing | 20 | a manual proof: inserted an eight-line comment above `theCairn`'s guide in the real `act-8.ts`, watched the new message name it exactly, reverted, then `format`, `lint`, drift tests and the full `check` |
+
+**The bottleneck was proving it against the real file, not writing the
+scanner.** A unit test with a fabricated source proves the function; it does
+not prove the message actually fires where the entry says it should, which is
+why this lane wrote the eight-line comment into `act-8.ts` itself, ran the
+suite, read the failure, and only then reverted it.
+
+*Measured: the rows above are the session's own estimate.*

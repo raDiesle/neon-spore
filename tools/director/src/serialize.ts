@@ -178,6 +178,51 @@ export function countWaveArray(source: string, exportName: string): number {
   return (source.slice(idx).match(/^ {2}\{$/gm) ?? []).length;
 }
 
+/**
+ * Every comment in `source`, from `//` or `/* *\/`, in the order it appears —
+ * a string or template literal's own body is skipped rather than scanned, so
+ * a hint that happens to contain `//` is never read as one. The same three
+ * literal patterns `stripNonCode` blanks out (`source-scan.ts`), kept apart
+ * here because that file cannot import from `tools/` and this one is small
+ * enough not to ask it to.
+ */
+function commentSpans(source: string): string[] {
+  const tokens =
+    /`(?:[^`\\]|\\.)*`|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\/\*[\s\S]*?\*\/|(?:^|[^:])\/\/[^\n]*/gm;
+  const found: string[] = [];
+  for (const [text] of source.matchAll(tokens)) {
+    if (text.startsWith("/*")) {
+      found.push(text.trim());
+      continue;
+    }
+    const slash = text.indexOf("//");
+    if (slash !== -1) found.push(text.slice(slash).trim());
+  }
+  return found;
+}
+
+/**
+ * The comments `serializeWaveArray` is about to drop — every one written
+ * inside `exportName`'s own array in `before` that `after` does not carry,
+ * in the order they were written.
+ *
+ * `serializeWave` writes exactly the fields `Wave` carries and nothing
+ * beside them, so a comment beside an entry — the reason a guide half says
+ * what it says — is gone the moment anybody saves from the editor, with
+ * nothing at the point of loss to say so. This is that something: called
+ * from the one round trip that would otherwise show it as an unreadable
+ * diff of two 97-wave files (`wave-save.test.ts`).
+ */
+export function droppedComments(before: string, after: string, exportName: string): string[] {
+  const marker = `export const ${exportName}: Wave[] = [`;
+  const at = (source: string) => {
+    const idx = source.indexOf(marker);
+    return idx === -1 ? "" : source.slice(idx);
+  };
+  const gone = commentSpans(at(after));
+  return commentSpans(at(before)).filter((comment) => !gone.includes(comment));
+}
+
 export function serializeWaveArray(source: string, waves: Wave[], exportName: string): string {
   const marker = `export const ${exportName}: Wave[] = [`;
   const idx = source.indexOf(marker);
