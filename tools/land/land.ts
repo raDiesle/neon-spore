@@ -156,7 +156,7 @@ export function plan(state: LandState): Plan {
     const many = state.trunkStale === 1 ? "commit" : "commits";
     return {
       go: false,
-      why: `origin/${state.trunk} has ${state.trunkStale} ${many} ${state.trunk} has not — bring the trunk up first, or the check is a result about a history nobody else will have`,
+      why: `origin/${state.trunk} has ${state.trunkStale} ${many} ${state.trunk} has not — run bun run reconcile first, or the check is a result about a history nobody else will have`,
     };
   }
   if (state.trunkStaged.includes("docs/release-notes.md")) {

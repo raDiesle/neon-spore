@@ -12385,3 +12385,33 @@ finding it was known required tracing every caller of `shipTopFoot` and
 `clearTop`.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-nothing-but-bun-run-push-can-reconcile-the-trunk — giving the refusal a command to name
+
+`land`'s stale-trunk refusal used to leave a session to a hand rebase and the
+same four-file conflict `push.ts` already resolves for itself by calling
+`reconcile(root, TRUNK)`. `reconcile-run.ts` is that same call with no push
+step, wired to `bun run reconcile`, and the refusal now names it instead of
+describing the rule. Confirming the CLAUDE.md paragraph could actually be cut
+meant reading `record-merge.ts` and `docs/git-and-landing.md` to be sure
+`docs/queue.md`, `docs/INDEX.md`, `docs/time-log.md` and
+`docs/release-notes.md` really are all auto-merged now, by both `land` and
+`reconcile`, before removing the hand-resolution instruction rather than just
+trusting the entry's own claim. The trimmed paragraph then pushed
+`CLAUDE.md` two rounds over its own 16000-character ceiling, caught by
+`tools/test/claude-md.test.ts` — fixed by cutting the new sentence down
+twice, ending shorter than the paragraph it replaced.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the entry, `push.ts`/`reconcile.ts`/`land.ts`, `docs/git-and-landing.md`, `record-merge.ts`, `replay.ts`, confirming all four record files are auto-merged in both paths |
+| writing | 20 | `reconcile-run.ts`, the `land.ts` refusal wording, `package.json`, `docs/commands.md`'s new line, the trimmed `CLAUDE.md` paragraph |
+| looking | 0 | none |
+| friction | 15 | the trimmed paragraph still landed `CLAUDE.md` over its 16000-char ceiling twice in a row; cut twice more to clear it |
+| landing | 20 | `bunx tsc --noEmit`, `bun run index` (one new row), two full `bun run check` passes (18,576 tests), `format`, `bun run queue done`, the commit |
+
+**The bottleneck was the character ceiling, not the code** — the tooling
+change was small and already proven by `push.ts`'s own use of it; getting the
+one CLAUDE.md paragraph back under budget took three rewrites.
+
+*Measured: the rows above are the session's own estimate.*

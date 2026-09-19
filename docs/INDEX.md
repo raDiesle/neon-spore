@@ -2122,6 +2122,7 @@ place — the generator keeps whatever is there.
 | `tools/land/remote-branch.ts` | The lane's branch on `origin`, after the landing has taken it locally |
 | `tools/land/red-check.ts` | What a landing says when `bun run check` comes back red |
 | `tools/land/reconcile.ts` | **The other rebase: the trunk against `origin/main`.** `land`'s replay covers a lane landing onto the trunk |
+| `tools/land/reconcile-run.ts` | `bun run reconcile` — bring the local trunk up to `origin/main` by itself |
 | `tools/land/record-merge.ts` | Merging a **record**: a file of `##` entries that one tool appends to and nobody ever edits |
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |

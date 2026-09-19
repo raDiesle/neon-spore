@@ -69,6 +69,7 @@ bun run land --keep    # the same without the sweep or the push
 bun run land --unverified "<what>"   # queue what this landing could not look at
 bun run sweep          # the cleanup a --keep landing deferred, on its own
 bun run push           # send main to origin — reconciles the trunk first if origin moved
+bun run reconcile      # bring main up to origin's copy by itself, without sending anything back
 bun run queue          # technical work waiting, who is already on what, and which entries are stale
 bun run queue status   # DONE, IDLE or BUSY — is anything still being worked on
 bun run queue next     # hand out the first free item: branch + Taken: on main

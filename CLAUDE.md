@@ -60,9 +60,8 @@ purpose, and the sort's diff is read before it is committed (`docs/commands.md`)
   whenever he wants one. `NO_LANE_PROMPT=1` turns the hook off.
 - **Resolving a conflict is not finished until `bunx tsc --noEmit` passes**,
   before `git rebase --continue`. Never concatenate both sides of a file with
-  syntax; resolve a generated file by running its command; for `docs/queue.md`
-  and `docs/release-notes.md` take `origin`'s copy whole and re-append only your
-  own entry.
+  syntax; resolve a generated file by running its command. `land`/`reconcile`
+  merge the records now — only real disagreement is yours.
 - **A defect found after landing is new work on a new branch from `main`.**
 - **Commit when the work is done, without being asked**, when all four hold:
   `bun run check:fast` is green; the work is finished; only the files this task
