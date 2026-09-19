@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · a5f99af6 — THE CANDLE: the flame gets a wick to be pulled off
+
+Half two of the lane, the look. Half one gave the last step two gestures and nothing on the screen to take hold of; this draws them. A stem hangs candlePinchMilli down the column the glow is over, so the flame travels the thumb's own distance and no further, and a ring closes round it as it comes down. At smoking the flame is gone and an ember is left at the stem's bottom tip with six plume segments fading above it: the ember is the clock, cooling through four fixed reaches and flickering 3 Hz to 11 Hz as candleSmokeBeats runs out, so player 2 can see how long she has without a number.
+
 ## 2026-09-19 · 28122551 — THE TASTER says a word per column, and the guide had the crest backwards
 
 Every shot into this fan is read off the column it leaves in, and the crest has three of them: a standing blade, struck off by the colour it did not grow toward; the soft crest where one used to be, which takes either colour; and a blade still growing, where the shot is simply spent. The field said SHEAR and BURN and nothing about the lane either is spent in — THE GORGE's and THE CURTAIN's finding of this morning, a third time. The soft crest had no word at all, and four shots into it are the only thing that stops the fan re-edging, which is the answer to the third movement. It is CUT now, the simulation's own word, and MOVE is on the pilot's cannon while the column he is in has nothing that can be answered.
