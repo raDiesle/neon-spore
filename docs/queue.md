@@ -1211,30 +1211,6 @@ need to be good — a pose runs until the state arrives and throws if it does
 not — but it does need to avoid the meteors and its own tail, which is the
 round. Whoever writes it takes both names off `OWED` in the same commit.
 
-## THE SCOUT's laden and heavy have no card, because no hand flies the little ship
-
-- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
-- **Taken:** 2026-09-19, main (claim: claude/queue-the-scouts-laden-and-heavy-have-no-card-because)
-- **Files:** `tools/director/test/boss-states.test.ts`, `tools/director/src/poses-bosses-rounds-b.ts`, `tools/director/src/boss-hands-rounds.ts`, `packages/content/test/scout-flight.test.ts`
-
-The §6.2 sim lane gave THE SCOUT a second axis of state — what the motes
-aboard have made of the little ship (`scoutLoad`) — and `BOSS_PHASES` now names
-all three. Only `light` has a pose: an arena opens with the ship carrying
-nothing.
-
-`laden` is four motes aboard and `heavy` five, and the gallery has no hand that
-flies the ship to a mote at all. Both are on `OWED` with that reason, which is
-an allowance and not an answer, and it is the same allowance SNAKE's two took
-the same day.
-
-**The autopilot already exists**, which is what makes this cheap: the rig in
-`packages/content/test/scout-flight.test.ts` points the nose, burns and coasts
-and banks all four motes of the first arena in twelve beats. It is a test
-helper rather than a `Hand`, so it cannot be spread into the gallery as it
-stands — the work is lifting it beside `gaugeHand` and `mazeHand` and giving it
-the world's own tick instead of its own loop. Whoever does takes both names off
-`OWED`, and SNAKE's sibling entry above is the same job on a different round.
-
 ## Unverified at 1028a5b4: THE BATON's swelling socket and its two handle rings, n…
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn

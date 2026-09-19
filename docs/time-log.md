@@ -12555,3 +12555,44 @@ heading gap** — `## 5.` to `## 7.` looks like drift from a `grep '^## '`,
 and the file's own last three lines say otherwise.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-scouts-laden-and-heavy-have-no-card-because — a field wider than the flight was measured on
+
+The entry wanted a hand for THE SCOUT's `laden` and `heavy`, the way
+`mazeHand`/`gaugeHand`/`mirrorHand` already earn their own. Lifting
+`scout-flight.test.ts`'s own "deliberately stupid" autopilot straight across
+— point at the first uncarried mote, burn while aimed and under half speed,
+coast otherwise — typechecked and read right, and still threw `the world
+never reached THE SCOUT laden` every run. The autopilot's own test times it
+at twelve beats to clear the first arena and never gets caught; a scratch
+script driving the same function against `bossPose`'s own `bossWorld("scout")`
+got caught by the hazard at tick 712, having carried two motes of the four.
+The difference is the field: `scout-flight.test.ts` flies the arena's raw
+seven authored columns, and a pose flies it remapped to `POSE_CONFIG.cols`
+(eleven) — `queue-boss.ts`'s own `mapColMilli`, which stretches every mote and
+the hazard's position and speed together so the hazard's own crossing keeps
+its timing in beats. What does not stretch is the ship's: `scoutMaxSpeedMilli`
+and `scoutTurnMilliDeg` are absolute thousandths of a tile, so the same flight
+takes longer against motes now a third further apart, and arrives at the
+hazard's row on a beat the seven-column measurement never has to survive. A
+parameter sweep against the real `bossWorld` (not the raw test field) found a
+hold-off — don't burn while a hazard sits within 3,000 milli of the ship's row
+and 3,500 of its column — that reaches `laden` at tick 1,223 and `heavy` at
+tick 1,969, both inside the pose's default sixty-beat budget, without ever
+being caught. `boss-hands-rounds.ts` grew to exactly 250 lines landing it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `scout-hand.ts`, `scout.ts`, `scout-arena.ts`, `scout-fly.ts`, `scout-arenas.ts`, `queue-boss.ts`'s remap, `pose-kit.ts`'s `POSE_CONFIG` |
+| writing | 20 | `scoutHand`/`scoutTarget`/`scoutBearing`/`turnToward`, the two `bossPose` entries, the `OWED` removal |
+| looking | 0 | none — a scratch script's own printed trace, not a frame |
+| friction | 35 | the first run threw `the world never reached THE SCOUT laden`; a scratch script driving the real `bossWorld` traced it to the hazard catching the ship at tick 712, then a parameter sweep over hold-off bands against that same world found one that survives both states inside budget |
+| landing | 10 | `bunx tsc --noEmit`, `bun test tools/director/test/boss-states.test.ts tools/director/test/poses.test.ts` (241 pass), `format`, `bun run queue done`, the commit |
+
+**The bottleneck was the gap between where the autopilot was measured safe
+and where the pose actually flies it** — the test file's own twelve-beat,
+never-caught figure is true only on the seven columns it was timed on, and
+the eleven the pose remaps to is a different flight the ship's fixed speed
+does not keep pace with.
+
+*Measured: the rows above are the session's own estimate.*

@@ -36,10 +36,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // it. Both want an autopilot that can drive the body onto a point with the
   // mouth open, which is a lane of its own (`docs/queue.md`, the SNAKE item).
   snake: ["gorge", "shed"],
-  // THE SCOUT's second and third loads, the same week and the same shape.
-  // `laden` is four motes aboard and `heavy` five, and no hand flies the
-  // little ship to a mote at all (`docs/queue.md`, the SCOUT item).
-  scout: ["laden", "heavy"],
 };
 
 describe("the BOSSES category", () => {

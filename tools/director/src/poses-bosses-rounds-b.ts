@@ -1,5 +1,5 @@
 import { pulseHeart, scoutLoad } from "@neon-spore/sim";
-import { pinballHand } from "./boss-hands-rounds.js";
+import { pinballHand, scoutHand } from "./boss-hands-rounds.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -162,6 +162,30 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
       ...FULL,
       want: (w) =>
         w.boss?.kind === "scout" && w.boss.phase === "play" && scoutLoad(w.cfg, w.boss) === "light",
+      hold: 12,
+    },
+  ),
+  bossPose(
+    "scout",
+    "laden",
+    "Four motes aboard, one to go. P1 flies the last one onto the ship; P2 keeps the mouth open.",
+    {
+      ...FULL,
+      hand: scoutHand,
+      want: (w) =>
+        w.boss?.kind === "scout" && w.boss.phase === "play" && scoutLoad(w.cfg, w.boss) === "laden",
+      hold: 12,
+    },
+  ),
+  bossPose(
+    "scout",
+    "heavy",
+    "Every mote aboard and the run over the moment they land. P1 flies for home; P2 keeps the mouth open.",
+    {
+      ...FULL,
+      hand: scoutHand,
+      want: (w) =>
+        w.boss?.kind === "scout" && w.boss.phase === "play" && scoutLoad(w.cfg, w.boss) === "heavy",
       hold: 12,
     },
   ),
