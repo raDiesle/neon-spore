@@ -1970,3 +1970,65 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE SLOW is felt in the hand and never seen: THE INSTAR wants candidates for it
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/sim/src/slow.ts`, `packages/sim/src/instar-step.ts`, `packages/sim/src/instar-marks.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/instar-fx.ts`, `packages/render/src/frame-field.ts`, `apps/game/src/tick-rate.ts`, `tools/versus/candidates/registry.ts`, `docs/versus.md`
+- **Where:** local
+
+The owner, 19 September 2026: *"Give me several versus alternatives for boss
+waves which have slow motion when players need to do gesture actions on screen,
+so it looks like players are under pressure to defend the next boss attack. Do
+for THE INSTAR."*
+
+**A slow window changes the wall clock and nothing else.** `openSlow` writes
+two beats into `World` and `apps/game/src/tick-rate.ts` reads `slowFrac` to
+stretch `tickMs`; `apps/game/src/frame.ts` turns interpolation on so the
+stretched beat does not stutter. Nothing in `packages/render` asks `slowing`
+at all — grep it and every hit is the English word in a comment. So the one
+moment in this game that exists purely to be *felt* is the one moment the
+picture says nothing about, and a pair who has not noticed the frame rate
+change does not know the window is open or when it shuts.
+
+**THE INSTAR is the right boss to answer it on** because it opens the window
+twice for two different reasons, and both are gesture moments: `instar-step.ts`
+opens `instarSlowBeats` as a step lands, and `instar-marks.ts` opens the same
+span when a mark is taken. Its own marks are the gesture under pressure, so a
+treatment that reads on THE INSTAR is a treatment that has been tested against
+the case it is for.
+
+**Several candidates, and the work is to build the seam and then fill it.**
+A candidate is `fields` on a record the draw path already reads
+(`tools/versus/variant.ts`), and there is no record for this today — so the
+first half is one exported record for the slow treatment, read once per frame
+from the field draw, with the shipped look as its default values. The second
+half is the alternatives, and the ones worth drawing are named here so the lane
+does not have to invent the list:
+
+- **A frame that closes.** A border inside the field edge that thickens as the
+  window runs out, so the beats left are a width rather than a number. The
+  countdown is the pressure, and it costs no room in the middle of the field.
+- **The field desaturates and the gesture does not.** Everything but the marks
+  and the hand drops toward grey for the window, so the thing to touch is the
+  only coloured thing on the screen. The risk is that it reads as *paused*
+  rather than as *hurry*, which is the opposite of the ask.
+- **The beat gutters.** The beat marker that is already on screen stretches
+  visibly — the same pulse, drawn over a longer span — so what the pair sees is
+  the clock itself running thick. Nothing new is drawn at all, which makes it
+  the cheapest and possibly the weakest.
+- **The attack is what slows.** The boss's next blow is drawn already begun and
+  creeping: a limb part-way through its swing, held. This is the ask read
+  literally — *under pressure to defend the next attack* — and it is the only
+  one of the four that says what the pressure is *about*, so it is the one to
+  draw first if only one gets drawn.
+
+Two rules hold whichever wins. **Nothing here may touch the simulation**: the
+window's boundaries are in `hashWorld` and both phones already agree about
+them, so every candidate is render-side and reads `slowing`/`slowFrac` only.
+And **nothing may be added that outlives a frame** without going in `Effects`
+and being cleared in `Effects.reset()` — a window that ended is a window with
+nothing left on screen (`render/test/restart.test.ts`).
+
+It is local because choosing between four of these is looking at four of these,
+at tempo, which is the whole reason `tools/versus` exists.
