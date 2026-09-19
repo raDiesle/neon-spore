@@ -2057,3 +2057,43 @@ file's own closing lines onto it. `docs/time-log.md` and `docs/release-notes.md`
 are records of what was written on the day and are not swept. `bun run check`
 proves the sweep: `tools/test/doc-drift.test.ts` holds the documents, and the
 comments are a typecheck away from nothing.
+
+## Unverified at dad6b24d: the PNG of the held stalk, with its ring and its d…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-lead.ts`, `packages/audio/src/sounds/boss-lead.ts`
+
+*THE LEAD's still is a handle, and her thumb buys the beam its fill* landed from a session that could not look at it. The commit touched 32 more files. What went unchecked:
+
+- the PNG of the held stalk, with its ring and its dial closing over the organ
+- THE LEAD's still watched at tempo with a thumb on it: four beats become up to leadHoldBeats, and the beat she lets go is the beat it passes
+- the stalk's lean through the still, which `leadAskedAngle` had pinned upright and now reads
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
+
+## A landing that forgot `--unverified` has no way to write the entry afterwards
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `tools/land/unverified.ts`, `tools/land/note-commit.ts`, `docs/cloud-session.md`, `docs/queue.md`
+- **Where:** cloud
+
+`--unverified` is parsed off the landing's own argv (`parseUnverified`) and the
+entry is written by the commit that moves the trunk (`note-commit.ts`). There is
+no second door. A lane that lands and *then* realises it never looked at the
+picture cannot run the flag again: from `main` the landing refuses because a
+trunk is landed on rather than landing, and from the spent branch it refuses
+because the branch carries nothing `main` has not got. This lane hit both
+refusals in one turn and wrote the entry by hand in `renderUnverified`'s shape
+instead — a paragraph of formatting duplicated in a document, which is exactly
+the drift `filesLine`'s path-only rule was hardened against after a trailing
+", and N more" broke `splitFiles` and marked every truncated entry stale.
+
+Give it the second door: a script that takes an already-landed sha and the same
+repeatable `--unverified` strings, reads the commit's files and subjects out of
+git the way `note-commit.ts` does, and calls `renderUnverified` and
+`appendEntry` — so the entry that gets written is the tool's, not a lane's
+recollection of its shape. A line in the commands document, and the cloud
+session's rule gains a sentence saying the flag has an afterwards.
