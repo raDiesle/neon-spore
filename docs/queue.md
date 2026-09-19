@@ -2101,24 +2101,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## `sound-link-none-b.ts` is at 245 lines, and THE GAUGE's four just filled it
-
-- **Found:** 2026-09-19, claude/queue-the-gauge-sound
-- **Taken:** 2026-09-19, main (claim: claude/queue-sound-link-none-b-ts-is-at-245-lines-and-the-gau)
-- **Files:** `tools/director/src/sound-link-none-b.ts`, `tools/director/src/sound-link-none.ts`
-
-Giving THE GAUGE its first four events (`docs/queue.md`'s own *THE GAUGE is
-the only boss with no events and no sound*, this commit) cost this page its
-last comfortable margin: THE THROAT's six were already on it, and THE GAUGE's
-four brought it to 245 of 250. The next round or boss whose added events have
-nothing to draw — and every one so far has needed a written reason here,
-never a picture — has nowhere left on this page, and `sound-link-none.ts`
-itself says its own page is full and hands its *last* boss across rather than
-splitting mid-page.
-
-Cut it the way that page's own comment says the seam moves: the next lane
-whose rows would put this file over 250 hands its own last boss's rows to a
-new `sound-link-none-c.ts`, spread into `NO_SUBJECT` next to `NO_SUBJECT_B`
-the way that one is spread into `NO_SUBJECT` today — never the rows the lane
-itself is adding, and never a fight to squeeze a paragraph shorter instead.

@@ -12059,3 +12059,27 @@ correctly, and the wrong fix here would have been rewriting the ones that
 didn't need it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-sound-link-none-b-ts-is-at-245-lines-and-the-gau — nothing over yet
+
+The entry was a heads-up left by the lane that gave THE GAUGE its first four
+sound events, not a call for this lane to act: `sound-link-none-b.ts` sits at
+245 of the 250-line ceiling, five lines of margin, and its own comment (and
+this entry's) already say who does the cut — "the next lane whose rows would
+put this file over 250," never the one that only noticed the margin was
+getting thin. `packages/sim/test/limits.test.ts` confirms both
+`sound-link-none.ts` files pass today. Closed with no code change; the rule
+for whoever does put it over is written on the page already.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, both `sound-link-none*.ts` files' headers, `limits.test.ts` for the actual ceiling |
+| writing | 5 | this entry |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 0 | no source touched; `docs/queue.md`'s own removal is this commit |
+
+**No bottleneck** — reading the entry against the file it named was enough to
+see there was nothing sized left to do.
+
+*Measured: the rows above are the session's own estimate.*
