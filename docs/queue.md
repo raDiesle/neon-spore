@@ -2101,20 +2101,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at 5619d0ed: the reach and the shot on a real frame — a cloud sessio…
-
-- **Found:** 2026-09-19, hive-relanding
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/release-notes.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/waves/act-7f.ts`, `packages/render/src/boss-cue-read-v.ts`
-
-2 commits landed, ending in *Release notes for one landing*, from a session that could not look at it. The commit touched 2 more files. What went unchecked:
-
-- the reach and the shot on a real frame — a cloud session has no screen
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## `sound-link-none-b.ts` is at 245 lines, and THE GAUGE's four just filled it
 
 - **Found:** 2026-09-19, claude/queue-the-gauge-sound
