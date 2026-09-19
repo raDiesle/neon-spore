@@ -1952,6 +1952,7 @@ its own words expect the pilot's blind page to be about, decides which.
 ## `.claude/skills/new-boss` has no §6, and thirty-six files cite §6.2
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, main (claim: claude/queue-claude-skills-new-boss-has-no-6-and-thirty-six-f)
 - **Files:** `.claude/skills/new-boss/SKILL.md`, `packages/sim/src/drag-targets.ts`, `packages/audio/src/bind-choreographed-b.ts`, `docs/spec/bosses.md`, `docs/spec/interludes.md`, `docs/queue.md`
 - **Where:** cloud
 
