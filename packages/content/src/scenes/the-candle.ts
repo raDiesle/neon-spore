@@ -14,8 +14,10 @@ import type { GuideScene } from "../scene-types.js";
  * (`showsCandleFace`); a shot fired from that column, swallowed at the
  * muzzle and put back on the glow (`candleFed`), which is the one mistake
  * the fight has and the page that says what it costs; the cannon slid back
- * under the glow and two clean dims, the last of which stops it; and
- * the beam held on its column, the one light it cannot eat, putting it out
+ * under the glow and two clean dims, the last of which stops it; then
+ * the pilot's thumb pulling the flame down off the wick, which is the one
+ * thing the last step answers to; and the beam held on its column into the
+ * smoke, the one light it cannot eat, putting it out
  * — two black beats, then the field lit again.
  *
  * Where the glow drifts and turns is the seeded rng's and not an author's,
@@ -55,6 +57,7 @@ export const THE_CANDLE: GuideScene = {
     { tick: 1590, control: "fireCyan" },
     { tick: 1725, control: "cannon", col: 3, atBoss: true },
     { tick: 1770, control: "fireRed" },
+    { tick: 1830, drag: "candleWick", by: 1890, until: 1920 },
     { tick: 1945, control: "cannon", col: 3, atBoss: true },
     { tick: 1950, control: "fireCyan", until: 2200 },
   ],
@@ -131,11 +134,14 @@ export const THE_CANDLE: GuideScene = {
       text: "ONE MORE · IT STOPS",
       anchor: { at: "control", control: "fireRed" },
     },
+    // One page for the two gestures the last step is, and it is player 1's:
+    // the flame is a handle on his picture and the beam is a word he says to
+    // her, which is this fight's own sentence and not a second page.
     {
       tick: 1860,
-      seat: 2,
-      text: "THE BEAM PUTS IT OUT",
-      anchor: { at: "control", control: "fireCyan" },
+      seat: 1,
+      text: "PULL IT DOWN · THEN BURN",
+      anchor: { at: "handle", target: "candleWick" },
     },
     { tick: 2130, seat: 1, text: "TWO BLACK BEATS · THEN LIGHT", anchor: { at: "hull" } },
   ],

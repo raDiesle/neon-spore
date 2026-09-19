@@ -201,6 +201,8 @@ const SAMPLES: Record<string, SimEvent> = {
   candleTurn: { type: "candleTurn", col: 1 },
   candleFed: { type: "candleFed", col: 1, left: 3 },
   candleLast: { type: "candleLast", col: 4 },
+  candleSmoke: { type: "candleSmoke", col: 4 },
+  candleLit: { type: "candleLit", col: 4, left: 2 },
   candleOut: { type: "candleOut" },
   gorgeSettle: { type: "gorgeSettle", col: 2, width: 7 },
   gorgeSwallow: { type: "gorgeSwallow", col: 5, color: "red", beads: 2 },

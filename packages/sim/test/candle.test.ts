@@ -22,7 +22,10 @@ import type { Bullet, Color } from "../src/types.js";
  * boss's out.** The dark itself is render's; what is checked here is the one
  * thing in the dark that is a rule — a glow with five steps, struck from
  * below, drifting and turning on counts the pair can say, eating the flashes
- * fired from the column it faces, and standing still for the last shot.
+ * fired from the column it faces, and standing still at the last step.
+ *
+ * The last step itself — the trigger going quiet, the pilot's pull on the
+ * wick and the navigator's beam into the smoke — is `candle-wick.test.ts`.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -70,6 +73,29 @@ function dim(world: World, n: number): void {
 
 function fire(world: World, color: Color = "red"): TimedCommand {
   return { tick: world.tick, player: 2, command: { kind: "fire", color } };
+}
+
+/**
+ * The two gestures the last step is finished with, run end to end: the
+ * pilot's thumb to the bottom of the wick, then her beam up the column.
+ * Proved a piece at a time in `candle-wick.test.ts`; here it is only the way
+ * the fight reaches `out`.
+ */
+function snuff(world: World): void {
+  step(world, [
+    {
+      tick: world.tick,
+      player: 1,
+      command: {
+        kind: "drag",
+        target: "candleWick",
+        on: true,
+        fromMilli: 0,
+        fromYMilli: CFG.candlePinchMilli,
+      },
+    },
+  ]);
+  candleStruck(world, shot(world, glow(world).col, "red", true));
 }
 
 describe("the light going out", () => {
@@ -214,9 +240,10 @@ describe("the last glow", () => {
     expect(candleEats(world, face)).toBe(false);
   });
 
-  it("goes out on the last shot and holds the frame black before the wave may end", () => {
+  it("goes out on the pull and the beam, and holds the frame black before the wave may end", () => {
     const world = lit();
-    dim(world, CFG.candleGlowSteps);
+    dim(world, CFG.candleGlowSteps - CFG.candleLastSteps);
+    snuff(world);
     expect(glow(world).phase).toBe("out");
     expect(glow(world).glow).toBe(0);
     expect(world.events.some((e) => e.type === "candleOut")).toBe(true);

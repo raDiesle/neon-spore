@@ -12,9 +12,9 @@ import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE CANDLE's clock — the drift, the turn, the last step and the black
- * frame — and the two moments a shot meets it: struck from below, and eaten
- * at the muzzle.
+ * THE CANDLE's clock — the drift, the turn, the last step, the smoking wick
+ * and the black frame — and the two moments a shot meets it: struck from
+ * below, and eaten at the muzzle.
  *
  * The phases are the glow read against `config-candle.ts`: the boss changes
  * what it does at fixed steps of its own health, so every change is one the
@@ -42,6 +42,7 @@ export function installCandle(world: World): CandleState {
     faceCol: col,
     moveBeat: world.beat,
     turnBeat: world.beat,
+    pinchMilli: 0,
   };
 }
 
@@ -54,11 +55,22 @@ function phaseFor(world: World, glow: number): CandlePhase {
   return "full";
 }
 
-function enter(world: World, c: CandleState, phase: CandlePhase): void {
+/**
+ * Into a phase, once. Exported for `candle-hand.ts` alone, which is the one
+ * place outside this file a phase changes — the pull is a tick's work and
+ * the clock here is the beat's (`stare-step.ts`' `enterStare` is the same
+ * door for the same reason).
+ */
+export function enterCandle(world: World, c: CandleState, phase: CandlePhase): void {
   if (c.phase === phase) return;
   c.phase = phase;
   c.phaseBeat = world.beat;
+  // The thumb's carry is left behind wherever the phase goes: it is only
+  // read in `last`, and a depth kept across a phase would have the next pull
+  // start where the last one stopped.
+  if (phase !== "last") c.pinchMilli = 0;
   if (phase === "last") world.events.push({ type: "candleLast", col: c.col });
+  if (phase === "smoking") world.events.push({ type: "candleSmoke", col: c.col });
   if (phase === "out") world.events.push({ type: "candleOut" });
 }
 
@@ -69,6 +81,9 @@ function enter(world: World, c: CandleState, phase: CandlePhase): void {
  * it does — the pair has the dark arriving to read before anything moves.
  * Then it drifts one column every `candleMoveBeats` and turns every
  * `candleTurnBeats`, both off the rng, until the last step, when it stops.
+ *
+ * The one count that is not the pair's is the smoking wick's, which lights
+ * again after `candleSmokeBeats` if the beam has not reached it.
  */
 export function stepCandle(world: World, c: CandleState): void {
   const cfg = world.cfg;
@@ -79,9 +94,24 @@ export function stepCandle(world: World, c: CandleState): void {
     if (world.beat - c.phaseBeat >= cfg.candleOutBeats) world.boss = null;
     return;
   }
+  // **The wick, and the one clock in this fight that runs against the pair.**
+  // Everything else here waits for them; this counts down, and the beam has
+  // to be standing in the column before it reaches the bottom. A wick that
+  // lights again comes back with a step on it, which puts the boss back to
+  // `eating` — drifting and swallowing flashes — so the pull is a gesture
+  // with something to lose (`candle.ts`).
+  if (c.phase === "smoking") {
+    if (world.beat - c.phaseBeat < cfg.candleSmokeBeats) return;
+    c.glow = Math.min(cfg.candleGlowSteps, c.glow + 1);
+    world.events.push({ type: "candleLit", col: c.col, left: c.glow });
+    enterCandle(world, c, phaseFor(world, c.glow));
+    c.moveBeat = world.beat;
+    c.turnBeat = world.beat;
+    return;
+  }
   if (c.phase === "dark") {
     if (world.beat - c.phaseBeat < cfg.candleDarkBeats) return;
-    enter(world, c, phaseFor(world, c.glow));
+    enterCandle(world, c, phaseFor(world, c.glow));
     c.moveBeat = world.beat;
     c.turnBeat = world.beat;
     return;
@@ -113,15 +143,37 @@ export function stepCandle(world: World, c: CandleState): void {
  * whole difficulty and a colour rule on top of it would be charging the pair
  * for what they cannot see; the beam lands because the design makes it the
  * one light the boss cannot eat.
+ *
+ * **Two phases are exceptions, and between them they are the §6.2 lane.** At
+ * `last` no shot counts at all, and at `smoking` only the beam does. Both are
+ * written beside themselves below.
  */
 export function candleStruck(world: World, bullet: Bullet): void {
   const c = candleBoss(world);
   if (c === null || c.phase === "dark" || c.phase === "out") return;
   if (bullet.col !== c.col) return;
+  // **The last step is nobody's to shoot.** A flame is put out by a hand, so
+  // from here the fight stops being the trigger and becomes the pilot's thumb
+  // on the wick and her beam behind it (`candle-hand.ts`). The bolt passes
+  // through and the field says so on his band, because a trigger that quietly
+  // stopped working is THE LEAD's sentence (`boss-cue-read-m.ts`).
+  if (c.phase === "last") return;
+  // **And the smoking wick takes the beam and nothing else.** There is no
+  // flame left to dim: what is there is a thread of light the lance burns
+  // through and a bolt goes past. One hit, whatever the glow says, because
+  // the step the pull took off is the one the beam is finishing.
+  if (c.phase === "smoking") {
+    if (!bullet.lance) return;
+    metColor(world);
+    c.glow = 0;
+    world.events.push({ type: "candleDim", col: c.col, left: 0 });
+    enterCandle(world, c, "out");
+    return;
+  }
   metColor(world);
   c.glow -= 1;
   world.events.push({ type: "candleDim", col: c.col, left: c.glow });
-  enter(world, c, phaseFor(world, c.glow));
+  enterCandle(world, c, phaseFor(world, c.glow));
 }
 
 /**
@@ -140,6 +192,6 @@ export function candleEats(world: World, col: number): boolean {
   if (c === null || !candleEating(c) || col !== c.faceCol) return false;
   c.glow = Math.min(world.cfg.candleGlowSteps, c.glow + 1);
   world.events.push({ type: "candleFed", col, left: c.glow });
-  enter(world, c, phaseFor(world, c.glow));
+  enterCandle(world, c, phaseFor(world, c.glow));
   return true;
 }

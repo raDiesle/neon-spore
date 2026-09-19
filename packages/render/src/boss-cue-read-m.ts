@@ -62,6 +62,15 @@ import { type Layout, tileCX } from "./layout.js";
  * Nothing at all in `dark` or `out`: the light is still going out in the
  * first, and in the second the boss is beaten and the frame is black for two
  * beats before the wave may end under it (`candle-step.ts`).
+ *
+ * **And two words the last two phases cannot do without.** At `last` the
+ * trigger stops counting for anything (`candleStruck`), and a trigger that
+ * quietly stopped working is THE LEAD's sentence — so the field says what
+ * replaced it: `PULL`, on the flame, for the pilot's thumb. At `smoking` the
+ * bolt still does nothing and only the beam reaches what is left, so the word
+ * is `BURN` and it is hers. Both are four letters and both have shipped
+ * before, which is the whole of why they were picked: two people who may not
+ * share a language read these.
  */
 
 /** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
@@ -81,22 +90,36 @@ function markAt(
 }
 
 /**
- * THE CANDLE. Two moments, and the second is behind the first.
+ * THE CANDLE. Four moments, read in the order the fight makes them.
  *
- * **The column first, in both phases that have a shot in them.** `full` is
- * where the chase is the fight and `last` is where it stops still and waits
- * to be found; `eating` is both at once. Everything else in this reading is
- * behind the cannon being under the light.
+ * **The flame comes first, because at `last` nothing else is true.** No shot
+ * counts there, so nobody is sent anywhere and the column stops mattering:
+ * the mark stands on the glow itself and asks the pilot for his thumb
+ * (`candle-hand.ts`). It is the one word in this reading that is not behind
+ * the cannon.
  *
- * **Then the flash.** Either colour dims it and the beam does too — the dark
- * is difficulty enough without a colour rule on top of it (`candleStruck`) —
- * so the word is the press and never which button.
+ * **Then the column, in every phase that still has a shot in it.** `full` is
+ * where the chase is the fight, `eating` is that and the cone at once, and
+ * `smoking` is the chase again with a count running under it. Everything
+ * below here is behind the cannon being under the light.
+ *
+ * **Then the flash, or the beam.** Either colour dims the glow and the beam
+ * does too — the dark is difficulty enough without a colour rule on top of it
+ * (`candleStruck`) — so the word is the press and never which button. Off the
+ * wick it is the beam alone that reaches what is left, so the word turns from
+ * `FIRE` to `BURN` and the seat stays hers.
  */
 export function candleCues(l: Layout, world: World, c: CandleState): readonly BossCue[] {
   if (c.phase === "dark" || c.phase === "out") return [];
+  if (c.phase === "last") {
+    return [markAt(1, "CARRY", "PULL", tileCX(l, c.col), candleGlowY(l), l, 89)];
+  }
   if (world.cannonCol !== c.col) {
     return [markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 31)];
   }
   if (priming(world)) return [];
+  if (c.phase === "smoking") {
+    return [markAt(2, "HOLD", "BURN", tileCX(l, c.col), candleGlowY(l), l, 90)];
+  }
   return [markAt(2, "PRESS", "FIRE", tileCX(l, c.col), candleGlowY(l), l, 32)];
 }

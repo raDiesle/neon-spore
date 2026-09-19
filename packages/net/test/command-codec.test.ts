@@ -123,6 +123,11 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "throatRing", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "throatRing", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "throatTube", on: false, fromMilli: -900, fromYMilli: 0 },
+  // THE CANDLE's wick, the one handle a seat takes hold of in the dark: the
+  // depth of the pull is `fromYMilli` alone and the pilot's thumb never
+  // wanders sideways, so `fromMilli` rides along at nought (`sim/candle-hand.ts`).
+  { kind: "drag", target: "candleWick", on: true, fromMilli: 0, fromYMilli: 1500 },
+  { kind: "drag", target: "candleWick", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -250,6 +255,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   undertowFree: true,
   throatRing: true,
   throatTube: true,
+  candleWick: true,
   crank: true,
   orreryRing: true,
 };

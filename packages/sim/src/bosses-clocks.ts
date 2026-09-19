@@ -47,6 +47,8 @@ export {
   candleBoss,
   candleEating,
   candleMoving,
+  candleSmoking,
+  candleWicked,
 } from "./candle.js";
 export {
   type CurtainState,

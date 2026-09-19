@@ -45,6 +45,8 @@ export {
   candleBoss,
   candleEating,
   candleMoving,
+  candleSmoking,
+  candleWicked,
   curtainBody,
   curtainBoss,
   curtainCoreBare,

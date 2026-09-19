@@ -248,6 +248,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
 | `packages/sim/src/cairn.ts` | THE CAIRN: a pile of seven rocks nothing fired reaches, taken apart by a hand carried sideways, and the clock that drops one itself into a lane only player 1 is shown |
 | `packages/sim/src/candle-hash.ts` | What THE CANDLE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/candle-hand.ts` | **The one hand on THE CANDLE**: the flame, pulled down off the wick by the pilot, off the wire, on the tick |
 | `packages/sim/src/candle-step.ts` | THE CANDLE's clock — the drift, the turn, the last step and the black frame |
 | `packages/sim/src/candle.ts` | THE CANDLE: whether you can act in the dark |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
@@ -1808,6 +1809,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `tools/director/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE GAUGE |
+| `tools/director/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
 | `tools/director/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`poses-bosses-kit.ts`) |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |

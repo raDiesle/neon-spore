@@ -26,8 +26,12 @@ import type { World } from "./world.js";
  *   bolt leaves the muzzle, nothing is lit, and the swallowed light puts a
  *   step back on its glow. The beam is not eaten. Firing from a column the
  *   boss is not facing is the answer, and only he knows which that is.
- * - **At the last step it stops** moving and eating; the last shot is the
- *   pair's to take when they find it.
+ * - **At the last step it stops** moving and eating, and **no shot will put
+ *   it out**. The pilot pulls the flame down off the wick with his thumb
+ *   (`candle-hand.ts`); the wick is then left smoking, and the navigator has
+ *   `candleSmokeBeats` to stand the beam in it before it lights again. Two
+ *   gestures, one seat each, and neither is the trigger the first three
+ *   phases are played with (`.claude/skills/new-boss` §6.2).
  *
  * **It is a fixture and not a body** (`bossFillsWave`): nothing of it falls,
  * and the arrivals under it are the ones the wave's own author wrote.
@@ -44,10 +48,18 @@ import type { World } from "./world.js";
  * - `dark` — the light is going out; the glow is full and does not move yet.
  * - `full` — the glow drifts and the pair fires at it.
  * - `eating` — it faces a column and eats the flashes fired from it.
- * - `last` — one step left; it stands still and eats nothing.
+ * - `last` — one step left; it stands still, eats nothing, and takes no shot.
+ * - `smoking` — the flame is pulled off the wick. The beam is the only thing
+ *   that reaches what is left, and it lights again if the beam is late.
  * - `out` — the last step is gone. The frame is black; the boss is beaten.
+ *
+ * `smoking` is inserted before `out` rather than appended after it, so the
+ * list still reads in the order the fight is played. Nothing stores an index
+ * across a build — the wire carries the name and `candle-hash.ts` numbers by
+ * this list on both devices at once — so the order is the reader's and not a
+ * version's.
  */
-export const CANDLE_PHASES = ["dark", "full", "eating", "last", "out"] as const;
+export const CANDLE_PHASES = ["dark", "full", "eating", "last", "smoking", "out"] as const;
 
 export type CandlePhase = (typeof CANDLE_PHASES)[number];
 
@@ -67,6 +79,12 @@ export interface CandleState {
   moveBeat: number;
   /** `world.beat` it last turned on. */
   turnBeat: number;
+  /**
+   * How far the pilot's thumb has pulled the flame down off the wick, in
+   * thousandths of a tile, never past `candlePinchMilli` and zero whenever
+   * no thumb is on it (`candle-hand.ts`). Only ever anything else in `last`.
+   */
+  pinchMilli: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
@@ -83,4 +101,21 @@ export function candleEating(c: CandleState): boolean {
 /** Whether the glow still drifts: not while the light is going out, and not at the last step. */
 export function candleMoving(c: CandleState): boolean {
   return c.phase === "full" || c.phase === "eating";
+}
+
+/**
+ * Whether the flame is there to be pulled: the last step, and only it. Asked
+ * by the hand and by the picture, so the thumb is answered on the one phase
+ * the field has a word on (`candle-hand.ts`, `boss-cue-read-m.ts`).
+ */
+export function candleWicked(c: CandleState): boolean {
+  return c.phase === "last";
+}
+
+/**
+ * Whether the wick is smoking: the flame is off and the beam has not landed.
+ * This is the one phase a bolt does nothing in and the beam does everything.
+ */
+export function candleSmoking(c: CandleState): boolean {
+  return c.phase === "smoking";
 }

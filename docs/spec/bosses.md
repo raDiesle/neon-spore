@@ -3822,8 +3822,9 @@ different columns and the field is only whole in the talking.
 split: darkness, the after-image, the per-seat light are the look's
 (`render/candle-dark.ts`, below). What
 `packages/sim` holds is a **glow**: `candleGlowSteps` (5) of health, a column
-it stands in, a column it faces, and a phase — `dark`, `full`, `eating`,
-`last`, `out` (`sim/candle.ts`, hashed in `sim/candle-hash.ts`). It is a
+it stands in, a column it faces, a phase — `dark`, `full`, `eating`, `last`,
+`smoking`, `out` — and how far down the wick the pilot's thumb has come,
+`pinchMilli` (`sim/candle.ts`, hashed in `sim/candle-hash.ts`). It is a
 fixture, not a body (`bossFillsWave === false`), and the arrivals around it
 are the wave's own (`content/src/waves/act-7c.ts`, "THE CANDLE").
 
@@ -3838,8 +3839,37 @@ one thing player 1 sees and player 2 does not. At `candleEatSteps` (2) left
 it **eats**: a shot fired from the column it faces never becomes a bullet —
 `candleEats`, asked from `launch` before the bullet is laid — and the glow
 comes back a step (`candleFed`), never past full. At `candleLastSteps` (1)
-it stops moving, turning and eating (`candleLast`), and the last shot puts it
-out (`candleOut`): the boss stays installed `candleOutBeats` (2) more so the
+it stops moving, turning and eating (`candleLast`) — and the trigger stops
+counting with them: from `last` on, `candleStruck` takes nothing at all, and
+what finishes the fight is two gestures neither seat has made yet.
+
+**The last step is two gestures, one of them on the picture** (19 September
+2026, `docs/queue.md`). The brief this boss was built to asks a boss to change
+state more than once and to want more than one gesture, and THE CANDLE
+answered the whole fight on the ordinary panel. So the last step is split in
+two.
+
+- **`last` — the pilot's thumb, and it is on the glow itself.** No shot
+  counts, so nobody is sent anywhere and the column stops mattering: player 1
+  takes hold of the flame and pulls it `candlePinchMilli` (1500) down off the
+  wick (`candleWick`, `sim/candle-hand.ts`). It is read as depth from the grab
+  the way THE STARE's lid is, clamped to the bottom, and a thumb lifted short
+  springs the flame back to the top — `pinchMilli` is zeroed, and the pull has
+  to be made again. Reaching the bottom pushes `candleSmoke` and enters
+  `smoking`. It is the one handle in the game a seat takes hold of in the
+  dark, and the one word in this fight that is not behind the cannon:
+  `PULL`, on the glow, player 1's (`render/boss-cue-read-m.ts`).
+- **`smoking` — the navigator's beam, on a count.** The flame is off the wick
+  and a bolt still does nothing; only the beam reaches what is left. Player 2
+  has `candleSmokeBeats` (6) from the pull to stand the beam in the glow's
+  column — `lancePrimeBeats` (3) of that is the fill, which is the pair's
+  whole margin. That puts it out (`candleOut`). Late, the wick catches again
+  (`candleLit`): the glow comes back to `candleEatSteps` — a step brighter
+  than the pair left it — and the boss is *eating* again, drifting and
+  swallowing flashes, with the pull to make a second time. Her word turns from
+  `FIRE` to `BURN` for as long as it smokes.
+
+Out either way, the boss stays installed `candleOutBeats` (2) more so the
 wave cannot end on the beat the light does, which is the design's *two black
 beats*.
 

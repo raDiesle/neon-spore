@@ -1,12 +1,15 @@
 import type { SimEvent } from "@neon-spore/sim";
 
 /**
- * **The bosses' half of the silent list, the second page** — from THE
- * ANTIPHON on.
+ * **The bosses' half of the silent list, the second page** — from THE CAIRN
+ * on.
  *
  * Cut when THE ANTIPHON's ten rows would have put
  * `effects-ingest-silent-boss.ts` over its 250-line limit, the seam the
- * first page itself was cut on: the order the bosses were built in.
+ * first page itself was cut on: the order the bosses were built in. THE
+ * CAIRN's two came over on 19 September 2026 for the same reason and by the
+ * same rule — page one went over, so page one handed its last boss across
+ * rather than the lane cutting its own rows out of the middle.
  * `INGEST_SILENT` spreads this in place after the first page, so the guard
  * and the type it narrows by are unchanged.
  *
@@ -14,6 +17,14 @@ import type { SimEvent } from "@neon-spore/sim";
  * for the next frame* — and the reasons stay with the rows.
  */
 export const INGEST_SILENT_BOSS_B = [
+  // THE CAIRN losing a unit, either way. Nothing here outlives the frame
+  // either, and for a plainer reason than the weight's: what leaves the pile
+  // **is still on the field**. It is a rock now, with a column and a row of its
+  // own, drawn every frame by the same code that draws every other rock — so a
+  // transient remembering it would be the same stone painted twice. The burst
+  // next door is the dust off the seam and the whole of the transient.
+  "cairnPulled",
+  "cairnShed",
   // THE ANTIPHON's ten leave nothing behind for the next frame here: the
   // body, the organs, the rail and the pits are read off the state every
   // frame, and what outlives a frame — the eruption of every pit — and the

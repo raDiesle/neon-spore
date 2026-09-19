@@ -161,7 +161,7 @@ describe("THE CANDLE", () => {
   it("goes quiet on the flash while the lobe is already filling", () => {
     const world = opened();
     const c = installed(world);
-    c.phase = "last";
+    c.phase = "full";
     world.cannonCol = c.col;
     world.prime = { tick: world.tick, color: "red", spent: false };
     // `gripBrakes`' rule: a word over something already being answered teaches
@@ -179,6 +179,59 @@ describe("THE CANDLE", () => {
       expect(word(world, "p1")).toBeNull();
       expect(word(world, "p2")).toBeNull();
     }
+  });
+
+  it("asks the pilot for the flame at the last glow, wherever the cannon is", () => {
+    for (const col of [0, 1] as const) {
+      const world = opened();
+      const c = installed(world);
+      c.phase = "last";
+      world.cannonCol = col === 0 ? c.col : other(c.col);
+      // No shot counts here (`candleStruck`), so nobody is sent anywhere and
+      // the word is the one thing that does work: his thumb on the flame.
+      expect(word(world, "p1")).toBe("PULL");
+      expect(cue(world, "p1")?.kind).toBe("CARRY");
+      expect(cue(world, "p1")?.y).toBe(candleGlowY(LAYOUT.p1));
+      expect(word(world, "p2")).toBeNull();
+    }
+  });
+
+  it("turns her word from the flash to the beam once the wick is smoking", () => {
+    const world = opened();
+    const c = installed(world);
+    c.phase = "smoking";
+    world.cannonCol = c.col;
+    // Only the beam reaches what is left (`candleStruck`), so `FIRE` there
+    // would be the field asking for a bolt that does nothing.
+    expect(word(world, "p2")).toBe("BURN");
+    expect(cue(world, "p2")?.kind).toBe("HOLD");
+    expect(cue(world, "p2")?.y).toBe(candleGlowY(LAYOUT.p2));
+    expect(word(world, "p1")).toBeNull();
+  });
+
+  it("is the chase again while the wick smokes: the beam leaves his column", () => {
+    const world = opened();
+    const c = installed(world);
+    c.phase = "smoking";
+    world.cannonCol = other(c.col);
+    expect(word(world, "p1")).toBe("MOVE");
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("gives the two new words their own interference", () => {
+    const world = opened();
+    const c = installed(world);
+    c.phase = "last";
+    world.cannonCol = c.col;
+    const pull = cue(world, "p1");
+    c.phase = "smoking";
+    const burn = cue(world, "p2");
+    c.phase = "full";
+    const fire = cue(world, "p2");
+    world.cannonCol = other(c.col);
+    const move = cue(world, "p1");
+    const seeds = [pull?.seed, burn?.seed, fire?.seed, move?.seed];
+    expect(new Set(seeds).size).toBe(seeds.length);
   });
 
   it("puts each mark on the thing that seat is already shown", () => {

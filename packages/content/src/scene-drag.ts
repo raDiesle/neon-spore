@@ -52,6 +52,11 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // THE SURGE's bulb is not carried at all: a thumb on the glass charges it
   // and the lift is the gesture (`sim/surge-hand.ts` reads neither distance).
   if (target === "surgeBulb") return 0;
+  // THE CANDLE's wick is a pull with a bottom to it: the flame is off the
+  // wick at `candlePinchMilli` and not a thousandth before
+  // (`sim/candle-hand.ts`), so a film that does not say means all the way
+  // down — there is no half-pull that does anything.
+  if (target === "candleWick") return cfg.candlePinchMilli;
   return cfg.mazeTurnMilli;
 }
 

@@ -1,5 +1,5 @@
 /**
- * THE CANDLE's seven, in a file of their own for `boss-undertow.ts`' reason.
+ * THE CANDLE's nine, in a file of their own for `boss-undertow.ts`' reason.
  *
  * The fight is in the dark, so what these have to do is **be the light**:
  * nothing here is a body, everything is a glow — a warmth that dims, a
@@ -73,6 +73,38 @@ export const BOSS_CANDLE_SOUNDS: SoundDef[] = [
     use: "THE CANDLE at its last glow, standing still.",
     level: 0.3,
     layers: [spore(660, 1.0, 0.14, 12), after(0.3, glint(2600, 0.6, 0.08))],
+  },
+  {
+    id: "boss.candleSmoke",
+    family: "boss",
+    blurb: "The flame comes off the wick: a thin hiss left where a tone was.",
+    status: "bound",
+    use: "THE CANDLE's flame pulled down off the wick by the pilot — the beam's count starts here.",
+    level: 0.34,
+    // No flare and no body: the light did not go out, it was taken off, and
+    // what is left is air over a thread. The hiss sits above the band so the
+    // navigator can be told which column while it runs.
+    layers: [
+      noise(0.5, { type: "bandpass", freq: 4200, toFreq: 5600, q: 3 }, 0.04, 0.18, 0.26),
+      after(0.05, air(1800, 900, 0.7, 0.14, 2)),
+    ],
+  },
+  {
+    id: "boss.candleLit",
+    family: "boss",
+    blurb: "The wick catches again: a small catch, and the held tone back under it.",
+    status: "bound",
+    use: "THE CANDLE relighting because the beam was late — the pull has to be made again.",
+    level: 0.44,
+    // Deliberately the loudest of the nine after the last step: it is the one
+    // sound in this fight that says the pair lost ground, and in the dark it
+    // is the only way they can be told.
+    // The held tone is an octave under `boss.candleLast`'s, which is the whole
+    // of why it is the right sound: the flame is back and it is back *heavier*,
+    // a step brighter than the pair left it. It is also under 300 Hz, so the
+    // loudest thing in the fight is not sitting on top of the pair talking —
+    // and in this fight talking is the only thing that works (`band.ts`).
+    layers: [tick(0.3, 0, 2600), after(0.04, swell(220, 0.9, 0.16))],
   },
   {
     id: "boss.candleOut",

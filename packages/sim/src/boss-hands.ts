@@ -1,5 +1,6 @@
 import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
+import { candleWickHeard } from "./candle-hand.js";
 import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
@@ -88,4 +89,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // Both are *spent* on the beat, by `throatBreathes` and `throatHaul`, which
   // is this fight's own promise: every change lands on a count somebody said.
   for (const c of commands) throatHeard(world, c.player, c.command);
+  // THE CANDLE's pull on the flame, on the tick because the tick it comes off
+  // the wick is the tick her beam starts being worth something, and the count
+  // it is raced against starts there (`candle-hand.ts`).
+  for (const c of commands) candleWickHeard(world, c.player, c.command);
 }

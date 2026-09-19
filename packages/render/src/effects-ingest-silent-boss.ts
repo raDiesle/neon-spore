@@ -16,8 +16,11 @@ import type { SimEvent } from "@neon-spore/sim";
  * they are about. `INGEST_SILENT` spreads this in place, so the guard and the
  * type it narrows by are unchanged and nothing outside had to move.
  *
- * **This page is full.** From THE ANTIPHON on the rows are on the second,
- * `effects-ingest-silent-boss-b.ts`, and that is where the next boss's go.
+ * **This page is full, and gives a boss back rather than grow.** From THE
+ * CAIRN on the rows are on the second, `effects-ingest-silent-boss-b.ts`. The
+ * boundary moved a boss earlier when THE CANDLE's two new rows put this page
+ * over its limit: the seam is build order, so it is the *last* boss here that
+ * goes next door, never the one being worked on.
  */
 export const INGEST_SILENT_BOSS = [
   // THE MIRROR's four, read above the loop by an `ingest` of their own before
@@ -83,15 +86,19 @@ export const INGEST_SILENT_BOSS = [
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",
-  // THE CANDLE's seven, silent for the same reason: the dark, the glow and
+  // THE CANDLE's nine, silent for the same reason: the dark, the glow and
   // its face are read off the world every frame (`candle-dark.ts`), and the
   // one light an event makes — the shot's flash — is the `fire` next door.
+  // The wick smoking and the wick catching again are the same: both are the
+  // boss's own phase, and the phase is what `candle-glow.ts` draws.
   "candleDark",
   "candleDim",
   "candleMove",
   "candleTurn",
   "candleFed",
   "candleLast",
+  "candleSmoke",
+  "candleLit",
   "candleOut",
   // THE GORGE's nine, read above the loop by `gorge-fx.ts` the way the
   // mirror's are: the bursts and the beads leaving are its; the sack, the
@@ -239,12 +246,4 @@ export const INGEST_SILENT_BOSS = [
   "fleetHit",
   "fleetSunk",
   "fleetDown",
-  // THE CAIRN losing a unit, either way. Nothing here outlives the frame
-  // either, and for a plainer reason than the weight's: what leaves the pile
-  // **is still on the field**. It is a rock now, with a column and a row of its
-  // own, drawn every frame by the same code that draws every other rock — so a
-  // transient remembering it would be the same stone painted twice. The burst
-  // next door is the dust off the seam and the whole of the transient.
-  "cairnPulled",
-  "cairnShed",
 ] as const satisfies readonly SimEvent["type"][];

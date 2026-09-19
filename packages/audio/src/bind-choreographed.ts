@@ -86,6 +86,8 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "candleTurn":
     case "candleFed":
     case "candleLast":
+    case "candleSmoke":
+    case "candleLit":
     case "candleOut":
       return candleCue(e, cols);
     case "gorgeSettle":

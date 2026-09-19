@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 
 /**
  * **The bosses' half of the not-a-burst list, the second page** — from THE
- * FILAMENT on.
+ * INSTAR on.
  *
  * Cut when THE FILAMENT's ten rows would have put
  * `effects-spark-silent-boss.ts` over its 250-line limit, the seam
@@ -11,10 +11,27 @@ import type { SimEvent } from "@neon-spore/sim";
  * `isSilent` still narrows and `burstFor`'s `assertNever` still catches an
  * event named on neither.
  *
+ * THE INSTAR's eleven came over on 19 September 2026 for the same reason
+ * and by the same rule — page one went over, so page one handed its last
+ * boss across rather than the lane cutting its own rows out of the middle.
+ *
  * Every row means what it means there — *no burst answers this event* — and
  * the reasons stay with the rows.
  */
 export const SILENT_BOSS_B = [
+  // THE INSTAR's eleven are one family read above the loop by
+  // `instar-fx.ts`, never rows here (`docs/spec/bosses.md` §11.32).
+  "instarEnter",
+  "instarMorph",
+  "instarShow",
+  "instarRefuse",
+  "instarAnswer",
+  "instarDone",
+  "instarSlip",
+  "instarLand",
+  "instarStrike",
+  "instarDown",
+  "instarOut",
   // THE FILAMENT's ten throw no burst from this table: they are one family
   // read above the loop, the way THE INSTAR's are, and every burst of theirs
   // — on the tile drawn, on the head that snapped, on the body a filament

@@ -15,8 +15,11 @@ import type { SimEvent } from "@neon-spore/sim";
  * bosses followed on 17 September 2026 so the seam is the one
  * `effects-ingest-silent-boss.ts` cut: every boss here, every creature
  * there, and the next boss lands without touching anybody's comment. **This
- * page is full.** From THE FILAMENT on the rows are on the second,
+ * page is full.** From THE INSTAR on the rows are on the second,
  * `effects-spark-silent-boss-b.ts`, and that is where the next boss's go.
+ * The boundary moved a boss earlier when THE CANDLE's two new rows put this
+ * page over its limit again: the seam is build order, so it is the *last*
+ * boss here that goes next door, never the one being worked on.
  * The property that had to survive the split is the same one that file explains
  * — `SILENT` keeps its literal member types through the spread, so `isSilent`
  * still narrows and `burstFor`'s `assertNever` still catches an event named
@@ -61,14 +64,17 @@ export const SILENT_BOSS = [
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",
-  // THE CANDLE's seven: the dark is a mask read off the world every frame
+  // THE CANDLE's nine: the dark is a mask read off the world every frame
   // (`candle-dark.ts`), and a spark in it would be a light the design forbids.
+  // The smoking wick least of all: what it is is the absence of a light.
   "candleDark",
   "candleDim",
   "candleMove",
   "candleTurn",
   "candleFed",
   "candleLast",
+  "candleSmoke",
+  "candleLit",
   "candleOut",
   // THE MIRROR's four: the ghost shot, the echo, the verdict and the fall —
   // `simon-fx.ts` owns the whole sequence.
@@ -234,17 +240,4 @@ export const SILENT_BOSS = [
   "hiveSeal",
   "hiveDown",
   "hiveOut",
-  // THE INSTAR's eleven are one family read above the loop by
-  // `instar-fx.ts`, never rows here (`docs/spec/bosses.md` §11.32).
-  "instarEnter",
-  "instarMorph",
-  "instarShow",
-  "instarRefuse",
-  "instarAnswer",
-  "instarDone",
-  "instarSlip",
-  "instarLand",
-  "instarStrike",
-  "instarDown",
-  "instarOut",
 ] as const satisfies readonly SimEvent["type"][];

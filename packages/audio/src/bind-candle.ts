@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE CANDLE's seven, in a file of their own for `bind-undertow.ts`' reason.
+ * THE CANDLE's nine, in a file of their own for `bind-undertow.ts`' reason.
  *
  * Panned wherever the event has a column, because in the dark a pan is the
  * only bearing the ear gets: where the glow is, where it went, where it is
@@ -20,6 +20,8 @@ export function candleCue(
         | "candleTurn"
         | "candleFed"
         | "candleLast"
+        | "candleSmoke"
+        | "candleLit"
         | "candleOut";
     }
   >,
@@ -39,6 +41,12 @@ export function candleCue(
       return { id: "boss.candleFed", pan: panForCol(e.col, cols) };
     case "candleLast":
       return { id: "boss.candleLast", pan: panForCol(e.col, cols) };
+    case "candleSmoke":
+      return { id: "boss.candleSmoke", pan: panForCol(e.col, cols) };
+    case "candleLit":
+      // Up with every step it came back with, so a relight late in the fight
+      // is heard as the worse one it is.
+      return { id: "boss.candleLit", pan: panForCol(e.col, cols), pitch: 0.9 + e.left * 0.05 };
     case "candleOut":
       return { id: "boss.candleOut" };
   }

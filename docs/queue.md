@@ -2156,3 +2156,59 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A new boss state is twelve registrations, and nothing names the twelve
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/spec/bosses.md`, `packages/audio/test/bind.test.ts`, `packages/net/test/command-codec.test.ts`, `packages/render/src/effects-ingest-silent-boss.ts`, `packages/sim/test/purity.test.ts`, `tools/director/src/boss-hands-shots.ts`, `tools/director/src/sound-link-none.ts`
+- **Where:** cloud
+
+THE CANDLE gained two phases and one drag target. The simulation for that is
+five files and an afternoon. Getting `bun run check` green afterwards was
+**twelve further registrations in eleven files**, every one of them found by a
+red test rather than by reading anything:
+
+- the two silent-effect pages, `effects-ingest-silent-boss.ts` and its `-b`
+- `command-codec.test.ts`'s two separate lists — `EVERY_TARGET` and `ACCEPTED`
+- `bind.test.ts`'s `SAMPLES`, one row per new event
+- `sound-link-none.ts`'s `NO_SUBJECT`, one reason per new sound
+- a pose card in `poses-bosses-hands-shots.ts`
+- the hand in `boss-hands-shots.ts`, which must be able to *drive* the world
+  into the new state or `poses.test.ts` throws `the world never reached …`
+- `docs/INDEX.md`, `docs/spec/bosses.md`, and `docs/spec/audio.md`'s two counts
+- `tools/director/test/on-field-controls.test.ts`
+
+Each red test names its own fix, so none of this is hard; what it costs is
+that the twelve are only discoverable **from one another**, one `bun run
+check` at a time, which is minutes a round. The list above is the first time
+they have been written down together, and it is written down in the wrong
+place — a queue entry is read once and then taken out.
+
+To do: put the twelve where a lane starting a boss state will meet them, as
+`.claude/skills/new-boss-state` (or a section of `.claude/skills/new-boss`,
+which today covers a whole new boss and not a phase added to a shipped one).
+One row each: the file, what it wants, and the test that goes red without it.
+Then make `purity.test.ts`'s called-not-re-derived table carry a row pointing
+at it, which is the mechanism that file exists for. The check that it worked:
+a lane can add a phase and go green in one `bun run check`, not four.
+
+## The 250-line ceiling reports one file per run, so a wide lane pays for four runs
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/sim/test/limits.test.ts`
+- **Where:** cloud
+
+`limits.test.ts:52` loops the source files and calls `expect` **inside the
+loop**, so the first file over the limit throws and every file after it goes
+unreported. On a lane that adds one row to several lists at once — a new boss
+state does exactly that — four pages sat two or three lines over their ceiling
+and the suite named them one at a time: fix, run the 560 files again, meet the
+next one. Four `check:fast` runs at two and a half minutes each, to learn four
+facts the first run already had in hand.
+
+To do: collect the offenders into an array inside the loop and assert on the
+whole array afterwards, with the message listing every file and its count, the
+way `hash-coverage.test.ts` already reports its misses. The case keeps its one
+`expect` and its `loadedTimeout(150)` budget; nothing about what is enforced
+changes, only how much of it one run says. The check that it worked: put two
+files over the limit on a scratch branch and see both named.

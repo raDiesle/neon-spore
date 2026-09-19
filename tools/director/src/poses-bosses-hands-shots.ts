@@ -93,7 +93,13 @@ export const SHOT_HAND_POSES: Pose[] = [
   bossPose(
     "candle",
     "last",
-    "One step of glow left. P1 aims off the column it faces; P2 fires once and the candle is out.",
+    "One step of glow left and no shot counts. P1 pulls the flame off the wick; P2 waits.",
+    { hand: candleHand, hold: 3 },
+  ),
+  bossPose(
+    "candle",
+    "smoking",
+    "The wick smokes and a bolt does nothing. P1 holds under it; P2 lands the beam before it lights.",
     { hand: candleHand, hold: 3 },
   ),
   bossPose(

@@ -344,7 +344,7 @@ describe("the rehearsal for THE UNDERTOW", () => {
 });
 
 describe("the rehearsal for THE CANDLE", () => {
-  it("dims the glow three times, feeds it once from the faced column, and puts it out with the beam", () => {
+  it("dims the glow three times, feeds it once from the faced column, and ends it on the pull and the beam", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theCandle");
     const run = new SceneRun(sceneScript("theCandle", wave, DEFAULT_CONFIG));
     const seen: string[] = [];
@@ -362,7 +362,13 @@ describe("the rehearsal for THE CANDLE", () => {
     // drifted; the third brings it to two and it eats. The fourth is fired from
     // the column it faces — the one authored slide in the film — and is put
     // back on the glow at the muzzle. Then two clean ones with the cannon slid
-    // clear, the last of which stops it, and the beam's one step puts it out.
+    // clear, the last of which stops it.
+    //
+    // And then the trigger stops counting, which is the whole of what this
+    // film's last page is for: the pilot pulls the flame down off the wick
+    // (`candleWick`) and only then does the beam reach what is left. A film
+    // that ended on the beam alone ran for a day after the phases landed and
+    // showed a boss that never went out.
     expect(seen).toEqual([
       "candleDim 5 4 @6",
       "candleDim 3 3 @12",

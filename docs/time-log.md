@@ -10244,3 +10244,37 @@ reading's comment, the test's name and the spec. A defect whose size is
 measured before it is discussed does not get discussed.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-candle-changes-state-more-than-once (half one, the simulation) — a boss that only knew one verb
+
+Six phases where there were five, three gestures where there was one, and one
+of them reached on the picture rather than the panel: `last` takes the
+trigger away entirely and asks player 1 for his thumb on the flame
+(`candleWick`, `sim/candle-hand.ts`), `smoking` gives player 2
+`candleSmokeBeats` to stand the beam in that column, and a beam that comes
+late relights the wick a step brighter with the pull to make again. The look
+is half two and is not in this commit.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the entry, `candle.ts` and `candle-step.ts` end to end, `stare-hand.ts` as the straight-pull idiom a depth-from-the-grab handle takes, and `boss-cue-read-m.ts`'s argument for every silence it already keeps |
+| writing | 90 | the two phases and `pinchMilli`, `candle-hand.ts`, two config counts, two events, the hash row, two cue words, two sounds, seventeen cases across three test files, and §11.22 |
+| looking | 0 | none: nothing this half draws is new, and the wick itself is half two |
+| friction | 55 | six exhaustiveness errors the typecheck raised one file at a time; twelve enforcement tests each demanding a separate registration — a pose card, an INDEX row, a codec example, a bind sample, a sound's picture or reason, two counts in `audio.md`; `boss.candleLit` 0.04 s over the speech-band budget; **four separate pages carried over their 250-line ceiling by two or three rows each**, every one of them found by a different run of the suite; and two test bugs of my own, both of them a queued event I had not stepped past |
+| landing | 35 | `format`, `index` twice, four full `check:fast` runs at 550-odd files, the commit and `bun run land --keep` |
+
+**The bottleneck was that a new boss state is twelve registrations, not two.**
+The simulation took an hour and was the easy part; what cost the afternoon was
+that every list in the repo which is kept honest by a test — the silent
+effects pages, the codec's targets, the bind samples, the pose cards, the
+sound sheet, the INDEX, two counts in a spec — wanted a row, and each one was
+found by running the whole suite rather than by reading anything. Four of
+those rows landed on pages already within three lines of the 250-line ceiling,
+so the afternoon's last hour was not the boss at all — it was handing THE
+CAIRN, THE INSTAR, THE LEAD and THE BULB QUEEN across to their second pages,
+one `check:fast` at a time, because the ceiling reports one file per run. A
+boss state added next week will cost the same, and the entry that says so is
+in `docs/queue.md`: the twelve are discoverable from one another and nothing
+names them in one place.
+
+*Measured: the rows above are the session's own estimate.*

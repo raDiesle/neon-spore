@@ -1,11 +1,17 @@
 /**
  * The sounds wired up with nothing to draw, the second page — from THE
- * SCUTTLE on.
+ * LEAD on.
  *
  * `sound-link-none.ts` is the list of one-offs and reached its length with
  * THE LEAD's fourteen; this is the same list continued, spread into
  * `NO_SUBJECT` at the end so `test/sound-link.test.ts` reads one table. The
  * seam is the order the bosses were built in and nothing depends on it.
+ *
+ * THE LEAD's own fourteen came over on 19 September 2026, by the same rule
+ * and for the same reason THE SCUTTLE's did: page one went over, so page one
+ * handed its last boss across. They are the walker on the stalk, which is
+ * not a card (`sim/lead.ts`) — a body the shape sheet has no contour for,
+ * the way a rack of sockets is not one.
  *
  * THE SCUTTLE's ten share THE LEAD's argument: the boss is a frame of
  * sockets over the field and not a body, and the sheet's cards are
@@ -19,6 +25,22 @@
  * not the rock's (`sim/hive.ts`).
  */
 export const NO_SUBJECT_B: Record<string, string> = {
+  "boss.leadEnter":
+    "the body taking its place over the middle column. It is a walker on a stalk, which is not a card (`sim/lead.ts`).",
+  "boss.leadPace": "one pace along the top of the field. Same argument.",
+  "boss.leadTurn": "the body turning at a wall. Same argument.",
+  "boss.leadFlight": "a shot hanging over the top of the field. Same argument.",
+  "boss.leadHit": "a segment coming off the stalk. Same argument.",
+  "boss.leadMiss": "a shot judged against an empty column. Same argument.",
+  "boss.leadReverse": "the body turning on a beat every shot missed. Same argument.",
+  "boss.leadTorch": "a torch dropped behind. Same argument.",
+  "boss.leadRock": "a rock let go ahead. Same argument.",
+  "boss.leadStill": "the body stopping dead on its last segment. Same argument.",
+  "boss.leadPass": "the pass to the farther wall. Same argument.",
+  "boss.leadWall": "the pass hitting the wall. Same argument.",
+  "boss.leadDown": "the last segment taken by the beam. Same argument.",
+  "boss.leadOut":
+    "the body gone. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.scuttleEnter":
     "the frame taking its place over the middle columns. It is a rack of sockets, which is not a card (`sim/scuttle.ts`).",
   "boss.scuttleLoose": "a part coming loose in its socket and hanging. Same argument.",

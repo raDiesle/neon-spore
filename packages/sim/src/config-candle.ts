@@ -30,6 +30,20 @@ export interface CandleConfig {
   candleEatSteps: number;
   /** Steps of glow left at which it stops moving and stops eating: the last glow. */
   candleLastSteps: number;
+  /**
+   * How far down the pilot's thumb carries the flame to pull it off the wick,
+   * in thousandths of a tile (`candle-hand.ts`). A tile and a half: far enough
+   * that a thumb brushing the glow in the dark is not a pull, short enough to
+   * be one stroke on a phone held in one hand.
+   */
+  candlePinchMilli: number;
+  /**
+   * Beats the wick smokes before it lights again. The navigator has to fill a
+   * lobe and stand the beam in the column inside this, and the pilot has to
+   * say which column — so it is a call's worth of time and then some
+   * (`docs/spec/latency.md`).
+   */
+  candleSmokeBeats: number;
   /** Beats the frame is held black after the last step goes out, before the wave may end. */
   candleOutBeats: number;
 }
@@ -38,8 +52,9 @@ export interface CandleConfig {
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
  * Read as one fight: four beats of the light going out, then a glow that
- * drifts every three beats and turns every four, five hits to put it out,
- * two black beats. A fight that is short in beats and long in the dark.
+ * drifts every three beats and turns every four, four hits to bring it to its
+ * last step, a pull and a beam inside six beats to finish it, two black beats.
+ * A fight that is short in beats and long in the dark.
  */
 export const CANDLE_DEFAULTS: CandleConfig = {
   candleGlowSteps: 5,
@@ -48,5 +63,7 @@ export const CANDLE_DEFAULTS: CandleConfig = {
   candleTurnBeats: 4,
   candleEatSteps: 2,
   candleLastSteps: 1,
+  candlePinchMilli: 1500,
+  candleSmokeBeats: 6,
   candleOutBeats: 2,
 };

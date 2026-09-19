@@ -119,14 +119,18 @@ export const CHOREO_FIELD_GROUP = {
   orreryHandMilliPerOrgan: "THE ORRERY — three orbits, and neither of you can see all three",
   orreryCrackOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
   // CandleConfig — how many steps the glow has, how long the dark takes to
-  // fall, and the counts it drifts, turns, eats and goes out on. Every one a
-  // count the pair says aloud in the dark (`config-candle.ts`).
+  // fall, the counts it drifts, turns, eats and goes out on, and the two the
+  // last step is played on: how far the thumb carries the flame off the wick
+  // and how long the wick smokes. Every one a count the pair says aloud in
+  // the dark (`config-candle.ts`).
   candleGlowSteps: "THE CANDLE — the boss fought in the dark",
   candleDarkBeats: "THE CANDLE — the boss fought in the dark",
   candleMoveBeats: "THE CANDLE — the boss fought in the dark",
   candleTurnBeats: "THE CANDLE — the boss fought in the dark",
   candleEatSteps: "THE CANDLE — the boss fought in the dark",
   candleLastSteps: "THE CANDLE — the boss fought in the dark",
+  candlePinchMilli: "THE CANDLE — the boss fought in the dark",
+  candleSmokeBeats: "THE CANDLE — the boss fought in the dark",
   candleOutBeats: "THE CANDLE — the boss fought in the dark",
   // GorgeConfig — how wide the sack is, how many beads fill an intake, how
   // long a full one holds before venting, and when it spits and gorges

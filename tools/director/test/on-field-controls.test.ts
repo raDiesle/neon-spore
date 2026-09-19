@@ -225,6 +225,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "throatRing":
     case "throatTube":
       return target;
+    // THE CANDLE's wick, and the only handle in the list a seat takes hold of
+    // in the dark: at the last glow no shot counts and the pilot pulls the
+    // flame down off it, which leaves the navigator's beam the one thing that
+    // finishes the fight (`sim/candle-hand.ts`). Sim lane only so far, as the
+    // sixteen above.
+    case "candleWick":
+      return target;
     default:
       return assertNever(target);
   }

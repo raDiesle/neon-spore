@@ -126,9 +126,12 @@ export const CHOREO_NOTES = {
     "a column every candleMoveBeats and turns to face a column every " +
     "candleTurnBeats, seen by player 1 alone. At candleEatSteps left it eats " +
     "the shot from the column it faces and re-brightens a step; at " +
-    "candleLastSteps it stops moving, turning and eating, and the last shot " +
-    "puts it out, holding the wave candleOutBeats more. Nothing about it is " +
-    "authored per wave. See sim/candle.ts, sim/config-candle.ts.",
+    "candleLastSteps it stops moving, turning and eating, and no shot counts " +
+    "at all: player 1 pulls the flame candlePinchMilli down off the wick, and " +
+    "player 2 has candleSmokeBeats to stand the beam in that column before it " +
+    "lights again a step brighter. That puts it out, holding the wave " +
+    "candleOutBeats more. Nothing about it is authored per wave. See " +
+    "sim/candle.ts, sim/config-candle.ts.",
   "THE GORGE — the boss you hurt by not shooting":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §3: " +
     "the one boss whose health runs backwards. A sack gorgeIntakes wide sits " +

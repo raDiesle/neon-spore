@@ -3,12 +3,12 @@ import {
   type Color,
   candleBoss,
   candleEating,
+  candleSmoking,
+  candleWicked,
   NO_BEARING,
   type OrreryState,
   orreryCoreCol,
   orreryTurnPerTickMilli,
-  queenGesture,
-  queenMarkCol,
   type TimedCommand,
   vaneColor,
   vaneOpen,
@@ -40,6 +40,13 @@ import type { Hand } from "./poses-bosses-kit.js";
  * nothing on any of these four (`warden.test.ts`, `vane.test.ts`,
  * `orrery.test.ts`, `candle.test.ts`), so the hand fires whenever the
  * cannon is free and lets the boss judge the beat.
+ *
+ * **THE BULB QUEEN was here too and is not any more.** This page went over
+ * its 250 on 19 September 2026, when THE CANDLE's last step turned out to be
+ * two gestures rather than a shot, and the seam the silent effects pages use
+ * settled it: the page hands its *last* boss across rather than the lane
+ * cutting its own rows out of the middle. Hers is `boss-hands-queen.ts`,
+ * beside the poses page she already had.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -188,50 +195,35 @@ export const orreryHand: Hand = (w) => {
  * from the column the glow faces while it is eating, where the flash would
  * be swallowed and put a step back (`candleEats`). Then the hand waits for
  * the next turn, which is what the pilot is for.
+ *
+ * **And the last step is not a shot at all**, which is the one place this
+ * hand stops spraying. At the last glow the trigger counts for nothing
+ * (`candleStruck`) and the only thing on the field that does anything is the
+ * pilot's thumb on the flame, pulled to the bottom of the wick
+ * (`sim/candle-hand.ts`) — so the hand pulls, and the column stops mattering
+ * because no shot is going anywhere. Off the wick the bolt is still nothing
+ * and only the beam reaches what is left, so the cannon goes back under the
+ * smoke and the navigator holds a colour down: the fill lands the beam in
+ * that column inside `candleSmokeBeats`, and late is a relight a step
+ * brighter and the pull to make again. `lancePrimeBeats` is three of that
+ * six, which is the pair's whole margin and the hand takes it the moment the
+ * wick starts smoking.
  */
 export const candleHand: Hand = (w) => {
   const c = candleBoss(w);
   if (c === null || c.phase === "dark" || c.phase === "out") return [];
+  if (candleWicked(c)) return [pull(w.cfg.candlePinchMilli)];
   if (w.cannonCol !== c.col) return [aim(c.col)];
+  if (candleSmoking(c)) return w.prime === null && w.beam === null ? [prime("red")] : [];
   if (candleEating(c) && c.faceCol === c.col) return [];
   return free(w) ? [fire("red")] : [];
 };
 
-/**
- * THE BULB QUEEN: the cannon under the real mark and her open colour up it,
- * every phase — and, from BROOD, player 1's thumb on that mark as well
- * (`sim/queen-hand.ts`): pressed while a window is up and nothing is pried,
- * which is what opens it; held from the announcement under SCREAM, which is
- * what keeps it open. The hand knows the side, which the pair only knows
- * once player 2 has said it; it is played straight otherwise, and a shot
- * that lands is what closes the bloom.
- */
-export const queenHand: Hand = (w) => {
-  const b = w.boss;
-  if (b === null || b.kind !== "queen") return [];
-  const q = w.creatures.find((c) => c.id === b.creatureId);
-  if (q === undefined) return [];
-  const col = queenMarkCol(q.col, b.weakSide);
-  const out: Press[] = [aim(col)];
-  const gesture = queenGesture(b);
-  const asked = b.openBeat !== -1 && q.color === null && b.pryBeat === -1;
-  if (gesture === "pry" && asked) out.push(mark(b.weakSide));
-  if (gesture === "hold" && b.openBeat !== -1 && b.holdSide !== b.weakSide) {
-    out.push(mark(b.weakSide));
-  }
-  if (q.color !== null && free(w) && w.cannonCol === col) out.push(fire(q.color));
-  return out;
-};
-
-/** Player 1's thumb landing on one of her marks, `id` 0 the left and 1 the right. */
-const mark = (side: -1 | 1): Press => ({
+/** The pilot's thumb on the flame, `milli` deep down the wick (`sim/candle-hand.ts`). */
+const pull = (milli: number): Press => ({
   player: 1,
-  command: {
-    kind: "drag",
-    target: "queenMark",
-    on: true,
-    fromMilli: 0,
-    fromYMilli: 0,
-    id: side === -1 ? 0 : 1,
-  },
+  command: { kind: "drag", target: "candleWick", on: true, fromMilli: 0, fromYMilli: milli },
 });
+
+/** The navigator's colour held down, which is how the beam is started. */
+const prime = (color: Color): Press => ({ player: 2, command: { kind: "prime", on: true, color } });

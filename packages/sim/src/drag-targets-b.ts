@@ -27,7 +27,8 @@ export type DragTargetB =
   | "undertowPin"
   | "undertowFree"
   | "throatRing"
-  | "throatTube";
+  | "throatTube"
+  | "candleWick";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -150,4 +151,19 @@ export type DragTargetB =
  * The mouth moves one column on the next beat however far his thumb went,
  * because a column is the unit player 2 has already said out loud. No `id`:
  * there is one tube, and one mouth on the end of it.
+ */
+
+/**
+ * `candleWick` is the forty-fourth, and the only handle in this union a seat
+ * takes hold of **in the dark**. THE CANDLE's flame is the one steady light
+ * in a black field and is drawn on both screens (`candle-glow.ts`), so it is
+ * the one thing there is to point at — and from the last step down it is the
+ * pilot's to pull down off the wick, `fromYMilli` against `candlePinchMilli`
+ * the way THE STARE's lid is read. No `id`: one flame, and it is the boss.
+ *
+ * What it buys is the phase behind it: a wick smoking for `candleSmokeBeats`
+ * and nothing but the navigator's beam able to reach it (`candle-hand.ts`).
+ * Player 1's alone, for `queenMark`'s reason — her hands are the trigger and
+ * the lobe, and the fight ends on the two of them doing different things —
+ * and her press is dropped without a sound.
  */
