@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 7043bfc3 — The index says when a row names a boss its file never heard of
+
 ## 2026-09-19 · 018686fd — THE LEAD says the two words it can, and no column to the pilot
 
 THE LEAD is the seventh of this family and the first whose finding is an absence. Its split is the strictest in the game — the pilot is shown the lean and never the column, the navigator the column and never the lean — so the MOVE the last four lanes each handed the pilot cannot exist here: it goes out the beat he arrives, and on this boss its own silence would hand him the column he is not shown. A word whose absence reads is as bad as one that says too much, and the argument is in the reading because no test can fail on it.
