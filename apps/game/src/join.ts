@@ -7,12 +7,13 @@ import {
   SOLO_STATUS,
 } from "@neon-spore/net";
 import { bindTwoStep } from "./confirm.js";
+import { bindChip } from "./join-chip.js";
 import { freshCode, roomRequested } from "./join-link.js";
 import { bindNameField } from "./join-name.js";
 import { bindRoomStep, type RoomStepBindings } from "./join-room-step.js";
 import { bindStepView } from "./join-step-view.js";
 import { type JoinMode, joinStep } from "./join-steps.js";
-import { chipText, explain, lastTimeLine } from "./join-words.js";
+import { explain, lastTimeLine } from "./join-words.js";
 import { partnerIn, rememberFrom, startOverWith } from "./pairing.js";
 import { quitBy, quitLine } from "./quit.js";
 
@@ -44,9 +45,10 @@ export interface JoinScreen {
 }
 
 /**
- * The room screen and the network indicator, which are one thing: the
+ * The room screen, paired with the network indicator (`join-chip.ts`): the
  * indicator is how you get back to the screen, and the screen is the only
- * place the indicator's states are spelled out in words.
+ * place the indicator's states are spelled out in words. This file only
+ * hands the chip the status.
  *
  * A code is four characters and is meant to be said out loud, because the two
  * players are already talking — that is the game. It is the first sentence of
@@ -57,17 +59,10 @@ export interface JoinScreen {
  * a screen read aloud has to be short. Which step, and what it says, is
  * `join-steps.ts`; this is the sheet the step is painted onto.
  *
- * The chip is gone entirely while there is no room. It used to sit in the
- * corner saying SOLO, which is a button that reports the absence of the thing
- * it opens: nobody reads "SOLO" as "press here for two devices". The way to
- * two devices is the menu now, and the chip comes back the moment there is a
- * room for it to be about.
- *
  * The code itself — drawn fresh, read off a link, written into one — is
  * `join-link.ts`; this is the screen around it.
  */
 export function bindJoinScreen(b: JoinBindings): JoinScreen {
-  const chip = document.getElementById("linkChip") as HTMLButtonElement | null;
   const screen = document.getElementById("joinScreen");
   const ledeEl = document.getElementById("joinLede");
   const codeEl = document.getElementById("joinCode");
@@ -147,7 +142,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     if (screen) screen.style.display = isOpen ? "block" : "none";
   };
 
-  chip?.addEventListener("click", () => open(screen?.style.display !== "block"));
+  const chip = bindChip(() => open(screen?.style.display !== "block"));
   closeEl?.addEventListener("click", () => {
     open(false);
     b.back();
@@ -198,12 +193,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     // or a link walked straight into — is one this device joined, and the
     // steps behind it are over.
     if (!mode && status.state !== "solo") mode = "join";
-    if (chip) {
-      chip.textContent = chipText(status);
-      chip.classList.toggle("on", status.state !== "solo");
-      chip.classList.toggle("fault", linkIsFault(status.state));
-      chip.classList.toggle("live", status.state === "live");
-    }
+    chip.paint(status);
     if (!changed && screen?.style.display !== "block") return;
     paint();
     // A fault is the one thing that opens the screen by itself: the game has

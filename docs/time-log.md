@@ -12175,4 +12175,36 @@ in `boss-cue-read-d.ts` since THE STARE and THE SPLICE were split there.
 every check was blocked until the pinned binary was installed by hand — pure
 setup tax, no relation to the split itself.
 
+## 2026-09-19 — queue-apps-game-has-two-files-at-the-ceiling-and-both — two clean pulls
+
+`main.ts` at 248 lines and `join.ts` at 243 had each been stepped around once
+already — a body-class binding landed in `shell.ts` instead of either, a
+third file reading the same status — and the entry named exactly what to
+pull and the precedent to pull it the way of. `main.ts`'s ~30 lines handed to
+`bindShell` came out to a new `main-shell.ts`, `shellWiring(deps): ShellParts`,
+mirroring `shell-menu.ts`'s own `menuWiring`: `main.ts` still builds
+`playAt`/`startTogether` — order, not shape, so they stay — and passes them
+in by reference, the same way the order in `shell.ts` stayed put when its own
+menu wiring moved out. `join.ts`'s corner chip — its text, its three classes,
+its click, and the paragraph explaining why it disappears with no room — came
+out to `join-chip.ts` the way `menu-seats.ts` came out of `menu-view.ts`: a
+`bindChip(onClick): Chip` with one `paint(status)`. Neither file lost logic,
+only the object literal shape one held and the DOM node the other owned.
+`join.ts`'s own header claimed the chip and the screen "are one thing," which
+the split falsified, so that line moved too. `bun run index` wrote both new
+rows; `join.ts`'s own, no longer machine-checked against its new header,
+was corrected by hand to stop claiming a chip it no longer holds.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `main.ts`, `join.ts`, `shell.ts`, `shell-menu.ts` and `menu-seats.ts`/`menu-view.ts` for both extraction precedents |
+| writing | 30 | `main-shell.ts`, `join-chip.ts`, the two call-site edits, `join.ts`'s header fix, the `docs/INDEX.md` row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 15 | `bunx tsc --noEmit`, `apps/game/test` (453 pass), `limits.test.ts`, `doc-drift.test.ts`, `index.test.ts` (caught the stale `join.ts` row), `format`, `lint`, `bun run queue done`, the commit |
+
+**The bottleneck was reading two extraction precedents closely enough to
+copy their shape rather than invent a third one** — once `menuWiring` and
+`buildSeats` were in hand, both pulls were mechanical.
+
 *Measured: the rows above are the session's own estimate.*

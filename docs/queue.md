@@ -1448,31 +1448,6 @@ decision and wants an eye on a phone, not a flag. The director's side of the
 same ask is smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works;
 what a phone cannot do is *reach* that strip.
 
-## `apps/game` has two files at the ceiling, and both were stepped around
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, main (claim: claude/queue-apps-game-has-two-files-at-the-ceiling-and-both)
-- **Files:** `apps/game/src/main.ts`, `apps/game/src/join.ts`, `apps/game/src/shell.ts`, `apps/game/src/shell-menu.ts`, `apps/game/src/menu-seats.ts`
-
-`main.ts` is 248 lines and `join.ts` 243, so `tools/hooks/after-edit-size.ts`
-fires on any edit to either. That is not theory: the lane that took the view
-switch off the room's hands wanted the body class in one of them — `main.ts`
-holds the one line that binds the seat, `join.ts` the one that paints the chip
-the class is about — and put it in `shell.ts` instead, which is a third file
-reading the same status. The seam should be cut while a diff is about it.
-
-**`main.ts`**: the object handed to `bindShell` is about thirty lines of
-wiring — the seat, the tempo, the two ways a wave starts — and the same move has
-already been made once for the menu's half (`shell-menu.ts`, *wiring, not
-order*). A second file beside it, built from the pieces `main.ts` already holds
-and handed straight to `bindShell`, leaves `main.ts` a list of bindings.
-
-**`join.ts`**: the corner chip is a whole control with one job — its text, its
-three classes, its click, and the paragraph saying why it is gone while there is
-no room — and nothing else in the file touches it. It comes away the way
-`menu-seats.ts` came out of `menu-view.ts`: about fifteen lines, and it is also
-the natural home for the body class `shell.ts` is carrying.
-
 ## Unverified at 2154cbd2: THE THROAT's four cues on a real frame — the PNG of the…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

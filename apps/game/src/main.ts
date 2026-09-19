@@ -12,15 +12,15 @@ import {
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
 import { bindCanvasSheets } from "./canvas-sheets.js";
-import { openDemonstration } from "./demo-menu.js";
 import { bindFieldInput } from "./field-input.js";
 import { startFrames } from "./frame.js";
 import { bindTesting } from "./handle.js";
 import { bindHaptics } from "./haptics.js";
 import { InputBuffer } from "./input.js";
 import { interpolationRequested } from "./interpolate.js";
+import { shellWiring } from "./main-shell.js";
 import { menuIdleHz } from "./menu-idle.js";
-import { atLevel, readProgress, updateProgress } from "./progress.js";
+import { readProgress } from "./progress.js";
 import { bindRasterBurst, bindRasterClasp } from "./raster.js";
 import { createRunState } from "./run-state.js";
 import { bindShell } from "./shell.js";
@@ -134,34 +134,21 @@ const testPanel = bindTestControls({ world, jumpToWave, run });
  * The menu, the room screen and the bad-line card come up with it: they are
  * one knot around the link and they are tied in `shell.ts`.
  */
-const link = bindShell({
-  setSound: (on) => audio.setSound(on),
-  cfg,
-  world,
-  buffer,
-  run,
-  jumpToWave,
-  seat: () => view.role(),
-  setSeat: (role) => view.set(role),
-  openTuning: () => testPanel.open(),
-  openDemo: (id) => openDemonstration(id, cfg, jumpToWave),
-  // Beat zero: the room's wave *and* the room's tempo, so the two phones are
-  // playing the same game at the same speed (`sim/difficulty.ts`).
-  onStart: (_player, wave, level) => {
-    playAt(level);
-    startTogether(wave);
-  },
-  level: () => readProgress().level,
-  // Off the wire, the same three things in the same order — and the first wave,
-  // because a wave cleared at one tempo was not cleared at another. The row
-  // that reaches this asked before it did (`menu-entries.ts`).
-  setLevel: (level) => {
-    playAt(level);
-    updateProgress((p) => atLevel(p, level));
-    startTogether(0);
-  },
-  intro,
-});
+const link = bindShell(
+  shellWiring({
+    setSound: (on) => audio.setSound(on),
+    cfg,
+    world,
+    buffer,
+    run,
+    jumpToWave,
+    view,
+    testPanel,
+    startTogether,
+    playAt,
+    intro,
+  }),
+);
 
 // The baked burst and THE CLASP's hand-painted shield, both behind
 // `?raster=1` — `raster.ts` and `docs/raster.md`. Neither is fetched at all

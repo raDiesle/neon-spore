@@ -1641,6 +1641,7 @@ place — the generator keeps whatever is there.
 | Path | One line |
 |---|---|
 | `apps/game/src/main.ts` | wiring: world, renderer, input, loop |
+| `apps/game/src/main-shell.ts` | What `main.ts` hands `bindShell` — beside `main.ts` rather than inside it, `shell-menu.ts`'s own reason |
 | `apps/game/src/waves.ts` | the two ways a wave starts, and the banner that names it |
 | `apps/game/src/welcome.ts` | the page before a device's first tutorial: once per device, pressed away, the film held on its first frame under it |
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
@@ -1654,7 +1655,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
 | `apps/game/src/relay.ts` | the socket, and only the socket |
-| `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing — four steps, one question each |
+| `apps/game/src/join.ts` | the room screen, paired with the network indicator (`join-chip.ts`) — four steps, one question each |
 | `apps/game/src/menu.ts` | the main menu, which is the front door: three rows, the link, the seat and the two-step in front of LEAVE ROOM |
 | `apps/game/src/menu-view.ts` | the shell, the root page's entries, and the seat as three cards |
 | `apps/game/src/briefing.ts` | the thumb on a wave's guide |
@@ -1696,6 +1697,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/join-steps.ts` | the room screen one step at a time — which of the four a device is on, and what that step says |
 | `apps/game/src/join-room-step.ts` | What step 4 can ask of the link — the room-shaping half of `JoinBindings` |
 | `apps/game/src/join-room.ts` | The rules of step 4, THE ROOM: who may shape it, and what each READY circle is doing |
+| `apps/game/src/join-chip.ts` | The corner chip: the network indicator, and the door back into the room screen for a player already in one |
 | `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
 | `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |
