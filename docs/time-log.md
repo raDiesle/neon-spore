@@ -12114,3 +12114,34 @@ the prose: `body-hit.ts`'s comment on the six candidates was what turned "is
 the code wrong or the prose" into a settled answer instead of a guess.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-copies-table-cannot-carry-a-row-that-points — a second kind of row it already doesn't need
+
+The open question was whether `Copy` should grow a `see`-only row — a
+document named instead of a regex, enforced by existing rather than by
+matching. It doesn't need to: the twelve registrations the entry was about
+are already held, and more thoroughly than a `see` row could, by
+`doc-drift.test.ts`'s `skillFiles()` check, which is the very entry that
+put `.claude/skills/**/*.md` under it on 19 September 2026 — every
+backticked path in `new-boss-state`'s own twelve rows, not just the one
+fact that the skill file exists. `COPIES`'s job is narrower and different:
+catching a formula re-derived by hand, which is exactly what a checklist of
+*which files to touch* is not — there is no pattern that could tell "the
+developer forgot file eight" from "file eight never needed touching," which
+is what the entry's own first paragraph already found. A `see` row would
+duplicate a weaker version of a check that exists. No code changed;
+`packages/sim/test/copies-table.ts` and `copies.test.ts` are untouched.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `copies-table.ts`, `copies.test.ts`, `doc-drift.test.ts`'s own header and `skillFiles()` coverage, confirming CLAUDE.md's and `new-boss/SKILL.md`'s pointers already landed |
+| writing | 10 | this entry |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 0 | no source touched |
+
+**No bottleneck** — the deciding fact was already sitting in
+`doc-drift.test.ts`'s own header, once read against what the open question
+was actually asking for.
+
+*Measured: the rows above are the session's own estimate.*

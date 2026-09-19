@@ -1721,32 +1721,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The COPIES table cannot carry a row that points at a document
-
-- **Found:** 2026-09-19, claude/queue-a-new-boss-state-is-twelve-registrations-and-not
-- **Taken:** 2026-09-19, main (claim: claude/queue-the-copies-table-cannot-carry-a-row-that-points)
-- **Files:** `packages/sim/test/copies-table.ts`, `packages/sim/test/copies.test.ts`
-- **Where:** cloud
-
-The entry that produced `.claude/skills/new-boss-state` asked for a row in the
-called-not-re-derived table pointing at it, and there is no such row to write.
-A `Copy` is `{ call, owner, pattern }`: a regex the owner file must contain and
-no other file may. Twelve registrations spread over eleven files re-derive no
-arithmetic, so any pattern written for them would either match nothing — and
-`copies.test.ts` fails a row whose owner does not contain its own pattern — or
-match the registrations themselves, which are the point rather than the defect.
-
-The pointer went to `CLAUDE.md`'s conventions list and the head of
-`.claude/skills/new-boss`, which is where a lane starting the work actually
-looks, and the skill's own paths are now held by `doc-drift.test.ts`.
-
-What is worth deciding is whether the table should be able to carry a rule
-whose enforcement is a document rather than a regex — a row with a `see` and
-no `pattern`, failing only if the document is gone. That is a real second kind
-of row and it would want the owner's word: it makes the table two things, and
-the reason it is one thing today is that a rule nothing can test is a rule
-that goes quiet.
-
 ## Unverified at 0c7934d1: THE CURTAIN's jammed rail and lifted hem seen by an eye…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
