@@ -36,6 +36,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * lobes are lit on the pilot's screen and the core's shadow is on the
  * navigator's, and neither on the other; and that the torn sheet is a
  * transient the next run does not inherit.
+ *
+ * The jammed state is set the same way, and it is the one that draws a handle:
+ * a bar along the rail running down with the jam, and the hem's ring on the
+ * fabric's bottom edge. What only a frame can catch there is that a hem held
+ * at the top opens the core to the **pilot** — the seat that is shown nothing
+ * of it in every other state (`render/curtain-grip.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -67,6 +73,14 @@ function worn(world: World): CurtainState {
   const body = curtainBody(world, c);
   if (body === undefined) throw new Error("the fabric is gone already");
   c.coreCol = body.col + 3;
+  return c;
+}
+
+/** The rail jammed by a hit, the core still covered: the hem's own state. */
+function pinned(world: World): CurtainState {
+  const c = worn(world);
+  c.phase = "pinned";
+  c.phaseBeat = world.beat;
   return c;
 }
 
@@ -188,5 +202,41 @@ describe("THE CURTAIN's fabric", () => {
     c.phaseBeat = world.beat - CFG.curtainOutBeats - 1;
     const gone = count(drawn(world, role, 3).text, PALETTE.redRim);
     expect(going).toBeGreaterThan(gone);
+  });
+
+  it.each(ROLES)("lays the jam bar on the rail and hangs the hem's ring, on %s", (role) => {
+    const jammed = hung();
+    pinned(jammed);
+    const loose = hung();
+    worn(loose);
+    // The bar's own glow, and not the grey it is stroked in: `PALETTE.rock` is
+    // also the cue word's fill and its target lock's (`boss-cue-text.ts`,
+    // `boss-cue-draw.ts`), and the cue is a different one in each of these two
+    // states, so counting that grey would be counting the word. The dark is the
+    // bar and nothing else on this sheet.
+    expect(count(drawn(jammed, role, 3).text, PALETTE.rockDark)).toBeGreaterThan(
+      count(drawn(loose, role, 3).text, PALETTE.rockDark),
+    );
+    expect(drawn(jammed, role, 3).calls).toBeGreaterThan(drawn(loose, role, 3).calls);
+  });
+
+  it("opens the core to the pilot while the hem is held at the top", () => {
+    const shut = hung();
+    pinned(shut);
+    const open = hung();
+    pinned(open).liftMilli = CFG.curtainLiftMilli;
+    // The rim is the bare core's and the pilot has never seen it: the gap his
+    // own thumb is holding is the one frame of this fight that shows it to him.
+    expect(count(drawn(open, "p1", 3).text, PALETTE.redRim)).toBeGreaterThan(
+      count(drawn(shut, "p1", 3).text, PALETTE.redRim),
+    );
+  });
+
+  it.each(ROLES)("fills the hem's gauge as the lift comes in, on %s", (role) => {
+    const half = hung();
+    pinned(half).liftMilli = Math.round(CFG.curtainLiftMilli / 2);
+    const none = hung();
+    pinned(none);
+    expect(drawn(half, role, 3).calls).toBeGreaterThan(drawn(none, role, 3).calls);
   });
 });

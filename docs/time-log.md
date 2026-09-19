@@ -10671,3 +10671,34 @@ have been skipped by a lane in a hurry — which would have landed a check that
 cried wolf forty times and been deleted within the week.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-curtain-states, second half — the look, and one colour that was already spoken for
+
+The same queue entry's other half, split before it was started: the jam and
+the lifted hem were in the simulation with nothing on the glass showing
+either. Now the rail carries a bar that fades as the jam's count runs out,
+the hem carries a ring on the fabric's own bottom edge, the sheet is drawn
+with the lift and the folds travel with it, and the rehearsal has an
+eleventh page pointing at the ring. Almost all of the design was read off
+precedents rather than invented — where a ring rests, how far a thumb's
+carry is remapped, which screens a handle is drawn on — and the writing was
+quick because of it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `candle-grip.ts`, `stare-lid.ts`, `surge-shape.ts` and `handle-place.ts` for the shape of a handle; `curtain-sheet.ts` and `curtain-step.ts` for the clocks the film had to be timed against |
+| writing | 40 | `curtain-grip.ts` whole, the jam bar, the sheet's lift, the director's row, the `handleCircle` arm, three frame tests, the film's eleventh page and the two docs |
+| looking | 0 | none — no picture was taken, and that is the unverified part |
+| friction | 20 | a frame test red on `PALETTE.rock`, which is also the cue word's fill and the target lock's; the ON THE FIELD row red until `controls.md` had its paragraph; the page red at thirty-five characters against a ceiling of twenty-eight |
+| landing | 20 | `check:fast`, `lint`, `format`, `imports:sort`, the commit and the landing |
+
+**The bottleneck was a colour that was not a signal.** The jam bar was
+stroked in `PALETTE.rock` and the test counted that grey to prove the bar was
+there, and it failed on the navigator's screen because the same grey is the
+cue word's fill (`boss-cue-text.ts`) and the target lock's
+(`boss-cue-draw.ts`) — and the two states being compared draw *different*
+cues, so the count was measuring the word. Fifteen minutes went on grepping
+that out. A frame test that counts a colour is only as good as that colour
+being unique on the frame, and nothing in the harness says which are.
+
+*Measured: the rows above are the session's own estimate.*

@@ -1513,6 +1513,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/curtain-draw.ts` | THE CURTAIN, drawn: a translucent violet-grey membrane hung across seven columns at `curtainRow` |
 | `packages/render/src/curtain-fx.ts` | What THE CURTAIN leaves behind a frame: the sheet falling once it is torn off the rail |
 | `packages/render/src/curtain-sheet.ts` | THE CURTAIN's two shapes: the membrane with its hem, and the core |
+| `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/surface-clear.ts` | **Wiping an overlay whatever transform is on it** — a `clearRect` under a ratio below one misses the right edge |
@@ -2259,6 +2260,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-diastole.ts` | THE DIASTOLE's clamp, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-warden.ts` | THE WARDEN's thumb and swipe, the director's two rows |
 | `tools/director/src/field-controls-candle.ts` | THE CANDLE's wick: the ON THE FIELD row for the one handle taken hold of in the dark |
+| `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

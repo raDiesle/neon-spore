@@ -1,12 +1,12 @@
 import {
-  CURTAIN_COLS,
   type CurtainState,
   curtainBody,
   curtainCoreBare,
   gripsCreature,
   type World,
 } from "@neon-spore/sim";
-import { drawCurtainCore, drawCurtainSheet } from "./curtain-sheet.js";
+import { curtainHemLift, curtainSheetMidX, drawCurtainHem } from "./curtain-grip.js";
+import { drawCurtainCore, drawCurtainJam, drawCurtainSheet } from "./curtain-sheet.js";
 import { drawnCol } from "./depth.js";
 import { drawHandAt } from "./grip.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -44,6 +44,14 @@ import { showsCurtainShadow, showsCurtainSoft } from "./view-role-clocks.js";
  * a ring behind a sheet seven columns wide would be a ring nobody saw. It
  * closes on the middle of whatever part of the fabric is on the field, so a
  * fabric shoved mostly off the wall still has a place to hold it by.
+ *
+ * **The jammed state draws two more things, and only it.** A hit holds the
+ * rail for `curtainPinBeats`, and the bar laid along the rail runs down with
+ * that count: it is the whole of the clock the pair work against. What gives
+ * instead of the rail is the hem, and its ring — the one handle this boss has
+ * — hangs in the middle of the sheet rather than over the core, because the
+ * core is the navigator's to see and the pilot's own screen must not say where
+ * it is (`curtain-grip.ts`).
  */
 export function drawCurtain(
   ctx: CanvasRenderingContext2D,
@@ -78,27 +86,23 @@ export function drawCurtain(
   // carried by its top edge.
   const lag = ((body.fromCol ?? body.col) - at) * l.tile * 0.35;
   const soft = showsCurtainSoft(l.role) ? c.soft : [];
-  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, time);
+  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, curtainHemLift(l, cfg, c), time);
+
+  // The jam, over the sheet's own rail, and the hem's ring over the sheet: both
+  // are the `pinned` state and nothing else, and both draw on both screens —
+  // the bar is the clock they are working against and the ring is the gauge she
+  // fires on (`curtain-grip.ts`).
+  if (c.phase === "pinned") {
+    const gone = (beat - c.phaseBeat + beatPhase) / Math.max(1, cfg.curtainPinBeats);
+    drawCurtainJam(ctx, l, x0, cy, Math.max(0, Math.min(1, 1 - gone)));
+  }
+  drawCurtainHem(ctx, l, cfg, c, body, beatPhase, time);
 
   const p1 = gripsCreature(world, 1, body.id);
   const p2 = gripsCreature(world, 2, body.id);
   if (!p1 && !p2) return;
   // The ring closes on the part of the sheet that is on the field.
-  const left = Math.max(x0, tileCX(l, 0) - l.tile * 0.5);
-  const right = Math.min(x0 + CURTAIN_COLS * l.tile, tileCX(l, cfg.cols - 1) + l.tile * 0.5);
-  if (right <= left) return;
-  drawHandAt(
-    ctx,
-    l,
-    world,
-    body,
-    "pull",
-    p1,
-    p2,
-    (left + right) / 2,
-    cy,
-    l.tile * 0.8,
-    time,
-    names,
-  );
+  const mid = curtainSheetMidX(l, cfg, at);
+  if (mid === null) return;
+  drawHandAt(ctx, l, world, body, "pull", p1, p2, mid, cy, l.tile * 0.8, time, names);
 }

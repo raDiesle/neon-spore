@@ -21,6 +21,12 @@ import { splinePath } from "./spline.js";
 const HEM_DROP = 0.42;
 /** How far above it the rail is. */
 const RAIL_RISE = 0.5;
+/** Both of them again for `curtain-grip.ts`, which has to know how far the hem
+ * may be carried before it is at the rail: the ring rides the edge this file
+ * draws, and a reach worked out from a second copy of these would be a handle
+ * that parted company with the cloth under it. */
+export const CURTAIN_HEM_DROP = HEM_DROP;
+export const CURTAIN_RAIL_RISE = RAIL_RISE;
 /** A lobe's radius, in tiles, and how far the hem lifts where one is gone. */
 const LOBE_R = 0.15;
 const HEM_LIFT = 0.16;
@@ -39,11 +45,19 @@ export function drawCurtainSheet(
   soft: readonly number[],
   /** The hem's trail behind the rail, in pixels. */
   lag: number,
+  /**
+   * How far the pilot has gathered the hem off the floor, in pixels
+   * (`curtain-grip.ts`). Nought in every state but the jammed one. The whole
+   * sheet does not rise: the rail is fixed and the bottom edge comes up to it,
+   * which is what gathering a curtain looks like and is why the gap it opens
+   * is over the core rather than beside it.
+   */
+  lift: number,
   time: number,
 ): void {
   const t = l.tile;
   const railY = cy - t * RAIL_RISE;
-  const hemY = cy + t * HEM_DROP;
+  const hemY = cy + t * HEM_DROP - lift;
   const x1 = x0 + CURTAIN_COLS * t;
   // The membrane: straight along the rail, a scallop between lobes along
   // the hem, lifted where a lobe has come off and nothing weighs it.
@@ -73,7 +87,7 @@ export function drawCurtainSheet(
     const x = x0 + i * t;
     const sway = Math.sin(time * 2.1 + i * 1.3) * t * 0.04;
     folds.moveTo(x, railY);
-    folds.quadraticCurveTo(x + sway, cy, x + lag, hemY - t * 0.05);
+    folds.quadraticCurveTo(x + sway, (railY + hemY) / 2, x + lag, hemY - t * 0.05);
   }
   ctx.save();
   ctx.globalAlpha = 0.35;
@@ -96,6 +110,41 @@ export function drawCurtainSheet(
     rim.arc(x, y, t * LOBE_R, 0, Math.PI * 2);
     strokeGlow(ctx, rim, lit ? PALETTE.hullRim : PALETTE.hull, STROKE.inner, lit ? 1 : 0.4);
   }
+}
+
+/**
+ * **The jammed rail**: a bar of metal laid along the sheet's top edge while a
+ * hit holds it, brightest the beat it lands and gone as the jam runs out
+ * (`sim/curtain-step.ts`). It is the pair's only clock on this state, so the
+ * brightness *is* the count — there is no number and no word for how long,
+ * which is `candle-glow.ts`' rule about the ember and for its reason.
+ *
+ * Rock grey, and the one grey thing on a violet sheet: the rail is the part
+ * of this boss that is not cloth, and a bar in the hull's own colour would
+ * read as a fold.
+ */
+export function drawCurtainJam(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  x0: number,
+  cy: number,
+  /** How much of the jam is left, 1 at the hit and 0 as the rail frees. */
+  left: number,
+): void {
+  if (left <= 0) return;
+  const t = l.tile;
+  const y = cy - t * RAIL_RISE;
+  const bar = new Path2D();
+  bar.moveTo(x0, y);
+  bar.lineTo(x0 + CURTAIN_COLS * t, y);
+  ctx.save();
+  ctx.globalAlpha = 0.35 + 0.65 * left;
+  ctx.strokeStyle = PALETTE.rock;
+  ctx.lineWidth = STROKE.outline * 1.6;
+  ctx.lineCap = "butt";
+  ctx.stroke(bar);
+  ctx.restore();
+  strokeGlow(ctx, bar, PALETTE.rockDark, STROKE.inner, 0.4 * left);
 }
 
 /**

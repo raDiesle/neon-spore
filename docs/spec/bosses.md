@@ -4342,9 +4342,24 @@ z-order was added, a covered core is a colour through a grey. Covered, it is
 a halo and a dimmed disc in its colour; bare, a five-lobed blob rimmed in its
 colour with a bright centre; naked (`torn`), the same blob pulsing, because it
 is firing faster; going out (`out`), the blob fading over `curtainOutBeats`.
-**The jam and the lifted hem are not drawn yet** — the phase moves, the sheet
-does not show it — and that is the second half of this lane, owed with the
-hem's own ring and the field's ON THE FIELD row. The hand
+**The jam and the lifted hem were drawn on 19 September 2026**, the second
+half of this lane and a look with no shipped alternative. The jam is a bar
+laid along the sheet's own rail in the rock's grey with a dark glow under it,
+fading as `curtainPinBeats` runs out, so its brightness is the clock the pair
+are working against (`curtainJam` in `curtain-sheet.ts`, which is told a
+number between one and nought and reads nothing of the world). The hem is a
+ring on the fabric's bottom edge (`curtain-grip.ts`), resting in the middle of
+the on-field sheet — **not** over the core, which is the navigator's to find,
+and a ring standing there would hand the pilot the one thing the split of eyes
+keeps from him. The thumb's carry is remapped rather than followed (THE STARE's
+lid is the precedent): the full `curtainLiftMilli` lifts the hem `HEM_DROP +
+RAIL_RISE` less a gathered sliver, so the cloth is seen bunching at the rail
+rather than leaving it. The sheet is drawn with that lift and the folds' waists
+travel with it, and because the core is drawn first and the fabric over it the
+gap opens over the core for nothing — the same absence of a z-order the rest of
+this boss is drawn with. The ring is on **both** screens, THE CANDLE's
+arrangement: the pilot has the gauge he is filling and the navigator has the
+one that says when her shot is through. The hand
 ring is drawn here over the sheet, THE CAIRN's reason (`grip.ts` skips a body
 whose hand means "pull"), closing on the middle of whatever part of the
 fabric is on the field, so a sheet shoved mostly off the wall still has a
@@ -4425,11 +4440,25 @@ rewritten on 19 September 2026, when the field learnt to say the column:
 `CARRY` is the kind line the cue draws over `SHOVE` and the count was all the
 page was ever for; and `FIRE ITS COLOUR AS IT BARES` became `ITS COLOUR OR IT
 FIRES BACK`, the colour being hers alone and the rock a wrong one buys being
-what no word on the glass may carry ([briefings](briefings.md) §7). **It
-still has no page for the jam**, and it wants one: an eleventh whose act is the
-hem carried up and held, anchored `{ at: "handle", target: "curtainHem" }` the
-way THE CANDLE's wick page is. The anchor wants the hem's ring, which is the
-look, so the page comes with it.
+what no word on the glass may carry ([briefings](briefings.md) §7). **An
+eleventh page was added with the look on 19 September 2026**: the grip on the
+sheet is let go half a beat after the hit lands, the hem is carried up and
+held for two beats under the jam, and the page is the pilot's, anchored
+`{ at: "handle", target: "curtainHem" }` the way THE CANDLE's wick page is. It
+reads `STUCK · HOLD THE HEM UP`, and it deliberately does not say *lift*:
+`LIFT` is what the cue already stands over the core with for as long as the
+rail is jammed, and the half no cue may carry is that the hem has to be
+**kept** up — the gap shuts the tick the thumb leaves. A page is twenty-eight
+characters (`content/test/scene-pages.test.ts`), and `STUCK` was picked over
+`JAMMED` for the same reason every word on this glass is: the pair may not be
+reading their first language. **The
+page shows the gesture and not the shot it is for.** The drift after the first
+hit puts the core in column nine, and no authored column reaches nine on an
+eleven-wide field (`mapCol`), so a film wanting the navigator to fire through
+the lifted gap would spend a page sliding the cannon — a page about the cannon,
+in the middle of the one fight that is about a pair of hands. The hem is let go
+a few ticks before the jam runs out, so the page ends on a hand choosing to
+drop the cloth rather than one whose handle vanished under it.
 
 **Never watched at tempo.** What the tests say is the mechanism: it unrolls
 seven wide and centred with the core under it and two soft lobes drawn; the

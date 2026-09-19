@@ -2109,3 +2109,31 @@ the code, and the picture is the evidence.
 To do: settle which body SCATTER belongs to, then make the page and the
 pairing agree. `body-spores.ts`'s eleven pins are the third voice — whichever
 body owns those owns this kill.
+
+## A frame test that counts a colour has no way to know the colour is shared
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/render/test/frame-harness.ts`,
+  `packages/render/src/palette.ts`
+- **Where:** cloud
+
+The frame tests prove a thing is drawn by counting its colour in the canvas
+log — `count(text, PALETTE.redRim)` against a world that should not have it.
+That is only a proof while the colour belongs to the one thing being asked
+about, and nothing tells a lane which colours those are. THE CURTAIN's jam bar
+was stroked in `PALETTE.rock`, and the test comparing a jammed sheet with a
+loose one failed on the navigator's screen: `rock` is also the cue word's fill
+(`boss-cue-text.ts`) and the target lock's (`boss-cue-draw.ts`), the two states
+draw different cues, and the count was measuring the word. The bar was real the
+whole time. The test passes now by counting `PALETTE.rockDark` instead, which
+happens to be unused by either cue file — found by grep, and a fact that goes
+stale the next time somebody reaches for it.
+
+To do: give `frame-harness.ts` a `countOnly(text, colour)` that throws when the
+colour is named by more than one source file under `packages/render/src`, or,
+cheaper and probably better, a test of its own that lists each `PALETTE` entry
+against the source files naming it and fails when a frame test's colour has
+more than one — the same shape as `hash-coverage.test.ts`, which collects and
+reports the whole list rather than throwing on the first. Either way the check
+is that a lane reaching for a shared colour is told so by a red test rather
+than by a frame test that quietly measures the wrong thing.

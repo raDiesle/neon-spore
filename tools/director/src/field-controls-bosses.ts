@@ -3,6 +3,7 @@ import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
 import { CANDLE_CONTROLS } from "./field-controls-candle.js";
+import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
 import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { FLEET_CONTROLS } from "./field-controls-fleet.js";
@@ -63,4 +64,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...GAUGE_CONTROLS, // THE GAUGE's needle under a jam and its band under a bind (`field-controls-gauge.ts`).
   ...WARDEN_CONTROLS, // THE WARDEN's thumb and swipe, its second and third hands (`field-controls-warden.ts`).
   ...CANDLE_CONTROLS, // THE CANDLE's wick, the one handle taken hold of in the dark (`field-controls-candle.ts`).
+  // THE CURTAIN's hem, the one handle that exists because the other was jammed shut
+  // (`field-controls-curtain.ts`).
+  ...CURTAIN_CONTROLS,
 ];

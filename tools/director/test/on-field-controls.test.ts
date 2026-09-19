@@ -235,9 +235,11 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // THE CURTAIN's hem, the pilot's alone and heard only while the rail is
     // jammed: carried **up** past `curtainLiftMilli`, it holds a gap open over
     // the core for as long as the thumb stays there (`sim/curtain-hand.ts`).
-    // Sim lane only so far, as the seventeen above — the hem has nothing drawn
-    // to take hold of until this boss's look lane, which is the same walk
-    // `candleWick` made one boss earlier.
+    // The fourth to make `orreryRing`'s walk, and in two halves of one lane as
+    // `candleWick` was one boss earlier: the lift was heard by the simulation
+    // with nothing on the screen to take hold of, and the look gave it a ring
+    // on the fabric's own edge and a row (`render/curtain-grip.ts`,
+    // `field-controls-curtain.ts`, `docs/spec/bosses.md` §11.24).
     case "curtainHem":
       return target;
     default:
@@ -287,6 +289,7 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "fleetRake",
         "fleetWreck",
         "candleWick",
+        "curtainHem",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {

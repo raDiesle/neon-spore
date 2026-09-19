@@ -1,5 +1,6 @@
 import {
   balloonPull,
+  curtainBody,
   type DragTarget,
   lidIsHeld,
   NO_TETHER,
@@ -10,6 +11,7 @@ import {
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { candleWickAt } from "./candle-grip.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
+import { curtainHemAt } from "./curtain-grip.js";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { lidCordCircle, lidHandlePoint } from "./lid-string.js";
@@ -131,6 +133,19 @@ export function handleCircle(
     // hand can be on, and the flame is not one four phases out of six.
     const b = world.boss?.kind === "candle" ? world.boss : null;
     return b === null || b.phase !== "last" ? null : candleWickAt(l, cfg, b);
+  }
+  if (target === "curtainHem") {
+    // THE CURTAIN's hem, and the one handle whose rest is not over the thing it
+    // opens: the ring hangs in the middle of the sheet, and the gap it lifts is
+    // over the core, which is the navigator's to find (`curtain-grip.ts`). Where
+    // it is *standing* is that rest carried up by the pilot's own thumb. Null in
+    // every phase but the jammed one — the rail gives only while a hit is
+    // holding it — and null with the sheet torn off the rail, which is a hem
+    // there is nothing left to hold.
+    const b = world.boss?.kind === "curtain" ? world.boss : null;
+    if (b === null || b.phase !== "pinned") return null;
+    const body = curtainBody(world, b);
+    return body === undefined ? null : curtainHemAt(l, cfg, b, body, beatPhase);
   }
   if (target === "wardenTether") {
     const b = world.boss?.kind === "warden" ? world.boss : null;

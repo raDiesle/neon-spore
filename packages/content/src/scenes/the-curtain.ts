@@ -11,9 +11,19 @@ import type { GuideScene } from "../scene-types.js";
  * five); it is carried sideways by a hand on it and rolls back when the hand
  * leaves (pages six and seven); carried four columns it comes off the core,
  * and **player 2 alone** has been reading the core's shadow through it all
- * along (pages two and nine). The last page is the core drifting under the
- * fabric in a new column and a new colour after its first hit, which is the
+ * along (pages two and nine). The tenth page is the jam the first hit leaves
+ * behind — the rail held for `curtainPinBeats`, the sheet no hand can shove,
+ * and the hem carried up and kept there instead — and the eleventh is the core
+ * drifting under the fabric in a new column and a new colour, which is the
  * sentence the fight repeats twice more.
+ *
+ * **The hem's page shows the gesture and not the shot it is for.** The drift
+ * puts the core in column nine, and no authored column reaches nine on an
+ * eleven-wide field (`mapCol`), so a film that wanted player 2 firing through
+ * the gap would first have to spend a page sliding the cannon — a page about
+ * the cannon, in the middle of the one fight that is about a pair of hands.
+ * What the pair need from this page is that the rail can jam, that the hem is
+ * what gives when it does, and that the gap shuts when the thumb leaves.
  *
  * **Every carry is the pilot's hand**, `dragSeat`'s rule for a `gripBody`
  * drag, and it is the honest seat here as it was for THE CAIRN: the pilot
@@ -40,7 +50,7 @@ import type { GuideScene } from "../scene-types.js";
  * puts it back under the fabric, so nothing falls in this film.
  */
 export const THE_CURTAIN: GuideScene = {
-  ticks: 2400,
+  ticks: 2700,
   bpm: 120,
   seed: 64,
   entries: [],
@@ -56,11 +66,21 @@ export const THE_CURTAIN: GuideScene = {
     // `dir` and never a distance: one column is `cfg.gripPushMilli`.
     { tick: 990, drag: "gripBody", dir: 1, by: 1050, until: 1140 },
     // The same hand again, carried four columns' worth and held there, so the
-    // sheet cannot roll back while the shot is on its way.
-    { tick: 1470, grip: 1, col: 2, until: 2380 },
-    { tick: 1500, drag: "gripBody", toMilli: 4000, by: 1860, until: 2380 },
+    // sheet cannot roll back while the shot is on its way. It comes off half a
+    // beat after the hit lands, because the hand that lifts the hem is the same
+    // hand — and because a jammed rail holds the roll-back clock itself
+    // (`curtain-step.ts`), so letting go costs the pair nothing here.
+    { tick: 1470, grip: 1, col: 2, until: 2130 },
+    { tick: 1500, drag: "gripBody", toMilli: 4000, by: 1860, until: 2130 },
     // The core's own colour, the beat after the sheet is clear of it.
     { tick: 2050, control: "fireCyan" },
+    // The hit jams the rail for `curtainPinBeats`, and this is the gesture that
+    // answers a jam: the hem, carried up and **held** there. No distance is
+    // written — `tautMilli` reads `curtainLiftMilli` off the config and carries
+    // it upward, and there is no half-lift that opens anything. It is let go a
+    // few ticks before the jam runs out, so the page shows a hand choosing to
+    // drop the hem rather than one whose handle vanished under it.
+    { tick: 2200, drag: "curtainHem", by: 2320, until: 2450 },
   ],
   steps: [
     { tick: 0, seat: 1, text: "A CORE HIDES BEHIND A SHEET", anchor: { at: "body" } },
@@ -103,6 +123,19 @@ export const THE_CURTAIN: GuideScene = {
       text: "ITS COLOUR OR IT FIRES BACK",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 2140, seat: 2, text: "IT DRIFTS AND HIDES AGAIN", anchor: { at: "body" } },
+    // The jam is the fight's second state and the hem is its gesture, so this
+    // page is the pilot's and points at the ring rather than at the sheet. The
+    // cue over the core already writes LIFT for as long as the rail is held, so
+    // the page spends none of its twenty-eight characters repeating it and says
+    // the half a single word may not carry: the hem has to be *kept* up, and
+    // the gap shuts the tick the thumb leaves (`curtain-hand.ts`). STUCK rather
+    // than JAMMED because the pair may not be reading their first language.
+    {
+      tick: 2140,
+      seat: 1,
+      text: "STUCK · HOLD THE HEM UP",
+      anchor: { at: "handle", target: "curtainHem" },
+    },
+    { tick: 2460, seat: 2, text: "IT DRIFTS AND HIDES AGAIN", anchor: { at: "body" } },
   ],
 };

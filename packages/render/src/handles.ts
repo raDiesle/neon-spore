@@ -2,6 +2,7 @@ import { NO_TETHER } from "@neon-spore/sim";
 import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
 import { candleWickUnder } from "./candle-grip.js";
+import { curtainHemUnder } from "./curtain-grip.js";
 import { diastoleClampUnder } from "./diastole-clamp.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { fleetGripUnder } from "./fleet-grip.js";
@@ -92,7 +93,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     gaugeGripUnder(l, x, y, field) ?? // THE GAUGE's jammed needle and wound band (`gauge-grip.ts`).
     batonSocketUnder(l, x, y, field) ?? // THE BATON's swelling socket and its two beads (`baton-grip.ts`).
     fleetGripUnder(l, x, y, field) ?? // THE FLEET's wound, under `flood` and `wreck` (`fleet-grip.ts`).
-    candleWickUnder(l, x, y, field) // THE CANDLE's flame, at the last step, in the dark (`candle-grip.ts`).
+    candleWickUnder(l, x, y, field) ?? // THE CANDLE's flame, at the last step, in the dark (`candle-grip.ts`).
+    curtainHemUnder(l, x, y, field) // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).
   );
 }
 
