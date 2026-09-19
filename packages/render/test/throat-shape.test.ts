@@ -37,6 +37,9 @@ function tube(over: Partial<ThroatState> = {}): ThroatState {
     mouthFrom: midCol(CFG),
     chokedBeat: -1,
     fedBeat: -1,
+    cinchBeat: -1,
+    breath: 0,
+    haulStep: 0,
     ...over,
   };
 }

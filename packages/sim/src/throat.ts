@@ -92,6 +92,41 @@ export interface ThroatState {
   /** The beat it last swallowed something, -1 before the first. render/'s for
    * the same reason, and the pair's receipt for a body they left alone. */
   fedBeat: number;
+  /**
+   * **The beat player 2's thumb landed on a slack ring**, -1 when no thumb is
+   * on one — the cinch, and the fight's second gesture (`throat-hand.ts`).
+   *
+   * A beat and not a flag for `vane-hand.ts`'s reason turned around: the hold
+   * is heard on the tick and spent on the beat, and the number is what the
+   * picture darkens the pinched ring from. It is the one handle in this fight
+   * that **the pair made themselves** — there is nothing to pinch until a gum
+   * has choked a ring, so the boss hands out its own second control as it
+   * loses.
+   */
+  cinchBeat: number;
+  /**
+   * **Inhales the cinch has stolen and not yet given back**, 0 to
+   * `throatCinchBeats`.
+   *
+   * The whole cost of the gesture, and the reason it is a bargain rather than
+   * a pause button: a held ring does not stop the gullet breathing, it makes
+   * it breathe *later and faster*. Every inhale her thumb takes off the grid
+   * is owed back one a beat the moment she lifts (`throatBreathes`), so the
+   * pilot's window is real time and the bill arrives at the worst rate in the
+   * fight.
+   */
+  breath: number;
+  /**
+   * **The column player 1's carry has asked the mouth to move on the next
+   * beat**: -1, 0 or 1 (`throat-hand.ts`).
+   *
+   * Pending rather than applied, because this file's own promise is that every
+   * change in this fight lands on a beat somebody can name. A haul heard on
+   * the tick that moved the mouth on the tick would move it between two counts
+   * player 2 had already said out loud, and her column would be wrong through
+   * no fault of hers.
+   */
+  haulStep: number;
 }
 
 /** Rings still tight, which is the health left. */
@@ -122,17 +157,6 @@ export function throatStride(cfg: SimConfig, b: ThroatState): number {
   if (b.phase === "slide") return cfg.throatSlideCols;
   if (b.phase === "quick") return cfg.throatQuickCols;
   return 0;
-}
-
-/**
- * Beats between inhales, in this phase. 1 in `open` is the design's
- * *continuously rather than on a clock*, and 0 in `everts` is a boss that has
- * stopped eating because it is busy turning inside out.
- */
-export function throatEvery(cfg: SimConfig, b: ThroatState): number {
-  if (b.phase === "everts") return 0;
-  if (b.phase === "open") return 1;
-  return b.phase === "quick" ? cfg.throatTightBeats : cfg.throatInhaleBeats;
 }
 
 /**
@@ -203,45 +227,4 @@ export function throatHomeCol(cfg: SimConfig): number {
 export function throatBoss(world: World): ThroatState | null {
   const boss = world.boss;
   return boss !== null && boss.kind === "throat" ? boss : null;
-}
-
-/**
- * Beats of the eversion still to run, or 0 once it is over.
- *
- * Counted rather than stored for `phaseBeat`'s reason: the beat the tube
- * started turning through itself is the origin of everything the picture draws
- * of it, so a second countdown would be a second place the answer lived.
- */
-export function throatEvertBeatsLeft(cfg: SimConfig, b: ThroatState, beat: number): number {
-  return Math.max(0, cfg.throatEvertBeats - (beat - b.phaseBeat));
-}
-
-/**
- * Whether the throat inhales on this beat.
- *
- * Counted from `phaseBeat` rather than from the wave's start, so a cadence
- * that tightens starts its new count where the phase did. A pair who had to
- * subtract an old origin from a new number would be doing the boss's
- * bookkeeping instead of its arithmetic (`diastoleContracts`, same argument).
- */
-export function throatInhales(cfg: SimConfig, b: ThroatState, beat: number): boolean {
-  const every = throatEvery(cfg, b);
-  if (every <= 0) return false;
-  return (((beat - b.phaseBeat) % every) + every) % every === 0;
-}
-
-/**
- * **Beats until the next inhale**, 0 on an inhale beat — player 2's bar, and
- * the one number she has to say out loud.
- *
- * Here rather than in `render/` for `diastoleSince`'s reason: the cadence's
- * origin and its stride are the boss, and a second copy of the modulo in the
- * file that draws the bar is a throat that inhales on one screen and waits on
- * the other under any change to either number.
- */
-export function throatToInhale(cfg: SimConfig, b: ThroatState, beat: number): number {
-  const every = throatEvery(cfg, b);
-  if (every <= 0) return -1;
-  const since = (((beat - b.phaseBeat) % every) + every) % every;
-  return since === 0 ? 0 : every - since;
 }

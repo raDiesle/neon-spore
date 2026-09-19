@@ -1,38 +1,34 @@
 import type { SimConfig } from "./config.js";
-import { removeCreatures } from "./field.js";
-import { gumIsFlung } from "./gum.js";
-import { rockHeading } from "./rock-cross.js";
 import { openSlow } from "./slow.js";
-import { occupiesCol } from "./span.js";
 import {
   THROAT_PHASES,
   type ThroatPhase,
   type ThroatState,
-  throatEvertBeatsLeft,
   throatHomeCol,
-  throatInhales,
   throatMouthCol,
-  throatMouthRow,
   throatSnap,
-  throatSpent,
   throatStride,
 } from "./throat.js";
-import { podStanding, throatHasHold, throatHasHoldOfPod, throatLift } from "./throat-pull.js";
+import { throatEvertBeatsLeft, throatInhales } from "./throat-clock.js";
+import { throatChoked, throatFed } from "./throat-feed.js";
+import { throatCinched, throatRelease } from "./throat-hand.js";
+import { throatLift } from "./throat-pull.js";
 import type { World } from "./world.js";
 
 /**
- * THE THROAT's clock, and the two things that change its health.
- *
- * **The two are opposite gestures, and that is the boss.** A gum flung into
- * the mouth chokes a ring (`throatChoked`); anything else the mouth takes
- * re-tightens one (`throatFed`). So the pair's habit of clearing the field is
- * the thing healing it, and the answer is the one body on the field that
- * neither the cannon nor the plate can touch.
+ * **THE THROAT's clock**: the phase it has earned, the breath it takes and
+ * the column a hand has dragged its mouth to.
  *
  * It runs on the **beat** and from `stepBoss`, because every number in this
  * fight is a count somebody says out loud: the beats to the next inhale and
  * the column the mouth will be in. A pull that happened between beats would
- * be a pull nobody could name a moment for.
+ * be a pull nobody could name a moment for — which is also why the two hands
+ * this fight gained on 19 September 2026 are *heard* on the tick and *spent*
+ * here (`throat-hand.ts`).
+ *
+ * What the clock finds when it arrives — the fling that chokes a ring and the
+ * mouthful that re-tightens one — is `throat-feed.ts`, cut off this page the
+ * same day.
  *
  * **Order inside a beat is the pair's window**, and it is the whole reason the
  * lift is not in the fall loop. `beat.ts` runs the fall, which `throatHolds`
@@ -53,6 +49,9 @@ export function installThroat(world: World): ThroatState {
     mouthFrom: throatHomeCol(world.cfg),
     chokedBeat: -1,
     fedBeat: -1,
+    cinchBeat: -1,
+    breath: 0,
+    haulStep: 0,
   };
 }
 
@@ -96,9 +95,66 @@ export function stepThroat(world: World, b: ThroatState): void {
     openSlow(world, cfg.throatEvertBeats);
     return;
   }
-  if (!throatInhales(cfg, b, world.beat)) return;
+  // The pilot's carry, before the breath: what a haul buys is a mouth that is
+  // somewhere else when the inhale lands, and a haul taken after the swallow
+  // would be a column moved off an empty mouth.
+  throatHaul(world, b);
+  if (!throatBreathes(world, b)) return;
   throatFed(world, b);
   throatLift(world, b);
+}
+
+/**
+ * **Whether the gullet actually inhales this beat**, which is the cadence and
+ * the navigator's thumb together (`throat-hand.ts`).
+ *
+ * The grid stays a pure function of the phase (`throatInhales`) because player
+ * 2's readout is drawn from it and a readout that flinched every time she
+ * touched a ring would be unreadable. What her thumb changes is this: while it
+ * is down the gullet does not breathe at all, and every inhale the grid would
+ * have had goes onto `breath`. Held to `throatCinchBeats` the ring tears out,
+ * so the freeze is bounded by a number the pair can count.
+ *
+ * Then the bill, one inhale a beat until it is paid — and a beat the grid was
+ * going to inhale on anyway counts against it, which is what keeps the debt
+ * from being immortal in `open`, where the grid is every beat.
+ */
+function throatBreathes(world: World, b: ThroatState): boolean {
+  const cfg = world.cfg;
+  if (throatCinched(b)) {
+    if (!throatInhales(cfg, b, world.beat)) return false;
+    b.breath = Math.min(cfg.throatCinchBeats, b.breath + 1);
+    if (b.breath >= cfg.throatCinchBeats) throatRelease(b);
+    return false;
+  }
+  if (b.breath <= 0) return throatInhales(cfg, b, world.beat);
+  b.breath -= 1;
+  return true;
+}
+
+/**
+ * **The mouth dragged a column sideways**, once, on the beat after the carry
+ * (`throat-hand.ts`).
+ *
+ * Spent whatever the phase, so a haul heard on the last beat of `open` cannot
+ * sit on the state waiting for a phase that never comes — `haulStep` is in the
+ * fingerprint and a pending number that outlives its phase is a number two
+ * devices could spend on different beats. The move itself is refused outside
+ * `open`, which is where the wire's own gate already is; this is the second
+ * copy on purpose, because a command arriving from a peer is not one this
+ * device's hand refused.
+ *
+ * `throatSnap` and not a raw clamp: the mouth has to land on a stop its own
+ * stride can reach, which is `advance`'s rule said about a hand instead of
+ * about a phase change.
+ */
+function throatHaul(world: World, b: ThroatState): void {
+  const step = b.haulStep;
+  b.haulStep = 0;
+  if (step === 0 || b.phase !== "open") return;
+  const cfg = world.cfg;
+  const standing = throatMouthCol(cfg, b, world.beat);
+  b.mouthFrom = throatSnap(cfg, standing + step, throatStride(cfg, b));
 }
 
 /**
@@ -123,79 +179,4 @@ function advance(world: World, b: ThroatState): ThroatPhase {
   b.phaseBeat = world.beat;
   b.mouthFrom = throatSnap(cfg, standing, throatStride(cfg, b));
   return want;
-}
-
-/**
- * **A gum a hand has flung, arriving at the mouth** — the only thing in the
- * game that hurts this boss, and one hit test rather than a mechanic
- * (`bosses-choreographed.md` §1, *Cost*).
- *
- * Called from `beat.ts` after the bodies have moved, so the gum has already
- * taken this beat's stride along its row (`stepRockAcross`). It lands if the
- * mouth's column is **inside the stride it just flew**: a gum crosses
- * `gumFlingCols` columns a beat and the mouth is one column wide, so a test
- * that asked only whether the two were equal would be a boss a fling flew
- * straight over two times in three. The sweep is read off where the gum
- * *landed* and the way it is going rather than off where it came from —
- * `fromCol` is a fact about the picture and outside the fingerprint, and a hit
- * test that read it would be a hit test two devices could disagree about.
- *
- * A gum that reaches the mouth is gone: the tube has it, and `slack` goes up
- * for good. Then THE SLOW, because the design asks for it by name — *the
- * fling is a SLOW* — and the beat it crosses its last column is the best shot
- * in the fight.
- */
-function throatChoked(world: World, b: ThroatState): void {
-  const cfg = world.cfg;
-  if (b.phase === "everts") return;
-  const mouth = throatMouthCol(cfg, b, world.beat);
-  const row = throatMouthRow(cfg);
-  const taken: number[] = [];
-  for (const c of world.creatures) {
-    if (!gumIsFlung(c) || c.row !== row) continue;
-    const past = (c.col - mouth) * rockHeading(c);
-    if (past < 0 || past >= cfg.gumFlingCols) continue;
-    taken.push(c.id);
-  }
-  if (taken.length === 0) return;
-  removeCreatures(world, taken);
-  b.slack = Math.min(cfg.throatRings, b.slack + taken.length);
-  b.chokedBeat = world.beat;
-  if (throatSpent(cfg, b)) return;
-  openSlow(world, cfg.slowBeats);
-}
-
-/**
- * **Whatever is standing in the mouth on an inhale beat**, swallowed — and
- * every one of them re-tightens a ring.
- *
- * All of them rather than one, which is the design's own step 10: *the throat
- * eats the pod and two rings re-tighten*. A boss that healed once however much
- * it was fed would make the field's own pressure free, and the field's pressure
- * is the entire threat here.
- *
- * `throatHasHold` rather than a column test written out again, so the body the
- * fall loop refused to drop and the body the mouth takes are decided by one
- * rule (`throat-pull.ts`). A pod standing in the mouth is taken by the same
- * rule's pod-shaped half, and counts the same: the design's step 10, *the
- * throat eats the pod and two rings re-tighten*.
- */
-function throatFed(world: World, b: ThroatState): void {
-  const row = throatMouthRow(world.cfg);
-  const mouth = throatMouthCol(world.cfg, b, world.beat);
-  const eaten: number[] = [];
-  for (const c of world.creatures) {
-    if (c.row !== row || !occupiesCol(c, mouth)) continue;
-    if (!throatHasHold(world, b, c)) continue;
-    eaten.push(c.id);
-  }
-  const before = world.pods.length;
-  world.pods = world.pods.filter(
-    (p) => podStanding(p).row !== row || !throatHasHoldOfPod(world, b, p),
-  );
-  const fed = eaten.length + before - world.pods.length;
-  if (fed === 0) return;
-  removeCreatures(world, eaten);
-  b.slack = Math.max(0, b.slack - fed);
-  b.fedBeat = world.beat;
 }

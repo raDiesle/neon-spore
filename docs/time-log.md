@@ -9921,3 +9921,34 @@ fix was to put the comment inline above the specifier, which the file already
 does once for `stareLidFree` — a convention that is nowhere written down.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-throat-changes-state — five states, one sentence, no handle on the boss
+
+The fight had five phases and asked for the same three gestures in all of
+them, every one of them on the ordinary panel. It has two of its own now, and
+where they come from is the answer to §6.2: the gullet **hands out a control as
+it loses one**. Nothing to pinch until a ring is choked, nothing to haul until
+four are. The navigator's cinch stops the inhale — borrowed beats, paid back
+one a beat, torn out of her thumb at `throatCinchBeats` — and because
+`throatMouthCol` stays a pure function of the beat it means a different thing
+per phase with no per-phase code: the mouth slides off the body in `slide` and
+`quick`, and in `open` the stride is zero so the pilot's haul drags the tube
+instead. The cue reads both rather than re-deriving them, and `throat.ts` shed
+its cadence and its feeding to make room.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 40 | the entry, §6.2, `throat-step.ts`, `throat-pull.ts`, `vane-hand.ts` and `stare-hand.ts` as the models, and `throat-shape.ts` for where a mark stands |
+| writing | 80 | `throat-hand.ts`, the three fields and the two config numbers, `throat-clock.ts` and `throat-feed.ts` split out, the two cue arms, twelve sim cases and six cue cases, §11.19 |
+| looking | 0 | none available: `CINCH` and `HAUL` on a real frame is a PNG this session cannot take, and it lands unverified |
+| friction | 35 | three files over the 250-line ceiling in turn, and a held thumb re-taking the ring for free until `breath` was put in `throatCinchable` |
+| landing | 20 | `check:fast`, a format-and-sort round, the index, the queue row and the commit |
+
+**The bottleneck was the ceiling: `throat.ts`, `throat-step.ts` and
+`bosses-clocks.ts` each went over in turn as the fields and the re-exports
+landed, so three seams had to be chosen mid-diff rather than once up front.**
+Two of the three were good seams — the cadence and the feeding are genuinely
+separate pages — and choosing them before the first field was written would
+have cost nothing.
+
+*Measured: the rows above are the session's own estimate.*

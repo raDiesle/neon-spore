@@ -69,6 +69,29 @@ export interface ThroatConfig {
    * payoff rather than a rule — the boss is already beaten when it starts.
    */
   throatEvertBeats: number;
+  /**
+   * The most inhales a thumb on a slack ring may take off the grid before the
+   * ring tears out of it (`throatBreathes`).
+   *
+   * 3, and it is a length rather than a strength: half an inhale at the
+   * shipped cadence, which is long enough for the pilot to get a gum a row or
+   * two down and short enough that player 2 cannot simply hold the fight
+   * still. Every one of the three is owed back at an inhale a beat, so the
+   * cap is also the size of the bill — the pair can count what they borrowed
+   * on one hand, which is the whole point of a number in this fight.
+   */
+  throatCinchBeats: number;
+  /**
+   * How far the pilot's carry on the tube must travel before it is a haul, in
+   * thousandths of a tile.
+   *
+   * 700, THE VANE's number for the same job: a fingertip's jitter is under a
+   * tenth of a tile and a deliberate sideways drag is most of one. It is a
+   * threshold and not a distance — the mouth moves one column however far the
+   * thumb went, because a column is the unit player 2 has already said out
+   * loud and half of one is not a thing either of them can name.
+   */
+  throatHaulMilli: number;
 }
 
 /**
@@ -86,4 +109,6 @@ export const THROAT_DEFAULTS: ThroatConfig = {
   throatSlideCols: 1,
   throatQuickCols: 2,
   throatEvertBeats: 6,
+  throatCinchBeats: 3,
+  throatHaulMilli: 700,
 };

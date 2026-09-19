@@ -19,6 +19,13 @@ import { THROAT_PHASES, type ThroatState } from "./throat.js";
  * `chokedBeat` and `fedBeat` are render's and go in anyway, because rule 4 has
  * no clause for a field only the drawing wants: a device that disagrees about
  * whether the throat just ate is a device drawing a different boss.
+ *
+ * **The two hands are three more numbers, and every one of them is a beat two
+ * devices could spend differently.** `cinchBeat` is whether the gullet is
+ * breathing at all, `breath` is how many inhales it owes, and `haulStep` is a
+ * column the mouth is about to move that has not moved yet — a pending
+ * number, which is exactly the kind rule 4 was written for
+ * (`throat-hand.ts`).
  */
 export function throatHashParts(b: ThroatState): number[] {
   return [
@@ -28,5 +35,8 @@ export function throatHashParts(b: ThroatState): number[] {
     b.mouthFrom,
     b.chokedBeat,
     b.fedBeat,
+    b.cinchBeat,
+    b.breath,
+    b.haulStep,
   ];
 }

@@ -9,14 +9,12 @@ import { step } from "../src/step.js";
 import {
   type ThroatState,
   throatBoss,
-  throatEvery,
-  throatInhales,
   throatMouthCol,
   throatMouthRow,
   throatRingsLeft,
   throatSnap,
-  throatToInhale,
 } from "../src/throat.js";
+import { throatEvery, throatInhales, throatToInhale } from "../src/throat-clock.js";
 import { throatPhaseFor } from "../src/throat-step.js";
 import type { Creature, CreatureKind, Pod } from "../src/types.js";
 import { startWave } from "../src/wave-start.js";

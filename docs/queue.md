@@ -1506,6 +1506,11 @@ the ring on both marks.
 THE MAZE's tear was photographed with `--boss-json` writing `gripThumb` and
 `gripPullMilli` straight into the boss, which shows the picture and proves
 nothing about the hand.
+`throatRing` (player 2, a hold) and `throatTube` (player 1, a carry) are the
+fifth and sixth rows (2026-09-19, the §6.2 lane): THE THROAT's two new hands
+are both on the boss's own picture, and neither could be photographed —
+reaching the phase that offers either needs four gums flung sideways into a
+walking mouth, which is the other half of this entry.
 
 ## `boss-cue-read-c.ts` is at 245 lines, and the sixth boss on it grew
 

@@ -10,6 +10,7 @@ import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
+import { throatHeard } from "./throat-hand.js";
 import type { TimedCommand } from "./types.js";
 import { undertowHandsHeard } from "./undertow-hand.js";
 import type { World } from "./world.js";
@@ -82,4 +83,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // asks `undertowPinned` on the same tick it asks `world.shieldCol`
   // (`undertow-hand.ts`). What either came to over the beat is counted there.
   for (const c of commands) undertowHandsHeard(world, c.player, c.command);
+  // THE THROAT's cinch and haul, on the tick because a thumb is down when it
+  // lands and the beat only ever asks whether it was down (`throat-hand.ts`).
+  // Both are *spent* on the beat, by `throatBreathes` and `throatHaul`, which
+  // is this fight's own promise: every change lands on a count somebody said.
+  for (const c of commands) throatHeard(world, c.player, c.command);
 }

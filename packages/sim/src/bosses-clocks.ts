@@ -218,13 +218,9 @@ export {
   type ThroatPhase,
   type ThroatState,
   throatBoss,
-  throatEvertBeatsLeft,
-  throatEvery,
-  throatInhales,
   throatMouthCol,
   throatMouthRow,
   throatStride,
-  throatToInhale,
 } from "./throat.js";
 // THE UNDERTOW is a clock the pair says out loud too — beats a plate bows,
 // beats a lobe stands — with the difference that it counts *under* the field.

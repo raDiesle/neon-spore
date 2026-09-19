@@ -2739,9 +2739,12 @@ shakes the bead that waited home and leaves every dark socket dark
 *Built 16–17 September 2026 in three pieces: the simulation, the gullet, then
 the navigator's readout and the eversion. The design is
 `docs/spec/bosses-choreographed.md` §1; the code is `sim/throat.ts`,
-`sim/throat-step.ts`, `sim/throat-pull.ts`, `sim/config-throat.ts` and
+`sim/throat-step.ts`, `sim/throat-clock.ts`, `sim/throat-feed.ts`,
+`sim/throat-pull.ts`, `sim/throat-hand.ts`, `sim/config-throat.ts` and
 `render/throat-draw.ts`, `render/throat-shape.ts`, `render/throat-mouth.ts`,
-`render/throat-lock.ts`, `render/throat-evert.ts`.*
+`render/throat-lock.ts`, `render/throat-evert.ts`,
+`render/boss-cue-read-k.ts`. It gained two gestures of its own on 19 September
+2026, below.*
 
 **The question no other boss asks.** *What you put in on purpose.* Every other
 boss in this game is answered by taking something away from it. This one is
@@ -2950,8 +2953,8 @@ the mouth's snap are proved as arithmetic in
 and no proof at all of how it reads.
 
 **What the field says** (`render/src/boss-cue-read-k.ts`, 19 September 2026,
-`docs/decisions.md` #34). Four words across three moments, and the one that
-decides the reading is a row. `CARRY` / `FLING` stands on a gum **only while it
+`docs/decisions.md` #34). Six words across four moments, and the one that
+decides the first reading is a row. `CARRY` / `FLING` stands on a gum **only while it
 is on the mouth's row** — a gum flies level along the row it was on when the
 thumb lifted (`gumSwiped`) and `throatChoked` refuses one arriving on any other
 (`throat-step.ts`) — so the word that used to stand for the whole of a fall now
@@ -2972,14 +2975,96 @@ gives the brake to either thumb, and it goes quiet the beat `gripBrakes` counts
 a hand on it. Nothing at all is said while it everts: `throatChoked` refuses,
 the hold is let go of, and every gesture those words ask for is worth nothing.
 
-**And two things the field is deliberately not given.** A **rock standing in
-the mouth** carries no word, which is the honest answer rather than an
-omission: `isWardable` says a bolt leaves a crater and not a kill, and a hand
-on it drags at a fall that has already stopped. What the pair is owed about
-that rock is the `BRAKE` one row lower and one inhale earlier. Nor is any word
-given for the mouth's own column or the beats to the next inhale — the two
-numbers on the navigator's bar, which is the whole of what this pair has to say
-out loud.
+**The fourth moment is the rock standing in the mouth**, and until the gullet
+grew two handles of its own it carried no word at all: `isWardable` says a bolt
+leaves a crater and not a kill, and a hand on it drags at a fall that has
+already stopped. Both old gestures miss it. What stands there now is `HOLD` /
+`CINCH` or `CARRY` / `HAUL`, and **which one it is is the phase** — the section
+below. One word however many rocks are in the mouth, because the handle is the
+gullet's and not the body's.
+
+**And the one thing the field is still deliberately not given**: any word for
+the mouth's own column or the beats to the next inhale — the two numbers on the
+navigator's bar, which is the whole of what this pair has to say out loud.
+
+### The gullet's two handles, one per state
+
+*Landed 19 September 2026. The simulation is `sim/throat-hand.ts`, the clock it
+spends on is `sim/throat-step.ts`, the cadence they both read is
+`sim/throat-clock.ts`, and the words are `render/boss-cue-read-k.ts`.*
+
+**The fight shipped with five states and one sentence.** Fling a gum across the
+mouth, shoot what is standing in it, brake what is climbing — in every phase,
+answered on the ordinary panel, and nothing to touch on the boss itself. The
+phases changed two numbers between them and asked for the same three thumbs.
+
+**So the gullet hands out a control as it loses one**, which is the only place
+these two could have come from and still be this boss. There is nothing to
+pinch until the pair has choked a ring, and nothing to haul until four are
+slack: the handles are the damage, and a fresh tube offers neither.
+
+**The cinch is the navigator's**, on a ring already gone slack, and it is a
+bargain rather than a pause. While her thumb is on it the gullet does not
+breathe — no swallow, no lift — and every inhale she takes off the grid is owed
+back **one a beat** the moment she lets go (`throatBreathes`). So the freeze is
+borrowed and never given, and it is bought at the worst rate in the fight: held
+past `throatCinchBeats` the ring tears out of her thumb and the bill arrives
+anyway. A thumb that never lifts buys `throatCinchBeats` frozen beats out of
+every `2 * throatCinchBeats` and not one more, because the ring cannot be
+re-taken while anything is owed — a held thumb sends `on: true` on every tick
+(`stareLidHeard`), so without that the freeze would be free and endless.
+
+**It stops the inhale and it does not stop the mouth.** `throatMouthCol` is a
+pure function of the beat and no thumb reaches it, which makes the cinch mean a
+different thing in every phase without a line of code per phase: in `slide` and
+`quick` the frozen beats are the mouth **sliding off** the body it was about to
+take, and in `open` the stride is zero and the same gesture is worth nothing at
+all. That is the state machine doing the work rather than a table.
+
+**And the readout does not flinch.** `throatToInhale` stays a pure function of
+the phase, so the number player 2 is saying out loud counts down exactly as it
+did while her own thumb is holding the gullet shut. The debt is a second field
+and not a shifted origin, for that reason alone: a pair cannot say a number
+that moves when one of them acts.
+
+**The haul is the pilot's, and only in `open`** — the phase where the mouth has
+stopped coming to them and takes something every beat. His carry drags the tube
+a column sideways, `fromMilli`'s **sign is the direction** as `pinTable` reads
+it, and it is a carry and not a press: a tap would move the mouth by a
+fingertip's jitter, and the mouth's column is the one thing player 2 has
+already said out loud. It is the only way in this fight to take something
+*back out* of the mouth, and it is spent on the beat it lands on — a pending
+step that outlived its beat is a number two devices could spend on different
+ones, which is why `haulStep` is in the fingerprint and cleared whatever the
+phase does next.
+
+**Neither can hurt the pair**, which is THE VANE's own bargain: a thumb lifted
+early is a window lost, a haul heard in the wrong phase is nothing at all, and
+the worst the cinch can do is hand back the beats it borrowed. Both are heard
+on the **tick** (a thumb is down when it lands) and both are **spent on the
+beat**, by `throatBreathes` and `throatHaul`, which is this fight's whole
+promise: every change lands on a count somebody said.
+
+**Both are on the picture and neither is on a panel.** `CINCH` stands on the
+lowest ring, which is always the slack one because the picture chokes from the
+mouth upward, and `HAUL` stands on the mouth itself — each mark where the thumb
+goes, which is `MOVE`'s rule. Each goes quiet the moment it is being answered:
+a word over a ring a thumb is already on is `gripBrakes`' lesson repeated.
+
+**Three fields and one config pair.** `cinchBeat`, `breath` and `haulStep` are
+in `throatHashParts`; `throatCinchBeats` and `throatHaulMilli` are in
+`ThroatConfig`; `throatRing` and `throatTube` are in
+`net/src/command-fields.ts`, without which the wire would drop both silently.
+
+**The picture of it was never photographed** — the same tool gap as the worn
+gullet above: reaching `open` needs four gums flung into a walking mouth, and
+`bun run frames` has no handle for a sideways carry or for setting a boss's own
+fields. The arithmetic is proved in `sim/test/throat-hands.test.ts` and the
+words in `render/test/boss-cue-throat.test.ts`.
+
+**The sounds are not built.** THE THROAT has no `events-*.ts` at all — no
+inhale, no choke, no eversion, and now no cinch or haul. It is a lane of its
+own (`docs/queue.md`).
 
 **Never watched at tempo.** Whether a pair can hold a column and a count at 96
 BPM while one of them is timing a thumb is a thing a person finds out with

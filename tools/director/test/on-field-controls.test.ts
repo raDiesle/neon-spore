@@ -218,6 +218,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "undertowPin":
     case "undertowFree":
       return target;
+    // THE THROAT's two, and the only pair the fight hands out as it loses: a
+    // thumb on a ring already gone slack holds the gullet's breath, and in
+    // `open` a carry drags the tube itself a column off its meal
+    // (`sim/throat-hand.ts`). Sim lane only so far, as the fourteen above.
+    case "throatRing":
+    case "throatTube":
+      return target;
     default:
       return assertNever(target);
   }

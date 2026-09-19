@@ -82,6 +82,8 @@ export const CHOREO_FIELD_GROUP = {
   throatSlideCols: "THE THROAT — the boss you answer by feeding it",
   throatQuickCols: "THE THROAT — the boss you answer by feeding it",
   throatEvertBeats: "THE THROAT — the boss you answer by feeding it",
+  throatCinchBeats: "THE THROAT — the boss you answer by feeding it",
+  throatHaulMilli: "THE THROAT — the boss you answer by feeding it",
   // UndertowConfig — how often it comes up, and how long each part of a push
   // takes. Every beat is a call: a bow is a column said, a stand is a maw
   // opened or a plate moved on a word (`config-undertow.ts`).

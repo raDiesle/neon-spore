@@ -316,8 +316,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 | `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
 | `packages/sim/src/throat-hash.ts` | What THE THROAT puts into `hashWorld`, and nothing else |
+| `packages/sim/src/throat-hand.ts` | **THE THROAT's two hands on the gullet itself** — the cinch and the haul |
 | `packages/sim/src/throat-pull.ts` | **The pull**: what standing in THE THROAT's column does to a body |
 | `packages/sim/src/throat-step.ts` | THE THROAT's clock, and the two things that change its health |
+| `packages/sim/src/throat-clock.ts` | **THE THROAT's cadence**: how often the gullet inhales, how long the pair has until it does |
+| `packages/sim/src/throat-feed.ts` | **The two things that change THE THROAT's health**, and they are opposite gestures — which is the boss |
 | `packages/sim/src/throat.ts` | THE THROAT: the one boss you answer by **giving it something** |
 | `packages/sim/src/taster-hash.ts` | What THE TASTER puts into `hashWorld`, and nothing else |
 | `packages/sim/src/taster-shot.ts` | **What a shot does to THE TASTER**, which is the whole of the inverted rule |

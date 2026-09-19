@@ -150,6 +150,22 @@ export {
   scuttleWindBeats,
   scuttleWinding,
 } from "./scuttle.js";
+// And its cadence, out of order for the same reason and on the same day the
+// cinch was built: the count player 2 says out loud — how often the gullet
+// inhales, how long until it does, how much of the eversion is left — moved
+// off `throat.ts` when the cinch and the haul left it no room, and page one
+// was one line under its limit by then (`throat-clock.ts`).
+export {
+  throatEvertBeatsLeft,
+  throatEvery,
+  throatInhales,
+  throatToInhale,
+} from "./throat-clock.js";
+// And its two hands, the same day: whether there is a ring to pinch, whether
+// a thumb is on one, whether the mouth has already been asked to move. The cue
+// asks all three and re-derives none of them — the handle the picture offers
+// and the handle the simulation accepts are one question (`throat-hand.ts`).
+export { throatCinchable, throatCinched, throatHauling } from "./throat-hand.js";
 // THE THROAT's hold, out of order for THE BATON's reason above: it arrived on
 // 19 September 2026 with the §6.1 lane and page one was two lines under its
 // limit. Whether the gullet has a body — which is the same question as whether

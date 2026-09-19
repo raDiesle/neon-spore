@@ -15,6 +15,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
+import { mouthX, mouthY, rings } from "../src/throat-shape.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -26,7 +27,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE THROAT, and the three moments it is allowed a word for**
+ * **THE THROAT, and the four moments it is allowed a word for**
  * (`render/src/boss-cue-read-k.ts`).
  *
  * One case was in `boss-cue-clocks.test.ts` until 19 September 2026 and it was
@@ -39,8 +40,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  *
  * So the pair of cases at the top of this file is the point of the file: the
  * gum on the mouth's row, and the same gum one row above it. Everything after
- * is the two moments that were silent — the body standing in the mouth with an
- * inhale to live, and the body climbing the gullet under it.
+ * is the three moments that were silent — the body standing in the mouth with
+ * an inhale to live, the *rock* standing in it that no shot answers, and the
+ * body climbing the gullet under them.
  *
  * The states are set rather than played into, as in `boss-cue-undertow.test.ts`:
  * the clock under every one of them is proved in `sim/test/throat*.test.ts`,
@@ -175,22 +177,95 @@ describe("a body standing in the mouth", () => {
     );
   });
 
-  it("says nothing about a rock in it, which a shot cannot answer", () => {
-    // `isWardable`: a bolt leaves a crater and not a kill, and the fall a hand
-    // would drag at has already stopped. The word it is owed is a row lower.
-    const { world, t } = opened();
-    world.cannonCol = mouthCol(world, t);
-    put(world, "meteor", mouthCol(world, t), throatMouthRow(CFG));
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
-  });
-
   it("says nothing about a body the mouth is not under", () => {
     const { world, t } = opened();
     world.cannonCol = elsewhere(world, t);
     put(world, "slick", elsewhere(world, t), throatMouthRow(CFG));
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
+  });
+});
+
+/**
+ * **The rock standing in the mouth, which a shot cannot answer** — the hole
+ * the gullet's own two handles fill (`throat-hand.ts`). A bolt at a warded
+ * body leaves a crater and not a kill, and the hand that would drag at its
+ * fall has nothing left to drag at: until 19 September 2026 the honest answer
+ * was silence, and now the answer is the phase.
+ */
+describe("a rock the mouth already has", () => {
+  /** The fight put in a phase, with a rock standing in the mouth of it. */
+  function warded(phase: ThroatState["phase"], slack: number) {
+    const { world, t } = opened();
+    t.slack = slack;
+    t.phase = phase;
+    t.phaseBeat = world.beat;
+    world.cannonCol = mouthCol(world, t);
+    put(world, "meteor", mouthCol(world, t), throatMouthRow(CFG));
+    return { world, t };
+  }
+
+  it("asks the navigator to pinch a slack ring while the mouth is still travelling", () => {
+    // The cinch stops the inhale and never the mouth, so in a phase with a
+    // stride the frozen beats are the mouth sliding off the body.
+    const { world } = warded("slide", 1);
+    expect(word(world, "p2")).toBe("CINCH");
+    expect(cue(world, "p2")?.kind).toBe("HOLD");
+    expect(cue(world, "p2")?.seat).toBe(2);
+    // Not his: there is one thumb on the ring and it is hers (`ringHeard`).
+    expect(word(world, "p1")).toBeNull();
+  });
+
+  it("stands the pinch on the lowest ring, which is the slack one", () => {
+    const { world, t } = warded("quick", 2);
+    const l = LAYOUT.p2;
+    const low = rings(l, CFG, t, world.beat, 0)[CFG.throatRings - 1];
+    expect(Math.abs((cue(world, "p2")?.x ?? 0) - (low?.x ?? -999))).toBeLessThan(1);
+    expect(Math.abs((cue(world, "p2")?.y ?? 0) - (low?.y ?? -999))).toBeLessThan(1);
+  });
+
+  it("goes quiet once her thumb is on one, and while the borrowed beats are owed", () => {
+    const { world, t } = warded("slide", 1);
+    t.cinchBeat = world.beat;
+    expect(word(world, "p2")).toBeNull();
+    t.cinchBeat = -1;
+    t.breath = 1;
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("asks the pilot to haul the tube once the mouth has stopped coming to them", () => {
+    // `open` inhales every beat and its stride is zero: a pinched ring buys
+    // nothing there, and the only answer left is to take the mouth off the body.
+    const { world, t } = warded("open", CFG.throatRings - 1);
+    expect(word(world, "p1")).toBe("HAUL");
+    expect(cue(world, "p1")?.kind).toBe("CARRY");
+    expect(cue(world, "p1")?.seat).toBe(1);
+    expect(word(world, "p2")).toBeNull();
+    const l = LAYOUT.p1;
+    expect(Math.abs((cue(world, "p1")?.x ?? 0) - mouthX(l, CFG, t, world.beat, 0))).toBeLessThan(1);
+    expect(Math.abs((cue(world, "p1")?.y ?? 0) - mouthY(l, CFG))).toBeLessThan(1);
+  });
+
+  it("goes quiet the beat a carry has already asked the mouth to move", () => {
+    const { world, t } = warded("open", CFG.throatRings - 1);
+    t.haulStep = 1;
+    expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("says nothing at all before a ring has been choked", () => {
+    // `still`: nothing to pinch and nothing to haul, and the old silence is
+    // still the true one — the answer to this rock is a gum, next phase.
+    const { world } = warded("still", 0);
+    expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("is one word however many rocks are standing in the mouth", () => {
+    const { world, t } = warded("slide", 1);
+    put(world, "meteor", mouthCol(world, t), throatMouthRow(CFG));
+    put(world, "meteor", mouthCol(world, t), throatMouthRow(CFG));
+    expect(word(world, "p2")).toBe("CINCH");
   });
 });
 

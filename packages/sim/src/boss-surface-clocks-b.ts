@@ -60,6 +60,13 @@ export {
   stareLidFree,
   stareOpening,
   stareShut,
+  // And the two hands it gained the day after (19 September 2026): the cue
+  // over a body in the mouth asks the simulation whether a ring may be pinched
+  // and whether the tube may be hauled, rather than re-deriving either from
+  // the phase (`throat-hand.ts`).
+  throatCinchable,
+  throatCinched,
+  throatHauling,
   // THE THROAT's hold (19 September 2026): whether the gullet has this body,
   // which is the same question as whether the next inhale will swallow it —
   // the swallow and the fall's refusal are one rule (`throat-pull.ts`). On
