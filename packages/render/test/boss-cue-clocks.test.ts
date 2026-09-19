@@ -25,10 +25,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **The three older choreographed bosses, and what the field is allowed to say
- * about them** (`render/src/boss-cue-read-c.ts`). THE THROAT was a fourth, THE
- * ORRERY a fifth and THE LEDGER the first until each fight was read whole;
- * their cases are in `boss-cue-throat.test.ts`, `boss-cue-orrery.test.ts` and
- * `boss-cue-ledger.test.ts`.
+ * about them** — THE LEAD (`render/src/boss-cue-read-c.ts`), THE SCUTTLE
+ * (`-t.ts`) and THE DIASTOLE (`-u.ts`), one page each since 19 September 2026.
+ * THE THROAT was a fourth, THE ORRERY a fifth and THE LEDGER the first until
+ * each fight was read whole; their cases are in `boss-cue-throat.test.ts`,
+ * `boss-cue-orrery.test.ts` and `boss-cue-ledger.test.ts`.
  *
  * Half of this file is about **silence**, which is the unusual thing to test
  * and the reason it is worth a file. Each of these fights is a number the pair

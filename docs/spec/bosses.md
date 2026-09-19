@@ -2639,7 +2639,7 @@ right chamber, on player 1's screen alone, from the beat the left collapses:
 the pilot is the seat shown that chamber grey, so the ring is on the one screen
 that cannot see the beat, and it breathes off the wall clock, which is nobody's
 count. It says *this, and your thumb*, and the word over it is CLAMP
-(`boss-cue-read-c.ts`, below); the when is still the navigator's to say. Under the
+(`boss-cue-read-u.ts`, below); the when is still the navigator's to say. Under the
 thumb it fills and a dial runs the two-beat window out. The chamber under it is
 **squeezed shut on every screen** while the clamp holds — the contraction,
 kept — with the handle's white as its inner rim on the screen that sees it grey
@@ -2653,7 +2653,7 @@ clear. A frame test sets each state on all three screens and proves the ring
 reaches only the pilot's and the squeeze reaches every one
 (`render/test/diastole-clamp.test.ts`).
 
-**What the field says** (`render/src/boss-cue-read-c.ts`, 18 September 2026,
+**What the field says** (`render/src/boss-cue-read-u.ts`, 18 September 2026,
 `docs/decisions.md` #34). Two words, one a seat, and in `alone` **they follow
 the thumb** — which is the half the first reading was missing: it wrote both of
 them for the whole of the phase, and for most of the phase neither was true.
@@ -5806,8 +5806,9 @@ the ridge does not show the walls it turns at; the torch and the rock are
 the field's own creatures with a burst over the column and no fall drawn
 out of the body. The owner's eye decides all three.
 
-**The words** (`render/src/boss-cue-read-c.ts`, 19 September 2026, beside THE
-SCUTTLE's and THE DIASTOLE's). Two, and both are about the last movement: this
+**The words** (`render/src/boss-cue-read-c.ts`, 19 September 2026; THE SCUTTLE's
+and THE DIASTOLE's followed it to their own pages, `-t.ts` and `-u.ts`, the same
+day). Two, and both are about the last movement: this
 boss is **silent for the whole of the fight it is named for**. *Where it will
 be* is a number the pair computes out of her column and his lean, and a cue
 anywhere near it would be the arithmetic done for them — the split here is the
@@ -6035,8 +6036,9 @@ the gone, and the jolt's reset (fifteen). Nothing is timed on a call
 (`CLAUDE.md` rule 5): steps 1, 3 and 13 give 900 ms for a number or a
 column to be said, and the frame counts whether or not anything is.
 
-**The words** (`render/src/boss-cue-read-c.ts`, 19 September 2026, beside THE
-LEAD's and THE DIASTOLE's). Three, and they are about the **window** and never
+**The words** (`render/src/boss-cue-read-t.ts`, 19 September 2026, split off
+`boss-cue-read-c.ts` the same day as THE DIASTOLE's, THE LEAD's own page).
+Three, and they are about the **window** and never
 about which socket. `PRESS` / `FIRE` on the lock her screen already draws over
 the column the next throw lands in, which is the live part's own column: a mark
 there says *now* and nothing she was not shown. `HOLD` / `BURN` in its place for

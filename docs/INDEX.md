@@ -807,7 +807,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-draw-clocks-b.ts` | **The clock bosses, drawn — page two**: the ones whose picture keeps something that outlives a frame |
 | `packages/render/src/boss-cue-draw.ts` | **The cue this screen is owed, drawn**: the frame on the mark, and the two lines beside it |
 | `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER and THE VANE are asking for** — page two of the readings |
-| `packages/render/src/boss-cue-read-c.ts` | **What THE LEDGER, THE LEAD, THE SCUTTLE and THE DIASTOLE are asking for** — page three of the readings |
+| `packages/render/src/boss-cue-read-c.ts` | **What THE LEAD is asking for** — page three of the readings, its page alone |
 | `packages/render/src/boss-cue-read-d.ts` | **What the bosses whose ask is a stop are asking for** — page four of the readings: THE STARE and THE SPLICE |
 | `packages/render/src/boss-cue-read-e.ts` | **What the rounds are asking for** — page five of the readings, starting with THE MIRROR |
 | `packages/render/src/boss-cue-read-f.ts` | **What the bosses with a handle on the field are asking for** — page six of the readings |
@@ -824,6 +824,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-q.ts` | **What THE CAIRN is asking for** — page seventeen of the readings |
 | `packages/render/src/boss-cue-read-r.ts` | **What THE WELL is asking for** — page eighteen of the readings |
 | `packages/render/src/boss-cue-read-s.ts` | **What THE REPRISE is asking for** — the readings' page `s` |
+| `packages/render/src/boss-cue-read-t.ts` | **What THE SCUTTLE is asking for** — the readings' page `t` |
+| `packages/render/src/boss-cue-read-u.ts` | **What THE DIASTOLE is asking for** — the readings' page `u` |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |

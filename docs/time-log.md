@@ -22,6 +22,39 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-boss-cue-read-c-split — one boss, one page
+
+Page three of the readings had already shed THE THROAT, THE ORRERY and THE
+LEDGER to pages eleven, twelve and fifteen, and the finding that reserved it
+said what was left to do about the three still on it — THE LEAD, THE SCUTTLE,
+THE DIASTOLE — was one page a boss, as those three already are. No logic
+moved: each boss's own `xxxCues` function and its doc comment came across
+unchanged, and only the shared file-level header, which used to argue for all
+three at once, was rewritten per boss, addressed to its own fight rather than
+copied whole. THE SCUTTLE went to a new `boss-cue-read-t.ts`, THE DIASTOLE to
+a new `boss-cue-read-u.ts` — letters rather than page numbers, `boss-cue-read-
+s.ts`'s own reason: another lane is writing a sibling page (`v`) the same day,
+and a number would describe whichever of them lands first rather than this
+page. `boss-cue.ts`'s three imports were repointed and its `switch` untouched.
+Four stale cross-references to `boss-cue-read-c.ts` for THE SCUTTLE's or THE
+DIASTOLE's reading, two in `docs/spec/bosses.md` and two in comments
+(`the-scuttle.ts`, `boss-cue-clocks.test.ts`), were repointed with them, and
+`docs/INDEX.md`'s own row for the trimmed file was hand-corrected after
+`bun run index` left it naming three bosses that had left.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `CLAUDE.md`, `docs/cloud-session.md`, `.claude/skills/new-boss` §6.1, the queue entry and its 19 September update, the file being split, and the five precedent single-boss pages (`-k`, `-l`, `-o`, `-r`, `-s`) for what a split header says |
+| writing | 25 | trimming `boss-cue-read-c.ts` to `leadCues`, the two new files, three new file headers, `boss-cue.ts`'s imports, four cross-reference fixes, the INDEX row |
+| looking | 0 | a pure file move with no picture to take |
+| friction | 5 | `bun run check:fast` outran the 120 s foreground limit on the sandbox and had to be moved to a watched background job — not a defect, just the shard count on a change this many files touch |
+| landing | 15 | `bun run index`, `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast` (5446 pass), `bun run queue done`, this entry, the commit |
+
+**The bottleneck was finding every place that still named the file being
+split**, since the move itself was mechanical: four separate greps
+(`docs/spec/`, test comments, scene comments, `docs/INDEX.md`) each turned up
+one more citation a plain `git mv` would have left stale.
+
 ## 2026-09-19 — queue-the-ledger-changes-state — four hands on one cord
 
 THE TASTER's lane one boss earlier had it easy: its fan is drawn whole on both
