@@ -1559,6 +1559,7 @@ add the two poses and point the two rows at them.
 ## Every card on the STATES sheet says what P1 and P2 do, in short words
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-19, claude/queue-every-card-on-the-states-sheet-says-what-p1-and
 - **Files:** `tools/director/src/poses-bosses-first.ts`, `tools/director/src/poses-bosses-hands-field.ts`, `tools/director/src/poses-bosses-hands-shots.ts`, `tools/director/src/poses-bosses-clocks.ts`, `tools/director/src/poses-bosses-kit.ts`, `tools/director/src/states-page.ts`, `tools/director/test/boss-states.test.ts`
 
 The owner's rule for every documentation page (18 September 2026): *reduce
