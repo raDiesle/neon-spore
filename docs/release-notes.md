@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 72154245 — Queue: THE SURGE's third gesture is done
+
+Its states, its third word and the rock that earns them landed in be40d473.
+
 ## 2026-09-19 · be40d473 — THE SURGE spits a rock, and the pilot wards it without letting go
 
 The bulb now spits a rock while both thumbs are on it, which is the spec's own unbuilt step 7 (`bosses-choreographed.md` §9). From `surgeRockNotches` open, every `surgeRockBeats` beats with both hands on, one rock falls down the bulb's own columns at the ship. Nothing on the bulb answers a rock: the shield does, and the shield is on the panel while the bulb is out on the field — so the pilot wards with his other thumb, neither hand comes off the glass, and the charge climbs through the whole fall. Held through unwarded, the hull takes a scar.
