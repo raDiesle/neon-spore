@@ -1964,32 +1964,6 @@ pair of handles and says nothing. Both are work nobody has started, so the test
 needs an allowance list beside it, and an allowance list is a statement about
 which bosses are finished — the owner's to make, not a lane's.
 
-## `.claude/skills/new-boss/SKILL.md` is seven lines over the ceiling
-
-- **Found:** 2026-09-19, claude/queue-a-handle-bosss-word-is-invisible-to-a-search-of
-- **Taken:** 2026-09-19, claude/queue-the-antiphons-film-never-turns-the-organ-and-the (claim: claude/queue-claude-skills-new-boss-skill-md-is-seven-lines-o)
-- **Files:** `.claude/skills/new-boss/SKILL.md`
-- **Where:** cloud
-
-It stood at 247 lines on 19 September 2026 and two lanes added to it the same
-day — a two-line pointer at `.claude/skills/new-boss-state`, and six lines in
-§6.1 saying where a handle boss keeps its words. It is at 257 now. Nothing
-enforces the ceiling on a `.md` file (`limits.test.ts` reads `.ts` only), which
-is why it went past without a word from anything.
-
-The seam is already drawn in the file: §6 *Enhancing a boss that already
-shipped* is three self-contained briefs that queue entries link to by number,
-and it is the half that grows — every "the field says the word" and "changes
-state more than once" entry points at 6.1 or 6.2. Sections 1 to 5 are how a
-boss is designed from nothing, which is a different job and a different reader.
-
-To do: `.claude/skills/new-boss-more` (or a better name) carrying §6 whole,
-with the three section numbers kept exactly as they are, since a dozen queue
-entries name them; a line at the foot of `new-boss` pointing at it; and the
-entries' `section 6.1` references left alone, because they still resolve. Then
-decide whether `limits.test.ts` should count a skill at all — a file loaded
-into a session's context has the same reason to be short as one a person reads.
-
 ## Unverified at e71733bc: THE SPLICE's WAIT seen at tempo over the tangle
 
 - **Found:** 2026-09-19, claude/queue-the-splice-says-the-word
@@ -2207,3 +2181,26 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Whether `limits.test.ts` should count a `.md` skill file at all
+
+- **Found:** 2026-09-19, claude/queue-claude-skills-new-boss-skill-md-is-seven-lines-o
+- **Files:** `packages/sim/test/limits.test.ts`, `tools/hooks/file-size.ts`, `.claude/skills/`
+- **Asks:** Should a skill's `SKILL.md` be brought under the same ~250-line ceiling `limits.test.ts` and `tools/hooks/file-size.ts` hold `.ts` source to, or is a skill left to be judged by eye the way the rest of `docs/` is?
+
+`.claude/skills/new-boss/SKILL.md` reached 257 lines on 19 September 2026 with
+no test or hook saying anything, because `counted()` in `limits.test.ts` only
+looks at `.ts` files under `packages|apps|tools` and `written-paths.ts`'s hook
+only watches paths a lane's own edits touch that match the same rule. Splitting
+that file (this entry's own fix, `.claude/skills/new-boss-more`) removes the one
+overage found so far, but nothing stops the next skill from growing past it
+unnoticed — a skill is loaded into every session's context the way `CLAUDE.md`
+is, which is the same reason a `.ts` file is kept short, and no other `.md` in
+the repo carries that cost.
+
+Two answers, and they are different work: add `.md` files under
+`.claude/skills/` to `counted()`'s reach (a few lines, the same ceiling,
+`KNOWN_LONG` open to a skill that argues for one); or leave skills to be judged
+the way the rest of `docs/` already is — by a lane noticing and filing an entry
+like this one, the way this file's own preamble already asks of everything
+else. Not sized until the owner picks one.

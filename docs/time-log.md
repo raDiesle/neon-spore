@@ -11454,3 +11454,35 @@ drawn for this handle and no test needed a new value tracked — which took
 longer than writing the one line that does the turn.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-claude-skills-new-boss-skill-md-is-seven-lines-o — `new-boss/SKILL.md` split at its own seam
+
+Nothing enforces a line ceiling on a `.md` file — `limits.test.ts` reads `.ts`
+under `packages|apps|tools` only — so `new-boss/SKILL.md` passed 250 lines
+without a test saying so, two lanes having added to it the same day. The seam
+was already drawn in the file's own numbering: §6 *Enhancing a boss that
+already shipped* is three self-contained briefs a dozen `docs/queue.md`
+entries already cite by number (§6.1, §6.2, §6.3), and it is the half that
+grows. Moved §6 whole into `.claude/skills/new-boss-more/SKILL.md`, kept the
+three numbers exactly as written since the queue entries name them and were
+left untouched, fixed the one internal cross-reference that broke on the move
+(§6.3's "§5's standard" now names `new-boss` explicitly), and left a one-line
+pointer at the foot of `new-boss`. Filed the broader question — should
+`limits.test.ts` count a skill at all — as its own queued **Asks**, rather
+than deciding a rule that would reach every skill in the repo on this lane's
+own say-so.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, the whole 257-line file, and every place in the repo that names `new-boss` with a section number, to see which needed to change |
+| writing | 20 | the new skill file, the removed section, the foot pointer, the fixed §5 cross-reference, and the new Asks entry |
+| looking | 10 | whether `docs/spec/bosses.md` and `docs/spec/interludes.md`'s own §6.2/§6.3 references needed the same treatment as the queue entries — they still resolve as a path, so left alone, same as the entry's own instruction for the queue |
+| friction | 0 | none |
+| landing | 20 | `format`, `lint`, `tsc --noEmit`, `doc-drift.test.ts`, the full `check` (18,458 tests) |
+
+**The bottleneck was deciding what *not* to touch** — the dozen queue entries,
+the historical release notes, the two living spec docs — once it was clear the
+entry only asked for one file split and one pointer, not a repo-wide
+renumbering.
+
+*Measured: the rows above are the session's own estimate.*
