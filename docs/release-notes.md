@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · f94bdf6d — Hold a skill's SKILL.md to the same line ceiling as .ts source
+
 ## 2026-09-19 · 338f5a26 — Record shift-the-letters as the standing act-seven convention, close one ask
 
 The owner deferred Act seven has no room for another wave to this lane once he'd seen a plain answer to his "what is act 7?" question; the coordinator relayed his go-ahead for shift-the-letters. Recorded as the standing convention rather than a one-off pick, since an earlier entry today already hit this exact overflow shape and resolved it the same way.
