@@ -13,6 +13,10 @@ commit message that read wrong, and the history is where that lives.
 
 Both files had been stepped around once already — a body-class binding landed in shell.ts instead of either, a third file reading the same status — and the queue entry named exactly what to pull and which existing extraction to pull it the way of.
 
+## 2026-09-19 · 5ea5b3da — Give body-spores.ts's own comment the same fix its neighbour already got
+
+"Give SCATTER's own page back to the wisp it actually strikes" (0bf14988) landed from another lane while this one was still reading the same queue item, and reached the same conclusion: body-hit.ts's WISP_HIT: scatter pairing was already right, and the header's repeated "the bulb" was prose left over from scatter's life as a bulb-hit candidate before it moved to the wisp. That commit rewrote body-hit-scatter.ts's header but left body-spores.ts's own comment on SPORE_REACH/SPORE_SPIN untouched, and it carried the identical leftover: it still named bulb:hit as the strike that reuses this packing, when that strike has been the wisp's scatter since 10 September 2026. Points it at scatter (body-hit-scatter.ts, THE WISP's strike) instead.
+
 ## 2026-09-19 · 2f5f0a8b — Split THE GAUGE's reading off boss-cue-read-e.ts onto its own page
 
 boss-cue-read-e.ts had grown to three readings — THE MIRROR, THE MAZE and THE GAUGE — after THE GAUGE's own reading grew from one arm to three when the round gained its jam and its bind. It is now boss-cue-read-w.ts, the next unclaimed page letter (the finding's own -f.ts had since been spent on THE WARDEN), with the convention the recent sibling splits established: its own file-level doc comment addressed to its own fight, its own copy of the markAt builder, and boss-cue.ts's import and switch repointed at it. THE MIRROR and THE MAZE stay on page e.
