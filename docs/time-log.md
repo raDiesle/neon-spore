@@ -11594,3 +11594,37 @@ already grown past the point where appending past it stays order-preserving**
 position in the game's order and not just a filename.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — record-owner-answers-19sep — ten questions, ten decisions, none of them built yet
+
+The owner answered all eleven queued `**Asks:**` in one message, most of them
+"you decide." Recorded each as an `**Answered:**` line with a one-sentence
+reason and, where the entry did not already spell it out, the sized work the
+decision unblocks — nothing here is built, only decided, so the next lane that
+claims one of these ten finds a normal entry rather than a question. The
+eleventh (*Act seven has no room for another wave*) waits on a plain-language
+answer to the owner's own question back — "what is act 7?" — so nothing there
+is decided yet.
+
+Two decisions leaned on the same reasoning the game itself states: THE
+REPRISE's first stretch moves to the true walls because sayability is this
+game's whole control scheme (`CLAUDE.md`), and THE HIVE's fix is the insect
+because it costs no new rule a pair has to learn. One (the skill's own
+`.md` line ceiling) is this session's own earlier finding, closed by adding
+skills to `counted()`'s reach rather than trusting a second lane to notice a
+second overage by eye, the way this one went unnoticed until it was 257 lines.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | all eleven entries in full, to weigh each "you decide" against its own stated options and the parts of `CLAUDE.md`/`docs/spec/` a wrong pick would collide with |
+| writing | 30 | ten `**Answered:**` lines, each with its reason and, where missing, the sized work it unblocks |
+| looking | 0 | none — no picture involved |
+| friction | 5 | one `doc-drift.test.ts` failure from a proposed file named in backticks before it exists — the convention `docs/queue.md`'s own preamble states, missed on the first pass |
+| landing | 15 | `format`, `lint`, `doc-drift.test.ts`, `tsc --noEmit`, then the full `check` (18,489 tests) |
+
+**The bottleneck was judgement, not mechanics**: each "you decide" needed its
+own entry read against the game's actual rules rather than a coin flip, and
+the one entry left undecided is the one whose answer the owner asked to see
+before committing to it.
+
+*Measured: the rows above are the session's own estimate.*

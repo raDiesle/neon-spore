@@ -253,6 +253,7 @@ accident, while reading for something else.
 - **Files:** `apps/game/src/shell.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-door.ts`, `apps/game/src/menu-parts.ts`, `apps/game/src/confirm.ts`, `apps/game/src/sign-in.ts`
 - **Where:** local
 - **Asks:** Should back open the menu the game already has, or a three-button question of its own over the field?
+- **Answered:** 19 September 2026 — a new three-button prompt over the field, against this entry's own recommendation. `confirm.ts`'s objection (a dialog the back gesture opened cannot also be a dialog it closes, without a second history entry to burn) is real and has to be designed around rather than skipped: the prompt's own dismissal needs its own push, or the gesture that opened it stops working the second time.
 
 The owner, 18 September 2026: *"When in game (no director) website I press back
 button, It should not go back to previous website, but open as if menu button
@@ -370,6 +371,7 @@ where the cost lands.
 - **Files:** `packages/content/src/scout-arenas.ts`, `packages/sim/src/config-scout.ts`
 - **Asks:** Widen the column's pitch, cut the hazard's touch, or say a mote here is passed and never waited on?
 - **Answered:** 17 September 2026 — move the two hazards. **The answer was given against a wrong option and does not fix this**, so the `Asks:` above replaces it with the three the geometry actually allows.
+- **Answered:** 19 September 2026 — widen the column's pitch to 2.5 tiles (0.37 of a tile of room). Chosen over cutting `scoutHazardRadiusMilli`, which is a shared tunable and would touch every hazard in the game rather than only this arena's own layout, and over leaving the geometry: the rehearsal film already searched every wait and every burn against the fourth mote and found no leg that did not end in the hazard, which is stronger than "no safe park" — it says this mote may not be clearable at all today, not merely that idling on it is unsafe by design.
 
 Five of the second arena's six motes sit exactly one tile from a hazard's row
 — motes on rows 8.5, 6.5, 4.5 and 2.5 against hazards on 7.5 and 3.5 — and a
@@ -467,6 +469,7 @@ deciding before the next boss lands rather than during it.
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
 - **Files:** `packages/sim/src/candle-step.ts`, `packages/sim/src/slow.ts`, `packages/sim/test/candle.test.ts`, `docs/spec/bosses.md`
 - **Asks:** Should the beat a flash lands in THE CANDLE be played under THE SLOW, or left at tempo?
+- **Answered:** 19 September 2026 — slow it, matching the design as written: **every flash beat**, not the first only. §14 says the beat a flash lands is played at a third rate with no exception named for later flashes, so `openSlow(world, cfg.candleFlashSlowBeats)` fires from every `fire` that lights the field, one beat at `slowRateMilli`, both screens together. Sized work, not yet built: a config field, a line in `candle-step.ts`, a receipt in `candle.test.ts`, and `bun run check`.
 
 The design (`docs/spec/bosses-choreographed.md` §14, *THE SLOW, over
 `AfterImage`*) says the beat a flash lands is played at a third rate, so the
@@ -488,6 +491,7 @@ line in the step, a receipt, and `bun run check`.
 - **Found:** 2026-09-18, claude/boss-implementation-e3cfff
 - **Files:** `packages/sim/src/hive-step.ts`, `packages/sim/src/hive-shot.ts`, `packages/sim/src/config-hive.ts`, `packages/sim/test/hive.test.ts`, `packages/content/src/waves/act-7e.ts`, `packages/render/src/hive-draw.ts`, `docs/spec/bosses.md`
 - **Asks:** Is the spill the design's insect, a body in the breach's colour a bolt of that colour takes on its way down; or a rock of the fastest tier on a longer cadence of its own per breach; or a bolt of the breach's own colour that passes the breach's own spill?
+- **Answered:** 19 September 2026 — the insect, picked as easiest for a pair to understand: it is the one option that costs no new rule. A spill becomes a body in a known colour, shot the same way every other coloured body in the game is shot, and the look already exists (a slick or a bulb) so nothing new has to be read on sight either. The fast rock changes only a cadence a pair cannot see, which does not teach them what to do differently; the pass breaks the general rule that a shot never goes through a body, which a pair has learned everywhere else and would have to unlearn here.
 
 The rehearsal lane found it authoring the film, and no test had: a bolt
 stops at the first body in its column, a rock takes a crater from it
@@ -1267,6 +1271,7 @@ owner's eye afterwards and is not what the item asks for.
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
 - **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `.claude/skills/new-boss/SKILL.md`, `docs/decisions.md`
 - **Asks:** does the brief go on `docs/spec/bosses-choreographed.md` as a second table under its fifteen, or on a page of its own beside it?
+- **Answered:** 19 September 2026 — a new docs/spec/bosses-cinematic.md page, taking this entry's own recommendation: the fifteen on `bosses-choreographed.md` are designed and claimed on a ledger and the twenty are not, so folding them into one table would mix built work with a brief. Sized work: the page itself, a line on `docs/spec/README.md`, and `bun run index`.
 
 The owner asked (18 September 2026) for a design brief of twenty bosses of
 the third kind — the choreographed scene of `.claude/skills/new-boss` §1: a
@@ -1868,6 +1873,7 @@ what the rest of this file holds.
 - **Files:** `packages/render/src/boss-cue.ts`, `packages/sim/src/drag-targets.ts`, `packages/sim/src/drag-targets-b.ts`
 - **Asks:** Is a handle with no word a defect a check should fail, with a named list of the ones not built yet; or is it the ordinary state of a boss that is not finished, and the skill's sentence enough?
 - **Where:** cloud
+- **Answered:** 19 September 2026 — the skill's sentence is enough; no new check. A hard-failing test needs the hand-kept target-to-boss table this entry says nothing here builds lightly, and it would be red on landing for two known-unfinished bosses, which then needs an allowance list that is itself a statement of which bosses count as finished — more infrastructure than the value it buys, given `.claude/skills/new-boss-more` §6.1 already tells a lane starting this work to look.
 
 The half of the entry above that was left to the owner, and it is still his to
 settle. A boss's words are either a `case` in `boss-cue.ts` or a `drawCueText`
@@ -1948,6 +1954,7 @@ what the rest of this file holds.
 - **Found:** 2026-09-19, claude/queue-the-well-says-the-word
 - **Files:** `packages/render/src/well-arrivals.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/well.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/waves/act-8.ts`
 - **Asks:** Should the pilot's clock carry warning marks of its own, or is being warned of nothing the split this boss is for?
+- **Answered:** 19 September 2026 — leave it, and say so. Giving the pilot the ring means every blip regardless of owner, which is against `docs/spec/systems.md` 5.2 unless the owner asks for that exception on this boss by name, which he has not; authoring a well wave with rocks in it is a wave, not a fix, and a bigger task than this entry is. Sized work: a paragraph on `well-arrivals.ts` saying it is drawn for waves not yet written, and a frame test that proves the arithmetic rather than leaving it assumed.
 
 `well-arrivals.ts` bends the flat field's warning strip into a ring outside the
 well's rim, and draws the crossing rock's mark inside the seam — eighty lines of
@@ -2017,6 +2024,7 @@ what the rest of this file holds.
 - **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
 - **Files:** `packages/render/src/reprise-fx.ts`, `packages/render/src/reprise-draw.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/view-role.ts`, `packages/content/src/waves/act-10.ts`
 - **Asks:** Should the tear's two signals be split by seat — the count to one phone and the swallow to the other — or does the pair keep both and the record split stay where this lane put it?
+- **Answered:** 19 September 2026 — keep what is already landed. Both seats see the count and the swallow; the record split is columns against colours, as the lane's own workaround already reads. Sized work: correct `bosses.md` §11.15 and `act-10.ts`'s header, which still say *the order and the gaps*, to match what ships.
 
 THE REPRISE is designed around a record the pair divides and says out loud:
 *the navigator keeps the columns and the pilot keeps the order and the gaps*
@@ -2060,6 +2068,7 @@ have now to be true.
 - **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
 - **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/src/scenes/the-reprise.ts`, `docs/spec/bosses.md`
 - **Asks:** Move the three entries to the walls, or correct the three paragraphs that say they are there?
+- **Answered:** 19 September 2026 — move the three entries to columns 0, 3 and 6 (mapping to the true walls, 0 and 10, and the middle). Sayability is this game's whole control scheme (`CLAUDE.md`: *talking is not a help, it is the control scheme*), and *left wall, middle, right wall* is the design's own reason for this shape; correcting the prose instead keeps the shipped wave but throws away the reason it was built this way. Sized work: the wave data in `act-10.ts`, the film in `the-reprise.ts` (its five acts move with it, and `scene-reprise.test.ts` is re-run rather than re-written), and `bun run check`.
 
 Three files say THE REPRISE opens on **one body at each wall and one in the
 middle** — *the shape THE WELL's wave is built on, and the shortest thing two
@@ -2110,6 +2119,7 @@ what the rest of this file holds.
 - **Found:** 2026-09-19, claude/queue-claude-skills-new-boss-skill-md-is-seven-lines-o
 - **Files:** `packages/sim/test/limits.test.ts`, `tools/hooks/file-size.ts`, `.claude/skills/`
 - **Asks:** Should a skill's `SKILL.md` be brought under the same ~250-line ceiling `limits.test.ts` and `tools/hooks/file-size.ts` hold `.ts` source to, or is a skill left to be judged by eye the way the rest of `docs/` is?
+- **Answered:** 19 September 2026 — add `.md` files under `.claude/skills/` to `counted()`'s reach, with `KNOWN_LONG` open to a skill that argues for one. A skill is loaded into every session's context the same way `CLAUDE.md` is, which is the reason a `.ts` file is held to this ceiling in the first place, and this entry's own overage — 257 lines unnoticed by anything — is the proof that "judged by eye" already missed one.
 
 `.claude/skills/new-boss/SKILL.md` reached 257 lines on 19 September 2026 with
 no test or hook saying anything, because `counted()` in `limits.test.ts` only
