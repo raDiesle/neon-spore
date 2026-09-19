@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 68e8f9db — THE LEAD's still is a handle, and her thumb buys the beam its fill
+
+The fight shipped with four states and no gesture: pacing, running, forecasting and the still, every one of them answered on the panel. The still is the one of them a hand may reach into. `grippable.ts` refuses a thumb on a boss body because a thumb there would steer every shot into it, and steering a shot to where a body *will be* is the whole question this boss asks — but with one segment left `leadShootable` is false and `lead-shot.ts` registers no flight at all, so a thumb on the stalk steers nothing. What it gives instead is time: `leadHoldBeats` is eight against a still of four, and the beam costs `lancePrimeBeats` of three. One more run at the pass, and no third.
+
 ## 2026-09-19 · 9bc133bc — Split guide-scene.ts's slide off before it hit the line ceiling
 
 guide-scene.ts was 227 lines, 23 under the limit, and the entry that found it had already weighed the two ways to cut it: pulling the GUIDE_LOOK calls out instead would have left one file of plumbing and one of one-liners, and split a single ctx.save()/restore() pair across a module boundary. The better seam was the slide.
