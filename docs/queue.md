@@ -2224,6 +2224,7 @@ name every silent event.
 ## A film cannot put a hand on four of the eleven columns the field has
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, main (claim: claude/queue-a-film-cannot-put-a-hand-on-four-of-the-eleven-c)
 - **Files:** `packages/content/src/queue.ts`, `packages/content/src/scene-act-types.ts`, `packages/content/src/scene-script.ts`
 - **Where:** cloud
 
