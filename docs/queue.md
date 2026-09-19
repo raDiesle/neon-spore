@@ -1155,29 +1155,6 @@ navigator's on the housing under SEIZE, the pin's remaining beats read off the
 arm rather than off a bar, and the slip. *What is not built* under §11.5 lists
 them; the three events are on both silent lists until they are drawn.
 
-## SNAKE's gorge and shed have no card, because no hand can drive the body to them
-
-- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
-- **Taken:** 2026-09-19, main (claim: claude/queue-snakes-gorge-and-shed-have-no-card-because-no-ha)
-- **Files:** `tools/director/test/boss-states.test.ts`, `tools/director/src/poses-bosses-rounds.ts`, `tools/director/src/boss-hands-rounds.ts`, `packages/sim/src/snake.ts`
-
-The §6.2 sim lane gave SNAKE a second axis of state — what the body has become,
-off its own length (`snakeGrip`) — and `BOSS_PHASES` now names all three. Only
-`crawl` has a pose: the body opens at three tiles and is already in it.
-
-`gorge` is two points swallowed and `shed` is four, and round one authors
-three — so `shed` is not reachable at all until the third round, which means
-winning the two before it. Both are on `OWED` with that reason, which is an
-allowance and not an answer: a state nobody can photograph is a state nobody
-reviews.
-
-What it wants is a `snakeHand` beside `gaugeHand` and `mazeHand`: steer toward
-the nearest standing point, prise or press the mouth open on the last step
-before it, and fire at an enemy `snakeShotStop` says is in reach. It does not
-need to be good — a pose runs until the state arrives and throws if it does
-not — but it does need to avoid the meteors and its own tail, which is the
-round. Whoever writes it takes both names off `OWED` in the same commit.
-
 ## Unverified at 1028a5b4: THE BATON's swelling socket and its two handle rings, n…
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn

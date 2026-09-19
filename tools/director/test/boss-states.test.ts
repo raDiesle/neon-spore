@@ -30,12 +30,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // THE HIVE's down: a breach that has spilled once cannot be sealed, so
   // the hand cannot bring it on (`docs/queue.md`, the HIVE item).
   hive: ["down"],
-  // SNAKE's second and third bodies (18 September 2026). `gorge` is two points
-  // eaten and `shed` is four, and round one authors three — so `shed` is not
-  // reachable at all until the third round, which means winning the two before
-  // it. Both want an autopilot that can drive the body onto a point with the
-  // mouth open, which is a lane of its own (`docs/queue.md`, the SNAKE item).
-  snake: ["gorge", "shed"],
 };
 
 describe("the BOSSES category", () => {

@@ -12665,3 +12665,44 @@ brief never names, found only by running the typecheck after everything the
 brief did name was already done. It is queued.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-19 — queue-snakes-gorge-and-shed-have-no-card-because-no-ha — a body that only ever turns, never steers
+
+SNAKE's own hand could not follow THE SCOUT's pattern of a bearing and a burn:
+the body is forced forward every step and can only queue a quarter-turn, so
+`boss-hands-snake.ts` plans instead — a breadth-first search over
+`(col, row, heading)` states for the nearest untaken point or the nearest
+heading a shot would carry to a standing enemy from, replanned fresh every
+tick. `boss-surface-snake.ts` does not export `snakeEnemyAt`, `snakeOccupies`
+or `fireSnake`, so the obstacle and target checks (`occupied`, `wouldHit`) are
+small local reimplementations built only from what the barrel does export —
+the same choice `scoutHand` already made for its own sim-internal helpers.
+
+Three bugs surfaced only by tracing a scratch driver against the real
+`bossWorld("snake")`, none visible from reading the source alone: a struck
+enemy's tile was still being treated as both an obstacle and a firing goal,
+looping the search back onto a dead enemy for six hundred ticks; firing on
+every idle tick reset `fireSnake`'s own rest-beat on misses and starved the
+one tick the ship actually needed to shoot, walking it straight into a live
+enemy; and pressing the maw every tick met a genuine one-tick-wide closed gap
+that recurs once per ~84-tick cycle, because `snakeMawTicks` and
+`snakeMawRestTicks` are exactly equal and `stepRound` reads commands on the
+pre-increment tick but movement on the post-increment one. The fix for the
+third carried the fix for the second: press only when the BFS's own next step
+is a point, which trades the constant spam for a fixed lead time no cycle
+boundary can land inside.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `snake.ts`, `config-snake.ts`, `snake-open.ts`, `snake-move.ts`, `snake-arena.ts`, `snake-controls.ts`, `boss-surface-snake.ts`, `snake-rounds.ts`, `step-round.ts` |
+| writing | 30 | `boss-hands-snake.ts` (the BFS hand and its local grid helpers), the two `bossPose` entries, the `OWED` removal |
+| looking | 0 | none — a scratch script's own printed per-tick trace, not a frame |
+| friction | 50 | three sequential bugs found only by tracing the real `bossWorld`: struck enemies still blocking/targeted, fire-spam starving a real shot, and a one-tick maw-window race traced to `step-round.ts`'s command-before-movement ordering |
+| landing | 10 | `bunx tsc --noEmit`, `bun test tools/director/test/boss-states.test.ts tools/director/test/poses.test.ts` (243 pass), `format`, `bun run queue done`, the commit |
+
+**The bottleneck was that none of the three bugs were visible from the code
+alone** — each one only showed up as a crash or a stall in a real run of the
+world, and each fix came from reading exactly the tick the run went wrong
+rather than from re-reading the source a second time.
+
+*Measured: the rows above are the session's own estimate.*

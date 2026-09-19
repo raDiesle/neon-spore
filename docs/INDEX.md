@@ -1837,6 +1837,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
 | `tools/director/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE DIASTOLE, THE BATON, THE THROAT |
 | `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN, THE VANE, THE ORRERY, THE CANDLE |
+| `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE FLEET, THE GORGE, THE CURTAIN, THE SCUTTLE, THE HIVE |
 | `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
