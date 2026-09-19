@@ -261,6 +261,7 @@ return to in the stack.
 ## A rehearsal that takes a hit draws the lost screen inside the tutorial plate
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-a-rehearsal-that-takes-a-hit-draws-the-lost-scre
 - **Files:** `packages/render/src/briefing.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/guide-play.ts`, `packages/sim/src/scene.ts`, `packages/sim/src/wave-fail.ts`, `packages/render/test/frame-pair.test.ts`
 - **Where:** cloud
 
