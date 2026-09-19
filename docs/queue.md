@@ -1190,6 +1190,7 @@ pages eleven, twelve and fifteen already are.
 ## THE GAUGE is the only boss with no events and no sound
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-the-gauge-is-the-only-boss-with-no-events-and-no
 - **Files:** `packages/sim/src/events.ts`, `packages/sim/src/gauge.ts`, `packages/sim/src/gauge-hand.ts`, `packages/audio/src/catalogue.ts`, `packages/audio/test/bind.test.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
 - **Where:** cloud
 
