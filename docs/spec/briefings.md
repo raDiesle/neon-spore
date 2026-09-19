@@ -333,8 +333,12 @@ and the beam are the prose. THE SINEW's, the same day, is the second film
 with a hand on both phones at once: every pull is carried to a written
 number rather than to taut, because the sum of two hands is the lesson and
 the seed's zone is what the numbers are authored against; it ends on the
-snap and the rock the shield turns, with the fall and the sway left to the
-prose. THE LEDGER's, the same day, is two hits and two returns, both warded:
+snap and the rock the shield turns, with the fall, the sway and the slack
+left to the prose — and its guide rewritten 19 September 2026, when the
+handles started saying *PULL*, *HOLD*, *SWAY* and *LIFT* themselves: each
+half now opens on the gauge only that seat can see and spends a step on the
+half of the fight the field is not allowed to say, his on what *LIFT* means
+and hers on the tell nobody else has, a sum sliding with her hand still. THE LEDGER's, the same day, is two hits and two returns, both warded:
 the colours are the seed's, the second socket is a column no authored strip
 reaches and the plate is carried there by `atBoss` — the one boss answered
 with the plate rather than the cannon — and the bill for every shot and the

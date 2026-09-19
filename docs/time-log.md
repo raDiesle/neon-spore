@@ -22,6 +22,43 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-sinew — the mechanic nobody can diagnose from a screen
+
+The fourth of these, and the first whose entry was wrong about the boss rather
+than stale: *it says nothing on the field at all* — it says `PULL` and `SWAY`,
+built inline in `sinew-handles.ts` because the ring's place is a whip the
+simulation cannot see. What it did not say was either of the two moments a hand
+already on the ring is being asked for something, and it withheld `SWAY` from
+exactly the hand the fall needs, since the walk wants **both** hands carried the
+same way and the old reading went quiet the instant a thumb landed.
+
+The reading is its own page now (`sinew-word.ts`), and the argument is the
+lane: this is the one boss answered in a number, the zone is on his screen and
+the sum on hers, so *harder*, *ease off* and *you are over* are the whole
+encounter and the field may say none of them. What is left is two verbs that
+leak nothing — `HOLD`, which is the verb a pair pulling toward a target gets
+wrong, and `LIFT` for the slack, which is the one mechanic in this fight nobody
+can diagnose from a screen: she watches her own sum fall with her hand
+perfectly still, and he is shown nothing at all. `LIFT` takes the free ring's
+`PULL` away with it, because only both hands off resets the slack and a field
+saying `PULL` and `LIFT` at once is a field arguing with itself.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `sinew.ts`, `sinew-step.ts`, `sinew-hand.ts`, `config-sinew.ts`, `sinew-band.ts` and `view-role-clocks.ts` end to end — longer than the three lanes before it, because what each seat is *shown* is the whole argument here and none of it was in the entry |
+| writing | 40 | `sinew-word.ts` and its reasoning, the wiring, eight cases, both prose halves, two film pages, §11.26's look and rehearsal, briefings §3.2 |
+| looking | 0 | none: the words are `drawCueText`'s, and the frame case proves a canvas takes the two new ones |
+| friction | 10 | a test arrangement that put the sum at 2,000 inside a 480-wide zone and could not have held it, found by the failure rather than by arithmetic; and `VIEWPORT` left imported after the frame helper moved — `lint` again, after `check:fast` again |
+| landing | 10 | `lint`, `check:fast`, the commit and `land`'s own full check |
+
+**The bottleneck was that the cue was not where a cue lives.** Three lanes of
+this family were an edit to a `boss-cue-read-*.ts` and a test through
+`bossCue`; this one's word is built in the drawing, so there was no reading to
+edit and nothing `bossCue` could be asked. Half the writing was deciding where
+the new page goes and what the seam between choosing a word and placing it is.
+The next handle boss with a word — THE BALLOON's pair, THE SURGE's bulb — pays
+the same, and now has `sinew-word.ts` to copy.
+
 ## 2026-09-19 — queue-the-taster — a word per column, and a guide that was wrong
 
 The third of these in a row and the first to find something worse than a stale

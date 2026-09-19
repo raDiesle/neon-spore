@@ -4755,8 +4755,19 @@ counting is the one fact of the band neither seat is denied. The two
 right, yours bright and theirs dim; each rests a tile and a half outside the
 mass's edge and is carried down by its own pull and sideways by its own
 sway, and the ring is the game's own handle ring (`handle-draw.ts`) with the
-axis under it in a word — *PULL ▼* while a fibre stands, *◀ SWAY ▶* once the
-mass is falling — gone while the hand is on. On a snap the handles go ember
+word the fight is asking of *this* seat's hand under it
+(`sinew-word.ts`): *PULL* on a free ring; *SWAY* once the mass is falling,
+on a hand already on as much as a hand off, because the walk wants both
+carried the same way; *HOLD* while the sum is inside the zone, which is the
+verb a pair pulling toward a target gets wrong; and *LIFT*, in THE STARE's
+`STILL`, once the band's whole top less the slack is under the zone's foot —
+the beat pulling harder stops being possible and only both thumbs coming off
+resets it, which is why a free ring's *PULL* goes out with it rather than
+arguing. Nothing while the handles are swinging, nothing over the zone's top
+and **nothing about how much, in either direction**: the zone is on his
+screen and the sum on hers, so *harder*, *ease off* and *you are over* are
+each one seat's gauge read out on the other's glass, which is the whole
+encounter (`render/test/boss-cue-sinew.test.ts`). On a snap the handles go ember
 and whip with a decaying sine for `sinewSnapBeats`, the field flashes in the
 hull's rim for a beat, and nothing answers a press — `sinewHandleUnder`
 tests the press against the **rest** circle, so a handle mid-whip is still
@@ -4797,7 +4808,13 @@ holds to show before its one. It is the second film with a hand on both
 phones at once, THE BALLOON's order — each seat's own handle first — and its
 captions about the number point at the hull, because a caption anchored at a
 handle stands over the collar the number is drawn on (`docs/queue.md`). The
-film takes no hit; the fall, the sway and the decay are the guide's prose.
+film takes no hit; the fall, the sway and the slack are the guide's prose —
+the slack because it begins at `sinewDecayFibres` parted and the film parts
+two, so a page about it would stand over a tendon that is not doing it. The
+two pages that said *pull it down* say what no ring can instead, that a pull
+is half of a sum and that the halves add, because the handles carry that word
+themselves now; the count, the two numbers and the snap stay written, because
+the field says none of them.
 Proved in `content/test/scene-films.test.ts` as the grips, enters, parts,
 releases, the snap, the rock and the deflect in order, with no fall, no crush
 and no breach; `render/test/sinew-anchor.test.ts` proves a caption's ring

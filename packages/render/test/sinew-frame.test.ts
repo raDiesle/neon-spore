@@ -89,8 +89,9 @@ function slack(world: World): SinewState {
   return s;
 }
 
-/** The last fibre parted a beat ago: the mass on its way down, both hands
- * off it — so the handles carry the word for the axis that is theirs now. */
+/** The last fibre parted a beat ago: the mass on its way down, both hands off
+ * it. The sway is asked of a hand on or off (`sinew-word.ts`), so either state
+ * draws the word; this is the one where the rings are also at their rest. */
 function falling(world: World): SinewState {
   const s = tendon(world);
   s.fibres = 0;

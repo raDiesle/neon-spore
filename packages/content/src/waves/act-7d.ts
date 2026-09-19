@@ -221,9 +221,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE SINEW",
     sentence: "The one that asks how hard, not when, and only the two of you together can say.",
     guide: {
-      both: "Pull two handles together and hold the sum in the band, four beats a fibre. Six fibres. Then sway the falling mass clear of the hull.",
-      p1: "1. Pull your handle down.\n2. Say HARDER or SOFTER, and how much, against the number your partner reads.\n3. Say when the count begins.\n4. From the fourth fibre: let go together, grip again.\n5. On the fall, say the way.",
-      p2: "1. Pull your handle down.\n2. Read the sum out loud every beat.\n3. Pull the way your partner says.\n4. From the fourth fibre: let go together, grip again.\n5. On the fall, sway the same way and say when it is level.",
+      both: "Pull both handles and hold the sum inside the band, four beats a fibre. Six fibres. From the fourth the tendon creeps slack under any hand, and only both of you letting go resets it.",
+      p1: "1. Only you can see the band. Call the number to aim at.\n2. HOLD means the sum is in: stop moving, four beats.\n3. LIFT means no pull can reach it. Both thumbs off, together.\n4. On the fall, say which way is clear.",
+      p2: "1. Only you can see the sum. Read it out every beat.\n2. Pull to the number called, never past it: over the top it snaps.\n3. Your sum sliding with your hand still is the slack. Say so.\n4. On the fall, sway the way called.",
       scene: "theSinew",
     },
     entries: [

@@ -6,6 +6,7 @@ import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type Point, sinewMassCentre, sinewMassRx } from "./sinew-shape.js";
+import { sinewWord } from "./sinew-word.js";
 import { sinew } from "./tether-sinew.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -147,23 +148,23 @@ export function drawSinewHandles(
       pull,
       time,
     });
-    if (held || swinging) continue;
     // **The cue, and not a word of this file's own** (`decisions.md` #34,
-    // `boss-cue-text.ts`). The verb is the axis — down to pull while the tendon
-    // holds, sideways to steer once the mass is falling — and the kind is the
-    // carry both of them are. Built here rather than read off `World` next door
-    // because the ring's place is the drawing's: the snap-back's whip is a
-    // transient, and a reading that worked it out again would put the word
-    // where the ring is not.
+    // `boss-cue-text.ts`). Which word, and the three silences, are
+    // `sinew-word.ts`'s — the argument is long and the one thing it must not do
+    // is say a number. What is this file's is *where*: the word stands on the
+    // ring, and the ring's place is the drawing's, because the snap-back's whip
+    // is a transient a reading off `World` would have to work out again.
     //
     // **And only on the seat whose thumb it is.** The other seat's ring is
     // still drawn dim beside its own, which is what says the partner's hand has
     // landed; the dim *word* under it was the second prompt system this entry
     // closes, and a cue is owed to whoever can act on it.
+    const say = sinewWord(cfg, s, player, falling, swinging);
+    if (say === null) continue;
     const cue: BossCue = {
       seat: player,
-      kind: "CARRY",
-      word: falling ? "SWAY" : "PULL",
+      kind: say.kind,
+      word: say.word,
       x: head.x,
       y: head.y,
       halfW: head.r,

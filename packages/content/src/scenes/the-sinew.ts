@@ -37,7 +37,21 @@ import type { GuideScene } from "../scene-types.js";
  * one. The fall and the sway after the last fibre are prose: a hand steering
  * a falling mass sideways is the drag's other axis, and a page about it would
  * be a page about two hands moving the same way at once with nothing on the
- * screen to say why, which is the second lesson and not this film's.
+ * screen to say why, which is the second lesson and not this film's. **The
+ * slack stays prose for the same reason**, and it is the stronger case: it
+ * begins at `sinewDecayFibres` parted and this film parts two, so a page about
+ * it would stand over a tendon that is not doing it. What the field says there
+ * is `LIFT` and the guide's own steps say what it means, which is the pairing
+ * `decisions.md` #34 asks for — the word on the glass at the moment, the
+ * mechanic in the briefing beforehand.
+ *
+ * **And the two pages that said `PULL` no longer do.** The handles carry that
+ * word themselves (`render/sinew-word.ts`), each on the ring it is asking and
+ * on that seat's screen alone, so the pages over them say the thing no ring
+ * can: that a pull is half of a sum, and that the halves add. The count, the
+ * two numbers and the snap stay written, because the field says none of
+ * them — a word derived from the sum is the navigator's gauge read out on the
+ * pilot's glass, and *ease off* is that in one word.
  *
  * The rock is answered where the shield can answer it: the plate is carried
  * under it by `atBody` — its column is not one an author can write — and the
@@ -77,13 +91,17 @@ export const THE_SINEW: GuideScene = {
     {
       tick: 180,
       seat: 1,
-      text: "LEFT HANDLE · PULL IT DOWN",
+      // `PULL` stands on this ring itself now (`render/sinew-word.ts`), so the
+      // page spends its words on the half of the fight a ring cannot carry.
+      text: "YOUR PULL IS HALF OF IT",
       anchor: { at: "handle", target: "sinewLeft" },
     },
     {
       tick: 360,
       seat: 2,
-      text: "RIGHT HANDLE · PULL IT DOWN",
+      // The other `PULL`, and the same trade: the two pulls adding is the one
+      // fact neither handle can say by itself.
+      text: "BOTH PULLS ADD TOGETHER",
       anchor: { at: "handle", target: "sinewRight" },
     },
     {
