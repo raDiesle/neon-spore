@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 5e57534f — THE CURTAIN says the column, and the briefing comes down
+
+The field now writes MOVE on the pilot's cannon: the core's own column while it is bare, a soft lobe's while it is covered. It shipped with SHOVE on the sheet and FIRE on the bared core, two words that name a gesture each and neither of which names the lane it is spent in — curtainStruck is a no-op unless the shot leaves the top of the core's own column, and curtainHemStruck takes a lobe off only in the column the fabric is struck in. So the pilot's whole job was unsaid on his own band, and it is the guide's third step for him in as many words: put the cannon in the core's column.
+
 ## 2026-09-19 · fcd0ee34 — THE GORGE says the column, and the briefing comes down
 
 The field now writes MOVE on the cannon whenever it is out of the column a shot is owed in — a full intake, or the mouth — and keeps the navigator's word back until he is there. The shipped reading said every gesture the fight has, PIERCE and PINCH over a full intake and BURN or PRY over the mouth, and never named the column any of them has to be taken in: a bolt and the beam both leave the cannon's own column and gorgeStruck is a no-op outside it, so the pilot held a whole fight with one word on his screen and nothing at all on the two moments it cannot be finished without him. It is THE CANDLE's defect of this morning the other way round — there the word walked him off the only column a shot lands from, here there was no word.
