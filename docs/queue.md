@@ -1557,6 +1557,7 @@ the natural home for the body class `shell.ts` is carrying.
 ## `act-7d.ts` is eight under the ceiling, and a guide edit already paid for it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-the-line-ceiling-now-hears-bash-and-is-still-dea (claim: claude/queue-act-7d-ts-is-eight-under-the-ceiling-and-a-guide)
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves.ts`
 
 242 lines, so `tools/hooks/after-edit-size.ts` fires on every touch — it fired
