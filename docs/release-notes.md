@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · c87fd78b — Close THE REPRISE's tear ask: already answered, file the rehearsal's own drift
+
 ## 2026-09-19 · 5619d0ed — Release notes for one landing
 
 ## 2026-09-19 · 8995ded7 — THE HIVE learns to say CARRY and PRESS, and the briefing comes down
