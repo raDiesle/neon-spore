@@ -1,8 +1,15 @@
 import { describe, expect, test } from "bun:test";
 import { BOSS_KINDS } from "@neon-spore/sim";
 import { BOSS_STATES, type BossKind, bossTitle } from "../src/boss-states.js";
+import type { Pose } from "../src/pose-kit.js";
 import { POSE_GROUPS } from "../src/poses.js";
 import { BOSS_GROUPS, BOSS_POSES, statesOwed } from "../src/poses-bosses.js";
+import { BEAT_HAND_POSES } from "../src/poses-bosses-hands-beats.js";
+import { CLOCK_HAND_POSES } from "../src/poses-bosses-hands-clocks.js";
+import { FIELD_HAND_POSES } from "../src/poses-bosses-hands-field.js";
+import { HANDLE_HAND_POSES } from "../src/poses-bosses-hands-handles.js";
+import { SHOT_HAND_POSES } from "../src/poses-bosses-hands-shots.js";
+import { TAKE_HAND_POSES } from "../src/poses-bosses-hands-takes.js";
 
 /**
  * **The BOSSES category is held to the bosses.**
@@ -90,5 +97,48 @@ describe("the BOSSES category", () => {
         expect(owed, `${kind} · ${s} is posed; strike it from OWED`).toContain(s);
       }
     }
+  });
+});
+
+/**
+ * **The cards a hand earns are written to the owner's form** (19 September
+ * 2026): one short sentence of state, then what each seat does, named as P1
+ * and P2. Two players who may not share a language read these, so a card is
+ * short words and no prose — a state that asks nothing of a seat still says
+ * so in two ("P2 waits").
+ *
+ * `IN_FORM` is the half of the category rewritten so far — the six
+ * `poses-bosses-hands-*.ts` files. The second lane rewrites the queen's, the
+ * rounds' and the clock bosses' cards, then widens this test to `BOSS_POSES`
+ * and strikes the constant (`docs/queue.md`). Like `OWED`, it can only
+ * shrink.
+ */
+const IN_FORM: Pose[] = [
+  ...SHOT_HAND_POSES,
+  ...FIELD_HAND_POSES,
+  ...BEAT_HAND_POSES,
+  ...CLOCK_HAND_POSES,
+  ...TAKE_HAND_POSES,
+  ...HANDLE_HAND_POSES,
+];
+
+const NOTE_LIMIT = 120;
+
+describe("the cards a hand earns", () => {
+  test("say what each seat does, in short words", () => {
+    for (const pose of IN_FORM) {
+      const note = pose.note ?? "";
+      expect(
+        note.length,
+        `${pose.name} is ${note.length} characters; the limit is ${NOTE_LIMIT}`,
+      ).toBeLessThanOrEqual(NOTE_LIMIT);
+      expect(note, `${pose.name} does not say what P1 does`).toContain("P1");
+      expect(note, `${pose.name} does not say what P2 does`).toContain("P2");
+    }
+  });
+
+  test("is every pose in the six files a hand poses", () => {
+    expect(IN_FORM.length).toBe(69);
+    for (const pose of IN_FORM) expect(BOSS_POSES, pose.name).toContain(pose);
   });
 });

@@ -20,7 +20,7 @@ export const SHOT_HAND_POSES: Pose[] = [
   bossPose(
     "warden",
     "narrow",
-    "Two plates off: the eye's drift has narrowed to a column either side of the rim, and the rope comes down on the same control it did before. The shot through the hole is the same shot, with less room to miss it.",
+    "Two plates off, the eye's drift one column wide. P1 hauls the rope; P2 pins the eye and fires up its column.",
     {
       hand: wardenHand,
       want: (w) => w.boss?.kind === "warden" && wardenPhase(w.boss.plates).name === "NARROW",
@@ -30,7 +30,7 @@ export const SHOT_HAND_POSES: Pose[] = [
   bossPose(
     "warden",
     "glare",
-    "One plate left and the eye pinned to its column: no drift at all, and the last rope. This is the plate the pair has to take with the whole rim closing on the pupil.",
+    "One plate left, the eye pinned, and no rope. P1 swipes the hatch open; P2 fires through the window.",
     {
       hand: wardenHand,
       want: (w) => w.boss?.kind === "warden" && wardenPhase(w.boss.plates).name === "GLARE",
@@ -40,7 +40,7 @@ export const SHOT_HAND_POSES: Pose[] = [
   bossPose(
     "vane",
     "veer",
-    "Two pins out and the ends of the sweep splitting nothing: the only window now is the arm held still under the pilot's thumb, which stops the fold line with it and puts the split on the side away from the load.",
+    "Two pins out and the sweep splits nothing. P1 holds the arm still; P2 fires up the split it makes.",
     {
       hand: vaneHand,
       want: (w) => w.boss?.kind === "vane" && vanePhase(w.boss.pins).name === "VEER",
@@ -50,7 +50,7 @@ export const SHOT_HAND_POSES: Pose[] = [
   bossPose(
     "vane",
     "seize",
-    "One pin holding and the bearing seized: the arm pinned under his thumb is no longer a window on its own, and the navigator has to haul the housing off it before the last shot counts.",
+    "One pin left and the bearing seized. P1 pins the arm; P2 hauls the housing off it, then fires.",
     {
       hand: vaneHand,
       want: (w) => w.boss?.kind === "vane" && vanePhase(w.boss.pins).name === "SEIZE",
@@ -60,37 +60,37 @@ export const SHOT_HAND_POSES: Pose[] = [
   bossPose(
     "orrery",
     "spitting",
-    "A ring taken and the orrery spitting: what the standing rings let through is coming down the core's column, and the pair's shot has to leave on the beat every ring left is open on.",
+    "A ring gone and the core spitting down its column. P1 holds the cannon on it; P2 fires on the open beat.",
     { hand: orreryHand, hold: 12 },
   ),
   bossPose(
     "orrery",
     "naked",
-    "Every ring gone and the core bare. Shots do nothing to it now; only a beam filled in its column takes it, which is the navigator's thumb held and the pilot's cannon still.",
+    "Rings gone, core bare, and shots do nothing. P1 keeps the cannon still; P2 holds the colour down.",
     { hand: orreryHand, hold: 12 },
   ),
   bossPose(
     "orrery",
     "out",
-    "The core burst under the beam: the orbits gone, the column clear, and the wave's own creatures the only thing left to answer.",
+    "The core is burst and its column clear. P1 aims at the wave again; P2 fires.",
     { hand: orreryHand, hold: 6 },
   ),
   bossPose(
     "candle",
     "eating",
-    "The glow low and turned to one column, eating what is fired from it: a flash made in the column it faces is swallowed and puts the glow a step back up. The pair fires from anywhere but there.",
+    "The glow faces one column and eats what is fired there. P1 aims off it; P2 fires from any other.",
     { hand: candleHand, hold: 6 },
   ),
   bossPose(
     "candle",
     "last",
-    "The last step of the glow: one more flash in any column but the one it faces and the candle is out. This is the frame the whole fight has been dimming toward.",
+    "One step of glow left. P1 aims off the column it faces; P2 fires once and the candle is out.",
     { hand: candleHand, hold: 3 },
   ),
   bossPose(
     "candle",
     "out",
-    "The glow gone and the field lit again by nothing at all: what the pair's own shots throw is still all the light there is, and the wave runs on under it.",
+    "The glow is gone and the pair's own shots are the light. P1 aims at the wave; P2 fires.",
     { hand: candleHand, hold: 6 },
   ),
 ];

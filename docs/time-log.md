@@ -10089,3 +10089,23 @@ nothing. Doing that arithmetic by hand against `band.ts` before writing the
 layers cost a quarter of an hour and saved the same again in failed runs.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — states-cards-p1-p2 — the cards a hand earns say what each seat does
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the six `boss-hands-*.ts` files for which seat actually presses what — read off the `player: 1` / `player: 2` commands, not off the prose, which is how THE GORGE's pry turned out to be P2's while its pinch is P1's, and how THE FLEET turned out to invert the pairing |
+| writing | 45 | sixty-six notes rewritten to the owner's form, the `IN_FORM` test beside `OWED`, and the queue entry rewritten to name the eighty-two cards the second lane owes |
+| looking | 0 | strings and a test; nothing on the field changed |
+| friction | 20 | the rewrite wanted a script and the first two would not run — a survey importing `POSES` from `poses.ts` when the array is `BOSS_POSES` in `poses-bosses.ts`, then a heredoc the guard hook refused for a doubled backslash in a regex; the third dropped the regex entirely and walked the lines, which was shorter than either |
+| landing | 15 | `format`, `imports:sort`, `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was finding the seats, and it was the right place to spend
+it.** Every one of the sixty-six old notes was prose about the boss and said
+nothing about who does what, so the new sentence could not be derived from the
+old one — it had to come from the hand that poses the card. Reading the six
+hand files first meant every card names the seat that really presses, and it
+caught two cards whose prose implied the wrong player. A card that names the
+wrong seat is worse than a card that names none.
+
+*Measured: the rows above are the session's own estimate.*

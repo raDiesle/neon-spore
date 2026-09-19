@@ -23,19 +23,19 @@ export const TAKE_HAND_POSES: Pose[] = [
   bossPose(
     "cairn",
     "leaving",
-    "A hand carried across the pile and the right-hand pair of columns coming away as a two-tile rock: the first unit gone, six standing, and the pile's own count restarted.",
+    "The right-hand pair of columns comes away as a rock. P1 carries a hand across the pile; P2 waits.",
     { crop: F, hand: cairnHand, want: sent("cairnPulled"), hold: TPB },
   ),
   bossPose(
     "cairn",
     "settled",
-    "The pile stood still eight beats with no hand on it and letting one go by itself, down the column it settles on: the shed the pair is counting against.",
+    "Eight beats with no hand on it and the pile sheds one itself. P1 waits; P2 counts the shed.",
     { crop: F, want: sent("cairnShed"), hold: TPB },
   ),
   bossPose(
     "splice",
     "verdict",
-    "The wanted number sucked down its straw and arrived: the verdict lit at the entrance it came out of, and the count of fed numbers one higher.",
+    "The wanted number came down its straw. P1 opens the maw under its entrance; P2 reads the next off the tangle.",
     {
       crop: F,
       hand: spliceHand,
@@ -46,19 +46,19 @@ export const TAKE_HAND_POSES: Pose[] = [
   bossPose(
     "splice",
     "passed",
-    "Every number fed in order and the round passed: the tangle settling for its four beats before the next round's straws are laid.",
+    "Every number fed in order and the round is passed. P1 waits; P2 waits four beats for the next straws.",
     { crop: F, hand: spliceHand, want: spliceIs((s) => s.passBeat !== -1), hold: TPB * 2 },
   ),
   bossPose(
     "reprise",
     "echoing",
-    "The stretch that has just come down sent again with nothing drawn — the same kinds in the same columns at the same spacing — and the wave's own arrivals standing still while it plays.",
+    "The stretch just past comes down again, undrawn. P1 aims as he did the first time; P2 fires the same.",
     { crop: F, want: (w) => repriseEchoing(w), hold: TPB * 2 },
   ),
   bossPose(
     "reprise",
     "held",
-    "The echo run out and the wave taking up again where it stopped: its clock behind by every beat spent inside an echo, so the script was paused, never played over.",
+    "The echo ran out and the wave takes up where it stopped. P1 aims; P2 fires — nothing was skipped.",
     {
       crop: F,
       want: (w) => !repriseEchoing(w) && repriseHeld(w) > 0,
@@ -69,7 +69,7 @@ export const TAKE_HAND_POSES: Pose[] = [
   bossPose(
     "undertow",
     "taken",
-    "The maw held open under the last lobe for the beats it takes, and the lobe swallowed: the seams going dark, the floor still, the undertow taken.",
+    "The maw held open under the last lobe and it is swallowed. P1 holds the maw there; P2 waits it out.",
     {
       hand: undertowHand,
       want: (w) => w.boss?.kind === "undertow" && w.boss.phase === "taken",
@@ -80,7 +80,7 @@ export const TAKE_HAND_POSES: Pose[] = [
   bossPose(
     "antiphon",
     "still",
-    "The sixth organ pitted and the surface gone still: no organ up, no rail, the four beats' quiet before the last shape pushes out — their own ship.",
+    "The sixth organ pitted and the surface still. P1 aims where the last shape will push out; P2 waits.",
     {
       crop: F,
       hand: antiphonHand,
@@ -92,7 +92,7 @@ export const TAKE_HAND_POSES: Pose[] = [
   bossPose(
     "antiphon",
     "down",
-    "The ship fired at up its column in its colour, and the antiphon down: the surface bursting where it stood, the pits it was described in the record.",
+    "Their own ship fired at up its column and the antiphon is down. P1 aims at it; P2 fires its colour.",
     {
       crop: F,
       hand: antiphonHand,

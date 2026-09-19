@@ -67,37 +67,37 @@ export const FIELD_HAND_POSES: Pose[] = [
   bossPose(
     "gorge",
     "spitting",
-    "Two intakes fed full and ruptured, and the gorge spitting them back: the feeding goes on through it, from the outer intakes in, each in its own colour.",
+    "Two intakes burst and spitting back. P1 pinches the next one full; P2 fires its own colour into it.",
     { hand: gorgeHand, want: gorgeIs("spitting"), hold: 6 },
   ),
   bossPose(
     "gorge",
     "gorged",
-    "Enough intakes ruptured that the mouth is open: only the beam takes it, in the mouth's own colour, under the navigator's pry on the mouth — his other thumb over the colour.",
+    "The mouth is open and only the beam takes it. P1 aims under it; P2 holds the colour and pries the mouth.",
     { hand: gorgeHand, want: gorgeIs("gorged"), hold: 6, budgetBeats: 80 },
   ),
   bossPose(
     "gorge",
     "out",
-    "The beam through the pried mouth in its colour, and the gorge out: every intake spent, the field under it the wave's own again.",
+    "The beam went through the pried mouth and the gorge is out. P1 aims at the wave again; P2 fires.",
     { hand: gorgeHand, want: gorgeIs("out"), hold: 6, budgetBeats: 80 },
   ),
   bossPose(
     "curtain",
     "soft",
-    "One lobe softened and taken: any colour into a soft lobe drops it, and the fabric hangs a lobe shorter over the core it is there to cover.",
+    "One lobe softened and dropped. P1 shoves the fabric off the core; P2 fires any colour into a soft lobe.",
     { hand: curtainHand, want: (w) => w.boss?.kind === "curtain" && curtainLobesLeft(w.boss) < 7 },
   ),
   bossPose(
     "curtain",
     "bare",
-    "The pilot's shove has carried the fabric a column off the core: the core's column is uncovered and its own colour up it counts — a wrong one lights a torch.",
+    "The fabric is shoved a column off the core. P1 keeps shoving; P2 fires the core's colour up its column.",
     { hand: curtainHand, want: (w) => w.boss?.kind === "curtain" && curtainCoreBare(w, w.boss) },
   ),
   bossPose(
     "curtain",
     "torn",
-    "Every lobe shot off and the pilot still shoving: a shove with nothing left to shove tears the fabric, and the core hangs naked from here on.",
+    "Every lobe gone and the fabric torn. P1 shoves with nothing left to shove; P2 fires at the bare core.",
     {
       hand: curtainHandWith(false),
       want: (w) => w.boss?.kind === "curtain" && w.boss.tornBeat >= 0,
@@ -106,13 +106,13 @@ export const FIELD_HAND_POSES: Pose[] = [
   bossPose(
     "curtain",
     "out",
-    "Three of the core's colour up the bare core, a lobe dropped with each, and the core out: the fabric gone and the wave running on under where it hung.",
+    "Three hits on the bare core and the curtain out. P1 aims at the wave again; P2 fires.",
     { hand: curtainHand, want: (w) => w.boss?.kind === "curtain" && w.boss.outBeat >= 0, hold: 6 },
   ),
   bossPose(
     "scuttle",
     "winding",
-    "Every part but one shot off its socket, and the last winding back in: nothing single lands now, and the navigator's thumb is down over the live socket for the beam.",
+    "One part left, winding in, and only the beam lands. P1 aims at the live socket; P2 holds a thumb on it.",
     {
       hand: scuttleHand,
       want: (w) => w.boss?.kind === "scuttle" && scuttleWinding(w.boss),
@@ -122,7 +122,7 @@ export const FIELD_HAND_POSES: Pose[] = [
   bossPose(
     "scuttle",
     "down",
-    "The beam standing in the live socket's column as the last part winds in, and the scuttle down: every socket empty, nothing left to throw.",
+    "The beam stood in the live socket and the scuttle is down. P1 aims at the wave again; P2 fires.",
     {
       hand: scuttleHand,
       want: (w) => w.boss?.kind === "scuttle" && w.boss.downBeat >= 0,
@@ -133,7 +133,7 @@ export const FIELD_HAND_POSES: Pose[] = [
   bossPose(
     "hive",
     "spilling",
-    "An open breach on its spill beat: a rock out of it at the top of its column, and a bolt sent up that column now is lost on it — the hand takes another cell.",
+    "A breach is spilling and a rock eats any bolt in its column. P1 aims at a clear breach; P2 fires its colour.",
     {
       hand: hiveHand,
       want: (w) =>

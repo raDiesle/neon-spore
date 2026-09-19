@@ -40,7 +40,7 @@ export const HANDLE_HAND_POSES: Pose[] = [
   bossPose(
     "sinew",
     "held",
-    "Both hands on the handles and pulling: the sum of the two on the navigator's band, inside the zone the pilot sees, and the hold counting toward the fibre parting.",
+    "Both hands pull and the sum sits in the zone. P1 carries half of it; P2 carries the other half.",
     {
       crop: F,
       hand: sinewHand,
@@ -51,13 +51,13 @@ export const HANDLE_HAND_POSES: Pose[] = [
   bossPose(
     "sinew",
     "swinging",
-    "Pulled past the top of the zone and the tendon snapped back: both hands thrown off, the handles swinging where no hand takes hold, and a rock shed from the mass.",
+    "Pulled past the zone and the tendon snapped back. P1 lets go; P2 lets go, and both take hold again.",
     { crop: F, hand: sinewSnapHand, want: sinew((w, s) => sinewSwinging(s, w)), hold: 6 },
   ),
   bossPose(
     "sinew",
     "falling",
-    "The last fibre parted and the mass falling: four beats to the hull, and both hands swaying the one way to walk it a column a beat clear of the ship.",
+    "The last fibre parted and the mass falls. P1 sways one way; P2 sways the same way, a column a beat.",
     {
       crop: F,
       hand: sinewHand,
@@ -69,13 +69,13 @@ export const HANDLE_HAND_POSES: Pose[] = [
   bossPose(
     "sinew",
     "out",
-    "The mass walked three columns from the middle and landed clear: the sinew out, the ship under it untouched, the handles gone slack for good.",
+    "The mass landed three columns clear of the ship. P1 lets go of his handle; P2 lets go of hers.",
     { crop: F, hand: sinewHand, want: sinew((_, s) => s.outBeat >= 0), hold: 6, budgetBeats: 120 },
   ),
   bossPose(
     "surge",
     "band",
-    "Both thumbs on the bulb and the pressure risen into the notch's band: the beat it slows on, and the one both hands have to come off in together.",
+    "The pressure has risen into the notch's band. P1 lifts his thumb; P2 lifts hers on the same tick.",
     {
       crop: F,
       hand: surgeHand,
@@ -86,13 +86,13 @@ export const HANDLE_HAND_POSES: Pose[] = [
   bossPose(
     "surge",
     "sealing",
-    "Held past the band and burst: the pressure gone to nought, three gums thrown out of the bulb, and the seam re-sealing for two beats in which no thumb takes hold.",
+    "Held past the band and burst, with three gums thrown out. P1 keeps off the seam; P2 keeps off it too.",
     { crop: F, hand: surgeHandWith(false), want: surge((w, s) => surgeSealing(s, w)), hold: 6 },
   ),
   bossPose(
     "surge",
     "everting",
-    "The fifth notch vented and the bulb turning inside out: five beats of eversion under the slow, with nothing left for a hand to hold.",
+    "The fifth notch vented and the bulb turns inside out. P1 waits; P2 waits — no handle is left.",
     {
       crop: F,
       hand: surgeHand,
@@ -104,37 +104,37 @@ export const HANDLE_HAND_POSES: Pose[] = [
   bossPose(
     "surge",
     "out",
-    "The eversion finished and the surge out: the seam open the whole way, the bulb gone, the field under it the wave's own again.",
+    "The eversion is done and the surge out. P1 aims at the wave again; P2 fires.",
     { crop: F, hand: surgeHand, want: surge((_, s) => s.outBeat >= 0), hold: 6, budgetBeats: 120 },
   ),
   bossPose(
     "instar",
     "land",
-    "Every mark of the step answered — the jaw pulled open both ways in the same beats — and the beat landed: the body settling into the pose under the slow before the next morph.",
+    "Every mark of the step answered and the beat landed. P1 pulls his side of the jaw; P2 pulls hers.",
     { hand: instarHand, want: instarIn("land"), hold: 6 },
   ),
   bossPose(
     "instar",
     "down",
-    "The last step landed and the instar down: the lunge answered by both thumbs held on the head, the body spent, three beats before it is gone.",
+    "The last step landed and the instar is down. P1 holds a thumb on the head; P2 holds one too.",
     { hand: instarHand, want: instarIn("down"), hold: 6, budgetBeats: 150 },
   ),
   bossPose(
     "filament",
     "trace",
-    "Both thumbs on the armed filament: the pilot's three tiles up from the free end, lighting the line as it goes, the navigator's a tile behind his on the lit part — the gap between them the one number neither can see whole.",
+    "Both thumbs on the armed filament. P1 carries the lit end up a tile a beat; P2 follows a tile behind.",
     { hand: filamentHand, want: filamentIn("trace", 3), hold: 6 },
   ),
   bossPose(
     "filament",
     "pull",
-    "The first filament traced end to end — her thumb arriving on his at the root — and pulled out of the body under the slow, the bundle a strand narrower.",
+    "Her thumb met his at the root and the strand pulls out. P1 holds the lit end; P2 holds the root.",
     { hand: filamentHand, want: filamentIn("pull"), hold: 6 },
   ),
   bossPose(
     "filament",
     "down",
-    "The seventh filament pulled and the body down: nothing left to draw, three beats before it is gone.",
+    "The seventh filament pulled and the body is down. P1 aims at the wave again; P2 fires.",
     { hand: filamentHand, want: filamentIn("down"), hold: 6, budgetBeats: 240 },
   ),
 ];

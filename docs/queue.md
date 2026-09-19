@@ -1564,17 +1564,24 @@ add the two poses and point the two rows at them.
 
 The owner's rule for every documentation page (18 September 2026): *reduce
 text descriptions to a minimum; only say what player 1 and player 2 have to
-do, in short words.* THE FLEET's three cards and its opening are written to
-it — "P2 holds the plume; P1 rakes the hull." — and every other card on the
-BOSSES category still carries a paragraph of prose. Rewrite every `bossPose`
-note in the `poses-bosses-*.ts` files to the form: one short sentence of
-state, then `P1 <verb> …; P2 <verb> …`, under about 120 characters; a card
-whose state asks nothing of a seat says so in two words ("P2 waits"). Then a
-test in `boss-states.test.ts` that holds every boss-tagged pose's note under
-the length and to naming both seats, so the next card cannot come in long.
-The creatures' and the controls' categories are the same rule and the same
-pass, if the note there is prose. No browser needed: the notes are strings
-and the test is the proof. A cloud session can take this.
+do, in short words.* The form is one short sentence of state, then
+`P1 <verb> …; P2 <verb> …`, under 120 characters; a card whose state asks
+nothing of a seat says so in two words ("P2 waits"). Two players who may not
+share a language read these.
+
+**The first half landed on 19 September 2026**: the sixty-six cards a hand
+earns, in the six `poses-bosses-hands-*.ts` files, plus the test that holds
+them — `IN_FORM` in `boss-states.test.ts`, an allowance that can only shrink,
+the same idiom as `OWED` beside it. THE FLEET's three cards were already in
+the form and are the model.
+
+**What is left** is the other eighty-two: `poses-bosses-queen.ts`,
+`-rounds.ts`, `-rounds-b.ts`, `-clocks.ts` and `-first.ts`. Rewrite them the
+same way, then widen the test from `IN_FORM` to `BOSS_POSES` and strike the
+constant and its six imports. The creatures' and the controls' categories are
+the same rule and the same pass, if the note there is prose. No browser
+needed: the notes are strings and the test is the proof. A cloud session can
+take this.
 
 ## DOCUMENTATION's STATES room draws every card before the first is seen
 
