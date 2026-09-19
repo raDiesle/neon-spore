@@ -1962,6 +1962,7 @@ what the rest of this file holds.
 ## THE REPRISE's tear draws the pilot's half of the record on both screens
 
 - **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
+- **Taken:** 2026-09-19, claude/queue-a-films-authored-column-may-have-rounded-somewhe (claim: claude/queue-the-reprises-tear-draws-the-pilots-half-of-the-r)
 - **Files:** `packages/render/src/reprise-fx.ts`, `packages/render/src/reprise-draw.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/view-role.ts`, `packages/content/src/waves/act-10.ts`
 - **Asks:** Should the tear's two signals be split by seat — the count to one phone and the swallow to the other — or does the pair keep both and the record split stay where this lane put it?
 - **Answered:** 19 September 2026 — keep what is already landed. Both seats see the count and the swallow; the record split is columns against colours, as the lane's own workaround already reads. Sized work: correct `bosses.md` §11.15 and `act-10.ts`'s header, which still say *the order and the gaps*, to match what ships.
