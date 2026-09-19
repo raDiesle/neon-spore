@@ -2030,44 +2030,6 @@ The options the answer picks between:
 Either way `bosses.md` §11.15 and `act-10.ts`'s header need the sentence they
 have now to be true.
 
-## THE REPRISE's first stretch is not at the walls its three files say it is
-
-- **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
-- **Taken:** 2026-09-19, claude/queue-docs-spec-bosses-md-names-a-waves-act-file-by-an (claim: claude/queue-the-reprises-first-stretch-is-not-at-the-walls-i)
-- **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/src/scenes/the-reprise.ts`, `docs/spec/bosses.md`
-- **Asks:** Move the three entries to the walls, or correct the three paragraphs that say they are there?
-- **Answered:** 19 September 2026 — move the three entries to columns 0, 3 and 6 (mapping to the true walls, 0 and 10, and the middle). Sayability is this game's whole control scheme (`CLAUDE.md`: *talking is not a help, it is the control scheme*), and *left wall, middle, right wall* is the design's own reason for this shape; correcting the prose instead keeps the shipped wave but throws away the reason it was built this way. Sized work: the wave data in `act-10.ts`, the film in `the-reprise.ts` (its five acts move with it, and `scene-reprise.test.ts` is re-run rather than re-written), and `bun run check`.
-
-Three files say THE REPRISE opens on **one body at each wall and one in the
-middle** — *the shape THE WELL's wave is built on, and the shortest thing two
-people can agree on out loud*. It does not. The first stretch is authored at
-columns 1, 3 and 5 of the seven a wave is written in, and `mapCol` puts those at
-2, 5 and 8 of the eleven the field has (`content/src/queue.ts`,
-`round(col * (cols - 1) / 6)`). The walls are 0 and 10, and nothing in this wave
-ever stands in either of them.
-
-It matters because the claim is a claim about **sayability**, which is the whole
-reason the figure was chosen: *left wall, middle, right wall* is three words two
-people can get across a voice delay, and *third from the left, middle, third from
-the right* is not. The rehearsal repeats the shape and the same three columns, so
-a pair is taught the harder sentence twice.
-
-The options:
-
-1. **Move the entries** to authored columns 0, 3 and 6 — which map to 0, 5 and 10
-   — in the wave and in its film, and leave the three paragraphs alone. It is a
-   change to wave data, so it is the director's file and the owner's call; the
-   film's five acts move with it and `scene-reprise.test.ts` is re-run rather
-   than re-written, since its receipt is about which bodies were drawn and not
-   about which columns they were in.
-2. **Correct the prose** in all three places to say what the wave does — three
-   evenly spread and none of them at a wall — and lose the argument about
-   sayability, or replace it with one about the shape being symmetrical.
-
-`content/test/guided-entries.test.ts` is where a check for this would go if the
-owner wants the claim held by something: a wave whose prose names a wall and
-whose entries reach no wall is the general form.
-
 ## Unverified at 628baa61: the tear's own frame against its teeth, and both cues o…
 
 - **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word

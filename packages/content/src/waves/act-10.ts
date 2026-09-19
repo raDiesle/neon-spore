@@ -94,9 +94,9 @@ export const WAVES_ACT_10: Wave[] = [
       scene: "theReprise",
     },
     entries: [
-      { beat: 0, col: 1, color: "red" },
+      { beat: 0, col: 0, color: "red" },
       { beat: 3, col: 3, color: "cyan" },
-      { beat: 6, col: 5, color: "red" },
+      { beat: 6, col: 6, color: "red" },
       { beat: 12, col: 2, color: "cyan" },
       { beat: 14, col: 4, color: "red" },
       { beat: 18, col: 0, color: "red" },

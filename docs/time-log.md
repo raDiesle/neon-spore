@@ -11735,3 +11735,31 @@ looks like one** — THE VANE's mention needed reading in full before it could
 be ruled out, which is most of why this took longer than a one-line fix.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-reprises-first-stretch-is-not-at-the-walls-i — the walls already said, the data made to agree
+
+Building this session's own recorded decision (move the entries, not the
+prose): `act-10.ts`'s first stretch moved from authored columns 1, 3, 5
+(mapping to 2, 5, 8 of the eleven the field has) to 0, 3, 6 (mapping to the
+true walls, 0 and 10, and the middle). `the-reprise.ts`'s rehearsal — both
+its authored `entries` and the cannon's own `acts` moving to match them —
+carried the identical shape and needed the identical change, at the same
+three beats. `docs/spec/bosses.md` and the scene's own header needed
+nothing: both already said "one at each wall and one in the middle," which
+was the entry's whole point — the prose was the design, and only the
+numbers disagreed with it. `scene-reprise.test.ts` proved out unchanged, as
+the entry predicted: its receipt is about which bodies were drawn, not
+which columns they stood in.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `act-10.ts`, `the-reprise.ts`, and the two places in `bosses.md` that state the wall/middle claim, to confirm neither needed a word changed |
+| writing | 10 | the two column edits in `act-10.ts` and the four in `the-reprise.ts` (entries and acts both move) |
+| looking | 0 | none — no picture involved |
+| friction | 0 | none |
+| landing | 15 | `format`, `lint`, `scene-reprise.test.ts` and the rest of `content/test`, `tsc --noEmit`, then the full `check` (18,490 tests) |
+
+**No real bottleneck** — the decision, the exact columns and every file that
+needed touching were already known from the entry itself.
+
+*Measured: the rows above are the session's own estimate.*
