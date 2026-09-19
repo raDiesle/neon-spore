@@ -1926,6 +1926,54 @@ MIRROR each found after writing one. It is kept for the single caller that can
 still reach it, a held hull (`hullInvulnerable`), which is how the director and
 the frame tests watch a round go wrong without ending the wave.
 
+**The words** (`render/src/boss-cue-read-d.ts`, 19 September 2026, beside THE
+STARE's on the page for the cues whose ask is a **stop**). One, and the fight
+could not have a second: `WAIT` in the kind `STILL`, on the seat holding the
+maw, riding the number coming down its straw for exactly the beats it is in the
+air. That is the one moment in this fight where a control has quietly stopped
+working — `spliceHeard` drops a suck while `feedFrom` is set, because a maw with
+something already coming down it is busy — and it is the failure the film was
+built around: *a pair that presses again while one is in the air has not
+understood that the answer is still coming*. The word is **not** the kind, unlike
+THE STARE's and THE LEAD's, because this stillness has an end the seat can see
+coming: `STILL` says which of the five it is and the verb says what to do with
+the two beats. **The mark rides the number and never the mouth.** It is put at
+`spliceFlightAt`, the same point `drawFlight` draws the token at, so the frame is
+*on* the thing she is already watching; a frame on the mouth it is coming **to**
+was the obvious place and is forbidden, because it would stand there from the
+first beat of the flight and trace the straw to its end for her, and tracing the
+straw is the entire fight. And it is hers because it could not be his: above the
+mouths his straws do not exist and neither does the number on them until the
+last stretch, and the two beats are not his to wait through anyway — a busy maw
+is exactly when he should be sliding to the mouth she names next, which is the
+guide's sentence and not the field's. **Four silences, and they are most of the
+design.** No `SUCK`: the verb of the fight has one place, the mouth the cannon is
+standing under, and she is shown no cannon — a mark there would hand her his half
+of the sentence, and a word that went out only while he was under a mouth would
+hand her the same thing by its own absence, which is THE LEAD's finding. Nothing
+to the pilot, ever, because *which mouth* is the whole of the answer and the
+picture already refuses to mark the one owed on either screen. Nothing about the
+clock, which is drawn on her screen alone and reddens at four, since a hurry-up
+on his would be her gauge read out on his glass. And nothing on the verdict or
+the settle, both of which are drawn to both seats already. Proved in
+`render/test/boss-cue-splice.test.ts`, the pilot's whole silence with it.
+
+**The rehearsal** (`content/src/scenes/the-splice.ts`, 16 September 2026, four
+pages over 1440 ticks): the sentence once, and the split first — two pages of
+the same instant on the two phones, the tangle on hers and the row of mouths on
+his — then the cannon carried to column 4 and the maw opened, and the number
+coming down its own straw while both of them watch it. Authored column 4 is a
+measurement rather than a choice: a two-straw round stands its mouths in 3 and 7
+and the permutation is never the identity, so number one is always the
+right-hand mouth, and 4 is what an author can write that reaches column 7 on the
+eleven the game is played on. One feed and not two, because the second is the
+first again. **The page the field took over** is the last one: `WAIT` stands on
+the number for the two beats of its travel now, so *SUCK. ONE COMES DOWN* says
+instead what no word on the field may — that those two beats are spent from the
+round's own clock, and that clock is drawn on her screen and on no other. Its
+other three pages keep their verbs, which no other film in this family can say:
+the field names **neither** of this fight's gestures.
+
 ## 11.14 THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling
 
 > The one on a clock nothing slows: what your speed buys is how many are

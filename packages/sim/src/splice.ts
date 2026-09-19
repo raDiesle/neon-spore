@@ -11,12 +11,22 @@ import { hullRow, type SimConfig } from "./config.js";
  * shipped SUCK — the cannon slid under an entrance and the maw opened
  * (`pods.ts`). Nothing new is on either panel.
  *
- * **The split is the whole round.** The navigator sees the tangle and the
- * numbers at the top and has no SUCK; the pilot sees the entrances near the
- * ship, each straw fading out two tiles up, and holds the cannon and the maw.
- * So every feed is a call — *the third from the left* — and neither seat can
+ * **The split is the whole round, and it crosses.** The navigator sees the
+ * tangle and the numbers at the top, is shown no cannon at all, and holds
+ * **the only SUCK**; the pilot sees the entrances near the ship, each straw
+ * fading out two tiles up, and holds the cannon and nothing else. So every feed
+ * is two calls — *the third from the left*, *I am on it* — and neither seat can
  * make one alone. Asked for by the owner on 15 September 2026, with the split,
  * the beat count and the cost of a wrong feed decided the same day.
+ *
+ * **This paragraph had the two panels the wrong way round** — the navigator
+ * with no SUCK and the pilot holding the maw — from the day it was written
+ * until 19 September 2026. The panel is `content/src/control-sets-table.ts` and
+ * has always been `["cannon", "mawTake"]`: `mawTake` is player 2's lobe, and
+ * `applyCommand` seat-checks nothing, so the code was never wrong and the file
+ * a reader opens first was. It cost nothing until a lane came to put the
+ * fight's one word on a screen, which is a decision made entirely out of who
+ * can press and who is shown what (`render/boss-cue-read-d.ts`).
  *
  * **The first round has two straws and every later one adds a straw**
  * (`spliceStraws`), so how long the fight is and how hard it gets are the
@@ -30,8 +40,10 @@ import { hullRow, type SimConfig } from "./config.js";
  * here is a pixel and nothing there is a rule.
  *
  * This file is the shape and nothing else. The clock, the suck and what a feed
- * costs are `splice-round.ts`; the tangle is `splice-tangle.ts`; the numbers
- * the fight is tuned by are `config-splice.ts`.
+ * costs are `splice-round.ts`; the tangle is `splice-tangle.ts`; the three
+ * numbers the fight is tuned by are in `config-boss.ts` beside every other
+ * boss's (`spliceEntranceRows`, `spliceTopRow`, `spliceFeedBeats`) — this line
+ * named a `config-splice.ts` that has never existed.
  */
 
 /**

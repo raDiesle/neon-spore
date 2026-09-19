@@ -6,10 +6,14 @@ import type { GuideScene } from "../scene-types.js";
  *
  * Straws run the whole height of the field, tangled across one another. Their
  * bottom ends are mouths the cannon can stand under; their top ends carry the
- * numbers that say the order. The navigator is shown the tangle and has no
- * SUCK; the pilot is shown a hand's width of straw over each mouth and holds
- * both the cannon and the maw. So a feed is a sentence — *the second from the
- * left* — and neither seat can say the whole of it.
+ * numbers that say the order. The navigator is shown the tangle, the numbers and
+ * the clock, and holds **the only SUCK**; the pilot is shown a hand's width of
+ * straw over each mouth and holds the cannon (`control-sets-table.ts`'s
+ * `splice` panel: `["cannon", "mawTake"]`, THE CLAW's arrangement reached from
+ * the other end). So a feed is a sentence each way — *the second from the left*,
+ * *I am on it* — and neither seat can say the whole of it. This paragraph had
+ * the two seats the wrong way round until 19 September 2026, against the film's
+ * own acts below and everything else that names the panel.
  *
  * The film is that sentence, once. Two pages of the same instant on the two
  * phones, which is the shape every film about a split ends up with; then the
@@ -20,6 +24,17 @@ import type { GuideScene } from "../scene-types.js";
  * number spends travelling are the whole of what the page after the suck is
  * for: a pair that presses again while one is in the air has not understood
  * that the answer is still coming (`sim/splice-round.ts`).
+ *
+ * **And the pages the field took over.** The fight says one word now — `WAIT`
+ * on the number coming down its straw, on the seat holding the maw and for
+ * exactly the beats her button is busy (`render/boss-cue-read-d.ts`) — so the
+ * page that said *one comes down* says what no word on the field may: that the
+ * two beats of travel are spent from the round's own clock, which is drawn on
+ * her screen and on no other. Nothing else on this film loses anything, because
+ * the field names **neither gesture**: a mark on the mouth the cannon is under
+ * would hand the pilot's half of the sentence to the seat who is shown no
+ * cannon, so the slide and the suck are the rehearsal's to teach and stay
+ * written.
  *
  * **Authored column 4 is a measurement.** A two-straw round stands its mouths
  * in columns 3 and 7, the permutation is never the identity, so the mouth
@@ -43,6 +58,9 @@ export const THE_SPLICE: GuideScene = {
   steps: [
     { tick: 0, seat: 2, text: "YOU READ THE TANGLE", anchor: { at: "hull" } },
     { tick: 360, seat: 1, text: "YOU SEE ONLY THE MOUTHS", anchor: { at: "hull" } },
+    // The slide keeps its verb, and it is the one page in this film that could
+    // not lose one: the field says nothing at all to the seat holding the strip,
+    // because *which mouth* is the whole of the answer (`boss-cue-read-d.ts`).
     {
       tick: 720,
       seat: 1,
@@ -51,11 +69,14 @@ export const THE_SPLICE: GuideScene = {
     },
     // The suck is at 1200 and the number lands two beats later, inside this
     // page: the press and the answer are apart on purpose and the page has to
-    // hold both or it teaches a control that does nothing.
+    // hold both or it teaches a control that does nothing. `WAIT` stands on the
+    // number for those two beats now, so what is left to write is where they are
+    // spent from — the clock over the tangle, which only this seat is shown
+    // (`splice-draw.ts`'s `drawClock`).
     {
       tick: 1080,
       seat: 2,
-      text: "SUCK. ONE COMES DOWN",
+      text: "SUCK · IT COSTS YOUR CLOCK",
       anchor: { at: "control", control: "mawTake" },
     },
   ],

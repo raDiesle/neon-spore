@@ -81,6 +81,32 @@ export function spliceAt(c: SpliceCurve, t: number): { x: number; y: number } {
 }
 
 /**
+ * **Where the number in flight is**, or `null` while none is — one straw's
+ * curve and the fraction of it the travel has covered, in one call.
+ *
+ * `beat` is the beat *and its phase*, so the token moves between beats rather
+ * than jumping on them. The fraction is clamped at both ends: a feed is judged
+ * on the beat `spliceFeedBeats` is reached (`sim/splice-round.ts`), and a frame
+ * drawn a phase past that would otherwise put the number below its own mouth.
+ *
+ * It is here rather than inside `drawFlight` because two callers want it and
+ * the arithmetic is not theirs to keep a copy of: the picture draws the number,
+ * and the cue stands its own frame on it (`boss-cue-read-d.ts`). A word beside
+ * the line the number is inside is the one mistake this whole picture cannot
+ * afford, and two copies of a lerp is how that happens.
+ */
+export function spliceFlightAt(
+  l: Layout,
+  cfg: SimConfig,
+  s: SpliceState,
+  beat: number,
+): { x: number; y: number } | null {
+  if (s.feedFrom === -1) return null;
+  const t = Math.max(0, Math.min(1, (beat - s.feedBeat) / cfg.spliceFeedBeats));
+  return spliceAt(spliceCurve(l, cfg, s, s.feedFrom), t);
+}
+
+/**
  * The tangle, on the seat that is shown it.
  *
  * Drawn twice per straw — a wide dark casing and a thin bright core — so a

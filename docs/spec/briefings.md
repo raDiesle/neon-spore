@@ -488,6 +488,22 @@ the ghost hand for it is placed from the act rather than from the world,
 because on the seat that presses there is nothing drawn to place it by. The
 hand coming down on nothing turned out to be the picture, not the problem: it
 is what the blind seat's screen looks like.
+THE SPLICE's guide was rewritten 19 September 2026, when the field learnt to say
+`WAIT`: it had spent a step on each of the two gestures and named **neither the
+clock nor the rounds at all**, on the one boss in the game where the clock is
+drawn to one seat only and a spent one costs the hull exactly as a wrong feed
+does. The shared line now says which half of the picture is on which phone,
+which button is on which panel and what a mistake costs; hers opens on the clock
+nobody else can see and carries the arithmetic — eight beats a straw, two of them
+the number's own travel and spent from the same clock — and his on the ring that
+marks the mouth he is under and the two beats that are his to spend rather than
+wait through. Only one page of its film changed, because the field names neither
+of this fight's gestures: the last one said *SUCK. ONE COMES DOWN*, which `WAIT`
+on the falling number now says, and it says the cost instead. Writing the words
+found the boss's own file (`sim/splice.ts`) and the film's own paragraph
+describing the panel backwards — the navigator with no SUCK and the pilot holding
+both buttons — against `["cannon", "mawTake"]`, which is what a lane deciding
+whose glass a word goes on reads first.
 
 A wave with a film keeps its prose as well: the three strings are what the pair
 reads on a phone that has already watched the film once.

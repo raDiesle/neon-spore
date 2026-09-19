@@ -1091,23 +1091,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE SPLICE: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-splice-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-9.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says nothing on the field at all.
-Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-splice.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE SPLICE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2166,3 +2149,38 @@ the new act counted. Check the caption stays inside the 28 characters
 
 The other twenty-odd films are not in this: the turn is the only handle in the
 game whose film shows no hand on it (`docs/spec/briefings.md`).
+
+## A comment may name a source file that does not exist, and thirty-two do
+
+- **Found:** 2026-09-19, claude/queue-the-splice-says-the-word
+- **Files:** `packages/sim/src/splice.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/gland-join.ts`, `packages/content/src/creatures-hazards.ts`, `tools/test/doc-drift.test.ts`
+- **Where:** cloud
+
+Every file in this repository is explained by pointing at its neighbours, and
+`splice.ts` ended its header with *the numbers the fight is tuned by are
+`config-splice.ts`* — a file that has never existed; they are in `config-boss.ts`
+with every other boss's. Fixed in the lane that tripped over it, and then
+counted: **32 distinct basenames are named in backticks by `packages/*/src` or
+`apps/*/src` comments and exist nowhere in the tree**, across about 50 sites.
+Most are renames that left a reference behind — `guide-caption.ts` is named from
+four files, `fire.ts` from five, `keys-round.ts` from four — and each one sends a
+reader looking for a file nobody will ever open.
+
+To do, and it is one sitting:
+
+1. A test in `tools/test/doc-drift.test.ts`'s own shape, pointed at source
+   instead of at documents: collect every backticked `x.ts` in the comments of
+   `packages/*/src` and `apps/*/src`, and fail on one whose basename is in no
+   file in the tree. That check's `isPathClaim` deliberately wants a slash,
+   which is why it sees none of these — a comment writes the bare name of a
+   neighbour. Skip a path with a `*` in it (`render/splice-*.ts`
+   is a legitimate plural) and skip nothing else — a `.test.ts` named from `src`
+   is as much a dangling pointer as any other.
+2. Repair the 32. Most are one word: the file was renamed or split and the
+   reference wants the new name. A handful will turn out to name a file that was
+   deleted outright, and those sentences want rewriting rather than repointing.
+
+The listing is the whole of the work: the scan is fifteen lines of `bun` and a
+fresh session can prove the repair with `bun run check`. Not a look, not an idea
+— it is the documentation drift `docs/INDEX.md`'s own check does not see, which
+counts files rather than reading what they say about one another.
