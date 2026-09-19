@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · f9efa526 — THE SCUTTLE names the slide its two presses have always needed
+
+THE SCUTTLE said BURN and FIRE, and that was one lane's reach rather than the fight. Every bolt and every beam leaves the column the cannon is standing in and the cannon is the pilot's, so this fight is two presses of hers over one movement of his, and scuttleStruck is a no-op in any other column: said for the wrong colour and unsaid for the wrong column. The field had never named that movement.
+
 ## 2026-09-19 · 324c9c53 — Queue the supervise-stop test that is red only under load
 
 It failed one shard of a full check on a lane that deleted eighteen lines of a document, and passes alone in 50ms. Its no-polling claim rests on the supervisor awaiting its child on every path out; either that is untrue and the supervisor has the bug, or `kill(pid, 0)` is answering for a zombie the parent has not been scheduled to reap. The entry says to settle which before touching either, because the two fixes are opposite.
