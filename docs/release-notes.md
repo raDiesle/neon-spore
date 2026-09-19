@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · c59c2b1e — THE SINEW answers its snap-back: both hands carried APART catch the tendon
+
+The boss had a dead state. For the two beats after a snap-back `sinewHeard` refused every press and `sinewWord` said nothing, so the pair waited and the field waited with them — and the shipped pose card for `swinging` read "P1 lets go; P2 lets go, and both take hold again", which is a picture of waiting. Six states, five gestures, and one of them nothing.
+
 ## 2026-09-19 · 8ddc2c93 — THE CAIRN says the one word it can, and the dome goes to the rock they pulled
 
 THE CAIRN is the eighth of this family and the first whose boss had no word for the gesture it is named after. Nothing on either band reaches the pile — a bolt fired up one of its columns goes past it to whatever is above, and the shield has nothing to turn on a thing that is not falling — so the only answer to it is a grip held on the stack and carried sideways, and the reading fell through cuesOf's default and said nothing about that at all. CARRY over PULL stands on the stack now, seat null because the carry is either seat's, going quiet only for the beat of quiet a carry costs.

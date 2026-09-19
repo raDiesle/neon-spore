@@ -2293,3 +2293,17 @@ To do: two rows on the table, numbered between the existing 2 and 3 (both are
 typecheck rows and belong beside `drag-targets*.ts`), each with the error text
 it actually produces in the "Goes red in" column, since that is how a lane
 meets them. `.claude/skills/new-boss/SKILL.md` §6.2 needs no change.
+
+## Unverified at c59c2b1e: THE SINEW's caught tendon has no picture yet: the swing…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed.ts`, `packages/audio/src/bind-sinew.ts`, `packages/audio/src/sounds/boss-sinew.ts`
+
+*THE SINEW answers its snap-back: both hands carried APART catch the tendon* landed from a session that could not look at it. The commit touched 23 more files. What went unchecked:
+
+- THE SINEW's caught tendon has no picture yet: the swinging handles are not drawn as catchable, the spread is not drawn on the tendon, and the band does not answer a catch. A PNG of the caught state, seen by an eye.
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
