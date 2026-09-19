@@ -2018,6 +2018,7 @@ what the rest of this file holds.
 ## A landing that forgot `--unverified` has no way to write the entry afterwards
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, main (claim: claude/queue-a-landing-that-forgot-unverified-has-no-way-to-w)
 - **Files:** `tools/land/unverified.ts`, `tools/land/note-commit.ts`, `docs/cloud-session.md`, `docs/queue.md`
 - **Where:** cloud
 
