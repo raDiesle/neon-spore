@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · f9bb45b5 — A vanished partner on the room screen goes on the queue
+
+The room counts its seats only when a message makes it — a relay, a press, an arrival. On the room screen the only message either phone sends is a `ping`, and `ping` never asks, so a partner whose socket vanished while the two of them looked at each other's circles is never noticed and stays drawn as present until somebody presses. Proved against the shipped worker with the eviction window shortened: the survivor pinged for twice it and heard nothing.
+
+## 2026-09-16 · 4e0704f9 — A phone reclaiming its own seat now outlasts the room holding it
+
+A socket that vanishes without closing — a screen locked in a pocket, a tunnel, flight mode — leaves the room holding a chair for a phone that is no longer on the other end of it, and for SEAT_HELD_MS the room answers every arrival with `full`, including the arrival of the phone whose seat it is. `link-refusal.ts` reads that refusal for the race it is and keeps reaching. What it had to reach with was the pair's six attempts at 900 ms: five and a half seconds against a hold of ten, so every attempt landed inside the window, the sixth refusal was the last, and the player was told their connection was gone by a room that was still keeping their chair. The reclaim was written to win that race and had never once won it.
+
 ## 2026-09-19 · a2ceebd4 — Give body-spores.ts's own comment the same fix its neighbour already got
 
 "Give SCATTER's own page back to the wisp it actually strikes" (0bf14988) landed from another lane while this one was still reading the same queue item, and reached the same conclusion: body-hit.ts's WISP_HIT: scatter pairing was already right, and the header's repeated "the bulb" was prose left over from scatter's life as a bulb-hit candidate before it moved to the wisp. That commit rewrote body-hit-scatter.ts's header but left body-spores.ts's own comment on SPORE_REACH/SPORE_SPIN untouched, and it carried the identical leftover: it still named bulb:hit as the strike that reuses this packing, when that strike has been the wisp's scatter since 10 September 2026. Points it at scatter (body-hit-scatter.ts, THE WISP's strike) instead.
