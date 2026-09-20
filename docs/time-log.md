@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — boss-cue-hull — the verb climbs off the plating
+
+- reading — 10 min. The queue entry, which had already been worked twice and
+  named its own two options; `boss-cue.ts`, `boss-cue-text.ts` and the eight
+  `boss-cue-read-*.ts` the entry lists.
+- writing — 20 min. `BossCue.hullTop` stamped once in `bossCue()`, the flip in
+  `cueWordY`, and `render/test/boss-cue-hull.test.ts`, which plays every wave
+  with a boss on both seats rather than posing a cue.
+- looking — 40 min. A probe to find which bosses the rule would reach (eight),
+  then frames of THE HIVE, THE LEDGER and THE REPRISE before the fix, an
+  experiment moving `drawFieldBossCue` after `drawOnShip`, and three frames
+  after it.
+- friction — 15 min. A first crop taken at dpr-2 coordinates against 390x844
+  frames; a branch the claim had already made; two guard thresholds in the new
+  test set above what the campaign actually gives (16 cues, not 20).
+- landing — 10 min.
+
+**The bottleneck was proving what the bug actually was.** The entry said the
+plating painted the word out, and the previous lane had already moved the cue
+after the ship on that reading. The frames said it was still gone. Moving the
+draw one pass later again produced a frame that looked identical, which is what
+settled it: eleven-point grey on lit plating is not occluded, it is
+unreadable — and no reordering fixes contrast. An hour of pictures for eight
+lines of arithmetic, and the pictures were the only part that could have said
+so.
+
 ## 2026-09-20 — guide-step-navigation — two more ways through a guide
 
 - reading — 15 min. Where a guide's presses already go (`apps/game/src/briefing.ts`,

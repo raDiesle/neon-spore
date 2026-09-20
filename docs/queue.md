@@ -235,103 +235,6 @@ waiting on.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## A cue standing on the hull line has its verb drawn under the ship
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-20, claude/guide-step-navigation (claim: claude/queue-a-cue-standing-on-the-hull-line-has-its-verb-dra)
-- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-f.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/boss-cue-field.ts`, `packages/render/src/canvas2d.ts`
-- **Where:** local
-
-`drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
-drawn after it. `drawCueText` hangs the verb `halfH + 18` below the mark's
-centre, so every cue whose mark stands at `l.hullY` has its lower two corners
-and the whole of its word painted over by the plating: THE CANDLE's `CARRY` /
-`MOVE` on the cannon, THE UNDERTOW's two `MOVE`s and THE MAZE's `MOVE`. Seen in
-a real frame of THE WARDEN, whose handle mark had the same problem and was
-lifted out of it with a constant of its own (`HULL_LIFT`,
-`boss-cue-read-f.ts`) — which is a third place doing the arithmetic rather than
-a fix.
-
-**It is not only the two `MOVE`s.** Six real frames of THE UNDERTOW
-(`boss-cue-read-j.ts`, one per phase, `--boss-json` cannot build the state so
-these were a hand-spawned Chrome reached over `connectOverCDP` mutating
-`window.neonSpore.world.boss` directly, the workaround the entry below this
-one describes) show the same swallowing on its lobe cues too: `OPEN` (phases
-`last` and the ordinary `standing`) and `BURN` (`hard`) sit on a mark lifted
-`LOBE_LIFT` (0.8 tile) above the skin, and 0.8 tile is not enough room —
-`halfH + 18` still lands the word back down inside the plating's own glow, at
-the lobe's neck. `HOLD` (the kind line, drawn *above* the mark) is legible on
-every one of the five; the verb below it — `MOVE`, `MOVE`, `OPEN`, `BURN`,
-`OPEN` — was legible on none of them, on real screenshots of all five phases
-at `p1`/`p2`. So this is every one of THE UNDERTOW's cues, not two of five,
-and the fix wants headroom against the mark's *own* lift, not only against
-`l.hullY` — a lobe standing taller (THE UNDERTOW's `last` grows to two tiles)
-does not buy the word more clearance, since the mark's `y` climbs with it and
-`halfH + 18` is still measured from there.
-
-The choice is between a floor of the same shape as `boss-cue-text.ts`'s
-`headerTop` ceiling — the verb climbs above the mark when there is no room
-under it, which moves the op-count rows of the three bosses above — and moving
-the cue's draw out of the field pass to after the ship, which is one line in
-`frame-field.ts` and changes what a cue can be drawn *over*. The second is
-smaller and the first is what the file already argues for upward; either way
-one frame per boss is the proof, and `render/test/frame-budget.test.ts` is
-where the cost lands.
-
-**Two more real frames, and `boss-cue-read-s.ts`'s own docstring already knew
-about one of them.** Verifying the *Unverified at 628baa61* and *8995ded7*
-entries with real PNGs (`bun run frames`, worked around this sandbox's own
-browser-launch entry below with a hand-spawned Chrome over `connectOverCDP`,
-same as THE UNDERTOW's row above) turned up the fifth and sixth cues this
-swallows: THE REPRISE's `CARRY` / `MOVE` on the cannon (`p1`, `--wave "THE
-REPRISE" --ticks 905`, `boss-cue-read-s.ts`'s own comment already calls this
-mark "the fourth cue to stand on `hullY`") and THE HIVE's `CARRY` / `MOVE` on
-the cannon the same way (`p1`, `--wave "THE HIVE" --ticks 400`,
-`boss-cue-read-v.ts`). Both screenshots show `CARRY` legible above the mark and
-`MOVE` gone entirely into the cannon lobe's own glow, exactly the failure this
-entry already describes — nothing new about the shape of the bug, only two
-more bosses it reaches. Both bosses' *other* cue (THE REPRISE's `PRESS` /
-`FIRE` on the tear, THE HIVE's `PRESS` / `FIRE` on the breach) stands away from
-`l.hullY` and reads fine on real frames of its own.
-
-**And a sixth place, found verifying THE LEDGER's `ROOT` in a real frame**
-(queue's own "Unverified at 419e7ce9"): `ledgerCues` (`boss-cue-read-o.ts`)
-stands the `CARRY` / `ROOT` mark on `ledgerSocketPoint`, which is `{ x, y:
-l.hullY }` exactly — the same mark `l.hullY` names above. `CARRY`, the kind
-line above the mark, is legible on a real frame taken at the wave's first
-beat; `ROOT`, the word `halfH + 18` below it, is not there at all, in a crop
-that reaches well past the socket and down to the shield row. This one has no
-workaround needed to reach: `bun run frames . --wave "THE LEDGER" --ticks 60`
-shows it from the wave's own opening, before any hand has touched anything.
-
-**The second option landed 2026-09-20** (branch
-`claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on`), found the
-same way every entry above was: verifying this session's own `Unverified` cue
-entries (THE ORRERY's, THE CANDLE's) turned up this exact swallowing on a real
-frame before this one was ever read. `drawBossCue`'s call moved out of
-`drawBodies` to a new `drawFieldBossCue` (`boss-cue-field.ts`, split out
-rather than grown onto `frame-field.ts`, which was already at its own
-250-line limit), called from `canvas2d.ts` after `drawShip` — which also
-reaches the *other* half of THE CANDLE's own swallowing nobody had named yet:
-`candle-dark.ts`'s full-column black, drawn between `drawBodies` and
-`drawShip`, hid THE CANDLE's cues completely, not just at the hull line. Real
-frames confirmed fixed: THE ORRERY's `MOVE` and `BURN`, THE CANDLE's `MOVE`
-and `FIRE`, THE THROAT's `MOVE`. `render/test/frame-budget.test.ts` is
-unmoved, as expected — the fix reorders when the same calls happen rather
-than adding or dropping one.
-
-**Still open:** a real frame of THE MAZE's `MOVE`, and a re-check of THE
-UNDERTOW's five (the CDP workaround the entry below this one describes), THE
-REPRISE's and THE HIVE's `MOVE`, and THE LEDGER's `ROOT` — the reasoning above
-says the reorder should reach every one of them, including the lobe-neck
-swallowing on THE UNDERTOW that stood past the hull-line fix alone, since the
-cue now draws after everything else regardless of how little clearance a
-mark's own lift leaves it, but nobody has looked at a fresh frame of any of
-them since this fix landed. THE WARDEN's `HULL_LIFT` constant
-(`boss-cue-read-f.ts`) is now very likely a second answer to a question this
-fix already answers once, and worth removing — once a frame confirms nothing
-there still needs its own lift.
-
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
@@ -1823,3 +1726,25 @@ the event (`until.ts`), so it is a ring of the last N painted states or, more
 cheaply, a second pass that re-runs to `foundTick - N`. The second pass is the
 one to write: the tool restarts a world from a seed every run anyway, and a ring
 of frames is memory for nothing.
+
+## Two bosses lift a cue by hand where the rule now lifts every cue
+
+- **Found:** 2026-09-20, claude/queue-a-cue-standing-on-the-hull-line-has-its-verb-dra
+- **Files:** `packages/render/src/boss-cue-read-f.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue.ts`
+- **Where:** local
+
+`HULL_LIFT` (1.7 tiles, THE WARDEN's handle) and `LOBE_LIFT` (0.8 tiles, THE
+UNDERTOW's lobes) each raise a mark off the skin so the verb under it would
+clear the plating. Neither worked — both bosses are on the list the entry *A
+cue standing on the hull line* caught — and now neither is needed: `cueWordY`
+flips the verb above any mark whose word would land in the membrane
+(`BossCue.hullTop`), which is the same answer asked once instead of twice, and
+`render/test/boss-cue-hull.test.ts` holds it for every boss in the campaign.
+
+Two constants to drop, and the marks fall back onto the skin where the rest of
+the game's cues stand — which is a change to what a frame shows, so it wants a
+frame of each: THE WARDEN's `HULL_LIFT` before and after, and THE UNDERTOW's
+five phases. Neither is free to photograph. THE UNDERTOW needs the CDP
+workaround described above (`--boss-json` cannot grow an empty `breaches`
+list), and it is the reason this is a separate entry rather than the tail of
+that one: the arithmetic is five minutes and the proof is an hour.

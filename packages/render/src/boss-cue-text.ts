@@ -88,8 +88,17 @@ export function drawCueText(ctx: CanvasRenderingContext2D, cue: BossCue, time: n
 
 /**
  * The verb's own baseline: `WORD_GAP` under the frame, the canvas's top edge
- * when the mark stands higher than that, and **no further down than
- * `BossCue.roomBelow`** where the reading gave one.
+ * when the mark stands higher than that, **no further down than
+ * `BossCue.roomBelow`** where the reading gave one, and **over the mark
+ * rather than under it when under it is inside the ship**.
+ *
+ * That last one is the only place the verb changes sides, and the ship is the
+ * only thing that makes it: a mark standing on the hull line has nothing
+ * under it but plating, and a word written there is unreadable whatever order
+ * it is drawn in (`BossCue.hullTop` has the eight bosses and the frames). The
+ * kind line follows on its own — `kindY` already puts it under the verb when
+ * there is no room over it — so the pair reads the instruction first and its
+ * grammar second, which is the order the two lines take at the top edge too.
  *
  * The cap is the answer to a mark standing close under another of the boss's
  * own bodies rather than in clear field. The frame is two thirds of a tile
@@ -107,6 +116,12 @@ export function drawCueText(ctx: CanvasRenderingContext2D, cue: BossCue, time: n
 export function cueWordY(cue: BossCue, floor: number = TOP_EDGE): number {
   const under = cue.y + cue.halfH + WORD_GAP;
   const capped = cue.roomBelow === undefined ? under : Math.min(under, cue.y + cue.roomBelow);
+  // Inside the ship, and so over the mark instead. The cap is asked first:
+  // where a reading has already shortened the drop to clear something of the
+  // boss's own, the shortened word is the one that has to fit.
+  if (cue.hullTop !== undefined && capped > cue.hullTop) {
+    return Math.max(cue.y - cue.halfH - WORD_GAP, floor);
+  }
   return Math.max(capped, floor);
 }
 

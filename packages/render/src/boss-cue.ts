@@ -22,10 +22,9 @@ import { scuttleCues } from "./boss-cue-read-t.js";
 import { diastoleCues } from "./boss-cue-read-u.js";
 import { hiveCues } from "./boss-cue-read-v.js";
 import { gaugeCues } from "./boss-cue-read-w.js";
+import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
-import type { ViewRole } from "./view-role.js";
-import { showsCannon, showsShield } from "./view-role.js";
 
 /**
  * **THE CUE**: the one word the field says at the moment it wants something,
@@ -66,68 +65,10 @@ import { showsCannon, showsShield } from "./view-role.js";
  * to do at once — what the pair is owed is *what to do next*, singular.
  */
 
-/**
- * What kind of action it is, over the frame: #34's own list, and the only
- * words that may stand on that line.
- *
- * Four are what the gestures this game has reduce to — a press of a button on
- * the band, a hold of one, a thumb carried across the field, a turn of the
- * crank — and a fifth would be a gesture nothing in `DragTarget` or
- * `Hold["kind"]` answers, which is a wish (`.claude/skills/new-boss`). The
- * fifth here is the one the simulation *does* answer without a member: **no
- * gesture at all**. THE STARE refuses and charges for a watched press
- * (`sim/stare-step.ts`), which makes a thumb kept off the glass a thing the
- * fight asks for and a thing it can tell was done — the `RestraintGate` of
- * `bosses-choreographed.md`'s library, shipped as a boss. It is its own word
- * rather than `HOLD` over `STILL` because a player told to hold would hold
- * the trigger, which is the one press the eye is waiting for.
- */
-export type CueKind = "PRESS" | "HOLD" | "CARRY" | "TURN" | "STILL";
-
-/** One thing to do, where it is wanted. */
-export interface BossCue {
-  /** Whose thumb. `null` where either seat's will do. */
-  seat: 1 | 2 | null;
-  kind: CueKind;
-  /** One word. Never a column, a colour or a count. */
-  word: string;
-  /** The middle of the mark, in canvas pixels. */
-  x: number;
-  y: number;
-  /** How far the frame reaches from it. */
-  halfW: number;
-  halfH: number;
-  /** Spreads the frame's interference, so two cues in a wave are not one
-   * object blinking (`target-lock.ts`). */
-  seed: number;
-  /**
-   * Whether the cue draws its own scan frame. `false` where the boss's own
-   * picture already puts one around this place — THE SCUTTLE locks the column
-   * of the next throw on the navigator's screen — because a second frame
-   * around one place is exactly the four-pictures-for-one-idea mistake
-   * `target-lock.ts` records the owner ending. The half-extents are still
-   * read: they are what the two lines of text are hung off.
-   */
-  framed?: boolean;
-  /**
-   * How far below the mark's centre the verb may reach, in pixels, where the
-   * reading knows something in the boss's own picture stands closer than the
-   * frame does. THE BATON's arm is the case it was written for: its sockets
-   * are one tile apart and the frame is two thirds of a tile tall, so the
-   * pilot's `HOLD` hung the full `halfH + WORD_GAP` under his bead landed on
-   * the navigator's, one socket down (`boss-cue-read-i.ts`).
-   *
-   * Only the verb is capped. The kind line is drawn *over* the mark and has
-   * never been the one in the way.
-   */
-  roomBelow?: number;
-}
-
-/** Whether this screen is the one being asked. */
-export function cueSeen(cue: BossCue, role: ViewRole): boolean {
-  if (cue.seat === null) return true;
-  return cue.seat === 1 ? showsCannon(role) : showsShield(role);
-}
+// What a cue *is* lives next door, and is re-exported here so the readings and
+// the drawings go on taking it from the file they always took it from
+// (`boss-cue-shape.ts`, split off on line count).
+export { type BossCue, type CueKind, cueSeen } from "./boss-cue-shape.js";
 
 const NONE: readonly BossCue[] = [];
 
@@ -244,7 +185,11 @@ export function bossCue(
   skinY: SurfaceY,
 ): BossCue | null {
   for (const cue of bossCues(l, world, beatPhase, skinY)) {
-    if (cueSeen(cue, l.role)) return cue;
+    // The membrane under the mark, stamped once here rather than by each of
+    // the twenty-eight readings: `skinY` is already this function's argument,
+    // and a rule about where a word fits belongs to the one place every
+    // reading passes through (`BossCue.hullTop`).
+    if (cueSeen(cue, l.role)) return { ...cue, hullTop: cue.hullTop ?? skinY(cue.x) };
   }
   return null;
 }
