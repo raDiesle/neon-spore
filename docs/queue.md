@@ -809,6 +809,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE REPRISE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-20, main (claim: claude/queue-the-reprise-changes-state-more-than-once-and-ask)
 - **Files:** `packages/sim/src/reprise-state.ts`, `packages/sim/src/reprise.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 - **Asks:** should THE REPRISE get a gesture on the picture at all, given its own section argues at length for the opposite?
