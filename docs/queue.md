@@ -1424,20 +1424,6 @@ already has — the pilot's colour, the navigator's swell, a seal, a wrong
 colour's provoke, the twins from the fifth opening — is the rehearsal lane's
 own kind of work, and is unstarted.
 
-## `act-7e.ts`'s header says it is full at 55 lines under the ceiling
-
-- **Found:** 2026-09-20, claude/queue-act-seven-has-no-room-for-another-wave-and-no-le
-- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-act-7e-ts-s-header-says-it-is-full-at-55-lines-u)
-- **Files:** `packages/content/src/waves/act-7e.ts`
-- **Where:** local
-
-`act-7e.ts` (the page shifted from `act-7d.ts` by this entry's own fix) still
-says, in its own header, *"It started one wave long and is full"* — a claim
-that predates this session and was already false before it: the page holds
-six waves at 195 of 250 lines, 55 under the ceiling. One sentence, once
-whoever adds or removes a wave from this specific page next has read it
-closely enough to know what it should say instead.
-
 ## THE BATON's own "HOLD" cue is drawn over the other seat's bead
 
 - **Found:** 2026-09-20, claude/queue-the-batons-merge-its-two-handle-rings-still-has

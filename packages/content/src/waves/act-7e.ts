@@ -25,7 +25,10 @@ import type { Wave } from "../wave-types.js";
  *
  * **`7e` and not `9`, for the reason `act-7c.ts` gives about `7c`**: an act
  * file is a page and not a chapter, and the order of the waves is the order of
- * the game. It started one wave long and is full (`docs/queue.md`).
+ * the game. It started one wave long, holds six, and sits 52 lines under the
+ * ceiling as of 20 September 2026 — so the next §6.1/§6.2 guide line queued
+ * against it is paid for on this page rather than by another seam
+ * (`docs/queue.md`).
  *
  * **THE THROAT is the only wave in this game authored to be *eaten*.** The
  * gullet hangs from the top down to `throatMouthRow` with its mouth in authored

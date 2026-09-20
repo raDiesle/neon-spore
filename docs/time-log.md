@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — queue-act-7e-header-is-full — a page that called itself full with fifty lines spare
+
+`act-7e.ts`'s header still said *"It started one wave long and is full"* — a
+claim that had been false for two seams and three renamings. The page holds
+six waves at 195 of 250 lines. The fix is the one sentence the finding asked
+for, and it says the thing the header's own paragraph above it already
+argues: the next §6.1/§6.2 guide line queued against this page is paid for
+here, not by cutting another page off it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `docs/queue.md`'s entry, `act-7e.ts`'s whole header, its six `name:` rows, the line count |
+| writing | 5 | the one sentence, this entry |
+| looking | 0 | none — a comment-only fix, nothing a frame draws changed |
+| friction | 0 | none |
+| landing | 10 | `check:fast`, the commit, `bun run land` |
+
+**The bottleneck was reading rather than writing**: the header argues its own
+seams over four paragraphs and the false sentence sits inside the one about
+the letter, so knowing what it should say instead cost twice what saying it
+did.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — queue-the-cairn-changes-state-more-than-once — the gesture that is a hand not moving
 
 THE CAIRN's finding asked for several states, a different gesture in each, and
