@@ -1324,6 +1324,7 @@ what the rest of this file holds.
 ## Unverified at 58c05186: the box's picture on a real frame — a cloud session has…
 
 - **Found:** 2026-09-19, claude/queue-the-instar-says-the-word
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-58c05186-the-boxs-picture-on-a-rea)
 - **Files:** `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/waves/act-7e.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/boss-cue.ts`
 
 *THE INSTAR's scanner box learns the kind line the owner asked for* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
