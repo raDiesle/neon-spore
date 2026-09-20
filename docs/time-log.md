@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — queue-baton-reading-cut — half a page moves out
+
+THE BATON's reading was **250 lines exactly**, which `limits.test.ts` passes
+and the next sentence anyone adds does not — and the §6.1 guide lines still
+queued against this boss are sentences. The lane that wrote it had already
+paid the ceiling once, moving `roomUnder` out to `baton-socket-draw.ts`.
+
+The seam was the header's own list: five stages, and `passing` is half the
+file on its own with `shotAt` under it. Both went to `boss-cue-read-i-b.ts` —
+the readings' first cut *within* a boss, since `a` to `w` are one boss each —
+and the switch with `merging`, `crossing` and `falling` stayed. The frame
+constants and `markAt` are a copy rather than an import: every one of the
+twenty-three pages carries its own, and a shared one from the page this file
+was cut out of would have been a cycle. 250 → 166 and 126.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, the page whole, the other pages' `markAt` |
+| writing | 15 | the new page, its header, the trimmed imports, the switch's one line |
+| looking | 0 | nothing drawn moved — `boss-cue-baton.test.ts` says the words did not |
+| friction | 5 | `lint` wanted the import sort, which `format` does not do |
+| landing | 10 | `bun run index`, `check:fast`, the commit, `bun run land` |
+
+**The bottleneck was deciding where `markAt` lives**: the cut itself is a
+copy-and-delete, and the only real question was whether the two halves share
+a helper — they do not, because every other page already does not.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — queue-director-fake-dom-keyup — one document, and a key let go
 
 `installDom`'s window fired `keydown` with a `key` and nothing else, so the

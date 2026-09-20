@@ -829,6 +829,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-g.ts` | **What the rounds drawn as a chart are asking for** — page seven of the readings, opened for THE FLEET |
 | `packages/render/src/boss-cue-read-h.ts` | **What the round that kept the ship is asking for** — page eight of the readings, opened for PINBALL |
 | `packages/render/src/boss-cue-read-i.ts` | **What THE BATON is asking for** — page nine of the readings |
+| `packages/render/src/boss-cue-read-i-b.ts` | **THE BATON's `passing`** — the second half of page nine, and the readings' first cut *within* a boss |
 | `packages/render/src/boss-cue-read-j.ts` | **What THE UNDERTOW is asking for** — page ten of the readings |
 | `packages/render/src/boss-cue-read-k.ts` | **What THE THROAT is asking for** — page eleven of the readings |
 | `packages/render/src/boss-cue-read-l.ts` | **What THE ORRERY is asking for** — page twelve of the readings |

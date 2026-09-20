@@ -1768,30 +1768,3 @@ every 700 ms. The eviction and the `peers` that follows it are already written
 — `occupiedSeats` hangs the dead socket up and `webSocketClose` announces it —
 so this is only about asking. `room.test.ts` has the harness: two phones, one
 falls silent, the other pings and is told without pressing anything.
-
-## `boss-cue-read-i.ts` is at the 250-line ceiling exactly
-
-- **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
-- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-boss-cue-read-i-ts-is-at-the-250-line-ceiling-ex)
-- **Files:** `packages/render/src/boss-cue-read-i.ts`, `packages/render/src/boss-cue.ts`
-- **Where:** local
-
-THE BATON's reading is now **250 lines**, which `packages/sim/test/limits.test.ts`
-passes and nothing else does: the next sentence anyone adds to it goes red.
-The lane that put it there already paid the ceiling once — `roomUnder` was
-written in this file and moved into `baton-socket-draw.ts` to get back under
-it, and `markAt`'s return had to be folded back onto one line — so the room
-for the §6.1 guide-line work still queued against this boss is nil.
-
-The seam is the header's own list: five stages, four of which have a function
-each (`passing`, `merging`, `crossing`, `falling`) and one — `passing` — that
-is half the file on its own, with `shotAt` under it. `passing` and its helper
-`shotAt` to `boss-cue-read-i-b.ts`, the switch and the other three staying, is
-the cut — and it would be the readings' first *within* a boss: the twenty-three
-pages `a` to `w` are one boss each, and this page's own header already says it
-was the first opened for a boss that was already read. The one alternative is
-the other direction — leave the page whole and cut the prose instead, which is
-cheaper and loses the four-paragraph argument for why every stage of this
-fight asks a different pair of thumbs. `bun test
-packages/render/test/boss-cue-baton.test.ts` proves the words did not move;
-`limits.test.ts` proves the cut was worth making.
