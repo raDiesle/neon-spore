@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 833f65ba — THE CAIRN's held pile: a real grip lags the settle mark by its own beats
+
+A hold on the pile is an ordinary grip, so --press put a real thumb on it from the wave's first beat. Two real frames at the same tick (just before an unheld pile would shed) show the difference plainly: held, the settle beam sits at roughly half the brightness an unheld one would, exactly the cairnHoldBeats of pressure the hold buys back — and cairn-hold.test.ts already proves the pile lets go once that's spent.
+
 ## 2026-09-20 · 597a1ab1 — THE ORRERY's rehearsal: three of four unverified claims settled, one left
 
 The OPEN mark and the winds both check out on real frames — the mark is a plain phase cue, and all three rings turn through one shared grip drawing function, so the outer ring's real motion across four sampled frames proves the mechanism. The split around the rock is the same picture, and the one non-visual part of it (does the banked progress survive) is already a passing sim test. What's left is a real thumb's: whether the wind's pace reads as a decision or as friction, which no frame can answer.
