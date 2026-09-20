@@ -13432,3 +13432,39 @@ lane's — both times the honest path was slower than trusting the first
 plausible story.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-a-lib-list-would-unlock-the-other-4-929-identifi — the entry had already been answered
+
+The claim on this title was the second: `271d8096` answered the identical
+question the day before, on a branch found and taken independently of that
+work (`Found: 2026-09-19, claude/task-queue-work-ym2eim`, before the fix
+landed), and a later commit (`5780141b`, an unrelated boss lane) reintroduced
+the entry into `docs/queue.md` on its way through a merge, rather than any new
+finding. `doc-names.ts` already carries the answer, word for word what this
+entry asked for: harvesting `lib.es5.d.ts` through `lib.es2022.d.ts`,
+`lib.dom.d.ts`/`lib.dom.iterable.d.ts` and `@cloudflare/workers-types` the way
+`declaredNames` harvests the tree, checking it against every unrestricted
+claim, and finding the false-positive count falls nowhere near the dozen that
+would justify dropping the head-word restriction.
+
+Re-running the same measurement against today's tree rather than trusting a
+day-old number: 8,964 lib names (8,980 the day before; the packages moved a
+little), 5,706 unrestricted claims (5,611), 105 that name nothing in the tree
+(108), 86 once the lib names are added too (89). The conclusion is unchanged
+and the leftover names are the same shape — mostly the `damage*`/`shows*`
+families the file's own header already accounts for. No runtime or test code
+changed; the queue entry is removed as a duplicate of already-completed work.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, `doc-names.ts`, `doc-drift-names.test.ts`, `CLAUDE.md` |
+| writing | 5 | this log entry; no code changed |
+| looking | 0 | none |
+| friction | 20 | discovering, via `git log -S` on `docs/queue.md`, that this exact title had already been answered and closed by `271d8096` before a since-merged commit put it back |
+| landing | 15 | a scratch harvester reproducing the measurement on today's tree, `bun run check:fast`, `bun run queue done`, the commit |
+
+**The bottleneck was noticing the duplication at all** — the entry read as
+open, unclaimed work, and only `git log -S` on its own title in `docs/queue.md`
+turned up the commit that had already closed it.
+
+*Measured: the rows above are the session's own estimate.*

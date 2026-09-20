@@ -1576,34 +1576,6 @@ git the way `note-commit.ts` does, and calls `renderUnverified` and
 recollection of its shape. A line in the commands document, and the cloud
 session's rule gains a sentence saying the flag has an afterwards.
 
-## A lib list would unlock the other 4,929 identifier claims in comments
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, main (claim: claude/queue-a-lib-list-would-unlock-the-other-4-929-identifi)
-- **Files:** `tools/test/doc-names.ts`, `tools/test/doc-drift-names.test.ts`
-- **Where:** cloud
-
-`ownSubjectClaims` restricts the new check to identifiers whose head word is a
-word of the comment's own file name — 1,523 of the 6,452 backticked camelCase
-identifiers a source comment names. The restriction was measured, not guessed:
-unrestricted, 205 claims name nothing, and nearly all 205 are platform globals
-(`AudioContext`, `Path2D`, `blockConcurrencyWhile`,
-`accelerationIncludingGravity`) that a comment is entitled to name. A
-hand-kept allowlist of those would rot, which is what this test exists to stop.
-
-So the 4,929 claims outside a file's own subject go unasked, and drift hides
-there: `readyButtonBox` in `apps/game/src/briefing.ts` named nothing for days
-and was found by hand rather than by the check, because its head word is
-`ready` and its file is `briefing.ts`.
-
-The list that is not hand-kept already exists — TypeScript ships it.
-`lib.dom.d.ts`, `lib.es*.d.ts` and `@cloudflare/workers-types` declare every
-global this repository can legitimately name, and harvesting them the way
-`declaredNames` harvests the tree turns the allowlist into a derived file
-nothing has to remember. Add them as a second set, drop the head-word
-restriction, and see what the 205 falls to; if it falls under a dozen the
-restriction can go entirely and the check triples its reach in the same run.
-
 ## Unverified at 5780141b: the picture of a carried part and its ring, watched at…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
