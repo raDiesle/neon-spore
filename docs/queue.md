@@ -238,6 +238,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A cue standing on the hull line has its verb drawn under the ship
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-20, claude/guide-step-navigation (claim: claude/queue-a-cue-standing-on-the-hull-line-has-its-verb-dra)
 - **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-f.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/boss-cue-field.ts`, `packages/render/src/canvas2d.ts`
 - **Where:** local
 
