@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · f23b4aae — Quitting a solo wave goes back to the rig, not a room that never existed
+
+A wave reached with state === "solo" only ever comes from the rig (SINGLE PLAYER, JUMP TO WAVE, JUMP TO ENEMY TYPE WAVE) — there is no other way to start one solo — but quitting out of it opened the menu on PLAY, which offers only a room this device never had and no way to jump to a specific wave. It now opens TESTING instead.
+
 ## 2026-09-20 · ba837165 — A real room's own name is now the quiet way back to the menu
 
 A room with two real players had exactly one way off the room screen: LEAVE ROOM, which hangs up on the other phone (`join-steps.ts`'s `stepBack` returns "leave" there on purpose). Nothing offered the quiet close the corner chip already relies on being safe to do. The room's code is now shown on the screen for the first time and doubles as that button: pressing it closes the screen and calls back(), the same as `#joinClose` elsewhere, and never leave() — the room stays open behind it, same as the chip already assumes.
