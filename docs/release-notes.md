@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · b829f303 — A held `3` plays the whole scene, one thumb behind the other
+
+The key armed its thumbs once, on the press, so a step landing took its marks away and the next pose had a held key over an empty hand — the owner's *the next sequence does not work with `3`*. It looks again on every tick now: a free seat is handed whatever mark has nobody on it, through the landing, the morph and into the next pose.
+
 ## 2026-09-20 · 4d6c4b3e — A held `3` performs THE INSTAR's gesture
 
 The `3` key reached the rings last lane and pressed them; a press answers one of the six gestures. The other five are motion, so the key now keeps its two thumbs down and moves them: `stage-cue-gesture.ts` says where the finger goes next for a mark — down or up past `need`, a swipe and a lift, a tap's release and press again, a turn wound an eighth at a time — and `stage.ts` drains that move into the tick the press is in. `hold` is the one it refuses: the mark is answered by both seats holding, and the key inventing the partner's thumb would be the fight played rather than shown.
