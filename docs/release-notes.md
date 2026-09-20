@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 710e1bfc — The step says which seat it is waiting on, and for how long
+
+The owner asked for the point in time the second seat may act to be shown, and for which seat goes first — having read an order into two poses that have none. A line now stands under both marks and says which of three things the pose actually is.
+
 ## 2026-09-20 · 17f22ef7 — A mark that is done says it is waiting for the other one
 
 THE INSTAR's pair do not act in turn: both have the step's whole window to work in, and the only thing they owe each other is to *finish* within `instarTogetherBeats`. A mark answered alone waits that long for its partner and then goes back to nought. Nothing on either screen drew that second clock, so what the owner saw on the second pose was his own dot go in, sit there and quietly reset — and he read it as a short window he was late for.
