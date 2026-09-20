@@ -13126,3 +13126,47 @@ fix, and it did in four lines what four hand-kept lists never quite did in
 several hundred.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-twenty-bosses-of-the-third-kind-the-brief-and-wh — twenty candidates, six flagged, none built
+
+`docs/spec/bosses-cinematic.md` is the owner's own brief (18 September 2026,
+answered 19 September on where it goes): twenty more choreographed-scene
+boss concepts, words only, no code touched. The existing
+`bosses-choreographed.md` was read in full first — its seventeen concepts,
+its twelve refused reference cards, its reusable primitive library and its
+own mapping of a prior brief's twenty categories — because the real risk in
+this task was not writing twenty ideas, it was writing twenty ideas that
+turned out to be the fifteenth boss again with a new name.
+
+Every entry names its nearest built neighbour rather than asserting a
+verdict this lane cannot actually make: filter 8, *a fourth boss asks a
+fourth question*, is the one filter the built fifteen were themselves
+picked for by the owner's own eye out of dozens of cards, so pretending to
+settle it unilaterally for twenty more would be the same mistake the
+REPRISE and SPLICE queue items were caught making earlier this week, aimed
+at a design question instead of an implementation one. Six of the twenty
+say plainly which shipped boss they are closest to, the same way
+`bosses-choreographed.md`'s own "Refused by name" table does for its
+reference sheet rather than pretending the closeness away. Four claim a
+primitive the library already named and never built — `RepeatedTap`,
+`FreezeTap`, `DelayedConsequence`, and `MutualRelease`/`SceneBreak`/
+`StepBack` together for a closing finale — which is the brief's "final
+multi-mechanic cinematic" category, left "named, unwritten" on the other
+page.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 45 | `bosses-choreographed.md` in full (2483 lines): the filter section, the fifteen concepts' own questions, refused-by-name, the second brief, the reusable primitive library, the five signature candidates; `bosses.md`'s and `interludes.md`'s section headers for every shipped boss and round's question; `couplings.md` for the three named couplings |
+| writing | 60 | twenty concept entries at a consistent template (question, split, silhouette, mechanic, beat list, time, nearest neighbour), the page's own front matter arguing why filter 8 is self-assessed rather than settled, the closing "what this brief is not" section |
+| looking | 15 | a slugify check against every internal and cross-file anchor (`bosses-choreographed.md`, `bosses.md`, `couplings.md`) before trusting any of the twenty cross-references |
+| friction | 0 | none |
+| landing | 15 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast` (1929 pass), `bun run index`, `bun run queue done`, the commit |
+
+**The bottleneck was checking each idea against everything already shipped**,
+not writing the ideas themselves — this game's boss space has been mined
+hard enough by two prior briefs that a plausible-sounding twenty-first
+concept is usually the fourth or fifth one already built, which is why six
+of the twenty here say so themselves instead of leaving it for a reviewer to
+notice.
+
+*Measured: the rows above are the session's own estimate.*

@@ -1030,34 +1030,6 @@ whether a state there is a phase or any named condition of the boss. Decide
 that first — it is the same question THE GORGE's pinch and pry will ask — then
 add the two poses and point the two rows at them.
 
-## Twenty bosses of the third kind: the brief, and where it goes
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-20, main (claim: claude/queue-twenty-bosses-of-the-third-kind-the-brief-and-wh)
-- **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `.claude/skills/new-boss/SKILL.md`, `docs/decisions.md`
-- **Asks:** does the brief go on `docs/spec/bosses-choreographed.md` as a second table under its fifteen, or on a page of its own beside it?
-- **Answered:** 19 September 2026 — a new docs/spec/bosses-cinematic.md page, taking this entry's own recommendation: the fifteen on `bosses-choreographed.md` are designed and claimed on a ledger and the twenty are not, so folding them into one table would mix built work with a brief. Sized work: the page itself, a line on `docs/spec/README.md`, and `bun run index`.
-
-The owner asked (18 September 2026) for a design brief of twenty bosses of
-the third kind — the choreographed scene of `.claude/skills/new-boss` §1: a
-beat list that will not advance until the beat is performed on the boss's
-own picture, each gesture a `Command` (`DragTarget` or `Hold["kind"]`), the
-hull's reaction in place of a camera — and said to implement nothing and to
-touch no code. The brief is words: for each of the twenty, the one-sentence
-mechanic, what it splits (eyes or hands), what part of the silhouette goes
-away and how many there are, the beat list with each beat's gesture named
-as the member it is or the member it would need, and which of the eight
-filters on `bosses-choreographed.md` it passes. Every one is read against
-THE TELL's verdict in §6 of the skill (no rule table drawn on the boss, no
-symbol to learn before the first beat). The two places it can go pick
-between one long page that the fifteen already on it will make the longest
-in `docs/spec/`, and a new bosses-cinematic.md page beside it with a line on
-`docs/spec/README.md` and in `docs/INDEX.md` — the second is the
-recommendation, because the fifteen are designed and claimed on a ledger
-and the twenty are not yet. Build nothing until the owner answers; the
-answer is one word. A cloud session can take this: it is a document, and
-`bun run check` holds it to naming no path that does not exist.
-
 ## Unverified at 1028a5b4: THE BATON's swelling socket and its two handle rings, n…
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
