@@ -1624,6 +1624,7 @@ than the string-level unit tests above it.
 ## Solo test mode still makes you create a room and pick a track
 
 - **Found:** 2026-09-20, the owner
+- **Taken:** 2026-09-20, claude/queue-unverified-17ed660e (claim: claude/queue-solo-test-mode-still-makes-you-create-a-room-and)
 - **Files:** `apps/game/src/testing.ts`, `apps/game/src/join.ts`, `tools/director/src/rail-filter.ts`
 
 In game, the solo test mode still goes through room creation and track
