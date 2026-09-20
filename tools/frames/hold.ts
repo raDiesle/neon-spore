@@ -22,6 +22,7 @@ import type { HoldSpec } from "./spec.js";
  *   --hold surgeBulb=0              THE SURGE: the pilot's thumb on the bulb
  *   --hold surgeBulb2=0             and the navigator's, on the same bulb
  *   --hold antiphonOrgan=0          THE ANTIPHON: the pilot's thumb on the organ
+ *   --hold antiphonRail=0,y=500,id=0  the navigator's, pulling candidate 0 off the rail
  *   --hold instarMark=0,y=750,id=0  THE INSTAR: the pilot's thumb on mark 0, half a jaw down
  *   --hold instarMark2=0,y=-750,id=1  and the navigator's on mark 1, pulled up
  *   --hold wardenEye=0              THE WARDEN under NARROW: the navigator's thumb on the eye
@@ -114,6 +115,8 @@ export function parseHold(value: string): HoldSpec[] {
     mirrorLobe2: 2,
     // THE WARDEN's eye is player 2's alone (`sim/warden-hand.ts`).
     wardenEye: 2,
+    // THE ANTIPHON's rail is the navigator's alone (`sim/antiphon-hand.ts`).
+    antiphonRail: 2,
   };
   // THE MIRROR's lobes are one target both seats send as well, `id` 0 its
   // cannon and 1 its shield (`sim/mirror-hand.ts`).
@@ -125,7 +128,14 @@ export function parseHold(value: string): HoldSpec[] {
   const target = TARGET[name0] ?? name0;
   // And they take an `id` for THE LID's reason: a wave puts several on the
   // field at once on purpose.
-  const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight", "instarMark", "mirrorLobe"];
+  const NEEDS_ID = [
+    "lidString",
+    "balloonLeft",
+    "balloonRight",
+    "instarMark",
+    "mirrorLobe",
+    "antiphonRail",
+  ];
   const DRAGS = [
     "mazeString",
     "wardenTether",
@@ -139,6 +149,7 @@ export function parseHold(value: string): HoldSpec[] {
     "surgeBulb",
     "surgeBulb2",
     "antiphonOrgan",
+    "antiphonRail",
     "instarMark",
     "instarMark2",
     "mirrorLobe",

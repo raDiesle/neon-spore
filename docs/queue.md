@@ -1407,21 +1407,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at 17ed660e: the picture of a candidate coming off the rail — its ri…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-17ed660e-the-picture-of-a-candidat)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/audio/src/bind-antiphon.ts`, `packages/audio/src/bind-choreographed.ts`
-
-*THE ANTIPHON: the navigator pulls a candidate off her rail* landed from a session that could not look at it. The commit touched 35 more files. What went unchecked:
-
-- the picture of a candidate coming off the rail — its ring, the stroke through it and the PULL word under the rail, watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## THE HIVE has no rehearsal film: no `the-hive` scene exists
 
 - **Found:** 2026-09-20, claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo

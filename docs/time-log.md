@@ -14012,3 +14012,37 @@ that four beats of difference actually shows** — the mechanism answered in
 two frames once that tick was right.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-17ed660e-the-antiphon-rail — a missing `--hold` target, then a real pull that fired
+
+THE ANTIPHON's rail, closed. `tools/frames/hold.ts` had no entry for
+`antiphonRail` at all — only the pilot's `antiphonOrgan` was wired up, so
+the navigator's half of this boss's one gesture had no way to be pressed.
+Added it to the `SEAT`, `NEEDS_ID` and `DRAGS` tables the same way every
+other id-based, one-seat-alone handle is (`wardenEye`'s pattern). The first
+attempt (`--ticks 300`) produced no `antiphonPull` event at all: the organ
+only counts as standing `antiphonGrowBeats` (4 beats, 240 ticks) after it
+starts growing at beat 2.5, so a pull thrown at it before tick ~390 is read
+and held but refused, same as a bolt into a contour still resolving. Redone
+at `--ticks 450`, `--events` showed `antiphonPull@451` — a real crossing,
+not a fabricated one — and the frame at that tick shows exactly what the
+sim recorded: the pulled candidate's ring gone and a stroke through it
+where the other two candidates still carry their ring, confirmed by
+cropping both states side by side (`tools/frames/crop-png.ts`). The PULL
+cue word under the rail was already seen plainly in the untouched natural
+render before this fix was even needed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `antiphon-rail-grip.ts`, `antiphon-hand.ts`, `antiphon.ts`, `antiphon-step.ts`, `config-antiphon.ts` |
+| writing | 10 | `tools/frames/hold.ts`: `antiphonRail` added to `SEAT`, `NEEDS_ID`, `DRAGS`, and a docstring line |
+| looking | 15 | frames at `--ticks 300` (too early, no event) and `--ticks 450` (fired), cropped both to compare the ring against the stroke |
+| friction | 10 | the first pull attempt was silently refused — nothing in the render said why, and `--events` was what actually explained it: the organ wasn't grown yet |
+| landing | 10 | `bun run check:fast`, this log entry, the queue closure, the commit |
+
+**The bottleneck was that a refused pull and a successful one render
+identically-adjacent frames without `--events` next to them** — the ring
+stayed a ring either way, and only the event log said whether the sim had
+actually moved.
+
+*Measured: the rows above are the session's own estimate.*
