@@ -1866,6 +1866,7 @@ what the rest of this file holds.
 ## `bun test packages/render/` prints its banner and nothing else
 
 - **Found:** 2026-09-20, claude/queue-the-vanes-arm-is-drawn-sweeping-while-a-thumb-is
+- **Taken:** 2026-09-20, claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo (claim: claude/queue-bun-test-packages-render-prints-its-banner-and-n)
 - **Files:** `tools/check/fast.ts`, `tools/check/shard.ts`, `packages/render/test/canvas-stub.ts`, `docs/commands.md`
 - **Where:** cloud
 
