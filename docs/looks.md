@@ -43,7 +43,8 @@ read around within a day:
   time is not replacing anything, and there is nothing to compare it against.
 - **A fix to something that is wrong rather than to something that is
   unlovely.** A highlight glued to a spinning rock, a fringe that has come off
-  its body, a shape that clips its own frame — these are defects, and a defect
+  its body, a shape that clips its own frame, a control sitting under the
+  phone's status bar — these are defects, and a defect
   is repaired rather than offered as an option beside itself. Say in the commit
   which of the two you decided it was; that sentence is the whole guard against
   this exemption eating the rule.
@@ -52,6 +53,24 @@ read around within a day:
 thing is a record the draw path reads — the pair draws both on two phones at
 tempo and the vote emits a prompt that applies the winner. A NOT BUILT YET card
 when it is not yet that concrete. `docs/versus.md` has the mechanism.
+
+**A boss's look waits to be named.** "A look the owner asked for by name" is
+the first exemption above, and until 20 September 2026 twenty-four boss looks
+sat in `docs/queue.md` as claimable items — which is that exemption forged: a
+list any lane could work through without the owner ever having said a boss's
+name. He asked for it back:
+
+> before automatically improving graphics across waves of bosses of multiple
+> bosses, i would like to opt-in or be asked. Why - because not every boss i
+> like to keep or i need to improve and fix the boss levels.
+
+They live in `docs/spec/boss-looks.md` now, grouped so one description is not
+repeated twenty-three times, and the director draws them as LOOKS WAITING FOR A
+YES at the top of the BOSSES page — a menu rather than a list of work
+(`tools/director/src/backlog-looks.ts`). When the owner names a boss, a lane
+moves that boss out of the menu and into `docs/queue.md` as one item, and works
+it the ordinary way. **Nothing moves the other direction by itself**: a lane
+that thinks a boss ought to be next says so in the report.
 
 **And a lane that finds itself about to improve a look mid-task stops.** That
 is a second lane and an owner decision, not a tidy-up on the way past. Put it

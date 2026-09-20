@@ -24,17 +24,20 @@ export async function backlogState(): Promise<Response> {
   // no group here asks git anything — every one of them is a read of a file
   // this module can find on its own.
   const base = new URL(import.meta.url);
-  // Two spec files, and it was four until 17 September 2026. `couplings.md`
-  // and `assists.md` went on 16 September, when the owner cut the MECHANICS
-  // page down to what is not implemented yet and every section of both turned
-  // out to be built or half built; `bestiary.md` went with the roster the old
+  // Three spec files. It was two until 20 September 2026, when `boss-looks.md`
+  // arrived — the menu of looks nobody may start unasked, which heads the page
+  // (`backlog-looks.ts`) — and four until 17 September. `couplings.md` and
+  // `assists.md` went on 16 September, when the owner cut the MECHANICS page
+  // down to what is not implemented yet and every section of both turned out
+  // to be built or half built; `bestiary.md` went with the roster the old
   // BOSSES tab drew. `systems.md` and `ideas.md` went with the MECHANICS page
   // itself — the sheet is one page now and it is the bosses.
-  const [bosses, choreo] = await Promise.all([
+  const [bosses, choreo, looks] = await Promise.all([
     Bun.file(specFile(base, "bosses.md")).text(),
     Bun.file(specFile(base, "bosses-choreographed.md")).text(),
+    Bun.file(specFile(base, "boss-looks.md")).text(),
   ]);
 
-  const backlog = buildBacklog(bosses, choreo);
+  const backlog = buildBacklog(bosses, choreo, looks);
   return Response.json(backlog, { headers: noCache });
 }

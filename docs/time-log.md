@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — boss-looks-opt-in — twenty-four claimable looks become a menu
+
+- reading — 10 min. `docs/queue.md`'s twenty-four look entries, grouped by body
+  text to find out how many distinct descriptions there really were (one, plus
+  a sentence on THE BATON); then the director's backlog plumbing —
+  `backlog.ts`, `backlog-api.ts`, `backlog-page.ts` and `backlog-entry.ts` — to
+  find where a section goes and what a `reading` group renders as.
+- writing — 25 min. `docs/spec/boss-looks.md`, the menu itself;
+  `backlog-looks.ts`, which parses it into the page's first group; the wiring
+  through `buildBacklog` and the API; two tests, one of them holding that a
+  boss on the menu is not also claimable in the queue. The rule in three
+  places: `CLAUDE.md`, `docs/looks.md` with the owner's words, and the queue's
+  own preamble.
+- looking — 5 min. One shot of the sheet, to see the section standing above
+  STILL IN HAND with its descriptions open on the page rather than behind
+  twenty-four expanders.
+- friction — 10 min. `CLAUDE.md` went 212 characters over its 16,000 ceiling
+  and four rounds of trimming got it back — the new rule is three lines and
+  paid for itself by moving three examples into `docs/looks.md`.
+- landing — 5 min.
+
+**The bottleneck was that the rule had to be enforced by the file layout, not
+by a sentence.** A paragraph in `CLAUDE.md` saying *do not start a boss look
+unasked* would sit one scroll away from twenty-four queue items inviting
+exactly that, and the queue is what a session actually reads to find work. The
+fix was to move them somewhere no lane looks for work and give the owner a page
+he answers — which cost more in wiring than the sentence would have, and is the
+only version that holds.
+
 ## 2026-09-20 — snake-creature — a wedge on a ribbon becomes an animal
 
 - reading — 10 min. The queue entry, §6.3 of `new-boss-more`, and the six

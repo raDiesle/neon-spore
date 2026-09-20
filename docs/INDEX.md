@@ -72,6 +72,7 @@ the code disagree, and the code is the truth for numbers.
 | `docs/spec/audio.md` | you add a sound, or wonder why none of them sit in the speech band |
 | `docs/spec/bestiary.md` | you add or change a creature |
 | `docs/spec/bosses.md` | you build a boss |
+| `docs/spec/boss-looks.md` | the owner has named a boss whose picture is to be drawn — the menu nothing is started from unasked |
 | `docs/spec/open-questions.md` | you hit something the design has not decided |
 | `docs/spec/ideas.md` | you are looking for what to build next |
 | `docs/spec/transfers.md` | you are mining Spaceteam or Lovers in a Dangerous Spacetime for an idea |
@@ -1866,6 +1867,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/backlog-tabs.ts` | The tabs of the NOT BUILT YET sheet that are drawn on first sight rather than on first open |
 | `tools/director/src/backlog-entry.ts` | One card on the NOT BUILT YET page: the name, its frame, the plain-English rows |
 | `tools/director/src/backlog-bosses.ts` | The BOSSES page of the NOT BUILT YET sheet: what is left to do on a boss |
+| `tools/director/src/backlog-looks.ts` | LOOKS WAITING FOR A YES — the first section of the BOSSES page |
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
 | `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
