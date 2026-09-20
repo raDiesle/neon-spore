@@ -981,6 +981,7 @@ add the two poses and point the two rows at them.
 ## Unverified at f33aea95: the five rings of THE FLEET's wound seen by an eye at t…
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-f33aea95-the-five-rings-of-the-fle)
 - **Files:** `docs/INDEX.md`, `docs/parked.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`
 
 *Throw a ring off THE FLEET's wound for each of its five moments* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
