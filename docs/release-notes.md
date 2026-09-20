@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · d9bcb12b — Every page of a guide says which wave it is
+
+A plate hung under the band's bezel, saying WAVE 3 · THE GRATE, on every page of a tutorial but the gate — which already says the number and the name in twenty-one point and is left exactly as it was. The owner asked for it on 18 September 2026: a pair four pages into a film had nothing on screen naming what they were being taught.
+
 ## 2026-09-20 · 7f7ede5e — The phone's back gesture asks where to go instead of leaving
 
 Back on the field used to be the browser leaving the page mid-run, with the room still open on the other phone — and on a phone that gesture is an edge swipe, easy to do by accident with both thumbs on the glass. It now puts up the card the owner asked for by name: BACK TO MENU, QUIT GAME, CONTINUE PLAYING, over a field that stops while the question stands.
