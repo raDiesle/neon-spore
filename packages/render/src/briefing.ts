@@ -11,12 +11,13 @@ import {
 import { GUIDE_LOOK } from "./guide-look.js";
 import { drawProsePage } from "./guide-prose.js";
 import type { GuideStage } from "./guide-scene.js";
+import type { BandHead } from "./guide-switch.js";
 import { type Layout, seatOf, type ViewRole } from "./layout.js";
 import { drawLostScreen } from "./lost-screen.js";
 import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { drawReadyPage } from "./ready-page.js";
 import type { SeatNames } from "./seat-name.js";
-import { drawIntroduction } from "./wave-intro.js";
+import { drawIntroduction, waveName } from "./wave-intro.js";
 
 /**
  * How a wave opens, drawn: its guide, and then its introduction — or, where the
@@ -108,9 +109,19 @@ export function drawWaveOpening(
     return;
   }
   if (!guideHolds(world)) return;
+  // **Which wave this is, on every page of its guide.** The owner asked for it
+  // on 18 September 2026 — a pair four pages into a film had nothing on screen
+  // naming what they were being taught — and the band is where it goes
+  // (`guide-tide.ts`). `waveAge` and not `age`: it is the guide's clock, so the
+  // nameplate falls once, when the guide comes up, and stands through every
+  // page turn inside it.
+  const head: BandHead = {
+    text: `WAVE ${world.wave + 1} · ${waveName(world)}`,
+    age: fx?.waveAge ?? SETTLED_AGE,
+  };
   // A rehearsal takes the whole stage and brings its own bar with it.
   if (scene?.active) {
-    scene.draw(ctx, l, view);
+    scene.draw(ctx, l, view, head);
     return;
   }
   const seat: 1 | 2 = seatOf(role);
@@ -119,18 +130,22 @@ export function drawWaveOpening(
   // point of the page — it is the wave they are about to play (`ready-page.ts`).
   if (onReadyPage(world, seat)) {
     drawReadyPage(ctx, l, world, { role, pages, fx, names, pointer: view.pointer });
-  } else {
-    drawProsePage(ctx, l, world, {
-      role,
-      page: guidePage(world, seat),
-      pages,
-      fx,
-      names,
-      pointer: view.pointer,
-      guide: view.guide,
-    });
+    // The gate says the number and the name itself, in twenty-one point
+    // (`ready-page.ts`), so the band gets no head and does not grow for one.
+    GUIDE_LOOK.band(ctx, l, {});
+    return;
   }
-  // The corner says TUTORIAL on these pages too, and nothing else: there is no
-  // film, so there is no screen of one seat's to name (`guide-switch.ts`).
-  GUIDE_LOOK.band(ctx, l, {});
+  drawProsePage(ctx, l, world, {
+    role,
+    page: guidePage(world, seat),
+    pages,
+    fx,
+    names,
+    pointer: view.pointer,
+    guide: view.guide,
+  });
+  // The corner says TUTORIAL on these pages too, and no seat: there is no film,
+  // so there is no screen of one seat's to name (`guide-switch.ts`). The wave
+  // it is a guide *to* is named all the same.
+  GUIDE_LOOK.band(ctx, l, { head });
 }

@@ -1135,7 +1135,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-nav.ts` | the geometry of the bar a stepped guide is turned by — the boxes, the hit test, and the two numbers other drawings measure off |
 | `packages/render/src/guide-play.ts` | The clock a rehearsal runs on, and the page it is running |
 | `packages/render/src/guide-plate.ts` | The body under the tutorial's corner plate: the panel's button recipe stretched to a plate, split from `guide-switch.ts` |
-| `packages/render/src/opening-fx.ts` | The two things a wave's opening remembers between frames: how long the page that is up has been up |
+| `packages/render/src/opening-fx.ts` | The clocks a wave's opening keeps between frames — the page's, the wave's — and the blobs a READY throws |
+| `packages/render/src/opening-key.ts` | Which page of a wave's opening is up, as a string only the clocks compare |
 | `packages/render/src/orrery-draw.ts` | THE ORRERY, drawn: a core in the middle column held inside three flattened orbits of organs |
 | `packages/render/src/orrery-shaft.ts` | **The shaft**: a corridor of light straight down the core's column, on the one beat a shot can reach the core |
 | `packages/render/src/orrery-shape.ts` | **Where THE ORRERY's three orbits are on the screen**, and nothing about how they are painted |

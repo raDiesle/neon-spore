@@ -44,6 +44,23 @@ export function drawSwitchSeam(ctx: CanvasRenderingContext2D, l: Layout, x: numb
   ctx.fillRect(x - SEAM, 0, SEAM * 2, l.height);
 }
 
+/**
+ * Which wave the guide is for, and how long **the guide** has been up.
+ *
+ * Two fields rather than one because they are one promise: a band that was
+ * handed the words without the clock would have to invent an entrance, and a
+ * band handed the page's own clock would replay it on every page turn — the
+ * thing the finding that asked for this header warned about by name
+ * (`docs/queue.md`, `guide-tide.ts`). `OpeningFx.waveAge` is the clock; it
+ * restarts on the wave and not on the page.
+ */
+export interface BandHead {
+  /** `WAVE 3 · THE GRATE`, composed once by the caller. */
+  text: string;
+  /** Seconds since the guide came up, for the drop. */
+  age: number;
+}
+
 export interface CornerPlate {
   /** Whose screen is on show, when a film is playing one. */
   seat?: 1 | 2;
@@ -56,6 +73,9 @@ export interface CornerPlate {
   flash?: number;
   /** Seconds the page has been up, for the slime. */
   age?: number;
+  /** The wave this guide is for, on every page but the gate — which says it
+   * already, in twenty-one point (`ready-page.ts`). */
+  head?: BandHead;
 }
 
 /** Ticks the slide from one screen to the other takes. */

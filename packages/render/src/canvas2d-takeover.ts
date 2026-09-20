@@ -1,6 +1,6 @@
 import { drawWaveOpening } from "./briefing.js";
 import type { Layout, Stage } from "./layout.js";
-import { openingKey } from "./opening-fx.js";
+import { openingKey } from "./opening-key.js";
 import type { RenderState } from "./render-state.js";
 import type { ViewState } from "./renderer.js";
 import { drawRound } from "./round-draw.js";

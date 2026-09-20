@@ -5,7 +5,7 @@ import { GUIDE_LOOK } from "./guide-look.js";
 import { ScenePlay, type Stated } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
 import { drawSlide } from "./guide-slide.js";
-import { pageSwitch } from "./guide-switch.js";
+import { type BandHead, pageSwitch } from "./guide-switch.js";
 import { handedSeat } from "./handover.js";
 import type { Layout, ViewRole } from "./layout.js";
 
@@ -129,7 +129,7 @@ export class GuideStage {
    * the one line that is about the viewer rather than about the film: whether
    * the screen on show is the phone in their own hand.
    */
-  draw(ctx: CanvasRenderingContext2D, box: Layout, view: OpeningView): void {
+  draw(ctx: CanvasRenderingContext2D, box: Layout, view: OpeningView, head?: BandHead): void {
     const { names } = view;
     const time = view.time ?? 0;
     const { run, scene, set, page } = this.play;
@@ -189,6 +189,11 @@ export class GuideStage {
       names,
       flash,
       age: this.play.shown,
+      // Which wave the film is teaching. It is the caller's to compose and to
+      // clock, because the wave and the guide's own age are the run's rather
+      // than the rehearsal's — the world under this film starts at tick 0
+      // every time a page is replayed (`briefing.ts`).
+      ...(head ? { head } : {}),
     });
     ctx.restore();
     GUIDE_LOOK.nav(ctx, box, {

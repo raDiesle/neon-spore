@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — guide-head — every guide page says which wave it is
+
+- reading — 10 min. The queue entry, then the band and everything measured
+  against it: `guide-tide.ts`, `guide-look.ts`, `guide-film.ts`, `briefing.ts`,
+  `guide-scene.ts`, `ready-page.ts`, `opening-fx.ts`, and the four tests that
+  hold the band's foot.
+- writing — 5 min. The nameplate, the wave-keyed clock, and five tests.
+- looking — 5 min. Three captured frames: a page of film, a page of prose and
+  the gate, the last of them to prove it did *not* move.
+- friction — 0 min.
+- landing — 5 min.
+
+**The bottleneck was reading**, and it was the right place for it: the whole
+question was where a header can stand on a page that is already film, plate and
+bar, and the answer came out of two frames and the band's own foot rather than
+out of the code. The band grows for a head and does not grow for the gate,
+which is the one thing the four existing tests would have caught late.
+
 ## 2026-09-20 — back-ask — the gesture that left the game now asks
 
 The owner, 18 September 2026: *"When in game (no director) website I press

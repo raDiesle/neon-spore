@@ -1,18 +1,10 @@
-import {
-  briefingHolds,
-  guideHolds,
-  guidePage,
-  lostAsks,
-  onReadyPage,
-  type World,
-} from "@neon-spore/sim";
-import { seatOf, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
 
 /**
- * The two things a wave's opening remembers between frames: how long the page
- * that is up has been up, and the blobs a READY throws off.
+ * What a wave's opening remembers between frames: how long the page that is up
+ * has been up, how long the *wave's* opening has, and the blobs a READY throws
+ * off.
  *
  * Everything else about an opening is drawn straight off the world, which is
  * why there was nothing here before pages existed. These two are clocks, and a
@@ -73,6 +65,10 @@ export class OpeningFx {
   private key = "";
   /** Seconds the page that is up has been up. Drives the text's entrance. */
   private shown = 0;
+  /** The same for the *wave*: the part of the key before the first bar, and
+   * the seconds since that changed. The band's nameplate is read off it. */
+  private waveKey = "";
+  private waveShown = 0;
   private blobs: Blob[] = [];
   /** Whether each seat's circle was full last frame, so a latch is an edge. */
   private wasReady: [boolean, boolean] = [false, false];
@@ -82,6 +78,8 @@ export class OpeningFx {
   reset(): void {
     this.key = "";
     this.shown = 0;
+    this.waveKey = "";
+    this.waveShown = 0;
     this.blobs.length = 0;
     this.wasReady = [false, false];
     this.launch = 0;
@@ -107,7 +105,17 @@ export class OpeningFx {
       // previous gate threw belongs on it either.
       if (!key.includes("|ready")) this.blobs.length = 0;
     }
+    // The wave's own clock, which is not the page's. A header naming the wave
+    // stands on every page of its guide and must arrive once, when the guide
+    // does — one that dropped again on every turn would be movement at the
+    // edge of the eye of somebody reading (`guide-tide.ts`).
+    const wave = key.split("|")[0] ?? "";
+    if (wave !== this.waveKey) {
+      this.waveKey = wave;
+      this.waveShown = 0;
+    }
     this.shown += dt;
+    this.waveShown += dt;
     this.launch = Math.max(0, this.launch - dt);
     for (const b of this.blobs) {
       b.age += dt;
@@ -125,6 +133,12 @@ export class OpeningFx {
    * everything drawn on it are read off this one number (`wave-intro.ts`). */
   get age(): number {
     return this.shown;
+  }
+
+  /** Seconds since the *wave's* opening came up, through every page turn
+   * inside it. What the band's nameplate falls on (`guide-switch.ts`). */
+  get waveAge(): number {
+    return this.waveShown;
   }
 
   /**
@@ -219,23 +233,4 @@ export class OpeningFx {
     ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = prev;
   }
-}
-
-/**
- * Which page of a wave's opening is up, as a string nobody reads: `OpeningFx`
- * only ever compares it with the last one, and restarts its clocks when it
- * changes. A wave, whether the guide or the introduction is standing, and how
- * far this seat has read — the three things that make one page a different page
- * from the last, and the reason paging back replays the drop rather than
- * arriving with the words already settled.
- */
-export function openingKey(world: World, role: ViewRole): string {
-  // The lost screen is a page too, and one that has to replay its entrance on
-  // every loss: keyed by the count so a second loss of one wave is a new page.
-  if (lostAsks(world)) return `${world.wave}|lost|${world.retries}`;
-  if (!briefingHolds(world)) return "";
-  const seat: 1 | 2 = seatOf(role);
-  if (!guideHolds(world)) return `${world.wave}|intro`;
-  const page = guidePage(world, seat);
-  return `${world.wave}|${page}${onReadyPage(world, seat) ? "|ready" : ""}`;
 }

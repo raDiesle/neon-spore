@@ -284,6 +284,13 @@ Two lanes, and they land separately: the guide header first, since it is a
 header over drawings that exist, and the success screen second, as a
 `docs/spec/` sheet and then a build.
 
+**The header landed on 2026-09-20** (*no shipped alternative*): a plate hung
+under the bezel saying `WAVE 3 · THE GRATE`, on every page of a guide but the
+gate, falling once on a clock keyed to the wave rather than to the page
+(`guide-tide.ts`, `OpeningFx.waveAge`, `test/guide-head.test.ts`). **What is
+left of this entry is the success screen between the waves**, and its first
+half is the sheet.
+
 ## A cue standing on the hull line has its verb drawn under the ship
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

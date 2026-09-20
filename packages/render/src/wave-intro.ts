@@ -50,6 +50,15 @@ const SENTENCE_DROP = 28;
 const LINE = 18;
 const BODY = '13px "Courier New",monospace';
 
+/**
+ * What this wave is called, or the honest thing to say past the last authored
+ * one. Exported because the band names the wave on every page of its guide and
+ * must call it what this page calls it (`guide-tide.ts`).
+ */
+export function waveName(world: World): string {
+  return WAVES[world.wave]?.name ?? "BEYOND THE AUTHORED WAVES";
+}
+
 export function drawIntroduction(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -66,9 +75,8 @@ export function drawIntroduction(
    */
   top?: number,
 ): void {
-  const wave = WAVES[world.wave];
-  const name = wave?.name ?? "BEYOND THE AUTHORED WAVES";
-  const sentence = wave?.sentence ?? "";
+  const name = waveName(world);
+  const sentence = WAVES[world.wave]?.sentence ?? "";
   // The exit is the entrance played backwards into nothing, and it only exists
   // where something is counting: on the ready page the pair is what ends this,
   // and text that had begun to fade would be text that looked like a mistake.

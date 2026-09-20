@@ -1,6 +1,7 @@
 import { halo } from "./glow.js";
 import type { GuideLook } from "./guide-look.js";
 import type { NavBox } from "./guide-nav.js";
+import type { BandHead } from "./guide-switch.js";
 import { NAV_HEIGHT } from "./guide-tide-bar.js";
 import { membrane } from "./guide-tide-membrane.js";
 import { plate } from "./guide-tide-plate.js";
@@ -9,6 +10,7 @@ import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { seatName } from "./seat-name.js";
 import { seatSkin } from "./seat-skin.js";
+import { drop } from "./text-drop.js";
 
 /**
  * TIDE — CONSOLE's arrangement, cut from a square body, under a living top.
@@ -37,8 +39,43 @@ import { seatSkin } from "./seat-skin.js";
  * reader who tracks one has stopped reading.
  */
 
-export const BAND_FOOT = 104;
 const BEZEL_H = 96;
+
+/**
+ * **The nameplate hung under the bezel: which wave this guide is for.**
+ *
+ * The owner, 18 September 2026: *"On every wave guide/tutorial page, inside or
+ * somewhere else on screen, I already want also to see the wave number and wave
+ * name."* The last page of a stepped guide had said it since the gate moved
+ * there (`ready-page.ts`), and every page before it said only TUTORIAL — so a
+ * pair four pages into a film had no way to name what they were being taught.
+ *
+ * It is a plate rather than a line of type in the bezel, because the free strip
+ * inside the bezel is twenty pixels tall and lies over the membrane's meniscus,
+ * and *the text must be well readable* is the condition attached to the drop it
+ * arrives on (`text-drop.ts`). So the band grows by the height of one plate on
+ * a page that carries a head, hung up into the bezel's foot by `HEAD_LIFT` so
+ * it reads as part of the band rather than as a second thing under it — and the
+ * film, which is laid out under `BAND_FOOT`, is that much shorter.
+ *
+ * **The ready page carries no head and the band does not grow for it**: the
+ * wave's number and name are already on it in twenty-one point, and a second
+ * copy thirty pixels above the first is the same fact said twice.
+ */
+const HEAD_H = 34;
+const HEAD_LIFT = 10;
+const HEAD_FONT = '700 13px "Courier New",monospace';
+/**
+ * How far below the plate's middle its words sit. The crest takes the top of
+ * every plate in this kit, so type centred on the body rides high against it —
+ * `wordPlate` makes the same allowance for the bar's three
+ * (`guide-tide-plate.ts`).
+ */
+const HEAD_DIP = 2;
+/** The foot of the nameplate, which is what the corner marks and the film are
+ * measured from on every page that has one. */
+const HEAD_FOOT = BEZEL_H - HEAD_LIFT + HEAD_H;
+export const BAND_FOOT = HEAD_FOOT + 8;
 
 const TAG_FONT = '700 24px "Courier New",monospace';
 const TITLE_FONT = '700 14px "Courier New",monospace';
@@ -79,6 +116,42 @@ export function badgeBox(l: Layout): NavBox {
   return { x: (l.width - w) / 2, y: 18, w, h: BEZEL_H - 40 };
 }
 
+/**
+ * Where the nameplate is: as wide as its words and no wider, centred, clamped
+ * to the stage. A name too long for the phone is the one that gets the whole
+ * width — every wave shipped fits with room to spare, and the clamp is for the
+ * wave nobody has written yet.
+ */
+function headBox(ctx: CanvasRenderingContext2D, l: Layout, text: string): NavBox {
+  ctx.font = HEAD_FONT;
+  const w = Math.min(l.width - 16, ctx.measureText(text).width + 34);
+  return { x: (l.width - w) / 2, y: BEZEL_H - HEAD_LIFT, w, h: HEAD_H };
+}
+
+/**
+ * The nameplate, falling into place on the guide's own clock.
+ *
+ * **The whole plate drops, not the words on it**, and it drops once: `age` is
+ * seconds since *the guide* came up rather than since this page did
+ * (`opening-fx.ts`), so turning a page does not replay it. That is the care the
+ * finding asked for by name — movement at the edge of the eye while somebody is
+ * reading is the reader never choosing the moment, which is why the film under
+ * this stopped looping (`guide-play.ts`).
+ */
+function head(ctx: CanvasRenderingContext2D, l: Layout, h: BandHead, hex: string): void {
+  const box = headBox(ctx, l, h.text);
+  drop(ctx, l.width / 2, box.y + box.h / 2, h.age, 0, 0, () => {
+    const at = { x: -box.w / 2, y: -box.h / 2, w: box.w, h: box.h };
+    plate(ctx, at, { hex, glow: 0, live: true, hover: false });
+    ctx.font = HEAD_FONT;
+    ctx.fillStyle = PALETTE.text;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(h.text, 0, HEAD_DIP);
+    ctx.textBaseline = "alphabetic";
+  });
+}
+
 export const band: GuideLook["band"] = (ctx, l, p) => {
   const skin = p.seat === undefined ? null : seatSkin(p.seat === 1 ? "p1" : "p2");
   const flash = Math.max(0, Math.min(1, p.flash ?? 0));
@@ -102,7 +175,8 @@ export const band: GuideLook["band"] = (ctx, l, p) => {
     ctx.fillText(title, cx, badge.y + TITLE_BASE);
   }
   ctx.textAlign = "left";
-  corners(ctx, l, BEZEL_H + 6, l.height - NAV_HEIGHT - 6, hex);
+  if (p.head) head(ctx, l, p.head, hex);
+  corners(ctx, l, (p.head ? HEAD_FOOT : BEZEL_H) + 6, l.height - NAV_HEIGHT - 6, hex);
 };
 
 /**
