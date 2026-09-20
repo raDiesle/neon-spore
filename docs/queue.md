@@ -981,6 +981,7 @@ add the two poses and point the two rows at them.
 ## Unverified at 424e7fc4: a real phone browser's own chrome eating the foot of th…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-424e7fc4-a-real-phone-browsers-own)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `tools/director/src/director-columns.css`, `tools/director/src/director-phone.css`, `tools/director/src/rail-open.ts`, `tools/director/test/phone-game.test.ts`, `tools/director/test/rail-open.test.ts`
 
 *A wave row opens the field, and on a phone the field is the screen* landed from a session that could not look at it. What went unchecked:
