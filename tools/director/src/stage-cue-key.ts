@@ -3,6 +3,7 @@ import {
   bossCues,
   type Field,
   type Hold,
+  instarCues,
   type Layout,
   touchDown,
   touchUp,
@@ -37,10 +38,18 @@ import { isTyping } from "./typing.js";
  * `TURN` gets the thumb *down* on the mark and no further: #34 keeps the
  * destination out of a cue on purpose, so where to carry it is not a thing
  * this file may read. `STILL` is skipped — the ask is for no thumb at all
- * (THE STARE). And the three bosses that build their cues where they draw
- * them — THE SINEW's, THE SURGE's, THE ANTIPHON's handles, and THE INSTAR's
- * ring (`boss-cue-text.ts`) — are not in the reading, so this key is silent
- * on them; the mouse and the seat keys are still the way through those.
+ * (THE STARE). And the bosses that build their cues where they draw them —
+ * THE SINEW's, THE SURGE's and THE ANTIPHON's handles (`boss-cue-text.ts`) —
+ * are not in the reading, so this key is silent on them; the mouse and the
+ * seat keys are still the way through those.
+ *
+ * **THE INSTAR is the exception it was silent on**, and the owner said so on
+ * 20 September 2026: *I focus the game on THE INSTAR and press 3, and nothing
+ * happens.* Its marks are an authored beat list rather than a reading, so
+ * `bossCues` has no case for them and may not grow one — the ring already
+ * draws its own frame and its own verb. `render/boss-cue-instar.ts` reads the
+ * ring's own source as cues for this key alone, and the two lists are simply
+ * added together here.
  */
 
 /** The number row and the pad, like the two seat keys beside it. */
@@ -108,7 +117,10 @@ export function bindCueKey({ layout, field, world, role, send }: CueKey): void {
     // `l.hullY` for the skin, as the round pass does (`round-draw.ts`): the
     // one boss it is not exact for is THE UNDERTOW, whose marks ride lobes
     // coming up through the plating, and the frame is tiles wide.
-    const cues = bossCues(l, world(), field().beatPhase, () => l.hullY);
+    const cues = [
+      ...bossCues(l, world(), field().beatPhase, () => l.hullY),
+      ...instarCues(l, world()),
+    ];
     for (const { seat, cue } of cueAnswers(cues, cueSeats(role()))) {
       const t = touchDown(l, cue.x, cue.y, { ...field(), seat });
       if (t === null) continue;

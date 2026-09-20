@@ -847,6 +847,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
+| `packages/render/src/boss-cue-instar.ts` | **THE INSTAR's marks, read as cues** — for the desk's `3` key, and for nothing that draws |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |

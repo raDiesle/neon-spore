@@ -16,6 +16,10 @@ export {
 // that draws imports it — a screen is owed one cue, and `boss-cue-draw.ts` is
 // inside this package.
 export { type BossCue, bossCue, bossCues, type CueKind } from "./boss-cue.js";
+// THE INSTAR's marks, for that same key and for nothing else: they are not in
+// `bossCues` and must not be, because the ring draws its own frame and its own
+// verb (`boss-cue-instar.ts` says why at length).
+export { instarCues } from "./boss-cue-instar.js";
 export {
   BREACH_STRIKE_LOOK,
   type BreachStrikeLook,

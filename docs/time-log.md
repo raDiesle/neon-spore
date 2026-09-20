@@ -22,6 +22,36 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — instar-cue-key-reach — the key finds the rings
+
+The owner, the turn after `3` landed: *I focus the game on THE INSTAR and
+press 3, and nothing happens.* It did nothing because this boss's marks are an
+authored beat list, not a reading — `bossCues` has no case for them and may
+not grow one, since the ring already draws its own frame and its own verb, and
+a cue through `boss-cue-draw.ts` would put a second of each round the same
+place.
+
+`render/boss-cue-instar.ts` reads the ring's own source — `instarStep`'s
+marks, `instarMarkPoint`, `INSTAR_WORDS` — as cues for the desk alone, and
+`stage-cue-key.ts` adds the two lists together. A press now puts a thumb on
+each seat's own ring. **The second half is its own lane**: a `hold` is
+answered by the key being held, but a pull, a swipe, a turn and a tap are
+motion, and the key does not move yet.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `stage-cue-key.ts`, `boss-cue.ts`, `instar-marks.ts`, `instar-word.ts`, `sim/instar-hand.ts`, `sim/test/instar.test.ts` for the scene helpers |
+| writing | 20 | the reading, its index export, the key's two lines, four tests |
+| looking | 0 | nothing drawn moved, which is the point of keeping it out of `bossCues` |
+| friction | 5 | `bun run index` left the new row blank — a header whose first sentence wraps gets no line written for it |
+| landing | 10 | `check:fast`, the commit, `bun run land` |
+
+**The bottleneck was reading rather than writing**: the answer was one
+concatenation, and the whole of the lane went on establishing that the reading
+this boss is missing from is one it must stay missing from.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — queue-baton-reading-cut — half a page moves out
 
 THE BATON's reading was **250 lines exactly**, which `limits.test.ts` passes
