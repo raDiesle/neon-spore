@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 3ad9b901 — Verify four unverified boss frames, real PNGs this time
+
+THE TASTER's PIN/WIPE/PRY (fanning and a prised interlock, via --boss-json), THE CAIRN's PULL over its seven-stone pile, and THE WELL's clock at BEND=1.7 all render correctly on a real frame, worked around a chromium.launch() crash already queued for its own fix by spawning Chrome by hand and connecting Playwright over CDP.
+
 ## 2026-09-20 · 94b60a6c — Verify four unverified boss frames: one already-known swallowing
 
 THE INSTAR's scanner box and THE LEAD's held stalk (its ring, its closing dial, the hold that extends the still past four beats, and the lean that now reads once the stalk is taken) both check out clean against real PNGs. THE REPRISE's tear and THE HIVE's breach both draw correctly too, but each boss's CARRY/MOVE cue on the cannon is swallowed by the hull's own plating — not a new defect, two more cases of the already-queued "a cue standing on the hull line has its verb drawn under the ship" finding, folded into that entry rather than filed twice. All four Unverified entries are closed.
