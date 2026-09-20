@@ -32,8 +32,12 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // its way down, the last is settled (`cairnWaited`, `cairnHeldNow`,
   // `CairnState.heldBeats`, `CairnState.settleCol`).
   cairn: ["stacked", "held", "leaving", "settled"],
-  // It is a projection and changes nothing: one state (`well.ts`).
-  well: ["projected"],
+  // The face square with its seam at twelve, slipping clockwise, that slip
+  // stopped under a thumb, and stopped at the far end waiting to be turned
+  // home (`WellState.phase`, `wellHeldNow`). It changes nothing about the
+  // field in any of them: the state is where the picture puts things, and
+  // the wave under it is the wave its author wrote (`well.ts`).
+  well: ["still", "rolling", "held", "wound"],
   // A straw being fed, a round passed, the verdict held (`spliceCurrent`).
   splice: ["feeding", "passed", "verdict"],
   // Running the wave, sending a stretch of it back, held by a hand

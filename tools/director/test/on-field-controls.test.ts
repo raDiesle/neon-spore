@@ -285,6 +285,16 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // than a free elimination (`docs/spec/bosses.md` §11.31).
     case "antiphonRail":
       return target;
+    // `wellSeam` is the pilot's thumb on the one sector of THE WELL's clock
+    // face that holds no column — where the field's two walls meet when the
+    // field is rolled into a circle. He takes hold of it and it is read two
+    // ways by what the face is doing: while the face slips, holding it still
+    // buys the pair four beats; once it has stopped at the far end, carrying
+    // it turns the hours back onto their columns (`sim/well-hand.ts`). It is
+    // on his screen and his alone, because the well is drawn on one of the
+    // two — which is why the answer is her reading the flat field out loud.
+    case "wellSeam":
+      return target;
     default:
       return assertNever(target);
   }

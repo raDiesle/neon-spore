@@ -86,10 +86,11 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // hull or a hand to find (docs/spec/bosses.md §11.5).
     world.boss = installVane(world, boss);
   } else if (boss?.kind === "well") {
-    // Less than any of them: no creature, no row, no state and no rule. THE
-    // WELL is a projection — the field drawn inside out on one screen of the
-    // two — so there is nothing of it anywhere but the picture, and the wave
-    // under it runs exactly as its author wrote it (`well.ts`).
+    // Less than any of them: no creature, no row and no rule of the field.
+    // THE WELL is a projection — the field drawn inside out on one screen of
+    // the two — so the wave under it runs exactly as its author wrote it, and
+    // the state it does keep is the angle its own face stands at and the thumb
+    // on the seam, which reaches nothing else (`well.ts`).
     world.boss = installWell(world);
   } else if (boss?.kind === "reprise") {
     // No creature and no row, THE VANE's shape exactly: the mechanism hangs at

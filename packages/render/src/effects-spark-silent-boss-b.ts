@@ -155,4 +155,12 @@ export const SILENT_BOSS_B = [
   "gaugeMiss",
   "gaugeJam",
   "gaugeBind",
+  // THE WELL's four, no burst: the face, its seam and its numerals are redrawn
+  // from the boss every frame, and a shower over a clock whose whole job is to
+  // agree with the thumb on it would be a look (`docs/looks.md`). Sound is
+  // what these four get instead (`packages/audio/src/bind-well.ts`).
+  "wellRoll",
+  "wellHeld",
+  "wellWound",
+  "wellHome",
 ] as const satisfies readonly SimEvent["type"][];

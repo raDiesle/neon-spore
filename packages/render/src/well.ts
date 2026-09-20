@@ -155,9 +155,14 @@ export function wellCenter(l: Layout): { x: number; y: number } {
  * Column 0 is one sector clockwise of up, so the seam is the sector *before*
  * it and increasing columns run clockwise. That is the way round that matches
  * the rail: a thumb carried right along the strip walks the hand clockwise.
+ *
+ * **And the whole face turns.** `l.wellRoll` is how far clockwise of twelve
+ * the seam has slipped, added here rather than at the sixty places a column is
+ * drawn: numerals, bodies, cannon, dome and spokes all ask this function where
+ * an hour is, so none of them can be left behind (`well-roll.ts`).
  */
 export function wellAngle(l: Layout, col: number): number {
-  return ((col + 1) * 2 * Math.PI) / wellSectors(l);
+  return ((col + 1 + l.wellRoll / 1000) * 2 * Math.PI) / wellSectors(l);
 }
 
 /** How wide one sector is, in radians. */

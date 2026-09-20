@@ -6,6 +6,7 @@ import {
   ledgerPhase,
   tasterPhase,
   type World,
+  wellHeldNow,
 } from "@neon-spore/sim";
 import {
   leadHand,
@@ -14,6 +15,7 @@ import {
   ledgerHand,
   tasterHand,
 } from "./boss-hands-clocks.js";
+import { wellHoldHand, wellWindHand } from "./boss-hands-well.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -28,9 +30,34 @@ import { bossPose } from "./poses-bosses-kit.js";
  * beam standing on the pass's first beat is the fight played straight, and
  * it ends the body before a pass is ever seen, so `passing` stands the beam
  * on the second beat instead (`leadHandLate`).
+ *
+ * THE WELL's three are here too, and its ledger is the odd one: not a count
+ * the pair keeps but the angle its own face stands at, which is a clock all
+ * the same and reached the same way — a hand on the one handle it has
+ * (`boss-hands-well.ts`). Its fourth state, the square face it opens on, is
+ * a boss standing still and is posed with the rest of those in
+ * `poses-bosses-first.ts`.
  */
 
 export const CLOCK_HAND_POSES: Pose[] = [
+  bossPose(
+    "well",
+    "rolling",
+    "The face has begun to slip: the hours are leaving their columns. P1 reads the numerals; P2 says which column.",
+    { crop: "full", role: "p1", want: wellIs("rolling"), hold: 6 },
+  ),
+  bossPose(
+    "well",
+    "held",
+    "P1's thumb is on the seam and the slip has stopped under it, for four beats and no more. P2 counts them down.",
+    { crop: "full", role: "p1", hand: wellHoldHand, want: wellHeld, hold: 6 },
+  ),
+  bossPose(
+    "well",
+    "wound",
+    "Three sectors from the top and stopped: it wants turning back. P1 sweeps the seam up to twelve; P2 says when it is home.",
+    { crop: "full", role: "p1", hand: wellWindHand, want: wellIs("wound"), hold: 6 },
+  ),
   bossPose(
     "taster",
     "fanning",
@@ -110,6 +137,18 @@ export const CLOCK_HAND_POSES: Pose[] = [
     { hand: leadHand, want: (w) => w.boss?.kind === "lead" && w.boss.downBeat >= 0, hold: 6 },
   ),
 ];
+
+/** THE WELL's face in one of its three phases. */
+function wellIs(phase: string): (w: World) => boolean {
+  return (w) => w.boss?.kind === "well" && w.boss.phase === phase;
+}
+
+/** The slip stopped under a thumb — a phase and a grip together, not a phase. */
+/** A declaration rather than a const, because the cards above name it and a
+ * `const` is not hoisted — the same reason `wellIs` is one. */
+function wellHeld(w: World): boolean {
+  return w.boss?.kind === "well" && w.boss.phase === "rolling" && wellHeldNow(w.boss);
+}
 
 /** THE TASTER in one of its named phases. */
 function tasterIs(phase: string): (w: World) => boolean {

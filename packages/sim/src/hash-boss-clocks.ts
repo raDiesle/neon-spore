@@ -18,6 +18,7 @@ import { surgeHashParts } from "./surge-hash.js";
 import { tasterHashParts } from "./taster-hash.js";
 import { throatHashParts } from "./throat-hash.js";
 import { undertowHashParts } from "./undertow-hash.js";
+import { wellHashParts } from "./well-hash.js";
 
 /**
  * The fingerprint's share of **the bosses that are a clock** — THE STARE, THE
@@ -124,6 +125,11 @@ export function clockHashParts(boss: BossState): number[] {
   // THE TASTER: every blade's edge, thickness and clock (`taster-hash.ts`).
   if (boss.kind === "taster") {
     for (const n of tasterHashParts(boss)) out.push(n);
+  }
+  // THE WELL: the phase, the angle the face stands at, the hold spent and the
+  // thumb's anchor (`well-hash.ts`).
+  if (boss.kind === "well") {
+    for (const n of wellHashParts(boss)) out.push(n);
   }
   return out;
 }

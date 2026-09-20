@@ -82,6 +82,7 @@ export {
   hitCircle,
   type Layout,
   type Lobe,
+  rolledLayout,
   type Stage,
   type Strip,
   seatOf,

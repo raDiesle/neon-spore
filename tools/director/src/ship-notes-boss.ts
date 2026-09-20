@@ -21,9 +21,11 @@ export const BOSS_NOTES = {
   WARDEN: "The ring boss's own clocks, plates and worth.",
   "THE CAIRN — a pile of rocks taken apart by hand": "Its row, its rocks, and its patience.",
   "THE WELL — the field drawn inside out on one screen":
-    "Nothing to turn. The projection is render's own (well.ts), and the only " +
-    "thing a dial here could move is how the picture reads — which is what a " +
-    "VERSUS candidate is for, not a slider.",
+    "The slip, and the thumb that answers it. How long the seam rests at " +
+    "twelve, how far round a sector the face turns a beat, how many sectors " +
+    "it goes before it wants winding home, and how many beats of holding the " +
+    "pair has to spend. The projection itself is still render's own " +
+    "(well.ts): how the picture reads is a VERSUS candidate, not a slider.",
   "THE SPLICE — straws fed in the order the numbers say":
     "How far over the plating the mouths stand, what row the numbers sit on, " +
     "and how long a number takes to come down its straw. How many straws a " +

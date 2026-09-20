@@ -22,6 +22,7 @@ import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
 import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
 import { VANE_HAND_DEFAULTS, type VaneHandConfig } from "./config-vane.js";
 import { WARDEN_HAND_DEFAULTS, type WardenHandConfig } from "./config-warden.js";
+import { WELL_DEFAULTS, type WellConfig } from "./config-well.js";
 
 export { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 export { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
@@ -77,7 +78,8 @@ export interface BossClockConfig
     MazeGripConfig,
     WardenHandConfig,
     VaneHandConfig,
-    CairnConfig {}
+    CairnConfig,
+    WellConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -104,4 +106,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...WARDEN_HAND_DEFAULTS,
   ...VANE_HAND_DEFAULTS,
   ...CAIRN_DEFAULTS,
+  ...WELL_DEFAULTS,
 };

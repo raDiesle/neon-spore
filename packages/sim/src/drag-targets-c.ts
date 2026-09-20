@@ -20,7 +20,8 @@ export type DragTargetC =
   | "ledgerCord"
   | "leadStalk"
   | "scuttlePart"
-  | "antiphonRail";
+  | "antiphonRail"
+  | "wellSeam";
 
 /**
  * `tasterBlade`, `tasterGap` and `tasterLock` are the forty-sixth, -seventh and
@@ -186,4 +187,34 @@ export type DragTargetC =
  * made, so the rail is never re-ordered. `fromYMilli` is the pull and its
  * sign is not the point — only *down*, as `candleWick`'s is, because up off
  * a rail hung over the top of the field is off the screen.
+ */
+
+/**
+ * `wellSeam` is the fifty-sixth, and the first handle in this union that is a
+ * hand on **nothing** — not a body, not a part of a boss, not a fixture the
+ * field owns, but the one sector of THE WELL's clock face that holds no
+ * column at all.
+ *
+ * Rolled into a circle, the field's two walls meet there: eleven o'clock and
+ * one o'clock are the two ends of the row, and between them is a gap the
+ * picture has always drawn and nothing has ever answered. That is what makes
+ * it safe to hand over. A thumb on it takes no column off the cannon, covers
+ * nothing with the shield and reaches for no creature, so this boss's two
+ * gestures cost the pair nothing they were already using.
+ *
+ * **Two meanings, read off the face and not off the thumb.** While the face
+ * is slipping, a thumb resting on the seam holds it still, on a budget; once
+ * it has slipped as far as it goes, the same thumb carries it back to twelve.
+ * One handle answering differently in two states is the whole of §6.2's ask,
+ * and it is why there is one name here rather than two: a pair who find the
+ * seam once have found both halves of the fight, and each half is four words
+ * — *hold it*, then *turn it home*.
+ *
+ * `fromMilli` is the carry, one tile of thumb to one sector of face, with no
+ * gearing in between on purpose (`well-hand.ts`). No `id`: there is one seam
+ * and there is only ever one. **The pilot's alone**, because `showsWell` puts
+ * the clock on his phone and never on hers — hers is the flat field with
+ * plain columns on it, which is exactly why he has to ask her what the
+ * numerals mean once the face has turned. Her press is dropped without a
+ * sound.
  */

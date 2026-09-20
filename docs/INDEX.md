@@ -267,7 +267,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/volley.ts` | THE VOLLEY: a rock coming in on a diagonal with a body sealed inside it |
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
 | `packages/sim/src/weight.ts` |  |
-| `packages/sim/src/well.ts` | THE WELL: the boss that is only a projection — a tag, an install, and no rule at all |
+| `packages/sim/src/well.ts` | THE WELL: the field turned inside out, and then turned — the face's three phases and the thumb on the seam |
+| `packages/sim/src/well-hand.ts` | **The pilot's thumb on the seam**, off the wire, on the tick |
+| `packages/sim/src/well-hash.ts` | What THE WELL puts into `hashWorld`, and nothing else |
+| `packages/sim/src/well-step.ts` | **THE WELL's clock: the face slips, and stops when it has slipped far enough.** Three states and they run in… |
 | `packages/sim/src/colour-armour.ts` | What a shot of the wrong colour leaves behind on an ordinary body: a window in which nothing at all reaches it |
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-state.ts` | what THE MAZE remembers between ticks — `MazeState`, a paragraph per field — and the two ways it is set: fresh for a wave, wiped for a phase |
@@ -336,6 +339,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
+| `packages/sim/src/boss-off-beat.ts` | **The six bosses the field's beat never reaches**, and why each one is not an oversight |
 | `packages/sim/src/boss-union.ts` | The boss a wave installed, whichever one it is |
 | `packages/sim/src/boss-answer.ts` | **The column the boss is answered from, this beat** — or none |
 | `packages/sim/src/boss-phases.ts` | **Every boss's phases, in one table**, for the director's STATES sheet |
@@ -517,6 +521,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/events-diastole.ts` | **What THE DIASTOLE's clamp does that neither screen already says**, as two events (`diastole-hand.ts`) |
 | `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
+| `packages/sim/src/events-well.ts` | **Everything THE WELL does that neither screen already says**, as events |
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
 | `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
@@ -528,6 +533,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
+| `packages/sim/src/config-well.ts` | THE WELL's numbers — how long the face stands still, how far it slips a beat |
 | `packages/sim/src/config-warden.ts` | THE WARDEN's throw: how far the swipe has to travel and how many beats the hatch stands open |
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how many times it pushes up through the floor in each part of the fight |
 | `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
@@ -794,6 +800,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/panel-plan.ts` | where the controls stand on the panel, as a record — the rows, the radius and each seat's spread, read by the layout and by bandLobes so drawing and touch move together |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
+| `packages/render/src/layout-stage.ts` | **Where the game is drawn, before anything is placed inside it.** Cut out of `layout.ts` when THE WELL's roll… |
 | `packages/render/src/field.ts` | background, grid pulse, radar strip |
 | `packages/render/src/hull.ts` | the ship; cannon and shield as lobes of one contour |
 | `packages/render/src/mirror.ts` | the same ship, flipped and in the wrong colours — THE MIRROR |
@@ -1221,6 +1228,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/well-ship.ts` | THE WELL's ship: the hull as a ring at the middle of the clock |
 | `packages/render/src/well-arrivals.ts` | THE WELL's warnings: the flat field's strip, bent into a ring outside the rim, and the crossing rock's mark |
 | `packages/render/src/well-body.ts` | Where a body stands on THE WELL — the one spelling of the well's placement, in its own file so `creature-place.ts` can read it |
+| `packages/render/src/well-roll.ts` | THE WELL's roll, as a screen sees it — the angle on the layout, so a frame and a finger cannot disagree |
 | `packages/render/src/well.ts` | THE WELL's projection: columns to hours, rows to radii, and the seam the two walls meet at |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
@@ -1524,6 +1532,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
+| `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/candle-dark.ts` | **THE CANDLE's dark**: the field going black |
 | `packages/render/src/candle-glow.ts` | **THE CANDLE's glow**: its health, and the only steady light in the field |
 | `packages/render/src/candle-grip.ts` | THE CANDLE's wick: the stem, the ring on the flame and the ember after it |
@@ -1640,6 +1649,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-warden-hand.ts` | THE WARDEN's hold, throw and slam, cued at the hatch's column |
+| `packages/audio/src/bind-well.ts` | THE WELL's four, in a file of their own for `bind-gauge.ts`'s reason — `bind-choreographed-b.ts` is full |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
@@ -1846,6 +1856,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE GAUGE |
 | `tools/director/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
+| `tools/director/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
 | `tools/director/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`poses-bosses-kit.ts`) |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |

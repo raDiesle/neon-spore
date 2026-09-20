@@ -1,5 +1,6 @@
 import { stepAntiphon } from "./antiphon-step.js";
 import { stepBaton } from "./baton-step.js";
+import { offBeat } from "./boss-off-beat.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
@@ -26,6 +27,7 @@ import { stepThroat } from "./throat-step.js";
 import { stepUndertow } from "./undertow-step.js";
 import { stepVane } from "./vane.js";
 import { stepWarden } from "./warden.js";
+import { stepWell } from "./well-step.js";
 import type { World } from "./world.js";
 
 /**
@@ -228,22 +230,15 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepFleet(world, boss);
     return;
   }
-  // THE GAUGE, SNAKE and PINBALL never reach this. All three are stepped on
-  // the tick from `step`'s own early return, and the field's beat does not run
-  // while any of them stands — so the branch is here to say that out loud
-  // rather than to do anything.
-  if (boss.kind === "gauge" || boss.kind === "snake" || boss.kind === "pinball") return;
-  // THE SCOUT is the fourth of them and the same sentence: the little ship is
-  // flown on the tick, and the field has no beat while it is out.
-  if (boss.kind === "scout") return;
-  if (boss.kind === "pulse") return;
-  // And THE WELL never does anything here at all, on any clock: it is the
-  // field drawn inside out and the field's own rules are the whole of its
-  // behaviour, so a beat of it is a beat of the wave its author wrote
-  // (`well.ts`).
-  if (boss.kind === "well") return;
-  // Nor THE REPRISE, and for the opposite reason: what it does on the beat is
-  // put bodies on the field, so it is stepped from `onBeat` beside the only
-  // other thing that does and *before* it (`reprise.ts`).
-  if (boss.kind === "reprise") return;
+  // THE WELL turns its own face and nothing else: the field's rules are still
+  // the wave's author's, and what walks on the beat is where the picture puts
+  // them (`well-step.ts`).
+  if (boss.kind === "well") {
+    stepWell(world, boss);
+    return;
+  }
+  // And six never reach this at all — five stepped on the tick, one stepped
+  // before it — each with its reason written beside it, so a boss doing
+  // nothing here is still a boss that says so (`boss-off-beat.ts`).
+  if (offBeat(boss.kind)) return;
 }

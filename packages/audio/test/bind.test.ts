@@ -90,6 +90,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-filament.ts", "export type FilamentEvent ="],
     ["packages/sim/src/events-throat.ts", "export type ThroatEvent ="],
     ["packages/sim/src/events-gauge.ts", "export type GaugeEvent ="],
+    ["packages/sim/src/events-well.ts", "export type WellEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -172,6 +173,10 @@ const SAMPLES: Record<string, SimEvent> = {
   gaugeMiss: { type: "gaugeMiss" },
   gaugeJam: { type: "gaugeJam" },
   gaugeBind: { type: "gaugeBind" },
+  wellRoll: { type: "wellRoll" },
+  wellHeld: { type: "wellHeld", left: 2 },
+  wellWound: { type: "wellWound", sectors: 3 },
+  wellHome: { type: "wellHome" },
   batonLaunch: { type: "batonLaunch", col: 3, socket: 2 },
   batonStruck: { type: "batonStruck", col: 3, socket: 2 },
   batonLanded: { type: "batonLanded", col: 3, socket: 3 },

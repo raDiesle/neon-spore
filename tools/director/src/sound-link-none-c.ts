@@ -27,4 +27,15 @@ export const NO_SUBJECT_C: Record<string, string> = {
     "the miss beside this one sticking the valve: the needle answers his hand until the next call lands. Same argument.",
   "boss.gaugeBind":
     "the mark beside this one winding the band tight: she cannot call while her thumb is not holding it open. Same argument.",
+  // THE WELL's four, the projection's first sounds at all. The subject in
+  // every one of them is the *grid itself*, rolled into a clock face — which
+  // is the one thing the sheet's cards cannot be, being silhouettes of bodies
+  // that stand on a grid (`sim/events-well.ts`, `render/well.ts`).
+  "boss.wellRoll":
+    "the face beginning to slip, hours and all. The subject is the field rolled into a circle, and the sheet draws bodies on a field rather than the field.",
+  "boss.wellHeld":
+    "a thumb on the seam holding that slip still for a beat. Same argument: what is held is the whole picture, not a body in it.",
+  "boss.wellWound":
+    "the face stopped three sectors from the top. Same argument, and there is nothing new on the field to draw — only the old one turned.",
+  "boss.wellHome": "the seam back at twelve and every hour on its own column again. Same argument.",
 };

@@ -19,6 +19,7 @@ import { tasterHandsHeard } from "./taster-hand.js";
 import { throatHeard } from "./throat-hand.js";
 import type { TimedCommand } from "./types.js";
 import { undertowHandsHeard } from "./undertow-hand.js";
+import { wellHeard } from "./well-hand.js";
 import type { World } from "./world.js";
 
 /**
@@ -130,4 +131,11 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // What the swing is worth is spent on the beat, in `scuttle-step.ts`, where
   // the part goes down the column it was put in.
   for (const c of commands) scuttleHeard(world, c.player, c.command);
+  // THE WELL's one thumb on the seam of its clock face, on the tick because
+  // the carry is where the thumb is now: a turn answered on the next beat
+  // would put the seam a quarter of a sector behind the finger that is
+  // holding it, on a picture whose whole point is that it agrees with the
+  // hand (`well-hand.ts`). The slip it holds still is spent on the beat, in
+  // `well-step.ts`.
+  for (const c of commands) wellHeard(world, c.player, c.command);
 }

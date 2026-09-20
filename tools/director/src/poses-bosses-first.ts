@@ -57,8 +57,8 @@ export const FIRST_BOSS_POSES: Pose[] = [
   ),
   bossPose(
     "well",
-    "projected",
-    "The field is drawn inside out round P1's ship, a clock of columns. P2 sees it as it is and says where.",
+    "still",
+    "The field drawn inside out round P1's ship, its seam at twelve: every hour is its own column. P2 sees it flat.",
     { crop: F, role: "p1", want: stood("well"), hold: TPB * 2 },
   ),
   bossPose(

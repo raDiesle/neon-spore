@@ -1909,3 +1909,32 @@ and created in `packages/content/src/scenes/`, walking the split the fight
 already has — the pilot's colour, the navigator's swell, a seal, a wrong
 colour's provoke, the twins from the fifth opening — is the rehearsal lane's
 own kind of work, and is unstarted.
+
+## A new audio binder is threaded into three hand-kept lists, one red test each
+
+- **Found:** 2026-09-20, claude/task-queue-work-ym2eim
+- **Files:** `packages/audio/test/bind.test.ts`, `packages/audio/test/catalogue.test.ts`, `docs/spec/audio.md`
+- **Where:** cloud
+
+THE WELL gained four sounds and one binder file, and getting the suite green
+afterwards cost three rounds because three different lists name the same facts
+by hand and none of them can be read off the tree:
+
+- `bind.test.ts`'s `eventTypes()` carries a table of `packages/sim/src/events-*.ts`
+  paths with the `export type XEvent =` line to look for in each. A new
+  `events-*.ts` is invisible to it until its row is typed, and the failure reads
+  "SAMPLES has four keys `eventTypes()` doesn't return", which points at the
+  samples rather than at the table.
+- `catalogue.test.ts`'s `WIRING` is a second hand-kept list, of
+  `packages/audio/src/bind*.ts` paths. A sound bound only from a binder missing
+  from it fails as "marked bound but nothing plays it".
+- `docs/spec/audio.md` keeps a backticked copy of `WIRING`, checked against it by
+  a third case, so fixing the second breaks the third.
+
+Two of the three are globbable: `eventTypes()` can read
+`packages/sim/src/events-*.ts` off disk and keep only the table's *exceptions*
+(the files that declare no event type), and `WIRING` can glob
+`packages/audio/src/bind*.ts` the same way. The spec's copy then either goes or
+is generated. Leave whichever list has a reason to stay hand-kept and say the
+reason in its header — the skill's twelve rows say the samples list is
+deliberate, and nothing says these two are.

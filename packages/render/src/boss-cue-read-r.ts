@@ -62,11 +62,18 @@ const SILENT: readonly BossCue[] = [];
  *   cannon in a lane, and *which lane* is the wave's whole conversation. A
  *   mark that appeared on the lane he should be in would be the answer; one
  *   that appeared on the lane he is *not* in would be the answer by
- *   subtraction, which is THE LEAD's finding (`boss-cue-read-c.ts`). There is
- *   no third thing to say to him: the seam is furniture, drawn bright and
- *   closed from the first frame (`well-face.ts`, `drawSeam`), and a finger in
- *   it is refused outright (`touch-well.ts`, `wellCol` returns null), so a word
- *   there would be an instruction on a thumb the game will not answer.
+ *   subtraction, which is THE LEAD's finding (`boss-cue-read-c.ts`).
+ *
+ *   **The seam is the second thing, and it stays wordless on purpose.** It is
+ *   a handle now — the face slips, a thumb holds it, a thumb turns it home
+ *   (`sim/well.ts`) — so the reason for the silence changed and the silence
+ *   did not. A word naming where the seam is would name a place on a clock
+ *   face, and a place on a clock face is an hour: #34 forbids a cue that says
+ *   a number the other seat cannot check, and *this* seat's numbers are the
+ *   ones that have walked away from their columns. The seam walking round the
+ *   face is the signal, drawn as the brightest line on it and impossible to
+ *   miss; what it costs is a sentence to the navigator, which is the wave.
+ *   The ear is told instead, where a countdown belongs (`audio/bind-well.ts`).
  * - **The navigator is not drawn the well at all.** She holds the two colours
  *   and the plate, and her screen is the flat field every other wave runs on.
  *   A cue about this boss on her glass would be a mark on a picture she is
@@ -74,7 +81,8 @@ const SILENT: readonly BossCue[] = [];
  *   cue about the *field* is a cue about ordinary bodies, which no boss's
  *   reading gives (THE GORGE's fourth silence, THE CAIRN's).
  *
- * **The silence is safe because it is total.** The one way a word's absence
+ * **The silence is safe because it is total**, and it stayed total when the
+ * face began to turn. The one way a word's absence
  * tells is by going out at a moment, and nothing here ever goes out: there is
  * no frame of any well wave on either screen that carries a cue, so there is no
  * beat whose emptiness means anything. That is the property

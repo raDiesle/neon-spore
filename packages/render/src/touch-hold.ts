@@ -142,6 +142,14 @@ export type Hold =
        * the world's (`holdThumbs`), not this device's.
        */
       pin?: true;
+      /**
+       * THE WELL's seam, which is carried **round the face** rather than
+       * across the screen: the hour the thumb took hold at, so a move reports
+       * how far round the ring it has come in thousandths of a sector, the way
+       * `grip` one case up reports a body carried round it. A displacement in
+       * pixels means nothing on a picture where sideways is a circle.
+       */
+      well?: { angle: number };
     };
 
 export interface Touch {

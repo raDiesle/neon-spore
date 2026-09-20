@@ -13016,3 +13016,24 @@ pose note, a whole page of spec arguing for the bug as the design — that had
 quietly become false the moment the spill stopped being a rock.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — claude-task-queue-work-ym2eim — THE WELL's face slips, and a thumb holds it
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `well.ts` and its render twin, `field-flip.ts` for how a world fact rides a layout, `touch-well.ts`, and the twelve rows of `.claude/skills/new-boss-state` |
+| writing | 60 | `config-well.ts`, `events-well.ts`, `well-step.ts`, `well-hand.ts`, `well-hash.ts`, `well-roll.ts`, the `wellSeam` target through the wire, four sounds and their binder, thirteen registrations, `well-cycle.test.ts` and `well-roll.test.ts` |
+| looking | 0 | none — the picture of the turned face is the second half and is local |
+| friction | 35 | three hand-kept audio lists found one red test at a time, two pages at their 250-line ceiling, and a creature count asserted against nothing instead of against the same wave played bare |
+| landing | 20 | `check:fast` twice, lint, format, `imports:sort`, the commit, the landing |
+
+**The bottleneck was two pages at their ceiling at once and three hand-kept
+lists behind them**: `layout.ts` had to give its stage away before a boss's
+angle could go on it and `canvas2d.ts` had to give its letterbox away before the
+import of the stage file would fit, and each of the three lists a new audio
+binder must be threaded into — the event table in `bind.test.ts`, `WIRING` in
+`catalogue.test.ts`, and the spec's backticked copy of `WIRING` — announced
+itself only as the next red test, each fix surfacing the following one. The
+lists are queued.
+
+*Measured: the rows above are the session's own estimate.*

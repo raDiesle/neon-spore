@@ -180,6 +180,14 @@ const ACCEPTED: Command[] = [
   // dropped it would leave her ring lit under a thumb that had gone.
   { kind: "drag", target: "antiphonRail", on: true, fromMilli: 0, fromYMilli: 600, id: 2 },
   { kind: "drag", target: "antiphonRail", on: false, fromMilli: 0, fromYMilli: 0, id: 2 },
+  // THE WELL's seam, the pilot's, and the one handle in this list that is a
+  // hand on nothing: the seam is the sector of the clock face that holds no
+  // column, so there is no id to carry and no second axis to read — the whole
+  // gesture is how far round the face the thumb has carried it, in thousandths
+  // of a sector (`sim/well-hand.ts`). A codec that dropped the lift would
+  // leave the face held still by a thumb that is no longer down.
+  { kind: "drag", target: "wellSeam", on: true, fromMilli: 1500 },
+  { kind: "drag", target: "wellSeam", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -319,6 +327,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   leadStalk: true,
   scuttlePart: true,
   antiphonRail: true,
+  wellSeam: true,
   crank: true,
   orreryRing: true,
 };

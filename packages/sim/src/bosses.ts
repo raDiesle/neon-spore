@@ -233,4 +233,14 @@ export {
 } from "./warden-cycle.js";
 // `wardenEyeOpen` and the hatch's and lids' openness: `bosses-clocks-b.ts`.
 export { wardenHandleMilli, wardenPullMilli, wardenTether } from "./warden-rope.js";
-export { installWell, type WellState } from "./well.js";
+export {
+  installWell,
+  NO_WELL_GRIP,
+  WELL_PHASES,
+  type WellPhase,
+  type WellState,
+  wellBoss,
+  wellHeldNow,
+  wellHoldLeft,
+  wellMaxOffsetMilli,
+} from "./well.js";

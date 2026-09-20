@@ -8,6 +8,7 @@ import {
   handedRole,
   type Layout,
   pointerSeat,
+  rolledLayout,
   shieldGrab,
   showsWell,
   type ViewRole,
@@ -88,8 +89,13 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
    *
    * After the trade and not before, so the fold follows the panel this device
    * is playing, which is what every other seat split in `view-role.ts` does.
+   *
+   * `rolledLayout` rides on the end for the same reason one boss further on:
+   * THE WELL's face turns, and a thumb has to be answered by the face it is
+   * looking at rather than the one it opened on (`render/well-roll.ts`).
    */
-  const layout = (): Layout => flippedLayout(handedLayout(o.layout(), world), world);
+  const layout = (): Layout =>
+    rolledLayout(flippedLayout(handedLayout(o.layout(), world), world), world);
   // The two seat keys, for the screen that shows both seats: while 1 or 2 is
   // held the mouse is that player's hand on the field (`render/desk-seat.ts`).
   const desk = new DeskSeat();

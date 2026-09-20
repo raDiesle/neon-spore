@@ -17,6 +17,7 @@ export {
   type ViewRole,
 } from "./view-role.js";
 
+import { bandHeightFor } from "./layout-stage.js";
 import { PANEL_PLAN } from "./panel-plan.js";
 // The rows a strip answers a press on, worked out where its reasons are
 // written down. Re-exported so nothing holding a `Strip` had to move.
@@ -81,62 +82,20 @@ export interface Layout {
    * `flippedLayout` does, from a world (`field-flip.ts`).
    */
   flip: boolean;
+  /**
+   * **How far THE WELL's face has turned**, in thousandths of a sector, and
+   * here for `flip`'s reason exactly: a face that turned in the frame but not
+   * under the finger would answer a thumb at four o'clock with the column that
+   * used to be there. Two functions read it and the rest of the projection
+   * follows from them (`well-roll.ts`). Nought on every other wave.
+   */
+  wellRoll: number;
 }
 
 export interface Circle {
   x: number;
   y: number;
   r: number;
-}
-
-/**
- * The phone-shaped rectangle the game is drawn into, centred in the window.
- *
- * The game is portrait mobile web; a desktop window is far wider than that, and
- * a hull drawn across the whole window is not the hull anybody will ever see.
- * So the window is not the stage — this rectangle is, and everything the
- * players are meant to see lives inside it. Only the test chrome, which no
- * player gets, is allowed outside.
- */
-export interface Stage {
-  left: number;
-  top: number;
-  width: number;
-  height: number;
-}
-
-/** Widest the stage is allowed to get, width / height. Roughly a 9:16 phone. */
-const STAGE_ASPECT = 0.56;
-
-/**
- * The band is a share of the screen height, and it is the same share in every
- * view. The test view used to take a taller one (`bandPct`, 31 against 19)
- * because it carries both seats' halves — and a taller band leaves less height
- * for the field, so the tile shrank, the stage narrowed to the columns with
- * black at both sides, and the hull stood higher than on either phone. The
- * owner asked on 12 September 2026 that the test view be the game's own
- * dimensions and the game's own ship, always; so both seats' controls now
- * share the band a phone gives one seat (`panel-plan.ts`'s test column), and
- * the stage and the layout ask for that one number before anything is placed.
- */
-function bandHeightFor(height: number, cfg: SimConfig, _role: ViewRole): number {
-  return (height * cfg.bandSoloPct) / 100;
-}
-
-/**
- * The columns are the frame, not the phone. The hull is exactly as wide as the
- * field and is clipped to it, so any stage wider than the columns shows empty
- * background beside the ship — and it changes width with the band, which is why
- * the gap used to move when the view switched. The tile is whatever the height
- * leaves; the stage is that many columns wide, and never wider than a phone or
- * than the window.
- */
-export function computeStage(viewport: Viewport, cfg: SimConfig, role: ViewRole): Stage {
-  const height = viewport.height;
-  const usable = height - bandHeightFor(height, cfg, role) - cfg.radarHeightPx;
-  const tile = Math.max(0, usable / cfg.rows);
-  const width = Math.min(viewport.width, height * STAGE_ASPECT, cfg.cols * tile);
-  return { left: Math.round((viewport.width - width) / 2), top: 0, width, height };
 }
 
 export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole): Layout {
@@ -187,6 +146,9 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     // Never here: the fold is a fact about the wave, and this is handed a
     // viewport and a config (`field-flip.ts`).
     flip: false,
+    // Nor this, and out of the same drawer: a boss's face is a fact about the
+    // world, not about a viewport (`well-roll.ts`).
+    wellRoll: 0,
     width,
     height,
     dpr: viewport.dpr,
@@ -213,6 +175,15 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
  * Re-exported so a caller holding a layout is holding the answer; the subject
  * itself is `field-flip.ts`, out of the way of the arithmetic. */
 export { fieldCol, fieldX, flippedLayout } from "./field-flip.js";
+/** The rectangle the picture is drawn into, and the band's share of the
+ * height it is cut around. Re-exported because a caller holding a layout was
+ * already asking this file where the game is (`layout-stage.ts`). */
+export { computeStage, type Stage } from "./layout-stage.js";
+
+/** THE WELL's face, and how far it has turned — re-exported beside the fold
+ * for the fold's reason: both are a fact about the world put on a layout so a
+ * frame and a finger cannot disagree (`well-roll.ts`). */
+export { rolledLayout } from "./well-roll.js";
 
 export function tileCX(l: Layout, col: number): number {
   return l.gridLeft + col * l.tile + l.tile / 2;

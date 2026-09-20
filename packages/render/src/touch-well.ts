@@ -7,7 +7,15 @@ import type { Field } from "./touch-field.js";
 import { TAP_TILES } from "./touch-hand.js";
 import type { Touch } from "./touch-hold.js";
 import { CANNON_R, navigator, pilot, SHIELD_R } from "./touch-ship.js";
-import { WELL_BODY, wellAngle, wellAt, wellCenter, wellHub, wellSectorAngle } from "./well.js";
+import {
+  WELL_BODY,
+  wellAngle,
+  wellAt,
+  wellCenter,
+  wellHub,
+  wellSectorAngle,
+  wellSectors,
+} from "./well.js";
 import { wellBodyAt } from "./well-body.js";
 
 /**
@@ -53,14 +61,34 @@ const DEAD_TILES = 0.35;
  * finger high and low in a column is.
  */
 export function wellCol(l: Layout, x: number, y: number): number | null {
+  const s = wellSectorUnder(l, x, y);
+  return s === null || s > l.cols - 1 ? null : s;
+}
+
+/** Whether a finger is in the seam — the one sector that holds no column, and
+ * the handle this boss is answered by (`sim/well-hand.ts`). */
+export function wellOnSeam(l: Layout, x: number, y: number): boolean {
+  return wellSectorUnder(l, x, y) === l.cols;
+}
+
+/**
+ * Which sector of the face a finger is in, `wellAngle` read backwards: the
+ * roll is taken off before the angle is cut into sectors, and the result is
+ * wrapped rather than clamped, because a face that has turned puts column ten
+ * at an angle a square face would call minus two. Clamping there answered the
+ * wrong lane; wrapping answers the lane the numeral under the thumb says.
+ * The last sector — `l.cols` — is the seam.
+ */
+function wellSectorUnder(l: Layout, x: number, y: number): number | null {
   const c = wellCenter(l);
   const dx = x - c.x;
   const dy = y - c.y;
   if (Math.hypot(dx, dy) < l.tile * DEAD_TILES) return null;
   // Clockwise from up, the way `wellAngle` reads an hour.
   const angle = (Math.atan2(dx, -dy) + 2 * Math.PI) % (2 * Math.PI);
-  const col = Math.round(angle / wellSectorAngle(l)) - 1;
-  return col < 0 || col > l.cols - 1 ? null : col;
+  const n = wellSectors(l);
+  const raw = Math.round(angle / wellSectorAngle(l) - l.wellRoll / 1000) - 1;
+  return ((raw % n) + n) % n;
 }
 
 /** Where the cannon rides the ring, as something a finger can be inside. */
@@ -84,7 +112,7 @@ export function wellUnder(l: Layout, x: number, y: number, field: Field): Touch 
   const ship = wellShipUnder(l, x, y, field);
   if (ship) return ship;
   const held = wellCreatureAt(l, field, x, y);
-  if (!held) return null;
+  if (!held) return wellSeamUnder(l, x, y, field);
   const angle = wellAngleOf(l, x, y);
   return {
     player: field.seat,
@@ -93,6 +121,34 @@ export function wellUnder(l: Layout, x: number, y: number, field: Field): Touch 
     // steps the body a column per sector (`touchMove`): on this picture
     // "sideways" is along the circle, and a pixel across means nothing.
     hold: { kind: "grip", id: held.id, player: field.seat, originX: x, well: { angle } },
+  };
+}
+
+/**
+ * THE WELL's own handle, asked for last: the seam is a wall to everything
+ * above it — the ship is drawn over it and a body in a column is never in it —
+ * so nothing this file already answered loses a finger to it, and a press that
+ * found no lobe and no body in the empty sector is a press on the seam and
+ * nothing else (`sim/well-hand.ts` says what it means).
+ *
+ * The pilot's seat only, the seat the projection is drawn on: the navigator
+ * has a flat field and no seam in front of her at all, and a press of hers is
+ * dropped in the simulation rather than argued about here.
+ */
+function wellSeamUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  if (field.seat !== 1 || !wellOnSeam(l, x, y)) return null;
+  const angle = wellAngleOf(l, x, y);
+  return {
+    player: 1,
+    command: { kind: "drag", target: "wellSeam", on: true, fromMilli: 0 },
+    hold: {
+      kind: "drag",
+      target: "wellSeam",
+      player: 1,
+      originX: x,
+      originY: y,
+      well: { angle },
+    },
   };
 }
 

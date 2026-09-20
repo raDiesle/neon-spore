@@ -207,6 +207,14 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   spliceTopRow: "THE SPLICE — straws fed in the order the numbers say",
   spliceFeedBeats: "THE SPLICE — straws fed in the order the numbers say",
   repriseBeats: "THE REPRISE — the wave sent again unseen",
+  // THE WELL's clock: the rest before the face starts to slip, how fast it
+  // slips, how far it slips before it stops, and how long a thumb on the seam
+  // can hold it still (`sim/config-well.ts`). The first dials this boss has
+  // had — it shipped as a projection with nothing to turn.
+  wellStillBeats: "THE WELL — the field drawn inside out on one screen",
+  wellRollMilli: "THE WELL — the field drawn inside out on one screen",
+  wellRollSectors: "THE WELL — the field drawn inside out on one screen",
+  wellHoldBeats: "THE WELL — the field drawn inside out on one screen",
   ...ROUND_FIELD_GROUP,
   // PairConfig
   briefings: "OPENING — the introduction, the guide and the ready gate",

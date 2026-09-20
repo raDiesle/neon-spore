@@ -25,6 +25,7 @@ import type { ThroatEvent } from "./events-throat.js";
 import type { UndertowEvent } from "./events-undertow.js";
 import type { VaneEvent } from "./events-vane.js";
 import type { WardenEvent } from "./events-warden.js";
+import type { WellEvent } from "./events-well.js";
 
 /**
  * **The choreographed bosses' arms of `SimEvent`**, as one union.
@@ -73,7 +74,8 @@ export type BossEvent =
   | ScoutEvent
   | PulseEvent
   | ThroatEvent
-  | GaugeEvent;
+  | GaugeEvent
+  | WellEvent;
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
@@ -102,3 +104,4 @@ export type { ThroatEvent } from "./events-throat.js";
 export type { UndertowEvent } from "./events-undertow.js";
 export type { VaneEvent } from "./events-vane.js";
 export type { WardenEvent } from "./events-warden.js";
+export type { WellEvent } from "./events-well.js";

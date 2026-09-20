@@ -66,7 +66,11 @@ export function fieldCol(l: Layout, col: number): number {
  * So a site asks itself which pile it is in and calls `fieldX` or `tileCX`
  * accordingly. A per-mechanic picture — THE SPLICE's tangle, THE WELL's clock,
  * a boss's own limbs — is neither until a wave puts one under a flip, and none
- * does: the fault's own wave is a plain field of bodies.
+ * does: the fault's own wave is a plain field of bodies. THE WELL's own turn
+ * is not a second fold and does not change that: it is a rotation of the whole
+ * projection, taken by the two functions the projection is drawn from, and it
+ * is on the layout beside this one for exactly this file's reason
+ * (`well-roll.ts`).
  */
 export function fieldX(l: Layout, col: number): number {
   return tileCX(l, fieldCol(l, col));

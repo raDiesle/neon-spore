@@ -17,6 +17,9 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
+// Same reason: the sentinel is the simulation's own word for "no thumb", and
+// nothing outside `packages/sim` has a seam to put one on.
+import { NO_WELL_GRIP, wellBoss } from "../src/well.js";
 
 /**
  * THE WELL, which is the one boss in this game whose whole content is a
@@ -33,10 +36,12 @@ import {
  * presses, once with the boss and once without, compared tick by tick on
  * everything but the tag.
  *
- * It is also the guard against the obvious future mistake. The next lane to
- * want the seam to *cost* something (`docs/queue.md`'s Asks) will reach for
- * `stepWell`, and the moment it writes one the last case below goes red with
- * the reason in its name.
+ * It is also the guard against the obvious mistake, and on 20 September 2026 a
+ * lane walked up to it: the boss gained a clock of its own — the face slips,
+ * a thumb on the seam holds it, a thumb turns it home (`well-cycle.test.ts`).
+ * None of that is allowed to reach a creature, a bolt, the cannon, the shield
+ * or the hull, and the run below is what says so: the same wave, with the face
+ * slipping and without, compared tick by tick on everything but the tag.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -123,7 +128,7 @@ describe("THE WELL", () => {
       if (world.restBeat >= 0) rested = true;
     }
     expect(world.spawned, "the script never ran out").toBe(QUEUE.length);
-    expect(world.boss, "the projection went somewhere").toEqual({ kind: "well" });
+    expect(world.boss?.kind, "the projection went somewhere").toBe("well");
     expect(world.balance.wavesCleared, "the wave never ended").toBe(1);
     expect(rested, "no rest was ever set").toBe(true);
   });
@@ -138,14 +143,33 @@ describe("THE WELL", () => {
     expect(BOSS_KINDS.length, "a kind was inserted rather than appended").toBeGreaterThan(11);
   });
 
-  it("puts nothing on the field and keeps nothing between beats", () => {
+  it("opens square, and puts nothing on the field", () => {
     const world = wellWorld(true);
-    expect(world.boss).toEqual({ kind: "well" });
+    // Still, with the seam at twelve and every hour on its own column: the
+    // plain picture is the first thing the pair are shown, and the slip is
+    // something they watch happen to it (`well.ts`).
+    expect(world.boss).toEqual({
+      kind: "well",
+      phase: "still",
+      phaseBeat: 0,
+      offsetMilli: 0,
+      heldBeats: 0,
+      gripMilli: NO_WELL_GRIP,
+    });
     expect(world.creatures.length, "a projection with a body").toBe(0);
     // No rounds either: there is nothing to stand it on (`setBossRound`).
     expect(setBossRound(world, 1)).toBe(false);
-    for (let t = 0; t < TPB * 24; t++) step(world, []);
-    expect(world.boss, "the well grew state").toEqual({ kind: "well" });
+    // And whatever the face goes on to do it never grows a body of its own,
+    // which has to be said against the wave rather than against nothing: the
+    // author's own three are falling by beat 24, so the count to compare with
+    // is the same wave played with no boss over it at all.
+    const bare = wellWorld(false);
+    for (let t = 0; t < TPB * 24; t++) {
+      step(world, []);
+      step(bare, []);
+    }
+    expect(wellBoss(world)?.phase, "the face never left its rest").not.toBe("still");
+    expect(world.creatures.length, "the face put a body on the field").toBe(bare.creatures.length);
   });
 
   it("changes nothing about the simulation — the wave is the wave either way", () => {

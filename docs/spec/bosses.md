@@ -1903,6 +1903,12 @@ held itself open for any boss still installed, so wave 70 could be cleared and
 not passed at all. `bossHoldsWave` is the question `beat.ts` asks now, and THE
 WELL is the only boss that answers no.
 
+**It changes nearly nothing, and since 20 September 2026 not quite nothing.**
+Every word above still holds of what *falls*: the wave is its author's, no body
+is the boss's, there is no health and there are no rounds. What the fight
+gained is a turn of the picture and one handle to answer it with, three phases
+long, and it is the paragraph after next (`sim/well.ts`, `well-cycle.test.ts`).
+
 **What it does is redraw the field in the round.** The hull goes to the centre,
 the far row becomes a rim, and the columns are spread round the middle as the
 sectors of a clock — bodies fall inward down their hours, the cannon rides the
@@ -1911,6 +1917,40 @@ the game ships that is eleven columns and one sector over, so the numbers land
 where a clock's hours are and **column four is four o'clock**; the numerals
 drawn round the rim are the columns' own numbers, so a narrower field is a
 wider clock and the picture is never wrong.
+
+**And the face slips.** THE WELL used to be the one boss with no moments in
+it at all, which made it the one wave where a pilot could read an hour off his
+own screen and never say a word. The fight is that shortcut being taken away
+from him and handed back. It rests for `wellStillBeats` with the seam at
+twelve; then the whole face begins to turn clockwise, `wellRollMilli` of a
+sector a beat, and the numerals ride round with it, so column four still reads
+"4" and is no longer at four o'clock. A thumb held on **the seam** — the one
+sector of the ring that carries no column — stops the slip for as long as it
+stays there, and the pair has `wellHoldBeats` of holding to spend. At
+`wellRollSectors` the turn ends and the face is *wound*: a thumb dragged from
+the seam round the ring carries the offset back, and at nought the seam is at
+twelve again and the round is resting. One sentence: **the clock slips — hold
+it, then turn it home.**
+
+**Nothing about it changes what the field does**, which is the same rule the
+rest of this section keeps: bodies fall down their own hours, the cannon rides
+the hull ring, the shield stands where it stood, and a pair that does nothing
+at all plays the wave they would have played, reading a clock whose hours have
+walked. What the slip removes is the pilot's private answer — the hour under a
+body is not its column any more, and only the navigator's flat field knows
+which one it is. Doing nothing is never fatal; it is only quiet.
+
+**One gesture, read two ways by the phase it is in** — `wellSeam`, the pilot's
+seat only, because the navigator has no clock in front of her and her press is
+dropped in the simulation rather than argued about in a hit test. Held while
+the face turns it is a brake; dragged once the face is wound it is a crank.
+The seam is the handle for the same reason it was furniture: it is the one
+place on the ring that is not a lane, so a thumb there is never a thumb that
+missed a body (`render/touch-well.ts`, `sim/well-hand.ts`). The face's turn
+reaches the picture on the `Layout`, the way THE FLIP's fold does, and only
+two functions read it — the one that draws an hour and the one that answers a
+finger with one — so a frame and a thumb cannot disagree about where four
+o'clock is (`render/well-roll.ts`).
 
 **Only one phone flips, and that is the whole design.** Flipped on both, the
 well is a skin: the pair says the same word about the same lane and the round is
@@ -1974,10 +2014,14 @@ of the readings). **None, and THE WELL is the only boss in the game that could
 not have had any.** It is the second read against `docs/decisions.md` #34 and
 left silent — THE PULSE was the first — and the first where the reason is the
 boss rather than the round it is played in. A cue is *one word at the moment the
-fight wants something*, and this fight has no moments: no state, no `stepWell`,
-no clock, no phase, no health, no gesture and no body, `bossFillsWave` false so
-everything that falls is the wave author's own, and `bossHoldsWave` the one *no*
-in the game (`sim/well.ts`, `boss-kinds.ts`). **And every word it could say would
+fight wants something*, and when the readings were written this fight had no
+moments at all: no state, no `stepWell`, no clock, no phase, no health, no
+gesture and no body, `bossFillsWave` false so everything that falls is the wave
+author's own, and `bossHoldsWave` the one *no* in the game (`sim/well.ts`,
+`boss-kinds.ts`). **It has three phases and a handle now (20 September 2026)
+and every case of the test below stayed green, which is the point of reading it
+again**: the reason for the silence changed and the silence did not, because
+the second argument was never about having nothing to say. **And every word it could say would
 be a column.** That is a fact about the drawing, not the simulation: on the flat
 field a mark over a body says *here* and the column is still a number the pair
 has to get out of their mouths, but on the clock the mark's own angle **is** the
@@ -1988,12 +2032,16 @@ spelled. The two seats close it: the pilot holds the clock and his only act is t
 be in a lane, so a mark on the right lane is the answer and a mark on the wrong
 one is the answer by subtraction (THE LEAD's finding); the navigator is never
 drawn the well at all, so a word about it on her glass would stand on a picture
-she is not shown. The seam is the one place that is not a lane, and it is
-furniture rather than a moment — drawn bright and closed from the first frame,
-and a finger in it refused outright (`touch-well.ts`, `wellCol` returns null), so
-a word there would be an instruction on a thumb the game will not answer. **The
-silence is safe because it is total**: no frame of any well wave on either screen
-carries a cue, so there is no beat whose emptiness means anything. Proved in
+she is not shown. The seam is the one place that is not a lane, and it is a
+moment now rather than furniture — but a word naming where it *is* would name a
+place on a clock face, and a place on a clock face is an hour, which is the
+printed number this whole paragraph refuses to draw. `HOLD` on the seam at nine
+o'clock is `HOLD COLUMN 8` written sideways. The ear is told instead, which is
+where a countdown belongs and where both seats can hear it: four sounds, panned
+to the middle because nothing this boss reports has a column in it
+(`audio/bind-well.ts`). **The silence is safe because it is total**, and it
+stayed total when the face began to turn: no frame of any well wave on either
+screen carries a cue, so there is no beat whose emptiness means anything. Proved in
 `render/test/boss-cue-well.test.ts`, every beat of the wave and both ends of the
 rail.
 

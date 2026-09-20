@@ -22,18 +22,22 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * (`render/src/boss-cue-read-r.ts`).
  *
  * It is the second boss in the game read against `docs/decisions.md` #34 and
- * left silent — THE PULSE was the first (`boss-cue-pulse.test.ts`) — and the
- * only one that *could not* have been anything else. THE WELL has no state, no
- * step, no clock, no phase and no gesture (`sim/well.ts`): it is the field
- * drawn inside out on one screen of the two, and a boss with no moments has no
- * moment for a word to stand on. And on the clock a mark's own angle **is** its
- * hour, because `well-face.ts` prints that lane's numeral on the ring just
- * outside the rim — so every word this boss could say would carry a column,
- * which is the first thing #34 forbids outright.
+ * left silent — THE PULSE was the first (`boss-cue-pulse.test.ts`). It was
+ * once the boss that *could not* have said anything, because it had no state
+ * to say it about; on 20 September 2026 it gained three phases and a handle,
+ * and every case below stayed green, which is the point of reading it again.
+ *
+ * The reason moved and the answer did not. On this clock a mark's own angle
+ * **is** its hour, because `well-face.ts` prints that lane's numeral on the
+ * ring just outside the rim — so every word this boss could say would carry a
+ * column, which is the first thing #34 forbids outright, and the columns on
+ * this seat's face are precisely the ones that have walked away from where
+ * they were. The seam slipping is the signal, drawn rather than said.
  *
  * **So the whole file is silences, and that is what it is for.** The cases
- * below are what would catch a later lane making this boss "clearer" by writing
- * `MOVE` on the hand of the clock: a cue drawn on the lane the cannon should be
+ * below are what would catch a later lane making this boss "clearer" by
+ * writing `HOLD` on the seam or `MOVE` on the hand of the clock: a cue drawn
+ * on the lane the cannon should be
  * in is the answer, and one drawn on the lane it is not in is the answer by
  * subtraction (THE LEAD's finding, `boss-cue-clocks.test.ts`).
  *

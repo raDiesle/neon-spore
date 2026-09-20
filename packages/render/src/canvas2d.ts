@@ -1,5 +1,6 @@
 import { guardArmed, mawOpen, mineOnField, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { drawCandleField } from "./candle-dark.js";
+import { drawStageSeam, paintOutside } from "./canvas2d-stage.js";
 import { drawTakeover } from "./canvas2d-takeover.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import {
@@ -12,7 +13,14 @@ import {
 } from "./frame-passes.js";
 import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
-import { computeLayout, computeStage, flippedLayout, type Layout, type Stage } from "./layout.js";
+import {
+  computeLayout,
+  computeStage,
+  flippedLayout,
+  type Layout,
+  rolledLayout,
+  type Stage,
+} from "./layout.js";
 import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -35,15 +43,13 @@ export class Canvas2DRenderer implements Renderer {
 
   /**
    * `readback` is for a caller that will read the pixels back with
-   * `getImageData` more than once — a probe, never the game. A canvas that is
-   * read back twice without saying so is moved off the GPU by the browser,
-   * and one read back forty-six times in a page's first seconds did more than
-   * that: every phone-sized canvas the page made afterwards was rasterised in
-   * software, one pixel readback per sprite it drew, at three frames a second
-   * — VERSUS's seat probe (`tools/director/src/versus-seat.ts`), and with it
-   * every pair on a cadenced pose; `bun run versus:shot creature:echo cleft
-   * --scale 6` timed out on it. Declared, the demotion stays with the canvas
-   * that earned it and the same shot takes seconds.
+   * `getImageData` more than once — a probe, never the game. A canvas read
+   * back twice without saying so is moved off the GPU, and one read back
+   * forty-six times in a page's first seconds demoted every phone-sized
+   * canvas the page made afterwards with it: software rasterisation, a pixel
+   * readback per sprite, three frames a second — that is what timed out
+   * VERSUS's seat probe (`tools/director/src/versus-seat.ts`). Declared, the
+   * demotion stays with the canvas that earned it, and the shot takes seconds.
    */
   constructor(
     private canvas: HTMLCanvasElement,
@@ -97,10 +103,13 @@ export class Canvas2DRenderer implements Renderer {
    *
    * `flippedLayout` is THE FLIP: the turned seat's field comes back mirrored,
    * and input is handed a layout too, so a finger and a frame fold together.
+   * `rolledLayout` is THE WELL's face turned, on the same two callers and for
+   * the same reason (`well-roll.ts`).
    */
   private layoutFor(view: ViewState, stage: Stage): Layout {
     const vp = { width: stage.width, height: stage.height, dpr: this.viewport.dpr };
-    return flippedLayout(computeLayout(vp, view.world.cfg, view.role), view.world);
+    const l = flippedLayout(computeLayout(vp, view.world.cfg, view.role), view.world);
+    return rolledLayout(l, view.world);
   }
 
   draw(seen: ViewState): void {
@@ -118,14 +127,10 @@ export class Canvas2DRenderer implements Renderer {
     if (stage.width < 1 || stage.height < 1) return;
     const l = this.layoutFor(view, stage);
 
-    // Outside the stage is not the game: painted flat and left alone, with
-    // everything below in stage coordinates — as is input hit-testing, which
-    // subtracts the same offset. A phone whose stage fills the viewport needs
-    // none of it; a bare frame and a window wider than the stage both do.
-    if (view.bare || stage.width < this.viewport.width || stage.height < this.viewport.height) {
-      ctx.fillStyle = view.bare ? "#000000" : "#05040B";
-      ctx.fillRect(0, 0, this.viewport.width, this.viewport.height);
-    }
+    // Outside the stage is not the game, and everything below is in stage
+    // coordinates — as is input hit-testing, which subtracts the same offset
+    // (`canvas2d-stage.ts`).
+    paintOutside(ctx, this.viewport, stage, view.bare);
     ctx.save();
     ctx.beginPath();
     ctx.rect(stage.left, stage.top, stage.width, stage.height);
@@ -236,12 +241,7 @@ export class Canvas2DRenderer implements Renderer {
     }
     ctx.restore();
 
-    // A seam, so a wide window shows where the phone ends.
-    if (stage.width < this.viewport.width) {
-      ctx.strokeStyle = "#1C1640";
-      ctx.lineWidth = 1;
-      ctx.strokeRect(stage.left + 0.5, stage.top + 0.5, stage.width - 1, stage.height - 1);
-    }
+    drawStageSeam(ctx, this.viewport, stage);
   }
 
   dispose(): void {

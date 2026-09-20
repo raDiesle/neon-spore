@@ -11,6 +11,7 @@ import { tasterCue } from "./bind-taster.js";
 import { throatCue } from "./bind-throat.js";
 import { vaneCue } from "./bind-vane.js";
 import { wardenHandCue } from "./bind-warden-hand.js";
+import { wellCue } from "./bind-well.js";
 
 /**
  * **The events added to bosses that had already shipped**, cut off
@@ -90,7 +91,19 @@ export type AddedEvent = Extract<
       | "gaugeMark"
       | "gaugeMiss"
       | "gaugeJam"
-      | "gaugeBind";
+      | "gaugeBind"
+      // And THE WELL's four, the first sounds that boss has had at all — it
+      // arrived as a projection with no state and nothing to report. None of
+      // them names a column, and that is the point rather than an omission:
+      // a word for a place on this clock face would be an hour, which
+      // `docs/decisions.md` #34 forbids, so the face slipping is watched and
+      // the ear only says that it started, that a thumb is holding it, how
+      // long that hold has left, and that the seam is home again
+      // (`sim/events-well.ts`).
+      | "wellRoll"
+      | "wellHeld"
+      | "wellWound"
+      | "wellHome";
   }
 >;
 
@@ -138,6 +151,10 @@ const ADDED_EVENTS = new Set<string>([
   "gaugeMiss",
   "gaugeJam",
   "gaugeBind",
+  "wellRoll",
+  "wellHeld",
+  "wellWound",
+  "wellHome",
 ]);
 
 /** Whether this is one of the names above, and not a boss arriving whole. */
@@ -177,6 +194,13 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "gaugeJam":
     case "gaugeBind":
       return gaugeCue(e);
+    // THE WELL's four take no `cols`: nothing this boss reports happened in a
+    // column, so there is nothing for a pan to be read off (`bind-well.ts`).
+    case "wellRoll":
+    case "wellHeld":
+    case "wellWound":
+    case "wellHome":
+      return wellCue(e);
     case "wardenHold":
     case "wardenThrow":
     case "wardenSlam":

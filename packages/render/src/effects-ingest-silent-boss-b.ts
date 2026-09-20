@@ -231,4 +231,14 @@ export const INGEST_SILENT_BOSS_B = [
   "gaugeMiss",
   "gaugeJam",
   "gaugeBind",
+  // THE WELL's four, the first events that boss has had: the roll, the hold,
+  // the far end and the seam coming home are all read off the state the face
+  // is drawn from every frame — the phase, `offsetMilli` and `heldBeats`
+  // (`render/well.ts`). The picture *is* the report here, because the whole
+  // boss is where the picture puts things, so an effect outliving the frame
+  // would be a second face disagreeing with the one under the thumb.
+  "wellRoll",
+  "wellHeld",
+  "wellWound",
+  "wellHome",
 ] as const satisfies readonly SimEvent["type"][];

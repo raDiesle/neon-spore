@@ -162,18 +162,27 @@ function drawSpokes(ctx: CanvasRenderingContext2D, l: Layout): void {
  * field's walls would be if it had any, as the brightest line on the face,
  * closed across the top by the rim they both end on. What is between them is
  * left as backdrop: no bowl, no ring, no number, nothing a body could stand in.
+ *
+ * **Where they stand is asked, not assumed.** Twelve is only where the seam
+ * begins: it slips clockwise while this boss's face rolls, and the one sector
+ * with no column is the one *before* column 0, so the middle of it is
+ * `wellAngle(l, -1)` — nought on a face standing square, and the rolled angle
+ * once it is not (`well-roll.ts`). A hardcoded twelve here would have left the
+ * brightest line on the picture standing still while everything it separates
+ * walked away from it.
  */
 function drawSeam(ctx: CanvasRenderingContext2D, l: Layout): void {
   const hub = wellHub(l);
   const rim = wellRim(l);
+  const mid = wellAngle(l, -1);
   const half = wellSectorAngle(l) * SEAM;
   ctx.strokeStyle = PALETTE.dim;
   ctx.lineWidth = 2;
   ctx.globalAlpha = 0.85;
   ctx.beginPath();
   for (const side of [-1, 1]) {
-    const from = wellAt(l, side * half, hub);
-    const to = wellAt(l, side * half, rim);
+    const from = wellAt(l, mid + side * half, hub);
+    const to = wellAt(l, mid + side * half, rim);
     ctx.moveTo(from.x, from.y);
     ctx.lineTo(to.x, to.y);
   }

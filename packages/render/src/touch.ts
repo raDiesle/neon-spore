@@ -143,6 +143,16 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     // **And THE INSTAR's `turn` mark**, a crank drawn on the body: the press
     // flagged the hold, so the reading is the crank's about the mark's centre.
     if (hold.turns) return turnAbout(hold, x, y);
+    // **And THE WELL's seam**, carried round the clock face: the press wrote
+    // down the hour it grabbed at, and what a move reports is how far round
+    // the ring the thumb has come, in thousandths of a sector. The same
+    // reading `grip` gets on this picture, and for the same reason — a
+    // displacement across the screen is not a distance on a circle
+    // (`touch-well.ts`).
+    if (hold.well) {
+      const round = wellColsFrom(l, hold.well.angle, x, y);
+      return { player: hold.player, command: dragging(hold, round, 0, true), hold };
+    }
     // Both axes now: the owner asked for a handle to be carriable any way at
     // all, so what a move reports is a displacement rather than a distance
     // across. Where it is allowed to end up is the simulation's

@@ -189,3 +189,17 @@ export {
 // `boss-surface.ts` is at its limit (`fleet-state.ts`).
 export { fleetWindowLeft } from "./fleet-flood.js";
 export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";
+// THE WELL's face, and the thumb on its seam: how far it has turned and which
+// way it is read, for the projection that draws it (`render/well-roll.ts`),
+// the hit test that answers it (`render/touch-well.ts`) and the director's
+// hand. On this page because `boss-surface.ts` is at its limit (`well.ts`).
+export {
+  NO_WELL_GRIP,
+  WELL_PHASES,
+  type WellPhase,
+  type WellState,
+  wellBoss,
+  wellHeldNow,
+  wellHoldLeft,
+  wellMaxOffsetMilli,
+} from "./well.js";
