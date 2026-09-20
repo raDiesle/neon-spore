@@ -890,6 +890,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE WELL changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-20, claude/task-queue-work-ym2eim (claim: claude/queue-the-well-changes-state-more-than-once-and-asks-f)
 - **Files:** `packages/sim/src/well.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
