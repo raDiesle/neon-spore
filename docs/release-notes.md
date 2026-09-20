@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · ce12ba40 — THE CANDLE's wick and ember, watched for real: all three claims hold
+
+The stem's travel and the ring closing are one-to-one with pinchMilli, and the ember's swell is a plain urge ramp against candleSmokeBeats — nothing here needed a real SimEvent, so --boss-json across the pinch range and the smoke's ramp shows all three exactly as designed. Closed rather than left for an eye that would have seen the same five frames.
+
 ## 2026-09-20 · bf8bce16 — THE CURTAIN's drift is a snap, not a tween — closes the last piece of 0c7934d1
 
 The core's column and colour are plain state, drawn straight off the world every frame with no interpolation anywhere in packages/render; curtainDrift reassigns both in one step, on the same tick as the hit that triggers it. A device watching the film play would see exactly what two real frames already show — before (cyan, leftmost column) and after (red, drifted to a column near the far edge, spark burst marking the landing) — so there is no motion a real device could tell us about that these two frames don't.
