@@ -1427,6 +1427,7 @@ own kind of work, and is unstarted.
 ## THE BATON's own "HOLD" cue is drawn over the other seat's bead
 
 - **Found:** 2026-09-20, claude/queue-the-batons-merge-its-two-handle-rings-still-has
+- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-the-batons-own-hold-cue-is-drawn-over-the-other)
 - **Files:** `packages/render/src/boss-cue-read-i.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/baton-grip.ts`
 - **Where:** local
 
