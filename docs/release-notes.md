@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 7f261c50 — The boss looks come back to the queue, and no opt-in with them
+
+Twenty-three entries went to a menu in docs/spec/boss-looks.md three hours ago, where the director drew them at the top of the BOSSES page and nothing could be started until the owner named a boss. He changed his mind the same evening: "what you moved to the bosses page from queue, add it back to queue but at the very end. no need for opt-in." So they are back, at the end of docs/queue.md, word for word as they stood, and a lane claims one the ordinary way. SNAKE's board is not among them — it landed an hour ago.
+
 ## 2026-09-20 · 4ab43cbe — SNAKE's board is a place rather than a tray of counters
 
 Everything standing on the arena — the enemies, the points and the meteors — was the same drawing at three hues: a neon outline, a fill darker than the floor, one pale dot. Magnified off a real frame beside the field's own bulb, which carries a ground shadow, a bevel, a key light and a sheen, it read as a board game rather than as the place SNAKE is crawling through. Each of the three now calls the material the game already ships instead of writing a fourth one — `LIVING_SKIN.paint` for a body, `STONE_LOOK` for stone, and `castShadow` under all of them — so an enemy on the board is the same creature as an enemy on the field, minus the interior marks that declare a kind it does not have.
