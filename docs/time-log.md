@@ -13402,17 +13402,33 @@ not been shown to also take `OPEN` and `BURN` on the lobe itself, where
 plating's glow. Added to that entry rather than filed twice; this entry's own
 "Unverified" line is closed.
 
+`bun run land`'s full `bun run check` then came back red on two of
+`tools/frames/test`'s own files — the exact browser-launch error this
+session had already worked around by hand. Reproducing it on plain `main`
+(the `ns-cairn` worktree, same commit) came back **green**, every time, which
+first looked like the failure was this lane's own doing — until the same
+check, run from `ns-undertow-cues` instead, came back red every time too, on
+a worktree holding nothing but this lane's doc-only diff. The difference
+between the two is `launchBrowser`'s own profile path, and it is long enough
+in this worktree specifically to be a plausible `AF_UNIX` `sun_path` ceiling
+(108 bytes) rather than a coincidence — written up as an addendum to the
+already-queued browser-crash entry rather than chased to a fix, since a
+docs-only lane is not the place to patch `tools/frames/browser.ts`. Pushed
+the branch rather than forcing the land, per `CLAUDE.md`'s own rule for
+exactly this shape of failure.
+
 | activity | minutes | what it was |
 |---|---|---|
 | reading | 15 | the queue entry, `boss-cue-read-j.ts`'s five-phase header, `undertow.ts`/`undertow-step.ts`/`undertow-shape.ts` for the phase and breach shape, the already-queued hull-line and browser-crash findings |
-| writing | 20 | the scratch capture script (not committed), the queue entry update, closing this one, this log entry |
+| writing | 25 | the scratch capture script (not committed), the queue entry update, closing this one, the browser-crash addendum, this log entry |
 | looking | 30 | six real frames (`p1`/`p2`, all five phases) built by mutating `world.boss` directly, cropped and pixel-scanned to confirm the verb text is actually absent and not merely low-contrast |
-| friction | 15 | `chromium.launch()`'s known `SIGTRAP`, worked around exactly as the day's earlier BATON entry describes; `--boss-json`'s array-length refusal, again the right answer and not a bug |
-| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast`, the commit |
+| friction | 30 | `chromium.launch()`'s known `SIGTRAP`, worked around exactly as the day's earlier BATON entry describes; `--boss-json`'s array-length refusal, again the right answer and not a bug; `bun run land`'s full check failing on the same browser crash, and isolating that to the worktree's own path length rather than this lane's diff before trusting it was not this lane's problem |
+| landing | 15 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast` clean; `bun run land` refused on the pre-existing browser check, so `bun run push` of the branch instead |
 
 **The bottleneck was confirming the missing word was a real defect and not a
-rendering mistake of this session's own** — a pixel scan and a second,
-independent frame of the tall lobe before trusting that `HOLD` alone was the
-whole picture.
+rendering mistake of this session's own**, and then, at landing, confirming a
+second time that a *different* red check was the sandbox's and not this
+lane's — both times the honest path was slower than trusting the first
+plausible story.
 
 *Measured: the rows above are the session's own estimate.*

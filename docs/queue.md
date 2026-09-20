@@ -1761,3 +1761,36 @@ that needs a real frame has to hand-roll the workaround this entry describes,
 which is real friction for every future frame this sandbox is asked to take.
 `bun test tools/frames` after any fix, on this machine specifically — the
 tool's own tests pass or fail on exactly this.
+
+**It is not every worktree alike, and the reason is `launchBrowser`'s own
+profile path.** `bun run tools/frames/test/opening.test.ts` is green, every
+time, run from `/home/claude/ns-cairn` — and red, every time, with this same
+error, run from `/home/claude/ns-undertow-cues`, on the same commit, the same
+Chrome, the same container: the only thing that differs is the path
+`profileRoot()` (`tmp-litter.ts`'s `tmpRoot(root)`) builds the profile under,
+which is longer by exactly the worktree directory name's own length. That
+points at the well-known Linux `AF_UNIX` path ceiling (108 bytes,
+`sun_path`): Chrome's `ProcessSingleton` puts a real socket in a *short*
+system path and symlinks the profile's own `SingletonSocket` to it — but only
+when it can find that short path by asking `$TMPDIR`/`$TMP`/`$TEMP`, which
+`launchBrowser`'s own `underTmp` has just pointed at the *same long directory*
+this profile already lives under, for the reason its own header gives
+(so a killed run's litter is findable under `.claude/tmp` rather than
+system temp). So the fallback the sandbox otherwise takes for a deep path is
+the one thing this tool disables, and a worktree whose name pushes the
+profile path a few characters past the ceiling loses the browser outright —
+`ns-cairn` (18 characters of directory name) stays under it and
+`ns-undertow-cues` (28) does not; this is about the number, not the words.
+Confirmed by hand: `launchBrowser()` from each of two worktree copies of the
+exact same commit, run back to back, four times each — `ns-cairn` opened a
+browser every time and `ns-undertow-cues` failed every time, with `.claude/tmp`
+freshly emptied in both first. So this session's earlier root-cause (the pipe
+transport dying under root) may be the *whole* story on a short enough path,
+or `--remote-debugging-pipe` may itself be sensitive to the same ceiling
+through some file it opens beside the profile — either way, a fix that only
+retries with `connectOverCDP` on failure (the shape argued above) sidesteps
+both causes at once and does not need this one settled first, but a fix that
+instead shortens `launchBrowser`'s own path handling (not letting `underTmp`
+hand Chrome's own short-path fallback the long directory back) is the other
+shape worth weighing, since it would let `chromium.launch()` itself keep
+working rather than adding a second code path beside it.
