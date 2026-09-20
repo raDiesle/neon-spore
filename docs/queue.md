@@ -1946,6 +1946,7 @@ what the rest of this file holds.
 ## `bun run reconcile` needs a worktree holding main, which a cloud clone has not
 
 - **Found:** 2026-09-20, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, claude/task-queue-work-ym2eim (claim: claude/queue-bun-run-reconcile-needs-a-worktree-holding-main)
 - **Files:** `tools/land/reconcile.ts`, `tools/land/reconcile-run.ts`, `tools/land/replay.ts`, `docs/cloud-session.md`
 - **Where:** cloud
 
