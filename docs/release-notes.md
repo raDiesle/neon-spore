@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 4ab43cbe — SNAKE's board is a place rather than a tray of counters
+
+Everything standing on the arena — the enemies, the points and the meteors — was the same drawing at three hues: a neon outline, a fill darker than the floor, one pale dot. Magnified off a real frame beside the field's own bulb, which carries a ground shadow, a bevel, a key light and a sheen, it read as a board game rather than as the place SNAKE is crawling through. Each of the three now calls the material the game already ships instead of writing a fourth one — `LIVING_SKIN.paint` for a body, `STONE_LOOK` for stone, and `castShadow` under all of them — so an enemy on the board is the same creature as an enemy on the field, minus the interior marks that declare a kind it does not have.
+
 ## 2026-09-20 · 3b1a70d2 — A landed look is settled; the gate is on starting only
 
 The menu added an hour ago says a boss's look starts only when the owner names it, and a session meeting that beside a list of finished bosses could read it as a standing doubt about all of them. It is not one.
