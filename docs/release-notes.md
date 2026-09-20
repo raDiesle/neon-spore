@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · ba837165 — A real room's own name is now the quiet way back to the menu
+
+A room with two real players had exactly one way off the room screen: LEAVE ROOM, which hangs up on the other phone (`join-steps.ts`'s `stepBack` returns "leave" there on purpose). Nothing offered the quiet close the corner chip already relies on being safe to do. The room's code is now shown on the screen for the first time and doubles as that button: pressing it closes the screen and calls back(), the same as `#joinClose` elsewhere, and never leave() — the room stays open behind it, same as the chip already assumes.
+
 ## 2026-09-20 · 4a3bbaf8 — The lost screen's second button reads GO TO MENU, not QUIT
 
 The owner's own wording: pressing it in a real room lands on the room screen, not the app's menu, and "quit" read as ending the session outright. Only the drawn word changed — the press, the command it sends, and the room's own handling of it are untouched.
