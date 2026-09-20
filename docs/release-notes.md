@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 0973275b — Queue: THE CAIRN's second gesture is done
+
+## 2026-09-20 · 2fa5cd92 — THE CAIRN's second gesture: hold the pile and it cannot let one go
+
+A hand resting on the stack and not carried buys the pile's shed clock back a beat at a time, up to cairnHoldBeats, and then the pile sheds anyway under the thumb. The budget comes back when a unit next leaves, either way it went, so it is four beats per rock rather than four per fight. One new state, `held`, and one sentence — the owner's standing rule is that a mechanic a pair cannot say in short words is a mechanic to cut, and the pair may not be reading English.
+
 ## 2026-09-20 · b7a24f1e — Say which of ship-fields.ts's four pages a SimConfig field belongs on
 
 ## 2026-09-19 · 66d998c4 — Name bind-choreographed's -b and -c pages in the new-boss-state row
