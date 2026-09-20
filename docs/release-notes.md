@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · da8d5f63 — THE FLEET's ships are vessels rather than five stroked outlines
+
+The pilot's chart carried five hexagons with a dot on the nose, which is what §6.3 of `new-boss-more` named when it asked for this: a hull at chart scale is forty pixels long, and at that size an outline is a shape, not a ship. A hull is a plate now — a contour with a bridge raised out of its sheer, filled with one ramp across the beam so the key lights it the same way whether it lies along the chart or across it, and rimmed rather than glowing, because a lamp that size floods its own deck.
+
 ## 2026-09-20 · 0040ac20 — Eleven of the owner's asks become eleven queue entries
 
 One prompt carrying seven requests — the wave opening, the seat picker, THE GAUGE's picture, and four creatures — split into eleven entries that can each be finished in a lane and proved with `bun run check`. Each names files the tree already has and says what the answer picks between.
