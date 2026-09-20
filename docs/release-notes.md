@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 83c5e678 — One note written twice is not a disagreement, so the record merges
+
+docs/release-notes.md carries 8995ded7 twice, word for word, from 19 September 2026, and mergeRecord's byTitle refused any file with a repeated heading — so every bun run reconcile since has stopped on that file with "this one is a real disagreement, and it is yours" over a pair of blocks that agree perfectly, leaving the trunk diverged and unpushable. byTitle now refuses only when the two blocks differ; two copies of one sentence have nothing to decide between them and the second is passed over. The record itself is left as it is: entries here are never edited by hand, and nothing is dropped by the merge either, so the doubled entry survives the rebase exactly as it survived the landing.
+
 ## 2026-09-20 · 0973275b — Queue: THE CAIRN's second gesture is done
 
 ## 2026-09-20 · 2fa5cd92 — THE CAIRN's second gesture: hold the pile and it cannot let one go
