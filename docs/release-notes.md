@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 7f7ede5e — The phone's back gesture asks where to go instead of leaving
+
+Back on the field used to be the browser leaving the page mid-run, with the room still open on the other phone — and on a phone that gesture is an edge swipe, easy to do by accident with both thumbs on the glass. It now puts up the card the owner asked for by name: BACK TO MENU, QUIT GAME, CONTINUE PLAYING, over a field that stops while the question stands.
+
 ## 2026-09-20 · 710e1bfc — The step says which seat it is waiting on, and for how long
 
 The owner asked for the point in time the second seat may act to be shown, and for which seat goes first — having read an order into two poses that have none. A line now stands under both marks and says which of three things the pose actually is.
