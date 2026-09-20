@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · b7a24f1e — Say which of ship-fields.ts's four pages a SimConfig field belongs on
+
 ## 2026-09-19 · 66d998c4 — Name bind-choreographed's -b and -c pages in the new-boss-state row
 
 ## 2026-09-19 · b4caa3b5 — Split THE ANTIPHON's frame and touch tests along the organ/rail seam
