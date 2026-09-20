@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · e5afe536 — Ask whether THE REPRISE should get a gesture at all
+
+docs/spec/bosses.md §11.15 argues at length and by name for THE REPRISE's six deliberate silences and no cue in its own drawing, because a field with no body drawn on it asking nothing is stated there as the fight itself. The 18 September standing brief (skill new-boss-more §6.2) asks every boss for a gesture reached on the picture, which is the opposite. Not a call to make unilaterally for a boss this carefully argued against it, so this queues the question with the options rather than inventing a mechanic.
+
 ## 2026-09-20 · 56ff5c8f — Point the render-test-silence queue entry at real files
 
 doc-drift.test.ts's queue check takes a Files: line with no backtick-delimited items as one literal file path and fails when it doesn't exist in the tree — "unknown — never localized..." was exactly that, caught by the same lane's own land.
