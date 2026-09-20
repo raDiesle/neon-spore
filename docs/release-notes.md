@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 9a5de4a6 — Shorten the HIVE film queue title under the 80-character limit
+
+## 2026-09-20 · 4e54a1d9 — Let a matching bolt kill what THE HIVE spills, so a breach can be sealed
+
+The owner's answer (19 September 2026): a breach's spill becomes the breach's own colour, living, in place of a plain rock no bolt could ever clear — the fight was structurally unwinnable at the shipped numbers, for any seed. Sealing now costs two real shots inside one hiveSpillBeats cadence: one to kill the falling body, one to reach the top.
+
 ## 2026-09-20 · e5afe536 — Ask whether THE REPRISE should get a gesture at all
 
 docs/spec/bosses.md §11.15 argues at length and by name for THE REPRISE's six deliberate silences and no cue in its own drawing, because a field with no body drawn on it asking nothing is stated there as the fight itself. The 18 September standing brief (skill new-boss-more §6.2) asks every boss for a gesture reached on the picture, which is the opposite. Not a call to make unilaterally for a boss this carefully argued against it, so this queues the question with the options rather than inventing a mechanic.
