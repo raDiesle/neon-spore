@@ -1316,6 +1316,7 @@ what the rest of this file holds.
 ## Unverified at 05c48636: the ring's picture at BEND=1.7, and whether the pilot's…
 
 - **Found:** 2026-09-19, claude/queue-the-well-says-the-word
+- **Taken:** 2026-09-20, claude/queue-unverified-at-fbdcfa17-the-tasters-three-new-wor (claim: claude/queue-unverified-at-05c48636-the-rings-picture-at-bend)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-well.ts`, `packages/content/src/waves/act-8.ts`, `packages/render/src/boss-cue-read-r.ts`
 
 *THE WELL is the one boss that may not be given a word, and its briefing carries all of it* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
