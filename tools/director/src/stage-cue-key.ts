@@ -1,0 +1,144 @@
+import {
+  type BossCue,
+  bossCues,
+  type Field,
+  type Hold,
+  type Layout,
+  touchDown,
+  touchUp,
+  type ViewRole,
+} from "@neon-spore/render";
+import { briefingHolds, type Command, lostAsks, type World } from "@neon-spore/sim";
+import { isTyping } from "./typing.js";
+
+/**
+ * **`3` does what the field is asking**, for both seats at once.
+ *
+ * The owner's ask, 20 September 2026: *when I am in TEST and press 3, it
+ * should automatically do the required action on screen by either player 1 or
+ * player 2 or both according to current state. The pressing of 1 and 2 is not
+ * good enough, I can't test the actions at the same time when two actions are
+ * required by both players at the same time.*
+ *
+ * The seat keys (`render/desk-seat.ts`) made the one mouse either hand, one at
+ * a time, which is exactly the half a desk cannot test: THE BATON wants a
+ * `HOLD` on the pilot's bead *while* the navigator merges, and a person with
+ * one pointer can only ever be the second of those. This key is both thumbs on
+ * the same frame.
+ *
+ * **It presses the marks and nothing else.** The mark is `BossCue` — the same
+ * reading the field draws its word over (`render/boss-cue.ts`) — so there is
+ * no second list here of what a boss wants, and a key that pressed somewhere
+ * the field is not marking would be the rig lying about the game. The press
+ * goes through `touchDown` exactly as the mouse's does, so what the world is
+ * told is what a thumb on that spot would have told it.
+ *
+ * **What it cannot do, and says so rather than guessing.** A `CARRY` or a
+ * `TURN` gets the thumb *down* on the mark and no further: #34 keeps the
+ * destination out of a cue on purpose, so where to carry it is not a thing
+ * this file may read. `STILL` is skipped — the ask is for no thumb at all
+ * (THE STARE). And the three bosses that build their cues where they draw
+ * them — THE SINEW's, THE SURGE's, THE ANTIPHON's handles, and THE INSTAR's
+ * ring (`boss-cue-text.ts`) — are not in the reading, so this key is silent
+ * on them; the mouse and the seat keys are still the way through those.
+ */
+
+/** The number row and the pad, like the two seat keys beside it. */
+const CODES = new Set(["Digit3", "Numpad3"]);
+
+export interface CueKey {
+  /** Read fresh: the panel is resizable and the role switches under it. */
+  layout: () => Layout;
+  /** The same field the mouse is tested against, with this seat written in. */
+  field: () => Field;
+  world: () => World;
+  role: () => ViewRole;
+  /** The stage's own sender, so a press by key is a press by mouse — THE
+   * BALLOON's second hand and all (`stage-touch.ts`). */
+  send: (player: 1 | 2, command: Command) => void;
+}
+
+/**
+ * Which seats the key speaks for: the role's own on a seated screen, and both
+ * on the one that shows both. A press on `p1` that answered the navigator
+ * would be the desk doing something the phone in that seat cannot.
+ */
+export function cueSeats(role: ViewRole): readonly (1 | 2)[] {
+  if (role === "p1") return [1];
+  if (role === "p2") return [2];
+  return [1, 2];
+}
+
+/**
+ * One cue per seat: the most urgent mark that seat may answer, **and no mark
+ * answered twice**. A cue with no seat is either player's (`grip-push.ts`) —
+ * two thumbs on it would be two grips on one body, so the first seat takes it
+ * and the second goes on to whatever is next for it, which is usually nothing.
+ */
+export function cueAnswers(
+  cues: readonly BossCue[],
+  seats: readonly (1 | 2)[],
+): readonly { seat: 1 | 2; cue: BossCue }[] {
+  const out: { seat: 1 | 2; cue: BossCue }[] = [];
+  const taken = new Set<BossCue>();
+  for (const seat of seats) {
+    const cue = cues.find(
+      (c) => (c.seat === seat || c.seat === null) && c.kind !== "STILL" && !taken.has(c),
+    );
+    if (cue === undefined) continue;
+    taken.add(cue);
+    out.push({ seat, cue });
+  }
+  return out;
+}
+
+export function bindCueKey({ layout, field, world, role, send }: CueKey): void {
+  /** What each seat's thumb took hold of, until the key lifts — a held `3` is
+   * a held thumb, which is the only way a `HOLD` cue can be answered at all. */
+  const holding = new Map<1 | 2, { hold: Hold; x: number; y: number }>();
+
+  window.addEventListener("keydown", (e) => {
+    if (!CODES.has(e.code) || isTyping(e.target)) return;
+    // The key repeats while it is down and a thumb does not.
+    if (holding.size > 0) return;
+    // A card is up: the press belongs to the wave's opening and not to any
+    // mark, the same order the phone plays by (`stage-touch.ts`).
+    if (briefingHolds(world()) || lostAsks(world())) return;
+    const l = layout();
+    // `l.hullY` for the skin, as the round pass does (`round-draw.ts`): the
+    // one boss it is not exact for is THE UNDERTOW, whose marks ride lobes
+    // coming up through the plating, and the frame is tiles wide.
+    const cues = bossCues(l, world(), field().beatPhase, () => l.hullY);
+    for (const { seat, cue } of cueAnswers(cues, cueSeats(role()))) {
+      const t = touchDown(l, cue.x, cue.y, { ...field(), seat });
+      if (t === null) continue;
+      e.preventDefault();
+      if (t.hold) holding.set(seat, { hold: t.hold, x: cue.x, y: cue.y });
+      if (t.command) send(t.player, t.command);
+    }
+  });
+
+  /**
+   * Every thumb up, from where it went down. `where` is false for a window
+   * losing focus, which is the one lift with no point to report: player 2's
+   * muzzle swipe and player 1's tap on the cannon are decided by where the
+   * hand ended, and a shot nobody finished is worse than none (`touch.ts`).
+   */
+  const lift = (where: boolean): void => {
+    if (holding.size === 0) return;
+    const l = layout();
+    for (const [seat, held] of holding) {
+      const at = where ? { x: held.x, y: held.y } : undefined;
+      const t = touchUp(l, held.hold, { ...field(), seat }, at);
+      if (t?.command) send(t.player, t.command);
+    }
+    holding.clear();
+  };
+
+  window.addEventListener("keyup", (e) => {
+    if (CODES.has(e.code)) lift(true);
+  });
+  // A key released over another window would otherwise stay held here for
+  // good, which is a thumb nobody can lift (`render/desk-seat.ts`).
+  window.addEventListener("blur", () => lift(false));
+}

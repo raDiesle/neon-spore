@@ -22,6 +22,36 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — director-cue-key-3 — one key, both thumbs
+
+The owner's ask: *when I am in TEST and press 3, it should automatically do
+the required action on screen by either player 1 or player 2 or both according
+to current state — pressing 1 and 2 is not good enough, I can't test the
+actions at the same time when two actions are required by both players at the
+same time.* The seat keys hand the desk's one mouse to one seat at a time,
+which is exactly the half a pair's problem is made of.
+
+`3` presses the marks the field is already drawing its words over: `bossCues`
+is exported from `render/boss-cue.ts` — the reading, not the one cue a screen
+is owed — and `stage-cue-key.ts` gives each seat the most urgent mark it may
+answer, presses it through the same `touchDown` the mouse goes through, and
+holds it until the key lifts. No second list of what a boss wants, so a key
+that pressed where the field is not marking is impossible.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `boss-cue.ts`, `desk-seat.ts`, `stage-touch.ts`, `stage-field.ts`, `keys.ts`, `touch.ts`, `baton-grip.ts`, and `stage.ts` — which is at 249 lines and is why the binding went where the field already is |
+| writing | 35 | `stage-cue-key.ts`, the `bossCues` export, the wiring, the `Digit3` row, eleven tests |
+| looking | 20 | the director in the browser pane: THE BATON set to its merge, one `3`, both seats' thumbs down (`mergeThumbs` 0 → 3) and both let go on the lift |
+| friction | 10 | `preview_start` reported port 3000 and the supervisor had taken 54304; the first browser run answered nothing because a reloaded stage is paused on its opening, so a press and its lift drained into one tick and cancelled out |
+| landing | 15 | `check:fast` twice, `bun run index`, the commit, `bun run land` |
+
+**The bottleneck was proving it in the running director rather than writing
+it**: the press is eight lines, and half the lane went on finding out that the
+stage I was pressing into was not stepping.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — queue-the-batons-own-hold-cue — a word with a tile to stand in
 
 The pilot's `HOLD` was landing inside the navigator's bead. THE BATON is the

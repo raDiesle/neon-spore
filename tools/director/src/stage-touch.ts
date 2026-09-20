@@ -13,6 +13,7 @@ import {
 } from "@neon-spore/render";
 import { briefingHolds, type Command, lostAsks, type World } from "@neon-spore/sim";
 import { balloonBothHands } from "./stage-balloon-both.js";
+import { bindCueKey } from "./stage-cue-key.js";
 import { openingPress } from "./stage-opening.js";
 import type { StagePoint } from "./stage-point.js";
 
@@ -112,6 +113,12 @@ export function bindStageTouch({
     const both = balloonBothHands(role(), player, command);
     if (both) push(both.player, both.command);
   };
+  // **And the key that presses what the field is asking for**, both seats at
+  // once (`stage-cue-key.ts`). Bound here rather than in `keys.ts` because
+  // everything it needs is this binding's — the layout, the field, the world
+  // and the `send` above, which is the one place THE BALLOON's second hand is
+  // answered. It sends through that same `send` for exactly that reason.
+  bindCueKey({ layout, field, world, role, send });
   let hand: ShipHand | undefined;
   let pointer: { x: number; y: number } | undefined;
   const setHand = (h: ShipHand | null): void => {
