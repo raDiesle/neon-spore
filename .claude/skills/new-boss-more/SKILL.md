@@ -63,6 +63,10 @@ reopening a queue entry that asks this question again:**
   other's half of the sentence; a gesture on the picture is the exact thing
   those silences rule out, so the fight is exempted outright rather than given
   one.
+- **THE REPRISE**, 20 September 2026. `docs/spec/bosses.md` §11.15's own six
+  silences argue the identical case — no cue in its own drawing, nothing on
+  the picture at all — so a gesture reached on the field would be a seventh
+  silence broken on purpose rather than one the brief was right to ask for.
 
 ## 6.3 A picture that looks like something real
 

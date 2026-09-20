@@ -13287,3 +13287,23 @@ already pointing at a letter one split behind the code, not this one, and
 needed the same fix on the way past.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-the-reprise-changes-state-more-than-once-and-ask — the second half of the same answer
+
+The owner picked (b) for THE REPRISE too: exempted from §6.2 outright, the
+same shape of answer he gave THE SPLICE earlier the same morning. No code
+change — the sized work was recording it where a later lane would look
+before reopening the question: a closing paragraph in `docs/spec/bosses.md`
+§11.15, and a second entry in the exemptions list `.claude/skills/new-boss-
+more/SKILL.md` §6.2 already started for THE SPLICE.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the coordinator's relay of the owner's answer, `docs/spec/bosses.md` §11.15's own six-silences argument, and the SPLICE exemption commit (4e90beb6) as the pattern to match |
+| writing | 10 | the closing paragraph in §11.15, the second exemptions-list entry, this entry |
+| landing | 5 | `bunx tsc --noEmit`, `bun run lint`, `bun run queue done`, the commit |
+
+**No bottleneck** — the pattern already existed from the same morning's
+identical question on THE SPLICE.
+
+*Measured: the rows above are the session's own estimate.*

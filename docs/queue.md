@@ -806,39 +806,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE REPRISE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-20, main (claim: claude/queue-the-reprise-changes-state-more-than-once-and-ask)
-- **Files:** `packages/sim/src/reprise-state.ts`, `packages/sim/src/reprise.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-- **Asks:** should THE REPRISE get a gesture on the picture at all, given its own section argues at length for the opposite?
-
-It is answered today on the ordinary panel, over 2 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-**§11.15 (`docs/spec/bosses.md`) argues, at length and by name, for the
-opposite of what this brief asks.** THE REPRISE ships with **six silences** —
-no cue in its own drawing, nothing on the picture at all — because *"a field
-with no body drawn on it asks for nothing by its own picture"* is stated there
-as the fight itself. A gesture on the picture would be a seventh silence
-broken on purpose, in the one boss whose spec argues hardest for having none.
-Three ways this could go, for the owner to pick: **(a)** a gesture that fits
-inside the six silences — something read off the tear or the panel's own
-state rather than a new mark, so nothing is drawn that the pair could use to
-cheat the memory test; **(b)** THE REPRISE exempted from 6.2 outright, its
-minimalism being the point rather than an oversight; **(c)** a concrete
-gesture the owner names himself, since inventing one unilaterally for a boss
-this carefully argued is not a call a lane should make alone.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE REPRISE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

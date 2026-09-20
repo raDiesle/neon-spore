@@ -2487,6 +2487,14 @@ the two kills after the dark are of bodies nothing drew ([briefings](briefings.m
 §3.2). The paragraph this one replaces said the mechanism was not drawn yet,
 for a day after `reprise-draw.ts` landed.
 
+**Exempted from §6.2 outright** (the owner, 20 September 2026): the standing
+brief asks a multi-state boss for a gesture reached on the picture, and this
+fight's six silences above are the argument against giving it one — a mark on
+the field would be a seventh silence broken on purpose, in the one boss whose
+own spec argues hardest for having none. `docs/queue.md`'s own entry (*THE
+REPRISE changes state more than once, and asks for more than one gesture*)
+closes here rather than adding a mark.
+
 ## 11.16 THE STARE — the thing that looks, and the hands that must not move
 
 The owner asked for it on 16 September 2026, in his own words: *when the boss
