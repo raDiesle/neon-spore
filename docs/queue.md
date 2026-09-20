@@ -1287,6 +1287,7 @@ what the rest of this file holds.
 ## Unverified at c59c2b1e: THE SINEW's caught tendon has no picture yet: the swing…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, claude/queue-unverified-at-0c7934d1-the-curtains-jammed-rail (claim: claude/queue-unverified-at-c59c2b1e-the-sinews-caught-tendon)
 - **Files:** `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed.ts`, `packages/audio/src/bind-sinew.ts`, `packages/audio/src/sounds/boss-sinew.ts`
 
 *THE SINEW answers its snap-back: both hands carried APART catch the tendon* landed from a session that could not look at it. The commit touched 23 more files. What went unchecked:
