@@ -1270,6 +1270,7 @@ what the rest of this file holds.
 ## Unverified at 8ddc2c93: THE CAIRN's PULL seen on a real frame over a seven-ston…
 
 - **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
+- **Taken:** 2026-09-20, claude/queue-unverified-at-fbdcfa17-the-tasters-three-new-wor (claim: claude/queue-unverified-at-8ddc2c93-the-cairns-pull-seen-on-a)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-cairn.ts`, `packages/content/src/waves/act-8.ts`, `packages/render/src/boss-cue-read-q.ts`
 
 *THE CAIRN says the one word it can, and the dome goes to the rock they pulled* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
