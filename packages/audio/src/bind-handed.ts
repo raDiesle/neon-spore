@@ -2,8 +2,9 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol, pitchForRow } from "./bind.js";
 
 /**
- * **The bodies a hand answers**, heard: THE WEIGHT giving between two thumbs
- * and THE CAIRN losing a unit either of the two ways it can.
+ * **The bodies a hand answers**, heard: THE WEIGHT giving between two thumbs,
+ * THE CAIRN losing a unit either of the two ways it can, and THE CAIRN held
+ * so that it loses none.
  *
  * Cut out of `bind.ts` when THE CAIRN's two took that file over its length
  * limit, and along the seam three other packages have already drawn for this
@@ -18,7 +19,7 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * ordinary grip, the ordinary rock, and the ordinary price of a hand.
  */
 export function handedCue(
-  e: Extract<SimEvent, { type: "weightCrushed" | "cairnPulled" | "cairnShed" }>,
+  e: Extract<SimEvent, { type: "weightCrushed" | "cairnPulled" | "cairnShed" | "cairnHeld" }>,
   cols: number,
   rows: number,
 ): Cue {
@@ -35,6 +36,13 @@ export function handedCue(
   // instead of the lane. The grip's own file says why that matters: the other
   // player hears what a thumb is costing without being told.
   if (e.type === "cairnPulled") return { id: "ship.gripCarry", ...place };
+  // A **hold** is `ship.gripStrain`, whose catalogue entry was written for
+  // exactly this and says so: *repeated while a hand is held, so the other
+  // player hears the cost of it*. One a beat for as long as the hold lasts
+  // (`sim/cairn-hold.ts`), so the seat that cannot see the settle mark hears
+  // the pile being held and hears it stop — which is the only account player
+  // 2 gets of the second gesture at all.
+  if (e.type === "cairnHeld") return { id: "ship.gripStrain", ...place };
   // A **shed** is `boss.torchDrop`, the queen's own sound for a rock let go
   // from a height — the one thing in the catalogue already written for a boss
   // dropping a stone nobody asked it to. Louder than the pull and out of a

@@ -28,9 +28,10 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // bloom is pried open by player 1's thumb, under SCREAM it is held open
   // by it (`queen-hand.ts`) — two states the look lane owes a pose.
   queen: ["shut", "open", "pried", "held", "torch"],
-  // The pile stands, a unit is on its way down, the last is settled
-  // (`cairnWaited`, `CairnState.settleCol`).
-  cairn: ["stacked", "leaving", "settled"],
+  // The pile stands, a hand on it is buying beats off its clock, a unit is on
+  // its way down, the last is settled (`cairnWaited`, `cairnHeldNow`,
+  // `CairnState.heldBeats`, `CairnState.settleCol`).
+  cairn: ["stacked", "held", "leaving", "settled"],
   // It is a projection and changes nothing: one state (`well.ts`).
   well: ["projected"],
   // A straw being fed, a round passed, the verdict held (`spliceCurrent`).

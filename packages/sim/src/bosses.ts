@@ -56,7 +56,8 @@ export * from "./bosses-clocks.js";
 export * from "./bosses-round.js";
 // THE SCOUT, whole, and re-exported (`bosses-scout.ts`).
 export * from "./bosses-scout.js";
-export { type CairnState, cairnState, cairnWaited } from "./cairn.js";
+export { type CairnState, cairnState } from "./cairn.js";
+export { cairnHeldNow, cairnHoldLeft, cairnWaited } from "./cairn-hold.js";
 export { BOSS_KINDS, bossFillsWave } from "./entries.js";
 export {
   fleetAfloat,

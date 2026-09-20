@@ -1,6 +1,6 @@
 import type { CairnEntry } from "./boss-entries.js";
+import { cairnWaited, holdCairn, pickSettle } from "./cairn-hold.js";
 import { removeCreatures } from "./field.js";
-import { nextInt } from "./rng.js";
 import { NO_SHELL } from "./shell.js";
 import { CAIRN_COLS, clampSpanCol } from "./span.js";
 import type { Creature } from "./types.js";
@@ -35,15 +35,19 @@ import type { World } from "./world.js";
  * GHOST asks for and the plainest one this game has.
  *
  * The two ways a unit leaves are therefore the fight in one line: **pull it
- * and you choose an edge, wait and the pile chooses the middle.**
+ * and you choose an edge, wait and the pile chooses the middle.** And the
+ * third thing a hand can do is the second gesture, in `cairn-hold.ts`: rest
+ * on the pile without carrying and its clock stops for `cairnHoldBeats`,
+ * which is four beats of quiet bought at the cost of the hand that would
+ * otherwise have been pulling.
  *
  * `Creature` carries none of this. `CairnState` is the whole of it, for the
  * Warden's reason — one file owns a fight's state and nothing else writes it.
  */
 
 /**
- * Everything THE CAIRN remembers between beats, which is four integers — and
- * three of them are the fight.
+ * Everything THE CAIRN remembers between beats, which is five integers — and
+ * four of them are the fight.
  *
  * `units` is how many rocks are still stacked, which is also the health bar
  * and also the silhouette: the pile is drawn out of this number, so what the
@@ -55,6 +59,11 @@ import type { World } from "./world.js";
  * going — drawn from the rng at the moment the clock restarts, so there is a
  * whole `cairnShedBeats` in which the announcement exists to be said out loud.
  * It is on player 1's screen and on nothing player 2 can see.
+ *
+ * `heldBeats` is how much of that clock a thumb has already bought back
+ * (`cairn-hold.ts`). It is a spend rather than a switch, which is why it is
+ * stored at all: a frozen clock would need nothing remembered, and a budget
+ * needs to know what is left of it.
  *
  * Nothing is derived here that could be: how far a pull has come is the hand's
  * (`GripPush`), and which units are where in the stack is the picture's, from
@@ -73,6 +82,9 @@ export interface CairnState {
   /** The column the pile drops its own next rock into. Player 1's, and only
    * player 1's. */
   settleCol: number;
+  /** Beats of the shed clock a hand on the pile has already bought back,
+   * capped at `cairnHoldBeats` and given back when a unit leaves. */
+  heldBeats: number;
 }
 
 /**
@@ -108,6 +120,7 @@ export function installCairn(world: World, entry: CairnEntry): CairnState {
     units: entry.units ?? world.cfg.cairnUnits,
     leftBeat: 0,
     settleCol: pickSettle(world, body),
+    heldBeats: 0,
   };
 }
 
@@ -117,33 +130,6 @@ export function installCairn(world: World, entry: CairnEntry): CairnState {
 export function cairnState(world: World): CairnState | null {
   const boss = world.boss;
   return boss !== null && boss.kind === "cairn" ? boss : null;
-}
-
-/**
- * The column the pile will drop its own next rock into.
- *
- * Drawn from the rng the moment the clock restarts rather than when it runs
- * out, and that is the whole of the tell: there is something to say for the
- * `cairnShedBeats` before it happens, which is what makes it an announcement
- * instead of a surprise. Every boss in this game is reactive but announced
- * (`docs/spec/bosses.md`'s *fixed and learnable*).
- */
-function pickSettle(world: World, body: Creature): number {
-  // Any of the pile's columns a two-tile rock still fits in — four of the
-  // five, the two a hand would have chosen among them. The pile is allowed
-  // the same answers the pair has and two they do not.
-  return body.col + nextInt(world.rng, CAIRN_COLS - 1);
-}
-
-/**
- * How many beats the pile has stood whole. What `cairnShedBeats` is measured
- * against, and what render/ fills the settling rock with.
- *
- * On `waveBeat` rather than `beat`, like every other clock a boss keeps: a
- * wave the pair lost and is playing again starts its pile's patience over.
- */
-export function cairnWaited(world: World, b: CairnState): number {
-  return world.waveBeat - b.leftBeat;
 }
 
 /**
@@ -181,6 +167,10 @@ function letGo(world: World, body: Creature, b: CairnState, col: number): void {
   b.units -= 1;
   b.leftBeat = world.waveBeat;
   b.settleCol = pickSettle(world, body);
+  // The hold is given back with the clock it was spent against, either way
+  // the unit went: a pair who pull have bought their four beats again, and a
+  // pair who only ever hold find the budget is per rock and not per fight.
+  b.heldBeats = 0;
   if (b.units <= 0) removeCreatures(world, [body.id]);
 }
 
@@ -230,6 +220,10 @@ export function pullFromCairn(
 export function stepCairn(world: World, b: CairnState): void {
   const body = world.creatures.find((c) => c.id === b.creatureId);
   if (body === undefined) return; // The last unit came away; it is gone.
+  // A thumb on it with hold left buys this beat outright, before the clock is
+  // read: the second gesture, and the only thing in this fight that happens
+  // because a hand did *not* move (`cairn-hold.ts`).
+  if (holdCairn(world, b, body)) return;
   if (cairnWaited(world, b) < world.cfg.cairnShedBeats) return;
   const col = b.settleCol;
   letGo(world, body, b, col);

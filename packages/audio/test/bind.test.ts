@@ -422,6 +422,7 @@ const SAMPLES: Record<string, SimEvent> = {
   weightCrushed: { type: "weightCrushed", col: 3, row: 8 },
   cairnPulled: { type: "cairnPulled", player: 1, col: 3, row: 2 },
   cairnShed: { type: "cairnShed", col: 5, row: 2 },
+  cairnHeld: { type: "cairnHeld", col: 4, row: 2 },
   balloonTopped: { type: "balloonTopped", col: 4, row: 0 },
   bounce: { type: "bounce", col: 3, row: 6, color: "red" },
   huskRefused: { type: "huskRefused", col: 2, row: 9, kind: "purge" },

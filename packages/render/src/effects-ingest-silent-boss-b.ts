@@ -41,6 +41,12 @@ export const INGEST_SILENT_BOSS_B = [
   // next door is the dust off the seam and the whole of the transient.
   "cairnPulled",
   "cairnShed",
+  // THE CAIRN held: a hand on the pile bought a beat off its clock and
+  // nothing left the body, so there is nothing on the field to remember.
+  // What says it is the settle mark that stopped filling (`cairn-settle.ts`),
+  // read off the state every frame — a transient would be a second copy of a
+  // gauge that is already right.
+  "cairnHeld",
   // THE ANTIPHON's eleven leave nothing behind for the next frame here: the
   // body, the organs, the rail and the pits are read off the state every
   // frame, and what outlives a frame — the eruption of every pit — and the

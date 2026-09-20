@@ -75,6 +75,12 @@ export const SILENT_BOSS_B = [
   "antiphonShip",
   "antiphonBurst",
   "antiphonOut",
+  // THE CAIRN held: a hand on the pile bought a beat off its clock and
+  // nothing left the body, so there is nothing on the field to remember.
+  // What says it is the settle mark that stopped filling (`cairn-settle.ts`),
+  // read off the state every frame — a transient would be a second copy of a
+  // gauge that is already right.
+  "cairnHeld",
   // THE MIRROR's pin throws a ring off both lobes, not a burst: `mirror-grip-fx.ts`.
   "mirrorGrip",
   // THE GORGE's two thumbs and the clench throw theirs from `gorge-fx.ts`,

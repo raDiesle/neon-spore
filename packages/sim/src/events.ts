@@ -57,6 +57,13 @@ export type SimEvent =
    * the fight neither of them did, which is the whole of what it says.
    */
   | { type: "cairnShed"; col: number; row: number }
+  /**
+   * A hand rested on the pile and bought this beat off its clock
+   * (`cairn-hold.ts`). One a beat while the hold lasts, not one at the start:
+   * the seat that cannot see the settle mark hears the strain go on, and that
+   * is the only way they know the pile is still being held.
+   */
+  | { type: "cairnHeld"; col: number; row: number }
   /** `lance` is true when the shot left a full lobe — see `lance.ts`. */
   | { type: "fire"; col: number; color: Color; lance: boolean }
   /** The lobe came full: from this moment the next shot out of it is a lance. */

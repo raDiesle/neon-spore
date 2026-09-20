@@ -1782,13 +1782,58 @@ boss on it.
 A pair who have learnt the creature never see the clock run out, because a pull
 resets it — which is the other half of what the mark teaches.
 
-The whole of it is three numbers in `config-boss.ts`. `cairnRow` is where the
+**And a hand that stays still stops that clock — the second gesture, and one
+short sentence** (19 September 2026, `sim/cairn-hold.ts`): *hold the pile and it
+cannot let one go.* A finger resting anywhere on the stack and **not** carried
+buys the pile's patience back a beat at a time, up to `cairnHoldBeats`, and
+after that the pile sheds anyway under the thumb. The budget is given back when
+a unit next leaves, either way it went, so it is four beats per rock and not
+four beats per fight.
+
+It is **the grip they already have**, which is the whole reason it is allowed on
+a page that forbids a pair being told anything. `handMeans` already calls a hand
+on the cairn a `"pull"`, `cairn-hand.ts` already draws the ring the moment a
+thumb is down, and `CARRY` is already standing over the stack. So there is no
+new target, no new word, no new row in `docs/spec/controls.md` and nothing new
+to press: a pair who put a finger on the pile and did not immediately carry it
+— which every pair does, by accident, inside the first ten beats — watch the
+settle mark stop filling, and that is the teaching. Section 2's test is the one
+it is built to pass: *a gesture the pair cannot discover by trying it is a
+gesture that needs cutting.*
+
+**No new word, on purpose.** The obvious one is `HOLD` over the stack, and it is
+forbidden twice over: one mark carries one word, and `CARRY` has the mark
+already — a second reading would be two words on one body, which this page bans
+everywhere else. It is also the wrong thing to say. The hold is worth four beats
+of quiet and the fight is seven rocks that all have to be warded, so a pair told
+to hold would hold, and a pair who hold have stopped the fight rather than won
+it. The hand on the pile is the hand not pulling from it. What the four beats
+buy is the one thing the pair actually runs out of — time to say a number across
+the voice delay and get a dome under it — and a pair who need that will find it.
+
+Player 2 hears it and cannot see it. `cairnHeld` binds `ship.gripStrain`, whose
+catalogue line was written for exactly this shape — *repeated while a hand is
+held, so the other player hears the cost of it* — and it goes **once a beat for
+as long as the hold lasts**, not once at the start. The settle mark is on player
+1's screen alone, so the creak going on and then stopping is the navigator's
+whole account of whether the pile is still being held, which is this fight's own
+arrangement one gesture further on: what he can see, she has to be told, and
+what she can hear, he has to act on.
+
+The whole of it is four numbers, and they split down the seam
+`config-boss-clocks.ts` draws: a place can be read off the screen, a count has
+to be counted. The two places stay in `config-boss.ts`. `cairnRow` is where the
 pile stands, the Warden's row and for the Warden's reason: a rock let go from
 there is twelve beats from the hull, which is a sentence said, heard and acted
 on. `cairnUnits` is how many rocks are stacked, which is the length of the fight
-because every one of them is a body the field still has to answer. `cairnShedBeats`
-is the patience, and it is the fight's whole difficulty — shorten it and a pair
-who stop to clear the air are handed a lane they did not choose.
+because every one of them is a body the field still has to answer. The two
+clocks are `config-cairn.ts`, and they are one sentence between them.
+`cairnShedBeats` is the patience, and it is the fight's whole difficulty —
+shorten it and a pair who stop to clear the air are handed a lane they did not
+choose. `cairnHoldBeats` is what a still thumb buys back off it. Eight and four
+make twelve, which is exactly how long a rock takes to fall from `cairnRow` to
+the hull: a pile held to its limit lets the next one go on the beat the last one
+lands.
 
 **The words** (`render/src/boss-cue-read-q.ts`, 19 September 2026, page
 seventeen: it was written onto page four beside THE STARE's and moved off it the
@@ -1824,15 +1869,17 @@ under a rock would hand him the column he is never shown. Proved in
 `render/test/boss-cue-cairn.test.ts`, the clock's whole silence with it.
 
 **The rehearsal** (`content/src/scenes/the-cairn.ts`, 13 September 2026, five
-pages over 1680 ticks): the pilot's thumb resting on the pile through a whole
-page with nothing happening, then the same thumb carried right and one rock
-leaving the stack's right; the lane filling on his screen and on nothing hers
+pages over 1800 ticks): the pilot's thumb going down on the pile and not moving
+for a whole page — authored as nothing happening, and since 19 September 2026
+the hold demonstrating itself, four beats of the settle mark standing still —
+then the same thumb carried right and one rock leaving the stack's right; the lane filling on his screen and on nothing hers
 shows, while the pulled rock is still in the air; the dome slid under that rock
 and turned; and the rock the pile let go of on its own reaching the hull, which
 is the wave's sentence. The timing is the pile's own arithmetic — a pull at beat
-six puts the next shed at fourteen, the pulled rock lands at eighteen and the
-shed one at twenty-six — and `content/test/scene-films.test.ts` holds the
-sequence. Its first two pages came down when the field learnt to say `PULL`
+six puts the next shed at sixteen, once the two beats the resting hand bought
+are counted, the pulled rock lands at eighteen and the shed one at twenty-nine,
+which is why the loop was lengthened by two beats when the hold went in — and
+`content/test/scenes.test.ts` holds the sequence. Its first two pages came down when the field learnt to say `PULL`
 (19 September 2026) and say the halves the word may not: that nothing either
 control fires reaches the pile, and that the side the thumb goes is the lane the
 rock comes down. The dome page kept its verb, because the ward is one of the

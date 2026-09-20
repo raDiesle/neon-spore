@@ -25,6 +25,8 @@ export {
   type BossState,
   bossFillsWave,
   type CairnState,
+  cairnHeldNow,
+  cairnHoldLeft,
   cairnState,
   cairnWaited,
   enterScoutPhase,

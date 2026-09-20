@@ -1,5 +1,6 @@
 import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
+import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
 import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
@@ -75,7 +76,8 @@ export interface BossClockConfig
     MirrorConfig,
     MazeGripConfig,
     WardenHandConfig,
-    VaneHandConfig {}
+    VaneHandConfig,
+    CairnConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -101,4 +103,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...MAZE_GRIP_DEFAULTS,
   ...WARDEN_HAND_DEFAULTS,
   ...VANE_HAND_DEFAULTS,
+  ...CAIRN_DEFAULTS,
 };

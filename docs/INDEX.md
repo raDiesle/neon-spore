@@ -247,12 +247,14 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/gum.ts` | **THE GUM**: a sticky mass that falls straight down one lane, cannot be shot, is not stopped by the shield, and has to be swiped away in the air |
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
 | `packages/sim/src/cairn.ts` | THE CAIRN: a pile of seven rocks nothing fired reaches, taken apart by a hand carried sideways, and the clock that drops one itself into a lane only player 1 is shown |
+| `packages/sim/src/cairn-hold.ts` | THE CAIRN's second gesture: a hand resting on the pile stops its shed clock for four beats, on the grip the pair already has and with no new word on the field |
 | `packages/sim/src/candle-hash.ts` | What THE CANDLE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/candle-hand.ts` | **The one hand on THE CANDLE**: the flame, pulled down off the wick by the pilot, off the wire, on the tick |
 | `packages/sim/src/candle-step.ts` | THE CANDLE's clock — the drift, the turn, the last step and the black frame |
 | `packages/sim/src/candle.ts` | THE CANDLE: whether you can act in the dark |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
 | `packages/sim/src/config-candle.ts` | THE CANDLE's numbers — how many steps its glow has, how long the field takes to go black |
+| `packages/sim/src/config-cairn.ts` | THE CAIRN's two clocks: the beats the pile stands before it sheds a rock itself, and the beats a still thumb buys back off them |
 | `packages/sim/src/impact.ts` | **How heavy one body lands when it reaches the hull**, for everything the shield was never offered — the weight picks the sound, and a hit costs the wave whatever hit |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
 | `packages/sim/src/chute.ts` | THE CHUTE: the slick or the bulb thrown clear of a cracked carom |

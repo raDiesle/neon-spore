@@ -210,10 +210,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "clingFreed":
     case "clingBlast":
       return clingCue(e, cols);
-    // The three a hand answers, in `bind-handed.ts` — about a thumb, not a shot.
+    // The four a hand answers, in `bind-handed.ts` — about a thumb, not a shot.
     case "weightCrushed":
     case "cairnPulled":
     case "cairnShed":
+    case "cairnHeld":
       return handedCue(e, cols, rows);
     case "caromBounce":
     case "caromCrack":

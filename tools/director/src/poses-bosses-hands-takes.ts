@@ -3,6 +3,7 @@ import {
   antiphonHand,
   antiphonPullHand,
   cairnHand,
+  cairnHoldHand,
   spliceHand,
   undertowHand,
 } from "./boss-hands-takes.js";
@@ -10,7 +11,8 @@ import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **The states a taking brings on** — a rock out of THE CAIRN, a number down
+ * **The states a taking brings on** — a rock out of THE CAIRN, the same pile
+ * held so that none comes out of it, a number down
  * THE SPLICE's straw, the last lobe held in THE UNDERTOW's maw, THE
  * ANTIPHON's organs pitted and its ship shot — posed the way
  * `poses-bosses-hands-field.ts` poses the field bosses': the boss's wave, a
@@ -26,6 +28,12 @@ const F = "full" as const;
 const sent = (type: string) => (w: World) => w.events.some((e) => e.type === type);
 
 export const TAKE_HAND_POSES: Pose[] = [
+  bossPose(
+    "cairn",
+    "held",
+    "A thumb resting on the pile and its clock stopped: it lets none go while it is held. P1 rests a hand on it; P2 waits.",
+    { crop: F, hand: cairnHoldHand, want: sent("cairnHeld"), hold: TPB },
+  ),
   bossPose(
     "cairn",
     "leaving",

@@ -187,6 +187,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   cairnRow: "THE CAIRN — a pile of rocks taken apart by hand",
   cairnUnits: "THE CAIRN — a pile of rocks taken apart by hand",
   cairnShedBeats: "THE CAIRN — a pile of rocks taken apart by hand",
+  cairnHoldBeats: "THE CAIRN — a pile of rocks taken apart by hand",
   mirrorRow: "MIRROR",
   mirrorCarryMilli: "MIRROR",
   mirrorHoldBeats: "MIRROR",

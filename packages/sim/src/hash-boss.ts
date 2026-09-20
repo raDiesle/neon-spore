@@ -110,6 +110,10 @@ export function bossHashParts(boss: BossState | null): number[] {
     // is a rock falling down a column one phone never saw it in.
     push(boss.leftBeat);
     push(boss.settleCol);
+    // And how much of that clock a thumb has already bought back: the hold is
+    // a budget rather than a switch, so two devices that disagree about what
+    // is left of it shed on different beats a moment later.
+    push(boss.heldBeats);
   }
   if (boss !== null && boss.kind === "vane") hashVane(push, boss);
   if (boss !== null && boss.kind === "maze") {

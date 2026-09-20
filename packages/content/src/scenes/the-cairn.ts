@@ -5,15 +5,23 @@ import type { GuideScene } from "../scene-types.js";
  *
  * The pile is answered by *a hand carried sideways* — the grip's second
  * gesture (`sim/grip-push.ts`), which the game has taught only on a falling
- * rock — and a still finger on it is worth nothing at all. So the film opens
- * on exactly that: the pilot's thumb resting on the pile through a whole page
- * and nothing happening, and then the same thumb carried right and one rock
- * leaving the right of the pile (`sim/cairn.ts`, `pullFromCairn`). The carry is
+ * rock. So the film opens on the pilot's thumb going down on the pile and not
+ * moving for a whole page, and then on the same thumb carried right and one
+ * rock leaving the right of the pile (`sim/cairn.ts`, `pullFromCairn`). The carry is
  * authored on the hold that is already running, THE HAND's arrangement, and it
  * is the **pilot's** hand because `dragSeat` reads every carry as the pilot's
  * and because the pilot is the seat with nothing else to do in this fight — no
  * bolt reaches anything, and the navigator has the only dome, which is why the
  * wave's own guide asks her for the side and for how many she can be under.
+ *
+ * **The opening page was written before a still thumb did anything, and it now
+ * teaches the other gesture for free.** A hand resting on the pile stops its
+ * shed clock for `cairnHoldBeats` (19 September 2026, `sim/cairn-hold.ts`), so
+ * the page authored as *nothing happening* is the settle mark under the pile
+ * visibly not filling for four beats and then filling again with the thumb
+ * still down — which is exactly how a pair meets the hold in play, by accident,
+ * and the whole of the teaching it gets or needs. The page's words are
+ * untouched: they say the rule no cue may say, and the mark says the rest.
  *
  * The third page is the split. The pile lets a rock go by itself after
  * `cairnShedBeats` without a pull, into a column drawn on **player 1's screen
@@ -36,14 +44,29 @@ import type { GuideScene } from "../scene-types.js";
  * is that silence too — what comes away is an ordinary rock, and no boss's
  * reading cues one — so her verb is still the film's to teach.
  *
- * The timing is the pile's own. A pull at beat six puts the pile's next shed
- * at beat fourteen, the pulled rock reaches the hull at beat eighteen and the
- * shed one at beat twenty-six, and every page falls where those numbers put
- * it. The pile's next shed after that arrives during the last page, which is
- * the fight going on — it does if you leave it alone.
+ * The timing is the pile's own, and two beats of it are now bought. The thumb
+ * is down from beat one, so beats one to four are held and the clock stands;
+ * the pull at beat six restarts it and hands the budget back, and the same
+ * hand, still down until beat seven, buys one beat more. The pile's next shed
+ * therefore lands at beat sixteen rather than fourteen, the pulled rock
+ * reaches the hull at beat eighteen, and the shed one at twenty-nine — which
+ * is why the loop runs thirty beats and not twenty-eight. Page three opens on
+ * an empty lane rather than a quarter-full one and fills it five eighths of
+ * the way across: more of the gauge than it used to show, making the same
+ * claim, that it is on his screen and on nothing hers shows. The pile's next
+ * shed arrives at beat twenty-four, during the last page, which is the fight
+ * going on — it does if you leave it alone.
  */
 export const THE_CAIRN: GuideScene = {
-  ticks: 1680,
+  // Thirty beats, two more than it was written with, and the two the hold
+  // costs it. The pilot's thumb rests on the pile through the opening page and
+  // buys its shed clock back a beat at a time (19 September 2026,
+  // `sim/cairn-hold.ts`), so the pile's own shed falls on beat sixteen rather
+  // than fourteen and the rock it lets go reaches the hull on twenty-nine. The
+  // closing page is anchored at what the hull has left and has to still be
+  // running when that lands (`content/test/scenes.test.ts`), so it is two
+  // beats longer. Not one act moved: the film shows what it always showed.
+  ticks: 1800,
   bpm: 120,
   seed: 1,
   entries: [],

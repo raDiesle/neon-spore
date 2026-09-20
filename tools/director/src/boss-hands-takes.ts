@@ -59,6 +59,21 @@ export const cairnHand: Hand = (w) => {
 };
 
 /**
+ * THE CAIRN's other hand, and the one that does the least: a thumb put on the
+ * pile and **not** carried. The grip goes every tick, the way a device reports
+ * a finger that is still there, and no drag goes at all — that absence is the
+ * gesture (`sim/cairn-hold.ts`). One beat of it and the pile's clock stops and
+ * says so.
+ */
+export const cairnHoldHand: Hand = (w) => {
+  const b = cairnState(w);
+  if (b === null || b.units <= 0) return [];
+  const body = w.creatures.find((c) => c.id === b.creatureId);
+  if (body === undefined) return [];
+  return [{ player: 1, command: { kind: "grip", id: body.id } }];
+};
+
+/**
  * THE SPLICE: the cannon under the entrance whose straw carries the number
  * wanted next (`spliceWanted`) and the maw opened there, while no number is
  * on its way down and the round is not yet passed (`spliceHeard`). The pair

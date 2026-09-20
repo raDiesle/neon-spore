@@ -22,6 +22,45 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — queue-the-cairn-changes-state-more-than-once — the gesture that is a hand not moving
+
+THE CAIRN's finding asked for several states, a different gesture in each, and
+at least one reached on the picture rather than the panel. Against the owner's
+standing rule — *no complex logic which players cannot understand, and players
+may be in another language* — that is one new state and one short sentence, not
+several: **hold the pile and it cannot let one go.** A hand resting on the
+stack buys its shed clock back a beat at a time up to `cairnHoldBeats`, then
+the pile sheds anyway, and the budget comes back when a unit leaves.
+
+It costs no new gesture at all. `handMeans` already calls a hand on the cairn a
+`"pull"` and `cairn-hand.ts` already draws the ring, so the second gesture is
+the *absence* of the carry on the grip the pair already has — no `DragTarget`,
+no row in `docs/spec/controls.md`, no new cue word (`CARRY` has the mark, and
+one mark carries one word). Five of the skill's twelve registrations were
+therefore not needed, and neither was the thirteenth the last lane filed.
+`cairnWaited` takes the held beats back out of the count rather than pushing
+`leftBeat` forward, so the settle gauge `cairn-settle.ts` already draws freezes
+under a thumb with no render edit and nothing new for the player to learn.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the queue entry and `.claude/skills/new-boss-state`, `cairn.ts`, `grip.ts`, `cairn-settle.ts`, `config-boss-clocks.ts` for its seam, `leadHoldBeats` as the precedent, and §11.11 of the boss spec |
+| writing | 35 | `cairn-hold.ts`, `config-cairn.ts`, `cairn-hold.test.ts`'s eight cases, the seven registrations that applied, and §11.11's four new paragraphs |
+| looking | 0 | the picture of a held pile and its stopped mark is the second half, and a cloud session cannot judge it |
+| friction | 15 | two 250-line ceilings hit mid-edit (`config-boss.ts` at 243, `cairn.ts` at 237) and the rehearsal's own arithmetic moving underneath it |
+| landing | 20 | three `check:fast` runs, four probe runs to find where the film's rock now lands, `queue done`, the commit and the push |
+
+**The bottleneck was a rehearsal film whose opening page was authored as
+*nothing happening*.** `content/src/scenes/the-cairn.ts` opens on the pilot's
+thumb resting on the pile for a whole page, written when a still finger was
+worth nothing; it now buys four beats, which put the pile's own shed two beats
+late and the rock it lets go one tick past the end of the loop — so
+`scenes.test.ts`'s one invariant, that a film takes a hit if and only if it has
+a page anchored at the hull, went red in a file the finding never named and
+with a message about retries rather than about timing. Four probe runs to see
+it. The film gained two beats and not one act changed, and the page that was
+authored as nothing happening is now the hold teaching itself.
+
 ## 2026-09-19 — queue-the-gauge-sound — a call's two answers, and the two states they leave behind
 
 THE GAUGE was the only boss with no `SimEvent` at all, so the four new ones
