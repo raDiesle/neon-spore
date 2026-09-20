@@ -1088,6 +1088,7 @@ add the two poses and point the two rows at them.
 ## DOCUMENTATION's STATES room draws every card before the first is seen
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-20, main (claim: claude/queue-documentations-states-room-draws-every-card-befo)
 - **Files:** `tools/director/src/states-page.ts`, `tools/director/src/documentation-rooms.ts`, `tools/director/src/poses-bosses-kit.ts`, `tools/director/src/poses.ts`, `tools/director/test/boss-states.test.ts`
 
 The owner said the documentation pages open slowly (18 September 2026).
