@@ -11,6 +11,18 @@ import type { SimConfig } from "@neon-spore/sim";
  * rather than a mechanic that landed and stayed invisible. `ship.ts` reads
  * this to build TUNING's ship cards; `packages/sim/src/briefing.ts`'s closed list
  * over creature kinds is the same idea against a union instead of an object.
+ *
+ * **The error names this file; the row it wants may not belong here.** This
+ * object is assembled from three pages, spread in — `...BALLOON_FIELDS`,
+ * `...ROUND_FIELD_GROUP` — and `ROUND_FIELD_GROUP` itself spreads in
+ * `CHOREO_FIELD_GROUP` (`ship-fields-round.ts`, `ship-fields-choreo.ts`, and
+ * `-choreo-b.ts` once that page fills), so `TS2741: Property '…' is missing`
+ * always reports this file's own line regardless of which page the field
+ * belongs on. A round's field goes in `ship-fields-round.ts`; a
+ * choreographed boss's goes in `ship-fields-choreo.ts` (or `-choreo-b.ts`),
+ * with its paragraph added beside it in `ship-notes-choreo.ts` (or
+ * `-choreo-b.ts`) the same way; only the ship's own dials — the ones with no
+ * boss or round of their own — are rows here.
  */
 
 // The cards themselves — their names, their order and the prose under each —

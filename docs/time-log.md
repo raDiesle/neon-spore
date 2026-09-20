@@ -12773,3 +12773,35 @@ the tree already held** — the title still read as a missing row, and only
 reading the file's own git history showed most of it had already landed.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-a-missing-simconfig-row-is-a-type-error-in-ship — the error names the assembly point, not the page
+
+`FIELD_GROUP` in `ship-fields.ts` is a `Record<keyof SimConfig, GroupName>`,
+assembled by spreading in `BALLOON_FIELDS` and `ROUND_FIELD_GROUP`, which
+itself spreads in `CHOREO_FIELD_GROUP`, which spreads in
+`CHOREO_FIELD_GROUP_B` once that page fills — four pages deep for a
+choreographed boss's own field. TypeScript's `TS2741: Property '…' is
+missing` always names `ship-fields.ts`'s own line, whichever of the four
+pages the field actually belongs on, because that is where the spread
+finally lands as one flat object. A session that has never added a field
+reads the error, opens the file it names, and finds a page it is not meant
+to edit for a boss's own dial.
+
+What the queue asked for was a comment, not a mechanism: `FIELD_GROUP`'s own
+header now says which of the four pages a field belongs on and that the
+error will name this one regardless, and the skill's counts section gets the
+same line for the `-choreo-b.ts` half it had not named.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `ship-fields.ts`, `ship-fields-round.ts`, `ship-fields-choreo.ts`, `-choreo-b.ts`, and the matching `ship-notes-*.ts` chain to confirm the routing the comment describes |
+| writing | 10 | the header addition in `ship-fields.ts`, one line in the skill's counts section |
+| looking | 0 | none |
+| friction | 5 | none beyond reading four files to state the chain correctly |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `tools/test/doc-drift.test.ts` and `tools/director/test/` (1040 pass), `bun run queue done`, the commit |
+
+**The bottleneck was reading the whole spread chain before writing one
+paragraph** — the fix itself was a comment, but a comment naming four files'
+relationship wrong would have cost the next lane more than the missing one did.
+
+*Measured: the rows above are the session's own estimate.*

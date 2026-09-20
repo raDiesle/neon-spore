@@ -1918,31 +1918,6 @@ nothing has to remember. Add them as a second set, drop the head-word
 restriction, and see what the 205 falls to; if it falls under a dozen the
 restriction can go entirely and the check triples its reach in the same run.
 
-## A missing `SimConfig` row is a type error in `ship-fields.ts`, not its page
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, main (claim: claude/queue-a-missing-simconfig-row-is-a-type-error-in-ship)
-- **Files:** `tools/director/src/ship-fields.ts`, `tools/director/src/ship-fields-choreo-b.ts`, `tools/director/src/ship-notes-choreo-b.ts`
-
-`FIELD_GROUP` is a `Record<keyof SimConfig, GroupName>` and that is the whole
-point of it — a field added to the interface and left out of the object is a
-compile error rather than a dial nobody can find. But the object is assembled
-from spread pages, and the error TypeScript raises is `TS2741: Property
-'scuttleSwingMilli' is missing` at `ship-fields.ts` line 32, which is the
-declaration of `FIELD_GROUP` and not a file the row may be written into: the
-boss rows live on the `-choreo` pages, and a session that has never added one
-reads the error, opens the file it names, finds a thousand-line record it is
-not supposed to touch, and goes looking. This lane paid that twice, once for
-`scuttleSwingMilli` and once for its note.
-
-What to do: a comment above `FIELD_GROUP` naming the pages it is spread from
-and the rule for which page a new field goes on — a boss's field to
-`ship-fields-choreo*.ts` with a sentence in `ship-notes-choreo*.ts` beside it,
-a round's to `ship-fields-round.ts`, the ship's own here — so the error names
-the object and the object names the page. The same paragraph is worth a line
-in `.claude/skills/new-boss-state`, whose counts section says *one row per new
-`SimConfig` field* without saying which of the four files it goes in.
-
 ## Unverified at 5780141b: the picture of a carried part and its ring, watched at…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

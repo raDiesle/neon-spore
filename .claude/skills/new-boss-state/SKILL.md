@@ -60,7 +60,9 @@ And the counts, which are prose rather than a list and go stale silently:
 - `docs/spec/audio.md` — the two counts in its tables, if a sound was added
 - `tools/director/src/ship-fields-choreo.ts` and `ship-notes-choreo.ts` — one
   row per new `SimConfig` field, and the fight's note rewritten if the new
-  phase changed how it ends
+  phase changed how it ends. `-choreo-b.ts` once the first page is full — the
+  error TypeScript raises names `ship-fields.ts` either way (`FIELD_GROUP`'s
+  own header there says which of the four pages a field actually belongs on)
 
 ## The page you are adding a row to is probably full
 
