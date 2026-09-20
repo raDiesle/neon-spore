@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 97fd40cb — Glob two audio test lists instead of hand-keeping them
+
+bind.test.ts's eventTypes() and catalogue.test.ts's WIRING both read a hand-kept table of filenames. Replaced both with a glob over their own directories (packages/sim/src/events-*.ts, packages/audio/src/bind*.ts), so each file's own declarations are read directly rather than copied into a list someone has to remember to update.
+
 ## 2026-09-20 · 85481385 — Never run bun test on a whole package directory: it OOMs, not hangs
 
 Bisected packages/render/test's 226 files down to a single one to rule out a broken test — briefing.test.ts alone passes in 67s, budgeted for up to three minutes by design. The banner-then-nothing only shows up running the whole directory as one process: dmesg confirms the memory cgroup kills it at ~14GB RSS, 250-330s in, --smol included.
