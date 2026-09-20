@@ -13307,3 +13307,35 @@ more/SKILL.md` §6.2 already started for THE SPLICE.
 identical question on THE SPLICE.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-1028a5b4-the-batons-swelling-socke — half a picture, and a real discovery along the way
+
+The swelling socket checks out clean: `bun run frames` with a `--boss-json`
+override showing a socket grown half again over its plain-ring neighbours,
+visibly shaking, no clipping against the STRIP cue drawn on it. Along the
+way, this session confirmed something the last several "a cloud session has
+no screen" entries assumed wrong: `bun run frames` renders a real PNG
+headless, and this session can read it back with its own Read tool — no
+browser, no device, needed. Worth remembering before queuing the next visual
+item as unverified by reflex.
+
+The merge's two rings are the half left undone. Reaching that state needs a
+real `STRIP` press at the right beat, repeated until a second bead is
+released — `--boss-json` can overlay a state but the tool rightly refuses to
+fabricate a `beads` array longer than the tick actually reached, and hand-
+building a second `BatonBead` risks a beat/flight combination the renderer
+was never proven against. Rewrote the entry narrower rather than force it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, `baton-socket-draw.ts`'s swell math, `baton-grip.ts`'s header for what the merge's two rings actually are |
+| writing | 5 | the narrowed queue entry, this log entry |
+| looking | 20 | `bun run frames` iterations to find working `--boss-json` fields and beat timing for a visible swell, then probing tick counts up to 8000 to see whether a second bead ever appears without input |
+| friction | 10 | `bun run crop`'s own CLI argument order tripped once; the `--boss-json` beads-length guard, once understood, was the right answer to "why won't this state build," not a bug |
+| landing | 5 | `bunx tsc --noEmit`, `bun run lint`, the commit |
+
+**The bottleneck was realizing a cloud session's screen assumption was
+wrong**, not the swell check itself — once `bun run frames` was tried
+instead of assumed unavailable, the socket check took minutes.
+
+*Measured: the rows above are the session's own estimate.*

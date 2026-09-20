@@ -907,20 +907,37 @@ whether a state there is a phase or any named condition of the boss. Decide
 that first — it is the same question THE GORGE's pinch and pry will ask — then
 add the two poses and point the two rows at them.
 
-## Unverified at 1028a5b4: THE BATON's swelling socket and its two handle rings, n…
+## THE BATON's merge — its two handle rings — still has no picture taken
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-1028a5b4-the-batons-swelling-socke)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/audio/src/bind-baton.ts`, `packages/audio/src/bind-choreographed.ts`
+- **Files:** `packages/render/src/baton-grip.ts`, `packages/render/test/baton-grip.test.ts`
 
-*THE BATON's arm asks for a thumb of its own, in two states* landed from a session that could not look at it. The commit touched 41 more files. What went unchecked:
+The swelling socket is now checked: `bun run tools/frames/run.ts . --wave "THE
+BATON" --ticks 220 --boss-json '{"sockets":[1,3,0,0,0,0,0,0,0,0,0],
+"swellSocket":1,"swellBeat":0,"stage":"passing"}'` (this repo's cloud sessions
+can in fact render and read a PNG this way — `bun run frames`, then read the
+file directly — this is not the screenless situation earlier entries assumed)
+shows a socket grown half again over its neighbours' plain ring, visibly
+shaking, geometry clean, no clipping or overlap with the STRIP cue above it.
 
-- THE BATON's swelling socket and its two handle rings, never seen on a real frame: the swell is a husk grown half again and shaking, and the rings are the shipped ones — a cloud session drew both with no eye
+**The merge's two rings are still unseen.** `baton-grip.ts`'s own header:
+*"the upper bead is the pilot's and the one that waited is the navigator's"* —
+one ring per seat, on one screen each, filling under its own thumb. Reaching
+that state needs a real playthrough rather than a `--boss-json` overlay: the
+frames tool checks an injected `beads` array against the length the
+simulation has actually reached at that tick and refuses a mismatch (tried
+up to tick 8000 with no player input — the sim never releases a second bead
+without a `STRIP` press on the first, so the array stays length 1 the whole
+time), and fabricating a second `BatonBead` by hand risks a `satBeat`/
+`flightTick` combination the renderer was never proven against. What is
+needed: a `--press` sequence that actually strips the first socket at the
+right beat, repeated until both beads sit in the last two sockets — or a
+frame captured straight from `packages/render/test/baton-grip.test.ts`'s own
+`merging()` helper, which already builds this exact state for its assertions
+and could write a PNG instead of just comparing hit-circles.
 
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+Open it on a machine that can drive the sequence, or extend the test helper
+to dump a frame, and then take this entry out with `bun run queue done`.
 
 ## Unverified at 1ceb748c: THE UNDERTOW's five cues seen in a frame: no PNG was ta…
 
