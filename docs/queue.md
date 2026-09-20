@@ -1846,35 +1846,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `bun test packages/render/` prints its banner and nothing else
-
-- **Found:** 2026-09-20, claude/queue-the-vanes-arm-is-drawn-sweeping-while-a-thumb-is
-- **Taken:** 2026-09-20, claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo (claim: claude/queue-bun-test-packages-render-prints-its-banner-and-n)
-- **Files:** `tools/check/fast.ts`, `tools/check/shard.ts`, `packages/render/test/canvas-stub.ts`, `docs/commands.md`
-- **Where:** cloud
-
-`PATH="..." bun test packages/render/` (also tried as `packages/render`, with
-and without a trailing slash, piped through `tee`, redirected straight to a
-file, foreground and backgrounded) printed exactly one line —
-`bun test v1.4.2 (744846f84)` — and then nothing, three times in a row, on a
-run that otherwise reported exit code 0. No summary line, no per-file dots, no
-error. The same package passes cleanly through two other paths that exercise
-every file in it: `bun run check:fast`'s sharded runner (`tools/check/fast.ts`,
-5154 pass across 365 files including all of `packages/render`) and naming the
-package's test files explicitly a few at a time. So this is not the render
-suite failing — it is this one invocation of `bun test` against a whole
-package directory going quiet, and this lane never ran down why. Worked
-around by using `check:fast` instead, which is what `land` would have run
-anyway.
-
-Reproduce it standalone (not inside `check:fast`'s sharding) and find out
-whether `bun test <dir>` on a large-enough directory is dropping its own
-output, hanging past whatever this session's tool considered "done", or
-something specific to `packages/render`'s size or its `canvas-stub.ts`
-globals. If it turns out to be `bun test <dir>` in general, `docs/commands.md`
-should say to prefer `check:fast`/`check`'s sharded runner over a bare
-directory argument.
-
 ## THE HIVE has no rehearsal film: no `the-hive` scene exists
 
 - **Found:** 2026-09-20, claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo

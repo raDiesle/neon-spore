@@ -13037,3 +13037,42 @@ itself only as the next red test, each fix surfacing the following one. The
 lists are queued.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-bun-test-packages-render-prints-its-banner-and-n — the banner was the OOM killer, not a hang
+
+Bisected the 226 files under `packages/render/test/` by halves, then
+quarters, down to a single 13-file group and then a single file
+(`briefing.test.ts`), timing each slice on its own to rule out a specific
+broken test. Every slice up to about 57 files finished in under a minute;
+`briefing.test.ts` alone took 67 s and passed cleanly — expensive by design
+(`HANG_MS`, `cpu-time.ts`), not broken. The banner-and-nothing symptom only
+showed up once the *whole* directory ran as one process, which is the tell:
+not a hung test, a process that never got the chance to print a result.
+
+Confirmed with `dmesg`: `bun test packages/render/` run bare gets killed by
+the memory cgroup at ~14 GB RSS, 250-330 s in, whatever the invocation —
+piped, redirected, `--smol`. `tools/check/shard.ts`'s own header already
+names this exact failure mode by date (15 September 2026, a four-core image
+dealt two shards of seventy-five and "the heavier of them was killed by the
+memory cgroup every time") and the fix it already carries — a bounded
+`MAX_FILES_PER_SHARD`, one process per bin — is why `check:fast` never sees
+it. So `tools/check/fast.ts` and `shard.ts` needed nothing; the queue
+item's own guess at which files this would touch was half right and half a
+trap; `packages/render/test/canvas-stub.ts` needed nothing either, once it
+was clear the growth was `bun test`'s per-process accumulation across many
+heavy files rather than one file leaking. The fix is `docs/commands.md`
+saying plainly not to invoke `bun test` on a whole package directory.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `cpu-time.ts`, `briefing.test.ts`, `canvas-stub.ts`'s header, `tools/check/shard.ts`'s header |
+| writing | 5 | the one `docs/commands.md` paragraph |
+| looking | 25 | bisecting 226 files by half, quarter, then by hand to one file; timing that file alone; timing the whole directory twice (plain and `--smol`) to confirm the kill and rule the flag out |
+| friction | 0 | none — the harness's own 120 s backgrounding was the first clue, and `dmesg` confirmed the rest on the first read |
+| landing | 5 | `bun test tools/test/doc-drift.test.ts`, `bun run index`, `bun run queue done`, the commit |
+
+**The bottleneck was proving a negative** — that nothing in `canvas-stub.ts`
+or the sharding tools was actually broken — which took a bisection and a
+`dmesg` read, against a one-paragraph fix once it was found.
+
+*Measured: the rows above are the session's own estimate.*

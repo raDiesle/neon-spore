@@ -26,7 +26,19 @@ bun run --cwd apps/server dev   # the relay under wrangler; it prints the port
 ## Checks
 
 ```
-bun test               # everything, in one process — or one file, one package
+bun test               # everything, in one process — or one file, a few files
+                       # named directly. NEVER a whole package directory this
+                       # way: packages/render's own tests hold a frame's whole
+                       # call history live per test (canvas-stub.ts), and one
+                       # process walking all 226 of that package's files never
+                       # gets the memory back between them. It prints its own
+                       # banner and nothing else, for minutes, then the OOM
+                       # killer takes it — confirmed on this image: 250-330 s,
+                       # ~14 GB RSS, `dmesg`'s own "Memory cgroup out of
+                       # memory" naming the `bun` process, `--smol` tried and
+                       # still killed. `bun run test`/`check:fast` below run
+                       # the same files a process at a time instead and never
+                       # see it.
 bun run test           # the same, dealt into bins, cores-less-two at a time (tools/check/shard.ts)
 bun run test:determinism
 bun run test:profile   # which test files carry the minutes — docs/performance.md
