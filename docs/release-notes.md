@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 43bb4c1f — THE VANE is a machine rather than a line with a circle on the end
+
+§6.3 asked for a boss that looks like something real, and this one is the only thing in the game that is not alive: a vane is what turns when something pushes it. So it is built rather than grown. A mount across three columns carries a hub with a bolt circle round it, and the five pins are wells with a pin standing in each one the pair has not spent yet — a pin gone is a hole through the flange, which is the fight's own clock said standing still, where before it was a notch missing from a ring nobody could count. The arm is a tapered spar with a lattice through it and a fork on the end, and a counterweight on the far side of the hub, so the whole thing reads as turning on the bearing rather than sliding along the mount. One metal, one ramp down the beam, no skin and no slime anywhere on it.
+
 ## 2026-09-20 · da8d5f63 — THE FLEET's ships are vessels rather than five stroked outlines
 
 The pilot's chart carried five hexagons with a dot on the nose, which is what §6.3 of `new-boss-more` named when it asked for this: a hull at chart scale is forty pixels long, and at that size an outline is a shape, not a ship. A hull is a plate now — a contour with a bridge raised out of its sheer, filled with one ramp across the beam so the key lights it the same way whether it lies along the chart or across it, and rimmed rather than glowing, because a lamp that size floods its own deck.
