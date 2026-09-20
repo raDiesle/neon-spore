@@ -1099,6 +1099,7 @@ what the rest of this file holds.
 ## Unverified at 501beac7: the PNG of MOVE and BURN standing on a real frame was n…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on (claim: claude/queue-unverified-at-501beac7-the-png-of-move-and-burn)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-c.ts`
 
 *THE ORRERY says the column, and the briefing comes down* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
