@@ -26,11 +26,7 @@ import { BOSS_GROUPS, BOSS_POSES, statesOwed } from "../src/poses-bosses.js";
  * strand held, a straw fed — which the first lane of this work did not pose.
  */
 
-const OWED: Partial<Record<BossKind, readonly string[]>> = {
-  // THE HIVE's down: a breach that has spilled once cannot be sealed, so
-  // the hand cannot bring it on (`docs/queue.md`, the HIVE item).
-  hive: ["down"],
-};
+const OWED: Partial<Record<BossKind, readonly string[]>> = {};
 
 describe("the BOSSES category", () => {
   test("names the states of every boss the simulation knows", () => {

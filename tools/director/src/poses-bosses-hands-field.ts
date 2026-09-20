@@ -21,15 +21,10 @@ import { bossPose } from "./poses-bosses-kit.js";
 /**
  * **The states the pair's hands bring on the bosses of the field** — THE
  * FLEET's chart, THE GORGE's mouth, THE CURTAIN's fabric, THE SCUTTLE's
- * hanging parts and its last one, THE HIVE's spill — posed the way `poses-bosses-hands-shots.ts` poses
- * the shot bosses': the boss's wave, a hand on the controls
- * (`boss-hands-field.ts`), the run held until the state is there.
- *
- * THE HIVE's `down` is not here: a breach that has spilled once cannot be
- * sealed — its column carries a rock every three rows and a bolt is lost on
- * one, the beam stopped by one — so the hand seals the cells that open on a
- * clear beat and no more (`docs/queue.md`, the HIVE item). Until the sim
- * answers that, `test/boss-states.test.ts` still owes it.
+ * hanging parts and its last one, THE HIVE's spill and its last one —
+ * posed the way `poses-bosses-hands-shots.ts` poses the shot bosses': the
+ * boss's wave, a hand on the controls (`boss-hands-field.ts`), the run held
+ * until the state is there.
  */
 
 export const FIELD_HAND_POSES: Pose[] = [
@@ -163,7 +158,7 @@ export const FIELD_HAND_POSES: Pose[] = [
   bossPose(
     "hive",
     "spilling",
-    "A breach is spilling and a rock eats any bolt in its column. P1 aims at a clear breach; P2 fires its colour.",
+    "A breach spills its own colour, living, down the column. P1 aims at it; P2 fires it twice: clear, then seal.",
     {
       hand: hiveHand,
       want: (w) =>
@@ -171,6 +166,12 @@ export const FIELD_HAND_POSES: Pose[] = [
       hold: 4,
     },
   ),
+  bossPose("hive", "down", "The last breach sealed. P1 aims at the wave again; P2 fires.", {
+    hand: hiveHand,
+    want: (w) => w.boss?.kind === "hive" && w.boss.downBeat >= 0,
+    hold: 6,
+    budgetBeats: 80,
+  }),
 ];
 
 /** THE GORGE in one of its named phases. */

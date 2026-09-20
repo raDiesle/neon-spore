@@ -41,10 +41,10 @@ import type { Wave } from "../wave-types.js";
  * and the design says nothing else arrives (`sim/antiphon-step.ts`).
  *
  * **THE HIVE authors nothing either, and THE SCUTTLE's way.** Every body that falls in its wave is
- * a rock an open breach spilled down its own column, on the breach's clock,
- * and a wave authored beside it would be a spill nobody could seal
- * (`sim/hive-step.ts`). What the pair's speed buys is how many breaches are
- * spilling at once, never whether one is.
+ * the breach's own colour, living, spilled down its own column on the
+ * breach's clock, and a wave authored beside it would be a spill nobody
+ * could seal (`sim/hive-step.ts`). What the pair's speed buys is how many
+ * breaches are spilling at once, never whether one is.
  *
  * **THE INSTAR authors its script and nothing that falls.** The body is the
  * wave (`instar-script.ts`, `bossFillsWave`), and **its guide says only that

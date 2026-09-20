@@ -12963,3 +12963,56 @@ found, but confirming the whole package was still green without the tool
 that is supposed to say so in one line.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo — the shield's rule was never the spill's
+
+The owner had already answered which of the three fixes to take (the insect,
+19 September 2026): the spill becomes the breach's own colour, living
+(`livingKindForColor`), in place of the unstoppable plain `meteor` — one
+line in `hive-step.ts`'s `spill()`, the same call `antiphon-step.ts` already
+makes. The read-only investigation of the previous window (`hive.ts`,
+`hive-shot.ts`, `bullet-hit.ts`, `bullets.ts`, `hive-draw.ts`, `hive-hash.ts`)
+had already confirmed no shape, hash or render change was needed — only the
+one `spawnOne` call and the tests that exercised it.
+
+The larger share of the work was everything downstream of the swap reading
+stale once it landed. The director's `hiveHand` carried an `isMeteorKind`
+column-avoidance check that made sense only while a rock blocked a column
+forever; it is dead now (a hive spill is never a `meteor`), so it came out
+rather than staying as a check that never fires. That let `tools/director/
+test/boss-states.test.ts`'s `OWED` allowance for `hive: ["down"]` come out
+too, the way the queue entry said it should — but only after actually
+authoring the `down` pose and proving it converges (a small throwaway script
+run against `bossPose`'s own `runHand`, not a guess: 54 beats with the
+budget the other field bosses use, comfortably inside the 80-beat allowance
+`scuttle`'s own `down` pose gives itself). Two other poses' notes still said
+"a rock" and needed the same correction, one of them over the sheet's
+120-character limit once reworded and trimmed twice.
+
+`docs/spec/bosses.md` §11.14 was the largest single edit: the section
+argued, in its own "departs from the design" paragraph, that a rock the
+cannon could never clear was the *settled* answer, citing the 14 September
+ruling that a rock is never shot. That paragraph, the rule-in-one-sentence
+line, the look paragraph's "not drawn" note and the closing "cannot be won"
+paragraph all described the shipped bug as the design; all four needed
+rewriting to say what the owner actually decided, not patching around the
+edges of what used to be true. Authoring THE HIVE's own rehearsal film (a
+`the-hive` scene) was named in the queue item's closing sentence but not in
+its own `Files:` line, and is a different lane's kind of work — split off as
+a new, `local`, entry rather than folded in unasked.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | carried over from the prior window: `hive.ts`, `hive-step.ts`, `hive-shot.ts`, `kinds.ts`, `bullet-hit.ts`, `bullets.ts`, `hive-draw.ts`, `hive-hash.ts`, `hive.test.ts`, `config-shot.ts`; this window: `boss-hands-field.ts`, `poses-bosses-hands-field.ts`, `poses-bosses-first.ts`, `boss-states.test.ts`, `poses-bosses-kit.ts` |
+| writing | 30 | the `spill()` fix and two doc comments, the existing test's kind/colour check, the new real-bolt win test, the `hiveHand` simplification, the `down` pose, three pose-note rewrites, four passages of `docs/spec/bosses.md` §11.14, the follow-up queue entry |
+| looking | 5 | a throwaway script against `bossPose`'s `runHand` to confirm the new `down` pose actually converges, rather than assuming the budget |
+| friction | 5 | two pose notes came in over the sheet's 120-character limit on the first try and needed trimming twice |
+| landing | 15 | `bunx tsc --noEmit`, `bun test packages/sim/test/` (9593 pass), `bun test tools/director/` (1040 pass), `bun test tools/test/doc-drift.test.ts`, `bun run index`, `bun run queue done`, the commit |
+
+**The bottleneck was the doc, not the code.** The fix itself was one line
+and a template already proven by THE ANTIPHON; most of this window went to
+finding and rewriting every place — a director hand's dead check, a stale
+pose note, a whole page of spec arguing for the bug as the design — that had
+quietly become false the moment the spill stopped being a rock.
+
+*Measured: the rows above are the session's own estimate.*

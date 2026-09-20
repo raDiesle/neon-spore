@@ -21,10 +21,11 @@ import {
   slowing,
   startWave,
   step,
+  type TimedCommand,
   ticksPerBeat,
   type World,
 } from "../src/index.js";
-import { otherColor } from "../src/kinds.js";
+import { livingKindForColor, otherColor } from "../src/kinds.js";
 import type { Bullet, Color } from "../src/types.js";
 
 /**
@@ -62,11 +63,13 @@ function body(world: World): HiveState {
   return s;
 }
 
-/** Run `n` beats, and say which of the boss's events went by. */
-function beats(world: World, n: number): Set<string> {
+/** Run `n` beats, feeding any timed inputs on their tick, and say which of the boss's events went by. */
+function beats(world: World, n: number, inputs: TimedCommand[] = []): Set<string> {
+  const byTick = new Map<number, TimedCommand[]>();
+  for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
   const seen = new Set<string>();
   for (let i = 0; i < n * TPB; i++) {
-    step(world, []);
+    step(world, byTick.get(world.tick) ?? []);
     for (const e of world.events) seen.add(e.type);
   }
   return seen;
@@ -149,7 +152,7 @@ describe("the clock", () => {
     expect(s.opened).toBe(2);
   });
 
-  it("spills a plain rock down every open column every hiveSpillBeats, and nothing from a sealed one", () => {
+  it("spills the breach's own colour, living, down every open column every hiveSpillBeats, and nothing from a sealed one", () => {
     const world = open();
     untilOpened(world, 2);
     const s = body(world);
@@ -158,9 +161,11 @@ describe("the clock", () => {
     world.creatures.length = 0;
     const seen = beats(world, CFG.hiveSpillBeats);
     expect(seen.has("hiveSpill")).toBe(true);
-    const spilled = world.creatures.filter((c) => c.kind === "meteor");
+    const color = s.colors[1] ?? "red";
+    const spilled = world.creatures.filter((c) => c.kind === livingKindForColor(color));
     expect(spilled).toHaveLength(1);
     expect(spilled[0]?.col).toBe(s.cols[1]);
+    expect(spilled[0]?.color).toBe(color);
     expect(world.creatures.some((c) => c.col === a.col)).toBe(false);
   });
 
@@ -222,6 +227,36 @@ describe("the seal", () => {
     const a = firstOpen(world);
     hiveStruck(world, shot(world, a.col, a.color, true));
     expect(body(world).sealed[a.i]).toBe(true);
+  });
+
+  it("is won by two real shots inside one hiveSpillBeats cadence: one clears the spilled body, one seals the breach", () => {
+    const world = open();
+    untilOpened(world, 1);
+    const a = firstOpen(world);
+    // Run real ticks — not the by-hand `hiveStruck` the rest of this file
+    // uses — until the clock's own cadence spills the breach's living body,
+    // the way `bullets.ts` and `hive-step.ts` actually hand a game one.
+    let spilled = false;
+    for (let i = 0; i < 50 * TPB && !spilled; i++) {
+      step(world, []);
+      spilled = world.events.some((e) => e.type === "hiveSpill" && e.col === a.col);
+    }
+    expect(spilled).toBe(true);
+    expect(
+      world.creatures.some((c) => c.col === a.col && c.kind === livingKindForColor(a.color)),
+    ).toBe(true);
+    // One shot to kill the body blocking the column, a beat later a second to
+    // travel the now-clear column and reach the top: both land inside the
+    // one cadence before the next body falls (`hive-shot.ts`).
+    const at = world.tick;
+    const seen = beats(world, 3, [
+      { tick: at, player: 1, command: { kind: "cannonCol", col: a.col } },
+      { tick: at + 2, player: 2, command: { kind: "fire", color: a.color } },
+      { tick: at + TPB, player: 2, command: { kind: "fire", color: a.color } },
+    ]);
+    expect(seen.has("hiveSeal")).toBe(true);
+    expect(body(world).sealed[a.i]).toBe(true);
+    expect(world.creatures.some((c) => c.col === a.col)).toBe(false);
   });
 });
 

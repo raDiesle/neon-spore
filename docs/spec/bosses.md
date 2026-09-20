@@ -2154,7 +2154,7 @@ how many have **opened** (the sites open in the seed's order, so *opened*
 is a count), the beat of the last opening, the beat of the last spill and
 the beat the last seal was made. It **fills its wave** (`bossFillsWave`, not
 on the exclusion list, THE SCUTTLE's case): `act-7f.ts`'s "THE HIVE" has no
-entries at all, because every arrival in the fight is a rock a breach
+entries at all, because every arrival in the fight is a body a breach
 spilled, and a body authored beside it would be a spill nobody could seal.
 
 **The rule, in one sentence.** After `hiveLookBeats` (4) the first site
@@ -2162,8 +2162,11 @@ spilled, and a body authored beside it would be a spill nobody could seal.
 `hiveOpenBeats` (8), and from the `hiveTwinFrom`-th (5th) opening **two at
 once**; `hiveSwellBeats` (3) before a site opens it **swells** (`hiveSwell`,
 said once with the column); and every `hiveSpillBeats` (3) **every open
-breach spills** a plain `meteor` at the top of its own column (`hiveSpill`,
-`spawnOne`), which the shield turns and the cannon cannot. A bolt that
+breach spills** its own colour, living (`livingKindForColor`), at the top
+of its own column (`hiveSpill`, `spawnOne`) — a body a matching bolt kills
+the way any other coloured body is killed, and is spent doing so, so
+sealing a breach costs two shots inside the one cadence: one to clear the
+column, one to reach the top. A bolt that
 nothing on the field stopped and that leaves through the top
 (`sim/hive-shot.ts`, called from `bullets.ts` and `lance-burn.ts` beside
 `scuttleStruck`) in an open breach's column *and* its colour **seals** it for
@@ -2175,7 +2178,7 @@ exactly as a bolt does. The last seal opens THE SLOW for `hiveSlowBeats`
 (1) (`hiveDown`), and the body is gone `hiveOutBeats` (3) later (`hiveOut`,
 the boss nulled, the wave allowed to end). **Nothing slows the opening
 clock**: sealing a breach the beat it opens and sealing it seven beats later
-both leave the next opening where it was; the difference is fourteen rocks.
+both leave the next opening where it was; the difference is fourteen bodies.
 
 **The split is the eyes, and it is the look lane's.** Both seats are shown
 which sites are open and which are sealed. **Player 1 alone is shown a
@@ -2206,21 +2209,26 @@ say regardless of what the field marks.
 
 **Where this departs from the design, and why.** The design left four
 things open and called each a decision rather than a detail; here is each,
-by name. *An insect is a rock, warded and never shot*: a body the cannon
-could answer would give the cannon two jobs — clear the spill or seal the
-source — and the pair would clear the spill, because it is the one in front
-of them; a rock gives the cannon one job, and the shield one, so the two
-seats' hands are split as cleanly as their eyes (the ruling of 14 September
-2026 that a rock is never shot already stands, `isWardable`). The look lane
-owes it a body of its own; the simulation owes it a column and a tier. *A
+by name. *An insect is a rock, warded and never shot* was the first lane's
+reading — a body the cannon could answer would give the cannon two jobs,
+clear the spill or seal the source, and a rock gives it one, so the two
+seats' hands stay split as cleanly as their eyes. It made the fight
+unwinnable: a rock is one of the bodies a bolt never kills
+(`struckWithoutKilling`), so it stood in the column for good and the seal
+could never be reached (`docs/queue.md`, *THE HIVE cannot be won*). The
+owner's answer, 19 September 2026, reversed it: the spill **is** the
+design's insect, living (`livingKindForColor`), shot the way every other
+coloured body is — the cannon does clear it, and clearing it is the first
+of the two shots a seal now costs. The shield has no part in it any more;
+*rocks are for the shield* is a rule the spill never was. *A
 breach's colour is one seat's read*, the design's own preference, and the
 seat is the one that cannot fire; the swell is the other seat's, so the
 split is symmetric and each has one word the other needs. *The opening
 clock is fixed and sealing does not slow it*: a clock the pair could slow is
 a clock they could stop, and then the fight has no length; with the clock
 fixed the fight is nine sites long whatever they do, and what their speed
-buys is how many breaches are open at once — two rocks a cycle for the pair
-that seals as it opens, four and then six for the pair that does not. The
+buys is how many breaches are open at once — two bodies a cycle for the
+pair that seals as it opens, four and then six for the pair that does not. The
 twins from the fifth opening are the design's *more breaches open over
 time*. *It has no health of its own*: the design's last question, answered
 no, because a body that could be shot down would make the sealing optional,
@@ -2247,33 +2255,39 @@ middle and fades over `hiveOutBeats` (`hive-fx.ts`, `effects.boss.hive`).
 The bursts of its nine receipts are thrown at the underside over the
 event's column on both screens, an opening's in its colour only where the
 colour is drawn. THE MOTHER's *reactive, but announced* is here as the
-swell — three beats of warning before every opening. The insect as a body
-of its own is still not drawn: a rock stands in for it, and the ledger
-says so.
+swell — three beats of warning before every opening. The insect is drawn
+as a body of its own: `hive-draw.ts` only draws the mass and its sites, and
+the spilled slick or bulb is the game's ordinary creature pass, already
+built for either colour.
 
-**Never watched at tempo.** Thirteen tests in `sim/test/hive.test.ts` prove
+**Never watched at tempo.** Fourteen tests in `sim/test/hive.test.ts` prove
 the sites distinct and inner, the order the seed's, the wave held and
 filled, the look–swell–open cadence, the spill from open sites alone, the
 twins from the fifth opening, the seal for good and the skin after it, the
-provoke, the beam, the end under THE SLOW and the hash's determinism; no
-eye has seen nine breaches spilling into one shield at eight beats an
-opening. `hiveOpenBeats`, `hiveSpillBeats` and `hiveTwinFrom` are the
-three dials, and they are on the director's sheet.
+provoke, the beam, the end under THE SLOW and the hash's determinism, and —
+since 20 September 2026 — a run that fires real bolts up a real column and
+wins the wave; no eye has still seen nine breaches spilling into one
+shield at eight beats an opening. `hiveOpenBeats`, `hiveSpillBeats` and
+`hiveTwinFrom` are the three dials, and they are on the director's sheet.
 
-**And it cannot be won as it stands** — found on 18 September 2026 by the
+**It could not be won as it shipped** — found on 18 September 2026 by the
 rehearsal lane, which could not author a film that wins it. A bolt stops at
 the first body in its column and a rock takes a crater from it
-(`struckWithoutKilling`), a plain `meteor` is thirteen beats from row 0 to
+(`struckWithoutKilling`), a plain `meteor` was thirteen beats from row 0 to
 the shield's row, and an open breach spills one every three: from its first
-spill a breach's column is never empty, so *a breach is sealed between its
-spills* above is true only of the two beats between an opening and the
+spill a breach's column was never empty, so *a breach is sealed between its
+spills* above was true only of the two beats between an opening and the
 cadence. The cadence is one clock for every breach and `open` runs before
-`spill`, so the second site and the fifth open on a spill beat and can never
-be sealed, for any seed; and two open breaches spill on one beat into a
-shield that stands in one column, and the second rock sinks. The thirteen
-tests never fire a bolt up a column. The three answers, and what each costs,
-are in `docs/queue.md` (*THE HIVE cannot be won*), and the film waits on the
-one the owner picks.
+`spill`, so the second site and the fifth open on a spill beat and could
+never be sealed, for any seed; and two open breaches spilling on one beat
+into a shield that stands in one column sank the second rock. The thirteen
+tests of the day never fired a bolt up a column. The owner picked the
+insect, 19 September 2026, over the fast rock and the pass
+(`docs/queue.md`, *THE HIVE cannot be won*) — the reasoning is above, in
+*Where this departs from the design* — and the sim was fixed the next day,
+20 September 2026. The film — a `the-hive` scene under
+`content/src/scenes/`, the rehearsal lane's own kind of work — is still
+owed; it is a fresh line in `docs/queue.md`, not this one.
 
 ## 11.15 THE REPRISE — the wave you have just beaten, sent again unseen
 

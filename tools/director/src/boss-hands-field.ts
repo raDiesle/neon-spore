@@ -11,8 +11,6 @@ import {
   gorgePhase,
   hiveBoss,
   hiveOpen,
-  isMeteorKind,
-  occupiesCol,
   type ScuttleState,
   scuttleBoss,
   scuttlePartCol,
@@ -214,10 +212,12 @@ export const scuttleHand: Hand = (w) => {
 
 /**
  * THE HIVE: an open breach's colour up its column seals it (`hiveStruck`).
- * The spill down a column eats a bolt (`hole`) and the beam stops at a rock
- * (`burnColumn`), so the hand takes the first open breach whose column is
- * clear of rocks, the way the pair picks the cell nothing is falling from.
- * Sealed cells are left alone: a bolt into one provokes the next opening.
+ * The spill down it is the breach's own colour too, living
+ * (`livingKindForColor`), so it costs the hand nothing to fire at whether the
+ * body is still falling or already gone: the first shot kills it same as any
+ * coloured creature, the next reaches the top and seals — the hand just takes
+ * the first open, unsealed breach and fires whenever it can. Sealed cells are
+ * left alone: a bolt into one provokes the next opening.
  */
 export const hiveHand: Hand = (w) => {
   const s = hiveBoss(w);
@@ -225,7 +225,6 @@ export const hiveHand: Hand = (w) => {
   for (let i = 0; i < s.opened; i++) {
     if (!hiveOpen(s, i)) continue;
     const col = s.cols[i] ?? 0;
-    if (w.creatures.some((c) => isMeteorKind(c.kind) && occupiesCol(c, col))) continue;
     if (w.cannonCol !== col) return [aim(col)];
     return free(w) ? [fire(s.colors[i] ?? "red")] : [];
   }

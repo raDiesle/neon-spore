@@ -9,6 +9,7 @@ import {
   hiveSwelling,
   hiveTwins,
 } from "./hive.js";
+import { livingKindForColor } from "./kinds.js";
 import { nextInt } from "./rng.js";
 import { spawnOne } from "./spawn.js";
 import type { Color } from "./types.js";
@@ -27,11 +28,13 @@ import type { World } from "./world.js";
  * makes the pilot's read a read: an author would have written a pattern,
  * and a pattern is a thing the navigator could learn.
  *
- * **What it spills is what its wave is** (`bossFillsWave`): a plain rock at
- * the top of the breach's column, which the shield turns and the cannon
- * cannot — the design's insect, answered the way a rock is so that the
- * cannon has nothing to do but seal. The look lane owes it a body of its
- * own; the sim owes it a column and a tier.
+ * **What it spills is what its wave is** (`bossFillsWave`): the breach's own
+ * colour, living (`livingKindForColor`) rather than a rock — a matching bolt
+ * kills it same as any other coloured body, so a breach costs two shots
+ * inside one `hiveSpillBeats` cadence: one to clear the column, one to seal
+ * it, same as `antiphon-step.ts` answers its own spill. Answered by the
+ * owner, 19 September 2026: a plain rock stopped every bolt regardless of
+ * colour, so the fight could not be won at the shipped numbers.
  */
 
 /** Install it from the wave's own `boss:` entry: every site shut, the order and the colours sown by the seed. */
@@ -82,7 +85,7 @@ function open(world: World, s: HiveState): void {
   s.openBeat = world.beat;
 }
 
-/** The spill, on its cadence: a rock at the top of every open breach's column. */
+/** The spill, on its cadence: the breach's own colour, living, at the top of every open column. */
 function spill(world: World, s: HiveState): void {
   const cfg = world.cfg;
   if (world.beat - s.spillBeat < cfg.hiveSpillBeats) return;
@@ -90,7 +93,8 @@ function spill(world: World, s: HiveState): void {
   for (let i = 0; i < s.opened; i++) {
     if (!hiveOpen(s, i)) continue;
     const col = s.cols[i] ?? 0;
-    spawnOne(world, { beat: world.beat, col, kind: "meteor", color: null });
+    const color = s.colors[i] ?? "red";
+    spawnOne(world, { beat: world.beat, col, kind: livingKindForColor(color), color });
     world.events.push({ type: "hiveSpill", col });
   }
 }

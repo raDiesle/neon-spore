@@ -171,7 +171,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "hive",
     "open",
-    "The first breach spills a rock every three beats. P1 sees its colour and says it; P2 fires that colour up it.",
+    "The first breach spills its own colour, living, every three beats. P1 says its colour; P2 fires that colour up it.",
     { want: (w) => w.boss?.kind === "hive" && hiveOpenCount(w.boss) > 0, hold: TPB * 2 },
   ),
 ];

@@ -14,9 +14,12 @@ import type { World } from "./world.js";
  * breach's column and its colour seals it for good; the other colour
  * provokes the body, and every open breach spills `hiveProvokeBeats`
  * sooner; any column with no open breach over it is skin, said and
- * nothing. A rock spilling down the column stops the bolt before it gets
- * here, which is the fight: a breach is sealed between its spills, and
- * the pair that lets three open has three cadences to find a gap in.
+ * nothing. The spilled body (`hive-step.ts`) stops a bolt before it gets
+ * here same as any coloured creature does — a matching shot kills it and
+ * is spent doing so, so a breach takes two shots to seal: one to clear
+ * the column, one to reach the top. Both have to land inside the one
+ * cadence before the next body falls, and the pair that lets three open
+ * has three cadences to find the gap in.
  *
  * **The beam seals like a bolt does.** It has a colour and a column, and
  * the design gives the breach nothing the lance is the sole answer to; a
