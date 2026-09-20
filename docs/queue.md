@@ -238,7 +238,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The phone's back gesture leaves the game instead of asking
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-the-phones-back-gesture-leaves-the-game-instead)
 - **Files:** `apps/game/src/shell.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-door.ts`, `apps/game/src/menu-parts.ts`, `apps/game/src/confirm.ts`, `apps/game/src/sign-in.ts`
 - **Where:** local
 - **Asks:** Should back open the menu the game already has, or a three-button question of its own over the field?
