@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 7260d54e — Act seven gets a new act-7d.ts: THE DIASTOLE and THE BATON, letters shifted
+
+`act-7c.ts` had no room for a ninth wave (241 of 250 lines, eight waves) and no letter of its own to give one, since it is not the last page of act seven. Per the standing convention docs/queue.md settled for exactly this shape of overflow, THE DIASTOLE and THE BATON — act-7c.ts's own last two waves — take a new act-7d.ts, and every later page shifts up one letter: the old act-7d.ts/act-7e.ts/act-7f.ts become act-7e.ts/act-7f.ts/act-7g.ts.
+
 ## 2026-09-20 · 4e90beb6 — Exempt THE SPLICE from the standing gesture brief
 
 The owner's answer (20 September 2026): (b), THE SPLICE stays as it is. Its own section already argues the case — four silences built so neither seat is handed the other's half of the sentence — so a gesture on the picture is the exact thing that design rules out rather than a gap in it.
