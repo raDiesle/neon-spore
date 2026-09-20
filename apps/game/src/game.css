@@ -187,6 +187,13 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
     monospace;
   letter-spacing: 0.2em;
 }
+/* The room step's own way back, standing where `.back` stands on every other
+   step — the code is a candidate's since it doubles the "which room am I in"
+   line already up here (`join.ts`), so it is the same look with the room's
+   own code in place of "MENU". */
+#joinScreen .room-tag {
+  margin: 0 0 14px;
+}
 #joinScreen h2 {
   font-size: 13px;
   letter-spacing: 3px;

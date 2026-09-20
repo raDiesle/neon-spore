@@ -1631,13 +1631,3 @@ selection before it lets you play. Going back from a wave should jump
 straight back into a wave, not through that setup again. The owner also
 wants a wave filter on that screen like the one the director already has
 (`rail-filter.ts`) — wants to find a wave by name rather than scroll for it.
-
-## A room, for real players, has no way back to the main menu
-
-- **Found:** 2026-09-20, the owner
-- **Taken:** 2026-09-20, claude/queue-unverified-17ed660e (claim: claude/queue-a-room-for-real-players-has-no-way-back-to-the-m)
-- **Files:** `apps/game/src/join-room.ts`, `apps/game/src/join-room-step.ts`, `apps/game/src/menu-bindings.ts`
-
-A regular (non-solo) game's room screen has no way out to the app's main
-menu at all right now. The owner wants the room name itself to double as
-that button.

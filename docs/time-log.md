@@ -14074,3 +14074,32 @@ button hasn't shown yet" when the real gap was sim ticks, not painted
 seconds.**
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-room-back-to-menu — the room's own name, doubled as the door out
+
+A real (non-solo) room screen had exactly one way off it: LEAVE ROOM, which
+hangs up on the other phone. `join-steps.ts`'s own `stepBack` already says
+so — it returns `"leave"` for every step once two peers are in a room, on
+purpose, because the quiet arrow the earlier steps get would be a lie once
+there is somebody on the other end. What was missing was a *quiet* way
+back at all: closing the screen without ending anything, the way the
+corner chip already reopens it. The owner's own fix, from `join-chip.ts`'s
+own idea: put the room's code on the screen (it was nowhere on step 4 at
+all) and let a press on it do what `#joinClose` already does elsewhere —
+close the screen and call `back()` — never `leave()`. The corner chip
+(`join-chip.ts`) is what gets a player back into the room from the menu,
+so nothing here needed to know how to reconnect anything.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `join-room.ts`, `join-steps.ts`, `join-step-view.ts`, `join.ts`, `join-chip.ts` — working out that `stepBack` already refuses a quiet way out on purpose, and that the chip is what makes closing safe |
+| writing | 15 | one button in `index.html`, its CSS, and the paint/click wiring in `join.ts` |
+| looking | 15 | a Playwright screenshot of the room step at phone width, DOM-forced into the two-peer state `stepBack` describes, since `tools/frames` only photographs `#stage` and this is a DOM screen |
+| friction | 10 | `bun run preview:once` needs `PREVIEW_HOST=127.0.0.1` in this environment, and a first attempt backgrounded the server with a bare `&` before switching to the sanctioned way |
+| landing | 10 | `bun run check:fast`, this log entry, the queue closure, the commit |
+
+**The bottleneck was proving a DOM screen's layout at all** — the frame
+tool's whole contract is a canvas, and this button lives beside it, not on
+it.
+
+*Measured: the rows above are the session's own estimate.*

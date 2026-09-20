@@ -72,6 +72,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const closeEl = document.getElementById("joinClose");
   const backEl = document.getElementById("joinBack");
   const leaveEl = document.getElementById("joinLeave");
+  const roomTagEl = document.getElementById("joinRoomTag");
   const showStep = bindStepView();
   // Step 4 — the seats, the tempo and the two READY circles — is its own
   // binding; this sheet only hands it the status.
@@ -122,6 +123,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     nameField.paint();
     showStep(joinStep(mode, !nameField.asking(), last), mode, last);
     if (codeEl) codeEl.textContent = last.room || "————";
+    if (roomTagEl) roomTagEl.textContent = `← ROOM ${last.room || "————"}`;
     // A QUIT that stands is said here in a room, with whose press it was: the
     // two holds under it are what start the pair again (`quit.ts`).
     const quit = quitBy() !== 0 && last.state !== "solo" ? quitLine(last, b.wave()) : "";
@@ -144,6 +146,14 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
 
   const chip = bindChip(() => open(screen?.style.display !== "block"));
   closeEl?.addEventListener("click", () => {
+    open(false);
+    b.back();
+  });
+  // The room step's own way to the menu, on the room's own name — closing
+  // the screen the way `closeEl` does and never `b.leave()`, so a real room
+  // stays open behind it (`join-chip.ts` is how a player already in one
+  // reaches it again).
+  roomTagEl?.addEventListener("click", () => {
     open(false);
     b.back();
   });
