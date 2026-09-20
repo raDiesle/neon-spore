@@ -1,5 +1,6 @@
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { PALETTE } from "./palette.js";
+import { type Point, ribbonPath, ribbonSides } from "./snake-contour.js";
 import type { Arena } from "./snake-draw.js";
 
 /**
@@ -20,6 +21,10 @@ import type { Arena } from "./snake-draw.js";
  * drawing and would also make a body that changed colour when it turned a
  * corner, which is the opposite of reading as one animal.
  *
+ * **Where the edge runs is next door** (`snake-contour.ts`): this file paints
+ * what is inside a contour somebody else traced, which is what lets the venom
+ * stream borrow the shape and none of the skin.
+ *
  * The colours stay the ship's — cyan down the length, violet at the head
  * (`snake-draw.ts` on why green is not available). Stateless like everything
  * else that draws here: the only thing that outlives a frame is the gradient
@@ -34,11 +39,6 @@ export const TAIL_HALF = 0.13;
  * body's half-width. Far enough to read as a round back, near enough that the
  * dark side is still a side rather than an outline. */
 const LIT_OFFSET = 0.34;
-
-export interface Point {
-  x: number;
-  y: number;
-}
 
 const backSlot = gradientSlot<CanvasGradient>();
 
@@ -55,51 +55,6 @@ export function backGradient(ctx: CanvasRenderingContext2D, arena: Arena): Canva
     g.addColorStop(1, "#0A2530");
     return g;
   });
-}
-
-/**
- * Both sides of a tapered ribbon along `joints`, `halfAt(i)` wide at each one.
- *
- * Pulled out of `drawLength` because the lit ribbon is the same contour at a
- * smaller width — two copies of this loop would be two chances for the
- * highlight to stop following the body it is meant to be lying on.
- */
-export function ribbonSides(
-  joints: Point[],
-  halfAt: (i: number) => number,
-): { left: Point[]; right: Point[] } {
-  const left: Point[] = [];
-  const right: Point[] = [];
-  for (const [i, p] of joints.entries()) {
-    const prev = joints[i - 1] ?? p;
-    const next = joints[i + 1] ?? p;
-    // The normal of the direction the body runs in here, which for a corner is
-    // the average of the two sides — that is what rounds a turn off.
-    const dx = next.x - prev.x;
-    const dy = next.y - prev.y;
-    const len = Math.hypot(dx, dy) || 1;
-    const nx = -(dy / len) * halfAt(i);
-    const ny = (dx / len) * halfAt(i);
-    left.push({ x: p.x + nx, y: p.y + ny });
-    right.push({ x: p.x - nx, y: p.y - ny });
-  }
-  return { left, right };
-}
-
-/** The contour those two sides close into, ending in a point at the tail. */
-export function traceRibbon(
-  ctx: CanvasRenderingContext2D,
-  joints: Point[],
-  sides: ReturnType<typeof ribbonSides>,
-): void {
-  const { left, right } = sides;
-  ctx.beginPath();
-  ctx.moveTo(left[0]?.x ?? 0, left[0]?.y ?? 0);
-  for (const p of left.slice(1)) ctx.lineTo(p.x, p.y);
-  const end = joints[joints.length - 1];
-  if (end) ctx.lineTo(end.x, end.y);
-  for (const p of right.slice(0, -1).reverse()) ctx.lineTo(p.x, p.y);
-  ctx.closePath();
 }
 
 /**
@@ -162,11 +117,10 @@ export function litRibbon(
   // have — and a gradient cannot be laid across a shape that turns corners.
   // Nested widths at a low alpha stack into a falloff instead, which is the
   // same trick `glow.ts` uses on the hull for the same reason.
+  ctx.fillStyle = "rgba(191,246,255,.07)";
   for (const width of [0.62, 0.42, 0.24]) {
-    const sides = ribbonSides(lifted, (i) => halfAt(i) * width);
-    traceRibbon(ctx, lifted, sides);
-    ctx.fillStyle = "rgba(191,246,255,.07)";
-    ctx.fill();
+    const inner = (i: number): number => halfAt(i) * width;
+    ctx.fill(ribbonPath(lifted, ribbonSides(lifted, inner)));
   }
 }
 
@@ -224,8 +178,8 @@ export function drawScales(
 }
 
 /** The rim light along the body's edge, over the fill and under the spine. */
-export function rimStroke(ctx: CanvasRenderingContext2D): void {
+export function rimStroke(ctx: CanvasRenderingContext2D, path: Path2D): void {
   ctx.strokeStyle = PALETTE.shield;
   ctx.lineWidth = 1.6;
-  ctx.stroke();
+  ctx.stroke(path);
 }

@@ -1,4 +1,5 @@
 import { PALETTE } from "./palette.js";
+import { ribbonCutPath, ribbonPath, ribbonSides } from "./snake-contour.js";
 import type { Arena } from "./snake-draw.js";
 import {
   backGradient,
@@ -7,10 +8,8 @@ import {
   drawScales,
   HEAD_HALF,
   litRibbon,
-  ribbonSides,
   rimStroke,
   TAIL_HALF,
-  traceRibbon,
 } from "./snake-skin.js";
 
 /**
@@ -51,7 +50,9 @@ export function drawJointRibbon(
  *
  * Built as one filled contour rather than a stroked path: a stroke is the same
  * width everywhere, and the taper is half of what makes this read as an animal
- * — the other half is the spine, drawn over it.
+ * — the other half is the spine, drawn over it. The contour is a spline and
+ * not a chain of straight lines, which is the difference between an animal and
+ * a six-sided polygon of one (`snake-contour.ts`).
  *
  * Four passes over that one contour, in the order light arrives: a shadow on
  * the floor, the arena's own gradient as the fill, then the scales and the lit
@@ -64,26 +65,48 @@ function drawLength(
   arena: Arena,
   joints: { x: number; y: number }[],
 ): void {
-  const half = (i: number): number =>
-    arena.tile * (HEAD_HALF + (TAIL_HALF - HEAD_HALF) * (i / Math.max(1, joints.length - 1)));
-  const sides = ribbonSides(joints, half);
+  const half = bodyHalf(arena, joints.length);
+  const path = ribbonPath(joints, ribbonSides(joints, half));
 
   castShadow(ctx, arena);
-  traceRibbon(ctx, joints, sides);
   ctx.fillStyle = backGradient(ctx, arena);
-  ctx.fill();
+  ctx.fill(path);
   clearShadow(ctx);
 
   ctx.save();
-  traceRibbon(ctx, joints, sides);
-  ctx.clip();
+  ctx.clip(path);
   drawScales(ctx, arena, joints, half);
   litRibbon(ctx, joints, half);
   ctx.restore();
 
-  traceRibbon(ctx, joints, sides);
-  rimStroke(ctx);
+  rimStroke(ctx, path);
   drawSpine(ctx, arena, joints);
+}
+
+/** Where the neck is narrowest, and how many joints it takes to swell out of
+ * it into the body's own width. */
+const NECK_HALF = 0.27;
+const NECK_JOINTS = 1.5;
+
+/**
+ * How wide the body is at each of its joints.
+ *
+ * **There is a neck.** The width used to start at the body's own widest and
+ * fall from there, which put the body's widest point flush against the back of
+ * the head — and a head exactly as wide as the thing behind it does not read
+ * as a head, it reads as the end of a tube. A snake is narrow behind the
+ * skull and widest a body's width further back, so the ribbon pinches at the
+ * first joint, swells over the next one and a half and tapers from there. The
+ * head's own outline is then wholly visible, which is what makes the body
+ * come out from *under* it (`snake-jaw.ts`).
+ */
+function bodyHalf(arena: Arena, count: number): (i: number) => number {
+  const last = Math.max(1, count - 1);
+  return (i) => {
+    const swell = Math.min(1, i / NECK_JOINTS);
+    const body = HEAD_HALF + (TAIL_HALF - HEAD_HALF) * (i / last);
+    return arena.tile * (NECK_HALF + (body - NECK_HALF) * swell);
+  };
 }
 
 /**
@@ -116,35 +139,36 @@ function drawSpine(
 }
 
 /**
- * The tail alone — player 1's half of the body. A short taper at the last
- * joint, so the end reads as an end and not as a segment that stopped.
+ * The tail alone — player 1's half of the body.
+ *
+ * **The last two joints and not one more.** It is the same contour the whole
+ * length is drawn with, so the end player 1 sees is the end player 2 is
+ * looking at rather than a triangle that resembles it; and it stops at two
+ * because a third would hand the seat with the trigger a tile of the middle,
+ * which is the one thing they are not allowed to know.
  */
 function drawEnds(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
   joints: { x: number; y: number }[],
 ): void {
-  const end = joints[joints.length - 1];
-  const before = joints[joints.length - 2];
-  if (!end || !before) return;
-  const dx = end.x - before.x;
-  const dy = end.y - before.y;
-  const len = Math.hypot(dx, dy) || 1;
-  const half = arena.tile * 0.22;
-  const nx = -(dy / len) * half;
-  const ny = (dx / len) * half;
-  const trace = (): void => {
-    ctx.beginPath();
-    ctx.moveTo(before.x + nx, before.y + ny);
-    ctx.lineTo(end.x + dx * 0.3, end.y + dy * 0.3);
-    ctx.lineTo(before.x - nx, before.y - ny);
-    ctx.closePath();
-  };
+  const tail = joints.slice(-2);
+  if (tail.length < 2) return;
+  const half = (i: number): number => arena.tile * (0.24 + (TAIL_HALF - 0.24) * i);
+  const path = ribbonPath(tail, ribbonSides(tail, half));
   castShadow(ctx, arena);
-  trace();
   ctx.fillStyle = backGradient(ctx, arena);
-  ctx.fill();
+  ctx.fill(path);
   clearShadow(ctx);
-  trace();
-  rimStroke(ctx);
+  // The same passes as the whole length, and for the reason the whole length
+  // has them: filled and rimmed and nothing else, a stub this narrow read as an
+  // empty cone lying on the grid rather than as the end of an animal the player
+  // cannot see the rest of. Scales and a lit side cost two more passes over a
+  // two-joint contour and make it the same skin.
+  ctx.save();
+  ctx.clip(path);
+  drawScales(ctx, arena, tail, half);
+  litRibbon(ctx, tail, half);
+  ctx.restore();
+  rimStroke(ctx, ribbonCutPath(tail, ribbonSides(tail, half)));
 }

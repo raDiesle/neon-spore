@@ -300,18 +300,24 @@ the fourth, on the hazard's own row 7.5, that did not end in the hazard
 within seventy ticks. The film ends with the three banked and the fourth
 left hanging.
 
-## SNAKE's picture looks like something real
+## SNAKE's board looks like something real
 
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-20, claude/queue-the-vanes-picture-looks-like-something-real (claim: claude/queue-snakes-picture-looks-like-something-real)
-- **Files:** `packages/render/src/snake-body.ts`, `packages/render/src/snake-crash.ts`, `packages/render/src/snake-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Found:** 2026-09-20, claude/queue-snakes-picture-looks-like-something-real
+- **Files:** `packages/render/src/snake-items.ts`, `packages/render/src/snake-shot.ts`, `packages/render/src/snake-venom.ts`, `packages/render/src/snake-crash.ts`, `packages/render/src/snake-emerge.ts`
 - **Where:** local
 
-13 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
-not a picture per state.
+The second half of "SNAKE's picture looks like something real", split before it
+was started because a creature and the board it crawls on are two sittings, not
+one. **The first half landed**: the body is a splined contour with a neck, a
+taper, scales, a lit back and a ground shadow, and the head is two hinged jaws
+with sockets under the eyes rather than a wedge (`snake-contour.ts`,
+`snake-jaw.ts`).
 
-The owner, 18 September 2026: a picture is judged by an eye on a real frame,
-which a cloud session does not have — his own machine takes it.
+What is left is everything that is not the animal: the things standing on a
+tile to be shot and swallowed, the shot itself, the acid where it lands, the
+crumple between two attempts and the body coming out of the ship. They share
+one question — a board of counters on a grid, or a place. None of them has been
+looked at on a real frame.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -2018,3 +2024,26 @@ lane answers is how much of each can be deleted in favour of `slabs.ts`.
 
 Depends on the claw and the pod: naming a button before the thing it moves has
 a shape is how the wordings got stale the first time.
+
+## `bun run frames` cannot turn SNAKE, only pose it turned
+
+- **Found:** 2026-09-20, claude/queue-snakes-picture-looks-like-something-real
+- **Files:** `tools/frames/press-command.ts`, `tools/frames/press.ts`
+- **Where:** local
+
+`--press 430:2:snakeTurn` is refused — "unknown control. One of cannonCol,
+guard, intake, prime, salvo, aim, reach, mawTake, shieldCol, fire, grip, tap,
+shake, pulseStep, latch, launch, crank, orreryRing" — so the one verb the
+second seat has in this round cannot be sent from the command line. The whole
+of `snake-controls.ts` is out of reach the same way: `snakeTurn`,
+`snakeFire`, `snakeMaw` and the two drags (`snakeJaws`, `snakeTail`).
+
+The look lane worked around it with `--boss "grow=9,turn=1"`, which *poses* a
+long turned body rather than driving one, and that is enough for a still and
+nothing at all for a sequence: a picture of the jaws opening, of the tail being
+shed, or of an attempt ending badly cannot be taken today.
+
+`snakeTurn` takes `left` or `right`, which `AIM_STEPS` already has words for;
+`snakeFire` takes nothing; `snakeMaw` is player 1's. Five cases in the
+`switch` in `commandFor`, plus their rows in `press.ts`' table of which seat
+owns which control.

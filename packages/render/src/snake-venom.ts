@@ -1,7 +1,7 @@
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
+import type { Point } from "./snake-contour.js";
 import type { Arena } from "./snake-draw.js";
-import type { Point } from "./snake-skin.js";
 
 /**
  * What the acid does when it stops moving.

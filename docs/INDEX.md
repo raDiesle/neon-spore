@@ -1106,10 +1106,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/rind-pod.ts` | POD — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
+| `packages/render/src/snake-contour.ts` | Where a body's edge is: the two banks of a tapered ribbon along a run of joints |
 | `packages/render/src/snake-items.ts` | What is standing in SNAKE's arena to be spent: the things to shoot and the things to swallow |
 | `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |
 | `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
 | `packages/render/src/snake-emerge.ts` | The body coming out of the ship |
+| `packages/render/src/snake-jaw.ts` | What one of SNAKE's jaws is: its outline, what is marked on it |
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |

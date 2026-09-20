@@ -22,6 +22,40 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — snake-creature — a wedge on a ribbon becomes an animal
+
+- reading — 10 min. The queue entry, §6.3 of `new-boss-more`, and the six
+  render files named for the round: `snake-ribbon.ts` and `snake-skin.ts` for
+  the body, `snake-head.ts` and `snake-mouth.ts` for the head, plus the two
+  that borrow the contour without the skin (`snake-shot.ts`, `snake-venom.ts`).
+- writing — 30 min. `snake-contour.ts` — where an edge runs, pulled out of
+  `snake-skin.ts` so the shot can borrow a shape and none of the paint — and
+  `snake-jaw.ts` — one jaw as a skull with a gland bulge, a blunt snout and a
+  rear that flares back over the neck. In the body: a neck between head and
+  ribbon, three nested passes for the lit back instead of one creased ribbon,
+  and the stub the second seat sees given the same scales and light as the
+  whole length.
+- looking — 40 min. Eleven frames across both seats and eight magnified crops.
+  Everything that was wrong was invisible at tile size and obvious at six
+  times it: a dark band down the middle of the head, a collar across the back
+  of it, a flat stump where the neck should be, a lip line hanging off the
+  snout at one end and out of the skull at the other, eyes that read as screw
+  heads, a tail that came to a lopsided notch, and a lid stroked across the
+  cut end of the stub.
+- friction — 10 min. `--press 430:2:snakeTurn` is refused — no SNAKE verb
+  reaches the command line — worked around with `--boss "grow=9,turn=1"` and
+  queued. A `tsc` error from an inlined call that left `sides` undefined.
+- landing — 10 min.
+
+**The bottleneck was that this picture can only be judged magnified and only
+be shipped small.** Nothing in the round is more than about thirty pixels
+across on a phone, so every defect in it hid at 1x; every one was found by
+cropping at six or seven times and every fix then had to be checked back at
+1x in case it had become a detail nobody would see. That loop, not the
+drawing, was most of the lane — and it is why the round was split in two
+before it was started: the creature landed here, the board it crawls on has
+not been looked at yet.
+
 ## 2026-09-20 — vane-mechanism — a line with a circle on it becomes a machine
 
 - reading — 5 min. The queue entry, §6.3 of `new-boss-more`, `vane-draw.ts`

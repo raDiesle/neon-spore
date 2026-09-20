@@ -1,7 +1,7 @@
 import type { SnakeState } from "@neon-spore/sim";
 import { PALETTE } from "./palette.js";
+import { type Point, ribbonPath, ribbonSides } from "./snake-contour.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
-import { type Point, ribbonSides, traceRibbon } from "./snake-skin.js";
 import { acidEtch, wet } from "./snake-venom.js";
 
 /**
@@ -87,7 +87,7 @@ export function drawSnakeShot(
  * The stream in flight: a ribbon from the leading mass back to the snout.
  *
  * The joints run *forwards* — index 0 is the mass and the last one is the
- * snout — because `traceRibbon` closes to a point at the far end of its list,
+ * snout — because `ribbonPath` closes to a point at the far end of its list,
  * and the end that has to come to a point is the one still hanging off the
  * mouth.
  */
@@ -123,15 +123,14 @@ function stream(
     return arena.tile * 0.2 * (1 - u) ** 0.6 * (1 + 0.4 * Math.sin(u * Math.PI * 1.6));
   };
   const sides = ribbonSides(joints, half);
-
-  traceRibbon(ctx, joints, sides);
+  const path = ribbonPath(joints, sides);
   const g = ctx.createLinearGradient(from.x, from.y, tipX, tipY);
   g.addColorStop(0, PALETTE.venomDeep);
   g.addColorStop(0.55, PALETTE.venom);
   g.addColorStop(1, PALETTE.venomRim);
   ctx.fillStyle = g;
   ctx.globalAlpha *= 0.92;
-  ctx.fill();
+  ctx.fill(path);
   ctx.globalAlpha /= 0.92;
 
   // The leading drop, round and a shade paler than the tail behind it: the eye
