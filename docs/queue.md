@@ -927,6 +927,7 @@ add the two poses and point the two rows at them.
 ## Unverified at b6f46254: THE FLEET's wound seen on a real frame: no PNG was take…
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-b6f46254-the-fleets-wound-seen-on)
 - **Files:** `docs/INDEX.md`, `docs/parked.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/boss-draw.ts`, `packages/render/src/fleet-chart.ts`
 
 *THE FLEET's wound answers three thumbs and says which is yours* landed from a session that could not look at it. The commit touched 10 more files. What went unchecked:
