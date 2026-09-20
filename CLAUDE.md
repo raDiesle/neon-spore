@@ -149,15 +149,12 @@ look and lands as usual.
 
 Three exemptions, and say in the commit which one you used: **a look the owner
 asked for by name**; **a look with no shipped alternative**; **a fix to
-something wrong rather than unlovely**. Worked, with examples: `docs/looks.md`.
+something wrong rather than unlovely** — a highlight glued to a spinning rock, a
+shape clipping its frame, a control under the status bar.
 
 **A new shape is never one the game already draws.** Check
 `packages/content/src/silhouettes*.ts`, then take one from
-`tools/shape-sheet/src/drafts/`, or combine two.
-
-**A boss's look starts only when the owner names it.** Those are a menu in
-`docs/spec/boss-looks.md` and atop the director's BOSSES page, never queue
-items.
+`tools/shape-sheet/src/drafts/`, or combine two, naming it.
 
 **A lane about to improve a look mid-task stops** and puts it in the report.
 Why: `docs/looks.md`; the mechanism: `docs/versus.md`.

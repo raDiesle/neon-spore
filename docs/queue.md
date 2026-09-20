@@ -19,13 +19,15 @@ that does not exist — so a file an entry proposes to *create* is described in
 the body, unbackticked, rather than listed as a file. An entry that names the
 file it is about to write is red on `bun run check`.
 
-**A boss's look does not belong here.** It passes the test above — a fresh
-session could finish one alone — and it is still the wrong file, because an
-entry here is a thing any lane may claim and the owner may not want that boss
-at all. The twenty-four that stood here went to `docs/spec/boss-looks.md` on 20
-September 2026, where the director draws them at the top of the BOSSES page as
-a menu he answers. **One comes back here when he names it**, as a single item,
-and is then worked the ordinary way. `docs/looks.md` has his words for why.
+**A boss's look belongs here like anything else.** It was moved out on 20
+September 2026 — twenty-four entries went to a menu the director drew at the
+top of the BOSSES page, and nothing started until the owner named a boss — and
+he changed his mind the same day: *"what you moved to the bosses page from
+queue, add it back to queue but at the very end. no need for opt-in."* They are
+back, at the end of this file, and a lane claims one the ordinary way. **Do not
+move them out again** without him asking for it in those words; the whole
+arrangement — the spec page, the director's group, the rule in three files —
+was written and taken out again inside one evening.
 
 **And a landing that could not check itself writes one, without being asked.**
 `bun run land --unverified "<what>"` puts an `## Unverified at <sha>:` entry
@@ -1754,3 +1756,328 @@ Four captures went that way before a probe of a running world found that the
 uses it in `missedNote` when an `--until` event never fires, and nowhere else.
 A press that was sent and changed nothing about the world is the same kind of
 fact and should be said in the report, at least as a count.
+
+## PINBALL's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/pinball-aim.ts`, `packages/render/src/pinball-blast.ts`, `packages/render/src/pinball-button.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SCOUT's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/scout-button.ts`, `packages/render/src/scout-draw.ts`, `packages/render/src/scout-round.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE PULSE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/pulse-body.ts`, `packages/render/src/pulse-button.ts`, `packages/render/src/pulse-drop.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+9 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE DIASTOLE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/diastole-bridge.ts`, `packages/render/src/diastole-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE BATON's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/baton-bead-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/baton-socket-draw.ts`, `packages/render/src/baton-grip.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state. Two of those states arrived on 18 September 2026 with
+the §6.2 lane and were drawn by a session with no eye: a swelling socket is the
+husk grown half again and shaking, and the two handle rings are the shipped
+ones. Both want the same look pass as the rest of the arm.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE UNDERTOW's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/undertow-draw.ts`, `packages/render/src/undertow-fx.ts`, `packages/render/src/undertow-lobe.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE THROAT's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/throat-draw.ts`, `packages/render/src/throat-evert.ts`, `packages/render/src/throat-lock.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE ORRERY's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/orrery-draw.ts`, `packages/render/src/orrery-grab.ts`, `packages/render/src/orrery-shaft.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE CANDLE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/candle-dark.ts`, `packages/render/src/candle-glow.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE GORGE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/gorge-draw.ts`, `packages/render/src/gorge-fx.ts`, `packages/render/src/gorge-lobe.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE CURTAIN's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/curtain-draw.ts`, `packages/render/src/curtain-fx.ts`, `packages/render/src/curtain-sheet.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE TASTER's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/taster-blade.ts`, `packages/render/src/taster-crest.ts`, `packages/render/src/taster-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SINEW's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-draw.ts`, `packages/render/src/sinew-fibres.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE LEDGER's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-draw.ts`, `packages/render/src/ledger-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SURGE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/surge-draw.ts`, `packages/render/src/surge-fx.ts`, `packages/render/src/surge-gauge.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE LEAD's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/lead-draw.ts`, `packages/render/src/lead-fx.ts`, `packages/render/src/lead-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SCUTTLE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-fx.ts`, `packages/render/src/scuttle-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE ANTIPHON's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-fx.ts`, `packages/render/src/antiphon-grip.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE HIVE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/hive-draw.ts`, `packages/render/src/hive-fx.ts`, `packages/render/src/hive-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE CAIRN's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/cairn-hand.ts`, `packages/render/src/cairn-look.ts`, `packages/render/src/cairn-pile.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE WELL's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/well-arrivals.ts`, `packages/render/src/well-body.ts`, `packages/render/src/well-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SPLICE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/splice-draw.ts`, `packages/render/src/splice-straws.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE REPRISE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/reprise-draw.ts`, `packages/render/src/reprise-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
+
+The brief: `.claude/skills/new-boss` section 6.3.

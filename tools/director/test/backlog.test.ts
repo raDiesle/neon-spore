@@ -8,7 +8,6 @@ async function realBacklog(): Promise<Backlog> {
   return buildBacklog(
     await read("docs/spec/bosses.md"),
     await read("docs/spec/bosses-choreographed.md"),
-    await read("docs/spec/boss-looks.md"),
   );
 }
 
@@ -41,9 +40,6 @@ describe("buildBacklog", () => {
     const backlog = await realBacklog();
 
     expect(backlog.bosses.map((g) => g.title)).toEqual([
-      // First, and read off a third file — see the block at the foot of this
-      // file.
-      "LOOKS WAITING FOR A YES",
       "STILL IN HAND",
       "LEFT ON A BUILT BOSS",
       "PRIMITIVES A SCENE STILL NEEDS",
@@ -102,36 +98,5 @@ describe("buildBacklog", () => {
         expect({ title: group.title, found }).toEqual({ title: group.title, found: true });
       }
     }
-  });
-});
-
-/**
- * The menu of looks nobody may start unasked, at the top of the page.
- *
- * Read off the real `boss-looks.md` rather than a fixture, for the reason the
- * rest of this file is: the value of the section is that it is the whole list,
- * and a fixture cannot go stale in the direction that matters — a boss put
- * back in `docs/queue.md` and left on the menu as well.
- */
-describe("looks waiting for a yes", () => {
-  test("heads the page, one entry per description and not per boss", async () => {
-    const backlog = await realBacklog();
-    const first = backlog.bosses[0];
-    expect(first?.title).toBe("LOOKS WAITING FOR A YES");
-    expect(first?.reading).toBe(true);
-    // Every entry names the bosses its one paragraph covers, and says how
-    // many — the number the owner is actually weighing.
-    for (const entry of first?.entries ?? []) {
-      expect(entry.note).not.toBe("");
-      expect(entry.kind).toMatch(/^\d+ boss(es)?$/);
-      expect(entry.detail).not.toBe("");
-    }
-  });
-
-  test("a boss on the menu is not also claimable in the queue", async () => {
-    const queue = await read("docs/queue.md");
-    // The whole point of the move: a title in both files is a lane free to
-    // spend a sitting on a boss the owner has not said yes to.
-    expect(queue).not.toContain("picture looks like something real");
   });
 });

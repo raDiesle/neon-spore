@@ -18,7 +18,6 @@
  */
 
 import { fromBosses } from "./backlog-bosses.js";
-import { fromBossLooks } from "./backlog-looks.js";
 import type { PlainRow } from "./plain-words.js";
 
 export interface BacklogEntry {
@@ -77,9 +76,6 @@ export interface Backlog {
   // overtaken.
 }
 
-export function buildBacklog(bosses: string, choreo: string, looks: string): Backlog {
-  // First on the page, and first on purpose: everything under it is a report
-  // of what the design owes, and this one is the one section the owner answers
-  // rather than reads (`backlog-looks.ts`).
-  return { bosses: [fromBossLooks(looks), ...fromBosses(bosses, choreo)] };
+export function buildBacklog(bosses: string, choreo: string): Backlog {
+  return { bosses: fromBosses(bosses, choreo) };
 }

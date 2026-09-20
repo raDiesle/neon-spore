@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — boss-looks-back-in-the-queue — the menu is undone
+
+- reading — 10 min. The two commits that built the menu, for what each of them
+  touched and whether anything had landed on those files since — nothing had,
+  which made most of this a checkout of six files at one revision.
+- writing — 20 min. The twenty-three entries lifted out of the pre-move
+  `docs/queue.md` and appended at the end, one paragraph in its preamble
+  saying they came back and why, `docs/spec/boss-looks.md` and
+  `backlog-looks.ts` deleted, and `CLAUDE.md`, `docs/looks.md`, the two
+  director files and the backlog test restored.
+- looking — 0 min. Nothing visible moved; the director's group is gone and its
+  own tests say so.
+- friction — 5 min. `bun run index` drops a deleted source file on its own but
+  not a deleted document — `docs/spec/boss-looks.md` had to come out of
+  `docs/INDEX.md` by hand.
+- landing — 10 min.
+
+**The bottleneck was nothing at all, which is the point worth writing down.**
+An arrangement built three hours earlier — a spec page, a parser, a director
+group, two tests and a rule in three files — came out in half an hour because
+every piece of it was in two commits and nothing had been built on top. The
+cost of the whole evening was in the first build, not in the reversal; a rule
+the owner is still deciding about is cheapest to write in one commit and leave
+alone for a day.
+
 ## 2026-09-20 — snake-board-look — the board is a place, not a tray of counters
 
 - reading — 20 min. `snake-items.ts`, `snake-draw.ts`, `snake-shot.ts` and
