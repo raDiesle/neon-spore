@@ -1620,3 +1620,161 @@ conflict and inspects what stage 1/2/3 hold each time — a longer sitting
 than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
+
+## THE GIMBAL is written and nobody has built its simulation
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
+- **Where:** cloud
+
+`docs/spec/bosses-choreographed.md` §18 is a full design — the question, the
+silhouette, both seats, a fourteen-row beat list, which of `THE SLOW` or
+`THE DRAG` it wants, the colour statement — for a boss nobody has started.
+Build lane one only: `gimbalOuter` and `gimbalInner` as two new `BearingDrag`
+members of `DragTarget` (the crank's own gesture, `sim/crank.ts` and
+`orrery-hand.ts` are the pattern to copy), the mirrored-bearing rule that
+draws each ring turned the way its own face would show it
+(`PerSeatTruth`, the Queen's primitive, spent on a bearing), the six
+latch-teeth as `World` fields in `hashWorld`, the wave entry with its guide,
+and one test per receipt. `.claude/skills/new-boss` §4's file table is the
+generic list; §18's own write-up is the design to build against, named
+`docs/queue.md`, *what is not built*.
+
+The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
+
+## THE GIMBAL's picture has never been drawn
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+Lane two of §18, once lane one lands: a sealed drum inside two nested rings
+at right angles, six poses (`.claude/skills/new-boss` §5's INSTAR standard —
+a body, a pose per state, a morph between them, the perspective changing at
+the hatch). The payoff frame is the drum splitting along its seam and
+swinging open toward the ship, which is a new silhouette — check
+`packages/content/src/silhouettes.ts` first, then draw it, never a filled
+rectangle with a stroke round it. One PNG to the owner when it moves, never a
+description.
+
+## THE BELLOWS is written and nobody has built its simulation
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
+- **Where:** cloud
+
+`docs/spec/bosses-choreographed.md` §19 is a full design: two ordinary
+depth-drags (`bellowsPull`, `bellowsPush`, the pattern is `sinewLeft` and
+`sinewRight`), `Alternation` (THE BATON's own primitive) spent refusing
+whoever *didn't* just act rather than whoever did, and `SimultaneousAction`
+(THE BALLOON's own primitive) for the one beat both seats let go together.
+Four seams as hashed `World` fields, the wave entry with its guide, one test
+per receipt. Nothing here asks the engine for anything new — that is the
+design's own point, argued in §19's *Cost* line.
+
+The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
+
+## THE BELLOWS's picture has never been drawn
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+Lane two of §19, once lane one lands: a double-chambered bellows-lung, five
+poses (`.claude/skills/new-boss` §5's standard), the waist's four seams
+narrowing and drawn rather than counted, the finale of both halves falling
+apart and venting one harmless cloud. A new silhouette — check
+`packages/content/src/silhouettes.ts` first. One PNG to the owner when it
+moves.
+
+## THE HASP is written and nobody has built its simulation
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
+- **Where:** cloud
+
+`docs/spec/bosses-choreographed.md` §20 is a full design: `haspLatch` (a
+hold, read by depth for its own unseen heat) and `haspWheel` (a bearing drag,
+the way `orreryRing` is) as two new `DragTarget` members, and the gate
+between them — the wheel may turn only while the latch is currently held —
+read as an ordinary per-tick check of both hands in the boss's own step
+function; §20's own write-up says plainly that this needs no new primitive.
+Three hasps as hashed `World` fields, the wave entry with its guide, one test
+per receipt.
+
+The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
+
+## THE HASP's picture has never been drawn
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+Lane two of §20, once lane one lands: three sealed hasps down the field's
+centre line, five poses (`.claude/skills/new-boss` §5's standard), the
+latch's own heat as a slow colour drift rather than a bar, the row swinging
+open together at the end. A new silhouette — check
+`packages/content/src/silhouettes.ts` first. One PNG to the owner when it
+moves.
+
+## THE SPOOL is written and nobody has built its simulation
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
+- **Where:** cloud
+
+`docs/spec/bosses-choreographed.md` §21 is a full design: `spoolBrake` (a
+depth-hold with no readout of its own) and `SplitGauge` (shipped twice
+already, THE SINEW and THE SURGE) for the zone she is shown against the
+depth he feels. Four ribs as hashed `World` fields, each easing on a clean
+movement rather than cracking, the wave entry with its guide, one test per
+receipt. §21's own *Cost* line says this asks the engine for nothing new.
+
+The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
+
+## THE SPOOL's picture has never been drawn
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+Lane two of §21, once lane one lands: a thread-spool creature slung sideways
+across the top of the field, five poses (`.claude/skills/new-boss` §5's
+standard) — taut and still, the brake shallow and paying fast, deep and
+paying slow, a rib easing open, slack and drifting free — with no number
+ever drawn on the picture, only how fast the line visibly moves. A new
+silhouette — check `packages/content/src/silhouettes.ts` first. One PNG to
+the owner when it moves.
+
+## THE RATCHET is written and nobody has built its simulation
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
+- **Where:** cloud
+
+`docs/spec/bosses-choreographed.md` §22 is a full design: `ratchetCatch` (a
+hold) and `ratchetPawl` (a press, the way THE MAW TAP is) as two new
+`DragTarget` members, `SequentialAction` (§16's own primitive) gating the
+press on the hold, and a rack that only ever advances — never backward — on
+a press, catch primed or not, with an unprimed press burning a tooth for
+nothing. Seven teeth as a hashed `World` field, needing five clean advances
+of the seven to open; the wave entry with its guide, one test per receipt.
+§22's own write-up is explicit that this is a single line in the boss's own
+step function, not a new primitive.
+
+The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
+
+## THE RATCHET's picture has never been drawn
+
+- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
+
+Lane two of §22, once lane one lands: a toothed climbing rack in full view of
+both seats, four poses only — fewer than any other boss on the page, on
+purpose, since the picture is the rack's own remaining teeth rather than a
+body changing shape (`.claude/skills/new-boss` §5's standard, read against a
+boss that is mostly still). A burned tooth is drawn as a flat, unlit
+non-event; a clean advance gets a visible click and jolt. A new silhouette —
+check `packages/content/src/silhouettes.ts` first. One PNG to the owner when
+it moves.

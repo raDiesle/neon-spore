@@ -14,6 +14,16 @@
 > was waiting for. What else is unbuilt here is the *Not built* clause at the
 > end of a built concept's row, and the primitive library two thirds down.
 >
+> **Five more were written 20 September 2026**
+> ([§18](#18-the-gimbal--whether-the-same-turn-means-the-same-thing-to-both-of-you)
+> through
+> [§22](#22-the-ratchet--whether-a-step-can-be-taken-back)), from the owner's
+> own ask for more of exactly this kind — heavy on choreography, light on the
+> panel, more than ten states apiece that ask an action of the pair on nearly
+> every one. Nothing of any of the five is built; each is queued as two
+> `docs/queue.md` items, the simulation `CLOUD ONLY` and the picture
+> `LOCAL ONLY`.
+>
 > It is the second boss-idea page rather than the third: the one that read the
 > same two reference games at boss scale was deleted on 17 September 2026 as
 > boss ideas older than the owner keeps.
@@ -39,6 +49,11 @@ reordering the page without keeping them would break every one of them.
 **Not built — written and nobody has started it**
 
 - **[THE FILAMENT](#17-the-filament--whether-you-can-follow-a-line-that-is-still-being-drawn)** · §17 — whether you can follow a line that is still being drawn. Written 17 September 2026 out of [the second brief](#a-second-brief-and-the-four-things-in-it-this-page-did-not-have)'s one absent category, and it wants `TraceDrag`, which is the only gesture on either brief with no ancestor anywhere in this game
+- **[THE GIMBAL](#18-the-gimbal--whether-the-same-turn-means-the-same-thing-to-both-of-you)** · §18 — whether the same turn means the same thing to both of you. One of [five more](#five-more-asked-for-by-name) written 20 September 2026; queued in two lanes, cloud and local
+- **[THE BELLOWS](#19-the-bellows--whether-you-can-push-when-she-is-pulling)** · §19 — whether you can push when she is pulling. One of [five more](#five-more-asked-for-by-name); queued in two lanes
+- **[THE HASP](#20-the-hasp--whether-a-grip-nobody-can-see-is-the-one-holding-the-door)** · §20 — whether a grip nobody can see is the one holding the door. One of [five more](#five-more-asked-for-by-name); queued in two lanes
+- **[THE SPOOL](#21-the-spool--whether-letting-it-run-is-the-point)** · §21 — whether letting it run is the point. One of [five more](#five-more-asked-for-by-name); queued in two lanes
+- **[THE RATCHET](#22-the-ratchet--whether-a-step-can-be-taken-back)** · §22 — whether a step can be taken back. One of [five more](#five-more-asked-for-by-name); queued in two lanes
 
 **Still in hand — the simulation landed, the look is not written**
 
@@ -2321,6 +2336,448 @@ is `corner-light.ts`'s job done along a line.
 
 **Not built.** Nothing of it. Written 17 September 2026 from the second brief's
 trace category; nobody has started it.
+
+## Five more, asked for by name
+
+The owner, 20 September 2026: five more of exactly this kind — heavy on
+choreography, more than ten states apiece that ask the pair for an action on
+every one of them, no complicated logic, a new pose or a changed situation on
+every state, mostly gestures on the boss's own body rather than the panel,
+though the cannon, the shield and the maw may still answer a state here and
+there. Each below is written to that brief and passes filter 8 against the
+seventeen above and against each other. **Nothing of any of the five is
+built** — `docs/queue.md` carries the simulation lane of each as its own
+`CLOUD ONLY` entry and the picture as its own `LOCAL ONLY` entry, on the
+`.claude/skills/new-boss` split of lane one from lane two, so a cloud session
+can take the words and the states today and the picture waits for an eye.
+
+### §18 THE GIMBAL — whether the same turn means the same thing to both of you
+
+**Question.** Whether "clockwise," called across a phone connection, means the
+same motion to the hand that is turning it. Every split boss so far divides
+what the two of you can *see*; this one keeps the sight nearly shared and
+divides the *geometry* — the same wheel, gripped from its two opposite faces,
+where a turn that reads clockwise on one screen is drawn counter-clockwise on
+the other because that is honestly which way it is going, seen from there.
+
+**Silhouette.** A sealed drum hangs from the top of the field inside two
+nested rings set at right angles, the way a real gimbal holds its load — an
+outer ring facing the pilot, an inner ring facing the navigator, a hatch shut
+across the drum's own seam. **Health is six latch-teeth**, three to a ring: a
+pair shears off, one from each ring, only when both rings are brought to true
+alignment and held there together. Two rings stripped of all three teeth spin
+loose, and the hatch swings open — no bar, six teeth.
+
+**Mechanic.** Each seat grips their own ring and reports a bearing rather than
+a distance — the crank's own gesture (`sim/crank.ts`, `orrery-hand.ts`),
+turned loose on the field as `gimbalOuter` (pilot) and `gimbalInner`
+(navigator). Because the rings are the same object read from opposite faces,
+the sim keeps one true bearing and draws each seat's ring turned the
+direction their own face would actually show it — `PerSeatTruth`, the Queen's
+own primitive, spent on a bearing instead of a body. A tooth shears only when
+both bearings sit on their matching mark at once, called out loud rather than
+read off a shared number, since neither seat's screen carries the other's
+mark.
+
+**Player 1 — pilot.** Sees the outer ring and his own mark, in his own
+clockwise. Never sees the inner ring, its mark, or which way turning it looks
+from the other face.
+
+**Player 2 — navigator.** Sees the inner ring and her own mark, in her own
+clockwise — which is the pilot's counter-clockwise, and the sim never says so
+on either screen. Never sees his ring.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the first tooth** ||||||
+| 1 | The drum drops into frame between the two dark, still rings | — | — | — | — | — |
+| 2 | The outer ring lights a mark, on the pilot's screen alone | P1 | turn the outer ring to the mark (`TURN`) | 4 beats, seen | the ring holds and glows | it drifts back to rest |
+| 3 | The inner ring lights its own mark, on the navigator's screen alone | P2 | turn the inner ring to her mark (`TURN`) | 4 beats, seen | both rings sit true together | same drift |
+| 4 | Both rings glowing at once | P1+P2 | call the alignment and hold both turns through the beat | 3 beats, called | the first tooth pair shears, both rings ring once | either ring slips and nothing shears |
+| **Movement 2 — the second tooth, and the marks start moving** ||||||
+| 5 | One tooth gone; the rim shows the gap | — | — | — | — | — |
+| 6 | The pilot's mark now creeps a position every beat rather than sitting still | P1 | turn to keep the mark under his thumb | 3 beats, seen | — | he falls a position behind and has to catch up |
+| 7 | The navigator's mark answers his and creeps the *other* way on her own face, so keeping true alignment means chasing a mark that looks like it is running from her turn | P2 | turn to keep pace | 3 beats, seen | — | same |
+| 8 | Both marks held together | P1+P2 | call and hold | 3 beats, called | second tooth pair shears | the ring that slipped resets to its last mark, and the movement runs again from its start |
+| 9 | With two teeth gone the drum swings loose in its cradle and a spark leaks from the seam — the fight's one ordinary hazard | P1 or P2 | fire the leaking seam, their own colour | 2 beats, seen | the spark goes out, the rings steady | the spark reaches the hull, an ordinary hull hit |
+| **Movement 3 — the last tooth, a half turn each** ||||||
+| 10 | The last marks sit a half-turn from rest on each ring, so a nudge will not reach them | — | — | — | — | — |
+| 11 | The pilot brings the outer ring a full half-turn to its mark | P1 | turn the outer ring, all the way | 4 beats, seen | — | a half-turn short is still short |
+| 12 | The navigator's own half-turn, read the other way off her face, lands as a quarter-turn on the true wheel — the two halves are not equal turns, and that is the whole of this beat | P2 | turn the inner ring, all the way | 4 beats, seen | — | — |
+| 13 | Both rings held at the last alignment | P1+P2 | call and hold | 3 beats, called | the last tooth pair shears, both rings spin free | either ring short, and the movement runs again |
+| 14 | **The hatch.** Both rings spinning loose, the drum splits along its seam and swings open toward the ship — the first boss on this page that ends in a door rather than a body coming apart | — | — | — | — | — |
+
+**THE SLOW** opens on every "held together" beat (rows 4, 8, 13) — the
+called window a tooth shears in is the one moment either seat can watch the
+other's ring catch up without losing the thread of their own. No `DRAG`: a
+bearing turn is not a fall rate, and nothing here needs more beats, only more
+seconds inside the ones it has.
+
+**Presentation.** No camera. The hull answers each shearing tooth with one
+shudder through `hull-shock.ts`, and the leaking spark of row 9 is the one
+frame that dims — same treatment as a choked ring on THE THROAT.
+
+**Animation.** Six poses: dark and still; one ring turning alone; both rings
+glowing at true alignment; the shearing spark and the ring's rim one tooth
+shorter; both rings spinning loose with nothing left to grip; the drum split
+open. The rim itself is the health — each gap is drawn, never counted.
+
+**Colour.** Both rings rock grey, since neither is ever shot; the drum's core
+violet, the leaking seam alone in red or cyan, marks white throughout.
+**Geometry, not colour, says which ring is whose** — the outer ring is always
+his, the inner always hers, the same rule THE BALLOON's two handles use.
+
+**Payoff.** Row 14. A closed thing coming open toward the ship, rather than a
+body dying, is a picture nothing else on this page has.
+
+**Cost. Low–medium.** `BearingDrag` and `PerSeatTruth` are both shipped;
+what's new is deriving one ring's drawn direction from the other's true
+bearing, and the final hatch as its own render job.
+
+**Reusable.** `MirroredBearing` — a bearing read true on one screen and
+reversed on the other, `PerSeatTruth`'s own primitive spent on a turn instead
+of a body.
+
+**Not built.** Nothing of it. Written 20 September 2026; queued as two items,
+one per lane.
+
+### §19 THE BELLOWS — whether you can push when she is pulling
+
+**Question.** THE SINEW and THE SURGE both want two hands doing the same
+thing at the same moment. This one wants the opposite: one hand pulling while
+the other pushes, never together, and it punishes the pair the instant they
+fall into unison — a boss built entirely around **taking turns**, rather than
+answering together.
+
+**Silhouette.** A double-chambered bellows-lung slung across the top of the
+field, two ribbed housings joined at a leather waist. **Health is the waist's
+four seams**: each splits when the two chambers are worked correctly out of
+phase, narrowing the waist, and the fourth splits it clean in two.
+
+**Mechanic.** The pilot grips a handle that pulls his chamber open
+(`bellowsPull`, a drag); the navigator grips a plate that pushes hers shut
+(`bellowsPush`, a drag). The two may never act in the same beat —
+`Alternation`, THE BATON's own primitive, spent here to refuse whoever
+*didn't* just act rather than whoever did, so acting together jams both
+handles for a beat and splits nothing. A seam parts only on a clean
+pull-then-push, in order, once a movement.
+
+**Player 1 — pilot.** Sees his chamber's fill and a cue naming whose beat it
+is. Never sees her chamber.
+
+**Player 2 — navigator.** Sees her chamber and the same cue, mirrored. Never
+sees his.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — one exchange a beat** ||||||
+| 1 | Both chambers still, waist tight, four seams unbroken | — | — | — | — | — |
+| 2 | His chamber marked to pull | P1 | pull the handle (`PULL`) | 3 beats, seen | chamber opens | nothing, clock runs on |
+| 3 | Her chamber marked to push, right after | P2 | push the plate (`PUSH`) | 3 beats, seen | first seam splits | if she pushes inside his own beat, both handles jam for a beat and the exchange is spent for nothing |
+| 4 | Waist one seam narrower, ribs creak | — | — | — | — | — |
+| **Movement 2 — half a beat each** ||||||
+| 5 | His mark again, tempo tighter | P1 | pull | 2 beats, seen | — | — |
+| 6 | Her mark immediately after, no gap between | P2 | push | 2 beats, seen | second seam splits | acting a beat early into his jams both |
+| 7 | A third exchange at the same tempo | P1 then P2 | pull, then push | 2 beats each, seen | — | — |
+| 8 | The chamber leaks a spark from the new split — the fight's one ordinary hazard | P1 or P2 | fire the spark, their own colour | 2 beats, seen | quenched | ordinary hull hit |
+| **Movement 3 — the exchange inside one window** ||||||
+| 9 | Waist down to its last two seams; both marks light inside one shared window rather than two | P1 then P2 | pull, then push, both inside one window | 900 ms, called | third seam splits | pushing first, or either landing outside the window, jams both and the movement runs again |
+| 10 | The bellows tries to force a breath of its own straight down the pilot's column | P1 | shield | 2 beats, seen | warded | ordinary hull hit |
+| 11 | Last seam. Both handles glow together for the first time in the fight | — | — | — | — | — |
+| **Finale — the one beat they act together** ||||||
+| 12 | The cue reads the same word on both screens at once | P1+P2 | let go of the handle together (`LET GO`) | 3 beats, called | the fourth seam parts, the waist splits in two | either handle held a beat longer than the other, and the last seam holds |
+| 13 | The two halves fall away from each other, venting the whole held breath as one harmless cloud across the field | — | — | — | — | — |
+
+**THE SLOW** opens on the finale (row 12) alone — the one beat this fight
+asks the pair to act *together*, after eleven beats of being told not to,
+earns the same dramatic weight the other bosses give their hardest moment.
+No `DRAG`.
+
+**Presentation.** No camera. Each seam splitting is a shudder down the ribs
+through `hull-shock.ts`; the finale is the one frame that gets its own held
+beat of quiet before the vent.
+
+**Animation.** Five poses: both chambers shut and still; his open, hers shut
+(pull); his shut, hers open (push); both swollen full at the last seam; both
+falling apart, venting. The waist's seam count is the health, drawn as a
+narrowing gap rather than a number.
+
+**Colour.** Both housings rock grey; the leaking spark alone in red or cyan;
+the waist's stitching violet. Geometry says whose handle is whose — his hangs
+off the left chamber, hers off the right, THE CHOIR's rule again.
+
+**Payoff.** Row 12 — the one boss on the page whose climax is the pair doing,
+once, the thing the whole fight has been training them not to.
+
+**Cost. Low.** `Alternation` and `SimultaneousAction` are both shipped
+(THE BATON, THE BALLOON); the two drag targets are ordinary depth-drags like
+`sinewLeft`/`sinewRight`. Nothing new is asked of the engine.
+
+**Reusable.** Nothing new — the finding worth keeping is that `Alternation`
+reads just as well refusing a repeat of the *other* seat as it does refusing
+a repeat of the *same* one.
+
+**Not built.** Nothing of it. Written 20 September 2026; queued as two items,
+one per lane.
+
+### §20 THE HASP — whether a grip nobody can see is the one holding the door
+
+**Question.** Whether the pair can build trust out of one hand holding
+something that does nothing visible, for exactly as long as it is needed and
+no longer — and a second hand, turning something the first hand cannot see
+either, that only moves because the first is holding on.
+
+**Silhouette.** Three sealed hasps down the field's centre line, each a
+lobed clasp over a wheel-hub. **Health is the three hasps**: each opens once,
+in its own movement, and the third opening ends the fight.
+
+**Mechanic.** The pilot grips a latch (`haspLatch`, a hold) that shows him
+nothing at all beyond his own hand's rising heat — a slow colour drift on the
+mark itself, never a number, never a bar. Held past `haspHoldBeats` it burns
+him off it for a beat, so his whole job is *hold, then let go before it
+burns, then grip again*. The navigator's wheel (`haspWheel`, a bearing drag)
+will only turn while, somewhere she cannot see, the latch is currently held —
+an ordinary per-tick read of both hands, nothing new in the engine. Her whole
+job is turning a wheel that mysteriously seizes and frees for reasons her
+screen never shows.
+
+**Player 1 — pilot.** Sees the latch and his own rising heat. Never sees the
+wheel, whether it is turning, or that a wheel exists at all.
+
+**Player 2 — navigator.** Sees the wheel and whether it is currently free to
+turn. Never sees the latch, the heat, or that a hand is the reason.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the first hasp** ||||||
+| 1 | Three sealed hasps in a row, wheels dark | — | — | — | — | — |
+| 2 | The first latch lights, on the pilot's screen alone | P1 | grip the latch (`HOLD`) | held | the first wheel goes free, on the navigator's screen alone | nothing happens on either screen |
+| 3 | The wheel free to turn, and only for as long as row 2 holds | P2 | turn the wheel to its mark (`TURN`) | 4 beats, seen | first hasp opens | the latch burns off before she finishes, and the wheel seizes mid-turn |
+| 4 | His latch nearing its own heat, unseen by her | P1 | let go and grip again before it burns | called, on his own clock alone | the latch resets cool, the wheel stays free | the burn costs a beat and the wheel seizes |
+| **Movement 2 — the second hasp, and a call across the gap** ||||||
+| 5 | Second hasp; the wheel needs more turn than one grip's heat allows | P1 | grip, then regrip once mid-turn (`HOLD`) | two holds, called between them | wheel stays free the whole way | a gap between grips seizes it |
+| 6 | Wheel turning the whole time he is gripped | P2 | turn, resuming exactly where it seized if it seized | 5 beats, seen | second hasp opens | — |
+| 7 | The hasp's spring throws a loose bolt down its own column — the fight's one ordinary hazard | P1 or P2 | fire the bolt, their own colour | 2 beats, seen | quenched | ordinary hull hit |
+| **Movement 3 — the last hasp, faster** ||||||
+| 8 | Third hasp; the heat window shortens | P1 | grip (`HOLD`) | held, shorter fuse | wheel free | — |
+| 9 | She has to call when she needs him regripped, since only she sees the wheel seize | P2 | call `GRIP` the instant it seizes | 900 ms, called | he regrips in time, wheel resumes | a late call burns the whole movement back to its own start |
+| 10 | Turning the last stretch | P2 | turn to the final mark | 4 beats, seen | third hasp opens | — |
+| 11 | **All three open.** The row of hasps swings clear together, the wheel-hubs spinning down, and the passage behind them is lit for the first time | — | — | — | — | — |
+
+**THE SLOW** opens on every regrip call (rows 4, 5, 9) — the one moment
+either seat has to act on what the other cannot show them, across the voice
+delay, is exactly what a called window under `THE SLOW` is for. No `DRAG`.
+
+**Presentation.** No camera. A seized wheel is a whole-frame dim for one
+beat, the way a choked ring on THE THROAT is; an opened hasp gets one
+shudder through `hull-shock.ts`.
+
+**Animation.** Five poses: all sealed; one latch glowing under a held hand;
+its wheel spinning free; a wheel seized dark mid-turn; the row swung open.
+The latch's own colour drift (cool to warm) is the only readout either seat
+ever gets, and it belongs to the hand alone.
+
+**Colour.** Hasps and wheels rock grey; the loose bolt alone in red or cyan;
+the latch's heat drift is the one departure from the colour statement — a
+warm-to-hot glow that says nothing about ammunition, because it is a hand's
+own feeling and not a target.
+
+**Payoff.** Row 11 — three things opening together because two hands that
+never saw each other's half kept faith with it anyway.
+
+**Cost. Low.** Both marks are ordinary holds and drags; the gating rule (one
+target's motion permitted only while another is held) is a single per-tick
+read the sim already performs for every hand on the field. Nothing new in the
+engine.
+
+**Reusable.** Nothing named — the finding is that a gate between two hands
+needs no primitive of its own, only a rule in the boss's own step function
+that reads both.
+
+**Not built.** Nothing of it. Written 20 September 2026; queued as two items,
+one per lane.
+
+### §21 THE SPOOL — whether letting it run is the point
+
+**Question.** Every other boss on this page is answered by doing something as
+fast, as hard or as precisely as the fight allows. This one is answered by
+holding back exactly enough — never more, never less — the only boss in the
+game where doing less is the correct amount of effort.
+
+**Silhouette.** A thread-spool creature slung sideways across the top of the
+field, its line already run out to the hull and taut. **Health is four
+wooden ribs** on the spool's own casing, and each releases clean — eases
+open, rather than cracking — when the line has been paid out at the right
+rate across its whole movement; the fourth release leaves the spool slack and
+it drifts off, unspooled.
+
+**Mechanic.** The pilot holds a brake at a felt depth (`spoolBrake`, a hold
+read by depth): shallow pays the line out faster, deep slower, and he is
+shown nothing but the mark's own grip — no number, ever. The navigator reads
+a zone — how much line *should* be out by now — against the paid-out length
+crawling along its own track (`SplitGauge`, THE SINEW's and THE SURGE's own
+primitive: she has the target, he has the feel, neither has the other's
+half). Held inside the zone across a whole movement, a rib eases; held too
+shallow or too deep, the movement's window closes on the fourth rib
+uncracked and the fight costs an ordinary hull hit rather than resetting.
+
+**Player 1 — pilot.** Feels the brake's depth and nothing else — no gauge, no
+zone, no number.
+
+**Player 2 — navigator.** Sees the zone and the actual paid-out length. Never
+feels the brake, and can only call `EASE` or `HOLD` from what the line is
+doing.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — a wide zone** ||||||
+| 1 | The spool hangs still, line taut, four ribs unbroken | — | — | — | — | — |
+| 2 | The zone opens, wide, on the navigator's screen alone | P2 | call the depth she wants (`EASE` or `HOLD`) | 900 ms, called | — | — |
+| 3 | The pilot answers with a felt depth | P1 | hold the brake at that depth | held, across the movement | line pays out inside the zone the whole movement; first rib eases | outside the zone at any point in the movement resets its clock |
+| **Movement 2 — the zone narrows** ||||||
+| 4 | Rib eased; the zone redraws narrower | — | — | — | — | — |
+| 5 | She calls a correction mid-movement, since the zone has moved | P2 | call `EASE` (shallower) or `HOLD` (deeper) | 900 ms, called | — | — |
+| 6 | He answers by shifting his felt depth without letting go | P1 | ease or deepen the same held brake | held, across the movement | second rib eases | a shift that overshoots the new zone resets the movement |
+| 7 | The slack thrown by a bad correction flings a rock down the pilot's column — the fight's one ordinary hazard | P2 | shield | 2 beats, seen | warded | ordinary hull hit |
+| **Movement 3 — a narrow zone, two corrections** ||||||
+| 8 | Zone narrower again; it will take two corrections this movement rather than one | P2 | call the first correction | 900 ms, called | — | — |
+| 9 | He answers | P1 | shift depth | held | — | — |
+| 10 | She calls the second correction | P2 | call again | 900 ms, called | — | — |
+| 11 | He answers again, all the way to the movement's end | P1 | hold through to the close | held, across the movement | third rib eases | either correction missed resets the whole movement |
+| **Movement 4 — the last rib, narrowest of all** ||||||
+| 12 | The last zone, barely wider than the brake's own resting play | P2 | call the depth, precisely | 900 ms, called | — | — |
+| 13 | He holds it there for the whole of the last movement, correcting on her word alone | P1 | hold, correcting on call | held, across the movement | fourth rib eases | reset, and the movement runs again |
+| 14 | **The spool goes slack.** All tension gone, it drifts free of the hull and off the top of the field, the line trailing loose behind it | — | — | — | — | — |
+
+**THE SLOW** opens on every call-and-answer pair (rows 2–3, 5–6, 8–11,
+12–13) — the fight is entirely about a felt thing crossing a voice delay, and
+every one of those exchanges is a called window. No `DRAG`: nothing here
+needs more beats, only more seconds inside the ones it already has.
+
+**Presentation.** No camera. The hull answers a correction landed with a
+settling shudder through `hull-shock.ts`; a rib easing gets its own soft
+release, drawn rather than scored.
+
+**Animation.** Five poses: taut and still; the brake shallow, line paying
+fast; the brake deep, line paying slow; a rib easing open; slack and
+drifting free. Nothing on the picture ever shows a number — only how fast the
+line is visibly moving.
+
+**Colour.** The spool's casing rock grey; the line itself violet, since it is
+the ship's own; the one hazard rock in red or cyan as ever. No colour ever
+marks the zone or the depth — that is the sentence the pair has to say.
+
+**Payoff.** Row 14 — the only boss on the page whose finish is calm rather
+than a break, because the whole fight has been training the pair toward
+exactly this stillness.
+
+**Cost. Low.** `SplitGauge` is shipped twice already (THE SINEW, THE SURGE);
+`spoolBrake` is an ordinary depth-hold. Nothing new is asked of the engine.
+
+**Reusable.** Nothing new — the finding worth keeping is that `SplitGauge`
+reads as well for restraint (stay inside a zone) as it does for effort (reach
+past a threshold).
+
+**Not built.** Nothing of it. Written 20 September 2026; queued as two items,
+one per lane.
+
+### §22 THE RATCHET — whether a step can be taken back
+
+**Question.** Every miss on every other boss on this page costs a beat or a
+hull hit and the fight goes on exactly as it was. This is the first where one
+specific action, once taken, is permanent for the rest of the fight — there
+is no beat after it that undoes it — so a step here is a decision the pair
+says out loud rather than a reflex either of them can walk back.
+
+**Silhouette.** A toothed climbing rack down the field's centre, in full
+view of both seats at once — this boss splits the **hands**, not the eyes,
+the way PINBALL's table does. **Health is seven teeth**, and the rack needs
+five clean advances to open the last catch at its top; the two it can afford
+to lose are the whole of its margin, and it never grows more.
+
+**Mechanic.** The navigator primes a spring-catch (`ratchetCatch`, a hold);
+the pilot's own mark (`ratchetPawl`, a press, the way THE MAW TAP presses)
+only advances the rack **while she is holding it**, `SequentialAction` doing
+the same job it does for §16 — a step that may not be entered before the one
+before it lands. A press with the catch unprimed still spends a tooth: the
+rack always advances on his press, catch or no catch, but an unprimed
+advance is a tooth burned for nothing rather than a clean one — the rack
+never runs backward, so the two wasted teeth are the only mistakes the fight
+can carry.
+
+**Player 1 — pilot.** Sees the whole rack, the same as she does, and presses
+when he believes she is holding — but never sees her hold directly, only her
+own screen's cue confirming it.
+
+**Player 2 — navigator.** Sees the whole rack too. Holds the catch and calls
+`SET` across the voice delay before he presses, since he cannot see her hand
+either.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| 1 | The rack hangs still, seven teeth showing, the catch unset | — | — | — | — | — |
+| 2 | She primes the catch | P2 | hold the catch (`SET`) | held | catch primed | — |
+| 3 | She calls it across the gap | P2 | call `SET` the instant she is holding | 900 ms, called | he presses in time | a press before the call spends a tooth for nothing |
+| 4 | He presses while she holds | P1 | press the pawl | 900 ms, called | first tooth advances clean | pressing with no catch primed still advances the rack, one tooth burned |
+| 5 | Rack one tooth up; catch releases, must be reset | — | — | — | — | — |
+| 6 | She resets and holds again, faster this time | P2 | hold and call `SET` | held, 700 ms called | — | — |
+| 7 | He presses on her call | P1 | press | 700 ms, called | second tooth advances clean | early press burns a tooth |
+| 8 | The spring, half-wound, flings a loose bolt down a column — the fight's one ordinary hazard | P1 or P2 | fire the bolt, their own colour | 2 beats, seen | quenched | ordinary hull hit |
+| 9 | Third climb, catch held longer this time to cover a longer press window | P2 | hold through the whole window | held | — | — |
+| 10 | He presses, anywhere inside her longer hold | P1 | press | 3 beats, seen | third tooth advances clean | pressing outside her hold burns a tooth |
+| 11 | Fourth climb, tempo tightest yet | P2 | hold and call `SET` | held, 600 ms called | — | — |
+| 12 | He presses on the call alone, no margin left to spend | P1 | press | 600 ms, called | fourth tooth advances clean | any burned tooth here and the rack cannot reach five with two teeth left |
+| 13 | **The fifth climb.** Whatever margin is left, she holds and calls one last time | P2 | hold and call `SET` | held, 600 ms called | — | — |
+| 14 | He presses | P1 | press | 600 ms, called | fifth tooth advances clean, the catch at the top gives | with fewer than five clean advances banked, the top catch does not give and the rack sits at its ceiling, unopened |
+| 15 | **The rack tops out.** Its catch springs wide, the whole strut folds down and away from the ship, teeth still showing the two it never got to spend | — | — | — | — | — |
+
+**THE SLOW** opens on every catch-and-press pair — the whole fight is one
+recurring called window, and every one of them is exactly where a third-rate
+window buys the 900 ms `guardWindowMs` needs to cross the delay honestly. No
+`DRAG`: nothing climbs at a fraction of its rate, it climbs once, cleanly, or
+it does not.
+
+**Presentation.** No camera. Every clean advance is one shudder through
+`hull-shock.ts`, and a burned tooth is a flat, unlit non-event — the fight's
+one silence, on purpose, because nothing should reward a mistake with a
+picture.
+
+**Animation.** Four poses, fewer than any other boss here on purpose, since
+the picture is the rack's own remaining teeth rather than a body changing
+shape: unset and still; the catch glowing under a held hand; a tooth
+advancing with a visible click and jolt; the strut folded down at the top.
+
+**Colour.** The rack rock grey throughout, since nothing on it is ever shot;
+the one hazard bolt in red or cyan; the catch's glow white, the same colour
+every target lock in the game uses, because it is a lock and not ammunition.
+
+**Payoff.** Row 15 — the only finish on the page that shows, honestly, how
+much margin the pair had left over. Two unspent teeth is a clean run; none
+left is the same win, told differently.
+
+**Cost. Low.** `SequentialAction` is shipped (§16); a press that always
+advances and never reverses is a single line in the boss's own step function.
+Nothing new is asked of the engine.
+
+**Reusable.** Nothing named — the finding worth keeping is that a mistake
+does not have to cost a beat or a hull hit to matter: costing a fixed and
+never-replenished margin is a third kind of consequence this page had not
+tried yet.
+
+**Not built.** Nothing of it. Written 20 September 2026; queued as two items,
+one per lane.
+
+---
 
 ### The reusable interaction library the brief asks for
 
