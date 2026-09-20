@@ -907,39 +907,6 @@ whether a state there is a phase or any named condition of the boss. Decide
 that first — it is the same question THE GORGE's pinch and pry will ask — then
 add the two poses and point the two rows at them.
 
-## THE BATON's merge — its two handle rings — still has no picture taken
-
-- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
-- **Taken:** 2026-09-20, main (claim: claude/queue-the-batons-merge-its-two-handle-rings-still-has)
-- **Files:** `packages/render/src/baton-grip.ts`, `packages/render/test/baton-grip.test.ts`
-
-The swelling socket is now checked: `bun run tools/frames/run.ts . --wave "THE
-BATON" --ticks 220 --boss-json '{"sockets":[1,3,0,0,0,0,0,0,0,0,0],
-"swellSocket":1,"swellBeat":0,"stage":"passing"}'` (this repo's cloud sessions
-can in fact render and read a PNG this way — `bun run frames`, then read the
-file directly — this is not the screenless situation earlier entries assumed)
-shows a socket grown half again over its neighbours' plain ring, visibly
-shaking, geometry clean, no clipping or overlap with the STRIP cue above it.
-
-**The merge's two rings are still unseen.** `baton-grip.ts`'s own header:
-*"the upper bead is the pilot's and the one that waited is the navigator's"* —
-one ring per seat, on one screen each, filling under its own thumb. Reaching
-that state needs a real playthrough rather than a `--boss-json` overlay: the
-frames tool checks an injected `beads` array against the length the
-simulation has actually reached at that tick and refuses a mismatch (tried
-up to tick 8000 with no player input — the sim never releases a second bead
-without a `STRIP` press on the first, so the array stays length 1 the whole
-time), and fabricating a second `BatonBead` by hand risks a `satBeat`/
-`flightTick` combination the renderer was never proven against. What is
-needed: a `--press` sequence that actually strips the first socket at the
-right beat, repeated until both beads sit in the last two sockets — or a
-frame captured straight from `packages/render/test/baton-grip.test.ts`'s own
-`merging()` helper, which already builds this exact state for its assertions
-and could write a PNG instead of just comparing hit-circles.
-
-Open it on a machine that can drive the sequence, or extend the test helper
-to dump a frame, and then take this entry out with `bun run queue done`.
-
 ## Unverified at 1ceb748c: THE UNDERTOW's five cues seen in a frame: no PNG was ta…
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -1719,3 +1686,75 @@ that predates this session and was already false before it: the page holds
 six waves at 195 of 250 lines, 55 under the ceiling. One sentence, once
 whoever adds or removes a wave from this specific page next has read it
 closely enough to know what it should say instead.
+
+## THE BATON's own "HOLD" cue is drawn over the other seat's bead
+
+- **Found:** 2026-09-20, claude/queue-the-batons-merge-its-two-handle-rings-still-has
+- **Files:** `packages/render/src/boss-cue-read-i.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/baton-grip.ts`
+- **Where:** local
+
+The merge's two rings are now seen, for the first time, in a real frame — one
+per screen, one per seat, geometry and never colour, exactly as
+`baton-grip.ts`'s own header says. But on the pilot's own screen (`p1`),
+before his thumb has gone down, his `HOLD` cue label lands **on top of the
+navigator's bead**, one socket below his own: `drawCueText`
+(`boss-cue-text.ts`) hangs the word `cue.y + halfH + WORD_GAP` under the
+mark's centre, `halfH` is `0.66` tiles and `WORD_GAP` is 18px, and a socket is
+exactly one tile below the one before it — so the word's own centre lands
+almost exactly where the next bead sits, and the "HOLD" text is legible only
+because it is drawn last, over the bead's fill. Seen with a scratch script
+that built the exact `merging()` state `packages/render/test/baton-grip.test.ts`
+already uses for its hit-circle assertions, then screenshotted `p1` and `p2`
+through the real preview: `p2`'s own `HOLD` is clean (his merge socket is the
+arm's last one, with nothing below it), `p1`'s is not. The `test` role (both
+screens on one canvas) shows the same overlap, since it draws both beads and
+picks only the first seat's cue to letter (`bossCue`'s "one cue at a time").
+
+This is a **different** cause from "A cue standing on the hull line has its
+verb drawn under the ship" above — that one is a paint-order problem against
+the ship, drawn after the field pass; this one is two of the boss's own bodies
+standing closer together than `boss-cue-text.ts`'s fixed offset assumes — but
+the fix likely wants the same shape: a cue that knows how much room is really
+below its mark before it commits to `halfH + WORD_GAP`, or a per-mark floor
+`markAt` in `boss-cue-read-i.ts` can pass in for a mark this boss knows is
+socket-close to another. `bun test packages/render` after any fix, plus a
+frame of `p1` with the merge state built the same way this entry found it, to
+look at instead of only measuring it.
+
+## `chromium.launch()` crashes here; the pipe transport is why, not the sandbox
+
+- **Found:** 2026-09-20, claude/queue-the-batons-merge-its-two-handle-rings-still-has
+- **Files:** `tools/frames/browser.ts`
+- **Where:** local
+
+`tools/frames/browser.ts`'s `launchBrowser()` — and therefore every
+`bun run frames`, `bun run shot`, `bun run raster` and the whole of
+`tools/frames/test/*` that opens a real browser — fails in this cloud session
+with `could not open a browser: launch: Target page, context or browser has
+been closed`, reproduced with the tool's own documented command
+(`bun run frames . --wave "THE BATON" --ticks 220 --boss-json '…'`, this
+session's queue entry's own line) and with `bun test
+tools/frames/test/page-said.test.ts`, not just a script of this session's own.
+
+The real reason is one level down: this container runs Chrome as **root**,
+where Chrome refuses its sandbox unless told `--no-sandbox` — Playwright
+already passes that — but Playwright's *own* transport to the browser it
+launches is `--remote-debugging-pipe` (fixed by `playwright-core`, not an
+`args` a caller can turn off), and the launched Chrome dies with `SIGTRAP`
+the instant that pipe is opened, here, with no further message on either
+stream. Confirmed by hand: `chromium --headless --no-sandbox
+--remote-debugging-port=N` (TCP, not the pipe) starts and answers
+`/json/version` cleanly, and `playwright-core`'s `chromium.connectOverCDP`
+against that same manually-spawned process opens pages, navigates and
+screenshots exactly as `chromium.launch()` is supposed to.
+
+So the fix is not `--no-sandbox` (already there) and not a Chrome path
+(`findChrome()` already finds one and it runs). It is `launchBrowser()`
+falling back to spawning `findChrome()` itself with `--remote-debugging-port`
+and connecting with `connectOverCDP` when the ordinary `chromium.launch()`
+throws — the same shape `docs/cloud-session.md` already describes this
+sandbox needing for wrangler's own quirks. Until it does, a cloud session
+that needs a real frame has to hand-roll the workaround this entry describes,
+which is real friction for every future frame this sandbox is asked to take.
+`bun test tools/frames` after any fix, on this machine specifically — the
+tool's own tests pass or fail on exactly this.

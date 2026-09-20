@@ -13339,3 +13339,37 @@ wrong**, not the swell check itself — once `bun run frames` was tried
 instead of assumed unavailable, the socket check took minutes.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-the-batons-merge-its-two-handle-rings-still-has — a browser that would not launch
+
+THE BATON's merge state (two beads, two rings, one per seat) had never been
+seen. `--boss-json` cannot build it — a `beads` array longer than the sim has
+reached is refused — and `--press` has no control name for a real STRIP
+(`batonSocket` is not in `press.ts`'s `PRESS_KINDS`), so the picture came from
+a scratch script driving the real preview through a real headless Chrome and
+mutating `window.neonSpore.world.boss` the way
+`baton-grip.test.ts`'s own `merging()` helper does. Getting a browser open at
+all was most of the session: `chromium.launch()` crashed instantly in this
+container (root, Playwright's own `--remote-debugging-pipe` transport dying
+on launch, not a sandbox flag) — reproduced with the tool's own documented
+`bun run frames` command, so it is queued as its own finding rather than
+worked around in silence. Once a manually-spawned Chrome was reached over
+`connectOverCDP` instead, three real frames (`p1`, `p2`, `test`) came back
+clean. They showed the rings are right — but the pilot's own `HOLD` cue
+label lands on the navigator's bead, one socket below, on `p1`'s own screen:
+also queued, since fixing a boss's picture is not this lane's job.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue entry, `baton-hand.ts`, `baton-grip.ts`, `press.ts`/`press-command.ts` (to confirm `--press` has no `batonSocket` control), `capture.ts`/`page.ts`/`drive.ts` for the real capture pipeline |
+| writing | 15 | the scratch capture script (not committed), the two new queue findings, this log entry |
+| looking | 20 | three real frames (`p1`, `p2`, `test`) of the merge state, cropped and read back to compare rings, pellet colour and the `HOLD` label's placement |
+| friction | 35 | `chromium.launch()` crashing with no useful message; isolating it to `--remote-debugging-pipe` by hand-launching Chrome with `--remote-debugging-port` instead and reaching it with `connectOverCDP` |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast`, the commit |
+
+**The bottleneck was the browser refusing to launch at all**, not the merge
+state itself — once a Chrome was actually reachable, building and
+screenshotting the state took minutes and the real defect was visible on the
+first frame.
+
+*Measured: the rows above are the session's own estimate.*
