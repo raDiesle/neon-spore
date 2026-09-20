@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 3e645093 — `bun run reconcile` replays the trunk where nothing has it checked out
+
+A cloud clone is one checkout standing on its lane branch, with `main` a ref beside it. `reconcile` asked which worktree held the trunk, found none, and refused with *check main out somewhere and run this again* — so the one command written to unstick a diverged trunk was the one command a session started from a phone could not run, and unsticking it meant the by-hand rebase that command exists to stop. `note-commit.ts` had already met the same shape and answered it: where there is no second checkout, the session's own is the trunk's content. `reconcile.ts` now does that with a rebase in the middle — the trunk checked out detached here, replayed onto `origin/main`, the ref forced onto what came out, and the lane put back in a `finally` so a refusal ends standing where it started too. A dirty checkout still refuses, because there the files a rebase would walk over are the session's own.
+
 ## 2026-09-20 · b3621812 — Cache a pose's built world, fill STATES cards lazily per section
 
 Every card in the STATES documentation room walked its pose's own hand and drew a frame synchronously before the tab could show a single one, and the ON THE FIELD row walks the same poses again at a different width. poseArt now keeps a pose's built World by name, since a build is already proven deterministic by seed, so a second caller only draws. states-page.ts's section fills its row of cards on a scroll into view or a click of its own heading, sharing one IntersectionObserver the way stage-loop.ts already does for the stage.
