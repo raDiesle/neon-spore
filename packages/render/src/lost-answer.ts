@@ -20,6 +20,13 @@ import { seatSkin } from "./seat-skin.js";
 
 const BTN_H = 52;
 /**
+ * **The face reads GO TO MENU, not QUIT** — the owner's own wording, 20
+ * September 2026: pressing it in a real room lands on the room screen, not
+ * the app's menu, and "quit" read as ending the session outright. The press
+ * itself, the command it sends, and the room's own handling of it
+ * (`quit.ts`, `sim/wave-fail.ts`) are unchanged; only the word on the face
+ * moved.
+ *
  * **QUIT is smaller than RETRY and stands further from it**, asked for by the
  * owner on 17 September 2026: *the "quit" button, we should do less prominent
  * maybe reduce size of button or move it somewhere else, as player might
@@ -135,7 +142,7 @@ export function drawLostAnswer(
         dpr: l.dpr,
         lip: skin.lip,
       },
-      "QUIT",
+      "GO TO MENU",
       -1,
       QUIT_WORD,
       QUIT_SIGN,

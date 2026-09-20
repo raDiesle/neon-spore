@@ -46,9 +46,9 @@ const WALK_MS = HANG_MS;
  * is a thing a thumb on that page can press.
  *
  * So the net is the same one it always was — the two words the lost screen's
- * record does *not* own, RETRY WAVE and QUIT, which a candidate may not rewrite
- * (`lost-look.ts`) — and what it asks has flipped: those words are on no page
- * of any film at all.
+ * record does *not* own, RETRY WAVE and GO TO MENU, which a candidate may not
+ * rewrite (`lost-look.ts`) — and what it asks has flipped: those words are on
+ * no page of any film at all.
  *
  * **A sweep that finds nothing has to say why.** A film that never loses its
  * wave would pass this without the guard in `briefing.ts` existing, so a second
@@ -64,7 +64,7 @@ const ROLES: ViewRole[] = ["p1", "p2"];
 const PHONE = { width: 390, height: 844, dpr: 1 };
 
 /** The buttons, which say this page is the lost screen (`lost-screen.ts`). */
-const BUTTONS = /^RETRY WAVE$|^QUIT$/;
+const BUTTONS = /^RETRY WAVE$|^GO TO MENU$/;
 
 beforeAll(installCanvasGlobals);
 

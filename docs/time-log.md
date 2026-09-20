@@ -14046,3 +14046,31 @@ stayed a ring either way, and only the event log said whether the sim had
 actually moved.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-in-game-quit-label — the word changed, not the button
+
+The lost screen's second button now reads GO TO MENU instead of QUIT,
+the owner's own wording: in a real room the press lands on the room
+screen, not the app's menu, and "quit" read as ending the session
+outright. Only the drawn word moved — the press, the command it sends,
+`quit.ts` and `sim/wave-fail.ts` are all untouched, and so is every place
+`QUIT` still names the underlying action rather than the label. The one
+test that reads the label off a real canvas (`guide-lost-room.test.ts`,
+which proves a rehearsal never draws this screen) had its literal string
+updated to match. A real frame at the lost screen (`--wave 1 --ticks 1400
+--settle 90`) shows the new word fully faded in and sitting inside its
+plate with room to spare.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `lost-answer.ts`, `lost-screen.ts`, `quit.ts`, grepping every `QUIT` in the tree to see what was prose and what was the literal label |
+| writing | 5 | the one string literal, a comment explaining why the word and the destination disagree, the test's regex |
+| looking | 10 | a real frame of the lost screen, twice — once to find the tick past `waveFailBeats` the screen actually opens on |
+| friction | 5 | `--settle` advances the render's own clock, not the sim's — the first attempt held the sim at the fail tick itself, before `lostAsks` had gone true |
+| landing | 10 | `bun run check:fast`, this log entry, the commit |
+
+**The bottleneck was `--settle` looking like the right knob for "the
+button hasn't shown yet" when the real gap was sim ticks, not painted
+seconds.**
+
+*Measured: the rows above are the session's own estimate.*

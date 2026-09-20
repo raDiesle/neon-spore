@@ -1632,17 +1632,6 @@ straight back into a wave, not through that setup again. The owner also
 wants a wave filter on that screen like the one the director already has
 (`rail-filter.ts`) — wants to find a wave by name rather than scroll for it.
 
-## The in-game QUIT button's label doesn't say what it does
-
-- **Found:** 2026-09-20, the owner
-- **Taken:** 2026-09-20, claude/queue-unverified-17ed660e (claim: claude/queue-the-in-game-quit-buttons-label-doesnt-say-what-i)
-- **Files:** `apps/game/src/lost.ts`, `apps/game/src/quit.ts`, `apps/game/src/join-room.ts`
-
-Pressing QUIT on the lost screen, in a real room, takes the pair back to the
-room page — not out of the game. The owner wants the button renamed to
-something that says that, "go to menu" was his suggestion, so it stops
-reading as if it ends the session.
-
 ## A room, for real players, has no way back to the main menu
 
 - **Found:** 2026-09-20, the owner
