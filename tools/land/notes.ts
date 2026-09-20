@@ -105,14 +105,32 @@ commit message that read wrong, and the history is where that lives.
 `;
 
 /**
+ * Is this commit already in the file? Read off the heading `renderEntry`
+ * writes, which carries the abbreviated sha between its two separators and
+ * holds nothing else shaped like one.
+ */
+function alreadyNoted(existing: string, commit: Landed): boolean {
+  return existing.includes(`\n## ${commit.date} · ${commit.sha} — `);
+}
+
+/**
  * Put new entries at the top, under the preamble.
  *
  * Newest first, because the question this file answers is almost always about
  * the last few days. `commits` arrives oldest-first the way `git log --reverse`
  * gives it, so it is reversed here rather than at every call site.
+ *
+ * **A commit already noted is not noted again.** The range this is handed is
+ * whatever the trunk just gained, and a trunk reconciled onto `origin/main`
+ * can gain a commit whose note travelled with it: on 19 September 2026
+ * `8995ded7` went in twice, word for word, and that pair of identical blocks
+ * then refused every `bun run reconcile` that touched the file until
+ * `record-merge.ts` learnt to pass one of them over. The record is keyed by
+ * sha, so a sha it already carries is a write it has already done.
  */
 export function prepend(existing: string, commits: readonly Landed[]): string {
-  const entries = [...commits].reverse().map(renderEntry);
+  const fresh = commits.filter((commit) => !alreadyNoted(existing, commit));
+  const entries = [...fresh].reverse().map(renderEntry);
   if (entries.length === 0) return existing || PREAMBLE;
 
   const body = entries.join("\n");

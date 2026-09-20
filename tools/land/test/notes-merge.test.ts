@@ -45,6 +45,23 @@ describe("merging docs/release-notes.md", () => {
     expect(mergeNotes(BASE, trunk, PREAMBLE + entry("ccccccc", "ours"))).toBeNull();
   });
 
+  test("merges a file carrying one note written twice, word for word", () => {
+    // docs/release-notes.md carried 8995ded7 twice from 19 September 2026, the
+    // two blocks byte-identical, and every reconcile refused the whole file
+    // over a pair that agree perfectly. There is nothing to decide between two
+    // copies of one sentence.
+    const twice = PREAMBLE + OLD + OLD;
+    const trunk = twice.replace(PREAMBLE, PREAMBLE + entry("bbbbbbb", "theirs"));
+    const lane = twice.replace(PREAMBLE, PREAMBLE + entry("ccccccc", "ours"));
+    const out = mergeNotes(twice, trunk, lane);
+    expect(out).not.toBeNull();
+    const text = out ?? "";
+    expect(text).toContain("ours");
+    expect(text).toContain("theirs");
+    // And the doubled entry is still there — this merge drops nothing.
+    expect(text.split("aaaaaaa").length - 1).toBe(2);
+  });
+
   test("refuses when both sides wrote different bodies under one heading", () => {
     const trunk = PREAMBLE + OLD.replace("in a sentence", "their way");
     const lane = PREAMBLE + OLD.replace("in a sentence", "our way");

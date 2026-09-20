@@ -114,4 +114,15 @@ describe("prepend", () => {
     expect(out).toContain("## 2026-09-01 · aaaa — First");
     expect(out.indexOf("# Release notes")).toBe(0);
   });
+
+  test("a sha the file already carries is not written a second time", () => {
+    // What put 8995ded7 into docs/release-notes.md twice: a trunk reconciled
+    // onto origin/main gains a commit whose note came with it, and the range
+    // the landing reports is the whole of what the trunk gained.
+    const existing = prepend("", [first]);
+    expect(prepend(existing, [first])).toBe(existing);
+    const out = prepend(existing, [first, second]);
+    expect(out.split("## 2026-09-01 · aaaa — First").length - 1).toBe(1);
+    expect(out).toContain("## 2026-09-02 · bbbb — Second");
+  });
 });

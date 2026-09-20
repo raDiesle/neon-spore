@@ -1942,3 +1942,30 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `bun run reconcile` needs a worktree holding main, which a cloud clone has not
+
+- **Found:** 2026-09-20, claude/task-queue-work-ym2eim
+- **Files:** `tools/land/reconcile.ts`, `tools/land/reconcile-run.ts`, `tools/land/replay.ts`, `docs/cloud-session.md`
+- **Where:** cloud
+
+`reconcile` asks `trunkTree` which worktree has `main` checked out and refuses
+outright when the answer is none — *check main out somewhere and run this
+again*. That answer is the **normal** shape of a session started from a phone:
+the clone has one checkout, it stands on the lane branch, and `main` is a ref
+nobody is standing on. `note-commit.ts` already knows this and says so in its
+own header — *a clone with no worktrees is written the same way* — and writes
+the release note into the session's own tree because `moveTrunk` has just
+forced the trunk ref onto that HEAD. The replay has no such fallback, so the
+one command that exists to unstick a diverged trunk is the one command a cloud
+session cannot run. This lane worked around it by checking `main` out in the
+primary checkout, which puts the working tree on the wrong branch mid-lane and
+is exactly the by-hand rebase `reconcile.ts` was written to stop.
+
+Give the replay the same fallback the note has: with no worktree on the trunk
+and the session's own tree clean, rebase a detached copy of `main` onto
+`origin/main` — the trunk is a ref here, not somebody's checkout, so nothing
+is walked over — and move the ref when it lands. Refuse exactly as now when
+the session's own tree is dirty, since that tree *is* the one the rebase would
+use. The cloud document's landing paragraph gains the sentence saying the
+command works there.

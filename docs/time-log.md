@@ -12844,3 +12844,21 @@ paragraph** — the fix itself was a comment, but a comment naming four files'
 relationship wrong would have cost the next lane more than the missing one did.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — claude-task-queue-work-ym2eim — one note written twice stopped every reconcile
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `reconcile-run.ts`, `reconcile.ts`, `replay.ts`, `notes-merge.ts`, `record-merge.ts`, `notes.ts`, and the two `8995ded7` blocks in the record itself |
+| writing | 15 | `byTitle`'s tolerance, `prepend`'s filter, a case in each of the two tests |
+| looking | 0 | none — nothing on the field moved |
+| friction | 25 | `bun run reconcile` names the file and calls the disagreement mine; finding that the disagreement was a pair of byte-identical blocks meant reproducing `mergeRecord` on the three sides in a scratch script |
+| landing | 15 | `check:fast`, lint, format, the commit, the worktree the reconcile wanted |
+
+**The bottleneck was a refusal that pointed at the wrong thing**: `docs/release-notes.md`
+— this one is a real disagreement, and it is yours says a file two sides wrote
+differently, and the file two sides had written *identically*, twice over, reads
+the same from outside. Nothing short of running the merge by hand on the three
+stages told them apart.
+
+*Measured: the rows above are the session's own estimate.*

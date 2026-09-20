@@ -36,19 +36,32 @@ import { type Entry, join, split } from "./queue-merge.js";
 export type Newest = "first" | "last";
 
 /**
- * Entries by heading, or `null` when one heading is used twice.
+ * Entries by heading, or `null` when one heading is used twice **and the two
+ * say different things**.
  *
  * Keying by title is what lets an entry be followed across three sides that
  * each wrote to the same end. It is also the assumption that would lose an
- * entry if it were wrong, so it is checked rather than trusted: all 310
- * headings in the ledger on 16 September 2026 are unique, a release note's
- * heading carries its own sha, and a side that writes a duplicate gets a
- * refusal instead of a silent overwrite.
+ * entry if it were wrong, so it is checked rather than trusted: a release
+ * note's heading carries its own sha, a ledger heading its own date and lane,
+ * and a side that files two different bodies under one of those gets a refusal
+ * instead of a silent overwrite.
+ *
+ * **A heading repeated with byte-identical text is not that.** It is one note
+ * written twice, which `docs/release-notes.md` carried from 19 September 2026:
+ * `8995ded7` appears in it twice, word for word, and every `bun run reconcile`
+ * from then on refused the whole file over a pair of blocks that agree
+ * perfectly. There is nothing to decide between two copies of one sentence, so
+ * the second is passed over and the record merges. `notes.ts` is where the
+ * double write itself is stopped.
  */
 function byTitle(entries: readonly Entry[]): Map<string, string> | null {
   const map = new Map<string, string>();
   for (const entry of entries) {
-    if (map.has(entry.title)) return null;
+    const seen = map.get(entry.title);
+    if (seen !== undefined) {
+      if (seen !== entry.block) return null;
+      continue;
+    }
     map.set(entry.title, entry.block);
   }
   return map;
