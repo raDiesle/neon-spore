@@ -910,6 +910,7 @@ add the two poses and point the two rows at them.
 ## Unverified at 1ceb748c: THE UNDERTOW's five cues seen in a frame: no PNG was ta…
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-1ceb748c-the-undertows-five-cues-s)
 - **Files:** `apps/server/test/dev-stop.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-undertow.ts`
 
 3 commits landed, ending in *THE UNDERTOW says a word in each of its five phases*, from a session that could not look at it. The commit touched 9 more files. What went unchecked:
