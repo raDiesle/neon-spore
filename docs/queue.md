@@ -1020,7 +1020,7 @@ what the rest of this file holds.
 ## A phone in TEST mode has nowhere to put two bands and the rig
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Files:** `apps/game/src/at-a-desk.ts`, `apps/game/src/testing.ts`, `apps/game/src/game.css`, `apps/game/src/viewport.ts`, `tools/director/src/stage-transport.ts`
+- **Files:** `apps/game/src/at-a-desk.ts`, `apps/game/src/testing.ts`, `apps/game/src/game.css`, `apps/game/src/viewport.ts`, `tools/director/src/stage-transport.ts`, `tools/build-stamp.ts`
 - **Where:** local
 
 The second half of "Choosing P1 in the game's view switch hides the switch
@@ -1030,6 +1030,18 @@ view, so a seat can be left again.
 
 The owner, 18 September 2026: *"Also make sure in director and for game, when I
 am in solo test mode, I can also test for both players on mobile device."*
+
+The owner, 20 September 2026: *"Maybe it is already resolved, but in game in
+'both seats' the bottom of control set is often cutted, so I can't see buttons
+and use them also horizontal the hull skin is vertical cutted inside of the
+screen. I suggest to remove build information time version below game screen.
+It may push content up and be reason."* Not resolved — this is the same cut he
+is describing. His own guess at the cause is worth trying first and is cheap to
+try: the `#buildStamp` line (`tools/build-stamp.ts`, styled in `game.css`) sits
+under the field and could be the thing pushing the rig's bottom off the bottom
+of a real phone's viewport; if pulling it (or moving it somewhere that doesn't
+compete for height) does not clear the cut on its own, the layout question
+below still needs answering on top of that.
 
 The seat card's own words are *"Both bands and the test rig, for one person at a
 desk"*, and the rig is laid out for one. `at-a-desk.ts` is the question the app
