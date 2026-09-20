@@ -458,7 +458,8 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
 
 /* A bad line, with a clock on it. It is not the room screen: the question here
    is only "wait, or stop", and the room screen is a page of choices. */
-#linkHold {
+#linkHold,
+#backAsk {
   position: fixed;
   inset: 0;
   z-index: 23;
@@ -469,10 +470,12 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   background: rgba(7, 6, 15, 0.82);
   backdrop-filter: blur(2px);
 }
-#linkHold.on {
+#linkHold.on,
+#backAsk.on {
   display: flex;
 }
-#linkHold .card {
+#linkHold .card,
+#backAsk .card {
   width: 100%;
   max-width: 340px;
   padding: 20px 18px;
@@ -482,7 +485,8 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   background: rgba(14, 9, 30, 0.96);
   box-shadow: 0 0 40px rgba(255, 84, 112, 0.18);
 }
-#linkHold h3 {
+#linkHold h3,
+#backAsk h3 {
   margin: 0;
   font-size: 11px;
   font-weight: 600;
@@ -501,12 +505,14 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   line-height: 1.7;
   color: #9c8fd6;
 }
-#linkHold .acts {
+#linkHold .acts,
+#backAsk .acts {
   display: flex;
   gap: 8px;
   margin-top: 18px;
 }
-#linkHold .acts button {
+#linkHold .acts button,
+#backAsk .acts button {
   flex: 1;
   padding: 10px 8px;
   border-radius: 8px;
@@ -518,8 +524,21 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
     monospace;
   letter-spacing: 1.5px;
 }
-#linkHold .acts button.quiet {
+#linkHold .acts button.quiet,
+#backAsk .acts button.quiet {
   border-color: #3b3163;
+  color: #9c8fd6;
+}
+
+/* The back gesture's three answers are stacked: CONTINUE PLAYING does not fit
+   a third of a phone, and the safe one sits nearest the thumb. */
+#backAsk .acts {
+  flex-direction: column;
+}
+#backAsk p {
+  margin: 12px 0 0;
+  font-size: 10px;
+  line-height: 1.7;
   color: #9c8fd6;
 }
 

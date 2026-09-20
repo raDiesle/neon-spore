@@ -1,15 +1,15 @@
 /**
  * Whether the world ticks, and who is holding it still.
  *
- * There are four things that stop the game and they arrive from four places:
+ * There are five things that stop the game and they arrive from five places:
  * a thumb on the pause control, the menu being up, the tuning panel being
- * open, and the tab going away. Each of them used to set one boolean, which
- * meant the last one to speak won — closing the panel resumed a game the menu
- * was still covering, and coming back to the tab resumed one somebody had
- * deliberately paused.
+ * open, the question the back gesture asks, and the tab going away. Each of
+ * them used to set one boolean, which meant the last one to speak won —
+ * closing the panel resumed a game the menu was still covering, and coming
+ * back to the tab resumed one somebody had deliberately paused.
  *
  * So a hold is named and the run is the absence of all of them. Nothing here
- * knows what a menu is; it only knows that four names can each be down.
+ * knows what a menu is; it only knows that five names can each be down.
  */
 export type Hold =
   /** A thumb on the pause control, or P at a keyboard. Deliberate. */
@@ -18,6 +18,11 @@ export type Hold =
   | "menu"
   /** The tuning panel is open. */
   | "panel"
+  /** The back gesture's question stands over the field (`back-ask.ts`). Its
+   * own name rather than the menu's: it is put away by a different press, and
+   * one of its answers is to open the menu, which would otherwise take the
+   * hold off under itself. */
+  | "ask"
   /** The tab is in the background. Resumes on its own. */
   | "hidden";
 

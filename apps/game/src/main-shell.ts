@@ -36,6 +36,8 @@ export interface MainDeps {
   startTogether: (wave: number) => void;
   /** Writes the run's tempo onto the live config — `main.ts`'s own `playAt`. */
   playAt: (level: Difficulty) => void;
+  /** Both seats' QUIT, from the buffer `main.ts` holds (`quit.ts`). */
+  quit: () => void;
 }
 
 export function shellWiring(deps: MainDeps): ShellParts {
@@ -65,6 +67,7 @@ export function shellWiring(deps: MainDeps): ShellParts {
       updateProgress((p) => atLevel(p, level));
       deps.startTogether(0);
     },
+    quit: deps.quit,
     intro: deps.intro,
   };
 }

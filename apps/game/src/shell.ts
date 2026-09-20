@@ -2,6 +2,7 @@ import type { MechanicId } from "@neon-spore/content";
 import type { PlayerId } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
 import type { Difficulty, SimConfig, World } from "@neon-spore/sim";
+import { bindBackAsk } from "./back-ask.js";
 import { openHello } from "./hello.js";
 import { bindHoldCard } from "./hold.js";
 import { bindInstall, type Installer } from "./install.js";
@@ -57,6 +58,12 @@ export interface ShellParts {
    * the run starts again at the first wave when it does (`main.ts`). */
   level: () => Difficulty;
   setLevel: (level: Difficulty) => void;
+  /**
+   * End the run on both seats: the `quit` command, which the simulation reads
+   * on a live wave as well as on the lost screen (`quit.ts`'s `pressQuit`).
+   * The back gesture's question is the second place that gives it.
+   */
+  quit: () => void;
   /**
    * The six pages that say what this game is (`intro.ts`). The shell decides
    * *when*: on a device that has never seen them they are the front door, and
@@ -205,6 +212,18 @@ export function bindShell(p: ShellParts): Link {
    * What it is handed is `shell-menu.ts`: wiring, not order.
    */
   menu = bindMainMenu(menuWiring(p, { joinScreen, link, installer: () => installer, leaveRoom }));
+
+  // **The phone's back gesture asks rather than leaves** (`back-ask.ts`), on
+  // both roads and for the ☰'s own reason: a field a tester reached with
+  // `?play` is still a field an edge swipe would walk out of mid-run.
+  bindBackAsk({
+    menuOpen: () => menu?.isOpen() ?? false,
+    closeMenu: () => menu?.close(),
+    openMenu: () => menu?.open(),
+    quit: p.quit,
+    hold: (on) => p.run.hold("ask", on),
+    inRoom: () => link.status().state !== "solo",
+  });
 
   // On the road that skips the opening, that is the whole of it.
   if (!opensOnMenu(location.href)) return link;

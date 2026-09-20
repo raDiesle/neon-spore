@@ -235,51 +235,6 @@ waiting on.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## The phone's back gesture leaves the game instead of asking
-
-- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-the-phones-back-gesture-leaves-the-game-instead)
-- **Files:** `apps/game/src/shell.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-door.ts`, `apps/game/src/menu-parts.ts`, `apps/game/src/confirm.ts`, `apps/game/src/sign-in.ts`
-- **Where:** local
-- **Asks:** Should back open the menu the game already has, or a three-button question of its own over the field?
-- **Answered:** 19 September 2026 — a new three-button prompt over the field, against this entry's own recommendation. `confirm.ts`'s objection (a dialog the back gesture opened cannot also be a dialog it closes, without a second history entry to burn) is real and has to be designed around rather than skipped: the prompt's own dismissal needs its own push, or the gesture that opened it stops working the second time.
-
-The owner, 18 September 2026: *"When in game (no director) website I press back
-button, It should not go back to previous website, but open as if menu button
-was pressed, so it should ask: do you want to go back to menu or quit game, or
-continue playing."*
-
-**There is no `popstate` listener anywhere in `apps/game/src`.** The only thing
-the app does with history at all is `sign-in.ts`'s `history.replaceState(null,
-"", location.pathname)`, which scrubs the sign-in's query off the address and
-deliberately adds no entry. So the back gesture on the field is the browser
-leaving the page, mid-run, with the room still open on the other phone — and on
-a phone the gesture is an edge swipe, which is to say it is easy to do by
-accident while both thumbs are on the glass.
-
-The work is one history entry pushed when the field opens and a listener that
-answers it by re-pushing and showing something, and it is small. What it waits
-on is **what it shows**, because the two readings of the sentence above are
-different screens:
-
-- **The menu, as if `#gear` had been pressed.** It is already the three answers
-  the owner names: closing it is *continue*, its own rows are *menu*, and QUIT
-  is one of them. Nothing new is drawn, and `menu-door.ts` already knows how a
-  menu opens over a field. Back while the menu is *up* then pops one page of it
-  — `menu-parts.ts`'s `backButton` is the same move — and back from its root
-  closes it, which is a gesture that reads correctly all the way down.
-- **A question of its own over the field**, three buttons, the way he wrote it.
-  This is the more literal reading and it is the one `confirm.ts` argues
-  against in its own doc — *"A dialog is an overlay to dismiss, it steals the
-  back gesture"* — which is written about a different control but lands exactly
-  here: a dialog that the back gesture opened cannot also be a dialog the back
-  gesture closes without a second entry to burn.
-
-The first is recommended for that reason, and because the second builds a
-screen the game already has under another name. Either way `sign-in.ts`'s
-`replaceState` stays a replace: pushing there would put a sign-in nobody can
-return to in the stack.
-
 ## No guide page says which wave it is, and the gap before it is empty
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -1871,3 +1826,25 @@ somebody has. The drawing is already shared — `drawInstarBanner`
 line is a reading function and a call, not a second box. Keep #34: the line
 says what the *pair* is under and never a seat's own verb, which is why it
 is drawn bright on both screens.
+
+## No picture tool can photograph a card the back gesture opens
+
+- **Found:** 2026-09-20, claude/queue-the-phones-back-gesture-leaves-the-game-instead
+- **Files:** `tools/frames/menu-shot.ts`, `tools/frames/menu-trail.ts`, `apps/game/src/back-ask.ts`
+
+`bun run menu-shot` is the tool for markup over the field, and it can only
+arrive at a screen a **press on a labelled button** opens: its trail is
+`menu-trail.ts`'s press steps, and it waits for `#menu.on`. The back-ask card
+is opened by the phone's back gesture and by nothing else, so photographing it
+for the owner meant a throwaway Playwright script in a scratch directory that
+called `launchBrowser` and `menuDevice` itself and ran `history.back()` on the
+page — which is exactly the friction `menu-shot.ts`'s own header says it was
+built to stop being paid again, paid again.
+
+Two flags would cover it and neither needs a new browser: a step in the trail
+that means *press back* — `--page "BACK"` is taken by the menu's own row, so
+its own flag — and a `--screen` that says which `.on` to wait for instead of
+`#menu.on`, with `--element` already able to name the card. With both,
+`bun run menu-shot back.png --back --screen "#backAsk.on" --element "#backAsk"`
+is the picture in this entry's place. `menu-shot.ts` is near its ceiling, so
+the trail's new step belongs in `menu-trail.ts` beside the ones it has.

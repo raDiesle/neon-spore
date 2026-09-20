@@ -1,6 +1,7 @@
 import { type Layout, lostHit } from "@neon-spore/render";
 import { lostAsks, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
+import { pressQuit } from "./quit.js";
 
 export interface LostOptions {
   canvas: HTMLCanvasElement;
@@ -29,6 +30,10 @@ export interface LostOptions {
  */
 export function bindLost({ canvas, buffer, world, layout, inStage }: LostOptions): void {
   const answer = (kind: "retry" | "quit"): void => {
+    if (kind === "quit") {
+      pressQuit(buffer);
+      return;
+    }
     buffer.push(1, { kind });
     buffer.push(2, { kind });
   };

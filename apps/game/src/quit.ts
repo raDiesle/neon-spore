@@ -1,4 +1,5 @@
 import type { LinkStatus, PlayerId } from "@neon-spore/net";
+import type { InputBuffer } from "./input.js";
 
 /**
  * Who pressed QUIT on the lost screen, for the menu to say.
@@ -32,6 +33,19 @@ export function clearQuit(): void {
 /** The seat that quit, or 0 while nobody has since a wave last opened. */
 export function quitBy(): PlayerId | 0 {
   return by;
+}
+
+/**
+ * **The press itself**, from either of the two places a run is left: the lost
+ * screen's QUIT (`lost.ts`) and the question the back gesture asks over a live
+ * field (`back-ask.ts`). Both seats' commands go in whichever seat this device
+ * holds — in a room the scheduler drops the half this device is not sitting
+ * in, so the answer arrives signed by the seat that gave it, which is what
+ * tells the other phone who quit (`sim/commands.ts`, `sim/wave-fail.ts`).
+ */
+export function pressQuit(buffer: InputBuffer): void {
+  buffer.push(1, { kind: "quit" });
+  buffer.push(2, { kind: "quit" });
 }
 
 /** The shell's ear: one listener, replaced rather than added to. */

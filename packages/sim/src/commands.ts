@@ -2,21 +2,17 @@ import { batonLaunch } from "./baton-press.js";
 import { beatboxTapped } from "./beatbox-round.js";
 import { fire } from "./bullets.js";
 import { choirShaken } from "./choir-gesture.js";
+import { leaveHeard } from "./command-leave.js";
 import { pressRefused } from "./command-locks.js";
 import { clampCol } from "./config-derived.js";
-import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
 import { endPrime, primeChargeMilli, priming, spillPrime, startPrime } from "./lance.js";
 import { mazeHeard } from "./maze-controls.js";
 import { mineTapped } from "./mine.js";
 import { mirrorHeard } from "./mirror.js";
-import { closePinball } from "./pinball-round.js";
 import { reachHeard, reachOut } from "./reach.js";
-import { resetRun } from "./run.js";
-import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
-import { closeSnake } from "./snake-round.js";
 import { spliceHeard } from "./splice-round.js";
 import { bodyCenterCol, type Color, type TimedCommand } from "./types.js";
 import { undertowIntake } from "./undertow-press.js";
@@ -39,33 +35,10 @@ import type { World } from "./world.js";
  */
 export function applyCommand(world: World, timed: TimedCommand): void {
   const c = timed.command;
-  if (c.kind === "restart") {
-    // The sim clears the run and then asks for a queue. It cannot build one
-    // itself: waves live in content/, and content points at sim, not back.
-    // Read even while the controls are held, or a run could never be left.
-    resetRun(world);
-    // A run that is being left takes the lobe with it. Nothing else clears a
-    // fill, so one left standing would arm the first shot of the next run.
-    endPrime(world);
-    // And the shot already pressed and not yet out, for the same reason one
-    // step further on: a run being left is not a run that owes anybody a bolt,
-    // and the host does not answer `needWave` on the same tick it is asked, so
-    // there are ticks in between for a charge to go out into (`shot-charge.ts`).
-    endCharge(world);
-    // And the column a lance was still burning, for the same reason: a run
-    // being left is not a run with a beam standing in it (`lance.ts`).
-    world.beam = null;
-    // And the three rounds that take the whole picture, for the third time
-    // the same argument: a run being left is not a run standing at a dial, in
-    // an arena or over a table. Only those three — every other boss goes when
-    // `startWave` installs the next wave's, and none of the others holds the
-    // whole of `step` in the ticks before it gets there.
-    closeGauge(world);
-    closeSnake(world);
-    closePinball(world);
-    world.events.push({ type: "needWave", wave: 0 });
-    return;
-  }
+  // The two presses that leave a run, above every lock, in their own file
+  // (`command-leave.ts`): what each of them puts down before it goes is a
+  // longer argument than what any press here does to a wave.
+  if (leaveHeard(world, timed)) return;
   // Every lock a boss or a fault puts on a press, asked once, above the
   // switch: a door into a command that one of them forgot would be a control
   // that works from the wire and not the lobe (`command-locks.ts`).

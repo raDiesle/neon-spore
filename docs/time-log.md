@@ -22,6 +22,54 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — back-ask — the gesture that left the game now asks
+
+The owner, 18 September 2026: *"When in game (no director) website I press
+back button, It should not go back to previous website, but open as if menu
+button was pressed, so it should ask: do you want to go back to menu or quit
+game, or continue playing."* He picked the literal reading on the 19th — a
+three-button card of its own — against the queue entry's own recommendation.
+
+The objection the entry raised was the whole of the design: a card the back
+gesture opens cannot also be a card the back gesture closes, unless there is
+a second entry to burn. The answer is one guard entry pushed when the shell
+binds and **pushed straight back on every pop**, so the stack is two deep and
+stays two deep however many times the gesture is used. A pop means *one step
+out*, and what one step out is depends on what is over the field: the card if
+it is up, the menu if the menu is up, otherwise the question. That reading is
+a pure function of two booleans (`backAnswer`) and is where the test is.
+
+The three answers turned out to be three different things only after QUIT was
+made real. `quit` was a command the simulation only ever heard behind the lost
+screen's gate, so a run left mid-wave could not reach the other phone at all;
+it is read now in `applyCommand`, above every press lock, since a run nobody
+can leave is worse than a boss whose grip was escaped. Its own file with
+`restart`, the other press that leaves a run, because the pair took
+`commands.ts` over its 250 lines.
+
+The card holds the field solo and lets it run in a room: one phone may not
+stop a clock two phones share, which is the `ask` hold's own reason for not
+being the `menu` hold.
+
+**The look exemption is the first one**: the owner asked for this card by
+name, in the sentence above.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the queue entry and `confirm.ts`'s objection, `shell.ts`'s two roads, `run-state.ts`'s holds, `quit.ts` and where `quit` died |
+| writing | 45 | `back-ask.ts`, the card and its CSS, `pressQuit`, the `commands.ts` split into `command-leave.ts`, ten tests |
+| looking | 15 | the preview in this tree, the gesture driven four times, all three buttons pressed, the phone-sized frame |
+| friction | 15 | `await` at the top of a `describe`, Biome's member order, the 250-line ceiling found by the test rather than before the split, and no picture tool that can photograph a card the back gesture opens — a throwaway script, now queued |
+| landing | 15 | `bun run index` and its row, `check:fast`, this entry, the commit |
+
+**The bottleneck was that the picture had to be taken by hand**: every screen
+in this app is photographed by `menu-shot`, which can only arrive somewhere a
+labelled press opens, and the one screen this lane built is opened by a
+gesture — so the last twenty minutes were a Playwright script that exists to
+be deleted.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — instar-call-line — who goes when, said out loud
 
 The owner, having watched the lane before: *for any in-game action which

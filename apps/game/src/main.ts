@@ -21,6 +21,7 @@ import { interpolationRequested } from "./interpolate.js";
 import { shellWiring } from "./main-shell.js";
 import { menuIdleHz } from "./menu-idle.js";
 import { readProgress } from "./progress.js";
+import { pressQuit } from "./quit.js";
 import { bindRasterBurst, bindRasterClasp } from "./raster.js";
 import { createRunState } from "./run-state.js";
 import { bindShell } from "./shell.js";
@@ -146,6 +147,10 @@ const link = bindShell(
     testPanel,
     startTogether,
     playAt,
+    // The one thing `shell.ts` cannot reach for itself: the buffer is this
+    // file's, and the question the back gesture asks is one of the two places
+    // a run is left (`quit.ts`, `back-ask.ts`).
+    quit: () => pressQuit(buffer),
     intro,
   }),
 );

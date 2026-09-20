@@ -454,6 +454,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-curtain.ts` | **Everything THE CURTAIN does that neither screen already says**, as events |
 | `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
 | `packages/sim/src/command-locks.ts` | **Every way a press is refused before it is read**, in one place |
+| `packages/sim/src/command-leave.ts` | **The two presses that leave a run**, read above every lock a boss or a fault puts on a press |
 | `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
 | `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
 | `packages/sim/src/pulse-controls.ts` | The four verbs of the round — and the first round in the game where both seats have all of them |
@@ -1687,6 +1688,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu.ts` | the main menu, which is the front door: three rows, the link, the seat and the two-step in front of LEAVE ROOM |
 | `apps/game/src/menu-view.ts` | the shell, the root page's entries, and the seat as three cards |
 | `apps/game/src/briefing.ts` | the thumb on a wave's guide |
+| `apps/game/src/back-ask.ts` | **The phone's back gesture asks rather than leaves**: three answers over the field, on one history entry pushed back on every pop |
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
 | `apps/game/src/gauge.ts` | the host's half of THE GAUGE: the two thumbs that play it |
 | `apps/game/src/handle.ts` | `window.neonSpore` — the handle a headless check drives the game by |

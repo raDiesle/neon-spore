@@ -195,6 +195,24 @@ describe("the hull", () => {
     expect(lostAsks(world)).toBe(false);
   });
 
+  /**
+   * **And on a wave nobody has lost.** The phone's back gesture asks the
+   * question over a live field now — the menu, quit the game, keep playing
+   * (`apps/game/src/back-ask.ts`) — and the middle answer has to reach the
+   * other phone, which only a command can do. `wave-fail.ts` never sees it:
+   * that file runs only while a hit is holding the field.
+   */
+  it("ends a run a seat quits mid-wave, once, in the name of the seat that pressed", () => {
+    const { world, events } = run([meteor(4)], TPB * 3, [
+      answer(TPB, 2, "quit"),
+      answer(TPB, 1, "quit"),
+    ]);
+    expect(world.over).toBe(true);
+    // The first press of the tick wins, the way the lost screen's does: solo
+    // both seats' presses go in, and the second must not rename the quitter.
+    expect(events.filter((e) => e.type === "quit")).toEqual([{ type: "quit", player: 2 }]);
+  });
+
   it("does not hear an answer before the pause is spent", () => {
     // A thumb still on the button from the wave is not an answer to a
     // question that has not been put yet.

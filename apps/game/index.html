@@ -159,6 +159,19 @@
       </div>
     </div>
 
+    <!-- The phone's back gesture asks instead of leaving (`src/back-ask.ts`). -->
+    <div id="backAsk">
+      <div class="card">
+        <h3>YOU PRESSED BACK</h3>
+        <p>That would have left the game mid-run. Say where to go instead.</p>
+        <div class="acts">
+          <button type="button" id="backMenu" class="quiet">BACK TO MENU</button>
+          <button type="button" id="backQuit" class="quiet">QUIT GAME</button>
+          <button type="button" id="backStay">CONTINUE PLAYING</button>
+        </div>
+      </div>
+    </div>
+
     <button type="button" id="menuChip" title="Pause and open the menu">☰</button>
     <button type="button" id="pauseBtn">⏸</button>
     <button type="button" id="gear">⚙</button>

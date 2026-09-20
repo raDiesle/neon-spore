@@ -8,10 +8,14 @@
  * `tools/test/fake-dom.ts`**, along with the element both callers build a page
  * out of.
  *
- * What is here is the game's own document: a body, and the two ways a test
- * asks it for something — a button by what it says, a field by what it is
- * called. The director's pages want tab bars, a `location` and a canvas, none
- * of which is wanted here, and they have their own installer
+ * What is here is the game's own document: a body, the two ways a test asks it
+ * for something — a button by what it says, a field by what it is called — and
+ * `getElementById`, which is how every card in this app finds its own controls
+ * (`hold.ts`, `menu.ts`, `back-ask.ts`). It sweeps the body a test built, so a
+ * card under test is the card the test put on the screen.
+ *
+ * The director's pages want tab bars, a `location` and a canvas, none of which
+ * is wanted here, and they have their own installer
  * (`tools/director/test/fake-dom.ts`).
  */
 
@@ -40,6 +44,8 @@ export function installDom(): FakeDom {
   const doc = {
     body,
     createElement,
+    getElementById: (id: string): FakeEl | null =>
+      body.descendants().find((e) => e.id === id) ?? null,
     addEventListener: (): void => {},
     dispatchEvent: (): boolean => true,
   };
