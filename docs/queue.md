@@ -1891,7 +1891,7 @@ globals. If it turns out to be `bun test <dir>` in general, `docs/commands.md`
 should say to prefer `check:fast`/`check`'s sharded runner over a bare
 directory argument.
 
-## THE HIVE's rehearsal film — a `the-hive` scene under `packages/content/src/scenes/`
+## THE HIVE has no rehearsal film: no `the-hive` scene exists
 
 - **Found:** 2026-09-20, claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/content/test/scene-films.test.ts`
