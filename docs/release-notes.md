@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 17f22ef7 — A mark that is done says it is waiting for the other one
+
+THE INSTAR's pair do not act in turn: both have the step's whole window to work in, and the only thing they owe each other is to *finish* within `instarTogetherBeats`. A mark answered alone waits that long for its partner and then goes back to nought. Nothing on either screen drew that second clock, so what the owner saw on the second pose was his own dot go in, sit there and quietly reset — and he read it as a short window he was late for.
+
 ## 2026-09-20 · b829f303 — A held `3` plays the whole scene, one thumb behind the other
 
 The key armed its thumbs once, on the press, so a step landing took its marks away and the next pose had a held key over an empty hand — the owner's *the next sequence does not work with `3`*. It looks again on every tick now: a free seat is handed whatever mark has nobody on it, through the landing, the morph and into the next pose.
