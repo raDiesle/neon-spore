@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 256203de — THE BATON's merge finally has a real picture, and a defect in it
+
+Took a real frame of the merge state (two beads, two rings) by driving the real preview through a headless Chrome and mutating window.neonSpore.world.boss the way baton-grip.test.ts's own merging() helper does — --boss-json cannot build it (it refuses a beads array longer than the sim has reached) and --press has no batonSocket control yet.
+
 ## 2026-09-20 · 7260d54e — Act seven gets a new act-7d.ts: THE DIASTOLE and THE BATON, letters shifted
 
 `act-7c.ts` had no room for a ninth wave (241 of 250 lines, eight waves) and no letter of its own to give one, since it is not the last page of act seven. Per the standing convention docs/queue.md settled for exactly this shape of overflow, THE DIASTOLE and THE BATON — act-7c.ts's own last two waves — take a new act-7d.ts, and every later page shifts up one letter: the old act-7d.ts/act-7e.ts/act-7f.ts become act-7e.ts/act-7f.ts/act-7g.ts.
