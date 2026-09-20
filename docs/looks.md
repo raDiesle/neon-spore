@@ -72,6 +72,12 @@ moves that boss out of the menu and into `docs/queue.md` as one item, and works
 it the ordinary way. **Nothing moves the other direction by itself**: a lane
 that thinks a boss ought to be next says so in the report.
 
+**What the gate does not reach is anything already drawn.** He said so the same
+day — *"what was done already to improve graphics you can keep, I don't need
+opt in, just new starting of tasks"* — so a landed look is settled, and a
+defect found in one later is repaired under the third exemption above rather
+than queued for a yes.
+
 **And a lane that finds itself about to improve a look mid-task stops.** That
 is a second lane and an owner decision, not a tidy-up on the way past. Put it
 in the report.

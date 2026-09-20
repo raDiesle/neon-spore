@@ -15,6 +15,15 @@ list is not a licence; this page is a menu.
 file and into `docs/queue.md` as a single item, claims it and works it the
 ordinary way. When a look lands, its name comes off the list here.
 
+**The gate is on starting, and on nothing else.** The owner, 20 September 2026:
+*"what was done already to improve graphics you can keep, I don't need opt in,
+just new starting of tasks."* A look that has already landed — THE FLEET's
+hulls, THE VANE's mechanism, SNAKE's body and head, and every one before them —
+stays exactly as it is and is never revisited for permission. So does a defect
+found in one afterwards: a shape clipping its frame or a highlight glued to the
+wrong thing is a fix, not a look, and it lands the ordinary way
+(`docs/looks.md`'s third exemption).
+
 ## Its picture has never been looked at on a real frame
 
 **Bosses:** PINBALL, THE SCOUT, THE PULSE, THE DIASTOLE, THE BATON, THE

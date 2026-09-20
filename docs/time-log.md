@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — boss-looks-landed-stay — the gate is on starting and nothing else
+
+- reading — 5 min. The two documents the lane before this one wrote, read back
+  for the sentence a session could misread as covering work already landed.
+- writing — 5 min. Two paragraphs, one in `docs/spec/boss-looks.md` and one in
+  `docs/looks.md`, naming the three looks that have landed and saying a defect
+  found in one later is the third exemption rather than a question.
+- looking — 0 min. Nothing visible moved.
+- friction — 0 min.
+- landing — 5 min.
+
+**The bottleneck was that a rule written to stop something reads as covering
+everything it names.** "A boss's look starts only when the owner names it" is
+about starting, and a session meeting it beside a list of finished bosses could
+as easily read it as a standing doubt about all of them. One sentence from the
+owner settled it and it is now in the two files a lane actually opens.
+
 ## 2026-09-20 — boss-looks-opt-in — twenty-four claimable looks become a menu
 
 - reading — 10 min. `docs/queue.md`'s twenty-four look entries, grouped by body
