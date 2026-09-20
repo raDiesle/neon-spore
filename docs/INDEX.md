@@ -999,6 +999,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/tether-sinew.ts` | SINEW — the rope is a piece of the boss, and pulling it is felt all the way up |
 | `packages/render/src/tether-twist.ts` | TWIST — the rope is two strands laid round each other, and the twist is what the tension does |
 | `packages/render/src/vane-draw.ts` | THE VANE, drawn: an arm sweeping the top of the field, and the bearing it turns on |
+| `packages/render/src/vane-spar.ts` | THE VANE's lever, as metal — the spar, its bracing, the counterweight and the fork |
+| `packages/render/src/vane-bearing.ts` | THE VANE's bearing — the mount, the hub and the bolt circle the pair is spending |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
 | `packages/render/src/veil-mass.ts` | THE VEIL's cloud, filled: what a thunderhead is made of between its rim and its lightning |

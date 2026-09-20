@@ -1,4 +1,4 @@
-import { circleSubpath, type Point } from "@neon-spore/content";
+import { circleSubpath } from "@neon-spore/content";
 import {
   type VaneState,
   vaneColor,
@@ -7,7 +7,6 @@ import {
   vanePinned,
   vanePivotCol,
   vaneReachMilli,
-  vaneSplitCol,
   vaneTipCol,
   vaneTipNow,
   type World,
@@ -15,17 +14,22 @@ import {
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { splinePath } from "./spline.js";
+import { drawBearing } from "./vane-bearing.js";
+import { drawArm } from "./vane-spar.js";
 
 /**
  * THE VANE, drawn: an arm sweeping the top of the field, and the bearing it
  * turns on.
  *
- * One open stroke and no inside. It is the second open contour in the game
- * after the Warden's tether, and it is open for a reason the encounter depends
- * on: the moment a shape encloses an area it starts reading as a body holding a
- * weapon, and this is a mechanism. A vane is the thing that turns when
- * something pushes it.
+ * **A mechanism, and never a body.** That was one open stroke of even width
+ * until 20 September 2026, on the reading that a shape enclosing an area starts
+ * to look like something holding a weapon; what it actually looked like was a
+ * line with a circle on the end. It is a made thing now, cut from one metal and
+ * lit by one ramp: a mount across three columns, a hub with the pins in a bolt
+ * circle round it (`vane-bearing.ts`), and a tapered spar with a lattice
+ * through it and a fork on the end (`vane-spar.ts`). None of it is a creature —
+ * there is no skin, no socket and no slime on the whole boss — and a vane is
+ * still the thing that turns when something pushes it.
  *
  * The pivot is not decoration — it is the only part of the boss that can be
  * reached, and it hangs above row 0 where nothing else in the game is, so a
@@ -55,21 +59,6 @@ const DROOP = 0.85;
  */
 export function vaneBearingY(l: Layout): number {
   return tileCY(l, 0) - l.tile * 0.2;
-}
-
-/** Points along the arm, from the hub's rim out to the tip. */
-function armPoints(px: number, py: number, tx: number, ty: number, whip: number): Point[] {
-  const pts: Point[] = [];
-  const N = 14;
-  for (let i = 0; i <= N; i++) {
-    const f = i / N;
-    // The bend is cubed in `f` so the arm is stiff at the bearing and loose at
-    // the tip: a lever bends where it is thin, and the eye reads the direction
-    // of travel off the lag rather than off the position.
-    const lag = whip * f * f * f;
-    pts.push({ x: px + (tx - px) * f - lag, y: py + (ty - py) * f + Math.abs(lag) * 0.25 });
-  }
-  return pts;
 }
 
 export function drawVane(
@@ -114,12 +103,12 @@ export function drawVane(
   const hex = vaneColor(opening) === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
-  drawCasing(ctx, l, world, b, px, py, hub, open, hex, rim);
-
-  const arm = splinePath(armPoints(px + Math.sign(tx - px) * hub * 0.6, py, tx, ty, whip), false);
-  strokeGlow(ctx, arm, PALETTE.rock, STROKE.outline * 1.6, 0.75);
+  drawBearing(ctx, l, world, b, px, py, hub, open, hex, rim);
+  drawArm(ctx, l, px, py, hub, tx, ty, whip);
 
   // The tip, which is the fold line and the only column anybody has to watch.
+  // The last thing filled in the whole picture, and `vane-pin-frame.test.ts`
+  // reads the drawn column back off it.
   const tip = new Path2D(circleSubpath(tx, ty, l.tile * 0.11));
   ctx.save();
   ctx.fillStyle = PALETTE.rockDark;
@@ -128,65 +117,6 @@ export function drawVane(
   strokeGlow(ctx, tip, PALETTE.rock, STROKE.inner, 0.9);
 
   drawThrow(ctx, l, b, world.beat, beatPhase, tx, ty);
-}
-
-/**
- * The bearing's casing: a bar across three columns at the very top, with the
- * pins in it. One side of it splits at each end of a sweep, and the side is the
- * fold's own direction in miniature — the arm hard right loads the bearing on
- * its left, and that is the column the shot has to leave the field in.
- */
-function drawCasing(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  b: VaneState,
-  px: number,
-  py: number,
-  hub: number,
-  open: boolean,
-  hex: string,
-  rim: string,
-): void {
-  const body = new Path2D(circleSubpath(px, py, hub));
-  ctx.save();
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(body);
-  ctx.restore();
-  strokeGlow(ctx, body, PALETTE.rock, STROKE.outline, 0.7);
-
-  // The pins, as notches round the hub. One per pin left, in the same places on
-  // both screens and across a restart, because the place follows from the index.
-  const total = Math.max(1, world.cfg.vanePins);
-  const arc = (Math.PI * 2) / total;
-  ctx.save();
-  ctx.strokeStyle = PALETTE.rock;
-  ctx.lineWidth = STROKE.outline * 1.8;
-  ctx.lineCap = "butt";
-  for (let k = 0; k < b.pins; k++) {
-    const a0 = k * arc + arc * 0.15;
-    ctx.beginPath();
-    ctx.arc(px, py, hub * 0.99, a0, a0 + arc * 0.7);
-    ctx.stroke();
-  }
-  ctx.restore();
-
-  // `vaneSplitCol` and not `vaneWeakCol`: from VEER the housing splits under
-  // the pilot's thumb rather than at the ends of the sweep, and the cycle's own
-  // answer is -1 there — which would leave the split undrawn for two thirds of
-  // the fight (`sim/vane-open.ts`, `docs/spec/bosses.md` §11.5).
-  const weak = vaneSplitCol(world, b);
-  if (weak === -1) return;
-  // The split, drawn where the shot has to go rather than where the load is:
-  // a mouth at the top of the weak column, in the colour it will take.
-  const wx = tileCX(l, weak);
-  const mouth = new Path2D(circleSubpath(wx, py, l.tile * (open ? 0.2 : 0.12)));
-  strokeGlow(ctx, mouth, open ? rim : hex, STROKE.outline, open ? 1.1 : 0.5);
-  if (!open) return;
-  const seam = new Path2D(
-    `M ${px.toFixed(2)} ${py.toFixed(2)} L ${wx.toFixed(2)} ${py.toFixed(2)}`,
-  );
-  strokeGlow(ctx, seam, hex, STROKE.inner, 0.8);
 }
 
 /**

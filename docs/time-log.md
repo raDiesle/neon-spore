@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — vane-mechanism — a line with a circle on it becomes a machine
+
+- reading — 5 min. The queue entry, §6.3 of `new-boss-more`, `vane-draw.ts`
+  and the two tests that read it back — `vane-pin-frame.test.ts` parses the
+  tip's own path out of a hand-built canvas, which decided the draw order.
+- writing — 25 min. `vane-bearing.ts` — the mount across three columns, the
+  bolt circle with a well per pin and a pin standing in each one the pair has
+  not taken, the hub and its nut — and `vane-spar.ts` — a tapered spar with a
+  lattice through it, a counterweight and a fork on the end. `vane-draw.ts`
+  kept the cycle, the tip and the flick.
+- looking — 20 min. Five frames of THE VANE at different points of the sweep
+  and three magnified crops of the bearing. Three things were only visible
+  there: the nut was dark enough to read as a hole through the hub, the
+  counterweight was dark enough to read as one too, and the arm was being
+  drawn tens of pixels past its own tip by a bow that was largest at the end
+  of the run.
+- friction — 5 min. A crop asked for at 2.6x, which the tool refuses; a second
+  `vane-arm.ts` in `packages/render` beside the one in `packages/sim`, renamed
+  to `vane-spar.ts` before it was committed; an import sort.
+- landing — 5 min.
+
+**The bottleneck was that the old picture hid a real bug.** The arm has always
+lagged against its travel, and the lag was cubed in `f` — largest exactly
+where the arm ends — so a fast sweep drew the spar past the fold line and left
+the bead the pair is naming sitting in the middle of the arm. As one white
+stroke of even width it looked like a whip. As a tapered spar with a fork on
+the end it looked like a broken machine, which is how it got found; the fix
+was one profile and a clamp, and `vane-frame.test.ts` now holds both ends.
+
 ## 2026-09-20 — fleet-hulls — five outlines become five ships
 
 - reading — 5 min. The queue entry, `.claude/skills/new-boss-more` §6.3, and

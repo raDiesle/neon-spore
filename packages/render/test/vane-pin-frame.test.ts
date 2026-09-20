@@ -38,6 +38,7 @@ class RecordedPath {
   quadraticCurveTo(): void {}
   arc(): void {}
   rect(): void {}
+  roundRect(): void {}
   ellipse(): void {}
   closePath(): void {}
   addPath(): void {}
@@ -65,6 +66,14 @@ function tipPathOf(world: World, b: VaneState): string {
     stroke() {},
     beginPath() {},
     arc() {},
+    // The mechanism is cut from metal and lit by a ramp down the beam
+    // (`vane-bearing.ts`), so the picture now asks for gradients it did not
+    // ask for when it was a line and two circles. A stop the fill never reads
+    // back: what this file is after is one `d` string, and the fill style the
+    // tip is painted in is nothing to do with the column it stands in.
+    createLinearGradient() {
+      return { addColorStop() {} };
+    },
     set fillStyle(_v: unknown) {},
     set strokeStyle(_v: unknown) {},
     set lineWidth(_v: unknown) {},

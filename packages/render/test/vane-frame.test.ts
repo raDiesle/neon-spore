@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, startWave, ticksPerBeat } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
+import { armPoints } from "../src/vane-spar.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -51,6 +52,23 @@ describe("the vane", () => {
       expect(played(role).ctx.calls).toBeGreaterThan(1000);
     });
   }
+
+  /**
+   * The spar ends where `vaneTipNow` says the fold is. Until 20 September 2026
+   * the bow was cubed in `f`, which is largest exactly at the end of the run,
+   * so a fast sweep drew the arm tens of pixels past its own tip and the bead
+   * the pair is naming sat somewhere in the middle of it.
+   */
+  it("bows behind the tip and never past it", () => {
+    const pts = armPoints(0, 0, 100, 0, 40);
+    const last = pts.at(-1);
+    expect(last?.x).toBeCloseTo(100, 6);
+    expect(last?.y).toBeCloseTo(0, 6);
+    // And it really is bowed: the middle of the arm trails the straight line
+    // between its two ends, against the direction of travel.
+    const mid = pts[Math.floor(pts.length / 2)];
+    expect(mid?.x ?? 0).toBeLessThan(50);
+  });
 
   it("really threw something, or the flick was never drawn", () => {
     const { world } = played("test");
