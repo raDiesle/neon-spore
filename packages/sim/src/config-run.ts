@@ -8,7 +8,19 @@
  * — `config.ts` was on its 250th line when `waveFailBeats` needed a home.
  */
 export interface RunConfig {
-  /** Beats of quiet between a wave being cleared and the next one starting. */
+  /**
+   * Beats between a wave being cleared and the next one starting.
+   *
+   * **Six, and it was three while nothing was drawn over it.** Three beats is
+   * 1.9 seconds at 96 bpm, which is long enough for a field to settle and not
+   * long enough to read two lines in — and the rest carries a screen now: the
+   * wave just cleared, the clock and the retries (`render/src/cleared.ts`,
+   * `docs/spec/between-waves.md`). Six is 3.75, against the introduction's 5.5
+   * for three lines nobody has seen before.
+   *
+   * The run's clock does not run through it (`countPlay`, `wave-fail.ts`), so
+   * a longer rest does not inflate the figure the screen is reporting.
+   */
   waveRestBeats: number;
   /**
    * Beats the field stands still after a hit before the same wave opens
@@ -29,7 +41,7 @@ export interface RunConfig {
 }
 
 export const RUN_DEFAULTS: RunConfig = {
-  waveRestBeats: 3,
+  waveRestBeats: 6,
   waveFailBeats: 2,
   hullInvulnerable: false,
 };

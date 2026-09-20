@@ -179,7 +179,10 @@ function clearsWith(over: { loose: boolean; husk: boolean }): boolean {
     crossMilli: 0,
   });
   const events: SimEvent[] = [];
-  for (let t = 0; t < TPB * 4; t++) {
+  // Long enough for the rest after the clear as well as the clear itself: the
+  // rest is `waveRestBeats` and that number moved when a screen was drawn over
+  // it (`config-run.ts`), so it is read rather than written out here.
+  for (let t = 0; t < TPB * (world.cfg.waveRestBeats + 2); t++) {
     step(world, []);
     events.push(...world.events);
   }

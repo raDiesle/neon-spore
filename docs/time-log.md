@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — between-waves — the screen between the waves, built
+
+- reading — 10 min. Mostly the lane before it, which is its own sheet: the
+  order of work in `docs/spec/between-waves.md` §8, then `wave-end.ts`,
+  `beat-clock.ts` and `briefing.ts` for where the screen hangs.
+- writing — 25 min. `clearHolds` and `restSeconds` in the simulation,
+  `cleared.ts` in render, one line in `briefing.ts`, six tests across two
+  packages, the config's new comment and the sheet's status.
+- looking — 15 min. One frame, and the search for a wave it could be taken on.
+- friction — 10 min. Two red tests that were the test's fault rather than the
+  code's (a screen drawn at age 0 has not arrived; the words are still there
+  two ticks before the end, rising), one husk test that counted `waveRestBeats`
+  out by hand, and one INDEX row.
+- landing — 10 min.
+
+**The bottleneck was photographing it.** `bun run frames` can stop *on* an
+event and cannot stop inside the rest — `--until needWave` fires the tick the
+rest ends — so a picture of a screen that exists for three and three quarter
+seconds needs a wave that clears with nothing pressed, and nearly none do: a
+wave left alone is breached, and a breached wave is lost rather than cleared.
+Finding the one that does (THE FENCE, wave 50, clear at tick 2475) took a
+sweep of all ninety-seven in the headless simulation. That is queued.
+
 ## 2026-09-20 — between-waves — the sheet for the screen between the waves
 
 - reading — 15 min. The queue entry's second half, then what the rest already

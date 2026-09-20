@@ -1,3 +1,5 @@
+import { beatPhaseTicks } from "./beat-clock.js";
+import { beatSeconds } from "./config.js";
 import type { Pod } from "./types.js";
 import type { World } from "./world.js";
 
@@ -37,6 +39,47 @@ export function progressWave(world: World): void {
   if (world.restBeat <= 0 || world.beat < world.restBeat) return;
   world.restBeat = -1;
   world.events.push({ type: "needWave", wave: world.wave + 1 });
+}
+
+/**
+ * Whether the rest after a cleared wave is what the pair is looking at.
+ *
+ * **Asked rather than written out**, the way `lostAsks` is asked for the other
+ * screen that stands on a wave that is over (`wave-fail.ts`). The arithmetic is
+ * two comparisons and a sentinel that means three different things — `0` live,
+ * a beat number through the rest, `-1` once the next wave has been asked for —
+ * and a second copy of it in `render/` is a screen that stays up a beat into
+ * the wave after it. CLAUDE.md's *called, not re-derived*;
+ * `test/copies-table.ts` holds the row.
+ */
+export function clearHolds(world: World): boolean {
+  return world.restBeat > 0 && world.beat < world.restBeat;
+}
+
+/**
+ * How far into that rest, in seconds — the clock the screen over it falls on
+ * (`docs/spec/between-waves.md`).
+ *
+ * **Derived rather than remembered**, which is the whole reason it is here and
+ * not on `Effects`: two phones in lockstep read the same number off the same
+ * world, and a restart cannot leave a half-played entrance behind because
+ * there is nothing to leave. `world.beat` is a label and never multiplied back
+ * into ticks (`beat-clock.ts`); what is used is the *difference* between two
+ * labels on the same counter, which is what `progressWave` above compares.
+ *
+ * The sub-beat part is the tick's own phase. It is exact on the field's path,
+ * where the clear is credited on a beat boundary; a round credits its clear on
+ * the tick its verdict stands (`endSpentRound`), so the first fraction of a
+ * beat of a round's rest can read as already spent. Under a tenth of a second
+ * at the tempo the game ships at, and the alternative is a field on the world
+ * that every hash would have to carry.
+ */
+export function restSeconds(world: World): number {
+  if (!clearHolds(world)) return 0;
+  const beat = beatSeconds(world.cfg);
+  const gone = (world.cfg.waveRestBeats - (world.restBeat - world.beat)) * beat;
+  const phase = beatPhaseTicks(world.cfg, world.tick) / world.cfg.tickHz;
+  return Math.max(0, Math.min(world.cfg.waveRestBeats * beat, gone + phase));
 }
 
 /**

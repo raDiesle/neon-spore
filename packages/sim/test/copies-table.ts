@@ -34,6 +34,17 @@ export interface Copy {
  */
 export const COPIES: Copy[] = [
   {
+    // Whether the rest after a cleared wave is what the pair is looking at.
+    // `restBeat` is a sentinel with three meanings — `0` live, a beat number
+    // through the rest, `-1` once the next wave has been asked for — and the
+    // screen over it is drawn in `render/`, which cannot see the two places in
+    // `sim/` that already know the rule (`wave-end.ts`). A second copy is a
+    // screen that stays up a beat into the wave after it.
+    call: "clearHolds",
+    owner: "packages/sim/src/wave-end.ts",
+    pattern: /restBeat\s*>\s*0\s*&&/,
+  },
+  {
     // The mouth's offset was a constant, and `cannon-maw.ts` copied the number
     // under a comment saying it was `drawMuzzle`'s — true when written, false
     // the moment the swallow was reshaped and the offset began easing to zero.

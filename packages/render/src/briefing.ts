@@ -8,6 +8,7 @@ import {
   onReadyPage,
   type World,
 } from "@neon-spore/sim";
+import { drawWaveCleared } from "./cleared.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { drawProsePage } from "./guide-prose.js";
 import type { GuideStage } from "./guide-scene.js";
@@ -104,6 +105,15 @@ export function drawWaveOpening(
     });
     return;
   }
+  // **The rest after a cleared wave**, which is an opening in every sense that
+  // matters here: it stands over the picture that is up — the field it was
+  // emptied on, or a spent round's own last frame — and nothing of the wave
+  // after it has started yet (`cleared.ts`, `docs/spec/between-waves.md`).
+  //
+  // Not inside a rehearsal, for the lost screen's reason exactly: a film is a
+  // real world and it clears its wave, and a pair reading page four would be
+  // told a wave nobody is playing is over.
+  if (!view.rehearsal) drawWaveCleared(ctx, l, world);
   if (introHolds(world)) {
     drawIntroduction(ctx, l, world, fx?.age ?? SETTLED_AGE, true);
     return;

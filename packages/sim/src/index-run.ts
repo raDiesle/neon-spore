@@ -77,7 +77,7 @@ export { NO_SLOW, slowing, slowRateMilli } from "./slow.js";
 // carries — what the picture shows is the two counts, and the reading of them
 // is the pair's.
 export { spentOver } from "./spend.js";
-export { roundSpent } from "./wave-end.js";
+export { clearHolds, restSeconds, roundSpent } from "./wave-end.js";
 export {
   clockText,
   failHolds,

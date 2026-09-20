@@ -1,12 +1,13 @@
 # Between the waves
 
-> **Status: not built.** The rest between one wave and the next exists in the
-> simulation and nothing is drawn over it. `wave-end.ts` credits the clear and
-> sets `world.restBeat`; three beats later the host is asked for the next wave
-> and the guide comes up. In between, the pair watches the field it has just
-> emptied. Nothing outside `sim/` reads `restBeat` at all — the grep is the
-> whole of the evidence, and the one hit it returns is a test fixture setting a
-> field of that name on an undertow.
+> **Status: built, except its sound (§8.3).** A cleared wave rests for
+> `waveRestBeats` and the screen below stands over that rest — the wave's number
+> and name, the clock and the retries — rising out as the next wave's guide
+> header falls in (`render/src/cleared.ts`, `sim/wave-end.ts`'s `clearHolds` and
+> `restSeconds`, `render/test/cleared.test.ts`). It was drawn on 20 September
+> 2026, the day after this sheet decided it. What it was before: three beats of
+> the pair watching the field they had just emptied, with nothing outside `sim/`
+> reading `restBeat` at all.
 
 The owner, 18 September 2026: *"Right now when a wave is finished to the moment
 it switches to next wave and starts tutorial/guide (if one exists) is very
@@ -138,11 +139,16 @@ it.
 - **Read `restBeat` through a named predicate in `sim/`**, beside `lostAsks` —
   `render` asks the simulation whether the rest holds rather than re-deriving
   `restBeat > 0 && beat < restBeat`. That is the rule that is called and not
-  re-derived, and the row goes in `sim/test/purity.test.ts`'s table.
+  re-derived. Done: `clearHolds`, with the row in `sim/test/copies-table.ts`.
 - **No new world field, and nothing new in `hashWorld`.**
-- **The clock in seconds lives on `Effects`** and is cleared by
-  `Effects.reset()`, the way `OpeningFx` is — the world's beat is enough to say
-  *whether*, never enough to say *how far in*.
+- **The clock in seconds is derived, not remembered** — `restSeconds`, off the
+  difference between two labels on the beat counter and the tick's own phase.
+  This sheet said it would live on `Effects` the way `OpeningFx`'s does, and
+  the build found better: two phones in lockstep read the same number off the
+  same world, and a restart cannot leave a half-played entrance behind because
+  there is nothing to leave. The one cost is a round, which credits its clear
+  on the tick its verdict stands rather than on a beat boundary, so the first
+  fraction of a beat of its rest reads as already spent.
 - **Anything drawn is drawn again in `render/test/frame.test.ts`.**
 - **A sound is the one thing this would add to the simulation.** There is no
   event at the moment of the clear; `needWave` fires at the end of the rest and
@@ -152,8 +158,8 @@ it.
 
 ## 8 · Order of work
 
-1. The screen on the rest: the cleared wave's name and the two figures, on the
-   picture that is already up — field or spent round alike. `waveRestBeats` to
-   6 in the same commit, because the screen is what makes the number wrong.
-2. The hand-off: the name's exit tied to the header's entrance, one movement.
-3. The sound, if the pair watching it says the moment is still quiet.
+1. ~~The screen on the rest~~ — built, with `waveRestBeats` at 6.
+2. ~~The hand-off~~ — built, as the block rising out of the place the next
+   wave's name will land in while the guide's header drops into the band.
+3. The sound, if the pair watching it says the moment is still quiet. There is
+   still no event at the clear, and that is the whole of what is left.

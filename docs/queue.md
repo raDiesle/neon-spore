@@ -1861,3 +1861,25 @@ its own flag — and a `--screen` that says which `.on` to wait for instead of
 `bun run menu-shot back.png --back --screen "#backAsk.on" --element "#backAsk"`
 is the picture in this entry's place. `menu-shot.ts` is near its ceiling, so
 the trail's new step belongs in `menu-trail.ts` beside the ones it has.
+
+## `bun run frames` cannot stop inside a rest, only on the event that ends it
+
+- **Found:** 2026-09-20, claude/queue-no-guide-page-says-which-wave-it-is-and-the-gap
+- **Files:** `tools/frames/until.ts`, `tools/frames/flags.ts`, `tools/frames/run.ts`
+
+`--until EVENT` stops on the tick an event fires, which is the wrong end of
+everything that *stands between* two events. The screen between the waves is up
+for the 450 ticks after a wave clears and `needWave` fires on the last of them,
+so `--until needWave` photographs the frame after the screen has gone. Getting
+one picture of it meant sweeping all ninety-seven waves in the headless
+simulation for one that clears with nothing pressed — a wave left alone is
+breached, and a breached wave is lost rather than cleared, so exactly one does
+(THE FENCE, wave 50, clear at tick 2475) — and then passing that tick plus a
+hand-counted offset to `--ticks`.
+
+One flag covers it: `--until-back N`, which keeps the frame N ticks *before*
+the event instead of on it. The run already advances tick by tick looking for
+the event (`until.ts`), so it is a ring of the last N painted states or, more
+cheaply, a second pass that re-runs to `foundTick - N`. The second pass is the
+one to write: the tool restarts a world from a seed every run anyway, and a ring
+of frames is memory for nothing.
