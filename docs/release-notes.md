@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 2991321a — Document that THE WELL's ring waits on a wave not yet written
+
+The owner's answer asked for two things: a paragraph on well-arrivals.ts and a frame test proving the arithmetic. The test was already there — well-frame.test.ts's falling-body case (13 September, predating this item) already builds a synthetic pilot-radar arrival and checks the mark lands outside the rim, and boss-cue-well.test.ts already proves the shipped wave's ring counts zero. Only the doc paragraph was missing.
+
 ## 2026-09-20 · 2658303c — Slow every flash beat in THE CANDLE
 
 The owner's answer (docs/queue.md, 19 September 2026): match the design as written, which names no exception for a later flash over the first. A bolt that actually leaves the muzzle while THE CANDLE is installed now opens THE SLOW for one beat, whatever phase the fight is in, including the very first flash fired while the field is still going dark. A flash the boss ate opens nothing, since nothing was lit.
