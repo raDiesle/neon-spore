@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 00b212a4 — Land's browser check is red here for a worktree-path reason, not this lane's
+
+bun run land's full bun run check failed on tools/frames/test's own launchBrowser() crash. Reproduced clean on plain main from ns-cairn and red again from ns-undertow-cues on the same commit, so it is the profile path launchBrowser builds under this worktree specifically, long enough to be a plausible AF_UNIX sun_path ceiling (108 bytes) rather than the pipe-transport story alone. Written up as an addendum to the already-queued "chromium.launch() crashes here" entry. Pushing the branch rather than forcing the land, per CLAUDE.md's rule for a pre-existing, unrelated environment failure.
+
+## 2026-09-20 · 137dc9fe — THE UNDERTOW's five cues seen in a real frame: the mark is right, the word is not
+
+Verified the "Unverified at 1ceb748c" queue entry with six real screenshots (p1/p2, one per phase: seat, the rise-bowing last, last-standing, hard, and the ordinary standing with the shield's own MOVE beside it), using the same connectOverCDP workaround the day's earlier BATON session used for chromium.launch()'s known SIGTRAP, since --boss-json cannot fabricate a breaches array the tick has not reached and the state came from a direct mutation of window.neonSpore.world.boss instead.
+
 ## 2026-09-20 · 256203de — THE BATON's merge finally has a real picture, and a defect in it
 
 Took a real frame of the merge state (two beads, two rings) by driving the real preview through a headless Chrome and mutating window.neonSpore.world.boss the way baton-grip.test.ts's own merging() helper does — --boss-json cannot build it (it refuses a beads array longer than the sim has reached) and --press has no batonSocket control yet.
