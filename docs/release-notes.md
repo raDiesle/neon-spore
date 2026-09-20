@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · fd3ad8f3 — The wave that was cleared, said between the waves
+
+The gap between a cleared wave and the next one's guide showed the field it had just been won on and nothing else. It says so now: WAVE N CLEARED, the wave's name, then the run's clock and its retries, rising out as the next guide's header falls in. It is punctuation rather than congratulation — never per-seat, never a score, nothing to press — and it is a look with no shipped alternative, which is the exemption named here.
+
 ## 2026-09-20 · fe144e8c — The screen between the waves, decided before it is drawn
 
 A wave that is cleared rests three beats and nothing is drawn over them: the pair watches the field it has just emptied until the host answers `needWave` and the next wave's guide comes up. `docs/spec/between-waves.md` is the sheet for what stands there, written before the code the way the queue entry asked.
