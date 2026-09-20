@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · a2ceebd4 — Give body-spores.ts's own comment the same fix its neighbour already got
+
+"Give SCATTER's own page back to the wisp it actually strikes" (0bf14988) landed from another lane while this one was still reading the same queue item, and reached the same conclusion: body-hit.ts's WISP_HIT: scatter pairing was already right, and the header's repeated "the bulb" was prose left over from scatter's life as a bulb-hit candidate before it moved to the wisp. That commit rewrote body-hit-scatter.ts's header but left body-spores.ts's own comment on SPORE_REACH/SPORE_SPIN untouched, and it carried the identical leftover: it still named bulb:hit as the strike that reuses this packing, when that strike has been the wisp's scatter since 10 September 2026. Points it at scatter (body-hit-scatter.ts, THE WISP's strike) instead.
+
 ## 2026-09-20 · f23b4aae — Quitting a solo wave goes back to the rig, not a room that never existed
 
 A wave reached with state === "solo" only ever comes from the rig (SINGLE PLAYER, JUMP TO WAVE, JUMP TO ENEMY TYPE WAVE) — there is no other way to start one solo — but quitting out of it opened the menu on PLAY, which offers only a room this device never had and no way to jump to a specific wave. It now opens TESTING instead.
