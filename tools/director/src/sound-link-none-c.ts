@@ -38,4 +38,14 @@ export const NO_SUBJECT_C: Record<string, string> = {
   "boss.wellWound":
     "the face stopped three sectors from the top. Same argument, and there is nothing new on the field to draw — only the old one turned.",
   "boss.wellHome": "the seam back at twelve and every hour on its own column again. Same argument.",
+  // THE BALLOON's own two, bound since before this page existed —
+  // `bind-balloon.ts` reused a sound written for a different creature and the
+  // catalogue's `status` had not caught up (`docs/queue.md`, 20 September
+  // 2026). Unlike the lure and the veil on page one, THE BALLOON has a shape
+  // of its own (`content/src/balloon-shape.ts`); it is only not on the shape
+  // sheet's card catalogue yet.
+  "creature.colonySpread":
+    "THE BALLOON splitting, and topping out into a torch. It has a shape of its own, and the shape sheet has no card for it yet.",
+  "impact.overkill":
+    "THE BALLOON popping under two shots landed the same beat. Same body, same gap in the sheet.",
 };

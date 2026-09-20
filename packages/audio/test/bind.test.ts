@@ -12,90 +12,33 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
  * A copied list is a list that stops being true the day someone adds an event,
  * which is exactly the day the new event silently has no sound.
  *
- * **All three files**, because the union is written in three: what a covering
- * did is `ArmourEvent` in `events-armour.ts`, what a body one of them cannot
- * see did is `CreatureEvent` in `events-creature.ts` — the same two seams this
- * package's own `bind-armour.ts` and `bind-creatures.ts` read on — and
- * `SimEvent` is those two arms plus the ship, the field, the pods and the
- * bosses. Reading only the first would let a creature event ship with no
- * sound, which is the exact failure this test was written for.
+ * **Every `events-*.ts` file, globbed off disk, plus `events.ts` itself** —
+ * one member's own literal `{ type: "…" }` cases, read straight out of the
+ * file that declares them, rather than out of wherever the union that merges
+ * them happens to be assembled. A hand-kept list of which files to read was
+ * this test's design for a year and it kept a hole in it: `events-choir.ts`
+ * shipped unheard for a stretch, then `events-ledger.ts`, `events-splice.ts`,
+ * `events-cling.ts` and `events-beatbox.ts` did too — each cut out of a barrel
+ * file (`events-creature.ts`, `events-bosses.ts`) that only re-exports its
+ * members as bare identifiers (`| ClingEvent`), which a scan of the barrel's
+ * own text can never see. Reading every file directly by name, whatever else
+ * merges it, is the fix a hand-kept list could not be trusted to stay: a new
+ * `events-*.ts` is read the moment it exists, and there is nothing left to
+ * remember to add.
  */
 async function eventTypes(): Promise<string[]> {
+  const files: string[] = ["packages/sim/src/events.ts"];
+  for await (const f of new Bun.Glob("packages/sim/src/events-*.ts").scan({ cwd: ROOT })) {
+    files.push(f);
+  }
   const found: string[] = [];
-  for (const [file, decl] of [
-    ["packages/sim/src/events.ts", "export type SimEvent ="],
-    ["packages/sim/src/events-creature.ts", "export type CreatureEvent ="],
-    // THE CAROM's four, cut out of the file above when they took it over its
-    // 250-line limit. Named here rather than globbed for the reason the two
-    // above are: a file this test cannot find is a file whose events go
-    // silently unheard, so the list has to be a thing somebody adds to on
-    // purpose — and forgetting is a failure here rather than a silence.
-    ["packages/sim/src/events-carom.ts", "export type CaromEvent ="],
-    // And THE CRYSTAL's three, on the same terms, bound beside the carom's.
-    ["packages/sim/src/events-crystal.ts", "export type CrystalEvent ="],
-    // THE VOLLEY's two, on exactly the same terms and for the same reason.
-    ["packages/sim/src/events-volley.ts", "export type VolleyEvent ="],
-    // And THE STRAND's three, cut out for the same reason again.
-    ["packages/sim/src/events-strand.ts", "export type StrandEvent ="],
-    // THE GHOST's three and THE CRAWLER's two, both cut out of
-    // `events-creature.ts` on the day THE CRAWLER needed room in it.
-    ["packages/sim/src/events-ghost.ts", "export type GhostEvent ="],
-    ["packages/sim/src/events-crawler.ts", "export type CrawlerEvent ="],
-    // And THE FENCE's two, cut out the day the second one was added.
-    ["packages/sim/src/events-fence.ts", "export type FenceEvent ="],
-    // And THE MAGNET's two, on the same terms again.
-    ["packages/sim/src/events-magnet.ts", "export type MagnetEvent ="],
-    // And THE COIL's two, cut out for the same reason once more.
-    ["packages/sim/src/events-coil.ts", "export type CoilEvent ="],
-    // And THE VEIL's three, cut out on purpose rather than under pressure —
-    // `events-creature.ts` was at its limit and grows by an arm per creature
-    // (`docs/queue.md`, 6 September 2026).
-    ["packages/sim/src/events-veil.ts", "export type VeilEvent ="],
-    // THE CHOIR's three, which were cut out of `events-creature.ts` and never
-    // named here — so this test has been reading a union with a hole in it
-    // since that creature landed, which is the exact silence it exists to
-    // catch. Named now, with THE BALLOON's three beside them.
-    ["packages/sim/src/events-choir.ts", "export type ChoirEvent ="],
-    ["packages/sim/src/events-balloon.ts", "export type BalloonEvent ="],
-    ["packages/sim/src/events-gum.ts", "export type GumEvent ="],
-    // The two bosses whose arms are files of their own: THE FLEET's five, cut
-    // out when `events.ts` came back to its limit, and THE STARE's one, cut
-    // out the same day. A boss is worth four or five lines of that file and
-    // there are nine more rounds designed, so the next one will be a file too
-    // — and a file this test cannot find is a file whose events go silently
-    // unheard, which is what the comment at the top of this list is about.
-    ["packages/sim/src/events-fleet.ts", "export type FleetEvent ="],
-    ["packages/sim/src/events-stare.ts", "export type StareEvent ="],
-    ["packages/sim/src/events-queen.ts", "export type QueenEvent ="],
-    ["packages/sim/src/events-baton.ts", "export type BatonEvent ="],
-    ["packages/sim/src/events-undertow.ts", "export type UndertowEvent ="],
-    ["packages/sim/src/events-candle.ts", "export type CandleEvent ="],
-    ["packages/sim/src/events-gorge.ts", "export type GorgeEvent ="],
-    ["packages/sim/src/events-curtain.ts", "export type CurtainEvent ="],
-    ["packages/sim/src/events-taster.ts", "export type TasterEvent ="],
-    ["packages/sim/src/events-sinew.ts", "export type SinewEvent ="],
-    ["packages/sim/src/events-surge.ts", "export type SurgeEvent ="],
-    ["packages/sim/src/events-lead.ts", "export type LeadEvent ="],
-    ["packages/sim/src/events-scuttle.ts", "export type ScuttleEvent ="],
-    ["packages/sim/src/events-antiphon.ts", "export type AntiphonEvent ="],
-    ["packages/sim/src/events-diastole.ts", "export type DiastoleEvent ="],
-    ["packages/sim/src/events-warden.ts", "export type WardenEvent ="],
-    ["packages/sim/src/events-vane.ts", "export type VaneEvent ="],
-    ["packages/sim/src/events-snake.ts", "export type SnakeEvent ="],
-    ["packages/sim/src/events-pinball.ts", "export type PinballEvent ="],
-    ["packages/sim/src/events-scout.ts", "export type ScoutEvent ="],
-    ["packages/sim/src/events-pulse.ts", "export type PulseEvent ="],
-    ["packages/sim/src/events-hive.ts", "export type HiveEvent ="],
-    ["packages/sim/src/events-instar.ts", "export type InstarEvent ="],
-    ["packages/sim/src/events-filament.ts", "export type FilamentEvent ="],
-    ["packages/sim/src/events-throat.ts", "export type ThroatEvent ="],
-    ["packages/sim/src/events-gauge.ts", "export type GaugeEvent ="],
-    ["packages/sim/src/events-well.ts", "export type WellEvent ="],
-  ] as const) {
+  for (const file of files) {
     const src = await Bun.file(join(ROOT, file)).text();
-    const start = src.indexOf(decl);
-    expect(start, file).toBeGreaterThan(-1);
-    const union = src.slice(start);
+    const decl = /^export type \w+Event =/m.exec(src);
+    expect(decl, `${file} names no XEvent union — name it or add it to the exceptions`).not.toBe(
+      null,
+    );
+    const union = src.slice(decl?.index ?? 0);
     found.push(...[...union.matchAll(/type:\s*"([a-zA-Z]+)"/g)].map((m) => m[1] as string));
   }
   return [...new Set(found)];
@@ -193,6 +136,22 @@ const SAMPLES: Record<string, SimEvent> = {
   batonHeld: { type: "batonHeld", col: 3, socket: 9, player: 2 },
   batonParted: { type: "batonParted", col: 3, socket: 0 },
   batonDown: { type: "batonDown", col: 3 },
+  ledgerRoot: { type: "ledgerRoot", cols: 3, col: 3 },
+  ledgerSeam: { type: "ledgerSeam", seam: 1, color: "red", col: 3 },
+  ledgerRefused: { type: "ledgerRefused", col: 3 },
+  ledgerBead: { type: "ledgerBead", beats: 4, col: 3 },
+  ledgerWard: { type: "ledgerWard", col: 3 },
+  ledgerWhip: { type: "ledgerWhip", seam: 2, col: 3 },
+  ledgerBill: { type: "ledgerBill", col: 3 },
+  ledgerSocket: { type: "ledgerSocket", col: 4 },
+  ledgerLast: { type: "ledgerLast", beats: 2, col: 3 },
+  ledgerHeld: { type: "ledgerHeld", col: 3 },
+  ledgerTear: { type: "ledgerTear", col: 3 },
+  ledgerFoot: { type: "ledgerFoot", col: 3 },
+  ledgerPlug: { type: "ledgerPlug", beats: 3, col: 3 },
+  ledgerRoll: { type: "ledgerRoll", beats: 3, col: 3 },
+  ledgerPull: { type: "ledgerPull", beats: 2, col: 3 },
+  ledgerHaul: { type: "ledgerHaul", col: 3 },
   undertowBow: { type: "undertowBow", col: 4 },
   undertowLobe: { type: "undertowLobe", col: 4, tall: false },
   undertowTaken: { type: "undertowTaken", col: 4 },
@@ -340,6 +299,10 @@ const SAMPLES: Record<string, SimEvent> = {
   instarStrike: { type: "instarStrike", col: 7, part: "eggs" },
   instarDown: { type: "instarDown", col: 5 },
   instarOut: { type: "instarOut", col: 5 },
+  spliceFeed: { type: "spliceFeed", col: 3, row: 0, straw: 2, number: 5 },
+  spliceFed: { type: "spliceFed", col: 3, row: 4, number: 5, of: 7 },
+  spliceWrong: { type: "spliceWrong", col: 3, row: 4, straw: 2, clock: false },
+  spliceDown: { type: "spliceDown", col: 3, row: 4 },
   filamentEnter: { type: "filamentEnter", col: 5 },
   filamentArm: { type: "filamentArm", col: 5, index: 0 },
   filamentDrawn: { type: "filamentDrawn", col: 5, row: 6 },
@@ -406,6 +369,12 @@ const SAMPLES: Record<string, SimEvent> = {
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
   veilTorn: { type: "veilTorn", col: 3, row: 4, color: "cyan", kind: "bulb" },
+  clingGrip: { type: "clingGrip", id: 9, kind: "limpet", col: 3, row: 5, from: 3 },
+  clingFreed: { type: "clingFreed", kind: "limpet", col: 3, row: 5 },
+  clingBlast: { type: "clingBlast", kind: "leech", col: 3, row: 5 },
+  beatboxTap: { type: "beatboxTap", id: 10, col: 3, row: 5, hits: 2 },
+  beatboxWave: { type: "beatboxWave", id: 10, col: 3, row: 5, hits: 1 },
+  beatboxSilent: { type: "beatboxSilent", id: 10, col: 3, row: 5, hits: 4 },
   wispHop: { type: "wispHop" },
   ghostRelease: { type: "ghostRelease", col: 3, row: 4, color: "red" },
   ghostTurn: { type: "ghostTurn", col: 0, row: 3, laps: 2 },

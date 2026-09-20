@@ -96,71 +96,34 @@ describe("the catalogue", () => {
 });
 
 /**
- * Every file that names a sound id. `bind-creatures.ts` was split out of
- * `bind.ts` the day THE VEIL arrived, and it took nine bound ids with it — so
- * a list of two files quietly reported eight sounds as played by nothing.
- * `mixer-boss.ts` came off `mixer.ts` the same way, with the queen's and THE
- * MIRROR's cues in it. `bind-carom.ts` came off `bind-creatures.ts` in its own
- * turn, with THE CAROM's four. `bind-breach.ts` came off `bind.ts` when the
- * argument for what makes a breach heavy grew past what that file had room
- * for. `docs/spec/audio.md` names this list as well,
- * and "the document" below holds the two together so a sixth file cannot be
- * added to one alone.
+ * Every file that names a sound id, read off disk rather than copied here.
+ *
+ * `bind-creatures.ts` was split out of `bind.ts` the day THE VEIL arrived and
+ * took nine bound ids with it, so a hand-kept list of two files quietly
+ * reported eight sounds as played by nothing; `bind-balloon.ts` shipped and
+ * stayed off this list entirely, so `creature.colonySpread` and
+ * `impact.overkill` sat marked `spare` in the catalogue while THE BALLOON
+ * played them every time. A file this test cannot find is a sound whose
+ * `status` nobody checks — which is what a glob fixes and a list of names
+ * cannot, since the list is exactly the thing someone forgets to add to.
+ *
+ * The four `mixer*.ts` files carry no `bind` in their name, so they stay
+ * named here rather than joining the glob. `docs/spec/audio.md` describes
+ * this same rule in prose rather than repeating the file names, and "the
+ * document" below checks that its description still matches.
  */
-const WIRING = [
-  "packages/audio/src/bind.ts",
-  "packages/audio/src/bind-creatures.ts",
-  "packages/audio/src/bind-carom.ts",
-  "packages/audio/src/bind-coil.ts",
-  "packages/audio/src/bind-crawler.ts",
-  "packages/audio/src/bind-fence.ts",
-  "packages/audio/src/bind-lookups.ts",
-  "packages/audio/src/bind-veil.ts",
-  "packages/audio/src/bind-volley.ts",
-  "packages/audio/src/bind-fleet.ts",
-  "packages/audio/src/bind-choir.ts",
-  "packages/audio/src/bind-beatbox.ts",
-  "packages/audio/src/bind-breach.ts",
-  "packages/audio/src/bind-gum.ts",
-  "packages/audio/src/bind-cling.ts",
-  "packages/audio/src/bind-handed.ts",
-  "packages/audio/src/bind-impact.ts",
-  "packages/audio/src/bind-mirror.ts",
-  "packages/audio/src/bind-pod.ts",
-  "packages/audio/src/bind-splice.ts",
-  "packages/audio/src/bind-baton.ts",
-  "packages/audio/src/bind-undertow.ts",
-  "packages/audio/src/bind-candle.ts",
-  "packages/audio/src/bind-gorge.ts",
-  "packages/audio/src/bind-curtain.ts",
-  "packages/audio/src/bind-taster.ts",
-  "packages/audio/src/bind-ledger.ts",
-  "packages/audio/src/bind-sinew.ts",
-  "packages/audio/src/bind-surge.ts",
-  "packages/audio/src/bind-lead.ts",
-  "packages/audio/src/bind-scuttle.ts",
-  "packages/audio/src/bind-antiphon.ts",
-  "packages/audio/src/bind-hive.ts",
-  "packages/audio/src/bind-instar.ts",
-  "packages/audio/src/bind-filament.ts",
-  "packages/audio/src/bind-stare.ts",
-  "packages/audio/src/bind-diastole.ts",
-  "packages/audio/src/bind-warden.ts",
-  "packages/audio/src/bind-warden-hand.ts",
-  "packages/audio/src/bind-vane.ts",
-  "packages/audio/src/bind-snake-body.ts",
-  "packages/audio/src/bind-pinball-hand.ts",
-  "packages/audio/src/bind-scout-hand.ts",
-  "packages/audio/src/bind-pulse-hand.ts",
-  "packages/audio/src/bind-gauge.ts",
-  "packages/audio/src/bind-throat.ts",
-  "packages/audio/src/bind-well.ts",
-  "packages/audio/src/bind-choreographed-b.ts",
-  "packages/audio/src/mixer.ts",
-  "packages/audio/src/mixer-boss.ts",
-  "packages/audio/src/mixer-pulse.ts",
-  "packages/audio/src/mixer-handover.ts",
-];
+async function wiringFiles(): Promise<string[]> {
+  const files = [
+    "packages/audio/src/mixer.ts",
+    "packages/audio/src/mixer-boss.ts",
+    "packages/audio/src/mixer-pulse.ts",
+    "packages/audio/src/mixer-handover.ts",
+  ];
+  for await (const f of new Bun.Glob("packages/audio/src/bind*.ts").scan({ cwd: ROOT })) {
+    files.push(f);
+  }
+  return files;
+}
 
 /**
  * The `status` field is a claim about the rest of the repository, and a claim
@@ -170,11 +133,10 @@ const WIRING = [
  * This is the whole reason the SOUND tab can be trusted.
  */
 describe("status", () => {
-  const wiring = WIRING.map((f) => Bun.file(join(ROOT, f))).map(async (f) => await f.text());
-
   // The 250-line limit is `packages/sim/test/limits.test.ts`'s rule and it
   // already covers `packages/*/src`. It is not restated here.
   it("calls a sound bound exactly when something plays it", async () => {
+    const wiring = (await wiringFiles()).map((f) => Bun.file(join(ROOT, f)).text());
     const text = (await Promise.all(wiring)).join("\n");
     const wrong: string[] = [];
     for (const def of CATALOGUE) {
@@ -298,18 +260,16 @@ describe("docs/spec/audio.md", () => {
     expect([Number(said![1]), Number(said![2])]).toEqual([spare, CATALOGUE.length]);
   });
 
-  it("names the same wiring files the status test reads", async () => {
+  it("describes the same wiring rule the status test reads", async () => {
     const text = await Bun.file(AUDIO_DOC).text();
     const start = text.indexOf("The `BOUND` stamp");
     const end = text.indexOf("claims to be spare.", start);
     expect(start >= 0 && end > start, "the BOUND paragraph has been renamed").toBe(true);
-    // Odd positions in a backtick split are what was inside the backticks.
-    const named = text
-      .slice(start, end)
-      .split("`")
-      .filter((part, i) => i % 2 === 1 && part.endsWith(".ts"))
-      .sort();
-    expect(named).toEqual(WIRING.map((f) => f.split("/").pop()!).sort());
+    const para = text.slice(start, end);
+    expect(para, "the BOUND paragraph no longer names the glob").toContain("bind*.ts");
+    for (const f of ["mixer.ts", "mixer-boss.ts", "mixer-pulse.ts", "mixer-handover.ts"]) {
+      expect(para, `${f} is missing from the BOUND paragraph`).toContain(f);
+    }
   });
 
   it("lists every music theme in section 8, and no theme that was dropped", async () => {

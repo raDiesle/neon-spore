@@ -17,8 +17,8 @@ export const CREATURE_STORE_SOUNDS: SoundDef[] = [
     id: "creature.colonySpread",
     family: "creature",
     blurb: "One thing becoming several, each smaller and quicker than the last.",
-    status: "spare",
-    use: "The Colony (ideas.md) — spreads, hatches darts.",
+    status: "bound",
+    use: "THE BALLOON splitting, and topping out into a torch (bind-balloon.ts).",
     level: 0.3,
     layers: [
       spore(120, 0.24, 0.45, 50),

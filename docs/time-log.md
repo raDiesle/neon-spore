@@ -13076,3 +13076,53 @@ or the sharding tools was actually broken — which took a bisection and a
 `dmesg` read, against a one-paragraph fix once it was found.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-a-new-audio-binder-is-threaded-into-three-hand-k — the glob found what the list forgot twice
+
+Rewrote `bind.test.ts`'s `eventTypes()` and `catalogue.test.ts`'s `WIRING` to
+glob their directories (`packages/sim/src/events-*.ts`, `packages/audio/src/
+bind*.ts`) and read each file's own `export type XEvent =`/sound-id literals
+directly, rather than scanning a hand-kept table of `[file, decl]` pairs.
+Both globs immediately found real, live drift the hand-kept lists had been
+hiding — not hypothetically, on the first run:
+
+- Four `events-*.ts` files (`events-ledger.ts`, `events-splice.ts`,
+  `events-cling.ts`, `events-beatbox.ts`) were never in `eventTypes()`'s
+  table, so 26 event types — every one of THE LEDGER's and THE SPLICE's own
+  events, THE LIMPET/LEECH's three and THE BEATBOX's three — had no test
+  proving they had a sample or a sound. `bind-ledger.ts` etc. already bind
+  them correctly; only the test coverage was blind. Added SAMPLES entries
+  for all 26.
+- `bind-balloon.ts` was never in `WIRING`, so `creature.colonySpread` and
+  `impact.overkill` sat marked `status: "spare"` in the catalogue while THE
+  BALLOON played them every time it split or popped — the SOUND tab's own
+  "unplayed" filter has been showing two sounds as available that were
+  already spoken for. Flipped both to `bound`, corrected their stale `use`
+  text (one still pointed at "The Colony (ideas.md)", an idea this repo has
+  no other trace of), and added the pair to `sound-link-none-c.ts` with the
+  honest reason: THE BALLOON has a shape of its own now, just not yet a
+  shape-sheet card — a separate, smaller gap than the ones already listed
+  there.
+
+`docs/spec/audio.md`'s hand-listed `BOUND` paragraph (46 filenames in
+backticks) became a four-line description of the glob rule instead, which
+is the "spec's copy either goes or is generated" the finding asked for —
+prose describing a mechanism ages better than prose enumerating its output.
+The family table and the spare count both needed their numbers moved by the
+two flipped sounds, which `bun -e` against `CATALOGUE` directly gave rather
+than counted by hand.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `bind.test.ts`, `catalogue.test.ts`, every `events-*.ts` file's own declaration, `events-bosses.ts`'s barrel comment explaining why bind.test.ts reads files "by name rather than through this barrel", `bind-balloon.ts`, `sound-link.ts`/`sound-link-none-c.ts` |
+| writing | 30 | the two glob-based rewrites, 26 new SAMPLES entries with real field shapes read off each events file, two catalogue status/use fixes, the doc paragraph rewrite and its three numbers, two sound-link-none-c.ts rows |
+| looking | 10 | running each test file alone after each change to read exactly which keys were missing, rather than guessing from the source; a `bun -e` one-liner against the live `CATALOGUE` for the corrected family counts |
+| friction | 0 | none |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun test packages/audio/` (2940 pass), `bun run check:fast` (4869 pass), `bun run index`, `bun run queue done`, the commit |
+
+**The bottleneck was writing 26 honest sample values**, one per real event
+shape, not deciding what the fix should be — the glob was the whole of the
+fix, and it did in four lines what four hand-kept lists never quite did in
+several hundred.
+
+*Measured: the rows above are the session's own estimate.*

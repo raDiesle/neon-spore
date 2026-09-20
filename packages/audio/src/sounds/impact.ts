@@ -187,8 +187,8 @@ export const IMPACT_SOUNDS: SoundDef[] = [
     id: "impact.overkill",
     family: "impact",
     blurb: "Two shots landing in the same tile in the same beat: one burst, doubled.",
-    status: "spare",
-    use: "Marking waste, if the balance sheet ever grows a line for it.",
+    status: "bound",
+    use: "THE BALLOON popping under two shots at once (bind-balloon.ts).",
     level: 0.38,
     layers: [
       thud(260, 60, 0.16, 0.6),
