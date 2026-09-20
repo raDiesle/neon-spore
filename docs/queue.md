@@ -1550,6 +1550,7 @@ its own words expect the pilot's blind page to be about, decides which.
 ## Unverified at 4674a3bb: the PNG of the held stalk, with its ring and its d…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, claude/queue-unverified-at-58c05186-the-boxs-picture-on-a-rea (claim: claude/queue-unverified-at-4674a3bb-the-png-of-the-held-stalk)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-lead.ts`, `packages/audio/src/sounds/boss-lead.ts`
 
 *THE LEAD's still is a handle, and her thumb buys the beam its fill* landed from a session that could not look at it. The commit touched 32 more files. What went unchecked:
