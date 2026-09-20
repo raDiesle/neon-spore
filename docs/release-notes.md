@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 299589e1 — A boss's look is a menu the owner answers, not a queue item
+
+Twenty-four entries in docs/queue.md said a boss's picture had never been looked at on a real frame, and a queue item is a thing any lane may claim — so the list amounted to a standing instruction to spend twenty-four sittings making bosses beautiful, some of which will be cut. They are now docs/spec/boss-looks.md, which no lane reads for work, and the director draws them as LOOKS WAITING FOR A YES at the top of the BOSSES page. Nothing starts until the owner names a boss; a lane then moves that one back into the queue.
+
 ## 2026-09-20 · 186f32b3 — SNAKE is an animal rather than a wedge on a ribbon
 
 The head was a triangle and the body was a stroked line of even width with a gradient over it. It is a creature now: a splined contour with a neck, a taper and a ground shadow, scales at the tile's own scale, a lit side pushed across the back in three nested passes rather than one creased ribbon, and a head made of two hinged jaws with a gland bulge, a blunt snout, sockets under the eyes and a rear that flares back over the neck instead of ending in a stump.
