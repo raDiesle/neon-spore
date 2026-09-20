@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 34af4911 — The director's fake document can hold a key down and let it go
+
+`installDom`'s window fired `keydown` with a `key` and nothing else, so the two bindings that read `e.code` and hold a key down — the seat keys and `3` — could not be pressed through the director's own document at all, and `cue-key.test.ts` carried a twelve-line `window` of its own to get around it.
+
 ## 2026-09-20 · 072c1390 — The director's `3` does what the field is asking, for both seats at once
 
 Pressing `3` on the stage answers the marks the field is already drawing its words over: each seat's most urgent `BossCue`, pressed through the same `touchDown` the mouse goes through and held until the key lifts. Under TEST that is both seats on the one frame, which is the thing the seat keys could never do — 1 and 2 hand the desk's single mouse to one seat at a time, and THE BATON's merge wants a thumb from each on the same beat.
