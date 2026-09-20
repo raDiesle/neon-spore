@@ -1772,6 +1772,7 @@ falls silent, the other pings and is told without pressing anything.
 ## `boss-cue-read-i.ts` is at the 250-line ceiling exactly
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
+- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-boss-cue-read-i-ts-is-at-the-250-line-ceiling-ex)
 - **Files:** `packages/render/src/boss-cue-read-i.ts`, `packages/render/src/boss-cue.ts`
 - **Where:** local
 
