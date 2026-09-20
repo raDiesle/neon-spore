@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · c7591e66 — `3` reaches THE INSTAR's rings
+
+The owner: *I focus the game on THE INSTAR and press 3, and nothing happens.* This boss's marks are an authored beat list rather than a reading of `World`, so `bossCues` has no case for them — and may not grow one, because the ring draws its own scan frame and its own verb, and a cue through `boss-cue-draw.ts` would stand a second of each around a place that has both.
+
 ## 2026-09-20 · 3de26fbb — THE BATON's reading is two pages, and `passing` is the second
 
 Page nine was 250 lines exactly — the number `limits.test.ts` passes and the next sentence anyone adds does not, with the §6.1 guide lines still queued against this boss.
