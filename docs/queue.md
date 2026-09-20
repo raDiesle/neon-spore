@@ -1427,6 +1427,7 @@ own kind of work, and is unstarted.
 ## `act-7e.ts`'s header says it is full at 55 lines under the ceiling
 
 - **Found:** 2026-09-20, claude/queue-act-seven-has-no-room-for-another-wave-and-no-le
+- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-act-7e-ts-s-header-says-it-is-full-at-55-lines-u)
 - **Files:** `packages/content/src/waves/act-7e.ts`
 - **Where:** local
 
