@@ -1344,6 +1344,7 @@ what the rest of this file holds.
 ## Unverified at 628baa61: the tear's own frame against its teeth, and both cues o…
 
 - **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
+- **Taken:** 2026-09-20, claude/queue-unverified-at-58c05186-the-boxs-picture-on-a-rea (claim: claude/queue-unverified-at-628baa61-the-tears-own-frame-again)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-reprise.ts`, `packages/content/src/waves/act-10.ts`, `packages/render/src/boss-cue-read-s.ts`
 
 *THE REPRISE says two words over an empty field, and the plate leaves its guide* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
