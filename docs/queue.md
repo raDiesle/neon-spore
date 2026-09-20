@@ -1652,6 +1652,7 @@ own kind of work, and is unstarted.
 ## Unverified at 34f8f047: THE WELL's rolled face on a real frame: the turned nume…
 
 - **Found:** 2026-09-20, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, claude/queue-unverified-at-0c7934d1-the-curtains-jammed-rail (claim: claude/queue-unverified-at-34f8f047-the-wells-rolled-face-on)
 - **Files:** `apps/game/src/field-input.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-well.ts`
 
 2 commits landed, ending in *Queue: THE WELL's second gesture is done*, from a session that could not look at it. The commit touched 49 more files. What went unchecked:
