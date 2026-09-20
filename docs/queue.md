@@ -1184,6 +1184,7 @@ these, at tempo, on a phone-shaped screen.
 ## Unverified at 1172a97b: the PNG of THE CANDLE's words on a real frame
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on (claim: claude/queue-unverified-at-1172a97b-the-png-of-the-candles-wo)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-m.ts`
 
 *THE CANDLE says the word on the field, and the briefing comes down* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
