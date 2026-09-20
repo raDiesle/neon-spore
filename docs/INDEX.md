@@ -66,6 +66,7 @@ the code disagree, and the code is the truth for numbers.
 | `docs/spec/assists.md` | you work on helping a weaker partner |
 | `docs/spec/structure.md` | you touch waves, the clock and retries, saving or randomness |
 | `docs/spec/briefings.md` | you teach the pair a mechanic or a creature |
+| `docs/spec/between-waves.md` | you draw anything over the rest between one wave and the next — what a cleared wave says, and the hand-off into the next one's guide |
 | `docs/spec/wave-design.md` | you author a wave or an act |
 | `docs/spec/graphics.md` | you draw anything |
 | `docs/spec/audio.md` | you add a sound, or wonder why none of them sit in the speech band |

@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — between-waves — the sheet for the screen between the waves
+
+- reading — 15 min. The queue entry's second half, then what the rest already
+  is: `wave-end.ts`, `wave-fail.ts`, `config-run.ts`, `events.ts`, the one
+  place that answers `needWave` (`apps/game/src/waves.ts`), `balance.ts` for
+  what a run is allowed to report, and `docs/spec/README.md` for where a new
+  sheet goes and what its status line has to say.
+- writing — 10 min. The sheet, its two index rows and the pointer from
+  `briefings.md`.
+- looking — 0 min. Nothing is drawn yet; that is the next lane.
+- friction — 0 min.
+- landing — 5 min.
+
+**The bottleneck was reading**, and the sheet is mostly what the reading found:
+the gap is 1.9 seconds because `waveRestBeats` is 3 at 96 bpm and the host
+answers on the tick it is asked, which turns the design question from *what
+does the screen look like* into *how long is the pair allowed to look at it*.
+Everything the screen wants to say — the name, the clock, the retries — was
+already written and already formatted; nothing about it needed inventing except
+the length.
+
 ## 2026-09-20 — guide-head — every guide page says which wave it is
 
 - reading — 10 min. The queue entry, then the band and everything measured

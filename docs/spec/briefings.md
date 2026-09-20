@@ -45,6 +45,11 @@ starts, which is what the owner asked for in those words.
 Then the wave. [systems](systems.md) 5.9 has the gate's own rules — no
 timeout, no free repair bay, and what letting go does.
 
+**What stands before the opening is not this file's.** A wave that was cleared
+rests for three beats before the next one is asked for, and what is drawn over
+that rest — the wave just finished, what it cost, and the hand-off into the
+guide as one movement — is [between-waves](between-waves.md).
+
 ## The rule it is built on, which is the opposite of the rule it used to be
 
 Help is **placed, not derived**. A guide is written inside the wave that plays

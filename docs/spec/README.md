@@ -31,6 +31,7 @@ and record why in `docs/decisions.md`.
 | [assists.md](assists.md) | the three assist forms and their unlock order | not built |
 | [structure.md](structure.md) | waves, saving, scoring, the randomness rule | partly built |
 | [briefings.md](briefings.md) | what is taught before a wave, and how it is placed | not built |
+| [between-waves.md](between-waves.md) | the rest between one wave and the next: what a cleared wave says, and the hand-off into the next guide | not built |
 | [wave-design.md](wave-design.md) | figures, variation, the two filters, the ten acts | partly built |
 | [graphics.md](graphics.md) | the visual rules and the fiction | mostly built |
 | [audio.md](audio.md) | the speech-band rule, the grains, the catalogue | built, unheard |

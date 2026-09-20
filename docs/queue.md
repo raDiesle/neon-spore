@@ -287,9 +287,14 @@ header over drawings that exist, and the success screen second, as a
 **The header landed on 2026-09-20** (*no shipped alternative*): a plate hung
 under the bezel saying `WAVE 3 · THE GRATE`, on every page of a guide but the
 gate, falling once on a clock keyed to the wave rather than to the page
-(`guide-tide.ts`, `OpeningFx.waveAge`, `test/guide-head.test.ts`). **What is
-left of this entry is the success screen between the waves**, and its first
-half is the sheet.
+(`guide-tide.ts`, `OpeningFx.waveAge`, `test/guide-head.test.ts`).
+
+**The sheet landed on 2026-09-20**: `docs/spec/between-waves.md`, which decides
+what the screen says (the wave cleared, the clock, the retries — never a score
+and never per-seat), what it may not be, that the hand-off is the cleared name
+rising as the guide's header falls, and that the one number to change is
+`cfg.waveRestBeats`, 3 beats being 1.9 seconds at 96 bpm. **What is left of
+this entry is building it**, in the order §8 gives.
 
 ## A cue standing on the hull line has its verb drawn under the ship
 
