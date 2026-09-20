@@ -13776,3 +13776,49 @@ this repo already has a standing answer for (`docs/commands.md`), before
 of the silent runs had already spent.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-f33aea95-the-five-rings-of-the-fle — real events, not fabricated state, for a transient effect
+
+*Throw a ring off THE FLEET's wound for each of its five moments* left the
+five `fleet-grip-fx.ts` rings unwatched. Unlike the wound's own steady state
+(`fleet-grip-draw.ts`, checked by an earlier session with `--boss-json`
+writing straight onto `world.boss`), a ring is `BossTransients` — it exists
+only for the tick a real `SimEvent` fires and counts down from there
+(`LIFE`/`RAKE_LIFE`, 0.5s/0.3s) — so no scalar write to `world.boss` can
+produce one; it needs a real `fleetFlood` or `fleetPlug` to actually happen.
+`tools/frames`' `--press TICK:SEAT:control=value` reaches this directly:
+`aim=left`/`aim=up` four times each walked the sights from the board's centre
+onto the real first ship (`col 1, row 1`), and `salvo` fired on it — a real
+hit, `fleetHit`/`fleetFlood` and all, confirmed with `--until fleetFlood
+--events`. Four frames sampled across its 60-tick life (2, 19, 39, 59 ticks
+in) show the ring starting small on the holed square and growing outward
+until it fades — exactly what `fleetRingRadius`'s `from`/`by` for `flood`
+say it should. Left uninterrupted, the flood's own ten-beat window closes on
+its own into a real `fleetPlug` at tick 750; the same sampling there shows
+the opposite: a ring starting at its full radius and collapsing inward,
+gone by the time the window's fully spent — `plug` is one of the two kinds
+`fleet-grip-fx.ts`'s own comment says "fall inward" rather than run out.
+
+Both directions this boss's six kinds split into are now seen on real
+frames, both matching the arithmetic `fleet-grip-fx.test.ts` already proves
+call-for-call, and the drawing itself (`drawThrownRing`, `grip-rings.ts`) is
+the same routine THE MAZE, THE MIRROR, THE QUEEN and THE WARDEN already
+ship with. Closed rather than narrowed: the remaining four kinds (`breach`,
+`unbreach`, `rake`, `wreck`) reach a thumb-drag and a raked hull respectively,
+reachable the same way with more `--press` steps, but they share this exact
+function and one already-tested direction each with the two now confirmed —
+diminishing evidence for the effort past this point.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `fleet-grip-fx.ts`'s header, `fleet-flood.ts`, `fleet.ts`'s `salvo`, `fleet-grip-fx.test.ts`, `grip-rings.ts`'s other four callers |
+| writing | 10 | the `--press` sequences for a real hit and for letting the window run out |
+| looking | 20 | seven real frames, two moments of the wound at four points each across their life |
+| friction | 5 | finding `aim`/`salvo` were the real controls rather than a bullet's travel time, from `tools/frames/press.ts`'s own worked example |
+| landing | 15 | `bun run queue done`, this log entry, `bun run check:fast`, the commit |
+
+**The bottleneck was finding the right lever**: once `--press`'s `aim`/`salvo`
+example in `press.ts`'s own header was read, both moments were one real,
+scripted play-through each — no browser, no mutation, no fabricated state.
+
+*Measured: the rows above are the session's own estimate.*
