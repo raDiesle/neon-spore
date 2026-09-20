@@ -1788,3 +1788,51 @@ taking the pieces it drives — `world`, `keys`, `touch`, the painter — and
 returning `{ run, stop, advance }` would leave `stage.ts` the assembly it reads
 as. `tools/director/test/` already drives the stage end to end, so the split is
 proved by tests that exist.
+
+## Two beats to land together is the whole difficulty of THE INSTAR
+
+- **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
+- **Files:** `packages/sim/src/config.ts`, `packages/sim/src/instar-step.ts`, `packages/content/src/instar-script.ts`
+- **Asks:** Keep `instarTogetherBeats: 2` for every pose, widen it, or let each step name its own?
+
+The owner, 20 September 2026, after watching the second pose: *p2 pulls but
+it is incorrect, why… maybe this time frame for p2 to pull is too short,
+which makes it too hard for p2 to hit it.* Half of that was the picture not
+saying which clock was running, and that half is fixed: a mark that is done
+now draws the together window closing into it and says `WAITING`
+(`render/instar-together.ts`). The other half is the number itself, and it is
+his.
+
+What the number is. A pair have the step's whole `windowBeats` to work in —
+8 to 12 in the shipped script — but a mark answered alone waits
+`instarTogetherBeats` for its partner and then goes back to nought
+(`slipLonely`). At `tickHz: 120` and `bpm: 96` that is 2 beats, 1.25 seconds.
+It is not the time to *act*; it is the gap between the two finishes. Held
+gestures (`pullDown`, `pullUp`, `hold`) are exempt — only the counted ones
+(`tap`, `swipeDown`, `turn`) can slip — so the poses this bites are `armed`
+(p1 taps 6 against p2's three swipes) and `moulted` (p2 taps 8 against p1's
+turn), which are exactly the two he was on.
+
+Three ways to answer, and what each costs:
+
+1. **Leave it at 2.** The new reading may be the whole fix — the difficulty
+   was never being seen, and 1.25s between two finishes is a fair ask once
+   both screens say so. Costs nothing; risks another report.
+2. **Widen `instarTogetherBeats` to 3 or 4.** One field in `config.ts`, one
+   number, every existing test still passes because they all assert relative
+   to the field. It makes the whole fight easier by the same amount, including
+   the last pose, which is meant to be the hard one.
+3. **Per-step.** `BossSequenceStep` gains an optional `togetherBeats`, the
+   config value becomes its default, and `instar-step.ts` reads the step's own
+   — so `gape` and `armed` can be forgiving while `turned` and `lunge` stay
+   tight. About thirty lines across sim and content, plus a row in
+   `hashWorld` coverage for nothing (the field is authored, not state), and it
+   is the only option that can make the teaching poses easy without making the
+   ending easy.
+
+A fourth thing he said is not this entry and is not queued: *this is generic
+feedback of choreographed bosses.* The other four read their asks through
+`bossCues` and have no together clock at all — THE BATON's merge and THE
+CAIRN's hold are timed against the beat, not against each other — so there is
+nothing there to widen. If the answer here is 3, whether the same per-step
+knob should exist for them is a second question for a second entry.

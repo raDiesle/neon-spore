@@ -14,6 +14,12 @@ import type { CueKind } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
+import {
+  drawInstarDone,
+  drawInstarWindow,
+  instarAwaited,
+  instarTogetherLeft,
+} from "./instar-together.js";
 import { drawInstarWord } from "./instar-word.js";
 import { hitCircle, type Layout, type ViewRole } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -42,6 +48,11 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * the last part of a morph the marks glow up faintly on the parts they are
  * about to ask for, so the pair's thumbs are already there when the window
  * opens.
+ *
+ * **A mark answered while its partner is still out is not finished**, and
+ * what that costs is drawn next door (`instar-together.ts`): the dot carries
+ * the together window closing into it, and every ring still open goes urgent,
+ * because those are the ones the pair is late on.
  *
  * The hit test is here too, next to the ring it answers (`handles.ts`'s
  * rule). It hands *every* seat's press through: the simulation is what
@@ -102,25 +113,43 @@ export function drawInstarMarks(
     0,
     Math.min(1, (instarStrikeBeat(s) - beat - beatPhase) / step.windowBeats),
   );
+  const awaited = instarAwaited(s, cfg, beat, beatPhase);
   step.marks.forEach((mark, i) => {
     const at = instarMarkPoint(l, mark);
     const mine = instarMarkIsMine(role, mark.seat);
+    // Beside the ring, clear of the window ring at its widest, away from the middle.
+    const side = mark.xMilli < 500 ? -1 : 1;
     if (instarMarkDone(s, i)) {
-      drawDone(ctx, at.x, at.y, r, time);
+      drawInstarDone(
+        ctx,
+        l,
+        at.x,
+        at.y,
+        r,
+        time,
+        instarTogetherLeft(s, cfg, i, beat, beatPhase),
+        side,
+      );
       return;
     }
     const along = Math.max(0, Math.min(1, (s.progress[i] ?? 0) / mark.need));
     const held = (s.thumbs[i] ?? 0) !== 0;
-    drawRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time);
-    drawWindow(ctx, at.x, at.y, r, left, mine);
-    // Beside the ring, clear of the window ring at its widest, away from the middle.
-    const side = mark.xMilli < 500 ? -1 : 1;
+    drawRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
+    drawInstarWindow(ctx, at.x, at.y, r, left, mine);
     const { kind, word } = instarMarkWord(mark, role);
     drawInstarWord(ctx, l, word, at.x + side * r * 3.1, at.y, side, mine, kind);
   });
 }
 
-/** The ring itself: red, brighter for the seat it wants, breathing until a thumb lands, its arc filling as the part gives. */
+/**
+ * The ring itself: red, brighter for the seat it wants, breathing until a
+ * thumb lands, its arc filling as the part gives.
+ *
+ * `awaited` is the partner already answered and counting: the ring breathes
+ * harder and burns brighter, because this is the mark the step is waiting on
+ * and what happens if it does not come is the other one going back to nought
+ * (`instar-together.ts`).
+ */
 function drawRing(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -131,8 +160,11 @@ function drawRing(
   held: boolean,
   along: number,
   time: number,
+  awaited: boolean,
 ): void {
-  const breathe = held ? 1 : 1 + 0.08 * Math.sin(time * 4);
+  const beat = awaited ? 7 : 4;
+  const swell = awaited ? 0.14 : 0.08;
+  const breathe = held ? 1 : 1 + swell * Math.sin(time * beat);
   const p = new Path2D(circleSubpath(x, y, r * breathe));
   ctx.save();
   ctx.fillStyle = PALETTE.background;
@@ -144,9 +176,9 @@ function drawRing(
   strokeGlow(
     ctx,
     p,
-    held ? PALETTE.redRim : PALETTE.red,
+    held || awaited ? PALETTE.redRim : PALETTE.red,
     STROKE.inner,
-    mine ? (held ? 1.2 : 0.9) : 0.4,
+    (mine ? (held ? 1.2 : 0.9) : 0.4) * (awaited ? 1.35 : 1),
   );
   ctx.save();
   ctx.strokeStyle = ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
@@ -160,36 +192,6 @@ function drawRing(
   ctx.beginPath();
   ctx.arc(x, y, r * 1.55, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * along);
   ctx.stroke();
-  ctx.restore();
-}
-
-/** The window: a ring closing in from outside, brighter and faster the less is left. */
-function drawWindow(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  left: number,
-  mine: boolean,
-): void {
-  const p = new Path2D(circleSubpath(x, y, r * (1.75 + 1.1 * left)));
-  const urgency = 1 - left;
-  strokeGlow(ctx, p, PALETTE.red, STROKE.inner, (0.25 + 0.65 * urgency) * (mine ? 1 : 0.5));
-}
-
-/** A mark answered: a small filled dot in the rim's colour, and no word. */
-function drawDone(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  time: number,
-): void {
-  const p = new Path2D(circleSubpath(x, y, r * 0.5));
-  ctx.save();
-  ctx.fillStyle = PALETTE.redRim;
-  ctx.globalAlpha = 0.6 + 0.2 * Math.sin(time * 3);
-  ctx.fill(p);
   ctx.restore();
 }
 

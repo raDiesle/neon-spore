@@ -22,6 +22,48 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — instar-together-window — the clock the picture kept to itself
+
+The owner, watching the second pose: *it is not clear what needs to be done,
+p2 pulls but it is incorrect, why. If there is a time window, that p1 needs
+to tap a specific number of times and then p2 needs to pull — maybe this
+time frame for p2 is too short, so it needs to be clearer when p2 can pull
+and be allowed to pull in the right moment. This is generic feedback of
+choreographed bosses.*
+
+His reading of the rule is wrong, and the picture is why. The pair do **not**
+act in turn: both have the whole `windowBeats` to work in, and the only thing
+they must do together is *finish* within `instarTogetherBeats` of each other
+— a mark answered alone waits that long for its partner and then goes back to
+nought (`slipLonely`). Nothing on the screen drew that second clock, so what
+he saw was his own dot go in, sit there and quietly reset.
+
+It is drawn now. A done mark stops being a full stop: it carries the together
+window closing into it, the same grammar as the step's own window ring, and
+the word `WAITING` — on **both** screens, because the seat that has to read
+it is the one whose mark is still open. That seat gets no new word, only an
+urgent ring: a second line telling them to hurry is the partner's sentence
+taken out of their mouth, and saying it out loud is the game (#34).
+
+Whether `instarTogetherBeats: 2` is the right width, and how the same clock
+should read on the other choreographed bosses, is the owner's and is queued
+with its options.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `instar-step.ts`'s `slipLonely` and its window arithmetic, `instar-marks.ts`, `instar-word.ts`, `decisions.md` #34, the sim's own together tests |
+| writing | 35 | `instar-together.ts` cut out of `instar-marks.ts` (which was at 251 lines), the `awaited` swell through `drawRing`, eight tests |
+| looking | 10 | the frame of a waiting mark |
+| friction | 15 | the first five tests were written against pose one, which is two pulls — `instarHeld` keeps a pull off the together clock entirely, so they all read `null`; then the canvas stub logs `fillText(x, y)` without the text, so the drawn assertion had to go through `ctx.texts` |
+| landing | 15 | `bun run index` for the new file, lint, `bun run check:fast`, this entry, the queue's `Asks:`, the commit |
+
+**The bottleneck was that the rule itself was invisible**: both the owner's
+misreading and the lane's first five failing tests came from the same place —
+`instarHeld` and `slipLonely` decide which marks are on the together clock,
+and nothing, in the game or in a test's first guess, said which those were.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — instar-cue-key-held — the key is held, and paced
 
 Two reports from the owner the moment he watched the lane before: *I would
