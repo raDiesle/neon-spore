@@ -1591,6 +1591,7 @@ back to pushing the branch unlanded instead.
 ## The queue's own resurrection guard missed a stale entry coming back
 
 - **Found:** 2026-09-20, claude/queue-a-landing-that-forgot-unverified-has-no-way-to-w
+- **Taken:** 2026-09-20, main (claim: claude/queue-the-queues-own-resurrection-guard-missed-a-stale)
 - **Files:** `tools/land/queue-guard.ts`, `tools/land/queue-merge.ts`, `docs/queue.md`
 
 `tools/land/queue-guard.ts` exists to refuse a landing that would put back a
