@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 4d6c4b3e — A held `3` performs THE INSTAR's gesture
+
+The `3` key reached the rings last lane and pressed them; a press answers one of the six gestures. The other five are motion, so the key now keeps its two thumbs down and moves them: `stage-cue-gesture.ts` says where the finger goes next for a mark — down or up past `need`, a swipe and a lift, a tap's release and press again, a turn wound an eighth at a time — and `stage.ts` drains that move into the tick the press is in. `hold` is the one it refuses: the mark is answered by both seats holding, and the key inventing the partner's thumb would be the fight played rather than shown.
+
 ## 2026-09-20 · c7591e66 — `3` reaches THE INSTAR's rings
 
 The owner: *I focus the game on THE INSTAR and press 3, and nothing happens.* This boss's marks are an authored beat list rather than a reading of `World`, so `bossCues` has no case for them — and may not grow one, because the ring draws its own scan frame and its own verb, and a cue through `boss-cue-draw.ts` would stand a second of each around a place that has both.
