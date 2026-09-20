@@ -12,6 +12,7 @@ import {
 } from "@neon-spore/sim";
 import type { CueKind } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
+import { drawInstarCall } from "./instar-call.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
 import {
@@ -48,6 +49,10 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * the last part of a morph the marks glow up faintly on the parts they are
  * about to ask for, so the pair's thumbs are already there when the window
  * opens.
+ *
+ * **The step's own call stands under both marks** (`instar-call.ts`): who the
+ * pose is waiting on and how long they have, which is the one thing neither
+ * ring can say because it is about the pair.
  *
  * **A mark answered while its partner is still out is not finished**, and
  * what that costs is drawn next door (`instar-together.ts`): the dot carries
@@ -139,6 +144,7 @@ export function drawInstarMarks(
     const { kind, word } = instarMarkWord(mark, role);
     drawInstarWord(ctx, l, word, at.x + side * r * 3.1, at.y, side, mine, kind);
   });
+  drawInstarCall(ctx, l, s, cfg, beat, beatPhase);
 }
 
 /**

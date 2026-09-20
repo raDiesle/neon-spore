@@ -22,6 +22,52 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — instar-call-line — who goes when, said out loud
+
+The owner, having watched the lane before: *for any in-game action which
+requires one player to hit a specific point in time related to the other
+player's action, it should show text and visual for when is the right point
+in time for the other player to act… it should be clear which player first
+needs to pull in the first sequence and which is next, and what the time
+frame is that both need to trigger.*
+
+He had read an order into two poses that have none, which is the argument
+for saying the rule out loud. A line now stands under both marks and says
+which of three things the pose actually is. A pose of **held** gestures —
+the two pulls of `gape` — has no join at all, because a pull cannot slip
+(`instarHeld`), and the line says *EITHER ORDER · BOTH, BEFORE IT CLOSES*. A
+pose of **counted** gestures has one, and it is on the finish rather than
+the start: *FINISH TOGETHER · WITHIN 2 BEATS*. And the moment one of the two
+lands, the line stops describing and calls: *NAVIGATOR NOW · 2 BEATS LEFT*,
+counting down with the ring closing into the answered mark. That last state
+is the point in time he asked to be shown, and it is the only moment in the
+fight when there is one.
+
+The same sentence on both screens, and bright on both: it says what the pair
+is under rather than what either seat should do, so #34's rule about not
+taking a partner's line out of their mouth is untouched — the verb stays on
+the ring, in the seat that owns it.
+
+A frame of it turned up a second thing: *NAVIGATOR'S*, the longest label in
+the game, had its right bracket drawn on the last column of pixels. The
+box's clamp had no margin, and a box too wide for the glass was pushed off
+the edge rather than centred. Both fixed where the box is measured.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `instar-word.ts`'s clamp, `instar-together.ts`, the script's five poses, `instarHeld`'s list |
+| writing | 30 | `instar-call.ts`, the box split into a measure and a paint so a centred one could share it, nine tests |
+| looking | 20 | four frames of THE INSTAR at two poses, and a 5× crop that settled whether the label was clipped or merely flush |
+| friction | 10 | the first reading of the frame called the label clipped when it was flush to the pixel, and the header written from that reading had to be corrected against the crop |
+| landing | 15 | `bun run index` and its row, lint, `bun test packages/render`, `bun run check:fast`, this entry, the commit |
+
+**The bottleneck was a picture read too quickly**: a label flush against the
+edge and a label cut off look the same at phone size, and the difference —
+which decided whether the clamp was broken or merely tight — took a crop to
+settle, after a header had already been written claiming the wrong one.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — instar-together-window — the clock the picture kept to itself
 
 The owner, watching the second pose: *it is not clear what needs to be done,

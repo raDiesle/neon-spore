@@ -28,6 +28,13 @@ import { PALETTE, STROKE } from "./palette.js";
  * once.
  *
  * Its own file because `instar-marks.ts` was at its limit with the rings.
+ *
+ * **Two ways to stand.** `drawInstarWord` is the original: an edge and a side,
+ * so the box hangs off a ring away from the middle of the field.
+ * `drawInstarBanner` centres one on the glass, for a line that belongs to the
+ * step rather than to either mark (`instar-call.ts`). One box, drawn twice,
+ * because a second implementation of the brackets is a second thing to keep
+ * in step.
  */
 
 /** The word's size, in tiles — THE WARDEN's loud hint (`handle-draw.ts`). */
@@ -40,6 +47,41 @@ const KIND_TILES = FONT_TILES * (8 / 11);
 /** Between the kind line and the word, in tiles. */
 const KIND_GAP_TILES = FONT_TILES * 0.35;
 
+/** How far off the edge of the glass a box is kept, in tiles. */
+const INSET_TILES = 0.12;
+
+/** The two fonts, which every measurement and every line is set in. */
+function fonts(l: Layout): { word: string; kind: string } {
+  return {
+    word: `600 ${Math.round(l.tile * FONT_TILES)}px system-ui, sans-serif`,
+    kind: `600 ${Math.round(l.tile * KIND_TILES)}px system-ui, sans-serif`,
+  };
+}
+
+/** Half the box, brackets and padding and all — what decides where it may
+ * stand before it decides what it looks like. */
+function halfWidth(ctx: CanvasRenderingContext2D, l: Layout, word: string, kind?: string): number {
+  const font = fonts(l);
+  ctx.font = font.word;
+  const wordW = ctx.measureText(word).width;
+  ctx.font = font.kind;
+  const kindW = kind !== undefined && kind !== word ? ctx.measureText(kind).width : 0;
+  return Math.max(wordW, kindW) / 2 + l.tile * FONT_TILES * 0.45;
+}
+
+/**
+ * **The word beside a mark**: `x` is the box's near edge and `side` the way
+ * it hangs off it, clamped to the glass.
+ *
+ * **With a margin, and centred outright when it cannot have one.** The clamp
+ * put the box hard against the edge, and a frame of THE INSTAR on 20
+ * September 2026 showed what that looks like: the longest label in the game,
+ * *NAVIGATOR'S*, with its right bracket on the last column of pixels, which
+ * reads as a label cut off whether or not it is. `INSET_TILES` is the
+ * breathing room. A box too wide even for that is centred, which is the
+ * honest picture of a label that does not fit; the old clamp pushed it off
+ * the right edge instead, by exactly the amount it did not fit.
+ */
 export function drawInstarWord(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -52,23 +94,48 @@ export function drawInstarWord(
    * strings. Left out for a call that names a seat rather than an action. */
   kind?: string,
 ): void {
+  const half = halfWidth(ctx, l, word, kind) + l.tile * INSET_TILES;
+  const cx =
+    half * 2 >= l.width ? l.width / 2 : Math.min(Math.max(x + side * half, half), l.width - half);
+  paint(ctx, l, word, kind, cx, y, mine);
+}
+
+/** The same box, centred on the glass: a line the whole step is under rather
+ * than one mark's label (`instar-call.ts`). */
+export function drawInstarBanner(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  word: string,
+  y: number,
+  mine: boolean,
+  kind?: string,
+): void {
+  paint(ctx, l, word, kind, l.width / 2, y, mine);
+}
+
+function paint(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  word: string,
+  kind: string | undefined,
+  cx: number,
+  y: number,
+  mine: boolean,
+): void {
   ctx.save();
-  const wordFont = `600 ${Math.round(l.tile * FONT_TILES)}px system-ui, sans-serif`;
-  const kindFont = `600 ${Math.round(l.tile * KIND_TILES)}px system-ui, sans-serif`;
+  const font = fonts(l);
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.font = wordFont;
+  ctx.font = font.word;
   const wordW = ctx.measureText(word).width;
   const say = kind !== undefined && kind !== word;
-  ctx.font = kindFont;
+  ctx.font = font.kind;
   const kindW = say ? ctx.measureText(kind).width : 0;
   const w = Math.max(wordW, kindW);
   const h = l.tile * FONT_TILES;
   const kindH = l.tile * KIND_TILES;
   const gap = l.tile * KIND_GAP_TILES;
   const pad = h * 0.45;
-  // Kept on the glass, the way a handle's hint is; `x` is the box's near edge.
-  const cx = Math.min(Math.max(x + side * (w / 2 + pad), w / 2 + pad), l.width - w / 2 - pad);
   // Both lines centred on `y`, the way the single line always was — the ring
   // it stands beside does not move when a second line joins it.
   const blockH = say ? kindH + gap + h : h;
@@ -102,11 +169,11 @@ export function drawInstarWord(
   }
   ctx.stroke();
   ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-  ctx.font = wordFont;
+  ctx.font = font.word;
   ctx.fillText(word, cx, wordY);
   if (say) {
     ctx.globalAlpha = (mine ? 0.9 : 0.45) * 0.8;
-    ctx.font = kindFont;
+    ctx.font = font.kind;
     ctx.fillText(kind, cx, kindY);
   }
   ctx.restore();

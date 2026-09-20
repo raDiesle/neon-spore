@@ -1836,3 +1836,37 @@ feedback of choreographed bosses.* The other four read their asks through
 CAIRN's hold are timed against the beat, not against each other — so there is
 nothing there to widen. If the answer here is 3, whether the same per-step
 knob should exist for them is a second question for a second entry.
+
+## The other choreographed bosses never say when the second seat may act
+
+- **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
+- **Files:** `packages/render/src/instar-call.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-text.ts`, `packages/sim/src/instar-step.ts`
+- **Where:** cloud
+
+The owner, 20 September 2026: *for any in-game action which requires one
+player to hit a specific point in time related to the other player's action,
+it should show text and visual for when is the right point in time for the
+other player to act… this is a generic rule for bosses with choreographed
+state actions.* THE INSTAR has it now — `instar-call.ts` draws a line under
+the marks naming the seat still out and the beats it has left. Nothing else
+in the game does.
+
+What to do, in order. **First find the couplings, because they may not all
+exist.** A coupling is any rule where one seat's act is judged against *when
+the other seat acted* rather than against the beat: THE INSTAR's
+`slipLonely` is one. Read the four other choreographed bosses' simulations
+for the same shape — a stored beat of one seat's act compared with another's
+— and write down what each one found, including the ones that found nothing.
+The reading from this lane, which is a reading and not a proof: THE BATON's
+merge and THE CAIRN's hold are timed against the beat and not against each
+other, so there may be no coupling outside THE INSTAR at all. If that is what
+the reading says, this entry closes with a test that pins it, not with a
+feature.
+
+**Then, for each one found, one line.** `instarCall`'s three states are the
+shape: what the rule is while nobody has acted, and who-and-how-long once
+somebody has. The drawing is already shared — `drawInstarBanner`
+(`instar-word.ts`) centres a scanner box on the glass — so a second boss's
+line is a reading function and a call, not a second box. Keep #34: the line
+says what the *pair* is under and never a seat's own verb, which is why it
+is drawn bright on both screens.
