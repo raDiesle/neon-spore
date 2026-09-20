@@ -910,6 +910,7 @@ add the two poses and point the two rows at them.
 ## THE BATON's merge — its two handle rings — still has no picture taken
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Taken:** 2026-09-20, main (claim: claude/queue-the-batons-merge-its-two-handle-rings-still-has)
 - **Files:** `packages/render/src/baton-grip.ts`, `packages/render/test/baton-grip.test.ts`
 
 The swelling socket is now checked: `bun run tools/frames/run.ts . --wave "THE
