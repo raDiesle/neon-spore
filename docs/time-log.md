@@ -13635,3 +13635,47 @@ raw command sent straight through `window.neonSpore.send`, and every one of
 them first needed the browser-launch workaround before any of that could run.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-fbdcfa17-the-tasters-three-new-wor — four unverified boss frames, taken for real
+
+Four `## Unverified at <sha>:` entries in one sitting, each a boss word or
+picture landed by a session with no screen. `chromium.launch()` died here on
+first try with exactly the error the queued "`chromium.launch()` crashes
+here; the pipe transport is why, not the sandbox" entry describes, so every
+frame below came from a scratch script (deleted before this commit) that
+spawned Chrome by hand with `--remote-debugging-port` and handed
+`tools/frames`' own `captureFrames` the browser over `connectOverCDP`, exactly
+the workaround that entry names. THE TASTER's `PIN`, `WIPE` and `PRY` were
+photographed as a fanning fan (one blade pinned mid-growth) and a prised-open
+interlock, both built with `--boss-json` since the flag exists for precisely
+this; both render correctly, and the three hands drawing nothing of their own
+is `docs/spec/bosses.md`'s own documented gap, not a new finding. THE CAIRN's
+`PULL` reads clearly over its seven-stone pile from the wave's own opening,
+no fault built. THE WELL's clock at `BEND=1.7` is legible with one and two
+bodies on it at once, crowding toward the rim exactly as the constant's own
+comment says, and the pilot's unwarned reading matches the wave's guide
+line for line — nothing to fix. THE LEDGER's `PULL` needed a real bead, which
+`--boss-json` refused to fabricate (the beads array starts at length zero, and
+the flag only ever accepts a list the same length the sim has already grown
+to) so it was reached by presetting the seam one hit short and firing one
+real, colour-matched shot to make the second hit itself — and it renders
+correctly. THE LEDGER's `ROOT`, though, is not on the frame at all: its mark
+stands on `l.hullY`, the exact condition the open "A cue standing on the hull
+line has its verb drawn under the ship" entry already names, so
+`boss-cue-read-o.ts` and this frame's evidence were added to that entry
+instead of filing a sixth copy of the same bug.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 40 | `docs/spec/bosses.md`'s TASTER/LEDGER/WELL sections, `taster-hand.ts`, `ledger-hand.ts`, `ledger.ts`, `well.ts`, `boss-cue-read-o.ts`/`-q.ts`/`-r.ts`, the two `chromium.launch()` queue entries |
+| writing | 15 | the `--boss-json` payloads, the scratch `connectOverCDP` capture script, the queue.md edits |
+| looking | 35 | eleven real PNGs across the four bosses, at `p1`, `test` and cropped zooms |
+| friction | 35 | `chromium.launch()` dying under root, the manual `connectOverCDP` fallback, and the beads array's length check forcing a real fired shot in place of a fabricated one |
+| landing | 15 | `bun run queue take`/`done` on all four entries, `bun run check:fast`, this log entry, the commit |
+
+**The bottleneck was the browser, not the bosses**: every one of the four
+frames was straightforward once a browser would open at all, and the
+already-queued pipe-transport crash cost more of this sitting than reading
+four bosses' own state machines did.
+
+*Measured: the rows above are the session's own estimate.*

@@ -330,7 +330,7 @@ header over drawings that exist, and the success screen second, as a
 ## A cue standing on the hull line has its verb drawn under the ship
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
+- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
 - **Where:** local
 
 `drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
@@ -384,6 +384,16 @@ entry already describes — nothing new about the shape of the bug, only two
 more bosses it reaches. Both bosses' *other* cue (THE REPRISE's `PRESS` /
 `FIRE` on the tear, THE HIVE's `PRESS` / `FIRE` on the breach) stands away from
 `l.hullY` and reads fine on real frames of its own.
+
+**And a sixth place, found verifying THE LEDGER's `ROOT` in a real frame**
+(queue's own "Unverified at 419e7ce9"): `ledgerCues` (`boss-cue-read-o.ts`)
+stands the `CARRY` / `ROOT` mark on `ledgerSocketPoint`, which is `{ x, y:
+l.hullY }` exactly — the same mark `l.hullY` names above. `CARRY`, the kind
+line above the mark, is legible on a real frame taken at the wave's first
+beat; `ROOT`, the word `halfH + 18` below it, is not there at all, in a crop
+that reaches well past the socket and down to the shield row. This one has no
+workaround needed to reach: `bun run frames . --wave "THE LEDGER" --ticks 60`
+shows it from the wave's own opening, before any hand has touched anything.
 
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
@@ -1241,21 +1251,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at fbdcfa17: THE TASTER's three new words on a real frame: PIN, WIPE…
-
-- **Found:** 2026-09-19, claude/queue-the-taster-changes-state-more-than-once-and-asks
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-fbdcfa17-the-tasters-three-new-wor)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-taster.ts`, `packages/audio/src/sounds/boss-taster.ts`
-
-*THE TASTER: three thumbs on the fan, one per movement* landed from a session that could not look at it. The commit touched 29 more files. What went unchecked:
-
-- THE TASTER's three new words on a real frame: PIN, WIPE and PRY were never seen on a phone, and no PNG was taken
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at e71733bc: THE SPLICE's WAIT seen at tempo over the tangle
 
 - **Found:** 2026-09-19, claude/queue-the-splice-says-the-word
@@ -1264,21 +1259,6 @@ what the rest of this file holds.
 *THE SPLICE says the one word it can, and never on a mouth* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
 
 - THE SPLICE's WAIT seen at tempo over the tangle
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 8ddc2c93: THE CAIRN's PULL seen on a real frame over a seven-ston…
-
-- **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
-- **Taken:** 2026-09-20, claude/queue-unverified-at-fbdcfa17-the-tasters-three-new-wor (claim: claude/queue-unverified-at-8ddc2c93-the-cairns-pull-seen-on-a)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-cairn.ts`, `packages/content/src/waves/act-8.ts`, `packages/render/src/boss-cue-read-q.ts`
-
-*THE CAIRN says the one word it can, and the dome goes to the rock they pulled* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
-
-- THE CAIRN's PULL seen on a real frame over a seven-stone pile
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
@@ -1294,36 +1274,6 @@ what the rest of this file holds.
 *THE SINEW answers its snap-back: both hands carried APART catch the tendon* landed from a session that could not look at it. The commit touched 23 more files. What went unchecked:
 
 - THE SINEW's caught tendon has no picture yet: the swinging handles are not drawn as catchable, the spread is not drawn on the tendon, and the band does not answer a catch. A PNG of the caught state, seen by an eye.
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 419e7ce9: THE LEDGER's two new words on a real frame: ROOT and PU…
-
-- **Found:** 2026-09-19, claude/queue-the-ledger-changes-state-more-than-once-and-asks
-- **Taken:** 2026-09-20, claude/queue-unverified-at-fbdcfa17-the-tasters-three-new-wor (claim: claude/queue-unverified-at-419e7ce9-the-ledgers-two-new-words)
-- **Files:** `docs/INDEX.md`, `docs/cloud-session.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-ledger.ts`
-
-*THE LEDGER: four hands on one cord, one per movement* landed from a session that could not look at it. The commit touched 27 more files. What went unchecked:
-
-- THE LEDGER's two new words on a real frame: ROOT and PULL were never seen on a phone, and nothing is drawn for the foot, the plug, the hauled bead or the hauled cord
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 05c48636: the ring's picture at BEND=1.7, and whether the pilot's…
-
-- **Found:** 2026-09-19, claude/queue-the-well-says-the-word
-- **Taken:** 2026-09-20, claude/queue-unverified-at-fbdcfa17-the-tasters-three-new-wor (claim: claude/queue-unverified-at-05c48636-the-rings-picture-at-bend)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-well.ts`, `packages/content/src/waves/act-8.ts`, `packages/render/src/boss-cue-read-r.ts`
-
-*THE WELL is the one boss that may not be given a word, and its briefing carries all of it* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
-
-- the ring's picture at BEND=1.7, and whether the pilot's clock reading as unwarned is noticed
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
