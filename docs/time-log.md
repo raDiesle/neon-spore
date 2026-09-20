@@ -13495,3 +13495,57 @@ open, unclaimed work, and only `git log -S` on its own title in `docs/queue.md`
 turned up the commit that had already closed it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-b6f46254-the-fleets-wound-seen-on — a real defect, and a cheaper fix than the first one tried
+
+THE FLEET's wound was checked on real frames rather than arithmetic:
+`--boss-json` writes `phase`, `holeCol`, `holeRow` and the two seats' held
+flags straight onto `world.boss` since they are all scalars, so no browser
+mutation or `connectOverCDP` workaround was needed this time — `bun run
+frames` rendered every state asked for on the first try.
+
+The ordinary case (a hole mid-chart, both real ships and a manufactured
+bottom-row one) showed the plume, the narrowed window and the ring with its
+word all sized and cleared correctly against the chart's own squares and the
+control band below — there is a five-row margin of open water under
+`fleetRows`' ten before the band starts, so the "clearance of the panel"
+half of the question was never close on any square a ship can actually be
+holed on. But the plume's own **top** clearance was not fine: THE FLEET's
+authored second ship (`col: 8, row: 0, len: 4, dir: "v"`) reaches the chart's
+own row 0, and a shell landing there opens a plume `PLUME_TILES` (1.5 tiles)
+tall with only half a tile of chart above it — the water rose straight out
+of the chart's own frame into the field above it, next to the sights' `F6`
+tag. Real and reachable, not a manufactured edge case, and squarely CLAUDE.md's
+own third look-exemption: a shape clipping its frame.
+
+The first fix tried was a canvas clip to the chart's rectangle
+(`beginPath`/`rect`/`clip` around `drawPlume`), which read cleanly but cost
+three more canvas calls every frame the wound is open — `bun run check:fast`
+caught it: THE FLEET's op-count budget test went from 7 to 8 on `p1` mid
+clip. Replaced with `Math.min(c.tile * PLUME_TILES, hole.y - c.top)`, which
+caps the plume's own height against the hole's distance from the chart's top
+edge — the same picture, confirmed on the same real frame, at the same op
+count as before.
+
+Also noticed in passing, not filed: on the seat that owns the wound, the
+boss-cue system's own verb (`RAKE`/`HOLD`, `boss-cue-read-g.ts`) and the
+wound's own `HandleWords` hint (`fleet-grip-draw.ts`) say the same word
+within a few pixels of each other on a real `p1`/`p2` frame — legible on
+both, not clipped, so not the "wrong size or illegible" this entry asked
+about, and it is at least as plausibly read as reinforcement (a small verb
+above the ring, a loud one below it) as it is a defect, which is a call for
+whoever next has eyes on that pair of systems rather than this lane's to make.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `CLAUDE.md`, the queue entry, `fleet-chart.ts`, `boss-draw.ts`, `fleet-grip.ts`, `fleet-grip-draw.ts`, `fleet-clock.ts`, `layout.ts`, `handle-draw.ts`, the authored ship list in `waves/act-2.ts` |
+| writing | 15 | a throwaway probe script (not committed, used to compute the chart's own pixel geometry against `computeLayout`), the plume fix and its comment, closing the queue entry, this log entry |
+| looking | 20 | eight real frames (`test`, `p1`, `p2`, plain and zoomed) across a manufactured bottom-row hole, the ordinary mid-chart case, and the authored top-row ship, before and after the fix |
+| friction | 15 | the first fix's canvas clip reading right and then failing THE FLEET's own op-count budget test, and finding the arithmetic that gets the same picture for nothing |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast` (5172 pass) clean before committing |
+
+**The bottleneck was the first fix being the wrong shape** — correct on the
+screen and wrong on the budget, which only `bun run check:fast` caught, not
+the eye.
+
+*Measured: the rows above are the session's own estimate.*

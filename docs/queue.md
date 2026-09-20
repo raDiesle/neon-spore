@@ -924,21 +924,6 @@ whether a state there is a phase or any named condition of the boss. Decide
 that first — it is the same question THE GORGE's pinch and pry will ask — then
 add the two poses and point the two rows at them.
 
-## Unverified at b6f46254: THE FLEET's wound seen on a real frame: no PNG was take…
-
-- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-b6f46254-the-fleets-wound-seen-on)
-- **Files:** `docs/INDEX.md`, `docs/parked.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/boss-draw.ts`, `packages/render/src/fleet-chart.ts`
-
-*THE FLEET's wound answers three thumbs and says which is yours* landed from a session that could not look at it. The commit touched 10 more files. What went unchecked:
-
-- THE FLEET's wound seen on a real frame: no PNG was taken of the plume standing out of the holed square, the narrowed window draining under it, or either seat's ring and its word — their size against the chart's squares and their clearance of the panel below are unchecked
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at f33aea95: the five rings of THE FLEET's wound seen by an eye at t…
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim

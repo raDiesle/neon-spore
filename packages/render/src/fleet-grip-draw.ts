@@ -34,9 +34,19 @@ function gripOf(b: FleetState, seat: 1 | 2): { held: boolean; words: HandleWords
   return { held: b.wreckPullMilli > 0, words: WRECK_WORDS };
 }
 
-/** The water standing out of the hole, on both screens, leaning as it goes. */
+/**
+ * The water standing out of the hole, on both screens, leaning as it goes.
+ *
+ * **Never taller than the chart it stands on.** `PLUME_TILES` of height
+ * assumes a hole with a clear square and a half above it, which a ship holed
+ * on the chart's own top row does not have — THE FLEET's authored second ship
+ * reaches row 0. Capped at the hole's own distance from the chart's top edge
+ * rather than clipped: a clip is `beginPath`, `rect` and `clip` more every
+ * frame the wound is open, and this is arithmetic already in hand, for a
+ * shape that was clipping its frame, not a look (`docs/queue.md`).
+ */
 function drawPlume(ctx: CanvasRenderingContext2D, c: Chart, hole: Circle, time: number): void {
-  const h = c.tile * PLUME_TILES;
+  const h = Math.min(c.tile * PLUME_TILES, hole.y - c.top);
   ctx.save();
   ctx.strokeStyle = PALETTE.shield;
   ctx.lineWidth = STROKE.inner;
