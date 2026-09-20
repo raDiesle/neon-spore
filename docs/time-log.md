@@ -13920,3 +13920,32 @@ not the verification itself — once the frame tool pointed at the right
 page, the code already answered the question a device was being asked to.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-a5f99af6-the-candles-wick-and-ember — an eye on all three claims
+
+THE CANDLE's wick and ember, closed rather than narrowed: all three things
+`candle-frame.test.ts` could only prove by branch coverage, proved instead
+by real frames. The stem's travel and the ring closing are both one-to-one
+with `c.pinchMilli` (`candle-glow.ts`'s `candleFlameY`, `candle-grip.ts`'s
+`drawCandleWick`), so three real frames across the range it can take —
+`--boss-json '{"phase":"last","pinchMilli":0|750|1500}'` — show the flame
+sliding down the wick and the ring closing around it as the number climbs.
+The ember's swell against `candleSmokeBeats` is `drawSmoke`'s `urge` ramp
+(`candle-grip.ts`); two frames at `phase:"smoking"` with `phaseBeat` set to
+put `urge` near 0 and near 1 show a bare fleck against a full glowing coal.
+None of it needed a real `SimEvent` — every field driving these pictures is
+plain `CandleState`, legitimate for `--boss-json` rather than the
+`--press`-driven route THE FLEET's rings needed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `candle-glow.ts`, `candle-grip.ts`, `candle-step.ts`, `candle.ts`, `candle-frame.test.ts`'s own docstring |
+| writing | 0 | no code changed — a verification, not a fix |
+| looking | 15 | five real frames: three across the pinch range, two across the smoke's ramp |
+| friction | 10 | working out `ticksPerBeat` by hand (`tickHz` 120, `bpm` 120) to pick a `phaseBeat` that actually lands near `urge` 0 and 1 at the frame tool's default tick |
+| landing | 10 | `bun run check:fast`, this log entry, the commit |
+
+**The bottleneck was arithmetic, not rendering**: once the beat math was
+right, every claim in the entry answered in one or two frames.
+
+*Measured: the rows above are the session's own estimate.*

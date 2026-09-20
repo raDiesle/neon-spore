@@ -1201,21 +1201,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at a5f99af6: THE CANDLE's wick and ember watched at tempo — the stem…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-a5f99af6-the-candles-wick-and-embe)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/candle-dark.ts`, `packages/render/src/candle-glow.ts`, `packages/render/src/candle-grip.ts`
-
-*THE CANDLE: the flame gets a wick to be pulled off* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
-
-- THE CANDLE's wick and ember watched at tempo — the stem's travel, the ring closing and the ember's flicker against candleSmokeBeats are proved only by candle-frame.test.ts, not by an eye on a running frame
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at e71733bc: THE SPLICE's WAIT seen at tempo over the tangle
 
 - **Found:** 2026-09-19, claude/queue-the-splice-says-the-word
