@@ -8,7 +8,7 @@ import { PALETTE } from "./palette.js";
 /**
  * What THE SINEW leaves behind a frame: the whip a snap-back puts through
  * the mass and its handles, the flash of it, the shock it runs down the
- * hull, and the bursts its thirteen receipts throw.
+ * hull, and the bursts its fourteen receipts throw.
  *
  * Everything else about the boss is drawn off the world every frame
  * (`sinew-draw.ts`). The snap is the exception three times over: the
@@ -23,7 +23,7 @@ import { PALETTE } from "./palette.js";
  *
  * The bursts go through `Sparks` like any other event's and are read here,
  * above the loop, because `effects-spark.ts`'s table is at its limit and
- * the thirteen are one family — THE GORGE's and THE CURTAIN's arrangement.
+ * the fourteen are one family — THE GORGE's and THE CURTAIN's arrangement.
  * The ones with no row on them are thrown at the mass as it was last drawn,
  * which `note` is told every frame; before the first frame they are thrown
  * nowhere, and nothing is lost.
@@ -108,6 +108,12 @@ export class SinewFx {
           break;
         case "sinewRock":
           burst(tileCX(l, e.col), tileCY(l, e.row), 4, PALETTE.rock);
+          break;
+        case "sinewCatch":
+          // The one "something went right" moment this fight has: both hands
+          // carried apart bought the beats back early, and the mint is the
+          // one hue this boss's strain never touches (`palette.ts`'s `good`).
+          atMass(12, PALETTE.good);
           break;
         case "sinewSlack":
           atMass(2, PALETTE.dim);

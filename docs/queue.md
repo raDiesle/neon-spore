@@ -1240,13 +1240,13 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
 - **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-0c7934d1-the-curtains-jammed-rail)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/content/src/scenes/the-curtain.ts`, `packages/content/test/scene-films.test.ts`
+- **Files:** `packages/content/src/scenes/the-curtain.ts`, `packages/content/test/scene-films.test.ts`
 
-*Draw THE CURTAIN's jam and give its hem a ring to lift* landed from a session that could not look at it. The commit touched 9 more files. What went unchecked:
+*Draw THE CURTAIN's jam and give its hem a ring to lift* landed from a session that could not look at it. A later session rendered real PNGs (`bun run frames`) of the three still states this entry named — the jam's bar over the rail, brightest at the hit (`packages/render/src/curtain-sheet.ts`'s `drawCurtainJam`); the hem gathered to a sliver under the rail at a full lift; and the gap that lift opens, the bare core showing through it — and all three are drawn as `curtain-draw.ts`, `curtain-grip.ts` and `curtain-sheet.ts` say they should be. What is left, and cannot be taken as a still:
 
-- THE CURTAIN's jammed rail and lifted hem seen by an eye: the bar fading over the jam's count, the hem gathering under the rail at a full lift, the gap opening over the core, and the rehearsal's eleventh page at tempo. No PNG was taken.
+- The rehearsal's eleventh page — the core drifting under the fabric in a new column and colour — watched at tempo, on a real device. A picture of one instant of a drift proves nothing about whether it reads as motion; this needs a person watching `content/src/scenes/the-curtain.ts`'s film play.
 
-Open each one on a machine that can, and then either take this entry out
+Open it on a machine that can watch a wave run, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
@@ -1259,21 +1259,6 @@ what the rest of this file holds.
 *THE SPLICE says the one word it can, and never on a mouth* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
 
 - THE SPLICE's WAIT seen at tempo over the tangle
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at c59c2b1e: THE SINEW's caught tendon has no picture yet: the swing…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, claude/queue-unverified-at-0c7934d1-the-curtains-jammed-rail (claim: claude/queue-unverified-at-c59c2b1e-the-sinews-caught-tendon)
-- **Files:** `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed.ts`, `packages/audio/src/bind-sinew.ts`, `packages/audio/src/sounds/boss-sinew.ts`
-
-*THE SINEW answers its snap-back: both hands carried APART catch the tendon* landed from a session that could not look at it. The commit touched 23 more files. What went unchecked:
-
-- THE SINEW's caught tendon has no picture yet: the swinging handles are not drawn as catchable, the spread is not drawn on the tendon, and the band does not answer a catch. A PNG of the caught state, seen by an eye.
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
@@ -1490,21 +1475,6 @@ already has — the pilot's colour, the navigator's swell, a seal, a wrong
 colour's provoke, the twins from the fifth opening — is the rehearsal lane's
 own kind of work, and is unstarted.
 
-## Unverified at 34f8f047: THE WELL's rolled face on a real frame: the turned nume…
-
-- **Found:** 2026-09-20, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, claude/queue-unverified-at-0c7934d1-the-curtains-jammed-rail (claim: claude/queue-unverified-at-34f8f047-the-wells-rolled-face-on)
-- **Files:** `apps/game/src/field-input.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-well.ts`
-
-2 commits landed, ending in *Queue: THE WELL's second gesture is done*, from a session that could not look at it. The commit touched 49 more files. What went unchecked:
-
-- THE WELL's rolled face on a real frame: the turned numerals, the seam slipping round, and the face held still under a thumb
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## `act-7e.ts`'s header says it is full at 55 lines under the ceiling
 
 - **Found:** 2026-09-20, claude/queue-act-seven-has-no-room-for-another-wave-and-no-le
@@ -1622,6 +1592,22 @@ instead shortens `launchBrowser`'s own path handling (not letting `underTmp`
 hand Chrome's own short-path fallback the long directory back) is the other
 shape worth weighing, since it would let `chromium.launch()` itself keep
 working rather than adding a second code path beside it.
+
+**A third data point, and a bind mount is the workaround until either fix
+lands.** `/home/claude/curtain-batch` — a name no longer than the ones already
+compared above — fails the same way, confirmed by hand the same four-tries
+way this entry's own middle paragraph did: `tools/frames/test/opening.test.ts`
+red every time from that path, freshly-emptied `.claude/tmp` each time. `mount
+--bind` onto a short empty directory (`mkdir /cb2 && mount --bind
+/home/claude/curtain-batch /cb2`, no `git worktree move`, no copy) gives every
+command run from `/cb2` the identical tree under a short path — git follows it
+as an ordinary path rather than a symlink, so `git status`, `git rebase` and a
+commit all work unchanged from there — and both `bun run frames` and `bun
+test`/`bun run check:fast` (whose own browser-backed specs hit this same
+crash) go green from `/cb2` with no code touched. This is the workaround a
+session in a long-named worktree can reach for right now; it does not replace
+either fix shape above; a session that cannot free-hand a mount should fall
+back to pushing the branch unlanded instead.
 
 ## The queue's own resurrection guard missed a stale entry coming back
 

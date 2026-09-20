@@ -13634,6 +13634,50 @@ bosses needed either a forced boss state, a column found by trial, or a
 raw command sent straight through `window.neonSpore.send`, and every one of
 them first needed the browser-launch workaround before any of that could run.
 
+## 2026-09-20 — queue-unverified-at-0c7934d1-the-curtains-jammed-rail — three unverified pictures, one real gap under them
+
+Three `Unverified at <sha>` entries drained in one sitting, each a boss's
+picture a landing session could not look at. THE CURTAIN's jammed rail: the
+jam's bar, the hem gathered to the rail at a full lift, and the gap that lift
+opens over the core are all real, correct frames (`curtain-sheet.ts`,
+`curtain-grip.ts`) — only the rehearsal's eleventh page, a drift watched at
+tempo, is left, and the entry is narrowed to that alone rather than closed.
+THE WELL's rolled face: the turned numerals and the slipping seam are both a
+discrete per-beat jump (`well-step.ts`), not an animation, so a still at a
+nonzero `offsetMilli` proves both; "held" has no visual of its own by design
+(the fight is answered entirely in sound, `docs/spec/bosses.md` §11.12) so a
+gripped frame was rendered too, matched the ungripped one, and the entry
+closed whole. THE SINEW's caught tendon turned out to be a real, if narrow,
+rendering gap under an already-half-built feature: the swinging handle's
+`APART` cue and the handles' own outward sway already exist and read fine on a
+real frame, but `sinewCatch` — the fourteenth of the fourteen events
+`sinew-fx.ts`'s own header already claims a burst for — had no case in the
+switch at all and threw nothing, confirmed by a test that fails without the
+fix and passes with it (`sinew-frame.test.ts`). Fixed as a look with no
+shipped alternative (nothing drew a catch before this).
+
+`bun run frames` and the browser-backed half of `bun test` would not run at
+all from this worktree's own path — `chromium.launch()`'s `SIGTRAP`, already
+queued as its own finding — so every frame in this sweep was taken from a
+`mount --bind` of this same tree onto a short path, and `check:fast` too;
+noted on that entry as a third data point and the workaround, not reproduced
+here.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 40 | `the-curtain.ts`, `curtain-draw.ts`/`curtain-grip.ts`/`curtain-sheet.ts`; `well.ts`/`well-step.ts`/`well-roll.ts`/`well-face.ts`/`touch-well.ts`, `docs/spec/bosses.md` §11.12; `sinew.ts`/`sinew-hand.ts`/`sinew-word.ts`/`sinew-handles.ts`/`sinew-fx.ts`/`events-sinew.ts`, `docs/spec/bosses.md` §11.26 and `bosses-choreographed.md` §8 |
+| writing | 20 | the `sinewCatch` case and its regression test, the three queue rewrites (one narrowed, two closed), this log entry |
+| looking | 25 | nine real frames (`bun run frames`) — THE CURTAIN's jam, full lift and gap; THE WELL still, rolled and rolled-and-held; THE SINEW swinging with and without sway, to see the spread — read back for what each entry actually asked |
+| friction | 45 | `chromium.launch()` crashing from this worktree's own path (already queued elsewhere); a `--boss-json` state getting overwritten by the sim before the tick it was set at, twice, before ticking small enough to catch a swing at its own snap beat |
+| landing | 15 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast` (from the bind mount), the commit |
+
+**The bottleneck was the browser refusing to launch from this worktree's own
+path at all** — once frames could be taken from the bind mount, reading three
+bosses' worth of code and rendering nine stills took longer than any single
+picture did.
+
+*Measured: the rows above are the session's own estimate.*
+
 *Measured: the rows above are the session's own estimate.*
 
 ## 2026-09-20 — queue-unverified-at-fbdcfa17-the-tasters-three-new-wor — four unverified boss frames, taken for real

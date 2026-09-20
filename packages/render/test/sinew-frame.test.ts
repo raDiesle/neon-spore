@@ -251,6 +251,21 @@ describe("THE SINEW's tendon", () => {
     fx.reset();
     expect(fx).toEqual(new Effects());
   });
+
+  it("throws a burst at the mass on a catch, and clears it on reset", () => {
+    // The baseline is noted too, so the only difference the comparison can
+    // catch is the burst the event itself throws — not the note.
+    const baseline = new Effects();
+    baseline.boss.sinew.note(10, 20);
+
+    const fx = new Effects();
+    fx.boss.sinew.note(10, 20);
+    fx.ingest([{ type: "sinewCatch", col: 5 }], L, 0, () => 0, CFG);
+    fx.update(1 / 60, L);
+    expect(fx).not.toEqual(baseline);
+    fx.reset();
+    expect(fx).toEqual(new Effects());
+  });
 });
 
 /**
