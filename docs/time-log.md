@@ -13582,3 +13582,56 @@ own history closely enough to see that the open entry was a merge artifact,
 not an unstarted task.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-58c05186-the-boxs-picture-on-a-rea — four unverified entries, one already-known swallowing
+
+Four *Unverified* entries — THE INSTAR's scanner box (`58c05186`), THE
+REPRISE's tear and both cues (`628baa61`), THE HIVE's reach and shot
+(`8995ded7`), THE LEAD's held stalk (`4674a3bb`) — claimed in one sitting and
+checked against real PNGs rather than left standing on the "a cloud session
+has no screen" line their own titles carry, which this sandbox does have a
+headless Chromium for. `chromium.launch()` crashed with the same `SIGTRAP` two
+earlier sessions today already queued (`docs/queue.md`'s browser-crash entry,
+`Where: local`, so not this session's to take or fix); the same workaround,
+a hand-spawned Chrome on `--remote-debugging-port` reached with
+`connectOverCDP`, ran `tools/frames`' own `captureFrames`/`openStage` under
+a real preview server for all four.
+
+THE INSTAR's scanner box (`--wave "THE INSTAR" --ticks 350`, `p1`/`p2`/`test`)
+is right: both lines draw, `CARRY` over `PULL UP`/`PULL DOWN`, and the other
+seat's mark dims to one line reading `NAVIGATOR'S`/`PILOT'S`, matching
+`bosses.md` §11.32 exactly. THE LEAD's held stalk (`--wave "THE LEAD"`, the
+still forced with `--boss segments=1,stillBeat=now,passBeat=-1,downBeat=-1,
+heldBeat=-1,freeBeat=-1` since no wave reaches it without real hits landing) is
+also right on all three unchecked points: the ring breathes while gripable and
+fills once held, the dial closes from whole to a sliver over six of the eight
+`leadHoldBeats`, a direct grip through `window.neonSpore.send` held the still
+six beats past the base four without tearing, and `s.lean` reads 0 before the
+grip and flips to `leadPassDir` the very beat after it, on both a state
+readout and a (subtle, one-segment-stalk) frame. Neither found anything to
+fix or file.
+
+THE REPRISE (`--wave "THE REPRISE" --ticks 905`) and THE HIVE (`--wave "THE
+HIVE" --ticks 400`, breach reached with `--press 0:1:cannonCol=2`) both draw
+their teeth/breach and both cues correctly positioned and worded — but each
+boss's `CARRY`/`MOVE` mark stands on `l.hullY`, and `MOVE` is swallowed by the
+cannon's own glow on a real `p1` frame of both, same failure as the four
+bosses `docs/queue.md`'s *"A cue standing on the hull line has its verb drawn
+under the ship"* entry already names. Added as two more files and a paragraph
+to that entry rather than filed twice or left unverified; all four
+*Unverified* lines are closed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | four queue entries, `instar-word.ts`, `boss-cue-read-s.ts`/`-v.ts`/`-c.ts`, `lead.ts`/`lead-step.ts`/`lead-hand.ts`/`lead-grip.ts`, `lead-shape.ts`, the already-queued hull-line and browser-crash entries |
+| writing | 20 | the scratch capture scripts (not committed), the hull-line entry's addendum, closing all four entries, this log entry |
+| looking | 45 | eleven real frames across the four bosses (`p1`/`p2`/`test`), one state readout of `world.boss.lean` across three held beats, crops zoomed on the grip ring/dial and the hull-line mark to confirm what was and was not legible |
+| friction | 25 | `chromium.launch()`'s known `SIGTRAP`, worked around the same way the day's earlier BATON/UNDERTOW sessions did; finding THE HIVE's open breach column by trial press rather than reading it off the seed; THE LEAD's still reachable only by writing `world.boss` fields directly, `--boss-json`'s scalar cousin |
+| landing | 15 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast` clean; `bun run check`/`bun run land` expected to hit the same pre-existing browser-launch crash in `tools/frames/test`, so pushing the branch rather than forcing a land |
+
+**The bottleneck was building a working camera at all** — three of the four
+bosses needed either a forced boss state, a column found by trial, or a
+raw command sent straight through `window.neonSpore.send`, and every one of
+them first needed the browser-launch workaround before any of that could run.
+
+*Measured: the rows above are the session's own estimate.*

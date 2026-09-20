@@ -330,7 +330,7 @@ header over drawings that exist, and the success screen second, as a
 ## A cue standing on the hull line has its verb drawn under the ship
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
+- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
 - **Where:** local
 
 `drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
@@ -368,6 +368,22 @@ the cue's draw out of the field pass to after the ship, which is one line in
 smaller and the first is what the file already argues for upward; either way
 one frame per boss is the proof, and `render/test/frame-budget.test.ts` is
 where the cost lands.
+
+**Two more real frames, and `boss-cue-read-s.ts`'s own docstring already knew
+about one of them.** Verifying the *Unverified at 628baa61* and *8995ded7*
+entries with real PNGs (`bun run frames`, worked around this sandbox's own
+browser-launch entry below with a hand-spawned Chrome over `connectOverCDP`,
+same as THE UNDERTOW's row above) turned up the fifth and sixth cues this
+swallows: THE REPRISE's `CARRY` / `MOVE` on the cannon (`p1`, `--wave "THE
+REPRISE" --ticks 905`, `boss-cue-read-s.ts`'s own comment already calls this
+mark "the fourth cue to stand on `hullY`") and THE HIVE's `CARRY` / `MOVE` on
+the cannon the same way (`p1`, `--wave "THE HIVE" --ticks 400`,
+`boss-cue-read-v.ts`). Both screenshots show `CARRY` legible above the mark and
+`MOVE` gone entirely into the cannon lobe's own glow, exactly the failure this
+entry already describes — nothing new about the shape of the bug, only two
+more bosses it reaches. Both bosses' *other* cue (THE REPRISE's `PRESS` /
+`FIRE` on the tear, THE HIVE's `PRESS` / `FIRE` on the breach) stands away from
+`l.hullY` and reads fine on real frames of its own.
 
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
@@ -1314,36 +1330,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at 58c05186: the box's picture on a real frame — a cloud session has…
-
-- **Found:** 2026-09-19, claude/queue-the-instar-says-the-word
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-58c05186-the-boxs-picture-on-a-rea)
-- **Files:** `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/waves/act-7e.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/boss-cue.ts`
-
-*THE INSTAR's scanner box learns the kind line the owner asked for* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
-
-- the box's picture on a real frame — a cloud session has no screen
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 628baa61: the tear's own frame against its teeth, and both cues o…
-
-- **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
-- **Taken:** 2026-09-20, claude/queue-unverified-at-58c05186-the-boxs-picture-on-a-rea (claim: claude/queue-unverified-at-628baa61-the-tears-own-frame-again)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-reprise.ts`, `packages/content/src/waves/act-10.ts`, `packages/render/src/boss-cue-read-s.ts`
-
-*THE REPRISE says two words over an empty field, and the plate leaves its guide* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
-
-- the tear's own frame against its teeth, and both cues on a real frame — a cloud session has no screen
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## The field is fullscreen only for the players who installed it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -1488,38 +1474,6 @@ question that prompted this one.
 2 commits landed, ending in *THE SURGE spits a rock, and the pilot wards it without letting go*, from a session that could not look at it. The commit touched 27 more files. What went unchecked:
 
 - the picture of the rock coming out of the bulb's underside, and THE SURGE watched at tempo with a rock in the air
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 8995ded7: the reach and the shot on a real frame — a cloud sessio…
-
-- **Found:** 2026-09-19, claude/queue-the-hive-says-the-word
-- **Taken:** 2026-09-20, claude/queue-unverified-at-58c05186-the-boxs-picture-on-a-rea (claim: claude/queue-unverified-at-8995ded7-the-reach-and-the-shot-on)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/waves/act-7f.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue.ts`
-
-*THE HIVE learns to say CARRY and PRESS, and the briefing comes down* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
-
-- the reach and the shot on a real frame — a cloud session has no screen
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 4674a3bb: the PNG of the held stalk, with its ring and its d…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, claude/queue-unverified-at-58c05186-the-boxs-picture-on-a-rea (claim: claude/queue-unverified-at-4674a3bb-the-png-of-the-held-stalk)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-lead.ts`, `packages/audio/src/sounds/boss-lead.ts`
-
-*THE LEAD's still is a handle, and her thumb buys the beam its fill* landed from a session that could not look at it. The commit touched 32 more files. What went unchecked:
-
-- the PNG of the held stalk, with its ring and its dial closing over the organ
-- THE LEAD's still watched at tempo with a thumb on it: four beats become up to leadHoldBeats, and the beat she lets go is the beat it passes
-- the stalk's lean through the still, which `leadAskedAngle` had pinned upright and now reads
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
