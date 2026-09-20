@@ -1511,6 +1511,7 @@ what the rest of this file holds.
 ## Unverified at 8995ded7: the reach and the shot on a real frame — a cloud sessio…
 
 - **Found:** 2026-09-19, claude/queue-the-hive-says-the-word
+- **Taken:** 2026-09-20, claude/queue-unverified-at-58c05186-the-boxs-picture-on-a-rea (claim: claude/queue-unverified-at-8995ded7-the-reach-and-the-shot-on)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/waves/act-7f.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue.ts`
 
 *THE HIVE learns to say CARRY and PRESS, and the briefing comes down* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
