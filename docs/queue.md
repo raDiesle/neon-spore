@@ -478,6 +478,7 @@ line in the step, a receipt, and `bun run check`.
 ## THE HIVE cannot be won: its own rock stops the bolt that seals a breach
 
 - **Found:** 2026-09-18, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-20, claude/queue-the-reprise-changes-state-more-than-once-and-ask (claim: claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo)
 - **Files:** `packages/sim/src/hive-step.ts`, `packages/sim/src/hive-shot.ts`, `packages/sim/src/config-hive.ts`, `packages/sim/test/hive.test.ts`, `packages/content/src/waves/act-7e.ts`, `packages/render/src/hive-draw.ts`, `docs/spec/bosses.md`
 - **Asks:** Is the spill the design's insect, a body in the breach's colour a bolt of that colour takes on its way down; or a rock of the fastest tier on a longer cadence of its own per breach; or a bolt of the breach's own colour that passes the breach's own spill?
 - **Answered:** 19 September 2026 — the insect, picked as easiest for a pair to understand: it is the one option that costs no new rule. A spill becomes a body in a known colour, shot the same way every other coloured body in the game is shot, and the look already exists (a slick or a bulb) so nothing new has to be read on sight either. The fast rock changes only a cadence a pair cannot see, which does not teach them what to do differently; the pass breaks the general rule that a shot never goes through a body, which a pair has learned everywhere else and would have to unlearn here.
