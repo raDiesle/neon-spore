@@ -1,13 +1,16 @@
 import { circleSubpath, type Point } from "@neon-spore/content";
 import {
-  type SimConfig,
   type VaneState,
   vaneColor,
-  vaneOpening,
+  vaneOpen,
+  vaneOpeningNow,
+  vanePinned,
   vanePivotCol,
   vaneReachMilli,
+  vaneSplitCol,
   vaneTipCol,
-  vaneWeakCol,
+  vaneTipNow,
+  type World,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -72,26 +75,28 @@ function armPoints(px: number, py: number, tx: number, ty: number, whip: number)
 export function drawVane(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   b: VaneState,
-  waveBeat: number,
-  beat: number,
   beatPhase: number,
   time: number,
 ): void {
+  const cfg = world.cfg;
   const pivotCol = vanePivotCol(cfg);
   const px = tileCX(l, pivotCol);
   const py = vaneBearingY(l);
   const hub = l.tile * 0.34;
 
-  // Where the arm stands between two beats. The tip is interpolated in columns
-  // rather than in pixels so it travels along the grid the pair is naming, and
-  // it is the same number on both screens because both read it out of the sim.
-  const from = vaneTipCol(cfg, b.pins, waveBeat);
-  const to = vaneTipCol(cfg, b.pins, waveBeat + 1);
+  // Where the arm stands between two beats. Pinned, it has stopped — the fold
+  // line holds the column the thumb landed it in (`vaneTipNow`) and there is
+  // nothing to interpolate towards. Sweeping, it is still read a beat ahead off
+  // the cycle so it travels along the grid the pair is naming, the same number
+  // on both screens because both read it out of the sim.
+  const pinned = vanePinned(world, b);
+  const from = vaneTipNow(world, b);
+  const to = pinned ? from : vaneTipCol(cfg, b.pins, world.waveBeat + 1);
   const tipCol = from + (to - from) * beatPhase;
-  const mFrom = vaneReachMilli(waveBeat);
-  const mTo = vaneReachMilli(waveBeat + 1);
+  const mFrom = vaneReachMilli(world.waveBeat);
+  const mTo = vaneReachMilli(world.waveBeat + 1);
   const m = mFrom + (mTo - mFrom) * beatPhase;
 
   const tx = tileCX(l, tipCol);
@@ -101,13 +106,15 @@ export function drawVane(
   // hard it is being swung.
   const whip = (to - from) * l.tile * 0.18 + Math.sin(time * 1.7) * l.tile * 0.03;
 
-  const opening = vaneOpening(waveBeat);
-  const open = opening !== -1 && opening !== b.spentOpening;
-  const hex =
-    opening === -1 ? PALETTE.rock : vaneColor(opening) === "red" ? PALETTE.red : PALETTE.cyan;
+  // The colour is the cycle's in every phase (`docs/spec/bosses.md` §11.5): the
+  // housing has worn it since the arm stopped, so `vaneOpeningNow` names it even
+  // while the cycle's own openings have stopped, from VEER on.
+  const opening = vaneOpeningNow(world.waveBeat);
+  const open = vaneOpen(world);
+  const hex = vaneColor(opening) === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
-  drawCasing(ctx, l, cfg, b, px, py, hub, waveBeat, open, hex, rim);
+  drawCasing(ctx, l, world, b, px, py, hub, open, hex, rim);
 
   const arm = splinePath(armPoints(px + Math.sign(tx - px) * hub * 0.6, py, tx, ty, whip), false);
   strokeGlow(ctx, arm, PALETTE.rock, STROKE.outline * 1.6, 0.75);
@@ -120,7 +127,7 @@ export function drawVane(
   ctx.restore();
   strokeGlow(ctx, tip, PALETTE.rock, STROKE.inner, 0.9);
 
-  drawThrow(ctx, l, b, beat, beatPhase, tx, ty);
+  drawThrow(ctx, l, b, world.beat, beatPhase, tx, ty);
 }
 
 /**
@@ -132,12 +139,11 @@ export function drawVane(
 function drawCasing(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   b: VaneState,
   px: number,
   py: number,
   hub: number,
-  waveBeat: number,
   open: boolean,
   hex: string,
   rim: string,
@@ -151,7 +157,7 @@ function drawCasing(
 
   // The pins, as notches round the hub. One per pin left, in the same places on
   // both screens and across a restart, because the place follows from the index.
-  const total = Math.max(1, cfg.vanePins);
+  const total = Math.max(1, world.cfg.vanePins);
   const arc = (Math.PI * 2) / total;
   ctx.save();
   ctx.strokeStyle = PALETTE.rock;
@@ -165,7 +171,11 @@ function drawCasing(
   }
   ctx.restore();
 
-  const weak = vaneWeakCol(cfg, waveBeat);
+  // `vaneSplitCol` and not `vaneWeakCol`: from VEER the housing splits under
+  // the pilot's thumb rather than at the ends of the sweep, and the cycle's own
+  // answer is -1 there — which would leave the split undrawn for two thirds of
+  // the fight (`sim/vane-open.ts`, `docs/spec/bosses.md` §11.5).
+  const weak = vaneSplitCol(world, b);
   if (weak === -1) return;
   // The split, drawn where the shot has to go rather than where the load is:
   // a mouth at the top of the weak column, in the colour it will take.

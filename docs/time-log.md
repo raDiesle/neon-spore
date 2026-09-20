@@ -12919,3 +12919,47 @@ same problem, the same answer — still refused. The work was reading the answer
 that was already there.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-the-vanes-arm-is-drawn-sweeping-while-a-thumb-is — the picture had not caught up to VEER
+
+The queue named two swaps — `vaneTipNow` for `vaneTipCol`, `vaneSplitCol` for
+`vaneWeakCol` — and reading `docs/spec/bosses.md` §11.5 found a third the text
+didn't: *"the colour is the cycle's in every phase... `vaneOpeningNow`
+answers with the opening the cycle is on or the one it is on its way to."*
+`vane-draw.ts` still read the raw `vaneOpening`, which returns -1 for most of
+a VEER or SEIZE beat, so the housing would have shown grey and the split's
+mouth undrawn for two thirds of a fight even after the two named swaps —
+the same defect, unnamed. `tools/director/src/boss-hands-shots.ts` already
+calls `vaneOpen`, `vaneOpeningNow`, `vanePinned` and `vaneSplitCol` together
+for the same boss's hand, which is what confirmed the third swap belonged
+with the other two rather than being scope creep.
+
+The interpolation that eased the arm between two beats had nothing to
+interpolate *from* once pinned — `vaneTipNow` freezes at `b.pinCol` — so
+`to` collapses to `from` while pinned and the existing whip/lag math falls
+out unchanged, needing no special case.
+
+The regression itself is hard to see without a picture, and this repo's own
+canvas stub does not keep the coordinates a `Path2D` string was built from
+(`canvas-stub.ts`: "pixels are not assertable"). `vane-pin-frame.test.ts`
+gets around that by installing its own tiny `Path2D` that just remembers its
+constructor string, pins the arm through two real beats exactly as
+`sim/test/vane-hand.test.ts` already proves the sim side does, and reads the
+tip's drawn column back out of the circle it was built from. Reverting the
+fix and rerunning it confirmed the test catches the regression it was written
+for.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `vane-draw.ts`, `vane-open.ts`, `vane-cycle.ts`, `vane-arm.ts`, `boss-cue-read-b.ts`, `boss-hands-shots.ts`, `docs/spec/bosses.md` §11.5, `sim/test/vane-hand.test.ts` |
+| writing | 20 | the three swaps and the interpolation change in `vane-draw.ts`, the call-site update in `boss-draw.ts`, `vane-pin-frame.test.ts` |
+| looking | 0 | none — proven by the tip's own recorded path, not a picture |
+| friction | 15 | `bun test packages/render/` produced only its own header and no summary on three separate tries, for reasons this session never ran down; `bun run check:fast` was the working substitute |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun run format`, `bun run check:fast` (5154 pass), `bun run index`, `bun run queue done`, the commit |
+
+**The bottleneck was `bun test packages/render/` itself going silent** —
+not the fix, which was three call-site swaps once the spec paragraph was
+found, but confirming the whole package was still green without the tool
+that is supposed to say so in one line.
+
+*Measured: the rows above are the session's own estimate.*

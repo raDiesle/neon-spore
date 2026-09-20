@@ -1095,28 +1095,6 @@ and the twenty are not yet. Build nothing until the owner answers; the
 answer is one word. A cloud session can take this: it is a document, and
 `bun run check` holds it to naming no path that does not exist.
 
-## THE VANE's arm is drawn sweeping while a thumb is holding it still
-
-- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
-- **Taken:** 2026-09-20, main (claim: claude/queue-the-vanes-arm-is-drawn-sweeping-while-a-thumb-is)
-- **Files:** `packages/render/src/vane-draw.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/test/vane-frame.test.ts`, `docs/spec/bosses.md`
-
-The simulation half of §6.2 landed on 18 September 2026 and the picture did
-not. `vane-draw.ts` reads the arm off `vaneTipCol(cfg, pins, waveBeat)` — the
-cycle's own answer — so from VEER on, where a pin is the only thing that opens
-the housing, **the arm on both screens sweeps on while the arm in the world is
-standing still under the pilot's thumb**. Every arrival for the length of that
-hold folds about a column neither screen is drawing. It is not a look that is
-unlovely, it is a look that is wrong.
-
-The fix is `vaneTipNow(world, boss)` in place of `vaneTipCol` and
-`vaneSplitCol(world, boss)` in place of `vaneWeakCol` — both are exported and
-both are what the cue was already moved to. The rest is the look lane proper
-and wants an eye: a ring on the tip that says a thumb may stop it, the
-navigator's on the housing under SEIZE, the pin's remaining beats read off the
-arm rather than off a bar, and the slip. *What is not built* under §11.5 lists
-them; the three events are on both silent lists until they are drawn.
-
 ## Unverified at 1028a5b4: THE BATON's swelling socket and its two handle rings, n…
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
@@ -1921,3 +1899,31 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `bun test packages/render/` prints its banner and nothing else
+
+- **Found:** 2026-09-20, claude/queue-the-vanes-arm-is-drawn-sweeping-while-a-thumb-is
+- **Files:** unknown — never localized past the command line below
+- **Where:** cloud
+
+`PATH="..." bun test packages/render/` (also tried as `packages/render`, with
+and without a trailing slash, piped through `tee`, redirected straight to a
+file, foreground and backgrounded) printed exactly one line —
+`bun test v1.4.2 (744846f84)` — and then nothing, three times in a row, on a
+run that otherwise reported exit code 0. No summary line, no per-file dots, no
+error. The same package passes cleanly through two other paths that exercise
+every file in it: `bun run check:fast`'s sharded runner (`tools/check/fast.ts`,
+5154 pass across 365 files including all of `packages/render`) and naming the
+package's test files explicitly a few at a time. So this is not the render
+suite failing — it is this one invocation of `bun test` against a whole
+package directory going quiet, and this lane never ran down why. Worked
+around by using `check:fast` instead, which is what `land` would have run
+anyway.
+
+Reproduce it standalone (not inside `check:fast`'s sharding) and find out
+whether `bun test <dir>` on a large-enough directory is dropping its own
+output, hanging past whatever this session's tool considered "done", or
+something specific to `packages/render`'s size or its `canvas-stub.ts`
+globals. If it turns out to be `bun test <dir>` in general, `docs/commands.md`
+should say to prefer `check:fast`/`check`'s sharded runner over a bare
+directory argument.

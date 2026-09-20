@@ -150,7 +150,7 @@ export function drawBoss(
   if (boss.kind === "vane") {
     // No body among the creatures: the arm hangs off the top edge, so there is
     // nothing of it on the grid to find.
-    drawVane(ctx, l, world.cfg, boss, world.waveBeat, world.beat, view.beatPhase, view.time);
+    drawVane(ctx, l, world, boss, view.beatPhase, view.time);
     return;
   }
 
