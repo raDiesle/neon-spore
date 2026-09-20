@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { GUIDE_LOOK, navHit, onNavBar } from "../src/guide-look.js";
+import { GUIDE_LOOK, navHit, navStepHit, onNavBar } from "../src/guide-look.js";
 import { computeLayout } from "../src/layout.js";
 import { readyCircles } from "../src/ready-page.js";
 
@@ -101,6 +101,66 @@ describe("the bar a stepped guide is turned by", () => {
       // bar below that: the gate is the whole page, so a circle overlapping the
       // bar would be one press meaning two things.
       expect(p1.y + p1.r + 60).toBeLessThan(GUIDE_LOOK.buttons(l).bar.y);
+    }
+  });
+});
+
+/**
+ * **The row of marks is a control now**, and it is the same promise one layer
+ * along: the row is drawn from `GUIDE_LOOK.steps` and a thumb is tested
+ * against it, so a chrome that moves the row moves what answers with it.
+ *
+ * The counts are the shipped guides' — two pages up to twelve — because the
+ * marks shrink to fit and a row of twelve is nine pixels wide a piece. That is
+ * the case worth holding: a hit test that only agreed at four pages would
+ * agree by accident.
+ */
+const PAGES = [2, 3, 5, 12];
+
+describe("the marks that say which step a guide is on", () => {
+  it("answers a thumb on each mark it draws", () => {
+    for (const size of SIZES) {
+      for (const pages of PAGES) {
+        const l = computeLayout(size, DEFAULT_CONFIG, "p1");
+        const boxes = GUIDE_LOOK.steps(l, pages);
+        expect(boxes.length, `${pages} pages`).toBe(pages);
+        for (const [i, box] of boxes.entries()) {
+          const at = navStepHit(l, pages, box.x + box.w / 2, box.y + box.h / 2);
+          expect(at, `${size.width}/${pages}: mark ${i}`).toBe(i);
+        }
+      }
+    }
+  });
+
+  it("gives a press between two marks to the nearer of them", () => {
+    const l = computeLayout(SIZES[0] as (typeof SIZES)[number], DEFAULT_CONFIG, "p1");
+    const boxes = GUIDE_LOOK.steps(l, 5);
+    const one = boxes[1];
+    const two = boxes[2];
+    if (!one || !two) throw new Error("five pages, five marks");
+    const cy = one.y + one.h / 2;
+    // A mark is five pixels tall and as little as nine wide; the gaps between
+    // them are a third of that again. Refusing the gap would make the row feel
+    // broken exactly where it is hardest to hit.
+    expect(navStepHit(l, 5, one.x + one.w + 1, cy)).toBe(1);
+    expect(navStepHit(l, 5, two.x - 1, cy)).toBe(2);
+  });
+
+  it("stops at the ends of the row and above the button under it", () => {
+    for (const size of SIZES) {
+      const l = computeLayout(size, DEFAULT_CONFIG, "p1");
+      const boxes = GUIDE_LOOK.steps(l, 4);
+      const first = boxes[0];
+      const last = boxes[3];
+      if (!first || !last) throw new Error("four pages, four marks");
+      const cy = first.y + first.h / 2;
+      expect(navStepHit(l, 4, first.x - 40, cy)).toBe(null);
+      expect(navStepHit(l, 4, last.x + last.w + 40, cy)).toBe(null);
+      // Off the strip downward is NEXT's, which is asked first and is the one
+      // control on this bar a thumb finds without looking.
+      const b = GUIDE_LOOK.buttons(l);
+      expect(navStepHit(l, 4, l.width / 2, b.next.y + b.next.h / 2)).toBe(null);
+      expect(navHit(l, l.width / 2, b.next.y + b.next.h / 2)).toBe("next");
     }
   });
 });

@@ -139,10 +139,10 @@ export function drawWaveOpening(
   // The gate: the field is behind this rather than covered, which is the whole
   // point of the page — it is the wave they are about to play (`ready-page.ts`).
   if (onReadyPage(world, seat)) {
+    // The gate draws its own band, under its own bar rather than over it
+    // (`ready-page.ts` says why), and it says the number and the name itself
+    // in twenty-one point — so the band gets no head and does not grow for one.
     drawReadyPage(ctx, l, world, { role, pages, fx, names, pointer: view.pointer });
-    // The gate says the number and the name itself, in twenty-one point
-    // (`ready-page.ts`), so the band gets no head and does not grow for one.
-    GUIDE_LOOK.band(ctx, l, {});
     return;
   }
   drawProsePage(ctx, l, world, {

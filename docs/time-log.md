@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — guide-step-navigation — two more ways through a guide
+
+- reading — 15 min. Where a guide's presses already go (`apps/game/src/briefing.ts`,
+  `render/guide-look.ts`, `guide-tide-bar.ts`), what the wire carries
+  (`sim/guide-steps.ts` — one page either way and no cursor), and whether the
+  gate already allows a page back (it does: `guideStepHeard`).
+- writing — 30 min. `stepBoxes` and `navStepHit` so a mark is pressed where it
+  is drawn, `turnTo` turning a mark into N page turns, `guide-swipe.ts` and a
+  `pointermove` listener, and three test files.
+- looking — 15 min. Two captures of the gate, one either side of the reorder.
+- friction — 5 min. A `NavBox` that was used in a type and never imported,
+  caught by the typecheck; one orphaned docstring left by a scripted edit.
+- landing — 10 min.
+
+**The bottleneck was reading the defect correctly.** *The Ready? screen should
+also allow going back* looked like missing behaviour and was a drawing order:
+the simulation has always let a seat page back off the gate, BACK has always
+been hit-tested there, and the gate painted its band over the two buttons that
+hang in the top bezel. The capture is what said so — the film's page showed
+BACK and the gate did not, with the same `GUIDE_LOOK.nav` call behind both.
+
 ## 2026-09-20 — between-waves — the screen between the waves, built
 
 - reading — 10 min. Mostly the lane before it, which is its own sheet: the

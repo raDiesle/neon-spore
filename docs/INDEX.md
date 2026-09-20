@@ -1694,6 +1694,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/back-ask.ts` | **The phone's back gesture asks rather than leaves**: three answers over the field, on one history entry pushed back on every pop |
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
 | `apps/game/src/gauge.ts` | the host's half of THE GAUGE: the two thumbs that play it |
+| `apps/game/src/guide-swipe.ts` | a thumb dragged across a guide, read as a page turn: left is back, right is next |
 | `apps/game/src/handle.ts` | `window.neonSpore` — the handle a headless check drives the game by |
 | `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |
 | `apps/game/src/raster.ts` | the baked burst, in the real game, behind a flag |

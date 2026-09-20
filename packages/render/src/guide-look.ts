@@ -1,9 +1,9 @@
 import type { ControlSet, SceneStep } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
-import { inside, type NavButtons, type NavState } from "./guide-nav.js";
+import { inside, type NavBox, type NavButtons, type NavState } from "./guide-nav.js";
 import type { CornerPlate } from "./guide-switch.js";
 import { BAND_FOOT, band } from "./guide-tide.js";
-import { buttons, NAV_HEIGHT, nav } from "./guide-tide-bar.js";
+import { buttons, NAV_HEIGHT, nav, stepBoxes } from "./guide-tide-bar.js";
 import { caption } from "./guide-tide-caption.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
@@ -45,6 +45,9 @@ export interface GuideLook {
   band: (ctx: CanvasRenderingContext2D, l: Layout, p: CornerPlate) => void;
   /** Where the bar's three are, from the stage alone. Drawn and hit-tested from this. */
   buttons: (l: Layout) => NavButtons;
+  /** Where the row of step marks is, one box per page, in page order. The
+   * same promise as `buttons`: the row is drawn from it and pressed on it. */
+  steps: (l: Layout, pages: number) => NavBox[];
   /** The bar: BACK, REPLAY, NEXT and the dots. */
   nav: (ctx: CanvasRenderingContext2D, l: Layout, s: NavState) => void;
   /** A page's words, beside the thing they are about. */
@@ -66,6 +69,7 @@ export const GUIDE_LOOK: GuideLook = {
   bandFoot: BAND_FOOT,
   band,
   buttons,
+  steps: stepBoxes,
   nav,
   caption,
 };
@@ -77,6 +81,52 @@ export function navHit(l: Layout, x: number, y: number): "back" | "replay" | "ne
   if (inside(b.replay, x, y)) return "replay";
   if (inside(b.next, x, y)) return "next";
   return null;
+}
+
+/**
+ * How far outside the row of marks a thumb still counts as on it.
+ *
+ * A mark is five pixels tall and as little as nine wide, which is a thing to
+ * count and not a thing to hit, so the row is opened out to a strip a thumb
+ * can find. Nothing else lives in the bar's top strip — NEXT starts
+ * twenty-six pixels down and is asked first (`navHit`), so the pad can be
+ * generous in the one direction that matters.
+ */
+const STEP_PAD = { x: 6, y: 12 };
+
+/**
+ * Which step a press on the row is asking for, or null off the row.
+ *
+ * **Nearest mark rather than the one under the point**, because the marks are
+ * thinner than the gaps between them on a guide with many pages: a press that
+ * lands between two marks meant one of them, and refusing it would make the
+ * row feel broken in exactly the places it is hardest to hit. The strip the
+ * row answers on is its own marks opened out by `STEP_PAD` and no further,
+ * so the rest of the bar still falls through to the buttons.
+ *
+ * The owner asked for it on 20 September 2026: *clicking on the golden lines
+ * indicating the current step… is an alternative to navigate the guide
+ * besides the existing buttons.* What a press means is `apps/game/src/
+ * briefing.ts`'s — a page is turned one at a time over the wire, so a mark
+ * three pages back is three turns (`sim/guide-steps.ts`).
+ */
+export function navStepHit(l: Layout, pages: number, x: number, y: number): number | null {
+  const boxes = GUIDE_LOOK.steps(l, pages);
+  const first = boxes[0];
+  const last = boxes[boxes.length - 1];
+  if (!first || !last) return null;
+  if (x < first.x - STEP_PAD.x || x > last.x + last.w + STEP_PAD.x) return null;
+  if (y < first.y - STEP_PAD.y || y > first.y + first.h + STEP_PAD.y) return null;
+  let best = 0;
+  let near = Number.POSITIVE_INFINITY;
+  for (const [i, box] of boxes.entries()) {
+    const d = Math.abs(x - (box.x + box.w / 2));
+    if (d < near) {
+      near = d;
+      best = i;
+    }
+  }
+  return best;
 }
 
 /** Whether a point is on the bar at all — a press there is not a press on the field. */

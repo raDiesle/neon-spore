@@ -162,6 +162,15 @@ export function drawReadyPage(
     names,
   });
 
+  // **The band first, and then the bar, which is the other way round from
+  // every other page** — because two of the bar's three hang in the top bezel
+  // (`guide-tide-bar.ts`) and the band is painted over the whole of it. Drawn
+  // in the order the rest of the guide uses, this page's BACK was under the
+  // membrane: answered where it was drawn, and drawn where nothing could be
+  // seen. The owner, 20 September 2026: *on the Ready? screen it should also
+  // be possible to go back through the steps of the tutorial.* It always was;
+  // there was no button on the glass to say so.
+  GUIDE_LOOK.band(ctx, l, {});
   // BACK only, and on the same bar the film's pages use so it does not move
   // under a thumb between the last page and this one. NEXT has nowhere to go,
   // and BACK has nowhere to go either once this seat has committed. REPLAY has

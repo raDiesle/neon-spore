@@ -1,5 +1,6 @@
-import { type Layout, navHit, onNavBar, type ViewRole } from "@neon-spore/render";
-import { guideHolds, guidePages, onReadyPage, type World } from "@neon-spore/sim";
+import { type Layout, navHit, navStepHit, onNavBar, type ViewRole } from "@neon-spore/render";
+import { guideHolds, guidePage, guidePages, onReadyPage, type World } from "@neon-spore/sim";
+import { swipeTurn } from "./guide-swipe.js";
 import type { InputBuffer } from "./input.js";
 
 /**
@@ -95,8 +96,26 @@ export function bindBriefing({
     buffer.push(1, { kind: "guideStep", back });
     buffer.push(2, { kind: "guideStep", back });
   };
+  /**
+   * Straight to a page, as the marks in the bar are pressed.
+   *
+   * **As turns, because a turn is all the wire carries** — `guideStep` is one
+   * page either way and the room has no command for a cursor
+   * (`sim/guide-steps.ts`). They all land on the same tick and cannot see each
+   * other land, which is exactly what `dismiss` below relies on, and a turn
+   * past either end is clamped rather than an error.
+   */
+  const turnTo = (page: number): void => {
+    const at = guidePage(world, seat());
+    for (let i = 0; i < Math.abs(page - at); i++) turn(page < at);
+  };
 
   let down = false;
+  /** Where the thumb went down, while it is still down: a swipe is measured
+   * from it, and it is forgotten on the lift. */
+  let from: { x: number; y: number } | null = null;
+  /** Whether this press has already turned a page, so one drag turns one. */
+  let swiped = false;
   canvas.addEventListener("pointerdown", (e) => {
     if (!guideHolds(world)) return;
     const p = inStage(e);
@@ -108,7 +127,20 @@ export function bindBriefing({
       else turn(nav === "back");
       return;
     }
+    // The row of marks over NEXT, which says which step this is and is now
+    // also how a step is reached (`render/guide-look.ts`). Asked after the
+    // three buttons and before the bar swallows the press.
+    const mark = navStepHit(l, guidePages(world), p.x, p.y);
+    if (mark !== null) {
+      turnTo(mark);
+      return;
+    }
     if (onNavBar(l, p.y)) return;
+    // From here the press may still become a swipe, so where it began is kept
+    // whichever page it began on — the picture of a film is not live, and a
+    // thumb dragged across it turns the page all the same.
+    from = p;
+    swiped = false;
     // Everything else on a page of film does nothing to the page — the picture
     // is not live, and the bar flashes to say so. The gate is the one page
     // with something to hold, and there the whole page holds it.
@@ -119,7 +151,24 @@ export function bindBriefing({
     down = true;
     hold(true);
   });
+  // A drag, which is a page turn and never also a hold: the thumb that crosses
+  // `SWIPE_MIN` lets go of the gate on the way past, so a swipe that started on
+  // the ready page cannot fill a circle behind it (`guide-swipe.ts`).
+  canvas.addEventListener("pointermove", (e) => {
+    if (from === null || swiped || !guideHolds(world)) return;
+    const p = inStage(e);
+    if (!p) return;
+    const way = swipeTurn(p.x - from.x, p.y - from.y);
+    if (way === null) return;
+    swiped = true;
+    if (down) {
+      down = false;
+      hold(false);
+    }
+    turn(way === "back");
+  });
   const lift = (): void => {
+    from = null;
     if (!down) return;
     down = false;
     hold(false);

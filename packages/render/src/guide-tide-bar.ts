@@ -109,7 +109,7 @@ export const nav: GuideLook["nav"] = (ctx, l, s) => {
     WORD_FONT,
     11,
   );
-  steps(ctx, s.page, s.pages, l.width / 2, b.bar.y + 14);
+  steps(ctx, l, s.page, s.pages);
 };
 
 /** REPLAY: the plate with its name centred on it and no arrow either side. */
@@ -126,6 +126,38 @@ function replayPlate(
 }
 
 /**
+ * Where each step's mark is, from the stage and the count alone.
+ *
+ * **Exported for the reason the three buttons are** (`guide-look.ts`): a mark
+ * is now a thing a thumb can press — the owner, 20 September 2026, asked for
+ * *clicking on the golden lines indicating the current step* to be a way
+ * through a guide beside the buttons — and geometry a thumb is tested against
+ * has to be the geometry the row is drawn from, or a candidate that moves the
+ * row moves the marks away from where they answer.
+ *
+ * These are the plates themselves, five and seven pixels tall. What a thumb
+ * gets is this row opened out (`navStepHit`): nobody hits a five-pixel line,
+ * and nothing else in the bar's top strip is pressable.
+ */
+export function stepBoxes(l: Layout, pages: number): NavBox[] {
+  const cy = l.height - NAV_HEIGHT + STEP_Y;
+  const gap = 5;
+  const w = Math.min(30, Math.max(9, (210 - gap * (pages - 1)) / Math.max(1, pages)));
+  const from = l.width / 2 - (pages * w + (pages - 1) * gap) / 2;
+  const boxes: NavBox[] = [];
+  for (let i = 0; i < pages; i++) {
+    const h = STEP_H;
+    boxes.push({ x: from + i * (w + gap), y: cy - h / 2, w, h });
+  }
+  return boxes;
+}
+
+/** How far down the bar the row of marks sits, and how tall a mark is. The
+ * one being read is drawn a third taller and on the same middle. */
+const STEP_Y = 14;
+const STEP_H = 5;
+
+/**
  * The pages, and the owner's own correction to CONSOLE: **a step not yet read
  * has to be visible.**
  *
@@ -137,24 +169,15 @@ function replayPlate(
  * countable from across the room before the first page is turned, which is the
  * only thing it is for.
  */
-function steps(
-  ctx: CanvasRenderingContext2D,
-  page: number,
-  pages: number,
-  mid: number,
-  cy: number,
-): void {
-  const gap = 5;
-  const w = Math.min(30, Math.max(9, (210 - gap * (pages - 1)) / Math.max(1, pages)));
-  const from = mid - (pages * w + (pages - 1) * gap) / 2;
-  for (let i = 0; i < pages; i++) {
-    const x = from + i * (w + gap);
+function steps(ctx: CanvasRenderingContext2D, l: Layout, page: number, pages: number): void {
+  for (const [i, box] of stepBoxes(l, pages).entries()) {
     const here = i === page;
-    const h = here ? 7 : 5;
+    const cy = box.y + box.h / 2;
+    const h = here ? box.h * 1.4 : box.h;
     const y = cy - h / 2;
-    if (here) halo(ctx, x + w / 2, cy, w * 1.4, PALETTE.pod, 0.45);
+    if (here) halo(ctx, box.x + box.w / 2, cy, box.w * 1.4, PALETTE.pod, 0.45);
     ctx.beginPath();
-    ctx.roundRect(x, y, w, h, Math.min(3, CORNER));
+    ctx.roundRect(box.x, y, box.w, h, Math.min(3, CORNER));
     if (i <= page) {
       ctx.fillStyle = PALETTE.pod;
       ctx.fill();
