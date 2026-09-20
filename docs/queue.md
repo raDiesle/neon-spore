@@ -1592,7 +1592,7 @@ back to pushing the branch unlanded instead.
 
 - **Found:** 2026-09-20, claude/queue-a-landing-that-forgot-unverified-has-no-way-to-w
 - **Taken:** 2026-09-20, main (claim: claude/queue-the-queues-own-resurrection-guard-missed-a-stale)
-- **Files:** `tools/land/queue-guard.ts`, `tools/land/queue-merge.ts`, `docs/queue.md`
+- **Files:** `tools/land/queue-guard.ts`, `tools/land/queue-merge.ts`, `tools/land/test/queue-merge.test.ts`, `docs/queue.md`
 
 `tools/land/queue-guard.ts` exists to refuse a landing that would put back a
 `docs/queue.md` entry the trunk has already removed (`resurrectedAfter`, since
@@ -1614,3 +1614,38 @@ Chasing it needs `queue-merge.ts`'s `mergeQueue` and `queue-guard.ts`'s
 saw — the merge-base's copy of `docs/queue.md`, the trunk's copy at
 `6db42a92`, and whatever that lane's branch carried for the file — to find
 which of the two let this one through where it caught the other two.
+
+**A later session did exactly that, as far as it can be done.** `mergeQueue`
+is a pure function of three strings, and it is provably correct for the
+shape this bug describes: a new test (`three entries the trunk finished in
+one go all stay out, not just some`) hands it a base, a trunk and a lane
+that all differ only in which of four entries the trunk removed, mirroring
+`5780141b`'s own three-out-of-four, and all three come out dropped, not just
+two. Every other shape the function's own branches distinguish — an entry
+only the lane removed, one only the trunk removed, one both sides rewrote,
+one neither side touched — was already covered before this session and
+still passes. So `mergeQueue` itself is not where this went backwards.
+
+**What's actually missing is the historical evidence, not more reasoning
+about the function.** `5780141b`'s lane was a single, non-merge commit —
+its pre-rebase branch and the reflog that would show git's three real
+conflict stages for that one rebase both lived in whatever session did
+that landing, and neither reached this repository's own `.git`; a
+synthetic reproduction here can only mirror the shape the entry describes,
+not the actual bytes git handed the resolver that day. Two live
+possibilities this session could not rule out without that evidence: git
+resolved `docs/queue.md` with no conflict at all for that commit (a
+deletion far enough from anything the lane's own diff touched merges
+cleanly, and `queue-guard.ts`'s check runs either way — so a clean merge
+isn't itself the gap, but it would mean `mergeQueue` was never called and
+so never had the chance to get it right); or `queue-guard.ts`'s own
+`git merge-base TRUNK HEAD`, asked once before the replay, disagreed with
+whatever ancestor git's internal rebase machinery used for that specific
+commit's own conflict resolution, which the two would not do for an
+honestly single-rebase lane but could if that lane's branch had itself
+been rebased earlier in its life. Proving either needs a live repro that
+actually rebases a *twice-rebased* single-commit lane through a git-real
+conflict and inspects what stage 1/2/3 hold each time — a longer sitting
+than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
+existing `replaying a lane that drained an item` integration test rather
+than the string-level unit tests above it.

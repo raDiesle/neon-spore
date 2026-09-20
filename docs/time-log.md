@@ -13853,3 +13853,37 @@ compounding with a real toolbar than the sizing method itself.
 disproving the wrong ones did.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-the-queues-own-resurrection-guard-missed-a-stale — narrowed, not closed
+
+Traced `mergeQueue`'s branches by hand against every base/trunk/lane shape
+they distinguish, then proved the one this bug actually describes with a
+new test: three of four entries the trunk finished in one merge, all
+correctly dropped, not two of three. It's provably not where `5780141b`'s
+resurrection came from. Tried to reproduce the historical failure anyway
+with a synthetic multi-commit-on-trunk-while-lane-sits rebase (a lane
+branches, three other trunk commits add-then-remove entries around it,
+lane rebases once) — git merged it cleanly with no conflict at all, correct
+result, no bug. The real incident's exact git mechanics (a possibly
+twice-rebased single commit, whatever ancestor git actually handed the
+resolver) live only in the reflog of whatever session did that landing,
+which was never this repository's own `.git` to begin with — nothing to
+replay. Wrote up both live theories (a clean merge that never called the
+resolver at all, or `queue-guard.ts`'s own merge-base disagreeing with
+git's internal per-commit ancestor for a re-rebased lane) in the entry
+itself rather than guess further.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `queue-guard.ts`, `queue-merge.ts`, both test files, `replay.ts`'s own doc comment |
+| writing | 15 | the new regression test, two scratch repro scripts (git-backed) |
+| looking | 0 | nothing visual about this one |
+| friction | 25 | two synthetic repro attempts that both merged cleanly instead of reproducing the bug, and confirming the real evidence is gone rather than just hard to find |
+| landing | 10 | `bun run check:fast`, this log entry, the commit |
+
+**The bottleneck was reasoning against a function that turned out to be
+innocent**: proving `mergeQueue` correct took real effort and ruled out the
+likeliest suspect, which is progress, but it isn't the fix the entry asked
+for.
+
+*Measured: the rows above are the session's own estimate.*

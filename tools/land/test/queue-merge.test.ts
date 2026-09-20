@@ -33,6 +33,7 @@ const A_TAKEN =
   "## An item\n\n- **Taken:** 2026-09-09, claude/a\n- **Files:** `a.ts`\n\nWhat to do.";
 const B = "## Another item\n\n- **Files:** `b.ts`\n\nWhat to do.";
 const C = "## A third item\n\n- **Files:** `c.ts`\n\nFound while doing the first.";
+const D = "## A fourth item\n\n- **Files:** `d.ts`\n\nWhat to do.";
 
 describe("splitting a queue file", () => {
   test("the format example inside a fence is not an entry", () => {
@@ -59,6 +60,17 @@ describe("merging a queue file", () => {
   test("an entry only the trunk removed stays removed", () => {
     const merged = mergeQueue(file(A, B), file(A), file(A_TAKEN, B));
     expect(merged).toBe(file(A_TAKEN));
+  });
+
+  test("three entries the trunk finished in one go all stay out, not just some", () => {
+    // The shape of 5780141b, 20 September 2026: a landing whose own guard
+    // caught two resurrected entries and missed a third in the same merge.
+    // Traced against every case this function's own logic branches on
+    // (`docs/queue.md`'s own note on the finding), this is the one that
+    // shape describes, and it merges correctly — so whatever picked the
+    // third entry back out is upstream of this function, not in it.
+    const merged = mergeQueue(file(A, B, C, D), file(D), file(A, B, C, D));
+    expect(merged).toBe(file(D));
   });
 
   test("both sides rewriting one entry is not merged", () => {
