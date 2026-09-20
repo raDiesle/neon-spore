@@ -1798,6 +1798,7 @@ packages/render/test/boss-cue-baton.test.ts` proves the words did not move;
 ## The director's `fake-dom.ts` records a `key` and has no `keyup`
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
+- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-the-directors-fake-dom-ts-records-a-key-and-has)
 - **Files:** `tools/director/test/fake-dom.ts`, `tools/director/test/cue-key.test.ts`
 - **Where:** local
 
