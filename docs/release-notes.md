@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 85481385 — Never run bun test on a whole package directory: it OOMs, not hangs
+
+Bisected packages/render/test's 226 files down to a single one to rule out a broken test — briefing.test.ts alone passes in 67s, budgeted for up to three minutes by design. The banner-then-nothing only shows up running the whole directory as one process: dmesg confirms the memory cgroup kills it at ~14GB RSS, 250-330s in, --smol included.
+
 ## 2026-09-20 · 34f8f047 — Queue: THE WELL's second gesture is done
 
 ## 2026-09-20 · b0315cc9 — THE WELL's face slips, and a thumb on the seam holds it
