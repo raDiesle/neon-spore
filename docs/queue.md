@@ -1097,6 +1097,7 @@ answer is one word. A cloud session can take this: it is a document, and
 ## THE VANE's arm is drawn sweeping while a thumb is holding it still
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Taken:** 2026-09-20, main (claim: claude/queue-the-vanes-arm-is-drawn-sweeping-while-a-thumb-is)
 - **Files:** `packages/render/src/vane-draw.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/test/vane-frame.test.ts`, `docs/spec/bosses.md`
 
 The simulation half of §6.2 landed on 18 September 2026 and the picture did
