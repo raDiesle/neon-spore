@@ -1635,6 +1635,7 @@ wants a wave filter on that screen like the one the director already has
 ## A room, for real players, has no way back to the main menu
 
 - **Found:** 2026-09-20, the owner
+- **Taken:** 2026-09-20, claude/queue-unverified-17ed660e (claim: claude/queue-a-room-for-real-players-has-no-way-back-to-the-m)
 - **Files:** `apps/game/src/join-room.ts`, `apps/game/src/join-room-step.ts`, `apps/game/src/menu-bindings.ts`
 
 A regular (non-solo) game's room screen has no way out to the app's main
