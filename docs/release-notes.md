@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 75e81a7a — THE SINEW's catch answers on the band, and two other pictures check out clean
+
+The fourteenth of THE SINEW's own events, sinewCatch, had no case in sinew-fx.ts's switch and threw no burst at all — the one event out of fourteen the file's own header already claimed a burst for. Added, in the one hue this boss's strain never touches (PALETTE.good), with a test that fails without the fix and passes with it. A look with no shipped alternative: nothing drew a catch before this.
+
 ## 2026-09-20 · 3ad9b901 — Verify four unverified boss frames, real PNGs this time
 
 THE TASTER's PIN/WIPE/PRY (fanning and a prised interlock, via --boss-json), THE CAIRN's PULL over its seven-stone pile, and THE WELL's clock at BEND=1.7 all render correctly on a real frame, worked around a chromium.launch() crash already queued for its own fix by spawning Chrome by hand and connecting Playwright over CDP.
