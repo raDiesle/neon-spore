@@ -1419,6 +1419,7 @@ what the rest of this file holds.
 ## THE WELL's warning ring is empty on the one screen it is drawn on
 
 - **Found:** 2026-09-19, claude/queue-the-well-says-the-word
+- **Taken:** 2026-09-20, main (claim: claude/queue-the-wells-warning-ring-is-empty-on-the-one-scree)
 - **Files:** `packages/render/src/well-arrivals.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/well.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/waves/act-8.ts`
 - **Asks:** Should the pilot's clock carry warning marks of its own, or is being warned of nothing the split this boss is for?
 - **Answered:** 19 September 2026 — leave it, and say so. Giving the pilot the ring means every blip regardless of owner, which is against `docs/spec/systems.md` 5.2 unless the owner asks for that exception on this boss by name, which he has not; authoring a well wave with rocks in it is a wave, not a fix, and a bigger task than this entry is. Sized work: a paragraph on `well-arrivals.ts` saying it is drawn for waves not yet written, and a frame test that proves the arithmetic rather than leaving it assumed.
