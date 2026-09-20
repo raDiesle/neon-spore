@@ -178,13 +178,74 @@ describe("two sessions that both pushed", () => {
   );
 
   test(
-    "refuses when no worktree has the trunk checked out",
+    "replays in this checkout when no worktree has the trunk out",
+    async () => {
+      // A clone standing on its own lane branch, with `main` a ref beside it:
+      // the shape of every session started from a phone, and the one this
+      // used to refuse outright (`docs/cloud-session.md`).
+      const ours = await diverged("ours, landed here", "theirs, pushed first");
+      await run(["checkout", "--quiet", "-b", "lane"], ours);
+      const out = await reconcile(ours, "main");
+      expect(out.ok, out.lines.join("\n")).toBe(true);
+      expect(out.lines.join("\n")).toContain("this checkout");
+      expect(await run(["rev-list", "--count", "origin/main..main"], ours)).toBe("1");
+      expect(await run(["rev-list", "--count", "main..origin/main"], ours)).toBe("0");
+      // Read off `main` rather than off disk: the checkout has been put back
+      // on the lane, so the settled record is in the trunk's commit and the
+      // working tree still holds the lane's own copy.
+      const text = await run(["show", "main:docs/release-notes.md"], ours);
+      expect(text).toContain("theirs, pushed first");
+      expect(text).toContain("ours, landed here");
+    },
+    repoTimeout(35),
+  );
+
+  test(
+    "puts the checkout back on the branch it was standing on",
     async () => {
       const ours = await diverged("ours", "theirs");
-      await run(["checkout", "--quiet", "--detach", "HEAD"], ours);
+      await run(["checkout", "--quiet", "-b", "lane"], ours);
+      expect((await reconcile(ours, "main")).ok).toBe(true);
+      expect(await run(["rev-parse", "--abbrev-ref", "HEAD"], ours)).toBe("lane");
+      expect(await run(["status", "--porcelain"], ours)).toBe("");
+    },
+    repoTimeout(35),
+  );
+
+  test(
+    "puts the branch back even when the replay refused",
+    async () => {
+      const ours = await diverged("ours", "theirs", ["code.ts", "export const n = 2;\n"]);
+      const them = join(ours, "..", "them");
+      await Bun.write(join(them, "code.ts"), "export const n = 3;\n");
+      await run(["commit", "-qam", "theirs, again"], them);
+      await run(["push", "--quiet", "origin", "main"], them);
+      await run(["fetch", "--quiet", "origin", "main"], ours);
+      await run(["checkout", "--quiet", "-b", "lane"], ours);
+      const was = await run(["rev-parse", "main"], ours);
+
       const out = await reconcile(ours, "main");
       expect(out.ok).toBe(false);
-      expect(out.lines.join("\n")).toContain("checked out");
+      expect(await run(["rev-parse", "main"], ours)).toBe(was);
+      expect(await run(["rev-parse", "--abbrev-ref", "HEAD"], ours)).toBe("lane");
+      expect(await run(["status", "--porcelain"], ours)).toBe("");
+    },
+    repoTimeout(40),
+  );
+
+  test(
+    "refuses while the only checkout there is has uncommitted work",
+    async () => {
+      const ours = await diverged("ours", "theirs");
+      await run(["checkout", "--quiet", "-b", "lane"], ours);
+      await Bun.write(join(ours, "code.ts"), "export const n = 9;\n");
+      const out = await reconcile(ours, "main");
+      expect(out.ok).toBe(false);
+      expect(out.lines.join("\n")).toContain("code.ts");
+      expect(await run(["rev-list", "--count", "main..origin/main"], ours)).toBe("1");
+      // And the work is still there, on the branch it was written on.
+      expect(await run(["rev-parse", "--abbrev-ref", "HEAD"], ours)).toBe("lane");
+      expect(await Bun.file(join(ours, "code.ts")).text()).toBe("export const n = 9;\n");
     },
     repoTimeout(30),
   );

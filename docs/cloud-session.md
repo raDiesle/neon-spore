@@ -299,6 +299,21 @@ because there is no fast-forward to take between two histories that do not
 meet. `land` now runs `git fetch --unshallow origin` before it counts anything,
 says `deepened` when it did, and says so plainly if it could not.
 
+**Nothing has `main` checked out here, and `bun run reconcile` no longer minds.**
+A cloud clone is one checkout standing on its lane branch; the trunk is a ref
+beside it. `reconcile` used to ask which worktree held `main`, find none, and
+refuse with *check main out somewhere and run this again* — a worktree added by
+hand before the command written to save the hand-work would run at all, which
+is what a session on 20 September 2026 paid to bring up a trunk that had been
+unreconcilable since the 19th. It now does what `note-commit.ts` already did
+for its own half of the same problem: where there is no second checkout, the
+session's own is the trunk's content. The trunk is checked out detached here,
+replayed onto `origin/main`, the ref forced onto what came out, and the lane
+put back — on a refusal too, so the session ends standing where it started.
+The settled files are then in the trunk's commit, not on disk, because the
+working tree is the lane's again. The one refusal left is a **dirty** checkout:
+a rebase walks over a tree, and here the files at risk are the session's own.
+
 **Its landed branch stays on `origin`, and that is not a failure.** The git
 proxy a cloud session runs behind answers 403 to a branch *deletion*
 specifically — an ordinary push of the same branch goes through minutes

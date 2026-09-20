@@ -12901,3 +12901,21 @@ module singleton disagreed with per-test fakes cost more than either the
 cache or the lazy fill did to write.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — claude-task-queue-work-ym2eim — the trunk replayed where the trunk is only a ref
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `reconcile.ts`, `reconcile-run.ts`, `replay.ts`, `state.ts`, `git.ts`, and `note-commit.ts` for the fallback it already had |
+| writing | 20 | `inPlace`, the two refusals lifted out of the old body, four cases in `reconcile-repo.test.ts`, the paragraph in `docs/cloud-session.md` |
+| looking | 0 | none — nothing on the field moved |
+| friction | 10 | the first new case read the settled record off disk, where the checkout has already been put back on the lane and the merged file is in the trunk's commit instead |
+| landing | 15 | `check:fast`, lint, format, the commit, the landing |
+
+**The bottleneck was a fallback written once and not reached from the other
+side**: `note-commit.ts` had already met *a clone with no worktrees* and says so
+in its own header, four lines of it, and `reconcile.ts` — the same package, the
+same problem, the same answer — still refused. The work was reading the answer
+that was already there.
+
+*Measured: the rows above are the session's own estimate.*
