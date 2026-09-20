@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 0ea2731b — Close the --unverified second-door queue entry; file the merge that reopened it
+
+The second door was already built and shipped: tools/land/unverified-run.ts, wired into package.json, docs/commands.md and docs/cloud-session.md, all landed on origin/main before this lane started. What was still open was the queue entry describing the work, which a later, unrelated landing had rebased over and put back into docs/queue.md word for word — past tools/land/queue-guard.ts's own resurrection check, which caught two sibling entries in the same commit but missed this one.
+
 ## 2026-09-20 · 2abbdac3 — THE FLEET's plume stands inside its own chart, not out of it
 
 Verified the wound on real frames: --boss-json writes phase, holeCol, holeRow and the two seats' held flags straight onto world.boss, so the ordinary case, a manufactured bottom-row hole and the authored top-row ship were all photographed directly. The window, the ring and its word are all sized and cleared correctly against the chart's squares and the control band below on every reachable square.
