@@ -983,10 +983,34 @@ add the two poses and point the two rows at them.
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
 - **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-424e7fc4-a-real-phone-browsers-own)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `tools/director/src/director-columns.css`, `tools/director/src/director-phone.css`, `tools/director/src/rail-open.ts`, `tools/director/test/phone-game.test.ts`, `tools/director/test/rail-open.test.ts`
+- **Where:** local
 
 *A wave row opens the field, and on a phone the field is the screen* landed from a session that could not look at it. What went unchecked:
 
 - a real phone browser's own chrome eating the foot of the director's GAME view at 375x812 — headless has no chrome to test it with
+
+**This one stays local, and for a different reason than the several "a cloud
+session has no screen" entries this session closed today by rendering real
+frames instead** (`bun run frames` reads a headless canvas fine). A browser's
+own chrome —
+the address bar, the bottom toolbar, the home-indicator strip — is drawn by
+the OS/browser shell *around* the page, never inside the rendered viewport a
+screenshot can reach; headless Chromium has none of it to begin with, so no
+frame this repo can render, real event or fabricated state alike, would ever
+show it eating anything. This needs an actual phone.
+
+One data point for whoever opens it there: the layout doesn't use `100vh` (the
+old trap `dvh` exists to fix — a fixed value that used to lock in the *full*
+screen height including whatever the chrome would cover). `director-shell.css`
+chains `height: 100%` from `body` down, the same pattern `apps/game/src/
+game.css` uses for the shipped field the owner already plays on his own phone.
+A percentage chain resolves against the layout viewport a browser actively
+reflows as its own chrome shows or hides, which is the correct half of this
+problem without reaching for `dvh` at all — so if the foot is still eaten, the
+more likely cause is the `director-phone.css` comment's own already-measured
+67px aspect-ratio reserve (`min(100cqh, 100cqw / 0.56)`, real and expected)
+compounding with a real toolbar's height on top of it, not the sizing method
+itself. Worth checking that distinction before touching any CSS here.
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.

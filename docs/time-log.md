@@ -13822,3 +13822,34 @@ example in `press.ts`'s own header was read, both moments were one real,
 scripted play-through each — no browser, no mutation, no fabricated state.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-424e7fc4-a-real-phone-browsers-own — the one "no screen" claim that's actually true
+
+Read `director-columns.css`, `director-phone.css` and `apps/game/src/
+game.css` before touching the entry, on the chance the frame-rendering
+discovery from earlier today reached this one too. It doesn't: every other
+"a cloud session has no screen" entry closed today was wrong about a canvas
+this repo's own headless render can draw. This one is about the browser's
+own chrome around that canvas — the address bar, the bottom toolbar — which
+a headless screenshot structurally cannot contain, real event or fabricated
+state alike, because there is no browser UI to capture in headless mode in
+the first place. Left it local, with one finding worth having on hand for
+whoever opens it on a phone: the layout chains `height: 100%` rather than a
+raw `100vh`, the same pattern the shipped game itself uses, which is the
+correct half of the dynamic-toolbar problem without needing `dvh` — so a real
+foot-eating bug is more likely the already-documented 67px aspect reserve
+compounding with a real toolbar than the sizing method itself.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `rail-open.ts`, `director-phone.css`'s own comment, `director-shell.css`, `apps/game/src/game.css`, `viewport.ts` |
+| writing | 10 | the queue entry's own annotation |
+| looking | 0 | nothing to render — this is exactly the part a screenshot can't reach |
+| friction | 5 | checking whether this was another wrongly-assumed "no screen" before concluding it wasn't |
+| landing | 10 | this log entry, `bun run check:fast`, the commit |
+
+**The bottleneck was the opposite of today's other lanes**: confirming a
+"can't verify headless" claim was actually correct took as much reading as
+disproving the wrong ones did.
+
+*Measured: the rows above are the session's own estimate.*
