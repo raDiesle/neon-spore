@@ -13549,3 +13549,36 @@ screen and wrong on the budget, which only `bun run check:fast` caught, not
 the eye.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-a-landing-that-forgot-unverified-has-no-way-to-w — the second door was already open
+
+The claim was for a lane that had not been fixed yet, but
+`tools/land/unverified-run.ts` already existed: `session_019jFdq84YJKf8qyHMWG6UB2`
+had built the second door for `--unverified` — `bun run unverified <sha>
+--unverified "<what>"`, reading an already-landed commit's files and subjects
+the way `note-commit.ts` does and calling `renderUnverified`/`appendEntry`
+directly — wired into `package.json`, `docs/commands.md` and
+`docs/cloud-session.md`, and it was already on `origin/main` (`6db42a92`).
+What was not done was closing the loop: `docs/queue.md` still carried the
+entry, `Taken:` line and all, because a later, unrelated landing
+(`5780141b`, THE SCUTTLE's) rebased over it and put the already-removed entry
+straight back — past `tools/land/queue-guard.ts`'s own resurrection check,
+which exists for exactly this shape of mistake and caught two sibling entries
+in the same commit but missed this one. That gap is filed as its own finding
+rather than chased here, since the actual assignment was already built.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `unverified.ts`, `note-commit.ts`, `unverified-run.ts`, `package.json`, `docs/commands.md`/`docs/cloud-session.md`, then the git history around the entry once the code was found already built |
+| writing | 15 | the new finding on the resurrection guard, this log entry |
+| looking | 0 | none |
+| friction | 20 | tracing why a "not yet built" fix was already on `origin/main` — `git log -S`, comparing `--oneline` position against author dates to see the fix land, then get overwritten by a later rebase, then confirming which two of three sibling entries that rebase got right |
+| landing | 15 | manually exercising `bun run unverified` against two real shas (an ordinary one and a release-notes one) to confirm the shape before touching anything, `bun run queue done`, `check:fast` |
+
+**The bottleneck was trusting the queue entry's premise long enough to nearly
+rebuild something that already shipped** — the fix, the docs and the package
+script were all already correct, and the actual work was reading the trunk's
+own history closely enough to see that the open entry was a merge artifact,
+not an unstarted task.
+
+*Measured: the rows above are the session's own estimate.*

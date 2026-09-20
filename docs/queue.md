@@ -1526,31 +1526,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A landing that forgot `--unverified` has no way to write the entry afterwards
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, main (claim: claude/queue-a-landing-that-forgot-unverified-has-no-way-to-w)
-- **Files:** `tools/land/unverified.ts`, `tools/land/note-commit.ts`, `docs/cloud-session.md`, `docs/queue.md`
-- **Where:** cloud
-
-`--unverified` is parsed off the landing's own argv (`parseUnverified`) and the
-entry is written by the commit that moves the trunk (`note-commit.ts`). There is
-no second door. A lane that lands and *then* realises it never looked at the
-picture cannot run the flag again: from `main` the landing refuses because a
-trunk is landed on rather than landing, and from the spent branch it refuses
-because the branch carries nothing `main` has not got. This lane hit both
-refusals in one turn and wrote the entry by hand in `renderUnverified`'s shape
-instead — a paragraph of formatting duplicated in a document, which is exactly
-the drift `filesLine`'s path-only rule was hardened against after a trailing
-", and N more" broke `splitFiles` and marked every truncated entry stale.
-
-Give it the second door: a script that takes an already-landed sha and the same
-repeatable `--unverified` strings, reads the commit's files and subjects out of
-git the way `note-commit.ts` does, and calls `renderUnverified` and
-`appendEntry` — so the entry that gets written is the tool's, not a lane's
-recollection of its shape. A line in the commands document, and the cloud
-session's rule gains a sentence saying the flag has an afterwards.
-
 ## Unverified at 5780141b: the picture of a carried part and its ring, watched at…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -1743,3 +1718,29 @@ instead shortens `launchBrowser`'s own path handling (not letting `underTmp`
 hand Chrome's own short-path fallback the long directory back) is the other
 shape worth weighing, since it would let `chromium.launch()` itself keep
 working rather than adding a second code path beside it.
+
+## The queue's own resurrection guard missed a stale entry coming back
+
+- **Found:** 2026-09-20, claude/queue-a-landing-that-forgot-unverified-has-no-way-to-w
+- **Files:** `tools/land/queue-guard.ts`, `tools/land/queue-merge.ts`, `docs/queue.md`
+
+`tools/land/queue-guard.ts` exists to refuse a landing that would put back a
+`docs/queue.md` entry the trunk has already removed (`resurrectedAfter`, since
+`61c82403`, 5 September 2026). It missed one. *A landing that forgot
+`--unverified` has no way to write the entry afterwards* was filed by
+`1762eafa`, claimed, fixed and removed in the same commit by `6db42a92` — and
+then put straight back, word for word, `Taken:` line and all, by `5780141b`,
+twelve commits later in the trunk's own linear history, with `6db42a92`
+already its ancestor. The same commit correctly dropped two *other* entries
+the trunk had finished meanwhile (THE SCUTTLE's own state-count entry and
+`sound-link-none-b.ts`'s line-count entry), so whatever went wrong picked one
+entry out of three and got only that one backwards.
+
+This session found the stale entry still sitting in `docs/queue.md`, the fix
+it named already built and shipped, and closed it with `bun run queue done`
+rather than chasing the merge — that fix was this session's actual assignment.
+Chasing it needs `queue-merge.ts`'s `mergeQueue` and `queue-guard.ts`'s
+`resurrected` run against the real three-way inputs `5780141b`'s own landing
+saw — the merge-base's copy of `docs/queue.md`, the trunk's copy at
+`6db42a92`, and whatever that lane's branch carried for the file — to find
+which of the two let this one through where it caught the other two.
