@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 186f32b3 — SNAKE is an animal rather than a wedge on a ribbon
+
+The head was a triangle and the body was a stroked line of even width with a gradient over it. It is a creature now: a splined contour with a neck, a taper and a ground shadow, scales at the tile's own scale, a lit side pushed across the back in three nested passes rather than one creased ribbon, and a head made of two hinged jaws with a gland bulge, a blunt snout, sockets under the eyes and a rear that flares back over the neck instead of ending in a stump.
+
 ## 2026-09-20 · 43bb4c1f — THE VANE is a machine rather than a line with a circle on the end
 
 §6.3 asked for a boss that looks like something real, and this one is the only thing in the game that is not alive: a vane is what turns when something pushes it. So it is built rather than grown. A mount across three columns carries a hub with a bolt circle round it, and the five pins are wells with a pin standing in each one the pair has not spent yet — a pin gone is a hole through the flange, which is the fight's own clock said standing still, where before it was a notch missing from a ring nobody could count. The arm is a tapered spar with a lattice through it and a fork on the end, and a counterweight on the far side of the hub, so the whole thing reads as turning on the bearing rather than sliding along the mount. One metal, one ramp down the beam, no skin and no slime anywhere on it.
