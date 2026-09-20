@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 8c7c5ae7 — THE ANTIPHON's rail: a real pull, ring gone, stroke through it
+
+Added antiphonRail to tools/frames/hold.ts (it only knew antiphonOrgan), then used it to actually pull a candidate: the first attempt threw no antiphonPull event because the organ wasn't grown yet, the second did, and the frame it produced shows the crossed candidate's ring gone and a stroke in its place, against the other two still ringed. Closes the queue item.
+
 ## 2026-09-20 · 833f65ba — THE CAIRN's held pile: a real grip lags the settle mark by its own beats
 
 A hold on the pile is an ordinary grip, so --press put a real thumb on it from the wave's first beat. Two real frames at the same tick (just before an unheld pile would shed) show the difference plainly: held, the settle beam sits at roughly half the brightness an unheld one would, exactly the cairnHoldBeats of pressure the hold buys back — and cairn-hold.test.ts already proves the pile lets go once that's spent.
