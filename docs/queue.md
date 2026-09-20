@@ -238,6 +238,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## No guide page says which wave it is, and the gap before it is empty
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, claude/queue-the-phones-back-gesture-leaves-the-game-instead (claim: claude/queue-no-guide-page-says-which-wave-it-is-and-the-gap)
 - **Files:** `packages/render/src/wave-intro.ts`, `packages/render/src/ready-page.ts`, `packages/render/src/guide-switch.ts`, `packages/render/src/briefing.ts`, `packages/render/src/text-drop.ts`, `packages/sim/src/wave-end.ts`, `packages/render/test/frame.test.ts`
 - **Where:** local
 
