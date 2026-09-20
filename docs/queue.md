@@ -456,6 +456,7 @@ deciding before the next boss lands rather than during it.
 ## THE CANDLE's flash beat is played at tempo, and the design asks for a third
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-20, main (claim: claude/queue-the-candles-flash-beat-is-played-at-tempo-and-th)
 - **Files:** `packages/sim/src/candle-step.ts`, `packages/sim/src/slow.ts`, `packages/sim/test/candle.test.ts`, `docs/spec/bosses.md`
 - **Asks:** Should the beat a flash lands in THE CANDLE be played under THE SLOW, or left at tempo?
 - **Answered:** 19 September 2026 — slow it, matching the design as written: **every flash beat**, not the first only. §14 says the beat a flash lands is played at a third rate with no exception named for later flashes, so `openSlow(world, cfg.candleFlashSlowBeats)` fires from every `fire` that lights the field, one beat at `slowRateMilli`, both screens together. Sized work, not yet built: a config field, a line in `candle-step.ts`, a receipt in `candle.test.ts`, and `bun run check`.
