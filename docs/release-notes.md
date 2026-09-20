@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · a3d1d846 — THE FLEET's five wound-rings, watched through real events not fabricated state
+
+A ring is a transient effect that only exists for the tick a real SimEvent fires, so no --boss-json write to world.boss could reach one. Scripted a real hit (aim four times, then salvo) to get a genuine fleetFlood, and let its own ten-beat window run out into a genuine fleetPlug, then sampled four frames across each ring's life. Flood grows outward from the holed square; plug starts wide and collapses inward — the two directions this boss's six kinds split into, both matching fleetRingRadius's own tested arithmetic and drawn with the same drawThrownRing four other shipped bosses already use.
+
 ## 2026-09-20 · 1f2b6ab1 — THE THROAT's NEXT INHALE no longer fights its own cue, and a cue on the hull line now draws over the ship
 
 Verified all four of this session's queued boss-cue frames with real PNGs. Found two rendering bugs along the way. THE THROAT's PRESS/FIRE and HOLD/BRAKE cues landed right on top of the NEXT INHALE readout whenever a body was held in the mouth or on the climb; a `crowded` flag now lets the count stand aside for a word already answering the beat. THE ORRERY's MOVE and THE CANDLE's MOVE/FIRE were being painted over — THE ORRERY's by the ship, drawn after the field pass that carries the cue, and THE CANDLE's completely, by its own full-column darkness overlay. Both are the same underlying bug the queue already had open ("A cue standing on the hull line has its verb drawn under the ship"), fixed here by moving the cue's draw to after both the ship and the darkness overlay (`drawFieldBossCue`, called from `canvas2d.ts`).
