@@ -13949,3 +13949,35 @@ plain `CandleState`, legitimate for `--boss-json` rather than the
 right, every claim in the entry answered in one or two frames.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-ce22d819-the-orrerys-rehearsal-film — three of four settled, one is a real thumb's
+
+THE ORRERY's rehearsal, narrowed rather than closed. The `OPEN` mark is a
+plain cue on `phase === "seized"` (`boss-cue-read-l.ts`), so `--boss-json
+'{"phase":"seized"}'` shows it standing on the cracked ring's grip exactly
+as written — no event needed. The winds are driven by the same
+`drawOrreryGrip` for all three rings (`orrery-grab.ts`), so proving one
+proves the mechanism: `--opening guide --guide-page 4 --frames 4 --stride
+20` catches the outer ring's organs turning further round in each of four
+real frames, mid-wind, well past the guide's own freeze point. The third
+ring's split around a falling rock is the same picture with the same
+mechanism, and the one thing a picture could not have told me anyway — that
+the banked progress survives the interruption — is already a passing sim
+test (`orrery-hand.test.ts`), not a rendering question. What is left is
+squarely a feel question a frame cannot answer: whether a turn and a half of
+a thumb per organ reads as a decision or as friction, on a real phone,
+mid-fight.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `the-orrery.ts`'s own scene comment, `orrery-grab.ts`, `boss-cue-read-l.ts`, `orrery-hand.test.ts` |
+| writing | 0 | no code changed — a verification, not a fix |
+| looking | 15 | one `--boss-json` frame for the `OPEN` mark, two four-and-five-frame strips off the guide's own real ticks for the outer ring's wind and the third ring's interruption |
+| friction | 10 | the first strip landing past the wind I wanted (`--guide-page` counts to a step's own tick, and the interesting motion runs *past* where a step freezes, not at it) |
+| landing | 10 | `bun run check:fast`, this log entry, the commit |
+
+**The bottleneck was finding where in a guide's own ticks the motion
+actually was** — once a strip landed inside a wind rather than after it,
+each claim was one frame or four.
+
+*Measured: the rows above are the session's own estimate.*

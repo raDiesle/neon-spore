@@ -1206,10 +1206,25 @@ these, at tempo, on a phone-shaped screen.
 
 *THE ORRERY: a shot cracks a ring and the pilot's thumb takes it off* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
 
-- THE ORRERY's rehearsal film watched at tempo — the three winds, the split one around the rock, and whether a turn and a half an organ feels like a decision
-- the OPEN mark seen on a real frame of the cracked ring
+Three of the four are settled now, on real frames. The `OPEN` mark stands on
+the cracked ring's own grip exactly as `boss-cue-read-l.ts` says (`--boss-json
+'{"phase":"seized"}'`). The winds are real, continuous motion and not a
+snap: `--opening guide --guide-page 4 --frames 4 --stride 20` catches the
+outer ring's organs turning a little further round in each of four real
+frames, mid-wind — and all three rings turn through the one shared
+`drawOrreryGrip` (`orrery-grab.ts`), so this is the mechanism, not a fact
+about the outer ring alone. The split around the rock is the same picture,
+banked correctly across the interruption — `orrery-hand.test.ts` already
+proves the state survives the release and the re-grip — so what is left of
+it is only whether it *reads* right on a real playthrough, folded into the
+one question below rather than counted separately.
 
-Open each one on a machine that can, and then either take this entry out
+- Whether a turn and a half of a thumb per organ (`orreryHandMilliPerOrgan`)
+  feels like a decision or like friction, on a real phone, mid-fight. No
+  frame answers this: it is a pacing question about a real thumb, not a
+  fact about the picture.
+
+Open it on a device that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
