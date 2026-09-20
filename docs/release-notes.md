@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · ca5e95ff — THE BATON's HOLD no longer stands on the other seat's bead
+
+The arm is the one boss whose marks stand exactly a tile apart, and THE CHOIR's frame is two thirds of a tile tall with WORD_GAP under it — so the pilot's HOLD, hung the full drop under his own bead, landed inside the navigator's one socket below, legible only because the text is drawn last.
+
 ## 2026-09-20 · 99e0d9e2 — `act-7e.ts` no longer calls itself full with fifty lines to spare
 
 The page's header still said "It started one wave long and is full" — false before the session that filed the finding, and falser after two seams and three renamings since. It holds six waves at 195 of 250 lines. The sentence now says the count, the room left, and the thing the paragraph above it already argues: the next §6.1/§6.2 guide line queued against this page is paid for here rather than by cutting another page off it.
