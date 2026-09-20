@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · a50576ce — Write the twenty-bosses-of-the-third-kind brief
+
+docs/spec/bosses-cinematic.md is the owner's own ask (18 September 2026, answered 19 September on where it goes): twenty more choreographed-scene boss concepts, words only, no code touched. Each entry names its question, what it splits, its silhouette and how much of it comes away, a beat list with each beat's gesture named as the DragTarget/Hold member it is or the primitive it would need, and its nearest built neighbour.
+
 ## 2026-09-20 · 68a6f39f — Ask whether THE SPLICE should get a gesture at all
 
 docs/spec/bosses.md §11.13 closes by naming this on purpose: "the field names neither of this fight's gestures" — no cue for the feed and none for the SUCK, because naming either would hand one seat the other's half of the sentence (the mark rides the falling number and never the mouth). The 18 September standing brief (new-boss-more §6.2) asks every boss for a gesture reached on the picture, the opposite of that. Not a call to make unilaterally for a boss whose four silences are argued at length as the fight itself, so this queues the question with the options rather than inventing a mechanic.
