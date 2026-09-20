@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 072c1390 — The director's `3` does what the field is asking, for both seats at once
+
+Pressing `3` on the stage answers the marks the field is already drawing its words over: each seat's most urgent `BossCue`, pressed through the same `touchDown` the mouse goes through and held until the key lifts. Under TEST that is both seats on the one frame, which is the thing the seat keys could never do — 1 and 2 hand the desk's single mouse to one seat at a time, and THE BATON's merge wants a thumb from each on the same beat.
+
 ## 2026-09-20 · ca5e95ff — THE BATON's HOLD no longer stands on the other seat's bead
 
 The arm is the one boss whose marks stand exactly a tile apart, and THE CHOIR's frame is two thirds of a tile tall with WORD_GAP under it — so the pilot's HOLD, hung the full drop under his own bead, landed inside the navigator's one socket below, legible only because the text is drawn last.
