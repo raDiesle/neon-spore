@@ -1749,3 +1749,300 @@ five phases. Neither is free to photograph. THE UNDERTOW needs the CDP
 workaround described above (`--boss-json` cannot grow an empty `breaches`
 list), and it is the reason this is a separate entry rather than the tail of
 that one: the arithmetic is five minutes and the proof is an hour.
+
+## A wave with a guide opens on its introduction as well
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/sim/src/briefing.ts`, `apps/game/src/waves.ts`, `packages/render/src/wave-intro.ts`, `packages/render/src/ready-page.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *when there is a tutorial/guide skip the wave
+information on the game screen after the "ready?" page, as it is not required
+and we showed it already. For waves with no guide/tutorial show it.*
+
+The three states are `OPENING_GUIDE`, `OPENING_INTRO`, `OPENING_PLAY`, in that
+order, and every wave passes through all three (`briefing.ts`). A wave that
+carried a guide has already put the number, the name and the sentence in front
+of the pair twice over: `wave-intro.ts` is drawn on the last page of a stepped
+guide, over the ready button, which is the thing the pair says READY *to*. Then
+the gate passes and the same three lines stand alone for `INTRO_SECONDS` more.
+
+So the introduction becomes the no-guide case only. `startWave` is already told
+whether this wave has a guide — it is the `guide` flag on `Briefings` — so the
+change is which phase the gate hands over to, and `apps/game/src/waves.ts` must
+stop arming `left = INTRO_SECONDS` for an opening that will not reach the
+introduction. A retry already skips the guide and must keep its introduction:
+that is the one path where the lines have not been shown.
+
+`phase` is in `hashWorld`, so this is a rule both devices read the same way and
+not a thing render may decide.
+
+## A wave gone again opens at the same speed as the first try
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/render/src/wave-intro.ts`, `apps/game/src/waves.ts`, `packages/sim/src/wave-fail.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *when players lost the same wave, try and retry,
+shorten the time to show the text and start the wave rows earlier.*
+
+`INTRO_SECONDS` is 5.5 and is one constant for every opening. A pair on its
+fourth attempt at one wave has read those three lines four times and is waiting
+through them for the field. `world.retries` is already counted, and
+`apps/game/src/waves.ts` already knows `retry` when it opens the wave — so the
+seconds can come down with the attempt, to a floor rather than to nothing, and
+`wave-intro.ts`'s own `FADE` and the staggered drop shorten with them or the
+words never finish arriving before they leave.
+
+Two numbers to decide and to say in the commit: the floor, and whether the
+fall is per retry or one shorter value for every attempt after the first. The
+second is the smaller change and the one to try first.
+
+## The controls answer nothing while the introduction stands
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/sim/src/step.ts`, `packages/sim/src/briefing.ts`, `apps/game/src/field-input.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *on this screen, while the text is there, players
+can already use their controls.*
+
+`step.ts` returns early while `briefingHolds` is true and reads exactly two
+commands out of the batch, `brief` and `guideStep`; everything else is dropped
+on the floor. So a pair reading the introduction cannot slide the cannon to the
+column they have just agreed on, cannot put the shield anywhere, and starts
+every wave from wherever the last one ended.
+
+The field is already frozen by that early return rather than by a check
+anybody has to remember, which is what makes this a narrow change: during
+`OPENING_INTRO` only, let the hull's own commands through — the cannon, the
+shield, the load — while nothing spawns, falls or is resolved. Whether the
+triggers fire is the one decision: a bolt in the air when the wave starts is a
+bolt the first row was not spawned against, so the safer half is to let the
+pair *aim* and not shoot, and to say in the commit which was taken. The guide's
+own pages keep the shape they have, because a rehearsal already has its own
+presses.
+
+Hull commands during a held wave go through `hashWorld` like any other, so this
+wants a replay test rather than an eye.
+
+## A device that was once in a room never goes back to BOTH
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `apps/game/src/view.ts`, `apps/game/src/shell.ts`, `apps/game/src/menu-seats.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *when in test mode in game, "both seats" should
+be selected by default.*
+
+`restore()` in `view.ts` already answers `"test"` when nothing is stored, so a
+fresh browser does open on BOTH · ONE SCREEN. What takes it away is the room:
+`shell.ts` calls `setSeat` with the seat the room dealt, `set` writes it to
+`localStorage` under `neon-spore.view`, and nothing ever writes it back. A
+person who once joined a room is P1 at their own desk from then on, with half
+the band drawn and the other half's touches going nowhere.
+
+Two options, and the answer picks between them in code rather than from the
+owner: the room's seat is not persisted at all — `set` grows a flag saying
+whether this is the player's own pick or the room's — or leaving a room writes
+`"test"` back the way joining wrote `"p1"` (`menu-bindings.ts`'s hang-up path
+already exists for it). The first is the smaller one and survives a phone that
+is closed inside a room.
+
+## THE LURE's corner frame says DO NOT SHOOT where the owner wants IGNORE
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/render/src/lure-alarm.ts`, `packages/content/src/creatures-worn.ts`, `tools/director/src/brush-cards.ts`
+
+The owner, 20 September 2026: *"Lure" enemy help text: say "Ignore" instead of
+"do not shoot".*
+
+`LABEL` in `lure-alarm.ts` is the frame the navigator reads. The word is
+already short because the owner asked for it short once — the hole in the
+middle is the creature — and IGNORE is shorter still, so the frame's geometry
+only gets easier.
+
+Three other places say the same sentence and should be read before this lands,
+because a game that says two different things about one body is worse than one
+that says the long thing twice: the worn creature's help line in
+`creatures-worn.ts`, the director's brush card in `brush-cards.ts`, and the
+wave text in `packages/content/src/waves/act-3.ts`. `husk-mark.ts` deliberately
+says DO NOT TAKE and is not this; leave it.
+
+## THE THROB wears the ammunition colours where the owner wants dots
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/render/src/throb.ts`, `packages/render/src/throb-pores.ts`, `packages/render/src/throb-look.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *change the visuals so it will never have the
+colour of a slick or a bulb in the middle. Also remove this line in the middle
+of rotation. Instead it shows the moving black and white dots in the middle all
+the time.*
+
+A look the owner asked for by name, which is the first of `CLAUDE.md`'s three
+exemptions — it goes on the field rather than to VERSUS, and the commit says
+so.
+
+Two things go. The seam: `seamAt` returns the boundary meridian and
+`farRegion` clips the far hemisphere to it, and the visible edge between the
+two halves is drawn in `ThrobHalf.seamHue` — that line down the middle is what
+he is pointing at. And the middle's colour: the far half is filled in the other
+ammunition colour, so the body's centre is always one of red or cyan.
+
+What replaces them is the pores, promoted: `throb-pores.ts` already pins seven
+marks on a hemisphere and carries them round by `throbTurnMilli` at 22.9 : 1
+between the middle and the limb, which is exactly the travelling-dot picture,
+and they already narrow to nothing at the limb rather than being cut. So the
+work is to paint them black and white instead of in the far colour, to draw
+them over the whole body rather than over a clipped hemisphere, and to take the
+seam and the far fill away underneath.
+
+**Which trigger answers the body must still be readable.** The turn is the
+whole of this creature — the pilot reads which colour is round, the navigator
+presses it — so whatever the middle stops saying, the rim or the far edge has
+to go on saying, and the lane that does this proves it with a frame of both
+halves rather than with the arithmetic.
+
+## A shot into a shut COUNT loses the wave where it should armour the body
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/sim/src/countdown.ts`, `packages/sim/src/colour-armour.ts`, `packages/sim/src/config.ts`, `packages/render/src/countdown-look.ts`
+
+The owner, 20 September 2026: *"Count" enemy hit with the wrong colour or at
+the wrong time should not lose the wave, but have some armoured state of it,
+e.g. 3 beats.*
+
+`countdownStruck` answers a shot off zero with `breachHull(..., "heavy")`,
+which is the hull and therefore the wave (`wave-fail.ts`). That was written as
+the lure's price for the lure's reason, and the owner has now said the price is
+too high: a reflex shot ends the run rather than costing the pair the beats it
+should.
+
+The machinery is already next door and is to be called rather than re-derived.
+`colour-armour.ts` is the window a wrong colour opens on an ordinary body —
+`colourStruckTick` on the creature, `colourIsArmoured` to ask, and
+`colourArmourPhase` for the grey body render/ draws — and its own comments say
+the window exists precisely so a mistake costs the *next* shot as well as the
+one that was fired. A shot off zero stamps that window instead of breaching,
+with its own length in `SimConfig` because three beats is longer than
+`colourArmourMs` and the two must not share a number.
+
+The wrong *colour* on zero already falls through to the generic tail and is
+already armoured, so it needs nothing — read it before changing it.
+
+**The random start is already built and is not part of this.** `countdownOnSpawn`
+rolls `countPhase` off the world's stream on the beat the body enters, so no
+two bodies share a phase and none starts at the top of its count; the owner's
+second sentence describes what the file already does.
+
+## A shell's plates are two colours where the owner wants one
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/render/src/shell-plate.ts`, `packages/render/src/shell-draw.ts`, `packages/render/src/shell-cut.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *"Shell" enemy: all shell parts should have the
+same colour, which is the light white one, so dark will become unused.*
+
+`shell-plate.ts` has the two: `PLATE`, `#23222C`, the dead material a plate is
+filled with, and `PLATE_RIM`, `PALETTE.rock`, its lit outer edge.
+`shell-draw.ts` hazes both by distance and hands them over as `PlateInk`. The
+ask is that the fill becomes the rim's colour and `PLATE` goes.
+
+It is not a two-line change and the file says why itself. `PLATE` is darker
+than `PALETTE.rockDark` *on purpose*: the splits and the crack carry the
+body's own colour through the armour, and light only reads as light where what
+surrounds it is darker. A white plate makes cyan coming out of a crack a
+scratch on the plate. So the lane that does this has to answer what the splits
+become on a light slab — a dark line rather than a lit one, or the body's
+colour at a weight that still reads — and the wall, the face and the specular
+in the same file each want looking at again against a light fill.
+
+A look the owner asked for by name (`CLAUDE.md`'s first exemption), so it goes
+on the field; a frame of an intact shell and a cracked one is the proof.
+
+## THE GAUGE's dial is a claw and its band is a pod
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/render/src/gauge-round.ts`, `packages/render/src/gauge.ts`, `packages/render/src/gauge-dial-face.ts`, `packages/sim/src/gauge-band.ts`, `packages/sim/src/gauge.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *"The gauge": the control idea should stay, but
+the visual a lot.* The claw already in the control set, above the ship where
+the cannon sits, turning through an angle rather than sliding left and right
+and staying in the middle; a dotted line out of it saying where it will grab,
+which is what the needle is now; and a pod in place of the open band, sized so
+that the pod's width *is* the span the call is judged against.
+
+The round's arithmetic does not move and this entry must not move it. The
+needle is `gauge.ts`'s position in thousandths of `GAUGE_FULL`, the band is
+`gauge-band.ts`'s centre and `gaugeSpanNow`'s half-width, and the judgement is
+one comparison between them. What changes is that the dial stops being a
+circle read as a circle: the same thousandths become an angle the claw points
+at, and the same half-width becomes the pod's width on screen. `gaugeDial` in
+`render/gauge-round.ts` is where the geometry is decided today, and
+`gauge-dial-face.ts` is the face to replace.
+
+The pod's height follows from its width, because the picture has to answer at a
+glance whether the claw will pass inside it — the one thing the dial's open
+sector never said. `showsGaugeMarks` still decides which of the two screens the
+pod is on; the asymmetry is the round and nothing here touches it.
+
+The verdict this picture then needs is a separate entry, and the round's words
+and buttons are a third; this one is the claw, the line and the pod standing
+still.
+
+## THE GAUGE never says whether the call caught anything
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/render/src/gauge.ts`, `packages/render/src/gauge-round.ts`, `packages/sim/src/events-gauge.ts`, `packages/sim/src/gauge-hand.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *there should be a very clear visual whether the
+claw was successful to catch the pod or whether it was not within the open
+area.*
+
+The call is the only thing in the round that can be wrong and it costs
+`gaugeCallRestBeats` either way (`sim/gauge.ts`). Today the answer is a change
+of state — jammed, settling — read off `gaugeJammed` and `gaugeSettling`, which
+is a fact the screen has rather than a moment the pair sees. With a claw and a
+pod there are two pictures to draw and they must not be the same one with a
+colour swapped: the claw closes on the pod and takes it, or it closes on
+nothing and comes back empty.
+
+`events-gauge.ts` is where the round's events are pushed, so whether a new one
+is needed is the first question — the render side may already have everything
+it needs off the state, in which case this is `Effects` and a frame count and
+nothing in `sim` moves at all. Anything render keeps between frames for the
+animation belongs in `Effects` and is cleared in `Effects.reset()`
+(`packages/render/test/restart.test.ts`).
+
+Depends on the claw and the pod being drawn first.
+
+## THE GAUGE's words and buttons are the round's own, not the ship's
+
+- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Files:** `packages/render/src/gauge-title.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/gauge-plate.ts`, `packages/render/src/slabs.ts`, `apps/game/src/gauge.ts`
+- **Where:** local
+
+The owner, 20 September 2026: *change the wordings, improve the buttons a lot
+so they fit the regular ship hull and control set visuals.*
+
+The words are three lines in `gauge-title.ts` — THE GAUGE, and one of YOU
+CANNOT SEE THE MARKS, YOU CANNOT TURN IT, NEITHER HALF IS ENOUGH ON ITS OWN.
+All three are about a dial with marks on it, and after the claw and the pod
+land none of them describes what is on screen. They are also all negative,
+which is the smaller half of why they read as an explanation rather than as a
+control: what the pilot is told is what he cannot do.
+
+The buttons are `gaugeLeft` and `gaugeRight` in the control set
+(`apps/game/src/gauge.ts`, `slabPanel` in `render/gauge-round.ts`). The round
+already takes them from the wave's control set rather than inventing geometry,
+which is the right half; what it does not do is wear the hull's own plate, the
+grip and the slab treatment the field's controls have. `gauge-grip.ts` and
+`gauge-plate.ts` are the round's own versions of those, and the question this
+lane answers is how much of each can be deleted in favour of `slabs.ts`.
+
+Depends on the claw and the pod: naming a button before the thing it moves has
+a shape is how the wordings got stale the first time.

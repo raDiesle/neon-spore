@@ -14657,3 +14657,25 @@ once `origin/main` already carried an equivalent one, leaving only the one
 file the other lane's own commit had not reached.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — wave-tutorial-enemy-mechanics — eleven asks become eleven entries
+
+- reading — 30 min. One prompt of seven requests against the files that would
+  have to move: the three opening phases in `sim/briefing.ts` and the early
+  return in `step.ts`, the seat's `localStorage` round trip through `view.ts`
+  and `shell.ts`, `lure-alarm.ts`'s label, the seam in `throb.ts`,
+  `countdownStruck` and the window next door in `colour-armour.ts`, the two
+  plate colours in `shell-plate.ts`, and the six files THE GAUGE is spread
+  across.
+- writing — 25 min. Eleven entries, each naming files the tree has.
+- looking — 0 min. Nothing visible moved.
+- friction — 0 min.
+- landing — 10 min.
+
+**The bottleneck was reading far enough to know what was already built.** Two
+of the seven asks were already answered in the tree — `countdownOnSpawn`
+already rolls a random start phase, and `restore()` already defaults to BOTH —
+and both would have been queued as work that did not exist. Finding the second
+one also found the real defect behind it, which is the room writing its seat to
+`localStorage` and nothing writing it back. A queue entry is only worth the
+reading that went into it.
