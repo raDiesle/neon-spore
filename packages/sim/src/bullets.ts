@@ -1,7 +1,7 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
-import { candleEats, candleStruck } from "./candle-step.js";
+import { candleEats, candleFlash, candleStruck } from "./candle-step.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
@@ -98,6 +98,10 @@ function launch(world: World, color: Color): void {
   // The colour the thumb pressed, never the one it means: this is what the
   // muzzle flashes and what the ear gets, and both belong to the press.
   world.events.push({ type: "fire", col: world.cannonCol, color, lance: false });
+  // THE CANDLE's field is lit by nothing but the pair's own weapons: a bolt
+  // that got this far actually flashed, so THE SLOW opens for it, whatever
+  // phase the fight is in (`candle-step.ts`).
+  candleFlash(world);
 }
 
 /**

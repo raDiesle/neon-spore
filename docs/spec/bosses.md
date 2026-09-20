@@ -4323,9 +4323,17 @@ that went quiet there would be that cone read out on her screen — the one
 sentence this fight is made of, answered by the field. Proved on both screens,
 with the silences: `render/test/boss-cue-candle.test.ts`.
 
-**What is not built**: THE SLOW over the flash beat — the design's *the beat
-a flash lands is played at a third rate*. Whether a shot's light should hang
-is the owner's eye, and it is put to him in `docs/queue.md`.
+**Every flash opens THE SLOW** (20 September 2026, `docs/queue.md`, answered
+19 September). The design's *the beat a flash lands is played at a third
+rate* is the rule for every flash, with no exception for a later one over the
+first: a bolt that actually leaves the muzzle — never one THE CANDLE ate —
+opens `candleFlashSlowBeats` (1) of THE SLOW from the beat it fires, both
+screens together (`decisions.md` #33), whatever phase the fight is in,
+including `dark`, before the boss has done anything of its own yet.
+`sim/candle-step.ts`'s `candleFlash`, called from `bullets.ts`'s `launch`
+beside `candleEats`, so the two never both answer the same press. Not built:
+a picture of its own for the window opening — the field slowing is the only
+sign of it, same as every other boss on THE SLOW.
 
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 full at the middle column facing its own, cannot be struck and does not move

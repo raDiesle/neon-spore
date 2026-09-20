@@ -46,6 +46,14 @@ export interface CandleConfig {
   candleSmokeBeats: number;
   /** Beats the frame is held black after the last step goes out, before the wave may end. */
   candleOutBeats: number;
+  /**
+   * Beats THE SLOW opens for on every flash — a bolt actually leaving the
+   * muzzle, never one THE CANDLE ate. One, not the ordinary call's two
+   * (`config-slow.ts`): a flash is **seen**, not called across the voice
+   * delay — the pair's own press lit it, so there is nothing to be told about
+   * it that a third-rate beat says better than the beat itself.
+   */
+  candleFlashSlowBeats: number;
 }
 
 /**
@@ -66,4 +74,5 @@ export const CANDLE_DEFAULTS: CandleConfig = {
   candlePinchMilli: 1500,
   candleSmokeBeats: 6,
   candleOutBeats: 2,
+  candleFlashSlowBeats: 1,
 };

@@ -132,6 +132,7 @@ export const CHOREO_FIELD_GROUP = {
   candlePinchMilli: "THE CANDLE — the boss fought in the dark",
   candleSmokeBeats: "THE CANDLE — the boss fought in the dark",
   candleOutBeats: "THE CANDLE — the boss fought in the dark",
+  candleFlashSlowBeats: "THE CANDLE — the boss fought in the dark",
   // GorgeConfig — how wide the sack is, how many beads fill an intake, how
   // long a full one holds before venting, and when it spits and gorges
   // (`config-gorge.ts`).

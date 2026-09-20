@@ -8,6 +8,7 @@ import {
 } from "./candle.js";
 import { midCol } from "./config.js";
 import { nextInt } from "./rng.js";
+import { openSlow } from "./slow.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
 
@@ -19,11 +20,12 @@ import type { World } from "./world.js";
  * The phases are the glow read against `config-candle.ts`: the boss changes
  * what it does at fixed steps of its own health, so every change is one the
  * pair can hear in the only thing they can see. Everything on the **beat**
- * runs from `stepBoss`; the two things on the **tick** are a shot leaving
+ * runs from `stepBoss`; the three things on the **tick** are a shot leaving
  * the top of the field (`candleStruck`, from `bullets.ts` and
- * `lance-burn.ts`) and a shot leaving the muzzle (`candleEats`, from
- * `bullets.ts`), because an answer that waited for the next beat would put a
- * queue between the press and the dark.
+ * `lance-burn.ts`), a shot leaving the muzzle (`candleEats`, from
+ * `bullets.ts`), and a shot that actually lit the field (`candleFlash`, from
+ * `bullets.ts`'s `launch`), because an answer that waited for the next beat
+ * would put a queue between the press and the dark.
  */
 
 /** Install it from the wave's own `boss:` entry. There is nothing to author. */
@@ -194,4 +196,22 @@ export function candleEats(world: World, col: number): boolean {
   world.events.push({ type: "candleFed", col, left: c.glow });
   enterCandle(world, c, phaseFor(world, c.glow));
   return true;
+}
+
+/**
+ * **A bolt actually left the muzzle, and lit the field for it.** Called by
+ * `launch` in `bullets.ts` once a flash is certain — after `candleEats`
+ * above has already had its chance to swallow it — so the two never both
+ * fire for the same press.
+ *
+ * Every flash opens THE SLOW for `candleFlashSlowBeats`, with no exception
+ * for a later one over the first: §14 names none, and a flash the pair has
+ * already spent a shot to make is worth the same three seconds every time
+ * (`docs/queue.md`, *THE CANDLE's flash beat is played at tempo*, answered
+ * 19 September 2026).
+ */
+export function candleFlash(world: World): void {
+  const c = candleBoss(world);
+  if (c === null || c.phase === "out") return;
+  openSlow(world, world.cfg.candleFlashSlowBeats);
 }

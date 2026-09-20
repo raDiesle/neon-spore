@@ -13170,3 +13170,37 @@ of the twenty here say so themselves instead of leaving it for a reviewer to
 notice.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-the-candles-flash-beat-is-played-at-tempo-and-th — one hook, one field, four tests
+
+`docs/queue.md`'s answer (19 September 2026) picked *slow every flash beat*,
+matching §14 as written rather than the shipped exception-free reading: a
+bolt that actually leaves the muzzle while THE CANDLE is installed opens
+THE SLOW for one beat, whatever phase the fight is in, and an eaten flash
+opens nothing because nothing was lit. The whole of it is `candleFlash` in
+`candle-step.ts` (a third sibling to `candleStruck` and `candleEats`, called
+from `bullets.ts`'s `launch` right after the `fire` event, in the same spot
+`candleEats` already sits above it) and one new config field,
+`candleFlashSlowBeats` (1, since a flash is seen rather than called across
+the voice delay, unlike the ordinary two-beat window `config-slow.ts` sizes
+for a call).
+
+The one thing that needed checking rather than assuming: whether the very
+first flash, fired while the field is still in its `dark` phase before the
+boss has moved or eaten anything, should also open THE SLOW. The design's
+own words — *no exception named for later flashes* — say yes, and a test
+proves it rather than leaving it read off the prose.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `candle-step.ts`, `candle.ts`'s own doc comment on why the simulation does not know the field is dark, `slow.ts`, `config-slow.ts` for the seen-vs-called sizing precedent, `bullets.ts`'s `launch` |
+| writing | 15 | the config field, `candleFlash`, the `bullets.ts` hook, four tests (opens on an ordinary flash, silent on an eaten one, opens on the very first dark-phase flash, silent once the boss is out), the `bosses.md` §11.22 write-up |
+| looking | 5 | tracing exactly where `candleEats` returns early to confirm an eaten flash never reaches the `fire` event push, so the two functions can never both fire for one press |
+| friction | 5 | `bunx tsc --noEmit` caught `tools/director/src/ship-fields-choreo.ts`'s exhaustive `SimConfig` map missing the new field — one line, the same test that catches every new tunable |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun test packages/sim/test/candle.test.ts` (22 pass), `bun run check:fast` (10726 pass), `bun run queue done`, the commit |
+
+**The bottleneck was the one design-fidelity check** — whether "no exception"
+really meant the very first flash too — everything else was wiring a third
+function into a pattern two others already used.
+
+*Measured: the rows above are the session's own estimate.*

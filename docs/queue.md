@@ -453,29 +453,6 @@ these headers were written the way they are to avoid.
 The first is the only one that gives act seven somewhere to grow. It wants
 deciding before the next boss lands rather than during it.
 
-## THE CANDLE's flash beat is played at tempo, and the design asks for a third
-
-- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Taken:** 2026-09-20, main (claim: claude/queue-the-candles-flash-beat-is-played-at-tempo-and-th)
-- **Files:** `packages/sim/src/candle-step.ts`, `packages/sim/src/slow.ts`, `packages/sim/test/candle.test.ts`, `docs/spec/bosses.md`
-- **Asks:** Should the beat a flash lands in THE CANDLE be played under THE SLOW, or left at tempo?
-- **Answered:** 19 September 2026 — slow it, matching the design as written: **every flash beat**, not the first only. §14 says the beat a flash lands is played at a third rate with no exception named for later flashes, so `openSlow(world, cfg.candleFlashSlowBeats)` fires from every `fire` that lights the field, one beat at `slowRateMilli`, both screens together. Sized work, not yet built: a config field, a line in `candle-step.ts`, a receipt in `candle.test.ts`, and `bun run check`.
-
-The design (`docs/spec/bosses-choreographed.md` §14, *THE SLOW, over
-`AfterImage`*) says the beat a flash lands is played at a third rate, so the
-pair gets three seconds to read a field they see for a fifth of a beat. What
-shipped (`bosses.md` §11.22) holds the light for `AFTER_BEATS` instead and
-never slows the clock: the after-image is what makes the fight playable, and
-whether a slowed beat on top of it is drama or a stutter — a shot every beat
-is a slow every beat — is a thing to be watched at tempo, not decided in a
-lane. The options: **slow every flash beat**, `openSlow(world,
-cfg.candleFlashSlowBeats)` from the `fire` that lit the field, one beat at
-`slowRateMilli`, both screens together (`decisions.md` #33); **slow the first
-flash of the fight only**, the one that shows the pair the field is still
-there, and none after; or **leave it at tempo** and take the design's
-paragraph out of §14 as argued. Any of the first two is a config field, a
-line in the step, a receipt, and `bun run check`.
-
 ## THE FLEET's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

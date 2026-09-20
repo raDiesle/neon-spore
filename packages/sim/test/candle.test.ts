@@ -8,6 +8,7 @@ import {
   hashWorld,
   midCol,
   type SimConfig,
+  slowing,
   startWave,
   step,
   type TimedCommand,
@@ -220,6 +221,49 @@ describe("eating flashes", () => {
     const world = lit();
     expect(candleEats(world, glow(world).faceCol)).toBe(false);
     expect(glow(world).glow).toBe(CFG.candleGlowSteps);
+  });
+});
+
+describe("the flash and THE SLOW", () => {
+  it("opens THE SLOW for a flash that actually leaves the muzzle", () => {
+    const world = lit();
+    world.cannonCol = glow(world).faceCol === 0 ? 1 : glow(world).faceCol - 1;
+    world.lastFireTick = -1000;
+    expect(slowing(world)).toBe(false);
+    step(world, [fire(world)]);
+    expect(world.events.some((e) => e.type === "fire")).toBe(true);
+    expect(slowing(world)).toBe(true);
+  });
+
+  it("does not open THE SLOW for a flash the boss ate", () => {
+    const world = lit();
+    dim(world, CFG.candleGlowSteps - CFG.candleEatSteps);
+    expect(glow(world).phase).toBe("eating");
+    world.cannonCol = glow(world).faceCol;
+    world.lastFireTick = -1000;
+    step(world, [fire(world)]);
+    expect(world.events.some((e) => e.type === "fire")).toBe(false);
+    expect(slowing(world)).toBe(false);
+  });
+
+  it("opens on the very first flash, while the light is still going out — no exception for a later flash over an early one", () => {
+    const world = open();
+    world.cannonCol = glow(world).col;
+    world.lastFireTick = -1000;
+    step(world, [fire(world)]);
+    expect(glow(world).phase).toBe("dark");
+    expect(slowing(world)).toBe(true);
+  });
+
+  it("does nothing once the boss is out", () => {
+    const world = lit();
+    dim(world, CFG.candleGlowSteps - CFG.candleLastSteps);
+    snuff(world);
+    expect(glow(world).phase).toBe("out");
+    world.cannonCol = glow(world).col;
+    world.lastFireTick = -1000;
+    step(world, [fire(world)]);
+    expect(slowing(world)).toBe(false);
   });
 });
 
