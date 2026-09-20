@@ -1225,6 +1225,7 @@ what the rest of this file holds.
 ## Unverified at 0c7934d1: THE CURTAIN's jammed rail and lifted hem seen by an eye…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-0c7934d1-the-curtains-jammed-rail)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/content/src/scenes/the-curtain.ts`, `packages/content/test/scene-films.test.ts`
 
 *Draw THE CURTAIN's jam and give its hem a ring to lift* landed from a session that could not look at it. The commit touched 9 more files. What went unchecked:
