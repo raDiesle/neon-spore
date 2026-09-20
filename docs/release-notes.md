@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 34f8f047 — Queue: THE WELL's second gesture is done
+
+## 2026-09-20 · b0315cc9 — THE WELL's face slips, and a thumb on the seam holds it
+
+The one boss in the game with no clock of its own has three phases now. The face rests with its seam at twelve for `wellStillBeats`; then it slips, turning `wellRollMilli` of a sector clockwise every beat with its numerals riding round, so the lane the pilot calls "four" is no longer the lane under the fourth hour. A thumb held on the seam stops the slip, and the pair has `wellHoldBeats` of holding to spend over the wave. At `wellRollSectors` the face is wound, and a thumb dragged from the seam carries the offset home. One sentence, which is the test a wave has to pass: the clock slips — hold it, then turn it home.
+
 ## 2026-09-20 · 9a5de4a6 — Shorten the HIVE film queue title under the 80-character limit
 
 ## 2026-09-20 · 4e54a1d9 — Let a matching bolt kill what THE HIVE spills, so a breach can be sealed

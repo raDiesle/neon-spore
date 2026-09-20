@@ -1920,3 +1920,17 @@ Two of the three are globbable: `eventTypes()` can read
 is generated. Leave whichever list has a reason to stay hand-kept and say the
 reason in its header — the skill's twelve rows say the samples list is
 deliberate, and nothing says these two are.
+
+## Unverified at 34f8f047: THE WELL's rolled face on a real frame: the turned nume…
+
+- **Found:** 2026-09-20, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/field-input.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-well.ts`
+
+2 commits landed, ending in *Queue: THE WELL's second gesture is done*, from a session that could not look at it. The commit touched 49 more files. What went unchecked:
+
+- THE WELL's rolled face on a real frame: the turned numerals, the seam slipping round, and the face held still under a thumb
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
