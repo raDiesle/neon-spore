@@ -1215,21 +1215,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at 0c7934d1: THE CURTAIN's jammed rail and lifted hem seen by an eye…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-0c7934d1-the-curtains-jammed-rail)
-- **Files:** `packages/content/src/scenes/the-curtain.ts`, `packages/content/test/scene-films.test.ts`
-
-*Draw THE CURTAIN's jam and give its hem a ring to lift* landed from a session that could not look at it. A later session rendered real PNGs (`bun run frames`) of the three still states this entry named — the jam's bar over the rail, brightest at the hit (`packages/render/src/curtain-sheet.ts`'s `drawCurtainJam`); the hem gathered to a sliver under the rail at a full lift; and the gap that lift opens, the bare core showing through it — and all three are drawn as `curtain-draw.ts`, `curtain-grip.ts` and `curtain-sheet.ts` say they should be. What is left, and cannot be taken as a still:
-
-- The rehearsal's eleventh page — the core drifting under the fabric in a new column and colour — watched at tempo, on a real device. A picture of one instant of a drift proves nothing about whether it reads as motion; this needs a person watching `content/src/scenes/the-curtain.ts`'s film play.
-
-Open it on a machine that can watch a wave run, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at e71733bc: THE SPLICE's WAIT seen at tempo over the tangle
 
 - **Found:** 2026-09-19, claude/queue-the-splice-says-the-word

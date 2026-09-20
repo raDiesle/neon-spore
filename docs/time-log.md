@@ -13887,3 +13887,36 @@ likeliest suspect, which is progress, but it isn't the fix the entry asked
 for.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-0c7934d1-the-curtains-jammed-rail — the drift was never a tween
+
+The one piece an earlier session left on this entry — THE CURTAIN's
+eleventh rehearsal page, the core drifting to a new column and colour under
+the fabric, "watched at tempo, on a real device." Read `curtain-step.ts`'s
+`curtainDrift` and `curtain-draw.ts` first: the core's column and colour are
+plain `CurtainState` fields, drawn straight off the world every frame
+(`tileCX(l, c.coreCol)`, no lerp, no stored "visual" position anywhere in
+`packages/render`), and `curtainDrift` reassigns both in one step, on the
+same tick as the hit that triggers it (`curtain-shot.ts`). There is no
+motion to watch — the shadow snaps from one column to the next, with a
+spark burst (`curtain-fx.ts`'s `curtainShadow` case) marking where it
+landed. A real device watching the film play would see exactly what two
+real frames already show: `bun run frames . --wave "THE CURTAIN" --opening
+guide --guide-page 8` (before: cyan, leftmost column, under the cannon)
+against `--guide-page 10` (after: red, drifted to a column near the far
+edge, the shadow's dashed ring around it). Closed rather than left for a
+device that has nothing more to tell us than these two frames already do.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `curtain-step.ts`, `curtain-draw.ts`, `curtain-fx.ts`, `the-curtain.ts`'s own scene comment |
+| writing | 0 | no code changed — a verification, not a fix |
+| looking | 10 | two real guide-page frames (`--guide-page 8`, `--guide-page 10`), one throwaway `--guide-page 11` that undershot and wrapped to the READY screen before the count was fixed |
+| friction | 5 | figuring out `--guide-page` counts turns from the guide's own first page, not from 1 |
+| landing | 10 | `bun run check:fast`, this log entry, the commit |
+
+**The bottleneck was working out what `--guide-page N` actually counts**,
+not the verification itself — once the frame tool pointed at the right
+page, the code already answered the question a device was being asked to.
+
+*Measured: the rows above are the session's own estimate.*
