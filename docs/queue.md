@@ -303,6 +303,7 @@ left hanging.
 ## THE FLEET's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-20, claude/queue-a-cue-standing-on-the-hull-line-has-its-verb-dra (claim: claude/queue-the-fleets-picture-looks-like-something-real)
 - **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/fleet-clock.ts`, `packages/render/src/fleet-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
