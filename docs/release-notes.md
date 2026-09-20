@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 597a1ab1 — THE ORRERY's rehearsal: three of four unverified claims settled, one left
+
+The OPEN mark and the winds both check out on real frames — the mark is a plain phase cue, and all three rings turn through one shared grip drawing function, so the outer ring's real motion across four sampled frames proves the mechanism. The split around the rock is the same picture, and the one non-visual part of it (does the banked progress survive) is already a passing sim test. What's left is a real thumb's: whether the wind's pace reads as a decision or as friction, which no frame can answer.
+
 ## 2026-09-20 · ce12ba40 — THE CANDLE's wick and ember, watched for real: all three claims hold
 
 The stem's travel and the ring closing are one-to-one with pinchMilli, and the ember's swell is a plain urge ramp against candleSmokeBeats — nothing here needed a real SimEvent, so --boss-json across the pinch range and the smoke's ramp shows all three exactly as designed. Closed rather than left for an eye that would have seen the same five frames.
