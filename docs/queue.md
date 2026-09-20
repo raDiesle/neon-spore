@@ -1201,6 +1201,7 @@ these, at tempo, on a phone-shaped screen.
 ## Unverified at ce22d819: THE ORRERY's rehearsal film watched at tempo — the thre…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-ce22d819-the-orrerys-rehearsal-fil)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/test/scene-films.test.ts`
 
 *THE ORRERY: a shot cracks a ring and the pilot's thumb takes it off* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
