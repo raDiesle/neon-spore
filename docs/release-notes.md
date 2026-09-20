@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 4a3bbaf8 — The lost screen's second button reads GO TO MENU, not QUIT
+
+The owner's own wording: pressing it in a real room lands on the room screen, not the app's menu, and "quit" read as ending the session outright. Only the drawn word changed — the press, the command it sends, and the room's own handling of it are untouched.
+
 ## 2026-09-20 · 8c7c5ae7 — THE ANTIPHON's rail: a real pull, ring gone, stroke through it
 
 Added antiphonRail to tools/frames/hold.ts (it only knew antiphonOrgan), then used it to actually pull a candidate: the first attempt threw no antiphonPull event because the organ wasn't grown yet, the second did, and the frame it produced shows the crossed candidate's ring gone and a stroke in its place, against the other two still ringed. Closes the queue item.
