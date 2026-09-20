@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 2658303c — Slow every flash beat in THE CANDLE
+
+The owner's answer (docs/queue.md, 19 September 2026): match the design as written, which names no exception for a later flash over the first. A bolt that actually leaves the muzzle while THE CANDLE is installed now opens THE SLOW for one beat, whatever phase the fight is in, including the very first flash fired while the field is still going dark. A flash the boss ate opens nothing, since nothing was lit.
+
 ## 2026-09-20 · a50576ce — Write the twenty-bosses-of-the-third-kind brief
 
 docs/spec/bosses-cinematic.md is the owner's own ask (18 September 2026, answered 19 September on where it goes): twenty more choreographed-scene boss concepts, words only, no code touched. Each entry names its question, what it splits, its silhouette and how much of it comes away, a beat list with each beat's gesture named as the DragTarget/Hold member it is or the primitive it would need, and its nearest built neighbour.
