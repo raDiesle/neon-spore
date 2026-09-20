@@ -13373,3 +13373,46 @@ screenshotting the state took minutes and the real defect was visible on the
 first frame.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-1ceb748c-the-undertows-five-cues-s — five phases, one already-known swallowing
+
+THE UNDERTOW's five cues — `OPEN`, `BURN`, and the two `MOVE`s — were checked
+on six real frames of `p1`/`p2`, one per phase (`seat`, the rise-bowing
+`last`, `last`-standing, `hard`, and the ordinary `standing` with the
+shield's own `MOVE` beside it). `chromium.launch()` crashed with the same
+`SIGTRAP` the day's earlier BATON session already queued, so the same
+workaround: a hand-spawned Chrome on `--remote-debugging-port`, reached with
+`connectOverCDP`. `--boss-json` cannot fabricate a `breaches` array the tick
+has not reached (refused on length, same as BATON's `beads`), so the state
+came from `openStage` plus a direct mutation of
+`window.neonSpore.world.boss`, the way `baton-grip.test.ts`'s `merging()`
+helper does it.
+
+The mark itself is right on all five: each stands over its lobe, not clipped
+by it, and none goes anywhere near the top of the screen, so the entry's
+"clearance of the status bar" half of the question was moot before a frame
+was even taken — everything THE UNDERTOW draws sits at the bottom, near
+`l.hullY`. But the word on every one of the five is unreadable: `HOLD`/`CARRY`
+(the kind line, above the mark) shows clean, and `MOVE`/`OPEN`/`BURN` (the
+verb, below the mark) is swallowed by the ship's own plating every time — not
+a new defect, `docs/queue.md`'s *"A cue standing on the hull line has its verb
+drawn under the ship"* already named THE UNDERTOW's two `MOVE`s, but it had
+not been shown to also take `OPEN` and `BURN` on the lobe itself, where
+`LOBE_LIFT` (0.8 tile) is not enough headroom for `halfH + 18` to clear the
+plating's glow. Added to that entry rather than filed twice; this entry's own
+"Unverified" line is closed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue entry, `boss-cue-read-j.ts`'s five-phase header, `undertow.ts`/`undertow-step.ts`/`undertow-shape.ts` for the phase and breach shape, the already-queued hull-line and browser-crash findings |
+| writing | 20 | the scratch capture script (not committed), the queue entry update, closing this one, this log entry |
+| looking | 30 | six real frames (`p1`/`p2`, all five phases) built by mutating `world.boss` directly, cropped and pixel-scanned to confirm the verb text is actually absent and not merely low-contrast |
+| friction | 15 | `chromium.launch()`'s known `SIGTRAP`, worked around exactly as the day's earlier BATON entry describes; `--boss-json`'s array-length refusal, again the right answer and not a bug |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast`, the commit |
+
+**The bottleneck was confirming the missing word was a real defect and not a
+rendering mistake of this session's own** — a pixel scan and a second,
+independent frame of the tall lobe before trusting that `HOLD` alone was the
+whole picture.
+
+*Measured: the rows above are the session's own estimate.*

@@ -330,7 +330,7 @@ header over drawings that exist, and the success screen second, as a
 ## A cue standing on the hull line has its verb drawn under the ship
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
+- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
 - **Where:** local
 
 `drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
@@ -342,6 +342,23 @@ a real frame of THE WARDEN, whose handle mark had the same problem and was
 lifted out of it with a constant of its own (`HULL_LIFT`,
 `boss-cue-read-f.ts`) — which is a third place doing the arithmetic rather than
 a fix.
+
+**It is not only the two `MOVE`s.** Six real frames of THE UNDERTOW
+(`boss-cue-read-j.ts`, one per phase, `--boss-json` cannot build the state so
+these were a hand-spawned Chrome reached over `connectOverCDP` mutating
+`window.neonSpore.world.boss` directly, the workaround the entry below this
+one describes) show the same swallowing on its lobe cues too: `OPEN` (phases
+`last` and the ordinary `standing`) and `BURN` (`hard`) sit on a mark lifted
+`LOBE_LIFT` (0.8 tile) above the skin, and 0.8 tile is not enough room —
+`halfH + 18` still lands the word back down inside the plating's own glow, at
+the lobe's neck. `HOLD` (the kind line, drawn *above* the mark) is legible on
+every one of the five; the verb below it — `MOVE`, `MOVE`, `OPEN`, `BURN`,
+`OPEN` — was legible on none of them, on real screenshots of all five phases
+at `p1`/`p2`. So this is every one of THE UNDERTOW's cues, not two of five,
+and the fix wants headroom against the mark's *own* lift, not only against
+`l.hullY` — a lobe standing taller (THE UNDERTOW's `last` grows to two tiles)
+does not buy the word more clearance, since the mark's `y` climbs with it and
+`halfH + 18` is still measured from there.
 
 The choice is between a floor of the same shape as `boss-cue-text.ts`'s
 `headerTop` ceiling — the verb climbs above the mark when there is no room
@@ -906,21 +923,6 @@ coverage test reads, so a `jam` and a `bind` pose need the ledger to say
 whether a state there is a phase or any named condition of the boss. Decide
 that first — it is the same question THE GORGE's pinch and pry will ask — then
 add the two poses and point the two rows at them.
-
-## Unverified at 1ceb748c: THE UNDERTOW's five cues seen in a frame: no PNG was ta…
-
-- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-1ceb748c-the-undertows-five-cues-s)
-- **Files:** `apps/server/test/dev-stop.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-undertow.ts`
-
-3 commits landed, ending in *THE UNDERTOW says a word in each of its five phases*, from a session that could not look at it. The commit touched 9 more files. What went unchecked:
-
-- THE UNDERTOW's five cues seen in a frame: no PNG was taken of `OPEN`, `BURN` and the two `MOVE`s standing where the reading puts them, so the marks' lift over the lobe and their clearance of the status bar are unchecked
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
 
 ## Unverified at b6f46254: THE FLEET's wound seen on a real frame: no PNG was take…
 
