@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · de367c19 — A boss's verb climbs off the plating instead of hiding under it
+
+Eight bosses park a cue's mark on the hull line — the cannon is the carry every one of them asks for — and the verb hangs forty-two pixels below the mark, which is inside the ship. A lane before this one moved the whole cue after `drawShip` so the plating could not paint over it; fresh frames of THE HIVE, THE LEDGER and THE REPRISE showed `MOVE` and `ROOT` still unreadable, and moving the draw one pass later again changed nothing visible. It was never occlusion: eleven-point rock grey on lit plating with the hull's own stalks behind it is a smear.
+
 ## 2026-09-20 · 94df3faa — A guide is turned by its marks and by a thumb across it, and the gate shows BACK
 
 Three ways through a wave's guide, on the owner's ask of 20 September 2026: the Ready? page shows the BACK it always answered, the row of marks that says which step this is can be pressed, and a drag turns the page — left is back, right is next, which is the arrow keys' mapping and not a carousel's.
