@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · fe144e8c — The screen between the waves, decided before it is drawn
+
+A wave that is cleared rests three beats and nothing is drawn over them: the pair watches the field it has just emptied until the host answers `needWave` and the next wave's guide comes up. `docs/spec/between-waves.md` is the sheet for what stands there, written before the code the way the queue entry asked.
+
 ## 2026-09-20 · d9bcb12b — Every page of a guide says which wave it is
 
 A plate hung under the band's bezel, saying WAVE 3 · THE GRATE, on every page of a tutorial but the gate — which already says the number and the name in twenty-one point and is left exactly as it was. The owner asked for it on 18 September 2026: a pair four pages into a film had nothing on screen naming what they were being taught.
