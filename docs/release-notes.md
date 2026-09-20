@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 5b33f318 — Close the lib-list queue entry: it had already been answered
+
+`docs/queue.md` carried this entry twice. `271d8096` answered the question the day before — harvesting TypeScript's `lib.*.d.ts` and `@cloudflare/workers-types` the way `declaredNames` harvests the tree and checking it against every unrestricted identifier claim — and found the false-positive count falls from 108 to 89, nowhere near the dozen that would justify dropping the head-word restriction. A later, unrelated commit reintroduced the entry into the queue file on its way through. Re-running the same measurement against today's tree (5,706 claims, 105 unmatched, 86 once the lib names are added) confirms the answer is unchanged, so the entry is removed rather than re-answered.
+
 ## 2026-09-20 · 00b212a4 — Land's browser check is red here for a worktree-path reason, not this lane's
 
 bun run land's full bun run check failed on tools/frames/test's own launchBrowser() crash. Reproduced clean on plain main from ns-cairn and red again from ns-undertow-cues on the same commit, so it is the profile path launchBrowser builds under this worktree specifically, long enough to be a plausible AF_UNIX sun_path ceiling (108 bytes) rather than the pipe-transport story alone. Written up as an addendum to the already-queued "chromium.launch() crashes here" entry. Pushing the branch rather than forcing the land, per CLAUDE.md's rule for a pre-existing, unrelated environment failure.
