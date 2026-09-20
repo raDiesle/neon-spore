@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — queue-director-fake-dom-keyup — one document, and a key let go
+
+`installDom`'s window fired `keydown` with a `key` and nothing else, so the
+two bindings that read `e.code` and hold a key **down** — the seat keys and
+`3` — could not be pressed through the director's own document at all.
+`cue-key.test.ts` had answered that with a twelve-line `window` of its own,
+the second copy in the directory and the one that would have been copied next.
+
+The event now carries a `code` alongside its `key` — derived here, so a test
+still says `press("3")` and never `Digit3` — and `lift(key)` fires a `keyup`
+list the window keeps beside the `keydown` one. Both are additions: the dozen
+tests that press a letter and read `e.key` were not touched. `cue-key.test.ts`
+drops its stand-in and presses `3` through the same document every other
+director test uses.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, `fake-dom.ts` whole, `cue-key.test.ts`, `stage-cue-key.ts`'s two listeners |
+| writing | 15 | the `KeyPress` shape, `codeOf`, the `keydown`/`keyup` pair, `fire`, `lift`, and the test's four call sites |
+| looking | 0 | nothing is drawn |
+| friction | 0 | — |
+| landing | 10 | `bun test tools/director`, the typecheck, `check:fast`, the commit, `bun run land` |
+
+**The bottleneck was reading rather than writing**: the change is one field and
+one method, and what took the time was making sure the dozen existing callers
+of `press` could not see it.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — director-cue-key-3 — one key, both thumbs
 
 The owner's ask: *when I am in TEST and press 3, it should automatically do

@@ -21,6 +21,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bindCueKey, cueAnswers, cueSeats } from "../src/stage-cue-key.js";
+import { installDom } from "./fake-dom.js";
 
 /**
  * **THE `3` KEY: WHAT THE FIELD IS ASKING, BY BOTH THUMBS AT ONCE.**
@@ -162,37 +163,11 @@ describe("the press itself", () => {
   });
 });
 
-/**
- * A `window` with nothing on it but the two listeners this binding adds. The
- * director's own `fake-dom.ts` records a `keydown` by `key` and has no `keyup`
- * at all, and what is under test here is a `code` held and let go — so the
- * stand-in is four lines rather than a sixth argument to that file.
- */
-function fakeWindow(): { press(code: string): void; lift(code: string): void; restore(): void } {
-  const had = globalThis.window;
-  const listeners = new Map<string, ((e: unknown) => void)[]>();
-  (globalThis as { window?: unknown }).window = {
-    addEventListener(type: string, fn: (e: unknown) => void): void {
-      listeners.set(type, [...(listeners.get(type) ?? []), fn]);
-    },
-  };
-  const fire = (type: string, code: string): void => {
-    for (const fn of listeners.get(type) ?? []) fn({ code, target: null, preventDefault() {} });
-  };
-  return {
-    press: (code) => fire("keydown", code),
-    lift: (code) => fire("keyup", code),
-    restore: () => {
-      (globalThis as { window?: unknown }).window = had;
-    },
-  };
-}
-
 describe("the key, bound", () => {
   test("one press is both seats' thumbs, and the lift is both let go", () => {
     const world = merging();
     const l = computeLayout(VIEWPORT, CFG, "test");
-    const keyboard = fakeWindow();
+    const dom = installDom();
     const sent: { player: 1 | 2; command: Command }[] = [];
     try {
       bindCueKey({
@@ -202,12 +177,12 @@ describe("the key, bound", () => {
         role: () => "test",
         send: (player, command) => sent.push({ player, command }),
       });
-      keyboard.press("Digit3");
+      dom.press("3");
       // Both beads taken hold of, one per seat — the state a single mouse
       // could only ever answer half of.
       expect(sent.map((s) => s.player).sort()).toEqual([1, 2]);
       const before = sent.length;
-      keyboard.lift("Digit3");
+      dom.lift("3");
       // A merge thumb is a hold: what the lift says is that it is off again.
       expect(sent.length).toBeGreaterThan(before);
       expect(
@@ -217,14 +192,14 @@ describe("the key, bound", () => {
           .sort(),
       ).toEqual([1, 2]);
     } finally {
-      keyboard.restore();
+      dom.restore();
     }
   });
 
   test("a key that is not 3 is not this binding's", () => {
     const world = merging();
     const l = computeLayout(VIEWPORT, CFG, "test");
-    const keyboard = fakeWindow();
+    const dom = installDom();
     const sent: { player: 1 | 2; command: Command }[] = [];
     try {
       bindCueKey({
@@ -234,11 +209,11 @@ describe("the key, bound", () => {
         role: () => "test",
         send: (player, command) => sent.push({ player, command }),
       });
-      keyboard.press("Digit1");
-      keyboard.press("KeyW");
+      dom.press("1");
+      dom.press("w");
       expect(sent).toEqual([]);
     } finally {
-      keyboard.restore();
+      dom.restore();
     }
   });
 });

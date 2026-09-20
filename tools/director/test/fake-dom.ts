@@ -44,9 +44,17 @@ export interface FakeDom {
   /**
    * A key pressed on the window, for the three panels that listen there rather
    * than on an element — a selection, and a wave, outlive the node a press
-   * arrives on (`grid.ts`, `rail.ts`).
+   * arrives on (`grid.ts`, `rail.ts`). The event carries both a `key` and the
+   * `code` that key sits at, because two bindings read the latter: the seat
+   * keys (`desk-seat.ts`) and `3` (`stage-cue-key.ts`).
    */
   press(key: string, target?: unknown): void;
+  /**
+   * The same key let go. A binding that holds a thumb down for as long as the
+   * key is down (`stage-cue-key.ts`) is only half tested by a press, and a
+   * `keyup` nobody fires is a thumb nobody lifts.
+   */
+  lift(key: string, target?: unknown): void;
   /**
    * Puts the real globals back. `bun test` shares one process across files, so
    * a fake `document` left on `globalThis` is read by every file after this one
@@ -90,6 +98,25 @@ export interface DomSpec {
    * the answer (`phone-view.ts`, `rail-open.ts`, `columns.ts`).
    */
   phone?: boolean;
+}
+
+/** What a listener on the window is handed. `code` is the physical key and
+ * `key` the letter on it; a test says the letter and this file supplies the
+ * other, because no caller wants to write `Digit3` twice. */
+interface KeyPress {
+  key: string;
+  code: string;
+  target: unknown;
+  preventDefault(): void;
+}
+
+/** The `code` a `key` sits at, for the two shapes any director binding uses:
+ * a digit on the number row and a letter. Anything else — `Escape`, an
+ * arrow — is its own code already, which is what the browser says too. */
+function codeOf(key: string): string {
+  if (/^[0-9]$/.test(key)) return `Digit${key}`;
+  if (/^[a-zA-Z]$/.test(key)) return `Key${key.toUpperCase()}`;
+  return key;
 }
 
 /** Installs a `window`/`document` pair over `spec` and hands back the undo. */
@@ -145,13 +172,13 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     },
     addEventListener: () => {},
   };
-  const keys: Array<(e: { key: string; target: unknown; preventDefault(): void }) => void> = [];
+  const keys: Record<"keydown" | "keyup", Array<(e: KeyPress) => void>> = {
+    keydown: [],
+    keyup: [],
+  };
   const win = {
-    addEventListener: (
-      type: string,
-      fn: (e: { key: string; target: unknown; preventDefault(): void }) => void,
-    ): void => {
-      if (type === "keydown") keys.push(fn);
+    addEventListener: (type: string, fn: (e: KeyPress) => void): void => {
+      if (type === "keydown" || type === "keyup") keys[type].push(fn);
     },
     location: {
       get search(): string {
@@ -227,6 +254,11 @@ export function installDom(spec: DomSpec = {}): FakeDom {
       store.delete(k);
     },
   };
+  const fire = (type: "keydown" | "keyup", key: string, target: unknown): void => {
+    const e = { key, code: codeOf(key), target, preventDefault: () => {} };
+    for (const fn of [...keys[type]]) fn(e);
+  };
+
   return {
     body,
     stored: (key: string) => store.get(key) ?? null,
@@ -239,7 +271,10 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     },
     press: (key: string, target: unknown = null) => {
       doc.activeElement = target;
-      for (const fn of [...keys]) fn({ key, target, preventDefault: () => {} });
+      fire("keydown", key, target);
+    },
+    lift: (key: string, target: unknown = null) => {
+      fire("keyup", key, target);
     },
     restore: () => {
       global.document = had.document;

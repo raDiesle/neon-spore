@@ -1794,26 +1794,3 @@ cheaper and loses the four-paragraph argument for why every stage of this
 fight asks a different pair of thumbs. `bun test
 packages/render/test/boss-cue-baton.test.ts` proves the words did not move;
 `limits.test.ts` proves the cut was worth making.
-
-## The director's `fake-dom.ts` records a `key` and has no `keyup`
-
-- **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
-- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-the-directors-fake-dom-ts-records-a-key-and-has)
-- **Files:** `tools/director/test/fake-dom.ts`, `tools/director/test/cue-key.test.ts`
-- **Where:** local
-
-`installDom`'s window keeps one list of `keydown` listeners and fires them with
-`{ key, target, preventDefault }`. Every binding it was written for reads
-`e.key`; the two that read `e.code` and hold a key **down** — the seat keys
-(`desk-seat.ts`) and now `3` (`stage-cue-key.ts`) — cannot be pressed through
-it at all, because there is no `code` on the event and no `keyup` list to fire.
-`cue-key.test.ts` works around it with a twelve-line `fakeWindow()` of its own,
-which is the second copy of a `window` in this directory and the one that will
-be copied next.
-
-The work: give `installDom` a `code` on the event it fires and a `keyup` it can
-fire, keeping `press(key)` answering as it does — the dozen tests that call it
-pass a letter and read `e.key`, so the addition has to be an *extra* field and
-an extra method rather than a changed signature. Then `cue-key.test.ts` drops
-its stand-in and presses `3` through the same document every other director
-test uses. `bun test tools/director` proves nothing else moved.
