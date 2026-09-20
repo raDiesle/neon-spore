@@ -60,7 +60,7 @@ import type { BossCue } from "./boss-cue.js";
  * field and the shield is on the panel, so the ward is the pilot's other
  * thumb and the charge goes on climbing under the two that are already down.
  * That is the shipped fight and not a concession: wave 78 sends four ordinary
- * rocks of its own while the pair is holding (`content/waves/act-7f.ts`), and
+ * rocks of its own while the pair is holding (`content/waves/act-7g.ts`), and
  * the bulb's is the same rock arriving on the boss's clock instead of the
  * wave's.
  *

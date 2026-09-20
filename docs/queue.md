@@ -417,43 +417,6 @@ the fourth, on the hazard's own row 7.5, that did not end in the hazard
 within seventy ticks. The film ends with the three banked and the fourth
 left hanging.
 
-## Act seven has no room for another wave and no letter to put a page under
-
-- **Found:** 2026-09-17, claude/task-queue-progress-abb7a3
-- **Taken:** 2026-09-20, main (claim: claude/queue-act-seven-has-no-room-for-another-wave-and-no-le)
-- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves.ts`
-- **Asks:** When a page in the middle splits, do the later letters shift up, or do waves migrate between pages?
-- **Answered:** 19 September 2026 — shift the letters. Migrating waves only postpones the same overflow one page later, and lifting the prose costs separating a wave's reasoning from its figures, which is the thing these headers exist to keep together. This is now the standing convention rather than a one-off pick: the same day, a different entry (*`act-7d.ts` is eight under the ceiling*) hit this exact shape of overflow — a full-enough middle page (`act-7e.ts`) sitting between the page that needed to shed waves (`act-7d.ts`) and the end of the chain — and was resolved the same way, giving the new page the letter and shifting the old `act-7e.ts` to `act-7f.ts`. `act-7e.ts`'s own header now cites this entry by name as the precedent, so it stays rather than closing: `act-7c.ts` is the page closest to needing this again (241 of 250 lines as of that same landing).
-
-`act-7c.ts` is at 248 lines of 250 and `act-7d.ts` at 247. `act-7e.ts` has 98,
-so act seven holds 593 lines against a budget of 750 across its three pages:
-**157 lines of headroom for twenty-two waves, and the act is still growing** —
-THE HIVE's look is parked in this same file and act seven is where every new
-boss has landed for a week.
-
-Shuffling does not make headroom, it moves it. The convention the pages were
-built on is that a full page is cut at its *end* and the overflow takes the
-next letter, which is how `7d` came off `7c` and `7e` off `7d`. That works
-until the page that fills is not the last one, and `7c` is not: the overflow
-belongs between `7c` and `7d` and there is no letter there. The order of the
-waves is the order of the game (`waves.ts` spreads the pages in sequence), so
-the new page cannot simply go on the end.
-
-The options the answer picks between. **Shift the letters**: cut `7c`'s tail
-into a new `7d` and rename the present `7d` and `7e` to `7e` and `7f`, which
-keeps every page readable as a page and costs a rename each time a middle page
-fills. **Migrate waves down the chain**: move `7c`'s tail to the front of `7d`
-and `7d`'s tail to the front of `7e`, which needs no rename and no new file,
-but moves each wave's prose to a different page's header and buys `7c` about
-55 lines while leaving `7e` near 220 — it postpones rather than solves.
-**Or lift the prose**: the three headers are 46, 65 and 40 lines of design
-argument, and moving that to `docs/spec/` would free more than either, at the
-cost of separating a wave's reasoning from its figures — which is the thing
-these headers were written the way they are to avoid.
-
-The first is the only one that gives act seven somewhere to grow. It wants
-deciding before the next boss lands rather than during it.
-
 ## THE FLEET's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1756,3 +1719,16 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `act-7e.ts`'s header says it is full at 55 lines under the ceiling
+
+- **Found:** 2026-09-20, claude/queue-act-seven-has-no-room-for-another-wave-and-no-le
+- **Files:** `packages/content/src/waves/act-7e.ts`
+- **Where:** local
+
+`act-7e.ts` (the page shifted from `act-7d.ts` by this entry's own fix) still
+says, in its own header, *"It started one wave long and is full"* — a claim
+that predates this session and was already false before it: the page holds
+six waves at 195 of 250 lines, 55 under the ceiling. One sentence, once
+whoever adds or removes a wave from this specific page next has read it
+closely enough to know what it should say instead.

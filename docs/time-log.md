@@ -13257,3 +13257,33 @@ has not answered it yet.
 work left was where to put it down.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-act-seven-has-no-room-for-another-wave-and-no-le — the queue entry's own numbers were already stale
+
+The entry's numbers (`act-7c.ts` at 248/250, `act-7d.ts` at 247) were from 17
+September; another lane's split on 19 September (`act-7d.ts` shed THE TASTER
+and THE SINEW to a new `act-7e.ts`, pushing the old `act-7e.ts` to `act-7f.ts`)
+had already changed every page's size and letter once. Re-reading the four
+files found `act-7c.ts` at 241 of 250 with eight waves and 9 lines of
+headroom — not literally over the ceiling, but with no room for a ninth wave
+and, since it is not the last page of act seven, no free letter to give one
+without reordering the game — the exact shape the entry described, just with
+smaller numbers. The answered convention (shift the letters) still applied,
+so the split went ahead: THE DIASTOLE and THE BATON, `act-7c.ts`'s own last
+two waves, took a new `act-7d.ts`, and the old `7d`/`7e`/`7f` shifted to
+`7e`/`7f`/`7g`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the queue entry in full, `act-7c/d/e/f.ts`'s current headers and wave lists, `waves.ts`, `tools/director/src/waves-acts.ts`, and every doc cross-reference the split would touch |
+| writing | 40 | the four renamed files' rewritten headers, the new `act-7d.ts`, `waves.ts`'s import/spread, `waves-acts.ts`'s new entry, 16 letter fixes across `docs/spec/bosses.md`, one in `bosses-choreographed.md`, one each in `instar-word.ts` and `surge-word.ts` (both already stale from the 19 September split), and three `docs/INDEX.md` rows `bun run index` would not touch itself |
+| looking | 0 | a pure content move with no picture to take |
+| friction | 5 | `bun run index` only auto-writes a new path's row; a renamed path's hand-written line is left as-is on purpose, so the three carried-over rows needed rewriting by hand before `bun run index --check` was clean |
+| landing | 15 | `bunx tsc --noEmit`, `bun run lint`, `bun run check:fast` (5541 pass), the commit, `bun run queue done`, `bun run land` |
+
+**The bottleneck was tracing every cross-reference the shift touched** —
+two of the six files found by grep (`instar-word.ts`, `surge-word.ts`) were
+already pointing at a letter one split behind the code, not this one, and
+needed the same fix on the way past.
+
+*Measured: the rows above are the session's own estimate.*

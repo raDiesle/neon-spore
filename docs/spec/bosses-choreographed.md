@@ -128,7 +128,7 @@ later concept should not read as still open:
 
 - **A boss on this page is fed by its wave, not by itself.** §7's design had
   the boss spawning its own rocks in a late phase; it ships with
-  `bossFillsWave === false` (THE VANE's family), so `act-7c.ts` writes the
+  `bossFillsWave === false` (THE VANE's family), so `act-7d.ts` writes the
   arrivals and the boss only ever answers shots. A concept that truly needs to
   spawn should say so and say why the wave author cannot.
 - **Coprime means coprime all the way down.** §7 wanted the left chamber to

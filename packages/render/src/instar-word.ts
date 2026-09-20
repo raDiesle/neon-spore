@@ -14,7 +14,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * for the first second of a step, when the pair has not yet read the glyph
  * and the window is already closing. The briefing for the wave says less
  * for the same reason: what the marks say during the wave is not said
- * before it (`content/src/waves/act-7e.ts`).
+ * before it (`content/src/waves/act-7g.ts`).
  *
  * **And, since 19 September 2026, the kind line the owner's own brief asked
  * for and this box never drew** (`bosses.md` §11.32: *"one word … and above

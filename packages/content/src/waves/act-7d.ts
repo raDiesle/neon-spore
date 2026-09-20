@@ -1,190 +1,97 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * The fourth page of act seven, cut off `act-7c.ts` when THE THROAT and THE
- * BATON landed on it within an hour of each other and took it seventeen lines
- * over the 250-line ceiling.
- *
- * **It opens on THE UNDERTOW and ends on THE CURTAIN since 19 September 2026**,
- * when the page sat eight lines under the ceiling with six §6.1/§6.2
- * guide-line lanes still queued against it — a guide line is the one thing in
- * a wave file that gets longer when it gets truer, so the next of those lanes
- * would have paid for the seam rather than wanted it (`docs/queue.md`). THE
- * UNDERTOW came over from `act-7c.ts` on 18 September 2026; THE LEDGER and THE
- * SURGE went on to what was `act-7e.ts` the same day; THE TASTER and THE SINEW
- * went on to a new `act-7e.ts` the next, which took the letter the LEDGER page
- * had been using and pushed that page to `act-7f.ts` — a page in front of it
- * cannot take the letter after it without playing THE TASTER and THE SINEW
- * later than the game has always played them, since they were this page's own
- * last two waves.
+ * The fourth page of act seven, cut off `act-7c.ts` on 20 September 2026,
+ * when that page held eight waves at 241 of 250 lines with no room for a
+ * ninth and no letter of its own to give one: `act-7c.ts` is not the last
+ * page of act seven, so the overflow could not simply take the next free
+ * letter without playing every later wave out of order. Every page from `7d`
+ * on shifted up one letter instead — the standing convention
+ * `docs/queue.md`'s *Act seven has no room* entry settled, the same move
+ * `act-7e.ts` (as `act-7d.ts`, the day before) made for THE TASTER and THE
+ * SINEW.
  *
  * **`7d` and not `9`, for the reason `act-7c.ts` gives about `7c`**: an act
- * file is a page and not a chapter, and the order of the waves is the order of
- * the game. It started one wave long and is full (`docs/queue.md`).
+ * file is a page and not a chapter, and the order of the waves is the order
+ * of the game.
  *
- * **THE THROAT is the only wave in this game authored to be *eaten*.** The
- * gullet hangs from the top down to `throatMouthRow` with its mouth in authored
- * column 3 — `midCol` of whatever field is played — and every arrival on it is
- * one of two things: a gum for player 1 to fling into that mouth, or a body the
- * throat will swallow and heal off if the pair leaves it standing there. So the
- * middle column is not kept clear the way THE DIASTOLE's is next door; it is
- * *stocked*, on purpose, with the bodies whose answer is a cannon shot and the
- * ones whose answer is a hand.
- *
- * The gums are authored one lane either side of the mouth at first and out at
- * the walls later, for the arithmetic rather than the difficulty: a gum falls
- * a row a beat, so one dropped in authored column 2 is on the mouth's row five
- * beats later and a swipe from there crosses `gumFlingCols` into the mouth on
- * the next beat; one at the wall gives three beats of flight and a moved mouth.
- *
- * **Nothing is placed against the inhale's own count**, for THE DIASTOLE's
- * reason one page up: which beat the tube tightens on depends on when the pair
- * chokes its second ring, a beat nobody can know at authoring time.
- *
- * **THE CANDLE's arrivals are few and far apart, on purpose.** The fight is
- * in the dark, and a field with bodies in it is a field the pair has to light
- * to read; four slicks at the walls, one every twelve beats, are enough to
- * make the muzzle flash worth something without making the wave about them.
- *
- * **THE GORGE's arrivals are what the pair must answer without missing.** The
- * sack swallows every shot that reaches the top of the field, so the cost of
- * a body on this wave is the shot fired at where it *was*: rocks for the
- * shield, so the cannon can stay on its column, and a few slicks and bulbs
- * of both colours — some in the middle column on purpose, where a body
- * standing in the fill takes the bead meant for the intake. The design's
- * *let them reach the hull* is not authored, because a hull hit fails the
- * wave (`sim/wave-fail.ts`); what is authored is a field the restraint is
- * against.
- *
- * **THE CURTAIN's wave is empty**, THE ORRERY's case one wave up: what falls is
- * the core's own fire, from where and when the pair left it bare (`sim/curtain-step.ts`).
+ * **THE DIASTOLE is the one wave on this page authored around a lane the
+ * pair has to keep empty.** Its two chambers hang over authored columns 2 and
+ * 4 with the bridge between them at 3, which is `midCol` of whatever field is
+ * actually played (`mapCol`), and the only shot that ever takes both is the
+ * lance standing in that middle lane — so every arrival is at 0, 1, 5 or 6
+ * and the three columns in the middle are never asked for. The entries are
+ * spread evenly rather than laid against the chambers' counts on purpose:
+ * which beat the fight changes phase on depends on when the pair lands its
+ * second hit, so a wave that tried to place a rock inside a particular
+ * window would be placing it against a beat nobody can know at authoring
+ * time.
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
-    id: "theUndertow",
-    name: "THE UNDERTOW",
+    id: "theDiastole",
+    name: "THE DIASTOLE",
     sentence:
-      "The one that comes up through the floor, so the shield faces down and the maw is the only thing pointing the right way.",
+      "The one where you are each counting a different number and neither of you can see the other's.",
     guide: {
-      both: "Lobes rise through your own hull. Swallow each one with the maw as it comes through. Hold the maw open under the last.",
-      p1: "1. Say the column where the floor bows.\n2. Slide the cannon under it and open the maw as the lobe comes through.\n3. If it bows under you, slide off within two beats.\n4. On the last lobe, hold the maw open.",
-      p2: "1. Put the plate on a breach your partner cannot reach, so it stops widening.\n2. Move it off when they come for that lobe.\n3. The tall one: hold a colour for the beam and let them keep the column.",
-      scene: "theUndertow",
+      both: "Two chambers beat on different counts. Hit each while it contracts. Once both beat, lance the middle lane on the beat they share.",
+      p1: "1. Count the left chamber out loud, in threes.\n2. Say which beat both chambers meet on.\n3. Cannon in the middle lane, held still for the lance.\n4. Once your chamber is gone, clamp the grey one when your partner says now.",
+      p2: "1. Count the right chamber out loud in fives. Later it goes to sevens.\n2. Take your partner's threes off it: they meet once in fifteen.\n3. Hold a colour to fill the lance three beats early.\n4. Alone, say now on its beat.",
+      scene: "theDiastole",
     },
     entries: [
-      { beat: 54, col: 1, color: "red" },
-      { beat: 62, col: 5, color: "cyan" },
-      { beat: 70, col: 0, color: "cyan" },
-      { beat: 78, col: 6, color: "red" },
-      { beat: 86, col: 2, color: "red" },
-      { beat: 94, col: 4, color: "cyan" },
-    ],
-    boss: { kind: "undertow" },
-    bossType: "normal",
-  },
-  {
-    id: "theThroat",
-    name: "THE THROAT",
-    sentence: "The one where the only thing that hurts it is something you give it.",
-    guide: {
-      both: "Throw a gum level along the mouth's row, into the mouth. Nothing else hurts it. Clear its column before every inhale.",
-      p1: "1. Bring a gum down to the mouth's row.\n2. Carry your thumb sideways to fling it level along that row.\n3. Carry the cannon into the mouth's column before the count runs out. Brake a rock climbing it.",
-      p2: "1. Say the mouth's column every time it moves.\n2. Say the beats until the next inhale.\n3. Fire to clear that column before the inhale. The bolt leaves your partner's cannon, so say when he is under it.",
-      scene: "theThroat",
-    },
-    entries: [
-      { beat: 2, col: 4, kind: "gum", color: null },
-      { beat: 8, col: 3, color: "red" },
-      { beat: 12, col: 2, kind: "gum", color: null },
-      { beat: 18, col: 3, kind: "meteor", color: null },
-      { beat: 22, col: 6, kind: "gum", color: null },
-      { beat: 26, col: 1, color: "cyan" },
-      { beat: 30, col: 3, color: "cyan" },
-      { beat: 34, col: 0, kind: "gum", color: null },
-      { beat: 40, col: 5, color: "red" },
-      { beat: 44, col: 3, kind: "gum", color: null },
-      { beat: 50, col: 2, kind: "meteor", color: null },
-      { beat: 54, col: 6, kind: "gum", color: null },
-      { beat: 60, col: 4, color: "red" },
-      { beat: 64, col: 0, kind: "gum", color: null },
-      { beat: 70, col: 3, color: "cyan" },
-      { beat: 76, col: 2, kind: "gum", color: null },
-    ],
-    boss: { kind: "throat" },
-    bossType: "normal",
-  },
-  {
-    id: "theOrrery",
-    name: "THE ORRERY",
-    sentence: "The one where you each see two of the three rings.",
-    guide: {
-      both: "Shoot the core up the middle column, on a beat when every ring's gap is at the bottom.",
-      p1: "1. The middle ring is yours alone. The outer one you both see.\n2. Say when the middle ring's gap is at the bottom.\n3. Count with your partner to the beat all three gaps meet, and say it.",
-      p2: "1. The inner ring is yours alone, and so is the core's colour. Say the colour — it changes with each ring.\n2. Say when the inner ring's gap is at the bottom.\n3. Fire on the beat you both counted. A wrong colour costs.",
-      scene: "theOrrery",
-    },
-    entries: [],
-    boss: { kind: "orrery" },
-    bossType: "normal",
-  },
-  {
-    id: "theCandle",
-    name: "THE CANDLE",
-    sentence:
-      "The one you fight in the dark, where the only light is what your own shots throw and the boss eats the ones it is facing.",
-    guide: {
-      both: "The field is dark. Any colour dims the glow, five times. Never shoot into the column it faces.",
-      p1: "1. Say the column the glow faces, every time it turns.\n2. Keep the cannon under the glow and slide with it.\n3. If it faces its own column, say BEAM: a bolt is eaten there, the beam is not.",
-      p2: "1. Fire at the glow once the cannon is under it.\n2. Hold your thumb when your partner names the glow's own column: that shot is eaten.\n3. Hold a colour for the beam when your partner says BEAM.",
-      scene: "theCandle",
-    },
-    entries: [
-      { beat: 18, col: 1, color: "red" },
-      { beat: 30, col: 5, color: "cyan" },
-      { beat: 42, col: 0, color: "cyan" },
-      { beat: 54, col: 6, color: "red" },
-    ],
-    boss: { kind: "candle" },
-    bossType: "normal",
-  },
-  {
-    id: "theGorge",
-    name: "THE GORGE",
-    sentence:
-      "The one that eats your shots, and the only way to hurt it is to overfeed exactly one part of it.",
-    guide: {
-      both: "Fill one intake with four beads of one colour, then one more shot pierces it. A full one torches its column in four beats.",
-      p1: "1. Pick a column and say it.\n2. Pinch a full one: it waits, and the four beats restart when you lift.\n3. Say the count: four beads, then one more.\n4. Trigger the plate on bodies: a shot past one is a bead.",
-      p2: "1. Say which intake is nearest full and its colour.\n2. Its colour fills it; the other takes a bead out.\n3. Any colour pierces a full one.\n4. The last fills itself: pry it late, with the beam filling, or it clenches.",
-      scene: "theGorge",
-    },
-    entries: [
-      { beat: 20, col: 1, kind: "meteor", color: null },
+      { beat: 4, col: 0, color: "red" },
+      { beat: 7, col: 6, color: "cyan" },
+      { beat: 12, col: 1, kind: "meteor", color: null },
+      { beat: 16, col: 5, color: "red" },
+      { beat: 20, col: 6, kind: "meteor", color: null },
+      { beat: 24, col: 0, color: "cyan" },
       { beat: 28, col: 5, kind: "meteor", color: null },
-      { beat: 34, col: 3, color: "red" },
-      { beat: 40, col: 0, color: "cyan" },
-      { beat: 46, col: 6, kind: "meteor", color: null },
-      { beat: 52, col: 3, color: "cyan" },
-      { beat: 60, col: 2, kind: "meteor", color: null },
-      { beat: 66, col: 4, color: "red" },
-      { beat: 74, col: 3, kind: "meteor", color: null },
-      { beat: 82, col: 1, color: "cyan" },
+      { beat: 32, col: 1, color: "red" },
+      { beat: 36, col: 6, color: "cyan" },
+      { beat: 40, col: 0, kind: "meteor", color: null },
+      { beat: 45, col: 5, color: "cyan" },
+      { beat: 50, col: 1, kind: "meteor", color: null },
+      { beat: 55, col: 6, color: "red" },
+      { beat: 60, col: 0, color: "cyan" },
+      { beat: 66, col: 5, kind: "meteor", color: null },
+      { beat: 72, col: 1, color: "cyan" },
     ],
-    boss: { kind: "gorge" },
+    boss: { kind: "diastole" },
     bossType: "normal",
   },
   {
-    id: "theCurtain",
-    name: "THE CURTAIN",
-    sentence: "The one that is in the way, and the two of you shove it aside a column at a time.",
+    id: "theBaton",
+    name: "THE BATON",
+    sentence:
+      "The one where acting locks you out of the next beat, so the two of you have to become a metronome.",
     guide: {
-      both: "Shove the curtain aside, bare the core, shoot it in its colour. Three times. A hem with no lobes left tears off the rail instead.",
-      p1: "1. Say which side of the hem is soft, so a shot can take it off.\n2. Shove the curtain the way your partner says.\n3. Keep a hand on it: four beats with none and it rolls back.",
-      p2: "1. Say which way to shove and how far.\n2. Load the core's colour and say its column.\n3. The wrong colour makes it fire back, and each hit drops a lobe.",
-      scene: "theCurtain",
+      both: "Pass the bead down the arm, one socket at a time: launch it, shoot it in the air, take turns.",
+      p1: "1. Slide the cannon under the bead.\n2. Press the trigger to launch it. Your phone greys for a beat.\n3. Say the colour: it flips on every landing.\n4. After four dark sockets the arm swings: be under the bead first.",
+      p2: "1. Load the bead's colour.\n2. Fire up the bead's lane while it flies, not before. Your phone greys for a beat.\n3. Say the colour back as it lands.\n4. Ward the dark sockets that drop as rocks.",
+      scene: "theBaton",
     },
-    entries: [],
-    boss: { kind: "curtain" },
+    entries: [
+      { beat: 14, col: 0, color: "red" },
+      { beat: 19, col: 6, color: "cyan" },
+      { beat: 25, col: 1, color: "red" },
+      { beat: 31, col: 5, kind: "meteor", color: null },
+      { beat: 36, col: 6, color: "cyan" },
+      { beat: 42, col: 0, color: "red" },
+      { beat: 47, col: 1, kind: "meteor", color: null },
+      { beat: 52, col: 5, color: "cyan" },
+      { beat: 57, col: 6, color: "red" },
+      { beat: 62, col: 0, kind: "meteor", color: null },
+      { beat: 67, col: 1, color: "cyan" },
+      { beat: 72, col: 5, color: "red" },
+      { beat: 77, col: 6, kind: "meteor", color: null },
+      { beat: 82, col: 0, color: "cyan" },
+      { beat: 87, col: 1, color: "red" },
+      { beat: 92, col: 5, kind: "meteor", color: null },
+      { beat: 97, col: 6, color: "cyan" },
+      { beat: 102, col: 0, color: "red" },
+    ],
+    boss: { kind: "baton" },
     bossType: "normal",
   },
 ];
