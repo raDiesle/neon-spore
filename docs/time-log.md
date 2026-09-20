@@ -13981,3 +13981,34 @@ actually was** — once a strip landed inside a wind rather than after it,
 each claim was one frame or four.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-0973275b-the-cairns-held-pile — a real grip, held, lags the mark by exactly its own beats
+
+THE CAIRN's held pile, closed. The hold is an ordinary grip
+(`cairnHeldNow` reads `gripCount`, same as any other creature a hand rests
+on), so `--press "10:1:grip=lowest"` puts a real thumb on it from the wave's
+first beat, no fabricated state involved. Two real frames at the same tick
+(470, just before an unheld pile would shed) show the difference plainly:
+unheld, the settle beam under the pile is nearly at its brightest and the
+pile is cracked through; held from the start, the same beam sits at roughly
+half that — `cairnWaited` reads `waveBeat - leftBeat - heldBeats`, and
+`heldBeats` caps at `cairnHoldBeats` (4), so the four beats a hold buys show
+up as exactly that much less pressure at the same tick, not as the mark
+frozen solid. Whether the pile still lets go once the hold is spent is
+already proved end to end by `cairn-hold.test.ts`'s own
+`"buys cairnHoldBeats and no more: the pile goes anyway"` — a sim-level fact
+no frame adds to.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `cairn-settle.ts`, `cairn-hold.ts`, `cairn.ts`, `hand.ts`'s cairn case, `cairn-hold.test.ts` |
+| writing | 0 | no code changed — a verification, not a fix |
+| looking | 10 | four real frames: unheld and held, at tick 250 and tick 470, to find where the gap between them actually reads |
+| friction | 5 | tick 250 wasn't far enough into the clock for the two to look different; tick 470 (just before an unheld shed) was |
+| landing | 10 | `bun run check:fast`, this log entry, the commit |
+
+**The bottleneck was picking a tick far enough into the pile's patience
+that four beats of difference actually shows** — the mechanism answered in
+two frames once that tick was right.
+
+*Measured: the rows above are the session's own estimate.*

@@ -1421,21 +1421,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at 0973275b: THE CAIRN's held pile: the settle mark standing still u…
-
-- **Found:** 2026-09-20, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-0973275b-the-cairns-held-pile-the)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-handed.ts`, `packages/audio/src/bind.ts`, `packages/audio/test/bind.test.ts`, `packages/content/src/scenes/the-cairn.ts`
-
-2 commits landed, ending in *Queue: THE CAIRN's second gesture is done*, from a session that could not look at it. The commit touched 16 more files. What went unchecked:
-
-- THE CAIRN's held pile: the settle mark standing still under a resting thumb, and the four beats it buys, watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## THE HIVE has no rehearsal film: no `the-hive` scene exists
 
 - **Found:** 2026-09-20, claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo
