@@ -1239,6 +1239,7 @@ what the rest of this file holds.
 ## Unverified at fbdcfa17: THE TASTER's three new words on a real frame: PIN, WIPE…
 
 - **Found:** 2026-09-19, claude/queue-the-taster-changes-state-more-than-once-and-asks
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-fbdcfa17-the-tasters-three-new-wor)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-taster.ts`, `packages/audio/src/sounds/boss-taster.ts`
 
 *THE TASTER: three thumbs on the fan, one per movement* landed from a session that could not look at it. The commit touched 29 more files. What went unchecked:
