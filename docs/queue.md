@@ -1524,30 +1524,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE REPRISE's own rehearsal may still teach the split by gap rather than colour
-
-- **Found:** 2026-09-19, claude/queue-the-reprises-tear-draws-the-pilots-half-of-the-r
-- **Taken:** 2026-09-19, main (claim: claude/queue-the-reprises-own-rehearsal-may-still-teach-the-s)
-- **Files:** `packages/content/src/scenes/the-reprise.ts`
-- **Where:** cloud
-
-Landing *THE REPRISE's tear draws the pilot's half of the record on both
-screens* found that `docs/spec/bosses.md` §11.15 and `waves/act-10.ts`'s own
-header already read the corrected split — the navigator keeps the columns,
-the pilot keeps the colours — but `scenes/the-reprise.ts`'s header still
-says, of the same fight, *"the navigator's half is the column and the
-pilot's is the gap"* and has the pilot's blind page read `COUNT THE GAPS
-BETWEEN THEM` rather than a colour.
-
-Whether this is actually stale is not settled here. The rehearsal's `acts`
-do carry both a cannon slide (a column) and a fire (a colour) after the dark,
-so the scene may be deliberately teaching the *timing* half of the record as
-a separate, easier first pass before the guide's colour-reading wording
-existed — in which case the fix is only in the words, not the acts — or it
-may simply not have been touched when the colour framing landed. Reading it
-against the corrected design, and against whatever `boss-cue-read-s.ts` and
-its own words expect the pilot's blind page to be about, decides which.
-
 ## Unverified at 4674a3bb: the PNG of the held stalk, with its ring and its d…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

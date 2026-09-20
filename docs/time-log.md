@@ -13431,6 +13431,33 @@ second time that a *different* red check was the sandbox's and not this
 lane's — both times the honest path was slower than trusting the first
 plausible story.
 
+## 2026-09-20 — queue-the-reprises-own-rehearsal-may-still-teach-the-s — the finding was already fixed, just not off the list
+
+The entry asked whether `scenes/the-reprise.ts`'s old "the pilot's is the gap"
+wording and its `COUNT THE GAPS BETWEEN THEM` page were a deliberate two-stage
+teaching order or plain drift, to be settled against `boss-cue-read-s.ts`'s own
+words. `boss-cue-read-s.ts` settles it outright — *"Nothing here is timed to an
+arrival... it would turn the one thing this boss is made of into a reaction"*
+— so a gap-counting page was never a legitimate easier first pass, only wrong.
+But the file itself already reads the corrected way: `dcfd2164`, a concurrent
+lane racing the same finding, had already rewritten the header and the two
+stale pages to the colour-based split and removed the queue entry on `main`,
+while this lane's own claim commit had been made from a `queue.md` snapshot
+taken just before that landed — so the entry came back into the file the claim
+was built from, describing work already done.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue entry, `the-reprise.ts`'s header and `acts`/`steps`, `bosses.md` §11.15, `act-10.ts`'s header, `boss-cue-read-s.ts` |
+| writing | 10 | this log entry and closing the queue entry; no code changed |
+| looking | 10 | `git log`/`git show` on `the-reprise.ts` and `docs/queue.md` to find `dcfd2164` and confirm it is an ancestor of this branch and of `origin/main` alike |
+| friction | 15 | the file and both spec documents already reading correctly looked at first like the entry itself was simply wrong, until the history showed a second lane had raced this one and landed the identical fix first |
+| landing | 10 | `bun run check:fast` clean with no diff to `the-reprise.ts`; closing the queue entry |
+
+**The bottleneck was trusting that "already correct" meant "stale finding"
+rather than "someone else already did this"** — the two look identical from
+the file alone and only the commit graph tells them apart.
+
 *Measured: the rows above are the session's own estimate.*
 
 ## 2026-09-20 — queue-a-lib-list-would-unlock-the-other-4-929-identifi — the entry had already been answered
