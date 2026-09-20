@@ -28,6 +28,14 @@ import type { Layout } from "./layout.js";
  *
  * A mark already answered is left out: its ring is a dot by then and there is
  * nothing under it to press (`instarMarkDone`).
+ *
+ * **A `both` mark is two cues on the one place**, and that is the whole
+ * reason this reads the marks rather than the ring: THE INSTAR's last pose
+ * wants the pilot's thumb *and* the navigator's on the same head, held
+ * together, and a count that only ever sees one of them never starts
+ * (`sim/instar.ts`, `thumbs`). One cue with `seat: null` would be worse than
+ * none — the desk hands such a cue to the first free seat and moves on
+ * (`cueAnswers`), which is exactly the one thumb the mark refuses.
  */
 export function instarCues(l: Layout, world: World): readonly BossCue[] {
   const boss = world.boss;
@@ -41,16 +49,10 @@ export function instarCues(l: Layout, world: World): readonly BossCue[] {
     if (instarMarkDone(boss, id)) return;
     const { kind, word } = INSTAR_WORDS[mark.gesture];
     const at = instarMarkPoint(l, mark);
-    out.push({
-      seat: mark.seat === "p1" ? 1 : 2,
-      kind,
-      word,
-      x: at.x,
-      y: at.y,
-      halfW: r,
-      halfH: r,
-      seed: 70 + id,
-    });
+    const seats: readonly (1 | 2)[] =
+      mark.seat === "both" ? [1, 2] : mark.seat === "p1" ? [1] : [2];
+    for (const seat of seats)
+      out.push({ seat, kind, word, x: at.x, y: at.y, halfW: r, halfH: r, seed: 70 + id });
   });
   return out;
 }

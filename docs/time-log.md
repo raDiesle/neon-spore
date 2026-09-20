@@ -22,6 +22,47 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — instar-cue-key-held — the key is held, and paced
+
+Two reports from the owner the moment he watched the lane before: *I would
+like to see some brief pause between the simulated actions, so I can see the
+order and where it pulls each*, and *when the first sequence was done, the
+next sequence does not work with `3`.*
+
+One answer covers both. The key armed its thumbs once, on the press — so a
+step landing took its marks away and the next pose had a held key over an
+empty hand. It now looks again on **every tick**: a free seat is handed
+whatever mark has nobody on it, through the landing, the morph and into the
+next pose. The pause falls out of the same loop: a seat's *first* thumb of a
+step waits half a beat behind the seat before it, so the two marks of a pose
+are answered in an order an eye can follow, while the second and third egg of
+a swipe follow their own lift at once — three of them have to fit inside
+`instarTogetherBeats` or the partner's mark slips.
+
+A third thing fell out of running the real script end to end: the last pose's
+mark wants **both** thumbs on the one head, and it was being read as the
+navigator's alone, so it could never land. A `both` mark is two cues now, one
+per seat.
+
+The thumbs moved out to `stage-cue-hand.ts`; the key file is which seat gets
+which mark and when.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `instar-step.ts`'s `slipLonely` and `strike`, `instar-marks.ts`, `content/instar-script.ts`'s five poses, `config-instar.ts`, the key's own arming |
+| writing | 30 | `stage-cue-hand.ts`, the key's pacing and re-arming, the `both` mark, the whole-scene test |
+| looking | 0 | nothing the field draws changed — a desk key |
+| friction | 5 | `ViewRole` is the renderer's and not the sim's; one formatter pass |
+| landing | 10 | the director's suite, `check:fast`, the commit, `bun run land` |
+
+**The bottleneck was the script's own arithmetic**: the pacing had to be
+proved against `armed`'s six taps and three eggs rather than a made-up step,
+because any pause long enough to see is also a pause that can push the last
+egg past the window its partner is waiting in. The whole-pose test is what
+settled it, and it fails on the old arming with a strike on the hull.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — instar-cue-key-gesture — the thumb moves
 
 The half the lane before named: a press reaches THE INSTAR's rings now, but

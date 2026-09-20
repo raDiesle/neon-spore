@@ -99,20 +99,24 @@ describe("the marks, read as cues", () => {
 });
 
 describe("the key, on THE INSTAR", () => {
-  test("one press is a thumb on each seat's own ring", () => {
+  test("a held key is a thumb on each seat's own ring, one behind the other", () => {
     const world = acting(mark("p1", "hold", 300), mark("p2", "hold", 700));
     const l = computeLayout(VIEWPORT, CFG, "test");
     const dom = installDom();
     const sent: { player: 1 | 2; command: Command }[] = [];
     try {
-      bindCueKey({
+      const hand = bindCueKey({
         layout: () => l,
         field: () => fieldOf(world, 1),
         world: () => world,
         role: () => "test",
         send: (player, command) => sent.push({ player, command }),
       });
+      // The pause is the point: one seat's thumb lands on the press and the
+      // other waits half a beat, so the order is something an eye can follow.
       dom.press("3");
+      expect(sent.map((s) => s.player)).toEqual([1]);
+      for (let i = 0; i < ticksPerBeat(CFG); i++) hand.tick();
       expect(sent.map((s) => s.player).sort()).toEqual([1, 2]);
       for (const { command } of sent) {
         expect(command.kind).toBe("drag");
@@ -121,5 +125,12 @@ describe("the key, on THE INSTAR", () => {
     } finally {
       dom.restore();
     }
+  });
+
+  test("a mark both seats are wanted on is two cues, one per seat", () => {
+    const world = acting({ ...mark("p1", "hold", 500), seat: "both" as const });
+    const cues = instarCues(computeLayout(VIEWPORT, CFG, "test"), world);
+    expect(cues.map((c) => c.seat)).toEqual([1, 2]);
+    expect(new Set(cues.map((c) => c.x)).size).toBe(1);
   });
 });

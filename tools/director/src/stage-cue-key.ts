@@ -2,16 +2,20 @@ import {
   type BossCue,
   bossCues,
   type Field,
-  type Hold,
   instarCues,
   type Layout,
-  touchDown,
-  touchMove,
-  touchUp,
   type ViewRole,
 } from "@neon-spore/render";
-import { briefingHolds, type Command, lostAsks, type World } from "@neon-spore/sim";
-import { instarGesture } from "./stage-cue-gesture.js";
+import {
+  briefingHolds,
+  type Command,
+  instarActing,
+  instarBoss,
+  lostAsks,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
+import { cueHand } from "./stage-cue-hand.js";
 import { isTyping } from "./typing.js";
 
 /**
@@ -32,9 +36,9 @@ import { isTyping } from "./typing.js";
  * **It presses the marks and nothing else.** The mark is `BossCue` — the same
  * reading the field draws its word over (`render/boss-cue.ts`) — so there is
  * no second list here of what a boss wants, and a key that pressed somewhere
- * the field is not marking would be the rig lying about the game. The press
- * goes through `touchDown` exactly as the mouse's does, so what the world is
- * told is what a thumb on that spot would have told it.
+ * the field is not marking would be the rig lying about the game. The thumbs
+ * themselves are `stage-cue-hand.ts`; this file is which seat is given which
+ * mark, and when.
  *
  * **What it cannot do, and says so rather than guessing.** A `CARRY` or a
  * `TURN` on the *field* gets the thumb down on the mark and no further: #34
@@ -42,20 +46,29 @@ import { isTyping } from "./typing.js";
  * a thing this file may read. THE INSTAR's marks are the exception and the
  * only one: a mark there carries its own `need` in its own unit, so the depth
  * of a pull and the amount of a turn are written down and the desk performs
- * them — `stage-cue-gesture.ts` says where the finger goes, once a tick,
- * through the same `touchMove` and `touchUp` the mouse goes through. `STILL` is skipped — the ask is for no thumb at all
- * (THE STARE). And the bosses that build their cues where they draw them —
- * THE SINEW's, THE SURGE's and THE ANTIPHON's handles (`boss-cue-text.ts`) —
- * are not in the reading, so this key is silent on them; the mouse and the
- * seat keys are still the way through those.
+ * them (`stage-cue-gesture.ts`). `STILL` is skipped — the ask is for no thumb
+ * at all (THE STARE). And the bosses that build their cues where they draw
+ * them — THE SINEW's, THE SURGE's and THE ANTIPHON's handles
+ * (`boss-cue-text.ts`) — are not in the reading, so this key is silent on
+ * them; the mouse and the seat keys are still the way through those.
  *
- * **THE INSTAR is the exception it was silent on**, and the owner said so on
- * 20 September 2026: *I focus the game on THE INSTAR and press 3, and nothing
- * happens.* Its marks are an authored beat list rather than a reading, so
- * `bossCues` has no case for them and may not grow one — the ring already
+ * **THE INSTAR is the exception `bossCues` is silent on**, and the owner said
+ * so on 20 September 2026: *I focus the game on THE INSTAR and press 3, and
+ * nothing happens.* Its marks are an authored beat list rather than a reading,
+ * so `bossCues` has no case for them and may not grow one — the ring already
  * draws its own frame and its own verb. `render/boss-cue-instar.ts` reads the
- * ring's own source as cues for this key alone, and the two lists are simply
- * added together here.
+ * ring's own source as cues for this key alone.
+ *
+ * **Two things the same day, once he had watched it.** *I would like to see
+ * some brief pause between the simulated actions, so I can see the order and
+ * where it pulls each*, and *when the first sequence was done, the next one
+ * does not work with 3.* Both are this file's, and one answer covers them:
+ * the key is **held**, not pressed. While it is down the desk keeps looking
+ * for a mark with nobody on it and hands it to a free seat — through the
+ * landing, the morph and into the next pose, for as long as the scene runs —
+ * and a seat's first thumb of a step waits half a beat behind the one
+ * before it, so the two marks of a pose are answered in a visible order rather than
+ * on the same frame.
  */
 
 /** The number row and the pad, like the two seat keys beside it. */
@@ -73,9 +86,9 @@ export interface CueKey {
   send: (player: 1 | 2, command: Command) => void;
 }
 
-/** What the binding hands back: the tick the held thumbs move on, for the
- * stage's own loop to call before it steps the world — a move drained into
- * the same tick as the press it followed (`stage.ts`'s `advance`). */
+/** What the binding hands back: the tick the held thumbs move and the next
+ * mark is taken on, for the stage's own loop to call before it steps the
+ * world — drained into the same tick as the press it followed (`stage.ts`). */
 export interface CueKeyHand {
   tick: () => void;
 }
@@ -96,6 +109,8 @@ export function cueSeats(role: ViewRole): readonly (1 | 2)[] {
  * answered twice**. A cue with no seat is either player's (`grip-push.ts`) —
  * two thumbs on it would be two grips on one body, so the first seat takes it
  * and the second goes on to whatever is next for it, which is usually nothing.
+ * A mark that genuinely wants both says so by being two cues, one per seat
+ * (`boss-cue-instar.ts`).
  */
 export function cueAnswers(
   cues: readonly BossCue[],
@@ -114,94 +129,97 @@ export function cueAnswers(
   return out;
 }
 
+/**
+ * How long a seat's first thumb of a step waits behind the seat before it.
+ * Half a beat: long enough to read which mark went first and which way it is
+ * being pulled, and far inside `instarTogetherBeats`, which is how long a
+ * mark answered alone waits for its partner before it slips (`instar-step.ts`).
+ * Only a seat's *first* thumb of a step pays it — the second and third egg of
+ * a swipe follow their own lift at once, or three of them would not fit the
+ * window they have to land in.
+ */
+function pace(world: World): number {
+  return Math.max(1, Math.round(ticksPerBeat(world.cfg) / 2));
+}
+
 export function bindCueKey({ layout, field, world, role, send }: CueKey): CueKeyHand {
-  /** What each seat's thumb took hold of, until the key lifts — a held `3` is
-   * a held thumb, which is the only way a `HOLD` cue can be answered at all. */
-  const holding = new Map<1 | 2, { hold: Hold; x: number; y: number; ticks: number }>();
+  const hand = cueHand(field, send);
+  /** Whether `3` itself is down. A held key is a held thumb, which is the
+   * only way a `HOLD` cue can be answered at all. */
+  let key = false;
+  /** Ticks before the next seat's first thumb of this step may land. */
+  let wait = 0;
+  /** Seats that have already taken a mark in the step now running. */
+  const paced = new Set<1 | 2>();
+
+  const acting = (): boolean => {
+    const s = instarBoss(world());
+    return s !== null && instarActing(s);
+  };
+
+  /** Hand out whatever marks are unanswered to whichever seats are free. */
+  const arm = (): void => {
+    const l = layout();
+    const free = hand.free(cueSeats(role()));
+    if (free.length === 0) return;
+    const marks = instarCues(l, world());
+    if (marks.length === 0) {
+      // Every other boss: both thumbs on the same frame, which is the ask
+      // this key was written for.
+      for (const a of cueAnswers(
+        bossCues(l, world(), field().beatPhase, () => l.hullY),
+        free,
+      ))
+        hand.press(l, a.seat, a.cue);
+      return;
+    }
+    const next = cueAnswers(marks, free)[0];
+    if (next === undefined) return;
+    hand.press(l, next.seat, next.cue);
+    if (paced.has(next.seat)) return;
+    paced.add(next.seat);
+    wait = pace(world());
+  };
 
   window.addEventListener("keydown", (e) => {
     if (!CODES.has(e.code) || isTyping(e.target)) return;
-    // The key repeats while it is down and a thumb does not.
-    if (holding.size > 0) return;
     // A card is up: the press belongs to the wave's opening and not to any
     // mark, the same order the phone plays by (`stage-touch.ts`).
     if (briefingHolds(world()) || lostAsks(world())) return;
-    const l = layout();
-    // `l.hullY` for the skin, as the round pass does (`round-draw.ts`): the
-    // one boss it is not exact for is THE UNDERTOW, whose marks ride lobes
-    // coming up through the plating, and the frame is tiles wide.
-    const cues = [
-      ...bossCues(l, world(), field().beatPhase, () => l.hullY),
-      ...instarCues(l, world()),
-    ];
-    for (const { seat, cue } of cueAnswers(cues, cueSeats(role()))) {
-      const t = touchDown(l, cue.x, cue.y, { ...field(), seat });
-      if (t === null) continue;
-      e.preventDefault();
-      if (t.hold) holding.set(seat, { hold: t.hold, x: cue.x, y: cue.y, ticks: 0 });
-      if (t.command) send(t.player, t.command);
-    }
+    e.preventDefault();
+    // The key repeats while it is down and a thumb does not.
+    if (key) return;
+    key = true;
+    wait = 0;
+    paced.clear();
+    arm();
   });
 
-  /**
-   * Every thumb up, from where it went down. `where` is false for a window
-   * losing focus, which is the one lift with no point to report: player 2's
-   * muzzle swipe and player 1's tap on the cannon are decided by where the
-   * hand ended, and a shot nobody finished is worse than none (`touch.ts`).
-   */
-  const lift = (where: boolean): void => {
-    if (holding.size === 0) return;
-    const l = layout();
-    for (const [seat, held] of holding) {
-      const at = where ? { x: held.x, y: held.y } : undefined;
-      const t = touchUp(l, held.hold, { ...field(), seat }, at);
-      if (t?.command) send(t.player, t.command);
-    }
-    holding.clear();
+  const release = (where: boolean): void => {
+    key = false;
+    wait = 0;
+    paced.clear();
+    hand.lift(layout(), where);
   };
 
   window.addEventListener("keyup", (e) => {
-    if (CODES.has(e.code)) lift(true);
+    if (CODES.has(e.code)) release(true);
   });
   // A key released over another window would otherwise stay held here for
   // good, which is a thumb nobody can lift (`render/desk-seat.ts`).
-  window.addEventListener("blur", () => lift(false));
+  window.addEventListener("blur", () => release(false));
 
-  /**
-   * One tick of every thumb that is down. Nothing to do on any boss but THE
-   * INSTAR, whose marks are motion rather than a press — `instarGesture` is
-   * where the finger goes and this is only the hand that takes it there.
-   */
   const tick = (): void => {
-    if (holding.size === 0) return;
+    if (!key && hand.count() === 0) return;
     const l = layout();
-    for (const [seat, held] of [...holding]) {
-      held.ticks++;
-      const hold = held.hold;
-      const at = hold.kind === "drag" ? { x: hold.originX, y: hold.originY } : held;
-      const id = hold.kind === "drag" ? hold.id : undefined;
-      const go = instarGesture(l, world(), { id, x: at.x, y: at.y }, held.ticks);
-      if (go === null) continue;
-      const seated = { ...field(), seat };
-      if (go.do === "lift") {
-        holding.delete(seat);
-        const t = touchUp(l, hold, seated, { x: held.x, y: held.y });
-        if (t?.command) send(t.player, t.command);
-        continue;
-      }
-      if (go.do === "again") {
-        // Off and straight back on, which is what a slap is: the count is of
-        // grabs, and a thumb left down is one of them (`sim/instar-hand.ts`).
-        const up = touchUp(l, hold, seated, { x: held.x, y: held.y });
-        if (up?.command) send(up.player, up.command);
-        const down = touchDown(l, held.x, held.y, seated);
-        if (down?.hold) held.hold = down.hold;
-        if (down?.command) send(down.player, down.command);
-        continue;
-      }
-      const t = touchMove(l, hold, go.x, go.y);
-      if (t?.command) send(t.player, t.command);
-    }
+    const w = world();
+    // The step is over: every thumb up, and the next pose starts its pacing
+    // from nothing.
+    hand.drop(l, w);
+    if (!acting()) paced.clear();
+    if (wait > 0) wait--;
+    else if (key) arm();
+    hand.move(l, w);
   };
 
   return { tick };
