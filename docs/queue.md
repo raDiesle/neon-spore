@@ -1247,6 +1247,7 @@ proved by tests that exist.
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
 - **Files:** `packages/sim/src/config.ts`, `packages/sim/src/instar-step.ts`, `packages/content/src/instar-script.ts`
 - **Asks:** Keep `instarTogetherBeats: 2` for every pose, widen it, or let each step name its own?
+- **Answered:** 20 September 2026 — keep `instarTogetherBeats: 2` for every pose. The owner: *"For the moment keep simple."* So the window is not widened and no step names its own; what is left of this entry is the guidance, which is the other half of it and where the difficulty actually is.
 
 The owner, 20 September 2026, after watching the second pose: *p2 pulls but
 it is incorrect, why… maybe this time frame for p2 to pull is too short,
@@ -1687,7 +1688,7 @@ lane answers is how much of each can be deleted in favour of `slabs.ts`.
 Depends on the claw and the pod: naming a button before the thing it moves has
 a shape is how the wordings got stale the first time.
 
-## `bun run frames` cannot turn SNAKE, only pose it turned
+## `bun run frames` still cannot turn SNAKE, only pose it turned
 
 - **Found:** 2026-09-20, claude/queue-snakes-picture-looks-like-something-real
 - **Files:** `tools/frames/press-command.ts`, `tools/frames/press.ts`
@@ -1709,3 +1710,47 @@ shed, or of an attempt ending badly cannot be taken today.
 `snakeFire` takes nothing; `snakeMaw` is player 1's. Five cases in the
 `switch` in `commandFor`, plus their rows in `press.ts`' table of which seat
 owns which control.
+
+**Two of the five landed on 20 September 2026.** The board lane needed the
+spit photographed, so `snakeFire` and `snakeMaw` are rows in `press.ts`' table
+now — both take no value and fall through `commandFor`'s default branch, so
+neither needed a `case`. What is still out of reach is the seat that steers:
+`snakeTurn` and the two drags, `snakeJaws` and `snakeTail`. Until they are
+here, a body that turns is still posed with `--boss` and the jaws are still
+only ever seen shut.
+
+## SNAKE's tail stub comes out of the ship as a teal tube
+
+- **Found:** 2026-09-20, claude/snake-board-look
+- **Files:** `packages/render/src/snake-emerge.ts`, `packages/render/src/snake-ribbon.ts`, `packages/render/src/snake-skin.ts`
+- **Where:** local
+
+On a real frame of the emerging phase (world.tick 402 of SNAKE, seat p1) the
+body coming out of the hull is a flat teal-cyan tube with two straight sides.
+It does not read as the same animal as the head above it, which is violet, and
+it carries none of the scales, none of the lit back and none of the ground
+shadow the landed body does — a stub of pipe rather than the last tiles of a
+snake still inside the ship.
+
+The head and the ribbon themselves are right; this is the *stub*, which is
+drawn while the body has fewer tiles than the ribbon needs. Whatever draws it
+should be the ribbon's own material at a short length, not a second drawing of
+a body.
+
+## A press the simulation refuses is silent in `bun run frames`
+
+- **Found:** 2026-09-20, claude/snake-board-look
+- **Files:** `tools/frames/reach.ts`, `tools/frames/drive.ts`, `tools/frames/report.ts`
+- **Where:** local
+
+`--press 400:1:snakeFire` on SNAKE is accepted by the tool, sent to the page,
+and dropped by `snakeHeard` — SNAKE spends its first five beats in the `morph`
+phase and player 1 has nothing that works while the body is folded up. The
+capture comes back looking exactly like a capture with no press on it at all,
+and the run prints the tick it photographed and nothing else.
+
+Four captures went that way before a probe of a running world found that the
+`play` phase starts at beat 6. The driver already reads `heard` — `reach.ts`
+uses it in `missedNote` when an `--until` event never fires, and nowhere else.
+A press that was sent and changed nothing about the world is the same kind of
+fact and should be said in the report, at least as a count.

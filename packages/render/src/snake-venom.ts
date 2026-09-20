@@ -1,3 +1,4 @@
+import { KEY } from "@neon-spore/content";
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
 import type { Point } from "./snake-contour.js";
@@ -176,19 +177,34 @@ function runs(ctx: CanvasRenderingContext2D, at: Point, r: number, spread: numbe
 }
 
 /**
- * The highlight on a drop: a small pale ellipse up and to the left of centre,
- * where the arena's light is (`snake-skin.ts`).
+ * The highlight on a drop: a small pale ellipse toward the light, lying across
+ * it.
  *
  * It is the whole of what makes a green fill read as *fluid* rather than as
  * green light, and it costs one ellipse. Here rather than next door because
  * both files put one on something.
+ *
+ * **`KEY` is read, never written down.** The offset was `(-0.3, -0.34)` and
+ * the tilt `-0.6` until 20 September 2026 — the key light's own direction,
+ * measured off it once and then frozen, which is the re-derivation
+ * `packages/sim/test/purity.test.ts` keeps a table against. A drop does not
+ * spin, so there is no rotation to take back out and the constant itself is
+ * the whole of the answer.
  */
 export function wet(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): void {
   ctx.save();
   ctx.globalAlpha *= 0.8;
   ctx.fillStyle = PALETTE.venomRim;
   ctx.beginPath();
-  ctx.ellipse(x - r * 0.3, y - r * 0.34, r * 0.36, r * 0.24, -0.6, 0, Math.PI * 2);
+  ctx.ellipse(
+    x + KEY.x * r * 0.45,
+    y + KEY.y * r * 0.45,
+    r * 0.36,
+    r * 0.24,
+    Math.atan2(KEY.y, KEY.x) + Math.PI / 2,
+    0,
+    Math.PI * 2,
+  );
   ctx.fill();
   ctx.restore();
 }

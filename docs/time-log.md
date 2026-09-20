@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — snake-board-look — the board is a place, not a tray of counters
+
+- reading — 20 min. `snake-items.ts`, `snake-draw.ts`, `snake-shot.ts` and
+  `snake-venom.ts`, then the materials the game already ships and that these
+  were not calling: `living-skin.ts`, `meteor-look.ts`, `key-light.ts` and
+  `snake-skin.ts`'s `castShadow`.
+- writing — 30 min. `snake-items.ts` rewritten so each standing thing calls
+  `LIVING_SKIN.paint` or `STONE_LOOK`, `drawSnakeRock` moved in off
+  `snake-draw.ts`, a ground shadow under the spit in flight, and `wet()` made
+  to read `KEY` instead of the offset somebody had measured off it once.
+- looking — 40 min. Nine captures and eleven magnified crops: the board before
+  and after, the field's own bulb at 4x to check the arena's now matches it,
+  and the spit and the acid pool across a fade.
+- friction — 25 min. `snakeFire` was not a control `bun run frames` knew, and
+  once it was, four more captures came back with nothing on them — the press
+  was being dropped by the `morph` phase and the run said nothing about it. A
+  probe of a running world found that `play` starts at beat 6.
+- landing — 10 min.
+
+**The bottleneck was that a press the simulation refuses looks exactly like a
+press that was never sent.** Four captures and most of the friction went on a
+frame that was correct every time — SNAKE spends its first five beats folded
+up inside the ship, and player 1's trigger does nothing until it is out. The
+tool accepted the press, the page sent it, the world dropped it, and the only
+way to find that out was to stand a world up in `bun run probe` and print its
+phase beat by beat. It is queued.
+
 ## 2026-09-20 — boss-looks-landed-stay — the gate is on starting and nothing else
 
 - reading — 5 min. The two documents the lane before this one wrote, read back

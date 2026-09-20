@@ -105,6 +105,14 @@ import type { PressSpec } from "./spec.js";
  *   (`render/orrery-grab.ts`), so there is no panel it could be a button on.
  *   The pilot's for the same reason, and the simulation checks that rather
  *   than trusting it (`orreryRingHeard`).
+ *
+ * SNAKE's two are **not** here — `snakeFire` and `snakeMaw` are buttons on the
+ * pilot's panel and `seatsOnPanel` finds them — but they were missing from the
+ * list below until 20 September 2026, which meant the spit and the open mouth
+ * were two pictures the tool could not take at all. Neither is reachable any
+ * other way: `--boss` can set `mawTick` and `shotBeat` to a number, and a beat
+ * chosen from outside the page against a clock that is still running is a
+ * frame of a shot that has already faded.
  */
 const OFF_PANEL_SEAT: Record<string, 1 | 2 | "either"> = {
   fire: 2,
@@ -144,6 +152,8 @@ const PRESS_KINDS = [
   "launch",
   "crank",
   "orreryRing",
+  "snakeFire",
+  "snakeMaw",
 ];
 
 /** The command a press sends where its own name is the button's rather than

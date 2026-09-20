@@ -18,10 +18,11 @@ ordinary way. When a look lands, its name comes off the list here.
 **The gate is on starting, and on nothing else.** The owner, 20 September 2026:
 *"what was done already to improve graphics you can keep, I don't need opt in,
 just new starting of tasks."* A look that has already landed — THE FLEET's
-hulls, THE VANE's mechanism, SNAKE's body and head, and every one before them —
-stays exactly as it is and is never revisited for permission. So does a defect
-found in one afterwards: a shape clipping its frame or a highlight glued to the
-wrong thing is a fix, not a look, and it lands the ordinary way
+hulls, THE VANE's mechanism, SNAKE's body, head and board, and every one
+before them — stays exactly as it is and is never revisited for permission. So
+does a defect found in one afterwards: a shape clipping its frame or a
+highlight glued to the wrong thing is a fix, not a look, and it lands the
+ordinary way
 (`docs/looks.md`'s third exemption).
 
 ## Its picture has never been looked at on a real frame
@@ -48,16 +49,3 @@ same pass as the rest of the arm.
 A picture is judged by an eye on a real frame, which a cloud session does not
 have, so each of these is the owner's own machine — and it ends with one PNG
 sent to him, never a description.
-
-## SNAKE's board, as opposed to SNAKE
-
-**Bosses:** SNAKE
-
-The animal landed on 20 September 2026: a splined body with a neck and a taper,
-scales, a lit back, a ground shadow, and a head of two hinged jaws. What was
-split off and never started is everything that is not the animal — the things
-standing on a tile to be shot and swallowed, the shot, the acid where it lands,
-the crumple between two attempts, and the body coming out of the ship.
-
-They share one question, which is why they are one item: a board of counters on
-a grid, or a place.

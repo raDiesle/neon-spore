@@ -1,7 +1,7 @@
 import type { SimConfig, SnakeState } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawSnakeEnemy, drawSnakePoint } from "./snake-items.js";
+import { drawSnakeEnemy, drawSnakePoint, drawSnakeRock } from "./snake-items.js";
 
 /**
  * SNAKE's arena and everything standing in it.
@@ -166,9 +166,10 @@ export function drawSnakeItems(
  * Every other thing in the arena is one seat's to see, and this is the
  * exception that proves why: a meteor can be neither shot nor taken, so
  * telling player 1 about one buys the pair nothing — the only answer to it is
- * the steering, and the steering is player 2's. Drawn as rock, in the rock's
- * own grey, and drawn *under* the body: the head goes over the top of one on
- * the frame it hits it, which is the frame the pair needs to see.
+ * the steering, and the steering is player 2's. Drawn *under* the body: the
+ * head goes over the top of one on the frame it hits it, which is the frame
+ * the pair needs to see. What one looks like is `snake-items.ts`, with the
+ * other two things that stand on a tile.
  */
 export function drawSnakeRocks(
   ctx: CanvasRenderingContext2D,
@@ -177,31 +178,5 @@ export function drawSnakeRocks(
 ): void {
   const round = snake.rounds[snake.round];
   if (!round) return;
-  for (const tile of round.rocks) {
-    const x = arenaX(arena, tile.col) + arena.tile / 2;
-    const y = arenaY(arena, tile.row) + arena.tile / 2;
-    const r = arena.tile * 0.36;
-    ctx.beginPath();
-    // Seven sides and no two the same length: a rock is the one thing here
-    // that should not look made.
-    const edges = [1, 0.82, 0.95, 0.78, 1.02, 0.86, 0.92];
-    for (const [i, mul] of edges.entries()) {
-      const a = (i / edges.length) * Math.PI * 2;
-      const px = x + Math.cos(a) * r * mul;
-      const py = y + Math.sin(a) * r * mul;
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.fillStyle = PALETTE.rockDark;
-    ctx.fill();
-    ctx.strokeStyle = PALETTE.rock;
-    ctx.lineWidth = 1.6;
-    ctx.stroke();
-    // One crater, so the eye has something to hold on to at tile size.
-    ctx.fillStyle = "rgba(0,0,0,.45)";
-    ctx.beginPath();
-    ctx.arc(x + r * 0.25, y - r * 0.2, r * 0.22, 0, Math.PI * 2);
-    ctx.fill();
-  }
+  for (const tile of round.rocks) drawSnakeRock(ctx, arena, tile.col, tile.row);
 }

@@ -2,6 +2,7 @@ import type { SnakeState } from "@neon-spore/sim";
 import { PALETTE } from "./palette.js";
 import { type Point, ribbonPath, ribbonSides } from "./snake-contour.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
+import { castShadow, clearShadow } from "./snake-skin.js";
 import { acidEtch, wet } from "./snake-venom.js";
 
 /**
@@ -124,6 +125,23 @@ function stream(
   };
   const sides = ribbonSides(joints, half);
   const path = ribbonPath(joints, sides);
+
+  // **It is over the board, not on it.** The spit had nothing under it until
+  // 20 September 2026, which is the one thing that made a thrown liquid read
+  // as a green shape painted on the grid — the same fault `snake-items.ts`
+  // found in everything standing on a tile, and the same fix. Mass and
+  // leading drop in one path and one fill, because two overlapping shadows
+  // darken twice where they meet; the fill under it is covered by the drawing
+  // that follows, so only the offset blur is ever seen.
+  const r = arena.tile * 0.2;
+  const mass = new Path2D(path);
+  mass.moveTo(tipX + r, tipY);
+  mass.arc(tipX, tipY, r, 0, Math.PI * 2);
+  castShadow(ctx, arena);
+  ctx.fillStyle = PALETTE.venomDeep;
+  ctx.fill(mass);
+  clearShadow(ctx);
+
   const g = ctx.createLinearGradient(from.x, from.y, tipX, tipY);
   g.addColorStop(0, PALETTE.venomDeep);
   g.addColorStop(0.55, PALETTE.venom);
@@ -135,7 +153,6 @@ function stream(
 
   // The leading drop, round and a shade paler than the tail behind it: the eye
   // reads the front of a thrown liquid as a bead.
-  const r = arena.tile * 0.2;
   ctx.fillStyle = PALETTE.venom;
   ctx.beginPath();
   ctx.arc(tipX, tipY, r, 0, Math.PI * 2);
@@ -184,10 +201,14 @@ function beads(
     const r = arena.tile * 0.11 * (BEAD_SIZE[i] ?? 0.5) * (0.55 + 0.6 * fade);
     const dim = 0.4 + 0.6 * fade;
     ctx.globalAlpha *= dim;
+    // One each rather than one for the four: they never overlap, so there is
+    // nothing to double-darken, and each carries its own fade.
+    castShadow(ctx, arena);
     ctx.fillStyle = PALETTE.venom;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fill();
+    clearShadow(ctx);
     wet(ctx, x, y, r);
     ctx.globalAlpha /= dim;
   }
