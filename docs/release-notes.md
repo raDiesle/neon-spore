@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 94df3faa — A guide is turned by its marks and by a thumb across it, and the gate shows BACK
+
+Three ways through a wave's guide, on the owner's ask of 20 September 2026: the Ready? page shows the BACK it always answered, the row of marks that says which step this is can be pressed, and a drag turns the page — left is back, right is next, which is the arrow keys' mapping and not a carousel's.
+
 ## 2026-09-20 · cecc3eec — Mark "No guide page says which wave it is, and the gap before it is empty" done
 
 ## 2026-09-20 · fd3ad8f3 — The wave that was cleared, said between the waves
