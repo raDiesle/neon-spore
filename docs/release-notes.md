@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · bf8bce16 — THE CURTAIN's drift is a snap, not a tween — closes the last piece of 0c7934d1
+
+The core's column and colour are plain state, drawn straight off the world every frame with no interpolation anywhere in packages/render; curtainDrift reassigns both in one step, on the same tick as the hit that triggers it. A device watching the film play would see exactly what two real frames already show — before (cyan, leftmost column) and after (red, drifted to a column near the far edge, spark burst marking the landing) — so there is no motion a real device could tell us about that these two frames don't.
+
 ## 2026-09-20 · 95ff9dc2 — mergeQueue is provably correct for the resurrection bug's own shape
 
 A new test hands it a base/trunk/lane triple mirroring 5780141b's own three-out-of-four trunk removals, and all three come out dropped. Every other shape the function's branches distinguish was already covered and still passes, so whatever let one entry back in during that landing isn't in this function. Tried reproducing the historical failure with a synthetic lane-sits-while-trunk-churns rebase; git merged it cleanly with no conflict and the correct result. The real incident's git mechanics live only in a now-gone session's own reflog, so the entry is narrowed to the two live theories left rather than closed on a guess.
