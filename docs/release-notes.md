@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 94b60a6c — Verify four unverified boss frames: one already-known swallowing
+
+THE INSTAR's scanner box and THE LEAD's held stalk (its ring, its closing dial, the hold that extends the still past four beats, and the lean that now reads once the stalk is taken) both check out clean against real PNGs. THE REPRISE's tear and THE HIVE's breach both draw correctly too, but each boss's CARRY/MOVE cue on the cannon is swallowed by the hull's own plating — not a new defect, two more cases of the already-queued "a cue standing on the hull line has its verb drawn under the ship" finding, folded into that entry rather than filed twice. All four Unverified entries are closed.
+
 ## 2026-09-20 · 0ea2731b — Close the --unverified second-door queue entry; file the merge that reopened it
 
 The second door was already built and shipped: tools/land/unverified-run.ts, wired into package.json, docs/commands.md and docs/cloud-session.md, all landed on origin/main before this lane started. What was still open was the queue entry describing the work, which a later, unrelated landing had rebased over and put back into docs/queue.md word for word — past tools/land/queue-guard.ts's own resurrection check, which caught two sibling entries in the same commit but missed this one.
