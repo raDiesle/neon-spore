@@ -55,6 +55,15 @@ target `net/src/command-fields.ts` does not list, silently** — so the codec te
 is part of the lane and not a follow-up. Every new field is in `hashWorld`, and
 the cue gets an arm per state.
 
+**Exemptions, decided by the owner, one boss at a time — check here before
+reopening a queue entry that asks this question again:**
+
+- **THE SPLICE**, 20 September 2026. `docs/spec/bosses.md` §11.13's own closing
+  argument is four silences built to keep either seat from being handed the
+  other's half of the sentence; a gesture on the picture is the exact thing
+  those silences rule out, so the fight is exempted outright rather than given
+  one.
+
 ## 6.3 A picture that looks like something real
 
 > *I would like to enhance the graphics of each boss wave, so it looks like

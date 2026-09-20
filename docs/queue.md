@@ -829,39 +829,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE SPLICE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/sim/src/events-splice.ts`, `packages/sim/src/splice-hash.ts`, `packages/sim/src/splice-round.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-- **Asks:** should THE SPLICE get a gesture on the picture at all, given its own section says the field names neither of this fight's gestures?
-
-It is answered today on its own panel (`splice`), over 5 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-**§11.13 (`docs/spec/bosses.md`) argues, by name, against a gesture on either
-screen.** THE SPLICE's own closing line: *"the field names **neither** of
-this fight's gestures"* — no cue for the feed (which mouth the cannon
-stands under) and none for the SUCK, because naming either would hand one
-seat the other's half of the sentence. The mark rides the falling number
-and never the mouth, on purpose, so tracing the straw stays hers alone and
-his half stays a sentence spoken rather than read off a mark. A gesture
-reached on the picture is the exact thing that page's four silences were
-built to rule out. Three ways this could go, for the owner to pick: **(a)**
-a gesture that names a state already drawn without naming either verb —
-something off the round's clock or the straw count, never the feed or the
-suck; **(b)** THE SPLICE exempted from 6.2 outright, the same as THE
-REPRISE below, its silence being the design rather than a gap; **(c)** a
-concrete gesture the owner names himself.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE SPLICE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

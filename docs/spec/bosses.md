@@ -2180,6 +2180,14 @@ round's own clock, and that clock is drawn on her screen and on no other. Its
 other three pages keep their verbs, which no other film in this family can say:
 the field names **neither** of this fight's gestures.
 
+**Exempted from §6.2 outright** (the owner, 20 September 2026): the standing
+brief asks a multi-state boss for a gesture reached on the picture, and this
+fight's four silences above are the argument against giving it one — a mark on
+either screen would hand one seat the other's half of the sentence, which is
+the whole design rather than a gap the brief caught. `docs/queue.md`'s own
+entry (*THE SPLICE changes state more than once, and asks for more than one
+gesture*) closes here rather than adding a mark.
+
 ## 11.14 THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling
 
 > The one on a clock nothing slows: what your speed buys is how many are

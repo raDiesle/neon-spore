@@ -13233,3 +13233,27 @@ predated the item rather than being a concurrent lane's own answer already
 in flight.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-the-splice-exempted-from-6-2 — one answer, written down in three places
+
+The owner picked (b): THE SPLICE is exempted from §6.2 outright, its four
+silences being the design rather than a gap the standing brief caught. No
+code changes — the sized work was recording the decision where a later lane
+would look for it before reopening the question: a closing paragraph in
+`docs/spec/bosses.md` §11.13, and an exemptions list in
+`.claude/skills/new-boss-more/SKILL.md` §6.2 itself, the first entry of what
+will likely grow into a short registry as other bosses' own Asks get
+answered. THE REPRISE's identical-shaped question one entry below is not
+resolved by this — its own spec section argues the same case but the owner
+has not answered it yet.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry's own three options, `docs/spec/bosses.md` §11.13's closing argument, `.claude/skills/new-boss-more/SKILL.md` §6.2 |
+| writing | 10 | the queue's `Answered:` line, the closing paragraph in §11.13, the exemptions list in §6.2 |
+| landing | 5 | `bunx tsc --noEmit`, `bun run lint`, `bun run queue done`, the commit |
+
+**No bottleneck** — the owner's answer was specific enough that the only
+work left was where to put it down.
+
+*Measured: the rows above are the session's own estimate.*
