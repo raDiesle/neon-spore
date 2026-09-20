@@ -1867,6 +1867,7 @@ own kind of work, and is unstarted.
 ## A new audio binder is threaded into three hand-kept lists, one red test each
 
 - **Found:** 2026-09-20, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, claude/queue-bun-test-packages-render-prints-its-banner-and-n (claim: claude/queue-a-new-audio-binder-is-threaded-into-three-hand-k)
 - **Files:** `packages/audio/test/bind.test.ts`, `packages/audio/test/catalogue.test.ts`, `docs/spec/audio.md`
 - **Where:** cloud
 
