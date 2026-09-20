@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 56ff5c8f — Point the render-test-silence queue entry at real files
+
+doc-drift.test.ts's queue check takes a Files: line with no backtick-delimited items as one literal file path and fails when it doesn't exist in the tree — "unknown — never localized..." was exactly that, caught by the same lane's own land.
+
+## 2026-09-20 · b256ef6e — Draw THE VANE's arm where a pinned thumb left it, not the cycle's beat
+
+From VEER on, the housing's own colour and split are a thumb's to open, not the cycle's — but drawVane still read the arm's tip, the split column and the housing's colour straight off the cycle's own answers (vaneTipCol, vaneWeakCol, vaneOpening), so a pinned arm kept sweeping on both screens under the pilot's still thumb. Swapped in vaneTipNow, vaneSplitCol and vaneOpeningNow/vaneOpen, the same functions tools/director/src/boss-hands-shots.ts already reads for this boss's own hand, and docs/spec/bosses.md §11.5's own description of what should happen from VEER on.
+
 ## 2026-09-20 · 3e645093 — `bun run reconcile` replays the trunk where nothing has it checked out
 
 A cloud clone is one checkout standing on its lane branch, with `main` a ref beside it. `reconcile` asked which worktree held the trunk, found none, and refused with *check main out somewhere and run this again* — so the one command written to unstick a diverged trunk was the one command a session started from a phone could not run, and unsticking it meant the by-hand rebase that command exists to stop. `note-commit.ts` had already met the same shape and answered it: where there is no second checkout, the session's own is the trunk's content. `reconcile.ts` now does that with a rebase in the middle — the trunk checked out detached here, replayed onto `origin/main`, the ref forced onto what came out, and the lane put back in a `finally` so a refusal ends standing where it started too. A dirty checkout still refuses, because there the files a rebase would walk over are the session's own.
