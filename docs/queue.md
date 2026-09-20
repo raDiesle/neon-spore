@@ -993,6 +993,7 @@ what a phone cannot do is *reach* that strip.
 ## Unverified at 2154cbd2: THE THROAT's four cues on a real frame — the PNG of the…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-c.ts`
 
 *THE THROAT says the word on the beat it is worth something* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
