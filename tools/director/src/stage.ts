@@ -133,6 +133,7 @@ export function bindStage(
       keys.drain(world.tick);
       return;
     }
+    touch.cueTick(); // `3`'s held thumbs move into the tick that follows them
     stepOnce();
   };
 

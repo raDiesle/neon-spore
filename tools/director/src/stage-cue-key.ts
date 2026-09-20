@@ -6,10 +6,12 @@ import {
   instarCues,
   type Layout,
   touchDown,
+  touchMove,
   touchUp,
   type ViewRole,
 } from "@neon-spore/render";
 import { briefingHolds, type Command, lostAsks, type World } from "@neon-spore/sim";
+import { instarGesture } from "./stage-cue-gesture.js";
 import { isTyping } from "./typing.js";
 
 /**
@@ -35,9 +37,13 @@ import { isTyping } from "./typing.js";
  * told is what a thumb on that spot would have told it.
  *
  * **What it cannot do, and says so rather than guessing.** A `CARRY` or a
- * `TURN` gets the thumb *down* on the mark and no further: #34 keeps the
- * destination out of a cue on purpose, so where to carry it is not a thing
- * this file may read. `STILL` is skipped — the ask is for no thumb at all
+ * `TURN` on the *field* gets the thumb down on the mark and no further: #34
+ * keeps the destination out of a cue on purpose, so where to carry it is not
+ * a thing this file may read. THE INSTAR's marks are the exception and the
+ * only one: a mark there carries its own `need` in its own unit, so the depth
+ * of a pull and the amount of a turn are written down and the desk performs
+ * them — `stage-cue-gesture.ts` says where the finger goes, once a tick,
+ * through the same `touchMove` and `touchUp` the mouse goes through. `STILL` is skipped — the ask is for no thumb at all
  * (THE STARE). And the bosses that build their cues where they draw them —
  * THE SINEW's, THE SURGE's and THE ANTIPHON's handles (`boss-cue-text.ts`) —
  * are not in the reading, so this key is silent on them; the mouse and the
@@ -65,6 +71,13 @@ export interface CueKey {
   /** The stage's own sender, so a press by key is a press by mouse — THE
    * BALLOON's second hand and all (`stage-touch.ts`). */
   send: (player: 1 | 2, command: Command) => void;
+}
+
+/** What the binding hands back: the tick the held thumbs move on, for the
+ * stage's own loop to call before it steps the world — a move drained into
+ * the same tick as the press it followed (`stage.ts`'s `advance`). */
+export interface CueKeyHand {
+  tick: () => void;
 }
 
 /**
@@ -101,10 +114,10 @@ export function cueAnswers(
   return out;
 }
 
-export function bindCueKey({ layout, field, world, role, send }: CueKey): void {
+export function bindCueKey({ layout, field, world, role, send }: CueKey): CueKeyHand {
   /** What each seat's thumb took hold of, until the key lifts — a held `3` is
    * a held thumb, which is the only way a `HOLD` cue can be answered at all. */
-  const holding = new Map<1 | 2, { hold: Hold; x: number; y: number }>();
+  const holding = new Map<1 | 2, { hold: Hold; x: number; y: number; ticks: number }>();
 
   window.addEventListener("keydown", (e) => {
     if (!CODES.has(e.code) || isTyping(e.target)) return;
@@ -125,7 +138,7 @@ export function bindCueKey({ layout, field, world, role, send }: CueKey): void {
       const t = touchDown(l, cue.x, cue.y, { ...field(), seat });
       if (t === null) continue;
       e.preventDefault();
-      if (t.hold) holding.set(seat, { hold: t.hold, x: cue.x, y: cue.y });
+      if (t.hold) holding.set(seat, { hold: t.hold, x: cue.x, y: cue.y, ticks: 0 });
       if (t.command) send(t.player, t.command);
     }
   });
@@ -153,4 +166,43 @@ export function bindCueKey({ layout, field, world, role, send }: CueKey): void {
   // A key released over another window would otherwise stay held here for
   // good, which is a thumb nobody can lift (`render/desk-seat.ts`).
   window.addEventListener("blur", () => lift(false));
+
+  /**
+   * One tick of every thumb that is down. Nothing to do on any boss but THE
+   * INSTAR, whose marks are motion rather than a press — `instarGesture` is
+   * where the finger goes and this is only the hand that takes it there.
+   */
+  const tick = (): void => {
+    if (holding.size === 0) return;
+    const l = layout();
+    for (const [seat, held] of [...holding]) {
+      held.ticks++;
+      const hold = held.hold;
+      const at = hold.kind === "drag" ? { x: hold.originX, y: hold.originY } : held;
+      const id = hold.kind === "drag" ? hold.id : undefined;
+      const go = instarGesture(l, world(), { id, x: at.x, y: at.y }, held.ticks);
+      if (go === null) continue;
+      const seated = { ...field(), seat };
+      if (go.do === "lift") {
+        holding.delete(seat);
+        const t = touchUp(l, hold, seated, { x: held.x, y: held.y });
+        if (t?.command) send(t.player, t.command);
+        continue;
+      }
+      if (go.do === "again") {
+        // Off and straight back on, which is what a slap is: the count is of
+        // grabs, and a thumb left down is one of them (`sim/instar-hand.ts`).
+        const up = touchUp(l, hold, seated, { x: held.x, y: held.y });
+        if (up?.command) send(up.player, up.command);
+        const down = touchDown(l, held.x, held.y, seated);
+        if (down?.hold) held.hold = down.hold;
+        if (down?.command) send(down.player, down.command);
+        continue;
+      }
+      const t = touchMove(l, hold, go.x, go.y);
+      if (t?.command) send(t.player, t.command);
+    }
+  };
+
+  return { tick };
 }

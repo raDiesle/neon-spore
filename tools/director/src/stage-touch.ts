@@ -84,6 +84,11 @@ export interface StageTouch {
  */
 export interface StageHand {
   hand: () => ShipHand | undefined;
+  /** One tick of whatever the `3` key is holding down, for the stage's loop
+   * to call before it steps: on THE INSTAR a thumb has to *move* to answer
+   * its mark (`stage-cue-gesture.ts`), and on every other boss this does
+   * nothing at all. */
+  cueTick: () => void;
   /** Where the mouse is resting on the stage, for whatever lights up under it
    * (`render/hover.ts`). The desk is the only place this exists. */
   pointer: () => { x: number; y: number } | undefined;
@@ -118,7 +123,7 @@ export function bindStageTouch({
   // everything it needs is this binding's — the layout, the field, the world
   // and the `send` above, which is the one place THE BALLOON's second hand is
   // answered. It sends through that same `send` for exactly that reason.
-  bindCueKey({ layout, field, world, role, send });
+  const cueKey = bindCueKey({ layout, field, world, role, send });
   let hand: ShipHand | undefined;
   let pointer: { x: number; y: number } | undefined;
   const setHand = (h: ShipHand | null): void => {
@@ -204,5 +209,5 @@ export function bindStageTouch({
   window.addEventListener("pointerup", lift);
   window.addEventListener("pointercancel", lift);
 
-  return { hand: () => hand, pointer: () => pointer };
+  return { hand: () => hand, pointer: () => pointer, cueTick: cueKey.tick };
 }

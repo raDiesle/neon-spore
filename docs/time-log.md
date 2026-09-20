@@ -22,6 +22,36 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — instar-cue-key-gesture — the thumb moves
+
+The half the lane before named: a press reaches THE INSTAR's rings now, but
+five of its six gestures are **motion**. A pull stands at a depth, a swipe is
+a carry that ends in a lift, a turn winds clockwise, a tap counts grabs and a
+thumb left down is one grab (`sim/instar-hand.ts`). Only the `hold` was
+answered by a key being held, which is why the rings lit and the step struck
+anyway.
+
+`stage-cue-gesture.ts` says where the finger would be, once a tick, in the
+mark's own unit read off `InstarMark.need` — and nothing else: the commands
+still come out of `touchMove`, `touchUp` and `touchDown`, so this is the rig
+performing the gesture rather than a second implementation of it. The stage's
+own `advance` calls the key's tick before it steps, so a move is drained into
+the same tick as the press it follows.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `touch-drag.ts`, `touch.ts`'s `touchMove`, `bearing.ts`, `instar-hand.ts`'s five handlers, `stage.ts`'s loop |
+| writing | 25 | the driver, the key's tick, `cueTick` through `stage-touch.ts`, six tests |
+| looking | 0 | nothing drawn moved |
+| friction | 5 | `BEARING_TURN` is `TURN` renamed at the sim's edge, which the first import did not know |
+| landing | 10 | the director's suite, `check:fast`, the commit, `bun run land` |
+
+**The bottleneck was reading `instar-hand.ts` closely enough** to know what
+each gesture counts: a tap counts grabs and not ticks, and a swipe counts on
+the lift, so two of the five are not a carry at all.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — instar-cue-key-reach — the key finds the rings
 
 The owner, the turn after `3` landed: *I focus the game on THE INSTAR and
