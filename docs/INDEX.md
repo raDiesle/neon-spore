@@ -1745,6 +1745,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-door.ts` | Whether a URL opens on the menu or goes straight to the field |
 | `apps/game/src/menu-bindings.ts` | **What the menu is handed, and what it hands back** — the shape, away from the knot that reads one |
 | `apps/game/src/menu-who.ts` | The line at the top of the PLAY page saying who this phone is |
+| `apps/game/src/menu-wave-filter.ts` | The filter over the JUMP TO WAVE list |
 | `apps/game/src/menu-rows.ts` | the rows an entry list is drawn as, and the map that finds one again by key — beside `menu-view.ts` |
 | `apps/game/src/menu-rejoin.ts` | **The way straight back into the room this device was just in**, at the top of the front page |
 | `apps/game/src/menu-toggles.ts` | SETTINGS' switches: the three things about this device a person may turn on and off |

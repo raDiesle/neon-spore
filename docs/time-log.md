@@ -14103,3 +14103,38 @@ tool's whole contract is a canvas, and this button lives beside it, not on
 it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-solo-test-mode — a quit off the wire was going to the wrong door
+
+Two owner asks, one root cause and one addition. A wave reached with
+`state === "solo"` only ever comes from the rig (`menu-entries.ts`'s
+`testingEntries`) — there is no other way to start one solo — but quitting
+out of it opened the menu on PLAY, which offers only a room this device
+never had (NEW GAME, CONTINUE GAME) and no way at all to jump to a
+specific wave. `onQuit` in `shell.ts` now opens TESTING instead, where
+SINGLE PLAYER and JUMP TO WAVE both are. Second, JUMP TO WAVE now carries
+a text filter, the same word-prefix rule `tools/director/src/rail-
+filter.ts` uses (`ward` finds THE WARD and THE WARDEN, not every wave
+whose sentence says *toward*), copied rather than shared since the game
+bundle has no business depending on a dev tool's code and the two
+haystacks differ anyway (`menu-wave-filter.ts`).
+
+Verifying the filter in a real browser caught a second, real bug before
+it shipped: the rows were still drawing after being hidden, because
+`#menu .wave { display: grid }` beats the browser's own `[hidden]`
+default — the exact thing `.rejoin[hidden]` was already patched for
+17 September. Added the matching `#menu .wave[hidden]` rule.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `shell.ts`'s `onQuit`, `menu-entries.ts`, `menu-seats.ts`, `menu-view.ts` — working out that solo-and-playing only ever means the rig, never a room that was going to exist |
+| writing | 20 | the one-line routing fix, `menu-wave-filter.ts`, the filter field and its wiring in `menu-pages.ts`, its CSS |
+| looking | 15 | two Playwright renders of JUMP TO WAVE filtered to `boss` — the first caught the `[hidden]` bug, the second confirmed the fix |
+| friction | 10 | the `[hidden]` collision was invisible in the filter's own count (`34 of 97` was correct throughout) and only showed up in the screenshot |
+| landing | 15 | `bun run index` for the new file, `bun run check:fast`, this log entry, the queue closure, the commit |
+
+**The bottleneck was that the filter's own bookkeeping (the match count)
+was right from the first try, which hid a real rendering bug that only a
+picture of the list would show.**
+
+*Measured: the rows above are the session's own estimate.*

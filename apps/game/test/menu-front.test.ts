@@ -225,8 +225,11 @@ describe("what a parted run does to the two phones", () => {
     expect(bindings).not.toContain("ready:");
   });
 
-  it("sends a QUIT in a room to the room screen, and one off the wire to PLAY", () => {
-    expect(shell).toContain('if (link.status().state === "solo") {\n      menu?.open("play");');
+  it("sends a QUIT in a room to the room screen, and one off the wire to TESTING", () => {
+    // Off the wire there is no room to lose — a wave reached with `state ===
+    // "solo"` only ever came from the rig (`testingEntries`), so that is
+    // where a quit off it goes back to, not PLAY (`menu-entries.ts`).
+    expect(shell).toContain('if (link.status().state === "solo") {\n      menu?.open("testing");');
     expect(shell).toContain("menu?.close();\n    joinScreen?.open(true);");
   });
 });

@@ -1,6 +1,7 @@
 import { type MechanicId, WAVES } from "@neon-spore/content";
 import type { DemoRow } from "./demo-menu.js";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
+import { waveMatches } from "./menu-wave-filter.js";
 
 /**
  * The menu's two jump lists.
@@ -31,7 +32,19 @@ export function buildWaves(
 ): HTMLElement {
   const page = el("div", "page");
   page.append(backButton(show, back), el("h2", undefined, "JUMP TO WAVE"));
-  WAVES.forEach((wave, i) => {
+
+  // The director's own filter, asked for here too (`menu-wave-filter.ts`):
+  // one field, above the list, the note under it only while it is filtering.
+  const filter = el("input", "wave-filter") as HTMLInputElement;
+  filter.type = "text";
+  filter.placeholder = "a name, a boss, a word from its guide";
+  filter.autocomplete = "off";
+  filter.spellcheck = false;
+  const note = el("p", "wave-filter-note");
+  note.hidden = true;
+  page.append(filter, note);
+
+  const rows = WAVES.map((wave, i) => {
     const button = el("button", "wave");
     button.type = "button";
     button.append(el("span", "n", String(i + 1).padStart(2, "0")));
@@ -40,7 +53,31 @@ export function buildWaves(
     button.append(name, el("span", "s", wave.sentence));
     button.addEventListener("click", () => onWave(i));
     page.append(button);
+    return button;
   });
+
+  const refresh = (): void => {
+    const query = filter.value;
+    let matched = 0;
+    rows.forEach((row, i) => {
+      const on = waveMatches(i, query);
+      row.hidden = !on;
+      if (on) matched += 1;
+    });
+    note.hidden = query.trim() === "";
+    note.textContent = matched === 0 ? "nothing matches" : `${matched} of ${rows.length}`;
+  };
+  filter.addEventListener("input", refresh);
+  // Escape empties it rather than only blurring it, the way a search field
+  // does everywhere else — the list comes straight back, so there is no
+  // second step to undo a filter with.
+  filter.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || !filter.value) return;
+    e.preventDefault();
+    filter.value = "";
+    refresh();
+  });
+
   return page;
 }
 

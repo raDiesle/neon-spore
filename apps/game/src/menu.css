@@ -516,6 +516,40 @@
   color: var(--ink-faint);
 }
 
+/* The filter above JUMP TO WAVE (`menu-wave-filter.ts`), the director's own
+   field asked for here too. Full width, so it costs the list no room the
+   wave names could use, and the note under it only stands while it is
+   filtering — an unfiltered list looks exactly as it did before this
+   existed. */
+#menu .wave-filter {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 8px;
+  padding: 9px 11px;
+  border: 1px solid var(--line-quiet);
+  border-radius: 9px;
+  background: rgba(10, 7, 26, 0.55);
+  color: var(--ink);
+  font:
+    12px "Courier New",
+    monospace;
+  letter-spacing: 0.08em;
+}
+#menu .wave-filter::placeholder {
+  color: var(--ink-faint);
+}
+#menu .wave-filter:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+#menu .wave-filter-note {
+  margin: -2px 0 8px;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+}
+
 #menu .wave {
   display: grid;
   grid-template-columns: 26px 1fr;
@@ -536,6 +570,12 @@
   transition:
     border-color 0.16s,
     color 0.16s;
+}
+/* `display: grid` beats the browser's own `[hidden]` — the same rule
+   `.rejoin` needs above — so without this the filter's count went down while
+   every row it was supposed to hide kept drawing. */
+#menu .wave[hidden] {
+  display: none;
 }
 #menu .wave .n {
   color: var(--ink-faint);

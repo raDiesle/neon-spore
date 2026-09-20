@@ -1620,15 +1620,3 @@ conflict and inspects what stage 1/2/3 hold each time — a longer sitting
 than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
-
-## Solo test mode still makes you create a room and pick a track
-
-- **Found:** 2026-09-20, the owner
-- **Taken:** 2026-09-20, claude/queue-unverified-17ed660e (claim: claude/queue-solo-test-mode-still-makes-you-create-a-room-and)
-- **Files:** `apps/game/src/testing.ts`, `apps/game/src/join.ts`, `tools/director/src/rail-filter.ts`
-
-In game, the solo test mode still goes through room creation and track
-selection before it lets you play. Going back from a wave should jump
-straight back into a wave, not through that setup again. The owner also
-wants a wave filter on that screen like the one the director already has
-(`rail-filter.ts`) — wants to find a wave by name rather than scroll for it.

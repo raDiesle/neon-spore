@@ -138,11 +138,14 @@ export function bindShell(p: ShellParts): Link {
   // for the same reason: there is no field worth looking at under it any more,
   // on either phone. In a room that door is the room screen, whose two READY
   // holds start the pair again with the line saying whose press it was
-  // (`quit.ts`, `join.ts`); off the wire it is the PLAY page, where the way
-  // back in is (`menu-link.ts`).
+  // (`quit.ts`, `join.ts`); off the wire there is no room to lose in the first
+  // place — the only way to reach a wave while solo is the rig
+  // (`menu-entries.ts`'s `testingEntries`) — so the way back in is TESTING,
+  // where SINGLE PLAYER and JUMP TO WAVE both are, and not PLAY, which offers
+  // only a room this device never opened.
   onQuit(() => {
     if (link.status().state === "solo") {
-      menu?.open("play");
+      menu?.open("testing");
       return;
     }
     menu?.close();
