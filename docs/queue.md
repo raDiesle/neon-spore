@@ -1635,6 +1635,7 @@ wants a wave filter on that screen like the one the director already has
 ## The in-game QUIT button's label doesn't say what it does
 
 - **Found:** 2026-09-20, the owner
+- **Taken:** 2026-09-20, claude/queue-unverified-17ed660e (claim: claude/queue-the-in-game-quit-buttons-label-doesnt-say-what-i)
 - **Files:** `apps/game/src/lost.ts`, `apps/game/src/quit.ts`, `apps/game/src/join-room.ts`
 
 Pressing QUIT on the lost screen, in a real room, takes the pair back to the
