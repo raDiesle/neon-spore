@@ -22,6 +22,37 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — queue-the-batons-own-hold-cue — a word with a tile to stand in
+
+The pilot's `HOLD` was landing inside the navigator's bead. THE BATON is the
+one boss whose marks stand exactly a **tile** apart — a socket under a socket
+— and THE CHOIR's frame is two thirds of a tile tall with `WORD_GAP` under
+that, so the verb hung the full drop reached a socket's width past the ring
+below it and was legible only because the text is drawn last.
+
+`BossCue` now carries an optional `roomBelow`: how far under the mark the verb
+may reach where the reading knows something of the boss's own picture stands
+closer than the frame does. `boss-cue-text.ts` caps the baseline to it and
+never flips the word over the mark — over is the kind line's place, and a
+pilot would read the grammar as the instruction. `socketRoomBelow` answers it
+from `baton-socket-draw.ts`, which is the file that knows where a socket is
+drawn and how wide; the pilot's bead is capped and the navigator's is not,
+because hers is the arm's last socket with nothing under it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the queue entry, `boss-cue-text.ts`, `boss-cue-read-i.ts`, `baton-socket-draw.ts`, `baton-grip.ts`, `baton-hand.ts`, `boss-cue-baton.test.ts`, and a scratch test that printed every socket's `y` and the word's own baseline |
+| writing | 25 | the field, the cap, `socketRoomBelow`, the clearance test, the queue finding, this entry |
+| looking | 15 | `bun run frames . --wave "THE BATON" --boss-json '{"stage":"merging"}'` and `bun run crop` at 6× on the two merge sockets |
+| friction | 15 | the fix took `boss-cue-read-i.ts` to 272 lines and `limits.test.ts` went red, so the helper was moved out to the geometry file and `markAt`'s return folded back onto one line; `bun run frames HEAD` answers *identical* because it renders what a **commit** changed, not what the tree does, so there is no before-picture without a commit |
+| landing | 15 | `check:fast` three times, the commit, `bun run land` |
+
+**The bottleneck was that the fix would not fit in the file it belonged in**:
+the cap itself is four lines, and the ceiling turned a four-line change into a
+move between two files plus a queue entry for the split that is still owed.
+
+*Measured: the rows above are the session's own estimate.*
+
 ## 2026-09-20 — queue-act-7e-header-is-full — a page that called itself full with fifty lines spare
 
 `act-7e.ts`'s header still said *"It started one wave long and is full"* — a

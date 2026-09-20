@@ -23,6 +23,21 @@ import { splinePath } from "./spline.js";
 /** A socket's ring, as a share of a tile. */
 const SOCKET_R = 0.3;
 
+/** The most a lit socket's ring adds to that: its beat breath and its wobble. */
+const SOCKET_SWAY = 1.08 * 1.06;
+
+/**
+ * How far a lit socket's ring reaches from its centre at its widest — the ring,
+ * the breath it takes on the beat and the blob's own wobble. Exported because
+ * the cue's word has to clear it: two sockets are one tile apart and the
+ * frame the word hangs off is more than half a tile tall, so the reading caps
+ * how far under a mark the verb may go (`boss-cue-read-i.ts`), and a second
+ * guess at this number would be a word standing where the ring is not.
+ */
+export function socketReach(l: Layout): number {
+  return l.tile * SOCKET_R * SOCKET_SWAY;
+}
+
 /** How much of a dead socket's ring a husk on the thread keeps. */
 const HUSK = 0.5;
 
@@ -51,6 +66,35 @@ export function socketPoint(
   socket: number,
 ): { x: number; y: number } {
   return { x: socketX(l, b, socket), y: tileCY(l, batonSocketRow(cfg, socket)) };
+}
+
+/** The least white this arm leaves between a word and the ring under it. */
+const SOCKET_GAP = 5;
+
+/**
+ * How far under a mark on this socket the verb may hang.
+ *
+ * The arm is the one boss whose marks stand a **tile** apart: a socket sits
+ * exactly one tile under the one before it, THE CHOIR's frame is two thirds of
+ * a tile tall, and the word hangs `WORD_GAP` under that — so a mark with a
+ * socket still standing under it puts its verb on the next bead's fill, where
+ * it is legible only because the text is drawn last. `undefined` is the answer
+ * for a mark with a shed socket or the end of the arm below it, which is the
+ * navigator's own merge bead and every cue the other four stages give.
+ *
+ * It is here and not in the reading because this is the file that knows where
+ * a socket is drawn and how wide: a second reading of the arm's geometry next
+ * door would be a word standing where the ring is not.
+ */
+export function socketRoomBelow(
+  l: Layout,
+  cfg: SimConfig,
+  b: BatonState,
+  socket: number,
+): number | undefined {
+  const next = socket + 1;
+  if (next >= cfg.batonSockets || b.sockets[next] === BATON_SOCKET_SHED) return undefined;
+  return l.tile - socketReach(l) - SOCKET_GAP;
 }
 
 /**

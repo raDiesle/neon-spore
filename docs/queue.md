@@ -1424,41 +1424,6 @@ already has — the pilot's colour, the navigator's swell, a seal, a wrong
 colour's provoke, the twins from the fifth opening — is the rehearsal lane's
 own kind of work, and is unstarted.
 
-## THE BATON's own "HOLD" cue is drawn over the other seat's bead
-
-- **Found:** 2026-09-20, claude/queue-the-batons-merge-its-two-handle-rings-still-has
-- **Taken:** 2026-09-20, claude/queue-tasks-model-switching-e53403 (claim: claude/queue-the-batons-own-hold-cue-is-drawn-over-the-other)
-- **Files:** `packages/render/src/boss-cue-read-i.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/baton-grip.ts`
-- **Where:** local
-
-The merge's two rings are now seen, for the first time, in a real frame — one
-per screen, one per seat, geometry and never colour, exactly as
-`baton-grip.ts`'s own header says. But on the pilot's own screen (`p1`),
-before his thumb has gone down, his `HOLD` cue label lands **on top of the
-navigator's bead**, one socket below his own: `drawCueText`
-(`boss-cue-text.ts`) hangs the word `cue.y + halfH + WORD_GAP` under the
-mark's centre, `halfH` is `0.66` tiles and `WORD_GAP` is 18px, and a socket is
-exactly one tile below the one before it — so the word's own centre lands
-almost exactly where the next bead sits, and the "HOLD" text is legible only
-because it is drawn last, over the bead's fill. Seen with a scratch script
-that built the exact `merging()` state `packages/render/test/baton-grip.test.ts`
-already uses for its hit-circle assertions, then screenshotted `p1` and `p2`
-through the real preview: `p2`'s own `HOLD` is clean (his merge socket is the
-arm's last one, with nothing below it), `p1`'s is not. The `test` role (both
-screens on one canvas) shows the same overlap, since it draws both beads and
-picks only the first seat's cue to letter (`bossCue`'s "one cue at a time").
-
-This is a **different** cause from "A cue standing on the hull line has its
-verb drawn under the ship" above — that one is a paint-order problem against
-the ship, drawn after the field pass; this one is two of the boss's own bodies
-standing closer together than `boss-cue-text.ts`'s fixed offset assumes — but
-the fix likely wants the same shape: a cue that knows how much room is really
-below its mark before it commits to `halfH + WORD_GAP`, or a per-mark floor
-`markAt` in `boss-cue-read-i.ts` can pass in for a mark this boss knows is
-socket-close to another. `bun test packages/render` after any fix, plus a
-frame of `p1` with the merge state built the same way this entry found it, to
-look at instead of only measuring it.
-
 ## `chromium.launch()` crashes here; the pipe transport is why, not the sandbox
 
 - **Found:** 2026-09-20, claude/queue-the-batons-merge-its-two-handle-rings-still-has
@@ -1803,3 +1768,29 @@ every 700 ms. The eviction and the `peers` that follows it are already written
 — `occupiedSeats` hangs the dead socket up and `webSocketClose` announces it —
 so this is only about asking. `room.test.ts` has the harness: two phones, one
 falls silent, the other pings and is told without pressing anything.
+
+## `boss-cue-read-i.ts` is at the 250-line ceiling exactly
+
+- **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
+- **Files:** `packages/render/src/boss-cue-read-i.ts`, `packages/render/src/boss-cue.ts`
+- **Where:** local
+
+THE BATON's reading is now **250 lines**, which `packages/sim/test/limits.test.ts`
+passes and nothing else does: the next sentence anyone adds to it goes red.
+The lane that put it there already paid the ceiling once — `roomUnder` was
+written in this file and moved into `baton-socket-draw.ts` to get back under
+it, and `markAt`'s return had to be folded back onto one line — so the room
+for the §6.1 guide-line work still queued against this boss is nil.
+
+The seam is the header's own list: five stages, four of which have a function
+each (`passing`, `merging`, `crossing`, `falling`) and one — `passing` — that
+is half the file on its own, with `shotAt` under it. `passing` and its helper
+`shotAt` to `boss-cue-read-i-b.ts`, the switch and the other three staying, is
+the cut — and it would be the readings' first *within* a boss: the twenty-three
+pages `a` to `w` are one boss each, and this page's own header already says it
+was the first opened for a boss that was already read. The one alternative is
+the other direction — leave the page whole and cut the prose instead, which is
+cheaper and loses the four-paragraph argument for why every stage of this
+fight asks a different pair of thumbs. `bun test
+packages/render/test/boss-cue-baton.test.ts` proves the words did not move;
+`limits.test.ts` proves the cut was worth making.

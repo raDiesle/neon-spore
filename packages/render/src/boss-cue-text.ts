@@ -69,7 +69,7 @@ export function drawCueText(ctx: CanvasRenderingContext2D, cue: BossCue, time: n
   const floor = TOP_EDGE;
   ctx.globalAlpha = breath;
   ctx.font = WORD_FONT;
-  const wordY = Math.max(cue.y + cue.halfH + WORD_GAP, floor);
+  const wordY = cueWordY(cue, floor);
   ctx.fillText(cue.word, cue.x, wordY);
   // **The kind line goes when it is the verb said twice.** THE SURGE asks for a
   // thumb that stays and THE ANTIPHON for a turn, so `HOLD` over `HOLD` and
@@ -84,6 +84,30 @@ export function drawCueText(ctx: CanvasRenderingContext2D, cue: BossCue, time: n
   }
   ctx.restore();
   ctx.textAlign = "left";
+}
+
+/**
+ * The verb's own baseline: `WORD_GAP` under the frame, the canvas's top edge
+ * when the mark stands higher than that, and **no further down than
+ * `BossCue.roomBelow`** where the reading gave one.
+ *
+ * The cap is the answer to a mark standing close under another of the boss's
+ * own bodies rather than in clear field. The frame is two thirds of a tile
+ * tall and THE BATON's sockets are one tile apart, so the pilot's `HOLD` hung
+ * the full gap under his bead used to land on the navigator's — legible only
+ * because it was drawn last, over the bead's fill. It is drawn tight under
+ * the mark instead, which is still the side #34 puts the verb on: the cap
+ * shortens the drop and never flips it, because a verb over the mark is the
+ * kind line's place and the pilot would be reading the grammar as the
+ * instruction.
+ *
+ * Exported for `boss-cue-baton.test.ts`, which proves the word clears what
+ * stands under it rather than that a number was passed in.
+ */
+export function cueWordY(cue: BossCue, floor: number = TOP_EDGE): number {
+  const under = cue.y + cue.halfH + WORD_GAP;
+  const capped = cue.roomBelow === undefined ? under : Math.min(under, cue.y + cue.roomBelow);
+  return Math.max(capped, floor);
 }
 
 /**

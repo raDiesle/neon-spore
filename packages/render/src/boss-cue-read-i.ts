@@ -13,7 +13,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { beadPoint } from "./baton-bead-draw.js";
-import { socketPoint } from "./baton-socket-draw.js";
+import { socketPoint, socketRoomBelow } from "./baton-socket-draw.js";
 import type { BossCue } from "./boss-cue.js";
 import { type Layout, tileCX } from "./layout.js";
 import { podCenter } from "./pods.js";
@@ -63,8 +63,10 @@ function markAt(
   y: number,
   l: Layout,
   seed: number,
+  roomBelow?: number,
 ): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
+  const halfW = l.tile * HALF_W;
+  return { seat, kind, word, x, y, halfW, halfH: l.tile * HALF_H, seed, roomBelow };
 }
 
 /**
@@ -157,13 +159,29 @@ function passing(l: Layout, world: World, b: BatonState): readonly BossCue[] {
  * and either letting go puts it back to nought (`sim/baton-pair.ts`). Neither
  * mark says whether the other is down — that is the one sentence this fight
  * has never made them say, and the state exists to make them say it.
+ *
+ * **The pilot's word is capped and the navigator's is not**, and the asymmetry
+ * is the arm's: his bead is the second socket from the end and hers is the
+ * last, so only his has a ring standing under it (`socketRoomBelow`).
  */
 function merging(l: Layout, world: World, b: BatonState): readonly BossCue[] {
   const out: BossCue[] = [];
   for (const seat of [1, 2] as const) {
     if (batonDrawing(b, seat)) continue;
-    const at = socketPoint(l, world.cfg, b, batonMergeSocket(world.cfg, seat));
-    out.push(markAt(seat, "HOLD", "HOLD", at.x, at.y, l, 92 + seat));
+    const socket = batonMergeSocket(world.cfg, seat);
+    const at = socketPoint(l, world.cfg, b, socket);
+    out.push(
+      markAt(
+        seat,
+        "HOLD",
+        "HOLD",
+        at.x,
+        at.y,
+        l,
+        92 + seat,
+        socketRoomBelow(l, world.cfg, b, socket),
+      ),
+    );
   }
   return out;
 }

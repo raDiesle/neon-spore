@@ -109,6 +109,18 @@ export interface BossCue {
    * read: they are what the two lines of text are hung off.
    */
   framed?: boolean;
+  /**
+   * How far below the mark's centre the verb may reach, in pixels, where the
+   * reading knows something in the boss's own picture stands closer than the
+   * frame does. THE BATON's arm is the case it was written for: its sockets
+   * are one tile apart and the frame is two thirds of a tile tall, so the
+   * pilot's `HOLD` hung the full `halfH + WORD_GAP` under his bead landed on
+   * the navigator's, one socket down (`boss-cue-read-i.ts`).
+   *
+   * Only the verb is capped. The kind line is drawn *over* the mark and has
+   * never been the one in the way.
+   */
+  roomBelow?: number;
 }
 
 /** Whether this screen is the one being asked. */

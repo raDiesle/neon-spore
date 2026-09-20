@@ -11,8 +11,10 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { socketPoint, socketReach } from "../src/baton-socket-draw.js";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { batonCues } from "../src/boss-cue-read-i.js";
+import { cueWordY } from "../src/boss-cue-text.js";
 import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
 import { podCenter } from "../src/pods.js";
 import {
@@ -317,5 +319,33 @@ describe("what the whole fight may say", () => {
     b.mergeThumbs = 1;
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBe("HOLD");
+  });
+
+  /**
+   * The arm is the one boss whose marks stand a tile apart, and the frame the
+   * verb hangs off is two thirds of a tile tall: the pilot's `HOLD` used to
+   * land inside the navigator's bead, one socket down, legible only because
+   * the text is drawn last (`docs/queue.md`, 20 September 2026). The word's
+   * own baseline has to clear that socket's ring, not merely be a different
+   * number from the one it was.
+   */
+  it("keeps the pilot's HOLD clear of the socket standing under it", () => {
+    const { world, b } = opened();
+    const bead = only(b);
+    bead.flying = false;
+    bead.socket = CFG.batonSockets - 1;
+    b.beads = [bead, { ...bead, socket: CFG.batonSockets - 2, color: "cyan" }];
+    b.stage = "merging";
+    b.stageBeat = world.beat;
+    const l = LAYOUT.p1;
+    const his = cue(world, "p1");
+    if (his === null) throw new Error("the pilot was asked for nothing");
+    const under = socketPoint(l, CFG, b, CFG.batonSockets - 1);
+    expect(cueWordY(his)).toBeLessThan(under.y - socketReach(l));
+    // And it is still under his own mark, which is the side #34 puts it on.
+    expect(cueWordY(his)).toBeGreaterThan(his.y);
+    // The navigator's bead is the arm's last socket, so nothing caps hers.
+    const hers = cue(world, "p2");
+    expect(hers?.roomBelow).toBeUndefined();
   });
 });
