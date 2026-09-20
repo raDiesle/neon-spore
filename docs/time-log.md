@@ -12862,3 +12862,42 @@ the same from outside. Nothing short of running the merge by hand on the three
 stages told them apart.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-documentations-states-room-draws-every-card-befo — a build cached by name, a row filled by a scroll
+
+The queue named one mechanism, a hash-checked cache, and the room's own eager
+draw. Reading `field-controls-rows.ts` found the second caller of `poseArt`
+first: its `SHOT_WIDTH` (340) differs from STATES's `CARD` (210), so the
+cache has to hold the built `World` and let each caller still draw its own
+width, never the finished canvas. Reading `poses.test.ts`'s "built fresh"
+case found the hash already proven redundant — a pose's build is
+deterministic by seed, so a second one is never checked, only skipped, and
+the cache key is the pose's name alone. `states-page.ts`'s `section` now
+draws its heading and note at once and fills its row of cards only on a
+click of the heading or an `IntersectionObserver` firing, following the
+single-shared-watcher shape `stage-loop.ts` already uses. The pre-existing
+try/catch around `poseArt()` in `card()` meant the new behavior could be
+proven against the canvas-less fake DOM without new stub infrastructure —
+the draw still throws and is caught, but the build under test still runs.
+
+The first cut of `states-page.test.ts` gave each test its own `installDom()`
+and the third test failed: `section`'s watcher is a module-level singleton,
+bound once to whichever fake `IntersectionObserver` existed at the first
+test's install, so a later test's fresh install created an observer the
+watcher never used. One shared `installDom()` for the whole file fixed it,
+and is the truer model of one real page's lifetime besides.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `states-page.ts`, `pose-art.ts`, `pose-kit.ts`, `field-controls-rows.ts` for the second caller's width, `poses.test.ts` for the determinism proof, `stage-loop.ts` for the shared-watcher pattern |
+| writing | 25 | the build cache in `pose-art.ts`, the lazy `section`/`watchSection` in `states-page.ts`, the fake `IntersectionObserver` in `fake-dom.ts`, `states-page.test.ts` |
+| looking | 0 | none — proven by build-call counts, not a picture |
+| friction | 15 | `pose-art.ts` twice over the 250-line ceiling on doc comments alone; a Biome format failure on the new fake; the cross-installation staleness bug in the first test cut |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun run format`, full director suite (1038 pass), `bun run index`, `bun run queue done`, the commit |
+
+**The bottleneck was the test-installation staleness bug** — the fix itself
+was one `beforeAll`/`afterAll` instead of three, but finding why a shared
+module singleton disagreed with per-test fakes cost more than either the
+cache or the lazy fill did to write.
+
+*Measured: the rows above are the session's own estimate.*

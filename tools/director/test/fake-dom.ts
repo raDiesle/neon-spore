@@ -63,6 +63,13 @@ export interface FakeDom {
    * says so here, the way the browser would on the next frame.
    */
   mutated(el: FakeEl): void;
+  /**
+   * Tells every `IntersectionObserver` watching `el` that it has scrolled
+   * into view — a room's own lazy section (`states-page.ts`) asks this
+   * rather than being clicked, and a test says so here instead of faking
+   * scroll geometry no `FakeEl` carries.
+   */
+  intersect(el: FakeEl): void;
 }
 
 export interface DomSpec {
@@ -94,6 +101,7 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     matchMedia: globalThis.matchMedia,
     localStorage: globalThis.localStorage,
     MutationObserver: globalThis.MutationObserver,
+    IntersectionObserver: globalThis.IntersectionObserver,
     requestAnimationFrame: globalThis.requestAnimationFrame,
   };
   let href = `/${search}`;
@@ -169,6 +177,7 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     matchMedia?: unknown;
     localStorage?: unknown;
     MutationObserver?: unknown;
+    IntersectionObserver?: unknown;
     requestAnimationFrame?: unknown;
   };
   global.document = doc;
@@ -182,6 +191,26 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     constructor(private readonly fn: () => void) {}
     observe(target: FakeEl): void {
       watchers.push({ target, fn: this.fn });
+    }
+    disconnect(): void {}
+  };
+  // A room's own lazy sections (`states-page.ts`'s `watchSection`) ask
+  // whether a target has scrolled into view; a test says so with `intersect`
+  // rather than this file guessing at real scroll geometry.
+  const seers: Array<{
+    target: FakeEl;
+    fn: (entries: { isIntersecting: boolean; target: FakeEl }[]) => void;
+  }> = [];
+  global.IntersectionObserver = class {
+    constructor(
+      private readonly fn: (entries: { isIntersecting: boolean; target: FakeEl }[]) => void,
+    ) {}
+    observe(target: FakeEl): void {
+      seers.push({ target, fn: this.fn });
+    }
+    unobserve(target: FakeEl): void {
+      for (let i = seers.length - 1; i >= 0; i--)
+        if (seers[i]?.target === target) seers.splice(i, 1);
     }
     disconnect(): void {}
   };
@@ -205,6 +234,9 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     mutated: (el: FakeEl) => {
       for (const w of watchers) if (w.target === el) w.fn();
     },
+    intersect: (el: FakeEl) => {
+      for (const s of [...seers]) if (s.target === el) s.fn([{ isIntersecting: true, target: el }]);
+    },
     press: (key: string, target: unknown = null) => {
       doc.activeElement = target;
       for (const fn of [...keys]) fn({ key, target, preventDefault: () => {} });
@@ -215,6 +247,7 @@ export function installDom(spec: DomSpec = {}): FakeDom {
       global.matchMedia = had.matchMedia;
       global.localStorage = had.localStorage;
       global.MutationObserver = had.MutationObserver;
+      global.IntersectionObserver = had.IntersectionObserver;
       global.requestAnimationFrame = had.requestAnimationFrame;
     },
   };

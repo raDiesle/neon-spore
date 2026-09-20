@@ -34,6 +34,23 @@ export const PHONE: Viewport = { width: 380, height: 820, dpr: 2 };
 /** Frames spent settling the eased pose before the one that is kept. */
 const SETTLE = 40;
 
+/**
+ * A pose's own built world, kept by name so two callers of the same one — the
+ * STATES gallery and the ON THE FIELD row (`field-controls-rows.ts`) — do not
+ * each walk its hand: `build()` is the run, `frameWorld` is only a draw.
+ * Keyed by name alone: `poses.test.ts`'s "built fresh" case already proves a
+ * build is deterministic, so a second one is never checked, only skipped.
+ */
+const built = new Map<string, World>();
+
+function builtWorld(pose: Pose): World {
+  const cached = built.get(pose.name);
+  if (cached) return cached;
+  const world = pose.build();
+  built.set(pose.name, world);
+  return world;
+}
+
 /** How many tiles across a `tile` crop shows, unless the pose asks for more. */
 const TILE_SPAN = 3.4;
 
@@ -145,7 +162,7 @@ export function onCard(f: Framed, x: number, y: number): { x: number; y: number 
  * tile stays square and the ship keeps the proportions the phone draws it at.
  */
 export function poseArt(pose: Pose, width: number): HTMLCanvasElement {
-  const world = pose.build();
+  const world = builtWorld(pose);
   return frameWorld(world, pose.role ?? "test", pose.crop, width, pose.at?.(world), pose.span)
     .canvas;
 }

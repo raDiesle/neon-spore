@@ -1067,29 +1067,6 @@ whether a state there is a phase or any named condition of the boss. Decide
 that first — it is the same question THE GORGE's pinch and pry will ask — then
 add the two poses and point the two rows at them.
 
-## DOCUMENTATION's STATES room draws every card before the first is seen
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-20, main (claim: claude/queue-documentations-states-room-draws-every-card-befo)
-- **Files:** `tools/director/src/states-page.ts`, `tools/director/src/documentation-rooms.ts`, `tools/director/src/poses-bosses-kit.ts`, `tools/director/src/poses.ts`, `tools/director/test/boss-states.test.ts`
-
-The owner said the documentation pages open slowly (18 September 2026).
-`renderStates` builds every group of `POSE_CATEGORIES` on the tab's first
-click, and every card runs its pose's world to its state and draws a frame —
-thirty-odd bosses' worth of hands walked to a state, in one synchronous pass,
-before anything is on the page. Two changes, both provable without a browser
-in `bun test tools/director`: (1) render a group when it scrolls into view or
-its heading is clicked, an `IntersectionObserver` over the `section`s with
-the `h2` and note drawn at once and the row of cards filled on entry — the
-lazy room `documentation-rooms.ts` already does per tab, one level down; (2)
-cache a card's built world by its pose name and the hash of the world it
-draws (`hashWorld`), in the module, so a second visit to the room and a
-second tab that draws the same pose reuse the frame rather than walk the
-hand again. The test: a fake-DOM render of the room (`test/fake-dom.ts`)
-builds no pose until its section enters, and builds each pose once across
-two renders. A cloud session can take this; the timing on a real page is the
-owner's eye afterwards and is not what the item asks for.
-
 ## Twenty bosses of the third kind: the brief, and where it goes
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80

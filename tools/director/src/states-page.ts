@@ -111,8 +111,44 @@ function renderStates(): void {
   }
 }
 
-/** One group: its heading, its note, its row of cards — a boss's states, or the creatures'. */
-function section(group: PoseGroup): HTMLElement {
+/**
+ * One group's own watcher, shared across every group's `section`: thirty-odd
+ * of them exist on the page at once, and a group scrolled into view is the
+ * one thing every one of these entries has in common, so one observer sorts
+ * them by `entry.target` rather than the page carrying thirty.
+ */
+let sectionWatcher: IntersectionObserver | null = null;
+const sectionFillers = new WeakMap<Element, () => void>();
+
+function watchSection(el: Element, fill: () => void): void {
+  if (typeof IntersectionObserver !== "function") {
+    fill();
+    return;
+  }
+  sectionFillers.set(el, fill);
+  sectionWatcher ??= new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      const seen = sectionFillers.get(entry.target);
+      if (!seen) continue;
+      sectionFillers.delete(entry.target);
+      sectionWatcher?.unobserve(entry.target);
+      seen();
+    }
+  });
+  sectionWatcher.observe(el);
+}
+
+/**
+ * One group: its heading and note drawn at once, its row of cards filled the
+ * moment the group scrolls into view or its heading is clicked — never
+ * before. Card art is a hand walked to a state (`pose-art.ts`), and
+ * thirty-odd of them run synchronously in `renderStates`' one pass before
+ * this; a click or a scroll spreads that cost over the time it takes to
+ * reach the group, rather than paying all of it before the tab's first card
+ * is on the page.
+ */
+export function section(group: PoseGroup): HTMLElement {
   const el = document.createElement("section");
 
   const h2 = document.createElement("h2");
@@ -126,8 +162,17 @@ function section(group: PoseGroup): HTMLElement {
 
   const row = document.createElement("div");
   row.className = "states-row";
-  for (const pose of group.poses) row.appendChild(card(pose));
   el.appendChild(row);
+
+  let filled = false;
+  const fill = (): void => {
+    if (filled) return;
+    filled = true;
+    for (const pose of group.poses) row.appendChild(card(pose));
+  };
+  h2.addEventListener("click", fill);
+  watchSection(el, fill);
+
   return el;
 }
 
