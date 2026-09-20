@@ -15,6 +15,18 @@ import { wellAngle, wellAt, wellCenter, wellRadius, wellRim, wellSectorAngle } f
  * **Nothing here computes gameplay.** The walk, the gate, the size and the
  * alpha are `radarBlips`'s, the same call the flat strip makes; what this file
  * decides is only where on the circle each one goes.
+ *
+ * **The ring this draws is empty on the one wave that ships THE WELL.**
+ * `radarBlips` gates every entry on `showsRadar`, and the shipped "well" wave
+ * (`act-8.ts`) sends nothing but a `slick` and a `bulb` — both the
+ * navigator's kinds — so nothing ever reaches the pilot's side of the gate.
+ * The wave's own briefing says as much to his face ("Your clock carries no
+ * warning marks: every arrival is on their strip alone."), and
+ * `boss-cue-well.test.ts` proves it counts zero blips across the whole wave.
+ * This file is drawn for a wave that has not been written yet, one that
+ * sends a pilot-radar kind (`meteor` and its speed tiers, `veer`) during THE
+ * WELL — `well-frame.test.ts` proves the arithmetic against a synthetic one
+ * of those, since no real wave supplies it.
  */
 
 /** How far the crossing mark's head stands into the field past the wall, as a

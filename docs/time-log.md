@@ -13204,3 +13204,32 @@ really meant the very first flash too — everything else was wiring a third
 function into a pattern two others already used.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-the-wells-warning-ring-is-empty-on-the-one-scree — the test the owner asked for was already sitting there
+
+The owner's answer (19 September 2026) asked for two things: a paragraph on
+`well-arrivals.ts` saying it is drawn for waves not yet written, and a frame
+test proving the arithmetic rather than leaving it assumed. Reading toward
+the second turned up that it already existed — `well-frame.test.ts`'s
+"leaves a falling body's mark outside the rim" case (13 September 2026, three
+commits before this queue item was even found) builds a synthetic well world
+with a `meteor` entry, the pilot-radar kind no shipped wave sends during this
+boss, and checks the mark `drawWellArrivals` draws for it lands outside the
+rim. `boss-cue-well.test.ts`'s own "warns the pilot of nothing" case already
+proves the shipped wave's ring stays at zero. Both were written for other
+reasons and happen to be exactly the proof this item asked for. Only the
+paragraph was still missing, so only the paragraph was written.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `well-arrivals.ts`, `radar-blip.ts`, `well.ts`'s `showsWell`, `creatures.ts`'s `showsRadar`, `boss-cue-well.test.ts` |
+| looking | 10 | `well-frame.test.ts` in full, to check whether its existing "crossing rock" describe block already covered the plain falling-body case the item names — it does; `git log` on the file to confirm the coverage predates this item rather than being another lane's answer to it |
+| writing | 5 | the one doc paragraph in `well-arrivals.ts` |
+| landing | 10 | `bunx tsc --noEmit`, `bun run lint`, `bun test packages/render/test/well-frame.test.ts packages/render/test/boss-cue-well.test.ts` (26 pass), `bun run check:fast` (5171 pass), `bun run queue done`, the commit |
+
+**The bottleneck was confirming a negative** — that the existing test really
+did prove the arithmetic rather than merely resembling it, and that it
+predated the item rather than being a concurrent lane's own answer already
+in flight.
+
+*Measured: the rows above are the session's own estimate.*

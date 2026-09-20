@@ -1416,49 +1416,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE WELL's warning ring is empty on the one screen it is drawn on
-
-- **Found:** 2026-09-19, claude/queue-the-well-says-the-word
-- **Taken:** 2026-09-20, main (claim: claude/queue-the-wells-warning-ring-is-empty-on-the-one-scree)
-- **Files:** `packages/render/src/well-arrivals.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/well.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/waves/act-8.ts`
-- **Asks:** Should the pilot's clock carry warning marks of its own, or is being warned of nothing the split this boss is for?
-- **Answered:** 19 September 2026 — leave it, and say so. Giving the pilot the ring means every blip regardless of owner, which is against `docs/spec/systems.md` 5.2 unless the owner asks for that exception on this boss by name, which he has not; authoring a well wave with rocks in it is a wave, not a fix, and a bigger task than this entry is. Sized work: a paragraph on `well-arrivals.ts` saying it is drawn for waves not yet written, and a frame test that proves the arithmetic rather than leaving it assumed.
-
-`well-arrivals.ts` bends the flat field's warning strip into a ring outside the
-well's rim, and draws the crossing rock's mark inside the seam — eighty lines of
-polar arithmetic with a paragraph over each half. On the shipped wave it draws
-**nothing at all**, ever.
-
-Two predicates that have never been asked about each other meet here.
-`showsWell` is `showsCannon`, so the ring is only ever drawn on the pilot's
-screen; `radarBlips` gates every entry on `showsRadar(l.role, kind)`, and every
-body THE WELL's wave sends is a `slick` or a `bulb`, both `radar: "p2"`. Over
-seventy beats of the wave the navigator's flat strip carries sixty-four marks and
-the pilot's ring carries nought
-(`packages/render/test/boss-cue-well.test.ts`, the last case). The only role that
-ever sees the ring fill is `test`, which shows everything.
-
-So the file is live only for a well wave carrying a p1-radar kind — a rock, a
-torch, a mine — and no such wave exists. It is not dead code, but nothing proves
-it draws either, and the crossing mark in particular has never been drawn on a
-screen anybody plays: a crossing rock is a `meteor`, which is `radar: "p1"`, so
-it would draw — on a wave nobody has authored.
-
-Three answers, and they are different work:
-
-1. **Leave it, and say so.** The split is the design: the navigator holds the
-   strip and the pilot has to be told. Then `well-arrivals.ts` gets a paragraph
-   saying it is drawn for waves not yet written, and a frame test builds one so
-   the arithmetic is proved rather than assumed.
-2. **Give the pilot the ring.** `radarBlips` takes the role, so a well could ask
-   for every blip regardless of owner — which hands one seat the other's half of
-   the picture and is against `docs/spec/systems.md` 5.2 unless the owner wants
-   it for this boss.
-3. **Author a well wave with rocks in it.** That is a wave, not a fix, and it
-   would also give the plate something to do — nothing THE WELL sends today is
-   wardable (`isWardable` is false for a slick and a bulb), so the dome and its
-   trigger are dead for the whole wave.
-
 ## Unverified at 05c48636: the ring's picture at BEND=1.7, and whether the pilot's…
 
 - **Found:** 2026-09-19, claude/queue-the-well-says-the-word
