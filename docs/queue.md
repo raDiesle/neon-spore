@@ -330,7 +330,7 @@ header over drawings that exist, and the success screen second, as a
 ## A cue standing on the hull line has its verb drawn under the ship
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
+- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-f.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/boss-cue-field.ts`, `packages/render/src/canvas2d.ts`
 - **Where:** local
 
 `drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
@@ -394,6 +394,34 @@ beat; `ROOT`, the word `halfH + 18` below it, is not there at all, in a crop
 that reaches well past the socket and down to the shield row. This one has no
 workaround needed to reach: `bun run frames . --wave "THE LEDGER" --ticks 60`
 shows it from the wave's own opening, before any hand has touched anything.
+
+**The second option landed 2026-09-20** (branch
+`claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on`), found the
+same way every entry above was: verifying this session's own `Unverified` cue
+entries (THE ORRERY's, THE CANDLE's) turned up this exact swallowing on a real
+frame before this one was ever read. `drawBossCue`'s call moved out of
+`drawBodies` to a new `drawFieldBossCue` (`boss-cue-field.ts`, split out
+rather than grown onto `frame-field.ts`, which was already at its own
+250-line limit), called from `canvas2d.ts` after `drawShip` — which also
+reaches the *other* half of THE CANDLE's own swallowing nobody had named yet:
+`candle-dark.ts`'s full-column black, drawn between `drawBodies` and
+`drawShip`, hid THE CANDLE's cues completely, not just at the hull line. Real
+frames confirmed fixed: THE ORRERY's `MOVE` and `BURN`, THE CANDLE's `MOVE`
+and `FIRE`, THE THROAT's `MOVE`. `render/test/frame-budget.test.ts` is
+unmoved, as expected — the fix reorders when the same calls happen rather
+than adding or dropping one.
+
+**Still open:** a real frame of THE MAZE's `MOVE`, and a re-check of THE
+UNDERTOW's five (the CDP workaround the entry below this one describes), THE
+REPRISE's and THE HIVE's `MOVE`, and THE LEDGER's `ROOT` — the reasoning above
+says the reorder should reach every one of them, including the lobe-neck
+swallowing on THE UNDERTOW that stood past the hull-line fix alone, since the
+cue now draws after everything else regardless of how little clearance a
+mark's own lift leaves it, but nobody has looked at a fresh frame of any of
+them since this fix landed. THE WARDEN's `HULL_LIFT` constant
+(`boss-cue-read-f.ts`) is now very likely a second answer to a question this
+fix already answers once, and worth removing — once a frame confirms nothing
+there still needs its own lift.
 
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
@@ -1001,21 +1029,6 @@ decision and wants an eye on a phone, not a flag. The director's side of the
 same ask is smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works;
 what a phone cannot do is *reach* that strip.
 
-## Unverified at 2154cbd2: THE THROAT's four cues on a real frame — the PNG of the…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-c.ts`
-
-*THE THROAT says the word on the beat it is worth something* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
-
-- THE THROAT's four cues on a real frame — the PNG of the words standing over the gum, the body in the mouth and the rock in the gullet was never taken
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## THE SLOW is felt in the hand and never seen: THE INSTAR wants candidates for it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -1078,21 +1091,6 @@ nothing left on screen (`render/test/restart.test.ts`).
 It is local because choosing between four of these is looking at four of these,
 at tempo, which is the whole reason `tools/versus` exists.
 
-## Unverified at 6d333dfb: CINCH and HAUL on a real frame — the PNG of the two new…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on (claim: claude/queue-unverified-at-6d333dfb-cinch-and-haul-on-a-real)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/net/src/command-fields.ts`, `packages/net/test/command-codec.test.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/test/boss-cue-throat.test.ts`
-
-2 commits landed, ending in *Queue THE INSTAR's slow window as a look with four candidates*, from a session that could not look at it. The commit touched 17 more files. What went unchecked:
-
-- CINCH and HAUL on a real frame — the PNG of the two new words standing on the lowest ring and on the mouth was never taken
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 4515fcc9: the three new gullet sounds - CINCH, SLIP and HAUL were…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -1101,21 +1099,6 @@ what the rest of this file holds.
 *THE THROAT's two hands are heard: the cinch, the slip and the haul* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
 
 - the three new gullet sounds - CINCH, SLIP and HAUL were never heard; a sound is judged by an ear and this session has none
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 501beac7: the PNG of MOVE and BURN standing on a real frame was n…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on (claim: claude/queue-unverified-at-501beac7-the-png-of-move-and-burn)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-c.ts`
-
-*THE ORRERY says the column, and the briefing comes down* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
-
-- the PNG of MOVE and BURN standing on a real frame was never taken
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
@@ -1191,21 +1174,6 @@ a frame without going in `Effects` and being cleared in `Effects.reset()`
 
 It is local because choosing between four of these is looking at four of
 these, at tempo, on a phone-shaped screen.
-
-## Unverified at 1172a97b: the PNG of THE CANDLE's words on a real frame
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-20, claude/queue-unverified-at-2154cbd2-the-throats-four-cues-on (claim: claude/queue-unverified-at-1172a97b-the-png-of-the-candles-wo)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-m.ts`
-
-*THE CANDLE says the word on the field, and the briefing comes down* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
-
-- the PNG of THE CANDLE's words on a real frame
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
 
 ## Unverified at ce22d819: THE ORRERY's rehearsal film watched at tempo — the thre…
 

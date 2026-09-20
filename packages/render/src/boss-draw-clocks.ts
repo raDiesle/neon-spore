@@ -1,4 +1,4 @@
-import type { World } from "@neon-spore/sim";
+import { throatHolds, type World } from "@neon-spore/sim";
 import { drawBaton } from "./baton-draw.js";
 import { drawBatonGrip } from "./baton-grip.js";
 import { drawFxBoss, FX_KINDS, isFxBoss } from "./boss-draw-clocks-b.js";
@@ -122,7 +122,8 @@ export function drawClockBoss(
   // up the tube and bodies are hauled up the column under the mouth
   // (`throat-draw.ts`).
   if (boss.kind === "throat") {
-    drawThroat(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    const crowded = world.creatures.some((c) => throatHolds(world, c));
+    drawThroat(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time, crowded);
     return;
   }
 

@@ -6,6 +6,7 @@ import type { ClaspFrames } from "./clasp-frames.js";
 import {
   drawBodies,
   drawFieldBack,
+  drawFieldBossCue,
   drawOnShip,
   drawOverlays,
   drawShip,
@@ -13,14 +14,7 @@ import {
 } from "./frame-passes.js";
 import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
-import {
-  computeLayout,
-  computeStage,
-  flippedLayout,
-  type Layout,
-  rolledLayout,
-  type Stage,
-} from "./layout.js";
+import { computeStage, frameLayout } from "./layout.js";
 import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -95,23 +89,6 @@ export class Canvas2DRenderer implements Renderer {
     this.ctx.setTransform(viewport.dpr, 0, 0, viewport.dpr, 0, 0);
   }
 
-  /**
-   * The layout is derived from the stage, not from the window: on a desktop
-   * screen the window is far wider than any phone, and the hull is as wide as
-   * the field. Cheap arithmetic, so it is redone every frame rather than
-   * cached — a test slider moves `cols` between two frames.
-   *
-   * `flippedLayout` is THE FLIP: the turned seat's field comes back mirrored,
-   * and input is handed a layout too, so a finger and a frame fold together.
-   * `rolledLayout` is THE WELL's face turned, on the same two callers and for
-   * the same reason (`well-roll.ts`).
-   */
-  private layoutFor(view: ViewState, stage: Stage): Layout {
-    const vp = { width: stage.width, height: stage.height, dpr: this.viewport.dpr };
-    const l = flippedLayout(computeLayout(vp, view.world.cfg, view.role), view.world);
-    return rolledLayout(l, view.world);
-  }
-
   draw(seen: ViewState): void {
     // THE HANDOVER: the seat this device is playing (`handover.ts`) — and then
     // the bodies neither seat may draw, taken out once for every pass below
@@ -125,7 +102,7 @@ export class Canvas2DRenderer implements Renderer {
     // A hidden tab reports a zero-sized window, and a field with no width
     // divides by zero in the hull contour: leave the canvas alone until a size arrives.
     if (stage.width < 1 || stage.height < 1) return;
-    const l = this.layoutFor(view, stage);
+    const l = frameLayout(view, stage, this.viewport.dpr);
 
     // Outside the stage is not the game, and everything below is in stage
     // coordinates — as is input hit-testing, which subtracts the same offset
@@ -221,6 +198,10 @@ export class Canvas2DRenderer implements Renderer {
     drawCandleField(ctx, l, view, this.held.effects);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
+    // The one word the boss wants, over the finished ship and THE CANDLE's
+    // own dark alike — both paint over anything drawn earlier
+    // (`frame-field.ts`'s `drawFieldBossCue`).
+    drawFieldBossCue(ctx, l, world, view, skinY);
     // Over the finished ship, what is stuck to it (`frame-on-ship.ts`).
     drawOnShip(ctx, l, world, view, this.held, hull, at, surfaceY);
     drawOverlays(ctx, l, world, view, {

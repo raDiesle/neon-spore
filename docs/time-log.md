@@ -13723,3 +13723,56 @@ already-queued pipe-transport crash cost more of this sitting than reading
 four bosses' own state machines did.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-20 — queue-unverified-at-2154cbd2-the-throats-four-cues-on — one paint-order bug behind three of the four PNGs
+
+Four `Unverified` entries asked for a real frame of a boss cue nobody had
+looked at: THE THROAT's `FIRE`/`BRAKE`/`FLING`/CINCH/HAUL, THE ORRERY's `MOVE`
+and `BURN`, THE CANDLE's `FIRE` and `MOVE`. THE THROAT's own `FIRE` and `BRAKE`
+turned up a real bug on the first frame taken: a body held in the mouth or on
+the climb suppresses nothing, so `PRESS FIRE`/`HOLD BRAKE` land right on top of
+`NEXT INHALE`'s own count, on the one screen that draws both. Fixed with a
+`crowded` flag (`throatHolds` asked once in `boss-draw-clocks.ts`, threaded
+through `drawThroat`/`drawThroatLock`) that lets the count stand aside for a
+word already answering the beat. CINCH, HAUL and FLING needed no fix; CINCH
+and HAUL are unreachable from the wave's own natural playthrough inside its
+tick budget (the first gum breaches the hull before the one meteor arrives),
+so a real frame of them came from a throwaway script mutating
+`window.neonSpore.world.boss` and `world.creatures` directly in real headless
+Chrome, the sanctioned workaround for a state `--boss-json` cannot build.
+
+THE ORRERY's `MOVE` and THE CANDLE's `MOVE`/`FIRE` turned up a second,
+bigger bug: `drawBossCue` ran in the field pass, before `drawShip`, so every
+cue whose mark sits at `l.hullY` had its word painted over by the plating —
+already a queued, unclaimed finding
+("A cue standing on the hull line has its verb drawn under the ship"). THE
+CANDLE's own case was worse than that entry knew: `candle-dark.ts`'s black
+covers the *whole* column height, not just the hull line, so its cues were
+invisible everywhere, including standing on the glow itself. Both are the
+same fix: `drawBossCue`'s call moved out to a `drawFieldBossCue`
+(`boss-cue-field.ts`) called from `canvas2d.ts` after `drawShip`. That put
+`frame-field.ts` and `canvas2d.ts` over their own 250-line limit by a handful
+of lines each — `frame-field.ts`'s excess left with the moved function into
+its own file, and `canvas2d.ts`'s private `layoutFor` became a standalone
+`frameLayout` in `layout.ts`, which had the room. Confirmed on real frames of
+all three fixed cues, `bun run tools/queue/run.ts done` for all four entries,
+and a short note added to the hull-line entry naming what it still owes
+(THE UNDERTOW's five cues, THE MAZE's `MOVE`, and THE WARDEN's now-likely-
+redundant `HULL_LIFT`) — left open rather than claimed, since verifying those
+wants THE UNDERTOW's own CDP workaround and this session's four items did not.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | the four queue entries and the hull-line entry, `throat.ts`/`throat-hand.ts`/`throat-pull.ts`, `boss-cue-read-k.ts`/`-l.ts`, `boss-cue-draw.ts`/`boss-cue-text.ts`, `canvas2d.ts`, `frame-budget.test.ts` |
+| looking | 50 | real frames of all four items across both fix attempts, a throwaway CDP script for CINCH/HAUL, crops to confirm legibility, re-renders after each fix and after the file-size restructuring |
+| writing | 40 | the `crowded` suppression, the `drawFieldBossCue` reorder (and reverting a first attempt at a text-position fix once THE CANDLE showed it was not enough), the `frameLayout`/`boss-cue-field.ts` split, this log entry |
+| friction | 30 | `bun test packages/render/test/` run as one process getting silently OOM-killed twice before finding the standing fix for it (`bun run check:fast`'s own sharding); the file-size limit only surfacing after the render fix was otherwise done |
+| landing | 15 | `bunx tsc --noEmit`, `bun run lint`, `bun run index`, `bun run check:fast`, four `queue done`, the commit |
+
+**The bottleneck was the OOM-killed test run** — `bun test packages/render/test/`
+printed its banner and nothing else twice, on a whole-directory invocation
+this repo already has a standing answer for (`docs/commands.md`), before
+`check:fast`'s own sharding gave a real, complete answer in the same time one
+of the silent runs had already spent.
+
+*Measured: the rows above are the session's own estimate.*

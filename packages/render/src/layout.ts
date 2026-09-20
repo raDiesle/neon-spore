@@ -1,5 +1,5 @@
 import type { SimConfig } from "@neon-spore/sim";
-import type { Viewport } from "./renderer.js";
+import type { Viewport, ViewState } from "./renderer.js";
 
 // The lobes moved out when this file crossed its 250-line limit, and are
 // re-exported here so that nothing which asked the layout where a button is
@@ -17,12 +17,15 @@ export {
   type ViewRole,
 } from "./view-role.js";
 
+import { flippedLayout } from "./field-flip.js";
+import type { Stage } from "./layout-stage.js";
 import { bandHeightFor } from "./layout-stage.js";
 import { PANEL_PLAN } from "./panel-plan.js";
 // The rows a strip answers a press on, worked out where its reasons are
 // written down. Re-exported so nothing holding a `Strip` had to move.
 import { type Strip, stripBands } from "./strip-band.js";
 import { showsCannon, showsShield, type ViewRole } from "./view-role.js";
+import { rolledLayout } from "./well-roll.js";
 
 export type { Strip };
 
@@ -211,6 +214,27 @@ export function colFromX(l: Layout, x: number): number {
 export function rowFromY(l: Layout, y: number): number {
   const row = Math.round((y - l.gridTop - l.tile / 2) / l.tile);
   return Math.max(0, Math.min(l.rows - 1, row));
+}
+
+/**
+ * The layout for one frame of `Canvas2DRenderer.draw`, moved here from a
+ * private method of that class when adding one call to it (`drawFieldBossCue`,
+ * `canvas2d.ts`) would have carried the file over its 250-line limit.
+ *
+ * Derived from the **stage**, not the window: on a desktop screen the window
+ * is far wider than any phone, and the hull is as wide as the field. Cheap
+ * arithmetic, so it is redone every frame rather than cached — a test slider
+ * moves `cols` between two frames.
+ *
+ * `flippedLayout` is THE FLIP: the turned seat's field comes back mirrored,
+ * and input is handed a layout too, so a finger and a frame fold together.
+ * `rolledLayout` is THE WELL's face turned, on the same two callers and for
+ * the same reason (`well-roll.ts`).
+ */
+export function frameLayout(view: ViewState, stage: Stage, dpr: number): Layout {
+  const vp = { width: stage.width, height: stage.height, dpr };
+  const l = flippedLayout(computeLayout(vp, view.world.cfg, view.role), view.world);
+  return rolledLayout(l, view.world);
 }
 
 export function hitCircle(c: Circle, x: number, y: number): boolean {

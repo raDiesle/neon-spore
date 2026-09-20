@@ -100,8 +100,17 @@ export function drawThroatLock(
   beat: number,
   beatPhase: number,
   time: number,
+  /**
+   * The throat is holding a body right now, on player 2's own screen: `FIRE`
+   * over one standing in the mouth or `BRAKE` over one climbing under it, both
+   * close enough to this lock's own station that the two texts land on each
+   * other rather than beside them (`throat-draw.ts`). Silent while either is
+   * true, `throatCinched`'s own idiom: a word already answering this beat is
+   * the count answered as well, so the label costs nothing to stand aside for.
+   */
+  crowded: boolean,
 ): void {
-  if (!showsThroatLock(l.role)) return;
+  if (!showsThroatLock(l.role) || crowded) return;
   const every = throatEvery(cfg, b);
   // Phase `everts` keeps no clock and phase `open` inhales every beat: in
   // neither case is there a column to arrive at that the mouth is not already

@@ -28,6 +28,15 @@ import { type Ring, rings } from "./throat-shape.js";
  * that hid it from the seat who owns the fling would be a boss with no answer
  * at all.
  *
+ * **`crowded` goes quiet on the count while a body is held**, `throatCinched`'s
+ * reason applied to the other readout: `PRESS FIRE` on a body standing in the
+ * mouth and `HOLD BRAKE` on one climbing under it both stand close enough to
+ * the mouth's own row that `NEXT INHALE` had nowhere left to sit — the label
+ * and the word landed on top of each other, on the one screen that ever draws
+ * both (queue, 20 September 2026). A word already answering the beat is the
+ * count answered too, so the readout stepping aside for it loses nothing the
+ * pair did not already have.
+ *
  * **Grey, except the lip.** Shots pass straight through the tube and no hand
  * can take hold of it (`sim/throat.ts`), so the body of it is `rock` — THE
  * VANE's arm and THE BATON's spine, and the honest colour for a mechanism
@@ -49,6 +58,9 @@ export function drawThroat(
   beat: number,
   beatPhase: number,
   time: number,
+  /** Whether the throat is holding a body right now — `boss-cue-read-k.ts`'s
+   * own question, asked again here for `drawThroatLock`'s reason. */
+  crowded: boolean,
 ): void {
   // The eversion feeds the tube through its own mouth, so the gullet above
   // shortens from the top as it goes: the rings still to come through are the
@@ -69,7 +81,7 @@ export function drawThroat(
     for (const ring of shape) drawRing(ctx, l, ring, time);
   }
   drawMouth(ctx, l, cfg, b, beat, beatPhase, time);
-  drawThroatLock(ctx, l, cfg, b, beat, beatPhase, time);
+  drawThroatLock(ctx, l, cfg, b, beat, beatPhase, time, crowded);
 }
 
 /**
