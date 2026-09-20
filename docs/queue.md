@@ -420,6 +420,7 @@ left hanging.
 ## Act seven has no room for another wave and no letter to put a page under
 
 - **Found:** 2026-09-17, claude/task-queue-progress-abb7a3
+- **Taken:** 2026-09-20, main (claim: claude/queue-act-seven-has-no-room-for-another-wave-and-no-le)
 - **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves.ts`
 - **Asks:** When a page in the middle splits, do the later letters shift up, or do waves migrate between pages?
 - **Answered:** 19 September 2026 — shift the letters. Migrating waves only postpones the same overflow one page later, and lifting the prose costs separating a wave's reasoning from its figures, which is the thing these headers exist to keep together. This is now the standing convention rather than a one-off pick: the same day, a different entry (*`act-7d.ts` is eight under the ceiling*) hit this exact shape of overflow — a full-enough middle page (`act-7e.ts`) sitting between the page that needed to shed waves (`act-7d.ts`) and the end of the chain — and was resolved the same way, giving the new page the letter and shifting the old `act-7e.ts` to `act-7f.ts`. `act-7e.ts`'s own header now cites this entry by name as the precedent, so it stays rather than closing: `act-7c.ts` is the page closest to needing this again (241 of 250 lines as of that same landing).
