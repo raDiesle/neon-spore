@@ -303,6 +303,7 @@ left hanging.
 ## SNAKE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-20, claude/queue-the-vanes-picture-looks-like-something-real (claim: claude/queue-snakes-picture-looks-like-something-real)
 - **Files:** `packages/render/src/snake-body.ts`, `packages/render/src/snake-crash.ts`, `packages/render/src/snake-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
