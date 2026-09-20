@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 68a6f39f — Ask whether THE SPLICE should get a gesture at all
+
+docs/spec/bosses.md §11.13 closes by naming this on purpose: "the field names neither of this fight's gestures" — no cue for the feed and none for the SUCK, because naming either would hand one seat the other's half of the sentence (the mark rides the falling number and never the mouth). The 18 September standing brief (new-boss-more §6.2) asks every boss for a gesture reached on the picture, the opposite of that. Not a call to make unilaterally for a boss whose four silences are argued at length as the fight itself, so this queues the question with the options rather than inventing a mechanic.
+
 ## 2026-09-20 · 97fd40cb — Glob two audio test lists instead of hand-keeping them
 
 bind.test.ts's eventTypes() and catalogue.test.ts's WIRING both read a hand-kept table of filenames. Replaced both with a glob over their own directories (packages/sim/src/events-*.ts, packages/audio/src/bind*.ts), so each file's own declarations are read directly rather than copied into a list someone has to remember to update.
