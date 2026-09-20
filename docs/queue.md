@@ -1298,6 +1298,7 @@ what the rest of this file holds.
 ## Unverified at 419e7ce9: THE LEDGER's two new words on a real frame: ROOT and PU…
 
 - **Found:** 2026-09-19, claude/queue-the-ledger-changes-state-more-than-once-and-asks
+- **Taken:** 2026-09-20, claude/queue-unverified-at-fbdcfa17-the-tasters-three-new-wor (claim: claude/queue-unverified-at-419e7ce9-the-ledgers-two-new-words)
 - **Files:** `docs/INDEX.md`, `docs/cloud-session.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-ledger.ts`
 
 *THE LEDGER: four hands on one cord, one per movement* landed from a session that could not look at it. The commit touched 27 more files. What went unchecked:
