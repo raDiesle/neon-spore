@@ -1921,6 +1921,7 @@ restriction can go entirely and the check triples its reach in the same run.
 ## A missing `SimConfig` row is a type error in `ship-fields.ts`, not its page
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-20, main (claim: claude/queue-a-missing-simconfig-row-is-a-type-error-in-ship)
 - **Files:** `tools/director/src/ship-fields.ts`, `tools/director/src/ship-fields-choreo-b.ts`, `tools/director/src/ship-notes-choreo-b.ts`
 
 `FIELD_GROUP` is a `Record<keyof SimConfig, GroupName>` and that is the whole
