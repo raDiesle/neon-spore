@@ -1033,6 +1033,7 @@ add the two poses and point the two rows at them.
 ## Twenty bosses of the third kind: the brief, and where it goes
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-20, main (claim: claude/queue-twenty-bosses-of-the-third-kind-the-brief-and-wh)
 - **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `.claude/skills/new-boss/SKILL.md`, `docs/decisions.md`
 - **Asks:** does the brief go on `docs/spec/bosses-choreographed.md` as a second table under its fifteen, or on a page of its own beside it?
 - **Answered:** 19 September 2026 — a new docs/spec/bosses-cinematic.md page, taking this entry's own recommendation: the fifteen on `bosses-choreographed.md` are designed and claimed on a ledger and the twenty are not, so folding them into one table would mix built work with a brief. Sized work: the page itself, a line on `docs/spec/README.md`, and `bun run index`.
