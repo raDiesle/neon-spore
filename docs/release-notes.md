@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 3b1a70d2 — A landed look is settled; the gate is on starting only
+
+The menu added an hour ago says a boss's look starts only when the owner names it, and a session meeting that beside a list of finished bosses could read it as a standing doubt about all of them. It is not one.
+
 ## 2026-09-20 · 299589e1 — A boss's look is a menu the owner answers, not a queue item
 
 Twenty-four entries in docs/queue.md said a boss's picture had never been looked at on a real frame, and a queue item is a thing any lane may claim — so the list amounted to a standing instruction to spend twenty-four sittings making bosses beautiful, some of which will be cut. They are now docs/spec/boss-looks.md, which no lane reads for work, and the director draws them as LOOKS WAITING FOR A YES at the top of the BOSSES page. Nothing starts until the owner names a boss; a lane then moves that one back into the queue.
