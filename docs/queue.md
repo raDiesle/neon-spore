@@ -806,7 +806,6 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE HIVE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-20, claude/task-queue-work-ym2eim (claim: claude/queue-the-hive-changes-state-more-than-once-and-asks-f)
 - **Files:** `packages/sim/src/config-hive.ts`, `packages/sim/src/events-hive.ts`, `packages/sim/src/hive-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
