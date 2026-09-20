@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · 8d6374a5 — Close THE REPRISE's own-rehearsal finding: already fixed by a concurrent lane
+
+The queue asked whether scenes/the-reprise.ts's old "the pilot's is the gap" wording and its COUNT THE GAPS BETWEEN THEM page were deliberate two-stage teaching or plain drift, against boss-cue-read-s.ts's own words. Those words settle it outright — nothing in this boss is timed to an arrival, because that would turn the one thing it is made of into a reaction — so a gap-counting page was never a legitimate first pass, only wrong.
+
 ## 2026-09-20 · 5b33f318 — Close the lib-list queue entry: it had already been answered
 
 `docs/queue.md` carried this entry twice. `271d8096` answered the question the day before — harvesting TypeScript's `lib.*.d.ts` and `@cloudflare/workers-types` the way `declaredNames` harvests the tree and checking it against every unrestricted identifier claim — and found the false-positive count falls from 108 to 89, nowhere near the dozen that would justify dropping the head-word restriction. A later, unrelated commit reintroduced the entry into the queue file on its way through. Re-running the same measurement against today's tree (5,706 claims, 105 unmatched, 86 once the lib names are added) confirms the answer is unchanged, so the entry is removed rather than re-answered.
