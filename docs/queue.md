@@ -943,6 +943,7 @@ add the two poses and point the two rows at them.
 ## Unverified at 1028a5b4: THE BATON's swelling socket and its two handle rings, n…
 
 - **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Taken:** 2026-09-20, main (claim: claude/queue-unverified-at-1028a5b4-the-batons-swelling-socke)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/audio/src/bind-baton.ts`, `packages/audio/src/bind-choreographed.ts`
 
 *THE BATON's arm asks for a thumb of its own, in two states* landed from a session that could not look at it. The commit touched 41 more files. What went unchecked:
