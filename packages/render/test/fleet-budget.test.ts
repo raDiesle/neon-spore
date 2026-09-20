@@ -134,6 +134,16 @@ type Budget = Partial<
 // the ring's own, one save, one path and the word. The `fill` rows come down
 // five and are pinned lower rather than left where they were: a saving that
 // landed elsewhere in the picture, measured here for the first time since.
+// **Only the pilot's rows moved on 20 September 2026**, when the hulls stopped
+// being outlines: a vessel is a gradient-filled plate with its seams on the
+// squares' own boundaries, a bridge in the contour, a deck line, a keel line,
+// a gloss along the sheer and its sockets (`fleet-hull-body.ts`,
+// `fleet-hull-detail.ts`). Three more strokes and one more gradient a hull,
+// times the five the navigator is not shown — which is exactly why this file
+// measures both seats, and p2's four rows below are untouched. Two rows came
+// *down* in the same diff: a scar is one path for the whole hull rather than
+// one `save` and one stroke apiece, so the pilot's `save` falls five on both
+// frames. Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
@@ -141,12 +151,14 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
-      stroke: 72,
-      fill: 49,
+      stroke: 87,
+      fill: 54,
       clip: 7,
-      save: 50,
+      save: 45,
       drawImage: 16,
-      createLinearGradient: 13,
+      // Five of these are the hulls' own: one ramp across the beam a vessel,
+      // which is what the flat fill under an outline used to cost.
+      createLinearGradient: 18,
       createRadialGradient: 5,
       "new Path2D": 21,
       fillText: 28,
@@ -154,17 +166,17 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     hit: {
       fillRect: 86,
       // Two more than mid: the shockwave ring and the fireball's own contour.
-      stroke: 74,
-      fill: 47,
+      stroke: 89,
+      fill: 53,
       clip: 7,
-      // Eight more: the burst opens one per shard it turns, and the shards are
+      // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 58,
+      save: 54,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
       drawImage: 20,
       // One fewer: the shell's exhaust gradient goes with the shell.
-      createLinearGradient: 12,
+      createLinearGradient: 17,
       // The fireball, and the one radial gradient this fight ever builds.
       createRadialGradient: 6,
       "new Path2D": 21,

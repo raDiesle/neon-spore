@@ -1030,6 +1030,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ghost.ts` | THE GHOST, drawn — a dome with a hem of tails, wearing a camouflage that is coming apart in horizontal bands |
 | `packages/render/src/fleet-chart.ts` | THE FLEET's chart: the lattice of squares the whole fight is named against |
 | `packages/render/src/fleet-hulls.ts` | THE FLEET's ships — the pilot's alone, until one goes down in front of both of them |
+| `packages/render/src/fleet-hull-body.ts` | what one of THE FLEET's ships is — its contour, its bridge and the plate the key lights |
+| `packages/render/src/fleet-hull-detail.ts` | what is on a fleet hull — seams on the squares' own lines, deck, keel, glass and lamp |
 | `packages/render/src/fleet-marks.ts` | THE FLEET's shared half: every square already spent, and the sights standing on one |
 | `packages/render/src/band-control.ts` | One control of the band, drawn — a lobe or a strip, whichever the set says |
 | `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |

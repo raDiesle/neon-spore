@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-20 — fleet-hulls — five outlines become five ships
+
+- reading — 5 min. The queue entry, `.claude/skills/new-boss-more` §6.3, and
+  `fleet-hulls.ts` with the two files it leans on (`key-light.ts` for the ramp,
+  `fleet-chart.ts` for where a square's edges are).
+- writing — 20 min. `fleet-hull-body.ts` — the contour with a bridge in it and
+  the plate the key lights — and `fleet-hull-detail.ts` — seams laid on the
+  chart squares' own boundaries, a deck line, a keel line, the bridge glass,
+  two transom ports, the gloss and the bow lamp. `fleet-hulls.ts` kept the
+  pass, the sinking and the scars, which became one path for every hole.
+- looking — 15 min. One frame of THE FLEET before, one after, and a 4x crop of
+  the five-square hull; the first pass was corrected there — the bloom was
+  flooding its own plate and the bridge could not be read, so the flesh came
+  down, the halo with it and the bridge went narrower and taller.
+- friction — 5 min. A 227-line file caught by the line hook mid-write, an
+  unused import and an import sort.
+- landing — 10 min. Four op-count rows remeasured and pinned.
+
+**The bottleneck was the first look.** The shapes were right on the second
+read and the light was wrong: a hull painted at the halo and flesh the rest of
+this package uses is a lamp at chart scale, where a vessel is forty pixels
+long and everything inside it has to survive being that small. The correction
+was four constants, and nothing but a magnified crop could have chosen them.
+
 ## 2026-09-20 — boss-cue-hull — the verb climbs off the plating
 
 - reading — 10 min. The queue entry, which had already been worked twice and

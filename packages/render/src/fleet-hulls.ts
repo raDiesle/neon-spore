@@ -9,8 +9,9 @@ import {
 } from "@neon-spore/sim";
 import { type Chart, chartOf, chartX, chartY } from "./fleet-chart.js";
 import type { FleetFx } from "./fleet-fx.js";
+import { type HullSkin, paintHull } from "./fleet-hull-body.js";
 import { drawSinkWash } from "./fleet-water.js";
-import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 import { type Layout, showsFleetHulls } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -30,18 +31,19 @@ import { PALETTE, STROKE } from "./palette.js";
  * spent the whole fight firing at squares somebody else named; the one moment
  * they get to see what they were shooting at is the moment it stops existing.
  *
- * The silhouette is the reference sheet's: a flat-sided hull with a cut bow
- * and stern, a spine down the middle, and a light at the head. It is drawn
- * from the ship's own length and heading rather than from five named classes,
- * for the reason `FLEET_LEN_MIN` gives — the class is what a length *means*,
- * and nothing acts on the meaning.
+ * **What a hull looks like is next door** (`fleet-hull-body.ts`): this file
+ * decides which of them a screen may see and what one going down does, and
+ * that one decides what the pilot is looking at. Either way it is drawn from
+ * the ship's own length and heading rather than from five named classes, for
+ * the reason `FLEET_LEN_MIN` gives — the class is what a length *means*, and
+ * nothing acts on the meaning.
  */
 
 /** Beats a sinking hull takes to go under. Long enough to be watched. */
 const FLEET_SINK_BEATS = 3;
 
 /** The two colours a fleet is drawn in, alternating down the list. */
-const HULLS = [
+const HULLS: readonly HullSkin[] = [
   { body: PALETTE.hull, rim: PALETTE.hullRim, dark: "#1B0A2E" },
   { body: PALETTE.shield, rim: PALETTE.shieldRim, dark: PALETTE.cyanDark },
 ] as const;
@@ -128,35 +130,7 @@ function drawHull(
   if (sinking >= 0) ctx.rotate(sinking * 0.34);
 
   const nose = Math.min(long * 0.35, c.tile * 0.42);
-  ctx.beginPath();
-  ctx.moveTo(-long, 0);
-  ctx.lineTo(-long + nose, -across);
-  ctx.lineTo(long - nose * 0.7, -across);
-  ctx.lineTo(long, 0);
-  ctx.lineTo(long - nose * 0.7, across);
-  ctx.lineTo(-long + nose, across);
-  ctx.closePath();
-  ctx.fillStyle = skin.dark;
-  ctx.fill();
-  halo(ctx, 0, 0, long * 0.9, skin.body, sinking >= 0 ? 0.5 : 0.3);
-  ctx.strokeStyle = skin.body;
-  ctx.lineWidth = STROKE.outline;
-  ctx.stroke();
-
-  // The spine, and a light at the head — the two details the reference sheet
-  // gives every class, and the only things that say which end is the bow.
-  ctx.strokeStyle = skin.rim;
-  ctx.globalAlpha *= 0.55;
-  ctx.lineWidth = STROKE.inner;
-  ctx.beginPath();
-  ctx.moveTo(-long + nose, 0);
-  ctx.lineTo(long - nose, 0);
-  ctx.stroke();
-  ctx.globalAlpha /= 0.55;
-  ctx.fillStyle = skin.rim;
-  ctx.beginPath();
-  ctx.arc(long - nose * 0.9, 0, Math.max(1, across * 0.24), 0, Math.PI * 2);
-  ctx.fill();
+  paintHull(ctx, { long, across, nose, tile: c.tile, len: ship.len, skin, sinking });
   ctx.restore();
 
   // The water closing over it, on top of the hull rather than under it: what
@@ -174,6 +148,13 @@ function drawHull(
  * The pilot's picture has to answer a question the shared marks cannot: not
  * "which squares have been fired at" — both screens carry that — but "how much
  * of *this* ship is left", which is the sentence they have to say next.
+ *
+ * **A hole, rather than a ring drawn on the plate.** The plate under it is a
+ * solid now (`fleet-hull-body.ts`), so a scar that only outlined a square read
+ * as a mark painted on the deck; filled through to the water and rimmed, it
+ * reads as something missing. Both passes are one path for every hole on the
+ * hull, for the reason `fleet-hull-detail.ts` gives about five of these on
+ * every frame.
  */
 function drawScars(
   ctx: CanvasRenderingContext2D,
@@ -183,11 +164,9 @@ function drawScars(
   hex: string,
   fx: FleetFx,
 ): void {
-  ctx.save();
-  ctx.globalAlpha = 0.75;
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = STROKE.inner;
   const r = c.tile * 0.16;
+  let any = false;
+  ctx.beginPath();
   for (const at of boss.struck) {
     const col = at % c.cols;
     const row = Math.floor(at / c.cols);
@@ -196,11 +175,17 @@ function drawScars(
     // in his own hull before anything has arrived to make one — the same rule
     // the shared marks keep (`fleet-fx.ts`).
     if (fx.pending(col, row)) continue;
-    const x = chartX(c, col);
-    const y = chartY(c, row);
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.stroke();
+    ctx.moveTo(chartX(c, col) + r, chartY(c, row));
+    ctx.arc(chartX(c, col), chartY(c, row), r, 0, Math.PI * 2);
+    any = true;
   }
+  if (!any) return;
+  ctx.save();
+  ctx.fillStyle = rgba("#05040B", 0.72);
+  ctx.fill();
+  ctx.globalAlpha = 0.75;
+  ctx.strokeStyle = hex;
+  ctx.lineWidth = STROKE.inner;
+  ctx.stroke();
   ctx.restore();
 }

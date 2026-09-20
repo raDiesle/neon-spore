@@ -300,21 +300,6 @@ the fourth, on the hazard's own row 7.5, that did not end in the hazard
 within seventy ticks. The film ends with the three banked and the fourth
 left hanging.
 
-## THE FLEET's picture looks like something real
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-20, claude/queue-a-cue-standing-on-the-hull-line-has-its-verb-dra (claim: claude/queue-the-fleets-picture-looks-like-something-real)
-- **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/fleet-clock.ts`, `packages/render/src/fleet-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
-- **Where:** local
-
-8 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
-not a picture per state.
-
-The owner, 18 September 2026: a picture is judged by an eye on a real frame,
-which a cloud session does not have — his own machine takes it.
-
-The brief: `.claude/skills/new-boss` section 6.3.
-
 ## THE VANE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
