@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-20 · b3621812 — Cache a pose's built world, fill STATES cards lazily per section
+
+Every card in the STATES documentation room walked its pose's own hand and drew a frame synchronously before the tab could show a single one, and the ON THE FIELD row walks the same poses again at a different width. poseArt now keeps a pose's built World by name, since a build is already proven deterministic by seed, so a second caller only draws. states-page.ts's section fills its row of cards on a scroll into view or a click of its own heading, sharing one IntersectionObserver the way stage-loop.ts already does for the stage.
+
 ## 2026-09-20 · 83c5e678 — One note written twice is not a disagreement, so the record merges
 
 docs/release-notes.md carries 8995ded7 twice, word for word, from 19 September 2026, and mergeRecord's byTitle refused any file with a repeated heading — so every bun run reconcile since has stopped on that file with "this one is a real disagreement, and it is yours" over a pair of blocks that agree perfectly, leaving the trunk diverged and unpushable. byTitle now refuses only when the two blocks differ; two copies of one sentence have nothing to decide between them and the second is passed over. The record itself is left as it is: entries here are never edited by hand, and nothing is dropped by the merge either, so the doubled entry survives the rebase exactly as it survived the landing.
