@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 6621c8b0 — Queue: versus new leaves no directory, and an empty one breaks the index
+
+Found opening lost:screen with two candidates: the second directory sat empty between the mkdir and the files, and every versus index in that window failed naming a file nobody had written yet.
+
 ## 2026-09-21 · de449e2e — Two more answers in lost:screen, and the slot has four
 
 ONE is the shipped bleed with twelve of its thirteen runs taken away: a single violet rivulet a tile wide, twelve seconds falling instead of one, coming down the column the hull was actually broken in. It is the control in the slot — it changes the count and the speed and nothing else, so if it wins the shipped picture was only ever too busy, and if a red one beats it the colour was the argument all along.
