@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — slow-window-focus — the window drawn where the hands are
+
+- reading — 20 min. The seam and its four answers, then the route from a paint
+  to a thumb: `gripsCreature` for a hand on a body, `instarBoss`/`instarStep`
+  for a boss's marks, `instarMarkPoint` for where one is in pixels, `tileCX`
+  for the cannon's own column. The owner's note named the anchor and the files
+  had to say which call reaches it.
+- writing — 30 min. One candidate, `focus`: the field under a veil with a hole
+  punched at every anchor, the holes tightening as the window is spent, and a
+  lit edge on each. Two rewrites, both from a picture rather than a check.
+- looking — 40 min. Four shots. The first drew nothing anyone could see: the
+  anchors were exactly right — a debug ring proved both jaw marks and the
+  muzzle — but a hole in a veil over the boss's own black mouth looks like the
+  mouth, which is why there is a rim now. The second drew a hard line across
+  the field at `gridTop`, the same edge `wash` and `gutter` each had to lose.
+  The third, at the shut, read inverted: the violet tint was going through the
+  holes too, so the lit spots were the only places without it.
+- friction — 5 min. `--freeze` is in simulated seconds and a window is 1.25 of
+  them; the first shot at 0.2 was fine and the habit of shooting at 2 is not.
+- landing — 10 min.
+
+The bottleneck was looking, again and for the same reason as the last lane in
+this slot: a paint that passes every check can still draw the opposite of what
+its own docstring claims, and only a picture says so. Three of this one's
+three defects were invisible to `bun run check`.
+
 ## 2026-09-21 — throat-sounds-unverified — an entry that needed an ear says so
 
 - reading — 20 min. `boss-throat.ts` for the seven, `bind-throat.ts` for the
