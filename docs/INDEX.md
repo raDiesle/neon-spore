@@ -1541,6 +1541,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/baton-grip.ts` | **THE BATON's own arm as a control**: the shell a thumb strips off a swelling socket |
 | `packages/render/src/baton-socket-draw.ts` | **One socket of THE BATON's arm**, drawn |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
+| `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
@@ -1916,6 +1917,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/documentation-rooms.ts` | DOCUMENTATION's lazy rooms, bound in one place |
 | `tools/director/src/difficulty-picker.ts` | **THE THREE TEMPI A PAIR CAN CHOOSE, beside the field rather than behind a slider.** The owner asked for this… |
 | `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
+| `tools/director/src/field-controls-pulse.ts` | **THE PULSE's bar**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
 | `tools/director/src/glows/aura.ts` | A ring standing clear of the body, pulsing |
 | `tools/director/src/glows/bloom.ts` | Optical glare: bright pixels bleeding softly into what is around them |

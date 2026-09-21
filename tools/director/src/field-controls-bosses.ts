@@ -16,6 +16,7 @@ import { LEAD_CONTROLS } from "./field-controls-lead.js";
 import { MAZE_CONTROLS } from "./field-controls-maze.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
+import { PULSE_CONTROLS } from "./field-controls-pulse.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
 import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
@@ -81,4 +82,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // (`field-controls-well.ts`, `field-controls-hive.ts`).
   ...WELL_CONTROLS,
   ...HIVE_CONTROLS,
+  // THE PULSE's bar, the first row here for an **interlude** and the only
+  // control in the game that is worth nothing from one seat and everything
+  // from two (`field-controls-pulse.ts`).
+  ...PULSE_CONTROLS,
 ];

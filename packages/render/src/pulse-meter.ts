@@ -1,7 +1,8 @@
-import type { PulseState } from "@neon-spore/sim";
+import type { PulseState, SimConfig } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawPulseGrip, pulseMeterBar } from "./pulse-grip.js";
 
 /**
  * The one meter, the tally under it, and the verdict.
@@ -18,18 +19,21 @@ import { PALETTE } from "./palette.js";
  * glass, and a rim that runs from red through to the hull's own purple as it
  * rises. A rectangle inside a rectangle would be the one place in the round
  * where the picture stopped being a body.
+ *
+ * **The rectangle is `pulse-grip.ts`'s**, because the bar is also a handle:
+ * the box a thumb is answered in is this one grown to a handle's height, and
+ * two files deciding separately where the vessel is is how a control comes to
+ * be answered where it is not drawn.
  */
 export function drawPulseMeter(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   boss: PulseState,
-  max: number,
+  cfg: SimConfig,
+  time: number,
 ): void {
-  const w = l.width * 0.72;
-  const h = Math.max(10, l.playHeight * 0.022);
-  const x = (l.width - w) / 2;
-  const y = l.playHeight * 0.135;
-  const at = Math.max(0, Math.min(1, boss.meter / max));
+  const { x, y, w, h } = pulseMeterBar(l);
+  const at = Math.max(0, Math.min(1, boss.meter / cfg.pulseMeterMaxMilli));
   const color = at < 0.25 ? PALETTE.red : at < 0.5 ? PALETTE.pod : PALETTE.hull;
 
   const shell = new Path2D();
@@ -57,6 +61,9 @@ export function drawPulseMeter(
   // The surface of it: the brightest thing on the bar, and the thing an eye
   // finds when it flicks up from the line.
   if (at > 0.01) halo(ctx, x + w * at, y + h / 2, h * 1.6, color, at < 0.25 ? 0.8 : 0.5);
+  // The hand on it, over the rim: nothing at all while the bar is steady
+  // (`pulse-grip.ts`).
+  drawPulseGrip(ctx, l, cfg, boss, time);
 }
 
 /**

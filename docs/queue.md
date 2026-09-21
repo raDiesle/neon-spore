@@ -571,10 +571,10 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Twenty handles are heard by the simulation and drawn nowhere
+## Nineteen handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
-- **Taken:** 2026-09-21, claude/queue-twenty-four-on-field-handles-are-on-no-tab-and-t (claim: claude/queue-twenty-handles-are-heard-by-the-simulation-and-d)
+- **Taken:** 2026-09-21, claude/queue-twenty-handles-are-heard-by-the-simulation-and-d
 - **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`, `packages/render/src/`
 
 Lane one landed: the guard walks the union now. `TARGET_PLACE` is a `Record`
@@ -585,21 +585,27 @@ one assertion holds both directions, a `field` target with no row and an
 `hiveLobe` got their rows with it, because those four were the only ones of
 the twenty-four a thumb could already reach on a screen.
 
-**The other twenty are `unbuilt`, and each is a look before it is a row** —
+Lane two landed THE PULSE's meter: `render/pulse-grip.ts` is the bar's own
+rectangle, the box a thumb is answered in and the outline that says the box is
+there, `pulseMeterUnder()` is the `handleUnder()` branch, and
+`field-controls-pulse.ts` carries two rows on the one target — the brace under
+`flutter` and the arrest that takes both thumbs.
+
+**The other nineteen are `unbuilt`, and each is a look before it is a row** —
 `throatRing`, `throatTube`, `tasterBlade`, `tasterGap`, `tasterLock`,
 `ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`, `snakeJaws`,
 `snakeTail`, `undertowPin`, `undertowFree`, `vaneArm`, `vaneHousing`,
-`scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`, `pulseMeter`. Every one
+`scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`. Every one
 is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
 branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
 precedent and the reason no row can be written for them yet — `where` is a
 place on the screen and `source` is a branch of `touch.ts`, and neither
 exists.
 
-So the work is one lane per boss, in the shape `candleWick` and `curtainHem`
-each took: a `*-grip.ts` giving the handle a ring where the seat that owns it
-is drawn, the `handleUnder()` branch that answers it, the
-`field-controls-<boss>.ts` row beside the twenty-five that exist, the
+So the work is one lane per boss, in the shape `candleWick`, `curtainHem` and
+`pulseMeter` each took: a `*-grip.ts` giving the handle a ring where the seat
+that owns it is drawn, the `handleUnder()` branch that answers it, the
+`field-controls-<boss>.ts` row beside the twenty-seven that exist, the
 `docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to
 `field` — which is the one line that turns the guard from silent to holding.
 The look is exempt under *a look with no shipped alternative*; say so in the
@@ -1970,7 +1976,8 @@ the same shape, and either is enough on its own:
 ## `loadedTimeout`'s figures were measured once and the tree has grown past them
 
 - **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
-- **Files:** `tools/test/repo-time.ts`, `tools/test/doc-drift-names.test.ts`, `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `tools/index/test/index.test.ts`
+- **Files:** `tools/test/repo-time.ts`, `tools/test/doc-drift-names.test.ts`, `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `tools/index/test/index.test.ts`, `packages/sim/test/copies.test.ts`
+- **Seen again:** 2026-09-21, claude/queue-twenty-handles-are-heard-by-the-simulation-and-d — `bun run land` went red on `packages/sim/test/copies.test.ts` (*every other file calls clearHolds instead of re-deriving it*, timed out, 2 shards of 73), and the same file ran 121 pass in **797 ms** alone a minute later. It declares `loadedTimeout(205)` and walks every source file in the tree, so it is the same drift as the one below in a second package. The lane re-ran `land` and it went green, which is exactly the habit this entry exists to end.
 
 `bun run land` went red on `tools/test/doc-drift-names.test.ts` — *names
 something this tree still writes down*, timed out — and the same file passed

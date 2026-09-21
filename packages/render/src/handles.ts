@@ -19,6 +19,7 @@ import { mazeHeartUnder } from "./maze-grip.js";
 import { mazeStringCircle } from "./maze-string.js";
 import { mirrorLobeUnder } from "./mirror-grip.js";
 import { orreryRingUnder } from "./orrery-grab.js";
+import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
@@ -102,6 +103,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     leadStalkUnder(l, x, y, field) ?? // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
     scuttlePartUnder(l, x, y, field) ?? // THE SCUTTLE's hanging parts, while one may still be carried (`scuttle-grip.ts`).
     hiveLobeUnder(l, x, y, field) ?? // THE HIVE's clenched underside, or a swelling lobe (`hive-grip.ts`).
+    pulseMeterUnder(l, x, y, field) ?? // THE PULSE's own bar, while it is not steady (`pulse-grip.ts`).
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }

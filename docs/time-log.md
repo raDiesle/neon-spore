@@ -15883,3 +15883,30 @@ watched with `--opening guide`, never with a pane and a stopwatch**, and the
 pane cannot do it even in principle while it is hidden.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-twenty-handles-are-heard-by-the-simulation-and-d — THE PULSE's bar becomes a handle
+
+- reading — 30 min. Whether the meter is reachable at all, which nothing in
+  the tree states: THE PULSE is an interlude, and an interlude that replaced
+  the field would never see `touchDown`. `rounds.ts`, then `input.ts`, then
+  `touch.ts` to find that this round is played *on the band*, so `touchDown`
+  gates on `y < l.bandTop` and asks `handleUnder()` first — and the meter sits
+  at 13.5% of the play height, a long way above the band. Then the two gates
+  in `sim/pulse-round.ts` the hit test has to mirror exactly.
+- writing — 45 min. `pulse-grip.ts` whole — the shared geometry, the gate, the
+  `handleUnder()` branch and the drawing — the `field-controls-pulse.ts` pair,
+  the `docs/spec/controls.md` rows, `TARGET_PLACE`'s one line, eight tests in
+  `pulse-grip.test.ts` and a ninth in `pulse-frame.test.ts`.
+- looking — 25 min. Three shots of the bar and two corrections off them: the
+  word BOTH was printed straight through STAGE 1/1 and moved inside the
+  vessel, and the held end cap was red-on-red at the exact level it is most
+  often read at, so it is outlined in bone now.
+- friction — 5 min. `STROKE` imported from `glow.js`, where it is not.
+- landing — 15 min. The director guard fired as designed on a row with no
+  spec line, and `timeout-cap.test.ts` caught the new drawing test on bun's
+  five-second default.
+
+The bottleneck was looking: the geometry was right in the first frame and the
+picture was still wrong twice over, in two ways a test cannot see — a word
+over another file's word, and a red mark on a red fill. **A control drawn on
+top of a readout is photographed before it is believed.**

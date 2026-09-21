@@ -136,7 +136,7 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
 
   ctx.textAlign = "center";
   drawTitle(ctx, l, boss, l.playHeight * 0.07);
-  drawPulseMeter(ctx, l, boss, cfg.pulseMeterMaxMilli);
+  drawPulseMeter(ctx, l, boss, cfg, view.time);
   drawPulseTally(ctx, l, boss, seat, l.playHeight * 0.185);
 
   if (boss.phase === "count") drawCount(ctx, l, view, boss);

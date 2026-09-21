@@ -99,8 +99,14 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  *   `source` is a branch of `touch.ts`, and neither exists while the target is
  *   only heard. `orreryRing` made the walk one lane later, `sinewLeft` and
  *   `sinewRight` the lane after that, `candleWick` and `curtainHem` in two
- *   halves of one lane each — and the twenty still sitting here are the
- *   backlog, each of them a look before it is a row.
+ *   halves of one lane each, `pulseMeter` the fifth — and the nineteen still
+ *   sitting here are the backlog, each of them a look before it is a row.
+ *
+ * **The `unbuilt` comments say "as every one above it" and not a number.**
+ * They carried a running tally until 21 September 2026 and every one of them
+ * was wrong by then — three above two, five above four, thirteen above nine —
+ * because a count of a list is a fact that goes stale on the lane that shortens
+ * the list, and nothing here reads it.
  *
  * So the test below is one assertion in both directions: a `field` target
  * without a row is a tab that has fallen behind the game, and an `unbuilt` one
@@ -198,22 +204,27 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   vaneHousing: "unbuilt",
   // SNAKE's two hands on its own body — player 1 prising the jaws that have
   // stuck, player 2 lifting the tail clear of the arena
-  // (`sim/snake-controls.ts`). Sim lane only so far, as the three above.
+  // (`sim/snake-controls.ts`). Sim lane only so far, as every one above it.
   snakeJaws: "unbuilt",
   snakeTail: "unbuilt",
   // PINBALL's two hands on its table — player 1 winding the plunger his own
   // hard launch left slack, player 2 shoving the cabinet through a flight
-  // (`sim/pinball-hand.ts`). Sim lane only so far, as the five above.
+  // (`sim/pinball-hand.ts`). Sim lane only so far, as every one above it.
   pinPlunger: "unbuilt",
   pinTable: "unbuilt",
   // THE SCOUT's two hands — player 2's line home on a laden ship, player 1's
   // carry priming a thruster three motes have made labour
-  // (`sim/scout-hand.ts`). Sim lane only so far, as the seven above.
+  // (`sim/scout-hand.ts`). Sim lane only so far, as every one above it.
   scoutLine: "unbuilt",
   scoutPrime: "unbuilt",
   // THE PULSE's meter, the one thing in the game both seats may take hold of
-  // at once (`sim/pulse-hand.ts`). Sim lane only so far, as the nine above.
-  pulseMeter: "unbuilt",
+  // at once, and the only handle here on an **interlude**: a hand on a
+  // reading rather than on a body, so the bar itself is the button and there
+  // is no ring (`sim/pulse-hand.ts`). The fifth to make `orreryRing`'s walk,
+  // and the one the wave's own guide had been promising the whole time —
+  // *Bar low: a thumb on it carries them* over a bar with nothing on it
+  // (`render/pulse-grip.ts`, `field-controls-pulse.ts`).
+  pulseMeter: "field",
   // THE BATON's own arm, the one handle whose seat the *beat* decides: the
   // locked-out seat strips a swelling socket, and under `merging` a thumb
   // each draws the two beads into one (`sim/baton-hand.ts`,
@@ -222,13 +233,13 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE UNDERTOW's two thumbs, both the navigator's and both on the hull
   // itself: a pin is a second plate on a standing lobe, and the free hauls
   // the plate off a pilot the floor unseated (`sim/undertow-hand.ts`). Sim
-  // lane only so far, as the thirteen above.
+  // lane only so far, as every one above it.
   undertowPin: "unbuilt",
   undertowFree: "unbuilt",
   // THE THROAT's two, and the only pair the fight hands out as it loses: a
   // thumb on a ring already gone slack holds the gullet's breath, and in
   // `open` a carry drags the tube itself a column off its meal
-  // (`sim/throat-hand.ts`). Sim lane only so far, as the fifteen above.
+  // (`sim/throat-hand.ts`). Sim lane only so far, as every one above it.
   throatRing: "unbuilt",
   throatTube: "unbuilt",
   // THE CURTAIN's hem, the pilot's alone and heard only while the rail is
@@ -245,7 +256,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // growing blade while the fan is `fanning`, the navigator wipes a soft
   // column while it is `hurrying`, and the pilot prises the `closed`
   // interlock open for her beam (`sim/taster-hand.ts`). Sim lane only so
-  // far, as the nineteen above.
+  // far, as every one above it.
   tasterBlade: "unbuilt",
   tasterGap: "unbuilt",
   tasterLock: "unbuilt",
@@ -255,7 +266,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `paying` on, and the pilot hauls the soonest return a beat down while
   // the cord is `whipping` and tears the cord out by hand once it is `taut`
   // and she has carried the plate out of the socket's column
-  // (`sim/ledger-hand.ts`). Sim lane only so far, as the twenty-two above.
+  // (`sim/ledger-hand.ts`). Sim lane only so far, as every one above it.
   ledgerFoot: "unbuilt",
   ledgerSocket: "unbuilt",
   ledgerBead: "unbuilt",

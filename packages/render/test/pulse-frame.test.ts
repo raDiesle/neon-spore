@@ -4,6 +4,7 @@ import {
   createWorld,
   PULSE_COUNT_BEATS,
   type PulseState,
+  pulseHeart,
   pulseNoteTick,
   startWave,
   step,
@@ -149,6 +150,33 @@ describe("THE PULSE draws on all three screens", () => {
     expect(strips).toContain("cannon");
     expect(strips).toContain("shield");
     expect(labels).toContain("THE PULSE");
+  });
+
+  it("draws the hand on the bar once the bar has dropped, and the caps under it", () => {
+    // Nobody presses anything, so the meter falls the whole way: through
+    // `pulseFlutterMilli`, where the box is offered, and on through
+    // `pulseArrestMilli`, where it goes red and wants both thumbs. Both seats
+    // are put on it part-way down so the end caps and the word HELD are drawn
+    // too (`pulse-grip.ts`).
+    const hearts = new Set<string>();
+    const world = createWorld(CFG, 5);
+    const index = waveWith("pulse");
+    startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+    const { ctx } = runFrames(world, "p1", ticksPerBeat(CFG) * (PULSE_COUNT_BEATS + 20), {
+      onTick: (_tick, w) => {
+        const p = w.boss?.kind === "pulse" ? w.boss : null;
+        if (p !== null) {
+          hearts.add(pulseHeart(CFG, p));
+          const held = p.meter < CFG.pulseArrestMilli;
+          p.brace1 = held;
+          p.brace2 = held;
+        }
+        step(w, []);
+      },
+    });
+    expect(ctx.calls).toBeGreaterThan(500);
+    expect(hearts.has("flutter")).toBe(true);
+    expect(hearts.has("arrest")).toBe(true);
   });
 
   it("really hit some and missed some, or the frames proved nothing", () => {
