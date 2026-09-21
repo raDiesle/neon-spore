@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · bbd6f2ad — The ON THE FIELD guard walks the union
+
+"Every DragTarget has its own FIELD_CONTROLS entry" walked a hand-typed array of twenty-three names, so twenty-four handles built after THE CURTAIN had a paragraph in the exhaustive switch beside it and no row on the tab, no row in the spec and nothing red. The switch and the array are now one `Record<DragTarget, TargetPlace>`: a member added to the union fails to compile until it is placed as `panel`, `field` or `unbuilt`, the keys are the list the test walks, and one assertion holds both directions — a `field` target with no row, and an `unbuilt` one with a row nobody reclassified when the look landed.
+
 ## 2026-09-21 · 818a8f76 — Mark "`packages/sim/src/drag-targets-c.ts` has room for no more handles" done
 
 ## 2026-09-21 · b6e4cbb3 — Cut a fourth page of drag targets
