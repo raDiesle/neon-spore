@@ -575,6 +575,7 @@ what a phone cannot do is *reach* that strip.
 ## `queue next` hands out an entry no session can finish, and goes on doing it
 
 - **Found:** 2026-09-21, claude/queue-versus-new-leaves-no-directory
+- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-queue-next-hands-out-an-entry-no-session-can-fin)
 - **Files:** `tools/queue/run.ts`, `tools/queue/claim.ts`, `tools/queue/test/taken.test.ts`
 - **Asks:** Should `next` skip an entry marked ASKS THE OWNER, or does an entry need a field saying the ask is the whole of what is left?
 
