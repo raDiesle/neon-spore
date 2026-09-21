@@ -274,7 +274,8 @@ can run it. `.claude/skills/net-change` has the flags and why, and
 - Files stay under ~250 lines. Split rather than grow.
 - **Everything in the repository is in English.** The design vocabulary (hull,
   lobe, beat, guard, cannon, shield, scar, tick, column) is fixed — do not
-  invent synonyms.
+  invent synonyms. **A player reads `shield`, never ward, plate or guard**
+  (`.claude/skills/game-words`).
 
 # Compact instructions
 

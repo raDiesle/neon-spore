@@ -24,7 +24,7 @@ const SEATS: { role: ViewRole; seat?: 1 | 2; tag: string; name: string; what: st
     seat: 1,
     tag: "P1",
     name: "PILOT",
-    what: "Slides the cannon, opens the maw, triggers the guard.",
+    what: "Slides the cannon, opens the maw, triggers the shield.",
   },
   {
     role: "p2",

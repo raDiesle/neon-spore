@@ -122,7 +122,7 @@ export const CONTROLS: readonly ControlDef[] = [
     player: 1,
     form: "lobe",
     label: "SHIELD",
-    does: "Triggers the shield wherever player 2 has left it. Half of every ward.",
+    does: "Triggers the shield wherever player 2 has left it. Player 2 cannot fire it.",
     ship: "shield",
   },
   {

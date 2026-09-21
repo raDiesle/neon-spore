@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — shield-one-word — four words for one object, and the first sweep
+
+- reading — 20 min. The queue entry and the owner's answer, the six strings the
+  entry named, and then the whole corpus through a scratch script: 73 lines in
+  41 subjects, one of them a wave *name*, one of them in `CLEAN`.
+- writing — 40 min. The row in section 3 of `.claude/skills/game-words` with
+  the three sanctioned shapes, the sixth pattern in `measure.ts`, the two waves
+  of act 1 and BULB QUEEN rewritten whole, the two code strings, `CLAUDE.md`'s
+  vocabulary line, and the queue entry for the sixty-six lines left.
+- looking — 10 min. `bun run words` per subject until every line read `✓`, and
+  `--clean` twice for the ceiling.
+- friction — 20 min. `CLAUDE.md` came out 123 characters over its 16000 ceiling
+  and had to be cut twice; a regex written through a `chr(92)` substitution
+  came out broken and was reverted and rewritten with an editor.
+- landing — 10 min. `check:fast`, commit, `land`.
+
+The bottleneck was measuring the blast radius, and it was worth every minute:
+the answer looked like six strings and was seventy-three, which is what made
+this a split rather than one long lane. The rule went in with the sixteen lines
+that could be held in one sitting, and `CEILING` rose by that much on purpose.
+
 ## 2026-09-21 — queue-next-skips-unanswered — an entry nobody could finish
 
 - reading — 15 min. The queue entry, `tools/queue/` end to end — `queue.ts`,

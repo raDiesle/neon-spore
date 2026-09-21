@@ -67,10 +67,13 @@ const HELD_BREATH = /[;—–]/;
  * appear. Small on purpose: every row here is a term the repository already
  * settled somewhere else and then contradicted in player-facing text.
  *
- * The four that are *not* settled — ward against guard against plate against
- * shield — are an `Asks` entry in `docs/queue.md`, because deciding which word
- * a player reads for the thing they slide under a rock is the owner's, not a
- * checker's.
+ * The four that were *not* settled — ward against guard against plate against
+ * shield — were an `Asks` entry in `docs/queue.md`, because deciding which
+ * word a player reads for the thing they slide under a rock is the owner's,
+ * not a checker's. He answered **shield** on 21 September 2026: it is what the
+ * control is labelled today, so the button a thumb is already on says it and
+ * nothing on the panel moves. `guard` stays the control's id in the code, and
+ * this row is only ever asked about text a player reads.
  */
 export const VOCABULARY: ReadonlyArray<readonly [RegExp, string, string]> = [
   [/\blanes?\b/i, "lane", "column — CLAUDE.md fixes the word and the strip is drawn in columns"],
@@ -78,6 +81,14 @@ export const VOCABULARY: ReadonlyArray<readonly [RegExp, string, string]> = [
   [/\bpilot\b/i, "pilot", "Player 1 — a player is never shown the word pilot anywhere"],
   [/\bnavigator\b/i, "navigator", "Player 2 — a player is never shown the word navigator anywhere"],
   [/\bseats?\b/i, "seat", "screen — seat is the code's word for a screen and reaches no player"],
+  // One row for the three, because the finding a lane wants is *which word to
+  // write*, and it is the same answer whichever of them it found. `warden`,
+  // `plated` and `guardrail` are not matched: the boundary is the whole word.
+  [
+    /\b(?:wards?|warded|warding|guards?|guarded|plates?)\b/i,
+    "ward, plate or guard",
+    "shield — one word for it, and the control already says it. Say what a hand does: put the shield under it",
+  ],
 ];
 
 /**
@@ -151,8 +162,14 @@ export function findings(text: string, kind: string): Finding[] {
       out.push({ rule: "passive", detail: `"${passive[0]}" — say who does it` });
     }
   }
-  for (const [pattern, banned, use] of VOCABULARY) {
-    if (pattern.test(text)) out.push({ rule: "word", detail: `"${banned}" — use ${use}` });
+  // **A name is a proper noun and the vocabulary does not reach it.** Every row
+  // here says which word a player reads *for a thing*; a wave called THE WARD is
+  // a title, and renaming one reaches the director, the perf rows and the
+  // baselines. Without this line that wave carries a finding no lane may act on.
+  if (kind !== "name") {
+    for (const [pattern, banned, use] of VOCABULARY) {
+      if (pattern.test(text)) out.push({ rule: "word", detail: `"${banned}" — use ${use}` });
+    }
   }
   return out;
 }

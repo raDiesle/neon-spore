@@ -18,9 +18,9 @@ export const WAVES_ACT_2: Wave[] = [
     name: "BULB QUEEN",
     sentence: "The one where she opens for two beats, and drops a torch on a clock of its own.",
     guide: {
-      both: "Shoot the queen through her real mark while she is open. Ward the torch that drops from a wing.",
-      p1: "1. Say the shape and the colour of what is coming.\n2. Slide the cannon under the mark your partner calls real.\n3. Trigger the plate when the torch drops.",
-      p2: "1. Load the colour your partner calls.\n2. Say which mark is real: LEFT or RIGHT.\n3. Fire when the queen opens.\n4. Say which wing drops, and move the plate under it.",
+      both: "Shoot the queen through her real mark while she is open. Put the shield under the torch that drops.",
+      p1: "1. Say the shape and the colour of what is coming.\n2. Slide the cannon under the mark your partner calls real.\n3. Trigger the shield when the torch drops.",
+      p2: "1. Load the colour your partner calls.\n2. Say which mark is real: LEFT or RIGHT.\n3. Fire when the queen opens.\n4. Say which wing drops, and move the shield under it.",
       scene: "bulbQueen",
     },
     entries: [],

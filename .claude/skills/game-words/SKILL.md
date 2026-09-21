@@ -74,8 +74,8 @@ three or more words before it.
 the actor is the thing the player needs: is it them, their partner, or the
 game?
 
-> *A rock is warded, not shot.*
-> **You ward a rock. You never shoot it.**
+> *A rock is shielded, not shot.*
+> **You put the shield under a rock. You never shoot it.**
 
 ### One word per thing
 
@@ -93,13 +93,22 @@ contradicted in text a player reads:
 | pilot | **Player 1** | no screen anywhere shows a player the word *pilot* |
 | navigator | **Player 2** | the same |
 | seat | **screen** | *seat* is the code's word; a player has a screen |
+| ward, plate, guard | **shield** | the owner's word, 21 September 2026 — the button a thumb is on already says it |
 
-**Not settled, and it is the owner's to settle** — the game currently shows a
-player four words for things in one family: the control is labelled `SHIELD`,
-a guide says *ward the torch*, another says *the plate is already standing in
-that column*, and `menu-seats.ts` says *triggers the guard*. There is an
-`Asks` entry in `docs/queue.md`. **Until he answers, do not pick one** and do
-not add a row above.
+**Shield is a noun and this game has no verb for it.** That is the cost the
+owner picked it knowing: *shield the torch* reads as a noun, so the line says
+what a hand does instead — **put the shield under it**, **move the shield
+there**, **trigger the shield**. Reach for one of those three before inventing
+a fourth. `guard` stays as the control's id in the code and reaches no screen.
+
+**Sixty-six lines still say ward, plate or guard**, in acts 2 and up and in
+the mechanics blurbs. They are a `docs/queue.md` entry of their own, which is
+why `CEILING` went up rather than down on the day this row was added — the one
+thing that may raise it.
+
+**A `name` is a proper noun and no row in this table reaches it.** The wave
+`THE WARD` keeps its name: renaming one reaches the director, the perf rows and
+the baselines, and a title is not the word a player reads for the object.
 
 ## 4 · The loop
 
@@ -109,10 +118,12 @@ not add a row above.
    already do and it is why they pass.
 3. `bun run words "<WAVE NAME>"` again, until every line is `✓`.
 4. Add the subject to `CLEAN` in `tools/words/clean.ts`, **in sort order**, and
-   lower `CEILING` to what `bun run words --clean` now prints.
+   lower `CEILING` to what `bun run words --clean` now prints. A lane that has
+   added a *rule* remeasures it instead, and says in `clean.ts` which rule and
+   how much.
 5. `bun test tools/words`.
 
-`CLEAN` only grows and `CEILING` only falls. `CLEAN` catches a rewritten wave
+`CLEAN` only grows, and `CEILING` only falls unless a new rule went in with it. `CLEAN` catches a rewritten wave
 sliding back; `CEILING` catches a *new* wave written in the old register, which
 `CLEAN` cannot see. `tools/words/clean.ts` says why the contract is that way
 round rather than a list of what is waived.

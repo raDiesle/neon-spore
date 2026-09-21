@@ -1184,37 +1184,6 @@ reformats a template literal.
 Rewrite them in the same lane, and say in the commit that `menu-seats.ts` is
 where the fourth word for the shield lives.
 
-## The game shows a player four words for one thing: ward, guard, plate, shield
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-the-game-shows-a-player-four-words-for-one-thing)
-- **Files:** `packages/content/src/controls.ts`, `apps/game/src/menu-seats.ts`, `packages/content/src/waves/act-1.ts`, `.claude/skills/game-words/SKILL.md`
-- **Asks:** Which single word does a player read for the thing Player 2 slides and Player 1 triggers — SHIELD, WARD, PLATE or GUARD?
-- **Answered:** 21 September 2026 — SHIELD. The owner: *what the control itself is labelled today, so the button a thumb is on already says it and nothing on the panel changes; the guides and the menu move to it.* Chosen over WARD, which would have relabelled the control to win the verb, and over PLATE and GUARD. `CLAUDE.md`'s fixed vocabulary loses **guard** in the same lane — the list carrying both is how four words happened.
-
-All four ship today, for one object. The control is labelled `SHIELD`
-(`controls.ts`). THE ROCK's guide says *the plate is already standing in that
-column*. BULB QUEEN's says *Ward the torch that drops from a wing*.
-`menu-seats.ts` says *triggers the guard*. `CLAUDE.md`'s fixed vocabulary lists
-both **guard** and **shield**, which is how it happened.
-
-The options the answer picks between:
-
-- **SHIELD** — what the button already says, so no control label moves. The
-  cost is the verb: *shield the torch* reads as a noun, and every guide that
-  says *ward* has to find a verb.
-- **WARD** — the verb the guides already use and the one the simulation is
-  named after (`hullInvulnerable`'s neighbours, `wardFault`). The cost is
-  relabelling the control and a word a non-native reader will not know.
-- **PLATE** — the most concrete of the four, and what the thing looks like. It
-  has no verb at all.
-- **GUARD** — noun and verb both, in `CLAUDE.md` already, and nowhere on a
-  screen a player sees.
-
-The answer is one row in section 3 of `.claude/skills/game-words` and a pass
-over the three files above. Nothing else is waiting on it, and **section 3 says
-not to pick one until he answers**, so this does not block the rewrite lanes.
-
 ## `docs/style-guide.md` carries "How an asset gets made" twice
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
@@ -2097,3 +2066,34 @@ watched at tempo, a beat counted, an animation's arc — is measuring a held
 world. `docs/working-with-claude.md` says to verify with `bun run preview` and
 says nothing about this; it should say it in the same paragraph, and name the
 one way to tell (`document.visibilityState` in the page).
+
+## Sixty-six player-facing lines still say ward, plate or guard
+
+- **Found:** 2026-09-21, claude/queue-the-game-shows-a-player-four-words-for-one-thing
+- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-7.ts`, `packages/content/src/mechanics-handed.ts`, `packages/content/src/mechanics-worn.ts`, `tools/words/clean.ts`
+
+The owner answered **shield** on 21 September 2026 and the rule went in the
+same day: one row in section 3 of `.claude/skills/game-words` and a sixth
+pattern in `tools/words/measure.ts`. The lane that added it rewrote what it
+could hold in one sitting — the two waves of act 1, BULB QUEEN, and the two
+strings in `apps/game` and `controls.ts` — and split the rest off here rather
+than take a rule and a sweep in one commit.
+
+What is left is **66 lines across 38 subjects**, all of them in acts 2 and up
+and in the mechanics blurbs. `bun run words "<SUBJECT>"` names every one and
+the rule it broke; the five files above are the ones with the most in them and
+not the whole list — twenty files carry at least one. The three sanctioned
+shapes are in the skill and there is no fourth: **put the shield under it**,
+**move the shield there**, **trigger the shield**.
+
+This is the one reason `CEILING` in `tools/words/clean.ts` went **up** on the
+day the rule landed, 290 to 306, rather than down. Every line fixed here comes
+off that number, and the lane that finishes the sweep lowers it to whatever
+`bun run words --clean` then prints — at least the 16 that the new rule newly
+failed. Add each subject to `CLEAN` as it goes green.
+
+**The wave names `THE WARD` and `THE WARDEN` stay.** A wave name is a proper
+noun, not the word a player reads for the object, and renaming one reaches the
+director, the perf rows, the baselines and `docs/spec/`. `warden` is already
+outside the pattern's boundary; `THE WARD` is matched by it and is the one
+place a lane should read the finding and leave the line alone.

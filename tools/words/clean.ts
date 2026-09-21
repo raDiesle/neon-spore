@@ -42,10 +42,12 @@ export const CLEAN: readonly string[] = [
   "THE MAZE",
   "THE MIRROR",
   "THE PULSE",
+  "THE ROCK",
   "THE TWITCH",
   "THE WALL",
   "TORCH",
   "TWO COLOURS",
+  "TWO ROCKS",
   "fleet",
   "meteor",
   "meteorFast",
@@ -62,5 +64,18 @@ export const CLEAN: readonly string[] = [
 /**
  * How many lines may still fail. 290 of 717 on 21 September 2026, the day the
  * rules were written; the rewrite lanes bring it down.
+ *
+ * **It went up once, the same day, and only a new rule may do that.** The
+ * owner settled ward against plate against guard against shield, that became
+ * a sixth vocabulary row, and sixty-six lines the checker had never asked
+ * about started failing — sixteen of them for the first time. A number that
+ * may never rise would have meant the answer could not be enforced until the
+ * whole corpus was rewritten, which is the rewrite the number exists to
+ * pace. So: a rule added, remeasured, and a sentence here saying which rule
+ * and how much. A lane that has written no rule may still only lower it.
+ *
+ * 290 to 305: sixteen newly failing, less the one wave *named* THE WARD, which
+ * the row does not reach (`measure.ts` — a name is a proper noun). The
+ * remaining sixty-six lines are their own queue entry.
  */
-export const CEILING = 290;
+export const CEILING = 305;

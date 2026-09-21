@@ -91,8 +91,8 @@ export const WAVES_ACT_1: Wave[] = [
     sentence: "The one where a shot is no answer and the timing is everything.",
     guide: {
       both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
-      p1: "It announces itself on your strip, before it is on the field. You have a trigger now: fire the shield at the moment it lands — not before.",
-      p2: "The plate is already standing in that column, and nothing on your panel moves it yet. Call the moment it arrives.",
+      p1: "Your strip shows it first. You have a trigger now. Fire the shield as it lands, not before.",
+      p2: "The shield already stands in that column. Your panel cannot move it yet. Call the moment it lands.",
       scene: "theRock",
     },
     entries: [{ beat: 0, col: 3, kind: "meteor", color: null }],
@@ -103,9 +103,9 @@ export const WAVES_ACT_1: Wave[] = [
     name: "TWO ROCKS",
     sentence: "The one where neither of you can do it alone.",
     guide: {
-      both: "Two rocks, and the second one lands somewhere else. The plate moves now — one of you carries it and the other one fires it.",
-      p1: "The trigger is still yours and the plate is not. Say when, and say it late: the window is the moment it lands.",
-      p2: "The strip under the plate is new. Slide it into the column he calls and hold it there. You cannot fire it yourself.",
+      both: "Two rocks, and the second one lands somewhere else. The shield moves now. One of you carries it. The other fires it.",
+      p1: "The trigger is yours. The shield is not. Say when it lands, and not before.",
+      p2: "The strip under the shield is new. Slide it to the column he calls. You cannot fire it.",
       scene: "twoRocks",
     },
     entries: [
