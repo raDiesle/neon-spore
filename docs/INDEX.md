@@ -2343,6 +2343,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-sinew.ts` | THE SINEW's two handles, in a file of their own |
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
 | `tools/director/src/field-controls-stare.ts` | THE STARE's lid, in a file of its own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-scuttle.ts` | **THE SCUTTLE's hanging part**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
@@ -2352,8 +2353,11 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-diastole.ts` | THE DIASTOLE's clamp, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-warden.ts` | THE WARDEN's thumb and swipe, the director's two rows |
+| `tools/director/src/field-controls-well.ts` | **THE WELL's seam**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-candle.ts` | THE CANDLE's wick: the ON THE FIELD row for the one handle taken hold of in the dark |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

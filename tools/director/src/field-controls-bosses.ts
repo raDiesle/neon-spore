@@ -10,15 +10,19 @@ import { FLEET_CONTROLS } from "./field-controls-fleet.js";
 import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
+import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
+import { LEAD_CONTROLS } from "./field-controls-lead.js";
 import { MAZE_CONTROLS } from "./field-controls-maze.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
+import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { WARDEN_CONTROLS } from "./field-controls-warden.js";
+import { WELL_CONTROLS } from "./field-controls-well.js";
 
 /**
  * **Every boss's own rows** on the ON THE FIELD tab, in the order they were
@@ -67,4 +71,14 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE CURTAIN's hem, the one handle that exists because the other was jammed shut
   // (`field-controls-curtain.ts`).
   ...CURTAIN_CONTROLS,
+  // THE LEAD's stalk and THE SCUTTLE's hanging part, the first two rows here for
+  // bosses that shipped as fixtures with no handle at all: one buys the pair time,
+  // the other a place (`field-controls-lead.ts`, `field-controls-scuttle.ts`).
+  ...LEAD_CONTROLS,
+  ...SCUTTLE_CONTROLS,
+  // THE WELL's seam and THE HIVE's underside, one handle each read two ways by the
+  // state rather than by the thumb — and the hive's two ways are a seat each
+  // (`field-controls-well.ts`, `field-controls-hive.ts`).
+  ...WELL_CONTROLS,
+  ...HIVE_CONTROLS,
 ];

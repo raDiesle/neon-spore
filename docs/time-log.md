@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — queue-twenty-four-on-field-handles — the guard walks the union
+
+- reading — 25 min. Which of the twenty-four a thumb can actually reach today,
+  which is not a question the queue entry answers: one grep of
+  `packages/render/src` per target name, then reading the four that matched to
+  tell a handle from an event name — `ledgerBead` and `scoutPrime` appear in
+  the effect tables and are drawn nowhere.
+- writing — 30 min. The `switch` turned into a `Record<DragTarget, …>` with
+  every paragraph carried across a key at a time, four `field-controls-*.ts`
+  files, six rows in `docs/spec/controls.md`, and the queue entry rewritten to
+  the twenty that are left.
+- looking — 0 min. The four rows are prose about pictures the game already
+  draws; nothing new is drawn here.
+- friction — 0 min.
+- landing — 10 min. One formatter complaint, `bun run index` for the four new
+  files, and a full `check:fast`.
+
+The bottleneck was reading the render package to find which handles have a
+ring: the simulation hears fifty-seven targets and nothing in the tree says
+which of them a finger can land on.
+
 ## 2026-09-21 — queue-drag-targets-c-has-room-for-no-more — a fourth page of handles
 
 - reading — 10 min. The two cuts already made, read off the headers of

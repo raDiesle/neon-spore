@@ -14,12 +14,17 @@ import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
  * be checked mechanically is narrower: that this list still covers every
  * `Hold["kind"]` and every `DragTarget` that type declares.
  *
- * `documentedHoldKind` and `documentedDragTarget` are exhaustive switches. A
- * new member added to either union in `touch.ts` or `sim/types.ts` makes the
- * `default` branch's parameter something other than `never`, which fails to
- * *compile* — `bun run check`'s typecheck, not this file's assertions, is
- * what actually catches drift. The runtime tests below only prove the two
- * functions still agree with `FIELD_CONTROLS` today.
+ * `documentedHoldKind` is an exhaustive switch and `TARGET_PLACE` is a
+ * `Record` keyed by the whole of `DragTarget`. A new member added to either
+ * union in `touch.ts` or `sim/types.ts` fails to *compile* here — the switch's
+ * `default` parameter stops being `never`, the record is missing a key — so
+ * `bun run check`'s typecheck, not this file's assertions, is what catches
+ * drift. The runtime tests below only prove the two still agree with
+ * `FIELD_CONTROLS` today.
+ *
+ * The record replaced a hand-typed array of twenty-three target names on 21
+ * September 2026, which is how twenty-four handles came to be built with no
+ * row anywhere and nothing red.
  *
  * A kind was not enough on its own. One hold can carry two gestures — a press
  * on the cannon that slides it and a lift that opens the maw are both
@@ -68,248 +73,237 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
 }
 
 /**
- * `crank` is the one target that is **not on the field**: it is a lobe on THE
- * CLAW's panel, turned rather than pressed, and `packages/content/controls.ts`
- * describes it with the other buttons. It is named here for `"held"`'s reason
- * one switch up — to keep this exhaustive, so a target invented tomorrow still
- * fails to compile — and not given a `FIELD_CONTROLS` entry.
+ * **Where every member of `DragTarget` is answered**, as a table over the
+ * whole union rather than a list of part of it.
  *
- * `orreryRing` has its entry now (`field-controls-orrery.ts`), and it came
- * one lane after the rule did — the row's own fields are why it had to: `where`
- * is a place on the screen and `source` is a branch of `touch.ts`, and neither
- * existed while the ring was a bearing with nothing drawn to take hold of.
+ * This was a `switch` returning its own argument, and beside it the test
+ * walked a hand-typed array of twenty-three names. The switch was held to the
+ * union by `assertNever` and so could not go stale; the array was held to
+ * nothing, so every handle built after THE CURTAIN — twenty-four of them, by
+ * 21 September 2026 — had a paragraph in the switch and no row on the tab, no
+ * row in the spec and nothing failing. A `Record` keyed by the union is both
+ * halves at once: a member added to `DragTarget` fails to *compile* here until
+ * it is placed, and the keys are the list the tests below walk, so there is no
+ * second copy to keep.
  *
- * `sinewLeft` and `sinewRight` went the same way one lane later: heard by
- * `sim/sinew-hand.ts` with nothing drawn to take hold of, then given their
- * rows with the look (`field-controls-sinew.ts`, `docs/spec/bosses.md`
- * §11.26).
+ * Three places, because a target is in one of exactly three states:
  *
- * `candleWick` is the third to make that walk, and in two halves of one lane
- * rather than two lanes: the pull was heard by `sim/candle-hand.ts` with
- * nothing on the screen to take hold of, and the look gave it a wick to hang
- * on, a ring round the flame and a row (`render/candle-grip.ts`,
- * `field-controls-candle.ts`, `docs/spec/bosses.md` §11.22).
+ * - **`panel`** — not on the field at all. `crank` alone: a lobe on THE CLAW's
+ *   panel, turned rather than pressed, described with the other buttons in
+ *   `packages/content/controls.ts`.
+ * - **`field`** — a handle a thumb can reach on a screen today, which must
+ *   have a `FIELD_CONTROLS` row.
+ * - **`unbuilt`** — heard by the simulation with nothing drawn to take hold
+ *   of, which must **not** have one. That is the `orreryRing` precedent and
+ *   the row's own fields are why: `where` is a place on the screen and
+ *   `source` is a branch of `touch.ts`, and neither exists while the target is
+ *   only heard. `orreryRing` made the walk one lane later, `sinewLeft` and
+ *   `sinewRight` the lane after that, `candleWick` and `curtainHem` in two
+ *   halves of one lane each — and the twenty still sitting here are the
+ *   backlog, each of them a look before it is a row.
+ *
+ * So the test below is one assertion in both directions: a `field` target
+ * without a row is a tab that has fallen behind the game, and an `unbuilt` one
+ * *with* a row is a table nobody updated when the look landed.
  */
-function documentedDragTarget(target: DragTarget): DragTarget {
-  switch (target) {
-    case "crank":
-    case "orreryRing":
-    case "mazeString":
-    case "wardenTether":
-    case "lidString":
-    case "gripBody":
-    case "choirLeft":
-    case "choirRight":
-    case "balloonLeft":
-    case "balloonRight":
-    case "sinewLeft":
-    case "sinewRight":
-    case "candleWick":
-      return target;
-    // `surgeBulb` is the same again, and the first one target both seats
-    // send: heard by `sim/surge-hand.ts`, answered anywhere on the bulb by
-    // `render/surge-grip.ts` (`docs/spec/bosses.md` §11.28).
-    case "surgeBulb":
-      return target;
-    // `antiphonOrgan` is the first on one screen only: heard by
-    // `sim/antiphon-hand.ts` from either seat, answered on the organ by
-    // `render/antiphon-grip.ts` where the organ is drawn, which is the
-    // pilot's screen and never the navigator's (`docs/spec/bosses.md` §11.31).
-    case "antiphonOrgan":
-      return target;
-    // `instarMark` is one target that is six gestures: `id` names the mark
-    // and the mark's own `gesture` says what the thumb on it means, heard by
-    // `sim/instar-hand.ts` and answered by `instarMarkUnder` under
-    // `handleUnder()` — a turn mark through `turnAbout`, the crank's reading
-    // about the ring (`render/instar-marks.ts`, `docs/spec/bosses.md` §11.32).
-    case "instarMark":
-      return target;
-    // `filament` is the first target that is a **trace**: no `id`, both
-    // seats, and the grab is at a tile the simulation already holds — the
-    // head for player 1, the tail for player 2 — so the displacement
-    // resolves to a tile (`sim/filament-hand.ts`), answered by
-    // `filamentGrabUnder` under `handleUnder()` at the ring each screen
-    // draws (`render/filament-grip.ts`, `docs/spec/bosses.md` §11.33).
-    case "filament":
-      return target;
-    // `stareLid` is heard by `sim/stare-hand.ts` — a depth on the y from the
-    // seat the eye is not looking at — answered by `stareLidUnder` under
-    // `handleUnder()` at the ring only that seat's screen draws
-    // (`render/stare-lid.ts`, `docs/spec/bosses.md` §11.16).
-    case "stareLid":
-      return target;
-    // `queenMark` is THE BULB QUEEN's two marks under player 1's thumb —
-    // pried open under BROOD, held open under SCREAM (`sim/queen-hand.ts`,
-    // `field-controls-queen.ts`).
-    case "queenMark":
-      return target;
-    // `diastoleChamber` is THE DIASTOLE's alone right chamber under player
-    // 1's thumb — a clamp on its contraction (`sim/diastole-hand.ts`),
-    // answered by `diastoleClampUnder` under `handleUnder()` at the ring
-    // only that seat's screen draws (`render/diastole-clamp.ts`,
-    // `field-controls-diastole.ts`).
-    case "diastoleChamber":
-    // `mirrorLobe` is THE MIRROR's own ship under both thumbs — the last
-    // round reflected on it, then pinned (`sim/mirror-hand.ts`,
-    // `field-controls-mirror.ts`).
-    case "mirrorLobe":
-    // `gorgeLobe` is THE GORGE's intakes under one thumb each — player 1's
-    // pinch on a full one, player 2's pry on the mouth (`sim/gorge-hand.ts`,
-    // `field-controls-gorge.ts`).
-    case "gorgeLobe":
-    // `mazeHeart` is THE MAZE's heart under the navigator's thumb, torn out
-    // while the pilot braces the string (`sim/maze-hand.ts`,
-    // `field-controls-maze.ts`).
-    case "mazeHeart":
-    // `gaugeNeedle` and `gaugeBand` are THE GAUGE's dial under one thumb each
-    // — his hand swinging the needle while the valve is jammed, her thumb
-    // holding the wound band open (`sim/gauge-hand.ts`, `render/gauge-grip.ts`,
-    // `field-controls-gauge.ts`).
-    case "gaugeNeedle":
-    case "gaugeBand":
-      return target;
-    // `wardenEye` and `wardenHatch` are THE WARDEN's second and third hands —
-    // player 2's thumb resting on the eye under NARROW, player 1's swipe
-    // across the hatch under GLARE (`sim/warden-hand.ts`,
-    // `field-controls-warden.ts`).
-    case "wardenEye":
-    case "wardenHatch":
-      return target;
-    // THE FLEET's three thumbs on its chart — the navigator's hold on the
-    // plume, the pilot's rake along the hull, her pull on the wreck
-    // (`sim/fleet-hand.ts`, `render/fleet-grip.ts`,
-    // `field-controls-fleet.ts`). All three land on the one square, and
-    // which seat it answers is the state the round is in.
-    case "fleetBreach":
-    case "fleetRake":
-    case "fleetWreck":
-      return target;
-    // THE VANE's two hands on its own mechanism — the pilot's thumb pinning
-    // the sweeping arm under VEER, the navigator's carry off the seized
-    // housing under SEIZE (`sim/vane-hand.ts`). Sim lane only so far.
-    case "vaneArm":
-    case "vaneHousing":
-      return target;
-    // SNAKE's two hands on its own body — player 1 prising the jaws that have
-    // stuck, player 2 lifting the tail clear of the arena
-    // (`sim/snake-controls.ts`). Sim lane only so far, as the three above.
-    case "snakeJaws":
-    case "snakeTail":
-      return target;
-    // PINBALL's two hands on its table — player 1 winding the plunger his own
-    // hard launch left slack, player 2 shoving the cabinet through a flight
-    // (`sim/pinball-hand.ts`). Sim lane only so far, as the five above.
-    case "pinPlunger":
-    case "pinTable":
-      return target;
-    // THE SCOUT's two hands — player 2's line home on a laden ship, player 1's
-    // carry priming a thruster three motes have made labour
-    // (`sim/scout-hand.ts`). Sim lane only so far, as the seven above.
-    case "scoutLine":
-    case "scoutPrime":
-      return target;
-    // THE PULSE's meter, the one thing in the game both seats may take hold of
-    // at once (`sim/pulse-hand.ts`). Sim lane only so far, as the nine above.
-    case "pulseMeter":
-      return target;
-    // THE BATON's own arm, the one handle whose seat the *beat* decides: the
-    // locked-out seat strips a swelling socket, and under `merging` a thumb
-    // each draws the two beads into one (`sim/baton-hand.ts`,
-    // `render/baton-grip.ts`, `field-controls-baton.ts`).
-    case "batonSocket":
-      return target;
-    // THE UNDERTOW's two thumbs, both the navigator's and both on the hull
-    // itself: a pin is a second plate on a standing lobe, and the free hauls
-    // the plate off a pilot the floor unseated (`sim/undertow-hand.ts`). Sim
-    // lane only so far, as the thirteen above.
-    case "undertowPin":
-    case "undertowFree":
-      return target;
-    // THE THROAT's two, and the only pair the fight hands out as it loses: a
-    // thumb on a ring already gone slack holds the gullet's breath, and in
-    // `open` a carry drags the tube itself a column off its meal
-    // (`sim/throat-hand.ts`). Sim lane only so far, as the fifteen above.
-    case "throatRing":
-    case "throatTube":
-      return target;
-    // THE CURTAIN's hem, the pilot's alone and heard only while the rail is
-    // jammed: carried **up** past `curtainLiftMilli`, it holds a gap open over
-    // the core for as long as the thumb stays there (`sim/curtain-hand.ts`).
-    // The fourth to make `orreryRing`'s walk, and in two halves of one lane as
-    // `candleWick` was one boss earlier: the lift was heard by the simulation
-    // with nothing on the screen to take hold of, and the look gave it a ring
-    // on the fabric's own edge and a row (`render/curtain-grip.ts`,
-    // `field-controls-curtain.ts`, `docs/spec/bosses.md` §11.24).
-    case "curtainHem":
-    // THE TASTER's three, one per movement of one fight and the first set on a
-    // boss no part of which is hidden from either seat: the pilot pins a
-    // growing blade while the fan is `fanning`, the navigator wipes a soft
-    // column while it is `hurrying`, and the pilot prises the `closed`
-    // interlock open for her beam (`sim/taster-hand.ts`). Sim lane only so
-    // far, as the nineteen above.
-    case "tasterBlade":
-    case "tasterGap":
-    case "tasterLock":
-    // THE LEDGER's four, the first set whose seats were decided by what each
-    // seat is shown of one drawn object: the navigator walks the cord's foot
-    // along the plating while it is `rooting` and plugs the socket from
-    // `paying` on, and the pilot hauls the soonest return a beat down while
-    // the cord is `whipping` and tears the cord out by hand once it is `taut`
-    // and she has carried the plate out of the socket's column
-    // (`sim/ledger-hand.ts`). Sim lane only so far, as the twenty-two above.
-    case "ledgerFoot":
-    case "ledgerSocket":
-    case "ledgerBead":
-    case "ledgerCord":
-    // THE LEAD's stalk, and the first handle given to a boss that shipped as
-    // a fixture: the navigator takes the stalk while the body stands dead
-    // still, and it keeps standing while her thumb is on it — the still's
-    // fuse does not burn — so the beat she lets go is the beat it passes and
-    // the beam has as long as she gives it, up to `leadHoldBeats`
-    // (`sim/lead-hand.ts`). Sim lane only so far, as the twenty-six above.
-    case "leadStalk":
-    // THE SCUTTLE's hanging part, and the one handle in this union that buys
-    // a **place** rather than time: the pilot carries a part that has come
-    // loose one column along the frame, once a cycle and never on the
-    // wind-up, and it is thrown down the column he put it in rather than its
-    // socket's (`sim/scuttle-hand.ts`). Sim lane only so far, as the
-    // twenty-seven above.
-    case "scuttlePart":
-      return target;
-    // `antiphonRail` is the navigator's half of the boss whose other handle
-    // is the pilot's: she carries a candidate down off her rail, `id` naming
-    // its place on it, and it stops counting — a bolt into that column and
-    // colour is nothing, and it cannot fall on them when the cycle ends
-    // (`sim/antiphon-hand.ts`). Pull the one he is describing and the cycle
-    // hardens, exactly as firing at a decoy does, so it is a risk rather
-    // than a free elimination (`docs/spec/bosses.md` §11.31).
-    case "antiphonRail":
-      return target;
-    // `wellSeam` is the pilot's thumb on the one sector of THE WELL's clock
-    // face that holds no column — where the field's two walls meet when the
-    // field is rolled into a circle. He takes hold of it and it is read two
-    // ways by what the face is doing: while the face slips, holding it still
-    // buys the pair four beats; once it has stopped at the far end, carrying
-    // it turns the hours back onto their columns (`sim/well-hand.ts`). It is
-    // on his screen and his alone, because the well is drawn on one of the
-    // two — which is why the answer is her reading the flat field out loud.
-    case "wellSeam":
-      return target;
-    // `hiveLobe` is the same shape as the seam above and the first of them
-    // split between the two seats: the underside of THE HIVE, read two ways
-    // by what the mass is doing. Clenched, the whole underside is the handle
-    // and the pilot drags it back within reach, which is the only answer
-    // there is to a state that puts every breach out of a bolt's reach too.
-    // Swelling, one lobe is the handle, `id` names which, and the navigator
-    // holds it until the colour is wrung out of it — hers because she is the
-    // only seat a swell is drawn for, as the seam is his because the clock
-    // is drawn on his (`sim/hive-hand.ts`, `docs/spec/bosses.md` §11.14).
-    case "hiveLobe":
-      return target;
-    default:
-      return assertNever(target);
-  }
-}
+type TargetPlace = "panel" | "field" | "unbuilt";
+
+const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
+  crank: "panel",
+  orreryRing: "field",
+  mazeString: "field",
+  wardenTether: "field",
+  lidString: "field",
+  gripBody: "field",
+  choirLeft: "field",
+  choirRight: "field",
+  balloonLeft: "field",
+  balloonRight: "field",
+  sinewLeft: "field",
+  sinewRight: "field",
+  candleWick: "field",
+  // `surgeBulb` is the same again, and the first one target both seats
+  // send: heard by `sim/surge-hand.ts`, answered anywhere on the bulb by
+  // `render/surge-grip.ts` (`docs/spec/bosses.md` §11.28).
+  surgeBulb: "field",
+  // `antiphonOrgan` is the first on one screen only: heard by
+  // `sim/antiphon-hand.ts` from either seat, answered on the organ by
+  // `render/antiphon-grip.ts` where the organ is drawn, which is the
+  // pilot's screen and never the navigator's (`docs/spec/bosses.md` §11.31).
+  antiphonOrgan: "field",
+  // `instarMark` is one target that is six gestures: `id` names the mark
+  // and the mark's own `gesture` says what the thumb on it means, heard by
+  // `sim/instar-hand.ts` and answered by `instarMarkUnder` under
+  // `handleUnder()` — a turn mark through `turnAbout`, the crank's reading
+  // about the ring (`render/instar-marks.ts`, `docs/spec/bosses.md` §11.32).
+  instarMark: "field",
+  // `filament` is the first target that is a **trace**: no `id`, both
+  // seats, and the grab is at a tile the simulation already holds — the
+  // head for player 1, the tail for player 2 — so the displacement
+  // resolves to a tile (`sim/filament-hand.ts`), answered by
+  // `filamentGrabUnder` under `handleUnder()` at the ring each screen
+  // draws (`render/filament-grip.ts`, `docs/spec/bosses.md` §11.33).
+  filament: "field",
+  // `stareLid` is heard by `sim/stare-hand.ts` — a depth on the y from the
+  // seat the eye is not looking at — answered by `stareLidUnder` under
+  // `handleUnder()` at the ring only that seat's screen draws
+  // (`render/stare-lid.ts`, `docs/spec/bosses.md` §11.16).
+  stareLid: "field",
+  // `queenMark` is THE BULB QUEEN's two marks under player 1's thumb —
+  // pried open under BROOD, held open under SCREAM (`sim/queen-hand.ts`,
+  // `field-controls-queen.ts`).
+  queenMark: "field",
+  // `diastoleChamber` is THE DIASTOLE's alone right chamber under player
+  // 1's thumb — a clamp on its contraction (`sim/diastole-hand.ts`),
+  // answered by `diastoleClampUnder` under `handleUnder()` at the ring
+  // only that seat's screen draws (`render/diastole-clamp.ts`,
+  // `field-controls-diastole.ts`).
+  diastoleChamber: "field",
+  // `mirrorLobe` is THE MIRROR's own ship under both thumbs — the last
+  // round reflected on it, then pinned (`sim/mirror-hand.ts`,
+  // `field-controls-mirror.ts`).
+  mirrorLobe: "field",
+  // `gorgeLobe` is THE GORGE's intakes under one thumb each — player 1's
+  // pinch on a full one, player 2's pry on the mouth (`sim/gorge-hand.ts`,
+  // `field-controls-gorge.ts`).
+  gorgeLobe: "field",
+  // `mazeHeart` is THE MAZE's heart under the navigator's thumb, torn out
+  // while the pilot braces the string (`sim/maze-hand.ts`,
+  // `field-controls-maze.ts`).
+  mazeHeart: "field",
+  // `gaugeNeedle` and `gaugeBand` are THE GAUGE's dial under one thumb each
+  // — his hand swinging the needle while the valve is jammed, her thumb
+  // holding the wound band open (`sim/gauge-hand.ts`, `render/gauge-grip.ts`,
+  // `field-controls-gauge.ts`).
+  gaugeNeedle: "field",
+  gaugeBand: "field",
+  // `wardenEye` and `wardenHatch` are THE WARDEN's second and third hands —
+  // player 2's thumb resting on the eye under NARROW, player 1's swipe
+  // across the hatch under GLARE (`sim/warden-hand.ts`,
+  // `field-controls-warden.ts`).
+  wardenEye: "field",
+  wardenHatch: "field",
+  // THE FLEET's three thumbs on its chart — the navigator's hold on the
+  // plume, the pilot's rake along the hull, her pull on the wreck
+  // (`sim/fleet-hand.ts`, `render/fleet-grip.ts`,
+  // `field-controls-fleet.ts`). All three land on the one square, and
+  // which seat it answers is the state the round is in.
+  fleetBreach: "field",
+  fleetRake: "field",
+  fleetWreck: "field",
+  // THE VANE's two hands on its own mechanism — the pilot's thumb pinning
+  // the sweeping arm under VEER, the navigator's carry off the seized
+  // housing under SEIZE (`sim/vane-hand.ts`). Sim lane only so far.
+  vaneArm: "unbuilt",
+  vaneHousing: "unbuilt",
+  // SNAKE's two hands on its own body — player 1 prising the jaws that have
+  // stuck, player 2 lifting the tail clear of the arena
+  // (`sim/snake-controls.ts`). Sim lane only so far, as the three above.
+  snakeJaws: "unbuilt",
+  snakeTail: "unbuilt",
+  // PINBALL's two hands on its table — player 1 winding the plunger his own
+  // hard launch left slack, player 2 shoving the cabinet through a flight
+  // (`sim/pinball-hand.ts`). Sim lane only so far, as the five above.
+  pinPlunger: "unbuilt",
+  pinTable: "unbuilt",
+  // THE SCOUT's two hands — player 2's line home on a laden ship, player 1's
+  // carry priming a thruster three motes have made labour
+  // (`sim/scout-hand.ts`). Sim lane only so far, as the seven above.
+  scoutLine: "unbuilt",
+  scoutPrime: "unbuilt",
+  // THE PULSE's meter, the one thing in the game both seats may take hold of
+  // at once (`sim/pulse-hand.ts`). Sim lane only so far, as the nine above.
+  pulseMeter: "unbuilt",
+  // THE BATON's own arm, the one handle whose seat the *beat* decides: the
+  // locked-out seat strips a swelling socket, and under `merging` a thumb
+  // each draws the two beads into one (`sim/baton-hand.ts`,
+  // `render/baton-grip.ts`, `field-controls-baton.ts`).
+  batonSocket: "field",
+  // THE UNDERTOW's two thumbs, both the navigator's and both on the hull
+  // itself: a pin is a second plate on a standing lobe, and the free hauls
+  // the plate off a pilot the floor unseated (`sim/undertow-hand.ts`). Sim
+  // lane only so far, as the thirteen above.
+  undertowPin: "unbuilt",
+  undertowFree: "unbuilt",
+  // THE THROAT's two, and the only pair the fight hands out as it loses: a
+  // thumb on a ring already gone slack holds the gullet's breath, and in
+  // `open` a carry drags the tube itself a column off its meal
+  // (`sim/throat-hand.ts`). Sim lane only so far, as the fifteen above.
+  throatRing: "unbuilt",
+  throatTube: "unbuilt",
+  // THE CURTAIN's hem, the pilot's alone and heard only while the rail is
+  // jammed: carried **up** past `curtainLiftMilli`, it holds a gap open over
+  // the core for as long as the thumb stays there (`sim/curtain-hand.ts`).
+  // The fourth to make `orreryRing`'s walk, and in two halves of one lane as
+  // `candleWick` was one boss earlier: the lift was heard by the simulation
+  // with nothing on the screen to take hold of, and the look gave it a ring
+  // on the fabric's own edge and a row (`render/curtain-grip.ts`,
+  // `field-controls-curtain.ts`, `docs/spec/bosses.md` §11.24).
+  curtainHem: "field",
+  // THE TASTER's three, one per movement of one fight and the first set on a
+  // boss no part of which is hidden from either seat: the pilot pins a
+  // growing blade while the fan is `fanning`, the navigator wipes a soft
+  // column while it is `hurrying`, and the pilot prises the `closed`
+  // interlock open for her beam (`sim/taster-hand.ts`). Sim lane only so
+  // far, as the nineteen above.
+  tasterBlade: "unbuilt",
+  tasterGap: "unbuilt",
+  tasterLock: "unbuilt",
+  // THE LEDGER's four, the first set whose seats were decided by what each
+  // seat is shown of one drawn object: the navigator walks the cord's foot
+  // along the plating while it is `rooting` and plugs the socket from
+  // `paying` on, and the pilot hauls the soonest return a beat down while
+  // the cord is `whipping` and tears the cord out by hand once it is `taut`
+  // and she has carried the plate out of the socket's column
+  // (`sim/ledger-hand.ts`). Sim lane only so far, as the twenty-two above.
+  ledgerFoot: "unbuilt",
+  ledgerSocket: "unbuilt",
+  ledgerBead: "unbuilt",
+  ledgerCord: "unbuilt",
+  // THE LEAD's stalk, and the first handle given to a boss that shipped as
+  // a fixture: the navigator takes the stalk while the body stands dead
+  // still, and it keeps standing while her thumb is on it — the still's
+  // fuse does not burn — so the beat she lets go is the beat it passes and
+  // the beam has as long as she gives it, up to `leadHoldBeats`
+  // (`sim/lead-hand.ts`, `render/lead-grip.ts`, `field-controls-lead.ts`).
+  leadStalk: "field",
+  // THE SCUTTLE's hanging part, and the one handle in this union that buys
+  // a **place** rather than time: the pilot carries a part that has come
+  // loose one column along the frame, once a cycle and never on the
+  // wind-up, and it is thrown down the column he put it in rather than its
+  // socket's (`sim/scuttle-hand.ts`, `render/scuttle-grip.ts`,
+  // `field-controls-scuttle.ts`).
+  scuttlePart: "field",
+  // `antiphonRail` is the navigator's half of the boss whose other handle
+  // is the pilot's: she carries a candidate down off her rail, `id` naming
+  // its place on it, and it stops counting — a bolt into that column and
+  // colour is nothing, and it cannot fall on them when the cycle ends
+  // (`sim/antiphon-hand.ts`). Pull the one he is describing and the cycle
+  // hardens, exactly as firing at a decoy does, so it is a risk rather
+  // than a free elimination (`docs/spec/bosses.md` §11.31).
+  antiphonRail: "field",
+  // `wellSeam` is the pilot's thumb on the one sector of THE WELL's clock
+  // face that holds no column — where the field's two walls meet when the
+  // field is rolled into a circle. He takes hold of it and it is read two
+  // ways by what the face is doing: while the face slips, holding it still
+  // buys the pair four beats; once it has stopped at the far end, carrying
+  // it turns the hours back onto their columns (`sim/well-hand.ts`). It is
+  // on his screen and his alone, because the well is drawn on one of the
+  // two — which is why the answer is her reading the flat field out loud
+  // (`render/touch-well.ts`, `field-controls-well.ts`).
+  wellSeam: "field",
+  // `hiveLobe` is the same shape as the seam above and the first of them
+  // split between the two seats: the underside of THE HIVE, read two ways
+  // by what the mass is doing. Clenched, the whole underside is the handle
+  // and the pilot drags it back within reach, which is the only answer
+  // there is to a state that puts every breach out of a bolt's reach too.
+  // Swelling, one lobe is the handle, `id` names which, and the navigator
+  // holds it until the colour is wrung out of it — hers because she is the
+  // only seat a swell is drawn for, as the seam is his because the clock
+  // is drawn on his (`sim/hive-hand.ts`, `render/hive-grip.ts`,
+  // `field-controls-hive.ts`, `docs/spec/bosses.md` §11.14).
+  hiveLobe: "field",
+};
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {
   test("every field-kind Hold has a FIELD_CONTROLS entry", () => {
@@ -328,39 +322,19 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
   // `gripBody` off a `grip` hold, because carrying a body is the grip's own
   // gesture rather than a second control. What the list has to cover is every
   // target a `drag` can name, whatever hold names it.
-  test("every DragTarget has its own FIELD_CONTROLS entry", () => {
-    const targets: DragTarget[] = (
-      [
-        "mazeString",
-        "wardenTether",
-        "lidString",
-        "gripBody",
-        "orreryRing",
-        "sinewLeft",
-        "sinewRight",
-        "stareLid",
-        "diastoleChamber",
-        "queenMark",
-        "mirrorLobe",
-        "gorgeLobe",
-        "mazeHeart",
-        "gaugeNeedle",
-        "gaugeBand",
-        "wardenEye",
-        "wardenHatch",
-        "batonSocket",
-        "fleetBreach",
-        "fleetRake",
-        "fleetWreck",
-        "candleWick",
-        "curtainHem",
-      ] as const
-    ).map(documentedDragTarget);
-    for (const target of targets) {
+  test("every DragTarget on the field has a row, and every one off it has none", () => {
+    const rowed = new Set(FIELD_CONTROLS.map((c) => c.dragTarget));
+    const places = Object.entries(TARGET_PLACE) as [DragTarget, TargetPlace][];
+    // The union is not empty and this walks all of it: a table that lost its
+    // keys would pass every assertion below by making none.
+    expect(places.length).toBeGreaterThan(50);
+    for (const [target, place] of places) {
       expect(
-        FIELD_CONTROLS.some((c) => c.dragTarget === target),
-        target,
-      ).toBe(true);
+        rowed.has(target),
+        place === "field"
+          ? `${target} is answered on the field and has no FIELD_CONTROLS row`
+          : `${target} is ${place} and has a FIELD_CONTROLS row — place it "field"`,
+      ).toBe(place === "field");
     }
   });
 

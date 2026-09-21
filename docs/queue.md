@@ -571,36 +571,42 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Twenty-four on-field handles are on no tab, and the guard is hand-kept
+## Twenty handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
-- **Taken:** 2026-09-21, claude/queue-packages-sim-src-drag-targets-c-ts-has-room-for (claim: claude/queue-twenty-four-on-field-handles-are-on-no-tab-and-t)
-- **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`
+- **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`, `packages/render/src/`
 
-`FIELD_CONTROLS` is the director's ON THE FIELD tab and the list
-`docs/spec/controls.md` is held against, and it stops at THE CURTAIN. Every
-handle built since — `leadStalk`, `scuttlePart`, `wellSeam`, `hiveLobe`,
+Lane one landed: the guard walks the union now. `TARGET_PLACE` is a `Record`
+keyed by `DragTarget`, so a member added to that union fails to *compile*
+until it is placed in one of three states — `panel`, `field`, `unbuilt` — and
+one assertion holds both directions, a `field` target with no row and an
+`unbuilt` one with a row. `leadStalk`, `scuttlePart`, `wellSeam` and
+`hiveLobe` got their rows with it, because those four were the only ones of
+the twenty-four a thumb could already reach on a screen.
+
+**The other twenty are `unbuilt`, and each is a look before it is a row** —
 `throatRing`, `throatTube`, `tasterBlade`, `tasterGap`, `tasterLock`,
-`ledgerBead`, `ledgerCord`, `ledgerFoot`, `ledgerSocket`, `snakeJaws`,
-`snakeTail`, `undertowFree`, `undertowPin`, `vaneArm`, `vaneHousing`,
-`scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`, `pulseMeter` — is a
-member of `DragTarget` with no row on the tab and no row in the table. The
-owner's own page for reading the controls off is twenty-four handles short of
-the game.
+`ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`, `snakeJaws`,
+`snakeTail`, `undertowPin`, `undertowFree`, `vaneArm`, `vaneHousing`,
+`scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`, `pulseMeter`. Every one
+is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
+branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
+precedent and the reason no row can be written for them yet — `where` is a
+place on the screen and `source` is a branch of `touch.ts`, and neither
+exists.
 
-Nothing caught it because the test that would have is **hand-kept**: "every
-DragTarget has its own FIELD_CONTROLS entry" walks a literal array of
-twenty-four names written out inside the test, not the union, so a target
-added to `DragTarget` is a target the guard has never heard of. The
-exhaustive `documentedDragTarget` switch beside it *is* held to the union by
-`assertNever` — which is why every one of the twenty-four has a paragraph
-there and no row anywhere else.
+So the work is one lane per boss, in the shape `candleWick` and `curtainHem`
+each took: a `*-grip.ts` giving the handle a ring where the seat that owns it
+is drawn, the `handleUnder()` branch that answers it, the
+`field-controls-<boss>.ts` row beside the twenty-five that exist, the
+`docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to
+`field` — which is the one line that turns the guard from silent to holding.
+The look is exempt under *a look with no shipped alternative*; say so in the
+commit.
 
-**Two lanes, and in this order.** First the guard: walk the union instead of
-the array, which turns this into a red check naming its own backlog; land it
-with the rows for the handles a player can reach on the field today. Then the
-rest, boss by boss, in `field-controls-<boss>.ts` files beside the twenty-one
-that exist, with the matching paragraphs in `docs/spec/controls.md`.
+Order is free, but the pairs go together: THE TASTER's three are one fight's
+three movements, THE LEDGER's four are one cord, and THE THROAT's two arrive
+as the fight loses.
 
 ## THE GIMBAL is written and nobody has built its simulation
 
