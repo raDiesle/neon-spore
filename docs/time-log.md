@@ -15552,3 +15552,5 @@ worked and the picture is the only thing that says so.
 The bottleneck was looking, and it is the point: the defect lived in the last
 third of a two-beat flight, which is one frame in six and no frame at all in a
 test.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

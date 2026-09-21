@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 62fe8284 — THE SPLICE's WAIT steps over the number as it lands in its mouth
+
+Watched at tempo on her glass, which is what the unverified entry asked for. The mark rides the number down its straw, and a flight ends with the number sitting in the mouth it was fed to — so the verb hung the usual gap under the mark spent its last beat written across the mouth's own ring. A smear, and a smear on the one beat the word exists for: the beat a pair that thinks the press failed presses again.
+
 ## 2026-09-21 · 5e758568 — The pair who never pressed INSTALL get the screen the installed pair has
 
 The manifest has said "display": "fullscreen" since the day there was a manifest, so a pair who installed the shortcut has always played with the field against all four edges. The pair who opened a link and pressed READY — the pair the join flow is built for — got the same game with the address bar over the hull and a navigation bar under it. Pressing into the field now asks for the screen, and the ask is the same one the shortcut already makes.
