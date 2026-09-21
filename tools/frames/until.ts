@@ -40,6 +40,19 @@ export interface UntilSpec {
 export interface Fired {
   tick: number;
   type: string;
+  /**
+   * The event's own scalar fields, as `key=value` — the socket, the column,
+   * the id.
+   *
+   * A type and a tick say *that* something happened, and for half this game's
+   * events the useful half is *which*: `scuttleLoose` names the socket a part
+   * hangs off, and which socket it is was drawn from the seeded `Rng`. A
+   * capture aiming `--hold scuttlePart=…,id=N` at it had no way to read that
+   * number, so the press went to a socket the frame had not let go of and was
+   * dropped without a sound — the silence `--hold` exists to end, arrived at
+   * from the other side. Absent when the event carries nothing but its type.
+   */
+  detail?: string;
 }
 
 /**
@@ -96,14 +109,22 @@ export function parseUntil(
 export function firedNote(log: readonly Fired[]): string {
   if (log.length === 0) return "fired: nothing — the world was not stepped";
   const first = new Map<string, number>();
+  const detail1 = new Map<string, string>();
   const count = new Map<string, number>();
   for (const one of log) {
-    if (!first.has(one.type)) first.set(one.type, one.tick);
+    if (!first.has(one.type)) {
+      first.set(one.type, one.tick);
+      if (one.detail !== undefined) detail1.set(one.type, one.detail);
+    }
     count.set(one.type, (count.get(one.type) ?? 0) + 1);
   }
   const said = [...first].map(([type, tick]) => {
     const n = count.get(type) ?? 1;
-    return `${type}@${tick}${n > 1 ? ` (x${n})` : ""}`;
+    // The first firing's fields and not every firing's: this line is read at a
+    // glance to find a tick worth photographing, and a wave that throws forty
+    // parts would otherwise print forty sockets.
+    const detail = detail1.get(type);
+    return `${type}@${tick}${detail === undefined ? "" : ` (${detail})`}${n > 1 ? ` (x${n})` : ""}`;
   });
   return `fired: ${said.join(", ")}`;
 }

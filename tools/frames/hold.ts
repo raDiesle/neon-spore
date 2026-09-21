@@ -36,6 +36,7 @@ import type { HoldSpec } from "./spec.js";
  *   --hold mazeHeart=0,y=900        THE MAZE: the navigator's thumb pulling the heart
  *   --hold throatRing=0             THE THROAT: the navigator's thumb cinching a slack ring
  *   --hold throatTube=-1500         and the pilot carrying the tube a column left
+ *   --hold scuttlePart=1000,id=10   THE SCUTTLE: the pilot carrying part 10 a column right
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -72,6 +73,21 @@ import type { HoldSpec } from "./spec.js";
  * phase=trace` for either filament, `--boss phase=grip` for the heart, and
  * `--boss phase=quick,slack=2` for the cinch or `phase=open,slack=4` for the
  * carry. BULB QUEEN's marks are her body's: `--creature petals=6`.
+ *
+ * **And one is in the right phase and on the wrong socket**, which is a
+ * seventh shape of the same problem. THE SCUTTLE hangs a part off a socket
+ * the seeded `Rng` picked (`scuttle-step.ts`, `pickLive`), and `scuttleHeard`
+ * drops a press on any socket not in `s.loose` without a sound — so an `id`
+ * written by hand is a thumb on the frame's own silence four times in five.
+ * The loose list is written rather than guessed, and that is one more flag:
+ *
+ *   bun run frames . --wave "THE SCUTTLE" --seat p1 \
+ *     --boss-json '{"loose":[10],"live":10,"swung":-1,"swungCol":-1}' \
+ *     --hold scuttlePart=1000,id=10
+ *
+ * `swung` at -1 is the other half of it: `scuttleSwingable` is false once a
+ * part has been carried this cycle, so a state carried over from an earlier
+ * beat photographs a frame with no rings on it and a press nothing heard.
  *
  * **And one handle is let go of rather than held**, which is the second shape
  * this flag builds. THE THROAT's haul is spent on the *lift*: `tubeHeard`

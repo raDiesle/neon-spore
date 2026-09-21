@@ -58,6 +58,14 @@ export const TARGET: Record<string, string> = {
  *
  * THE LID's reason: a wave puts several on the field at once on purpose, and a
  * capture that picked one would be picking it in a tree that cannot see them.
+ *
+ * THE SCUTTLE's is the same fact about a frame rather than a field: two parts
+ * hang at once from `scuttleTwinParts` left, and `scuttleHeard` reads `id` as
+ * the **socket** — row-major over `scuttleRows` x `scuttleCols`, which is 21
+ * of them. A press on a socket that is not in `s.loose` is dropped in
+ * silence, and which socket comes loose is drawn from the seeded `Rng`
+ * (`scuttle-step.ts`, `pickLive`), so the recipe in `hold.ts` writes the
+ * loose list with `--boss-json` rather than guessing the draw.
  */
 export const NEEDS_ID = [
   "lidString",
@@ -67,6 +75,7 @@ export const NEEDS_ID = [
   "mirrorLobe",
   "antiphonRail",
   "queenMark",
+  "scuttlePart",
 ];
 
 /**
@@ -124,4 +133,5 @@ export const DRAGS = [
   "mazeHeart",
   "throatRing",
   "throatTube",
+  "scuttlePart",
 ];

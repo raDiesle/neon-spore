@@ -152,6 +152,17 @@ describe("what fired", () => {
     expect(firedNote(log)).toBe("fired: beat@12 (x2), destroy@84");
   });
 
+  it("carries the first firing's own fields, so a handle can be aimed at one", () => {
+    // Which socket THE SCUTTLE let go of is drawn from the seeded `Rng`, and
+    // `--hold scuttlePart=…,id=N` aimed at the wrong one is dropped without a
+    // sound. A type and a tick cannot answer it; the event always could.
+    const said = firedNote([
+      { tick: 300, type: "scuttleLoose", detail: "col=7 socket=5 live=true throwBeat=7" },
+      { tick: 525, type: "scuttleLoose", detail: "col=3 socket=11 live=true throwBeat=10" },
+    ]);
+    expect(said).toBe("fired: scuttleLoose@300 (col=7 socket=5 live=true throwBeat=7) (x2)");
+  });
+
   it("says so when the world was never stepped", () => {
     expect(firedNote([])).toMatch(/nothing/);
   });

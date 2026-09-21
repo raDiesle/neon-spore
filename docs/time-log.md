@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — scuttle-part-carried — the carry nothing could press
+
+- reading — 20 min. The entry, `scuttle-hand.ts` for whose thumb it is and
+  what it reads, `scuttle-grip.ts` and `scuttle-draw.ts` for what a carried
+  part and its ring are drawn as, and `hold-targets.ts` for the shape of a row.
+- writing — 20 min. The `scuttlePart` row and its recipe, the event fields
+  `--events` now prints, three tests, and two queue entries.
+- looking — 20 min. Four captures on the pilot's screen and two crops: the
+  ring before the carry, and the open socket with the thread leaning a column
+  right after it.
+- friction — 25 min. `--boss-json` refused the one state this boss's handle
+  lives in, and the socket guessed in its place was silently ignored.
+- landing — 10 min.
+
+The bottleneck was aiming the thumb. THE SCUTTLE hangs a part off a socket the
+seeded `Rng` picked, `--boss-json` cannot write a list the boss does not
+already hold, and `--events` printed a type and a tick and nothing else — so
+there were three ways to find the socket and none of them worked until the
+third was fixed. Both dead ends are entries of their own.
+
 ## 2026-09-21 — surge-rock-looked-at — the picture an unverified landing owed
 
 - reading — 15 min. The entry, `surge-rock.ts` for what gates a spit, and

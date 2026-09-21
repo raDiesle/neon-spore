@@ -64,7 +64,24 @@ export function makeDriver(page: Page, filmDt: number | undefined): Driver {
       ([count, dt, cap, want]) => {
         const ns = window.neonSpore;
         if (!ns) throw new Error("window.neonSpore missing mid-capture");
-        const heard: { tick: number; type: string }[] = [];
+        const heard: { tick: number; type: string; detail?: string }[] = [];
+        // **What the event said about itself, not only that it happened.**
+        // Half the events in this game name a socket, a column or an id that
+        // the seeded `Rng` picked, and a capture that has to aim a handle at
+        // one of them cannot read it off `type@tick` (`until.ts`). Scalars
+        // only: a field holding a list or a shape is the event carrying state
+        // rather than naming a thing, and it belongs in a probe.
+        const detailOf = (event: Record<string, unknown>): string | undefined => {
+          const said: string[] = [];
+          for (const key of Object.keys(event)) {
+            if (key === "type") continue;
+            const v = event[key];
+            const kind = typeof v;
+            if (kind !== "number" && kind !== "string" && kind !== "boolean") continue;
+            said.push(`${key}=${String(v)}`);
+          }
+          return said.length > 0 ? said.join(" ") : undefined;
+        };
         if (dt !== undefined) {
           for (let i = 0; i < (count as number); i++) ns.paint(dt as number);
           return { heard, at: null as number | null };
@@ -87,7 +104,11 @@ export function makeDriver(page: Page, filmDt: number | undefined): Driver {
             for (const event of ns.world.events) {
               const type = (event as { type?: unknown }).type;
               if (typeof type !== "string") continue;
-              heard.push({ tick: ns.world.tick, type });
+              heard.push({
+                tick: ns.world.tick,
+                type,
+                detail: detailOf(event as Record<string, unknown>),
+              });
               if (type === want) at = ns.world.tick;
             }
           }

@@ -83,10 +83,26 @@ describe("the handles on a boss's own picture", () => {
     ]);
   });
 
+  it("THE SCUTTLE's part is the pilot's, and says which socket it hangs off", () => {
+    // `scuttleHeard` refuses player 2 and reads `command.id` as the socket —
+    // row-major over the frame, not one of two sides — so the grab and the
+    // carry both carry it, and the carry is the one `swing` measures.
+    expect(shape("scuttlePart=1000,id=10")).toEqual([
+      { player: 1, kind: "drag", target: "scuttlePart", on: true, fromMilli: 0, id: 10 },
+      { player: 1, kind: "drag", target: "scuttlePart", on: true, fromMilli: 1000, id: 10 },
+    ]);
+  });
+
+  it("refuses a part with no socket, which would be a press on the whole frame", () => {
+    // Two hang at once from `scuttleTwinParts` left, and a press on a socket
+    // the frame did not let go of is dropped without a sound.
+    expect(() => parseHold("scuttlePart=1000")).toThrow(/say which one with id=N/);
+  });
+
   it("is the only handle let go of: every other one is still held at the end", () => {
     for (const name of DRAGS) {
       if (name === "throatTube") continue;
-      const value = `${name}=0${name.startsWith("queenMark") ? ",id=0" : ""}`;
+      const value = `${name}=0${name === "queenMark" || name === "scuttlePart" ? ",id=0" : ""}`;
       let built: ReturnType<typeof shape>;
       try {
         built = shape(value);
