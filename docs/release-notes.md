@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 9424e6f8 — A window that exists to be felt gets somewhere to be seen
+
+THE SLOW writes two beats into World and the app stretches tickMs across them; nothing in packages/render ever asked about either, so the one moment in this game that exists purely to be felt is the one moment the picture says nothing about. `slow-look.ts` is where an answer to that can hang: the window read fresh off the world as beats, through and left, a `SLOW_LOOK` record with one field, and a pass beside `drawCandleField` — over every body on the field and under the ship, because the band is how the pair answers the hurry and must not be dimmed by a picture of it.
+
 ## 2026-09-21 · 2997cd75 — A state of a boss is any condition, not only a phase on its clock
 
 THE GAUGE's jam and its bind had no card on the director's STATES sheet, and both ON THE FIELD rows for the round pointed at THE GAUGE · PLAY — a picture with neither control drawn on it, so a reader following the link found no ring where the row said one stands.
