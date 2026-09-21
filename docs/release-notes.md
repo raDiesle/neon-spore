@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · a488cadc — THE THROAT's haul falls, so it is not THE VANE's haul
+
+The owner picked the haul out of the three hands on 21 September 2026 and said a lane re-voices it without asking again. It is the one of the seven that has to be told apart by ear from a sound the game already has, and it was built with a rising sine, 84 to 118 — which is exactly what boss.vaneHaul is: a drag rising to its stop, so the seat that did not do it hears a window open.
+
 ## 2026-09-21 · 322c4eff — A player reads shield, and nothing else, for the thing under the rock
 
 Four words shipped for one object: the control is labelled SHIELD, THE ROCK's guide said plate, BULB QUEEN's said ward, the seat chooser said guard, and CLAUDE.md's fixed vocabulary listed both guard and shield, which is how it happened. The owner answered shield on 21 September 2026 — what the button a thumb is already on says, so no control label moves — and the cost he picked it knowing is the verb: the skill names the three shapes a line may use instead (put the shield under it, move the shield there, trigger the shield) and there is no fourth.
