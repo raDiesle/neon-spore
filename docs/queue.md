@@ -571,32 +571,6 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## A claim whose branch is gone reads as taken forever
-
-- **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
-- **Taken:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac (claim: claude/queue-a-claim-whose-branch-is-gone-reads-as-taken-fore)
-- **Files:** `tools/queue/claim.ts`, `tools/queue/mark.ts`, `tools/queue/test/taken.test.ts`
-
-`claimOn` answers off the branch first and falls back to the entry's own
-`Taken:` line, which is right for a clone that has never seen the ref — and
-wrong forever once the ref is gone. Three live entries in this file are in that
-state today: they were marked from `main`, their claim branches
-(`claude/queue-unverified-at-424e7fc4-…`, `…-at-ce22d819-…`,
-`…-resurrection-guard-missed-a-stale`) no longer exist in any tree, and so
-`bun run queue` counts them BUSY and `next` steps over them, with nothing in
-the listing distinguishing them from work in flight. This lane's `queue status`
-said eight items were being worked on; three of the eight are nobody's.
-
-The one thing not to do is release them automatically on a missing ref: a cloud
-session's claim never has a local ref, which is the whole reason the fallback
-is there. The options the work picks between are the wording and not the
-mechanism — **a claim older than the `Taken:` date by more than a day or two,
-with no local ref, is listed as stale** (`— taken 2026-09-20, branch gone;
-release it with bun run queue release "<title>"`) while still counting as
-taken, or the same sentence printed only by `queue status` and not by the
-listing. Either way the entry stays in place until a session says the words,
-and the three above stop looking like a busy queue.
-
 ## `packages/sim/src/drag-targets-c.ts` has room for no more handles
 
 - **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
