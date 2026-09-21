@@ -115,7 +115,7 @@ export function wardenCues(
     // verb hung under the frame still had somewhere readable to land. That was
     // the same question `cueWordY` now answers for every boss at once: a word
     // that would be written into the membrane is written above the mark
-    // instead (`BossCue.hullTop`, `render/test/boss-cue-hull.test.ts`). With
+    // instead (`BossCue.wordFloor`, `render/test/boss-cue-hull.test.ts`). With
     // the word looked after, lifting the mark is a frame floating a tile and a
     // half off the hand it is naming, so it comes back down to the hull line
     // where the other eight bosses park theirs.

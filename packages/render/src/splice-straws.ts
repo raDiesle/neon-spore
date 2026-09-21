@@ -28,6 +28,16 @@ export function spliceMouthY(l: Layout, cfg: SimConfig): number {
 }
 
 /**
+ * A mouth's own radius. Here rather than in `drawMouths`, which used to hold
+ * it alone, because the cue wants the same number: a number arriving is drawn
+ * *in* its mouth, so the top of this ring is the line under which the cue's
+ * verb stops being readable (`boss-cue-read-d.ts`, `BossCue.wordFloor`).
+ */
+export function spliceMouthR(l: Layout): number {
+  return Math.max(4, l.tile * 0.3);
+}
+
+/**
  * One straw as a quadratic curve, from its numbered top end down to its mouth.
  *
  * Quadratic and not a polyline through the middle column, because the tangle

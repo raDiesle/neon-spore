@@ -131,7 +131,7 @@ function standing(
   // On the skin the lobe is coming through, which is the place the word is
   // about. It stood `LOBE_LIFT` — 0.8 tiles — above it until 21 September
   // 2026, to keep the verb hung under the frame out of the plating; that is
-  // `cueWordY`'s job for every boss now (`BossCue.hullTop`), and a mark held
+  // `cueWordY`'s job for every boss now (`BossCue.wordFloor`), and a mark held
   // off the lobe once the word is safe is a frame pointing near the thing
   // rather than at it.
   const y = skinY(x);

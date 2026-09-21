@@ -11,6 +11,7 @@ import {
   drawStraws,
   drawStubs,
   spliceFlightAt,
+  spliceMouthR,
   spliceMouthY,
   spliceTopY,
 } from "./splice-straws.js";
@@ -71,7 +72,7 @@ function drawMouths(
   beatPhase: number,
 ): void {
   const y = spliceMouthY(l, cfg);
-  const r = Math.max(4, l.tile * 0.3);
+  const r = spliceMouthR(l);
   for (let e = 0; e < s.entranceCols.length; e++) {
     const x = tileCX(l, s.entranceCols[e] ?? 0);
     const done = (s.topOf[e] ?? 0) < s.fed;

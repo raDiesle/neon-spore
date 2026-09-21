@@ -10,8 +10,9 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
+import { cueWordY } from "../src/boss-cue-text.js";
 import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
-import { spliceFlightAt, spliceMouthY, spliceTopY } from "../src/splice-straws.js";
+import { spliceFlightAt, spliceMouthR, spliceMouthY, spliceTopY } from "../src/splice-straws.js";
 import type { TextBox } from "./canvas-stub.js";
 import {
   CFG,
@@ -131,6 +132,26 @@ describe("THE SPLICE's word", () => {
     expect(start?.x).toBe(tileCX(LAYOUT.p2, s.topCols[s.topOf[straw] ?? 0] ?? 0));
     expect(start?.y).toBe(spliceTopY(LAYOUT.p2, CFG));
     expect(start?.y).toBeLessThan(spliceMouthY(LAYOUT.p2, CFG) - LAYOUT.p2.tile);
+  });
+
+  it("steps the verb over the mark for the last stretch, clear of the mouth", () => {
+    const l = LAYOUT.p2;
+    const { world, s } = opened();
+    feeding(world, s);
+    const ringTop = spliceMouthY(l, CFG) - spliceMouthR(l);
+    // Halfway down, the mark is in clear sky and the verb hangs under it,
+    // which is the side #34 puts it on and where it stays for most of a flight.
+    const midway = cue(world, "p2", CFG.spliceFeedBeats / 2);
+    expect(midway).not.toBeNull();
+    expect(cueWordY(midway as BossCue)).toBeGreaterThan((midway as BossCue).y);
+    // At the end the number is sitting in the mouth it was fed to, so `WAIT`
+    // written under it is written across the mouth's own ring — a smear on a
+    // real frame, on the beat a thumb is likeliest to press again. The floor
+    // the reading names is the top of that ring and the flip does the rest.
+    const landed = cue(world, "p2", CFG.spliceFeedBeats);
+    expect(landed).not.toBeNull();
+    expect((landed as BossCue).wordFloor).toBe(ringTop);
+    expect(cueWordY(landed as BossCue)).toBeLessThan(ringTop);
   });
 
   it("says nothing to the pilot at any point of the flight, on any straw", () => {

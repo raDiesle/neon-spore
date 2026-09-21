@@ -9,7 +9,7 @@ import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-h
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **No boss writes its verb into the ship** (`BossCue.hullTop`).
+ * **No boss writes its verb into the ship** (`BossCue.wordFloor`).
  *
  * Eight of them park a mark on the hull line — the cannon is the carry they
  * all ask for, and THE LEDGER's socket is `l.hullY` exactly — and the verb
@@ -62,7 +62,7 @@ describe("a cue standing on the hull line", () => {
         if (wave.boss === undefined || wave.boss === null) continue;
         for (const cue of cuesOver(index, l)) {
           held++;
-          const top = cue.hullTop ?? l.hullY;
+          const top = cue.wordFloor ?? l.hullY;
           const y = cueWordY(cue);
           if (y > top) into.push(`${wave.name} ${cue.word} ${Math.round(y - top)}px under`);
         }

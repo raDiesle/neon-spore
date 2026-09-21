@@ -5,7 +5,7 @@ import { showsCannon, showsShield } from "./view-role.js";
  * **What a cue is**, and which screen is owed it: the shape `boss-cue.ts`'s
  * twenty-eight readings all return and every drawing of one reads.
  *
- * Split off `boss-cue.ts` on 20 September 2026, when `hullTop` took it past
+ * Split off `boss-cue.ts` on 20 September 2026, when `wordFloor` took it past
  * 250 lines. The seam is the one the file already had: what a cue *is* here,
  * and which boss says what over there — the switch needs all twenty-eight
  * readings imported and this needs none of them.
@@ -67,19 +67,21 @@ export interface BossCue {
    */
   roomBelow?: number;
   /**
-   * The plating's own top under the mark, in pixels, where the cue was read
-   * with the membrane to hand. A verb that would be written below this line
-   * is written **above the mark** instead (`boss-cue-text.ts`).
+   * **The lowest line this cue's verb may be written at**, in pixels. A verb
+   * that would land below it is written **above the mark** instead
+   * (`boss-cue-text.ts`), and the kind line follows it up.
    *
-   * **Eight bosses park a mark on the hull line itself** — the cannon is the
-   * carry every one of them asks for, and THE LEDGER's socket is `l.hullY`
-   * exactly — and `halfH + WORD_GAP` under that is forty-two pixels inside the
-   * ship. Drawing the cue after `drawShip` (`boss-cue-field.ts`) stopped the
-   * plating painting the word out and did not make it readable: eleven-point
-   * rock grey over lit plating with the hull's own stalks running through it
-   * is a smear on a real frame, which is what `docs/queue.md` sent this back
-   * for. There is no room under a mark on the ship, and saying so is cheaper
-   * than lifting the mark off the place it is pointing at.
+   * **The plating is the usual floor and it is the default**, stamped on by
+   * `bossCue()` from the skin under the mark so no reading has to ask. Eight
+   * bosses park a mark on the hull line itself — the cannon is the carry every
+   * one of them asks for, and THE LEDGER's socket is `l.hullY` exactly — and
+   * `halfH + WORD_GAP` under that is forty-two pixels inside the ship. Drawing
+   * the cue after `drawShip` (`boss-cue-field.ts`) stopped the plating painting
+   * the word out and did not make it readable: eleven-point rock grey over lit
+   * plating with the hull's own stalks running through it is a smear on a real
+   * frame, which is what `docs/queue.md` sent this back for. There is no room
+   * under a mark on the ship, and saying so is cheaper than lifting the mark
+   * off the place it is pointing at.
    *
    * **Two bosses were doing exactly that lifting and have stopped.** THE
    * WARDEN's handle stood 1.7 tiles clear of the skin and THE UNDERTOW's lobes
@@ -87,8 +89,17 @@ export interface BossCue {
    * answers once — so both marks came back down onto the place they name, 21
    * September 2026. A reading that reaches for a lift again is re-deriving
    * this.
+   *
+   * **The plating is not the only floor, which is why the name is not the
+   * hull's.** THE SPLICE's mark rides a number down a straw and ends the
+   * flight sitting in the mouth it was fed to, two tiles clear of any plating:
+   * watched at tempo the verb spent its last stretch written across the
+   * mouth's own ring, unreadable exactly when a thumb is likeliest to press
+   * again (`boss-cue-read-d.ts`, 21 September 2026). A reading that knows what
+   * its mark is about to land on passes that line here, and the flip it
+   * already has does the rest.
    */
-  hullTop?: number;
+  wordFloor?: number;
 }
 
 /** Whether this screen is the one being asked. */

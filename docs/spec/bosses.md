@@ -736,8 +736,8 @@ and the field is drawn before the hull is — a mark left where the hand actuall
 is would have its lower corners and the whole of its verb painted over. It
 stopped a tile and a half higher than that until 21 September 2026, so the verb
 hung under it had somewhere to land; `cueWordY` writes a word above its mark
-wherever the membrane is under it now (`BossCue.hullTop`), for every boss at
-once, and a frame floating clear of the hand it names had nothing left to buy. Hers is `PRESS` / `FIRE` on the
+wherever what is under it would swallow the word (`BossCue.wordFloor`), for
+every boss at once, and a frame floating clear of the hand it names had nothing left to buy. Hers is `PRESS` / `FIRE` on the
 pupil for exactly the beats the eye stands open, and it rides the hole rather
 than a column, so it drifts as the eye drifts. Nothing on either seat once the opening has taken its hit: holding it
 costs him a hand for nothing and a second bolt into it is one she needs for the
@@ -2150,7 +2150,14 @@ the two beats. **The mark rides the number and never the mouth.** It is put at
 *on* the thing she is already watching; a frame on the mouth it is coming **to**
 was the obvious place and is forbidden, because it would stand there from the
 first beat of the flight and trace the straw to its end for her, and tracing the
-straw is the entire fight. And it is hers because it could not be his: above the
+straw is the entire fight. **The verb steps over the mark for the last stretch**,
+because riding the number all the way means ending the flight inside the mouth:
+watched at tempo on 21 September 2026 the word spent its final beat written
+across the mouth's own ring, illegible on the beat a thumb is likeliest to press
+again. The reading names the top of that ring as the cue's `wordFloor` and the
+flip `cueWordY` already had for the plating does the rest — the mouths stand two
+tiles clear of the hull, so the floor stamped on by default says nothing about
+them. And it is hers because it could not be his: above the
 mouths his straws do not exist and neither does the number on them until the
 last stretch, and the two beats are not his to wait through anyway — a busy maw
 is exactly when he should be sliding to the mouth she names next, which is the

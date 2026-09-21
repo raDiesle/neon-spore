@@ -50,10 +50,10 @@ const HALF_H = 0.66;
  * a line. THE WARDEN's handle and THE UNDERTOW's lobes each carried one of
  * these until 21 September 2026, and both came down: `cueWordY` flips a verb
  * that would land in the membrane above its mark instead, so nothing has to be
- * lifted to keep a word readable (`BossCue.hullTop`). That rule is the *hull's*
+ * lifted to keep a word readable (`BossCue.wordFloor`). That rule is the *hull's*
  * — a cue passing through `bossCue` is stamped with `skinY` under it — and
  * PINBALL's table is not the hull. Its floor is the band under `pinTable`, a
- * place `hullTop` says nothing about, so the arithmetic here is still the only
+ * place `wordFloor` says nothing about, so the arithmetic here is still the only
  * thing holding the word off it.
  */
 const HULL_LIFT = 1.7;

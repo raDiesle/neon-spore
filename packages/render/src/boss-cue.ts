@@ -188,8 +188,8 @@ export function bossCue(
     // The membrane under the mark, stamped once here rather than by each of
     // the twenty-eight readings: `skinY` is already this function's argument,
     // and a rule about where a word fits belongs to the one place every
-    // reading passes through (`BossCue.hullTop`).
-    if (cueSeen(cue, l.role)) return { ...cue, hullTop: cue.hullTop ?? skinY(cue.x) };
+    // reading passes through (`BossCue.wordFloor`).
+    if (cueSeen(cue, l.role)) return { ...cue, wordFloor: cue.wordFloor ?? skinY(cue.x) };
   }
   return null;
 }

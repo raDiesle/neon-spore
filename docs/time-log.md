@@ -15527,3 +15527,28 @@ visible from the code, so the first seam chosen was one that could never have
 worked and the picture is the only thing that says so.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-splice-wait-at-tempo — the verb landed in the mouth
+
+- reading — 15 min. The unverified entry, `boss-cue-read-d.ts`'s own account of
+  why the mark rides the number, `splice-straws.ts` and `splice-draw.ts` for
+  the geometry, and `boss-cue-text.ts` for the two mechanisms a cue already has
+  for a word with nothing under it — `roomBelow`, which shortens, and
+  `hullTop`, which flips.
+- writing — 25 min. `hullTop` renamed `wordFloor` across eight files and its
+  docblock rewritten to say what the field is rather than what its first user
+  was; `spliceMouthR` lifted out of `drawMouths` so the cue and the picture
+  agree on one number; the floor passed from `spliceCues`; the spec's two
+  paragraphs; one test on the flip.
+- looking — 30 min. Six frames of one flight on her glass, twice. The picture
+  is the whole of this lane: nothing in a test would have said the word was
+  unreadable, and nothing in the reading's own docblock suspected it.
+- friction — 10 min. A feed needs the cannon under an entrance column and the
+  cannon slides, so the first press had to go 180 ticks before the suck; the
+  entrance columns are `spliceSpreadCol`'s and had to be worked out by hand
+  before `--press` could name one.
+- landing — 10 min.
+
+The bottleneck was looking, and it is the point: the defect lived in the last
+third of a two-beat flight, which is one frame in six and no frame at all in a
+test.

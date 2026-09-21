@@ -538,21 +538,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at e71733bc: THE SPLICE's WAIT seen at tempo over the tangle
-
-- **Found:** 2026-09-19, claude/queue-the-splice-says-the-word
-- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-unverified-at-e71733bc-the-splices-wait-seen-at)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/waves/act-9.ts`, `packages/render/src/boss-cue-read-d.ts`
-
-*THE SPLICE says the one word it can, and never on a mouth* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
-
-- THE SPLICE's WAIT seen at tempo over the tangle
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Nothing says how long a thumb waits for the field to answer it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

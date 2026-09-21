@@ -1,7 +1,7 @@
 import type { SpliceState, StareState, World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import type { Layout } from "./layout.js";
-import { spliceFlightAt } from "./splice-straws.js";
+import { spliceFlightAt, spliceMouthR, spliceMouthY } from "./splice-straws.js";
 import { stareLidRest } from "./stare-lid.js";
 import { stareEye, stareGazeFootY } from "./stare-shape.js";
 
@@ -139,6 +139,17 @@ const TOKEN_HALF = 0.45;
  * leaves its top end when the feed starts (`drawNumbers`) and the curve it
  * rides is the curve she has been following.
  *
+ * **The last stretch is written over the mark and not under it.** A flight
+ * ends with the number sitting in the mouth it was fed to, so the verb hung
+ * `halfH + WORD_GAP` under the token spent its final beat across the mouth's
+ * own ring — a smear, and a smear at the moment a thumb is likeliest to press
+ * again, which is the whole of what the word is for. The top of that ring is
+ * this cue's `wordFloor`, and the flip `cueWordY` already had for the plating
+ * does the rest: `WAIT` steps over the coin for the last stretch and `STILL`
+ * follows it up. The mouths are two tiles clear of the hull, so the default
+ * floor `bossCue()` stamps on says nothing about them — seen at tempo, 21
+ * September 2026.
+ *
  * **And it is hers because it could not be his.** On his screen the straw above
  * the mouths does not exist and neither does the number on it until the last
  * stretch (`drawFlight`), so a word there would hang over an empty field; and
@@ -182,6 +193,7 @@ export function spliceCues(
       halfW: l.tile * TOKEN_HALF,
       halfH: l.tile * TOKEN_HALF,
       seed: 93,
+      wordFloor: spliceMouthY(l, world.cfg) - spliceMouthR(l),
     },
   ];
 }
