@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 2b91c5d0 — THE HIVE's clench is drawn, and its wrung lobe wears a collar
+
+The second half of the §6.2 lane: the three moments the simulation has had since this morning are on the screen. A clench draws the whole mass up half a tile inside half a beat, net of the pilot's carry, so it follows his thumb frame by frame and is home on the tick the haul is enough rather than at the end of it; his ring sits on that risen underside, wider than a lobe's because the handle is the whole of it, its dial emptying as the backlog comes due. A lobe under the navigator's thumb stops throbbing and squeezes, under a ring whose dial fills the other way. A wrung breach carries no colour on either screen and says so with a pale collar — a second shape rather than a shade, because her every breach is wax-grey already.
+
 ## 2026-09-21 · 025edd3c — THE HIVE clenches, and one lobe can be wrung
 
 THE HIVE answered on the ordinary panel and in one state. It now has two of its own and a gesture for each, both reached on the picture rather than on the panel. On every third scar the underside draws up out of reach for six beats: nothing spills, nothing can be sealed, and the openings arrive on time regardless — so a clench waited out hands the pair every held-back spill at once on the beat it lets go. The pilot's thumb hauls it back down and owes nothing. The navigator's thumb held two beats on a swelling lobe wrings the colour out of it: the breach opens colourless and either colour seals it, at exactly what a wrong bolt costs.

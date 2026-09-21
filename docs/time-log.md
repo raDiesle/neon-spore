@@ -15791,3 +15791,5 @@ The bottleneck was the frame harness, and the finding is worth keeping: the
 canvas log records styles and paths, never the transform, so **any claim about
 where a thing is drawn has to be made against the geometry** and only claims
 about what it is drawn with belong in a frame test.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
