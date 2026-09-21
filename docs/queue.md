@@ -288,6 +288,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `queue take` refuses the lane the entry itself names as its claim
 
 - **Found:** 2026-09-21, claude/queue-four-other-films-still-put-pages-about-their-bos
+- **Taken:** 2026-09-21, claude/queue-a-partner-who-vanishes-on-the-room-screen-is-sti (claim: claude/queue-queue-take-refuses-the-lane-the-entry-itself-nam)
 - **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`
 
 An entry whose title a lane has rewritten cannot be re-marked by the lane that
