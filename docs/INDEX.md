@@ -992,6 +992,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |
 | `packages/render/src/slabs.ts` | The other kind of panel: slabs, for a round that has taken the field away |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
+| `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record a VERSUS candidate patches, and the pass that reads it. Draws nothing today |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
 | `packages/render/src/tether-look.ts` | THE ONE RECORD A CANDIDATE **TETHER** LOOK PATCHES |

@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — slow-look-seam — a window that exists to be felt gets somewhere to be seen
+
+- reading — 30 min. `sim/slow.ts` and `apps/game/src/tick-rate.ts` for what a
+  window actually is — two hashed beats and a stretched `tickMs`, and nothing
+  in `packages/render` asking about either. Then `tools/versus/README.md`,
+  `variant.ts` and `versus-pose.test.ts` for what a slot costs, which is where
+  the split came from: the pose row and the slot arrive together, so the seam
+  can land on its own and the candidates cannot.
+- writing — 25 min. `slow-look.ts` — `SlowWindow`, `slowWindow`, the record
+  with its no-op paint, and the pass — plus the barrel export, the call beside
+  `drawCandleField`, and seven cases holding the half-open boundary, the
+  re-opened window read as one, and the shipped frame still drawing nothing.
+- looking — 0 min. Nothing to look at: the point of this half is that the
+  frame is unchanged, and `ctx.calls` is 0 is the whole assertion.
+- friction — 5 min. One `bun run lint` over a long call, fixed by `format`.
+- landing — 10 min.
+
+**The bottleneck was reading, and it was the split that came out of it.** The
+work itself is one small file; what took the time was finding out that
+`versus-pose.test.ts` ties a `SLOT_POSE` row to an open slot one-for-one, which
+is what makes the seam and the candidates two lanes rather than one.
+
 ## 2026-09-21 — gauge-states-poses — a state is any condition, not only a phase
 
 - reading — 25 min. `boss-states.ts`, `boss-phases.ts` and the four rounds that

@@ -27,6 +27,11 @@ export { drawFieldBossCue } from "./boss-cue-field.js";
 export { drawBodies, drawFieldBack } from "./frame-field.js";
 export { drawOnShip } from "./frame-on-ship.js";
 export { drawOverlays, drawShip, type OverlayState } from "./frame-ship.js";
+// The seventh, on the same terms as the sixth: THE SLOW's window, over the
+// bodies and under the ship. It draws nothing until a VERSUS candidate
+// patches `SLOW_LOOK.paint`, and it lives in its own file because
+// `frame-field.ts` has no room left (`slow-look.ts`).
+export { drawFieldSlow } from "./slow-look.js";
 // And the one question that takes two of the four away: THE WELL replaces the
 // field's back and its bodies on the screen it is drawn on, and the renderer
 // has to ask the same question the passes do to place the bursts it ingests

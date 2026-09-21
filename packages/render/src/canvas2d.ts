@@ -8,6 +8,7 @@ import {
   drawBodies,
   drawFieldBack,
   drawFieldBossCue,
+  drawFieldSlow,
   drawOnShip,
   drawOverlays,
   drawShip,
@@ -197,6 +198,11 @@ export class Canvas2DRenderer implements Renderer {
     // THE CANDLE: the field goes black here, over every body on it and under
     // the ship, whose own glow is a light the dark leaves (`candle-dark.ts`).
     drawCandleField(ctx, l, view, this.held.effects);
+    // And, on the same station, THE SLOW's window: over every body on the
+    // field and under the ship, because the band is how the pair answers the
+    // hurry and must not be dimmed by a picture of it. It draws nothing until
+    // a VERSUS candidate patches `SLOW_LOOK.paint` (`slow-look.ts`).
+    drawFieldSlow(ctx, l, world, view);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
     // The one word the boss wants, over the finished ship and THE CANDLE's
