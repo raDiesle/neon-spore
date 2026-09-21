@@ -374,6 +374,7 @@ The brief: `.claude/skills/new-boss` section 6.2.
 ## THE GAUGE's two new states have no pose in the director's gallery
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-21, claude/queue-frames-hold-cannot-reach-the-six-newest-handles (claim: claude/queue-the-gauges-two-new-states-have-no-pose-in-the-di)
 - **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/src/field-controls-gauge.ts`, `tools/director/src/boss-states.ts`
 - **Where:** local
 
