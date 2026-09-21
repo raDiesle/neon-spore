@@ -446,6 +446,31 @@ decision and wants an eye on a phone, not a flag. The director's side of the
 same ask is smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works;
 what a phone cannot do is *reach* that strip.
 
+## `queue next` hands out an entry no session can finish, and goes on doing it
+
+- **Found:** 2026-09-21, claude/queue-versus-new-leaves-no-directory
+- **Files:** `tools/queue/run.ts`, `tools/queue/claim.ts`, `tools/queue/test/taken.test.ts`
+- **Asks:** Should `next` skip an entry marked ASKS THE OWNER, or does an entry need a field saying the ask is the whole of what is left?
+
+*THE THROAT's three hand sounds have never been heard by an ear* says in its
+own body that everything a machine can settle is settled and what is left is
+three presses by an ear. `bun run queue next` handed it out anyway; the entry
+was released and `next` handed out the same one again, because release puts it
+back where it was and `next` reads from the top. A session following *continue
+to work on the queue* cannot get past it without knowing `queue take` exists.
+It is the third session to pick this entry up, which its own body records.
+
+`queue list` already prints **ASKS THE OWNER** beside such an entry, so the
+information is there and `next` does not use it.
+
+The answer picks between two. **`next` skips ASKS THE OWNER and only
+`take <title>` hands one out** — simple, and wrong for the entries the format
+was written for, where the ask is a side question and there is decided work in
+named files underneath it. Or **an entry says which kind it is**: a field that
+marks an ask as *blocking*, written by the lane that files it, with `next`
+skipping only those. The second wants a name and a line in this file's
+preamble, which is why it is asked rather than chosen.
+
 ## THE THROAT's three hand sounds have never been heard by an ear
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
