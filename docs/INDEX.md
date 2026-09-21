@@ -1180,6 +1180,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/caption-anchor-boss-b.ts` | **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY and THE SCOUT are** |
 | `packages/render/src/caption-anchor-boss-c.ts` | **Where the fixtures of THE CANDLE, THE BATON and THE DIASTOLE are** — the third of `caption-anchor-boss.ts` |
 | `packages/render/src/caption-anchor-boss-d.ts` | **Where the fixtures of THE GORGE, THE FLEET, THE MIRROR and THE STARE are** |
+| `packages/render/src/caption-anchor-boss-e.ts` | **Where the fixtures of THE LEDGER and THE SPLICE are** — the fifth of `caption-anchor-boss.ts` |
 | `packages/render/src/caption-anchor-box.ts` | **The ring round a boss's fixture** — the two shapes every line of `caption-anchor-boss*.ts` answers with |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |

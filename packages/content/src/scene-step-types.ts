@@ -47,7 +47,13 @@ export type BossPart =
   /** THE CANDLE's face: the mouth of the cone it eats flashes out of — the pilot's. */
   | "face"
   /** THE DIASTOLE's left chamber, the pilot's count and grey on the navigator's screen. */
-  | "left";
+  | "left"
+  /** THE LEDGER's cord, from the body's underside to the hull it is rooted in. */
+  | "cord"
+  /** THE LEDGER's lock on the socket's column, and its chevron — the navigator's. */
+  | "lock"
+  /** THE SPLICE's row of mouths over the plating: the one part of it the pilot is shown. */
+  | "mouths";
 
 export type SceneAnchor =
   | { at: "body" }

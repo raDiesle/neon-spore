@@ -63,11 +63,17 @@ export const THE_LEDGER: GuideScene = {
     { tick: 1160, control: "fireRed" },
     { tick: 1340, control: "guard" },
   ],
-  // The pages about the cord and the seam point at the hull: the body is a
-  // fixture with no anchor of its own (`docs/queue.md`), and the hull is where
-  // the cord is rooted.
+  // The cord, the lock and the body each have an anchor of their own now
+  // (`render/caption-anchor-boss-e.ts`, 21 September 2026). Nothing here
+  // points at the hull: the cord is rooted in *one* column of it and the lock
+  // walks, and the middle of the plating is neither.
   steps: [
-    { tick: 0, seat: 1, text: "A CORD ROOTS IN YOUR HULL", anchor: { at: "hull" } },
+    {
+      tick: 0,
+      seat: 1,
+      text: "A CORD ROOTS IN YOUR HULL",
+      anchor: { at: "boss", part: "cord" },
+    },
     {
       tick: 180,
       seat: 2,
@@ -83,12 +89,22 @@ export const THE_LEDGER: GuideScene = {
       text: "IT FIRES UP HIS COLUMN",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 540, seat: 1, text: "THE HIT COMES BACK · 4 BEATS", anchor: { at: "hull" } },
+    {
+      tick: 540,
+      seat: 1,
+      text: "THE HIT COMES BACK · 4 BEATS",
+      anchor: { at: "boss", part: "cord" },
+    },
     // GUARD AS IT LANDS stood here and came out (`decisions.md` #34): the
     // fight writes PRESS over the bead riding down the cord and GUARD under
     // it, and the bead's own position is the four beats this page counted.
     // THE FIFTH · LET IT LAND below stays, because the cue is silent there.
-    { tick: 900, seat: 2, text: "IT WALKS A COLUMN · SAY IT", anchor: { at: "hull" } },
+    {
+      tick: 900,
+      seat: 2,
+      text: "IT WALKS A COLUMN · SAY IT",
+      anchor: { at: "boss", part: "lock" },
+    },
     {
       tick: 1080,
       seat: 2,
@@ -101,7 +117,12 @@ export const THE_LEDGER: GuideScene = {
       text: "GUARD · IT WHIPS THE SEAM",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 1440, seat: 1, text: "NOW EVERY SHOT BILLS YOU", anchor: { at: "hull" } },
-    { tick: 1620, seat: 2, text: "THE FIFTH · LET IT LAND", anchor: { at: "hull" } },
+    { tick: 1440, seat: 1, text: "NOW EVERY SHOT BILLS YOU", anchor: { at: "boss" } },
+    {
+      tick: 1620,
+      seat: 2,
+      text: "THE FIFTH · LET IT LAND",
+      anchor: { at: "boss", part: "cord" },
+    },
   ],
 };

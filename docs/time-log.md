@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — boss-anchors-ledger-splice — two films, and the lane split in half
+
+- reading — 15 min. Nineteen pages across four bosses is bigger than the
+  seven that took the last sitting, so the lane was split before it was
+  started: THE LEDGER and THE SPLICE here, THE UNDERTOW and THE THROAT next.
+  Then `ledger-shape.ts` and `splice-straws.ts`, which both turned out to hand
+  out almost everything an anchor needs already.
+- writing — 25 min. `caption-anchor-boss-e.ts`, the fifth of the chain;
+  `ledgerBodyBox` added to `ledger-shape.ts` because `HALF_W` is a rule about
+  which columns a bolt is refused from and not a number an anchor may copy;
+  three part names — `cord`, `lock`, `mouths`; seven pages moved; five tests.
+- looking — 5 min. One rehearsal frame, THE LEDGER's opening: the ring runs
+  from the body down to the socket in the plating, which is the cord.
+- friction — 5 min. Biome's import sort, once.
+- landing — 15 min.
+
+The bottleneck was reading, again, and for the same reason: the geometry of
+each boss has to be found before a line can be written. It is shrinking —
+both of these films' shape files already exported the points.
+
 ## 2026-09-21 — boss-anchors-gorge-fleet-mirror-stare — four more of twelve
 
 - reading — 15 min. The four films' hull pages, and the draw file of each

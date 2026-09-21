@@ -9,6 +9,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { AnchorPoint } from "./caption-anchor.js";
+import { bossAnchorE } from "./caption-anchor-boss-e.js";
 import { around, box } from "./caption-anchor-box.js";
 import { gorgeSackBox, gorgeTallyY } from "./gorge-draw.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -40,7 +41,8 @@ export function bossAnchorD(
   if (world.boss?.kind === "fleet") return fleetChart(l, cfg);
   if (world.boss?.kind === "mirror") return mirrorShip(l, cfg);
   if (stareBoss(world) !== null) return stareSocket(l, cfg);
-  return null;
+  // The two of the fifth file, on the same line-count argument.
+  return bossAnchorE(l, world, part);
 }
 
 /** How much of a tile one of the pilot's counts is worth as a ring. */

@@ -56,8 +56,13 @@ export const THE_SPLICE: GuideScene = {
     { tick: 1200, control: "mawTake" },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "YOU READ THE TANGLE", anchor: { at: "hull" } },
-    { tick: 360, seat: 1, text: "YOU SEE ONLY THE MOUTHS", anchor: { at: "hull" } },
+    { tick: 0, seat: 2, text: "YOU READ THE TANGLE", anchor: { at: "boss" } },
+    {
+      tick: 360,
+      seat: 1,
+      text: "YOU SEE ONLY THE MOUTHS",
+      anchor: { at: "boss", part: "mouths" },
+    },
     // The slide keeps its verb, and it is the one page in this film that could
     // not lose one: the field says nothing at all to the seat holding the strip,
     // because *which mouth* is the whole of the answer (`boss-cue-read-d.ts`).

@@ -345,23 +345,25 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## Eight other films still put pages about their boss on the hull
+## Six other films still put pages about their boss on the hull
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-21, claude/queue-twelve-other-films-still-put-pages-about-their-b (claim: claude/queue-eight-other-films-still-put-pages-about-their-bo)
-- **Files:** `packages/render/src/caption-anchor-boss-d.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
+- **Files:** `packages/render/src/caption-anchor-boss-e.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
 - **Where:** local
 
-**Eight of the sixteen are done** (21 September 2026), in two lanes: THE
-CANDLE, THE BATON, THE CLAW and THE DIASTOLE, then THE GORGE, THE FLEET, THE
-MIRROR and THE STARE. The machinery is finished with them —
-`caption-anchor-boss-d.ts` is the fourth file and has room,
-`caption-anchor-box.ts` is the ring every line of the four answers with, and
-`render/test/boss-anchor-d.test.ts` is the pattern. Twenty-six pages are left,
+**Ten of the sixteen are done** (21 September 2026), in three lanes: THE
+CANDLE, THE BATON, THE CLAW and THE DIASTOLE; THE GORGE, THE FLEET, THE
+MIRROR and THE STARE; THE LEDGER and THE SPLICE. The machinery is finished
+with them — `caption-anchor-boss-e.ts` is the fifth file and has room,
+`caption-anchor-box.ts` is the ring every line of the five answers with, and
+`render/test/boss-anchor-e.test.ts` is the pattern. Nineteen pages are left,
 in two more lanes:
 
-- **THE LEDGER, THE SPLICE, THE UNDERTOW, THE THROAT** — nineteen pages, the
-  heavy one; it will want a fifth anchor file.
+- **THE UNDERTOW and THE THROAT** — twelve pages, and the pair where the hull
+  is not obviously the wrong answer: THE UNDERTOW bows a *plate* of it and
+  THE THROAT has rings that slide along it. What is wrong is that the hull
+  anchor is the *middle* of the plating, and neither of those is in the
+  middle.
 - **PINBALL, THE GAUGE, THE MAZE, THE REPRISE** — seven pages, and the one
   that is a different question: a round is its own picture and may want an
   anchor of its own rather than a boss part.
@@ -373,7 +375,9 @@ then a line per kind in the newest anchor file off the boss's own shape file,
 a `BossPart` where a boss draws more than one thing worth a page — and reuse a
 name before inventing one, the way THE GORGE's counts took THE TASTER's
 `tally` — and a test: the ring where the fixture is drawn, and null for a part
-this screen does not draw.
+this screen does not draw. Where a shape file keeps a number an anchor would
+otherwise copy, export it from there: `gorgeSackBox` and `ledgerBodyBox` were
+both added that way, and `drawGorge` now calls its own.
 
 ## A caption's ring is a circle round a subject that is a bar
 

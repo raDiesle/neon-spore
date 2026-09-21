@@ -118,6 +118,23 @@ export function ledgerHalfPath(
   return splinePath(pts, true);
 }
 
+/**
+ * **The whole body**, both halves and whatever is between them — centred on
+ * the seam, as tall as the body stands and as wide as the plating a bolt is
+ * refused by. `gap` is `ledgerGap`, so the ring widens with the seam the way
+ * the body does; 0 is the body closed, which is how a caption asks for it
+ * (`caption-anchor-boss-e.ts`).
+ */
+export function ledgerBodyBox(
+  l: Layout,
+  cfg: SimConfig,
+  t: LedgerState,
+  gap = 0,
+): { x: number; y: number; rx: number; ry: number } {
+  const { mid, ry } = ledgerBodyY(l);
+  return { x: ledgerSeamX(l, cfg, t), y: mid, rx: l.tile * HALF_W + gap * 0.5, ry };
+}
+
 /** Where the cord goes into the ship: the socket's column, at the hull line. */
 export function ledgerSocketPoint(l: Layout, t: LedgerState): Point {
   return { x: tileCX(l, t.socket), y: l.hullY };
