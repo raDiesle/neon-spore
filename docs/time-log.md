@@ -15525,3 +15525,5 @@ capture *and* its control, and half of them say nothing in a picture at all.
 The bottleneck was friction: the constraint is the browser's and it is not
 visible from the code, so the first seam chosen was one that could never have
 worked and the picture is the only thing that says so.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

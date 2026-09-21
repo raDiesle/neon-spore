@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 5e758568 — The pair who never pressed INSTALL get the screen the installed pair has
+
+The manifest has said "display": "fullscreen" since the day there was a manifest, so a pair who installed the shortcut has always played with the field against all four edges. The pair who opened a link and pressed READY — the pair the join flow is built for — got the same game with the address bar over the hull and a navigation bar under it. Pressing into the field now asks for the screen, and the ask is the same one the shortcut already makes.
+
 ## 2026-09-21 · 9a025252 — Two boss cues come back down onto the thing they name
 
 THE WARDEN's HOLD stood 1.7 tiles above the hull and THE UNDERTOW's OPEN 0.8 above the lobe coming through it, each lifted by hand so the verb written under the mark would clear the plating. Both marks now sit on the skin where the other seven bosses' do: `cueWordY` flips a verb above its mark whenever the word would land in the membrane, for every boss at once (`BossCue.hullTop`, `render/test/boss-cue-hull.test.ts`), so the two constants were answering a question that is already answered.
