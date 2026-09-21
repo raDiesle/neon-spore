@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 5277bb65 — Release the gullet-sounds question back to the queue
+
+`queue next` claimed it a second time, which is what it is built to do with an Asks entry — the prompt it prints has a branch for exactly this: put the question to the owner, land nothing that depends on the answer. This session has no answer to build on, so the claim goes back rather than standing on the file while the question waits.
+
 ## 2026-09-21 · 90dd6718 — An entry that wants an ear stops looking like work
 
 "Unverified at 4515fcc9" read as a lane and was claimed twice by sessions that cannot hear. Everything in it a machine can settle already is, and is green: the speech-band budget covers all seven of THE THROAT's sounds, every one of its events maps to its own panned cue, and the BOUND stamp is read off the binding files rather than written by hand. What is left is whether three of them sound like their blurbs, which is an ear.
