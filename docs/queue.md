@@ -484,6 +484,7 @@ VANE's uses metal.
 ## WAVE LOST bleeds thirteen fast rivulets: slower and fewer wants candidates
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-next-hands-out-an-asks-entry (claim: claude/queue-wave-lost-bleeds-thirteen-fast-rivulets-slower-a)
 - **Files:** `packages/render/src/lost-blood.ts`, `packages/render/src/lost-shut.ts`, `packages/render/src/lost-look.ts`, `packages/render/src/lost-screen.ts`, `tools/versus/candidates/registry.ts`, `docs/versus.md`
 - **Where:** local
 
