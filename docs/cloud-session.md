@@ -109,6 +109,19 @@ rather than offering a green check that covered less than usual. A wave whose
 timing was never watched is not finished, it is written — landed, now, but
 still written.
 
+*Amended 2026-09-21:* "it does have a headless Chromium" was true and did not
+hold. `chromium.launch()` died there with *Target page, context or browser has
+been closed* — a sentence about nothing that was wrong — because Playwright
+talks to the browser it launches over `--remote-debugging-pipe`, which is
+fixed inside `playwright-core`, and that pipe is what Chrome running as root
+dies on. The same crash is reachable on the owner's own machines by a profile
+path a few characters too long for `AF_UNIX`, which any worktree with a long
+enough name gives it. `tools/frames/browser.ts` now retries by spawning the
+browser itself with `--remote-debugging-port` and connecting with
+`connectOverCDP`, so the sandbox takes frames again and the two causes did not
+have to be told apart first. It is a fallback: where the ordinary launch
+works, nothing changed.
+
 **Say it once, in the report, queue it, and then let it go.** The report is
 the sentence; the queue is what survives the session. A lane that could not
 watch a wave at tempo, could not see a shape move, or could not take a frame

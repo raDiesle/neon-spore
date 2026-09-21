@@ -208,6 +208,26 @@ question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
 ```
+## `FRAMES_CHROME` is read once, when the module is first imported
+
+- **Found:** 2026-09-21, claude/queue-chromium-launch-crashes-here-the-pipe-transport
+- **Files:** `tools/frames/chrome.ts`, `tools/frames/test/chrome.test.ts`
+- **Where:** local
+
+`CHROME_CANDIDATES` is a module-level `const` whose first element is
+`process.env.FRAMES_CHROME`, so the variable is read at import and never
+again. Anything that sets it afterwards — a test wanting a browser that is
+certain not to open, a script arranging one for a single call — is ignored
+without a word, and the default is used instead. This lane wanted exactly
+that and could not have it: `launchBrowser` gained an optional executable
+parameter instead, which is the right seam for a caller and does nothing for
+the environment variable the documentation names.
+
+`pickChrome` is already pure and already takes its candidates, so the fix is
+small: `CHROME_CANDIDATES` becomes a function, or the `FRAMES_CHROME` element
+is read inside `findChrome()` rather than beside the constant. The test is
+setting the variable after import and getting the path back.
+
 ## The phone's furniture is read again on every one of a resize burst
 
 - **Found:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho
@@ -761,94 +781,6 @@ and created in `packages/content/src/scenes/`, walking the split the fight
 already has — the pilot's colour, the navigator's swell, a seal, a wrong
 colour's provoke, the twins from the fifth opening — is the rehearsal lane's
 own kind of work, and is unstarted.
-
-## `chromium.launch()` crashes here; the pipe transport is why, not the sandbox
-
-- **Found:** 2026-09-20, claude/queue-the-batons-merge-its-two-handle-rings-still-has
-- **Taken:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho (claim: claude/queue-chromium-launch-crashes-here-the-pipe-transport)
-- **Files:** `tools/frames/browser.ts`
-- **Where:** local
-
-`tools/frames/browser.ts`'s `launchBrowser()` — and therefore every
-`bun run frames`, `bun run shot`, `bun run raster` and the whole of
-`tools/frames/test/*` that opens a real browser — fails in this cloud session
-with `could not open a browser: launch: Target page, context or browser has
-been closed`, reproduced with the tool's own documented command
-(`bun run frames . --wave "THE BATON" --ticks 220 --boss-json '…'`, this
-session's queue entry's own line) and with `bun test
-tools/frames/test/page-said.test.ts`, not just a script of this session's own.
-
-The real reason is one level down: this container runs Chrome as **root**,
-where Chrome refuses its sandbox unless told `--no-sandbox` — Playwright
-already passes that — but Playwright's *own* transport to the browser it
-launches is `--remote-debugging-pipe` (fixed by `playwright-core`, not an
-`args` a caller can turn off), and the launched Chrome dies with `SIGTRAP`
-the instant that pipe is opened, here, with no further message on either
-stream. Confirmed by hand: `chromium --headless --no-sandbox
---remote-debugging-port=N` (TCP, not the pipe) starts and answers
-`/json/version` cleanly, and `playwright-core`'s `chromium.connectOverCDP`
-against that same manually-spawned process opens pages, navigates and
-screenshots exactly as `chromium.launch()` is supposed to.
-
-So the fix is not `--no-sandbox` (already there) and not a Chrome path
-(`findChrome()` already finds one and it runs). It is `launchBrowser()`
-falling back to spawning `findChrome()` itself with `--remote-debugging-port`
-and connecting with `connectOverCDP` when the ordinary `chromium.launch()`
-throws — the same shape `docs/cloud-session.md` already describes this
-sandbox needing for wrangler's own quirks. Until it does, a cloud session
-that needs a real frame has to hand-roll the workaround this entry describes,
-which is real friction for every future frame this sandbox is asked to take.
-`bun test tools/frames` after any fix, on this machine specifically — the
-tool's own tests pass or fail on exactly this.
-
-**It is not every worktree alike, and the reason is `launchBrowser`'s own
-profile path.** `bun run tools/frames/test/opening.test.ts` is green, every
-time, run from `/home/claude/ns-cairn` — and red, every time, with this same
-error, run from `/home/claude/ns-undertow-cues`, on the same commit, the same
-Chrome, the same container: the only thing that differs is the path
-`profileRoot()` (`tmp-litter.ts`'s `tmpRoot(root)`) builds the profile under,
-which is longer by exactly the worktree directory name's own length. That
-points at the well-known Linux `AF_UNIX` path ceiling (108 bytes,
-`sun_path`): Chrome's `ProcessSingleton` puts a real socket in a *short*
-system path and symlinks the profile's own `SingletonSocket` to it — but only
-when it can find that short path by asking `$TMPDIR`/`$TMP`/`$TEMP`, which
-`launchBrowser`'s own `underTmp` has just pointed at the *same long directory*
-this profile already lives under, for the reason its own header gives
-(so a killed run's litter is findable under `.claude/tmp` rather than
-system temp). So the fallback the sandbox otherwise takes for a deep path is
-the one thing this tool disables, and a worktree whose name pushes the
-profile path a few characters past the ceiling loses the browser outright —
-`ns-cairn` (18 characters of directory name) stays under it and
-`ns-undertow-cues` (28) does not; this is about the number, not the words.
-Confirmed by hand: `launchBrowser()` from each of two worktree copies of the
-exact same commit, run back to back, four times each — `ns-cairn` opened a
-browser every time and `ns-undertow-cues` failed every time, with `.claude/tmp`
-freshly emptied in both first. So this session's earlier root-cause (the pipe
-transport dying under root) may be the *whole* story on a short enough path,
-or `--remote-debugging-pipe` may itself be sensitive to the same ceiling
-through some file it opens beside the profile — either way, a fix that only
-retries with `connectOverCDP` on failure (the shape argued above) sidesteps
-both causes at once and does not need this one settled first, but a fix that
-instead shortens `launchBrowser`'s own path handling (not letting `underTmp`
-hand Chrome's own short-path fallback the long directory back) is the other
-shape worth weighing, since it would let `chromium.launch()` itself keep
-working rather than adding a second code path beside it.
-
-**A third data point, and a bind mount is the workaround until either fix
-lands.** `/home/claude/curtain-batch` — a name no longer than the ones already
-compared above — fails the same way, confirmed by hand the same four-tries
-way this entry's own middle paragraph did: `tools/frames/test/opening.test.ts`
-red every time from that path, freshly-emptied `.claude/tmp` each time. `mount
---bind` onto a short empty directory (`mkdir /cb2 && mount --bind
-/home/claude/curtain-batch /cb2`, no `git worktree move`, no copy) gives every
-command run from `/cb2` the identical tree under a short path — git follows it
-as an ordinary path rather than a symlink, so `git status`, `git rebase` and a
-commit all work unchanged from there — and both `bun run frames` and `bun
-test`/`bun run check:fast` (whose own browser-backed specs hit this same
-crash) go green from `/cb2` with no code touched. This is the workaround a
-session in a long-named worktree can reach for right now; it does not replace
-either fix shape above; a session that cannot free-hand a mount should fall
-back to pushing the branch unlanded instead.
 
 ## The queue's own resurrection guard missed a stale entry coming back
 

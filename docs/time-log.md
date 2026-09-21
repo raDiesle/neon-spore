@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — chrome-over-port — `chromium.launch()` crashes here; the pipe transport is why
+
+- reading — 10 min. The queue entry, which had already done the diagnosis
+  twice over and named the two fix shapes; then `browser.ts`, `chrome.ts` and
+  the profile placement `underTmp` does, because the second cause lives there.
+- writing — 30 min. `browser-cdp.ts` — spawn, read the websocket off stderr,
+  `connectOverCDP`, and a `stop` that actually ends the process — the
+  `stoppers` map in `closeBrowser`, an optional executable on `launchBrowser`
+  so the retry can be seen to run, three tests and the amendment in
+  `docs/cloud-session.md`.
+- looking — 5 min. `bun test tools/frames`: 288 tests, 31 files, every one of
+  them a real browser somewhere, green in 28 seconds.
+- friction — 10 min. The fallback cannot succeed on this machine, so the two
+  halves had to be tested apart — `launchOverCdp` directly, and the retry's
+  own wiring through a browser that opens no way at all; and a patch script
+  with a doubled backslash was refused by the hook and rewritten through a
+  file.
+- landing — 10 min.
+
+The bottleneck was that the bug is not reproducible here: everything about
+this lane is written for a machine it was never run on, so the tests had to be
+the kind that prove the parts rather than the whole.
+
 ## 2026-09-21 — safe-area — the band runs to the screen's edges, where the phone's own gestures start
 
 - reading — 10 min. The queue entry, `layout-stage.ts` and every caller of

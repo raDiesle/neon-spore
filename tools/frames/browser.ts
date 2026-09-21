@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { type Browser, chromium } from "playwright-core";
 import { REMOVE_ATTEMPTS, readdirSafe, removeUntilGone, retryOpts } from "../retry.js";
 import { PROFILE_PREFIX, staleProfiles, tmpRoot } from "../tmp-litter.js";
+import { launchOverCdp } from "./browser-cdp.js";
 import { findChrome } from "./chrome.js";
 import { root } from "./exec.js";
 
@@ -75,8 +76,16 @@ async function underTmp<T>(dir: string, use: () => Promise<T>): Promise<T> {
 /** The profile directory a browser was launched with, so its close can remove it. */
 const profiles = new WeakMap<Browser, string>();
 
+/** How to put away a browser this file did not launch the ordinary way.
+ * A `close()` on a connection only disconnects; the process stays up. */
+const stoppers = new WeakMap<Browser, () => Promise<void>>();
+
 /**
  * A headless Chrome whose litter this repository can find afterwards.
+ *
+ * Which browser is only ever a parameter for a test: nine callers want the one
+ * `findChrome()` finds, and a test wants one that is certain not to open, so
+ * that the retry below can be seen to run rather than only read.
  *
  * A launch that fails says so in one line naming the reason. It used to fail a
  * hundred lines later inside a page helper — `clearOpening` reporting that the
@@ -84,19 +93,45 @@ const profiles = new WeakMap<Browser, string>();
  * never opened — and a session then spent a turn establishing that the crash
  * was not about the code under test.
  */
-export async function launchBrowser(): Promise<Browser> {
+export async function launchBrowser(chrome = findChrome()): Promise<Browser> {
   await sweepProfiles();
   const dir = await profileDir();
   try {
     const browser = await underTmp(dir, () =>
-      chromium.launch({ executablePath: findChrome(), headless: true }),
+      chromium.launch({ executablePath: chrome, headless: true }),
     );
     profiles.set(browser, dir);
     return browser;
   } catch (error) {
-    await rm(dir, { recursive: true, force: true }).catch(() => {});
-    throw new Error(`could not open a browser: ${(error as Error).message.split("\n")[0]}`);
+    return await overPort(chrome, dir, error as Error);
   }
+}
+
+/**
+ * The retry, for a machine where the ordinary launch cannot work at all.
+ *
+ * Both reasons are in the message when this fails too. The first one alone is
+ * what cost a session a turn: *Target page, context or browser has been
+ * closed* is true, says nothing about why, and reads as a fault in whatever
+ * was being captured — `browser-cdp.ts` has what is actually happening.
+ */
+async function overPort(chrome: string, dir: string, first: Error): Promise<Browser> {
+  try {
+    const over = await launchOverCdp(chrome, dir);
+    profiles.set(over.browser, dir);
+    stoppers.set(over.browser, over.stop);
+    return over.browser;
+  } catch (second) {
+    await rm(dir, { recursive: true, force: true }).catch(() => {});
+    throw new Error(
+      `could not open a browser: ${line(first)} — ` +
+        `and not over a debugging port: ${line(second as Error)}`,
+    );
+  }
+}
+
+function line(error: Error): string {
+  return error.message.split("\n")[0] ?? String(error);
 }
 
 async function profileDir(): Promise<string> {
@@ -119,7 +154,10 @@ async function profileDir(): Promise<string> {
  * — the next launch sweeps it by age.
  */
 export async function closeBrowser(browser: Browser): Promise<void> {
-  await browser.close().catch(() => {});
+  const stop = stoppers.get(browser);
+  stoppers.delete(browser);
+  if (stop) await stop().catch(() => {});
+  else await browser.close().catch(() => {});
   const dir = profiles.get(browser);
   if (dir === undefined) return;
   profiles.delete(browser);

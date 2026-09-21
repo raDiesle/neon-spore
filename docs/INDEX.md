@@ -2212,6 +2212,7 @@ place — the generator keeps whatever is there.
 | `tools/perf/arrivals.ts` | WHAT A WAVE SENDS, in one short string a stale baseline row can be caught by |
 | `tools/perf/noise.ts` | WHEN A MEASUREMENT CAN BE TRUSTED, and by how much it has to move before anybody is told about it |
 | `tools/frames/browser.ts` | THE ONE PLACE A BROWSER IS OPENED, and the one place it is shut |
+| `tools/frames/browser-cdp.ts` | THE SECOND WAY IN, for a machine where `chromium.launch()` cannot open one |
 | `tools/frames/boss.ts` | `--boss`, `--boss-json` and `--creature` read off the command line |
 | `tools/frames/boss-install.ts` | Writing `--boss`, `--boss-json` and `--creature` on the world, in the page |
 | `tools/tmp-litter.ts` | The directories a browser run leaves under `.claude/tmp`, and when one of them is spent |
