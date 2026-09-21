@@ -365,7 +365,6 @@ left hanging.
 ## THE UNDERTOW changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-undertow-changes-state-more-than-once-and-as
 - **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/events-undertow.ts`, `packages/sim/src/undertow-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
