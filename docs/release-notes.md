@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 025edd3c — THE HIVE clenches, and one lobe can be wrung
+
+THE HIVE answered on the ordinary panel and in one state. It now has two of its own and a gesture for each, both reached on the picture rather than on the panel. On every third scar the underside draws up out of reach for six beats: nothing spills, nothing can be sealed, and the openings arrive on time regardless — so a clench waited out hands the pair every held-back spill at once on the beat it lets go. The pilot's thumb hauls it back down and owes nothing. The navigator's thumb held two beats on a swelling lobe wrings the colour out of it: the breach opens colourless and either colour seals it, at exactly what a wrong bolt costs.
+
 ## 2026-09-21 · 8fb49a03 — `queue take` reads the claim the entry itself names
 
 A lane that finishes half an entry and rewrites its title is the entry's claimant under a name the entry no longer has: `branchFor` derives a different branch from the new words, and the mark's worked branch is the predecessor, landed and swept. The one line left saying who holds it is the mark's own `(claim: ...)`, and until now nothing read it — so `bun run queue take` told the lane the entry was somebody else's, twice in two days on the sixteen-films entry, each time while it was holding the only claim there was.

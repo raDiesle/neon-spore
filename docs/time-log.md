@@ -15767,3 +15767,5 @@ The bottleneck was the tests, and the reason is worth keeping: every one of
 the four failures was the fixture failing to reach the state, not the state
 being wrong — a clench only happens on the third scar, and getting a world
 into one with breaches still open under it took more code than the clench.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
