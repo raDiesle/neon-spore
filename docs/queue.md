@@ -778,6 +778,7 @@ beside the ones there.
 ## A partner who vanishes on the room screen is still drawn as present
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Taken:** 2026-09-21, claude/queue-an-entry-that-waits-on-another-one-has-no-way-to (claim: claude/queue-a-partner-who-vanishes-on-the-room-screen-is-sti)
 - **Files:** `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `apps/server/test/room.test.ts`
 
 The room counts its seats only when something asks it to — a relayed `input`,
