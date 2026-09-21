@@ -463,6 +463,7 @@ what a phone cannot do is *reach* that strip.
 ## THE THROAT's three hand sounds have never been heard by an ear
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-the-throats-three-hand-sounds-have-never-been-he)
 - **Files:** `packages/audio/src/sounds/boss-throat.ts`, `packages/audio/src/bind-throat.ts`, `tools/director/src/sound-page.ts`
 - **Asks:** Do CINCH, SLIP and HAUL read as one gullet under a thumb, or does one of them want re-voicing?
 - **Answered:** 21 September 2026 — HAUL wants re-voicing, and a lane does it without asking again. The owner chose that over pressing the three himself and over leaving all three: a lane re-voices HAUL against the other two, lands it, and he hears the result the next time he plays. That is the yes the change needs, so no VERSUS card and no second question — what is left is ordinary work in the files below.
