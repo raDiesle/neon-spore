@@ -371,24 +371,6 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## THE GAUGE's two new states have no pose in the director's gallery
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-21, claude/queue-frames-hold-cannot-reach-the-six-newest-handles (claim: claude/queue-the-gauges-two-new-states-have-no-pose-in-the-di)
-- **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/src/field-controls-gauge.ts`, `tools/director/src/boss-states.ts`
-- **Where:** local
-
-Both ON THE FIELD rows for THE GAUGE name `THE GAUGE · PLAY`, which is the
-phase the jam and the bind live inside rather than a picture of either — so
-the director's page shows a dial with neither a dead valve nor a wound band on
-it beside two rows that are entirely about them.
-
-`bossPose` names a pose after a boss **state**, and `BOSS_STATES` is what the
-coverage test reads, so a `jam` and a `bind` pose need the ledger to say
-whether a state there is a phase or any named condition of the boss. Decide
-that first — it is the same question THE GORGE's pinch and pry will ask — then
-add the two poses and point the two rows at them.
-
 ## Unverified at 424e7fc4: a real phone browser's own chrome eating the foot of th…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -2196,3 +2178,28 @@ The fix is one test in `tools/frames/test/` asserting every value of `TARGET`
 and every non-`prime` entry of `DRAGS` is in `DRAG_TARGETS`. It needs
 `@neon-spore/net` added to `tools/frames/package.json`, which is the only
 reason it was not written with the rows it would have covered.
+
+## A STATES card cannot be named, and `--click` takes plain CSS
+
+- **Found:** 2026-09-21, claude/queue-the-gauges-two-new-states-have-no-pose-in-the-di
+- **Files:** `tools/frames/shot-state.ts`, `tools/director/src/states-page.ts`
+
+Photographing one boss's row of state cards took
+`--click '#statesCards > div:nth-child(2) section:nth-of-type(6) h2'`, and the
+6 was counted off `BOSS_KINDS` in the simulation by hand. Two things make that
+the only way in.
+
+The cards are lazy: a group fills when it scrolls into view or its `h2` is
+clicked (`section()`), so the element the shot wants does not exist until
+something presses that heading. And the heading cannot be named: a card carries
+its pose name as text in `.name` and nothing else — no id, no data attribute —
+while `--click` runs through `document.querySelectorAll`, which is plain CSS.
+The target selector next to it goes through Playwright and *does* take
+`:text-is("THE GAUGE")`, so the two flags of one command accept different
+languages, and the one that looked right failed with a `SyntaxError` stack.
+
+Two fixes, either alone enough: a `data-boss` on the group's `section` and a
+`data-pose` on the card in `states-page.ts` (a name a reader already sees,
+written where a tool can ask for it), or `--click` gaining the same
+text-matching `--inner` already has. The first is smaller and helps the
+sheet's own tests too.

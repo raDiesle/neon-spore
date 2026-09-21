@@ -37,6 +37,21 @@ import type { World } from "./world.js";
  * drawn on that seat's screen to have pressed.
  */
 
+/**
+ * **The two of them, by name**, for the STATES sheet: a state of a boss is any
+ * named condition the pair meets a different gesture in, and these two are not
+ * the round's clock (`GAUGE_PHASES`). The second axis is a second table out of
+ * the simulation, as SNAKE's grips and THE PULSE's hearts are — never a list
+ * written by hand on the director's side (`boss-phases.ts`).
+ *
+ * Unlike those, these two are **not one enum**: the jam is his and the bind is
+ * hers, they are entered by different halves of the same call, and a pair that
+ * misses on the mark after a bind is in both at once. So there is no neutral
+ * third name here — the ordinary state of the round is the round, `play`.
+ */
+export const GAUGE_GRIPS = ["jammed", "bound"] as const;
+export type GaugeGrip = (typeof GAUGE_GRIPS)[number];
+
 /** Whether the valve is dead and the needle is the pilot's to swing by hand. */
 export function gaugeJammed(gauge: GaugeState): boolean {
   return gauge.jamBeat !== -1;

@@ -8,9 +8,13 @@ import type { FieldControlDef } from "./field-control-def.js";
  * on the picture, and neither seat can see the other's half of why
  * (`sim/gauge-hand.ts`, `render/gauge-grip.ts`, `docs/spec/interludes.md`).
  *
- * Both rows name `THE GAUGE · PLAY`, which is the phase the two states live
- * inside rather than a picture of either. Neither the jam nor the bind has a
- * pose of its own yet; that is in `docs/queue.md`.
+ * Each row names **its own state** rather than the phase the two of them live
+ * inside: `THE GAUGE · JAMMED` and `THE GAUGE · BOUND` are poses on the STATES
+ * sheet, reached by a hand that plays the round into them and not by a field
+ * written by hand (`poses-bosses-rounds.ts`, `boss-hands-gauge.ts`). Both rows
+ * pointed at `THE GAUGE · PLAY` until 21 September 2026, which is a picture of
+ * the round with neither control drawn on it — a reader following the link
+ * found no ring where the row said one stands.
  */
 export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -32,7 +36,7 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "gaugeNeedle",
     sends: ["drag"],
-    pose: "THE GAUGE · PLAY",
+    pose: "THE GAUGE · JAMMED",
   },
   {
     name: "THE GAUGE'S BAND",
@@ -51,6 +55,6 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "gaugeBand",
     sends: ["drag"],
-    pose: "THE GAUGE · PLAY",
+    pose: "THE GAUGE · BOUND",
   },
 ];

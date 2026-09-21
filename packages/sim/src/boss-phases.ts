@@ -5,6 +5,7 @@ import { DIASTOLE_PHASES } from "./diastole.js";
 import { FILAMENT_PHASES } from "./filament.js";
 import { FLEET_PHASES } from "./fleet-state.js";
 import { GAUGE_PHASES } from "./gauge.js";
+import { GAUGE_GRIPS } from "./gauge-hand.js";
 import { GORGE_PHASES } from "./gorge.js";
 import { INSTAR_PHASES } from "./instar.js";
 import { LEDGER_PHASES } from "./ledger.js";
@@ -43,6 +44,18 @@ import { WARDEN_PHASES } from "./warden-cycle.js";
  * MIRROR is the one boss whose phases are a bare union (`MirrorPhase`), so
  * its row is a record keyed by that union: a name added to the union without
  * one here is a type error on this line.
+ *
+ * **And a state is not only a phase.** A state is any named condition of the
+ * boss the pair meets a different gesture in — THE SNAKE's body, THE PULSE's
+ * meter, THE GAUGE's dead valve — because that is what the sheet is for: a
+ * reader looking up what the two of them do here. A boss with a second axis
+ * gets a second table **out of the simulation**, spread onto its row beside
+ * the phases, and never a list written by hand on the director's side. That is
+ * not a preference: `boss-states.ts` reads `BOSS_PHASES[kind] ?? BY_HAND[kind]`,
+ * so a boss with a phase table can never reach the hand-written half at all,
+ * and a name kept there would be a state with no table to go stale against.
+ * THE GORGE's pinch and its pry are the next two to ask (`docs/queue.md`,
+ * 21 September 2026).
  */
 const MIRROR_PHASES: Record<MirrorPhase, 0> = { lead: 0, show: 0, listen: 0, verdict: 0, hold: 0 };
 
@@ -51,7 +64,11 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   warden: WARDEN_PHASES.map((p) => p.name.toLowerCase()),
   vane: VANE_PHASES.map((p) => p.name.toLowerCase()),
   maze: MAZE_PHASES,
-  gauge: GAUGE_PHASES,
+  // Both of THE GAUGE's axes, as the four rounds below: the round's clock, and
+  // the two conditions the pair's own last call puts it in (`gauge-hand.ts`).
+  // These two are not one enum and a pair can be in both at once, which costs
+  // the sheet nothing — it wants the names, not the shape they came in.
+  gauge: [...GAUGE_PHASES, ...GAUGE_GRIPS],
   // Both of SNAKE's axes: the round's clock, and what the body has become
   // (`snake.ts`). The second is a state the pair meets a new gesture in and
   // the sheet would be lying by omission without it.

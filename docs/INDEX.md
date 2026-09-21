@@ -1882,9 +1882,10 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE FLEET, THE GORGE, THE CURTAIN, THE SCUTTLE, THE HIVE |
 | `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `tools/director/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
-| `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE GAUGE |
+| `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
 | `tools/director/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
 | `tools/director/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
+| `tools/director/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
 | `tools/director/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`poses-bosses-kit.ts`) |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |

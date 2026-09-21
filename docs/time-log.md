@@ -22,6 +22,34 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — gauge-states-poses — a state is any condition, not only a phase
+
+- reading — 25 min. `boss-states.ts`, `boss-phases.ts` and the four rounds that
+  already carry a second axis — SNAKE's grips, PINBALL's shots, THE PULSE's
+  hearts, THE SCOUT's loads — which is where the queue entry's question was
+  already answered in code and nowhere in prose. Then `gauge.ts`, `gauge-hand.ts`
+  and `gauge-band.ts` for what the two conditions actually are, and
+  `poses-bosses-kit.ts` for how a pose that is not a stored phase says so.
+- writing — 25 min. `GAUGE_GRIPS` beside the predicates it is named off, the
+  row in `BOSS_PHASES`, the rule written into that file's header and into
+  `.claude/skills/new-boss-state`'s first row, `boss-hands-gauge.ts` with the
+  hand that misses on purpose, the two poses, and the two control rows
+  repointed at them.
+- looking — 20 min. `bun run shot` of THE GAUGE's row on the STATES sheet: six
+  cards, and both new ones read right — the jam with the ring on the needle's
+  tip and the pilot's LEFT and RIGHT gone dim, the bind with the band narrowed
+  and OPEN standing on it. The `bound` note was reworded off that picture.
+- friction — 15 min. Two failed `bun run shot` invocations: the cards are built
+  lazily per group, and `--click` takes plain CSS where the target selector
+  takes Playwright's. Queued.
+- landing — 10 min.
+
+**The bottleneck was looking, and it bought the most.** The decision was
+already made in `boss-phases.ts` by four earlier rounds and took twenty-five
+minutes to *find* rather than to make; the picture is what proved the two new
+cards show the states their control rows claim, and it changed one of the two
+sentences under them.
+
 ## 2026-09-21 — game-skill-descriptions — a skill and a check for the words a player reads
 
 - reading — 25 min. `docs/style-guide.md` and `docs/teaching.md` to find out

@@ -1,7 +1,5 @@
 import {
   type Color,
-  gaugeRound,
-  gaugeSeated,
   MAZE_TURN,
   type MirrorStep,
   mazeCoreEntrance,
@@ -20,12 +18,15 @@ import type { Hand } from "./poses-bosses-kit.js";
 
 /**
  * **The pair's hands on the rounds a hand has to play** — THE MAZE, THE
- * GAUGE, THE MIRROR's pin, THE SCOUT's little ship — each a `Hand`
- * (`poses-bosses-kit.ts`). A round's other phases arrive with nobody
+ * MIRROR's pin, THE SCOUT's little ship, PINBALL's three thumbs — each a
+ * `Hand` (`poses-bosses-kit.ts`). A round's other phases arrive with nobody
  * pressing (`poses-bosses-rounds.ts`); these are the ones whose played states
  * do not, and each hand plays the round's own test rig straight: the string
- * pulled until the way in clicks onto a column, the shot up it; the valve
- * turned toward the mark and the call when the needle sits between them.
+ * pulled until the way in clicks onto a column, the shot up it.
+ *
+ * THE GAUGE's two are next door in `boss-hands-gauge.ts`, cut off when this
+ * file reached its limit: one of them plays its round *wrong* on purpose,
+ * which is the only way to the jam, and that wanted saying at some length.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -70,21 +71,6 @@ export const mazeHand: Hand = (w) => {
     return out;
   }
   return m.turn === 0 ? [valve(1)] : [];
-};
-
-/**
- * THE GAUGE: the pilot turns the valve toward the mark he cannot see, and
- * the navigator calls whenever the needle is seated between her marks
- * (`gaugeSeated`). A call wide of the band costs a rest and nothing else.
- */
-export const gaugeHand: Hand = (w) => {
-  const g = gaugeRound(w);
-  if (g === null || g.phase !== "play") return [];
-  const out: Press[] = [];
-  const want = g.needleMilli < g.markMilli ? 1 : -1;
-  if (g.valve !== want) out.push(valve(want));
-  if (gaugeSeated(w, g)) out.push({ player: 2, command: { kind: "call" } });
-  return out;
 };
 
 /**

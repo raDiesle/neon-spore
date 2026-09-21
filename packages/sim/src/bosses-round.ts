@@ -26,8 +26,9 @@ export {
 // it is at this moment, and whether it is wound at all (`gauge-band.ts`).
 export { gaugeBound, gaugeSpanNow } from "./gauge-band.js";
 
-// And the needle's two: dead valve, and a hand that has not settled yet.
-export { gaugeJammed, gaugeSettling } from "./gauge-hand.js";
+// And the needle's two: dead valve, and a hand that has not settled yet —
+// with the pair of them named, which is the round's second axis.
+export { GAUGE_GRIPS, type GaugeGrip, gaugeJammed, gaugeSettling } from "./gauge-hand.js";
 
 export {
   closeGauge,
