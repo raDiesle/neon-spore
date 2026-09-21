@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 9a025252 — Two boss cues come back down onto the thing they name
+
+THE WARDEN's HOLD stood 1.7 tiles above the hull and THE UNDERTOW's OPEN 0.8 above the lobe coming through it, each lifted by hand so the verb written under the mark would clear the plating. Both marks now sit on the skin where the other seven bosses' do: `cueWordY` flips a verb above its mark whenever the word would land in the membrane, for every boss at once (`BossCue.hullTop`, `render/test/boss-cue-hull.test.ts`), so the two constants were answering a question that is already answered.
+
 ## 2026-09-21 · c2b7d788 — THE HIVE gets its rehearsal, and a film may name its own shot grid
 
 Thirteen pages over 3,060 ticks at seed 6: the swell on her screen and the colour on his, five sites sealed — one before it ever spills, two by a bolt already in the air when the breach opened, one answered in cyan and hurried a beat for it — and the twins last, one sealed and one left spilling, because a bolt cannot pass the body a breach has just dropped. It is the receipt that the fight can be won, which it could not be before 20 September 2026.
