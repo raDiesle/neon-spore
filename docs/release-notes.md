@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 62e3d0d4 — An empty candidate directory says it is empty, and `versus new` prints the mkdir
+
+`bun run versus index` failed on a directory a lane had just made with `lost-screen/pool/index.ts exports no `const … : Variant`` — true, and about a file nobody had written. A slot wants two answers, so a lane opening one writes the first candidate's files and the second's a few minutes later, and in between every `versus index` and every `bun test` blamed the wrong thing. `discover` now says which half of a candidate is missing: an empty directory is empty and is filled or removed, a directory with paint and no `index.ts` is an answer whose registration was never written, and a file with no export keeps the message it always had. Each names the repo-relative path in full, and a test builds all three trees apart, because `discover` throws on the first directory it reaches.
+
 ## 2026-09-21 · 6621c8b0 — Queue: versus new leaves no directory, and an empty one breaks the index
 
 Found opening lost:screen with two candidates: the second directory sat empty between the mkdir and the files, and every versus index in that window failed naming a file nobody had written yet.
