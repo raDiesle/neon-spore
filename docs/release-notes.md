@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 09ffb927 — A caption's ring is the ellipse its two radii already described
+
+`AnchorPoint` has carried `r` and `rx` since the first anchor that was wider than it was tall, and all three readers of it took `Math.max` of the pair and drew a circle. So the ring round THE GORGE's sack — seven columns across and half a tile deep — was a circle five tiles tall that reached most of the way down an empty field, and the scrim opened a pool to match: the page said *this thing* while circling the hull, the plating and whatever was falling past. THE MIRROR's copy of the ship and THE DIASTOLE's shelf are the same.
+
 ## 2026-09-21 · 09a4db5e — The last four films point at their round instead of at the hull
 
 PINBALL, THE GAUGE, THE MAZE and THE REPRISE were the four left of the sixteen, and three of them have no hull at all: the field is gone, so a page anchored at `hull` was pointing at the middle of a plating nothing draws. `caption-anchor-boss-f.ts` is the sixth file of the chain and the first with no `BossPart` in it — a round draws one thing, and each of these three hands its circle out already: `gaugeDial`, `mazeDrum`, and `repriseTearBox`, which `reprise-draw.ts` now exports beside `repriseTearCenter` and in the same rest pose, for the same reason.
