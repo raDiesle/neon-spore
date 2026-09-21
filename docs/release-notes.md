@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 06d88a25 — The stage is cut inside the notch and the home indicator, not under them
+
+The band ran to the screen's own three edges, and on a phone all three belong to the operating system: the home indicator and the gesture bar below, the notch and the status bar above. A lobe drawn there is a lobe a thumb cannot press without the phone taking the press for itself.
+
 ## 2026-09-21 · 60af6d34 — The field is measured when the wave opens, not while it plays
 
 On a phone `window.innerHeight` is not one number: it grows by the height of the address bar the moment the bar collapses and shrinks again when the bar comes back. `computeLayout` makes `bandTop` a share of that height, so each of those moves the control band, the strips and the lobes — and a thumb already resting on a lobe mid-wave is then resting beside it without having moved. The pair's own report of it is *it sometimes does not react*.
