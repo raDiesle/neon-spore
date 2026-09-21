@@ -374,6 +374,7 @@ The brief: `.claude/skills/new-boss` section 6.2.
 ## A caption's ring is a circle round a subject that is a bar
 
 - **Found:** 2026-09-21, claude/queue-twelve-other-films-still-put-pages-about-their-b
+- **Taken:** 2026-09-21, claude/queue-four-other-films-still-put-pages-about-their-bos (claim: claude/queue-a-captions-ring-is-a-circle-round-a-subject-that)
 - **Files:** `packages/render/src/guide-tide-caption.ts`, `packages/render/src/guide-tide-caption-box.ts`, `packages/render/src/caption-anchor.ts`
 - **Where:** local
 
