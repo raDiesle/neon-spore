@@ -15817,3 +15817,5 @@ The bottleneck was reaching for a browser at all. A rehearsal has a clock of
 its own and `bun run frames` drives it a tick per painted frame; **a film is
 watched with `--opening guide`, never with a pane and a stopwatch**, and the
 pane cannot do it even in principle while it is hidden.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

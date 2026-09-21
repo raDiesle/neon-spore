@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 4e22be1d — Mark "THE HIVE's rehearsal film clenches twice and teaches neither" done
+
+## 2026-09-21 · 86108193 — THE HIVE's rehearsal hauls its second clench down
+
+The film clenched twice and taught neither. The sixth seal draws the whole underside up at beat 46 with column 8 open, and a clench holds every spill back for six beats — so the two the column owed at 47 and 50 fell inside a clench that outlasts the scene, and the film's last four beats taught the pair that a breach left open goes harmless. That is the opposite of the sentence it exists to say. The pilot's palm now goes onto the mass the tick after it rises and has it down inside the beat, which is the whole window: the cadence rides along while the mass is up, so a haul finished before beat 47's step leaves the spill clock where it was and both spills arrive after all.
+
 ## 2026-09-21 · 2b91c5d0 — THE HIVE's clench is drawn, and its wrung lobe wears a collar
 
 The second half of the §6.2 lane: the three moments the simulation has had since this morning are on the screen. A clench draws the whole mass up half a tile inside half a beat, net of the pilot's carry, so it follows his thumb frame by frame and is home on the tick the haul is enough rather than at the end of it; his ring sits on that risen underside, wider than a lobe's because the handle is the whole of it, its dial emptying as the backlog comes due. A lobe under the navigator's thumb stops throbbing and squeezes, under a ring whose dial fills the other way. A wrung breach carries no colour on either screen and says so with a pale collar — a second shape rather than a shade, because her every breach is wax-grey already.
