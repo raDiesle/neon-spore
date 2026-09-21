@@ -446,20 +446,40 @@ decision and wants an eye on a phone, not a flag. The director's side of the
 same ask is smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works;
 what a phone cannot do is *reach* that strip.
 
-## Unverified at 4515fcc9: the three new gullet sounds - CINCH, SLIP and HAUL were…
+## THE THROAT's three hand sounds have never been heard by an ear
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-21, claude/queue-the-slow-is-felt-half-b (claim: claude/queue-unverified-at-4515fcc9-the-three-new-gullet-soun)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-throat.ts`, `packages/audio/src/catalogue.ts`
+- **Files:** `packages/audio/src/sounds/boss-throat.ts`, `packages/audio/src/bind-throat.ts`, `tools/director/src/sound-page.ts`
+- **Asks:** Do CINCH, SLIP and HAUL read as one gullet under a thumb, or does one of them want re-voicing?
 
-*THE THROAT's two hands are heard: the cinch, the slip and the haul* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
+*THE THROAT's two hands are heard: the cinch, the slip and the haul* landed
+from a session with no ear, and this entry has now been picked up by a second
+one that has none either. So it is written down properly instead: **everything
+about these three that a machine can settle is settled, and what is left is
+three presses on a sheet that already exists.**
 
-- the three new gullet sounds - CINCH, SLIP and HAUL were never heard; a sound is judged by an ear and this session has none
+Settled, and held by `bun run check`: all seven of THE THROAT's sounds stay
+inside `VOICE_BUDGET_SECONDS` of the 300–3000 Hz speech band
+(`packages/audio/test/deep.test.ts`); each of the seven events maps to its own
+cue and pans to the mouth's column (`bind.test.ts`); and the BOUND stamp is
+read off the binding files rather than written by hand
+(`catalogue.test.ts`). A session re-claiming this will find all of that green
+and nothing to add.
 
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+Not settled, and not settleable here: whether the three *sound like* what
+their blurbs say — a close with the draw stopping dead, that close let go, and
+wet weight dragged a pace sideways. THE SOUND CATALOGUE sheet plays any sound
+in the game from a ▶ beside its row (`sound-page.ts`), so the whole of what is
+owed is: open it, filter to **boss**, and press `boss.throatCinch`,
+`boss.throatSlip` and `boss.throatHaul`.
+
+The answer picks between three: **keep all three as built**; **re-voice the
+cinch**, which is the one of the seven built as an *absence* — a close and
+then the draw dying — and therefore the one most likely to arrive as nothing
+at all on a phone speaker; or **re-voice the haul**, the only one of the three
+that has to be told apart by ear from a haul this game already has
+(`boss.vaneHaul`), and which deliberately uses lowpassed noise where THE
+VANE's uses metal.
 
 ## WAVE LOST bleeds thirteen fast rivulets: slower and fewer wants candidates
 

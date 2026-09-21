@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — throat-sounds-unverified — an entry that needed an ear says so
+
+- reading — 20 min. `boss-throat.ts` for the seven, `bind-throat.ts` for the
+  map, and then the three tests that already hold every claim in the entry a
+  machine can hold: the speech-band budget over all seven in `deep.test.ts`,
+  the event-to-cue map in `bind.test.ts`, the BOUND stamp in
+  `catalogue.test.ts`. Then `sound-page.ts`, which turned out to be the whole
+  of the missing step: a ▶ beside every row in the game.
+- writing — 15 min. The entry rewritten as an owner question — what is
+  settled and where, what is not and cannot be here, and the three answers it
+  picks between.
+- looking — 0 min. The point of the entry is that this session cannot.
+- friction — 0 min.
+- landing — 5 min.
+
+**The bottleneck was reading, and it was the right place to spend it:** the
+entry read like work and was not. A second session had already claimed it
+before anyone noticed that no session can finish it, which is the cost this
+rewrite is meant to stop a third from paying.
+
 ## 2026-09-21 — slow-window-candidates — four answers to a window nobody can see
 
 - reading — 20 min. `tools/versus/README.md` and `variant.ts` for what a slot
