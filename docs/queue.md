@@ -255,9 +255,33 @@ a boss and a pose missing from the gallery are `local`. What is left unmarked is
 the handful that `ASKS THE OWNER`: nobody's machine is the thing they are
 waiting on.
 
+`- **Needs:** <the title of another entry>` says this one cannot start until
+that one lands, and it is the third and last reason `bun run queue next` steps
+past a free entry. The other two say what it is not: a `Where:` line refuses —
+this machine cannot do that work at all — and an unanswered `Asks:` waits on a
+sentence from the owner. Neither can say **this one is fine, but not yet**.
+`next` without an argument passes a blocked entry over; `next <n>` or `take`
+naming it hands it out as before, with the blocker printed above the entry, so
+a session that means to start the unblocked half can. The listing marks it
+`WAITS ON "<the other title>"`.
+
+**The line names a title, so the dependency dissolves itself.** `queue done`
+takes the prerequisite out of the file when it lands, nothing matches the line
+any more, and the blocked entry is ordinary again with nobody having to come
+back and delete anything. Which is also why a misspelt title **fails open**
+rather than being reported: a name matching nothing and a prerequisite that has
+just landed are the same thing from inside the tool. It was written on 21
+September 2026, after `next` handed *THE GIMBAL's picture has never been drawn*
+to a local session — an entry opening with the words *lane two of §18, once
+lane one lands*, under one closing with *do not start it here*. Two sentences
+addressed to a reader, which `next` is not; and lane one is `CLOUD ONLY`, so
+the kind of session it kept offering the picture to was the one kind that could
+never unblock it. Five pairs in this file carry the line now.
+
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
+`tools/queue/test/needs.test.ts` holds the wait.
 
 ## `queue take` refuses the lane the entry itself names as its claim
 
@@ -602,6 +626,7 @@ The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Needs:** THE GIMBAL is written and nobody has built its simulation
 - **Where:** local
 
 Lane two of §18, once lane one lands: a sealed drum inside two nested rings
@@ -634,6 +659,7 @@ The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Needs:** THE BELLOWS is written and nobody has built its simulation
 - **Where:** local
 
 Lane two of §19, once lane one lands: a double-chambered bellows-lung, five
@@ -664,6 +690,7 @@ The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Needs:** THE HASP is written and nobody has built its simulation
 - **Where:** local
 
 Lane two of §20, once lane one lands: three sealed hasps down the field's
@@ -692,6 +719,7 @@ The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Needs:** THE SPOOL is written and nobody has built its simulation
 - **Where:** local
 
 Lane two of §21, once lane one lands: a thread-spool creature slung sideways
@@ -724,6 +752,7 @@ The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
+- **Needs:** THE RATCHET is written and nobody has built its simulation
 - **Where:** local
 
 Lane two of §22, once lane one lands: a toothed climbing rack in full view of

@@ -18,8 +18,13 @@ import type { Item } from "./queue.js";
  * The prompt a fresh session is opened with. Copy-pasteable and cold-readable:
  * it names the branch that was already created for it, so the session checks
  * that branch out rather than inventing a name the queue cannot recognise.
+ *
+ * `needs` is the title of an entry that has not landed yet, when the caller
+ * found one (`needs.ts`). `next` without an argument never hands such an item
+ * out, so this only ever arrives from `next <n>` — somebody who named the
+ * blocked half on purpose, and who is owed the reason rather than a refusal.
  */
-export function promptFor(item: Item, branch: string, stale?: string): string {
+export function promptFor(item: Item, branch: string, stale?: string, needs?: string): string {
   const from = item.source === "parked" ? "docs/parked.md" : "docs/queue.md";
   const tree = branch.replace(/^claude\//, "");
   return [
@@ -31,6 +36,22 @@ export function promptFor(item: Item, branch: string, stale?: string): string {
       ? [
           `**The entry is ${stale}.** The files it names may have been split,`,
           `renamed or already answered — check what is there now before you build.`,
+          "",
+        ]
+      : []),
+    ...(needs
+      ? [
+          // Said above the entry rather than inside it, because the entry's own
+          // body says it in prose the tool cannot see — *once lane one lands*,
+          // *do not start it here* — and that prose is what `next` walked past
+          // on 21 September 2026.
+          `**Something this entry needs has not landed.** It waits on:`,
+          "",
+          `    ${needs}`,
+          "",
+          `That entry is still in the queue. You were handed this one by name, so`,
+          `build what does not depend on it, and say in your report what you left`,
+          `for the session that closes the other half.`,
           "",
         ]
       : []),

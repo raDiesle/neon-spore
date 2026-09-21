@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — queue-needs — the entry nothing could say was not yet
+
+- reading — 15 min. §18 of `docs/spec/bosses-choreographed.md`, a grep for
+  `gimbal` across `packages`, `tools` and `apps` that returned nothing, both
+  GIMBAL entries, and then `asking.ts` and `where.ts` — which turned out to
+  have solved the same shape of problem twice already and written down why.
+- writing — 30 min. `needs.ts`, the three wire-ups in `run.ts`, the block
+  `prompt.ts` prints above a blocked entry, nine tests, the `Needs:` line on
+  five pairs, and the paragraph in this file's own preamble.
+- looking — 5 min. `bun run queue` once, to read the five `WAITS ON` marks
+  and the count line under the listing.
+- friction — 15 min. The lane opened on a claim it had to give back, so the
+  trunk could not come up until the working copy was clean; the saved diff
+  then would not re-apply, because the give-back had removed the `Taken:`
+  line it used as context. Two heredocs blocked by `guard.ts` on a doubled
+  backslash inside a template literal, both fixed with `chr(92)`.
+- landing — 10 min. One Biome line-length fix, one `bun run index` row.
+
+The bottleneck was the claim itself: a third of the lane went on releasing an
+item, getting the tree clean, and re-applying an edit that had been written
+against the file before the release changed it. The entry took fifteen
+minutes to find and forty-five to build; getting from one branch to another
+took as long as the tests did.
+
 ## 2026-09-21 — scuttle-part-carried — the carry nothing could press
 
 - reading — 20 min. The entry, `scuttle-hand.ts` for whose thumb it is and

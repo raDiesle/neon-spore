@@ -2268,6 +2268,7 @@ place — the generator keeps whatever is there.
 | `tools/queue/problems.ts` | What makes an entry one a cold session could act on, and the refusal when it is not |
 | `tools/queue/prompt.ts` | The brief a fresh session reads before it opens a queue item — the branch, the size decision, the entry's body, and what to do when it is green |
 | `tools/queue/asking.ts` | Whether an entry is still waiting on the owner, and what the listing says about it |
+| `tools/queue/needs.ts` | Whether an entry is waiting on another entry, and what the listing says about it |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |
