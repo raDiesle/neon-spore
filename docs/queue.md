@@ -518,6 +518,7 @@ question that prompted this one.
 ## Unverified at be40d473: the picture of the rock coming out of the bulb's unders…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c)
 - **Files:** `.claude/skills/new-boss-state/SKILL.md`, `.claude/skills/new-boss/SKILL.md`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`
 
 2 commits landed, ending in *THE SURGE spits a rock, and the pilot wards it without letting go*, from a session that could not look at it. The commit touched 27 more files. What went unchecked:
