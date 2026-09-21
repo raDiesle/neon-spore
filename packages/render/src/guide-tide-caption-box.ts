@@ -26,6 +26,8 @@ const PAD_Y = 12;
 /** Room above the words for the crest, which takes the top of the plate. */
 const CREST_ROOM = 8;
 const LEAD = 18;
+/** How far outside its subject the ring stands, on each axis. */
+const RING_CLEAR = 10;
 
 /** The first line's baseline, under the top of the plate. */
 export const TEXT_TOP = CREST_ROOM + PAD_Y + 16;
@@ -33,7 +35,18 @@ export const TEXT_TOP = CREST_ROOM + PAD_Y + 16;
 export interface CaptionBox {
   /** The subject the plate points at, and the ring drawn around it. */
   point: AnchorPoint;
-  ring: number;
+  /**
+   * The ring's two half-axes, because a subject can be a bar.
+   *
+   * `AnchorPoint` has carried `rx` since the first anchor that was wider than
+   * it was tall, and everything that drew the ring took `Math.max` of the two
+   * and drew a circle. So the ring round THE GORGE's sack — seven columns
+   * across and half a tile deep — was five tiles tall and reached most of the
+   * way down the field, and the caption said *this thing* while circling the
+   * hull, the plating and whatever was falling past (21 September 2026).
+   */
+  ringX: number;
+  ringY: number;
   /** Whether the plate stands under its subject rather than over it. */
   below: boolean;
   lines: string[];
@@ -68,8 +81,9 @@ export function captionBox(
   const w = tw + PAD_X * 2;
   const h = lines.length * LABEL_LINE + PAD_Y * 2 + CREST_ROOM;
   const x = Math.max(8, Math.min(Math.max(8, l.width - w - 8), point.x - w / 2));
-  const ring = Math.max(point.r, point.rx ?? 0) + 10;
-  const above = point.y - ring - point.clear - LEAD - h;
+  const ringX = (point.rx ?? point.r) + RING_CLEAR;
+  const ringY = point.r + RING_CLEAR;
+  const above = point.y - ringY - point.clear - LEAD - h;
   // **THE HANDOVER's plate is a second floor**, in the other direction. A
   // caption anchored on a strip stands `CLEAR_STRIP` above its ring, which on
   // that wave is exactly the lip of the band the plate sits on — so the page
@@ -93,6 +107,6 @@ export function captionBox(
   // which seat is looking (`ship-top-chrome.ts`).
   const floor = Math.max(BAND_FOOT, shipTopFoot(l, world) ?? 0);
   const below = above < floor || covered;
-  const y = below ? Math.max(floor, point.y + ring + point.clear + LEAD) : above;
-  return { point, ring, below, lines, x, y, w, h };
+  const y = below ? Math.max(floor, point.y + ringY + point.clear + LEAD) : above;
+  return { point, ringX, ringY, below, lines, x, y, w, h };
 }

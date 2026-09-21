@@ -19,9 +19,15 @@ import { PALETTE } from "./palette.js";
  * wider to match — dimming less means the edge of the pool has to be further
  * out to still read as an edge.
  *
- * **The ring is CONSOLE's**, unchanged, because it is the thing the owner
- * named first: the dashed amber circle turning slowly on whatever the page is
- * about.
+ * **The ring is CONSOLE's**, because it is the thing the owner named first:
+ * the dashed amber ring turning slowly on whatever the page is about. It was
+ * a *circle* until 21 September 2026, which is the one thing about it that has
+ * changed: `AnchorPoint` carries two half-axes and every reader of it took the
+ * larger, so a page about a bar drew a circle as tall as the bar is wide. THE
+ * GORGE's sack is seven columns across and half a tile deep, and its ring
+ * reached most of the way down the field. The two radii were already there;
+ * this draws the ellipse they describe, and a subject that is as tall as it is
+ * wide is the same circle it always was.
  *
  * **The box is TIDE's own plate** — square with the corners taken off and the
  * crest inside the top, the same body as every button — with a leader drawn
@@ -30,8 +36,8 @@ import { PALETTE } from "./palette.js";
  *
  * **And the page may have a second subject with nothing written on it**
  * (`guide-tide-companion.ts`), which is the rest of the owner's ask. Two things follow
- * from that and both are here: the silent one is ringed differently — a whole
- * thin circle that breathes, against the caption's turning dashes — so a pair
+ * from that and both are here: the silent one is ringed differently — one
+ * unbroken thin line that breathes, against the caption's turning dashes — so a pair
  * can tell at a glance which of the two the words are about; and the pool has
  * to open over both, because a subject the page is pointing at cannot be in
  * the part of the field the page dimmed.
@@ -49,13 +55,17 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
   if (!box) return;
   const k = Math.min(1, Math.max(0, (tick - step.tick) / FADE_TICKS));
   if (k <= 0) return;
-  const { point, ring, below, x, y, w, h } = box;
+  const { point, ringX, ringY, below, x, y, w, h } = box;
 
   const mate = companionPoint(l, world, step.anchor, beatPhase);
+  // The pool is the subject's own shape opened out, for the ring's reason: a
+  // circle round a bar dims a column of field the page is not about, and the
+  // scrim is the half of the effect the eye reads first.
   const pools = [point, ...(mate ? [mate] : [])].map((p) => ({
     x: p.x,
     y: p.y,
-    r: Math.max(p.r, p.rx ?? 0) + POOL,
+    rx: (p.rx ?? p.r) + POOL,
+    ry: p.r + POOL,
   }));
   scrimAround(ctx, l, pools, SCRIM * k);
 
@@ -67,14 +77,17 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
   ctx.setLineDash([8, 6]);
   ctx.lineDashOffset = -tick * 0.6;
   ctx.beginPath();
-  ctx.arc(point.x, point.y, ring, 0, Math.PI * 2);
+  ctx.ellipse(point.x, point.y, ringX, ringY, 0, 0, Math.PI * 2);
   ctx.stroke();
   ctx.setLineDash([]);
-  halo(ctx, point.x, point.y, ring * 1.5, PALETTE.pod, 0.2);
+  // The halo is a round glow behind a ring that need not be round, so it is
+  // sized off the mean of the two axes — the ring's own radius when the two
+  // agree, and light behind a bar rather than a second circle when they do not.
+  halo(ctx, point.x, point.y, (ringX + ringY) * 0.75, PALETTE.pod, 0.2);
   const tipX = Math.max(x + 14, Math.min(x + w - 14, point.x));
   ctx.beginPath();
   ctx.moveTo(tipX, below ? y : y + h);
-  ctx.lineTo(point.x, below ? point.y + ring : point.y - ring);
+  ctx.lineTo(point.x, below ? point.y + ringY : point.y - ringY);
   ctx.stroke();
 
   // The plate: the same body the buttons are cut from, in the amber the rest
@@ -108,7 +121,7 @@ function drawPlate(ctx: CanvasRenderingContext2D, { x, y, w, h, lines }: Caption
  * **Cut rather than layered.** The obvious way to open a second pool is a
  * second radial gradient, and two of them overlap: the far corners take both
  * and go to twice the darkness the owner asked for. So the scrim is one flat
- * fill of a rectangle with a circle per subject taken out of it under the
+ * fill of a rectangle with one hole per subject taken out of it under the
  * even-odd rule — the far field is the same value however many subjects there
  * are — and the soft edge is put back inside each hole afterwards, where there
  * is nothing yet to add to.
@@ -116,46 +129,57 @@ function drawPlate(ctx: CanvasRenderingContext2D, { x, y, w, h, lines }: Caption
 function scrimAround(
   ctx: CanvasRenderingContext2D,
   l: { width: number; height: number },
-  pools: readonly { x: number; y: number; r: number }[],
+  pools: readonly { x: number; y: number; rx: number; ry: number }[],
   alpha: number,
 ): void {
   const cut = new Path2D();
   cut.rect(0, 0, l.width, l.height);
   for (const p of pools) {
-    cut.moveTo(p.x + p.r, p.y);
-    cut.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    cut.moveTo(p.x + p.rx, p.y);
+    cut.ellipse(p.x, p.y, p.rx, p.ry, 0, 0, Math.PI * 2);
   }
   ctx.fillStyle = `rgba(3,2,10,${alpha.toFixed(3)})`;
   ctx.fill(cut, "evenodd");
+  // Canvas has no elliptical gradient, so the soft edge is drawn round in a
+  // frame stretched to the hole it belongs in — the one place in this file
+  // that touches the transform, and it is put back before anything else runs.
   for (const p of pools) {
-    const g = ctx.createRadialGradient(p.x, p.y, p.r * 0.45, p.x, p.y, p.r);
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.scale(p.rx / p.ry, 1);
+    const g = ctx.createRadialGradient(0, 0, p.ry * 0.45, 0, 0, p.ry);
     g.addColorStop(0, "rgba(3,2,10,0)");
     g.addColorStop(1, `rgba(3,2,10,${alpha.toFixed(3)})`);
     ctx.fillStyle = g;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.arc(0, 0, p.ry, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
   }
 }
 
 /**
- * The second subject: a whole circle, breathing, with no leader and no words.
+ * The second subject: one unbroken line, breathing, no leader and no words.
  *
  * It is the caption's ring with the two things taken away that say *read this*
  * — the dashes, which the eye follows round, and the line to the box. What is
- * left still says *and this one*, which is all it is for.
+ * left still says *and this one*, which is all it is for. It is a body's two
+ * half-axes for the same reason the caption's is: `companionPoint` has handed
+ * both out since it was written, saying in its own comment that a ring cutting
+ * through the two ends of a body says the wrong thing louder than the words.
  */
 function silentRing(
   ctx: CanvasRenderingContext2D,
   at: { x: number; y: number; r: number; rx?: number },
   tick: number,
 ): void {
-  const r = Math.max(at.r, at.rx ?? 0);
   const breath = 0.5 + 0.5 * Math.sin(tick * 0.09);
+  const rx = (at.rx ?? at.r) + 2 * breath;
+  const ry = at.r + 2 * breath;
   ctx.strokeStyle = rgba(PALETTE.pod, 0.4 + 0.25 * breath);
   ctx.lineWidth = 2;
   ctx.beginPath();
-  ctx.arc(at.x, at.y, r + 2 * breath, 0, Math.PI * 2);
+  ctx.ellipse(at.x, at.y, rx, ry, 0, 0, Math.PI * 2);
   ctx.stroke();
-  halo(ctx, at.x, at.y, r * 1.8, PALETTE.pod, 0.1 + 0.07 * breath);
+  halo(ctx, at.x, at.y, (rx + ry) * 0.9, PALETTE.pod, 0.1 + 0.07 * breath);
 }

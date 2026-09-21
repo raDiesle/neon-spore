@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — caption-ring-ellipse — two radii that were already there
+
+- reading — 10 min. `caption-anchor.ts`'s `AnchorPoint`, and then every reader
+  of it: three `Math.max(r, rx ?? 0)` and nothing else. The question that took
+  the time was where the work belongs — a ring is a look, and VERSUS holds a
+  *record* patched for the length of a draw, which a branch in the drawing is
+  not. It is the third exemption instead, and the commit says so.
+- writing — 20 min. `CaptionBox.ring` became `ringX`/`ringY`; the ring, the
+  leader's foot, the silent ring and the scrim's two pools all read both; the
+  soft edge inside an elliptical hole is a round gradient in a stretched frame,
+  which is the one transform in the file. Two tests, from both ends: the box
+  hands out the anchor's own radii, and the canvas gets an ellipse of exactly
+  those and no arc as wide.
+- looking — 5 min. One frame, THE GORGE's opening: A SACK HANGS · IT EATS SHOTS
+  is a flat ring on the sack, where it used to be a circle reaching halfway
+  down an empty field.
+- friction — 5 min. Two wrong guesses at the stub's log format — the ops are
+  `name(a, b, c)` and the numbers are rounded to three places, so a radius is
+  compared rather than spelled.
+- landing — 15 min.
+
+Bottleneck: reading, and it was the rule rather than the code — the change is
+four `Math.max` calls, and deciding it was a fix rather than a candidate took
+longer than making it.
+
 ## 2026-09-21 — boss-anchors-rounds — the four that had no hull to point at
 
 - reading — 10 min. The question the entry left open, and it was answered by

@@ -371,27 +371,6 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## A caption's ring is a circle round a subject that is a bar
-
-- **Found:** 2026-09-21, claude/queue-twelve-other-films-still-put-pages-about-their-b
-- **Taken:** 2026-09-21, claude/queue-four-other-films-still-put-pages-about-their-bos (claim: claude/queue-a-captions-ring-is-a-circle-round-a-subject-that)
-- **Files:** `packages/render/src/guide-tide-caption.ts`, `packages/render/src/guide-tide-caption-box.ts`, `packages/render/src/caption-anchor.ts`
-- **Where:** local
-
-An `AnchorPoint` carries `r` and `rx` — two radii, so a wide flat thing can be
-ringed as the wide flat thing it is. Nothing reads them that way: every caller
-takes `Math.max(at.r, at.rx ?? 0)` and draws a circle
-(`guide-tide-caption.ts:58`, `:153`, `guide-tide-caption-box.ts:71`). So a
-ring round THE GORGE's sack, seven columns wide and half a tile deep, is a
-circle five tiles tall that reaches most of the way down the field, and THE
-MIRROR's and THE DIASTOLE's shelf are the same. The `rx` on every anchor is
-there and unused.
-
-Draw the ellipse the two radii already describe, and let the caption box and
-the pool clear it on the axis they are on rather than on the larger of the
-two. It is a look — every rehearsal frame with a wide subject changes — so it
-goes to VERSUS, or it is one the owner asks for by name.
-
 ## `bun run frames` cannot reach BULB QUEEN's BROOD, and `--hold` lacks her marks
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
