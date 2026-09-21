@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 48f643ee — A handle the flag cannot name is a gesture nobody can photograph
+
+`--hold` stopped at `instarMark2`, so the eight newest handles in the game could only be captured released: BULB QUEEN's two marks, THE FILAMENT's two thumbs, THE STARE's lid from either seat, THE MAZE's heart, and THE THROAT's cinch and haul. Each row is read off the simulation's own hand file rather than off the picture — the seat that may send it, the name it goes out under, which ids exist — and those facts now live in `hold-targets.ts`, leaving `hold.ts` as text turning into commands.
+
 ## 2026-09-21 · 512e9d36 — The words a player reads are a skill and a check, not a style opinion
 
 Two people read this game on two phones and then say it to each other, and neither is necessarily reading in a first language. Nothing in the repository held that brief, which is how a 261-word paragraph ended up as the subtitle of a menu button on the DEMOS page. `.claude/skills/game-words` is the brief in prose and `bun run words` is the same brief as numbers: a budget per line, 18 words to a sentence, two clause marks, no semicolon and no em dash, say who does it, one word per thing.

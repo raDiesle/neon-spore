@@ -15114,3 +15114,5 @@ reading that went into it.
 
 The bottleneck was looking: proving a hold reached the simulation costs a
 capture *and* its control, and half of them say nothing in a picture at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
