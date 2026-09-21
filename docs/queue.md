@@ -559,35 +559,6 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## THE HIVE's clench and its wrung lobe have no picture
-
-- **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
-- **Taken:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f (claim: claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict)
-- **Files:** `packages/render/src/hive-draw.ts`, `packages/render/src/hive-fx.ts`, `packages/render/src/hive-shape.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`
-- **Where:** local
-
-The second half of the §6.2 lane that landed the states themselves, split off
-before it started rather than asked about (CLAUDE.md: a creature is its
-simulation, then its look). The simulation, the wire, the three sounds and the
-director's five cards are on `main`; **none of the three new moments is drawn.**
-`hiveClench`, `hiveHaul` and `hiveWrung` are listed in both of render's silent
-tables, so a pair playing it today hears a clench and sees the mass exactly as
-it was.
-
-What is owed, and it is one sitting: the underside **drawn up** for its six
-beats, far enough that a thumb reads as reaching for it rather than resting on
-it; the **swelling lobe** under a thumb, so a hold looks like a hold before the
-two beats are out; the **wrung breach** opening with no colour in it, which is
-the one breach on the field the pair may answer with either bolt and must not
-read as red or cyan; and the **haul** answering the pilot's carry frame by
-frame rather than only at the end of it. Then the two silent tables lose the
-three rows, `render/test/frame.test.ts` draws all three, and the frame goes to
-the owner as a PNG (`bun run frames <sha>`).
-
-The look rule applies as it always does (`docs/looks.md`): this is a moment
-with no shipped alternative, so it may go on the field rather than to VERSUS —
-say which exemption in the commit.
-
 ## THE HIVE's rehearsal film clenches twice and teaches neither
 
 - **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
@@ -650,6 +621,36 @@ full page goes across whole, under the comment that explains it, and
 `drag-targets.ts` spreads all four so nothing that asks the table knows there
 is more than one. Nothing about the work is decided by anybody: it is a move,
 a re-export and a header sentence.
+
+## Twenty-four on-field handles are on no tab, and the guard is hand-kept
+
+- **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
+- **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`
+
+`FIELD_CONTROLS` is the director's ON THE FIELD tab and the list
+`docs/spec/controls.md` is held against, and it stops at THE CURTAIN. Every
+handle built since — `leadStalk`, `scuttlePart`, `wellSeam`, `hiveLobe`,
+`throatRing`, `throatTube`, `tasterBlade`, `tasterGap`, `tasterLock`,
+`ledgerBead`, `ledgerCord`, `ledgerFoot`, `ledgerSocket`, `snakeJaws`,
+`snakeTail`, `undertowFree`, `undertowPin`, `vaneArm`, `vaneHousing`,
+`scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`, `pulseMeter` — is a
+member of `DragTarget` with no row on the tab and no row in the table. The
+owner's own page for reading the controls off is twenty-four handles short of
+the game.
+
+Nothing caught it because the test that would have is **hand-kept**: "every
+DragTarget has its own FIELD_CONTROLS entry" walks a literal array of
+twenty-four names written out inside the test, not the union, so a target
+added to `DragTarget` is a target the guard has never heard of. The
+exhaustive `documentedDragTarget` switch beside it *is* held to the union by
+`assertNever` — which is why every one of the twenty-four has a paragraph
+there and no row anywhere else.
+
+**Two lanes, and in this order.** First the guard: walk the union instead of
+the array, which turns this into a red check naming its own backlog; land it
+with the rows for the handles a player can reach on the field today. Then the
+rest, boss by boss, in `field-controls-<boss>.ts` files beside the twenty-one
+that exist, with the matching paragraphs in `docs/spec/controls.md`.
 
 ## THE GIMBAL is written and nobody has built its simulation
 

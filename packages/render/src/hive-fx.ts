@@ -7,7 +7,7 @@ import { showsHiveColor } from "./view-role-clocks-b.js";
 /**
  * What THE HIVE leaves behind a frame: the **clench** a wrong colour puts
  * through the body, the **jolt** of a seal and of the last seal, and the
- * bursts its nine receipts throw.
+ * bursts its twelve receipts throw.
  *
  * Everything else about the boss is drawn off the world every frame
  * (`hive-draw.ts`). The clench and the jolt are here for THE SCUTTLE's
@@ -34,6 +34,17 @@ const CLENCH_DECAY = 6;
 /** The jolt: how far the mass lifts, in tiles, and how fast it settles. */
 const JOLT_TILES = 0.1;
 const JOLT_DECAY = 9;
+
+/**
+ * **The three receipts of the two held states are transients and nothing
+ * more.** How far a clench has the mass up, and how far through a hold a
+ * lobe is, are read off the world every frame (`hive-hold.ts`) — the state
+ * lasts beats and a frame must never be a beat behind it. What is left for
+ * here is the *moment*: the mass taking hold, the haul landing, the colour
+ * going out of a lobe. Each borrows the fixture that already says the right
+ * thing — a clench draws the body in as a wrong bolt does, a haul lands as a
+ * seal does — so that one is never drawn twice on one axis.
+ */
 
 export class HiveFx {
   private clenchNow = 0;
@@ -80,6 +91,25 @@ export class HiveFx {
         case "hiveWrong":
           at(site(e.col, 0.2), 10, PALETTE.bileRim);
           this.clenchNow = CLENCH;
+          break;
+        case "hiveClench":
+          // The body's own answer to a third seal: it takes hold as a wrong
+          // bolt makes it take hold, and then it is up for six beats, which
+          // is the world's to draw and not this one's.
+          at(site(e.col, -0.2), 16, PALETTE.bile);
+          this.clenchNow = CLENCH;
+          break;
+        case "hiveHaul":
+          // The pilot's carry arriving: the mass back on the beat he got it
+          // there, and it lands the way a seal lands.
+          at(site(e.col, 0.3), 14, PALETTE.bileRim);
+          this.joltNow = JOLT_TILES;
+          break;
+        case "hiveWrung":
+          // The colour squeezed out of a lobe — so the one burst under this
+          // boss that is never red and never cyan on either screen, in the
+          // pale the collar is drawn in (`hive-hold.ts`).
+          at(site(e.col, 0.2), 12, PALETTE.hullRim);
           break;
         case "hiveSeal":
           at(site(e.col, 0.2), 14, PALETTE.hullRim);

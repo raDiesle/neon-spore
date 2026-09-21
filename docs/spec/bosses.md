@@ -2353,13 +2353,30 @@ once from the fifth opening. A breach open is an aperture in the lobe, **in
 its colour on the pilot's screen** with the colour's rim breathing, and a
 wax-grey one on the navigator's, so that she sees a breach and not what to
 fire into it. A seal stitches the lobe shut in the hull's pale, and the
-scar stays. A wrong colour clenches the whole mass in for a few frames, and the
-clench proper is that same drawing-up held for six beats and drawn to be
-hauled — the look lane's, and not yet drawn; a seal jolts it up; when the last site is scarred the mass closes on its
+scar stays. A wrong colour clenches the whole mass in for a few frames; a seal jolts
+it up; when the last site is scarred the mass closes on its
 middle and fades over `hiveOutBeats` (`hive-fx.ts`, `effects.boss.hive`).
-The bursts of its nine receipts are thrown at the underside over the
+The bursts of its twelve receipts are thrown at the underside over the
 event's column on both screens, an opening's in its colour only where the
-colour is drawn. THE MOTHER's *reactive, but announced* is here as the
+colour is drawn — and the wring's in the pale it is collared in, the one
+burst under this boss that is never red and never cyan on either screen. **The two states are drawn on both screens, and the handle on one**
+(21 September 2026, `hive-hold.ts`, `hive-grip.ts`, a look with no shipped
+alternative). A **clench** draws the whole mass up half a tile inside half a
+beat — five times the jolt of a seal, because a jolt is a flinch and this is
+six beats with every breach out of reach — and the rise is drawn net of the
+haul, so the mass follows the pilot's thumb frame by frame and is home on the
+tick his carry is enough rather than at the end of it. His ring sits in the
+middle of that risen underside, wider than a lobe's because the handle is the
+whole of it, with a dial that **empties** as the clench runs out: what he is
+racing is the backlog the relax beat drops. A **held lobe** stops throbbing
+and squeezes, narrower and longer the further through her hold it is, under a
+ring whose dial **fills** the other way, because what she is waiting for is
+the end of her own gesture — on her screen only, since she is the only seat
+shown a swell. A **wrung** breach wears a pale collar around its aperture and
+carries no colour on either screen: a second *shape* rather than a shade,
+because the navigator's every breach is already wax-grey, and the one thing
+the pair must not have to guess is which breach either bolt will seal.
+THE MOTHER's *reactive, but announced* is here as the
 swell — three beats of warning before every opening. The insect is drawn
 as a body of its own: `hive-draw.ts` only draws the mass and its sites, and
 the spilled slick or bulb is the game's ordinary creature pass, already
@@ -2379,9 +2396,14 @@ September 2026: the clench on the third scar and not on the ones between, the
 spills and seals it refuses while the openings go on anyway, the backlog
 handed back on the beat it runs out, the haul that relaxes it early and owes
 nothing, the wring at a wrong bolt's price, and that neither gesture can be
-made from the other's seat. **The picture of both is the second lane** — the
-drawn clench, the lobe under a thumb, the colourless breach — and nothing of
-it is in this one.
+made from the other's seat. The picture of both was the second lane, landed the same day: six more in
+`render/test/hive-frame.test.ts` draw the clenched mass with its breaches on
+all three screens, ring it on the pilot's alone and fill that ring under his
+thumb, walk the rise down as the carry grows and home at `hiveHaulMilli`,
+squeeze a held lobe on the navigator's screen and nowhere else, and collar a
+wrung breach on every screen while the colour leaves only the screen that had
+one. **What no eye has seen is either gesture made with a thumb**, on either
+seat, at tempo.
 
 **It could not be won as it shipped** — found on 18 September 2026 by the
 rehearsal lane, which could not author a film that wins it. A bolt stops at

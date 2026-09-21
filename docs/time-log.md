@@ -15769,3 +15769,25 @@ being wrong — a clench only happens on the third scar, and getting a world
 into one with breaches still open under it took more code than the clench.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-the-hives-clench-and-its-wrung-lobe — the mass with a thumb on it
+
+- reading — 10 min. `hive-draw.ts`, `hive-fx.ts` and `hive-shape.ts` as they
+  stood, `scuttle-grip.ts` and `curtain-grip.ts` for how a handle is offered,
+  and both of render's silent tables — which turned out to be right as they
+  were, and that reading is the whole reason three lines were not deleted.
+- writing — 25 min. `hive-hold.ts` and `hive-grip.ts` new, the rise and the
+  squeeze and the collar into `hive-draw.ts`, three cases into `hive-fx.ts`,
+  one line into `handles.ts`, one into `boss-draw-clocks-b.ts`, six tests in
+  `hive-frame.test.ts`, and §11.14's look and test paragraphs rewritten.
+- looking — 5 min. One frame of the clenched mass, to the owner as a PNG.
+- friction — 10 min. Three frame tests asserted things the canvas log cannot
+  see: the mass's height is a `translate`, which the log does not record, so
+  two of them compared two identical strings. The rise is read off
+  `hiveClenchRise` instead and the frame tests ask only what is drawn.
+- landing — 10 min.
+
+The bottleneck was the frame harness, and the finding is worth keeping: the
+canvas log records styles and paths, never the transform, so **any claim about
+where a thing is drawn has to be made against the geometry** and only claims
+about what it is drawn with belong in a frame test.

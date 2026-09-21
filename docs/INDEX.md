@@ -1556,6 +1556,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hive-draw.ts` | **THE HIVE**: the waxen mass over row 0 with a site in every lobe of its underside — the breach's colour on the pilot's screen, the swell on the navigator's |
 | `packages/render/src/hive-fx.ts` | What THE HIVE leaves behind a frame: the clench of a wrong colour, the jolt of a seal, and its receipts' bursts |
 | `packages/render/src/hive-shape.ts` | Where THE HIVE is, in field pixels: the mass, its sites, the swell's drop, the fade, and every path the drawer strokes |
+| `packages/render/src/hive-grip.ts` | **THE HIVE's one handle, offered to whichever seat the mass's state is for** |
+| `packages/render/src/hive-hold.ts` | **THE HIVE's two held states, in field pixels**: how far a clench has drawn the mass up out of reach |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |

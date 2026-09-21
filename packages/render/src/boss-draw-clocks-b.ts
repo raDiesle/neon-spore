@@ -3,6 +3,7 @@ import { drawAntiphon } from "./antiphon-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFilament } from "./filament-draw.js";
 import { drawHive } from "./hive-draw.js";
+import { drawHiveGrip } from "./hive-grip.js";
 import { drawInstar } from "./instar-draw.js";
 import type { Layout } from "./layout.js";
 import { drawLead } from "./lead-draw.js";
@@ -151,6 +152,9 @@ export function drawFxBoss(
   // (`hive-draw.ts`, `hive-fx.ts`).
   if (boss.kind === "hive") {
     drawHive(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hive);
+    // The ring after the body, over the wax it is on: the clenched underside
+    // on his screen, a swelling lobe on hers (`hive-grip.ts`).
+    drawHiveGrip(ctx, l, world.cfg, boss, beat, beatPhase, time);
     return;
   }
 

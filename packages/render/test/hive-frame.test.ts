@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { rgba } from "../src/hex.js";
+import { hiveClenchRise } from "../src/hive-hold.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
@@ -99,6 +100,26 @@ function swelling(world: World, n = 2): HiveState {
 function scarred(world: World): HiveState {
   const s = open(world, 3);
   for (let i = 0; i < 3; i++) s.sealed[i] = true;
+  return s;
+}
+
+/**
+ * The mass clenched, a beat into it, with two breaches open behind it: the
+ * state the pilot is shown and hauls at (`hive-grip.ts`).
+ */
+function clenched(world: World, hauled = 0): HiveState {
+  const s = open(world, 2);
+  s.phase = "clench";
+  s.phaseBeat = world.beat - 1;
+  s.haulMilli = hauled;
+  return s;
+}
+
+/** A swelling lobe with the navigator's thumb on it, a beat in. */
+function pinched(world: World, i = 2): HiveState {
+  const s = swelling(world, i);
+  s.pinch = i;
+  s.pinchBeat = world.beat - 1;
   return s;
 }
 
@@ -208,12 +229,103 @@ describe("THE HIVE's mass", () => {
     expect(count(gone.text, PALETTE.bile)).toBe(0);
   });
 
+  it.each(ROLES)("draws a clenched mass, breaches and all, on %s", (role) => {
+    // Both seats are drawn the clench, and they have to be: *it is clenched*
+    // is a sentence one says to the other, and neither could say it about a
+    // body that looked the same clenched as hung (§11.14). **How far up it is
+    // is a `translate`, which this log does not record** — the height itself
+    // is read off `hiveClenchRise` two tests down, and what is asked here is
+    // that the branch draws at all, with every breach still in it.
+    const up = frame(role, (w) => clenched(w));
+    expect(up.calls).toBeGreaterThan(200);
+    expect(up.text).toContain(PALETTE.bile);
+    expect(count(up.text, PALETTE.dim)).toBeGreaterThan(
+      count(frame(role, () => {}).text, PALETTE.dim),
+    );
+  });
+
+  it("rings the clenched underside on the pilot's screen alone, and fills it under his thumb", () => {
+    const carrying = (role: ViewRole) => frame(role, (w) => clenched(w, CFG.hiveHaulMilli / 2));
+    const still = (role: ViewRole) => frame(role, (w) => clenched(w));
+    const hung = (role: ViewRole) => frame(role, (w) => open(w, 2));
+    // His: a ring, and it fills once a thumb is carrying it.
+    expect(count(still("p1").text, PALETTE.text)).toBeGreaterThan(
+      count(hung("p1").text, PALETTE.text),
+    );
+    expect(count(carrying("p1").text, PALETTE.text)).toBeGreaterThan(
+      count(still("p1").text, PALETTE.text),
+    );
+    // Hers: the clench, and no handle on it at all — the mass is up on her
+    // screen too, and there is nothing she can do about it (`hive-hand.ts`).
+    expect(count(still("p2").text, PALETTE.text)).toBe(count(hung("p2").text, PALETTE.text));
+  });
+
+  it("answers the haul frame by frame, and is home when the carry is enough", () => {
+    // The rise, not a frame: what the thumb has carried is a number the drawer
+    // subtracts, so the mass is somewhere new on every frame of the carry
+    // rather than at the end of it. The translate it is spent on is one the
+    // canvas log does not record, which is why this is read off the geometry.
+    const world = hung();
+    const s = clenched(world);
+    const rise = (hauled: number) => {
+      s.haulMilli = hauled;
+      return hiveClenchRise(s, CFG, world.beat, 0.5);
+    };
+    const up = rise(0);
+    expect(up).toBeGreaterThan(0);
+    expect(rise(CFG.hiveHaulMilli / 4)).toBeLessThan(up);
+    expect(rise(CFG.hiveHaulMilli / 2)).toBeLessThan(rise(CFG.hiveHaulMilli / 4));
+    expect(rise(CFG.hiveHaulMilli)).toBe(0);
+    // And nothing at all while the mass hangs, hauled or not.
+    s.phase = "spill";
+    expect(rise(0)).toBe(0);
+  });
+
+  it("squeezes a held lobe on the navigator's screen and nothing on the pilot's", () => {
+    const held = (role: ViewRole) => frame(role, (w) => pinched(w));
+    const loose = (role: ViewRole) => frame(role, (w) => swelling(w, 2));
+    expect(held("p2").text).not.toBe(loose("p2").text);
+    expect(count(held("p2").text, PALETTE.text)).toBeGreaterThan(
+      count(loose("p2").text, PALETTE.text),
+    );
+    // He is shown no swell at all, so a thumb on one is nothing on his screen.
+    expect(held("p1").text).toBe(loose("p1").text);
+  });
+
+  it.each(ROLES)("collars a wrung breach on %s", (role) => {
+    // The collar is a second *shape*, not a shade, because her screen draws
+    // every breach the same grey already (`hive-hold.ts`) — so it is on both,
+    // and it is the one thing under this boss that is.
+    const wrung = frame(role, (w) => {
+      const s = open(w, 2);
+      s.wrung[0] = true;
+    });
+    const plain = frame(role, (w) => open(w, 2));
+    expect(count(wrung.text, PALETTE.hullRim)).toBeGreaterThan(count(plain.text, PALETTE.hullRim));
+  });
+
+  it("takes the colour out of a wrung breach on the screen that had one", () => {
+    // Either bolt seals it, so there is no colour left to name; on her screen
+    // there was none to take, and the collar is the whole of what she is told.
+    const wrung = (role: ViewRole) =>
+      frame(role, (w) => {
+        const s = open(w, 2);
+        s.wrung[0] = true;
+      });
+    const plain = (role: ViewRole) => frame(role, (w) => open(w, 2));
+    expect(count(wrung("p1").text, PALETTE.red)).toBeLessThan(count(plain("p1").text, PALETTE.red));
+    expect(count(wrung("p2").text, PALETTE.red)).toBe(count(plain("p2").text, PALETTE.red));
+  });
+
   it("keeps the clench and the jolt as transients the next run does not inherit", () => {
     const fx = new Effects();
     fx.ingest(
       [
         { type: "hiveWrong", col: 5 },
         { type: "hiveSeal", col: 5, left: 3 },
+        { type: "hiveClench", col: 5 },
+        { type: "hiveHaul", col: 5 },
+        { type: "hiveWrung", col: 5 },
       ],
       L,
       0,

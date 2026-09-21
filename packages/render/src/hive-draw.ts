@@ -5,12 +5,14 @@ import {
   hiveOpen,
   hiveSwelling,
   hiveTwins,
+  hiveWrungAt,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { HiveFx } from "./hive-fx.js";
+import { hiveClenchRise, hivePinchPhase, hiveWrungRingPath } from "./hive-hold.js";
 import {
   hiveBreachPath,
   hiveFade,
@@ -45,6 +47,14 @@ import { showsHiveColor, showsHiveSwell } from "./view-role-clocks-b.js";
  * navigator's every open breach is the same wax-grey and the next site to
  * open bulges through the beats before it does — both of them, once the
  * openings come in pairs (`view-role-clocks-b.ts`).
+ *
+ * **The two states each seat answers are drawn on both**, and they have to
+ * be: the pair's whole conversation under this boss is one of them saying
+ * what the other cannot see, and neither *a clench* nor *the next one is
+ * wrung* would be worth saying if the seat that has to act on it could not
+ * see what it was acting on. So the clench draws the mass up on every screen
+ * (`hive-hold.ts`), and a wrung breach wears its collar on every screen —
+ * what stays split is only which thumb is offered a ring (`hive-grip.ts`).
  */
 export function drawHive(
   ctx: CanvasRenderingContext2D,
@@ -65,17 +75,21 @@ export function drawHive(
   const swell = swelling ? hiveSwellPhase(s, cfg, beat, beatPhase) : 0;
   const next = hiveNext(s);
   const twin = hiveTwins(s, cfg) && next >= 0 && next + 1 < s.cols.length ? next + 1 : -1;
+  const pinch = hivePinchPhase(s, cfg, beat, beatPhase);
+  const rise = hiveClenchRise(s, cfg, beat, beatPhase);
 
   ctx.save();
-  ctx.translate(0, -fx.jolt * l.tile);
+  ctx.translate(0, -(fx.jolt + rise) * l.tile);
   drawMass(ctx, l, cfg, s, open, time, fade);
   for (let i = 0; i < s.cols.length; i++) {
     const c = hiveSite(l, s, i);
     if (s.sealed[i]) drawScar(ctx, l, c, open, fade);
     else if (hiveOpen(s, i)) {
-      drawBreach(ctx, l, c, coloured ? (s.colors[i] ?? "red") : null, open, time, fade);
+      const wrung = hiveWrungAt(s, i);
+      const color = wrung || !coloured ? null : (s.colors[i] ?? "red");
+      drawBreach(ctx, l, c, color, open, time, fade, wrung);
     } else if (swelling && (i === next || i === twin))
-      drawSwell(ctx, l, c, swell, open, time, fade);
+      drawSwell(ctx, l, c, swell, open, time, fade, i === s.pinch ? pinch : -1);
     else drawShut(ctx, l, c, open, fade);
   }
   ctx.restore();
@@ -122,7 +136,16 @@ function drawShut(
   strokeGlow(ctx, p, faded(PALETTE.bile, fade), STROKE.inner, 0.3 * fade);
 }
 
-/** The next site, swelling: the lobe hangs lower by the beat and its rim brightens, on the screen shown it. */
+/**
+ * The next site, swelling: the lobe hangs lower by the beat and its rim
+ * brightens, on the screen shown it.
+ *
+ * **`held` is how far through her hold it is**, or `-1` for a lobe nobody has
+ * a thumb on. A held lobe stops throbbing and squeezes — narrower and longer
+ * the further through the hold it is — so that the gesture looks like a
+ * gesture before it has finished being one. It is the picture of a hand and
+ * not a countdown: the dial is the ring's, over it (`hive-grip.ts`).
+ */
 function drawSwell(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -131,17 +154,28 @@ function drawSwell(
   open: number,
   time: number,
   fade: number,
+  held = -1,
 ): void {
-  const throb = 1 + 0.08 * phase * Math.sin(time * 9);
-  const p = hiveSitePath(l, c, hiveSwellDrop(l, phase) * throb, open);
+  const squeeze = held < 0 ? 0 : held;
+  const throb = held < 0 ? 1 + 0.08 * phase * Math.sin(time * 9) : 1 + 0.35 * squeeze;
+  const p = hiveSitePath(l, c, hiveSwellDrop(l, phase) * throb, open * (1 - 0.3 * squeeze));
   ctx.save();
   ctx.fillStyle = faded(PALETTE.bile, fade, 0.35 + 0.4 * phase);
   ctx.fill(p);
   ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.bileRim, fade), STROKE.outline, (0.4 + 0.6 * phase) * fade);
+  const bright = Math.min(1, 0.4 + 0.6 * phase + squeeze);
+  strokeGlow(ctx, p, faded(PALETTE.bileRim, fade), STROKE.outline, bright * fade);
 }
 
-/** An open breach: the lobe with an aperture in it — in its colour where the colour is shown, in grey elsewhere. */
+/**
+ * An open breach: the lobe with an aperture in it — in its colour where the
+ * colour is shown, in grey elsewhere.
+ *
+ * **A `wrung` one has no colour anywhere** and says so with a shape rather
+ * than a shade: the pale collar of `hiveWrungRingPath` round the aperture, on
+ * both screens, because grey alone is what the navigator's screen already
+ * says about every breach she has (`hive-hold.ts`).
+ */
 function drawBreach(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -150,6 +184,7 @@ function drawBreach(
   open: number,
   time: number,
   fade: number,
+  wrung = false,
 ): void {
   const lobe = hiveSitePath(l, c, 0, open);
   ctx.save();
@@ -166,6 +201,14 @@ function drawBreach(
   ctx.fill(hole);
   ctx.restore();
   strokeGlow(ctx, hole, faded(rim, fade), STROKE.outline, (0.7 + 0.2 * Math.sin(time * 5)) * fade);
+  if (!wrung) return;
+  strokeGlow(
+    ctx,
+    hiveWrungRingPath(l, c, open),
+    faded(PALETTE.hullRim, fade),
+    STROKE.inner,
+    (0.5 + 0.3 * Math.sin(time * 3)) * fade,
+  );
 }
 
 /** A sealed site: the lobe shut again with the stitch of the seal across it, in the hull's pale. */

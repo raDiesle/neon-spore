@@ -10,6 +10,7 @@ import { fleetGripUnder } from "./fleet-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
+import { hiveLobeUnder } from "./hive-grip.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { leadStalkUnder } from "./lead-grip.js";
@@ -100,6 +101,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     curtainHemUnder(l, x, y, field) ?? // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).
     leadStalkUnder(l, x, y, field) ?? // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
     scuttlePartUnder(l, x, y, field) ?? // THE SCUTTLE's hanging parts, while one may still be carried (`scuttle-grip.ts`).
+    hiveLobeUnder(l, x, y, field) ?? // THE HIVE's clenched underside, or a swelling lobe (`hive-grip.ts`).
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }
