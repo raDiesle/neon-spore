@@ -52,6 +52,7 @@ function field(world: World, seat: 1 | 2, surge: SurgeState | null = bulb(world)
     beatPhase: 0,
     beat: world.beat,
     waveBeat: world.waveBeat,
+    tick: world.tick,
     seat,
     cfg: CFG,
     boss: surge,

@@ -205,10 +205,12 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   vaneArm: "field",
   vaneHousing: "field",
   // SNAKE's two hands on its own body — player 1 prising the jaws that have
-  // stuck, player 2 lifting the tail clear of the arena
-  // (`sim/snake-controls.ts`). Sim lane only so far, as every one above it.
-  snakeJaws: "unbuilt",
-  snakeTail: "unbuilt",
+  // stuck on the neck behind them, player 2 lifting the tail clear of the
+  // arena (`sim/snake-controls.ts`, `render/snake-grip.ts`,
+  // `field-controls-snake.ts`). The first two on this tab drawn on a thing
+  // that moves *between* beats, which is why `Field` carries a tick.
+  snakeJaws: "field",
+  snakeTail: "field",
   // PINBALL's two hands on its table — player 1 winding the plunger his own
   // hard launch left slack, player 2 shoving the cabinet through a flight
   // (`sim/pinball-hand.ts`). Sim lane only so far, as every one above it.
@@ -409,6 +411,7 @@ const FIELD: Field = {
   beatPhase: 0,
   beat: 0,
   waveBeat: 0,
+  tick: 0,
   seat: 1,
   cfg: CFG,
   boss: null,

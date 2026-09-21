@@ -12,6 +12,11 @@ import { SNAKE_MORPH_BEATS, type SnakeState, type World } from "@neon-spore/sim"
  * that phase is made, once, for the arena and the band alike.
  */
 
+/** As little of `SimConfig` as the mouth's window needs. */
+export interface SnakeMawWindow {
+  snakeMawTicks: number;
+}
+
 /** Ticks in one flick of the tongue: a little under a second at sixty. */
 const FLICK_TICKS = 52;
 
@@ -29,10 +34,15 @@ export function flick(tick: number): number {
  * where what the pair has to read is a movement. The window itself is the
  * simulation's (`snakeMawTicks`), so what is drawn open is exactly what would
  * swallow a point.
+ *
+ * Taken as a config and a tick rather than a world, since the handle on the
+ * neck is drawn `held` by this same window and `snake-grip.ts` is handed a
+ * `Field` and never a world — a second copy of `snakeMawTicks` in that file
+ * would be the mouth and the ring on it disagreeing about when it is open.
  */
-export function gape(world: World, round: SnakeState): number {
-  const span = world.cfg.snakeMawTicks;
-  const age = world.tick - round.mawTick;
+export function gape(cfg: SnakeMawWindow, tick: number, round: SnakeState): number {
+  const span = cfg.snakeMawTicks;
+  const age = tick - round.mawTick;
   if (age < 0 || age >= span) return 0;
   const t = age / span;
   // Snaps open over the first eighth, **stands open for three quarters of the

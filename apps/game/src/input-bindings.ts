@@ -103,6 +103,12 @@ export interface Bindings {
    * counted from the wave's own first beat, and the tip's column is what the
    * pilot's thumb lands on (`render/vane-grip.ts`). */
   waveBeat: () => number;
+  /** The tick the world is on, for the things that move between beats: SNAKE's
+   * head and tail slide the whole way to the tile they are entering
+   * (`render/snake-grip.ts`). Named for the world rather than called `tick`,
+   * because `Controls.tick` next door is the keyboard's per-tick call and one
+   * file reads both. */
+  worldTick: () => number;
   /**
    * Whether the guide is up — passed straight through to the keyboard rig,
    * which needs it to keep Space from skipping the introduction ahead of the

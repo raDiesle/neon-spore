@@ -66,6 +66,7 @@ function field(world: World, seat: 1 | 2 = 1): Field {
     beatPhase: 0,
     beat: world.beat,
     waveBeat: world.waveBeat,
+    tick: world.tick,
     seat,
     cfg: CFG,
     boss: rings(world),

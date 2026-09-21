@@ -76,7 +76,7 @@ export function drawSnakeLobe(
     drawSwing(ctx, x, y, r, ink, dir);
     return;
   }
-  const open = which === "maw" && live ? gape(world, round) : 0;
+  const open = which === "maw" && live ? gape(world.cfg, world.tick, round) : 0;
   const lit = open > 0;
   const hex = which === "maw" ? PALETTE.pod : PALETTE.venom;
   if (lit) halo(ctx, x, y, r * 1.8, hex, 0.5);

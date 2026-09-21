@@ -567,7 +567,7 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Fifteen handles are heard by the simulation and drawn nowhere
+## Thirteen handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
 - **Taken:** 2026-09-21, claude/queue-seventeen-handles-are-heard-by-the-simulation-an
@@ -607,10 +607,23 @@ which `ringSlack` guarantees is a slack one whatever the count; his hangs a
 tile **under** the lip rather than on it, because `drawHandleRing` fills
 opaquely and the lip is the one thing both seats are aiming at.
 
-**The other fifteen are `unbuilt`, and each is a look before it is a row** —
+Lane five landed SNAKE's two, and they are the pair a round hands out as the
+pair **wins**: the body is long because it has eaten, so past `snakeGorgeTiles`
+the jaws stick and past `snakeShedTiles` the tail drags, and the better the
+round goes the more of it is played with a thumb on the animal.
+`render/snake-grip.ts` holds both circles, both gates and the drawing. They are
+also the first two here drawn on a thing that moves **between** beats — the
+body steps on a tick and the picture carries it the whole way — so both rings
+ride the slide, which is why `Field` now carries a tick. His sits on the neck a
+tile behind the head rather than on it, for the tube's reason: `drawHandleRing`
+fills opaquely and the head is the muzzle, the mouth and the heading at once.
+`gape()` was re-signed to take a config and a tick rather than a world, so the
+mouth and the ring drawn open by it cannot disagree.
+
+**The other thirteen are `unbuilt`, and each is a look before it is a row** —
 `tasterBlade`, `tasterGap`, `tasterLock`,
-`ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`, `snakeJaws`,
-`snakeTail`, `undertowPin`, `undertowFree`,
+`ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`,
+`undertowPin`, `undertowFree`,
 `scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`. Every one
 is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
 branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
@@ -2276,3 +2289,26 @@ There is no room inside THE HIVE's thirteen pages — the twins' two are 180
 ticks apart already — so this is a page cut somewhere earlier in the film, or
 a second short scene. Either way it ends with `handleThumb` answering for seat
 2 and a test beside the haul's that says so.
+
+## SNAKE's MAW lobe lights as live in the two grips that refuse it
+
+- **Found:** 2026-09-21, claude/queue-the-snakes-two-handles-are-heard-and-drawn-nowhere
+- **Files:** `packages/render/src/snake-button.ts`, `packages/render/test/snake-frame.test.ts`
+- **Where:** local
+
+`snakeHeard` refuses the `snakeMaw` press outright once the body is past
+`snakeGorgeTiles` — "the jaws stick and the press is a dead button" — and from
+there the mouth is opened by the drag on the neck instead (`snakeJaws`,
+`sim/snake-controls.ts`). The lobe does not know: `drawSnakeLobe` calls the
+face live on `round.phase === "play"` alone, so through the whole of `gorge`
+and `shed` player 1 has a button drawn exactly as it is drawn when it works,
+and pressing it does nothing at all. It is the same class of defect the
+handles lane exists to fix, the other way round — a control drawn where it is
+not answered, rather than answered where it is not drawn.
+
+The rule is one call away: `snakeGrip(world.cfg, round) === "crawl"` is the
+whole of what `live` should also ask for the maw face (not for FIRE, which is
+refused by its own rest and already shows it). It is one expression in
+`drawSnakeLobe` plus a case in `snake-frame.test.ts` saying the face is dead
+under `gorge`. The head on the face should still show the gape, since the mouth can
+still be open — what changes is the halo and the fill that say *press me*.

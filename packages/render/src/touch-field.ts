@@ -59,6 +59,23 @@ export interface Field {
    */
   waveBeat: number;
   /**
+   * The tick the field is standing on — the simulation's own clock, and the
+   * only one fine enough to place a thing that moves between beats.
+   *
+   * The interludes are what wanted it: SNAKE's body steps every `stepTicks`
+   * and the picture slides it the whole way there (`render/snake-body.ts`),
+   * so the head a thumb has to prise and the tail she has to lift are drawn
+   * up to a tile away from the tiles the round stores. `beat` and `beatPhase`
+   * cannot be made to answer that — a step is not a beat, and a tick worked
+   * out from the two would be `beatPhase`'s rule copied into a file that does
+   * not own it.
+   *
+   * **Required and stated rather than defaulted**, for the reason every field
+   * around it is: a caller that quietly meant nought would answer the head on
+   * the tile it is leaving for as long as that round lasts.
+   */
+  tick: number;
+  /**
    * Whose hand a touch on the *field* is. The strips below say who they belong
    * to by where they are; the field belongs to both players, so it can only be
    * signed by the seat this screen holds.

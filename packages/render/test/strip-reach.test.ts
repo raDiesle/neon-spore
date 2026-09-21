@@ -38,6 +38,7 @@ function field(seat: 1 | 2, controls: ControlSet = STANDARD): Field {
     beatPhase: 0.5,
     beat: 0,
     waveBeat: 0,
+    tick: 0,
     seat,
     cfg: CFG,
     boss: null,

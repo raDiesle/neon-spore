@@ -15977,3 +15977,32 @@ handed the same geometry the picture was drawn with, and the stage is not the
 window.**
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-the-snakes-two-handles-are-heard-and-drawn-nowhere — SNAKE's jaws and tail
+
+- reading — 25 min. `snake-controls.ts` for both rules and the two gates on
+  each, `snake.ts` for `snakeGrip` and `snakeLifted`, and `snake-body.ts` and
+  `snake-draw.ts` for the one thing this round has that no field boss does: an
+  arena with a tile of its own, and a body that is *between* two tiles for
+  most of every step.
+- writing — 45 min. `render/snake-grip.ts` — both circles off `snakeJoints`,
+  both gates, the hit test and the drawing — the `handleUnder()` branch, the
+  call from `drawSnakeRound`, `gape()` re-signed to take a config and a tick,
+  `field-controls-snake.ts`, two rows in `docs/spec/controls.md`, two lines of
+  `TARGET_PLACE`, thirteen tests in `snake-grip.test.ts` and one in
+  `snake-frame.test.ts`.
+- looking — 15 min. One frame, posed with `--boss-json` because the two drags
+  still cannot be pressed from the command line (its own queue entry): a nine
+  tile body along the bottom row, the ring on the tail at one end and the ring
+  on the neck at the other, both with their dials up.
+- friction — 10 min. The frame case failed first time because the mouth was
+  opened *on* the capture tick, where `gape` is still nought and the dial is
+  not drawn at all; and a `--boss-json` body must be the length of the one
+  already standing, so the long body had to be grown with `grow` over seven
+  steps rather than written down.
+- landing — 15 min. `check:fast` green; one import sort.
+
+The bottleneck was the slide. Everything else on this tab is drawn where the
+simulation says a thing stands, and this body is only ever *there* on the tick
+it steps — so the circle, the drawing and the test all had to be taken through
+`snakeSlide`, and `Field` had to start carrying a tick to get them there.

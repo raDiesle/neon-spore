@@ -135,6 +135,7 @@ function fieldOf(world: World, seat: 1 | 2): Field {
     beatPhase: framePhase(world),
     beat: world.beat,
     waveBeat: world.waveBeat,
+    tick: world.tick,
     seat,
     cfg: CFG,
     boss: world.boss,

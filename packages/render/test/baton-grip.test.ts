@@ -97,6 +97,7 @@ function fieldWith(seat: 1 | 2, world: World, boss: BatonState): Field {
     beatPhase: 0.5,
     beat: world.beat,
     waveBeat: world.waveBeat,
+    tick: world.tick,
     seat,
     cfg: DEFAULT_CONFIG,
     boss,

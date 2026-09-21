@@ -23,6 +23,7 @@ import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
+import { snakeGripUnder } from "./snake-grip.js";
 import { stareLidUnder } from "./stare-lid.js";
 import { surgeBulbUnder } from "./surge-grip.js";
 import { tetherGrabCircle } from "./tether.js";
@@ -108,6 +109,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     pulseMeterUnder(l, x, y, field) ?? // THE PULSE's own bar, while it is not steady (`pulse-grip.ts`).
     vaneGripUnder(l, x, y, field) ?? // THE VANE's swinging arm and the housing under its hub (`vane-grip.ts`).
     throatGripUnder(l, x, y, field) ?? // THE THROAT's slack ring and the tube under its mouth (`throat-grip.ts`).
+    snakeGripUnder(l, x, y, field) ?? // SNAKE's stuck jaws and dragging tail, on the body itself (`snake-grip.ts`).
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }

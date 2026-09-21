@@ -23,6 +23,7 @@ import {
   snakeArena,
 } from "./snake-draw.js";
 import { clipAboveHull, drawEmergeSlime, emergeIntake, emergeOffset } from "./snake-emerge.js";
+import { drawSnakeGrips } from "./snake-grip.js";
 import { drawTally, drawTitle, drawVerdict } from "./snake-panel.js";
 import { drawSnakeShot } from "./snake-shot.js";
 
@@ -111,6 +112,11 @@ export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   const emerging = drawBody(ctx, l, arena, view, boss);
   ctx.restore();
   if (emerging !== null) drawEmergeSlime(ctx, l, arena, boss, emerging);
+  // The two hands the body grows: over it and outside the clip, because a ring
+  // is a thing to reach for and not a part of the animal (`snake-grip.ts`).
+  // Nothing is drawn under `morph` or after a crash, which is the gate the
+  // controls themselves are held to.
+  drawSnakeGrips(ctx, l, world.cfg, boss, world.tick, view.time);
   drawBand(ctx, l, world, false, false, view.time, view.controls);
   drawHud(ctx, l, view);
   ctx.textAlign = "center";
@@ -172,7 +178,7 @@ function drawBody(
     round,
     shows,
     snakeSlide(round, view.world.tick),
-    gape(view.world, round),
+    gape(view.world.cfg, view.world.tick, round),
     flick(view.world.tick),
   );
   ctx.restore();

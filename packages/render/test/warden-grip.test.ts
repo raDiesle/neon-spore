@@ -66,6 +66,7 @@ function fieldOf(world: World, seat: 1 | 2): Field {
     beatPhase: 0.5,
     beat: world.beat,
     waveBeat: world.waveBeat,
+    tick: world.tick,
     seat,
     cfg: DEFAULT_CONFIG,
     boss: world.boss,

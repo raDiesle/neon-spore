@@ -1120,6 +1120,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
 | `packages/render/src/snake-emerge.ts` | The body coming out of the ship |
 | `packages/render/src/snake-jaw.ts` | What one of SNAKE's jaws is: its outline, what is marked on it |
+| `packages/render/src/snake-grip.ts` | **SNAKE's two hands on its own body** |
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
@@ -2350,6 +2351,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
 | `tools/director/src/field-controls-stare.ts` | THE STARE's lid, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-scuttle.ts` | **THE SCUTTLE's hanging part**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-snake.ts` | **SNAKE's two hands on its own body**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |

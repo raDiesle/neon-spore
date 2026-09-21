@@ -78,6 +78,7 @@ function fieldWith(seat: 1 | 2, boss: DiastoleState | null): Field {
     beatPhase: 0.5,
     beat: 6,
     waveBeat: 6,
+    tick: 0,
     seat,
     cfg: DEFAULT_CONFIG,
     boss: boss,

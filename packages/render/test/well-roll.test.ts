@@ -101,6 +101,7 @@ function wellField(seat: 1 | 2 = 1): Field {
     beatPhase: 0.5,
     beat: 0,
     waveBeat: 0,
+    tick: 0,
     seat,
     cfg: CFG,
     boss: null,
