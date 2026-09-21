@@ -245,6 +245,32 @@ waiting on.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
+## `queue take` refuses the lane the entry itself names as its claim
+
+- **Found:** 2026-09-21, claude/queue-four-other-films-still-put-pages-about-their-bos
+- **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`
+- **Where:** cloud
+
+An entry whose title a lane has rewritten cannot be re-marked by the lane that
+rewrote it. It happened twice on the sixteen-films entry in two days: a lane
+finishes four of the films, retitles the entry from *Six* to *Four*, and lands
+with `Taken:` carrying the old branch and a `(claim: ...)` naming the new one.
+The next lane runs `bun run queue take "Four other films ..."` and is told the
+item *is already taken* by a branch that is its own predecessor — `claimOn`
+answers `workedBranch(item.taken)` the moment the derived ref is live, and it
+never reads the `(claim: ...)` the entry is carrying. The lane is the claimant
+the entry names and still cannot say so, so it works uncommitted against an
+entry the listing shows under somebody else's name — which is exactly what
+`taken.test.ts` exists to prevent.
+
+Two ways, and either will do. Have `take` treat a `(claim: <branch>)` that
+matches the current branch as the lane's own and re-stamp `Taken:` from it;
+or have `claimOn` ignore a `taken` branch whose ref is an ancestor of the
+current branch, which is what *my predecessor* means in a linear history. The
+second is the smaller change and the one the claim test can state. Either way
+a case in `taken.test.ts`: an entry taken by a landed branch, on a branch
+descended from it, is takeable.
+
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
@@ -344,42 +370,6 @@ shipped boss draws. The PNG is the one unverified part; queue it with `bun run
 land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
-
-## Four other films still put pages about their boss on the hull
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-21, claude/queue-six-other-films-still-put-pages-about-their-boss (claim: claude/queue-four-other-films-still-put-pages-about-their-bos)
-- **Files:** `packages/render/src/caption-anchor-boss-e.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
-- **Where:** local
-
-**Twelve of the sixteen are done** (21 September 2026), in four lanes: THE
-CANDLE, THE BATON, THE CLAW and THE DIASTOLE; THE GORGE, THE FLEET, THE
-MIRROR and THE STARE; THE LEDGER and THE SPLICE; THE UNDERTOW and THE THROAT.
-The machinery is finished with them — `caption-anchor-boss-e.ts` is the fifth
-file and is at 219 lines, so the next kind starts a sixth;
-`caption-anchor-box.ts` is the ring every line of the five answers with, and
-`render/test/boss-anchor-f.test.ts` is the pattern. Seven pages are left, in
-one lane:
-
-- **PINBALL, THE GAUGE, THE MAZE, THE REPRISE** — seven pages, and the one
-  that is a different question: a round is its own picture and may want an
-  anchor of its own rather than a boss part. `bossAnchor` is asked per *boss
-  kind*, and three of these four are rounds with no boss in `world.boss` at
-  all — so the answer may be a new `SceneAnchor` beside `boss` rather than a
-  fifth file's worth of `BossPart` names. Decide that before writing anything.
-
-For each film: read its hull pages, decide which are truly about the hull (a
-breach, a scar — those stay) and which have an anchor already (THE CLAW's two
-turned out to be `pod` and the cannon strip, and needed no boss line at all);
-then a line per kind in the newest anchor file off the boss's own shape file,
-a `BossPart` where a boss draws more than one thing worth a page — and reuse a
-name before inventing one, the way THE GORGE's counts took THE TASTER's
-`tally`, and THE THROAT's mouth took THE SPLICE's `mouths` and its muscles
-THE ORRERY's `ring` — and a test: the ring where the fixture is drawn, and
-null for a part this screen does not draw. Where a shape file keeps a number
-an anchor would otherwise copy, export it from there: `gorgeSackBox`,
-`ledgerBodyBox` and `throatLockPoint` were all added that way, and `drawGorge`
-and `drawThroatLock` now call their own.
 
 ## A caption's ring is a circle round a subject that is a bar
 

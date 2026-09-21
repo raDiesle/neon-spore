@@ -35,7 +35,10 @@ export const THE_GAUGE: GuideScene = {
     { tick: 680, control: "gaugeCall" },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "ONE NEEDLE, TWO MARKS", anchor: { at: "hull" } },
+    // On the dial (`render/caption-anchor-boss-f.ts`, 21 September 2026). It
+    // was on the hull, which this round does not have: the field is gone, and
+    // the anchor was pointing at the middle of a plating nothing draws.
+    { tick: 0, seat: 2, text: "ONE NEEDLE, TWO MARKS", anchor: { at: "boss" } },
     // Two pages until 18 September 2026: this one on the hull and PLAYER 1
     // TURNS THE VALVE on the valve itself. They are one page now, said on the
     // thumb that does it — the split is what he needs and the verb is what the

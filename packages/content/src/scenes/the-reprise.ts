@@ -66,6 +66,12 @@ export const THE_REPRISE: GuideScene = {
     { tick: 1160, control: "fireCyan" },
   ],
   steps: [
+    // **Stays on the hull**, and it was tried on the body first (21 September
+    // 2026). `body` is the newest one on the field, and the span this page
+    // holds for ends with a body still on row one — which `scene-pages.test.ts`
+    // refuses, on the owner's rule that a caption belongs around the middle of
+    // the screen and not at the top. What is left is the plating the three
+    // columns run down to, which is what the pair is being asked to remember.
     { tick: 0, seat: 2, text: "SEEN ONCE · SAY THE COLUMNS", anchor: { at: "hull" } },
     {
       tick: 240,
@@ -83,7 +89,8 @@ export const THE_REPRISE: GuideScene = {
     // draws its own count on both screens — so the old page was the field's
     // word and the field's picture in one caption. What is left is his half of
     // the record, which no cue may ever carry (`boss-cue-read-s.ts`).
-    { tick: 720, seat: 1, text: "DARK · SAY THE COLOURS NOW", anchor: { at: "hull" } },
+    // On the tear, which is what the dark *is* (`caption-anchor-boss-f.ts`).
+    { tick: 720, seat: 1, text: "DARK · SAY THE COLOURS NOW", anchor: { at: "boss" } },
     {
       // `PRESS` / `FIRE` stands on the tear on her screen for the whole of the
       // echo, and `SLIDE` was never hers to do — the cannon is player 1's strip
@@ -101,7 +108,15 @@ export const THE_REPRISE: GuideScene = {
       text: "THE MIDDLE · SHE SAID SO",
       anchor: { at: "control", control: "cannon" },
     },
-    { tick: 1260, seat: 2, text: "THE THIRD · NOBODY SAID IT", anchor: { at: "hull" } },
+    // On the tear as well, and deliberately not on the body: the third body is
+    // the one whose column is the secret, and a ring round a thing nothing
+    // draws would hand that column to both seats. The tear is where it came
+    // from and what shuts behind it.
+    { tick: 1260, seat: 2, text: "THE THIRD · NOBODY SAID IT", anchor: { at: "boss" } },
+    // **This one stays on the hull**, and it is the only page of the sixteen
+    // films that was right there all along: the sentence is that a body
+    // nobody named is crossing the field toward the plating, and the plating
+    // is what it is about to cost. Pointing at the body would name it.
     { tick: 1500, seat: 1, text: "UNSEEN · STILL FALLING", anchor: { at: "hull" } },
     { tick: 1860, seat: 1, text: "UNSAID · IT LANDS ANYWAY", anchor: { at: "retries" } },
   ],

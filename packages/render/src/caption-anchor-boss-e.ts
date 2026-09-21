@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { AnchorPoint } from "./caption-anchor.js";
+import { bossAnchorF } from "./caption-anchor-boss-f.js";
 import { around, box } from "./caption-anchor-box.js";
 import { type Layout, tileCX } from "./layout.js";
 import { ledgerBodyBox, ledgerRootPoint, ledgerSocketPoint } from "./ledger-shape.js";
@@ -60,7 +61,8 @@ export function bossAnchorE(
   if (undertow !== null) return undertowPart(l, cfg, undertow, part, world.beat, beatPhase);
   const boss = world.boss;
   if (boss?.kind === "throat") return throatPart(l, cfg, boss, part, world.beat, beatPhase);
-  return null;
+  // The three rounds of the sixth file, on the same line-count argument.
+  return bossAnchorF(l, world, part);
 }
 
 /** How much of a tile the cord is worth on either side of its own line. */

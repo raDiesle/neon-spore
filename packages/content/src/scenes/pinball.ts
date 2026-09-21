@@ -59,7 +59,17 @@ export const PINBALL: GuideScene = {
     // band says whose screen this is, so what the first page had left was the
     // round's own design, which nothing on either screen draws: the thing you
     // fire from is the thing you have to catch it with.
-    { tick: 0, seat: 1, text: "THE CANNON ALSO CATCHES", anchor: { at: "hull" } },
+    {
+      tick: 0,
+      seat: 1,
+      text: "THE CANNON ALSO CATCHES",
+      // On the swelling the cannon is reached through and not on the middle of
+      // the plating (21 September 2026). The sentence names the cannon twice
+      // over — the thing fired from and the thing caught with — so it needed
+      // no line in `render/caption-anchor-boss-f.ts` at all, the way THE
+      // CLAW's two pages turned out to need none.
+      anchor: { at: "ship", control: "cannon" },
+    },
     {
       tick: 360,
       seat: 1,

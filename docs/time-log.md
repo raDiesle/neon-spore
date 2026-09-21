@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — boss-anchors-rounds — the four that had no hull to point at
+
+- reading — 10 min. The question the entry left open, and it was answered by
+  reading four `boss:` lines: PINBALL, THE GAUGE, THE MAZE and THE REPRISE are
+  all installed as `world.boss`, so `bossAnchor` already reaches them and no
+  new `SceneAnchor` was wanted. Then `gauge-round.ts`, `maze-walls.ts` and
+  `reprise-draw.ts` for the one circle each of them already hands out.
+- writing — 20 min. A sixth file, `caption-anchor-boss-f.ts` (64 lines), three
+  cases and no `part` at all; `repriseTearBox` exported from `reprise-draw.ts`
+  beside `repriseTearCenter`, in the rest pose for the same reason that one
+  gives; seven pages moved and four tests.
+- looking — 5 min. One rehearsal frame, THE GAUGE's opening: ONE NEEDLE, TWO
+  MARKS is a ring round the dial, which is the whole round, instead of a page
+  over a plating this wave does not draw.
+- friction — 10 min. Two, and both were the lane telling itself something the
+  repository already holds. `bun run queue take` refused the entry its own
+  `(claim: ...)` names as this branch, because `claimOn` reads `Taken:` and
+  never the claim — filed. And THE REPRISE's first page was moved to `body`,
+  which `scene-pages.test.ts` refuses: its span ends with a body still on row
+  one, and a caption belongs around the middle of the screen. It stays on the
+  hull, and the comment now says which of the two reasons it is.
+- landing — 15 min.
+
+Bottleneck: friction, and the half of it that was a rule the lane could have
+read first — the body anchor has a test saying where a body page may end, and
+the page was moved before it was read.
+
 ## 2026-09-21 — boss-anchors-undertow-throat — the pair the hull was nearly right for
 
 - reading — 15 min. `undertow-shape.ts`, `undertow-draw.ts`, `undertow-lobe.ts`,

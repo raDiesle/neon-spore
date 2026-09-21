@@ -100,6 +100,25 @@ export function repriseTearCenter(l: Layout, cfg: SimConfig): { x: number; y: nu
   return { x: tileCX(l, midCol(cfg)), y: l.gridTop + l.tile * DEEP * 0.5 };
 }
 
+/**
+ * **The whole fixture** — the torn edge's flared tips across the top and the
+ * mass hanging below them — for a caption pointed at this boss
+ * (`caption-anchor-boss-f.ts`).
+ *
+ * The *rest* pose, for `repriseTearCenter`'s reason above and one more: the
+ * clench and the breath are read off `swallow` and `Effects`, and a ring that
+ * breathed with the tear would be the count's own movement said twice. The
+ * width is the tear's rather than the mouth's, because the tear is the
+ * silhouette — `tearPoints` runs out to `w * 1.34` on either side.
+ */
+export function repriseTearBox(
+  l: Layout,
+  cfg: SimConfig,
+): { x: number; y: number; rx: number; ry: number } {
+  const at = repriseTearCenter(l, cfg);
+  return { x: at.x, y: at.y, rx: l.tile * HALF * 1.34, ry: l.tile * DEEP * 0.5 };
+}
+
 export function drawReprise(
   ctx: CanvasRenderingContext2D,
   l: Layout,

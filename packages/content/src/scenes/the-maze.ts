@@ -49,7 +49,9 @@ export const THE_MAZE: GuideScene = {
     // The rule that outlives this first drum, and his page now: he is the one
     // hunting the way in. It stood on her screen until 18 September 2026 and
     // moved when the middle page came out, so that each of them still has one.
-    { tick: 0, seat: 1, text: "ONE WAY THROUGH THE MAZE", anchor: { at: "hull" } },
+    // On the drum (`render/caption-anchor-boss-f.ts`, 21 September 2026), which
+    // is the maze the way through is through.
+    { tick: 0, seat: 1, text: "ONE WAY THROUGH THE MAZE", anchor: { at: "boss" } },
     // PLAYER 1 TURNS THE WHEEL stood at 240 on the handle and came out whole:
     // the field writes `CARRY` / `TURN` on that exact handle for as long as
     // nothing has clicked, on his screen and not on hers (`decisions.md` #34,
