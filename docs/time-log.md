@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — surge-rock-looked-at — the picture an unverified landing owed
+
+- reading — 15 min. The entry, `surge-rock.ts` for what gates a spit, and
+  `surge-word.ts` for what is drawn while one is in the air.
+- writing — 15 min. Two queue entries — the word printed over the rock, and
+  the three strings in `packages/render` no check reaches.
+- looking — 25 min. `bun run frames` five times to find the state that spits at
+  all, then a strip across four beats and two crops at 3x and 4x.
+- friction — 15 min. `--hold surgeBulb=0` and `--hold surgeBulb2=0` fired no
+  grip and no rock in 3000 ticks; `--boss-json` with `heldP1`/`heldP2` spat one
+  on the first beat. One `grep -rn` without a path filter returned a megabyte
+  of `apps/game/dist` source maps.
+- landing — 10 min. `check:fast`, commit, `land`.
+
+The bottleneck was reaching the state at all: the gesture needs both thumbs on
+the bulb and a notch open, and the documented way to put a thumb there did not
+put one there. That is the finding worth more than the picture, and it is why
+the frames recipe is written into the queue entry rather than left to be
+rediscovered.
+
 ## 2026-09-21 — throat-haul-revoiced — the haul that was doing THE VANE's gesture
 
 - reading — 15 min. The queue entry and the owner's answer, all seven of THE

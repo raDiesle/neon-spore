@@ -515,21 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Unverified at be40d473: the picture of the rock coming out of the bulb's unders…
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c)
-- **Files:** `.claude/skills/new-boss-state/SKILL.md`, `.claude/skills/new-boss/SKILL.md`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`
-
-2 commits landed, ending in *THE SURGE spits a rock, and the pilot wards it without letting go*, from a session that could not look at it. The commit touched 27 more files. What went unchecked:
-
-- the picture of the rock coming out of the bulb's underside, and THE SURGE watched at tempo with a rock in the air
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 5780141b: the picture of a carried part and its ring, watched at…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -2062,3 +2047,97 @@ noun, not the word a player reads for the object, and renaming one reaches the
 director, the perf rows, the baselines and `docs/spec/`. `warden` is already
 outside the pattern's boundary; `THE WARD` is matched by it and is the one
 place a lane should read the finding and leave the line alone.
+
+## THE SURGE prints SHIELD across the rock it just spat
+
+- **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
+- **Files:** `packages/render/src/surge-word.ts`, `packages/render/src/boss-cue-draw.ts`, `packages/render/src/boss-cue-field.ts`
+- **Where:** local
+
+Found by photographing the thing an unverified landing had left unlooked at,
+and the rock's own picture is fine: it leaves the bulb's underside and by the
+next beat it is a clear body with a flame trail under the boss, in the right
+column. What is wrong is the word on top of it.
+
+`surgeWord` returns `WARD` — `{ kind: "PRESS", word: "SHIELD" }` — on the
+pilot's **grip mark**, which is anchored to the bulb. The rock is spat from
+`surgeBulbRow(s, cfg) + 1`, the row directly under the bulb, in one of the
+columns the bulb covers. So the one word the pilot has to read is printed into
+the one place the body he has to answer arrives in: at the spit beat the
+label's plate sits across the rock and the rock's own highlight eats two of
+its glyphs, and it reads `SHIE D`.
+
+The navigator's mark on the same bulb has the second half of it: `PRESS` is
+drawn over the seam, and the seam's black rule goes straight through the word.
+
+Both are anchoring, not art. Either the word moves off the covered columns
+while `surgeWarding` is true, or the grip mark's label goes above the bulb
+rather than below it — the mark itself must stay where the thumb is. A frame
+at the spit beat is one command:
+
+    bun run frames . --wave "THE SURGE" --boss-json '{"notches":2,"heldP1":true,"heldP2":true}' --until surgeRock --seat p1
+
+**A look, so it is offered and not replaced** unless the third exemption is
+taken in the commit: a word printed over the body it names is wrong rather
+than unlovely, which is the same family as a highlight glued to a spinning
+rock (`docs/looks.md`).
+
+Also here, because it is one line in the same file: the constant is still
+called `WARD` after the word it carries became `SHIELD`. `guard` is the
+sanctioned code id for this control (`CLAUDE.md`), so `WARD` is neither the
+player's word nor the code's.
+
+## Nothing checks the words `packages/render` draws on a playing screen
+
+- **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
+- **Files:** `packages/render/src/balance.ts`, `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-o.ts`, `tools/words/text.ts`, `.claude/skills/game-words/SKILL.md`
+
+The owner settled **shield** on 21 September 2026 and it became a row in
+`tools/words/measure.ts`, so a wave guide that says ward now fails a test.
+Three player-facing strings are outside that check and still say the old
+words:
+
+- `balance.ts:150` — `{ label: "WARDS", tally: s.wards, empty: "no rock reached you" }`, a
+  column heading on the sheet a pair reads after every wave.
+- `boss-cue-read.ts:224` — `markAt(1, "PRESS", "GUARD", …)`, a word drawn on the field.
+- `boss-cue-read-o.ts:156` — `markAt(1, "PRESS", pull ? "PULL" : "GUARD", …)`, the same.
+
+The check's reach is stated in section 1 of `.claude/skills/game-words`: it
+covers `packages/content` and holds the six strings in `apps/game` by hand,
+because `tools/words` imports `@neon-spore/content` and importing further
+would pull in the DOM. That was written when the vocabulary was five rows of
+words no on-field mark used. A mark is the shortest, loudest text in the game
+and it is the text with the least room to be a second word for one thing.
+
+Two halves, and the first does not need the second: change the three strings,
+then decide whether `playerText()` can reach a `MARKS` table without importing
+a canvas — the marks are string literals at call sites today, which is why a
+grep found them and a test cannot.
+
+## `--hold surgeBulb` puts no thumb on THE SURGE's bulb
+
+- **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
+- **Files:** `tools/frames/hold.ts`, `tools/frames/hold-targets.ts`, `packages/sim/src/surge-hand.ts`
+- **Where:** local
+
+`tools/frames/hold.ts` documents the two by name:
+
+    --hold surgeBulb=0              THE SURGE: the pilot's thumb on the bulb
+    --hold surgeBulb2=0             and the navigator's, on the same bulb
+
+Both together fire no `surgeGrip` and no `surgeRock` in 3000 ticks. The same
+state reached with `--boss-json '{"notches":2,"heldP1":true,"heldP2":true}'`
+spits a rock on the first beat, so it is the hold and not the boss.
+
+`surgeHeard` takes `{ kind: "drag", target: "surgeBulb", on: true }` and
+refuses it while the bulb is everting, while it re-seals from a burst, or if
+that seat is already holding — none of which is the case at a wave's opening.
+So the command the hold builds is arriving wrong, or not arriving: start by
+printing it, and `tools/director/src/boss-hands-handles.ts:108` is the same
+drag built somewhere that works (`fromMilli: 0`, which the hold may be
+omitting).
+
+A documented flag that silently does nothing is worse than a missing one: the
+lane that hit this spent fifteen minutes proving the boss was fine before
+suspecting the tool, and the recipe it ended up with is now written into two
+other entries because the flag cannot be trusted.
