@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 9b524e7c — Four more films point at their boss instead of at the hull
+
+THE GORGE, THE FLEET, THE MIRROR and THE STARE each said what they had to say over the middle of the player's own hull — and in three of the four the subject is not on the field at all, it is over it. Seven pages move onto the boss: the sack where its skin hangs, the pilot's row of counts under its lobes, the chart, the copy of the ship at the flip line, the eye in its socket.
+
 ## 2026-09-21 · 3c5e02de — Four films point at their boss instead of at the hull
 
 THE CANDLE, THE BATON, THE CLAW and THE DIASTOLE each opened with a page in the middle of the hull, because a ring is only as good as the thing it can be put round and nothing else was nameable. The field goes black is about the flame; one sends, the other shoots is about the arm; the left beats in threes is about a chamber. Nine pages move.
