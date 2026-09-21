@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 3c5e02de — Four films point at their boss instead of at the hull
+
+THE CANDLE, THE BATON, THE CLAW and THE DIASTOLE each opened with a page in the middle of the hull, because a ring is only as good as the thing it can be put round and nothing else was nameable. The field goes black is about the flame; one sends, the other shoots is about the arm; the left beats in threes is about a chamber. Nine pages move.
+
 ## 2026-09-21 · c31ae677 — THE STARE's catch lights the button, not the whole panel
 
 Being caught washed the caught seat's entire panel red from the band's top down, because nothing in `render/` could map a command kind back to the circle that sent it. `stare.ts` has said since the boss was built that "the picture flashes the button that did it"; this is that, at last. It is a fix to something wrong rather than unlovely — the picture was pointing at a panel when it knew which button it was.
