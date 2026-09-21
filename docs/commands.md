@@ -71,6 +71,9 @@ bun run perf --wave X  # the waves the new thing appears in, and nothing else
 bun run perf --save    # keep this run as the baseline the next one is read against
 bun run baseline:blank     # a row for every unweighed wave, a blank for every row its wave changed under; opens no browser, measures nothing, and any session may run it
 bun run orphans        # what is built and reached by nothing — a creature no wave spawns
+bun run words          # every line a player reads, measured against `.claude/skills/game-words`: guides, wave sentences, the DEMOS buttons
+bun run words "THE SHELL"  # one wave or mechanic, every line, the passing ones too
+bun run words --clean  # the CLEAN list and the CEILING that `tools/words/clean.ts` should now hold
 ```
 
 ## Landing and the queue

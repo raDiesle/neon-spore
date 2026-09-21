@@ -36,6 +36,7 @@
     "probe": "bun run tools/probe/run.ts",
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",
+    "words": "bun run tools/words/run.ts",
     "imports": "bun run tools/imports/run.ts",
     "imports:sort": "biome check --write --only=assist/source/organizeImports .",
     "land": "bun run tools/land/run.ts",

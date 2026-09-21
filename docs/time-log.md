@@ -22,6 +22,34 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — game-skill-descriptions — a skill and a check for the words a player reads
+
+- reading — 25 min. `docs/style-guide.md` and `docs/teaching.md` to find out
+  whether a rule about wording already existed (it does not:
+  `.claude/skills/new-tutorial` rules a caption's layout and one line of its
+  voice, and nothing rules a guide's prose), then every `guide` in the act
+  files and every `what` in the mechanics tables printed with word counts.
+  That print is what settled the design: the numbered-step boss guides run 3 to
+  17 words a line and the prose guides run to 58, so the register to hold text
+  to already ships and did not have to be invented.
+- writing — 45 min. `tools/words` — the inventory, six rules, the report and
+  fourteen tests — then `.claude/skills/game-words`, then nine queue entries.
+  Two rules had to be tuned against the shipped text before they were honest:
+  a comma between two single words is a spoken list and not a clause, and
+  `is between` and `is fourteen` are not passives.
+- looking — 0 min. Nothing visible moved; the report is text.
+- friction — 5 min. A `bun install` for the new workspace package, and one
+  heredoc refused by `tools/hooks/guard.ts` for a doubled backslash.
+- landing — 15 min.
+
+**The bottleneck was deciding which way round the waiver goes.** The first
+design was a list of the lines allowed to fail, and counting killed it: 160 of
+189 subjects failed, so the waiver would have been 85% of the corpus and would
+have meant nothing. A list of what is *held* is 29 entries, it only grows, and
+it needed a second number — a ceiling on the failures — to catch a new wave
+written in the old register, which the list cannot see. Ten minutes of counting
+before writing saved a file nobody would have maintained.
+
 ## 2026-09-21 — frames-creature-flag — the half of a boss that is a body
 
 - reading — 20 min. `tools/frames/boss.ts` whole, then `sim/boss.ts` to see why

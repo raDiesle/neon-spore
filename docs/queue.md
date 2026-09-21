@@ -1487,6 +1487,146 @@ whether this is the player's own pick or the room's — or leaving a room writes
 already exists for it). The first is the smaller one and survives a phone that
 is closed inside a room.
 
+## The DEMOS menu puts a 261-word paragraph on a button: the 35 long ones
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `packages/content/src/mechanics-bosses.ts`, `packages/content/src/mechanics-rounds.ts`, `packages/content/src/mechanics-split.ts`, `tools/words/clean.ts`
+
+`MECHANICS[id].what` was written as the bestiary's record and is drawn as the
+subtitle of a button on the DEMOS page (`apps/game/src/demo-menu.ts` →
+`apps/game/src/menu-pages.ts`), on a phone. `lead` is 261 words there, `surge`
+225, `scuttle` 221. Thirty-five of them run past a hundred.
+
+Rewrite those thirty-five to the budget in `.claude/skills/game-words`: 30
+words, 18 to a sentence, no semicolon and no em dash. The long version is not
+lost — every one of these mechanics has a spec sheet under `docs/spec/` that
+owns the full rules, and the button only has to be recognisable.
+
+Then add each id to `CLEAN` in `tools/words/clean.ts` and lower `CEILING` to
+what `bun run words --clean` prints.
+
+## The DEMOS menu puts a paragraph on a button: the other 46
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `packages/content/src/mechanics-table.ts`, `packages/content/src/mechanics-worn.ts`, `packages/content/src/mechanics-rocks.ts`, `packages/content/src/mechanics-handed.ts`, `tools/words/clean.ts`
+
+The same job as the entry above, for the forty-six `what` sentences between 30
+and 100 words. Lighter work per row — most of them are one good sentence and
+one clause too many — and the same finish: `CLEAN`, `CEILING`, `bun test
+tools/words`.
+
+Do this one **after** the thirty-five, so the register is settled on the hard
+ones first.
+
+## Nineteen wave guides in acts 1 to 3 fail the words check
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `packages/content/src/waves/act-1.ts`, `packages/content/src/waves/act-1b.ts`, `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-3.ts`, `packages/content/src/waves/act-3b.ts`, `tools/words/clean.ts`
+
+Forty-nine lines across nineteen waves. These are the first guides a pair ever
+reads and they are the ones written as prose: FIRST STEP's `both` is 41 words,
+THE SHELL's 49, THE CLASP's 58.
+
+`bun run words "THE SHELL"` prints every line with the rule and the word.
+`.claude/skills/game-words` section 5 has three rewrites already checked,
+including THE SHELL's and THE COUNT's, and section 4 is the loop. Reach for the
+numbered-step shape the boss guides use — it is why twenty-nine subjects
+already pass.
+
+## Twenty wave guides in acts 4 to 7 fail the words check
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/waves/act-4b.ts`, `packages/content/src/waves/act-5.ts`, `packages/content/src/waves/act-6.ts`, `packages/content/src/waves/act-7.ts`, `tools/words/clean.ts`
+
+Fifty-eight lines across twenty waves, the same job as the acts 1 to 3 entry
+and under the same skill. Take that one first if both are open: the earlier
+guides are read by more pairs.
+
+## Twenty-six wave guides in acts 7a to 7g fail the words check
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `packages/content/src/waves/act-7a.ts`, `packages/content/src/waves/act-7b.ts`, `packages/content/src/waves/act-7c.ts`, `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves/act-7f.ts`, `packages/content/src/waves/act-7g.ts`, `tools/words/clean.ts`
+
+Fifty-nine lines across twenty-six waves, the same job and the same skill.
+Several of these are already close — act-7f has two failing lines across two
+waves — so the file order to work in is the one `bun run words` prints, worst
+subject first.
+
+## Fourteen wave guides in acts 8 to 10 fail the words check
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/waves/act-9.ts`, `packages/content/src/waves/act-10.ts`, `tools/words/clean.ts`
+
+Forty-three lines across fourteen waves, the same job and the same skill. These
+are late-game waves, so the pair reading them has read sixteen guides already —
+which is an argument for doing this one last, not for doing it differently.
+
+## Six strings a player reads are outside the words check
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `apps/game/src/hold.ts`, `apps/game/src/menu-seats.ts`, `tools/words/text.ts`
+
+`tools/words/text.ts` collects player-facing text out of `@neon-spore/content`
+and stops there, because importing `apps/game` pulls in the DOM. Six strings
+live on the other side of that line: the three connection-trouble sentences in
+`hold.ts` and the three seat descriptions in `menu-seats.ts`. All six fail the
+rules by eye — *"It is being reached for again — the seat is held for a few
+seconds more"* is a passive, an em dash and a word (`seat`) the player has
+never been shown.
+
+Two ways to reach them, and the second is better: lift the six strings into a
+DOM-free module of their own that both `apps/game` and `tools/words` import, or
+teach `text.ts` to read the two files as text. The first makes them ordinary
+entries with a `kind`; the second is a parser that breaks the next time somebody
+reformats a template literal.
+
+Rewrite them in the same lane, and say in the commit that `menu-seats.ts` is
+where the fourth word for the shield lives.
+
+## The game shows a player four words for one thing: ward, guard, plate, shield
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `packages/content/src/controls.ts`, `apps/game/src/menu-seats.ts`, `packages/content/src/waves/act-1.ts`, `.claude/skills/game-words/SKILL.md`
+- **Asks:** Which single word does a player read for the thing Player 2 slides and Player 1 triggers — SHIELD, WARD, PLATE or GUARD?
+
+All four ship today, for one object. The control is labelled `SHIELD`
+(`controls.ts`). THE ROCK's guide says *the plate is already standing in that
+column*. BULB QUEEN's says *Ward the torch that drops from a wing*.
+`menu-seats.ts` says *triggers the guard*. `CLAUDE.md`'s fixed vocabulary lists
+both **guard** and **shield**, which is how it happened.
+
+The options the answer picks between:
+
+- **SHIELD** — what the button already says, so no control label moves. The
+  cost is the verb: *shield the torch* reads as a noun, and every guide that
+  says *ward* has to find a verb.
+- **WARD** — the verb the guides already use and the one the simulation is
+  named after (`hullInvulnerable`'s neighbours, `wardFault`). The cost is
+  relabelling the control and a word a non-native reader will not know.
+- **PLATE** — the most concrete of the four, and what the thing looks like. It
+  has no verb at all.
+- **GUARD** — noun and verb both, in `CLAUDE.md` already, and nowhere on a
+  screen a player sees.
+
+The answer is one row in section 3 of `.claude/skills/game-words` and a pass
+over the three files above. Nothing else is waiting on it, and **section 3 says
+not to pick one until he answers**, so this does not block the rewrite lanes.
+
+## `docs/style-guide.md` carries "How an asset gets made" twice
+
+- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Files:** `docs/style-guide.md`
+
+The section appears in full twice, back to back, with small wording drift
+between the copies — the second says *"which the next session applies"* where
+the first says *"and the next session applies it"*, and step 4's last sentence
+is rephrased. Neither copy is wrong; there are just two of them, and a file
+whose whole job is to put the language on one screen is the worst place for a
+reader to meet the same six steps again.
+
+Keep the second copy — its step 4 is the tighter of the two — and delete the
+first. Nothing links to either by anchor.
+
 ## THE LURE's corner frame says DO NOT SHOOT where the owner wants IGNORE
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

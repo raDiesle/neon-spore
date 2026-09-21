@@ -2468,5 +2468,9 @@ place — the generator keeps whatever is there.
 | `tools/imports/imports.ts` | Dropping the names a file split strands in an import list, and refusing to delete a statement |
 | `tools/imports/run.ts` | `bun run imports` — drop the names a file split stranded in an import list |
 | `tools/imports/scan.ts` | Where a file's import statements are: which names each one binds, and what text binds them |
+| `tools/words/clean.ts` | The waves and mechanics whose player-facing text already reads cleanly |
+| `tools/words/measure.ts` | What makes a line of player-facing text readable, as numbers a test can hold |
+| `tools/words/run.ts` | `bun run words` — every line a player reads, measured against the rules in `.claude/skills/game-words` |
+| `tools/words/text.ts` | Every string in `packages/content` that a player reads, collected once |
 
 <!-- index:code:end -->
