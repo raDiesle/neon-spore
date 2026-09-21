@@ -26,7 +26,11 @@ import type { ControlId } from "./controls.js";
  * that asks the boss's draw file where it is.
  */
 export type BossPart =
-  /** THE TASTER's two counts on the ridge, the navigator's readout. */
+  /**
+   * A row of counts a boss writes for one seat and not the other: THE TASTER's
+   * two on the ridge, the navigator's, and THE GORGE's under its lobes, the
+   * pilot's. One name because it is one thing — the number a seat has to say.
+   */
   | "tally"
   /** THE SCUTTLE's live part hanging under its socket, in its colour — the navigator's. */
   | "live"

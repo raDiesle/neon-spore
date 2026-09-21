@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — boss-anchors-gorge-fleet-mirror-stare — four more of twelve
+
+- reading — 15 min. The four films' hull pages, and the draw file of each
+  boss for where its fixture actually is: `gorge-draw.ts`'s sack and tally
+  row, `fleet-chart.ts`'s board, `mirror.ts`'s flip line, `stare-shape.ts`'s
+  socket. Two of the four turned out to have no narrowing helper in `sim`, so
+  the dispatch asks `world.boss.kind` the way THE ORRERY's line already does.
+- writing — 30 min. `caption-anchor-boss-d.ts`, the fourth of the chain, and
+  the two helpers `gorge-draw.ts` had to hand out — `gorgeSackBox`, which
+  `drawGorge` now uses itself so the ring and the skin cannot drift, and
+  `gorgeTallyY`. Seven pages moved, `tally` widened to name THE GORGE's counts
+  as well as THE TASTER's, and five tests.
+- looking — 10 min. Two rehearsal frames, THE GORGE's opening and THE
+  MIRROR's: both rings land on the boss, and both showed that the ring is
+  drawn as a circle of `max(r, rx)`, so a wide flat subject gets a ring far
+  taller than the thing. Queued rather than fixed — it is a look.
+- friction — 5 min. `fleetRound` is not exported from `sim`'s barrel and the
+  formatter rewrapped one call; both one line.
+- landing — 15 min.
+
+The bottleneck was reading: four bosses, four draw files, and the geometry of
+each one had to be found before a single line could be written.
+
 ## 2026-09-21 — boss-anchors-candle-baton-claw-diastole — four films of sixteen
 
 - reading — 15 min. The two anchor files and what each line of them asks; the

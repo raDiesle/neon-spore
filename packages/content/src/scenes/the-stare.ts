@@ -79,14 +79,14 @@ export const THE_STARE: GuideScene = {
     { tick: 3120, control: "fireCyan" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "AN EYE · TWELVE BEATS FREE", anchor: { at: "hull" } },
+    { tick: 0, seat: 1, text: "AN EYE · TWELVE BEATS FREE", anchor: { at: "boss" } },
     {
       tick: 240,
       seat: 2,
       text: "PLAY IT LIKE ANY WAVE",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 720, seat: 2, text: "IT TURNS TO THEM · SAY SO", anchor: { at: "hull" } },
+    { tick: 720, seat: 2, text: "IT TURNS TO THEM · SAY SO", anchor: { at: "boss" } },
     {
       tick: 960,
       seat: 1,
@@ -99,8 +99,8 @@ export const THE_STARE: GuideScene = {
       text: "THEY FREEZE · YOU FIRE",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 1620, seat: 1, text: "IT LOOKS AWAY · PLAY ON", anchor: { at: "hull" } },
-    { tick: 2340, seat: 1, text: "NOW IT CHOSE THEM · SAY IT", anchor: { at: "hull" } },
+    { tick: 1620, seat: 1, text: "IT LOOKS AWAY · PLAY ON", anchor: { at: "boss" } },
+    { tick: 2340, seat: 1, text: "NOW IT CHOSE THEM · SAY IT", anchor: { at: "boss" } },
     {
       tick: 2580,
       seat: 2,

@@ -13,6 +13,7 @@ import {
 import { socketPoint, socketReach } from "./baton-socket-draw.js";
 import { candleFlameY } from "./candle-glow.js";
 import type { AnchorPoint } from "./caption-anchor.js";
+import { bossAnchorD } from "./caption-anchor-boss-d.js";
 import { around, box } from "./caption-anchor-box.js";
 import { diastoleY } from "./diastole-draw.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -43,7 +44,8 @@ export function bossAnchorC(
   if (baton !== null) return batonArm(l, cfg, baton);
   const diastole = diastoleBoss(world);
   if (diastole !== null) return diastolePart(l, cfg, part);
-  return null;
+  // The four of the fourth file, on the same line-count argument.
+  return bossAnchorD(l, world, part);
 }
 
 /** How much of a tile the flame's own light is worth as a ring. */

@@ -53,8 +53,8 @@ export const THE_FLEET: GuideScene = {
     { tick: 810, control: "salvo" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "PLAYER 1 SEES THE SHIPS", anchor: { at: "hull" } },
-    { tick: 240, seat: 2, text: "PLAYER 2 SEES ONLY WATER", anchor: { at: "hull" } },
+    { tick: 0, seat: 1, text: "PLAYER 1 SEES THE SHIPS", anchor: { at: "boss" } },
+    { tick: 240, seat: 2, text: "PLAYER 2 SEES ONLY WATER", anchor: { at: "boss" } },
     {
       tick: 480,
       seat: 2,

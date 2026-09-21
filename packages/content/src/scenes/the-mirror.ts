@@ -53,7 +53,7 @@ export const THE_MIRROR: GuideScene = {
     // This page said IT PERFORMS YOUR MOVES until 18 September 2026, which is
     // the picture: the mirror is a ship performing at theirs, on every screen.
     // What it says now is how two heads hold one sequence.
-    { tick: 0, seat: 1, text: "CALL EACH MOVE AS IT COMES", anchor: { at: "hull" } },
+    { tick: 0, seat: 1, text: "CALL EACH MOVE AS IT COMES", anchor: { at: "boss" } },
     // NOTHING COUNTS YET stood at 300 on her screen and came out: the band is
     // drawn dead while the mirror holds the controls, and the cue is silent
     // there on purpose (`decisions.md` #34). The page below is hers too, so

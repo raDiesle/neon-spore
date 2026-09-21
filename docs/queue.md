@@ -345,23 +345,22 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## Twelve other films still put pages about their boss on the hull
+## Eight other films still put pages about their boss on the hull
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-21, claude/queue-sixteen-other-films-still-put-pages-about-their (claim: claude/queue-twelve-other-films-still-put-pages-about-their-b)
-- **Files:** `packages/render/src/caption-anchor-boss-c.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-gorge.ts`, `packages/content/src/scenes/the-fleet.ts`, `packages/content/src/scenes/the-mirror.ts`, `packages/content/src/scenes/the-stare.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
+- **Files:** `packages/render/src/caption-anchor-boss-d.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
 - **Where:** local
 
-**Four of the sixteen are done** (21 September 2026): THE CANDLE, THE BATON,
-THE CLAW and THE DIASTOLE, in the lane that split this entry into four. The
-machinery is finished with them — `caption-anchor-boss-c.ts` is the third
-file and has room, `caption-anchor-box.ts` is the ring every line of the
-three answers with, and `render/test/boss-anchor-c.test.ts` is the pattern.
-What is left is three more lanes of four films each, in this order:
+**Eight of the sixteen are done** (21 September 2026), in two lanes: THE
+CANDLE, THE BATON, THE CLAW and THE DIASTOLE, then THE GORGE, THE FLEET, THE
+MIRROR and THE STARE. The machinery is finished with them —
+`caption-anchor-boss-d.ts` is the fourth file and has room,
+`caption-anchor-box.ts` is the ring every line of the four answers with, and
+`render/test/boss-anchor-d.test.ts` is the pattern. Twenty-six pages are left,
+in two more lanes:
 
-- **THE GORGE, THE FLEET, THE MIRROR, THE STARE** — seven pages.
 - **THE LEDGER, THE SPLICE, THE UNDERTOW, THE THROAT** — nineteen pages, the
-  heavy one; it may want a fourth anchor file.
+  heavy one; it will want a fifth anchor file.
 - **PINBALL, THE GAUGE, THE MAZE, THE REPRISE** — seven pages, and the one
   that is a different question: a round is its own picture and may want an
   anchor of its own rather than a boss part.
@@ -369,10 +368,31 @@ What is left is three more lanes of four films each, in this order:
 For each film: read its hull pages, decide which are truly about the hull (a
 breach, a scar — those stay) and which have an anchor already (THE CLAW's two
 turned out to be `pod` and the cannon strip, and needed no boss line at all);
-then a line per kind in `caption-anchor-boss-c.ts` off the boss's own shape
-file, a `BossPart` where a boss draws more than one thing worth a page, and a
-test — the ring where the fixture is drawn, and null for a part this screen
-does not draw.
+then a line per kind in the newest anchor file off the boss's own shape file,
+a `BossPart` where a boss draws more than one thing worth a page — and reuse a
+name before inventing one, the way THE GORGE's counts took THE TASTER's
+`tally` — and a test: the ring where the fixture is drawn, and null for a part
+this screen does not draw.
+
+## A caption's ring is a circle round a subject that is a bar
+
+- **Found:** 2026-09-21, claude/queue-twelve-other-films-still-put-pages-about-their-b
+- **Files:** `packages/render/src/guide-tide-caption.ts`, `packages/render/src/guide-tide-caption-box.ts`, `packages/render/src/caption-anchor.ts`
+- **Where:** local
+
+An `AnchorPoint` carries `r` and `rx` — two radii, so a wide flat thing can be
+ringed as the wide flat thing it is. Nothing reads them that way: every caller
+takes `Math.max(at.r, at.rx ?? 0)` and draws a circle
+(`guide-tide-caption.ts:58`, `:153`, `guide-tide-caption-box.ts:71`). So a
+ring round THE GORGE's sack, seven columns wide and half a tile deep, is a
+circle five tiles tall that reaches most of the way down the field, and THE
+MIRROR's and THE DIASTOLE's shelf are the same. The `rx` on every anchor is
+there and unused.
+
+Draw the ellipse the two radii already describe, and let the caption box and
+the pool clear it on the axis they are on rather than on the larger of the
+two. It is a look — every rehearsal frame with a wide subject changes — so it
+goes to VERSUS, or it is one the owner asks for by name.
 
 ## `bun run frames` cannot reach BULB QUEEN's BROOD, and `--hold` lacks her marks
 

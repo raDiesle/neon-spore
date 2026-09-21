@@ -42,6 +42,12 @@ import { showsGorgeNearest, showsGorgeTally } from "./view-role-clocks.js";
 
 /** How far above row 0 the intakes hang, in tiles, before the sack sinks. */
 const HANG = 0.55;
+/** How far past the outer lobes the skin reaches, in tiles. */
+const SACK_PAD = 0.7;
+/** How much lower the skin hangs, in tiles, for every lobe already pierced. */
+const SAG_PER = 0.07;
+/** How far under the intakes the pilot's counts are written, in tiles. */
+const TALLY_DROP = 0.14;
 /** How much the sack's height moves on the beat, in tiles: a third. */
 const BREATH = 0.33;
 /** Beats the sack takes to go out after the beam, over `gorgeOutBeats`. */
@@ -50,6 +56,37 @@ const OUT_FADE = 2;
 /** Where the intakes hang this frame — a row lower for every `gorgeSinkPer`. */
 export function gorgeIntakeY(l: Layout, g: GorgeState, cfg: SimConfig): number {
   return tileCY(l, 0) - l.tile * HANG + l.tile * gorgeSink(g, cfg);
+}
+
+/**
+ * The skin itself, where it hangs this frame: centred over the lobes, as wide
+ * as they are plus its own reach, and as deep as its sag and its breath make
+ * it. `breath` is 0 at rest, which is how a caption asks for it — a ring that
+ * pulsed with the sack would be a ring nobody could read
+ * (`caption-anchor-boss-d.ts`).
+ */
+export function gorgeSackBox(
+  l: Layout,
+  cfg: SimConfig,
+  g: GorgeState,
+  breath = 0,
+): { x: number; y: number; rx: number; ry: number } {
+  const left = tileCX(l, g.col);
+  const right = tileCX(l, g.col + g.intakes.length - 1);
+  // The sack sags as it is pierced: with three lobes hanging open it cannot
+  // hold its shape and drops toward the field, which is step 11's curtain.
+  const ry = l.tile * (0.75 + g.ruptures * SAG_PER + BREATH * 0.5 * breath);
+  return {
+    x: (left + right) / 2,
+    y: gorgeIntakeY(l, g, cfg) - ry * 0.55,
+    rx: (right - left) / 2 + l.tile * SACK_PAD,
+    ry,
+  };
+}
+
+/** The row the pilot's counts are written on, under the lobes. */
+export function gorgeTallyY(l: Layout, cfg: SimConfig, g: GorgeState): number {
+  return gorgeIntakeY(l, g, cfg) + l.tile * TALLY_DROP;
 }
 
 /** The sack's breath, 0 at the beat and back to it, peaking halfway. */
@@ -69,16 +106,9 @@ export function drawGorge(
   const y = gorgeIntakeY(l, g, cfg);
   const phase = gorgePhase(g, cfg);
   const breath = phase === "out" ? 0 : breathOf(beatPhase);
-  const left = tileCX(l, g.col);
-  const right = tileCX(l, g.col + g.intakes.length - 1);
-  const cx = (left + right) / 2;
-  const rx = (right - left) / 2 + l.tile * 0.7;
-  // The sack sags as it is pierced: with three lobes hanging open it cannot
-  // hold its shape and drops toward the field, which is step 11's curtain.
-  const sag = g.ruptures * 0.07;
-  const ry = l.tile * (0.75 + sag + BREATH * 0.5 * breath);
+  const sack = gorgeSackBox(l, cfg, g, breath);
   const body = splinePath(
-    blobPoints(cx, y - ry * 0.55, rx, ry, g.intakes.length, 0.08, 0.03, time * 0.4, 31, 48),
+    blobPoints(sack.x, sack.y, sack.rx, sack.ry, g.intakes.length, 0.08, 0.03, time * 0.4, 31, 48),
     true,
   );
 
@@ -150,7 +180,7 @@ function drawTally(ctx: CanvasRenderingContext2D, l: Layout, g: GorgeState, y: n
   for (let i = 0; i < g.intakes.length; i++) {
     const k = g.intakes[i];
     if (k === undefined || k.ruptured) continue;
-    ctx.fillText(String(k.beads), tileCX(l, g.col + i), y + l.tile * 0.14);
+    ctx.fillText(String(k.beads), tileCX(l, g.col + i), y + l.tile * TALLY_DROP);
   }
   ctx.restore();
 }

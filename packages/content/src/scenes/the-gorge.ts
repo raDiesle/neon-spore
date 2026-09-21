@@ -57,14 +57,19 @@ export const THE_GORGE: GuideScene = {
     { tick: 3030, control: "fireRed" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "A SACK HANGS · IT EATS SHOTS", anchor: { at: "hull" } },
+    { tick: 0, seat: 1, text: "A SACK HANGS · IT EATS SHOTS", anchor: { at: "boss" } },
     {
       tick: 180,
       seat: 2,
       text: "PLAYER 2 FIRES · IT IS EATEN",
       anchor: { at: "control", control: "fireRed" },
     },
-    { tick: 360, seat: 1, text: "ONLY PLAYER 1 SEES THE COUNT", anchor: { at: "hull" } },
+    {
+      tick: 360,
+      seat: 1,
+      text: "ONLY PLAYER 1 SEES THE COUNT",
+      anchor: { at: "boss", part: "tally" },
+    },
     {
       tick: 540,
       seat: 1,
