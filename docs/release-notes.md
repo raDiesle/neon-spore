@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 4f18634a — A ping counts the room's seats, so the room screen notices a partner who left
+
+The room counted its seats only when something else made it — a relayed input, confirm or hash, a press, an arrival. That is every frame of a run and nothing at all on the room screen, where a ping is the only message either phone sends and `ping` answered a `pong` without asking who was there. So a phone that vanished while the pair were looking at each other's circles was noticed by nobody: the survivor's screen went on drawing a partner who was gone, with a circle to hold and a wait that would never end, until they pressed READY and were told `peers: 1` in the same breath.
+
 ## 2026-09-21 · 972960ff — `Where: cloud` comes off; a local session may take anything
 
 The owner, 21 September 2026: *"please remove cloud only. all cloud only also local can and should take"*. Ten entries carried the line and a local session was refused every one of them by name.
