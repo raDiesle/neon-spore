@@ -31,7 +31,7 @@ import { dirname, join } from "node:path";
  * | flag | argued in |
  * |---|---|
  * | `--fault` | `fault.ts` |
- * | `--boss`, `--boss-json` | `boss.ts` |
+ * | `--boss`, `--boss-json`, `--creature` | `boss.ts`; the write in `boss-install.ts` |
  * | `--until`, `--until-ticks`, `--events` | `until.ts` |
  * | `--opening` | `opening.ts`; a rehearsal's own clock in `guide-film.ts` |
  * | `--guide-page` | `opening-hold.ts` |
@@ -71,6 +71,7 @@ import { dirname, join } from "node:path";
  *   bun run frames . --wave 3 --fault cannon:alternating,2   a runaway cannon, twice as slow
  *   bun run frames . --wave "THE THROAT" --boss slack=5,phase=everts,phaseBeat=now   a boss's last phase
  *   bun run frames . --wave "THE BATON" --boss-json '{"sockets":[1,1,0]}'   a list the wave never reaches
+ *   bun run frames . --wave "BULB QUEEN" --creature petals=6   a phase read off the boss's own body
  *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
  *   bun run frames <sha> --wave 7 --opening guide --guide-page 3   a later page of a rehearsal
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
@@ -106,7 +107,8 @@ async function main(): Promise<void> {
       'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
         "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
-        "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] [--raster] " +
+        "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] " +
+        "[--creature key=value,…] [--raster] " +
         "[--until EVENT] [--until-ticks N] [--events] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );

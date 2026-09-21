@@ -371,37 +371,44 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## `bun run frames` cannot reach BULB QUEEN's BROOD, and `--hold` lacks her marks
+## `bun run frames --hold` cannot reach the six newest handles
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
 - **Taken:** 2026-09-21, claude/queue-a-captions-ring-is-a-circle-round-a-subject-that (claim: claude/queue-bun-run-frames-cannot-reach-bulb-queens-brood-an)
-- **Files:** `tools/frames/boss.ts`, `tools/frames/hold.ts`, `packages/sim/src/boss.ts`, `apps/game/src/handle.ts`
+- **Files:** `tools/frames/hold.ts`, `packages/sim/src/queen-hand.ts`, `packages/sim/src/filament-hand.ts`, `packages/sim/src/stare-hand.ts`, `packages/sim/src/maze-hand.ts`, `packages/sim/src/throat-hand.ts`
 - **Where:** local
 
-Her phase is read off her petals every beat (`enterPhase` in `sim/boss.ts`),
-and petals are a field of the creature, not the boss — so `--boss
-phase=1,openBeat=now` is undone on the first beat after the write, and the
-ring on her marks (`render/queen-grip.ts`) cannot be photographed from the
-game at all; the picture the look lane sent was the director's PRIED pose
-via `bun run shot`. Two things to do. First, a way to write a creature's
-fields the way `--boss` writes a boss's — `--creature petals=6` on the
-boss's creature, or a `petals` key `installBoss` forwards to
-`boss.creatureId` — applied after the jump, before the opening lets go.
-Second, `--hold`'s `DRAGS` list stops at `instarMark2`: `queenMark`
-(`id` 0 or 1, player 1), `filament` and `stareLid` are not in it, so none of
-the three newest handles can be held for a frame. Add the three rows with
-their seats, and the proof is `bun run frames . --wave "BULB QUEEN" --seat
-p1 --creature petals=6 --ticks 200 --boss openBeat=now,closeBeat=99` showing
-the ring on both marks.
-`mazeHeart` is a fourth row for the same list (2026-09-18, the look lane):
-THE MAZE's tear was photographed with `--boss-json` writing `gripThumb` and
-`gripPullMilli` straight into the boss, which shows the picture and proves
-nothing about the hand.
-`throatRing` (player 2, a hold) and `throatTube` (player 1, a carry) are the
-fifth and sixth rows (2026-09-19, the §6.2 lane): THE THROAT's two new hands
-are both on the boss's own picture, and neither could be photographed —
-reaching the phase that offers either needs four gums flung sideways into a
-walking mouth, which is the other half of this entry.
+**Half of this landed on 21 September 2026 as `--creature`** (`tools/frames/boss.ts`,
+`tools/frames/boss-install.ts`): a boss's body is a creature like any other and
+its fields decide what the fight looks like, so `--creature petals=6` reaches
+BULB QUEEN's BROOD and `bun run frames . --wave "BULB QUEEN" --seat p1
+--creature petals=6 --ticks 200 --boss openBeat=now,closeBeat=99` is her pried
+phase on a real frame. What is left is the other half.
+
+`--hold`'s `DRAGS` list stops at `instarMark2`, so none of the six newest
+handles can be held for a frame. The rows to add, with the seat each one is
+refused on and the shape of the command:
+
+- `queenMark` — player 1, and it needs an `id` of 0 or 1 to say which of the
+  two marks (`queen-hand.ts` reads `command.id` and nothing else).
+- `filament` — both seats on one target, a grab then a displacement
+  (`filament-hand.ts`), so it wants a `filament2` row the way `instarMark2`
+  names THE INSTAR's second thumb.
+- `stareLid` — either seat, and it is pulled in `y` rather than in `x`
+  (`fromYMilli`, `stare-hand.ts`).
+- `mazeHeart` — player 2 only (`maze-hand.ts` returns on any other). THE MAZE's
+  tear was photographed with `--boss-json` writing `gripThumb` and
+  `gripPullMilli` straight into the boss, which shows the picture and proves
+  nothing about the hand.
+- `throatRing` — player 2, a press (`ringHeard`).
+- `throatTube` — player 1, and **a carry rather than a drag**: `tubeHeard`
+  refuses a command with `on` set and wants `|fromMilli| >= cfg.throatHaulMilli`,
+  which the two-command grab-then-pull form `--hold` builds cannot express. So
+  this row needs a release form, and that is the decision in the item.
+
+Reaching the phase that offers either throat hand needs four gums flung
+sideways into a walking mouth, so those two rows are the ones worth proving
+with a frame.
 
 ## THE GAUGE's two new states have no pose in the director's gallery
 

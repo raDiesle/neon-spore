@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — frames-creature-flag — the half of a boss that is a body
+
+- reading — 20 min. `tools/frames/boss.ts` whole, then `sim/boss.ts` to see why
+  `--boss phase=1` does not survive a beat: `enterPhase` reads `queen.petals`
+  every beat and `queenRow` reads `startPetals` minus them, so the fight's shape
+  is on the creature and not on the state. Then the six sim hand files for the
+  other half of the entry, which is what showed the lane was two.
+- writing — 25 min. `--creature <key>=<value>` as a third flag into the same
+  list, tagged `where: "creature"`; `installBoss` moved to `boss-install.ts` on
+  line count and taught to resolve the body through `boss.creatureId`; the two
+  scalar flags share one parser, so a number, a word and `now` mean the same
+  thing on either object. Eleven tests beside `boss-flag.test.ts`.
+- looking — 10 min. Two frames of BULB QUEEN at tick 200, with and without
+  `--creature petals=6`: nine petals is MOVE · CARRY at her start row, six is
+  three tiles lower with the bloom OPEN and PRESS on both marks — her pried
+  phase, photographed from the game for the first time.
+- friction — 5 min. `page.ts` and `spec.ts` are both at 249 lines, so the two
+  comments that had to change were rewritten to the line rather than extended.
+- landing — 15 min.
+
+The bottleneck was reading. The entry named one thing and was two, and the
+only way to see that was to read the six hand files it pointed at — which is
+work that belongs to the half being left, not to the half that landed.
+
 ## 2026-09-21 — caption-ring-ellipse — two radii that were already there
 
 - reading — 10 min. `caption-anchor.ts`'s `AnchorPoint`, and then every reader
