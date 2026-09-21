@@ -460,43 +460,6 @@ decision and wants an eye on a phone, not a flag. The director's side of the
 same ask is smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works;
 what a phone cannot do is *reach* that strip.
 
-## THE THROAT's three hand sounds have never been heard by an ear
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-the-throats-three-hand-sounds-have-never-been-he)
-- **Files:** `packages/audio/src/sounds/boss-throat.ts`, `packages/audio/src/bind-throat.ts`, `tools/director/src/sound-page.ts`
-- **Asks:** Do CINCH, SLIP and HAUL read as one gullet under a thumb, or does one of them want re-voicing?
-- **Answered:** 21 September 2026 — HAUL wants re-voicing, and a lane does it without asking again. The owner chose that over pressing the three himself and over leaving all three: a lane re-voices HAUL against the other two, lands it, and he hears the result the next time he plays. That is the yes the change needs, so no VERSUS card and no second question — what is left is ordinary work in the files below.
-
-*THE THROAT's two hands are heard: the cinch, the slip and the haul* landed
-from a session with no ear, and this entry has now been picked up by a second
-one that has none either. So it is written down properly instead: **everything
-about these three that a machine can settle is settled, and what is left is
-three presses on a sheet that already exists.**
-
-Settled, and held by `bun run check`: all seven of THE THROAT's sounds stay
-inside `VOICE_BUDGET_SECONDS` of the 300–3000 Hz speech band
-(`packages/audio/test/deep.test.ts`); each of the seven events maps to its own
-cue and pans to the mouth's column (`bind.test.ts`); and the BOUND stamp is
-read off the binding files rather than written by hand
-(`catalogue.test.ts`). A session re-claiming this will find all of that green
-and nothing to add.
-
-Not settled, and not settleable here: whether the three *sound like* what
-their blurbs say — a close with the draw stopping dead, that close let go, and
-wet weight dragged a pace sideways. THE SOUND CATALOGUE sheet plays any sound
-in the game from a ▶ beside its row (`sound-page.ts`), so the whole of what is
-owed is: open it, filter to **boss**, and press `boss.throatCinch`,
-`boss.throatSlip` and `boss.throatHaul`.
-
-The answer picks between three: **keep all three as built**; **re-voice the
-cinch**, which is the one of the seven built as an *absence* — a close and
-then the draw dying — and therefore the one most likely to arrive as nothing
-at all on a phone speaker; or **re-voice the haul**, the only one of the three
-that has to be told apart by ear from a haul this game already has
-(`boss.vaneHaul`), and which deliberately uses lowpassed noise where THE
-VANE's uses metal.
-
 ## Unverified at ce22d819: THE ORRERY's rehearsal film watched at tempo — the thre…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

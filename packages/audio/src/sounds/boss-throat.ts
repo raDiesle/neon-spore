@@ -57,7 +57,7 @@ export const BOSS_THROAT_SOUNDS: SoundDef[] = [
   {
     id: "boss.throatHaul",
     family: "boss",
-    blurb: "Something heavy and wet dragged a pace sideways: a slide, and a soft stop.",
+    blurb: "Something heavy and wet dragged a pace sideways: a slide down, and a soft stop.",
     status: "bound",
     use: "THE THROAT's mouth hauled a column by player 1 under HAUL — her column is stale now.",
     level: 0.44,
@@ -66,10 +66,24 @@ export const BOSS_THROAT_SOUNDS: SoundDef[] = [
     // no longer true. Noise through a lowpass and not `metal`, because a
     // sawtooth's harmonics over a drag this long would sit in the band for a
     // quarter of a second — `boss.vaneHaul`'s own reason, said about mass.
+    //
+    // **Re-voiced 21 September 2026**, on the owner's answer to this file's
+    // queue entry: of the three hands he named this one, and it is the one of
+    // the three that has to be told apart by ear from a haul the game already
+    // has. It was built with a *rising* sine, 84 to 118, which is the gesture
+    // `boss.vaneHaul` is — a drag rising to its stop, the seat that did not do
+    // it hearing a window open. Nothing opens here. So the pitch falls now,
+    // the drag runs longer than the fall and closes as it slows, and the
+    // weight arrives at the end as a thud rather than as a sub that could be
+    // any of the seven. The comment above always said *lands rather than
+    // rising*; the layers did the opposite of it for two days.
     layers: [
-      { source: "sine", freq: 84, toFreq: 118, gain: 0.3, attack: 0.02, release: 0.24 },
-      soft(0.6, noise(180, { type: "lowpass", freq: 260, toFreq: 150, q: 0.9 }, 0.03, 0.26, 0.3)),
-      after(0.22, sub(58, 0.26, 0.34)),
+      { source: "sine", freq: 122, toFreq: 72, gain: 0.3, attack: 0.03, release: 0.3 },
+      // The lowpass tops out under 300 Hz at both ends, so a drag this long
+      // spends none of the voice budget however far it is swept (`band.ts`).
+      soft(0.62, noise(190, { type: "lowpass", freq: 290, toFreq: 130, q: 0.9 }, 0.06, 0.34, 0.32)),
+      after(0.3, soft(0.8, thud(96, 60, 0.18, 0.32))),
+      after(0.32, sub(54, 0.3, 0.28)),
     ],
   },
   {

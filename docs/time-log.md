@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — throat-haul-revoiced — the haul that was doing THE VANE's gesture
+
+- reading — 15 min. The queue entry and the owner's answer, all seven of THE
+  THROAT's sounds, `boss.vaneHaul` beside them, and `band.ts` for what a
+  lowpass ceiling costs the voice budget.
+- writing — 15 min. Three layers replaced and one added, the comment saying
+  what was wrong and why, and the blurb.
+- looking — 10 min. A scratch script planning the four sounds side by side:
+  length, pitch direction and seconds in the speech band.
+- friction — 0 min. Nothing pinned the layers, so the edit was one file.
+- landing — 10 min. `check:fast`, commit, `land`.
+
+The bottleneck was finding the actual defect, and it was not in the layers'
+quality: `boss.throatHaul` was built with a rising sine, which is precisely
+`boss.vaneHaul`'s gesture and the one thing this sound had to not be — and its
+own comment had said *lands rather than rising* since the day it was written.
+Reading the comment against the numbers found in fifteen minutes what an ear
+was being asked for.
+
 ## 2026-09-21 — shield-one-word — four words for one object, and the first sweep
 
 - reading — 20 min. The queue entry and the owner's answer, the six strings the
