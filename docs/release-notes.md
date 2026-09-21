@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · e77ead4c — A boss is a state and a body, and `frames --creature` reaches the body
+
+BULB QUEEN's phase is read off `queen.petals` every beat and her row off `startPetals` minus them, so `--boss phase=1` was undone on the first beat after it was written and her BROOD could not be photographed from the game at all — the picture the look lane sent was the director's pose. Half of a boss is not in `world.boss`: it is drawn as a creature like any other, linked by `creatureId`, and the fields that decide what the fight looks like are split across the two. `--creature petals=6` is the same flag said about the other object, tagged into the same list so the state's numbers and the body's land together or not at all.
+
 ## 2026-09-21 · 09ffb927 — A caption's ring is the ellipse its two radii already described
 
 `AnchorPoint` has carried `r` and `rx` since the first anchor that was wider than it was tall, and all three readers of it took `Math.max` of the pair and drew a circle. So the ring round THE GORGE's sack — seven columns across and half a tile deep — was a circle five tiles tall that reached most of the way down an empty field, and the scrim opened a pool to match: the page said *this thing* while circling the hull, the plating and whatever was falling past. THE MIRROR's copy of the ship and THE DIASTOLE's shelf are the same.
