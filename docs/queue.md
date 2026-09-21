@@ -348,6 +348,7 @@ The brief: `.claude/skills/new-boss` section 6.2.
 ## Sixteen other films still put pages about their boss on the hull
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-21, claude/queue-the-stares-catch-washes-the-whole-panel-and-the (claim: claude/queue-sixteen-other-films-still-put-pages-about-their)
 - **Files:** `packages/render/src/caption-anchor-boss.ts`, `packages/render/src/caption-anchor-boss-b.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/content/src/scenes/the-claw.ts`, `packages/content/src/scenes/the-diastole.ts`, `packages/content/src/scenes/the-gorge.ts`, `packages/content/src/scenes/the-fleet.ts`, `packages/content/src/scenes/the-mirror.ts`, `packages/content/src/scenes/the-stare.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`
 - **Where:** local
 
