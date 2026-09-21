@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 60af6d34 — The field is measured when the wave opens, not while it plays
+
+On a phone `window.innerHeight` is not one number: it grows by the height of the address bar the moment the bar collapses and shrinks again when the bar comes back. `computeLayout` makes `bandTop` a share of that height, so each of those moves the control band, the strips and the lobes — and a thumb already resting on a lobe mid-wave is then resting beside it without having moved. The pair's own report of it is *it sometimes does not react*.
+
 ## 2026-09-21 · e812e67e — A timeout that scales is still wrong if the figure it scales is stale
 
 `bun run land` went red on `doc-drift-names.test.ts` for a reason the diff could not cause, and the file passed in 1.4 seconds alone a minute later. `repo-time.ts` was written to end exactly that, and it does its half: the timeout it computed had already scaled to 32 seconds. What it cannot measure is the one number it is handed — what the test costs on an idle machine — and that test declares 120 ms for a body timed here at 753, 803 and 870.
