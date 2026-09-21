@@ -15943,3 +15943,5 @@ on the *wave's* beat rather than the world's, and a type that was one field
 short of the question cost twenty-nine call sites before a line of the actual
 control was written. **A hit test can only be as honest as the state the hit
 test is handed.**
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

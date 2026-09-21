@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 9fcaf43f — THE VANE's arm and its housing become hands
+
+Both gestures shipped in the simulation on 18 September 2026 with nothing drawn to take hold of, and they are not two conveniences: from VEER on, the housing stops splitting on the cycle's clock, so a wave with no pin in it has no opening at all and the fight cannot be finished. These are the sixth and seventh handles to make `orreryRing`'s walk from `unbuilt` to `field`, and the first pair that have to be used in order — his thumb stops the arm, her haul splits the bearing it stopped in.
+
 ## 2026-09-21 · f61cb7b4 — THE PULSE's meter becomes the handle it was promising
 
 The rule shipped a long way ahead of the picture: `pulseHandHeard` has been listening for a thumb on the meter since the round landed, and the wave's own guide has been telling the pair "Bar low: a thumb on it carries them" over a bar with nothing on it to take hold of. This is the fifth handle to make `orreryRing`'s walk from `unbuilt` to `field`.
