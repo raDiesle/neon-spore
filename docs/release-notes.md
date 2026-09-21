@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 4050372b — Queue: `next` hands out an entry no session can finish, and goes on doing it
+
+THE THROAT's three sounds say in their own entry that everything a machine can settle is settled and what is left is three presses by an ear. `bun run queue next` handed it out anyway; releasing it put it back at the top and the next call handed out the same entry again. `queue list` already prints ASKS THE OWNER beside it, so the information is there and `next` does not use it. The entry names the two answers it picks between.
+
 ## 2026-09-21 · 62e3d0d4 — An empty candidate directory says it is empty, and `versus new` prints the mkdir
 
 `bun run versus index` failed on a directory a lane had just made with `lost-screen/pool/index.ts exports no `const … : Variant`` — true, and about a file nobody had written. A slot wants two answers, so a lane opening one writes the first candidate's files and the second's a few minutes later, and in between every `versus index` and every `bun test` blamed the wrong thing. `discover` now says which half of a candidate is missing: an empty directory is empty and is filled or removed, a directory with paint and no `index.ts` is an answer whose registration was never written, and a file with no export keeps the message it always had. Each names the repo-relative path in full, and a test builds all three trees apart, because `discover` throws on the first directory it reaches.
