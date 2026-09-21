@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — lost-screen-one-pool — the other two answers, and the slot closed
+
+- reading — 5 min. Nothing new: the same seam the half before this one opened,
+  and the two shapes were decided when the lane was split.
+- writing — 25 min. Two candidates. `one` is the shipped bleed's arithmetic —
+  one run instead of thirteen, twelve seconds instead of one — so the sheet has
+  a control that changes the count and the speed and nothing else, and a vote
+  against it is a vote about the substance. `pool` is the only answer in the
+  slot that is not a thing arriving.
+- looking — 20 min. Three shots. `one` stood two and a half tiles wide on the
+  first and was a pillar with the words behind it, which is a quarter of the
+  phone; at one tile it is a rivulet. `pool` was right the first time — the
+  level stops half a tile under the hull and the breach stands clear of it,
+  which is the whole picture and not a clearance arranged around the rule.
+- friction — 5 min. An empty candidate directory left by `mkdir` before its
+  files were written makes `versus index` fail with the directory's own name,
+  which cost a background timeout to see.
+- landing — 10 min.
+
+The bottleneck was writing, for once, and only because looking was cheap: two
+paints with one clear defect between them, against six in the half before.
+A candidate whose shape is decided before the lane starts costs what it looks
+like it should cost.
+
 ## 2026-09-21 — lost-screen-slime-splash — two slower answers to the thirteen rivulets
 
 - reading — 15 min. The lost seam and what ships in it: `lost-look.ts`'s record,

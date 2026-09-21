@@ -6,6 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { LOST_ONE } from "./lost-screen/one/index.js";
+import { LOST_POOL } from "./lost-screen/pool/index.js";
 import { LOST_SLIME } from "./lost-screen/slime/index.js";
 import { LOST_SPLASH } from "./lost-screen/splash/index.js";
 import { SLOW_DRAIN } from "./slow-window/drain/index.js";
@@ -15,6 +17,8 @@ import { SLOW_GUTTER } from "./slow-window/gutter/index.js";
 import { SLOW_WASH } from "./slow-window/wash/index.js";
 
 export const VARIANTS: Variant[] = [
+  LOST_ONE,
+  LOST_POOL,
   LOST_SLIME,
   LOST_SPLASH,
   SLOW_DRAIN,
