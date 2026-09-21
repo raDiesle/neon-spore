@@ -449,6 +449,7 @@ what a phone cannot do is *reach* that strip.
 ## THE THROAT's three hand sounds have never been heard by an ear
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-versus-new-leaves-no-directory (claim: claude/queue-the-throats-three-hand-sounds-have-never-been-he)
 - **Files:** `packages/audio/src/sounds/boss-throat.ts`, `packages/audio/src/bind-throat.ts`, `tools/director/src/sound-page.ts`
 - **Asks:** Do CINCH, SLIP and HAUL read as one gullet under a thumb, or does one of them want re-voicing?
 
