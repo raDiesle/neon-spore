@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 2997cd75 — A state of a boss is any condition, not only a phase on its clock
+
+THE GAUGE's jam and its bind had no card on the director's STATES sheet, and both ON THE FIELD rows for the round pointed at THE GAUGE · PLAY — a picture with neither control drawn on it, so a reader following the link found no ring where the row said one stands.
+
 ## 2026-09-21 · 48f643ee — A handle the flag cannot name is a gesture nobody can photograph
 
 `--hold` stopped at `instarMark2`, so the eight newest handles in the game could only be captured released: BULB QUEEN's two marks, THE FILAMENT's two thumbs, THE STARE's lid from either seat, THE MAZE's heart, and THE THROAT's cinch and haul. Each row is read off the simulation's own hand file rather than off the picture — the seat that may send it, the name it goes out under, which ids exist — and those facts now live in `hold-targets.ts`, leaving `hold.ts` as text turning into commands.
