@@ -1,5 +1,5 @@
 import type { SimConfig } from "@neon-spore/sim";
-import type { Viewport } from "./renderer.js";
+import { NO_INSET, type Viewport } from "./renderer.js";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -56,11 +56,25 @@ export function bandHeightFor(height: number, cfg: SimConfig, _role: ViewRole): 
  * the gap used to move when the view switched. The tile is whatever the height
  * leaves; the stage is that many columns wide, and never wider than a phone or
  * than the window.
+ *
+ * **And never out into the phone's own furniture.** `viewport.inset` is the
+ * strips the device keeps — the notch and the status bar above, the home
+ * indicator or the gesture bar below — and the stage is cut inside them rather
+ * than under them. It is done here, once, instead of in `computeLayout`:
+ * everything the players touch is placed inside the stage and drawn from its
+ * corner, so a stage that has stepped in carries the band, the strips and the
+ * lobes in with it, and `bandSoloPct` is a share of the height a thumb is
+ * actually allowed rather than of the window's. Nothing was moved by hand.
  */
 export function computeStage(viewport: Viewport, cfg: SimConfig, role: ViewRole): Stage {
-  const height = viewport.height;
+  const inset = viewport.inset ?? NO_INSET;
+  // Never negative: a window shorter than its own furniture is what a phone
+  // reports for a moment while it rotates, and a negative height reaches the
+  // canvas as a negative radius, which throws.
+  const height = Math.max(0, viewport.height - inset.top - inset.bottom);
+  const across = Math.max(0, viewport.width - inset.left - inset.right);
   const usable = height - bandHeightFor(height, cfg, role) - cfg.radarHeightPx;
   const tile = Math.max(0, usable / cfg.rows);
-  const width = Math.min(viewport.width, height * STAGE_ASPECT, cfg.cols * tile);
-  return { left: Math.round((viewport.width - width) / 2), top: 0, width, height };
+  const width = Math.min(across, height * STAGE_ASPECT, cfg.cols * tile);
+  return { left: inset.left + Math.round((across - width) / 2), top: inset.top, width, height };
 }

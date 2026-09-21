@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — safe-area — the band runs to the screen's edges, where the phone's own gestures start
+
+- reading — 10 min. The queue entry, `layout-stage.ts` and every caller of
+  `computeStage`, and `index.html` for `viewport-fit=cover` — the inset is
+  worth nothing without it.
+- writing — 35 min. `Insets` and `NO_INSET` on the renderer's `Viewport`,
+  the inset applied once in `computeStage`, the probe element in
+  `safe-area.ts`, and three test files: four cases on the stage, six on the
+  probe, four more on the window fake.
+- looking — 20 min. The preview at 391x844 with the probe's padding set to a
+  notch and a home indicator: the picture stopped at y=47 and y=810 instead of
+  0 and 844. A first attempt injected the padding without moving the width and
+  measured nothing, because the freeze this tree landed an hour ago refuses a
+  vertical change on its own — the proof had to change the width too.
+- friction — 10 min. Biome's export sort, and `docs/INDEX.md` red for the new
+  file; both are one command each and both were found by `check:fast` rather
+  than before it.
+- landing — 15 min.
+
+The bottleneck was looking: proving an inset on a machine that has none meant
+faking the furniture and then working out why the fake was being ignored.
+
 ## 2026-09-21 — frozen-stage — the field is measured when the wave opens, not while it plays
 
 - reading — 15 min. The queue entry, `viewport.ts`, and `run-state.ts` again —

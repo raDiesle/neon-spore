@@ -4,10 +4,38 @@ import type { ViewRole } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 import type { ShipHand } from "./touch-ship.js";
 
+/**
+ * The strips of the window the phone keeps for itself.
+ *
+ * A notch and a status bar at the top, the home indicator or the gesture bar
+ * at the bottom, and on a rotated phone the rounded corners at the sides. They
+ * are the browser's `env(safe-area-inset-*)`, read by the host that has a
+ * document (`apps/game/src/safe-area.ts`) — nothing in this package asks the
+ * DOM anything.
+ *
+ * Zero everywhere else, which is every caller that is not a phone: a desktop
+ * window, the director's pages, `bun run frames`.
+ */
+export interface Insets {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
+/** No phone furniture anywhere — the answer for every screen that has none. */
+export const NO_INSET: Insets = { top: 0, right: 0, bottom: 0, left: 0 };
+
 export interface Viewport {
   width: number;
   height: number;
   dpr: number;
+  /**
+   * The furniture, where the host knows about any. Optional because the stage
+   * is the same rectangle without it and a dozen callers have no phone in
+   * front of them — `computeStage` reads `NO_INSET` when it is absent.
+   */
+  inset?: Insets;
 }
 
 export interface ViewState {

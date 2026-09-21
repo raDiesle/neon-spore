@@ -208,6 +208,28 @@ question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
 ```
+## The phone's furniture is read again on every one of a resize burst
+
+- **Found:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho
+- **Files:** `apps/game/src/safe-area.ts`, `apps/game/src/viewport.ts`
+- **Where:** local
+
+`measure()` calls `safeArea()`, and `safeArea()` calls `getComputedStyle` on
+the probe and reads a `padding` off it. Reading a resolved length forces the
+browser to flush style and layout there and then, synchronously, before the
+call returns — and `measure()` runs on every `resize`, on every
+`visualViewport` resize, and on every `ResizeObserver` callback. An address bar
+sliding away fires all three, dozens of times, each one a forced flush in the
+middle of a frame. It is paid whether the measurement is then used or thrown
+away by the freeze, because the read happens before either question is asked.
+
+The four numbers change on exactly two events — a rotation and the first
+layout — and on nothing else. So the inset wants to be read once and kept,
+refreshed on `orientationchange` and on the `ResizeObserver` the app already
+binds, with `measure()` reading the kept value. The proof is a test that counts
+`getComputedStyle` calls across a burst of resizes: the fake in
+`apps/game/test/viewport.test.ts` already stands one up and only has to count.
+
 ## `apps/game/src/main.ts` is at the 250-line ceiling exactly
 
 - **Found:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar
@@ -669,32 +691,6 @@ It needs a row in the settings menu that turns it off, because fullscreen on a
 desktop browser is not what a person testing wants, and because a player who
 was put in fullscreen without being asked and cannot find the way out will
 close the tab rather than the game.
-
-## The band runs to the screen's edges, where the phone's own gestures start
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar (claim: claude/queue-the-band-runs-to-the-screens-edges-where-the-pho)
-- **Files:** `packages/render/src/layout.ts`, `packages/render/src/strip-band.ts`, `apps/game/src/game.css`, `packages/sim/src/config-view.ts`
-- **Where:** local
-
-`computeLayout` puts `bandTop` at `height - bandHeight` and the strips run the
-full width, so the band's outer edge is the window's outer edge on all three
-sides. On a phone those three edges are taken: the bottom strip is under the
-home indicator on an iPhone and under the gesture bar on Android, and the left
-and right edges are where the back swipe starts. The game's own CSS furniture
-already respects `env(safe-area-inset-*)`; the picture the game is played on
-does not, because it is drawn on a canvas that covers the window.
-
-The fix is a gutter the renderer knows about rather than a CSS one: the four
-`env(safe-area-inset-*)` values read once and handed to `computeLayout` as an
-inset, so the band is laid out inside the rectangle the phone actually lets a
-thumb have. `bandSoloPct` then measures the usable height rather than the
-window's.
-
-It is the same complaint as *the phone's back gesture leaves the game instead
-of asking*, from the other end: that entry catches the gesture once it has
-happened, this one keeps the thumb out of the corner where it happens. Both are
-worth having, and fullscreen (above) removes neither.
 
 ## Nothing says how long a thumb waits for the field to answer it
 

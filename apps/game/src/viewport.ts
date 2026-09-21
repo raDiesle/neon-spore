@@ -2,7 +2,9 @@ import {
   clientOfStage,
   computeLayout,
   computeStage,
+  type Insets,
   type Layout,
+  NO_INSET,
   pointOnStage,
   type Renderer,
   type Stage,
@@ -10,12 +12,15 @@ import {
 } from "@neon-spore/render";
 import type { SimConfig } from "@neon-spore/sim";
 import type { RunState } from "./run-state.js";
+import { safeArea } from "./safe-area.js";
 
-/** The rectangle actually showing, in CSS pixels, and how dense it is. */
+/** The rectangle actually showing, in CSS pixels, how dense it is, and the
+ * strips of it the phone keeps for itself (`safe-area.ts`). */
 interface Viewport {
   width: number;
   height: number;
   dpr: number;
+  inset: Insets;
 }
 
 /**
@@ -38,7 +43,25 @@ function measure(): Viewport {
     width: Math.round(seen?.width ?? window.innerWidth),
     height: Math.round(seen?.height ?? window.innerHeight),
     dpr: Math.min(window.devicePixelRatio || 1, 2),
+    inset: safeArea(),
   };
+}
+
+/**
+ * The measurement in two halves, each as one string.
+ *
+ * *Did anything move* is asked twice below and about different halves of the
+ * answer, and spelling either out as four comparisons is how a field comes to
+ * be left out of one of them. Across: the width, the density, and the
+ * furniture at the sides. Down: the height and the furniture above and below
+ * it — which is the half the address bar moves and the half a run refuses.
+ */
+function across(v: Viewport): string {
+  return `${v.width}:${v.dpr}:${v.inset.left}:${v.inset.right}`;
+}
+
+function down(v: Viewport): string {
+  return `${v.height}:${v.inset.top}:${v.inset.bottom}`;
 }
 
 /**
@@ -108,10 +131,10 @@ export interface Geometry {
  * game never asked for — so a resize during a run is a thing to survive, not a
  * thing to honour.
  *
- * Only the height is frozen. A change of width is a rotation or a desktop
+ * Only the vertical is frozen. A change of width is a rotation or a desktop
  * window being dragged, which is deliberate, visible and impossible to play
- * through unanswered; when the width moves the whole measurement is taken,
- * height and all, because half of a rotation is not a stage.
+ * through unanswered; when it moves the whole measurement is taken, height and
+ * all, because half of a rotation is not a stage.
  *
  * Outside a run the viewport is answered as it always was: a keyboard opening
  * over the room code on the join screen is a resize that has to be obeyed. And
@@ -125,7 +148,7 @@ export function bindViewport(
   role: () => ViewRole,
   run: RunState,
 ): Geometry {
-  let viewport: Viewport = { width: 1, height: 1, dpr: 1 };
+  let viewport: Viewport = { width: 1, height: 1, dpr: 1, inset: NO_INSET };
 
   const apply = (forced: boolean): void => {
     const next = measure();
@@ -133,9 +156,11 @@ export function bindViewport(
     // moment the address bar animates. Sizing the canvas to it once would leave
     // it at zero for good, because no further resize event need follow.
     if (next.width < 1 || next.height < 1) return;
-    const sameShape = next.width === viewport.width && next.dpr === viewport.dpr;
-    if (sameShape && next.height === viewport.height) return;
-    if (sameShape && !forced && run.running()) return;
+    const sameAcross = across(next) === across(viewport);
+    if (sameAcross && down(next) === down(viewport)) return;
+    // Nothing moved across, so what moved is the height or the furniture around
+    // it — the address bar, or a keyboard. Not a wave's business.
+    if (sameAcross && !forced && run.running()) return;
     viewport = next;
     renderer.resize(viewport);
   };

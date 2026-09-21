@@ -1782,6 +1782,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/sign-in-config.ts` | The Firebase project the game signs in against — the owner's to paste |
 | `apps/game/src/sign-in-standin.ts` | A signed-in person with no Google behind them, so a check can be one |
 | `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
+| `apps/game/src/safe-area.ts` | The strips of the screen the phone keeps for itself, in numbers |
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
 | `apps/game/src/tick-rate.ts` |  |
