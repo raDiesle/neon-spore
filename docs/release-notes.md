@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · b07128f9 — The rock out of THE SURGE's bulb, looked at, and three findings
+
+An unverified landing from 19 September owed two looks: the picture of the rock coming out of the bulb's underside, and THE SURGE at tempo with one in the air. Both are now photographed and the rock's own picture is right — it leaves the row under the bulb, in a column the bulb covers, and by the next beat it is a clear body with a flame trail falling at the ship.
+
 ## 2026-09-21 · a488cadc — THE THROAT's haul falls, so it is not THE VANE's haul
 
 The owner picked the haul out of the three hands on 21 September 2026 and said a lane re-voices it without asking again. It is the one of the seven that has to be told apart by ear from a sound the game already has, and it was built with a rising sine, 84 to 118 — which is exactly what boss.vaneHaul is: a drag rising to its stop, so the seat that did not do it hears a window open.
