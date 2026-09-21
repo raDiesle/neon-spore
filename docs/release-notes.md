@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · fe706786 — The director's clocks spend a slow beat the way a phone does
+
+THE SLOW is a span of beats played at a fraction of wall-clock rate, and the simulation only says which beats: the rate they are spent at is the clock's business. The director has two clocks of its own — the GAME column's stage and a VERSUS pair's two phones — and both answered `cfg.tickHz` flat, so a window opened on either ran at ordinary speed. The one moment in this game that exists to be felt could not be felt on the two pages built for looking at it, and a pair judging a picture of that window would have been voting on a border closing three times too fast — a picture the phone never draws.
+
 ## 2026-09-21 · 9424e6f8 — A window that exists to be felt gets somewhere to be seen
 
 THE SLOW writes two beats into World and the app stretches tickMs across them; nothing in packages/render ever asked about either, so the one moment in this game that exists purely to be felt is the one moment the picture says nothing about. `slow-look.ts` is where an answer to that can hang: the window read fresh off the world as beats, through and left, a `SLOW_LOOK` record with one field, and a pass beside `drawCandleField` — over every body on the field and under the ship, because the band is how the pair answers the hurry and must not be dimmed by a picture of it.
