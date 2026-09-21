@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 7470542e — The screen stays on for as long as the world ticks
+
+A phone dims and locks on an idle timer that counts taps, and this game is played in long holds: a thumb on THE SURGE's bulb, a hand on a handle, a guard held through a volley. Forty seconds of that is what a phone reads as an abandoned page — while the other phone in the room is still playing, so the dim arrives as a desync the pair have to talk their way out of. The screen is now asked to stay on, and let go the moment anything holds the world still.
+
 ## 2026-09-21 · 4050372b — Queue: `next` hands out an entry no session can finish, and goes on doing it
 
 THE THROAT's three sounds say in their own entry that everything a machine can settle is settled and what is left is three presses by an ear. `bun run queue next` handed it out anyway; releasing it put it back at the top and the next call handed out the same entry again. `queue list` already prints ASKS THE OWNER beside it, so the information is there and `next` does not use it. The entry names the two answers it picks between.
