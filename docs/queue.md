@@ -651,6 +651,7 @@ close the tab rather than the game.
 ## The stage is sized from a number the address bar moves
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-loaded-timeout-figures-have-gone-stale (claim: claude/queue-the-stage-is-sized-from-a-number-the-address-bar)
 - **Files:** `apps/game/src/viewport.ts`, `apps/game/src/game.css`, `packages/render/src/layout.ts`
 - **Where:** local
 
