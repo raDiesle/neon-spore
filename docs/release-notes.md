@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · d75a3245 — Four answers to a window the game only ever lets you feel
+
+THE SLOW stretches two beats of wall clock and draws nothing: the pair feel the game go heavy and there is no mark on the screen saying so, which is the one thing in this game a player cannot ask their partner about. The seam that lets a candidate answer it landed last week; this fills the slot.
+
 ## 2026-09-21 · fe706786 — The director's clocks spend a slow beat the way a phone does
 
 THE SLOW is a span of beats played at a fraction of wall-clock rate, and the simulation only says which beats: the rate they are spent at is the clock's business. The director has two clocks of its own — the GAME column's stage and a VERSUS pair's two phones — and both answered `cfg.tickHz` flat, so a window opened on either ran at ordinary speed. The one moment in this game that exists to be felt could not be felt on the two pages built for looking at it, and a pair judging a picture of that window would have been voting on a border closing three times too fast — a picture the phone never draws.
