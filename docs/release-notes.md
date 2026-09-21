@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · e812e67e — A timeout that scales is still wrong if the figure it scales is stale
+
+`bun run land` went red on `doc-drift-names.test.ts` for a reason the diff could not cause, and the file passed in 1.4 seconds alone a minute later. `repo-time.ts` was written to end exactly that, and it does its half: the timeout it computed had already scaled to 32 seconds. What it cannot measure is the one number it is handed — what the test costs on an idle machine — and that test declares 120 ms for a body timed here at 753, 803 and 870.
+
 ## 2026-09-21 · 7470542e — The screen stays on for as long as the world ticks
 
 A phone dims and locks on an idle timer that counts taps, and this game is played in long holds: a thumb on THE SURGE's bulb, a hand on a handle, a guard held through a volley. Forty seconds of that is what a phone reads as an abandoned page — while the other phone in the room is still playing, so the dim arrives as a desync the pair have to talk their way out of. The screen is now asked to stay on, and let go the moment anything holds the world still.
