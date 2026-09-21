@@ -48,6 +48,19 @@ never again. Here it is in front of whoever runs `bun run queue`, the listing
 marks it `ASKS THE OWNER`, and `next` hands the session a prompt that puts the
 question first and says to build nothing until it is answered.
 
+**The answer is written back into the entry**, on an `- **Answered:** <date> —
+<what was chosen, and over what>` line under the `Asks:`. That line is not
+bookkeeping: `next` passes over an entry whose ask has no answer under it, and
+hands it out like any other once one does. Before that, a lane following
+*continue to work on the queue* hit *THE THROAT's three hand sounds*, whose own
+body says what is left is three presses by an ear, released it, and was handed
+the same entry again — three sessions in a row picked it up. The listing reads
+`ANSWERED` instead of `ASKS THE OWNER` once the line is there, and prints it.
+**A re-ask appends rather than overwrites**, and the last line is the live one:
+THE SCOUT's entry keeps an answer given against an option its geometry did not
+allow, under the one that replaced it, because what was decided first and why
+it did not hold is half of what the next session needs. `tools/queue/asking.ts`.
+
 Such an entry is otherwise an ordinary one and is held to the same test — it is
 claimed, worked in its own lane and removed by `queue done` — so the body still
 has to say what to change and still has to **name the options the answer picks
@@ -447,37 +460,12 @@ decision and wants an eye on a phone, not a flag. The director's side of the
 same ask is smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works;
 what a phone cannot do is *reach* that strip.
 
-## `queue next` hands out an entry no session can finish, and goes on doing it
-
-- **Found:** 2026-09-21, claude/queue-versus-new-leaves-no-directory
-- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-queue-next-hands-out-an-entry-no-session-can-fin)
-- **Files:** `tools/queue/run.ts`, `tools/queue/claim.ts`, `tools/queue/test/taken.test.ts`
-- **Asks:** Should `next` skip an entry marked ASKS THE OWNER, or does an entry need a field saying the ask is the whole of what is left?
-
-*THE THROAT's three hand sounds have never been heard by an ear* says in its
-own body that everything a machine can settle is settled and what is left is
-three presses by an ear. `bun run queue next` handed it out anyway; the entry
-was released and `next` handed out the same one again, because release puts it
-back where it was and `next` reads from the top. A session following *continue
-to work on the queue* cannot get past it without knowing `queue take` exists.
-It is the third session to pick this entry up, which its own body records.
-
-`queue list` already prints **ASKS THE OWNER** beside such an entry, so the
-information is there and `next` does not use it.
-
-The answer picks between two. **`next` skips ASKS THE OWNER and only
-`take <title>` hands one out** — simple, and wrong for the entries the format
-was written for, where the ask is a side question and there is decided work in
-named files underneath it. Or **an entry says which kind it is**: a field that
-marks an ask as *blocking*, written by the lane that files it, with `next`
-skipping only those. The second wants a name and a line in this file's
-preamble, which is why it is asked rather than chosen.
-
 ## THE THROAT's three hand sounds have never been heard by an ear
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
 - **Files:** `packages/audio/src/sounds/boss-throat.ts`, `packages/audio/src/bind-throat.ts`, `tools/director/src/sound-page.ts`
 - **Asks:** Do CINCH, SLIP and HAUL read as one gullet under a thumb, or does one of them want re-voicing?
+- **Answered:** 21 September 2026 — HAUL wants re-voicing, and a lane does it without asking again. The owner chose that over pressing the three himself and over leaving all three: a lane re-voices HAUL against the other two, lands it, and he hears the result the next time he plays. That is the yes the change needs, so no VERSUS card and no second question — what is left is ordinary work in the files below.
 
 *THE THROAT's two hands are heard: the cinch, the slip and the haul* landed
 from a session with no ear, and this entry has now been picked up by a second
@@ -1201,6 +1189,7 @@ where the fourth word for the shield lives.
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
 - **Files:** `packages/content/src/controls.ts`, `apps/game/src/menu-seats.ts`, `packages/content/src/waves/act-1.ts`, `.claude/skills/game-words/SKILL.md`
 - **Asks:** Which single word does a player read for the thing Player 2 slides and Player 1 triggers — SHIELD, WARD, PLATE or GUARD?
+- **Answered:** 21 September 2026 — SHIELD. The owner: *what the control itself is labelled today, so the button a thumb is on already says it and nothing on the panel changes; the guides and the menu move to it.* Chosen over WARD, which would have relabelled the control to win the verb, and over PLATE and GUARD. `CLAUDE.md`'s fixed vocabulary loses **guard** in the same lane — the list carrying both is how four words happened.
 
 All four ship today, for one object. The control is labelled `SHIELD`
 (`controls.ts`). THE ROCK's guide says *the plate is already standing in that

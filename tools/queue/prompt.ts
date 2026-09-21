@@ -11,6 +11,7 @@
  * all.
  */
 
+import { answerTo, waiting } from "./asking.js";
 import type { Item } from "./queue.js";
 
 /**
@@ -33,7 +34,7 @@ export function promptFor(item: Item, branch: string, stale?: string): string {
           "",
         ]
       : []),
-    ...(item.asks
+    ...(waiting(item)
       ? [
           // The whole difference an `Asks:` makes, said at the top where a
           // session reads it before it starts building the wrong thing.
@@ -47,7 +48,25 @@ export function promptFor(item: Item, branch: string, stale?: string): string {
           `everything else ready, say so and land nothing that depends on it.`,
           "",
         ]
-      : [`It is a technical improvement, not a look — it lands on main like any`, `refactor.`, ""]),
+      : item.asks
+        ? [
+            // An answered ask is ordinary work again, and the one thing this
+            // session must not do is ask it a second time: the entry keeps
+            // every answer it was given, so the live one is said here rather
+            // than left to be picked out of the body.
+            `**The question this entry opened with has been answered, and the`,
+            `answer is the spec:**`,
+            "",
+            `    ${answerTo(item)}`,
+            "",
+            `Build that. Do not put the choice back to the owner.`,
+            "",
+          ]
+        : [
+            `It is a technical improvement, not a look — it lands on main like any`,
+            `refactor.`,
+            "",
+          ]),
     // **Size is decided here or it is discovered at minute 180.** The prompt
     // used to say one thing about it, in its last line, and it said it as a
     // fallback: leave what you finished. That is the discovery

@@ -49,6 +49,12 @@ export type Item = {
    * A field rather than a word in the title, which is where it started: the
    * title is capped at 80 characters and an `ANSWER NEEDED —` prefix spent a
    * fifth of them on saying what a field says once.
+   *
+   * An entry where the ask is the *whole* of what is left is passed over by
+   * `next` until an `- **Answered:**` line is written under it. That line is
+   * parsed by `asking.ts` rather than here, for the reason `problems.ts` is
+   * not here either: this file says what the lines are, and those say what a
+   * command may do with them.
    */
   readonly asks: string;
   /**

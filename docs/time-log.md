@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — queue-next-skips-unanswered — an entry nobody could finish
+
+- reading — 15 min. The queue entry, `tools/queue/` end to end — `queue.ts`,
+  `run.ts`, `where.ts`, `problems.ts`, `prompt.ts` — and the three entries in
+  `docs/queue.md` already carrying an `Answered:` line nothing parsed.
+- writing — 30 min. `asking.ts` and its test; the gate in `next`, the listing's
+  tag and count, the prompt's third branch, a mirror check in `problems.ts`,
+  the preamble paragraph, and the owner's three answers written into the two
+  entries they belong to.
+- looking — 5 min. `bun run queue` twice, to see `ANSWERED` replace `ASKS THE
+  OWNER` on two entries and the count line appear under the totals.
+- friction — 10 min. The field started on `Item` in `queue.ts` and the size
+  hook refused it at 224 lines; moving the whole of it to `asking.ts` was the
+  better shape anyway, which is what `problems.ts` had already established.
+- landing — 10 min. `check:fast`, commit, `land`.
+
+The bottleneck was the 250-line ceiling catching a field mid-edit: the second
+attempt was the right one, but the first was written before the seam was
+chosen, and `problems.ts` had the precedent all along.
+
 ## 2026-09-21 — boss-cue-lifts — two bosses lift a cue by hand
 
 - reading — 10 min. The queue entry, the nine boss readings under

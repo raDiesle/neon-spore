@@ -3,7 +3,8 @@
 /**
  * `bun run queue` — what is waiting, and what somebody is already on.
  * `bun run queue status` — DONE, IDLE or BUSY in one word.
- * `bun run queue next` — hand the first free item to a session of its own.
+ * `bun run queue next` — hand the first free item to a session of its own,
+ *   passing over one still waiting on the owner (`asking.ts`).
  * `bun run queue take <n|title>` — mark an item ongoing without opening a lane.
  * `bun run queue release <n|title>` — give a handed-out item back.
  * `bun run queue done "<title>"` — take an entry out once it has landed. By
@@ -22,6 +23,7 @@
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
+import { answerTo, asksTag, waiting } from "./asking.js";
 import {
   branchFor,
   claimOn,
@@ -72,13 +74,17 @@ if (!command || command === "list") {
       const held = claimOn(item, known);
       const parked = item.source === "parked" ? " (parked, half-done)" : "";
       // The owner reads this list to find what is waiting on *them*, so the
-      // mark goes on the title line rather than under it — a question three
-      // lines down is a question found by whoever was already reading.
-      const tag = `${item.asks ? " — ASKS THE OWNER" : ""}${reservedTag(item)}${parked}`;
+      // mark goes on the title line rather than under it (`asking.ts`).
+      const tag = `${asksTag(item)}${reservedTag(item)}${parked}`;
       console.log(`${String(i + 1).padStart(2)}. ${item.title}${tag}`);
       console.log(`    ${item.found}`);
       console.log(`    ${item.files.join(", ")}`);
       if (item.asks) console.log(`    ${item.asks}`);
+      // The answer under the question, so a session sees what was decided
+      // without opening the file — it is the thing that makes the entry
+      // claimable again, and it is worth the line.
+      const answer = answerTo(item);
+      if (answer) console.log(`    ${answer}`);
       if (held) console.log(`    taken — ${held}`);
       // Said under the entry rather than in the count: the mark is for the
       // session about to claim it, so it re-reads before it works (`stale.ts`).
@@ -92,6 +98,13 @@ if (!command || command === "list") {
     const elsewhere = here === free.length ? "" : ` (${here} of them for a ${kind} session)`;
     const taken = items.length - free.length;
     console.log(`\n${items.length} in the queue, ${free.length} free${elsewhere}, ${taken} taken.`);
+    // Counted for the owner, who is the one person this line is addressed to:
+    // `next` passes over these, so they sit at the top of his listing doing
+    // nothing until he says a sentence.
+    const asking = free.filter(waiting).length;
+    if (asking > 0) {
+      console.log(`${asking} of the free ones wait on your answer; \`next\` passes over them.`);
+    }
     console.log("`bun run queue next` hands the first free one to a session of its own,");
     console.log("`bun run queue take <n>` marks one ongoing without opening a lane,");
     console.log('and `bun run queue done "<title>"` takes it out — by name, never by number.');
@@ -105,14 +118,19 @@ if (!command || command === "list") {
   for (const line of statusLines(statusOf(items, known))) console.log(line);
 } else if (command === "next") {
   const free = unclaimed(items, known);
-  const item = arg ? pick(items, arg) : free.find((i) => fits(i, kind));
+  // An unanswered ask is passed over rather than refused: `next <n>` naming one
+  // still hands it out, and so does `take` (`asking.ts`).
+  const mine = free.filter((i) => fits(i, kind));
+  const item = arg ? pick(items, arg) : mine.find((i) => !waiting(i));
   if (!item) {
     console.log(
       items.length === 0
         ? "The queue is empty. Nothing is waiting."
         : free.length === 0
           ? "Every item is taken. `bun run queue` says who is on each."
-          : `Every free item is reserved for the other kind of session (this is a ${kind} one).`,
+          : mine.length === 0
+            ? `Every free item is reserved for the other kind of session (this is a ${kind} one).`
+            : "Every free item is waiting on the owner's answer. `bun run queue` says what each asks.",
     );
   } else {
     const held = claimOn(item, known);

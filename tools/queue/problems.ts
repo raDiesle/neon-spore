@@ -1,3 +1,4 @@
+import { answerTo } from "./asking.js";
 import { fieldOf, type Item, WHERE } from "./queue.js";
 
 /**
@@ -62,6 +63,13 @@ export function problemsWith(item: Item): string[] {
   // read it, agree, and still not know what was wanted from them.
   if (item.asks && !item.asks.includes("?")) {
     problems.push(`${where} — the Asks: line is not a question`);
+  }
+  // And the mirror of it. An `Answered:` under an entry that never asked
+  // anything is a decision recorded on the wrong entry: nothing reads it, and
+  // the entry it belonged to is still sitting in the listing marked ASKS THE
+  // OWNER while `next` passes over it (`asking.ts`).
+  if (!item.asks && answerTo(item)) {
+    problems.push(`${where} — an Answered: line with no Asks: over it`);
   }
   // A marker the listing writes for itself, written into the title as well.
   // `bun run queue list` builds each line as `<title> — ASKS THE OWNER —
