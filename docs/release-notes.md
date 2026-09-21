@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 6867195f — THE LEDGER and THE SPLICE point at their boss instead of at the hull
+
+Seven more pages off the plating. These two are the pair whose pages were nearly right there — THE LEDGER's cord really is rooted in the hull and THE SPLICE's mouths really do stand over it — but the hull anchor is the middle of the plating, and the cord goes in at one column and walks, and the mouths are a whole row.
+
 ## 2026-09-21 · 9b524e7c — Four more films point at their boss instead of at the hull
 
 THE GORGE, THE FLEET, THE MIRROR and THE STARE each said what they had to say over the middle of the player's own hull — and in three of the four the subject is not on the field at all, it is over it. Seven pages move onto the boss: the sack where its skin hangs, the pilot's row of counts under its lobes, the chart, the copy of the ship at the flip line, the eye in its socket.
