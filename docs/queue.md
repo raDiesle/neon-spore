@@ -248,6 +248,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `versus new` leaves no directory, and an empty one breaks `versus index`
 
 - **Found:** 2026-09-21, claude/queue-wave-lost-bleeds-thirteen-fast-rivulets-slower-b
+- **Taken:** 2026-09-21, claude/queue-versus-new-leaves-no-directory (claim: claude/queue-versus-new-leaves-no-directory-and-an-empty-one)
 - **Files:** `tools/versus/scaffold.ts`, `tools/versus/registry.ts`
 
 `bun run versus new <slot> <name>` prints the five rules a candidate has to
