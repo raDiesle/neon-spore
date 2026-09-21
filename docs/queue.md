@@ -767,6 +767,7 @@ what the rest of this file holds.
 ## THE HIVE has no rehearsal film: no `the-hive` scene exists
 
 - **Found:** 2026-09-20, claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo
+- **Taken:** 2026-09-21, claude/queue-chromium-launch-crashes-here-the-pipe-transport (claim: claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/content/test/scene-films.test.ts`
 - **Where:** local
 
