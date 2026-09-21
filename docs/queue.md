@@ -562,6 +562,7 @@ than the string-level unit tests above it.
 ## THE HIVE's rehearsal film clenches twice and teaches neither
 
 - **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
+- **Taken:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict (claim: claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac)
 - **Files:** `packages/content/src/scenes-choreographed.ts`, `packages/content/test/scene-hive.test.ts`, `docs/spec/bosses.md`
 
 The film was authored when this boss had one state. It now clenches inside
