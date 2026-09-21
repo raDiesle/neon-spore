@@ -574,6 +574,7 @@ than the string-level unit tests above it.
 ## Twenty-four on-field handles are on no tab, and the guard is hand-kept
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
+- **Taken:** 2026-09-21, claude/queue-packages-sim-src-drag-targets-c-ts-has-room-for (claim: claude/queue-twenty-four-on-field-handles-are-on-no-tab-and-t)
 - **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`
 
 `FIELD_CONTROLS` is the director's ON THE FIELD tab and the list
