@@ -574,6 +574,7 @@ than the string-level unit tests above it.
 ## `packages/sim/src/drag-targets-c.ts` has room for no more handles
 
 - **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
+- **Taken:** 2026-09-21, claude/queue-a-claim-whose-branch-is-gone-reads-as-taken-fore (claim: claude/queue-packages-sim-src-drag-targets-c-ts-has-room-for)
 - **Files:** `packages/sim/src/drag-targets-c.ts`, `packages/sim/src/drag-targets-b.ts`, `packages/sim/src/drag-targets.ts`
 
 246 lines of 250 after THE HIVE's `hiveLobe` went in, which is four lines and
