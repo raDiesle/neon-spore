@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — queue-drag-targets-c-has-room-for-no-more — a fourth page of handles
+
+- reading — 10 min. The two cuts already made, read off the headers of
+  `drag-targets-b.ts` and `-c.ts` rather than decided again: the seam is build
+  order, the *last* boss on the full page moves whole, and the set being
+  written never loses the comment beside it.
+- writing — 10 min. THE HIVE's name and its paragraph across to
+  `drag-targets-d.ts`, the union member, the new header, and the three stale
+  counts — `drag-targets.ts` still said the union was cut in *two* pages, and
+  `-b.ts` said three.
+- looking — 0 min. Nothing about this is visible in a frame.
+- friction — 0 min.
+- landing — 10 min. `bunx tsc --noEmit`, `bun run index` for the new file's row
+  — which came out short of its siblings' and was written by hand — and a full
+  `check:fast`, which a diff in `packages/sim` makes into the whole suite.
+
+The bottleneck was reading rather than deciding: the cut itself is a move and a
+re-export, and every question it could have raised had been answered in the
+header of the page being cut.
+
 ## 2026-09-21 — queue-a-claim-whose-branch-is-gone — a claim nothing is holding says so
 
 - reading — 20 min. The three stuck entries read off `docs/queue.md` with the

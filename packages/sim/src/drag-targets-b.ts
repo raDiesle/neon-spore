@@ -10,14 +10,15 @@ import type { DragTargetC } from "./drag-targets-c.js";
  * grown by a boss's worth of hands three times in a week. The seam is the order
  * the targets were added in and nothing depends on it — `drag-targets.ts`
  * unions this in, so `DragTarget` is one name and nothing that reaches for it
- * knows there are three pages.
+ * knows there are four pages.
  *
  * **This page is full.** THE LEDGER's four would have put it six lines over,
  * which is what THE VANE's two did to the first, so the same cut was made
  * again: `drag-targets-c.ts` carries the last boss on this page — THE TASTER,
  * whose paragraph went with its names — and every boss from there on. It is
  * the *last* set here that moves, never the one being written, so nobody's
- * comment is ever separated from the names it explains.
+ * comment is ever separated from the names it explains. That page filled in
+ * its turn and was cut the same way, onto `drag-targets-d.ts`.
  */
 export type DragTargetB =
   | "fleetBreach"

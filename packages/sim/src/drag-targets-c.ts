@@ -1,3 +1,5 @@
+import type { DragTargetD } from "./drag-targets-d.js";
+
 /**
  * **Every thing on this field a hand may take hold of, the third page** — the
  * names from THE TASTER's fan on.
@@ -8,7 +10,12 @@
  * handed across so that the set being written keeps its own comment. THE
  * TASTER's three came over with this file; THE LEDGER's four were written on
  * it. `drag-targets.ts` unions the pages together, so `DragTarget` is one name
- * and nothing that reaches for it knows there are three.
+ * and nothing that reaches for it knows there are four.
+ *
+ * **This page is full.** It stood at 246 lines of 250 once THE HIVE's underside
+ * went on it — four lines and one comment from red, with §6.2's brief still in
+ * the queue for five more bosses — so the same cut was made a second time and
+ * `drag-targets-d.ts` carries THE HIVE and every boss from here on.
  */
 export type DragTargetC =
   | "tasterBlade"
@@ -22,7 +29,9 @@ export type DragTargetC =
   | "scuttlePart"
   | "antiphonRail"
   | "wellSeam"
-  | "hiveLobe";
+  // THE HIVE's one, argued beside itself on the fourth page: this one filled
+  // the way the other two did.
+  | DragTargetD;
 
 /**
  * `tasterBlade`, `tasterGap` and `tasterLock` are the forty-sixth, -seventh and
@@ -218,29 +227,4 @@ export type DragTargetC =
  * plain columns on it, which is exactly why he has to ask her what the
  * numerals mean once the face has turned. Her press is dropped without a
  * sound.
- */
-
-/**
- * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
- * state of the thing it is on — `wellSeam`'s shape, on a body rather than on
- * a dial, and split between the two seats instead of given to one.
- *
- * It is the underside of THE HIVE, which is the one part of that boss inside
- * the field at all: the mass hangs over row 0 and everything else about the
- * fight is a column and a colour. A thumb on it takes no column off the
- * cannon and covers nothing with the shield, for the reason the seam does.
- *
- * **Clenched**, the handle is the whole underside and `fromYMilli` is the
- * pilot dragging it back within reach — down only, as `candleWick`'s is,
- * because a mass already at the top of the field has nowhere up to go.
- * **Swelling**, the handle is one lobe, `id` names which, and what the
- * navigator is doing is holding it rather than carrying it: the gesture is
- * counted in beats and the thumb never travels (`hive-hand.ts`).
- *
- * One name and not two because a pair who find the underside once have found
- * both halves, and because the two moments cannot overlap — a clenched mass
- * puts every lobe out of reach, which is exactly what the clench costs.
- * `id` is the site's index rather than its column, for `scuttlePart`'s
- * reason: the sites never re-order, and the index is what the wrung mark is
- * kept under.
  */

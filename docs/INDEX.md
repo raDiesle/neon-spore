@@ -506,6 +506,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
 | `packages/sim/src/drag-targets-b.ts` | **Every thing on this field a hand may take hold of, the second page** — the names from THE FLEET's chart on |
 | `packages/sim/src/drag-targets-c.ts` | **Every thing on this field a hand may take hold of, the third page** — the names from THE TASTER's fan on |
+| `packages/sim/src/drag-targets-d.ts` | **Every thing on this field a hand may take hold of, the fourth page** — the names from THE HIVE's underside on |
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/diastole-hash.ts` | what THE DIASTOLE puts into the world fingerprint, and nothing else |
 | `packages/sim/src/diastole-hand.ts` | **The one hand on THE DIASTOLE**: the clamp, player 1's thumb on the right chamber while it beats alone |

@@ -45,7 +45,7 @@ export type DragTarget =
   | "wardenEye"
   | "wardenHatch"
   // THE FLEET's three and THE VANE's two, argued beside themselves: this union
-  // is the half that grows, and it is cut in two pages.
+  // is the half that grows, and it is cut in four pages.
   | DragTargetB;
 
 /**

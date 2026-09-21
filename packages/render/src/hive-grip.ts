@@ -82,7 +82,7 @@ export function hiveLobeCircle(
 /**
  * A press on the underside or on a swelling lobe: a `drag` on `hiveLobe`,
  * carrying the lobe as its `id` when it is a lobe, because two swell at once
- * late in the fight and the simulation is told which (`drag-targets-c.ts`).
+ * late in the fight and the simulation is told which (`drag-targets-d.ts`).
  *
  * The haul carries no `id` and needs none: there is one mass. What it does
  * carry is `fromYMilli`, filled in by the drag as the thumb moves — a press
