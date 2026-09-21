@@ -14,7 +14,7 @@ import { SCENES } from "../src/scenes.js";
  * (`sim/test/copies-table.ts`). So the numbers in that section are here, in the
  * package that owns them.
  *
- * Both directions matter. A film written for one of the eight below fails this
+ * Both directions matter. A film written for one of the seven below fails this
  * and the failure says to update the section; a guide that loses its film fails
  * it the other way. Neither is a defect in the film — it is the document being
  * asked to keep up, which is the only thing that was ever wrong with it.
@@ -37,15 +37,9 @@ const STILL_PROSE = [
   "THE LIMPET",
   "THE LEECH",
   "THE CODEX",
-  // And THE HIVE, which is drawn — the mass, the nine sites, a breach open or
-  // sealed and the swell read by seat are all in `render/hive-draw.ts`,
-  // `hive-shape.ts` and `hive-fx.ts`. What its film waits on is that the wave
-  // cannot be won as it stands (`bosses.md` §11.14): two of the nine sites open
-  // on a spill beat for every seed, and a film is a world stepped by the real
-  // rules, so there is no honest film of a fight nobody can finish. Three
-  // answers are in `docs/queue.md` (*THE HIVE cannot be won*) and the film
-  // follows the one the owner picks.
-  "THE HIVE",
+  // THE HIVE left this list on 21 September 2026: the wave it could not be
+  // filmed against — nobody could finish it — was fixed on the 20th, and
+  // `scenes/the-hive.ts` is the film of it being won.
   // And THE INSTAR, which is drawn too, and is the picture every other boss's
   // is now measured against (`render/instar-draw.ts` and the eight files beside
   // it). Its guide names the rule and leaves the gestures to the body: each
@@ -77,9 +71,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-one films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Eighty, which is the number in the section. A film with no wave
+    // Eighty-one, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);

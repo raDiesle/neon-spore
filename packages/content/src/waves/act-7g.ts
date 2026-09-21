@@ -170,6 +170,7 @@ export const WAVES_ACT_7G: Wave[] = [
       both: "Seal all nine breaches: a shot in each one's colour, up its column, while it is open. CARRY and PRESS mark the reach and the shot; the colour and the swell are still yours to say. Ward the rocks they spill.",
       p1: "1. Say each breach's colour as it opens: THREE IS RED.\n2. CARRY marks an open breach: go to it.\n3. When she says where the next opens, be there before it does.\n4. Trigger the plate on rocks.",
       p2: "1. Say the column where the next breach swells, three beats ahead.\n2. Load the colour he gave. PRESS lights once he is under it: fire.\n3. Move the plate under the rocks.",
+      scene: "theHive",
     },
     entries: [],
     boss: { kind: "hive" },

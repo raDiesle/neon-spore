@@ -1,0 +1,147 @@
+import type { GuideScene } from "../scene-types.js";
+
+/**
+ * **THE HIVE's rehearsal — the colour is his, the warning is hers.**
+ *
+ * The fight is nine sites along a mass hung over the field. One swells, one
+ * opens in red or cyan, and a bolt of the wrong colour wakes the body instead
+ * of sealing it. Neither seat can do it alone by construction: the pilot is
+ * shown the colour inside a breach and no swell at all, the navigator is shown
+ * the swell and a breach with no colour in it, and the triggers are hers
+ * (`view-role-clocks-b.ts`). The field's own cues never say RED or CYAN and
+ * never mention the swell — they say CARRY and PRESS (`boss-cue-read-v.ts`) —
+ * so the split is the one thing a film has to carry, and every page here is
+ * one seat's screen showing what only that seat has.
+ *
+ * **Seed 6, for two accidents worth a page.** The sites open
+ * `3c 6r 5c 1r 2r 7r 8c 4c 9r`: the first two breaches are different colours,
+ * so the second cannot be answered by repeating the first; and the twins at
+ * the fifth opening land on columns 7 and 8, adjacent, one red and one cyan —
+ * one cannon, two colours, which is the fight's last lesson in one frame.
+ *
+ * **Why a spill is not a failure here.** A breach spills a living body, and a
+ * bolt of the breach's colour kills a living body of that colour — so a bolt
+ * fired into a spilling column is spent on the spill and never reaches the
+ * top. That is the whole of *clear it, then seal it*, and it is why the film
+ * fires twice into column 6 and twice into the twins. It is also why the first
+ * site is sealed before it ever spills: one shot, if the cannon is already
+ * there. The acts below were traced against the simulation beat by beat — a
+ * bolt takes 72 ticks to cross fifteen rows, and a body falls one row every
+ * 60.
+ *
+ * **Every press is authored fifteen ticks before its bolt leaves**, and that
+ * is what `chargeBeats` is doing above. The game lays a shot on a half-beat
+ * grid: a press waits for the next point strictly after it, and the bolt goes
+ * from *there* (`shotChargeBeats`, `sim/shot-charge.ts`). `DEFAULT_CONFIG` has
+ * no grid at all — a press is a bullet, so that a recorded replay keeps its
+ * timing to the tick — and the two are not the same film. Timed for the
+ * default, this one is fifteen ticks early everywhere, the third bolt kills
+ * nothing, and the hull is breached at beat 36. So the acts sit fifteen ticks
+ * before the departure they are for, the pairs are 60 apart because that is
+ * the grid's own spacing and the reload gap both, and the film names the grid
+ * it was written on rather than trusting whichever host is playing it — the
+ * first one to (`docs/queue.md`, 21 September 2026, which asks the same
+ * question of the other films).
+ *
+ * **It ends unfinished, on purpose.** Column 8 is left open and spilling with
+ * column 7 sealed beside it, because a bolt cannot pass a falling body and so
+ * no film can both clear a column and ward another in the same beats. The pair
+ * leave with the split, the seal and the double, and the rest is the fight.
+ */
+export const THE_HIVE: GuideScene = {
+  ticks: 3060,
+  bpm: 120,
+  chargeBeats: 0.5,
+  seed: 6,
+  entries: [],
+  boss: { kind: "hive" },
+  acts: [
+    // Site 1, column 3, cyan at beat 4: there before it opens, and sealed on
+    // beat 5, before its first spill is ever due.
+    { tick: 100, control: "cannon", worldCol: 3 },
+    { tick: 255, control: "fireCyan" },
+    // Site 2, column 6, red at beat 12 — and the spill comes on the opening
+    // beat. The first bolt clears the slick, the second seals on beat 14.
+    { tick: 620, control: "cannon", worldCol: 6 },
+    { tick: 705, control: "fireRed" },
+    { tick: 765, control: "fireRed" },
+    // Site 3, column 5, cyan at beat 20: the bolt is already in the air when
+    // the breach opens, and seals it inside the same beat.
+    { tick: 1050, control: "cannon", worldCol: 5 },
+    { tick: 1125, control: "fireCyan" },
+    // Site 4, column 1, red at beat 28 — answered in cyan. The body is
+    // provoked and spills a beat early; then the pair it cost: clear, seal.
+    { tick: 1520, control: "cannon", worldCol: 1 },
+    { tick: 1605, control: "fireCyan" },
+    { tick: 1725, control: "fireRed" },
+    { tick: 1785, control: "fireRed" },
+    // Site 5, column 2, red at beat 36: in flight again, sealed on the beat
+    // it opens on.
+    { tick: 2010, control: "cannon", worldCol: 2 },
+    { tick: 2085, control: "fireRed" },
+    // The twins at beat 44: column 7 red and column 8 cyan, adjacent, both
+    // spilling as they open. The cannon can only be in one of them.
+    { tick: 2500, control: "cannon", worldCol: 7 },
+    { tick: 2625, control: "fireRed" },
+    { tick: 2685, control: "fireRed" },
+  ],
+  steps: [
+    { tick: 0, seat: 2, text: "PLAYER 2 SEES IT SWELL", anchor: { at: "boss", part: "swell" } },
+    {
+      tick: 240,
+      seat: 1,
+      text: "PLAYER 1 SEES THE COLOUR",
+      anchor: { at: "boss", part: "breach" },
+    },
+    {
+      tick: 480,
+      seat: 1,
+      text: "BE THERE BEFORE IT OPENS",
+      anchor: { at: "control", control: "cannon" },
+    },
+    {
+      tick: 660,
+      seat: 2,
+      text: "IT SPILLED · TWO SHOTS",
+      anchor: { at: "control", control: "fireRed" },
+    },
+    { tick: 960, seat: 1, text: "A SEAL IS FOR GOOD", anchor: { at: "boss" } },
+    {
+      tick: 1140,
+      seat: 2,
+      text: "SHUT BEFORE IT EVER SPILLS",
+      anchor: { at: "control", control: "fireCyan" },
+    },
+    { tick: 1440, seat: 1, text: "MOVE ON HER WORD", anchor: { at: "control", control: "cannon" } },
+    {
+      tick: 1620,
+      seat: 2,
+      text: "THE WRONG COLOUR WAKES IT",
+      anchor: { at: "control", control: "fireCyan" },
+    },
+    {
+      tick: 1800,
+      seat: 2,
+      text: "IT SPILLS A BEAT SOONER",
+      anchor: { at: "boss", part: "breach" },
+    },
+    { tick: 1980, seat: 1, text: "FIVE SCARS · FOUR TO GO", anchor: { at: "boss" } },
+    {
+      tick: 2400,
+      seat: 2,
+      text: "SAY BOTH · HE PICKS ONE",
+      anchor: { at: "control", control: "fireRed" },
+    },
+    // The two pages the twins are for open on the beat the twins open and the
+    // beat after the first is sealed, so each is read from a frame of the
+    // thing it names — and the loop runs a beat past the last page so the
+    // second gets its two seconds, which `test/scene-pages.test.ts` asks for.
+    { tick: 2640, seat: 1, text: "TWO OPEN · TWO COLOURS", anchor: { at: "boss", part: "breach" } },
+    {
+      tick: 2820,
+      seat: 2,
+      text: "ONE SEALED · ONE SPILLING",
+      anchor: { at: "boss", part: "breach" },
+    },
+  ],
+};

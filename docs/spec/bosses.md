@@ -2341,9 +2341,28 @@ tests of the day never fired a bolt up a column. The owner picked the
 insect, 19 September 2026, over the fast rock and the pass
 (`docs/queue.md`, *THE HIVE cannot be won*) — the reasoning is above, in
 *Where this departs from the design* — and the sim was fixed the next day,
-20 September 2026. The film — a `the-hive` scene under
-`content/src/scenes/`, the rehearsal lane's own kind of work — is still
-owed; it is a fresh line in `docs/queue.md`, not this one.
+20 September 2026. The film followed on 21 September 2026
+(`content/src/scenes/the-hive.ts`, thirteen pages over 3,060 ticks, seed 6):
+the swell on her screen and the colour on his, five sites sealed — one
+before it ever spills, two by a bolt already in the air when the breach
+opens, one after a cyan bolt into a red breach hurried the whole cadence —
+and the twins last, one sealed and one left spilling, because a bolt cannot
+pass a falling body. It is the receipt that the fight can be won: the pairs
+of shots in it are the fix of 20 September 2026 being used.
+
+**It is also the first film authored for the shot grid the game runs on.**
+`apps/game` plays at `shotChargeBeats: 0.5` — a press waits for the next
+half-beat point and the bolt leaves from there — while `DEFAULT_CONFIG` ships
+zero so a recorded replay keeps its timing to the tick. Timed against the
+default, this film's bolts left fifteen ticks early, the third killed nothing,
+and the hull was breached at beat 36 in the game while the test stayed green.
+So every press here is authored fifteen ticks before the departure it is for,
+the pairs are 60 apart because that is the grid's spacing and the reload gap
+both, and the film **names the grid it was written on** rather than trusting
+whichever host is playing it — `GuideScene.chargeBeats`, laid over the host's
+value by `sceneScript` exactly as the film's own tempo is. It is the first film
+to carry one; the same question is owed to the other sixteen
+(`docs/queue.md`, 21 September 2026).
 
 ## 11.15 THE REPRISE — the wave you have just beaten, sent again unseen
 

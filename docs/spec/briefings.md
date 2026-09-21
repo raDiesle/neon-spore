@@ -295,7 +295,7 @@ before a room is even joined.
   says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The rehearsals — all but eight of them
+### 3.2 The rehearsals — all but seven of them
 
 A guide that names a `scene` does not draw a panel of prose at all. It plays a
 **rehearsal**: the game's own screen at full size, one device at a time. FIRST
@@ -305,19 +305,19 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty of them now**, one per guided wave bar eight, and
+**There are eighty-one of them now**, one per guided wave bar seven, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The eight that are still the three strings
+rather than a page of prose. The seven that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE HIVE, THE INSTAR and
+CODEX, THE INSTAR and
 THE FILAMENT** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those eight is a film nobody has written, and from THE
-HIVE's on they are owed by the lanes that draw them.** THE CANDLE's was the
+**Every one of those seven is a film nobody has written, and since THE
+HIVE's they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
 slide under it an `atBoss` act, the one authored column the mistake. THE
@@ -483,6 +483,21 @@ is the receipt for what the maw was doing when each pod arrived. Its film
 took `scenes.ts` past its limit, so the films this paragraph lists as owed
 now sit in `scenes-owed.ts`, beside the faults' (`scenes-faults.ts`) and
 the choreographed bosses' (`scenes-choreographed.ts`).
+THE HIVE's (21 September 2026) is the last film this paragraph was owed by a
+look lane, and it is written against a fight that had been fixed and never
+watched. The seed is chosen for two accidents — the first two breaches open
+in different colours, so the second cannot be answered by repeating the
+first, and the twins at the fifth opening land on adjacent columns one red
+and one cyan — and most of its shots come in pairs, because a spill is a
+living body and a bolt of the breach's own colour is spent killing one: it
+is *clear it, then seal it*, twice. One column is sealed before it ever
+spills, one is answered in the wrong colour and spills a beat early for it,
+and the last page is one twin sealed with the other spilling beside it,
+since a bolt cannot pass a falling body and no film can clear one column and
+ward another in the same beats. Its two split pages point at things
+`caption-anchor-boss.ts` had no line for — every open breach at once, and
+the swell, which is no ring at all on the pilot's screen because his screen
+does not draw one.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

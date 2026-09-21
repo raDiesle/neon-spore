@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — the-hive-film — THE HIVE has no rehearsal film
+
+- reading — 10 min. The queue entry, §11.14, and then the two files a split
+  film needs that no other film needed: `view-role-clocks-b.ts` for what each
+  seat is shown, and `caption-anchor-boss.ts` for what a caption may point at.
+- writing — 20 min. Thirteen pages and sixteen acts, traced act by act against
+  the simulation — a bolt is 72 ticks over fifteen rows, a body falls a row
+  every 60 — plus the `breach` and `swell` anchors and their tests.
+- looking — 10 min. Page 11 captured twice: once showing three scars and a ring
+  round the whole mass where two open breaches were authored, once showing the
+  two, ringed.
+- friction — 15 min. The first picture read as a paging bug and the tool was
+  instrumented before the film was: the clock on screen is `playTicks`, not the
+  film's tick, so a page at tick 2756 says 0:10. The real cause was underneath —
+  `apps/game` plays at `shotChargeBeats: 0.5` and every film test builds
+  `DEFAULT_CONFIG`, which is zero, so the film was proved against a game nobody
+  plays and lost the hull at beat 21 in the browser. Queued for the other
+  eighty.
+- landing — 5 min.
+
+The bottleneck was friction, and it was a false lead: a film disagreeing with
+its own test is worth suspecting the config before the machinery, because the
+config is the one thing `sceneScript` passes through untouched.
+
 ## 2026-09-21 — chrome-over-port — `chromium.launch()` crashes here; the pipe transport is why
 
 - reading — 10 min. The queue entry, which had already done the diagnosis

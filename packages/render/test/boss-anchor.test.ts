@@ -3,12 +3,16 @@ import { controlSet } from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  hiveBoss,
+  hiveNext,
+  hiveOpenCount,
   sinewBoss,
   startWave,
   step,
   tasterBoss,
 } from "@neon-spore/sim";
 import { anchorPoint } from "../src/caption-anchor.js";
+import { hiveBox, hiveSite } from "../src/hive-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { sinewCollarBox } from "../src/sinew-band.js";
 import { tasterFanBox, tasterRidge } from "../src/taster-draw.js";
@@ -100,6 +104,68 @@ describe("a caption pointed at THE TASTER", () => {
 
   it("is nothing for the counts on the pilot's screen, which draws none", () => {
     expect(anchorPoint(PILOT, withTaster(), SET, { at: "boss", part: "tally" }, 0)).toBeNull();
+  });
+});
+
+/** A world with the mass installed, `ticks` in — 120 is inside the swell
+ * before the first opening, 320 is after it. Seed 6 is the film's. */
+function withHive(ticks: number) {
+  const world = createWorld(CFG, 6, []);
+  startWave(world, 9, [], [], { kind: "hive" });
+  for (let t = 0; t < ticks; t++) step(world, []);
+  if (hiveBoss(world) === null) throw new Error("no mass was installed");
+  return world;
+}
+
+describe("a caption pointed at THE HIVE", () => {
+  it("rings the mass itself, on both screens, when no part is named", () => {
+    const world = withHive(120);
+    for (const l of [PILOT, NAVIGATOR]) {
+      const at = anchorPoint(l, world, SET, { at: "boss" }, 0);
+      const b = hiveBox(l, CFG);
+      expect(at?.x).toBe((b.left + b.right) * 0.5);
+      expect(at?.y).toBe((b.top + b.bottom) * 0.5);
+    }
+  });
+
+  it("rings the swelling site on the navigator's screen, which is shown it", () => {
+    const world = withHive(120);
+    const s = hiveBoss(world);
+    if (s === null) throw new Error("no mass");
+    const next = hiveNext(s);
+    const at = anchorPoint(NAVIGATOR, world, SET, { at: "boss", part: "swell" }, 0);
+    expect(at?.x).toBe(hiveSite(NAVIGATOR, s, next).x);
+  });
+
+  it("falls back to the mass for the navigator before anything swells", () => {
+    // A page opens on its first frame, and the swell is a beat off it — with
+    // no ring there would be no caption at all (`caption-anchor-boss.ts`).
+    const at = anchorPoint(NAVIGATOR, withHive(0), SET, { at: "boss", part: "swell" }, 0);
+    const b = hiveBox(NAVIGATOR, CFG);
+    expect(at?.x).toBe((b.left + b.right) * 0.5);
+  });
+
+  it("is nothing for the swell on the pilot's screen, which draws none", () => {
+    expect(anchorPoint(PILOT, withHive(120), SET, { at: "boss", part: "swell" }, 0)).toBeNull();
+  });
+
+  it("rings the open breach, on both screens", () => {
+    // Beat 4, when the first site is open and nothing has sealed it.
+    const world = withHive(320);
+    const s = hiveBoss(world);
+    if (s === null) throw new Error("no mass");
+    expect(hiveOpenCount(s)).toBe(1);
+    for (const l of [PILOT, NAVIGATOR]) {
+      const at = anchorPoint(l, world, SET, { at: "boss", part: "breach" }, 0);
+      expect(at?.x).toBe(hiveSite(l, s, 0).x);
+      expect(at?.y).toBe(hiveSite(l, s, 0).y);
+    }
+  });
+
+  it("falls back to the mass for a breach while none is open", () => {
+    const at = anchorPoint(PILOT, withHive(120), SET, { at: "boss", part: "breach" }, 0);
+    const b = hiveBox(PILOT, CFG);
+    expect(at?.x).toBe((b.left + b.right) * 0.5);
   });
 });
 

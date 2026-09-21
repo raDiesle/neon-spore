@@ -153,6 +153,10 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
   const sceneCfg: SimConfig = {
     ...cfg,
     bpm: scene.bpm,
+    // The shot grid, for the same reason the tempo is here: a press authored
+    // against one grid leaves on a different tick on another, and the film
+    // would be a different film per host (`scene-types.ts` `chargeBeats`).
+    ...(scene.chargeBeats === undefined ? {} : { shotChargeBeats: scene.chargeBeats }),
     ...(scene.pinballRows === undefined ? {} : { pinballRows: scene.pinballRows }),
     // A rehearsal held behind its own opening would be a guide inside a guide.
     briefings: false,

@@ -764,25 +764,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE HIVE has no rehearsal film: no `the-hive` scene exists
-
-- **Found:** 2026-09-20, claude/queue-the-hive-cannot-be-won-its-own-rock-stops-the-bo
-- **Taken:** 2026-09-21, claude/queue-chromium-launch-crashes-here-the-pipe-transport (claim: claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/content/test/scene-films.test.ts`
-- **Where:** local
-
-THE HIVE's own fix (*THE HIVE cannot be won*, answered and landed the same
-entry) left the mechanism sound — `hive.test.ts` now fires real bolts and
-wins the wave — but authored no film. Every other boss on the choreographed
-page walks a rehearsal a player can watch at tempo, seat by seat
-(`content/src/scenes/the-scout.ts` and its neighbours are the pattern); THE
-HIVE has none, so nobody has watched nine breaches spilling into one shield
-at eight beats an opening, only run it headless. A `the-hive` scene, named
-and created in `packages/content/src/scenes/`, walking the split the fight
-already has — the pilot's colour, the navigator's swell, a seal, a wrong
-colour's provoke, the twins from the fifth opening — is the rehearsal lane's
-own kind of work, and is unstarted.
-
 ## The queue's own resurrection guard missed a stale entry coming back
 
 - **Found:** 2026-09-20, claude/queue-a-landing-that-forgot-unverified-has-no-way-to-w
@@ -2103,3 +2084,51 @@ session reaches for it with the flags still in its hand.
 The fix is `crop-png.ts` accepting `--at` and `--zoom` as aliases for its two
 positionals, and saying in the usage that both spellings work. It is a dozen
 lines and no test beyond one case per spelling.
+
+## A film is proved against a config the game does not play
+
+- **Found:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene
+- **Files:** `packages/content/test/scene-films.test.ts`, `packages/sim/src/shot-charge.ts`, `apps/game/src/main.ts`
+
+`sceneScript` hands the host's `cfg` straight to the film and retimes nothing.
+`apps/game/src/main.ts` builds that cfg with `shotChargeBeats: 0.5` — a press
+waits for the next half-beat point on the grid and the bolt leaves from *there*,
+strictly after the thumb. Every film test builds its own with `DEFAULT_CONFIG`,
+which ships zero, so that a recorded replay keeps its timing to the tick. Those
+are two different films, and the difference is not rounding: THE HIVE's, timed
+against the default, breached the hull at beat 21 in the browser while its test
+was green, because a bolt fifteen ticks late arrives after the body its column
+has just dropped.
+
+**The mechanism is already there and only THE HIVE uses it.** `GuideScene`
+gained `chargeBeats` on the same day: a film says which grid its presses were
+written on and `sceneScript` lays it over the host's value, the way it already
+does with the tempo, so the film plays the same in the game, in a test and in
+the director. THE HIVE's carries `0.5`; the other sixteen carry nothing and go
+on taking whatever the host has.
+
+The work is the sweep. Run each film twice — once at `shotChargeBeats: 0`, once
+at `0.5` — and compare the event streams. A film that reads the same on both
+does not care and gets a line saying so. A film that differs is authored for
+one of the two, retimed the way THE HIVE's was (each act fifteen ticks before
+the departure it is for, pairs 60 apart) and given its own `chargeBeats`. The
+comparison itself is worth keeping as a test: a film with no `chargeBeats` whose
+two runs disagree is one nobody has decided about yet.
+
+That test belongs in `scene-films.test.ts`, which is 1093 lines, so the sweep
+splits it on the way through.
+
+## `packages/content/test/scene-films.test.ts` is 1093 lines
+
+- **Found:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene
+- **Files:** `packages/content/test/scene-films.test.ts`
+
+Four times the ~250-line ceiling, and it grows by a block every time a boss gets
+a film — seventeen of them now, plus the shared checks that hold every scene to
+its shape. The two seams are already in the file: the per-film `describe`s, one
+after another, and the rules that run over `SCENES` as a whole. Split the
+whole-list checks into their own file and deal the per-film blocks across files
+named for the spec page their bosses sit on, the way `scenes-choreographed.ts`
+is split from `scenes.ts`. THE HIVE's film took its own file on 21 September
+2026 rather than a block here (`test/scene-hive.test.ts`), which is the shape
+the rest should end in.

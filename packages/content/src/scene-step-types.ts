@@ -65,7 +65,14 @@ export type BossPart =
   /** THE UNDERTOW's plate, bowing over a breach before its lobe is through — the pilot's. */
   | "plate"
   /** THE UNDERTOW's lobe, standing in the breach it came up through. */
-  | "lobe";
+  | "lobe"
+  /**
+   * THE HIVE's open breaches along its underside, all of them at once — what
+   * a bolt has to be aimed at, and the one place the pilot's colour is.
+   */
+  | "breach"
+  /** THE HIVE's site about to open, and its twin — the navigator's warning. */
+  | "swell";
 
 export type SceneAnchor =
   | { at: "body" }

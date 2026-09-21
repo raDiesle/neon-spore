@@ -36,6 +36,27 @@ export interface GuideScene {
    */
   bpm: number;
   /**
+   * The shot grid the film's presses were authored against, when it matters.
+   *
+   * `shotChargeBeats` lays a press on a grid: it waits for the next point
+   * strictly after it and the bolt leaves from *there* (`sim/shot-charge.ts`).
+   * `apps/game` plays at 0.5 so player 1 can see a press happening; the host's
+   * value flows straight through this file into the film, and
+   * `DEFAULT_CONFIG` ships zero so a recorded replay keeps its timing to the
+   * tick. A film whose bolts have to pair with something falling is therefore
+   * a different film on each, and only one of the two was ever traced: THE
+   * HIVE's was authored for the grid, proved against the default, and breached
+   * the hull at beat 21 in the browser with its test green (21 September 2026).
+   *
+   * So a film that cares says which grid it was written on, here, the way it
+   * says its own tempo — and then it plays the same everywhere, including in
+   * the director. Left off, the host's own value stands, which is what every
+   * film did before this one and what most of them can go on doing: a film
+   * whose shots meet nothing at a deadline does not notice the difference.
+   * The sweep that asks each of the others is in `docs/queue.md`.
+   */
+  chargeBeats?: number;
+  /**
    * Rows in the film's pinball table. PINBALL's header sits in the air above
    * its first pins, which on a rehearsal is where the corner plate stands, and
    * its board hangs from the ceiling with nowhere to drop to. A row fewer is
