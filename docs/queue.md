@@ -348,6 +348,7 @@ The brief: `.claude/skills/new-boss` section 6.2.
 ## Six other films still put pages about their boss on the hull
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-21, claude/queue-eight-other-films-still-put-pages-about-their-bo (claim: claude/queue-six-other-films-still-put-pages-about-their-boss)
 - **Files:** `packages/render/src/caption-anchor-boss-e.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
 - **Where:** local
 
