@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 09a4db5e — The last four films point at their round instead of at the hull
+
+PINBALL, THE GAUGE, THE MAZE and THE REPRISE were the four left of the sixteen, and three of them have no hull at all: the field is gone, so a page anchored at `hull` was pointing at the middle of a plating nothing draws. `caption-anchor-boss-f.ts` is the sixth file of the chain and the first with no `BossPart` in it — a round draws one thing, and each of these three hands its circle out already: `gaugeDial`, `mazeDrum`, and `repriseTearBox`, which `reprise-draw.ts` now exports beside `repriseTearCenter` and in the same rest pose, for the same reason.
+
 ## 2026-09-21 · b6ff55cc — THE UNDERTOW and THE THROAT point at their boss instead of at the hull
 
 Twelve rehearsal pages moved off `{at:"hull"}`. Both films were the pair the hull was nearly right for — THE UNDERTOW bows a plate of it, THE THROAT's mouth stands over it — but the hull anchor is the *middle* of the plating, and a breach is in the column the seed put it in, and the mouth slides away from the middle the moment a ring goes slack.
