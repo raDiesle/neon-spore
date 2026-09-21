@@ -1187,6 +1187,7 @@ where the fourth word for the shield lives.
 ## The game shows a player four words for one thing: ward, guard, plate, shield
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-the-game-shows-a-player-four-words-for-one-thing)
 - **Files:** `packages/content/src/controls.ts`, `apps/game/src/menu-seats.ts`, `packages/content/src/waves/act-1.ts`, `.claude/skills/game-words/SKILL.md`
 - **Asks:** Which single word does a player read for the thing Player 2 slides and Player 1 triggers — SHIELD, WARD, PLATE or GUARD?
 - **Answered:** 21 September 2026 — SHIELD. The owner: *what the control itself is labelled today, so the button a thumb is on already says it and nothing on the panel changes; the guides and the menu move to it.* Chosen over WARD, which would have relabelled the control to win the verb, and over PLATE and GUARD. `CLAUDE.md`'s fixed vocabulary loses **guard** in the same lane — the list carrying both is how four words happened.
