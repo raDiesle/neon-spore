@@ -673,6 +673,7 @@ close the tab rather than the game.
 ## The band runs to the screen's edges, where the phone's own gestures start
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar (claim: claude/queue-the-band-runs-to-the-screens-edges-where-the-pho)
 - **Files:** `packages/render/src/layout.ts`, `packages/render/src/strip-band.ts`, `apps/game/src/game.css`, `packages/sim/src/config-view.ts`
 - **Where:** local
 
