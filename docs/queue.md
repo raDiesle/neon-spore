@@ -559,28 +559,6 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## THE HIVE's rehearsal film clenches twice and teaches neither
-
-- **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
-- **Taken:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict (claim: claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac)
-- **Files:** `packages/content/src/scenes-choreographed.ts`, `packages/content/test/scene-hive.test.ts`, `docs/spec/bosses.md`
-
-The film was authored when this boss had one state. It now clenches inside
-itself — on the third seal at beat 20 and on the sixth at beat 46 — and the
-fixture records both, because they are what the simulation does. The first
-costs the film nothing. The second ends it quiet: column 8 is open and the two
-spills it would have taken at 47 and 50 are held back by an underside nobody
-hauls, so the rehearsal's last four beats now teach the pair that a breach left
-open goes harmless.
-
-That is the opposite of the sentence the film exists to say. The work is to
-author the haul into it — one more pair of beats and the pilot's drag on the
-underside, which the script can carry the way it carries a bolt — so the
-clench at 46 is hauled down and the two spills arrive after all, and then to
-say in §11.14 that the film shows the gesture. It must be **watched at tempo**
-before it is believed, so a local lane, and the film's own sentence
-(`.claude/skills/new-wave`) is the test of whether it still passes.
-
 ## A claim whose branch is gone reads as taken forever
 
 - **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
