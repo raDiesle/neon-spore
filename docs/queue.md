@@ -765,6 +765,7 @@ own kind of work, and is unstarted.
 ## `chromium.launch()` crashes here; the pipe transport is why, not the sandbox
 
 - **Found:** 2026-09-20, claude/queue-the-batons-merge-its-two-handle-rings-still-has
+- **Taken:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho (claim: claude/queue-chromium-launch-crashes-here-the-pipe-transport)
 - **Files:** `tools/frames/browser.ts`
 - **Where:** local
 
