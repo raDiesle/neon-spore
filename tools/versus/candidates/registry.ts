@@ -6,5 +6,9 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { SLOW_DRAIN } from "./slow-window/drain/index.js";
+import { SLOW_FRAME } from "./slow-window/frame/index.js";
+import { SLOW_GUTTER } from "./slow-window/gutter/index.js";
+import { SLOW_WASH } from "./slow-window/wash/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [SLOW_DRAIN, SLOW_FRAME, SLOW_GUTTER, SLOW_WASH];

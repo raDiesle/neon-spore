@@ -2210,3 +2210,20 @@ Two fixes, either alone enough: a `data-boss` on the group's `section` and a
 written where a tool can ask for it), or `--click` gaining the same
 text-matching `--inner` already has. The first is smaller and helps the
 sheet's own tests too.
+
+## `bun run crop` and `bun run versus:shot` spell the same rectangle two ways
+
+- **Found:** 2026-09-21, claude/queue-the-slow-is-felt-half-b
+- **Files:** `tools/frames/crop-png.ts`, `tools/frames/versus-shot.ts`
+
+`versus:shot` takes `--at x,y,w,h` and `--zoom n`. `crop` takes the same two
+numbers as bare positionals, `<in> <out> x,y,w,h [zoom]`, and a call written in
+the other spelling — `crop in.png out.png --at 0,700,150,450 --zoom 3` — exits
+1 with the usage and no word about which half it did not understand. The two
+commands do the same thing to the same pictures and `versus:shot`'s own help
+names `crop` as the fallback for when it cannot, which is exactly when a
+session reaches for it with the flags still in its hand.
+
+The fix is `crop-png.ts` accepting `--at` and `--zoom` as aliases for its two
+positionals, and saying in the usage that both spellings work. It is a dozen
+lines and no test beyond one case per spelling.

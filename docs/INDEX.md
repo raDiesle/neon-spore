@@ -1953,6 +1953,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
 | `tools/director/src/poses-struck.ts` | A living body over the ship with a matching bolt still climbing at it: the kill itself, replayed |
+| `tools/director/src/poses-slow.ts` | THE INSTAR's wave run until THE SLOW opens a window — the `slow:window` slot's pose, and the only card where `slowing` is true |
 | `tools/director/src/poses.ts` | Every state the STATES sheet draws, in reading order |
 | `tools/director/src/query.ts` | What is in a wave: the questions, with no answer that changes anything |
 | `tools/director/src/rail.ts` | The wave list and the fields every wave must carry |

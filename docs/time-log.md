@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — slow-window-candidates — four answers to a window nobody can see
+
+- reading — 20 min. `tools/versus/README.md` and `variant.ts` for what a slot
+  costs, `versus-pose.ts`'s `SLOT_POSE` and its test for what a slot owes,
+  and `poses-bosses-kit.ts` for how a pose reaches a state it may not assign.
+  `openSlow` is not exported from the simulation at all, which decided the
+  shape of the pose before anything was written.
+- writing — 45 min. `poses-slow.ts` — THE INSTAR's wave run until `slowing` is
+  true — its row in `SLOT_POSE` and `VERSUS_POSES`, and four candidates with an
+  `index.ts` and a `paint.ts` each: a frame closing in, a wash sinking the far
+  field, a light guttering on the beat, and a bar draining. Each names how it
+  can lose in its own docstring, and the fourth names why it is in the slot at
+  all.
+- looking — 35 min. Six shots. The first showed the frame's bottom hidden under
+  the hull tissue — every pass was measured to `bandTop` and the field the pair
+  read ends at `hullY`. The next showed the wash drawing a hard line across the
+  boss at `gridTop`, fixed with an onset; the gutter drew the same line down
+  both sides, and was rebuilt to well up from the hull corners instead, which
+  has no edge and says the better thing besides.
+- friction — 10 min. Three shots were aimed by wall seconds at a window that
+  is spent at a third of the wall rate, so they landed outside it and on a
+  candidate's own faintest instant — `--freeze` is simulated seconds, and the
+  window is 1.25 of them.
+- landing — 10 min.
+
+**The bottleneck was looking, and it was worth every minute:** four paints
+passed `bun run check` and three of them drew something other than what their
+own docstring claimed. Nothing but a picture would have said so.
+
 ## 2026-09-21 — slow-window-rate — the director's clocks spend a slow beat the way a phone does
 
 - reading — 15 min. `sim/slow.ts` for what a window is, `apps/game/src/
