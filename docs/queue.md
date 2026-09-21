@@ -374,6 +374,7 @@ The brief: `.claude/skills/new-boss` section 6.2.
 ## `bun run frames` cannot reach BULB QUEEN's BROOD, and `--hold` lacks her marks
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-21, claude/queue-a-captions-ring-is-a-circle-round-a-subject-that (claim: claude/queue-bun-run-frames-cannot-reach-bulb-queens-brood-an)
 - **Files:** `tools/frames/boss.ts`, `tools/frames/hold.ts`, `packages/sim/src/boss.ts`, `apps/game/src/handle.ts`
 - **Where:** local
 
