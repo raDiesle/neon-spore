@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · de449e2e — Two more answers in lost:screen, and the slot has four
+
+ONE is the shipped bleed with twelve of its thirteen runs taken away: a single violet rivulet a tile wide, twelve seconds falling instead of one, coming down the column the hull was actually broken in. It is the control in the slot — it changes the count and the speed and nothing else, so if it wins the shipped picture was only ever too busy, and if a red one beats it the colour was the argument all along.
+
 ## 2026-09-21 · f41724b5 — Two slower answers to WAVE LOST's thirteen rivulets
 
 The owner, 19 September 2026: the shipped bleed should have alternatives that are much slower with far fewer elements in them, and he named two — a single slime flowing full width from the top to the middle of the screen in red, and a red splash coming out of the game screen towards the pair. Both are now candidates in `lost:screen`, which this opens: the slot has its row in `SLOT_POSE`, on the pose that already says it is judged there.
