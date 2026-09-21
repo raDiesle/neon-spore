@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · f41724b5 — Two slower answers to WAVE LOST's thirteen rivulets
+
+The owner, 19 September 2026: the shipped bleed should have alternatives that are much slower with far fewer elements in them, and he named two — a single slime flowing full width from the top to the middle of the screen in red, and a red splash coming out of the game screen towards the pair. Both are now candidates in `lost:screen`, which this opens: the slot has its row in `SLOT_POSE`, on the pose that already says it is judged there.
+
 ## 2026-09-21 · 47291741 — A fifth answer to THE SLOW's window, drawn where the pair's hands are
 
 The four candidates in `slow:window` are all pictures of the field: a frame round it, a veil over its far half, a light down its edges, a bar above the hull. `focus` is the one whose picture is not in the layout at all. It asks the world where the pair are acting — a mark on THE INSTAR with a gesture owed to it, a body somebody has a hand on, the cannon's own column — and lights only those, under a veil that takes the rest of the field down. The lit spots tighten as the window is spent, so the picture is the pair's attention being narrowed rather than a timer standing to one side.
