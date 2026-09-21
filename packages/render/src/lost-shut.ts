@@ -116,8 +116,16 @@ function cut(ctx: CanvasRenderingContext2D, left: Point[], right: Point[]): void
   ctx.closePath();
 }
 
-/** The two plates, coming in, with the slot torn out of both of them. */
-function shutPlates(ctx: CanvasRenderingContext2D, p: LostPaint): void {
+/**
+ * The two plates, coming in, with the slot torn out of both of them.
+ *
+ * Exported for the same reason `bleed` is its own file: what the shipped
+ * answer decided was *which way the plates go*, and the fluid running down
+ * them is a separate argument. A candidate in `lost:screen` that wants to
+ * argue the fluid alone draws these and then its own, and the shipped
+ * `shutVeil` below is that composition with `bleed` in the second place.
+ */
+export function shutPlates(ctx: CanvasRenderingContext2D, p: LostPaint): void {
   const k = shut(p.age);
   const seam = p.l.playHeight * SEAM;
   const top = -seam * (1 - k);

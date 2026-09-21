@@ -22,6 +22,34 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — lost-screen-slime-splash — two slower answers to the thirteen rivulets
+
+- reading — 15 min. The lost seam and what ships in it: `lost-look.ts`'s record,
+  `lost-shut.ts`'s plates, `lost-blood.ts`'s thirteen rivulets, and — the thing
+  that decided both candidates — `drawLostScreen`'s order, which runs the veil
+  *before* the words and the buttons. An answer that avoids the lower half is
+  avoiding something already drawn over it.
+- writing — 35 min. Two candidates and the slot's `SLOT_POSE` row. `shutPlates`
+  exported so a candidate can argue the fluid alone and keep the plates the
+  owner took.
+- looking — 55 min. Six shots. `slime` first ran its weight the wrong way — the
+  deepest red under WAVE LOST and the three lines under it — and its lower edge,
+  built curve-per-segment between points on the edge, came out a row of teeth;
+  it is points splined now, and every one of them hangs. `splash` was worse:
+  blots three tiles across landing in a ring on the breach, then six draws off
+  one hash putting all six in a row on the right, then a tail that added its
+  alpha to the body under it and read as a beam, then the same tail wound the
+  other way and punched itself out of every blot.
+- friction — 5 min. `bun run versus new` prints the rules and does not make the
+  directory; the first heredoc went nowhere.
+- landing — 10 min.
+
+The bottleneck was looking, again, and for the same reason as the last lane:
+every one of those six defects passed `bunx tsc --noEmit` and `check:fast`, and
+four of them were compositing — a nonzero fill cancelling two subpaths, two
+alphas adding, a gradient run the wrong way. A canvas does what the code says
+and nothing tells you it is the wrong picture.
+
 ## 2026-09-21 — slow-window-focus — the window drawn where the hands are
 
 - reading — 20 min. The seam and its four answers, then the route from a paint
