@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · c2b7d788 — THE HIVE gets its rehearsal, and a film may name its own shot grid
+
+Thirteen pages over 3,060 ticks at seed 6: the swell on her screen and the colour on his, five sites sealed — one before it ever spills, two by a bolt already in the air when the breach opened, one answered in cyan and hurried a beat for it — and the twins last, one sealed and one left spilling, because a bolt cannot pass the body a breach has just dropped. It is the receipt that the fight can be won, which it could not be before 20 September 2026.
+
 ## 2026-09-21 · 46f3d18a — A browser that will not launch is opened over a debugging port instead
 
 Every tool that takes a picture — `frames`, `shot`, `png`, `raster`, `icons` — died in the cloud sandbox with *Target page, context or browser has been closed*, a sentence about nothing that was wrong. The cause is a level down: Playwright talks to the browser it launches over `--remote-debugging-pipe`, fixed inside `playwright-core` and not an `args` a caller can turn off, and Chrome running as root dies with SIGTRAP the instant that pipe is opened. The same session found the same crash reachable on the owner's own machines, from a profile path a few characters past `AF_UNIX`'s 108-byte ceiling — which any worktree with a long enough directory name gives it.
