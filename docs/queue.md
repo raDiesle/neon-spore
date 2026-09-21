@@ -245,6 +245,31 @@ waiting on.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
+## `versus new` leaves no directory, and an empty one breaks `versus index`
+
+- **Found:** 2026-09-21, claude/queue-wave-lost-bleeds-thirteen-fast-rivulets-slower-b
+- **Files:** `tools/versus/scaffold.ts`, `tools/versus/registry.ts`
+
+`bun run versus new <slot> <name>` prints the five rules a candidate has to
+satisfy and creates nothing, so the name it was given is only in the prose. A
+lane that makes the directory first and writes the second candidate's files a
+few minutes later — which is what a lane opening a slot does, because a slot
+wants two answers — leaves an empty directory in between, and every
+`versus index` until the files land fails with
+
+```
+lost-screen/pool/index.ts exports no `const … : Variant`
+```
+
+naming a file that was never written. The message is true and useless: nothing
+says the directory is empty rather than the export missing.
+
+Two halves, and either is worth doing alone. `scaffold.ts` should write the
+directory with an `index.ts` and a `paint.ts` that compile — the rules it
+prints are the docstring those two files want anyway — and `registry.ts`'s
+throw at line 57 should say *the directory is empty* when it is, rather than
+reporting a missing export in a file that does not exist.
+
 ## `queue take` refuses the lane the entry itself names as its claim
 
 - **Found:** 2026-09-21, claude/queue-four-other-films-still-put-pages-about-their-bos
