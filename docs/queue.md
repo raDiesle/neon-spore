@@ -449,6 +449,7 @@ what a phone cannot do is *reach* that strip.
 ## Unverified at 4515fcc9: the three new gullet sounds - CINCH, SLIP and HAUL were…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-the-slow-is-felt-half-b (claim: claude/queue-unverified-at-4515fcc9-the-three-new-gullet-soun)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-throat.ts`, `packages/audio/src/catalogue.ts`
 
 *THE THROAT's two hands are heard: the cinch, the slip and the haul* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
