@@ -601,6 +601,7 @@ The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
 ## THE GIMBAL's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Taken:** 2026-09-21, claude/queue-unverified-at-5780141b-the-picture-of-a-carried (claim: claude/queue-the-gimbals-picture-has-never-been-drawn)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
