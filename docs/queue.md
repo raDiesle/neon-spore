@@ -1177,6 +1177,7 @@ of frames is memory for nothing.
 ## Two bosses lift a cue by hand where the rule now lifts every cue
 
 - **Found:** 2026-09-20, claude/queue-a-cue-standing-on-the-hull-line-has-its-verb-dra
+- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now)
 - **Files:** `packages/render/src/boss-cue-read-f.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue.ts`
 - **Where:** local
 
