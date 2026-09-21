@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 47291741 — A fifth answer to THE SLOW's window, drawn where the pair's hands are
+
+The four candidates in `slow:window` are all pictures of the field: a frame round it, a veil over its far half, a light down its edges, a bar above the hull. `focus` is the one whose picture is not in the layout at all. It asks the world where the pair are acting — a mark on THE INSTAR with a gesture owed to it, a body somebody has a hand on, the cannon's own column — and lights only those, under a veil that takes the rest of the field down. The lit spots tighten as the window is spent, so the picture is the pair's attention being narrowed rather than a timer standing to one side.
+
 ## 2026-09-21 · 5277bb65 — Release the gullet-sounds question back to the queue
 
 `queue next` claimed it a second time, which is what it is built to do with an Asks entry — the prompt it prints has a branch for exactly this: put the question to the owner, land nothing that depends on the answer. This session has no answer to build on, so the claim goes back rather than standing on the file while the question waits.
