@@ -562,6 +562,7 @@ than the string-level unit tests above it.
 ## THE HIVE's clench and its wrung lobe have no picture
 
 - **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
+- **Taken:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f (claim: claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict)
 - **Files:** `packages/render/src/hive-draw.ts`, `packages/render/src/hive-fx.ts`, `packages/render/src/hive-shape.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`
 - **Where:** local
 
