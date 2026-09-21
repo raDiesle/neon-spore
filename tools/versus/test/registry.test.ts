@@ -6,16 +6,9 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { loadedTimeout } from "../../test/repo-time.js";
 import { VARIANTS } from "../candidates/index.js";
-import {
-  candidatesIn,
-  discover,
-  type Registered,
-  registryText,
-  slotDir,
-  slotOfDir,
-  slotsOnDisk,
-} from "../registry.js";
+import { discover, type Registered, registryText } from "../registry.js";
 import { CANDIDATES, ROOT } from "../root.js";
+import { candidatesIn, slotDir, slotOfDir, slotsOnDisk } from "../slots.js";
 
 // What this file is allowed to take, scaled to how busy the machine is
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
@@ -156,5 +149,55 @@ describe("a slot is closed off its directories", () => {
     const src = readFileSync(join(ROOT, "tools/versus/decide.ts"), "utf8");
     expect(src).not.toMatch(/^import .*candidates\/index\.js/m);
     expect(src).toContain('await import("./candidates/index.js")');
+  });
+});
+
+/**
+ * **A directory that is not a candidate says which half is missing.**
+ *
+ * A slot wants two answers, so a lane opening one writes the first candidate's
+ * files and the second's a few minutes later, and in between there is a
+ * directory with nothing in it. Every `bun run versus index` and every
+ * `bun test` until the files landed used to fail with `lost-screen/pool/
+ * index.ts exports no const … : Variant` — true, and about a file nobody had
+ * written (21 September 2026). The three cases are tested apart because
+ * `discover` throws on the first one it reaches and the sorted walk would hide
+ * the other two behind it.
+ */
+describe("a directory under `candidates/` that is not a candidate", () => {
+  const made: string[] = [];
+
+  /** A tree holding one candidate directory, `lost-screen/pool`, with these files in it. */
+  const treeWith = async (files: Record<string, string>): Promise<string> => {
+    const root = await mkdtemp(join(tmpdir(), "ns-versus-half-"));
+    made.push(root);
+    mkdirSync(join(root, "lost-screen", "pool"), { recursive: true });
+    for (const [name, text] of Object.entries(files)) {
+      await writeFile(join(root, "lost-screen", "pool", name), text);
+    }
+    return root;
+  };
+
+  afterAll(async () => {
+    for (const root of made) await rm(root, { recursive: true, force: true });
+  });
+
+  it("says an empty one is empty, and what to do about it", async () => {
+    const tree = await treeWith({});
+    expect(() => discover(tree)).toThrow(
+      "tools/versus/candidates/lost-screen/pool/ is empty — write its `index.ts`",
+    );
+  });
+
+  it("says a paint with no registration is a paint with no registration", async () => {
+    const tree = await treeWith({ "paint.ts": "export const veil = () => {};" });
+    expect(() => discover(tree)).toThrow("holds `paint.ts` and no `index.ts`");
+  });
+
+  it("keeps the missing export for the file that really is missing one", async () => {
+    const tree = await treeWith({ "index.ts": "export const POOL = {};" });
+    expect(() => discover(tree)).toThrow(
+      "tools/versus/candidates/lost-screen/pool/index.ts exports no",
+    );
   });
 });

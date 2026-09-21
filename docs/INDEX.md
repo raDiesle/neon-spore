@@ -2125,6 +2125,7 @@ place — the generator keeps whatever is there.
 | `tools/versus/root.ts` | Where the repository is, from inside this directory |
 | `tools/versus/seed.ts` | One seeded random stream, so the only thing that can differ between the two sides of a VERSUS frame is the… |
 | `tools/versus/scaffold.ts` | `bun run versus new <slot> <name>` — the candidate, spelled out |
+| `tools/versus/slots.ts` | A slot and its answers, read off the directory names and nothing else |
 | `tools/versus/variant.ts` | VERSUS — the place a second answer to an existing shape can live |
 | `tools/versus/decide.ts` | What happens after the owner has looked |
 | `tools/versus/decided-md.ts` | `DECIDED.md` — the answers, after the slot they were given to has gone |

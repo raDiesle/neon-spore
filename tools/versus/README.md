@@ -74,7 +74,13 @@ export const HULL_WARM: Variant = {
 ```
 
 `bun run versus new <slot> <name>` prints that, filled in, with the five rules
-below beside it — reach for it rather than reading this file end to end.
+below beside it — reach for it rather than reading this file end to end. It
+prints the `mkdir -p` that makes the directory and writes no file into it: a
+candidate with an empty `fields` is one `test/distinct.test.ts` and
+`test/variants.test.ts` refuse, so a scaffold that wrote itself out would hand
+the lane a red tree to start from. **Do not leave the directory empty** — a
+directory under `candidates/` with nothing in it is not a candidate, and
+`versus index` says so until it is filled or removed.
 
 Then `bun run versus index`. **There is no array to add a line to**:
 `candidates/registry.ts` is generated from the directories, and

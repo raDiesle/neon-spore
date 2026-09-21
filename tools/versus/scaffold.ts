@@ -2,10 +2,23 @@
  * `bun run versus new <slot> <name>` — the candidate, spelled out, and the
  * five things about writing one that are not guessable.
  *
- * It prints rather than writes, and that is deliberate. A candidate with no
- * `fields` in it is a candidate `distinct.test.ts` and `variants.test.ts`
- * cannot pass, so a scaffold that wrote one to disk would hand the lane a red
- * tree to start from. What costs a lane tokens is not typing the twelve lines
+ * It prints rather than writes, and that is deliberate — but the directory now
+ * comes first, as the `mkdir -p` that makes it. That was the one part of this
+ * a lane could not paste: `versus new` named a candidate and left the name in
+ * the prose, so the lane made the directory by hand, wrote one answer's files
+ * and the next answer's a few minutes later, and every `bun run versus index`
+ * in between failed on the empty directory it had left standing (21 September
+ * 2026; `registry.ts` now says which half of a candidate is missing).
+ *
+ * What it will not write is the files, and three tests are the reason. A
+ * candidate with no `fields` in it says nothing the shipped record does not
+ * (`test/distinct.test.ts`) and patches no field the record has
+ * (`test/variants.test.ts`); one that is on disk and not in the generated
+ * registry fails `test/registry.test.ts`. A scaffold that wrote its own
+ * template out would hand the lane a red tree to start from whichever way it
+ * went — with `bun run versus index` run for it or without.
+ *
+ * What costs a lane tokens is not typing the twelve lines
  * — it is reading `README.md` end to end to find out that the imports are
  * relative, that `reached` is the drawing code's route and not the record, and
  * that a slot with no pose is compared against a red slick nobody asked about.
@@ -18,7 +31,7 @@
 import { posix } from "node:path";
 // The slot-to-directory spelling lives with the tree it names, because closing
 // a slot has to read that tree without importing a candidate (`registry.ts`).
-import { slotDir } from "./registry.js";
+import { slotDir } from "./slots.js";
 import { quoted, wrap } from "./text.js";
 
 /**
@@ -55,6 +68,8 @@ export function template(slot: string, name: string): string[] {
   const look = from(dir, "packages/render/src/<file>.js");
   const variant = from(dir, "tools/versus/variant.js");
   return [
+    `  mkdir -p ${dir}`,
+    "",
     `  ${dir}/index.ts`,
     "",
     ...`import * as look from "${look}";

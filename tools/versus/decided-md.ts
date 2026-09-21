@@ -12,8 +12,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Edit } from "./record-edit.js";
-import type { OnDisk } from "./registry.js";
 import { ROOT } from "./root.js";
+import type { OnDisk } from "./slots.js";
 import type { FunctionTake } from "./take-function-fs.js";
 import { quoted, wrap } from "./text.js";
 import type { Variant } from "./variant.js";

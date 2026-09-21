@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — versus-new-empty-directory — the scaffold's mkdir, and what an empty directory says
+
+- reading — 15 min. `registry.ts`, `scaffold.ts` and the three tests that
+  decide whether a written candidate is green: `distinct.test.ts` wants a
+  field the shipped record does not have, `variants.test.ts` wants a field the
+  record does have, and `registry.test.ts` wants the generated file to name
+  every directory on disk. Reading them is what turned half of the queue
+  entry down.
+- writing — 20 min. Three messages where there was one, a test apart for each
+  of them because `discover` throws on the first directory it reaches, the
+  `mkdir -p` at the top of what `versus new` prints, and `tools/versus/slots.ts`
+  — the half of the file that opens nothing, cut out along the seam its own
+  prose already described.
+- looking — 0 min. Nothing here reaches a frame.
+- friction — 10 min. Two heredocs refused by the backslash guard, and the
+  split that the 250-line hook asked for mid-edit: `registry.ts` came out of
+  the message at 227 lines, so the seam was chosen in the diff that was about
+  it rather than queued for later.
+- landing — 10 min.
+
+The bottleneck was reading. The queue entry asked for a scaffold that writes
+its candidate to disk, and the three tests say a written candidate is red
+whichever way it goes — with `versus index` run for it or without. Finding
+that out cost more than either half of the fix, and it is the reason the
+docstring now names the three tests: the next lane to have the idea can read
+it in one screen instead of proving it again.
+
 ## 2026-09-21 — lost-screen-one-pool — the other two answers, and the slot closed
 
 - reading — 5 min. Nothing new: the same seam the half before this one opened,
