@@ -84,7 +84,7 @@ function tearPoints(px: number, y0: number, w: number, lift: number): Point[] {
  * says to the navigator (`boss-cue-read-s.ts`).
  *
  * Exported rather than spelled a second time in the reading, which is
- * `vane-draw.ts`'s arrangement for `vaneBearingY` and for its reason: a mark
+ * `vane-grip.ts`'s arrangement for `vaneBearingY` and for its reason: a mark
  * worked out twice is a mark standing where the picture is not. The place is
  * the *rest* pose deliberately — the middle column, half the mouth's depth
  * below the field's own top edge — and it does not take `swallow` or `open`,

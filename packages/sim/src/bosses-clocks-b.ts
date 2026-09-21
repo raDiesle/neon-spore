@@ -223,8 +223,10 @@ export {
   vaneBearingOpen,
   vaneOpeningSpent,
   vanePinned,
+  vanePinnedAt,
   vanePinSide,
   vaneSplitCol,
+  vaneTipAt,
   vaneTipNow,
 } from "./vane-open.js";
 // THE WARDEN's three phases, read as one openness: the eye under the rope,

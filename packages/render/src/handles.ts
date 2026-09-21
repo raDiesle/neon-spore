@@ -28,6 +28,7 @@ import { surgeBulbUnder } from "./surge-grip.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
+import { vaneGripUnder } from "./vane-grip.js";
 import { wardenGripUnder } from "./warden-grip.js";
 
 /**
@@ -104,6 +105,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     scuttlePartUnder(l, x, y, field) ?? // THE SCUTTLE's hanging parts, while one may still be carried (`scuttle-grip.ts`).
     hiveLobeUnder(l, x, y, field) ?? // THE HIVE's clenched underside, or a swelling lobe (`hive-grip.ts`).
     pulseMeterUnder(l, x, y, field) ?? // THE PULSE's own bar, while it is not steady (`pulse-grip.ts`).
+    vaneGripUnder(l, x, y, field) ?? // THE VANE's swinging arm and the housing under its hub (`vane-grip.ts`).
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }

@@ -52,6 +52,7 @@ export function field(
     shieldCol: world.shieldCol,
     beatPhase: 0,
     beat: world.beat,
+    waveBeat: world.waveBeat,
     seat,
     cfg: CFG,
     boss: antiphon,

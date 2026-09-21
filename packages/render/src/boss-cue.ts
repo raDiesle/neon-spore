@@ -1,6 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { curtainCues, queenCues } from "./boss-cue-read.js";
-import { tasterCues, vaneCues } from "./boss-cue-read-b.js";
+import { tasterCues } from "./boss-cue-read-b.js";
 import { leadCues } from "./boss-cue-read-c.js";
 import { spliceCues, stareCues } from "./boss-cue-read-d.js";
 import { mazeCues, mirrorCues } from "./boss-cue-read-e.js";
@@ -22,6 +22,7 @@ import { scuttleCues } from "./boss-cue-read-t.js";
 import { diastoleCues } from "./boss-cue-read-u.js";
 import { hiveCues } from "./boss-cue-read-v.js";
 import { gaugeCues } from "./boss-cue-read-w.js";
+import { vaneCues } from "./boss-cue-read-x.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";

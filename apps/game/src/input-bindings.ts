@@ -99,6 +99,10 @@ export interface Bindings {
    * as the body is *drawn*, and how big that is depends on whether this beat
    * has already been tapped (`render/beatbox-tap.ts`). */
   beat: () => number;
+  /** The beat this *wave* is standing on. THE VANE's arm sweeps on a cycle
+   * counted from the wave's own first beat, and the tip's column is what the
+   * pilot's thumb lands on (`render/vane-grip.ts`). */
+  waveBeat: () => number;
   /**
    * Whether the guide is up — passed straight through to the keyboard rig,
    * which needs it to keep Space from skipping the introduction ahead of the

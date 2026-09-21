@@ -1,6 +1,14 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import { createWorld, startWave, ticksPerBeat } from "@neon-spore/sim";
+import {
+  createWorld,
+  startWave,
+  step,
+  type TimedCommand,
+  ticksPerBeat,
+  vanePhase,
+  vanePinned,
+} from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { armPoints } from "../src/vane-spar.js";
 import {
@@ -68,6 +76,63 @@ describe("the vane", () => {
     // between its two ends, against the direction of travel.
     const mid = pts[Math.floor(pts.length / 2)];
     expect(mid?.x ?? 0).toBeLessThan(50);
+  });
+
+  /**
+   * The two hands, which no frame above reaches: the rings are drawn from VEER
+   * on, and a wave played straight through keeps every pin in its bearing. So
+   * this one wears the bearing down by hand and *plays* both gestures — the
+   * pilot's thumb on the arm, then the navigator's haul on the seized housing —
+   * which is the only way a frame of either ring exists at all
+   * (`render/vane-grip.ts`).
+   */
+  it("draws both hands once the pins have worn and a thumb has stopped the arm", () => {
+    const world = createWorld(CFG, 3);
+    const index = waveWith("vane");
+    startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+    if (world.boss?.kind !== "vane") throw new Error("the vane's wave installed no vane");
+    world.boss.pins = 2; // VEER: the pin is the opening, and there is no other.
+    const seen = { pinned: false, hauled: false };
+    const half = ticksPerBeat(CFG) * 8;
+    const { ctx } = runFrames(world, "p1", half * 2, {
+      onTick: (tick, w) => {
+        const v = w.boss?.kind === "vane" ? w.boss : null;
+        const cmds: TimedCommand[] = [];
+        if (v !== null) {
+          // Halfway, the bearing seizes and her hand becomes the second half
+          // of every opening.
+          if (tick === half) v.pins = 1;
+          const pinned = vanePinned(w, v);
+          seen.pinned ||= pinned;
+          seen.hauled ||= v.hauled;
+          if (!pinned) {
+            cmds.push({
+              tick,
+              player: 1,
+              command: { kind: "drag", target: "vaneArm", on: true, fromMilli: 0, fromYMilli: 0 },
+            });
+          } else if (vanePhase(v.pins).asks === "haul" && !v.hauled) {
+            cmds.push({
+              tick,
+              player: 2,
+              command: {
+                kind: "drag",
+                target: "vaneHousing",
+                on: false,
+                fromMilli: 0,
+                fromYMilli: -CFG.vaneHaulMilli,
+              },
+            });
+          }
+        }
+        step(w, cmds);
+      },
+    });
+    expect(ctx.calls).toBeGreaterThan(1000);
+    // Without both of these the rings were never in a frame and the assertion
+    // above is a picture of the same boss nobody has touched.
+    expect(seen.pinned).toBe(true);
+    expect(seen.hauled).toBe(true);
   });
 
   it("really threw something, or the flick was never drawn", () => {

@@ -851,6 +851,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-u.ts` | **What THE DIASTOLE is asking for** — the readings' page `u` |
 | `packages/render/src/boss-cue-read-v.ts` | **What THE HIVE is asking for** — the readings' page `v`, a letter rather |
 | `packages/render/src/boss-cue-read-w.ts` | **What THE GAUGE is asking for** — the readings' page `w` |
+| `packages/render/src/boss-cue-read-x.ts` | **What THE VANE is asking for** — page twenty-four, and its own |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1007,6 +1008,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/vane-draw.ts` | THE VANE, drawn: an arm sweeping the top of the field, and the bearing it turns on |
 | `packages/render/src/vane-spar.ts` | THE VANE's lever, as metal — the spar, its bracing, the counterweight and the fork |
 | `packages/render/src/vane-bearing.ts` | THE VANE's bearing — the mount, the hub and the bolt circle the pair is spending |
+| `packages/render/src/vane-grip.ts` | **THE VANE's two hands**, and the geometry the drawing and the hit test share |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
 | `packages/render/src/veil-mass.ts` | THE VEIL's cloud, filled: what a thunderhead is made of between its rim and its lightning |
@@ -2360,6 +2362,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

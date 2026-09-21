@@ -571,10 +571,10 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Nineteen handles are heard by the simulation and drawn nowhere
+## Seventeen handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
-- **Taken:** 2026-09-21, claude/queue-the-vanes-two-handles-are-heard-and-drawn-nowhere (claim: claude/queue-nineteen-handles-are-heard-by-the-simulation-and)
+- **Taken:** 2026-09-21, claude/queue-nineteen-handles-are-heard-by-the-simulation-and
 - **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`, `packages/render/src/`
 
 Lane one landed: the guard walks the union now. `TARGET_PLACE` is a `Record`
@@ -591,10 +591,20 @@ there, `pulseMeterUnder()` is the `handleUnder()` branch, and
 `field-controls-pulse.ts` carries two rows on the one target — the brace under
 `flutter` and the arrest that takes both thumbs.
 
-**The other nineteen are `unbuilt`, and each is a look before it is a row** —
+Lane three landed THE VANE's pair, the first here that have to be used in
+order: `render/vane-grip.ts` holds the bearing, the tip and both circles, so
+the spar, the ring, the cue and the hit test read one answer rather than four.
+The pilot's ring is the only one on the field that **moves** — the arm has no
+rest until a thumb gives it one, and catching a sweeping tip is the whole of
+what VEER asks — and it stays up drawn `held` while the pin stands, because
+the pin *is* his thumb. Hers hangs under the hub, clear of the pins the pair
+count the fight by. THE VANE's reading moved to its own page with them
+(`boss-cue-read-x.ts`), because page b reached 258 lines.
+
+**The other seventeen are `unbuilt`, and each is a look before it is a row** —
 `throatRing`, `throatTube`, `tasterBlade`, `tasterGap`, `tasterLock`,
 `ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`, `snakeJaws`,
-`snakeTail`, `undertowPin`, `undertowFree`, `vaneArm`, `vaneHousing`,
+`snakeTail`, `undertowPin`, `undertowFree`,
 `scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`. Every one
 is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
 branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
@@ -602,8 +612,8 @@ precedent and the reason no row can be written for them yet — `where` is a
 place on the screen and `source` is a branch of `touch.ts`, and neither
 exists.
 
-So the work is one lane per boss, in the shape `candleWick`, `curtainHem` and
-`pulseMeter` each took: a `*-grip.ts` giving the handle a ring where the seat
+So the work is one lane per boss, in the shape `candleWick`, `curtainHem`,
+`pulseMeter` and THE VANE's two each took: a `*-grip.ts` giving the handle a ring where the seat
 that owns it is drawn, the `handleUnder()` branch that answers it, the
 `field-controls-<boss>.ts` row beside the twenty-seven that exist, the
 `docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to

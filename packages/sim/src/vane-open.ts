@@ -1,4 +1,5 @@
 import type { VaneState } from "./boss-state.js";
+import type { SimConfig } from "./config.js";
 import { vanePivotCol, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
 import {
   VANE_CYCLE,
@@ -31,9 +32,22 @@ import type { World } from "./world.js";
  * enough to be said out loud (`docs/spec/latency.md`).
  */
 
-/** Whether the pilot's thumb is still holding the arm this beat. */
+/**
+ * Whether the pilot's thumb is still holding the arm on this beat.
+ *
+ * The numbers rather than a `World`, because the picture has to ask the same
+ * question off a `Field` — a hit test is handed the boss, the config and the
+ * beat and never a world (`render/touch-field.ts`), and the *one* place that
+ * knows how long a pin lasts has to be reachable from both or the ring is
+ * offered on a beat the rule would refuse.
+ */
+export function vanePinnedAt(cfg: SimConfig, b: VaneState, beat: number): boolean {
+  return b.pinBeat >= 0 && beat < b.pinBeat + cfg.vanePinBeats;
+}
+
+/** The same question said about a world, which is how the simulation asks it. */
 export function vanePinned(world: World, b: VaneState): boolean {
-  return b.pinBeat >= 0 && world.beat < b.pinBeat + world.cfg.vanePinBeats;
+  return vanePinnedAt(world.cfg, b, world.beat);
 }
 
 /**
@@ -62,9 +76,14 @@ export function vanePinSide(waveBeat: number): number {
  * say (§11.5's own argument for the holds at the ends of the sweep, handed to
  * the pilot once the ends stop giving it).
  */
+export function vaneTipAt(cfg: SimConfig, b: VaneState, beat: number, waveBeat: number): number {
+  if (vanePinnedAt(cfg, b, beat)) return b.pinCol;
+  return vaneTipCol(cfg, b.pins, waveBeat);
+}
+
+/** The same column said about a world. */
 export function vaneTipNow(world: World, b: VaneState): number {
-  if (vanePinned(world, b)) return b.pinCol;
-  return vaneTipCol(world.cfg, b.pins, world.waveBeat);
+  return vaneTipAt(world.cfg, b, world.beat, world.waveBeat);
 }
 
 /**

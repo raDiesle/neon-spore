@@ -36,6 +36,7 @@ function wellField(seat: 1 | 2 = 1, cannonCol = 5): Field {
     shieldCol: 2,
     beatPhase: 0.5,
     beat: 0,
+    waveBeat: 0,
     seat,
     cfg: CFG,
     boss: null,

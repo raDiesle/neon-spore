@@ -137,6 +137,7 @@ describe("the stage's pointer conversion", () => {
         shieldCol: world.shieldCol,
         beatPhase: 0,
         beat: 0,
+        waveBeat: 0,
         seat: pointerSeat("test", undefined),
         cfg,
         boss: world.boss,

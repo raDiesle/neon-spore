@@ -33,6 +33,8 @@ export function stageField(
     shieldCol: world.shieldCol,
     beatPhase: framePhase(world),
     beat: world.beat,
+    // The wave's own beat, which is the vane's cycle (`render/touch-field.ts`).
+    waveBeat: world.waveBeat,
     // Whose hand the mouse is: the role's, or under TEST the held seat key's.
     seat: pointerSeat(role, seatKey),
     cfg,

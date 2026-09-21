@@ -13,7 +13,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
-import { vaneBearingY } from "../src/vane-draw.js";
+import { vaneBearingY } from "../src/vane-grip.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -26,7 +26,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE VANE, and the two words the field may say about it**
- * (`render/src/boss-cue-read-b.ts`).
+ * (`render/src/boss-cue-read-x.ts`).
  *
  * The fold is the fight, so the load-bearing case is the last one: whatever
  * the arm is doing to whatever is coming in, the field never marks a folded

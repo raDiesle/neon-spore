@@ -42,6 +42,23 @@ export interface Field {
    */
   beat: number;
   /**
+   * The beat **this wave** is standing on, counted from its own first.
+   *
+   * A second beat looks like one too many until you try to hit a boss that
+   * moves on a table: THE VANE's arm sweeps on a cycle read off `waveBeat`
+   * alone (`sim/vane-cycle.ts`), so the column its tip is in — the one thing
+   * the pilot's thumb has to land on — cannot be worked out from `beat`, which
+   * counts from the run and not from the wave.
+   *
+   * **Required and stated rather than defaulted**, for the reason every field
+   * around it is, and the vane gives it its sharpest form: a caller that
+   * quietly meant nought would answer the arm in the column it stood in on the
+   * wave's first beat, which is a fixed place near the pivot the arm leaves
+   * two beats later and never comes back to. A control answered where it is
+   * not drawn — and, for most of a sweep, answered where nothing is at all.
+   */
+  waveBeat: number;
+  /**
    * Whose hand a touch on the *field* is. The strips below say who they belong
    * to by where they are; the field belongs to both players, so it can only be
    * signed by the seat this screen holds.

@@ -42,6 +42,7 @@ function field(seat: 1 | 2, controls: ControlSet): Field {
     shieldCol: world.shieldCol + 2,
     beatPhase: 0.5,
     beat: 0,
+    waveBeat: 0,
     seat,
     cfg: CFG,
     boss: null,

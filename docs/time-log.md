@@ -15912,3 +15912,34 @@ over another file's word, and a red mark on a red fill. **A control drawn on
 top of a readout is photographed before it is believed.**
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-the-vanes-two-handles-are-heard-and-drawn-nowhere — THE VANE's arm and housing
+
+- reading — 35 min. `vane-hand.ts` for both rules, and one of the two was read
+  wrong first: `armHeard` handles `on: false` by calling `releasePin`, so the
+  arm is a **hold** and not a press, and the director row, the spec row and the
+  cue word all had to be corrected after they were written. Then `vane-open.ts`
+  for the pin clock, and `touch-field.ts` to find that a `Field` does not carry
+  `waveBeat` at all — which the arm's place is entirely a function of.
+- writing — 60 min. `vane-grip.ts` whole — the bearing row, the tip between two
+  beats, both circles, both gates, the `handleUnder()` branch and the drawing —
+  plus `waveBeat` added to `Field` and threaded through twenty-nine literals in
+  the render and director tests, `field-controls-vane.ts`, two rows in
+  `docs/spec/controls.md`, two lines of `TARGET_PLACE`, twelve tests in
+  `vane-grip.test.ts` and a thirteenth in `vane-frame.test.ts` that has to
+  *play* both gestures, because a wave run straight through never wears a pin.
+- looking — 10 min. Two frames, one per seat, and nothing to correct off them:
+  the rings came out where the tests said they were.
+- friction — 15 min. `boss-cue-read-b.ts` went to 258 lines and had to be split
+  onto a fourth reading page; a `tip` that was already a `Path2D` in
+  `vane-draw.ts`; two formatter complaints; and one red test that was the
+  file's fault and not the code's — both `waveBeat`s it picked fell inside a
+  three-beat *hold* stage, where the arm does not move, so the ring was
+  correctly in the same place twice.
+- landing — 15 min. `check:fast` green at 14822 across 588 files.
+
+The bottleneck was the `Field`: this is the first handle whose circle depends
+on the *wave's* beat rather than the world's, and a type that was one field
+short of the question cost twenty-nine call sites before a line of the actual
+control was written. **A hit test can only be as honest as the state the hit
+test is handed.**

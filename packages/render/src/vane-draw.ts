@@ -1,20 +1,10 @@
 import { circleSubpath } from "@neon-spore/content";
-import {
-  type VaneState,
-  vaneColor,
-  vaneOpen,
-  vaneOpeningNow,
-  vanePinned,
-  vanePivotCol,
-  vaneReachMilli,
-  vaneTipCol,
-  vaneTipNow,
-  type World,
-} from "@neon-spore/sim";
+import { type VaneState, vaneColor, vaneOpen, vaneOpeningNow, type World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawBearing } from "./vane-bearing.js";
+import { drawVaneGrips, vaneHubAt, vaneTipPoint } from "./vane-grip.js";
 import { drawArm } from "./vane-spar.js";
 
 /**
@@ -46,21 +36,6 @@ import { drawArm } from "./vane-spar.js";
 /** Beats a throw's streak takes to go out. Short — it is a flick, not a trail. */
 const THROW_FADE = 1.4;
 
-/** How far the tip dips below the bearing at mid-swing, in tiles. */
-const DROOP = 0.85;
-
-/**
- * The row the bearing hangs on, above the field's first row — where the casing,
- * its pins and the mouth of the split all stand.
- *
- * Exported because the cue's mark stands on the mouth and may not work this out
- * a second time (`boss-cue-read-g.ts`): a word standing where the split is not
- * would be worse than no word at all.
- */
-export function vaneBearingY(l: Layout): number {
-  return tileCY(l, 0) - l.tile * 0.2;
-}
-
 export function drawVane(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -70,30 +45,21 @@ export function drawVane(
   time: number,
 ): void {
   const cfg = world.cfg;
-  const pivotCol = vanePivotCol(cfg);
-  const px = tileCX(l, pivotCol);
-  const py = vaneBearingY(l);
-  const hub = l.tile * 0.34;
+  const { x: px, y: py, r: hub } = vaneHubAt(l, cfg);
 
-  // Where the arm stands between two beats. Pinned, it has stopped — the fold
-  // line holds the column the thumb landed it in (`vaneTipNow`) and there is
-  // nothing to interpolate towards. Sweeping, it is still read a beat ahead off
-  // the cycle so it travels along the grid the pair is naming, the same number
-  // on both screens because both read it out of the sim.
-  const pinned = vanePinned(world, b);
-  const from = vaneTipNow(world, b);
-  const to = pinned ? from : vaneTipCol(cfg, b.pins, world.waveBeat + 1);
-  const tipCol = from + (to - from) * beatPhase;
-  const mFrom = vaneReachMilli(world.waveBeat);
-  const mTo = vaneReachMilli(world.waveBeat + 1);
-  const m = mFrom + (mTo - mFrom) * beatPhase;
-
-  const tx = tileCX(l, tipCol);
-  const ty = py + l.tile * DROOP * (1 - Math.abs(m) / 1000);
+  // Where the arm stands between two beats — `vane-grip.ts`'s answer, because
+  // the pilot's thumb is answered at exactly this point and a picture that
+  // worked it out a second time is a control answered where it is not drawn.
+  // Pinned, the arm has stopped and the fold line holds the column the thumb
+  // landed it in; sweeping, it is read a beat ahead off the cycle so it
+  // travels along the grid the pair is naming, the same number on both screens.
+  const tip = vaneTipPoint(l, cfg, b, world.beat, world.waveBeat, beatPhase);
+  const tx = tip.x;
+  const ty = tip.y;
   // Lag against the direction of travel, so a held arm hangs straight and a
-  // sweeping one trails. `to - from` is columns per beat, which is exactly how
-  // hard it is being swung.
-  const whip = (to - from) * l.tile * 0.18 + Math.sin(time * 1.7) * l.tile * 0.03;
+  // sweeping one trails. `lead` is columns per beat, which is exactly how hard
+  // it is being swung.
+  const whip = tip.lead * l.tile * 0.18 + Math.sin(time * 1.7) * l.tile * 0.03;
 
   // The colour is the cycle's in every phase (`docs/spec/bosses.md` §11.5): the
   // housing has worn it since the arm stopped, so `vaneOpeningNow` names it even
@@ -105,16 +71,20 @@ export function drawVane(
 
   drawBearing(ctx, l, world, b, px, py, hub, open, hex, rim);
   drawArm(ctx, l, px, py, hub, tx, ty, whip);
+  // The two hands, under the tip so the ring circles it rather than covering
+  // it, and over the spar so a thumb is never behind the thing it is on
+  // (`vane-grip.ts`).
+  drawVaneGrips(ctx, l, cfg, b, world.beat, tip, time);
 
   // The tip, which is the fold line and the only column anybody has to watch.
   // The last thing filled in the whole picture, and `vane-pin-frame.test.ts`
   // reads the drawn column back off it.
-  const tip = new Path2D(circleSubpath(tx, ty, l.tile * 0.11));
+  const dot = new Path2D(circleSubpath(tx, ty, l.tile * 0.11));
   ctx.save();
   ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(tip);
+  ctx.fill(dot);
   ctx.restore();
-  strokeGlow(ctx, tip, PALETTE.rock, STROKE.inner, 0.9);
+  strokeGlow(ctx, dot, PALETTE.rock, STROKE.inner, 0.9);
 
   drawThrow(ctx, l, b, world.beat, beatPhase, tx, ty);
 }

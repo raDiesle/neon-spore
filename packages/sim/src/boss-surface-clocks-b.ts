@@ -187,8 +187,12 @@ export {
   vaneBearingOpen,
   vaneOpeningSpent,
   vanePinned,
+  // The same two off a config and a beat, for the hit test, which is handed a
+  // `Field` and never a world (`render/vane-grip.ts`).
+  vanePinnedAt,
   vanePinSide,
   vaneSplitCol,
+  vaneTipAt,
   vaneTipNow,
   walkFilament,
   // THE WARDEN's openness under its three phases, for the picture and the

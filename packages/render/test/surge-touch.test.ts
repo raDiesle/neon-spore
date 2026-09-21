@@ -51,6 +51,7 @@ function field(world: World, seat: 1 | 2, surge: SurgeState | null = bulb(world)
     shieldCol: world.shieldCol,
     beatPhase: 0,
     beat: world.beat,
+    waveBeat: world.waveBeat,
     seat,
     cfg: CFG,
     boss: surge,

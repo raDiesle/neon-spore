@@ -22,6 +22,7 @@ import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
+import { VANE_CONTROLS } from "./field-controls-vane.js";
 import { WARDEN_CONTROLS } from "./field-controls-warden.js";
 import { WELL_CONTROLS } from "./field-controls-well.js";
 
@@ -86,4 +87,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // control in the game that is worth nothing from one seat and everything
   // from two (`field-controls-pulse.ts`).
   ...PULSE_CONTROLS,
+  // THE VANE's arm and housing, the first pair here that have to be used in
+  // order — and the first that are the only way a fight can be finished at all
+  // (`field-controls-vane.ts`).
+  ...VANE_CONTROLS,
 ];

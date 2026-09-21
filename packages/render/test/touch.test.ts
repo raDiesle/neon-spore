@@ -48,6 +48,7 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     shieldCol: world.shieldCol,
     beatPhase: 0.5,
     beat: 0,
+    waveBeat: 0,
     seat,
     cfg: CFG,
     boss: null,

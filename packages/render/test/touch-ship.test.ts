@@ -37,6 +37,7 @@ function field(seat: 1 | 2, controls: ControlSet = STANDARD, cols?: [number, num
     shieldCol: shield,
     beatPhase: 0.5,
     beat: 0,
+    waveBeat: 0,
     seat,
     cfg: CFG,
     boss: null,

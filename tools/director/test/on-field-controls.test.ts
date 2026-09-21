@@ -99,8 +99,8 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  *   `source` is a branch of `touch.ts`, and neither exists while the target is
  *   only heard. `orreryRing` made the walk one lane later, `sinewLeft` and
  *   `sinewRight` the lane after that, `candleWick` and `curtainHem` in two
- *   halves of one lane each, `pulseMeter` the fifth — and the nineteen still
- *   sitting here are the backlog, each of them a look before it is a row.
+ *   halves of one lane each, `pulseMeter` the fifth, THE VANE's two the sixth —
+ *   and the seventeen still sitting here are the backlog, each of them a look before it is a row.
  *
  * **The `unbuilt` comments say "as every one above it" and not a number.**
  * They carried a running tally until 21 September 2026 and every one of them
@@ -199,9 +199,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   fleetWreck: "field",
   // THE VANE's two hands on its own mechanism — the pilot's thumb pinning
   // the sweeping arm under VEER, the navigator's carry off the seized
-  // housing under SEIZE (`sim/vane-hand.ts`). Sim lane only so far.
-  vaneArm: "unbuilt",
-  vaneHousing: "unbuilt",
+  // housing under SEIZE (`sim/vane-hand.ts`, `render/vane-grip.ts`). The
+  // arm's ring is the one on this tab that *moves*, because the column the
+  // thumb lands in is what the press decides.
+  vaneArm: "field",
+  vaneHousing: "field",
   // SNAKE's two hands on its own body — player 1 prising the jaws that have
   // stuck, player 2 lifting the tail clear of the arena
   // (`sim/snake-controls.ts`). Sim lane only so far, as every one above it.
@@ -403,6 +405,7 @@ const FIELD: Field = {
   shieldCol: 5,
   beatPhase: 0,
   beat: 0,
+  waveBeat: 0,
   seat: 1,
   cfg: CFG,
   boss: null,
