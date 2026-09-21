@@ -208,6 +208,40 @@ question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
 ```
+## `loadedTimeout`'s figures were measured once and the tree has grown past them
+
+- **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
+- **Files:** `tools/test/repo-time.ts`, `tools/test/doc-drift-names.test.ts`, `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `tools/index/test/index.test.ts`
+
+`bun run land` went red on `tools/test/doc-drift-names.test.ts` — *names
+something this tree still writes down*, timed out — and the same file passed
+in 1.4 seconds run alone a minute later. That is the failure `repo-time.ts`
+was written to end, arriving through the one number the module cannot measure
+for itself.
+
+`loadedTimeout(idleMs)` scales a timeout by how loaded the machine is, and its
+docstring says to pass *what the test costs when it is the only thing
+running*. That test passes **120**. Timed here three times over its own body —
+`declaredNames`, then `ownSubjectClaims` over every source file — it costs
+**753, 803 and 870 ms** on an idle machine, over 1578 claims. Six point seven
+times the figure it declares, so every timeout computed from it is six point
+seven times too short, and the run that went red was given 32 seconds for
+something that wanted more.
+
+The figures were right when they were written. Nothing re-measures them, and
+each one is a count of files the tree adds to every day — `tree-walk`,
+`doc-drift`, `index` and this one all walk the whole of it. Two parts:
+
+- Re-measure every `loadedTimeout` caller and raise the figure, the way this
+  entry measured this one. There are twenty of them; the grep is
+  `loadedTimeout(`.
+- Then keep them honest, which is the half that matters. The cheapest version
+  is `loadedTimeout` itself: it already knows `LOAD`, so it can compare the
+  test's real duration against the figure it was handed and fail — or say so
+  — when an idle run is more than, say, double it. A figure that drifts
+  silently is a red landing every session learns to re-run, which is the habit
+  `repo-time.ts`' own docstring names as the thing it exists to prevent.
+
 ## The tab's own pause is bound inside the test rig, and it holds a hidden pane still
 
 - **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l

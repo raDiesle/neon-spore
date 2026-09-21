@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — loaded-timeout-stale — one finding, with the number that proves it
+
+- reading — 5 min. `repo-time.ts`, which already says what is wrong and had
+  the tool for finding out in it.
+- writing — 10 min. The entry, and a throwaway script that runs the test's own
+  body three times to put a measured figure beside the declared one.
+- looking — 0 min.
+- friction — 5 min. The red landing this came out of: one shard timed out
+  under `bun run check`, passed alone, and `land` had to be run twice.
+- landing — 5 min.
+
+Bottleneck: friction — the whole lane is a worked-around command, which is why
+it is written down rather than shrugged at.
+
 ## 2026-09-21 — screen-awake — the screen stays on for as long as the world ticks
 
 - reading — 20 min. The queue entry, then `run-state.ts` and the five named
