@@ -562,6 +562,7 @@ than the string-level unit tests above it.
 ## A claim whose branch is gone reads as taken forever
 
 - **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
+- **Taken:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac (claim: claude/queue-a-claim-whose-branch-is-gone-reads-as-taken-fore)
 - **Files:** `tools/queue/claim.ts`, `tools/queue/mark.ts`, `tools/queue/test/taken.test.ts`
 
 `claimOn` answers off the branch first and falls back to the entry's own
