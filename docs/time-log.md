@@ -15975,3 +15975,5 @@ enough to pass an eye and far enough to fail an assertion, and the test looked
 like a broken control for two runs. **A test that measures a picture has to be
 handed the same geometry the picture was drawn with, and the stage is not the
 window.**
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

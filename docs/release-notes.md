@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 8bcd28d6 — Give THE THROAT's ring and tube something to take hold of
+
+The gullet's two gestures shipped in the simulation on 19 September 2026 with nothing drawn to grip: a choked ring can be pinched to stop the inhale, and once four are choked the tube itself can be hauled a column sideways, and neither had a ring, a hit test or a seat that could see it. `throat-grip.ts` holds both circles, both gates, the `handleUnder()` branch and the drawing, so the picture, the thumb and the word are one answer — the reading now asks it where its marks go (`boss-cue-read-k.ts`) instead of working the mouth out a second time, and the cue for the haul moved onto the handle with it.
+
 ## 2026-09-21 · 9fcaf43f — THE VANE's arm and its housing become hands
 
 Both gestures shipped in the simulation on 18 September 2026 with nothing drawn to take hold of, and they are not two conveniences: from VEER on, the housing stops splitting on the cycle's clock, so a wave with no pin in it has no opening at all and the fight cannot be finished. These are the sixth and seventh handles to make `orreryRing`'s walk from `unbuilt` to `field`, and the first pair that have to be used in order — his thumb stops the arm, her haul splits the bearing it stopped in.
