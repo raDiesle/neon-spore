@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — screen-awake — the screen stays on for as long as the world ticks
+
+- reading — 20 min. The queue entry, then `run-state.ts` and the five named
+  holds it already keeps — which is the whole answer, because *the tab went
+  away* is one of them and the re-request the wake-lock API needs is a change
+  of that same answer. `shell.ts` was read to find it at 244 lines and
+  therefore not the place; `install.ts` for the house rule on a browser
+  capability that may not be there.
+- writing — 25 min. `apps/game/src/awake.ts`, one chain so a release cannot
+  overtake a request in flight, and seven tests — the browser's half of it is
+  four lines of interface, handed in.
+- looking — 15 min. The preview, a counter patched over
+  `navigator.wakeLock.request`, and the menu opened and closed to move the
+  hold underneath it.
+- friction — 10 min. The pane's document is `hidden`, so the run had never
+  started and the counter stayed at zero; a menu row that reads like the way
+  out of the menu does nothing off the wire.
+- landing — 10 min. `check:fast`, an import sort, `bun run index`, `land`.
+
+Bottleneck: looking. Verifying anything about a *running* game in the Browser
+pane is verifying a paused one — the pane reports `document.hidden` while it
+is not displayed, the game answers that with a hold, and the world stops. It
+took fifteen minutes and a screenshot taken for another reason to see it, and
+it is now a queue entry of its own.
+
 ## 2026-09-21 — versus-new-empty-directory — the scaffold's mkdir, and what an empty directory says
 
 - reading — 15 min. `registry.ts`, `scaffold.ts` and the three tests that

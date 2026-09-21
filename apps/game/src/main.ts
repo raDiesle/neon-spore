@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
+import { bindAwake } from "./awake.js";
 import { bindCanvasSheets } from "./canvas-sheets.js";
 import { bindFieldInput } from "./field-input.js";
 import { startFrames } from "./frame.js";
@@ -91,6 +92,10 @@ const jumpToWave = progression.jumpToWave;
  * (`run-state.ts`).
  */
 const run = createRunState();
+// The phone's own idle timer counts taps, and a wave is played in long
+// holds — so the screen is asked to stay on for as long as the world is
+// ticking, and let go the moment anything holds it still (`awake.ts`).
+bindAwake(run);
 
 /**
  * The intro's six pages and the welcome before a device's first tutorial,

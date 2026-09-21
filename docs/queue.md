@@ -208,6 +208,34 @@ question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
 ```
+## The tab's own pause is bound inside the test rig, and it holds a hidden pane still
+
+- **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
+- **Files:** `apps/game/src/testing.ts`, `apps/game/src/main.ts`, `docs/working-with-claude.md`
+- **Where:** local
+
+`run.hold("hidden", document.hidden)` — the whole of "a backgrounded tab does
+not play" — is registered by `bindTestControls`, in among the sliders and the
+god-mode switch. It is shipped behaviour and it is not a test control: the
+catch-up cap it protects (`loop.ts`'s `MAX_CATCH_UP_MS`) is in the shipped
+loop, and the screen lock added on the same day re-asks for itself off this
+hold and nothing else (`awake.ts`). Every one of those is a line in a file
+whose docstring opens *the prototype's test rig*. Lift the two lines into a
+file of their own — the name the rest of the app uses for this is a *hold* —
+and let `main.ts` bind it beside the run state it is about.
+
+The second half is what it does to a lane that verifies in the Browser pane.
+**The pane's document reports `hidden` while the pane is not displayed**, so a
+game opened in it is paused: the world never ticks, `world.tick` stays where it
+was, and only the accident of a screenshot — which fronts the page for a
+moment — lets it advance at all. That is how this was found: a wake lock that
+should have been taken at load was not, and the reason was that the run had
+never started. Anything a lane measures over time in that pane — a wave
+watched at tempo, a beat counted, an animation's arc — is measuring a held
+world. `docs/working-with-claude.md` says to verify with `bun run preview` and
+says nothing about this; it should say it in the same paragraph, and name the
+one way to tell (`document.visibilityState` in the page).
+
 ## A button says two words where a sentence was asked for
 
 - **Found:** 2026-09-06, claude/some-lane
@@ -585,28 +613,6 @@ It needs a row in the settings menu that turns it off, because fullscreen on a
 desktop browser is not what a person testing wants, and because a player who
 was put in fullscreen without being asked and cannot find the way out will
 close the tab rather than the game.
-
-## Nothing keeps the screen awake, and a long hold looks like an empty room
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-21, claude/queue-next-loops-on-an-entry-no-session-can-finish (claim: claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l)
-- **Files:** `apps/game/src/shell.ts`, `apps/game/src/run-state.ts`, `apps/game/src/loop.ts`
-- **Where:** local
-
-`navigator.wakeLock` appears nowhere in the tree. A phone dims and then locks
-on an idle timer that counts *touches*, and this game is played in long holds:
-a thumb resting on THE SURGE's bulb, a hand on a handle, a guard held through a
-volley. A pair three minutes into an act with both thumbs down and no tap for
-forty seconds is exactly the input a phone reads as an abandoned page — and the
-other phone is still in the room, so the dim is a desync the pair has to talk
-their way out of.
-
-`navigator.wakeLock.request("screen")` when a run opens, released when it ends.
-The one thing that is easy to get wrong: **the lock is dropped when the tab is
-hidden and is not given back**, so it has to be re-requested on
-`visibilitychange` — which is the same event the link already watches. Wrap the
-call: it rejects on a battery-saver phone and on every browser that does not
-have it, and a rejection is not a reason for the run not to start.
 
 ## The stage is sized from a number the address bar moves
 
