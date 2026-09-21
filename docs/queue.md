@@ -552,42 +552,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The field is fullscreen only for the players who installed it
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-the-field-is-fullscreen-only-for-the-players-who)
-- **Files:** `apps/game/public/manifest.webmanifest`, `apps/game/src/shell.ts`, `apps/game/src/install.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-settings.ts`
-- **Where:** local
-
-The owner, 19 September 2026: *the game screen is always the core focus for
-the player to use and 100% fitting.*
-
-The manifest already says `"display": "fullscreen"` and
-`"orientation": "portrait"`, and both are right — **and both apply only to the
-installed shortcut**. A pair who opened a link and never pressed INSTALL, which
-is the pair the join flow is built for, plays inside a browser tab: an address
-bar over the picture, a navigation bar under it, and a stage the renderer has
-to fit into what is left. Nothing in `apps/game/src` ever calls
-`requestFullscreen`, and `grep` finds the word only in two doc comments.
-
-The work is one call, and the whole of its difficulty is **where it is called
-from**: `requestFullscreen` is refused outside a user gesture, so it has to
-hang off a press the pair makes anyway on their way onto the field. There are
-three such presses already — the READY hold in `join-room-step.ts`, the last
-page of the intro, and PLAY on the menu — and the right one is the last press
-before the field, once, per run.
-
-Two things ride along with it and cannot be had any other way:
-`screen.orientation.lock("portrait")` is refused outside fullscreen, and a
-phone turned sideways mid-wave is a field re-laid-out under four thumbs; and a
-fullscreen document is the one state in which the platform's own edge gestures
-stop being the first thing a thumb at the edge does.
-
-It needs a row in the settings menu that turns it off, because fullscreen on a
-desktop browser is not what a person testing wants, and because a player who
-was put in fullscreen without being asked and cannot find the way out will
-close the tab rather than the game.
-
 ## Nothing says how long a thumb waits for the field to answer it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

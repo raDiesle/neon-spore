@@ -15500,3 +15500,28 @@ The bottleneck was looking: proving a hold reached the simulation costs a
 capture *and* its control, and half of them say nothing in a picture at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-fullscreen-for-the-uninstalled — the browser's own furniture
+
+- reading — 15 min. The queue entry, the manifest's `"display": "fullscreen"`
+  that already gives the installed pair this, `install.ts` for how a platform
+  capability is asked for and failed quietly, `at-a-desk.ts`, `settings.ts` and
+  `menu-toggles.ts` for where a fourth switch goes.
+- writing — 25 min. `fullscreen.ts` — `canFullscreen`, `wantsFullscreen`,
+  `goFullscreen`, `leaveFullscreen`, and the orientation lock inside it — the
+  `fullscreen` field with its default, the FULL SCREEN row with an `available`
+  that answers for both the platform and the desk, one call on the READY
+  circle's `pointerdown`, and `fullscreen.test.ts`.
+- looking — 20 min. The real preview at 375x812: the row reads ON, flips to
+  OFF, stores `{"fullscreen":false}`, no console error, and the row is absent
+  at desk width. One `bun run menu-shot --page SETTINGS` for the owner.
+- friction — 10 min. `requestFullscreen` is refused without transient user
+  activation, so the obvious seam — `onStart`, where the field begins — could
+  not carry the call at all: on one of the two phones that moment is a relay
+  message arriving, not a thumb. The call moved to the last press the device
+  makes on its own behalf.
+- landing — 10 min.
+
+The bottleneck was friction: the constraint is the browser's and it is not
+visible from the code, so the first seam chosen was one that could never have
+worked and the picture is the only thing that says so.

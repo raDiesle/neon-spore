@@ -39,6 +39,24 @@ export interface Settings {
    * than discovered. See `haptics.ts`.
    */
   haptics: boolean;
+  /**
+   * Whether pressing into the field takes the browser's own furniture off the
+   * screen (`fullscreen.ts`).
+   *
+   * **On by default, and it is still the quiet one.** The manifest has said
+   * `"display": "fullscreen"` since the day there was a manifest, so a pair who
+   * installed the shortcut has always played without an address bar; the pair
+   * who opened a link and never pressed INSTALL — the pair the join flow is
+   * built for — got the same game with thirty pixels of browser over the hull
+   * and a navigation bar under it. Turning this on is that pair getting what
+   * the installed one already had, rather than a new behaviour.
+   *
+   * The switch exists because there is no other way back out. A person who is
+   * put in fullscreen and cannot find the exit closes the tab, and a desk is
+   * the one place a fullscreen window is usually the wrong shape — which is
+   * why the request is also asked of `atADesk` before it is made.
+   */
+  fullscreen: boolean;
 }
 
 /**
@@ -49,7 +67,12 @@ export interface Settings {
  * `prefers-reduced-motion`, which `hasMotionChoice` is how a caller tells the
  * two apart.
  */
-export const DEFAULT_SETTINGS: Settings = { sound: true, motion: true, haptics: false };
+export const DEFAULT_SETTINGS: Settings = {
+  sound: true,
+  motion: true,
+  haptics: false,
+  fullscreen: true,
+};
 
 /** Whatever was stored, read as settings. Unreadable means the defaults. */
 export function parseSettings(raw: string | null): Settings {
@@ -61,6 +84,7 @@ export function parseSettings(raw: string | null): Settings {
       sound: flag(read.sound, DEFAULT_SETTINGS.sound),
       motion: flag(read.motion, DEFAULT_SETTINGS.motion),
       haptics: flag(read.haptics, DEFAULT_SETTINGS.haptics),
+      fullscreen: flag(read.fullscreen, DEFAULT_SETTINGS.fullscreen),
     };
   } catch {
     return DEFAULT_SETTINGS;

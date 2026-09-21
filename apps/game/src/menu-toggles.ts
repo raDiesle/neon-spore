@@ -1,15 +1,17 @@
+import { atADesk } from "./at-a-desk.js";
+import { canFullscreen, leaveFullscreen } from "./fullscreen.js";
 import { canVibrate } from "./haptics.js";
 import { el } from "./menu-parts.js";
 import type { SettingsHooks } from "./menu-settings.js";
 import { readSettings, type Settings, updateSettings } from "./settings.js";
 
 /**
- * SETTINGS' switches: the three things about this device a person may turn on
- * and off, and the one row shape all of them are drawn as.
+ * SETTINGS' switches: the things about this device a person may turn on and
+ * off, and the one row shape all of them are drawn as.
  *
  * Here rather than on the page itself because the page is a list of rows of
  * several kinds — two that open something, a name, a sign-in, an install, a
- * way out — and the switches are the only kind there are three of. Splitting
+ * way out — and the switches are the only kind there are several of. Splitting
  * on the kind with the table keeps `menu-settings.ts` the order of the page
  * and this file the switches themselves, which is the seam CLAUDE.md's line
  * limit asked for the day the WHAT THIS IS row arrived.
@@ -56,6 +58,23 @@ export const TOGGLES: ToggleRow[] = [
     // than no switch.
     available: canVibrate,
     apply: () => {},
+  },
+  {
+    key: "fullscreen",
+    label: "FULL SCREEN",
+    on: "The field takes the whole screen and stays portrait.",
+    off: "The browser keeps its address bar and its buttons.",
+    // Absent where there is no element fullscreen to ask for, and absent at a
+    // desk — where the request is never made either (`fullscreen.ts`), and a
+    // switch that turns nothing on is worse than no switch.
+    available: () => canFullscreen() && !atADesk(),
+    // Turning it off is the way back out for a player who cannot find the
+    // platform's own, so it acts on the spot. Turning it on does not take the
+    // screen from under the menu: the press it belongs to is the one onto the
+    // field.
+    apply: (_hooks, value) => {
+      if (!value) leaveFullscreen();
+    },
   },
 ];
 

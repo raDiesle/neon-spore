@@ -1,5 +1,6 @@
 import type { LinkStatus, PlayerId } from "@neon-spore/net";
 import { DEFAULT_CONFIG, DEFAULT_DIFFICULTY, type Difficulty, isDifficulty } from "@neon-spore/sim";
+import { goFullscreen } from "./fullscreen.js";
 import { circleLook, holdFraction, mayHold, mayShape } from "./join-room.js";
 import { seatWord } from "./join-words.js";
 import { quitBy } from "./quit.js";
@@ -138,6 +139,12 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
     node?.addEventListener("pointerdown", (e) => {
       if (!last || !circleLook(last, seat, over()).holdable || sent) return;
       e.preventDefault();
+      // **The last press this device makes on its own way onto the field**, and
+      // so the one the screen is asked for from: `requestFullscreen` is refused
+      // outside a user gesture, and the hold finishing is a frame callback with
+      // no activation behind it. Refused, unwanted or unsupported, it does
+      // nothing and says nothing (`fullscreen.ts`).
+      goFullscreen();
       downAt = performance.now();
       paintCircles(last);
       requestAnimationFrame(tick);

@@ -1765,6 +1765,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/keys-guide.ts` | What a key means while a wave's guide is up, at a desk |
 | `apps/game/src/intro.ts` | THE ONE SCENE A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING |
 | `apps/game/src/frame.ts` | WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME |
+| `apps/game/src/fullscreen.ts` | **The browser's own furniture, off the screen** — one call |
 | `apps/game/src/interpolate.ts` | the picture drawn between ticks rather than on them, behind `?interpolate=1` |
 | `apps/game/src/perf-page.ts` | The readout `?perf=1` puts on the screen |
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
