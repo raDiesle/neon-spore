@@ -146,8 +146,9 @@ export const CHOREO_FIELD_GROUP_B = {
   antiphonPullMilli: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   // HiveConfig — how many sites, the look before the first opens and the
   // cadence after, the swell's warning, the spill's cadence, the opening
-  // twins come from, what a wrong colour provokes, THE SLOW on the last seal
-  // and how long the wave holds after (`config-hive.ts`).
+  // twins come from, what a wrong colour provokes, the clench's count and
+  // clock and the two thumbs that answer the mass itself, THE SLOW on the
+  // last seal and how long the wave holds after (`config-hive.ts`).
   hiveSites: "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   hiveLookBeats:
     "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
@@ -160,6 +161,14 @@ export const CHOREO_FIELD_GROUP_B = {
   hiveTwinFrom:
     "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   hiveProvokeBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveClenchEvery:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveClenchBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hivePinchBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveHaulMilli:
     "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   hiveSlowBeats:
     "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",

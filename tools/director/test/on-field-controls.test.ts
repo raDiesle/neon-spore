@@ -295,6 +295,17 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // two — which is why the answer is her reading the flat field out loud.
     case "wellSeam":
       return target;
+    // `hiveLobe` is the same shape as the seam above and the first of them
+    // split between the two seats: the underside of THE HIVE, read two ways
+    // by what the mass is doing. Clenched, the whole underside is the handle
+    // and the pilot drags it back within reach, which is the only answer
+    // there is to a state that puts every breach out of a bolt's reach too.
+    // Swelling, one lobe is the handle, `id` names which, and the navigator
+    // holds it until the colour is wrung out of it — hers because she is the
+    // only seat a swell is drawn for, as the seam is his because the clock
+    // is drawn on his (`sim/hive-hand.ts`, `docs/spec/bosses.md` §11.14).
+    case "hiveLobe":
+      return target;
     default:
       return assertNever(target);
   }

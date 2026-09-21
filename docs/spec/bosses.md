@@ -2245,6 +2245,45 @@ the boss nulled, the wave allowed to end). **Nothing slows the opening
 clock**: sealing a breach the beat it opens and sealing it seven beats later
 both leave the next opening where it was; the difference is fourteen bodies.
 
+**And the mass answers back, in two states the pair meets with two gestures
+of their own** — the §6.2 ask (`.claude/skills/new-boss-more`), built on 21
+September 2026, and both reached **on the picture** rather than on the panel,
+because the picture is the one part of this boss that hangs inside the field.
+The mass's own clock is `HIVE_PHASES` (`hang`, `spill`, `clench`, `down`) and
+one lobe's condition is a second axis beside it, `HIVE_LOBES` (`swelling`,
+`wrung`, `open`, `sealed`, in `sim/hive-lobe.ts`).
+
+*The clench.* On every `hiveClenchEvery`-th (3rd) scar the underside draws
+**up out of reach** for `hiveClenchBeats` (6) (`hiveClench`, the middle
+column): nothing spills, nothing can be sealed — every bolt out of the top is
+`hiveSkin` — and **the openings arrive on time regardless**, because the one
+clock nobody may slow is not slowed by the boss either. A clench waited out
+is therefore bought twice: with the breaches that opened behind it, and with
+the backlog, which breaks over the pair on the beat it lets go (the cadence
+rides along while it is up and is set one full cadence back on the relax, so
+every open breach spills at once). **The pilot's thumb on the underside hauls
+it back down** — `hiveHaulMilli` (700) thousandths of a tile, cumulative from
+the grab and downward only — and a clench hauled costs them nothing but the
+hand (`hiveHaul`). He is the seat that is shown the mass.
+
+*The wrung lobe.* **The navigator's thumb held on a swelling lobe for
+`hivePinchBeats` (2) wrings the colour out of it**: the breach opens
+colourless (`hiveWrung`, said on the site's own column) and **either colour
+seals it** (`hiveSealedBy`), so the sentence he would have had to say is one
+she no longer has to wait for. It costs exactly what a wrong bolt costs — the
+mass feels the hand, and every open breach spills `hiveProvokeBeats` sooner —
+which is why wringing every lobe is slower than sealing straight, and why the
+gesture is for the lobe whose colour has not been said yet. She is the only
+seat shown a swell at all, and a hand of his on a lobe he cannot see is
+dropped without a sound, as THE WELL drops hers.
+
+Both are one handle, `hiveLobe`, read two ways by the state the mass is in
+(`sim/hive-hand.ts`) — THE WELL's seam again: no new thing to find on the
+screen, only a new moment to put the same thumb down in. Neither seat can
+make the other's gesture, and neither can be told by the game which moment it
+is: *it is clenched, haul it* and *the next one is at seven, wring it* are
+sentences somebody has to say out loud.
+
 **The split is the eyes, and it is the look lane's.** Both seats are shown
 which sites are open and which are sealed. **Player 1 alone is shown a
 breach's colour** — and he cannot fire, so the colour is a thing he has to
@@ -2314,8 +2353,9 @@ once from the fifth opening. A breach open is an aperture in the lobe, **in
 its colour on the pilot's screen** with the colour's rim breathing, and a
 wax-grey one on the navigator's, so that she sees a breach and not what to
 fire into it. A seal stitches the lobe shut in the hull's pale, and the
-scar stays. A wrong colour clenches the whole mass in for a few frames; a
-seal jolts it up; when the last site is scarred the mass closes on its
+scar stays. A wrong colour clenches the whole mass in for a few frames, and the
+clench proper is that same drawing-up held for six beats and drawn to be
+hauled — the look lane's, and not yet drawn; a seal jolts it up; when the last site is scarred the mass closes on its
 middle and fades over `hiveOutBeats` (`hive-fx.ts`, `effects.boss.hive`).
 The bursts of its nine receipts are thrown at the underside over the
 event's column on both screens, an opening's in its colour only where the
@@ -2334,6 +2374,14 @@ since 20 September 2026 — a run that fires real bolts up a real column and
 wins the wave; no eye has still seen nine breaches spilling into one
 shield at eight beats an opening. `hiveOpenBeats`, `hiveSpillBeats` and
 `hiveTwinFrom` are the three dials, and they are on the director's sheet.
+Nine more in `sim/test/hive-states.test.ts` prove the two states of 21
+September 2026: the clench on the third scar and not on the ones between, the
+spills and seals it refuses while the openings go on anyway, the backlog
+handed back on the beat it runs out, the haul that relaxes it early and owes
+nothing, the wring at a wrong bolt's price, and that neither gesture can be
+made from the other's seat. **The picture of both is the second lane** — the
+drawn clench, the lobe under a thumb, the colourless breach — and nothing of
+it is in this one.
 
 **It could not be won as it shipped** — found on 18 September 2026 by the
 rehearsal lane, which could not author a film that wins it. A bolt stops at

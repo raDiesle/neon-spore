@@ -25,7 +25,7 @@ import { WAVES } from "../src/waves.js";
  * film was proved on one grid and played on the other — this one's bolts left
  * fifteen ticks early under the default, the third killed nothing, and the
  * wave was breached at beat 36 while this test was green. The expectation
- * below is therefore the same nineteen events in the browser
+ * below is therefore the same twenty events in the browser
  * (`docs/queue.md`, 21 September 2026, which asks the same question of the
  * other films).
  */
@@ -44,6 +44,7 @@ describe("the rehearsal for THE HIVE", () => {
         else if (e.type === "hiveSpill") seen.push(`spill ${e.col} @${w.beat}`);
         else if (e.type === "hiveWrong") seen.push(`wrong @${w.beat}`);
         else if (e.type === "hiveSkin") seen.push(`skin @${w.beat}`);
+        else if (e.type === "hiveClench") seen.push(`clench @${w.beat}`);
         else if (e.type === "breach" || e.type === "waveFailed") seen.push(`${e.type} @${w.beat}`);
       }
     }
@@ -54,6 +55,15 @@ describe("the rehearsal for THE HIVE", () => {
     // hurries its spill by a beat and costs the pair of shots after it. No
     // `skin` — the cannon is never fired at a column with nothing open in it —
     // and no `breach` or `waveFailed`: the film takes no hit.
+    //
+    // **It clenches twice**, on the third seal and on the sixth, which is the
+    // underside's own answer to being sealed (`bosses.md` §11.14, 21 September
+    // 2026). The first costs the film nothing: everything is shut by the time
+    // it is up, so there is no spill for it to hold back. The second is why
+    // the film ends quiet — column 8 is open and spilling at beat 46, and the
+    // two spills it would have taken at 47 and 50 are inside a clench that
+    // outlasts the scene. Nobody hauls it, because the film was authored
+    // before there was anything to haul; that is a queue entry of its own.
     expect(seen).toEqual([
       "open 3 cyan @4",
       "seal 3 left 8 @5",
@@ -62,6 +72,7 @@ describe("the rehearsal for THE HIVE", () => {
       "seal 6 left 7 @14",
       "open 5 cyan @20",
       "seal 5 left 6 @20",
+      "clench @20",
       "open 1 red @28",
       "wrong @28",
       "spill 1 @29",
@@ -73,8 +84,7 @@ describe("the rehearsal for THE HIVE", () => {
       "spill 7 @44",
       "spill 8 @44",
       "seal 7 left 3 @46",
-      "spill 8 @47",
-      "spill 8 @50",
+      "clench @46",
     ]);
   });
 });

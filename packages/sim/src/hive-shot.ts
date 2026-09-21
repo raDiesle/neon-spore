@@ -1,4 +1,7 @@
-import { hiveBoss, hiveDown, hiveLeft, hiveOpenAt } from "./hive.js";
+import { midCol } from "./config.js";
+import { hiveBoss, hiveDown, hiveLeft, hiveOpenAt, hiveSealedCount } from "./hive.js";
+import { hiveClenched, hiveSealedBy } from "./hive-lobe.js";
+import { enterHivePhase } from "./hive-step.js";
 import { openSlow } from "./slow.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
@@ -21,6 +24,13 @@ import type { World } from "./world.js";
  * cadence before the next body falls, and the pair that lets three open
  * has three cadences to find the gap in.
  *
+ * **A clenched underside is out of the bolt's reach too**, not only the
+ * thumb's: every column is skin while the mass is up, so the pair that
+ * leaves a clench standing is not merely waiting — they cannot hurt it, and
+ * the one answer to it is the pilot's hand on the picture
+ * (`hive-hand.ts`). **And a lobe wrung open takes either colour**, which is
+ * the navigator's gesture spending itself here.
+ *
  * **The beam seals like a bolt does.** It has a colour and a column, and
  * the design gives the breach nothing the lance is the sole answer to; a
  * beam standing in an open breach's column in its colour is a bolt held
@@ -29,12 +39,12 @@ import type { World } from "./world.js";
 export function hiveStruck(world: World, b: Bullet): void {
   const s = hiveBoss(world);
   if (s === null || hiveDown(s)) return;
-  const i = hiveOpenAt(s, b.col);
+  const i = hiveClenched(s) ? -1 : hiveOpenAt(s, b.col);
   if (i < 0) {
     world.events.push({ type: "hiveSkin", col: b.col });
     return;
   }
-  if (b.color !== s.colors[i]) {
+  if (!hiveSealedBy(s, i, b.color)) {
     s.spillBeat -= world.cfg.hiveProvokeBeats;
     world.events.push({ type: "hiveWrong", col: b.col });
     return;
@@ -42,9 +52,19 @@ export function hiveStruck(world: World, b: Bullet): void {
   s.sealed[i] = true;
   const left = hiveLeft(s);
   world.events.push({ type: "hiveSeal", col: b.col, left });
-  if (left > 0) return;
+  if (left > 0) {
+    // Hurt on a count rather than on a clock: the underside draws up out of
+    // reach on every `hiveClenchEvery`-th scar, and the openings go on
+    // arriving behind it (`hive-step.ts`).
+    if (hiveSealedCount(s) % world.cfg.hiveClenchEvery !== 0) return;
+    s.haulMilli = 0;
+    enterHivePhase(s, "clench", world.beat);
+    world.events.push({ type: "hiveClench", col: midCol(world.cfg) });
+    return;
+  }
   // The last seal is the drama, and it is watched at a third rate.
   s.downBeat = world.beat;
+  enterHivePhase(s, "down", world.beat);
   openSlow(world, world.cfg.hiveSlowBeats);
   world.events.push({ type: "hiveDown", col: b.col });
 }

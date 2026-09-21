@@ -95,6 +95,8 @@ export { gorgePinchSeat, gorgePrySeat } from "./gorge-hand.js";
 // THE HIVE's clock is the opening: a site every `hiveOpenBeats`, swelling
 // first on one screen and coloured on the other (`hive.ts`).
 export {
+  HIVE_PHASES,
+  type HivePhase,
   type HiveState,
   hiveBoss,
   hiveDown,
@@ -104,10 +106,25 @@ export {
   hiveOpen,
   hiveOpenAt,
   hiveOpenCount,
+  hiveSealedCount,
   hiveSiteCols,
   hiveSwelling,
   hiveTwins,
 } from "./hive.js";
+// And its second axis: what one lobe of that underside is, which is what the
+// two thumbs are answering (`hive-lobe.ts`).
+export {
+  HIVE_LOBES,
+  type HiveLobe,
+  hiveClenched,
+  hiveClenchUntil,
+  hiveLobeAt,
+  hivePinched,
+  hiveSealedBy,
+  hiveSwellingAt,
+  hiveWrungAt,
+  NO_PINCH,
+} from "./hive-lobe.js";
 // THE INSTAR's clock is the script's: a morph, a window, a landing, per step
 // (`instar.ts`) — and the engine every choreographed scene runs on.
 export {

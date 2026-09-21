@@ -438,8 +438,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
 | `packages/sim/src/harpoon.ts` | **THE LEECH and THE LIMPET as malfunctions** |
 | `packages/sim/src/hive-hash.ts` | What THE HIVE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/hive-hand.ts` | **Two thumbs on THE HIVE's underside**, off the wire, on the tick |
 | `packages/sim/src/hive-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE HIVE |
 | `packages/sim/src/hive-step.ts` | THE HIVE's clock — the look, the swell, the openings and the spill |
+| `packages/sim/src/hive-lobe.ts` | **One lobe of THE HIVE's underside, and the two gestures it answers to.** `hive.ts` is the mass: where it is |
 | `packages/sim/src/hive.ts` | THE HIVE: close the source, not the spill |
 | `packages/sim/src/coil-state.ts` | **What a coil is right now**: which way it is going, whether it is still wearing its dome |
 | `packages/sim/src/config-rock-cross.ts` | **A crossing rock's two numbers**: how far along its row it goes each beat |
@@ -1664,7 +1666,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's four, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
-| `packages/audio/src/bind-hive.ts` | THE HIVE's nine, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-surge.ts` | THE SURGE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
@@ -1884,7 +1886,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN, THE VANE, THE ORRERY, THE CANDLE |
 | `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
-| `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE FLEET, THE GORGE, THE CURTAIN, THE SCUTTLE, THE HIVE |
+| `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `tools/director/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
@@ -1892,6 +1894,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
 | `tools/director/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
 | `tools/director/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`poses-bosses-kit.ts`) |
+| `tools/director/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`poses-bosses-kit.ts`) |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |

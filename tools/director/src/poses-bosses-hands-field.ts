@@ -3,25 +3,22 @@ import {
   curtainLobesLeft,
   fleetAfloat,
   gorgePhase,
+  hiveClenched,
   hiveOpenCount,
+  hiveSealedCount,
   scuttleWinding,
   type World,
 } from "@neon-spore/sim";
 import { fleetHand } from "./boss-hand-fleet.js";
-import {
-  curtainHand,
-  curtainHandWith,
-  gorgeHand,
-  hiveHand,
-  scuttleHand,
-} from "./boss-hands-field.js";
+import { hiveHand, hiveWringHand } from "./boss-hand-hive.js";
+import { curtainHand, curtainHandWith, gorgeHand, scuttleHand } from "./boss-hands-field.js";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
  * **The states the pair's hands bring on the bosses of the field** — THE
  * FLEET's chart, THE GORGE's mouth, THE CURTAIN's fabric, THE SCUTTLE's
- * hanging parts and its last one, THE HIVE's spill and its last one —
+ * hanging parts and its last one, THE HIVE's four the thumbs bring on —
  * posed the way `poses-bosses-hands-shots.ts` poses the shot bosses': the
  * boss's wave, a hand on the controls (`boss-hands-field.ts`), the run held
  * until the state is there.
@@ -157,13 +154,43 @@ export const FIELD_HAND_POSES: Pose[] = [
   ),
   bossPose(
     "hive",
-    "spilling",
+    "spill",
     "A breach spills its own colour, living, down the column. P1 aims at it; P2 fires it twice: clear, then seal.",
     {
       hand: hiveHand,
       want: (w) =>
         w.boss?.kind === "hive" && hiveOpenCount(w.boss) > 0 && w.boss.spillBeat === w.beat,
       hold: 4,
+    },
+  ),
+  bossPose(
+    "hive",
+    "sealed",
+    "P1 aimed, P2 fired its colour up its column: a scar, and a bolt into it now is skin.",
+    {
+      hand: hiveHand,
+      want: (w) => w.boss?.kind === "hive" && hiveSealedCount(w.boss) > 0,
+      hold: 4,
+    },
+  ),
+  bossPose(
+    "hive",
+    "wrung",
+    "P2 held the swelling lobe: it opened colourless, and P1 may seal it with either colour.",
+    {
+      hand: hiveWringHand,
+      want: (w) => w.boss?.kind === "hive" && w.boss.wrung.includes(true),
+      hold: 4,
+    },
+  ),
+  bossPose(
+    "hive",
+    "clench",
+    "Three scars and it draws up out of reach: nothing spills or seals. P1 hauls it down; P2 holds fire.",
+    {
+      hand: hiveHand,
+      want: (w) => w.boss?.kind === "hive" && hiveClenched(w.boss),
+      budgetBeats: 90,
     },
   ),
   bossPose("hive", "down", "The last breach sealed. P1 aims at the wave again; P2 fires.", {

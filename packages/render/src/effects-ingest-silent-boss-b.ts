@@ -63,10 +63,11 @@ export const INGEST_SILENT_BOSS_B = [
   "antiphonShip",
   "antiphonBurst",
   "antiphonOut",
-  // THE HIVE's nine: a breach open or sealed and the swell before one opens
-  // are read off the boss every frame, and the bursts, the clench and the
-  // jolt are `hive-fx.ts`'s, read above the loop as one family the way THE
-  // SCUTTLE's are (`docs/spec/bosses.md` §11.14).
+  // THE HIVE's twelve: a breach open or sealed, the swell before one opens,
+  // whether the mass is clenched and which lobe a thumb is on are read off
+  // the boss every frame, and the bursts, the clench and the jolt are
+  // `hive-fx.ts`'s, read above the loop as one family the way THE SCUTTLE's
+  // are (`docs/spec/bosses.md` §11.14).
   "hiveEnter",
   "hiveSwell",
   "hiveOpen",
@@ -74,6 +75,9 @@ export const INGEST_SILENT_BOSS_B = [
   "hiveSkin",
   "hiveWrong",
   "hiveSeal",
+  "hiveClench",
+  "hiveHaul",
+  "hiveWrung",
   "hiveDown",
   "hiveOut",
   // THE INSTAR's eleven: the pose, the marks and how far each has got are

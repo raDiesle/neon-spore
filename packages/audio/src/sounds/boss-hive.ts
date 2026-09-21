@@ -1,5 +1,5 @@
 /**
- * THE HIVE's nine, in a file of their own for `boss-gorge.ts`' reason.
+ * THE HIVE's twelve, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **mass over the field with breaches in its underside**, and
  * everything here is the sound of a membrane: the swell is a stretch, skin
@@ -12,6 +12,16 @@
  * down is the last seal under THE SLOW, the whole mass tightening shut; the
  * out is it lifting away. Low and soft under the band, or short and high
  * above it, as ever (docs/spec/audio.md §1).
+ *
+ * **The three the mass's own states make are the same membrane, heard from
+ * further in.** The clench is the whole underside drawing up and away — a
+ * long low haul of air with the spills going quiet behind it, so the pair
+ * hear the field empty. The haul is the pilot's thumb pulling it back: a
+ * strain that gives, short, and a soft settling under it, because a clench
+ * answered costs nothing and should not sound like it did. The wrung lobe
+ * is the one gesture that is a *squeeze*: a wet wring high over the band
+ * with the colour going out of it, close kin to the seal because it is the
+ * seal's promise made early (`hive-lobe.ts`).
  */
 
 import { after, air, burst, glint, noise, soft, spore, sub, swell, thud, tick } from "../grain.js";
@@ -91,6 +101,49 @@ export const BOSS_HIVE_SOUNDS: SoundDef[] = [
       noise(0.08, { type: "highpass", freq: 2400, toFreq: 3800, q: 0.9 }, 0.002, 0.04, 0.45),
       after(0.06, glint(2600, 0.3, 0.16)),
       after(0.12, tick(0.16, 0, 3200)),
+    ],
+  },
+  {
+    id: "boss.hiveClench",
+    family: "boss",
+    blurb:
+      "The whole underside drawing up out of reach: a long low haul of air, and quiet behind it.",
+    status: "bound",
+    use: "THE HIVE clenching on every third scar — nothing spills and nothing seals while it is up.",
+    level: 0.42,
+    layers: [
+      swell(48, 1.1, 0.12),
+      // The air goes *over* the band rather than through it: a mass drawing
+      // itself up is a long sound, and a long sound in the speech band is a
+      // sound the pair have to talk over (`docs/spec/audio.md` §1).
+      after(0.05, air(3400, 6200, 0.6, 0.13, 1.7)),
+      after(0.5, soft(0.4, sub(64, 0.4, 0.3))),
+    ],
+  },
+  {
+    id: "boss.hiveHaul",
+    family: "boss",
+    blurb: "A clench pulled back down: a strain that gives, and the mass settling soft.",
+    status: "bound",
+    use: "The pilot's thumb hauling THE HIVE's clenched underside down — it relaxes early, owing nothing.",
+    level: 0.4,
+    layers: [
+      air(2000, 700, 0.22, 0.14, 1.9),
+      after(0.08, thud(200, 80, 0.2, 0.34)),
+      after(0.14, soft(0.5, spore(300, 0.3, 0.12, 24))),
+    ],
+  },
+  {
+    id: "boss.hiveWrung",
+    family: "boss",
+    blurb: "The colour squeezed out of a swelling lobe: a wet wring, and a thin glint going.",
+    status: "bound",
+    use: "The navigator's thumb held on a swelling site of THE HIVE — it opens colourless, and either colour seals it.",
+    level: 0.38,
+    layers: [
+      noise(0.1, { type: "bandpass", freq: 1400, toFreq: 2600, q: 2.2 }, 0.003, 0.06, 0.45),
+      after(0.06, glint(2200, 0.26, 0.14)),
+      after(0.14, soft(0.6, air(3000, 1200, 0.2, 0.12, 1.6))),
     ],
   },
   {

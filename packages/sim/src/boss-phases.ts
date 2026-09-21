@@ -7,6 +7,8 @@ import { FLEET_PHASES } from "./fleet-state.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { GAUGE_GRIPS } from "./gauge-hand.js";
 import { GORGE_PHASES } from "./gorge.js";
+import { HIVE_PHASES } from "./hive.js";
+import { HIVE_LOBES } from "./hive-lobe.js";
 import { INSTAR_PHASES } from "./instar.js";
 import { LEDGER_PHASES } from "./ledger.js";
 import { MAZE_PHASES } from "./maze.js";
@@ -38,9 +40,9 @@ import { WARDEN_PHASES } from "./warden-cycle.js";
  * when a state here has no picture there.
  *
  * **A boss with a phase table is listed here, and a phase added to one is a
- * pose owed on the sheet.** A boss with no table — THE CAIRN's pile, THE
- * HIVE's seals — is absent here and named by hand on the
- * director's side, which is the half of this that cannot be derived. THE
+ * pose owed on the sheet.** A boss with no table — THE CAIRN's pile — is
+ * absent here and named by hand on the director's side, which is the half of
+ * this that cannot be derived. THE
  * MIRROR is the one boss whose phases are a bare union (`MirrorPhase`), so
  * its row is a record keyed by that union: a name added to the union without
  * one here is a type error on this line.
@@ -85,6 +87,11 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   // clock, and what the motes aboard have made of the little ship. The
   // second is the one the pair puts it in (`scout.ts`).
   scout: [...SCOUT_PHASES, ...SCOUT_LOADS],
+  // Both of THE HIVE's axes, as the rounds above: where the mass itself is,
+  // and what one lobe of the underside has become. The pair meet a different
+  // thumb in each — the clench is hauled, the swelling lobe is wrung — so a
+  // sheet with only the first would be lying by omission (`hive-lobe.ts`).
+  hive: [...HIVE_PHASES, ...HIVE_LOBES],
   stare: STARE_PHASES,
   diastole: DIASTOLE_PHASES,
   baton: BATON_STAGES,

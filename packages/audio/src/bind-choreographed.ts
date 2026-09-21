@@ -220,6 +220,9 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "hiveSkin":
     case "hiveWrong":
     case "hiveSeal":
+    case "hiveClench":
+    case "hiveHaul":
+    case "hiveWrung":
     case "hiveDown":
     case "hiveOut":
       return hiveCue(e, cols);

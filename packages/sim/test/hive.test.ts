@@ -12,6 +12,8 @@ import {
   hiveSwelling,
   hiveTwins,
 } from "../src/hive.js";
+import { hiveHeard } from "../src/hive-hand.js";
+import { hiveClenched } from "../src/hive-lobe.js";
 import { hiveStruck } from "../src/hive-shot.js";
 import {
   createWorld,
@@ -35,13 +37,15 @@ import type { Bullet, Color } from "../src/types.js";
  * with every site shut, its sites on distinct inner columns in an order
  * the seed decided, and nothing on the field; that it hangs for
  * `hiveLookBeats` and then opens a site every `hiveOpenBeats`, swelling
- * the next `hiveSwellBeats` before; that an open breach spills a plain
- * rock down its column every `hiveSpillBeats` and a sealed one spills
- * nothing; that a bolt out of the top in an open breach's column and
+ * the next `hiveSwellBeats` before; that an open breach spills a living
+ * body of its own colour down its column every `hiveSpillBeats` and a
+ * sealed one spills nothing; that a bolt out of the top in an open breach's column and
  * colour seals it for good, the other colour brings every spill forward
  * by `hiveProvokeBeats`, and any other column is skin; that openings come
  * in pairs from `hiveTwinFrom`; that the beam seals like a bolt; and that
  * the last seal opens THE SLOW and the body is gone `hiveOutBeats` later.
+ * The mass's own two states and the two thumbs that answer them are next
+ * door in `hive-states.test.ts`.
  *
  * The fingerprint is compared between two runs in one process rather than
  * pinned (`docs/decisions.md` #19).
@@ -260,6 +264,17 @@ describe("the seal", () => {
   });
 });
 
+/** The pilot's thumb, hauling a clenched underside back within reach in one carry. */
+function haulDown(world: World): void {
+  hiveHeard(world, 1, {
+    kind: "drag",
+    target: "hiveLobe",
+    on: true,
+    fromMilli: 0,
+    fromYMilli: CFG.hiveHaulMilli,
+  });
+}
+
 describe("the end", () => {
   it("goes down under THE SLOW on the last seal, and is gone hiveOutBeats later", () => {
     const world = open();
@@ -269,6 +284,10 @@ describe("the end", () => {
     for (let i = 0; i < s.cols.length; i++) {
       if (i === s.cols.length - 1) expect(s.downBeat).toBe(-1);
       hiveStruck(world, shot(world, s.cols[i] ?? 0, s.colors[i] ?? "red"));
+      // Every `hiveClenchEvery` scars the underside draws up out of reach and
+      // the next bolt would be skin, so the pilot hauls it back down before
+      // the run of seals goes on (`hive-hand.ts`, `hive-states.test.ts`).
+      if (hiveClenched(s)) haulDown(world);
     }
     expect(hiveLeft(s)).toBe(0);
     expect(s.downBeat).toBe(world.beat);

@@ -15741,3 +15741,29 @@ third of a two-beat flight, which is one frame in six and no frame at all in a
 test.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-the-hive-changes-state — two states, and the seat that cannot see them
+
+- reading — 10 min. The §6.2 brief in `.claude/skills/new-boss-more`, the
+  fourteen registrations in `.claude/skills/new-boss-state`, then THE WELL's
+  seam and THE THROAT's hands as the two precedents for one handle read two
+  ways by state — which is what decided `hiveLobe` rather than a second
+  target, and what `showsHiveSwell` already made possible.
+- writing — 20 min. `hive-lobe.ts` and `hive-hand.ts` new, the clench folded
+  into `hive-step.ts`'s beat order, the wire field, three sounds, the hash,
+  two director axes, five cards, `boss-hand-hive.ts` cut out of
+  `boss-hands-field.ts`, and nine tests in `hive-states.test.ts`.
+- looking — 0 min. The picture is the second half and is queued: nothing this
+  lane wrote reaches a frame, so there was nothing to look at and no PNG.
+- friction — 5 min. Four of the nine tests failed on the fixture rather than
+  the code — a helper that sealed every breach it opened, a baseline captured
+  after the cadence had already moved, a clench shorter than the opening
+  cadence it was supposed to contain, and a `beats()` that ate the relax beat.
+  Then `sound-link-none-b.ts` and `boss-hands-field.ts` both went over 250
+  lines and gave a boss each to the next page.
+- landing — 10 min.
+
+The bottleneck was the tests, and the reason is worth keeping: every one of
+the four failures was the fixture failing to reach the state, not the state
+being wrong — a clench only happens on the third scar, and getting a world
+into one with breaches still open under it took more code than the clench.

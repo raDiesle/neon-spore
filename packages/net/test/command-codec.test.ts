@@ -188,6 +188,15 @@ const ACCEPTED: Command[] = [
   // leave the face held still by a thumb that is no longer down.
   { kind: "drag", target: "wellSeam", on: true, fromMilli: 1500 },
   { kind: "drag", target: "wellSeam", on: false, fromMilli: 0 },
+  // THE HIVE's underside, and the one handle here that both seats send on:
+  // the pilot's haul on a clenched mass is `fromYMilli`, down only and no id
+  // because the whole underside is the handle, and the navigator's hold on a
+  // swelling lobe is an `id` and no travel at all (`sim/hive-hand.ts`). Both
+  // shapes are here because a codec that kept one and dropped the other would
+  // silently give the fight one of its two new gestures.
+  { kind: "drag", target: "hiveLobe", on: true, fromMilli: 0, fromYMilli: 800 },
+  { kind: "drag", target: "hiveLobe", on: true, fromMilli: 0, id: 5 },
+  { kind: "drag", target: "hiveLobe", on: false, fromMilli: 0, id: 5 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -328,6 +337,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   scuttlePart: true,
   antiphonRail: true,
   wellSeam: true,
+  hiveLobe: true,
   crank: true,
   orreryRing: true,
 };

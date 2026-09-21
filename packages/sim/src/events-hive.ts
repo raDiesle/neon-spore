@@ -12,6 +12,10 @@ import type { Color } from "./types.js";
  * a site opened, the rock a breach spilled, and what a bolt out of the top
  * met — skin, the wrong colour, or the seal. Every one names a column,
  * because the ear pans on one: the site's own, or the middle for the body.
+ *
+ * The three added with the mass's own states are the same kind of moment: a
+ * clench and a haul are the whole body and pan in the middle, and a lobe
+ * wrung is one site and pans on it (`hive-lobe.ts`).
  */
 
 /** A column's worth of THE HIVE, for the ear to pan on. */
@@ -35,6 +39,12 @@ export type HiveEvent =
   | ({ type: "hiveWrong" } & HiveColEvent)
   /** The breach at `col` is sealed for good, `left` sites still unsealed. */
   | ({ type: "hiveSeal"; left: number } & HiveColEvent)
+  /** The underside clenched up out of reach over `col` — the middle: nothing spills, nothing seals. */
+  | ({ type: "hiveClench" } & HiveColEvent)
+  /** A thumb hauled the clench back down at `col` — the middle: it relaxes early, with no backlog. */
+  | ({ type: "hiveHaul" } & HiveColEvent)
+  /** A thumb wrung the colour out of the swelling lobe at `col`: it opens colourless. */
+  | ({ type: "hiveWrung" } & HiveColEvent)
   /** The last site sealed at `col`: the body is beaten and hangs. */
   | ({ type: "hiveDown" } & HiveColEvent)
   /** The body is out, `hiveOutBeats` after the last seal; the wave may end. */

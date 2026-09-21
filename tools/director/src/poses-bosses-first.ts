@@ -4,6 +4,7 @@ import {
   fleetAfloat,
   gorgePhase,
   hiveOpenCount,
+  hiveSwelling,
   leadRunning,
   leadShootable,
   ledgerPhase,
@@ -164,9 +165,15 @@ export const FIRST_BOSS_POSES: Pose[] = [
   ),
   bossPose(
     "hive",
-    "sealed",
+    "hang",
     "Nine sites sown and none open: four beats to look. P1 reads the underside; P2 reads it with him.",
     { want: (w) => w.boss?.kind === "hive" && hiveOpenCount(w.boss) === 0 && w.beat >= 2 },
+  ),
+  bossPose(
+    "hive",
+    "swelling",
+    "The next site hangs low, three beats before it opens. Only P2 sees it; she names the column, P1 waits.",
+    { want: (w) => w.boss?.kind === "hive" && hiveSwelling(w.boss, w.cfg, w.beat) },
   ),
   bossPose(
     "hive",

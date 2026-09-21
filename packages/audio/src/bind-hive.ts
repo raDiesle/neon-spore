@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE HIVE's nine, in a file of their own for `bind-gorge.ts`' reason.
+ * THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one of them is panned, and here the pan is the *site*: a breach
  * swells, opens, spills and is sealed over one column, so the four sounds a
@@ -11,6 +11,13 @@ import { type Cue, panForCol } from "./bind.js";
  * navigator's warning and the open is the pilot's — the pan is the one half
  * of each the other seat is given for free. The seal steps up as the count
  * of unsealed sites comes down, so the fight's length can be counted by ear.
+ *
+ * **The three the mass itself makes are the exceptions, and pan in the
+ * middle** — a clench, a haul and a lobe wrung are the body rather than a
+ * site. The wrung one is a site and pans on it like the rest, and it is the
+ * one sound in here that has to be heard *through* a spill: it says a
+ * breach that just opened will take either colour, which is the pilot's cue
+ * to stop asking.
  */
 export function hiveCue(
   e: Extract<
@@ -24,6 +31,9 @@ export function hiveCue(
         | "hiveSkin"
         | "hiveWrong"
         | "hiveSeal"
+        | "hiveClench"
+        | "hiveHaul"
+        | "hiveWrung"
         | "hiveDown"
         | "hiveOut";
     }
@@ -47,6 +57,12 @@ export function hiveCue(
     case "hiveSeal":
       // A step up per site sealed, so the count left can be heard.
       return { id: "boss.hiveSeal", pan, pitch: 1.3 - Math.min(8, e.left) * 0.035 };
+    case "hiveClench":
+      return { id: "boss.hiveClench", pan };
+    case "hiveHaul":
+      return { id: "boss.hiveHaul", pan };
+    case "hiveWrung":
+      return { id: "boss.hiveWrung", pan };
     case "hiveDown":
       return { id: "boss.hiveDown", pan };
     case "hiveOut":

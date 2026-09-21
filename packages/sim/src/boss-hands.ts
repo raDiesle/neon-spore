@@ -6,6 +6,7 @@ import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
+import { hiveHeard } from "./hive-hand.js";
 import { instarHeard } from "./instar-hand.js";
 import { leadHeard } from "./lead-hand.js";
 import { ledgerHandsHeard } from "./ledger-hand.js";
@@ -59,6 +60,11 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // is where the thumb is now, and a pull answered on the next beat could be
   // answered after the bolt it was meant to make safe (`antiphon-hand.ts`).
   for (const c of commands) antiphonPulled(world, c.player, c.command);
+  // THE HIVE's two thumbs on the underside, on the tick because a haul is
+  // where the thumb is now and a hold of two beats cannot afford a beat of
+  // rounding (`hive-hand.ts`). The cannon and the trigger stay where they
+  // are: this is the boss's second and third gestures, not its first.
+  for (const c of commands) hiveHeard(world, c.player, c.command);
   // THE INSTAR's marks, on the tick because a tap is a tap when it lands and
   // a pull is where the thumb is now (`instar-hand.ts`).
   for (const c of commands) instarHeard(world, c.player, c.command);

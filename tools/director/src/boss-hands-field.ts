@@ -9,8 +9,6 @@ import {
   gorgeBoss,
   gorgeFull,
   gorgePhase,
-  hiveBoss,
-  hiveOpen,
   type ScuttleState,
   scuttleBoss,
   scuttlePartCol,
@@ -25,8 +23,9 @@ import type { Hand } from "./poses-bosses-kit.js";
 
 /**
  * **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN,
- * THE SCUTTLE, THE HIVE — each a `Hand` (`poses-bosses-kit.ts`); THE FLEET's
- * grew to three states and a page of its own (`boss-hand-fleet.ts`).
+ * THE SCUTTLE — each a `Hand` (`poses-bosses-kit.ts`); THE FLEET's grew to
+ * three states and a page of its own (`boss-hand-fleet.ts`), and THE HIVE's
+ * to two thumbs and `boss-hand-hive.ts`.
  * Like the shot hands (`boss-hands-shots.ts`), each is the fight's own rule
  * played straight: the cannon under the thing to hit, the colour it is
  * showing, the shot when the cannon is free. What these five add is a second
@@ -208,25 +207,4 @@ export const scuttleHand: Hand = (w) => {
   }
   if (!scuttleShootable(s)) return out;
   return free(w) ? [...out, fire(s.parts[s.live]?.color ?? "red")] : out;
-};
-
-/**
- * THE HIVE: an open breach's colour up its column seals it (`hiveStruck`).
- * The spill down it is the breach's own colour too, living
- * (`livingKindForColor`), so it costs the hand nothing to fire at whether the
- * body is still falling or already gone: the first shot kills it same as any
- * coloured creature, the next reaches the top and seals — the hand just takes
- * the first open, unsealed breach and fires whenever it can. Sealed cells are
- * left alone: a bolt into one provokes the next opening.
- */
-export const hiveHand: Hand = (w) => {
-  const s = hiveBoss(w);
-  if (s === null || s.downBeat >= 0) return [];
-  for (let i = 0; i < s.opened; i++) {
-    if (!hiveOpen(s, i)) continue;
-    const col = s.cols[i] ?? 0;
-    if (w.cannonCol !== col) return [aim(col)];
-    return free(w) ? [fire(s.colors[i] ?? "red")] : [];
-  }
-  return [];
 };

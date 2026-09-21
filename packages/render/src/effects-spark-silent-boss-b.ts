@@ -24,7 +24,7 @@ import type { SimEvent } from "@neon-spore/sim";
  * the reasons stay with the rows.
  */
 export const SILENT_BOSS_B = [
-  // THE HIVE's nine are one family read above the loop by `hive-fx.ts`,
+  // THE HIVE's twelve are one family read above the loop by `hive-fx.ts`,
   // never rows here (`docs/spec/bosses.md` §11.14).
   "hiveEnter",
   "hiveSwell",
@@ -33,6 +33,9 @@ export const SILENT_BOSS_B = [
   "hiveSkin",
   "hiveWrong",
   "hiveSeal",
+  "hiveClench",
+  "hiveHaul",
+  "hiveWrung",
   "hiveDown",
   "hiveOut",
   // THE INSTAR's eleven are one family read above the loop by

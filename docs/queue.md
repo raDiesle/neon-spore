@@ -367,23 +367,6 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## THE HIVE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-21, claude/queue-queue-take-refuses-the-lane-the-entry-itself-nam (claim: claude/queue-the-hive-changes-state-more-than-once-and-asks-f)
-- **Files:** `packages/sim/src/config-hive.ts`, `packages/sim/src/events-hive.ts`, `packages/sim/src/hive-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-
-It is answered today on the ordinary panel, over 6 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## Unverified at 424e7fc4: a real phone browser's own chrome eating the foot of th…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -575,6 +558,97 @@ conflict and inspects what stage 1/2/3 hold each time — a longer sitting
 than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
+
+## THE HIVE's clench and its wrung lobe have no picture
+
+- **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
+- **Files:** `packages/render/src/hive-draw.ts`, `packages/render/src/hive-fx.ts`, `packages/render/src/hive-shape.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`
+- **Where:** local
+
+The second half of the §6.2 lane that landed the states themselves, split off
+before it started rather than asked about (CLAUDE.md: a creature is its
+simulation, then its look). The simulation, the wire, the three sounds and the
+director's five cards are on `main`; **none of the three new moments is drawn.**
+`hiveClench`, `hiveHaul` and `hiveWrung` are listed in both of render's silent
+tables, so a pair playing it today hears a clench and sees the mass exactly as
+it was.
+
+What is owed, and it is one sitting: the underside **drawn up** for its six
+beats, far enough that a thumb reads as reaching for it rather than resting on
+it; the **swelling lobe** under a thumb, so a hold looks like a hold before the
+two beats are out; the **wrung breach** opening with no colour in it, which is
+the one breach on the field the pair may answer with either bolt and must not
+read as red or cyan; and the **haul** answering the pilot's carry frame by
+frame rather than only at the end of it. Then the two silent tables lose the
+three rows, `render/test/frame.test.ts` draws all three, and the frame goes to
+the owner as a PNG (`bun run frames <sha>`).
+
+The look rule applies as it always does (`docs/looks.md`): this is a moment
+with no shipped alternative, so it may go on the field rather than to VERSUS —
+say which exemption in the commit.
+
+## THE HIVE's rehearsal film clenches twice and teaches neither
+
+- **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
+- **Files:** `packages/content/src/scenes-choreographed.ts`, `packages/content/test/scene-hive.test.ts`, `docs/spec/bosses.md`
+
+The film was authored when this boss had one state. It now clenches inside
+itself — on the third seal at beat 20 and on the sixth at beat 46 — and the
+fixture records both, because they are what the simulation does. The first
+costs the film nothing. The second ends it quiet: column 8 is open and the two
+spills it would have taken at 47 and 50 are held back by an underside nobody
+hauls, so the rehearsal's last four beats now teach the pair that a breach left
+open goes harmless.
+
+That is the opposite of the sentence the film exists to say. The work is to
+author the haul into it — one more pair of beats and the pilot's drag on the
+underside, which the script can carry the way it carries a bolt — so the
+clench at 46 is hauled down and the two spills arrive after all, and then to
+say in §11.14 that the film shows the gesture. It must be **watched at tempo**
+before it is believed, so a local lane, and the film's own sentence
+(`.claude/skills/new-wave`) is the test of whether it still passes.
+
+## A claim whose branch is gone reads as taken forever
+
+- **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
+- **Files:** `tools/queue/claim.ts`, `tools/queue/mark.ts`, `tools/queue/test/taken.test.ts`
+
+`claimOn` answers off the branch first and falls back to the entry's own
+`Taken:` line, which is right for a clone that has never seen the ref — and
+wrong forever once the ref is gone. Three live entries in this file are in that
+state today: they were marked from `main`, their claim branches
+(`claude/queue-unverified-at-424e7fc4-…`, `…-at-ce22d819-…`,
+`…-resurrection-guard-missed-a-stale`) no longer exist in any tree, and so
+`bun run queue` counts them BUSY and `next` steps over them, with nothing in
+the listing distinguishing them from work in flight. This lane's `queue status`
+said eight items were being worked on; three of the eight are nobody's.
+
+The one thing not to do is release them automatically on a missing ref: a cloud
+session's claim never has a local ref, which is the whole reason the fallback
+is there. The options the work picks between are the wording and not the
+mechanism — **a claim older than the `Taken:` date by more than a day or two,
+with no local ref, is listed as stale** (`— taken 2026-09-20, branch gone;
+release it with bun run queue release "<title>"`) while still counting as
+taken, or the same sentence printed only by `queue status` and not by the
+listing. Either way the entry stays in place until a session says the words,
+and the three above stop looking like a busy queue.
+
+## `packages/sim/src/drag-targets-c.ts` has room for no more handles
+
+- **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
+- **Files:** `packages/sim/src/drag-targets-c.ts`, `packages/sim/src/drag-targets-b.ts`, `packages/sim/src/drag-targets.ts`
+
+246 lines of 250 after THE HIVE's `hiveLobe` went in, which is four lines and
+one comment from red (`packages/sim/test/limits.test.ts`). The next boss that
+answers on the picture — and the §6.2 brief is in the queue for five of them —
+pays for a page it has nothing to do with, exactly as
+`queue-take-own-claim` paid for `mark.ts` and `tree.ts` the same day.
+
+Cut a fourth page on the seam the other two were cut on: the *last* boss on the
+full page goes across whole, under the comment that explains it, and
+`drag-targets.ts` spreads all four so nothing that asks the table knows there
+is more than one. Nothing about the work is decided by anybody: it is a move,
+a re-export and a header sentence.
 
 ## THE GIMBAL is written and nobody has built its simulation
 

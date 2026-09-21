@@ -150,12 +150,20 @@ export const CHOREO_NOTES_B = {
     "hiveTwinFrom-th opening, two at once. hiveSwellBeats before a site " +
     "opens it swells, and only the navigator is shown where; only the pilot " +
     "is shown a breach's colour. Every open breach spills a meteor down its " +
-    "column every hiveSpillBeats — warded, never shot. A bolt out of the top " +
+    "column every hiveSpillBeats — a living body of the breach's own colour, " +
+    "so a breach costs two shots. A bolt out of the top " +
     "in an open breach's column and colour seals it for good; the wrong " +
     "colour brings every open breach's next spill hiveProvokeBeats sooner; " +
-    "the skin between them swallows a shot. The last seal opens THE SLOW " +
+    "the skin between them swallows a shot. Every hiveClenchEvery seals the " +
+    "underside clenches up out of reach for hiveClenchBeats: nothing spills " +
+    "and nothing seals, the openings arrive anyway, and the backlog breaks " +
+    "the beat it relaxes — unless the pilot drags the mass hiveHaulMilli " +
+    "back down first. The navigator holds a swelling lobe hivePinchBeats to " +
+    "wring the colour out of it, and it opens taking either colour, at a " +
+    "wrong bolt's price. The last seal opens THE SLOW " +
     "hiveSlowBeats and the wave holds hiveOutBeats more. Nothing about it " +
-    "is authored per wave. See sim/hive.ts, sim/config-hive.ts.",
+    "is authored per wave. See sim/hive.ts, sim/hive-lobe.ts, " +
+    "sim/config-hive.ts.",
   "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §16 " +
     "and docs/spec/bosses.md §11.32: the choreographed scene with no control " +

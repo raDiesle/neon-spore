@@ -14,9 +14,9 @@ export type BossKind = BossEntry["kind"];
  * `BOSS_PHASES` (`sim/boss-phases.ts`), so a phase added there is a state
  * here with no pose, and `test/boss-states.test.ts` goes red until one is
  * written. A boss whose states are not a table — THE CAIRN's pile, THE
- * HIVE's seals, THE QUEEN's bloom — is named here by hand, in `BY_HAND`,
- * from the predicates its own file exports (`cairnWaited`, `hiveOpen`,
- * `surgeEverting`): the half that cannot be derived, and the half a lane
+ * QUEEN's bloom — is named here by hand, in `BY_HAND`, from the predicates
+ * its own file exports (`cairnWaited`, `surgeEverting`,
+ * `leadHolding`): the half that cannot be derived, and the half a lane
  * changing one of those bosses owes a line to (`.claude/skills/new-boss`).
  *
  * A kind in `BOSS_KINDS` with a row in neither is the same test red, so the
@@ -70,9 +70,6 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // pick, down (`antiphonStruck`, `antiphonCrossed`, `AntiphonState.crossed`,
   // `AntiphonState.stillBeat`, `antiphonDown`).
   antiphon: ["cycling", "pulled", "still", "down"],
-  // Sealed, a cell open, spilling, down (`hiveOpen`, `HiveState.spillBeat`,
-  // `hiveDown`).
-  hive: ["sealed", "open", "spilling", "down"],
 };
 
 /** The states of every boss, `BOSS_KINDS`' order, a table's names where one exists. */

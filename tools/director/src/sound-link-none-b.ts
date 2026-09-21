@@ -19,17 +19,21 @@
  * bulb, a pod — and those have their cards already; the throw itself is the
  * frame's moment, not the part's (`sim/scuttle.ts`).
  *
- * THE HIVE's nine share it again: the boss is a mass over the top of the
+ * THE HIVE's twelve share it again: the boss is a mass over the top of the
  * field with breaches in its underside, and what a breach spills is a
  * meteor, which has its card already; the spill is the breach's moment,
- * not the rock's (`sim/hive.ts`).
+ * not the rock's (`sim/hive.ts`). The three the mass's own states make — a
+ * clench, a haul, a lobe wrung — are that same underside and no more a card
+ * than the rest of it (`sim/hive-lobe.ts`).
  *
  * **This page is full too, and gives a boss back rather than grow**, by the
  * rule page one wrote and along the same seam. THE GAUGE's four went across
  * to `sound-link-none-c.ts` on 19 September 2026, when THE SCUTTLE's swing
  * would have put this file over its limit: the last boss here moves, never
  * the one being worked on, so the swing's row stands with the nine it
- * belongs to and under the comment that explains them.
+ * belongs to and under the comment that explains them. THE THROAT's seven
+ * went the same way on 21 September 2026, when THE HIVE's two new states
+ * would have put this page over again.
  */
 export const NO_SUBJECT_B: Record<string, string> = {
   // THE SURGE's twelve came over on 19 September 2026, by the same rule and
@@ -113,6 +117,10 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.hiveSkin": "a bolt going dull against the shut skin between breaches. Same argument.",
   "boss.hiveWrong": "the mass clenching at a bolt of the wrong colour. Same argument.",
   "boss.hiveSeal": "a breach sealed for good by a bolt of its colour. Same argument.",
+  "boss.hiveClench": "the underside drawing up out of reach on a third scar. Same argument.",
+  "boss.hiveHaul": "the pilot's thumb hauling that clench back down. Same argument.",
+  "boss.hiveWrung":
+    "the navigator's thumb wringing the colour out of a swelling lobe, so either colour seals it. The lobe's moment, and the same argument.",
   "boss.hiveDown": "the last breach sealed under THE SLOW. Same argument.",
   "boss.hiveOut":
     "the mass gone. What this marks is a field with nothing over its top — an absence like ui.waveClear rather than a thing standing anywhere.",
@@ -227,22 +235,4 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "a thumb landing on one of the two beads the pair is drawing together. Same argument.",
   "boss.batonParted":
     "the drawing-together window closed short, and the bead that waited shaken back to the top of the arm. Same argument.",
-  // THE THROAT's two hands on the gullet, and the gullet's own clock beside
-  // them. The subject is the tube itself — a fixture hanging from the top of
-  // the field with nothing of it among the creatures — so there is no body a
-  // sheet could card (`sim/throat.ts`).
-  "boss.throatCinch":
-    "player 2's thumb landing on a ring the pair has already choked: the gullet stops breathing while she holds it. What it is on is THE THROAT's tube, a fixture that is not a creature and stands on no card.",
-  "boss.throatSlip":
-    "that hold lost — lifted, or torn out of her thumb when its beats ran out — and the gullet breathing again. Same argument.",
-  "boss.throatHaul":
-    "player 1 dragging the whole tube a column sideways, which is the only way in this fight to take a body back out of the mouth. Same argument.",
-  "boss.throatInhale":
-    "the gullet drawing breath — the beat player 2 has been counting down to out loud. It is the tube's own clock and not a thing either thumb did, so it stands on the same fixture and on no card.",
-  "boss.throatChoke":
-    "a flung gum arriving in the mouth and a ring going slack under it. The gum has a card of its own, but what this sound says happened is the tube's, so it stands with the rest of the fixture.",
-  "boss.throatSwallow":
-    "the mouth taking what stood in it, and a slack ring drawing tight again. Same argument — the body that was eaten is gone by the time it is heard.",
-  "boss.throatEvert":
-    "the last ring gone slack and the tube turning through its own mouth. Same argument, and there is no contour for it: the eversion is the fixture unmaking itself.",
 };
