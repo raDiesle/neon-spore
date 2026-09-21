@@ -449,6 +449,7 @@ what a phone cannot do is *reach* that strip.
 ## THE SLOW is felt in the hand and never seen: THE INSTAR wants candidates for it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-the-gauges-two-new-states-have-no-pose-in-the-di (claim: claude/queue-the-slow-is-felt-in-the-hand-and-never-seen-the)
 - **Files:** `packages/sim/src/slow.ts`, `packages/sim/src/instar-step.ts`, `packages/sim/src/instar-marks.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/instar-fx.ts`, `packages/render/src/frame-field.ts`, `apps/game/src/tick-rate.ts`, `tools/versus/candidates/registry.ts`, `docs/versus.md`
 - **Where:** local
 
