@@ -18,16 +18,46 @@ import { describe, expect, it } from "bun:test";
 
 const css = await Bun.file(Bun.fileURLToPath(new URL("../src/game.css", import.meta.url))).text();
 
-const bare = css.replaceAll(/\/\*[\s\S]*?\*\//g, "");
+const bare = unconditional(css.replaceAll(/\/\*[\s\S]*?\*\//g, ""));
+
+/**
+ * The stylesheet with every at-rule group dropped, braces and all.
+ *
+ * What is left is the rules that always apply, and those are the only ones
+ * `block` below may count. A second *top-level* rule for a selector silently
+ * overrides the first, and that is the mistake this file watches for; a rule
+ * inside `@supports (height: 100dvh)` is half of a fallback pair written on
+ * purpose — the page is `100%` tall where `dvh` is unknown and `100dvh` where
+ * it is not, and the two cannot be one rule because Biome reads two `height`s
+ * in one block as a mistake (`noDuplicateProperties`).
+ */
+function unconditional(src: string): string {
+  let out = "";
+  let from = 0;
+  let at = src.indexOf("@");
+  while (at >= 0) {
+    const open = src.indexOf("{", at);
+    if (open < 0) break;
+    out += src.slice(from, at);
+    let depth = 0;
+    let i = open;
+    for (; i < src.length; i++) {
+      if (src[i] === "{") depth++;
+      else if (src[i] === "}" && --depth === 0) break;
+    }
+    from = i + 1;
+    at = src.indexOf("@", from);
+  }
+  return out + src.slice(from);
+}
 
 /**
  * The declarations of the one rule with exactly this selector.
  *
  * A selector is whatever stands between the last brace and the next `{`, which
- * is enough here and stops short of being a parser: a rule inside an `@media`
- * keeps its own selector, and the `@media` line keeps its own. Exactly one
- * match is the assertion — two rules for `canvas` would mean the second has
- * the last word and this file would be reading the wrong one.
+ * is enough here and stops short of being a parser. Exactly one match is the
+ * assertion — two rules for `canvas` would mean the second has the last word
+ * and this file would be reading the wrong one.
  */
 function block(selector: string): string {
   const found = [...bare.matchAll(/([^{}]+)\{([^{}]*)\}/g)].filter(

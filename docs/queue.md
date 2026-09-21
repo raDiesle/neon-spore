@@ -208,6 +208,28 @@ question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
 ```
+## `apps/game/src/main.ts` is at the 250-line ceiling exactly
+
+- **Found:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar
+- **Files:** `apps/game/src/main.ts`, `apps/game/src/main-shell.ts`
+- **Where:** local
+
+It is 250 lines against a limit of 250 (`packages/sim/test/limits.test.ts`), so
+the next lane that adds a line to it gets a red check for a reason that has
+nothing to do with its own work. This lane already paid that: three lines of
+comment at the `bindViewport` call site had to come down to one, and the one
+that survived is the shortest true sentence rather than the clearest.
+
+Nearly all of the file is a knot of prose and one call each, which is what it
+is for — so the split is by subject, not by size. `main-shell.ts` next door is
+the pattern: it took the shell's wiring out whole. The two candidates left are
+the same shape, and either is enough on its own:
+
+- the frame's parts — `bindAudio`, `bindHaptics`, `beatPhase`, `startFrames`'s
+  argument object;
+- the world's opening — `cfg`, `createWorld`, `startTogether`, `playAt`,
+  `createWaveProgression`.
+
 ## `loadedTimeout`'s figures were measured once and the tree has grown past them
 
 - **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
@@ -647,38 +669,6 @@ It needs a row in the settings menu that turns it off, because fullscreen on a
 desktop browser is not what a person testing wants, and because a player who
 was put in fullscreen without being asked and cannot find the way out will
 close the tab rather than the game.
-
-## The stage is sized from a number the address bar moves
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-21, claude/queue-loaded-timeout-figures-have-gone-stale (claim: claude/queue-the-stage-is-sized-from-a-number-the-address-bar)
-- **Files:** `apps/game/src/viewport.ts`, `apps/game/src/game.css`, `packages/render/src/layout.ts`
-- **Where:** local
-
-`bindViewport` sizes the renderer from `window.innerWidth` and
-`window.innerHeight`, and `computeLayout` divides that height into the play
-area and the control band. On a phone in a tab, `innerHeight` is not one
-number: it grows by the height of the address bar the moment the bar collapses
-and shrinks again when it comes back, and every one of those is a `resize` this
-file answers by re-laying the whole field out.
-
-What that costs is not a redraw. `bandTop` is a share of the height, so the
-band moves; the strips and the lobes move with it; and a thumb already resting
-on a lobe is now resting beside it, mid-wave, without having moved. The pair's
-own report of this is *it sometimes does not react*.
-
-Three parts, and the third is the one that matters:
-
-- Read `visualViewport` where it exists rather than `window.innerHeight` —
-  it is the rectangle actually showing, and it reports the change as it
-  animates rather than after.
-- `100dvh` in `game.css` for the same reason on the CSS side.
-- **Freeze the stage's height for the length of a run.** A field that is
-  measured once when the wave opens and not again until it ends is the whole
-  of the fix; a resize during a run is a thing to survive, not a thing to
-  honour. Outside a run — the menu, the join screen — it should keep
-  answering, because a keyboard opening over the room code is a resize that
-  has to be obeyed.
 
 ## The band runs to the screen's edges, where the phone's own gestures start
 

@@ -20,6 +20,24 @@ body {
   overscroll-behavior: none;
   user-select: none;
 }
+
+/* The rectangle actually showing.
+
+   `100%` above resolves against the *layout* viewport, which on a phone
+   includes the strip the address bar is sitting over — so the page is that
+   much taller than what the player can see, and the bottom of the control band
+   is under the bar. `100dvh` is the same rectangle `viewport.ts` reads off
+   `visualViewport`, and it follows the bar while it moves rather than after.
+
+   In its own `@supports` rather than a second `height` in the block above,
+   which is the same fallback and is a lint error (`noDuplicateProperties`).
+   A browser that does not know `dvh` never enters here and keeps `100%`. */
+@supports (height: 100dvh) {
+  html,
+  body {
+    height: 100dvh;
+  }
+}
 canvas {
   display: block;
   width: 100%;

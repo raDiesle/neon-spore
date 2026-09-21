@@ -9,6 +9,37 @@ import {
   type ViewRole,
 } from "@neon-spore/render";
 import type { SimConfig } from "@neon-spore/sim";
+import type { RunState } from "./run-state.js";
+
+/** The rectangle actually showing, in CSS pixels, and how dense it is. */
+interface Viewport {
+  width: number;
+  height: number;
+  dpr: number;
+}
+
+/**
+ * How big the picture may be right now.
+ *
+ * `window.innerHeight` is the *layout* viewport, which on a phone includes the
+ * strip the address bar is sitting over: it grows by the bar's height the
+ * moment the bar collapses and shrinks again when it comes back, and it reports
+ * each of those after the fact. `visualViewport` is the rectangle the player
+ * can actually see — the bar excluded, the on-screen keyboard excluded — and it
+ * reports the change while it is still animating. Where there is no such
+ * object, the window's own numbers are all there is.
+ *
+ * Rounded, because the visual viewport is fractional under a pinch and the
+ * renderer is sized in whole pixels.
+ */
+function measure(): Viewport {
+  const seen = window.visualViewport;
+  return {
+    width: Math.round(seen?.width ?? window.innerWidth),
+    height: Math.round(seen?.height ?? window.innerHeight),
+    dpr: Math.min(window.devicePixelRatio || 1, 2),
+  };
+}
 
 /**
  * The window's size, and the two things every listener in the app asks of it:
@@ -64,24 +95,52 @@ export interface Geometry {
   toClient: (p: { x: number; y: number }) => { clientX: number; clientY: number };
 }
 
+/**
+ * `run` is here because **the field is measured when the wave opens and not
+ * again until it ends**.
+ *
+ * `computeLayout` divides the height into the play area and the control band,
+ * so `bandTop` is a share of the height: a height that changes mid-wave moves
+ * the band, the strips and the lobes down or up, and a thumb already resting on
+ * a lobe is now resting beside it without having moved. The pair's own report
+ * of that is *it sometimes does not react*. On a phone the height changes for
+ * no reason of the player's at all — the address bar collapses on a scroll the
+ * game never asked for — so a resize during a run is a thing to survive, not a
+ * thing to honour.
+ *
+ * Only the height is frozen. A change of width is a rotation or a desktop
+ * window being dragged, which is deliberate, visible and impossible to play
+ * through unanswered; when the width moves the whole measurement is taken,
+ * height and all, because half of a rotation is not a stage.
+ *
+ * Outside a run the viewport is answered as it always was: a keyboard opening
+ * over the room code on the join screen is a resize that has to be obeyed. And
+ * the run *ending* re-measures, because whatever was ignored during it is still
+ * true.
+ */
 export function bindViewport(
   canvas: HTMLCanvasElement,
   renderer: Renderer,
   cfg: SimConfig,
   role: () => ViewRole,
+  run: RunState,
 ): Geometry {
-  let viewport = { width: 1, height: 1, dpr: 1 };
+  let viewport: Viewport = { width: 1, height: 1, dpr: 1 };
 
-  const resize = (): void => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+  const apply = (forced: boolean): void => {
+    const next = measure();
     // A zero-sized viewport happens for real: a hidden tab, and on a phone the
     // moment the address bar animates. Sizing the canvas to it once would leave
     // it at zero for good, because no further resize event need follow.
-    if (width < 1 || height < 1) return;
-    viewport = { width, height, dpr: Math.min(window.devicePixelRatio || 1, 2) };
+    if (next.width < 1 || next.height < 1) return;
+    const sameShape = next.width === viewport.width && next.dpr === viewport.dpr;
+    if (sameShape && next.height === viewport.height) return;
+    if (sameShape && !forced && run.running()) return;
+    viewport = next;
     renderer.resize(viewport);
   };
+
+  const resize = (): void => apply(false);
 
   const stage = (): Stage => computeStage(viewport, cfg, role());
   const layout = (): Layout => {
@@ -90,7 +149,14 @@ export function bindViewport(
   };
 
   window.addEventListener("resize", resize);
+  // The one listener that hears the address bar *while* it moves rather than
+  // once it has stopped. Both are bound: a desktop window has no visual
+  // viewport worth the name, and a phone fires both.
+  window.visualViewport?.addEventListener("resize", resize);
   new ResizeObserver(resize).observe(document.documentElement);
+  // Both edges. The wave opening takes the measurement it is then frozen at,
+  // and the wave ending takes the one that was ignored while it ran.
+  run.onChange(() => apply(true));
   resize();
 
   // The window is still what the renderer is *sized* to: `renderer.resize`

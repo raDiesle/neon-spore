@@ -76,15 +76,6 @@ const haptics = bindHaptics();
  * a press should answer for the body where it is drawn (`sim/wave-fail.ts`). */
 const beatPhase = (): number => framePhase(world);
 
-const view = bindViewSwitch(() => {
-  // Nothing to rebuild: the layout is derived per frame and per event.
-});
-const { layout, inStage, onStage, toClient } = bindViewport(canvas, renderer, cfg, () =>
-  view.role(),
-);
-const progression = createWaveProgression({ world, cfg, audio, buffer });
-const jumpToWave = progression.jumpToWave;
-
 /**
  * Whether the world ticks, and who is holding it still — a thumb, the menu,
  * the tuning panel or a tab that went away. One owner, four named holds, so
@@ -96,6 +87,20 @@ const run = createRunState();
 // holds — so the screen is asked to stay on for as long as the world is
 // ticking, and let go the moment anything holds it still (`awake.ts`).
 bindAwake(run);
+
+const view = bindViewSwitch(() => {
+  // Nothing to rebuild: the layout is derived per frame and per event.
+});
+// `run`, because the stage's height is frozen for a wave's length (`viewport.ts`).
+const { layout, inStage, onStage, toClient } = bindViewport(
+  canvas,
+  renderer,
+  cfg,
+  () => view.role(),
+  run,
+);
+const progression = createWaveProgression({ world, cfg, audio, buffer });
+const jumpToWave = progression.jumpToWave;
 
 /**
  * The intro's six pages and the welcome before a device's first tutorial,

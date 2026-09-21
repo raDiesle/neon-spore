@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — frozen-stage — the field is measured when the wave opens, not while it plays
+
+- reading — 15 min. The queue entry, `viewport.ts`, and `run-state.ts` again —
+  the freeze wants to know whether a wave is being played, and that question
+  already has one owner. `game.css` and `intro.test.ts`, which asserts the
+  call site's own source text.
+- writing — 30 min. `measure()` off `visualViewport`, the one rule that
+  refuses a height moving on its own, eight tests with the window stood up,
+  and the `@supports` block; then the stylesheet's own test taught the
+  difference between a conditional rule and a silent override.
+- looking — 10 min. The preview, and the run driven through
+  `visibilitychange` with a shadowed `visualViewport.height`: 1084 before,
+  1084 through the resize, 900 the moment the run was paused.
+- friction — 15 min. Three red rounds for one CSS line — Biome reads the
+  fallback pair as a duplicate property, the stylesheet's test read the
+  `@supports` rule as a second `html, body`, and `main.ts` came out at 252
+  lines against a limit of 250.
+- landing — 10 min.
+
+Bottleneck: friction. The `100dvh` line is two words and cost three checks:
+the fallback pair a browser needs is exactly the shape the lint rule forbids
+and exactly the shape the file's own test counts twice.
+
 ## 2026-09-21 — loaded-timeout-stale — one finding, with the number that proves it
 
 - reading — 5 min. `repo-time.ts`, which already says what is wrong and had
