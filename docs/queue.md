@@ -570,7 +570,6 @@ than the string-level unit tests above it.
 ## Seventeen handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
-- **Taken:** 2026-09-21, claude/queue-nineteen-handles-are-heard-by-the-simulation-and
 - **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`, `packages/render/src/`
 
 Lane one landed: the guard walks the union now. `TARGET_PLACE` is a `Record`
