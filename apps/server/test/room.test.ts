@@ -440,6 +440,34 @@ describe("a seat that went silent is not held against its owner", () => {
     },
     OWN_RELAY_MS,
   );
+
+  test(
+    "the one still there is told, without pressing anything",
+    async () => {
+      const brief = relay({ SEAT_SILENT_MS: String(BRIEF_SILENT_MS) });
+      try {
+        const one = await phone("CGHJ", PROTOCOL_VERSION, brief);
+        const two = await phone("CGHJ", PROTOCOL_VERSION, brief);
+        await one.settle("welcome", (w) => w.peers === 2);
+        // `two` stops answering without closing anything — the pocket, the
+        // tunnel. `one` is on the room screen, so the only thing it sends is
+        // the ping every 700 ms; nothing else in the game asks the room
+        // anything from there. It must still learn that it is alone.
+        const from = Date.now();
+        for (let i = 0; Date.now() - from < 4 * BRIEF_SILENT_MS; i++) {
+          if (of(one.said, "peers").length > 0) break;
+          one.send({ t: "ping", c1: i });
+          await one.settle("pong");
+        }
+        expect(of(one.said, "peers").at(-1)?.peers).toBe(1);
+        one.close();
+        two.close();
+      } finally {
+        await brief.dispose();
+      }
+    },
+    OWN_RELAY_MS,
+  );
 });
 
 describe("the names two people are called", () => {

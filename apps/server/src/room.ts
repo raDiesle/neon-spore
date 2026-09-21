@@ -123,19 +123,35 @@ export class Room {
 
   /**
    * What each message makes the room do — the switch is `room-route.ts`. The
-   * two acts that are about sockets are the room's own; the three that are
-   * about what it remembers are `room-acts.ts`.
+   * acts that are about sockets are the room's own; the three that are about
+   * what it remembers are `room-acts.ts`.
    */
   private route(me: Seat, message: ClientMessage, socket: WebSocket): void {
     routeClient(me, message, socket, {
       relay: (m) => this.relay(me, m),
       press: () => void this.press(me.player),
+      sweep: () => this.sweep(),
       ...roomActs(me, this.mem, {
         gate: this.gate,
         seats: () => this.seats(),
         facts: () => this.facts(),
       }),
     });
+  }
+
+  /**
+   * Ask who is still here. The asking is the whole of it: taking the count
+   * hangs up a socket that has gone silent past the window (`occupiedSeats`),
+   * that hang-up comes back as `webSocketClose`, and that is what tells
+   * whoever is left. Nothing is announced from here.
+   *
+   * The room used to take a count only when something else made it — a relayed
+   * message, a press, an arrival — which is every frame of a run and nothing
+   * at all on the room screen, where a ping is the only thing either phone
+   * sends. So the ping takes one (`room-route.ts`).
+   */
+  private sweep(): void {
+    void this.seats();
   }
 
   /** A seat pressed START. `start-gate.ts` decides what that is worth. */

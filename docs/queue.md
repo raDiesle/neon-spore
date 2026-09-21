@@ -769,33 +769,28 @@ stamp. `two-devices-opening.test.ts` already drives two devices through a beat
 zero over a wire it controls, so a case that begins one device late belongs
 beside the ones there.
 
-## A partner who vanishes on the room screen is still drawn as present
+## A test room code outside the alphabet costs twenty seconds and says nothing
 
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Taken:** 2026-09-21, claude/queue-an-entry-that-waits-on-another-one-has-no-way-to (claim: claude/queue-a-partner-who-vanishes-on-the-room-screen-is-sti)
-- **Files:** `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `apps/server/test/room.test.ts`
+- **Found:** 2026-09-21, claude/queue-a-partner-who-vanishes-on-the-room-screen-is-sti
+- **Files:** `apps/server/test/phone.ts`, `packages/net/src/room-code.ts`
 
-The room counts its seats only when something asks it to — a relayed `input`,
-`confirm` or `hash`, a press, or an arrival. During a run that is every frame,
-so a seat whose socket vanished is evicted within a beat of the window running
-out and the survivor is told `peers: 1` at once. On the **room screen** nothing
-is relayed: the only message either phone sends is a `ping`, and `ping` answers
-a `pong` without ever asking who is in the room.
+`ROOM_ALPHABET` is `ACDEFGHJKLMNPQRTUVWXY3479` — no B, no I, no O, no S, no Z,
+because they are the characters somebody reads a code out loud and gets wrong.
+A test that writes `phone("CGHI")` is therefore refused the upgrade before
+there is a socket at all: `room-open.ts` answers a plain 400, `res.webSocket`
+is null, so `phoneAt` returns a phone whose `send` goes nowhere and whose
+`said` never fills. Every `settle("welcome")` after it polls until
+`OWN_RELAY_MS` runs out and the test fails on the timeout rather than on the
+code — which says nothing about either, and reads exactly like the workerd
+starvation the comment above `BRIEF_SILENT_MS` warns about. Two full
+twenty-second runs went on that here before the alphabet was read.
 
-So a phone that vanishes while the pair are looking at each other's circles is
-never noticed. Proved against the shipped worker with the window shortened
-through `vars`: the survivor pinged for twice the eviction window and heard
-nothing, then pressed READY and was told `peers: 1` in the same breath. Until
-that press their screen draws a partner who is gone, with a circle they can
-hold and a wait that will never end on its own — which is the one screen in the
-game whose whole job is to say whether the other person is there.
-
-What to do: have the `ping` case count the seats the way the other cases do,
-which is one call to the room's own `seats()` and costs a tag read per socket
-every 700 ms. The eviction and the `peers` that follows it are already written
-— `occupiedSeats` hangs the dead socket up and `webSocketClose` announces it —
-so this is only about asking. `room.test.ts` has the harness: two phones, one
-falls silent, the other pings and is told without pressing anything.
+What to do: `phoneAt` takes the code and has `isRoomCode` one package away.
+Throw at the top of it when the code is not one — `phone("CGHI"): not a room
+code; the alphabet has no I (packages/net/src/room-code.ts)` — which turns the
+timeout into an instant, named failure, and cannot be reached by any test that
+was passing. A case in `apps/server/test/room.test.ts` proving the throw is the
+whole of the coverage.
 
 ## `stage.ts` is at the 250-line ceiling exactly
 

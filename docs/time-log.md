@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — room-ping-counts-seats — the screen whose only message asked nothing
+
+- reading — 15 min. The queue entry, `room.ts`, `room-route.ts`,
+  `room-acts.ts`, `seat.ts` and `room-tell.ts` — the chain from a count to a
+  `peers` — then `phone.ts` and the two silent-seat cases in `room.test.ts`
+  for the harness the entry promised.
+- writing — 15 min. One act on `RoomActs`, one line in the `ping` case, a
+  four-line `sweep` on the room, the comments that say why, and the case that
+  pings for four windows and reads `peers: 1` off it.
+- looking — 5 min. The case run against the shipped worker with the act
+  commented out and back in, so the failure is the defect and not the wait.
+- friction — 20 min. `phone("CGHI")` — I is not in `ROOM_ALPHABET`, so the
+  upgrade was refused before there was a socket and two runs timed out at
+  twenty seconds each saying nothing. Filed as its own entry.
+- landing — 10 min.
+
+The bottleneck was a room code with a letter the alphabet leaves out: the
+refusal has no socket to say it on, so the test read as a starved machine
+rather than a typo, twice, at the full budget each time.
+
 ## 2026-09-21 — where-cloud-off — a preference spent as a refusal
 
 - reading — 10 min. Every reference to the cloud half of `Where:` — two

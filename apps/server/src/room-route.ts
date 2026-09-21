@@ -8,17 +8,19 @@ import { type Tally, tallyFromWire } from "./tally.js";
  * client learns to send. Cut out of `room.ts` when the file reached its
  * limit, along the seam its siblings already use (`room-open.ts`,
  * `room-tell.ts`, `room-start.ts`): the Durable Object keeps its sockets and
- * its fields, and hands over the four things a message can make it do.
+ * its fields, and hands over the things a message can make it do.
  *
  * Closures rather than the room, for `room-tell.ts`'s reason: the room's
- * fields are private and mutable, and a function given four verbs cannot
- * change a fifth field by accident.
+ * fields are private and mutable, and a function given a handful of verbs
+ * cannot change a field by accident.
  */
 export interface RoomActs {
   /** Pass a stamped message to every other seat. */
   relay(message: ServerMessage): void;
   /** This seat pressed START (`start-gate.ts`). */
   press(): void;
+  /** Ask who is still in the room; one that has gone quiet is hung up on. */
+  sweep(): void;
   /** The pair chose a tempo; kept and handed back (`room-tally.ts`). */
   level(level: Difficulty): void;
   /** The pair got somewhere; kept if it is better (`room-tally.ts`). */
@@ -35,6 +37,15 @@ export function routeClient(
 ): void {
   switch (message.t) {
     case "ping": {
+      // **The ping is the only thing the room screen sends, so it is the one
+      // that has to ask who is still there.** Nothing is relayed from that
+      // screen — no input, no confirm, no hash — and every other case here is
+      // something a thumb did. Without this, a phone that vanished while the
+      // pair were looking at each other's circles was noticed by nobody, and
+      // the one still there went on being shown a partner who was gone
+      // (`room.ts` `sweep`). Asked before the stamps, so what it costs is
+      // inside the handling time the client takes back out.
+      acts.sweep();
       // Two server timestamps, so the client can take this object's own
       // handling time back out of the round trip.
       const s1 = Date.now();
