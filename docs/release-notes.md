@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 818a8f76 — Mark "`packages/sim/src/drag-targets-c.ts` has room for no more handles" done
+
+## 2026-09-21 · b6e4cbb3 — Cut a fourth page of drag targets
+
+`drag-targets-c.ts` stood at 246 lines of 250 once THE HIVE's underside went on it, and §6.2's brief is in the queue for five more bosses — so the next one to be given a handle would have paid for a page it has nothing to do with.
+
 ## 2026-09-21 · 4b08f3ac — Mark "A claim whose branch is gone reads as taken forever" done
 
 ## 2026-09-21 · 5389bc4f — Name a claim no branch is holding any more
