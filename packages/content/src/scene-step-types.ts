@@ -38,7 +38,11 @@ export type BossPart =
   | "organ"
   /** THE ANTIPHON's rail of candidates along the underside — the navigator's. */
   | "rail"
-  /** THE ORRERY's ring this seat alone sees true: the middle on the pilot's, the inner on the navigator's. */
+  /**
+   * One ring of a boss that has several and one of them matters: THE ORRERY's
+   * orbit this seat alone sees true — the middle on the pilot's, the inner on
+   * the navigator's — and THE THROAT's lowest muscle still holding.
+   */
   | "ring"
   /** THE ORRERY's core in the middle of the orbits. */
   | "core"
@@ -52,8 +56,16 @@ export type BossPart =
   | "cord"
   /** THE LEDGER's lock on the socket's column, and its chevron — the navigator's. */
   | "lock"
-  /** THE SPLICE's row of mouths over the plating: the one part of it the pilot is shown. */
-  | "mouths";
+  /**
+   * A boss's mouth, where a body goes in: THE SPLICE's row of them over the
+   * plating — the one part of it the pilot is shown — and THE THROAT's one,
+   * with the gums a fling has to land between.
+   */
+  | "mouths"
+  /** THE UNDERTOW's plate, bowing over a breach before its lobe is through — the pilot's. */
+  | "plate"
+  /** THE UNDERTOW's lobe, standing in the breach it came up through. */
+  | "lobe";
 
 export type SceneAnchor =
   | { at: "body" }

@@ -92,6 +92,21 @@ export function inhaleShare(
   return clamp01((since + beatPhase) / every);
 }
 
+/**
+ * Where the lock stands: the column the mouth will be in when it next
+ * inhales, on the mouth's own row. The one place on the navigator's screen
+ * the count she has to say is written (`caption-anchor-boss-e.ts`).
+ */
+export function throatLockPoint(
+  l: Layout,
+  cfg: SimConfig,
+  b: ThroatState,
+  beat: number,
+): { x: number; y: number } {
+  const at = beat + throatToInhale(cfg, b, beat);
+  return { x: tileCX(l, throatMouthCol(cfg, b, at)), y: mouthY(l, cfg) };
+}
+
 export function drawThroatLock(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -118,9 +133,7 @@ export function drawThroatLock(
   // exists not to draw.
   if (every <= 1) return;
 
-  const at = beat + throatToInhale(cfg, b, beat);
-  const x = tileCX(l, throatMouthCol(cfg, b, at));
-  const y = mouthY(l, cfg);
+  const { x, y } = throatLockPoint(l, cfg, b, beat);
   const halfW = l.tile * LOCK_W;
   const halfH = l.tile * LOCK_H;
   // Seeded off the anchor, so this frame and the mouth's own lip are not two

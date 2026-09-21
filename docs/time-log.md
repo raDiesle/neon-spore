@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — boss-anchors-undertow-throat — the pair the hull was nearly right for
+
+- reading — 15 min. `undertow-shape.ts`, `undertow-draw.ts`, `undertow-lobe.ts`,
+  `throat-shape.ts` and `throat-lock.ts`, for the one question the last three
+  lanes did not have to ask: what a caption is allowed to know about the hull
+  it is pointing along. The draw files are handed a `SurfaceY` — the skin as a
+  function of x — and a caption is not, so both anchors read the flat `l.hullY`
+  and say so in the file's head.
+- writing — 30 min. Two parts into `caption-anchor-boss-e.ts` (109 → 219
+  lines); `throatLockPoint` exported from `throat-lock.ts` so the ring and the
+  bracket cannot drift; two new part names, `plate` and `lobe`, and three
+  reused — `tally`, `mouths`, `ring` — each widened by a sentence rather than
+  duplicated; `beatPhase` threaded through `-c` and `-d`, which had dropped it
+  four files ago and which THE THROAT's sliding mouth needs; twelve pages
+  moved; seven tests in a sixth file.
+- looking — 5 min. One rehearsal frame, THE THROAT's opening on the
+  navigator's screen: ONLY PLAYER 2 SEES THE COUNT is now a ring round the
+  count.
+- friction — 10 min. Two tests written against a seed rather than against a
+  poked state, and both were wrong about it: the undertow's first breach
+  happens to open in the middle column, so *not the middle of the plating* was
+  true of nothing, and THE THROAT's mouth never leaves the middle at all until
+  a ring has gone slack. Both are three lines of state and no search.
+- landing — 15 min.
+
+Bottleneck: writing, and the half of it that was the chain rather than the two
+bosses — `beatPhase` had to be put back through two files that were already
+landed before either anchor could ask where the mouth is this frame.
+
 ## 2026-09-21 — boss-anchors-ledger-splice — two films, and the lane split in half
 
 - reading — 15 min. Nineteen pages across four bosses is bigger than the

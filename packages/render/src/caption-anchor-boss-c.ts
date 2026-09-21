@@ -36,6 +36,7 @@ export function bossAnchorC(
   l: Layout,
   world: World,
   part: BossPart | undefined,
+  beatPhase: number,
 ): AnchorPoint | null {
   const cfg = world.cfg;
   const candle = candleBoss(world);
@@ -45,7 +46,7 @@ export function bossAnchorC(
   const diastole = diastoleBoss(world);
   if (diastole !== null) return diastolePart(l, cfg, part);
   // The four of the fourth file, on the same line-count argument.
-  return bossAnchorD(l, world, part);
+  return bossAnchorD(l, world, part, beatPhase);
 }
 
 /** How much of a tile the flame's own light is worth as a ring. */

@@ -25,9 +25,13 @@ import type { GuideScene } from "../scene-types.js";
  * `mapCol` reaches — 3 and 7 are the one pair that does — and this seed puts
  * a single under the plate first, so the third lesson comes for free.
  *
- * Every page not on a control is on the hull, since the boss has no body to
- * anchor a page to. The bow is drawn on player 1's screen alone
- * (`showsUndertowBow`), which is the first page.
+ * Every page not on a control is on the breach it is about
+ * (`render/caption-anchor-boss-e.ts`, 21 September 2026): `plate` for the two
+ * about the bow, `lobe` for the two about one standing, and the boss itself —
+ * every breach it is pushing at — for the two about a pair. They were all on
+ * the hull, which is the middle of the plating and never where the seed put
+ * the lobe. The bow is drawn on player 1's screen alone (`showsUndertowBow`),
+ * which is the first page, and the anchor is told by the same predicate.
  */
 export const THE_UNDERTOW: GuideScene = {
   ticks: 2400,
@@ -46,11 +50,21 @@ export const THE_UNDERTOW: GuideScene = {
     { tick: 2140, control: "shield", col: 4 },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "ONLY PLAYER 1 SEES THE BOW", anchor: { at: "hull" } },
-    { tick: 180, seat: 1, text: "A PLATE BOWS FOUR BEATS", anchor: { at: "hull" } },
-    { tick: 360, seat: 2, text: "A LOBE STANDS · NOBODY MOVES", anchor: { at: "hull" } },
-    { tick: 540, seat: 2, text: "LEFT ALONE · IT WIDENS", anchor: { at: "hull" } },
-    { tick: 720, seat: 2, text: "A SECOND LOBE · BOTH SCAR", anchor: { at: "hull" } },
+    {
+      tick: 0,
+      seat: 1,
+      text: "ONLY PLAYER 1 SEES THE BOW",
+      anchor: { at: "boss", part: "plate" },
+    },
+    { tick: 180, seat: 1, text: "A PLATE BOWS FOUR BEATS", anchor: { at: "boss", part: "plate" } },
+    {
+      tick: 360,
+      seat: 2,
+      text: "A LOBE STANDS · NOBODY MOVES",
+      anchor: { at: "boss", part: "lobe" },
+    },
+    { tick: 540, seat: 2, text: "LEFT ALONE · IT WIDENS", anchor: { at: "boss", part: "lobe" } },
+    { tick: 720, seat: 2, text: "A SECOND LOBE · BOTH SCAR", anchor: { at: "boss" } },
     // Three pages here said a verb the fight now writes itself, 18 September
     // 2026 (`boss-cue-read-j.ts`): the slide, and the maw twice. All three
     // kept their tick, their seat and their anchor, because every one of them
@@ -97,7 +111,7 @@ export const THE_UNDERTOW: GuideScene = {
       text: "PLAYER 1 IS SHOWN NO PLATE",
       anchor: { at: "control", control: "intake" },
     },
-    { tick: 1740, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "hull" } },
+    { tick: 1740, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "boss" } },
     // Why the last lesson divides at all — one carriage, two lobes, four
     // columns apart. The cue says `OPEN` on the one he is under and nothing
     // about the other, because *which* is the pair's own sentence; the page

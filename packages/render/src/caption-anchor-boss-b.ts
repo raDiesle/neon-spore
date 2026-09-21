@@ -64,7 +64,7 @@ export function bossAnchorB(
   const scout = scoutRound(world);
   if (scout !== null) return scoutPart(l, cfg, scout, part);
   // The three of the third file, on the same line-count argument.
-  return bossAnchorC(l, world, part);
+  return bossAnchorC(l, world, part, beatPhase);
 }
 
 /**

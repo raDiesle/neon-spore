@@ -34,6 +34,7 @@ export function bossAnchorD(
   l: Layout,
   world: World,
   part: BossPart | undefined,
+  beatPhase: number,
 ): AnchorPoint | null {
   const cfg = world.cfg;
   const gorge = gorgeBoss(world);
@@ -41,8 +42,8 @@ export function bossAnchorD(
   if (world.boss?.kind === "fleet") return fleetChart(l, cfg);
   if (world.boss?.kind === "mirror") return mirrorShip(l, cfg);
   if (stareBoss(world) !== null) return stareSocket(l, cfg);
-  // The two of the fifth file, on the same line-count argument.
-  return bossAnchorE(l, world, part);
+  // The four of the fifth file, on the same line-count argument.
+  return bossAnchorE(l, world, part, beatPhase);
 }
 
 /** How much of a tile one of the pilot's counts is worth as a ring. */

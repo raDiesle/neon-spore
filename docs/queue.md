@@ -345,29 +345,28 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## Six other films still put pages about their boss on the hull
+## Four other films still put pages about their boss on the hull
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-21, claude/queue-eight-other-films-still-put-pages-about-their-bo (claim: claude/queue-six-other-films-still-put-pages-about-their-boss)
-- **Files:** `packages/render/src/caption-anchor-boss-e.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
+- **Taken:** 2026-09-21, claude/queue-six-other-films-still-put-pages-about-their-boss (claim: claude/queue-four-other-films-still-put-pages-about-their-bos)
+- **Files:** `packages/render/src/caption-anchor-boss-e.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
 - **Where:** local
 
-**Ten of the sixteen are done** (21 September 2026), in three lanes: THE
+**Twelve of the sixteen are done** (21 September 2026), in four lanes: THE
 CANDLE, THE BATON, THE CLAW and THE DIASTOLE; THE GORGE, THE FLEET, THE
-MIRROR and THE STARE; THE LEDGER and THE SPLICE. The machinery is finished
-with them — `caption-anchor-boss-e.ts` is the fifth file and has room,
+MIRROR and THE STARE; THE LEDGER and THE SPLICE; THE UNDERTOW and THE THROAT.
+The machinery is finished with them — `caption-anchor-boss-e.ts` is the fifth
+file and is at 219 lines, so the next kind starts a sixth;
 `caption-anchor-box.ts` is the ring every line of the five answers with, and
-`render/test/boss-anchor-e.test.ts` is the pattern. Nineteen pages are left,
-in two more lanes:
+`render/test/boss-anchor-f.test.ts` is the pattern. Seven pages are left, in
+one lane:
 
-- **THE UNDERTOW and THE THROAT** — twelve pages, and the pair where the hull
-  is not obviously the wrong answer: THE UNDERTOW bows a *plate* of it and
-  THE THROAT has rings that slide along it. What is wrong is that the hull
-  anchor is the *middle* of the plating, and neither of those is in the
-  middle.
 - **PINBALL, THE GAUGE, THE MAZE, THE REPRISE** — seven pages, and the one
   that is a different question: a round is its own picture and may want an
-  anchor of its own rather than a boss part.
+  anchor of its own rather than a boss part. `bossAnchor` is asked per *boss
+  kind*, and three of these four are rounds with no boss in `world.boss` at
+  all — so the answer may be a new `SceneAnchor` beside `boss` rather than a
+  fifth file's worth of `BossPart` names. Decide that before writing anything.
 
 For each film: read its hull pages, decide which are truly about the hull (a
 breach, a scar — those stay) and which have an anchor already (THE CLAW's two
@@ -375,10 +374,12 @@ turned out to be `pod` and the cannon strip, and needed no boss line at all);
 then a line per kind in the newest anchor file off the boss's own shape file,
 a `BossPart` where a boss draws more than one thing worth a page — and reuse a
 name before inventing one, the way THE GORGE's counts took THE TASTER's
-`tally` — and a test: the ring where the fixture is drawn, and null for a part
-this screen does not draw. Where a shape file keeps a number an anchor would
-otherwise copy, export it from there: `gorgeSackBox` and `ledgerBodyBox` were
-both added that way, and `drawGorge` now calls its own.
+`tally`, and THE THROAT's mouth took THE SPLICE's `mouths` and its muscles
+THE ORRERY's `ring` — and a test: the ring where the fixture is drawn, and
+null for a part this screen does not draw. Where a shape file keeps a number
+an anchor would otherwise copy, export it from there: `gorgeSackBox`,
+`ledgerBodyBox` and `throatLockPoint` were all added that way, and `drawGorge`
+and `drawThroatLock` now call their own.
 
 ## A caption's ring is a circle round a subject that is a bar
 

@@ -24,7 +24,14 @@ import type { GuideScene } from "../scene-types.js";
  * and the last two pages are the mouth sliding a column a beat with a ring
  * gone slack.
  *
- * Every page but the shot's and the swipe's is anchored at the hull: a body
+ * Every page but the shot's and the swipe's is anchored on the boss itself
+ * (`render/caption-anchor-boss-e.ts`, 21 September 2026): `mouths` for the two
+ * about a body stopped in it, `ring` for the muscle that has gone, `tally` for
+ * NEXT INHALE — which is the navigator's alone, so the page that says so is
+ * pointed at a thing the pilot's screen does not draw and the pilot's ring is
+ * simply absent — and the gullet whole for the swallow. They were all on the
+ * hull, which is the middle of the plating: the mouth is there only while the
+ * boss is still, and the last two pages are it sliding away from there. A body
  * held in the mouth stands on row five, and a page about a body has to hold
  * with it below row six (`scene-pages.test.ts`).
  */
@@ -44,8 +51,18 @@ export const THE_THROAT: GuideScene = {
     { tick: 1500, drag: "gripBody", dir: 1, by: 1560, until: 1620 },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "ONLY PLAYER 2 SEES THE COUNT", anchor: { at: "hull" } },
-    { tick: 300, seat: 1, text: "A BODY STOPS IN THE MOUTH", anchor: { at: "hull" } },
+    {
+      tick: 0,
+      seat: 2,
+      text: "ONLY PLAYER 2 SEES THE COUNT",
+      anchor: { at: "boss", part: "tally" },
+    },
+    {
+      tick: 300,
+      seat: 1,
+      text: "A BODY STOPS IN THE MOUTH",
+      anchor: { at: "boss", part: "mouths" },
+    },
     // Two pages here said a verb the fight now writes itself, 19 September
     // 2026 (`boss-cue-read-k.ts`): the shot into the mouth, and the fling.
     // Both keep their tick, their seat and their anchor, because each is the
@@ -64,15 +81,25 @@ export const THE_THROAT: GuideScene = {
       text: "A SHOT STILL KILLS IT THERE",
       anchor: { at: "control", control: "fireRed" },
     },
-    { tick: 900, seat: 1, text: "LEFT ALONE · IT IS SWALLOWED", anchor: { at: "hull" } },
-    { tick: 1200, seat: 1, text: "ONLY A GUM HURTS IT", anchor: { at: "hull" } },
+    { tick: 900, seat: 1, text: "LEFT ALONE · IT IS SWALLOWED", anchor: { at: "boss" } },
+    { tick: 1200, seat: 1, text: "ONLY A GUM HURTS IT", anchor: { at: "boss", part: "mouths" } },
     // The field says `FLING` on the beat the gum crosses the mouth's row and
     // never a word about which side of it to start from or how far to carry —
     // that is the pair's own arithmetic. So the page says the rule underneath
     // it instead: the swipe is a direction, and the row it leaves on is the
     // line it flies along (`gumSwiped`).
     { tick: 1380, seat: 1, text: "IT FLIES THE WAY YOU SWIPE", anchor: { at: "held" } },
-    { tick: 1680, seat: 2, text: "ONE RING SLACK · IT SLIDES", anchor: { at: "hull" } },
-    { tick: 1860, seat: 2, text: "PLAYER 2 SAYS THE COLUMN", anchor: { at: "hull" } },
+    {
+      tick: 1680,
+      seat: 2,
+      text: "ONE RING SLACK · IT SLIDES",
+      anchor: { at: "boss", part: "ring" },
+    },
+    {
+      tick: 1860,
+      seat: 2,
+      text: "PLAYER 2 SAYS THE COLUMN",
+      anchor: { at: "boss", part: "tally" },
+    },
   ],
 };
