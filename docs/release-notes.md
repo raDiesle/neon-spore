@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 972960ff — `Where: cloud` comes off; a local session may take anything
+
+The owner, 21 September 2026: *"please remove cloud only. all cloud only also local can and should take"*. Ten entries carried the line and a local session was refused every one of them by name.
+
 ## 2026-09-21 · 487b2223 — A queue entry can say it waits on another one, and `next` steps past it
 
 `bun run queue next` handed out THE GIMBAL's picture — an entry opening with the words *lane two of §18, once lane one lands*, under one closing with *do not start it here* — to a local session with no `gimbal` anywhere in the tree, nothing to draw a pose against and no wave to put it in. Lane one is reserved `CLOUD ONLY`, so the kind of session `next` kept offering the picture to was the one kind that could never unblock it. Both sentences are addressed to a reader, and `next` is not one.
