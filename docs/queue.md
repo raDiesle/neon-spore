@@ -285,32 +285,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 `tools/queue/test/needs.test.ts` holds the wait.
 
-## `queue take` refuses the lane the entry itself names as its claim
-
-- **Found:** 2026-09-21, claude/queue-four-other-films-still-put-pages-about-their-bos
-- **Taken:** 2026-09-21, claude/queue-a-partner-who-vanishes-on-the-room-screen-is-sti (claim: claude/queue-queue-take-refuses-the-lane-the-entry-itself-nam)
-- **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`
-
-An entry whose title a lane has rewritten cannot be re-marked by the lane that
-rewrote it. It happened twice on the sixteen-films entry in two days: a lane
-finishes four of the films, retitles the entry from *Six* to *Four*, and lands
-with `Taken:` carrying the old branch and a `(claim: ...)` naming the new one.
-The next lane runs `bun run queue take "Four other films ..."` and is told the
-item *is already taken* by a branch that is its own predecessor — `claimOn`
-answers `workedBranch(item.taken)` the moment the derived ref is live, and it
-never reads the `(claim: ...)` the entry is carrying. The lane is the claimant
-the entry names and still cannot say so, so it works uncommitted against an
-entry the listing shows under somebody else's name — which is exactly what
-`taken.test.ts` exists to prevent.
-
-Two ways, and either will do. Have `take` treat a `(claim: <branch>)` that
-matches the current branch as the lane's own and re-stamp `Taken:` from it;
-or have `claimOn` ignore a `taken` branch whose ref is an ancestor of the
-current branch, which is what *my predecessor* means in a linear history. The
-second is the smaller change and the one the claim test can state. Either way
-a case in `taken.test.ts`: an entry taken by a landed branch, on a branch
-descended from it, is takeable.
-
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne

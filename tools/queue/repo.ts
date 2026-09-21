@@ -12,47 +12,17 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { branchFor, takenMark } from "./claim.js";
-import { hasEntry, markTaken, takenIn } from "./edit.js";
+import { branchFor } from "./claim.js";
+import { clearTaken, hasEntry, markTaken, takenIn } from "./edit.js";
 import { commitOnRef, gitIn, gitWith } from "./git.js";
+import { takenMark } from "./mark.js";
 import type { Item } from "./queue.js";
 import type { Trunk } from "./stale.js";
+import { git, hasBranch, headBranch, ROOT, TRUNK } from "./tree.js";
 
-export const ROOT = join(import.meta.dirname, "..", "..");
-export const PATHS = {
-  queue: join(ROOT, "docs", "queue.md"),
-  parked: join(ROOT, "docs", "parked.md"),
-};
-export const TRUNK = "main";
-
-export function git(...args: string[]): { ok: boolean; out: string; err: string } {
-  return gitIn(ROOT, ...args);
-}
-
-/** Whether this checkout has the branch itself, rather than origin's copy of it. */
-export function hasBranch(branch: string): boolean {
-  return git("rev-parse", "--verify", "--quiet", `refs/heads/${branch}`).ok;
-}
-
-/**
- * The branch this tree is standing on, or "" when it is on a detached HEAD.
- * `root` defaults to the real repository; `claim` below asks it of the
- * worktree it was given, which a test points at a scratch repository of
- * its own.
- */
-export function headBranch(root = ROOT): string {
-  const r = gitIn(root, "rev-parse", "--abbrev-ref", "HEAD");
-  return r.ok && r.out !== "HEAD" ? r.out : "";
-}
-
-/** Every branch this checkout can see — its own and, if it has one, origin's. */
-export function refs(): string[] {
-  const r = git("for-each-ref", "--format=%(refname:short)", "refs/heads", "refs/remotes/origin");
-  return r.out
-    .split("\n")
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
+// The facts about the checkout live in `tree.ts` now; they are said again here
+// because this file is the door the tool comes in by.
+export { git, hasBranch, headBranch, PATHS, ROOT, refs, TRUNK } from "./tree.js";
 
 /**
  * The trunk as a ref this checkout can read: its own `main`, or origin's copy
@@ -167,6 +137,27 @@ export function alsoHere(item: Item, edit: (md: string) => string, root = ROOT):
   if (!hasEntry(md, item.title)) return;
   const next = edit(md);
   if (next !== md) writeFileSync(path, next);
+}
+
+/**
+ * Take a `Taken:` line off so that a fresh claim can write one — **only ever
+ * this lane's own line**, which `run.ts` settles with `heldElsewhere` before it
+ * calls here.
+ *
+ * `markTaken` refuses to overwrite a holder, and it is right to: a claim that
+ * could be silently re-stamped is not a claim. But after a retitle the holder
+ * *is* the caller under the name the entry used to have, and the line is about
+ * a title nothing carries any more (`claimedBranch`). So the line comes off
+ * first, in both copies for `alsoHere`'s reason, and the trunk's only when the
+ * trunk is carrying one — an edit that changes nothing there has no commit to
+ * make and `onTrunk` would throw on the empty one.
+ */
+export function unmark(item: Item, root = ROOT): void {
+  const cut = (md: string): string => clearTaken(md, item.title);
+  if (trunkTaken(item, root)) {
+    onTrunk(item, cut, `Re-stamp ${JSON.stringify(item.title)}`, root);
+  }
+  alsoHere(item, cut, root);
 }
 
 /**

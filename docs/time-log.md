@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — queue-take-own-claim — the lane told its own claim was somebody else's
+
+- reading — 20 min. The four commits of the incident read with `git show`, and
+  the literal `Taken:` lines off them, rather than the entry's account of it:
+  that is what showed both of `heldElsewhere`'s existing ways through miss a
+  retitle, and that the entry's second option — ancestry — cannot work at all,
+  because `land` deletes the predecessor branch and leaves no ref to test
+  against. Then `claim.ts`, `repo.ts`, `run.ts` and the two claim tests.
+- writing — 35 min. `claimedBranch`, a third clause in `heldElsewhere`,
+  `unmark` in `repo.ts`, `take` moved off `claimOn`, three unit cases on the
+  reader, two on the guard, and the end-to-end one in the scratch repository.
+- looking — 5 min. The clause commented out and back in, so the two new cases
+  are about the defect and not about the fixture.
+- friction — 20 min. Both files were sitting one or two lines under the
+  250-line ceiling, so the fix broke the size check twice; `mark.ts` and
+  `tree.ts` are the two seams, chosen here because this lane owns both files.
+- landing — 10 min.
+
+The bottleneck was the ceiling: a 28-line fix in a 248-line file is two
+splits, and neither seam had anything to do with the defect being fixed.
+
 ## 2026-09-21 — room-ping-counts-seats — the screen whose only message asked nothing
 
 - reading — 15 min. The queue entry, `room.ts`, `room-route.ts`,

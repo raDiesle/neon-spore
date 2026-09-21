@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { branchFor, claimOn, heldElsewhere, takenMark, unclaimed, workedBranch } from "../claim.js";
+import { branchFor, claimOn, heldElsewhere, unclaimed } from "../claim.js";
 import { clearTaken, markTaken, removeItem, takenIn } from "../edit.js";
+import { claimedBranch, takenMark, workedBranch } from "../mark.js";
 import { parseItems } from "../queue.js";
 
 /**
@@ -77,6 +78,28 @@ describe("workedBranch", () => {
 
   it("is empty for a mark with no comma to find the branch after", () => {
     expect(workedBranch("")).toBe("");
+  });
+});
+
+/**
+ * The other branch in a mark: the one `branchFor` derived when the claim was
+ * made, which is the only record of the claimant once the title has changed.
+ */
+describe("claimedBranch", () => {
+  it("is the parenthesised branch, which is what `branchFor` derived that day", () => {
+    expect(
+      claimedBranch(
+        "2026-09-04, claude/task-abc (claim: claude/queue-split-the-wave-editors-cell-panel)",
+      ),
+    ).toBe("claude/queue-split-the-wave-editors-cell-panel");
+  });
+
+  it("is empty on an ordinary mark, where the two branches were the same one", () => {
+    expect(claimedBranch(MARK)).toBe("");
+  });
+
+  it("is empty for no mark at all", () => {
+    expect(claimedBranch("")).toBe("");
   });
 });
 
@@ -194,6 +217,37 @@ describe("heldElsewhere", () => {
     // A third session, on neither branch, still reads it as held — by the
     // real branch the mark names, which is the one worth reading.
     expect(heldElsewhere(dealt, [claim], "claude/some-other-lane")).toBe("claude/task-abc");
+  });
+
+  it("lets the lane that rewrote the entry's title through, off the claim it carries", () => {
+    // 21 September 2026, twice in two days. A lane finishing four of sixteen
+    // films retitles the entry from *Six* to *Four* and stands on the branch
+    // its own claim derived from the old words. `branchFor` now derives a
+    // branch nothing has ever made, and the mark's worked branch is the
+    // predecessor, landed and swept. The `(claim: ...)` is the one line left
+    // saying the caller is the claimant, and it says so by naming its `HEAD`.
+    const retitled = parseItems(
+      markTaken(
+        ONE,
+        TITLE,
+        "2026-09-21, claude/queue-eight-other-films (claim: claude/queue-six-other-films)",
+      ),
+      "queue",
+    )[0]!;
+    expect(heldElsewhere(retitled, ["main"], "claude/queue-six-other-films")).toBeUndefined();
+    // And to any other tree it still reads as held, by the branch the mark
+    // names as the one the work is on.
+    expect(heldElsewhere(retitled, ["main"], "claude/queue-four-other-films")).toBe(
+      "2026-09-21, claude/queue-eight-other-films (claim: claude/queue-six-other-films)",
+    );
+  });
+
+  it("is not let through by an empty HEAD, which is what a detached one reads as", () => {
+    const dealt = parseItems(
+      markTaken(ONE, TITLE, takenMark(claim, "2026-09-19", "claude/task-abc")),
+      "queue",
+    )[0]!;
+    expect(heldElsewhere(dealt, [claim], "")).toBe("claude/task-abc");
   });
 
   it("leaves an item nobody holds removable, as it was before the guard", () => {

@@ -53,6 +53,7 @@ import {
   trunkRef,
   trunkTaken,
   trunkView,
+  unmark,
 } from "./repo.js";
 import { staleLine, staleness } from "./stale.js";
 import { fits, refuseUnlessFits, reservedTag, sessionKind } from "./where.js";
@@ -165,10 +166,23 @@ if (!command || command === "list") {
 } else if (command === "take") {
   if (!arg) throw new Error("usage: bun run queue take <n|title>");
   const item = pick(items, arg);
-  const held = claimOn(item, known);
+  // **`heldElsewhere`, not `claimOn`.** `claimOn` says who holds the item and
+  // cannot say whether that is the caller — and the caller is very often the
+  // holder here, because a lane that finished half an entry and rewrote its
+  // title is re-marking the entry it is standing in. `branchFor` derives a
+  // different branch from the new words, so the only line naming this lane is
+  // the mark's own `(claim: ...)`, and `heldElsewhere` is the one that reads
+  // it (`claim.ts`).
+  const held = heldElsewhere(item, known, headBranch());
   if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
   refuseUnlessFits(item, kind);
   refuseUnlessWhole(item);
+  // This lane's own stale line comes off before the fresh one goes on, because
+  // `markTaken` refuses to overwrite a holder and here the holder is this lane
+  // under a name the entry no longer has. Asked unconditionally: the line the
+  // caller has to get out of the way may be in the trunk's copy and not in the
+  // one it was handed, which is the state every clone is in (`unmark`).
+  unmark(item);
   console.log(`Ongoing: ${item.title} (${claim(item)})`);
   console.log("`bun run queue done` when it is out of the file; that drops the claim.");
 } else if (command === "release") {

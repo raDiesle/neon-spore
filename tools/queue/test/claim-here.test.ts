@@ -3,11 +3,12 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { gitIn, repoTimeout } from "../../test/repo-time.js";
-import { branchFor } from "../claim.js";
+import { branchFor, heldElsewhere } from "../claim.js";
 import { markTaken } from "../edit.js";
 import { commitOnRef } from "../git.js";
+import { claimedBranch } from "../mark.js";
 import { type Item, parseItems } from "../queue.js";
-import { claim, trunkHas } from "../repo.js";
+import { claim, headBranch, trunkHas, unmark } from "../repo.js";
 
 /**
  * A claim on an entry the trunk has not got, and a claim that fails halfway.
@@ -40,6 +41,24 @@ const ONLY_HERE = `
 - **Files:** \`tools/queue/repo.ts\`
 
 Queued and worked in one sitting.
+`;
+
+/**
+ * The same entry after the lane finished half of it and rewrote the words, with
+ * the `Taken:` line left exactly as it was. That line is the whole of the
+ * trouble: its worked branch is the predecessor, landed and swept, and its
+ * claim branch is what `branchFor` derived from the *old* title — a branch
+ * these words do not derive and no ref carries. The one thing still saying the
+ * lane holds it is that the claim branch is the lane's own HEAD.
+ */
+const RETITLED = `
+## Name the half the lane finished
+
+- **Found:** 2026-09-10, hit-looks
+- **Taken:** 2026-09-21, claude/queue-name-the-thing-the-lane-found (claim: lane)
+- **Files:** \`tools/queue/repo.ts\`
+
+Half of it is done, so the words changed.
 `;
 
 let root = "";
@@ -154,5 +173,55 @@ describe("a claim that cannot write its line", () => {
       expect(await branches()).not.toContain(branchFor(item));
     },
     repoTimeout(6),
+  );
+});
+
+/**
+ * 21 September 2026, twice in two days: the lane holding the sixteen-films
+ * entry rewrote its title, and `bun run queue take` told it the entry was
+ * somebody else's. `claimOn` says who holds an item and cannot say whether
+ * that is the caller — and here it is, under a name the entry no longer has.
+ */
+describe("re-marking an entry this lane has retitled", () => {
+  const item = itemNamed(ON_MAIN + RETITLED, "Name the half the lane finished");
+  let branch = "";
+
+  beforeAll(async () => {
+    await writeFile(join(root, "docs", "queue.md"), ON_MAIN + RETITLED);
+    // The two halves `take` runs: this lane's own stale line off, a fresh one on.
+    unmark(item, root);
+    branch = claim(item, root);
+  }, repoTimeout(8));
+
+  it(
+    "reads as nobody else's, because the mark's claim branch is this tree's HEAD",
+    () => {
+      expect(claimedBranch(item.taken)).toBe("lane");
+      expect(headBranch(root)).toBe("lane");
+      expect(heldElsewhere(item, ["main", "lane"], headBranch(root))).toBeUndefined();
+    },
+    repoTimeout(4),
+  );
+
+  it(
+    "leaves one Taken: line, the fresh one, naming the branch the new words derive",
+    async () => {
+      const md = await readFile(join(root, "docs", "queue.md"), "utf8");
+      expect(branch).toBe(branchFor(item));
+      expect(md.match(/- [*][*]Taken:[*][*]/g)).toHaveLength(1);
+      expect(itemNamed(md, item.title).taken).toMatch(
+        new RegExp(`^\\d{4}-\\d{2}-\\d{2}, lane \\(claim: ${branch}\\)$`),
+      );
+    },
+    repoTimeout(4),
+  );
+
+  it(
+    "makes the branch the new title derives, and leaves main alone",
+    async () => {
+      expect(await branches()).toContain("claude/queue-name-the-half-the-lane-finished");
+      expect(await run(["show", "main:docs/queue.md"])).not.toContain("half the lane finished");
+    },
+    repoTimeout(4),
   );
 });

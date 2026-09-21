@@ -22,6 +22,7 @@
  * 2026 two sessions did the same six items in parallel for want of it.
  */
 
+import { claimedBranch, workedBranch } from "./mark.js";
 import type { Item, Match } from "./queue.js";
 
 const PREFIX = "claude/queue-";
@@ -59,35 +60,6 @@ export function isClaimBranch(name: string): boolean {
 /** `origin/claude/queue-x` and `claude/queue-x` are the same claim. */
 function bare(ref: string): string {
   return ref.startsWith("origin/") ? ref.slice("origin/".length) : ref;
-}
-
-/**
- * What one `Taken:` line says: the day it was claimed, and the branch holding
- * it — `branch` when nobody said otherwise.
- *
- * `actual` is the branch the worktree making the claim really stands on,
- * asked for separately because it is not always `branch`: a session dealt one
- * of its own by a coordinator commits there and never touches the derived
- * `claude/queue-<slug>` again, so a mark naming only `branch` sent both the
- * listing and `heldElsewhere` looking for work that was never going to be on
- * it (19 September 2026). Said when it differs; left off for the ordinary
- * case, a session standing on the branch its own item derives.
- */
-export function takenMark(branch: string, today: string, actual?: string): string {
-  if (!actual || actual === branch) return `${today}, ${branch}`;
-  return `${today}, ${actual} (claim: ${branch})`;
-}
-
-/**
- * The branch a `Taken:` mark says the work is really on — the one after the
- * date, and before the parenthesised claim branch when there is one.
- */
-export function workedBranch(mark: string): string {
-  const comma = mark.indexOf(", ");
-  if (comma === -1) return "";
-  const rest = mark.slice(comma + 2);
-  const paren = rest.indexOf(" (claim:");
-  return (paren === -1 ? rest : rest.slice(0, paren)).trim();
 }
 
 /**
@@ -132,7 +104,8 @@ export function claimOn(item: Item, refs: readonly string[]): string | undefined
  * **The tree's own `HEAD` is not always `branchFor(item)`**, which is the
  * whole reason `takenMark` learned a second branch: a session dealt a branch
  * of its own reads as somebody else's from inside its own worktree unless the
- * mark's own answer is asked too.
+ * mark's own answer is asked too. Both of the mark's branches are asked, and
+ * the parenthesised one is the half a retitle leaves behind (`claimedBranch`).
  */
 export function heldElsewhere(
   item: Item,
@@ -141,6 +114,10 @@ export function heldElsewhere(
 ): string | undefined {
   if (branchFor(item) === head) return undefined;
   if (head !== "" && workedBranch(item.taken || "") === head) return undefined;
+  // And the third way the tree can be the claimant: it is standing on the
+  // branch the mark calls the claim, which is not `branchFor(item)` any more
+  // because this lane rewrote the title (`claimedBranch`).
+  if (head !== "" && claimedBranch(item.taken || "") === head) return undefined;
   return claimOn(item, refs);
 }
 
