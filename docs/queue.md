@@ -571,24 +571,6 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## `packages/sim/src/drag-targets-c.ts` has room for no more handles
-
-- **Found:** 2026-09-21, claude/queue-the-hive-changes-state-more-than-once-and-asks-f
-- **Taken:** 2026-09-21, claude/queue-a-claim-whose-branch-is-gone-reads-as-taken-fore (claim: claude/queue-packages-sim-src-drag-targets-c-ts-has-room-for)
-- **Files:** `packages/sim/src/drag-targets-c.ts`, `packages/sim/src/drag-targets-b.ts`, `packages/sim/src/drag-targets.ts`
-
-246 lines of 250 after THE HIVE's `hiveLobe` went in, which is four lines and
-one comment from red (`packages/sim/test/limits.test.ts`). The next boss that
-answers on the picture — and the §6.2 brief is in the queue for five of them —
-pays for a page it has nothing to do with, exactly as
-`queue-take-own-claim` paid for `mark.ts` and `tree.ts` the same day.
-
-Cut a fourth page on the seam the other two were cut on: the *last* boss on the
-full page goes across whole, under the comment that explains it, and
-`drag-targets.ts` spreads all four so nothing that asks the table knows there
-is more than one. Nothing about the work is decided by anybody: it is a move,
-a re-export and a header sentence.
-
 ## Twenty-four on-field handles are on no tab, and the guard is hand-kept
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
