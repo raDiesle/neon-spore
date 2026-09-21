@@ -371,45 +371,6 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## `bun run frames --hold` cannot reach the six newest handles
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-21, claude/queue-a-captions-ring-is-a-circle-round-a-subject-that (claim: claude/queue-bun-run-frames-cannot-reach-bulb-queens-brood-an)
-- **Files:** `tools/frames/hold.ts`, `packages/sim/src/queen-hand.ts`, `packages/sim/src/filament-hand.ts`, `packages/sim/src/stare-hand.ts`, `packages/sim/src/maze-hand.ts`, `packages/sim/src/throat-hand.ts`
-- **Where:** local
-
-**Half of this landed on 21 September 2026 as `--creature`** (`tools/frames/boss.ts`,
-`tools/frames/boss-install.ts`): a boss's body is a creature like any other and
-its fields decide what the fight looks like, so `--creature petals=6` reaches
-BULB QUEEN's BROOD and `bun run frames . --wave "BULB QUEEN" --seat p1
---creature petals=6 --ticks 200 --boss openBeat=now,closeBeat=99` is her pried
-phase on a real frame. What is left is the other half.
-
-`--hold`'s `DRAGS` list stops at `instarMark2`, so none of the six newest
-handles can be held for a frame. The rows to add, with the seat each one is
-refused on and the shape of the command:
-
-- `queenMark` — player 1, and it needs an `id` of 0 or 1 to say which of the
-  two marks (`queen-hand.ts` reads `command.id` and nothing else).
-- `filament` — both seats on one target, a grab then a displacement
-  (`filament-hand.ts`), so it wants a `filament2` row the way `instarMark2`
-  names THE INSTAR's second thumb.
-- `stareLid` — either seat, and it is pulled in `y` rather than in `x`
-  (`fromYMilli`, `stare-hand.ts`).
-- `mazeHeart` — player 2 only (`maze-hand.ts` returns on any other). THE MAZE's
-  tear was photographed with `--boss-json` writing `gripThumb` and
-  `gripPullMilli` straight into the boss, which shows the picture and proves
-  nothing about the hand.
-- `throatRing` — player 2, a press (`ringHeard`).
-- `throatTube` — player 1, and **a carry rather than a drag**: `tubeHeard`
-  refuses a command with `on` set and wants `|fromMilli| >= cfg.throatHaulMilli`,
-  which the two-command grab-then-pull form `--hold` builds cannot express. So
-  this row needs a release form, and that is the decision in the item.
-
-Reaching the phase that offers either throat hand needs four gums flung
-sideways into a walking mouth, so those two rows are the ones worth proving
-with a frame.
-
 ## THE GAUGE's two new states have no pose in the director's gallery
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2216,3 +2177,21 @@ The owner, 18 September 2026: a picture is judged by an eye on a real frame,
 which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
+
+## `--hold` names its drag targets as free strings, and nothing checks them
+
+- **Found:** 2026-09-21, claude/queue-frames-hold-cannot-reach-the-six-newest-handles
+- **Files:** `tools/frames/hold-targets.ts`, `tools/frames/package.json`, `packages/net/src/command-fields.ts`
+
+`DRAGS` and `TARGET` in `hold-targets.ts` are twenty-seven target names written
+out by hand, and the wire's own list is `DRAG_TARGETS` in
+`packages/net/src/command-fields.ts`. Nothing holds the two together. A name
+that drifts — a target renamed in the simulation, a row added here with a typo
+— builds a command the sim drops without a sound, which is the exact failure
+`hold.ts`'s own header says this flag exists to end: a frame that comes back
+released while every number in the capture says the hold was sent.
+
+The fix is one test in `tools/frames/test/` asserting every value of `TARGET`
+and every non-`prime` entry of `DRAGS` is in `DRAG_TARGETS`. It needs
+`@neon-spore/net` added to `tools/frames/package.json`, which is the only
+reason it was not written with the rows it would have covered.

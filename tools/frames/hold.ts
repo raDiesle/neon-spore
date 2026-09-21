@@ -1,3 +1,4 @@
+import { CARRIES, DRAGS, ID_CHOICES, NEEDS_ID, SEAT, TARGET } from "./hold-targets.js";
 import type { HoldSpec } from "./spec.js";
 
 /**
@@ -27,6 +28,14 @@ import type { HoldSpec } from "./spec.js";
  *   --hold instarMark2=0,y=-750,id=1  and the navigator's on mark 1, pulled up
  *   --hold wardenEye=0              THE WARDEN under NARROW: the navigator's thumb on the eye
  *   --hold wardenHatch=0            and under GLARE: the pilot's thumb on the hatch, not yet swiped
+ *   --hold queenMark=0,id=0         BULB QUEEN: the pilot's thumb on her left mark
+ *   --hold filament=1000            THE FILAMENT: the pilot drawing one tile on
+ *   --hold filament2=0,y=1000       and the navigator following one tile down
+ *   --hold stareLid=0,y=900         THE STARE: the pilot's thumb pulling the lid shut
+ *   --hold stareLid2=0,y=900        and the navigator's, on the same lid
+ *   --hold mazeHeart=0,y=900        THE MAZE: the navigator's thumb pulling the heart
+ *   --hold throatRing=0             THE THROAT: the navigator's thumb cinching a slack ring
+ *   --hold throatTube=-1500         and the pilot carrying the tube a column left
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -55,10 +64,26 @@ import type { HoldSpec } from "./spec.js";
  * reads its distance straight off the wire and does not need the grab, and a
  * leading zero costs it nothing.
  *
- * Player 1 for every handle on this field (`maze-string.ts`), and player 2 for
- * `prime`, which is a thumb resting on one of the two colours (`sim/lance.ts`).
- * Neither is a flag: a seat argument here would be a way to send a press the
- * round would refuse.
+ * **Six of these are on a boss that is in the wrong phase by default**, and a
+ * hold the round cannot hear is dropped in the silence this flag exists to
+ * end — so each is written with the `--boss` that opens its window, and the
+ * pair is what a recipe is: `--boss phase=looking,watching=2` for the pilot's
+ * lid and `watching=1` for the navigator's (`stareLidFree`), `--boss
+ * phase=trace` for either filament, `--boss phase=grip` for the heart, and
+ * `--boss phase=quick,slack=2` for the cinch or `phase=open,slack=4` for the
+ * carry. BULB QUEEN's marks are her body's: `--creature petals=6`.
+ *
+ * **And one handle is let go of rather than held**, which is the second shape
+ * this flag builds. THE THROAT's haul is spent on the *lift*: `tubeHeard`
+ * refuses a command with `on` set, so the grab-and-pull above would have sent
+ * the gesture's shape and never the gesture. A carry sends the grab, then the
+ * travel with `on` false — three things a finger does, two commands on the
+ * wire (`hold-targets.ts`, `CARRIES`).
+ *
+ * The pilot for every handle on this field (`maze-string.ts`), player 2 for
+ * `prime`, which is a thumb resting on one of the two colours (`sim/lance.ts`),
+ * and `SEAT` next door for the rest. None of it is a flag: a seat argument
+ * here would be a way to send a press the round would refuse.
  */
 export function parseHold(value: string): HoldSpec[] {
   const parts = value.split(",");
@@ -99,67 +124,12 @@ export function parseHold(value: string): HoldSpec[] {
   // the left handle is player 1's and the right is player 2's, which is the
   // whole of that creature's coupling (`sim/balloon-pull.ts`). So a hold
   // carries the seat as well as the target, and a capture can stand a frame
-  // with one hand on a body or with both.
-  // THE SINEW's pair sits the same way, and is pulled **down** (`y=`).
-  // THE SURGE has **one** target both seats send (`sim/surge-hand.ts`), so
-  // the navigator's thumb is named here as `surgeBulb2` and sent as
-  // `surgeBulb` from seat 2: a name per thumb, the way every other row is,
-  // rather than a seat flag the rest of the field would have to refuse.
-  // THE INSTAR's marks are one target both seats send too, and `id` is which
-  // mark of the step (`sim/instar-hand.ts`).
-  const SEAT: Record<string, 1 | 2> = {
-    balloonRight: 2,
-    sinewRight: 2,
-    surgeBulb2: 2,
-    instarMark2: 2,
-    mirrorLobe2: 2,
-    // THE WARDEN's eye is player 2's alone (`sim/warden-hand.ts`).
-    wardenEye: 2,
-    // THE ANTIPHON's rail is the navigator's alone (`sim/antiphon-hand.ts`).
-    antiphonRail: 2,
-  };
-  // THE MIRROR's lobes are one target both seats send as well, `id` 0 its
-  // cannon and 1 its shield (`sim/mirror-hand.ts`).
-  const TARGET: Record<string, string> = {
-    surgeBulb2: "surgeBulb",
-    instarMark2: "instarMark",
-    mirrorLobe2: "mirrorLobe",
-  };
-  const target = TARGET[name0] ?? name0;
-  // And they take an `id` for THE LID's reason: a wave puts several on the
-  // field at once on purpose.
-  const NEEDS_ID = [
-    "lidString",
-    "balloonLeft",
-    "balloonRight",
-    "instarMark",
-    "mirrorLobe",
-    "antiphonRail",
-  ];
-  const DRAGS = [
-    "mazeString",
-    "wardenTether",
-    "lidString",
-    "choirLeft",
-    "choirRight",
-    "balloonLeft",
-    "balloonRight",
-    "sinewLeft",
-    "sinewRight",
-    "surgeBulb",
-    "surgeBulb2",
-    "antiphonOrgan",
-    "antiphonRail",
-    "instarMark",
-    "instarMark2",
-    "mirrorLobe",
-    "mirrorLobe2",
-    "wardenEye",
-    "wardenHatch",
-  ];
+  // with one hand on a body or with both. Every handle's seat, its name on the
+  // wire and what it needs are `hold-targets.ts`.
   if (!DRAGS.includes(name0)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);
   }
+  const target = TARGET[name0] ?? name0;
   const fromMilli = milliText === undefined ? 1000 : Number(milliText);
   if (!Number.isFinite(fromMilli)) {
     throw new Error(`--hold ${value}: the distance is thousandths of a tile, as a number`);
@@ -172,8 +142,15 @@ export function parseHold(value: string): HoldSpec[] {
   if (!NEEDS_ID.includes(target) && id !== undefined) {
     throw new Error(`--hold ${value}: only a handle that hangs off a body takes an id`);
   }
+  const choices = ID_CHOICES[target];
+  if (choices && id !== undefined && !choices.includes(id)) {
+    throw new Error(`--hold ${value}: id is one of ${choices.join(" or ")}, and nothing else does`);
+  }
+  // A carry is spent on the lift, so its second command is the thumb coming
+  // off rather than a thumb that stayed down (`CARRIES`).
+  const held = !CARRIES.includes(name0);
   const grab: HoldSpec["command"] = { kind: "drag", target, on: true, fromMilli: 0 };
-  const command: HoldSpec["command"] = { kind: "drag", target, on: true, fromMilli };
+  const command: HoldSpec["command"] = { kind: "drag", target, on: held, fromMilli };
   if (yMilli !== undefined) {
     grab.fromYMilli = 0;
     command.fromYMilli = yMilli;

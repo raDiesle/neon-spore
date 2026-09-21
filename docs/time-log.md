@@ -15089,3 +15089,28 @@ one also found the real defect behind it, which is the room writing its seat to
 reading that went into it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — frames-hold-six-handles — the handles the flag could not name
+
+- reading — 15 min. The five sim hand files the entry named, for the seat each
+  one refuses on and the shape it reads: `queenHeard` maps any `id` but 0 or 1
+  to side 0 and does nothing with it, `stareLidHeard` pulls in `y`,
+  `mazeHeartHeard` is player 2 only, and `tubeHeard` refuses a command with
+  `on` set — which is the one row that is a carry and not a hold.
+- writing — 25 min. Every per-handle fact moved to `hold-targets.ts` — seat,
+  wire name, which need an `id` and which ids exist, and the one that is let go
+  of — so `hold.ts` is text turning into commands and nothing else. Eight rows
+  added, `CARRIES` for the throat's haul, and ten tests beside `hold.test.ts`.
+- looking — 30 min. Every one of the eight rows driven through a real page.
+  `--events` names the tick: `stareShut@121` on both lids, `mazeGrip@121`,
+  `throatCinch@41`, `throatHaul@75`; the two filaments and BULB QUEEN's marks
+  change the frame instead. Her pried mark opens gold under the thumb.
+- friction — 15 min. Six of the eight sit on a boss in the wrong phase by
+  default, so the first captures came back byte-identical to their control and
+  read as dropped commands. They were not — the window was shut. The `--boss`
+  that opens each one is written into `hold.ts` now, so nobody spends this
+  again.
+- landing — 10 min.
+
+The bottleneck was looking: proving a hold reached the simulation costs a
+capture *and* its control, and half of them say nothing in a picture at all.
