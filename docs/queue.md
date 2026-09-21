@@ -348,6 +348,7 @@ The brief: `.claude/skills/new-boss` section 6.2.
 ## THE STARE's catch washes the whole panel, and the design says the button
 
 - **Found:** 2026-09-18, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-21, claude/boss-looks-back-in-the-queue (claim: claude/queue-the-stares-catch-washes-the-whole-panel-and-the)
 - **Files:** `packages/render/src/stare-fx.ts`, `packages/render/src/band-lobes.ts`, `packages/sim/src/events-stare.ts`, `packages/render/test/stare-frame.test.ts`
 - **Where:** local
 
