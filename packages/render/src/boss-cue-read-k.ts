@@ -6,9 +6,6 @@ import {
   isWardable,
   occupiesCol,
   type ThroatState,
-  throatCinchable,
-  throatCinched,
-  throatHauling,
   throatHolds,
   throatMouthRow,
   type World,
@@ -16,7 +13,12 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { creatureCenter } from "./creature-place.js";
 import { type Layout, tileCX } from "./layout.js";
-import { mouthX, mouthY, rings } from "./throat-shape.js";
+import {
+  throatRingCircle,
+  throatRingGrippable,
+  throatTubeCircle,
+  throatTubeGrippable,
+} from "./throat-grip.js";
 
 /**
  * **What THE THROAT is asking for** — page eleven of the readings, and its own
@@ -129,20 +131,26 @@ function shot(
  * ring the pair has not earned yet, and the answer is the gum.
  *
  * **Each stands on its own handle and not on the body**, which is `shot`'s
- * `MOVE` half again: the mark is where the thumb goes. The lowest ring is
+ * `MOVE` half again: the mark is where the thumb goes — and since 21 September
+ * 2026 there is a ring drawn under each of these words, so the mark is asked
+ * for rather than worked out here (`throat-grip.ts`). The lowest ring is
  * always the slack one (`ringSlack` chokes from the mouth upward), so the
- * cinch's mark is the bottom of the tube whatever the count.
+ * cinch's mark is the bottom of the tube whatever the count, and the haul's
+ * hangs a tile below the mouth rather than over the lip the pair are aiming
+ * at. The two gates are that file's as well, for the reason this one already
+ * gives about `throatHolds`: the handle the picture offers and the handle the
+ * simulation accepts are one question.
  */
 function wardedCue(l: Layout, world: World, b: ThroatState, beatPhase: number): BossCue | null {
   const cfg = world.cfg;
   if (b.phase === "open") {
-    if (throatHauling(b)) return null;
-    const x = mouthX(l, cfg, b, world.beat, beatPhase);
-    return markAt(1, "CARRY", "HAUL", x, mouthY(l, cfg), l, 54);
+    if (!throatTubeGrippable(b)) return null;
+    const at = throatTubeCircle(l, cfg, b, world.beat, beatPhase);
+    return markAt(1, "CARRY", "HAUL", at.x, at.y, l, 54);
   }
-  if (!throatCinchable(b) || throatCinched(b)) return null;
-  const ring = rings(l, cfg, b, world.beat, beatPhase)[cfg.throatRings - 1];
-  return ring === undefined ? null : markAt(2, "HOLD", "CINCH", ring.x, ring.y, l, 55);
+  if (!throatRingGrippable(b)) return null;
+  const at = throatRingCircle(l, cfg, b, world.beat, beatPhase);
+  return at === null ? null : markAt(2, "HOLD", "CINCH", at.x, at.y, l, 55);
 }
 
 /**

@@ -15945,3 +15945,33 @@ control was written. **A hit test can only be as honest as the state the hit
 test is handed.**
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-the-throats-two-handles-are-heard-and-drawn-nowhere — THE THROAT's ring and tube
+
+- reading — 30 min. `throat-hand.ts` for both rules, `throat-shape.ts` for the
+  gullet's geometry, and `throat-draw.ts` for the order the mechanism is laid
+  down in. The one thing that had to be read rather than assumed was
+  `ringSlack`: the rings go slack **from the mouth upward**, which is what
+  makes the lowest one always the pinchable one and turns the navigator's
+  handle from a search into an index.
+- writing — 50 min. `render/throat-grip.ts` — two circles, two gates, the hit
+  test and the drawing — plus the `handleUnder()` branch, the call from
+  `drawThroat`, `field-controls-throat.ts` with two rows, two rows in
+  `docs/spec/controls.md`, two lines of `TARGET_PLACE`, and the reading
+  repointed at the grip file so the word and the ring cannot part company.
+  Thirteen tests in `throat-grip.test.ts` and two in `throat-frame.test.ts`.
+- looking — 15 min. Four frames — the ring offered, the ring held, the tube on
+  the pilot's screen, and one with both hands up at once — and nothing to
+  correct off them: the tube's ring clears the lip by the tile it was given.
+- friction — 20 min. A heredoc refused for a doubled backslash, which took the
+  regex out of the frame test and replaced it with a split; and then the frame
+  test failed twice over, because the circle it asked for was measured against
+  the **window** and the canvas draws against the **stage**.
+- landing — 15 min. `check:fast` green.
+
+The bottleneck was the second of those: a layout taken from the viewport puts
+a ring a pixel and a half from where `frameLayout` puts it, which is near
+enough to pass an eye and far enough to fail an assertion, and the test looked
+like a broken control for two runs. **A test that measures a picture has to be
+handed the same geometry the picture was drawn with, and the stage is not the
+window.**

@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
+  framePhase,
   startWave,
   step,
   type ThroatState,
@@ -9,14 +10,16 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import type { ViewRole } from "../src/layout.js";
+import { computeLayout, computeStage, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import { throatRingCircle, throatTubeCircle } from "../src/throat-grip.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
   runFrames,
+  VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
 
@@ -78,6 +81,64 @@ function drawn(world: World, role: ViewRole, ticks: number): { calls: number; te
     },
   });
   return { calls: ctx.calls, text: log.join("|") };
+}
+
+/**
+ * The layout every handle in this file is measured against.
+ *
+ * Off the **stage** and not the viewport, which is what `Canvas2DRenderer`
+ * draws through (`frameLayout`): the letterbox is a hair narrower than the
+ * window on this rig, and a layout taken from the window put the ring a pixel
+ * and a half from where the canvas had it — near enough to look right in a
+ * picture and far enough to be a lie in a test.
+ */
+const STAGE = computeStage(VIEWPORT, CFG, "test");
+const LAYOUT = computeLayout(
+  { width: STAGE.width, height: STAGE.height, dpr: VIEWPORT.dpr },
+  CFG,
+  "test",
+);
+
+/**
+ * Whether the log carries a dial centred on this handle: an `arc` whose centre
+ * is the ring's, within a pixel.
+ *
+ * The radius is not checked — `drawHandleRing` owns the 1.55 the dial stands
+ * at, and a test repeating it would be a second copy of a number this file has
+ * no opinion about. The centre is the whole question: it is where the hit test
+ * answers.
+ */
+function dialAt(log: string[], at: { x: number; y: number }): boolean {
+  for (const call of log) {
+    if (!call.startsWith("arc(")) continue;
+    const [x, y] = call.slice(4).split(",").map(Number);
+    if (x === undefined || y === undefined) continue;
+    if (Math.abs(x - at.x) < 1 && Math.abs(y - at.y) < 1) return true;
+  }
+  return false;
+}
+
+/**
+ * One frame of the gullet exactly as it stands, with nothing stepped.
+ *
+ * The two handle cases below set their state by hand and then ask where a
+ * circle was drawn, so a step between the arrangement and the picture would
+ * move the mouth out from under the answer — and on a boss whose phase is a
+ * clock, it would move the handle out of existence. `framePhase` is the one
+ * the harness hands the renderer, asked for here so the arithmetic is the
+ * frame's rather than a second copy of it.
+ */
+function still(world: World): { log: string[]; beatPhase: number } {
+  const log: string[] = [];
+  const beatPhase = framePhase(world);
+  runFrames(world, "test", 1, {
+    every: 1,
+    onTick: () => {},
+    onCanvas: (c) => {
+      c.log = log;
+    },
+  });
+  return { log, beatPhase };
 }
 
 describe("the throat", () => {
@@ -172,6 +233,39 @@ describe("the throat", () => {
     const beats = (CFG.throatInhaleBeats + 1) * TPB;
     expect(drawn(p1, "p1", beats).text).toContain(PALETTE.venom);
     expect(drawn(p2, "p2", beats).text).toContain(PALETTE.venom);
+  });
+
+  /**
+   * **The two hands the gullet hands out as it loses** (`throat-grip.ts`).
+   *
+   * A held ring is the one thing in this picture with a dial on it, so what
+   * these two ask is not that the frame survived — every case above already
+   * asks that — but that the ring the hit test answers is the ring the canvas
+   * put down, in the same place.
+   */
+  it("draws the navigator's ring on the muscle she has pinched", () => {
+    const world = opened();
+    const b = tube(world);
+    b.phase = "slide";
+    b.slack = 1;
+    b.breath = 0;
+    b.cinchBeat = world.beat;
+    const { log, beatPhase } = still(world);
+    const at = throatRingCircle(LAYOUT, CFG, b, world.beat, beatPhase);
+    if (at === null) throw new Error("the gullet has no lowest ring");
+    expect(dialAt(log, at)).toBe(true);
+  });
+
+  it("draws the pilot's under the mouth once his carry is in", () => {
+    const world = opened();
+    const b = tube(world);
+    b.phase = "open";
+    b.phaseBeat = world.beat;
+    b.slack = CFG.throatRings - 1;
+    b.haulStep = 1;
+    const { log, beatPhase } = still(world);
+    const at = throatTubeCircle(LAYOUT, CFG, b, world.beat, beatPhase);
+    expect(dialAt(log, at)).toBe(true);
   });
 
   it("never draws the gullet before its wave installs one", () => {

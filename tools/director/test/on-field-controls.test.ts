@@ -241,9 +241,12 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE THROAT's two, and the only pair the fight hands out as it loses: a
   // thumb on a ring already gone slack holds the gullet's breath, and in
   // `open` a carry drags the tube itself a column off its meal
-  // (`sim/throat-hand.ts`). Sim lane only so far, as every one above it.
-  throatRing: "unbuilt",
-  throatTube: "unbuilt",
+  // (`sim/throat-hand.ts`, `render/throat-grip.ts`). The seventh and eighth
+  // to make `orreryRing`'s walk, and the first whose *cue* was already on the
+  // field: `CINCH` and `HAUL` have been printed over bare tube since the
+  // fight shipped, and this is the pair of rings they were pointing at.
+  throatRing: "field",
+  throatTube: "field",
   // THE CURTAIN's hem, the pilot's alone and heard only while the rail is
   // jammed: carried **up** past `curtainLiftMilli`, it holds a gap open over
   // the core for as long as the thumb stays there (`sim/curtain-hand.ts`).

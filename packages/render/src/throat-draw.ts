@@ -5,6 +5,7 @@ import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { drawEversion, evertedRings } from "./throat-evert.js";
+import { drawThroatGrips } from "./throat-grip.js";
 import { drawThroatLock } from "./throat-lock.js";
 import { drawMouth } from "./throat-mouth.js";
 import { type Ring, rings } from "./throat-shape.js";
@@ -81,6 +82,10 @@ export function drawThroat(
     for (const ring of shape) drawRing(ctx, l, ring, time);
   }
   drawMouth(ctx, l, cfg, b, beat, beatPhase, time);
+  // The two hands the gullet hands out as it loses, over the tube and the
+  // lip they are taken on and under the readout, which is words
+  // (`throat-grip.ts`).
+  if (b.phase !== "everts") drawThroatGrips(ctx, l, cfg, b, beat, beatPhase, time);
   drawThroatLock(ctx, l, cfg, b, beat, beatPhase, time, crowded);
 }
 

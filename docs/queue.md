@@ -567,10 +567,10 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Seventeen handles are heard by the simulation and drawn nowhere
+## Fifteen handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
-- **Taken:** 2026-09-21, claude/queue-the-throats-two-handles-are-heard-and-drawn-nowhere (claim: claude/queue-seventeen-handles-are-heard-by-the-simulation-an)
+- **Taken:** 2026-09-21, claude/queue-seventeen-handles-are-heard-by-the-simulation-an
 - **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`, `packages/render/src/`
 
 Lane one landed: the guard walks the union now. `TARGET_PLACE` is a `Record`
@@ -597,8 +597,18 @@ the pin *is* his thumb. Hers hangs under the hub, clear of the pins the pair
 count the fight by. THE VANE's reading moved to its own page with them
 (`boss-cue-read-x.ts`), because page b reached 258 lines.
 
-**The other seventeen are `unbuilt`, and each is a look before it is a row** —
-`throatRing`, `throatTube`, `tasterBlade`, `tasterGap`, `tasterLock`,
+Lane four landed THE THROAT's two, and they are the first pair the fight
+**hands out as it loses**: neither exists until the pair has choked a ring,
+and the tube's is only offered in the one phase where the mouth stands still.
+`render/throat-grip.ts` holds both circles, both gates and the drawing, and
+the reading now asks it where its own marks go rather than working the mouth
+out a second time (`boss-cue-read-k.ts`). Hers sits on the lowest muscle,
+which `ringSlack` guarantees is a slack one whatever the count; his hangs a
+tile **under** the lip rather than on it, because `drawHandleRing` fills
+opaquely and the lip is the one thing both seats are aiming at.
+
+**The other fifteen are `unbuilt`, and each is a look before it is a row** —
+`tasterBlade`, `tasterGap`, `tasterLock`,
 `ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`, `snakeJaws`,
 `snakeTail`, `undertowPin`, `undertowFree`,
 `scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`. Every one
@@ -609,7 +619,7 @@ place on the screen and `source` is a branch of `touch.ts`, and neither
 exists.
 
 So the work is one lane per boss, in the shape `candleWick`, `curtainHem`,
-`pulseMeter` and THE VANE's two each took: a `*-grip.ts` giving the handle a ring where the seat
+`pulseMeter` and THE VANE's and THE THROAT's two each took: a `*-grip.ts` giving the handle a ring where the seat
 that owns it is drawn, the `handleUnder()` branch that answers it, the
 `field-controls-<boss>.ts` row beside the twenty-seven that exist, the
 `docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to
@@ -618,8 +628,7 @@ The look is exempt under *a look with no shipped alternative*; say so in the
 commit.
 
 Order is free, but the pairs go together: THE TASTER's three are one fight's
-three movements, THE LEDGER's four are one cord, and THE THROAT's two arrive
-as the fight loses.
+three movements and THE LEDGER's four are one cord.
 
 ## THE GIMBAL is written and nobody has built its simulation
 

@@ -22,6 +22,7 @@ import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
+import { THROAT_CONTROLS } from "./field-controls-throat.js";
 import { VANE_CONTROLS } from "./field-controls-vane.js";
 import { WARDEN_CONTROLS } from "./field-controls-warden.js";
 import { WELL_CONTROLS } from "./field-controls-well.js";
@@ -91,4 +92,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // order — and the first that are the only way a fight can be finished at all
   // (`field-controls-vane.ts`).
   ...VANE_CONTROLS,
+  // THE THROAT's ring and tube, the first pair the fight **hands out as it
+  // loses**: neither exists until the pair has choked a muscle
+  // (`field-controls-throat.ts`).
+  ...THROAT_CONTROLS,
 ];

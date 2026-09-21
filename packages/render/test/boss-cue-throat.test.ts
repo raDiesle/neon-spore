@@ -15,7 +15,8 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
-import { mouthX, mouthY, rings } from "../src/throat-shape.js";
+import { throatTubeCircle } from "../src/throat-grip.js";
+import { rings } from "../src/throat-shape.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -241,9 +242,14 @@ describe("a rock the mouth already has", () => {
     expect(cue(world, "p1")?.kind).toBe("CARRY");
     expect(cue(world, "p1")?.seat).toBe(1);
     expect(word(world, "p2")).toBeNull();
+    // On the ring his thumb goes to, which hangs a tile under the lip rather
+    // than on it: the word and the handle are one answer now
+    // (`throat-grip.ts`), and a mark left on the mouth would be pointing at
+    // the one place there is nothing to take hold of.
     const l = LAYOUT.p1;
-    expect(Math.abs((cue(world, "p1")?.x ?? 0) - mouthX(l, CFG, t, world.beat, 0))).toBeLessThan(1);
-    expect(Math.abs((cue(world, "p1")?.y ?? 0) - mouthY(l, CFG))).toBeLessThan(1);
+    const at = throatTubeCircle(l, CFG, t, world.beat, 0);
+    expect(Math.abs((cue(world, "p1")?.x ?? 0) - at.x)).toBeLessThan(1);
+    expect(Math.abs((cue(world, "p1")?.y ?? 0) - at.y)).toBeLessThan(1);
   });
 
   it("goes quiet the beat a carry has already asked the mouth to move", () => {
