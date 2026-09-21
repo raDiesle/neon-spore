@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · b6ff55cc — THE UNDERTOW and THE THROAT point at their boss instead of at the hull
+
+Twelve rehearsal pages moved off `{at:"hull"}`. Both films were the pair the hull was nearly right for — THE UNDERTOW bows a plate of it, THE THROAT's mouth stands over it — but the hull anchor is the *middle* of the plating, and a breach is in the column the seed put it in, and the mouth slides away from the middle the moment a ring goes slack.
+
 ## 2026-09-21 · 6867195f — THE LEDGER and THE SPLICE point at their boss instead of at the hull
 
 Seven more pages off the plating. These two are the pair whose pages were nearly right there — THE LEDGER's cord really is rooted in the hull and THE SPLICE's mouths really do stand over it — but the hull anchor is the middle of the plating, and the cord goes in at one column and walks, and the mouths are a whole row.
