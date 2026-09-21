@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · e77dc010 — Give SNAKE's jaws and tail something to take hold of
+
+The body's two gestures shipped in the simulation on 18 September 2026 with nothing drawn to grip: past `snakeGorgeTiles` the jaws stick and the MAW press goes dead, and player 1 has to prise them open on the head; past `snakeShedTiles` the tail drags, and player 2 may lift its last tiles clear with a thumb. Neither had a ring, a hit test or a seat that could see it — while the wave's own guide has been telling the pilot to drag them open the whole time. `snake-grip.ts` holds both circles, both gates, the `handleUnder()` branch and the drawing, so the picture, the thumb and the word are one answer.
+
 ## 2026-09-21 · 8bcd28d6 — Give THE THROAT's ring and tube something to take hold of
 
 The gullet's two gestures shipped in the simulation on 19 September 2026 with nothing drawn to grip: a choked ring can be pinched to stop the inhale, and once four are choked the tube itself can be hauled a column sideways, and neither had a ring, a hit test or a seat that could see it. `throat-grip.ts` holds both circles, both gates, the `handleUnder()` branch and the drawing, so the picture, the thumb and the word are one answer — the reading now asks it where its marks go (`boss-cue-read-k.ts`) instead of working the mouth out a second time, and the cue for the haul moved onto the handle with it.

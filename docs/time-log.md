@@ -16006,3 +16006,5 @@ The bottleneck was the slide. Everything else on this tab is drawn where the
 simulation says a thing stands, and this body is only ever *there* on the tick
 it steps — so the circle, the drawing and the test all had to be taken through
 `snakeSlide`, and `Field` had to start carrying a tick to get them there.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
