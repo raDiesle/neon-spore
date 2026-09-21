@@ -1,19 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import {
-  branchFor,
-  claimOn,
-  refuseNumbered,
-  slugFor,
-  statusLines,
-  statusOf,
-  unclaimed,
-} from "../claim.js";
+import { branchFor, claimOn, refuseNumbered, slugFor, unclaimed } from "../claim.js";
 import { removeItem } from "../edit.js";
 import { problemsIn, refuseUnlessWhole } from "../problems.js";
 import { promptFor } from "../prompt.js";
 import { match, order, parseItems, pick } from "../queue.js";
+import { statusLines, statusOf } from "../status.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 

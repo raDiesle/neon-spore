@@ -192,6 +192,18 @@ claim they held and then did the same item twice. `partitionMerged` in
 `tools/land/claims.ts` now leaves a claim standing unless it is the branch being
 landed, which is the one case where deleting it is the release.
 
+**The `Taken:` line outlives every branch, and that is a shape of stuck.** The
+line is the half that reaches a clone, so `claimOn` falls back to it when no ref
+matches — and a fallback with nothing behind it never expires. On 21 September
+2026 three entries read BUSY with nobody on them: marked from the main checkout,
+so the mark named `main` as the branch doing the work, and `main` is a ref that
+never goes away. `tools/queue/lapsed.ts` says so out loud. An old mark with no
+live branch behind it — not the trunk, not a day old yet — prints as **lapsed**
+under the entry, and `status` counts them in a line of its own. It is still
+taken: a missing ref is exactly what a live cloud claim looks like from here, so
+nothing is ever released for one. The line ends in the sentence that does it,
+`bun run queue release "<title>"`, and a session reads it and decides.
+
 **The format**, one `##` per item, and both fields are required because the
 session that picks it up has read nothing else:
 

@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — queue-a-claim-whose-branch-is-gone — a claim nothing is holding says so
+
+- reading — 20 min. The three stuck entries read off `docs/queue.md` with the
+  refs beside them, which is what showed that the two marked `main` were not
+  stuck for the reason the entry gave: `claimOn` answers off the mark, the mark
+  names `main` as the branch doing the work, and `main` outlives everything. Then
+  `claim.ts`, `mark.ts`, `repo.ts` and the queue's own preamble.
+- writing — 45 min. `lapsed.ts` whole, the status view moved into `status.ts`,
+  two lines in the listing, `status` re-routed, 18 unit cases, and the preamble
+  paragraph.
+- looking — 10 min. `bun run queue` and `bun run queue status` against the real
+  file, twice: the first run called every one of the three live, which is how the
+  trunk clause came to be written, and the second named all three.
+- friction — 10 min. The grace started at two days with a `<=`, which left the
+  exact three entries the item was about unflagged; and `claim.ts` was four lines
+  under the ceiling, so the status trio had to move out before anything could be
+  added — which turned out to be the only way round the import cycle anyway.
+- landing — 10 min. `docs/INDEX.md` wanted rows for the two new files.
+
+The bottleneck was the trunk masquerading as a live claim: a branch name in a
+mark is not evidence that anybody is on the item, and `main` is the one name
+that can never be.
+
 ## 2026-09-21 — queue-take-own-claim — the lane told its own claim was somebody else's
 
 - reading — 20 min. The four commits of the incident read with `git show`, and

@@ -27,16 +27,9 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { answerTo, asksTag, waiting } from "./asking.js";
-import {
-  branchFor,
-  claimOn,
-  heldElsewhere,
-  refuseNumbered,
-  statusLines,
-  statusOf,
-  unclaimed,
-} from "./claim.js";
+import { branchFor, claimOn, heldElsewhere, refuseNumbered, unclaimed } from "./claim.js";
 import { clearTaken, removeItem } from "./edit.js";
+import { lapsed, lapsedLine } from "./lapsed.js";
 import { blocked, blockedBy, needsTag } from "./needs.js";
 import { problemsIn, refuseUnlessWhole } from "./problems.js";
 import { promptFor } from "./prompt.js";
@@ -56,6 +49,7 @@ import {
   unmark,
 } from "./repo.js";
 import { staleLine, staleness } from "./stale.js";
+import { statusLines, statusOf } from "./status.js";
 import { fits, refuseUnlessFits, reservedTag, sessionKind } from "./where.js";
 
 function load(): Item[] {
@@ -68,6 +62,8 @@ const [command, arg] = process.argv.slice(2);
 const items = load();
 const known = refs();
 const kind = sessionKind();
+/** The day, for the one question that is about elapsed time (`lapsed.ts`). */
+const today = new Date().toISOString().slice(0, 10);
 
 if (!command || command === "list") {
   if (items.length === 0) {
@@ -91,6 +87,12 @@ if (!command || command === "list") {
       const answer = answerTo(item);
       if (answer) console.log(`    ${answer}`);
       if (held) console.log(`    taken — ${held}`);
+      // And under that, when every branch behind it is gone and the mark is
+      // old: the entry is still taken, and this is the sentence that gives it
+      // back (`lapsed.ts`). Nothing is released for it — a cloud session's
+      // live claim looks exactly like this from a local checkout.
+      const gone = held ? lapsed(item, known, today, trunkRef()) : undefined;
+      if (gone) console.log(`    ${lapsedLine(item, gone)}`);
       // Said under the entry rather than in the count: the mark is for the
       // session about to claim it, so it re-reads before it works (`stale.ts`).
       const stale = staleLine(staleness(item, trunk), trunkRef());
@@ -129,7 +131,7 @@ if (!command || command === "list") {
     for (const p of problems) console.log(`  - ${p}`);
   }
 } else if (command === "status") {
-  for (const line of statusLines(statusOf(items, known))) console.log(line);
+  for (const line of statusLines(statusOf(items, known, today, trunkRef()))) console.log(line);
 } else if (command === "next") {
   const free = unclaimed(items, known);
   // An unanswered ask is passed over rather than refused: `next <n>` naming one
