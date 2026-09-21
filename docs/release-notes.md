@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 512e9d36 — The words a player reads are a skill and a check, not a style opinion
+
+Two people read this game on two phones and then say it to each other, and neither is necessarily reading in a first language. Nothing in the repository held that brief, which is how a 261-word paragraph ended up as the subtitle of a menu button on the DEMOS page. `.claude/skills/game-words` is the brief in prose and `bun run words` is the same brief as numbers: a budget per line, 18 words to a sentence, two clause marks, no semicolon and no em dash, say who does it, one word per thing.
+
 ## 2026-09-21 · e77ead4c — A boss is a state and a body, and `frames --creature` reaches the body
 
 BULB QUEEN's phase is read off `queen.petals` every beat and her row off `startPetals` minus them, so `--boss phase=1` was undone on the first beat after it was written and her BROOD could not be photographed from the game at all — the picture the look lane sent was the director's pose. Half of a boss is not in `world.boss`: it is drawn as a creature like any other, linked by `creatureId`, and the fields that decide what the fight looks like are split across the two. `--creature petals=6` is the same flag said about the other object, tagged into the same list so the state's numbers and the body's land together or not at all.
