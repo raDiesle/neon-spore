@@ -31,7 +31,7 @@ describe("the rehearsal for THE STARE", () => {
       last = now;
       for (const e of events) {
         if (e.type === "stareCaught")
-          seen.push(`caught ${e.player} ${e.control} @${run.world.beat}`);
+          seen.push(`caught ${e.player} ${e.command.kind} @${run.world.beat}`);
         else if (e.type === "breach" || e.type === "waveFailed")
           seen.push(`${e.type} @${run.world.beat}`);
         else if (e.type === "destroy" || e.type === "deflect")

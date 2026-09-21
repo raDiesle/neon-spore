@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import {
+  type Command,
   createWorld,
   type StareState,
   stareBoss,
@@ -9,6 +10,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { bandLobes } from "../src/band-lobes.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -18,6 +20,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  stubCanvas,
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
@@ -245,7 +248,13 @@ describe("THE STARE's eye", () => {
 
   it("keeps the flash of a catch as a transient the next run does not inherit", () => {
     const fx = new Effects();
-    fx.ingest([{ type: "stareCaught", player: 1, control: "cannonCol" }], L, 0, () => 0, CFG);
+    fx.ingest(
+      [{ type: "stareCaught", player: 1, command: { kind: "cannonCol", col: 3 } }],
+      L,
+      0,
+      () => 0,
+      CFG,
+    );
     fx.update(1 / 60, L);
     expect(fx.boss.stare.flash).toBeGreaterThan(0);
     expect(fx.boss.stare.caught).toBe(1);
@@ -254,9 +263,11 @@ describe("THE STARE's eye", () => {
     expect(fx).toEqual(new Effects());
   });
 
-  it("lights the caught seat's panel and not the other's", () => {
-    // The same frames with and without the catch: on the caught seat's screen
-    // the panel is one more red rectangle, and on the other's nothing moved.
+  it("washes the caught seat's panel for a press with no button, and not the other's", () => {
+    // The same frames with and without the catch, and the press is the cannon
+    // strip — a verb no circle on the band sends, so the fallback is what is
+    // drawn: on the caught seat's screen the panel is one more red rectangle,
+    // and on the other's nothing moved.
     const run = (role: ViewRole, caught: boolean) => {
       const world = hung();
       looking(world, 1);
@@ -269,7 +280,11 @@ describe("THE STARE's eye", () => {
         onTick: (tick, w) => {
           step(w, []);
           if (caught && tick === 1) {
-            w.events.push({ type: "stareCaught", player: 1, control: "cannonCol" });
+            w.events.push({
+              type: "stareCaught",
+              player: 1,
+              command: { kind: "cannonCol", col: 3 },
+            });
           }
         },
       });
@@ -288,5 +303,63 @@ describe("THE STARE's eye", () => {
     expect(count(run("p2", true), PALETTE.red)).toBeGreaterThan(
       count(run("p2", false), PALETTE.red),
     );
+  });
+
+  it("puts the flash on the button the caught press came through", () => {
+    // The design is *flash on the button somebody pressed anyway*, and until
+    // 21 September 2026 every catch washed the whole panel because nothing in
+    // `render/` could turn a command back into a circle. `controlSays` does,
+    // so this asks the same `bandLobes` the band draws from where the circle
+    // is and then looks for a flash on it.
+    const set = controlSet("default");
+    const drawn = (command: Command) => {
+      const fx = new Effects();
+      fx.ingest([{ type: "stareCaught", player: 1, command }], L, 0, () => 0, CFG);
+      const { ctx } = stubCanvas();
+      const log: string[] = [];
+      ctx.log = log;
+      fx.boss.stare.drawCaught(ctx as unknown as CanvasRenderingContext2D, L, "p1", set);
+      return log.join("|");
+    };
+    const shown = (n: number) => Math.round(n * 1000) / 1000;
+    const guard = bandLobes(L, set, 1).find((b) => b.control.id === "guard");
+    if (guard === undefined) throw new Error("the standard panel has no trigger for player 1");
+    // A press that came through a button: the circle lights and the panel is
+    // left alone.
+    const pressed = drawn({ kind: "guard" });
+    expect(pressed).toContain(`arc(${shown(guard.circle.x)}, ${shown(guard.circle.y)}, `);
+    expect(pressed).not.toContain("fillRect(");
+    // And a press with no button — the strip a thumb slid, which is a column
+    // and not a circle — still washes the panel it came from.
+    const slid = drawn({ kind: "cannonCol", col: 3 });
+    expect(slid).toContain(`fillRect(0, ${shown(L.bandTop)}, `);
+    expect(slid).not.toContain("arc(");
+  });
+
+  it("tells the two colours apart, which a command kind alone cannot", () => {
+    // Both trigger lobes send `prime`, so the colour is the only thing that
+    // says which circle the thumb was on — and it is why the event carries the
+    // whole command rather than `command.kind` (`sim/events-stare.ts`).
+    const set = controlSet("default");
+    const fx = new Effects();
+    fx.ingest(
+      [{ type: "stareCaught", player: 2, command: { kind: "prime", on: true, color: "cyan" } }],
+      L,
+      0,
+      () => 0,
+      CFG,
+    );
+    const { ctx } = stubCanvas();
+    const log: string[] = [];
+    ctx.log = log;
+    fx.boss.stare.drawCaught(ctx as unknown as CanvasRenderingContext2D, L, "p2", set);
+    const shown = (n: number) => Math.round(n * 1000) / 1000;
+    const lobe = (id: string) => bandLobes(L, set, 2).find((b) => b.control.id === id);
+    const cyan = lobe("fireCyan");
+    const red = lobe("fireRed");
+    if (cyan === undefined || red === undefined)
+      throw new Error("the standard panel lost a colour");
+    expect(log.join("|")).toContain(`arc(${shown(cyan.circle.x)}, ${shown(cyan.circle.y)}, `);
+    expect(log.join("|")).not.toContain(`arc(${shown(red.circle.x)}, ${shown(red.circle.y)}, `);
   });
 });

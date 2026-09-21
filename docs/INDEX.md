@@ -731,6 +731,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-gorge.ts` | THE GORGE's rehearsal: the sack eats every shot, and the pair feeds one part of it on purpose |
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 | `packages/content/src/control-sets-groups.ts` | **The panel half of the coverage rule**, and nothing else |
+| `packages/content/src/control-sender.ts` | **Which control sent this command** — the table next door read backwards |
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 | `packages/content/src/waves/act-7a.ts` | Three waves between the two halves of act seven: THE CHOKE (the steer fault), THE LIMPET and THE LEECH |
 | `packages/content/src/waves/act-7c.ts` | The third page of act seven, cut off `act-7b.ts` when THE STARE took that file twenty-one lines over the… |

@@ -1,4 +1,6 @@
-import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { type ControlSet, controlSays } from "@neon-spore/content";
+import type { Command, SimConfig, SimEvent } from "@neon-spore/sim";
+import { bandLobes } from "./band-lobes.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { stareEye } from "./stare-shape.js";
@@ -15,17 +17,23 @@ import { showsStareWatched } from "./view-role-clocks-b.js";
  * flicker, and the pair has to see which of them it was. Cleared in
  * `Effects.reset()` (`restart.test.ts`).
  *
- * **It is drawn on the panel, over everything.** The event names the command
- * that was caught and the seat that sent it; what lights up is that seat's
- * whole panel — the band its thumb was on — in the eye's red, called last
- * of the frame from `canvas2d.ts` after the band is down, because a flash on
- * a button has to stand *on* the button. The one button among the panel's
- * is not picked out: the event carries a command kind and the band lays its
- * lobes out by control set, and a map from one to the other is a second
- * copy of the band's plan (`docs/queue.md`). On the other seat's screen
- * there is no flash: that seat did nothing, and the eye going white and the
- * hull's own breach (`breach-strike.ts`) are what it sees. Both are told
- * by the same seat predicate the look itself is drawn by.
+ * **It is drawn on the button, over everything.** The event names the command
+ * that was caught and the seat that sent it, and what lights up is the circle
+ * that sent it — called last of the frame from `canvas2d.ts` after the band is
+ * down, because a flash on a button has to stand *on* the button.
+ *
+ * Which circle is not worked out here. The lobes come from the same
+ * `bandLobes` that drew them and each one is asked `controlSays`, which is
+ * `content`'s own table read backwards (`control-sender.ts`); a map from
+ * command kinds to buttons kept in this file would be a second copy of the
+ * band's plan, and it is what stood in the way of this until 21 September
+ * 2026. **The wash is what is left when no button sent it**: a swipe on the
+ * hull, a thumb on a boss, a strip — presses with no circle of their own,
+ * where the seat's whole panel is the truest thing the picture can point at.
+ *
+ * On the other seat's screen there is no flash: that seat did nothing, and the
+ * eye going white and the hull's own breach (`breach-strike.ts`) are what it
+ * sees. Both are told by the same seat predicate the look itself is drawn by.
  *
  * The burst goes out of the eye rather than the hull, on both screens: it is
  * the eye that caught the thumb.
@@ -41,10 +49,14 @@ import { showsStareWatched } from "./view-role-clocks-b.js";
 const FLASH_DECAY = 3;
 /** How much of the panel the flash is worth at its brightest. */
 const FLASH_ALPHA = 0.55;
+/** How far past the button's own edge the flash spills, as a share of it. */
+const FLASH_SPREAD = 1.35;
 
 export class StareFx {
   private flashNow = 0;
   private seat: 0 | 1 | 2 = 0;
+  /** The press the eye punished, for finding the circle it came through. */
+  private verb: Command | null = null;
 
   /** How bright the flash is right now, one on the tick and falling. */
   get flash(): number {
@@ -66,6 +78,7 @@ export class StareFx {
       if (e.type === "stareCaught") {
         this.flashNow = 1;
         this.seat = e.player;
+        this.verb = e.command;
         const eye = stareEye(l, cfg);
         burst(eye.cx, eye.cy, 18, PALETTE.red);
       } else if (e.type === "stareShut") {
@@ -88,22 +101,41 @@ export class StareFx {
     if (this.flashNow < 0.01) {
       this.flashNow = 0;
       this.seat = 0;
+      this.verb = null;
     }
   }
 
-  /** The caught seat's panel lit, over the band — see the file's head. */
-  drawCaught(ctx: CanvasRenderingContext2D, l: Layout, role: ViewRole): void {
-    if (this.flashNow <= 0 || this.seat === 0) return;
-    if (!showsStareWatched(role, this.seat)) return;
+  /** The button that was caught, lit over the band — see the file's head. */
+  drawCaught(ctx: CanvasRenderingContext2D, l: Layout, role: ViewRole, set: ControlSet): void {
+    const seat = this.seat;
+    const verb = this.verb;
+    if (this.flashNow <= 0 || seat === 0) return;
+    if (!showsStareWatched(role, seat)) return;
+    const lobe =
+      verb === null
+        ? undefined
+        : bandLobes(l, set, seat).find((b) => controlSays(b.control.id, verb));
     ctx.save();
     ctx.globalAlpha = FLASH_ALPHA * this.flashNow;
     ctx.fillStyle = PALETTE.red;
-    ctx.fillRect(0, l.bandTop, l.width, l.height - l.bandTop);
+    if (lobe === undefined) {
+      ctx.fillRect(0, l.bandTop, l.width, l.height - l.bandTop);
+    } else {
+      ctx.beginPath();
+      ctx.arc(lobe.circle.x, lobe.circle.y, lobe.circle.r * FLASH_SPREAD, 0, Math.PI * 2);
+      ctx.fill();
+      // A rim on it, so the flash reads as a light coming off the button
+      // rather than as a disc laid over one.
+      ctx.strokeStyle = PALETTE.redRim;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
     ctx.restore();
   }
 
   clear(): void {
     this.flashNow = 0;
     this.seat = 0;
+    this.verb = null;
   }
 }

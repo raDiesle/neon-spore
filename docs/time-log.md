@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — stare-catch-on-the-button — a kind is not a control
+
+- reading — 20 min. The queue entry's two options, and finding the second one
+  impossible: `sim` cannot name a control, because `content` is the package
+  that depends on `sim` and not the other way round. Then `control-command.ts`
+  for the one table of what each control sends, `band-lobes.ts` for the circles
+  and `band.ts` for the one place a `ControlSet` is resolved.
+- writing — 35 min. `control-sender.ts` — the press table read backwards —
+  `controlSays` on the three fields a control is not told apart by, the event
+  carrying the whole `Command` instead of its `kind`, the flash finding its
+  circle through `bandLobes`, and two tests: one that the button lights and the
+  wash does not, one that the two colours are told apart.
+- looking — 15 min. `bun run frames` on the catch, and the crop of the band
+  that shows the cyan button lit and the red one beside it untouched.
+- friction — 15 min. The first capture failed the wave at tick 1425 without
+  ever reaching a look, because nobody is defending the hull in a frame run —
+  `--boss phase=looking,watching=2,phaseBeat=now` puts the eye on a seat at
+  once and the picture came back on the first try after that. Before it,
+  appending `controlSays` to `control-command.ts` crossed the 250-line ceiling
+  and the edit hook refused it, which is what made it a file of its own.
+- landing — 10 min.
+
+The bottleneck was the capture: a boss whose punishing moment is fourteen
+hundred ticks into a wave nobody is playing cannot be photographed by waiting
+for it, and the ten minutes went on finding that out rather than on `--boss`,
+which worked immediately.
+
 ## 2026-09-20 — boss-looks-back-in-the-queue — the menu is undone
 
 - reading — 10 min. The two commits that built the menu, for what each of them

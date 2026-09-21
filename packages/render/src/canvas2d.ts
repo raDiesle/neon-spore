@@ -1,4 +1,5 @@
 import { guardArmed, mawOpen, mineOnField, ticksPerBeat, wispOnField } from "@neon-spore/sim";
+import { bandControlSet } from "./band.js";
 import { drawCandleField } from "./candle-dark.js";
 import { drawStageSeam, paintOutside } from "./canvas2d-stage.js";
 import { drawTakeover } from "./canvas2d-takeover.js";
@@ -212,8 +213,16 @@ export class Canvas2DRenderer implements Renderer {
     });
     // Over the ship too, because it is about the ship: a lure shot by mistake (`lure-blast.ts`).
     this.held.lureBlast.draw(ctx, l);
-    // And THE STARE's catch, on the panel of the seat that pressed (`stare-fx.ts`).
-    this.held.effects.boss.stare.drawCaught(ctx, l, view.role);
+    // And THE STARE's catch, on the button the caught seat pressed
+    // (`stare-fx.ts`). The panel is `bandControlSet`'s answer rather than a
+    // second reading of `world.wave`, so the circle it lights is one of the
+    // circles the band actually drew.
+    this.held.effects.boss.stare.drawCaught(
+      ctx,
+      l,
+      view.role,
+      bandControlSet(view.controls, world.wave),
+    );
     this.held.lanceFlash.draw(ctx, l);
     // Last, over everything: the wave arriving, once the pair has crossed the
     // gate — there is no opening left to draw it inside (`opening-fx.ts`).

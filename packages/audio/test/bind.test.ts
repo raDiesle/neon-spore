@@ -81,7 +81,7 @@ const SAMPLES: Record<string, SimEvent> = {
   eyeOpen: { type: "eyeOpen", col: 5, color: "red" },
   plate: { type: "plate", col: 5, row: 2, left: 3, color: "red" },
   wardenDown: { type: "wardenDown", col: 5, row: 2 },
-  stareCaught: { type: "stareCaught", player: 1, control: "fire" },
+  stareCaught: { type: "stareCaught", player: 1, command: { kind: "fire", color: "red" } },
   stareShut: { type: "stareShut", player: 2 },
   stareOpen: { type: "stareOpen", player: 2, forced: true },
   queenFlinch: { type: "queenFlinch", col: 3, row: 2, side: -1 },

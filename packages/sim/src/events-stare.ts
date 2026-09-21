@@ -1,3 +1,5 @@
+import type { Command } from "./types.js";
+
 /**
  * **Everything THE STARE does that neither screen already says**, as one
  * event.
@@ -26,14 +28,22 @@
 /**
  * THE STARE caught a seat pressing something while it was being looked at.
  *
- * `control` is the command's own kind rather than a button id, because what
- * was pressed reached the simulation as a verb and the panel it came from is
- * the picture's business — a swipe on the hull and the strip under it send
- * the same `cannonCol`, and the pair wants to be told *you moved*, not which
- * of the two doors it came through (`stare-step.ts`).
+ * `command` is the press itself rather than a button id, because what was
+ * pressed reached the simulation as a verb and the panel it came from is the
+ * picture's business — a swipe on the hull and the strip under it send the
+ * same `cannonCol`, and this file has no way to tell them apart and no
+ * business trying (`stare-step.ts`).
+ *
+ * **It is the whole command and it used to be `command.kind` alone**, until
+ * 21 September 2026, when the flash moved off the seat's whole panel and onto
+ * the button (`render/src/stare-fx.ts`). A kind is not enough to find one: the
+ * two colours both send `prime`, and which of the two circles the thumb was on
+ * is in `color`. Carrying the verb whole leaves the picture to ask
+ * `controlSays` which control could have said it, rather than being handed an
+ * answer this side of the wall cannot work out.
  */
 export type StareEvent =
-  | { type: "stareCaught"; player: 1 | 2; control: string }
+  | { type: "stareCaught"; player: 1 | 2; command: Command }
   /** The lid is down: `player` pulled it, and the seat it was looking at is free. */
   | { type: "stareShut"; player: 1 | 2 }
   /**

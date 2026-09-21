@@ -168,6 +168,6 @@ export function stareBreaks(world: World, timed: TimedCommand): boolean {
 function caught(world: World, stare: StareState, player: 1 | 2, command: Command): void {
   stare.caughtTick = world.tick;
   stare.caughtPlayer = player;
-  world.events.push({ type: "stareCaught", player, control: command.kind });
+  world.events.push({ type: "stareCaught", player, command });
   breachHull(world, midCol(world.cfg), "meteorFastest", 0, "heavy");
 }

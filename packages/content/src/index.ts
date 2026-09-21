@@ -12,6 +12,7 @@ export {
   controlTurns,
 } from "./control-command.js";
 export { controlBroken, panelSlots } from "./control-fault.js";
+export { controlSays } from "./control-sender.js";
 export {
   CONTROL_SETS,
   type ControlSet,
