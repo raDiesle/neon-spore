@@ -2,6 +2,7 @@ import {
   balloonPull,
   curtainBody,
   type DragTarget,
+  hiveClenched,
   lidIsHeld,
   NO_TETHER,
   occupiesCol,
@@ -13,6 +14,7 @@ import { candleWickAt } from "./candle-grip.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { curtainHemAt } from "./curtain-grip.js";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
+import { hiveHaulCircle } from "./hive-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { lidCordCircle, lidHandlePoint } from "./lid-string.js";
 import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
@@ -146,6 +148,17 @@ export function handleCircle(
     if (b === null || b.phase !== "pinned") return null;
     const body = curtainBody(world, b);
     return body === undefined ? null : curtainHemAt(l, cfg, b, body, beatPhase);
+  }
+  if (target === "hiveLobe") {
+    // THE HIVE's underside, and the one handle that is a whole body: a
+    // clenched mass is grabbed anywhere along it, so where it is standing is
+    // the middle of it, carried down by however much of the haul is already
+    // in (`hive-grip.ts`). Null with nothing clenched — the lobe a navigator
+    // pinches is the same target read the other way and is not this circle
+    // (`sim/hive-hand.ts`), and a mass hanging at rest is not a handle at all.
+    const b = world.boss?.kind === "hive" ? world.boss : null;
+    if (b === null || !hiveClenched(b)) return null;
+    return hiveHaulCircle(l, cfg, b, world.beat, beatPhase);
   }
   if (target === "wardenTether") {
     const b = world.boss?.kind === "warden" ? world.boss : null;

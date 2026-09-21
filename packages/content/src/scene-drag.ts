@@ -64,6 +64,14 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // number positive would be a hand pulling the hem down over the core it is
   // meant to be baring.
   if (target === "curtainHem") return -cfg.curtainLiftMilli;
+  // THE HIVE's underside is hauled **down**, and the mass relaxes the
+  // thousandth it has come far enough (`sim/hive-hand.ts`); the carry is
+  // cumulative from the grab and the deepest it reached is what counts, so a
+  // film that does not say means the whole haul. The same handle held by the
+  // navigator is a pinch on one lobe and no distance at all — that one is
+  // authored as a hold and never reaches here, because it is her seat's
+  // (`dragSeat`) and this film is the pilot's.
+  if (target === "hiveLobe") return cfg.hiveHaulMilli;
   return cfg.mazeTurnMilli;
 }
 

@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
+import { handleThumb } from "../src/guide-hand.js";
 import { rgba } from "../src/hex.js";
 import { hiveClenchRise } from "../src/hive-hold.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
@@ -279,6 +280,36 @@ describe("THE HIVE's mass", () => {
     // And nothing at all while the mass hangs, hauled or not.
     s.phase = "spill";
     expect(rise(0)).toBe(0);
+  });
+
+  it("puts the rehearsal's ghost thumb on the mass for the length of the haul, his alone", () => {
+    // The hand a film draws over the gesture, which is how a rehearsal shows
+    // one at all (`guide-hand.ts`): read off the world rather than off the
+    // script, so it rides the mass down instead of standing where the act
+    // said. Not a frame — `handleThumb` is the placement, and placing it
+    // wrong is the failure a picture would hide.
+    const world = hung();
+    const s = clenched(world);
+    const thumb = (hauled: number, seat: 1 | 2 = 1) => {
+      s.haulMilli = hauled;
+      return handleThumb(L, world, seat, 0.5);
+    };
+    // Clenched and untouched, there is no hand: the mass is up and nobody has
+    // reached for it yet.
+    expect(thumb(0)).toBeNull();
+    const early = thumb(CFG.hiveHaulMilli / 4);
+    const late = thumb(CFG.hiveHaulMilli / 2);
+    expect(early).not.toBeNull();
+    // And it comes down with what it is carrying.
+    expect(late?.y ?? 0).toBeGreaterThan(early?.y ?? 0);
+    // Hers never, on the one handle she also has a use for: her pinch is a
+    // different gesture on a different part of it and no film holds one yet.
+    expect(thumb(CFG.hiveHaulMilli / 2, 2)).toBeNull();
+    // And gone the moment the clench is over, which is the tick the carry was
+    // enough (`sim/hive-hand.ts`) — a hand left on a mass that is home is a
+    // hand that never let go.
+    s.phase = "spill";
+    expect(thumb(CFG.hiveHaulMilli)).toBeNull();
   });
 
   it("squeezes a held lobe on the navigator's screen and nothing on the pilot's", () => {

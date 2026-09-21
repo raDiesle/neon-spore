@@ -2402,8 +2402,13 @@ all three screens, ring it on the pilot's alone and fill that ring under his
 thumb, walk the rise down as the carry grows and home at `hiveHaulMilli`,
 squeeze a held lobe on the navigator's screen and nowhere else, and collar a
 wrung breach on every screen while the colour leaves only the screen that had
-one. **What no eye has seen is either gesture made with a thumb**, on either
-seat, at tempo.
+one. **The haul has since been watched**, in the rehearsal above, on 21 September
+2026: a strip off the film's own clock (`bun run frames . --wave "THE HIVE"
+--opening guide --guide-page 11`, one painted frame per tick, which is the
+tempo an eye would see it at) shows the sixth seal, the mass up, the ghost
+thumb on it, the thumb riding it down, and the mass at rest with column 8
+spilling beside it. What no eye has seen is the **wring** made with a thumb,
+and neither gesture made by a hand that is not a film's.
 
 **It could not be won as it shipped** — found on 18 September 2026 by the
 rehearsal lane, which could not author a film that wins it. A bolt stops at
@@ -2428,6 +2433,25 @@ opens, one after a cyan bolt into a red breach hurried the whole cadence —
 and the twins last, one sealed and one left spilling, because a bolt cannot
 pass a falling body. It is the receipt that the fight can be won: the pairs
 of shots in it are the fix of 20 September 2026 being used.
+
+**And it shows the haul**, since 21 September 2026. The film was authored the
+day before the two states were, and the mass clenches twice inside it — on the
+third scar at beat 20 and on the sixth at beat 46. The first costs it nothing:
+every site is shut by then, so there is no spill being held back, and the pair
+are shown the state as a thing that can simply be waited out. The second would
+have cost it the sentence it exists to say. Column 8 is open and spilling at
+beat 46, and the two spills it owes at 47 and 50 fall inside a clench that
+outlasts the scene — so the film's last four beats taught *a breach left open
+goes harmless*. **The pilot's palm goes onto the mass the tick after it rises
+and has it down inside the beat**, which is the whole window: the cadence rides
+along while the mass is up, so a haul finished before beat 47's step leaves the
+spill clock where it was and both spills arrive after all. A beat later and the
+first is gone for good. The gesture is **shown rather than captioned** — the
+ghost thumb rides the mass down (`render/guide-hand.ts`, `handle-place.ts`,
+which learned `hiveLobe` for it) — because the twins' last two pages are a page
+apart already and both of them are true. The navigator's wring is in no film
+yet, and her pinch is the one held handle the ghost hand still cannot draw
+(`docs/queue.md`).
 
 **It is also the first film authored for the shot grid the game runs on.**
 `apps/game` plays at `shotChargeBeats: 0.5` — a press waits for the next

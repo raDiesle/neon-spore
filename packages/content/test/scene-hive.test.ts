@@ -25,7 +25,7 @@ import { WAVES } from "../src/waves.js";
  * film was proved on one grid and played on the other — this one's bolts left
  * fifteen ticks early under the default, the third killed nothing, and the
  * wave was breached at beat 36 while this test was green. The expectation
- * below is therefore the same twenty events in the browser
+ * below is therefore the same twenty-three events in the browser
  * (`docs/queue.md`, 21 September 2026, which asks the same question of the
  * other films).
  */
@@ -45,6 +45,7 @@ describe("the rehearsal for THE HIVE", () => {
         else if (e.type === "hiveWrong") seen.push(`wrong @${w.beat}`);
         else if (e.type === "hiveSkin") seen.push(`skin @${w.beat}`);
         else if (e.type === "hiveClench") seen.push(`clench @${w.beat}`);
+        else if (e.type === "hiveHaul") seen.push(`haul @${w.beat}`);
         else if (e.type === "breach" || e.type === "waveFailed") seen.push(`${e.type} @${w.beat}`);
       }
     }
@@ -58,12 +59,19 @@ describe("the rehearsal for THE HIVE", () => {
     //
     // **It clenches twice**, on the third seal and on the sixth, which is the
     // underside's own answer to being sealed (`bosses.md` §11.14, 21 September
-    // 2026). The first costs the film nothing: everything is shut by the time
-    // it is up, so there is no spill for it to hold back. The second is why
-    // the film ends quiet — column 8 is open and spilling at beat 46, and the
-    // two spills it would have taken at 47 and 50 are inside a clench that
-    // outlasts the scene. Nobody hauls it, because the film was authored
-    // before there was anything to haul; that is a queue entry of its own.
+    // 2026), and the pair are the lesson: the first costs the film nothing —
+    // every site is shut by the time it is up, so there is no spill for it to
+    // hold back — and the second would have cost it everything. Column 8 is
+    // open and spilling at beat 46, and the two spills it owes at 47 and 50
+    // are inside a clench that outlasts the scene, so the film's last four
+    // beats taught the pair that a breach left open goes harmless.
+    //
+    // **So the pilot hauls the second one down**, inside the beat it went up
+    // — which is what the `haul` below is, and why the two spills are back.
+    // The window is the beat: the cadence rides along with the mass while it
+    // is up (`hive-step.ts`), so a haul finished before beat 47's step leaves
+    // `spillBeat` at 44 and the spill falls on 47 as it always would have. A
+    // beat later and that one is gone, and only the 50 comes.
     expect(seen).toEqual([
       "open 3 cyan @4",
       "seal 3 left 8 @5",
@@ -85,6 +93,9 @@ describe("the rehearsal for THE HIVE", () => {
       "spill 8 @44",
       "seal 7 left 3 @46",
       "clench @46",
+      "haul @46",
+      "spill 8 @47",
+      "spill 8 @50",
     ]);
   });
 });

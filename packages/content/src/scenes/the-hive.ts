@@ -43,6 +43,23 @@ import type { GuideScene } from "../scene-types.js";
  * first one to (`docs/queue.md`, 21 September 2026, which asks the same
  * question of the other films).
  *
+ * **It clenches twice, and the hand is the difference.** Every third seal
+ * draws the whole underside up out of a bolt's reach for six beats, and while
+ * it is up nothing spills — the cadence rides along and falls all at once on
+ * the beat it lets go (`sim/hive-step.ts`). The third seal clenches it at beat
+ * 20 with every site shut, so nothing is owed and nobody need touch it: that
+ * one is the state shown costing nothing. The sixth clenches it at beat 46
+ * with column 8 open, and *that* one is hauled — the pilot's palm on the mass
+ * the tick after it goes up, and down again inside the beat, which is the
+ * whole window. Finished before beat 47's step, the spill that beat owes
+ * arrives on it and the next on 50; a beat later and the first is simply gone.
+ * Unhauled, the film's last four beats say a breach left open costs nothing,
+ * which is the opposite of the sentence it exists to say. **There is no page
+ * for it** and there is no room for one: the twins' two pages are 180 ticks
+ * apart already (`test/scene-pages.test.ts`), and both are true. The gesture is
+ * shown rather than captioned — the ghost thumb rides the mass down
+ * (`render/guide-hand.ts`), which is what §11.14 promises of this film.
+ *
  * **It ends unfinished, on purpose.** Column 8 is left open and spilling with
  * column 7 sealed beside it, because a bolt cannot pass a falling body and so
  * no film can both clear a column and ward another in the same beats. The pair
@@ -84,6 +101,10 @@ export const THE_HIVE: GuideScene = {
     { tick: 2500, control: "cannon", worldCol: 7 },
     { tick: 2625, control: "fireRed" },
     { tick: 2685, control: "fireRed" },
+    // The seal on column 7 is the sixth, so the underside clenches on it — and
+    // the pilot's palm is on it the tick after, and has it back down inside
+    // the beat.
+    { tick: 2766, drag: "hiveLobe", by: 2818, until: 2860 },
   ],
   steps: [
     { tick: 0, seat: 2, text: "PLAYER 2 SEES IT SWELL", anchor: { at: "boss", part: "swell" } },

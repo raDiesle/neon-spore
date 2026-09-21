@@ -189,9 +189,12 @@ export function drawGripThumb(
 /**
  * And the third: a hand on a **cord, a string or a rope**.
  *
- * Only the pilot's, because all three handles are — the navigator carries both
- * colours and fires (`render/handles.ts`) — and only while the world says a
- * hand is actually on one. That is the whole placement rule: the simulation
+ * Only the pilot's, because all but one of the handles are — the navigator
+ * carries both colours and fires (`render/handles.ts`) — and only while the
+ * world says a hand is actually on one. The exception is THE HIVE's lobe read
+ * her way, a pinch on a swelling site, and it is drawn by no hand here: no
+ * film holds one yet, and the day one does this is where it goes
+ * (`docs/queue.md`). That is the whole placement rule: the simulation
  * knows which handle is held, and each of the three already has one function
  * saying where its resting circle is, which is the same one a real thumb is
  * hit-tested against. So the ghost hand cannot be drawn on a handle the finger
@@ -221,6 +224,15 @@ export function handleThumb(
   }
   if (world.boss?.kind === "warden" && world.boss.pulling) {
     return handleCircle(l, world, "wardenTether", beatPhase);
+  }
+  // THE HIVE's clenched underside, held for as long as the haul is under way.
+  // What the thumb has carried is a number in the simulation and the clench
+  // ends on the tick it is enough (`sim/hive-hand.ts`), so the hand appears
+  // with the first thousandth and is gone on the one that lands the mass —
+  // and a haul let go of half way leaves the hand where the mass stopped,
+  // which is where `hive-hold.ts` is drawing the mass.
+  if (world.boss?.kind === "hive" && world.boss.haulMilli > 0) {
+    return handleCircle(l, world, "hiveLobe", beatPhase);
   }
   // THE ORRERY's ring, which is held for as long as a bearing is on record
   // rather than by a flag of its own: a hand off the ring and a hand with no

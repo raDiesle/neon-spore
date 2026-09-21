@@ -2258,3 +2258,43 @@ shape the flag can check against, and the honest options are a per-field
 allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
+
+## THE HIVE's rehearsal says FIVE SCARS with four on the mass
+
+- **Found:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac
+- **Files:** `packages/content/src/scenes/the-hive.ts`, `packages/content/test/scene-pages.test.ts`
+- **Where:** local
+
+The page at tick 1980 reads `FIVE SCARS · FOUR TO GO`. Tick 1980 is beat 33,
+and the fifth seal is `seal 2 left 4 @36` — beat 36, tick 2159
+(`test/scene-hive.test.ts` holds the whole sequence). So for the first 179
+ticks the page is up it is standing in front of **four** scars, and the number
+it names arrives a second and a half later. It is true for the rest of its run
+and nothing catches it: a page is checked for spacing and for the seat that
+reads it, never against the world the frame behind it is in.
+
+Two things to do, and the second is the one worth the lane. Move the page to
+2160 or later, or write the count it is actually in front of. Then give
+`scene-pages.test.ts` the check that would have caught it: a page that names a
+number can be made to say which field of the world it is naming, and the run
+the test already does can read that field at the page's own tick. The other
+films name counts too, and nothing has ever read one back.
+
+## No film holds THE HIVE's lobe from the navigator's seat
+
+- **Found:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac
+- **Files:** `packages/content/src/scenes/the-hive.ts`, `packages/render/src/guide-hand.ts`, `packages/render/test/hive-frame.test.ts`
+- **Where:** local
+
+The boss has two gestures and the rehearsal now shows one of them. The pilot's
+haul is authored (`{ tick: 2766, drag: "hiveLobe", ... }`) and the ghost thumb
+rides the mass down. The **wring** — the navigator's pinch on a swelling site,
+the same `hiveLobe` target read the other way (`sim/hive-hand.ts`) — is in no
+film at all, so `handleThumb` returns null for seat 2 and there is nothing to
+draw. `render/test/hive-frame.test.ts` already proves the *handle* is drawn on
+her screen and nowhere else; what is missing is a film that puts a hand on it.
+
+There is no room inside THE HIVE's thirteen pages — the twins' two are 180
+ticks apart already — so this is a page cut somewhere earlier in the film, or
+a second short scene. Either way it ends with `handleThumb` answering for seat
+2 and a test beside the haul's that says so.

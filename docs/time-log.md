@@ -15793,3 +15793,27 @@ where a thing is drawn has to be made against the geometry** and only claims
 about what it is drawn with belong in a frame test.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-21 — queue-the-hives-rehearsal-film-clenches-twice — the film's second clench is hauled down
+
+- reading — 20 min. The queue entry, then the film's whole sequence beat by
+  beat to find the window: which seal is the sixth, what `spillBeat` holds
+  while the mass is up, and that beat 46's clench costs the film the sentence
+  it exists to say while beat 20's costs it nothing.
+- writing — 40 min. One act in `the-hive.ts`, the `hiveLobe` row in
+  `tautMilli`, the `hiveLobe` branch in `handle-place.ts`, the ghost thumb in
+  `guide-hand.ts`, the twenty-three-event expectation, a frame test for the
+  thumb, §11.14 and the film's own header paragraph.
+- looking — 25 min. The strip that proves it: the clench, the thumb on the
+  mass, the thumb riding it down, the mass at rest with column 8 spilling.
+- friction — 45 min. An hour lost trying to watch the film in the in-app
+  Browser pane, which is hidden and therefore throttles
+  `requestAnimationFrame` — four frames in three seconds, so `guide-play.ts`
+  crawled and no screenshot ever landed on the clench. `bun run frames
+  --opening guide --guide-page 11` answered it in four seconds.
+- landing — 10 min.
+
+The bottleneck was reaching for a browser at all. A rehearsal has a clock of
+its own and `bun run frames` drives it a tick per painted frame; **a film is
+watched with `--opening guide`, never with a pane and a stopwatch**, and the
+pane cannot do it even in principle while it is hidden.
