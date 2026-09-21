@@ -555,6 +555,7 @@ what the rest of this file holds.
 ## The field is fullscreen only for the players who installed it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-the-field-is-fullscreen-only-for-the-players-who)
 - **Files:** `apps/game/public/manifest.webmanifest`, `apps/game/src/shell.ts`, `apps/game/src/install.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-settings.ts`
 - **Where:** local
 
