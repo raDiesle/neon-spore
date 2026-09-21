@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · 4b08f3ac — Mark "A claim whose branch is gone reads as taken forever" done
+
+## 2026-09-21 · 5389bc4f — Name a claim no branch is holding any more
+
+`claimOn` falls back to an entry's `Taken:` line when no ref matches, which is the half a cloud session's clone can see and the reason two sessions stopped draining the same items. A fallback with nothing behind it never expires, though, and on 21 September 2026 three entries read BUSY with nobody on them: two of them marked from the main checkout, so the mark named `main` as the branch doing the work, and `main` is a ref that outlives every claim made on it.
+
 ## 2026-09-21 · 4e22be1d — Mark "THE HIVE's rehearsal film clenches twice and teaches neither" done
 
 ## 2026-09-21 · 86108193 — THE HIVE's rehearsal hauls its second clench down
