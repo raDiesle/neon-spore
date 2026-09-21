@@ -641,6 +641,7 @@ worth having, and fullscreen (above) removes neither.
 ## Nothing says how long a thumb waits for the field to answer it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-versus-new-leaves-no-directory (claim: claude/queue-nothing-says-how-long-a-thumb-waits-for-the-fiel)
 - **Files:** `apps/game/src/input-buffer.ts`, `apps/game/src/loop.ts`, `apps/game/src/perf-page.ts`, `apps/game/src/coalesced.ts`
 - **Where:** local
 
