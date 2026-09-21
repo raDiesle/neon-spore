@@ -730,12 +730,14 @@ it is and `PILOT'S` on the other (`handle-draw.ts`), so the cue says nothing
 until the grab: then `CARRY` / `PULL` on the handle wherever he has carried it
 while the line is short, and `HOLD` — the word and the kind at once — once it
 is taut, because what the fight wants of him then is a hand that does nothing.
-His mark rides the handle down and **stops a tile and a half above the
-plating**: the pull that reaches taut is the downward one, so the hand finishes
-the gesture on the ship, and the field is drawn before the hull is — a mark left
-where the hand actually is has its lower corners and the whole of its verb
-painted over (`HULL_LIFT`, THE UNDERTOW's `LOBE_LIFT` answering the same
-question from the other side of the plating). Hers is `PRESS` / `FIRE` on the
+His mark rides the handle down and **stops on the hull line**: the pull that
+reaches taut is the downward one, so the hand finishes the gesture on the ship,
+and the field is drawn before the hull is — a mark left where the hand actually
+is would have its lower corners and the whole of its verb painted over. It
+stopped a tile and a half higher than that until 21 September 2026, so the verb
+hung under it had somewhere to land; `cueWordY` writes a word above its mark
+wherever the membrane is under it now (`BossCue.hullTop`), for every boss at
+once, and a frame floating clear of the hand it names had nothing left to buy. Hers is `PRESS` / `FIRE` on the
 pupil for exactly the beats the eye stands open, and it rides the hole rather
 than a column, so it drifts as the eye drifts. Nothing on either seat once the opening has taken its hit: holding it
 costs him a hand for nothing and a second bolt into it is one she needs for the

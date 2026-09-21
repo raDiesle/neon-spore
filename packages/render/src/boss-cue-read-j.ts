@@ -31,10 +31,6 @@ import { type Layout, tileCX } from "./layout.js";
 const HALF_W = 0.72;
 const HALF_H = 0.66;
 
-/** How far above the plating a lobe's mark stands, in tiles: clear of the
- * hull line, and under the swell of the lobe itself (`undertow-lobe.ts`). */
-const LOBE_LIFT = 0.8;
-
 function markAt(
   seat: BossCue["seat"],
   kind: BossCue["kind"],
@@ -132,7 +128,13 @@ function standing(
   skinY: SurfaceY,
 ): void {
   const x = tileCX(l, b.col);
-  const y = skinY(x) - l.tile * LOBE_LIFT;
+  // On the skin the lobe is coming through, which is the place the word is
+  // about. It stood `LOBE_LIFT` — 0.8 tiles — above it until 21 September
+  // 2026, to keep the verb hung under the frame out of the plating; that is
+  // `cueWordY`'s job for every boss now (`BossCue.hullTop`), and a mark held
+  // off the lobe once the word is safe is a frame pointing near the thing
+  // rather than at it.
+  const y = skinY(x);
   const under = world.cannonCol === b.col;
   if (u.phase === "last") {
     out.unshift(under ? markAt(1, "HOLD", "OPEN", x, y, l, 46) : moveCannon(l, world, 46));

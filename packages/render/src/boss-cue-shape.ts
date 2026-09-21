@@ -79,9 +79,14 @@ export interface BossCue {
    * rock grey over lit plating with the hull's own stalks running through it
    * is a smear on a real frame, which is what `docs/queue.md` sent this back
    * for. There is no room under a mark on the ship, and saying so is cheaper
-   * than lifting the mark off the place it is pointing at — which is what THE
-   * WARDEN's `HULL_LIFT` and THE UNDERTOW's `LOBE_LIFT` do, each in its own
-   * arithmetic.
+   * than lifting the mark off the place it is pointing at.
+   *
+   * **Two bosses were doing exactly that lifting and have stopped.** THE
+   * WARDEN's handle stood 1.7 tiles clear of the skin and THE UNDERTOW's lobes
+   * 0.8, each with its own arithmetic for the same question this field now
+   * answers once — so both marks came back down onto the place they name, 21
+   * September 2026. A reading that reaches for a lift again is re-deriving
+   * this.
    */
   hullTop?: number;
 }

@@ -32,30 +32,6 @@ import { wardenGripCircle } from "./warden-grip.js";
 const HALF_W = 0.72;
 const HALF_H = 0.66;
 
-/**
- * **How far above the plating a mark on a handle stops**, in tiles — frame,
- * gap and word together, which is why it is more than `HALF_H`.
- *
- * The rope hangs with seven tiles of field under it and six above once the
- * app's chrome is off (`bosses.md` §11.4), so the pull that reaches taut is
- * the downward one and the handle finishes the gesture *on the ship*. The
- * field is drawn before the hull is, so a mark left where the hand actually
- * is would have its lower corners and the whole of its verb painted over by
- * the plating — and a cue nobody can read is the thing #34 built the field to
- * say, covered over (`boss-cue-text.ts` makes the same argument upward, about
- * a rehearsal's band). So the mark rides the handle down and stops here. It
- * is THE UNDERTOW's `LOBE_LIFT` answering the same question from the other
- * side of the plating (`boss-cue-read-b.ts`).
- *
- * The figure is the frame's own half-height and the verb's gap under it, with
- * the crest's glow left over — measured on the frame rather than reasoned
- * about, because what has to clear the ship is the *bottom of the word* and
- * `boss-cue-text.ts` hangs that off the mark. It reads as the mark standing on
- * the rope just above the hand rather than round the ring, which is the price
- * of the word being readable at all.
- */
-const HULL_LIFT = 1.7;
-
 function markAt(
   seat: BossCue["seat"],
   kind: BossCue["kind"],
@@ -129,7 +105,21 @@ export function wardenCues(
 
   if (b.pulling) {
     const head = fieldPoint(l, wardenHandleMilli(world, b));
-    const y = Math.min(head.y, skinY(head.x) - l.tile * HULL_LIFT);
+    // **On the hand, down to the skin and no further.** The rope hangs with
+    // seven tiles of field under it and six above (`bosses.md` §11.4), so the
+    // pull that reaches taut is the downward one and the handle finishes the
+    // gesture *on the ship* — where the field, drawn before the hull, would be
+    // plating over the mark entirely.
+    //
+    // It used to stop `HULL_LIFT` — 1.7 tiles — clear of the skin, so that the
+    // verb hung under the frame still had somewhere readable to land. That was
+    // the same question `cueWordY` now answers for every boss at once: a word
+    // that would be written into the membrane is written above the mark
+    // instead (`BossCue.hullTop`, `render/test/boss-cue-hull.test.ts`). With
+    // the word looked after, lifting the mark is a frame floating a tile and a
+    // half off the hand it is naming, so it comes back down to the hull line
+    // where the other eight bosses park theirs.
+    const y = Math.min(head.y, skinY(head.x));
     out.push(
       open
         ? markAt(1, "HOLD", "HOLD", head.x, y, l, 70)

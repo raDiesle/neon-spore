@@ -182,7 +182,8 @@ landed, which is the one case where deleting it is the release.
 **The format**, one `##` per item, and both fields are required because the
 session that picks it up has read nothing else:
 
-```## One line saying what to change
+```
+## One line saying what to change
 
 - **Found:** 2026-09-03, claude/some-lane
 - **Files:** `packages/sim/src/step.ts`, `packages/sim/test/step.test.ts`
@@ -208,132 +209,6 @@ question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
 ```
-## `FRAMES_CHROME` is read once, when the module is first imported
-
-- **Found:** 2026-09-21, claude/queue-chromium-launch-crashes-here-the-pipe-transport
-- **Files:** `tools/frames/chrome.ts`, `tools/frames/test/chrome.test.ts`
-- **Where:** local
-
-`CHROME_CANDIDATES` is a module-level `const` whose first element is
-`process.env.FRAMES_CHROME`, so the variable is read at import and never
-again. Anything that sets it afterwards — a test wanting a browser that is
-certain not to open, a script arranging one for a single call — is ignored
-without a word, and the default is used instead. This lane wanted exactly
-that and could not have it: `launchBrowser` gained an optional executable
-parameter instead, which is the right seam for a caller and does nothing for
-the environment variable the documentation names.
-
-`pickChrome` is already pure and already takes its candidates, so the fix is
-small: `CHROME_CANDIDATES` becomes a function, or the `FRAMES_CHROME` element
-is read inside `findChrome()` rather than beside the constant. The test is
-setting the variable after import and getting the path back.
-
-## The phone's furniture is read again on every one of a resize burst
-
-- **Found:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho
-- **Files:** `apps/game/src/safe-area.ts`, `apps/game/src/viewport.ts`
-- **Where:** local
-
-`measure()` calls `safeArea()`, and `safeArea()` calls `getComputedStyle` on
-the probe and reads a `padding` off it. Reading a resolved length forces the
-browser to flush style and layout there and then, synchronously, before the
-call returns — and `measure()` runs on every `resize`, on every
-`visualViewport` resize, and on every `ResizeObserver` callback. An address bar
-sliding away fires all three, dozens of times, each one a forced flush in the
-middle of a frame. It is paid whether the measurement is then used or thrown
-away by the freeze, because the read happens before either question is asked.
-
-The four numbers change on exactly two events — a rotation and the first
-layout — and on nothing else. So the inset wants to be read once and kept,
-refreshed on `orientationchange` and on the `ResizeObserver` the app already
-binds, with `measure()` reading the kept value. The proof is a test that counts
-`getComputedStyle` calls across a burst of resizes: the fake in
-`apps/game/test/viewport.test.ts` already stands one up and only has to count.
-
-## `apps/game/src/main.ts` is at the 250-line ceiling exactly
-
-- **Found:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar
-- **Files:** `apps/game/src/main.ts`, `apps/game/src/main-shell.ts`
-- **Where:** local
-
-It is 250 lines against a limit of 250 (`packages/sim/test/limits.test.ts`), so
-the next lane that adds a line to it gets a red check for a reason that has
-nothing to do with its own work. This lane already paid that: three lines of
-comment at the `bindViewport` call site had to come down to one, and the one
-that survived is the shortest true sentence rather than the clearest.
-
-Nearly all of the file is a knot of prose and one call each, which is what it
-is for — so the split is by subject, not by size. `main-shell.ts` next door is
-the pattern: it took the shell's wiring out whole. The two candidates left are
-the same shape, and either is enough on its own:
-
-- the frame's parts — `bindAudio`, `bindHaptics`, `beatPhase`, `startFrames`'s
-  argument object;
-- the world's opening — `cfg`, `createWorld`, `startTogether`, `playAt`,
-  `createWaveProgression`.
-
-## `loadedTimeout`'s figures were measured once and the tree has grown past them
-
-- **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
-- **Files:** `tools/test/repo-time.ts`, `tools/test/doc-drift-names.test.ts`, `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `tools/index/test/index.test.ts`
-
-`bun run land` went red on `tools/test/doc-drift-names.test.ts` — *names
-something this tree still writes down*, timed out — and the same file passed
-in 1.4 seconds run alone a minute later. That is the failure `repo-time.ts`
-was written to end, arriving through the one number the module cannot measure
-for itself.
-
-`loadedTimeout(idleMs)` scales a timeout by how loaded the machine is, and its
-docstring says to pass *what the test costs when it is the only thing
-running*. That test passes **120**. Timed here three times over its own body —
-`declaredNames`, then `ownSubjectClaims` over every source file — it costs
-**753, 803 and 870 ms** on an idle machine, over 1578 claims. Six point seven
-times the figure it declares, so every timeout computed from it is six point
-seven times too short, and the run that went red was given 32 seconds for
-something that wanted more.
-
-The figures were right when they were written. Nothing re-measures them, and
-each one is a count of files the tree adds to every day — `tree-walk`,
-`doc-drift`, `index` and this one all walk the whole of it. Two parts:
-
-- Re-measure every `loadedTimeout` caller and raise the figure, the way this
-  entry measured this one. There are twenty of them; the grep is
-  `loadedTimeout(`.
-- Then keep them honest, which is the half that matters. The cheapest version
-  is `loadedTimeout` itself: it already knows `LOAD`, so it can compare the
-  test's real duration against the figure it was handed and fail — or say so
-  — when an idle run is more than, say, double it. A figure that drifts
-  silently is a red landing every session learns to re-run, which is the habit
-  `repo-time.ts`' own docstring names as the thing it exists to prevent.
-
-## The tab's own pause is bound inside the test rig, and it holds a hidden pane still
-
-- **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
-- **Files:** `apps/game/src/testing.ts`, `apps/game/src/main.ts`, `docs/working-with-claude.md`
-- **Where:** local
-
-`run.hold("hidden", document.hidden)` — the whole of "a backgrounded tab does
-not play" — is registered by `bindTestControls`, in among the sliders and the
-god-mode switch. It is shipped behaviour and it is not a test control: the
-catch-up cap it protects (`loop.ts`'s `MAX_CATCH_UP_MS`) is in the shipped
-loop, and the screen lock added on the same day re-asks for itself off this
-hold and nothing else (`awake.ts`). Every one of those is a line in a file
-whose docstring opens *the prototype's test rig*. Lift the two lines into a
-file of their own — the name the rest of the app uses for this is a *hold* —
-and let `main.ts` bind it beside the run state it is about.
-
-The second half is what it does to a lane that verifies in the Browser pane.
-**The pane's document reports `hidden` while the pane is not displayed**, so a
-game opened in it is paused: the world never ticks, `world.tick` stays where it
-was, and only the accident of a screenshot — which fronts the page for a
-moment — lets it advance at all. That is how this was found: a wake lock that
-should have been taken at load was not, and the reason was that the run had
-never started. Anything a lane measures over time in that pane — a wave
-watched at tempo, a beat counted, an animation's arc — is measuring a held
-world. `docs/working-with-claude.md` says to verify with `bun run preview` and
-says nothing about this; it should say it in the same paragraph, and name the
-one way to tell (`document.visibilityState` in the page).
-
 ## A button says two words where a sentence was asked for
 
 - **Found:** 2026-09-06, claude/some-lane
@@ -1173,29 +1048,6 @@ the event (`until.ts`), so it is a ring of the last N painted states or, more
 cheaply, a second pass that re-runs to `foundTick - N`. The second pass is the
 one to write: the tool restarts a world from a seed every run anyway, and a ring
 of frames is memory for nothing.
-
-## Two bosses lift a cue by hand where the rule now lifts every cue
-
-- **Found:** 2026-09-20, claude/queue-a-cue-standing-on-the-hull-line-has-its-verb-dra
-- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now)
-- **Files:** `packages/render/src/boss-cue-read-f.ts`, `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue.ts`
-- **Where:** local
-
-`HULL_LIFT` (1.7 tiles, THE WARDEN's handle) and `LOBE_LIFT` (0.8 tiles, THE
-UNDERTOW's lobes) each raise a mark off the skin so the verb under it would
-clear the plating. Neither worked — both bosses are on the list the entry *A
-cue standing on the hull line* caught — and now neither is needed: `cueWordY`
-flips the verb above any mark whose word would land in the membrane
-(`BossCue.hullTop`), which is the same answer asked once instead of twice, and
-`render/test/boss-cue-hull.test.ts` holds it for every boss in the campaign.
-
-Two constants to drop, and the marks fall back onto the skin where the rest of
-the game's cues stand — which is a change to what a frame shows, so it wants a
-frame of each: THE WARDEN's `HULL_LIFT` before and after, and THE UNDERTOW's
-five phases. Neither is free to photograph. THE UNDERTOW needs the CDP
-workaround described above (`--boss-json` cannot grow an empty `breaches`
-list), and it is the reason this is a separate entry rather than the tail of
-that one: the arithmetic is five minutes and the proof is an hour.
 
 ## A wave with a guide opens on its introduction as well
 
@@ -2133,3 +1985,173 @@ named for the spec page their bosses sit on, the way `scenes-choreographed.ts`
 is split from `scenes.ts`. THE HIVE's film took its own file on 21 September
 2026 rather than a block here (`test/scene-hive.test.ts`), which is the shape
 the rest should end in.
+
+## The queue's example block swallowed five entries and nothing noticed
+
+- **Found:** 2026-09-21, claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now
+- **Files:** `tools/queue/queue.ts`, `tools/queue/test/queue.test.ts`, `docs/queue.md`
+- **Where:** local
+
+This file's preamble shows the `Asks:` format inside a fenced block, and five
+real entries had been written into that fence — every lane that filed one put
+it directly under the opening ``` because that is where the first `##` in the
+file was, and the next lane copied the last. The fence stayed open over a
+hundred and thirty lines, so the preamble's own closing paragraphs rendered as
+code and five entries did not render as headings at all. This lane made the
+same mistake, saw it in the diff, and moved all six out; the fence on the
+other example had also been written glued to its first line.
+
+The parser never minded, which is why it ran for weeks: it reads `##` at the
+start of a line and knows nothing about fences. That is the fix — the reader
+in `queue.ts` tracks whether it is inside a fence and refuses to see a heading
+there, and `queue add`-shaped writes place a new entry after the preamble
+rather than at the first heading. The test is a file whose fenced example
+contains a `##` line: the listing must not show it, and an entry written into
+that file must land outside the fence.
+
+## A before/after cannot be sent as one picture
+
+- **Found:** 2026-09-21, claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now
+- **Files:** `tools/frames/crop-png.ts`, `tools/frames/picture.ts`, `docs/commands.md`
+- **Where:** local
+
+CLAUDE.md says one picture at a time, and a look change is proved by two
+frames — the thing before and the thing after. There is no way to put them in
+one PNG. `bun run crop` takes a rectangle of one file and `bun run png`
+rasterises a sheet; nothing joins two pictures side by side, and this lane
+sent one frame and said the other one in words, which is the thing the rule
+exists to stop.
+
+`picture.ts` already has `decodePng`, `encodePng` and `magnify`, so the whole
+of it is one function that allocates a wider buffer and blits two decoded
+frames into it with a gutter — stacked rather than side by side when the
+frames are portrait and the pair would otherwise be unreadable on a phone. A
+new script beside `crop-png.ts`, a line in `docs/commands.md`, and a test in
+`tools/frames/test` that joins two known images and reads pixels back out of
+either side of the seam.
+
+## `FRAMES_CHROME` is read once, when the module is first imported
+
+- **Found:** 2026-09-21, claude/queue-chromium-launch-crashes-here-the-pipe-transport
+- **Files:** `tools/frames/chrome.ts`, `tools/frames/test/chrome.test.ts`
+- **Where:** local
+
+`CHROME_CANDIDATES` is a module-level `const` whose first element is
+`process.env.FRAMES_CHROME`, so the variable is read at import and never
+again. Anything that sets it afterwards — a test wanting a browser that is
+certain not to open, a script arranging one for a single call — is ignored
+without a word, and the default is used instead. This lane wanted exactly
+that and could not have it: `launchBrowser` gained an optional executable
+parameter instead, which is the right seam for a caller and does nothing for
+the environment variable the documentation names.
+
+`pickChrome` is already pure and already takes its candidates, so the fix is
+small: `CHROME_CANDIDATES` becomes a function, or the `FRAMES_CHROME` element
+is read inside `findChrome()` rather than beside the constant. The test is
+setting the variable after import and getting the path back.
+
+## The phone's furniture is read again on every one of a resize burst
+
+- **Found:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho
+- **Files:** `apps/game/src/safe-area.ts`, `apps/game/src/viewport.ts`
+- **Where:** local
+
+`measure()` calls `safeArea()`, and `safeArea()` calls `getComputedStyle` on
+the probe and reads a `padding` off it. Reading a resolved length forces the
+browser to flush style and layout there and then, synchronously, before the
+call returns — and `measure()` runs on every `resize`, on every
+`visualViewport` resize, and on every `ResizeObserver` callback. An address bar
+sliding away fires all three, dozens of times, each one a forced flush in the
+middle of a frame. It is paid whether the measurement is then used or thrown
+away by the freeze, because the read happens before either question is asked.
+
+The four numbers change on exactly two events — a rotation and the first
+layout — and on nothing else. So the inset wants to be read once and kept,
+refreshed on `orientationchange` and on the `ResizeObserver` the app already
+binds, with `measure()` reading the kept value. The proof is a test that counts
+`getComputedStyle` calls across a burst of resizes: the fake in
+`apps/game/test/viewport.test.ts` already stands one up and only has to count.
+
+## `apps/game/src/main.ts` is at the 250-line ceiling exactly
+
+- **Found:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar
+- **Files:** `apps/game/src/main.ts`, `apps/game/src/main-shell.ts`
+- **Where:** local
+
+It is 250 lines against a limit of 250 (`packages/sim/test/limits.test.ts`), so
+the next lane that adds a line to it gets a red check for a reason that has
+nothing to do with its own work. This lane already paid that: three lines of
+comment at the `bindViewport` call site had to come down to one, and the one
+that survived is the shortest true sentence rather than the clearest.
+
+Nearly all of the file is a knot of prose and one call each, which is what it
+is for — so the split is by subject, not by size. `main-shell.ts` next door is
+the pattern: it took the shell's wiring out whole. The two candidates left are
+the same shape, and either is enough on its own:
+
+- the frame's parts — `bindAudio`, `bindHaptics`, `beatPhase`, `startFrames`'s
+  argument object;
+- the world's opening — `cfg`, `createWorld`, `startTogether`, `playAt`,
+  `createWaveProgression`.
+
+## `loadedTimeout`'s figures were measured once and the tree has grown past them
+
+- **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
+- **Files:** `tools/test/repo-time.ts`, `tools/test/doc-drift-names.test.ts`, `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `tools/index/test/index.test.ts`
+
+`bun run land` went red on `tools/test/doc-drift-names.test.ts` — *names
+something this tree still writes down*, timed out — and the same file passed
+in 1.4 seconds run alone a minute later. That is the failure `repo-time.ts`
+was written to end, arriving through the one number the module cannot measure
+for itself.
+
+`loadedTimeout(idleMs)` scales a timeout by how loaded the machine is, and its
+docstring says to pass *what the test costs when it is the only thing
+running*. That test passes **120**. Timed here three times over its own body —
+`declaredNames`, then `ownSubjectClaims` over every source file — it costs
+**753, 803 and 870 ms** on an idle machine, over 1578 claims. Six point seven
+times the figure it declares, so every timeout computed from it is six point
+seven times too short, and the run that went red was given 32 seconds for
+something that wanted more.
+
+The figures were right when they were written. Nothing re-measures them, and
+each one is a count of files the tree adds to every day — `tree-walk`,
+`doc-drift`, `index` and this one all walk the whole of it. Two parts:
+
+- Re-measure every `loadedTimeout` caller and raise the figure, the way this
+  entry measured this one. There are twenty of them; the grep is
+  `loadedTimeout(`.
+- Then keep them honest, which is the half that matters. The cheapest version
+  is `loadedTimeout` itself: it already knows `LOAD`, so it can compare the
+  test's real duration against the figure it was handed and fail — or say so
+  — when an idle run is more than, say, double it. A figure that drifts
+  silently is a red landing every session learns to re-run, which is the habit
+  `repo-time.ts`' own docstring names as the thing it exists to prevent.
+
+## The tab's own pause is bound inside the test rig
+
+- **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
+- **Files:** `apps/game/src/testing.ts`, `apps/game/src/main.ts`, `docs/working-with-claude.md`
+- **Where:** local
+
+`run.hold("hidden", document.hidden)` — the whole of "a backgrounded tab does
+not play" — is registered by `bindTestControls`, in among the sliders and the
+god-mode switch. It is shipped behaviour and it is not a test control: the
+catch-up cap it protects (`loop.ts`'s `MAX_CATCH_UP_MS`) is in the shipped
+loop, and the screen lock added on the same day re-asks for itself off this
+hold and nothing else (`awake.ts`). Every one of those is a line in a file
+whose docstring opens *the prototype's test rig*. Lift the two lines into a
+file of their own — the name the rest of the app uses for this is a *hold* —
+and let `main.ts` bind it beside the run state it is about.
+
+The second half is what it does to a lane that verifies in the Browser pane.
+**The pane's document reports `hidden` while the pane is not displayed**, so a
+game opened in it is paused: the world never ticks, `world.tick` stays where it
+was, and only the accident of a screenshot — which fronts the page for a
+moment — lets it advance at all. That is how this was found: a wake lock that
+should have been taken at load was not, and the reason was that the run had
+never started. Anything a lane measures over time in that pane — a wave
+watched at tempo, a beat counted, an animation's arc — is measuring a held
+world. `docs/working-with-claude.md` says to verify with `bun run preview` and
+says nothing about this; it should say it in the same paragraph, and name the
+one way to tell (`document.visibilityState` in the page).

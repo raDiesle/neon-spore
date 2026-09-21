@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — boss-cue-lifts — two bosses lift a cue by hand
+
+- reading — 10 min. The queue entry, the nine boss readings under
+  `boss-cue-read-*.ts` for every constant with `LIFT` in its name, and
+  `boss-cue.ts` to confirm `hullTop` is stamped on every cue centrally rather
+  than per boss — which is what makes a hand-rolled lift redundant.
+- writing — 15 min. Two constants and their docblocks deleted, the two marks
+  put back on the thing they name, and three comments rewritten: the shape
+  file's `hullTop` now says which two lifts went and when, and PINBALL's two
+  say why they stay — their floor is the band under `pinTable`, which the hull
+  line knows nothing about.
+- looking — 35 min. Four before/after pairs. THE WARDEN's was immediate; THE
+  UNDERTOW's took eleven captures to get the cannon standing under the lobe.
+- friction — 25 min. `--press <t>:1:cannonCol=N` takes a field column, not an
+  authored one, and the cannon slides rather than arrives — a press twenty
+  ticks before the frame never gets there. A scratch render test that printed
+  the cue directly settled both in one run, after the pictures had not.
+- landing — 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: **looking.** The change is four lines; proving it took a picture of
+a boss phase that only stands still for a few beats, and nothing in the frames
+rig reports where the mark it is aimed at actually is — the column had to be
+read out of the simulation by a throwaway test before a capture could be aimed.
+
 ## 2026-09-21 — the-hive-film — THE HIVE has no rehearsal film
 
 - reading — 10 min. The queue entry, §11.14, and then the two files a split
