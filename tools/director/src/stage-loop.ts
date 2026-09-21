@@ -1,3 +1,5 @@
+import { MILLI, slowRateMilli, type World } from "@neon-spore/sim";
+
 /**
  * The stage's clock: a fixed-timestep loop of its own rather than the game's.
  *
@@ -12,6 +14,31 @@
  * cap that will be raised in one of them; `loop-once.test.ts` holds it at one.
  * The two hooks below are what the copies differed by, and nothing more.
  */
+/**
+ * **How fast this loop spends a tick**, which is the one question `tickHz`
+ * asks and the one thing every caller here answered wrong.
+ *
+ * THE SLOW is a span of beats played at a fraction of wall-clock rate
+ * (`sim/slow.ts`). The simulation says *which* beats; the rate they are spent
+ * at is the clock's business, and the director's clocks — `stage.ts`'s GAME
+ * column and `versus-pair.ts`'s two phones — both answered `cfg.tickHz` flat.
+ * So a window opened in the director ran at ordinary speed: the frame rate
+ * never changed, and the one moment in this game that exists to be *felt*
+ * could not be felt on the two pages built for looking at it. On a VERSUS pair
+ * judging a picture of that window (`render/slow-look.ts`) it is worse than
+ * nothing — a border closing three times too fast is a vote taken on a picture
+ * the phone never draws.
+ *
+ * **Typed out rather than imported, the same as `keys.ts` and
+ * `stage-gauge.ts`.** `apps/game/src/tick-rate.ts` holds the game's reading of
+ * it as `tickMs`, and a tool may not import an application, as above. This is
+ * the reciprocal of that line and nothing else; if the two ever disagree, the
+ * game is right.
+ */
+export function stageTickHz(world: World): number {
+  return (world.cfg.tickHz * slowRateMilli(world)) / MILLI;
+}
+
 export interface StageLoop {
   /** The tick rate, read fresh — TUNING can change it mid-run. */
   tickHz(): number;

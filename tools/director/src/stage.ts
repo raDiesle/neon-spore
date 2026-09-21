@@ -15,7 +15,7 @@ import { bindStageAfterRun } from "./stage-afterrun.js";
 import { draftControlSet, draftGuide } from "./stage-draft.js";
 import { stageField } from "./stage-field.js";
 import { exposeStageHandle } from "./stage-handle.js";
-import { runStageLoopWhileSeen } from "./stage-loop.js";
+import { runStageLoopWhileSeen, stageTickHz } from "./stage-loop.js";
 import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
 import { bindStageRepeat } from "./stage-repeat.js";
@@ -157,7 +157,7 @@ export function bindStage(
 
   // Only while the canvas is on screen: a phone showing WAVE or MAP, or a
   // desk with the GAME column collapsed, pays nothing for the stage.
-  runStageLoopWhileSeen(canvas, { tickHz: () => cfg.tickHz, advance, paint });
+  runStageLoopWhileSeen(canvas, { tickHz: () => stageTickHz(world), advance, paint });
 
   const playBtn = document.getElementById("play");
   const paintPlay = (): void => {

@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — slow-window-rate — the director's clocks spend a slow beat the way a phone does
+
+- reading — 15 min. `sim/slow.ts` for what a window is, `apps/game/src/
+  tick-rate.ts` for the one place that already stretches a tick, and the two
+  callers of `runStageLoop` that answer `tickHz` — which is where the defect
+  was: both answered `cfg.tickHz` flat, so a window opened on the GAME column
+  or on a VERSUS pair ran at ordinary speed.
+- writing — 20 min. `stageTickHz` in `stage-loop.ts` — the reciprocal of the
+  game's `tickMs`, typed out rather than imported because a tool may not reach
+  into an application — both callers repointed at it, and three cases holding
+  the shipped rate exactly, the cut rate, and what the cut costs in the hand.
+- looking — 0 min. The change is a clock; the assertion is arithmetic, and
+  what it fixes is only visible with a stopwatch on a page nobody has built a
+  picture for yet.
+- friction — 15 min. The helper started as its own file and `stage.ts` is at
+  the 250-line ceiling exactly, so one import line made the tree red; a
+  `git checkout` taken to compare wrappings then threw the edit away and it was
+  typed again. Moving the helper into `stage-loop.ts` — whose header already
+  explains the boundary it is on the far side of — cost no import at all.
+- landing — 10 min.
+
+**The bottleneck was friction, and it was a file at its ceiling.** The queue
+already holds `stage.ts` at exactly 250 lines; this lane paid it a second time,
+and the entry says so now.
+
 ## 2026-09-21 — slow-look-seam — a window that exists to be felt gets somewhere to be seen
 
 - reading — 30 min. `sim/slow.ts` and `apps/game/src/tick-rate.ts` for what a

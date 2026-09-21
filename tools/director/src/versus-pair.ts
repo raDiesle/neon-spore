@@ -3,7 +3,7 @@ import { framePhase, type SimEvent, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
 import { cadenceElapsed, type Pose } from "./pose-kit.js";
-import { runStageLoop } from "./stage-loop.js";
+import { runStageLoop, stageTickHz } from "./stage-loop.js";
 import { advance } from "./versus-advance.js";
 import { type CropSide, CropWindow, makeCropSide } from "./versus-crop.js";
 import { hashCanvas } from "./versus-hash.js";
@@ -159,7 +159,10 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   // is the two hooks: a rate that scales real seconds into simulated ones, and
   // a `paint` that also wants the real ones for the blink's own clock.
   const loop = runStageLoop({
-    tickHz: () => world.cfg.tickHz,
+    // A window THE SLOW opened is spent at its own rate here, as it is on
+    // the phone — otherwise the pair judges a picture of it three times too
+    // fast (`stage-loop.ts`).
+    tickHz: () => stageTickHz(world),
     // `frozen` holds `dt` at 0 the way `!running` does, and neither reaches the
     // drawing. A pending freeze runs on the tick, not the wall (`Freeze`).
     scale: (real) =>

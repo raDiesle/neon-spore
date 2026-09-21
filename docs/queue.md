@@ -1185,6 +1185,11 @@ returning `{ run, stop, advance }` would leave `stage.ts` the assembly it reads
 as. `tools/director/test/` already drives the stage end to end, so the split is
 proved by tests that exist.
 
+It has now cost a second lane the same coin: the rate fix of 21 September
+wanted three words at the loop's own call saying that THE SLOW is spent there,
+and there was no line to put them on — they are in `stage-loop.ts` instead,
+which is where the argument lives but not where a reader of the call is.
+
 ## Two beats to land together is the whole difficulty of THE INSTAR
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
