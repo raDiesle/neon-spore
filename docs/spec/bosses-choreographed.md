@@ -21,8 +21,8 @@
 > own ask for more of exactly this kind — heavy on choreography, light on the
 > panel, more than ten states apiece that ask an action of the pair on nearly
 > every one. Nothing of any of the five is built; each is queued as two
-> `docs/queue.md` items, the simulation `CLOUD ONLY` and the picture
-> `LOCAL ONLY`.
+> `docs/queue.md` items, the picture `LOCAL ONLY` and waiting on the
+> simulation, which anybody may take.
 >
 > It is the second boss-idea page rather than the third: the one that read the
 > same two reference games at boss scale was deleted on 17 September 2026 as
@@ -2347,9 +2347,10 @@ though the cannon, the shield and the maw may still answer a state here and
 there. Each below is written to that brief and passes filter 8 against the
 seventeen above and against each other. **Nothing of any of the five is
 built** — `docs/queue.md` carries the simulation lane of each as its own
-`CLOUD ONLY` entry and the picture as its own `LOCAL ONLY` entry, on the
-`.claude/skills/new-boss` split of lane one from lane two, so a cloud session
-can take the words and the states today and the picture waits for an eye.
+entry, which any session may take, and the picture as its own `LOCAL ONLY`
+entry carrying a `Needs:` line back to it, on the `.claude/skills/new-boss`
+split of lane one from lane two. So the words and the states can be taken
+today, and the picture is passed over by `next` until they land.
 
 ### §18 THE GIMBAL — whether the same turn means the same thing to both of you
 

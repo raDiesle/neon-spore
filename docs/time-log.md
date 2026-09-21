@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — where-cloud-off — a preference spent as a refusal
+
+- reading — 10 min. Every reference to the cloud half of `Where:` — two
+  greps, `where.ts`, `problems.ts`, `queue.ts`, the two preamble paragraphs
+  in `docs/queue.md`, `docs/cloud-session.md` and the two lines in the
+  choreographed-bosses page that describe the boss-pair convention.
+- writing — 25 min. Ten lines out of `docs/queue.md`, the type narrowed to
+  one value, `Kind` cut loose from it, `reservedTag` and the refusal message,
+  the four prose passages, and `where.test.ts` rewritten around one kind
+  instead of two — with a case holding `cloud` to being a reported problem.
+- looking — 5 min. `bun run queue` twice, once with `CLAUDE_CODE_REMOTE`
+  set, to see 80 free here against 30 there.
+- friction — 5 min. One test fixture still carried a `Where: cloud` line
+  that a `python` replace missed on an escaped backtick.
+- landing — 10 min.
+
+The bottleneck was the asking, not the doing: the change is forty minutes of
+edits and it was queued, released, asked about, dismissed and asked again
+before any of them started. Once the owner's sentence was in hand nothing in
+the tree resisted — the field was one value in one file and four paragraphs
+of prose.
+
 ## 2026-09-21 — queue-needs — the entry nothing could say was not yet
 
 - reading — 15 min. §18 of `docs/spec/bosses-choreographed.md`, a grep for

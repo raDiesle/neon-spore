@@ -12,8 +12,8 @@
  *   name, and never by number: a removal is the one thing a stale position
  *   cannot be allowed to do (`refuseNumbered`).
  *
- * An entry may be reserved for one kind of session — `- **Where:** cloud` or
- * `local` — and `where.ts` says how `next` and `take` honour that. It may also
+ * An entry may be kept for a session with a screen — `- **Where:** local` —
+ * and `where.ts` says how `next` and `take` honour that. It may also
  * name an entry that has to land before it can start, on a `- **Needs:**` line
  * that `needs.ts` reads.
  *

@@ -11,39 +11,43 @@ const ANYONES = `## Split the wave editor's cell panel
 It is 310 lines and does two jobs.
 `;
 
-const CLOUDS = `## Rename the two-devices menu
+const LOCALS = `## Watch THE GRATE at tempo and say whether the sweep reads
 
 - **Found:** 2026-09-13, claude/some-lane
-- **Files:** \`apps/game/src/menu.ts\`
-- **Where:** cloud
+- **Files:** \`packages/content/src/waves/act-4.ts\`
+- **Where:** local
 
-The owner wants this done from his phone while his own machine is on something else.
+Nothing a sandbox runs answers this; it needs an eye on a frame at speed.
 `;
 
-const LOCALS = CLOUDS.replace("- **Where:** cloud", "- **Where:** local");
-
-describe("an entry reserved for one kind of session", () => {
+describe("an entry kept for a session with a screen", () => {
   it("reads the Where: line, and is anywhere without one", () => {
-    expect(parseItems(CLOUDS, "queue")[0]?.where).toBe("cloud");
     expect(parseItems(LOCALS, "queue")[0]?.where).toBe("local");
     expect(parseItems(ANYONES, "queue")[0]?.where).toBe("anywhere");
   });
 
   it("is otherwise an ordinary entry a cold session could act on", () => {
-    expect(problemsIn(parseItems(CLOUDS, "queue"))).toEqual([]);
+    expect(problemsIn(parseItems(LOCALS, "queue"))).toEqual([]);
   });
 
-  it("reports a Where: that names neither kind rather than offering the item to anybody", () => {
-    const md = CLOUDS.replace("- **Where:** cloud", "- **Where:** phone");
-    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain('"cloud" or "local"');
+  it("reports a Where: that names no kind rather than offering the item to anybody", () => {
+    const md = LOCALS.replace("- **Where:** local", "- **Where:** phone");
+    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain('the only value is "local"');
   });
 
-  it("fits the kind it names and the kind-less entry fits both", () => {
-    const cloud = parseItems(CLOUDS, "queue")[0]!;
+  it("reports `cloud` too, which was a reservation until 21 September 2026", () => {
+    // The owner took that half of the field out — *all cloud only also local
+    // can and should take* — so a line copied out of an older entry has to
+    // come back as a problem rather than as a reservation nobody meant.
+    const md = LOCALS.replace("- **Where:** local", "- **Where:** cloud");
+    const items = parseItems(md, "queue");
+    expect(items[0]?.where).toBe("anywhere");
+    expect(problemsIn(items)[0] ?? "").toContain('the only value is "local"');
+  });
+
+  it("fits a local session, and the kind-less entry fits both", () => {
     const local = parseItems(LOCALS, "queue")[0]!;
     const any = parseItems(ANYONES, "queue")[0]!;
-    expect(fits(cloud, "cloud")).toBe(true);
-    expect(fits(cloud, "local")).toBe(false);
     expect(fits(local, "local")).toBe(true);
     expect(fits(local, "cloud")).toBe(false);
     expect(fits(any, "cloud")).toBe(true);
@@ -51,16 +55,24 @@ describe("an entry reserved for one kind of session", () => {
   });
 
   it("is marked on the title line of the listing", () => {
-    expect(reservedTag(parseItems(CLOUDS, "queue")[0]!)).toBe(" — CLOUD ONLY");
+    expect(reservedTag(parseItems(LOCALS, "queue")[0]!)).toBe(" — LOCAL ONLY");
     expect(reservedTag(parseItems(ANYONES, "queue")[0]!)).toBe("");
   });
 
-  it("is refused to the other kind, naming both kinds", () => {
-    const cloud = parseItems(CLOUDS, "queue")[0]!;
-    expect(() => refuseUnlessFits(cloud, "local")).toThrow(
-      /reserved for a cloud session.*local one/,
+  it("is refused to a cloud session, naming both kinds", () => {
+    const local = parseItems(LOCALS, "queue")[0]!;
+    expect(() => refuseUnlessFits(local, "cloud")).toThrow(
+      /reserved for a local session.*cloud one/,
     );
-    expect(() => refuseUnlessFits(cloud, "cloud")).not.toThrow();
+    expect(() => refuseUnlessFits(local, "local")).not.toThrow();
+  });
+
+  it("keeps nothing back from a local session, which is the whole of the change", () => {
+    // Every entry in the file is now either `local` or anybody's, so a session
+    // on the owner's own machine fits all of them.
+    for (const md of [ANYONES, LOCALS]) {
+      expect(fits(parseItems(md, "queue")[0]!, "local")).toBe(true);
+    }
   });
 });
 

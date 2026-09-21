@@ -231,29 +231,32 @@ options it picks between:
 Why the short label is what fits today, and what each of the three costs.
 ```
 
-`- **Where:** cloud` or `- **Where:** local` reserves an entry for one kind of
-session, and it is the owner's line rather than the finder's. He asked for it
-on 13 September 2026, the day a local session re-watched four waves a cloud
-session had built: some work can only be done on a machine with a screen and a
-real frame budget — a wave watched at tempo, a `bun run perf` — and some he
-wants handed to a cloud session on purpose, from his phone, so the session on
-his own machine stays free. The listing marks such an entry `CLOUD ONLY` or
-`LOCAL ONLY`, `bun run queue next` passes over one kept for the other kind,
-and `next <n>` or `take <n>` naming it is refused with the reason. A session
-knows which kind it is by `CLAUDE_CODE_REMOTE`, the signal the web image sets
-(`tools/queue/where.ts`). Without the line an entry is anybody's.
+`- **Where:** local` keeps an entry for a session with a screen, and it is the
+owner's line rather than the finder's. He asked for the field on 13 September
+2026, the day a local session re-watched four waves a cloud session had built:
+some work cannot be proved without eyes and a real frame budget — a wave
+watched at tempo, a shape seen to move, a `bun run perf`. The listing marks
+such an entry `LOCAL ONLY`, `bun run queue next` passes over one on a cloud
+session, and `next <n>` or `take <n>` naming it there is refused with the
+reason. A session knows which kind it is by `CLAUDE_CODE_REMOTE`, the signal
+the web image sets (`tools/queue/where.ts`). Without the line an entry is
+anybody's.
 
-**The list was dealt on 18 September 2026**, the day he left for two days of
-working it from a phone, and nearly every entry carries a line now. The per-boss
-families went first: the words (`.claude/skills/new-boss` section 6.1) and the
-states (6.2) to a cloud session, the pictures (6.3) kept local for an eye. The
-rest were dealt on the same test — **can a session with no screen prove it with
-`bun test` and the typecheck?** So the refactors, the file-ceiling splits, the
-test timeouts and THE GAUGE's missing events are `cloud`; a catch that washes a
-panel, sixteen films that put a page on the hull, a frame tool that cannot reach
-a boss and a pose missing from the gallery are `local`. What is left unmarked is
-the handful that `ASKS THE OWNER`: nobody's machine is the thing they are
-waiting on.
+**There is no `cloud` half of it any more.** The field had two values for eight
+days: the list was dealt on 18 September 2026, the day he left for two days of
+working it from a phone, and forty-odd entries were marked `cloud` so the
+session on his own machine would stay free for the rest. The owner took that
+half out again on 21 September 2026 — *"please remove cloud only. all cloud
+only also local can and should take"* — and the reason the two halves are not
+symmetrical is the reason he could: **`local` is a fact about the work and
+`cloud` was a preference about the day.** A wave nobody can watch is not
+provable in a sandbox whatever anybody would rather; an entry a phone could
+have taken is one a machine with a screen can take too, and a local session
+that stops at one is a local session idle in front of work it can do. So ten
+lines came off, `where.ts` knows one kind of reservation instead of two, and a
+stray `- **Where:** cloud` is now a reported problem rather than a reservation
+nobody meant. What is left unmarked is what anybody can take, and the handful
+that `ASKS THE OWNER`: nobody's machine is the thing they are waiting on.
 
 `- **Needs:** <the title of another entry>` says this one cannot start until
 that one lands, and it is the third and last reason `bun run queue next` steps
@@ -274,9 +277,8 @@ just landed are the same thing from inside the tool. It was written on 21
 September 2026, after `next` handed *THE GIMBAL's picture has never been drawn*
 to a local session — an entry opening with the words *lane two of §18, once
 lane one lands*, under one closing with *do not start it here*. Two sentences
-addressed to a reader, which `next` is not; and lane one is `CLOUD ONLY`, so
-the kind of session it kept offering the picture to was the one kind that could
-never unblock it. Five pairs in this file carry the line now.
+addressed to a reader, which `next` is not. Five pairs in this file carry the
+line now.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
@@ -287,7 +289,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-09-21, claude/queue-four-other-films-still-put-pages-about-their-bos
 - **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`
-- **Where:** cloud
 
 An entry whose title a lane has rewritten cannot be re-marked by the lane that
 rewrote it. It happened twice on the sixteen-films entry in two days: a lane
@@ -379,7 +380,6 @@ left hanging.
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Taken:** 2026-09-18, claude/queue-the-undertow-changes-state-more-than-once-and-as
 - **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/events-undertow.ts`, `packages/sim/src/undertow-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
@@ -396,7 +396,6 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-hive.ts`, `packages/sim/src/events-hive.ts`, `packages/sim/src/hive-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
@@ -605,7 +604,6 @@ than the string-level unit tests above it.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-- **Where:** cloud
 
 `docs/spec/bosses-choreographed.md` §18 is a full design — the question, the
 silhouette, both seats, a fourteen-row beat list, which of `THE SLOW` or
@@ -642,7 +640,6 @@ description.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-- **Where:** cloud
 
 `docs/spec/bosses-choreographed.md` §19 is a full design: two ordinary
 depth-drags (`bellowsPull`, `bellowsPush`, the pattern is `sinewLeft` and
@@ -673,7 +670,6 @@ moves.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-- **Where:** cloud
 
 `docs/spec/bosses-choreographed.md` §20 is a full design: `haspLatch` (a
 hold, read by depth for its own unseen heat) and `haspWheel` (a bearing drag,
@@ -704,7 +700,6 @@ moves.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-- **Where:** cloud
 
 `docs/spec/bosses-choreographed.md` §21 is a full design: `spoolBrake` (a
 depth-hold with no readout of its own) and `SplitGauge` (shipped twice
@@ -734,7 +729,6 @@ the owner when it moves.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-- **Where:** cloud
 
 `docs/spec/bosses-choreographed.md` §22 is a full design: `ratchetCatch` (a
 hold) and `ratchetPawl` (a press, the way THE MAW TAP is) as two new
@@ -807,7 +801,6 @@ falls silent, the other pings and is told without pressing anything.
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
 - **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-touch.ts`
-- **Where:** cloud
 
 The desk's stage is now 250 lines, which passes `limits.test.ts` and leaves the
 next lane nothing. It got there by one line: the cue key's held thumbs have to
@@ -881,7 +874,6 @@ knob should exist for them is a second question for a second entry.
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
 - **Files:** `packages/render/src/instar-call.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-text.ts`, `packages/sim/src/instar-step.ts`
-- **Where:** cloud
 
 The owner, 20 September 2026: *for any in-game action which requires one
 player to hit a specific point in time related to the other player's action,

@@ -17,9 +17,7 @@ import type { Item } from "./queue.js";
  * two of §18, once lane one lands*, and the entry above it closes with *do not
  * start it here* — two sentences addressed to a reader, which `next` is not.
  * It was handed to a local session with no `gimbal` anywhere in `packages`,
- * nothing to draw a pose against, and no wave to put it in; and lane one is
- * reserved `CLOUD ONLY`, so the kind of session `next` keeps offering the
- * picture to is exactly the kind that can never unblock it.
+ * nothing to draw a pose against, and no wave to put it in.
  *
  * **The dependency dissolves itself.** The line names a title rather than a
  * position or an id, and `queue done` takes the prerequisite out of the file

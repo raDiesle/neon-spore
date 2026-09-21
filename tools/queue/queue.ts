@@ -20,8 +20,18 @@
 
 export type Source = "queue" | "parked";
 
-/** Which kind of session may take an item. */
-export type Where = "cloud" | "local" | "anywhere";
+/**
+ * Which kind of session may take an item: `local` when it needs a screen, and
+ * `anywhere` — the absence of the line — for everything else.
+ *
+ * There was a `cloud` value beside `local` for eight days and the owner took
+ * it out on 21 September 2026. The two were never the same kind of fact:
+ * `local` says the work cannot be *proved* without eyes, which is true of a
+ * wave watched at tempo whoever wishes otherwise, and `cloud` said only that
+ * he would rather hand that one to a phone today. A preference spent as a
+ * refusal left a local session standing in front of forty entries it could do.
+ */
+export type Where = "local" | "anywhere";
 
 export type Item = {
   readonly source: Source;
@@ -58,11 +68,11 @@ export type Item = {
    */
   readonly asks: string;
   /**
-   * The `Where:` line — `cloud` or `local` when only that kind of session may
-   * take the item, `anywhere` when the line is absent. The owner's line, from
-   * 13 September 2026: some work needs a screen and a real frame budget, and
-   * some he wants handed to a cloud session on purpose so the session on his
-   * own machine stays free. `where.ts` says how `next` and `take` honour it.
+   * The `Where:` line — `local` when only a session with a screen may take the
+   * item, `anywhere` when the line is absent. The owner's line, from 13
+   * September 2026: some work needs eyes and a real frame budget, and nothing
+   * a sandbox runs will prove it. `where.ts` says how `next` and `take`
+   * honour it.
    */
   readonly where: Where;
   /** Everything under the heading, comments and blank edges removed. */
@@ -121,10 +131,14 @@ export function fieldOf(body: string, re: RegExp): string {
  * A `Where:` value as the kind it names. Anything else reads as `anywhere` and
  * is reported by `problemsIn`, so a misspelt reservation is a listed problem
  * rather than an item quietly offered to the session it was kept from.
+ *
+ * `cloud` is one of the things that is now anything else, which is deliberate
+ * rather than an oversight: forty entries carried it until 21 September 2026,
+ * and an old one copied into a new entry has to come back as a reported
+ * problem rather than as a reservation nobody meant to make.
  */
 function whereOf(value: string): Where {
-  const word = value.trim().toLowerCase();
-  return word === "cloud" || word === "local" ? word : "anywhere";
+  return value.trim().toLowerCase() === "local" ? "local" : "anywhere";
 }
 
 /** Splits a `Files:` value — a comma-separated list, backticks optional. */

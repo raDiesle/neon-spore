@@ -176,18 +176,20 @@ and the landing's rebase resolves that on its own (`tools/land/queue-merge.ts`).
 **And the queue knows this is a cloud session.** `CLAUDE_CODE_REMOTE` is set
 on the web image, and `bun run queue` reads it: an entry the owner marked
 `- **Where:** local` — a wave to watch at tempo, a frame to measure — is
-listed `LOCAL ONLY`, passed over by `next`, and refused by name to `take`;
-one marked `Where: cloud` is kept for a session like this one, and a local
-session is refused it the same way (`tools/queue/where.ts`).
+listed `LOCAL ONLY`, passed over by `next`, and refused by name to `take`
+(`tools/queue/where.ts`).
 
-**The list was dealt on 18 September 2026** and nearly every entry carries a
-line, so `bun run queue next` here now hands out something this kind of session
-can finish rather than something it can only half-do and queue unverified: the
+**That is the only reservation, and it only ever points one way.** There was a
+`Where: cloud` beside it from 18 September 2026, when the list was dealt the
+day the owner left to work it from a phone, and forty-odd entries were kept for
+a session like this one. He took that half out on 21 September 2026 — *"please
+remove cloud only. all cloud only also local can and should take"* — so what
+`next` hands out here is now everything except what needs an eye: the
 simulation half of every boss, the words a field says, the refactors, the
-tooling and the tests. What is kept back is what needs an eye — a picture that
-should look like something real, a cue placed on a frame, a pose in the
-director's gallery. The handful still unmarked are the ones that `ASKS THE
-OWNER`, which no machine unblocks.
+tooling and the tests, and anything else nobody marked. What is kept back is
+still what a sandbox cannot prove — a picture that should look like something
+real, a cue placed on a frame, a pose in the director's gallery — and the
+handful unmarked ones that `ASKS THE OWNER`, which no machine unblocks.
 
 **A technical finding goes in `docs/queue.md`, not in the report.** A refactor
 the session stepped around, a slow path, a missing test, a document that no

@@ -8,7 +8,6 @@ const LANE_ONE = `## THE GIMBAL is written and nobody has built its simulation
 
 - **Found:** 2026-09-20, claude/some-lane
 - **Files:** \`packages/sim/src/bosses.ts\`
-- **Where:** cloud
 
 The spec is a full design for a boss nobody has started.
 `;
