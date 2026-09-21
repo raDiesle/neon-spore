@@ -518,6 +518,7 @@ question that prompted this one.
 ## Unverified at 5780141b: the picture of a carried part and its ring, watched at…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene (claim: claude/queue-unverified-at-5780141b-the-picture-of-a-carried)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`, `packages/audio/src/bind-choreographed.ts`
 
 *THE SCUTTLE: the pilot carries a hanging part a column along the frame* landed from a session that could not look at it. The commit touched 35 more files. What went unchecked:
