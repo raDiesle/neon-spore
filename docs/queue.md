@@ -589,6 +589,7 @@ close the tab rather than the game.
 ## Nothing keeps the screen awake, and a long hold looks like an empty room
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-21, claude/queue-next-loops-on-an-entry-no-session-can-finish (claim: claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l)
 - **Files:** `apps/game/src/shell.ts`, `apps/game/src/run-state.ts`, `apps/game/src/loop.ts`
 - **Where:** local
 
