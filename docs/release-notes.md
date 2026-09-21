@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-21 · b3d1735f — `queue next` passes over a question the owner has not answered
+
+An `Asks:` line has always been two different things wearing one line. Mostly the question is a side question over decided work in named files, and a session can start the moment it picks the entry up. In a few the ask *is* what is left: THE THROAT's three hand sounds says in its own body that everything a machine can settle is settled and what remains is three presses by an ear. `next` handed that one out, it was released, and `next` handed out the same entry again — three sessions in a row picked it up, and a lane following *continue to work on the queue* could not get past it without knowing `queue take` exists.
+
 ## 2026-09-21 · 62fe8284 — THE SPLICE's WAIT steps over the number as it lands in its mouth
 
 Watched at tempo on her glass, which is what the unverified entry asked for. The mark rides the number down its straw, and a flight ends with the number sitting in the mouth it was fed to — so the verb hung the usual gap under the mark spent its last beat written across the mouth's own ring. A smear, and a smear on the one beat the word exists for: the beat a pair that thinks the press failed presses again.
