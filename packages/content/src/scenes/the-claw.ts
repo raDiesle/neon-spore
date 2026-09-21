@@ -59,8 +59,15 @@ export const THE_CLAW: GuideScene = {
     { tick: 1070, control: "mawTake" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "THE CANNON IS AN ARM", anchor: { at: "hull" } },
-    { tick: 200, seat: 2, text: "A POD CROSSES THE FIELD", anchor: { at: "hull" } },
+    // The strip itself, at the column the arm is standing in. The page is
+    // about the thing on the end of it and the hull is what it is bolted to.
+    {
+      tick: 0,
+      seat: 1,
+      text: "THE CANNON IS AN ARM",
+      anchor: { at: "control", control: "cannon" },
+    },
+    { tick: 200, seat: 2, text: "A POD CROSSES THE FIELD", anchor: { at: "pod" } },
     {
       tick: 390,
       seat: 1,

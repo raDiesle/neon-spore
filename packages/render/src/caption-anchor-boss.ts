@@ -2,6 +2,7 @@ import type { BossPart } from "@neon-spore/content";
 import { sinewBoss, tasterBoss, type World } from "@neon-spore/sim";
 import type { AnchorPoint } from "./caption-anchor.js";
 import { bossAnchorB } from "./caption-anchor-boss-b.js";
+import { box, CLEAR } from "./caption-anchor-box.js";
 import type { Layout } from "./layout.js";
 import { sinewCollarBox } from "./sinew-band.js";
 import { tasterFanBox, tasterRidge } from "./taster-draw.js";
@@ -24,12 +25,6 @@ import { showsTasterTally } from "./view-role-clocks.js";
  * not, and a part a screen does not draw is no ring at all, which is the
  * choir's rule (`choir-anchor.test.ts`).
  */
-
-const CLEAR = 16;
-
-function box(b: { x: number; y: number; rx: number; ry: number }): AnchorPoint {
-  return { x: b.x, y: b.y, r: b.ry + 6, rx: b.rx + 6, clear: CLEAR };
-}
 
 export function bossAnchor(
   l: Layout,

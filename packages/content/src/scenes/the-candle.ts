@@ -72,7 +72,10 @@ export const THE_CANDLE: GuideScene = {
     { tick: 1950, control: "fireCyan", until: 2200 },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "THE FIELD GOES BLACK", anchor: { at: "hull" } },
+    // The one light left, and the page is round it: the field going black is
+    // the flame's doing, and a ring on the hull said only *somewhere down
+    // here*.
+    { tick: 0, seat: 2, text: "THE FIELD GOES BLACK", anchor: { at: "boss" } },
     // PLAYER 2 FIRES · IT DIMS stood here. The field says her verb on the
     // glow, so what is left is the half a cue may never carry: red and cyan
     // both take a step off it, and the beam does too (`candleStruck`). The
@@ -109,7 +112,12 @@ export const THE_CANDLE: GuideScene = {
       text: "ONE MORE · IT STARTS EATING",
       anchor: { at: "control", control: "fireRed" },
     },
-    { tick: 960, seat: 1, text: "ONLY PLAYER 1 SEES ITS FACE", anchor: { at: "hull" } },
+    {
+      tick: 960,
+      seat: 1,
+      text: "ONLY PLAYER 1 SEES ITS FACE",
+      anchor: { at: "boss", part: "face" },
+    },
     {
       tick: 1140,
       seat: 2,
@@ -153,6 +161,7 @@ export const THE_CANDLE: GuideScene = {
       text: "PULL IT DOWN · THEN BURN",
       anchor: { at: "handle", target: "candleWick" },
     },
-    { tick: 2130, seat: 1, text: "TWO BLACK BEATS · THEN LIGHT", anchor: { at: "hull" } },
+    // The wick he has just pulled the flame off, where the light comes back.
+    { tick: 2130, seat: 1, text: "TWO BLACK BEATS · THEN LIGHT", anchor: { at: "boss" } },
   ],
 };

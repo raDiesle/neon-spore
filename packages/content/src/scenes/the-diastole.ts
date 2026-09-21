@@ -51,8 +51,15 @@ export const THE_DIASTOLE: GuideScene = {
     { tick: 1710, control: "fireRed", until: 1980 },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "THE LEFT BEATS IN THREES", anchor: { at: "hull" } },
-    { tick: 180, seat: 2, text: "GREY ON PLAYER 2'S SCREEN", anchor: { at: "hull" } },
+    // Both pages are about the same chamber seen from the two seats: his
+    // keeps a count, hers is grey. A ring on the hull pointed at neither.
+    { tick: 0, seat: 1, text: "THE LEFT BEATS IN THREES", anchor: { at: "boss", part: "left" } },
+    {
+      tick: 180,
+      seat: 2,
+      text: "GREY ON PLAYER 2'S SCREEN",
+      anchor: { at: "boss", part: "left" },
+    },
     {
       tick: 360,
       seat: 1,

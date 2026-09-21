@@ -345,27 +345,33 @@ land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## Sixteen other films still put pages about their boss on the hull
+## Twelve other films still put pages about their boss on the hull
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-21, claude/queue-the-stares-catch-washes-the-whole-panel-and-the (claim: claude/queue-sixteen-other-films-still-put-pages-about-their)
-- **Files:** `packages/render/src/caption-anchor-boss.ts`, `packages/render/src/caption-anchor-boss-b.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/content/src/scenes/the-claw.ts`, `packages/content/src/scenes/the-diastole.ts`, `packages/content/src/scenes/the-gorge.ts`, `packages/content/src/scenes/the-fleet.ts`, `packages/content/src/scenes/the-mirror.ts`, `packages/content/src/scenes/the-stare.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`
+- **Files:** `packages/render/src/caption-anchor-boss-c.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-gorge.ts`, `packages/content/src/scenes/the-fleet.ts`, `packages/content/src/scenes/the-mirror.ts`, `packages/content/src/scenes/the-stare.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/content/src/scenes/pinball.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/content/src/scenes/the-reprise.ts`
 - **Where:** local
 
-`{ at: "boss", part? }` is answered for seven bosses — THE SINEW, THE TASTER,
-THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY, THE SCOUT — the ones the
-finding named. `grep 'at: "hull"' packages/content/src/scenes/` still lists
-forty-six pages in sixteen films, and most of them are about the boss, not
-the hull: THE CANDLE's wick, THE BATON's beads, THE DIASTOLE's chambers, THE
-GORGE's intakes, THE THROAT's mouth, THE MIRROR's twin. For each: read the
-film's hull pages, decide which are truly about the hull (a breach, a scar —
-those stay), add a line per kind to `caption-anchor-boss-b.ts` (or a third
-file: `-b` is at 226 lines) off the boss's shape file, a `BossPart` where a
-boss draws more than one thing worth a page, and a test in the pattern of
-`render/test/boss-anchor-b.test.ts` — the ring where the fixture is drawn,
-and null for a part this screen does not draw. The rounds (PINBALL, THE
-GAUGE, THE MAZE, THE REPRISE) are their own picture and may want their own
-anchor rather than a boss part.
+**Four of the sixteen are done** (21 September 2026): THE CANDLE, THE BATON,
+THE CLAW and THE DIASTOLE, in the lane that split this entry into four. The
+machinery is finished with them — `caption-anchor-boss-c.ts` is the third
+file and has room, `caption-anchor-box.ts` is the ring every line of the
+three answers with, and `render/test/boss-anchor-c.test.ts` is the pattern.
+What is left is three more lanes of four films each, in this order:
+
+- **THE GORGE, THE FLEET, THE MIRROR, THE STARE** — seven pages.
+- **THE LEDGER, THE SPLICE, THE UNDERTOW, THE THROAT** — nineteen pages, the
+  heavy one; it may want a fourth anchor file.
+- **PINBALL, THE GAUGE, THE MAZE, THE REPRISE** — seven pages, and the one
+  that is a different question: a round is its own picture and may want an
+  anchor of its own rather than a boss part.
+
+For each film: read its hull pages, decide which are truly about the hull (a
+breach, a scar — those stay) and which have an anchor already (THE CLAW's two
+turned out to be `pod` and the cannon strip, and needed no boss line at all);
+then a line per kind in `caption-anchor-boss-c.ts` off the boss's own shape
+file, a `BossPart` where a boss draws more than one thing worth a page, and a
+test — the ring where the fixture is drawn, and null for a part this screen
+does not draw.
 
 ## `bun run frames` cannot reach BULB QUEEN's BROOD, and `--hold` lacks her marks
 

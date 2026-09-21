@@ -21,6 +21,8 @@ import {
   RAIL_R,
 } from "./antiphon-shape.js";
 import type { AnchorPoint } from "./caption-anchor.js";
+import { bossAnchorC } from "./caption-anchor-boss-c.js";
+import { around, box, CLEAR } from "./caption-anchor-box.js";
 import type { Layout } from "./layout.js";
 import { leadAlong, leadAskedAngle, leadFoot, leadStalkLength } from "./lead-shape.js";
 import { orreryCorePoint, orreryOrganR, orreryRx, orreryRy } from "./orrery-shape.js";
@@ -39,44 +41,11 @@ import { showsAntiphonOrgan, showsAntiphonRail, showsScuttleLive } from "./view-
 
 /**
  * **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY
- * and THE SCOUT are** — the second half of `caption-anchor-boss.ts`, split
- * off it on line count, and read the same way: each line asks the boss's
- * own shape file, and a part a screen does not draw is no ring at all.
+ * and THE SCOUT are** — the second of `caption-anchor-boss.ts`, split off it
+ * on line count, and read the same way: each line asks the boss's own shape
+ * file, and a part a screen does not draw is no ring at all. The ring itself
+ * is `caption-anchor-box.ts`, shared by all three.
  */
-
-const CLEAR = 16;
-
-interface Box {
-  x: number;
-  y: number;
-  rx: number;
-  ry: number;
-}
-
-function box(b: Box): AnchorPoint {
-  return { x: b.x, y: b.y, r: b.ry + 6, rx: b.rx + 6, clear: CLEAR };
-}
-
-/** A box round a set of points, each with radius `r`; null with no points. */
-function around(points: readonly { x: number; y: number }[], r: number): AnchorPoint | null {
-  if (points.length === 0) return null;
-  let left = Number.POSITIVE_INFINITY;
-  let right = Number.NEGATIVE_INFINITY;
-  let top = Number.POSITIVE_INFINITY;
-  let bottom = Number.NEGATIVE_INFINITY;
-  for (const p of points) {
-    left = Math.min(left, p.x - r);
-    right = Math.max(right, p.x + r);
-    top = Math.min(top, p.y - r);
-    bottom = Math.max(bottom, p.y + r);
-  }
-  return box({
-    x: (left + right) * 0.5,
-    y: (top + bottom) * 0.5,
-    rx: (right - left) * 0.5,
-    ry: (bottom - top) * 0.5,
-  });
-}
 
 export function bossAnchorB(
   l: Layout,
@@ -94,7 +63,8 @@ export function bossAnchorB(
   if (world.boss?.kind === "orrery") return orreryPart(l, cfg, part);
   const scout = scoutRound(world);
   if (scout !== null) return scoutPart(l, cfg, scout, part);
-  return null;
+  // The three of the third file, on the same line-count argument.
+  return bossAnchorC(l, world, part);
 }
 
 /**

@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-21 — boss-anchors-candle-baton-claw-diastole — four films of sixteen
+
+- reading — 15 min. The two anchor files and what each line of them asks; the
+  four films' hull pages one at a time, and the candle's, the baton's and the
+  diastole's draw files for the place each fixture really is.
+- writing — 30 min. `caption-anchor-box.ts` — the ring the three files had
+  three copies of — `caption-anchor-boss-c.ts` with the three bosses, two
+  `BossPart` names, nine pages moved off the hull and five tests.
+- looking — 10 min. One rehearsal frame of THE DIASTOLE's first page, which is
+  the whole of what changed: the ring is round the left chamber.
+- friction — 10 min. Biome's unused-parameter rule caught the diastole's state
+  being passed and never read, and the import sort had to be run twice as the
+  new file's name moved between the two neighbours it sorts between.
+- landing — 10 min.
+
+The bottleneck was reading rather than writing, and it is the shape of the
+whole entry: the code per film is ten lines, and deciding *what a page is
+about* is the work — two of THE CLAW's turned out to want `pod` and the cannon
+strip rather than a boss anchor at all.
+
 ## 2026-09-21 — stare-catch-on-the-button — a kind is not a control
 
 - reading — 20 min. The queue entry's two options, and finding the second one

@@ -39,7 +39,11 @@ export type BossPart =
   /** THE ORRERY's core in the middle of the orbits. */
   | "core"
   /** THE SCOUT's burning rocks crossing the arena — the navigator's. */
-  | "hazard";
+  | "hazard"
+  /** THE CANDLE's face: the mouth of the cone it eats flashes out of — the pilot's. */
+  | "face"
+  /** THE DIASTOLE's left chamber, the pilot's count and grey on the navigator's screen. */
+  | "left";
 
 export type SceneAnchor =
   | { at: "body" }

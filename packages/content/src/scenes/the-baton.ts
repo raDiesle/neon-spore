@@ -54,7 +54,7 @@ export const THE_BATON: GuideScene = {
     // The colour went with them, and deliberately: *CYAN NOW* was the film
     // saying the one sentence the pair exists to say to each other, and the
     // landing that flips the bead is drawn (`baton-bead-draw.ts`).
-    { tick: 0, seat: 1, text: "ONE SENDS · THE OTHER SHOOTS", anchor: { at: "hull" } },
+    { tick: 0, seat: 1, text: "ONE SENDS · THE OTHER SHOOTS", anchor: { at: "boss" } },
     // The rule the cue cannot carry: acting costs him the next beat, which is
     // the whole of why this boss has to be passed back and forth. The launch
     // at 750 is his and both neighbours are hers, so the page keeps his screen.
