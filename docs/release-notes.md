@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 43580db2 — Land a body on the skin, so the hull flashes the beat it is hit
+
+A slick spent its whole last beat sliding a tile down through the plating before the ship answered it. The strike was never late — it has always fired on the `breach` tick — but the hull row's centre is under the membrane, so the body crossed the skin halfway through the beat and was buried in the ship by the time the white crest went off, five eighths of a second after the pair had read the hit. `rock-landing.ts` already solved exactly this for meteors, and only for meteors; it is `landing.ts` now and it holds every body. A landing glide ends half-sunk in the skin, so the frame the body is seen to touch the hull is the frame the hull breaks.
+
 ## 2026-09-22 · cd5a8efa — THE SLOW's window gets a picture: the bar, and light round the boss
 
 A window used to say nothing. It now says two things. A notched bar above the hull counts it down, one notch swallowed a beat, closed to a point on the beat the game comes back up to speed. And fourteen soft streams of light run inward all the way round the boss, stopping at its skin — nothing is ever drawn over the body, which is held by clipping the whole of it out of the pass, head and the chain it hangs from, as one capsule along its own axis. All of it fades up and away over four tenths of a second inside the window, so it arrives from nothing and is gone on the beat the hurry ends.

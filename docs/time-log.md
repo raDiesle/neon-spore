@@ -16619,3 +16619,5 @@ tick and the probe said so in a line. What was early was the body — a whole
 tile of plating it slid down through over five eighths of a second before the
 sim resolved it — so the fix was in the glide and not in any clock, and half an
 hour spent proving that is why there was nothing to undo afterwards.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
