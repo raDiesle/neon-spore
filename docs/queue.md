@@ -300,6 +300,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A dim handle ring is an opaque black disc, and nine bosses draw one
 
 - **Found:** 2026-09-22, claude/queue-the-undertow-changes-state-more-than-once-and-as
+- **Taken:** 2026-09-22, claude/queue-the-undertow-changes-state-more-than-once-and-as (claim: claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni)
 - **Files:** `packages/render/src/handle-draw.ts`, `packages/render/src/balloon-handles.ts`, `packages/render/src/pinball-grip.ts`, `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/snake-grip.ts`, `packages/render/src/surge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/throat-grip.ts`, `packages/render/src/vane-grip.ts`
 
 `drawHandleRing` fills its circle with `PALETTE.background` before anything
