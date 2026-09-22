@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE BELLOWS's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Taken:** 2026-09-22, claude/queue-the-gimbals-picture-has-never-been-drawn (claim: claude/queue-the-bellowss-picture-has-never-been-drawn)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
 - **Needs:** THE BELLOWS is written and nobody has built its simulation
 - **Where:** local
