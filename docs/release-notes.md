@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 6c15d543 — Take THE GIMBAL's picture off the queue
+
+## 2026-09-22 · f4ffa573 — Answer a thumb on THE GIMBAL's rims, and say one word to each seat
+
+The body was drawn last lane and nothing on it could be touched. Now each seat's rim is a handle: a thumb anywhere on it reports a bearing about the drum, the knurl across the rim lights while the hand is on, and the mark's wedge fills when the ring stands true. The turn is read on the face the hand is on and mirrored once, in the simulation, for the ring gripped from the far side — so the navigator's clockwise is the wheel's counter-clockwise and neither screen says so. The cue is two words at once across the pair, TURN and then HOLD on each seat's own rim and FIRE over the leak with no seat on it, and never a direction.
+
 ## 2026-09-22 · ce6fa0f1 — Draw THE GIMBAL's body: two rings at right angles round a sealed drum
 
 Lane two of §18, first half. The boss had a complete simulation and no picture at all: ten events on both silent lists, two rings `unbuilt` in the director's table, four states posed on the STATES sheet and nothing else.
