@@ -554,23 +554,6 @@ swinging open toward the ship, which is a new silhouette — check
 rectangle with a stroke round it. One PNG to the owner when it moves, never a
 description.
 
-## THE BELLOWS is written and nobody has built its simulation
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-22, claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s (claim: claude/queue-the-bellows-is-written-and-nobody-has-built-its)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-
-`docs/spec/bosses-choreographed.md` §19 is a full design: two ordinary
-depth-drags (`bellowsPull`, `bellowsPush`, the pattern is `sinewLeft` and
-`sinewRight`), `Alternation` (THE BATON's own primitive) spent refusing
-whoever *didn't* just act rather than whoever did, and `SimultaneousAction`
-(THE BALLOON's own primitive) for the one beat both seats let go together.
-Four seams as hashed `World` fields, the wave entry with its guide, one test
-per receipt. Nothing here asks the engine for anything new — that is the
-design's own point, argued in §19's *Cost* line.
-
-The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
-
 ## THE BELLOWS's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
