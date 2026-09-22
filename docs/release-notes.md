@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 73824b59 — A test room code outside the alphabet is refused before there is a socket
+
+The room alphabet drops every lookalike, so a code written by hand into a test — `CGHI`, `CGHS`, a lower-case one, a short one — is one no room will ever hand out. `refuseUpgrade` answers it with a plain 400, which never becomes a socket: `res.webSocket` is null, every send goes nowhere, `said` never fills, and the first `settle("welcome")` polls until `OWN_RELAY_MS` is gone and fails on a timeout indistinguishable from the starved workerd every wait in that file was written against. Twenty seconds, and a cause that is not the cause.
+
 ## 2026-09-22 · ad07a05a — The resurrection guard asks the trunk's history, not only the merge base
 
 `5780141b` put a finished queue entry back on 19 September 2026, word for word and `Taken:` line and all, twelve commits after `6db42a92` removed it, with the guard running over that landing and saying nothing. The entry that recorded it concluded the evidence had not survived and only a longer sitting could settle which of the merge or the guard let it through.

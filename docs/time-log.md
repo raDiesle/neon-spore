@@ -16459,3 +16459,5 @@ finding names `I` as the absent letter, but B, O, S and Z are absent too and so
 is any lower-case code and any code of the wrong length, and a message that
 says only what this one case is would have been the same twenty seconds spent
 by the next lane, one letter over.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
