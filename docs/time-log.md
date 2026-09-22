@@ -16064,3 +16064,5 @@ The bottleneck was the picture that could not be taken: THE SCOUT's round is
 a flight, `--press` has no verb that flies it and `--boss-json` will not grow
 the list that holds the load, so both new rings had to be proved by counting
 a canvas log rather than by looking at one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
