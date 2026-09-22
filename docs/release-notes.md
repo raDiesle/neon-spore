@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 357d0b0b — Rear a body back off the hull so its last beat has height to fall through
+
+The owner, 22 September 2026: when the enemy touches the hull it must damage the ship in that moment, and right now it touches the ship for some moments and then switches to it. Resting a body half-sunk in the skin fixed where the landing beat ends and left what it looks like all the way through: the row above the hull is one body-radius above the plating, so a slick arrives already drawn lying on the ship and the even glide moved it half a finger's width over five eighths of a second. The pair watched a body sitting on the hull for a beat, and then the hull broke.
+
 ## 2026-09-22 · b71d15de — Take THE BELLOWS's simulation off the queue
 
 ## 2026-09-22 · def21604 — Build THE BELLOWS: one of you pulls the lung open, the other shuts it

@@ -16739,3 +16739,5 @@ numbers — the hull row's top edge, the row above it and the drawn radius — a
 printing them took one throwaway test and settled in a minute what twenty
 minutes of frames had only described. A body one row up is already tangent, so
 there was never any height for the last beat to fall through.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
