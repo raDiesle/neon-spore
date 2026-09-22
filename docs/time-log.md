@@ -16533,3 +16533,5 @@ takes two gestures off the front page because the first pop closes the menu,
 and the tempting fix — have `--back` count the presses for the caller — would
 have put a second copy of `back-ask.ts`'s rule in a camera, to go stale the day
 the rule changed. The flag says two and the documentation says why.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

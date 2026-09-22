@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · ee11ac15 — Take "No picture tool can photograph a card the back gesture opens" off the queue
+
+## 2026-09-22 · 50e302e4 — menu-shot can make the phone's back gesture, and wait for what it opens
+
+The card that asks whether to go back to the menu or quit is opened by the back gesture and by nothing else, so the one picture of it anybody has taken came from a throwaway Playwright script — the friction this tool exists to stop paying. `--back` is that gesture as a trail step, walked with the presses in `menu-trail.ts`, and `--screen` is the `.on` to wait for once the walking is done, since `#backAsk.on` is not on the page until the gesture has been made.
+
 ## 2026-09-22 · de98ed55 — A capture can stop N ticks before an event, not only on it
 
 `--until EVENT` stops on the tick an event fires, which is the wrong end of anything that stands between two of them: the screen between the waves is up for the 450 ticks that end when `needWave` fires, so `--until needWave` photographs the field after it has gone. `--until-back N` keeps the frame N ticks earlier instead. A world only goes forwards, so the run that finds the event is the search and the picture is taken by a second run of the same seed told to stop on the number it found — one more drive, on the same lent browser, and no ring of painted frames kept in memory.
