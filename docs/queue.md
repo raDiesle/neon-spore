@@ -2376,3 +2376,60 @@ The work is: read each clause of the two paragraphs against the tree, cut what
 now ships, and leave what is genuinely still missing under a heading that says
 what remains rather than *the picture*. The *Never watched at tempo* sentences
 stay — nobody has watched either at tempo.
+
+## Three SLOW:WINDOW candidates cannot be told from the shipped nothing
+
+- **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
+- **Files:** `tools/versus/candidates/slow-window/wash/paint.ts`, `tools/versus/candidates/slow-window/gutter/paint.ts`, `tools/versus/candidates/slow-window/frame/paint.ts`
+- **Where:** local
+
+The owner looked at the slot on 22 September 2026 and could not separate three
+of its four candidates from the shipped nothing. Two of the three are defects
+rather than taste, and both are visible in one `bun run versus:shot`:
+
+`wash` fills the far half of the field with `rgba(PALETTE.background, deep)` —
+the ground's own colour laid over the ground. It can only be seen where it
+crosses a body, and the pose it is judged on (THE SLOW · A WINDOW OPEN) has an
+almost empty upper field, so the patch moves a fraction of a per cent of the
+frame. Sinking a field that is already the sink colour is the whole idea of the
+candidate; it needs a different colour or a different layer, not a different
+number.
+
+`gutter` decays before an eye can catch it: `strike = max(0, 1 - phase) ** 3` is
+spent inside a fraction of the first beat, and `fuel = left / beats` halves what
+is left on the second. Its two glows are also centred exactly on `l.gridLeft`
+and `l.gridLeft + l.gridWidth`, so half of each radial falls outside the fill
+that carries it.
+
+`frame` is the *repeats before the animation finishes* complaint, and it is
+shared by all four of the old candidates: `drawFieldSlow` returns before `paint`
+the moment `slowing` goes false, so a candidate at full strength on the last
+frame of the window disappears in one frame. `frame`'s `shut = through ** 2`
+puts it at maximum thickness and maximum alpha exactly there. The three
+candidates added in the lane that found this fade to nothing over the last
+0.4 s inside the window instead (`tools/versus/candidates/slow-window/gather/aim.ts`),
+and that is the pattern to copy.
+
+The work is: make each of the three readable on its own terms without changing
+what it is saying, and prove each with `bun run versus:shot slow:window <name>
+--element .versus-row`, which prints the share of the frame the patch moves.
+
+## `aim.ts` is written three times because `adopt` moves only siblings
+
+- **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
+- **Files:** `tools/versus/candidates/slow-window/gather/aim.ts`, `tools/versus/candidates/slow-window/hush/aim.ts`, `tools/versus/candidates/slow-window/indraw/aim.ts`, `tools/versus/decide.ts`
+
+Three candidates in one slot answer the same two questions — where the thing
+being answered is on the layout, and how far up the look has faded — and the
+file that answers them is byte-identical in all three directories. It is copied
+rather than shared because `adopt` moves the files in the winning candidate's
+own directory and nothing else, so a candidate that imported a sibling's helper
+would land broken.
+
+The work is one of two: let `adopt` follow a relative import out of the
+candidate's directory when the file it reaches is under the slot, and move it
+in too; or give a slot a directory of its own for shared helpers that `adopt`
+knows to copy from. Either ends the rule that a second candidate in a slot pays
+for the first one's geometry again. Until then every slot with more than one
+candidate carries the same duplication, and a fix to one copy is a fix to one
+copy.

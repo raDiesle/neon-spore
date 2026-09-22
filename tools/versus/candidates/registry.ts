@@ -13,7 +13,10 @@ import { LOST_SPLASH } from "./lost-screen/splash/index.js";
 import { SLOW_DRAIN } from "./slow-window/drain/index.js";
 import { SLOW_FOCUS } from "./slow-window/focus/index.js";
 import { SLOW_FRAME } from "./slow-window/frame/index.js";
+import { SLOW_GATHER } from "./slow-window/gather/index.js";
 import { SLOW_GUTTER } from "./slow-window/gutter/index.js";
+import { SLOW_HUSH } from "./slow-window/hush/index.js";
+import { SLOW_INDRAW } from "./slow-window/indraw/index.js";
 import { SLOW_WASH } from "./slow-window/wash/index.js";
 
 export const VARIANTS: Variant[] = [
@@ -24,6 +27,9 @@ export const VARIANTS: Variant[] = [
   SLOW_DRAIN,
   SLOW_FOCUS,
   SLOW_FRAME,
+  SLOW_GATHER,
   SLOW_GUTTER,
+  SLOW_HUSH,
+  SLOW_INDRAW,
   SLOW_WASH,
 ];

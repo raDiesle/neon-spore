@@ -16302,3 +16302,36 @@ the thing a seat's own screen is one disc short of, took longer than the change
 it proves.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — slow-window-visual-candidates — three that open and shut on nothing
+
+- reading — 35 min. Not a queue entry but a complaint: the owner could not tell
+  three of the four SLOW:WINDOW candidates from the shipped nothing, and wanted
+  DRAIN's bar placed against the clock. So the reading was the four `paint.ts`
+  files for what each actually lays down, then `slow-look.ts`, `config-slow.ts`
+  and `poses-slow.ts` to turn *two beats* into seconds a person can hold: the
+  window is 1.24 simulated seconds and 3.73 real ones, and the pose repeats
+  every 6.
+- writing — 60 min. Three candidates to the owner's brief — `gather`, `hush`,
+  `indraw` — and the helper they share, whose `ramp` spends his 0.4 s of lerp
+  *inside* the window at both ends, because `drawFieldSlow` returns before
+  `paint` the moment the window shuts and there is no frame after it to fade on.
+- looking — 70 min. Eleven `versus:shot` runs and three filmstrips. Two of them
+  were corrections rather than proof: `indraw` moved 0.9% of the frame on its
+  first picture — `wash`'s failure exactly — and at nine beads a stream read as
+  a dotted line, which is the one shape the brief rules out. Eighteen beads at
+  half the alpha each is what made it a stream.
+- friction — 25 min. A backgrounded loop of seven pair shots produced nothing in
+  forty minutes and had to be killed and re-run in the foreground, while
+  identical foreground shots went through in fifty seconds each. `bun run probe`
+  refuses a script outside `tools/probe/`, and `bun run crop --at` exited 1
+  without saying why.
+- landing — 15 min. Two queue entries, one of which named `tools/versus/adopt.ts`
+  — a file that does not exist; `adopt` lives in `decide.ts`, and `doc-drift`
+  caught it.
+
+The bottleneck was **looking, one process at a time**. `versus:shot` starts its
+own director and its own browser per picture, so every frame costs the better
+part of a minute, and a candidate cannot be judged any other way — the two
+corrections above were both invisible to `bun run check` and obvious in the
+first shot.
