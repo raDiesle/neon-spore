@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 91ced5f5 — Give THE LEDGER's root one ring for both of the navigator's hands
+
+The foot of the cord and her thumb in the socket were heard by the simulation from the day they were written and drawn nowhere: no ring, no branch of touch.ts, no seat that could see one. They now share a single circle on the root of the cord, because they are the same hand on the same thing at two times — the foot only while it is `rooting`, the plug from `paying` on, never both — so the movement says which gesture it is and the pair learns one sentence, *your hand is on the root*. Two rings a radius apart would have taught them the root has a handle and a handle beside it.
+
 ## 2026-09-22 · 877b51b6 — Give THE TASTER's fan three thumbs to take hold of
 
 The pin, the wipe and the pry shipped into the simulation on 18 September with nothing drawn to take hold of: no ring, no branch of touch.ts, no seat that could see one. Each has a ring on the thing it takes hold of now, the pilot's pin on the root of a blade that has not decided, the navigator's wipe in the air over a column a blade was struck off in, and the pilot's pry on the middle of a closed interlock. A look with no shipped alternative: there was no drawing of any of the three to run a candidate against.
