@@ -16121,3 +16121,5 @@ The bottleneck was deciding what each ring may cover: a disc fills opaquely,
 and this boss is read entirely off the lit edge of a blade, so the pin and the
 pry went to the root and hers went into the empty air above the notch rather
 than onto it — the notch's sheen is the fight's own progress bar.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

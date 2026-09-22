@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 877b51b6 — Give THE TASTER's fan three thumbs to take hold of
+
+The pin, the wipe and the pry shipped into the simulation on 18 September with nothing drawn to take hold of: no ring, no branch of touch.ts, no seat that could see one. Each has a ring on the thing it takes hold of now, the pilot's pin on the root of a blade that has not decided, the navigator's wipe in the air over a column a blade was struck off in, and the pilot's pry on the middle of a closed interlock. A look with no shipped alternative: there was no drawing of any of the three to run a candidate against.
+
 ## 2026-09-22 · aaefc8bf — Give PINBALL's table one handle a shot to take hold of
 
 The plunger and the shove shipped in the simulation on 18 September 2026 and nothing was drawn for either: a spring his own hard launch had left slack looked exactly like a wound one, and a ball falling with a nudge still in hand looked exactly like a table already tilted. `render/pinball-grip.ts` holds both circles, both gates and the drawing, and the pair are the only two here that cannot both be on a screen — the plunger is offered through the `power` shot and the shove through the `flight` that follows it, so the round hands out one handle a shot and never two.
