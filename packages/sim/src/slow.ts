@@ -88,6 +88,36 @@ export function openSlow(world: World, beats: number): void {
 }
 
 /**
+ * **Shut the window here, this tick.**
+ *
+ * The mirror of `openSlow`: that one moves the end out, this one brings it
+ * back to now, and because `slowing` is half-open the field is at full rate on
+ * the very tick this is called — which is the whole of what it is for.
+ *
+ * The owner's rule, 22 September 2026, generic to every choreographed boss:
+ * *the slow effect must take place in the moment any action on the game screen
+ * is required, and when succeeded or failed the action step, it immediately
+ * stops the slow effect.* A window that ran on past the answer spent its
+ * drama on a field where nothing was being asked, and the pair read the
+ * leftover as lag rather than as weight. So a scene opens one when it starts
+ * asking and closes one the instant it stops — landed or struck, the same
+ * call either way.
+ *
+ * **Not a fade.** A look that wants to leave gently has to do it inside the
+ * window's own last beats (`render/slow-intake-aim.ts` `ramp` does exactly
+ * that); the rate itself snaps, because the answer is the moment and a rate
+ * still returning is a moment still going.
+ *
+ * `slowFromBeat` is left where it was and never re-read once the window is
+ * shut, for the same reason `openSlow` keeps it: the pair had one window, and
+ * anything asking about it mid-tick should get the one they had.
+ */
+export function closeSlow(world: World): void {
+  if (!slowing(world)) return;
+  world.slowToBeat = world.beat;
+}
+
+/**
  * Nothing slowed. Called by `startWave` for the reason every other wave-local
  * field is cleared there: a window inherited across a wave would open the next
  * one at a third rate with nothing dramatic happening in it.

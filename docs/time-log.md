@@ -16985,3 +16985,26 @@ it paid for itself: the finale is THE SURGE's lift exactly, `STILL`/`LIFT` and
 all, so that word did not have to be invented.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — slow-spans-the-window — the slow moved onto the asking
+
+- reading — 10 min. Where THE SLOW is opened and by whom: one call per
+  choreographed boss, and the four documents that had written the old rule
+  down as a fact about THE INSTAR rather than as a decision.
+- writing — 45 min. `closeSlow` and its two callers, the landing's `openSlow`
+  taken out and the step's put in, three new cases in `sim/test/instar.test.ts`
+  and two old ones inverted, the bar moved under the body and its notches
+  grouped, `render/test/slow-bar.test.ts`, and the rule written into
+  `decisions.md` #33, the choreographed sheet, the `new-boss` skill, §11.32 and
+  the two director strings.
+- looking — 15 min. Four `bun run frames` of the wave: the first showed a comb
+  of twenty-three notches a side, the second eight a side, the third five, and
+  the last the picture sent.
+- friction — 5 min. The bar's own rects passed the new test's notch filter once
+  the bar had shrunk narrower than a notch is wide; the filter reads height now.
+- landing — 15 min. `doc-drift.test.ts` timed out under shard contention again
+  and passed alone in under two seconds, which is the same flake as the last
+  two lanes.
+
+The bottleneck was the picture: the change itself was four lines of simulation,
+and the three passes over the bar's notch count were most of the wall clock.

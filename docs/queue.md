@@ -2417,6 +2417,15 @@ merely takes a while), double each one's window, raise the count beside it, and
 move the tests that assert the old figures. A boss whose window is not a window
 the pair acts in is named in the commit as left alone and why.
 
+**The same lane carries the second half of that rule**, filed 22 September
+2026 from `claude/slow-spans-the-window`: a step's window *is* THE SLOW, opened
+when the action is asked for and shut the tick it succeeds or fails
+(`docs/decisions.md` #33). THE INSTAR does this now; every boss above whose
+window turns out to be one the pair acts inside wants `openSlow` moved to the
+ask and `closeSlow(world)` on both exits, and the plain `openSlow` it has today
+kept only where the moment asks for nothing — a death, a fall, an arrival. The
+two halves are one decision per boss, which is why they are one item.
+
 ## `bun run sheet` sheets frames an earlier capture left behind
 
 - **Found:** 2026-09-22, claude/touch-is-the-damage

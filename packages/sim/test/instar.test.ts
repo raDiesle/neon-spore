@@ -12,6 +12,7 @@ import {
   instarMarkDone,
   NOT_DONE,
   type SimConfig,
+  slowing,
   startWave,
   step,
   type TimedCommand,
@@ -31,8 +32,10 @@ import { NOT_FAILED } from "../src/wave-fail.js";
  * of by the lift; that a swipe counts on the lift and only past the line;
  * that a turn winds clockwise and nothing else; that a hold is both thumbs
  * and time; that the wrong seat is refused and moves nothing; that the
- * window closing on an undone mark is one strike and the wave; and that the
- * last landing is THE SLOW, the body down, out, and the wave cleared.
+ * window closing on an undone mark is one strike and the wave; that THE SLOW
+ * is open for exactly the beats the pair is being asked for something and
+ * shuts on the tick they answer or miss; and that the last landing is the
+ * body down, out, and the wave cleared.
  *
  * The fingerprint is compared between two runs in one process rather than
  * pinned (`docs/decisions.md` #19).
@@ -147,9 +150,9 @@ describe("a step with a mark for each seat", () => {
     seen = runTo(world, u + 2, [thumb(u, 2, 1, true, 0), thumb(u + 1, 2, 1, true, -1000)]);
     expect(seen.has("instarLand")).toBe(true);
     expect(s.phase).toBe("land");
-    // Every landing is THE SLOW, opened on the tick the step landed.
-    expect(world.slowFromBeat).toBe(world.beat);
-    expect(world.slowToBeat).toBe(world.beat + CFG.instarSlowBeats);
+    // Landed is full rate, on the tick it landed: the window belonged to the
+    // asking and the asking is over (`slow.ts` `closeSlow`).
+    expect(slowing(world)).toBe(false);
     seen = runTo(world, world.tick + TPB * LAND + TPB);
     expect(seen.has("instarMorph")).toBe(true);
     expect(s.cursor).toBe(1);
@@ -340,6 +343,38 @@ describe("the window", () => {
   });
 });
 
+describe("the window is the slow", () => {
+  it("opens at a third rate the beat the marks come up, for the window's own beats", () => {
+    const world = install([scripted(mark("p1", "tap", 1))]);
+    const s = instar(world);
+    expect(slowing(world)).toBe(false);
+    shown(world);
+    expect(slowing(world)).toBe(true);
+    // The same span `instarStrikeBeat` counts: the rate is a third for exactly
+    // as long as the pair is being asked for something.
+    expect(world.slowFromBeat).toBe(s.phaseBeat);
+    expect(world.slowToBeat).toBe(s.phaseBeat + WINDOW);
+  });
+
+  it("shuts on the tick the step is answered", () => {
+    const world = install([scripted(mark("p1", "tap", 1))]);
+    shown(world);
+    expect(slowing(world)).toBe(true);
+    const seen = tap(world, 1, 0);
+    expect(seen.has("instarLand")).toBe(true);
+    expect(slowing(world)).toBe(false);
+  });
+
+  it("shuts on the strike, so a failed step is not played slowly either", () => {
+    const world = install([scripted(mark("p1", "tap", 1))]);
+    shown(world);
+    expect(slowing(world)).toBe(true);
+    const seen = runTo(world, TPB * (MORPH + WINDOW) + 1);
+    expect(seen.has("instarStrike")).toBe(true);
+    expect(slowing(world)).toBe(false);
+  });
+});
+
 describe("the last step", () => {
   it("landed is THE SLOW, the body down, then out, and the wave cleared", () => {
     const world = install([scripted(mark("p1", "tap", 1))]);
@@ -350,12 +385,11 @@ describe("the last step", () => {
     seen = runTo(world, world.tick + TPB * LAND + TPB);
     expect(seen.has("instarDown")).toBe(true);
     expect(s.phase).toBe("down");
-    // The landing's window is still up when the body goes down, so the two are
-    // one window and not two (`slow.ts` `openSlow`): the end moved, the start
-    // stayed at the landing. What `instarSlowBeats` buys is measured from the
-    // down, which is `s.phaseBeat`.
+    // The body going down is its own dramatic beat and not an action window,
+    // so it opens a fresh one of `instarSlowBeats` from the down — the step's
+    // own window shut on the landing, beats earlier.
+    expect(world.slowFromBeat).toBe(s.phaseBeat);
     expect(world.slowToBeat).toBe(s.phaseBeat + CFG.instarSlowBeats);
-    expect(world.slowFromBeat).toBeLessThan(s.phaseBeat);
     expect(world.restBeat).toBe(0);
     seen = runTo(world, world.tick + TPB * (CFG.instarOutBeats + 1));
     expect(seen.has("instarOut")).toBe(true);

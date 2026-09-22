@@ -175,8 +175,10 @@ export const CHOREO_NOTES_B = {
     "step with a mark per seat lands only when both are done within " +
     "instarTogetherBeats of each other, else the first slips; a swipe counts " +
     "on a lift past instarSwipeMilli. A window closing on an undone mark is " +
-    "one strike on the hull, which is the wave. The last landing opens THE " +
-    "SLOW instarSlowBeats and the body hangs instarOutBeats more. See " +
+    "one strike on the hull, which is the wave. Every window is THE SLOW: it " +
+    "opens when the marks come up and shuts the tick the step is answered or " +
+    "missed, so the asking is slowed and the landing is not. The fall opens " +
+    "its own, instarSlowBeats, and the body hangs instarOutBeats more. See " +
     "sim/instar.ts, sim/instar-hand.ts, sim/config-instar.ts.",
   "THE FILAMENT — the boss whose line one of you draws while the other follows it":
     "Designed on 18 September 2026 in docs/spec/bosses-choreographed.md §17 " +

@@ -6968,8 +6968,20 @@ names, to the amount it names — with the step's marks done inside
 `instarTogetherBeats` (2) of each other, before `windowBeats` have run;
 then the beat is landed (`instarLand`), the body settles for `landBeats`
 and morphs into the next, and after the last it goes down under THE SLOW
-(`instarDown`, `instarSlowBeats` 2) and is out `instarOutBeats` (3) later
+(`instarDown`, `instarSlowBeats` 4) and is out `instarOutBeats` (3) later
 (`instarOut`), which is when the wave may end (`bossHoldsWave`).
+
+**THE SLOW is the window, and nothing else** (`decisions.md` #33, the
+owner's rule of 22 September 2026, generic to every choreographed scene).
+It opens on the tick the marks come up and runs `windowBeats`
+(`instar-step.ts`); it shuts on the tick the step is answered
+(`instar-marks.ts` `landStep`) or the tick the window runs out and the
+part strikes — `closeSlow` moves the end to the current beat, so the very
+next tick is at full rate. The asking is what is slowed, so the pair have
+the field's slowest seconds for the only thing the scene ever asks them to
+do; the landing, the settle and the next morph play at tempo. The fall is
+the one slow left that is not a window: a death is a dramatic beat and
+asks for nothing.
 
 **A mark is one `Command`.** Every gesture is a `drag` on the `instarMark`
 target with `id` naming the mark, and the six gestures are read off what a
@@ -7100,9 +7112,12 @@ briefing*. Both are in the picture.
   **closes on it** over `windowBeats`, brightening as it shrinks, and the
   marks **grow out of their parts** over the last two fifths of the morph,
   faint, so the eye is already on the place when the window opens.
-- **Every landing is THE SLOW** (`instarSlowBeats`, `decisions.md` #33),
-  not only the last: the part giving is the beat the pair earned and the
-  field runs at a third for two beats of it, on both screens together.
+- **Every window is THE SLOW** (`decisions.md` #33): the field runs at a
+  third from the tick the marks come up until the tick the step is
+  answered or missed, on both screens together — the asking slowed rather
+  than the reward, which is the owner's rule of 22 September 2026. The
+  measure under the body counts that window down (`slow-intake-bar.ts`),
+  so what it reads is the time left to answer.
 - **What outlives a frame** is `effects.boss.instar` (`instar-fx.ts`,
   `effects-boss.ts`): a jolt of the whole body on a landing and the fall,
   a flinch at a refused or slipped mark, a red lash from the striking part

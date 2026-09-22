@@ -12,7 +12,7 @@ import {
   NOT_DONE,
 } from "./instar.js";
 import { answerMark, armMarks, slipMark } from "./instar-marks.js";
-import { openSlow } from "./slow.js";
+import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -69,6 +69,9 @@ function strike(world: World, s: InstarState): void {
     const mark = step.marks[i];
     if (mark === undefined || instarMarkDone(s, i)) continue;
     const col = instarMarkCol(world.cfg, mark);
+    // Failed is over, and over is full rate: the window closes on the strike
+    // exactly as it closes on a landing (`slow.ts` `closeSlow`).
+    closeSlow(world);
     world.events.push({ type: "instarStrike", part: mark.part, col });
     breachHull(world, col, "meteorFastest", 0, "heavy");
     return;
@@ -116,6 +119,12 @@ export function stepInstar(world: World, s: InstarState): void {
     s.phase = "act";
     s.phaseBeat = world.beat;
     armMarks(s);
+    // **The window is the slow.** Opened for the step's own `windowBeats` from
+    // this beat, which is the same span `instarStrikeBeat` counts, so the rate
+    // is a third for exactly as long as the pair is being asked for something
+    // and not one beat longer (`slow.ts` `closeSlow`, and the owner's rule in
+    // its header). Both devices reach this line on the same tick.
+    openSlow(world, step.windowBeats);
     world.events.push({ type: "instarShow", step: s.cursor, col: mid });
     return;
   }

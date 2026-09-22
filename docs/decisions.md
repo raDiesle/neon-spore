@@ -1064,6 +1064,42 @@ above went on with it: `frame.ts` interpolates while a window is open whether
 or not the flag is set, under *a look with no shipped alternative*. THE
 DIASTOLE ([bosses](spec/bosses.md) §11.17) is the first and so far only caller.
 
+**When it opens and when it shuts, on a choreographed boss.** *22 September
+2026.* The owner, generic and in his words:
+
+> slow effect must take place in the moment any action on the game screen is
+> required and when succeeded or failed the action step, it immediately stops
+> the slow effect. This is a generic rule for choreographed bosses
+
+THE INSTAR shipped with the opposite: the window opened on the *landing*, as a
+reward for the beat the pair had earned, and the asking itself ran at tempo.
+That is backwards on the only thing this mechanism is worth anything for. A
+scene's window is the pair's hardest half-minute — two seats working out whose
+mark is whose and saying it out loud across a voice delay — and slow motion
+there is *time*, which is the one thing a conversation under pressure needs. On
+the landing it was decoration over a beat already won.
+
+So on a choreographed boss **THE SLOW spans the asking exactly**: `openSlow` on
+the tick the marks come up, for the step's own `windowBeats`, and `closeSlow`
+on the tick the step is answered or the tick it is missed. `closeSlow` is the
+mirror of `openSlow` and the reason this can be exact — it moves `slowToBeat`
+to the current beat, so `slowing()` is false on the very next tick rather than
+fading out (`sim/slow.ts`). Both devices reach both calls inside the same step
+on the same tick, so #23's guarantee above is untouched: the boundaries are
+still two hashed integers both phones agree on.
+
+**A death is not an action step.** THE INSTAR's fall still opens a plain
+`instarSlowBeats` window (`instar-step.ts`): the rule governs *the asking*, and
+a dramatic beat that asks for nothing is what the mechanism was built for in
+the first place. The distinction to carry to the next scene is whether a thumb
+is wanted, not whether the moment is loud.
+
+**And the measure follows it.** `slow-intake-bar.ts`'s notched bar counts the
+window down, so once the window is the asking the bar reads as *time left to
+answer before the step fails* rather than as a rest between steps — which is
+what the owner asked it to say the same day. It hangs under the boss's body
+for the same reason.
+
 **Consequences.** `docs/spec/transfers.md`'s filter line is amended to say
 *asymmetric* rather than any wobble, and points here.
 `docs/spec/bosses-choreographed.md` is rewritten around this rather than around

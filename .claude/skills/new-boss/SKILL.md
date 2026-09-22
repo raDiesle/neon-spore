@@ -225,6 +225,18 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   need raised with it, because a long window with a small need is a step that
   lands itself and the drama goes out of it. Both halves, never one.
   THE INSTAR's own script is the worked example (`content/instar-script.ts`).
+- **A step's window is exactly THE SLOW** (22 September 2026, generic, in
+  his words *"slow effect must take place in the moment any action on the
+  game screen is required and when succeeded or failed the action step, it
+  immediately stops the slow effect"*). So a scene calls `openSlow(world,
+  step.windowBeats)` on the tick the marks come up and `closeSlow(world)` on
+  the tick the step is answered or missed — never on the landing, which is a
+  beat already won. The slow is *time to talk in*, and the only moment the
+  pair need it is while they are working out whose mark is whose. A death or
+  a fall, which asks for nothing, keeps its own plain window
+  (`decisions.md` #33, `sim/slow.ts`). The measure the pair read follows
+  from it: the bar under the boss counts the window down, so it says *time
+  left before this step fails* (`render/slow-intake-bar.ts`).
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss
