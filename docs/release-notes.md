@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · ca4b0723 — A choreographed window is twice as long, and asks twice as much
+
+The owner, 22 September 2026, generic to every choreographed scene: double the time the pair have to do the action, and let it require some more clicks of the action required, so the beat is not over too quick. Both halves, not one — a longer window with the old count is a step that lands itself, and the drama goes out of it.
+
 ## 2026-09-22 · 43580db2 — Land a body on the skin, so the hull flashes the beat it is hit
 
 A slick spent its whole last beat sliding a tile down through the plating before the ship answered it. The strike was never late — it has always fired on the `breach` tick — but the hull row's centre is under the membrane, so the body crossed the skin halfway through the beat and was buried in the ship by the time the white crest went off, five eighths of a second after the pair had read the hit. `rock-landing.ts` already solved exactly this for meteors, and only for meteors; it is `landing.ts` now and it holds every body. A landing glide ends half-sunk in the skin, so the frame the body is seen to touch the hull is the frame the hull breaks.
