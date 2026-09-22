@@ -17071,3 +17071,5 @@ to name a new boss — a sound with no subject, a state with no pose, a prose
 guide's count, a `SimConfig` field no document mentions — none of which the
 sim's own files can point at. Every one was found by running the suite and
 reading the failure, not by reading a list.
+
+*Measured: 19 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · c94396fb — Take THE HASP's simulation off the queue
+
+## 2026-09-22 · 51dbd126 — Hold a latch nobody can see, and turn the wheel it frees
+
+THE HASP's simulation, wave 100 and docs/spec/bosses.md §11.36: a door of three iron clasps where the pilot holds a latch that shows him nothing but his own hand's heat, and the navigator's wheel turns only while, somewhere she cannot see, that latch is held. The gate cost the engine nothing — two DragTarget names and one haspHeld read on the tick in the boss's own hand file — which is what §20 of the design page was written to find out.
+
 ## 2026-09-22 · b9d1fdcf — Keep THE SPOOL's words in budget and split the act table off the save
 
 The words checker holds every subject on `CLEAN` to all six rules, and THE SPOOL went on it: its mechanic sentence and two of its guide lines were over the word budget, so all three say the same thing shorter. And act eleven's two lines took `waves-acts.ts` to 254; the table of act files is now `waves-act-files.ts`, re-exported, which cuts between the half that grows on its own and the save machinery that has not changed in a fortnight.
