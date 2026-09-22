@@ -16483,3 +16483,5 @@ does now, so the first fifteen minutes went on establishing that the cut it
 asked for had already been made and the file was still at the ceiling. A
 finding that names the fix is worth more than one that does not, and is also
 the one most likely to have been overtaken.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

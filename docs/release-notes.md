@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 6f7f180d — The stage's own tick moves out of the wiring, and gets a test
+
+`stage.ts` sat at 250 lines exactly, which passes the limit and leaves the next lane nothing: the lane that got it there had to fold a two-line comment about why the cue key ticks before the world down to a trailing one, and the lane after that had three words to say at the loop's call and nowhere to put them.
+
 ## 2026-09-22 · 73824b59 — A test room code outside the alphabet is refused before there is a socket
 
 The room alphabet drops every lookalike, so a code written by hand into a test — `CGHI`, `CGHS`, a lower-case one, a short one — is one no room will ever hand out. `refuseUpgrade` answers it with a plain 400, which never becomes a socket: `res.webSocket` is null, every send goes nowhere, `said` never fills, and the first `settle("welcome")` polls until `OWN_RELAY_MS` is gone and fails on a timeout indistinguishable from the starved workerd every wait in that file was written against. Twenty seconds, and a cause that is not the cause.
