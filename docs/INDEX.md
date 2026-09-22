@@ -1615,6 +1615,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
+| `packages/render/src/bellows-draw.ts` | **THE BELLOWS**: a double-chambered lung slung across the top of the field |
+| `packages/render/src/bellows-fx.ts` | What THE BELLOWS leaves behind a frame |
+| `packages/render/src/bellows-handle.ts` | **The end of one housing and the handle hanging off it** |
+| `packages/render/src/bellows-pose.ts` | **How far through a pose THE BELLOWS is**, and how full each chamber is drawn |
+| `packages/render/src/bellows-shape.ts` | **Where THE BELLOWS is**, in field pixels: the two ribbed housings and the handle hanging under each |
+| `packages/render/src/bellows-waist.ts` |  |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/candle-dark.ts` | **THE CANDLE's dark**: the field going black |

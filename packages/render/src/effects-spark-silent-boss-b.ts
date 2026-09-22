@@ -81,12 +81,13 @@ export const SILENT_BOSS_B = [
   "gimbalSeamHit",
   "gimbalHatch",
   "gimbalOut",
-  // THE BELLOWS's sixteen, silent for the reason its ingest rows are: the
-  // handles, the marks and the seams are all state the picture already
-  // holds, and a spark thrown for a stroke landing would be a second answer
-  // beside the handle the thumb is on. The look lane takes them out of this
-  // list, or says here why it did not (`sim/bellows.ts`,
-  // `docs/spec/bosses.md` §11.35).
+  // THE BELLOWS's sixteen throw no burst from this table either: they are one
+  // family read above the loop, like THE GIMBAL's above, and every burst of
+  // theirs — over the chamber of whichever seat acted, in the middle for
+  // everything the waist does, and at the hull for the spark nobody shot — is
+  // thrown by `bellows-fx.ts`, which is also where the shudder, the jolt and
+  // the glare live. That is the look lane's answer to the line this comment
+  // used to carry (`docs/spec/bosses.md` §11.35).
   "bellowsEnter",
   "bellowsMarks",
   "bellowsPulled",

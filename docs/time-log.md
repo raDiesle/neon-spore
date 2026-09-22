@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-bellowss-picture-has-never-been-drawn — the body, half one
+
+- reading — 25 min. §11.35 in full, then `sim/bellows.ts` and
+  `config-bellows.ts` for what a frame may read — the seven phases, the four
+  seams, `bellowsTurn`, `bellowsDepthMilli`, `bellowsChamberCol` — and THE
+  GIMBAL's look next door as the shape to copy: shape page, phase clock,
+  drawer, fx, roster field, silent lists, frame test.
+- writing — 65 min. Six render pages — `bellows-shape.ts` (the housings, the
+  folds and the rail the hit test will share), `bellows-waist.ts` (the health),
+  `bellows-pose.ts` (the phase clock and the fill that is the whole morph),
+  `bellows-draw.ts`, `bellows-handle.ts`, `bellows-fx.ts` — plus the two
+  predicates, the branch and its kind, the roster field and three verbs, both
+  silent lists' reasons, §11.35's *The look*, the choreographed ledger's row,
+  and `bellows-frame.test.ts`: ten states on three screens.
+- looking — 0 min. Nothing to look at until the frame is sent, and the picture
+  went out as one PNG after the landing rather than as a screenshot mid-lane.
+- friction — 15 min. Three: the size hook twice, which split the waist off the
+  shape page and the handle off the drawer — both cuts the boss's own, so the
+  ceiling wrote the file list rather than the other way round; and three test
+  assertions counting a colour the stub never logs, because a fill goes down as
+  `rgba` and only a glow's stroke carries the palette's hex.
+- landing — 10 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **the ceiling arriving mid-page twice**: a body and its
+waist, a drawer and its handle, each written as one thought and then cut in
+two — and each cut only obvious once the page it was in already existed.
+
 ## 2026-09-22 — queue-the-gimbals-picture-has-never-been-drawn — the grip, half two
 
 - reading — 30 min. The two rings were drawn and nothing answered a thumb, so

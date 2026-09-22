@@ -45,13 +45,14 @@ export const INGEST_SILENT_BOSS_C = [
   "gimbalSeamHit",
   "gimbalHatch",
   "gimbalOut",
-  // THE BELLOWS's sixteen, silent **until the look lane draws it**: every
-  // one of them is a state the picture already holds. Which seat the lung is
-  // waiting on, how deep each handle has been carried, how many seams are
-  // left and whether a spark is leaking are all read off the boss every
-  // frame, and a mark that outlived the frame would be a second answer to
-  // *whose beat is it* beside the two handles themselves
-  // (`sim/bellows.ts`, `docs/spec/bosses.md` §11.35).
+  // THE BELLOWS's sixteen are one family read above the loop, the way THE
+  // GIMBAL's are: the shudder of a jam, the jolt of a seam letting go, the
+  // glare of the vent and every burst are `effects.boss.bellows`'s
+  // (`bellows-fx.ts`). Which seat the lung is waiting on, how deep each
+  // handle has been carried, how many seams are left and whether a spark is
+  // leaking stay read off the boss every frame — a mark that outlived the
+  // frame would be a second answer to *whose beat is it* beside the two
+  // handles themselves (`bellows-draw.ts`, `docs/spec/bosses.md` §11.35).
   "bellowsEnter",
   "bellowsMarks",
   "bellowsPulled",

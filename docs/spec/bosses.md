@@ -7820,13 +7820,43 @@ everything the waist does comes from the middle, so a pair that has stopped
 looking at each other's screens can hear the exchange going back and forth.
 The seam pitches up per seam gone.
 
-**What is not built is the look.** Every one of the sixteen events is on both
-silent lists (`render/effects-ingest-silent-boss-c.ts`,
-`effects-spark-silent-boss-b.ts`), the two handles have no `FIELD_CONTROLS`
-row, and the seven states are posed on the STATES sheet and nothing else. Lane
-two is its own item on `docs/queue.md`: the ribbed housings, the waist with
-its four gaps, the handle each seat is shown on its own side at the depth
-their thumb has it, the spark out of a parted gap, and the split.
+**The look** (`render/bellows-draw.ts`, half one of lane two). A ribbed
+housing over each seat's own column and the leather waist between them, hung
+across the top of the field. **One number is the whole morph**: how far a
+housing is drawn out (`bellows-pose.ts`, `bellowsFillMilli`), eased over each
+phase's own beats, so the five poses — shut and still, his chamber drawn open
+under his thumb, hers pressed flat as the breath crosses, both caught halfway
+and shuddering in a jam, both swollen on the last seam — are one body moving
+rather than five pictures cut between. The folds are drawn and not counted: a
+chamber at half its reach has the same five folds at half the pitch.
+
+*The health is the waist* (`bellows-waist.ts`): four stitches, the parted ones
+standing open and lit, the leather pinching thinner with every gap, and the
+waist unzipping from the pilot's side so the eye has a direction to read it in.
+Nothing prints the number. *The perspective changes once*, in the vent: the
+halves fall away from each other and turn on their caps to show the hollow they
+have been squeezing all fight (`bellowsMouthPath`). *The reactions* — the
+shudder of a jam, the jolt of a seam letting go, the glare of the vent — are
+`effects.boss.bellows` and are applied to the context, so the lung moves as one
+rigid body and a handle can never shake loose of the chamber it works
+(`bellows-fx.ts`); the sixteen events' bursts are thrown over the chamber of
+whichever seat acted, in the middle for everything the waist does, which is the
+rule the sounds pan by.
+
+*Each seat is shown its own handle and not the other's*
+(`view-role-clocks-b.ts`, `bellows-handle.ts`). Both are shown the whole lung —
+how far each chamber is drawn out is exactly what *now* and *not yet* are said
+about — and what a screen does not carry is the other seat's rail, since a
+handle drawn where no thumb at that desk can reach it is a thing to point at
+instead of a thing to say. A cap and a bar glow while the lung is waiting on
+that seat, and both glow at once on the last seam, which is the one beat of the
+fight the pair acts together. `render/test/bellows-frame.test.ts` sets every
+pose on all three screens and proves the split both ways.
+
+**What is not built is the hands.** The two handles have no `FIELD_CONTROLS`
+row and no hit test, so nothing on the field answers a thumb yet; the cue's
+word, the desk keys and the director's gallery poses come with them. Half two
+is its own item on `docs/queue.md`.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/bellows.test.ts`): the lung comes in tight and lights its first

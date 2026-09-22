@@ -1,5 +1,6 @@
 import { AfterImage } from "./after-image.js";
 import { AntiphonFx } from "./antiphon-fx.js";
+import { BellowsFx } from "./bellows-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
@@ -138,4 +139,8 @@ export class BossRoster {
    * off the cradle's own centre, which is arithmetic over the layout rather
    * than a place the drawer has to report (`gimbal-fx.ts`, `gimbal-shape.ts`). */
   readonly gimbal = new GimbalFx();
+  /** THE BELLOWS's shudder, jolt and glare, and its receipts' bursts — thrown
+   * over the chamber of whichever seat acted, so the picture and the sounds'
+   * pan agree about whose beat it was (`bellows-fx.ts`, `bellows-shape.ts`). */
+  readonly bellows = new BellowsFx();
 }
