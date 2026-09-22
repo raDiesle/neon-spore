@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · ad07a05a — The resurrection guard asks the trunk's history, not only the merge base
+
+`5780141b` put a finished queue entry back on 19 September 2026, word for word and `Taken:` line and all, twelve commits after `6db42a92` removed it, with the guard running over that landing and saying nothing. The entry that recorded it concluded the evidence had not survived and only a longer sitting could settle which of the merge or the guard let it through.
+
 ## 2026-09-22 · 7abeae7b — The lost screen shows the hit as a wound, and says four things instead of nine
 
 WAVE LOST is now the biggest thing on the screen, under a red bloom, with the wave's number and name on one line beneath it and TRY n alone in the corner. Everything else in words is gone: the line about one press answering for both phones, the one about this run having no retries, and the invitation to run it again. Where the hull was broken is a ragged circle with a reticle round it, bleeding red out of its lower rim in six slow tongues — the shortest thirteen seconds end to end — instead of a lit vertical slot the height of the phone with thirteen violet rivulets crossing the glass every three and a half.
