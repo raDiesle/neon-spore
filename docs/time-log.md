@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-queues-own-resurrection-guard-missed-a-stale — the window
+
+- reading — 30 min. The entry says the evidence did not survive and that the
+  next sitting needs a live repro of a twice-rebased lane. It reads the three
+  files, then the three commits it names, which are all still in this
+  repository: `5780141b`'s diff to `docs/queue.md` adds three headings and
+  removes two, and `6db42a92` is its ancestor twelve commits back.
+- writing — 40 min. `filed`, `foundLine` and `everHeldIn` in `queue-guard.ts`,
+  `resurrectedAfter` taking the asker, one line in `run.ts`, four unit tests
+  and two repo-backed ones in a new `queue-history.test.ts`.
+- looking — 0 min. Nothing here draws anything.
+- friction — 15 min. Two false starts. The first cut of the check asked the
+  history about the heading alone, which would refuse a second lane honestly
+  filing the same one-line finding; the `Found:` line is what tells a filing
+  from a copy, so a candidate carries its whole block now. The second was a
+  test that asserted `[]` twice against a file that was not on disk and proved
+  nothing — replaced by the real repository. `run.ts` also went to 249 lines
+  and the asker moved into the guard to bring it back.
+- landing — 15 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the entry's own conclusion. It said the historical evidence
+had not survived and that only a longer sitting could settle it, and the
+deduction that actually settles it takes one command: the guard runs on every
+rebase landing, it did not fire, and it is provably silent about an entry
+absent from the merge base — so the merge base is where it went, and no repro
+of git's conflict stages was needed at all.
+
 ## 2026-09-22 — queue-press-knows-no-scout-verb — a flight, recorded
 
 - reading — 25 min. The claimed entry names three files and none of them was

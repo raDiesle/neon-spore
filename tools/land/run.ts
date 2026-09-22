@@ -54,7 +54,7 @@ import { git, gitOrDie, runner } from "./git.js";
 import { type Landing, plan, pushNow, SWEPT_NOTHING } from "./land.js";
 import { writeNotes } from "./note-commit.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
-import { queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
+import { everHeldIn, queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { trunkRaced } from "./race.js";
 import { redCheckReport } from "./red-check.js";
 import { deleteRemote, deletionLine } from "./remote-branch.js";
@@ -141,7 +141,10 @@ async function moveTrunk(): Promise<Landed[]> {
     for (const file of new Set(replayed.resolved)) {
       console.log(`  merged   ${file} — the trunk's copy, carrying this lane's own edits`);
     }
-    const back = await resurrectedAfter(root, queueBefore);
+    // The second half of the guard: the trunk's whole history, asked only of
+    // the entries the three snapshots read as newly filed (`queue-guard.ts`).
+    const asker = everHeldIn((args) => git(args, root), TRUNK);
+    const back = await resurrectedAfter(root, queueBefore, asker);
     if (back.length > 0) {
       for (const line of refusal(TRUNK, back)) console.log(line);
       process.exit(1);

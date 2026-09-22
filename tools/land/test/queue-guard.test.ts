@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { refusal, resurrected, titles } from "../queue-guard.js";
+import { filed, foundLine, refusal, resurrected, titles } from "../queue-guard.js";
 
 /**
  * The guard against a landing putting back work the trunk has finished.
@@ -69,6 +69,47 @@ describe("what a replay puts back", () => {
   });
 });
 
+/**
+ * The half the three snapshots cannot see, and the one that got through.
+ *
+ * `resurrected` is quiet about an entry missing from `base`, deliberately —
+ * that is what filing one looks like. It is also what putting back a removal
+ * the trunk made *before this lane branched* looks like, and on 19 September
+ * 2026 `5780141b` did exactly that twelve commits after `6db42a92` took the
+ * entry out. So the candidates are named here and the trunk's own history is
+ * what answers for them.
+ */
+describe("an entry the trunk removed before the lane branched", () => {
+  const base = file("waiting");
+  const trunk = file("waiting");
+  const landed = file("waiting", "done long ago");
+
+  it("is invisible to the three snapshots, which is the gap", () => {
+    expect(resurrected(base, trunk, landed)).toEqual([]);
+  });
+
+  const named = (...args: [string, string, string]) => filed(...args).map((e) => e.title);
+
+  it("is named as a candidate, beside a genuinely new entry", () => {
+    expect(named(base, trunk, file("waiting", "done long ago", "found today"))).toEqual([
+      "done long ago",
+      "found today",
+    ]);
+  });
+
+  it("is not a candidate when the trunk or the base already has it", () => {
+    expect(named(file("a"), file("a", "b"), file("a", "b"))).toEqual([]);
+  });
+
+  /** A candidate carries its whole block, because the heading alone does not
+   * say whether this is the same entry coming back or a second lane filing the
+   * same finding — the `Found:` line does (`everHeldIn`). */
+  it("carries the entry's own Found line with it", () => {
+    const one = filed(base, trunk, landed)[0];
+    expect(foundLine(one?.block ?? "")).toBe("- **Found:** 2026-09-05, lane");
+  });
+});
+
 describe("what a refused landing says", () => {
   const lines = refusal("main", [{ file: "docs/queue.md", titles: ["done", "also done"] }]);
 
@@ -79,6 +120,12 @@ describe("what a refused landing says", () => {
   });
 
   it("says what to do about it, rather than only that it happened", () => {
-    expect(lines.at(-1)).toContain("take those out of your copy");
+    expect(lines.join("\n")).toContain("take those out of your copy");
+  });
+
+  /** The history half can name an entry the lane believes it filed, so the
+   * refusal has to leave room for the case where it really did. */
+  it("says what to do when the heading is genuinely new work", () => {
+    expect(lines.at(-1)).toContain("a heading the trunk has not finished under");
   });
 });
