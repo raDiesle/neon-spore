@@ -16039,3 +16039,5 @@ is *identical* to a seated one — true until this lane drew her haul over that
 same column, and the failure names the light rather than the ring. Restating
 the claim as a count of the one `drawImage` the light is cost more than
 writing the ring did.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

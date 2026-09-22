@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 5c829950 — Give THE UNDERTOW's floor two things her thumb can take hold of
+
+Both of this boss's handles were heard by the simulation and drawn nowhere: a pin that holds a standing lobe shut, and a haul that gives the pilot his seat back early. `render/undertow-grip.ts` holds both circles, both gates, the hit test and the drawing, so the ring a thumb finds and the ring the picture draws are one answer.
+
 ## 2026-09-21 · e77dc010 — Give SNAKE's jaws and tail something to take hold of
 
 The body's two gestures shipped in the simulation on 18 September 2026 with nothing drawn to grip: past `snakeGorgeTiles` the jaws stick and the MAW press goes dead, and player 1 has to prise them open on the head; past `snakeShedTiles` the tail drags, and player 2 may lift its last tiles clear with a thumb. Neither had a ring, a hit test or a seat that could see it — while the wave's own guide has been telling the pilot to drag them open the whole time. `snake-grip.ts` holds both circles, both gates, the `handleUnder()` branch and the drawing, so the picture, the thumb and the word are one answer.
