@@ -493,6 +493,7 @@ question that prompted this one.
 ## The queue's own resurrection guard missed a stale entry coming back
 
 - **Found:** 2026-09-20, claude/queue-a-landing-that-forgot-unverified-has-no-way-to-w
+- **Taken:** 2026-09-22, claude/queue-resurrection-guard-missed-a-stale-entry (claim: claude/queue-the-queues-own-resurrection-guard-missed-a-stale)
 - **Files:** `tools/land/queue-guard.ts`, `tools/land/queue-merge.ts`, `tools/land/test/queue-merge.test.ts`, `docs/queue.md`
 
 `tools/land/queue-guard.ts` exists to refuse a landing that would put back a
