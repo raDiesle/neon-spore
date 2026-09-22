@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — choreographed-window-doubled — twice the window, and a need to match
+
+- reading — 15 min. `instar-script.ts`'s five steps and the six gestures'
+  units in `instar.ts`, `config-instar.ts`, and the fourteen other bosses that
+  call `openSlow` — enough of each to know the generic half is its own lane.
+- writing — 20 min. Five windows doubled, seven needs raised, the script's own
+  prose brought to the new figures, `instarSlowBeats` doubled with them, the
+  rule written into `.claude/skills/new-boss` and the `BossSequenceStep` row.
+- looking — 20 min. Two `bun run frames` of the same tick, 846, before and
+  after: the window used to be gone there and now it is still up.
+- friction — 5 min. One test asserted the slow window's start rather than its
+  end, which only held while the window was short enough not to meet the next.
+- landing — 10 min. `check:fast` green first time.
+
+The bottleneck was reading the other thirteen choreographed bosses far enough
+to be sure their clocks are not the same figure under another name — they are
+not, and that is why they are a second lane rather than a sed.
+
 ## 2026-09-22 — queue-the-queues-own-resurrection-guard-missed-a-stale — the window
 
 - reading — 30 min. The entry says the evidence did not survive and that the

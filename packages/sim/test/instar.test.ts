@@ -350,7 +350,12 @@ describe("the last step", () => {
     seen = runTo(world, world.tick + TPB * LAND + TPB);
     expect(seen.has("instarDown")).toBe(true);
     expect(s.phase).toBe("down");
-    expect(world.slowToBeat).toBe(world.slowFromBeat + CFG.instarSlowBeats);
+    // The landing's window is still up when the body goes down, so the two are
+    // one window and not two (`slow.ts` `openSlow`): the end moved, the start
+    // stayed at the landing. What `instarSlowBeats` buys is measured from the
+    // down, which is `s.phaseBeat`.
+    expect(world.slowToBeat).toBe(s.phaseBeat + CFG.instarSlowBeats);
+    expect(world.slowFromBeat).toBeLessThan(s.phaseBeat);
     expect(world.restBeat).toBe(0);
     seen = runTo(world, world.tick + TPB * (CFG.instarOutBeats + 1));
     expect(seen.has("instarOut")).toBe(true);

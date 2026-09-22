@@ -196,6 +196,15 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   written for the pair to read aloud; a look is never changed under him
   unasked (`docs/looks.md`); a picture is sent, never described; nobody asks
   him whether to push.
+- **A choreographed window is long and its need is not small** (22 September
+  2026, generic, in his words *"double the time what players have time to do
+  the action, and let it require some more clicks"*). A scene's window is
+  what the pair talk in, and most of it goes on finding out whose mark is
+  whose; a window they never reach the end of taught them nothing. So a step
+  is authored with a window around twenty beats rather than ten — and the
+  need raised with it, because a long window with a small need is a step that
+  lands itself and the drama goes out of it. Both halves, never one.
+  THE INSTAR's own script is the worked example (`content/instar-script.ts`).
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss
