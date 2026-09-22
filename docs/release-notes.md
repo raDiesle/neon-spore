@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · aaefc8bf — Give PINBALL's table one handle a shot to take hold of
+
+The plunger and the shove shipped in the simulation on 18 September 2026 and nothing was drawn for either: a spring his own hard launch had left slack looked exactly like a wound one, and a ball falling with a nudge still in hand looked exactly like a table already tilted. `render/pinball-grip.ts` holds both circles, both gates and the drawing, and the pair are the only two here that cannot both be on a screen — the plunger is offered through the `power` shot and the shove through the `flight` that follows it, so the round hands out one handle a shot and never two.
+
 ## 2026-09-22 · 4d7be907 — Give THE SCOUT's little ship two things a thumb can take hold of
 
 The line and the prime shipped in the simulation on 18 September 2026 and nothing was drawn for either: a laden ship looked like a light one, a heavy one's thruster looked the same primed or cold, and neither seat had anywhere to put a thumb. `render/scout-grip.ts` holds both circles, both gates and the drawing, and they are the only pair in the game drawn in the same place on two screens — the brief puts both on the one little ship, and what keeps them apart is the round's own split. Hers is the ship's middle, where her screen draws a place and nothing else, and goes `held` with the line, which is drawn from the ship to the mother ship's mouth because it passes through whatever is in the way and only she can see what that is. His stands off the stern at 2.2 ship radii along the heading, clear of the beads that ride the rim and in the air the wake takes up, and its dial is what is left of `scoutPrimeTicks` — draining, the one dial here that counts down, because what it measures is a window and not a hold. Each is drawn on both screens, bright on the seat that owns it and dim on the other: neither can feel the other's thumb.
