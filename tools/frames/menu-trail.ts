@@ -1,6 +1,6 @@
 /**
- * WHICH PAGE OF THE MENU A PICTURE IS OF AND WHAT IS TYPED INTO IT, read off
- * two flags.
+ * WHICH PAGE OF THE MENU A PICTURE IS OF, WHAT IS TYPED INTO IT AND WHICH BACK
+ * GESTURES GOT THERE, read off three flags.
  *
  * The menu is a stack of pages in one element and only one of them is `on` at a
  * time (`apps/game/src/menu-view.ts`). Every page but the front one is reached
@@ -21,6 +21,9 @@
  *
  *   --type "#helloName=DAVID"        a field, and what is in it
  *
+ * And one screen is opened by no press at all — the card the phone's back
+ * gesture puts over the field. That is `--back`, below.
+ *
  * The labels are the page's own, so a flag that has gone stale fails by naming
  * what *is* on the page rather than by photographing the wrong one — which is
  * the whole reason the trail is words and not a `MenuPage` name. The one page
@@ -35,10 +38,37 @@
 export type MenuStep =
   | { kind: "spore" }
   /** A button on whichever page is `on`, by the words on it. */
-  | { kind: "press"; label: string };
+  | { kind: "press"; label: string }
+  /** The phone's back gesture — see `backSteps` below. */
+  | { kind: "back" };
 
 /** The one page no button reaches — see `RIG_TAPS` in `menu-view.ts`. */
 export const RIG_LABEL = "TESTING";
+
+/**
+ * **`--back` is the one screen no button opens**, and it is a flag rather than
+ * a word in the trail because `BACK` is a word the menu's own rows use.
+ *
+ * The card that asks whether to go back to the menu or quit is opened by the
+ * phone's back gesture and by nothing else (`apps/game/src/back-ask.ts`), so
+ * the picture of it for the owner was taken by a throwaway Playwright script —
+ * the friction `menu-shot.ts` exists to stop being paid.
+ *
+ * **It is repeatable, and off the front page it takes two.** A pop means one
+ * step out, so the first one with the menu up closes the menu the way its own ✕
+ * does; only a pop with nothing over the field asks. That rule is `back-ask.ts`'s
+ * and this flag does not second-guess it — counting the presses here so the tool
+ * could arrive in one would be a second copy of it, to go stale on the day the
+ * rule changes. So the card is two, and both are written:
+ *
+ *   --back --back --screen "#backAsk.on" --element "#backAsk"
+ *
+ * They are walked after `--page`, which is the order that composes: a trail
+ * opens a screen and the gesture is asked what it means with that screen up.
+ */
+export function backSteps(argv: readonly string[]): MenuStep[] {
+  return argv.flatMap((a) => (a === "--back" ? [{ kind: "back" } as const] : []));
+}
 
 /**
  * `--page` into the presses it means. An absent flag is the front page, which

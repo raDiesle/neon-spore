@@ -1,6 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import { arrivalStamps, parsePartnerFlag } from "../menu-stamps.js";
-import { noSuchButton, noSuchField, parseTrail, parseTyping, RIG_LABEL } from "../menu-trail.js";
+import {
+  backSteps,
+  noSuchButton,
+  noSuchField,
+  parseTrail,
+  parseTyping,
+  RIG_LABEL,
+} from "../menu-trail.js";
 
 /**
  * The half of `bun run menu-shot` that needs no browser: which presses a
@@ -43,6 +50,32 @@ describe("parseTrail", () => {
   it("refuses a flag that names no page", () => {
     expect(() => parseTrail(" > ")).toThrow(/no page named/);
     expect(() => parseTrail("")).toThrow(/no page named/);
+  });
+});
+
+describe("backSteps", () => {
+  it("reads no flag as no gesture", () => {
+    expect(backSteps(["out.png", "--page", "SETTINGS"])).toEqual([]);
+  });
+
+  it("reads one --back as one gesture", () => {
+    expect(backSteps(["out.png", "--back"])).toEqual([{ kind: "back" }]);
+  });
+
+  /** Off the front page the card takes two: a pop with the menu up closes the
+   * menu rather than asking, which is `back-ask.ts`'s rule and not this flag's
+   * to second-guess. */
+  it("reads two as two, which is what the card takes", () => {
+    expect(backSteps(["out.png", "--back", "--back"])).toEqual([
+      { kind: "back" },
+      { kind: "back" },
+    ]);
+  });
+
+  /** It carries no value, so the flag after it is still a flag — a valued read
+   * would have swallowed `--screen` and left the shot waiting on `#menu.on`. */
+  it("does not eat the flag written after it", () => {
+    expect(backSteps(["out.png", "--back", "--screen", "#backAsk.on"])).toEqual([{ kind: "back" }]);
   });
 });
 

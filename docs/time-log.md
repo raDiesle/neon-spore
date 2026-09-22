@@ -16512,3 +16512,24 @@ tax on whoever arrives next, which is the argument for splitting at the point
 it is noticed rather than at the point it is in the way.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-no-picture-tool-can-photograph-a-card-the-back-g — the gesture as a step
+
+- reading — 10 min. `menu-shot.ts` end to end for where a trail is walked and
+  where the arrival wait is made, `menu-trail.ts` for the step shapes it has,
+  and `back-ask.ts` for what a pop actually means with the menu up — which is
+  the fact the flag's own documentation turns on.
+- writing — 15 min. `{ kind: "back" }` and `backSteps` in `menu-trail.ts`, the
+  gesture walked with `page.goBack()` in the loop beside the spore's presses,
+  `--screen` waited for once the walking is done, four pure tests, and the two
+  documents that list the flags.
+- looking — 5 min. The card itself, photographed by the new flags rather than
+  by a throwaway: `--back --back --screen "#backAsk.on" --element "#backAsk"`.
+- friction — 0 min.
+- landing — 10 min. `check:fast`, the entry out, the replay.
+
+The bottleneck was **reading the rule rather than reimplementing it**: the card
+takes two gestures off the front page because the first pop closes the menu,
+and the tempting fix — have `--back` count the presses for the caller — would
+have put a second copy of `back-ask.ts`'s rule in a camera, to go stale the day
+the rule changed. The flag says two and the documentation says why.

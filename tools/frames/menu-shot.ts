@@ -3,8 +3,9 @@
 /**
  * `bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"] [--size 390x844]
  * [--scale 2] [--wait 600] [--port 4173] [--element "#menu"] [--desk]
- * [--first-visit] [--type "#helloName=DAVID"] [--partners "Ada,David:7"]` —
- * photograph a page of the **game's menu**.
+ * [--first-visit] [--type "#helloName=DAVID"] [--partners "Ada,David:7"]
+ * [--back] [--screen "#backAsk.on"]` — photograph a page of the **game's
+ * menu**.
  *
  * Three tools took a picture and none of them could take this one. `bun run
  * frames <sha>` drives the field through `window.neonSpore` and photographs
@@ -48,6 +49,12 @@
  *
  * It waits for `#menu.on` and not for `#menu`: the element is in the document
  * from the first paint and hidden until the menu opens.
+ *
+ * **`--back` is the phone's back gesture and `--screen` is where it lands.**
+ * The card that gesture opens is reached by no press at all, so the trail has a
+ * step that pops the history (`menu-trail.ts`) and a flag that names the `.on`
+ * to wait for once the walking is done. The arrival wait is not what changes:
+ * a tool that cannot see the screen it starts on cannot press anything on it.
  */
 
 import { closeBrowser, launchBrowser } from "./browser.js";
@@ -55,7 +62,7 @@ import { root } from "./exec.js";
 import { menuDevice } from "./menu-device.js";
 import { press } from "./menu-press.js";
 import { arrivalStamps, parsePartnerFlag } from "./menu-stamps.js";
-import { noSuchButton, noSuchField, parseTrail, parseTyping } from "./menu-trail.js";
+import { backSteps, noSuchButton, noSuchField, parseTrail, parseTyping } from "./menu-trail.js";
 import { startPreview } from "./serve.js";
 
 const args = process.argv.slice(2);
@@ -80,7 +87,9 @@ const RIG_TAPS = 3;
  * the change is one class, so this is a frame or two rather than a build. */
 const PAGE_MS = 250;
 
-const trail = parseTrail(flag("page"));
+/** The presses, then the back gestures: a trail opens a screen and the gesture
+ * is asked what it means with that screen up (`menu-trail.ts`). */
+const trail = [...parseTrail(flag("page")), ...backSteps(args)];
 /** The fields filled once the trail has arrived — `--type "#helloName=DAVID"`. */
 const typing = parseTyping(flags("type"));
 /** Who this device has played with, for the PLAY page's list — `--partners "Ada,David:7"`. */
@@ -126,13 +135,18 @@ const screen = intro ? "#introTap.on" : firstVisit ? "#hello.on" : "#menu.on";
 /** What is photographed. The whole screen; a caller judging one row can say
  * `.entry`, `.seat-card` or anything else the page carries. */
 const element = flag("element") ?? (intro ? "#stage" : firstVisit ? "#hello" : "#menu");
+/** What the walking is done when it is up, for a screen the arrival wait cannot
+ * be: `#backAsk.on` is not on the page until the gesture has been made. */
+const shown = flag("screen");
 /** The screen in the words the caller used, for the log line and for a `--type`
  * that finds nothing: the one thing they cannot see is where they are standing. */
-const where = intro
-  ? `the intro at ${Number(flag("wait") ?? 600) / 1000}s`
-  : firstVisit
-    ? "the first meeting"
-    : (flag("page") ?? "the front page");
+const where =
+  shown ??
+  (intro
+    ? `the intro at ${Number(flag("wait") ?? 600) / 1000}s`
+    : firstVisit
+      ? "the first meeting"
+      : (flag("page") ?? "the front page"));
 /** A thumb or a mouse — `menu-device.ts` has the argument. */
 const device = menuDevice(args);
 const port = flag("port");
@@ -168,6 +182,11 @@ try {
   for (const step of trail) {
     if (step.kind === "spore") {
       for (let i = 0; i < RIG_TAPS; i++) await page.locator("#menu .spore").click();
+    } else if (step.kind === "back") {
+      // The gesture itself, which on a handset is an edge swipe and here is the
+      // history entry `back-ask.ts` parks the player on. What the pop means is
+      // the game's to decide, not this camera's.
+      await page.goBack();
     } else {
       const offered = await press(page, step.label);
       if (offered) {
@@ -177,6 +196,8 @@ try {
     }
     await page.waitForTimeout(PAGE_MS);
   }
+
+  if (shown) await page.waitForSelector(shown, { timeout: 15_000 });
 
   for (const { selector, value } of typing) {
     const field = page.locator(selector);
@@ -217,5 +238,8 @@ function usage(): never {
   console.error("       --intro photographs the opening scene; --wait is how far into it");
   console.error('       --type "#helloName=DAVID" fills a field before the shot; repeatable');
   console.error('       --partners "Ada,David:7" arrives having played with them, to that wave');
+  console.error("       --back makes the phone's back gesture; repeatable, and off the menu");
+  console.error("       it takes two — the first closes the menu, the second asks the card");
+  console.error('       --screen "#backAsk.on" waits for that screen once the walking is done');
   process.exit(1);
 }

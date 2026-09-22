@@ -113,6 +113,8 @@ bun run menu-shot <out.png>            # a page of the game's menu — starts it
                        #   --intro photographs the opening scene; --wait is how far into it
                        #   --type "#helloName=DAVID" fills a field first; repeatable, in order
                        #   --partners "Ada,David:7" arrives having played with them, to that wave
+                       #   --back is the phone's back gesture; the card it opens takes two
+                       #   --screen "#backAsk.on" is what to wait for once the walking is done
 bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate
 bun run png <in.svg> <out.png>         # rasterise a sheet
 bun run crop           # a rectangle of a PNG already taken, magnified — tools/frames/picture.ts
