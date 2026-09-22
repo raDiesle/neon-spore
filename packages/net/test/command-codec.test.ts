@@ -217,6 +217,14 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "bellowsPull", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "bellowsPush", on: true, fromMilli: 0, fromYMilli: 700 },
   { kind: "drag", target: "bellowsPush", on: false, fromMilli: 0, fromYMilli: 0 },
+  // THE SPOOL's brake: the same depth drag once more, the pilot's alone, and
+  // the one target whose **resting value** is what the wire is for. A codec
+  // that dropped it would not cost the pair a stroke, it would leave the line
+  // paying out at whatever depth the last packet carried while the pilot's own
+  // thumb says otherwise — the worst kind of drop, because both screens stay
+  // plausible (`sim/spool-hand.ts`).
+  { kind: "drag", target: "spoolBrake", on: true, fromMilli: 0, fromYMilli: 420 },
+  { kind: "drag", target: "spoolBrake", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -362,6 +370,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   gimbalInner: true,
   bellowsPull: true,
   bellowsPush: true,
+  spoolBrake: true,
   crank: true,
   orreryRing: true,
 };

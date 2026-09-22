@@ -37,6 +37,7 @@ type BossId = Extract<
   | "filament"
   | "gimbal"
   | "bellows"
+  | "spool"
 >;
 
 /**
@@ -182,6 +183,10 @@ export const BOSS_MECHANICS = {
   },
   bellows: {
     what: "A lung over the field. One of you pulls it open. Then the other shuts it. Never in the same beat. That parts a seam. Four seams.",
+    reach: "spawn",
+  },
+  spool: {
+    what: "A spool at the top, its line run to the hull. One of you holds the brake: shallow lets the line run, deep slows it, and off runs fastest. The other is shown how much line should be out by now. Say it and hold there. Held right for a whole call, a rib eases. Four ribs.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

@@ -1,3 +1,4 @@
+import { CHOREO_FIELD_GROUP_C } from "./ship-fields-choreo-c.js";
 import type { GroupName } from "./ship-groups.js";
 
 /**
@@ -224,4 +225,6 @@ export const CHOREO_FIELD_GROUP_B = {
   bellowsSlowBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
   bellowsVentBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
   bellowsChamberCols: "THE BELLOWS — the boss where you may never push while they are pulling",
+  // THE SPOOL and everything after it (`ship-fields-choreo-c.ts`).
+  ...CHOREO_FIELD_GROUP_C,
 } satisfies Record<string, GroupName>;

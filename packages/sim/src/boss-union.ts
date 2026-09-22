@@ -25,6 +25,7 @@ import type { MirrorState } from "./simon.js";
 import type { SinewState } from "./sinew.js";
 import type { SnakeState } from "./snake.js";
 import type { SpliceState } from "./splice.js";
+import type { SpoolState } from "./spool.js";
 import type { StareState } from "./stare.js";
 import type { SurgeState } from "./surge.js";
 import type { TasterState } from "./taster.js";
@@ -96,4 +97,5 @@ export type BossState =
   | InstarState
   | FilamentState
   | GimbalState
-  | BellowsState;
+  | BellowsState
+  | SpoolState;

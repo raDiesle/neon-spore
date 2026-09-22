@@ -210,6 +210,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/splice-tangle.ts` | Laying THE SPLICE's straws: three integer arrays and a permutation |
 | `packages/sim/src/splice.ts` | THE SPLICE: a children's path puzzle, played by two people who can each see half of it |
 | `packages/sim/src/spend.ts` | **THE SPEND LEDGER: what the pair has already spent**, per colour, over the last few beats of their own play |
+| `packages/sim/src/spool-hand.ts` | **The brake on THE SPOOL**, off the wire, on the tick |
+| `packages/sim/src/spool-hash.ts` | What THE SPOOL puts into `hashWorld`, and nothing else |
+| `packages/sim/src/spool-step.ts` | THE SPOOL's clock: the line running out under the brake, the zone moving under a correction |
+| `packages/sim/src/spool.ts` | THE SPOOL: the one boss answered by holding back exactly enough |
 | `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
@@ -310,10 +314,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-slow.ts` | THE SLOW's two numbers — the fraction of wall-clock rate a slowed tick is consumed at, and how long an ordinary window runs |
 | `packages/sim/src/config-sinew.ts` | THE SINEW's numbers — how many fibres the tendon has, how deep a hand may pull |
 | `packages/sim/src/config-surge.ts` | THE SURGE's numbers — how many notches the seam has, how fast a hand charges the bulb and how fast it leaks |
+| `packages/sim/src/config-spool.ts` | THE SPOOL's tuning: how far the brake travels, how fast and how slow the line runs at either end of it |
 | `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
 | `packages/sim/src/events-stare.ts` | **Everything THE STARE does that neither screen already says**, as one event |
 | `packages/sim/src/events-splice.ts` | **Everything THE SPLICE does that neither screen already says**, as events |
+| `packages/sim/src/events-spool.ts` | What THE SPOOL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-sinew.ts` | **Everything THE SINEW does that neither screen already says**, as events |
 | `packages/sim/src/events-surge.ts` | **Everything THE SURGE does that neither screen already says**, as events |
 | `packages/sim/src/events-scuttle.ts` | **Everything THE SCUTTLE does that neither screen already says**, as events |
@@ -726,6 +732,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
+| `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -1736,6 +1743,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
+| `packages/audio/src/bind-spool.ts` | THE SPOOL's eleven, in a file of their own for `bind-bellows.ts`' reason |
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-surge.ts` | THE SURGE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
@@ -1954,6 +1962,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-bellows.ts` | **THE BELLOWS played right**, for the STATES sheet: one seat's stroke at a time |
 | `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN, THE VANE, THE ORRERY, THE CANDLE |
 | `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
+| `tools/director/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
 | `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
@@ -2027,6 +2036,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-field-controls.ts` | The states the ON THE FIELD tab needed a picture of and the gallery did not have |
 | `tools/director/src/poses-field-controls-surge.ts` | THE SURGE with both thumbs on the bulb and the pressure climbing |
 | `tools/director/src/poses-field-controls-sinew.ts` | THE SINEW with both hands on it and the sum somewhere on the band |
+| `tools/director/src/poses-field-controls-spool.ts` | THE SPOOL's brake under the pilot's thumb — one picture |
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
@@ -2425,6 +2435,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-scuttle.ts` | **THE SCUTTLE's hanging part**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-scout.ts` | **THE SCOUT's two hands on its own picture**, in a file of its own |
 | `tools/director/src/field-controls-snake.ts` | **SNAKE's two hands on its own body**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-spool.ts` | THE SPOOL's brake, as one row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
@@ -2445,6 +2456,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
+| `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
 | `tools/director/src/ship-notes-hidden.ts` | The paragraph under each card for a **body one seat is not drawn at all**: THE WISP |

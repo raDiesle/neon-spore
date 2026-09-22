@@ -8,6 +8,7 @@ import { gimbalCue } from "./bind-gimbal.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
 import { scuttleCue } from "./bind-scuttle.js";
+import { spoolCue } from "./bind-spool.js";
 import { undertowCue } from "./bind-undertow.js";
 
 /**
@@ -46,6 +47,7 @@ type LateEvent = Extract<
       | `filament${string}`
       | `gimbal${string}`
       | `bellows${string}`
+      | `spool${string}`
       | `diastole${string}`
       | `undertow${string}`;
   }
@@ -149,6 +151,21 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "bellowsVent":
     case "bellowsOut":
       return bellowsCue(e, cols);
+    // THE SPOOL's eleven, bound on this page rather than next door because
+    // next door was seventeen lines from its limit when the lung landed and
+    // has not moved since (`bind-spool.ts`).
+    case "spoolEnter":
+    case "spoolZone":
+    case "spoolLeg":
+    case "spoolGrip":
+    case "spoolLet":
+    case "spoolSlip":
+    case "spoolRock":
+    case "spoolRib":
+    case "spoolSlack":
+    case "spoolDrift":
+    case "spoolOut":
+      return spoolCue(e, cols);
     case "diastoleClamp":
     case "diastoleSpasm":
       return diastoleCue(e, cols);

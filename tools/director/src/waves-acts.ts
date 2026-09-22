@@ -163,6 +163,11 @@ export const ACT_FILES: readonly ActFile[] = [
     rel: "packages/content/src/waves/act-10.ts",
     exportName: "WAVES_ACT_10",
   },
+  {
+    file: new URL("../../../packages/content/src/waves/act-11.ts", import.meta.url),
+    rel: "packages/content/src/waves/act-11.ts",
+    exportName: "WAVES_ACT_11",
+  },
 ];
 
 /** The checkout this director is running in — what a save writes unless told otherwise. */

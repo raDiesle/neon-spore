@@ -20,7 +20,8 @@ export type DragTargetD =
   | "gimbalOuter"
   | "gimbalInner"
   | "bellowsPull"
-  | "bellowsPush";
+  | "bellowsPush"
+  | "spoolBrake";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -90,4 +91,25 @@ export type DragTargetD =
  * is resting (`bellowsWorkMilli`): a level would make a held handle an act
  * every tick, which on the one boss whose whole rule is *not in her beat*
  * would jam the pair for holding still.
+ */
+
+/**
+ * `spoolBrake` is the sixty-second, and the first target whose **value is the
+ * whole of it**: every other depth drag in the set is read for an edge it
+ * crossed or a beat it was held through, and this one is read for the number
+ * it is resting at, every beat, for as long as the fight lasts.
+ *
+ * It is `sinewLeft`'s kind of depth — `fromYMilli`, how far down the pilot has
+ * carried the mark from where he took hold, cut to `spoolReachMilli` — and the
+ * pilot's alone, for THE GIMBAL's reason: there is one spool and one brake on
+ * it, so the seat is checked against the name rather than carried beside it
+ * (`spool-hand.ts`). No `id`.
+ *
+ * **Shallow pays line out fast and deep pays it slow**, which is the way a
+ * brake works and not a rule the pair are told; a brake nobody is holding pays
+ * fastest of all, so letting go is a choice and never a neutral. What the
+ * depth is worth in line per beat is `spoolPayRateMilli`, and what the pilot
+ * is shown for it is the mark's own grip and never a number — the figure the
+ * navigator reads is on her screen, and saying the two to each other is the
+ * fight (`spool.ts`).
  */

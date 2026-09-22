@@ -729,4 +729,18 @@ export const COPIES: Copy[] = [
     pattern: /role\s*===\s*"p2"\s*\?\s*2\s*:\s*1|role\s*===\s*"p1"\s*\?\s*1\s*:\s*2/,
     strip: false,
   },
+  {
+    // **The depth that pays THE SPOOL's line out at a given rate.**
+    // `spoolPayRateMilli` runs the reach one way and this is it run back, and
+    // the two have to stay each other's inverse or the director's hand poses
+    // a grip that does not hold the rate the card says it does. There is one
+    // caller today (`tools/director/src/boss-hands-spool.ts`) and the row is
+    // here before a second: the arithmetic is three lines of clamped
+    // proportion, which is exactly the size of thing a second reader writes
+    // out again rather than importing, and either end of the reach retuned
+    // would leave the copy answering for a spool that no longer exists.
+    call: "spoolBrakeForRateMilli",
+    owner: "packages/sim/src/spool.ts",
+    pattern: /spoolRateFastMilli\s*-\s*\w+\s*\)/,
+  },
 ];

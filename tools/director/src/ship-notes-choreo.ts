@@ -207,4 +207,22 @@ export const CHOREO_NOTES = {
     "at once; the eye forces it up after stareLidHoldBeats or when the thumb " +
     "lifts, rises for stareReopenBeats, and then looks at whoever pulled it " +
     "for a whole look. Nothing about it is authored per wave.",
+  "THE SPOOL — the boss where the line runs out at the speed one of you reads":
+    "A thread-spool slung sideways across the top of the field, its line run " +
+    "to the hull and taut. The pilot holds the brake at a depth: shallow pays " +
+    "line out at spoolRateFastMilli a beat, deep at spoolRateSlowMilli, and a " +
+    "brake nobody is holding pays fastest of all — letting go is a choice and " +
+    "never a neutral. He is shown the mark's own grip and no number ever. The " +
+    "navigator is shown how much line should be out by now against how much " +
+    "is, in a band spoolZoneWideMilli across that narrows by a rib to " +
+    "spoolZoneNarrowMilli. Held inside the band for a whole movement — one " +
+    "leg of spoolLegBeats, then two, then three, then one on the narrowest " +
+    "band — a rib eases open. Leaving the band starts the movement again, and " +
+    "from the second rib on it also throws a rock down the column the cannon " +
+    "is standing in, which is the fight's one hull cost. The rate each leg " +
+    "asks for is rolled off the wave's own rng between the two ends, so a " +
+    "pair cannot learn a wave by heart. Four ribs, and the line then goes " +
+    "slack and the spool drifts free under THE SLOW — the only boss whose " +
+    "finish is calm. Nothing about it is authored per wave. See sim/spool.ts, " +
+    "sim/spool-step.ts, sim/spool-hand.ts, sim/config-spool.ts.",
 } satisfies Partial<Record<GroupName, string>>;

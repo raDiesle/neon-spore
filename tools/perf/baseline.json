@@ -1028,6 +1028,16 @@
       "mean": 0,
       "p90": 0,
       "unmeasured": true
+    },
+    {
+      "id": "theSpool",
+      "wave": 100,
+      "name": "THE SPOOL",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     }
   ]
 }

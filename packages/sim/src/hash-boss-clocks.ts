@@ -15,6 +15,7 @@ import { ledgerHashParts } from "./ledger-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
+import { spoolHashParts } from "./spool-hash.js";
 import { stareHashParts } from "./stare-hash.js";
 import { surgeHashParts } from "./surge-hash.js";
 import { tasterHashParts } from "./taster-hash.js";
@@ -119,6 +120,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE BELLOWS: the phase, the seams, both hands' depths, the spark and the lift (`bellows-hash.ts`).
   if (boss.kind === "bellows") {
     for (const n of bellowsHashParts(boss)) out.push(n);
+  }
+  // THE SPOOL: the phase, the ribs, the brake's depth, both lengths and the rolled rate (`spool-hash.ts`).
+  if (boss.kind === "spool") {
+    for (const n of spoolHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

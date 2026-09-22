@@ -18,6 +18,7 @@ import type {
   ScoutEntry,
   ScuttleEntry,
   SinewEntry,
+  SpoolEntry,
   StareEntry,
   SurgeEntry,
   TasterEntry,
@@ -168,7 +169,8 @@ export function bossAuthorsNothing(
   | InstarEntry
   | FilamentEntry
   | GimbalEntry
-  | BellowsEntry {
+  | BellowsEntry
+  | SpoolEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -197,6 +199,7 @@ export function bossAuthorsNothing(
     kind === "instar" ||
     kind === "filament" ||
     kind === "gimbal" ||
-    kind === "bellows"
+    kind === "bellows" ||
+    kind === "spool"
   );
 }

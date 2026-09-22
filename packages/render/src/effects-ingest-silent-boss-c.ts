@@ -69,4 +69,20 @@ export const INGEST_SILENT_BOSS_C = [
   "bellowsHold",
   "bellowsVent",
   "bellowsOut",
+  // THE SPOOL's eleven, silent until the look lane: the line's length, the
+  // zone under it, the brake's depth and the four ribs are all read off the
+  // boss every frame, and the three the picture will want to keep — the slip,
+  // the rib easing and the drift — are one family for spool-fx.ts rather
+  // than rows here (`docs/spec/bosses.md` §11.36).
+  "spoolEnter",
+  "spoolZone",
+  "spoolLeg",
+  "spoolGrip",
+  "spoolLet",
+  "spoolSlip",
+  "spoolRock",
+  "spoolRib",
+  "spoolSlack",
+  "spoolDrift",
+  "spoolOut",
 ] as const satisfies readonly SimEvent["type"][];

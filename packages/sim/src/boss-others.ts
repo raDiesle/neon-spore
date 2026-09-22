@@ -18,6 +18,7 @@ import { stepMirror } from "./mirror.js";
 import { stepOrrery } from "./orrery-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSinew } from "./sinew-step.js";
+import { stepSpool } from "./spool-step.js";
 import { stepStare } from "./stare-step.js";
 import { stepSurge } from "./surge-step.js";
 import { stepTaster } from "./taster-step.js";
@@ -205,6 +206,14 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // stroke lands (`bellows-hand.ts`).
   if (boss.kind === "bellows") {
     stepBellows(world, boss);
+    return;
+  }
+  // THE SPOOL is nearly all clock, which is the opposite of THE BELLOWS above
+  // and for the opposite reason: a stroke is an edge and a brake is a level,
+  // so the line paying out, the zone moving under a correction, the slip and
+  // the rib easing are every one of them a beat's question (`spool-step.ts`).
+  if (boss.kind === "spool") {
+    stepSpool(world, boss);
     return;
   }
   // And the six that are not stepped here at all, with THE VANE, THE CAIRN,

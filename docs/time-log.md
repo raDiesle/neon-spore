@@ -17010,3 +17010,33 @@ The bottleneck was the picture: the change itself was four lines of simulation,
 and the three passes over the bar's notch count were most of the wall clock.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — the spool's simulation — the line runs at the speed one of you reads
+
+- reading — 35 min. §21 of `bosses-choreographed.md`, then `sim/sinew.ts` and
+  `sim/surge.ts` for how a `SplitGauge` boss is actually written, and THE
+  BELLOWS's landing an hour earlier as the file table — thirty-odd names a
+  field boss is registered in, read off `.claude/skills/new-boss` rather than
+  rediscovered.
+- writing — 95 min. `spool.ts`, `spool-step.ts`, `spool-hand.ts`,
+  `spool-hash.ts`, `config-spool.ts`, `events-spool.ts` and the registrations;
+  wave 100 in a new `waves/act-11.ts`; eleven sounds and their bind; the
+  director's hand, five STATES cards, the gallery pose and the `FIELD_CONTROLS`
+  row; nineteen tests; §11.36, the §21 ledger row, the `controls.md` row and
+  the three count lines.
+- looking — 0 min. Nothing is drawn: lane two is open and every event is on
+  the two silent lists.
+- friction — 25 min. Three files at their line ceiling wanted a new page
+  before they would take a line; the STATES cards went in twice, once without
+  a `P2` in the slip card; and two of the eleven sounds sat in the 300–3000 Hz
+  speech band and had to be moved under and over it.
+- landing — 15 min. `bun run index`, `baseline:blank`, `check`, the queue.
+
+The bottleneck was **the registrations, not the boss**. The rules — a brake
+read as a level, a zone that narrows a rib at a time, a rate rolled per leg —
+were written and tested inside an hour; the rest of the writing row is the
+same eleven event names typed into a codec, two silent lists, a sound
+catalogue, a bind, a director sheet and a hash fixture, and a name missing
+from any one of them is a test in a different package.
+`.claude/skills/new-boss`'s table is what kept that at typing rather than at
+debugging.

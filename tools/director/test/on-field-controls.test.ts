@@ -375,6 +375,13 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `field-controls-bellows.ts`, `docs/spec/bosses.md` §11.35).
   bellowsPull: "field",
   bellowsPush: "field",
+  // THE SPOOL's brake, one target and one seat: the pilot holds it at a depth
+  // and is shown nothing but the mark's own grip, while the figure it has to
+  // be matched against is on the navigator's screen. On the field because the
+  // mark is on the line where it leaves the spool, and the row may not say a
+  // depth — that is the sentence the pair has to say (`render/spool-grip.ts`,
+  // `sim/spool-hand.ts`, `docs/spec/bosses.md` §11.36).
+  spoolBrake: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

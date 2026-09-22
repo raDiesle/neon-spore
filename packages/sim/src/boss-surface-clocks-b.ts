@@ -30,7 +30,7 @@ export { BELLOWS_PHASES, BELLOWS_SEAMS, type BellowsPhase, type BellowsState, be
 export { BOSS_PHASES } from "./boss-phases.js";
 // THE HIVE's entry, which authors nothing, and THE INSTAR's, which authors
 // its script: both travel out of `boss-entries.ts` through `bosses.ts`.
-export type { BellowsEntry, HiveEntry, InstarEntry } from "./bosses.js";
+export type { BellowsEntry, HiveEntry, InstarEntry, SpoolEntry } from "./bosses.js";
 // THE BATON's arm as a control: which socket is coming away, whose thumb may
 // take it, and whose bead is whose while the two are drawn together — all four
 // read by `render/baton-grip.ts` and the cue beside it (`baton-hand.ts`).
@@ -224,6 +224,12 @@ export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type Gi
 // asked for rather than chosen, THE ORRERY's ring's arrangement exactly
 // (`gimbal-hand.ts`, `apps/game/src/keys-turn.ts`).
 export { gimbalTurnPerTickMilli } from "./gimbal-hand.js";
+// THE SPOOL's line: the phase, the ribs, the brake's depth, the zone and the
+// paid-out length — the two halves of the `SplitGauge` the pair shout across,
+// and every reading either screen takes. Straight off `spool.ts` and on one
+// line for THE GIMBAL's reason.
+// biome-ignore format: one line, so a reading added to the spool does not cost a row
+export { NO_BRAKE, SPOOL_LEGS, SPOOL_PHASES, SPOOL_RIBS, type SpoolPhase, type SpoolState, spoolBoss, spoolBrakeForRateMilli, spoolCol, spoolDepthMilli, spoolEasing, spoolGone, spoolGrace, spoolHeld, spoolInZone, spoolLegLeft, spoolLegs, spoolPaying, spoolPayRateMilli, spoolSlack, spoolSlipped, spoolZone, spoolZoneMilli } from "./spool.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

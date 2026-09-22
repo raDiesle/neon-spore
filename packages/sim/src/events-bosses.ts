@@ -20,6 +20,7 @@ import type { ScuttleEvent } from "./events-scuttle.js";
 import type { SinewEvent } from "./events-sinew.js";
 import type { SnakeEvent } from "./events-snake.js";
 import type { SpliceEvent } from "./events-splice.js";
+import type { SpoolEvent } from "./events-spool.js";
 import type { StareEvent } from "./events-stare.js";
 import type { SurgeEvent } from "./events-surge.js";
 import type { TasterEvent } from "./events-taster.js";
@@ -69,6 +70,7 @@ export type BossEvent =
   | FilamentEvent
   | GimbalEvent
   | BellowsEvent
+  | SpoolEvent
   | QueenEvent
   | DiastoleEvent
   | WardenEvent
@@ -103,6 +105,7 @@ export type { ScuttleEvent } from "./events-scuttle.js";
 export type { SinewEvent } from "./events-sinew.js";
 export type { SnakeEvent } from "./events-snake.js";
 export type { SpliceEvent } from "./events-splice.js";
+export type { SpoolEvent } from "./events-spool.js";
 export type { StareEvent } from "./events-stare.js";
 export type { SurgeEvent } from "./events-surge.js";
 export type { TasterEvent } from "./events-taster.js";

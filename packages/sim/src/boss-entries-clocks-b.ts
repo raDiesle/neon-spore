@@ -23,3 +23,20 @@
 export interface HiveEntry {
   kind: "hive";
 }
+
+/**
+ * What a wave authors when it wants THE SPOOL: nothing, the nineteenth.
+ *
+ * No ribs, though they are the health: four ribs round a casing is the
+ * *silhouette*, and a spool hung with five would be a different spool
+ * (`spool.ts`, `SPOOL_RIBS`). No legs either — one call, then two, then
+ * three, then one again is the beat list of §21 and the shape of the fight
+ * rather than a figure in it (`SPOOL_LEGS`). And no rates: every zone the
+ * navigator is shown is rolled off the seed inside the brake's own reach,
+ * because a pair that had learned four authored rates by heart would stop
+ * saying them to each other, and the sentence is the fight
+ * (`spool-step.ts`, `config-spool.ts`).
+ */
+export interface SpoolEntry {
+  kind: "spool";
+}

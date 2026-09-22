@@ -104,6 +104,21 @@ export const SILENT_BOSS_B = [
   "bellowsHold",
   "bellowsVent",
   "bellowsOut",
+  // THE SPOOL's eleven, no burst yet: a brake held at a depth is a level and
+  // not an edge, so ten of the eleven are the picture agreeing with a thumb,
+  // and the one that is an event — the line slipping — bursts from
+  // spool-fx.ts when the look lane draws it (`docs/spec/bosses.md` §11.36).
+  "spoolEnter",
+  "spoolZone",
+  "spoolLeg",
+  "spoolGrip",
+  "spoolLet",
+  "spoolSlip",
+  "spoolRock",
+  "spoolRib",
+  "spoolSlack",
+  "spoolDrift",
+  "spoolOut",
   // THE ANTIPHON's eleven: what sparks is one family read above the loop by
   // `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
   "antiphonEnter",

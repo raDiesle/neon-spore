@@ -18,7 +18,7 @@ import type {
   ThroatEntry,
   UndertowEntry,
 } from "./boss-entries-clocks.js";
-import type { HiveEntry } from "./boss-entries-clocks-b.js";
+import type { HiveEntry, SpoolEntry } from "./boss-entries-clocks-b.js";
 import type {
   FleetEntry,
   GaugeEntry,
@@ -152,6 +152,7 @@ export type BossEntry =
   | AntiphonEntry
   | HiveEntry
   | BellowsEntry
+  | SpoolEntry
   // The one that authors a script: the beat list a scene is (`instar.ts`).
   | InstarEntry
   // The one that authors a line: the filaments a pair draws and follows (`filament.ts`).
@@ -163,7 +164,7 @@ export type BossEntry =
 // 2026 — the last rows it held, the way every overflowing page in the
 // repository gives its end of the chain back (`boss-entries-b.ts`).
 export type { MazeEntry, RepriseEntry, WellEntry } from "./boss-entries-b.js";
-// The eighteen that are a clock and author nothing, over two pages
+// The nineteen that are a clock and author nothing, over two pages
 // (`boss-entries-clocks.ts`, `boss-entries-clocks-b.ts`).
 export type {
   AntiphonEntry,
@@ -184,7 +185,7 @@ export type {
   ThroatEntry,
   UndertowEntry,
 } from "./boss-entries-clocks.js";
-export type { HiveEntry } from "./boss-entries-clocks-b.js";
+export type { HiveEntry, SpoolEntry } from "./boss-entries-clocks-b.js";
 export type {
   FleetEntry,
   GaugeEntry,

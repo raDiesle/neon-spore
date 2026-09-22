@@ -40,6 +40,7 @@ export type {
   SinewEntry,
   SnakeEntry,
   SpliceEntry,
+  SpoolEntry,
   StareEntry,
   SurgeEntry,
   TasterEntry,

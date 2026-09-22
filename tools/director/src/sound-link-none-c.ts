@@ -125,6 +125,33 @@ export const NO_SUBJECT_C: Record<string, string> = {
     "the two halves falling apart and the whole held breath crossing the field. Same argument, and it is air rather than anything with a contour.",
   "boss.bellowsOut":
     "the empty lung dropping away and the wave ending. Same argument, and an absence.",
+  // THE SPOOL's eleven, on this page for THE BELLOWS's reason above: the
+  // subject in every one is a thread-spool slung across the top of the field
+  // with its line run down to the hull, which is a fixture and not a body,
+  // so there is no card a sheet could draw. The rock is the one exception and
+  // it is excused the way the breath is: what it throws is an ordinary
+  // meteor, whose card the sheet already has (`sim/spool.ts`,
+  // `sim/events-spool.ts`).
+  "boss.spoolEnter":
+    "the spool swinging in across the top of the field, all four ribs whole and the line already taut to the hull. It is a fixture hanging above the field, and the sheet's cards are silhouettes of bodies that stand on a grid.",
+  "boss.spoolZone":
+    "a movement opening and its zone with it. A zone is a reading one seat is shown rather than a thing on the field. Same argument.",
+  "boss.spoolLeg":
+    "the target rate rolled again part way through a movement. Same argument, and it is a number rather than anything with a contour.",
+  "boss.spoolGrip":
+    "the pilot's thumb taking the brake. The brake is part of the fixture and the hand is nobody's contour. Same argument.",
+  "boss.spoolLet":
+    "that thumb coming off, and the line running at its fastest again. Same argument, and an absence.",
+  "boss.spoolSlip":
+    "the paid-out line leaving its zone and the movement going back to its head. Same argument, and a refusal: what it undoes is a count.",
+  "boss.spoolRock":
+    "the slack a slip threw flinging a rock down the pilot's own column. What arrives is an ordinary body with a card of its own; this sound is the fixture throwing it, which has none.",
+  "boss.spoolRib":
+    "a wooden rib easing open on the casing. A rib is part of the fixture's own outline rather than a body. Same argument.",
+  "boss.spoolSlack":
+    "the fourth rib open and the tension going out of the casing altogether. Same argument — the fixture unmaking itself, as THE BELLOWS's waist is.",
+  "boss.spoolDrift": "the slack spool drifting free off the top of the field. Same argument.",
+  "boss.spoolOut": "the drifted spool gone and the wave ending. Same argument, and an absence.",
   // THE BALLOON's own two, bound since before this page existed —
   // `bind-balloon.ts` reused a sound written for a different creature and the
   // catalogue's `status` had not caught up (`docs/queue.md`, 20 September

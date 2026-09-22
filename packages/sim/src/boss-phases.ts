@@ -20,6 +20,7 @@ import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
 import { SCOUT_LOADS, SCOUT_PHASES } from "./scout.js";
 import type { MirrorPhase } from "./simon.js";
 import { SNAKE_GRIPS, SNAKE_PHASES } from "./snake.js";
+import { SPOOL_PHASES } from "./spool.js";
 import { STARE_PHASES } from "./stare.js";
 import { TASTER_PHASES } from "./taster.js";
 import { THROAT_PHASES } from "./throat.js";
@@ -108,5 +109,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   filament: FILAMENT_PHASES,
   gimbal: GIMBAL_PHASES,
   bellows: BELLOWS_PHASES,
+  spool: SPOOL_PHASES,
   fleet: FLEET_PHASES,
 };

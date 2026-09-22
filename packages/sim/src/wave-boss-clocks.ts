@@ -14,6 +14,7 @@ import { installLedger } from "./ledger-step.js";
 import { installOrrery } from "./orrery-step.js";
 import { installScuttle } from "./scuttle-step.js";
 import { installSinew } from "./sinew-step.js";
+import { installSpool } from "./spool-step.js";
 import { installSurge } from "./surge-step.js";
 import { installTaster } from "./taster-step.js";
 import { installThroat } from "./throat-step.js";
@@ -64,6 +65,7 @@ const CLOCK_KINDS = [
   "filament",
   "gimbal",
   "bellows",
+  "spool",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -183,6 +185,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // the field, waist tight, four seams whole, and every figure in it tuning
     // (`bellows-step.ts`).
     world.boss = installBellows(world);
+  } else if (boss.kind === "spool") {
+    // No creature and no row: a thread-spool slung sideways across the top of
+    // the field, its line already run out to the hull and taut, four ribs
+    // whole, and every figure in it either tuning or rolled (`spool-step.ts`).
+    world.boss = installSpool(world);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

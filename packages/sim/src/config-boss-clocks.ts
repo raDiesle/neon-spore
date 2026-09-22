@@ -17,6 +17,7 @@ import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
 import { SCUTTLE_DEFAULTS, type ScuttleConfig } from "./config-scuttle.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
+import { SPOOL_DEFAULTS, type SpoolConfig } from "./config-spool.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
 import { TASTER_DEFAULTS, type TasterConfig } from "./config-taster.js";
@@ -78,6 +79,7 @@ export interface BossClockConfig
     FilamentConfig,
     GimbalConfig,
     BellowsConfig,
+    SpoolConfig,
     MirrorConfig,
     MazeGripConfig,
     WardenHandConfig,
@@ -107,6 +109,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...FILAMENT_DEFAULTS,
   ...GIMBAL_DEFAULTS,
   ...BELLOWS_DEFAULTS,
+  ...SPOOL_DEFAULTS,
   ...MIRROR_DEFAULTS,
   ...MAZE_GRIP_DEFAULTS,
   ...WARDEN_HAND_DEFAULTS,

@@ -97,6 +97,7 @@ kinds each of them is.
 - **[THE FILAMENT](#1133-the-filament--the-boss-whose-line-one-of-you-draws-while-the-other-follows-it)** · 11.33 — the boss whose line one of you draws while the other follows it
 - **[THE GIMBAL](#1134-the-gimbal--the-boss-where-the-same-turn-is-not-the-same-turn)** · 11.34 — the boss where the same turn is not the same turn
 - **[THE BELLOWS](#1135-the-bellows--the-boss-where-you-may-never-push-while-they-are-pulling)** · 11.35 — the boss where you may never push while they are pulling
+- **[THE SPOOL](#1136-the-spool--the-boss-where-the-line-runs-out-at-the-speed-one-of-you-reads)** · 11.36 — the boss where the line runs out at the speed one of you reads
 
 **Retired — shipped and taken out again, kept for the verdict**
 
@@ -7910,3 +7911,106 @@ strikes the hull if nobody answers it; the third seam breathes a body down the
 cannon's own column; and the last seam splits under two hands off in one beat,
 holds under two a beat apart, and vents the lung out of the wave. Whether any
 of it *reads* is the owner's eye, after lane two.
+
+## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
+
+> The one where doing less is the right amount. A wooden spool hangs across the
+> top of the field paying its line out to the hull, and the only way to ease a
+> rib off its casing is for one of you to hold a brake at the speed the other
+> one can see and you cannot.
+
+Designed as §21 of [bosses-choreographed](bosses-choreographed.md), and the
+third of the three kinds in `.claude/skills/new-boss` — a choreographed scene.
+The field under it is still (wave `theSpool`'s `entries` are empty) and the
+boss *is* the picture. **The rule in one sentence:** one of you holds the brake
+and the other reads how much line should be out, and a whole movement held
+inside her zone eases a rib.
+
+**It is a spool with four ribs and one control.** The state
+(`sim/spool.ts`, hashed in `sim/spool-hash.ts`) is the **phase** and the beat
+it began, the **ribs** left on the casing, the brake's depth, the line paid out
+so far and the length that should be out by now, the leg of the movement it is
+in and the rate that leg wants. Every tunable is a named field of
+`SpoolConfig` (`sim/config-spool.ts`): `spoolReachMilli` (1000) is the brake's
+whole travel, `spoolRateFastMilli` (120) and `spoolRateSlowMilli` (20) the two
+ends of the line's speed in thousandths of the track a beat, `spoolZoneWideMilli`
+(360) the first movement's room and `spoolZoneNarrowMilli` (80) what each rib
+takes off it. The clock is `spoolLegBeats` (8, long on purpose),
+`spoolGraceBeats` (3) at the head of a movement, `spoolTautBeats` (2) before the
+first zone, `spoolSlipBeats` (3) hanging after a slip, `spoolEaseBeats` (3) for
+a rib, `spoolSlowBeats` (2) of THE SLOW and `spoolSlackBeats` (3) of drift.
+What is *not* configuration is the shape: four ribs (`SPOOL_RIBS`) and the
+one-two-three-one of `SPOOL_LEGS` live with the boss they are.
+
+**The brake is a level, not an edge** (`sim/spool-hand.ts`). Nothing about
+taking hold of it is ever judged; what it is worth is the rate it pays the
+line out at, read a beat at a time, and **letting go is not neutral** — a brake
+with no hand on it reads as fully shallow and runs the line out fastest of all,
+which is what makes this fight's one gesture a hold rather than a press. It is
+the pilot's and nobody else's, `sinewLeft`'s rule, because the navigator's half
+of the fight is the zone and the sentence she says about it. `spoolBrake` is
+the whole of `FIELD_CONTROLS`' new row (`docs/spec/controls.md`) and the whole
+of the wire's new `DragTarget`.
+
+**The health is the silhouette:** four ribs, easing rather than cracking, and
+nothing anywhere prints the number. The zone narrows a rib at a time —
+360, 280, 200, 120 thousandths — and a movement runs one leg, then two, then
+three (`SPOOL_LEGS`), so the fight gets harder in the only two units it has:
+how much room the answer has, and how many times it has to be found again.
+The target rate is **rolled off `world.rng`** at the head of every leg rather
+than authored, so a pair cannot learn the fight by number, and
+`spoolBrakeForRateMilli` is the receipt that every rolled rate is reachable —
+it is a row of `sim/test/copies-table.ts`, called and never re-derived, by the
+director's hand and by the tests both.
+
+**Two departures from §21, by name.**
+
+*Row 3's cost.* The design's prose says a movement held outside the zone costs
+an ordinary hull hit rather than resetting, and its own beat list says every
+movement resets. **The beat list is what is built**: the cost of leaving the
+zone is the movement starting again, and the fight's one hull cost is the rock.
+A hull hit here would have failed the whole wave (`wave-fail.ts`) on the one
+boss whose gesture can only be learnt by holding it wrong first, and a fight
+that ends the moment the pair discovers its control teaches nothing.
+
+*Row 7's rock.* The design throws it once, on the correction that goes wrong in
+movement 2. **It is thrown on every slip from the second movement on**, because
+a rule with an exception in it is what `.claude/skills/new-boss` §2 forbids: a
+pair cannot say *the bad ones make rocks, except the first time and except
+later on*. The first movement is spared, and that is the rule's whole
+statement — the movement where the gesture is discovered costs nothing but
+itself.
+
+*And one thing the design asks for that is not a departure:* the navigator's
+calls, `EASE` and `HOLD`, are **speech and not `Command`s**. Nothing is written
+for the pair to read aloud, so there is no window on her half and no timer
+against it; the only window in the fight is the leg, which is long on purpose
+(the owner, 22 September 2026: *double the time what players have time to do
+the action, and let it require some more clicks*), and the need is raised with
+it by the leg count rather than the clock.
+
+**THE SLOW** opens once, as the last rib eases and the spool drifts free
+(`spoolSlowBeats`, `openSlow`) — the game's one calm finish, which is §21's
+payoff and the reason it gets the slow rather than a break.
+
+**What is not built.** The look: the casing, its four ribs, the line run down
+to the hull, the brake on its lever and the navigator's zone are all undrawn,
+and every one of the eleven events is on the two silent lists with that as its
+reason (`render/effects-ingest-silent-boss-c.ts`,
+`render/effects-spark-silent-boss-b.ts`). There is no film either — the wave's
+guide says which seat holds what, and `THE SPOOL` sits on `STILL_PROSE` until
+there is a screen to rehearse. The cue word on the field, the `showsX(role)`
+split and the STATES sheet's picture are lane two's.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/spool.test.ts`): the spool comes in taut and opens its first zone;
+the brake is the pilot's and the navigator's drag is dropped; the brake carries
+a depth rather than crossing an edge, clamps at both ends of its reach, and
+says `spoolGrip` and `spoolLet` once each; a brake nobody holds pays out at the
+fast end; every rate the rng can roll is reachable by some depth; the zone
+narrows 360, 280, 200, 120 and the legs run one, two, three, one; the grace
+protects the head of a movement; a movement played right eases exactly one rib;
+a movement played wrong slips with no rib and throws no rock the first time and
+one down the cannon's own column after that; and the fourth rib leaves the
+spool slack, drifting under THE SLOW and out of the wave. Whether any of it
+*reads* is the owner's eye, after lane two.

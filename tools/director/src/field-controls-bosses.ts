@@ -26,6 +26,7 @@ import { SCOUT_CONTROLS } from "./field-controls-scout.js";
 import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { SNAKE_CONTROLS } from "./field-controls-snake.js";
+import { SPOOL_CONTROLS } from "./field-controls-spool.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { TASTER_CONTROLS } from "./field-controls-taster.js";
@@ -137,4 +138,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // the same time: one seat a beat, and a thumb out of turn jams both and
   // spends the exchange (`field-controls-bellows.ts`).
   ...BELLOWS_CONTROLS,
+  // THE SPOOL's brake, the only row here that is **one control for one seat**
+  // with no partner at all: the other half of that fight is a zone the
+  // navigator reads and a word she says (`field-controls-spool.ts`).
+  ...SPOOL_CONTROLS,
 ];

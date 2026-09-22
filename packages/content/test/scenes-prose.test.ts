@@ -67,6 +67,11 @@ const STILL_PROSE = [
   // waist are all still undrawn, so there is no screen for a film to
   // rehearse. The guide says the taking of turns until the look lane draws it.
   "THE BELLOWS",
+  // And THE SPOOL, whose simulation landed 22 September 2026 (§11.36), for
+  // the same reason a third time: the casing, its four ribs and the line run
+  // down to the hull are all undrawn, so there is no screen for a film to
+  // rehearse. The guide says which seat holds what until the look lane draws it.
+  "THE SPOOL",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -93,8 +98,8 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix = "update §1 of docs/spec/briefings.md, which says ninety of ninety-nine";
-    expect(guided.length, fix).toBe(90);
-    expect(WAVES.length, fix).toBe(99);
+    expect(guided.length, fix).toBe(91);
+    expect(WAVES.length, fix).toBe(100);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

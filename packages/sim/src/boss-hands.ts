@@ -16,6 +16,7 @@ import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { scuttleHeard } from "./scuttle-hand.js";
+import { spoolHeard } from "./spool-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
 import { tasterHandsHeard } from "./taster-hand.js";
@@ -83,6 +84,10 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // instant it lands: whose beat it came in is the whole boss, and the finale
   // is two hands off inside a beat of each other (`bellows-hand.ts`).
   for (const c of commands) bellowsHeard(world, c.player, c.command);
+  // THE SPOOL's brake, on the tick because where the thumb has it is what the
+  // line pays out at on the next beat — nothing about it is judged here and
+  // the depth is the whole of what the wire carries (`spool-hand.ts`).
+  for (const c of commands) spoolHeard(world, c.player, c.command);
   // THE BULB QUEEN's marks under player 1's thumb, on the tick because a pry
   // is a press when it lands and a hold is where the thumb is now (`queen-hand.ts`).
   for (const c of commands) queenHeard(world, c.player, c.command);

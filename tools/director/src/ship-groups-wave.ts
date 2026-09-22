@@ -58,6 +58,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   "THE GIMBAL — the boss where the same turn is not the same turn",
   "THE BELLOWS — the boss where you may never push while they are pulling",
+  "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

@@ -182,6 +182,12 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // and its two chambers off that, so the only column it ever names is the
   // one the cannon is already standing in (`sim/bellows-step.ts`).
   if (boss.kind === "bellows") return { ...boss };
+  // THE SPOOL is slung across the top of the field and its line runs to the
+  // hull under `midCol`, so it names no column either (`sim/spool-step.ts`).
+  // The one thing it ever throws is thrown down the column the cannon is
+  // already standing in, which is the pilot's column in the only sense this
+  // game has one.
+  if (boss.kind === "spool") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

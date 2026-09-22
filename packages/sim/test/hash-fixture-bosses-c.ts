@@ -91,6 +91,11 @@ export const BOSS_ENTRIES_C = {
   // figure here for the walk to vary. What it has to see varied is in
   // `patchBossC` below, and all of it is state (`bellows-hash.ts`).
   bellows: { kind: "bellows" },
+  // THE SPOOL authors nothing either (`SpoolEntry`), and for one more reason
+  // than THE BELLOWS: the rate each leg asks for is rolled off `world.rng`
+  // rather than written, so a pair cannot learn a wave's numbers by heart.
+  // Everything the walk must see varied is state, below (`spool-hash.ts`).
+  spool: { kind: "spool" },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE LEDGER on's share of `patchBoss`. */
@@ -225,5 +230,22 @@ export function patchBossC(boss: BossState): void {
     boss.sparkCol = 4;
     boss.sparkBeat = 6;
     boss.liftTick = 7;
+  }
+  if (boss.kind === "spool") {
+    // Part way down the second movement's second leg: the line paid out past
+    // where the zone wants it, a rib already eased, the brake held at a depth
+    // that is neither end of its reach, and a rolled rate on the leg — every
+    // field given a value the walk could not have got by accident, and the
+    // two lengths deliberately different so a hash that dropped one of them
+    // would not be covered by the other (`spool-hash.ts`).
+    boss.phase = "pay";
+    boss.phaseBeat = 4;
+    boss.ribs = 3;
+    boss.brakeMilli = 430;
+    boss.paidMilli = 1820;
+    boss.wantMilli = 1640;
+    boss.leg = 1;
+    boss.legBeat = 6;
+    boss.wantRateMilli = 70;
   }
 }
