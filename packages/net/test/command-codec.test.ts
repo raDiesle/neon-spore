@@ -207,6 +207,16 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "gimbalOuter", on: true, fromMilli: -1 },
   { kind: "drag", target: "gimbalInner", on: true, fromMilli: 750 },
   { kind: "drag", target: "gimbalInner", on: false, fromMilli: 0 },
+  // THE BELLOWS's handle and plate: `sinewLeft`'s depth drag twice over, one
+  // target a seat, no id because there is one lung and geometry says whose
+  // handle is whose (`sim/bellows-hand.ts`). Both are here because a codec
+  // that listed one would drop that seat's stroke, and on this boss a stroke
+  // the other device never saw is not a missed beat — it is the pair being
+  // told they jammed a handle nobody worked.
+  { kind: "drag", target: "bellowsPull", on: true, fromMilli: 0, fromYMilli: 800 },
+  { kind: "drag", target: "bellowsPull", on: false, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "bellowsPush", on: true, fromMilli: 0, fromYMilli: 700 },
+  { kind: "drag", target: "bellowsPush", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -350,6 +360,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   hiveLobe: true,
   gimbalOuter: true,
   gimbalInner: true,
+  bellowsPull: true,
+  bellowsPush: true,
   crank: true,
   orreryRing: true,
 };

@@ -490,6 +490,54 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
+## Five files a choreographed boss must touch are within twenty lines of the limit
+
+- **Found:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its
+- **Files:** `tools/director/src/ship-groups.ts`, `packages/sim/src/boss-others.ts`, `packages/sim/src/events.ts`, `packages/audio/src/bind-choreographed.ts`, `packages/sim/src/boss-entries.ts`
+- **Where:** local
+
+THE BELLOWS's lane one had to split a page before it could add a line to it:
+`boss-entries-clocks.ts` reached 252 and its last boss moved across to a new
+tail page. That is the seam working, and it cost the lane fifteen minutes it
+had not planned for. Five more files are close enough that the next
+choreographed boss pays the same tax, and it pays it five times: ship-groups
+at 233, boss-others at 249, events at 247, bind-choreographed at 236,
+boss-entries at 243. `packages/sim/test/limits.test.ts` is what will say so,
+and it says it in the middle of a lane rather than before one.
+
+The work is the split, done once, cold: each of the five hands its **last**
+rows across to a `-b` page — never the boss a lane is working on, which is the
+rule the seam is for — with the header paragraph recording the hand-across the
+way `boss-entries-clocks.ts` now does. A fresh session can do all five in one
+sitting and prove it with `bun run check`: nothing about a page boundary is
+visible outside the file, so the only receipts are the typecheck and the
+limits test.
+
+## The skill's own claim step cannot be run from a worktree
+
+- **Found:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its
+- **Files:** `.claude/skills/new-boss/SKILL.md`, `docs/spec/bosses-choreographed.md`
+- **Where:** local
+
+`.claude/skills/new-boss` §3 tells a lane to claim its boss on the ledger by
+committing one file in the **main** checkout:
+`git -C <main> commit --only docs/spec/bosses-choreographed.md`, then
+`git merge --ff-only main` in the lane. Run from a worktree that command is
+refused before it starts — the reason given is that it modifies a shared
+resource — so the procedure as written cannot be followed at all, and both
+THE GIMBAL's lane and THE BELLOWS's worked around it by carrying the ledger
+row in their own commit instead.
+
+Working around it is what keeps it, and the cost is not the minute: the whole
+point of the main-checkout commit is that two sessions racing for the same
+boss see each other's claim, and a row carried in a lane's own branch is
+invisible until that branch lands. The queue's own `taken` marks already do
+that job across sessions and they *are* committed where both can see them, so
+the honest fix is probably to delete §3's commit step and say the ledger row
+rides with the lane — but check first whether a cloud session, which has its
+own clone and no second checkout, was ever able to run it either. Either way
+the skill ends up describing something a session can do.
+
 ## THE GIMBAL's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses

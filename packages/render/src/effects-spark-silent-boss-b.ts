@@ -81,6 +81,28 @@ export const SILENT_BOSS_B = [
   "gimbalSeamHit",
   "gimbalHatch",
   "gimbalOut",
+  // THE BELLOWS's sixteen, silent for the reason its ingest rows are: the
+  // handles, the marks and the seams are all state the picture already
+  // holds, and a spark thrown for a stroke landing would be a second answer
+  // beside the handle the thumb is on. The look lane takes them out of this
+  // list, or says here why it did not (`sim/bellows.ts`,
+  // `docs/spec/bosses.md` §11.35).
+  "bellowsEnter",
+  "bellowsMarks",
+  "bellowsPulled",
+  "bellowsSeam",
+  "bellowsJam",
+  "bellowsLate",
+  "bellowsSpark",
+  "bellowsSparkOut",
+  "bellowsSparkHit",
+  "bellowsBreath",
+  "bellowsGlow",
+  "bellowsGrip",
+  "bellowsSplit",
+  "bellowsHold",
+  "bellowsVent",
+  "bellowsOut",
   // THE ANTIPHON's eleven: what sparks is one family read above the loop by
   // `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
   "antiphonEnter",

@@ -1,5 +1,6 @@
 import { stepAntiphon } from "./antiphon-step.js";
 import { stepBaton } from "./baton-step.js";
+import { stepBellows } from "./bellows-step.js";
 import { stepLateBoss } from "./boss-others-b.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
@@ -200,6 +201,14 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // seam — is here (`gimbal-step.ts`).
   if (boss.kind === "gimbal") {
     stepGimbal(world, boss);
+    return;
+  }
+  // THE BELLOWS on the beat is the lung's own clock alone — the marks, the
+  // jam running out, the seam and the two hazards. Whether a stroke came in
+  // the right seat's beat is a stroke's question and is judged where the
+  // stroke lands (`bellows-hand.ts`).
+  if (boss.kind === "bellows") {
+    stepBellows(world, boss);
     return;
   }
   if (boss.kind === "vane") {

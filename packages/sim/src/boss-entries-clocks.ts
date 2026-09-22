@@ -12,6 +12,11 @@
  * paragraph over every one saying why the line is all there is; the
  * paragraphs are the file, and they are what would not fit.
  *
+ * THE HIVE's went across to `boss-entries-clocks-b.ts` on 22 September 2026,
+ * when THE BELLOWS took this page two lines over its limit — the *last* boss
+ * on a full page goes, never the boss being worked on, whose paragraph stays
+ * under the boss it explains.
+ *
  * Every name is re-exported from `boss-entries.ts` and from `entries.ts`
  * after it, so nothing that already reached for one through either had to
  * move.
@@ -224,11 +229,19 @@ export interface AntiphonEntry {
 }
 
 /**
- * What a wave authors when it wants THE HIVE: nothing, the sixteenth. The
- * body comes in over the field with every site shut; which column opens
- * next and in what colour is the seed's, and how many sites there are and
- * the clock they open on is tuning (`hive.ts`, `config-hive.ts`).
+ * What a wave authors when it wants THE BELLOWS: nothing, the eighteenth.
+ *
+ * No seams, though they are the health: four gaps down a waist is the
+ * *silhouette*, and a lung hung with five would be a different lung
+ * (`bellows.ts`, `BELLOWS_SEAMS`). No tempo, because every one of them is a
+ * beat count the pair has to feel — how long a jam holds, how long the one
+ * shared window is — and a wave that authored its own would be several
+ * different bosses wearing one name, `DiastoleEntry`'s reason above.
+ *
+ * And nothing about which handle is whose, because that is not a figure at
+ * all: his chamber hangs off the left of the waist and hers off the right,
+ * geometry rather than data (`bellowsChamberCol`).
  */
-export interface HiveEntry {
-  kind: "hive";
+export interface BellowsEntry {
+  kind: "bellows";
 }

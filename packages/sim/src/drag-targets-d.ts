@@ -13,7 +13,14 @@
  */
 // THE GIMBAL's two rings, argued below: the first pair of targets that are
 // one object, read from its two opposite faces.
-export type DragTargetD = "hiveLobe" | "gimbalOuter" | "gimbalInner";
+// THE BELLOWS's handle and plate, argued below: the first pair of targets the
+// fight forbids the pair from working in the same beat.
+export type DragTargetD =
+  | "hiveLobe"
+  | "gimbalOuter"
+  | "gimbalInner"
+  | "bellowsPull"
+  | "bellowsPush";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -59,4 +66,28 @@ export type DragTargetD = "hiveLobe" | "gimbalOuter" | "gimbalInner";
  * pilot's, the inner always the navigator's — so the seat is checked against
  * the name here rather than carried beside it (`gimbal-hand.ts`). No `id`:
  * there is one gimbal.
+ */
+
+/**
+ * `bellowsPull` and `bellowsPush` are the sixtieth and sixty-first, and the
+ * first pair whose rule is that **they are never worked in the same beat**.
+ *
+ * Both are `sinewLeft`'s kind of depth drag — `fromYMilli`, how far *down*
+ * the hand has carried the handle from where it took hold, cut to
+ * `bellowsReachMilli` — and nothing about the gesture itself is new. What is
+ * new is what the two of them are to each other: the pilot's handle draws his
+ * chamber open and the navigator's plate pushes hers shut, and a stroke on
+ * either in the other seat's beat jams them both (`bellows-hand.ts`,
+ * `Alternation`).
+ *
+ * Two names rather than one target and a side, for `sinewLeft`'s reason
+ * exactly: **geometry says which handle is whose** — his hangs off the left
+ * chamber and hers off the right — so the seat is checked against the name
+ * here rather than carried beside it. No `id`: there is one lung, and one
+ * handle to a seat.
+ *
+ * A stroke is judged on the **edge** the handle crosses and never on where it
+ * is resting (`bellowsWorkMilli`): a level would make a held handle an act
+ * every tick, which on the one boss whose whole rule is *not in her beat*
+ * would jam the pair for holding still.
  */

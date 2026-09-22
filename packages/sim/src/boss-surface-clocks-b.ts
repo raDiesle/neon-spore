@@ -19,12 +19,18 @@
  * The rest of the arm's names are still there.
  */
 
+// THE BELLOWS's lung: the phase, the seams, whose beat it is and how deep
+// each handle has been carried, for the two pictures and the cue. Straight off
+// `bellows.ts` and on this page for THE FLEET's reason above, and on one line
+// for THE GIMBAL's.
+// biome-ignore format: one line, so a reading added to the lung does not cost a row
+export { BELLOWS_PHASES, BELLOWS_SEAMS, type BellowsPhase, type BellowsState, bellowsBoss, bellowsChamberCol, bellowsDepthMilli, bellowsHeld, bellowsJammed, bellowsLast, bellowsLeaking, bellowsOpen, bellowsShared, bellowsTurn, bellowsVenting, bellowsWindowLeft, bellowsWorking, NO_HAND, NO_LIFT, NO_SPARK } from "./bellows.js";
 // Every boss's phase table in one place, for the director's STATES sheet
 // (`boss-phases.ts` says why one table rather than nineteen).
 export { BOSS_PHASES } from "./boss-phases.js";
 // THE HIVE's entry, which authors nothing, and THE INSTAR's, which authors
 // its script: both travel out of `boss-entries.ts` through `bosses.ts`.
-export type { HiveEntry, InstarEntry } from "./bosses.js";
+export type { BellowsEntry, HiveEntry, InstarEntry } from "./bosses.js";
 // THE BATON's arm as a control: which socket is coming away, whose thumb may
 // take it, and whose bead is whose while the two are drawn together — all four
 // read by `render/baton-grip.ts` and the cue beside it (`baton-hand.ts`).

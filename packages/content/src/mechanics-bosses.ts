@@ -36,6 +36,7 @@ type BossId = Extract<
   | "instar"
   | "filament"
   | "gimbal"
+  | "bellows"
 >;
 
 /**
@@ -177,6 +178,10 @@ export const BOSS_MECHANICS = {
   },
   gimbal: {
     what: "A drum hangs in two rings, one ring each. Turn your ring to your mark and hold it. The inner rim runs backwards. Six latch-teeth.",
+    reach: "spawn",
+  },
+  bellows: {
+    what: "A lung over the field. One of you pulls it open. Then the other shuts it. Never in the same beat. That parts a seam. Four seams.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

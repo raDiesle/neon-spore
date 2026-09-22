@@ -86,6 +86,45 @@ export const NO_SUBJECT_C: Record<string, string> = {
   "boss.gimbalHatch":
     "the last tooth pair gone, both rings spinning free and the drum splitting open. Same argument — the fixture unmaking itself, as THE THROAT's eversion is.",
   "boss.gimbalOut": "the opened hatch hanging and the wave ending. Same argument, and an absence.",
+  // THE BELLOWS's sixteen, added here on 22 September 2026 for THE GIMBAL's
+  // reason read forward: pages one and two are still at their limit and this
+  // one has room. The subject in every one is the lung and its two chambers —
+  // a fixture slung across the top of the field, with nothing of it among the
+  // creatures — so there is no card a sheet could draw. The one exception is
+  // the breath, and it is excused for the opposite reason: what it throws is
+  // an ordinary meteor, whose card the sheet already has
+  // (`sim/bellows.ts`, `sim/events-bellows.ts`).
+  "boss.bellowsEnter":
+    "the lung swinging in across the top of the field, waist tight and all four seams whole. It is a fixture hanging above the field, and the sheet's cards are silhouettes of bodies that stand on a grid.",
+  "boss.bellowsMarks":
+    "an exchange lighting, one mark on each handle. What they are on is the housings, which are the fixture. Same argument.",
+  "boss.bellowsGrip":
+    "a hand taking hold of its own handle. The handle is part of the fixture and the hand is nobody's contour. Same argument.",
+  "boss.bellowsPulled":
+    "the pilot's chamber drawn open and the ribs of it standing apart. Same argument, and what changed is the fixture's own width.",
+  "boss.bellowsSeam":
+    "a seam parting down the waist. A seam is a gap in the fixture rather than a body, so it goes with the fixture it is a gap in.",
+  "boss.bellowsJam":
+    "both handles seizing on a stroke worked out of turn. Same argument, and this one is a refusal: nothing on the field moves at all.",
+  "boss.bellowsLate":
+    "the one shared window running out with an exchange half done. Same argument, and an absence rather than a thing.",
+  "boss.bellowsSpark":
+    "a spark starting out of the gap the second seam left. A spark is not a body and the gap is the fixture's.",
+  "boss.bellowsSparkOut": "that spark shot out, in either colour. Same argument.",
+  "boss.bellowsSparkHit":
+    "nobody shot it and it reached the hull. What is hit is the ship, which the hull's own sounds already have; what made it is the gap. Same argument.",
+  "boss.bellowsBreath":
+    "the lung forcing a breath down the cannon's column. What arrives is an ordinary body with a card of its own; this sound is the fixture pushing it out, which has none.",
+  "boss.bellowsGlow":
+    "the last seam lighting, with both handles up together for the first time. Same argument — a mark on the fixture.",
+  "boss.bellowsHold":
+    "one hand let go a beat before the other and the last seam holding. Same argument, and an absence: the split that did not happen.",
+  "boss.bellowsSplit":
+    "both hands off together and the waist splitting clean in two. Same argument — the fixture unmaking itself, as THE GIMBAL's hatch is.",
+  "boss.bellowsVent":
+    "the two halves falling apart and the whole held breath crossing the field. Same argument, and it is air rather than anything with a contour.",
+  "boss.bellowsOut":
+    "the empty lung dropping away and the wave ending. Same argument, and an absence.",
   // THE BALLOON's own two, bound since before this page existed —
   // `bind-balloon.ts` reused a sound written for a different creature and the
   // catalogue's `status` had not caught up (`docs/queue.md`, 20 September

@@ -342,6 +342,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
+| `packages/sim/src/boss-entries-clocks-b.ts` | **The tail of `boss-entries-clocks.ts`** |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
 | `packages/sim/src/boss-others-b.ts` | **The tail of `boss-others.ts`**, cut off it on 22 September 2026 when THE GIMBAL's branch took that page… |
@@ -494,8 +495,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/beatbox-round.ts` | **What happens to a soundbox**: the thumb that lands on it, the run being committed |
 | `packages/sim/src/beatbox.ts` | THE BEATBOX: a soundbox that swells on every beat |
 | `packages/sim/src/config-beatbox.ts` | THE BEATBOX's numbers: how many beats one asks for, how near the beat a tap has to land |
+| `packages/sim/src/config-bellows.ts` | THE BELLOWS's tuning: how far a handle has to be carried to count as worked, how long the jam lasts |
 | `packages/sim/src/creature-state-beatbox.ts` | **THE BEATBOX's three fields**, and the whole of what one box remembers: how many beats it is asking for |
 | `packages/sim/src/events-beatbox.ts` | **What THE BEATBOX does**, as events: a tap landing on the beat |
+| `packages/sim/src/events-bellows.ts` | What THE BELLOWS says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/balloon-pull.ts` | **The two hands on THE BALLOON**, which is the half of that creature nothing else in this game has |
 | `packages/sim/src/balloon-clock.ts` | THE BALLOON's clocks, read and never stored: the swell, which beat is a step and how far along it the picture draws the body, and how far through the hold at full stretch the pair has got |
 | `packages/sim/src/balloon-rub.ts` | What a balloon does once both hands have reached it: the hold, then the split into two halves that both climb, or the pop |
@@ -546,6 +549,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/bosses-clocks.ts` | **The bosses that are a clock**, as their half of the boss barrel |
 | `packages/sim/src/bosses-clocks-b.ts` | **The bosses that are a clock, the second page** — the clock half of the boss barrel from THE SCUTTLE on |
+| `packages/sim/src/bosses-clocks-c.ts` | **The bosses that are a clock, the third page** — THE WARDEN's openness |
 | `packages/sim/src/bosses-scout.ts` | **THE SCOUT's names**, cut off `bosses.ts` the day the round gained a second axis of state and took that… |
 | `packages/sim/src/bosses-ledger.ts` | **THE LEDGER's names, in the boss barrel** — its state, its phases |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
@@ -588,6 +592,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
 | `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
+| `packages/sim/src/bellows-hand.ts` | **The handle and the plate on THE BELLOWS**, off the wire, on the tick |
+| `packages/sim/src/bellows-hash.ts` | What THE BELLOWS puts into `hashWorld`, and nothing else |
+| `packages/sim/src/bellows-shot.ts` | **THE BELLOWS's one target**: the spark leaking from the gap the second seam left (§19, row 8) |
+| `packages/sim/src/bellows-step.ts` | THE BELLOWS's clock: the marks lighting, the jam running out, the seam parting, the two hazards |
+| `packages/sim/src/bellows.ts` | THE BELLOWS: a double-chambered lung slung across the top of the field |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/undertow-hand.ts` | THE UNDERTOW's two hands, both the navigator's: a pin that plates a lobe, and the thumb that gives an unseated pilot his seat back |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's presses: the maw, the beam and the unseat |
@@ -1697,6 +1706,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
+| `packages/audio/src/bind-bellows.ts` | THE BELLOWS's sixteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
@@ -1922,6 +1932,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
 | `tools/director/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE DIASTOLE, THE BATON, THE THROAT |
+| `tools/director/src/boss-hands-bellows.ts` | **THE BELLOWS played right**, for the STATES sheet: one seat's stroke at a time |
 | `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN, THE VANE, THE ORRERY, THE CANDLE |
 | `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |

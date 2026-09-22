@@ -96,6 +96,7 @@ kinds each of them is.
 - **[THE INSTAR](#1132-the-instar--the-boss-with-no-panel-marked-where-it-will-hurt-you)** · 11.32 — the boss with no panel, marked where it will hurt you
 - **[THE FILAMENT](#1133-the-filament--the-boss-whose-line-one-of-you-draws-while-the-other-follows-it)** · 11.33 — the boss whose line one of you draws while the other follows it
 - **[THE GIMBAL](#1134-the-gimbal--the-boss-where-the-same-turn-is-not-the-same-turn)** · 11.34 — the boss where the same turn is not the same turn
+- **[THE BELLOWS](#1135-the-bellows--the-boss-where-you-may-never-push-while-they-are-pulling)** · 11.35 — the boss where you may never push while they are pulling
 
 **Retired — shipped and taken out again, kept for the verdict**
 
@@ -7671,3 +7672,121 @@ held one does not; no alignment ever times out; the seam opens with one pair
 left, goes out to a bolt of either colour in the middle, and fails the wave if
 nobody answers it; and the last pair takes the drum through the hatch and out.
 Whether any of it *reads* is the owner's eye, after lane two.
+
+## 11.35 THE BELLOWS — the boss where you may never push while they are pulling
+
+> The one that divides the beat. A double-chambered lung hangs over the field,
+> one chamber a seat, and the only way to take a seam off its waist is for one
+> of you to act while the other does nothing at all.
+
+Designed as §19 of [bosses-choreographed](bosses-choreographed.md), and the
+third of the three kinds in `.claude/skills/new-boss` — a choreographed scene.
+The field under it is still (wave `theBellows`'s `entries` are empty) and the
+boss *is* the picture. THE SINEW and THE SURGE both want two hands doing the
+same thing in the same moment; this one spends eleven beats training that out
+of the pair, and then asks for it once.
+
+**It is a lung in two chambers.** The state (`sim/bellows.ts`, hashed in
+`sim/bellows-hash.ts`) is the **phase** and the beat it began, the beat this
+exchange's marks lit, the **seams** left in the waist, both hands' depths on
+their own handles (`handMilli`), the spark's column and the beat it started
+leaking, and `liftTick` — the tick the first of the two hands came off in the
+finale. Its health is the four seams (`BELLOWS_SEAMS`), and no bar: the waist
+narrows, and a gap is a seam gone.
+
+**The rule, in one sentence.** One of you pulls the lung open, then the other
+shuts it, never in the same beat, and a seam parts.
+
+**`Alternation`, spent backwards.** THE BATON's primitive refuses whoever just
+acted; this one refuses whoever did **not**. `bellowsTurn` names the seat the
+lung is waiting on — 1 while the pilot's chamber is shut, 2 once he has drawn
+it open, 0 in every phase where neither handle counts — and a stroke from
+anyone else jams both handles for `bellowsJamBeats` (2) and spends the
+exchange. That is the fight's one fault, and it costs a beat of nothing rather
+than a hull strike on purpose: the pair has to hear it, say whose it was and
+start again, which is the conversation this boss is for.
+
+**The act is an edge, never a level** (`sim/bellows-hand.ts`). A handle
+*crossing* `bellowsWorkMilli` (660) of `bellowsReachMilli` (1000) on its way
+down is the stroke; a thumb resting past it is nothing, and a second stroke
+needs the hand lifted and brought down again. Level would make a held handle
+an act every tick, which on a boss whose whole rule is *not in their beat*
+would jam the pair for holding still. **Geometry says which handle is whose**:
+`bellowsPull` is the pilot's and `bellowsPush` the navigator's, always, and the
+two chambers hang `bellowsChamberCols` (2) either side of the waist so nothing
+on either screen has to label a handle with a seat.
+
+**The clock** (`sim/bellows-step.ts`). The waist hangs tight for
+`bellowsStillBeats` (2); then the marks light, an exchange is pulled and
+pushed, and `bellowsSeamBeats` (3) after a seam parts the next marks light.
+With two seams gone a spark leaks from the new gap and reaches the hull in
+`bellowsSparkBeats` (4) unless a shot shuts it (`sim/bellows-shot.ts`); with
+one gone the lung forces a breath straight down the cannon's column. The last
+seam glows with both handles free, and both hands off inside a beat of each
+other split the waist under THE SLOW (`bellowsSlowBeats` 2, `decisions.md`
+#33), venting for `bellowsVentBeats` (3) before the wave may end.
+
+**One window in the whole fight**, the third exchange's
+(`bellowsWindowBeats`, 3), read off the health by `bellowsShared` rather than
+counted in a field of its own. Every other exchange has no clock at all: a
+pull nobody makes is a pull still wanted, and the marks stay up.
+
+**The split is the beat.** Both seats see the same lung and neither may work
+it at the same time as the other, so *now* and *not yet* are the only two
+words the fight needs — which is what makes it playable by a pair with fifty
+words of English between them.
+
+**Where this departs from the design, and why.** Four places.
+
+*Row 8's spark takes either colour*, not "their own." Only the navigator holds
+the colour buttons, so a spark billed to a colour would be a hazard one seat
+answers alone while the other watches. A spark is not a body with a colour the
+pair could have got wrong; what it costs to miss is the column, and the column
+is the waist (`sim/bellows-shot.ts`).
+
+*Row 10's breath is answered with the shield, which is the navigator's.* The
+design has the breath thrown at the pilot for the pilot to answer. What leaves
+the lung is an ordinary body from the moment it leaves (`forceBreath`), the
+shield is what turns a body, and `shieldCol` is player 2's command — so the
+breath aimed at where the cannon is standing is a thing *he* is under and
+*she* takes off him, which splits one hazard across both seats instead of
+handing it to one. A bespoke hazard with a bespoke answer would be a second
+rule the pair cannot discover by trying it, which `.claude/skills/new-boss` §2
+forbids.
+
+*Row 7's third exchange inside movement 2 is not built.* One exchange parts
+one seam, four seams end the fight, and that keeps the rule to the single
+sentence above. A movement that asked for two exchanges and then three would
+be a count the pair has to hold as well as a turn they have to take.
+
+*Nothing but the third exchange closes a window.* The design gives several
+rows a window of three or four beats. A window that strikes for being slow
+would make the fight about the count rather than about the turn, and the jam
+already prices acting without listening.
+
+**The sounds are bound** (`audio/bind-bellows.ts`, `sounds/boss-bellows.ts`):
+a cue per event over a leather-and-air palette, and **the pan is what says
+whose beat it is** — a grip or a pull comes from the side that acted, and
+everything the waist does comes from the middle, so a pair that has stopped
+looking at each other's screens can hear the exchange going back and forth.
+The seam pitches up per seam gone.
+
+**What is not built is the look.** Every one of the sixteen events is on both
+silent lists (`render/effects-ingest-silent-boss-c.ts`,
+`effects-spark-silent-boss-b.ts`), the two handles have no `FIELD_CONTROLS`
+row, and the seven states are posed on the STATES sheet and nothing else. Lane
+two is its own item on `docs/queue.md`: the ribbed housings, the waist with
+its four gaps, the handle each seat is shown on its own side at the depth
+their thumb has it, the spark out of a parted gap, and the split.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/bellows.test.ts`): the lung comes in tight and lights its first
+marks; his stroke opens the chamber and hers parts a seam; a stroke out of
+turn jams both handles, names the seat that caused it and parts nothing; a
+thumb short of the work depth has done nothing and a thumb resting past it is
+not a second stroke; the first exchange never times out and the third does;
+the spark leaks from the second gap, goes out to a bolt of either colour and
+strikes the hull if nobody answers it; the third seam breathes a body down the
+cannon's own column; and the last seam splits under two hands off in one beat,
+holds under two a beat apart, and vents the lung out of the wave. Whether any
+of it *reads* is the owner's eye, after lane two.

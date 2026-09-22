@@ -1,11 +1,11 @@
 import type {
   AntiphonEntry,
   BatonEntry,
+  BellowsEntry,
   CandleEntry,
   CurtainEntry,
   DiastoleEntry,
   GorgeEntry,
-  HiveEntry,
   LeadEntry,
   LedgerEntry,
   OrreryEntry,
@@ -17,6 +17,7 @@ import type {
   ThroatEntry,
   UndertowEntry,
 } from "./boss-entries-clocks.js";
+import type { HiveEntry } from "./boss-entries-clocks-b.js";
 import type {
   FleetEntry,
   GaugeEntry,
@@ -198,6 +199,7 @@ export type BossEntry =
   | ScuttleEntry
   | AntiphonEntry
   | HiveEntry
+  | BellowsEntry
   // The one that authors a script: the beat list a scene is (`instar.ts`).
   | InstarEntry
   // The one that authors a line: the filaments a pair draws and follows (`filament.ts`).
@@ -205,15 +207,16 @@ export type BossEntry =
   // The one that authors a turn: the alignments two rings are held on (`gimbal.ts`).
   | GimbalEntry;
 
-// The eleven that are a clock and author nothing (`boss-entries-clocks.ts`).
+// The eighteen that are a clock and author nothing, over two pages
+// (`boss-entries-clocks.ts`, `boss-entries-clocks-b.ts`).
 export type {
   AntiphonEntry,
   BatonEntry,
+  BellowsEntry,
   CandleEntry,
   CurtainEntry,
   DiastoleEntry,
   GorgeEntry,
-  HiveEntry,
   LeadEntry,
   LedgerEntry,
   OrreryEntry,
@@ -225,6 +228,7 @@ export type {
   ThroatEntry,
   UndertowEntry,
 } from "./boss-entries-clocks.js";
+export type { HiveEntry } from "./boss-entries-clocks-b.js";
 export type {
   FleetEntry,
   GaugeEntry,

@@ -1,5 +1,6 @@
 import { installAntiphon } from "./antiphon-step.js";
 import { installBaton } from "./baton-step.js";
+import { installBellows } from "./bellows-step.js";
 import { installCandle } from "./candle-step.js";
 import { installCurtain } from "./curtain-step.js";
 import { installDiastole } from "./diastole-step.js";
@@ -62,6 +63,7 @@ const CLOCK_KINDS = [
   "instar",
   "filament",
   "gimbal",
+  "bellows",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -176,6 +178,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // the field, one ring to a seat, turned to the alignments its wave
     // authored (`gimbal-step.ts`).
     world.boss = installGimbal(world, boss.marks);
+  } else if (boss.kind === "bellows") {
+    // No creature and no row: a double-chambered lung slung across the top of
+    // the field, waist tight, four seams whole, and every figure in it tuning
+    // (`bellows-step.ts`).
+    world.boss = installBellows(world);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

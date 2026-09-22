@@ -178,6 +178,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // everything authored about it is a bearing, which is a fraction of a turn
   // and has nothing to do with how wide the field is (`sim/gimbal-step.ts`).
   if (boss.kind === "gimbal") return { ...boss };
+  // THE BELLOWS hangs its waist over `midCol` of whatever field is played
+  // and its two chambers off that, so the only column it ever names is the
+  // one the cannon is already standing in (`sim/bellows-step.ts`).
+  if (boss.kind === "bellows") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

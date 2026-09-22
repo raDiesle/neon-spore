@@ -1,8 +1,8 @@
 import type { SimEvent } from "@neon-spore/sim";
 
 /**
- * **The bosses' half of the silent list, the third page** — THE WELL's four
- * and THE GIMBAL's ten.
+ * **The bosses' half of the silent list, the third page** — THE WELL's four,
+ * THE GIMBAL's ten and THE BELLOWS's sixteen.
  *
  * Cut off `effects-ingest-silent-boss-b.ts` on 22 September 2026 along the
  * seam every page of this list is cut on: the order the bosses were built
@@ -43,4 +43,27 @@ export const INGEST_SILENT_BOSS_C = [
   "gimbalSeamHit",
   "gimbalHatch",
   "gimbalOut",
+  // THE BELLOWS's sixteen, silent **until the look lane draws it**: every
+  // one of them is a state the picture already holds. Which seat the lung is
+  // waiting on, how deep each handle has been carried, how many seams are
+  // left and whether a spark is leaking are all read off the boss every
+  // frame, and a mark that outlived the frame would be a second answer to
+  // *whose beat is it* beside the two handles themselves
+  // (`sim/bellows.ts`, `docs/spec/bosses.md` §11.35).
+  "bellowsEnter",
+  "bellowsMarks",
+  "bellowsPulled",
+  "bellowsSeam",
+  "bellowsJam",
+  "bellowsLate",
+  "bellowsSpark",
+  "bellowsSparkOut",
+  "bellowsSparkHit",
+  "bellowsBreath",
+  "bellowsGlow",
+  "bellowsGrip",
+  "bellowsSplit",
+  "bellowsHold",
+  "bellowsVent",
+  "bellowsOut",
 ] as const satisfies readonly SimEvent["type"][];

@@ -62,6 +62,11 @@ const STILL_PROSE = [
   // game's own screen, and there is no screen to rehearse until the look lane
   // draws the drum and its two rims; the guide says the rule in the meantime.
   "THE GIMBAL",
+  // And THE BELLOWS the same afternoon (§11.35), for THE GIMBAL's reason
+  // word for word: the lung, its two chambers and the four seams down its
+  // waist are all still undrawn, so there is no screen for a film to
+  // rehearse. The guide says the taking of turns until the look lane draws it.
+  "THE BELLOWS",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -87,9 +92,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says eighty-nine of ninety-eight";
-    expect(guided.length, fix).toBe(89);
-    expect(WAVES.length, fix).toBe(98);
+    const fix = "update §1 of docs/spec/briefings.md, which says ninety of ninety-nine";
+    expect(guided.length, fix).toBe(90);
+    expect(WAVES.length, fix).toBe(99);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

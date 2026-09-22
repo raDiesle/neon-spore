@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { bellowsCue } from "./bind-bellows.js";
 import type { Cue } from "./bind-cue.js";
 import { diastoleCue } from "./bind-diastole.js";
 import { filamentCue } from "./bind-filament.js";
@@ -32,6 +33,7 @@ type LateEvent = Extract<
       | `instar${string}`
       | `filament${string}`
       | `gimbal${string}`
+      | `bellows${string}`
       | `diastole${string}`
       | `undertow${string}`;
   }
@@ -76,6 +78,26 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "gimbalHatch":
     case "gimbalOut":
       return gimbalCue(e, cols);
+    // THE BELLOWS, on this page for THE GIMBAL's reason above: the page it
+    // would otherwise have gone on is within sixteen lines of its limit and
+    // this one has room, so nothing had to be handed back for it either.
+    case "bellowsEnter":
+    case "bellowsMarks":
+    case "bellowsPulled":
+    case "bellowsSeam":
+    case "bellowsJam":
+    case "bellowsLate":
+    case "bellowsSpark":
+    case "bellowsSparkOut":
+    case "bellowsSparkHit":
+    case "bellowsBreath":
+    case "bellowsGlow":
+    case "bellowsGrip":
+    case "bellowsSplit":
+    case "bellowsHold":
+    case "bellowsVent":
+    case "bellowsOut":
+      return bellowsCue(e, cols);
     case "diastoleClamp":
     case "diastoleSpasm":
       return diastoleCue(e, cols);

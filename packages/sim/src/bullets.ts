@@ -1,5 +1,6 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
+import { bellowsStruck } from "./bellows-shot.js";
 import { resolve } from "./bullet-hit.js";
 import { candleEats, candleFlash, candleStruck } from "./candle-step.js";
 import { shotMeans } from "./codex.js";
@@ -219,6 +220,9 @@ function sweep(world: World, b: Bullet): boolean {
     // And THE GIMBAL's leaking seam, the one thing in that whole fight a
     // cannon has to do, and either colour does it (`gimbal-shot.ts`).
     gimbalStruck(world, b);
+    // And THE BELLOWS's leaking spark, the one thing in that whole fight a
+    // cannon has to do, and either colour does it (`bellows-shot.ts`).
+    bellowsStruck(world, b);
     hiveStruck(world, b);
     return false;
   }

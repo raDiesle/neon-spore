@@ -1,4 +1,5 @@
 import { BATON_STAGES } from "./baton.js";
+import { BELLOWS_PHASES } from "./bellows.js";
 import type { BossEntry } from "./boss-entries.js";
 import { CANDLE_PHASES } from "./candle.js";
 import { DIASTOLE_PHASES } from "./diastole.js";
@@ -106,5 +107,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   instar: INSTAR_PHASES,
   filament: FILAMENT_PHASES,
   gimbal: GIMBAL_PHASES,
+  bellows: BELLOWS_PHASES,
   fleet: FLEET_PHASES,
 };

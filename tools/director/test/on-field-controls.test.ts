@@ -363,6 +363,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // look lane is what makes both true (`docs/spec/bosses.md` §11.34).
   gimbalOuter: "unbuilt",
   gimbalInner: "unbuilt",
+  // THE BELLOWS's handle and plate, heard and not yet drawn, for the rings'
+  // reason exactly: `sim/bellows-hand.ts` answers a stroke on either and
+  // nothing in `render/` puts a hand on one (`docs/spec/bosses.md` §11.35).
+  bellowsPull: "unbuilt",
+  bellowsPush: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

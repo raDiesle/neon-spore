@@ -16687,3 +16687,32 @@ and the screen is a fixed rest behind it; a capture that could stop on *that*
 would have turned half an hour into one command.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-the-bellows-is-written-and-nobody-has-built-its — one at a time
+
+- reading — 30 min. §19 of the choreographed page is a full design, so the
+  reading was not the rule but the machinery the rule leans on: `Alternation`
+  as THE BATON already spends it, `SimultaneousAction` as THE BALLOON already
+  reads it, and the two depth-drags THE SINEW's `sinewLeft`/`sinewRight` are
+  the pattern for. Then THE GIMBAL's landing the day before, file by file, as
+  the list of everywhere a clock boss has to be named.
+- writing — 85 min. Eight simulation files, nineteen tests, sixteen sounds
+  and their bindings, the wave with its guide, the director's seven cards and
+  two hands, and §11.35 with its four departures argued by name.
+- looking — 0 min. Nothing of this boss is drawn: the sixteen events are on
+  both silent lists and the picture is lane two's own queue item.
+- friction — 25 min. Four of them. A stroke is an edge, so two strokes in a
+  row from the same seat count once — three tests written as if they counted
+  twice. The jam clears in two beats and a test ran four past it, so the phase
+  it asserted had already gone. The main checkout's ledger commit that
+  `.claude/skills/new-boss` §3 asks for is refused from a worktree, and the row
+  went in this lane's commit instead. And `boss-entries-clocks.ts` reached 252
+  and had to hand its last boss to a new page before a line could be added.
+- landing — 20 min. `check:fast`, the index, the blank baseline, the sort
+  across sixteen files, the entry out.
+
+The bottleneck was **the edge**. `bellowsWorkMilli` is crossed, not held, and
+that one sentence — written in the simulation on purpose, so a thumb resting
+on a handle cannot pump it — was the thing three tests and the director's hand
+all got wrong the first time in the same way: they pressed twice without
+lifting. Reading the guard would have been a minute; it cost twenty.
