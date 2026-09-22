@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 01b4c48b — Take THE UNDERTOW's pin off the pilot's screen
+
+The claimed entry was stale: the boss already ships six phases and both of the hands the §6.2 ask wanted, so this lane went looking for what nothing proved instead — and found it in one frame. A handle ring fills its disc in PALETTE.background before anything else, so the pilot's dim copy of the navigator's pin came out a flat black disc filling the head of the lobe he aims the maw at, on every standing lobe at once, offering him a thumb the wire drops. His screen is now shown the pin she has made and not the ones she could: one ring at most, in the column keeping his maw out, which is the half of the handle he can act on. Hers is unchanged.
+
 ## 2026-09-22 · 377c5c20 — Give THE LEDGER's pilot his two hands on the cord
 
 His thumb on the soonest return and his carry on the taut cord have been heard by the simulation since 19 September with nothing drawn to take hold of. Both have a ring now, and neither stands on the root: the cord fades out above the plating on his screen so he cannot read the column it is rooted in, and a ring is a mark — one drawn in that stretch would put back exactly what the fade takes away. The pull's rides the bead it is about, off the same gate the press is, so it can never be on a different return from the one it would move; the haul's stands still at a fixed place above the fade, with better than half the cord left below it for the carry.
