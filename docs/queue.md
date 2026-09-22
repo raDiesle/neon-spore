@@ -300,6 +300,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Seven bosses draw a dim ring that nobody has looked at in a frame
 
 - **Found:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni
+- **Taken:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni (claim: claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo)
 - **Files:** `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/snake-grip.ts`, `packages/render/src/surge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/throat-grip.ts`, `packages/render/src/vane-grip.ts`
 
 **The cause is fixed and the looking is not.** A ring drawn for the other seat
