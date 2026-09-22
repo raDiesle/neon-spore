@@ -662,6 +662,7 @@ beside the ones there.
 ## `stage.ts` is at the 250-line ceiling exactly
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
+- **Taken:** 2026-09-22, claude/queue-a-test-room-code-outside-the-alphabet-costs-twen (claim: claude/queue-stage-ts-is-at-the-250-line-ceiling-exactly)
 - **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-touch.ts`
 
 The desk's stage is now 250 lines, which passes `limits.test.ts` and leaves the
