@@ -48,9 +48,10 @@ import {
   trunkView,
   unmark,
 } from "./repo.js";
+import { skipLines } from "./skipped.js";
 import { staleLine, staleness } from "./stale.js";
 import { statusLines, statusOf } from "./status.js";
-import { fits, refuseUnlessFits, reservedTag, sessionKind } from "./where.js";
+import { fits, offered, refuseUnlessFits, reservedTag, sessionKind } from "./where.js";
 
 function load(): Item[] {
   const queue = parseItems(readFileSync(PATHS.queue, "utf8"), "queue");
@@ -105,22 +106,8 @@ if (!command || command === "list") {
     const elsewhere = here === free.length ? "" : ` (${here} of them for a ${kind} session)`;
     const taken = items.length - free.length;
     console.log(`\n${items.length} in the queue, ${free.length} free${elsewhere}, ${taken} taken.`);
-    // Counted for the owner, who is the one person this line is addressed to:
-    // `next` passes over these, so they sit at the top of his listing doing
-    // nothing until he says a sentence.
-    const asking = free.filter(waiting).length;
-    if (asking > 0) {
-      console.log(`${asking} of the free ones wait on your answer; \`next\` passes over them.`);
-    }
-    // And the other reason `next` steps past a free entry. Counted separately
-    // because it is nobody's to act on: an entry waiting on another one comes
-    // back by itself when that one lands (`needs.ts`).
-    const onHold = free.filter((i) => blocked(i, items)).length;
-    if (onHold > 0) {
-      console.log(
-        `${onHold} of the free ones wait on another entry; they come back when it lands.`,
-      );
-    }
+    // The three reasons `next` steps past a free entry, counted (`skipped.ts`).
+    for (const line of skipLines(free, items)) console.log(line);
     console.log("`bun run queue next` hands the first free one to a session of its own,");
     console.log("`bun run queue take <n>` marks one ongoing without opening a lane,");
     console.log('and `bun run queue done "<title>"` takes it out — by name, never by number.');
@@ -137,9 +124,12 @@ if (!command || command === "list") {
   // An unanswered ask is passed over rather than refused: `next <n>` naming one
   // still hands it out, and so does `take` (`asking.ts`). An entry waiting on
   // another entry is passed over on the same terms, for the same reason — a
-  // session may want to start the blocked half early (`needs.ts`).
+  // session may want to start the blocked half early (`needs.ts`). And an
+  // entry needing hardware is passed over on every machine (`offered`).
   const mine = free.filter((i) => fits(i, kind));
-  const item = arg ? pick(items, arg) : mine.find((i) => !waiting(i) && !blocked(i, items));
+  const item = arg
+    ? pick(items, arg)
+    : mine.find((i) => offered(i) && !waiting(i) && !blocked(i, items));
   if (!item) {
     console.log(
       items.length === 0
@@ -148,7 +138,8 @@ if (!command || command === "list") {
           ? "Every item is taken. `bun run queue` says who is on each."
           : mine.length === 0
             ? `Every free item is reserved for the other kind of session (this is a ${kind} one).`
-            : "Every free item waits on the owner's answer or on another entry. `bun run queue` says which.",
+            : "Every free item needs a phone in your hand, or waits on the owner's answer " +
+              'or on another entry. `bun run queue` says which, and `take "<title>"` takes one anyway.',
     );
   } else {
     const held = claimOn(item, known);

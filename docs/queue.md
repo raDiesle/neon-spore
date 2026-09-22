@@ -254,6 +254,27 @@ reason. A session knows which kind it is by `CLAUDE_CODE_REMOTE`, the signal
 the web image sets (`tools/queue/where.ts`). Without the line an entry is
 anybody's.
 
+`- **Where:** phone` is the same fact one notch narrower, and it is the third
+value: work that needs **hardware**, not just a screen. A real phone browser's
+own chrome eating the foot of the field is the entry that earned it — the
+address bar and the bottom toolbar are drawn by the shell *around* the page,
+so no frame this repo can render will ever show them, headless or not. An
+agent cannot finish that one wherever it is running. `next` with no argument
+passes such an entry over **on every machine**, the listing marks it
+`PHONE ONLY`, and — this is the whole of the difference from `local` — **a
+caller who names it still gets it**: `queue take "<title>"` and `next <n>` hand
+it over to a local session as usual, because the owner has the hardware and
+asks for these by name. A sandbox naming one is refused, with the hardware as
+the reason.
+
+The value exists because of what happened without it. On 22 September 2026
+`next` picked the phone-chrome entry five times in one sitting and was given it
+back five times, each give-back a commit on the trunk saying nothing, and a
+session told *continue to work on the queue* could not get past it without
+knowing `queue take` exists. That is `asking.ts`'s story repeated with
+different hardware, and it has the same shape of fix: **only the automatic pick
+skips.**
+
 **There is no `cloud` half of it any more.** The field had two values for eight
 days: the list was dealt on 18 September 2026, the day he left for two days of
 working it from a phone, and forty-odd entries were marked `cloud` so the
@@ -272,9 +293,10 @@ that `ASKS THE OWNER`: nobody's machine is the thing they are waiting on.
 
 `- **Needs:** <the title of another entry>` says this one cannot start until
 that one lands, and it is the third and last reason `bun run queue next` steps
-past a free entry. The other two say what it is not: a `Where:` line refuses —
-this machine cannot do that work at all — and an unanswered `Asks:` waits on a
-sentence from the owner. Neither can say **this one is fine, but not yet**.
+past a free entry. The others say what it is not: a `Where: local` line refuses
+— this machine cannot do that work at all — a `Where: phone` line says no
+machine can, and an unanswered `Asks:` waits on a sentence from the owner. None
+of them can say **this one is fine, but not yet**.
 `next` without an argument passes a blocked entry over; `next <n>` or `take`
 naming it hands it out as before, with the blocker printed above the entry, so
 a session that means to start the unblocked half can. The listing marks it
@@ -295,7 +317,9 @@ line now.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
-`tools/queue/test/needs.test.ts` holds the wait.
+`tools/queue/test/needs.test.ts` holds the wait, and
+`tools/queue/test/skipped.test.ts` holds the listing's count of the entries
+`next` stepped past and why.
 
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
@@ -366,7 +390,7 @@ left hanging.
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `tools/director/src/director-columns.css`, `tools/director/src/director-phone.css`, `tools/director/src/rail-open.ts`, `tools/director/test/phone-game.test.ts`, `tools/director/test/rail-open.test.ts`
-- **Where:** local
+- **Where:** phone
 
 *A wave row opens the field, and on a phone the field is the screen* landed from a session that could not look at it. What went unchecked:
 
@@ -2322,27 +2346,6 @@ Worth checking in the same sitting whether anything else generated is missing
 from the list: `docs/INDEX.md` and this are the two a lane touches without
 meaning to, but `tools/director/src/versus-pose.ts` is written by the same
 `versus` command and survived only because both sides happened to agree.
-
-## `bun run queue next` hands back an item no session can take
-
-- **Found:** 2026-09-22, claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s
-- **Taken:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its (claim: claude/queue-bun-run-queue-next-hands-back-an-item-no-session)
-- **Files:** `tools/queue/run.ts`, `tools/queue/claim.ts`, `tools/queue/where.ts`, `docs/queue.md`
-
-`next` picked the same entry five times running in one sitting — the one
-whose work is watching a real phone browser eat the foot of the field — and
-each time the session had to `release` it and ask again, because no agent has
-a phone. Five claims and five give-backs are five commits on the trunk that
-say nothing, and they are in the release notes.
-
-The entry is honest and should stay; what is missing is a way for it to say
-that it needs hardware, so `next` steps over it and a human asking for it by
-title still gets it. `Where:` already exists for exactly this shape of fact
-(the `LOCAL ONLY` listing hangs off it), so the work is a value like
-`Where: phone` that `next` skips and `take <title>` does not, plus the line in
-this file's preamble saying so. Whether the existing `Where:` should carry it
-or a field of its own is the implementer's call — both are one branch in
-`claim.ts`, where `next` picks.
 
 ## `packages/sim/src/step.ts` is at 234 lines with a boss still to add
 

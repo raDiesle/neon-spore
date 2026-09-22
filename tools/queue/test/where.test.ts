@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { problemsIn } from "../problems.js";
 import { parseItems } from "../queue.js";
-import { fits, refuseUnlessFits, reservedTag, sessionKind } from "../where.js";
+import { fits, offered, refuseUnlessFits, reservedTag, sessionKind } from "../where.js";
 
 const ANYONES = `## Split the wave editor's cell panel
 
@@ -20,6 +20,15 @@ const LOCALS = `## Watch THE GRATE at tempo and say whether the sweep reads
 Nothing a sandbox runs answers this; it needs an eye on a frame at speed.
 `;
 
+const PHONES = `## A real phone browser's own chrome eats the foot of the field
+
+- **Found:** 2026-09-19, claude/some-lane
+- **Files:** \`tools/director/src/director-phone.css\`
+- **Where:** phone
+
+Headless has no chrome to test it with. This one needs a device in a hand.
+`;
+
 describe("an entry kept for a session with a screen", () => {
   it("reads the Where: line, and is anywhere without one", () => {
     expect(parseItems(LOCALS, "queue")[0]?.where).toBe("local");
@@ -31,8 +40,8 @@ describe("an entry kept for a session with a screen", () => {
   });
 
   it("reports a Where: that names no kind rather than offering the item to anybody", () => {
-    const md = LOCALS.replace("- **Where:** local", "- **Where:** phone");
-    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain('the only value is "local"');
+    const md = LOCALS.replace("- **Where:** local", "- **Where:** desk");
+    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain('the values are "local"');
   });
 
   it("reports `cloud` too, which was a reservation until 21 September 2026", () => {
@@ -42,7 +51,7 @@ describe("an entry kept for a session with a screen", () => {
     const md = LOCALS.replace("- **Where:** local", "- **Where:** cloud");
     const items = parseItems(md, "queue");
     expect(items[0]?.where).toBe("anywhere");
-    expect(problemsIn(items)[0] ?? "").toContain('the only value is "local"');
+    expect(problemsIn(items)[0] ?? "").toContain('the values are "local"');
   });
 
   it("fits a local session, and the kind-less entry fits both", () => {
@@ -83,5 +92,41 @@ describe("which kind of session this is", () => {
     expect(sessionKind({ CLAUDE_CODE_REMOTE: "true" })).toBe("cloud");
     expect(sessionKind({ CLAUDE_CODE_REMOTE: "false" })).toBe("local");
     expect(sessionKind({})).toBe("local");
+  });
+});
+
+describe("an entry that needs hardware", () => {
+  const phone = () => parseItems(PHONES, "queue")[0]!;
+
+  it("reads the Where: line as its own value, not as `local` and not as a problem", () => {
+    expect(phone().where).toBe("phone");
+    expect(problemsIn(parseItems(PHONES, "queue"))).toEqual([]);
+  });
+
+  it("is passed over by the automatic pick on every machine, which is the whole change", () => {
+    // `next` picked this entry five times in one sitting on 22 September 2026
+    // and was given it back five times, because no agent has a phone. The skip
+    // is not about the kind of session: it is about the hardware.
+    expect(offered(phone())).toBe(false);
+    expect(offered(parseItems(LOCALS, "queue")[0]!)).toBe(true);
+    expect(offered(parseItems(ANYONES, "queue")[0]!)).toBe(true);
+  });
+
+  it("is still handed over to a local session that names it", () => {
+    // The owner has the hardware and asks for these by title. `fits` is what
+    // `next <n>` and `take` consult, and it says yes here.
+    expect(fits(phone(), "local")).toBe(true);
+    expect(() => refuseUnlessFits(phone(), "local")).not.toThrow();
+  });
+
+  it("is refused to a sandbox naming it, with the hardware as the reason", () => {
+    expect(fits(phone(), "cloud")).toBe(false);
+    expect(() => refuseUnlessFits(phone(), "cloud")).toThrow(/phone in somebody's hand/);
+  });
+
+  it("is marked on the title line, and the title may not say it as well", () => {
+    expect(reservedTag(phone())).toBe(" — PHONE ONLY");
+    const md = PHONES.replace("chrome eats", "chrome eats — PHONE ONLY —");
+    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain("PHONE ONLY");
   });
 });

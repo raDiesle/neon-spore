@@ -12,9 +12,9 @@ import { fieldOf, type Item, WHERE } from "./queue.js";
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
 
 /** What `queue list` hangs off an entry's fields, and so what a title may not
- * repeat: `ASKS THE OWNER` from `Asks:`, `LOCAL ONLY` from `Where:`, and
- * `WAITS ON` from `Needs:`. */
-const MARKERS = ["ASKS THE OWNER", "LOCAL ONLY", "WAITS ON"];
+ * repeat: `ASKS THE OWNER` from `Asks:`, `LOCAL ONLY` and `PHONE ONLY` from
+ * `Where:`, and `WAITS ON` from `Needs:`. */
+const MARKERS = ["ASKS THE OWNER", "LOCAL ONLY", "PHONE ONLY", "WAITS ON"];
 
 /**
  * What is wrong with an entry, in the words a session would need to fix it.
@@ -88,7 +88,9 @@ export function problemsWith(item: Item): string[] {
     // `cloud` reaches here too, and on purpose: forty entries carried it
     // until 21 September 2026, and one copied out of an old entry has to be
     // reported rather than quietly kept from the machine reading it.
-    problems.push(`${where} — Where: is ${JSON.stringify(reserved)}; the only value is "local"`);
+    problems.push(
+      `${where} — Where: is ${JSON.stringify(reserved)}; the values are "local" and "phone"`,
+    );
   }
   return problems;
 }

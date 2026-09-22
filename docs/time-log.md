@@ -16741,3 +16741,26 @@ minutes of frames had only described. A body one row up is already tangent, so
 there was never any height for the last beat to fall through.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-bun-run-queue-next-hands-back-an-item-no-session — a third value
+
+- reading — 15 min. The entry names three files and `asking.ts` is the fourth
+  it does not: the skip it wanted already exists there, written on 21 September
+  for an ask nobody could answer, with the sentence this lane needed already in
+  its header — *only the automatic pick skips*. Then `where.ts`, `problems.ts`
+  and the two places `run.ts` consults them.
+- writing — 40 min. `Where: phone` through the parser, `offered` beside `fits`
+  in `where.ts`, the refusal's own reason, `skipped.ts` for the listing's three
+  counts, nine tests across two files, and the preamble paragraph.
+- looking — 0 min. `bun run queue`'s own foot is the only thing this draws,
+  and it is read rather than seen.
+- friction — 10 min. `run.ts` went to 251 lines the moment the third count was
+  added, which is the fourth file this week to hit the ceiling under a
+  two-line change; the three counts moved out to `skipped.ts` and it came back
+  to 235. Twice the shell refused a heredoc carrying an escaped backtick.
+- landing — 10 min. `check:fast`, the index, the commit, `land`.
+
+The bottleneck was **`run.ts`'s remaining sixteen lines**, not the design. The
+value itself is one branch in three files and was written in ten minutes; the
+rest of the writing was making room for two `console.log`s in a file that had
+none, and the file had none because nobody had split it when it was at 240.

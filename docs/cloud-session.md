@@ -177,7 +177,12 @@ and the landing's rebase resolves that on its own (`tools/land/queue-merge.ts`).
 on the web image, and `bun run queue` reads it: an entry the owner marked
 `- **Where:** local` — a wave to watch at tempo, a frame to measure — is
 listed `LOCAL ONLY`, passed over by `next`, and refused by name to `take`
-(`tools/queue/where.ts`).
+(`tools/queue/where.ts`). `- **Where:** phone` is the narrower one beside it —
+work needing hardware rather than a screen, which no session of either kind
+can finish — and it reads the same way here: `PHONE ONLY`, passed over, refused
+by name. On the owner's own machine the two part company, and that is the only
+place they do: he can `take` a `phone` entry by title, because he is the one
+holding the phone.
 
 **That is the only reservation, and it only ever points one way.** There was a
 `Where: cloud` beside it from 18 September 2026, when the list was dealt the
