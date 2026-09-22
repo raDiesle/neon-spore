@@ -428,12 +428,31 @@ round has thrown the field away.
 (`poses-bosses-rounds.ts`, `pinballHand`) — the first round whose second axis
 of state is fully posed.
 
-**What is not built** (sim lane, 18 September 2026): the picture. The plunger
-is drawn the same whether the spring is slack or wound, nothing marks the table
-as a thing a thumb may shove, a tilt shows nowhere at all, and the three events
-are on both silent lists. *Never watched at tempo*: whether a shove is a
-gesture a thumb can make on a phone while the other hand is nowhere, and
-whether one nudge is too few.
+**The picture, 22 September 2026.** Both hands have a ring now
+(`render/pinball-grip.ts`), and where they go was decided by the one thing
+that is true of this pair and of no other in the game: **they cannot be on the
+screen together.** The wind is offered through `power` and the shove through
+`flight`, which are two shots of one ball — so both stand in the band of clear
+air a tile and a half above the ship, the band the strength bar runs in, and
+each has the whole of it. His is at its right-hand end and hers at its left,
+which is the one arbitrary thing about them and worth being arbitrary about: a
+round that put two different hands in one place would teach the pair that *the
+handle is over there*. Each is drawn on both screens, bright on the seat it
+belongs to and dim on the other, because neither can feel the other's thumb —
+a navigator who could not see the spring is slack would fire on a bar that is
+not going to run. **The shove's dial is the count**, so a full ring is *the
+next one tilts it*, and the tilt takes the ring off the table altogether: her
+hand is dead and a handle that answered nothing would be worse than none. The
+plunger's ring carries no dial, because `windHeard` remembers nothing about a
+thumb on the way down — the bar starting to run is the answer. The two gates
+are `pinWindable` and `pinNudgeable`, called by the rule and by the picture
+alike, so the ring cannot outlive the gesture.
+
+**What is not built**: the three events are still on both silent lists, and a
+tilt is still said by the ring going out rather than by a sound or a mark of
+its own. *Never watched at tempo*: whether a shove is a gesture a thumb can
+make on a phone while the other hand is nowhere, and whether one nudge is too
+few.
 
 ### Three bodies, three gestures
 

@@ -33,6 +33,31 @@ import type { World } from "./world.js";
  * in flight, a second nudge — each does nothing, and a tilt costs a hand and
  * never the hull (`pinball-round.ts` is where the hull is broken).
  */
+
+/**
+ * Whether the spring is offering player 1 a wind, and whether the table is
+ * offering player 2 a shove.
+ *
+ * **Two predicates rather than two conditions inside the two functions below**,
+ * because the picture has to ask exactly the same questions: a ring drawn on a
+ * gate that was written out a second time in `render/pinball-grip.ts` is a
+ * handle that keeps working after somebody changes one of the two copies. Both
+ * are called from `windHeard`/`nudgeHeard` themselves, so there is one reading
+ * and the drawing and the rule cannot drift.
+ *
+ * Neither says anything about the seat: whose hand it is belongs with the
+ * command, next to every other seat check in this round
+ * (`pinball-controls.ts`).
+ */
+export function pinWindable(state: PinballState): boolean {
+  return state.slack && state.shot === "power";
+}
+
+/** And the shove: a ball actually in the air, on a table not already tilted. */
+export function pinNudgeable(state: PinballState): boolean {
+  return state.shot === "flight" && !state.tilted;
+}
+
 export function pinballDragHeard(
   world: World,
   state: PinballState,
@@ -52,7 +77,7 @@ function windHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (player !== 1 || !state.slack || state.shot !== "power") return;
+  if (player !== 1 || !pinWindable(state)) return;
   // The press says nothing; the wind is the lift, and only one that travelled.
   if (command.on) return;
   if (Math.abs(command.fromYMilli ?? 0) < world.cfg.pinballWindMilli) return;
@@ -66,7 +91,7 @@ function nudgeHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (player !== 2 || state.shot !== "flight" || state.tilted) return;
+  if (player !== 2 || !pinNudgeable(state)) return;
   if (command.on) return;
   const carried = command.fromMilli;
   if (Math.abs(carried) < world.cfg.pinballNudgeMilli) return;

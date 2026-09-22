@@ -16,6 +16,7 @@ import { LEAD_CONTROLS } from "./field-controls-lead.js";
 import { MAZE_CONTROLS } from "./field-controls-maze.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
+import { PINBALL_CONTROLS } from "./field-controls-pinball.js";
 import { PULSE_CONTROLS } from "./field-controls-pulse.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
 import { SCOUT_CONTROLS } from "./field-controls-scout.js";
@@ -111,4 +112,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // place on two screens — the ship is both handles, and the round's split is
   // that neither seat is ever shown both (`field-controls-scout.ts`).
   ...SCOUT_CONTROLS,
+  // PINBALL's plunger and shove, the only pair here that cannot both be on a
+  // screen: one is offered through `power` and the other through `flight`, so
+  // the round hands out one handle a shot (`field-controls-pinball.ts`).
+  ...PINBALL_CONTROLS,
 ];

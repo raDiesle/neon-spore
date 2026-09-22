@@ -213,9 +213,13 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   snakeTail: "field",
   // PINBALL's two hands on its table — player 1 winding the plunger his own
   // hard launch left slack, player 2 shoving the cabinet through a flight
-  // (`sim/pinball-hand.ts`). Sim lane only so far, as every one above it.
-  pinPlunger: "unbuilt",
-  pinTable: "unbuilt",
+  // (`sim/pinball-hand.ts`). Drawn from 22 September 2026, and the only pair
+  // on this tab that cannot both be on a screen: the wind is offered through
+  // `power` and the shove through `flight`, so they share the one band of air
+  // this round keeps clear above the ship, his at its right end and hers at
+  // its left (`render/pinball-grip.ts`, `field-controls-pinball.ts`).
+  pinPlunger: "field",
+  pinTable: "field",
   // THE SCOUT's two hands — player 2's line home on a laden ship, player 1's
   // carry priming a thruster three motes have made labour
   // (`sim/scout-hand.ts`). Drawn from 22 September 2026, and the only pair on

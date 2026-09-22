@@ -15,6 +15,9 @@
 // And the clock bosses' names, whole — a list of the same kind, cut for the
 // same reason `bosses.ts` was (`boss-surface-clocks.ts`).
 export * from "./boss-surface-clocks.js";
+// And PINBALL's, whole: the round whose state is a shot rather than a clock
+// (`boss-surface-pinball.ts`).
+export * from "./boss-surface-pinball.js";
 // And SNAKE's, whole: the round with two axes of state and the only one with
 // a gesture on its own body (`boss-surface-snake.ts`).
 export * from "./boss-surface-snake.js";
@@ -107,14 +110,6 @@ export {
   mirrorHoldsControls,
   mirrorListenBeats,
   NO_TETHER,
-  PIN_THIN_MILLI,
-  PINBALL_MORPH_BEATS,
-  type PinBall,
-  type PinballEntry,
-  type PinballRound,
-  type PinballState,
-  type PinPhysics,
-  type PinPiece,
   PULSE_COUNT_BEATS,
   PULSE_JUDGES,
   PULSE_LANES,
@@ -127,17 +122,6 @@ export {
   type PulsePhase,
   type PulseStage,
   type PulseState,
-  pinballFault,
-  pinballHolds,
-  pinballRound,
-  pinCannonMilli,
-  pinCaught,
-  pinHeightMilli,
-  pinLaneFloorMilli,
-  pinLaunchVelocity,
-  pinPhysics,
-  pinRestingBall,
-  pinTargetsLeft,
   pulseCalls,
   pulseCurrent,
   pulseEndTick,

@@ -8,6 +8,7 @@ import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawAim, drawPowerBar } from "./pinball-aim.js";
 import { drawPinBlast, drawPinTake } from "./pinball-blast.js";
+import { drawPinballGrips } from "./pinball-grip.js";
 import { drawPinPieces } from "./pinball-piece.js";
 import { drawPinBall, drawPinResting, drawPinWalls, pinTable } from "./pinball-table.js";
 import type { ViewState } from "./renderer.js";
@@ -137,6 +138,10 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
     drawPinResting(ctx, table, x, surfaceY(x) - table.tile * 0.34, cfg.pinballBallMilli);
   }
   drawPinBlast(ctx, l, table, view, boss, surfaceY);
+  // The two hands on the table, after the ship: both stand a tile and a half
+  // above the floor, and the floor is the skin the hull pass bows and lights
+  // (`pinball-grip.ts`).
+  drawPinballGrips(ctx, l, cfg, boss, view.time);
 
   drawBand(ctx, l, world, false, false, view.time, view.controls);
   drawHud(ctx, l, view);

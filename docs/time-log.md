@@ -16066,3 +16066,31 @@ the list that holds the load, so both new rings had to be proved by counting
 a canvas log rather than by looking at one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-pinballs-two-handles — one handle a shot
+
+- reading — 20 min. The round's own two gates first (`pinball-hand.ts`), then
+  the board's geometry to find a band of clear air both rings could stand in:
+  `pinTable`, `pinballFault`'s piece-free rows, the strength bar's tiles and
+  the ball waiting in the muzzle. The placement question this round asks is
+  not *where on the body* but *where on a board that already carries a bar*.
+- writing — 50 min. `pinball-grip.ts` whole, the two gates lifted into the
+  simulation and called from both sides, eleven hit-test cases, five frame
+  cases, the director's file, the spec table and the two silent lists.
+- looking — 20 min. `--boss-json '{"slack":true,"shot":"power"}'` puts the
+  round in the one state the plunger is offered in, so the ring could be
+  photographed rather than argued — and the first frame showed it sliced down
+  the middle by the right edge of the phone. The bar's inset is where the bar
+  *ends*; a disc centred there hangs half of itself past it. One radius
+  further in, and a test that both rims stand on the board.
+- friction — 0 min.
+- landing — 20 min. Two over the 250-line limit in `boss-surface.ts`, cut into
+  `boss-surface-pinball.ts` along the seam the clocks and SNAKE already took,
+  then an import sort and `bun run index` for the three new files.
+
+The bottleneck was the placement argument rather than any code: the two
+handles are on different shots of one ball and can never be drawn together,
+which is what let them share the one band the strength bar runs in — and the
+band had to be checked against the pieces, the bar and the resting ball
+before a single line of the ring was written.
+

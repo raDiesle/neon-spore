@@ -69,6 +69,9 @@ export {
   type PinPiece,
   type PinPieceKind,
 } from "./pinball-contact.js";
+// The two gates the round's hands are held to, so the rings drawn on them ask
+// the simulation rather than restating it (`pinball-hand.ts`).
+export { pinNudgeable, pinWindable } from "./pinball-hand.js";
 // Standing a board up and asking what is left on it (`pinball-open.ts`).
 export { pinballCurrent, pinTargetsLeft } from "./pinball-open.js";
 export { type PinPhysics, stepBall } from "./pinball-physics.js";

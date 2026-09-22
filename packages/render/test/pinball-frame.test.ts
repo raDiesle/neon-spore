@@ -4,12 +4,16 @@ import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import {
   createWorld,
   PINBALL_MORPH_BEATS,
+  type PinballState,
+  pinballRound,
   startWave,
   step,
   type TimedCommand,
   ticksPerBeat,
+  type World,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
+import { PALETTE } from "../src/palette.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -141,3 +145,107 @@ describe("PINBALL draws on all three screens", () => {
     expect(watched.cleared).toBeGreaterThan(0);
   });
 });
+
+describe("the two hands on the table", () => {
+  // **Counted by the one thing only a ring puts on this stage.** A handle
+  // fills its disc with the background colour before its own, so whatever it
+  // hangs over does not show through it (`handle-draw.ts`) — and this stage
+  // paints its background with a gradient rather than that flat colour, so the
+  // count is the number of rings and nothing else. Calls will not do it: the
+  // board, the preview fan and the bar all change with the shot.
+  const rings = (role: ViewRole, set: (state: PinballState) => void): number => {
+    const world = stopped();
+    set(pinballState(world));
+    const log: string[] = [];
+    runFrames(world, role, 1, {
+      every: 1,
+      onCanvas: (c) => {
+        c.log = log;
+      },
+      // A stepped round would sweep the needle and fly the ball off whatever
+      // shot it was set on; a still one holds it for the whole frame.
+      onTick: () => {},
+    });
+    return count(log.join("|"), PALETTE.background);
+  };
+
+  it.each(ROLES)("draws no handle at all on an ordinary shot for %s", (role) => {
+    expect(rings(role, (p) => (p.shot = "aim"))).toBe(0);
+    expect(
+      rings(role, (p) => {
+        p.shot = "power";
+        p.slack = false;
+      }),
+    ).toBe(0);
+  });
+
+  it.each(ROLES)("draws the plunger on a slack spring, and only then, for %s", (role) => {
+    expect(
+      rings(role, (p) => {
+        p.shot = "power";
+        p.slack = true;
+      }),
+    ).toBe(1);
+  });
+
+  it.each(ROLES)("draws the shove through a flight and takes it off a tilt for %s", (role) => {
+    expect(rings(role, (p) => (p.shot = "flight"))).toBe(1);
+    expect(
+      rings(role, (p) => {
+        p.shot = "flight";
+        p.tilted = true;
+      }),
+    ).toBe(0);
+  });
+
+  it("gives each seat the other's handle dimmed, and the rig neither", () => {
+    // Neither can feel the other's thumb, so each is drawn on both screens,
+    // bright on the seat it belongs to and dim on the other
+    // (`pinball-grip.ts`). The navigator reads the plunger dim because it is
+    // his; he reads the shove dim because it is hers; the rig owns both.
+    const dim = (role: ViewRole, set: (state: PinballState) => void): number => {
+      const world = stopped();
+      set(pinballState(world));
+      const log: string[] = [];
+      runFrames(world, role, 1, {
+        every: 1,
+        onCanvas: (c) => {
+          c.log = log;
+        },
+        onTick: () => {},
+      });
+      return count(log.join("|"), PALETTE.dim);
+    };
+    const wound = (p: PinballState) => {
+      p.shot = "power";
+      p.slack = true;
+    };
+    const falling = (p: PinballState) => {
+      p.shot = "flight";
+    };
+    expect(dim("p2", wound)).toBeGreaterThan(dim("p1", wound));
+    expect(dim("p1", falling)).toBeGreaterThan(dim("p2", falling));
+  });
+});
+
+function count(text: string, tell: string): number {
+  return text.split(tell).length - 1;
+}
+
+/** A table standing at `play`, with nothing stepping it afterwards. */
+function stopped(): World {
+  const world = createWorld(CFG, 5);
+  const index = waveWith("pinball");
+  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+  for (let i = 0; i < 40 * ticksPerBeat(CFG); i++) {
+    if (pinballState(world).phase === "play") return world;
+    step(world, []);
+  }
+  throw new Error("the round never reached play");
+}
+
+function pinballState(world: World): PinballState {
+  const state = pinballRound(world);
+  if (state === null) throw new Error("PINBALL's wave installed no round");
+  return state;
+}

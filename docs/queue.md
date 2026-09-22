@@ -567,7 +567,7 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Nine handles are heard by the simulation and drawn nowhere
+## Seven handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
 - **Taken:** 2026-09-22, claude/queue-the-scouts-two-handles-are-heard-and-drawn-nowhere (claim: claude/queue-nine-handles-are-heard-by-the-simulation-and-dra)
@@ -656,10 +656,32 @@ The wake was drawn for any burn and now asks `scoutPrimed` as well
 outside the window adds nothing to the flight and no longer draws as though
 it did.
 
-**The other nine are `unbuilt`, and each is a look before it is a row** —
+Lane eight landed PINBALL's two, and they are the only pair here that
+**cannot both be on a screen**: the plunger is offered through the `power`
+shot and the shove through the `flight` that follows it, so the round hands
+out one handle a shot and never two. `render/pinball-grip.ts` holds both
+circles, both gates and the drawing, and the gates themselves moved into the
+simulation — `pinWindable` and `pinNudgeable` in `sim/pinball-hand.ts` are
+called by `windHeard`/`nudgeHeard` and by the rings, so a ring cannot go on
+offering a gesture the round has stopped answering. Both stand a tile and a
+half above the table's floor, in the band the strength bar runs in: it is the
+one stretch of clear air on a board `pinballFault` keeps free of pieces, and a
+ball only crosses it at the very end of a fall. They sit at opposite ends —
+his at the plunger's wall, hers at the other — on the ground that a round
+putting two hands in one place would teach a pair *the handle is over there*.
+The shove's dial is the nudge count itself, so a full ring reads as **the next
+one tilts it**, and the tilt takes the ring away rather than dimming it: her
+hand is dead for that flight and the picture says so. The plunger carries no
+dial, because `windHeard` remembers nothing about a thumb on the way down.
+Both centres are pulled one radius in from the ends of the band: the first
+frame taken had the plunger's ring sliced by the right edge of the phone,
+because on a table this wide the walls *are* the screen's edges.
+`packages/sim/src/boss-surface.ts` was cut for the third time along its own
+seam to fit the two gates (`boss-surface-pinball.ts`).
+
+**The other seven are `unbuilt`, and each is a look before it is a row** —
 `tasterBlade`, `tasterGap`, `tasterLock`,
-`ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`,
-`pinPlunger`, `pinTable`. Every one
+`ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`. Every one
 is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
 branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
 precedent and the reason no row can be written for them yet — `where` is a
@@ -667,8 +689,8 @@ place on the screen and `source` is a branch of `touch.ts`, and neither
 exists.
 
 So the work is one lane per boss, in the shape `candleWick`, `curtainHem`,
-`pulseMeter` and THE VANE's, THE THROAT's, THE UNDERTOW's and THE SCOUT's two
-each took: a `*-grip.ts` giving the handle a ring where the seat
+`pulseMeter` and THE VANE's, THE THROAT's, THE UNDERTOW's, THE SCOUT's and
+PINBALL's two each took: a `*-grip.ts` giving the handle a ring where the seat
 that owns it is drawn, the `handleUnder()` branch that answers it, the
 `field-controls-<boss>.ts` row beside the twenty-seven that exist, the
 `docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to

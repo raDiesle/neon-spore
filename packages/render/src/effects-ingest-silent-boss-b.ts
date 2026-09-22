@@ -159,9 +159,9 @@ export const INGEST_SILENT_BOSS_B = [
   "snakePrise",
   "snakeLift",
   "snakeDrop",
-  // PINBALL's two hands on the table, silent until the look lane draws them:
-  // a slack spring and a tilted table are state, read off `slack` and
-  // `tilted` every frame (`sim/pinball-hand.ts`).
+  // PINBALL's two hands, drawn since 22 September 2026 and still silent: a
+  // slack spring and a spent nudge are state, read off `slack` and `nudges`
+  // every frame and put on the rings themselves (`pinball-grip.ts`).
   "pinWind",
   "pinNudge",
   "pinTilt",
