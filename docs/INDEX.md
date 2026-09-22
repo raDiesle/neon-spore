@@ -876,6 +876,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-v.ts` | **What THE HIVE is asking for** — the readings' page `v`, a letter rather |
 | `packages/render/src/boss-cue-read-w.ts` | **What THE GAUGE is asking for** — the readings' page `w` |
 | `packages/render/src/boss-cue-read-x.ts` | **What THE VANE is asking for** — page twenty-four, and its own |
+| `packages/render/src/boss-cue-read-y.ts` | **What THE GIMBAL is asking for** — page twenty-five of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -948,6 +949,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/desk-seat.ts` | **Whose hand a desk's one mouse is**, on the screen that shows both seats |
 | `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
 | `packages/render/src/effects-boss.ts` | The transients that belong to **one boss** and are read above the loop |
+| `packages/render/src/effects-boss-roster.ts` | **The roster**: one field per boss that keeps something between frames |
 | `packages/render/src/effects-breach.ts` | What a breach looks like — the one event whose answer is not a burst at a point, because the thing that |
 | `packages/render/src/effects-break.ts` | Turning a `destroy` into a body coming apart |
 | `packages/render/src/effects-spark.ts` | The events whose whole visible answer is a handful of particles |
@@ -1460,6 +1462,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-ring.ts` | **The half of THE GIMBAL a hand is on**: one ring, drawn on the screen of the seat that grips it |
 | `packages/render/src/gimbal-shape.ts` | **Where THE GIMBAL is**, in field pixels: the yoke it hangs from |
+| `packages/render/src/gimbal-fx.ts` | What THE GIMBAL leaves behind a frame: the **kick** of the whole cradle as a tooth shears off it |
+| `packages/render/src/gimbal-grip.ts` | **The ring under each thumb**: where a hand may take hold of it, what a turn of it says |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
 | `packages/render/src/strand-fuse-draw.ts` | The three pictures a burning thread is made of (`strand-fuse.ts`): a front eating its way along the line |
@@ -2016,6 +2020,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-field-controls-surge.ts` | THE SURGE with both thumbs on the bulb and the pressure climbing |
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
+| `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2397,6 +2402,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-throat.ts` | **THE THROAT's two hands**, in a file of its own, the split every boss since THE INSTAR has made |

@@ -8,6 +8,7 @@ import { diastoleClampUnder } from "./diastole-clamp.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { fleetGripUnder } from "./fleet-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
+import { gimbalRingUnder } from "./gimbal-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { hiveLobeUnder } from "./hive-grip.js";
@@ -96,6 +97,10 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     surgeBulbUnder(l, x, y, field) ??
     antiphonOrganUnder(l, x, y, field) ??
     orreryRingUnder(l, x, y, field) ??
+    // THE GIMBAL's rim, and the only handle in the game **both** seats have one
+    // of at once: the outer ring is the pilot's and the inner the navigator's,
+    // and geometry is what says so (`gimbal-grip.ts`).
+    gimbalRingUnder(l, x, y, field) ??
     instarMarkUnder(l, x, y, field) ??
     filamentGrabUnder(l, x, y, field) ??
     stareLidUnder(l, x, y, field) ??

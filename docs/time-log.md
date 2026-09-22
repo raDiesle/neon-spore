@@ -22,6 +22,39 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-gimbals-picture-has-never-been-drawn — the grip, half two
+
+- reading — 30 min. The two rings were drawn and nothing answered a thumb, so
+  this half was the hit test and everything that has to be told about it:
+  `handles.ts` and `handle-place.ts` for where a field handle is found,
+  `touch.ts` for how a bearing leaves a finger, `boss-cue.ts` for the word
+  beside a mark, `effects-boss.ts` for what may outlive a frame, and the
+  director's `field-controls-*.ts` and `poses-field-controls.ts` for the two
+  rows and the two pictures the ON THE FIELD tab owes a new control.
+- writing — 55 min. `gimbal-grip.ts` (the rim a thumb is measured against and
+  the knurl that says it was heard), `gimbal-fx.ts` (the family read above the
+  loop — kick, shake, glare), `boss-cue-read-y.ts`, `effects-boss-roster.ts`,
+  two director rows in a file of their own, two gallery poses in another, the
+  two rows in `docs/spec/controls.md`, §11.34's *The look*, and four frame
+  tests.
+- looking — 0 min, and said rather than skipped: what this half adds to a
+  frame is a knurl lit while a thumb is on the rim and a word beside a mark,
+  and neither is in a still picture of a boss nobody is touching. The two
+  gallery poses are the answer to that — a hand put on each ring, in the
+  director, where the owner's eye can find it.
+- friction — 10 min. Three: a heredoc body with a doubled backslash, which the
+  guard blocks and rightly; a pose built without `marks`, which only `tsc`
+  said; and a test that expected the director's screen to carry both seats'
+  words at once.
+- landing — 10 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **the half of this lane that draws nothing**: two director
+rows, two poses, one `TARGET_PLACE` flip, two spec rows, two silent-list
+comments and a re-export off the package's public surface — seven places a new
+on-field handle has to be registered, and none of them reachable from any
+other except by running the test that is red until they all agree. The hit
+test itself was twenty minutes.
+
 ## 2026-09-22 — queue-the-gimbals-picture-has-never-been-drawn — the body, lane two of two
 
 - reading — 45 min. §11.34 and §18 in full, then the whole simulation side

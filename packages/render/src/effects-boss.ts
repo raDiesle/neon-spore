@@ -1,26 +1,6 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
-import { AfterImage } from "./after-image.js";
-import { AntiphonFx } from "./antiphon-fx.js";
-import { CurtainFx } from "./curtain-fx.js";
-import { FilamentFx } from "./filament-fx.js";
-import { FleetFx } from "./fleet-fx.js";
-import { FleetGripFx } from "./fleet-grip-fx.js";
-import { GorgeFx } from "./gorge-fx.js";
-import { HiveFx } from "./hive-fx.js";
-import { InstarFx } from "./instar-fx.js";
+import { BossRoster } from "./effects-boss-roster.js";
 import type { Layout, ViewRole } from "./layout.js";
-import { LeadFx } from "./lead-fx.js";
-import { LedgerFx } from "./ledger-fx.js";
-import { MazeGripFx } from "./maze-grip-fx.js";
-import { RepriseFx } from "./reprise-fx.js";
-import { ScuttleFx } from "./scuttle-fx.js";
-import { MirrorFx } from "./simon-fx.js";
-import { SinewFx } from "./sinew-fx.js";
-import { StareFx } from "./stare-fx.js";
-import { SurgeFx } from "./surge-fx.js";
-import { TasterFx } from "./taster-fx.js";
-import { UndertowFx } from "./undertow-fx.js";
-import { WardenFx } from "./warden-fx.js";
 
 /**
  * The transients that belong to **one boss** and are read above the loop:
@@ -43,101 +23,12 @@ import { WardenFx } from "./warden-fx.js";
  * `warden.reset()`, `afterImage.clear()` — are each transient's own name for
  * forgetting. `restart.test.ts` compares a used `Effects` to a fresh one field
  * by field, and this is one field, compared whole.
+ *
+ * **The roster of fields is `effects-boss-roster.ts`**, the base class this
+ * extends, cut off on 22 September 2026 when THE GIMBAL's transient met this
+ * page at 245 lines. What is left here is the four verbs.
  */
-export class BossTransients {
-  /**
-   * THE MIRROR's own transients. Public: the boss is drawn as a whole ship
-   * rather than as particles, and `canvas2d` reads `armed` and `intake` off
-   * it to build the mirror's hull mood.
-   */
-  readonly mirror = new MirrorFx();
-  /** THE WARDEN's one transient: the line whipping down after it is torn.
-   * Public for the mirror's reason — the boss is drawn as a whole body by
-   * `boss-draw.ts`, not as a handful of particles here. */
-  readonly warden = new WardenFx();
-  /** THE FLEET's salvoes between the muzzle and the square. Public for the
-   * mirror's reason, and asked questions as well as drawn: the marks and the
-   * scars check with it before calling a square spent (`fleet-fx.ts`). */
-  readonly fleet = new FleetFx();
-  /** THE FLEET's wound: the ring thrown off the holed square by each of the
-   * five moments the flood and the wreck are made of, drawn by the boss pass
-   * on the chart the wound stands on (`fleet-grip-fx.ts`, `boss-draw.ts`). */
-  readonly fleetGrip = new FleetGripFx();
-  /**
-   * THE REPRISE's swallow: the moment the count of owed bodies went down, which
-   * is the only sign either seat gets that an unseen body has entered the field.
-   * Driven from the boss pass rather than fed by an event — an unseen arrival
-   * deliberately pushes none — and kept here because it outlives its frame
-   * (`reprise-fx.ts`).
-   */
-  readonly reprise = new RepriseFx();
-  /** THE CANDLE's after-image: which columns of the dark field were lit, by
-   * what, and how long ago. Public and drawn by the renderer between the
-   * bodies and the ship rather than here — it is a mask over the field, not
-   * a thing on it (`after-image.ts`, `candle-dark.ts`). */
-  readonly afterImage = new AfterImage();
-  /** THE GORGE's beads leaving at the end, and the bursts its receipts throw
-   * on the way there — read above the loop, the way the mirror's are
-   * (`gorge-fx.ts`). */
-  readonly gorge = new GorgeFx();
-  /** THE MAZE's thumb landing on its heart or leaving it, thrown off the
-   * heart by the boss pass (`maze-grip-fx.ts`, `maze-draw.ts`). */
-  readonly maze = new MazeGripFx();
-  /** THE CURTAIN's sheet coming down once torn, and its receipts' bursts
-   * (`curtain-fx.ts`). */
-  readonly curtain = new CurtainFx();
-  /** THE TASTER's blades tumbling off the crest, the shiver down the fan as it
-   * re-edges, and the colour each blade wore when it went (`taster-fx.ts`). */
-  readonly taster = new TasterFx();
-  /** THE SINEW's snap: the whip it leaves in the mass, the flash over the
-   * field and the shock down the plating, and its receipts' bursts — asked
-   * for the whip by the drawer (`sinew-fx.ts`, `sinew-draw.ts`). */
-  readonly sinew = new SinewFx();
-  /** THE LEDGER's three moments: the whip a warded return throws back up the
-   * cord, the shock the ship takes from the rooting and from a return nobody
-   * answered, and the flash of the tear — asked for the whip by the drawer
-   * (`ledger-fx.ts`, `ledger-draw.ts`). */
-  readonly ledger = new LedgerFx();
-  /** THE SURGE's vent and burst: the row the bulb sinks through, the jolt
-   * through the body, the jet out of the seam, and its receipts' bursts —
-   * asked for the sink and the jolt by the drawer (`surge-fx.ts`,
-   * `surge-draw.ts`). */
-  readonly surge = new SurgeFx();
-  /** THE LEAD's spring, whip and tumbling bead, and its receipts' bursts —
-   * asked for the angle by the drawer every frame, and told where the stalk
-   * stood (`lead-fx.ts`, `lead-draw.ts`). */
-  readonly lead = new LeadFx();
-  /** THE SCUTTLE's jolt and tumbling plate, and its receipts' bursts — asked
-   * for the jolt by the drawer every frame, and told where the live part
-   * hung (`scuttle-fx.ts`, `scuttle-draw.ts`). */
-  readonly scuttle = new ScuttleFx();
-  /** THE ANTIPHON's eruption, and its receipts' bursts — told the pits by
-   * the drawer every frame, so what comes out of each is the shape that
-   * made it (`antiphon-fx.ts`, `antiphon-draw.ts`). */
-  readonly antiphon = new AntiphonFx();
-  /** THE HIVE's clench and jolt, and its receipts' bursts — asked for both by
-   * the drawer every frame, the bursts thrown at the underside over the
-   * event's column, an opening in its colour only where the colour is drawn
-   * (`hive-fx.ts`, `hive-draw.ts`). */
-  readonly hive = new HiveFx();
-  /** THE INSTAR's jolt, flinch and lash, and its receipts' bursts — told the
-   * marks' places by the drawer every frame, so a burst lands on the part
-   * the event names (`instar-fx.ts`, `instar-draw.ts`). */
-  readonly instar = new InstarFx();
-  /** THE STARE's one transient: the flash of a press the eye caught, on the
-   * caught seat's panel over everything, drawn last of the frame by
-   * `canvas2d.ts` rather than here — a flash on a button stands on the button
-   * (`stare-fx.ts`). */
-  readonly stare = new StareFx();
-  /** THE UNDERTOW's one transient: the plate closing under a cannon slid off
-   * in time, drawn on the finished ship where the bow itself is
-   * (`undertow-fx.ts`, `frame-on-ship.ts`). */
-  readonly undertow = new UndertowFx();
-  /** THE FILAMENT's whip, dark and jolt, and its receipts' bursts — told the
-   * head and the free end by the drawer every frame, so a snap bursts where
-   * the line was (`filament-fx.ts`, `filament-draw.ts`). */
-  readonly filament = new FilamentFx();
-
+export class BossTransients extends BossRoster {
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
   ingest(
@@ -166,6 +57,7 @@ export class BossTransients {
     this.stare.ingest(events, l, cfg, burst);
     this.undertow.ingest(events, l, cfg, beatSeconds, role);
     this.filament.ingest(events, l, cfg, burst);
+    this.gimbal.ingest(events, l, cfg, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
     this.fleetGrip.ingest(events, l, burst);
@@ -193,6 +85,7 @@ export class BossTransients {
     this.stare.update(dt);
     this.undertow.update(dt);
     this.filament.update(dt);
+    this.gimbal.update(dt);
     this.fleet.update(dt, l, burst);
     this.fleetGrip.update(dt);
   }
@@ -237,6 +130,7 @@ export class BossTransients {
     this.stare.clear();
     this.undertow.clear();
     this.filament.clear();
+    this.gimbal.clear();
   }
 }
 

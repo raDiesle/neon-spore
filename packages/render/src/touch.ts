@@ -2,6 +2,7 @@ import { controlPress, type Point } from "@neon-spore/content";
 import { NO_GRIP } from "@neon-spore/sim";
 import { beatboxUnder } from "./beatbox-tap.js";
 import { creatureAt } from "./creature-under.js";
+import { gimbalRingTurn } from "./gimbal-grip.js";
 import { handleUnder } from "./handles.js";
 import { colFromX, type Layout } from "./layout.js";
 import { mineUnder } from "./mine-tap.js";
@@ -140,6 +141,14 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     // that is mirrored for a turned seat — the finger is following a body
     // round rather than pointing at a column (`orrery-grab.ts`).
     if (hold.target === "orreryRing") return orreryRingTurn(l, hold, x, y);
+    // **And THE GIMBAL's two rims**, turned about the drum. Its own function
+    // again rather than the crank's: the circle is centred on the boss and the
+    // fold is undone before the bearing goes out, for the orrery's reason —
+    // a finger chasing a mark round a circle is following a body
+    // (`gimbal-grip.ts`).
+    if (hold.target === "gimbalOuter" || hold.target === "gimbalInner") {
+      return gimbalRingTurn(l, hold, x, y);
+    }
     // **And THE INSTAR's `turn` mark**, a crank drawn on the body: the press
     // flagged the hold, so the reading is the crank's about the mark's centre.
     if (hold.turns) return turnAbout(hold, x, y);

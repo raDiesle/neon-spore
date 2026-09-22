@@ -190,8 +190,10 @@ export function drawFxBoss(
   // they left. On this page rather than the first because the reactions half
   // of its look gives it `effects.boss.gimbal`, and a branch that has to move
   // pages later is a branch written in the wrong place now (`gimbal-draw.ts`).
+  // What outlives a frame — the kick of a shear, the rock of a slip, the glare
+  // of the seam — is `effects.boss.gimbal` (`gimbal-fx.ts`).
   if (boss.kind === "gimbal") {
-    drawGimbal(ctx, l, world, boss, beat, beatPhase, time);
+    drawGimbal(ctx, l, world, boss, beat, beatPhase, time, effects.boss.gimbal);
     return;
   }
 

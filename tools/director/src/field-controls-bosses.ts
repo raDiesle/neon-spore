@@ -8,6 +8,7 @@ import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { FLEET_CONTROLS } from "./field-controls-fleet.js";
 import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
+import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
@@ -127,4 +128,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // `paying` on, so they are one hand on the root of the cord at two times
   // (`field-controls-ledger.ts`).
   ...LEDGER_CONTROLS,
+  // THE GIMBAL's two rings, the only pair here that are **one handle gripped
+  // from its two faces**: one target a seat, offered together, and the same
+  // turn on them is two different turns (`field-controls-gimbal.ts`).
+  ...GIMBAL_CONTROLS,
 ];

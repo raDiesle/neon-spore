@@ -8,6 +8,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { gimbalOpenPhase, gimbalShearPhase, gimbalSpinMilli } from "./gimbal-drum.js";
+import { drawGimbalKnurl, gimbalHeld } from "./gimbal-grip.js";
 import {
   gimbalMarkFace,
   gimbalPinPath,
@@ -87,6 +88,11 @@ export function drawGimbalRing(
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = PALETTE.rock;
   ctx.stroke(pins);
+
+  // The knurl last of the rim's own furniture and before the mark, so a thumb
+  // that has moved the ring less than a tooth still sees it was heard
+  // (`gimbal-grip.ts`, where the hit test this is the visible half of lives).
+  if (gimbalTurning(s)) drawGimbalKnurl(ctx, l, at, ring, face, gimbalHeld(s, ring));
 
   const mark = gimbalTurning(s) ? gimbalMarkFace(l, s, beat, ring) : NO_BEARING;
   if (mark !== NO_BEARING) drawMark(ctx, l, at, r, mark, at_true, time);

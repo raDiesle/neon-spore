@@ -10,6 +10,7 @@ import {
   NO_BEARING,
   NO_SEAM,
   OUTER,
+  type SimEvent,
   startWave,
   step,
   ticksPerBeat,
@@ -125,12 +126,24 @@ function opening(world: World): GimbalState {
   return s;
 }
 
-function drawn(world: World, role: ViewRole, ticks: number): { calls: number; text: string } {
+function drawn(
+  world: World,
+  role: ViewRole,
+  ticks: number,
+  /** One event thrown on the first tick, for the reactions: the fx are the one
+   * part of this picture read off what *happened* rather than off what is
+   * (`render/gimbal-fx.ts`). */
+  said: SimEvent | null = null,
+): { calls: number; text: string } {
   const log: string[] = [];
   const { ctx } = runFrames(world, role, ticks, {
     every: 3,
     onCanvas: (c) => {
       c.log = log;
+    },
+    onTick: (tick, w) => {
+      step(w, []);
+      if (tick === 0 && said !== null) w.events.push(said);
     },
   });
   return { calls: ctx.calls, text: log.join("|") };
@@ -141,10 +154,19 @@ function count(text: string, colour: string): number {
 }
 
 /** Three frames, inside a beat, with the cradle set as `arrange` says. */
-function frame(role: ViewRole, arrange: (world: World) => void): { calls: number; text: string } {
+function frame(
+  role: ViewRole,
+  arrange: (world: World) => void,
+  said: SimEvent | null = null,
+): { calls: number; text: string } {
   const world = hung();
   arrange(world);
-  return drawn(world, role, 9);
+  return drawn(world, role, 9, said);
+}
+
+/** How many words a screen set down. The stub logs the call and not the word. */
+function words(shot: { text: string }): number {
+  return count(shot.text, "fillText(");
 }
 
 describe("THE GIMBAL's cradle", () => {
@@ -248,6 +270,63 @@ describe("THE GIMBAL's cradle", () => {
         );
       }
     }
+  });
+
+  it("lights the knurl under a thumb, on the rim that thumb is on and no other", () => {
+    // The knurl is the visible half of the hit test (`gimbal-grip.ts`): a rim
+    // is drawn with it whenever an alignment is up, and it is lit only while
+    // that seat's hand is reported on it. So the tell is a screen that changes
+    // when its own seat takes hold and does not when the other seat does.
+    const held = (outer: number, inner: number) => (w: World) => {
+      const s = turning(w, 200, 200);
+      s.handMilli = [outer, inner];
+    };
+    const loose = held(NO_BEARING, NO_BEARING);
+    expect(frame("p1", held(300, NO_BEARING)).text).not.toBe(frame("p1", loose).text);
+    expect(frame("p2", held(NO_BEARING, 300)).text).not.toBe(frame("p2", loose).text);
+    // And neither seat is told the other's hand is on, which is the rule the
+    // rings themselves are drawn under.
+    expect(frame("p1", held(NO_BEARING, 300)).text).toBe(frame("p1", loose).text);
+    expect(frame("p2", held(300, NO_BEARING)).text).toBe(frame("p2", loose).text);
+  });
+
+  it("says one word to each seat, on that seat's own ring", () => {
+    // The one boss whose reading answers with two cues on one beat
+    // (`boss-cue-read-y.ts`): a word on his rim and a word on hers, never in
+    // the same place and never a direction. The still drum asks for nothing.
+    const up = (w: World) => {
+      turning(w, 200, 200);
+    };
+    const quiet = words(frame("p1", still));
+    expect(words(frame("p1", up))).toBeGreaterThan(quiet);
+    expect(words(frame("p2", up))).toBe(words(frame("p1", up)));
+    // And the test screen, which is nobody's seat and holds both rings, still
+    // carries one: the drawer takes the first cue a screen may see and stops,
+    // so no screen ever says two things to do at once (`boss-cue.ts`).
+    expect(words(frame("test", up))).toBe(words(frame("p1", up)));
+    // And the leak is the one word with no seat on it: both screens get it.
+    expect(words(frame("p1", leaking))).toBeGreaterThan(quiet);
+    expect(words(frame("p2", leaking))).toBe(words(frame("p1", leaking)));
+  });
+
+  it.each(ROLES)("moves the whole cradle when a tooth comes off, on %s", (role) => {
+    // The reactions are applied to the context and never to a path, so what a
+    // shear changes is where everything is drawn rather than what is drawn
+    // (`gimbal-fx.ts`). A frame with one thrown at it is a different frame.
+    const quiet = frame(role, (w) => turning(w, 200, 200));
+    const kicked = frame(role, (w) => turning(w, 200, 200), {
+      type: "gimbalShear",
+      teeth: 2,
+      col: 5,
+    });
+    expect(kicked.text).not.toBe(quiet.text);
+    expect(kicked.calls).toBeGreaterThan(50);
+  });
+
+  it.each(ROLES)("glares when the seam lands on the hull, on %s", (role) => {
+    const quiet = frame(role, leaking);
+    const hit = frame(role, leaking, { type: "gimbalSeamHit", col: 5 });
+    expect(hit.text).not.toBe(quiet.text);
   });
 
   it("keeps nothing of one run in the next", () => {

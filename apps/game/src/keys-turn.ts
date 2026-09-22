@@ -2,6 +2,7 @@ import { type ControlSet, controlPress, controlTurns, deskKeys } from "@neon-spo
 import {
   BEARING_TURN,
   type Command,
+  gimbalTurnPerTickMilli,
   NO_BEARING,
   orreryTurnPerTickMilli,
   type SimConfig,
@@ -9,8 +10,9 @@ import {
 } from "@neon-spore/sim";
 
 /**
- * The desk keyboard's two keys that stand in for a hand **going round in a
- * circle**: THE CLAW's crank on the panel, and THE ORRERY's ring on the field.
+ * The desk keyboard's keys that stand in for a hand **going round in a
+ * circle**: THE CLAW's crank on the panel, THE ORRERY's ring on the field, and
+ * THE GIMBAL's two rings — one per seat, and the first pair.
  *
  * A key cannot turn. Every other control in the game is a press or a hold and
  * a key is exactly as good as a thumb at both, which is the whole of
@@ -70,6 +72,22 @@ export interface Turning {
  */
 const RING_KEY = "KeyO";
 
+/**
+ * THE GIMBAL's two, and the first time this file has had to spend a key on
+ * **each seat**: the outer ring is the pilot's and the inner the navigator's,
+ * always, and a desk with one key for both would be a desk that could never
+ * put the two rings true together — which is the only thing this boss asks
+ * for. Letters of their own for the ring's reason above: neither is a button
+ * on any panel, so `deskKeys` has no slot to seat them in.
+ *
+ * **T and Y, adjacent under one hand and both unspent.** The pair wanted to
+ * be G and H, which is where a right hand rests — but G is already the grip,
+ * the one key at a desk that takes hold of a body, and a second meaning on it
+ * would have made every gimbal turn also a grab (`keys-grip.ts`, and the test
+ * that said so). A key at this desk is spent once.
+ */
+const GIMBAL_KEYS = { gimbalOuter: "KeyT", gimbalInner: "KeyY" } as const;
+
 /** Both rigs, asked in turn: a code belongs to at most one of them. */
 export function bindTurning(
   cfg: SimConfig,
@@ -80,12 +98,16 @@ export function bindTurning(
 ): Turning {
   const crank = crankRig(cfg, send, controls);
   const ring = ringRig(cfg, send);
+  const rings = [
+    gimbalRig(cfg, send, "gimbalOuter", 1),
+    gimbalRig(cfg, send, "gimbalInner", 2),
+  ] as const;
+  const all = [crank, ring, ...rings] as const;
   return {
-    down: (code, back = false) => crank.down(code, back) || ring.down(code, back),
-    up: (code) => crank.up(code) || ring.up(code),
+    down: (code, back = false) => all.some((r) => r.down(code, back)),
+    up: (code) => all.some((r) => r.up(code)),
     tick: () => {
-      crank.tick();
-      ring.tick();
+      for (const r of all) r.tick();
     },
   };
 }
@@ -168,6 +190,54 @@ function ringRig(cfg: SimConfig, send: (player: 1 | 2, command: Command) => void
     tick: () => {
       if (at === null) return;
       send(1, drag(true, at));
+      at = (at + way * step + BEARING_TURN) % BEARING_TURN;
+    },
+  };
+}
+
+/**
+ * One of THE GIMBAL's rings, and it is the orrery's rig with the seat and the
+ * target handed in rather than written down: a grab carrying `NO_BEARING`, a
+ * bearing a tick from nought, a lift, and a rate read off the rules
+ * (`gimbalTurnPerTickMilli`).
+ *
+ * **The mirror is not here.** What a key sends is a bearing on the face the
+ * hand is on, exactly as a thumb's is, and the inner ring's reflection is
+ * applied once in the simulation (`sim/gimbal-hand.ts`). A desk that turned
+ * the navigator's ring the other way round to be helpful would be rehearsing
+ * a boss nobody is playing — the whole fight is that her key does the other
+ * thing.
+ */
+function gimbalRig(
+  cfg: SimConfig,
+  send: (player: 1 | 2, command: Command) => void,
+  target: "gimbalOuter" | "gimbalInner",
+  player: 1 | 2,
+): Turning {
+  const step = gimbalTurnPerTickMilli(cfg);
+  const key = GIMBAL_KEYS[target];
+  let at: number | null = null;
+  let way: 1 | -1 = 1;
+  const drag = (on: boolean, fromMilli: number): Command =>
+    ({ kind: "drag", target, on, fromMilli }) as const;
+
+  return {
+    down: (code, back = false) => {
+      if (code !== key) return false;
+      way = back ? -1 : 1;
+      send(player, drag(true, NO_BEARING));
+      at = 0;
+      return true;
+    },
+    up: (code) => {
+      if (code !== key) return false;
+      at = null;
+      send(player, drag(false, NO_BEARING));
+      return true;
+    },
+    tick: () => {
+      if (at === null) return;
+      send(player, drag(true, at));
       at = (at + way * step + BEARING_TURN) % BEARING_TURN;
     },
   };

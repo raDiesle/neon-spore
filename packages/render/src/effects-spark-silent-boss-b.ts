@@ -65,12 +65,12 @@ export const SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
-  // THE GIMBAL's ten, silent for the reason its ingest rows are: every one of
-  // them is a state the picture already holds — the rings' bearings, the
-  // marks, the teeth and the seam — and a spark thrown for a hold beginning
-  // would be a second answer beside the rim the thumb is on. The look lane
-  // takes them out of this list, or says here why it did not
-  // (`sim/gimbal.ts`, `docs/spec/bosses.md` §11.34).
+  // THE GIMBAL's ten throw no burst from this table: they are one family read
+  // above the loop, the way THE FILAMENT's and THE HIVE's are, and every burst
+  // of theirs — on the cradle's own centre for the marks, the shear and the
+  // hatch, and on the column a seam breached — is thrown by `gimbal-fx.ts`,
+  // which is also where the kick, the shake and the glare live
+  // (`docs/spec/bosses.md` §11.34).
   "gimbalEnter",
   "gimbalMarks",
   "gimbalTrue",

@@ -20,6 +20,7 @@ import {
   until,
 } from "./pose-kit.js";
 import { ANTIPHON_PULL, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
+import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
 import { SURGE_HOLD } from "./poses-field-controls-surge.js";
 
@@ -230,8 +231,9 @@ const SINEW_PULL: Pose = {
 export const FIELD_CONTROL_GROUP: PoseGroup = {
   title: "ON THE FIELD",
   note: "the moment a control touched on the field itself is answered in — controls.md, and the CONTROLS tab's ON THE FIELD page",
-  // THE SURGE's, THE ANTIPHON's and THE INSTAR's are next door: this file
-  // was at its limit (`poses-field-controls-surge.ts`, `-antiphon.ts`, `-instar.ts`).
+  // THE SURGE's, THE ANTIPHON's, THE INSTAR's and THE GIMBAL's are next door:
+  // this file was at its limit (`poses-field-controls-surge.ts`, `-antiphon.ts`,
+  // `-instar.ts`, `-gimbal.ts`).
   poses: [
     TETHER_TAUT,
     BALLOON_HELD,
@@ -242,6 +244,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ANTIPHON_TURN,
     ANTIPHON_PULL,
     INSTAR_PULL,
+    ...GIMBAL_GRIPS,
     GUIDE_HOLD,
   ],
 };

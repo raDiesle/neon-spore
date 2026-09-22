@@ -1,4 +1,6 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
+import type { SimConfig } from "./config.js";
+import { ticksPerBeat } from "./config-derived.js";
 import { type GimbalRing, gimbalBoss, gimbalTurning, INNER, OUTER } from "./gimbal.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -69,4 +71,21 @@ export function gimbalHeard(world: World, player: 1 | 2, command: Command): void
   // two devices cannot round this apart.
   const turned = ring === OUTER ? shown : -shown;
   s.atMilli[ring] = (((s.atMilli[ring] + turned) % TURN) + TURN) % TURN;
+}
+
+/**
+ * How far a key turns a ring in one tick, for a desk with no thumb to go round
+ * a circle with — **four times the drift**, and the multiple is the argument.
+ *
+ * The drift is the only turning speed this boss names: `gimbalDriftMilli` a
+ * beat is what a ring does to itself with no hand on it (`gimbal-step.ts`), so
+ * a key that turned at exactly that would be a hand worth nothing at all.
+ * Four is the smallest multiple that is still slow enough not to step a ring
+ * over its own tolerance between two samples — `gimbalTrueMilli` is a window
+ * 45 thousandths wide and four drifts is 240 thousandths spread across a
+ * beat's ticks — and a window a desk cannot land in is a control the rig
+ * cannot rehearse (`apps/game/src/keys-turn.ts`).
+ */
+export function gimbalTurnPerTickMilli(cfg: SimConfig): number {
+  return Math.max(1, Math.round((4 * cfg.gimbalDriftMilli) / ticksPerBeat(cfg)));
 }

@@ -356,13 +356,16 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // is drawn on his (`sim/hive-hand.ts`, `render/hive-grip.ts`,
   // `field-controls-hive.ts`, `docs/spec/bosses.md` §11.14).
   hiveLobe: "field",
-  // THE GIMBAL's two rings, heard and not yet drawn: `sim/gimbal-hand.ts`
-  // answers a bearing on either of them, and nothing in `render/` takes hold
-  // of a rim, so they are `unbuilt` by `orreryRing`'s rule — a row's `where`
-  // is a place on a screen and its `source` a branch of `touch.ts`, and the
-  // look lane is what makes both true (`docs/spec/bosses.md` §11.34).
-  gimbalOuter: "unbuilt",
-  gimbalInner: "unbuilt",
+  // THE GIMBAL's two rings, and **the first pair here that are one handle
+  // gripped from its two faces**: `gimbalOuter` is the pilot's rim and
+  // `gimbalInner` the navigator's, each answered on the seat that owns it and
+  // on no other (`render/gimbal-grip.ts`, `handles.ts`). Two rows rather than
+  // one because they are two targets offered at once, which no entry above
+  // them is — and what the rows may not say is which way to turn, since the
+  // whole fight is that the same turn is two turns (`field-controls-gimbal.ts`,
+  // `docs/spec/bosses.md` §11.34).
+  gimbalOuter: "field",
+  gimbalInner: "field",
   // THE BELLOWS's handle and plate, heard and not yet drawn, for the rings'
   // reason exactly: `sim/bellows-hand.ts` answers a stroke on either and
   // nothing in `render/` puts a hand on one (`docs/spec/bosses.md` §11.35).

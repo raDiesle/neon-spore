@@ -23,6 +23,7 @@ import { diastoleCues } from "./boss-cue-read-u.js";
 import { hiveCues } from "./boss-cue-read-v.js";
 import { gaugeCues } from "./boss-cue-read-w.js";
 import { vaneCues } from "./boss-cue-read-x.js";
+import { gimbalCues } from "./boss-cue-read-y.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -154,6 +155,11 @@ export function bossCues(
       return pinballCues(l, world, boss);
     case "scout":
       return scoutCues(l, world, boss);
+    // **The one kind that answers with two cues at once**, one per seat: both
+    // rings want turning, and they never want it to the same place
+    // (`boss-cue-read-y.ts`).
+    case "gimbal":
+      return gimbalCues(l, world, boss);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

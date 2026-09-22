@@ -7651,16 +7651,63 @@ drum hangs — only the seam's two pan to the column they leak in. The marks
 lighting pitch up per alignment and the shear pitches up per tooth pair gone,
 so the fight has a rising line the pair can hear without looking.
 
-**What is not built is the look.** Every one of the ten events is on both
-silent lists (`render/effects-ingest-silent-boss-c.ts`,
-`effects-spark-silent-boss-b.ts`), the two rings are `unbuilt` in the director's
-`TARGET_PLACE` table and have no `FIELD_CONTROLS` row, and the four states are
-posed on the STATES sheet and nothing else. The desk keyboard turns no ring
-either: a bearing is not a key, and what stands in for a finger going round a
-circle is the look lane's question, with the rim it would be going round. Lane
-two is its own item on
-`docs/queue.md`: the drum, the two rims with their gaps, the mark each seat is
-shown on its own face, the shearing tooth, the loose spin and the hatch.
+**The look** (`render/gimbal-draw.ts`, `gimbal-ring.ts`, `gimbal-shape.ts`,
+`gimbal-drum.ts`, `gimbal-grip.ts`, `gimbal-fx.ts`). A sealed drum hung in a
+yoke off the top of the field inside two rings, drawn in six poses read off the
+world alone and eased between — dark and still; the marks up and a ring
+turning; both rims glowing at true; the shearing spark with a rim a tooth
+shorter; both rings spinning loose; the drum split along its seam and swinging
+open toward the ship, which is the one place on this boss a face the pair has
+been reading goes away and another comes.
+
+*The rim is the health*: three blocks a ring, the spent ones drawn as the
+sockets they left sunk into the rim and the rest standing out of it, so a rim
+with one tooth left is a different silhouette from one with three and nothing
+prints the number.
+
+*A ring is a circle here and never an ellipse* — THE ORRERY's are flattened
+because a bolt has to pass through one, and nothing is ever fired at these,
+while a bearing read off a squashed circle races through the quadrants across
+the top, which is exactly the sense this boss asks the pair to agree about. So
+each seat's ring is drawn face-on and **where it is pinned** is the only thing
+on either screen that says which ring it is: the outer at its top and bottom,
+the inner at its sides. Geometry, not colour.
+
+*The reflection is not drawn.* `gimbalFaceMilli` is the one place a true
+bearing becomes a drawn one and both the rim and the mark go through it, so a
+flipped screen still reads true exactly when the simulation says true — and
+neither seat is ever shown the other's ring at all
+(`render/view-role-clocks-b.ts`, proved both ways in
+`render/test/gimbal-frame.test.ts`).
+
+*The handle is the rim itself* (`render/gimbal-grip.ts`, reached from
+`handles.ts`): a thumb within half a tile of the ring drawn on this seat's own
+screen takes hold of it, the bearing is read on the face the hand is on and no
+unsquashing is needed because the ring is a circle. The knurl — twenty-four
+ticks across the rim — lights while it is held, so a thumb that has moved the
+ring less than a tooth still sees it was heard. Both rings have rows on the
+director's ON THE FIELD tab (`tools/director/src/field-controls-gimbal.ts`) and
+a pose each, and `docs/spec/controls.md` carries them in sentences.
+
+*The reactions move the whole cradle* and nothing else (`gimbal-fx.ts`, held in
+`effects.boss.gimbal` and cleared on restart): the kick of a tooth coming off
+drops it in its yoke, the shake of a ring that lost true tips the pair of them
+together, the glare of the seam landing washes the lot. All three are applied
+to the canvas rather than to any path, so the rings, the drum and the marks
+stay one rigid body — a mark that shook loose of its own rim would be the boss
+lying about the one thing it may not lie about.
+
+*The cue is two words at once across the pair* (`render/boss-cue-read-y.ts`),
+which no other boss's is: `TURN` on each seat's own rim, `HOLD` once that rim
+is true, and `FIRE` over the seam with no seat on it, because the spark takes a
+bolt in either colour. One word to a screen, still — the drawer takes the first
+cue that screen may see and stops. None of them ever says which way.
+
+**At a desk** the two rings are `T` and `Y`, shift for the other way round, at
+`gimbalTurnPerTickMilli` — four times the drift, asked for rather than chosen
+(`apps/game/src/keys-turn.ts`). The key is **not** mirrored to be helpful: a
+desk that turned the navigator's ring the other way round would be rehearsing a
+boss nobody is playing.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/gimbal.test.ts`, `gimbal-seam.test.ts`): the drum comes in still and
@@ -7671,7 +7718,9 @@ mark loses the hold and nothing else; a ring let go of drifts back to rest and a
 held one does not; no alignment ever times out; the seam opens with one pair
 left, goes out to a bolt of either colour in the middle, and fails the wave if
 nobody answers it; and the last pair takes the drum through the hatch and out.
-Whether any of it *reads* is the owner's eye, after lane two.
+`render/test/gimbal-frame.test.ts` sets each of the six poses on all three
+screens rather than playing to it. Whether any of it *reads* is the owner's
+eye.
 
 ## 11.35 THE BELLOWS — the boss where you may never push while they are pulling
 

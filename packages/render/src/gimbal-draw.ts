@@ -11,6 +11,7 @@ import {
   gimbalSeamPhase,
   gimbalStillPhase,
 } from "./gimbal-drum.js";
+import type { GimbalFx } from "./gimbal-fx.js";
 import { drawGimbalRing } from "./gimbal-ring.js";
 import {
   gimbalCentre,
@@ -59,6 +60,7 @@ export function drawGimbal(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: GimbalFx,
 ): void {
   const cfg = world.cfg;
   const lit = smoothstep(gimbalStillPhase(s, cfg, beat, beatPhase));
@@ -66,7 +68,17 @@ export function drawGimbal(
   const at = gimbalCentre(l, cfg);
 
   ctx.save();
-  ctx.globalAlpha = 0.15 + 0.85 * lit;
+  // What the reactions do to the whole cradle, and they only ever move *it*:
+  // the kick of a tooth coming off drops it in its yoke, the rock of a ring
+  // that lost true tips the pair of them together, and the glare of the seam
+  // letting go washes the lot. Applied to the context rather than to any
+  // path, so the rings, the drum and the marks stay in one rigid body — a
+  // mark that shook loose of its own rim would be the boss lying about the
+  // one thing it may not lie about (`gimbal-fx.ts`).
+  ctx.globalAlpha = Math.min(1, 0.15 + 0.85 * lit + 0.3 * fx.glare);
+  ctx.translate(at.x, at.y + fx.kick * l.tile);
+  ctx.rotate(fx.shake * 0.05 * Math.sin(time * 38));
+  ctx.translate(-at.x, -at.y);
   drawYoke(ctx, l, at, lit);
   drawDrum(ctx, l, at, open, time);
   if (gimbalLeaking(s)) drawLeak(ctx, l, world, s, at, beat, beatPhase, open);

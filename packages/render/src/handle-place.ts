@@ -3,8 +3,10 @@ import {
   curtainBody,
   type DragTarget,
   hiveClenched,
+  INNER,
   lidIsHeld,
   NO_TETHER,
+  OUTER,
   occupiesCol,
   type World,
   wardenHandleMilli,
@@ -13,6 +15,7 @@ import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { candleWickAt } from "./candle-grip.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { curtainHemAt } from "./curtain-grip.js";
+import { gimbalRingCircle } from "./gimbal-grip.js";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
 import { hiveHaulCircle } from "./hive-grip.js";
 import type { Circle, Layout } from "./layout.js";
@@ -107,6 +110,17 @@ export function handleCircle(
     // no orrery, and on one whose rings are all off.
     const b = world.boss?.kind === "orrery" ? world.boss : null;
     return b === null ? null : orreryRingCircle(l, cfg, b);
+  }
+  if (target === "gimbalOuter" || target === "gimbalInner") {
+    // THE GIMBAL's two, and the first pair of whole-circle handles the game
+    // has had at once: the outer ring is the pilot's and the inner the
+    // navigator's, so the target names the ring and nothing is read off the
+    // role (`gimbal-grip.ts`). Where a hand on one *is* is the bearing the
+    // simulation recorded, drawn on the face that grips it. Null between
+    // alignments, when there is nothing to take hold of.
+    const b = world.boss?.kind === "gimbal" ? world.boss : null;
+    if (b === null) return null;
+    return gimbalRingCircle(l, cfg, b, target === "gimbalOuter" ? OUTER : INNER);
   }
   if (target === "sinewLeft" || target === "sinewRight") {
     // THE SINEW's two, THE BALLOON's arrangement hung off a boss instead of

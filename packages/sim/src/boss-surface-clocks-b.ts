@@ -220,6 +220,10 @@ export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";
 // biome-ignore format: one line, so a reading added to the rings does not cost a row
 // biome-ignore format: and the readings, for the same reason
 export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalMarkMilli, gimbalOpen, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTurning, INNER, NO_SEAM, OUTER } from "./gimbal.js";
+// And the one figure off its hand: how far a desk key turns a ring in a tick,
+// asked for rather than chosen, THE ORRERY's ring's arrangement exactly
+// (`gimbal-hand.ts`, `apps/game/src/keys-turn.ts`).
+export { gimbalTurnPerTickMilli } from "./gimbal-hand.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

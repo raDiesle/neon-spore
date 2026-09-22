@@ -27,12 +27,14 @@ export const INGEST_SILENT_BOSS_C = [
   "wellHeld",
   "wellWound",
   "wellHome",
-  // THE GIMBAL's ten, silent **until the look lane draws it**: every one of
-  // them is a state the picture already holds. Where each ring stands, where
+  // THE GIMBAL's ten are one family read above the loop, the way THE
+  // FILAMENT's are: the kick of a tooth coming off, the shake of a ring that
+  // lost true, the glare of the seam landing, and every burst, are
+  // `effects.boss.gimbal`'s (`gimbal-fx.ts`). Where each ring stands, where
   // its mark is this beat, how many teeth are left and whether the seam is
-  // leaking are all read off the boss every frame, and a burst that outlived
-  // the frame would be a second answer to *is it true* beside the rim the
-  // thumb is on (`sim/gimbal.ts`, `docs/spec/bosses.md` §11.34).
+  // leaking stay read off the boss every frame — a burst that outlived the
+  // frame would be a second answer to *is it true* beside the rim the thumb
+  // is on (`gimbal-draw.ts`, `docs/spec/bosses.md` §11.34).
   "gimbalEnter",
   "gimbalMarks",
   "gimbalTrue",
