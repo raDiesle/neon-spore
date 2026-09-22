@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · cd5a8efa — THE SLOW's window gets a picture: the bar, and light round the boss
+
+A window used to say nothing. It now says two things. A notched bar above the hull counts it down, one notch swallowed a beat, closed to a point on the beat the game comes back up to speed. And fourteen soft streams of light run inward all the way round the boss, stopping at its skin — nothing is ever drawn over the body, which is held by clipping the whole of it out of the pass, head and the chain it hangs from, as one capsule along its own axis. All of it fades up and away over four tenths of a second inside the window, so it arrives from nothing and is gone on the beat the hurry ends.
+
 ## 2026-09-22 · fc1e08af — Say THE GIMBAL's rule in thirty words on the two screens that show it
 
 The words checker budgets a guide's `both` and a mechanics `what` at thirty words each, and `tools/words/clean.ts` lets a lane that has written no new rule only lower the count of failing lines. A new boss written in the mechanics table's shipped register — every entry from THE HIVE on runs to two hundred words — costs two of them, which took the ceiling to 307 and the landing red. So both lines are short: the wave's guide is four sentences, the menu line is the drum, the two rings, the turn and the backwards rim, and the long half of the design stays in `docs/spec/bosses.md` §11.34, which no player reads.

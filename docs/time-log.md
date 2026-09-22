@@ -16592,3 +16592,5 @@ cannot fade *inward*, so the fix was to delete it and let the beads, which
 already fade with their own distance from the body, carry all of it. None of
 the three is a thing `bun run check` can see, and each cost a fifty-second shot
 to find.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
