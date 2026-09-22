@@ -224,6 +224,9 @@ export {
   tasterWeak,
   tasterWindow,
 } from "./taster.js";
+// The three gates its hands are held to, so the rings drawn on them ask the
+// simulation rather than restating it (`taster-hand.ts`).
+export { tasterPinnable, tasterPryable, tasterWipable } from "./taster-hand.js";
 export {
   THROAT_PHASES,
   type ThroatPhase,

@@ -5060,6 +5060,19 @@ So the fight ends on the two seats doing different things inside one window
 rather than on a seventh bolt, and every movement of it now asks something the
 one before it did not.
 
+**And each of the three has a ring on it** (`render/taster-grip.ts`, 22
+September 2026). They were heard for three days with nothing drawn to take
+hold of; what they have now is one ring per movement, and **never two at
+once** — the pin on the *root* of the undecided blade, so the lit edge both
+seats read stays clear; the wipe in the air just *above* each notch, so the
+row of them never covers how wet the gaps are; the pry on the middle of the
+crest where the last blades cross, going out the instant the interlock stands
+open because he may let go. Each dial is the clock its own gesture races:
+`tasterPinBeats` toward a bet lost, `wiped` saying *this carry is spent*, and
+`pryMilli` out of `tasterPryMilli`. Every ring is drawn on both phones, his
+bright on his and dim on hers and hers the other way about, because each of
+the three is a thing the *other* seat is waiting on.
+
 **Where this departs from the design, and why.** Four places, each argued by
 name. *The rock throw is dropped*: the design's step 7 has a blade sweeping
 down to throw a rock, and a boss that fed the field would be feeding the

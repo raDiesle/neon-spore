@@ -1,3 +1,4 @@
+import type { SimConfig } from "./config.js";
 import {
   type TasterState,
   tasterBladeAt,
@@ -57,6 +58,39 @@ import type { World } from "./world.js";
  * her beam starts being worth something.
  */
 
+/**
+ * **What each of the three is offering, this tick.**
+ *
+ * Three predicates rather than three conditions inside the three functions
+ * below, because the picture has to ask exactly the same questions: a ring
+ * drawn on a gate written out a second time in `render/taster-grip.ts` is a
+ * handle that goes on saying *take hold of me* after somebody changes one of
+ * the two copies. All three are called from `pin`/`wipe`/`pry` themselves, so
+ * there is one reading and the drawing and the rule cannot drift.
+ *
+ * None of them says anything about the seat, and none about a thumb already
+ * down: whose hand it is belongs with the command, and a hand on a thing is
+ * not a reason to stop drawing the thing.
+ */
+
+/** The pin: a blade out of the crest, still undecided, while the fan is `fanning`. */
+export function tasterPinnable(t: TasterState, cfg: SimConfig, i: number): boolean {
+  if (i < 0 || tasterPhase(t, cfg) !== "fanning") return false;
+  const k = t.blades[i];
+  return k !== undefined && !k.shorn && k.growBeat >= 0 && k.setBeat < 0;
+}
+
+/** The wipe: a column a blade was struck off in, on a crest still worth cutting. */
+export function tasterWipable(t: TasterState, cfg: SimConfig, i: number): boolean {
+  if (i < 0 || tasterPhase(t, cfg) !== "hurrying" || tasterLifted(t)) return false;
+  return t.blades[i]?.shorn === true;
+}
+
+/** And the pry: an interlock that is `closed` and is not already standing open. */
+export function tasterPryable(t: TasterState, beat: number, cfg: SimConfig): boolean {
+  return tasterPhase(t, cfg) === "closed" && !tasterPried(t, beat, cfg);
+}
+
 /** All three hands at rest, for the fan's own install — their fields, in their file. */
 export function tasterHandsFresh(): Pick<
   TasterState,
@@ -98,9 +132,7 @@ function pin(world: World, t: TasterState, on: boolean, col: number): void {
     t.pinBeats = 0;
     return;
   }
-  if (tasterPhase(t, world.cfg) !== "fanning" || i < 0 || t.pin === i) return;
-  const k = t.blades[i];
-  if (k === undefined || k.shorn || k.growBeat < 0 || k.setBeat >= 0) return;
+  if (t.pin === i || !tasterPinnable(t, world.cfg, i)) return;
   t.pin = i;
   t.pinBeats = 0;
   world.events.push({ type: "tasterPin", col });
@@ -127,8 +159,7 @@ function wipe(world: World, t: TasterState, on: boolean, col: number, fromMilli:
     t.wiped = false;
     return;
   }
-  if (tasterPhase(t, world.cfg) !== "hurrying" || i < 0 || tasterLifted(t)) return;
-  if (t.blades[i]?.shorn !== true) return;
+  if (!tasterWipable(t, world.cfg, i)) return;
   if (t.wipe !== i) {
     t.wipe = i;
     t.wiped = false;
@@ -156,7 +187,7 @@ function pry(world: World, t: TasterState, on: boolean, fromYMilli: number): voi
     return;
   }
   const cfg = world.cfg;
-  if (tasterPhase(t, cfg) !== "closed" || tasterPried(t, world.beat, cfg)) return;
+  if (!tasterPryable(t, world.beat, cfg)) return;
   t.pryMilli = Math.max(0, Math.min(cfg.tasterPryMilli, Math.round(fromYMilli)));
   if (t.pryMilli < cfg.tasterPryMilli) return;
   t.pryBeat = world.beat;

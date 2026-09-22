@@ -25,6 +25,7 @@ import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { SNAKE_CONTROLS } from "./field-controls-snake.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
+import { TASTER_CONTROLS } from "./field-controls-taster.js";
 import { THROAT_CONTROLS } from "./field-controls-throat.js";
 import { UNDERTOW_CONTROLS } from "./field-controls-undertow.js";
 import { VANE_CONTROLS } from "./field-controls-vane.js";
@@ -116,4 +117,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // screen: one is offered through `power` and the other through `flight`, so
   // the round hands out one handle a shot (`field-controls-pinball.ts`).
   ...PINBALL_CONTROLS,
+  // THE TASTER's pin, wipe and pry, the first set here that is **one hand per
+  // movement**: no two of the three are ever offered together, so each gets
+  // the whole crest to stand on (`field-controls-taster.ts`).
+  ...TASTER_CONTROLS,
 ];

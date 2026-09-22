@@ -28,6 +28,7 @@ import { sinewHandleUnder } from "./sinew-handles.js";
 import { snakeGripUnder } from "./snake-grip.js";
 import { stareLidUnder } from "./stare-lid.js";
 import { surgeBulbUnder } from "./surge-grip.js";
+import { tasterGripUnder } from "./taster-grip.js";
 import { tetherGrabCircle } from "./tether.js";
 import { throatGripUnder } from "./throat-grip.js";
 import type { Field, Touch } from "./touch.js";
@@ -116,6 +117,10 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     undertowGripUnder(l, x, y, field) ?? // THE UNDERTOW's pin on a standing lobe and the free over the stuck pilot (`undertow-grip.ts`).
     scoutGripUnder(l, x, y, field) ?? // THE SCOUT's line on a laden ship and the prime off a heavy one's stern (`scout-grip.ts`).
     pinballGripUnder(l, x, y, field) ?? // PINBALL's plunger on a slack spring and the shove on a table in flight (`pinball-grip.ts`).
+    // THE TASTER's pin on a blade that has not decided, wipe across a gap a
+    // blade is gone from, and pry on the closed interlock — one per movement,
+    // so no two of the three are ever offered together (`taster-grip.ts`).
+    tasterGripUnder(l, x, y, field) ??
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }

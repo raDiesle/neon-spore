@@ -13,6 +13,7 @@ import type { Layout } from "./layout.js";
 import { drawOrrery } from "./orrery-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawTaster } from "./taster-draw.js";
+import { drawTasterGrips } from "./taster-grip.js";
 import { drawThroat } from "./throat-draw.js";
 import { drawUndertowLobes } from "./undertow-lobe.js";
 
@@ -165,6 +166,10 @@ export function drawClockBoss(
   // (`taster-draw.ts`, `taster-read.ts`).
   if (boss.kind === "taster") {
     drawTaster(ctx, l, world, boss, view.beatPhase, view.time);
+    // And its three thumbs, over the fan for THE GORGE's reason eight branches
+    // up: a ring is drawn on the thing it takes hold of, and one under a blade
+    // would be a handle the boss paints over (`taster-grip.ts`).
+    drawTasterGrips(ctx, l, world.cfg, boss, view.beatPhase, world.beat, view.time);
     return;
   }
 

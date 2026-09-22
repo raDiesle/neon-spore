@@ -567,7 +567,7 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Seven handles are heard by the simulation and drawn nowhere
+## Four handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
 - **Taken:** 2026-09-22, claude/queue-the-tasters-three-handles-are-heard-and-drawn-nowhere (claim: claude/queue-seven-handles-are-heard-by-the-simulation-and-dr)
@@ -679,8 +679,28 @@ because on a table this wide the walls *are* the screen's edges.
 `packages/sim/src/boss-surface.ts` was cut for the third time along its own
 seam to fit the two gates (`boss-surface-pinball.ts`).
 
-**The other seven are `unbuilt`, and each is a look before it is a row** —
-`tasterBlade`, `tasterGap`, `tasterLock`,
+Lane nine landed THE TASTER's three, and they are the first set here that is
+**one hand per movement**: the pin is offered only through `fanning`, the wipe
+only through `hurrying`, the pry only on the `closed` interlock, so no two of
+the three are ever on a screen and each gets the whole crest to stand on.
+`render/taster-grip.ts` holds all three circles, all three gates and the
+drawing, and the gates themselves moved into the simulation —
+`tasterPinnable`, `tasterWipable` and `tasterPryable` in `sim/taster-hand.ts`
+are called by `pin`/`wipe`/`pry` and by the rings, so a ring cannot go on
+offering a gesture the fight has stopped answering. This is also the first
+boss here **no part of which is hidden from either seat** — the split is two
+numbers, not two pictures — so the placements were settled by what a ring
+would *cover* rather than by who can see it: the pin on the blade's **root**,
+leaving the lit edge both seats read standing; the wipe in the air **above**
+each notch, so the row of them never hides how wet the gaps are; the pry on
+the middle of the crest, where the last blades cross. Each dial is the clock
+its own gesture races, and the pry's ring goes out the instant the interlock
+stands open, because the window is a beat count and he may let go. The rings
+are drawn from `boss-draw-clocks.ts` beside `drawTaster` rather than inside
+it, THE GORGE's arrangement, so `taster-draw.ts` and `taster-grip.ts` do not
+import each other.
+
+**The other four are `unbuilt`, and each is a look before it is a row** —
 `ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`. Every one
 is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
 branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
@@ -689,8 +709,8 @@ place on the screen and `source` is a branch of `touch.ts`, and neither
 exists.
 
 So the work is one lane per boss, in the shape `candleWick`, `curtainHem`,
-`pulseMeter` and THE VANE's, THE THROAT's, THE UNDERTOW's, THE SCOUT's and
-PINBALL's two each took: a `*-grip.ts` giving the handle a ring where the seat
+`pulseMeter`, THE VANE's, THE THROAT's, THE UNDERTOW's, THE SCOUT's and
+PINBALL's two each took and THE TASTER's three did: a `*-grip.ts` giving the handle a ring where the seat
 that owns it is drawn, the `handleUnder()` branch that answers it, the
 `field-controls-<boss>.ts` row beside the twenty-seven that exist, the
 `docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to

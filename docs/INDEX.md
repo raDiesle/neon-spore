@@ -1073,6 +1073,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/taster-draw.ts` | THE TASTER, drawn: a low crest hugging the top of the field with a fan of blades standing out of it |
 | `packages/render/src/taster-fx.ts` | What THE TASTER leaves behind a frame: a blade coming off the crest |
 | `packages/render/src/taster-read.ts` | **What is written about THE TASTER's fan, and which seat is shown it.** Its own file beside `taster-draw.ts` |
+| `packages/render/src/taster-grip.ts` | **THE TASTER's three thumbs on its own fan**: the pilot's pin on a blade that has not decided |
 | `packages/render/src/wisp-body.ts` | you are drawing the wisp's bell — its contour, its spectrum fill, its core, and how the jump squashes it |
 | `packages/render/src/wisp-ground.ts` | you are drawing what a jumping wisp leaves on the field — its pool of light, its dotted arc, the tile it will land on |
 | `packages/render/src/wisp-land.ts` | you are drawing the gather before a wisp leaves a tile or the shock that goes out when it lands on one |
@@ -2351,6 +2352,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-throat.ts` | **THE THROAT's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-taster.ts` | **THE TASTER's three thumbs on its own fan**, in a file of its own |
 | `tools/director/src/field-controls-orrery.ts` | THE ORRERY's ring, as a row of the ON THE FIELD tab — its own file for `field-controls-balloon.ts`'s reason |
 | `tools/director/src/field-controls-sinew.ts` | THE SINEW's two handles, in a file of their own |
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |

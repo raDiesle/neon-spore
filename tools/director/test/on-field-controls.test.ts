@@ -272,11 +272,15 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // boss no part of which is hidden from either seat: the pilot pins a
   // growing blade while the fan is `fanning`, the navigator wipes a soft
   // column while it is `hurrying`, and the pilot prises the `closed`
-  // interlock open for her beam (`sim/taster-hand.ts`). Sim lane only so
-  // far, as every one above it.
-  tasterBlade: "unbuilt",
-  tasterGap: "unbuilt",
-  tasterLock: "unbuilt",
+  // interlock open for her beam (`sim/taster-hand.ts`). The fifth set to make
+  // `orreryRing`'s walk, and the first to make it three at once: all three
+  // were heard by the simulation with nothing on the screen to take hold of,
+  // and the look gave each a ring on its own movement's problem — the root of
+  // an undecided blade, the air over a gap, the middle of the shut crest
+  // (`render/taster-grip.ts`, `field-controls-taster.ts`).
+  tasterBlade: "field",
+  tasterGap: "field",
+  tasterLock: "field",
   // THE LEDGER's four, the first set whose seats were decided by what each
   // seat is shown of one drawn object: the navigator walks the cord's foot
   // along the plating while it is `rooting` and plugs the socket from

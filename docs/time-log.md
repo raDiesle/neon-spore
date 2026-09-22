@@ -16095,3 +16095,29 @@ band had to be checked against the pieces, the bar and the resting ball
 before a single line of the ring was written.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-the-tasters-three-handles — one hand per movement
+
+- reading — 25 min. `taster.ts`'s phases first, because the three gates all
+  hang off `tasterPhase` and it is read off `shorn` alone rather than off the
+  blades — which is what made a frame settable by hand and what made three
+  handles on one fan legible at all. Then `taster-draw.ts` and
+  `taster-crest.ts` for what a ring would be allowed to cover.
+- writing — 55 min. `taster-grip.ts` whole, the three gates lifted into the
+  simulation and called from both sides, seventeen hit-test cases, eleven
+  frame cases, the director's file, the spec rows and the two silent lists.
+- looking — 15 min. A `hurrying` frame with six columns shorn, from her seat,
+  to see six gap rings at once rather than argue about a row of discs: they
+  stand in the air a fifth of a tile clear of the ridge, and every blade's lit
+  point is still the brightest thing on the crest.
+- friction — 10 min. The frame test's `PALETTE.background` tell counts the
+  crest's own notches too — `drawNotch` fills flat — so six cases read nine
+  rings where there were none. Netting `shorn` out of every count is the fix
+  and the file says so.
+- landing — 15 min. An import sort, two unused bindings the layout helper left
+  behind, and `bun run index` for the four new files.
+
+The bottleneck was deciding what each ring may cover: a disc fills opaquely,
+and this boss is read entirely off the lit edge of a blade, so the pin and the
+pry went to the root and hers went into the empty air above the notch rather
+than onto it — the notch's sheen is the fight's own progress bar.
