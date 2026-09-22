@@ -537,32 +537,6 @@ leave only the server shutdown, which is the part that skill is actually for.
 Check while you are there whether step 5's *a session cannot remove the
 worktree it is running inside* is still true of `bun run sweep`.
 
-## The skill's own claim step cannot be run from a worktree
-
-- **Found:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its
-- **Taken:** 2026-09-22, claude/queue-five-files-a-choreographed-boss-must-touch-are-w (claim: claude/queue-the-skills-own-claim-step-cannot-be-run-from-a-w)
-- **Files:** `.claude/skills/new-boss/SKILL.md`, `docs/spec/bosses-choreographed.md`
-- **Where:** local
-
-`.claude/skills/new-boss` §3 tells a lane to claim its boss on the ledger by
-committing one file in the **main** checkout:
-`git -C <main> commit --only docs/spec/bosses-choreographed.md`, then
-`git merge --ff-only main` in the lane. Run from a worktree that command is
-refused before it starts — the reason given is that it modifies a shared
-resource — so the procedure as written cannot be followed at all, and both
-THE GIMBAL's lane and THE BELLOWS's worked around it by carrying the ledger
-row in their own commit instead.
-
-Working around it is what keeps it, and the cost is not the minute: the whole
-point of the main-checkout commit is that two sessions racing for the same
-boss see each other's claim, and a row carried in a lane's own branch is
-invisible until that branch lands. The queue's own `taken` marks already do
-that job across sessions and they *are* committed where both can see them, so
-the honest fix is probably to delete §3's commit step and say the ledger row
-rides with the lane — but check first whether a cloud session, which has its
-own clone and no second checkout, was ever able to run it either. Either way
-the skill ends up describing something a session can do.
-
 ## THE GIMBAL's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
