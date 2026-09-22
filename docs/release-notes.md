@@ -9,6 +9,16 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · b9d1fdcf — Keep THE SPOOL's words in budget and split the act table off the save
+
+The words checker holds every subject on `CLEAN` to all six rules, and THE SPOOL went on it: its mechanic sentence and two of its guide lines were over the word budget, so all three say the same thing shorter. And act eleven's two lines took `waves-acts.ts` to 254; the table of act files is now `waves-act-files.ts`, re-exported, which cuts between the half that grows on its own and the save machinery that has not changed in a fortnight.
+
+## 2026-09-22 · a1c6316b — Mark THE SPOOL's simulation done on the queue
+
+## 2026-09-22 · 5e0166af — Build THE SPOOL's simulation: the line runs at the speed one of you reads
+
+Wave 100 and `docs/spec/bosses.md` §11.36, the simulation lane of §21 of the choreographed page. One of you holds a brake and the other reads how much line should be out by now, and a whole movement held inside her zone eases a rib off the casing; four ribs and the spool drifts free. The brake is a **level and not an edge** — nothing about taking hold of it is judged, and letting go is the fast end rather than a neutral one — which is what makes this fight's one gesture a hold rather than a press. The zone narrows 360, 280, 200, 120 thousandths a rib and the movement runs one leg, then two, then three; the rate each leg wants is rolled off `world.rng`, and `spoolBrakeForRateMilli` is the receipt that every roll is reachable, a `copies-table.ts` row called rather than re-derived.
+
 ## 2026-09-22 · 66629c5e — Slow the asking rather than the reward, and let the measure count it down
 
 THE SLOW now spans exactly the window a choreographed step is asking inside: it opens on the tick the marks come up, for the step's own windowBeats, and shuts on the tick the step is answered or the tick it is missed. The owner's rule of 22 September 2026, generic to the kind — the slow is time to talk in, and the only moment a pair needs it is while they are working out whose mark is whose. The landing it used to reward is a beat already won and plays at tempo now. The measure under the boss follows from it and says what it always should have: the time left before this step fails.

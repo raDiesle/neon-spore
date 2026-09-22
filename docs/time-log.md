@@ -17040,3 +17040,5 @@ catalogue, a bind, a director sheet and a hash fixture, and a name missing
 from any one of them is a test in a different package.
 `.claude/skills/new-boss`'s table is what kept that at typing rather than at
 debugging.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
