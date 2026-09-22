@@ -365,7 +365,6 @@ left hanging.
 ## Unverified at 424e7fc4: a real phone browser's own chrome eating the foot of th…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-22, claude/queue-bun-run-frames-cannot-stop-inside-a-rest-only-on (claim: claude/queue-unverified-at-424e7fc4-a-real-phone-browsers-own)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `tools/director/src/director-columns.css`, `tools/director/src/director-phone.css`, `tools/director/src/rail-open.ts`, `tools/director/test/phone-game.test.ts`, `tools/director/test/rail-open.test.ts`
 - **Where:** local
 
