@@ -297,37 +297,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 `tools/queue/test/needs.test.ts` holds the wait.
 
-## Three bosses still draw a dim ring that punches a hole
-
-- **Found:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo
-- **Taken:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo (claim: claude/queue-three-bosses-still-draw-a-dim-ring-that-punches)
-- **Files:** `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/surge-grip.ts`
-
-**The other half of a seven-boss finding, split because it would not fit one
-sitting.** SNAKE, THE THROAT, THE VANE and THE TASTER pass `theirs` now and
-their sections say what the other seat does with each ring
-(`render/test/handle-hole-bosses.test.ts`, 22 September 2026). These three were
-left because none of them is the plain seat check the first four were.
-
-`sinew-handles.ts` draws **two** rings, the second
-`swinging ? PALETTE.ember : mine ? PALETTE.rock : PALETTE.dim` — an ember ring
-is nobody's and dim is the fallback rather than the other seat, so there are
-three cases to rule on and not two. `surge-grip.ts` draws
-`refusing ? PALETTE.dim : mine ? PALETTE.rock : PALETTE.dim`, where a refused
-ring is dim **on the seat it belongs to**: `theirs` is not what that line is
-saying, and a hole may be the right picture for a refusal. THE SCOUT cannot be
-photographed at all today — the entry below is why — so it is the one of the
-three that may have to be ruled on without a frame, or wait.
-
-The work, per boss: one frame on the screen the ring is dim on, then **it
-stays** (pass `theirs`, and say in its section what the other seat does with
-it) or **it goes** (and a frame test counts nought on that role).
-`render/test/handle-hole-bosses.test.ts` is the pattern for the counting — a
-background fill is a ring and nothing else is, and the counts are differences
-from a ring-free state rather than against nought — and the *dim copy fills
-nothing* paragraphs in `docs/spec/bosses.md` are the pattern for the
-writing-up.
-
 ## `--press` knows no scout verb, so THE SCOUT's two rings cannot be photographed
 
 - **Found:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni

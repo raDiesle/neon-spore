@@ -11,13 +11,8 @@ import {
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import {
-  CFG,
-  FRAME_TIMEOUT_MS,
-  installCanvasGlobals,
-  runFrames,
-  waveWith,
-} from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, waveWith } from "./frame-harness.js";
+import { added, drawn } from "./handle-hole-count.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -35,40 +30,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * gap in the gullet, a bore through the mechanism.
  *
  * **Counted as a difference from a state with no ring in it**, not against
- * nought. That is the one thing this file does that the other does not, and it
- * is deliberate: each of these stages is free to fill a disc of its own, so a
- * count that starts at nought is a claim about the whole stage rather than
- * about a handle. A difference says only what the ring did.
+ * nought: each of these stages is free to fill a disc of its own, so a count
+ * that starts at nought is a claim about the whole stage rather than about a
+ * handle. A difference says only what the ring did. The counting itself is
+ * `handle-hole-count.ts`, shared with `handle-hole-rulings.test.ts`.
  */
 
 beforeAll(installCanvasGlobals);
-
-/** Frames of a world **held still**: what a ring does is counted off a beat. */
-function drawn(world: World, role: ViewRole): string {
-  const log: string[] = [];
-  runFrames(world, role, 3, {
-    every: 3,
-    onTick: () => {},
-    onCanvas: (c) => {
-      c.log = log;
-    },
-  });
-  return log.join("|");
-}
-
-/** How many discs are punched out of this screen. */
-function holes(world: World, role: ViewRole): number {
-  return drawn(world, role).split(PALETTE.background).length - 1;
-}
-
-/** What the handle added, on each of the three screens. */
-function added(bare: World, held: World): { p1: number; p2: number; test: number } {
-  return {
-    p1: holes(held, "p1") - holes(bare, "p1"),
-    p2: holes(held, "p2") - holes(bare, "p2"),
-    test: holes(held, "test") - holes(bare, "test"),
-  };
-}
 
 function snake(tiles: number): World {
   const world = createWorld(CFG, 5);

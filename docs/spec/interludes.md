@@ -783,6 +783,19 @@ other, since neither can feel the other's thumb. The wake now asks
 `scoutPrimed` as well: a burn held on a heavy ship outside the window adds
 nothing to the flight and no longer draws as though it did.
 
+**And the dim copy fills nothing, 22 September 2026.** A ring fills its circle
+in the background colour before its own so it reads over whatever it hangs on,
+and hers hangs on the **ship** — the one thing either seat watches for the
+whole round — so the pilot was shown his little ship with a hole through the
+middle of it from `scoutLadenMotes` on. His stands off the stern in empty air
+and never cost anything, and is dimmed on her screen by the same line. Both
+fill nothing on the seat that may not press them now (`theirs`,
+`handle-draw.ts`). This is the one of the seven this rule reached that could
+not be **photographed** — `bun run frames` knows no verb that flies the round
+(`docs/queue.md`) — and the ruling stood on the same argument the other six
+took a picture for; `render/test/handle-hole-rulings.test.ts` counts the discs,
+which needs no verb.
+
 **What is not built** (18 September 2026 for the sim, and the events since):
 the three events are still on both silent lists — each stands on a ring that
 is already saying it. The director's STATES sheet has a card for `light` and

@@ -35,6 +35,18 @@ import { bossOf } from "./touch-field.js";
  * his stands off the stern, clear of the beads that ride the rim and exactly
  * where the wake comes out when the thruster answers.
  *
+ * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
+ * 2026). A ring punches its circle out of the background first so it reads
+ * over whatever it is on, and hers is on the **ship** — the one thing either
+ * seat is watching in this round — so the pilot was shown his own little ship
+ * with a hole through the middle of it for as long as the load was past
+ * `scoutLadenMotes`. His stands off the stern in empty air and never cost
+ * anything; it is dimmed on her screen by the same line and now fills nothing
+ * there either. `render/test/handle-hole-rulings.test.ts` counts the discs,
+ * which is a thing that can be done here although no *photograph* can: the
+ * round cannot be flown from `bun run frames` for want of a verb, and the
+ * count does not need one.
+ *
  * **The prime's dial is the window it bought.** `scoutPrimeTicks` is the whole
  * of what the gesture is for, and a pilot who cannot see it running out is a
  * pilot pressing a burn that has quietly stopped answering — so the ring
@@ -182,5 +194,6 @@ function ring(
     held,
     pull,
     time,
+    theirs: !mine,
   });
 }

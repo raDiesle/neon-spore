@@ -16272,3 +16272,31 @@ the boss makes the hole visible — and nothing tells you which is which but
 taking the frame.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-three-bosses-still-draw-a-dim-ring-that-punches — the last three ruled
+
+- reading — 25 min. The three that were not the plain seat check: THE SINEW's
+  three colours over two seats, THE SURGE's hit test (the whole bulb, answered
+  for whichever seat asked — which is what made its dim mark a *report* rather
+  than an invitation), and THE SCOUT's two gates off `scoutLoad`.
+- writing — 30 min. One argument in each of three files, a header paragraph
+  each, `handle-hole-count.ts` (the three counting helpers, lifted out of the
+  file that had them privately), `handle-hole-rulings.test.ts`, and the seat
+  split in `scout-frame.test.ts`.
+- looking — 25 min. THE SINEW and THE SURGE on the pilot's screen, before and
+  after. The sinew's is the plainest picture this finding has produced: a black
+  bite out of the mass's right lobe with the cord to it disappearing under the
+  bite.
+- friction — 15 min. Neither SINEW nor SURGE has a ring-free state to
+  difference against — both handles are on offer for the whole fight — so the
+  count had to be read between roles instead, which is `spared`. Two failures
+  found by running the suite rather than the lane's diff: `scout-frame.test.ts`
+  counted discs across all three roles.
+- landing — 10 min. A `string` where `waveWith` wants its union, and the spec
+  paragraphs.
+
+The bottleneck was **the two bosses with no bare state**. Every count before
+this one was a difference from a frame with the ring absent, and neither of
+these ever has one; working out that `test` *is* the both-seats picture, and so
+the thing a seat's own screen is one disc short of, took longer than the change
+it proves.

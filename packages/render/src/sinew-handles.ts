@@ -25,6 +25,23 @@ import { bossOf } from "./touch-field.js";
  * hand come down: the sum is the two of them together and the moment it
  * enters the zone is a moment neither hand can feel.
  *
+ * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
+ * 2026). A ring punches its circle out of the background before it draws its
+ * own colour, so it reads over whatever it hangs on — and a handle resting
+ * `REST_OUT` radii off the mass's edge hangs over the mass's own outer lobe on
+ * the side it is on. The first frame of this boss from the pilot's seat came
+ * back with a clean black bite out of the right lobe where the navigator's
+ * handle rests, and the cord running to it disappearing under the bite. Theirs
+ * is its rim and its wash now.
+ *
+ * **The ember ring still fills, and `theirs` is why that is not a
+ * contradiction.** While the handles swing neither seat may take hold, so both
+ * copies go ember — but `theirs` is a question about *whose*, not about
+ * pressable: yours stays yours through the snap-back, and the disc under it is
+ * how a handle being whipped across the arena stays a handle rather than a
+ * smear. What the other seat gets is the same ember rim over the arena, which
+ * is the whip said without a hole travelling with it.
+ *
  * The **rest** is the one place the circle is written down: the hit test
  * answers a press exactly here and the ring is drawn from exactly here, so a
  * handle cannot be drawn beside one mass and answered beside another. It
@@ -147,6 +164,7 @@ export function drawSinewHandles(
       held,
       pull,
       time,
+      theirs: !mine,
     });
     // **The cue, and not a word of this file's own** (`decisions.md` #34,
     // `boss-cue-text.ts`). Which word, and the three silences, are

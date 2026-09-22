@@ -171,19 +171,33 @@ describe("the two hands on the little ship", () => {
   // colour, so the count is the number of rings and nothing else. Calls will
   // not do it: a mote aboard is a mote not drawn in the arena, so a laden ship
   // *shrinks* the navigator's picture.
+  //
+  // **It counts the seat's own**, since 22 September 2026: the copy drawn for
+  // the seat that may not press one fills nothing, because hers stands on the
+  // ship and the disc was a hole through the middle of it (`theirs`,
+  // `handle-draw.ts`). The rig owns both and counts both.
   const rings = (role: ViewRole, carrying: number): number => {
     const world = opened();
     flying(world).carrying = Array.from({ length: carrying }, (_, i) => i);
     return count(drawn(world, role, 1, false).text, PALETTE.background);
   };
 
-  it.each(ROLES)("draws nothing on a light ship, the line on a laden one for %s", (role) => {
+  /** The line is hers; the prime is his. The rig reads every handle as its own. */
+  const HERS: ViewRole[] = ROLES.filter((r) => r !== "p1");
+
+  it.each(HERS)("draws nothing on a light ship, the line on a laden one for %s", (role) => {
     expect(rings(role, 0)).toBe(0);
     expect(rings(role, CFG.scoutLadenMotes + 1)).toBe(1);
   });
 
-  it.each(ROLES)("draws the prime as well once it is heavy for %s", (role) => {
-    expect(rings(role, CFG.scoutHeavyMotes + 1)).toBe(2);
+  it("punches nothing on his screen for a line only she may pull", () => {
+    expect(rings("p1", CFG.scoutLadenMotes + 1)).toBe(0);
+  });
+
+  it("draws one apiece for each seat once it is heavy, and both for the rig", () => {
+    expect(rings("p1", CFG.scoutHeavyMotes + 1)).toBe(1);
+    expect(rings("p2", CFG.scoutHeavyMotes + 1)).toBe(1);
+    expect(rings("test", CFG.scoutHeavyMotes + 1)).toBe(2);
   });
 
   it("gives each seat the other's handle dimmed, and the rig neither", () => {

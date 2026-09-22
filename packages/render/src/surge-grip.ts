@@ -30,6 +30,16 @@ import { bossOf } from "./touch-field.js";
  * thumb is off and `LIFT` once it is on with the pressure in the band — the
  * gesture this whole boss is, which the marks shipped without.
  *
+ * **Neither mark fills for the seat it is not** (`theirs`, `handle-draw.ts`,
+ * 22 September 2026), and this is the one handle in the game where that rule
+ * is not about who may press. Either seat may press the bulb anywhere, this
+ * mark included; what the dim one says is *your partner's thumb is there*, and
+ * a report does not need the opaque disc an invitation does. It was taking
+ * one: two flat black discs on the bulb's lower flank, on the boss whose whole
+ * reading is how much the glass has swollen. A mark that is held fills at
+ * `0.55` and up anyway, so the one thing this rule had to preserve — seeing
+ * the other thumb land and come off — is exactly what still reads.
+ *
  * The **rest** a thumb is tested against is the bulb's circle on the row
  * the simulation hangs it at (`surge-shape.ts`), never the eased or swollen
  * body: by the time it has moved the pointer is captured and nothing is
@@ -96,6 +106,7 @@ export function drawSurgeGrips(
       held,
       pull: 0,
       time,
+      theirs: !mine,
     });
     // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). Which word, and the
     // three silences, are `surge-word.ts`'s — the argument is long and the one

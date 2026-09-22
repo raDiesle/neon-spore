@@ -5425,7 +5425,19 @@ The collar's own rim brightens while the hold is counting and its
 counting is the one fact of the band neither seat is denied. The two
 **handles** hang off the mass's flanks on the shipped SINEW tether
 (`tether-sinew.ts`), the pilot's on the left and the navigator's on the
-right, yours bright and theirs dim; each rests a tile and a half outside the
+right, yours bright and theirs dim — and **theirs fills nothing**
+(`theirs`, `handle-draw.ts`, 22 September 2026): a ring fills its circle in the
+background colour before its own so it reads over what is behind it, and a
+handle resting a tile and a half off the mass's edge hangs over the mass's own
+outer lobe, so the first frame of this boss from the pilot's seat came back
+with a clean black bite out of the right lobe and the cord running to it
+disappearing under the bite. The **ember** ring on a snap still fills on the
+seat that owns it, and that is not a contradiction: while the handles swing
+neither seat may take hold, so `theirs` is a question about *whose* and not
+about who may press — the disc is what keeps a handle being whipped across the
+arena a handle rather than a smear, and what the other seat gets is the same
+ember rim without a hole travelling with it
+(`render/test/handle-hole-rulings.test.ts`). Each rests a tile and a half outside the
 mass's edge and is carried down by its own pull and sideways by its own
 sway, and the ring is the game's own handle ring (`handle-draw.ts`) with the
 word the fight is asking of *this* seat's hand under it
@@ -5966,6 +5978,19 @@ the design's look*: the spray of a burst across the whole ship is three
 gums and a jolt; the slits do not gape wider with the pressure; the
 eversion is a fold of the outline, not a second body turned out of the
 first. The owner's eye decides all three.
+
+**The other seat's mark fills nothing, 22 September 2026**
+(`theirs`, `handle-draw.ts`). This is the one handle in the game where that
+rule is not about who may press: the hit test is the whole bulb and answers
+whichever seat asked, so either thumb may land anywhere on it, the other's mark
+included. What the dim mark is, then, is a **report** — *your partner's thumb
+is there* — and a report does not need the opaque disc an invitation does. It
+was taking one anyway, and the picture it made was two flat black holes in the
+glass of the boss whose whole reading is how far that glass has swollen. A
+held mark fills at `0.55` and up in its own colour, so the one thing this had
+to preserve — seeing the other thumb land, and come off, which is the gesture
+this boss is — reads exactly as it did.
+`render/test/handle-hole-rulings.test.ts` counts the discs on each screen.
 
 **The words** (`render/src/surge-word.ts`, 19 September 2026, beside
 `surge-grip.ts` for THE SINEW's reason: the mark rides the bulb's swell and the
