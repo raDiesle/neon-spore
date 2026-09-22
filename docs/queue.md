@@ -766,6 +766,7 @@ the trail's new step belongs in `menu-trail.ts` beside the ones it has.
 ## `bun run frames` cannot stop inside a rest, only on the event that ends it
 
 - **Found:** 2026-09-20, claude/queue-no-guide-page-says-which-wave-it-is-and-the-gap
+- **Taken:** 2026-09-22, claude/queue-stage-ts-is-at-the-250-line-ceiling-exactly (claim: claude/queue-bun-run-frames-cannot-stop-inside-a-rest-only-on)
 - **Files:** `tools/frames/until.ts`, `tools/frames/flags.ts`, `tools/frames/run.ts`
 
 `--until EVENT` stops on the tick an event fires, which is the wrong end of
