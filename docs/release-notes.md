@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · f15ead27 — Draw THE BELLOWS: two chambers, a waist of four seams, a handle each
+
+The lung is on the field. A ribbed housing over each seat's own column and the leather waist between them, and one number is the whole morph — how far a housing is drawn out — so the five poses are one body moving rather than five pictures cut between: shut and still, his chamber drawn open under his thumb, hers pressed flat as the breath crosses, both caught halfway in a jam, both swollen on the last seam, and the waist letting go with the halves turning on their caps to show the hollow they have been squeezing all fight.
+
 ## 2026-09-22 · 6c15d543 — Take THE GIMBAL's picture off the queue
 
 ## 2026-09-22 · f4ffa573 — Answer a thumb on THE GIMBAL's rims, and say one word to each seat
