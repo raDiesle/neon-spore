@@ -11,8 +11,11 @@
  * `packages/sim` imports, and `bun run typecheck` says so either way.
  */
 
-// From THE ANTIPHON on, the second page (`boss-surface-clocks-b.ts`).
+// From THE ANTIPHON on, the second page (`boss-surface-clocks-b.ts`), and
+// THE LEDGER's own, cut off when its two drawn hands took this file over the
+// limit (`boss-surface-ledger.ts`).
 export * from "./boss-surface-clocks-b.js";
+export * from "./boss-surface-ledger.js";
 export {
   BATON_SOCKET_DARK,
   BATON_SOCKET_LIT,
@@ -103,19 +106,6 @@ export {
   type LeadEntry,
   type LeadFlight,
   type LeadState,
-  // THE LEDGER's entry, which authors nothing — the director's own guard
-  // narrows on it (`tools/director/src/boss-nothing.ts`) — and then the cord
-  // itself, which two screens read different halves of: where the body is and
-  // how far its seam is open, where the cord is rooted and where that root
-  // walks to next, which colour widens the split, and how far down the cord
-  // every return has got. `ledgerWalk` is the one a *picture* asks about a
-  // beat that has not happened: the navigator is shown a chevron on the column
-  // the plate will be needed in, and that answer has to be the step's own
-  // answer (`test/copies-table.ts`, `render/ledger-read.ts`).
-  type LedgerBead,
-  type LedgerEntry,
-  type LedgerPhase,
-  type LedgerState,
   leadAim,
   leadBoss,
   leadForecasts,
@@ -133,13 +123,6 @@ export {
   leadShootable,
   leadStill,
   leadWalk,
-  ledgerBoss,
-  ledgerCovers,
-  ledgerLetThrough,
-  ledgerNext,
-  ledgerPhase,
-  ledgerSeamCol,
-  ledgerWalk,
   NO_RING,
   ORRERY_PHASES,
   ORRERY_RINGS,

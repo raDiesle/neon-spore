@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-ledgers-four-handles — her two are one circle
+
+- reading — 25 min. `ledgerPhase`'s five states and which two of them offer
+  which hand, then the thing that decided the whole look: `view-role-clocks.ts`
+  and `ledger-cord.ts`, because this is the first boss whose split cuts one
+  drawn object in half and a thumb may only go on the part its own seat sees.
+- writing — 45 min. `ledger-grip.ts` and its two test files, `ledgerFootable`
+  lifted into the simulation beside `ledgerPlugs` so the ring and the rule
+  cannot disagree, the circle put in `ledger-shape.ts` where the cue could
+  reach it without a cycle, `field-controls-ledger.ts`, and the rows in
+  `controls.md` and §11.27.
+- looking — 40 min. Four captures and three defects only a frame could find:
+  the ring inside the target lock's bracket (fixed by dropping the cue's own
+  frame, `framed: false`), the dial closing over the lock's brackets at half a
+  tile, and it coming down onto them at a whole one. The last capture is what
+  named `DIAL_RADII` and settled the figure at a tile and a fifth.
+- friction — 10 min. Twelve frame tests failing on a count of
+  `PALETTE.background` that the body's own two opaque halves were in; a
+  throwaway probe splitting the call log found them. `queen-grip.test.ts`
+  timed out once in a 252-file run and passed everywhere after.
+- landing — 15 min. Three full `check:fast` runs, because the ring moved twice
+  after the first one was green.
+
+The bottleneck was looking: the suite was green through two placements that a
+single frame showed were wrong, and each correction cost a capture and a
+re-read of what the lock is for.
+
 ## 2026-09-21 — queue-twenty-four-on-field-handles — the guard walks the union
 
 - reading — 25 min. Which of the twenty-four a thumb can actually reach today,

@@ -245,8 +245,12 @@ describe("THE LEDGER's cord", () => {
   it("draws the last return on both screens", () => {
     // The one exception to the split, and the design's beat 13: both seats are
     // shown the bead that tears the cord out, and neither is asked to stop it.
+    // **Both cords taut**, and only one of them carrying the bead: her ring on
+    // the root goes out the instant the cord is taut (`ledger-grip.ts`), and a
+    // `paying` cord to compare against would be a frame with a handle in it
+    // measured against one without.
     const bare = open();
-    rooted(bare);
+    rooted(bare).seam = CFG.ledgerSeamHits;
     const held = open();
     const t = rooted(held);
     t.seam = CFG.ledgerSeamHits;
@@ -279,13 +283,17 @@ describe("THE LEDGER's cord", () => {
     // log can be asked: every coordinate of it is at the plate this hands it
     // and nowhere near the hull line the cord is drawn to.
     const world = open();
-    rooted(world);
+    // Her grace spent, so the pass draws the grommet and the lock and nothing
+    // else. Her ring is in this pass too and it is deliberately **not** on the
+    // surface — it is read off the hull line, a ring rather than a trace, and
+    // `ledger-grip.test.ts` is where that is the subject.
+    rooted(world).plugBeats = 0;
     const l = computeLayout(VIEWPORT, CFG, "p2");
     const plate = l.hullY - l.tile * 2;
     const log: string[] = [];
     const { ctx } = stubCanvas();
     ctx.log = log;
-    drawLedgerRoot(ctx as unknown as CanvasRenderingContext2D, l, world, 0, () => plate);
+    drawLedgerRoot(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0, () => plate);
     expect(log.join("|")).toContain(PALETTE.text);
     const ys = log.flatMap((one) => {
       const args = /^Path2D[.](?:moveTo|lineTo|ellipse|arc)\(([^)]*)\)$/.exec(one);

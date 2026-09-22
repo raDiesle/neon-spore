@@ -13,6 +13,7 @@ import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { LEAD_CONTROLS } from "./field-controls-lead.js";
+import { LEDGER_CONTROLS } from "./field-controls-ledger.js";
 import { MAZE_CONTROLS } from "./field-controls-maze.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
@@ -121,4 +122,9 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // movement**: no two of the three are ever offered together, so each gets
   // the whole crest to stand on (`field-controls-taster.ts`).
   ...TASTER_CONTROLS,
+  // THE LEDGER's foot and plug, the first pair here that share **one circle**:
+  // the foot is offered while the cord is still rooting and the plug from
+  // `paying` on, so they are one hand on the root of the cord at two times
+  // (`field-controls-ledger.ts`).
+  ...LEDGER_CONTROLS,
 ];

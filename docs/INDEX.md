@@ -231,6 +231,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
 | `packages/sim/src/boss-surface-snake.ts` | **SNAKE's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
+| `packages/sim/src/boss-surface-ledger.ts` | **THE LEDGER's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again; the clock and retries text |
@@ -1461,6 +1462,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ledger-read.ts` | **What is written about the cord, and which seat is shown it** — *his clock, her column* |
 | `packages/render/src/ledger-root.ts` | **The navigator's half of THE LEDGER, on the finished ship** |
 | `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body, the cord between it and the hull |
+| `packages/render/src/ledger-grip.ts` | **The navigator's two hands on THE LEDGER's root**: the foot of the cord while it is still paying out |
 | `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
 | `packages/render/src/lead-shape.ts` | Where THE LEAD is in field pixels: the ridge, the foot, the stalk's length and the angle each seat is asked for |
@@ -2374,6 +2376,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |

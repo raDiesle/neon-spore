@@ -14,6 +14,7 @@ import { hiveLobeUnder } from "./hive-grip.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { leadStalkUnder } from "./lead-grip.js";
+import { ledgerGripUnder } from "./ledger-grip.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeHeartUnder } from "./maze-grip.js";
 import { mazeStringCircle } from "./maze-string.js";
@@ -121,6 +122,10 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     // blade is gone from, and pry on the closed interlock — one per movement,
     // so no two of the three are ever offered together (`taster-grip.ts`).
     tasterGripUnder(l, x, y, field) ??
+    // THE LEDGER's one ring on the root of its cord, the navigator's both
+    // times: the foot of the cord while it is still `rooting`, her thumb in
+    // the socket from `paying` on (`ledger-grip.ts`).
+    ledgerGripUnder(l, x, y, field) ??
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }

@@ -5,7 +5,8 @@ import {
   ledgerSeamCol,
   type SimConfig,
 } from "@neon-spore/sim";
-import { type Layout, tileCX } from "./layout.js";
+import { handleRadius } from "./handle-draw.js";
+import { type Circle, type Layout, tileCX } from "./layout.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -138,6 +139,52 @@ export function ledgerBodyBox(
 /** Where the cord goes into the ship: the socket's column, at the hull line. */
 export function ledgerSocketPoint(l: Layout, t: LedgerState): Point {
   return { x: tileCX(l, t.socket), y: l.hullY };
+}
+
+/**
+ * How far above the hull line her one ring hangs, in tiles
+ * (`ledger-grip.ts`).
+ *
+ * **A tile and a fifth, which is what the lock costs.** Half a tile was the
+ * first figure and the first frame taken of it was the argument against: the
+ * dial sweeps `DIAL_RADII` out from the ring, so at full grace it closes into
+ * a circle wider than the white lock's own brackets and stood on top of them
+ * — and that lock is the one mark on her screen naming the column the plate
+ * has to be in (`ledger-read.ts`). A whole tile was the second, and the second
+ * frame was the argument against that: the dial's bottom came down onto the
+ * lock's top bracket and the two read as one mark, because the grommet is
+ * drawn on the **bowed** skin and that skin stands proud of the hull line
+ * where the plating crests — which is exactly where a rooted cord tends to be.
+ * The fifth is that bow, paid for once here rather than sampled: the dial
+ * clears the bracket over any crest this hull makes.
+ *
+ * Read off `l.hullY` and not off the bowed skin the grommet is drawn on
+ * (`ledger-root.ts`, `surfaceY`): that skin is a function of x a draw file is
+ * handed and a hit test is not, and it is never more than a fraction of a tile
+ * off the line — THE UNDERTOW's ruling about this same edge of this same ship.
+ * A ring is a ring and not a trace.
+ */
+const ROOT_UP = 1.2;
+
+/**
+ * **Her one ring on the root of the cord**: the foot while it is still paying
+ * out, her thumb in the socket after (`ledger-grip.ts`).
+ *
+ * Here rather than with the drawing because the *reading* wants it too — the
+ * word that stands in `rooting` stands on this circle and drops its own frame,
+ * a ring being a mark already (`boss-cue-read-o.ts`, `boss-cue-draw.ts`) — and
+ * a handle placed in one file and written about in another is two numbers that
+ * drift.
+ *
+ * It **moves under her own thumb** while she is walking the foot, because
+ * `foot` writes `t.socket` on the tick it reads the carry (`sim/ledger-hand.ts`).
+ */
+export function ledgerRootCircle(l: Layout, cfg: SimConfig, t: LedgerState): Circle {
+  return {
+    x: tileCX(l, t.socket),
+    y: l.hullY - l.tile * ROOT_UP,
+    r: handleRadius(l, cfg),
+  };
 }
 
 /** Where the cord leaves the body: the underside, between the two halves. */

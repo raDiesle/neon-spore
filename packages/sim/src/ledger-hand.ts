@@ -1,4 +1,4 @@
-import { midCol } from "./config.js";
+import { midCol, type SimConfig } from "./config.js";
 import { type LedgerState, ledgerBoss, ledgerNext, ledgerPhase, ledgerPlugs } from "./ledger.js";
 import { tearCord } from "./ledger-bead.js";
 import type { Command } from "./types.js";
@@ -62,6 +62,29 @@ import type { World } from "./world.js";
  * and the tick the cord comes out is the tick the wave is over.
  */
 
+/**
+ * **What the navigator's two are offering, this tick.**
+ *
+ * `ledgerFootable` here and `ledgerPlugs` next door in `ledger.ts`, because
+ * the picture has to ask exactly the same questions: a ring drawn on a gate
+ * written out a second time in `render/ledger-grip.ts` is a handle that goes
+ * on saying *take hold of me* after somebody has changed one of the two
+ * copies. Both are called from `foot`/`plug` themselves, so there is one
+ * reading and the drawing and the rule cannot drift.
+ *
+ * Neither says anything about the seat, and neither about a thumb already
+ * down: whose hand it is belongs with the command, and a hand on a thing is
+ * not a reason to stop drawing the thing.
+ *
+ * The pilot's two are still gated inside `pull` and `haul`, and their own
+ * lane lifts them out the same way (`docs/queue.md`).
+ */
+
+/** The foot: a cord still paying out, which is the only time it can be walked. */
+export function ledgerFootable(t: LedgerState, cfg: SimConfig, beat: number): boolean {
+  return ledgerPhase(t, cfg, beat) === "rooting";
+}
+
 /** All four hands at rest, for the cord's own install — their fields, in their file. */
 export function ledgerHandsFresh(
   plugBeats: number,
@@ -102,7 +125,7 @@ function foot(world: World, t: LedgerState, on: boolean, fromMilli: number): voi
     t.foot = -1;
     return;
   }
-  if (ledgerPhase(t, cfg, world.beat) !== "rooting") return;
+  if (!ledgerFootable(t, cfg, world.beat)) return;
   if (t.foot < 0) t.foot = t.socket;
   const col = Math.max(0, Math.min(cfg.cols - 1, t.foot + Math.round(fromMilli / 1000)));
   if (col === t.socket) return;

@@ -5543,6 +5543,25 @@ it was asked.
   said with a hand instead of with a wait, and he cannot see the column he is
   refused for. She can.
 
+**Her two are one circle** (`render/ledger-grip.ts`, 22 September 2026). Both
+were heard from the day they were written and drawn nowhere, which is the gap
+`docs/queue.md`'s handles entry is closing boss by boss. They share a single
+ring on the root of the cord, a tile and a fifth above the plating, because
+they are
+**the same hand on the same thing at two times**: the foot while it is still
+`rooting`, the plug from `paying` on, never both, so the movement says which
+gesture it is and the pair learns one sentence — *your hand is on the root*.
+The ring stands clear of the white lock rather than inside it: a disc fills
+opaquely, and that lock is the one mark on her screen naming the column the
+plate has to be in. It is read off the hull line rather than the bowed
+plating, THE UNDERTOW's ruling that a ring is a ring and not a trace, and the
+word `ROOT` drops its own frame and stands on the ring instead, a ring being a
+mark already. It is drawn on **her screen alone**, the first handle in the
+game the other seat is not shown dimmed: it stands in the rooted column, so a
+dim one on his screen would say the one thing the cord is faded out above the
+plating to keep from him. The pilot's two are still unbuilt, and are this
+lane's other half.
+
 **Two of the four get a word on the field and two do not** (`boss-cue-read-o.ts`).
 `ROOT` stands in `rooting`, which used to be the movement with nothing in it,
 and `PULL` stands on the bead in `whipping` once the plate is already in the

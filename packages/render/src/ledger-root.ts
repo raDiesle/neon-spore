@@ -2,6 +2,7 @@ import { ledgerBoss, ledgerPhase, type World } from "@neon-spore/sim";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawLedgerSocket } from "./ledger-cord.js";
+import { drawLedgerGrips } from "./ledger-grip.js";
 import { drawLedgerLock } from "./ledger-read.js";
 import { ledgerTaut } from "./ledger-shape.js";
 import { showsLedgerSocket } from "./view-role-clocks.js";
@@ -31,11 +32,22 @@ export function drawLedgerRoot(
   l: Layout,
   world: World,
   beatPhase: number,
+  time: number,
   surfaceY: SurfaceY,
 ): void {
   const t = ledgerBoss(world);
-  if (t === null || l.tile <= 0 || !showsLedgerSocket(l.role)) return;
+  if (t === null || l.tile <= 0) return;
   const { cfg } = world;
+  if (!showsLedgerSocket(l.role)) return;
+  // Her two hands first, and **behind the same gate as the socket**: the ring
+  // stands in the socket's own column, so drawing it on his screen would read
+  // out the column the cord is rooted in — the half of this fight the cord is
+  // faded out above the plating to keep from him (`ledger-grip.ts`).
+  //
+  // Before the phase test below it, and not after: the foot's ring is offered
+  // while the cord is still `rooting`, when there is no grommet and no lock to
+  // draw at all.
+  drawLedgerGrips(ctx, l, world, t, beatPhase, time);
   // Nothing while the cord is still paying out, and nothing once it has torn
   // out of the ship: there is no socket either side of the fight.
   const phase = ledgerPhase(t, cfg, world.beat);

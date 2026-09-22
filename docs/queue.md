@@ -567,7 +567,7 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Four handles are heard by the simulation and drawn nowhere
+## Two handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
 - **Taken:** 2026-09-22, claude/queue-the-tasters-three-handles-are-heard-and-drawn-nowhere (claim: claude/queue-four-handles-are-heard-by-the-simulation-and-dra)
@@ -700,17 +700,53 @@ are drawn from `boss-draw-clocks.ts` beside `drawTaster` rather than inside
 it, THE GORGE's arrangement, so `taster-draw.ts` and `taster-grip.ts` do not
 import each other.
 
-**The other four are `unbuilt`, and each is a look before it is a row** —
-`ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`. Every one
-is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
+Lane ten landed THE LEDGER's navigator two, and they are the first pair here
+to share **one circle**: the foot is offered while the cord is still `rooting`
+and the plug from `paying` on, so the two are never on a screen together and
+both can stand on the root of the cord itself. A pair learns one sentence —
+*your hand is on the root* — and what it does is whatever the fight is doing;
+two rings a radius apart would have taught them the root has a handle **and**
+a handle beside it. `render/ledger-grip.ts` holds the circle, both gates and
+the drawing, and `ledgerFootable` moved into the simulation beside
+`ledgerPlugs` — both called by `foot`/`plug` and by the ring, so it cannot go
+on offering a gesture the fight has stopped answering. **Which seat was
+decided before the placement was**: this is the first boss in the game whose
+split cuts one drawn object in half, the cord fades out above the plating on
+his screen, and a thumb may only go on the part of it its own seat can see.
+The circle hangs a tile and a fifth above the plating rather than on the
+socket,
+because `drawHandleRing` fills opaquely and the white lock around that socket
+is the one mark naming the column the plate has to be in — this fight's whole
+instruction. The figure was walked up over two frames: the dial sweeps
+`DIAL_RADII` out, and it closed over the lock's brackets at half a tile and
+came down onto them at a whole one, because the grommet is drawn on the bowed
+skin and that skin stands proud of the hull line where the plating crests. It is read off `l.hullY` rather than the bowed skin the
+grommet sits on, THE UNDERTOW's ruling that a ring is a ring and not a trace,
+and it is drawn on **her screen alone** — the first handle in the game the
+other seat is not shown dimmed, because it stands in the rooted column and a
+dim one on his screen would read out the very thing the cord is faded for.
+The `rooting` cue drops its own frame and stands on the ring instead
+(`framed: false`), and the rim is `hullRim` rather than the white every other
+handle's is: white is the lock's on this boss. The foot's dial is
+what is left of `ledgerRootBeats` and the plug's is the grace itself, both
+**draining**, and the plug's is drawn whether or not her thumb is down because
+the count keeps either way. `packages/sim/src/boss-surface-clocks.ts` was cut
+along its own seam to fit the two gates (`boss-surface-ledger.ts`).
+
+**The other two are `unbuilt`, and each is a look before it is a row** —
+`ledgerBead` and `ledgerCord`, the pilot's half of the same fight: his thumb
+on the soonest return while the cord is `whipping`, and his carry down the
+`taut` cord that tears it out of the plating. Both are heard by
+`sim/ledger-hand.ts` with **nothing drawn to take hold of**: no ring, no
 branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
 precedent and the reason no row can be written for them yet — `where` is a
 place on the screen and `source` is a branch of `touch.ts`, and neither
-exists.
+exists. They are their own lane, and it is the last one this item has.
 
 So the work is one lane per boss, in the shape `candleWick`, `curtainHem`,
 `pulseMeter`, THE VANE's, THE THROAT's, THE UNDERTOW's, THE SCOUT's and
-PINBALL's two each took and THE TASTER's three did: a `*-grip.ts` giving the handle a ring where the seat
+PINBALL's two each took, THE TASTER's three did and THE LEDGER's navigator
+two did: a `*-grip.ts` giving the handle a ring where the seat
 that owns it is drawn, the `handleUnder()` branch that answers it, the
 `field-controls-<boss>.ts` row beside the twenty-seven that exist, the
 `docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to

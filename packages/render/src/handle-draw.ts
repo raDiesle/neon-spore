@@ -126,6 +126,15 @@ export function drawHandleRest(ctx: CanvasRenderingContext2D, rest: Circle, hex:
 }
 
 /**
+ * How far out the dial sweeps, in ring radii.
+ *
+ * Named because a word standing on a handle has to clear it: THE LEDGER's
+ * `ROOT` drops its own frame and stands on the ring instead, and at the ring's
+ * own radius its second line lands on the arc (`boss-cue-read-o.ts`).
+ */
+export const DIAL_RADII = 1.55;
+
+/**
  * The handle, and the gauge closing around it.
  *
  * Empty and breathing it says *take hold of me*; filled it says *somebody has*;
@@ -166,7 +175,7 @@ export function drawHandleRing(
   ctx.lineCap = "butt";
   ctx.beginPath();
   // From the top, clockwise, so it fills the way a dial does.
-  ctx.arc(x, y, r * 1.55, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * pull);
+  ctx.arc(x, y, r * DIAL_RADII, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * pull);
   ctx.stroke();
   ctx.restore();
 }

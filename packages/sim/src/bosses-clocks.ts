@@ -110,10 +110,14 @@ export {
   ledgerLetThrough,
   ledgerNext,
   ledgerPhase,
+  ledgerPlugs,
   ledgerSeamCol,
   ledgerWalk,
   ledgerWhips,
 } from "./ledger.js";
+// And the one gate the navigator's other hand hangs off, called by the rule
+// and by the ring drawn on it rather than restated (`ledger-hand.ts`).
+export { ledgerFootable } from "./ledger-hand.js";
 export {
   ORRERY_PHASES,
   ORRERY_RINGS,

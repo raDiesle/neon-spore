@@ -287,9 +287,23 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `paying` on, and the pilot hauls the soonest return a beat down while
   // the cord is `whipping` and tears the cord out by hand once it is `taut`
   // and she has carried the plate out of the socket's column
-  // (`sim/ledger-hand.ts`). Sim lane only so far, as every one above it.
-  ledgerFoot: "unbuilt",
-  ledgerSocket: "unbuilt",
+  // (`sim/ledger-hand.ts`).
+  //
+  // **Her two are the sixth set to make `orreryRing`'s walk, and the first to
+  // land on one circle.** They are the same hand on the same thing at two
+  // times — the root of the cord — and they are never offered together, so
+  // the look gave them one ring a tile and a fifth above the plating and
+  // let the movement say which gesture it is, standing clear of the lock that
+  // names the column. **It is the one handle on this field the other seat is
+  // not shown dimmed**: it stands in the socket's own column, so a dim one on
+  // his screen would read out the rooted column the cord is faded out above
+  // the plating to keep from him (`render/ledger-grip.ts`,
+  // `field-controls-ledger.ts`).
+  ledgerFoot: "field",
+  ledgerSocket: "field",
+  // And his two, which are the other half of that lane: the beads and the
+  // cord above the fade are the half of this object his screen *can* read,
+  // and neither has a ring yet.
   ledgerBead: "unbuilt",
   ledgerCord: "unbuilt",
   // THE LEAD's stalk, and the first handle given to a boss that shipped as

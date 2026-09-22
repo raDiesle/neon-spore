@@ -8,11 +8,13 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { DIAL_RADII } from "./handle-draw.js";
 import { type Layout, tileCX } from "./layout.js";
 import {
   ledgerBeadU,
   ledgerBodyY,
   ledgerCordAt,
+  ledgerRootCircle,
   ledgerRootPoint,
   ledgerSeamX,
   ledgerSocketPoint,
@@ -134,8 +136,30 @@ export function ledgerCues(
   // seats, and where it seats is where the whole walk starts
   // (`sim/ledger-hand.ts`).
   if (phase === "rooting") {
-    const at = ledgerSocketPoint(l, t);
-    return [markAt(2, "CARRY", "ROOT", at.x, at.y, l, 54)];
+    // **No frame of its own**: her ring stands on the root now
+    // (`ledger-grip.ts`), and a ring is a mark already — a box round it would
+    // be the two-pictures-for-one-idea the target lock exists to have ended
+    // (`boss-cue-draw.ts`, THE STARE's `SHUT`). So the word stands *on* the
+    // handle it is about, which is the arrangement, and not half a tile under
+    // it where it was when there was nothing there.
+    const at = ledgerRootCircle(l, cfg, t);
+    // Out to the dial rather than to the ring: the second line of a cue sits
+    // just clear of `halfH`, and at the ring's own radius it lands on the arc
+    // the foot's beats are draining down (`handle-draw.ts`).
+    const half = at.r * DIAL_RADII;
+    return [
+      {
+        seat: 2,
+        kind: "CARRY",
+        word: "ROOT",
+        x: at.x,
+        y: at.y,
+        halfW: half,
+        halfH: half,
+        seed: 54,
+        framed: false,
+      },
+    ];
   }
   const next = ledgerNext(t);
   if (next?.last === true) return [];
