@@ -16335,3 +16335,5 @@ own director and its own browser per picture, so every frame costs the better
 part of a minute, and a candidate cannot be judged any other way — the two
 corrections above were both invisible to `bun run check` and obvious in the
 first shot.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

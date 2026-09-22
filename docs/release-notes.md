@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · a59da18f — Three SLOW:WINDOW candidates that open and shut on nothing
+
+The owner's time-stop brief drawn three ways: GATHER puts eighteen soft motes drifting inward toward the mark the pair are answering under a 20-30% vignette with a bloom that tightens as they arrive; HUSH is the same picture with the motes taken out, two gradients and nothing moving; INDRAW joins them into six bent streams of bokeh and drops the vignette, letting the rim go quiet because the light there is leaving. Nothing in any of the three has an edge — every layer is a borderless radial gradient, and no file contains a stroke or a path.
+
 ## 2026-09-22 · 7e6af117 — The last three bosses' dim rings stop cutting holes in them
 
 THE SINEW, THE SURGE and THE SCOUT pass `theirs` now, which finishes the seven. Each was held back because it asked the question differently, and each got its own ruling.
