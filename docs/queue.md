@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE GIMBAL's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Taken:** 2026-09-22, claude/queue-the-preview-skill-ends-a-lane-with-four-git-step (claim: claude/queue-the-gimbals-picture-has-never-been-drawn)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
 - **Needs:** THE GIMBAL is written and nobody has built its simulation
 - **Where:** local
