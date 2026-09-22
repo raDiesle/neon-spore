@@ -515,23 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE GIMBAL's picture has never been drawn
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-22, claude/queue-the-preview-skill-ends-a-lane-with-four-git-step (claim: claude/queue-the-gimbals-picture-has-never-been-drawn)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
-- **Needs:** THE GIMBAL is written and nobody has built its simulation
-- **Where:** local
-
-Lane two of §18, once lane one lands: a sealed drum inside two nested rings
-at right angles, six poses (`.claude/skills/new-boss` §5's INSTAR standard —
-a body, a pose per state, a morph between them, the perspective changing at
-the hatch). The payoff frame is the drum splitting along its seam and
-swinging open toward the ship, which is a new silhouette — check
-`packages/content/src/silhouettes.ts` first, then draw it, never a filled
-rectangle with a stroke round it. One PNG to the owner when it moves, never a
-description.
-
 ## THE BELLOWS's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
