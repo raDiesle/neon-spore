@@ -5,6 +5,7 @@ import type { CurtainEvent } from "./events-curtain.js";
 import type { DiastoleEvent } from "./events-diastole.js";
 import type { FilamentEvent } from "./events-filament.js";
 import type { GaugeEvent } from "./events-gauge.js";
+import type { GimbalEvent } from "./events-gimbal.js";
 import type { GorgeEvent } from "./events-gorge.js";
 import type { HiveEvent } from "./events-hive.js";
 import type { InstarEvent } from "./events-instar.js";
@@ -65,6 +66,7 @@ export type BossEvent =
   | HiveEvent
   | InstarEvent
   | FilamentEvent
+  | GimbalEvent
   | QueenEvent
   | DiastoleEvent
   | WardenEvent
@@ -84,6 +86,7 @@ export type { CurtainEvent } from "./events-curtain.js";
 export type { DiastoleEvent } from "./events-diastole.js";
 export type { FilamentEvent } from "./events-filament.js";
 export type { GaugeEvent } from "./events-gauge.js";
+export type { GimbalEvent } from "./events-gimbal.js";
 export type { GorgeEvent } from "./events-gorge.js";
 export type { HiveEvent } from "./events-hive.js";
 export type { InstarEvent } from "./events-instar.js";

@@ -11,7 +11,9 @@
  * pages together, so `DragTarget` is one name and nothing that reaches for it
  * knows there are four.
  */
-export type DragTargetD = "hiveLobe";
+// THE GIMBAL's two rings, argued below: the first pair of targets that are
+// one object, read from its two opposite faces.
+export type DragTargetD = "hiveLobe" | "gimbalOuter" | "gimbalInner";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -36,4 +38,25 @@ export type DragTargetD = "hiveLobe";
  * `id` is the site's index rather than its column, for `scuttlePart`'s
  * reason: the sites never re-order, and the index is what the wrung mark is
  * kept under.
+ */
+
+/**
+ * `gimbalOuter` and `gimbalInner` are the fifty-eighth and fifty-ninth, and
+ * the first pair that is **one thing gripped from opposite sides**.
+ *
+ * Both are bearings, `gaugeNeedle`'s and `crank`'s kind of `fromMilli`
+ * (`bearing.ts`): a hand going round a ring says where it *is*, because a
+ * finger four times round the same circle is back where it grabbed four
+ * times over. What is new is not the gesture, it is what the two of them
+ * are: the outer ring and the inner ring of one gimbal, set at right angles,
+ * so the wheel has one true bearing per ring and each seat is shown theirs
+ * turned the way their own face would honestly show it — the navigator's
+ * clockwise is the wheel's counter-clockwise, and nothing on either screen
+ * says so (`gimbal.ts`, `MirroredBearing`).
+ *
+ * Two names rather than one target and a side, for `choirLeft`'s reason and
+ * one more: **geometry says which ring is whose** — the outer is always the
+ * pilot's, the inner always the navigator's — so the seat is checked against
+ * the name here rather than carried beside it (`gimbal-hand.ts`). No `id`:
+ * there is one gimbal.
  */

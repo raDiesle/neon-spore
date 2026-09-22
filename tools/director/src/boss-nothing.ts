@@ -7,6 +7,7 @@ import type {
   DiastoleEntry,
   FilamentEntry,
   GaugeEntry,
+  GimbalEntry,
   GorgeEntry,
   HiveEntry,
   InstarEntry,
@@ -164,7 +165,8 @@ export function bossAuthorsNothing(
   | AntiphonEntry
   | HiveEntry
   | InstarEntry
-  | FilamentEntry {
+  | FilamentEntry
+  | GimbalEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -191,6 +193,7 @@ export function bossAuthorsNothing(
     kind === "antiphon" ||
     kind === "hive" ||
     kind === "instar" ||
-    kind === "filament"
+    kind === "filament" ||
+    kind === "gimbal"
   );
 }

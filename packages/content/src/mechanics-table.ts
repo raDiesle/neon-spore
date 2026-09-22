@@ -139,6 +139,7 @@ export const MECHANICS = {
   hive: BOSS_MECHANICS.hive,
   instar: BOSS_MECHANICS.instar,
   filament: BOSS_MECHANICS.filament,
+  gimbal: BOSS_MECHANICS.gimbal,
   vane: {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",

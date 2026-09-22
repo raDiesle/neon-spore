@@ -7,6 +7,7 @@ import {
   surgeWarding,
   type World,
 } from "@neon-spore/sim";
+import { gimbalHand } from "./boss-hands-gimbal.js";
 import {
   filamentHand,
   instarHand,
@@ -43,6 +44,8 @@ const surge =
     w.boss?.kind === "surge" && p(w, w.boss);
 const instarIn = (phase: string) => (w: World) =>
   w.boss?.kind === "instar" && w.boss.phase === phase;
+const gimbalIn = (phase: string) => (w: World) =>
+  w.boss?.kind === "gimbal" && w.boss.phase === phase;
 const filamentIn =
   (phase: string, head = 0) =>
   (w: World) =>
@@ -171,5 +174,17 @@ export const HANDLE_HAND_POSES: Pose[] = [
     "down",
     "The seventh filament pulled and the body is down. P1 aims at the wave again; P2 fires.",
     { hand: filamentHand, want: filamentIn("down"), hold: 6, budgetBeats: 240 },
+  ),
+  bossPose(
+    "gimbal",
+    "shear",
+    "Both rings sat true together and a latch-tooth is off each. P1 and P2 hold what they have.",
+    { hand: gimbalHand, want: gimbalIn("shear"), hold: 6, budgetBeats: 240 },
+  ),
+  bossPose(
+    "gimbal",
+    "open",
+    "The last teeth gone: both rings spin free and the drum splits. P1 aims at the seam; P2 fires.",
+    { hand: gimbalHand, want: gimbalIn("open"), hold: 6, budgetBeats: 480 },
   ),
 ];

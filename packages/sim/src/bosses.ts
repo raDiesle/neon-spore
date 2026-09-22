@@ -24,6 +24,7 @@ export type {
   FilamentEntry,
   FleetEntry,
   GaugeEntry,
+  GimbalEntry,
   GorgeEntry,
   HiveEntry,
   InstarEntry,

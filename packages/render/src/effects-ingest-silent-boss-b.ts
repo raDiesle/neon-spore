@@ -18,6 +18,14 @@ import type { SimEvent } from "@neon-spore/sim";
  * `INGEST_SILENT` spreads this in place after the first page, so the guard
  * and the type it narrows by are unchanged.
  *
+ * **This page went over in its turn** on 22 September 2026, and THE WELL's
+ * four went across to `effects-ingest-silent-boss-c.ts` by the rule page one
+ * wrote. THE GIMBAL's ten, which put it over, are on that third page rather
+ * than here — the one departure, and the reason is arithmetic: the boss that
+ * moved is four rows and the boss being worked on is ten, so handing THE
+ * WELL across bought less room than the rows needed and a second boss would
+ * have had to be torn out of the middle to make the difference.
+ *
  * Every row means what it means there — *this event leaves nothing behind
  * for the next frame* — and the reasons stay with the rows.
  */
@@ -237,14 +245,4 @@ export const INGEST_SILENT_BOSS_B = [
   "gaugeMiss",
   "gaugeJam",
   "gaugeBind",
-  // THE WELL's four, the first events that boss has had: the roll, the hold,
-  // the far end and the seam coming home are all read off the state the face
-  // is drawn from every frame — the phase, `offsetMilli` and `heldBeats`
-  // (`render/well.ts`). The picture *is* the report here, because the whole
-  // boss is where the picture puts things, so an effect outliving the frame
-  // would be a second face disagreeing with the one under the thumb.
-  "wellRoll",
-  "wellHeld",
-  "wellWound",
-  "wellHome",
 ] as const satisfies readonly SimEvent["type"][];

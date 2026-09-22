@@ -146,7 +146,7 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   for (const c of commands) sinewHeard(world, c.player, c.command);
   // The choreographed bosses' hands — THE STARE's lid, THE SURGE's lift,
   // THE ANTIPHON's organ, THE INSTAR's marks, THE FILAMENT's thumbs, THE
-  // BULB QUEEN's marks, THE DIASTOLE's clamp — read on the tick with the
+  // GIMBAL's rings, THE BULB QUEEN's marks, THE DIASTOLE's clamp — on the tick with the
   // rest, each for its own reason, on a page of their own (`boss-hands.ts`).
   bossHandsHeard(world, commands);
   // And the two hands on THE WEIGHT, which is not a command at all: the press

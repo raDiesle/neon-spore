@@ -5,6 +5,7 @@ import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
+import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
 import { HIVE_DEFAULTS, type HiveConfig } from "./config-hive.js";
 import { INSTAR_DEFAULTS, type InstarConfig } from "./config-instar.js";
@@ -74,6 +75,7 @@ export interface BossClockConfig
     HiveConfig,
     InstarConfig,
     FilamentConfig,
+    GimbalConfig,
     MirrorConfig,
     MazeGripConfig,
     WardenHandConfig,
@@ -101,6 +103,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...HIVE_DEFAULTS,
   ...INSTAR_DEFAULTS,
   ...FILAMENT_DEFAULTS,
+  ...GIMBAL_DEFAULTS,
   ...MIRROR_DEFAULTS,
   ...MAZE_GRIP_DEFAULTS,
   ...WARDEN_HAND_DEFAULTS,

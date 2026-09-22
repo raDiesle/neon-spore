@@ -5,6 +5,7 @@ import { curtainHemHeard } from "./curtain-hand.js";
 import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
+import { gimbalHeard } from "./gimbal-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
 import { hiveHeard } from "./hive-hand.js";
 import { instarHeard } from "./instar-hand.js";
@@ -71,6 +72,12 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE FILAMENT's two thumbs, on the tick: a tile is lit when the thumb
   // reaches it, and the beat only says whether that was too soon (`filament-hand.ts`).
   for (const c of commands) filamentHeard(world, c.player, c.command);
+  // THE GIMBAL's two rings, on the tick because a ring is where the hand has
+  // turned it to now: a bearing answered on the next beat would put the rim
+  // behind the finger on it, THE WELL's reason with the whole fight resting
+  // on it (`gimbal-hand.ts`). Whether it sits true, and for how long, is the
+  // beat's and nothing else is.
+  for (const c of commands) gimbalHeard(world, c.player, c.command);
   // THE BULB QUEEN's marks under player 1's thumb, on the tick because a pry
   // is a press when it lands and a hold is where the thumb is now (`queen-hand.ts`).
   for (const c of commands) queenHeard(world, c.player, c.command);

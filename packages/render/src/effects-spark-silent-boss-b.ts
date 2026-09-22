@@ -65,6 +65,22 @@ export const SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
+  // THE GIMBAL's ten, silent for the reason its ingest rows are: every one of
+  // them is a state the picture already holds — the rings' bearings, the
+  // marks, the teeth and the seam — and a spark thrown for a hold beginning
+  // would be a second answer beside the rim the thumb is on. The look lane
+  // takes them out of this list, or says here why it did not
+  // (`sim/gimbal.ts`, `docs/spec/bosses.md` §11.34).
+  "gimbalEnter",
+  "gimbalMarks",
+  "gimbalTrue",
+  "gimbalSlip",
+  "gimbalShear",
+  "gimbalLeak",
+  "gimbalSeamOut",
+  "gimbalSeamHit",
+  "gimbalHatch",
+  "gimbalOut",
   // THE ANTIPHON's eleven: what sparks is one family read above the loop by
   // `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
   "antiphonEnter",

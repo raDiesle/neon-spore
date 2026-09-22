@@ -53,6 +53,7 @@ type ChoreographedEvent =
           | `hive${string}`
           | `instar${string}`
           | `filament${string}`
+          | `gimbal${string}`
           | `diastole${string}`;
       }
     >

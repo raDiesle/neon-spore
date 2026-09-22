@@ -199,4 +199,15 @@ export const CHOREO_FIELD_GROUP_B = {
     "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   filamentOutBeats:
     "THE FILAMENT — the boss whose line one of you draws while the other follows it",
+  // GimbalConfig — how near a mark reads as true, how long both rings must
+  // hold it, how fast a ring nobody holds falls back, and the five counts the
+  // scene is paced by (`config-gimbal.ts`).
+  gimbalTrueMilli: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalHoldBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalDriftMilli: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalStillBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalShearBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalSlowBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalSeamBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalOpenBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
 } satisfies Record<string, GroupName>;

@@ -74,6 +74,18 @@ export const BOSS_ENTRIES_C = {
       { col: 3, row: 4, moves: "LD" },
     ],
   },
+  // THE GIMBAL authors its alignments whole, for THE FILAMENT's reason above:
+  // two of them, because the fingerprint's job is every figure of every
+  // alignment and both rings' bearings, not the three (`gimbal-hash.ts`). The
+  // second creeps, so the creep is not a column of zeroes the walk cannot tell
+  // from an unhashed field.
+  gimbal: {
+    kind: "gimbal",
+    marks: [
+      { outerMilli: 250, innerMilli: 250, creepMilli: 0 },
+      { outerMilli: 600, innerMilli: 400, creepMilli: 15 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE LEDGER on's share of `patchBoss`. */
@@ -180,5 +192,18 @@ export function patchBossC(boss: BossState): void {
     boss.tail = 1;
     boss.headBeat = 5;
     boss.grab = [2, 1];
+  }
+  if (boss.kind === "gimbal") {
+    // The first alignment up, both rings turned off rest and both thumbs down
+    // with a bearing remembered, the hold a beat in, and the seam open with a
+    // beat on it — every nullable field given a value, so the walk can tell a
+    // hashed one from a field it never sees change (`gimbal-hash.ts`).
+    boss.phase = "turn";
+    boss.phaseBeat = 3;
+    boss.heldBeats = 1;
+    boss.atMilli = [240, 260];
+    boss.handMilli = [180, 820];
+    boss.seamCol = 4;
+    boss.seamBeat = 6;
   }
 }

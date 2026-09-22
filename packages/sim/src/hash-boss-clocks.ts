@@ -5,6 +5,7 @@ import { candleHashParts } from "./candle-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
+import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
 import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
@@ -109,6 +110,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE INSTAR: the whole script, the cursor and phase, and every mark's count (`instar-hash.ts`).
   if (boss.kind === "instar") {
     for (const n of instarHashParts(boss)) out.push(n);
+  }
+  // THE GIMBAL: the alignments, the cursor and phase, both rings' bearings and both hands' (`gimbal-hash.ts`).
+  if (boss.kind === "gimbal") {
+    for (const n of gimbalHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

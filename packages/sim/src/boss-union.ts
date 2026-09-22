@@ -7,6 +7,7 @@ import type { CurtainState } from "./curtain.js";
 import type { DiastoleState } from "./diastole.js";
 import type { FilamentState } from "./filament.js";
 import type { GaugeState } from "./gauge.js";
+import type { GimbalState } from "./gimbal.js";
 import type { GorgeState } from "./gorge.js";
 import type { HiveState } from "./hive.js";
 import type { InstarState } from "./instar.js";
@@ -92,4 +93,5 @@ export type BossState =
   | AntiphonState
   | HiveState
   | InstarState
-  | FilamentState;
+  | FilamentState
+  | GimbalState;

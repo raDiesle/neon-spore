@@ -4,6 +4,7 @@ import { installCandle } from "./candle-step.js";
 import { installCurtain } from "./curtain-step.js";
 import { installDiastole } from "./diastole-step.js";
 import { installFilament } from "./filament-step.js";
+import { installGimbal } from "./gimbal-step.js";
 import { installGorge } from "./gorge-step.js";
 import { installHive } from "./hive-step.js";
 import { installInstar } from "./instar-step.js";
@@ -60,6 +61,7 @@ const CLOCK_KINDS = [
   "hive",
   "instar",
   "filament",
+  "gimbal",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -169,6 +171,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // filaments hang as lines of tiles for one thumb to draw and the other
     // to follow (`filament-step.ts`).
     world.boss = installFilament(world, boss.filaments);
+  } else if (boss.kind === "gimbal") {
+    // No creature and no row: a sealed drum hung in two nested rings above
+    // the field, one ring to a seat, turned to the alignments its wave
+    // authored (`gimbal-step.ts`).
+    world.boss = installGimbal(world, boss.marks);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

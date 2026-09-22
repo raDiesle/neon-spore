@@ -1,4 +1,5 @@
 import { FILAMENT_SCRIPT } from "../filament-script.js";
+import { GIMBAL_SCRIPT } from "../gimbal-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -82,6 +83,20 @@ import type { Wave } from "../wave-types.js";
  * The panel is empty (`controls: "scene"`): there is no cannon to fire at a
  * line and no colour to load, only two thumbs on the field.
  */
+/**
+ * **THE GIMBAL keeps the default panel** where THE FILAMENT above it threw it
+ * away, and the reason is row 9 of the design: two tooth pairs in, the drum
+ * swings loose and a spark leaks from its seam, and the answer to a spark is a
+ * bolt. A scene set (`controls: "scene"`) would leave the pair watching it
+ * reach the hull with nothing on the band to put in its way
+ * (`sim/gimbal-shot.ts`, `docs/spec/bosses.md` §11.34). The two rings are on
+ * the field rather than on the panel, which is the one thing this boss borrows
+ * from the scenes.
+ *
+ * **Its marks are the wave's** (`gimbal-script.ts`), three alignments and so
+ * three latch-teeth a ring, and nothing in the wave falls: `entries` is empty
+ * and the drum is the whole of it.
+ */
 export const WAVES_ACT_10: Wave[] = [
   {
     id: "theReprise",
@@ -162,5 +177,18 @@ export const WAVES_ACT_10: Wave[] = [
     boss: { kind: "filament", filaments: FILAMENT_SCRIPT },
     bossType: "normal",
     controls: "scene",
+  },
+  {
+    id: "theGimbal",
+    name: "THE GIMBAL",
+    sentence: "The one where the same turn is not the same turn.",
+    guide: {
+      both: "A drum hangs in two rings, one ring each. Turn your ring to your own mark and hold it there. Both true together breaks a tooth off each. Three times. Late on a spark leaks from the drum: shoot it.",
+      p1: "1. The outer ring is yours. Drag round its rim to turn it.\n2. Hold it on your mark until both of you are true.\n3. Let go and your ring falls back to the top.",
+      p2: "1. The inner ring is yours. Drag round its rim to turn it.\n2. Hold it on your mark until both of you are true.\n3. Your rim and theirs do not agree. Say where your mark is, not which way to turn.",
+    },
+    entries: [],
+    boss: { kind: "gimbal", marks: GIMBAL_SCRIPT },
+    bossType: "normal",
   },
 ];

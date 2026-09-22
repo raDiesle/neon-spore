@@ -1,6 +1,6 @@
 import { stepAntiphon } from "./antiphon-step.js";
 import { stepBaton } from "./baton-step.js";
-import { offBeat } from "./boss-off-beat.js";
+import { stepLateBoss } from "./boss-others-b.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
@@ -8,7 +8,7 @@ import { stepCandle } from "./candle-step.js";
 import { stepCurtain } from "./curtain-step.js";
 import { stepDiastole } from "./diastole-step.js";
 import { stepFilament } from "./filament-step.js";
-import { stepFleet } from "./fleet.js";
+import { stepGimbal } from "./gimbal-step.js";
 import { stepGorge } from "./gorge-step.js";
 import { stepHive } from "./hive-step.js";
 import { stepInstar } from "./instar-step.js";
@@ -27,7 +27,6 @@ import { stepThroat } from "./throat-step.js";
 import { stepUndertow } from "./undertow-step.js";
 import { stepVane } from "./vane.js";
 import { stepWarden } from "./warden.js";
-import { stepWell } from "./well-step.js";
 import type { World } from "./world.js";
 
 /**
@@ -196,6 +195,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepFilament(world, boss);
     return;
   }
+  // THE GIMBAL is almost all beat: a ring is a position rather than an event,
+  // so the hands only move rings and every judgement — true, slip, shear,
+  // seam — is here (`gimbal-step.ts`).
+  if (boss.kind === "gimbal") {
+    stepGimbal(world, boss);
+    return;
+  }
   if (boss.kind === "vane") {
     stepVane(world, boss);
     return;
@@ -222,23 +228,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepSplice(world, boss);
     return;
   }
-  // THE FLEET has exactly one thing on the beat and it is the clock. Its
-  // salvo and its sights answer a press on the tick, from `step` — a shot
-  // that waited for the next beat would put a queue between the sentence and
-  // the square it named (`fleet.ts`).
-  if (boss.kind === "fleet") {
-    stepFleet(world, boss);
-    return;
-  }
-  // THE WELL turns its own face and nothing else: the field's rules are still
-  // the wave's author's, and what walks on the beat is where the picture puts
-  // them (`well-step.ts`).
-  if (boss.kind === "well") {
-    stepWell(world, boss);
-    return;
-  }
-  // And six never reach this at all — five stepped on the tick, one stepped
-  // before it — each with its reason written beside it, so a boss doing
-  // nothing here is still a boss that says so (`boss-off-beat.ts`).
-  if (offBeat(boss.kind)) return;
+  // And THE FLEET, THE WELL and the six that are not stepped here at all are
+  // on the second page (`boss-others-b.ts`), handed across on 22 September
+  // 2026 when THE GIMBAL's branch took this one over its 250-line limit.
+  // Those three were the last on the chain, which is this repository's seam
+  // everywhere it splits a full page: the **last** rows go, never the boss
+  // being worked on, whose branch stays under the comment that explains it.
+  // The close goes with them, because the arm that catches what nobody named
+  // has to stand at the foot of whichever page ends the chain.
+  stepLateBoss(world, boss);
 }

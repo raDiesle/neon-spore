@@ -57,6 +57,11 @@ const STILL_PROSE = [
   // whether a boss that says its own verbs wants a film is THE INSTAR's
   // question again, and it waits on the owner's eye on both.
   "THE FILAMENT",
+  // And THE GIMBAL, whose simulation landed 22 September 2026 (`bosses.md`
+  // §11.34) with nothing of it drawn at all yet. A film is a rehearsal of the
+  // game's own screen, and there is no screen to rehearse until the look lane
+  // draws the drum and its two rims; the guide says the rule in the meantime.
+  "THE GIMBAL",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -82,9 +87,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says eighty-eight of ninety-seven";
-    expect(guided.length, fix).toBe(88);
-    expect(WAVES.length, fix).toBe(97);
+    const fix = "update §1 of docs/spec/briefings.md, which says eighty-nine of ninety-eight";
+    expect(guided.length, fix).toBe(89);
+    expect(WAVES.length, fix).toBe(98);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

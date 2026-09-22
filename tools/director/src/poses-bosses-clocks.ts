@@ -180,6 +180,18 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     { hold: 6 },
   ),
   bossPose(
+    "gimbal",
+    "still",
+    "The drum hangs between two dark rings. P1 and P2 both wait: no mark is up on either rim yet.",
+    { hold: 6 },
+  ),
+  bossPose(
+    "gimbal",
+    "turn",
+    "A mark on each rim. P1 turns the outer ring to his; P2 turns the inner one to hers.",
+    { hold: 6 },
+  ),
+  bossPose(
     "filament",
     "arm",
     "One filament lit at its free end. P1 draws the lit end a tile a beat; P2 follows a tile behind.",

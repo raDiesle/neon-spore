@@ -174,6 +174,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
       ...boss,
       filaments: boss.filaments.map((f) => ({ ...f, col: mapCol(f.col, cols) })),
     };
+  // THE GIMBAL hangs its drum over `midCol` of whatever field is played and
+  // everything authored about it is a bearing, which is a fraction of a turn
+  // and has nothing to do with how wide the field is (`sim/gimbal-step.ts`).
+  if (boss.kind === "gimbal") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

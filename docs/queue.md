@@ -2346,3 +2346,41 @@ Worth checking in the same sitting whether anything else generated is missing
 from the list: `docs/INDEX.md` and this are the two a lane touches without
 meaning to, but `tools/director/src/versus-pose.ts` is written by the same
 `versus` command and survived only because both sides happened to agree.
+
+## `bun run queue next` hands back an item no session can take
+
+- **Found:** 2026-09-22, claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s
+- **Files:** `tools/queue/run.ts`, `tools/queue/claim.ts`, `tools/queue/where.ts`, `docs/queue.md`
+
+`next` picked the same entry five times running in one sitting — the one
+whose work is watching a real phone browser eat the foot of the field — and
+each time the session had to `release` it and ask again, because no agent has
+a phone. Five claims and five give-backs are five commits on the trunk that
+say nothing, and they are in the release notes.
+
+The entry is honest and should stay; what is missing is a way for it to say
+that it needs hardware, so `next` steps over it and a human asking for it by
+title still gets it. `Where:` already exists for exactly this shape of fact
+(the `LOCAL ONLY` listing hangs off it), so the work is a value like
+`Where: phone` that `next` skips and `take <title>` does not, plus the line in
+this file's preamble saying so. Whether the existing `Where:` should carry it
+or a field of its own is the implementer's call — both are one branch in
+`claim.ts`, where `next` picks.
+
+## `packages/sim/src/step.ts` is at 234 lines with a boss still to add
+
+- **Found:** 2026-09-22, claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s
+- **Files:** `packages/sim/src/step.ts`, `packages/sim/src/boss-hands.ts`
+
+The 250-line ceiling is sixteen lines away and the file grows by two or three
+every time the field gains a handle. `boss-hands.ts` was already cut off it
+along the seam the file's own comments had drawn seven times — a boss's thumb
+heard on the tick — and what is left is the field's own handles in the order
+they run, plus the tick loop around them.
+
+The next cut is the same seam read once more: the **field's** handles (the
+string, the rope, the cord, the grip, the crank, the ring, the arrows, the
+balloons, the sinew) into a `field-hands.ts` called where the block stands, so
+what remains in `step.ts` is the loop and the order. Do it now rather than
+under a lane that needs the two lines, which is how `boss-others.ts` came to
+be split mid-boss this week.

@@ -61,6 +61,31 @@ export const NO_SUBJECT_C: Record<string, string> = {
     "the mouth taking what stood in it, and a slack ring drawing tight again. Same argument — the body that was eaten is gone by the time it is heard.",
   "boss.throatEvert":
     "the last ring gone slack and the tube turning through its own mouth. Same argument, and there is no contour for it: the eversion is the fixture unmaking itself.",
+  // THE GIMBAL's ten, added here on 22 September 2026 rather than to page one
+  // by that page's own rule read forward: pages one and two are both within
+  // three lines of the 250-line limit and this one has room, so nothing had
+  // to be handed across to take them. The subject in every one is the drum
+  // and its two rings — a sealed body hung in a cradle above the field, with
+  // nothing of it among the creatures — so there is no card a sheet could
+  // draw (`sim/gimbal.ts`, `sim/events-gimbal.ts`).
+  "boss.gimbalEnter":
+    "the drum dropping into frame between two dark, still rings. It is a fixture hanging above the field, and the sheet's cards are silhouettes of bodies that stand on a grid.",
+  "boss.gimbalMarks":
+    "each seat's own mark lighting on its own ring. What it is on is the rim of that ring, which is the fixture. Same argument.",
+  "boss.gimbalTrue":
+    "both rings sitting on their marks at once and the hold beginning. Same argument — and what it marks is an agreement between two bearings, which stands nowhere at all.",
+  "boss.gimbalSlip":
+    "a ring leaving its mark before the hold was up. Same argument, and this one is an absence.",
+  "boss.gimbalShear":
+    "a latch-tooth shearing off each ring. The tooth is a notch in the rim rather than a body, so it goes with the fixture it is a notch in.",
+  "boss.gimbalLeak":
+    "the drum swinging loose in its cradle and a spark starting from the seam. A spark is not a body and the seam is the fixture's.",
+  "boss.gimbalSeamOut": "that spark shot out, in either colour. Same argument.",
+  "boss.gimbalSeamHit":
+    "nobody shot it and it reached the hull. What is hit is the ship, which the hull's own sounds already have; what made it is the seam. Same argument.",
+  "boss.gimbalHatch":
+    "the last tooth pair gone, both rings spinning free and the drum splitting open. Same argument — the fixture unmaking itself, as THE THROAT's eversion is.",
+  "boss.gimbalOut": "the opened hatch hanging and the wave ending. Same argument, and an absence.",
   // THE BALLOON's own two, bound since before this page existed —
   // `bind-balloon.ts` reused a sound written for a different creature and the
   // catalogue's `status` had not caught up (`docs/queue.md`, 20 September

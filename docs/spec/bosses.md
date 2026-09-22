@@ -94,6 +94,8 @@ kinds each of them is.
 - **[THE SCUTTLE](#1130-the-scuttle--the-boss-racing-you-to-its-own-death)** · 11.30 — the boss racing you to its own death
 - **[THE ANTIPHON](#1131-the-antiphon--the-boss-that-grows-a-thing-nobody-has-a-word-for)** · 11.31 — the boss that grows a thing nobody has a word for
 - **[THE INSTAR](#1132-the-instar--the-boss-with-no-panel-marked-where-it-will-hurt-you)** · 11.32 — the boss with no panel, marked where it will hurt you
+- **[THE FILAMENT](#1133-the-filament--the-boss-whose-line-one-of-you-draws-while-the-other-follows-it)** · 11.33 — the boss whose line one of you draws while the other follows it
+- **[THE GIMBAL](#1134-the-gimbal--the-boss-where-the-same-turn-is-not-the-same-turn)** · 11.34 — the boss where the same turn is not the same turn
 
 **Retired — shipped and taken out again, kept for the verdict**
 
@@ -7532,3 +7534,130 @@ bolt is the only arrow the game teaches by itself — and the tell has to be a
 thing the game already shows, not a lobe filling on a body built for the
 purpose.
 
+## 11.34 THE GIMBAL — the boss where the same turn is not the same turn
+
+> The one that divides the geometry. One wheel, gripped from its two opposite
+> faces: turn it clockwise, called across a phone connection, is the sentence
+> this boss exists to make the pair get wrong once.
+
+Designed as §18 of [bosses-choreographed](bosses-choreographed.md), and the
+third of the three kinds in `.claude/skills/new-boss` — a choreographed scene.
+The field under it is still (wave `theGimbal`'s `entries` are empty) and the
+boss *is* the picture. Every split boss before it divides what the two of you
+can **see**; this one keeps the sight nearly shared and divides which way round
+the thing you are both looking at is going.
+
+**It is a drum in two rings.** The state (`sim/gimbal.ts`, hashed in
+`sim/gimbal-hash.ts`) is the **marks** copied in at install from
+`packages/content/src/gimbal-script.ts`, the **cursor** naming which alignment
+is up, the **phase** and the beat it began, both rings' bearings on the true
+wheel (`atMilli`), both hands' last reported bearings on their own faces
+(`handMilli`), the beats both rings have sat true together (`heldBeats`), and
+the seam's column and the beat it opened. Its health is `gimbalTeeth` — three
+latch-teeth a ring, read off the cursor — and no bar.
+
+**The rule, in one sentence.** Each of you turns your own ring to your own mark
+and holds it there, and when both sit true together a latch-tooth shears off
+each ring.
+
+**The mirror is one line.** The outer ring faces the pilot and is drawn as the
+wheel is; the inner faces the navigator from the other side, so her nought is
+the wheel's nought and her clockwise is the wheel's counter-clockwise. That is
+`gimbalShownMilli`, called by the hand going in (`sim/gimbal-hand.ts`) and by
+the picture coming out, so the two can never disagree about which way round her
+ring is. Neither screen ever says it; she finds it out by turning. Both hands
+are a `drag` carrying a **bearing** rather than a displacement — the crank's
+own gesture (`sim/bearing.ts`, `crank.ts`, `orrery-hand.ts`) — and **geometry
+says which ring is whose**: `gimbalOuter` is the pilot's and `gimbalInner` the
+navigator's, always, and the wrong seat's thumb does nothing, silently.
+
+**The clock is the whole fight** (`sim/gimbal-step.ts`). The drum hangs dark
+for `gimbalStillBeats` (2); then the marks light and the rings are turned, and
+a ring sits true when it is within `gimbalTrueMilli` (45) of its own mark this
+beat. Both true together for `gimbalHoldBeats` (2) shears a tooth pair under
+THE SLOW (`gimbalSlowBeats` 2, `decisions.md` #33); `gimbalShearBeats` (3)
+later the next alignment lights, or — the third gone — the drum splits open and
+hangs `gimbalOpenBeats` (3) before the wave may end. **A ring nobody is holding
+falls back to rest**, `gimbalDriftMilli` (60) a beat, and that is the whole of
+what letting go to talk costs. With two tooth pairs off, a spark leaks from the
+seam; either seat shoots it inside `gimbalSeamBeats` (4) or it reaches the hull,
+which is the wave (`sim/gimbal-shot.ts`).
+
+**The split is the sense of the turn.** Both seats are looking at one object
+and neither can see the other's face of it. *Mine is at a quarter* is a
+sentence that means two different places, and the pair has to find that out and
+then keep finding it out while the marks creep. The guide says the rule and
+leaves the geometry alone: it never tells her that her ring is mirrored, which
+is the one thing this boss is.
+
+**Where this departs from the design, and why.** Five places.
+
+*Row 12 is not built, because it is not geometry.* The design says the
+navigator's own half-turn "lands as a quarter-turn on the true wheel — the two
+halves are not equal turns, and that is the whole of this beat." A mirror
+reverses a turn; it does not halve it. A gearing that halved hers would be a
+**second** rule on top of the reflection, and one the pair cannot discover by
+trying it — which `.claude/skills/new-boss` §2 forbids in as many words. So the
+mirror is honest and the beat's difficulty is the reflection alone, which is
+already the thing the design says it is about.
+
+*Row 9's spark takes either colour*, not "their own." A spark is not a body
+with a colour the pair could have got wrong, so nothing is billed to the
+colour balance; what it costs to miss is the column, and the column is the
+middle (`sim/gimbal-shot.ts`).
+
+*Nothing closes a window.* The design gives rows 2, 3, 6, 7 and 11 a window of
+three or four beats and row 8 a reset "from the start of the movement." The
+built fight has neither: an alignment nobody finds stays up, the marks go on
+creeping, and what the pair lose is the ring they let go of. A window that
+strikes for being slow would make the fight about the count rather than about
+the mirror, and the drift already prices thinking. The one thing on a clock is
+the seam, which is a hazard rather than a window.
+
+*The creep is on the third alignment, not the second.* The design gives
+movement 2 the moving marks; the script gives movement 2 the job of breaking
+the offset a pair comes out of movement 1 with — a reflection only looks like
+an offset at one place on the circle — and hands the creep to movement 3, so
+nothing is pressing while the pair are still working out what the rule is
+(`content/src/gimbal-script.ts`, and `content/test/gimbal-script.test.ts`
+refuses a script that gets this curve wrong).
+
+*Six teeth is the wave's, not the boss's.* The design fixes three to a ring;
+`gimbalTeeth` is `marks.length - cursor`, so a wave with four alignments has
+four, and the count is in the fingerprint once rather than in two counters that
+could never honestly disagree.
+
+**`gimbalSeamBeats` is a measurement.** A bolt crosses the field in a little
+over a beat, so the pair need one beat to hear the leak, one to slide the
+cannon in from wherever it was, one of flight and one of margin. The design's
+two would be a strike dealt rather than a strike earned, and the wave keeps the
+**default control panel** for the same reason: a scene set would leave the pair
+watching the spark arrive.
+
+**The sounds are bound** (`audio/bind-gimbal.ts`, `sounds/boss-gimbal.ts`): a
+cue per event, and nine of the ten pan to the middle because that is where the
+drum hangs — only the seam's two pan to the column they leak in. The marks
+lighting pitch up per alignment and the shear pitches up per tooth pair gone,
+so the fight has a rising line the pair can hear without looking.
+
+**What is not built is the look.** Every one of the ten events is on both
+silent lists (`render/effects-ingest-silent-boss-c.ts`,
+`effects-spark-silent-boss-b.ts`), the two rings are `unbuilt` in the director's
+`TARGET_PLACE` table and have no `FIELD_CONTROLS` row, and the four states are
+posed on the STATES sheet and nothing else. The desk keyboard turns no ring
+either: a bearing is not a key, and what stands in for a finger going round a
+circle is the look lane's question, with the rim it would be going round. Lane
+two is its own item on
+`docs/queue.md`: the drum, the two rims with their gaps, the mark each seat is
+shown on its own face, the shearing tooth, the loose spin and the hatch.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/gimbal.test.ts`, `gimbal-seam.test.ts`): the drum comes in still and
+lights its first marks; a ring turns the way its own hand turned and the inner
+one the other way on the wheel; a grab alone moves nothing; both rings true
+together for two beats shear a tooth pair under THE SLOW; either leaving its
+mark loses the hold and nothing else; a ring let go of drifts back to rest and a
+held one does not; no alignment ever times out; the seam opens with one pair
+left, goes out to a bolt of either colour in the middle, and fails the wave if
+nobody answers it; and the last pair takes the drum through the hatch and out.
+Whether any of it *reads* is the owner's eye, after lane two.

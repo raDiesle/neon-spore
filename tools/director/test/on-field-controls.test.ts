@@ -356,6 +356,13 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // is drawn on his (`sim/hive-hand.ts`, `render/hive-grip.ts`,
   // `field-controls-hive.ts`, `docs/spec/bosses.md` §11.14).
   hiveLobe: "field",
+  // THE GIMBAL's two rings, heard and not yet drawn: `sim/gimbal-hand.ts`
+  // answers a bearing on either of them, and nothing in `render/` takes hold
+  // of a rim, so they are `unbuilt` by `orreryRing`'s rule — a row's `where`
+  // is a place on a screen and its `source` a branch of `touch.ts`, and the
+  // look lane is what makes both true (`docs/spec/bosses.md` §11.34).
+  gimbalOuter: "unbuilt",
+  gimbalInner: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

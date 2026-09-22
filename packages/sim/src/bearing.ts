@@ -51,3 +51,36 @@ export const NO_BEARING = -1;
  * rehearsal — is written to stay well inside it.
  */
 export const MAX_BEARING_STEP = TURN / 2;
+
+/**
+ * **How far apart two bearings are**, the shorter way round: nought at the
+ * same place, `MAX_BEARING_STEP` at opposite sides of the circle, never more.
+ *
+ * Here rather than in the mechanism that first wanted it (THE GIMBAL's rings,
+ * `gimbal.ts`) for the reason the three numbers above are here: *is this hand
+ * near that mark* is a question about a circle, not about a boss, and the
+ * next thing that turns will ask it in the same words. Asking it with a
+ * subtraction is how two devices come to disagree about a ring that sits at
+ * 995 while its mark sits at 5 — ten thousandths apart, and nine hundred and
+ * ninety to anything that subtracts.
+ */
+export function bearingApart(a: number, b: number): number {
+  const d = (((a - b) % TURN) + TURN) % TURN;
+  return d > MAX_BEARING_STEP ? TURN - d : d;
+}
+
+/**
+ * A bearing brought `by` thousandths toward `to`, and never past it — how a
+ * circle homes. `by` is a distance rather than a direction: which way round
+ * is the shorter way round, which is the only way a ring nobody is holding
+ * could honestly fall back.
+ */
+export function bearingToward(at: number, to: number, by: number): number {
+  const apart = bearingApart(at, to);
+  if (apart === 0) return to;
+  const step = Math.min(by, apart);
+  // Forward when the shorter way round is forward: the gap measured the
+  // other way is the one that is more than half a turn.
+  const forward = (((to - at) % TURN) + TURN) % TURN <= MAX_BEARING_STEP;
+  return (((at + (forward ? step : -step)) % TURN) + TURN) % TURN;
+}

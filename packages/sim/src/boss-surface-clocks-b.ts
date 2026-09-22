@@ -202,11 +202,18 @@ export {
   wardenLidsMilli,
   wardenThrown,
 } from "./bosses-clocks-b.js";
+export { fleetWindowLeft } from "./fleet-flood.js";
+export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";
 // THE FLEET's second and third states: the phase, the window and the plume
 // for the pictures, the cue and the director's hand — on this page because
 // `boss-surface.ts` is at its limit (`fleet-state.ts`).
-export { fleetWindowLeft } from "./fleet-flood.js";
-export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";
+// THE GIMBAL's rings: the phase, the teeth left, the marks and the mirror the
+// navigator's face is drawn through. Straight off `gimbal.ts` and on this page
+// for THE FLEET's reason below — `boss-surface.ts` is at its limit — and on
+// two lines because `bosses-clocks-b.ts` is within a handful of its own.
+// biome-ignore format: one line, so a reading added to the rings does not cost a row
+// biome-ignore format: and the readings, for the same reason
+export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalMarkMilli, gimbalOpen, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTurning, INNER, NO_SEAM, OUTER } from "./gimbal.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

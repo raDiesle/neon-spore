@@ -197,6 +197,16 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "hiveLobe", on: true, fromMilli: 0, fromYMilli: 800 },
   { kind: "drag", target: "hiveLobe", on: true, fromMilli: 0, id: 5 },
   { kind: "drag", target: "hiveLobe", on: false, fromMilli: 0, id: 5 },
+  // THE GIMBAL's two rings: the crank's bearing twice over, one target a
+  // seat, carrying no id because there is one gimbal and geometry says whose
+  // ring is whose (`sim/gimbal-hand.ts`). Both are here because a codec that
+  // listed one would leave that seat turning a ring the other device never
+  // sees move — and on this boss a ring nobody is holding falls back to rest,
+  // so the drop would read as the pair being bad at it rather than as a bug.
+  { kind: "drag", target: "gimbalOuter", on: true, fromMilli: 250 },
+  { kind: "drag", target: "gimbalOuter", on: true, fromMilli: -1 },
+  { kind: "drag", target: "gimbalInner", on: true, fromMilli: 750 },
+  { kind: "drag", target: "gimbalInner", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -338,6 +348,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   antiphonRail: true,
   wellSeam: true,
   hiveLobe: true,
+  gimbalOuter: true,
+  gimbalInner: true,
   crank: true,
   orreryRing: true,
 };

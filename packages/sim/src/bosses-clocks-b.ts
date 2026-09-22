@@ -89,6 +89,12 @@ export {
   NOT_DRAWN,
   walkFilament,
 } from "./filament.js";
+// THE GIMBAL's clock is nearly the whole boss: a ring is a position rather
+// than an event, so the marks, the hold, the shear and the seam are all beats,
+// and every name here is one a screen or a content test reads.
+// biome-ignore format: one line, so a reading added to the rings does not cost this page a row
+// biome-ignore format: and the readings, for the same reason
+export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalMarkMilli, gimbalOpen, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTurning, INNER, NO_SEAM, OUTER } from "./gimbal.js";
 // THE GORGE's two thumbs (18 September 2026): whose the pinch and the pry are,
 // so the ring is drawn for the seat the sack will hear (`gorge-hand.ts`).
 export { gorgePinchSeat, gorgePrySeat } from "./gorge-hand.js";

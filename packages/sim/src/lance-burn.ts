@@ -6,6 +6,7 @@ import { candleStruck } from "./candle-step.js";
 import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
+import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { hiveStruck } from "./hive-shot.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
@@ -189,6 +190,9 @@ function burnColumn(world: World, col: number, color: Color): number {
   antiphonStruck(world, b);
   // And THE HIVE's breach, which the beam seals like a bolt held there
   // (`hive-shot.ts`).
+  // And THE GIMBAL's leaking seam, the one thing in that whole fight a
+  // cannon has to do, and either colour does it (`gimbal-shot.ts`).
+  gimbalStruck(world, b);
   hiveStruck(world, b);
   return 0;
 }

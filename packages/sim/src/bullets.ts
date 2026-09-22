@@ -6,6 +6,7 @@ import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
+import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { hiveStruck } from "./hive-shot.js";
 import { leadStruck } from "./lead-shot.js";
@@ -215,6 +216,9 @@ function sweep(world: World, b: Bullet): boolean {
     antiphonStruck(world, b);
     // And THE HIVE's underside: an open breach in the bolt's column and
     // colour is sealed, the wrong colour provokes it (`hive-shot.ts`).
+    // And THE GIMBAL's leaking seam, the one thing in that whole fight a
+    // cannon has to do, and either colour does it (`gimbal-shot.ts`).
+    gimbalStruck(world, b);
     hiveStruck(world, b);
     return false;
   }

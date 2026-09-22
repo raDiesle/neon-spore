@@ -16535,3 +16535,30 @@ have put a second copy of `back-ask.ts`'s rule in a camera, to go stale the day
 the rule changed. The flag says two and the documentation says why.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s — THE GIMBAL's simulation
+
+- reading — 15 min. §18 end to end, then `instar.ts` and `filament.ts` for
+  the shape a choreographed boss's simulation has, `crank.ts` and
+  `orrery-hand.ts` for how a bearing arrives, and `bearing.ts` for what was
+  already there to call rather than re-derive.
+- writing — 30 min. `bearingApart` and `bearingToward` on `bearing.ts`, the
+  state, the clock, the two hands, the shot, the config, the events and the
+  hash; the wave and its script; ten sounds and their cues; and the forty-odd
+  registrations outside the simulation that a new boss is.
+- looking — 0 min. Nothing of this boss is drawn: every event is on both
+  silent lists and the rings are `unbuilt` on the director's table, which is
+  lane two's own queue item.
+- friction — 10 min. Two sounds in the speech band and retuned twice;
+  `world.failed` and `world.slowUntilTick` guessed instead of read
+  (`failTick`/`NOT_FAILED`, `slowToBeat`); a test file and `boss-others.ts`
+  both over 250 and split; a comment inside a wave array that the director's
+  own save silently drops.
+- landing — 10 min. `check:fast` twice, the index, the blank baseline, the
+  entry out.
+
+The bottleneck was **guessing a field name instead of reading one**: four
+tests failed on `world.failed`, which has never existed, and the fix was the
+thirty seconds of grep that would have been cheaper before the tests were
+written. A boss is forty files of registration and every one of them is a name
+somebody else chose; nothing here is worth deriving from memory.

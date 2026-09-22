@@ -6,6 +6,7 @@ import { FILAMENT_PHASES } from "./filament.js";
 import { FLEET_PHASES } from "./fleet-state.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { GAUGE_GRIPS } from "./gauge-hand.js";
+import { GIMBAL_PHASES } from "./gimbal.js";
 import { GORGE_PHASES } from "./gorge.js";
 import { HIVE_PHASES } from "./hive.js";
 import { HIVE_LOBES } from "./hive-lobe.js";
@@ -104,5 +105,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   ledger: LEDGER_PHASES,
   instar: INSTAR_PHASES,
   filament: FILAMENT_PHASES,
+  gimbal: GIMBAL_PHASES,
   fleet: FLEET_PHASES,
 };

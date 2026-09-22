@@ -192,4 +192,24 @@ export const CHOREO_NOTES_B = {
     "opens THE SLOW filamentSlowBeats and the body hangs filamentOutBeats " +
     "more. Nothing strikes the hull. See sim/filament.ts, sim/filament-" +
     "hand.ts, sim/config-filament.ts.",
+  "THE GIMBAL — the boss where the same turn is not the same turn":
+    "Designed on 19 September 2026 in docs/spec/bosses-choreographed.md §18 " +
+    "and docs/spec/bosses.md §11.34: one wheel gripped from its two opposite " +
+    "faces. A sealed drum hangs in two nested rings set at right angles — the " +
+    "outer is the pilot's, the inner is the navigator's — and its health is " +
+    "six latch-teeth, three to a ring. Three alignments " +
+    "(packages/content/src/gimbal-script.ts) come up gimbalStillBeats apart, " +
+    "each a bearing per ring; each seat drags round its own rim " +
+    "(gimbalOuter, gimbalInner, both BearingDrag) and holds inside " +
+    "gimbalTrueMilli of its mark. Both true together for gimbalHoldBeats " +
+    "shears a tooth off each; either ring leaving early is a slip and the " +
+    "hold starts over. A ring nobody is holding drifts back to the top at " +
+    "gimbalDriftMilli a beat. The inner ring is drawn mirrored on its own " +
+    "screen, so a turn called across the phone goes the wrong way until the " +
+    "pair finds it out — the one departure from the design's row 12, argued " +
+    "in §11.34. With gimbalTeeth down to one pair the drum swings loose and " +
+    "the seam leaks: a bolt of either colour shuts it, and gimbalSeamBeats " +
+    "unanswered is one strike on the hull, which is the wave. The last shear " +
+    "opens THE SLOW gimbalSlowBeats and the hatch hangs gimbalOpenBeats " +
+    "more. See sim/gimbal.ts, sim/gimbal-hand.ts, sim/config-gimbal.ts.",
 } satisfies Partial<Record<GroupName, string>>;

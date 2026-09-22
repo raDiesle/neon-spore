@@ -2,6 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { diastoleCue } from "./bind-diastole.js";
 import { filamentCue } from "./bind-filament.js";
+import { gimbalCue } from "./bind-gimbal.js";
 import { instarCue } from "./bind-instar.js";
 import { undertowCue } from "./bind-undertow.js";
 
@@ -27,7 +28,12 @@ import { undertowCue } from "./bind-undertow.js";
 type LateEvent = Extract<
   SimEvent,
   {
-    type: `instar${string}` | `filament${string}` | `diastole${string}` | `undertow${string}`;
+    type:
+      | `instar${string}`
+      | `filament${string}`
+      | `gimbal${string}`
+      | `diastole${string}`
+      | `undertow${string}`;
   }
 >;
 
@@ -56,6 +62,20 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "filamentDown":
     case "filamentOut":
       return filamentCue(e, cols);
+    // THE GIMBAL, built on this page rather than next door for the header's
+    // reason read forward: `bind-choreographed.ts` is within sixteen lines of
+    // its limit and this page has room, so nothing had to be handed back.
+    case "gimbalEnter":
+    case "gimbalMarks":
+    case "gimbalTrue":
+    case "gimbalSlip":
+    case "gimbalShear":
+    case "gimbalLeak":
+    case "gimbalSeamOut":
+    case "gimbalSeamHit":
+    case "gimbalHatch":
+    case "gimbalOut":
+      return gimbalCue(e, cols);
     case "diastoleClamp":
     case "diastoleSpasm":
       return diastoleCue(e, cols);
