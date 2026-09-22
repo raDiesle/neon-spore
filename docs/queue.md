@@ -2432,3 +2432,27 @@ a wide sweep and forty pictures to throw away; what is missing is the one
 number. The work is the mirror of `back` — a forward offset on `UntilSpec`
 taken in the same drive rather than in a second one, refused the same way when
 it runs past the cap, and named so the pair read as a pair.
+
+## The doubled window reached THE INSTAR alone
+
+- **Found:** 2026-09-22, claude/instar-body-travels
+- **Files:** `packages/content/src/instar-script.ts`, `packages/sim/src/config-hive.ts`,
+  `packages/sim/src/config-claw.ts`, `packages/sim/src/config-scuttle.ts`,
+  `.claude/skills/new-boss/SKILL.md`, `docs/spec/bosses-choreographed.md`
+
+The owner asked on 22 September 2026 for the time a pair has to act to be
+doubled and the need raised with it, and said in the same message that it is a
+**generic specification for choreographed**. The lane that landed it could only
+apply it where there is one figure to move: THE INSTAR is the only wave on
+`BossSequenceStep`, so its five `windowBeats` and seven needs were doubled and
+the rule was written into the skill and the spec sheet for the next boss
+authored.
+
+Every other boss with an authored window carries its own differently-named
+figure — `hiveOpenBeats`, `tasterWindowBeats`, `scuttleThrowBeats` and the
+rest, one per boss across the `config-*.ts` files — so there is no single
+number and no sed. The work is to decide which of them are choreographed in
+the owner's sense (a window the pair is asked to act inside, not a body that
+merely takes a while), double each one's window, raise the count beside it, and
+move the tests that assert the old figures. A boss whose window is not a window
+the pair acts in is named in the commit as left alone and why.
