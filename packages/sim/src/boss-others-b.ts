@@ -1,7 +1,11 @@
 import { offBeat } from "./boss-off-beat.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
+import { stepCairn } from "./cairn.js";
 import { stepFleet } from "./fleet.js";
+import { stepMaze } from "./maze-round.js";
+import { stepSplice } from "./splice-round.js";
+import { stepVane } from "./vane.js";
 import { stepWell } from "./well-step.js";
 import type { World } from "./world.js";
 
@@ -17,12 +21,46 @@ import type { World } from "./world.js";
  * close, and the close has to stand at the foot of whichever page ends the
  * chain.
  *
+ * **Four more arrived on 22 September 2026**, by the same rule and for the
+ * same reason: THE BELLOWS put the first page back over the limit, so THE
+ * VANE, THE CAIRN, THE MAZE and THE SPLICE — the last four on the chain —
+ * came across ahead of THE FLEET. The order inside the page decides nothing
+ * (every arm returns on its own kind); what it records is which end of the
+ * chain a row came off, and the lane after the next one reads that rather
+ * than guessing.
+ *
  * **The check next door is unchanged.** `stepOtherBoss` ends by calling this
  * rather than by falling off its own end, so a boss stepped nowhere still
  * arrives at `offBeat` below and still has to say, by name, that it is
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  if (boss.kind === "vane") {
+    stepVane(world, boss);
+    return;
+  }
+  // THE CAIRN has exactly one thing on the beat, and it is the clock the pile
+  // keeps on the pair: a stack that has stood `cairnShedBeats` lets a rock go
+  // by itself. The hand that takes one apart answers on the tick, with the
+  // other carries (`grip-push.ts`) — a gesture lands when the finger has
+  // travelled, and only the clock belongs to the beat (`cairn.ts`).
+  if (boss.kind === "cairn") {
+    stepCairn(world, boss);
+    return;
+  }
+  if (boss.kind === "maze") {
+    stepMaze(world, boss);
+    return;
+  }
+  // THE SPLICE is on the beat and on the field, like THE MIRROR: the hull,
+  // the cannon and the maw under it are the ship's own, and what this clock
+  // does is land a number that is already on its way down, give way to the
+  // next tangle, and run a round's beats out (`splice-round.ts`). Its one
+  // verb arrives on the tick, through the SUCK the pair already has.
+  if (boss.kind === "splice") {
+    stepSplice(world, boss);
+    return;
+  }
   // THE FLEET has exactly one thing on the beat and it is the clock. Its
   // salvo and its sights answer a press on the tick, from `step` — a shot
   // that waited for the next beat would put a queue between the sentence and

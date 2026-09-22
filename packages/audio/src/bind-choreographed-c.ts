@@ -1,10 +1,13 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { antiphonCue } from "./bind-antiphon.js";
 import { bellowsCue } from "./bind-bellows.js";
 import type { Cue } from "./bind-cue.js";
 import { diastoleCue } from "./bind-diastole.js";
 import { filamentCue } from "./bind-filament.js";
 import { gimbalCue } from "./bind-gimbal.js";
+import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
+import { scuttleCue } from "./bind-scuttle.js";
 import { undertowCue } from "./bind-undertow.js";
 
 /**
@@ -19,6 +22,12 @@ import { undertowCue } from "./bind-undertow.js";
  * a case at all — it is the `default`, and a default has to stand at the foot
  * of whichever page ends the chain.
  *
+ * **Three more came over on 22 September 2026.** THE SCUTTLE, THE ANTIPHON
+ * and THE HIVE were the last three cases on that page when the queue found
+ * it seventeen lines from the limit with a choreographed boss still to be
+ * bound there, so the end of the chain moved again and nothing in the middle
+ * was touched.
+ *
  * **The check next door is unchanged, and it is why the default may be a
  * call.** `choreographedCue`'s `default` hands what is left to `lateCue`, and
  * an event bound nowhere in either page arrives at `undertowCue` below, whose
@@ -30,6 +39,9 @@ type LateEvent = Extract<
   SimEvent,
   {
     type:
+      | `scuttle${string}`
+      | `antiphon${string}`
+      | `hive${string}`
       | `instar${string}`
       | `filament${string}`
       | `gimbal${string}`
@@ -41,6 +53,45 @@ type LateEvent = Extract<
 
 export function lateCue(e: LateEvent, cols: number): Cue {
   switch (e.type) {
+    // The three that came over on 22 September 2026, in the order they stood
+    // at the foot of `bind-choreographed.ts`.
+    case "scuttleEnter":
+    case "scuttleLoose":
+    case "scuttleThrow":
+    case "scuttleStruck":
+    case "scuttleSwing":
+    case "scuttleRebuff":
+    case "scuttleSlack":
+    case "scuttleWind":
+    case "scuttleLast":
+    case "scuttleDown":
+    case "scuttleOut":
+      return scuttleCue(e, cols);
+    case "antiphonEnter":
+    case "antiphonGrow":
+    case "antiphonPit":
+    case "antiphonPull":
+    case "antiphonHarden":
+    case "antiphonSink":
+    case "antiphonSpill":
+    case "antiphonStill":
+    case "antiphonShip":
+    case "antiphonBurst":
+    case "antiphonOut":
+      return antiphonCue(e, cols);
+    case "hiveEnter":
+    case "hiveSwell":
+    case "hiveOpen":
+    case "hiveSpill":
+    case "hiveSkin":
+    case "hiveWrong":
+    case "hiveSeal":
+    case "hiveClench":
+    case "hiveHaul":
+    case "hiveWrung":
+    case "hiveDown":
+    case "hiveOut":
+      return hiveCue(e, cols);
     case "instarEnter":
     case "instarMorph":
     case "instarShow":

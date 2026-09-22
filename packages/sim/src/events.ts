@@ -1,9 +1,8 @@
 import type { BossEvent } from "./events-bosses.js";
 import type { CreatureEvent } from "./events-creature.js";
 import type { FleetEvent } from "./events-fleet.js";
+import type { RoundEvent } from "./events-rounds.js";
 import type { BreachWeight } from "./hull-damage.js";
-import type { MazeVerdictReason } from "./maze-verdict.js";
-import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
 import type { Color, Creature, PodKind } from "./types.js";
 
 /**
@@ -199,36 +198,11 @@ export type SimEvent =
   /** A plate off the rim. `color` is the rim's, which is what took it. */
   | { type: "plate"; col: number; row: number; left: number; color: Color }
   | { type: "wardenDown"; col: number; row: number }
-  /**
-   * THE MIRROR performed one step of a sequence. `index` is 1-based, and
-   * `col` is the column its own cannon was standing in as it did — which is
-   * where render/ drops the ghost of a shot it performed.
-   */
-  | { type: "mirrorShow"; step: MirrorStep; index: number; of: number; col: number }
-  /** The pair answered one step of a sequence correctly. */
-  | { type: "mirrorEcho"; step: MirrorStep; index: number; of: number }
-  /** A round is settled — right or wrong, why, and where it landed. */
-  | { type: "mirrorVerdict"; right: boolean; col: number; reason: MirrorVerdictReason }
-  | { type: "mirrorDown"; col: number }
-  /** Both thumbs landed on the mirror's lobes (`on`), or one left (`mirror-hand.ts`). */
-  | { type: "mirrorGrip"; col: number; on: boolean }
-  /**
-   * The pair fired into one of THE MAZE's three mouths. `col` is the column
-   * that mouth hangs over, which is where the shot went in and — if the strand
-   * behind it goes nowhere — where the answer comes back out.
-   */
-  | { type: "mazeCommit"; mouth: number; col: number }
-  /**
-   * The shot stands one cell further into the wheel. `ring` counts outward
-   * from the mouths and `sector` is around, both in the wheel's own
-   * coordinates and never the field's: the wheel is not on the grid.
-   */
-  | { type: "mazeProbe"; ring: number; angleMilli: number; of: number }
-  /** A round is settled — right or wrong, why, and the mouth it landed in. */
-  | { type: "mazeVerdict"; right: boolean; col: number; reason: MazeVerdictReason }
-  | { type: "mazeDown"; col: number }
-  // The navigator's thumb landing on the heart (`on`) or leaving it (`maze-hand.ts`).
-  | { type: "mazeGrip"; col: number; on: boolean }
+  // THE MIRROR's five and THE MAZE's five, as one union next door
+  // (`events-rounds.ts`): a round's coordinates are its own, and these were
+  // the last rows on the page when THE BELLOWS put it within three lines of
+  // its limit.
+  | RoundEvent
   | CreatureEvent
   /**
    * A salvo into open water on THE FLEET's chart, in the field's coordinates.

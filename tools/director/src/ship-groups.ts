@@ -1,3 +1,5 @@
+import { WAVE_ONLY_GROUPS } from "./ship-groups-wave.js";
+
 /**
  * The cards the ship's dials are divided into: their names, the order they are read
  * in, and the paragraph under each heading that says what the group *is*.
@@ -172,57 +174,15 @@ export const GROUP_ORDER: GroupName[] = [
   "THE REPRISE — the wave sent again unseen",
   "PLUMBING — not a dial a person turns",
 ];
+
+// The set this is the complement of is `ship-groups-wave.ts` next door, cut
+// out when THE BELLOWS's group brought this file within seventeen lines of
+// the limit. Re-exported here so nothing that already reached for it moved.
+export { WAVE_ONLY_GROUPS } from "./ship-groups-wave.js";
 // The paragraph under each heading is `ship-notes.ts` next door — the half of
 // this file that grows by a mechanic, cut out when THE CAROM took it over the
 // limit. Re-exported here so nothing that already reaches for it had to move.
 export { GROUP_NOTE } from "./ship-notes.js";
-
-/**
- * Groups that describe the wave in front of you rather than the ship — the
- * four boss groups above, plus THE GAUGE, which only matters in a gap that
- * carries one. Every other group is the same ship on every wave; `SHIP_GROUPS`
- * below is the complement, so a group added to `GROUP_ORDER` and left off this
- * set defaults to the ship sheet rather than vanishing — the "show everything"
- * escape hatch the brief asks for is this default, not a separate view.
- */
-export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
-  "THE WELL — the field drawn inside out on one screen",
-  "WARDEN",
-  "THE CAIRN — a pile of rocks taken apart by hand",
-  "VANE",
-  "MIRROR",
-  "MAZE",
-  "QUEEN",
-  "THE GAUGE — a round with no field in it",
-  "THE FLEET — a chart only one of you can read",
-  "SNAKE — a round the ship is the body of",
-  "THE SCOUT — a little ship one of you flies",
-  "THE STARE — an eye that freezes whoever it looks at",
-  "THE DIASTOLE — two hearts on two cadences, one each",
-  "THE BATON — a bead passed down an arm, one seat a beat",
-  "THE THROAT — the boss you answer by feeding it",
-  "THE UNDERTOW — the boss under the floor, answered downward",
-  "THE ORRERY — three orbits, and neither of you can see all three",
-  "THE CANDLE — the boss fought in the dark",
-  "THE GORGE — the boss you hurt by not shooting",
-  "THE CURTAIN — the boss that is in the way",
-  "THE TASTER — the boss that grows its armour in the colour you have been spending",
-  "THE SINEW — the boss that asks how hard, not when",
-  "THE LEDGER — the boss that bills your own hull for every shot",
-  "THE SURGE — the boss beaten by letting go",
-  "THE LEAD — the boss you shoot where it will be",
-  "THE SCUTTLE — the boss that throws itself at you, a part at a time",
-  "THE ANTIPHON — the boss that grows a thing nobody has a word for",
-  "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
-  "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
-  "THE FILAMENT — the boss whose line one of you draws while the other follows it",
-  "THE GIMBAL — the boss where the same turn is not the same turn",
-  "THE BELLOWS — the boss where you may never push while they are pulling",
-  "PINBALL — a table the ship's cannon fires up into",
-  "THE PULSE — the same song on two screens",
-  "THE SPLICE — straws fed in the order the numbers say",
-  "THE REPRISE — the wave sent again unseen",
-]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */
 export const SHIP_GROUPS: GroupName[] = GROUP_ORDER.filter((g) => !WAVE_ONLY_GROUPS.has(g));

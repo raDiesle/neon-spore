@@ -4,7 +4,6 @@ import { stepBellows } from "./bellows-step.js";
 import { stepLateBoss } from "./boss-others-b.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
-import { stepCairn } from "./cairn.js";
 import { stepCandle } from "./candle-step.js";
 import { stepCurtain } from "./curtain-step.js";
 import { stepDiastole } from "./diastole-step.js";
@@ -15,18 +14,15 @@ import { stepHive } from "./hive-step.js";
 import { stepInstar } from "./instar-step.js";
 import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
-import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
 import { stepOrrery } from "./orrery-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSinew } from "./sinew-step.js";
-import { stepSplice } from "./splice-round.js";
 import { stepStare } from "./stare-step.js";
 import { stepSurge } from "./surge-step.js";
 import { stepTaster } from "./taster-step.js";
 import { stepThroat } from "./throat-step.js";
 import { stepUndertow } from "./undertow-step.js";
-import { stepVane } from "./vane.js";
 import { stepWarden } from "./warden.js";
 import type { World } from "./world.js";
 
@@ -211,39 +207,14 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepBellows(world, boss);
     return;
   }
-  if (boss.kind === "vane") {
-    stepVane(world, boss);
-    return;
-  }
-  // THE CAIRN has exactly one thing on the beat, and it is the clock the pile
-  // keeps on the pair: a stack that has stood `cairnShedBeats` lets a rock go
-  // by itself. The hand that takes one apart answers on the tick, with the
-  // other carries (`grip-push.ts`) — a gesture lands when the finger has
-  // travelled, and only the clock belongs to the beat (`cairn.ts`).
-  if (boss.kind === "cairn") {
-    stepCairn(world, boss);
-    return;
-  }
-  if (boss.kind === "maze") {
-    stepMaze(world, boss);
-    return;
-  }
-  // THE SPLICE is on the beat and on the field, like THE MIRROR: the hull,
-  // the cannon and the maw under it are the ship's own, and what this clock
-  // does is land a number that is already on its way down, give way to the
-  // next tangle, and run a round's beats out (`splice-round.ts`). Its one
-  // verb arrives on the tick, through the SUCK the pair already has.
-  if (boss.kind === "splice") {
-    stepSplice(world, boss);
-    return;
-  }
-  // And THE FLEET, THE WELL and the six that are not stepped here at all are
-  // on the second page (`boss-others-b.ts`), handed across on 22 September
-  // 2026 when THE GIMBAL's branch took this one over its 250-line limit.
-  // Those three were the last on the chain, which is this repository's seam
-  // everywhere it splits a full page: the **last** rows go, never the boss
-  // being worked on, whose branch stays under the comment that explains it.
-  // The close goes with them, because the arm that catches what nobody named
-  // has to stand at the foot of whichever page ends the chain.
+  // And the six that are not stepped here at all, with THE VANE, THE CAIRN,
+  // THE MAZE, THE SPLICE, THE FLEET and THE WELL, are on the second page
+  // (`boss-others-b.ts`). The first hand-across was on 22 September 2026, when
+  // THE GIMBAL's branch took this one over its 250-line limit, and THE
+  // BELLOWS's put it back there the same week. Both times the **last** rows
+  // went, never the boss being worked on, whose branch stays under the comment
+  // that explains it. The close goes with them, because the arm that catches
+  // what nobody named has to stand at the foot of whichever page ends the
+  // chain.
   stepLateBoss(world, boss);
 }

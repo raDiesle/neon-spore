@@ -22,6 +22,34 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-five-files-a-choreographed-boss-must-touch-are-w — five seams, cold
+
+- reading — 20 min. The five files the entry names, and the one thing they
+  have in common: each already carries, in its own header, the seam it would
+  be cut along next. Nothing had to be decided — `boss-others.ts`,
+  `bind-choreographed.ts` and `boss-entries.ts` each say in prose which end of
+  the chain gives, so reading was confirming five arguments somebody else
+  wrote rather than making one.
+- writing — 45 min. Five splits, three new pages and two extended ones:
+  `boss-others.ts` 249 → 220, `events.ts` 247 → 221 (the new
+  `events-rounds.ts`), `ship-groups.ts` 233 → 194 (`ship-groups-wave.ts`),
+  `bind-choreographed.ts` 236 → 200 (three bosses onto the existing `-c`
+  page), `boss-entries.ts` 243 → 199 (`boss-entries-b.ts`). Every receiving
+  page's header records which end came across and why.
+- looking — 0 min. Nothing the game draws moved.
+- friction — 10 min. Two: a type union that had to stay behind when its cases
+  left — `choreographedCue`'s parameter names every family the page *accepts*,
+  not the ones it still switches on, so removing three names made `bind.ts`'s
+  hand-off a type error; and a re-export that would have been an evaluation
+  cycle if `ship-groups-wave.ts` had taken `SHIP_GROUPS` with it, since that
+  one is derived from `GROUP_ORDER` next door.
+- landing — 15 min.
+
+The bottleneck was **the union that is not the switch**. Four of the five
+splits were a cut and a paste; the fifth needed the distinction between what a
+function is handed and what it still answers itself, and that distinction is
+invisible until the typecheck says so two packages away.
+
 ## 2026-09-22 — instar-body-travels — a body that moves, so the slow has something to slow
 
 - reading — 15 min. Where THE INSTAR's figure is asked for, and by whom: the

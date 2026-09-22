@@ -1,3 +1,4 @@
+import type { MazeEntry, RepriseEntry, WellEntry } from "./boss-entries-b.js";
 import type {
   AntiphonEntry,
   BatonEntry,
@@ -30,7 +31,6 @@ import type {
 import type { FilamentEntry } from "./filament.js";
 import type { GimbalEntry } from "./gimbal.js";
 import type { InstarEntry } from "./instar.js";
-import type { MazeWheel } from "./maze-wheel.js";
 import type { MirrorStep } from "./simon.js";
 
 /**
@@ -117,54 +117,6 @@ export interface VaneEntry {
   pins?: number;
 }
 
-/**
- * What a wave authors when it wants THE MAZE: the wheels, in order, one per
- * round. No column and no health, for the same two reasons THE MIRROR has
- * neither — the mouths are spread across the field by `mazeMouthCol` rather
- * than placed, and how much of it a round takes off follows from how many
- * rounds there are (`maze-round.ts`). The author sets the fight by writing the
- * wheel out, and `mazeFault` says whether what they wrote is a round at all.
- */
-export interface MazeEntry {
-  kind: "maze";
-  rounds: MazeWheel[];
-}
-
-/**
- * What a wave authors when it wants THE WELL, which is nothing at all — THE
- * GAUGE's entry arrived at from the opposite end.
- *
- * No column, no health and no rounds, for the reason there is no state either:
- * the whole boss is a **projection**, and a projection has nothing to place and
- * nothing to tune. The wave under it is the wave its author wrote, which is the
- * one thing a well entry cannot say (`bossFillsWave` answers it for every
- * caller). `packages/sim/src/well.ts` is the argument.
- */
-export interface WellEntry {
-  kind: "well";
-}
-
-/**
- * What a wave authors when it wants THE REPRISE: how long a stretch of it runs
- * before it is sent back at the pair unseen — and that is the whole entry.
- *
- * No column, for THE VANE's and THE MAZE's reason: the mechanism hangs at the
- * top middle and has no body on the grid, so there is nothing to place. No
- * health either, and none is possible: the fight is as long as the wave its
- * author wrote, and it ends when the script is spent rather than when a count
- * runs out (`reprise.ts`).
- *
- * One number, and it says two things that must not be able to disagree — how
- * long a stretch is, and therefore which beat the first echo begins on. The
- * first stretch runs from the wave's own start, so the two are the same
- * integer (`repriseEvery`). Absent takes `repriseBeats` from the configuration,
- * the way an unpinned vane takes `vanePins`.
- */
-export interface RepriseEntry {
-  kind: "reprise";
-  beat?: number;
-}
-
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -207,6 +159,10 @@ export type BossEntry =
   // The one that authors a turn: the alignments two rings are held on (`gimbal.ts`).
   | GimbalEntry;
 
+// The three this page had no room left for, handed across on 22 September
+// 2026 — the last rows it held, the way every overflowing page in the
+// repository gives its end of the chain back (`boss-entries-b.ts`).
+export type { MazeEntry, RepriseEntry, WellEntry } from "./boss-entries-b.js";
 // The eighteen that are a clock and author nothing, over two pages
 // (`boss-entries-clocks.ts`, `boss-entries-clocks-b.ts`).
 export type {

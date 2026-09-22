@@ -343,6 +343,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
 | `packages/sim/src/boss-entries-clocks-b.ts` | **The tail of `boss-entries-clocks.ts`** |
+| `packages/sim/src/boss-entries-b.ts` | **The last three entries `boss-entries.ts` had room for**: THE MAZE, THE WELL and THE REPRISE |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
 | `packages/sim/src/boss-others-b.ts` | **The tail of `boss-others.ts`**, cut off it on 22 September 2026 when THE GIMBAL's branch took that page… |
@@ -544,6 +545,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-well.ts` | **Everything THE WELL does that neither screen already says**, as events |
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
 | `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |
+| `packages/sim/src/events-rounds.ts` | **THE MIRROR's five and THE MAZE's five** |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -2043,6 +2045,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/shapes-widgets.ts` | The two things every control row is built out of: a button, and a named group around a row of them |
 | `tools/director/src/ship-fields.ts` | Every `SimConfig` field, sorted into the card that explains it to a person standing at the ship |
 | `tools/director/src/ship-groups.ts` | The cards the ship's dials are divided into: their names, the order they are read in |
+| `tools/director/src/ship-groups-wave.ts` | **Which cards belong beside the wave rather than beside the ship.** The last rows of `ship-groups.ts` |
 | `tools/director/src/shipped.ts` | The two things the *build* decides about the director, rather than the session running it |
 | `tools/director/src/silhouette.ts` | Case-insensitive: callers pass a creature's spec name, not a SUBJECTS key |
 | `tools/director/src/skin-still.ts` | One card, drawn at one moment, as a string |

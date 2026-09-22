@@ -1,5 +1,4 @@
 import type { SimEvent } from "@neon-spore/sim";
-import { antiphonCue } from "./bind-antiphon.js";
 import { batonCue } from "./bind-baton.js";
 import { candleCue } from "./bind-candle.js";
 import { type AddedEvent, addedCue, isAddedEvent } from "./bind-choreographed-b.js";
@@ -7,10 +6,8 @@ import { lateCue } from "./bind-choreographed-c.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { gorgeCue } from "./bind-gorge.js";
-import { hiveCue } from "./bind-hive.js";
 import { leadCue } from "./bind-lead.js";
 import { ledgerCue } from "./bind-ledger.js";
-import { scuttleCue } from "./bind-scuttle.js";
 import { sinewCue } from "./bind-sinew.js";
 import { surgeCue } from "./bind-surge.js";
 import { tasterCue } from "./bind-taster.js";
@@ -191,45 +188,12 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "leadDown":
     case "leadOut":
       return leadCue(e, cols);
-    case "scuttleEnter":
-    case "scuttleLoose":
-    case "scuttleThrow":
-    case "scuttleStruck":
-    case "scuttleSwing":
-    case "scuttleRebuff":
-    case "scuttleSlack":
-    case "scuttleWind":
-    case "scuttleLast":
-    case "scuttleDown":
-    case "scuttleOut":
-      return scuttleCue(e, cols);
-    case "antiphonEnter":
-    case "antiphonGrow":
-    case "antiphonPit":
-    case "antiphonPull":
-    case "antiphonHarden":
-    case "antiphonSink":
-    case "antiphonSpill":
-    case "antiphonStill":
-    case "antiphonShip":
-    case "antiphonBurst":
-    case "antiphonOut":
-      return antiphonCue(e, cols);
-    case "hiveEnter":
-    case "hiveSwell":
-    case "hiveOpen":
-    case "hiveSpill":
-    case "hiveSkin":
-    case "hiveWrong":
-    case "hiveSeal":
-    case "hiveClench":
-    case "hiveHaul":
-    case "hiveWrung":
-    case "hiveDown":
-    case "hiveOut":
-      return hiveCue(e, cols);
-    // THE INSTAR, THE FILAMENT, THE DIASTOLE and the undertow's own default,
-    // which is what a page at its limit gives back (`bind-choreographed-c.ts`).
+    // THE INSTAR, THE FILAMENT, THE GIMBAL, THE BELLOWS, THE DIASTOLE and the
+    // undertow's own default, which is what a page at its limit gives back
+    // (`bind-choreographed-c.ts`) — and since 22 September 2026 THE SCUTTLE,
+    // THE ANTIPHON and THE HIVE, the last three cases this page had, handed
+    // over when the queue found it seventeen lines from the limit and a
+    // choreographed boss still had to touch it.
     default:
       return lateCue(e, cols);
   }
