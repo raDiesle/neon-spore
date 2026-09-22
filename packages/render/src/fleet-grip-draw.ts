@@ -3,7 +3,7 @@ import { type Chart, chartOf } from "./fleet-chart.js";
 import { drawDrainBar, FLEET_LATE } from "./fleet-clock.js";
 import { FLEET_RING_MUL, fleetHoleCircle, fleetRingCentre, fleetWreckPull } from "./fleet-grip.js";
 import { drawGripRing } from "./grip-rings.js";
-import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-draw.js";
+import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { seatOf } from "./view-role.js";

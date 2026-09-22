@@ -10,7 +10,8 @@ import { balloonRy } from "./balloon.js";
 import { creatureCenter, flatCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { strokeGlow } from "./glow.js";
-import { drawHandleHint, drawHandleRing, type HintStyle, handleRadius } from "./handle-draw.js";
+import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { drawHandleHint, type HintStyle } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -165,6 +166,7 @@ function drawOne(
     held,
     pull,
     time,
+    theirs: !mine,
   });
   if (!held) hint(ctx, l, head, side);
 }

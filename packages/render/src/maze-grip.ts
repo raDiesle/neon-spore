@@ -1,6 +1,6 @@
 import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@neon-spore/sim";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
-import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-draw.js";
+import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { mazeDrum } from "./maze-walls.js";
 import type { Field, Touch } from "./touch.js";

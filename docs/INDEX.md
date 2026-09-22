@@ -1101,7 +1101,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ease.ts` | The one easing curve `render/` uses, and the one place it is written out |
 | `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
 | `packages/render/src/guard-lapse.ts` | How long the guard button (`band.ts`) keeps fading after its own window closes, in milliseconds |
-| `packages/render/src/handle-draw.ts` | you are changing how a handle reads — the ring, the gauge, the rest mark, the sag and the word, shared by all three |
+| `packages/render/src/handle-draw.ts` | you are changing the shape of a handle — the ring, the gauge, the rest mark and the sag, shared by every one of them |
 | `packages/render/src/gyre-core.ts` | you are drawing the surface in the middle of a gyre wheel — the organelle, its fluid and its nucleus |
 | `packages/render/src/gyre-place.ts` | you are asking where a gyre's hub, rim or mounts are drawn between beats — the arc, the ease and the jam |
 | `packages/render/src/gyre-look.ts` | THE ONE RECORD A CANDIDATE GYRE CORE PATCHES |
@@ -1515,6 +1515,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-over.ts` | what is laid over a body after the body is drawn — the veil's cloud, the veer's rider, the carom's crust, the chute, the volley's shell, the recoil's cage, the coil's dome, the clasp's shield — one `if` per covering |
 | `packages/render/src/creature-axes.ts` | **How wide and how tall a body is actually drawn** — the other half of `creatureRadius` |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
+| `packages/render/src/handle-word.ts` | you are changing the word under a handle, or which seat reads which half of it |
 | `packages/render/src/handover-look.ts` | **THE HANDOVER's announcement**: the plate on the lip of the band that counts the trade down and counts the panels back, in the same words on both screens |
 | `packages/render/src/handover-hull.ts` | THE HANDOVER on the ship itself: two lobes on the hull handing one height back and forth for the length of the window, under the shipped plate |
 | `packages/render/src/handover.ts` | **Which seat this device is playing** — its own, or the other one's while THE HANDOVER has the panels traded. One function, called by the renderer on a frame and by the host on the layout a finger is tested against |

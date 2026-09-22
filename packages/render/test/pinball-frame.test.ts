@@ -153,6 +153,11 @@ describe("the two hands on the table", () => {
   // paints its background with a gradient rather than that flat colour, so the
   // count is the number of rings and nothing else. Calls will not do it: the
   // board, the preview fan and the bar all change with the shot.
+  //
+  // **It counts the seat's own**, since 22 September 2026: the dim copy of the
+  // other seat's handle is drawn (the last case here proves it) and punches no
+  // disc, because a hole the seat cannot see a wash inside came out as a hole
+  // in the board — which is what this stage's lit surface makes of one.
   const rings = (role: ViewRole, set: (state: PinballState) => void): number => {
     const world = stopped();
     set(pinballState(world));
@@ -179,7 +184,12 @@ describe("the two hands on the table", () => {
     ).toBe(0);
   });
 
-  it.each(ROLES)("draws the plunger on a slack spring, and only then, for %s", (role) => {
+  /** The seats the plunger is *theirs* on, and the ones the shove is: his is
+   * the spring, hers is the table, and the rig may press either. */
+  const HIS: ViewRole[] = ROLES.filter((r) => r !== "p2");
+  const HERS: ViewRole[] = ROLES.filter((r) => r !== "p1");
+
+  it.each(HIS)("punches the plunger's disc on a slack spring, and only then, for %s", (role) => {
     expect(
       rings(role, (p) => {
         p.shot = "power";
@@ -188,7 +198,7 @@ describe("the two hands on the table", () => {
     ).toBe(1);
   });
 
-  it.each(ROLES)("draws the shove through a flight and takes it off a tilt for %s", (role) => {
+  it.each(HERS)("punches the shove's through a flight and takes it off a tilt for %s", (role) => {
     expect(rings(role, (p) => (p.shot = "flight"))).toBe(1);
     expect(
       rings(role, (p) => {
@@ -196,6 +206,18 @@ describe("the two hands on the table", () => {
         p.tilted = true;
       }),
     ).toBe(0);
+  });
+
+  it("punches nothing for the seat that may not press it, on either handle", () => {
+    // The whole of the change: she reads his plunger and he reads her shove,
+    // and neither reading cuts a hole in the board between them.
+    expect(
+      rings("p2", (p) => {
+        p.shot = "power";
+        p.slack = true;
+      }),
+    ).toBe(0);
+    expect(rings("p1", (p) => (p.shot = "flight"))).toBe(0);
   });
 
   it("gives each seat the other's handle dimmed, and the rig neither", () => {

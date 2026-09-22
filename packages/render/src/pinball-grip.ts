@@ -207,5 +207,6 @@ function ring(
     held: false,
     pull,
     time,
+    theirs: !mine,
   });
 }

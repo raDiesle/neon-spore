@@ -448,6 +448,22 @@ thumb on the way down — the bar starting to run is the answer. The two gates
 are `pinWindable` and `pinNudgeable`, called by the rule and by the picture
 alike, so the ring cannot outlive the gesture.
 
+**And the dim copy punches no hole, 22 September 2026.** The first frame ever
+taken of the shove on the *pilot's* screen came back with a flat black disc in
+the board — `drawHandleRing` fills its circle in `PALETTE.background` before
+anything else, so a ring drawn over a lit surface reads as a hole cut in it,
+and the 0.18-alpha dim wash on top is not enough to say *handle*. This is the
+one wave in the game whose handles stand on a lit surface rather than in air,
+so it is where the defect shows worst. **The shove stays on his screen**: the
+dial is the count, a second nudge tilts the table and kills her hand for the
+flight, and *not yet* is a sentence he cannot say without the number. What he
+may not be shown is a hole. So a ring drawn for the other seat fills nothing
+now and is its rim and its wash over whatever is behind it (`theirs`,
+`handle-draw.ts`); `render/test/handle-hole.test.ts` counts the discs punched
+out of each screen and this round's is nought on his. Nine more bosses draw a
+dim ring and each is ruled on in its own section as a lane reaches it
+(`docs/queue.md`).
+
 **What is not built**: the three events are still on both silent lists, and a
 tilt is still said by the ring going out rather than by a sound or a mark of
 its own. *Never watched at tempo*: whether a shove is a gesture a thumb can

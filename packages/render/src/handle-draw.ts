@@ -1,7 +1,7 @@
 import { circleSubpath, type Point } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import type { Circle, Layout, ViewRole } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -14,21 +14,25 @@ import { PALETTE, STROKE } from "./palette.js";
  * handle's read is a fix to one of them, and the pair stop being the same
  * gesture without anybody deciding they should.
  *
- * So the ring, the gauge, the rest mark, the sag curve and the word live here,
- * and each handle passes its own anchor and its own colour. **Nothing about the
- * look changed in the move** — the figures are the ones each file already had,
- * which is why the two that differ (the wave amplitudes, the hint's size) are
- * arguments rather than a number picked between them.
+ * So the ring, the gauge, the rest mark and the sag curve live here, and each
+ * handle passes its own anchor and its own colour. **Nothing about the look
+ * changed in the move** — the figures are the ones each file already had, which
+ * is why the one that differs (the wave amplitudes) is an argument rather than a
+ * number picked between them. The fifth thing a handle has, **the word under
+ * it**, is next door in `handle-word.ts`: it is the only part of a handle that
+ * is not a shape, and it was cut off here when the ring grew a seat rule of its
+ * own.
  *
  * The hit circles stay where they are. Each handle rests somewhere different,
  * `handles.ts` already asks each file for its own, and a control drawn in one
  * place and answered in another is a control that works until somebody moves
  * one of them.
  *
- * THE MAZE's handle calls only `drawHandleHint`: its ring has no gauge, no
- * breathing and no rest mark, because the wheel it hangs off reports tension
- * itself. Folding it into the ring here would be a change to what the game
- * draws, which is not what a refactor may do.
+ * THE MAZE's handle calls only `drawHandleHint`, so it imports the word and
+ * nothing from this file: its ring has no gauge, no breathing and no rest mark,
+ * because the wheel it hangs off reports tension itself. Folding it into the
+ * ring here would be a change to what the game draws, which is not what a
+ * refactor may do.
  */
 
 /**
@@ -142,6 +146,18 @@ export const DIAL_RADII = 1.55;
  * continuous quantity rather than as a lamp that comes on at a threshold. The
  * player who is not holding it reads that arc, and it closes into a whole circle
  * at the instant the thing behind it gives.
+ *
+ * **The disc under it is punched out of the background, and only for the seat
+ * whose handle it is.** A ring has to read as a thing to take hold of over
+ * whatever the fight has drawn behind it — a lit board, a skin, a lobe — and
+ * the opaque fill is what buys that. The seat that may *not* take hold of it
+ * was being sold the same hole for a wash at 0.18 alpha it cannot see, so
+ * `theirs` came out a flat black disc in the middle of the picture: on
+ * PINBALL's table a hole in the board, and on THE UNDERTOW's hull a lobe with a
+ * breach in it that nothing had breached (`undertow-grip.ts`, 22 September
+ * 2026, where it cost that boss's pin its place on the pilot's screen). So a
+ * ring drawn for the other seat fills nothing and is its rim and its wash, over
+ * whatever is behind it, which is the picture it was always meant to be.
  */
 export function drawHandleRing(
   ctx: CanvasRenderingContext2D,
@@ -154,14 +170,18 @@ export function drawHandleRing(
     held: boolean;
     pull: number;
     time: number;
+    /** The other seat's, drawn so this one can read it — see above. */
+    theirs?: boolean;
   },
 ): void {
   const { x, y, r, hex, rim, held, pull, time } = opts;
   const breathe = held ? 1 : 1 + 0.08 * Math.sin(time * 4);
   const p = new Path2D(circleSubpath(x, y, r * breathe));
   ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(p);
+  if (opts.theirs !== true) {
+    ctx.fillStyle = PALETTE.background;
+    ctx.fill(p);
+  }
   ctx.fillStyle = hex;
   ctx.globalAlpha = held ? 0.55 + pull * 0.45 : 0.18;
   ctx.fill(p);
@@ -177,72 +197,5 @@ export function drawHandleRing(
   // From the top, clockwise, so it fills the way a dial does.
   ctx.arc(x, y, r * DIAL_RADII, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * pull);
   ctx.stroke();
-  ctx.restore();
-}
-
-/** How loud the word under a handle is. The tether and the string share one
- * set of figures; the lid's is a shade smaller, because its handle hangs off a
- * body rather than out of the hull. */
-export interface HintStyle {
-  fontTiles: number;
-  mine: number;
-  theirs: number;
-}
-
-export const HINT_LOUD: HintStyle = { fontTiles: 0.3, mine: 0.9, theirs: 0.45 };
-export const HINT_SOFT: HintStyle = { fontTiles: 0.26, mine: 0.8, theirs: 0.4 };
-
-/**
- * Whose handle it is, in words, and only while nobody has hold of it.
- *
- * The pair cannot see each other's thumbs, so the one thing the picture cannot
- * say by itself is which of the two of them is supposed to reach for it — and
- * that is the whole coupling. The seat that owns it reads its word brightly and
- * the other seat reads the word said about it, rather than waiting for a turn
- * that never comes. It goes as soon as a hand lands: from then on the handle's
- * own position says it.
- *
- * **Whose it is, is an argument.** Every handle on this field was the pilot's
- * until THE BALLOON, which has one per seat, and the seat was baked in here as
- * `role !== "p2"` — so the balloon grew a four-line copy of this word with the
- * seat passed in. `HandleWords` is that copy folded back: the three older
- * callers pass `{ seat: 1, mine: "PULL", theirs: "PILOT'S" }` and draw byte for
- * byte what they always drew.
- */
-export interface HandleWords {
-  /** Which of the two seats may pull this one. */
-  seat: 1 | 2;
-  /** What that seat reads. */
-  mine: string;
-  /** What the other seat reads. The balloon says the same thing to both,
-   * because its word names a direction rather than an owner. */
-  theirs: string;
-}
-
-/** The pilot's handle, said the way the three handles older than THE BALLOON
- * say it. Named so a fourth one of the same kind does not spell it out again. */
-export const PILOT_HANDLE: HandleWords = { seat: 1, mine: "PULL", theirs: "PILOT'S" };
-
-export function drawHandleHint(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  role: ViewRole,
-  x: number,
-  y: number,
-  style: HintStyle,
-  words: HandleWords = PILOT_HANDLE,
-): void {
-  const mine = role === "test" || (role === "p1") === (words.seat === 1);
-  ctx.save();
-  ctx.font = `600 ${Math.round(l.tile * style.fontTiles)}px system-ui, sans-serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-  ctx.globalAlpha = mine ? style.mine : style.theirs;
-  const word = mine ? words.mine : words.theirs;
-  // Kept on the glass: a handle resting against the screen's edge (THE
-  // BALLOON's, in a wall column) would otherwise centre its word half off it.
-  const half = ctx.measureText(word).width / 2;
-  ctx.fillText(word, Math.min(Math.max(x, half), l.width - half), y);
   ctx.restore();
 }

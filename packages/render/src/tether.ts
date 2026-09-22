@@ -8,14 +8,8 @@ import {
   wardenHandleMilli,
   wardenPullMilli,
 } from "@neon-spore/sim";
-import {
-  drawHandleHint,
-  drawHandleRest,
-  drawHandleRing,
-  fieldPoint,
-  HINT_LOUD,
-  handleRadius,
-} from "./handle-draw.js";
+import { drawHandleRest, drawHandleRing, fieldPoint, handleRadius } from "./handle-draw.js";
+import { drawHandleHint, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";

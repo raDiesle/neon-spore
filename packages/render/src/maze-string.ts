@@ -1,7 +1,8 @@
 import { circleSubpath, type Point } from "@neon-spore/content";
 import type { MazeState, SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { drawHandleHint, type HandleWords, HINT_LOUD, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
+import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { mazeDrum } from "./maze-walls.js";
 import { PALETTE, STROKE } from "./palette.js";

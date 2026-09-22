@@ -297,33 +297,62 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 `tools/queue/test/needs.test.ts` holds the wait.
 
-## A dim handle ring is an opaque black disc, and nine bosses draw one
+## Seven bosses draw a dim ring that nobody has looked at in a frame
 
-- **Found:** 2026-09-22, claude/queue-the-undertow-changes-state-more-than-once-and-as
-- **Taken:** 2026-09-22, claude/queue-the-undertow-changes-state-more-than-once-and-as (claim: claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni)
-- **Files:** `packages/render/src/handle-draw.ts`, `packages/render/src/balloon-handles.ts`, `packages/render/src/pinball-grip.ts`, `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/snake-grip.ts`, `packages/render/src/surge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/throat-grip.ts`, `packages/render/src/vane-grip.ts`
+- **Found:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni
+- **Files:** `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/snake-grip.ts`, `packages/render/src/surge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/throat-grip.ts`, `packages/render/src/vane-grip.ts`
 
-`drawHandleRing` fills its circle with `PALETTE.background` before anything
-else, so a ring is opaque wherever it stands and **a dim ring is a black
-disc**. Two lanes in two days found the same defect that way and neither found
-it in a test: THE LEDGER's dim haul came out a dark circle on the cord, which
-is exactly what a *return* looks like, and THE UNDERTOW's dim pin came out a
-hole in the head of the lobe the pilot aims the maw at. Both were ruled the
-same way — the ring came off the other seat's screen — and both were found by
-rendering one frame.
+**The cause is fixed and the looking is not.** A ring drawn for the other seat
+no longer fills `PALETTE.background`, so it punches no hole in whatever is
+behind it (`theirs`, `handle-draw.ts`, 22 September 2026), and THE BALLOON and
+PINBALL were photographed, ruled and written up. The seven files above still
+pass no `theirs` and still punch a hole apiece, because each wants a frame and
+a ruling of its own before its look is changed, and the lane that fixed the
+cause could not reach seven fights in a sitting.
 
-Nine more files draw a dim ring on the seat that cannot press it, under the
-bargain `sinew-handles.ts` struck: neither seat can feel the other's thumb, so
-each is shown a dim copy. The bargain is right where the other seat needs the
-fact; it is wrong where the disc covers something that seat reads. Nobody has
-looked.
+Two of them are not a plain seat check and are the reason this is a boss at a
+time rather than one sweep. `sinew-handles.ts` draws **two** rings, the second
+`swinging ? PALETTE.ember : mine ? PALETTE.rock : PALETTE.dim` — an ember ring
+is nobody's and dim is the fallback rather than the other seat. `surge-grip.ts`
+draws `refusing ? PALETTE.dim : mine ? PALETTE.rock : PALETTE.dim`, where a
+refused ring is dim **on the seat it belongs to**, so `theirs` is not what that
+line is saying and the hole may be the right picture for a refusal.
 
-The work is one frame per ring, on the screen it is dim on, and a ruling per
-boss in its §11 section: **it stays** (say what the other seat does with it),
-or **it goes** (and a frame test counts nought on that role). A ring that stays
-and covers a body wants `PIN_UP`-style clearance rather than an exemption.
-`packages/render/test/undertow-grip-frame.test.ts` is the pattern for the
-counting, and §11.20's *two rings* paragraph for the writing-up.
+The work, per boss: one frame on the screen the ring is dim on, then **it
+stays** (pass `theirs`, and say in its section what the other seat does with
+it) or **it goes** (and a frame test counts nought on that role).
+`render/test/handle-hole.test.ts` is the pattern for the counting — a
+background fill is a ring and nothing else is, and `BARE` is asserted rather
+than assumed — and the *dim copy punches no hole* paragraph in
+`docs/spec/interludes.md` is the pattern for the writing-up. THE SCOUT cannot
+be photographed at all today; the entry below is why.
+
+## `--press` knows no scout verb, so THE SCOUT's two rings cannot be photographed
+
+- **Found:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni
+- **Files:** `tools/frames/press-command.ts`, `tools/frames/hold-targets.ts`, `tools/frames/boss-install.ts`
+
+Both of THE SCOUT's rings are gated on what the ship is **carrying**:
+`scoutLineGrippable` wants it past `scoutLadenMotes` and `scoutPrimeGrippable`
+past `scoutHeavyMotes` (`sim/scout-hand.ts`). A wave left to itself carries
+nothing — a probe of `theScout` stepped 1600 ticks with `carrying` at 0
+throughout — because the ship is flown by hand, with `scoutTurn`, `scoutBurn`
+and `scoutMaw` (`sim/scout-round.ts`), and `--press` knows none of the three.
+`--hold` knows no scout handle either, and it would not help: a thumb on a ring
+that is not offered is not a ring. `--boss-json` cannot reach it either,
+because `carrying` is a list and `installBoss` takes a list of **the same
+length**, which for an empty one is only the empty one.
+
+So there is no way to stand a frame of that round with either ring in it, and
+the lane that went looking for one spent its time finding that out. The same
+gap stands over THE SNAKE, THE TASTER and THE VANE's handles, none of which
+`--hold` names.
+
+Either is a fix: teach `--press` the three scout verbs, which is the smaller
+change and leaves the flying to the capture; or let `--boss-json` **grow** a
+list of numbers, which is the general one and wants the argument in
+`boss-install.ts`' header answered — a shorter list draws a boss with fewer
+sockets than the simulation has, and a longer one is a different claim.
 
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 

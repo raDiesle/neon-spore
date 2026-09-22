@@ -479,6 +479,18 @@ other handle in the game is drawn where it can be used and dimmed where it
 cannot; here each seat has to see the *other* one moving, because the instant
 they are both taut is an instant neither of them can feel.
 
+**The other seat's fills nothing, 22 September 2026.** A ring lays a disc of
+`PALETTE.background` down before it draws anything else, so that it reads as a
+thing to take hold of over whatever is behind it; the seat that may not take
+hold of it was being sold the same hole under a wash it cannot see. On this
+body the ring hangs `cfg.balloonHandleMilli` clear of the skin and the frame
+shows the disc landing in empty air, so nothing here was ever covered — but
+six balloons drift a lane apart on this wave and a ring that punches its own
+hole would eventually punch one in a neighbour. The handle stays on both
+screens for the reason above, which is the whole creature; it simply stops
+cutting. One hole a body a phone and both on the rig, counted in
+`render/test/handle-hole.test.ts`.
+
 ## Bullets
 
 `packages/render/src/bullets.ts`. One look and one shape, since the lance grew

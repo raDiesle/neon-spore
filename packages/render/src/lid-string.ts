@@ -9,14 +9,8 @@ import {
 } from "@neon-spore/sim";
 import { creatureCenter, flatCenter } from "./creature-place.js";
 import { strokeGlow } from "./glow.js";
-import {
-  drawHandleHint,
-  drawHandleRest,
-  drawHandleRing,
-  HINT_SOFT,
-  handleRadius,
-  handleSag,
-} from "./handle-draw.js";
+import { drawHandleRest, drawHandleRing, handleRadius, handleSag } from "./handle-draw.js";
+import { drawHandleHint, HINT_SOFT } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";

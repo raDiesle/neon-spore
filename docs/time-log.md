@@ -16207,3 +16207,34 @@ pry went to the root and hers went into the empty air above the notch rather
 than onto it — the notch's sheen is the fight's own progress bar.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-a-dim-handle-ring-is-an-opaque-black-disc — the other seat's fills nothing
+
+- reading — 25 min. Nine files draw a dim ring; the question was which of them
+  the defect actually belongs to, and the answer was none — `drawHandleRing`
+  fills `PALETTE.background` before anything else, so the seat that may *not*
+  press a handle was being sold the same hole for a 0.18-alpha wash it cannot
+  see. One line in `handle-draw.ts` rather than nine files.
+- writing — 55 min. The `theirs` option and the paragraph that says why,
+  `balloon-handles.ts` and `pinball-grip.ts` passing it, seven cases in
+  `handle-hole.test.ts`, the rulings in `interludes.md` and
+  `shipped-looks.md`, two queue entries, and the split of `handle-draw.ts`
+  along the seam its own header named (`handle-word.ts`, the word).
+- looking — 40 min. Four PINBALL frames and six crops. The pair that carries
+  the lane is the nudge ring on the two seats: a violet disc with a bright rim
+  on hers, a flat black hole in the lit board on his.
+- friction — 45 min. PINBALL idles in `aim` for ever with no input, so a frame
+  of it had to be driven — `--press 550:1:latch --press 570:2:launch` — after
+  `--boss-json` proved useless (the fields are written before the opening lets
+  go and 600 ticks move the round on). Two crops of the wrong band before the
+  rings' real coordinates came off a probe. THE SCOUT could not be photographed
+  at all and left the lane. One full-suite timeout under load.
+- landing — 25 min. The limits test on the 264-line file, and two frame cases
+  in `pinball-frame.test.ts` that counted the dim rings' discs — now the seat's
+  own, which is the change said back.
+
+The bottleneck was **the tools**: the fix was one line and an hour of it went
+to getting the picture that proved it. A frame of a round that waits for a
+thumb needs the thumb, and `--press` knows only the verbs somebody has already
+needed — THE SCOUT's three are not among them, so its two rings are the one
+part of this finding no session can see today. That gap is queued.
