@@ -16983,3 +16983,5 @@ rides a fill the reading would have had to re-derive, and finding that out
 meant reading three of them. Ten minutes of it was `surge-word.ts` alone, and
 it paid for itself: the finale is THE SURGE's lift exactly, `STILL`/`LIFT` and
 all, so that word did not have to be invented.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
