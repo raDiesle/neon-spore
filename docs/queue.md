@@ -741,29 +741,6 @@ line is a reading function and a call, not a second box. Keep #34: the line
 says what the *pair* is under and never a seat's own verb, which is why it
 is drawn bright on both screens.
 
-## No picture tool can photograph a card the back gesture opens
-
-- **Found:** 2026-09-20, claude/queue-the-phones-back-gesture-leaves-the-game-instead
-- **Taken:** 2026-09-22, claude/queue-bun-run-frames-cannot-stop-inside-a-rest-only-on (claim: claude/queue-no-picture-tool-can-photograph-a-card-the-back-g)
-- **Files:** `tools/frames/menu-shot.ts`, `tools/frames/menu-trail.ts`, `apps/game/src/back-ask.ts`
-
-`bun run menu-shot` is the tool for markup over the field, and it can only
-arrive at a screen a **press on a labelled button** opens: its trail is
-`menu-trail.ts`'s press steps, and it waits for `#menu.on`. The back-ask card
-is opened by the phone's back gesture and by nothing else, so photographing it
-for the owner meant a throwaway Playwright script in a scratch directory that
-called `launchBrowser` and `menuDevice` itself and ran `history.back()` on the
-page — which is exactly the friction `menu-shot.ts`'s own header says it was
-built to stop being paid again, paid again.
-
-Two flags would cover it and neither needs a new browser: a step in the trail
-that means *press back* — `--page "BACK"` is taken by the menu's own row, so
-its own flag — and a `--screen` that says which `.on` to wait for instead of
-`#menu.on`, with `--element` already able to name the card. With both,
-`bun run menu-shot back.png --back --screen "#backAsk.on" --element "#backAsk"`
-is the picture in this entry's place. `menu-shot.ts` is near its ceiling, so
-the trail's new step belongs in `menu-trail.ts` beside the ones it has.
-
 ## A wave with a guide opens on its introduction as well
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
