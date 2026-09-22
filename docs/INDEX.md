@@ -2235,6 +2235,7 @@ place — the generator keeps whatever is there.
 | `tools/index/generate.ts` | `docs/INDEX.md` as a function of a checkout |
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
+| `tools/director/src/waves-act-files.ts` | **Where the waves live on disk**, and nothing about writing them |
 | `tools/director/src/waves-baseline.ts` | A save runs `baseline:blank` in a fresh process before it commits, so a wave changed under its baseline row cannot land `main` red |
 | `tools/director/src/wordings-glossary.ts` | The words on the WORDINGS page that have no one place on the picture — the list under the two labelled screens |
 | `tools/director/src/wordings-page.ts` | DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named |

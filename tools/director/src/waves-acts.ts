@@ -12,6 +12,9 @@ import type { Wave } from "@neon-spore/content";
 import type { PinballRound } from "@neon-spore/sim";
 import { countWaveArray, serializeWaveArray } from "./serialize.js";
 import { serializePinballRounds } from "./serialize-pinball.js";
+import { ACT_FILES, type ActFile } from "./waves-act-files.js";
+
+export { ACT_FILES, type ActFile };
 
 export const repoRootPath = Bun.fileURLToPath(new URL("../../../", import.meta.url));
 
@@ -25,12 +28,6 @@ export const repoRootPath = Bun.fileURLToPath(new URL("../../../", import.meta.u
  */
 const pinballFile = new URL("../../../packages/content/src/pinball-rounds.ts", import.meta.url);
 const pinballRel = "packages/content/src/pinball-rounds.ts";
-
-export interface ActFile {
-  file: URL;
-  rel: string;
-  exportName: string;
-}
 
 /**
  * The files a save reads and writes, and the tree Biome runs in.
@@ -50,125 +47,6 @@ export interface WaveFiles {
   /** PINBALL's board file, written beside the acts when the list holds a pinball wave. */
   readonly boards: { readonly file: URL; readonly rel: string };
 }
-
-/**
- * The act files, **in the order `waves.ts` concatenates them** — which is the
- * order of the game and not of the names: `act-3b.ts` is the second half of act
- * three and stands between act three and act four, because a file is cut where
- * it fills up rather than where the game changes subject.
- *
- * A save splits the incoming flat list back across them at
- * each act's *current* length, except the last, which takes whatever is left
- * over — so a wave appended in the editor lands in the newest act
- * without either act needing to say which waves are its own.
- */
-export const ACT_FILES: readonly ActFile[] = [
-  {
-    file: new URL("../../../packages/content/src/waves/act-1.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-1.ts",
-    exportName: "WAVES_ACT_1",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-1b.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-1b.ts",
-    exportName: "WAVES_ACT_1B",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-2.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-2.ts",
-    exportName: "WAVES_ACT_2",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-3.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-3.ts",
-    exportName: "WAVES_ACT_3",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-3b.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-3b.ts",
-    exportName: "WAVES_ACT_3B",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-4.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-4.ts",
-    exportName: "WAVES_ACT_4",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-4b.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-4b.ts",
-    exportName: "WAVES_ACT_4B",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-5.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-5.ts",
-    exportName: "WAVES_ACT_5",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-6.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-6.ts",
-    exportName: "WAVES_ACT_6",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-7.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-7.ts",
-    exportName: "WAVES_ACT_7",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-7a.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-7a.ts",
-    exportName: "WAVES_ACT_7A",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-7b.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-7b.ts",
-    exportName: "WAVES_ACT_7B",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-7c.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-7c.ts",
-    exportName: "WAVES_ACT_7C",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-7d.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-7d.ts",
-    exportName: "WAVES_ACT_7D",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-7e.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-7e.ts",
-    exportName: "WAVES_ACT_7E",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-7f.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-7f.ts",
-    exportName: "WAVES_ACT_7F",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-7g.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-7g.ts",
-    exportName: "WAVES_ACT_7G",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-8.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-8.ts",
-    exportName: "WAVES_ACT_8",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-9.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-9.ts",
-    exportName: "WAVES_ACT_9",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-10.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-10.ts",
-    exportName: "WAVES_ACT_10",
-  },
-  {
-    file: new URL("../../../packages/content/src/waves/act-11.ts", import.meta.url),
-    rel: "packages/content/src/waves/act-11.ts",
-    exportName: "WAVES_ACT_11",
-  },
-];
 
 /** The checkout this director is running in — what a save writes unless told otherwise. */
 export const REAL_FILES: WaveFiles = {

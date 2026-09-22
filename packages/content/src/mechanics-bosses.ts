@@ -186,7 +186,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   spool: {
-    what: "A spool at the top, its line run to the hull. One of you holds the brake: shallow lets the line run, deep slows it, and off runs fastest. The other is shown how much line should be out by now. Say it and hold there. Held right for a whole call, a rib eases. Four ribs.",
+    what: "A spool pays a line to the hull. One of you holds the brake. The other sees how fast it should run. Hold it right and a rib eases.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;
