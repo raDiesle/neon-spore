@@ -515,23 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE HASP is written and nobody has built its simulation
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-22, claude/queue-the-bellowss-picture-has-never-been-drawn (claim: claude/queue-the-hasp-is-written-and-nobody-has-built-its-sim)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-
-`docs/spec/bosses-choreographed.md` §20 is a full design: `haspLatch` (a
-hold, read by depth for its own unseen heat) and `haspWheel` (a bearing drag,
-the way `orreryRing` is) as two new `DragTarget` members, and the gate
-between them — the wheel may turn only while the latch is currently held —
-read as an ordinary per-tick check of both hands in the boss's own step
-function; §20's own write-up says plainly that this needs no new primitive.
-Three hasps as hashed `World` fields, the wave entry with its guide, one test
-per receipt.
-
-The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
-
 ## THE HASP's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
