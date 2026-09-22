@@ -546,21 +546,6 @@ open together at the end. A new silhouette — check
 `packages/content/src/silhouettes.ts` first. One PNG to the owner when it
 moves.
 
-## THE SPOOL is written and nobody has built its simulation
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-22, claude/task-queue-work-097641 (claim: claude/queue-the-spool-is-written-and-nobody-has-built-its-si)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-
-`docs/spec/bosses-choreographed.md` §21 is a full design: `spoolBrake` (a
-depth-hold with no readout of its own) and `SplitGauge` (shipped twice
-already, THE SINEW and THE SURGE) for the zone she is shown against the
-depth he feels. Four ribs as hashed `World` fields, each easing on a clean
-movement rather than cracking, the wave entry with its guide, one test per
-receipt. §21's own *Cost* line says this asks the engine for nothing new.
-
-The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
-
 ## THE SPOOL's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
