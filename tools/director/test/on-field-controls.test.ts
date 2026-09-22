@@ -236,10 +236,12 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   batonSocket: "field",
   // THE UNDERTOW's two thumbs, both the navigator's and both on the hull
   // itself: a pin is a second plate on a standing lobe, and the free hauls
-  // the plate off a pilot the floor unseated (`sim/undertow-hand.ts`). Sim
-  // lane only so far, as every one above it.
-  undertowPin: "unbuilt",
-  undertowFree: "unbuilt",
+  // the plate off a pilot the floor unseated (`sim/undertow-hand.ts`). Drawn
+  // from 22 September 2026 — a ring per standing lobe just clear of the
+  // plating, and one a tile above it over the stuck column with the count on
+  // its dial (`render/undertow-grip.ts`).
+  undertowPin: "field",
+  undertowFree: "field",
   // THE THROAT's two, and the only pair the fight hands out as it loses: a
   // thumb on a ring already gone slack holds the gullet's breath, and in
   // `open` a carry drags the tube itself a column off its meal

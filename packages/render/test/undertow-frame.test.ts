@@ -183,13 +183,37 @@ describe("the undertow", () => {
   });
 
   it("lights the seat's column while the cannon is unseated, on the pilot's screen", () => {
+    // **Counted rather than compared**, which the frames stopped allowing on
+    // 22 September 2026: the navigator's haul is drawn over that same column
+    // while he is unseated (`undertow-grip.ts`), so her screen is no longer
+    // identical to a seated one and the whole-log comparison this test used
+    // to make would now fail on her own handle. The light itself is the one
+    // thing being asked about and it is a `halo`, which is a `drawImage` and
+    // nothing else here is.
     const seated = opened();
     const world = opened();
     floor(world).unseatedUntil = world.beat + CFG.undertowUnseatedBeats;
-    expect(drawn(world, "p1", TPB).text).not.toBe(drawn(seated, "p1", TPB).text);
+    expect(count(drawn(world, "p1", TPB).text, "drawImage")).toBeGreaterThan(
+      count(drawn(seated, "p1", TPB).text, "drawImage"),
+    );
     const p2 = opened();
     floor(p2).unseatedUntil = p2.beat + CFG.undertowUnseatedBeats;
-    expect(drawn(p2, "p2", TPB).text).toBe(drawn(opened(), "p2", TPB).text);
+    expect(count(drawn(p2, "p2", TPB).text, "drawImage")).toBe(
+      count(drawn(opened(), "p2", TPB).text, "drawImage"),
+    );
+  });
+
+  it("puts the navigator's haul over the unseated column, on both screens", () => {
+    // The other half of the line above, and the reason it had to be rewritten.
+    // Her thumb is the one thing that ends the four dead beats early, and a
+    // pilot who could not see it coming would sit them out with no idea he was
+    // being bought back — so the ring is on both screens, bright on hers and
+    // dim on his (`undertow-grip.ts`).
+    for (const role of ROLES) {
+      const world = opened();
+      floor(world).unseatedUntil = world.beat + CFG.undertowUnseatedBeats;
+      expect(drawn(world, role, TPB).text, role).not.toBe(drawn(opened(), role, TPB).text);
+    }
   });
 
   it("never draws the floor before its wave installs one", () => {

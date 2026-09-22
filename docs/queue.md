@@ -567,7 +567,7 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Thirteen handles are heard by the simulation and drawn nowhere
+## Eleven handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
 - **Taken:** 2026-09-22, claude/queue-the-undertows-two-handles-are-heard-and-drawn-nowhere (claim: claude/queue-thirteen-handles-are-heard-by-the-simulation-and)
@@ -620,10 +620,25 @@ fills opaquely and the head is the muzzle, the mouth and the heading at once.
 `gape()` was re-signed to take a config and a tick rather than a world, so the
 mouth and the ring drawn open by it cannot disagree.
 
-**The other thirteen are `unbuilt`, and each is a look before it is a row** —
+Lane six landed THE UNDERTOW's two, and they are the first pair here **one
+seat owns whole**: the attack comes up through the floor, so both of the
+pilot's hands are on the maw and the cannon's column for the whole fight and
+neither handle could be his. `render/undertow-grip.ts` holds both circles,
+both gates and the drawing. The pin is one ring per standing lobe, and it is a
+second plate — `undertowPinned` is asked on the same line as `world.shieldCol`
+in both places that number is read (`sim/undertow-step.ts`,
+`undertow-press.ts`) — on a fight whose second phase is two breaches and one
+plate. The free is the only control in the game that **hands the other player
+his own seat back**, and its dial is the count itself, so what fills is the
+number the simulation acts on; it does **not** empty when her thumb lifts,
+because the count keeps. Both rings are read off the flat `l.hullY` rather
+than the wobbling skin (`bossAnchorE`'s precedent), and both are drawn in
+`frame-on-ship.ts` — the fifth pass — because everything within a tile of the
+hull line is painted over by the ship.
+
+**The other eleven are `unbuilt`, and each is a look before it is a row** —
 `tasterBlade`, `tasterGap`, `tasterLock`,
 `ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`,
-`undertowPin`, `undertowFree`,
 `scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`. Every one
 is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
 branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
@@ -632,7 +647,7 @@ place on the screen and `source` is a branch of `touch.ts`, and neither
 exists.
 
 So the work is one lane per boss, in the shape `candleWick`, `curtainHem`,
-`pulseMeter` and THE VANE's and THE THROAT's two each took: a `*-grip.ts` giving the handle a ring where the seat
+`pulseMeter` and THE VANE's, THE THROAT's and THE UNDERTOW's two each took: a `*-grip.ts` giving the handle a ring where the seat
 that owns it is drawn, the `handleUnder()` branch that answers it, the
 `field-controls-<boss>.ts` row beside the twenty-seven that exist, the
 `docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to
@@ -2312,3 +2327,28 @@ refused by its own rest and already shows it). It is one expression in
 `drawSnakeLobe` plus a case in `snake-frame.test.ts` saying the face is dead
 under `gorge`. The head on the face should still show the gape, since the mouth can
 still be open — what changes is the halo and the fill that say *press me*.
+
+## `--hold` knows none of the handles the handles lanes have drawn
+
+- **Found:** 2026-09-22, claude/queue-the-undertows-two-handles-are-heard-and-drawn-nowhere
+- **Files:** `tools/frames/hold-targets.ts`, `tools/frames/hold.ts`, `packages/net/src/command-fields.ts`
+- **Where:** local
+
+Six lanes of *Eleven handles are heard by the simulation and drawn nowhere*
+have now put a ring on the field, and not one of them could press its own ring
+from the command line **except THE THROAT's**, whose lane put `throatRing` and
+`throatTube` in `DRAGS` itself. `pulseMeter`, `vanePin`, `vaneHaul`,
+`snakePrise`, `snakeLift`, `undertowPin` and `undertowFree` are not names the
+flag takes — it answers `--hold undertowFree=0` with a usage line and stops.
+Five lanes worked around it the same way, posing the state with
+`--boss-json` and `--ticks` instead of pressing the handle, which photographs
+a boss that has been *told* a thumb is on it rather than one a thumb is on.
+The two differ exactly where it matters: a dial that fills off a held count,
+a ring drawn `held`, and every burst the press throws.
+
+The rows are mechanical — a `TARGET` entry saying which seat owns each, and an
+`id` for the ones that carry a column (`undertowPin`, `snakePrise`). Do it
+with the test the entry above asks for (`--hold` names its drag targets as
+free strings), since that test is what stops the list drifting again, and the
+two together are one sitting. Prove it by taking one frame per new name and
+seeing the dial move.

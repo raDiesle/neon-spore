@@ -1597,6 +1597,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/undertow-shape.ts` | THE UNDERTOW's geometry: how far a plate has risen, how high a lobe stands, how wide a breach is |
 | `packages/render/src/undertow-seam.ts` | THE UNDERTOW's seam: the skin lifted between two x's, the violet light under it |
 | `packages/render/src/undertow-fx.ts` | What THE UNDERTOW leaves behind a frame: **the plate closing** under a cannon slid off in time |
+| `packages/render/src/undertow-grip.ts` | **THE UNDERTOW's two hands**, and the circles the drawing and the hit test share |
 
 ### packages/net
 
@@ -2367,6 +2368,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

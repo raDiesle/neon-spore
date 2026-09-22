@@ -30,6 +30,7 @@ import { tetherGrabCircle } from "./tether.js";
 import { throatGripUnder } from "./throat-grip.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
+import { undertowGripUnder } from "./undertow-grip.js";
 import { vaneGripUnder } from "./vane-grip.js";
 import { wardenGripUnder } from "./warden-grip.js";
 
@@ -110,6 +111,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     vaneGripUnder(l, x, y, field) ?? // THE VANE's swinging arm and the housing under its hub (`vane-grip.ts`).
     throatGripUnder(l, x, y, field) ?? // THE THROAT's slack ring and the tube under its mouth (`throat-grip.ts`).
     snakeGripUnder(l, x, y, field) ?? // SNAKE's stuck jaws and dragging tail, on the body itself (`snake-grip.ts`).
+    undertowGripUnder(l, x, y, field) ?? // THE UNDERTOW's pin on a standing lobe and the free over the stuck pilot (`undertow-grip.ts`).
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }

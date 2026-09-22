@@ -24,6 +24,7 @@ import { SNAKE_CONTROLS } from "./field-controls-snake.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { THROAT_CONTROLS } from "./field-controls-throat.js";
+import { UNDERTOW_CONTROLS } from "./field-controls-undertow.js";
 import { VANE_CONTROLS } from "./field-controls-vane.js";
 import { WARDEN_CONTROLS } from "./field-controls-warden.js";
 import { WELL_CONTROLS } from "./field-controls-well.js";
@@ -101,4 +102,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // and the first two here drawn on a thing that moves between beats
   // (`field-controls-snake.ts`).
   ...SNAKE_CONTROLS,
+  // THE UNDERTOW's pin and free, the first pair here **one seat owns whole** —
+  // and the free is the only control in the game that hands the other player
+  // his own seat back (`field-controls-undertow.ts`).
+  ...UNDERTOW_CONTROLS,
 ];

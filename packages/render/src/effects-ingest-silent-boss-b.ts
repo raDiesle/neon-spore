@@ -186,16 +186,17 @@ export const INGEST_SILENT_BOSS_B = [
   "batonRefused",
   "batonHeld",
   "batonParted",
-  // THE UNDERTOW's two thumbs on the hull, silent until the look lane draws
-  // them: which lobe she is pinning and how long she has held his column are
-  // state, read off `pinCol` and `freed` every frame (`sim/undertow-hand.ts`).
+  // THE UNDERTOW's two thumbs on the hull, drawn since 22 September 2026 and
+  // still silent: which lobe she is pinning and how long she has held his
+  // column are state, read off `pinCol` and `freed` every frame and put on
+  // the rings themselves (`sim/undertow-hand.ts`, `undertow-grip.ts`).
   // Her other ten are on the first page, with the floor they answer.
   "undertowPinned",
   "undertowFreed",
-  // THE THROAT's two hands on the gullet, silent until the look lane draws
-  // them: the pinched ring darkens off `cinchBeat` and the mouth's column is
-  // derived every frame, so both are already on the picture
-  // (`sim/throat-hand.ts`, `throat-draw.ts`).
+  // THE THROAT's two hands on the gullet, drawn since 21 September 2026 and
+  // still silent: the pinched ring darkens off `cinchBeat` and the mouth's
+  // column is derived every frame, so both are already on the picture
+  // (`sim/throat-hand.ts`, `throat-draw.ts`, `throat-grip.ts`).
   "throatCinch",
   "throatSlip",
   "throatHaul",

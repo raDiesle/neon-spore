@@ -134,12 +134,14 @@ export const SILENT_BOSS_B = [
   "batonRefused",
   "batonHeld",
   "batonParted",
-  // THE UNDERTOW's two thumbs, no burst until the look lane draws them: the
-  // pin stands on a lobe the field is already drawing.
+  // THE UNDERTOW's two thumbs, drawn since 22 September 2026 and still no
+  // burst: each stands on a ring that is already saying it (`undertow-grip.ts`
+  // draws a pinned lobe `held`, and the free's dial *is* the count).
   "undertowPinned",
   "undertowFreed",
-  // THE THROAT's two hands, no burst until the look lane draws them: both
-  // stand on the tube, which is a fixture the field draws every frame.
+  // THE THROAT's two hands, drawn since 21 September 2026 and still no burst:
+  // both stand on the tube, which is a fixture the field draws every frame,
+  // and on a ring of their own (`throat-grip.ts`).
   "throatCinch",
   "throatSlip",
   "throatHaul",

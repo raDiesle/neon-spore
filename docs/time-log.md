@@ -16008,3 +16008,34 @@ it steps — so the circle, the drawing and the test all had to be taken through
 `snakeSlide`, and `Field` had to start carrying a tick to get them there.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-the-undertows-two-handles-are-heard-and-drawn-nowhere — THE UNDERTOW's pin and free
+
+- reading — 30 min. `undertow-hand.ts` for both rules and every gate on them,
+  `undertow-step.ts` and `undertow-press.ts` to check rather than assume the
+  claim that a pin is a second plate — `undertowPinned` is asked on the same
+  line as `world.shieldCol` in both — and `frame-on-ship.ts` against
+  `boss-draw-clocks.ts` to settle which pass a ring within a tile of the hull
+  line belongs in. `caption-anchor-boss-e.ts` for the flat `l.hullY`.
+- writing — 50 min. `render/undertow-grip.ts` — both circles, both gates, the
+  hit test and the drawing — the `handleUnder()` branch, the call last of all
+  in `frame-on-ship.ts`, `field-controls-undertow.ts`,
+  two rows in `docs/spec/controls.md`, two lines of `TARGET_PLACE`, nine tests
+  in `undertow-grip.test.ts` and one in `undertow-frame.test.ts`, and two
+  stale comments refreshed in the silent lists.
+- looking — 15 min. One frame: three rings on lobes standing out of the floor
+  and her haul over the cannon's column with its dial half round, posed with
+  `--ticks` for the lobes and `--boss-json` for the unseating, because
+  `--hold` still knows four targets and neither of these is one.
+- friction — 15 min. The lobe's tick had to be found in a running world and
+  the scratch file written for it resolved no package at all — a probe lives
+  in `tools/probe/scratch/` and nowhere else, which `tools/probe/world.ts`
+  says. The file reached 255 lines and two passes of prose came out of it.
+- landing — 15 min. `check:fast` green; one import sort.
+
+The bottleneck was a test that compared whole logs. `undertow-frame.test.ts`
+proved the pilot's unseated column is lit by asserting the navigator's screen
+is *identical* to a seated one — true until this lane drew her haul over that
+same column, and the failure names the light rather than the ring. Restating
+the claim as a count of the one `drawImage` the light is cost more than
+writing the ring did.

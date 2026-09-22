@@ -12,6 +12,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { drawLedgerRoot } from "./ledger-root.js";
 import type { ViewState } from "./renderer.js";
 import { drawUndertowHull } from "./undertow-draw.js";
+import { drawUndertowGrips } from "./undertow-grip.js";
 
 /**
  * **The fifth pass: what is stuck to the finished ship.** Drawn after
@@ -107,4 +108,9 @@ export function drawOnShip(
   // cannon slid off in time, which the world has already forgotten
   // (`undertow-fx.ts`).
   held.effects.boss.undertow.drawClose(ctx, l, surfaceY, view.time);
+  // And the two rings that plating is taken hold of by: the navigator's thumb
+  // on a standing lobe and her haul on the column the floor has the pilot
+  // stuck in. Last of all, over every seam and flap, because a ring is a thing
+  // to reach for and not a part of the ship (`undertow-grip.ts`).
+  drawUndertowGrips(ctx, l, world, view.beatPhase, view.time);
 }
