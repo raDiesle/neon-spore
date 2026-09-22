@@ -6,10 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { LOST_ONE } from "./lost-screen/one/index.js";
-import { LOST_POOL } from "./lost-screen/pool/index.js";
-import { LOST_SLIME } from "./lost-screen/slime/index.js";
-import { LOST_SPLASH } from "./lost-screen/splash/index.js";
 import { SLOW_DRAIN } from "./slow-window/drain/index.js";
 import { SLOW_FOCUS } from "./slow-window/focus/index.js";
 import { SLOW_FRAME } from "./slow-window/frame/index.js";
@@ -20,10 +16,6 @@ import { SLOW_INDRAW } from "./slow-window/indraw/index.js";
 import { SLOW_WASH } from "./slow-window/wash/index.js";
 
 export const VARIANTS: Variant[] = [
-  LOST_ONE,
-  LOST_POOL,
-  LOST_SLIME,
-  LOST_SPLASH,
   SLOW_DRAIN,
   SLOW_FOCUS,
   SLOW_FRAME,

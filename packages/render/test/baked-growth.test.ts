@@ -73,10 +73,13 @@ function entriesAfter(role: "p1" | "p2"): number {
 // its two buttons bake the bar's body at their one size and the beads beside
 // each word — one key per button part, the same set on every frame.
 // One more on each seat from 16 September 2026, when the ship began to bleed
-// down the lost screen (`lost-blood.ts`). It is one rather than thirteen
-// because the rivulets' heads all glow at the same `HALO` radius: written at
-// each head's own thickness it was thirteen sprites, and this test is what
-// said so.
+// down the lost screen. It was one rather than thirteen because the rivulets'
+// heads all glowed at the same radius: written at each head's own thickness it
+// was thirteen sprites, and this test is what said so. The rivulets went on 22
+// September 2026 and the number did not move — the bloom behind WAVE LOST
+// takes the key they gave up, at one radius for the three it is drawn at
+// (`lost-words.ts`), and the wound's own bloom only bakes on a wave that
+// scarred the hull, which this harness's first wave does not (`lost-wound.ts`).
 // Four fewer on each seat from 17 September 2026, when the lost screen's two
 // buttons became the tutorial's plates (`guide-tide-plate.ts`), which the
 // owner asked for by name. Four of the five the entry above counts were the

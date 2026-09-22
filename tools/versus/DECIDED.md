@@ -1075,3 +1075,14 @@ keeps `words` and `wordsAt`, which every answer in the slot shared.
 
 The other answers offered were `bleedout`, `hold` and `spall`; they went with
 the slot.
+
+## `lost:screen` — nothing taken, 2026-09-22
+
+The owner rejected all four on 22 September 2026 and asked instead for the
+screen to be calm and readable: no running fluid across the glass at all, and
+the breach shown as a lit circle the blood wells out of rather than as a
+column. All four answered the question of what should run down the screen,
+which is the question he took away.
+
+The other answers offered were `one`, `pool`, `slime` and `splash`; they went
+with the slot.

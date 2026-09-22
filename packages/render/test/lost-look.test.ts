@@ -74,14 +74,14 @@ describe("the lost screen is told where it got through", () => {
  * Everything above this replaces `veil` and `words` to read what they were
  * handed, so until `shutters` shipped nothing in the tree ever ran the real
  * ones through a canvas. What the stub refuses is exactly what this screen can
- * get wrong: a rivulet's head at a NaN coordinate when `age` is 0 and its
- * phase is still gathering, a negative radius out of a thickness that went the
- * wrong side of zero, an unparseable colour out of an alpha over one.
+ * get wrong: a tongue's head at a NaN coordinate when `age` is 0 and its phase
+ * is still gathering, a negative radius out of a thickness that went the wrong
+ * side of zero, an unparseable colour out of an alpha over one.
  *
  * Three ages, because the screen is three different pictures: the instant it
  * arrives with the field still open, the half second the plates are sliding
- * in from both edges, and the settled state the pair reads — shut, with one
- * lit slot in the breach column.
+ * in from both edges, and the settled state the pair reads — shut, with the
+ * wound open where the hull was broken (`lost-wound.ts`).
  */
 describe("the lost screen's own paint survives a canvas that refuses what a real one does", () => {
   for (const age of [0, 0.25, 2.5]) {
@@ -95,7 +95,7 @@ describe("the lost screen's own paint survives a canvas that refuses what a real
   }
 
   it("draws on a wave the ship came out of unscarred", () => {
-    // `breachX` is null here, which is the branch the tear is skipped on.
+    // `breachX` is null here, which is the branch the wound is skipped on.
     const { ctx } = stubCanvas();
     drawLostScreen(ctx as never, L, createWorld(CFG, 1), { age: 2.5 });
     expect(ctx.calls).toBeGreaterThan(0);

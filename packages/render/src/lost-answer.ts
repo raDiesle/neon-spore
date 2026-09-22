@@ -5,12 +5,11 @@ import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 
 /**
- * What the pair does about a lost wave: RETRY WAVE, QUIT, and the line saying
- * either phone answers for both.
+ * What the pair does about a lost wave: RETRY WAVE and GO TO MENU.
  *
  * Split out of `lost-screen.ts` on 17 September 2026 when that file went past
  * 250 lines. The cut is where the seam already was: everything above it —
- * the veil, the tear, the words — is `LOST_LOOK`'s and a candidate may replace
+ * the veil, the wound, the words — is `LOST_LOOK`'s and a candidate may replace
  * all of it, and **these two buttons are the one part of the screen a
  * candidate may not touch**, because `apps/game/src/lost.ts` and the
  * director's `stage-opening.ts` hit-test the boxes `lostButtons` hands out. A
@@ -43,10 +42,11 @@ const BTN_H = 52;
  * shorter body with a smaller word, so the eye reads it as the lesser of the
  * two; and it is drawn dimmer than the one you are meant to press.
  *
- * **Not a confirmation step**, which was the other answer on the table: the
- * screen prints *One press answers for both phones*, and a QUIT that asked
- * twice would make that line false for the one button where being wrong costs
- * the run.
+ * **Not a confirmation step**, which was the other answer on the table: one
+ * press answers for both phones, and a QUIT that asked twice would make that
+ * false for the one button where being wrong costs the run. The screen said so
+ * in words under the buttons until 22 September 2026, when the owner had every
+ * sentence but the wave's own name taken off it (`lost-words.ts`).
  */
 const BTN_GAP = 46;
 /** QUIT's own body: a share of RETRY's width, and its own height. */
@@ -86,7 +86,7 @@ export function lostHit(l: Layout, x: number, y: number): "retry" | "quit" | nul
   return null;
 }
 
-/** The two buttons and the line under them: what the pair does about it. */
+/** The two buttons: what the pair does about it. */
 export function drawLostAnswer(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -98,7 +98,6 @@ export function drawLostAnswer(
   // Centred here rather than inherited: the words above are a candidate's to
   // draw and an answer that left the alignment anywhere would hang both button
   // faces off the side of their own bodies (`lost-look.ts`).
-  const mid = l.width / 2;
   ctx.textAlign = "center";
   const shown = Math.max(0, Math.min(1, (v.age - 0.55) / 0.3));
   if (shown > 0) {
@@ -147,14 +146,6 @@ export function drawLostAnswer(
       QUIT_WORD,
       QUIT_SIGN,
     );
-    ctx.globalAlpha = shown * 0.72;
-    // Centred again: `wordPlate` leaves the alignment where every other caller
-    // of it wants it, which is left, and the line under the buttons is the one
-    // thing on this screen drawn after them.
-    ctx.textAlign = "center";
-    ctx.font = '11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.dim;
-    ctx.fillText("One press answers for both phones.", mid, b.quit.y + b.quit.h + 26);
     ctx.globalAlpha = 1;
   }
   ctx.textAlign = "left";

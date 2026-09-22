@@ -16374,3 +16374,37 @@ corrections above were both invisible to `bun run check` and obvious in the
 first shot.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — wave-lost-screen-redesign — the hole goes where the hit went
+
+- reading — 30 min. The whole lost screen, which is five files and one VERSUS
+  slot: `lost-screen.ts`, `lost-look.ts`, `lost-shut.ts`, `lost-blood.ts`,
+  `lost-shutters.ts` and `lost-answer.ts`, plus `docs/looks.md` for which of
+  the three exemptions a look the owner names by hand comes in under, and
+  `versus drop` for how a slot is closed with nothing taken.
+- writing — 60 min. Three new files — `lost-wound.ts`, `lost-bleed.ts`,
+  `lost-words.ts` — two deleted, and edits to four more. Ten separate asks in
+  one message, and the two that were not shapes (the sentences off, the try
+  count into the corner) were the cheapest of them.
+- looking — 45 min. A settled frame, a magnified crop of the wound, a six-frame
+  bleed strip across four seconds, the arrival, and the navigator's seat. Two
+  corrections came out of the first picture, both geometry.
+- friction — 20 min. A fresh worktree with no `bun install`, so the first
+  typecheck failed on `@neon-spore/content` rather than on anything written
+  here; `lost-wound.ts` at 254 lines against a 250 limit, which is the split
+  into `lost-bleed.ts`; and `bun run index` keeps a stale summary for a file
+  whose header changed, so three rows had to be edited by hand.
+- landing — 30 min. `check:fast` twice, the second after the prose in
+  `lost-look.test.ts` and `docs/spec/bosses-choreographed.md` was brought off
+  the two deleted files — and then a refused replay. `tools/land/replay.ts`
+  settles four generated files by itself and `tools/versus/candidates/
+  registry.ts` is not one of them, so the rebase had to be driven by hand: the
+  two records merged as appends, the registry regenerated with `bun run versus
+  index`, and `bunx tsc --noEmit` run before `--continue`.
+
+The bottleneck was **putting the circle where the layout said it fitted instead
+of where the hit landed**. The hull line sits about a tile above the foot of
+the play area, so a circle clamped inside that area lifts off the skin and
+frames empty sky — and the one fact this screen exists to show is where it got
+through. The picture said so in a second; the reasoning that produced the
+clamp had taken twenty minutes.

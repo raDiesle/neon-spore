@@ -5,6 +5,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawLostAnswer, lostButtons } from "./lost-answer.js";
 import { LOST_LOOK } from "./lost-look.js";
+import { waveName } from "./wave-intro.js";
 
 /**
  * A lost wave stops on a friendly screen: RETRY WAVE or QUIT.
@@ -14,7 +15,8 @@ import { LOST_LOOK } from "./lost-look.js";
  * greyed, with the breach still where it was seen — the point of the pause was
  * that the pair look at where it got through, and a screen that hid it would
  * be a screen that took that away. Over it, in the introduction's own type:
- * which wave and which try, the two words, and one line for the two of them.
+ * WAVE LOST, the wave's number and its name, and the try count in the corner
+ * (`lost-words.ts`).
  * Then two buttons, the guide bar's own grown bodies with a word on the face
  * instead of a sign, because these two are the one place in the game where a
  * sign would not do: a wave can be *left*, and the word for that has to be
@@ -22,9 +24,10 @@ import { LOST_LOOK } from "./lost-look.js";
  *
  * **One press answers for both phones.** Either seat's RETRY opens the wave
  * again on both; either seat's QUIT ends the run on both, and the other phone
- * is told who it was (`sim/wave-fail.ts`). The line under the buttons says so,
- * because the thing the screen must not do is have two people each waiting
- * for the other to press.
+ * is told who it was (`sim/wave-fail.ts`). The screen printed a line saying so
+ * until 22 September 2026, when the owner had it taken off with the rest of
+ * the prose: it is a rule a pair learns by one of them pressing, and this is
+ * the one screen where nobody is reading.
  *
  * The words fall in the way the introduction's do (`text-drop.ts`), off the
  * opening's clock: `openingKey` names this screen as a page of its own, so
@@ -63,8 +66,8 @@ export function drawLostScreen(
     l,
     age: v.age,
     wave: world.wave + 1,
+    name: waveName(world),
     tries: Math.max(1, world.waveTries),
-    retries: world.retries,
     breachX: scarred === undefined ? null : tileCX(l, scarred.col),
     // **The colour the hit arrived in, off the scar itself.** A `Scar` carried
     // what hit the ship and not what colour it was wearing until 17 September

@@ -902,7 +902,7 @@ anatomy — a clock that is a body part.
 is the correct answer to the brief's camera section and the thing this concept
 exists to prove. `hull-shock.ts` on the rooting, `craters.ts` and `scars.ts`
 where a return lands, `ship-nerves.ts` lit along the cord's line, and
-`lost-blood.ts`'s bleed if the hull gets low. No frame moves; the ship reacts.
+`lost-bleed.ts`'s bleed if the hull gets low. No frame moves; the ship reacts.
 
 **Animation.** The cord: paying out, rooting, sliding its socket, going taut,
 whipping, and finally tearing. One drawn object carrying the entire fight is the
@@ -1700,7 +1700,7 @@ space" applied to the one object in this game the pair actually cares about.
 **Presentation.** This concept is the argument of correction 3 made as a whole
 boss: **there is no camera and there does not need to be one, because the ship
 is the stage.** `hull-break.ts`, `hull-shock.ts`, `hull-frame.ts`,
-`ship-nerves.ts`, `craters.ts`, `scars.ts`, `lost-blood.ts` — every existing
+`ship-nerves.ts`, `craters.ts`, `scars.ts`, `lost-wound.ts` — every existing
 piece of hull drawing gets a fight of its own.
 
 **Animation.** A hull plate bowing, parting, closing and scarring, eleven
