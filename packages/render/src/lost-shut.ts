@@ -30,8 +30,18 @@ import { drawWound, traceWound, woundOf } from "./lost-wound.js";
  * got through the skin, so there is nothing to point at.
  */
 
-/** How long the plates take to shut, seconds. */
-const CLOSE = 0.45;
+/**
+ * How long the plates take to shut, seconds — **and how long the wound takes
+ * to come up**, because they are the same span and the same number.
+ *
+ * It was 0.45 until 22 September 2026, when the owner asked for the focus
+ * circle *much quicker, just right when the ship visualised the damage*. Half
+ * a second is a long time to hold a pair who have just lost a wave and are
+ * looking for where it got through, and the answer they are waiting for is the
+ * hole. A quarter of a second still reads as metal arriving — sixteen frames
+ * on a phone — and it lands on the screen rather than settling onto it.
+ */
+const CLOSE = 0.26;
 
 /** Where the two plates meet, as a share of the play area. */
 const SEAM = 0.44;
@@ -43,11 +53,17 @@ function shut(age: number): number {
   return Math.max(0, Math.min(1, age / CLOSE));
 }
 
-/** Where each plate has got to, at `age`. */
-function arriving(p: LostPaint): { top: number; foot: number; seam: number } {
+/**
+ * Where each plate has got to, at `age`, and the one number that says so.
+ *
+ * `k` goes out with the geometry because it is also the wound's: the plates
+ * and the focus are drawn off the same clock, so there is no second clock for
+ * one of them to lag behind (`lost-wound.ts`'s `arrive`).
+ */
+function arriving(p: LostPaint): { top: number; foot: number; seam: number; k: number } {
   const k = shut(p.age);
   const seam = p.l.playHeight * SEAM;
-  return { top: -seam * (1 - k), foot: seam + (1 - k) * (p.l.height - seam), seam };
+  return { top: -seam * (1 - k), foot: seam + (1 - k) * (p.l.height - seam), seam, k };
 }
 
 /**
@@ -58,8 +74,8 @@ function arriving(p: LostPaint): { top: number; foot: number; seam: number } {
  * breach is a separate argument.
  */
 export function shutPlates(ctx: CanvasRenderingContext2D, p: LostPaint): void {
-  const { top, foot, seam } = arriving(p);
-  const w = woundOf(p);
+  const { top, foot, seam, k } = arriving(p);
+  const w = woundOf(p, k);
 
   // **Cut, and not drawn.** The hole is a hole the held field is seen through,
   // so it comes off the plates as a clip — everything but the hole — rather
@@ -67,7 +83,7 @@ export function shutPlates(ctx: CanvasRenderingContext2D, p: LostPaint): void {
   // the first drawing of this and it was wrong in the one frame that shows it:
   // between the two plates, where neither covers anything, the hole's own
   // outline was the only shape there and the rule filled it, so a black shape
-  // stood in the open field for the half second the plates were coming in.
+  // stood in the open field for the quarter second the plates were coming in.
   ctx.save();
   ctx.beginPath();
   ctx.rect(0, 0, p.l.width, p.l.height);
@@ -96,20 +112,26 @@ export function shutPlates(ctx: CanvasRenderingContext2D, p: LostPaint): void {
 /**
  * The plates, and the ship bleeding out of the hole in them.
  *
- * The wound is clipped to the plates for the half second they are still
- * coming in: a lit ring and a tongue of blood standing in open field, over a
- * wave that is still on the screen, would be a wound on nothing.
+ * **The wound comes up with the plates and not behind them.** It used to be
+ * clipped to the two plate rectangles, so that a lit ring and a tongue of
+ * blood could not stand in open field over a wave that was still on the
+ * screen. The clip bought that at a price nobody had measured: the hole is
+ * centred on the hull line, which sits near the foot of the phone, so the
+ * *bottom* plate had to sweep the whole way up past it before one pixel of the
+ * wound showed — two fifths of the close, on a screen whose one job is to
+ * point at where it got through. The owner, 22 September 2026: *the dark
+ * circle animation must be done together with the circle animation, so not
+ * sequential waiting and then show the new animation of circle focus, but
+ * together.*
+ *
+ * What replaces the clip answers the same worry without the wait: the wound is
+ * drawn at `k`, so at the instant the screen comes up it is not there either,
+ * and it is full exactly when the plates are shut. Nothing is ever lit over
+ * open field, because what is lit over open field is lit at nothing.
  */
 export function shutVeil(ctx: CanvasRenderingContext2D, p: LostPaint): void {
   shutPlates(ctx, p);
-  const w = woundOf(p);
+  const w = woundOf(p, arriving(p).k);
   if (w === null) return;
-  const { top, foot, seam } = arriving(p);
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(0, top, p.l.width, seam);
-  ctx.rect(0, foot, p.l.width, p.l.height - foot);
-  ctx.clip();
   drawWound(ctx, w, p.age);
-  ctx.restore();
 }

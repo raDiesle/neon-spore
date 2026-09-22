@@ -2391,3 +2391,44 @@ takes a new member, which is what makes it a sitting of its own rather than a
 paragraph in the lane that found it. The proof is a test that puts a slick on
 the hull row under a raised lobe and asserts the thumb finds it at the pixel the
 field pass draws it at.
+
+## `strokeGlow`'s `intensity` does not fade the line, only the glow around it
+
+- **Found:** 2026-09-22, claude/lost-wound-with-the-plates
+- **Files:** `packages/render/src/glow.ts`
+
+`strokeGlow(ctx, path, colour, width, intensity)` scales the alpha of its glow
+passes and then lays the core stroke down at `globalAlpha = 1` whatever it was
+told (`glow.ts`, the line after the loop). That is right for a lit thing being
+dimmed and wrong for anything fading *in or out*: at `intensity` 0 the shape is
+still fully drawn. The lost screen's focus ring was found that way — it came up
+at full strength over the open field on the first frame of an arrival it was
+supposed to be fading through — and the fix there was to put the alpha on the
+colour instead (`lost-wound.ts`), which is the working spelling and is spelled
+nowhere in `glow.ts`.
+
+The work is to sweep every `strokeGlow` call that passes an `intensity` off a
+clock — a `t`, an `age`, a `shut`, a `fade` — and decide per call whether it
+meant the glow or the whole stroke; the ones that meant the whole stroke take
+the colour spelling. Then say so in `strokeGlow`'s own doc comment, which
+currently says nothing about the core pass, and prove the distinction with a
+test on a stub canvas that reads the alpha the last `stroke` was made at.
+
+## `--until` can step back from an event and not forward to a rest after one
+
+- **Found:** 2026-09-22, claude/lost-wound-with-the-plates
+- **Files:** `tools/frames/until.ts`, `tools/frames/flags.ts`, `tools/frames/spec.ts`
+
+`--until-back N` exists because half of what a capture wants *stands between*
+two events, and it only covers the half that stands before one. The other half
+is a screen that comes up a fixed rest **after** an event and is over in a
+handful of ticks: the lost wave's own screen arrives about 150 ticks after
+`waveFailed` and its whole arrival is 31 ticks long, so photographing it meant
+four runs of `--ticks` bisecting for the window — which is the same half hour
+`until.ts`'s own header was written to end.
+
+`--frames` and `--stride` do count forward from the event, so the workaround is
+a wide sweep and forty pictures to throw away; what is missing is the one
+number. The work is the mirror of `back` — a forward offset on `UntilSpec`
+taken in the same drive rather than in a second one, refused the same way when
+it runs past the cap, and named so the pair read as a pair.

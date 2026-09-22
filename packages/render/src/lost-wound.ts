@@ -1,5 +1,6 @@
 import { halo, strokeGlow } from "./glow.js";
 import { signedHash } from "./hash.js";
+import { rgba } from "./hex.js";
 import { collar, tongues } from "./lost-bleed.js";
 import type { LostPaint } from "./lost-look.js";
 import { PALETTE } from "./palette.js";
@@ -64,6 +65,24 @@ export interface Wound {
   readonly rim: readonly { readonly x: number; readonly y: number }[];
   /** The colour the hit arrived in, for the ring and the lit rim. */
   readonly hex: string;
+  /**
+   * **How far the wound has come up, 0 to 1 — the plates' own progress.**
+   *
+   * Every alpha on the wound and on its blood is multiplied by this, and
+   * nothing about its shape moves. The owner, 22 September 2026: *the dark
+   * circle animation must be done together with the circle animation, so not
+   * sequential waiting and then show the new animation of circle focus, but
+   * together.* So the number is the plates' `shut`, handed down rather than
+   * kept here (`lost-shut.ts`): one clock, and the two cannot drift apart
+   * because there is not a second one to drift from.
+   *
+   * **It is a light and not a growth.** The hole's radius is fixed — `halo`
+   * bakes a sprite per colour and radius and keeps it for the session, so a
+   * bloom that grew over the arrival would leave one canvas per frame behind
+   * it (`baked-growth.test.ts`) — and the ring is still, which is what the
+   * owner asked for in the sentence that put it there.
+   */
+  readonly arrive: number;
 }
 
 /**
@@ -79,7 +98,7 @@ export interface Wound {
  * and a hole a hand's width above the hull shows nothing at all. The only
  * clamp left is against the bottom of the screen.
  */
-export function woundOf(p: LostPaint): Wound | null {
+export function woundOf(p: LostPaint, arrive: number): Wound | null {
   if (p.breachX === null) return null;
   const r = p.l.tile * R_TILES;
   const cx = p.breachX;
@@ -92,7 +111,7 @@ export function woundOf(p: LostPaint): Wound | null {
     const k = r * (1 + signedHash(i, 3, 0) * RAG);
     rim.push({ x: cx + Math.cos(a) * k, y: cy + Math.sin(a) * k });
   }
-  return { cx, cy, r, rim, hex: p.breach?.hex ?? PALETTE.ember };
+  return { cx, cy, r, rim, hex: p.breach?.hex ?? PALETTE.ember, arrive };
 }
 
 /**
@@ -120,6 +139,15 @@ export function traceWound(ctx: CanvasRenderingContext2D, w: Wound): void {
  * clock on it is the blood — six tongues, the fastest of them thirteen seconds
  * end to end.
  *
+ * **What arrives is its light.** The whole wound is drawn at `w.arrive`, which
+ * is how far the plates have shut, so the focus comes up with the dark rather
+ * than after it — the owner's second report the same day, that the circle had
+ * to come much quicker and *together* with the plates, not behind them. It was
+ * behind them because this used to be clipped to the plates and the hole sits
+ * near the foot of the screen, so the bottom plate had to sweep past it before
+ * a single pixel of it showed. Nothing here moves on that clock; it only
+ * lights.
+ *
  * The collar is what *keeps* it bleeding. A tongue runs, thins and goes, and a
  * hole with only tongues on it empties between them; a band of red standing
  * inside the rim the whole time, swelling on a slow breath, is the screen
@@ -127,10 +155,17 @@ export function traceWound(ctx: CanvasRenderingContext2D, w: Wound): void {
  * the same sentence as the tongues.
  */
 export function drawWound(ctx: CanvasRenderingContext2D, w: Wound, age: number): void {
-  halo(ctx, w.cx, w.cy, w.r * BLOOM, PALETTE.red, 0.15);
+  halo(ctx, w.cx, w.cy, w.r * BLOOM, PALETTE.red, 0.15 * w.arrive);
   collar(ctx, w, age);
 
-  // The rim, lit in the colour the hit arrived in (`breach-hue.ts`).
+  // The rim and the reticle, lit in the colour the hit arrived in
+  // (`breach-hue.ts`) — and **the arrival is in the colour, not only in the
+  // intensity.** `strokeGlow`'s last argument fades its glow passes and then
+  // lays the core stroke down at alpha 1 whatever it was told, which is right
+  // for a thing that is there and dim and wrong for a thing that is not there
+  // yet: the ring came up at full strength over the open field on the first
+  // frame of the close. An alpha on the colour fades the line itself.
+  const lit = rgba(w.hex, w.arrive);
   const bright = Math.max(1, w.r * 0.07);
   const edge = new Path2D();
   for (const [i, q] of w.rim.entries()) {
@@ -138,9 +173,9 @@ export function drawWound(ctx: CanvasRenderingContext2D, w: Wound, age: number):
     else edge.lineTo(q.x, q.y);
   }
   edge.closePath();
-  strokeGlow(ctx, edge, w.hex, bright, 1);
+  strokeGlow(ctx, edge, lit, bright, w.arrive);
 
-  strokeGlow(ctx, reticle(w), w.hex, Math.max(1, w.r * 0.03), 0.5);
+  strokeGlow(ctx, reticle(w), lit, Math.max(1, w.r * 0.03), 0.5 * w.arrive);
   tongues(ctx, w, age);
 }
 

@@ -16639,3 +16639,24 @@ sim resolved it — so the fix was in the glide and not in any clock, and half a
 hour spent proving that is why there was nothing to undo afterwards.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — lost-wound-with-the-plates — one clock, and an alpha on the colour
+
+- reading — 20 min. `lost-shut.ts`'s clip, where the wound's centre falls on a
+  phone, and what `lost-bleed.ts` is already drawing at `age` 0.
+- writing — 20 min. The plates' `k` handed down as the wound's `arrive`, the
+  clip taken out, every alpha on the hole and its blood multiplied through, and
+  `CLOSE` cut from 0.45 to 0.26.
+- looking — 30 min. Four sweeps of `bun run frames` hunting the thirty ticks
+  the screen arrives in, then the strip that showed the ring at full strength
+  over open field and the one that showed it fading in properly.
+- friction — 10 min. `strokeGlow`'s `intensity` fades the glow and not the
+  stroke, which cost a whole capture to see and is now an entry in the queue.
+- landing — 10 min. `check:fast`, the before-and-after off the sha, the replay.
+
+The bottleneck was **finding the frames the arrival happens in**. The screen
+comes up about 150 ticks after the breach and is over in 31 of them, and
+`--until breach` stops on the breach rather than on the screen, so the window
+was found by bisecting with four captures. An event fires when a wave is lost
+and the screen is a fixed rest behind it; a capture that could stop on *that*
+would have turned half an hour into one command.

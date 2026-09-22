@@ -79,12 +79,18 @@ describe("the lost screen is told where it got through", () => {
  * side of zero, an unparseable colour out of an alpha over one.
  *
  * Three ages, because the screen is three different pictures: the instant it
- * arrives with the field still open, the half second the plates are sliding
- * in from both edges, and the settled state the pair reads — shut, with the
- * wound open where the hull was broken (`lost-wound.ts`).
+ * arrives with the field still open, the quarter second the plates are sliding
+ * in from both edges *with the wound lighting up between them*, and the
+ * settled state the pair reads — shut, with the wound open where the hull was
+ * broken (`lost-wound.ts`).
+ *
+ * The middle one is halfway through `CLOSE` on purpose. It is the frame where
+ * every alpha on this screen is a fraction rather than nought or one — the
+ * plates part-arrived, the ring part-lit, a tongue of blood part-faded — and
+ * an alpha that leaves the unit range is exactly what the stub refuses.
  */
 describe("the lost screen's own paint survives a canvas that refuses what a real one does", () => {
-  for (const age of [0, 0.25, 2.5]) {
+  for (const age of [0, 0.13, 2.5]) {
     it(`draws at ${age} seconds with a breach to cut around`, () => {
       const world = createWorld(CFG, 1);
       world.scars.push({ col: 7, beat: 5, kind: "meteor" });

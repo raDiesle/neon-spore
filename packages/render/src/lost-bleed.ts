@@ -42,13 +42,21 @@ const WIDE = 0.3;
 const HANGS_FROM = 0.06;
 const HANGS_TO = 0.44;
 
-/** The band of red standing inside the lower rim, breathing. */
+/**
+ * The band of red standing inside the lower rim, breathing.
+ *
+ * **It comes up with the wound** (`w.arrive`), like everything else the hole
+ * wears. It is the one thing here that is full-strength from the first frame —
+ * a tongue is still gathering at `age` 0, but the collar is a band that is
+ * simply there — so before the wound had an arrival this was a hard red arc
+ * appearing on the open field the instant the wave was lost.
+ */
 export function collar(ctx: CanvasRenderingContext2D, w: Wound, age: number): void {
   const swell = 0.26 + 0.07 * Math.sin(age * 0.5);
   ctx.beginPath();
   ctx.arc(w.cx, w.cy, w.r * (1 - swell / 2), Math.PI * 2 * HANGS_FROM, Math.PI * 2 * HANGS_TO);
   ctx.lineWidth = w.r * swell;
-  ctx.strokeStyle = rgba(PALETTE.red, 0.55);
+  ctx.strokeStyle = rgba(PALETTE.red, 0.55 * w.arrive);
   ctx.stroke();
 }
 
@@ -97,7 +105,11 @@ function bleed(
   i: number,
   w: Wound,
 ): void {
-  if (d.len <= 1 || d.fade <= 0) return;
+  // `w.arrive` on every alpha here for the collar's reason: a tongue's own
+  // phase is offset by its index, so some of the six are already halfway down
+  // the plate at `age` 0 and would stand there before the plate they run on.
+  const fade = d.fade * w.arrive;
+  if (d.len <= 1 || fade <= 0) return;
   const steps = 8;
   ctx.beginPath();
   for (let s = 0; s <= steps; s++) {
@@ -111,16 +123,16 @@ function bleed(
     ctx.lineTo(d.x + wander(i, t, w.r) + half, d.y + d.len * t);
   }
   ctx.closePath();
-  ctx.fillStyle = rgba(PALETTE.red, 0.5 * d.fade);
+  ctx.fillStyle = rgba(PALETTE.red, 0.5 * fade);
   ctx.fill();
 
   const hx = d.x + wander(i, 1, w.r);
   const hy = d.y + d.len;
-  ctx.fillStyle = rgba(PALETTE.red, 0.78 * d.fade);
+  ctx.fillStyle = rgba(PALETTE.red, 0.78 * fade);
   ctx.beginPath();
   ctx.ellipse(hx, hy, d.half * 0.95, d.half * 1.35, 0, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = rgba(PALETTE.redRim, 0.45 * d.fade);
+  ctx.strokeStyle = rgba(PALETTE.redRim, 0.45 * fade);
   ctx.lineWidth = 1;
   ctx.stroke();
 }
