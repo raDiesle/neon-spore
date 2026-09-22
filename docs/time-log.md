@@ -16660,3 +16660,5 @@ comes up about 150 ticks after the breach and is over in 31 of them, and
 was found by bisecting with four captures. An event fires when a wave is lost
 and the screen is a fixed rest behind it; a capture that could stop on *that*
 would have turned half an hour into one command.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

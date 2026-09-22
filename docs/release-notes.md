@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · b063602a — Bring the wound up with the plates, on one clock, in a quarter second
+
+The lost screen shut its two plates over half a second and only then showed the hole where the hull was broken, because the wound was clipped to the plates and the hole sits low on the phone — the bottom plate had to sweep the whole way up past it before one pixel of it showed. The owner, 22 September 2026: the circle focus must come much quicker, and the dark must be done together with it and not sequentially before it.
+
 ## 2026-09-22 · ca4b0723 — A choreographed window is twice as long, and asks twice as much
 
 The owner, 22 September 2026, generic to every choreographed scene: double the time the pair have to do the action, and let it require some more clicks of the action required, so the beat is not over too quick. Both halves, not one — a longer window with the old count is a step that lands itself, and the drama goes out of it.
