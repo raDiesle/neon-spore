@@ -300,6 +300,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Three bosses still draw a dim ring that punches a hole
 
 - **Found:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo
+- **Taken:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo (claim: claude/queue-three-bosses-still-draw-a-dim-ring-that-punches)
 - **Files:** `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/surge-grip.ts`
 
 **The other half of a seven-boss finding, split because it would not fit one
