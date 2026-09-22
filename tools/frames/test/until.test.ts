@@ -3,7 +3,14 @@ import type { Driver } from "../drive.js";
 import { parseFrameSpec } from "../flags.js";
 import type { PressSpec } from "../press-spec.js";
 import { reachFirstFrame } from "../reach.js";
-import { DEFAULT_UNTIL_TICKS, type Fired, firedNote, missedNote, parseUntil } from "../until.js";
+import {
+  backTick,
+  DEFAULT_UNTIL_TICKS,
+  type Fired,
+  firedNote,
+  missedNote,
+  parseUntil,
+} from "../until.js";
 
 /**
  * **STOPPING ON THE TICK SOMETHING HAPPENED.**
@@ -80,6 +87,59 @@ describe("--until", () => {
       waves,
     ).spec;
     expect(ok.press?.[0]?.tick).toBe(900);
+  });
+});
+
+/**
+ * **The other end of a rest**, which is where half the pictures are.
+ *
+ * `--until needWave` photographs the frame the between-waves screen has just
+ * left: the screen is up for the 450 ticks that *end* on that event. One
+ * capture of it cost a sweep of all ninety-seven waves in the headless
+ * simulation, looking for the single one that clears with nothing pressed, so
+ * that a hand-counted offset could go after `--ticks`. `--until-back N` is
+ * that offset, counted by the tool.
+ */
+describe("--until-back", () => {
+  it("rides on the event, as a number of ticks before it", () => {
+    const { spec } = parseFrameSpec(
+      ["<sha>", "--wave", "1", "--until", "needWave", "--until-back", "200"],
+      waves,
+    );
+    expect(spec.until).toEqual({ event: "needWave", cap: DEFAULT_UNTIL_TICKS, back: 200 });
+  });
+
+  it("is absent from a plain --until, which still means the event's own tick", () => {
+    const { spec } = parseFrameSpec(["<sha>", "--wave", "1", "--until", "breach"], waves);
+    expect(spec.until?.back).toBeUndefined();
+  });
+
+  it("refuses to be written without an event to count back from", () => {
+    // Silently doing nothing would hand back the ordinary `--ticks 120`
+    // picture, which looks like an answer.
+    expect(() => parseFrameSpec(["<sha>", "--wave", "1", "--until-back", "200"], waves)).toThrow(
+      /needs an event/,
+    );
+  });
+
+  it("refuses a step back of nothing", () => {
+    const had = { ticks: false, back: "0" };
+    expect(() => parseUntil("needWave", DEFAULT_UNTIL_TICKS, had)).toThrow(/at least one tick/);
+    expect(() =>
+      parseUntil("needWave", DEFAULT_UNTIL_TICKS, { ticks: false, back: "soon" }),
+    ).toThrow(/--until-back soon/);
+  });
+
+  it("names the tick the second pass stops on", () => {
+    expect(backTick({ event: "needWave", cap: 3000, back: 200 }, 2475, 50)).toBe(2275);
+  });
+
+  it("refuses a step back that lands in the wave's own opening", () => {
+    // Clamping it would take a picture of the first tick there was and let the
+    // reader believe it was the one asked for — the rule `--ticks` is held to.
+    expect(() => backTick({ event: "breach", cap: 3000, back: 400 }, 300, 50)).toThrow(
+      /250 ticks to step back through, not 400/,
+    );
   });
 });
 

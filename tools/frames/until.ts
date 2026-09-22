@@ -26,6 +26,13 @@ import type { OpeningStop } from "./opening.js";
  * because every tick's events are collected as it goes (`drive.ts`). So a miss
  * comes back naming the kinds that really fired and the tick of each one's
  * first, which is the sweep the finding asked for, done once and for free.
+ *
+ * **The other end of a rest is `--until-back N`.** Stopping on the tick an
+ * event fires is the wrong end of everything that *stands between* two of
+ * them, and that is half of what a capture is for — the screen between the
+ * waves, the pause before a boss turns. So the flag keeps the frame N ticks
+ * before the event instead, by driving the wave a second time to the number
+ * the first drive found (`backTick`).
  */
 
 /** A stopping condition: which event, and how far to look for it. */
@@ -34,6 +41,19 @@ export interface UntilSpec {
   event: string;
   /** How many ticks to look, counted from wherever the opening left off. */
   cap: number;
+  /**
+   * **Photograph the tick `back` before the event**, rather than the one it
+   * fired on. Undefined is the plain flag, and the event's own tick.
+   *
+   * Half of what a person wants to see *stands between* two events rather than
+   * happening at one: the screen between the waves is up for the 450 ticks
+   * that end when `needWave` fires, so `--until needWave` is a picture of the
+   * field after it has gone. One capture of that screen cost a sweep of all
+   * ninety-seven waves in the headless simulation, hunting the single one that
+   * clears with nothing pressed (THE FENCE, wave 50, at tick 2475) so that a
+   * hand-counted offset could go after `--ticks`.
+   */
+  back?: number;
 }
 
 /** One event, on the tick it fired. Collected for every tick a capture steps. */
@@ -74,9 +94,18 @@ export const DEFAULT_UNTIL_TICKS = 3000;
 export function parseUntil(
   value: string | undefined,
   cap: number,
-  had: { ticks: boolean; opening?: OpeningStop },
+  had: { ticks: boolean; opening?: OpeningStop; back?: string },
 ): UntilSpec | undefined {
-  if (value === undefined) return undefined;
+  if (value === undefined) {
+    // Said rather than ignored: a run asked to step back from nothing would
+    // otherwise take the ordinary `--ticks 120` picture and look like an answer.
+    if (had.back !== undefined) {
+      throw new Error(
+        `--until-back ${had.back} needs an event to count back from: --until needWave --until-back 200`,
+      );
+    }
+    return undefined;
+  }
   const event = value.trim();
   if (!event || event.startsWith("--")) {
     throw new Error("--until needs an event to stop on: --until breach, --until waveFailed");
@@ -94,7 +123,39 @@ export function parseUntil(
     );
   }
   if (!Number.isFinite(cap) || cap < 1) throw new Error(`--until-ticks ${cap}: at least one tick`);
-  return { event, cap: Math.floor(cap) };
+  const back = had.back === undefined ? undefined : Number(had.back);
+  if (back !== undefined && (!Number.isFinite(back) || back < 1)) {
+    throw new Error(
+      `--until-back ${had.back}: at least one tick before ${event}. The event's own tick is ` +
+        "--until on its own",
+    );
+  }
+  return { event, cap: Math.floor(cap), ...(back === undefined ? {} : { back: Math.floor(back) }) };
+}
+
+/**
+ * **Where the second pass stops**, for a run that asked to step back.
+ *
+ * A world only goes forwards, so the run that found the event cannot
+ * photograph anything before it. It is a second run of the same seed told to
+ * stop on a number — the tool restarts a world from a seed every capture
+ * anyway, which makes the drive the cheap half and a ring of the last N
+ * painted frames memory kept for nothing.
+ *
+ * Refused rather than clamped when the step back reaches past the wave's own
+ * opening: a picture quietly taken at the first tick there was would be one a
+ * reader trusts for the wrong reason, which is the rule `--ticks` is already
+ * held to (`capture.ts`).
+ */
+export function backTick(until: UntilSpec, at: number, from: number): number {
+  const back = until.back ?? 0;
+  if (at - back < from) {
+    throw new Error(
+      `--until-back ${back}: ${until.event} fired on world.tick ${at}, and the wave's opening ` +
+        `already leaves it at ${from} — ${at - from} ticks to step back through, not ${back}`,
+    );
+  }
+  return at - back;
 }
 
 /**

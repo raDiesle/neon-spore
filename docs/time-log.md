@@ -16485,3 +16485,28 @@ finding that names the fix is worth more than one that does not, and is also
 the one most likely to have been overtaken.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-bun-run-frames-cannot-stop-inside-a-rest-only-on — a step back
+
+- reading — 15 min. The five files the flag crosses: `until.ts` for the spec
+  and its refusals, `reach.ts` for the tick the wait ends on — already handed
+  back and already thrown away by its caller — `capture.ts` for the frame loop
+  the second pass has to re-enter, and `flags.ts` and `run.ts` for where a flag
+  is written down.
+- writing — 25 min. `back` on `UntilSpec` with its two refusals, `backTick` for
+  where the second pass stops, and six lines in the frame loop that re-enter
+  the capture with the browser lent to it. Then the tests: six pure ones, and
+  one against a real page that asks the same event twice and holds the second
+  answer to exactly ten ticks before the first.
+- looking — 0 min. A flag that says which tick is photographed changes no
+  frame of the running game.
+- friction — 5 min. `capture.ts` stood at 249 of its 250 lines, so the six
+  lines cost a split first: `CaptureResult` moved to `result.ts`, the mirror of
+  `spec.ts`, which was cut off the same file for the same reason.
+- landing — 10 min. `check:fast`, the entry out, the replay.
+
+The bottleneck was **the ceiling being reached by the file the work had to go
+into**: a six-line change paid for a forty-line move before it could be
+written, and the move was the right one either way. A file at 249 lines is a
+tax on whoever arrives next, which is the argument for splitting at the point
+it is noticed rather than at the point it is in the way.

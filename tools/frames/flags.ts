@@ -160,6 +160,9 @@ export function parseFrameSpec(
   const until = parseUntil(after("until"), flag("until-ticks", DEFAULT_UNTIL_TICKS), {
     ticks: argv.includes("--ticks"),
     opening: parseOpening(after("opening")),
+    // Raw, so `--until-back` written without `--until` is refused by name
+    // rather than quietly doing nothing (`until.ts`).
+    back: after("until-back"),
   });
 
   const spec: FrameSpec = {

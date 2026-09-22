@@ -2439,6 +2439,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
 | `tools/frames/relay-up.ts` | **The relay, up and then down again**, for a tool that needs one for the length of one run |
 | `tools/frames/reach.ts` | **How the first picture's tick is reached** — the presses on their way |
+| `tools/frames/result.ts` | **What a capture answers with** — the paths, the digest of each whole frame, the tick each was taken at and what fired on the way; the mirror of `spec.ts` |
 | `tools/frames/room-shot.ts` | `bun run room-shot <out-prefix> [--size 390x844] [--scale 2] [--names "ADA,BEN"]` |
 | `tools/frames/room-phones.ts` | A PHONE IN A ROOM, as `room-shot.ts` and a throwaway probe both drive one |
 | `tools/frames/ring.ts` | **A turn of THE ORRERY's ring, written on the press line.** The crank's own case, one boss over |

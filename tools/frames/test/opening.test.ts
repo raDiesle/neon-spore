@@ -382,6 +382,41 @@ describe("captureFrames past a wave's opening", () => {
   );
 
   /**
+   * **`--until-back` really does land before the event**, which is the one
+   * thing the pure tests cannot say: they hold the arithmetic, and the tick a
+   * picture is taken at is the page's answer rather than a number this process
+   * computed.
+   *
+   * Asked relationally, so it knows nothing about how long wave 0's opening
+   * costs: the same event is waited for twice, and the second run has to come
+   * back exactly `back` ticks earlier. Ten of them because the first `beat` is
+   * at world tick 75 and every opening this wave has is behind that — a step
+   * back into the opening is refused rather than clamped (`until.ts`), and a
+   * test that tripped that refusal would be testing the refusal.
+   */
+  it(
+    "photographs the tick before an event, not the one it fired on",
+    async () => {
+      const until = { event: "beat", cap: 3000 } as const;
+      const on = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 0, until },
+        join(scratchOut, "on"),
+        browser,
+      );
+      const before = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 0, until: { ...until, back: 10 } },
+        join(scratchOut, "before"),
+        browser,
+      );
+      expect(before.atTick[0]).toBe((on.atTick[0] as number) - 10);
+      expect(await Bun.file(before.paths[0] as string).exists()).toBe(true);
+    },
+    STARVED_MS,
+  );
+
+  /**
    * The rings, and the reason they were in every picture this tool ever took.
    *
    * Crossing the ready gate throws two of them over the top two thirds of the

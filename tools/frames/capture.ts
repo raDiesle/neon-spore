@@ -10,8 +10,9 @@ import { settleOpening } from "./opening-hold.js";
 import { openStage } from "./page.js";
 import { pictureDigest } from "./pixels.js";
 import { reachFirstFrame } from "./reach.js";
+import type { CaptureResult } from "./result.js";
 import type { FrameSpec } from "./spec.js";
-import type { Fired } from "./until.js";
+import { backTick } from "./until.js";
 
 /**
  * One picture, or a short strip of them, off the running game — driven the
@@ -33,60 +34,13 @@ export { type Crop, clipFor, parseAt, sameFrames } from "./crop.js";
 /** Which half of a wave's opening a capture stands in, and the flag that says
  * so — the subject is `opening.ts`'s, and a caller wants the name without it. */
 export { type OpeningStop, parseOpening } from "./opening.js";
+/** What one answers with. Its own file for the reason the spec is in its own:
+ * this one stood at the 250-line ceiling again (`result.ts`). */
+export type { CaptureResult } from "./result.js";
 /** The shape of what a capture asks for, and of the handle it drives. Its own
  * file because this one was at the ceiling CLAUDE.md sets, and because a caller
  * usually wants the spec without the browser behind it. */
 export type { FrameSpec, HandSpec, HoldSpec, PressSpec } from "./spec.js";
-
-export interface CaptureResult {
-  /** One path per frame, in capture order. */
-  paths: string[];
-  /**
-   * A digest of the **whole** frame's pixels, one per path, whatever was
-   * written.
-   *
-   * `run.ts` refuses to write a before-and-after pair that is the same on both
-   * sides, and that refusal has to be about the game rather than about the
-   * rectangle somebody asked to look at: a crop could otherwise hide the only
-   * difference there was, or frame one that a reader would have found anyway.
-   */
-  whole: string[];
-  /**
-   * The `world.tick` each frame was actually taken at, one per path.
-   *
-   * Printed beside the filename, because a reader who has to work out which
-   * tick they are looking at will work it out wrong: `--ticks` is absolute now
-   * and a strip's own steps are not, so the second frame of a strip is a tick
-   * nobody wrote anywhere. Empty on `--opening guide`, where the clock in
-   * front of the camera is the film's rather than the world's.
-   */
-  atTick: number[];
-  /** Whether a rehearsal's page had already played out when the first picture
-   * was taken, so every frame after it is the same one (`guide-film.ts`).
-   * `undefined` on anything but `--opening guide`. */
-  heldPage?: boolean;
-  /**
-   * Every event the simulation reported on the way to these frames, on the
-   * tick it fired.
-   *
-   * Collected always and printed when asked (`--events`), because the run that
-   * has it is the run a reader is about to repeat: *which tick did the hull
-   * break on* used to be answered by a sweep of fourteen frames, and it was
-   * already in the loop's hand each time (`until.ts`).
-   */
-  fired: readonly Fired[];
-  /**
-   * Every off-origin URL the page asked for on its way to these frames, and
-   * was refused (`offline.ts`).
-   *
-   * Empty is the answer a capture of this checkout should give. It is carried
-   * out rather than merely counted because the useful form of the failure
-   * names the host: a test that says *37* sends its reader back to the browser,
-   * and one that says `https://fonts.googleapis.com/css2?family=…` names the
-   * line in `index.html` that has to change.
-   */
-  offOrigin: string[];
-}
 
 /** Half a second at 60Hz: THE LID's plates are fully parted by then and THE
  * LANCE's lobe well into filling, so a picture shows the hold. */
@@ -162,11 +116,21 @@ export async function captureFrames(
         // field rather than at whatever tick the wave happens to have reached
         // — and the run ends either on the number asked for or on the tick
         // `--until`'s event fires (`reach.ts`).
-        await reachFirstFrame({ advance, press, tick, heard }, startTick, {
+        const at = await reachFirstFrame({ advance, press, tick, heard }, startTick, {
           advanceBy: spec.ticks - startTick,
           press: press0,
           until: spec.until,
         });
+        // **`--until-back` wants the frame before that one, and a world does
+        // not go back.** So this whole run was the search, and the picture is
+        // taken by a second run of the same seed told to stop on the number it
+        // found — one more drive, and no ring of painted frames to keep
+        // (`until.ts`). The browser is lent to it, so it costs one tab.
+        if (at !== null && spec.until?.back !== undefined) {
+          const ticks = backTick(spec.until, at, startTick);
+          const plain = { ...spec, until: undefined, ticks };
+          return await captureFrames(baseUrl, plain, outPrefix, browser);
+        }
       } else {
         await advance(strideTicks);
       }
