@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · a1b81cd9 — Queue the other choreographed windows the owner's rule still has to reach
+
+The doubled window landed where there was one figure to move: THE INSTAR is the only wave on `BossSequenceStep`. Every other boss with an authored window carries its own differently-named number, so the generic half of the owner's specification is its own lane and is now written down rather than remembered.
+
 ## 2026-09-22 · ed9fc5d5 — Hang the body on a chain and let it swing, so the slow has speed to take away
 
 THE INSTAR stood still, and a slow window opened over a still body says nothing about speed. It now swings across half the field on a four-beat pendulum, and every part of it goes together: the figure, the plates of the chain, the marks, the cue rings, the intake light and the hit test all take one displacement from `instar-sway.ts`, so a ring is found where it is drawn and a pull's depth is still measured from the thumb's own origin.
