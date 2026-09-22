@@ -16510,3 +16510,5 @@ into**: a six-line change paid for a forty-line move before it could be
 written, and the move was the right one either way. A file at 249 lines is a
 tax on whoever arrives next, which is the argument for splitting at the point
 it is noticed rather than at the point it is in the way.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

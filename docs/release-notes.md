@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · de98ed55 — A capture can stop N ticks before an event, not only on it
+
+`--until EVENT` stops on the tick an event fires, which is the wrong end of anything that stands between two of them: the screen between the waves is up for the 450 ticks that end when `needWave` fires, so `--until needWave` photographs the field after it has gone. `--until-back N` keeps the frame N ticks earlier instead. A world only goes forwards, so the run that finds the event is the search and the picture is taken by a second run of the same seed told to stop on the number it found — one more drive, on the same lent browser, and no ring of painted frames kept in memory.
+
 ## 2026-09-22 · 6f7f180d — The stage's own tick moves out of the wiring, and gets a test
 
 `stage.ts` sat at 250 lines exactly, which passes the limit and leaves the next lane nothing: the lane that got it there had to fold a two-line comment about why the cue key ticks before the world down to a trailing one, and the lane after that had three words to say at the loop's call and nowhere to put them.
