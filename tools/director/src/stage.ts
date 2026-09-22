@@ -1,10 +1,7 @@
 import { Canvas2DRenderer, DeskSeat, handedLayout, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
-  framePhase,
   type SimConfig,
-  type SimEvent,
-  step,
   ticksPerBeat,
   toGuidePage,
   type World,
@@ -20,6 +17,7 @@ import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
 import { bindStageRepeat } from "./stage-repeat.js";
 import { bindStageRounds } from "./stage-rounds.js";
+import { stageStep } from "./stage-step.js";
 import { bindStageTouch } from "./stage-touch.js";
 import { bindStageTrail } from "./stage-trail.js";
 import { bindStageTransport } from "./stage-transport.js";
@@ -39,8 +37,6 @@ export function bindStage(
   let world: World = createWorld(cfg, store.index);
   let role: ViewRole = "test";
   let running = true;
-  let frameEvents: SimEvent[] = [];
-  let lastBeat = -1;
 
   // The renderer draws into a phone-shaped rectangle inside this canvas, so a
   // layout built from the canvas answers every control somewhere the picture
@@ -87,6 +83,26 @@ export function bindStage(
     replay: () => renderer.replayGuide(),
   });
 
+  // One tick and one frame, and everything either of them reads
+  // (`stage-step.ts`). `repeat` is stood up below and asked for by call, which
+  // is the only order this file has left to get wrong.
+  const stepper = stageStep({
+    cfg,
+    world: () => world,
+    renderer,
+    keys,
+    cueTick: touch.cueTick, // `3`'s held thumbs move into the tick that follows them
+    running: () => running,
+    role: () => role,
+    controls: currentControlSet,
+    guide: currentGuide,
+    hand: touch.hand,
+    pointer: touch.pointer,
+    onBeat,
+    onFrame,
+    onNeedWave: (retry) => (retry ? repeat.answer() : repeat.ask()),
+  });
+
   /**
    * The round a panel is holding the fight on, re-applied to every world this
    * stage builds. Zero is the fight's own opening round, which is what a boss
@@ -100,64 +116,18 @@ export function bindStage(
     // on the wrong sheet is a world the panel is already lying about, and the
     // two used to be two statements a caller had to put in the right order.
     world = buildStageWorld(store, cfg, wantedRound);
-    lastBeat = 0;
-    onBeat(0);
+    stepper.opened();
     afterRun.paint(); // a fresh world is never over
     repeat.hide();
   };
 
-  // A cleared wave stops and asks REPEAT WAVE? rather than advancing — the
-  // next wave here is the one being edited (`stage-repeat.ts`). A lost one has
-  // asked already, on the field's own screen: RETRY WAVE there is the answer.
-  const handle = (events: readonly SimEvent[]): void => {
-    for (const e of events) {
-      if (e.type === "needWave") e.retry ? repeat.answer() : repeat.ask();
-    }
-  };
-
-  const stepOnce = (): void => {
-    step(world, keys.drain(world.tick));
-    if (world.events.length) {
-      frameEvents.push(...world.events);
-      handle(world.events);
-    }
-    const beat = Math.floor(world.tick / ticksPerBeat(cfg));
-    if (beat !== lastBeat) {
-      lastBeat = beat;
-      onBeat(beat);
-    }
-  };
-
-  const advance = (): void => {
-    if (!running) {
-      keys.drain(world.tick);
-      return;
-    }
-    touch.cueTick(); // `3`'s held thumbs move into the tick that follows them
-    stepOnce();
-  };
-
-  const paint = (dt: number): void => {
-    renderer.draw({
-      world,
-      beatPhase: framePhase(world),
-      role,
-      time: performance.now() / 1000,
-      dt,
-      events: frameEvents,
-      running,
-      controls: currentControlSet(),
-      guide: currentGuide(),
-      hand: touch.hand(),
-      pointer: touch.pointer(), // whatever a desk's mouse is resting on
-    });
-    frameEvents = [];
-    onFrame();
-  };
-
   // Only while the canvas is on screen: a phone showing WAVE or MAP, or a
   // desk with the GAME column collapsed, pays nothing for the stage.
-  runStageLoopWhileSeen(canvas, { tickHz: () => stageTickHz(world), advance, paint });
+  runStageLoopWhileSeen(canvas, {
+    tickHz: () => stageTickHz(world),
+    advance: stepper.advance,
+    paint: stepper.paint,
+  });
 
   const playBtn = document.getElementById("play");
   const paintPlay = (): void => {
@@ -217,7 +187,7 @@ export function bindStage(
   const seek = (beat: number): void => {
     rebuild();
     const ticks = beat * ticksPerBeat(cfg);
-    for (let i = 0; i < ticks; i++) stepOnce();
+    for (let i = 0; i < ticks; i++) stepper.stepOnce();
     running = false;
     paintPlay();
   };
@@ -228,9 +198,9 @@ export function bindStage(
   exposeStageHandle({
     world: () => world,
     advance: (ticks) => {
-      for (let i = 0; i < ticks; i++) stepOnce();
+      for (let i = 0; i < ticks; i++) stepper.stepOnce();
     },
-    paint: () => paint(1 / 60),
+    paint: () => stepper.paint(1 / 60),
   });
 
   return {
@@ -241,7 +211,7 @@ export function bindStage(
     closeRound,
     openPage,
     round: () => wantedRound,
-    beat: () => lastBeat,
+    beat: stepper.beat,
     world: () => world,
   };
 }

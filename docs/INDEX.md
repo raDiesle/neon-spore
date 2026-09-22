@@ -2461,6 +2461,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-cue-key.ts` | **`3` does what the field is asking**, for both seats at once |
 | `tools/director/src/stage-cue-gesture.ts` | **What the held `3` does next**, on the one boss whose marks are not a press |
 | `tools/director/src/stage-cue-hand.ts` | **The desk's two thumbs**: what `3` has hold of, and what it does with it on every tick it stays down |
+| `tools/director/src/stage-step.ts` | **one tick of the stage's world and one frame of its picture** — what the loop next door calls, and the first of the stage's own running `bun test` can drive |
 | `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |

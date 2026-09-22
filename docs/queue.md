@@ -659,31 +659,6 @@ stamp. `two-devices-opening.test.ts` already drives two devices through a beat
 zero over a wire it controls, so a case that begins one device late belongs
 beside the ones there.
 
-## `stage.ts` is at the 250-line ceiling exactly
-
-- **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
-- **Taken:** 2026-09-22, claude/queue-a-test-room-code-outside-the-alphabet-costs-twen (claim: claude/queue-stage-ts-is-at-the-250-line-ceiling-exactly)
-- **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-touch.ts`
-
-The desk's stage is now 250 lines, which passes `limits.test.ts` and leaves the
-next lane nothing. It got there by one line: the cue key's held thumbs have to
-move before the world steps, so `advance()` calls `touch.cueTick()` — and
-paying for that meant folding a two-line comment about *why* down to a
-trailing one, which is the argument thrown away to buy the line.
-
-What to do: cut the loop out. `stage.ts` holds the wiring (`run`, `stop`,
-`advance`, `stepOnce`, the key drain) and the URL/params reading around it, and
-the wiring is the half that has grown three times this month. A `stage-loop.ts`
-taking the pieces it drives — `world`, `keys`, `touch`, the painter — and
-returning `{ run, stop, advance }` would leave `stage.ts` the assembly it reads
-as. `tools/director/test/` already drives the stage end to end, so the split is
-proved by tests that exist.
-
-It has now cost a second lane the same coin: the rate fix of 21 September
-wanted three words at the loop's own call saying that THE SLOW is spent there,
-and there was no line to put them on — they are in `stage-loop.ts` instead,
-which is where the argument lives but not where a reader of the call is.
-
 ## Two beats to land together is the whole difficulty of THE INSTAR
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403

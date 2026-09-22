@@ -16461,3 +16461,25 @@ says only what this one case is would have been the same twenty seconds spent
 by the next lane, one letter over.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-stage-ts-is-at-the-250-line-ceiling-exactly — the tick moves out
+
+- reading — 15 min. `stage.ts` whole, and `stage-loop.ts` beside it — the entry
+  proposed cutting the loop out, and the loop had already gone in the rate fix
+  of 21 September, so the seam had to be found again rather than followed. It
+  is one line along: the loop next door says *when* a tick happens, and what
+  was left in `stage.ts` is *what* one does.
+- writing — 30 min. `stage-step.ts` with the pieces arriving as calls, eleven
+  of them, and `stage.ts` rewired onto it. Then the test that was the point:
+  seven cases over a stub renderer, stub keys and a real world.
+- looking — 0 min. The director draws this and nothing about it changed.
+- friction — 5 min. `bun run index` truncates a summary at the first sentence
+  of a long header, so the row was written by hand.
+- landing — 10 min. `check:fast`, the entry out, the replay.
+
+The bottleneck was **the entry's own proposal being a year older than the
+tree**: it named a `stage-loop.ts` that did not exist when it was filed and
+does now, so the first fifteen minutes went on establishing that the cut it
+asked for had already been made and the file was still at the ceiling. A
+finding that names the fix is worth more than one that does not, and is also
+the one most likely to have been overtaken.
