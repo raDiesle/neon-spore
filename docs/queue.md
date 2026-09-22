@@ -300,6 +300,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `--press` knows no scout verb, so THE SCOUT's two rings cannot be photographed
 
 - **Found:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni
+- **Taken:** 2026-09-22, claude/queue-three-bosses-still-draw-a-dim-ring-that-punches (claim: claude/queue-press-knows-no-scout-verb-so-the-scouts-two-ring)
 - **Files:** `tools/frames/press-command.ts`, `tools/frames/hold-targets.ts`, `tools/frames/boss-install.ts`
 
 Both of THE SCOUT's rings are gated on what the ship is **carrying**:
