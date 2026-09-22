@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · ea9cc9e4 — `--press` learns to fly THE SCOUT, and her laden ring is photographed
+
+Both of that round's handles are gated on what the little ship is carrying, and a wave left to itself carries nothing: a probe stepped 1600 ticks with `carrying` at 0 throughout, because the ship is flown by hand. So neither ring could be photographed, nor the flame, the nose swinging or the mouth open at home. `--press` now takes the pilot's three as a thumb that goes down and comes up — `scoutTurnLeft=7` is seven ticks of swing — and her tap as a plain press. The commands are asked of `controlPress` rather than written out again.
+
 ## 2026-09-22 · a59da18f — Three SLOW:WINDOW candidates that open and shut on nothing
 
 The owner's time-stop brief drawn three ways: GATHER puts eighteen soft motes drifting inward toward the mark the pair are answering under a 20-30% vignette with a bloom that tightens as they arrive; HUSH is the same picture with the motes taken out, two gradients and nothing moving; INDRAW joins them into six bent streams of bokeh and drops the vignette, letting the rim go quiet because the light there is leaving. Nothing in any of the three has an edge — every layer is a borderless radial gradient, and no file contains a stroke or a path.
