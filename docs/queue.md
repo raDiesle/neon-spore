@@ -490,27 +490,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE GIMBAL is written and nobody has built its simulation
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-22, claude/queue-no-picture-tool-can-photograph-a-card-the-back-g (claim: claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-
-`docs/spec/bosses-choreographed.md` §18 is a full design — the question, the
-silhouette, both seats, a fourteen-row beat list, which of `THE SLOW` or
-`THE DRAG` it wants, the colour statement — for a boss nobody has started.
-Build lane one only: `gimbalOuter` and `gimbalInner` as two new `BearingDrag`
-members of `DragTarget` (the crank's own gesture, `sim/crank.ts` and
-`orrery-hand.ts` are the pattern to copy), the mirrored-bearing rule that
-draws each ring turned the way its own face would show it
-(`PerSeatTruth`, the Queen's primitive, spent on a bearing), the six
-latch-teeth as `World` fields in `hashWorld`, the wave entry with its guide,
-and one test per receipt. `.claude/skills/new-boss` §4's file table is the
-generic list; §18's own write-up is the design to build against, named
-`docs/queue.md`, *what is not built*.
-
-The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
-
 ## THE GIMBAL's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
