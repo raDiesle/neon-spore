@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · b5534698 — Take the skill's claim step off the queue
+
+## 2026-09-22 · b3c7eba5 — Stop the boss skill asking for a commit no session can make
+
+`.claude/skills/new-boss` §3 told a lane to claim its boss by committing one file in the main checkout — `git -C <main> commit --only docs/spec/bosses-choreographed.md` — and then fast-forwarding the lane over it. From a worktree that is refused before it starts, as touching a shared resource; THE GIMBAL's lane and THE BELLOWS's both hit it and both carried the row in their own commit instead. The entry asked whether a cloud session could ever have run it, and `tools/queue/repo.ts` answers: `onTrunk` carries a whole branch for a clone where no worktree holds the trunk, because the queue hit the same wall first. So no session of either kind could follow the step.
+
 ## 2026-09-22 · d242877a — Stop handing THE ORRERY's last question to sessions with no thumb
 
 Three of that entry's four unverified claims were settled on real frames days ago. What is left is one sentence — whether a turn and a half of a thumb per organ feels like a decision or like friction, on a real phone, mid-fight — and the entry says in its own words that no frame answers it. It has now been claimed and given back three times, once today, by sessions that read it, found nothing they could do and released it.
