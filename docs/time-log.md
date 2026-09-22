@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-preview-skill-ends-a-lane-with-four-git-step — the same defect, next door
+
+- reading — 10 min. The skill's step 3, and the two things it asserts that had
+  to be checked rather than assumed: whether `bun run land` really does the
+  first three steps (it does — `tools/land/run.ts` rebases, checks,
+  fast-forwards, notes and sweeps in one), and whether *a session cannot remove
+  the worktree it is running inside* is still true. It is, and
+  `tools/land/sweep.ts` argues it at length: the tree the process stands in is
+  deliberately left and moved onto `main`'s tip detached, so it is current
+  rather than stale, and a later sweep takes it once it has sat idle.
+- writing — 15 min. Step 3 rewritten as land, stop the servers, leave the
+  tree — and the *merge to main?* question taken out with it, because
+  `CLAUDE.md` and `tools/hooks/lane-finished.ts` both say a finished lane lands
+  without being asked. The skill's own frontmatter said the same thing and was
+  updated too.
+- looking — 0 min. Documentation.
+- friction — 0 min.
+- landing — 10 min.
+
+The bottleneck was **the assertion inside the step I was deleting**. Three of
+the four lines went because another tool already does them; the fourth stayed
+because a comment in `sweep.ts` makes the case for it better than the skill
+did — and the only way to know which was which was to read the tool rather than
+the page describing it.
+
 ## 2026-09-22 — queue-the-skills-own-claim-step-cannot-be-run-from-a-w — a step nobody could run
 
 - reading — 20 min. The skill's §3, the ledger's own preamble, and then the

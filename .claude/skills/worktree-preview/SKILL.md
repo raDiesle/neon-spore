@@ -1,6 +1,6 @@
 ---
 name: worktree-preview
-description: Hand a worktree's webserver to the user in their real Chrome for hands-on testing — the director to look at a wave, the game itself when a control has to be played — then let them choose in chat whether to keep working or merge to main and shut the server down. Use whenever work in a git worktree is ready to be looked at by a human, or the user asks to "test it", "open it in chrome", or "give me a running instance".
+description: Hand a worktree's webserver to the user in their real Chrome for hands-on testing — the director to look at a wave, the game itself when a control has to be played — then land the lane and stop the servers when the looking is done. Use whenever work in a git worktree is ready to be looked at by a human, or the user asks to "test it", "open it in chrome", or "give me a running instance".
 ---
 
 # Previewing a worktree for the user
@@ -91,28 +91,24 @@ is theirs to drive now. Leave the tab open; do not close it on their behalf.
 After a later code change, re-navigate the same tab rather than opening a
 second one: the director hot-reloads, so the tab only needs a reload.
 
-## 3. Ask what's next, and shut down when merging
+## 3. Land it, and stop the servers
 
-Once it is up and handed off, ask (`AskUserQuestion`) which of the two things
-this worktree's task ends with:
+**The lane lands whether or not the user has finished looking.** `CLAUDE.md`
+says it in as many words — a finished lane lands on the local `main` before the
+turn ends, and nothing is asked — and `tools/hooks/lane-finished.ts` blocks a
+stop in a worktree that is clean and ahead of `main`. So there is no *merge to
+main?* question to put; the only thing worth asking is whether the user is
+still driving the server, because that is theirs and this cannot tell.
 
-- **Keep working here** — the session continues and the server stays up.
-- **Merge to main and shut down** — see below.
-
-**Merging to main always ends with the worktree's servers stopped.** Not the
-idle timeout's job: that is a backstop for a leak, not a way to finish. A
-server left answering on a merged worktree's port serves a tree that is about
-to stop existing, and the next `curl` against it returns a confident 200 from
-nowhere. So, in this order:
-
-1. `bun run check` — never merge a red tree.
-2. Rebase onto `main` (it moves; another session may well have pushed while
-   this one was working) and re-run `check` after resolving anything.
-3. Merge from the **main** checkout: `git -C <repo-root> merge --ff-only
-   <branch>`. If main has uncommitted work in the way, save the diff to a
-   patch first and reapply it after — never discard it.
-4. Stop every server this worktree started, by asking it to quit rather than
-   killing a pid:
+1. **`bun run land --keep`**, from inside this worktree. One command: it
+   rebases, runs `bun run check`, fast-forwards `main`, writes the release note
+   and sweeps. Do none of it by hand — this page used to spell out a `check`, a
+   rebase and a `git -C <repo-root> merge --ff-only <branch>` from the main
+   checkout, and that third command is refused before it starts when it is run
+   from a worktree, as touching a shared resource. `--keep` because this tree
+   still has servers in it.
+2. **Stop every server this worktree started**, by asking it to quit rather
+   than killing a pid:
    ```bash
    curl -s http://localhost:<port>/__director/quit
    ```
@@ -121,6 +117,15 @@ nowhere. So, in this order:
    (`preview_stop` with its `serverId`). Then confirm each is actually gone
    (`curl` again and expect a failure), and kill any still-running background
    tasks the session owns.
-5. Only then remove the worktree and its branch. A session cannot remove the
-   worktree it is running inside — say so and leave that one step to the
-   user rather than pretending it is done.
+
+   A server left answering on a landed worktree's port is the thing this step
+   is for: it serves a tree that is about to stop existing, and the next `curl`
+   against it returns a confident 200 from nowhere. The idle timeout is a
+   backstop for a leak, not a way to finish.
+3. **The worktree stays, and that is not an omission.** `bun run land`'s sweep
+   deliberately leaves the tree the process is standing in — removing it would
+   pull the floor out from under the session — and moves it onto `main`'s tip
+   detached instead, so its content is current rather than stale. It is
+   removed by a later sweep once it has sat idle (`tools/land/sweep.ts`).
+   Nothing to do here and nothing to ask: the owner says `bun run sweep` and
+   `bun run push` himself, whenever he wants one.
