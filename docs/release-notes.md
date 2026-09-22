@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · ce6fa0f1 — Draw THE GIMBAL's body: two rings at right angles round a sealed drum
+
+Lane two of §18, first half. The boss had a complete simulation and no picture at all: ten events on both silent lists, two rings `unbuilt` in the director's table, four states posed on the STATES sheet and nothing else.
+
 ## 2026-09-22 · 2b6c2f62 — Take the preview skill's landing steps off the queue
 
 ## 2026-09-22 · 2f5f9a9e — Let the preview skill end a lane the way every other lane ends
