@@ -16041,3 +16041,26 @@ the claim as a count of the one `drawImage` the light is cost more than
 writing the ring did.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-the-scouts-two-handles-are-heard-and-drawn-nowhere — THE SCOUT's line and prime
+
+- reading — 30 min. Where the two rings go, which the brief in
+  `docs/spec/interludes.md` answers and the code does not: both are on one
+  little ship, and what keeps them apart is `view-role.ts` — she is shown a
+  ship with no nose and no beads, he is shown nothing else. Then the flight,
+  to find what the prime's dial should say.
+- writing — 45 min. `scout-grip.ts` whole, nine hit-test cases, four frame
+  cases, the director's file, two spec tables and the two silent lists.
+- looking — 0 min. No picture: the tools cannot put a mote aboard (below).
+- friction — 35 min. Three goes at the frame case — the calls count *falls*
+  when the ship is laden, because a mote aboard is a mote not drawn in the
+  arena — settled by counting the flat background colour, which on this stage
+  only a handle's disc sets. Then `bun run frames` refused every way in to a
+  ship with a mote on it, which is now its own queue item.
+- landing — 15 min. One over the 250-line limit in a silent list's comment,
+  and a full `check:fast`.
+
+The bottleneck was the picture that could not be taken: THE SCOUT's round is
+a flight, `--press` has no verb that flies it and `--boss-json` will not grow
+the list that holds the load, so both new rings had to be proved by counting
+a canvas log rather than by looking at one.

@@ -5,6 +5,7 @@ import {
   type ScoutState,
   type SimConfig,
   scoutNose,
+  scoutPrimed,
 } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -54,7 +55,14 @@ export function drawScout(
     const flash = Math.max(0, 1 - age / 60);
     halo(ctx, x, y, r * 3, PALETTE.red, 0.3 + 0.6 * flash);
   }
-  if (nose && round.burning) drawScoutWake(ctx, x, y, r, sin, cos, time);
+  // **The wake says the thruster is firing, so it is asked whether it is.**
+  // A burn held on a heavy ship outside `scoutPrimeTicks` adds nothing at all
+  // (`sim/scout-fly.ts`), and this drew the same two chevrons for it as for a
+  // burn that worked — a picture of a control answering while it is refused.
+  // `scoutPrimed` is the flight's own reading, called rather than restated.
+  if (nose && round.burning && scoutPrimed(cfg, round, tick)) {
+    drawScoutWake(ctx, x, y, r, sin, cos, time);
+  }
 
   const body = splinePath(blobPoints(x, y, r, r * 0.9, 3, 0.1, 0.05, time * 0.7, 5, 24), true);
   ctx.save();

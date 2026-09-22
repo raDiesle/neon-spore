@@ -14,6 +14,7 @@ import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { drawScoutHazards, drawScoutHome, drawScoutMotes, drawScoutWalls } from "./scout-draw.js";
+import { drawScoutGrips } from "./scout-grip.js";
 import { drawScout } from "./scout-ship.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
@@ -106,6 +107,11 @@ export function drawScoutRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
     { x: 0, y: 0 },
     f,
   );
+  // The two hands on the ship, after the hull: the arena's bottom row stands
+  // on the hull's own surface, so a ring off the stern of a ship flown down
+  // there would be painted over by the plating it is hanging in front of
+  // (`scout-grip.ts`).
+  drawScoutGrips(ctx, l, cfg, boss, world.tick, view.time);
   drawBand(ctx, l, world, false, false, view.time, view.controls);
   drawHud(ctx, l, view);
   ctx.textAlign = "center";

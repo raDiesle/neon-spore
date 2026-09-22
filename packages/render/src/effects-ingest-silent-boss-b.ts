@@ -165,9 +165,10 @@ export const INGEST_SILENT_BOSS_B = [
   "pinWind",
   "pinNudge",
   "pinTilt",
-  // THE SCOUT's two hands on its picture, silent until the look lane draws
-  // them: a line on the ship and a primed thruster are state, read off
-  // `reeling` and `primeTick` every frame (`sim/scout-hand.ts`).
+  // THE SCOUT's two hands, drawn since 22 September 2026 and still silent:
+  // a line and a primed thruster are state, read off `reeling` and
+  // `primeTick` every frame and put on the rings themselves — hers goes
+  // `held`, his is a dial draining (`sim/scout-hand.ts`, `scout-grip.ts`).
   "scoutReel",
   "scoutSlip",
   "scoutPrime",

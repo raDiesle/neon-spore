@@ -163,6 +163,55 @@ describe("THE SCOUT draws on all three screens", () => {
   });
 });
 
+describe("the two hands on the little ship", () => {
+  // **Counted by the one thing only a ring puts on this stage.** A handle
+  // fills its disc with the background colour before its own, so that whatever
+  // it is hanging over does not show through it (`handle-draw.ts`) — and the
+  // scout's stage paints its background with a gradient rather than that flat
+  // colour, so the count is the number of rings and nothing else. Calls will
+  // not do it: a mote aboard is a mote not drawn in the arena, so a laden ship
+  // *shrinks* the navigator's picture.
+  const rings = (role: ViewRole, carrying: number): number => {
+    const world = opened();
+    flying(world).carrying = Array.from({ length: carrying }, (_, i) => i);
+    return count(drawn(world, role, 1, false).text, PALETTE.background);
+  };
+
+  it.each(ROLES)("draws nothing on a light ship, the line on a laden one for %s", (role) => {
+    expect(rings(role, 0)).toBe(0);
+    expect(rings(role, CFG.scoutLadenMotes + 1)).toBe(1);
+  });
+
+  it.each(ROLES)("draws the prime as well once it is heavy for %s", (role) => {
+    expect(rings(role, CFG.scoutHeavyMotes + 1)).toBe(2);
+  });
+
+  it("gives each seat the other's handle dimmed, and the rig neither", () => {
+    // Neither can feel the other's thumb, so each is drawn on both screens,
+    // bright on the seat it belongs to and dim on the other
+    // (`scout-grip.ts`). The pilot reads the line dim because it is hers; she
+    // reads the prime dim because it is his; the rig owns both.
+    const dim = (role: ViewRole, carrying: number): number => {
+      const world = opened();
+      flying(world).carrying = Array.from({ length: carrying }, (_, i) => i);
+      return count(drawn(world, role, 1, false).text, PALETTE.dim);
+    };
+    expect(dim("p1", CFG.scoutLadenMotes + 1)).toBeGreaterThan(dim("p1", 0));
+    expect(dim("p2", CFG.scoutLadenMotes + 1)).toBe(dim("p2", 0));
+    expect(dim("p2", CFG.scoutHeavyMotes + 1)).toBeGreaterThan(dim("p2", 0));
+    expect(dim("test", CFG.scoutHeavyMotes + 1)).toBe(dim("test", 0));
+  });
+
+  it("takes both away the moment the flight is over", () => {
+    for (const phase of ["verdict", "spent"] as const) {
+      const world = opened();
+      const r = flying(world, phase);
+      r.carrying = Array.from({ length: CFG.scoutHeavyMotes + 1 }, (_, i) => i);
+      expect(count(drawn(world, "test", 1, false).text, PALETTE.background), phase).toBe(0);
+    }
+  });
+});
+
 function count(text: string, tell: string): number {
   return text.split(tell).length - 1;
 }

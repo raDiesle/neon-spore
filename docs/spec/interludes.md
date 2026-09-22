@@ -721,14 +721,28 @@ hashed. The three events — `scoutReel`, `scoutSlip`, `scoutPrime` — are
 `events-scout.ts`, the round's first, cued by `bind-scout-hand.ts` and voiced
 by `sounds/boss-scout-hand.ts`.
 
-**What is not built** (sim lane, 18 September 2026): the picture. Nothing marks
-the ship as a thing a thumb may take hold of, a line is drawn nowhere, a heavy
-ship's thruster looks the same primed or cold, and the three events are on both
-silent lists. The director's STATES sheet has a card for `light` and owes two —
-no hand flies the little ship to a mote — so `laden` and `heavy` are on `OWED`.
-*Never watched at tempo*: whether a reeled ship reads as being pulled or as
-being flown badly, and whether a prime is a gesture a thumb can make while the
-other hand is on the crank.
+**The picture, 22 September 2026** (`packages/render/src/scout-grip.ts`): two
+rings on the one little ship, and the round's own split is what keeps them
+apart. Hers is the ship's middle — her screen draws it with no nose and none
+of the beads it carries, so a ring there covers nothing she reads — and it
+appears the moment the load is past `scoutLadenMotes`, goes `held` while the
+line runs, and draws the line itself from the ship to the mother ship's mouth.
+His stands off the stern at 2.2 ship radii, along the heading, clear of the
+beads on the rim and in the air the wake takes up; it appears at `heavy` only,
+and its dial is what is left of `scoutPrimeTicks`, draining, so the seat
+holding the burn watches the window go rather than finding out by pressing.
+Each is drawn on both screens, bright on the seat it belongs to and dim on the
+other, since neither can feel the other's thumb. The wake now asks
+`scoutPrimed` as well: a burn held on a heavy ship outside the window adds
+nothing to the flight and no longer draws as though it did.
+
+**What is not built** (18 September 2026 for the sim, and the events since):
+the three events are still on both silent lists — each stands on a ring that
+is already saying it. The director's STATES sheet has a card for `light` and
+owes two — no hand flies the little ship to a mote — so `laden` and `heavy`
+are on `OWED`. *Never watched at tempo*: whether a reeled ship reads as being
+pulled or as being flown badly, and whether a prime is a gesture a thumb can
+make while the other hand is on the crank.
 
 **A hazard's touch is the wave lost**, and so is the clock running out with a
 mote still owed: both break the hull through `breachHull`, and since 12

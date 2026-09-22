@@ -185,6 +185,10 @@ export {
   scoutMawOpen,
   scoutNose,
   scoutOpenRound,
+  // Whether a burn takes this tick, which the flight and the picture must not
+  // disagree about — the wake and the prime's dial both ask it
+  // (`scout-hand.ts`, `render/scout-grip.ts`).
+  scoutPrimed,
   scoutRound,
   shipCol,
   shipCovers,

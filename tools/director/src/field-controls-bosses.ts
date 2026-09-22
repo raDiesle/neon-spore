@@ -18,6 +18,7 @@ import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
 import { PULSE_CONTROLS } from "./field-controls-pulse.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
+import { SCOUT_CONTROLS } from "./field-controls-scout.js";
 import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { SNAKE_CONTROLS } from "./field-controls-snake.js";
@@ -106,4 +107,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // and the free is the only control in the game that hands the other player
   // his own seat back (`field-controls-undertow.ts`).
   ...UNDERTOW_CONTROLS,
+  // THE SCOUT's line and prime, the only pair in the game drawn in the same
+  // place on two screens — the ship is both handles, and the round's split is
+  // that neither seat is ever shown both (`field-controls-scout.ts`).
+  ...SCOUT_CONTROLS,
 ];

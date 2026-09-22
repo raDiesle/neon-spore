@@ -218,9 +218,13 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   pinTable: "unbuilt",
   // THE SCOUT's two hands — player 2's line home on a laden ship, player 1's
   // carry priming a thruster three motes have made labour
-  // (`sim/scout-hand.ts`). Sim lane only so far, as every one above it.
-  scoutLine: "unbuilt",
-  scoutPrime: "unbuilt",
+  // (`sim/scout-hand.ts`). Drawn from 22 September 2026, and the only pair on
+  // this tab in the *same place* on two screens: both are the little ship, and
+  // the round's split is that the pilot is shown a nose and the navigator is
+  // not, so hers is the ship's middle and his stands off its stern
+  // (`render/scout-grip.ts`, `field-controls-scout.ts`).
+  scoutLine: "field",
+  scoutPrime: "field",
   // THE PULSE's meter, the one thing in the game both seats may take hold of
   // at once, and the only handle here on an **interlude**: a hand on a
   // reading rather than on a body, so the bar itself is the button and there

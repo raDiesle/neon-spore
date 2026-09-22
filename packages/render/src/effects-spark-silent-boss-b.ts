@@ -119,7 +119,8 @@ export const SILENT_BOSS_B = [
   "pinWind",
   "pinNudge",
   "pinTilt",
-  // THE SCOUT's two hands, no burst until the look lane draws them.
+  // THE SCOUT's two hands, drawn since 22 September 2026 and still no burst:
+  // each stands on a ring that is already saying it (`scout-grip.ts`).
   "scoutReel",
   "scoutSlip",
   "scoutPrime",

@@ -21,6 +21,7 @@ import { mirrorLobeUnder } from "./mirror-grip.js";
 import { orreryRingUnder } from "./orrery-grab.js";
 import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
+import { scoutGripUnder } from "./scout-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
 import { snakeGripUnder } from "./snake-grip.js";
@@ -112,6 +113,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     throatGripUnder(l, x, y, field) ?? // THE THROAT's slack ring and the tube under its mouth (`throat-grip.ts`).
     snakeGripUnder(l, x, y, field) ?? // SNAKE's stuck jaws and dragging tail, on the body itself (`snake-grip.ts`).
     undertowGripUnder(l, x, y, field) ?? // THE UNDERTOW's pin on a standing lobe and the free over the stuck pilot (`undertow-grip.ts`).
+    scoutGripUnder(l, x, y, field) ?? // THE SCOUT's line on a laden ship and the prime off a heavy one's stern (`scout-grip.ts`).
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }

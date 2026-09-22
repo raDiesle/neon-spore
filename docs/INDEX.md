@@ -977,6 +977,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/scout-draw.ts` | THE SCOUT's arena, drawn: the little ship, what it is there to collect, what would end it |
 | `packages/render/src/scout-round.ts` | THE SCOUT over the whole stage |
 | `packages/render/src/scout-ship.ts` | THE SCOUT's little ship, drawn |
+| `packages/render/src/scout-grip.ts` | **THE SCOUT's two hands on its own picture** |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
 | `packages/render/src/shell-plate.ts` | WHAT A PLATE IS MADE OF — the paint over the geometry next door |
@@ -2352,6 +2353,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
 | `tools/director/src/field-controls-stare.ts` | THE STARE's lid, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-scuttle.ts` | **THE SCUTTLE's hanging part**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-scout.ts` | **THE SCOUT's two hands on its own picture**, in a file of its own |
 | `tools/director/src/field-controls-snake.ts` | **SNAKE's two hands on its own body**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |

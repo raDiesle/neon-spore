@@ -567,7 +567,7 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Eleven handles are heard by the simulation and drawn nowhere
+## Nine handles are heard by the simulation and drawn nowhere
 
 - **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
 - **Taken:** 2026-09-22, claude/queue-the-scouts-two-handles-are-heard-and-drawn-nowhere (claim: claude/queue-eleven-handles-are-heard-by-the-simulation-and-d)
@@ -636,10 +636,30 @@ than the wobbling skin (`bossAnchorE`'s precedent), and both are drawn in
 `frame-on-ship.ts` — the fifth pass — because everything within a tile of the
 hull line is painted over by the ship.
 
-**The other eleven are `unbuilt`, and each is a look before it is a row** —
+Lane seven landed THE SCOUT's two, and they are the only pair in the game
+**drawn in the same place on two screens**: the brief puts both on the little
+ship, and what keeps them apart is the round's own split — the pilot is shown
+a ship with a nose and the beads it carries, the navigator a ship with
+neither, and neither seat is ever shown both handles.
+`render/scout-grip.ts` holds both circles, both gates and the drawing. They
+are also the first pair **the pair's own last answer opens**: every mote they
+pick up rather than bank is what puts the ship in the next load, so a pair
+that banks as it goes never sees either ring. Hers is the ship's own middle
+and goes `held` with the line, which is drawn from the ship to the mother
+ship's mouth on both screens because it passes through whatever is in the way
+and only she can see what that is; his stands off the stern at 2.2 ship radii
+along the heading, clear of the beads on the rim, and its dial is what is left
+of `scoutPrimeTicks`, **draining** rather than filling — the one dial here
+that counts down, because the thing it measures is a window and not a hold.
+The wake was drawn for any burn and now asks `scoutPrimed` as well
+(*a fix to something wrong rather than unlovely*): a burn held on a heavy ship
+outside the window adds nothing to the flight and no longer draws as though
+it did.
+
+**The other nine are `unbuilt`, and each is a look before it is a row** —
 `tasterBlade`, `tasterGap`, `tasterLock`,
 `ledgerFoot`, `ledgerSocket`, `ledgerBead`, `ledgerCord`,
-`scoutLine`, `scoutPrime`, `pinPlunger`, `pinTable`. Every one
+`pinPlunger`, `pinTable`. Every one
 is heard by a `*-hand.ts` with **nothing drawn to take hold of**: no ring, no
 branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
 precedent and the reason no row can be written for them yet — `where` is a
@@ -647,7 +667,8 @@ place on the screen and `source` is a branch of `touch.ts`, and neither
 exists.
 
 So the work is one lane per boss, in the shape `candleWick`, `curtainHem`,
-`pulseMeter` and THE VANE's, THE THROAT's and THE UNDERTOW's two each took: a `*-grip.ts` giving the handle a ring where the seat
+`pulseMeter` and THE VANE's, THE THROAT's, THE UNDERTOW's and THE SCOUT's two
+each took: a `*-grip.ts` giving the handle a ring where the seat
 that owns it is drawn, the `handleUnder()` branch that answers it, the
 `field-controls-<boss>.ts` row beside the twenty-seven that exist, the
 `docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to
@@ -2328,19 +2349,53 @@ refused by its own rest and already shows it). It is one expression in
 under `gorge`. The head on the face should still show the gape, since the mouth can
 still be open — what changes is the halo and the fill that say *press me*.
 
+## No frame of THE SCOUT can be taken with a mote aboard
+
+- **Found:** 2026-09-22, claude/queue-the-scouts-two-handles-are-heard-and-drawn-nowhere
+- **Files:** `tools/frames/press.ts`, `tools/frames/press-command.ts`, `tools/frames/boss-install.ts`
+- **Where:** local
+
+THE SCOUT's whole round is a flight, and `bun run frames` cannot fly it. The
+two holds that do the flying — `scoutTurn` and `scoutBurn`, the pilot's crank
+and his reach button — are not in `PRESS_KINDS`, so `--press 300:1:scoutBurn`
+comes back *unknown control* with the twenty names it does take. And the load
+cannot be posed round the flight either: `carrying` is a list, and
+`boss-install.ts` refuses a list of a different length by design, so
+`--boss-json '{"carrying":[0,1,2,3,4]}'` answers *that field holds 0, and 5
+came*.
+
+Between them that is **every state this round has past the first beat**. The
+lane that drew the two handles could not photograph either ring — both are
+gated on the load — and the director's STATES sheet has had `laden` and
+`heavy` on `OWED` since 18 September 2026 for the same reason, written there
+as *no hand flies the little ship to a mote*. A round the tools cannot reach
+is one every future lane argues in words.
+
+Two pieces, and the first is the small one. **`scoutTurn` and `scoutBurn` in
+`PRESS_KINDS`**, with a value that says which way and whether it is down —
+`scoutTurn=left`, `scoutTurn=off`, `scoutBurn=on` — beside `pulseStep`, which
+is the nearest thing already there; `seatsOnPanel` finds both on the pilot's
+panel without a table. **Then a flight worth typing**: the autopilot in
+`packages/content/test/scout-flight.test.ts` banks all four of the first
+arena in twelve beats, and what it emits is a press line of dozens — so the
+useful shape is one flag that says *fly to the nth mote and stop*, not a
+person spelling the line out. Prove it with one frame of a laden ship with
+her ring on it.
+
 ## `--hold` knows none of the handles the handles lanes have drawn
 
 - **Found:** 2026-09-22, claude/queue-the-undertows-two-handles-are-heard-and-drawn-nowhere
 - **Files:** `tools/frames/hold-targets.ts`, `tools/frames/hold.ts`, `packages/net/src/command-fields.ts`
 - **Where:** local
 
-Six lanes of *Eleven handles are heard by the simulation and drawn nowhere*
+Seven lanes of *Nine handles are heard by the simulation and drawn nowhere*
 have now put a ring on the field, and not one of them could press its own ring
 from the command line **except THE THROAT's**, whose lane put `throatRing` and
 `throatTube` in `DRAGS` itself. `pulseMeter`, `vanePin`, `vaneHaul`,
-`snakePrise`, `snakeLift`, `undertowPin` and `undertowFree` are not names the
+`snakePrise`, `snakeLift`, `undertowPin`, `undertowFree`, `scoutLine` and
+`scoutPrime` are not names the
 flag takes — it answers `--hold undertowFree=0` with a usage line and stops.
-Five lanes worked around it the same way, posing the state with
+Six lanes worked around it the same way, posing the state with
 `--boss-json` and `--ticks` instead of pressing the handle, which photographs
 a boss that has been *told* a thumb is on it rather than one a thumb is on.
 The two differ exactly where it matters: a dial that fills off a held count,
