@@ -2326,6 +2326,7 @@ meaning to, but `tools/director/src/versus-pose.ts` is written by the same
 ## `bun run queue next` hands back an item no session can take
 
 - **Found:** 2026-09-22, claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s
+- **Taken:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its (claim: claude/queue-bun-run-queue-next-hands-back-an-item-no-session)
 - **Files:** `tools/queue/run.ts`, `tools/queue/claim.ts`, `tools/queue/where.ts`, `docs/queue.md`
 
 `next` picked the same entry five times running in one sitting — the one
