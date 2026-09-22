@@ -13,7 +13,7 @@ import {
 } from "@neon-spore/sim";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown } from "../src/touch.js";
-import { undertowFreeCircle, undertowPinCircle } from "../src/undertow-grip.js";
+import { undertowFreeCircle, undertowPinCircle } from "../src/undertow-grip-place.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
 
 // The cap, applied per file because bun applies it to the file it is in

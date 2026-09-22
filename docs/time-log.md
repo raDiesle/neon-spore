@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-undertow-changes-state-more-than-once — the pin off his screen
+
+- reading — 30 min. The claimed entry was stale by four days: THE UNDERTOW
+  already ships six phases, and the two hands the §6.2 ask wanted landed on
+  18 and 22 September. So the reading was not *what to build* but *what is
+  there* — `undertow-hand.ts`, `undertow-grip.ts`, `undertow-frame.test.ts`
+  and §11.20, to find the one part of it nothing proved.
+- writing — 40 min. The seat rule for the pin, the split that made room for it
+  (`undertow-grip-place.ts`, the places and gates the press and the picture
+  share), a frame test of twenty-four cases, and §11.20's missing record of
+  the picture lane.
+- looking — 35 min. Four frames and four crops. The first pair is the whole
+  lane: the pilot's dim pin came out a flat black disc filling the head of the
+  lobe he aims the maw at.
+- friction — 10 min. `--settle` does not advance the world, so the first two
+  captures caught a lobe that had barely risen and read as a ring floating in
+  sky; `--ticks` is what steps it. One full-suite timeout under load
+  (`reach-frame.test.ts`), green alone in 0.7 s.
+- landing — 20 min.
+
+The bottleneck was **deciding the entry was already answered, and then
+finding what was not**. A stale queue item costs more than an open question: a
+question can be asked, but a finding written four days ago against files that
+have since moved has to be re-derived from the tree before a single line can
+be written — and the thing worth doing turned out to be nowhere in it.
+
 ## 2026-09-22 — queue-the-ledgers-four-handles — his two are on the cord
 
 - reading — 20 min. `ledgerPhase`'s two remaining states, the fade the pilot's

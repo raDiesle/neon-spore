@@ -1,92 +1,28 @@
-import {
-  type SimConfig,
-  type UndertowState,
-  undertowBoss,
-  undertowLobeAt,
-  undertowPinned,
-  undertowUnseated,
-  type World,
-} from "@neon-spore/sim";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
-import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
+import { undertowBoss, undertowPinned, type World } from "@neon-spore/sim";
+import { drawHandleRing } from "./handle-draw.js";
+import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
+import {
+  undertowFreeable,
+  undertowFreeCircle,
+  undertowPinCircle,
+  undertowPinnable,
+} from "./undertow-grip-place.js";
 
 /**
- * **THE UNDERTOW's two hands**, and the circles the drawing and the hit test
- * share: the navigator's thumb pinning a lobe shut, and her thumb on the
- * column the floor has the pilot stuck in (`sim/undertow-hand.ts`,
- * `docs/spec/bosses.md` §11.20).
+ * **THE UNDERTOW's two hands**, taken hold of and drawn: the navigator's thumb
+ * pinning a lobe shut, and her thumb on the column the floor has the pilot
+ * stuck in (`sim/undertow-hand.ts`, `docs/spec/bosses.md` §11.20). Where each
+ * of them is, and whether the fight is offering it, is next door
+ * (`undertow-grip-place.ts`) — one answer, asked by the press and the picture
+ * both.
  *
  * Both gestures shipped in the simulation with nothing drawn to take hold of.
  * The look is exempt under *a look with no shipped alternative*: there was no
  * drawing of either control to run a candidate against.
- *
- * **Both are hers, and that is the point of them.** His hands are the cannon
- * and the maw and they are full; her plate faces down for the whole of this
- * fight, so her seat is the one with a thumb to spare. They are also the pair
- * that reaches across the split: the free is the only control in the game
- * that gives the other player his own seat back.
- *
- * **Neither ring is on the hull's skin, and both are read off `l.hullY`.**
- * That skin is a function of x the draw files are handed and a hit test is
- * not, and it is never more than a fraction of a tile off the line — the
- * argument the captions make for ringing this same boss (`bossAnchorE` in
- * `caption-anchor-boss-e.ts`). A ring is a ring and not a trace.
  */
-
-/**
- * How far above the hull line the pin's ring floats, in tiles: just clear of
- * the plating, in the lobe's own throat.
- *
- * **Where a plate would stand**, which is the whole of what this handle is:
- * `undertowPinned` is asked on the same line as `world.shieldCol` in both
- * places that number is asked (`undertow-step.ts`, `undertow-press.ts`), so
- * her thumb *is* a second plate and the handle belongs where the first one
- * goes. It clears the lobe's own two bands as well — the cyan on a tall one's
- * top third means *the beam and not the maw* (`undertow-lobe.ts`), and a ring
- * over it would cover the one thing the pilot is being told.
- */
-const PIN_UP = 0.45;
-
-/**
- * And how far above it the free's ring hangs, in tiles: a clear tile, over the
- * stuck cannon rather than on it. It clears the plate, the cannon under it and
- * the bow rising off the skin in that same column — the one warning either
- * seat gets — and hangs in air nothing of this fight is drawn in.
- */
-const FREE_UP = 1.2;
-
-/** The circle on a lobe standing in `col`, wherever the column is drawn. */
-export function undertowPinCircle(l: Layout, cfg: SimConfig, col: number): Circle {
-  return { x: tileCX(l, col), y: l.hullY - l.tile * PIN_UP, r: handleRadius(l, cfg) };
-}
-
-/** The circle over the unseated pilot's column, which is the cannon's own. */
-export function undertowFreeCircle(l: Layout, cfg: SimConfig, cannonCol: number): Circle {
-  return { x: tileCX(l, cannonCol), y: l.hullY - l.tile * FREE_UP, r: handleRadius(l, cfg) };
-}
-
-/**
- * Whether the boss is offering a thumb that column: `pin`'s own gate read back
- * rather than restated — a lobe standing in it, and not the last one, which
- * `undertowTake` refuses in that phase and where a pin could only be a way for
- * her to spoil his hold.
- */
-export function undertowPinnable(u: UndertowState, col: number): boolean {
-  return u.phase !== "last" && undertowLobeAt(u, col) !== null;
-}
-
-/**
- * And whether it is offering her his column, which is the whole of `free`'s:
- * only while he is actually unseated. Before that the same thumb in the same
- * place is a thumb on the hull, and the count it would bank is time she did
- * not spend watching the bow.
- */
-export function undertowFreeable(u: UndertowState, beat: number): boolean {
-  return undertowUnseated(u, beat);
-}
 
 /**
  * The press, answered for whichever of the two it landed on. **Both are
@@ -169,11 +105,22 @@ function grabPin(x: number, y: number, col: number): Touch {
  * drawn after. A ring laid down with the lobes would be under every one of
  * them, which is `undertow-draw.ts`'s own argument for the plating being here.
  *
- * **Each is drawn on both screens, hers bright and his dim**, the bargain
+ * **The free is drawn on both screens, hers bright and his dim**, the bargain
  * `sinew-handles.ts` made: neither seat can feel the other's thumb. It earns
  * more here than anywhere it has been used yet — the free is *his* seat she is
  * hauling the plate off, and a pilot who could not see it coming would sit out
  * `undertowUnseatedBeats` with no idea he was being bought back.
+ *
+ * **The pin is not, and the frame is what said so.** A ring fills its disc in
+ * `PALETTE.background` before anything else (`handle-draw.ts`), so his dim copy
+ * came out a flat black disc filling the head of the lobe under it — and a
+ * lobe with a hole in it is what a breach looks like on this very hull
+ * (`undertow-draw.ts`). It stood on every standing lobe at once, which is his
+ * whole target list, to offer him a thumb the wire drops. So his screen is
+ * shown **the pin she has made and not the ones she could**: one ring at most,
+ * in the column `undertowPinned` is keeping his maw out of, which is the only
+ * thing about this handle he can act on (`undertow-press.ts`). Hers is
+ * unchanged — every lobe she may pin carries one.
  *
  * **A pinned lobe keeps its ring, drawn `held`.** `pin` refuses a second thumb
  * on the column it is already on, so a ring that went by what the gesture
@@ -199,9 +146,11 @@ export function drawUndertowGrips(
   const u = undertowBoss(world);
   if (u === null) return;
   const { cfg } = world;
+  const offers = l.role !== "p1";
   for (const b of u.breaches) {
     if (!undertowPinnable(u, b.col)) continue;
     const pinned = undertowPinned(u, b.col);
+    if (!pinned && !offers) continue;
     ring(ctx, undertowPinCircle(l, cfg, b.col), l, pinned, pinned ? 1 : 0, time);
   }
   if (!undertowFreeable(u, world.beat)) return;

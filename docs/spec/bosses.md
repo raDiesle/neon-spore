@@ -3714,7 +3714,8 @@ the body has passed, and the same run fingerprints the same way twice
 (`sim/test/undertow.test.ts`).
 
 **Her two hands on the hull** (`sim/undertow-hand.ts`, 18 September 2026 — the
-simulation; the handle on the picture is its own lane). The fight shipped
+simulation; `render/src/undertow-grip.ts` and `undertow-grip-place.ts`,
+22 September, the picture). The fight shipped
 answered entirely from the panel: the maw, the beam, the shield's column and
 the slide off are four presses and a carriage, and none of them is a hand on
 the boss itself. The boss itself is the hull, which is the one part of this
@@ -3737,6 +3738,35 @@ the four, because half the dead time is hers to win back and she cannot have
 all of it or the unseat would cost nothing at all. Lifted off part way the
 count keeps, for the same reason the maw's hold under the last lobe keeps
 (`docs/spec/latency.md`).
+
+**And the two rings they are taken hold of by** (`undertow-grip.ts`,
+22 September 2026). The pin floats `0.45` of a tile above the hull line in the
+lobe's own throat — where her plate would stand, which is what the handle is —
+and the free hangs a clear tile over the stuck cannon, above the plate, the
+carriage and the bow rising off the skin in that column. Both are read off
+`l.hullY` rather than the undulating skin: that skin is a function of x the
+draw files are handed and a hit test is not, and a ring is a ring and not a
+trace. Neither covers a lobe's two beam bands, which are rims clipped to the
+top and bottom thirds of an outline half a tile out (`undertow-lobe.ts`) and
+run outside a ring three tenths of a tile across.
+
+**The free is on both screens, hers bright and his dim; the pin is on hers
+alone.** The bargain `sinew-handles.ts` struck — neither seat can feel the
+other's thumb, so each is shown a dim copy of the other's handle — earns the
+free more than it has earned anywhere: it is *his* seat she is buying back,
+and a pilot who could not see it coming would sit out `undertowUnseatedBeats`
+with no idea. **It does not earn the pin, and the frame is what said so.** A
+ring fills its disc in `PALETTE.background` before anything else
+(`handle-draw.ts`), so his dim copy came out a flat black disc filling the head
+of the lobe under it — and a lobe with a hole in it is what a breach in this
+hull looks like — on every standing lobe at once, which is his whole target
+list, offering him a thumb the wire drops. His screen is shown the pin she has
+*made* and not the ones she could: one ring at most, in the column
+`undertowPinned` is keeping his maw out of, which is the half of this handle he
+can act on and has to be told before he can say *let go*. Every case of this is
+a frame rather than a hit test (`render/test/undertow-grip-frame.test.ts`): the
+hit test computes its circles from the same file the drawing does, so the two
+of them agree with each other whatever either is doing to the picture.
 
 **What the field says** (`render/src/boss-cue-read-j.ts`, 18 September 2026,
 `docs/decisions.md` #34). Four words across all five phases, and the one that

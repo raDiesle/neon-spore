@@ -297,6 +297,33 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 `tools/queue/test/needs.test.ts` holds the wait.
 
+## A dim handle ring is an opaque black disc, and nine bosses draw one
+
+- **Found:** 2026-09-22, claude/queue-the-undertow-changes-state-more-than-once-and-as
+- **Files:** `packages/render/src/handle-draw.ts`, `packages/render/src/balloon-handles.ts`, `packages/render/src/pinball-grip.ts`, `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/snake-grip.ts`, `packages/render/src/surge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/throat-grip.ts`, `packages/render/src/vane-grip.ts`
+
+`drawHandleRing` fills its circle with `PALETTE.background` before anything
+else, so a ring is opaque wherever it stands and **a dim ring is a black
+disc**. Two lanes in two days found the same defect that way and neither found
+it in a test: THE LEDGER's dim haul came out a dark circle on the cord, which
+is exactly what a *return* looks like, and THE UNDERTOW's dim pin came out a
+hole in the head of the lobe the pilot aims the maw at. Both were ruled the
+same way — the ring came off the other seat's screen — and both were found by
+rendering one frame.
+
+Nine more files draw a dim ring on the seat that cannot press it, under the
+bargain `sinew-handles.ts` struck: neither seat can feel the other's thumb, so
+each is shown a dim copy. The bargain is right where the other seat needs the
+fact; it is wrong where the disc covers something that seat reads. Nobody has
+looked.
+
+The work is one frame per ring, on the screen it is dim on, and a ruling per
+boss in its §11 section: **it stays** (say what the other seat does with it),
+or **it goes** (and a frame test counts nought on that role). A ring that stays
+and covers a body wants `PIN_UP`-style clearance rather than an exemption.
+`packages/render/test/undertow-grip-frame.test.ts` is the pattern for the
+counting, and §11.20's *two rings* paragraph for the writing-up.
+
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
@@ -361,23 +388,6 @@ banked three of the column (rows 10.5, 9.5, 8.5) and found no leg at all to
 the fourth, on the hazard's own row 7.5, that did not end in the hazard
 within seventy ticks. The film ends with the three banked and the fourth
 left hanging.
-
-## THE UNDERTOW changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-22, claude/queue-the-ledgers-four-handles (claim: claude/queue-the-undertow-changes-state-more-than-once-and-as)
-- **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/events-undertow.ts`, `packages/sim/src/undertow-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-
-It is answered today on the ordinary panel, over 6 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
 
 ## Unverified at 424e7fc4: a real phone browser's own chrome eating the foot of th…
 
