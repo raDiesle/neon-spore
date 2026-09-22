@@ -16564,3 +16564,5 @@ tests failed on `world.failed`, which has never existed, and the fix was the
 thirty seconds of grep that would have been cheaper before the tests were
 written. A boss is forty files of registration and every one of them is a name
 somebody else chose; nothing here is worth deriving from memory.
+
+*Measured: 33 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

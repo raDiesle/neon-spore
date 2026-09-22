@@ -9,6 +9,16 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · fc1e08af — Say THE GIMBAL's rule in thirty words on the two screens that show it
+
+The words checker budgets a guide's `both` and a mechanics `what` at thirty words each, and `tools/words/clean.ts` lets a lane that has written no new rule only lower the count of failing lines. A new boss written in the mechanics table's shipped register — every entry from THE HIVE on runs to two hundred words — costs two of them, which took the ceiling to 307 and the landing red. So both lines are short: the wave's guide is four sentences, the menu line is the drum, the two rings, the turn and the backwards rim, and the long half of the design stays in `docs/spec/bosses.md` §11.34, which no player reads.
+
+## 2026-09-22 · 88c8092f — Take "THE GIMBAL is written and nobody has built its simulation" out of the queue
+
+## 2026-09-22 · 80004272 — Build §18 THE GIMBAL's simulation: one wheel, two faces, six teeth
+
+THE GIMBAL is the boss that divides the geometry rather than the sight. The outer ring is the pilot's and the inner is the navigator's, they are one wheel gripped from its two opposite faces, and a turn that reads clockwise on his screen is drawn counter-clockwise on hers because that is honestly which way it is going, seen from there. Each of you turns your own ring to your own mark and holds it there; both true together shears a latch-tooth off each, three times, under THE SLOW. Neither screen ever says the ring is mirrored.
+
 ## 2026-09-22 · ee11ac15 — Take "No picture tool can photograph a card the back gesture opens" off the queue
 
 ## 2026-09-22 · 50e302e4 — menu-shot can make the phone's back gesture, and wait for what it opens
