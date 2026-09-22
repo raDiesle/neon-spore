@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 66629c5e — Slow the asking rather than the reward, and let the measure count it down
+
+THE SLOW now spans exactly the window a choreographed step is asking inside: it opens on the tick the marks come up, for the step's own windowBeats, and shuts on the tick the step is answered or the tick it is missed. The owner's rule of 22 September 2026, generic to the kind — the slow is time to talk in, and the only moment a pair needs it is while they are working out whose mark is whose. The landing it used to reward is a beat already won and plays at tempo now. The measure under the boss follows from it and says what it always should have: the time left before this step fails.
+
 ## 2026-09-22 · d74b2898 — Answer a thumb on each of THE BELLOWS's bars, and say one word on it
 
 Half two of the look lane, and the half that makes the lung answer a hand: each seat's bar is hit-tested where this frame draws it, carried along by whatever fill the chamber it hangs off has, and the verb it is being asked for stands on the bar itself.
