@@ -22,6 +22,43 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-press-knows-no-scout-verb — a flight, recorded
+
+- reading — 25 min. The claimed entry names three files and none of them was
+  the seam: the pilot's three are *held* controls, so the question was where a
+  thumb that goes down and comes up already lives (`crank.ts`, `ring.ts`) and
+  what `controlPress` will hand over rather than what a table here should say.
+  Then `scout-hand.ts` and `config-scout.ts`, for what the two rings are gated
+  on and what it would take to reach either.
+- writing — 40 min. `scout-press.ts` and its seven tests, and the split that
+  made room for them: the seat check came out of `press.ts` into
+  `press-seats.ts` and stopped being a table at all — it asks `CONTROLS` and
+  `controlSetForWave` whose button a press is, which is the fact going stale
+  that put `intake` on the wrong seat once already.
+- looking — 70 min, and the lane. Nine captures. Most of them were spent
+  misreading one: the hazard is a dark rock trailing grey pebbles and the ship
+  is a small purple blob, and for six frames I had them the other way round and
+  was reporting three motes aboard and no ring drawn. The `--seat test` frame
+  settled it — four amber beads on the rim, and a second wobbly contour
+  outside the ship's circle, which is the navigator's laden ring.
+- friction — 45 min. The flight cannot be written by hand: a burn is a push
+  that keeps going, so changing one number moves every leg after it. So a
+  throwaway closed-loop autopilot in `bun run probe` — point at the nearest
+  mote, burn, coast — recording what it pressed, then a second scratch script
+  replaying the recording open-loop to prove it transfers. Two false trails
+  inside that: the recorder wrote each press at the *end* of its hold, and I
+  shifted the whole line by the wave's 18-tick opening before `capture.ts:152`
+  proved press ticks are absolute and already converted. `--press` with
+  `--frames` refused a press the filmstrip would have caught, so six single
+  frames were captured with the line hand-truncated for each; queued.
+- landing — 20 min. A queue title over 80 characters, two entries naming test
+  files that do not exist, and `docs/INDEX.md` wanting lines for the two new
+  files.
+
+The bottleneck was reading the frame, not making it: the flight was flying
+correctly for the better part of an hour while I was measuring the wrong blob,
+and the fix was a capture from the seat that draws the carried motes.
+
 ## 2026-09-22 — queue-the-undertow-changes-state-more-than-once — the pin off his screen
 
 - reading — 30 min. The claimed entry was stale by four days: THE UNDERTOW

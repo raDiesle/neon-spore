@@ -1,7 +1,8 @@
-import { CONTROLS, controlPress, controlSetForWave } from "@neon-spore/content";
 import { crankPresses, parseTurns } from "./crank.js";
 import { commandFor } from "./press-command.js";
+import { refuseWrongSeat } from "./press-seats.js";
 import { parseOrgans, ringPresses } from "./ring.js";
+import { isScoutHeld, scoutPresses } from "./scout-press.js";
 import type { PressSpec } from "./spec.js";
 
 /**
@@ -38,6 +39,7 @@ import type { PressSpec } from "./spec.js";
  *   --press 60:1:cannonCol=5,90:1:reach,240:2:mawTake   THE CLAW: slide, reach, swallow
  *   --press 60:2:tap=lowest,120:2:tap=lowest   THE BEATBOX: a run, a beat apart
  *   --press 90:1:reach,240:1:crank=2            THE CLAW: send the arm up, wind it home
+ *   --press 246:1:scoutTurnLeft=7,255:1:scoutBurn=20   THE SCOUT: swing the nose, then push
  *
  * **The axis is ticks, and a tick is not a beat times `ticksPerBeat`.** It
  * reads like one — "a run, a beat apart" above is 60 and 120 — and for a wave
@@ -68,9 +70,9 @@ import type { PressSpec } from "./spec.js";
  * boss had to be taken with the press attributed to a seat that never sent it,
  * because `<t>:2:intake` was refused with a message about a round that would
  * have accepted it perfectly well (`sim/commands.ts` seat-checks nothing).
- * Which seat has a button is a fact about the **panel**, it is written down
- * once in `CONTROLS` and `controlSetForWave`, and `seatsOnPanel` below reads it
- * there rather than keeping a second copy that can go stale in silence.
+ * Which seat has a button is a fact about the **panel**; `press-seats.ts` asks
+ * `CONTROLS` and `controlSetForWave` for it rather than keeping a second copy
+ * that can go stale in silence.
  *
  * **A column here is a simulation column, not the one in the wave file.**
  * Waves are authored against seven columns and the field has `cfg.cols` of
@@ -84,52 +86,14 @@ import type { PressSpec } from "./spec.js";
  */
 
 /**
- * The presses **no panel carries a button for**, and the only ones whose seat
- * is decided here.
- *
- * Everything else is a control on somebody's panel and is asked of the wave
- * being captured (`seatsOnPanel`). These five are not:
- *
- * - `fire` is the shot itself. The panel's own colour buttons send `prime`,
- *   and the shot is what *lifting* one says (`content/src/control-command.ts`),
- *   so there is no control whose press is a `fire` — but a rig wants to write
- *   one without spelling out a hold. It is the navigator's, with the cannon
- *   the pilot's, which is the split the whole game is built on.
- * - `grip` is a thumb on a **body**, not on a button: either seat may put one
- *   there, and the field is not a panel.
- * - `tap` is THE BEATBOX's, on the box itself rather than on the band.
- * - `shake` is THE CHOIR's, and is not a thumb at all — the *device* moved
- *   (`sim/choir-gesture.ts`). The pilot's, for the reason every handle on this
- *   field is: the navigator carries both colours and fires.
- * - `orreryRing` is a **handle on the field**, an ellipse the width of it
- *   (`render/orrery-grab.ts`), so there is no panel it could be a button on.
- *   The pilot's for the same reason, and the simulation checks that rather
- *   than trusting it (`orreryRingHeard`).
- *
- * SNAKE's two are **not** here — `snakeFire` and `snakeMaw` are buttons on the
- * pilot's panel and `seatsOnPanel` finds them — but they were missing from the
- * list below until 20 September 2026, which meant the spit and the open mouth
- * were two pictures the tool could not take at all. Neither is reachable any
- * other way: `--boss` can set `mawTick` and `shotBeat` to a number, and a beat
- * chosen from outside the page against a clock that is still running is a
- * frame of a shot that has already faded.
- */
-const OFF_PANEL_SEAT: Record<string, 1 | 2 | "either"> = {
-  fire: 2,
-  grip: "either",
-  tap: 2,
-  shake: 1,
-  orreryRing: 1,
-};
-
-/**
  * Every control `--press` accepts, which is the list an unknown one is
  * reported against.
  *
  * Listed rather than derived from the panels, and deliberately: a press is a
- * thing a person types, and three of them are named for the thing under the
- * thumb rather than for the command it sends — `mawTake` and `crank` for a
- * button, `orreryRing` for a handle on the field. A reader who has just been
+ * thing a person types, and several are named for the thing under the thumb
+ * rather than for the command it sends — `mawTake` and `crank` for a button,
+ * `orreryRing` for a handle on the field, THE SCOUT's two arrows for the two
+ * buttons that send one `scoutTurn` between them. A reader who has just been
  * told `mawTake` is unknown, because the wave they picked has no maw, has been
  * told the wrong thing.
  */
@@ -154,40 +118,11 @@ const PRESS_KINDS = [
   "orreryRing",
   "snakeFire",
   "snakeMaw",
+  "scoutTurnLeft",
+  "scoutTurnRight",
+  "scoutBurn",
+  "scoutMaw",
 ];
-
-/** The command a press sends where its own name is the button's rather than
- * the command's. `mawTake` is the ship's own `intake` under another thumb, and
- * `crank` is a `drag` on the drum (`content/src/control-command.ts`). */
-const COMMAND_OF: Record<string, string> = { mawTake: "intake", crank: "drag" };
-
-/**
- * Which seats this wave's own panel gives this press, or `null` where no
- * control on it sends the command at all.
- *
- * `null` is not "refused": a press can be perfectly good on a panel that has
- * no button for it — every `--hold` and every frame test sends commands no
- * thumb could reach — and the four in `OFF_PANEL_SEAT` are exactly that case.
- * What this answers is the narrower question the old table got wrong: *when a
- * button for this does exist on the panel being photographed, whose is it?*
- */
-function seatsOnPanel(kind: string, wave: number): (1 | 2)[] | null {
-  const want = COMMAND_OF[kind] ?? kind;
-  const seats = new Set<1 | 2>();
-  for (const id of controlSetForWave(wave).controls) {
-    if (controlPress(id).down.kind !== want) continue;
-    const def = CONTROLS.find((c) => c.id === id);
-    if (def) seats.add(def.player);
-  }
-  return seats.size === 0 ? null : [...seats];
-}
-
-/** The fixed seat of an off-panel press, as the one-entry list the check
- * wants, or `null` for one either seat may send. */
-function whoseSeat(kind: string): (1 | 2)[] | null {
-  const seat = OFF_PANEL_SEAT[kind];
-  return seat === undefined || seat === "either" ? null : [seat];
-}
 
 export const PICKS: Record<string, "first" | "lowest"> = { first: "first", lowest: "lowest" };
 
@@ -222,14 +157,7 @@ function parseOnePress(one: string, whole: string, wave: number): PressSpec[] {
       `--press ${whole}: "${one}" — unknown control. One of ${PRESS_KINDS.join(", ")}`,
     );
   }
-  const seats = seatsOnPanel(kind, wave) ?? whoseSeat(kind);
-  if (seats !== null && !seats.includes(player)) {
-    throw new Error(
-      `--press ${whole}: "${one}" — on this wave's panel ${kind} is player ${seats.join(" or ")}'s, ` +
-        "and a press from the other seat is one nobody sent, so the frame would come back with " +
-        "nothing in it and no error anywhere",
-    );
-  }
+  refuseWrongSeat(kind, player, wave, one, whole);
   // The two controls that are a stream rather than a command, and the only
   // place this function answers with more than one press. Both are turned and
   // both say a *bearing*; what a turn of one is worth is the mechanism's, and
@@ -239,6 +167,10 @@ function parseOnePress(one: string, whole: string, wave: number): PressSpec[] {
   if (kind === "orreryRing") {
     return ringPresses(tick, player, parseOrgans(argument, one, whole));
   }
+  // The pilot's three on THE SCOUT, which are a thumb down and a thumb up and
+  // so are two commands from one press (`scout-press.ts`). Her tap is not one
+  // of them and falls through with the rest.
+  if (isScoutHeld(kind)) return scoutPresses(tick, player, kind, argument, one, whole);
   const pick =
     (kind === "grip" || kind === "tap") && argument !== undefined ? PICKS[argument] : undefined;
   // The id is filled in by the page, so the command carries a placeholder here

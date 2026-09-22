@@ -2222,6 +2222,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/entry-fields-rock.ts` | **A rock's two numbers**: how fast it falls and how wide it arrives |
 | `tools/frames/exec.ts` | The three things every part of this tool needs before it can do anything: where the checkout is |
 | `tools/frames/scratch.ts` | The throwaway checkouts `bun run frames` works out of: made, used, and — the part that was missing |
+| `tools/frames/scout-press.ts` | **THE SCOUT's flying, written on the press line** — the pilot's three held verbs, and one recorded flight that works |
 | `tools/land/crlf.ts` | The line endings on disk, asked before `bun run check` is asked anything |
 | `tools/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
 | `tools/running.ts` | Where a server that took an OS-assigned port writes the number down |
@@ -2416,6 +2417,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/press-column.ts` | what a column in `--press` points at, said before the capture |
 | `tools/frames/press-spec.ts` | **What a caller sends into the page**, as opposed to what it asks the page for |
 | `tools/frames/press-standing.ts` | what the wave sends into a pressed column, and whether any of it is above the hull on that beat |
+| `tools/frames/press-seats.ts` | whose thumb a `--press` claims to be, asked of the panel being photographed rather than of a table here |
 | `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
 | `tools/hooks/after-compact.ts` | What a session is told the moment its conversation has been compacted |
 | `tools/hooks/after-edit-size.ts` | One line on the edit that takes a file within 88% of the line ceiling, so the seam is chosen before the check goes red |

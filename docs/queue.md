@@ -297,34 +297,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 `tools/queue/test/needs.test.ts` holds the wait.
 
-## `--press` knows no scout verb, so THE SCOUT's two rings cannot be photographed
-
-- **Found:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni
-- **Taken:** 2026-09-22, claude/queue-three-bosses-still-draw-a-dim-ring-that-punches (claim: claude/queue-press-knows-no-scout-verb-so-the-scouts-two-ring)
-- **Files:** `tools/frames/press-command.ts`, `tools/frames/hold-targets.ts`, `tools/frames/boss-install.ts`
-
-Both of THE SCOUT's rings are gated on what the ship is **carrying**:
-`scoutLineGrippable` wants it past `scoutLadenMotes` and `scoutPrimeGrippable`
-past `scoutHeavyMotes` (`sim/scout-hand.ts`). A wave left to itself carries
-nothing — a probe of `theScout` stepped 1600 ticks with `carrying` at 0
-throughout — because the ship is flown by hand, with `scoutTurn`, `scoutBurn`
-and `scoutMaw` (`sim/scout-round.ts`), and `--press` knows none of the three.
-`--hold` knows no scout handle either, and it would not help: a thumb on a ring
-that is not offered is not a ring. `--boss-json` cannot reach it either,
-because `carrying` is a list and `installBoss` takes a list of **the same
-length**, which for an empty one is only the empty one.
-
-So there is no way to stand a frame of that round with either ring in it, and
-the lane that went looking for one spent its time finding that out. The same
-gap stands over THE SNAKE, THE TASTER and THE VANE's handles, none of which
-`--hold` names.
-
-Either is a fix: teach `--press` the three scout verbs, which is the smaller
-change and leaves the flying to the capture; or let `--boss-json` **grow** a
-list of numbers, which is the general one and wants the argument in
-`boss-install.ts`' header answered — a shorter list draws a boss with fewer
-sockets than the simulation has, and a longer one is a different claim.
-
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
@@ -2164,6 +2136,7 @@ to make, not a lane's.
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-5780141b-the-picture-of-a-carried
 - **Files:** `tools/frames/boss-install.ts`, `tools/frames/boss.ts`, `tools/frames/test/boss-flag.test.ts`
+- **Asks:** May a boss's list field be written at a length the simulation did not stand it up with?
 - **Where:** local
 
 `boss-install.ts` refuses a list whose length differs from the field's: *that
@@ -2185,6 +2158,19 @@ the seam's column in the colour it is showing. So no frame of the pilot's ring
 on a return could be posed at all, and the handles lane took it by firing —
 `--boss seam=2 --press 300:1:cannonCol=6 --press 306:2:fire=cyan`, with the
 seam's column worked out in a probe first (22 September 2026).
+
+THE SCOUT's `carrying` is the third, and the one that shows what the rule
+costs. It starts empty and grows a mote at a time as the ship is flown, and
+both of that round's handles are gated on how many are aboard — laden past
+`scoutLadenMotes`, heavy past `scoutHeavyMotes`. So the only length the flag
+will write is the one where neither ring exists. The lane that wanted those
+two pictures took the other road instead (*`--press` knows no scout verb*, 22
+September 2026): `--press` learned the pilot's three, and a flight recorded
+off a headless autopilot now puts four motes aboard and photographs the laden
+ring. It works, and it costs minutes of a lane per picture, and it only
+reaches states a flight can reach — the heavy ring needs five motes, which
+only the second arena has, and that arena is what *THE SCOUT's second arena
+leaves the scout nowhere to stop* is about. So it is unphotographed today.
 
 What to decide: whether the length check is right for every list or only for
 the fixed-width ones. A field whose length the simulation varies is not a
@@ -2433,3 +2419,29 @@ knows to copy from. Either ends the rule that a second candidate in a slot pays
 for the first one's geometry again. Until then every slot with more than one
 candidate carries the same duplication, and a fix to one copy is a fix to one
 copy.
+
+## `--press` with `--frames` refuses a press the filmstrip would have caught
+
+- **Found:** 2026-09-22, claude/queue-press-knows-no-scout-verb-so-the-scouts-two-ring
+- **Files:** `tools/frames/flags.ts`, `tools/frames/spec.ts`, `tools/frames/test/flags.test.ts`
+
+The guard in `flags.ts` that refuses a press landing after the picture compares
+each press's tick against `spec.ticks` alone. With `--frames` and `--stride`
+the run does not stop at `ticks`: it takes `frames` pictures `strideTicks`
+apart, so the last one is at `ticks + (frames - 1) * strideTicks`. A press
+inside that span is refused with a message naming a number the run never
+stopped at:
+
+    --ticks 400 --frames 8 --stride 120 --press 300:1:scoutTurnLeft=6,900:1:scoutBurn=10
+    --press: a press at tick 900 is after --ticks 400, so the picture is taken
+    before it lands. Raise --ticks, or move the press earlier
+
+The last frame there is tick 1240 and the press at 900 is four frames inside
+it. The lane that hit this wanted a filmstrip of THE SCOUT's flight — the one
+capture a press line most wants, because a flight is a thing you watch go
+wrong somewhere — and photographed six separate single frames with the press
+line hand-truncated for each instead.
+
+The fix is the last frame's tick rather than `spec.ticks`, in both branches of
+the message, and the same arithmetic `capture.ts` already does to know when to
+stop. `--until` is the other half: there the cap is already the right number.

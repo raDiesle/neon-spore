@@ -43,9 +43,10 @@ import { bossOf } from "./touch-field.js";
  * `scoutLadenMotes`. His stands off the stern in empty air and never cost
  * anything; it is dimmed on her screen by the same line and now fills nothing
  * there either. `render/test/handle-hole-rulings.test.ts` counts the discs,
- * which is a thing that can be done here although no *photograph* can: the
- * round cannot be flown from `bun run frames` for want of a verb, and the
- * count does not need one.
+ * which is a thing that can be done without flying the round at all. It could
+ * not be *photographed* for want of a verb — `--press` knew none of the
+ * pilot's three — and it can be now: `tools/frames/scout-press.ts` carries the
+ * flight that puts four motes aboard and takes her ring's picture.
  *
  * **The prime's dial is the window it bought.** `scoutPrimeTicks` is the whole
  * of what the gesture is for, and a pilot who cannot see it running out is a

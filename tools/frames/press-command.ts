@@ -113,8 +113,11 @@ export function commandFor(
       }
       return { kind: "intake" };
     default: {
-      // `guard`, `intake`, `salvo`, `reach`, `latch` and `launch`: a press with
-      // nothing to say about itself.
+      // `guard`, `intake`, `salvo`, `reach`, `latch`, `launch`, SNAKE's two
+      // and THE SCOUT's `scoutMaw`: a press with nothing to say about itself.
+      // Her tap is a moment rather than a hold — the mouth stands open for
+      // `scoutMawTicks` by itself — which is why the pilot's three are next
+      // door in `scout-press.ts` and this one is here.
       if (argument !== undefined) {
         throw new Error(`--press ${whole}: "${one}" — ${kind} takes no value`);
       }
