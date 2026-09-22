@@ -518,6 +518,7 @@ question that prompted this one.
 ## The skill's own claim step cannot be run from a worktree
 
 - **Found:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its
+- **Taken:** 2026-09-22, claude/queue-five-files-a-choreographed-boss-must-touch-are-w (claim: claude/queue-the-skills-own-claim-step-cannot-be-run-from-a-w)
 - **Files:** `.claude/skills/new-boss/SKILL.md`, `docs/spec/bosses-choreographed.md`
 - **Where:** local
 
