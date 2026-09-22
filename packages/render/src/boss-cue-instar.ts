@@ -2,6 +2,7 @@ import { instarActing, instarMarkDone, instarStep, type World } from "@neon-spor
 import type { BossCue } from "./boss-cue.js";
 import { INSTAR_WORDS } from "./instar-marks.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
+import { instarSway } from "./instar-sway.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -44,11 +45,16 @@ export function instarCues(l: Layout, world: World): readonly BossCue[] {
   const step = instarStep(boss);
   if (step === null) return [];
   const r = instarMarkRadius(l, world.cfg);
+  // The swing at the top of the beat, because a cue is read off a `World` and
+  // a world carries no sub-beat. That is within one beat of where the ring is
+  // drawn, and this is the cue *key* — what to say and roughly where — rather
+  // than the ring itself (`instar-sway.ts`).
+  const sway = instarSway(boss, world.cfg, world.beat, 0);
   const out: BossCue[] = [];
   step.marks.forEach((mark, id) => {
     if (instarMarkDone(boss, id)) return;
     const { kind, word } = INSTAR_WORDS[mark.gesture];
-    const at = instarMarkPoint(l, mark);
+    const at = instarMarkPoint(l, mark, sway);
     const seats: readonly (1 | 2)[] =
       mark.seat === "both" ? [1, 2] : mark.seat === "p1" ? [1] : [2];
     for (const seat of seats)

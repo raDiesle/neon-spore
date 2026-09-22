@@ -9,11 +9,11 @@ import {
   type Figure,
   instarAt,
   instarFade,
-  instarFigure,
   instarLen,
   instarMorphAt,
   type Point,
 } from "./instar-shape.js";
+import { instarBody } from "./instar-sway.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -53,7 +53,7 @@ export function drawInstar(
   const cfg = world.cfg;
   const fade = instarFade(s, cfg, beat, beatPhase);
   if (fade <= 0) return;
-  const f = instarFigure(s, beat, beatPhase);
+  const { f, sway } = instarBody(s, cfg, beat, beatPhase);
   const morph = instarMorphAt(s, beat, beatPhase);
   const head = instarAt(l, f.headX, f.headY);
   const r = instarLen(l, f.headR);
@@ -66,7 +66,7 @@ export function drawInstar(
   drawEyes(ctx, f, head, r, time, fade);
   drawInstarLimbs(ctx, l, f, head, r, shoulders, time, fade);
   ctx.restore();
-  fx.place(l, s);
+  fx.place(l, s, sway);
   drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role);
 }
 

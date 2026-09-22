@@ -1328,8 +1328,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/instar-glyphs.ts` | **The gesture, drawn inside the ring** — one glyph per member of `INSTAR_GESTURES` |
 | `packages/render/src/instar-limbs.ts` | **What THE INSTAR holds and grows**, pose by pose: the two arms and their clawed hands |
 | `packages/render/src/instar-marks.ts` | **THE INSTAR's marks: the only control on the screen.** A red ring on the part the script wants moved |
+| `packages/render/src/instar-mark-grip.ts` | THE INSTAR's marks under a thumb — the hit test alone |
 | `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the body as it enters, the five the script names |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head, the jaws, the two hands and what they hold |
+| `packages/render/src/instar-sway.ts` | **THE INSTAR swings**, and everything of it swings together |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
 | `packages/render/src/instar-call.ts` | **The step's own call**: which seat the pose is waiting on, and how many beats it has left |

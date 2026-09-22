@@ -11,7 +11,7 @@ import { gaugeGripUnder } from "./gauge-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { hiveLobeUnder } from "./hive-grip.js";
-import { instarMarkUnder } from "./instar-marks.js";
+import { instarMarkUnder } from "./instar-mark-grip.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { leadStalkUnder } from "./lead-grip.js";
 import { ledgerGripUnder } from "./ledger-grip.js";

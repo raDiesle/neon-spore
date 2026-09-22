@@ -2,7 +2,8 @@ import type { SimConfig } from "@neon-spore/sim";
 import { beatSeconds, gripsCreature, instarBoss, MILLI, type World } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
-import { instarAt, instarFigure, instarLen } from "./instar-shape.js";
+import { instarAt, instarLen } from "./instar-shape.js";
+import { instarBody } from "./instar-sway.js";
 import { type Layout, tileCX } from "./layout.js";
 import type { SlowWindow } from "./slow-look.js";
 
@@ -90,7 +91,7 @@ export interface Aim {
 export function aim(world: World, l: Layout, beat: number, beatPhase: number): Aim {
   const instar = instarBoss(world);
   if (instar !== null) {
-    const f = instarFigure(instar, beat, beatPhase);
+    const { f } = instarBody(instar, world.cfg, beat, beatPhase);
     const { x, y } = instarAt(l, f.headX, f.headY);
     // Where the chain leaves the field, which is the far end of the body. The
     // two numbers mirror `drawSegments` in `instar-draw.ts`, which is private

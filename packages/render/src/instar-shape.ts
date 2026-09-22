@@ -165,9 +165,22 @@ export function instarLen(l: Layout, milli: number): number {
   return (milli * l.gridWidth) / 1000;
 }
 
-/** Where a mark sits, in pixels. */
-export function instarMarkPoint(l: Layout, mark: InstarMark): Point {
-  return instarAt(l, mark.xMilli, mark.yMilli);
+/**
+ * Where a mark sits, in pixels — the script's own place for it, carried by
+ * the frame's swing (`instar-sway.ts`).
+ *
+ * **The offset is asked for and never defaulted.** A caller that forgot it
+ * would draw a ring where the body used to hang, or find a thumb on one, and
+ * both failures are quiet: the ring is still a ring and the press is still a
+ * press. Naming the two numbers at every call site is what makes a caller
+ * that has not asked where the body swung to this frame say so out loud.
+ */
+export function instarMarkPoint(
+  l: Layout,
+  mark: InstarMark,
+  sway: { xMilli: number; yMilli: number },
+): Point {
+  return instarAt(l, mark.xMilli + sway.xMilli, mark.yMilli + sway.yMilli);
 }
 
 /** A mark's radius in pixels: the handle's, the one size a thumb is asked for. */

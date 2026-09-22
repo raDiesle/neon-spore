@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — instar-body-travels — a body that moves, so the slow has something to slow
+
+- reading — 15 min. Where THE INSTAR's figure is asked for, and by whom: the
+  drawer, the marks, the cue, the intake light and — the one that decides the
+  shape of the change — the hit test, which lives in `render/` and not in
+  `sim/`, so the whole swing is a render displacement with no world field, no
+  `hashWorld` row and no `Effects` state.
+- writing — 30 min. `instar-sway.ts`, the offset threaded through the five
+  callers, `instarMarkPoint` made to require it, and six tests: the travel's
+  size, the marks moving exactly as far as the head, a thumb taking a ring at
+  its swung place and finding nothing where the body used to hang, the swing
+  reading the same across a beat boundary, and a beaten body stilling.
+- looking — 15 min. Three `bun run frames` of the same wave a beat apart: the
+  body right of centre, crossing, and out at the far left with the chain
+  leaning after it and nothing clipping the frame.
+- friction — 10 min. Three rules caught the diff one at a time rather than at
+  once — `instar-marks.ts` at 251 lines, a drawing test with no stated
+  timeout, `docs/INDEX.md` with no row — each a separate red run of
+  `check:fast` at a minute apiece.
+- landing — 10 min. `check:fast` green on the fourth run.
+
+The bottleneck was the serial rules: the file-length limit, the timeout rule
+and the index are three checks in three shards, and each one only speaks after
+the previous is fixed, so a diff that breaks all three costs three full runs.
+
 ## 2026-09-22 — choreographed-window-doubled — twice the window, and a need to match
 
 - reading — 15 min. `instar-script.ts`'s five steps and the six gestures'

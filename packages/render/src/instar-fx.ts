@@ -1,6 +1,7 @@
 import { type InstarState, instarStep, type SimEvent } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import { instarAt, instarMarkPoint, type Point } from "./instar-shape.js";
+import type { Sway } from "./instar-sway.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -46,11 +47,15 @@ export class InstarFx {
     return this.flinchNow;
   }
 
-  /** Told by the drawer where the marks and the head are this frame. */
-  place(l: Layout, s: InstarState): void {
+  /**
+   * Told by the drawer where the marks and the head are this frame, swing
+   * included — a burst thrown at a mark the body has swung away from lands
+   * on empty field (`instar-sway.ts`).
+   */
+  place(l: Layout, s: InstarState, sway: Sway): void {
     const step = instarStep(s);
-    this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m));
-    this.head = instarAt(l, 500, 300);
+    this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway));
+    this.head = instarAt(l, 500 + sway.xMilli, 300 + sway.yMilli);
   }
 
   ingest(

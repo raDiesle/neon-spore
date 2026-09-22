@@ -7,7 +7,6 @@ import {
   instarMarkDone,
   instarStep,
   instarStrikeBeat,
-  NO_BEARING,
   type SimConfig,
 } from "@neon-spore/sim";
 import type { CueKind } from "./boss-cue.js";
@@ -15,6 +14,7 @@ import { strokeGlow } from "./glow.js";
 import { drawInstarCall } from "./instar-call.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
+import { instarSway } from "./instar-sway.js";
 import {
   drawInstarDone,
   drawInstarWindow,
@@ -22,10 +22,8 @@ import {
   instarTogetherLeft,
 } from "./instar-together.js";
 import { drawInstarWord } from "./instar-word.js";
-import { hitCircle, type Layout, type ViewRole } from "./layout.js";
+import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import type { Field, Touch } from "./touch.js";
-import { bossOf } from "./touch-field.js";
 import { instarMarkIsMine } from "./view-role-clocks-b.js";
 
 /**
@@ -103,11 +101,12 @@ export function drawInstarMarks(
   const step = instarStep(s);
   if (step === null) return;
   const r = instarMarkRadius(l, cfg);
+  const sway = instarSway(s, cfg, beat, beatPhase);
   if (s.phase === "morph") {
     if (morph < ANTICIPATE_FROM) return;
     const glow = ((morph - ANTICIPATE_FROM) / (1 - ANTICIPATE_FROM)) * 0.5;
     for (const mark of step.marks) {
-      const at = instarMarkPoint(l, mark);
+      const at = instarMarkPoint(l, mark, sway);
       const p = new Path2D(circleSubpath(at.x, at.y, r * (1.6 - 0.6 * glow)));
       strokeGlow(ctx, p, PALETTE.red, STROKE.inner, glow);
     }
@@ -120,7 +119,7 @@ export function drawInstarMarks(
   );
   const awaited = instarAwaited(s, cfg, beat, beatPhase);
   step.marks.forEach((mark, i) => {
-    const at = instarMarkPoint(l, mark);
+    const at = instarMarkPoint(l, mark, sway);
     const mine = instarMarkIsMine(role, mark.seat);
     // Beside the ring, clear of the window ring at its widest, away from the middle.
     const side = mark.xMilli < 500 ? -1 : 1;
@@ -199,50 +198,4 @@ function drawRing(
   ctx.arc(x, y, r * 1.55, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * along);
   ctx.stroke();
   ctx.restore();
-}
-
-/**
- * A press on one of the marks while they are up: the nearest ring under the
- * thumb, as a `drag` on `instarMark` with `id` naming which. A `turn` mark's
- * hold keeps the *mark's centre* as its origin and is flagged `turns`, so
- * every move after it reports a bearing round the ring rather than a carry
- * (`touch-drag.ts` `turnAbout`) — THE CLAW's crank, on the field.
- */
-export function instarMarkUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const s = bossOf(field, "instar");
-  if (s === null || !instarActing(s)) return null;
-  const step = instarStep(s);
-  if (step === null) return null;
-  const r = instarMarkRadius(l, field.cfg);
-  let best: { id: number; mark: InstarMark; d: number } | null = null;
-  step.marks.forEach((mark, id) => {
-    const at = instarMarkPoint(l, mark);
-    if (!hitCircle({ x: at.x, y: at.y, r }, x, y)) return;
-    const d = (x - at.x) ** 2 + (y - at.y) ** 2;
-    if (best === null || d < best.d) best = { id, mark, d };
-  });
-  if (best === null) return null;
-  const { id, mark } = best as { id: number; mark: InstarMark };
-  const turns = mark.gesture === "turn";
-  const at = instarMarkPoint(l, mark);
-  return {
-    player: field.seat,
-    command: {
-      kind: "drag",
-      target: "instarMark",
-      on: true,
-      fromMilli: turns ? NO_BEARING : 0,
-      fromYMilli: 0,
-      id,
-    },
-    hold: {
-      kind: "drag",
-      target: "instarMark",
-      player: field.seat,
-      originX: turns ? at.x : x,
-      originY: turns ? at.y : y,
-      id,
-      ...(turns ? { turns: true as const } : {}),
-    },
-  };
 }
