@@ -1502,6 +1502,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |
 | `packages/render/src/body-bloom.ts` | THE SLICK's interior — a nucleus that sends something out along its veins |
+| `packages/render/src/body-burst.ts` | **A body bursting on the plating it just reached**, like a balloon full of water, in the colour it was wearing |
 | `packages/render/src/body-spores.ts` | THE BULB's interior — the body is full, and it is a spore case |
 | `packages/render/src/body-strike.ts` | A body on the beat it is struck, drawn where it stood after it is gone |
 | `packages/render/src/body-hit.ts` | What happens to a living body **when a shot lands on it** |

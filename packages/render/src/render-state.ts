@@ -1,4 +1,5 @@
 import type { SimEvent, World } from "@neon-spore/sim";
+import { BodyBurst } from "./body-burst.js";
 import { BreachStrike } from "./breach-strike.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import { Effects } from "./effects.js";
@@ -75,6 +76,12 @@ export class RenderState {
    * drawn over the lit rim, and it rides the same `breach` event.
    */
   readonly gumSplash = new GumSplash();
+  /**
+   * And a body bursting on the plating it reached, in its own colour
+   * (`body-burst.ts`). The third answer held here to the same `breach` event,
+   * for the same reason as the two above: it is drawn on the finished ship.
+   */
+  readonly bodyBurst = new BodyBurst();
   /**
    * And the pieces of wall a bolt knocks out of one (`fence-shards.ts`). Held
    * here rather than in `Effects` for that file's line count alone — these are
@@ -169,6 +176,8 @@ export class RenderState {
     this.breachStrike.update(dt, (col, beat) => this.effects.arrivals.has(col, beat));
     this.gumSplash.ingest(events);
     this.gumSplash.update(dt);
+    this.bodyBurst.ingest(events);
+    this.bodyBurst.update(dt);
     this.fenceShards.ingest(events, l);
     this.fenceShards.update(dt, l);
     this.lanceFlash.ingest(events);
@@ -198,6 +207,7 @@ export class RenderState {
     this.fenceStrike.clear();
     this.breachStrike.clear();
     this.gumSplash.clear();
+    this.bodyBurst.clear();
     this.fenceShards.clear();
     this.lanceFlash.clear();
   }

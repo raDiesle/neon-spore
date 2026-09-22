@@ -16766,3 +16766,25 @@ rest of the writing was making room for two `console.log`s in a file that had
 none, and the file had none because nobody had split it when it was at 240.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — burst-on-contact — a balloon of water, in the body's own colour
+
+- reading — 25 min. What the hull already wore after a hit: the permanent
+  stain off the `Scar`, the gum's smear and ripples, the sparks at the column,
+  and which of the three the owner meant by *already there*.
+- writing — 20 min. `body-burst.ts` — the ring the skin lets go with and
+  twenty-six drops on ballistic arcs, one path for all of them — its five
+  cases, and the stain's three size numbers raised.
+- looking — 25 min. Two strips of the breach at wave 3. The first threw
+  eighteen berries three tiles over the ship; the second is spray.
+- friction — 5 min. A drop's ellipses go on a `Path2D` and the canvas log
+  names those `Path2D.ellipse`, so the first read of the frame found none.
+- landing — 10 min. `imports:sort`, `check:fast`, the picture, the replay.
+
+The bottleneck was **finding out what was already drawn**. Three separate
+pictures answer a breach on the hull and two of them are called a splash; the
+first plan here was to generalise the gum's, and the file it would have been
+renamed to was taken — by the permanent stain, which is the thing the owner
+was pointing at when he said the colour across the hull is already there.
+Twenty minutes of the reading row is `docs/INDEX.md` grep and nothing else,
+and it saved a rename across nine files.

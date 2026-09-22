@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import type { BodyBurst } from "./body-burst.js";
 import type { BreachStrike } from "./breach-strike.js";
 import { drawChokeCoils } from "./choke-hull.js";
 import { drawStuckClingers } from "./cling.js";
@@ -47,6 +48,7 @@ export function drawOnShip(
   held: {
     fenceStrike: FenceStrike;
     gumSplash: GumSplash;
+    bodyBurst: BodyBurst;
     breachStrike: BreachStrike;
     effects: Effects;
   },
@@ -70,6 +72,11 @@ export function drawOnShip(
   // same finished hull: the smear where it landed and the ripples running
   // out from it (`gum-splash.ts`).
   held.gumSplash.draw(ctx, l, surfaceY, view.time);
+  // And a body bursting on the plating it reached: the ring where its skin let
+  // go and the water thrown out of it, in the colour it was wearing
+  // (`body-burst.ts`). Over the hull for the splash's reason, and over the
+  // splash because the drops are in front of the ship rather than on it.
+  held.bodyBurst.draw(ctx, l, surfaceY);
   // And the third answer to the same event, over both of them: the hit that
   // lost the wave, seen happening at the column it came in at. The shipped
   // look draws nothing and this call is the seam a candidate reaches through

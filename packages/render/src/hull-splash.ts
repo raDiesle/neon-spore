@@ -43,15 +43,24 @@ import { tileSeed } from "./tile-seed.js";
  * that is still alive (`scars.ts`).
  */
 
-/** How far along the skin the wash reaches, in tiles, for a one-tile body. */
-const REACH = 2;
+/**
+ * How far along the skin the wash reaches, in tiles, for a one-tile body.
+ *
+ * **Three and not two since 22 September 2026.** The owner, asking for the
+ * body to burst on contact, said of this stain in the same sentence: *which
+ * makes sense to have the colour spread across the hull — already there — but
+ * we can increase the effect to be a bigger splash.* So it is bigger, in the
+ * three numbers that are the size of it: how far the wash runs, how deep it
+ * soaks and how far the spatter is thrown. Nothing about its shape changed.
+ */
+const REACH = 3;
 /** How far into the hull it soaks at the column it landed on, in tiles. */
-const SOAK = 0.6;
+const SOAK = 0.8;
 /** Samples across the wash. Enough that it follows the membrane's curve. */
 const STEPS = 14;
 /** Flung drops, and how far one may travel, in tiles. */
-const DROPS = 13;
-const THROW = 1.5;
+const DROPS = 17;
+const THROW = 2.4;
 /** The stain at its darkest, where it landed, and the drops over it. */
 const WASH = 0.44;
 /** How far the heart of the splash is mixed toward the dark, and how far a
