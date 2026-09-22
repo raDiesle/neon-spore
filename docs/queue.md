@@ -464,6 +464,7 @@ what a phone cannot do is *reach* that strip.
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/test/scene-films.test.ts`
+- **Where:** phone
 
 *THE ORRERY: a shot cracks a ring and the pilot's thumb takes it off* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
 
