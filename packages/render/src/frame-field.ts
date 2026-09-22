@@ -103,7 +103,7 @@ export function drawBodies(
   surfaceY?: SurfaceY,
   /** The same membrane without the cannon on it. A rock lands *in* the
    * plating, where its crater is dug, whichever lobe is over the column
-   * (`rock-landing.ts`); on the surface it stood on the cannon's crown for a
+   * (`landing.ts`); on the surface it stood on the cannon's crown for a
    * beat and then dropped to the hole beneath. */
   skinY?: SurfaceY,
 ): void {

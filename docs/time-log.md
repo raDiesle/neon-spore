@@ -16594,3 +16594,28 @@ the three is a thing `bun run check` can see, and each cost a fifty-second shot
 to find.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — damage-flash-sync-and-wound-together — the body was early, not the flash
+
+- reading — 35 min. The grace beat in `sim/hull.ts`, the strike's waiting list
+  in `breach-strike.ts`, `depth.ts`'s glide, and then `rock-landing.ts`, which
+  turned out to be the answer already written for one kind of body.
+- writing — 25 min. The file renamed and its rule widened to every body, its
+  one call site, the hit test that had to move with the picture, and the test
+  that pairs the rock's radius with the living one.
+- looking — 20 min. A ten-frame strip across the landing beat at wave 3's
+  breach, before and after, and a magnified crop of the four frames that carry
+  the argument.
+- friction — 10 min. A `console.error` in the field pass printed nothing,
+  because `bun run frames` drives a real browser and its console is not this
+  shell's; and `bun run index` wrote the new file's row empty, which is already
+  an entry in the queue.
+- landing — 10 min. `check:fast` twice — the first red on an import order and a
+  stale `INDEX.md` row — the entry out, the replay.
+
+The bottleneck was **measuring the picture instead of believing the report**.
+The owner said the flash was late; the flash has always fired on the `breach`
+tick and the probe said so in a line. What was early was the body — a whole
+tile of plating it slid down through over five eighths of a second before the
+sim resolved it — so the fix was in the glide and not in any clock, and half an
+hour spent proving that is why there was nothing to undo afterwards.

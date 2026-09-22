@@ -1181,7 +1181,6 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
-| `packages/render/src/rock-landing.ts` | Where a rock's last glide ends: half-sunk in the skin, where the crater is, not under the membrane at the hull row's centre |
 | `packages/render/src/rock-wake-fire.ts` | What burns behind a rock: `tongue` and `flame`, the two fire shapes the three meteor looks are built from |
 | `packages/render/src/rock-wake.ts` | What a burning rock leaves behind it — puffs of smoke, chips, threads and the phase that keeps them on the rock — shared by the three meteor looks |
 | `packages/render/src/rock-window.ts` | THE PART OF THE SCREEN A ROCK'S FIRE CAN REACH |
@@ -1472,6 +1471,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-shape.ts` | What falls down each of THE PULSE's four lanes, and what colour it is |
 | `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
+| `packages/render/src/landing.ts` | Where a body's last glide ends: half-sunk in the ship's skin, so the beat it is seen to touch the hull is the beat the hull answers |
 | `packages/render/src/label-box.ts` | The box a guide writes in: a solid ground, a two-pixel edge in the pod's colour, sixteen-point Courier |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |

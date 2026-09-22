@@ -1,5 +1,6 @@
 import { type Creature, DEFAULT_CONFIG, handMeans } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
+import { landingY } from "./landing.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -29,6 +30,16 @@ import type { Layout } from "./layout.js";
  * the only thing that touched it. It is now *dragged* by a handle rather than
  * held, and a handle is a circle rather than a line: `tetherHandleCircle` in
  * `tether.ts` owns that hit test, beside the code that draws it.
+ *
+ * **A landing beat is answered where the body is drawn, on the skin.** The
+ * field pass ends that one glide resting in the plating rather than under the
+ * membrane at the hull row's centre (`landing.ts`), which is three quarters of
+ * a tile higher — further than the reach below, so a thumb laid on the body as
+ * drawn found nothing at all on the last beat it can still be aimed at. The
+ * skin here is `l.hullY`, the flat membrane, and not the lobed one the picture
+ * stands on: this layer is handed a field and never a hull frame
+ * (`touch-field.ts`), and the lobes move the surface by a few pixels against a
+ * reach of most of a tile.
  */
 export function creatureAt(
   l: Layout,
@@ -42,7 +53,8 @@ export function creatureAt(
   let bestDist = Number.POSITIVE_INFINITY;
   for (const c of creatures) {
     if (handMeans(c.kind, player) === null) continue;
-    const { x: cx, y: cy } = flatCenter(l, c, beatPhase);
+    const { x: cx, y: flatY } = flatCenter(l, c, beatPhase);
+    const cy = landingY(l, DEFAULT_CONFIG, c, cx, flatY, beatPhase, () => l.hullY);
     const reach = flatRadius(l, DEFAULT_CONFIG, c, beatPhase) * 1.6;
     const d = Math.hypot(x - cx, y - cy);
     if (d > reach || d >= bestDist) continue;

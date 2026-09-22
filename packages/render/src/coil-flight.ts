@@ -105,7 +105,7 @@ export class CoilFlightFx {
     if (!f) return undefined;
     if (Number.isNaN(f.life)) {
       // First frame: the phase the throw is seen to start on, and the landing
-      // — the rock's own resting depth in the skin (`rock-landing.ts`).
+      // — the rock's own resting depth in the skin (`landing.ts`).
       const tau = f.age / f.beatSeconds;
       const phase0 = (((beats - tau) % 1) + 1) % 1;
       f.life = Math.max(0.001, (1 - phase0) * f.beatSeconds);

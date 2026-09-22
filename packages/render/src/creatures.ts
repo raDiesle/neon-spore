@@ -8,10 +8,10 @@ import { DART_LOOK } from "./dart-look.js";
 import { byDepth, depthScale, drawnRow, glidePhase, nearness } from "./depth.js";
 import { mountPlace } from "./gyre-place.js";
 import type { SurfaceY } from "./hull-frame.js";
+import { landingY } from "./landing.js";
 import type { Layout } from "./layout.js";
 import { drawLidCords } from "./lid-string.js";
 import type { RecoilLeapFx } from "./recoil-leap.js";
-import { rockLandingY } from "./rock-landing.js";
 import { drawWeightPress } from "./weight.js";
 import { showsWisp } from "./wisp.js";
 import { drawWispGround } from "./wisp-ground.js";
@@ -39,8 +39,8 @@ export function drawCreatures(
   time: number,
   blocked: ReadonlyMap<number, number>,
   claspImage: CanvasImageSource | null = null,
-  /** The ship's plating, for the one glide that ends *in* it: a rock's last
-   * one (`rock-landing.ts`). Absent, a rock lands on its row's centre. */
+  /** The ship's plating, for the glides that end *in* it: every body's last
+   * one (`landing.ts`). Absent, a body lands on its row's centre. */
   skinY?: SurfaceY,
   /** THE RECOIL's throw: where a struck recoil is drawn for the beat after
    * the hit, and how far its colour has turned (`recoil-leap.ts`). Absent,
@@ -114,9 +114,11 @@ export function drawCreatures(
       flown ??
       (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, world, c, glide));
     const x = placed.x;
-    // A rock's landing beat ends half-sunk in the skin, where `RockImpactFx`
-    // takes it over, and not under the membrane at the hull row's centre.
-    const y = onRim || flown ? placed.y : rockLandingY(l, c, x, placed.y, glide, skinY);
+    // A landing beat ends half-sunk in the skin and not under the membrane at
+    // the hull row's centre: a rock so that `RockImpactFx` takes it over where
+    // it stands, everything else so that the beat it is seen to touch the ship
+    // is the beat the ship answers (`landing.ts`).
+    const y = onRim || flown ? placed.y : landingY(l, world.cfg, c, x, placed.y, glide, skinY);
     const row = onRim ? onRim.row : flown ? flown.row : leap ? leap.row : drawnRow(c, glide);
     const turn = leap ? leap.turn : recoilTurn(c, beatPhase);
     const near = nearness(l, row);

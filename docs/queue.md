@@ -2367,3 +2367,27 @@ Find what the single process is holding on to — the canvas stub's globals are
 installed per file and the harness is evaluated once — and either free it or
 give the frame files a cap that survives a loaded machine. Whichever it is,
 `bun test` whole has to be a command whose red means something.
+
+## The touch layer guesses the ship's skin, because a `Field` cannot see the hull
+
+- **Found:** 2026-09-22, claude/damage-flash-sync-and-wound-together
+- **Files:** `packages/render/src/creature-under.ts`, `packages/render/src/touch-field.ts`, `packages/render/src/landing.ts`, `packages/render/test/touch.test.ts`
+
+A body's landing beat now ends resting in the plating rather than under the
+membrane at the hull row's centre (`landing.ts`), and the picture asks the
+*lobed* membrane for that rest: `skinSampler` over the frame `canvas2d.ts`
+builds, so a body lands on whatever swelling stands over its column. The hit
+test has no such frame — `Field` is a shape, deliberately without a world or a
+hull — so `creatureAt` passes `() => l.hullY`, the flat baseline, and answers a
+landing body a lobe's height away from where it is drawn. Under the cannon's
+crown that is the largest the disagreement gets, and the crown is exactly the
+column a pair is most often aiming at.
+
+The work is a `skinY` on `Field`, required and stated the way every field on
+that interface is, written at the one place the field is built (`input.ts`) from
+the sampler `canvas2d.ts` already makes, and threaded to `creatureAt` in place
+of the guess. It is not two lines: every `Field` literal in the render tests
+takes a new member, which is what makes it a sitting of its own rather than a
+paragraph in the lane that found it. The proof is a test that puts a slick on
+the hull row under a raised lobe and asserts the thumb finds it at the pixel the
+field pass draws it at.

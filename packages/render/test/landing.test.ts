@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Creature, DEFAULT_CONFIG, hullRow } from "@neon-spore/sim";
+import { flatRadius } from "../src/creature-place.js";
+import { landingY } from "../src/landing.js";
 import { computeLayout, tileCY } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
-import { rockLandingY } from "../src/rock-landing.js";
 import { rockRadius } from "../src/rock-size.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -18,6 +19,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * beat; and the crater stayed shut under the stuck rock until it lifted off.
  * The rock now lands half-sunk in the skin, where `RockImpactFx` picks it up
  * without moving it, and the hole is open from the frame the rock arrives.
+ *
+ * His report of 22 September 2026 is the same defect seen from the living
+ * bodies' side — *the first animation of red colour on the hull and the
+ * electric wave is happening not in the exact moment the enemy damages the
+ * ship* — so the rule stopped being the rock's. The last two cases below are
+ * the pair: a rock rests by `rockRadius`, which `RockImpactFx` has to match to
+ * the pixel, and everything else by the size it is drawn at.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -31,7 +39,7 @@ function rock(kind: Creature["kind"], row: number, fromRow: number): Creature {
   return { id: 1, kind, col: 3, row, fromRow, color: null } as unknown as Creature;
 }
 
-describe("a rock's landing beat", () => {
+describe("a landing beat", () => {
   const skin = () => L.hullY;
   const rest = L.hullY - rockRadius(L, 1) * 0.5;
 
@@ -40,12 +48,12 @@ describe("a rock's landing beat", () => {
     // The centre of the ship's row is below the skin — that is the whole bug.
     expect(tileCY(L, HULL)).toBeGreaterThan(L.hullY);
     const x = 400;
-    const start = rockLandingY(L, c, x, tileCY(L, HULL - 1), 0, skin);
-    const end = rockLandingY(L, c, x, tileCY(L, HULL), 1, skin);
+    const start = landingY(L, CFG, c, x, tileCY(L, HULL - 1), 0, skin);
+    const end = landingY(L, CFG, c, x, tileCY(L, HULL), 1, skin);
     expect(start).toBeCloseTo(tileCY(L, HULL - 1), 5);
     expect(end).toBeCloseTo(rest, 5);
     // And it is one even glide between the two, not a stop at the skin.
-    const mid = rockLandingY(L, c, x, 0, 0.5, skin);
+    const mid = landingY(L, CFG, c, x, 0, 0.5, skin);
     expect(mid).toBeCloseTo((start + end) / 2, 5);
   });
 
@@ -86,9 +94,17 @@ describe("a rock's landing beat", () => {
   it("leaves every higher row's glide alone", () => {
     const c = rock("meteorFastest", HULL - 2, HULL - 5);
     const y = tileCY(L, HULL - 3);
-    expect(rockLandingY(L, c, 400, y, 0.4, skin)).toBe(y);
-    // And a body that is not a rock, even on the hull row.
+    expect(landingY(L, CFG, c, 400, y, 0.4, skin)).toBe(y);
+  });
+
+  it("rests a living body on the skin too, by the size it is drawn at", () => {
     const slick = rock("slick", HULL, HULL - 1);
-    expect(rockLandingY(L, slick, 400, tileCY(L, HULL), 1, skin)).toBe(tileCY(L, HULL));
+    const end = landingY(L, CFG, slick, 400, tileCY(L, HULL), 1, skin);
+    // Its own radius, grown by the hull row's perspective (`depth.ts`) — not
+    // the rock's, which is a different number on the same row.
+    expect(end).toBeCloseTo(L.hullY - flatRadius(L, CFG, slick, 1) * 0.5, 5);
+    // And that is the whole of the complaint: a tile of the ship's plating it
+    // used to disappear behind before the hull flashed.
+    expect(tileCY(L, HULL) - end).toBeGreaterThan(L.tile * 0.6);
   });
 });

@@ -134,7 +134,7 @@ describe("RockImpactFx deflect arrival target", () => {
     // the rock the player is looking at — a jump, not a deflection — so the
     // arrival never rises above where the replay began. Where it began is
     // where the field pass left the rock: half-sunk in the skin, which is
-    // above the hull row's centre (`rock-landing.ts`), never under the
+    // above the hull row's centre (`landing.ts`), never under the
     // membrane.
     const fx = new RockImpactFx();
     const { ctx } = stubCanvas();

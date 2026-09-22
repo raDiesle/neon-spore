@@ -18,7 +18,7 @@ import { rockRadius } from "./rock-size.js";
  *
  * The gap is real for anything still in the air. A rock's sparks and crack
  * wait for `rock-impact.ts` to bring it down — and when the rock has already
- * been drawn landing in the skin (`rock-landing.ts`), that wait is one frame
+ * been drawn landing in the skin (`landing.ts`), that wait is one frame
  * and the hole, the sparks and the crack all show as it is seen in it; a
  * living creature falls one tile a beat, is already at the hull when the
  * event arrives, and fires now.

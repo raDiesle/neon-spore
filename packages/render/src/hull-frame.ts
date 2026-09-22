@@ -218,7 +218,7 @@ export function surfaceSampler(f: HullFrame): SurfaceY {
 
 /** The same sampler off the plating alone — for what lands *in* the skin
  * rather than walks on it: a rock's crater is dug there whichever lobe stands
- * over the column (`rock-landing.ts`, `rock-impact.ts`'s `skinAt`). */
+ * over the column (`landing.ts`, `rock-impact.ts`'s `skinAt`). */
 export function skinSampler(f: HullFrame): SurfaceY {
   return (x) => skin(f, x).y;
 }

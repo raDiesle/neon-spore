@@ -22,7 +22,7 @@ export interface Impact {
   /** Screen y the replayed last fall step starts from — the sim's own
    * `fromRow` the beat the miss happened, the exact row render/ last drew
    * this creature at; never below where it would rest in the skin, because
-   * the field pass never draws a rock lower than that (`rock-landing.ts`).
+   * the field pass never draws a rock lower than that (`landing.ts`).
    * Settled on the first `draw` frame, where the skin's height is known. */
   y0: number;
   /** px/s — the same speed every earlier beat of the fall had. */

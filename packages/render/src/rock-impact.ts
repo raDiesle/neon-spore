@@ -122,7 +122,7 @@ export class RockImpactFx {
       // Where the field pass left it. A rock that has already landed — the
       // sim breaks the hull on the beat *after* the one it is drawn coming
       // down (`sim/hull.ts`) — is standing in the skin, not on its row's
-      // centre under the membrane (`rock-landing.ts`), and its replay is
+      // centre under the membrane (`landing.ts`), and its replay is
       // then no fall at all: it is stuck from the first frame, and the hole,
       // the sparks and the crack all show on that frame.
       im.y0 = Math.min(im.y0, stuckY);
