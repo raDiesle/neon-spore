@@ -22,6 +22,39 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-gimbals-picture-has-never-been-drawn — the body, lane two of two
+
+- reading — 45 min. §11.34 and §18 in full, then the whole simulation side
+  — `gimbal.ts`, `gimbal-step.ts`, `gimbal-hand.ts`, `config-gimbal.ts`,
+  `events-gimbal.ts`, `gimbal-script.ts` — to learn that `gimbalShownMilli`
+  is the one line the boss is and that it therefore belongs in the drawing
+  too. Then the three model files a boss's look is built on
+  (`filament-shape.ts`, `filament-draw.ts`, `filament-frame.test.ts`),
+  `orrery-grab.ts` for the only shipped bearing control, and both pages of
+  the clock dispatch to decide which one the branch goes on.
+- writing — 60 min. Four files: the rings, the drum with the phase clock, the
+  scene, and the ring a seat grips; two predicates; the branch; the test.
+- looking — 30 min. Three frames. The first showed three real faults nothing
+  in the tests could have caught — the teeth of a rim strung together by
+  chords across the middle of the ring, the two pins joined by a line through
+  the drum, and the drum itself a filled circle with a stroke round it, which
+  is the one thing the queue entry said not to draw. The second fixed the
+  paths and gave the drum its staves; the third turned the marks from bare
+  ticks into wedges that point.
+- friction — 15 min. The shape file came out at 279 lines and the draw file at
+  259, so both were split before either could be saved — the seams were
+  obvious in hindsight and would have cost nothing to cut first. Four colour
+  assertions in the test were written against zero and had to be made
+  relative: the harness logs the whole frame, and the ship's own band carries
+  both trigger colours whatever the boss is doing.
+- landing — 15 min. `bun run index` after the four new files, one format pass
+  and one `imports:sort`.
+
+The bottleneck was the first frame: everything the tests can check was green
+before a single one of the three faults in it existed on screen, and all three
+were `Path2D` behaviour — an arc added after a `closePath` is joined to the
+last one — that no assertion about colours or call counts can see.
+
 ## 2026-09-22 — queue-the-preview-skill-ends-a-lane-with-four-git-step — the same defect, next door
 
 - reading — 10 min. The skill's step 3, and the two things it asserts that had

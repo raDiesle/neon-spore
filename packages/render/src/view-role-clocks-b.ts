@@ -157,3 +157,23 @@ export const showsGorgePinch = (role: ViewRole): boolean =>
   role === "test" || role === `p${gorgePinchSeat}`;
 export const showsGorgePry = (role: ViewRole): boolean =>
   role === "test" || role === `p${gorgePrySeat}`;
+
+/**
+ * THE GIMBAL's two rings, one to a seat, and this is the whole boss: the
+ * pilot is shown **the outer ring** — its rim, its teeth, and his own mark on
+ * it — and the navigator **the inner**, with hers. Neither is ever shown the
+ * other's ring at all, so neither can check the other's bearing against their
+ * own, and neither can see that the inner ring is gripped from the far face
+ * and answers a turn backwards (`gimbalShownMilli`, `sim/gimbal.ts`). That
+ * reflection is the fight: *round to the right, a quarter* means two
+ * different turns in the two seats, and the pair has to find the word for the
+ * one they both mean before three alignments run out. A screen with both
+ * rings on it would let one of them simply steer the other, and there would
+ * be nothing to agree about (`gimbal-draw.ts`, `docs/spec/bosses.md` §11.34).
+ * Which ring is whose is said by geometry rather than colour — the outer is
+ * the larger and is pinned top and bottom, the inner pinned at its sides —
+ * because both are rock grey and neither is ever shot (§18, *Colour*).
+ * `test` is both, which is the only screen the right angle is visible on.
+ */
+export const showsGimbalOuter = (role: ViewRole): boolean => role !== "p2";
+export const showsGimbalInner = (role: ViewRole): boolean => role !== "p1";

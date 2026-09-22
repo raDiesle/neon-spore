@@ -2,6 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { drawAntiphon } from "./antiphon-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFilament } from "./filament-draw.js";
+import { drawGimbal } from "./gimbal-draw.js";
 import { drawHive } from "./hive-draw.js";
 import { drawHiveGrip } from "./hive-grip.js";
 import { drawInstar } from "./instar-draw.js";
@@ -49,6 +50,7 @@ export const FX_KINDS = [
   "instar",
   "stare",
   "filament",
+  "gimbal",
 ] as const;
 
 export type FxBoss = Extract<Installed, { kind: (typeof FX_KINDS)[number] }>;
@@ -178,6 +180,18 @@ export function drawFxBoss(
   // (`stare-draw.ts`, `stare-fx.ts`).
   if (boss.kind === "stare") {
     drawStare(ctx, l, world, boss, beat, beatPhase, time, effects.boss.stare);
+    return;
+  }
+
+  // THE GIMBAL: a sealed drum in a yoke over the middle of the field inside
+  // two rings set at right angles, one to a seat and neither ever shown the
+  // other's (`view-role-clocks-b.ts`). Its health is the rim — three teeth to
+  // a ring, one sheared per alignment, the spent ones drawn as the sockets
+  // they left. On this page rather than the first because the reactions half
+  // of its look gives it `effects.boss.gimbal`, and a branch that has to move
+  // pages later is a branch written in the wrong place now (`gimbal-draw.ts`).
+  if (boss.kind === "gimbal") {
+    drawGimbal(ctx, l, world, boss, beat, beatPhase, time);
     return;
   }
 
