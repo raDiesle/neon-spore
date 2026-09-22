@@ -16554,8 +16554,10 @@ the rule changed. The flag says two and the documentation says why.
   (`failTick`/`NOT_FAILED`, `slowToBeat`); a test file and `boss-others.ts`
   both over 250 and split; a comment inside a wave array that the director's
   own save silently drops.
-- landing — 10 min. `check:fast` twice, the index, the blank baseline, the
-  entry out.
+- landing — 20 min. `check:fast` twice, the index, the blank baseline, the
+  entry out, and the words ceiling red at 307: a new boss in the mechanics
+  table's two-hundred-word register costs two failing lines, and `clean.ts`
+  lets no lane raise the number. Both lines rewritten short instead.
 
 The bottleneck was **guessing a field name instead of reading one**: four
 tests failed on `world.failed`, which has never existed, and the fix was the

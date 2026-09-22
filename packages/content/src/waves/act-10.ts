@@ -183,7 +183,7 @@ export const WAVES_ACT_10: Wave[] = [
     name: "THE GIMBAL",
     sentence: "The one where the same turn is not the same turn.",
     guide: {
-      both: "A drum hangs in two rings, one ring each. Turn your ring to your own mark and hold it there. Both true together breaks a tooth off each. Three times. Late on a spark leaks from the drum: shoot it.",
+      both: "A drum hangs in two rings, one each. Turn your ring to your mark and hold it. Both true breaks a tooth off each. A spark leaks late: shoot it.",
       p1: "1. The outer ring is yours. Drag round its rim to turn it.\n2. Hold it on your mark until both of you are true.\n3. Let go and your ring falls back to the top.",
       p2: "1. The inner ring is yours. Drag round its rim to turn it.\n2. Hold it on your mark until both of you are true.\n3. Your rim and theirs do not agree. Say where your mark is, not which way to turn.",
     },

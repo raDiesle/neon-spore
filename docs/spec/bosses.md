@@ -7121,6 +7121,16 @@ briefing*. Both are in the picture.
   told the pair to go find the bright mark: the two lines it now reads say
   where as loud as what.
 
+**Its two player-facing lines are short where the shipped bosses' are long.**
+`tools/words` budgets a guide's `both` and a mechanics `what` at thirty words
+each, and its ceiling of failing lines may only fall — a lane that writes no new
+rule may not raise it (`tools/words/clean.ts`). Every boss in
+`mechanics-bosses.ts` from THE HIVE on runs to two hundred words and fails it,
+so a thirty-first written in that register would have spent two lines of a
+budget that is not this lane's to spend. So the menu line is four short
+sentences — the drum, the two rings, the turn, the backwards rim — and the long
+half of the design is this section, which no player reads.
+
 **The sounds are bound** (`audio/bind-instar.ts`): a cue per event, panned to
 the mark's column, the landing pitched a shade higher each step.
 

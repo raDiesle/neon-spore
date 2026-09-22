@@ -176,7 +176,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   gimbal: {
-    what: "The one boss whose question is whether the same turn means the same thing to both of you. A sealed drum hangs inside two nested rings set at right angles, and the rings are one wheel gripped from its two opposite faces: the outer is the pilot's, the inner is the navigator's, and each seat sees only its own. Its health is six latch-teeth, three to a ring. A mark comes up on each ring, and each of you turns your own ring to your own mark with a thumb round its rim and holds it there; when both sit true together for two beats, a tooth shears off each ring. Nothing on either screen says that her ring is drawn mirrored — her clockwise is the wheel's counter-clockwise — so a turn called across the phone goes the wrong way until they find it out. A ring nobody is holding falls back to rest, which is what letting go to talk costs. With two tooth pairs gone the drum swings loose and a spark leaks from its seam: either of you shoots it in either colour, or it reaches the hull, which is the wave. Three alignments, the last of them creeping, and the last shears under THE SLOW.",
+    what: "A drum hangs in two rings, one ring each. Turn your ring to your mark and hold it. The inner rim runs backwards. Six latch-teeth.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;
