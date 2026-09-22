@@ -16764,3 +16764,5 @@ The bottleneck was **`run.ts`'s remaining sixteen lines**, not the design. The
 value itself is one branch in three files and was written in ten minutes; the
 rest of the writing was making room for two `console.log`s in a file that had
 none, and the file had none because nobody had split it when it was at 240.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
