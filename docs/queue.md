@@ -515,6 +515,28 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
+## The preview skill ends a lane with four git steps `bun run land` already does
+
+- **Found:** 2026-09-22, claude/queue-the-skills-own-claim-step-cannot-be-run-from-a-w
+- **Files:** `.claude/skills/worktree-preview/SKILL.md`
+- **Where:** local
+
+`.claude/skills/worktree-preview` § *3. Ask what's next, and shut down when
+merging* ends a lane with four hand-run git steps: `bun run check`, a rebase
+onto `main`, `git -C <repo-root> merge --ff-only <branch>` from the **main**
+checkout, then stopping the servers. The third is the same defect
+`.claude/skills/new-boss` §3 had and which was fixed on 22 September 2026: run
+from a worktree the command is refused before it starts, as touching a shared
+resource, so the procedure as written cannot be followed.
+
+And the first two are `bun run land`'s own job — it rebases, runs `check`,
+fast-forwards `main`, writes the release note and sweeps, and `CLAUDE.md` says
+in as many words that landing is one command and none of it is done by hand.
+So the fix is probably to replace steps 1–3 with `bun run land --keep` and
+leave only the server shutdown, which is the part that skill is actually for.
+Check while you are there whether step 5's *a session cannot remove the
+worktree it is running inside* is still true of `bun run sweep`.
+
 ## The skill's own claim step cannot be run from a worktree
 
 - **Found:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its

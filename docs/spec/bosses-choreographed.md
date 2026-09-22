@@ -93,6 +93,18 @@ goes away when the lane lands — the same discipline `docs/queue.md` uses, kept
 here because a boss concept is not a technical finding and does not belong on
 that list (`CLAUDE.md`, *an idea for the game is not collected*).
 
+**The row rides with the lane, and the queue is what stops the collision.**
+It is written in the lane's working tree and lands in the lane's own first
+commit — not committed separately in the main checkout, which is what
+`.claude/skills/new-boss` §3 asked for until 22 September 2026 and which no
+session could do: from a worktree the command is refused as touching a shared
+resource, and a cloud session has one clone and no second checkout to point at.
+So read the trunk's copy before writing a row (`git show
+main:docs/spec/bosses-choreographed.md`) rather than this tree's, and take the
+`docs/queue.md` entry for the boss first: `bun run queue next` writes its
+`Taken:` line on `main` and pushes it, which is the claim two sessions actually
+see.
+
 **A row names a file its lane has not written yet without backticks.** A
 backticked path is a claim this tree holds the file, and
 `tools/test/doc-drift.test.ts` fails on one that does not — which is how the

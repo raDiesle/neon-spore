@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-skills-own-claim-step-cannot-be-run-from-a-w — a step nobody could run
+
+- reading — 20 min. The skill's §3, the ledger's own preamble, and then the
+  question the entry said to settle first: could a cloud session ever have run
+  it? `tools/queue/repo.ts` answers it sideways — `onTrunk` has a whole branch
+  for *no worktree holds the trunk*, which is the ordinary shape of a clone,
+  and that branch exists because the queue hit the same wall and had to write
+  onto the ref instead. So the answer was no, twice over.
+- writing — 20 min. §3 rewritten to say the row rides with the lane, with the
+  read-the-trunk command that does work; the same paragraph added to the
+  ledger's preamble where a session reads it without opening the skill; and the
+  finding that `.claude/skills/worktree-preview` §3 carries the identical
+  defect filed on the queue.
+- looking — 0 min. Documentation.
+- friction — 0 min.
+- landing — 10 min.
+
+The bottleneck was **the question the entry asked me to settle**, not the edit.
+Deleting a step takes a minute; knowing whether it was a step only *this* kind
+of session could not run, or one no session ever could, is what decides whether
+the fix is a workaround written down or a removal — and the evidence for it was
+in a tool nobody had thought to read as evidence.
+
 ## 2026-09-22 — queue-five-files-a-choreographed-boss-must-touch-are-w — five seams, cold
 
 - reading — 20 min. The five files the entry names, and the one thing they

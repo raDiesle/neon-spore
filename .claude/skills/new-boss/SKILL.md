@@ -68,17 +68,37 @@ a costume on, and a field boss that stops the field is a round.
   no zoom, no camera.
 - **It asks a question no shipped boss asks.** Read §11 before designing.
 
-## 3. Claim it on the table, on local `main`
+## 3. Claim it on the table, in the lane
 
 `docs/spec/bosses-choreographed.md` § *Who is building what* is the ledger two
-sessions share. Before a line is written: read `main`'s copy fresh (another
-session may have taken it), refuse to touch it while
-`git -C <main> status --porcelain -- docs/spec/bosses-choreographed.md` is
-non-empty, edit the row to **taken** with both lanes named, commit it with
-`git -C <main> commit --only docs/spec/bosses-choreographed.md`, and
-`git merge --ff-only main` in the lane. Mark it **built** the same way when
-the second lane lands, with the shas, the §11 number and the wave number, and
-what of the design is *not* built — the owner's eye.
+sessions share. Before a line is written, read the **trunk's** copy rather than
+this tree's — another session may have taken it, and a lane branched an hour
+ago cannot see that:
+
+```bash
+git show main:docs/spec/bosses-choreographed.md | grep -n "THE <NAME>"
+```
+
+Then edit the row to **taken** with both lanes named, **in the lane**, and let
+it ride in the lane's own first commit. Mark it **built** the same way when the
+second lane lands, with the shas, the §11 number and the wave number, and what
+of the design is *not* built — the owner's eye.
+
+**The race is settled by the queue's claim, not by this row.** A boss waiting
+to be built is a `docs/queue.md` entry, and `bun run queue next` or `bun run
+queue take "<title>"` writes a `Taken:` line **on `main` and pushes it** before
+the lane starts — visible to every other session on the machine and to every
+clone. That is a stronger gate than the ledger ever was, because it is the same
+command in every kind of session, and it holds the branch as well as the line.
+
+This step used to say the row itself was committed in the main checkout with
+`git -C <main> commit --only docs/spec/bosses-choreographed.md`. **No session
+could run that.** From a worktree it is refused before it starts, as touching a
+shared resource — THE GIMBAL's lane and THE BELLOWS's both hit it and both
+carried the row in their own commit instead — and a cloud session has one clone
+with no second checkout at all, so there was never a `<main>` for it to point
+at (`docs/cloud-session.md`). A step nobody can run is a step that teaches the
+next lane to work around the skill.
 
 ## 4. Lane one: the simulation, and the receipts
 
