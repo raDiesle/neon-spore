@@ -744,6 +744,7 @@ is drawn bright on both screens.
 ## No picture tool can photograph a card the back gesture opens
 
 - **Found:** 2026-09-20, claude/queue-the-phones-back-gesture-leaves-the-game-instead
+- **Taken:** 2026-09-22, claude/queue-bun-run-frames-cannot-stop-inside-a-rest-only-on (claim: claude/queue-no-picture-tool-can-photograph-a-card-the-back-g)
 - **Files:** `tools/frames/menu-shot.ts`, `tools/frames/menu-trail.ts`, `apps/game/src/back-ask.ts`
 
 `bun run menu-shot` is the tool for markup over the field, and it can only
