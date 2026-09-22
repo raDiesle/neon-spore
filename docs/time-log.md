@@ -16408,3 +16408,5 @@ the play area, so a circle clamped inside that area lifts off the skin and
 frames empty sky — and the one fact this screen exists to show is where it got
 through. The picture said so in a second; the reasoning that produced the
 clamp had taken twenty minutes.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 7abeae7b — The lost screen shows the hit as a wound, and says four things instead of nine
+
+WAVE LOST is now the biggest thing on the screen, under a red bloom, with the wave's number and name on one line beneath it and TRY n alone in the corner. Everything else in words is gone: the line about one press answering for both phones, the one about this run having no retries, and the invitation to run it again. Where the hull was broken is a ragged circle with a reticle round it, bleeding red out of its lower rim in six slow tongues — the shortest thirteen seconds end to end — instead of a lit vertical slot the height of the phone with thirteen violet rivulets crossing the glass every three and a half.
+
 ## 2026-09-22 · ea9cc9e4 — `--press` learns to fly THE SCOUT, and her laden ring is photographed
 
 Both of that round's handles are gated on what the little ship is carrying, and a wave left to itself carries nothing: a probe stepped 1600 ticks with `carrying` at 0 throughout, because the ship is flown by hand. So neither ring could be photographed, nor the flame, the nose swinging or the mouth open at home. `--press` now takes the pilot's three as a thumb that goes down and comes up — `scoutTurnLeft=7` is seven ticks of swing — and her tap as a plain press. The commands are asked of `controlPress` rather than written out again.
