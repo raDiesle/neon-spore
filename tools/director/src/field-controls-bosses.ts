@@ -12,6 +12,7 @@ import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
+import { HASP_CONTROLS } from "./field-controls-hasp.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { LEAD_CONTROLS } from "./field-controls-lead.js";
@@ -142,4 +143,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // with no partner at all: the other half of that fight is a zone the
   // navigator reads and a word she says (`field-controls-spool.ts`).
   ...SPOOL_CONTROLS,
+  // THE HASP's latch and wheel, the only pair here where **one of the two does
+  // nothing at all**: his latch moves no part of the boss and her wheel only
+  // answers while it is down (`field-controls-hasp.ts`).
+  ...HASP_CONTROLS,
 ];

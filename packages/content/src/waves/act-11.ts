@@ -24,6 +24,39 @@ import type { Wave } from "../wave-types.js";
  * fight has one hull cost in it, a rock thrown down the pilot's own column
  * when the line slips a second time, and its finish is the only calm one in
  * the game: the line goes slack and the spool drifts free.
+ *
+ * **THE HASP came into the same act the same day**, rather than opening a
+ * page of its own: two lanes cut act ten's tail in the same sitting, and the
+ * newest act is where a new wave lands (`waves.ts`).
+ *
+ * **THE HASP is the first boss where one seat's whole job is to not let go.**
+ * A wheel opens the hasps and only the navigator can turn it; it only moves
+ * while the pilot is holding the latch down, so his gesture has no progress of
+ * its own and is read entirely off hers. That is the split: the hands are
+ * divided rather than the eyes, and neither half is a fight alone — a latch
+ * held over a wheel nobody is turning is a thumb resting on a picture, and a
+ * wheel turned with the latch up is a rim that will not move.
+ *
+ * **The clock is on the seat that cannot see the progress.** He is given a
+ * fuse — `haspHoldBeats` from the beat he takes the latch — and when it runs
+ * out his hand is burnt off it and has to cool before he can take it again
+ * (`sim/hasp-step.ts`). He is shown the heat and she is shown the winding, so
+ * the only way either of them knows how much of both is left is to say it. On
+ * the last hasp the fuse is `haspLastHoldBeats`, which is shorter: the fight
+ * ends on the beat their two readings have to be exchanged fastest.
+ *
+ * **A seize costs the turning and not the place.** The gate is read after her
+ * bearing is recorded, so a wheel let go of resumes exactly where it stopped
+ * rather than snapping back — what a dropped latch takes is the beats she
+ * spent turning nothing, which is the cost the pair can hear in their own
+ * voices and the one they can do something about.
+ *
+ * **The cannon has one job in the whole fight**, and it is the same shape as
+ * THE GIMBAL's and THE BELLOWS's: from the second hasp a bolt works loose over
+ * the middle column and strikes the hull if it is left there, and either
+ * colour takes it (`sim/hasp-shot.ts`). It is the only thing in the encounter
+ * neither of the two hands can answer, so somebody has to leave their control
+ * to do it, and saying which of them is the beat this wave is about.
  */
 export const WAVES_ACT_11: Wave[] = [
   {
@@ -37,6 +70,19 @@ export const WAVES_ACT_11: Wave[] = [
     },
     entries: [],
     boss: { kind: "spool" },
+    bossType: "normal",
+  },
+  {
+    id: "theHasp",
+    name: "THE HASP",
+    sentence: "The one where one of you only has to hold on, and cannot.",
+    guide: {
+      both: "Three hasps on a door. He holds the latch down. She turns the wheel, and it only moves while he holds. His hand burns if he holds too long.",
+      p1: "1. Drag the latch down and keep holding it.\n2. The wheel only turns while you hold. Say the moment you let go.\n3. Your hand burns if you hold too long. Only you see the heat.",
+      p2: "1. Drag round the wheel's rim and keep turning.\n2. It moves only while they hold. Say when it seizes, and how far round you are.\n3. The last hasp gives them less time. A piece works loose. Shoot it.",
+    },
+    entries: [],
+    boss: { kind: "hasp" },
     bossType: "normal",
   },
 ];

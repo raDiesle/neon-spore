@@ -8,6 +8,7 @@ import { diastoleHashParts } from "./diastole-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
+import { haspHashParts } from "./hasp-hash.js";
 import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
 import { leadHashParts } from "./lead-hash.js";
@@ -124,6 +125,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE SPOOL: the phase, the ribs, the brake's depth, both lengths and the rolled rate (`spool-hash.ts`).
   if (boss.kind === "spool") {
     for (const n of spoolHashParts(boss)) out.push(n);
+  }
+  // THE HASP: the phase, the hasps, both hands, the heat's two beats, the wind and the bolt (`hasp-hash.ts`).
+  if (boss.kind === "hasp") {
+    for (const n of haspHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

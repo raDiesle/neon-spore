@@ -98,6 +98,7 @@ kinds each of them is.
 - **[THE GIMBAL](#1134-the-gimbal--the-boss-where-the-same-turn-is-not-the-same-turn)** · 11.34 — the boss where the same turn is not the same turn
 - **[THE BELLOWS](#1135-the-bellows--the-boss-where-you-may-never-push-while-they-are-pulling)** · 11.35 — the boss where you may never push while they are pulling
 - **[THE SPOOL](#1136-the-spool--the-boss-where-the-line-runs-out-at-the-speed-one-of-you-reads)** · 11.36 — the boss where the line runs out at the speed one of you reads
+- **[THE HASP](#1137-the-hasp--the-boss-where-one-hand-holds-what-the-other-cannot-see)** · 11.37 — the boss where one hand holds what the other cannot see
 
 **Retired — shipped and taken out again, kept for the verdict**
 
@@ -8014,3 +8015,143 @@ a movement played wrong slips with no rib and throws no rock the first time and
 one down the cannon's own column after that; and the fourth rib leaves the
 spool slack, drifting under THE SLOW and out of the wave. Whether any of it
 *reads* is the owner's eye, after lane two.
+## 11.37 THE HASP — the boss where one hand holds what the other cannot see
+
+> The one that asks for faith. A door of three iron clasps hangs over the
+> field. He holds a latch that does nothing he can see; her wheel turns only
+> while he is holding it, for a reason her screen never gives.
+
+Designed as §20 of [bosses-choreographed](bosses-choreographed.md), and the
+third of the three kinds in `.claude/skills/new-boss` — a choreographed scene.
+The field under it is still (wave `theHasp`'s `entries` are empty) and the
+boss *is* the picture. It follows THE BELLOWS, which spends a fight teaching
+a pair to take turns; this one spends a fight teaching them that a thing they
+cannot see is real.
+
+**It is a door of three clasps.** The state (`sim/hasp.ts`, hashed in
+`sim/hasp-hash.ts`) is the **phase** and the beat it began, the **hasps** left
+sealed, how deep the pilot has the latch (`latchMilli`) and the beat he took
+it, the beat it burned him off it, where the wheel stands and where her hand
+last reported on the rim, how far this hasp has been wound, whether her wheel
+is seized, and the loose bolt's column and the beat it came free. Its health
+is the three clasps (`HASP_COUNT`), and no bar: a clasp is sealed or it has
+swung, and the row is the count.
+
+**The rule, in one sentence.** He holds the latch, she winds the wheel, and
+the wheel only turns while he is holding.
+
+**The gate is not a primitive, and that is the finding** (`sim/hasp-hand.ts`).
+Before the wheel is turned at all, `haspHeld` is asked — an ordinary read of
+the other hand's depth on the same tick, the thing the simulation already does
+for every hand on the field. §20 asked for nothing new in the engine and got
+nothing: two `DragTarget` names, and a rule in this boss's own step that reads
+both hands. It is judged **on the tick** (`step.ts`), and here that is load
+bearing rather than an optimisation: a wheel judged on the beat would keep
+turning after the latch had let go, which is exactly the lie the fight is
+played against.
+
+**The latch is a level, where THE BELLOWS's handle next door is an edge.** A
+thumb past `haspGripMilli` (660 of `haspReachMilli` 1000) is holding for as
+long as it stays there, because the whole gesture is *keep holding*; a stroke
+is judged when it lands and a grip is judged every tick it lasts. The two read
+alike on the wire and behave nothing alike, which is why the distinction is
+stated in both files.
+
+**The heat is his whole readout** (`haspHeatMilli`), and it is a distance
+rather than a count, so the picture can drift a colour up the mark without
+printing a number. A grip held past `haspHoldBeats` (6) burns his hand off the
+latch, which then takes no hand for `haspBurnBeats` (2). **The fuse shortens on
+the last hasp** (`haspLastHoldBeats`, 4), read off the health by
+`haspFuseBeats` rather than counted in a field of its own, so the state cannot
+disagree with itself about which movement it is in.
+
+**Her wheel is wound by travel**, either way round, and her reference survives
+a seize: a hand going round a dead rim still reports where it is, so the
+instant the latch comes back the wheel resumes from where it stood rather than
+jumping to wherever her thumb has wandered. A hasp opens at
+`haspWindMilli` (800) and every one after it asks `haspWindStepMilli` (400)
+more, which is row 5 — the second cannot be wound inside one grip, so he has
+to let go and take hold again while she keeps turning, and the gap between his
+two grips is the thing they have to say out loud.
+
+**The clock** (`sim/hasp-step.ts`). The row hangs sealed for
+`haspStillBeats` (2) before the first latch lights; an opened clasp swings for
+`haspSwingBeats` (3) before the next one does, with both hands off it; and the
+row stands open for `haspClearBeats` (3) before the wave may end. That is every
+beat count in the fight, and none of them is a window anyone can miss.
+
+**The seize and the burn are two words for one moment, kept apart on purpose**
+(`sim/events-hasp.ts`). He is burned off a latch he can see; she is seized on a
+wheel she can see; neither is ever shown the other's. The gate itself is true
+for as long as it is true, and what is announced is the *change*, once each way
+(`sayGate`), so a wheel held still under a hand cannot say `haspSeize` a
+hundred times a beat.
+
+**One ordinary hazard, once.** The second opening's spring throws a bolt down
+the centre column, shot out inside `haspBoltBeats` (4) or it reaches the hull,
+which is the wave (`sim/hasp-shot.ts`). The cannon has one thing to do in the
+whole fight and the shield has none at all, which is what makes the one thing
+worth keeping on the band.
+
+**Where this departs from the design, and why.** Five places.
+
+*Nothing in the fight has a window on it* — not row 3's four beats, not row
+6's five, not row 10's four. A latch nobody takes lights and waits; a wheel
+nobody winds stands where it was left. A window that struck for being slow
+would make the fight about the count, and this fight's whole cost is already
+the heat, which is the pilot's alone and runs whether or not anyone is
+hurrying. §20's own *Cost. Low.* is what this keeps.
+
+*Row 9's call is not a 900 ms window, and a late one gives nothing back.* The
+design has a late call burn the whole movement back to its start. A wind is
+never unwound here: she keeps what she turned, and a seize costs exactly the
+turning it stole and no more. Taking a movement away would punish the seat who
+cannot see the reason it went, which is the one thing this boss may not do.
+
+*THE SLOW opens on one regrip call, not three.* It opens when the burn takes a
+wind that had **already begun** (`sim/hasp-step.ts`, `haspSlowBeats` 2), which
+is the moment either seat has to act on something the other cannot show them.
+A burn on an idle latch is nobody's emergency and gets no weight, and the fuse
+is long enough that this cannot open twice inside one wind.
+
+*Row 7's bolt takes either colour*, not "their own". Only the navigator holds
+the colour buttons, so a bolt billed to a colour would be a hazard one seat
+answers alone while the other watches; and a loose bolt is not a body whose
+colour the pair could have got wrong. What it costs to miss is a hull strike,
+which is the wave.
+
+*The wheel has no mark to be turned **to***. The design says *turn the wheel to
+its mark*; what is built reads the mark as a distance, because a bearing she
+has to reach is a number on her screen and a distance is a thing she can do
+without one — keep turning. It is also what makes the seize honest: a target
+bearing would have let a seized wheel be caught up for free.
+
+**The sounds are bound** (`audio/bind-hasp.ts`, `sounds/boss-hasp.ts`): a cue
+per event over a palette of iron hardware, panned to the middle where the row
+stands and to its own column for the bolt. The burn and the seize arrive
+together and are panned together, and a pair playing this hears two different
+accidents and says two different words for them, which is the encounter.
+
+**What is not built.** The look: nothing of the door is drawn. The row, the
+three clasps, the latch with its heat drift and the wheel with its winding are
+all in `render/src/effects-ingest-silent-boss-c.ts` and
+`effects-spark-silent-boss-b.ts` as events the frame says nothing about, and
+the guide is prose rather than a film. §20's presentation is lane two's whole:
+the whole-frame dim on a seize, the shudder through `hull-shock.ts` on an
+opening, the five poses, and the latch's cool-to-hot drift — the one departure
+from the colour statement, because it is a hand's own feeling and not a target.
+Lane two is a separate item on `docs/queue.md`.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/hasp.test.ts`): the door comes in sealed and lights its first latch;
+the wheel is dead under her hand while the latch is up and says so once; it
+turns while he holds and stops the tick he lets go; a thumb short of the grip
+depth holds nothing open and a thumb that stays down goes on holding beat after
+beat; her place on the rim survives a seize; the heat is nought at a fresh grip
+and full when it burns, the hot latch takes no hand until it has cooled, THE
+SLOW opens on a burn mid-wind and not on an idle one, and the fuse is shorter
+on the last hasp; the second hasp asks further than the first; both hands come
+off an opened one; the bolt comes loose on the second opening, goes out to a
+shot of either colour and strikes the hull if nobody answers it; and the third
+opening swings the row clear and takes the boss out of the wave. Whether any of
+it *reads* is the owner's eye, after lane two.

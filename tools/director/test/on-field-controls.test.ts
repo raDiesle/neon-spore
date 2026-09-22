@@ -382,6 +382,17 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // depth — that is the sentence the pair has to say (`render/spool-grip.ts`,
   // `sim/spool-hand.ts`, `docs/spec/bosses.md` §11.36).
   spoolBrake: "field",
+  // THE HASP's two, and the arrangement neither of the pairs above has:
+  // `haspLatch` is the pilot's bar and `haspWheel` the navigator's rim,
+  // both live at the same time and neither one doing anything without the
+  // other — the wheel only turns while the latch is down, so a hand off
+  // either control stops the pair rather than costing one of them a turn.
+  // Two rows because they are two targets offered at once, and what the
+  // rows may not say is how long the latch will last: the fuse is the
+  // pilot's to read and to say (`sim/hasp-hand.ts`,
+  // `docs/spec/bosses.md` §11.37).
+  haspLatch: "field",
+  haspWheel: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

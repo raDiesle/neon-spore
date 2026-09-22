@@ -10,6 +10,7 @@ import type {
   GaugeEntry,
   GimbalEntry,
   GorgeEntry,
+  HaspEntry,
   HiveEntry,
   InstarEntry,
   LeadEntry,
@@ -132,6 +133,14 @@ import type {
  *   setting the only thing about this fight that is meant to be the pair's own
  *   doing (`sim/config-taster.ts`).
  *
+ * - **THE HASP** asks for nothing for THE BELLOWS's reason: the door hangs
+ *   over `midCol` so there is no column, the three clasps are the health so
+ *   there is no number, and **the fuse and the winding are the two numbers
+ *   the pair says out loud** — how long his hand lasts and how far her wheel
+ *   has to go is the cadence a pair learns once, and a wave that authored its
+ *   own pair would be several different bosses wearing one name
+ *   (`sim/config-hasp.ts`).
+ *
  * - **THE LEDGER** asks for nothing for THE TASTER's reason said about a
  *   column rather than a colour: the body stands over the middle, the seam is
  *   the health, and where the cord's socket walks to is the fight's own
@@ -170,7 +179,8 @@ export function bossAuthorsNothing(
   | FilamentEntry
   | GimbalEntry
   | BellowsEntry
-  | SpoolEntry {
+  | SpoolEntry
+  | HaspEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -200,6 +210,7 @@ export function bossAuthorsNothing(
     kind === "filament" ||
     kind === "gimbal" ||
     kind === "bellows" ||
-    kind === "spool"
+    kind === "spool" ||
+    kind === "hasp"
   );
 }

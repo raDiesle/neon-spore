@@ -2,7 +2,7 @@ import type { GroupName } from "./ship-groups.js";
 
 /**
  * **The choreographed bosses' dials, the third page** — THE SPOOL and every
- * boss built after it.
+ * boss built after it, THE HASP first among them the same day.
  *
  * Cut on 22 September 2026, when THE SPOOL's twelve numbers would have left
  * `ship-fields-choreo-b.ts` seven lines under the 250-line wall and the next
@@ -37,4 +37,20 @@ export const CHOREO_FIELD_GROUP_C = {
   spoolEaseBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   spoolSlowBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   spoolSlackBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  // HaspConfig — how far the latch travels and the depth it counts as held
+  // at, how long each phase holds, the fuse and the shorter last one, the
+  // cooling, how far the wheel has to be wound and how much further each
+  // clasp asks, and the loose bolt's patience (`config-hasp.ts`).
+  haspReachMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspGripMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspStillBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspHoldBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspLastHoldBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspBurnBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspWindMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspWindStepMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspSwingBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspSlowBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspBoltBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspClearBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
 } satisfies Record<string, GroupName>;

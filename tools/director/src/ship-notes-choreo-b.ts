@@ -10,8 +10,9 @@ import type { GroupName } from "./ship-groups.js";
  * same hour: the order they were built in, which nothing depends on. Spread
  * into `CHOREO_NOTES` in place, so the totality guard over `ROUND_NOTES` is
  * unchanged — a card added to `GroupName` and left without a paragraph on
- * *any* page is the same compile error it always was. The next boss's
- * paragraph goes here.
+ * *any* page is the same compile error it always was. THE HASP's went on to
+ * a third page on 22 September 2026, for the same reason and along the same
+ * seam (`ship-notes-choreo-c.ts`), and the next boss's goes there.
  */
 export const CHOREO_NOTES_B = {
   "THE LEDGER — the boss that bills your own hull for every shot":

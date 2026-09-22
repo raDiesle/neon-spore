@@ -18,6 +18,7 @@ import {
   surgeHand,
   surgeHandWith,
 } from "./boss-hands-handles.js";
+import { haspHand } from "./boss-hands-hasp.js";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -219,5 +220,17 @@ export const HANDLE_HAND_POSES: Pose[] = [
     "vent",
     "Both let go together: the waist split and the lung is venting. P1 and P2 are done.",
     { hand: bellowsHand, want: bellowsIn("vent"), hold: 6, budgetBeats: 240 },
+  ),
+  bossPose(
+    "hasp",
+    "swing",
+    "A clasp wound off and swinging away. P1's latch is cool again; P2's wheel is a fresh circle.",
+    { hand: haspHand, hold: 6, budgetBeats: 240 },
+  ),
+  bossPose(
+    "hasp",
+    "clear",
+    "All three clasps gone and the door standing open. P1 and P2 are done; the passage behind lights.",
+    { hand: haspHand, hold: 6, budgetBeats: 480 },
   ),
 ];

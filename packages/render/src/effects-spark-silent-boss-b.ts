@@ -20,6 +20,12 @@ import type { SimEvent } from "@neon-spore/sim";
  * boss to land there was going to go over regardless of which one it was
  * (`docs/queue.md`).
  *
+ * THE GAUGE's four and THE WELL's four went on to a third page on
+ * 22 September 2026, when THE SPOOL's eleven and THE HASP's fourteen landed
+ * here in the same sitting and left this one two lines under the wall. The
+ * seam is the same one: the **last** bosses on the page go, never the boss
+ * being worked on (`effects-spark-silent-boss-c.ts`).
+ *
  * Every row means what it means there — *no burst answers this event* — and
  * the reasons stay with the rows.
  */
@@ -208,20 +214,25 @@ export const SILENT_BOSS_B = [
   "throatChoke",
   "throatSwallow",
   "throatEvert",
-  // THE GAUGE's four, the first events this round has had at all: no burst,
-  // because a mark, a miss, a jam and a bind are every one of them a state the
-  // plate already redraws every frame (`render/gauge.ts`). Sound is what was
-  // missing, and it is bound instead (`packages/audio/src/bind-gauge.ts`).
-  "gaugeMark",
-  "gaugeMiss",
-  "gaugeJam",
-  "gaugeBind",
-  // THE WELL's four, no burst: the face, its seam and its numerals are redrawn
-  // from the boss every frame, and a shower over a clock whose whole job is to
-  // agree with the thumb on it would be a look (`docs/looks.md`). Sound is
-  // what these four get instead (`packages/audio/src/bind-well.ts`).
-  "wellRoll",
-  "wellHeld",
-  "wellWound",
-  "wellHome",
+  // THE HASP's fourteen, no burst: nothing draws this boss yet — the
+  // simulation landed on its own and the look lane is a separate item
+  // (`docs/spec/bosses.md` §11.37). When it lands, the bursts it wants —
+  // over the latch that burnt, the rim that seized, the clasp that swung
+  // off, the bolt at the hull — belong in a hasp-fx.ts read above the
+  // loop, the way THE GIMBAL's and THE BELLOWS's are, rather than as rows
+  // in this table.
+  "haspEnter",
+  "haspLit",
+  "haspGrip",
+  "haspLet",
+  "haspBurn",
+  "haspCool",
+  "haspSeize",
+  "haspFree",
+  "haspOpen",
+  "haspBolt",
+  "haspBoltOut",
+  "haspBoltHit",
+  "haspClear",
+  "haspOut",
 ] as const satisfies readonly SimEvent["type"][];

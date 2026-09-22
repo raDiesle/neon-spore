@@ -17,6 +17,10 @@
  * reason `bosses-clocks-b.ts` carries the same five: they arrived on 18
  * September 2026 with the §6.2 lane and page one was exactly at its limit.
  * The rest of the arm's names are still there.
+ *
+ * **A third page opened when THE HASP's door took this one to 258 lines**, and
+ * THE WELL's rows went across: the last ones here, never the boss being
+ * written (`boss-surface-clocks-c.ts`).
  */
 
 // THE BELLOWS's lung: the phase, the seams, whose beat it is and how deep
@@ -28,9 +32,17 @@ export { BELLOWS_PHASES, BELLOWS_SEAMS, type BellowsPhase, type BellowsState, be
 // Every boss's phase table in one place, for the director's STATES sheet
 // (`boss-phases.ts` says why one table rather than nineteen).
 export { BOSS_PHASES } from "./boss-phases.js";
+// THE WELL's names, the last rows this page held (`boss-surface-clocks-c.ts`).
+export * from "./boss-surface-clocks-c.js";
 // THE HIVE's entry, which authors nothing, and THE INSTAR's, which authors
 // its script: both travel out of `boss-entries.ts` through `bosses.ts`.
-export type { BellowsEntry, HiveEntry, InstarEntry, SpoolEntry } from "./bosses.js";
+export type {
+  BellowsEntry,
+  HaspEntry,
+  HiveEntry,
+  InstarEntry,
+  SpoolEntry,
+} from "./bosses.js";
 // THE BATON's arm as a control: which socket is coming away, whose thumb may
 // take it, and whose bead is whose while the two are drawn together — all four
 // read by `render/baton-grip.ts` and the cue beside it (`baton-hand.ts`).
@@ -224,23 +236,15 @@ export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type Gi
 // asked for rather than chosen, THE ORRERY's ring's arrangement exactly
 // (`gimbal-hand.ts`, `apps/game/src/keys-turn.ts`).
 export { gimbalTurnPerTickMilli } from "./gimbal-hand.js";
+// THE HASP's door: whether a clasp is up to be worked, whether the latch is
+// down, how far the wheel has come and whether a bolt is loose — read by the
+// two pictures, the cue and the director's hand. Straight off `hasp.ts`, on
+// this page for THE FLEET's reason above and on one line for THE GIMBAL's.
+// biome-ignore format: one line, so a reading added to the door does not cost a row
+export { HASP_PHASES, type HaspPhase, type HaspState, haspBoss, haspBurning, haspClear, haspHeatMilli, haspHeld, haspLoose, haspTurning, haspWorking, haspWoundMilli } from "./hasp.js";
 // THE SPOOL's line: the phase, the ribs, the brake's depth, the zone and the
 // paid-out length — the two halves of the `SplitGauge` the pair shout across,
 // and every reading either screen takes. Straight off `spool.ts` and on one
 // line for THE GIMBAL's reason.
 // biome-ignore format: one line, so a reading added to the spool does not cost a row
 export { NO_BRAKE, SPOOL_LEGS, SPOOL_PHASES, SPOOL_RIBS, type SpoolPhase, type SpoolState, spoolBoss, spoolBrakeForRateMilli, spoolCol, spoolDepthMilli, spoolEasing, spoolGone, spoolGrace, spoolHeld, spoolInZone, spoolLegLeft, spoolLegs, spoolPaying, spoolPayRateMilli, spoolSlack, spoolSlipped, spoolZone, spoolZoneMilli } from "./spool.js";
-// THE WELL's face, and the thumb on its seam: how far it has turned and which
-// way it is read, for the projection that draws it (`render/well-roll.ts`),
-// the hit test that answers it (`render/touch-well.ts`) and the director's
-// hand. On this page because `boss-surface.ts` is at its limit (`well.ts`).
-export {
-  NO_WELL_GRIP,
-  WELL_PHASES,
-  type WellPhase,
-  type WellState,
-  wellBoss,
-  wellHeldNow,
-  wellHoldLeft,
-  wellMaxOffsetMilli,
-} from "./well.js";

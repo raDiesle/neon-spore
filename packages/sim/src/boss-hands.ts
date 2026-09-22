@@ -8,6 +8,7 @@ import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
 import { gimbalHeard } from "./gimbal-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
+import { haspHeard } from "./hasp-hand.js";
 import { hiveHeard } from "./hive-hand.js";
 import { instarHeard } from "./instar-hand.js";
 import { leadHeard } from "./lead-hand.js";
@@ -88,6 +89,10 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).
   for (const c of commands) spoolHeard(world, c.player, c.command);
+  // THE HASP's latch and wheel, on the tick because the gate between them is
+  // read on the tick: a wheel judged on the beat would keep turning after the
+  // latch let go, which is the one lie this boss may not tell (`hasp-hand.ts`).
+  for (const c of commands) haspHeard(world, c.player, c.command);
   // THE BULB QUEEN's marks under player 1's thumb, on the tick because a pry
   // is a press when it lands and a hold is where the thumb is now (`queen-hand.ts`).
   for (const c of commands) queenHeard(world, c.player, c.command);

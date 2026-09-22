@@ -13,9 +13,10 @@
  * paragraphs are the file, and they are what would not fit.
  *
  * THE HIVE's went across to `boss-entries-clocks-b.ts` on 22 September 2026,
- * when THE BELLOWS took this page two lines over its limit — the *last* boss
- * on a full page goes, never the boss being worked on, whose paragraph stays
- * under the boss it explains.
+ * when THE BELLOWS took this page two lines over its limit, and THE BELLOWS's
+ * own followed it the same day under THE HASP — the *last* boss on a full
+ * page goes, never the boss being worked on, whose paragraph stays under the
+ * boss it explains.
  *
  * Every name is re-exported from `boss-entries.ts` and from `entries.ts`
  * after it, so nothing that already reached for one through either had to
@@ -218,30 +219,20 @@ export interface ScuttleEntry {
 }
 
 /**
- * What a wave authors when it wants THE ANTIPHON: nothing, the fifteenth.
- * The body rises smooth over the middle columns; which shape stands where,
- * in which colour, beside which decoys, is the seed's, and how many organs
- * it has and how long each stands is tuning (`antiphon.ts`,
- * `config-antiphon.ts`).
- */
-export interface AntiphonEntry {
-  kind: "antiphon";
-}
-
-/**
- * What a wave authors when it wants THE BELLOWS: nothing, the eighteenth.
+ * What a wave authors when it wants THE HASP: nothing, the twentieth.
  *
- * No seams, though they are the health: four gaps down a waist is the
- * *silhouette*, and a lung hung with five would be a different lung
- * (`bellows.ts`, `BELLOWS_SEAMS`). No tempo, because every one of them is a
- * beat count the pair has to feel — how long a jam holds, how long the one
- * shared window is — and a wave that authored its own would be several
- * different bosses wearing one name, `DiastoleEntry`'s reason above.
+ * No hasps, though they are the health: three clasps down the centre line is
+ * the *silhouette*, and a door sealed with four would be a different door
+ * (`hasp.ts`, `HASP_COUNT`). No fuse and no winding, because both are things
+ * the pair has to feel their way to — how long a grip lasts before it burns
+ * and how far a wheel has to go round — and a wave that authored its own
+ * would be several different bosses wearing one name, `BellowsEntry`'s
+ * reason next door (`boss-entries-clocks-b.ts`).
  *
- * And nothing about which handle is whose, because that is not a figure at
- * all: his chamber hangs off the left of the waist and hers off the right,
- * geometry rather than data (`bellowsChamberCol`).
+ * And nothing about which hand is whose: the latch is the pilot's and the
+ * wheel the navigator's, which is the encounter rather than a figure
+ * (`hasp-hand.ts`).
  */
-export interface BellowsEntry {
-  kind: "bellows";
+export interface HaspEntry {
+  kind: "hasp";
 }

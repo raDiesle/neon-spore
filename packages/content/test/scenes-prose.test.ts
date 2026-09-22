@@ -72,6 +72,11 @@ const STILL_PROSE = [
   // down to the hull are all undrawn, so there is no screen for a film to
   // rehearse. The guide says which seat holds what until the look lane draws it.
   "THE SPOOL",
+  // And THE HASP the same day (§11.37), for the same reason a fourth time:
+  // the door of clasps, its wheel and the latch beside it are undrawn, so
+  // there is no screen for a film to rehearse. The guide says the one thing
+  // its pilot has to know — keep holding — until the look lane draws it.
+  "THE HASP",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -97,9 +102,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says ninety of ninety-nine";
-    expect(guided.length, fix).toBe(91);
-    expect(WAVES.length, fix).toBe(100);
+    const fix = "update §1 of docs/spec/briefings.md, which says ninety-two of a hundred and one";
+    expect(guided.length, fix).toBe(92);
+    expect(WAVES.length, fix).toBe(101);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

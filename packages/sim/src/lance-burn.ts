@@ -9,6 +9,7 @@ import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
+import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
 import { leadStruck } from "./lead-shot.js";
@@ -197,6 +198,9 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE BELLOWS's leaking spark, the one thing in that whole fight a
   // cannon has to do, and either colour does it (`bellows-shot.ts`).
   bellowsStruck(world, b);
+  // And THE HASP's loose bolt, the same shape and the same either colour
+  // (`hasp-shot.ts`).
+  haspStruck(world, b);
   hiveStruck(world, b);
   return 0;
 }

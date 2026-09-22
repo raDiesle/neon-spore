@@ -10,6 +10,7 @@ import type { FilamentState } from "./filament.js";
 import type { GaugeState } from "./gauge.js";
 import type { GimbalState } from "./gimbal.js";
 import type { GorgeState } from "./gorge.js";
+import type { HaspState } from "./hasp.js";
 import type { HiveState } from "./hive.js";
 import type { InstarState } from "./instar.js";
 import type { LeadState } from "./lead.js";
@@ -98,4 +99,5 @@ export type BossState =
   | FilamentState
   | GimbalState
   | BellowsState
-  | SpoolState;
+  | SpoolState
+  | HaspState;

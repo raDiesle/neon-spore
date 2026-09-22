@@ -10,6 +10,7 @@ import { stepDiastole } from "./diastole-step.js";
 import { stepFilament } from "./filament-step.js";
 import { stepGimbal } from "./gimbal-step.js";
 import { stepGorge } from "./gorge-step.js";
+import { stepHasp } from "./hasp-step.js";
 import { stepHive } from "./hive-step.js";
 import { stepInstar } from "./instar-step.js";
 import { stepLead } from "./lead-step.js";
@@ -214,6 +215,14 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // the rib easing are every one of them a beat's question (`spool-step.ts`).
   if (boss.kind === "spool") {
     stepSpool(world, boss);
+    return;
+  }
+  // THE HASP on the beat is the latches, the heat, the one bolt and the row
+  // swinging clear — and the *saying* of the gate, once per change. Whether
+  // the wheel turns at all is asked on the tick, where the hand is
+  // (`hasp-hand.ts`).
+  if (boss.kind === "hasp") {
+    stepHasp(world, boss);
     return;
   }
   // And the six that are not stepped here at all, with THE VANE, THE CAIRN,

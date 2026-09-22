@@ -27,6 +27,7 @@ export type {
   GaugeEntry,
   GimbalEntry,
   GorgeEntry,
+  HaspEntry,
   HiveEntry,
   InstarEntry,
   LeadEntry,

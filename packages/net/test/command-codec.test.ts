@@ -225,6 +225,15 @@ const ACCEPTED: Command[] = [
   // plausible (`sim/spool-hand.ts`).
   { kind: "drag", target: "spoolBrake", on: true, fromMilli: 0, fromYMilli: 420 },
   { kind: "drag", target: "spoolBrake", on: false, fromMilli: 0, fromYMilli: 0 },
+  // THE HASP's latch and wheel: a depth drag and a bearing, one target a
+  // seat (`sim/hasp-hand.ts`). Both are here for a reason sharper than THE
+  // BELLOWS's above — the latch is the *gate* on the wheel, so a dropped
+  // latch message is not a lost gesture but a wheel that seizes on one
+  // device and turns on the other, which is a desync rather than a fumble.
+  { kind: "drag", target: "haspLatch", on: true, fromMilli: 0, fromYMilli: 800 },
+  { kind: "drag", target: "haspLatch", on: false, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "haspWheel", on: true, fromMilli: 250 },
+  { kind: "drag", target: "haspWheel", on: true, fromMilli: -1 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -371,6 +380,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   bellowsPull: true,
   bellowsPush: true,
   spoolBrake: true,
+  haspLatch: true,
+  haspWheel: true,
   crank: true,
   orreryRing: true,
 };

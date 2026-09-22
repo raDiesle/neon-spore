@@ -17042,3 +17042,32 @@ from any one of them is a test in a different package.
 debugging.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+## 2026-09-22 — the hasp's simulation — a grip nobody can see, and the wheel it holds
+
+- reading — 35 min. §20 of `bosses-choreographed.md` line by line, then
+  `bellows-hand.ts` and `crank.ts`/`bearing.ts` for the two gestures this
+  boss is made of, and `gimbal-hand.ts` for how a seat is checked against a
+  target's own name.
+- writing — 95 min. `hasp.ts`, `hasp-hand.ts`, `hasp-step.ts`, `hasp-shot.ts`,
+  `hasp-hash.ts`, `config-hasp.ts`, `events-hasp.ts` and the eleven barrels
+  they register in; wave 100 and its guide; the fourteen sounds and their
+  binding; the two silent lists, the wire's two targets, the director's two
+  controls, four states, two grip poses and its hand; §11.37, the §20 ledger
+  row and `controls.md`.
+- testing — 40 min. `sim/test/hasp.test.ts`, twenty-four of them — the gate
+  both ways, the level, the heat and its shorter last fuse, her place on the
+  rim across a seize, the bolt, the clear and the fingerprint.
+- friction — 25 min. `waves-acts.ts` went to 254 lines on one act file, so
+  twenty-one literals became one `act(name)` call each; `boss.haspClear`'s
+  groan spent a quarter second in the speech band and took two goes to get
+  under it; `sound-link`, `boss-states`, `scenes-prose` and `doc-drift` each
+  wanted a registration nothing in the sim pointed at.
+- landing — 15 min. `baseline:blank`, `imports:sort`, `check`, the commit.
+
+The bottleneck was **the registrations that are only discoverable from a red
+test**. The simulation itself was written once and never argued with; what
+took the afternoon was the fourteen places outside `packages/sim` that have
+to name a new boss — a sound with no subject, a state with no pose, a prose
+guide's count, a `SimConfig` field no document mentions — none of which the
+sim's own files can point at. Every one was found by running the suite and
+reading the failure, not by reading a list.

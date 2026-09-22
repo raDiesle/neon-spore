@@ -85,4 +85,26 @@ export const INGEST_SILENT_BOSS_C = [
   "spoolSlack",
   "spoolDrift",
   "spoolOut",
+  // THE HASP's fourteen, silent because nothing has drawn them yet: this is
+  // the simulation lane, and the door, its clasps, the latch and the wheel
+  // are not on any screen until the look lane lands (`docs/spec/bosses.md`
+  // §11.37). Most of them will stay here when it does, for THE BELLOWS's
+  // reason above — how far the wheel has gone round, how hot the latch is,
+  // how many clasps are left and whether a bolt is loose are all read off
+  // the boss every frame, and a mark that outlived the frame would be a
+  // second answer to a question the picture is already answering.
+  "haspEnter",
+  "haspLit",
+  "haspGrip",
+  "haspLet",
+  "haspBurn",
+  "haspCool",
+  "haspSeize",
+  "haspFree",
+  "haspOpen",
+  "haspBolt",
+  "haspBoltOut",
+  "haspBoltHit",
+  "haspClear",
+  "haspOut",
 ] as const satisfies readonly SimEvent["type"][];

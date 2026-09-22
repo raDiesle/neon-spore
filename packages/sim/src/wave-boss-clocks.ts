@@ -7,6 +7,7 @@ import { installDiastole } from "./diastole-step.js";
 import { installFilament } from "./filament-step.js";
 import { installGimbal } from "./gimbal-step.js";
 import { installGorge } from "./gorge-step.js";
+import { installHasp } from "./hasp-step.js";
 import { installHive } from "./hive-step.js";
 import { installInstar } from "./instar-step.js";
 import { installLead } from "./lead-step.js";
@@ -66,6 +67,7 @@ const CLOCK_KINDS = [
   "gimbal",
   "bellows",
   "spool",
+  "hasp",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -190,6 +192,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // the field, its line already run out to the hull and taut, four ribs
     // whole, and every figure in it either tuning or rolled (`spool-step.ts`).
     world.boss = installSpool(world);
+  } else if (boss.kind === "hasp") {
+    // No creature and no row: three sealed clasps down the centre of the
+    // field, a latch on each for one seat and a wheel behind it for the
+    // other, and every figure in it tuning (`hasp-step.ts`).
+    world.boss = installHasp(world);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

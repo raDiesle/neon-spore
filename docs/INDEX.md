@@ -234,6 +234,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/boss-surface-clocks.ts` | **The clock bosses' half of the surface**, written out the same way |
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
+| `packages/sim/src/boss-surface-clocks-c.ts` | **The clock bosses' half of the surface, the third page** — THE WELL's face and the thumb on its seam |
 | `packages/sim/src/boss-surface-snake.ts` | **SNAKE's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-ledger.ts` | **THE LEDGER's names on `@neon-spore/sim`'s surface** |
@@ -451,6 +452,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/hash-creature-tail.ts` | **The end of one body's fingerprint**, from THE BALLOON's eight to THE CRYSTAL's leg |
 | `packages/sim/src/hash-faults.ts` | the fault half of the world fingerprint |
 | `packages/sim/src/hash-pods.ts` | The pods on the field, folded into the world hash |
+| `packages/sim/src/hasp-hand.ts` | **The two hands on THE HASP**, off the wire, on the tick — and the gate between them, which is the whole boss |
+| `packages/sim/src/hasp-hash.ts` | What THE HASP puts into `hashWorld`, and nothing else |
+| `packages/sim/src/hasp-shot.ts` | **THE HASP's one target**: the bolt the second hasp's spring throws loose (§20, row 7) |
+| `packages/sim/src/hasp-step.ts` | THE HASP's clock: the latches lighting, the heat burning a hand off, the wheel seizing and coming free |
+| `packages/sim/src/hasp.ts` | THE HASP: three sealed clasps down the middle of the field, each a lobed cover over a wheel-hub |
 | `packages/sim/src/fence-crack.ts` |  |
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
 | `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
@@ -544,6 +550,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
+| `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/events-diastole.ts` | **What THE DIASTOLE's clamp does that neither screen already says**, as two events (`diastole-hand.ts`) |
@@ -573,6 +580,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
+| `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
 | `packages/sim/src/config-instar.ts` | THE INSTAR's tuning: the rules that hold across every step of a scene |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
@@ -1359,6 +1367,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
 | `packages/render/src/effects-spark-silent-boss-b.ts` | **The bosses' half of the not-a-burst list, the second page** — from THE FILAMENT on |
+| `packages/render/src/effects-spark-silent-boss-c.ts` | **The bosses' half of the not-a-burst list, the third page** — THE GAUGE's four and THE WELL's four |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
@@ -1741,6 +1750,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
+| `packages/audio/src/bind-hasp.ts` | THE HASP's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-spool.ts` | THE SPOOL's eleven, in a file of their own for `bind-bellows.ts`' reason |
@@ -1966,6 +1976,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
+| `tools/director/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
 | `tools/director/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
 | `tools/director/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
@@ -2041,6 +2052,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-bellows.ts` | THE BELLOWS's two handles, one under each seat's thumb — and, like THE GIMBAL's pair next door |
+| `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb — and, unlike THE BELLOWS's pair next door |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2450,6 +2462,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-candle.ts` | THE CANDLE's wick: the ON THE FIELD row for the one handle taken hold of in the dark |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
@@ -2465,6 +2478,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-notes-twice.ts` | The paragraph under each card for a **body one landed answer does not finish**: THE ECHO, THE RIND |
 | `tools/director/src/ship-notes-choreo.ts` | The paragraph under each **choreographed boss's** card |
 | `tools/director/src/ship-notes-choreo-b.ts` | The paragraph under each **choreographed boss's** card, the second page |
+| `tools/director/src/ship-notes-choreo-c.ts` | The paragraph under each **choreographed boss's** card, the third page |
 | `tools/director/src/ship-boss-group.ts` | **The boss group each `BossEntry` kind shows.** It arrived in `ship-groups.ts` with THE CLAW |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |

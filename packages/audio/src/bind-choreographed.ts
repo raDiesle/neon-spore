@@ -53,6 +53,7 @@ type ChoreographedEvent =
           | `gimbal${string}`
           | `bellows${string}`
           | `spool${string}`
+          | `hasp${string}`
           | `diastole${string}`;
       }
     >

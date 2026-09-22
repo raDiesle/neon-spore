@@ -9,6 +9,7 @@ import { GAUGE_PHASES } from "./gauge.js";
 import { GAUGE_GRIPS } from "./gauge-hand.js";
 import { GIMBAL_PHASES } from "./gimbal.js";
 import { GORGE_PHASES } from "./gorge.js";
+import { HASP_PHASES } from "./hasp.js";
 import { HIVE_PHASES } from "./hive.js";
 import { HIVE_LOBES } from "./hive-lobe.js";
 import { INSTAR_PHASES } from "./instar.js";
@@ -110,5 +111,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   gimbal: GIMBAL_PHASES,
   bellows: BELLOWS_PHASES,
   spool: SPOOL_PHASES,
+  hasp: HASP_PHASES,
   fleet: FLEET_PHASES,
 };

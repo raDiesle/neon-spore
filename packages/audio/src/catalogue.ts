@@ -23,6 +23,7 @@ import { BOSS_FILAMENT_SOUNDS } from "./sounds/boss-filament.js";
 import { BOSS_GAUGE_SOUNDS } from "./sounds/boss-gauge.js";
 import { BOSS_GIMBAL_SOUNDS } from "./sounds/boss-gimbal.js";
 import { BOSS_GORGE_SOUNDS } from "./sounds/boss-gorge.js";
+import { BOSS_HASP_SOUNDS } from "./sounds/boss-hasp.js";
 import { BOSS_HIVE_SOUNDS } from "./sounds/boss-hive.js";
 import { BOSS_INSTAR_SOUNDS } from "./sounds/boss-instar.js";
 import { BOSS_LEAD_SOUNDS } from "./sounds/boss-lead.js";
@@ -91,6 +92,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_GIMBAL_SOUNDS,
   ...BOSS_BELLOWS_SOUNDS,
   ...BOSS_SPOOL_SOUNDS,
+  ...BOSS_HASP_SOUNDS,
   ...BOSS_DIASTOLE_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,

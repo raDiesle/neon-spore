@@ -51,6 +51,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   gimbal: "THE GIMBAL — the boss where the same turn is not the same turn",
   bellows: "THE BELLOWS — the boss where you may never push while they are pulling",
   spool: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  hasp: "THE HASP — the boss where one of you only has to hold on, and cannot",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

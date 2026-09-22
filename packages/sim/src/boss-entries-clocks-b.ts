@@ -5,9 +5,17 @@
  * The seam is the one every overflowing page in the repository uses: the
  * page at the limit hands its **last** boss across, never the boss being
  * worked on, so a paragraph never parts from the boss it argues. THE HIVE
- * was the last, and it comes alone rather than with company — a page that
+ * was the last, and it came alone rather than with company — a page that
  * gave away more than it owed would be making room for work nobody has
- * started.
+ * started. THE BELLOWS's followed the same day, when THE HASP's paragraph
+ * took next door over again, by the same rule and for the same reason.
+ *
+ * THE ANTIPHON's came across on the same rule when THE HASP's own paragraph
+ * took the page to 250 again with nothing left to give.
+ *
+ * THE SPOOL's landed here on its own the same day, by neither route: the
+ * page next door was full when its lane got there, so the newest boss went
+ * where there was room rather than pushing a third paragraph across.
  *
  * Every name here is re-exported from `boss-entries.ts` and from `entries.ts`
  * after it, exactly as next door's are, so nothing that already reached for
@@ -25,6 +33,24 @@ export interface HiveEntry {
 }
 
 /**
+ * What a wave authors when it wants THE BELLOWS: nothing, the eighteenth.
+ *
+ * No seams, though they are the health: four gaps down a waist is the
+ * *silhouette*, and a lung hung with five would be a different lung
+ * (`bellows.ts`, `BELLOWS_SEAMS`). No tempo, because every one of them is a
+ * beat count the pair has to feel — how long a jam holds, how long the one
+ * shared window is — and a wave that authored its own would be several
+ * different bosses wearing one name, `DiastoleEntry`'s reason next door.
+ *
+ * And nothing about which handle is whose, because that is not a figure at
+ * all: his chamber hangs off the left of the waist and hers off the right,
+ * geometry rather than data (`bellowsChamberCol`).
+ */
+export interface BellowsEntry {
+  kind: "bellows";
+}
+
+/**
  * What a wave authors when it wants THE SPOOL: nothing, the nineteenth.
  *
  * No ribs, though they are the health: four ribs round a casing is the
@@ -39,4 +65,15 @@ export interface HiveEntry {
  */
 export interface SpoolEntry {
   kind: "spool";
+}
+
+/**
+ * What a wave authors when it wants THE ANTIPHON: nothing, the fifteenth.
+ * The body rises smooth over the middle columns; which shape stands where,
+ * in which colour, beside which decoys, is the seed's, and how many organs
+ * it has and how long each stands is tuning (`antiphon.ts`,
+ * `config-antiphon.ts`).
+ */
+export interface AntiphonEntry {
+  kind: "antiphon";
 }

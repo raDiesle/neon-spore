@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { SILENT_BOSS } from "./effects-spark-silent-boss.js";
 import { SILENT_BOSS_B } from "./effects-spark-silent-boss-b.js";
+import { SILENT_BOSS_C } from "./effects-spark-silent-boss-c.js";
 
 /**
  * **The events that are deliberately not a burst**, and why each one is not.
@@ -35,6 +36,7 @@ export const SILENT = [
   // already cut — what is left here is a body on the field doing something.
   ...SILENT_BOSS,
   ...SILENT_BOSS_B,
+  ...SILENT_BOSS_C,
   // THE PUSH's lane change. The body is drawn gliding into its new column by
   // `fromCol` the way any stepped body is, so the picture already carries the
   // move; the *cue* is the new thing and it is in `packages/audio`. Whether a

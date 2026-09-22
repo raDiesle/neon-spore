@@ -5,6 +5,7 @@ import type { Cue } from "./bind-cue.js";
 import { diastoleCue } from "./bind-diastole.js";
 import { filamentCue } from "./bind-filament.js";
 import { gimbalCue } from "./bind-gimbal.js";
+import { haspCue } from "./bind-hasp.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
 import { scuttleCue } from "./bind-scuttle.js";
@@ -48,6 +49,7 @@ type LateEvent = Extract<
       | `gimbal${string}`
       | `bellows${string}`
       | `spool${string}`
+      | `hasp${string}`
       | `diastole${string}`
       | `undertow${string}`;
   }
@@ -166,6 +168,21 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "spoolDrift":
     case "spoolOut":
       return spoolCue(e, cols);
+    case "haspEnter":
+    case "haspLit":
+    case "haspGrip":
+    case "haspLet":
+    case "haspBurn":
+    case "haspCool":
+    case "haspSeize":
+    case "haspFree":
+    case "haspOpen":
+    case "haspBolt":
+    case "haspBoltOut":
+    case "haspBoltHit":
+    case "haspClear":
+    case "haspOut":
+      return haspCue(e, cols);
     case "diastoleClamp":
     case "diastoleSpasm":
       return diastoleCue(e, cols);

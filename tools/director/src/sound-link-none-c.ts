@@ -162,4 +162,30 @@ export const NO_SUBJECT_C: Record<string, string> = {
     "THE BALLOON splitting, and topping out into a torch. It has a shape of its own, and the shape sheet has no card for it yet.",
   "impact.overkill":
     "THE BALLOON popping under two shots landed the same beat. Same body, same gap in the sheet.",
+  // THE HASP's fourteen. A door of three iron clasps with a wheel across it,
+  // hung over the middle of the field: a fixture, THE BELLOWS's answer above
+  // said about hardware instead of a lung. Two of these are the same instant
+  // heard from two seats — the burn is his and the seize is hers — and
+  // neither is a thing standing anywhere (`sim/events-hasp.ts`).
+  "boss.haspEnter":
+    "the door swinging into the top of the field. It is a fixture hung over the middle rather than a body among the creatures, and the sheet's cards are bodies on a grid.",
+  "boss.haspLit": "a clasp lighting, ready to be worked. A mark on the fixture. Same argument.",
+  "boss.haspGrip": "his latch carried past its grip. A hand on a handle, which is no body.",
+  "boss.haspLet": "his latch let go, on purpose or by accident. Same argument, and an absence.",
+  "boss.haspBurn":
+    "his hand burnt off the latch after holding too long. The subject is a hand and a clock only one seat is shown; neither is a contour.",
+  "boss.haspCool": "the hand off the bar long enough to take it again. Same argument.",
+  "boss.haspSeize":
+    "her wheel turned against a latch that is up, and moving nothing. The same instant as the burn from the other seat, and what it marks is turning that did not happen.",
+  "boss.haspFree": "the wheel answering her hand again. Same argument, and a mark on the fixture.",
+  "boss.haspOpen":
+    "a clasp wound off and swinging away. What goes is part of the fixture, like THE GIMBAL's hatch, and there is no card for it.",
+  "boss.haspBolt":
+    "a bolt working its way loose out of the middle column. A bolt is hardware off the door rather than a body; when it is shot it is heard as a shot.",
+  "boss.haspBoltOut": "that bolt shot out, in either colour. Same argument.",
+  "boss.haspBoltHit":
+    "nobody shot it and it reached the hull. What is hit is the ship, which the hull's own sounds already have; what threw it is the door.",
+  "boss.haspClear":
+    "the last clasp gone and the door standing open. Same argument, and it is an opening rather than a thing.",
+  "boss.haspOut": "the door falling away and the wave ending. Same argument, and an absence.",
 };

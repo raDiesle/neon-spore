@@ -42,6 +42,7 @@ export type GroupName =
   | "THE GIMBAL — the boss where the same turn is not the same turn"
   | "THE BELLOWS — the boss where you may never push while they are pulling"
   | "THE SPOOL — the boss where the line runs out at the speed one of you reads"
+  | "THE HASP — the boss where one of you only has to hold on, and cannot"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -134,6 +135,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GIMBAL — the boss where the same turn is not the same turn",
   "THE BELLOWS — the boss where you may never push while they are pulling",
   "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  "THE HASP — the boss where one of you only has to hold on, and cannot",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",

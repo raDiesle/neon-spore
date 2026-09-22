@@ -15,13 +15,17 @@
 // one object, read from its two opposite faces.
 // THE BELLOWS's handle and plate, argued below: the first pair of targets the
 // fight forbids the pair from working in the same beat.
+// THE HASP's latch and wheel, argued below: the first pair where one of them
+// only moves at all while the other is being held.
 export type DragTargetD =
   | "hiveLobe"
   | "gimbalOuter"
   | "gimbalInner"
   | "bellowsPull"
   | "bellowsPush"
-  | "spoolBrake";
+  | "spoolBrake"
+  | "haspLatch"
+  | "haspWheel";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -112,4 +116,30 @@ export type DragTargetD =
  * is shown for it is the mark's own grip and never a number — the figure the
  * navigator reads is on her screen, and saying the two to each other is the
  * fight (`spool.ts`).
+ */
+
+/**
+ * `haspLatch` and `haspWheel` are the sixty-third and sixty-fourth, and the
+ * first pair where **one of them does not move unless the other is held**.
+ *
+ * Neither gesture is new. The latch is a depth drag — `fromYMilli`, cut to
+ * `haspReachMilli` — read as a **level** rather than an edge, which is the
+ * one thing it does differently from `bellowsPull` next door: what the wheel
+ * asks every tick is whether the hand is down *now*, so the gesture is
+ * *keep holding* and there is nothing to cross. The wheel is a bearing, the
+ * `orreryRing` and `gimbalOuter` gesture exactly, and what a step on it is
+ * worth is how far it travelled.
+ *
+ * What is new is the gate, and it is not in the engine: the wheel's own hand
+ * asks whether the latch is held before it turns anything
+ * (`hasp-hand.ts`). A rule joining two hands needs no primitive of its own,
+ * only a read of the other hand on the same tick — which is the whole
+ * finding §20 was written to make.
+ *
+ * Two names rather than one target and a side, for `bellowsPull`'s reason:
+ * **the seat is the encounter here**, not a convenience — the pilot is shown
+ * a latch and never a wheel, the navigator a wheel and never a latch — so
+ * the seat is checked against the name and the wrong one's message does
+ * nothing at all. No `id`: there is one row, and one hasp of it open at a
+ * time.
  */

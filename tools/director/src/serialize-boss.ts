@@ -153,6 +153,9 @@ export function serializeBoss(boss: BossEntry): string {
   // every window is tuning, and the rate each leg asks for is rolled off the
   // seed so a pair cannot learn a wave by heart (`sim/spool.ts`).
   if (boss.kind === "spool") return '{ kind: "spool" }';
+  // THE HASP authors nothing either: the three clasps are its silhouette and
+  // every fuse and winding in it is tuning (`sim/boss-entries-clocks.ts`).
+  if (boss.kind === "hasp") return '{ kind: "hasp" }';
   // THE GIMBAL's alignments are three bearings apiece and named for the same
   // reason (`packages/content/src/gimbal-script.ts`).
   if (boss.kind === "gimbal") return '{ kind: "gimbal", marks: GIMBAL_SCRIPT }';

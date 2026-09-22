@@ -204,6 +204,18 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     { hold: 6 },
   ),
   bossPose(
+    "hasp",
+    "still",
+    "The door of three clasps hangs shut over the field. P1 and P2 both wait: no latch is lit yet.",
+    { hold: 6 },
+  ),
+  bossPose(
+    "hasp",
+    "work",
+    "A clasp lit and its latch cool. P1 holds the latch down; P2 turns the wheel while he holds it.",
+    { hold: 6 },
+  ),
+  bossPose(
     "filament",
     "arm",
     "One filament lit at its free end. P1 draws the lit end a tile a beat; P2 follows a tile behind.",

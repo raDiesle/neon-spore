@@ -1,0 +1,30 @@
+/**
+ * **The clock bosses' half of the surface, the third page** — THE WELL's face
+ * and the thumb on its seam, and nothing else yet.
+ *
+ * Cut when THE HASP's door took `boss-surface-clocks-b.ts` to 258 lines
+ * against a 250-line limit, along the seam that file was itself cut on: the
+ * **last** rows the full page held go across whole, so the boss being written
+ * keeps the comment that explains it and the one being moved keeps its own.
+ * Page two re-exports this one and page one re-exports page two, so nothing
+ * reaching for a name through `@neon-spore/sim` knows there are three.
+ *
+ * The rule the first page states holds here unchanged: a name on these pages
+ * is one something outside `packages/sim` imports.
+ */
+
+// THE WELL's face, and the thumb on its seam: how far it has turned and which
+// way it is read, for the projection that draws it (`render/well-roll.ts`),
+// the hit test that answers it (`render/touch-well.ts`) and the director's
+// hand. On a clocks page at all because `boss-surface.ts` is at its limit
+// (`well.ts`).
+export {
+  NO_WELL_GRIP,
+  WELL_PHASES,
+  type WellPhase,
+  type WellState,
+  wellBoss,
+  wellHeldNow,
+  wellHoldLeft,
+  wellMaxOffsetMilli,
+} from "./well.js";

@@ -38,6 +38,7 @@ type BossId = Extract<
   | "gimbal"
   | "bellows"
   | "spool"
+  | "hasp"
 >;
 
 /**
@@ -187,6 +188,10 @@ export const BOSS_MECHANICS = {
   },
   spool: {
     what: "A spool pays a line to the hull. One of you holds the brake. The other sees how fast it should run. Hold it right and a rib eases.",
+    reach: "spawn",
+  },
+  hasp: {
+    what: "He holds the latch down. She turns the wheel, and it only moves while he holds. His hand burns if he holds too long. Three hasps.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

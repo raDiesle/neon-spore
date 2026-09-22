@@ -1,0 +1,52 @@
+import type { BossEntry } from "../src/boss-entries.js";
+import type { BossState } from "../src/boss-union.js";
+
+/**
+ * **THE HASP on: the fourth page of `hash-fixture.ts`**, opened the day that
+ * boss landed because `-c.ts` stood at 229 lines and an entry with its
+ * paragraph and a patch with its own would not fit in the twenty-one that
+ * were left. `-c.ts`' own header names this file as the one that would take
+ * the next boss, which is what happened.
+ *
+ * The rule is unchanged: `BOSS_KINDS` is appended to, never inserted into, so
+ * the newest boss is always at the end of the last page. The reasons the
+ * fixture works the way it does are on `-a.ts` and in `hash-fixture.ts`,
+ * which composes the pages.
+ */
+
+/** What each is authored with; the keys are the page's share of `BOSS_KINDS`. */
+export const BOSS_ENTRIES_D = {
+  // THE HASP authors nothing at all, which is the entry (`HaspEntry`): three
+  // clasps is the silhouette and every fuse, reach and winding is tuning, so
+  // there is no figure here for the walk to vary. What it has to see varied
+  // is in `patchBossD` below, and all of it is state (`hasp-hash.ts`).
+  hasp: { kind: "hasp" },
+} satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
+
+/** THE HASP on's share of `patchBoss`. */
+export function patchBossD(boss: BossState): void {
+  if (boss.kind === "hasp") {
+    // A clasp part way wound with both hands on it: the latch held from a beat
+    // of its own, the wheel turned off its start and her bearing remembered,
+    // the burn counted from a beat, the gate said, and a bolt loose in a column
+    // with a beat on it — every nullable field given a value, so the walk can
+    // tell a hashed one from a field it never sees change (`hasp-hash.ts`).
+    //
+    // `latchMilli` and `handMilli` are deliberately *not* their empty values
+    // (`NO_LATCH`, `NO_BEARING`): a field the fixture leaves at the sentinel it
+    // is installed with is a field the walk cannot move off its installed
+    // value, and both of these are read every tick by the gate.
+    boss.phase = "work";
+    boss.phaseBeat = 3;
+    boss.hasps = 2;
+    boss.latchMilli = 720;
+    boss.gripBeat = 4;
+    boss.burnBeat = 5;
+    boss.wheelMilli = 380;
+    boss.handMilli = 640;
+    boss.woundMilli = 520;
+    boss.seized = true;
+    boss.boltCol = 4;
+    boss.boltBeat = 6;
+  }
+}

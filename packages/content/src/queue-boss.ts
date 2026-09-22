@@ -188,6 +188,11 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // already standing in, which is the pilot's column in the only sense this
   // game has one.
   if (boss.kind === "spool") return { ...boss };
+  // THE HASP hangs its wheel over `midCol` too, and its loose bolt works its
+  // way out of the same column — the only figure in the fight that is a place
+  // at all, and it is read off the field rather than authored
+  // (`sim/hasp-step.ts`).
+  if (boss.kind === "hasp") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

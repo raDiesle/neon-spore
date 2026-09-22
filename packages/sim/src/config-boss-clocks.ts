@@ -8,6 +8,7 @@ import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
 import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
+import { HASP_DEFAULTS, type HaspConfig } from "./config-hasp.js";
 import { HIVE_DEFAULTS, type HiveConfig } from "./config-hive.js";
 import { INSTAR_DEFAULTS, type InstarConfig } from "./config-instar.js";
 import { LEAD_DEFAULTS, type LeadConfig } from "./config-lead.js";
@@ -80,6 +81,7 @@ export interface BossClockConfig
     GimbalConfig,
     BellowsConfig,
     SpoolConfig,
+    HaspConfig,
     MirrorConfig,
     MazeGripConfig,
     WardenHandConfig,
@@ -110,6 +112,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...GIMBAL_DEFAULTS,
   ...BELLOWS_DEFAULTS,
   ...SPOOL_DEFAULTS,
+  ...HASP_DEFAULTS,
   ...MIRROR_DEFAULTS,
   ...MAZE_GRIP_DEFAULTS,
   ...WARDEN_HAND_DEFAULTS,
