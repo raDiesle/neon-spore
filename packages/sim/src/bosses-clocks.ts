@@ -38,6 +38,9 @@ export { batonActor } from "./baton-cross.js";
 export { batonBoss } from "./baton-step.js";
 // From THE SCUTTLE on, the second page (`bosses-clocks-b.ts`).
 export * from "./bosses-clocks-b.js";
+// THE LEDGER is a clock too, and it has a page of its own: the one boss here
+// whose single drawn object is cut in half by seat (`bosses-ledger.ts`).
+export * from "./bosses-ledger.js";
 // THE CANDLE keeps the shortest clock of the six: a glow that drifts and
 // turns on counts the pair says out loud, in a dark the sim does not know.
 export {
@@ -96,28 +99,6 @@ export {
 } from "./gorge.js";
 // THE ORRERY is three clocks rather than one, and the only number the pair
 // ever wants off it is a beat that has not happened yet (`orreryNextOpen`).
-// THE LEDGER's cord is a clock with the pair's own hand on it: every return
-// on it is a beat count they started, and the cadence shortens as the seam
-// widens (`ledger.ts`, `config-ledger.ts`).
-export {
-  LEDGER_PHASES,
-  type LedgerBead,
-  type LedgerPhase,
-  type LedgerState,
-  ledgerBoss,
-  ledgerCadence,
-  ledgerCovers,
-  ledgerLetThrough,
-  ledgerNext,
-  ledgerPhase,
-  ledgerPlugs,
-  ledgerSeamCol,
-  ledgerWalk,
-  ledgerWhips,
-} from "./ledger.js";
-// And the one gate the navigator's other hand hangs off, called by the rule
-// and by the ring drawn on it rather than restated (`ledger-hand.ts`).
-export { ledgerFootable } from "./ledger-hand.js";
 export {
   ORRERY_PHASES,
   ORRERY_RINGS,

@@ -22,6 +22,37 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-22 — queue-the-ledgers-four-handles — his two are on the cord
+
+- reading — 20 min. `ledgerPhase`'s two remaining states, the fade the pilot's
+  screen puts over the lower cord (`ledger-cord.ts`, `FADE_FROM`), and the
+  cord's own geometry — because the placement of both of his rings is decided
+  by what he is *not* shown rather than by composition.
+- writing — 50 min. `ledger-pull.ts` and `ledger-haul.ts`, the two gates lifted
+  into `ledger-gates.ts` so the rings and the rules cannot disagree, thirty
+  cases across two test files, the `handleUnder()` branch, the cue dropping its
+  frame where the ring is, two director rows, and the rows in `controls.md`
+  and §11.27. Three files were cut to stay under the ceiling in the doing:
+  `ledger-gates.ts`, `bosses-ledger.ts` and the haul off the pull.
+- looking — 30 min. Four captures, and one of them overturned a paragraph:
+  the haul's ring was drawn dim on the navigator's screen on an argument about
+  the silent refusal, and the frame showed a black disc sitting on her cord —
+  which is exactly what a *return* looks like, in the one place her screen
+  never puts one. Both of his are his alone now, and no handle in this fight
+  is dimmed. Posing the `whipping` frame took a probe for the seam's column
+  and two real shots, because a return only exists once the pair has fired.
+- friction — 20 min. `--boss-json` refuses a list the boss does not already
+  hold, so THE LEDGER's `beads` — empty until a bolt goes up the seam — could
+  not be posed at all; and the size hook stopped the commit twice, at 231 and
+  242 lines. Both are queued, the first on an item that already existed.
+- landing — 15 min. An unused parameter the dim branch left behind, the index
+  for the four new files, and the full fast check.
+
+The bottleneck was the picture, and it earned its minutes: every test in both
+new files passed against a drawing that put an object her seat is never shown
+on the one line she reads the fight off. A suite that counts rings cannot see
+what a ring is mistaken for.
+
 ## 2026-09-22 — queue-the-ledgers-four-handles — her two are one circle
 
 - reading — 25 min. `ledgerPhase`'s five states and which two of them offer

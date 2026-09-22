@@ -474,6 +474,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/ledger-hand.ts` | **THE LEDGER's four hands on its own cord**, off the wire, on the tick |
 | `packages/sim/src/ledger-shot.ts` | **What a shot costs against THE LEDGER**, which is the boss: the seam takes the hit |
 | `packages/sim/src/ledger-step.ts` | THE LEDGER's clock — the returns coming down the cord, the root walking along the hull, and the tear |
+| `packages/sim/src/ledger-gates.ts` | **What THE LEDGER's four hands are offering, this tick** — one question per movement |
 | `packages/sim/src/ledger.ts` | THE LEDGER: whose body takes it |
 | `packages/sim/src/lead-hash.ts` | What THE LEAD puts into `hashWorld`, and nothing else |
 | `packages/sim/src/lead-hand.ts` | **The navigator's thumb on THE LEAD's stalk**, off the wire, on the tick |
@@ -538,6 +539,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bosses-clocks.ts` | **The bosses that are a clock**, as their half of the boss barrel |
 | `packages/sim/src/bosses-clocks-b.ts` | **The bosses that are a clock, the second page** — the clock half of the boss barrel from THE SCUTTLE on |
 | `packages/sim/src/bosses-scout.ts` | **THE SCOUT's names**, cut off `bosses.ts` the day the round gained a second axis of state and took that… |
+| `packages/sim/src/bosses-ledger.ts` | **THE LEDGER's names, in the boss barrel** — its state, its phases |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
@@ -1463,6 +1465,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ledger-root.ts` | **The navigator's half of THE LEDGER, on the finished ship** |
 | `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body, the cord between it and the hull |
 | `packages/render/src/ledger-grip.ts` | **The navigator's two hands on THE LEDGER's root**: the foot of the cord while it is still paying out |
+| `packages/render/src/ledger-haul.ts` | **The pilot's carry on the taut cord** |
+| `packages/render/src/ledger-pull.ts` | **The pilot's two hands on THE LEDGER's cord**: his thumb on the soonest return |
 | `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
 | `packages/render/src/lead-shape.ts` | Where THE LEAD is in field pixels: the ridge, the foot, the stalk's length and the angle each seat is asked for |

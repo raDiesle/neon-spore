@@ -3,12 +3,13 @@ import {
   type LedgerState,
   ledgerNext,
   ledgerPhase,
+  ledgerPullable,
   ledgerSeamCol,
   priming,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { DIAL_RADII } from "./handle-draw.js";
+import { DIAL_RADII, handleRadius } from "./handle-draw.js";
 import { type Layout, tileCX } from "./layout.js";
 import {
   ledgerBeadU,
@@ -73,7 +74,9 @@ import {
  * plate is already in the socket — from there a warded return widens the seam
  * for nothing, so a pair that is ahead of the cord is better off hauling the
  * next bill down than waiting for it. It gives the bead back to `GUARD` on the
- * beat it lands, because one word stands on one thing.
+ * beat it lands, because one word stands on one thing. **Both of them drop
+ * their frame where his ring is under the bead** — `ROOT`'s arrangement, said
+ * about a bead instead of a root (`ledger-pull.ts`, THE STARE's `SHUT`).
  *
  * **The other two hands get no word, and that is the same rule twice.** The
  * plug is a choice about which of two columns the plate is owed in, which is
@@ -177,7 +180,29 @@ export function ledgerCues(
     // bead, never two — `GUARD` is the beat it lands on and this is every beat
     // before it.
     const pull = phase === "whipping" && world.shieldCol === t.socket && left > 1 && !next.pulled;
-    out.push(markAt(1, "PRESS", pull ? "PULL" : "GUARD", at.x, at.y, l, 53));
+    // **No frame where his ring is under it**, `ROOT`'s arrangement said
+    // about a bead instead of a root: from the day the pull was drawn, the
+    // soonest haulable return wears a ring that rides it down the cord
+    // (`ledger-pull.ts`), and a ring is a mark already. The word stands out at
+    // the dial, which is the one radius clear of both.
+    const ringed = ledgerPullable(t, cfg, world.beat) !== null;
+    const half = handleRadius(l, cfg) * DIAL_RADII;
+    const word = pull ? "PULL" : "GUARD";
+    out.push(
+      ringed
+        ? {
+            seat: 1,
+            kind: "PRESS",
+            word,
+            x: at.x,
+            y: at.y,
+            halfW: half,
+            halfH: half,
+            seed: 53,
+            framed: false,
+          }
+        : markAt(1, "PRESS", word, at.x, at.y, l, 53),
+    );
     return out;
   }
   if (phase !== "paying") return [];

@@ -1,8 +1,8 @@
 import type { FieldControlDef } from "./field-control-def.js";
 
 /**
- * **The navigator's two hands on THE LEDGER's root**, in a file of its own,
- * the split every boss since THE INSTAR has made.
+ * **THE LEDGER's four hands**, in a file of its own, the split every boss
+ * since THE INSTAR has made.
  *
  * Two rows on two targets and **one circle between them**, which is this
  * boss's arrangement and no other's: the foot is offered while the cord is
@@ -18,12 +18,20 @@ import type { FieldControlDef } from "./field-control-def.js";
  * column below reads the way it does — both of these are on the half of the
  * cord only she can see, and the question was answered before it was asked.
  *
- * **The rules shipped first and the pictures came after.** Both gestures were
- * heard by `sim/ledger-hand.ts` from 19 September 2026 with nothing drawn to
- * take hold of, which is why there were no rows here and
- * `on-field-controls.test.ts` had `ledgerFoot` and `ledgerSocket` as
- * `unbuilt`. The pilot's two — `ledgerBead` and `ledgerCord` — are still
- * there, and are the other half of this lane (`docs/queue.md`).
+ * **His two are the same question answered the other way round.** Neither
+ * stands on the root, because a mark in the faded stretch would put back what
+ * the fade takes away: the pull's ring rides the bead it is about, down a cord
+ * only he is shown, and the haul's stands still above the fade
+ * (`render/ledger-pull.ts`, `ledger-haul.ts`). **No handle in this fight is
+ * drawn on both screens and none is dimmed** — the haul's was, for one frame,
+ * and it came out a black disc on the cord in the one place her screen never
+ * puts a disc.
+ *
+ * **The rules shipped first and the pictures came after.** All four gestures
+ * were heard by `sim/ledger-hand.ts` from 19 September 2026 with nothing drawn
+ * to take hold of, which is why there were no rows here and
+ * `on-field-controls.test.ts` had every one of them as `unbuilt`. The look is
+ * exempt under *a look with no shipped alternative*, twice.
  */
 export const LEDGER_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -80,5 +88,65 @@ export const LEDGER_CONTROLS: readonly FieldControlDef[] = [
     dragTarget: "ledgerSocket",
     sends: ["drag"],
     pose: "THE LEDGER · PAYING",
+  },
+  {
+    name: "THE LEDGER'S PULL",
+    where:
+      "on the soonest return itself, riding it down the cord — the one bead " +
+      "the pair is talking about, so the ring cannot be on a different return " +
+      "from the one the press would move. Drawn on his screen alone, behind " +
+      "the same gate as the bead: where a return has got to is the half of " +
+      "this object she is not shown. Only while the cord is whipping " +
+      "(render/ledger-pull.ts)",
+    seat: "player 1 only — the beads are his to see and his to answer",
+    gesture: "grab and drag",
+    does:
+      "Hauls that return **one beat down the cord**, once, so a pair that has " +
+      "the plate where it is going can run the cord faster than the boss " +
+      "meters it out — in whipping a warded return is thrown back up into " +
+      "the seam for free, so the cord is the weapon and the returns are the " +
+      "ammunition (sim/ledger-hand.ts, ledgerPullable). Never the last " +
+      "return, which is the one nobody is meant to answer, never twice, and " +
+      "never onto a beat another return already lands on: the root slides " +
+      "between two landings, so the second would arrive in a column the " +
+      "plate has just been walked out of. Its dial is how far down the cord " +
+      "that return has got — what fills is the chance to haul it — and it is " +
+      "never drawn held, because the pull is over in the tick it is made and " +
+      "the answer is the bead jumping down the cord with its count dropping.",
+    source: "touch.ts — ledgerPullUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "ledgerBead",
+    sends: ["drag"],
+    pose: "THE LEDGER · WHIPPING",
+  },
+  {
+    name: "THE LEDGER'S HAUL",
+    where:
+      "on the cord itself, a little under half way down from the body — " +
+      "above the stretch that fades out on his own screen, so the mark names " +
+      "no column, and with better than half the cord left below it for the " +
+      "carry. **On his screen alone**, like his other one: a ring fills its " +
+      "disc opaquely and a dim one reads as a return, which is the one thing " +
+      "her screen never shows. Only on the taut cord (render/ledger-haul.ts)",
+    seat: "player 1 only — and the dial he reads the refusal off is his too",
+    gesture: "grab and drag",
+    does:
+      "Tears the cord out of the plating and ends the fight: a carry of " +
+      "ledgerHaulMilli **downward** from where he grabbed, cut to that and " +
+      "reset to nought by a carry upward (sim/ledger-hand.ts, " +
+      "ledgerHaulable). The last return is the one the pair must not answer, " +
+      "and the fight held open until they worked that out by doing nothing; " +
+      "now it can be finished by hand. **But only while the plate is out of " +
+      "the socket's column** — the movement is still *let it through*, said " +
+      "with a hand instead of with a wait — and that refusal is silent: the " +
+      "handle stands for the whole of taut and what he gets back for pulling " +
+      "on a covered socket is a dial that will not fill. He cannot see the " +
+      "column he is being refused for. She can, and her dim ring is where " +
+      "she reads it (sim/ledger-gates.ts).",
+    source: "touch.ts — ledgerPullUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "ledgerCord",
+    sends: ["drag"],
+    pose: "THE LEDGER · TAUT",
   },
 ];

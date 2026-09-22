@@ -1,6 +1,7 @@
-import { midCol, type SimConfig } from "./config.js";
-import { type LedgerState, ledgerBoss, ledgerNext, ledgerPhase, ledgerPlugs } from "./ledger.js";
+import { midCol } from "./config.js";
+import { type LedgerState, ledgerBoss, ledgerPlugs } from "./ledger.js";
 import { tearCord } from "./ledger-bead.js";
+import { ledgerFootable, ledgerHaulable, ledgerPullable } from "./ledger-gates.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -60,30 +61,11 @@ import type { World } from "./world.js";
  * on THE FLEET's chart and THE TASTER's fan. On the tick rather than the beat
  * (`step.ts`): the foot is where the thumb is now, a plug is in when it lands,
  * and the tick the cord comes out is the tick the wave is over.
+ *
+ * **What each of them is offering is next door** (`ledger-gates.ts`), because
+ * the four rings drawn on them have to ask the same four questions and a gate
+ * written out twice is a handle that outlives the rule behind it.
  */
-
-/**
- * **What the navigator's two are offering, this tick.**
- *
- * `ledgerFootable` here and `ledgerPlugs` next door in `ledger.ts`, because
- * the picture has to ask exactly the same questions: a ring drawn on a gate
- * written out a second time in `render/ledger-grip.ts` is a handle that goes
- * on saying *take hold of me* after somebody has changed one of the two
- * copies. Both are called from `foot`/`plug` themselves, so there is one
- * reading and the drawing and the rule cannot drift.
- *
- * Neither says anything about the seat, and neither about a thumb already
- * down: whose hand it is belongs with the command, and a hand on a thing is
- * not a reason to stop drawing the thing.
- *
- * The pilot's two are still gated inside `pull` and `haul`, and their own
- * lane lifts them out the same way (`docs/queue.md`).
- */
-
-/** The foot: a cord still paying out, which is the only time it can be walked. */
-export function ledgerFootable(t: LedgerState, cfg: SimConfig, beat: number): boolean {
-  return ledgerPhase(t, cfg, beat) === "rooting";
-}
 
 /** All four hands at rest, for the cord's own install — their fields, in their file. */
 export function ledgerHandsFresh(
@@ -170,16 +152,11 @@ function plug(world: World, t: LedgerState, on: boolean): void {
  */
 function pull(world: World, t: LedgerState, on: boolean): void {
   if (!on) return;
-  if (ledgerPhase(t, world.cfg, world.beat) !== "whipping") return;
-  const b = ledgerNext(t);
-  if (b === null || b.last || b.pulled) return;
-  // A return already on its last beat has nothing left to be hauled out of.
-  const beat = b.beat - 1;
-  if (beat <= world.beat) return;
-  if (t.beads.some((o) => o !== b && o.beat === beat)) return;
-  b.beat = beat;
+  const b = ledgerPullable(t, world.cfg, world.beat);
+  if (b === null) return;
+  b.beat -= 1;
   b.pulled = true;
-  world.events.push({ type: "ledgerPull", col: t.socket, beats: beat - world.beat });
+  world.events.push({ type: "ledgerPull", col: t.socket, beats: b.beat - world.beat });
 }
 
 /**
@@ -200,7 +177,7 @@ function haul(world: World, t: LedgerState, on: boolean, fromYMilli: number): vo
     t.haulMilli = 0;
     return;
   }
-  if (ledgerPhase(t, cfg, world.beat) !== "taut") return;
+  if (!ledgerHaulable(t, cfg, world.beat)) return;
   if (world.shieldCol === t.socket) {
     t.haulMilli = 0;
     return;

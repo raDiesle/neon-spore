@@ -4,6 +4,7 @@ import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawLedgerCord } from "./ledger-cord.js";
 import type { LedgerFx } from "./ledger-fx.js";
+import { drawLedgerPulls } from "./ledger-pull.js";
 import { drawLedgerBeads } from "./ledger-read.js";
 import {
   ledgerBodyY,
@@ -150,10 +151,17 @@ export function drawLedger(
   // itself, lit in the colour that widens it, brighter the wider it is.
   if (gap > l.tile * 0.02 && !out) drawSeam(ctx, l, seamX, gap, rim, taut);
 
-  // And the pilot's read. **Hers is not here**: the grommet and the lock are
-  // drawn on the finished ship, because this pass is painted over by it
-  // (`ledger-root.ts`).
-  if (!out) drawLedgerBeads(ctx, l, t, root, socket, taut, time, beat, beatPhase);
+  // And the pilot's read, with his two hands under it. **Hers is not here**:
+  // the grommet, the lock and her one ring are drawn on the finished ship,
+  // because this pass is painted over by it (`ledger-root.ts`).
+  //
+  // The rings go down **before** the beads: one of them rides a bead and
+  // `drawHandleRing` fills opaquely, so the other order would leave him
+  // holding a disc with no return in it (`ledger-pull.ts`).
+  if (!out) {
+    drawLedgerPulls(ctx, l, world, t, beatPhase, time);
+    drawLedgerBeads(ctx, l, t, root, socket, taut, time, beat, beatPhase);
+  }
   ctx.restore();
 }
 

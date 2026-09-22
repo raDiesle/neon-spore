@@ -567,196 +567,6 @@ than this one, and worth starting from `tools/land/test/queue-merge.test.ts`'s
 existing `replaying a lane that drained an item` integration test rather
 than the string-level unit tests above it.
 
-## Two handles are heard by the simulation and drawn nowhere
-
-- **Found:** 2026-09-21, claude/queue-the-hives-clench-and-its-wrung-lobe-have-no-pict
-- **Taken:** 2026-09-22, claude/queue-the-ledgers-four-handles (claim: claude/queue-two-handles-are-heard-by-the-simulation-and-draw)
-- **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `docs/spec/controls.md`, `packages/render/src/`
-
-Lane one landed: the guard walks the union now. `TARGET_PLACE` is a `Record`
-keyed by `DragTarget`, so a member added to that union fails to *compile*
-until it is placed in one of three states — `panel`, `field`, `unbuilt` — and
-one assertion holds both directions, a `field` target with no row and an
-`unbuilt` one with a row. `leadStalk`, `scuttlePart`, `wellSeam` and
-`hiveLobe` got their rows with it, because those four were the only ones of
-the twenty-four a thumb could already reach on a screen.
-
-Lane two landed THE PULSE's meter: `render/pulse-grip.ts` is the bar's own
-rectangle, the box a thumb is answered in and the outline that says the box is
-there, `pulseMeterUnder()` is the `handleUnder()` branch, and
-`field-controls-pulse.ts` carries two rows on the one target — the brace under
-`flutter` and the arrest that takes both thumbs.
-
-Lane three landed THE VANE's pair, the first here that have to be used in
-order: `render/vane-grip.ts` holds the bearing, the tip and both circles, so
-the spar, the ring, the cue and the hit test read one answer rather than four.
-The pilot's ring is the only one on the field that **moves** — the arm has no
-rest until a thumb gives it one, and catching a sweeping tip is the whole of
-what VEER asks — and it stays up drawn `held` while the pin stands, because
-the pin *is* his thumb. Hers hangs under the hub, clear of the pins the pair
-count the fight by. THE VANE's reading moved to its own page with them
-(`boss-cue-read-x.ts`), because page b reached 258 lines.
-
-Lane four landed THE THROAT's two, and they are the first pair the fight
-**hands out as it loses**: neither exists until the pair has choked a ring,
-and the tube's is only offered in the one phase where the mouth stands still.
-`render/throat-grip.ts` holds both circles, both gates and the drawing, and
-the reading now asks it where its own marks go rather than working the mouth
-out a second time (`boss-cue-read-k.ts`). Hers sits on the lowest muscle,
-which `ringSlack` guarantees is a slack one whatever the count; his hangs a
-tile **under** the lip rather than on it, because `drawHandleRing` fills
-opaquely and the lip is the one thing both seats are aiming at.
-
-Lane five landed SNAKE's two, and they are the pair a round hands out as the
-pair **wins**: the body is long because it has eaten, so past `snakeGorgeTiles`
-the jaws stick and past `snakeShedTiles` the tail drags, and the better the
-round goes the more of it is played with a thumb on the animal.
-`render/snake-grip.ts` holds both circles, both gates and the drawing. They are
-also the first two here drawn on a thing that moves **between** beats — the
-body steps on a tick and the picture carries it the whole way — so both rings
-ride the slide, which is why `Field` now carries a tick. His sits on the neck a
-tile behind the head rather than on it, for the tube's reason: `drawHandleRing`
-fills opaquely and the head is the muzzle, the mouth and the heading at once.
-`gape()` was re-signed to take a config and a tick rather than a world, so the
-mouth and the ring drawn open by it cannot disagree.
-
-Lane six landed THE UNDERTOW's two, and they are the first pair here **one
-seat owns whole**: the attack comes up through the floor, so both of the
-pilot's hands are on the maw and the cannon's column for the whole fight and
-neither handle could be his. `render/undertow-grip.ts` holds both circles,
-both gates and the drawing. The pin is one ring per standing lobe, and it is a
-second plate — `undertowPinned` is asked on the same line as `world.shieldCol`
-in both places that number is read (`sim/undertow-step.ts`,
-`undertow-press.ts`) — on a fight whose second phase is two breaches and one
-plate. The free is the only control in the game that **hands the other player
-his own seat back**, and its dial is the count itself, so what fills is the
-number the simulation acts on; it does **not** empty when her thumb lifts,
-because the count keeps. Both rings are read off the flat `l.hullY` rather
-than the wobbling skin (`bossAnchorE`'s precedent), and both are drawn in
-`frame-on-ship.ts` — the fifth pass — because everything within a tile of the
-hull line is painted over by the ship.
-
-Lane seven landed THE SCOUT's two, and they are the only pair in the game
-**drawn in the same place on two screens**: the brief puts both on the little
-ship, and what keeps them apart is the round's own split — the pilot is shown
-a ship with a nose and the beads it carries, the navigator a ship with
-neither, and neither seat is ever shown both handles.
-`render/scout-grip.ts` holds both circles, both gates and the drawing. They
-are also the first pair **the pair's own last answer opens**: every mote they
-pick up rather than bank is what puts the ship in the next load, so a pair
-that banks as it goes never sees either ring. Hers is the ship's own middle
-and goes `held` with the line, which is drawn from the ship to the mother
-ship's mouth on both screens because it passes through whatever is in the way
-and only she can see what that is; his stands off the stern at 2.2 ship radii
-along the heading, clear of the beads on the rim, and its dial is what is left
-of `scoutPrimeTicks`, **draining** rather than filling — the one dial here
-that counts down, because the thing it measures is a window and not a hold.
-The wake was drawn for any burn and now asks `scoutPrimed` as well
-(*a fix to something wrong rather than unlovely*): a burn held on a heavy ship
-outside the window adds nothing to the flight and no longer draws as though
-it did.
-
-Lane eight landed PINBALL's two, and they are the only pair here that
-**cannot both be on a screen**: the plunger is offered through the `power`
-shot and the shove through the `flight` that follows it, so the round hands
-out one handle a shot and never two. `render/pinball-grip.ts` holds both
-circles, both gates and the drawing, and the gates themselves moved into the
-simulation — `pinWindable` and `pinNudgeable` in `sim/pinball-hand.ts` are
-called by `windHeard`/`nudgeHeard` and by the rings, so a ring cannot go on
-offering a gesture the round has stopped answering. Both stand a tile and a
-half above the table's floor, in the band the strength bar runs in: it is the
-one stretch of clear air on a board `pinballFault` keeps free of pieces, and a
-ball only crosses it at the very end of a fall. They sit at opposite ends —
-his at the plunger's wall, hers at the other — on the ground that a round
-putting two hands in one place would teach a pair *the handle is over there*.
-The shove's dial is the nudge count itself, so a full ring reads as **the next
-one tilts it**, and the tilt takes the ring away rather than dimming it: her
-hand is dead for that flight and the picture says so. The plunger carries no
-dial, because `windHeard` remembers nothing about a thumb on the way down.
-Both centres are pulled one radius in from the ends of the band: the first
-frame taken had the plunger's ring sliced by the right edge of the phone,
-because on a table this wide the walls *are* the screen's edges.
-`packages/sim/src/boss-surface.ts` was cut for the third time along its own
-seam to fit the two gates (`boss-surface-pinball.ts`).
-
-Lane nine landed THE TASTER's three, and they are the first set here that is
-**one hand per movement**: the pin is offered only through `fanning`, the wipe
-only through `hurrying`, the pry only on the `closed` interlock, so no two of
-the three are ever on a screen and each gets the whole crest to stand on.
-`render/taster-grip.ts` holds all three circles, all three gates and the
-drawing, and the gates themselves moved into the simulation —
-`tasterPinnable`, `tasterWipable` and `tasterPryable` in `sim/taster-hand.ts`
-are called by `pin`/`wipe`/`pry` and by the rings, so a ring cannot go on
-offering a gesture the fight has stopped answering. This is also the first
-boss here **no part of which is hidden from either seat** — the split is two
-numbers, not two pictures — so the placements were settled by what a ring
-would *cover* rather than by who can see it: the pin on the blade's **root**,
-leaving the lit edge both seats read standing; the wipe in the air **above**
-each notch, so the row of them never hides how wet the gaps are; the pry on
-the middle of the crest, where the last blades cross. Each dial is the clock
-its own gesture races, and the pry's ring goes out the instant the interlock
-stands open, because the window is a beat count and he may let go. The rings
-are drawn from `boss-draw-clocks.ts` beside `drawTaster` rather than inside
-it, THE GORGE's arrangement, so `taster-draw.ts` and `taster-grip.ts` do not
-import each other.
-
-Lane ten landed THE LEDGER's navigator two, and they are the first pair here
-to share **one circle**: the foot is offered while the cord is still `rooting`
-and the plug from `paying` on, so the two are never on a screen together and
-both can stand on the root of the cord itself. A pair learns one sentence —
-*your hand is on the root* — and what it does is whatever the fight is doing;
-two rings a radius apart would have taught them the root has a handle **and**
-a handle beside it. `render/ledger-grip.ts` holds the circle, both gates and
-the drawing, and `ledgerFootable` moved into the simulation beside
-`ledgerPlugs` — both called by `foot`/`plug` and by the ring, so it cannot go
-on offering a gesture the fight has stopped answering. **Which seat was
-decided before the placement was**: this is the first boss in the game whose
-split cuts one drawn object in half, the cord fades out above the plating on
-his screen, and a thumb may only go on the part of it its own seat can see.
-The circle hangs a tile and a fifth above the plating rather than on the
-socket,
-because `drawHandleRing` fills opaquely and the white lock around that socket
-is the one mark naming the column the plate has to be in — this fight's whole
-instruction. The figure was walked up over two frames: the dial sweeps
-`DIAL_RADII` out, and it closed over the lock's brackets at half a tile and
-came down onto them at a whole one, because the grommet is drawn on the bowed
-skin and that skin stands proud of the hull line where the plating crests. It is read off `l.hullY` rather than the bowed skin the
-grommet sits on, THE UNDERTOW's ruling that a ring is a ring and not a trace,
-and it is drawn on **her screen alone** — the first handle in the game the
-other seat is not shown dimmed, because it stands in the rooted column and a
-dim one on his screen would read out the very thing the cord is faded for.
-The `rooting` cue drops its own frame and stands on the ring instead
-(`framed: false`), and the rim is `hullRim` rather than the white every other
-handle's is: white is the lock's on this boss. The foot's dial is
-what is left of `ledgerRootBeats` and the plug's is the grace itself, both
-**draining**, and the plug's is drawn whether or not her thumb is down because
-the count keeps either way. `packages/sim/src/boss-surface-clocks.ts` was cut
-along its own seam to fit the two gates (`boss-surface-ledger.ts`).
-
-**The other two are `unbuilt`, and each is a look before it is a row** —
-`ledgerBead` and `ledgerCord`, the pilot's half of the same fight: his thumb
-on the soonest return while the cord is `whipping`, and his carry down the
-`taut` cord that tears it out of the plating. Both are heard by
-`sim/ledger-hand.ts` with **nothing drawn to take hold of**: no ring, no
-branch of `touch.ts`, no seat that can see it. That is the `orreryRing`
-precedent and the reason no row can be written for them yet — `where` is a
-place on the screen and `source` is a branch of `touch.ts`, and neither
-exists. They are their own lane, and it is the last one this item has.
-
-So the work is one lane per boss, in the shape `candleWick`, `curtainHem`,
-`pulseMeter`, THE VANE's, THE THROAT's, THE UNDERTOW's, THE SCOUT's and
-PINBALL's two each took, THE TASTER's three did and THE LEDGER's navigator
-two did: a `*-grip.ts` giving the handle a ring where the seat
-that owns it is drawn, the `handleUnder()` branch that answers it, the
-`field-controls-<boss>.ts` row beside the twenty-seven that exist, the
-`docs/spec/controls.md` row, and `TARGET_PLACE` moved from `unbuilt` to
-`field` — which is the one line that turns the guard from silent to holding.
-The look is exempt under *a look with no shipped alternative*; say so in the
-commit.
-
-Order is free, but the pairs go together: THE TASTER's three are one fight's
-three movements and THE LEDGER's four are one cord.
-
 ## THE GIMBAL is written and nobody has built its simulation
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
@@ -2357,6 +2167,13 @@ cannot be written at all. Worked around by driving the wave to its own
 `scuttleLoose` and reading the socket off `--events`, which costs two runs and
 only works because the draw is seeded.
 
+THE LEDGER's `beads` is the same field again and a harder case, because it is
+empty until the pair *shoots*: a return only exists once a bolt has gone up
+the seam's column in the colour it is showing. So no frame of the pilot's ring
+on a return could be posed at all, and the handles lane took it by firing —
+`--boss seam=2 --press 300:1:cannonCol=6 --press 306:2:fire=cyan`, with the
+seam's column worked out in a probe first (22 September 2026).
+
 What to decide: whether the length check is right for every list or only for
 the fixed-width ones. A field whose length the simulation varies is not a
 shape the flag can check against, and the honest options are a per-field
@@ -2470,8 +2287,8 @@ Seven lanes of *Nine handles are heard by the simulation and drawn nowhere*
 have now put a ring on the field, and not one of them could press its own ring
 from the command line **except THE THROAT's**, whose lane put `throatRing` and
 `throatTube` in `DRAGS` itself. `pulseMeter`, `vanePin`, `vaneHaul`,
-`snakePrise`, `snakeLift`, `undertowPin`, `undertowFree`, `scoutLine` and
-`scoutPrime` are not names the
+`snakePrise`, `snakeLift`, `undertowPin`, `undertowFree`, `scoutLine`,
+`scoutPrime` and now THE LEDGER's four are not names the
 flag takes — it answers `--hold undertowFree=0` with a usage line and stops.
 Six lanes worked around it the same way, posing the state with
 `--boss-json` and `--ticks` instead of pressing the handle, which photographs
@@ -2485,3 +2302,42 @@ with the test the entry above asks for (`--hold` names its drag targets as
 free strings), since that test is what stops the list drifting again, and the
 two together are one sitting. Prove it by taking one frame per new name and
 seeing the dial move.
+
+## A lane that retitles its own entry cannot claim it again
+
+- **Found:** 2026-09-22, claude/queue-the-ledgers-four-handles
+- **Files:** `tools/queue/claim.ts`, `tools/queue/mark.ts`, `tools/queue/test/queue.test.ts`
+- **Where:** local
+
+`bun run queue take` derives the claim branch from the entry's **title**, and
+an entry that has been narrowed as its lanes land — *Nine handles…* to
+*Two handles…* — no longer derives the branch the earlier lanes made. The
+stale branch is still in the tree, so `heldElsewhere` finds a branch nobody is
+on, decides the item is taken and refuses the lane that is standing in it.
+Worked around with `release` and then `take`, which is two commands and a
+moment of thinking the queue has lost track of itself.
+
+What to decide: whether the branch should be derived from the title at all. A
+claim that survives a retitle has to be written down rather than computed —
+the `Taken:` line already carries the branch name, so the cheap fix is to read
+it there and derive only when it is absent, which is also what makes a claim
+survive the next narrowing.
+
+## `ledgerPullable` refuses a case it can never be given
+
+- **Found:** 2026-09-22, claude/queue-the-ledgers-four-handles
+- **Files:** `packages/sim/src/ledger-gates.ts`, `packages/render/test/ledger-pull.test.ts`
+- **Where:** local
+
+The last of the four refusals — *never onto a beat another return already
+lands on* — cannot fire. The bead it is asked about is `ledgerNext`, which is
+the **minimum**-beat return on the cord; the beat it would be hauled onto is a
+beat earlier still, so no other bead can be standing there. The handles lane
+wrote a test for it, found the case unreachable, and left the guard alone
+because a gate is not a place to be clever.
+
+What to decide: whether the guard is dead or the rule is wrong. If two returns
+were ever meant to be able to share a beat, something else is missing; if they
+were not, the line goes and its paragraph with it. Either way the argument in
+`ledgerPullable`'s own comment — *the root slides between two landings* — is
+today describing a thing that cannot happen.

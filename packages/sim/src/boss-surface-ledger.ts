@@ -29,10 +29,15 @@ export {
   // else, and the plug's — both asked by the rule and by the ring drawn on
   // it rather than written out twice (`ledger-hand.ts`).
   ledgerFootable,
+  // And the pilot's two, for the same reason: the bead his thumb may haul a
+  // beat down is the bead his ring rides, so one of these answers the rule and
+  // the ring both (`ledger-gates.ts`, `render/ledger-pull.ts`).
+  ledgerHaulable,
   ledgerLetThrough,
   ledgerNext,
   ledgerPhase,
   ledgerPlugs,
+  ledgerPullable,
   ledgerSeamCol,
   ledgerWalk,
 } from "./bosses.js";

@@ -5559,8 +5559,29 @@ word `ROOT` drops its own frame and stands on the ring instead, a ring being a
 mark already. It is drawn on **her screen alone**, the first handle in the
 game the other seat is not shown dimmed: it stands in the rooted column, so a
 dim one on his screen would say the one thing the cord is faded out above the
-plating to keep from him. The pilot's two are still unbuilt, and are this
-lane's other half.
+plating to keep from him.
+
+**His two are on the cord and neither is on the root** (`render/ledger-pull.ts`,
+`ledger-haul.ts`, 22 September 2026), which is the same rule read the other way
+round: the cord fades out above the plating on his screen so he cannot name the
+rooted column, and a ring is a mark — one drawn in that stretch would put back
+exactly what the fade takes away. So the pull's ring **rides the bead it is
+about**, off the same gate the press is (`ledgerPullable`), so it can never be
+on a different return from the one it would move; its dial is how far down the
+cord that return has got, and it is never drawn held, the pull being over in
+the tick it is made. It is on his screen alone, behind the bead's own gate, and
+the last return — the one bead both screens draw — is the one it is never on.
+The haul's stands still at a fixed `HAUL_U` above the fade, and is **his
+alone too**. It was drawn dim on hers for one frame, on the argument that the
+tear is refused while her plate covers the socket and he cannot see the column
+he is being refused for; the picture settled it, because a ring fills its disc
+opaquely and hers came out a black circle on the cord, which is what a return
+looks like in the one place her screen never puts one. The refusal stays silent
+and what makes him ask is his own dial: the carry, `haulMilli` of
+`ledgerHaulMilli`, standing at nought however hard he pulls. So no handle in
+this fight is drawn on both screens and none is dimmed, which is lane ten's
+ruling said a second time. Both words on the bead drop their frame where the
+ring is under them, `ROOT`'s arrangement again.
 
 **Two of the four get a word on the field and two do not** (`boss-cue-read-o.ts`).
 `ROOT` stands in `rooting`, which used to be the movement with nothing in it,

@@ -83,6 +83,8 @@ function count(text: string, colour: string): number {
 
 /** The body's own two opaque fills, which stand whatever the cord is doing. */
 const HALVES = 2;
+/** The pilot's haul, which is on the taut cord and on every screen there. */
+const HAUL = 1;
 
 /** The seats this ring is drawn on at all: not the pilot's, whose screen it
  * would tell the rooted column to (`ledger-grip.ts`). */
@@ -115,10 +117,15 @@ describe("THE LEDGER's ring on the root", () => {
   });
 
   it("goes on the taut cord, which is the movement she is refused in", () => {
+    // **One ring stands there and it is not hers.** The pilot's haul is on
+    // the taut cord and it is the one handle in this fight drawn on both
+    // screens (`ledger-haul.ts`), so what this case can count is that the
+    // root's went — the thumb behind it is refused in
+    // `ledger-grip.test.ts`, where a press is what answers.
     const world = open();
     const t = rooted(world);
     t.seam = CFG.ledgerSeamHits;
-    expect(rings(world)).toBe(0);
+    expect(rings(world)).toBe(HAUL);
   });
 
   it.each(ROLES)("has gone once the cord is out of the ship, on %s", (role) => {

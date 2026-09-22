@@ -15,6 +15,7 @@ import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { leadStalkUnder } from "./lead-grip.js";
 import { ledgerGripUnder } from "./ledger-grip.js";
+import { ledgerPullUnder } from "./ledger-pull.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeHeartUnder } from "./maze-grip.js";
 import { mazeStringCircle } from "./maze-string.js";
@@ -126,6 +127,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     // times: the foot of the cord while it is still `rooting`, her thumb in
     // the socket from `paying` on (`ledger-grip.ts`).
     ledgerGripUnder(l, x, y, field) ??
+    ledgerPullUnder(l, x, y, field) ?? // And the pilot's two on the cord above it (`ledger-pull.ts`).
     antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
   );
 }

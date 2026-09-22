@@ -301,11 +301,18 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `field-controls-ledger.ts`).
   ledgerFoot: "field",
   ledgerSocket: "field",
-  // And his two, which are the other half of that lane: the beads and the
-  // cord above the fade are the half of this object his screen *can* read,
-  // and neither has a ring yet.
-  ledgerBead: "unbuilt",
-  ledgerCord: "unbuilt",
+  // And his two, the other half of that lane and the half of this object his
+  // screen *can* read. **Neither of them stands on the root**, which is the
+  // whole of their placement: the cord fades out above the plating on his
+  // screen so he cannot name the rooted column, and a ring drawn in that
+  // stretch would put back exactly what the fade takes away. So the pull's
+  // rides the bead it is about, down a cord only he is shown, and the haul's
+  // stands still at a fixed place above the fade — which is why that one is
+  // on **both** screens, dim on hers: it gives her nothing new, and the tear
+  // is refused while her plate covers the socket, a column he cannot see
+  // (`render/ledger-pull.ts`, `ledger-haul.ts`, `sim/ledger-gates.ts`).
+  ledgerBead: "field",
+  ledgerCord: "field",
   // THE LEAD's stalk, and the first handle given to a boss that shipped as
   // a fixture: the navigator takes the stalk while the body stands dead
   // still, and it keeps standing while her thumb is on it — the still's
