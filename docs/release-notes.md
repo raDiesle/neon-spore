@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 33d32076 — The other seat's handle ring fills nothing
+
+A handle ring punched an opaque disc out of the background before it drew anything of its own, and it did so for both seats. The seat that may not press it gets the same ring under a 0.18-alpha wash it cannot see, so its dim copy came out a flat black disc: a hole in PINBALL's lit board, and a breach in THE UNDERTOW's hull that nothing had breached. Three lanes found it separately and each blamed its own boss. It is one line in `handle-draw.ts`: `theirs` skips the fill, so a ring drawn for the other seat is its rim and its wash over whatever is behind it.
+
 ## 2026-09-22 · 01b4c48b — Take THE UNDERTOW's pin off the pilot's screen
 
 The claimed entry was stale: the boss already ships six phases and both of the hands the §6.2 ask wanted, so this lane went looking for what nothing proved instead — and found it in one frame. A handle ring fills its disc in PALETTE.background before anything else, so the pilot's dim copy of the navigator's pin came out a flat black disc filling the head of the lobe he aims the maw at, on every standing lobe at once, offering him a thumb the wire drops. His screen is now shown the pin she has made and not the ones she could: one ring at most, in the column keeping his maw out, which is the half of the handle he can act on. Hers is unchanged.

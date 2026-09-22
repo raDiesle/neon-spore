@@ -16238,3 +16238,5 @@ to getting the picture that proved it. A frame of a round that waits for a
 thumb needs the thumb, and `--press` knows only the verbs somebody has already
 needed — THE SCOUT's three are not among them, so its two rings are the one
 part of this finding no session can see today. That gap is queued.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
