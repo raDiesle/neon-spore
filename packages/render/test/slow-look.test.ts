@@ -1,5 +1,6 @@
 import { afterEach, beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { createWorld, NO_SLOW, type World } from "@neon-spore/sim";
+import { buildBoss, buildQueue } from "@neon-spore/content";
+import { createWorld, NO_SLOW, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { computeLayout, type Layout } from "../src/layout.js";
 import type { ViewState } from "../src/renderer.js";
 import { drawFieldSlow, SLOW_LOOK, type SlowWindow, slowWindow } from "../src/slow-look.js";
@@ -9,6 +10,7 @@ import {
   installCanvasGlobals,
   stubCanvas,
   VIEWPORT,
+  waveWith,
 } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -20,9 +22,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * The window is two hashed beats and a stretched `tickMs`, and no pass in this
  * package ever asked about it — so the one moment that exists to be felt was
  * the one moment the picture said nothing about (`docs/queue.md`, 19 September
- * 2026). What lands here is the record a VERSUS candidate patches and the pass
- * that reads it; what ships is still nothing, which is the first case below
- * and the only one of these a regression would show up in the running game.
+ * 2026). What lands here is the record the pass reads and, since the owner
+ * settled the slot on 22 September 2026, the look that answers it: the notched
+ * bar above the hull and the streams that run in round the boss
+ * (`src/slow-intake.ts`). The first cases below are the only ones of these a
+ * regression would show up in the running game.
  *
  * The window is **set** rather than played into, as `boss-cue-candle.test.ts`
  * sets THE CANDLE's: `sim/test/slow.test.ts` owns when a boss opens one, and a
@@ -53,9 +57,59 @@ afterEach(() => {
 });
 
 describe("the shipped look", () => {
-  it("draws nothing inside a window, which is what it drew before this file", () => {
+  /**
+   * What the canvas is handed, over the whole width of a window and with a
+   * body on the field to stand round. The stub refuses a value a canvas would
+   * refuse, so this is `frame.test.ts`'s question asked of the one pass a
+   * frame test cannot reach on its own: a window is set here rather than
+   * played to, because `sim/test/slow.test.ts` owns when a boss opens one.
+   */
+  it("draws, at every point of a window, without the canvas refusing a value", () => {
     const { ctx } = stubCanvas();
-    const world = slowed(4, 8, 5);
+    const world = slowed(4, 8, 4);
+    for (let beat = 4; beat < 8; beat++) {
+      world.beat = beat;
+      for (const phase of [0, 0.25, 0.5, 0.75]) {
+        drawFieldSlow(
+          ctx as unknown as CanvasRenderingContext2D,
+          LAYOUT,
+          world,
+          viewOf(world, phase),
+        );
+      }
+    }
+    expect(ctx.calls).toBeGreaterThan(100);
+  });
+
+  /**
+   * And the case the look was written for. The streams stand round the boss's
+   * own body and stop at its skin, which means the paint asks THE INSTAR for a
+   * figure every frame — a branch `slowed()` alone never reaches
+   * (`src/slow-intake-aim.ts`).
+   */
+  it("draws round the boss's own body without the canvas refusing a value", () => {
+    const { ctx } = stubCanvas();
+    const world = createWorld(CFG, 3);
+    const index = waveWith("instar");
+    startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+    for (let i = 0; i < ticksPerBeat(CFG) * 4; i++) step(world, []);
+    world.slowFromBeat = world.beat;
+    world.slowToBeat = world.beat + 4;
+    for (let phase = 0; phase < 1; phase += 0.25) {
+      drawFieldSlow(
+        ctx as unknown as CanvasRenderingContext2D,
+        LAYOUT,
+        world,
+        viewOf(world, phase),
+      );
+    }
+    expect(ctx.calls).toBeGreaterThan(100);
+  });
+
+  /** And nothing at all outside one, which is what an ordinary frame costs. */
+  it("draws nothing on an ordinary frame", () => {
+    const { ctx } = stubCanvas();
+    const world = createWorld(CFG, 5);
     drawFieldSlow(ctx as unknown as CanvasRenderingContext2D, LAYOUT, world, viewOf(world, 0.5));
     expect(ctx.calls).toBe(0);
   });

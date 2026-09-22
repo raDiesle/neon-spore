@@ -1,6 +1,7 @@
 import { slowing, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
+import { intakeWindow } from "./slow-intake.js";
 
 /**
  * **The one moment in this game that exists purely to be felt, and the seam
@@ -14,13 +15,15 @@ import type { ViewState } from "./renderer.js";
  * *seen*, on THE INSTAR, whose marks are the gesture it is pressing on
  * (`docs/queue.md`).
  *
- * **What ships is still nothing**, and that is deliberate rather than
- * unfinished: `paint` is a no-op here, so the frame is what it was, and every
- * answer to the question is a candidate patching this one field beside it
- * (`tools/versus/README.md`). A look is offered, never replaced.
+ * **What ships is `slow-intake.ts`**, taken out of the slot on 22 September
+ * 2026: a notched bar above the hull that says how much window is left, and
+ * soft streams of light running inward all the way round the boss and stopping
+ * at its skin. It is still one field on a record and not a drawing in this
+ * file, because that is the seam a later answer is argued at
+ * (`tools/versus/README.md`, `tools/versus/DECIDED.md`).
  *
- * Two rules hold whichever answer wins, and they are why this file holds a
- * record and not a drawing. **Nothing here may touch the simulation**: the
+ * Two rules hold whichever answer is in the field, and they are why this file
+ * holds a record and not a drawing. **Nothing here may touch the simulation**: the
  * window's boundaries are hashed fields both phones already agree about, and a
  * paint that wrote one would be a picture deciding a rule. And **nothing may
  * outlive a frame** without going in `Effects` and being cleared in
@@ -96,7 +99,7 @@ export interface SlowLook {
 }
 
 export const SLOW_LOOK: SlowLook = {
-  paint: () => {},
+  paint: intakeWindow,
 };
 
 /**

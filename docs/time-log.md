@@ -16566,3 +16566,29 @@ written. A boss is forty files of registration and every one of them is a name
 somebody else chose; nothing here is worth deriving from memory.
 
 *Measured: 33 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — slow-window-visual-candidates — the window gets a picture
+
+- reading — 15 min. How the passes are ordered (`canvas2d.ts` draws the boss
+  *before* this one, so the look goes over the body and a keep-out is the only
+  thing that can hold it off), `instar-shape.ts` for the figure the body stands
+  in, and `drawSegments` for where the chain hangs.
+- writing — 40 min. `slow-intake.ts` and its three siblings: the bar out of
+  `drain` unchanged, the streams rebuilt on the body's own radius, the capsule
+  clip, the feather, and the two tests in `slow-look.test.ts` that draw it.
+- looking — 60 min. Five shots of the same frame, each about fifty seconds, and
+  a crop to settle the one that mattered.
+- friction — 10 min. Two render frame files failed in a whole-process
+  `bun test` and passed on their own; a shard of `check:fast` timed out once
+  and was green on the second run. Both queued.
+- landing — 10 min. `check:fast`, the index rows, the queue entries.
+
+The bottleneck was **three corrections that only a picture could have found**.
+The clip hole was right the first time and the light was still wrong three
+times over: a dark veil under the streams turned the cut-out into a lighter
+patch the shape of the boss; a rim gradient brightest at the skin was sliced by
+the capsule's straight flanks into two hard diagonals up the field; and a glow
+cannot fade *inward*, so the fix was to delete it and let the beads, which
+already fade with their own distance from the body, carry all of it. None of
+the three is a thing `bun run check` can see, and each cost a fifty-second shot
+to find.

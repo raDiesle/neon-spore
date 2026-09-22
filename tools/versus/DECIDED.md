@@ -1086,3 +1086,20 @@ which is the question he took away.
 
 The other answers offered were `one`, `pool`, `slime` and `splash`; they went
 with the slot.
+
+## `slow:window` / `intake` — taken, 2026-09-22
+
+The owner's decision, 22 September 2026: drain's notched bar kept, and
+indraw's light rebuilt on the boss's own radius so it rings the whole body and
+stops at its skin.
+
+intake — a notched bar above the hull counts the window down while fourteen
+soft streams of light run inward all the way round the boss and stop at its
+skin
+
+`SLOW_LOOK.paint` is `intakeWindow`, moved from
+`tools/versus/candidates/slow-window/intake/paint.ts` to
+`packages/render/src/slow-intake.ts`.
+
+The other answers offered were `drain`, `focus`, `frame`, `gather`, `gutter`,
+`hush`, `indraw` and `wash`; they went with the slot.

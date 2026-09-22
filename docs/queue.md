@@ -2192,62 +2192,27 @@ now ships, and leave what is genuinely still missing under a heading that says
 what remains rather than *the picture*. The *Never watched at tempo* sentences
 stay — nobody has watched either at tempo.
 
-## Three SLOW:WINDOW candidates cannot be told from the shipped nothing
+## A second candidate in a slot writes the first one's geometry again
 
 - **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
-- **Files:** `tools/versus/candidates/slow-window/wash/paint.ts`, `tools/versus/candidates/slow-window/gutter/paint.ts`, `tools/versus/candidates/slow-window/frame/paint.ts`
-- **Where:** local
+- **Files:** `tools/versus/take-function-fs.ts`, `tools/versus/decide.ts`
 
-The owner looked at the slot on 22 September 2026 and could not separate three
-of its four candidates from the shipped nothing. Two of the three are defects
-rather than taste, and both are visible in one `bun run versus:shot`:
+`adopt` moves the files in the winning candidate's own directory and nothing
+else — `take-function-fs.ts` reads that directory's `index.ts` and its
+siblings, and a file one level up is not in the plan. So a candidate that
+imported a shared helper out of its directory would land broken, and the only
+safe thing to do is copy the helper in. The `slow:window` slot carried three
+candidates answering the same two questions — where the thing being slowed is
+on the layout, and how far up the look has faded — in a byte-identical file
+written out three times; the slot was settled before anything shared it.
 
-`wash` fills the far half of the field with `rgba(PALETTE.background, deep)` —
-the ground's own colour laid over the ground. It can only be seen where it
-crosses a body, and the pose it is judged on (THE SLOW · A WINDOW OPEN) has an
-almost empty upper field, so the patch moves a fraction of a per cent of the
-frame. Sinking a field that is already the sink colour is the whole idea of the
-candidate; it needs a different colour or a different layer, not a different
-number.
-
-`gutter` decays before an eye can catch it: `strike = max(0, 1 - phase) ** 3` is
-spent inside a fraction of the first beat, and `fuel = left / beats` halves what
-is left on the second. Its two glows are also centred exactly on `l.gridLeft`
-and `l.gridLeft + l.gridWidth`, so half of each radial falls outside the fill
-that carries it.
-
-`frame` is the *repeats before the animation finishes* complaint, and it is
-shared by all four of the old candidates: `drawFieldSlow` returns before `paint`
-the moment `slowing` goes false, so a candidate at full strength on the last
-frame of the window disappears in one frame. `frame`'s `shut = through ** 2`
-puts it at maximum thickness and maximum alpha exactly there. The three
-candidates added in the lane that found this fade to nothing over the last
-0.4 s inside the window instead (`tools/versus/candidates/slow-window/gather/aim.ts`),
-and that is the pattern to copy.
-
-The work is: make each of the three readable on its own terms without changing
-what it is saying, and prove each with `bun run versus:shot slow:window <name>
---element .versus-row`, which prints the share of the frame the patch moves.
-
-## `aim.ts` is written three times because `adopt` moves only siblings
-
-- **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
-- **Files:** `tools/versus/candidates/slow-window/gather/aim.ts`, `tools/versus/candidates/slow-window/hush/aim.ts`, `tools/versus/candidates/slow-window/indraw/aim.ts`, `tools/versus/decide.ts`
-
-Three candidates in one slot answer the same two questions — where the thing
-being answered is on the layout, and how far up the look has faded — and the
-file that answers them is byte-identical in all three directories. It is copied
-rather than shared because `adopt` moves the files in the winning candidate's
-own directory and nothing else, so a candidate that imported a sibling's helper
-would land broken.
-
-The work is one of two: let `adopt` follow a relative import out of the
-candidate's directory when the file it reaches is under the slot, and move it
-in too; or give a slot a directory of its own for shared helpers that `adopt`
-knows to copy from. Either ends the rule that a second candidate in a slot pays
-for the first one's geometry again. Until then every slot with more than one
-candidate carries the same duplication, and a fix to one copy is a fix to one
-copy.
+The work is one of two: let the plan follow a relative import out of the
+candidate's directory when the file it reaches is still under the slot, and
+move it in too; or give a slot a directory of its own for shared helpers that
+`adopt` knows to copy from. Either ends the rule that a second candidate in a
+slot pays for the first one's geometry again. Until then every slot with more
+than one candidate carries the same duplication, and a fix to one copy is a fix
+to one copy.
 
 ## `--press` with `--frames` refuses a press the filmstrip would have caught
 
@@ -2364,3 +2329,41 @@ balloons, the sinew) into a `field-hands.ts` called where the block stands, so
 what remains in `step.ts` is the loop and the order. Do it now rather than
 under a lane that needs the two lines, which is how `boss-others.ts` came to
 be split mid-boss this week.
+
+## The chain THE INSTAR hangs from is measured in two places
+
+- **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
+- **Files:** `packages/render/src/instar-draw.ts`,
+  `packages/render/src/slow-intake-aim.ts`
+
+`drawSegments` stands the four plates on a line from `instarAt(l, 500, 0).x`,
+`l.gridTop - l.tile * 1.3` down to the head, and it is private to
+`instar-draw.ts`. `slow-intake-aim.ts` needs the same two numbers — the light
+round the boss is kept off the *whole* body, chain included, by a capsule along
+that axis — so it writes them again. Re-hang the chain and the light starts
+crossing the top plate, with nothing red to say so.
+
+Export the anchor from `instar-shape.ts`, where the rest of the body's geometry
+already lives — `instarChainTop(l): Point` — call it from both, and add a row to
+`packages/sim/test/purity.test.ts`'s table of rules that must be called rather
+than re-derived.
+
+## Two render frame files fail under `bun test` and pass on their own
+
+- **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
+- **Files:** `packages/render/test/queen-frame.test.ts`,
+  `packages/render/test/ship-hand-frame.test.ts`,
+  `packages/render/test/frame-harness.ts`
+
+`bun test` in one process reported both red, at 227 s and 74 s against
+`FRAME_TIMEOUT_MS`; each runs green in 0.4 s alone and green under `bun run
+test`'s shards. So it is contention, not a picture — but `bun test` is the
+command CLAUDE.md offers for one file or one package, and a session that runs
+it whole is handed two failures that mean nothing. `check:fast` showed the same
+shape once: `tools/test/doc-drift-names.test.ts` timed out in a shard and passed
+in 2 s on its own.
+
+Find what the single process is holding on to — the canvas stub's globals are
+installed per file and the harness is evaluated once — and either free it or
+give the frame files a cap that survives a loaded machine. Whichever it is,
+`bun test` whole has to be a command whose red means something.
