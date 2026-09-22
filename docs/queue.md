@@ -659,30 +659,6 @@ stamp. `two-devices-opening.test.ts` already drives two devices through a beat
 zero over a wire it controls, so a case that begins one device late belongs
 beside the ones there.
 
-## A test room code outside the alphabet costs twenty seconds and says nothing
-
-- **Found:** 2026-09-21, claude/queue-a-partner-who-vanishes-on-the-room-screen-is-sti
-- **Taken:** 2026-09-22, scratch-main (claim: claude/queue-a-test-room-code-outside-the-alphabet-costs-twen)
-- **Files:** `apps/server/test/phone.ts`, `packages/net/src/room-code.ts`
-
-`ROOM_ALPHABET` is `ACDEFGHJKLMNPQRTUVWXY3479` — no B, no I, no O, no S, no Z,
-because they are the characters somebody reads a code out loud and gets wrong.
-A test that writes `phone("CGHI")` is therefore refused the upgrade before
-there is a socket at all: `room-open.ts` answers a plain 400, `res.webSocket`
-is null, so `phoneAt` returns a phone whose `send` goes nowhere and whose
-`said` never fills. Every `settle("welcome")` after it polls until
-`OWN_RELAY_MS` runs out and the test fails on the timeout rather than on the
-code — which says nothing about either, and reads exactly like the workerd
-starvation the comment above `BRIEF_SILENT_MS` warns about. Two full
-twenty-second runs went on that here before the alphabet was read.
-
-What to do: `phoneAt` takes the code and has `isRoomCode` one package away.
-Throw at the top of it when the code is not one — `phone("CGHI"): not a room
-code; the alphabet has no I (packages/net/src/room-code.ts)` — which turns the
-timeout into an instant, named failure, and cannot be reached by any test that
-was passing. A case in `apps/server/test/room.test.ts` proving the throw is the
-whole of the coverage.
-
 ## `stage.ts` is at the 250-line ceiling exactly
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403

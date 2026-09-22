@@ -16437,3 +16437,25 @@ through. The picture said so in a second; the reasoning that produced the
 clamp had taken twenty minutes.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-a-test-room-code-outside-the-alphabet — named in microseconds
+
+- reading — 10 min. `packages/net/src/room-code.ts` for the alphabet and the
+  three ways a string fails it, `apps/server/test/phone.ts` for where a socket
+  that never opens goes quiet, and `room-open.ts` for the 400 that produces it.
+  Then every code in the two phone files, to know the throw could not reach a
+  test that was passing: all 66 of them are real codes, and the 400 itself is
+  proved by a bare `dispatchFetch` rather than through a phone.
+- writing — 15 min. One guard and one reason-line helper in `phone.ts`, one
+  call at the top of `phoneAt`, and three assertions in `room.test.ts` — one
+  per way a code can fail, because "not a room code" on its own sends a reader
+  to count characters.
+- looking — 0 min. Nothing here is drawn.
+- friction — 5 min. Biome wanted the throw's template across three lines.
+- landing — 10 min. `check:fast`, the entry out of the queue, the replay.
+
+The bottleneck was **reading the alphabet before writing anything**: the
+finding names `I` as the absent letter, but B, O, S and Z are absent too and so
+is any lower-case code and any code of the wrong length, and a message that
+says only what this one case is would have been the same twenty seconds spent
+by the next lane, one letter over.

@@ -1,7 +1,10 @@
 import {
   decodeServer,
+  isRoomCode,
   NAME_PARAM,
   PROTOCOL_VERSION,
+  ROOM_ALPHABET,
+  ROOM_CODE_LENGTH,
   type ServerMessage,
   VERSION_PARAM,
 } from "@neon-spore/net";
@@ -25,6 +28,41 @@ import { OWN_RELAY_MS } from "./relay.ts";
  */
 export { OWN_RELAY_MS };
 
+/**
+ * **A code that is not a room code, said at once instead of twenty seconds
+ * later in another vocabulary.**
+ *
+ * The alphabet drops every lookalike (`packages/net/src/room-code.ts`), so
+ * `CGHI` and `CGHS` are the kind of code a test writes by hand and no room
+ * will ever hand out. `refuseUpgrade` answers one with a plain 400, which
+ * never becomes a socket: `res.webSocket` is null, every `send` below goes
+ * nowhere, `said` never fills, and the first `settle("welcome")` polls until
+ * `OWN_RELAY_MS` is gone and fails on a timeout — which is exactly what the
+ * workerd starvation this file's own waits were written against looks like.
+ * Twenty seconds spent, and the message at the end names the wrong cause.
+ *
+ * So it is asked here, where the code is still a string and `isRoomCode` is
+ * one package away. Nothing that was passing can reach this: every code in
+ * these files is a real one, and the 400 itself is proved by a bare
+ * `dispatchFetch` in `room.test.ts` rather than through a phone.
+ */
+function refuseBadCode(code: string): void {
+  if (isRoomCode(code)) return;
+  throw new Error(
+    `phone("${code}"): not a room code; ${why(code)} (packages/net/src/room-code.ts)`,
+  );
+}
+
+/** Which of the three ways it is not one, because "not a room code" on its own
+ * sends a reader to count characters. */
+function why(code: string): string {
+  const upper = code.toUpperCase();
+  if (upper !== code && isRoomCode(upper)) return "a code is upper case";
+  const absent = [...new Set(upper)].filter((ch) => !ROOM_ALPHABET.includes(ch));
+  if (absent.length > 0) return `the alphabet has no ${absent.join(" or ")}`;
+  return `a code is ${ROOM_CODE_LENGTH} characters and this is ${code.length}`;
+}
+
 /** A phone. Opens the socket, keeps everything the room said, and can hang up. */
 export async function phoneAt(
   server: Miniflare,
@@ -32,6 +70,7 @@ export async function phoneAt(
   version: number | string = PROTOCOL_VERSION,
   name = "",
 ) {
+  refuseBadCode(code);
   const res = await server.dispatchFetch(
     `https://room.test/room/${code}?${VERSION_PARAM}=${version}&${NAME_PARAM}=${encodeURIComponent(name)}`,
     {

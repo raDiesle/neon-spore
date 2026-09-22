@@ -367,6 +367,24 @@ describe("a room refuses what it cannot play with", () => {
     expect((await mf.dispatchFetch("https://room.test/nowhere")).status).toBe(404);
   });
 
+  /**
+   * The same code, written into a test instead of typed into a page.
+   *
+   * The 400 above never becomes a socket, so a phone built on one has nothing
+   * to listen to: `send` goes nowhere, `said` never fills, and the first
+   * `settle("welcome")` polls until `OWN_RELAY_MS` is gone and fails on a
+   * timeout indistinguishable from the starved workerd every wait in
+   * `phone.ts` is written against. Twenty seconds, and a cause that is not the
+   * cause. The code is a string a package can judge, so `phone.ts` judges it.
+   */
+  test("a code the alphabet cannot hold is refused before there is a socket", async () => {
+    await expect(phone("CGHI")).rejects.toThrow(
+      'phone("CGHI"): not a room code; the alphabet has no I (packages/net/src/room-code.ts)',
+    );
+    await expect(phone("ACD")).rejects.toThrow("a code is 4 characters and this is 3");
+    await expect(phone("acde")).rejects.toThrow("a code is upper case");
+  });
+
   test("the health check says which server answered", async () => {
     const res = await mf.dispatchFetch("https://room.test/net/health");
     expect(await res.json()).toEqual({ app: "neon-spore-relay", ok: true });
