@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · b71d15de — Take THE BELLOWS's simulation off the queue
+
+## 2026-09-22 · def21604 — Build THE BELLOWS: one of you pulls the lung open, the other shuts it
+
+A lung hangs across the top of the field with four seams down its waist, and a handle on each side. One seat's mark lights, that seat strokes its handle, then the other's lights and the other strokes — never in the same beat, or both handles seize and a seam comes back. Four exchanges, four seams, and at the last one both handles glow at once: two hands on, two hands off in the same beat, and the waist splits. A stroke is an edge, not a hold, so a thumb resting on a handle pumps nothing.
+
 ## 2026-09-22 · a1b81cd9 — Queue the other choreographed windows the owner's rule still has to reach
 
 The doubled window landed where there was one figure to move: THE INSTAR is the only wave on `BossSequenceStep`. Every other boss with an authored window carries its own differently-named number, so the generic half of the owner's specification is its own lane and is now written down rather than remembered.
