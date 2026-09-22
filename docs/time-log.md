@@ -16240,3 +16240,33 @@ needed — THE SCOUT's three are not among them, so its two rings are the one
 part of this finding no session can see today. That gap is queued.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo — four bosses' dim rings fill nothing
+
+- reading — 20 min. Four grip files and their gates: `snakeGrip`'s three
+  names, `throatCinchable`, `vanePhase(pins).asks`, and the taster's three
+  predicates. The change itself was known before the lane started — `theirs`
+  landed the day before — so the reading was entirely *when does each ring
+  exist*, which is what a frame test has to reach.
+- writing — 30 min. One argument in each of four `ring()` helpers, a header
+  paragraph each, `handle-hole-bosses.test.ts` (six cases over three bosses)
+  and three new cases in `taster-grip-frame.test.ts`.
+- looking — 40 min. THE THROAT on the pilot's screen, before and after. A
+  black disc bitten out of the end of the gullet, on the boss whose whole
+  picture is how much of the tube is left; after, the tube whole with a faint
+  ring over it.
+- friction — 50 min. THE VANE's tip ring hangs over empty sky and is drawn
+  *under* the tip, so before and after crops came back identical and the boss
+  had to be abandoned as a subject. THE THROAT showed no ring at tick 700, and
+  `--boss slack=5,phase=open` made the gullet vanish altogether;
+  `slack=3,phase=slide` was the third guess. One `SendUserFile` rejected for a
+  bare path where it wants a list.
+- landing — 15 min. A format failure on an import that now fits one line, and
+  the four bosses' spec paragraphs.
+
+The bottleneck was **the looking**, again and for the same reason as the lane
+before it: the code was four identical arguments, and two thirds of the lane
+went to finding one boss whose defect a still frame could actually show. A
+ring standing on nothing looks the same either way — only a ring standing on
+the boss makes the hole visible — and nothing tells you which is which but
+taking the frame.

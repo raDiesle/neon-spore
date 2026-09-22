@@ -166,6 +166,14 @@ function grab(target: "vaneArm" | "vaneHousing", player: 1 | 2, x: number, y: nu
  * `sinew-handles.ts` made for the same reason: the last pin of the fight needs
  * both their hands on the picture at once, and neither can feel the other's.
  *
+ * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
+ * 2026). A ring fills its circle with the background before its own colour, to
+ * read over whatever is behind it — and the arm's ring is *on* the tip and the
+ * housing's is on the casing. The seat that may not press one cannot see the
+ * wash inside, so its copy came out a hole bored through the mechanism. Theirs
+ * is its rim and its wash over the metal now, and only the seat that may take
+ * hold of it cuts.
+ *
  * **The arm's ring stays up while the pin stands, drawn `held`** — which is
  * the ordinary convention and not an exception to it: the pin *is* his thumb,
  * held until he lifts it or the sweep tears it out `vanePinBeats` later
@@ -210,5 +218,6 @@ function ring(
     held,
     pull: held ? 1 : 0,
     time,
+    theirs: !mine,
   });
 }

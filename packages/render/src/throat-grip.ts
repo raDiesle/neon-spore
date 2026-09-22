@@ -132,6 +132,14 @@ function grab(target: "throatRing" | "throatTube", player: 1 | 2, x: number, y: 
  * `sinew-handles.ts` made: neither seat can feel the other's thumb, and the
  * cinch is a freeze the pilot is spending his beats inside.
  *
+ * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
+ * 2026). A ring punches its circle out of the background first so it reads
+ * over whatever it hangs on, and these two hang on the tube and on a slack
+ * ring of the gullet itself. The seat that may not press one cannot see the
+ * wash inside the hole, so its copy came out a gap in the gullet — a throat
+ * with a piece missing, on the boss whose whole picture is how much of it is
+ * left. Theirs is its rim and its wash over the plating now.
+ *
  * **Each stays up while its gesture is standing, drawn `held`.** A cinched
  * ring refuses a second thumb and a spent haul refuses a second carry, so
  * `throatRingGrippable` and `throatTubeGrippable` both say no there — but the
@@ -174,5 +182,6 @@ function ring(
     held,
     pull: held ? 1 : 0,
     time,
+    theirs: !mine,
   });
 }

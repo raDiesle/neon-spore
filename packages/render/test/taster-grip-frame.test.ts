@@ -34,6 +34,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * struck off, which is why every count here has `t.shorn` taken off it. Ops
  * are no use instead — the fan grows and sheds between any two states worth
  * comparing, so a difference in them says nothing about a handle.
+ *
+ * **And it counts the seat's own rings**, since 22 September 2026: the dim
+ * copy of the other seat's handle is still drawn (two cases below say so) and
+ * punches no disc, because on this boss a punched disc is a notch and a notch
+ * is how much of the fan is gone. So a count on `p1` or `p2` is that seat's
+ * handles, and `test` is both seats' — which is what makes the pair of cases
+ * at the end a proof rather than a restatement.
  */
 
 beforeAll(installCanvasGlobals);
@@ -114,13 +121,39 @@ function rings(world: World, role: ViewRole = "test"): number {
   return count(drawn(world, role), PALETTE.background) - fan(world).shorn;
 }
 
+/** The seats the pin and the pry are *his* on, and the ones the wipe is
+ * *hers*: the rig may press either, and each phone only one of them. */
+const HIS: ViewRole[] = ROLES.filter((r) => r !== "p2");
+const HERS: ViewRole[] = ROLES.filter((r) => r !== "p1");
+
 describe("THE TASTER's rings", () => {
-  it.each(ROLES)("draws one on the blade that has not decided, on %s", (role) => {
+  it.each(HIS)("draws one on the blade that has not decided, on %s", (role) => {
     const bare = standing();
     const held = standing();
     fanning(held);
     // Nothing else about the two frames differs in a way that fills a disc.
     expect(rings(held, role)).toBeGreaterThan(rings(bare, role));
+  });
+
+  it("punches nothing on her screen for a blade only he may pin", () => {
+    const bare = standing();
+    const held = standing();
+    fanning(held);
+    expect(rings(held, "p2")).toBe(rings(bare, "p2"));
+  });
+
+  it.each(HERS)("punches one per gap on the seat that may wipe them, on %s", (role) => {
+    const bare = standing();
+    const many = standing();
+    hurrying(many);
+    expect(rings(many, role)).toBeGreaterThan(rings(bare, role));
+  });
+
+  it("punches nothing on his screen for the gaps only she may wipe", () => {
+    const bare = standing();
+    const many = standing();
+    hurrying(many);
+    expect(rings(many, "p1")).toBe(rings(bare, "p1"));
   });
 
   it("draws one per gap, so the row of them is what is left of the fan", () => {

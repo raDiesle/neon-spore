@@ -151,6 +151,14 @@ function grab(target: "snakeJaws" | "snakeTail", player: 1 | 2, x: number, y: nu
  * `sinew-handles.ts` made: neither seat can feel the other's thumb, and each of
  * these two is a thing the other seat is waiting on.
  *
+ * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
+ * 2026). A ring punches its circle out of the background before it draws its
+ * own colour, so it reads over whatever it is standing on — and both of these
+ * stand on the body. The seat that may not press one cannot see the wash
+ * inside it, so the disc came out a bite taken out of the snake, at the head
+ * or at the tail, which is the one thing on this field a bite means. Theirs is
+ * its rim and its wash now, over the segment, and it cuts nothing.
+ *
  * **The pilot's stays up through the mouth's rest**, drawn `held` for as long
  * as the jaws are actually open (`snake-clock.ts`'s own window, so the ring and
  * the gape agree). `snakeJawsGrippable` says no there and the ring is showing
@@ -196,5 +204,6 @@ function ring(
     held,
     pull: held ? 1 : 0,
     time,
+    theirs: !mine,
   });
 }

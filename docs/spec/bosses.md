@@ -997,6 +997,18 @@ tip under VEER and the navigator's on the housing under SEIZE, the split off
 hold a pair can spend a sentence inside, and whether a thumb on the arm and a
 thumb on the cannon are comfortable on one phone.
 
+**Both rings ship, and the other seat's fills nothing, 22 September 2026**
+(`render/vane-grip.ts`). The pilot's rides the tip of the arm and the
+navigator's hangs under the hub, each drawn on both screens — bright on the
+seat it belongs to and dim on the other, because the last pin of the fight
+needs both their hands on the picture at once and neither can feel the other's.
+What the dim copy may not do is **cut**: a ring fills its circle in the
+background colour before its own so it reads over whatever is behind it, and
+both of these are on the mechanism, so the seat that could not press one was
+being shown a hole bored through the metal. It fills nothing now (`theirs`,
+`handle-draw.ts`), and `render/test/handle-hole-bosses.test.ts` counts the
+discs punched on each screen.
+
 **What the field says** (`render/src/boss-cue-read-b.ts`, 18 September 2026,
 `docs/decisions.md` #34). Two words, one per seat, and **nothing whatever about
 the fold**. `CARRY` / `MOVE` on the cannon where it stands, the pilot's, while
@@ -3524,11 +3536,26 @@ in `throatHashParts`; `throatCinchBeats` and `throatHaulMilli` are in
 `ThroatConfig`; `throatRing` and `throatTube` are in
 `net/src/command-fields.ts`, without which the wire would drop both silently.
 
-**The picture of it was never photographed** — the same tool gap as the worn
-gullet above: reaching `open` needs four gums flung into a walking mouth, and
-`bun run frames` has no handle for a sideways carry or for setting a boss's own
-fields. The arithmetic is proved in `sim/test/throat-hands.test.ts` and the
-words in `render/test/boss-cue-throat.test.ts`.
+**The cinch was photographed on 22 September 2026**, and the sentence that
+stood here — that `bun run frames` had no handle for setting a boss's own
+fields — was wrong when it was written: `--boss slack=3,phase=slide` puts a
+slack ring on the gullet in one command, and the frame it took is what found
+the defect below. What is still unphotographed is the **haul**, which wants the
+mouth walking and a sideways carry nothing on the command line can make. The
+arithmetic is proved in `sim/test/throat-hands.test.ts` and the words in
+`render/test/boss-cue-throat.test.ts`.
+
+**And the dim copy fills nothing, 22 September 2026.** Both rings are drawn on
+both screens — bright on the seat it belongs to and dim on the other, because
+the cinch is a freeze the pilot spends his beats inside and neither can feel
+the other's thumb. What the dim copy may not do is **cut**. A ring fills its
+circle in the background colour before its own so it reads over whatever it
+hangs on, and these two hang on the gullet itself: the first frame of the cinch
+from the pilot's seat came back with a black disc bitten out of the end of the
+tube, on the boss whose whole picture is how much of it is left. It fills
+nothing now (`theirs`, `handle-draw.ts`), and
+`render/test/handle-hole-bosses.test.ts` counts the discs punched on each
+screen.
 
 **The two hands have sounds.** The cinch, the slip and the haul are
 `events-throat.ts`, bound in `audio/bind-throat.ts` and panned to the mouth's
@@ -5102,6 +5129,16 @@ open because he may let go. Each dial is the clock its own gesture races:
 `pryMilli` out of `tasterPryMilli`. Every ring is drawn on both phones, his
 bright on his and dim on hers and hers the other way about, because each of
 the three is a thing the *other* seat is waiting on.
+
+**And the dim copy fills nothing, 22 September 2026.** A ring punches its
+circle out of the background before it draws its own colour, to read over
+whatever it stands on — and this is the boss read entirely off the lit edge of
+a blade, with a notch for every blade already struck off. So the copy drawn for
+the seat that may *not* press one came out a **second notch**, which is this
+fight's own mark for how much of the fan is gone, said by a handle that meant
+nothing of the kind. Theirs is its rim and its wash now (`theirs`,
+`handle-draw.ts`), and the counts in `render/test/taster-grip-frame.test.ts`
+are each seat's own rings for the same reason.
 
 **Where this departs from the design, and why.** Four places, each argued by
 name. *The rock throw is dropped*: the design's step 7 has a blade sweeping

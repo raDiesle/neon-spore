@@ -527,6 +527,18 @@ drive the body onto four points, so `gorge` and `shed` are on `OWED`
 a carry on the head is a gesture a thumb can make while the body is moving at
 under half a second a tile.
 
+**Both rings ship, and the other seat's fills nothing, 22 September 2026**
+(`render/snake-grip.ts`). His on the neck one tile behind the head, hers on the
+last joint of the tail, both sliding with the body and both drawn on both
+screens — each of the two is a thing the *other* seat is waiting on, and
+neither can feel a thumb that is not theirs. What the dim copy may not do is
+**cut**: a ring fills its circle in the background colour before its own, so on
+a round whose handles are on the animal itself the copy came out a bite taken
+out of the snake, at the head or at the tail, which is the one thing a gap in
+this body could mean. It fills nothing now (`theirs`, `handle-draw.ts`), and
+`render/test/handle-hole-bosses.test.ts` counts the discs punched on each
+screen.
+
 **The look, rebuilt 18 September 2026.** SNAKE was the last round but THE
 GAUGE still drawn as a slab panel over a dark plate with an ember box round
 the arena, and the owner asked for it to follow the others: the ship shown,

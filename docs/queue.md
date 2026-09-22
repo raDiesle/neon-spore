@@ -297,36 +297,35 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 `tools/queue/test/needs.test.ts` holds the wait.
 
-## Seven bosses draw a dim ring that nobody has looked at in a frame
+## Three bosses still draw a dim ring that punches a hole
 
-- **Found:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni
-- **Taken:** 2026-09-22, claude/queue-a-dim-handle-ring-is-an-opaque-black-disc-and-ni (claim: claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo)
-- **Files:** `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/snake-grip.ts`, `packages/render/src/surge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/throat-grip.ts`, `packages/render/src/vane-grip.ts`
+- **Found:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo
+- **Files:** `packages/render/src/scout-grip.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/surge-grip.ts`
 
-**The cause is fixed and the looking is not.** A ring drawn for the other seat
-no longer fills `PALETTE.background`, so it punches no hole in whatever is
-behind it (`theirs`, `handle-draw.ts`, 22 September 2026), and THE BALLOON and
-PINBALL were photographed, ruled and written up. The seven files above still
-pass no `theirs` and still punch a hole apiece, because each wants a frame and
-a ruling of its own before its look is changed, and the lane that fixed the
-cause could not reach seven fights in a sitting.
+**The other half of a seven-boss finding, split because it would not fit one
+sitting.** SNAKE, THE THROAT, THE VANE and THE TASTER pass `theirs` now and
+their sections say what the other seat does with each ring
+(`render/test/handle-hole-bosses.test.ts`, 22 September 2026). These three were
+left because none of them is the plain seat check the first four were.
 
-Two of them are not a plain seat check and are the reason this is a boss at a
-time rather than one sweep. `sinew-handles.ts` draws **two** rings, the second
+`sinew-handles.ts` draws **two** rings, the second
 `swinging ? PALETTE.ember : mine ? PALETTE.rock : PALETTE.dim` — an ember ring
-is nobody's and dim is the fallback rather than the other seat. `surge-grip.ts`
-draws `refusing ? PALETTE.dim : mine ? PALETTE.rock : PALETTE.dim`, where a
-refused ring is dim **on the seat it belongs to**, so `theirs` is not what that
-line is saying and the hole may be the right picture for a refusal.
+is nobody's and dim is the fallback rather than the other seat, so there are
+three cases to rule on and not two. `surge-grip.ts` draws
+`refusing ? PALETTE.dim : mine ? PALETTE.rock : PALETTE.dim`, where a refused
+ring is dim **on the seat it belongs to**: `theirs` is not what that line is
+saying, and a hole may be the right picture for a refusal. THE SCOUT cannot be
+photographed at all today — the entry below is why — so it is the one of the
+three that may have to be ruled on without a frame, or wait.
 
 The work, per boss: one frame on the screen the ring is dim on, then **it
 stays** (pass `theirs`, and say in its section what the other seat does with
 it) or **it goes** (and a frame test counts nought on that role).
-`render/test/handle-hole.test.ts` is the pattern for the counting — a
-background fill is a ring and nothing else is, and `BARE` is asserted rather
-than assumed — and the *dim copy punches no hole* paragraph in
-`docs/spec/interludes.md` is the pattern for the writing-up. THE SCOUT cannot
-be photographed at all today; the entry below is why.
+`render/test/handle-hole-bosses.test.ts` is the pattern for the counting — a
+background fill is a ring and nothing else is, and the counts are differences
+from a ring-free state rather than against nought — and the *dim copy fills
+nothing* paragraphs in `docs/spec/bosses.md` are the pattern for the
+writing-up.
 
 ## `--press` knows no scout verb, so THE SCOUT's two rings cannot be photographed
 
@@ -2383,3 +2382,26 @@ were ever meant to be able to share a beat, something else is missing; if they
 were not, the line goes and its paragraph with it. Either way the argument in
 `ledgerPullable`'s own comment — *the root slides between two landings* — is
 today describing a thing that cannot happen.
+
+## Two bosses say their picture is not built, under a paragraph saying it is
+
+- **Found:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo
+- **Files:** `docs/spec/bosses.md`, `docs/spec/interludes.md`
+- **Where:** local
+
+THE VANE's section (bosses.md §11.5) and SNAKE's (interludes.md) still
+carry a **What is not built** (sim lane, 18 September 2026) paragraph saying *the picture* is missing — no ring answers `vaneArm` or
+`vaneHousing`, nothing marks SNAKE's tail as a thing a thumb may take hold of,
+the events are on the silent lists — and in both the paragraph directly under
+it is a dated one saying both rings ship and naming the file that draws them.
+A reader gets the contradiction in two paragraphs. THE THROAT's copy of the
+same staleness was corrected in the lane that found this (its claim that
+`bun run frames` cannot set a boss's own fields was wrong: `--boss` does), and
+the other two were left because checking each clause is its own reading —
+whether the events are still silent, whether the arm is still drawn off the
+cycle, whether the director's `OWED` cards are still owed.
+
+The work is: read each clause of the two paragraphs against the tree, cut what
+now ships, and leave what is genuinely still missing under a heading that says
+what remains rather than *the picture*. The *Never watched at tempo* sentences
+stay — nobody has watched either at tempo.

@@ -142,6 +142,16 @@ function grabLock(x: number, y: number): Touch {
  * her beam is waiting on — so every one of the three is a thing the *other*
  * seat is watching for.
  *
+ * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
+ * 2026). A ring punches its circle out of the background first, so it reads
+ * over whatever it stands on, and this fight is read entirely off the lit edge
+ * of a blade: the pin's ring is on the crest and the wipe's is in a gap the
+ * crest has already lost. The seat that may not press one cannot see the wash
+ * inside the hole, so its copy came out a *second* notch — the one mark this
+ * boss uses for progress, said by a handle that meant nothing of the kind.
+ * Theirs is its rim and its wash now. The count in
+ * `taster-grip-frame.test.ts` is the seat's own for the same reason.
+ *
  * **Each dial is the clock its own gesture is racing.** The pin's fills toward
  * `tasterPinBeats`, where the blade decides anyway and comes up thick, so a
  * full ring is a bet lost rather than a hold won. The wipe's has two positions
@@ -202,5 +212,6 @@ function ring(
     held,
     pull,
     time,
+    theirs: !mine,
   });
 }
