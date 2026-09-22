@@ -26,6 +26,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * ship* — so the rule stopped being the rock's. The last two cases below are
  * the pair: a rock rests by `rockRadius`, which `RockImpactFx` has to match to
  * the pixel, and everything else by the size it is drawn at.
+ *
+ * His third, the same day, is what the rest of that beat looks like — *it
+ * touches the ship for some moments then switches to it* — and the case below
+ * it holds the two halves of the answer apart: a living body is **off** the
+ * plating through the middle of its last beat and **in** it by the end, so the
+ * frame it is seen to touch is the frame the hull flashes. A rock keeps the
+ * even glide, which is why the case above still asserts one.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -95,6 +102,26 @@ describe("a landing beat", () => {
     const c = rock("meteorFastest", HULL - 2, HULL - 5);
     const y = tileCY(L, HULL - 3);
     expect(landingY(L, CFG, c, 400, y, 0.4, skin)).toBe(y);
+  });
+
+  it("lifts a living body clear of the plating and drops it at the end", () => {
+    // His third report the same day: *it touches the ship for some moments then
+    // switches to it.* The row above the hull is one body-radius above the
+    // plating, so the body arrives already lying on the ship and an even glide
+    // would leave it there for the whole beat. The beat is a gather and a
+    // strike instead, and the strike lands in its last ticks.
+    const slick = rock("slick", HULL, HULL - 1);
+    const r = flatRadius(L, CFG, slick, 1);
+    const gap = (g: number) => L.hullY - landingY(L, CFG, slick, 400, 0, g, skin) - r;
+
+    // It starts where the grid put it: touching the skin, which is the defect.
+    expect(gap(0)).toBeLessThan(r * 0.2);
+    // A finger's width of open sky under it at the top of the gather.
+    expect(gap(0.4)).toBeGreaterThan(r * 0.6);
+    // Still clear at four fifths of the beat, so the fall is all at the end.
+    expect(gap(0.8)).toBeGreaterThan(0);
+    // And in the plating by the time the hull answers.
+    expect(gap(1)).toBeCloseTo(-r * 0.5, 5);
   });
 
   it("rests a living body on the skin too, by the size it is drawn at", () => {

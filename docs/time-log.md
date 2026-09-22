@@ -16718,3 +16718,24 @@ all got wrong the first time in the same way: they pressed twice without
 lifting. Reading the guard would have been a minute; it cost twenty.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — touch-is-the-damage — a gather and a strike
+
+- reading — 15 min. `landing.ts`'s rule from the beat before, `isWardable`'s
+  split, and the numbers the phone layout actually puts a slick at one row
+  above the hull.
+- writing — 15 min. `strike` — smoothstep up to `CLEAR`, a cube down to
+  `SUNK` — behind an `isWardable` branch so a rock keeps its even glide, plus
+  the case that holds the body off the plating at four fifths of the beat.
+- looking — 25 min. The strip of ticks 1125–1195 that showed the slick lying
+  on the membrane for the whole beat, and the same strip again afterwards.
+- friction — 10 min. A sheet that came back with ten frames when the capture
+  wrote eight, which is now an entry in the queue.
+- landing — 10 min. `check:fast`, the before-and-after off the sha, the replay.
+
+The bottleneck was **reading the geometry rather than the picture**. The strip
+said the body sat on the ship and said nothing about why; the answer was three
+numbers — the hull row's top edge, the row above it and the drawn radius — and
+printing them took one throwaway test and settled in a minute what twenty
+minutes of frames had only described. A body one row up is already tangent, so
+there was never any height for the last beat to fall through.
