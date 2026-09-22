@@ -514,30 +514,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Five files a choreographed boss must touch are within twenty lines of the limit
-
-- **Found:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its
-- **Taken:** 2026-09-22, claude/queue-bun-run-queue-next-hands-back-an-item-no-session (claim: claude/queue-five-files-a-choreographed-boss-must-touch-are-w)
-- **Files:** `tools/director/src/ship-groups.ts`, `packages/sim/src/boss-others.ts`, `packages/sim/src/events.ts`, `packages/audio/src/bind-choreographed.ts`, `packages/sim/src/boss-entries.ts`
-- **Where:** local
-
-THE BELLOWS's lane one had to split a page before it could add a line to it:
-`boss-entries-clocks.ts` reached 252 and its last boss moved across to a new
-tail page. That is the seam working, and it cost the lane fifteen minutes it
-had not planned for. Five more files are close enough that the next
-choreographed boss pays the same tax, and it pays it five times: ship-groups
-at 233, boss-others at 249, events at 247, bind-choreographed at 236,
-boss-entries at 243. `packages/sim/test/limits.test.ts` is what will say so,
-and it says it in the middle of a lane rather than before one.
-
-The work is the split, done once, cold: each of the five hands its **last**
-rows across to a `-b` page — never the boss a lane is working on, which is the
-rule the seam is for — with the header paragraph recording the hand-across the
-way `boss-entries-clocks.ts` now does. A fresh session can do all five in one
-sitting and prove it with `bun run check`: nothing about a page boundary is
-visible outside the file, so the only receipts are the typecheck and the
-limits test.
-
 ## The skill's own claim step cannot be run from a worktree
 
 - **Found:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its
