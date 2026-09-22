@@ -493,6 +493,7 @@ question that prompted this one.
 ## THE GIMBAL is written and nobody has built its simulation
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Taken:** 2026-09-22, claude/queue-no-picture-tool-can-photograph-a-card-the-back-g (claim: claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
 
 `docs/spec/bosses-choreographed.md` §18 is a full design — the question, the
