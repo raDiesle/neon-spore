@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 7e6af117 — The last three bosses' dim rings stop cutting holes in them
+
+THE SINEW, THE SURGE and THE SCOUT pass `theirs` now, which finishes the seven. Each was held back because it asked the question differently, and each got its own ruling.
+
 ## 2026-09-22 · f7c08a44 — Four bosses' dim rings stop cutting holes in them
 
 SNAKE, THE THROAT, THE VANE and THE TASTER each draw both of their handles on both screens, bright on the seat that may press one and dim on the other. A ring fills its circle in the background colour before drawing its own, so it reads over whatever it hangs on — and all eight of these hang on the boss. The seat that may not press one saw a flat black disc instead: a bite out of the snake at the head or the tail, a gap in the gullet, a bore through the vane's mechanism, a second notch on the taster's crest, which is the one mark that boss uses to say how far it has been eaten.

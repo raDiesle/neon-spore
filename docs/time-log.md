@@ -16300,3 +16300,5 @@ this one was a difference from a frame with the ring absent, and neither of
 these ever has one; working out that `test` *is* the both-seats picture, and so
 the thing a seat's own screen is one disc short of, took longer than the change
 it proves.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
