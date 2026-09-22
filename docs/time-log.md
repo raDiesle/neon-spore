@@ -16270,3 +16270,5 @@ went to finding one boss whose defect a still frame could actually show. A
 ring standing on nothing looks the same either way — only a ring standing on
 the boss makes the hole visible — and nothing tells you which is which but
 taking the frame.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
