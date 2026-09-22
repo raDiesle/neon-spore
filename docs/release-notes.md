@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 2b6c2f62 — Take the preview skill's landing steps off the queue
+
+## 2026-09-22 · 2f5f9a9e — Let the preview skill end a lane the way every other lane ends
+
+Its step 3 spelled out four hand-run git commands. Three of them are `bun run land`'s job and have been since it was written — it rebases, runs `bun run check`, fast-forwards `main`, writes the release note and sweeps — and the third of those, `git -C <repo-root> merge --ff-only <branch>` from the main checkout, is refused before it starts when it is run from a worktree, which is the defect the boss skill's claim step had two commits ago.
+
 ## 2026-09-22 · b5534698 — Take the skill's claim step off the queue
 
 ## 2026-09-22 · b3c7eba5 — Stop the boss skill asking for a commit no session can make
