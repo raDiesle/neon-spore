@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 377c5c20 — Give THE LEDGER's pilot his two hands on the cord
+
+His thumb on the soonest return and his carry on the taut cord have been heard by the simulation since 19 September with nothing drawn to take hold of. Both have a ring now, and neither stands on the root: the cord fades out above the plating on his screen so he cannot read the column it is rooted in, and a ring is a mark — one drawn in that stretch would put back exactly what the fade takes away. The pull's rides the bead it is about, off the same gate the press is, so it can never be on a different return from the one it would move; the haul's stands still at a fixed place above the fade, with better than half the cord left below it for the carry.
+
 ## 2026-09-22 · 91ced5f5 — Give THE LEDGER's root one ring for both of the navigator's hands
 
 The foot of the cord and her thumb in the socket were heard by the simulation from the day they were written and drawn nowhere: no ring, no branch of touch.ts, no seat that could see one. They now share a single circle on the root of the cord, because they are the same hand on the same thing at two times — the foot only while it is `rooting`, the plug from `paying` on, never both — so the movement says which gesture it is and the pair learns one sentence, *your hand is on the root*. Two rings a radius apart would have taught them the root has a handle and a handle beside it.
