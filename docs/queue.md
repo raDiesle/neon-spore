@@ -518,6 +518,7 @@ question that prompted this one.
 ## The preview skill ends a lane with four git steps `bun run land` already does
 
 - **Found:** 2026-09-22, claude/queue-the-skills-own-claim-step-cannot-be-run-from-a-w
+- **Taken:** 2026-09-22, claude/queue-the-skills-own-claim-step-cannot-be-run-from-a-w (claim: claude/queue-the-preview-skill-ends-a-lane-with-four-git-step)
 - **Files:** `.claude/skills/worktree-preview/SKILL.md`
 - **Where:** local
 
