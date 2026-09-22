@@ -16788,3 +16788,5 @@ renamed to was taken — by the permanent stain, which is the thing the owner
 was pointing at when he said the colour across the hull is already there.
 Twenty minutes of the reading row is `docs/INDEX.md` grep and nothing else,
 and it saved a rename across nine files.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

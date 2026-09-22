@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · 531061ee — Burst a body on the plating it reached, like a balloon full of water
+
+The owner, 22 September 2026: in the moment the enemy touches the hull it immediately explodes — a big splash like a balloon with water, in the colour of the enemy — and of the colour across the hull, already there, but we can increase the effect to be a bigger splash.
+
 ## 2026-09-22 · 3a0cf108 — Let an entry say it needs a phone, and stop handing it to agents
 
 `bun run queue next` picked the same entry five times in one sitting — a real phone browser's own chrome eating the foot of the field — and was given it back five times, because no agent has a phone. Five claims and five give-backs are ten commits on the trunk that say nothing.
