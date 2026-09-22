@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · d242877a — Stop handing THE ORRERY's last question to sessions with no thumb
+
+Three of that entry's four unverified claims were settled on real frames days ago. What is left is one sentence — whether a turn and a half of a thumb per organ feels like a decision or like friction, on a real phone, mid-fight — and the entry says in its own words that no frame answers it. It has now been claimed and given back three times, once today, by sessions that read it, found nothing they could do and released it.
+
 ## 2026-09-22 · bbc11d65 — Take the five splits off the queue
 
 ## 2026-09-22 · 2ebee093 — Give five pages the room a choreographed boss needs
