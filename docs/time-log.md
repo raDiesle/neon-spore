@@ -16959,3 +16959,27 @@ Twenty minutes of the reading row is `docs/INDEX.md` grep and nothing else,
 and it saved a rename across nine files.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-22 — the bellows's hands — a thumb on each bar, and the word on it
+
+- reading — 30 min. `sim/bellows-hand.ts` for what a stroke actually is, then
+  `sinew-handles.ts`, `surge-word.ts` and `handles.ts` for the two shapes a
+  handle boss comes in — the hit test, and whether the cue is a `boss-cue.ts`
+  case or a word drawn on the boss's own mark.
+- writing — 40 min. `bellows-grip.ts` and `bellows-word.ts`, the cue hung in
+  `bellows-handle.ts`, the `handle-place.ts` branch, the director's two rows
+  and two poses, the two rows of `controls.md`, §11.35 and the §19 ledger.
+- looking — 15 min. One frame at wave 99 with his thumb 420 down the rail,
+  magnified three times to read the bar and the word off it.
+- friction — 10 min. `poses-field-controls.ts` went to 252 lines on a
+  two-line registration, so THE SINEW's pose moved to its own file first.
+- landing — 10 min. `imports:sort` for the two new import blocks,
+  `check:fast`, the picture.
+
+The bottleneck was **deciding where the word lives**. Half the handle bosses
+answer a cue with a `case` in `boss-cue.ts` and a `boss-cue-read-*.ts` arm,
+and half draw it on their own mark; the second is right here because the bar
+rides a fill the reading would have had to re-derive, and finding that out
+meant reading three of them. Ten minutes of it was `surge-word.ts` alone, and
+it paid for itself: the finale is THE SURGE's lift exactly, `STILL`/`LIFT` and
+all, so that word did not have to be invented.

@@ -20,8 +20,10 @@ import {
   until,
 } from "./pose-kit.js";
 import { ANTIPHON_PULL, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
+import { BELLOWS_GRIPS } from "./poses-field-controls-bellows.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
+import { SINEW_PULL } from "./poses-field-controls-sinew.js";
 import { SURGE_HOLD } from "./poses-field-controls-surge.js";
 
 /**
@@ -188,52 +190,14 @@ const ORRERY_RING: Pose = {
   },
 };
 
-/**
- * THE SINEW with both hands on it and the sum somewhere on the band.
- *
- * The sixth, and the first where the two hands are not each answering a side
- * but adding into one number: player 1 pulls his handle down a whole tile and
- * player 2 hers a little over half, and the collar's band shows what each
- * seat is shown of that. Player 1's screen here, so the band carries the zone
- * and not the sum — the thing the reader of that tab is asking is what the
- * pilot sees while he is saying *more*.
- *
- * `fromYMilli` is the depth; the default's zone is rolled from the wave's
- * seed, so the sum is set where the band is busiest rather than where the
- * zone is, and the hold pips may or may not be lit.
- */
-const SINEW_PULL: Pose = {
-  name: "SINEW · BOTH HANDS ON THE PULL",
-  note: "THE SINEW hanging from the top of the field: a lobed mass on a fanned tendon with a collar of strain band round it, and a handle either side pulled down on its cord. Player 1's screen: the green segment on the band is the zone he can see and player 2 cannot; the sum is not drawn here at all.",
-  lookAt:
-    "whether the two cords read as pulled to different depths, and whether the band's zone reads as a target on a scale rather than a decoration on the collar",
-  crop: "field",
-  role: "p1",
-  build: () => {
-    const w = fresh([], [], { kind: "sinew" });
-    run(w, TPB * 3);
-    const pull = (player: 1 | 2, fromYMilli: number): TimedCommand => ({
-      tick: w.tick,
-      player,
-      command: {
-        kind: "drag",
-        target: player === 1 ? "sinewLeft" : "sinewRight",
-        on: true,
-        fromMilli: 0,
-        fromYMilli,
-      },
-    });
-    run(w, 2, [pull(1, 1000), pull(2, 600)]);
-    return w;
-  },
-};
-
 export const FIELD_CONTROL_GROUP: PoseGroup = {
   title: "ON THE FIELD",
   note: "the moment a control touched on the field itself is answered in — controls.md, and the CONTROLS tab's ON THE FIELD page",
-  // THE SURGE's, THE ANTIPHON's, THE INSTAR's and THE GIMBAL's are next door:
-  // this file was at its limit (`poses-field-controls-surge.ts`, `-antiphon.ts`,
-  // `-instar.ts`, `-gimbal.ts`).
+  // Every boss's is next door, one file each, and this one keeps the four
+  // that belong to no boss: THE SURGE's, THE ANTIPHON's, THE INSTAR's, THE
+  // GIMBAL's, THE SINEW's and THE BELLOWS's went out one at a time, each as
+  // this file reached its limit again (`poses-field-controls-surge.ts`,
+  // `-antiphon.ts`, `-instar.ts`, `-gimbal.ts`, `-sinew.ts`, `-bellows.ts`).
   poses: [
     TETHER_TAUT,
     BALLOON_HELD,
@@ -245,6 +209,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ANTIPHON_PULL,
     INSTAR_PULL,
     ...GIMBAL_GRIPS,
+    ...BELLOWS_GRIPS,
     GUIDE_HOLD,
   ],
 };

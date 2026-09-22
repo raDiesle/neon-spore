@@ -7853,10 +7853,36 @@ that seat, and both glow at once on the last seam, which is the one beat of the
 fight the pair acts together. `render/test/bellows-frame.test.ts` sets every
 pose on all three screens and proves the split both ways.
 
-**What is not built is the hands.** The two handles have no `FIELD_CONTROLS`
-row and no hit test, so nothing on the field answers a thumb yet; the cue's
-word, the desk keys and the director's gallery poses come with them. Half two
-is its own item on `docs/queue.md`.
+**The hands.** Each bar is answered on the seat that owns it and on no other
+(`render/bellows-grip.ts`), and the circle a press is tested against is the
+**resting** one, carried along by whatever fill the chamber it hangs off has
+this frame — so a thumb is answered where the bar is drawn rather than where
+it was drawn when the fight began. `bellowsHandleStanding` is the other
+question, for the ghost hand and the caption (`handle-place.ts`).
+
+**The wrong seat's grab is taken rather than refused, and that is the whole
+boss.** A hit test that only opened while `bellowsTurn` named this seat would
+have made the jam unreachable and left the lung a machine that cannot be
+played wrong. What it does refuse is what `bellows-hand.ts` refuses — a jam,
+the vent and the opening still — so a press in one of those three falls
+through as if no rail were there.
+
+**The word stands on the bar itself** (`render/bellows-word.ts`, drawn by
+`bellows-handle.ts` rather than by a `case` in `boss-cue.ts`, which is THE
+SINEW's and THE SURGE's arrangement and the one that cannot write a verb at a
+rail this frame put somewhere else). `PULL` on his beat and `PUSH` on hers, in
+`CARRY`; on the last seam both bars say `HOLD` with the hand off and `LIFT`
+with it on, which is THE SURGE's release word for the same gesture. Four
+silences: the seat whose beat it is not, the three handless phases and a seam
+parting — all four are `bellowsTurn` naming nobody — and a bar already carried
+past `bellowsWorkMilli`, whose stroke cannot land again until the hand comes
+off. No number is ever said: the window the third exchange runs under is the
+pair's to feel.
+
+**No desk key.** THE GIMBAL's T and Y are there because a *turn* has nowhere
+else to go; every handle boss before it has none, and a carry down a rail is a
+drag. `render/test/bellows-grip.test.ts` is the receipt, and
+`docs/spec/controls.md` carries the two rows.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/bellows.test.ts`): the lung comes in tight and lights its first

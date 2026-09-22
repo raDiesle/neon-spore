@@ -2,6 +2,7 @@ import type { FieldControlDef } from "./field-control-def.js";
 import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
+import { BELLOWS_CONTROLS } from "./field-controls-bellows.js";
 import { CANDLE_CONTROLS } from "./field-controls-candle.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
 import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
@@ -132,4 +133,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // from its two faces**: one target a seat, offered together, and the same
   // turn on them is two different turns (`field-controls-gimbal.ts`).
   ...GIMBAL_CONTROLS,
+  // THE BELLOWS's two handles, the only pair here that may never be worked at
+  // the same time: one seat a beat, and a thumb out of turn jams both and
+  // spends the exchange (`field-controls-bellows.ts`).
+  ...BELLOWS_CONTROLS,
 ];

@@ -515,21 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE BELLOWS's picture has never been drawn
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-22, claude/queue-the-gimbals-picture-has-never-been-drawn (claim: claude/queue-the-bellowss-picture-has-never-been-drawn)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
-- **Needs:** THE BELLOWS is written and nobody has built its simulation
-- **Where:** local
-
-Lane two of §19, once lane one lands: a double-chambered bellows-lung, five
-poses (`.claude/skills/new-boss` §5's standard), the waist's four seams
-narrowing and drawn rather than counted, the finale of both halves falling
-apart and venting one harmless cloud. A new silhouette — check
-`packages/content/src/silhouettes.ts` first. One PNG to the owner when it
-moves.
-
 ## THE HASP is written and nobody has built its simulation
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses

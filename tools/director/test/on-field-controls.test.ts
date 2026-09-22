@@ -366,11 +366,15 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `docs/spec/bosses.md` §11.34).
   gimbalOuter: "field",
   gimbalInner: "field",
-  // THE BELLOWS's handle and plate, heard and not yet drawn, for the rings'
-  // reason exactly: `sim/bellows-hand.ts` answers a stroke on either and
-  // nothing in `render/` puts a hand on one (`docs/spec/bosses.md` §11.35).
-  bellowsPull: "unbuilt",
-  bellowsPush: "unbuilt",
+  // THE BELLOWS's two handles, and the rings' arrangement with the opposite
+  // rule on it: `bellowsPull` is the pilot's bar and `bellowsPush` the
+  // navigator's, each answered on the seat that owns it, but the two are never
+  // live at once — a stroke out of turn jams both and spends the exchange, so
+  // the wrong seat's grab is taken rather than refused, which is the whole
+  // fight (`render/bellows-grip.ts`, `sim/bellows-hand.ts`,
+  // `field-controls-bellows.ts`, `docs/spec/bosses.md` §11.35).
+  bellowsPull: "field",
+  bellowsPush: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

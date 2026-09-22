@@ -3,6 +3,7 @@ import {
   bellowsDepthMilli,
   bellowsLast,
   bellowsTurn,
+  type SimConfig,
   type World,
 } from "@neon-spore/sim";
 import {
@@ -11,7 +12,12 @@ import {
   bellowsCentre,
   bellowsHalfH,
   bellowsHandleAt,
+  type Point,
 } from "./bellows-shape.js";
+import { bellowsWord } from "./bellows-word.js";
+import type { BossCue } from "./boss-cue.js";
+import { cueSeen } from "./boss-cue.js";
+import { drawCueText } from "./boss-cue-text.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -67,8 +73,8 @@ export function drawBellowsCap(
  * The rail and the bar on it, at the depth this seat's thumb has carried it
  * (`bellowsDepthMilli`) — the fourth of the five standards, on the part of
  * this boss a hand actually reaches. It glows while this seat's beat is up
- * and while the last seam holds both of them at once; the ring and the word
- * over it are lane two's (`boss-cue.ts`).
+ * and while the last seam holds both of them at once, and it carries the
+ * verb that seat is being asked for (`bellows-word.ts`).
  */
 export function drawBellowsHandle(
   ctx: CanvasRenderingContext2D,
@@ -100,4 +106,42 @@ export function drawBellowsHandle(
     ctx.strokeStyle = rgba(PALETTE.rock, 0.7);
     ctx.stroke(bar);
   }
+  drawWord(ctx, l, cfg, s, player, at, halfW, time);
+}
+
+/**
+ * The verb, on the bar itself and under the same gate the glow is: a word is
+ * only ever written where this frame has just drawn a lit bar, because both
+ * are read off `bellows-word.ts` and `bellowsTurn` in the same tick.
+ *
+ * **No frame.** The pulsing rim around the bar is already the breathing mark
+ * the standard asks for, and a scan frame round it would be the second
+ * picture for the one idea (`target-lock.ts`). `cueSeen` is asked even so: a
+ * seat is only shown its own handle, and the reading is not allowed to be the
+ * one place that forgets it.
+ */
+function drawWord(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  s: BellowsState,
+  player: 1 | 2,
+  at: Point,
+  halfW: number,
+  time: number,
+): void {
+  const say = bellowsWord(cfg, s, player);
+  if (say === null) return;
+  const cue: BossCue = {
+    seat: player,
+    kind: say.kind,
+    word: say.word,
+    x: at.x,
+    y: at.y,
+    halfW,
+    halfH: l.tile * 0.2,
+    seed: 71 + player,
+    framed: false,
+  };
+  if (cueSeen(cue, l.role)) drawCueText(ctx, cue, time);
 }

@@ -2,6 +2,7 @@ import { NO_TETHER } from "@neon-spore/sim";
 import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { antiphonRailUnder } from "./antiphon-rail-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
+import { bellowsHandleUnder } from "./bellows-grip.js";
 import { candleWickUnder } from "./candle-grip.js";
 import { curtainHemUnder } from "./curtain-grip.js";
 import { diastoleClampUnder } from "./diastole-clamp.js";
@@ -133,7 +134,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     // the socket from `paying` on (`ledger-grip.ts`).
     ledgerGripUnder(l, x, y, field) ??
     ledgerPullUnder(l, x, y, field) ?? // And the pilot's two on the cord above it (`ledger-pull.ts`).
-    antiphonRailUnder(l, x, y, field) // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
+    antiphonRailUnder(l, x, y, field) ?? // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
+    bellowsHandleUnder(l, x, y, field) // THE BELLOWS's one handle, each seat its own, in whosever beat it is (`bellows-grip.ts`).
   );
 }
 

@@ -1621,6 +1621,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/bellows-pose.ts` | **How far through a pose THE BELLOWS is**, and how full each chamber is drawn |
 | `packages/render/src/bellows-shape.ts` | **Where THE BELLOWS is**, in field pixels: the two ribbed housings and the handle hanging under each |
 | `packages/render/src/bellows-waist.ts` |  |
+| `packages/render/src/bellows-word.ts` | **What THE BELLOWS is asking of one thumb**, and the four silences beside the three words |
+| `packages/render/src/bellows-grip.ts` | **The thumb on one of THE BELLOWS's two handles** — half two of the look lane |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/candle-dark.ts` | **THE CANDLE's dark**: the field going black |
@@ -2024,9 +2026,11 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-field.ts` | The states of the things a wave puts on the field: the creatures, and the two bosses that exist |
 | `tools/director/src/poses-field-controls.ts` | The states the ON THE FIELD tab needed a picture of and the gallery did not have |
 | `tools/director/src/poses-field-controls-surge.ts` | THE SURGE with both thumbs on the bulb and the pressure climbing |
+| `tools/director/src/poses-field-controls-sinew.ts` | THE SINEW with both hands on it and the sum somewhere on the band |
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
+| `tools/director/src/poses-field-controls-bellows.ts` | THE BELLOWS's two handles, one under each seat's thumb — and, like THE GIMBAL's pair next door |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2405,6 +2409,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
+| `tools/director/src/field-controls-bellows.ts` | THE BELLOWS's two handles, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
