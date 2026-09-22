@@ -662,6 +662,7 @@ beside the ones there.
 ## A test room code outside the alphabet costs twenty seconds and says nothing
 
 - **Found:** 2026-09-21, claude/queue-a-partner-who-vanishes-on-the-room-screen-is-sti
+- **Taken:** 2026-09-22, scratch-main (claim: claude/queue-a-test-room-code-outside-the-alphabet-costs-twen)
 - **Files:** `apps/server/test/phone.ts`, `packages/net/src/room-code.ts`
 
 `ROOM_ALPHABET` is `ACDEFGHJKLMNPQRTUVWXY3479` — no B, no I, no O, no S, no Z,
