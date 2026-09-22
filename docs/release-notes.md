@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · ed9fc5d5 — Hang the body on a chain and let it swing, so the slow has speed to take away
+
+THE INSTAR stood still, and a slow window opened over a still body says nothing about speed. It now swings across half the field on a four-beat pendulum, and every part of it goes together: the figure, the plates of the chain, the marks, the cue rings, the intake light and the hit test all take one displacement from `instar-sway.ts`, so a ring is found where it is drawn and a pull's depth is still measured from the thumb's own origin.
+
 ## 2026-09-22 · b063602a — Bring the wound up with the plates, on one clock, in a quarter second
 
 The lost screen shut its two plates over half a second and only then showed the hole where the hull was broken, because the wound was clipped to the plates and the hole sits low on the phone — the bottom plate had to sweep the whole way up past it before one pixel of it showed. The owner, 22 September 2026: the circle focus must come much quicker, and the dark must be done together with it and not sequentially before it.
