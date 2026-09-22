@@ -518,6 +518,7 @@ question that prompted this one.
 ## Five files a choreographed boss must touch are within twenty lines of the limit
 
 - **Found:** 2026-09-22, claude/queue-the-bellows-is-written-and-nobody-has-built-its
+- **Taken:** 2026-09-22, claude/queue-bun-run-queue-next-hands-back-an-item-no-session (claim: claude/queue-five-files-a-choreographed-boss-must-touch-are-w)
 - **Files:** `tools/director/src/ship-groups.ts`, `packages/sim/src/boss-others.ts`, `packages/sim/src/events.ts`, `packages/audio/src/bind-choreographed.ts`, `packages/sim/src/boss-entries.ts`
 - **Where:** local
 
