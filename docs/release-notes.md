@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-22 · bbc11d65 — Take the five splits off the queue
+
+## 2026-09-22 · 2ebee093 — Give five pages the room a choreographed boss needs
+
+Five files a boss of the third kind has to touch were all within twenty lines of the 250-line limit, so the next one would have arrived at five splits it did not ask for and would have made them in a hurry. They are made here instead, cold and all at once, each along the seam its own header already argued for: the **last** rows go across, never the boss a lane is working on.
+
 ## 2026-09-22 · 531061ee — Burst a body on the plating it reached, like a balloon full of water
 
 The owner, 22 September 2026: in the moment the enemy touches the hull it immediately explodes — a big splash like a balloon with water, in the colour of the enemy — and of the colour across the hull, already there, but we can increase the effect to be a bigger splash.
