@@ -15,6 +15,7 @@ import type { ViewState } from "./renderer.js";
 import { drawScuttle } from "./scuttle-draw.js";
 import { drawScuttleGrip } from "./scuttle-grip.js";
 import { drawSinew } from "./sinew-draw.js";
+import { drawSpool } from "./spool-draw.js";
 import { drawStare } from "./stare-draw.js";
 import { drawSurge } from "./surge-draw.js";
 
@@ -53,6 +54,7 @@ export const FX_KINDS = [
   "filament",
   "gimbal",
   "bellows",
+  "spool",
 ] as const;
 
 export type FxBoss = Extract<Installed, { kind: (typeof FX_KINDS)[number] }>;
@@ -209,6 +211,17 @@ export function drawFxBoss(
   // the vent — is `effects.boss.bellows` (`bellows-draw.ts`, `bellows-fx.ts`).
   if (boss.kind === "bellows") {
     drawBellows(ctx, l, world, boss, beat, beatPhase, time, effects.boss.bellows);
+    return;
+  }
+
+  // THE SPOOL: a thread-spool slung sideways across the top, its line run
+  // down to the hull. Both screens see the spool and how fast the line runs;
+  // the pilot alone his brake, the navigator alone the zone and the line's
+  // length against it (`view-role-clocks-b.ts`). What outlives a frame — the
+  // shudder of a slip, the jolt of a rib, the glare of the loosing — is
+  // `effects.boss.spool` (`spool-draw.ts`, `spool-fx.ts`).
+  if (boss.kind === "spool") {
+    drawSpool(ctx, l, world, boss, beat, beatPhase, time, effects.boss.spool);
     return;
   }
 

@@ -16,6 +16,7 @@ import { RepriseFx } from "./reprise-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
+import { SpoolFx } from "./spool-fx.js";
 import { StareFx } from "./stare-fx.js";
 import { SurgeFx } from "./surge-fx.js";
 import { TasterFx } from "./taster-fx.js";
@@ -143,4 +144,7 @@ export class BossRoster {
    * over the chamber of whichever seat acted, so the picture and the sounds'
    * pan agree about whose beat it was (`bellows-fx.ts`, `bellows-shape.ts`). */
   readonly bellows = new BellowsFx();
+  /** THE SPOOL's shudder, jolt and glare, and its receipts' bursts — a rib's
+   * thrown where that rib stood on the casing (`spool-fx.ts`, `spool-shape.ts`). */
+  readonly spool = new SpoolFx();
 }

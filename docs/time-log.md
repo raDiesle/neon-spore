@@ -17091,3 +17091,25 @@ twice to read the rest of its prompt, it took the next item and pushed the
 claim before anything had been read.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — queue-the-spools-picture-has-never-been-drawn — the body, half one
+
+- reading — 5 min. §11.36 and `sim/spool.ts` for what a frame may read, and
+  THE BELLOWS's look as the shape to copy — shape page, pose clock, drawer, fx,
+  roster field, silent lists, frame test.
+- writing — 10 min. `spool-shape.ts`, `spool-pose.ts`, `spool-draw.ts`,
+  `spool-line.ts`, `spool-brake.ts`, `spool-gauge.ts`, `spool-fx.ts`, the two
+  predicates, the branch and its kind, the roster field and three verbs, both
+  silent lists' reasons, §11.36's *The look*, the ledger rows and
+  `spool-frame.test.ts`: six poses on three screens and the split both ways.
+- looking — 5 min. One `bun run frames` of the test seat, read before the
+  commit rather than after.
+- friction — 5 min. The depth hook flagged the winding as depth drawn by hand,
+  so its wraps were moved onto `pin`/`facet`; and the zone test first moved the
+  line rather than the mark, which turned the winding too and failed the split.
+- landing — 10 min. `imports:sort`, `index`, `check:fast`, the commit, `land`.
+
+The bottleneck was **a test that had to learn what the picture shares**: the
+winding turns by the line's absolute run, so the navigator's zone could only
+be isolated by moving the target, and that was only found by a red frame.
+

@@ -530,21 +530,20 @@ open together at the end. A new silhouette — check
 `packages/content/src/silhouettes.ts` first. One PNG to the owner when it
 moves.
 
-## THE SPOOL's picture has never been drawn
+## THE SPOOL's brake answers no thumb
 
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-23, claude/queue-task-work-c20241 (claim: claude/queue-the-spools-picture-has-never-been-drawn)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
-- **Needs:** THE SPOOL is written and nobody has built its simulation
+- **Found:** 2026-09-23, claude/queue-the-spools-picture-has-never-been-drawn
+- **Files:** `packages/render/src/spool-shape.ts`, `packages/render/src/spool-brake.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
 - **Where:** local
 
-Lane two of §21, once lane one lands: a thread-spool creature slung sideways
-across the top of the field, five poses (`.claude/skills/new-boss` §5's
-standard) — taut and still, the brake shallow and paying fast, deep and
-paying slow, a rib easing open, slack and drifting free — with no number
-ever drawn on the picture, only how fast the line visibly moves. A new
-silhouette — check `packages/content/src/silhouettes.ts` first. One PNG to
-the owner when it moves.
+Half two of THE SPOOL's look lane, the hands: the body is drawn and nothing
+on the field answers a thumb. A hit test on the brake's rail that turns a
+press and drag on the pilot's seat into `spoolBrake` at a depth, read off
+`spoolBrakeAt` so the thumb is answered where the knob is drawn (THE
+BELLOWS's `bellows-grip.ts` is the pattern); the cue word on the knob, one
+word in `CARRY`; the film off `STILL_PROSE`; and the rail's rows in
+`controls.md`. §11.36's *What is not built* lists it. Prove it with a
+new spool-grip.test.ts beside `bellows-grip.test.ts`.
 
 ## THE RATCHET is written and nobody has built its simulation
 

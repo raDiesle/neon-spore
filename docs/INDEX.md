@@ -1656,6 +1656,13 @@ place — the generator keeps whatever is there.
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
+| `packages/render/src/spool-brake.ts` | **The pilot's brake**: a rail hanging outside the brake's flange, a knob on it at the depth his thumb has it |
+| `packages/render/src/spool-draw.ts` | **THE SPOOL**: a thread-spool slung sideways across the top of the field |
+| `packages/render/src/spool-fx.ts` | What THE SPOOL leaves behind a frame: the **shudder** of the casing when the line slips its zone |
+| `packages/render/src/spool-gauge.ts` | **The navigator's gauge**: a track under the barrel, the zone as a bracket in the middle of it |
+| `packages/render/src/spool-line.ts` | **The line**, from the underside of the winding to the hull |
+| `packages/render/src/spool-pose.ts` | **How far through a pose THE SPOOL is** — the clock the whole scene is posed off (§21, *Animation*) |
+| `packages/render/src/spool-shape.ts` | **Where THE SPOOL is**, in field pixels: the barrel slung sideways across the top of the field |
 | `packages/render/src/surface-clear.ts` | **Wiping an overlay whatever transform is on it** — a `clearRect` under a ratio below one misses the right edge |
 | `packages/render/src/surge-draw.ts` | **THE SURGE**: a ribbed bulb hung high over the middle of the field with a seam round its equator |
 | `packages/render/src/surge-fx.ts` | What THE SURGE leaves behind a frame: the row the bulb sinks through after a vent |

@@ -196,3 +196,20 @@ export const showsGimbalInner = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsBellowsPull = (role: ViewRole): boolean => role !== "p2";
 export const showsBellowsPush = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE SPOOL's two halves of one sentence (§21). The pilot is shown **the
+ * brake** — the rail, and the knob at the depth his thumb has it — and never
+ * the zone: he feels a depth and is told nothing of what it is worth. The
+ * navigator is shown **the gauge** — the zone, and where the paid-out length
+ * is against it — and has no brake to feel.
+ *
+ * Both are shown the spool and the line, and how fast the line runs is on
+ * both screens: it is the thing the pair say *faster* and *slower* about, and
+ * hiding it would leave her a gauge and nothing to see it answered in. What
+ * neither holds is the other's half — a depth with its meaning, or a zone
+ * with a hand on it (`spool-brake.ts`, `spool-gauge.ts`, `sim/spool.ts`).
+ * `test` is both.
+ */
+export const showsSpoolBrake = (role: ViewRole): boolean => role !== "p2";
+export const showsSpoolZone = (role: ViewRole): boolean => role !== "p1";

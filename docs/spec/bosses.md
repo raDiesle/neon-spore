@@ -7994,14 +7994,52 @@ it by the leg count rather than the clock.
 (`spoolSlowBeats`, `openSlow`) — the game's one calm finish, which is §21's
 payoff and the reason it gets the slow rather than a break.
 
-**What is not built.** The look: the casing, its four ribs, the line run down
-to the hull, the brake on its lever and the navigator's zone are all undrawn,
-and every one of the eleven events is on the two silent lists with that as its
-reason (`render/effects-ingest-silent-boss-c.ts`,
-`render/effects-spark-silent-boss-b.ts`). There is no film either — the wave's
-guide says which seat holds what, and `THE SPOOL` sits on `STILL_PROSE` until
-there is a screen to rehearse. The cue word on the field, the `showsX(role)`
-split and the STATES sheet's picture are lane two's.
+**The look** (`render/spool-draw.ts`, half one of lane two). A rock-grey
+casing slung sideways across the top of the field — two flanges, the barrel
+between them and four ribs standing proud of a winding in the ship's own violet
+— and the line run from its underside down to the hull. **The five poses are
+the five phases** (`spool-pose.ts`): taut and still; paying, which is two poses
+told apart by **how fast the line visibly moves** and nothing else on the
+shared picture; a rib easing up and away off the casing; the line slipped,
+thrown into a loop that pulls back taut; and slack. The dashes streaming down
+the line and the wraps turning round the winding are placed off one number,
+`spoolRunMilli`, so the barrel and the line cannot disagree about the rate —
+and no number is drawn and no colour ever marks the zone or the depth. The
+wraps are *placed* rather than posed (`.claude/skills/depth`): each is pinned
+at a longitude round the axle and carried round by the run, so the near ones
+slide over the top and the far ones come up from under.
+
+*The health is the ribs, and the winding under them*: a rib eases rather than
+cracking, rising off the casing and leaning away in the rim colour over the
+ease's beats, and leaves a bare groove; the winding thins with it, so a spool
+with one rib left is a thinner barrel with three grooves. They go from the
+brake's end toward the far flange, so the eye has a direction to read them in.
+*The perspective changes once*, in the slack: the spool turns a flange to face
+the ship, the barrel and its ribs foreshortening away behind it and a hub and
+five spokes coming round that were edge on all fight, and it drifts off the
+top with the line trailing. *The reactions* — the shudder of a slip, the jolt
+of a rib letting go, the glare of the loosing — are `effects.boss.spool` and
+move the context rather than any path (`spool-fx.ts`). The grip and the let-go
+throw no burst: a burst is on both screens, and the grip is the pilot's alone.
+
+*The pilot is shown his brake and the navigator her gauge*
+(`view-role-clocks-b.ts`). His is a rail outside the brake's flange with a
+knob at the depth his thumb has it and a shoe biting into the rim as far as
+the knob says, and a ring breathing round the knob while nobody holds it —
+the one thing to notice, since a brake let go pays fastest (`spool-brake.ts`).
+Hers is a track under the barrel with the zone as a still `[ ]` bracket that
+narrows a rib at a time and breathes through the grace, and a violet bead
+where the paid-out length is against it, right for more line out than wanted
+(`spool-gauge.ts`). Both see the spool and how fast its line runs, which is
+what *faster* and *slower* are said about. `render/test/spool-frame.test.ts`
+sets every pose on all three screens and proves the split both ways.
+
+**What is not built: the hands**, half two of lane two. There is no hit test on
+the brake's rail yet, so the game cannot send `spoolBrake` from a thumb (the
+director's hand plays it, `boss-hands-spool.ts`); no cue word stands on the
+knob; `THE SPOOL` is still on `STILL_PROSE` with no film; and
+`docs/spec/controls.md` has no rows for the rail. THE BELLOWS's half two
+(`bellows-grip.ts`, `bellows-word.ts`) is the pattern.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/spool.test.ts`): the spool comes in taut and opens its first zone;
@@ -8014,7 +8052,7 @@ protects the head of a movement; a movement played right eases exactly one rib;
 a movement played wrong slips with no rib and throws no rock the first time and
 one down the cannon's own column after that; and the fourth rib leaves the
 spool slack, drifting under THE SLOW and out of the wave. Whether any of it
-*reads* is the owner's eye, after lane two.
+*reads* is the owner's eye, after the hands land.
 ## 11.37 THE HASP — the boss where one hand holds what the other cannot see
 
 > The one that asks for faith. A door of three iron clasps hangs over the
