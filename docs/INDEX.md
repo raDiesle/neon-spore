@@ -1461,6 +1461,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/splinter.ts` | The splinters a break throws off the faces it opened |
 | `packages/render/src/splice-draw.ts` | THE SPLICE, drawn — and drawn differently on each screen, which is the fight |
 | `packages/render/src/splice-straws.ts` | THE SPLICE's straws, as geometry and as lines |
+| `packages/render/src/splice-flesh.ts` | What THE SPLICE's straws and mouths are made of: ringed tubes and puckered lips |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
 | `packages/render/src/effects-ingest-silent-boss.ts` | **The bosses' half of the silent list**, and nothing else |
 | `packages/render/src/effects-ingest-silent-boss-b.ts` | **The bosses' half of the silent list, the second page** — from THE ANTIPHON on |

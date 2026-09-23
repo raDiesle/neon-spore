@@ -18117,3 +18117,18 @@ under the rings, spokes and seam at a quarter of its strength, so the flesh
 could be seen without an eye counting it as a lane.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE SPLICE's picture looks like something real
+
+- reading — 5 min. `splice-straws.ts`, `splice-draw.ts`, the cue that stands
+  on the number in flight, and both seats' frames.
+- writing — 10 min. `splice-flesh.ts`: every straw a ringed tube — casing,
+  translucent wall, rings like a windpipe, a wet line down its lit side — and
+  every mouth a puckered lip under its ring. The mouths moved there with it.
+- looking — 5 min. Both seats at 2×: the crossings still read as one hose
+  behind another, and the lip sits inside the pilot's cannon ring.
+- friction — 0 min. None.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **keeping the tangle traceable**: nothing on a tube may
+move, because the number in flight is the one thing that travels down it.

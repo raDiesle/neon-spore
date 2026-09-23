@@ -515,21 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE SPLICE's picture looks like something real
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-splices-picture-looks-like-something-real)
-- **Files:** `packages/render/src/splice-draw.ts`, `packages/render/src/splice-straws.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
-- **Where:** local
-
-2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
-not a picture per state.
-
-The owner, 18 September 2026: a picture is judged by an eye on a real frame,
-which a cloud session does not have — his own machine takes it.
-
-The brief: `.claude/skills/new-boss` section 6.3.
-
 ## THE REPRISE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

@@ -1,6 +1,6 @@
 import { type SimConfig, type SpliceState, spliceEntranceRow } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import { drawTube, drawTubeStub } from "./splice-flesh.js";
 
 /**
  * THE SPLICE's straws, as geometry and as lines.
@@ -119,10 +119,10 @@ export function spliceFlightAt(
 /**
  * The tangle, on the seat that is shown it.
  *
- * Drawn twice per straw — a wide dark casing and a thin bright core — so a
- * crossing reads as one hose passing *behind* another rather than as two lines
- * meeting at a point. That is the whole difference between a puzzle and a
- * scribble, and it costs one extra stroke.
+ * Each straw drawn whole — casing, wall, rings, wet line (`splice-flesh.ts`)
+ * — before the next, so a crossing reads as one hose passing *behind* another
+ * rather than as two lines meeting at a point. That is the whole difference
+ * between a puzzle and a scribble.
  *
  * The straw whose number is already fed is dimmed rather than removed: what
  * the pair has done is part of what they are reading, and a tangle that lost a
@@ -134,26 +134,19 @@ export function drawStraws(
   cfg: SimConfig,
   s: SpliceState,
 ): void {
-  const wide = Math.max(3, l.tile * 0.2);
+  const wide = Math.max(3, l.tile * 0.24);
   for (let e = 0; e < s.entranceCols.length; e++) {
-    const c = spliceCurve(l, cfg, s, e);
     const done = (s.topOf[e] ?? 0) < s.fed;
-    ctx.globalAlpha = done ? 0.25 : 0.85;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = PALETTE.rockDark;
-    ctx.lineWidth = wide;
-    stroke(ctx, c);
-    ctx.strokeStyle = PALETTE.rock;
-    ctx.lineWidth = Math.max(1, wide * 0.38);
-    stroke(ctx, c);
+    ctx.globalAlpha = done ? 0.25 : 0.9;
+    drawTube(ctx, l, spliceCurve(l, cfg, s, e), wide);
   }
   ctx.globalAlpha = 1;
   ctx.lineWidth = 1;
 }
 
 /**
- * The stub the seat holding the cannon is given: the same curve, clipped to a
- * band over the mouths and faded out at the top of it.
+ * The stub the seat holding the cannon is given: the same curve and the same
+ * tube, fading in from nothing a hand's width over the mouths.
  *
  * It is the *same* curve and not a straight tail, so the direction a straw
  * leaves its mouth in is honest — that is the one thing the pilot can
@@ -166,26 +159,10 @@ export function drawStubs(
   cfg: SimConfig,
   s: SpliceState,
 ): void {
-  const mouthY = spliceMouthY(l, cfg);
-  const topY = mouthY - l.tile * 1.2;
-  const fade = ctx.createLinearGradient(0, topY, 0, mouthY);
-  fade.addColorStop(0, "rgba(0,0,0,0)");
-  fade.addColorStop(1, PALETTE.rock);
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(l.gridLeft, topY, l.gridWidth, mouthY - topY);
-  ctx.clip();
-  ctx.lineCap = "round";
-  ctx.strokeStyle = fade;
-  ctx.lineWidth = Math.max(2, l.tile * 0.12);
-  for (let e = 0; e < s.entranceCols.length; e++) stroke(ctx, spliceCurve(l, cfg, s, e));
-  ctx.restore();
+  const topY = spliceMouthY(l, cfg) - l.tile * 1.2;
+  const wide = Math.max(2, l.tile * 0.2);
+  for (let e = 0; e < s.entranceCols.length; e++) {
+    drawTubeStub(ctx, spliceCurve(l, cfg, s, e), wide, topY);
+  }
   ctx.lineWidth = 1;
-}
-
-function stroke(ctx: CanvasRenderingContext2D, c: SpliceCurve): void {
-  ctx.beginPath();
-  ctx.moveTo(c.x0, c.y0);
-  ctx.quadraticCurveTo(c.cx, c.cy, c.x1, c.y1);
-  ctx.stroke();
 }
