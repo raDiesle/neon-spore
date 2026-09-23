@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE GAUGE never says whether the call caught anything
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-the-gauges-dial-is-a-claw-and-its-band-is-a-pod (claim: claude/queue-the-gauge-never-says-whether-the-call-caught-any)
 - **Files:** `packages/render/src/gauge.ts`, `packages/render/src/gauge-round.ts`, `packages/sim/src/events-gauge.ts`, `packages/sim/src/gauge-hand.ts`
 - **Where:** local
 
