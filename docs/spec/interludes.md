@@ -257,26 +257,28 @@ every time she pressed would read as a fault rather than a rhythm. The rows
 are in [controls](controls.md); the director's are in
 `tools/director/src/field-controls-gauge.ts`.
 
-**The picture, 18 September 2026.** The round shipped with the dial drawn
-straight onto the plate, and the owner's brief is that a boss should look like
-something real (`.claude/skills/new-boss` 6.3). A round's material is slabs and
-glyphs, never blobs, so the answer is a **machine** and not a body, exactly as
-THE MAZE's drum took the same brief: the dial is now an instrument set into a
-milled face plate, with a cover glass sunk into it, a lathed bezel bolted over
-that, and the needle turning on a boss with a chamfer on it
-(`render/gauge-plate.ts`, `gauge-dial-face.ts`).
+**The picture, 23 September 2026.** The owner, 20 September: *the control
+idea should stay, but the visual a lot.* The milled plate, the glass, the
+bezel and the notched dial of 18 September are gone, and so is the round's
+"slabs and glyphs, never blobs" for the one body the owner named. What stands
+in their place is the ship: a stretch of the hull across the stage with the
+cannon lobe at its middle, and on its crown **THE CLAW's own hand**, turning
+on a joint through the half-round the needle swept rather than sliding along
+the hull (`render/gauge-claw.ts`, the fingers `reach-arm.ts`'s). A line of
+dots runs out of its fingertips to say where it will grab — that line is the
+needle now, on both screens — and on the navigator's screen alone a **pod**
+stands where the band was.
 
-It is lit **once**, from `KEY` — the plate's sheen, the bezel's shoulder, the
-film on the glass, the chamfer's bright arc and all eleven bolt heads sit on
-the same side. That is the whole of why a dozen separate marks read as one
-object rather than a dozen, and it is what `render/test/gauge-plate.test.ts`
-holds, along with the other half: **not one number of the dial moved**. The
-plate is outside the bezel, the bezel outside the rim, the glass inside it and
-the boss smaller than the band's own inner edge, so every stroke a call is
-made of is where `gauge.ts` has always put it. The one thing that did change
-is the band's fill, raised from a fifth to three tenths: the glass under it is
-darker than the bare plate was, and amber at the old weight read as brown
-paper rather than as the one lit thing on her screen.
+**The pod's width is the span.** The call is one comparison, the needle within
+`gaugeSpanNow` of the mark, and about the pivot that is an angle either side
+of the mark's; the pod is drawn at `R·tan θ` either side of its middle, so the
+dotted line passes inside it on exactly the calls that land, and a band wound
+tight is a smaller pod. Its height follows from its width, and it is held at
+one instant of the moored pod's contour so the width it is judged by does not
+breathe. `render/test/gauge-claw.test.ts` holds that, and that the pod is on
+her screen and never on his. **Not one number of the round moved**: the claw
+and the pod stand at `gauge.ts`'s readings about `gaugeDial`'s pivot, where
+the needle and the band always did.
 
 **What is not built.** Neither state has a pose of its own in the director's
 gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live

@@ -8,7 +8,6 @@ import {
 } from "@neon-spore/sim";
 import { type Dial, drawGauge, showsGaugeMarks } from "./gauge.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
-import { PLATE_PAD } from "./gauge-plate.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -19,8 +18,13 @@ import { slabPanel } from "./slabs.js";
  * **The dial, in pixels** — one circle, asked for by the picture and by the
  * cue that stands on its needle (`boss-cue-read-w.ts`).
  *
- * The plate the dial is cut into starts a breath under the title's last row.
+ * The pod's far edge and the dotted line past it stop a breath under the
+ * title's last row (`gauge-claw.ts`).
  */
+/** Room above the half-circle for the line's end and the pod's glow, as a
+ * share of the radius. */
+const HEADROOM = 0.16;
+
 export function gaugeDial(l: Layout): Dial {
   const top = l.playHeight * 0.14;
   const cy = l.playHeight * 0.62;
@@ -34,7 +38,7 @@ export function gaugeDial(l: Layout): Dial {
       Math.min(
         l.width * 0.42,
         l.playHeight * 0.3,
-        (cy - top - GAUGE_TITLE_DEPTH - 8) / (1 + PLATE_PAD),
+        (cy - top - GAUGE_TITLE_DEPTH - 8) / (1 + HEADROOM),
       ),
     ),
   };
@@ -72,6 +76,7 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
     showMarks: showsGaugeMarks(view.role),
     beat: view.world.beat,
     beatPhase: view.beatPhase,
+    width: l.width,
   });
   // The two thumbs the round can be taken hold of by, after the dial they
   // stand on (`gauge-grip.ts`). That file asks this one for `gaugeDial` and

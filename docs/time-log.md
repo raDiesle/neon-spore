@@ -17543,3 +17543,20 @@ The bottleneck was **the splits on a light slab**: the fill was a two-line
 change, and what the body's colour does against it was the question.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE GAUGE's dial is a claw and its band is a pod
+
+- reading — 10 min. The entry, `gauge.ts`, `gauge-round.ts`, the plate and
+  the face, `reach-arm.ts`, `pods.ts`, and the tests that pinned the dial.
+- writing — 15 min. `gauge-claw.ts` — the hull's crest, the claw on a joint,
+  the dotted line, the pod at `R·tan θ` — the plate and face deleted, the
+  fingers exported, and a test that the pod's width is the span.
+- looking — 10 min. A frame of both seats before, then after with the claw
+  turned into the pod.
+- friction — 5 min. `bun run frames --press` could not turn THE GAUGE's
+  valve, so `valve` and `call` were added before the claw could be seen off
+  the middle.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **getting the claw off the middle**: the picture drew on
+the first try, and the frame tool had no press that could turn it.

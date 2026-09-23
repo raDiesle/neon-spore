@@ -515,38 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE GAUGE's dial is a claw and its band is a pod
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-a-shells-plates-are-two-colours-where-the-owner (claim: claude/queue-the-gauges-dial-is-a-claw-and-its-band-is-a-pod)
-- **Files:** `packages/render/src/gauge-round.ts`, `packages/render/src/gauge.ts`, `packages/render/src/gauge-dial-face.ts`, `packages/sim/src/gauge-band.ts`, `packages/sim/src/gauge.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *"The gauge": the control idea should stay, but
-the visual a lot.* The claw already in the control set, above the ship where
-the cannon sits, turning through an angle rather than sliding left and right
-and staying in the middle; a dotted line out of it saying where it will grab,
-which is what the needle is now; and a pod in place of the open band, sized so
-that the pod's width *is* the span the call is judged against.
-
-The round's arithmetic does not move and this entry must not move it. The
-needle is `gauge.ts`'s position in thousandths of `GAUGE_FULL`, the band is
-`gauge-band.ts`'s centre and `gaugeSpanNow`'s half-width, and the judgement is
-one comparison between them. What changes is that the dial stops being a
-circle read as a circle: the same thousandths become an angle the claw points
-at, and the same half-width becomes the pod's width on screen. `gaugeDial` in
-`render/gauge-round.ts` is where the geometry is decided today, and
-`gauge-dial-face.ts` is the face to replace.
-
-The pod's height follows from its width, because the picture has to answer at a
-glance whether the claw will pass inside it — the one thing the dial's open
-sector never said. `showsGaugeMarks` still decides which of the two screens the
-pod is on; the asymmetry is the round and nothing here touches it.
-
-The verdict this picture then needs is a separate entry, and the round's words
-and buttons are a third; this one is the claw, the line and the pod standing
-still.
-
 ## THE GAUGE never says whether the call caught anything
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
@@ -577,7 +545,7 @@ Depends on the claw and the pod being drawn first.
 ## THE GAUGE's words and buttons are the round's own, not the ship's
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Files:** `packages/render/src/gauge-title.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/gauge-plate.ts`, `packages/render/src/slabs.ts`, `apps/game/src/gauge.ts`
+- **Files:** `packages/render/src/gauge-title.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/slabs.ts`, `apps/game/src/gauge.ts`
 - **Where:** local
 
 The owner, 20 September 2026: *change the wordings, improve the buttons a lot
@@ -594,9 +562,10 @@ The buttons are `gaugeLeft` and `gaugeRight` in the control set
 (`apps/game/src/gauge.ts`, `slabPanel` in `render/gauge-round.ts`). The round
 already takes them from the wave's control set rather than inventing geometry,
 which is the right half; what it does not do is wear the hull's own plate, the
-grip and the slab treatment the field's controls have. `gauge-grip.ts` and
-`gauge-plate.ts` are the round's own versions of those, and the question this
-lane answers is how much of each can be deleted in favour of `slabs.ts`.
+grip and the slab treatment the field's controls have. `gauge-grip.ts` is the
+round's own version of those — the plate went with the dial on 23 September —
+and the question this lane answers is how much of it can be deleted in favour
+of `slabs.ts`.
 
 Depends on the claw and the pod: naming a button before the thing it moves has
 a shape is how the wordings got stale the first time.

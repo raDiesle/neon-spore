@@ -162,7 +162,7 @@ const ARM_RISE = 0.78;
  * the button that names it.
  *
  * The fingers are drawn **open**, because an arm that is not carrying anything
- * comes home open (`drawFingers`), and the button is pressed to send it after
+ * comes home open (`drawClawFingers`), and the button is pressed to send it after
  * something it does not have yet.
  */
 function drawArm(

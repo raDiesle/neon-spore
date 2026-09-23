@@ -1,25 +1,30 @@
 import { GAUGE_FULL, type GaugeState, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
-import { drawGaugeBezel, drawGaugeGlass, drawGaugeHub } from "./gauge-dial-face.js";
-import { drawGaugePlate } from "./gauge-plate.js";
+import {
+  drawGaugeClaw,
+  drawGaugeLine,
+  drawGaugePod,
+  drawGaugeShip,
+  POD_REACH,
+} from "./gauge-claw.js";
 import type { ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * THE GAUGE's picture: a half-round dial, a needle, and two marks that only
- * one of the two screens carries.
+ * THE GAUGE's picture: the ship's claw turning on the crown of the hull, a
+ * dotted line out of it saying where it will grab, and a pod that only one of
+ * the two screens carries. How each is drawn is `gauge-claw.ts`; this file is
+ * the order they go down in, the readings they are drawn at, and the split.
  *
- * Drawn out of slabs and glyphs, never blobs — `docs/spec/interludes.md` makes
- * that the one rule the whole category shares, and it costs no new art: a hard
- * plate, a rim of notches, a straight needle. A pair who have spent an act
- * among soft closed contours know from the first frame that this is a
- * different kind of thing and nothing had to say so.
+ * It was a half-round dial set in a milled plate, and the owner took that away
+ * on 20 September 2026 — *the control idea should stay, but the visual a
+ * lot*. The round's rule that it is slabs and glyphs, never blobs, went with
+ * it for the one body the owner named: the band is a pod now, because a pod is
+ * what this game already spends on "here, this is the thing", and the claw is
+ * the hand THE CLAW's panel already carries. Nothing the pair reads is new.
  *
- * No new colours either. Violet and white are the ship's own and the machine
- * is the ship's; the band is `pod` amber, which is already what this game
- * spends on "here, this is the thing"; a call that landed is `good` green and
- * one that did not is `sparkDim`, which are already right and wrong everywhere
- * else. A round that invented a third pair would be teaching a colour
- * vocabulary for ninety seconds.
+ * No new colours either. Violet and white are the ship's own; the pod is
+ * `pod` amber; a call that landed is `good` green and one that did not is
+ * `sparkDim`, which are already right and wrong everywhere else.
  *
  * Stateless, like every other draw in this package: everything it shows is on
  * the world, so nothing here outlives a frame and `Effects.reset` has nothing
@@ -27,8 +32,8 @@ import { PALETTE } from "./palette.js";
  */
 
 /**
- * The navigator reads the marks. The pilot's dial is the same dial without
- * them — not a different picture, which is what makes "I cannot see it, tell
+ * The navigator sees the pod. The pilot's screen is the same picture without
+ * it — not a different picture, which is what makes "I cannot see it, tell
  * me" the obvious thing for him to say.
  *
  * A role predicate in render/ for the same reason `showsQueenHint` is: the
@@ -53,6 +58,8 @@ export interface DialView {
   showMarks: boolean;
   beat: number;
   beatPhase: number;
+  /** The stage's width, which the ship's skin runs across. */
+  width: number;
 }
 
 /** Where a value on the dial sits, as a canvas angle. Left is 0, right is full. */
@@ -72,87 +79,27 @@ export function drawGauge(
   gauge: GaugeState,
   view: DialView,
 ): void {
-  // The instrument, outside in: the plate it is set into, the glass sunk in
-  // that, then the dial's own printing, then the bezel over all of it and the
-  // needle on top (`gauge-plate.ts`, `gauge-dial-face.ts`). The order is the
-  // object's: nothing of the scale is washed by the film, and the bezel sits
-  // over the glass because that is what a bezel does.
-  drawGaugePlate(ctx, dial);
-  drawGaugeGlass(ctx, dial);
-  if (view.showMarks) drawBand(ctx, dial, cfg, gauge);
-  drawScale(ctx, dial);
-  drawGaugeBezel(ctx, dial);
-  drawCall(ctx, dial, gauge, view);
-  drawNeedle(ctx, dial, gauge);
-}
-
-/**
- * The two marks and the band between them. Only ever drawn on the screen that
- * is allowed to read it — the pilot's copy of this dial is the same dial with
- * this call left out, not a different picture, which is what makes "I cannot
- * see it, tell me" the obvious thing for him to say.
- */
-function drawBand(
-  ctx: CanvasRenderingContext2D,
-  dial: Dial,
-  cfg: SimConfig,
-  gauge: GaugeState,
-): void {
+  // The ship first and the claw last, which is the object's own order: the
+  // hand stands on the hull, the pod is out in the dark it points into, and
+  // nothing drawn after the claw may cover the thing the pilot is turning
+  // (`gauge-claw.ts`).
+  drawGaugeShip(ctx, dial, view.width);
   // The width **now**, not the one in the config: the band winds tight every
-  // few marks and her thumb gives it back, and a picture that drew the full
-  // width through the bind would have her calling a needle the screen shows
-  // between the marks and being told it was not (`gauge-band.ts`).
-  const span = gaugeSpanNow(cfg, gauge);
-  const lo = Math.max(0, gauge.markMilli - span);
-  const hi = Math.min(GAUGE_FULL, gauge.markMilli + span);
-  const inner = dial.r * 0.62;
-
-  ctx.beginPath();
-  ctx.arc(dial.cx, dial.cy, dial.r, angleFor(lo), angleFor(hi));
-  ctx.arc(dial.cx, dial.cy, inner, angleFor(hi), angleFor(lo), true);
-  ctx.closePath();
-  // Brighter than it was, and it had to be: the glass under it is darker than
-  // the bare plate the round shipped with, and amber at a fifth read as brown
-  // paper against it rather than as the one lit thing on her screen.
-  ctx.fillStyle = "rgba(255,194,74,.30)";
-  ctx.fill();
-
-  ctx.strokeStyle = PALETTE.podRim;
-  ctx.lineWidth = 2.2;
-  for (const edge of [lo, hi]) {
-    const a = pointOn(dial, edge, inner);
-    const b = pointOn(dial, edge, dial.r);
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
-    ctx.stroke();
+  // few marks and her thumb gives it back, and a pod that stood at the full
+  // width through the bind would have her calling a claw the screen shows
+  // inside it and being told it was not (`gauge-band.ts`).
+  if (view.showMarks) {
+    const glow = 0.5 + 0.5 * Math.cos(view.beatPhase * Math.PI * 2);
+    drawGaugePod(ctx, dial, gauge.markMilli, gaugeSpanNow(cfg, gauge), glow);
   }
-}
-
-/** The rim: an arc and twenty-one notches, every fifth of them long. */
-function drawScale(ctx: CanvasRenderingContext2D, dial: Dial): void {
-  ctx.strokeStyle = PALETTE.hull;
-  ctx.lineWidth = 1.2;
-  ctx.beginPath();
-  ctx.arc(dial.cx, dial.cy, dial.r, Math.PI, Math.PI * 2);
-  ctx.stroke();
-
-  for (let i = 0; i <= 20; i++) {
-    const milli = (i * GAUGE_FULL) / 20;
-    const long = i % 5 === 0;
-    const a = pointOn(dial, milli, dial.r - dial.r * (long ? 0.14 : 0.07));
-    const b = pointOn(dial, milli, dial.r);
-    ctx.strokeStyle = long ? PALETTE.hullRim : PALETTE.hull;
-    ctx.lineWidth = long ? 1.8 : 1;
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
-    ctx.stroke();
-  }
+  drawCall(ctx, dial, gauge, view);
+  drawGaugeLine(ctx, dial, gauge.needleMilli);
+  drawGaugeClaw(ctx, dial, gauge.needleMilli);
 }
 
 /**
- * Where the last call landed, fading over two beats. Both screens show it, and
+ * Where the last call landed, fading over two beats, along the claw's own
+ * sweep. Both screens show it, and
  * that is deliberate: it is the one thing in the round the pair have to agree
  * about afterwards, and a pilot who never learnt whether his stop was right
  * has no way to get better at obeying.
@@ -181,41 +128,26 @@ function drawCall(
 }
 
 /**
- * The end of the needle. Exported because the cue frames it at the moment it
- * is seated (`boss-cue-read-w.ts`): the needle is the only thing on this
- * screen that moves, so the word goes on it and not on the button, and a
- * second opinion about where its end is would be a frame beside its own
- * needle.
+ * Where the needle points, out on the claw's dotted line just short of its
+ * end. Exported because the cue frames it at the moment it is seated
+ * (`boss-cue-read-w.ts`): the line is the only thing on this screen that
+ * moves, so the word goes on it and not on the button, and a second opinion
+ * about where it points would be a frame beside its own line.
  */
 export function gaugeNeedleTip(dial: Dial, gauge: GaugeState): { x: number; y: number } {
   return pointOn(dial, gauge.needleMilli, dial.r * NEEDLE_REACH);
 }
 
-/** How far up the radius the needle reaches. */
+/** How far up the radius the needle's point is — inside the line's reach. */
 const NEEDLE_REACH = 0.94;
 
 /**
- * The middle of the band, out at the rim. Exported for the cue, which frames
- * it while it is wound tight and asks her to hold it open
- * (`boss-cue-read-w.ts`): the band is on her screen alone, so the mark stands
- * on something she is already shown, and a second opinion about where its
- * middle is would be a frame beside its own band.
+ * The middle of the pod. Exported for the cue, which frames it while the band
+ * is wound tight and asks her to hold it open (`boss-cue-read-w.ts`): the pod
+ * is on her screen alone, so the mark stands on something she is already
+ * shown, and a second opinion about where its middle is would be a frame
+ * beside its own pod.
  */
 export function gaugeBandMid(dial: Dial, gauge: GaugeState): { x: number; y: number } {
-  return pointOn(dial, gauge.markMilli, dial.r * 0.81);
-}
-
-/** The needle itself; the boss it turns on is `gauge-dial-face.ts`'s. */
-function drawNeedle(ctx: CanvasRenderingContext2D, dial: Dial, gauge: GaugeState): void {
-  const tip = gaugeNeedleTip(dial, gauge);
-  const tail = pointOn(dial, gauge.needleMilli, -dial.r * 0.12);
-
-  ctx.strokeStyle = PALETTE.hullRim;
-  ctx.lineWidth = 2.6;
-  ctx.beginPath();
-  ctx.moveTo(tail.x, tail.y);
-  ctx.lineTo(tip.x, tip.y);
-  ctx.stroke();
-
-  drawGaugeHub(ctx, dial);
+  return pointOn(dial, gauge.markMilli, dial.r * POD_REACH);
 }

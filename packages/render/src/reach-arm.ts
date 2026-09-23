@@ -115,7 +115,7 @@ export function drawReachArm(
     ctx.stroke();
   }
 
-  drawFingers(ctx, l, x, to, half, world.reachHeld !== 0);
+  drawClawFingers(ctx, x, to, half, l.tile * ARM_FINGER_TILES, world.reachHeld !== 0);
 }
 
 /**
@@ -126,16 +126,20 @@ export function drawReachArm(
  * linkage. `shut` is read off whether the arm is *carrying* something rather
  * than off its direction, so an arm coming home empty comes home open — which
  * is the one frame that says the reach found nothing, without a word on screen.
+ *
+ * Exported, in pixels rather than tiles, because THE GAUGE's claw is this hand
+ * on a round with no tiles in it (`gauge-claw.ts`): it turns the canvas and
+ * draws these same fingers upward, rather than keeping a second copy of what
+ * the ship's hand looks like.
  */
-function drawFingers(
+export function drawClawFingers(
   ctx: CanvasRenderingContext2D,
-  l: Layout,
   x: number,
   y: number,
   half: number,
+  reach: number,
   shut: boolean,
 ): void {
-  const reach = l.tile * ARM_FINGER_TILES;
   const out = shut ? half * 0.4 : half * 2.1;
 
   ctx.strokeStyle = PALETTE.hullRim;
