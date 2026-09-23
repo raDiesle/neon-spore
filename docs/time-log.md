@@ -17462,3 +17462,15 @@ The bottleneck was **where the strings could live**: a tool may not import
 where they were written.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — `docs/style-guide.md` says how an asset gets made once
+
+- reading — 0 min. The entry and a diff of the two copies.
+- writing — 0 min. The first copy deleted, the second kept as the entry asked.
+- looking — 0 min. A document; nothing drawn.
+- friction — 5 min. A second `bun run queue next` claimed this item on top of
+  the one already taken, the finding the queue already holds.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the double claim**: the item was small, and the time went
+to noticing that it had been claimed at all.

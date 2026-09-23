@@ -515,22 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## `docs/style-guide.md` carries "How an asset gets made" twice
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-23, claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo (claim: claude/queue-docs-style-guide-md-carries-how-an-asset-gets-ma)
-- **Files:** `docs/style-guide.md`
-
-The section appears in full twice, back to back, with small wording drift
-between the copies — the second says *"which the next session applies"* where
-the first says *"and the next session applies it"*, and step 4's last sentence
-is rephrased. Neither copy is wrong; there are just two of them, and a file
-whose whole job is to put the language on one screen is the worst place for a
-reader to meet the same six steps again.
-
-Keep the second copy — its step 4 is the tighter of the two — and delete the
-first. Nothing links to either by anchor.
-
 ## THE LURE's corner frame says DO NOT SHOOT where the owner wants IGNORE
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

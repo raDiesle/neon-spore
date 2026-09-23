@@ -385,48 +385,6 @@ has to be told apart from and the axis that does it. Most first-pass mistakes
 are visible here for a couple of hundred tokens instead of the fifteen hundred
 an image costs.
 
-**3. Specimen — one still, rasterised and actually read.** `bun run png` works
-on any SVG. Then correct it and look once more. Two or three rounds, stopping
-when two consecutive looks find the same thing at different strengths — that is
-tuning, and tuning is the owner's. `.claude/skills/svg-look` has the loop.
-
-**4. Offer it — and a candidate is static by default.** The owner's rule, 8
-September 2026: a candidate is a **still picture or an SVG in a fixed state**,
-and it animates only when motion is the thing being judged. Timing, phase
-offset, overshoot, whether a body still reads at tempo — those need the animated
-pair `docs/versus.md` was built for, and nothing else does. A colour, a contour,
-a material, an interior treatment or an icon is settled from a still, which is
-cheaper to make, cheaper to look at, and can be judged on a phone with no game
-running. **What is never done either way is judging a still against something
-that moves** — that is the defect `docs/versus.md` rejected a whole proposal
-over, which is why this is stated as a test and not a preference.
-
-**5. The vote.** `tools/versus/candidates/` beside the shipped look, or a NOT
-BUILT YET card when it is not yet that concrete. Pressing a button writes
-nothing: it emits a prompt naming every `old -> new` value, and the next session
-applies it.
-
-**6. Adopt.** The winner's numbers move into `packages/content` when what was
-drawn is a body, or into `packages/render` when it is a mechanism; the loser is
-removed; `bun run shapes` and `bun run style-guide` are regenerated in the same
-commit, because a committed picture that no longer matches the values is read as
-evidence.
-
-## How an asset gets made
-
-Six steps, and the first three cost no picture at all.
-
-**1. Concept — one sentence.** If you cannot write it, the asset is padding.
-Check `docs/asset-catalogue.md` and `bun run shapes:parts` before inventing:
-three dozen contours and sixty secondary forms are already drawn and waiting
-for an idea.
-
-**2. Silhouette — numbers before pictures.** `bun run shapes:report` prints
-extents, rim count and where a contour sits in its box. Name the neighbour it
-has to be told apart from and the axis that does it. Most first-pass mistakes
-are visible here for a couple of hundred tokens instead of the fifteen hundred
-an image costs.
-
 **3. Specimen — one still, rasterised and actually read.** `bun run png` on any
 SVG. Then correct it and look once more. Two or three rounds, stopping when two
 consecutive looks find the same thing at different strengths — that is tuning,
