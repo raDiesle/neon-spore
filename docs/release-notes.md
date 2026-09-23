@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 54a55ff6 — Every wave guide in acts 1 to 3 now passes the words check
+
+Seventeen waves' guides, sentences and halves are rewritten to the game-words rules: no semicolon or dash, a half of eighteen words a line, one actor per sentence, and shield where ward or plate meant it. Most halves are numbered steps now, the shape the boss guides already had. THE WARDEN's plates are the boss's own rim, so they say piece, not shield. Every wave in acts 1 to 3 is on CLEAN, and CEILING falls from 229 to 180.
+
 ## 2026-09-23 · 95b99b99 — Queue the DEMOS rows' id drawn over the wave's name
 
 Found while photographing the DEMOS page: the row's first column is 26px, sized for a wave number, and a mechanic id longer than four letters runs into the label beside it.
