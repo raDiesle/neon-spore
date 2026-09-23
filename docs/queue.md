@@ -518,6 +518,7 @@ question that prompted this one.
 ## The queue's example block swallowed five entries and nothing noticed
 
 - **Found:** 2026-09-21, claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-queues-example-block-swallowed-five-entries)
 - **Files:** `tools/queue/queue.ts`, `tools/queue/test/queue.test.ts`, `docs/queue.md`
 - **Where:** local
 
