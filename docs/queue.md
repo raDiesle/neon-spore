@@ -541,6 +541,7 @@ where the fourth word for the shield lives.
 ## `docs/style-guide.md` carries "How an asset gets made" twice
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Taken:** 2026-09-23, claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo (claim: claude/queue-docs-style-guide-md-carries-how-an-asset-gets-ma)
 - **Files:** `docs/style-guide.md`
 
 The section appears in full twice, back to back, with small wording drift
