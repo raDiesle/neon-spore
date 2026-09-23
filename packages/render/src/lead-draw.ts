@@ -1,8 +1,10 @@
 import { type LeadState, leadStill, type SimConfig, type World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { mixHex, rgba } from "./hex.js";
+import { mixHex } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
+import { paintBead, paintMound, paintStem } from "./lead-flesh.js";
 import type { LeadFx } from "./lead-fx.js";
+import { faded, paintRidge } from "./lead-rock.js";
 import {
   leadAlong,
   leadAskedAngle,
@@ -84,26 +86,16 @@ export function drawLead(
   ctx.restore();
 }
 
-/**
- * A colour at the fade: the hex itself while the body stands, so the frame
- * tests can count it, and an `rgba` once it is going. `strokeGlow` sets the
- * alpha itself and puts it back to one, so a fade cannot be `globalAlpha` set
- * round it — it has to be in the colour.
- */
-function faded(hex: string, fade: number, alpha = 1): string {
-  return fade >= 1 && alpha >= 1 ? hex : rgba(hex, alpha * fade);
-}
-
-/** The ridge: rock, dark, with the faintest rim along its top. */
+/** The ridge: rock, dark, lit along its top (`lead-rock.ts`). */
 function drawRidge(ctx: CanvasRenderingContext2D, l: Layout, time: number, fade: number): void {
-  const path = leadRidgePath(l, time);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.background, fade);
-  ctx.fill(path);
-  ctx.fillStyle = faded(PALETTE.rockDark, fade, 0.85);
-  ctx.fill(path);
-  ctx.restore();
-  strokeGlow(ctx, path, faded(PALETTE.rock, fade), STROKE.inner, 0.35 * fade);
+  const { top, bottom } = leadRidgeY(l);
+  const right = l.gridLeft + l.cols * l.tile;
+  paintRidge(
+    ctx,
+    leadRidgePath(l, time),
+    { left: l.gridLeft, right, top, bottom, tile: l.tile },
+    fade,
+  );
 }
 
 /** How far above the ridge a flight climbs before it is judged, in tiles, and a bolt's length. */
@@ -146,7 +138,7 @@ function drawFlights(
   }
 }
 
-/** The mound the stalk grows from: a low violet swell on the ridge, grey while it stands dead still. */
+/** The mound the stalk grows from: a low violet swell of flesh on the ridge, grey while it stands dead still (`lead-flesh.ts`). */
 function drawMound(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -156,14 +148,13 @@ function drawMound(
   fade: number,
 ): void {
   const breath = still ? 0 : 0.04 * Math.sin(time * 3);
+  const rx = l.tile * (0.5 + breath);
+  const ry = l.tile * (0.28 + breath);
   const p = new Path2D();
-  p.ellipse(foot.x, foot.y, l.tile * (0.5 + breath), l.tile * (0.28 + breath), 0, Math.PI, 0);
-  ctx.save();
-  ctx.fillStyle = rgba(still ? PALETTE.dim : PALETTE.hull, 0.7 * fade);
-  ctx.fill(p);
-  ctx.restore();
+  p.ellipse(foot.x, foot.y, rx, ry, 0, Math.PI, 0);
+  const hex = still ? PALETTE.dim : PALETTE.hull;
   const rim = still ? PALETTE.rock : PALETTE.hullRim;
-  strokeGlow(ctx, p, faded(rim, fade), STROKE.inner, (still ? 0.3 : 0.7) * fade);
+  paintMound(ctx, p, foot.x, foot.y, rx, ry, l.tile, hex, rim, fade);
 }
 
 /** The pilot's sill: a short grey bar the readout stands on, so a stalk in the middle of his screen reads as an instrument and not a body in the middle column. */
@@ -179,8 +170,8 @@ const BEAD = 0.1;
 const TIP = 0.15;
 
 /**
- * The stalk: a line of beads from the foot to the tip, one a segment, and
- * the organ at the tip — the hull's violet where the body is drawn as a
+ * The stalk: a cord strung with beads from the foot to the tip, one a
+ * segment, and the organ at the tip (`lead-flesh.ts`) — the hull's violet where the body is drawn as a
  * body, a readout's tone where it is drawn as one, and grey while still.
  */
 function drawStalk(
@@ -202,21 +193,11 @@ function drawStalk(
   const stem = new Path2D();
   stem.moveTo(foot.x, foot.y);
   stem.lineTo(tip.x, tip.y);
-  strokeGlow(ctx, stem, hex, STROKE.outline, still ? 0.4 : 0.8);
-  ctx.save();
+  paintStem(ctx, stem, hex, l.tile, still ? 0.5 : 0.85);
   for (let i = 1; i <= s.segments; i++) {
     const at = leadAlong(foot, angle, (length * (i - 0.5)) / s.segments);
     const last = i === s.segments;
     const r = l.tile * (last ? TIP : BEAD) * (1 + (last && !still ? 0.08 * Math.sin(time * 5) : 0));
-    ctx.fillStyle = rgba(last ? rim : hex, last ? 0.95 : 0.8);
-    ctx.beginPath();
-    ctx.arc(at.x, at.y, r, 0, Math.PI * 2);
-    ctx.fill();
-    if (last) {
-      const ring = new Path2D();
-      ring.arc(at.x, at.y, r * 1.5, 0, Math.PI * 2);
-      strokeGlow(ctx, ring, rim, STROKE.inner, still ? 0.25 : 0.6);
-    }
+    paintBead(ctx, at.x, at.y, r, last ? rim : hex, last ? 0.95 : 0.8, last);
   }
-  ctx.restore();
 }

@@ -6226,17 +6226,20 @@ presentation is entirely in the drawing, and this lane hangs nothing on it
 — `leadPace` carries the lean each beat, `leadReverse` carries the flip,
 and the look decides what the stalk does between two beats.
 
-**The look** (`render/lead-draw.ts`, `lead-shape.ts`, `lead-fx.ts`). A long
+**The look** (`render/lead-draw.ts`, `lead-rock.ts`, `lead-flesh.ts`, `lead-shape.ts`, `lead-fx.ts`). A long
 grey **ridge** the whole width of the field hangs above row 0 — flat along
-its top, its underside swelling and sinking a little with time, filled in
-the rock's dark and rimmed in rock — and the body is a **stalk** of beads
-standing out of it, a bead a segment at a quarter of a tile each, in the hull's
-violet, with a larger pale organ at the tip ringed in the hull's rim: the
+its top, its underside swelling and sinking a little with time, dark rock
+laid in strata and pitted, lit along its top and never outlined
+(`lead-rock.ts`) — and the body is a **stalk** of beads standing out of it,
+a cord strung with a bead a segment at a quarter of a tile each, each a
+shaded drop of the hull's violet with a wet point, and a larger pale organ
+at the tip with a pore in its crown (`lead-flesh.ts`, `new-boss-more` §6.3): the
 silhouette is the health, one bead fewer a hit, and the tip alone when only
 the beam can end it. **Where the stalk stands and what it does are split
 by seat** (`showsLeadCol`, `showsLeadLean`, `view-role-clocks.ts`): on the
 navigator's screen it stands at the body's own column on a low violet
-**mound** on the ridge, with the instrument's **lock** — the target ring
+**mound** of flesh on the ridge, shaded, lit inside its lower wall and sunk
+in a dark socket, with the instrument's **lock** — the target ring
 (`target-lock.ts`) in the shield's rim — closed on that column, and it
 never tilts; on the pilot's it stands in the middle column every frame, on
 a short grey **sill** and in a readout's tone (the hull's violet mixed

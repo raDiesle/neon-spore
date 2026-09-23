@@ -1560,9 +1560,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ledger-metal.ts` | **What THE LEDGER is made of**: plating — two halves of dark metal |
 | `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
+| `packages/render/src/lead-flesh.ts` | **What THE LEAD is made of**, the living part |
 | `packages/render/src/lead-shape.ts` | Where THE LEAD is in field pixels: the ridge, the foot, the stalk's length and the angle each seat is asked for |
 | `packages/render/src/lead-grip.ts` | **THE LEAD's stalk as a control**, for the one movement that asks a thumb for it: the still |
 | `packages/render/src/lead-word.ts` | **What THE LEAD is asking of the navigator's thumb while it stands still** |
+| `packages/render/src/lead-rock.ts` | **THE LEAD's ridge**: dark rock, lit along its top edge and gone to the deep under it |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |
