@@ -11,6 +11,13 @@ import type { Link, LinkOptions } from "./link-types.js";
 export type { Link, LinkOptions } from "./link-types.js";
 
 /**
+ * How long before its own beat zero this device holds what the peer sends. The
+ * clocks agree to far better; the room's lead is 800 ms (`room.ts`), and an old
+ * run's last words land within a round trip of the stamp that ended it.
+ */
+const EARLY_PEER_MS = 250;
+
+/**
  * Everything the game needs to be two devices instead of one, and nothing the
  * game needs to be one device: solo is the default and costs a boolean.
  *
@@ -37,11 +44,6 @@ export function createLink(o: LinkOptions): Link {
   let player: 0 | 1 | 2 = 0;
   const clock = createRoomClock(now);
   let startMs = 0;
-  /**
-   * The beat zero this run began on. The room stamps a new one every time it
-   * fills, so a value that has moved is a rejoin, seen from in here.
-   */
-  let startedAt = 0;
   let peers = 0;
   /** Everything the room has told this device, and nothing else: who has
    * pressed, the two names, the pair's mark and the tempo (`link-report.ts`). */
@@ -72,7 +74,6 @@ export function createLink(o: LinkOptions): Link {
     old?.close();
     run.end();
     startMs = 0;
-    startedAt = 0;
     peers = 0;
     said = { ...NOTHING_SAID };
     player = 0;
@@ -112,7 +113,8 @@ export function createLink(o: LinkOptions): Link {
 
   const receive = (message: ServerMessage): void => {
     switch (message.t) {
-      case "welcome":
+      case "welcome": {
+        const moved = message.startMs !== startMs;
         player = message.player;
         room = message.room;
         peers = message.peers;
@@ -134,11 +136,13 @@ export function createLink(o: LinkOptions): Link {
         // and the next starts here, which is what a rejoin looks like from this
         // side. Carrying on would leave the two devices counting from different
         // ticks: not lag, but two games with one fingerprint check between them.
-        if (run.started && startMs !== startedAt) run.end();
+        // Ended before its beat zero too, for what it held of the last one.
+        if (moved) run.end();
         // A stamp is a new run, and the presses that bought it are spent.
         if (startMs !== 0) said = { ...said, readySeats: [] };
         settle(peers >= 2 ? (clock.ready ? "countdown" : "syncing") : "waiting");
         return;
+      }
       case "ready":
         said = { ...said, readySeats: message.players };
         o.onStatus(status());
@@ -160,6 +164,10 @@ export function createLink(o: LinkOptions): Link {
         if (!reclaiming()) socket?.surrender();
         return;
       default:
+        // Before beat zero, only what comes in the last moments before it: the
+        // peer that got there first. Earlier, it is the last run's, sent before
+        // the peer heard the room's new stamp.
+        if (!run.started && !(startMs !== 0 && clock.countdownMs(startMs) <= EARLY_PEER_MS)) return;
         if (run.receive(message)) settle("desync");
     }
   };
@@ -205,7 +213,6 @@ export function createLink(o: LinkOptions): Link {
    * the real run would carry no commands while both devices called it in step.
    */
   const begin = (): void => {
-    startedAt = startMs;
     // The wave the room says the pair got to, and 0 for a room with no mark on
     // it. Read here rather than by the caller because the room is what decides
     // it and this is where the room's word arrives (`link-types.ts`).

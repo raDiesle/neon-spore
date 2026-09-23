@@ -515,27 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## A peer's message that arrives before this device's run begins is dropped
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf (re-filed 2026-09-23, claude/queue-the-ratchets-picture-has-never-been-drawn, from a paragraph that had come loose under THE RATCHET's entry)
-- **Taken:** 2026-09-23, claude/next-queued-task-4c233b (claim: claude/queue-a-peers-message-that-arrives-before-this-devices)
-- **Files:** `apps/game/src/link-run.ts`, `packages/net/src/lockstep.ts`, `packages/net/test/two-devices-opening.test.ts`
-
-`link-run.ts` builds its `Lockstep` in `begin`, and `receive` hands a message
-to `lockstep?.receive`. Anything the peer sends before this device has begun
-is dropped with no trace. The two halves can be done separately. The cheap
-half is to notice: `Lockstep` can take the tick its run started on and count a
-peer message that arrives before it, so the ledger reports *commands lost at
-the start* rather than a fingerprint mismatch at tick 240. The real half is to
-hold what arrives: a pre-begin buffer in `link-run.ts` fed into the new
-scheduler. That buffer must keep out the messages of the *previous* run: the
-room stamps a fresh beat zero for every rejoin, and an old run's ticks are far
-ahead of a new one's, so the buffer has to be cleared on every `end` and on
-every welcome that moves the stamp. `two-devices-opening.test.ts` already
-drives two devices through a beat zero over a wire it controls, so a case that
-begins one device late belongs beside the ones there.
-
-
 ## The controls answer nothing while the introduction stands
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

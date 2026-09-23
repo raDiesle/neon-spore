@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-a-peers-message-that-arrives-before-this-devices
+
+- reading — 5 min. The entry, `link-run.ts`, `link.ts`'s welcome and
+  beat zero, `lockstep.ts`, the room's stamp and relay, and `frame.ts` — which
+  showed the entry's premise was wrong: a phone presses only on the other's
+  promise, so the only thing that can come early is that promise.
+- writing — 5 min. The held list in `link-run.ts`, the 250 ms gate and the
+  moved-stamp `end` in `link.ts`, `link-early.test.ts`, and `Run` split out to
+  `link-run-types.ts` when the file reached the ceiling.
+- looking — 0 min. Nothing drawn moved.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the entry's own claim: the first test passed with the old
+drop still in, and it took `frame.ts` to see why.
+
 ## 2026-09-23 — queue-a-wave-with-a-guide-opens-on-its-introduction-as
 
 - reading — 5 min. The entry, `sim/briefing.ts`, `guide-steps.ts`, the app's

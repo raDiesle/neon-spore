@@ -1841,6 +1841,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/view.ts` | the view switch, always on screen |
 | `apps/game/src/install.ts` | The home-screen shortcut, and the service worker that makes one possible |
 | `apps/game/src/link-run.ts` | Beats between fingerprint exchanges |
+| `apps/game/src/link-run-types.ts` | The run's two shapes — what it is built from and what it answers |
 | `apps/game/src/link-socket.ts` | Milliseconds before a socket that went away is reached for again |
 | `apps/game/src/link-refusal.ts` | What a room turning this device away means, as three rules and no state |
 | `apps/game/src/hold.ts` | the card that comes up when the line goes bad, with a clock on it |
