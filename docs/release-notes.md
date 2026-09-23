@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 570aa6fb — The DEMOS menu's forty-one mid-length buttons now say one short thing
+
+Every mechanic whose `what` ran 31 to 100 words is rewritten to the button's budget: 30 words, 18 to a sentence, no semicolon or dash, and Player 1, Player 2, column and shield where the old lines said pilot, navigator, lane and plate. The full rules stay on each spec sheet. The forty-one ids join `CLEAN`, and `CEILING` falls from 270 to 229.
+
 ## 2026-09-23 · 844227f7 — The 35 longest DEMOS blurbs fit under their button again
 
 Every mechanic whose `what` ran past a hundred words — `lead` was 261 — is now thirty words or fewer, in the register the clean blurbs already use: what it is, who sees what, what the pair does. The full rules stay in each mechanic's sheet under docs/spec/. All 35, plus six subjects other lanes had already made clean, join `CLEAN`, and `CEILING` falls from 305 to 270.
