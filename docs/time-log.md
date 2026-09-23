@@ -17879,3 +17879,18 @@ The bottleneck was **the test's one literal alpha**: the fade is proved by
 the body fill at exactly 0.55, so no new paint could use that number.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE SINEW's picture looks like something real
+
+- reading — 0 min. `sinew-draw.ts`, `sinew-fibres.ts`, `sinew-band.ts` and
+  the frame test, which counts the hull's rim per seat and the ember on a snap.
+- writing — 5 min. `sinew-flesh.ts`: the mass muscle with grain, a lit lower
+  wall, a pucker and a film; every fibre a wet cord with a lit side; the
+  sheath a membrane lit down one side. The collar is a gauge and kept.
+- looking — 0 min. Both seats before and after at 2×, then a second pass
+  when the cords still read as thin neon strings.
+- friction — 0 min. None.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the cords' width**: a line at `STROKE.inner` read as a
+lit string whatever was painted on it, so the width went onto the tile.

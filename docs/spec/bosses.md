@@ -5430,7 +5430,7 @@ answer that costs nothing when it is missed (19 September 2026,
 `sim/sinew-hand.ts`).
 
 **The look** (`render/sinew-draw.ts`, `sinew-shape.ts`, `sinew-fibres.ts`,
-`sinew-band.ts`, `sinew-handles.ts`, `sinew-fx.ts`). A root a fifth of a
+`sinew-flesh.ts`, `sinew-band.ts`, `sinew-handles.ts`, `sinew-fx.ts`). A root a fifth of a
 tile above the field's top in the middle column, and from it a fan of
 `sinewFibres` fibres in the hull's violet down to a five-lobed mass
 (`blobPath`) three columns wide and a row deep, hung at `sinewMassRow` and a
@@ -5439,7 +5439,13 @@ straighten and brighten toward the hull's rim with the sum — strain is a
 colour and a line, never a number — and ripple as a damped wave while the
 sum is low; a parted fibre is two curled stubs in grey, the outermost first
 so the bundle thins from its edges in; a sheath between the fibres fills at
-an alpha that follows the strain. The **band** is a collar on the tendon
+an alpha that follows the strain. It is flesh, not a fill with a glowing
+line round it (`sinew-flesh.ts`, `new-boss-more` §6.3): every fibre is a wet
+cord a twentieth of a tile thick, thinning under strain, with a highlight down
+its lit side; the sheath is membrane lit down its left and deep down its
+right; the mass is muscle — shaded from the top left, its grain running the
+way the pull runs, its lower wall lit from inside brighter with the strain, a
+dark pucker where the tendon goes in, and a film. The **band** is a collar on the tendon
 under the root, a rounded rect the tendon runs through: the pilot's screen
 fills the zone on it in the green the game already spends on *good* with its
 rim stroked, and never the sum; the navigator's fills the sum up the collar

@@ -1,10 +1,10 @@
 import { type SimConfig, type SinewState, sinewSwinging, type World } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
-import { mixHex, rgba } from "./hex.js";
+import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import { drawSinewBand } from "./sinew-band.js";
 import { drawSinewFibres } from "./sinew-fibres.js";
+import { paintMass } from "./sinew-flesh.js";
 import type { SinewFx } from "./sinew-fx.js";
 import { drawSinewHandles } from "./sinew-handles.js";
 import {
@@ -14,6 +14,7 @@ import {
   sinewMassCentre,
   sinewMassPath,
   sinewMassRx,
+  sinewMassRy,
   sinewSum01,
 } from "./sinew-shape.js";
 
@@ -76,9 +77,9 @@ export function drawSinew(
 
 /**
  * The mass: the hull's violet, warmed toward its rim as the strain comes on
- * — the pull is seen arriving in the thing being pulled — and rimmed in
- * ember where it lies on the ship. A dark seam across its top is where the
- * fibres go in.
+ * — the pull is seen arriving in the thing being pulled — and ember where it
+ * lies on the ship. Its muscle, its lit wall and the pucker the fibres go in
+ * at are `sinew-flesh.ts`'.
  */
 function drawMass(
   ctx: CanvasRenderingContext2D,
@@ -93,25 +94,6 @@ function drawMass(
   const path = sinewMassPath(l, cfg, c, time);
   const hex = crushed ? PALETTE.ember : mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.35);
   const rim = crushed ? PALETTE.emberRim : PALETTE.hullRim;
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(path);
-  ctx.fillStyle = rgba(hex, 0.55);
-  ctx.fill(path);
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = STROKE.outline;
-  ctx.lineJoin = "round";
-  ctx.stroke(path);
-  ctx.restore();
-  strokeGlow(ctx, path, rim, STROKE.inner, 0.6 + 0.6 * strain);
-  // The seam the fibres go into.
-  const seam = new Path2D();
-  seam.moveTo(c.x - rx * 0.5, c.y - l.tile * 0.25);
-  seam.quadraticCurveTo(c.x, c.y - l.tile * 0.05, c.x + rx * 0.5, c.y - l.tile * 0.25);
-  ctx.save();
-  ctx.strokeStyle = rgba(PALETTE.background, 0.7);
-  ctx.lineWidth = STROKE.outline;
-  ctx.lineCap = "round";
-  ctx.stroke(seam);
-  ctx.restore();
+  const m = { x: c.x, y: c.y, rx, ry: sinewMassRy(l), tile: l.tile };
+  paintMass(ctx, path, m, hex, rim, strain);
 }

@@ -1051,6 +1051,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon from the top edge down to a mass, a handle on each side of the mass — one per seat |
 | `packages/render/src/sinew-fibres.ts` | **The tendon**: a bundle of fibres from the root to the mass, inside a translucent sheath |
 | `packages/render/src/sinew-fx.ts` | What THE SINEW leaves behind a frame: the whip a snap-back puts through the mass and its handles |
+| `packages/render/src/sinew-flesh.ts` | **What THE SINEW is made of**: a tendon of wet cords, each lit along one side, in a sheath of membrane |
 | `packages/render/src/sinew-handles.ts` | **THE SINEW's two handles**, one either side of the mass and one per seat |
 | `packages/render/src/sinew-shape.ts` | **Where THE SINEW is**, in field pixels: the root the tendon hangs from, the mass on the end of it |
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |

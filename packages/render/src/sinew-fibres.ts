@@ -1,7 +1,8 @@
 import { type SimConfig, type SinewState, sinewDecaying, sinewGone } from "@neon-spore/sim";
-import { mixHex, rgba } from "./hex.js";
+import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
+import { paintCord, paintSheath } from "./sinew-flesh.js";
 import type { Point } from "./sinew-shape.js";
 import { sinewSum01 } from "./sinew-shape.js";
 import { splinePath } from "./spline.js";
@@ -39,6 +40,8 @@ const CURL = 0.3;
 const SHEATH_ROOT = 0.3;
 const SHEATH_MASS = 0.55;
 const SEGMENTS = 8;
+/** A cord's width in tiles, slack; it thins by up to 0.6 of that under strain. */
+const CORD = 0.05;
 
 /** Which fibre goes `k`th: the outermost, alternating sides, toward the middle. */
 function partOrder(n: number): number[] {
@@ -80,9 +83,7 @@ function whole(
       y: root.y + (mass.y - root.y) * t,
     });
   }
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = STROKE.inner * (1.4 - 0.6 * strain);
-  ctx.stroke(splinePath(pts, false));
+  paintCord(ctx, splinePath(pts, false), hex, l.tile * CORD * (1.4 - 0.6 * strain), l.tile);
 }
 
 /** Two stubs where a fibre was: one off the root, curling out, one off the mass. */
@@ -112,10 +113,8 @@ function parted(
     ],
     false,
   );
-  ctx.strokeStyle = PALETTE.dim;
-  ctx.lineWidth = STROKE.inner;
-  ctx.stroke(top);
-  ctx.stroke(bottom);
+  paintCord(ctx, top, PALETTE.dim, l.tile * CORD, l.tile);
+  paintCord(ctx, bottom, PALETTE.dim, l.tile * CORD, l.tile);
 }
 
 /** The sheath: a band from the root to the mass, as wide as the fibres left in it. */
@@ -135,8 +134,10 @@ function sheath(
   path.lineTo(mass.x + wm, mass.y);
   path.lineTo(mass.x - wm, mass.y);
   path.closePath();
-  ctx.fillStyle = rgba(mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.5), 0.1 + 0.12 * strain);
-  ctx.fill(path);
+  const tint = mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.5);
+  const left = Math.min(root.x - wr, mass.x - wm);
+  const right = Math.max(root.x + wr, mass.x + wm);
+  paintSheath(ctx, path, left, right, tint, 0.1 + 0.12 * strain);
 }
 
 export function drawSinewFibres(
