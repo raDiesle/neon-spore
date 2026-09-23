@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · c7be5137 — THE SCUTTLE is a slab of pitted rock plated with shaded parts, not fills with a glowing line round them
+
+The slab is dark rock, pitted, with a bevel along its top and its scalloped underside lit violet from inside; each plate is shaded rock with a glint; an open socket is a recess with the wet violet of the inside at the bottom of it; the thread is a cord; the live part is enamel in its colour, lit along its foot. The lock stays as it was. Exemption: a look the owner asked for by name (new-boss-more §6.3).
+
 ## 2026-09-23 · 169692d8 — THE LEAD is pitted rock and a stalk of wet flesh, not fills with a glowing line round them
 
 The ridge is dark rock laid in strata and pitted, lit along its top and never outlined; the mound is flesh sunk in a socket, lit inside its lower wall; the stalk is a cord strung with shaded drops, and the tip's ring is a pore in its crown. The bolts, the pilot's sill and the lock stay as they were. Exemption: a look the owner asked for by name (new-boss-more §6.3).
