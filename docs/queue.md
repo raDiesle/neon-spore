@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE GAUGE's dial is a claw and its band is a pod
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-a-shells-plates-are-two-colours-where-the-owner (claim: claude/queue-the-gauges-dial-is-a-claw-and-its-band-is-a-pod)
 - **Files:** `packages/render/src/gauge-round.ts`, `packages/render/src/gauge.ts`, `packages/render/src/gauge-dial-face.ts`, `packages/sim/src/gauge-band.ts`, `packages/sim/src/gauge.ts`
 - **Where:** local
 
