@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE SCUTTLE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-23, claude/queue-the-leads-picture-looks-like-something-real (claim: claude/queue-the-scuttles-picture-looks-like-something-real)
 - **Files:** `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-fx.ts`, `packages/render/src/scuttle-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
