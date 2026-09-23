@@ -518,6 +518,7 @@ question that prompted this one.
 ## `bun run frames` still cannot turn SNAKE, only pose it turned
 
 - **Found:** 2026-09-20, claude/queue-snakes-picture-looks-like-something-real
+- **Taken:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own (claim: claude/queue-bun-run-frames-still-cannot-turn-snake-only-pose)
 - **Files:** `tools/frames/press-command.ts`, `tools/frames/press.ts`
 - **Where:** local
 
