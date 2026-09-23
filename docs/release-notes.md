@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 902f26e3 — A guided wave crosses its ready gate onto the field, whatever its length
+
+The owner, 20 September 2026: after the READY page, skip the wave's number, name and sentence when a guide already showed them. Every guide the game ships already did, because each has pages; the rule now holds for a guide of any length, a gate-only one included, and the introduction's clock is armed only for an opening that has one — a wave with no guide, or a wave gone again. Tests and `briefings.md` §1 no longer describe guide, introduction, field. No look: nothing the game draws moves.
+
+## 2026-09-23 · 73ce3ad0 — A test canvas's log stops at the next frame's canvas, so one shard no longer grows past 50 GB
+
+The canvas stub logs `Path2D` builders to a module-level pointer, set by `ctx.log = …` and never cleared. `surface-clear.test.ts` turns a log on; when `render/briefing.test.ts` shared its shard process, every path coordinate of thousands of frames was appended to that one array, and `check:fast` took the machine down twice on 23 September 2026. `stubCanvas()` now claims the log pointer along with the tally, which is what it already did for the tally, and a test holds that a log stops collecting once another frame's canvas is made.
+
 ## 2026-09-23 · 34131ffc — Give THE SPOOL's brake a thumb: the knob carried, and HOLD while it is empty
 
 The pilot's press on the brake's knob now sends spoolBrake, and every move after it is a depth down the rail. The knob travels exactly the reach, one tile, so it stays under the thumb (it used to run 1.67 tiles for one). The rail takes a hand in every phase it is drawn in, and none once the casing is slack. HOLD, in CARRY, stands on the knob while a movement pays out and nobody holds the brake. It goes as soon as he takes hold, because how deep to hold it is the navigator's to say. The hit test and the drawing place the spool off one spoolPlaced, so a knob swinging in is answered where it is drawn.
