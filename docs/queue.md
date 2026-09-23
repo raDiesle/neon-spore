@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE HIVE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-23, claude/queue-the-antiphons-picture-looks-like-something-real (claim: claude/queue-the-hives-picture-looks-like-something-real)
 - **Files:** `packages/render/src/hive-draw.ts`, `packages/render/src/hive-fx.ts`, `packages/render/src/hive-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
