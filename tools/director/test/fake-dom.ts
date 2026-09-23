@@ -73,7 +73,7 @@ export interface FakeDom {
   mutated(el: FakeEl): void;
   /**
    * Tells every `IntersectionObserver` watching `el` that it has scrolled
-   * into view — a room's own lazy section (`states-page.ts`) asks this
+   * into view — a room's own lazy section (`states-section.ts`) asks this
    * rather than being clicked, and a test says so here instead of faking
    * scroll geometry no `FakeEl` carries.
    */
@@ -221,7 +221,7 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     }
     disconnect(): void {}
   };
-  // A room's own lazy sections (`states-page.ts`'s `watchSection`) ask
+  // A room's own lazy sections (`states-section.ts`'s `watchSection`) ask
   // whether a target has scrolled into view; a test says so with `intersect`
   // rather than this file guessing at real scroll geometry.
   const seers: Array<{

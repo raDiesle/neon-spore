@@ -571,50 +571,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## A STATES card cannot be named, and `--click` takes plain CSS
-
-- **Found:** 2026-09-21, claude/queue-the-gauges-two-new-states-have-no-pose-in-the-di
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-states-card-cannot-be-named-and-click-takes-pl)
-- **Files:** `tools/frames/shot-state.ts`, `tools/director/src/states-page.ts`
-
-Photographing one boss's row of state cards took
-`--click '#statesCards > div:nth-child(2) section:nth-of-type(6) h2'`, and the
-6 was counted off `BOSS_KINDS` in the simulation by hand. Two things make that
-the only way in.
-
-The cards are lazy: a group fills when it scrolls into view or its `h2` is
-clicked (`section()`), so the element the shot wants does not exist until
-something presses that heading. And the heading cannot be named: a card carries
-its pose name as text in `.name` and nothing else — no id, no data attribute —
-while `--click` runs through `document.querySelectorAll`, which is plain CSS.
-The target selector next to it goes through Playwright and *does* take
-`:text-is("THE GAUGE")`, so the two flags of one command accept different
-languages, and the one that looked right failed with a `SyntaxError` stack.
-
-Two fixes, either alone enough: a `data-boss` on the group's `section` and a
-`data-pose` on the card in `states-page.ts` (a name a reader already sees,
-written where a tool can ask for it), or `--click` gaining the same
-text-matching `--inner` already has. The first is smaller and helps the
-sheet's own tests too.
-
-## `bun run crop` and `bun run versus:shot` spell the same rectangle two ways
-
-- **Found:** 2026-09-21, claude/queue-the-slow-is-felt-half-b
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-bun-run-crop-and-bun-run-versus-shot-spell-the-s)
-- **Files:** `tools/frames/crop-png.ts`, `tools/frames/versus-shot.ts`
-
-`versus:shot` takes `--at x,y,w,h` and `--zoom n`. `crop` takes the same two
-numbers as bare positionals, `<in> <out> x,y,w,h [zoom]`, and a call written in
-the other spelling — `crop in.png out.png --at 0,700,150,450 --zoom 3` — exits
-1 with the usage and no word about which half it did not understand. The two
-commands do the same thing to the same pictures and `versus:shot`'s own help
-names `crop` as the fallback for when it cannot, which is exactly when a
-session reaches for it with the flags still in its hand.
-
-The fix is `crop-png.ts` accepting `--at` and `--zoom` as aliases for its two
-positionals, and saying in the usage that both spellings work. It is a dozen
-lines and no test beyond one case per spelling.
-
 ## A film is proved against a config the game does not play
 
 - **Found:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene

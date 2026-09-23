@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { createWorld, DEFAULT_CONFIG } from "@neon-spore/sim";
 import type { Pose, PoseGroup } from "../src/pose-kit.js";
-import { section } from "../src/states-page.js";
+import { section } from "../src/states-section.js";
 import { type FakeDom, type FakeEl, installDom } from "./fake-dom.js";
 
 /**
@@ -9,7 +9,7 @@ import { type FakeDom, type FakeEl, installDom } from "./fake-dom.js";
  *
  * The owner said the room opens slowly (`docs/queue.md`): every card ran its
  * pose's hand to a state and drew a frame in one synchronous pass, before
- * anything was on the page. `section` (`states-page.ts`) now fills a group's
+ * anything was on the page. `section` (`states-section.ts`) now fills a group's
  * row of cards only once the group scrolls into view or its heading is
  * clicked, and `poseArt`'s own build cache (`pose-art.ts`) keeps a pose's
  * hand from being walked twice for two callers that both draw it — the STATES
@@ -87,5 +87,17 @@ describe("a STATES room's own section", () => {
     dom.intersect(first);
     dom.intersect(second);
     expect(calls.count).toBe(1);
+  });
+
+  test("names its group and each card where plain CSS can find them", () => {
+    // `bun run shot --click` is `querySelectorAll`, and CSS cannot match a
+    // heading by its text.
+    const calls = { count: 0 };
+    const el = section(
+      group("THE GAUGE", [fakePose("THE GAUGE · jammed", calls)]),
+    ) as unknown as FakeEl;
+    expect(el.dataset.group).toBe("THE GAUGE");
+    dom.intersect(el);
+    expect(el.children[2]?.children[0]?.dataset.pose).toBe("THE GAUGE · jammed");
   });
 });

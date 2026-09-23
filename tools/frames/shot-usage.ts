@@ -11,6 +11,9 @@ export function usage(): never {
     'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab GRAPHICS] [--serve]',
   );
   console.error('       --click is a CSS selector pressed first, e.g. ".cell:has(img)"');
+  console.error(
+    "       --click '[data-group=\"THE GAUGE\"] h2' fills a STATES group; a card is [data-pose=…]",
+  );
   console.error("       --nth is which of its matches to press, counting from 1");
   console.error('       --inner is a tab inside the sheet --open just opened, e.g. "WORDINGS"');
   console.error('       --path is what the port is asked for, e.g. "/?play=1" — the field itself');

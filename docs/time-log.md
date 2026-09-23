@@ -18027,3 +18027,17 @@ The bottleneck was **reading the seats**: forty-three rows, each true only
 if its hand file says so, and no table in the simulation to import instead.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — `crop` takes `--at`/`--zoom`, and a STATES group is named for `--click`
+
+- reading — 5 min. The two entries, `crop.ts`, `crop-png.ts`,
+  `versus-shot.ts`, `states-page.ts`, `shot-state.ts` and `shot-usage.ts`.
+- writing — 10 min. `parseCropArgs` taking both spellings, `data-group` and
+  `data-pose` on a STATES section and card, `states-section.ts` cut out of
+  `states-page.ts` along the group's own seam, the tests and usage lines.
+- looking — 0 min. Nothing drawn changed.
+- friction — 0 min. None.
+- landing — 5 min. `bun run index` for the new file, `check:fast`, the commit.
+
+The bottleneck was **the size hook on `states-page.ts`**: two lines took it
+within thirty of the ceiling, and the split was cheaper now than later.

@@ -2192,6 +2192,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-transport.ts` | The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches |
 | `tools/director/src/state.ts` | The edits and the questions moved out when this file went over the line limit |
 | `tools/director/src/states-page.ts` | DOCUMENTATION: the four reference rooms in one full-screen sheet, and the sheet's own wiring |
+| `tools/director/src/states-section.ts` | One STATES group: heading, note and a row of cards filled on scroll or click, named `data-group`/`data-pose` |
 | `tools/director/src/subcols.ts` | A finer-grained collapse than `columns.ts`'s whole-section one |
 | `tools/director/src/svg-dom.ts` | The smallest document a skin can be built into, outside a browser |
 | `tools/director/src/tabs.ts` | Buttons carrying `data-tab`, pages with the matching `<prefix><name>` id |
