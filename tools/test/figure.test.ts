@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DRIFT_MARK } from "../check/closing.js";
-import { DRIFT, drifted, driftLine } from "./figure.js";
+import { DRIFT, drifted, driftLine, SHARD_SLOWDOWN, slowdown } from "./figure.js";
 
 /**
  * A figure is what a test costs idle, and it drifts when the tree grows under
@@ -22,6 +22,24 @@ describe("a slow test's figure", () => {
   it("is not called drifted by a full check's slowdown alone", () => {
     // Measured 23 September 2026: 784 ms alone, 2064 under a check.
     expect(drifted(850, 2064, 1)).toBe(false);
+  });
+
+  it("expects a sharded run's width, up to the slowdown it was measured at", () => {
+    expect(slowdown(1, 1)).toBe(1);
+    expect(slowdown(2, 1)).toBe(2);
+    expect(slowdown(8, 1)).toBe(SHARD_SLOWDOWN);
+    expect(slowdown(8, 7)).toBe(7);
+  });
+
+  it("is not called drifted by the check it runs in", () => {
+    // `check:fast`, 23 September 2026, reading a load of 1.0: `tree-walk`
+    // took 454 against 120, and costs 92 alone.
+    expect(drifted(120, 454, slowdown(8, 1))).toBe(false);
+  });
+
+  it("is still called drifted in a check when it is short by the old six", () => {
+    // `doc-drift-names`' 800 against 120, at the check's own 4.9.
+    expect(drifted(120, 800 * 4.9, slowdown(8, 1))).toBe(true);
   });
 
   it("is said in a line the closing report can find", () => {

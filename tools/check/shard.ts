@@ -153,7 +153,14 @@ const results = await pool(bins.length, width, async (i) => {
   const { out, err, code, signalCode } = await withSlot(budget, async () => {
     const proc = Bun.spawn(
       ["bun", "test", ...bin, "--reporter=junit", `--reporter-outfile=${reportOf(i)}`],
-      { cwd: ROOT, stdout: "pipe", stderr: "pipe", env: { ...process.env, FORCE_COLOR: "0" } },
+      // `SHARD_WIDTH`: how many run beside it, which `tools/test/figure.ts`
+      // cannot read off a load average that lags the burst.
+      {
+        cwd: ROOT,
+        stdout: "pipe",
+        stderr: "pipe",
+        env: { ...process.env, FORCE_COLOR: "0", SHARD_WIDTH: String(width) },
+      },
     );
     const [out, err, code] = await Promise.all([
       new Response(proc.stdout).text(),

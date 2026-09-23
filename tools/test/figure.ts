@@ -32,21 +32,51 @@ import { loadedTimeout } from "./repo-time.js";
  * about two and a half times on 23 September 2026 while the average still
  * read the quiet minute before it, and three is also the slack the timeout
  * itself allows — past it, the figure is short by more than anything covers.
+ *
+ * **And what the average cannot see, the shard runner says.** `shard.ts`
+ * starts its shards together and they walk one disk, so a check's burst is
+ * over before the one-minute average has risen: `bun run check:fast` on 23
+ * September 2026 read 1.0 and printed five drifts under a green run, every one
+ * of them a figure that held alone that afternoon. So a shard is told how wide
+ * its run is (`SHARD_WIDTH`) and the slowdown divided by is at least that
+ * width, up to `SHARD_SLOWDOWN`.
  */
 
 /** How far over its figure a test may run, idle, before a run says so. */
 export const DRIFT = 3;
 
-/** Whether `tookMs` under `load` is more than `DRIFT` of an `idleMs` figure. */
-export function drifted(idleMs: number, tookMs: number, load: number = CORE_LOAD): boolean {
-  return tookMs / load > DRIFT * idleMs;
+/**
+ * The most a run's own width is taken to slow a test down. Measured 23
+ * September 2026, alone against eight shards wide on a quiet Mac:
+ *
+ * | test | alone | in the check | × |
+ * |---|---|---|---|
+ * | `tree-walk` | 92 | 454 | 4.9 |
+ * | `limits`, the size case | 361 | 1656 | 4.6 |
+ * | `doc-drift-names`, the name case | 815 | 2629 | 3.2 |
+ *
+ * So five. The figure that earned this file, 800 against 120, is short by
+ * nearly seven and stays loud under it.
+ */
+export const SHARD_SLOWDOWN = 5;
+
+/** How much slower than idle a test runs here: the machine's load, or its run's width. */
+export function slowdown(width = Number(process.env.SHARD_WIDTH) || 1, load = CORE_LOAD): number {
+  return Math.max(load, Math.min(SHARD_SLOWDOWN, width));
+}
+
+const SLOWDOWN = slowdown();
+
+/** Whether `tookMs` at `slow` is more than `DRIFT` of an `idleMs` figure. */
+export function drifted(idleMs: number, tookMs: number, slow: number = SLOWDOWN): boolean {
+  return tookMs / slow > DRIFT * idleMs;
 }
 
 /** The line a drifted figure is reported in; `shard.ts` finds it by its start. */
-export function driftLine(where: string, idleMs: number, tookMs: number, load = CORE_LOAD): string {
-  const idle = Math.round(tookMs / load);
+export function driftLine(where: string, idleMs: number, tookMs: number, slow = SLOWDOWN): string {
+  const idle = Math.round(tookMs / slow);
   return (
-    `${DRIFT_MARK} ${where} — took ${Math.round(tookMs)} ms at load ${load.toFixed(1)}, ` +
+    `${DRIFT_MARK} ${where} — took ${Math.round(tookMs)} ms at slowdown ${slow.toFixed(1)}, ` +
     `about ${idle} ms idle, against a figure of ${idleMs}; time it alone and raise it`
   );
 }

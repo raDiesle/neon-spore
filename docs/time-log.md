@@ -18267,3 +18267,17 @@ The bottleneck was **the compaction**: the claim was made in one context and
 the work done in the next.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — A sharded check reports five figures drifted that hold alone
+
+- reading — 5 min. `figure.ts`, `cpu-time.ts`'s note on the lagging average,
+  and the five lines `check:fast` printed.
+- writing — 10 min. `SHARD_WIDTH` from `shard.ts`, `slowdown` and
+  `SHARD_SLOWDOWN` in `figure.ts` with the measured table, four cases.
+- looking — 5 min. The three files timed alone again, then `bun run test`
+  whole: green, and not one drift line.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **measuring the check's own slowdown**: the factor had to
+be read off the same files alone and eight wide before it could be written down.

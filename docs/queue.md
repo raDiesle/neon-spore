@@ -1388,21 +1388,3 @@ preview:once`, used it, and reverted `.claude/launch.json` — every lane that
 checks the built game in a browser pays the same. Give the game a
 `preview:here` script through the same pointer and a `game-here` entry, and
 say it in `docs/commands.md` and CLAUDE.md's "Verifying in a browser".
-
-## A sharded check reports five figures drifted that hold alone
-
-- **Found:** 2026-09-23, claude/queue-the-tabs-own-pause-is-bound-inside-the-test-rig
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-sharded-check-reports-five-figures-drifted-tha)
-- **Files:** `tools/test/figure.ts`, `tools/test/cpu-time.ts`, `tools/check/shard.ts`, `tools/test/figure.test.ts`
-
-`bun run check:fast` on a quiet Mac (load 6.9 over 14 cores, so `CORE_LOAD`
-reads 1.0) printed five `figure drift:` lines under a green run:
-`tree-walk` 454 ms against 120, `limits` 1656 against 400, `doc-drift-names`
-2629 against 850. Each was timed alone that same afternoon inside its figure.
-What `CORE_LOAD` cannot see is the eight shards `shard.ts` starts at once
-walking the same disk: a one-minute load average lags a burst that lasts
-twenty seconds. `drifted` then divides by 1 and sees a 3–4× check slowdown
-as drift. Either `shard.ts` tells its children how wide it runs (an
-environment variable) and `figure.ts` expects that contention, or `DRIFT`
-goes up under a shard only. The case that earned the tool, 800 ms idle
-against a figure of 120, has to stay loud either way.
