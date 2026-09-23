@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 0166118e — A DEMOS row names its wave and keeps its id out of the name
+
+The DEMOS page put a mechanic id of up to thirteen letters in the WAVES row's 26px number column, so `slick` ran over `firstStep` and `shell` over `theThirdShot`. A DEMOS row now leads with the wave's name as the WAVES page prints it (`FIRST STEP`, not the key `firstStep`), sets the id to its right, and gives the sentence the row's whole width. The WAVES rows do not move.
+
 ## 2026-09-23 · 577d251e — new-boss's file table is its own page, and the skill is 235 lines
 
 `.claude/skills/new-boss/SKILL.md` stood at 249 lines, one under the ceiling `limits.test.ts` holds a skill to, so the next boss lane that added a rule would have turned `bun run check` red. §4's table of every file a field boss is a name in moves to `new-boss/registrations.md`, and §4 names it in one line.
