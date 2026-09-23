@@ -18216,3 +18216,19 @@ change, so a resize and a rotation could not be told apart until it learned
 the event's type.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — `apps/game/src/main.ts` is at the 250-line ceiling exactly
+
+- reading — 5 min. `main.ts`, `main-shell.ts`, and whether
+  `createWaveProgression` does anything when it is built (it does not).
+- writing — 5 min. The config, the world, the progression, `startTogether`
+  and `playAt` out whole into `main-world.ts`; `main.ts` down to 189 lines.
+- looking — 5 min. The built game booted in the preview with no console
+  error and opened wave 2 on its banner through `jumpToWave`.
+- friction — 5 min. The game's launch entry has no `--here` route like the
+  director's, so an entry by absolute path was added for the boot and taken
+  out again (queued).
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the preview's launch entry**: the game has no route to a
+named tree, so one was written and reverted for a single boot check.

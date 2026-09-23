@@ -31,10 +31,10 @@ export interface MainDeps {
   setSound: (on: boolean) => void;
   testPanel: TestPanel;
   intro: Intro;
-  /** Beat zero: `main.ts`'s own `startTogether`, since the clock it resets is
-   * the file's to own. */
+  /** Beat zero: `main-world.ts`'s `startTogether`, since the clock it resets
+   * is the world's opening to own. */
   startTogether: (wave: number) => void;
-  /** Writes the run's tempo onto the live config — `main.ts`'s own `playAt`. */
+  /** Writes the run's tempo onto the live config — `main-world.ts`'s `playAt`. */
   playAt: (level: Difficulty) => void;
   /** Both seats' QUIT, from the buffer `main.ts` holds (`quit.ts`). */
   quit: () => void;

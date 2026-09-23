@@ -1844,6 +1844,7 @@ place — the generator keeps whatever is there.
 |---|---|
 | `apps/game/src/main.ts` | wiring: world, renderer, input, loop |
 | `apps/game/src/main-shell.ts` | What `main.ts` hands `bindShell` — beside `main.ts` rather than inside it, `shell-menu.ts`'s own reason |
+| `apps/game/src/main-world.ts` | **The world's opening**: the config this build plays at, the world built on it |
 | `apps/game/src/waves.ts` | the two ways a wave starts, and the banner that names it |
 | `apps/game/src/welcome.ts` | the page before a device's first tutorial: once per device, pressed away, the film held on its first frame under it |
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |

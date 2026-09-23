@@ -515,29 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## `apps/game/src/main.ts` is at the 250-line ceiling exactly
-
-- **Found:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-apps-game-src-main-ts-is-at-the-250-line-ceiling)
-- **Files:** `apps/game/src/main.ts`, `apps/game/src/main-shell.ts`
-- **Where:** local
-
-It is 250 lines against a limit of 250 (`packages/sim/test/limits.test.ts`), so
-the next lane that adds a line to it gets a red check for a reason that has
-nothing to do with its own work. This lane already paid that: three lines of
-comment at the `bindViewport` call site had to come down to one, and the one
-that survived is the shortest true sentence rather than the clearest.
-
-Nearly all of the file is a knot of prose and one call each, which is what it
-is for — so the split is by subject, not by size. `main-shell.ts` next door is
-the pattern: it took the shell's wiring out whole. The two candidates left are
-the same shape, and either is enough on its own:
-
-- the frame's parts — `bindAudio`, `bindHaptics`, `beatPhase`, `startFrames`'s
-  argument object;
-- the world's opening — `cfg`, `createWorld`, `startTogether`, `playAt`,
-  `createWaveProgression`.
-
 ## `loadedTimeout`'s figures were measured once and the tree has grown past them
 
 - **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
@@ -1457,3 +1434,20 @@ the round teaches. Retime each one for 0.5 the way THE HIVE was: each act
 fifteen ticks before the departure it is for, pairs 60 apart. Then set
 `chargeBeats: 0.5` and make its own `scene-*.test.ts` green on it. One
 film is one lane; THE ORRERY and THE ANTIPHON are the long ones.
+
+## The game's preview has no `here` route, and the director's does
+
+- **Found:** 2026-09-23, claude/task-queue-work-e21054
+- **Files:** `.claude/launch.json`, `apps/game/package.json`, `tools/dev/supervise.ts`, `docs/commands.md`
+- **Where:** local
+
+CLAUDE.md says a worktree launches the preview "by absolute path", because
+`preview_start` starts an entry in the directory the session was opened in.
+The director solved the same problem once: `bun run here` names a tree,
+`supervise.ts --here` serves it, and the `director-here` entry is that route.
+The game's `game` entry has nothing like it, so the boot check for the
+`main.ts` split wrote a `game-e21054` entry with `--cwd <worktree>
+preview:once`, used it, and reverted `.claude/launch.json` — every lane that
+checks the built game in a browser pays the same. Give the game a
+`preview:here` script through the same pointer and a `game-here` entry, and
+say it in `docs/commands.md` and CLAUDE.md's "Verifying in a browser".

@@ -71,7 +71,7 @@ entry (same authored column, same colour) fourteen beats after both players
 watched the game slide the cannon there and fire into it. The pair is tested
 on memory of a demonstration, not on an exchange, in all three of its waves,
 and its risks section never names it. D3 is refused on an entry point that
-does not exist: `startTogether()` (`apps/game/src/main.ts:125`) calls
+does not exist: `startTogether()` (`apps/game/src/main-world.ts`) calls
 `jumpToWave(0)`, which calls `startWave` directly and emits no `needWave`, so
 its two opening drills would fire after every death and never on a fresh
 start — and D3 quotes that same fact as a feature elsewhere.
@@ -528,7 +528,7 @@ cannot settle. **Watch a real pair before tuning anything else.**
 
 **2. Every real two-phone session re-teaches, and none of the three designs
 solved it.** `forgetBriefings` is called from exactly one place —
-`startTogether()` at `apps/game/src/main.ts:125`, which runs on `link.onStart`,
+`startTogether()` at `apps/game/src/main-world.ts`, which runs on `link.onStart`,
 i.e. every time two devices join a room. So the `taught` bits, like `met`,
 clear on every join. The pair a skip protects is only a pair who stayed in one
 session; two people who put their phones down and pick them up tomorrow pay
