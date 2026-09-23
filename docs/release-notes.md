@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 6d257499 — `--hold` can hold every handle the wire carries, and a test keeps it so
+
+`bun run frames --hold` knew twenty-eight names and the wire carries sixty-four, so THE PULSE's meter, THE UNDERTOW's pin, THE SCOUT's line, THE LEDGER's four and thirty more answered with a usage line, and six lanes posed their state with `--boss-json` instead of pressing it. The forty-three missing handles are now one row each in `hold-targets-b.ts` — the seat, the second seat's name, the id and whether the gesture is spent on the lift, each read off its hand file — and a test holds the flag's names to `DRAG_TARGETS` both ways, so a target added to the simulation without a row is red.
+
 ## 2026-09-23 · 26f4c1ab — THE HIVE is wax pressed with comb, with lobes of it and breaches as wet sockets, not a fill with a glowing line round it
 
 The mass is lit from the upper left and gone to the deep beneath, pressed all over with comb, its top and underside glowing amber from inside, with a film high on the left. Each lobe is a shaded drop of the same wax lit inside its lower wall with a wet point; a breach is a socket sunk in it, its colour welling from the floor under the lip's shadow, still plainly red or cyan on the pilot's screen. The scar's stitch and the wrung collar keep their glow as markers. A look the owner asked for by name (new-boss-more §6.3).
