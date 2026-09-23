@@ -166,6 +166,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   throbFaceMilli: "THROB — red one side, cyan the other, turning",
   countdownBeats: "THE COUNT — open on zero, and only the pilot can count",
   countdownOpenBeats: "THE COUNT — open on zero, and only the pilot can count",
+  countdownShutBeats: "THE COUNT — open on zero, and only the pilot can count",
   radarLead: "RADAR — what is coming",
   bulletGlideMs: "AIM — colour and column",
   bandSoloPct: "PLUMBING — not a dial a person turns",

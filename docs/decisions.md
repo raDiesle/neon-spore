@@ -863,6 +863,15 @@ after the shot.
 simply slow rather than as a window — then `countdownOpenBeats` comes down and
 the guide's sentence changes with it.
 
+**Amended 23 September 2026 — the price is beats, not the hull.** The owner,
+20 September: *"Count" enemy hit with the wrong colour or at the wrong time
+should not lose the wave, but have some armoured state of it, e.g. 3 beats.*
+A shot off zero, and a wrong colour on zero, now shut the body for
+`countdownShutBeats` (three) through the wrong-colour window every ordinary
+body already has (`colourArmourTicksOf`, `colour-armour.ts`); nothing breaks
+the hull. Three beats from the beat before zero is the whole of that zero, so
+the mistake still costs the kill it was aimed at, and the body is still coming.
+
 ## 30. The empty boss slots lose their names
 
 **Decision:** on 11 September 2026 the owner cleared THE ACT ORDER group of

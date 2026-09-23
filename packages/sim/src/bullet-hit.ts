@@ -149,13 +149,10 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     return false;
   }
   if (hit.kind === "countdown") {
-    // Open one beat in five, and only the pilot can see which. Off zero the
-    // hull pays and the body stays; on zero in its colour it is a kill; on
-    // zero otherwise it is an ordinary body and the tail below books the
-    // colour miss (`countdown.ts`).
-    const struck = countdownStruck(world, b, hit);
-    if (struck === "killed") return b.lance;
-    if (struck === "shut") return false;
+    // Open two beats in six, and only the pilot can see which. On zero in its
+    // colour it is a kill; off zero or in the wrong colour it is shut for
+    // `countdownShutBeats`, and the wave goes on (`countdown.ts`).
+    return countdownStruck(world, b, hit) && b.lance;
   }
   // Still shut from the last wrong colour, and shut to *both* — which is the
   // whole of what makes a colour mistake cost something (`colour-armour.ts`).

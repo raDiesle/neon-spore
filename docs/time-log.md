@@ -17510,3 +17510,18 @@ The bottleneck was **the rim the geometry could not carry**: the first design
 was correct on paper and said nothing, and a frame was the only thing that caught it.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — A shot off zero shuts THE COUNT for three beats
+
+- reading — 10 min. The entry, `countdown.ts`, `colour-armour.ts`, the tail of
+  `bullet-hit.ts`, and every sentence that said the wave is lost.
+- writing — 10 min. `countdownShutBeats`, the window's length read off the
+  kind, `countdownStruck` folded to one answer, four tests, five sentences.
+- looking — 5 min. One frame of the shut body from `bun run frames`.
+- friction — 5 min. The first `--press` aimed the authored column, not the
+  field's, and the shot never met the body.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the sentences**: the rule was a dozen lines, but the wave,
+the mechanic, the creature, the bestiary, the director and decision #29 each
+said the old price in their own words.

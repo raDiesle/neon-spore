@@ -67,8 +67,8 @@ import type { Wave } from "../wave-types.js";
  */
 /**
  * **THE COUNT, in three figures.** Here for the reason the two blocks above
- * are. The mistake it punishes is firing on sight, and the hull is what a
- * shot off zero costs (`sim/countdown.ts`) — so what has to bite is a
+ * are. The mistake it punishes is firing on sight, and three shut beats are
+ * what a shot off zero costs (`sim/countdown.ts`) — so what has to bite is a
  * navigator with a matching colour loaded, a body in the lane, and no
  * permission to pull yet.
  *
@@ -125,9 +125,9 @@ export const WAVES_ACT_3: Wave[] = [
   {
     id: "theCount",
     name: "THE COUNT",
-    sentence: "The one where firing on sight costs the hull, and only one of you can count.",
+    sentence: "The one where firing on sight shuts it, and only one of you can count.",
     guide: {
-      both: "A round body with an eye. Blades close it, one fewer each beat. Shoot only on the beat the eye opens. Any other beat loses the wave.",
+      both: "A round body with an eye. Blades close it, one fewer each beat. Shoot only on the beat the eye opens. Any other beat shuts it grey for three beats.",
       p1: "1. You can see the blades.\n2. Count them down out loud: three, two, one, zero.\n3. Say the column with it.",
       p2: "1. Your eye never blinks.\n2. Load the colour and aim the column.\n3. Fire on the word zero. Not on sight, not on your own count.",
     },

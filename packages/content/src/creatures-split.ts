@@ -120,6 +120,6 @@ export const SPLIT_CREATURES: Record<SplitKind, CreatureDef> = {
     // shown is the count, and the strip says nothing about it.
     radar: "p2",
     blurb:
-      "A round body with an eye shut by blades of its own flesh, one blade fewer each beat. A shot only reaches it while the eye is open; a shot on any other beat loses the wave, and the body stays. Only the pilot is drawn the blades — the navigator, who fires, sees an eye that never blinks — so the count has to be said out loud, the way a column is.",
+      "A round body with an eye shut by blades of its own flesh, one blade fewer each beat. A shot only reaches it while the eye is open; a shot on any other beat, or in the wrong colour, shuts it grey for three beats, and the body stays. Only the pilot is drawn the blades — the navigator, who fires, sees an eye that never blinks — so the count has to be said out loud, the way a column is.",
   },
 };

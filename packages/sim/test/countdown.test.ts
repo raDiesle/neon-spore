@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
+  colourIsArmoured,
   countdownIsOpen,
   countdownMarks,
   countdownPeriod,
@@ -114,14 +115,40 @@ describe("the count", () => {
     expect(phases.size).toBeGreaterThan(1);
   });
 
-  it("breaks the hull on a shot off zero, and keeps the body", () => {
+  it("shuts the body on a shot off zero, and keeps the wave", () => {
     const { shut } = beatsOf();
     const at = shut * TPB;
     const { world, events } = run([count(COL)], at + TPB, [aim(at, COL), fire(at, "red")]);
     expect(world.creatures).toHaveLength(1);
     expect(events.some((e) => e.type === "reject")).toBe(true);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
-    expect(failHolds(world)).toBe(true);
+    expect(failHolds(world)).toBe(false);
+    expect(world.creatures[0]!.colourStruckTick).toBeGreaterThanOrEqual(at);
+    expect(colourIsArmoured(world, world.creatures[0]!)).toBe(true);
+  });
+
+  it("stays shut for countdownShutBeats, and then answers again", () => {
+    const { shut } = beatsOf();
+    const world = createWorld({ ...CFG }, 0, [count(COL)]);
+    for (let t = 0; t < shut * TPB; t++) step(world, []);
+    const c = world.creatures[0]!;
+    c.colourStruckTick = world.tick;
+    for (let t = 0; t < CFG.countdownShutBeats * TPB - 1; t++) step(world, []);
+    expect(colourIsArmoured(world, c)).toBe(true);
+    step(world, []);
+    expect(colourIsArmoured(world, c)).toBe(false);
+  });
+
+  it("refuses the right colour on zero while it is shut", () => {
+    const { open } = beatsOf();
+    const at = open * TPB;
+    const world = createWorld({ ...CFG }, 0, [count(COL)]);
+    for (let t = 0; t < at; t++) step(world, []);
+    world.creatures[0]!.colourStruckTick = world.tick;
+    step(world, [aim(at, COL), fire(at, "red")]);
+    for (let t = 1; t < TPB; t++) step(world, []);
+    expect(world.creatures).toHaveLength(1);
+    expect(failHolds(world)).toBe(false);
   });
 
   it("dies to its colour on zero, for scoreCountdownKill", () => {
@@ -133,13 +160,14 @@ describe("the count", () => {
     expect(world.retries).toBe(0);
   });
 
-  it("books the wrong colour on zero as a colour miss, not as a shot off zero", () => {
+  it("shuts the body on the wrong colour on zero too, and keeps the wave", () => {
     const { open } = beatsOf();
     const at = open * TPB;
     const { world, events } = run([count(COL)], at + TPB, [aim(at, COL), fire(at, "cyan")]);
     expect(world.creatures).toHaveLength(1);
     expect(events.some((e) => e.type === "reject")).toBe(true);
-    expect(world.retries).toBe(0);
+    expect(colourIsArmoured(world, world.creatures[0]!)).toBe(true);
+    expect(failHolds(world)).toBe(false);
   });
 
   it("replays deterministically: the kill on zero, and the fingerprint pins it", () => {

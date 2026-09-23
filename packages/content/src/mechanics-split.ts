@@ -62,7 +62,7 @@ export const SPLIT_MECHANICS = {
     waveNames: true,
   },
   countdown: {
-    what: "Blades shut its eye, one fewer each beat. Only Player 1 sees them. Shoot in the two beats it is open. Any other shot loses the wave.",
+    what: "Blades shut its eye, one fewer each beat. Only Player 1 sees them. Shoot in the two beats it is open. Any other shot shuts it for three beats.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // throb: the count says *when* and the colour says *which trigger*, and

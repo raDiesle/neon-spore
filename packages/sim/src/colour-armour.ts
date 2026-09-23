@@ -1,4 +1,4 @@
-import { msToTicks, type SimConfig } from "./config.js";
+import { msToTicks, type SimConfig, ticksPerBeat } from "./config.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -40,6 +40,19 @@ export function colourArmourTicks(cfg: SimConfig): number {
 }
 
 /**
+ * How many ticks *this* body stays shut once struck. THE COUNT's window is
+ * `countdownShutBeats` long rather than `colourArmourMs`, and it is opened by
+ * a shot off zero as well as by a wrong colour (`countdown.ts`): the owner
+ * would not have a reflex shot end the run, and three beats is what it costs
+ * instead — often the zero it was aimed at. Read off the kind rather than
+ * stored on the body, so the fingerprint already covers it.
+ */
+export function colourArmourTicksOf(cfg: SimConfig, c: Creature): number {
+  if (c.kind === "countdown") return ticksPerBeat(cfg) * Math.max(0, cfg.countdownShutBeats);
+  return colourArmourTicks(cfg);
+}
+
+/**
  * A body nothing has missed. Far enough back that the window has always
  * expired — `VEIL_UNSTRUCK`'s sentinel and its reason: tick 0 is a real tick,
  * so 0 would armour every body on the first frame of a wave.
@@ -48,7 +61,7 @@ export const COLOUR_UNSTRUCK = -1_000_000;
 
 /** Whether this body is refusing shots. Call it rather than comparing ticks. */
 export function colourIsArmoured(world: World, c: Creature): boolean {
-  return world.tick - (c.colourStruckTick ?? COLOUR_UNSTRUCK) < colourArmourTicks(world.cfg);
+  return world.tick - (c.colourStruckTick ?? COLOUR_UNSTRUCK) < colourArmourTicksOf(world.cfg, c);
 }
 
 /**
@@ -57,7 +70,7 @@ export function colourIsArmoured(world: World, c: Creature): boolean {
  * the rule or stop before it.
  */
 export function colourArmourPhase(world: World, c: Creature): number {
-  const ticks = colourArmourTicks(world.cfg);
+  const ticks = colourArmourTicksOf(world.cfg, c);
   if (ticks <= 0) return 1;
   const since = world.tick - (c.colourStruckTick ?? COLOUR_UNSTRUCK);
   return Math.max(0, Math.min(1, since / ticks));
@@ -65,7 +78,7 @@ export function colourArmourPhase(world: World, c: Creature): number {
 
 /** Seconds of the window this body has left, or 0 — what render draws by. */
 export function colourArmourLeft(world: World, c: Creature): number {
-  const ticks = colourArmourTicks(world.cfg);
+  const ticks = colourArmourTicksOf(world.cfg, c);
   const since = world.tick - (c.colourStruckTick ?? COLOUR_UNSTRUCK);
   return Math.max(0, (ticks - since) / world.cfg.tickHz);
 }

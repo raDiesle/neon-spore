@@ -515,39 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## A shot into a shut COUNT loses the wave where it should armour the body
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-the-throb-wears-the-ammunition-colours-where-the (claim: claude/queue-a-shot-into-a-shut-count-loses-the-wave-where-it)
-- **Files:** `packages/sim/src/countdown.ts`, `packages/sim/src/colour-armour.ts`, `packages/sim/src/config.ts`, `packages/render/src/countdown-look.ts`
-
-The owner, 20 September 2026: *"Count" enemy hit with the wrong colour or at
-the wrong time should not lose the wave, but have some armoured state of it,
-e.g. 3 beats.*
-
-`countdownStruck` answers a shot off zero with `breachHull(..., "heavy")`,
-which is the hull and therefore the wave (`wave-fail.ts`). That was written as
-the lure's price for the lure's reason, and the owner has now said the price is
-too high: a reflex shot ends the run rather than costing the pair the beats it
-should.
-
-The machinery is already next door and is to be called rather than re-derived.
-`colour-armour.ts` is the window a wrong colour opens on an ordinary body —
-`colourStruckTick` on the creature, `colourIsArmoured` to ask, and
-`colourArmourPhase` for the grey body render/ draws — and its own comments say
-the window exists precisely so a mistake costs the *next* shot as well as the
-one that was fired. A shot off zero stamps that window instead of breaching,
-with its own length in `SimConfig` because three beats is longer than
-`colourArmourMs` and the two must not share a number.
-
-The wrong *colour* on zero already falls through to the generic tail and is
-already armoured, so it needs nothing — read it before changing it.
-
-**The random start is already built and is not part of this.** `countdownOnSpawn`
-rolls `countPhase` off the world's stream on the beat the body enters, so no
-two bodies share a phase and none starts at the top of its count; the owner's
-second sentence describes what the file already does.
-
 ## A shell's plates are two colours where the owner wants one
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

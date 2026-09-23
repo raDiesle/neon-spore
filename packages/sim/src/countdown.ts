@@ -1,8 +1,7 @@
-import { metColor } from "./balance.js";
+import { metColor, missedColor } from "./balance.js";
 import { colourIsArmoured } from "./colour-armour.js";
 import type { SimConfig } from "./config.js";
 import { removeCreature } from "./field.js";
-import { breachHull } from "./hull.js";
 import { nextInt } from "./rng.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -26,13 +25,16 @@ import type { World } from "./world.js";
  * both devices and a different one on every body, and nothing on player 2's
  * screen says where in the period this one is.
  *
- * **A shot off zero is a hit on the hull** — the wave is lost (`wave-fail.ts`)
- * — the lure's price and for the lure's reason: the mistake this creature
- * exists to punish is firing on sight. The count is not reset by
- * it — a reset was the owner's "punish that can strand a wave" — so the body
- * goes on falling and counting, and the next zero is still coming. A wrong
- * *colour* on zero is a colour miss like any other body's, in `bullet-hit.ts`'
- * generic tail; this file only decides whether the moment was right.
+ * **A shot off zero shuts the body**, for `countdownShutBeats`, and so does a
+ * wrong colour on zero — the owner, 20 September 2026: it *should not lose the
+ * wave, but have some armoured state*. It was a hit on the hull, the lure's
+ * price, and a reflex shot ended the run. Now the price is the beats: the
+ * window is `colourIsArmoured`'s (`colour-armour.ts`), grey on both screens,
+ * and three of them from the beat before zero is the zero gone. The count is
+ * not reset by it — a reset was the owner's "punish that can strand a wave" —
+ * so the body goes on falling and counting, and the next zero is still coming.
+ * Only the wrong colour is booked as a colour miss: off zero the ammunition
+ * may have been right and the moment was not.
  */
 
 /** How many marks a count is made of — the slots every dial draws. Never below one. */
@@ -71,32 +73,29 @@ export function countdownIsOpen(cfg: SimConfig, beat: number, c: Creature): bool
 }
 
 /**
- * A shot met the body. `"shut"` — off zero: a hit on the hull, and the body
- * stays. `"killed"` — on zero in its colour: gone.
- * `"open"` — on zero and not killed, for the caller's generic tail to book as
- * the colour miss (or the armoured refusal) it is.
+ * A shot met the body. `true` — on zero, in its colour, not shut: gone.
+ * Anything else is refused and the body stays; off zero or in the wrong
+ * colour it is shut for `countdownShutBeats` as well, and a shot into the
+ * shut body opens nothing more.
  */
-export function countdownStruck(
-  world: World,
-  b: Bullet,
-  hit: Creature,
-): "shut" | "killed" | "open" {
-  if (!countdownIsOpen(world.cfg, world.beat, hit)) {
-    // The body's own refusal first, then the price: the same two pictures a
-    // lure makes, minus the body going up — it is still there, still counting.
-    world.events.push({ type: "reject", col: hit.col, row: hit.row });
-    breachHull(world, hit.col, hit.kind, hit.row, "heavy", hit.color);
-    return "shut";
+export function countdownStruck(world: World, b: Bullet, hit: Creature): boolean {
+  const onZero = countdownIsOpen(world.cfg, world.beat, hit);
+  const shut = colourIsArmoured(world, hit);
+  if (onZero && !shut && hit.color === b.color) {
+    metColor(world);
+    world.events.push({
+      type: "destroy",
+      col: hit.col,
+      row: hit.row,
+      color: hit.color,
+      kind: hit.kind,
+    });
+    removeCreature(world, hit.id);
+    return true;
   }
-  if (colourIsArmoured(world, hit) || hit.color !== b.color) return "open";
-  metColor(world);
-  world.events.push({
-    type: "destroy",
-    col: hit.col,
-    row: hit.row,
-    color: hit.color,
-    kind: hit.kind,
-  });
-  removeCreature(world, hit.id);
-  return "killed";
+  world.events.push({ type: "reject", col: hit.col, row: hit.row });
+  if (shut) return false;
+  if (onZero) missedColor(world);
+  hit.colourStruckTick = world.tick;
+  return false;
 }

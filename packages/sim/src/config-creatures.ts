@@ -58,6 +58,11 @@ export interface CreatureConfig {
    * zero" true everywhere on it, which is the sentence the wave teaches.
    */
   countdownOpenBeats: number;
+  /** Beats THE COUNT refuses every shot after one off zero or in the wrong
+   * colour — the owner, 20 September 2026: *should not lose the wave, but
+   * have some armoured state, e.g. 3 beats* (`colourArmourTicksOf`). Its own
+   * number beside `colourArmourMs`: the two are argued about separately. */
+  countdownShutBeats: number;
   /**
    * Beats the broken shield goes on flying apart for. Render-only — the sim
    * opens a clasp on the instant of the trigger — but a `SimConfig` field
@@ -228,6 +233,7 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   throbFaceMilli: 500,
   countdownBeats: 4,
   countdownOpenBeats: 2,
+  countdownShutBeats: 3,
   claspBreakBeats: 2,
   veilMorphBeats: 5,
   veilArmourMs: 2000,

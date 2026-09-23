@@ -22,6 +22,7 @@ export {
   colourArmourLeft,
   colourArmourPhase,
   colourArmourTicks,
+  colourArmourTicksOf,
   colourIsArmoured,
 } from "./colour-armour.js";
 // THE CRAWLER, narrowed to what is asked from outside the sim.

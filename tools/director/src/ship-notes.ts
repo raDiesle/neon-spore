@@ -155,9 +155,10 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "cannon, and books the other one as a colour miss.",
   "THE COUNT — open on zero, and only the pilot can count":
     "Marks cut into the rim, one fewer each beat, and only player 1 is drawn them. " +
-    "It can be shot on the beat none are left; a shot on any other beat costs the hull " +
-    "damageCountdown and the body stays. countdownBeats is how many marks it starts with, " +
-    "and countdownOpenBeats how many beats it stays open before the count starts again.",
+    "It can be shot on the beat none are left; a shot on any other beat, or in the wrong " +
+    "colour, shuts it grey for countdownShutBeats and the body stays. countdownBeats is how " +
+    "many marks it starts with, and countdownOpenBeats how many beats it stays open before " +
+    "the count starts again.",
   "THE LURE — a body only one of you can see through":
     "Player 1 sees a slick or a bulb; player 2 sees the same body inside a " +
     "white ring. A shot that lands costs the hull. Left alone it goes on its " +
