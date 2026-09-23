@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE SPOOL's brake answers no thumb
 
 - **Found:** 2026-09-23, claude/queue-the-spools-picture-has-never-been-drawn
+- **Taken:** 2026-09-23, claude/queue-task-work-bf5a80 (claim: claude/queue-the-spools-brake-answers-no-thumb)
 - **Files:** `packages/render/src/spool-shape.ts`, `packages/render/src/spool-brake.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
 - **Where:** local
 
