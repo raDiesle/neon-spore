@@ -551,6 +551,7 @@ second sentence describes what the file already does.
 ## A shell's plates are two colours where the owner wants one
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-the-throb-wears-the-ammunition-colours-where-the (claim: claude/queue-a-shells-plates-are-two-colours-where-the-owner)
 - **Files:** `packages/render/src/shell-plate.ts`, `packages/render/src/shell-draw.ts`, `packages/render/src/shell-cut.ts`
 - **Where:** local
 
