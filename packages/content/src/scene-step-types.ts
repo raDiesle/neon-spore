@@ -149,4 +149,18 @@ export interface SceneStep {
   /** As few words as will do. It is read at a glance, beside its subject. */
   text: string;
   anchor: SceneAnchor;
+  /**
+   * The numbers the words name, and the world's field each one is read off.
+   * A page that says `FIVE SCARS` in front of four was up for three seconds of
+   * THE HIVE's film before anything noticed; `test/scene-pages.test.ts` reads
+   * each of these back at both ends of the page.
+   */
+  counts?: readonly SceneCount[];
+}
+
+/** A number a page names, and which world field holds it (`scene-pages.test.ts`). */
+export interface SceneCount {
+  /** THE HIVE's sealed sites (`hiveSealedCount`), or those not yet sealed (`hiveLeft`). */
+  of: "hiveScars" | "hiveLeft";
+  is: number;
 }

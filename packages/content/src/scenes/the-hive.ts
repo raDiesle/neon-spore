@@ -146,7 +146,19 @@ export const THE_HIVE: GuideScene = {
       text: "IT SPILLS A BEAT SOONER",
       anchor: { at: "boss", part: "breach" },
     },
-    { tick: 1980, seat: 1, text: "FIVE SCARS · FOUR TO GO", anchor: { at: "boss" } },
+    // Opens on the tick the fifth seal lands (beat 36), not three seconds
+    // before it: the page is read against the mass behind it, and
+    // `test/scene-pages.test.ts` reads both counts back.
+    {
+      tick: 2166,
+      seat: 1,
+      text: "FIVE SCARS · FOUR TO GO",
+      anchor: { at: "boss" },
+      counts: [
+        { of: "hiveScars", is: 5 },
+        { of: "hiveLeft", is: 4 },
+      ],
+    },
     {
       tick: 2400,
       seat: 2,

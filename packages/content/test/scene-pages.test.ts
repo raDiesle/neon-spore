@@ -1,7 +1,15 @@
 import { describe, expect, it } from "bun:test";
-import { DEFAULT_CONFIG, SceneRun } from "@neon-spore/sim";
+import {
+  DEFAULT_CONFIG,
+  hiveBoss,
+  hiveLeft,
+  hiveSealedCount,
+  SceneRun,
+  type World,
+} from "@neon-spore/sim";
 import { controlSetForWave, setHas } from "../src/index.js";
 import { sceneScript } from "../src/scene-script.js";
+import type { SceneCount } from "../src/scene-step-types.js";
 import { SCENES, type SceneId, stepSpan } from "../src/scenes.js";
 import { WAVES } from "../src/waves.js";
 
@@ -25,6 +33,19 @@ const SCENE_IDS = Object.keys(SCENES) as SceneId[];
 const USED = WAVES.map((w, i) => ({ wave: i, id: w.guide?.scene })).filter(
   (u): u is { wave: number; id: SceneId } => u.id !== undefined,
 );
+
+/** Where each number a page can name is read off the world; `null` when the
+ * thing it counts is not on the field. */
+const COUNT: Record<SceneCount["of"], (w: World) => number | null> = {
+  hiveScars: (w) => {
+    const s = hiveBoss(w);
+    return s ? hiveSealedCount(s) : null;
+  },
+  hiveLeft: (w) => {
+    const s = hiveBoss(w);
+    return s ? hiveLeft(s) : null;
+  },
+};
 
 describe("the pages a rehearsal is read off", () => {
   it("gives every page long enough on the screen to be read", () => {
@@ -136,6 +157,30 @@ describe("the pages a rehearsal is read off", () => {
           `${WAVES[wave]?.name}'s scene points at ${step.anchor.control}`,
         ).toBe(true);
       }
+    }
+  });
+
+  it("names a number only while the world behind the page holds it", () => {
+    // THE HIVE's `FIVE SCARS · FOUR TO GO` opened on beat 33 and the fifth
+    // seal landed on beat 36: for three seconds the page stood in front of
+    // four (`docs/queue.md`, 21 September 2026). A page that names a count
+    // says which field it is naming, and this reads it at the page's first
+    // tick and at the one it stands on.
+    for (const { wave, id } of USED) {
+      const scene = SCENES[id];
+      const run = new SceneRun(sceneScript(id, wave, DEFAULT_CONFIG));
+      scene.steps.forEach((step, i) => {
+        const span = stepSpan(scene, i);
+        for (const count of step.counts ?? []) {
+          for (const tick of [span.from, span.to]) {
+            run.restart(tick);
+            expect(
+              COUNT[count.of](run.world),
+              `${id}: "${step.text}" names ${count.is} ${count.of} at tick ${tick}`,
+            ).toBe(count.is);
+          }
+        }
+      });
     }
   });
 });

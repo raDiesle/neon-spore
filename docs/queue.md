@@ -569,28 +569,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## THE HIVE's rehearsal says FIVE SCARS with four on the mass
-
-- **Found:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-hives-rehearsal-says-five-scars-with-four-on)
-- **Files:** `packages/content/src/scenes/the-hive.ts`, `packages/content/test/scene-pages.test.ts`
-- **Where:** local
-
-The page at tick 1980 reads `FIVE SCARS · FOUR TO GO`. Tick 1980 is beat 33,
-and the fifth seal is `seal 2 left 4 @36` — beat 36, tick 2159
-(`test/scene-hive.test.ts` holds the whole sequence). So for the first 179
-ticks the page is up it is standing in front of **four** scars, and the number
-it names arrives a second and a half later. It is true for the rest of its run
-and nothing catches it: a page is checked for spacing and for the seat that
-reads it, never against the world the frame behind it is in.
-
-Two things to do, and the second is the one worth the lane. Move the page to
-2160 or later, or write the count it is actually in front of. Then give
-`scene-pages.test.ts` the check that would have caught it: a page that names a
-number can be made to say which field of the world it is naming, and the run
-the test already does can read that field at the page's own tick. The other
-films name counts too, and nothing has ever read one back.
-
 ## No film holds THE HIVE's lobe from the navigator's seat
 
 - **Found:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac
@@ -1257,3 +1235,25 @@ switcher already shows and fits a mark a quarter of the width. The chooser is
 the one place the job name could stand as a name, as `THE WARD` does. Once
 answered, change the literals, strike the lines, and send one frame of THE
 FLEET's grip marks.
+
+## The films' pages name counts that no test reads back
+
+- **Found:** 2026-09-23, claude/queue-the-hives-rehearsal-says-five-scars-with-four-on
+- **Files:** `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/`, `packages/content/test/scene-pages.test.ts`
+- **Where:** local
+
+`SceneStep.counts` lets a page say which world field each of its numbers is,
+and `scene-pages.test.ts` reads each one back at both ends of the page. Only
+THE HIVE's `FIVE SCARS · FOUR TO GO` uses it so far. Some sixty other captions
+name a number (`grep -rhoE 'text: "[^"]*(ONE|TWO|THREE|FOUR|FIVE|[0-9])' packages/content/src/scenes/`),
+and most of them are rules, like `A TORCH EVERY EIGHT BEATS`, not counts of
+the field. Go through them and give each one that counts something on the
+field a `counts` entry:
+- `FIVE HITS PUT IT OUT`
+- `OUT · NONE LEFT TO COUNT`
+- `TWO OPEN · TWO COLOURS`
+- `ONE SEALED · ONE SPILLING`
+- `THREE ON THE RAIL · WHICH`
+
+Add a reader to `COUNT` in the test for each new field. A page that fails is
+moved or reworded, the same way THE HIVE's was.
