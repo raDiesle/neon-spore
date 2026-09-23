@@ -518,6 +518,7 @@ question that prompted this one.
 ## `FRAMES_CHROME` is read once, when the module is first imported
 
 - **Found:** 2026-09-21, claude/queue-chromium-launch-crashes-here-the-pipe-transport
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-frames-chrome-is-read-once-when-the-module-is-fi)
 - **Files:** `tools/frames/chrome.ts`, `tools/frames/test/chrome.test.ts`
 - **Where:** local
 
