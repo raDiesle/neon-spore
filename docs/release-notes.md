@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 3ded7caf — A ring, flash or streak on its way out fades its line, not only its glow
+
+`strokeGlow`'s `intensity` scaled the glow passes and then laid the core down at full strength whatever it was told, so every effect that faded by it — a burst ring over the plating, THE PINBALL's blast rings, THE ORRERY's broken orbit, THE VANE's throw streak, a struck ring, THE TASTER's blades arriving, a pulse wash on the skin — kept a bright line to its last frame and vanished at once. It now takes an `alpha` for the whole stroke, and those fifteen calls pass their clock there, with their glow exactly as it was; the lost screen's focus ring, which had worked around it by putting the alpha on the colour, is spelled the same way and draws the same pixels.
+
 ## 2026-09-23 · 15b7a92c — A finger on a landing body finds it where the lobes raised it, not on a flat hull
 
 The field pass rests a body's landing beat in the ship's plating, lobes and all, but the touch layer rested it on a flat membrane at `l.hullY`, because a `Field` could not see the hull — so under a raised lobe the thumb laid on the body as drawn answered empty sky. The renderer now keeps the skin its last frame stood on (`Canvas2DRenderer.skinY`), the game and the director's stage hand it to the touch layer as `Field.skinY`, and `creatureAt` rests the body by it; before the first frame it is the flat membrane, as before.
