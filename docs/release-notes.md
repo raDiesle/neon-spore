@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · e5e603fd — THE CANDLE's flame is a candle's flame, not a disc of light
+
+The flame was a cream disc inside its halo, and it read as a lamp or a star. Now it is a candle's drop standing on its round end, with its tip wandering. The amber reddens to ember at the tip and edge, and the hot white sits low over a charred stub of wick. It shrinks with the glow, as the halo does. The halos are unchanged and are still the health bar; so are the cone and the pilot's ring on the wick.
+
 ## 2026-09-23 · 1d57c2d1 — THE ORRERY's organs are wet beads, and its core membrane with the colour through it
 
 Every organ was a grey fill with a glowing ring drawn round it, and so was the core. Now an organ on a ring this seat can count is a bead of violet flesh, and one on a ring it cannot is a dimmer bead of rock. Far organs are the same bead shaded deeper. The core is membrane with the loaded colour pooled inside it and lit on the inside of its lower wall, and the naked core's beat is still its rim. The orbits, the wreck of a broken ring and the pilot's knurl are unchanged.

@@ -17818,3 +17818,5 @@ count legible.
 The bottleneck was **a flame in its own light has to be drawn out from the
 inside**: its colour is the halo's colour, so only an ember edge and a
 reddened tip, both inside the shape, separated it from the glow.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
