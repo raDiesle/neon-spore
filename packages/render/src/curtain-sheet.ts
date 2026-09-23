@@ -1,5 +1,6 @@
 import { blobPoints } from "@neon-spore/content";
 import { type Color, CURTAIN_COLS } from "@neon-spore/sim";
+import { paintBead, paintCoreBody, paintSheet } from "./curtain-flesh.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -30,8 +31,6 @@ export const CURTAIN_RAIL_RISE = RAIL_RISE;
 /** A lobe's radius, in tiles, and how far the hem lifts where one is gone. */
 const LOBE_R = 0.15;
 const HEM_LIFT = 0.16;
-/** The fabric's alpha: through it, a colour is a shadow. */
-const SHEET_ALPHA = 0.3;
 
 export function drawCurtainSheet(
   ctx: CanvasRenderingContext2D,
@@ -75,26 +74,19 @@ export function drawCurtainSheet(
     path.quadraticCurveTo((xl + xr) / 2, y + t * 0.12, xl, y);
   }
   path.closePath();
-  ctx.save();
-  ctx.globalAlpha = SHEET_ALPHA;
-  ctx.fillStyle = PALETTE.hull;
-  ctx.fill(path);
-  ctx.restore();
-  strokeGlow(ctx, path, PALETTE.hull, STROKE.inner, 0.5);
-  // Folds: one a column, swaying, from the rail to the hem's trail.
+  // Folds: one a column, swaying, from the rail to the hem's trail — each a
+  // lit line and, just to its right, the side of it turned from the light.
   const folds = new Path2D();
+  const shadows = new Path2D();
   for (let i = 1; i < CURTAIN_COLS; i++) {
     const x = x0 + i * t;
     const sway = Math.sin(time * 2.1 + i * 1.3) * t * 0.04;
     folds.moveTo(x, railY);
     folds.quadraticCurveTo(x + sway, (railY + hemY) / 2, x + lag, hemY - t * 0.05);
+    shadows.moveTo(x + t * 0.07, railY);
+    shadows.quadraticCurveTo(x + t * 0.08 + sway, (railY + hemY) / 2, x + t * 0.07 + lag, hemY);
   }
-  ctx.save();
-  ctx.globalAlpha = 0.35;
-  ctx.strokeStyle = PALETTE.hullRim;
-  ctx.lineWidth = STROKE.inner;
-  ctx.stroke(folds);
-  ctx.restore();
+  paintSheet(ctx, path, folds, shadows, { x0, x1, railY, hemY, tile: t });
   // The lobes along the hem: the boss's health, and the pilot's soft ones lit.
   for (let i = 0; i < CURTAIN_COLS; i++) {
     if (!(lobes[i] ?? false)) continue;
@@ -102,13 +94,7 @@ export function drawCurtainSheet(
     const y = hemY + t * LOBE_R * 0.6;
     const lit = soft.includes(i);
     if (lit) halo(ctx, x, y, t * 0.5, PALETTE.hull, 0.55 + 0.25 * Math.sin(time * 5 + i));
-    ctx.fillStyle = lit ? PALETTE.hullRim : PALETTE.dim;
-    ctx.beginPath();
-    ctx.arc(x, y, t * LOBE_R, 0, Math.PI * 2);
-    ctx.fill();
-    const rim = new Path2D();
-    rim.arc(x, y, t * LOBE_R, 0, Math.PI * 2);
-    strokeGlow(ctx, rim, lit ? PALETTE.hullRim : PALETTE.hull, STROKE.inner, lit ? 1 : 0.4);
+    paintBead(ctx, x, y, t * LOBE_R, lit);
   }
 }
 
@@ -149,9 +135,9 @@ export function drawCurtainJam(
 
 /**
  * The core: a blob in its colour. Covered, it is a shadow — a halo and a
- * dimmed disc for the fabric to be drawn over; bare, a body with a rim;
- * naked (torn), the same body pulsing, because it is firing faster and has
- * nothing left to hide behind. `out` runs 0 → 1 over `curtainOutBeats` as
+ * dimmed disc for the fabric to be drawn over; bare, a body of flesh
+ * (`curtain-flesh.ts`); naked (torn), the same body throbbing, because it is
+ * firing faster and has nothing left to hide behind. `out` runs 0 → 1 over `curtainOutBeats` as
  * it goes.
  */
 export function drawCurtainCore(
@@ -186,14 +172,7 @@ export function drawCurtainCore(
   }
   halo(ctx, x, y, t * (naked ? 1.3 : 1), hex, (naked ? 0.8 : 0.6) * fade);
   const path = splinePath(blobPoints(x, y, r, r, 5, 0.14, 0.05, time * 0.9, 47, 32), true);
-  ctx.save();
-  ctx.globalAlpha = fade;
-  ctx.fillStyle = color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
-  ctx.fill(path);
-  strokeGlow(ctx, path, rimHex, STROKE.outline, 1);
-  ctx.fillStyle = rimHex;
-  ctx.beginPath();
-  ctx.arc(x, y, r * 0.3, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
+  const dark = color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
+  const beat = naked ? 0.5 + 0.5 * Math.sin(time * 9) : 0;
+  paintCoreBody(ctx, path, x, y, r, t, hex, dark, rimHex, beat, fade);
 }

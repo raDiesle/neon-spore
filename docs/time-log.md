@@ -17841,3 +17841,21 @@ mouth lobe stood side by side in one frame, and the whole look was judged
 there instead of across five captures.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE CURTAIN's picture looks like something real
+
+- reading — 0 min. `curtain-sheet.ts`, `curtain-draw.ts` and the frame test,
+  which counts the hull's rim, the core's red, its rim and its dark.
+- writing — 5 min. `curtain-flesh.ts`: the sheet a wet membrane lit under a
+  gathered rail and deep at the hem, each fold a lit line with its shadow, the
+  lobes wet beads, the bare core dark skin with its colour pooled in it.
+- looking — 0 min. Four poses in one sheet — pilot, navigator, the hem held
+  up, torn — before and after, and the bare core at 5×.
+- friction — 0 min. The hem, stroked wide inside the sheet, read as the
+  outline it replaced; and the gloss, placed off the rail, hung outside a
+  gathered sheet until it was clipped to the cloth.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **an edge lit from inside still reads as an outline when
+it runs the whole edge**: only the rail kept its lit band, and the hem was
+left to go to the deep.

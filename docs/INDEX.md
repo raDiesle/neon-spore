@@ -1693,6 +1693,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/cairn.ts` | THE CAIRN, drawn: the field's own two-tile rocks stacked in courses, clipped to one silhouette so the seams between them stay countable |
 | `packages/render/src/curtain-draw.ts` | THE CURTAIN, drawn: a translucent violet-grey membrane hung across seven columns at `curtainRow` |
 | `packages/render/src/curtain-fx.ts` | What THE CURTAIN leaves behind a frame: the sheet falling once it is torn off the rail |
+| `packages/render/src/curtain-flesh.ts` | **What THE CURTAIN is made of**: a wet membrane hung from a gathered top edge |
 | `packages/render/src/curtain-sheet.ts` | THE CURTAIN's two shapes: the membrane with its hem, and the core |
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |

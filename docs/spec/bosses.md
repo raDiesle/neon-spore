@@ -4875,18 +4875,24 @@ rules where one is the mechanic, and the stride is a count of lobes gone.
 `torch` in no colour (`spawnOne`), the fastest thing the field already has,
 because the guard is the answer and the guard already knows it.
 
-**The look** (`render/curtain-draw.ts`, `curtain-sheet.ts`, `curtain-fx.ts`).
-A translucent membrane in the hull's violet at a third of its alpha, hung
-from a straight rail across seven columns at `curtainRow`, a fold swaying in
-every column and a scalloped hem with a grey lobe weighing each scallop; where
+**The look** (`render/curtain-draw.ts`, `curtain-sheet.ts`, `curtain-flesh.ts`,
+`curtain-fx.ts`). A wet translucent membrane in the hull's violet at a third
+of its alpha, hung from a gathered top edge lit from inside across seven
+columns at `curtainRow`, lit under the rail and gone to the deep towards the
+hem, a fold swaying in every column — a lit line with its shadowed side just
+right of it — and a film of gloss high on the left. Nothing is drawn round it:
+since 23 September 2026 the glowing outline round the sheet and round every
+lobe is gone (`new-boss-more` §6.3). A scalloped hem hangs a wet grey bead
+under each scallop, the pilot's soft ones lit through in the hull's rim; where
 a lobe has come off the hem lifts. It is a creature, so a shove carries it
 the way every glide is carried (`drawnCol`), and the hem trails the rail by a
 third of a tile through the beat — a sheet moved by its top edge. The core is
 drawn first and the fabric over it, which is the whole of the occlusion: no
 z-order was added, a covered core is a colour through a grey. Covered, it is
-a halo and a dimmed disc in its colour; bare, a five-lobed blob rimmed in its
-colour with a bright centre; naked (`torn`), the same blob pulsing, because it
-is firing faster; going out (`out`), the blob fading over `curtainOutBeats`.
+a halo and a dimmed disc in its colour; bare, a five-lobed body of dark skin
+with its colour pooled inside, its lower wall lit in the rim from within, a
+nucleus sunk in the pool and a wet point on top; naked (`torn`), the same body throbbing, its whole wall lit
+on the beat, because it is firing faster; going out (`out`), the blob fading over `curtainOutBeats`.
 **The jam and the lifted hem were drawn on 19 September 2026**, the second
 half of this lane and a look with no shipped alternative. The jam is a bar
 laid along the sheet's own rail in the rock's grey with a dark glow under it,
