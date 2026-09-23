@@ -1,7 +1,8 @@
 #!/usr/bin/env bun
 /**
  * `bun run crop <in.png> <out.png> x,y,w,h [zoom]` — a rectangle of a picture
- * already taken, drawn bigger by whole pixels.
+ * already taken, drawn bigger by whole pixels. `--at x,y,w,h` and `--zoom n`
+ * say the same two numbers in `versus:shot`'s words (`parseCropArgs`).
  *
  * For the lane that has a screenshot and cannot get a closer one: `bun run
  * shot --at` paints the frame again at a higher resolution and is the better
@@ -11,18 +12,22 @@
  * a screenshot taken at device scale 2 is twice the size of the page it shows.
  */
 import { readFileSync, writeFileSync } from "node:fs";
-import { parseAt } from "./crop.js";
+import { type CropArgs, parseAt, parseCropArgs } from "./crop.js";
 import { encodePng, magnify } from "./picture.js";
 import { decodePng } from "./pixels.js";
 
-const [input, output, rect, zoomArg] = process.argv.slice(2);
-if (input === undefined || output === undefined || rect === undefined) {
+let args: CropArgs;
+try {
+  args = parseCropArgs(process.argv.slice(2));
+} catch (error) {
+  console.error(error instanceof Error ? error.message : String(error));
   console.error("usage: bun run crop <in.png> <out.png> x,y,w,h [zoom]");
+  console.error("       bun run crop <in.png> <out.png> --at x,y,w,h [--zoom n]");
   console.error("       x,y,w,h in the picture's own pixels; zoom a whole number, default 4");
   process.exit(2);
 }
-const at = parseAt(rect);
-const zoom = zoomArg === undefined ? 4 : Number(zoomArg);
+const { input, output, zoom } = args;
+const at = parseAt(args.rect);
 const pic = decodePng(new Uint8Array(readFileSync(input)));
 const channels = pic.pixels.length / (pic.width * pic.height);
 const out = magnify(pic, channels, at, zoom);

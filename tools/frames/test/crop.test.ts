@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { clipFor, onDocument, parseAt, sameFrames } from "../crop.js";
+import { clipFor, onDocument, parseAt, parseCropArgs, sameFrames } from "../crop.js";
 
 /**
  * The rectangle a capture is cropped to, and the comparison a crop must not be
@@ -69,5 +69,30 @@ describe("onDocument", () => {
   it("puts the scroll back onto a box measured after it", () => {
     expect(onDocument({ x: 12, y: 40 }, { x: 0, y: 80 })).toEqual({ x: 12, y: 120 });
     expect(onDocument({ x: 12, y: 40 }, { x: 0, y: 0 })).toEqual({ x: 12, y: 40 });
+  });
+});
+
+describe("parseCropArgs", () => {
+  const want = { input: "a.png", output: "b.png", rect: "0,700,150,450", zoom: 3 };
+
+  it("reads the positional spelling", () => {
+    expect(parseCropArgs(["a.png", "b.png", "0,700,150,450", "3"])).toEqual(want);
+  });
+
+  it("reads versus:shot's spelling of the same two numbers", () => {
+    expect(parseCropArgs(["a.png", "b.png", "--at", "0,700,150,450", "--zoom", "3"])).toEqual(want);
+    expect(parseCropArgs(["a.png", "b.png", "--at=0,700,150,450", "--scale=3"])).toEqual(want);
+    expect(parseCropArgs(["a.png", "b.png", "--at", "0,700,150,450", "3"])).toEqual(want);
+  });
+
+  it("magnifies four times when nobody says", () => {
+    expect(parseCropArgs(["a.png", "b.png", "--at", "1,1,2,2"]).zoom).toBe(4);
+  });
+
+  it("names the word it did not understand", () => {
+    expect(() => parseCropArgs(["a.png", "b.png", "--rect", "1,1,2,2"])).toThrow(/--rect/);
+    expect(() => parseCropArgs(["a.png", "b.png", "1,1,2,2", "3", "9"])).toThrow(/9 is more/);
+    expect(() => parseCropArgs(["a.png", "b.png", "1,1,2,2", "1.5"])).toThrow(/whole number/);
+    expect(() => parseCropArgs(["a.png", "b.png"])).toThrow(/a rectangle/);
   });
 });

@@ -95,3 +95,57 @@ export function onDocument(
 export function sameFrames(before: readonly string[], after: readonly string[]): boolean {
   return before.length === after.length && before.every((digest, i) => digest === after[i]);
 }
+
+/** What `bun run crop` was asked for, whichever of its two spellings asked. */
+export interface CropArgs {
+  input: string;
+  output: string;
+  rect: string;
+  zoom: number;
+}
+
+/** The flags `crop` takes as well as its positionals, and which positional each one is. */
+const CROP_FLAGS: Record<string, "rect" | "zoom"> = { at: "rect", zoom: "zoom", scale: "zoom" };
+
+/**
+ * `bun run crop`'s arguments, in either spelling: `<in> <out> x,y,w,h [zoom]`,
+ * or the rectangle and the factor as `--at` and `--zoom` — the words
+ * `versus:shot` and `shot` use for the same two numbers, which is the hand a
+ * session reaches for `crop` with when either of them could not help it.
+ * `--scale` is accepted as `--zoom` for the same reason: it is `shot`'s name
+ * for how far a crop is magnified. A word it does not know is named rather
+ * than answered with the usage alone.
+ */
+export function parseCropArgs(argv: readonly string[]): CropArgs {
+  const loose: string[] = [];
+  const flagged: { rect?: string; zoom?: string } = {};
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i] ?? "";
+    if (!arg.startsWith("--")) {
+      loose.push(arg);
+      continue;
+    }
+    const [name = "", inline] = arg.slice(2).split("=", 2);
+    const into = CROP_FLAGS[name];
+    if (into === undefined) {
+      throw new Error(`crop: ${arg} is not a flag it takes — only --at, --zoom and --scale`);
+    }
+    const value = inline ?? argv[++i];
+    if (value === undefined) throw new Error(`crop: --${name} wants a value after it`);
+    flagged[into] = value;
+  }
+  // Whatever the flags did not say is read off the positionals in order, so a
+  // rectangle given as `--at` moves the factor up into the rectangle's place.
+  const [input, output, ...rest] = loose;
+  const rect = flagged.rect ?? rest.shift();
+  const zoomText = flagged.zoom ?? rest.shift();
+  if (rest.length > 0) throw new Error(`crop: ${rest.join(" ")} is more than it takes`);
+  if (input === undefined || output === undefined || rect === undefined) {
+    throw new Error("crop: wants an input picture, an output picture and a rectangle");
+  }
+  const zoom = zoomText === undefined ? 4 : Number(zoomText);
+  if (!Number.isInteger(zoom) || zoom < 1) {
+    throw new Error(`crop: zoom ${JSON.stringify(zoomText)} is not a whole number from 1`);
+  }
+  return { input, output, rect, zoom };
+}
