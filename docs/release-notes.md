@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 3b9b2bad — THE GAUGE stands on the ship's real hull
+
+The round's own painted crest is gone: THE GAUGE draws the ship's `drawHull` at rest under it, as SNAKE does, with the cannon lobe in the middle column carrying the claw instead of a mouth. The dial's pivot is that lobe's crown, measured off the hull at time zero so a finger and a frame agree on it, and the tally moves under the title because the hull now holds the foot of the screen.
+
 ## 2026-09-23 · c02c86d2 — The slab panel form is gone; every control set is a band
 
 THE GAUGE's three were the last slabs and are lobes now, so `slabs.ts`, `PanelForm`/`panelForm`, the `"slab"` control form and the slab branches in the guide's hand and the caption anchor went with nothing using them. The CONTROLS page loses its A SLAB entry and the A BAND line every panel carried — a fix to something wrong rather than unlovely, since the entry named THE GAUGE's and PINBALL's buttons as slabs they no longer are.
