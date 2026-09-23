@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 67828256 — `frames` says when a bare --hold was never in the run
+
+`--hold surgeBulb=0 --hold surgeBulb2=0` was reported as a flag that did nothing. It works: a bare hold goes on after the run, for the picture, so under `--until` it is not in the wait, and after a `--ticks` past the wave's failure it lands on a world that is over. Both now say so — the `--until` miss names the bare holds and the `@<tick>` form, and the unheard-press line says the wave had failed before them. `hold.ts` says the same beside `@`.
+
 ## 2026-09-23 · 00eadaf0 — The words drawn on the field say SHIELD, and a test reads them
 
 The two PRESS marks that said GUARD (BULB QUEEN's torch, THE LEDGER's bead) now say SHIELD, the balance sheet's WARDS column is SHIELD, and the banner that said WARDED says ARMED. A new test, tools/words/test/drawn.test.ts, reads every capitalised string literal in packages/render, apps/game and packages/content against the word vocabulary; what still fails is a STANDING list that may only shrink, and two queue items cover it — the scene captions (answered: shield, column) and the PILOT'S / NAVIGATOR'S / SEAT marks, which ask the owner for the short form.
