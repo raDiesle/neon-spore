@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 11f25490 — Merge branch 'main' into claude/queue-the-ratchets-picture-has-never-been-drawn
+
+# Conflicts: #	docs/time-log.md
+
+## 2026-09-23 · a4007a66 — Draw THE RATCHET: a rack that climbs past a pawl and a lock that gives
+
+THE RATCHET is on the field as a strut down the middle. Seven plates climb it past a pawl, and five pins in the lock at the top count the clean teeth. A clean tooth climbs with a click, a jolt and a shudder through the hull. A burnt tooth climbs in silence. The catch rail and its glowing bar are shown on the navigator's screen alone, and the pawl's pad on the pilot's alone. When the lock gives, the strut folds away toward the ship. A jammed rack is driven into the hull. The loose bolt falls pale down its column. The hands (hit tests and cue words) are the second half, still queued.
+
 ## 2026-09-23 · e23bc850 — Say the second seat's clock on every boss that has one
 
 THE INSTAR's "NAVIGATOR NOW / 2 BEATS LEFT" line now stands on every boss whose rule judges one seat's act against when the other acted: THE TASTER's pry, THE DIASTOLE's clamp, THE BATON's launched bead, THE SURGE's lift and THE BELLOWS' last one. It names the seat still out and counts its beats down, the same sentence and bright on both screens. THE GORGE, CAIRN, ORRERY, HASP, GIMBAL, RATCHET and SPOOL were read and have no such rule, and a test pins them silent.

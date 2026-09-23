@@ -17264,3 +17264,5 @@ The bottleneck was **the split between the seats**: every part had to be
 put on the right screen, and a pad test that compared frames turned out to
 measure the glow of a phase rather than the pad, so it was dropped for the
 catch's, which does.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
