@@ -131,8 +131,7 @@ export class FenceShards {
       // Fading as it cools, and the white core goes first: a piece of wire
       // with the charge running out of it, which is what the pair watched
       // happen to the column it came from.
-      ctx.globalAlpha = left;
-      strokeGlow(ctx, path, PALETTE.arc, Math.max(1.4, l.tile * 0.05), 1.4 * left);
+      strokeGlow(ctx, path, PALETTE.arc, Math.max(1.4, l.tile * 0.05), 1.4, left);
       ctx.globalAlpha = left * left;
       ctx.strokeStyle = PALETTE.arcRim;
       ctx.lineWidth = Math.max(1, l.tile * 0.022);

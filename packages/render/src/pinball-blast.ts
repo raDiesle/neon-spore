@@ -99,7 +99,7 @@ export function drawPinBlast(
   const ring = new Path2D();
   ring.arc(x, y, t.tile * (0.3 + 3.2 * grown), Math.PI, Math.PI * 2);
   ctx.save();
-  strokeGlow(ctx, ring, PALETTE.emberRim, Math.max(1, t.tile * 0.09 * life), life * 0.9);
+  strokeGlow(ctx, ring, PALETTE.emberRim, Math.max(1, t.tile * 0.09 * life), 0.9, life);
   ctx.restore();
 
   // What the impact threw: shards of the ball, in the ball's own steel, out of
@@ -176,7 +176,7 @@ export function drawPinTake(
   ctx.beginPath();
   ctx.rect(t.x, t.y, t.tile * t.cols, t.tile * t.rows);
   ctx.clip();
-  strokeGlow(ctx, ring, PALETTE.podRim, Math.max(1.5, t.tile * 0.11 * life), life * 0.95);
+  strokeGlow(ctx, ring, PALETTE.podRim, Math.max(1.5, t.tile * 0.11 * life), 0.95, life);
   ctx.restore();
 
   // The spikes: short, bright, and thrown from the piece rather than from the

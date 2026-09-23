@@ -226,5 +226,5 @@ function drawStruck(
   if (since < 0 || since >= STRUCK_FADE) return;
   const fade = 1 - since / STRUCK_FADE;
   const ring = new Path2D(circleSubpath(x, y, r * (1 + since * 0.8)));
-  strokeGlow(ctx, ring, rim, STROKE.inner, fade * 0.9);
+  strokeGlow(ctx, ring, rim, STROKE.inner, 0.9, fade);
 }

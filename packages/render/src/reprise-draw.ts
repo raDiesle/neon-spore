@@ -208,6 +208,6 @@ function drawOwed(
     const tooth = new Path2D();
     tooth.moveTo(x, y0 + l.tile * 0.04);
     tooth.lineTo(x, tipY);
-    strokeGlow(ctx, tooth, PALETTE.rock, STROKE.inner, going ? 0.5 * f : 0.5);
+    strokeGlow(ctx, tooth, PALETTE.rock, STROKE.inner, 0.5, going ? f : 1);
   }
 }

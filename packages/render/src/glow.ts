@@ -12,6 +12,16 @@ import { STROKE } from "./palette.js";
  *    for point lights (bullets, impacts, beat pulses).
  *
  * Both stay inside render/. The simulation never knows they exist.
+ *
+ * **`intensity` is how lit the line is, and `alpha` is whether it is there.**
+ * `intensity` scales the glow passes only: the core stroke goes down at full
+ * strength whatever it says, which is right for a thing that is there and dim.
+ * A thing fading in or out — a ring running out, a flash, a streak on its
+ * clock — passes its fade as `alpha`, which scales the core and the glow
+ * together, so at 0 nothing is drawn. The caller's own `ctx.globalAlpha` is
+ * not read, and is 1 when this returns. The lost screen's focus ring was the
+ * case that found it: it came up at full strength over the open field on the
+ * first frame of the arrival it was supposed to be fading through.
  */
 export function strokeGlow(
   ctx: CanvasRenderingContext2D,
@@ -19,19 +29,21 @@ export function strokeGlow(
   color: string,
   width: number = STROKE.outline,
   intensity = 1,
+  alpha = 1,
 ): void {
   const prev = ctx.globalCompositeOperation;
   ctx.globalCompositeOperation = "lighter";
   ctx.strokeStyle = color;
   for (let i = STROKE.glowPasses; i >= 1; i--) {
     ctx.lineWidth = width + (i * STROKE.glowSpread) / STROKE.glowPasses;
-    ctx.globalAlpha = (0.1 * intensity) / i;
+    ctx.globalAlpha = (0.1 * intensity * alpha) / i;
     ctx.stroke(path);
   }
   ctx.globalCompositeOperation = prev;
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = alpha;
   ctx.lineWidth = width;
   ctx.stroke(path);
+  ctx.globalAlpha = 1;
 }
 
 const haloCache = bakedCache<string, HTMLCanvasElement>();

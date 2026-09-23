@@ -113,5 +113,5 @@ function drawThrow(
   const streak = new Path2D(
     `M ${tx.toFixed(2)} ${ty.toFixed(2)} L ${cx.toFixed(2)} ${cy.toFixed(2)}`,
   );
-  strokeGlow(ctx, streak, PALETTE.rock, STROKE.inner, fade * 0.9);
+  strokeGlow(ctx, streak, PALETTE.rock, STROKE.inner, 0.9, fade);
 }

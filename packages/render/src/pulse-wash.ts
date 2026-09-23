@@ -135,5 +135,5 @@ export function drawPulseWash(
   // edge, and without it the wash reads as fog over the ship rather than as
   // the ship being the thing that is lit.
   const edge = splinePath(pts, false);
-  strokeGlow(ctx, edge, pulseLaneRim(wash.lane), Math.max(1.2, l.tile * 0.05), wash.force);
+  strokeGlow(ctx, edge, pulseLaneRim(wash.lane), Math.max(1.2, l.tile * 0.05), 1, wash.force);
 }

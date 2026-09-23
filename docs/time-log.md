@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-stroke-glow
+
+- reading — 5 min. The 244 calls that pass an intensity, narrowed to the
+  clock-driven fades, and the context of each; a render run counting the
+  calls made at an alpha `strokeGlow` throws away.
+- writing — 5 min. `alpha` on `strokeGlow`, fifteen fades moved onto it with
+  their glow unchanged, the lost screen's colour spelling respelled, the test.
+- looking — 5 min. One before/after of a burst ring mid-fade.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the reading: whether a call meant "dim" or "fading" is
+only in the code around it, and there were two hundred and forty-four.
+
 ## 2026-09-23 — queue-touch-hull
 
 - reading — 5 min. `creature-under.ts`, `landing.ts`, the frame's samplers,

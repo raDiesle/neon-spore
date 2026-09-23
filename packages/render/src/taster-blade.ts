@@ -152,8 +152,8 @@ export function drawBlade(
   // is where a whetted edge has one anyway.
   for (let k = 0; k < look.layers; k++) {
     const edge = edgePath(x, y, tile, h, look.lean, k * 0.34);
-    strokeGlow(ctx, edge, hex.lit, STROKE.outline, look.alpha * (0.9 - k * 0.25));
-    strokeGlow(ctx, edge, hex.rim, STROKE.inner, look.alpha * (0.5 - k * 0.2));
+    strokeGlow(ctx, edge, hex.lit, STROKE.outline, 0.9 - k * 0.25, look.alpha);
+    strokeGlow(ctx, edge, hex.rim, STROKE.inner, 0.5 - k * 0.2, look.alpha);
   }
   if (look.both !== undefined) {
     // Interlocked: the trailing side carries the other colour, so no single
@@ -162,7 +162,7 @@ export function drawBlade(
     const back = new Path2D();
     back.moveTo(x + tile * BASE, y);
     back.quadraticCurveTo(x + tile * BASE * 0.5, y - h * 0.4, x + look.lean, y - h);
-    strokeGlow(ctx, back, other.lit, STROKE.outline, look.alpha * 0.85);
-    strokeGlow(ctx, back, other.rim, STROKE.inner, look.alpha * 0.45);
+    strokeGlow(ctx, back, other.lit, STROKE.outline, 0.85, look.alpha);
+    strokeGlow(ctx, back, other.rim, STROKE.inner, 0.45, look.alpha);
   }
 }

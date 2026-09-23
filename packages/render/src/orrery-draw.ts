@@ -204,5 +204,5 @@ function drawBroke(
   const since = beat - b.brokeBeat + beatPhase;
   if (since < 0 || since >= BROKE_FADE) return;
   const path = orreryOrbitPath(l, cfg, b.broken - 1);
-  strokeGlow(ctx, path, PALETTE.wispRim, STROKE.outline, (1 - since / BROKE_FADE) * 0.8);
+  strokeGlow(ctx, path, PALETTE.wispRim, STROKE.outline, 0.8, 1 - since / BROKE_FADE);
 }

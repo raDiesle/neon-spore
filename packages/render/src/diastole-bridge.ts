@@ -84,8 +84,8 @@ export function drawBridge(
   // What comes out of the parting, in both colours at once — the one moment in
   // the fight the two counts are the same count.
   const burst = new Path2D(circleSubpath(mid, y, l.tile * (0.1 + part * 0.9)));
-  strokeGlow(ctx, burst, PALETTE.redRim, STROKE.inner, (1 - part) * 0.8);
-  strokeGlow(ctx, burst, PALETTE.cyanRim, STROKE.inner, (1 - part) * 0.8);
+  strokeGlow(ctx, burst, PALETTE.redRim, STROKE.inner, 0.8, 1 - part);
+  strokeGlow(ctx, burst, PALETTE.cyanRim, STROKE.inner, 0.8, 1 - part);
 }
 
 /**

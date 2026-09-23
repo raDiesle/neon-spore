@@ -181,5 +181,5 @@ function drawFlare(
   if (since < 0 || since >= FLARE_BEATS) return;
   const fade = 1 - since / FLARE_BEATS;
   const ring = new Path2D(circleSubpath(x, y, r * (1 + since * 1.1)));
-  strokeGlow(ctx, ring, color, STROKE.inner, fade * 0.9);
+  strokeGlow(ctx, ring, color, STROKE.inner, 0.9, fade);
 }

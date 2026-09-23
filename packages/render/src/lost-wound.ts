@@ -1,6 +1,5 @@
 import { halo, strokeGlow } from "./glow.js";
 import { signedHash } from "./hash.js";
-import { rgba } from "./hex.js";
 import { collar, tongues } from "./lost-bleed.js";
 import type { LostPaint } from "./lost-look.js";
 import { PALETTE } from "./palette.js";
@@ -159,13 +158,10 @@ export function drawWound(ctx: CanvasRenderingContext2D, w: Wound, age: number):
   collar(ctx, w, age);
 
   // The rim and the reticle, lit in the colour the hit arrived in
-  // (`breach-hue.ts`) — and **the arrival is in the colour, not only in the
-  // intensity.** `strokeGlow`'s last argument fades its glow passes and then
-  // lays the core stroke down at alpha 1 whatever it was told, which is right
-  // for a thing that is there and dim and wrong for a thing that is not there
-  // yet: the ring came up at full strength over the open field on the first
-  // frame of the close. An alpha on the colour fades the line itself.
-  const lit = rgba(w.hex, w.arrive);
+  // (`breach-hue.ts`) — and **the arrival is their alpha, not only their
+  // intensity**: a ring that is not there yet is not drawn at all, which is the
+  // case that gave `strokeGlow` its `alpha`. Arrival is in both, as it was when
+  // it was spelled on the colour, so the glow comes up as its square.
   const bright = Math.max(1, w.r * 0.07);
   const edge = new Path2D();
   for (const [i, q] of w.rim.entries()) {
@@ -173,9 +169,9 @@ export function drawWound(ctx: CanvasRenderingContext2D, w: Wound, age: number):
     else edge.lineTo(q.x, q.y);
   }
   edge.closePath();
-  strokeGlow(ctx, edge, lit, bright, w.arrive);
+  strokeGlow(ctx, edge, w.hex, bright, w.arrive, w.arrive);
 
-  strokeGlow(ctx, reticle(w), lit, Math.max(1, w.r * 0.03), 0.5 * w.arrive);
+  strokeGlow(ctx, reticle(w), w.hex, Math.max(1, w.r * 0.03), 0.5 * w.arrive, w.arrive);
   tongues(ctx, w, age);
 }
 

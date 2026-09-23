@@ -208,5 +208,5 @@ function drawWhip(
   ctx.fillStyle = rgba(PALETTE.hullRim, 0.4 * u);
   ctx.fill(flare);
   ctx.restore();
-  strokeGlow(ctx, flare, PALETTE.hullRim, STROKE.inner, 0.7 * u);
+  strokeGlow(ctx, flare, PALETTE.hullRim, STROKE.inner, 0.7, u);
 }

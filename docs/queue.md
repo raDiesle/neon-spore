@@ -450,29 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## `strokeGlow`'s `intensity` does not fade the line, only the glow around it
-
-- **Found:** 2026-09-22, claude/lost-wound-with-the-plates
-- **Taken:** 2026-09-23, claude/queue-stroke-glow (claim: claude/queue-strokeglow-s-intensity-does-not-fade-the-line-on)
-- **Files:** `packages/render/src/glow.ts`
-
-`strokeGlow(ctx, path, colour, width, intensity)` scales the alpha of its glow
-passes and then lays the core stroke down at `globalAlpha = 1` whatever it was
-told (`glow.ts`, the line after the loop). That is right for a lit thing being
-dimmed and wrong for anything fading *in or out*: at `intensity` 0 the shape is
-still fully drawn. The lost screen's focus ring was found that way — it came up
-at full strength over the open field on the first frame of an arrival it was
-supposed to be fading through — and the fix there was to put the alpha on the
-colour instead (`lost-wound.ts`), which is the working spelling and is spelled
-nowhere in `glow.ts`.
-
-The work is to sweep every `strokeGlow` call that passes an `intensity` off a
-clock — a `t`, an `age`, a `shut`, a `fade` — and decide per call whether it
-meant the glow or the whole stroke; the ones that meant the whole stroke take
-the colour spelling. Then say so in `strokeGlow`'s own doc comment, which
-currently says nothing about the core pass, and prove the distinction with a
-test on a stub canvas that reads the alpha the last `stroke` was made at.
-
 ## `--until` can step back from an event and not forward to a rest after one
 
 - **Found:** 2026-09-22, claude/lost-wound-with-the-plates
@@ -966,3 +943,26 @@ reads cleanly is the `Field` — a `fieldFrom(bindings)` in
 `input-bindings.ts` beside the bindings it reads, called once per press — which
 also drops the thirteen names destructured only to be copied into it.
 `bunx tsc --noEmit` and the existing input tests are the proof.
+
+## About 100 `strokeGlow` calls are made at an alpha the call throws away
+
+- **Found:** 2026-09-23, claude/queue-stroke-glow
+- **Files:** `packages/render/src/glow.ts`, `packages/render/src/ship-hand.ts`, `packages/render/src/ship-marks.ts`, `packages/render/src/hull.ts`, `packages/render/test/`
+
+`strokeGlow` sets `globalAlpha` for every pass and never reads the one it was
+handed, so a caller's `ctx.globalAlpha = …` just before it does nothing. A run
+of `packages/render/test` with `strokeGlow` counting the calls that arrive
+below 1 found 104 call sites in 81 files. Some mean it plainly:
+- `ship-hand.ts` sets the cup's and the chevrons' alpha, then passes it again
+  as the intensity;
+- `ship-marks.ts` does the same for the arrows, the chevrons and the bolt.
+
+Most are an alpha left over from a fill inside the same `save` — a body's
+fade, a haze — so the glow is probably drawn at full presence over a body
+drawn at half. `strokeGlow` now takes an `alpha` for the whole stroke, and the
+clock fades already pass it; these are the steady ones, so each one changes a
+picture that ships. Go through them file by file, say which ones meant the
+fade, and pass it as `alpha`. `hull.ts`'s `rimAlpha` is one of them. Each file
+lands under "a fix to something wrong", with one before/after PNG.
+Reproducing the count: a `globalThis` tally in `strokeGlow` keyed on the
+caller's stack frame, dumped by an `afterAll` preload.

@@ -139,7 +139,7 @@ function pop(
   // inside the ship, where a burst above the skin has nothing to say.
   const ring = new Path2D();
   ring.arc(cx, surfaceY(cx), l.tile * POP_R * b.span * Math.sqrt(t), Math.PI, Math.PI * 2);
-  strokeGlow(ctx, ring, rim, Math.max(1, l.tile * 0.06 * (1 - t)), 1.4 * (1 - t));
+  strokeGlow(ctx, ring, rim, Math.max(1, l.tile * 0.06 * (1 - t)), 1.4, 1 - t);
 }
 
 /**
