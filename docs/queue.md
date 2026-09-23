@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## `bun run index` adds a row for a new file but never refreshes one that changed
 
 - **Found:** 2026-09-22, claude/wave-lost-screen-redesign
+- **Taken:** 2026-09-23, claude/queue-index-refresh (claim: claude/queue-bun-run-index-adds-a-row-for-a-new-file-but-neve)
 - **Files:** `tools/index/`, `docs/INDEX.md`, `tools/index/test/index.test.ts`
 
 The lost screen's redesign rewrote the headers of `lost-shut.ts`,
