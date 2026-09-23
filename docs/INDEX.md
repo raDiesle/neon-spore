@@ -220,6 +220,7 @@ by hand never moves.
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
 | `packages/sim/src/field.ts` | taking a body off the field — the counterpart to `spawn.ts` |
+| `packages/sim/src/field-hands.ts` | **Every hand on the field, read on the tick** |
 | `packages/sim/src/filament-hand.ts` | Two thumbs on THE FILAMENT: the pilot's drawing it, the navigator's following |
 | `packages/sim/src/filament-hash.ts` | What THE FILAMENT puts into `hashWorld`, and nothing else |
 | `packages/sim/src/filament-step.ts` | THE FILAMENT's clock: the arm, the pull, the next filament, the end |

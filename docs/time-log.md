@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-step-lines
+
+- reading — 5 min. `step.ts` whole, and `boss-hands.ts`' header, which named
+  the seam this cut takes.
+- writing — 5 min. The block moved by script so its comments went byte for
+  byte, the imports, and `boss-hands.ts` pointed at its new neighbour.
+- looking — 0 min. Nothing drawn moves; the order of the calls is unchanged.
+- friction — 5 min. The guard refused biome's unsafe import fix; `bun run
+  imports` drops only a specifier, and the fourteen whole statements were
+  taken out by hand.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the friction: a split strands whole import statements, and
+the tool for it only removes names from a list.
+
 ## 2026-09-23 — queue-replay-registry
 
 - reading — 5 min. `replay.ts`'s resolvers, `registry.ts`'s `discover`, and

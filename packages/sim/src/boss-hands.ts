@@ -37,9 +37,9 @@ import type { World } from "./world.js";
  * running: each of these is one boss's thumb, heard off the wire on the
  * tick for a reason of its own that is written beside it, and none of them
  * is the field's. The field's hands — the maze string, the rope, the cord,
- * the grip, the crank, the ring, the arrows, the balloons, the sinew — stay
- * where they were, in the order they run; these run after them and before
- * THE WEIGHT's clock, exactly where the block was.
+ * the grip, the crank, the ring, the arrows, the balloons, the sinew — went
+ * to a page of their own after it (`field-hands.ts`), which calls this one
+ * after THE SINEW and before THE WEIGHT's clock, exactly where the block was.
  *
  * The order between them does not matter — one boss is installed at a time —
  * and it is kept as the bosses were built.

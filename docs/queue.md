@@ -450,25 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## `packages/sim/src/step.ts` is at 234 lines with a boss still to add
-
-- **Found:** 2026-09-22, claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s
-- **Taken:** 2026-09-23, claude/queue-step-lines (claim: claude/queue-packages-sim-src-step-ts-is-at-234-lines-with-a)
-- **Files:** `packages/sim/src/step.ts`, `packages/sim/src/boss-hands.ts`
-
-The 250-line ceiling is sixteen lines away and the file grows by two or three
-every time the field gains a handle. `boss-hands.ts` was already cut off it
-along the seam the file's own comments had drawn seven times — a boss's thumb
-heard on the tick — and what is left is the field's own handles in the order
-they run, plus the tick loop around them.
-
-The next cut is the same seam read once more: the **field's** handles (the
-string, the rope, the cord, the grip, the crank, the ring, the arrows, the
-balloons, the sinew) into a `field-hands.ts` called where the block stands, so
-what remains in `step.ts` is the loop and the order. Do it now rather than
-under a lane that needs the two lines, which is how `boss-others.ts` came to
-be split mid-boss this week.
-
 ## The chain THE INSTAR hangs from is measured in two places
 
 - **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
@@ -1001,3 +982,18 @@ take every row added or removed on either side, refuse when both sides give one
 slot different poses, and register it in `RESOLVERS`. A test in the shape of
 `replay-registry.test.ts`, one side dropping a slot's row and the other adding
 one, is the proof.
+
+## `bun run imports` leaves a split's whole import statements to a hand
+
+- **Found:** 2026-09-23, claude/queue-step-lines
+- **Files:** `tools/imports/classify.ts`, `tools/imports/imports.ts`, `tools/imports/test/`
+
+Cutting the field's hands out of `step.ts` stranded fourteen whole import
+statements and one specifier. `bun run imports` dropped the specifier and
+printed the fourteen "for somebody to read", because a statement's removal can
+take the comment above it with it — but not one of the fourteen had a comment
+above it, and the guard (rightly) refuses biome's unsafe fix, so they came out
+by a script. The work: in `classify.ts`, a whole unused statement with no
+comment line directly above it (the previous line is another import, blank, or
+the file's start) is dropped like a specifier; one with a comment above it is
+still printed. A test with both kinds in one file is the proof.
