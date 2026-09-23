@@ -10,6 +10,7 @@ import { halo, strokeGlow } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
+import { paintLip } from "./throat-flesh-lip.js";
 import { mouthX, mouthY } from "./throat-shape.js";
 
 /**
@@ -74,20 +75,14 @@ export function drawMouth(
 
   drawHaul(ctx, l, cfg, x, y, open, time);
 
-  // The lip: a ring of muscle rather than a blob, so it reads as an opening in
-  // something and not as a body sitting at the end of the tube. Two lobes and
+  // The lip: a ring of wet muscle round a dark hole rather than a blob, so it
+  // reads as an opening in something and not as a body sitting at the end of
+  // the tube (`throat-flesh-lip.ts`). Two lobes and
   // a shallow depth — enough that it purses as it shuts and never enough to
   // become a shape with a front.
   const lip = splinePath(lipPoints(x, y, r, r * (0.42 + 0.34 * open), time), true);
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(lip);
-  ctx.restore();
-  strokeGlow(ctx, lip, PALETTE.venom, STROKE.outline, 0.45 + 0.55 * open);
-  if (open > 0) {
-    strokeGlow(ctx, lip, PALETTE.venomRim, STROKE.inner, open);
-    halo(ctx, x, y, r * 2.4, PALETTE.venom, 0.18 * open);
-  }
+  if (open > 0) halo(ctx, x, y, r * 2.4, PALETTE.venom, 0.18 * open);
+  paintLip(ctx, lip, x, y, r, l.tile, PALETTE.venom, PALETTE.venomRim, 0.6 + 0.4 * open);
 
   drawFlare(ctx, x, y, r, b.chokedBeat, beat, beatPhase, PALETTE.rock);
   drawFlare(ctx, x, y, r, b.fedBeat, beat, beatPhase, PALETTE.venomRim);

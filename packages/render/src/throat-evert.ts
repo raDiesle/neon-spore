@@ -1,9 +1,10 @@
 import type { Point } from "@neon-spore/content";
 import { type SimConfig, type ThroatState, throatEvertBeatsLeft } from "@neon-spore/sim";
-import { halo, strokeGlow } from "./glow.js";
+import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
+import { paintTurned } from "./throat-flesh-lip.js";
 import { mouthX, mouthY } from "./throat-shape.js";
 
 /**
@@ -122,15 +123,10 @@ function drawTurned(
   const ry = rx * 0.5;
   const cy = y + l.tile * DROP * out + l.tile * SPREAD * 0.4 * index * out;
   const hoop = splinePath(insidePoints(x, cy, rx, ry, time, index), true);
-  ctx.save();
   // Filled, and dark enough to hold a silhouette against the background the
-  // way `docs/alive.md` asks — but the *inside's* dark, never the tube's grey.
-  ctx.globalAlpha = 0.55 * out;
-  ctx.fillStyle = PALETTE.venomDeep;
-  ctx.fill(hoop);
-  ctx.restore();
-  strokeGlow(ctx, hoop, PALETTE.venom, STROKE.outline, 0.5 + 0.4 * out);
-  strokeGlow(ctx, hoop, PALETTE.venomRim, STROKE.inner, 0.35 * out);
+  // way `docs/alive.md` asks — but the *inside's* dark, never the tube's grey,
+  // and wet (`throat-flesh-lip.ts`).
+  paintTurned(ctx, hoop, x, cy, rx, l.tile, out);
 }
 
 /** A turned ring's outline: wetter and less regular than the hoops it used to be. */

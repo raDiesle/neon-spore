@@ -17760,3 +17760,21 @@ until a plate parts, so the standing lobes were found by probing a run, and a
 tall one and the body were never seen by an eye at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE THROAT's picture looks like something real
+
+- reading — 0 min. The three draw files and the frame test, which asks only
+  that the venom, its rim, the rock and the inside's dark are on the log.
+- writing — 5 min. `throat-flesh.ts` and `throat-flesh-lip.ts`: the tube a
+  wet grey cylinder, each ring a lit band of muscle, the top one the dark
+  opening, the lip a ring of wet venom round a hole, the everted rings wet
+  inside-flesh with a hole of their own.
+- looking — 5 min. A worn gullet and the eversion, posed with `--boss`,
+  before and after at 2× and 3×.
+- friction — 0 min. Three first tries read wrong at once and were redrawn:
+  the edge dark as a sleeve, the film as a seam, a turned ring as a blob.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **a tube is shaded by degrees**: one wide dark stroke
+inside the edge read as a second layer, and it took three widths stacked to
+turn it into a cylinder.

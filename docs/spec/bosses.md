@@ -3327,10 +3327,10 @@ played and was invisible — which is the second of the three exemptions in
 
 **The silhouette is the health bar, and here it is the whole of it** (§11.0).
 Five ring muscles hang between the top of the frame and the mouth's row, each a
-closed contour with the skin of the tube filled dark behind it. A ring a gum
-choked goes slack for good: it is drawn **limp inside its own station**, a dark
-narrow curve sunk below where the taut hoop was, and the hoop itself is left as
-a dim outline. A slack ring is never simply left out — a gullet with three gone
+lit band standing proud of a wet grey tube, the top one's whole rim the
+gullet's dark opening (`render/throat-flesh.ts`). A ring a gum choked goes
+slack for good: it is drawn **limp inside its own station**, a dark narrow band
+sagging below where the taut one was. A slack ring is never simply left out — a gullet with three gone
 has to read as *weaker* and not as *shorter*, and a tube that got visibly
 smaller as the pair won would be telling them the fight was nearly over at the
 moment it started healing.

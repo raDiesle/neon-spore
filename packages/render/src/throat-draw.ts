@@ -1,10 +1,9 @@
 import type { Point } from "@neon-spore/content";
 import type { SimConfig, ThroatState } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { drawEversion, evertedRings } from "./throat-evert.js";
+import { paintBand, paintLimp, paintTube } from "./throat-flesh.js";
 import { drawThroatGrips } from "./throat-grip.js";
 import { drawThroatLock } from "./throat-lock.js";
 import { drawMouth } from "./throat-mouth.js";
@@ -76,10 +75,10 @@ export function drawThroat(
     // ring left at the end of the eversion drew a flat line across the field,
     // which the last frames of it made plain.
     if (shape.length > 1) drawSkin(ctx, l, shape, time);
-    // Top down, so a ring's own outline sits over the skin above it and the
-    // gullet reads as a stack of muscles seen from outside rather than as a
-    // ladder of hoops.
-    for (const ring of shape) drawRing(ctx, l, ring, time);
+    // Top down, so a ring's band sits over the skin above it and the gullet
+    // reads as a stack of muscles seen from outside rather than as a ladder of
+    // hoops. The top one is the gullet's opening.
+    for (const [i, ring] of shape.entries()) drawRing(ctx, l, ring, time, i === 0);
   }
   drawMouth(ctx, l, cfg, b, beat, beatPhase, time);
   // The two hands the gullet hands out as it loses, over the tube and the
@@ -96,11 +95,12 @@ export function drawThroat(
  * Filled against the background rather than left open, for `docs/alive.md`'s
  * reason — a mechanism the field shows through is a mechanism with a hole in
  * it — and dark, so a taut ring reads as a highlight on a body and not as a
- * wire in space.
+ * wire in space. A wet streak runs down its lit side (`throat-flesh.ts`).
  */
 function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, shape: Ring[], time: number): void {
   const left: Point[] = [];
   const right: Point[] = [];
+  const lit: Point[] = [];
   for (let i = 0; i < shape.length; i++) {
     const ring = shape[i];
     if (ring === undefined) continue;
@@ -111,6 +111,7 @@ function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, shape: Ring[], time:
     const sway = Math.sin(time * 0.7 + i * 0.6) * l.tile * 0.02;
     left.push({ x: ring.x - ring.rx + sway, y: ring.y });
     right.push({ x: ring.x + ring.rx + sway, y: ring.y });
+    lit.push({ x: ring.x - ring.rx * 0.5 + sway, y: ring.y + ring.ry });
     const next = shape[i + 1];
     if (next === undefined) continue;
     const my = (ring.y + next.y) / 2;
@@ -120,60 +121,28 @@ function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, shape: Ring[], time:
     right.push({ x: mx + mr, y: my });
   }
   const skin = splinePath([...left, ...right.reverse()], true);
-  ctx.save();
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(skin);
-  ctx.restore();
-  strokeGlow(ctx, skin, PALETTE.rock, STROKE.inner, 0.3);
+  paintTube(ctx, skin, splinePath(lit, false), l.tile);
 }
 
 /**
  * One ring muscle.
  *
  * Three states, and THE DIASTOLE's chamber is the argument for there being
- * three rather than two: a taut ring is a bright hoop, a taut ring with the
- * gulp in it is brighter and narrower for the beat the contraction is passing
- * through, and a slack one is a dark limp curve **drawn inside its own
- * station** — the design's *hangs limp inside the tube*, which is also the only
- * way a spent muscle can still be seen to be there. A ring simply left out
- * would make a choked gullet look shorter rather than weaker.
+ * three rather than two: a taut ring is a lit band of muscle, a taut ring with
+ * the gulp in it has its crest lit in the hull's rim for the beat the
+ * contraction is passing through, and a slack one is a dark limp band **drawn
+ * inside its own station** — the design's *hangs limp inside the tube*, which
+ * is also the only way a spent muscle can still be seen to be there. A ring
+ * simply left out would make a choked gullet look shorter rather than weaker.
  */
-function drawRing(ctx: CanvasRenderingContext2D, l: Layout, ring: Ring, time: number): void {
-  const hoop = splinePath(ovalPoints(ring.x, ring.y, ring.rx, ring.ry, time, ring.index), true);
-  if (ring.slack > 0) {
-    // Limp: narrower than the tube it hangs in, sunk below its station, and it
-    // does not move again.
-    const limp = splinePath(
-      ovalPoints(ring.x, ring.y + l.tile * 0.07, ring.rx * 0.66, ring.ry * 0.8, 0, ring.index),
-      true,
-    );
-    strokeGlow(ctx, limp, PALETTE.rockDark, STROKE.inner, 0.9);
-    ctx.save();
-    ctx.globalAlpha = 0.5;
-    ctx.strokeStyle = PALETTE.rockDark;
-    ctx.lineWidth = STROKE.inner;
-    ctx.stroke(hoop);
-    ctx.restore();
-    return;
-  }
-  strokeGlow(ctx, hoop, PALETTE.rock, STROKE.outline, 0.4 + 0.5 * ring.squeeze);
-  if (ring.squeeze > 0) strokeGlow(ctx, hoop, PALETTE.hullRim, STROKE.inner, ring.squeeze * 0.7);
-}
-
-/** A ring's outline: an oval with a little life in it, seeded per ring. */
-function ovalPoints(
-  cx: number,
-  cy: number,
-  rx: number,
-  ry: number,
+function drawRing(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  ring: Ring,
   time: number,
-  seed: number,
-): Point[] {
-  const pts: Point[] = [];
-  for (let i = 0; i < 26; i++) {
-    const a = (i / 26) * Math.PI * 2;
-    const m = 1 + 0.05 * Math.sin(a * 3 + seed) + 0.03 * Math.sin(time * 1.1 + a * 2 + seed);
-    pts.push({ x: cx + Math.cos(a) * rx * m, y: cy + Math.sin(a) * ry * m });
-  }
-  return pts;
+  mouth: boolean,
+): void {
+  const band = { ...ring, tile: l.tile, time, mouth };
+  if (ring.slack > 0) paintLimp(ctx, band);
+  else paintBand(ctx, band);
 }
