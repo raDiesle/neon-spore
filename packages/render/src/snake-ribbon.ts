@@ -66,8 +66,26 @@ function drawLength(
   joints: { x: number; y: number }[],
 ): void {
   const half = bodyHalf(arena, joints.length);
-  const path = ribbonPath(joints, ribbonSides(joints, half));
+  const sides = ribbonSides(joints, half);
+  const path = ribbonPath(joints, sides);
+  paintSkin(ctx, arena, joints, half, path, path);
+  drawSpine(ctx, arena, joints, 0, joints.length);
+}
 
+/**
+ * The passes every piece of this body is painted with: a shadow on the floor,
+ * the arena's gradient as the fill, the scales and the lit side of the back
+ * inside a clip of the contour, then the rim — `rim` being the contour itself,
+ * or the same outline left open where the body is cut off.
+ */
+function paintSkin(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  joints: { x: number; y: number }[],
+  half: (i: number) => number,
+  path: Path2D,
+  rim: Path2D,
+): void {
   castShadow(ctx, arena);
   ctx.fillStyle = backGradient(ctx, arena);
   ctx.fill(path);
@@ -79,8 +97,7 @@ function drawLength(
   litRibbon(ctx, joints, half);
   ctx.restore();
 
-  rimStroke(ctx, path);
-  drawSpine(ctx, arena, joints);
+  rimStroke(ctx, rim);
 }
 
 /** Where the neck is narrowest, and how many joints it takes to swell out of
@@ -115,16 +132,21 @@ function bodyHalf(arena: Arena, count: number): (i: number) => number {
  * The cheapest thing that turns a shape into a creature at this size, and the
  * one the reference drawing spends the most ink on. They are drawn from the
  * joints rather than from the tiles, so they slide with everything else.
+ * `from` and `count` place a run of joints on the whole body, so the tail
+ * alone carries the markings the whole length has at that end.
  */
 function drawSpine(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
   joints: { x: number; y: number }[],
+  from: number,
+  count: number,
 ): void {
   ctx.fillStyle = PALETTE.cyanRim;
-  for (const [i, p] of joints.entries()) {
+  for (const [k, p] of joints.entries()) {
+    const i = from + k;
     if (i === 0) continue;
-    const share = 1 - i / Math.max(1, joints.length - 1);
+    const share = 1 - i / Math.max(1, count - 1);
     const r = arena.tile * (0.06 + 0.06 * share);
     ctx.globalAlpha = 0.35 + 0.25 * share;
     ctx.beginPath();
@@ -146,29 +168,24 @@ function drawSpine(
  * looking at rather than a triangle that resembles it; and it stops at two
  * because a third would hand the seat with the trigger a tile of the middle,
  * which is the one thing they are not allowed to know.
+ *
+ * **The whole body's own widths and markings, read at its end.** Until 23
+ * September 2026 this had widths of its own — a quarter-tile flaring to the
+ * tip whatever the length — and no spine, so coming out of the ship it was a
+ * straight-sided tube that did not match the body on the other screen. Now
+ * the joints are placed on the whole length (`bodyHalf`, `drawSpine`) and
+ * only the rim is left open where the cut is (`snake-contour.ts`).
  */
 function drawEnds(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
   joints: { x: number; y: number }[],
 ): void {
-  const tail = joints.slice(-2);
-  if (tail.length < 2) return;
-  const half = (i: number): number => arena.tile * (0.24 + (TAIL_HALF - 0.24) * i);
-  const path = ribbonPath(tail, ribbonSides(tail, half));
-  castShadow(ctx, arena);
-  ctx.fillStyle = backGradient(ctx, arena);
-  ctx.fill(path);
-  clearShadow(ctx);
-  // The same passes as the whole length, and for the reason the whole length
-  // has them: filled and rimmed and nothing else, a stub this narrow read as an
-  // empty cone lying on the grid rather than as the end of an animal the player
-  // cannot see the rest of. Scales and a lit side cost two more passes over a
-  // two-joint contour and make it the same skin.
-  ctx.save();
-  ctx.clip(path);
-  drawScales(ctx, arena, tail, half);
-  litRibbon(ctx, tail, half);
-  ctx.restore();
-  rimStroke(ctx, ribbonCutPath(tail, ribbonSides(tail, half)));
+  const from = joints.length - 2;
+  const tail = joints.slice(from);
+  const whole = bodyHalf(arena, joints.length);
+  const half = (i: number): number => whole(from + i);
+  const sides = ribbonSides(tail, half);
+  paintSkin(ctx, arena, tail, half, ribbonPath(tail, sides), ribbonCutPath(tail, sides));
+  drawSpine(ctx, arena, tail, from, joints.length);
 }

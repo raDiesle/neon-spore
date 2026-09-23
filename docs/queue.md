@@ -515,25 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## SNAKE's tail stub comes out of the ship as a teal tube
-
-- **Found:** 2026-09-20, claude/snake-board-look
-- **Taken:** 2026-09-23, claude/queue-bun-run-frames-still-cannot-turn-snake-only-pose (claim: claude/queue-snakes-tail-stub-comes-out-of-the-ship-as-a-teal)
-- **Files:** `packages/render/src/snake-emerge.ts`, `packages/render/src/snake-ribbon.ts`, `packages/render/src/snake-skin.ts`
-- **Where:** local
-
-On a real frame of the emerging phase (world.tick 402 of SNAKE, seat p1) the
-body coming out of the hull is a flat teal-cyan tube with two straight sides.
-It does not read as the same animal as the head above it, which is violet, and
-it carries none of the scales, none of the lit back and none of the ground
-shadow the landed body does — a stub of pipe rather than the last tiles of a
-snake still inside the ship.
-
-The head and the ribbon themselves are right; this is the *stub*, which is
-drawn while the body has fewer tiles than the ribbon needs. Whatever draws it
-should be the ribbon's own material at a short length, not a second drawing of
-a body.
-
 ## A press the simulation refuses is silent in `bun run frames`
 
 - **Found:** 2026-09-20, claude/snake-board-look

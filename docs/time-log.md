@@ -17616,3 +17616,17 @@ dropped in silence, and the first capture came back identical to one with no
 press at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — SNAKE's tail stub comes out of the ship as a teal tube
+
+- reading — 5 min. `snake-ribbon.ts`, `snake-emerge.ts` and the item's
+  frame, to find which drawing is the stub.
+- writing — 5 min. One `paintSkin` for every piece of the body; the ends read
+  `bodyHalf` and `drawSpine` placed on the whole length.
+- looking — 5 min. The pilot's seat at tick 482, before and after.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the item's own diagnosis**: the teal is the whole body's
+colour on both seats, so the defect was the stub's private widths and missing
+spine, not its colour.
