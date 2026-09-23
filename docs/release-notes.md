@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · f22b00e8 — `docs/style-guide.md` says how an asset gets made once
+
+The section appeared twice, back to back. The first copy is gone and the second, with the tighter step 4, stays.
+
 ## 2026-09-23 · 2aaab596 — The six sentences the game draws outside a wave are in the words check
 
 The three bad-line cards and the three screen cards now live in `packages/content/src/screen-words.ts`, and `hold.ts` and `menu-seats.ts` read them from there. `tools/words` measures them as LINE CARD and SCREEN CARD. One sentence was rewritten, as a fix to something wrong: the reconnect card no longer says "It is being reached for again — the seat is held". `menu-seats.ts` is where the fourth word for the shield lived: it said guard until 322c4eff.
