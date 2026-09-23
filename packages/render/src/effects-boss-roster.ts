@@ -151,6 +151,6 @@ export class BossRoster {
   /** THE HASP's dim, flare, jolt and hull shock, and its receipts' bursts —
    * each thrown only on the screens shown the half it happened to, because
    * this boss's receipts are split between the seats like its picture
-   * (`hasp-fx.ts`, `view-role-clocks-b.ts`). */
+   * (`hasp-fx.ts`, `view-role-clocks-c.ts`). */
   readonly hasp = new HaspFx();
 }

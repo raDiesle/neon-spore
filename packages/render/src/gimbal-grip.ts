@@ -42,7 +42,7 @@ import { bossOf } from "./touch-field.js";
  * **Geometry says which ring is whose, so the seat is checked against the
  * ring rather than carried beside it**: the outer is the pilot's and the inner
  * the navigator's, always, and a seat is only ever shown its own
- * (`view-role-clocks-b.ts`). So a press from the wrong seat has nothing to
+ * (`view-role-clocks-c.ts`). So a press from the wrong seat has nothing to
  * fall through to and simply misses.
  */
 

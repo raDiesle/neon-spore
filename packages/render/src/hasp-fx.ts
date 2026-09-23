@@ -6,7 +6,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import { drawHullShock } from "./hull-shock.js";
 import { type Layout, tileCY, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-b.js";
+import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
 
 /**
  * What THE HASP leaves behind a frame: the **dim** of a wheel seizing under
@@ -25,7 +25,7 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-b.js";
  * cooling happen to the latch and are thrown on the latch's screens alone; a
  * seize and a freeing happen to the wheel and are thrown on the wheel's. A
  * spark over the row on her screen the instant he gripped would be the whole
- * fight said for them (`view-role-clocks-b.ts`). What both seats share — the
+ * fight said for them (`view-role-clocks-c.ts`). What both seats share — the
  * row, the bolt, the hull — bursts on both.
  *
  * Read above the loop like THE BELLOWS's, rather than as rows in a spark table

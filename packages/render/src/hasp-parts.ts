@@ -16,7 +16,7 @@ import { PALETTE, STROKE } from "./palette.js";
 /**
  * THE HASP's two halves, one to a seat: **the wheel** on the navigator's
  * screen and **the latch** on the pilot's, each the other's secret
- * (`view-role-clocks-b.ts`, §20). Off `hasp-draw.ts` because the row is one
+ * (`view-role-clocks-c.ts`, §20). Off `hasp-draw.ts` because the row is one
  * thing both seats share and these are the two things neither does.
  *
  * Each carries the fifth standard — a mark saying which gesture it is for —

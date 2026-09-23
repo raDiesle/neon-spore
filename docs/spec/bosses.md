@@ -7694,7 +7694,7 @@ the inner at its sides. Geometry, not colour.
 bearing becomes a drawn one and both the rim and the mark go through it, so a
 flipped screen still reads true exactly when the simulation says true — and
 neither seat is ever shown the other's ring at all
-(`render/view-role-clocks-b.ts`, proved both ways in
+(`render/view-role-clocks-c.ts`, proved both ways in
 `render/test/gimbal-frame.test.ts`).
 
 *The handle is the rim itself* (`render/gimbal-grip.ts`, reached from
@@ -7861,7 +7861,7 @@ whichever seat acted, in the middle for everything the waist does, which is the
 rule the sounds pan by.
 
 *Each seat is shown its own handle and not the other's*
-(`view-role-clocks-b.ts`, `bellows-handle.ts`). Both are shown the whole lung —
+(`view-role-clocks-c.ts`, `bellows-handle.ts`). Both are shown the whole lung —
 how far each chamber is drawn out is exactly what *now* and *not yet* are said
 about — and what a screen does not carry is the other seat's rail, since a
 handle drawn where no thumb at that desk can reach it is a thing to point at
@@ -8023,7 +8023,7 @@ move the context rather than any path (`spool-fx.ts`). The grip and the let-go
 throw no burst: a burst is on both screens, and the grip is the pilot's alone.
 
 *The pilot is shown his brake and the navigator her gauge*
-(`view-role-clocks-b.ts`). His is a rail outside the brake's flange with a
+(`view-role-clocks-c.ts`). His is a rail outside the brake's flange with a
 knob at the depth his thumb has it and a shoe biting into the rim as far as
 the knob says, and a ring breathing round the knob while nobody holds it —
 the one thing to notice, since a brake let go pays fastest (`spool-brake.ts`).
@@ -8186,7 +8186,7 @@ the second clasp down its own column to the hull, pale, because either colour
 shoots it.
 
 *Each seat is shown its own half and never the other's*
-(`view-role-clocks-b.ts`, `hasp-parts.ts`), and here the split is the fight
+(`view-role-clocks-c.ts`, `hasp-parts.ts`), and here the split is the fight
 itself. The pilot is shown the latch beside the working clasp — a rail, a
 notch at the grip depth, and a bar at the depth his thumb has it — in **the
 heat's own colour**, rock at a fresh grip drifting through amber to ember as

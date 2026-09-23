@@ -24,7 +24,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { showsGimbalInner, showsGimbalOuter } from "./view-role-clocks-b.js";
+import { showsGimbalInner, showsGimbalOuter } from "./view-role-clocks-c.js";
 
 /**
  * **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field

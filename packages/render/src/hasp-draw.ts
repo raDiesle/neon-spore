@@ -8,7 +8,7 @@ import { haspCentre, haspHubRadius, haspShellPath } from "./hasp-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-b.js";
+import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
 
 /**
  * **THE HASP**: three sealed clasps down the middle of the field, each two
@@ -26,7 +26,7 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-b.js";
  * of shut clasps is the count left — nothing prints the number.
  *
  * **Each seat is shown its own half and never the other's**
- * (`view-role-clocks-b.ts`): the latch and its heat on the pilot's screen, the
+ * (`view-role-clocks-c.ts`): the latch and its heat on the pilot's screen, the
  * wheel and whether it is free on the navigator's, the row on both. The two
  * pictures of the same clasp differ exactly where the fight does
  * (`hasp-parts.ts`).

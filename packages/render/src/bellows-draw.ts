@@ -14,7 +14,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { showsBellowsPull, showsBellowsPush } from "./view-role-clocks-b.js";
+import { showsBellowsPull, showsBellowsPush } from "./view-role-clocks-c.js";
 
 /**
  * **THE BELLOWS**: a double-chambered lung slung across the top of the field,
@@ -37,7 +37,7 @@ import { showsBellowsPull, showsBellowsPush } from "./view-role-clocks-b.js";
  * the number (`bellows-waist.ts`).
  *
  * **Each seat is shown its own handle and not the other's**
- * (`view-role-clocks-b.ts`). Both are shown the whole lung — how far each
+ * (`view-role-clocks-c.ts`). Both are shown the whole lung — how far each
  * chamber is drawn out is exactly what *now* and *not yet* are said about,
  * and a seat that could not see the other's chamber could not take its turn.
  * What is kept from a seat is the *handle*: a rail nobody at that desk can

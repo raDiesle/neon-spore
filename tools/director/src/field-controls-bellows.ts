@@ -60,7 +60,7 @@ export const BELLOWS_CONTROLS: readonly FieldControlDef[] = [
       "seats are shown the whole lung and neither is shown the other's " +
       "handle: how far each chamber stands drawn out is what *now* and *not " +
       "yet* are said about, and a seat that could not see the other's chamber " +
-      "could not take its turn (render/view-role-clocks-b.ts).",
+      "could not take its turn (render/view-role-clocks-c.ts).",
     source: "handles.ts — bellowsHandleUnder() under handleUnder(); bellows-grip.ts on the move",
     holdKind: "drag",
     dragTarget: "bellowsPush",

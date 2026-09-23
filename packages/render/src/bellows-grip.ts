@@ -5,7 +5,7 @@ import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
-import { showsBellowsPull, showsBellowsPush } from "./view-role-clocks-b.js";
+import { showsBellowsPull, showsBellowsPush } from "./view-role-clocks-c.js";
 
 /**
  * **The thumb on one of THE BELLOWS's two handles** — half two of the look

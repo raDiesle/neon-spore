@@ -866,6 +866,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-draw.ts` | whichever boss is on the field, drawn among the creatures |
 | `packages/render/src/boss-draw-clocks.ts` | **The clock bosses, drawn** — the ones from `docs/spec/bosses-choreographed.md` whose whole difficulty is a… |
 | `packages/render/src/boss-draw-clocks-b.ts` | **The clock bosses, drawn — page two**: the ones whose picture keeps something that outlives a frame |
+| `packages/render/src/boss-draw-clocks-c.ts` | **The clock bosses, drawn — page three**: the pairs asked for by name |
 | `packages/render/src/boss-cue-draw.ts` | **The cue this screen is owed, drawn**: the frame on the mark, and the two lines beside it |
 | `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER and THE VANE are asking for** — page two of the readings |
 | `packages/render/src/boss-cue-read-c.ts` | **What THE LEAD is asking for** — page three of the readings, its page alone |
@@ -1093,6 +1094,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |
 | `packages/render/src/view-role-clocks.ts` | **The clock bosses' halves** — what each seat is shown of THE DIASTOLE onward |
 | `packages/render/src/view-role-clocks-b.ts` | **The clock bosses' halves, page two** |
+| `packages/render/src/view-role-clocks-c.ts` | **The clock bosses' halves, page three** |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-button.ts` | SNAKE's four presses, as faces on the band's own lobes |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |

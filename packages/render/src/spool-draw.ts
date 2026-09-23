@@ -28,7 +28,7 @@ import {
   spoolSocketPath,
   spoolWindR,
 } from "./spool-shape.js";
-import { showsSpoolBrake, showsSpoolZone } from "./view-role-clocks-b.js";
+import { showsSpoolBrake, showsSpoolZone } from "./view-role-clocks-c.js";
 
 /**
  * **THE SPOOL**: a thread-spool slung sideways across the top of the field, a
@@ -49,7 +49,7 @@ import { showsSpoolBrake, showsSpoolZone } from "./view-role-clocks-b.js";
  * with one rib left is a thinner silhouette with three bare grooves.
  *
  * **The pilot is shown only his grip and the navigator only the gauge**
- * (`view-role-clocks-b.ts`); both see the spool and the line.
+ * (`view-role-clocks-c.ts`); both see the spool and the line.
  */
 export function drawSpool(
   ctx: CanvasRenderingContext2D,
