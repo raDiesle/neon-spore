@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 31d4ee45 — The replay settles a conflict in the VERSUS registry by generating it again
+
+Two lanes opening and closing VERSUS slots in the same hours both rewrite `candidates/registry.ts`'s one array, and git's merge of them imported directories that were gone. The rebase has already put the directories on disk, so the resolver runs `bun run versus index`'s generator over them. `versus-pose.ts` is hand-written rows, not generated; its merge is queued.
+
 ## 2026-09-23 · 0572da18 — `bun run index` refreshes a row whose file's header changed
 
 The generator only ever added rows, so a file whose header was rewritten went on being described by the header it used to have. A row that is exactly the generator's sentence for the file as it stood at the merge base with `main`, or at `HEAD`, now follows the header; a row anyone wrote by hand — 792 of the 2,558 — never moves. `index.ts`'s document-shape half moved to `doc.ts`.
