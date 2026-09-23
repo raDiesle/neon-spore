@@ -17839,3 +17839,5 @@ The bottleneck was **one pose that holds every state**: with `--boss-json`
 writing all seven intakes, a filling, a full, a pierced, an empty and the
 mouth lobe stood side by side in one frame, and the whole look was judged
 there instead of across five captures.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

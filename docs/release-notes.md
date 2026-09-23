@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 5fb5d06b — THE GORGE is a veined sack of wet membrane, its lobes coloured from the floor
+
+The sack and every lobe were fills with a glowing line drawn round them. The sack is now wet violet-grey membrane: veined between the lobes, lit along its top and deep underneath, with a gloss on its shoulder. Each lobe is a sac of the same skin, and the colour it fills with is pooled and lit in its floor. A full lobe loses its wash and has its rim lit up the wall. The beads are THE BATON's wet drops. The intake is a pucker with a lit lower lip, and a pierced lobe hangs two flaps of torn grey skin. The mouth's ring, the navigator's ring and the pilot's tally are unchanged. The spec line THE UNDERTOW left describing an outline is corrected too.
+
 ## 2026-09-23 · e5e603fd — THE CANDLE's flame is a candle's flame, not a disc of light
 
 The flame was a cream disc inside its halo, and it read as a lamp or a star. Now it is a candle's drop standing on its round end, with its tip wandering. The amber reddens to ember at the tip and edge, and the hot white sits low over a charred stub of wick. It shrinks with the glow, as the halo does. The halos are unchanged and are still the health bar; so are the cone and the pilot's ring on the wick.
