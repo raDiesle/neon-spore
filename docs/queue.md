@@ -569,26 +569,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## No film holds THE HIVE's lobe from the navigator's seat
-
-- **Found:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-no-film-holds-the-hives-lobe-from-the-navigators)
-- **Files:** `packages/content/src/scenes/the-hive.ts`, `packages/render/src/guide-hand.ts`, `packages/render/test/hive-frame.test.ts`
-- **Where:** local
-
-The boss has two gestures and the rehearsal now shows one of them. The pilot's
-haul is authored (`{ tick: 2766, drag: "hiveLobe", ... }`) and the ghost thumb
-rides the mass down. The **wring** — the navigator's pinch on a swelling site,
-the same `hiveLobe` target read the other way (`sim/hive-hand.ts`) — is in no
-film at all, so `handleThumb` returns null for seat 2 and there is nothing to
-draw. `render/test/hive-frame.test.ts` already proves the *handle* is drawn on
-her screen and nowhere else; what is missing is a film that puts a hand on it.
-
-There is no room inside THE HIVE's thirteen pages — the twins' two are 180
-ticks apart already — so this is a page cut somewhere earlier in the film, or
-a second short scene. Either way it ends with `handleThumb` answering for seat
-2 and a test beside the haul's that says so.
-
 ## SNAKE's MAW lobe lights as live in the two grips that refuse it
 
 - **Found:** 2026-09-21, claude/queue-the-snakes-two-handles-are-heard-and-drawn-nowhere

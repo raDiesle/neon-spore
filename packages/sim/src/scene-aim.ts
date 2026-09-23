@@ -1,5 +1,6 @@
 import { bossAnswerCol } from "./boss-answer.js";
 import { gripOf, NO_GRIP } from "./grip.js";
+import { hiveBoss, hiveNext } from "./hive.js";
 import { bodyCenterCol, occupiesCol } from "./span.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -115,6 +116,15 @@ export function aimed(world: World, c: SceneCommand): Command {
     // it — the grip's bargain, so a film that mistimed its grab looks mistimed.
     const held = gripOf(world, c.player);
     return held === NO_GRIP ? c.command : { ...c.command, id: held };
+  }
+  if (c.player === 2 && c.command.kind === "drag" && c.command.target === "hiveLobe") {
+    // THE HIVE's lobe in the navigator's hand is a pinch on one site, named by
+    // its index — and the site is the one swelling, which is the next to open.
+    // An author knows which opening the hand is for and not the index; the
+    // world knows both. No mass, or none left to open, leaves it as written.
+    const s = hiveBoss(world);
+    const next = s === null ? -1 : hiveNext(s);
+    return next < 0 ? c.command : { ...c.command, id: next };
   }
   if (c.dragCol !== undefined && c.command.kind === "drag") {
     // The lowest body in the column, as a grip takes: a hand goes on the thing

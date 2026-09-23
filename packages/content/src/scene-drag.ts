@@ -67,10 +67,9 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // THE HIVE's underside is hauled **down**, and the mass relaxes the
   // thousandth it has come far enough (`sim/hive-hand.ts`); the carry is
   // cumulative from the grab and the deepest it reached is what counts, so a
-  // film that does not say means the whole haul. The same handle held by the
-  // navigator is a pinch on one lobe and no distance at all — that one is
-  // authored as a hold and never reaches here, because it is her seat's
-  // (`dragSeat`) and this film is the pilot's.
+  // film that does not say means the whole haul. The same handle in the
+  // navigator's hand (`hand: 2`) is a pinch on one lobe, which reads no
+  // distance at all and is carried this far for nothing.
   if (target === "hiveLobe") return cfg.hiveHaulMilli;
   return cfg.mazeTurnMilli;
 }
@@ -132,7 +131,9 @@ function pullsDown(target: DragTarget): boolean {
 export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   // THE SURGE's bulb is the one handle both seats hold, so the target cannot
   // say and the act does (`SceneAct.hand`); the pilot's when it does not.
-  if (target === "surgeBulb") return hand ?? 1;
+  // THE HIVE's lobe is the other: the pilot's haul on a clenched mass, or the
+  // navigator's pinch on a swelling site (`sim/hive-hand.ts`).
+  if (target === "surgeBulb" || target === "hiveLobe") return hand ?? 1;
   // And THE SINEW's right handle, the second: one handle per seat, each
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
   return target === "balloonRight" || target === "sinewRight" ? 2 : 1;

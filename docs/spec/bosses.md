@@ -2461,22 +2461,28 @@ of shots in it are the fix of 20 September 2026 being used.
 
 **And it shows the haul**, since 21 September 2026. The film was authored the
 day before the two states were, and the mass clenches twice inside it — on the
-third scar at beat 20 and on the sixth at beat 46. The first costs it nothing:
-every site is shut by then, so there is no spill being held back, and the pair
-are shown the state as a thing that can simply be waited out. The second would
-have cost it the sentence it exists to say. Column 8 is open and spilling at
-beat 46, and the two spills it owes at 47 and 50 fall inside a clench that
-outlasts the scene — so the film's last four beats taught *a breach left open
-goes harmless*. **The pilot's palm goes onto the mass the tick after it rises
-and has it down inside the beat**, which is the whole window: the cadence rides
-along while the mass is up, so a haul finished before beat 47's step leaves the
-spill clock where it was and both spills arrive after all. A beat later and the
-first is gone for good. The gesture is **shown rather than captioned** — the
-ghost thumb rides the mass down (`render/guide-hand.ts`, `handle-place.ts`,
-which learned `hiveLobe` for it) — because the twins' last two pages are a page
-apart already and both of them are true. The navigator's wring is in no film
-yet, and her pinch is the one held handle the ghost hand still cannot draw
-(`docs/queue.md`).
+third scar at beat 20 and on the sixth, at beat 47 since the wring below. The
+first costs it nothing: every site is shut by then, so there is no spill being
+held back, and the pair are shown the state as a thing that can simply be
+waited out. The second would have cost it the sentence it exists to say.
+Column 8 is open and spilling, and the spill it owes at 48 falls inside a
+clench that outlasts the scene — so the film's last beats would teach *a breach
+left open goes harmless*. **The pilot's palm goes onto the mass the tick after
+it rises and has it down inside the beat**, which is the whole window: the
+cadence rides along while the mass is up, so a haul finished before beat 48's
+step leaves the spill clock where it was and the spill arrives after all. A
+beat later and it is gone for good. The gesture is **shown rather than
+captioned** — the ghost thumb rides the mass down (`render/guide-hand.ts`,
+`handle-place.ts`, which learned `hiveLobe` for it) — because the twins' last
+two pages are a page apart already and both of them are true.
+
+**And her wring**, since 23 September 2026. The fifth site is held from beat
+33 until it opens at 36, under the navigator's own page, so it opens
+colourless and a cyan bolt seals a red site. The hand provokes the mass the
+way a wrong bolt does: the site spills on the spot, a red shot clears the
+body, and the twins spill at 45 rather than 44, so every act after the wring
+was traced again. Her ghost thumb squeezes the lobe (`render/hive-grip.ts`
+`hivePinchCircle`, `render/test/hive-pinch-thumb.test.ts`).
 
 **It is also the first film authored for the shot grid the game runs on.**
 `apps/game` plays at `shotChargeBeats: 0.5` — a press waits for the next

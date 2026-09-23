@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { handleCircle } from "./handles.js";
+import { hivePinchCircle } from "./hive-grip.js";
 import { fieldX, type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { shipCircle } from "./touch-ship.js";
@@ -192,9 +193,8 @@ export function drawGripThumb(
  * Only the pilot's, because all but one of the handles are — the navigator
  * carries both colours and fires (`render/handles.ts`) — and only while the
  * world says a hand is actually on one. The exception is THE HIVE's lobe read
- * her way, a pinch on a swelling site, and it is drawn by no hand here: no
- * film holds one yet, and the day one does this is where it goes
- * (`docs/queue.md`). That is the whole placement rule: the simulation
+ * her way, a pinch on a swelling site (`hivePinchCircle`). That is the whole
+ * placement rule: the simulation
  * knows which handle is held, and each of the three already has one function
  * saying where its resting circle is, which is the same one a real thumb is
  * hit-tested against. So the ghost hand cannot be drawn on a handle the finger
@@ -213,10 +213,10 @@ export function handleThumb(
   seat: 1 | 2,
   beatPhase: number,
 ): { x: number; y: number; r: number } | null {
-  // The navigator has no handle on the field: their one — a stuck gum — went
-  // with the sticking on 14 September 2026, and a gum is a grip now
-  // (`sim/gum.ts`), which is the hand `gripThumb` draws.
-  if (seat === 2) return null;
+  // The navigator's one handle is THE HIVE's lobe, pinched. Her other — a
+  // stuck gum — went with the sticking on 14 September 2026, and a gum is a
+  // grip now (`sim/gum.ts`), which is the hand `gripThumb` draws.
+  if (seat === 2) return hivePinchCircle(l, world, beatPhase);
   const lid = world.creatures.find((c) => c.kind === "lid" && lidIsHeld(c));
   if (lid) return handleCircle(l, world, "lidString", beatPhase, lid.col);
   if (world.boss?.kind === "maze" && world.boss.dragging) {

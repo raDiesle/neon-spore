@@ -18377,3 +18377,18 @@ The bottleneck was **the seal's tick**: the entry gave it, and it was only a
 probe of the run, tick by tick, that found the real one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — No film holds THE HIVE's lobe from the navigator's seat
+
+- reading: 15 min. `scene-aim.ts`, `scene-drag.ts`, the wring in
+  `hive-step.ts`, `guide-hand.ts` and the HIVE sequence test.
+- writing: 20 min. The seat-2 aim, the pinch thumb, the retraced acts, the
+  thumb test and the spec paragraph.
+- looking: 5 min. One frame of page 8 from `frames --guide-page 8 --ticks 240`.
+- friction: 15 min. The wring moved the twins' spills a beat later, and the
+  haul and the last page fell off their beat until every act after it was
+  traced again.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the retrace**: one hand on beat 33 moved every act after
+it, and only a probe of the run found where each one had to go.

@@ -2,10 +2,13 @@ import {
   type HiveState,
   hiveClenched,
   hiveNext,
+  hivePinched,
   hiveSwellingAt,
   hiveTwins,
   midCol,
+  NO_PINCH,
   type SimConfig,
+  type World,
 } from "@neon-spore/sim";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
@@ -77,6 +80,17 @@ export function hiveLobeCircle(
   const at: Point = hiveSite(l, s, i);
   const rise = hiveClenchRise(s, cfg, beat, beatPhase);
   return { x: at.x, y: at.y - rise * l.tile, r: handleRadius(l, cfg) };
+}
+
+/**
+ * Where the navigator's thumb is standing on a pinched lobe, or null with none
+ * held: the ghost hand a rehearsal draws over her wring (`guide-hand.ts`).
+ * Read off the world, like the haul's, so it lifts with the mass.
+ */
+export function hivePinchCircle(l: Layout, world: World, beatPhase: number): Circle | null {
+  const s = world.boss?.kind === "hive" ? world.boss : null;
+  if (s === null || hivePinched(s) === NO_PINCH) return null;
+  return hiveLobeCircle(l, world.cfg, s, hivePinched(s), world.beat, beatPhase);
 }
 
 /**

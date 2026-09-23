@@ -48,21 +48,29 @@ import type { GuideScene } from "../scene-types.js";
  * it is up nothing spills — the cadence rides along and falls all at once on
  * the beat it lets go (`sim/hive-step.ts`). The third seal clenches it at beat
  * 20 with every site shut, so nothing is owed and nobody need touch it: that
- * one is the state shown costing nothing. The sixth clenches it at beat 46
+ * one is the state shown costing nothing. The sixth clenches it at beat 47
  * with column 8 open, and *that* one is hauled — the pilot's palm on the mass
  * the tick after it goes up, and down again inside the beat, which is the
- * whole window. Finished before beat 47's step, the spill that beat owes
- * arrives on it and the next on 50; a beat later and the first is simply gone.
- * Unhauled, the film's last four beats say a breach left open costs nothing,
+ * whole window. Finished before beat 48's step, the spill that beat owes
+ * arrives on it; a beat later and it is simply gone.
+ * Unhauled, the film's last beats say a breach left open costs nothing,
  * which is the opposite of the sentence it exists to say. **There is no page
  * for it** and there is no room for one: the twins' two pages are 180 ticks
  * apart already (`test/scene-pages.test.ts`), and both are true. The gesture is
  * shown rather than captioned — the ghost thumb rides the mass down
  * (`render/guide-hand.ts`), which is what §11.14 promises of this film.
  *
+ * **Her hand is in it too.** The fifth site is wrung: the navigator's thumb
+ * is on its swell from beat 33 until it opens at 36, under her own page, so
+ * it opens colourless and the cyan bolt seals a red site. A wring provokes
+ * the mass as a wrong bolt does, so it spills on the spot and costs a red
+ * shot, and the twins spill a beat later than they would have — every act
+ * after it was traced again for that. It has no page either, for the reason
+ * the haul has none; the ghost thumb squeezes the lobe.
+ *
  * **It ends unfinished, on purpose.** Column 8 is left open and spilling with
  * column 7 sealed beside it, because a bolt cannot pass a falling body and so
- * no film can both clear a column and ward another in the same beats. The pair
+ * no film can both clear a column and seal another in the same beats. The pair
  * leave with the split, the seal and the double, and the rest is the fight.
  */
 export const THE_HIVE: GuideScene = {
@@ -92,19 +100,25 @@ export const THE_HIVE: GuideScene = {
     { tick: 1605, control: "fireCyan" },
     { tick: 1725, control: "fireRed" },
     { tick: 1785, control: "fireRed" },
-    // Site 5, column 2, red at beat 36: in flight again, sealed on the beat
-    // it opens on.
+    // Site 5, column 2, red at beat 36 — and **wrung**: the navigator's thumb
+    // is on its swell from beat 33 until it opens, so it opens with no colour
+    // and the cyan bolt already in flight seals it. The hand provokes the mass
+    // as a wrong bolt would, so it spills on the spot, and a red shot clears
+    // that body before it can fall.
+    { tick: 2000, drag: "hiveLobe", hand: 2, until: 2170 },
     { tick: 2010, control: "cannon", worldCol: 2 },
-    { tick: 2085, control: "fireRed" },
+    { tick: 2085, control: "fireCyan" },
+    { tick: 2205, control: "fireRed" },
     // The twins at beat 44: column 7 red and column 8 cyan, adjacent, both
-    // spilling as they open. The cannon can only be in one of them.
+    // spilling a beat after they open — the wring moved the cadence by one.
+    // The cannon can only be in one of them.
     { tick: 2500, control: "cannon", worldCol: 7 },
-    { tick: 2625, control: "fireRed" },
     { tick: 2685, control: "fireRed" },
+    { tick: 2745, control: "fireRed" },
     // The seal on column 7 is the sixth, so the underside clenches on it — and
     // the pilot's palm is on it the tick after, and has it back down inside
     // the beat.
-    { tick: 2766, drag: "hiveLobe", by: 2818, until: 2860 },
+    { tick: 2827, drag: "hiveLobe", by: 2879, until: 2920 },
   ],
   steps: [
     { tick: 0, seat: 2, text: "PLAYER 2 SEES IT SWELL", anchor: { at: "boss", part: "swell" } },
@@ -166,12 +180,12 @@ export const THE_HIVE: GuideScene = {
       anchor: { at: "control", control: "fireRed" },
     },
     // The two pages the twins are for open on the beat the twins open and the
-    // beat after the first is sealed, so each is read from a frame of the
+    // tick the first is sealed, so each is read from a frame of the
     // thing it names — and the loop runs a beat past the last page so the
     // second gets its two seconds, which `test/scene-pages.test.ts` asks for.
     { tick: 2640, seat: 1, text: "TWO OPEN · TWO COLOURS", anchor: { at: "boss", part: "breach" } },
     {
-      tick: 2820,
+      tick: 2830,
       seat: 2,
       text: "ONE SEALED · ONE SPILLING",
       anchor: { at: "boss", part: "breach" },

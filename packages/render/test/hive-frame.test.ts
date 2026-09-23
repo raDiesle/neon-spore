@@ -303,7 +303,7 @@ describe("THE HIVE's mass", () => {
     // And it comes down with what it is carrying.
     expect(late?.y ?? 0).toBeGreaterThan(early?.y ?? 0);
     // Hers never, on the one handle she also has a use for: her pinch is a
-    // different gesture on a different part of it and no film holds one yet.
+    // different gesture on a different part of it (`hive-pinch-thumb.test.ts`).
     expect(thumb(CFG.hiveHaulMilli / 2, 2)).toBeNull();
     // And gone the moment the clench is over, which is the tick the carry was
     // enough (`sim/hive-hand.ts`) — a hand left on a mass that is home is a
