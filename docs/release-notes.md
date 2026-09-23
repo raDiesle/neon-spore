@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 7f4e62de — The field's hands leave step.ts for a page of their own
+
+`step.ts` was 246 lines with a boss still to add. The thumbs it reads on the tick — THE MAZE's string, THE WARDEN's rope, THE LID's cord, the grip, THE CLAW's crank, THE ORRERY's ring, THE CHOIR's arrows, THE BALLOON's and THE SINEW's handles, then the bosses' page, THE WEIGHT's clock and THE FLEET — move to `field-hands.ts` in the same order and with their comments, called where the block stood. What stays in `step.ts` is the loop and its order, at 168 lines. Queued: `bun run imports` leaves a split's whole import statements to a hand even when no comment stands above them.
+
 ## 2026-09-23 · 31d4ee45 — The replay settles a conflict in the VERSUS registry by generating it again
 
 Two lanes opening and closing VERSUS slots in the same hours both rewrite `candidates/registry.ts`'s one array, and git's merge of them imported directories that were gone. The rebase has already put the directories on disk, so the resolver runs `bun run versus index`'s generator over them. `versus-pose.ts` is hand-written rows, not generated; its merge is queued.
