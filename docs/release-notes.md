@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 13c6ed99 — `strokeGlow`'s glow under a scale is measured and put to the owner
+
+The finding assumed a caller scaled up, whose glow would spread too far. On a phone, every caller left is scaled down (0.13 to 0.43), so every body's glow is drawn a third as wide as `glowSpread`. Undoing that would widen the edge on every creature on the field, which makes it a look rather than a fix. The queue entry now asks which it is, and names the two answers.
+
 ## 2026-09-23 · 3b9b2bad — THE GAUGE stands on the ship's real hull
 
 The round's own painted crest is gone: THE GAUGE draws the ship's `drawHull` at rest under it, as SNAKE does, with the cannon lobe in the middle column carrying the claw instead of a mouth. The dial's pivot is that lobe's crown, measured off the hull at time zero so a finger and a frame agree on it, and the tally moves under the title because the hull now holds the foot of the screen.
