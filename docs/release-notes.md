@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 936ab271 — `drawOnShip` takes the renderer's `RenderState` rather than a literal of five of its fields
+
+The on-ship pass named every kept field it read in an inline type, which grew a field with each hit look. It takes `Readonly<RenderState>` now — the one object its only caller already hands it — and five type imports go.
+
 ## 2026-09-23 · 32c0cbb4 — The doubled window is decided for every boss, and queued as three lanes
 
 The owner's rule of 22 September — double the time a pair has to act and raise the need beside it — reached THE INSTAR alone. docs/spec/choreographed- windows.md now says which figure doubles on each of the other bosses and what need rises with it, and which are left alone because the figure is a cadence, a latency or a tolerance rather than a deadline (THE THROAT, THE LEDGER, THE SCUTTLE, THE HIVE, THE BATON's flight). The application is three queue items, grouped by the shape of their need.
