@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## The doubled window reached THE INSTAR alone
 
 - **Found:** 2026-09-22, claude/instar-body-travels
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-the-doubled-window-reached-the-instar-alone)
 - **Files:** `packages/content/src/instar-script.ts`, `packages/sim/src/config-hive.ts`,
   `packages/sim/src/config-claw.ts`, `packages/sim/src/config-scuttle.ts`,
   `.claude/skills/new-boss/SKILL.md`, `docs/spec/bosses-choreographed.md`
