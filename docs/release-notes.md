@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 6d40b222 — THE JAM's rehearsal plays on the game's half-beat grid
+
+On the grid, the jammed cannon's bolts leave on 90, 150, 210 and onwards, so the film's slide into column 1 now falls between the cyan bolt on 390 and the red one on 450. The first shot up that column is the red that kills the slick, and the lure then costs the wave as before. The old note called the misses refused presses; they were bolts meeting a body of the other colour.
+
 ## 2026-09-23 · f589bc74 — THE SHELL's rehearsal lays its shots on the game's half-beat grid
 
 THE THIRD SHOT was pinned to the zero grid, so its shots fired the instant a thumb landed, which the game never does. Each press now sits fifteen ticks before its departure point, as THE HIVE's do. The film names `chargeBeats: 0.5` and fires the same events to the event. Exemption: a fix to something wrong. The film taught a timing the round does not have.
