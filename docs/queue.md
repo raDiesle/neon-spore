@@ -518,6 +518,7 @@ question that prompted this one.
 ## The phone's furniture is read again on every one of a resize burst
 
 - **Found:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-phones-furniture-is-read-again-on-every-one)
 - **Files:** `apps/game/src/safe-area.ts`, `apps/game/src/viewport.ts`
 - **Where:** local
 
