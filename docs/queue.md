@@ -1167,6 +1167,7 @@ her ring on it.
 ## `--hold` knows none of the handles the handles lanes have drawn
 
 - **Found:** 2026-09-22, claude/queue-the-undertows-two-handles-are-heard-and-drawn-nowhere
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-hold-knows-none-of-the-handles-the-handles-lanes)
 - **Files:** `tools/frames/hold-targets.ts`, `tools/frames/hold.ts`, `packages/net/src/command-fields.ts`
 - **Where:** local
 
