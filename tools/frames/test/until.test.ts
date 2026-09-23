@@ -166,6 +166,7 @@ function fakeDriver(fires: { tick: number; type: string }, from = 0): Driver & {
       return state.at;
     },
     heard: (): readonly Fired[] => heard,
+    sent: () => [],
   };
   return state;
 }

@@ -1,4 +1,5 @@
 import type { Page } from "playwright-core";
+import type { Sent } from "./report.js";
 import type { PressSpec } from "./spec.js";
 import type { Fired } from "./until.js";
 
@@ -29,6 +30,9 @@ export interface Driver {
   tick(): Promise<number>;
   /** Every event this driver has heard, in the order the ticks ran. */
   heard(): readonly Fired[];
+  /** Every press sent, with whether the tick it landed on would have heard it
+   * (`pressNote`). */
+  sent(): readonly Sent[];
 }
 
 /**
@@ -59,6 +63,7 @@ const FRAME_CAP = 0.05;
  */
 export function makeDriver(page: Page, filmDt: number | undefined): Driver {
   const log: Fired[] = [];
+  const pressed: Sent[] = [];
   const advance = async (n: number, until?: string): Promise<number | null> => {
     const said = await page.evaluate(
       ([count, dt, cap, want]) => {
@@ -149,7 +154,7 @@ export function makeDriver(page: Page, filmDt: number | undefined): Driver {
     // a beat, since clearing the opening leaves it wherever it finished, so a
     // tap written on a boundary landed between two and was refused.
     if (one.command.kind === "tap") await toBeat();
-    await page.evaluate((sent) => {
+    const said = await page.evaluate((sent) => {
       const ns = window.neonSpore;
       if (!ns) throw new Error("window.neonSpore missing before a press");
       if (!ns.send) {
@@ -176,11 +181,18 @@ export function makeDriver(page: Page, filmDt: number | undefined): Driver {
         }
         command = { ...command, id: chosen.id };
       }
+      // **Asked before it is sent**, of two copies of the world: a press the
+      // round refuses changes nothing and photographs as no press at all, so
+      // the run says so rather than leaving the picture to (`handle-press.ts`).
+      // Null on a build from before the question existed.
+      const heard = ns.wouldHear ? ns.wouldHear(sent.player, command) : null;
       ns.send(sent.player, command);
+      return { tick: ns.world.tick, heard };
     }, one);
+    pressed.push({ ...said, player: one.player, kind: one.command.kind });
   };
 
   const tick = (): Promise<number> => page.evaluate(() => window.neonSpore?.world.tick ?? 0);
 
-  return { advance, press, tick, heard: () => log };
+  return { advance, press, tick, heard: () => log, sent: () => pressed };
 }

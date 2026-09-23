@@ -17,8 +17,8 @@ import type { PressSpec } from "./spec.js";
  *
  * Both are refused by the round outside the grip that has them, which a
  * capture has to reach first: a body grown past the tiles, driven or posed
- * with `--boss grow=…`. A prise on a body still in `crawl` is dropped in
- * silence, the same as it is from a thumb.
+ * with `--boss grow=…`. A prise on a body still in `crawl` is dropped, the
+ * same as it is from a thumb, and the run's `unheard:` line names it.
  *
  * **Play begins at `world.tick` 600 on the first round**, after the morph; a
  * press before it is dropped, turns included. Left alone the body walks into

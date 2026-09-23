@@ -1839,6 +1839,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
 | `apps/game/src/guide-swipe.ts` | a thumb dragged across a guide, read as a page turn: left is back, right is next |
 | `apps/game/src/handle.ts` | `window.neonSpore` — the handle a headless check drives the game by |
+| `apps/game/src/handle-press.ts` | **The handle's two verbs about a press**: sending one, and asking first whether it would be heard |
 | `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |
 | `apps/game/src/raster.ts` | the baked burst, in the real game, behind a flag |
 | `apps/game/src/view.ts` | the view switch, always on screen |

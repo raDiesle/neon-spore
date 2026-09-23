@@ -9,6 +9,7 @@
  * `CaptureResult` through it had to move.
  */
 
+import type { Sent } from "./report.js";
 import type { Fired } from "./until.js";
 
 export interface CaptureResult {
@@ -48,6 +49,9 @@ export interface CaptureResult {
    * already in the loop's hand each time (`until.ts`).
    */
   fired: readonly Fired[];
+  /** Every press sent on the way, and whether its tick would have heard it —
+   * printed whenever one was refused, asked or not (`pressNote`). */
+  sent: readonly Sent[];
   /**
    * Every off-origin URL the page asked for on its way to these frames, and
    * was refused (`offline.ts`).

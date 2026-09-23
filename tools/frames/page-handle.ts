@@ -97,6 +97,10 @@ declare global {
        * parent of the commit that added it, so `--hold` says so by name rather
        * than failing as an undefined call somewhere in the page. */
       send?(player: 1 | 2, command: unknown): void;
+      /** Whether the next tick would change anything for this press, asked
+       * before it is sent. Missing on a build from before it existed, where
+       * the run says nothing about refused presses (`report.ts`). */
+      wouldHear?(player: 1 | 2, command: unknown): boolean;
       /**
        * Where a swelling on the ship is on the **screen** — the grab circle's
        * centre as a `clientX`/`clientY` and its radius in the same pixels —

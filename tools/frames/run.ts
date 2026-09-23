@@ -94,7 +94,7 @@ import { parseFrameSpec } from "./flags.js";
 import { heldPageNote } from "./guide-film.js";
 import { columnNotes } from "./press-column.js";
 import { standingNotes } from "./press-standing.js";
-import { say, tickNote } from "./report.js";
+import { pressNote, say, tickNote } from "./report.js";
 import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
 import { firedNote } from "./until.js";
@@ -157,7 +157,7 @@ async function main(): Promise<void> {
   const start = Date.now();
   if (here) {
     await mkdir(out, { recursive: true });
-    const { paths, atTick, heldPage, fired } = await captureHere(spec, join(out, "frame"));
+    const { paths, atTick, heldPage, fired, sent } = await captureHere(spec, join(out, "frame"));
     const seconds = Math.round((Date.now() - start) / 1000);
     console.log(`wrote ${paths.length} frame(s) to ${out} in ${seconds}s`);
     paths.forEach((p, i) => {
@@ -165,6 +165,7 @@ async function main(): Promise<void> {
     });
     if (wantsEvents) console.log(`  ${firedNote(fired)}`);
     say(heldPageNote(spec, heldPage));
+    say(pressNote(sent));
     return;
   }
 
@@ -202,6 +203,7 @@ async function main(): Promise<void> {
     // the events of the one being landed are the ones a reader is asking about.
     if (wantsEvents) console.log(`  after ${firedNote(after.fired)}`);
     say(heldPageNote(spec, after.heldPage));
+    say(pressNote(after.sent));
   } finally {
     await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
   }

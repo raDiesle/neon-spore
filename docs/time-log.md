@@ -17632,3 +17632,20 @@ colour on both seats, so the defect was the stub's private widths and missing
 spine, not its colour.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — A press the simulation refuses is silent in `bun run frames`
+
+- reading — 5 min. `drive.ts`, `reach.ts`, `report.ts`, the game's handle,
+  and whether a `*Heard` function says anything back (none does).
+- writing — 10 min. `wouldHear` in the game's handle, which steps two copies
+  of the world with and without the press; the driver asks it before each
+  send; `unheard:` in the run's report; `handle-press.ts` cut out of
+  `handle.ts` on line count.
+- looking — 5 min. A probe proved the hash comparison on SNAKE's morph, play
+  and wrong seat; one capture printed the refused spit.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **no refusal is reported by the simulation**: every
+`*Heard` returns nothing, so the only honest test of a press was a
+counterfactual step.

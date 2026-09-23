@@ -515,25 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## A press the simulation refuses is silent in `bun run frames`
-
-- **Found:** 2026-09-20, claude/snake-board-look
-- **Taken:** 2026-09-23, claude/queue-snakes-tail-stub-comes-out-of-the-ship-as-a-teal (claim: claude/queue-a-press-the-simulation-refuses-is-silent-in-bun)
-- **Files:** `tools/frames/reach.ts`, `tools/frames/drive.ts`, `tools/frames/report.ts`
-- **Where:** local
-
-`--press 400:1:snakeFire` on SNAKE is accepted by the tool, sent to the page,
-and dropped by `snakeHeard` — SNAKE spends its first five beats in the `morph`
-phase and player 1 has nothing that works while the body is folded up. The
-capture comes back looking exactly like a capture with no press on it at all,
-and the run prints the tick it photographed and nothing else.
-
-Four captures went that way before a probe of a running world found that the
-`play` phase starts at beat 6. The driver already reads `heard` — `reach.ts`
-uses it in `missedNote` when an `--until` event never fires, and nowhere else.
-A press that was sent and changed nothing about the world is the same kind of
-fact and should be said in the report, at least as a count.
-
 ## PINBALL's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

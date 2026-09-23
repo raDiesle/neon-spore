@@ -76,7 +76,7 @@ export async function captureFrames(
     // it is `undefined` and a stepped world (`guide-film.ts`).
     const paintDriven = spec.opening === "guide";
     const filmDt = paintDriven ? 1 / (await filmTickHz(page)) : undefined;
-    const { advance, press, tick, heard } = makeDriver(page, filmDt);
+    const { advance, press, tick, heard, sent } = makeDriver(page, filmDt);
 
     // The opening's words let arrive, and a film wound back to the first tick
     // of its page afterwards (`opening-hold.ts`).
@@ -116,7 +116,7 @@ export async function captureFrames(
         // field rather than at whatever tick the wave happens to have reached
         // — and the run ends either on the number asked for or on the tick
         // `--until`'s event fires (`reach.ts`).
-        const at = await reachFirstFrame({ advance, press, tick, heard }, startTick, {
+        const at = await reachFirstFrame({ advance, press, tick, heard, sent }, startTick, {
           advanceBy: spec.ticks - startTick,
           press: press0,
           until: spec.until,
@@ -201,7 +201,15 @@ export async function captureFrames(
       paths.push(path);
       if (!paintDriven) atTick.push(await tick());
     }
-    return { paths, whole, atTick, heldPage, fired: heard(), offOrigin: offOrigin.asked };
+    return {
+      paths,
+      whole,
+      atTick,
+      heldPage,
+      fired: heard(),
+      sent: sent(),
+      offOrigin: offOrigin.asked,
+    };
   } finally {
     // A lent browser is the caller's to close; the tab this capture opened in
     // it is not, and a file that leaked one per capture would be back where it
