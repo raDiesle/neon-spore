@@ -17347,3 +17347,18 @@ shield slide, and prime, fire, guard and intake stay dropped, so no bolt is in
 the air when the first row spawns.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — the 35 long DEMOS blurbs cut to thirty words
+
+- reading — 5 min. The entry, `.claude/skills/game-words`, `tools/words/measure.ts`
+  and the 35 `what` strings, dumped by word count to one scratch file.
+- writing — 5 min. Thirty-five rewrites in the P1/P2 register the clean
+  blurbs already use, applied by id, and `CLEAN`/`CEILING` pasted from
+  `bun run words --clean`.
+- looking — 0 min. Menu text only, checked by `bun run words` per id.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **compressing without losing the rule**: each boss had a
+full paragraph of phases, and the cut kept only who sees what and what the
+pair does, leaving the rest to its sheet under `docs/spec/`.

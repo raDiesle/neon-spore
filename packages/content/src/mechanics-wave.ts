@@ -72,7 +72,7 @@ export const FAULT_MECHANIC = {
 
 export const WAVE_MECHANICS = {
   cannonFault: {
-    what: "A thing hanging from the top of the field has the gun: its beam is on the two colour lobes and on the muzzle, in the colour of the next shot, and the cannon fires by itself, up whatever column the pilot is standing in, on every beat. Both colours go dead on the navigator's panel, nothing brings them back and nothing reaches the thing holding them. So the pilot is not choosing when to shoot any more, only what the shot is pointed at — and crossing a column a shot must not go up is something they have to ask for out loud.",
+    what: "The cannon fires by itself every beat. Player 2 cannot choose colours. Player 1 only aims. Say out loud which columns not to cross.",
     reach: "wave",
   },
   shieldFault: {
@@ -80,19 +80,19 @@ export const WAVE_MECHANICS = {
     reach: "wave",
   },
   steerFault: {
-    what: "A thing hanging from the top of the field has the steering: its beam is on the cannon strip, and the cannon walks by itself, a column a beat, wall to wall and back, for the whole wave. The strip goes dead on the pilot's panel and stays dead, and nothing reaches the thing holding it. The trigger still works, so the navigator goes on firing from wherever the cannon happens to be standing — and the shot that lands is the one fired on the beat the cannon passes under a body, which the pilot, who can see where it is going, has to call.",
+    what: "The cannon walks by itself, wall to wall. Player 1 cannot steer it. Player 1 calls the beat it passes under a body, and Player 2 fires.",
     reach: "wave",
   },
   codexFault: {
-    what: "A thing hanging from the top of the field has the *key*: the air over the field travels in slow bands, and while it does, the two colours have each other's job. A bolt fired red kills what cyan kills and cyan kills what red kills — and nothing about the shot says so. The bolt that leaves the muzzle is the colour that was pressed, it sounds like that colour, and the lobe lights like that colour, so the navigator finds out by watching a body refuse a colour that should have taken it. Only the pilot can see the bands, and the key turns over every codexHoldBeats — so the pilot has to keep saying which way round it is, to a partner who is already mid-shot, and the shot that lands is the one fired on the reading that was still true when the thumb went down.",
+    what: "Red and cyan swap jobs in slow bands. Nothing on the shot shows it. Only Player 1 sees the bands and must keep saying which way round.",
     reach: "wave",
   },
   flipFault: {
-    what: "A thing hanging over the field has one of the two screens turned about its middle. On that phone the field is a mirror of itself: a body drawn falling down the left wall is really falling down the right one, at the same row, at the same speed, in the same colour, and nothing about it says so. Every button on both panels works and both strips slide where they are told — the mirror is the picture and nothing else. What has gone is the one thing the pair never had to say out loud, which side of the field a thing is on: the seat holding the true picture has to say every column for the seat that cannot believe its own, and the seat whose screen is turned has to count from the other wall on everything it does.",
+    what: "One screen shows the field mirrored left to right. The other screen says every column out loud. The mirrored one counts from the other wall.",
     reach: "wave",
   },
   handoverFault: {
-    what: "A thing hanging from the top of the field has both panels, and a few beats into the wave it trades them: the pilot's phone comes up in the navigator's colours with the navigator's buttons in it, and the navigator's comes up as the pilot's. Every control still works and nothing is taken away — what has moved is whose screen each one is on, the radar and the hidden reads with it. Both of them are counted down to it on the lip of the band and counted back out of it, and in between the only thing either of them can do with what they know about their own half is say it out loud to the person now holding it. It is the one fault that ends before the wave does.",
+    what: "The two screens swap panels. Every control still works, on the other phone. Say what you know about your half to whoever holds it now.",
     reach: "wave",
   },
 } as const;

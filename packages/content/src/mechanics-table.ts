@@ -161,14 +161,14 @@ export const MECHANICS = {
     reach: "spawn",
   },
   husk: {
-    what: "A pod that is a lie. It hangs at a column and a row like a pod, beats like one, wears the face of a real cargo and comes loose to a shot like any other — and it carries nothing. Swallowed, the wave is lost. Refused, the maw shut when it arrives, it lets its air go and flies off around the hull, and costs nothing at all. Only player 2 is shown which one it is, and only player 1 can keep the maw shut, so the answer is a sentence one of them says and the other acts on.",
+    what: "A fake pod that carries nothing. Swallow it and you lose the wave. Only Player 2 sees which one. Player 1 keeps the maw shut.",
     reach: "spawn",
   },
   // The sixth worn body (`mechanics-worn.ts`), in the place it has always held.
   clasp: WORN_MECHANICS.clasp,
   ...ROUND_MECHANICS,
   crawler: {
-    what: "A maggot that comes over a side wall and walks the ship's surface instead of falling on it, a column every other beat, costing the hull nothing while it walks. Every ring of it comes off: the segments run red, cyan, plate, red, cyan, plate, and the head and the tail are plates too — a colour wants the matching cannon under it, a plate wants the shield. Each ring wears a crosshair, and the ones the dome is owed wear its mark above them. Every ring taken off snaps the body together behind it. Take the last one and the ship sweeps the lane clean; let it reach the far wall and it eats its way in.",
+    what: "A maggot walks the hull instead of falling. Take off every ring. A colour ring wants that colour. The rest want the shield. Finish before the far wall.",
     reach: "spawn",
     // A wave names this kind and never a colour, the way it does for a gyre:
     // what carries one is each segment, and each follows from its place along
@@ -176,7 +176,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   choir: {
-    what: "Two grey balls standing apart in one lane, carrying no colour at all. Nothing reaches them: a bolt in either colour is spent on nothing. What opens them is a gesture neither panel has, and it is two moves inside two beats — the pilot shakes the phone and shakes it again, or, where a phone cannot report being shaken, carries the two arrows standing against the walls of the field outward, one and then the other. The first move sets them glowing; the second closes them over a beat, the colour bleeding in as they go, and only when they are one is there a body the navigator can shoot. Miss the window, or carry an arrow inward, and it sings: the hull pays for the chord and the gesture starts again.",
+    what: "Two grey balls no shot touches. Player 1 shakes the phone twice inside two beats. They join into one body, and Player 2 shoots it.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // clasp: the silhouette is the membrane's and the colour is the body it
@@ -185,7 +185,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   fence: {
-    what: "A live wire across the whole field with gaps burnt through it, coming down twice as fast as anything else. The trigger does nothing — the shield does not stop it, it goes through it. The ship lives if the dome is standing in a gap when the wire arrives, and only the pilot can see where the wave's own gaps are. A wall may also carry cracks — a column and an ammunition colour each, drawn on the pilot's screen — and a bolt arriving on one in that colour opens the wire there for good. That is the only place any shot goes through, so a wire with no gaps at all is answered by the pilot saying a column and a colour and the navigator loading it and firing.",
+    what: "A wire with gaps drops fast. No shot or shield stops it. Only Player 1 sees the gaps. Move the shield into one, or shoot a crack open.",
     reach: "spawn",
     // A wave names this kind and never a colour: a wall carries none at all,
     // the way a wisp does. What a wave authors instead is where the gaps are
@@ -231,7 +231,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   moult: {
-    what: "One body wearing both ends of the game by turns. For five beats it is a rock the shield turns away; for the next five it is a supply cargo the maw has to swallow, and one nobody swallows loses the wave. Nothing kills it either way — a shot craters the rock half and is simply spent on the other. What it is on the beat it reaches the ship is what happens, and on the last two rows it steers at whatever column the cannon is holding. Every one on the field turns over together, and only the navigator is shown the form that is coming.",
+    what: "It turns from rock to cargo every five beats. Put the shield under the rock. Swallow the cargo with the maw. Only Player 2 sees what comes next.",
     reach: "spawn",
     // A wave names the kind and what it is carrying — two things, and neither
     // of them rolled. **When** it turns over is not the wave's: that is one

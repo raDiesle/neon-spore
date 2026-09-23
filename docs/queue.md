@@ -515,25 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## The DEMOS menu puts a 261-word paragraph on a button: the 35 long ones
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-23, claude/next-queued-task-67d7ed (claim: claude/queue-the-demos-menu-puts-a-261-word-paragraph-on-a-bu)
-- **Files:** `packages/content/src/mechanics-bosses.ts`, `packages/content/src/mechanics-rounds.ts`, `packages/content/src/mechanics-split.ts`, `tools/words/clean.ts`
-
-`MECHANICS[id].what` was written as the bestiary's record and is drawn as the
-subtitle of a button on the DEMOS page (`apps/game/src/demo-menu.ts` →
-`apps/game/src/menu-pages.ts`), on a phone. `lead` is 261 words there, `surge`
-225, `scuttle` 221. Thirty-five of them run past a hundred.
-
-Rewrite those thirty-five to the budget in `.claude/skills/game-words`: 30
-words, 18 to a sentence, no semicolon and no em dash. The long version is not
-lost — every one of these mechanics has a spec sheet under `docs/spec/` that
-owns the full rules, and the button only has to be recognisable.
-
-Then add each id to `CLEAN` in `tools/words/clean.ts` and lower `CEILING` to
-what `bun run words --clean` prints.
-
 ## The DEMOS menu puts a paragraph on a button: the other 46
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
