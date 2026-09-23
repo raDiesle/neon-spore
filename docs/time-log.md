@@ -18169,3 +18169,16 @@ fences since the entry was filed, and only the editor still counted a quoted
 heading as the end of an entry.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — A before/after cannot be sent as one picture
+
+- reading — 5 min. `picture.ts`, `crop-png.ts`, `pixels.ts`'s `Picture`.
+- writing — 10 min. `pair.ts` and `bun run pair`: RGBA either way, a grey
+  gutter, before first, stacked or side by side by the shape a phone reads.
+- looking — 5 min. THE REPRISE's own before and after, joined.
+- friction — 0 min. None.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **which way to join them**: the entry said to stack
+portrait frames, but a phone fits a picture to its width, so crops stack and
+full frames sit side by side.

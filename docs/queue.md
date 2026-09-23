@@ -515,28 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## A before/after cannot be sent as one picture
-
-- **Found:** 2026-09-21, claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-before-after-cannot-be-sent-as-one-picture)
-- **Files:** `tools/frames/crop-png.ts`, `tools/frames/picture.ts`, `docs/commands.md`
-- **Where:** local
-
-CLAUDE.md says one picture at a time, and a look change is proved by two
-frames — the thing before and the thing after. There is no way to put them in
-one PNG. `bun run crop` takes a rectangle of one file and `bun run png`
-rasterises a sheet; nothing joins two pictures side by side, and this lane
-sent one frame and said the other one in words, which is the thing the rule
-exists to stop.
-
-`picture.ts` already has `decodePng`, `encodePng` and `magnify`, so the whole
-of it is one function that allocates a wider buffer and blits two decoded
-frames into it with a gutter — stacked rather than side by side when the
-frames are portrait and the pair would otherwise be unreadable on a phone. A
-new script beside `crop-png.ts`, a line in `docs/commands.md`, and a test in
-`tools/frames/test` that joins two known images and reads pixels back out of
-either side of the seam.
-
 ## `FRAMES_CHROME` is read once, when the module is first imported
 
 - **Found:** 2026-09-21, claude/queue-chromium-launch-crashes-here-the-pipe-transport

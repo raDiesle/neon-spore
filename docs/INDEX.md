@@ -2354,6 +2354,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |
 | `tools/frames/crop-png.ts` | you have a screenshot and want to look closer — `bun run crop` cuts a rectangle out and magnifies it by whole pixels |
+| `tools/frames/pair-png.ts` | you have a before and an after and may send one picture — `bun run pair` joins them with a grey gutter |
 | `tools/frames/wave.ts` | Which wave `--wave` names, answered against the right commit's own list |
 | `tools/frames/opening-hold.ts` | Standing *in* a wave's opening, rather than getting past it |
 | `tools/frames/offline.ts` | **A capture reaches the preview and nothing else.** Since the sign-in landed |
@@ -2589,6 +2590,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/page-said.ts` | What the page said while `shot.ts` waited for it — its throws and console errors, printed above *is the tab right?* |
 | `tools/frames/pixels.ts` | **A screenshot read back as the picture it is**, rather than as the file it arrived in |
 | `tools/frames/picture.ts` | encoding a decoded PNG again, and magnifying a rectangle of one pixel for pixel — what `bun run crop` is made of |
+| `tools/frames/pair.ts` | two pictures as one, before first, stacked or side by side by the shape a phone reads best |
 | `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
 | `tools/frames/relay-up.ts` | **The relay, up and then down again**, for a tool that needs one for the length of one run |
 | `tools/frames/reach.ts` | **How the first picture's tick is reached** — the presses on their way |
