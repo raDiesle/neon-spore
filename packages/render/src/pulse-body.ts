@@ -1,5 +1,6 @@
 import { PULSE_LANES, type PulseLane } from "@neon-spore/sim";
-import { halo, strokeGlow } from "./glow.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { drawPulseBody, pulseLaneColor, pulseLaneOutline, pulseLaneRim } from "./pulse-shape.js";
 
@@ -73,11 +74,22 @@ export function drawPulseArrival(ctx: CanvasRenderingContext2D, a: BodyLook): vo
     // throws a halo in its own colour, and a slick's red under a grey wash is
     // still red. So a veiled arrival is a silhouette and nothing else, and the
     // silhouette is the thing that cycles.
+    //
+    // Shaded like a stone, lit from above, with a film on its edge — not a
+    // dark fill with a glowing line round it. That line was `strokeGlow` under
+    // this scale, whose passes are in pixels: a grey cloud `a.r` times too wide
+    // round the silhouette, drawn at full strength whatever `near` said.
     ctx.translate(a.x, a.y);
     ctx.scale(a.r, a.r);
-    ctx.fillStyle = PALETTE.rockDark;
-    ctx.fill(pulseLaneOutline(lane));
-    strokeGlow(ctx, pulseLaneOutline(lane), PALETTE.rock, 2 / a.r, 1);
+    const path = pulseLaneOutline(lane);
+    const stone = ctx.createRadialGradient(-0.35, -0.4, 0.05, 0, 0, 1.1);
+    stone.addColorStop(0, PALETTE.rock);
+    stone.addColorStop(1, PALETTE.rockDark);
+    ctx.fillStyle = stone;
+    ctx.fill(path);
+    ctx.strokeStyle = rgba(PALETTE.sheenRim, 0.3);
+    ctx.lineWidth = 1 / a.r;
+    ctx.stroke(path);
   } else {
     drawPulseBody(ctx, a.x, a.y, a.r, lane, a.time, a.seed);
   }
@@ -125,17 +137,36 @@ export function drawPulseSocket(
   // whole contour drew a dark decal lying on the hull; cutting the fill at the
   // skin line is what makes the same shape read as a hole the ship has in it —
   // above the line an open mouth with the field showing through, below it
-  // depth. The outline runs all the way round, because the rim of a crater
-  // does.
+  // depth, darkest at the bottom, with the lane's own light pooled wet down
+  // there the way a crater holds what fell into it.
   ctx.save();
   ctx.beginPath();
   ctx.rect(x - grow * 1.2, skin, grow * 2.4, grow * 1.2);
   ctx.clip();
   ctx.translate(x, skin);
   ctx.scale(grow, grow);
-  ctx.fillStyle = PALETTE.background;
-  ctx.globalAlpha = 0.72 + 0.2 * lit;
+  const deep = ctx.createLinearGradient(0, 0, 0, 1);
+  deep.addColorStop(0, rgba(PALETTE.background, 0.55 + 0.2 * lit));
+  deep.addColorStop(1, rgba(PALETTE.background, 0.95));
+  ctx.fillStyle = deep;
   ctx.fill(path);
+  const pool = ctx.createRadialGradient(0, 0.75, 0, 0, 0.75, 0.8);
+  pool.addColorStop(0, rgba(color, 0.3));
+  pool.addColorStop(1, rgba(color, 0));
+  ctx.fillStyle = pool;
+  ctx.fill(path);
+  // The far wall, lit: the rim below the skin carries the colour, the rim
+  // above it only a film — so the crater has a lip, not a line drawn round it.
+  // Stroked by hand in the socket's own units: `strokeGlow`'s passes are in
+  // pixels and would be `grow` times too wide under this transform.
+  const k = Math.max(lit, sore);
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = 0.2 + 0.3 * k;
+  ctx.lineWidth = 6 / grow;
+  ctx.stroke(path);
+  ctx.globalAlpha = 0.65 + 0.35 * k;
+  ctx.lineWidth = 2.4 / grow;
+  ctx.stroke(path);
   ctx.restore();
 
   ctx.save();
@@ -145,11 +176,18 @@ export function drawPulseSocket(
     ctx.fillStyle = pulseLaneRim(lane);
     ctx.globalAlpha = 0.5 * lit;
     ctx.fill(path);
-    ctx.globalAlpha = 1;
   }
-  ctx.globalAlpha = 0.45 + 0.5 * Math.max(lit, sore);
-  strokeGlow(ctx, path, color, 2 / grow, 1);
+  ctx.beginPath();
+  ctx.rect(-1.2, -1.2, 2.4, 1.2);
+  ctx.clip();
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = 0.55 + 0.45 * k;
+  ctx.lineWidth = 1.6 / grow;
+  ctx.stroke(path);
   ctx.globalAlpha = 1;
+  ctx.strokeStyle = rgba(PALETTE.sheenRim, 0.35);
+  ctx.lineWidth = 0.8 / grow;
+  ctx.stroke(path);
   ctx.restore();
 
   if (lit > 0) halo(ctx, x, skin, r * 2.2, pulseLaneColor(lane), 0.5 * lit);

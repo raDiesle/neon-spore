@@ -17686,3 +17686,19 @@ nose would tell the navigator the heading, so every new part of the body had
 to be symmetric about its centre.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE PULSE's picture looks like something real
+
+- reading — 5 min. The meter, the four sockets and the arrivals; which of
+  them are the field's own bodies and stay.
+- writing — 10 min. The meter a glass vessel with a lit lower wall and a
+  film of gloss, no line round it; each socket a pit with depth, a pool of
+  the lane's light and a lit far wall; the veiled arrival shaded like stone.
+- looking — 10 min. Both seats before and after, and two later ticks looking
+  for a veiled note, which stage 1 does not drop that early.
+- friction — 5 min. The first socket came back boxed in rectangles.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **`strokeGlow` under a scale**: its passes are pixels, so
+inside a unit transform they drew clouds twenty times too wide — the big soft
+blooms round the old sockets were that defect, and clipping them exposed it.

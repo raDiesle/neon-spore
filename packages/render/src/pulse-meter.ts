@@ -1,5 +1,6 @@
 import type { PulseState, SimConfig } from "@neon-spore/sim";
 import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPulseGrip, pulseMeterBar } from "./pulse-grip.js";
@@ -16,7 +17,7 @@ import { drawPulseGrip, pulseMeterBar } from "./pulse-grip.js";
  *
  * It is drawn as something **filled** rather than as a progress bar: a rounded
  * hollow with a level in it that swells at the top the way liquid does against
- * glass, and a rim that runs from red through to the hull's own purple as it
+ * glass, and a lower wall lit from red through to the hull's own purple as it
  * rises. A rectangle inside a rectangle would be the one place in the round
  * where the picture stopped being a body.
  *
@@ -38,10 +39,12 @@ export function drawPulseMeter(
 
   const shell = new Path2D();
   shell.roundRect(x, y, w, h, h / 2);
-  ctx.fillStyle = PALETTE.grid;
-  ctx.globalAlpha = 0.55;
+  // The cavity: deepest under the top edge, where the glass throws its shadow.
+  const deep = ctx.createLinearGradient(x, y, x, y + h);
+  deep.addColorStop(0, rgba(PALETTE.background, 0.95));
+  deep.addColorStop(1, rgba(PALETTE.grid, 0.7));
+  ctx.fillStyle = deep;
   ctx.fill(shell);
-  ctx.globalAlpha = 1;
 
   ctx.save();
   ctx.clip(shell);
@@ -51,13 +54,20 @@ export function drawPulseMeter(
   fill.addColorStop(1, PALETTE.background);
   ctx.fillStyle = fill;
   ctx.fillRect(x, y, w * at, h);
+  // **Glass, not a frame.** No line runs round the vessel: its lower wall
+  // catches the level's own light, which is where the rim's red-to-violet
+  // went, and a film of gloss lies along the top of the curve.
+  ctx.strokeStyle = rgba(color, 0.75);
+  ctx.lineWidth = Math.max(1.5, h * 0.12);
+  ctx.beginPath();
+  ctx.moveTo(x + h * 0.35, y + h - ctx.lineWidth / 2);
+  ctx.lineTo(x + w - h * 0.35, y + h - ctx.lineWidth / 2);
+  ctx.stroke();
+  const film = new Path2D();
+  film.roundRect(x + h * 0.4, y + h * 0.12, w - h * 0.8, h * 0.26, h * 0.13);
+  ctx.fillStyle = rgba(PALETTE.text, 0.2);
+  ctx.fill(film);
   ctx.restore();
-
-  ctx.strokeStyle = color;
-  ctx.globalAlpha = 0.7;
-  ctx.lineWidth = 1.5;
-  ctx.stroke(shell);
-  ctx.globalAlpha = 1;
   // The surface of it: the brightest thing on the bar, and the thing an eye
   // finds when it flicks up from the line.
   if (at > 0.01) halo(ctx, x + w * at, y + h / 2, h * 1.6, color, at < 0.25 ? 0.8 : 0.5);

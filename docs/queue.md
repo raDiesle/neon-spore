@@ -515,21 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE PULSE's picture looks like something real
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-23, claude/queue-the-scouts-picture-looks-like-something-real (claim: claude/queue-the-pulses-picture-looks-like-something-real)
-- **Files:** `packages/render/src/pulse-body.ts`, `packages/render/src/pulse-button.ts`, `packages/render/src/pulse-drop.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
-- **Where:** local
-
-9 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
-not a picture per state.
-
-The owner, 18 September 2026: a picture is judged by an eye on a real frame,
-which a cloud session does not have — his own machine takes it.
-
-The brief: `.claude/skills/new-boss` section 6.3.
-
 ## THE DIASTOLE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1936,3 +1921,20 @@ SNAKE draws the ship's own `drawHull` under its round; THE GAUGE doing the
 same, with the claw standing on its crown and `gaugeDial` placed from the
 hull's top, makes them one ship. A look, and the owner asked for it by name
 (*fit the regular ship hull*, 20 September 2026) — the exemption carries over.
+
+## `strokeGlow` under a scale draws its glow scale-times too wide
+
+- **Found:** 2026-09-23, claude/queue-the-pulses-picture-looks-like-something-real
+- **Files:** `packages/render/src/glow.ts`, `packages/render/src/living-skin.ts`, `packages/render/src/pods.ts`, `packages/render/src/ghost.ts`
+
+`strokeGlow` divides nothing: its glow passes add `STROKE.glowSpread` (5)
+straight onto the width, so a caller that has scaled the context and passes
+`width / scale` gets a core stroke of the right size and three glow passes
+`scale` times wider than meant. THE PULSE's sockets drew clouds twenty times
+too wide for exactly this and were fixed by stroking in unit space
+(`pulse-body.ts`). Still calling it under a scale: `living-skin.ts:148`,
+`pods.ts:111` and `:150`, `ghost.ts:136`. Measure each caller's `scale`
+first; where it is far from 1, give `strokeGlow` a `unit` argument that
+divides the spread too, with a test that the widest pass is
+`width + glowSpread` in pixels. It changes a frame on the field, so it lands
+under "a fix to something wrong", with one before/after PNG.
