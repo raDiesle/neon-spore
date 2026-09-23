@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## The touch layer guesses the ship's skin, because a `Field` cannot see the hull
 
 - **Found:** 2026-09-22, claude/damage-flash-sync-and-wound-together
+- **Taken:** 2026-09-23, claude/queue-touch-hull (claim: claude/queue-the-touch-layer-guesses-the-ships-skin-because-a)
 - **Files:** `packages/render/src/creature-under.ts`, `packages/render/src/touch-field.ts`, `packages/render/src/landing.ts`, `packages/render/test/touch.test.ts`
 
 A body's landing beat now ends resting in the plating rather than under the
