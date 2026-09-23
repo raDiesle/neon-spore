@@ -10,6 +10,7 @@ import { drawAim, drawPowerBar } from "./pinball-aim.js";
 import { drawPinBlast, drawPinTake } from "./pinball-blast.js";
 import { drawPinballGrips } from "./pinball-grip.js";
 import { drawPinPieces } from "./pinball-piece.js";
+import { drawPinSockets } from "./pinball-socket.js";
 import { drawPinBall, drawPinResting, drawPinWalls, pinTable } from "./pinball-table.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
@@ -110,7 +111,10 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
   drawTally(ctx, l, view, boss, top + table.tile * 0.92);
 
   if (boss.phase !== "morph") {
-    if (showsPinPieces(view.role)) drawPinPieces(ctx, table, boss, view.time);
+    if (showsPinPieces(view.role)) {
+      drawPinSockets(ctx, table, boss);
+      drawPinPieces(ctx, table, boss, view.time);
+    }
     drawAim(ctx, table, view, boss);
     if (boss.shot === "flight") drawPinBall(ctx, table, boss, cfg.pinballBallMilli);
   }

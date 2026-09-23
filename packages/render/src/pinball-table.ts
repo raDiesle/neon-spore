@@ -1,5 +1,6 @@
 import type { PinballState, SimConfig } from "@neon-spore/sim";
 import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -98,7 +99,7 @@ export function drawPinBall(
 ): void {
   const r = (ballMilli * t.tile) / 1000;
   const at = pinAt(t, state.ball.xMilli, state.ball.yMilli);
-  drawBall(ctx, t, at.x, at.y, r, 0.35);
+  drawBall(ctx, at.x, at.y, r, 0.35);
 }
 
 /**
@@ -115,29 +116,56 @@ export function drawPinResting(
   y: number,
   ballMilli: number,
 ): void {
-  drawBall(ctx, t, x, y, (ballMilli * t.tile) / 1000, 0.28);
+  drawBall(ctx, x, y, (ballMilli * t.tile) / 1000, 0.28);
 }
 
+/**
+ * **Steel, made.** Until 23 September 2026 this was a grey disc with a white
+ * ring round it and a dot — a filled circle with a stroke, which is the one
+ * thing the owner's brief for every boss rules out. Now it is a sphere lit
+ * from above: a body darkening away from the light, the table's own dark
+ * reflected across its lower half as a horizon, the cold light off the water
+ * bounced up into its underside, and a hard specular point where the light
+ * sits. No outline: a polished ball has none.
+ */
 function drawBall(
   ctx: CanvasRenderingContext2D,
-  t: Table,
   x: number,
   y: number,
   r: number,
   glow: number,
 ): void {
   halo(ctx, x, y, r * 2.4, PALETTE.text, glow);
-  ctx.fillStyle = PALETTE.rock;
-  ctx.strokeStyle = PALETTE.text;
-  ctx.lineWidth = Math.max(1, t.tile * 0.04);
+  ctx.save();
+  const body = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.05, x, y, r);
+  body.addColorStop(0, PALETTE.text);
+  body.addColorStop(0.45, PALETTE.rock);
+  body.addColorStop(1, PALETTE.rockDark);
+  ctx.fillStyle = body;
   ctx.beginPath();
   ctx.arc(x, y, r, 0, Math.PI * 2);
   ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = PALETTE.text;
-  ctx.globalAlpha = 0.75;
+  ctx.clip();
+  // The horizon: the dark of the table below the light, laid across the
+  // lower half the way a chrome ball carries the room it stands in.
+  ctx.fillStyle = rgba(PALETTE.background, 0.4);
   ctx.beginPath();
-  ctx.arc(x - r * 0.32, y - r * 0.36, r * 0.3, 0, Math.PI * 2);
+  ctx.ellipse(x, y + r * 0.62, r * 1.2, r * 0.55, 0, 0, Math.PI * 2);
   ctx.fill();
-  ctx.globalAlpha = 1;
+  // The bounce off the water, up into the underside.
+  ctx.strokeStyle = rgba(PALETTE.sheenCold, 0.7);
+  ctx.lineWidth = r * 0.22;
+  ctx.beginPath();
+  ctx.arc(x, y, r * 0.95, Math.PI * 0.2, Math.PI * 0.8);
+  ctx.stroke();
+  ctx.restore();
+  // The light itself: a soft bloom and a hard point inside it.
+  ctx.fillStyle = rgba(PALETTE.text, 0.55);
+  ctx.beginPath();
+  ctx.ellipse(x - r * 0.34, y - r * 0.4, r * 0.3, r * 0.2, -0.6, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = PALETTE.text;
+  ctx.beginPath();
+  ctx.arc(x - r * 0.38, y - r * 0.44, r * 0.1, 0, Math.PI * 2);
+  ctx.fill();
 }
