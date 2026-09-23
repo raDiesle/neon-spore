@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 2aaab596 — The six sentences the game draws outside a wave are in the words check
+
+The three bad-line cards and the three screen cards now live in `packages/content/src/screen-words.ts`, and `hold.ts` and `menu-seats.ts` read them from there. `tools/words` measures them as LINE CARD and SCREEN CARD. One sentence was rewritten, as a fix to something wrong: the reconnect card no longer says "It is being reached for again — the seat is held". `menu-seats.ts` is where the fourth word for the shield lived: it said guard until 322c4eff.
+
 ## 2026-09-23 · d6f16beb — Fourteen wave guides in acts 8 to 10 now pass the words check
 
 Forty-five lines across THE BEATBOX to THE FILAMENT are rewritten into numbered steps and sentences of at most eighteen words. Lane, bolt, pilot, navigator, ward and plate now read column, shot, Player 1, Player 2 and shield. `CLEAN` grows to 194 waves and `CEILING` falls from 50 to 5.

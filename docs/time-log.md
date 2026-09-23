@@ -17460,3 +17460,5 @@ every half was measured by a scratch script before landing.
 The bottleneck was **where the strings could live**: a tool may not import
 `apps/game`, so the sentences had to move into a package rather than be read
 where they were written.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
