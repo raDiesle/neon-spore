@@ -1,8 +1,8 @@
 /**
- * The replay, and the three conflicts it settles on its own
+ * The replay, and the conflicts it settles on its own
  *
  * `git rebase` is run here rather than in `run.ts` because it is no longer a
- * single call. Three files conflict on landing after landing and not one of
+ * single call. Four files conflict on landing after landing and not one of
  * those disagreements is one anybody authored:
  *
  * - **`docs/queue.md`**, on every landing that drained an item — `bun run queue
@@ -18,16 +18,23 @@
  *   every lane appends its entry in the landing commit and both appended at
  *   the end. It is a record, so nothing is ever dropped from it
  *   (`ledger-merge.ts`).
+ * - **`tools/versus/candidates/registry.ts`**, whenever two lanes open or
+ *   close a VERSUS slot in the same hours, because both rewrite its one array.
+ *   Neither side is read: the directories are the state and the rebase has
+ *   already put them on disk, so the resolver is `bun run versus index` run
+ *   over them. Added 23 September 2026, after git's own merge of one lane
+ *   dropping four candidates and another adding three imported four
+ *   directories that were gone.
  *
- * A fourth, **`docs/release-notes.md`**, is listed here and never reached by a
+ * A fifth, **`docs/release-notes.md`**, is listed here and never reached by a
  * landing: `note-commit.ts` writes it on the trunk after the rebase, so a lane
  * never carries one. It is the other rebase's conflict — the trunk against
  * `origin/main` — and it is registered here because that rebase is this same
  * function called from `reconcile.ts`, which is the whole reason the replay
  * takes the branch to rebase onto as an argument.
  *
- * Anything else stops the landing exactly as before, and so does any of those
- * three when the sides genuinely disagree: every resolver refuses rather than
+ * Anything else stops the landing exactly as before, and so does any of these
+ * when the sides genuinely disagree: every resolver refuses rather than
  * guess. The guard that catches a finished queue entry coming back still runs
  * after the replay, so this is a shortcut through a known agreement rather
  * than a new way to lose work.
@@ -35,6 +42,7 @@
 
 import { join as joinPath } from "node:path";
 import { regenerate } from "../index/generate.js";
+import { discover, registryText } from "../versus/registry.js";
 import { git } from "./git.js";
 import { keepLaneRows } from "./index-merge.js";
 import { LEDGER_FILE, mergeLedger } from "./ledger-merge.js";
@@ -54,6 +62,9 @@ export interface Replay {
 
 /** The generated file map, resolved by running the command that writes it. */
 const INDEX_FILE = "docs/INDEX.md";
+
+/** The VERSUS registry, generated from the candidate directories. */
+const REGISTRY_FILE = "tools/versus/candidates/registry.ts";
 
 /** What a resolver is handed: the three sides git staged, and where the tree is. */
 interface Sides {
@@ -81,6 +92,15 @@ RESOLVERS[INDEX_FILE] = async ({ root, file, base, trunk, lane }) => {
   const generated = regenerate(root).text;
   return keepLaneRows(base, trunk, lane, generated);
 };
+RESOLVERS[REGISTRY_FILE] = async ({ root }) => {
+  // A directory that is not yet a candidate is a refusal: `discover` says
+  // which, and the landing stops on it rather than registering half an answer.
+  try {
+    return registryText(discover(joinPath(root, "tools", "versus", "candidates")));
+  } catch {
+    return null;
+  }
+};
 
 /** One stage of a conflicted path — "" when that side has no version of it. */
 async function stage(root: string, n: number, file: string): Promise<string> {
@@ -105,7 +125,7 @@ async function run(args: string[], root: string): Promise<{ code: number; err: s
 }
 
 /**
- * Replay this lane onto `trunk`, settling the three known conflicts and stopping
+ * Replay this lane onto `trunk`, settling the known conflicts and stopping
  * on everything else. A failed replay is left aborted, so the worktree is on
  * the lane's own commits either way.
  */

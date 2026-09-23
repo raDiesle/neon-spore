@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-replay-registry
+
+- reading — 5 min. `replay.ts`'s resolvers, `registry.ts`'s `discover`, and
+  `versus-pose.ts` — which turned out to be hand-written rows, not generated.
+- writing — 5 min. The resolver, a real-repository test, the two documents
+  that list the replay's files, and a queue entry for the pose map.
+- looking — 0 min. The test run once with the resolver's key misspelt: both
+  cases fail, so it reaches the conflict git really makes.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the reading: the queue entry named `versus-pose.ts` as the
+same kind of file, and it is not.
+
 ## 2026-09-23 — queue-index-refresh
 
 - reading — 5 min. `tools/index/`, and a count across the table: 1,766 rows

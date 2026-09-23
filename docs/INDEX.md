@@ -2355,7 +2355,7 @@ by hand never moves.
 | `tools/maze/carve.ts` | The walls of THE MAZE's grid: which of them are opened |
 | `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
-| `tools/land/replay.ts` | the rebase, and the three conflicts it settles on its own |
+| `tools/land/replay.ts` | the rebase, and the generated and record files whose conflicts it settles on its own |
 | `tools/land/remote-branch.ts` | The lane's branch on `origin`, after the landing has taken it locally |
 | `tools/land/red-check.ts` | What a landing says when `bun run check` comes back red |
 | `tools/land/reconcile.ts` | **The other rebase: the trunk against `origin/main`.** `land`'s replay covers a lane landing onto the trunk |

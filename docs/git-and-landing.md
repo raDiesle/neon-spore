@@ -264,7 +264,10 @@ conflicts was authored by anyone.
 That is the landing's own replay pointed at the other pair of branches, so it is
 now the same code (`tools/land/reconcile.ts`, and `notes-merge.ts` for the
 release notes — the one record the landing never meets, because the note is
-written on the trunk *after* the rebase). It runs in whichever worktree has the
+written on the trunk *after* the rebase). A fifth joined the list on 23
+September 2026: `tools/versus/candidates/registry.ts`, generated from the
+candidate directories, is settled by generating it again over the tree the
+rebase has already laid down. It runs in whichever worktree has the
 trunk checked out and refuses if that tree is dirty, since a rebase walks over
 its files. **Anything it cannot settle still stops**, with the trunk exactly
 where it was: a conflict in a source file is a real disagreement between two
