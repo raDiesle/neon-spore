@@ -18096,3 +18096,5 @@ old file, and each had to be read for which boss it was about.
 The bottleneck was **the seams**: a wide stroke of the union path made the
 buried edges louder than the stones, so each stone now strokes its own edge
 straight after it is drawn and the stone above covers what it hides.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

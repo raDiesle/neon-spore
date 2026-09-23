@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 56c9124a — THE CAIRN's seven stones are bound in slime
+
+The pile is still seven of the field's own rocks, as the owner kept it, but it is now one grown thing: a lobed violet slime coats it a lip past its outer stones, fills every joint as a lit seam, gathers in a foot under the bottom course and hangs from it in three strands whose drops stretch on their own clocks, under a wet film high on the left. Each stone strokes its own seam straight after it is drawn, so only real joints show and the seven stay countable.
+
 ## 2026-09-23 · 019d6c25 — Every film's test is a file of its own, and `scene-films.test.ts` is gone
 
 It was 1093 lines, four times the ceiling, and it grew by one block every time a boss got a film. Each film's `describe` and its doc comment now live in `scene-<film>.test.ts`, the shape THE HIVE's already had. THE CANDLE's joins the file it already had, and the strip-act checks live in `scene-strip.test.ts`. Twenty-three tests before and after. The spec and source lines that named the old file now name the film's own.
