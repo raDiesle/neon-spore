@@ -3,6 +3,7 @@ import {
   type Circle,
   cannonGrab,
   DeskSeat,
+  type Field,
   flippedLayout,
   handedLayout,
   handedRole,
@@ -47,6 +48,8 @@ export interface FieldInputOptions {
   inStage: (e: { clientX: number; clientY: number }) => { x: number; y: number } | null;
   role: () => ViewRole;
   beatPhase: () => number;
+  /** The skin the renderer's last frame stood on (`Canvas2DRenderer.skinY`). */
+  skinY: () => Field["skinY"];
   jumpToWave: (wave: number) => void;
   /** The guide, played again from its first page — the renderer owns the
    * playback, so this file only says when. */
@@ -141,6 +144,7 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     shieldCol: () => world.shieldCol,
     opening: () => briefingHolds(world),
     beatPhase,
+    skinY: o.skinY,
     beat: () => world.beat,
     waveBeat: () => world.waveBeat,
     worldTick: () => world.tick,

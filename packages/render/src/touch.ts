@@ -65,7 +65,7 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     // The seat, because what a hand is worth depends on it: a rock is a brake
     // for either player and a living body is an aim only the pilot has, so a
     // navigator's thumb finds nothing over a slick (`sim/hand.ts`).
-    const held = creatureAt(l, field.creatures, x, y, field.beatPhase, field.seat);
+    const held = creatureAt(l, field.creatures, x, y, field.beatPhase, field.seat, field.skinY);
     // And last of all, a bare square: the one press in this game that is not
     // on anything drawn, from the seat a mine is hidden from (`mine-tap.ts`).
     // It answers the whole field, so it is asked only where nothing else

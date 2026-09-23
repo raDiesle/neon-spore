@@ -25,6 +25,8 @@ export function stageField(
   cfg: World["cfg"],
   /** The seat key held at the desk, if one is (`render/desk-seat.ts`). */
   seatKey: 1 | 2 | undefined,
+  /** The skin the stage's last frame stood on (`Canvas2DRenderer.skinY`). */
+  skinY: Field["skinY"],
 ): Field {
   return {
     creatures: world.creatures,
@@ -32,6 +34,7 @@ export function stageField(
     cannonCol: world.cannonCol,
     shieldCol: world.shieldCol,
     beatPhase: framePhase(world),
+    skinY,
     beat: world.beat,
     // The wave's own beat, which is the vane's cycle (`render/touch-field.ts`).
     waveBeat: world.waveBeat,

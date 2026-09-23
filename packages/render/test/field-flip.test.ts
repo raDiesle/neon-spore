@@ -134,10 +134,10 @@ describe("a body on a turned screen", () => {
     if (!body) throw new Error("the wave placed no body");
     const turned = flippedLayout(layoutFor("p1"), world);
     const drawn = flatCenter(turned, body, 0);
-    expect(creatureAt(turned, world.creatures, drawn.x, drawn.y, 0, 1)).toBe(body);
+    expect(creatureAt(turned, world.creatures, drawn.x, drawn.y, 0, 1, null)).toBe(body);
     // And the true picture's pixel, on the turned screen, is not the body.
     const honest = flatCenter(layoutFor("p1"), body, 0);
-    expect(creatureAt(turned, world.creatures, honest.x, honest.y, 0, 1)).not.toBe(body);
+    expect(creatureAt(turned, world.creatures, honest.x, honest.y, 0, 1, null)).not.toBe(body);
   });
 });
 

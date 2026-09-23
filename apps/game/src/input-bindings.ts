@@ -1,5 +1,5 @@
 import type { ControlSet } from "@neon-spore/content";
-import type { Layout } from "@neon-spore/render";
+import type { Field, Layout } from "@neon-spore/render";
 import type { BossState, Creature, PlacedFault, SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
@@ -96,6 +96,9 @@ export interface Bindings {
   /** 0..1 within the beat, so a grab lands on the creature as drawn, not as
    * it stood on the last beat. */
   beatPhase: () => number;
+  /** The ship's skin the last frame stood on, so a landing body is answered
+   * where it was drawn in the plating (`render/touch-field.ts`). */
+  skinY: () => Field["skinY"];
   /** The beat the field is standing on. THE BEATBOX's hit test reaches as far
    * as the body is *drawn*, and how big that is depends on whether this beat
    * has already been tapped (`render/beatbox-tap.ts`). */

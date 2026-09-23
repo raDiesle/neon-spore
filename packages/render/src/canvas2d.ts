@@ -1,9 +1,9 @@
 import { guardArmed, mawOpen, mineOnField, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { bandControlSet } from "./band.js";
 import { drawCandleField } from "./candle-dark.js";
+import { HeldHost } from "./canvas2d-held.js";
 import { drawStageSeam, paintOutside } from "./canvas2d-stage.js";
 import { drawTakeover } from "./canvas2d-takeover.js";
-import type { ClaspFrames } from "./clasp-frames.js";
 import {
   drawBodies,
   drawFieldBack,
@@ -17,9 +17,7 @@ import {
 import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { computeStage, frameLayout } from "./layout.js";
-import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
-import type { SpriteBursts } from "./sprite-burst.js";
 import { seenView } from "./unseen.js";
 
 /**
@@ -30,12 +28,9 @@ import { seenView } from "./unseen.js";
  * The one thing this file does own is transient appearance: particles, flashes
  * and the shield's fade between passive and armed. None of it is ever read back.
  */
-export class Canvas2DRenderer implements Renderer {
+export class Canvas2DRenderer extends HeldHost implements Renderer {
   private ctx: CanvasRenderingContext2D;
   private viewport: Viewport = { width: 0, height: 0, dpr: 1 };
-  /** Everything that is still true from last frame, and the forgetting of it
-   * when a wave starts over (`render-state.ts`). */
-  private held = new RenderState();
 
   /**
    * `readback` is for a caller that will read the pixels back with
@@ -51,35 +46,13 @@ export class Canvas2DRenderer implements Renderer {
     private canvas: HTMLCanvasElement,
     opts: { readback?: boolean } = {},
   ) {
+    super();
     const ctx = canvas.getContext("2d", {
       alpha: false,
       willReadFrequently: opts.readback === true,
     });
     if (!ctx) throw new Error("Canvas 2D context unavailable");
     this.ctx = ctx;
-  }
-
-  /** What a host may reach: the two atlases a baked look is installed into,
-   * the film REPLAY plays again and whether it has played out, and whether the
-   * wave is still arriving. State rather than drawing, so every one is
-   * `held`'s. */
-  get sprites(): SpriteBursts {
-    return this.held.sprites;
-  }
-  get claspShield(): ClaspFrames {
-    return this.held.claspShield;
-  }
-  get launching(): boolean {
-    return this.held.launching;
-  }
-  replayGuide(): void {
-    this.held.replayGuide();
-  }
-  nudgeGuide(): void {
-    this.held.nudgeGuide();
-  }
-  get guideFinished(): boolean {
-    return this.held.guideFinished;
   }
 
   resize(viewport: Viewport): void {
@@ -178,6 +151,7 @@ export class Canvas2DRenderer implements Renderer {
     const hull = frame(l, view.time, mood, at);
     const surfaceY = surfaceSampler(hull);
     const skinY = skinSampler(hull);
+    this.held.skinY = skinY;
 
     // A bare frame is the bodies and nothing else (`ViewState.bare`), and it
     // returns here rather than skipping four calls one at a time, so what a

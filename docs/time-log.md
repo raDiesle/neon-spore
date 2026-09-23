@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-touch-hull
+
+- reading — 5 min. `creature-under.ts`, `landing.ts`, the frame's samplers,
+  and every host that builds a `Field` — the game, the director's stage.
+- writing — 5 min. The skin held by the renderer, `Field.skinY` through two
+  hosts, forty-three test fields, the proof and its failing run.
+- looking — 0 min. The hit test moved, not the picture.
+- friction — 0 min. `canvas2d.ts` crossed 250 and its host getters left for
+  `canvas2d-held.ts`.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the writing: a required field on `Field` is one line in
+each of forty-odd literals, and the typecheck is the only list of them.
+
 ## 2026-09-23 — queue-frame-contention
 
 - reading — 5 min. The two files, the harness, `cpuTimeout`, and the

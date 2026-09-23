@@ -35,6 +35,7 @@ function wellField(seat: 1 | 2 = 1, cannonCol = 5): Field {
     cannonCol,
     shieldCol: 2,
     beatPhase: 0.5,
+    skinY: null,
     beat: 0,
     waveBeat: 0,
     tick: 0,

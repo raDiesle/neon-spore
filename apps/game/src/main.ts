@@ -104,6 +104,7 @@ const input = bindFieldInput({
   inStage,
   role: () => view.role(),
   beatPhase,
+  skinY: () => renderer.skinY,
   jumpToWave,
   replayGuide: () => renderer.replayGuide(),
   nudgeGuide: () => renderer.nudgeGuide(),

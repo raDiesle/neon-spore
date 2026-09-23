@@ -1698,6 +1698,7 @@ by hand never moves.
 | `packages/render/src/bellows-grip.ts` | **The thumb on one of THE BELLOWS's two handles** — half two of the look lane |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
+| `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |
 | `packages/render/src/candle-dark.ts` | **THE CANDLE's dark**: the field going black |
 | `packages/render/src/candle-glow.ts` | **THE CANDLE's glow**: its health, and the only steady light in the field |
 | `packages/render/src/candle-grip.ts` | THE CANDLE's wick: the stem, the ring on the flame and the ember after it |

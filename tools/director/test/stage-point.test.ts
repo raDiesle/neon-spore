@@ -136,6 +136,7 @@ describe("the stage's pointer conversion", () => {
         cannonCol: world.cannonCol,
         shieldCol: world.shieldCol,
         beatPhase: 0,
+        skinY: null,
         beat: 0,
         waveBeat: 0,
         tick: 0,

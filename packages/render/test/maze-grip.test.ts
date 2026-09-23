@@ -96,6 +96,7 @@ function fieldWith(seat: 1 | 2, boss: MazeState | null): Field {
     cannonCol: 4,
     shieldCol: 4,
     beatPhase: 0.5,
+    skinY: null,
     beat: 6,
     waveBeat: 6,
     tick: 0,

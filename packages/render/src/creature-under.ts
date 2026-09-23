@@ -1,5 +1,6 @@
 import { type Creature, DEFAULT_CONFIG, handMeans } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { landingY } from "./landing.js";
 import type { Layout } from "./layout.js";
 
@@ -36,10 +37,9 @@ import type { Layout } from "./layout.js";
  * membrane at the hull row's centre (`landing.ts`), which is three quarters of
  * a tile higher — further than the reach below, so a thumb laid on the body as
  * drawn found nothing at all on the last beat it can still be aimed at. The
- * skin here is `l.hullY`, the flat membrane, and not the lobed one the picture
- * stands on: this layer is handed a field and never a hull frame
- * (`touch-field.ts`), and the lobes move the surface by a few pixels against a
- * reach of most of a tile.
+ * skin is the one the last frame was drawn on (`Field.skinY`), lobes and
+ * all, so the body a lobe has raised is answered as high as it was drawn;
+ * without a frame it is `l.hullY`, the flat membrane.
  */
 export function creatureAt(
   l: Layout,
@@ -48,13 +48,15 @@ export function creatureAt(
   y: number,
   beatPhase: number,
   player: 1 | 2,
+  skinY: SurfaceY | null,
 ): Creature | null {
+  const skin = skinY ?? (() => l.hullY);
   let best: Creature | null = null;
   let bestDist = Number.POSITIVE_INFINITY;
   for (const c of creatures) {
     if (handMeans(c.kind, player) === null) continue;
     const { x: cx, y: flatY } = flatCenter(l, c, beatPhase);
-    const cy = landingY(l, DEFAULT_CONFIG, c, cx, flatY, beatPhase, () => l.hullY);
+    const cy = landingY(l, DEFAULT_CONFIG, c, cx, flatY, beatPhase, skin);
     const reach = flatRadius(l, DEFAULT_CONFIG, c, beatPhase) * 1.6;
     const d = Math.hypot(x - cx, y - cy);
     if (d > reach || d >= bestDist) continue;

@@ -8,6 +8,7 @@ import { FenceStrike } from "./fence-strike.js";
 import { FieldPose } from "./field-pose.js";
 import { GuideStage } from "./guide-scene.js";
 import { GumSplash } from "./gum-splash.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { LanceFlash } from "./lance-flash.js";
 import type { Layout } from "./layout.js";
 import { LureBlastFx } from "./lure-blast.js";
@@ -98,6 +99,14 @@ export class RenderState {
    * one that reaches it.
    */
   readonly lanceFlash = new LanceFlash();
+  /**
+   * The ship's skin the last field frame was drawn on (`skinSampler`), which
+   * the hit test asks so a landing body is answered where it was drawn rather
+   * than off the flat hull (`creature-under.ts`). Null until a field has been
+   * drawn. One frame old by the time a finger asks, which is the frame the
+   * finger saw.
+   */
+  skinY: SurfaceY | null = null;
   /** Enough of last frame's world to notice a wave starting over — see `restarted`. */
   private seen: { world: World; wave: number; waveBeat: number } | null = null;
 

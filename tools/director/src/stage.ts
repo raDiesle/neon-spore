@@ -66,7 +66,7 @@ export function bindStage(
     at,
     layout: () => handedLayout(layout(), world), // answered where it is drawn.
     // What a hit test is handed, read fresh on every press (`stage-field.ts`).
-    field: () => stageField(world, role, currentControlSet(), cfg, desk.seat()),
+    field: () => stageField(world, role, currentControlSet(), cfg, desk.seat(), renderer.skinY),
     push: keys.push,
     world: () => world,
     role: () => role,

@@ -56,6 +56,7 @@ export function bindControls({
   shieldCol,
   opening,
   beatPhase,
+  skinY,
   beat,
   waveBeat,
   worldTick,
@@ -67,13 +68,11 @@ export function bindControls({
 }: Bindings): Controls {
   /** Which finger is doing what. What each one *means* is `touch.ts`'s. */
   const holding = new Map<number, Hold>();
-  /**
-   * **Who a press is from: this device, always.** `touch.ts` signs a press with
-   * the half of the band it landed on, and THE HANDOVER trades which half this
-   * screen is drawing — so while the panels are away that signature is the
+  /** **Who a press is from: this device, always.** `touch.ts` signs a press
+   * with the half of the band it landed on, and THE HANDOVER trades which half
+   * this screen draws — so while the panels are away that signature is the
    * other player's, and a lockstep refuses a press attributed to the peer
-   * (`Bindings.handed`). A hand on the *field* is already this seat's.
-   */
+   * (`Bindings.handed`). A hand on the *field* is already this seat's. */
   const from = (t: { player: 1 | 2 }): 1 | 2 => (handed() ? player() : t.player);
   const hand = new ShipHandWatch();
   /** A desk has a hover and a phone does not. Undefined until a mouse moves. */
@@ -83,6 +82,7 @@ export function bindControls({
     cannonCol: cannonCol(),
     shieldCol: shieldCol(),
     beatPhase: beatPhase(),
+    skinY: skinY(),
     beat: beat(),
     waveBeat: waveBeat(),
     tick: worldTick(),

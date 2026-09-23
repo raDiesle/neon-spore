@@ -36,6 +36,7 @@ function field(seat: 1 | 2, controls: ControlSet = STANDARD, cols?: [number, num
     cannonCol: cannon,
     shieldCol: shield,
     beatPhase: 0.5,
+    skinY: null,
     beat: 0,
     waveBeat: 0,
     tick: 0,

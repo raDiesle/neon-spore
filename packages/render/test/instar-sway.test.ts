@@ -76,6 +76,7 @@ function field(world: World, beat: number, beatPhase: number): Field {
     cannonCol: world.cannonCol,
     shieldCol: world.shieldCol,
     beatPhase,
+    skinY: null,
     beat,
     waveBeat: world.waveBeat,
     tick: world.tick,

@@ -167,7 +167,8 @@ describe("a wave restart", () => {
 /**
  * The renderer's own eased pose — `armed`, `intake`, `cannon`, `shield` —
  * minus everything a restart is not about (`ctx`, `canvas`, `viewport`,
- * `seen`, `effects`, which has its own guard above). Read as
+ * `seen`, `effects`, which has its own guard above), with the held skin read
+ * as numbers. Read as
  * `Record<string, unknown>` because these fields are private: this test
  * exists to catch exactly the field a later change adds and forgets to
  * clear in `resetPose`, so it has to see all of them, not just the ones an
@@ -182,5 +183,10 @@ function pose(renderer: Canvas2DRenderer): Record<string, unknown> {
     effects: _effects,
     ...rest
   } = renderer as unknown as Record<string, unknown>;
+  // The skin is a closure built again every frame, so it is compared by what
+  // it says across the width rather than by which function it is.
+  const held = rest.held as { skinY: ((x: number) => number) | null };
+  const skin = held.skinY;
+  rest.held = { ...held, skinY: skin && [0, 225, 450, 675, 900].map((x) => skin(x)) };
   return rest;
 }

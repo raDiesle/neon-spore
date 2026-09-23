@@ -104,6 +104,7 @@ function field(world: World, seat: 1 | 2): Field {
     cannonCol: world.cannonCol,
     shieldCol: world.shieldCol,
     beatPhase: 0.4,
+    skinY: null,
     beat: world.beat,
     waveBeat: world.waveBeat,
     tick: world.tick,

@@ -450,31 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## The touch layer guesses the ship's skin, because a `Field` cannot see the hull
-
-- **Found:** 2026-09-22, claude/damage-flash-sync-and-wound-together
-- **Taken:** 2026-09-23, claude/queue-touch-hull (claim: claude/queue-the-touch-layer-guesses-the-ships-skin-because-a)
-- **Files:** `packages/render/src/creature-under.ts`, `packages/render/src/touch-field.ts`, `packages/render/src/landing.ts`, `packages/render/test/touch.test.ts`
-
-A body's landing beat now ends resting in the plating rather than under the
-membrane at the hull row's centre (`landing.ts`), and the picture asks the
-*lobed* membrane for that rest: `skinSampler` over the frame `canvas2d.ts`
-builds, so a body lands on whatever swelling stands over its column. The hit
-test has no such frame — `Field` is a shape, deliberately without a world or a
-hull — so `creatureAt` passes `() => l.hullY`, the flat baseline, and answers a
-landing body a lobe's height away from where it is drawn. Under the cannon's
-crown that is the largest the disagreement gets, and the crown is exactly the
-column a pair is most often aiming at.
-
-The work is a `skinY` on `Field`, required and stated the way every field on
-that interface is, written at the one place the field is built (`input.ts`) from
-the sampler `canvas2d.ts` already makes, and threaded to `creatureAt` in place
-of the guess. It is not two lines: every `Field` literal in the render tests
-takes a new member, which is what makes it a sitting of its own rather than a
-paragraph in the lane that found it. The proof is a test that puts a slick on
-the hull row under a raised lobe and asserts the thumb finds it at the pixel the
-field pass draws it at.
-
 ## `strokeGlow`'s `intensity` does not fade the line, only the glow around it
 
 - **Found:** 2026-09-22, claude/lost-wound-with-the-plates
@@ -960,3 +935,33 @@ by a script. The work: in `classify.ts`, a whole unused statement with no
 comment line directly above it (the previous line is another import, blank, or
 the file's start) is dropped like a specifier; one with a comment above it is
 still printed. A test with both kinds in one file is the proof.
+
+## `creatureAt` glides a balloon by the beat, and reaches at `DEFAULT_CONFIG`
+
+- **Found:** 2026-09-23, claude/queue-touch-hull
+- **Files:** `packages/render/src/creature-under.ts`, `packages/render/src/touch.ts`, `packages/render/src/depth.ts`, `packages/render/test/`
+
+The field pass places a body at `glidePhase(world.cfg, world.beat, c,
+beatPhase)` (`creatures.ts`), which spreads a balloon's step over several
+beats; `creatureAt` passes the raw `beatPhase` to `flatCenter`, `landingY` and
+`flatRadius`, so a balloon mid-step is answered where it would be on an
+ordinary beat, not where it is drawn. It also sizes the reach by
+`DEFAULT_CONFIG` although the `Field` it is called from carries `cfg`. The
+work: `creatureAt` takes the field's `cfg` and `beat`, asks `glidePhase` per
+body, and uses the result everywhere it now uses `beatPhase`; `touch.ts:68`
+passes them. A test pressing a balloon at its drawn centre mid-step, which
+misses today, is the proof.
+
+## `apps/game/src/input.ts` is at 248 lines with its seam unchosen
+
+- **Found:** 2026-09-23, claude/queue-touch-hull
+- **Files:** `apps/game/src/input.ts`, `apps/game/src/input-bindings.ts`
+
+Handing the field the renderer's skin took one binding and one line, and the
+size hook asked for the seam. The file is one `bindControls` closure: the
+`Field` builder and the destructured bindings at the top, then the pointer
+handlers (`down`, `move`, `up`, `releaseAll`, the desk's hover). The cut that
+reads cleanly is the `Field` — a `fieldFrom(bindings)` in
+`input-bindings.ts` beside the bindings it reads, called once per press — which
+also drops the thirteen names destructured only to be copied into it.
+`bunx tsc --noEmit` and the existing input tests are the proof.

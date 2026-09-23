@@ -64,6 +64,7 @@ function field(world: World, seat: 1 | 2 = 1): Field {
     cannonCol: world.cannonCol,
     shieldCol: world.shieldCol,
     beatPhase: 0,
+    skinY: null,
     beat: world.beat,
     waveBeat: world.waveBeat,
     tick: world.tick,

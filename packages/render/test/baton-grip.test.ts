@@ -95,6 +95,7 @@ function fieldWith(seat: 1 | 2, world: World, boss: BatonState): Field {
     cannonCol: 4,
     shieldCol: 4,
     beatPhase: 0.5,
+    skinY: null,
     beat: world.beat,
     waveBeat: world.waveBeat,
     tick: world.tick,

@@ -1,5 +1,6 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { BossState, Creature, PlacedFault, SimConfig } from "@neon-spore/sim";
+import type { SurfaceY } from "./hull-frame.js";
 
 /**
  * **What a hit test is handed**: the field as the control scheme needs to see
@@ -32,6 +33,15 @@ export interface Field {
   shieldCol: number;
   /** 0..1 within the beat, so a grab lands on the creature as drawn. */
   beatPhase: number;
+  /**
+   * The ship's skin as the last frame drew it (`Canvas2DRenderer.skinY`), so a
+   * body on its landing beat is answered where it rests in the plating: under
+   * a raised lobe that is higher than the flat hull, by as much as the crown.
+   * **Required and stated**, for the reason every field here is; `null` says
+   * no frame was drawn under this field — a test's, or a stage before its
+   * first — and the hit test stands on the flat hull (`creature-under.ts`).
+   */
+  skinY: SurfaceY | null;
   /**
    * The beat the field is standing on. **Required and stated rather than
    * defaulted**, for the reason every field below it is: THE BEATBOX's hit

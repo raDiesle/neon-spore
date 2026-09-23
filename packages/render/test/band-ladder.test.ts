@@ -41,6 +41,7 @@ function field(seat: 1 | 2, controls: ControlSet): Field {
     // lobe the seat carries, which for player 2 is the plate).
     shieldCol: world.shieldCol + 2,
     beatPhase: 0.5,
+    skinY: null,
     beat: 0,
     waveBeat: 0,
     tick: 0,

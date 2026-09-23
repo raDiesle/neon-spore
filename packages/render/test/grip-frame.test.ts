@@ -197,7 +197,7 @@ describe("a finger on the field", () => {
   it("finds what it is pointing at, mid-glide", () => {
     for (const c of world.creatures) {
       const at = creatureCenter(L, world, c, 0.5);
-      expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 1)?.id).toBe(c.id);
+      expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 1, null)?.id).toBe(c.id);
     }
   });
 
@@ -205,7 +205,7 @@ describe("a finger on the field", () => {
     const c = world.creatures[0];
     if (!c) throw new Error("the field is empty");
     const at = creatureCenter(L, world, c, 0.5);
-    expect(creatureAt(L, world.creatures, at.x, at.y - L.tile * 3, 0.5, 1)).toBeNull();
+    expect(creatureAt(L, world.creatures, at.x, at.y - L.tile * 3, 0.5, 1, null)).toBeNull();
   });
 
   /**
@@ -218,8 +218,8 @@ describe("a finger on the field", () => {
     const slick = world.creatures.find((c) => c.kind === "slick");
     if (!slick) throw new Error("no slick");
     const at = creatureCenter(L, world, slick, 0.5);
-    expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 1)?.id).toBe(slick.id);
-    expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 2)).toBeNull();
+    expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 1, null)?.id).toBe(slick.id);
+    expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, 2, null)).toBeNull();
   });
 
   it("offers a rock to both seats", () => {
@@ -227,7 +227,7 @@ describe("a finger on the field", () => {
     if (!rock) throw new Error("no torch");
     const at = creatureCenter(L, world, rock, 0.5);
     for (const seat of [1, 2] as const) {
-      expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, seat)?.id).toBe(rock.id);
+      expect(creatureAt(L, world.creatures, at.x, at.y, 0.5, seat, null)?.id).toBe(rock.id);
     }
   });
 
@@ -238,6 +238,6 @@ describe("a finger on the field", () => {
     const queen = boss.creatures.find((c) => c.kind === "queen");
     if (!queen) throw new Error("no queen");
     const at = creatureCenter(L, boss, queen, 0);
-    expect(creatureAt(L, boss.creatures, at.x, at.y, 0, 1)).toBeNull();
+    expect(creatureAt(L, boss.creatures, at.x, at.y, 0, 1, null)).toBeNull();
   });
 });

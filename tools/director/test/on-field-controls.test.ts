@@ -487,6 +487,7 @@ const FIELD: Field = {
   cannonCol: 5,
   shieldCol: 5,
   beatPhase: 0,
+  skinY: null,
   beat: 0,
   waveBeat: 0,
   tick: 0,
