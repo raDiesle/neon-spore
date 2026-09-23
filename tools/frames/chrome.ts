@@ -20,9 +20,12 @@ import { existsSync } from "node:fs";
  * macOS is on the list because everything that takes a picture — `frames`,
  * `png`, `icons`, `raster`, `raster:verify`, `shot` — comes through here, so a
  * missing path is all six of them throwing on half the owner's machines.
+ *
+ * `FRAMES_CHROME` is not on it: that is read when a browser is looked for
+ * (`chromeCandidates`), not when this module is imported, so a variable set
+ * after the import is the one used rather than ignored without a word.
  */
 export const CHROME_CANDIDATES = [
-  process.env.FRAMES_CHROME,
   "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
   "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
@@ -55,6 +58,13 @@ export function pickChrome(
   );
 }
 
+/** The list as it stands now: `FRAMES_CHROME` first, when it is set. */
+export function chromeCandidates(
+  env: Record<string, string | undefined> = process.env,
+): (string | undefined)[] {
+  return [env.FRAMES_CHROME, ...CHROME_CANDIDATES];
+}
+
 export function findChrome(): string {
-  return pickChrome(CHROME_CANDIDATES);
+  return pickChrome(chromeCandidates());
 }

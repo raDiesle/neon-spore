@@ -515,27 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## `FRAMES_CHROME` is read once, when the module is first imported
-
-- **Found:** 2026-09-21, claude/queue-chromium-launch-crashes-here-the-pipe-transport
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-frames-chrome-is-read-once-when-the-module-is-fi)
-- **Files:** `tools/frames/chrome.ts`, `tools/frames/test/chrome.test.ts`
-- **Where:** local
-
-`CHROME_CANDIDATES` is a module-level `const` whose first element is
-`process.env.FRAMES_CHROME`, so the variable is read at import and never
-again. Anything that sets it afterwards — a test wanting a browser that is
-certain not to open, a script arranging one for a single call — is ignored
-without a word, and the default is used instead. This lane wanted exactly
-that and could not have it: `launchBrowser` gained an optional executable
-parameter instead, which is the right seam for a caller and does nothing for
-the environment variable the documentation names.
-
-`pickChrome` is already pure and already takes its candidates, so the fix is
-small: `CHROME_CANDIDATES` becomes a function, or the `FRAMES_CHROME` element
-is read inside `findChrome()` rather than beside the constant. The test is
-setting the variable after import and getting the path back.
-
 ## The phone's furniture is read again on every one of a resize burst
 
 - **Found:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho

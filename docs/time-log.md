@@ -18184,3 +18184,15 @@ portrait frames, but a phone fits a picture to its width, so crops stack and
 full frames sit side by side.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — `FRAMES_CHROME` is read once, when the module is first imported
+
+- reading — 5 min. `chrome.ts` and its test.
+- writing — 5 min. `chromeCandidates()` reads the variable at the search;
+  two tests set it after the import.
+- looking — 0 min. Nothing drawn.
+- friction — 0 min. None.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **none worth the name**: the entry named the fix, and
+`pickChrome` already took its candidates.

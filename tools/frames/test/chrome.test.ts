@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { CHROME_CANDIDATES, pickChrome } from "../chrome.js";
+import { CHROME_CANDIDATES, chromeCandidates, findChrome, pickChrome } from "../chrome.js";
 
 /**
  * The one thing worth asserting about a list of paths: that a machine carrying
@@ -30,4 +30,23 @@ describe("pickChrome over the shipped candidates", () => {
       expect(pickChrome(CHROME_CANDIDATES, only(path))).toBe(path);
     });
   }
+});
+
+describe("FRAMES_CHROME", () => {
+  test("is read when a browser is looked for, not when the module is imported", () => {
+    const before = process.env.FRAMES_CHROME;
+    // Any file that exists will do: the search asks only whether the path is there.
+    process.env.FRAMES_CHROME = import.meta.path;
+    try {
+      expect(findChrome()).toBe(import.meta.path);
+    } finally {
+      if (before === undefined) delete process.env.FRAMES_CHROME;
+      else process.env.FRAMES_CHROME = before;
+    }
+  });
+
+  test("comes before every shipped path, and is left out when unset", () => {
+    expect(chromeCandidates({ FRAMES_CHROME: "/x" })[0]).toBe("/x");
+    expect(chromeCandidates({}).slice(1)).toEqual([...CHROME_CANDIDATES]);
+  });
 });
