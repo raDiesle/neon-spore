@@ -484,6 +484,7 @@ job name beside it.
 ## The slab panel form has no user and goes
 
 - **Found:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-the-slab-panel-form-has-no-user-and-goes)
 - **Files:** `packages/render/src/slabs.ts`, `packages/content/src/controls.ts`, `packages/content/src/control-sets.ts`, `packages/content/src/index.ts`, `packages/render/src/index.ts`, `packages/render/src/guide-thumb.ts`, `packages/render/src/caption-anchor.ts`, `apps/game/src/menu-controls.ts`, `packages/content/src/control-sender.ts`, `packages/render/src/band-lobes.ts`, `packages/content/test/control-sets.test.ts`
 
 THE GAUGE's three were the last controls with `form: "slab"`; they are lobes
