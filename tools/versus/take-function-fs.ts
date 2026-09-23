@@ -3,7 +3,7 @@
  * tree.
  *
  * `take-function.ts` is the text work and is tested on strings; this reads the
- * candidate's `index.ts` and its siblings, decides where every file lands,
+ * candidate's `index.ts`, its siblings and the slot's helpers they reach, decides where every file lands,
  * asks whether anything still imports what the record used to point at, and
  * hands `decide.ts` a plan it can write in one go — or the first reason it
  * cannot. Nothing here writes: `adopt` collects the whole slot's plan before
@@ -90,16 +90,20 @@ export function planFunctionTake(
   }
 
   // Every sibling moves, not only the ones a field names: they import each
-  // other, and a sibling left behind is a sibling deleted with the slot.
+  // other, and a sibling left behind is a sibling deleted with the slot. So
+  // does a helper they reach out of the directory into the rest of the slot —
+  // the file two candidates share rather than each carrying a copy.
   const siblings = readdirSync(join(root, won.dir))
     .filter((f) => f.endsWith(".ts") && f !== "index.ts")
     .map((f) => posix.join(won.dir, f));
   const moved = new Map<string, string>();
-  for (const s of siblings) {
+  for (const s of [...siblings, ...slotHelpers(root, siblings, posix.dirname(won.dir))]) {
     const to = destinationFor(patch.where.file, won.name, siblingName(s), as);
     if (existsSync(join(root, to))) {
       return { why: `${to} already exists; say where the file should land with --as <name>` };
     }
+    const twin = [...moved].find(([, t]) => t === to)?.[0];
+    if (twin) return { why: `${s} and ${twin} would both land as ${to}; rename one of them` };
     moved.set(s, to);
   }
   const moves: Moved[] = [...moved].map(([from, to]) => ({
@@ -144,6 +148,29 @@ export function planFunctionTake(
     });
   }
   return { moves, recordText: text, fields: out, retired };
+}
+
+/**
+ * The files outside the candidate's own directory that its files reach, one
+ * import after another, while they stay under the slot's — `../geometry.ts`
+ * beside the candidates that share it. Anything past the slot is the tree's
+ * own, and `rewriteSpecifiers` points at it where it stands.
+ */
+export function slotHelpers(root: string, from: readonly string[], slot: string): string[] {
+  const seen = new Set(from);
+  const found: string[] = [];
+  const todo = [...from];
+  for (let file = todo.pop(); file !== undefined; file = todo.pop()) {
+    for (const m of readFileSync(join(root, file), "utf8").matchAll(/from\s*"(\.[^"]+)"/g)) {
+      const reached = resolveSpec(file, m[1] ?? "");
+      if (seen.has(reached) || !reached.startsWith(`${slot}/`)) continue;
+      if (!existsSync(join(root, reached))) continue;
+      seen.add(reached);
+      found.push(reached);
+      todo.push(reached);
+    }
+  }
+  return found.sort();
 }
 
 /** Every source file under `packages`, `apps` and `tools` that imports

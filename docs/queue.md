@@ -450,29 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## A second candidate in a slot writes the first one's geometry again
-
-- **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
-- **Taken:** 2026-09-23, claude/queue-second-candidate-writes-first-geometry (claim: claude/queue-a-second-candidate-in-a-slot-writes-the-first-on)
-- **Files:** `tools/versus/take-function-fs.ts`, `tools/versus/decide.ts`
-
-`adopt` moves the files in the winning candidate's own directory and nothing
-else — `take-function-fs.ts` reads that directory's `index.ts` and its
-siblings, and a file one level up is not in the plan. So a candidate that
-imported a shared helper out of its directory would land broken, and the only
-safe thing to do is copy the helper in. The `slow:window` slot carried three
-candidates answering the same two questions — where the thing being slowed is
-on the layout, and how far up the look has faded — in a byte-identical file
-written out three times; the slot was settled before anything shared it.
-
-The work is one of two: let the plan follow a relative import out of the
-candidate's directory when the file it reaches is still under the slot, and
-move it in too; or give a slot a directory of its own for shared helpers that
-`adopt` knows to copy from. Either ends the rule that a second candidate in a
-slot pays for the first one's geometry again. Until then every slot with more
-than one candidate carries the same duplication, and a fix to one copy is a fix
-to one copy.
-
 ## `--press` with `--frames` refuses a press the filmstrip would have caught
 
 - **Found:** 2026-09-22, claude/queue-press-knows-no-scout-verb-so-the-scouts-two-ring
@@ -1068,3 +1045,19 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `adopt` and `drop` have no test of what they take off the disk
+
+- **Found:** 2026-09-23, claude/queue-second-candidate-writes-first-geometry
+- **Files:** `tools/versus/decide.ts`, `tools/versus/root.ts`, `tools/versus/test/`
+
+`removeSlot` in `decide.ts` deletes every candidate directory, and since this
+lane the slot directory with any helper file the candidates shared, then
+rewrites the registry and the director's pose row. None of that is tested:
+`decide.ts` reads `ROOT` and `CANDIDATES` from `root.ts`, so a test would run
+against the real tree. `planFunctionTake` shows the shape that works — it takes
+`root` as an argument and `take-function-fs.test.ts` builds a small tree in a
+temporary directory. The work: pass the root into `adopt`/`drop`/`removeSlot`
+(defaulting to `ROOT`), and write a test that opens a two-candidate slot with a
+shared helper in a temporary tree, drops it, and finds the slot's directory,
+the helper and the registry entry all gone.

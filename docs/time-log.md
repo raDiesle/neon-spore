@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-second-candidate-writes-first-geometry
+
+- reading — 10 min. The take plan, its text helpers, how the registry finds a
+  candidate (so a shared file has to sit beside the directories, not in one),
+  and `removeSlot`.
+- writing — 10 min. `slotHelpers`, the refusal for two files landing under one
+  name, the slot directory going with its candidates, two tests, the README.
+- looking — 0 min.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the reading: where a shared file may stand is decided by
+`discover`, three files away from the plan that has to move it.
+
 ## 2026-09-23 — queue-two-bosses-say-their-picture-not-built
 
 - reading — 10 min. Each clause of THE VANE's and SNAKE's paragraphs against

@@ -28,7 +28,7 @@
  * move, and a name the record file already uses.
  */
 
-import { readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { byHand } from "./by-hand.js";
 import { type FileEdit, recordDecision } from "./decided-md.js";
@@ -36,7 +36,7 @@ import { removePoseRow } from "./pose-row.js";
 import { isRefusal, rewriteRecord } from "./record-edit.js";
 import { writeRegistry } from "./registry.js";
 import { CANDIDATES, ROOT } from "./root.js";
-import { candidatesIn, type OnDisk, slotsOnDisk } from "./slots.js";
+import { candidatesIn, type OnDisk, slotDir, slotsOnDisk } from "./slots.js";
 import { type FunctionTake, planFunctionTake } from "./take-function-fs.js";
 import { quoted, wrap } from "./text.js";
 import { currentValues, slots, type Variant } from "./variant.js";
@@ -190,9 +190,14 @@ export function drop(slotName: string, reason: string): string[] {
  */
 function removeSlot(slot: string, candidates: readonly OnDisk[]): string[] {
   for (const c of candidates) rmSync(join(ROOT, c.dir), { recursive: true, force: true });
+  // What is left is what the candidates shared (`slotHelpers`), and it goes too.
+  const dir = join(CANDIDATES, slotDir(slot));
+  const shared = existsSync(dir) ? readdirSync(dir) : [];
+  rmSync(dir, { recursive: true, force: true });
   const { count } = writeRegistry(CANDIDATES);
   return [
     ...candidates.map((c) => `  removed  ${c.dir}`),
+    ...shared.map((f) => `  removed  tools/versus/candidates/${slotDir(slot)}/${f}`),
     `  rewrote  tools/versus/candidates/registry.ts — ${count} candidate${count === 1 ? "" : "s"} left`,
     removePoseRow(ROOT, slot),
   ];

@@ -220,7 +220,11 @@ candidate's sibling files (`paint.ts` and whatever it imports beside it) move
 into the package the record lives in, named `<record>-<candidate>.ts` with
 `-look` dropped — `spall` on `crater-look.ts` lands as `crater-spall.ts`, and a
 sibling called `nerves.ts` as `crater-spall-nerves.ts` — or under `--as <base>`;
-their imports are rewritten for where they stand; the record's field points at
+their imports are rewritten for where they stand; so is a **helper the slot's
+candidates share** — a file beside their directories, `candidates/<slot>/geometry.ts`,
+that a sibling imports as `../geometry.js` — which moves with the winner under
+the same naming and goes with the slot otherwise, so a second candidate imports
+the first one's geometry rather than copying it; the record's field points at
 the moved function; and the module the record used to import, if nothing else
 in the tree imports it, is deleted. A function written **inline** in the
 candidate's `index.ts` is still a refusal, because there is no file to move —

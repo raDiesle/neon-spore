@@ -177,6 +177,45 @@ describe("planning a take", () => {
   });
 });
 
+describe("a helper the slot's candidates share", () => {
+  const RIM = "tools/versus/candidates/ship-crater/rim.ts";
+  const GRAIN_FILE = "tools/versus/candidates/ship-crater/shards/grain.ts";
+
+  it("moves with the winner when a sibling reaches it, and its own imports follow", () => {
+    put(
+      RIM,
+      `import { strokeGlow } from "../../../../packages/render/src/glow.js";\nexport const rim = strokeGlow;\n`,
+    );
+    put(GRAIN_FILE, `import { rim } from "../rim.js";\n${GRAIN}`);
+    try {
+      const plan = planFunctionTake(root, won, patch, ["pit"], RECORD);
+      if ("why" in plan) throw new Error(plan.why);
+      const moves = new Map(plan.moves.map((m) => [m.from, m]));
+      expect(moves.get(RIM)?.to).toBe("packages/render/src/crater-shards-rim.ts");
+      expect(moves.get(RIM)?.text).toContain(`from "./glow.js"`);
+      expect(moves.get(GRAIN_FILE)?.text).toContain(`from "./crater-shards-rim.js"`);
+      // Nothing past the slot moves: the glow it reaches is the tree's own.
+      expect(plan.moves.map((m) => m.from).filter((f) => !f.startsWith("tools/"))).toEqual([]);
+    } finally {
+      rmSync(join(root, RIM));
+      put(GRAIN_FILE, GRAIN);
+    }
+  });
+
+  it("refuses two files that would land under one name", () => {
+    const twin = "tools/versus/candidates/ship-crater/grain.ts";
+    put(twin, GRAIN);
+    put(GRAIN_FILE, `import { grain as g } from "../grain.js";\nexport const grain = g;\n`);
+    try {
+      const plan = planFunctionTake(root, won, patch, ["pit"], RECORD);
+      expect("why" in plan && plan.why).toContain("crater-shards-grain.ts");
+    } finally {
+      rmSync(join(root, twin));
+      put(GRAIN_FILE, GRAIN);
+    }
+  });
+});
+
 describe("who imports a module", () => {
   it("finds every reader by resolving its relative specifier, except the one asked to skip", () => {
     const file = "packages/render/src/crater-pit.ts";
