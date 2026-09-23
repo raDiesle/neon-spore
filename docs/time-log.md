@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-guide-cap-in-content
+
+- reading — 5 min. `briefing.test.ts`'s prose block and what content already
+  held of a guide's words: nothing.
+- writing — 5 min. `content/test/guides.test.ts` with the three tests that read
+  only `WAVES`, and `briefing.test.ts` left with what it draws.
+- looking — 0 min. Nothing is drawn.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was none worth the name; the third test, the name's twenty
+characters, read only `WAVES` too and went with the two the entry named.
+
 ## 2026-09-23 — queue-demos-row-id
 
 - reading — 5 min. `menu-pages.ts`'s two loops, `#menu .wave`, `demo-menu.ts`

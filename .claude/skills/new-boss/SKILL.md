@@ -109,8 +109,8 @@ before the first check.
 
 The purity test's table of rules that must be **called, not re-derived** is
 what catches `livingKindForColor` written as a ternary; the hash-coverage test
-catches a `null` the fixture never changed; the briefing test catches a guide
-half over 220. Run `bun run check:fast`, commit by path, `bun run land --keep`.
+catches a `null` the fixture never changed; `content/test/guides.test.ts`
+catches a guide half over 220. Run `bun run check:fast`, commit by path, `bun run land --keep`.
 
 ## 5. Lane two: the look
 

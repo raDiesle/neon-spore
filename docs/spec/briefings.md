@@ -382,8 +382,8 @@ It is the one guide in the game with no word to lean on for *where it will be*,
 because the pilot is never shown the column and a cue that appeared only
 sometimes would be the column by its own absence — so the pilot's half carries
 the arithmetic itself, two ahead at a walk and four at a run, inside the 220
-characters a half is allowed (`render/test/briefing.test.ts`). Its film, the same
-day, is the mistake first — a shot at where the body
+characters a half is allowed (`content/test/guides.test.ts`). Its film, the
+same day, is the mistake first — a shot at where the body
 is, missed and turned round — and then four at where it will be, every one
 an `atBoss` strip answered by the sum itself (`leadLead`, two beats on);
 the run's litter is laid around, since a rock stands in its column for the

@@ -55,9 +55,9 @@ const WALK_MS = HANG_MS;
  * first thing a new pair ever sees and a colour the browser cannot parse there
  * is a game that never starts.
  *
- * The other half of this file is the prose. A guide with an empty line is a
- * guide that teaches half of a split, which is worse than no guide: one player
- * is told to read something out and has nothing to read.
+ * The prose itself — two halves that differ, each short enough for a phone,
+ * a name that fits — is `content/test/guides.test.ts`'s, beside the words, so
+ * a lane that edits only the words meets it in `check:fast`.
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
@@ -66,30 +66,6 @@ const GUIDED = WAVES.map((w, i) => (w.guide ? i : -1)).filter((i) => i >= 0);
 const SCENED = WAVES.map((w, i) => (w.guide?.scene ? i : -1)).filter((i) => i >= 0);
 
 beforeAll(installCanvasGlobals);
-
-describe("the guides the waves carry", () => {
-  it("never says the same thing to both players", () => {
-    for (const i of GUIDED) {
-      const guide = WAVES[i]?.guide;
-      expect(guide?.p1, `${WAVES[i]?.name} tells both players the same thing`).not.toBe(guide?.p2);
-    }
-  });
-
-  it("keeps a line short enough to read on a phone under a beat", () => {
-    for (const i of GUIDED) {
-      const guide = WAVES[i]!.guide!;
-      for (const part of [guide.p1, guide.p2]) {
-        expect(part.length, `${WAVES[i]?.name} has a long half: ${part}`).toBeLessThanOrEqual(220);
-      }
-    }
-  });
-
-  it("keeps the name the guide is headed with short enough to fit", () => {
-    for (const wave of WAVES) {
-      expect(wave.name.length, `${wave.name} is a long name`).toBeLessThanOrEqual(20);
-    }
-  });
-});
 
 /**
  * A world holding a wave's guide, and one holding its introduction.

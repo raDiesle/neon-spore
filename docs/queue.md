@@ -518,21 +518,6 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 `briefings.md` §3.2, and drop §11.36's *What is not built*.
 `bun test packages/content` proves the counts.
 
-## A guide half's 220-character cap is held where `check:fast` never looks
-
-- **Found:** 2026-09-23, claude/queue-twenty-six-wave-guides-in-acts-7a-to-7g-fail-the
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-a-guide-halfs-220-character-cap-is-held-where-ch)
-- **Files:** `packages/render/test/briefing.test.ts`, `packages/content/test/waves.test.ts`
-
-The two tests under "the guides the waves carry" in `briefing.test.ts` —
-p1 is not p2, and each half at most 220 characters — read only
-`WAVES[i].guide` and nothing render draws. A lane that edits guide text
-changes `packages/content`, so `check:fast` runs content's own tests and
-never reaches them; the 7a–7g words lane went green there and red inside
-`bun run land`, two characters over on THE DIASTOLE. Move the two tests into
-`packages/content/test/waves.test.ts` (or a `guides.test.ts` beside it),
-leave `briefing.test.ts` with what it draws, and `bun run check` proves it.
-
 ## `act-8.ts` is four lines under the size ceiling
 
 - **Found:** 2026-09-23, claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo
