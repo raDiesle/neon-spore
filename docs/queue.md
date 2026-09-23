@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## `packages/sim/src/step.ts` is at 234 lines with a boss still to add
 
 - **Found:** 2026-09-22, claude/queue-the-gimbal-is-written-and-nobody-has-built-its-s
+- **Taken:** 2026-09-23, claude/queue-step-lines (claim: claude/queue-packages-sim-src-step-ts-is-at-234-lines-with-a)
 - **Files:** `packages/sim/src/step.ts`, `packages/sim/src/boss-hands.ts`
 
 The 250-line ceiling is sixteen lines away and the file grows by two or three
