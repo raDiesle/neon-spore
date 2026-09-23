@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 090b1040 — The tab's own pause is bound beside the run, not inside the test rig
+
+A tab in the background holds the world still, and coming back lets go. That hold was put down by `bindTestControls`, so the game's own pause depended on the tuning panel being wired. It is `bindHiddenHold` in `hidden-hold.ts` now, bound from `main.ts` beside `bindAwake`, with a test of its own. `docs/working-with-claude.md` says why a preview in an agent's Browser pane does not tick while the pane is hidden, and how to tell (`document.visibilityState`).
+
 ## 2026-09-23 · b4073fc5 — A slow test's figure is checked every run, and the drifted ones are raised
 
 `loadedTimeout(idleMs)` scales a timeout by the machine's load from a figure a person timed once — and every test that takes one walks the whole tree, which grows daily. `doc-drift-names` declared 120 ms and cost 800, and `land` went red on it for nothing the diff had done. Every caller was timed alone three times: five figures were short and are raised (copies 205→450, limits 150→400 and 260→450, tree-walk 90→120, doc-drift-names 120→850, doc-drift 120→350), and two whole-tree tests that had none now declare one.
