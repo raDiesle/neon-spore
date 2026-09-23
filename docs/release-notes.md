@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 30287be5 — THE CURTAIN is a wet membrane with beads on its hem and a core of flesh behind it
+
+The sheet is lit under a gathered rail and goes to the deep at the hem, each fold a lit line with its shadowed side, a film of gloss high on the left, and no glowing line round it or round any lobe. The lobes are wet grey beads, the pilot's soft ones lit through in the hull's rim; the bare core is dark skin with its colour pooled inside and its lower wall lit from within.
+
 ## 2026-09-23 · 5fb5d06b — THE GORGE is a veined sack of wet membrane, its lobes coloured from the floor
 
 The sack and every lobe were fills with a glowing line drawn round them. The sack is now wet violet-grey membrane: veined between the lobes, lit along its top and deep underneath, with a gloss on its shoulder. Each lobe is a sac of the same skin, and the colour it fills with is pooled and lit in its floor. A full lobe loses its wash and has its rim lit up the wall. The beads are THE BATON's wet drops. The intake is a pucker with a lit lower lip, and a pierced lobe hangs two flaps of torn grey skin. The mouth's ring, the navigator's ring and the pilot's tally are unchanged. The spec line THE UNDERTOW left describing an outline is corrected too.
