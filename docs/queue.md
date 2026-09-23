@@ -362,6 +362,7 @@ what the rest of this file holds.
 ## A phone in TEST mode has nowhere to put two bands and the rig
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-23, claude/queue-the-scouts-second-arena-leaves-the-scout-nowhere (claim: claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band)
 - **Files:** `apps/game/src/at-a-desk.ts`, `apps/game/src/testing.ts`, `apps/game/src/game.css`, `apps/game/src/viewport.ts`, `tools/director/src/stage-transport.ts`, `tools/build-stamp.ts`
 - **Where:** local
 
