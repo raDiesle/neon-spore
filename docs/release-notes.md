@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · d76e002f — `queue done` no longer cuts an entry off at a heading it quotes
+
+`parseItems` already ignored a `##` inside a code fence. The editor did not. An entry that quoted the format in its body ended at its own example, so `queue done` left the rest of it behind, glued to the entry above. `take` and the other edits had the same fault. Now the editor reads sections the way the listing does. New entries were already appended at the end of the file, never at the first heading, so nothing was written into the preamble's example.
+
 ## 2026-09-23 · 5dd73463 — THE REPRISE's tear is a wound, and its count is fangs
 
 The torn edge of the field has body now: a lip, thick in the middle and thinned to the flared tips, ragged under its outer thirds. The mass it holds open sinks to the field's own dark where it comes through, and has a gloss on its lower curve. Each body still owed hangs from the lip as a tapered fang, lit on one side, shaded on the other. It still has no colour and never moves sideways, and the fangs are still the only row of marks.
