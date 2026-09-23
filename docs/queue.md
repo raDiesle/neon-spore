@@ -526,6 +526,7 @@ it builds today.
 ## `queue next` run a second time claims a second item
 
 - **Found:** 2026-09-23, claude/queue-task-work-dd734e
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-queue-next-run-a-second-time-claims-a-second-ite)
 - **Files:** `tools/queue/run.ts`, `tools/queue/prompt.ts`
 
 `next` prints a prompt too long for a tool call's output, and the obvious way
