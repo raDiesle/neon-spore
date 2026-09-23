@@ -17704,3 +17704,19 @@ inside a unit transform they drew clouds twenty times too wide — the big soft
 blooms round the old sockets were that defect, and clipping them exposed it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE DIASTOLE's picture looks like something real
+
+- reading — 5 min. `diastole-draw.ts`, `diastole-bridge.ts`, and the frame
+  and clamp tests that read the chambers' colours off the op log.
+- writing — 15 min. `diastole-flesh.ts`: each chamber shaded muscle with its
+  owner's blood pooled inside, a wall lit from within, two forked veins and a
+  film of gloss; the husk dead muscle; the strands tubes with a lit core.
+- looking — 10 min. Both seats before and after, and a 3× crop of the pair.
+- friction — 5 min. The first veins were parallels and read as a striped ball;
+  the lit wall went out as `rgba()` and three tests lost the hue they look for.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the op log reads colours as written**: a hue passed
+through `rgba()` is a different string, so the strength goes in `globalAlpha`
+and the round's own hex stays on the stroke.

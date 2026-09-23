@@ -14,6 +14,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { drawBridge } from "./diastole-bridge.js";
+import { paintChamber, paintHusk } from "./diastole-flesh.js";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -130,11 +131,7 @@ function drawChamber(
       blobPoints(x, y, l.tile * 0.28, l.tile * 0.18, 3, 0.26, 0.04, time, side, 24),
       true,
     );
-    ctx.save();
-    ctx.fillStyle = PALETTE.rockDark;
-    ctx.fill(husk);
-    ctx.restore();
-    strokeGlow(ctx, husk, PALETTE.rock, STROKE.inner, 0.35);
+    paintHusk(ctx, husk, x, y, l.tile * 0.28);
     return;
   }
 
@@ -181,10 +178,6 @@ function drawChamber(
     ),
     true,
   );
-  ctx.save();
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(body);
-  ctx.restore();
   // Three states and not two, which the first frame of this boss made the case
   // for on its own: the navigator's screen through phase `one` was two
   // identical grey masses, so a seat did not even know *which* of them was
@@ -196,11 +189,13 @@ function drawChamber(
   // the honest colour for a mass that is there and is not saying anything.
   const hue = beats ? hex : mine ? hex : PALETTE.rock;
   const glow = spasm ? 0.2 : beats ? 0.5 + 0.5 * s : held ? 0.9 : mine ? 0.22 : 0.4;
-  strokeGlow(ctx, body, hue, STROKE.outline, glow);
   // The held chamber's inner rim on the screen that sees it grey is the
   // handle's white, since that screen has no colour for it and the ring on
-  // it is white too; on the screen that owns it, its own.
-  if ((beats || held) && s > 0) strokeGlow(ctx, body, beats ? rim : PALETTE.text, STROKE.inner, s);
+  // it is white too; on the screen that owns it, its own. All of it is drawn
+  // inside the flesh now rather than as a line round it (`diastole-flesh.ts`).
+  const snap = (beats || held) && s > 0 ? s : 0;
+  const lit = beats ? rim : PALETTE.text;
+  paintChamber(ctx, body, { x: x + jx, y: y + jy, r, hue, glow, snap, rim: lit, side });
 
   drawStruck(ctx, b, side, x, y, r, beat, beatPhase, rim);
 }

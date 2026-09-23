@@ -1622,6 +1622,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/diastole-draw.ts` | you are drawing THE DIASTOLE — the two chambers above row 0, which seat is shown which one beating, and the bridge parting |
 | `packages/render/src/diastole-bridge.ts` | the bundle between THE DIASTOLE's two chambers, and why it never lights on the coincidence |
 | `packages/render/src/diastole-clamp.ts` | **THE DIASTOLE's clamp**: the one thing on the twin lobe a hand takes hold of |
+| `packages/render/src/diastole-flesh.ts` | **What THE DIASTOLE's chambers are made of**: muscle, lit from above |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |

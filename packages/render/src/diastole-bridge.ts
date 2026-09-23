@@ -32,7 +32,8 @@ const STRANDS = 5;
 /**
  * The bundle of vessels between the two chambers, crossing the bridge column.
  *
- * Open strokes and no inside, THE VANE's reason exactly: the moment a shape
+ * Open strokes and no inside, each drawn as a tube (`drawVessel`), THE VANE's
+ * reason exactly: the moment a shape
  * encloses an area it starts reading as a body, and this is plumbing. It is
  * also why an ordinary bolt is spent on it in the simulation — the field shows
  * through a bundle of tubes, so a bolt going between them is what the picture
@@ -75,8 +76,8 @@ export function drawBridge(
     // ends — the ends are still anchored in two chambers that are collapsing.
     const left = `M ${lx.toFixed(2)} ${(y + sag * 0.4).toFixed(2)} Q ${((lx + mid) / 2).toFixed(2)} ${(y + bow).toFixed(2)} ${(mid - gap).toFixed(2)} ${(y + sag).toFixed(2)}`;
     const right = `M ${(mid + gap).toFixed(2)} ${(y + sag).toFixed(2)} Q ${((mid + rx) / 2).toFixed(2)} ${(y + bow).toFixed(2)} ${rx.toFixed(2)} ${(y + sag * 0.4).toFixed(2)}`;
-    strokeGlow(ctx, new Path2D(left), PALETTE.rock, STROKE.inner, 0.55 - part * 0.3);
-    strokeGlow(ctx, new Path2D(right), PALETTE.rock, STROKE.inner, 0.55 - part * 0.3);
+    drawVessel(ctx, new Path2D(left), l.tile, 1 - part * 0.5);
+    drawVessel(ctx, new Path2D(right), l.tile, 1 - part * 0.5);
   }
 
   if (part === 0) return;
@@ -85,4 +86,26 @@ export function drawBridge(
   const burst = new Path2D(circleSubpath(mid, y, l.tile * (0.1 + part * 0.9)));
   strokeGlow(ctx, burst, PALETTE.redRim, STROKE.inner, (1 - part) * 0.8);
   strokeGlow(ctx, burst, PALETTE.cyanRim, STROKE.inner, (1 - part) * 0.8);
+}
+
+/**
+ * One vessel as a tube rather than a line: a dark wall, a lit core where its
+ * top catches the light, and a wet glint along it. Still rock, whatever the
+ * beat — a tube that lit would be the tell this file refuses.
+ */
+function drawVessel(ctx: CanvasRenderingContext2D, path: Path2D, tile: number, fade: number): void {
+  ctx.save();
+  ctx.lineCap = "round";
+  ctx.globalAlpha = fade;
+  ctx.strokeStyle = PALETTE.sheenDeep;
+  ctx.lineWidth = Math.max(2, tile * 0.07);
+  ctx.stroke(path);
+  ctx.strokeStyle = PALETTE.rockDark;
+  ctx.lineWidth = Math.max(1.5, tile * 0.05);
+  ctx.stroke(path);
+  ctx.strokeStyle = PALETTE.rock;
+  ctx.globalAlpha = 0.7 * fade;
+  ctx.lineWidth = Math.max(1, tile * 0.018);
+  ctx.stroke(path);
+  ctx.restore();
 }
