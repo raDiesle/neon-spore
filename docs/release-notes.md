@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 1d57c2d1 — THE ORRERY's organs are wet beads, and its core membrane with the colour through it
+
+Every organ was a grey fill with a glowing ring drawn round it, and so was the core. Now an organ on a ring this seat can count is a bead of violet flesh, and one on a ring it cannot is a dimmer bead of rock. Far organs are the same bead shaded deeper. The core is membrane with the loaded colour pooled inside it and lit on the inside of its lower wall, and the naked core's beat is still its rim. The orbits, the wreck of a broken ring and the pilot's knurl are unchanged.
+
 ## 2026-09-23 · d4250d63 — THE THROAT is a wet gullet of ring muscle, and its lip a ring round a hole
 
 The tube was a grey fill with a glowing line round it and the rings were white hoops. Now the tube is a wet grey cylinder, dark at its edges and with a broken film down its lit side. Each taut ring is a band of muscle with its underside in shadow, and the gulp lights its crest. A slack ring is a limp dark band sagging in its station, and the top ring's whole rim is the gullet's dark opening. The lip is a ring of wet venom round a hole, and the everted rings are the inside's dark flesh, with a hole of their own.

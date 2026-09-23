@@ -17799,3 +17799,5 @@ The bottleneck was **a colour that stops being a line has to get quieter**:
 the moment the organs were flesh rather than rings, the ring the seat cannot
 count was louder than the one it can, and it had to be dimmed to keep the
 count legible.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
