@@ -2602,6 +2602,7 @@ by hand never moves.
 | `tools/frames/director-serve.ts` | GETTING A DIRECTOR RUNNING SO A PICTURE CAN BE TAKEN OFF IT |
 | `tools/frames/flags.ts` | Every `--hold` on the command line rather than the first, and the one tick line the ticked ones join |
 | `tools/frames/fault.ts` | `--fault <kind>[:<numbers>]` — the wave's fault, written on the world from outside it |
+| `tools/frames/frame-files.ts` |  |
 | `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |
 | `tools/frames/page-said.ts` | What the page said while `shot.ts` waited for it — its throws and console errors, printed above *is the tab right?* |
 | `tools/frames/pixels.ts` | **A screenshot read back as the picture it is**, rather than as the file it arrived in |

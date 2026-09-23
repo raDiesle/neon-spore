@@ -1,14 +1,11 @@
-import { mkdir } from "node:fs/promises";
-import { dirname } from "node:path";
 import type { Browser, Page } from "playwright-core";
 import { closeBrowser, launchBrowser } from "./browser.js";
-import { clipFor } from "./crop.js";
 import { makeDriver } from "./drive.js";
+import { clearFrames, framePathFor, writeFrame } from "./frame-files.js";
 import { filmHeld, filmTickHz } from "./guide-film.js";
 import { putHand } from "./hand.js";
 import { settleOpening } from "./opening-hold.js";
 import { openStage } from "./page.js";
-import { pictureDigest } from "./pixels.js";
 import { pressesByFrame } from "./press-plan.js";
 import { reachFirstFrame, strideOn } from "./reach.js";
 import type { CaptureResult } from "./result.js";
@@ -62,6 +59,8 @@ export async function captureFrames(
   const frames = spec.frames ?? 1;
   const strideTicks = spec.strideTicks ?? 6;
   if (frames < 1) throw new Error("frames must be at least 1");
+  // An earlier, longer run's frames would be sheeted as this one's (`frame-files.ts`).
+  await clearFrames(outPrefix);
 
   // A browser of its own unless the caller lent one: one capture wants the
   // launch, a test file taking six wants one browser (`test/opening.test.ts`).
@@ -187,27 +186,8 @@ export async function captureFrames(
         throw new Error(`page threw while driving the loop: ${pageErrors[0]}`);
       }
 
-      const path =
-        frames === 1 ? `${outPrefix}.png` : `${outPrefix}-${String(i).padStart(2, "0")}.png`;
-      await mkdir(dirname(path), { recursive: true });
-      // The whole frame first and always, because the digest is what says
-      // whether the pair is worth writing. What lands on disk is the crop when
-      // one was asked for, clipped out of the same instant rather than out of a
-      // second capture (`crop.ts`).
-      //
-      // Of the *picture* and not of the file: a PNG encoder is free to
-      // compress one frame two ways, and on a loaded machine it does — which
-      // made two captures of one build disagree and the `identical:` guard a
-      // comment (`png.ts`).
-      const shot = await page.locator("#stage").screenshot();
-      whole.push(pictureDigest(shot));
-      if (spec.at) {
-        const box = await page.locator("#stage").boundingBox();
-        if (!box) throw new Error("#stage has no box to crop out of");
-        await page.screenshot({ path, clip: clipFor(box, spec.at) });
-      } else {
-        await Bun.write(path, shot);
-      }
+      const path = framePathFor(outPrefix, i, frames);
+      whole.push(await writeFrame(page, path, spec.at));
       paths.push(path);
       if (!paintDriven) atTick.push(await tick());
     }

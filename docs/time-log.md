@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-sheet-leftovers
+
+- reading — 5 min. `run.ts`, `serve.ts` and `capture.ts`, to find the one
+  place every capture names its frames.
+- writing — 10 min. `frame-files.ts` — the name, the write and the clearing
+  in one file — and its test.
+- looking — 0 min. One real two-frame capture over six stale frames, read
+  back as a listing: nothing is drawn differently.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the size hook on `capture.ts`: the two-line fix put it at
+234, so the frame's file handling moved out with it.
+
 ## 2026-09-23 — queue-home-tree
 
 - reading — 0 min. `prompt.ts` was open from the lane before.

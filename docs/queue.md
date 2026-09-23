@@ -483,27 +483,6 @@ ask and `closeSlow(world)` on both exits, and the plain `openSlow` it has today
 kept only where the moment asks for nothing — a death, a fall, an arrival. The
 two halves are one decision per boss, which is why they are one item.
 
-## `bun run sheet` sheets frames an earlier capture left behind
-
-- **Found:** 2026-09-22, claude/touch-is-the-damage
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-bun-run-sheet-sheets-frames-an-earlier-capture-l)
-- **Files:** `tools/frames/sheet.ts`, `tools/frames/run.ts`
-
-A capture that wrote eight frames to `docs/frames/working/` was sheeted
-immediately afterwards and the sheet said `10 frames`: the two extra were
-`frame-08` and `frame-09` from a longer run earlier in the session, still in
-the directory because `run.ts` writes over the frames it needs and removes
-none. The sheet came back with two pictures of a screen from a different tick
-range glued under the strip, which is the kind of thing a session reads as a
-result rather than as leftovers.
-
-Either end is a fix and only one is needed. `run.ts` can clear the frames in
-its output directory before it writes, which is what a session does by hand
-anyway; or `sheet.ts` can take the count from the run it is sheeting rather
-than from whatever matches the prefix — the run already prints how many it
-wrote. The first is smaller and closes it for every reader of the directory,
-including a human looking at it in Finder.
-
 ## `drawOnShip`'s `held` is a structural type that grows with every hit look
 
 - **Found:** 2026-09-22, claude/burst-on-contact
