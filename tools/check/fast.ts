@@ -15,6 +15,7 @@
 
 import { join } from "node:path";
 import { changedSince, fastScopeFor } from "./fast-scope.js";
+import { reapOnSignal, track } from "./reap.js";
 
 const ROOT = join(import.meta.dirname, "..", "..");
 const TRUNK = "main";
@@ -31,9 +32,13 @@ console.log(`  the full suite is \`bun run land\`'s to run, and its result is th
 
 // Through `shard.ts`, the way the full check runs: the scope is a few dozen
 // files on a wide diff, and they are as independent in a lane as on `main`.
-const proc = Bun.spawn(["bun", "run", "tools/check/shard.ts", ...filters], {
-  cwd: ROOT,
-  stdout: "inherit",
-  stderr: "inherit",
-});
+// Killed, it takes the shard runner with it (`reap.ts`).
+reapOnSignal();
+const proc = track(
+  Bun.spawn(["bun", "run", "tools/check/shard.ts", ...filters], {
+    cwd: ROOT,
+    stdout: "inherit",
+    stderr: "inherit",
+  }),
+);
 process.exit(await proc.exited);

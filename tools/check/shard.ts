@@ -58,6 +58,7 @@ import { cpus, tmpdir } from "node:os";
 import { join, relative } from "node:path";
 import { closingReport } from "./closing.js";
 import { mergeJunit, tallyOf } from "./junit.js";
+import { reapOnSignal, track } from "./reap.js";
 import {
   binCount,
   MAX_FILES_PER_SHARD,
@@ -141,6 +142,8 @@ console.log(
     (filters.length > 0 ? ` (${filters.join(" ")})` : ""),
 );
 
+// Killed, it takes every shard it started with it (`reap.ts`).
+reapOnSignal();
 const started = performance.now();
 const results = await pool(bins.length, width, async (i) => {
   const bin = bins[i] ?? [];
@@ -151,16 +154,18 @@ const results = await pool(bins.length, width, async (i) => {
   // spawns anything, so what waits is cheap — a promise — and what is bounded
   // is the expensive thing.
   const { out, err, code, signalCode } = await withSlot(budget, async () => {
-    const proc = Bun.spawn(
-      ["bun", "test", ...bin, "--reporter=junit", `--reporter-outfile=${reportOf(i)}`],
-      // `SHARD_WIDTH`: how many run beside it, which `tools/test/figure.ts`
-      // cannot read off a load average that lags the burst.
-      {
-        cwd: ROOT,
-        stdout: "pipe",
-        stderr: "pipe",
-        env: { ...process.env, FORCE_COLOR: "0", SHARD_WIDTH: String(width) },
-      },
+    const proc = track(
+      Bun.spawn(
+        ["bun", "test", ...bin, "--reporter=junit", `--reporter-outfile=${reportOf(i)}`],
+        // `SHARD_WIDTH`: how many run beside it, which `tools/test/figure.ts`
+        // cannot read off a load average that lags the burst.
+        {
+          cwd: ROOT,
+          stdout: "pipe",
+          stderr: "pipe",
+          env: { ...process.env, FORCE_COLOR: "0", SHARD_WIDTH: String(width) },
+        },
+      ),
     );
     const [out, err, code] = await Promise.all([
       new Response(proc.stdout).text(),

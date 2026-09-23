@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-shard-reap
+
+- reading — 5 min. `fast.ts`, `shard.ts`'s spawn and `slots.ts`, to know a
+  killed runner's slot frees itself by its pid.
+- writing — 10 min. `reap.ts`, both runners on it, and a test that signals a
+  scratch runner over a sleeping child.
+- looking — 0 min. Nothing is drawn; a bare runner was shown leaving its
+  child under PID 1, which is the case the test holds.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was proving the failure without a real 13 GB shard: a scratch
+runner with `sleep 60` for a child stood in for it.
+
 ## 2026-09-23 — queue-sheet-leftovers
 
 - reading — 5 min. `run.ts`, `serve.ts` and `capture.ts`, to find the one

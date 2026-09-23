@@ -2640,6 +2640,7 @@ by hand never moves.
 | `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |
+| `tools/check/reap.ts` | **A runner's children go when it does.** A `check:fast` sent SIGTERM on 23 September 2026 left its `bun test`… |
 | `tools/check/fast-scope.ts` | Which tests `bun run check:fast` runs — the diff's reach, plus the tree-wide sweeps |
 | `tools/check/fast.ts` | The test half of `bun run check:fast` — decide, say, run |
 | `tools/check/profile-report.ts` | The reading half of `bun run test:profile`: a JUnit report from `bun test` turned into the slowest files and cases |
