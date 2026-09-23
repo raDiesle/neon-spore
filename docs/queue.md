@@ -544,6 +544,7 @@ guides are read by more pairs.
 ## Twenty-six wave guides in acts 7a to 7g fail the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Taken:** 2026-09-23, claude/task-queue-work-0008a1 (claim: claude/queue-twenty-six-wave-guides-in-acts-7a-to-7g-fail-the)
 - **Files:** `packages/content/src/waves/act-7a.ts`, `packages/content/src/waves/act-7b.ts`, `packages/content/src/waves/act-7c.ts`, `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves/act-7f.ts`, `packages/content/src/waves/act-7g.ts`, `tools/words/clean.ts`
 
 Fifty-nine lines across twenty-six waves, the same job and the same skill.
