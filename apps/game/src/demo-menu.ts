@@ -1,5 +1,4 @@
 import {
-  DEMONSTRATIONS,
   demonstrationConfig,
   demonstrationIndex,
   demonstrationWave,
@@ -20,6 +19,7 @@ import type { SimConfig } from "@neon-spore/sim";
 export interface DemoRow {
   id: MechanicId;
   what: string;
+  /** The wave's own `name`, as its WAVES row prints it — never its id. */
   waveName: string;
 }
 
@@ -28,7 +28,7 @@ export function demoRows(): DemoRow[] {
   return MECHANIC_IDS.map((id) => ({
     id,
     what: mechanic(id).what,
-    waveName: DEMONSTRATIONS[id].wave,
+    waveName: demonstrationWave(id).name,
   }));
 }
 

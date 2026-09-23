@@ -90,7 +90,7 @@ export function buildDemos(
   const page = el("div", "page");
   page.append(backButton(show, back), el("h2", undefined, "JUMP TO ENEMY TYPE WAVE"));
   for (const row of demos) {
-    const button = el("button", "wave");
+    const button = el("button", "wave demo");
     button.type = "button";
     button.append(el("span", "n", row.id));
     button.append(el("span", "label", row.waveName), el("span", "s", row.what));

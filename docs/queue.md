@@ -518,22 +518,6 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 `briefings.md` §3.2, and drop §11.36's *What is not built*.
 `bun test packages/content` proves the counts.
 
-## A DEMOS row draws its mechanic id over the wave's name
-
-- **Found:** 2026-09-23, claude/queue-the-demos-menu-puts-a-261-word-paragraph-on-a-bu
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-a-demos-row-draws-its-mechanic-id-over-the-waves)
-- **Files:** `apps/game/src/menu.css`, `apps/game/src/menu-pages.ts`
-
-`#menu .wave` is `grid-template-columns: 26px 1fr`, a column sized for a
-wave's number. The DEMOS page (`menu-pages.ts`, the `demos` loop) puts the
-mechanic id in that span instead, and any id longer than four letters runs
-into the label: `slick` over `firstStep`, `throb` over `theThrob`, `shell`
-over `theThirdShot` in `bun run menu-shot out.png --page "TESTING > JUMP TO
-ENEMY TYPE WAVE"`. The work: give the DEMOS rows a column that fits the
-longest id (or `auto`), without moving the WAVES rows, and photograph both
-pages. While there, check whether the label should read the wave's `name`
-(`THE LEAD`) rather than its camelCase key (`theLead`), which is what it draws.
-
 ## A guide half's 220-character cap is held where `check:fast` never looks
 
 - **Found:** 2026-09-23, claude/queue-twenty-six-wave-guides-in-acts-7a-to-7g-fail-the

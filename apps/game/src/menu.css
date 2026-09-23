@@ -592,6 +592,24 @@
   line-height: 1.55;
   color: var(--ink-faint);
 }
+/* A DEMOS row: its first span is a mechanic id, up to thirteen letters, not a
+   two-digit number, and in the WAVES row's 26px column it ran over the name.
+   So the name leads, the id sits to its right, and the sentence takes the
+   row's whole width rather than a column narrowed by thirteen letters. */
+#menu .wave.demo {
+  grid-template-columns: 1fr auto;
+}
+#menu .wave.demo .label {
+  grid-row: 1;
+  grid-column: 1;
+}
+#menu .wave.demo .n {
+  grid-row: 1;
+  grid-column: 2;
+}
+#menu .wave.demo .s {
+  grid-column: 1 / -1;
+}
 #menu .wave:hover,
 #menu .wave:focus-visible {
   outline: none;

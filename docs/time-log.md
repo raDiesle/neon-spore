@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-demos-row-id
+
+- reading — 5 min. `menu-pages.ts`'s two loops, `#menu .wave`, `demo-menu.ts`
+  and the registry it read the wave's key from.
+- writing — 5 min. A `demo` row class that puts the name first and the id to
+  its right, the row labelled by `demonstrationWave(id).name`, one test.
+- looking — 5 min. `menu-shot` of DEMOS before and after, and of WAVES after.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the choice of layout: a column wide enough for a
+thirteen-letter id cost every sentence a third of its width, so the id moved
+beside the name instead.
+
 ## 2026-09-23 — queue-new-boss-skill-ceiling
 
 - reading — 5 min. `new-boss/SKILL.md` §4 and §5, `new-boss-state` and what
