@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · f589bc74 — THE SHELL's rehearsal lays its shots on the game's half-beat grid
+
+THE THIRD SHOT was pinned to the zero grid, so its shots fired the instant a thumb landed, which the game never does. Each press now sits fifteen ticks before its departure point, as THE HIVE's do. The film names `chargeBeats: 0.5` and fires the same events to the event. Exemption: a fix to something wrong. The film taught a timing the round does not have.
+
 ## 2026-09-23 · 13c6ed99 — `strokeGlow`'s glow under a scale is measured and put to the owner
 
 The finding assumed a caller scaled up, whose glow would spread too far. On a phone, every caller left is scaled down (0.13 to 0.43), so every body's glow is drawn a third as wide as `glowSpread`. Undoing that would widen the edge on every creature on the field, which makes it a look rather than a fix. The queue entry now asks which it is, and names the two answers.
