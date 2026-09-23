@@ -36,12 +36,12 @@ export const MECHANICS = {
   // it and the bestiary walks it.
   lure: SPLIT_MECHANICS.lure,
   throb: {
-    what: "Cut down the middle: red down one side and cyan down the other. It turns clockwise the whole way down, and the half pointing at the cannon is the colour that answers a shot. The other colour is a colour miss, so the turn never shuts it — it swaps which trigger is the right one.",
+    what: "Red down one side and cyan down the other, and it turns as it falls. Shoot the colour of the half that points at the cannon.",
     reach: "spawn",
     waveNames: true,
   },
   shell: {
-    what: "Plating a size too big for the slick or the bulb inside it, split down the middle: one piece in front of each of its two columns, and the body's own colour shining out through the cracks the whole way down. Any colour chips a piece off. A shot up a column already bared does nothing — and only once both pieces are gone does that colour finish it.",
+    what: "A slick or a bulb inside armour, in two pieces, one per column. Any colour chips a piece off. Only when both are gone does its own colour kill it.",
     reach: "spawn",
     waveNames: true,
   },
@@ -51,7 +51,7 @@ export const MECHANICS = {
   ghost: SPLIT_MECHANICS.ghost,
   countdown: SPLIT_MECHANICS.countdown,
   echo: {
-    what: "A small slick or bulb that comes down half as fast as anything else, and divides while it falls: three beats, then six, then nine. Every division turns a corner — sideways, then up and down, then both at once — and the seam across it says which way and how soon. The matching cannon kills any of them, and a shot that catches one early is paid for every body it would have become.",
+    what: "A small slick or bulb at half speed. It splits after three, six and nine beats. Its seam shows which way. Shoot it early, before it splits.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // dart: the silhouette is a slick's or a bulb's and the colour is which
@@ -69,7 +69,7 @@ export const MECHANICS = {
   volley: WORN_MECHANICS.volley,
   crystal: WORN_MECHANICS.crystal,
   strand: {
-    what: "Two to five slicks and bulbs threaded on one line, alternating red and cyan. It is eaten from its ends inward and only one bead can be shot at a time — one of the two ends, decided again after every shot. One of you is shown which that is and no colours; the other is shown the colours and no mark. A shot at the wrong one swells a dead bead back to life.",
+    what: "Beads on a line. Shoot only the marked end. One of you sees the mark, the other sees the colours. A wrong shot brings a bead back.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for an
     // echo: the colour is the **leftmost** bead's, and every other one on the
@@ -78,7 +78,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   gyre: {
-    what: "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster every beat and a row lower every lap, until the bottom of it grinds along the ship. Opening the maw slows the turn for four beats, wherever the cannon is standing — it is the only thing either of you can do about the speed.",
+    what: "A wheel with six bodies on its rim, turning. It walks a diamond mid-field, faster and lower every lap. Opening the maw slows it for four beats.",
     reach: "spawn",
     // A wave names this kind and never a colour: what carries one is each of
     // the six on the rim, and each of those follows from its position rather
@@ -86,7 +86,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   lid: {
-    what: "An armoured eye. The plates over its lens part from the middle outwards, by degrees, for exactly as long as one of you keeps the cord pulled aside — and only while they stand fully apart does the lens's colour land. Let go and they shut.",
+    what: "An armoured eye. Hold the cord aside and the armour opens, bit by bit. Shoot its colour only when the eye is fully open. Let go and it shuts.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // clasp: the silhouette is the lid's and the colour is the lens's, which
@@ -94,7 +94,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   mount: {
-    what: "One of the six on that rim. An ordinary slick or bulb, answered by the ordinary rule — the matching colour, in the column it is standing in — except that it is only standing there for a beat.",
+    what: "One of the six bodies on a gyre's rim. Shoot it in its colour, in its column. It only stands there for one beat.",
     reach: "spawn",
     // Brought by the wheel, six at a time, the way the tether is brought by
     // THE WARDEN — so a wave reaches this without naming it, and there is no
@@ -145,15 +145,15 @@ export const MECHANICS = {
   hasp: BOSS_MECHANICS.hasp,
   ratchet: BOSS_MECHANICS.ratchet,
   vane: {
-    what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
+    what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",
     reach: "spawn",
   },
   well: {
-    what: "The field is drawn inside out on the pilot's screen: the ship at the centre, the far row a rim around it, and the eleven columns spread round it as the eleven hours of a clock — so column four is four o'clock and nobody has to learn a word. Nothing else changes. The picture keeps one thing back: the two walls of the field meet at twelve, so the two lanes that look like neighbours are the two ends of the field — one hour of movement on the clock is the whole width of the rail under it.",
+    what: "Player 1 sees the field as a clock, with the ship in the middle. Column four is four o'clock. The two ends of the field meet at twelve.",
     reach: "spawn",
   },
   purge: {
-    what: "A pod hangs where it was left; shooting it loose is only half of getting it, and a pod not taken is the wave lost. Taking this one in clears the field of everything that is falling.",
+    what: "A pod that hangs still. Shoot it loose, then take it in, or you lose the wave. Taking this one clears everything that is falling.",
     reach: "spawn",
   },
   ward: {
@@ -195,7 +195,7 @@ export const MECHANICS = {
     waveNames: true,
   },
   magnet: {
-    what: "A horseshoe standing on two poles, one red and one cyan, with an armoured plate slung under it. A shot climbing its own column hits the plate and is reflected back down. The only bolt that reaches it is one arriving sideways, which means the cannon has to be in some other column and the pilot's thumb has to be on the body: a locked shot climbs, turns level with it and runs across (THE LOCK). Whichever side it comes in on is the pole it meets, and that pole's colour is the only one that kills it.",
+    what: "A horseshoe with a red and a cyan pole. Only a shot from the side hurts it. Lock on from another column. Match the pole it hits.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // clasp and a dart — and here the colour is doing double work: it is the
@@ -221,7 +221,7 @@ export const MECHANICS = {
   // `mechanics-wave.ts` — the third cut, along that same seam.
   ...WAVE_MECHANICS,
   mine: {
-    what: "A body that appears on a tile and never moves. One of you is drawn it and the other is not, and the one who is not has to put a finger on the exact tile — the four arms point at the four tiles that hurt, and a finger on one of those is a hit on the ship. Farther off costs a beat of the fuse. When the fuse runs out it goes off. Both screens carry the lettered grid and the count; only one carries the body.",
+    what: "A still body only one of you can see. The other touches its exact tile before the fuse runs out. Its four arms point at tiles that hurt.",
     reach: "spawn",
     // A wave names the kind, the tile it stands on, the colour the ship is
     // marked in when it goes off, and which seat is shown it — four things,

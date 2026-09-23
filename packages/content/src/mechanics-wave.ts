@@ -76,7 +76,7 @@ export const WAVE_MECHANICS = {
     reach: "wave",
   },
   shieldFault: {
-    what: "A thing hanging from the top of the field has the trigger: its beam is on GUARD and on the plate, and the dome comes up by itself, over whatever column the navigator has left it in, on every beat. The trigger goes dead on the pilot's panel and stays dead, and nothing reaches the thing holding it. Every rock the plate is standing under is warded without anybody asking — and every clasp it passes is opened without anybody asking either, whether or not the cannon is ready for the body inside.",
+    what: "Something hanging from the top takes the shield trigger. The shield comes up every beat, wherever Player 2 left it. It opens every clasp it passes.",
     reach: "wave",
   },
   steerFault: {

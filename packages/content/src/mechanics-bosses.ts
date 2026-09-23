@@ -84,7 +84,7 @@ export const BOSS_MECHANICS = {
     carriedBy: "warden",
   },
   cairn: {
-    what: "A pile of seven of the field's own rocks, five columns wide, standing still. Nothing fired reaches it and the shield has nothing to turn. You take it apart by hand: a thumb held on the pile and carried sideways drags one rock out of that side, and what comes away falls down that lane as an ordinary rock. Leave it alone too long and it lets one go itself, into a column only the pilot can see it choosing.",
+    what: "A pile of seven rocks that shots cannot reach. Drag a thumb sideways across it to pull one rock out. Wait too long and it drops one itself.",
     reach: "spawn",
   },
   mirror: {
@@ -92,11 +92,11 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   maze: {
-    what: "A real maze of rings turns above the ship, with a heart in the middle. Turn a gap round onto the ship's own column, fire the colour the heart is beating in, and the shot crawls the corridors to it. Only one gap in a rim reaches the middle; a shot lost in one of the others brings the maze down and the stage begins again.",
+    what: "A maze of rings with a heart in the middle. Turn a gap onto the cannon's column and fire the heart's colour. Only one gap reaches the heart.",
     reach: "spawn",
   },
   reprise: {
-    what: "The wave itself, sent twice. A stretch of it falls in plain sight, and then the whole of that stretch comes down again from the top — the same bodies in the same columns at the same spacing — with nothing drawn on either screen. It arrives all the same, and it is answered the same way; the only thing missing is the picture. Nothing new comes down while it is running.",
+    what: "A stretch of the wave falls in plain sight. Then it falls again, the same, with nothing drawn. Answer it from memory.",
     reach: "spawn",
   },
   splice: {
@@ -112,7 +112,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   stare: {
-    what: "An eye over the field that looks at one of you at a time. It turns towards a seat for four beats — only the other seat is shown which — and then it watches. While it is watching that player may not press anything at all: not the strip, not the trigger, not the plate. A button touched under it breaks the hull and the wave starts again. The other player keeps playing, alone, and the looks get longer as the wave goes on.",
+    what: "An eye looks at one of you at a time. Only the other player sees who is next. While it watches you, touch nothing, or the wave starts again.",
     reach: "spawn",
   },
   baton: {

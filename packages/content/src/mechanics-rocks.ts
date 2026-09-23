@@ -33,12 +33,12 @@ export const ROCK_MECHANICS = {
     waveNames: true,
   },
   veer: {
-    what: "A rock with a rider on it, coming down a row a beat like the plain one — and changing lane every three rows, up to four tiles at a time, all the way to the ship. Only one of you is shown which side the next change takes, and it is not the one holding the shield.",
+    what: "A rock with a rider. Every three rows it jumps up to four columns sideways. The player on the shield never sees which way.",
     reach: "spawn",
     waveNames: true,
   },
   coil: {
-    what: "A rock inside a dome, crossing the field from the right wall to the left instead of falling and sinking two rows at every wall it turns at. Nothing reaches it while the dome is on; the shield standing in its column opens it wherever it is, and what drops out is a torch. The charge then jumps to another dome still standing and opens that one too, and on again — so one trigger frees the whole field, one at a time, and only the pilot can see which is next.",
+    what: "A domed rock crossing wall to wall. Trigger the shield under it and a torch drops out. The charge jumps on, dome to dome. Only Player 1 sees where.",
     reach: "spawn",
     waveNames: true,
   },
@@ -57,7 +57,7 @@ export const ROCK_MECHANICS = {
    * is the lane, for as long as the crossing lasts.
    */
   rockCross: {
-    what: "A rock that comes over one of the side walls instead of the top, holds that row for the whole of its life and leaves the field at the far side. Nothing turns it away and it never reaches the ship — what it does is stand in front of the cannon on its way past, a lane at a time, and a bolt that meets it dies there. Player 1 alone is shown the arrow: the row it will hold, the side it comes over, and the way it will fly.",
+    what: "A rock that crosses one row, from wall to wall. Any shot that meets it dies. Only Player 1 sees the arrow that shows its row and side.",
     reach: "spawn",
   },
   torch: {

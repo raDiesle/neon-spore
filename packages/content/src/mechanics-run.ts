@@ -18,7 +18,7 @@
  */
 export const RUN_MECHANICS = {
   briefing: {
-    what: "A wave opens on its number, its name and its sentence, then on a split guide if it carries one — and that guide ends on two circles the pair hold until both say READY.",
+    what: "A wave opens on its number, name and sentence, then its guide. Each of you holds a circle until both say READY.",
     reach: "run",
     switch: { field: "briefings", off: false },
   },
@@ -28,15 +28,15 @@ export const RUN_MECHANICS = {
     switch: { field: "shotChargeBeats", off: 0 },
   },
   lance: {
-    what: "Player 2 holds a colour instead of tapping it and the cannon lobe fills, for as long as player 1 keeps the cannon still. At the top of the fill the beam burns the column: every body of that colour standing in it goes at once, and the beam stays where it reached for a beat. Nothing travels. A lift before the top is the ordinary shot, and what was in the lobe is lost.",
+    what: "Player 2 holds a colour while Player 1 holds the cannon still. A full lobe burns that colour out of the column. Let go early for a plain shot.",
     reach: "run",
   },
   grip: {
-    what: "A finger held on a rock drags at it, and it falls slower for as long as the finger stays. Either seat, and two hands compound. Only a rock: a hand on anything the cannon can answer is an aim instead.",
+    what: "Hold a finger on a rock and it falls slower. Either of you can, and two hands slow it more. On anything else, a finger aims instead.",
     reach: "run",
   },
   lock: {
-    what: "A finger held by player 1 on a body that can be shot: every shot the cannon puts out steers into it and lands, from whatever column it left the muzzle in. It says nothing at all about the colour, and it is the whole of what a hand does to a living body — nothing is slowed and nothing moves a lane.",
+    what: "Player 1 holds a finger on a body. Every shot then steers into it, from any column. You still need the right colour.",
     reach: "run",
   },
 } as const;

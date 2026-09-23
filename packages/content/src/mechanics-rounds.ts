@@ -25,19 +25,19 @@ export const ROUND_MECHANICS = {
     reach: "spawn",
   },
   snake: {
-    what: "The ship shrinks into a snake that never stops. One of you turns it a quarter turn at a time and is shown only the body and the meteors; the other has a shot and a mouth and is shown everything else.",
+    what: "The ship becomes a snake that never stops. One of you turns it and sees only the snake and the meteors. The other shoots and sees the rest.",
     reach: "spawn",
   },
   pinball: {
-    what: "The ship folds into a bucket that is both the gun and the glove. One of you slides it and stops the aiming needle, the other picks the strength off a bar and fires — and then the same bucket has to be under the ball when it comes back down.",
+    what: "The ship folds into a bucket. One of you slides it and stops the needle. The other picks the strength and fires. Then catch the ball in the bucket.",
     reach: "spawn",
   },
   pulse: {
-    what: "Slicks, bulbs, rocks and pods fall down four lanes into four sockets cut into the hull, and both of you have the same four buttons, against one chart. Some arrive on one screen as a grey shape cycling through all four, readable only on the other, so a bar of a song is a bar of being told what to press. Anything nobody presses sinks into the ship and drains the shared meter; empty it and the hull pays.",
+    what: "Bodies fall into four sockets in the hull. You share four buttons. Some show as grey on one screen, so the other must say which. Missed ones drain the meter.",
     reach: "spawn",
   },
   scout: {
-    what: "The ship opens and puts a little one out into the dark, and one of you flies it. It coasts, so it is leaned on rather than steered, and the motes it has to collect are hanging still while the things that would end it are not. Only the pilot can see the nose it is pointing; only the other seat can see where anything is. Collect every mote and the wave is done — let one of the moving things touch it and the hull pays for it.",
+    what: "Player 1 flies a small ship that coasts, and sees only where it points. Player 2 sees everything else. Collect every mote, and touch nothing that moves.",
     reach: "spawn",
   },
 } as const satisfies Record<string, Mechanic>;

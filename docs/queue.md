@@ -515,20 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## The DEMOS menu puts a paragraph on a button: the other 46
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-23, claude/next-queued-task-b7f060 (claim: claude/queue-the-demos-menu-puts-a-paragraph-on-a-button-the)
-- **Files:** `packages/content/src/mechanics-table.ts`, `packages/content/src/mechanics-worn.ts`, `packages/content/src/mechanics-rocks.ts`, `packages/content/src/mechanics-handed.ts`, `tools/words/clean.ts`
-
-The same job as the entry above, for the forty-six `what` sentences between 30
-and 100 words. Lighter work per row — most of them are one good sentence and
-one clause too many — and the same finish: `CLEAN`, `CEILING`, `bun test
-tools/words`.
-
-Do this one **after** the thirty-five, so the register is settled on the hard
-ones first.
-
 ## Nineteen wave guides in acts 1 to 3 fail the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37

@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-the-demos-menu-puts-a-paragraph-on-a-button-the
+
+- reading — 0 min. The entry, `tools/words` and the skill's three rewrites;
+  the forty-six had become forty-one by the time it was taken.
+- writing — 5 min. Forty-one `what` lines to 30 words, written into their
+  files by a scratch script keyed on the mechanic id, then `CLEAN` and
+  `CEILING` pasted from `bun run words --clean`.
+- looking — 0 min. The DEMOS buttons show shorter text; `bun run words`
+  judges it, not a screenshot.
+- friction — 0 min. The shell guard refused a heredoc with doubled
+  backslashes; the script went through the Write tool instead.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was none to speak of: the checker names every failing rule,
+so each line took one draft and two needed a second.
+
 ## 2026-09-23 — queue-a-device-that-was-once-in-a-room-never-goes-back
 
 - reading — 5 min. The entry, `view.ts`, the two callers of `setSeat` (the

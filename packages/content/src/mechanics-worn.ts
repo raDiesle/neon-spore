@@ -33,7 +33,7 @@ type WornId = Extract<
  */
 export const WORN_MECHANICS = {
   rind: {
-    what: "A slick or a bulb three times the size of one. The matching colour takes a layer off rather than killing it, twice — the body is a size smaller each time — and only the third shot finishes it. Its size is how much is left.",
+    what: "A slick or a bulb three times the size of one. Each matching shot takes a layer off, and it shrinks. The third shot kills it.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for an
     // echo: the silhouette is a slick's or a bulb's and the colour is which
@@ -41,7 +41,7 @@ export const WORN_MECHANICS = {
     waveNames: true,
   },
   recoil: {
-    what: "A slick or a bulb in a sprung cage. The matching colour does not kill it: it throws the body two rows back up the field and a lane to one side neither of you can predict, and turns it over to the other colour on the way. Three times, with the cage visibly more broken each time, and only the fourth shot finishes it.",
+    what: "A slick or a bulb in a sprung cage. A matching shot throws it two rows up, into a new column, in the other colour. The fourth shot kills it.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // rind: the silhouette is a slick's or a bulb's, and the colour is which
@@ -49,7 +49,7 @@ export const WORN_MECHANICS = {
     waveNames: true,
   },
   carom: {
-    what: "A slick or a bulb sealed inside a rock crust. It never falls — it comes in on a diagonal, four columns and two rows a beat, and turns at the side walls twice before it reaches the ship. The shield has nothing to say to it while the crust is on. The matching cannon cracks it open, and what drops out of the shell is a plain meteor coming down at a row a beat, which now has to be warded.",
+    what: "A slick or a bulb in a rock crust, bouncing in on a diagonal. The matching colour cracks it. Put the shield under the meteor that falls out.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // clasp: the silhouette is the crust's and the colour is the body sealed
@@ -58,7 +58,7 @@ export const WORN_MECHANICS = {
     waveNames: true,
   },
   chute: {
-    what: "The body that was sealed inside a carom, blown out of the hatch when the crust cracks. It is the only thing in the game that goes up: it climbs to the top of the field, opens a canopy there and comes back down at half the speed of a slick, still in its own colour. The matching cannon kills it exactly the way it kills a slick — but the rock it came out of is falling at the same time, and that one is the shield's.",
+    what: "The body from a cracked carom. It flies up, then floats down under a canopy. Shoot its colour, and put the shield under the rock.",
     reach: "spawn",
     // Thrown out by the crust cracking, the way the six on a rim are brought
     // by their wheel — so a wave reaches this without naming it, and there is
@@ -68,7 +68,7 @@ export const WORN_MECHANICS = {
     carriedBy: "carom",
   },
   volley: {
-    what: "A rock with a slick or a bulb sealed in it, falling a tile a beat like any other. The shield does not destroy it: a ward hits it straight back up the field, six rows, taking one plate of shell with it — and it comes down the same lane again. Three wards, and at the top of the last climb the shell bursts in mid-air and what falls out is a plain body the cannon has to finish. Holding the lane for all three is the whole cost of one.",
+    what: "A rock with a slick or a bulb inside. Each time the shield meets it, it flies six rows back up. After three, it bursts. Shoot what falls out.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // carom: the silhouette is the shell's and the colour is the body sealed
@@ -77,7 +77,7 @@ export const WORN_MECHANICS = {
     waveNames: true,
   },
   crystal: {
-    what: "A craft three tiles wide with an electric field crawling round the whole of it, crossing the field on a diagonal and turning at the walls. Only the middle can be broken, in the colour the wave gave it, and only while the shield stands armed under any of its three lanes — the field opens across the underside then: the shell comes off and the two ends fall as a plain slick and a plain bulb, each down its own column. Any other shot is caught by the field and nothing else happens.",
+    what: "A wide craft in an electric field, moving on a diagonal. Put the shield under it, then shoot its middle. It breaks into a slick and a bulb.",
     reach: "spawn",
     // A wave names this kind and gives it a colour, the way it does for a
     // carom: the silhouette is the shell's and the colour is the join's, which
@@ -85,7 +85,7 @@ export const WORN_MECHANICS = {
     waveNames: true,
   },
   clasp: {
-    what: "Shots bounce off it. The shield in its column, triggered, takes the shield off — and what is left is an ordinary slick or bulb that still has to be shot.",
+    what: "Shots bounce off it. Trigger the shield in its column to open it. Then shoot the slick or the bulb inside.",
     reach: "spawn",
     // A wave names this kind explicitly and gives it a colour, the way it
     // does for a lure: the colour is the body *inside*, and it decides what
