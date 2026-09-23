@@ -17914,3 +17914,5 @@ lit string whatever was painted on it, so the width went onto the tile.
 The bottleneck was **the silhouette is the health**: shading the lower edge
 toward the deep also took the lobes the pair reads the boss by, so the deep
 had to stay shallow.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
