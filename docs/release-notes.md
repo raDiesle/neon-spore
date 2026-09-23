@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · d4250d63 — THE THROAT is a wet gullet of ring muscle, and its lip a ring round a hole
+
+The tube was a grey fill with a glowing line round it and the rings were white hoops. Now the tube is a wet grey cylinder, dark at its edges and with a broken film down its lit side. Each taut ring is a band of muscle with its underside in shadow, and the gulp lights its crest. A slack ring is a limp dark band sagging in its station, and the top ring's whole rim is the gullet's dark opening. The lip is a ring of wet venom round a hole, and the everted rings are the inside's dark flesh, with a hole of their own.
+
 ## 2026-09-23 · 1824b62d — THE UNDERTOW's lobes are wet slime pushed up through the plating
 
 Each lobe was a grey fill with a glowing line drawn round it. Now it is wet flesh, lit on its shoulder from above and on its foot by the breach's violet, with a fold where the plate squeezed it and a film of gloss. A tall lobe carries the beam's cyan and red lit inside its wall, over the same thirds as before. The body's last pass is made the same way, in the ship's own deep.

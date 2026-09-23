@@ -17778,3 +17778,5 @@ tall one and the body were never seen by an eye at all.
 The bottleneck was **a tube is shaded by degrees**: one wide dark stroke
 inside the edge read as a second layer, and it took three widths stacked to
 turn it into a cylinder.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
