@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · e23bc850 — Say the second seat's clock on every boss that has one
+
+THE INSTAR's "NAVIGATOR NOW / 2 BEATS LEFT" line now stands on every boss whose rule judges one seat's act against when the other acted: THE TASTER's pry, THE DIASTOLE's clamp, THE BATON's launched bead, THE SURGE's lift and THE BELLOWS' last one. It names the seat still out and counts its beats down, the same sentence and bright on both screens. THE GORGE, CAIRN, ORRERY, HASP, GIMBAL, RATCHET and SPOOL were read and have no such rule, and a test pins them silent.
+
 ## 2026-09-23 · 902f26e3 — A guided wave crosses its ready gate onto the field, whatever its length
 
 The owner, 20 September 2026: after the READY page, skip the wave's number, name and sentence when a guide already showed them. Every guide the game ships already did, because each has pages; the rule now holds for a guide of any length, a gate-only one included, and the introduction's clock is armed only for an opening that has one — a wave with no guide, or a wave gone again. Tests and `briefings.md` §1 no longer describe guide, introduction, field. No look: nothing the game draws moves.
