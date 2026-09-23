@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 9f0db980 — PINBALL's pieces stand in wet sockets, and the ball is steel
+
+Every rock and pod on PINBALL's table now sits in a hollow in the table's skin, darker than the water round it, with its lower wall lit and wet — so a piece reads as mounted on a board rather than hung on the dark. The ball is a lit steel sphere: a gradient body, the dark of the table in its lower half, a cold bounce of light on its underside and a hard specular point, with no stroke round it.
+
 ## 2026-09-23 · 764941dd — `bun run frames` says which presses the simulation refused
 
 A press sent into a phase that takes none — SNAKE's spit during the morph, say — changed nothing and came back as a picture with no press in it, and the run said nothing. Each press is now asked first whether the next tick would hear it (the world stepped with and without it, on two copies, and the hashes compared), and the run prints an `unheard:` line naming every refused press by the tick it landed on.

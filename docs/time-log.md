@@ -17666,3 +17666,5 @@ counterfactual step.
 The bottleneck was **the pieces were already the owner's**: the rocks and pods
 stay by his word, so the realism had to come from what they stand in and from
 the one body he had not ruled on, the ball.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
