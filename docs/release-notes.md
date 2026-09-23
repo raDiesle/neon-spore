@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 3c42f5ff — THE ANTIPHON's rehearsal plays on the game's half-beat grid
+
+The film was proved with no shot grid, so in the game its presses fired the instant a thumb landed while the round itself waits for the half-beat point. Every tapped fire act now sits fifteen ticks before the point its bolt leaves on. The second twin's slide waits for the first twin's pit, which the grid makes four ticks later, so it slides at 2560 and its bolt leaves a beat late. Every event the film fires is the same as before, in the same order.
+
 ## 2026-09-23 · 7c14ebb6 — THE TASTER's rehearsal plays on the game's half-beat grid
 
 Each of its seven shots now sits fifteen ticks before the point its bolt leaves on, as THE HIVE's do. The film names `chargeBeats: 0.5`. The tongue sets, grows, thickens once, pares and shears on the same events as before, and its own test holds on the new grid.
