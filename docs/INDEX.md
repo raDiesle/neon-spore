@@ -2217,6 +2217,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/chrome.ts` | Which browser `tools/frames` opens, and where it lives on the two machines this repository runs on |
 | `tools/frames/hold.ts` | `--hold` on the command line: the one thing this tool could not photograph |
 | `tools/frames/hold-targets.ts` | Which handle is whose, what it is called on the wire, and what it needs |
+| `tools/frames/hold-targets-b.ts` | The forty-three handles `--hold` caught up with the wire's list on, one row each: seat, wire name, id, lift |
 | `tools/frames/hand.ts` | `--hand` on the command line: **this phone's own finger on the ship** |
 | `tools/frames/opening.ts` | Getting a wave's own opening out of the way, so a capture can start on the field |
 | `tools/frames/run.ts` | `bun run frames <sha> --wave N` — a before-and-after picture for a landing |

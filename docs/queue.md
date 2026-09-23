@@ -571,25 +571,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## `--hold` names its drag targets as free strings, and nothing checks them
-
-- **Found:** 2026-09-21, claude/queue-frames-hold-cannot-reach-the-six-newest-handles
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-hold-names-its-drag-targets-as-free-strings-and)
-- **Files:** `tools/frames/hold-targets.ts`, `tools/frames/package.json`, `packages/net/src/command-fields.ts`
-
-`DRAGS` and `TARGET` in `hold-targets.ts` are twenty-seven target names written
-out by hand, and the wire's own list is `DRAG_TARGETS` in
-`packages/net/src/command-fields.ts`. Nothing holds the two together. A name
-that drifts — a target renamed in the simulation, a row added here with a typo
-— builds a command the sim drops without a sound, which is the exact failure
-`hold.ts`'s own header says this flag exists to end: a frame that comes back
-released while every number in the capture says the hold was sent.
-
-The fix is one test in `tools/frames/test/` asserting every value of `TARGET`
-and every non-`prime` entry of `DRAGS` is in `DRAG_TARGETS`. It needs
-`@neon-spore/net` added to `tools/frames/package.json`, which is the only
-reason it was not written with the rows it would have covered.
-
 ## A STATES card cannot be named, and `--click` takes plain CSS
 
 - **Found:** 2026-09-21, claude/queue-the-gauges-two-new-states-have-no-pose-in-the-di
@@ -1163,33 +1144,6 @@ arena in twelve beats, and what it emits is a press line of dozens — so the
 useful shape is one flag that says *fly to the nth mote and stop*, not a
 person spelling the line out. Prove it with one frame of a laden ship with
 her ring on it.
-
-## `--hold` knows none of the handles the handles lanes have drawn
-
-- **Found:** 2026-09-22, claude/queue-the-undertows-two-handles-are-heard-and-drawn-nowhere
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-hold-knows-none-of-the-handles-the-handles-lanes)
-- **Files:** `tools/frames/hold-targets.ts`, `tools/frames/hold.ts`, `packages/net/src/command-fields.ts`
-- **Where:** local
-
-Seven lanes of *Nine handles are heard by the simulation and drawn nowhere*
-have now put a ring on the field, and not one of them could press its own ring
-from the command line **except THE THROAT's**, whose lane put `throatRing` and
-`throatTube` in `DRAGS` itself. `pulseMeter`, `vanePin`, `vaneHaul`,
-`snakePrise`, `snakeLift`, `undertowPin`, `undertowFree`, `scoutLine`,
-`scoutPrime` and now THE LEDGER's four are not names the
-flag takes — it answers `--hold undertowFree=0` with a usage line and stops.
-Six lanes worked around it the same way, posing the state with
-`--boss-json` and `--ticks` instead of pressing the handle, which photographs
-a boss that has been *told* a thumb is on it rather than one a thumb is on.
-The two differ exactly where it matters: a dial that fills off a held count,
-a ring drawn `held`, and every burst the press throws.
-
-The rows are mechanical — a `TARGET` entry saying which seat owns each, and an
-`id` for the ones that carry a column (`undertowPin`, `snakePrise`). Do it
-with the test the entry above asks for (`--hold` names its drag targets as
-free strings), since that test is what stops the list drifting again, and the
-two together are one sitting. Prove it by taking one frame per new name and
-seeing the dial move.
 
 ## A lane that retitles its own entry cannot claim it again
 

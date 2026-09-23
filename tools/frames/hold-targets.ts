@@ -15,7 +15,15 @@
  * gesture (`docs/queue.md`, 18 September 2026 — THE MAZE's tear was
  * photographed by writing `gripThumb` into the boss instead, which shows the
  * picture and proves nothing about the hand).
+ *
+ * The rows written one at a time are here; the forty-three that caught the
+ * list up with the wire's own on 23 September 2026 are `hold-targets-b.ts`,
+ * a table folded into each list below.
  */
+
+import { ROWS } from "./hold-targets-b.js";
+
+const rows = Object.entries(ROWS);
 
 /**
  * The seat a handle is sent from, where it is not the pilot's.
@@ -42,6 +50,7 @@ export const SEAT: Record<string, 1 | 2> = {
   mazeHeart: 2,
   /** THE THROAT's cinch is hers; the haul next door is his (`throat-hand.ts`). */
   throatRing: 2,
+  ...Object.fromEntries(rows.flatMap(([name, r]) => (r.seat ? [[name, r.seat]] : []))),
 };
 
 /** The name a second seat's thumb goes out under, which is the first's. */
@@ -51,10 +60,17 @@ export const TARGET: Record<string, string> = {
   mirrorLobe2: "mirrorLobe",
   filament2: "filament",
   stareLid2: "stareLid",
+  ...Object.fromEntries(rows.flatMap(([name, r]) => (r.as ? [[name, r.as]] : []))),
 };
 
 /**
  * Handles that hang off a body, and so need `id=N` to say which.
+ *
+ * **Named by the thumb, not by the wire**, so a second seat's name is listed
+ * here in its own right: THE HIVE's lobe is one target, and the navigator's
+ * pinch reads `id` as the lobe where the pilot's haul reads nothing
+ * (`hive-hand.ts`), so an id demanded of both would be a number he types for
+ * no reason and one refused of both would be a pinch she cannot aim.
  *
  * THE LID's reason: a wave puts several on the field at once on purpose, and a
  * capture that picked one would be picking it in a tree that cannot see them.
@@ -72,10 +88,13 @@ export const NEEDS_ID = [
   "balloonLeft",
   "balloonRight",
   "instarMark",
+  "instarMark2",
   "mirrorLobe",
+  "mirrorLobe2",
   "antiphonRail",
   "queenMark",
   "scuttlePart",
+  ...rows.flatMap(([name, r]) => (r.id ? [name] : [])),
 ];
 
 /**
@@ -102,7 +121,7 @@ export const ID_CHOICES: Record<string, readonly number[]> = {
  * false. Without this the flag could build the gesture's shape and never the
  * gesture, which is the failure a picture cannot show.
  */
-export const CARRIES = ["throatTube"];
+export const CARRIES = ["throatTube", ...rows.flatMap(([name, r]) => (r.lift ? [name] : []))];
 
 /** Every handle this flag knows, in the order the recipes list them. */
 export const DRAGS = [
@@ -134,4 +153,5 @@ export const DRAGS = [
   "throatRing",
   "throatTube",
   "scuttlePart",
+  ...rows.map(([name]) => name),
 ];

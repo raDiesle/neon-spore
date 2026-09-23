@@ -5,6 +5,8 @@
 export { type Difficulty, isDifficulty } from "@neon-spore/sim";
 export { type ClockSample, ClockSync } from "./clock.js";
 export { decodeCommands, MAX_COMMANDS_PER_FRAME } from "./command-codec.js";
+// The drag vocabulary the decoder accepts, which `tools/frames` holds `--hold` to.
+export { DRAG_TARGETS } from "./command-fields.js";
 export { InputDelay, type InputDelayOptions } from "./delay.js";
 export { HashLedger, type HashVerdict } from "./desync.js";
 export { Lockstep } from "./lockstep.js";

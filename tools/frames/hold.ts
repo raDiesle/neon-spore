@@ -150,12 +150,12 @@ export function parseHold(value: string): HoldSpec[] {
   if (!Number.isFinite(fromMilli)) {
     throw new Error(`--hold ${value}: the distance is thousandths of a tile, as a number`);
   }
-  if (NEEDS_ID.includes(target) && id === undefined) {
+  if (NEEDS_ID.includes(name0) && id === undefined) {
     throw new Error(
-      `--hold ${target}: say which one with id=N — a wave may have three on it at once`,
+      `--hold ${name0}: say which one with id=N — a wave may have three on it at once`,
     );
   }
-  if (!NEEDS_ID.includes(target) && id !== undefined) {
+  if (!NEEDS_ID.includes(name0) && id !== undefined) {
     throw new Error(`--hold ${value}: only a handle that hangs off a body takes an id`);
   }
   const choices = ID_CHOICES[target];

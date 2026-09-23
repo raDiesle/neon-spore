@@ -18011,3 +18011,17 @@ sunk hid the red the pilot has to read, so the colour had to come back to
 near full and the shadow go to the lip only.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — `--hold` knows every handle the wire carries
+
+- reading — 5 min. The two entries, `hold.ts`, `hold-targets.ts`, and the
+  seat, id and lift lines of twenty-seven hand files.
+- writing — 5 min. `hold-targets-b.ts`, a row per handle folded into the
+  five lists, and the test holding the union to `DRAG_TARGETS` both ways.
+- looking — 5 min. THE RATCHET with the catch held, free, and with a handle
+  it does not have, to see `unheard:` fire on the wrong one only.
+- friction — 0 min. None.
+- landing — 5 min. `bun run index` for the new file, `check:fast`, the commit.
+
+The bottleneck was **reading the seats**: forty-three rows, each true only
+if its hand file says so, and no table in the simulation to import instead.

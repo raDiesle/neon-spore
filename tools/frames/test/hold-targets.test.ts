@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
+import { DRAG_TARGETS } from "@neon-spore/net";
 import { parseHold } from "../hold.js";
-import { DRAGS, SEAT, TARGET } from "../hold-targets.js";
+import { CARRIES, DRAGS, NEEDS_ID, SEAT, TARGET } from "../hold-targets.js";
 
 /**
  * The six handles the flag could not reach, and the two shapes it builds.
@@ -99,9 +100,9 @@ describe("the handles on a boss's own picture", () => {
     expect(() => parseHold("scuttlePart=1000")).toThrow(/say which one with id=N/);
   });
 
-  it("is the only handle let go of: every other one is still held at the end", () => {
+  it("lets go only of a carry: every other handle is still held at the end", () => {
     for (const name of DRAGS) {
-      if (name === "throatTube") continue;
+      if (CARRIES.includes(name)) continue;
       const value = `${name}=0${name === "queenMark" || name === "scuttlePart" ? ",id=0" : ""}`;
       let built: ReturnType<typeof shape>;
       try {
@@ -128,5 +129,60 @@ describe("the tables the seats are read out of", () => {
 
   it("gives a seat only to handles it knows", () => {
     for (const name of Object.keys(SEAT)) expect(DRAGS).toContain(name);
+  });
+});
+
+describe("the flag's names and the wire's", () => {
+  // A name that drifts from `DRAG_TARGETS` builds a command `decodeCommands`
+  // and every hand file drop in silence — the frame comes back released while
+  // the capture says the hold was sent, which is what `hold.ts` exists to end.
+  const wire: readonly string[] = DRAG_TARGETS;
+
+  it("sends nothing the wire does not carry", () => {
+    for (const name of DRAGS) expect(wire, name).toContain(TARGET[name] ?? name);
+  });
+
+  it("can hold every handle the wire carries", () => {
+    const sent = new Set(DRAGS.map((name) => TARGET[name] ?? name));
+    for (const target of wire) expect(sent.has(target), target).toBe(true);
+  });
+
+  it("holds its other lists to names it knows", () => {
+    for (const name of [...NEEDS_ID, ...CARRIES]) expect(DRAGS).toContain(name);
+  });
+});
+
+describe("the handles the handles lanes drew", () => {
+  it("puts each seat's thumb where its hand file listens", () => {
+    // `undertow-hand.ts` returns on player 1; the pin's id is the lobe's column.
+    expect(shape("undertowPin=0,id=4")[1]).toMatchObject({
+      player: 2,
+      target: "undertowPin",
+      id: 4,
+    });
+    expect(shape("undertowFree=0")[1]).toMatchObject({ player: 2, on: true });
+    // `pulse-hand.ts`: a brace from each seat, on one meter.
+    expect(shape("pulseMeter2=0")[1]).toMatchObject({ player: 2, target: "pulseMeter" });
+    // `scout-hand.ts`: her line, his prime.
+    expect(shape("scoutLine=0")[1]).toMatchObject({ player: 2, on: true });
+    expect(shape("scoutPrime=0,y=900")[1]).toMatchObject({ player: 1, on: false });
+    // `ledger-hand.ts`: her foot and plug, his bead and cord.
+    expect(shape("ledgerSocket=0")[1]?.player).toBe(2);
+    expect(shape("ledgerCord=0,y=900")[1]?.player).toBe(1);
+  });
+
+  it("lets go of a handle whose hand file reads the lift", () => {
+    // `vane-hand.ts`, `snake-controls.ts`, `pinball-hand.ts`: each returns on
+    // `command.on` and measures the distance off the command that lets go.
+    for (const value of ["vaneHousing=0,y=900", "snakeJaws=0,y=900", "pinTable=1000"]) {
+      expect(shape(value)[1]?.on, value).toBe(false);
+    }
+    expect(shape("vaneArm=0")[1]?.on).toBe(true);
+  });
+
+  it("asks an id of the navigator's pinch on THE HIVE and not the pilot's haul", () => {
+    expect(() => parseHold("hiveLobe2=0")).toThrow(/say which one with id=N/);
+    expect(shape("hiveLobe2=0,id=2")[1]).toMatchObject({ player: 2, target: "hiveLobe", id: 2 });
+    expect(() => parseHold("hiveLobe=0,y=900,id=2")).toThrow(/only a handle that hangs off a body/);
   });
 });
