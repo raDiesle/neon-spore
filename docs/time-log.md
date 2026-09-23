@@ -17331,3 +17331,5 @@ counted in the app, so the retry's value had to be one function both read.
 The bottleneck was **choosing what counts as aiming**: the cannon and the
 shield slide, and prime, fire, guard and intake stay dropped, so no bolt is in
 the air when the first row spawns.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
