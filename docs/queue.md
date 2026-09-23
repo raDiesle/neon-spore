@@ -484,6 +484,7 @@ job name beside it.
 ## THE GAUGE stands on the ship's real hull
 
 - **Found:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-the-gauge-stands-on-the-ships-real-hull)
 - **Files:** `packages/render/src/gauge-claw.ts`, `packages/render/src/gauge-round.ts`
 
 The round's buttons are the band's lobes now, but the crest the claw hangs
