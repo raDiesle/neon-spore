@@ -518,6 +518,7 @@ question that prompted this one.
 ## The tab's own pause is bound inside the test rig
 
 - **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-tabs-own-pause-is-bound-inside-the-test-rig)
 - **Files:** `apps/game/src/testing.ts`, `apps/game/src/main.ts`, `docs/working-with-claude.md`
 - **Where:** local
 
