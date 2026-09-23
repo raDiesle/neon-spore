@@ -549,6 +549,7 @@ the owner when it moves.
 ## THE RATCHET is written and nobody has built its simulation
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Taken:** 2026-09-23, claude/queue-task-work-39902b (claim: claude/queue-the-ratchet-is-written-and-nobody-has-built-its)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
 
 `docs/spec/bosses-choreographed.md` §22 is a full design: `ratchetCatch` (a
