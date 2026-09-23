@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 15b7a92c — A finger on a landing body finds it where the lobes raised it, not on a flat hull
+
+The field pass rests a body's landing beat in the ship's plating, lobes and all, but the touch layer rested it on a flat membrane at `l.hullY`, because a `Field` could not see the hull — so under a raised lobe the thumb laid on the body as drawn answered empty sky. The renderer now keeps the skin its last frame stood on (`Canvas2DRenderer.skinY`), the game and the director's stage hand it to the touch layer as `Field.skinY`, and `creatureAt` rests the body by it; before the first frame it is the flat membrane, as before.
+
 ## 2026-09-23 · 8fea57d3 — `bun test` whole is green in one process again; the frame files' slowness was the canvas log
 
 The queen's and the ship's hand's frame files went red under one-process `bun test` at 227 s and 74 s and passed alone in 0.4 s. The cause was fixed the next day under another name (73ce3ad0): the canvas stub's log pointer was never cleared, so every frame test after `surface-clear.test.ts` appended every path coordinate to one array. Measured today: 21,304 pass, 0 fail, in 164 s, in one process. The queue entry closes.
