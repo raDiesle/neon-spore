@@ -521,6 +521,7 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 ## A shard outlives the runner that started it
 
 - **Found:** 2026-09-23, claude/queue-the-other-choreographed-bosses-never-say-when-th
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-a-shard-outlives-the-runner-that-started-it)
 - **Files:** `tools/check/shard.ts`, `tools/check/fast.ts`
 
 A `check:fast` sent SIGTERM left its `bun test` shard running, reparented to
