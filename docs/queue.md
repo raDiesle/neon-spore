@@ -591,56 +591,6 @@ stamp. `two-devices-opening.test.ts` already drives two devices through a beat
 zero over a wire it controls, so a case that begins one device late belongs
 beside the ones there.
 
-## Two beats to land together is the whole difficulty of THE INSTAR
-
-- **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
-- **Taken:** 2026-09-23, claude/queue-task-work-dd734e (claim: claude/queue-two-beats-to-land-together-is-the-whole-difficul)
-- **Files:** `packages/sim/src/config.ts`, `packages/sim/src/instar-step.ts`, `packages/content/src/instar-script.ts`
-- **Asks:** Keep `instarTogetherBeats: 2` for every pose, widen it, or let each step name its own?
-- **Answered:** 20 September 2026 — keep `instarTogetherBeats: 2` for every pose. The owner: *"For the moment keep simple."* So the window is not widened and no step names its own; what is left of this entry is the guidance, which is the other half of it and where the difficulty actually is.
-
-The owner, 20 September 2026, after watching the second pose: *p2 pulls but
-it is incorrect, why… maybe this time frame for p2 to pull is too short,
-which makes it too hard for p2 to hit it.* Half of that was the picture not
-saying which clock was running, and that half is fixed: a mark that is done
-now draws the together window closing into it and says `WAITING`
-(`render/instar-together.ts`). The other half is the number itself, and it is
-his.
-
-What the number is. A pair have the step's whole `windowBeats` to work in —
-8 to 12 in the shipped script — but a mark answered alone waits
-`instarTogetherBeats` for its partner and then goes back to nought
-(`slipLonely`). At `tickHz: 120` and `bpm: 96` that is 2 beats, 1.25 seconds.
-It is not the time to *act*; it is the gap between the two finishes. Held
-gestures (`pullDown`, `pullUp`, `hold`) are exempt — only the counted ones
-(`tap`, `swipeDown`, `turn`) can slip — so the poses this bites are `armed`
-(p1 taps 6 against p2's three swipes) and `moulted` (p2 taps 8 against p1's
-turn), which are exactly the two he was on.
-
-Three ways to answer, and what each costs:
-
-1. **Leave it at 2.** The new reading may be the whole fix — the difficulty
-   was never being seen, and 1.25s between two finishes is a fair ask once
-   both screens say so. Costs nothing; risks another report.
-2. **Widen `instarTogetherBeats` to 3 or 4.** One field in `config.ts`, one
-   number, every existing test still passes because they all assert relative
-   to the field. It makes the whole fight easier by the same amount, including
-   the last pose, which is meant to be the hard one.
-3. **Per-step.** `BossSequenceStep` gains an optional `togetherBeats`, the
-   config value becomes its default, and `instar-step.ts` reads the step's own
-   — so `gape` and `armed` can be forgiving while `turned` and `lunge` stay
-   tight. About thirty lines across sim and content, plus a row in
-   `hashWorld` coverage for nothing (the field is authored, not state), and it
-   is the only option that can make the teaching poses easy without making the
-   ending easy.
-
-A fourth thing he said is not this entry and is not queued: *this is generic
-feedback of choreographed bosses.* The other four read their asks through
-`bossCues` and have no together clock at all — THE BATON's merge and THE
-CAIRN's hold are timed against the beat, not against each other — so there is
-nothing there to widen. If the answer here is 3, whether the same per-step
-knob should exist for them is a second question for a second entry.
-
 ## The other choreographed bosses never say when the second seat may act
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
@@ -2437,3 +2387,22 @@ What has to be checked first is whether any test or tool builds a `held`
 by hand rather than handing over a whole renderer; if one does, it gets a
 `RenderState` and the fields it cares about, which is shorter than the object
 it builds today.
+
+## `queue next` run a second time claims a second item
+
+- **Found:** 2026-09-23, claude/queue-task-work-dd734e
+- **Files:** `tools/queue/run.ts`, `tools/queue/prompt.ts`
+
+`next` prints a prompt too long for a tool call's output, and the obvious way
+to read the rest is to run it again and page it — which claims the next
+free item, writes its `Taken:` line on `main` and pushes it, before the
+session has read a word of either. This lane did exactly that and had to
+`release` the second one, which is two commits on `origin/main` for nothing.
+
+There is no command that prints an item's prompt without claiming it. The
+work is a `bun run queue show <title>` that calls `promptFor` on a named
+item and changes nothing — the prompt already has everything it needs from
+the item and the refs — and a line in `next`'s own output naming it, so a
+session that lost the prompt reprints it rather than claiming again. A test
+in `tools/queue/test/` that `show` leaves the refs and `docs/queue.md`
+untouched proves it.

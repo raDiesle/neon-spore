@@ -1998,7 +1998,8 @@ the lift from `on`, a pull and a swipe from `fromYMilli`, a turn from
 `fromMilli` as a bearing the way THE ORRERY's ring and the crank read one,
 a hold from two thumbs and the beat (`instar-hand.ts`, `instar-step.ts`).
 Together means together: a step's marks land only when both are done inside
-`instarTogetherBeats` (2) of each other; a count reached alone and left
+`instarTogetherBeats` (2, one figure for every pose — the owner, 20 September
+2026: keep it simple) of each other; a count reached alone and left
 waiting **slips** back to nought with a sound, and the pair starts the beat
 again inside the same window. A pull or a hold is exempt, because its *done*
 is a state the thumb keeps — letting go is what undoes it. The wrong seat on

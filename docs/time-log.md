@@ -17073,3 +17073,19 @@ sim's own files can point at. Every one was found by running the suite and
 reading the failure, not by reading a list.
 
 *Measured: 19 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — instar-together-beats — the owner's answer written at the field
+
+- reading — 5 min. The entry, `render/instar-together.ts` and
+  `render/instar-call.ts`, to find that the guidance half had already landed
+  on 20 September and only the answer was left to record.
+- writing — 5 min. The decision beside `instarTogetherBeats` in
+  `config-instar.ts` and in the §16 rule of `bosses-choreographed.md`.
+- testing — 0 min. No behaviour moved; `check:fast` is the check.
+- friction — 5 min. A second `bun run queue next` claimed a second item,
+  and it had to be released.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **`queue next` claiming again on a second call** — run
+twice to read the rest of its prompt, it took the next item and pushed the
+claim before anything had been read.

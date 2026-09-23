@@ -10,7 +10,14 @@
  * a swipe is, which are the engine's and not the scene's (`instar.ts`).
  */
 export interface InstarConfig {
-  /** Beats a done mark waits for its partner before it slips back to nought. */
+  /**
+   * Beats a done mark waits for its partner before it slips back to nought —
+   * the gap between two finishes, not the time to act. One figure for every
+   * pose, on the owner's word of 20 September 2026: *"For the moment keep
+   * simple."* Not widened, and no step names its own; what made two beats
+   * read as too short was the picture never saying this clock was running,
+   * and that is `render/instar-together.ts` and `render/instar-call.ts`.
+   */
   instarTogetherBeats: number;
   /** Thousandths of a tile a thumb must carry a mark before the lift counts a swipe. */
   instarSwipeMilli: number;
