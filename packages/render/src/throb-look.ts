@@ -10,7 +10,7 @@ import { pores } from "./throb-pores.js";
  */
 
 /**
- * A throb's far half, as everything a surface on it could want.
+ * A throb's surface and rim, as everything a paint for them could want.
  *
  * `turn` is the field the shipped paint does not use and a placed surface
  * cannot do without. The context arrives **already rotated** by it — that is
@@ -29,8 +29,12 @@ export interface ThrobHalf {
   readonly isBulb: boolean;
   /** The **other** ammunition colour — the half the cannon is not looking at. */
   readonly tint: { readonly rim: string; readonly hex: string; readonly dark: string };
-  /** The two colours mixed, which is neither of them. The cut is drawn in it. */
-  readonly seamHue: string;
+  /** The colour the body was authored in, which the rest of the rim wears. */
+  readonly own: string;
+  /** How much of the rim `tint` wears, 0 to 1 (`throb.ts`'s `farShare`). */
+  readonly share: number;
+  /** The depth haze this body is drawn through, for the colours the paint picks itself. */
+  readonly haze: (hex: string) => string;
   /** A line width already divided by the body's scale. */
   readonly lw: number;
   /** How far `throbTurnMilli` has turned the context, in radians. */
@@ -49,7 +53,8 @@ export interface ThrobLook {
 }
 
 /** The shipped throb — PORES, the owner's pick from `creature:throb` on
- * 12 September 2026: the far colour bounded by its own meridian, and seven
- * pores pinned on that hemisphere and carried round by the turn
+ * 12 September 2026, and his change to it on 20 September: a middle with no
+ * ammunition colour, black and white pores pinned round the whole ball and
+ * carried by the turn, and the two colours on the rim only
  * (`throb-pores.ts`). GLOBE, the paint before it, is gone with the slot. */
 export const THROB_LOOK: ThrobLook = { half: pores };

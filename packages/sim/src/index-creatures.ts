@@ -153,6 +153,7 @@ export {
   THROB_TURN_MILLI,
   throbBeats,
   throbColorAt,
+  throbFaceEdgeMilli,
   throbFacing,
   throbTurnMilli,
 } from "./throb.js";

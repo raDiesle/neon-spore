@@ -17491,3 +17491,20 @@ The bottleneck was **finding every copy of the sentence**: four files said it,
 and one in a different phrasing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE THROB's middle is black and white dots
+
+- reading — 10 min. The entry, the three throb files, `living-draw.ts`, and
+  `throbFacing` to see what the rim has to agree with.
+- writing — 10 min. The neutral middle and its palette entry, fourteen pores
+  round the whole ball, the rim share, and the test that holds it to the rule.
+- looking — 15 min. Three runs of `bun run frames`, and a probe to check which
+  colour answered at the ticks the frames showed.
+- friction — 10 min. The first rim was split along the meridian, which runs
+  pole to pole, so it read left and right at every turn. Only the frame showed it.
+  And `land` failed on the style guide's palette sheet, which `check:fast` never
+  ran for a render change. The next commit fixes that scope.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the rim the geometry could not carry**: the first design
+was correct on paper and said nothing, and a frame was the only thing that caught it.

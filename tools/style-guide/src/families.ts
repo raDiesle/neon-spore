@@ -73,7 +73,7 @@ export const FAMILIES: Family[] = [
   {
     name: "NEUTRALS",
     rule: "one desaturated violet, 247°–252°, so the whole picture sits inside the hull's hue. A neutral says `nothing to report`.",
-    keys: ["background", "grid", "gridBeat", "dim", "sparkDim", "text"],
+    keys: ["background", "grid", "gridBeat", "dim", "sparkDim", "text", "throbMiddle"],
   },
 ];
 

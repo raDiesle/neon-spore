@@ -846,6 +846,11 @@ of the body's interior squashed as one picture
 `tools/versus/candidates/creature-throb/pores/paint.ts` to
 `packages/render/src/throb-pores.ts`.
 
+Changed by the owner on 20 September 2026, by name: the middle is never a
+slick's or a bulb's colour and has no line down it. It is `throbMiddle` with
+fourteen black and white pores round the whole ball, and which trigger answers
+is the share of the rim each colour wears (`throb.ts`'s `farShare`).
+
 The other answers offered were `cap` and `girdle`; they went with the slot.
 
 ## `panel:band-skin` — nothing taken, 2026-09-12

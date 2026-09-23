@@ -515,42 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE THROB wears the ammunition colours where the owner wants dots
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-the-lures-corner-frame-says-do-not-shoot-where-t (claim: claude/queue-the-throb-wears-the-ammunition-colours-where-the)
-- **Files:** `packages/render/src/throb.ts`, `packages/render/src/throb-pores.ts`, `packages/render/src/throb-look.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *change the visuals so it will never have the
-colour of a slick or a bulb in the middle. Also remove this line in the middle
-of rotation. Instead it shows the moving black and white dots in the middle all
-the time.*
-
-A look the owner asked for by name, which is the first of `CLAUDE.md`'s three
-exemptions — it goes on the field rather than to VERSUS, and the commit says
-so.
-
-Two things go. The seam: `seamAt` returns the boundary meridian and
-`farRegion` clips the far hemisphere to it, and the visible edge between the
-two halves is drawn in `ThrobHalf.seamHue` — that line down the middle is what
-he is pointing at. And the middle's colour: the far half is filled in the other
-ammunition colour, so the body's centre is always one of red or cyan.
-
-What replaces them is the pores, promoted: `throb-pores.ts` already pins seven
-marks on a hemisphere and carries them round by `throbTurnMilli` at 22.9 : 1
-between the middle and the limb, which is exactly the travelling-dot picture,
-and they already narrow to nothing at the limb rather than being cut. So the
-work is to paint them black and white instead of in the far colour, to draw
-them over the whole body rather than over a clipped hemisphere, and to take the
-seam and the far fill away underneath.
-
-**Which trigger answers the body must still be readable.** The turn is the
-whole of this creature — the pilot reads which colour is round, the navigator
-presses it — so whatever the middle stops saying, the rim or the far edge has
-to go on saying, and the lane that does this proves it with a frame of both
-halves rather than with the arithmetic.
-
 ## A shot into a shut COUNT loses the wave where it should armour the body
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

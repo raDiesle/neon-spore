@@ -202,6 +202,14 @@ export const PALETTE = {
    */
   arc: "#4C7BFF",
   arcRim: "#DCE6FF",
+  /**
+   * THE THROB's middle, which the owner asked never to be a slick's colour or
+   * a bulb's (20 September 2026). One of the neutrals, at their violet and
+   * almost none of it: lighter than `background` so the black dots on it
+   * still show, and warmer than `rockDark` so it does not say *rock*. The dots on it are `text` and
+   * `background`: the lightest and the darkest thing on the field.
+   */
+  throbMiddle: "#3A3940",
 } as const;
 
 /**

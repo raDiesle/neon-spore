@@ -1425,7 +1425,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/duty-mine.ts` | THE MINE's word, which of the two dials it goes under decided by the field rather than by the table |
 | `packages/render/src/throb.ts` | where THE THROB's far half lies — the seam meridian this instant and the region the paint clips to |
 | `packages/render/src/throb-look.ts` | THE ONE RECORD A CANDIDATE THROB LOOK PATCHES |
-| `packages/render/src/throb-pores.ts` | THE THROB's far half, PORES — seven pores pinned on the far hemisphere and carried round by the turn |
+| `packages/render/src/throb-pores.ts` | THE THROB's surface, PORES — a middle with no ammunition colour, black and white pores pinned round the ball, the two colours on the rim |
 | `packages/render/src/throat-draw.ts` | THE THROAT, drawn: a gullet of ring muscles hanging from the top of the frame |
 | `packages/render/src/throat-mouth.ts` | The mouth, the lip, and the column of field the inhale is holding |
 | `packages/render/src/throat-shape.ts` | Where every part of THE THROAT is, as numbers — no canvas in this file |

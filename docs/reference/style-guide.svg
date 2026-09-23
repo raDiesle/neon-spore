@@ -335,6 +335,11 @@
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">text</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#F2E9DC 35°</text>
     </g>
+    <g transform="translate(496 2136)">
+      <rect width="66" height="46" rx="4" fill="#3A3940" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">throbMiddle</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#3A3940 249°</text>
+    </g>
   </g>
   <g>
     <line x1="40" y1="2230" x2="860" y2="2230" stroke="#241B4F"/>

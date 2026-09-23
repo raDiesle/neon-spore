@@ -68,6 +68,16 @@ export function throbTurnMilli(cfg: SimConfig, beats: number): number {
 }
 
 /**
+ * How far either side of straight down the authored half still answers, in
+ * thousandths of a turn. Its own function because the picture needs the edge
+ * as well as the answer: THE THROB's rim is shared out around it
+ * (`render/throb.ts`'s `farShare`).
+ */
+export function throbFaceEdgeMilli(cfg: SimConfig): number {
+  return Math.floor(cfg.throbFaceMilli / 2);
+}
+
+/**
  * Whether the half the creature was authored in is the half the cannon is
  * looking at. True over `throbFaceMilli` thousandths of every turn, centred on
  * straight down; the rest of the turn is the other colour's half.
@@ -77,7 +87,7 @@ export function throbTurnMilli(cfg: SimConfig, beats: number): number {
  * would part on the frame it matters (`packages/sim/test/purity.test.ts`).
  */
 export function throbFacing(cfg: SimConfig, beats: number): boolean {
-  const half = Math.floor(cfg.throbFaceMilli / 2);
+  const half = throbFaceEdgeMilli(cfg);
   const turn = throbTurnMilli(cfg, beats);
   return turn < half || turn >= THROB_TURN_MILLI - half;
 }

@@ -14,6 +14,7 @@ import { LIVING_SKIN } from "./living-skin.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
+import { farShare } from "./throb.js";
 import { THROB_LOOK } from "./throb-look.js";
 
 /**
@@ -192,12 +193,11 @@ export function drawLiving(
     // on the contour and takes the contour's own aspect and strain with it.
     drawEchoSeam(ctx, cfg, c, beats, shape.rx, shape.ry, rot, { dark, hex, rim });
     if (vent) ctx.restore();
-    // Over the interior rather than under it: the far half of a throb covers
-    // the body in the other ammunition colour, it does not shine through it
-    // (`throb.ts`). The half is drawn for the colour the body was *not*
-    // authored in, and `throbTurnMilli` above has already turned it to
-    // whichever side the cannon is looking at — so the trigger `throbColorAt`
-    // will accept is the colour the pair can see pointing at them.
+    // Over the interior rather than under it: a throb's middle is no
+    // ammunition colour at all, so it covers the slick's or bulb's interior
+    // (`throb-pores.ts`). The rim wears both colours, in the shares
+    // `farShare` reads off the same turn — so the trigger `throbColorAt` will
+    // accept is the colour most of the rim wears.
     if (look === "throb" && c.color !== null) {
       const far = colorTrio(otherColor(c.color));
       THROB_LOOK.half({
@@ -207,7 +207,9 @@ export function drawLiving(
         ry: shape.ry,
         isBulb,
         tint: { rim: haze(far.rim), hex: haze(far.hex), dark: haze(far.dark) },
-        seamHue: haze(mixHex(tint.rim, far.rim, 0.5)),
+        own: hex,
+        share: farShare(cfg, beats),
+        haze,
         lw: Math.max(1, r * 0.1) / scale,
         turn: spin,
         rot,
