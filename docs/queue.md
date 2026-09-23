@@ -575,27 +575,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## A lane that retitles its own entry cannot claim it again
-
-- **Found:** 2026-09-22, claude/queue-the-ledgers-four-handles
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-lane-that-retitles-its-own-entry-cannot-claim)
-- **Files:** `tools/queue/claim.ts`, `tools/queue/mark.ts`, `tools/queue/test/queue.test.ts`
-- **Where:** local
-
-`bun run queue take` derives the claim branch from the entry's **title**, and
-an entry that has been narrowed as its lanes land — *Nine handles…* to
-*Two handles…* — no longer derives the branch the earlier lanes made. The
-stale branch is still in the tree, so `heldElsewhere` finds a branch nobody is
-on, decides the item is taken and refuses the lane that is standing in it.
-Worked around with `release` and then `take`, which is two commands and a
-moment of thinking the queue has lost track of itself.
-
-What to decide: whether the branch should be derived from the title at all. A
-claim that survives a retitle has to be written down rather than computed —
-the `Taken:` line already carries the branch name, so the cheap fix is to read
-it there and derive only when it is absent, which is also what makes a claim
-survive the next narrowing.
-
 ## `ledgerPullable` refuses a case it can never be given
 
 - **Found:** 2026-09-22, claude/queue-the-ledgers-four-handles

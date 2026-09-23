@@ -18424,3 +18424,17 @@ The bottleneck was **the twin entry**: the work had landed under another
 title, and only the staleness mark sent this lane to read the log first.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — A lane that retitles its own entry cannot claim it again
+
+- reading: 15 min. `claim.ts`, `mark.ts`, `lapsed.ts`, `take` and `release`,
+  and the handles entry's marks through eleven lanes of history.
+- writing: 10 min. `spent.ts`, its use in `take` and seven cases.
+- looking: 0 min. Nothing is drawn.
+- friction: 10 min. The retitle fix of 21 September was already in the tree
+  that filed this, so the failing case had to be found in the history first:
+  a claim branch a landed lane left behind, not the lane's own retitle.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **finding the case**: the entry described a failure the code
+already handled, and only the marks in the history showed the one it did not.

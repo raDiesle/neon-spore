@@ -49,6 +49,7 @@ import {
   unmark,
 } from "./repo.js";
 import { skipLines } from "./skipped.js";
+import { spentHere } from "./spent.js";
 import { staleLine, staleness } from "./stale.js";
 import { statusLines, statusOf } from "./status.js";
 import { fits, offered, refuseUnlessFits, reservedTag, sessionKind } from "./where.js";
@@ -167,7 +168,10 @@ if (!command || command === "list") {
   // the mark's own `(claim: ...)`, and `heldElsewhere` is the one that reads
   // it (`claim.ts`).
   const held = heldElsewhere(item, known, headBranch());
-  if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
+  // A lane on this machine that landed its piece and walked away leaves its
+  // line and its claim branch behind, and that is not a holder (`spent.ts`).
+  const spent = held ? spentHere(item, item.taken || trunkTaken(item)) : null;
+  if (held && !spent) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
   refuseUnlessFits(item, kind);
   refuseUnlessWhole(item);
   // This lane's own stale line comes off before the fresh one goes on, because
@@ -176,6 +180,7 @@ if (!command || command === "list") {
   // caller has to get out of the way may be in the trunk's copy and not in the
   // one it was handed, which is the state every clone is in (`unmark`).
   unmark(item);
+  for (const b of spent ?? []) console.log(`Spent: ${b} — ${drop(b).note}`);
   console.log(`Ongoing: ${item.title} (${claim(item)})`);
   console.log("`bun run queue done` when it is out of the file; that drops the claim.");
 } else if (command === "release") {
