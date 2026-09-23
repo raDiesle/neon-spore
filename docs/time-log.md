@@ -17508,3 +17508,5 @@ and one in a different phrasing.
 
 The bottleneck was **the rim the geometry could not carry**: the first design
 was correct on paper and said nothing, and a frame was the only thing that caught it.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

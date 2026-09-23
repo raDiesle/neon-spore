@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 6ea7b39b — check:fast runs the style guide, breaks and raster tests for a render change
+
+These three tools import `@neon-spore/render`, but the render row in `tools/hooks/scope.ts` did not name them. So a new PALETTE entry passed `check:fast` and failed only in `bun run land`, on the style guide's rule that every colour is filed on the sheet.
+
+## 2026-09-23 · 85e1fbd1 — THE THROB's middle is black and white dots
+
+The owner asked for this look by name on 20 September 2026 (the first exemption). THE THROB's middle is never red or cyan now, and no line runs down it. It is a neutral charcoal with black and white dots round the whole ball, and they move with the turn all the time. The rim says which trigger answers: the other colour takes a share of it that grows past half exactly when that colour answers.
+
 ## 2026-09-23 · 16bae115 — THE LURE's frame says IGNORE
 
 The white frame round a lure on Player 2's screen now reads IGNORE instead of DO NOT SHOOT. The owner asked for this word on 20 September 2026, which is the look exemption used here. The creature's blurb, the director's brush note and THE LURE's guide line now say the same word.
