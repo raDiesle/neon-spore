@@ -518,18 +518,6 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 `briefings.md` §3.2, and drop §11.36's *What is not built*.
 `bun test packages/content` proves the counts.
 
-## `new-boss/SKILL.md` is one line under the ceiling
-
-- **Found:** 2026-09-23, claude/queue-the-other-choreographed-bosses-never-say-when-th
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-new-boss-skill-md-is-one-line-under-the-ceiling)
-- **Files:** `.claude/skills/new-boss/SKILL.md`, `.claude/skills/new-boss-more/SKILL.md`
-
-It is 249 lines after §5 gained the `pair-call.ts` line, and the next boss
-lane that adds a rule to it turns `bun run check` red
-(`packages/sim/test/limits.test.ts`). §5's registrations list is the seam:
-it is already mirrored by `new-boss-state`, so it can move there, or to a
-new-boss/registrations.md, which the skill names in one line.
-
 ## A DEMOS row draws its mechanic id over the wave's name
 
 - **Found:** 2026-09-23, claude/queue-the-demos-menu-puts-a-261-word-paragraph-on-a-bu

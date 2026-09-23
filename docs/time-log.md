@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-new-boss-skill-ceiling
+
+- reading — 5 min. `new-boss/SKILL.md` §4 and §5, `new-boss-state` and what
+  cites the skill by section, to know which list was the mirrored one.
+- writing — 5 min. §4's file table out to `new-boss/registrations.md`, the
+  section left naming it.
+- looking — 0 min. Nothing is drawn.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was that the entry called §5's list the registrations; the
+table it meant is §4's, which §5 never had.
+
 ## 2026-09-23 — queue-shard-reap
 
 - reading — 5 min. `fast.ts`, `shard.ts`'s spawn and `slots.ts`, to know a
