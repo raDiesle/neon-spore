@@ -534,6 +534,7 @@ new spool-grip.test.ts beside `bellows-grip.test.ts`.
 ## THE RATCHET's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Taken:** 2026-09-23, claude/queue-task-work-9465e1 (claim: claude/queue-the-ratchets-picture-has-never-been-drawn)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
 - **Needs:** THE RATCHET is written and nobody has built its simulation
 - **Where:** local
