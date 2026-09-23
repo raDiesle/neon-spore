@@ -148,7 +148,7 @@ describe("the field behind it", () => {
     expect(world.tick).toBeGreaterThan(before);
   });
 
-  it("takes nothing but the ack while it holds", () => {
+  it("takes nothing but the guide's own presses while the guide is up", () => {
     const world = open(true);
     const col = world.cannonCol;
     step(world, [{ tick: world.tick, player: 1, command: { kind: "cannonCol", col: col + 2 } }]);

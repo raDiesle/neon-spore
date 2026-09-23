@@ -4,7 +4,7 @@ import { onBeat } from "./beat.js";
 import { isBeatTick } from "./beat-clock.js";
 import { settleSpentBeatboxes } from "./beatbox-round.js";
 import { bossHandsHeard } from "./boss-hands.js";
-import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
+import { briefHeard, briefingHolds, guideStepHeard, introHolds, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
@@ -38,9 +38,15 @@ import type { World } from "./world.js";
 export function step(world: World, commands: readonly TimedCommand[]): void {
   world.events.length = 0;
   // The wave has not started yet: its introduction is standing, or its guide
-  // is up. Nothing reaches the ship — the same rule THE MIRROR plays by while
-  // it is presenting — and the only command that means anything is the one
-  // that says a seat is reading, or done (`briefing.ts`).
+  // is up. Nothing reaches the field, and the command that means most is the
+  // one that says a seat is reading, or done (`briefing.ts`).
+  //
+  // Under the introduction the pair may **aim and not shoot**: the cannon and
+  // the shield slide, through `applyCommand` and so through every lock it asks,
+  // and nothing that fires, fills or opens gets through. A bolt in the air at
+  // the first row would be one the row was not spawned against. The owner, 20
+  // September 2026: players reading the three lines wanted their controls. The
+  // guide keeps its own presses; a rehearsal has them already.
   //
   // The tick still counts, and that is not a detail: a press is scheduled
   // `inputDelayTicks` into the future on both devices at once, so a world that
@@ -57,6 +63,7 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
       if (c.command.kind === "brief") briefHeard(world, c.player, c.command.on ?? true);
       else if (c.command.kind === "guideStep")
         guideStepHeard(world, c.player, c.command.back ?? false);
+      else if (introHolds(world) && aims(c)) applyCommand(world, c);
     }
     world.tick += 1;
     stepReady(world);
@@ -231,4 +238,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   stepReach(world);
   advancePods(world);
   progressWave(world);
+}
+
+/** A press that moves where the hull points and nothing else. */
+function aims(c: TimedCommand): boolean {
+  return c.command.kind === "cannonCol" || c.command.kind === "shieldCol";
 }

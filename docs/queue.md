@@ -515,35 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## The controls answer nothing while the introduction stands
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-a-peers-message-that-arrives-before-this-devices (claim: claude/queue-the-controls-answer-nothing-while-the-introducti)
-- **Files:** `packages/sim/src/step.ts`, `packages/sim/src/briefing.ts`, `apps/game/src/field-input.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *on this screen, while the text is there, players
-can already use their controls.*
-
-`step.ts` returns early while `briefingHolds` is true and reads exactly two
-commands out of the batch, `brief` and `guideStep`; everything else is dropped
-on the floor. So a pair reading the introduction cannot slide the cannon to the
-column they have just agreed on, cannot put the shield anywhere, and starts
-every wave from wherever the last one ended.
-
-The field is already frozen by that early return rather than by a check
-anybody has to remember, which is what makes this a narrow change: during
-`OPENING_INTRO` only, let the hull's own commands through — the cannon, the
-shield, the load — while nothing spawns, falls or is resolved. Whether the
-triggers fire is the one decision: a bolt in the air when the wave starts is a
-bolt the first row was not spawned against, so the safer half is to let the
-pair *aim* and not shoot, and to say in the commit which was taken. The guide's
-own pages keep the shape they have, because a rehearsal already has its own
-presses.
-
-Hull commands during a held wave go through `hashWorld` like any other, so this
-wants a replay test rather than an eye.
-
 ## A device that was once in a room never goes back to BOTH
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

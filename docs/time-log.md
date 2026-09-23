@@ -17317,3 +17317,17 @@ The bottleneck was **keeping one clock**: the fade is drawn in render/ and
 counted in the app, so the retry's value had to be one function both read.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — the pair aims under the introduction
+
+- reading — 5 min. The entry, the held branch of `step.ts`, `briefing.ts`, the
+  cannon and shield cases of `applyCommand`, and where the app darkens the ring.
+- writing — 5 min. The two aiming commands let through `applyCommand` while the
+  introduction stands, `intro-aim.test.ts`, and the ring's comment.
+- looking — 0 min. A replay test, as the entry asked; nothing drawn changed.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **choosing what counts as aiming**: the cannon and the
+shield slide, and prime, fire, guard and intake stay dropped, so no bolt is in
+the air when the first row spawns.

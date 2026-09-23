@@ -86,10 +86,11 @@ export interface Bindings {
   shieldCol: () => number;
   /**
    * Whether the wave's opening is up. Only the ring reads it, and only to stay
-   * dark: while a wave is held the simulation drops everything but the
-   * acknowledgement (`sim/step.ts`), so a swelling that lit under a thumb
-   * would be feedback for a press that never happened — the exact lie this
-   * whole ring exists to avoid.
+   * dark: while a wave is held the simulation drops every press but the
+   * opening's own and, under the introduction, the two that aim (`sim/step.ts`),
+   * so a swelling that lit under a thumb could be feedback for a press that
+   * never happened — the exact lie this whole ring exists to avoid. The ship
+   * sliding is the aim's own answer.
    */
   opening: () => boolean;
   /** 0..1 within the beat, so a grab lands on the creature as drawn, not as
