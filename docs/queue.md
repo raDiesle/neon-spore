@@ -578,6 +578,7 @@ the caller rather than as a rule.
 ## A lane that retitles its own entry cannot claim it again
 
 - **Found:** 2026-09-22, claude/queue-the-ledgers-four-handles
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-lane-that-retitles-its-own-entry-cannot-claim)
 - **Files:** `tools/queue/claim.ts`, `tools/queue/mark.ts`, `tools/queue/test/queue.test.ts`
 - **Where:** local
 
