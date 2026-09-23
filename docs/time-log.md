@@ -18409,3 +18409,16 @@ The bottleneck was **the picture**: the fix is one expression, and the only
 state it changes is one the frames tool cannot reach.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — No frame of THE SCOUT can be taken with a mote aboard
+
+- reading: 5 min. The entry, `scout-press.ts`, ea9cc9e4 and the director's
+  scout poses.
+- writing: 0 min. Nothing was left to write.
+- looking: 0 min. The laden frame was taken by ea9cc9e4.
+- friction: 5 min. The entry was a twin of *`--press` knows no scout verb*,
+  which was closed on 22 September. This one stayed and read as open.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the twin entry**: the work had landed under another
+title, and only the staleness mark sent this lane to read the log first.

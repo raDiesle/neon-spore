@@ -575,40 +575,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## No frame of THE SCOUT can be taken with a mote aboard
-
-- **Found:** 2026-09-22, claude/queue-the-scouts-two-handles-are-heard-and-drawn-nowhere
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-no-frame-of-the-scout-can-be-taken-with-a-mote-a)
-- **Files:** `tools/frames/press.ts`, `tools/frames/press-command.ts`, `tools/frames/boss-install.ts`
-- **Where:** local
-
-THE SCOUT's whole round is a flight, and `bun run frames` cannot fly it. The
-two holds that do the flying — `scoutTurn` and `scoutBurn`, the pilot's crank
-and his reach button — are not in `PRESS_KINDS`, so `--press 300:1:scoutBurn`
-comes back *unknown control* with the twenty names it does take. And the load
-cannot be posed round the flight either: `carrying` is a list, and
-`boss-install.ts` refuses a list of a different length by design, so
-`--boss-json '{"carrying":[0,1,2,3,4]}'` answers *that field holds 0, and 5
-came*.
-
-Between them that is **every state this round has past the first beat**. The
-lane that drew the two handles could not photograph either ring — both are
-gated on the load — and the director's STATES sheet has had `laden` and
-`heavy` on `OWED` since 18 September 2026 for the same reason, written there
-as *no hand flies the little ship to a mote*. A round the tools cannot reach
-is one every future lane argues in words.
-
-Two pieces, and the first is the small one. **`scoutTurn` and `scoutBurn` in
-`PRESS_KINDS`**, with a value that says which way and whether it is down —
-`scoutTurn=left`, `scoutTurn=off`, `scoutBurn=on` — beside `pulseStep`, which
-is the nearest thing already there; `seatsOnPanel` finds both on the pilot's
-panel without a table. **Then a flight worth typing**: the autopilot in
-`packages/content/test/scout-flight.test.ts` banks all four of the first
-arena in twelve beats, and what it emits is a press line of dozens — so the
-useful shape is one flag that says *fly to the nth mote and stop*, not a
-person spelling the line out. Prove it with one frame of a laden ship with
-her ring on it.
-
 ## A lane that retitles its own entry cannot claim it again
 
 - **Found:** 2026-09-22, claude/queue-the-ledgers-four-handles
