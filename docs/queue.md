@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## `--until` can step back from an event and not forward to a rest after one
 
 - **Found:** 2026-09-22, claude/lost-wound-with-the-plates
+- **Taken:** 2026-09-23, claude/queue-until-forward (claim: claude/queue-until-can-step-back-from-an-event-and-not-forwar)
 - **Files:** `tools/frames/until.ts`, `tools/frames/flags.ts`, `tools/frames/spec.ts`
 
 `--until-back N` exists because half of what a capture wants *stands between*
