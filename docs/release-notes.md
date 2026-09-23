@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 8dabbcf0 — Give THE HASP its hands: the latch carried, the wheel turned, a word each
+
+The pilot's press on the latch bar carries it down a rail now exactly the reach long, one tile, so the bar stays under the thumb; the navigator's press anywhere on the working wheel is read as a bearing about its hub. Each seat is answered on its own half only. HOLD stands on his bar while it is up, TURN on her wheel only while it is free, FIRE over a loose bolt to both. No desk keys: the latch is a carry and the wheel only turns under it.
+
 ## 2026-09-23 · 20e3e8c8 — Build THE RATCHET's simulation: every step you take stays taken
 
 Wave 102, THE RATCHET: a rack of seven teeth over the field. The navigator holds the catch, the pilot presses the pawl, and every press climbs one tooth for good — clean only while the catch is set, which he cannot see. Five clean opens it; a third burn jams it into the hull. Each window is twenty beats and THE SLOW, shortening two a tooth; a clean tooth spends the catch, and the second throws a bolt either colour takes. §11.38 argues nine departures from §22. The look is not drawn — its own queue item; every event is silent in the frame, the targets are unbuilt, the guide is prose.
