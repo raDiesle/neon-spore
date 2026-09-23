@@ -19,17 +19,16 @@ import { workedBranch } from "./mark.js";
 import { blockedBy } from "./needs.js";
 import { promptFor } from "./prompt.js";
 import type { Item } from "./queue.js";
-import { trunkRef, trunkView } from "./repo.js";
+import { mainCheckout, trunkRef, trunkView } from "./repo.js";
 import { staleLine, staleness } from "./stale.js";
 
 /** The whole brief for one item on one branch, as `next` hands it out. */
 export function briefFor(item: Item, branch: string, items: readonly Item[]): string {
-  return promptFor(
-    item,
-    branch,
-    staleLine(staleness(item, trunkView()), trunkRef()),
-    blockedBy(item, items)?.title,
-  );
+  return promptFor(item, branch, {
+    stale: staleLine(staleness(item, trunkView()), trunkRef()),
+    needs: blockedBy(item, items)?.title,
+    home: mainCheckout(),
+  });
 }
 
 /**

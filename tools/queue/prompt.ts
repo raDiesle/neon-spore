@@ -23,10 +23,20 @@ import type { Item } from "./queue.js";
  * found one (`needs.ts`). `next` without an argument never hands such an item
  * out, so this only ever arrives from `next <n>` — somebody who named the
  * blocked half on purpose, and who is owed the reason rather than a refusal.
+ *
+ * `home` is the main checkout's absolute path (`mainCheckout`). The worktree
+ * command is printed under it because a relative one, run from a session the
+ * desktop app started in `.claude/worktrees/<session>/`, made a tree inside a
+ * tree on 23 September 2026. Without it — a test — the path stays relative.
  */
-export function promptFor(item: Item, branch: string, stale?: string, needs?: string): string {
+export function promptFor(
+  item: Item,
+  branch: string,
+  { stale, needs, home }: { stale?: string; needs?: string; home?: string } = {},
+): string {
   const from = item.source === "parked" ? "docs/parked.md" : "docs/queue.md";
   const tree = branch.replace(/^claude\//, "");
+  const trees = home ? `${home}/.claude/worktrees` : ".claude/worktrees";
   return [
     `Work this item on Neon Spore. Read CLAUDE.md first.`,
     "",
@@ -107,7 +117,7 @@ export function promptFor(item: Item, branch: string, stale?: string, needs?: st
     `The branch is already made and is your claim on the item — check it out in`,
     `its own worktree, do not make another:`,
     "",
-    `    git worktree add .claude/worktrees/${tree} ${branch}`,
+    `    git worktree add ${trees}/${tree} ${branch}`,
     "",
     `then \`bun install\` from inside that tree (.claude/skills/lane says why).`,
     "",

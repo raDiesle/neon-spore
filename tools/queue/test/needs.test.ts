@@ -86,7 +86,7 @@ describe("an entry that waits on another one", () => {
 
   it("tells a session handed it by name what has not landed", () => {
     const items = both();
-    const said = promptFor(items[1]!, "claude/queue-x", undefined, items[0]!.title);
+    const said = promptFor(items[1]!, "claude/queue-x", { needs: items[0]!.title });
     expect(said).toContain("Something this entry needs has not landed");
     expect(said).toContain(items[0]!.title);
     // And an unblocked one says nothing about it at all.

@@ -9,7 +9,7 @@
  * the ceiling's sake did not become a rename in six call sites.
  */
 
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { gitIn } from "./git.js";
 
 export const ROOT = join(import.meta.dirname, "..", "..");
@@ -21,6 +21,16 @@ export const TRUNK = "main";
 
 export function git(...args: string[]): { ok: boolean; out: string; err: string } {
   return gitIn(ROOT, ...args);
+}
+
+/**
+ * The main checkout's absolute path, from any worktree of it: the directory
+ * holding the repository's shared `.git`. A new lane's worktree goes under
+ * this, never under the tree the asking session happens to stand in.
+ */
+export function mainCheckout(root = ROOT): string {
+  const r = gitIn(root, "rev-parse", "--path-format=absolute", "--git-common-dir");
+  return r.ok ? dirname(r.out) : root;
 }
 
 /** Whether this checkout has the branch itself, rather than origin's copy of it. */

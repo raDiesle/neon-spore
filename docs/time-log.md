@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-home-tree
+
+- reading — 0 min. `prompt.ts` was open from the lane before.
+- writing — 5 min. `mainCheckout`, `promptFor`'s options object, and a
+  scratch repository with a worktree in it to prove the path.
+- looking — 0 min. Nothing is drawn.
+- friction — 5 min. The Bash guard refused two Python heredocs for a
+  doubled backslash; the edit went through a script file instead.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the heredoc guard: an edit with a regex in it had to be
+written to a file before it could run.
+
 ## 2026-09-23 — queue-show
 
 - reading — 5 min. `run.ts`'s `next`, `prompt.ts`, `claim.ts` and how the

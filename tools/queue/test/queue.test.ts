@@ -174,6 +174,14 @@ describe("promptFor", () => {
     );
   });
 
+  it("puts the worktree under the main checkout when it is told where that is", () => {
+    // Relative, it nests a tree inside the session's own when the session is
+    // itself in `.claude/worktrees/` (`home-tree.test.ts` finds the path).
+    const item = parseItems(ENTRY, "queue")[0]!;
+    const prompt = promptFor(item, branchFor(item), { home: "/repo" });
+    expect(prompt).toContain("git worktree add /repo/.claude/worktrees/queue-split-the-wave");
+  });
+
   /**
    * The size paragraph. `docs/lane-speed.md` found that the top 14% of lanes
    * carry 38% of the minutes and are all one sitting holding two pieces of

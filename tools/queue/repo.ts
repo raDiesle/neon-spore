@@ -22,7 +22,7 @@ import { git, hasBranch, headBranch, ROOT, TRUNK } from "./tree.js";
 
 // The facts about the checkout live in `tree.ts` now; they are said again here
 // because this file is the door the tool comes in by.
-export { git, hasBranch, headBranch, PATHS, ROOT, refs, TRUNK } from "./tree.js";
+export { git, hasBranch, headBranch, mainCheckout, PATHS, ROOT, refs, TRUNK } from "./tree.js";
 
 /**
  * The trunk as a ref this checkout can read: its own `main`, or origin's copy
