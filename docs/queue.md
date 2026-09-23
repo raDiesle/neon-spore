@@ -547,6 +547,7 @@ wants a replay test rather than an eye.
 ## A device that was once in a room never goes back to BOTH
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/next-queued-task-5a75d5 (claim: claude/queue-a-device-that-was-once-in-a-room-never-goes-back)
 - **Files:** `apps/game/src/view.ts`, `apps/game/src/shell.ts`, `apps/game/src/menu-seats.ts`
 - **Where:** local
 
