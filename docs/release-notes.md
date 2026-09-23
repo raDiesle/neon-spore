@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 34131ffc — Give THE SPOOL's brake a thumb: the knob carried, and HOLD while it is empty
+
+The pilot's press on the brake's knob now sends spoolBrake, and every move after it is a depth down the rail. The knob travels exactly the reach, one tile, so it stays under the thumb (it used to run 1.67 tiles for one). The rail takes a hand in every phase it is drawn in, and none once the casing is slack. HOLD, in CARRY, stands on the knob while a movement pays out and nobody holds the brake. It goes as soon as he takes hold, because how deep to hold it is the navigator's to say. The hit test and the drawing place the spool off one spoolPlaced, so a knob swinging in is answered where it is drawn.
+
 ## 2026-09-23 · 8dabbcf0 — Give THE HASP its hands: the latch carried, the wheel turned, a word each
 
 The pilot's press on the latch bar carries it down a rail now exactly the reach long, one tile, so the bar stays under the thumb; the navigator's press anywhere on the working wheel is read as a bearing about its hub. Each seat is answered on its own half only. HOLD stands on his bar while it is up, TURN on her wheel only while it is free, FIRE over a loose bolt to both. No desk keys: the latch is a carry and the wheel only turns under it.
