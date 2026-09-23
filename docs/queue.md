@@ -518,6 +518,7 @@ question that prompted this one.
 ## The DEMOS menu puts a 261-word paragraph on a button: the 35 long ones
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Taken:** 2026-09-23, claude/next-queued-task-67d7ed (claim: claude/queue-the-demos-menu-puts-a-261-word-paragraph-on-a-bu)
 - **Files:** `packages/content/src/mechanics-bosses.ts`, `packages/content/src/mechanics-rounds.ts`, `packages/content/src/mechanics-split.ts`, `tools/words/clean.ts`
 
 `MECHANICS[id].what` was written as the bestiary's record and is drawn as the
