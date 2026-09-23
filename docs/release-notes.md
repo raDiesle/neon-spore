@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 26f4c1ab — THE HIVE is wax pressed with comb, with lobes of it and breaches as wet sockets, not a fill with a glowing line round it
+
+The mass is lit from the upper left and gone to the deep beneath, pressed all over with comb, its top and underside glowing amber from inside, with a film high on the left. Each lobe is a shaded drop of the same wax lit inside its lower wall with a wet point; a breach is a socket sunk in it, its colour welling from the floor under the lip's shadow, still plainly red or cyan on the pilot's screen. The scar's stitch and the wrung collar keep their glow as markers. A look the owner asked for by name (new-boss-more §6.3).
+
 ## 2026-09-23 · e319ada1 — THE ANTIPHON is a mantle of membrane hung with buds, not a fill with a glowing line round it
 
 The body is membrane, lit along its top and gone to the deep at its hem, the hem lit from inside, creased where its lobes meet and wet with a streak of film, glassier when it is still; a pit is a wet socket; an organ or a candidate is a shaded bud lit inside its lower wall in its rim. The window and the grips stay as they were. Exemption: a look the owner asked for by name (new-boss-more §6.3).
