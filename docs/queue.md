@@ -513,33 +513,6 @@ The answer picks between:
   honestly, offered first through VERSUS (`tools/versus/candidates/`) as one
   before/after, since every creature's frame changes.
 
-## Six films are pinned to the zero shot grid and show no lay
-
-- **Found:** 2026-09-23, claude/task-queue-work-e21054
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-six-films-are-pinned-to-the-zero-shot-grid-and-s)
-- **Files:** `packages/content/src/scenes/the-orrery.ts`
-
-Each fell apart on the game's half-beat grid (`scene-grid.test.ts`) and now
-carries `chargeBeats: 0`, the grid it was proved on. So in the game these
-rehearsals fire the instant a thumb lands, while every other film, and the
-round itself, waits for the half-beat point. That is right, but it is not what
-the round teaches. Retime each one for 0.5 the way THE HIVE was: each act
-fifteen ticks before the departure it is for, pairs 60 apart. Then set
-`chargeBeats: 0.5` and make its own `scene-*.test.ts` green on it. One
-film is one lane; THE ORRERY and THE ANTIPHON are the long ones.
-
-**THE THIRD SHOT, THE JAM, THE CANDLE, THE TASTER and THE ANTIPHON are done**
-(23 September 2026). THE THIRD SHOT, THE CANDLE and THE TASTER needed every
-tapped fire act fifteen ticks earlier and nothing else; a held lance is off
-the grid and stays. THE JAM has no fire acts, since its cannon fires itself,
-and needed only its slide moved between two departures. THE ANTIPHON needed
-the same fifteen, except at the twins: the second twin's slide has to wait
-for the first twin's pit, which the grid moves four ticks later, so it slides
-at 2560 and its bolt leaves a beat late. The one left is in `Files:`. For
-each, the tool was a scratch script that replays the film's `SceneRun` on
-both grids, with the film's own `chargeBeats` lifted, and prints the events
-side by side.
-
 ## The game's preview has no `here` route, and the director's does
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054

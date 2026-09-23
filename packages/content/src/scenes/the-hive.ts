@@ -40,8 +40,9 @@ import type { GuideScene } from "../scene-types.js";
  * before the departure they are for, the pairs are 60 apart because that is
  * the grid's own spacing and the reload gap both, and the film names the grid
  * it was written on rather than trusting whichever host is playing it — the
- * first one to. The films that still name zero were proved on it, and
- * `test/scene-grid.test.ts` asks the question of every film that names none.
+ * first one to. Six more named zero for a day and were retimed to the
+ * half-beat grid, and `test/scene-grid.test.ts` asks the question of every
+ * film that names none.
  *
  * **It clenches twice, and the hand is the difference.** Every third seal
  * draws the whole underside up out of a bolt's reach for six beats, and while

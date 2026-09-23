@@ -69,9 +69,10 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_ORRERY: GuideScene = {
   ticks: 3000,
   bpm: 120,
-  // Written and proved with no shot grid; on the game's half-beat one
-  // half the shed rocks go unwarded and the hull is breached (`scene-types.ts` `chargeBeats`).
-  chargeBeats: 0,
+  // The game's own half-beat grid: every tap sits fifteen ticks before the
+  // point its bolt leaves on, as THE HIVE's do (`scene-types.ts` `chargeBeats`).
+  // The held lance leaves when it is full, off the grid, and stays where it was.
+  chargeBeats: 0.5,
   seed: 1,
   entries: [],
   boss: { kind: "orrery" },
@@ -80,20 +81,20 @@ export const THE_ORRERY: GuideScene = {
     { tick: 540, control: "cannon", col: 3 },
     // Beat 12, cyan: the outer ring **cracks**, and the shot is only half of
     // it (`sim/orrery-step.ts`).
-    { tick: 660, control: "fireCyan" },
+    { tick: 645, control: "fireCyan" },
     // The other half: the thumb on the ring, two organs at one a beat, and
     // the detent that brings the gap to the bottom takes the ring off
     // (`sim/orrery-hand.ts`). The hand comes off on the beat it breaks.
     { tick: 740, drag: "orreryRing", until: 860 },
     // Beat 24, red: the middle ring cracks, and it is wound the same way —
     // this one drawn true on his screen alone.
-    { tick: 1380, control: "fireRed" },
+    { tick: 1365, control: "fireRed" },
     { tick: 1460, drag: "orreryRing", until: 1580 },
     // The outer ring's organs land on beats 27, 28 and 29.
     { tick: 1565, control: "shield", col: 0, atBody: true },
     { tick: 1572, control: "guard" },
     // Beat 28, cyan: the inner ring, on her word alone.
-    { tick: 1620, control: "fireCyan" },
+    { tick: 1605, control: "fireCyan" },
     { tick: 1625, control: "shield", col: 0, atBody: true },
     { tick: 1632, control: "guard" },
     { tick: 1685, control: "shield", col: 0, atBody: true },

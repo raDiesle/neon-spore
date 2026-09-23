@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — THE ORRERY's rehearsal on the half-beat grid
+
+- reading — 5 min. The film's acts and its scene test.
+- writing — 5 min. Three taps fifteen earlier, THE HIVE's note, the queue item closed.
+- looking — 5 min. Two probe runs, the second keeping the held lance where it was.
+- friction — 0 min.
+- landing — 5 min.
+
+The bottleneck was the probe's shift, which moves a held lance too and has to be told to leave it.
+
 ## 2026-09-23 — THE ANTIPHON's rehearsal on the half-beat grid
 
 - reading — 5 min. The film's acts and its scene test.
