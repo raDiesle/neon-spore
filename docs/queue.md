@@ -533,6 +533,7 @@ moves.
 ## THE SPOOL's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Taken:** 2026-09-23, claude/queue-task-work-c20241 (claim: claude/queue-the-spools-picture-has-never-been-drawn)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
 - **Needs:** THE SPOOL is written and nobody has built its simulation
 - **Where:** local
