@@ -8,10 +8,10 @@ import {
   surgeWarding,
   type World,
 } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
+import { paintSac } from "./surge-flesh.js";
 import type { SurgeFx } from "./surge-fx.js";
 import { drawSurgeGauge } from "./surge-gauge.js";
 import { drawSurgeGrips } from "./surge-grip.js";
@@ -87,17 +87,28 @@ export function drawSurge(
 
   ctx.save();
   ctx.globalAlpha = fade;
-  drawBody(ctx, cfg, s, c, rx, ry, time, pressure, sealing, inside, showsSurgePressure(l.role));
+  drawBody(
+    ctx,
+    cfg,
+    s,
+    c,
+    rx,
+    ry,
+    time,
+    pressure,
+    sealing,
+    inside,
+    showsSurgePressure(l.role),
+    l.tile,
+  );
   drawSurgeGauge(ctx, l, cfg, s, c, rx, ry, time, everting);
   if (!everting) drawSurgeGrips(ctx, l, cfg, s, c, rx, ry, time, sealing, surgeWarding(s, world));
   ctx.restore();
 }
 
-/** The ribs: three meridian ellipses, by their half-width as a share of the bulb's. */
-const RIBS = [0.3, 0.6, 0.85];
-
 /**
- * The body: the hull's violet, warmed toward its rim as the pressure comes
+ * The body: a sac of the hull's violet (`surge-flesh.ts`), its lower wall lit
+ * from inside and warmed toward its rim as the pressure comes
  * on where the pressure is shown, dim and shut while it re-seals, and pale
  * — the inside out — past the half of the eversion. From `surgeHoldNotches`
  * open it keeps its charge with no thumb on it, and a faint glow inside
@@ -115,6 +126,7 @@ function drawBody(
   sealing: boolean,
   inside: boolean,
   warms: boolean,
+  tile: number,
 ): void {
   const path = surgeBulbPath(c, rx, ry, time);
   const warm = warms ? pressure * 0.4 : 0;
@@ -124,33 +136,14 @@ function drawBody(
       ? PALETTE.hullRim
       : mixHex(PALETTE.hull, PALETTE.hullRim, warm);
   const rim = sealing ? PALETTE.rock : inside ? PALETTE.hull : PALETTE.hullRim;
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(path);
-  ctx.fillStyle = rgba(hex, inside ? 0.8 : 0.55);
-  ctx.fill(path);
+  const glow = sealing ? 0 : warms ? pressure : 0;
+  paintSac(ctx, path, { c, rx, ry, tile }, hex, rim, inside ? 0.8 : 0.6, glow, sealing ? 0.5 : 1);
   if (surgeHoldsCharge(s, cfg) && !sealing) {
+    ctx.save();
     ctx.fillStyle = rgba(PALETTE.hullRim, 0.12 + 0.05 * Math.sin(time * 2));
     ctx.beginPath();
     ctx.ellipse(c.x, c.y, rx * 0.55, ry * 0.55, 0, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
   }
-  // The ribs: meridians inside the outline, clipped to it, the way a bulb
-  // under pressure is ribbed by what holds it in.
-  ctx.clip(path);
-  ctx.strokeStyle = rgba(rim, sealing ? 0.25 : 0.45);
-  ctx.lineWidth = STROKE.inner;
-  for (const f of RIBS) {
-    ctx.beginPath();
-    ctx.ellipse(c.x, c.y, rx * f, ry * 1.02, 0, 0, Math.PI * 2);
-    ctx.stroke();
-  }
-  ctx.restore();
-  ctx.save();
-  ctx.strokeStyle = hex;
-  ctx.lineWidth = STROKE.outline;
-  ctx.lineJoin = "round";
-  ctx.stroke(path);
-  ctx.restore();
-  strokeGlow(ctx, path, rim, STROKE.inner, sealing ? 0.3 : 0.6 + 0.6 * (warms ? pressure : 0));
 }

@@ -1712,6 +1712,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/surface-clear.ts` | **Wiping an overlay whatever transform is on it** — a `clearRect` under a ratio below one misses the right edge |
 | `packages/render/src/surge-draw.ts` | **THE SURGE**: a ribbed bulb hung high over the middle of the field with a seam round its equator |
 | `packages/render/src/surge-fx.ts` | What THE SURGE leaves behind a frame: the row the bulb sinks through after a vent |
+| `packages/render/src/surge-flesh.ts` | **What THE SURGE is made of**: a sac of membrane blown tight |
 | `packages/render/src/surge-gauge.ts` | **THE SURGE's seam**: the dark line round the bulb's equator, and the gauge read along it by seat (§11.28) |
 | `packages/render/src/surge-grip.ts` | **THE SURGE's one handle, taken by both seats**: the bulb itself |
 | `packages/render/src/surge-shape.ts` | **Where THE SURGE is**, in field pixels: the bulb's centre, its two radii, its outline |

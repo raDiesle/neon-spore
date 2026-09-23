@@ -17916,3 +17916,18 @@ toward the deep also took the lobes the pair reads the boss by, so the deep
 had to stay shallow.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE SURGE's picture looks like something real
+
+- reading — 0 min. `surge-draw.ts`, `surge-shape.ts` and the frame test,
+  which finds the hull and its rim plain and counts the rim per seat.
+- writing — 5 min. `surge-flesh.ts`: the bulb a sac blown tight, shaded,
+  ribs as raised cords with a groove, the lower wall lit from inside with the
+  pressure, a film. The seam gauge, the grips and the jet stay.
+- looking — 0 min. Both seats before and after at 4×, and the lit ribs
+  turned down when they read as a wire cage.
+- friction — 0 min. None.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the ribs**: lit evenly all the way round they were a
+cage over the sac, and they had to sit back into it.

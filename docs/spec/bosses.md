@@ -5969,12 +5969,16 @@ only "with no hands on it", but a rule that turned the eating off under a
 thumb would make the safest play two thumbs held on the glass for ever, on
 the one boss whose whole question is whether you can stop.
 
-**The look** (`render/surge-draw.ts`, `surge-shape.ts`, `surge-gauge.ts`,
-`surge-grip.ts`, `surge-fx.ts`). A seven-lobed bulb (`blobPath`) three
+**The look** (`render/surge-draw.ts`, `surge-shape.ts`, `surge-flesh.ts`,
+`surge-gauge.ts`, `surge-grip.ts`, `surge-fx.ts`). A seven-lobed bulb (`blobPath`) three
 columns wide and a row and a half deep, hung at `surgeBulbRow` over the
-middle column and a row lower per notch vented, its outline in the hull's
-violet and its rim in the hull's rim, with three ribs curved inside it
-clipped to the body and an inner glow while the charge holds. The **seam**
+middle column and a row lower per notch vented. It is a sac of membrane
+blown tight in the hull's violet, not a fill with a glowing line round it
+(`surge-flesh.ts`, `new-boss-more` §6.3): lit from the upper left and gone to
+the deep beneath, three ribs standing out of it as cords with a groove beside
+each, its lower wall lit from inside in the hull's rim — brighter with the
+pressure where the pressure is shown — a film high on the left, and an inner
+glow while the charge holds. The **seam**
 is a dark curve across its equator, and the gauge is drawn on the seam
 by seat: the pilot's screen shows the **notches** — the next one as a band
 across the seam filled in white with its mark stroked, every vented one as
