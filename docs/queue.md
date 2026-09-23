@@ -574,6 +574,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## `--hold` names its drag targets as free strings, and nothing checks them
 
 - **Found:** 2026-09-21, claude/queue-frames-hold-cannot-reach-the-six-newest-handles
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-hold-names-its-drag-targets-as-free-strings-and)
 - **Files:** `tools/frames/hold-targets.ts`, `tools/frames/package.json`, `packages/net/src/command-fields.ts`
 
 `DRAGS` and `TARGET` in `hold-targets.ts` are twenty-seven target names written
