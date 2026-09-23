@@ -53,7 +53,8 @@ export interface GuideScene {
    * the director. Left off, the host's own value stands, which is what every
    * film did before this one and what most of them can go on doing: a film
    * whose shots meet nothing at a deadline does not notice the difference.
-   * The sweep that asks each of the others is in `docs/queue.md`.
+   * `test/scene-grid.test.ts` holds every film that names no grid to the
+   * same events on both, which is what found the six that now name zero.
    */
   chargeBeats?: number;
   /**

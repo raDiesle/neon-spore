@@ -50,6 +50,9 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_CANDLE: GuideScene = {
   ticks: 2400,
   bpm: 120,
+  // Written and proved with no shot grid; on the game's half-beat one
+  // the glow is never dimmed, fed or put out (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0,
   seed: 8,
   entries: [],
   boss: { kind: "candle" },

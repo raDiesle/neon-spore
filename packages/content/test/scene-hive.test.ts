@@ -25,9 +25,8 @@ import { WAVES } from "../src/waves.js";
  * film was proved on one grid and played on the other — this one's bolts left
  * fifteen ticks early under the default, the third killed nothing, and the
  * wave was breached at beat 36 while this test was green. The expectation
- * below is therefore the same twenty-three events in the browser
- * (`docs/queue.md`, 21 September 2026, which asks the same question of the
- * other films).
+ * below is therefore the same twenty-three events in the browser, and
+ * `scene-grid.test.ts` asks the same question of every other film.
  */
 describe("the rehearsal for THE HIVE", () => {
   it("seals five breaches, spends a bolt on each spill, and leaves the twin open", () => {

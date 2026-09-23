@@ -36,6 +36,9 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_TASTER: GuideScene = {
   ticks: 1920,
   bpm: 120,
+  // Written and proved with no shot grid; on the game's half-beat one
+  // the tongue thickens twice instead of once (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0,
   seed: 1,
   entries: [],
   boss: { kind: "taster" },

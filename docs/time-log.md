@@ -18043,3 +18043,18 @@ The bottleneck was **the size hook on `states-page.ts`**: two lines took it
 within thirty of the ceiling, and the split was cheaper now than later.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — six films named the shot grid they were proved on
+
+- reading — 5 min. The entry, `scene-script.ts`, `scene-types.ts`, THE
+  HIVE's film and test, the shape of `scene-films.test.ts`.
+- writing — 10 min. A sweep of all eighty-one films at both grids, then
+  `chargeBeats: 0` on the six that lose their story at 0.5, and
+  `scene-grid.test.ts` holding the rest to the same event counts on both.
+- looking — 0 min. Read in event counts, not frames.
+- friction — 0 min. None.
+- landing — 5 min. `queue done`, a follow-up entry, `check:fast`, the commit.
+
+The bottleneck was **what "the same film" means**: all but a handful of films
+differ tick by tick, because a later bolt meets its body a row lower, so the
+test had to compare counts of each kind of event rather than streams.

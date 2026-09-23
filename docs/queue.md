@@ -571,40 +571,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## A film is proved against a config the game does not play
-
-- **Found:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-film-is-proved-against-a-config-the-game-does)
-- **Files:** `packages/content/test/scene-films.test.ts`, `packages/sim/src/shot-charge.ts`, `apps/game/src/main.ts`
-
-`sceneScript` hands the host's `cfg` straight to the film and retimes nothing.
-`apps/game/src/main.ts` builds that cfg with `shotChargeBeats: 0.5` — a press
-waits for the next half-beat point on the grid and the bolt leaves from *there*,
-strictly after the thumb. Every film test builds its own with `DEFAULT_CONFIG`,
-which ships zero, so that a recorded replay keeps its timing to the tick. Those
-are two different films, and the difference is not rounding: THE HIVE's, timed
-against the default, breached the hull at beat 21 in the browser while its test
-was green, because a bolt fifteen ticks late arrives after the body its column
-has just dropped.
-
-**The mechanism is already there and only THE HIVE uses it.** `GuideScene`
-gained `chargeBeats` on the same day: a film says which grid its presses were
-written on and `sceneScript` lays it over the host's value, the way it already
-does with the tempo, so the film plays the same in the game, in a test and in
-the director. THE HIVE's carries `0.5`; the other sixteen carry nothing and go
-on taking whatever the host has.
-
-The work is the sweep. Run each film twice — once at `shotChargeBeats: 0`, once
-at `0.5` — and compare the event streams. A film that reads the same on both
-does not care and gets a line saying so. A film that differs is authored for
-one of the two, retimed the way THE HIVE's was (each act fifteen ticks before
-the departure it is for, pairs 60 apart) and given its own `chargeBeats`. The
-comparison itself is worth keeping as a test: a film with no `chargeBeats` whose
-two runs disagree is one nobody has decided about yet.
-
-That test belongs in `scene-films.test.ts`, which is 1093 lines, so the sweep
-splits it on the way through.
-
 ## `packages/content/test/scene-films.test.ts` is 1093 lines
 
 - **Found:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene
@@ -1633,3 +1599,17 @@ first; where it is far from 1, give `strokeGlow` a `unit` argument that
 divides the spread too, with a test that the widest pass is
 `width + glowSpread` in pixels. It changes a frame on the field, so it lands
 under "a fix to something wrong", with one before/after PNG.
+
+## Six films are pinned to the zero shot grid and show no lay
+
+- **Found:** 2026-09-23, claude/task-queue-work-e21054
+- **Files:** `packages/content/src/scenes/the-third-shot.ts`, `packages/content/src/scenes/the-jam.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`
+
+Each fell apart on the game's half-beat grid (`scene-grid.test.ts`) and now
+carries `chargeBeats: 0`, the grid it was proved on. So in the game these six
+rehearsals fire the instant a thumb lands, while every other film, and the
+round itself, waits for the half-beat point. That is right, but it is not what
+the round teaches. Retime each one for 0.5 the way THE HIVE was: each act
+fifteen ticks before the departure it is for, pairs 60 apart. Then set
+`chargeBeats: 0.5` and make its test in `scene-films.test.ts` green on it. One
+film is one lane; THE ORRERY and THE ANTIPHON are the long ones.

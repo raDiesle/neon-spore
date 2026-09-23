@@ -69,6 +69,9 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_ORRERY: GuideScene = {
   ticks: 3000,
   bpm: 120,
+  // Written and proved with no shot grid; on the game's half-beat one
+  // half the shed rocks go unwarded and the hull is breached (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0,
   seed: 1,
   entries: [],
   boss: { kind: "orrery" },

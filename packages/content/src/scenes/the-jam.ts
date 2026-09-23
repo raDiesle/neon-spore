@@ -23,6 +23,9 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_JAM: GuideScene = {
   ticks: 1020,
   bpm: 120,
+  // Written and proved with no shot grid; on the game's half-beat one
+  // seven presses are refused and the kill never comes (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0,
   seed: 1,
   faults: [{ kind: "cannon", color: "alternating" }],
   entries: [

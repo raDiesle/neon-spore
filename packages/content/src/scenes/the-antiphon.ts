@@ -55,6 +55,9 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_ANTIPHON: GuideScene = {
   ticks: 3720,
   bpm: 120,
+  // Written and proved with no shot grid; on the game's half-beat one
+  // two organs sink and the ship never bursts (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0,
   seed: 1,
   entries: [],
   boss: { kind: "antiphon" },

@@ -24,6 +24,9 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_THIRD_SHOT: GuideScene = {
   ticks: 1080,
   bpm: 120,
+  // Written and proved with no shot grid; on the game's half-beat one
+  // the hull is breached and the shell never bared (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0,
   seed: 1,
   entries: [{ beat: 0, col: 4, kind: "shell", color: "cyan" }],
   acts: [
