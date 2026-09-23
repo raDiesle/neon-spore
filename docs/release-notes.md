@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · f9f1c2ae — Candidates in one VERSUS slot can share a helper file, and adopt moves it with the winner
+
+A candidate may now import a file that sits beside the slot's candidate directories (`../geometry.js`). `adopt` follows those imports and moves the file into the package with the winner, under the same naming as a sibling, and refuses when two files would land under one name. Closing a slot removes the slot directory with its shared files. A second candidate no longer has to copy the first one's geometry.
+
 ## 2026-09-23 · 36746139 — THE VANE's and SNAKE's specs say what is still unbuilt instead of "the picture"
 
 Each clause of the two stale paragraphs was read against the tree. THE VANE's arm, rings and split all ship; only its three events are still silent, so a slip has no burst. SNAKE's rings and all three director poses ship; its jaws still look the same stuck or not, its lifted tiles are drawn where they no longer are, and its three events are silent.
