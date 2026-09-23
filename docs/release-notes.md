@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · cbb8c3db — THE SCOUT's second arena stands its column on a 2.5-tile pitch
+
+The owner asked for this layout by name (19 September 2026), which is the exemption for the look. The four motes of the column now sit at rows 11, 8.5, 6 and 3.5, the top pair at row 1, and a hazard sweeps between each pair of rows. A scout at rest on any mote is 0.37 of a tile clear of both sweeps; before, it was 0.12. The clock is 24 beats against a flight of 14.
+
 ## 2026-09-23 · 553d1aa6 — `ledgerPullable` loses a refusal that could never fire
 
 The pull hauls the soonest return on the cord a beat down, so the beat it lands on is earlier than every other return's: two bills on one beat cannot come from here, and the guard that refused it was dead. The comment now says why no refusal is needed, and the sim test named for it — which passed without reaching the guard, because the bead it added became the soonest — now holds the property itself.
