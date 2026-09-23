@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · ff9dce53 — VERSUS offers two answers to THE SCUTTLE's part hanging over the socket below
+
+A loose part slides 0.55 tiles down its thread and the rows are 0.42 apart, so a part off an upper row, and the grip ring round it, comes to rest over the socket below — the two plates the pilot counts. The slot `scuttle:hang` is open on the pose THE SCUTTLE · HELD with two answers: `apart` (rows 0.6 apart, the bottom row lower, a 0.26 drop that hangs in the gap) and `short` (the frame as it is, and a part that only sags a tenth of a tile).
+
 ## 2026-09-23 · 67828256 — `frames` says when a bare --hold was never in the run
 
 `--hold surgeBulb=0 --hold surgeBulb2=0` was reported as a flag that did nothing. It works: a bare hold goes on after the run, for the picture, so under `--until` it is not in the wait, and after a `--ticks` past the wave's failure it lands on a world that is over. Both now say so — the `--until` miss names the bare holds and the `@<tick>` form, and the unheard-press line says the wave had failed before them. `hold.ts` says the same beside `@`.
