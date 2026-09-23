@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## Two render frame files fail under `bun test` and pass on their own
 
 - **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
+- **Taken:** 2026-09-23, claude/queue-frame-contention (claim: claude/queue-two-render-frame-files-fail-under-bun-test-and-p)
 - **Files:** `packages/render/test/queen-frame.test.ts`,
   `packages/render/test/ship-hand-frame.test.ts`,
   `packages/render/test/frame-harness.ts`
