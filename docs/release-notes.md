@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · b4073fc5 — A slow test's figure is checked every run, and the drifted ones are raised
+
+`loadedTimeout(idleMs)` scales a timeout by the machine's load from a figure a person timed once — and every test that takes one walks the whole tree, which grows daily. `doc-drift-names` declared 120 ms and cost 800, and `land` went red on it for nothing the diff had done. Every caller was timed alone three times: five figures were short and are raised (copies 205→450, limits 150→400 and 260→450, tree-walk 90→120, doc-drift-names 120→850, doc-drift 120→350), and two whole-tree tests that had none now declare one.
+
 ## 2026-09-23 · e3bfeec9 — The world's opening leaves `main.ts` for `main-world.ts`
 
 `main.ts` sat at exactly 250 lines, the ceiling, so the next lane to add a line to it would have been refused for nothing it had done. The config this build plays at, the world built on it, the wave progression, beat zero (`startTogether`) and the tempo (`playAt`) now come out whole as `openWorld(audio, buffer)` in `apps/game/src/main-world.ts`, in the pattern of `main-shell.ts`. `main.ts` is 189 lines. Nothing it does has changed order in a way anything can see: the progression does no work when it is built.
