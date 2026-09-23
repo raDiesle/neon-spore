@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 844227f7 — The 35 longest DEMOS blurbs fit under their button again
+
+Every mechanic whose `what` ran past a hundred words — `lead` was 261 — is now thirty words or fewer, in the register the clean blurbs already use: what it is, who sees what, what the pair does. The full rules stay in each mechanic's sheet under docs/spec/. All 35, plus six subjects other lanes had already made clean, join `CLEAN`, and `CEILING` falls from 305 to 270.
+
 ## 2026-09-23 · 7b9e5a51 — A room's seat is no longer remembered, so a desk opens on BOTH again
 
 Joining a room wrote its seat to storage the way a player's own pick is written, and nothing wrote TEST back — so a device that had once been in a room opened on P1 at the desk from then on, half the band drawn. The view switch's `set` now says whether the pick is the player's own; the room deals its seat through `dealSeat`, which follows the room at once and stores nothing. A device that already carries a room's P1 keeps it until the switch or a seat card is tapped once.

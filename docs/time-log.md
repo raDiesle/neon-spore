@@ -17362,3 +17362,5 @@ the air when the first row spawns.
 The bottleneck was **compressing without losing the rule**: each boss had a
 full paragraph of phases, and the cut kept only who sees what and what the
 pair does, leaving the rest to its sheet under `docs/spec/`.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
