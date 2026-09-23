@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · bbf863f6 — THE HIVE's FIVE SCARS page opens on the tick the fifth seal lands
+
+The rehearsal page `FIVE SCARS · FOUR TO GO` opened at tick 1980, beat 33. The fifth seal lands at tick 2166, so for three seconds the page stood in front of four scars. It now opens at 2166. A page can now say which world field each of its numbers names (`SceneStep.counts`), and `scene-pages.test.ts` reads each one back at the page's first tick and at the tick it holds on.
+
 ## 2026-09-23 · ff9dce53 — VERSUS offers two answers to THE SCUTTLE's part hanging over the socket below
 
 A loose part slides 0.55 tiles down its thread and the rows are 0.42 apart, so a part off an upper row, and the grip ring round it, comes to rest over the socket below — the two plates the pilot counts. The slot `scuttle:hang` is open on the pose THE SCUTTLE · HELD with two answers: `apart` (rows 0.6 apart, the bottom row lower, a 0.26 drop that hangs in the gap) and `short` (the frame as it is, and a part that only sags a tenth of a tile).

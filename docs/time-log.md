@@ -18375,3 +18375,5 @@ test read it as a promise of a creature on the field.
 
 The bottleneck was **the seal's tick**: the entry gave it, and it was only a
 probe of the run, tick by tick, that found the real one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
