@@ -15,6 +15,7 @@ import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js
 import { hiveHaulCircle } from "./hive-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { orreryRingCircle } from "./orrery-grab.js";
+import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
 import { sinewHandleAt } from "./sinew-handles.js";
 import { spoolKnobStanding, spoolTakesHand } from "./spool-grip.js";
 import { surgeBulbCircle } from "./surge-shape.js";
@@ -142,6 +143,14 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "spool" ? world.boss : null;
     if (b === null || !spoolTakesHand(b)) return null;
     return spoolKnobStanding(l, cfg, b, world.beat, beatPhase);
+  }
+  if (target === "ratchetCatch" || target === "ratchetPawl") {
+    // THE RATCHET's two: her catch's bar at the depth her thumb has it, and
+    // his pad on the pawl's pivot. Null once the rack is open or jammed,
+    // where neither takes a hand (`ratchet-grip.ts`).
+    const b = world.boss?.kind === "ratchet" ? world.boss : null;
+    if (b === null || !ratchetTakesHand(b)) return null;
+    return target === "ratchetCatch" ? ratchetCatchCircle(l, cfg, b) : ratchetPadCircle(l, cfg);
   }
   return undefined;
 }

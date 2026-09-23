@@ -1,4 +1,3 @@
-import { NO_TETHER } from "@neon-spore/sim";
 import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { antiphonRailUnder } from "./antiphon-rail-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
@@ -11,22 +10,22 @@ import { fleetGripUnder } from "./fleet-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
 import { gimbalRingUnder } from "./gimbal-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
+import { lidCordUnder, mazeStringUnder, wardenRopeUnder } from "./handles-cords.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
 import { hiveLobeUnder } from "./hive-grip.js";
 import { instarMarkUnder } from "./instar-mark-grip.js";
-import { hitCircle, type Layout } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { leadStalkUnder } from "./lead-grip.js";
 import { ledgerGripUnder } from "./ledger-grip.js";
 import { ledgerPullUnder } from "./ledger-pull.js";
-import { lidCordCircle } from "./lid-string.js";
 import { mazeHeartUnder } from "./maze-grip.js";
-import { mazeStringCircle } from "./maze-string.js";
 import { mirrorLobeUnder } from "./mirror-grip.js";
 import { orreryRingUnder } from "./orrery-grab.js";
 import { pinballGripUnder } from "./pinball-grip.js";
 import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
+import { ratchetCatchUnder, ratchetPawlUnder } from "./ratchet-grip.js";
 import { scoutGripUnder } from "./scout-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
@@ -35,10 +34,8 @@ import { spoolBrakeUnder } from "./spool-grip.js";
 import { stareLidUnder } from "./stare-lid.js";
 import { surgeBulbUnder } from "./surge-grip.js";
 import { tasterGripUnder } from "./taster-grip.js";
-import { tetherGrabCircle } from "./tether.js";
 import { throatGripUnder } from "./throat-grip.js";
 import type { Field, Touch } from "./touch.js";
-import { bossOf } from "./touch-field.js";
 import { undertowGripUnder } from "./undertow-grip.js";
 import { vaneGripUnder } from "./vane-grip.js";
 import { wardenGripUnder } from "./warden-grip.js";
@@ -64,8 +61,8 @@ import { wardenGripUnder } from "./warden-grip.js";
  * `surge-grip.ts` for the same reason. THE ANTIPHON's organ is the ninth, on
  * the one screen that shows it, in `antiphon-grip.ts`.
  *
- * There are three of them here — THE MAZE's string, THE WARDEN's rope and THE
- * LID's cord — and that is why they are here rather than in `touch.ts` next
+ * There were three of them here — THE MAZE's string, THE WARDEN's rope and THE
+ * LID's cord, now in `handles-cords.ts` — and that is why they were here rather than in `touch.ts` next
  * door: each answers the same shape of question (is this seat allowed, is this
  * round running, is the press inside the resting circle) and none is a
  * creature, so the file that owns the decision table for the whole control
@@ -140,92 +137,10 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     bellowsHandleUnder(l, x, y, field) ?? // THE BELLOWS's one handle, each seat its own, in whosever beat it is (`bellows-grip.ts`).
     haspHandleUnder(l, x, y, field) ?? // THE HASP's latch, the pilot's, while a clasp is lit and his hand not burnt (`hasp-grip.ts`).
     haspRimUnder(l, x, y, field) ?? // And its wheel, the navigator's, turned about the hub (`hasp-grip.ts`).
-    spoolBrakeUnder(l, x, y, field) // THE SPOOL's brake, the pilot's, until the casing goes slack (`spool-grip.ts`).
+    spoolBrakeUnder(l, x, y, field) ?? // THE SPOOL's brake, the pilot's, until the casing goes slack (`spool-grip.ts`).
+    ratchetCatchUnder(l, x, y, field) ?? // THE RATCHET's catch, the navigator's, carried down its rail (`ratchet-grip.ts`).
+    ratchetPawlUnder(l, x, y, field) // And its pawl, the pilot's, pressed on her SET (`ratchet-grip.ts`).
   );
-}
-
-/**
- * THE MAZE's string, and only the pilot's: the wheel is the half of the round
- * player 2 cannot reach (`mazeStringHeard`), so a press from her seat falls
- * through to whatever is behind the handle. The grab reports zero — it *is* the
- * origin — and the origin stays here, on the device whose finger it is
- * (`Command` in `packages/sim/src/types.ts` has why).
- */
-function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const phase = bossOf(field, "maze")?.phase; // under `grip` the hand is the brace (`maze-grip.ts`)
-  if ((phase !== "read" && phase !== "grip") || field.seat !== 1) return null;
-  if (!hitCircle(mazeStringCircle(l, field.cfg), x, y)) return null;
-  return {
-    player: 1,
-    command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target: "mazeString", player: 1, originX: x, originY: y },
-  };
-}
-
-/**
- * THE WARDEN's rope, and only the pilot's for the same shape of reason: player
- * 2 is the seat that fires and carries both colours, so the rope is player 1's
- * every cycle (`wardenTetherHeard`). One seat pulls, the other shoots, and
- * neither can reach the other's half.
- */
-function wardenRopeUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const b = bossOf(field, "warden");
-  if (b === null || b.tetherId === NO_TETHER || field.seat !== 1) return null;
-  if (field.creatures.every((c) => c.id !== b.tetherId)) return null;
-  // The **pupil's** column, not the tether creature's: the line is authored in
-  // the middle of the ring and never moves, but the handle on the end of it
-  // hangs under the eye, which walks a column or two a beat. Answering at the
-  // creature's column meant the ball was outside its own button for most of
-  // every cycle, and the control read as intermittent rather than as missing
-  // (`tetherHandleCircle`, and `GRAB` beside it for the size).
-  if (!hitCircle(tetherGrabCircle(l, field.cfg, b.pupilCol), x, y)) return null;
-  return {
-    player: 1,
-    command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target: "wardenTether", player: 1, originX: x, originY: y },
-  };
-}
-
-/**
- * THE LID's cord, and only the pilot's for the third time and the same reason:
- * player 2 is the seat that fires and carries both colours, so a lid either of
- * them could open would be a creature one phone could play.
- *
- * The one handle that is **many**. A maze has one string and a warden one rope,
- * so both are addressed by their target name alone; a wave may put three lids
- * on the field at once, so the press carries the body's id and every move after
- * it repeats it (`Command` in `packages/sim/src/command-types.ts`).
- *
- * The nearest cord wins when two overlap, which is `creatureAt`'s rule and for
- * its reason: a thumb covers more than a handle, and the body a player meant is
- * the one they put their thumb closest to.
- */
-function lidCordUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  if (field.seat !== 1) return null;
-  let best: number | null = null;
-  let bestDist = Number.POSITIVE_INFINITY;
-  for (const c of field.creatures) {
-    if (c.kind !== "lid") continue;
-    const circle = lidCordCircle(l, field.cfg, c, field.beatPhase);
-    if (!hitCircle(circle, x, y)) continue;
-    const d = Math.hypot(x - circle.x, y - circle.y);
-    if (d >= bestDist) continue;
-    best = c.id;
-    bestDist = d;
-  }
-  if (best === null) return null;
-  return {
-    player: 1,
-    command: {
-      kind: "drag",
-      target: "lidString",
-      on: true,
-      fromMilli: 0,
-      fromYMilli: 0,
-      id: best,
-    },
-    hold: { kind: "drag", target: "lidString", player: 1, originX: x, originY: y, id: best },
-  };
 }
 
 // **Where a handle is standing**, as against where a finger may grab one, is

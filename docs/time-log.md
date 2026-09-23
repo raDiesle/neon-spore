@@ -17266,3 +17266,20 @@ measure the glow of a phase rather than the pad, so it was dropped for the
 catch's, which does.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — the ratchet's hands — a catch carried, a pawl pressed
+
+- reading — 5 min. THE HASP's grip and cue pages as the pattern, the touch
+  plumbing a depth drag rides, and the director's rows and poses.
+- writing — 10 min. `ratchet-grip.ts`, `boss-cue-read-zb.ts`, the wiring in
+  `handles.ts`, `boss-cue.ts` and `handle-place-boss.ts`; the two director
+  rows and poses; the controls table and §11.38's *The hands*. `handles.ts`
+  came to 239 lines, so its three cords went to `handles-cords.ts`.
+- testing — 5 min. `ratchet-grip.test.ts`, eleven of them, and the
+  director's field-control test.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `index`, `check:fast`, the commit.
+
+The bottleneck was **the pilot's word**: a press is never refused, so
+`PRESS` on a lit pad would ask for a burnt tooth, and the word had to say
+what he waits for without saying anything about her hand.

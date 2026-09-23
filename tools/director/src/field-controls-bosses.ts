@@ -23,6 +23,7 @@ import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
 import { PINBALL_CONTROLS } from "./field-controls-pinball.js";
 import { PULSE_CONTROLS } from "./field-controls-pulse.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
+import { RATCHET_CONTROLS } from "./field-controls-ratchet.js";
 import { SCOUT_CONTROLS } from "./field-controls-scout.js";
 import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
@@ -147,4 +148,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // nothing at all**: his latch moves no part of the boss and her wheel only
   // answers while it is down (`field-controls-hasp.ts`).
   ...HASP_CONTROLS,
+  // THE RATCHET's catch and pawl, the only pair here where **one is a hold
+  // and the other a press judged by it**, once, on the tick it lands
+  // (`field-controls-ratchet.ts`).
+  ...RATCHET_CONTROLS,
 ];

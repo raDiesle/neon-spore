@@ -8358,10 +8358,20 @@ packs tighter as it climbs.
   burnt tooth throws nothing on any screen; a set and a let-go burst on the
   catch's screens only. The bolt falls pale from the lock to the hull.
 
-**What is not built.** The hands: the two targets are still `unbuilt` in
-`tools/director/test/on-field-controls.test.ts`, so there is no hit test for
-the catch or the pawl and no cue words, and the guide is prose. That is the
-second half of lane two, on `docs/queue.md`.
+**The hands** (`render/ratchet-grip.ts`, 23 September 2026). Her catch is
+answered at the top of its rail and carried down it in thousandths of a tile,
+the rail's own length, so the bar stays under the thumb. His pad is answered on
+the pawl's pivot. Each seat is answered on its own half only, and both in every
+phase but the open and the jam; a press on the pad between windows is taken and
+spends nothing, rather than falling through to the cannon. **The words**
+(`render/boss-cue-read-zb.ts`): `HOLD` on her catch while it is not set and
+`LIFT` while it is spent, and none once she holds, because what she says then
+is SET, out loud. `ON SET` on his pad while a tooth is waiting and his thumb is
+up. Not `PRESS`: a press is never refused, and a word that asked for one
+whenever the pad is lit would ask for a burnt tooth. `FIRE` over a loose bolt,
+to both seats.
+
+**What is not built.** The guide is prose.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/ratchet.test.ts`): the rack comes in with seven teeth and lights

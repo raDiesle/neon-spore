@@ -903,6 +903,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-y.ts` | **What THE GIMBAL is asking for** — page twenty-five of the readings |
 | `packages/render/src/boss-cue-read-z.ts` | **What THE HASP is asking for** — page twenty-six of the readings, and THE GIMBAL's arrangement next door |
 | `packages/render/src/boss-cue-read-za.ts` | **What THE SPOOL is asking for** — page twenty-seven of the readings, and the shortest: one handle, one seat |
+| `packages/render/src/boss-cue-read-zb.ts` | **What THE RATCHET is asking for**: page twenty-eight of the readings, and THE HASP's arrangement again |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -997,6 +998,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gland-wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
 | `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE CHOIR's arrows against the two walls |
+| `packages/render/src/handles-cords.ts` | **The three cords**: THE MAZE's string, THE WARDEN's rope and THE LID's cord |
 | `packages/render/src/hex.ts` | Two `#rrggbb` colours mixed, as a `#rrggbb` colour |
 | `packages/render/src/hull-frame.ts` | The hull's shape for one frame — split out of `hull.ts` so the geometry model (this file) and the drawing |
 | `packages/render/src/key-light.ts` | THE KEY LIGHT, ON A CANVAS |
@@ -1252,6 +1254,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ratchet-parts.ts` | THE RATCHET's fittings round the rack: **the lock** at the top of the strut with its five pins |
 | `packages/render/src/ratchet-pose.ts` | **How far through a pose THE RATCHET is** — the clock the rack is posed off (§22, *Animation*) |
 | `packages/render/src/ratchet-shape.ts` | **Where THE RATCHET is**: a strut down the middle column, a rack of seven plates sliding up inside it |
+| `packages/render/src/ratchet-grip.ts` | **The two thumbs on THE RATCHET**: half two of the look lane |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/caption-anchor-boss.ts` | **Where a boss's own fixture is** — the one anchor `caption-anchor.ts` answers per boss rather than per kind… |
 | `packages/render/src/caption-anchor-boss-b.ts` | **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY and THE SCOUT are** |
@@ -2087,6 +2090,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-bellows.ts` | THE BELLOWS's two handles, one under each seat's thumb — and, like THE GIMBAL's pair next door |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb — and, unlike THE BELLOWS's pair next door |
+| `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2473,6 +2477,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
+| `tools/director/src/field-controls-ratchet.ts` | THE RATCHET's catch and pawl, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-throat.ts` | **THE THROAT's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-taster.ts` | **THE TASTER's three thumbs on its own fan**, in a file of its own |

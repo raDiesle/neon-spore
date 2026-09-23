@@ -515,29 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE RATCHET's picture has never been drawn
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-23, claude/queue-task-work-9465e1 (claim: claude/queue-the-ratchets-picture-has-never-been-drawn)
-- **Files:** `packages/render/src/ratchet-shape.ts`, `packages/render/src/handles.ts`, `packages/render/src/boss-cue.ts`, `tools/director/test/on-field-controls.test.ts`
-- **Where:** local
-
-Lane two of §22. **The picture landed 23 September 2026** (`render/ratchet-draw.ts`,
-§11.38 *The look*). What is left is **the hands**, THE HASP's second half
-(8dabbcf0) done again:
-
-- a render/ratchet-grip.ts hit test: `ratchetCatch` is P2's depth drag on
-  the catch rail (`ratchetCatchRail`, `ratchetBarAt` in `ratchet-shape.ts`),
-  and `ratchetPawl` is P1's press on the pad at the pawl's pivot
-  (`ratchetPawl`);
-- the `handles.ts` and `handle-place-boss.ts` entries;
-- cue words through `boss-cue.ts` and `boss-cue-read-z.ts`: SET or HOLD on the
-  catch, PRESS on the pawl, FIRE on the bolt;
-- the director rows in `tools/director/src/field-controls-*.ts`, with
-  `ratchetCatch` and `ratchetPawl` moved from `"unbuilt"` to `"field"` in
-  `tools/director/test/on-field-controls.test.ts`;
-- a row in `controls.md` and a grip test.
-
 ## A peer's message that arrives before this device's run begins is dropped
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf (re-filed 2026-09-23, claude/queue-the-ratchets-picture-has-never-been-drawn, from a paragraph that had come loose under THE RATCHET's entry)

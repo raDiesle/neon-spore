@@ -24,6 +24,7 @@ import { BELLOWS_GRIPS } from "./poses-field-controls-bellows.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
+import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { SINEW_PULL } from "./poses-field-controls-sinew.js";
 import { SPOOL_BRAKE } from "./poses-field-controls-spool.js";
 import { SURGE_HOLD } from "./poses-field-controls-surge.js";
@@ -200,7 +201,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
   // GIMBAL's, THE SINEW's and THE BELLOWS's went out one at a time, each as
   // this file reached its limit again (`poses-field-controls-surge.ts`,
   // `-antiphon.ts`, `-instar.ts`, `-gimbal.ts`, `-sinew.ts`, `-bellows.ts`,
-  // `-spool.ts`, `-hasp.ts`).
+  // `-spool.ts`, `-hasp.ts`, `-ratchet.ts`).
   poses: [
     TETHER_TAUT,
     BALLOON_HELD,
@@ -215,6 +216,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...BELLOWS_GRIPS,
     SPOOL_BRAKE,
     ...HASP_GRIPS,
+    ...RATCHET_GRIPS,
     GUIDE_HOLD,
   ],
 };
