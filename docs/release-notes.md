@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · d0c7359f — The last line that said ward now says shield
+
+The tether's DEMOS blurb said it "cannot be warded". It now says "A shot cannot cut it, and the shield cannot stop it." That was the last player-facing line breaking the owner's shield rule, so `tether` joins `CLEAN` and the words ceiling falls from 5 to 4. Exemption: a look the owner asked for by name (the word shield, 21 September 2026).
+
 ## 2026-09-23 · 7459de0d — A check's own width is no longer read as a drifted figure
 
 `bun run check:fast` printed five `figure drift:` lines under a green run, for figures that held when timed alone. The one-minute load average lags the twenty-second burst of eight shards on one disk. `shard.ts` now tells each shard how wide its run is (`SHARD_WIDTH`). `figure.ts` divides by at least that width, up to the 5× measured between alone and eight wide. A whole `bun run test` then prints none, and a figure short by six is still reported.
