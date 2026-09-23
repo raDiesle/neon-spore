@@ -18132,3 +18132,5 @@ could be seen without an eye counting it as a lane.
 
 The bottleneck was **keeping the tangle traceable**: nothing on a tube may
 move, because the number in flight is the one thing that travels down it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · c11976f8 — THE SPLICE's straws are gut, not wire
+
+Every straw in the tangle is a ringed tube now — a dark casing, a translucent wall, rings across it like a windpipe and a wet line down its lit side — and every mouth is a puckered lip under the ring its state is told in. Each straw is still drawn whole before the next, so a crossing is one hose behind another, and nothing on a tube moves: the number in flight is the only thing that travels down it.
+
 ## 2026-09-23 · 17179db9 — THE WELL is a throat the pilot looks down into
 
 The pilot's clock face now has flesh under it. The bowl darkens from the rim's violet down to a dark throat at the hub. The rim has a lip lobed once a lane, with a wet bead on each lobe, breathing slowly. The spokes lie in grooves, the ship sits in a wet socket, and a film of gloss lies on the far wall. The rings, spokes, seam and numbers are drawn over all of it at their old weights, so the board reads as before, and the seam's empty sector stands out more against the darker bowl.
