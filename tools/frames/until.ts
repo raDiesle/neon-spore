@@ -190,10 +190,28 @@ export function firedNote(log: readonly Fired[]): string {
   return `fired: ${said.join(", ")}`;
 }
 
-/** The words for a name that never fired: how far it looked, and what did. */
-export function missedNote(until: UntilSpec, from: number, log: readonly Fired[]): string {
+/**
+ * The words for a name that never fired: how far it looked, and what did.
+ *
+ * **A bare `--hold` is not in that wait.** It goes on after the run, for the
+ * picture (`hold.ts`), so an event only the hold could cause never comes: THE
+ * SURGE's two thumbs on the bulb looked like a flag that did nothing
+ * (`docs/queue.md`, 21 September 2026). When there were any, the words say
+ * where to put them.
+ */
+export function missedNote(
+  until: UntilSpec,
+  from: number,
+  log: readonly Fired[],
+  holdsAfter = false,
+): string {
+  const holds = holdsAfter
+    ? ". Every bare --hold goes on only after this wait; " +
+      "write --hold <name>=<distance>@<tick> to hold during it"
+    : "";
   return (
     `--until ${until.event}: nothing of that type fired in ${until.cap} ticks from ` +
-    `world.tick ${from}. ${firedNote(log)}. Look further with --until-ticks, or name one of those`
+    `world.tick ${from}. ${firedNote(log)}. Look further with --until-ticks, or name one of those` +
+    holds
   );
 }

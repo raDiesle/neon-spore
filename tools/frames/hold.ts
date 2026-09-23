@@ -197,6 +197,13 @@ export function parseHold(value: string): HoldSpec[] {
  *
  *   --hold mazeString=1400@240 --press 300:2:fire=cyan
  *
+ * **The bare form waits for the end of the run, `--until` included**: it is
+ * not in the wait, and after a `--ticks` past the wave's failure it lands on a
+ * world that is over. Both read as a flag that did nothing — THE SURGE's two
+ * bulb thumbs did (`docs/queue.md`, 21 September 2026) — so both now say so
+ * (`missedNote`, `pressNote`). To have what a hold causes, write it with `@`:
+ * `--hold surgeBulb=0@1 --hold surgeBulb2=0@1 --until surgeGrip`.
+ *
  * The bare form keeps its old meaning exactly, because it is the right one for
  * the four handles this flag was written for and every existing caller writes
  * it. The `@` is read off the end of the whole value rather than off the

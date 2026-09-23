@@ -22,6 +22,9 @@ export interface Reach {
   press?: PressSpec[];
   /** Stop on the tick this event fires on, rather than after a count. */
   until?: UntilSpec;
+  /** Whether any `--hold` waits for the end of this run rather than riding
+   * it, so a miss can say it was never in it (`missedNote`). */
+  holdsAfter?: boolean;
 }
 
 /**
@@ -52,6 +55,6 @@ export async function reachFirstFrame(
     else if (step.advance > 0) await d.advance(step.advance);
     if (step.press) await d.press(step.press);
   }
-  if (until && at === null) throw new Error(missedNote(until, from, d.heard()));
+  if (until && at === null) throw new Error(missedNote(until, from, d.heard(), reach.holdsAfter));
   return at;
 }

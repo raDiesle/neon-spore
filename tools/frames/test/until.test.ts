@@ -232,5 +232,12 @@ describe("what fired", () => {
     const words = missedNote({ event: "breach", cap: 200 }, 40, log);
     expect(words).toContain("200 ticks from world.tick 40");
     expect(words).toContain("destroy@84");
+    expect(words).not.toContain("--hold");
+  });
+
+  it("says a bare hold was never in the wait", () => {
+    const words = missedNote({ event: "surgeRock", cap: 3000 }, 18, log, true);
+    expect(words).toContain("bare --hold goes on only after this wait");
+    expect(words).toContain("@<tick>");
   });
 });

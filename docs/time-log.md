@@ -18328,3 +18328,17 @@ turned three strings into thirty-seven, and sorting which were answered and
 which wait on the owner was most of the lane.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — `--hold surgeBulb` puts no thumb on THE SURGE's bulb
+
+- reading — 5 min. `hold.ts`, `reach.ts`, `report.ts`, and the `@` paragraph
+  that already said when a bare hold goes on.
+- writing — 10 min. The two notes that now say it, their tests, a paragraph
+  in `hold.ts`.
+- looking — 10 min. Four runs: the hold works with `@1` and with a short
+  `--ticks`; it only failed under `--until` and past the wave's failure.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the first run with `@1`**: it showed the flag was never
+broken, and the lane turned from a fix into saying so where it is missed.

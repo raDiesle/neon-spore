@@ -1,3 +1,5 @@
+import type { Fired } from "./until.js";
+
 /**
  * **What a finished capture prints**, which is the half of the tick fix that a
  * flag's own meaning cannot carry.
@@ -36,13 +38,28 @@ export interface Sent {
  * cost four captures that way before a probe found the morph (`docs/queue.md`,
  * 20 September 2026). Null when every press was heard, or none was asked.
  */
-export function pressNote(sent: readonly Sent[]): string | null {
+export function pressNote(sent: readonly Sent[], fired: readonly Fired[] = []): string | null {
   const refused = sent.filter((s) => s.heard === false);
   if (refused.length === 0) return null;
   const which = refused.map((s) => `${s.tick}:${s.player}:${s.kind}`).join(", ");
   return (
     `  unheard: ${refused.length} of ${sent.length} press(es) changed nothing on the tick ` +
-    `they landed — ${which}. The round refused them: a phase that takes no press, ` +
-    "or a state the control does nothing in"
+    `they landed — ${which}. ${why(refused, fired)}`
   );
+}
+
+/**
+ * **A press after the wave has failed** has one reason and it is not the
+ * round's: a bare `--hold` goes on after `--ticks`, and a count past the
+ * failure puts it on a world that is over (`docs/queue.md`, 21 September 2026).
+ */
+function why(refused: readonly Sent[], fired: readonly Fired[]): string {
+  const over = fired.find((f) => f.type === "waveFailed")?.tick;
+  if (over !== undefined && refused.every((s) => s.tick >= over)) {
+    return (
+      `The wave failed at world.tick ${over}, before any of them: ` +
+      "a smaller --ticks, or --hold <name>=<distance>@<tick>, puts them in it"
+    );
+  }
+  return "The round refused them: a phase that takes no press, or a state the control does nothing in";
 }

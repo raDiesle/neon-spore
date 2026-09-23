@@ -17,4 +17,12 @@ describe("pressNote", () => {
     expect(said).toContain("400:1:snakeFire");
     expect(said).not.toContain("snakeTurn");
   });
+
+  it("says the wave was over when every refused press came after it failed", () => {
+    const fired = [{ tick: 2250, type: "waveFailed" }];
+    const late = [{ tick: 3000, player: 1 as const, kind: "drag", heard: false }];
+    expect(pressNote(late, fired)).toContain("failed at world.tick 2250");
+    const early = [{ tick: 400, player: 1 as const, kind: "drag", heard: false }];
+    expect(pressNote(early, fired)).toContain("The round refused them");
+  });
 });

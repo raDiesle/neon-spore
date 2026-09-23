@@ -11,7 +11,7 @@ commit message that read wrong, and the history is where that lives.
 
 ## 2026-09-23 · 00eadaf0 — The words drawn on the field say SHIELD, and a test reads them
 
-The two PRESS marks that said GUARD (BULB QUEEN's torch, THE ORRERY's rock) now say SHIELD, the balance sheet's WARDS column is SHIELD, and the banner that said WARDED says ARMED. A new test, tools/words/test/drawn.test.ts, reads every capitalised string literal in packages/render, apps/game and packages/content against the word vocabulary; what still fails is a STANDING list that may only shrink, and two queue items cover it — the scene captions (answered: shield, column) and the PILOT'S / NAVIGATOR'S / SEAT marks, which ask the owner for the short form.
+The two PRESS marks that said GUARD (BULB QUEEN's torch, THE LEDGER's bead) now say SHIELD, the balance sheet's WARDS column is SHIELD, and the banner that said WARDED says ARMED. A new test, tools/words/test/drawn.test.ts, reads every capitalised string literal in packages/render, apps/game and packages/content against the word vocabulary; what still fails is a STANDING list that may only shrink, and two queue items cover it — the scene captions (answered: shield, column) and the PILOT'S / NAVIGATOR'S / SEAT marks, which ask the owner for the short form.
 
 ## 2026-09-23 · 40e6f22c — THE SURGE's SHIELD stands beside the rock it names, not across it
 

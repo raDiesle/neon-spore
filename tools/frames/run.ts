@@ -165,7 +165,7 @@ async function main(): Promise<void> {
     });
     if (wantsEvents) console.log(`  ${firedNote(fired)}`);
     say(heldPageNote(spec, heldPage));
-    say(pressNote(sent));
+    say(pressNote(sent, fired));
     return;
   }
 
@@ -203,7 +203,7 @@ async function main(): Promise<void> {
     // the events of the one being landed are the ones a reader is asking about.
     if (wantsEvents) console.log(`  after ${firedNote(after.fired)}`);
     say(heldPageNote(spec, after.heldPage));
-    say(pressNote(after.sent));
+    say(pressNote(after.sent, after.fired));
   } finally {
     await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
   }

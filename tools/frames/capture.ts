@@ -120,6 +120,7 @@ export async function captureFrames(
           advanceBy: spec.ticks - startTick,
           press: press0,
           until: spec.until,
+          holdsAfter: (spec.hold?.length ?? 0) > 0,
         });
         // **`--until-back` wants the frame before that one, and a world does
         // not go back.** So this whole run was the search, and the picture is

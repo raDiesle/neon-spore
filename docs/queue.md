@@ -515,35 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## `--hold surgeBulb` puts no thumb on THE SURGE's bulb
-
-- **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-hold-surgebulb-puts-no-thumb-on-the-surges-bulb)
-- **Files:** `tools/frames/hold.ts`, `tools/frames/hold-targets.ts`, `packages/sim/src/surge-hand.ts`
-- **Where:** local
-
-`tools/frames/hold.ts` documents the two by name:
-
-    --hold surgeBulb=0              THE SURGE: the pilot's thumb on the bulb
-    --hold surgeBulb2=0             and the navigator's, on the same bulb
-
-Both together fire no `surgeGrip` and no `surgeRock` in 3000 ticks. The same
-state reached with `--boss-json '{"notches":2,"heldP1":true,"heldP2":true}'`
-spits a rock on the first beat, so it is the hold and not the boss.
-
-`surgeHeard` takes `{ kind: "drag", target: "surgeBulb", on: true }` and
-refuses it while the bulb is everting, while it re-seals from a burst, or if
-that seat is already holding — none of which is the case at a wave's opening.
-So the command the hold builds is arriving wrong, or not arriving: start by
-printing it, and `tools/director/src/boss-hands-handles.ts:108` is the same
-drag built somewhere that works (`fromMilli: 0`, which the hold may be
-omitting).
-
-A documented flag that silently does nothing is worse than a missing one: the
-lane that hit this spent fifteen minutes proving the boss was fine before
-suspecting the tool, and the recipe it ended up with is now written into two
-other entries because the flag cannot be trusted.
-
 ## A hanging part is drawn over the socket of the row below it
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-5780141b-the-picture-of-a-carried
