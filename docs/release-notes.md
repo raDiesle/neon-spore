@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 7b9e5a51 — A room's seat is no longer remembered, so a desk opens on BOTH again
+
+Joining a room wrote its seat to storage the way a player's own pick is written, and nothing wrote TEST back — so a device that had once been in a room opened on P1 at the desk from then on, half the band drawn. The view switch's `set` now says whether the pick is the player's own; the room deals its seat through `dealSeat`, which follows the room at once and stores nothing. A device that already carries a room's P1 keeps it until the switch or a seat card is tapped once.
+
 ## 2026-09-23 · 228cc032 — The pair can aim while the introduction stands
 
 While a wave's introduction is up, the cannon and the shield now slide to whatever columns the pair picks, so the wave starts where they aimed. The trigger, the guard and the maw still answer nothing, and nothing spawns or falls until both seats are done. The pair can aim but not shoot: a bolt already in the air at the first row would be one the row was not spawned against. The guide keeps its own presses. The owner asked for this by name on 20 September 2026.
