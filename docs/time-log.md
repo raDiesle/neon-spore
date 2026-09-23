@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — THE THIRD SHOT is retimed for the half-beat grid
+
+- reading — 10 min. `shot-charge.ts`, THE HIVE's retime and the grid test.
+- writing — 5 min. Three fire acts moved and `chargeBeats: 0.5`.
+- looking — 10 min. A probe comparing the film's events on both grids, and one frame of the page.
+- friction — 5 min. The first probe compared the film with itself: its own `chargeBeats` overrides the host's.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the probe: the film names its grid, so the probe had to lift that before it measured anything.
+
 ## 2026-09-23 — `strokeGlow`'s scale, measured and put to the owner
 
 - reading — 5 min. `glow.ts` and the four callers under a scale.

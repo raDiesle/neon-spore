@@ -517,16 +517,20 @@ The answer picks between:
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054
 - **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-six-films-are-pinned-to-the-zero-shot-grid-and-s)
-- **Files:** `packages/content/src/scenes/the-third-shot.ts`, `packages/content/src/scenes/the-jam.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`
+- **Files:** `packages/content/src/scenes/the-jam.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`
 
 Each fell apart on the game's half-beat grid (`scene-grid.test.ts`) and now
-carries `chargeBeats: 0`, the grid it was proved on. So in the game these six
+carries `chargeBeats: 0`, the grid it was proved on. So in the game these
 rehearsals fire the instant a thumb lands, while every other film, and the
 round itself, waits for the half-beat point. That is right, but it is not what
 the round teaches. Retime each one for 0.5 the way THE HIVE was: each act
 fifteen ticks before the departure it is for, pairs 60 apart. Then set
 `chargeBeats: 0.5` and make its own `scene-*.test.ts` green on it. One
 film is one lane; THE ORRERY and THE ANTIPHON are the long ones.
+
+**THE THIRD SHOT is done** (23 September 2026): every fire act fifteen ticks
+earlier and nothing else, and it tells the same story to the event. The five
+left are in `Files:`.
 
 ## The game's preview has no `here` route, and the director's does
 

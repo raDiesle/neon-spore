@@ -54,7 +54,8 @@ export interface GuideScene {
    * film did before this one and what most of them can go on doing: a film
    * whose shots meet nothing at a deadline does not notice the difference.
    * `test/scene-grid.test.ts` holds every film that names no grid to the
-   * same events on both, which is what found the six that now name zero.
+   * same events on both, which is what found the six that named zero until
+   * each was retimed for the half-beat grid.
    */
   chargeBeats?: number;
   /**

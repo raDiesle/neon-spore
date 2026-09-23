@@ -24,9 +24,9 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_THIRD_SHOT: GuideScene = {
   ticks: 1080,
   bpm: 120,
-  // Written and proved with no shot grid; on the game's half-beat one
-  // the hull is breached and the shell never bared (`scene-types.ts` `chargeBeats`).
-  chargeBeats: 0,
+  // The game's own half-beat grid: every press sits fifteen ticks before the
+  // point its bolt leaves on, as THE HIVE's do (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0.5,
   seed: 1,
   entries: [{ beat: 0, col: 4, kind: "shell", color: "cyan" }],
   acts: [
@@ -35,10 +35,10 @@ export const THE_THIRD_SHOT: GuideScene = {
     // the other films press, because the shell is on row eleven by now and
     // the finishing shot on the next page has to land before it reaches the
     // hull.
-    { tick: 690, control: "fireRed" },
+    { tick: 675, control: "fireRed" },
     { tick: 720, control: "cannon", col: 5 },
-    { tick: 750, control: "fireRed" },
-    { tick: 870, control: "fireCyan" },
+    { tick: 735, control: "fireRed" },
+    { tick: 855, control: "fireCyan" },
   ],
   steps: [
     // Seven beats: the shell holds on row six, in the middle of the screen,
