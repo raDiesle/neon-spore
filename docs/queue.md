@@ -518,6 +518,7 @@ question that prompted this one.
 ## `loadedTimeout`'s figures were measured once and the tree has grown past them
 
 - **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-loadedtimeout-s-figures-were-measured-once-and-t)
 - **Files:** `tools/test/repo-time.ts`, `tools/test/doc-drift-names.test.ts`, `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `tools/index/test/index.test.ts`, `packages/sim/test/copies.test.ts`
 - **Seen again:** 2026-09-21, claude/queue-twenty-handles-are-heard-by-the-simulation-and-d — `bun run land` went red on `packages/sim/test/copies.test.ts` (*every other file calls clearHolds instead of re-deriving it*, timed out, 2 shards of 73), and the same file ran 121 pass in **797 ms** alone a minute later. It declares `loadedTimeout(205)` and walks every source file in the tree, so it is the same drift as the one below in a second package. The lane re-ran `land` and it went green, which is exactly the habit this entry exists to end.
 
