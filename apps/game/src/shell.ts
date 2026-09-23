@@ -43,7 +43,10 @@ export interface ShellParts {
   jumpToWave: (wave: number) => void;
   /** The view switch, which the room overrules the moment it hands out a seat. */
   seat: () => ViewRole;
+  /** The player's own pick, off the menu's seat cards — remembered. */
   setSeat: (role: ViewRole) => void;
+  /** The room's pick — this room only, never stored (`view.ts`). */
+  dealSeat: (role: ViewRole) => void;
   openTuning: () => void;
   /** The mixer's mute, for the settings page's SOUND switch. */
   setSound: (on: boolean) => void;
@@ -100,7 +103,7 @@ export function bindShell(p: ShellParts): Link {
     onStart: (player, wave, level) => {
       // The room hands out the seat, so the view follows it rather than
       // whatever this device was last left on.
-      p.setSeat(player === 1 ? "p1" : "p2");
+      p.dealSeat(player === 1 ? "p1" : "p2");
       // Beat zero is not a moment to argue with: whatever was holding the
       // world — the menu, a thumb, the panel — lets go, on both devices.
       menu?.close();

@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-a-device-that-was-once-in-a-room-never-goes-back
+
+- reading — 5 min. The entry, `view.ts`, the two callers of `setSeat` (the
+  menu's seat cards and the room's beat zero in `shell.ts`) and the switch's
+  existing test.
+- writing — 5 min. `set` grows `remember`, `ShellParts` grows `dealSeat` for
+  the room, and `view-remember.test.ts`, seen red without the fix.
+- looking — 0 min. Nothing drawn moved; the view a room deals is unchanged.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was none to speak of: the entry had already chosen between
+its two options, and the seam was two callers wide.
+
 ## 2026-09-23 — queue-a-peers-message-that-arrives-before-this-devices
 
 - reading — 5 min. The entry, `link-run.ts`, `link.ts`'s welcome and

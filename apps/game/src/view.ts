@@ -26,18 +26,26 @@ export interface ViewSwitch {
    * Take the view over. The room hands out the seat, and a device showing the
    * other player's controls is a device whose touches go nowhere — so joining
    * decides the view rather than asking the player to remember to.
+   *
+   * **Only the player's own pick is remembered** (`remember`, true from the
+   * switch and the menu's seat cards). The room's seat is for that room: stored,
+   * it made every later visit open on P1 at a desk with half the band drawn,
+   * because nothing ever wrote TEST back — the owner, 20 September 2026: *in
+   * test mode, "both seats" should be selected by default.* Not storing it at
+   * all also holds for a phone closed inside a room, which no leave-room path
+   * would have reached.
    */
-  set: (role: ViewRole) => void;
+  set: (role: ViewRole, remember: boolean) => void;
 }
 
 export function bindViewSwitch(onChange: (role: ViewRole) => void): ViewSwitch {
   const bar = document.getElementById("viewSwitch");
   let role = restore();
 
-  const set = (next: ViewRole): void => {
+  const set = (next: ViewRole, remember: boolean): void => {
     role = next;
     try {
-      localStorage.setItem(STORAGE_KEY, role);
+      if (remember) localStorage.setItem(STORAGE_KEY, role);
     } catch {
       // Private browsing refuses to store. The switch still works.
     }
@@ -50,7 +58,7 @@ export function bindViewSwitch(onChange: (role: ViewRole) => void): ViewSwitch {
     b.type = "button";
     b.textContent = r.label;
     b.title = r.title;
-    b.addEventListener("click", () => set(r.role));
+    b.addEventListener("click", () => set(r.role, true));
     bar?.appendChild(b);
     return { role: r.role, el: b };
   });

@@ -515,30 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## A device that was once in a room never goes back to BOTH
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/next-queued-task-5a75d5 (claim: claude/queue-a-device-that-was-once-in-a-room-never-goes-back)
-- **Files:** `apps/game/src/view.ts`, `apps/game/src/shell.ts`, `apps/game/src/menu-seats.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *when in test mode in game, "both seats" should
-be selected by default.*
-
-`restore()` in `view.ts` already answers `"test"` when nothing is stored, so a
-fresh browser does open on BOTH · ONE SCREEN. What takes it away is the room:
-`shell.ts` calls `setSeat` with the seat the room dealt, `set` writes it to
-`localStorage` under `neon-spore.view`, and nothing ever writes it back. A
-person who once joined a room is P1 at their own desk from then on, with half
-the band drawn and the other half's touches going nowhere.
-
-Two options, and the answer picks between them in code rather than from the
-owner: the room's seat is not persisted at all — `set` grows a flag saying
-whether this is the player's own pick or the room's — or leaving a room writes
-`"test"` back the way joining wrote `"p1"` (`menu-bindings.ts`'s hang-up path
-already exists for it). The first is the smaller one and survives a phone that
-is closed inside a room.
-
 ## The DEMOS menu puts a 261-word paragraph on a button: the 35 long ones
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
