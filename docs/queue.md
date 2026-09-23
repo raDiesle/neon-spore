@@ -518,6 +518,7 @@ question that prompted this one.
 ## Sixty-six player-facing lines still say ward, plate or guard
 
 - **Found:** 2026-09-21, claude/queue-the-game-shows-a-player-four-words-for-one-thing
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-sixty-six-player-facing-lines-still-say-ward-pla)
 - **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-7.ts`, `packages/content/src/mechanics-handed.ts`, `packages/content/src/mechanics-worn.ts`, `tools/words/clean.ts`
 
 The owner answered **shield** on 21 September 2026 and the rule went in the
