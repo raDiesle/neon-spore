@@ -596,6 +596,7 @@ is drawn bright on both screens.
 ## A wave with a guide opens on its introduction as well
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-task-work-1d4d22 (claim: claude/queue-a-wave-with-a-guide-opens-on-its-introduction-as)
 - **Files:** `packages/sim/src/briefing.ts`, `apps/game/src/waves.ts`, `packages/render/src/wave-intro.ts`, `packages/render/src/ready-page.ts`
 - **Where:** local
 
