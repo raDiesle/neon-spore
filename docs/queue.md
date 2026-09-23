@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## A second candidate in a slot writes the first one's geometry again
 
 - **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
+- **Taken:** 2026-09-23, claude/queue-second-candidate-writes-first-geometry (claim: claude/queue-a-second-candidate-in-a-slot-writes-the-first-on)
 - **Files:** `tools/versus/take-function-fs.ts`, `tools/versus/decide.ts`
 
 `adopt` moves the files in the winning candidate's own directory and nothing
