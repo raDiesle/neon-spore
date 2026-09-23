@@ -18075,3 +18075,5 @@ test had to compare counts of each kind of event rather than streams.
 
 The bottleneck was **the references**: eight lines of `bosses.md` named the
 old file, and each had to be read for which boss it was about.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

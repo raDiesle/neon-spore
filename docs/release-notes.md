@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 019d6c25 — Every film's test is a file of its own, and `scene-films.test.ts` is gone
+
+It was 1093 lines, four times the ceiling, and it grew by one block every time a boss got a film. Each film's `describe` and its doc comment now live in `scene-<film>.test.ts`, the shape THE HIVE's already had. THE CANDLE's joins the file it already had, and the strip-act checks live in `scene-strip.test.ts`. Twenty-three tests before and after. The spec and source lines that named the old file now name the film's own.
+
 ## 2026-09-23 · 5d39d8cd — Six rehearsals that broke on the game's shot grid now name the grid they were proved on, and a test asks every other film the same question
 
 The game lays a shot on a half-beat grid and every film test ran with none. Swept at both grids, THE THIRD SHOT and THE ORRERY breached the hull in the game, THE JAM's presses were refused, THE CANDLE never dimmed, THE TASTER thickened twice and THE ANTIPHON never burst, all with green tests. Each now carries `chargeBeats: 0`. `scene-grid.test.ts` holds every film that names no grid to the same events on both. Retiming the six for the half-beat grid is queued.
