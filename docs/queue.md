@@ -652,6 +652,7 @@ what the rest of this file holds.
 ## `adopt` and `drop` have no test of what they take off the disk
 
 - **Found:** 2026-09-23, claude/queue-second-candidate-writes-first-geometry
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-adopt-and-drop-have-no-test-of-what-they-take-of)
 - **Files:** `tools/versus/decide.ts`, `tools/versus/root.ts`, `tools/versus/test/`
 
 `removeSlot` in `decide.ts` deletes every candidate directory, and since this
