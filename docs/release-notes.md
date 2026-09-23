@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · f0c80140 — Act eight is two pages, and act-8.ts is 180 lines
+
+`act-8.ts` stood four lines under the 250-line ceiling. THE WELL and THE HANDOVER, act eight's last two waves, move with their paragraphs to `act-8b.ts` — the seam act seven already uses — and the wave barrel and the director's `ACT_FILES` take one more page each. The order of `WAVES` does not change.
+
 ## 2026-09-23 · 6a11daf5 — new-boss's record of the owner's verdicts is its own page
 
 §7 is the one part of `.claude/skills/new-boss` that grows with every boss he tests, and the size hook asked for the file's next seam at 235 lines. The list moves to `new-boss/owner.md`; §7 names it, what it holds and the rule to read it before designing and add to it after feedback. The skill is 172 lines.
