@@ -518,6 +518,7 @@ question that prompted this one.
 ## PINBALL's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-23, claude/queue-a-press-the-simulation-refuses-is-silent-in-bun (claim: claude/queue-pinballs-picture-looks-like-something-real)
 - **Files:** `packages/render/src/pinball-aim.ts`, `packages/render/src/pinball-blast.ts`, `packages/render/src/pinball-button.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
