@@ -18060,3 +18060,18 @@ differ tick by tick, because a later bolt meets its body a row lower, so the
 test had to compare counts of each kind of event rather than streams.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — every film's test in a file of its own
+
+- reading — 5 min. The entry, the shape of `scene-films.test.ts`, THE
+  HIVE's and THE CANDLE's own files, and every reference to the old name.
+- writing — 5 min. A script dealing each `describe` and its doc comment into
+  `scene-<film>.test.ts` with the imports it uses, THE CANDLE's block
+  joining its existing file, the strip-act checks in `scene-strip.test.ts`.
+- looking — 0 min. Nothing drawn changed.
+- friction — 0 min. None.
+- landing — 5 min. Ten spec and source lines repointed at the film's own
+  file, a count of tests before and after, `check:fast`, the commit.
+
+The bottleneck was **the references**: eight lines of `bosses.md` named the
+old file, and each had to be read for which boss it was about.

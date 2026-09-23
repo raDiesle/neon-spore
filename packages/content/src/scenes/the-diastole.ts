@@ -32,7 +32,7 @@ import type { GuideScene } from "../scene-types.js";
  * anchored on the film's first beat, so the left contracts on 12 and 15 —
  * sixty ticks a beat, a bolt about seventy to the top — and the right wakes
  * on the beat after the second hit, 16, which puts the coincidence on 31. A
- * hold from tick 1710 tops out inside beat 31; `scene-films.test.ts` watches
+ * hold from tick 1710 tops out inside beat 31; `scene-diastole.test.ts` watches
  * the hits land rather than trusting the arithmetic.
  */
 export const THE_DIASTOLE: GuideScene = {

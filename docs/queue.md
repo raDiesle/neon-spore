@@ -463,7 +463,7 @@ what a phone cannot do is *reach* that strip.
 ## Unverified at ce22d819: THE ORRERY's rehearsal film watched at tempo — the thre…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/test/scene-films.test.ts`
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/test/scene-orrery.test.ts`
 - **Where:** phone
 
 *THE ORRERY: a shot cracks a ring and the pilot's thumb takes it off* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
@@ -570,22 +570,6 @@ The owner, 18 September 2026: a picture is judged by an eye on a real frame,
 which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
-
-## `packages/content/test/scene-films.test.ts` is 1093 lines
-
-- **Found:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-packages-content-test-scene-films-test-ts-is-109)
-- **Files:** `packages/content/test/scene-films.test.ts`
-
-Four times the ~250-line ceiling, and it grows by a block every time a boss gets
-a film — seventeen of them now, plus the shared checks that hold every scene to
-its shape. The two seams are already in the file: the per-film `describe`s, one
-after another, and the rules that run over `SCENES` as a whole. Split the
-whole-list checks into their own file and deal the per-film blocks across files
-named for the spec page their bosses sit on, the way `scenes-choreographed.ts`
-is split from `scenes.ts`. THE HIVE's film took its own file on 21 September
-2026 rather than a block here (`test/scene-hive.test.ts`), which is the shape
-the rest should end in.
 
 ## The queue's example block swallowed five entries and nothing noticed
 
@@ -1612,5 +1596,5 @@ rehearsals fire the instant a thumb lands, while every other film, and the
 round itself, waits for the half-beat point. That is right, but it is not what
 the round teaches. Retime each one for 0.5 the way THE HIVE was: each act
 fifteen ticks before the departure it is for, pairs 60 apart. Then set
-`chargeBeats: 0.5` and make its test in `scene-films.test.ts` green on it. One
+`chargeBeats: 0.5` and make its own `scene-*.test.ts` green on it. One
 film is one lane; THE ORRERY and THE ANTIPHON are the long ones.

@@ -4496,7 +4496,7 @@ is eaten on player 2's screen; player 1 slides back under the glow, two clean
 fires stop it, and the beam's one step puts it out, with the two black beats after. A
 film takes a hit only from a page anchored at `retries`, and none is: the
 eaten shot costs nothing, which is the lesson. Proved in
-`content/test/scene-films.test.ts` as the sequence of dims, the one `candleFed`
+`content/test/scene-candle.test.ts` as the sequence of dims, the one `candleFed`
 and the `candleOut`, all inside the loop. Four of its pages were rewritten on
 19 September 2026, when the field learnt to say the drift: `PLAYER 2 FIRES ·
 IT DIMS` became `EITHER COLOUR DIMS IT`, `IT DRIFTS · PLAYER 1 FOLLOWS` became
@@ -4659,7 +4659,7 @@ colour breaks it two thirds of the way down. It ends two ruptures short of
 the mouth: what it teaches is the restraint, and the mouth and the beam are
 the guide's prose. Every column is authored — the sack does not move — and
 the seed matters to nothing. No page is anchored at `retries` and the film
-takes no hit. Proved in `content/test/scene-films.test.ts` as the seventeen
+takes no hit. Proved in `content/test/scene-gorge.test.ts` as the seventeen
 swallows, emptyings, fulls, ruptures, the spit and the break, beat by beat,
 with nothing venting and no mouth. One of its pages was rewritten on 19
 September 2026, when the field learnt to say the column: `ONE MORE · IT BURSTS`
@@ -4990,7 +4990,7 @@ cannon's column and the lobe over it has to be soft when the fifth page says
 so, which seed 64 does. The film ends on the drift and takes no hit; the
 torch and the tear are the guide's prose, because a bolt sent up the core's
 column while the torch comes down it would meet the torch. No page is
-anchored at `retries`. Proved in `content/test/scene-films.test.ts` as the
+anchored at `retries`. Proved in `content/test/scene-curtain.test.ts` as the
 bounce, the lobe off, the shoves beat by beat, the reroll, the hit, the second
 lobe and the shadow, with nothing fired, torn or out. Two of its pages were
 rewritten on 19 September 2026, when the field learnt to say the column:
@@ -5276,7 +5276,7 @@ bolt takes a beat to reach the crest, so the three reds that have to be in the
 muzzle before the first edge sets are spread across two pages. The film takes
 no hit and ends before the first shot leaves the window; the hurrying, the
 crest cut and the beam are the guide's prose. Proved in
-`content/test/scene-films.test.ts` as the grows, sets, fires, the thickening,
+`content/test/scene-taster.test.ts` as the grows, sets, fires, the thickening,
 the pare and both shears in order, with no cut, no close and nothing out. One
 page was rewritten on 19 September 2026, when the field learnt to say the
 column: `PLAYER 1 HOLDS THE NEXT ONE` became `EVERY SHOT FEEDS THE COUNT`,
@@ -5543,7 +5543,7 @@ two pages that said *pull it down* say what no ring can instead, that a pull
 is half of a sum and that the halves add, because the handles carry that word
 themselves now; the count, the two numbers and the snap stay written, because
 the field says none of them.
-Proved in `content/test/scene-films.test.ts` as the grips, enters, parts,
+Proved in `content/test/scene-sinew.test.ts` as the grips, enters, parts,
 releases, the snap, the rock and the deflect in order, with no fall, no crush
 and no breach; `render/test/sinew-anchor.test.ts` proves a caption's ring
 stands where the handle is drawn, under a hand or not.
@@ -5840,7 +5840,7 @@ anything else and the fifth return the plate must step out from under are the
 last two pages' words and otherwise the prose; the film takes no hit and
 points at no retries. Its *fire it up the seam* page came out when the field
 learnt to say `FIRE` there, and says the part no word on the body can — the
-bolt leaves *his* column, so the two of them are one gesture. `content/test/scene-films.test.ts` holds the sequence.
+bolt leaves *his* column, so the two of them are one gesture. `content/test/scene-ledger.test.ts` holds the sequence.
 
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 centred with the cord in the middle column, the seam empty and nothing arriving
@@ -6090,7 +6090,7 @@ otherwise the prose; the film takes no hit and points at no retries. Its
 no word on one thumb can — the two of them feed one number, and each seat is
 shown half of the seam — and its *off on his word* page says the tolerance
 instead. Everything with a number in it stays written, because the field says
-none of those. `content/test/scene-films.test.ts` holds the sequence.
+none of those. `content/test/scene-surge.test.ts` holds the sequence.
 
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 dead centre with the seam shut, no pressure and no thumb, and sends nothing;
@@ -6353,7 +6353,7 @@ says why nothing lands instead; its *hold the beam in its way* page says whose
 lane the beam leaves by. Everything with a number or a direction in it stays
 written, and there is a great deal of it: the field says no column and no lean
 at all here, so the sum is the whole rehearsal.
-`content/test/scene-films.test.ts` holds the sequence.
+`content/test/scene-lead.test.ts` holds the sequence.
 
 **Never watched at tempo.** What the tests say is the mechanism: it
 installs over the middle facing right with every segment on the stalk and
