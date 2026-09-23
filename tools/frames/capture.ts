@@ -138,6 +138,9 @@ export async function captureFrames(
           const plain = { ...spec, until: undefined, ticks };
           return await captureFrames(baseUrl, plain, outPrefix, browser);
         }
+        // `--until-on` is the other way, and a world does go that way: the
+        // same drive, stepped on from the event (`until.ts`).
+        if (at !== null && spec.until?.on !== undefined) await advance(spec.until.on);
       } else {
         await strideOn({ advance, press, tick, heard, sent }, strideTicks, byFrame[i] ?? []);
       }

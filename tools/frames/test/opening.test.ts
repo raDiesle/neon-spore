@@ -382,7 +382,8 @@ describe("captureFrames past a wave's opening", () => {
   );
 
   /**
-   * **`--until-back` really does land before the event**, which is the one
+   * **`--until-back` really does land before the event**, and `--until-on`
+   * after it, which is the one
    * thing the pure tests cannot say: they hold the arithmetic, and the tick a
    * picture is taken at is the page's answer rather than a number this process
    * computed.
@@ -395,7 +396,7 @@ describe("captureFrames past a wave's opening", () => {
    * test that tripped that refusal would be testing the refusal.
    */
   it(
-    "photographs the tick before an event, not the one it fired on",
+    "photographs the tick before or after an event, not the one it fired on",
     async () => {
       const until = { event: "beat", cap: 3000 } as const;
       const on = await captureFrames(
@@ -412,6 +413,10 @@ describe("captureFrames past a wave's opening", () => {
       );
       expect(before.atTick[0]).toBe((on.atTick[0] as number) - 10);
       expect(await Bun.file(before.paths[0] as string).exists()).toBe(true);
+      // And `--until-on`, its mirror, stepped on in the same drive.
+      const spec = { wave: 0, ticks: 0, until: { ...until, on: 10 } };
+      const after = await captureFrames(baseUrl, spec, join(scratchOut, "after"), browser);
+      expect(after.atTick[0]).toBe((on.atTick[0] as number) + 10);
     },
     STARVED_MS,
   );

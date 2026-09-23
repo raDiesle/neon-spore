@@ -450,26 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## `--until` can step back from an event and not forward to a rest after one
-
-- **Found:** 2026-09-22, claude/lost-wound-with-the-plates
-- **Taken:** 2026-09-23, claude/queue-until-forward (claim: claude/queue-until-can-step-back-from-an-event-and-not-forwar)
-- **Files:** `tools/frames/until.ts`, `tools/frames/flags.ts`, `tools/frames/spec.ts`
-
-`--until-back N` exists because half of what a capture wants *stands between*
-two events, and it only covers the half that stands before one. The other half
-is a screen that comes up a fixed rest **after** an event and is over in a
-handful of ticks: the lost wave's own screen arrives about 150 ticks after
-`waveFailed` and its whole arrival is 31 ticks long, so photographing it meant
-four runs of `--ticks` bisecting for the window — which is the same half hour
-`until.ts`'s own header was written to end.
-
-`--frames` and `--stride` do count forward from the event, so the workaround is
-a wide sweep and forty pictures to throw away; what is missing is the one
-number. The work is the mirror of `back` — a forward offset on `UntilSpec`
-taken in the same drive rather than in a second one, refused the same way when
-it runs past the cap, and named so the pair read as a pair.
-
 ## The doubled window reached THE INSTAR alone
 
 - **Found:** 2026-09-22, claude/instar-body-travels

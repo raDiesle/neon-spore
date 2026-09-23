@@ -1,5 +1,3 @@
-import type { OpeningStop } from "./opening.js";
-
 /**
  * **Stopping on the tick something happened, instead of on a number.**
  *
@@ -33,6 +31,12 @@ import type { OpeningStop } from "./opening.js";
  * waves, the pause before a boss turns. So the flag keeps the frame N ticks
  * before the event instead, by driving the wave a second time to the number
  * the first drive found (`backTick`).
+ *
+ * **And `--until-on N` is the rest after one**, the pair's other half: the
+ * lost wave's own screen comes up about 150 ticks after `waveFailed` and its
+ * whole arrival is 31 ticks long, so photographing it was four runs of
+ * `--ticks` bisecting for the window. A world does go forwards, so this one is
+ * the same drive stepped N further on from the event, not a second run.
  */
 
 /** A stopping condition: which event, and how far to look for it. */
@@ -54,6 +58,9 @@ export interface UntilSpec {
    * hand-counted offset could go after `--ticks`.
    */
   back?: number;
+  /** **Photograph the tick `on` after the event** — `back`'s mirror, for a
+   * screen that arrives a fixed rest after something happens. */
+  on?: number;
 }
 
 /** One event, on the tick it fired. Collected for every tick a capture steps. */
@@ -73,64 +80,6 @@ export interface Fired {
    * from the other side. Absent when the event carries nothing but its type.
    */
   detail?: string;
-}
-
-/**
- * How far `--until` looks by default: twenty-five seconds of play at 120Hz,
- * which is longer than any wave takes to put a body on the hull and short
- * enough that a name nobody ever fires comes back as an error rather than as a
- * capture that seems to have hung.
- */
-export const DEFAULT_UNTIL_TICKS = 3000;
-
-/**
- * The flag, with the two refusals that belong to it.
- *
- * Both are about a picture that would otherwise be taken at a tick the caller
- * did not mean: `--ticks` names one moment and `--until` names another, and a
- * rehearsal is painted rather than stepped, so nothing in front of that camera
- * fires a `SimEvent` at all (`guide-film.ts`).
- */
-export function parseUntil(
-  value: string | undefined,
-  cap: number,
-  had: { ticks: boolean; opening?: OpeningStop; back?: string },
-): UntilSpec | undefined {
-  if (value === undefined) {
-    // Said rather than ignored: a run asked to step back from nothing would
-    // otherwise take the ordinary `--ticks 120` picture and look like an answer.
-    if (had.back !== undefined) {
-      throw new Error(
-        `--until-back ${had.back} needs an event to count back from: --until needWave --until-back 200`,
-      );
-    }
-    return undefined;
-  }
-  const event = value.trim();
-  if (!event || event.startsWith("--")) {
-    throw new Error("--until needs an event to stop on: --until breach, --until waveFailed");
-  }
-  if (had.ticks) {
-    throw new Error(
-      `--until ${event} and --ticks both say when the picture is taken, and they disagree. ` +
-        "Drop one: --until drives to the tick the event fires on, --until-ticks says how far to look",
-    );
-  }
-  if (had.opening === "guide") {
-    throw new Error(
-      `--until ${event} with --opening guide: a rehearsal is painted off the frame clock rather ` +
-        "than stepped, so the simulation in front of the camera fires no events. Use --ticks there",
-    );
-  }
-  if (!Number.isFinite(cap) || cap < 1) throw new Error(`--until-ticks ${cap}: at least one tick`);
-  const back = had.back === undefined ? undefined : Number(had.back);
-  if (back !== undefined && (!Number.isFinite(back) || back < 1)) {
-    throw new Error(
-      `--until-back ${had.back}: at least one tick before ${event}. The event's own tick is ` +
-        "--until on its own",
-    );
-  }
-  return { event, cap: Math.floor(cap), ...(back === undefined ? {} : { back: Math.floor(back) }) };
 }
 
 /**

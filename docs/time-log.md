@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-until-forward
+
+- reading — 5 min. `until.ts`, where `--until-back` is parsed and where
+  `capture.ts` takes its second run.
+- writing — 5 min. `--until-on N` stepped on in the same drive, its four
+  refusals, the parse cut into `until-flags.ts` when it passed the ceiling.
+- looking — 0 min. One capture of wave 1's lost screen, 160 ticks on.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the size ceiling: `until.ts` went to 265 lines with the
+mirror in it, and the cut came before a line of test.
+
 ## 2026-09-23 — queue-stroke-glow
 
 - reading — 5 min. The 244 calls that pass an intensity, narrowed to the

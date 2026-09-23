@@ -3,14 +3,8 @@ import type { Driver } from "../drive.js";
 import { parseFrameSpec } from "../flags.js";
 import type { PressSpec } from "../press-spec.js";
 import { reachFirstFrame } from "../reach.js";
-import {
-  backTick,
-  DEFAULT_UNTIL_TICKS,
-  type Fired,
-  firedNote,
-  missedNote,
-  parseUntil,
-} from "../until.js";
+import { backTick, type Fired, firedNote, missedNote } from "../until.js";
+import { DEFAULT_UNTIL_TICKS, parseUntil } from "../until-flags.js";
 
 /**
  * **STOPPING ON THE TICK SOMETHING HAPPENED.**

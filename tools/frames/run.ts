@@ -32,7 +32,7 @@ import { dirname, join } from "node:path";
  * |---|---|
  * | `--fault` | `fault.ts` |
  * | `--boss`, `--boss-json`, `--creature` | `boss.ts`; the write in `boss-install.ts` |
- * | `--until`, `--until-ticks`, `--until-back`, `--events` | `until.ts` |
+ * | `--until`, `--until-ticks`, `--until-back`, `--until-on`, `--events` | `until.ts` |
  * | `--opening` | `opening.ts`; a rehearsal's own clock in `guide-film.ts` |
  * | `--guide-page` | `opening-hold.ts` |
  * | `--at`, `--zoom` | `crop.ts` |
@@ -53,6 +53,7 @@ import { dirname, join } from "node:path";
  *   bun run frames . --wave 21 --until breach   the tick the hull was holed, whenever that is
  *   bun run frames . --wave 21 --until destroy --frames 4 --stride 0 --settle 3   the break, as a strip
  *   bun run frames . --wave 50 --until needWave --until-back 200   the rest before an event, not the end of it
+ *   bun run frames . --wave 1 --until waveFailed --until-on 150     the rest after one: the lost screen
  *   bun run frames . --wave 21 --events   what fired, and on which tick
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
@@ -110,7 +111,7 @@ async function main(): Promise<void> {
         "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
         "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] " +
         "[--creature key=value,…] [--raster] " +
-        "[--until EVENT] [--until-ticks N] [--until-back N] [--events] " +
+        "[--until EVENT] [--until-ticks N] [--until-back N | --until-on N] [--events] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }

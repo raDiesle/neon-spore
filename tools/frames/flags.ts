@@ -6,7 +6,7 @@ import { parseHoldFlag } from "./hold.js";
 import { parseOpening } from "./opening.js";
 import { parsePress } from "./press.js";
 import type { FrameSpec, HoldSpec, PressSpec } from "./spec.js";
-import { DEFAULT_UNTIL_TICKS, parseUntil } from "./until.js";
+import { DEFAULT_UNTIL_TICKS, parseUntil } from "./until-flags.js";
 import { resolveWaveFlag, type WaveName } from "./wave.js";
 
 /**
@@ -163,6 +163,7 @@ export function parseFrameSpec(
     // Raw, so `--until-back` written without `--until` is refused by name
     // rather than quietly doing nothing (`until.ts`).
     back: after("until-back"),
+    on: after("until-on"),
   });
 
   const spec: FrameSpec = {
