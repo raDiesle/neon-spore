@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — `strokeGlow`'s scale, measured and put to the owner
+
+- reading — 5 min. `glow.ts` and the four callers under a scale.
+- writing — 5 min. The entry rewritten with the figures and the two answers.
+- looking — 5 min. The scales measured on a phone layout, every silhouette.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the finding's direction: it assumed scales above one, and every caller left is below it, which turns a fix into a look.
+
 ## 2026-09-23 — THE GAUGE stands on the ship's real hull
 
 - reading — 10 min. SNAKE's `drawHull` call, `hull-frame.ts`'s `frame` and `surface`, and the three readers of `gaugeDial`.

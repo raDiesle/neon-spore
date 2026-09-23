@@ -481,23 +481,37 @@ table rows in the skill to say the menu's job names are the one exception.
 The card's tag already reads P1 or P2, which is the argument for keeping a
 job name beside it.
 
-## `strokeGlow` under a scale draws its glow scale-times too wide
+## `strokeGlow` under a scale draws every body's glow a third as wide
 
 - **Found:** 2026-09-23, claude/queue-the-pulses-picture-looks-like-something-real
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-strokeglow-under-a-scale-draws-its-glow-scale-ti)
 - **Files:** `packages/render/src/glow.ts`, `packages/render/src/living-skin.ts`, `packages/render/src/pods.ts`, `packages/render/src/ghost.ts`
+- **Asks:** Is the thin neon edge every body wears today the look, or should every body's glow go out to the full `glowSpread` it was written for?
 
 `strokeGlow` divides nothing: its glow passes add `STROKE.glowSpread` (5)
 straight onto the width, so a caller that has scaled the context and passes
-`width / scale` gets a core stroke of the right size and three glow passes
-`scale` times wider than meant. THE PULSE's sockets drew clouds twenty times
-too wide for exactly this and were fixed by stroking in unit space
-(`pulse-body.ts`). Still calling it under a scale: `living-skin.ts:148`,
-`pods.ts:111` and `:150`, `ghost.ts:136`. Measure each caller's `scale`
-first; where it is far from 1, give `strokeGlow` a `unit` argument that
-divides the spread too, with a test that the widest pass is
-`width + glowSpread` in pixels. It changes a frame on the field, so it lands
-under "a fix to something wrong", with one before/after PNG.
+`width / scale` gets a core stroke of the right size and glow passes `scale`
+times the spread meant. THE PULSE's sockets, at a scale of about twenty, drew
+clouds twenty times too wide and were fixed by stroking in unit space
+(`pulse-body.ts`).
+
+**Measured on a 390 × 844 phone, 23 September 2026** (tile 35.5 px), every
+caller left is the other way round: the living bodies at scales 0.13 to 0.43
+(median 0.27, `living-skin.ts:148`), the pod and the wreck at 0.28
+(`pods.ts:111`, `:150`), THE GHOST at 0.24 (`ghost.ts:136`). Their glow
+reaches 0.7 to 2.2 px past the core rather than 5. Undoing that is not a fix
+to something wrong: it roughly triples the edge on every body on the field,
+which the owner has only ever seen thin.
+
+The answer picks between:
+
+- **The thin edge is the look.** `strokeGlow` gains a `unit` argument that
+  divides the spread as well, and the four callers pass today's reach
+  explicitly (`glowSpread × scale` in pixels), so the next caller under a
+  scale cannot inherit the accident — with a test that the widest pass is
+  `width + spread` in pixels. Nothing on the screen moves.
+- **The full spread.** The same argument, the callers passing their scale
+  honestly, offered first through VERSUS (`tools/versus/candidates/`) as one
+  before/after, since every creature's frame changes.
 
 ## Six films are pinned to the zero shot grid and show no lay
 
