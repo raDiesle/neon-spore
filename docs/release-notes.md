@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 8fea57d3 — `bun test` whole is green in one process again; the frame files' slowness was the canvas log
+
+The queen's and the ship's hand's frame files went red under one-process `bun test` at 227 s and 74 s and passed alone in 0.4 s. The cause was fixed the next day under another name (73ce3ad0): the canvas stub's log pointer was never cleared, so every frame test after `surface-clear.test.ts` appended every path coordinate to one array. Measured today: 21,304 pass, 0 fail, in 164 s, in one process. The queue entry closes.
+
 ## 2026-09-23 · 96124583 — THE INSTAR's chain is hung from one point, and a copy of it goes red
 
 The plates hang from above the middle of the grid, a tile and a bit over its top edge, and the slow window's light is kept off the whole body along the same line — two copies of the same two numbers, because the first was private to `instar-draw.ts`. `instarChainTop` in `instar-shape.ts` is the one now; both call it, and a row in the copies table fails the next file that writes it out. The chain itself moves to `instar-chain.ts`, the draw file's seam at its line limit. Nothing drawn changes.
