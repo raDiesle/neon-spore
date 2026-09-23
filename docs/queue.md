@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## `drawOnShip`'s `held` is a structural type that grows with every hit look
 
 - **Found:** 2026-09-22, claude/burst-on-contact
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-drawonship-s-held-is-a-structural-type-that-grow)
 - **Files:** `packages/render/src/frame-on-ship.ts`, `packages/render/src/render-state.ts`
 
 The pass takes its kept state as an inline object type — `fenceStrike`,
