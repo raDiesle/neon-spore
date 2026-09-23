@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — THE JAM is retimed for the half-beat grid
+
+- reading — 5 min. The film and what `reject` means: a bolt of the wrong colour, not a refused press.
+- writing — 5 min. One slide moved and `chargeBeats: 0.5`.
+- looking — 5 min. The probe at three slide ticks.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the old comment: it said presses were refused, and they were bolts meeting the wrong colour.
+
 ## 2026-09-23 — THE THIRD SHOT is retimed for the half-beat grid
 
 - reading — 10 min. `shot-charge.ts`, THE HIVE's retime and the grid test.

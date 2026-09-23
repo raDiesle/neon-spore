@@ -517,7 +517,7 @@ The answer picks between:
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054
 - **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-six-films-are-pinned-to-the-zero-shot-grid-and-s)
-- **Files:** `packages/content/src/scenes/the-jam.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`
+- **Files:** `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`
 
 Each fell apart on the game's half-beat grid (`scene-grid.test.ts`) and now
 carries `chargeBeats: 0`, the grid it was proved on. So in the game these
@@ -528,9 +528,12 @@ fifteen ticks before the departure it is for, pairs 60 apart. Then set
 `chargeBeats: 0.5` and make its own `scene-*.test.ts` green on it. One
 film is one lane; THE ORRERY and THE ANTIPHON are the long ones.
 
-**THE THIRD SHOT is done** (23 September 2026): every fire act fifteen ticks
-earlier and nothing else, and it tells the same story to the event. The five
-left are in `Files:`.
+**THE THIRD SHOT and THE JAM are done** (23 September 2026). THE THIRD SHOT
+needed every fire act fifteen ticks earlier and nothing else. THE JAM has no
+fire acts, since its cannon fires itself, and needed only its slide moved
+between two departures. The four left are in `Files:`. For each, the tool
+was a scratch script that replays the film's `SceneRun` on both grids, with the
+film's own `chargeBeats` lifted, and prints the events side by side.
 
 ## The game's preview has no `here` route, and the director's does
 

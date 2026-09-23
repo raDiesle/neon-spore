@@ -23,9 +23,9 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_JAM: GuideScene = {
   ticks: 1020,
   bpm: 120,
-  // Written and proved with no shot grid; on the game's half-beat one
-  // seven presses are refused and the kill never comes (`scene-types.ts` `chargeBeats`).
-  chargeBeats: 0,
+  // The game's own half-beat grid, on which the jammed cannon's bolts leave at
+  // 90, 150, 210 … and alternate from red (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0.5,
   seed: 1,
   faults: [{ kind: "cannon", color: "alternating" }],
   entries: [
@@ -33,7 +33,9 @@ export const THE_JAM: GuideScene = {
     { beat: 10, col: 5, kind: "lure", color: "cyan" },
   ],
   acts: [
-    { tick: 390, control: "cannon", col: 1 },
+    // Between the cyan bolt that leaves on 390 and the red one on 450, so the
+    // first shot up column 1 is the red that kills the slick there.
+    { tick: 420, control: "cannon", col: 1 },
     { tick: 780, control: "cannon", col: 5 },
   ],
   steps: [
