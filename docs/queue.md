@@ -518,6 +518,7 @@ question that prompted this one.
 ## `apps/game/src/main.ts` is at the 250-line ceiling exactly
 
 - **Found:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-apps-game-src-main-ts-is-at-the-250-line-ceiling)
 - **Files:** `apps/game/src/main.ts`, `apps/game/src/main-shell.ts`
 - **Where:** local
 
