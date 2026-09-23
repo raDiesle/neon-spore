@@ -594,6 +594,7 @@ beside the ones there.
 ## Two beats to land together is the whole difficulty of THE INSTAR
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
+- **Taken:** 2026-09-23, claude/queue-task-work-dd734e (claim: claude/queue-two-beats-to-land-together-is-the-whole-difficul)
 - **Files:** `packages/sim/src/config.ts`, `packages/sim/src/instar-step.ts`, `packages/content/src/instar-script.ts`
 - **Asks:** Keep `instarTogetherBeats: 2` for every pose, widen it, or let each step name its own?
 - **Answered:** 20 September 2026 — keep `instarTogetherBeats: 2` for every pose. The owner: *"For the moment keep simple."* So the window is not widened and no step names its own; what is left of this entry is the guidance, which is the other half of it and where the difficulty actually is.
