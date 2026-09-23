@@ -17089,3 +17089,5 @@ reading the failure, not by reading a list.
 The bottleneck was **`queue next` claiming again on a second call** — run
 twice to read the rest of its prompt, it took the next item and pushed the
 claim before anything had been read.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

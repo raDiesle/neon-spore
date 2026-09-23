@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 3056c13c — Keep THE INSTAR's together window at two beats for every pose
+
+The owner's answer of 20 September 2026 — "For the moment keep simple" — is now written where the next person would widen it: beside instarTogetherBeats in config-instar.ts and in the §16 rule of bosses-choreographed.md. The window stays one figure for every pose and no step names its own. The half of the entry that was the real difficulty, the picture never saying this clock was running, landed on 20 September as the WAITING ring and the "NOW · BEATS LEFT" line.
+
 ## 2026-09-22 · c94396fb — Take THE HASP's simulation off the queue
 
 ## 2026-09-22 · 51dbd126 — Hold a latch nobody can see, and turn the wheel it frees
