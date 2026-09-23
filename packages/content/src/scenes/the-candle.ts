@@ -50,26 +50,27 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_CANDLE: GuideScene = {
   ticks: 2400,
   bpm: 120,
-  // Written and proved with no shot grid; on the game's half-beat one
-  // the glow is never dimmed, fed or put out (`scene-types.ts` `chargeBeats`).
-  chargeBeats: 0,
+  // The game's own half-beat grid: every tap sits fifteen ticks before the
+  // point its bolt leaves on, as THE HIVE's do. The held beam at the end is
+  // not on it — a lance leaves when it is full (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0.5,
   seed: 8,
   entries: [],
   boss: { kind: "candle" },
   acts: [
-    { tick: 330, control: "fireRed" },
+    { tick: 315, control: "fireRed" },
     { tick: 510, control: "cannon", col: 3, atBoss: true },
     { tick: 645, control: "cannon", col: 3, atBoss: true },
-    { tick: 690, control: "fireCyan" },
+    { tick: 675, control: "fireCyan" },
     { tick: 825, control: "cannon", col: 3, atBoss: true },
-    { tick: 870, control: "fireRed" },
+    { tick: 855, control: "fireRed" },
     { tick: 1185, control: "cannon", col: 2 },
-    { tick: 1230, control: "fireRed" },
+    { tick: 1215, control: "fireRed" },
     { tick: 1410, control: "cannon", col: 3, atBoss: true },
     { tick: 1545, control: "cannon", col: 3, atBoss: true },
-    { tick: 1590, control: "fireCyan" },
+    { tick: 1575, control: "fireCyan" },
     { tick: 1725, control: "cannon", col: 3, atBoss: true },
-    { tick: 1770, control: "fireRed" },
+    { tick: 1755, control: "fireRed" },
     { tick: 1830, drag: "candleWick", by: 1890, until: 1920 },
     { tick: 1945, control: "cannon", col: 3, atBoss: true },
     { tick: 1950, control: "fireCyan", until: 2200 },

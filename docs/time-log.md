@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — THE CANDLE is retimed for the half-beat grid
+
+- reading — 5 min. The film's acts and where each slide stands before its tap.
+- writing — 5 min. Six taps moved and `chargeBeats: 0.5`.
+- looking — 5 min. The probe, with the held beam moved and then left alone.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the held beam: it had to be proved off the grid before it could be left where it was.
+
 ## 2026-09-23 — THE JAM is retimed for the half-beat grid
 
 - reading — 5 min. The film and what `reject` means: a bolt of the wrong colour, not a refused press.
