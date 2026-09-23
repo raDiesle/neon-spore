@@ -521,6 +521,7 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 ## A DEMOS row draws its mechanic id over the wave's name
 
 - **Found:** 2026-09-23, claude/queue-the-demos-menu-puts-a-261-word-paragraph-on-a-bu
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-a-demos-row-draws-its-mechanic-id-over-the-waves)
 - **Files:** `apps/game/src/menu.css`, `apps/game/src/menu-pages.ts`
 
 `#menu .wave` is `grid-template-columns: 26px 1fr`, a column sized for a
