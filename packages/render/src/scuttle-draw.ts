@@ -9,14 +9,15 @@ import {
   scuttleWinding,
   type World,
 } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
-import { rgba } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import type { ScuttleFx } from "./scuttle-fx.js";
+import { faded, paintSlab } from "./scuttle-metal.js";
+import { paintLiveRim, paintPlate, paintSocket, paintThread } from "./scuttle-plate.js";
 import {
   type Point,
   SOCKET_HALF_H,
+  scuttleBox,
   scuttleFade,
   scuttleHangDrop,
   scuttleHangPhase,
@@ -80,7 +81,7 @@ export function drawScuttle(
     if (loose && wind > 0) c.x += Math.sin(time * 40) * l.tile * 0.05 * wind;
     if (loose) drawOpen(ctx, l, c, fade);
     else if (counted) {
-      if (part !== null) drawPlate(ctx, l, c, PALETTE.rock, fade);
+      if (part !== null) drawPlate(ctx, l, c, fade);
       else drawOpen(ctx, l, c, fade);
     }
     if (loose && part !== null) {
@@ -95,23 +96,14 @@ export function drawScuttle(
       if (live) {
         fx.note(at.x, at.y);
         drawLivePart(ctx, l, at, part.color, time, fade);
-      } else drawPlate(ctx, l, at, PALETTE.rock, fade);
+      } else drawPlate(ctx, l, at, fade);
     }
   }
   if (lively) drawLock(ctx, l, cfg, s, time, fade);
   ctx.restore();
 }
 
-/**
- * A colour at the fade: the hex itself while the frame stands, so the frame
- * tests can count it, and an `rgba` once it is going — `strokeGlow` owns the
- * alpha, so a fade has to be in the colour (`lead-draw.ts`).
- */
-function faded(hex: string, fade: number, alpha = 1): string {
-  return fade >= 1 && alpha >= 1 ? hex : rgba(hex, alpha * fade);
-}
-
-/** The slab: a lobed mass of dark rock over the violet of its inside, rimmed in the hull's violet, closing inward on its way out. */
+/** The slab: a lobed mass of dark rock over the violet of its inside, closing inward on its way out (`scuttle-metal.ts`). */
 function drawSlab(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -120,43 +112,31 @@ function drawSlab(
   time: number,
   fade: number,
 ): void {
-  const p = scuttleSlabPath(l, cfg, rise, fade, time);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.background, fade);
-  ctx.fill(p);
-  ctx.fillStyle = faded(PALETTE.hull, fade, 0.35);
-  ctx.fill(p);
-  ctx.fillStyle = faded(PALETTE.rockDark, fade, 0.85);
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
-  strokeGlow(ctx, p, faded(PALETTE.rock, fade), STROKE.inner, 0.4 * fade);
+  const box = scuttleBox(l, cfg);
+  const mid = (box.left + box.right) * 0.5;
+  const hw = (box.right - box.left) * 0.5 * fade;
+  paintSlab(
+    ctx,
+    scuttleSlabPath(l, cfg, rise, fade, time),
+    {
+      left: mid - hw,
+      right: mid + hw,
+      top: box.top - rise,
+      bottom: box.bottom - rise,
+      tile: l.tile,
+    },
+    fade,
+  );
 }
 
-/** A part in its socket, or hanging under it: a grey plate. */
-function drawPlate(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  c: Point,
-  hex: string,
-  fade: number,
-): void {
-  const p = scuttlePlatePath(l, c, fade);
-  ctx.save();
-  ctx.fillStyle = faded(hex, fade, 0.55);
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, faded(hex, fade), STROKE.inner, 0.45 * fade);
+/** A part in its socket, or hanging under it: a plate of rock. */
+function drawPlate(ctx: CanvasRenderingContext2D, l: Layout, c: Point, fade: number): void {
+  paintPlate(ctx, scuttlePlatePath(l, c, fade), c.x, c.y, l.tile, PALETTE.rock, 0.55, fade);
 }
 
-/** A socket with nothing in it: the violet inside showing through. */
+/** A socket with nothing in it: the violet inside showing at the bottom of a recess. */
 function drawOpen(ctx: CanvasRenderingContext2D, l: Layout, c: Point, fade: number): void {
-  const p = scuttlePlatePath(l, c, fade);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.hull, fade, 0.5);
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.hullRim, fade), STROKE.inner, 0.3 * fade);
+  paintSocket(ctx, scuttlePlatePath(l, c, fade), c.x, c.y, l.tile, fade);
 }
 
 /** The thread a loose part hangs on, from its socket's floor to the plate. */
@@ -171,10 +151,13 @@ function drawThread(
   const p = new Path2D();
   p.moveTo(from.x, from.y + l.tile * SOCKET_HALF_H);
   p.lineTo(to.x, to.y - l.tile * SOCKET_HALF_H);
-  strokeGlow(ctx, p, faded(PALETTE.dim, fade), STROKE.inner, 0.5 * fade);
+  paintThread(ctx, p, l.tile, fade);
 }
 
-/** The live part: the plate in the colour a shot has to be, breathing on its thread. */
+/**
+ * The live part: a plate of enamel in the colour a shot has to be, breathing
+ * on its thread, its lower edge lit from inside in the colour's rim.
+ */
 function drawLivePart(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -183,14 +166,11 @@ function drawLivePart(
   time: number,
   fade: number,
 ): void {
-  const hex = PALETTE[color];
+  const breath = Math.sin(time * 6);
+  const p = scuttlePlatePath(l, at, fade * (1 + 0.06 * breath));
+  paintPlate(ctx, p, at.x, at.y, l.tile, PALETTE[color], 0.85, fade);
   const rim = color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
-  const p = scuttlePlatePath(l, at, fade * (1 + 0.06 * Math.sin(time * 6)));
-  ctx.save();
-  ctx.fillStyle = faded(hex, fade, 0.85);
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, faded(rim, fade), STROKE.outline, (0.8 + 0.2 * Math.sin(time * 6)) * fade);
+  paintLiveRim(ctx, p, at.x, at.y, l.tile, faded(rim, fade), 0.6 + 0.3 * breath);
 }
 
 /**

@@ -6505,15 +6505,19 @@ sped the boss up, so what is left is the one currency this game had never
 sold — a **place**, bought with the thumb that would otherwise be on the
 cannon.
 
-**The look** (`render/scuttle-draw.ts`, `scuttle-shape.ts`, `scuttle-fx.ts`).
+**The look** (`render/scuttle-draw.ts`, `scuttle-metal.ts`, `scuttle-plate.ts`, `scuttle-shape.ts`, `scuttle-fx.ts`).
 A grey **slab** hangs above row 0 the whole width of the frame's columns —
 its top arched, its flanks breathing a little with time, its underside
-scalloped once per column — filled in the rock's dark over the hull's violet
-and rimmed in both, and it is **plated** with its parts: a flat-topped rock
-plate in every socket that still holds one, in `scuttleRows` rows a bit
+scalloped once per column — dark rock over the hull's violet, pitted, lit
+from the upper left, a bevel along its top and its underside lit violet from
+inside, never outlined (`scuttle-metal.ts`, `new-boss-more` §6.3) — and it is
+**plated** with its parts: a flat-topped rock plate, shaded with a glint, in
+every socket that still holds one, in `scuttleRows` rows a bit
 under half a tile apart, so the silhouette is the count and a plate fewer is a throw. A socket
-a part has come loose from is **open** — a low violet hollow rimmed in the
-hull's rim — and the part hangs a half tile under it by a dim **thread**,
+a part has come loose from is **open** — a recess under the plating's lip with
+the wet violet of the inside lit in the hull's rim at the bottom of it
+(`scuttle-plate.ts`) — and the part hangs a half tile under it by a dim
+cord of a **thread**,
 dropping over the cadence by the square root of the beat so it falls fast
 and then waits. **Who is shown what is the split** (`showsScuttleCount`,
 `showsScuttleLive`, `view-role-clocks-b.ts`): the pilot's screen has every

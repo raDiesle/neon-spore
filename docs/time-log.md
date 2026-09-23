@@ -17951,3 +17951,20 @@ The bottleneck was **the fade**: every colour on the ridge had to go through
 `faded` so the rock thins out with the boss, which the test counts.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE SCUTTLE's picture looks like something real
+
+- reading — 0 min. `scuttle-draw.ts`, `scuttle-shape.ts` and the frame test,
+  which counts the rock per seat, the hull's rim per socket, the dim per
+  thread and the slab's fill by its prefix while it goes.
+- writing — 5 min. `scuttle-metal.ts`: the slab pitted rock with a bevel and
+  its underside lit violet. `scuttle-plate.ts`: plates shaded with a glint,
+  sockets as recesses, the thread a cord, the live part enamel lit along its
+  foot. The lock stays.
+- looking — 0 min. Both seats before and after at 2×, with a part hanging.
+- friction — 0 min. The size hook stopped the one file at 241 lines, and it
+  split in two.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **finding a frame with a part hanging**: the wave's first
+seconds show only whole plating, so the later ticks had to be probed.
