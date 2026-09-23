@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 445b199f — Correct the ceiling figure in the acts 4 to 7 release note
+
+The note said the words check's ceiling fell from 305 to 245. Those were the numbers before the rebase over the acts 1 to 3 and DEMOS lanes. The ceiling that landed fell from 180 to 120.
+
 ## 2026-09-23 · d02f0781 — Twenty wave guides in acts 4 to 7 now pass the words check
 
 THE WISP to THE COIL: every guide line in acts 4 to 7 is rewritten as short numbered steps, with no em dash or semicolon, one word per thing (shield, not ward, plate, guard or dome; column, not lane; Player 1 and Player 2), and THE GUM, THE VOLLEY and THE JAM get shorter sentences. The twenty waves join CLEAN and the ceiling falls from 180 to 120. The text is a fix to something wrong, not a look: each of these waves opens on a rehearsal film, so no frame of the game changes.
