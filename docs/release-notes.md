@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · f18a78a7 — `drop` is tested against a repository of its own
+
+`adopt`, `drop` and the slot removal they share wrote to the real tree and nothing else, so nothing tested what they take off the disk. They take a `root` now, defaulting to the repository, and a test builds a small one in a temporary directory. It drops a two-candidate slot with a shared helper and finds the slot's directory, the helper, its registry entries and its pose row gone, the other slot standing, and the reason in `DECIDED.md`.
+
 ## 2026-09-23 · 997d5716 — THE ORRERY's rehearsal plays on the game's half-beat grid
 
 The last of the six films proved with no shot grid. Its three tapped fire acts now sit fifteen ticks before the point their bolts leave on. The held red lance leaves when it is full, off the grid, and stays where it was. Every event the film fires is the same as before. No film names the zero grid any more.
