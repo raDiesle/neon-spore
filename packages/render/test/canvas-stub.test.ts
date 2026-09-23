@@ -64,3 +64,26 @@ describe("roundRect's corner radii", () => {
     );
   });
 });
+
+/**
+ * A log is one test's, and a fresh canvas does not write into it.
+ *
+ * `Path2D` has no context of its own, so its builders log to whichever array
+ * the last `ctx.log = …` named. That pointer used to outlive the test that set
+ * it: a file that turned a log on shared its shard with one drawing thousands
+ * of frames, every coordinate of those frames was appended to the first file's
+ * array, and the process grew past 50 GB (23 September 2026).
+ */
+describe("the log a test turned on", () => {
+  it("stops collecting paths once another frame's canvas is made", () => {
+    const { ctx: first } = stubCanvas();
+    const log: string[] = [];
+    first.log = log;
+    new Path2D().moveTo(1, 2);
+    const logged = log.length;
+    expect(logged).toBeGreaterThan(0);
+    stubCanvas();
+    new Path2D().moveTo(3, 4);
+    expect(log.length).toBe(logged);
+  });
+});
