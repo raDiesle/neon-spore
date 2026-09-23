@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 2d788de0 — THE SCOUT's little ship is a lit body with a porthole, and home is a hollow
+
+The little ship was a dark fill with a glowing line round it. It is now the mother ship's violet with a curve to it: shaded from a lit shoulder to the deep underneath, a cold bounce off the water on its underside, a wet porthole in the middle and a film of gloss on top. The porthole is centred, so the navigator still cannot read the heading off it. The pilot's nose now starts at the skin rather than crossing the porthole. Home is a wet hollow under its ring. PINBALL's socket moved to `wet-socket.ts`, so both draw one hollow.
+
 ## 2026-09-23 · 9f0db980 — PINBALL's pieces stand in wet sockets, and the ball is steel
 
 Every rock and pod on PINBALL's table now sits in a hollow in the table's skin, darker than the water round it, with its lower wall lit and wet — so a piece reads as mounted on a board rather than hung on the dark. The ball is a lit steel sphere: a gradient body, the dark of the table in its lower half, a cold bounce of light on its underside and a hard specular point, with no stroke round it.

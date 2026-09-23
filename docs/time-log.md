@@ -17684,3 +17684,5 @@ the one body he had not ruled on, the ball.
 The bottleneck was **the split limits the detail**: anything set toward the
 nose would tell the navigator the heading, so every new part of the body had
 to be symmetric about its centre.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
