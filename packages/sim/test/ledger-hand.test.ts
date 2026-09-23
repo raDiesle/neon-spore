@@ -204,13 +204,16 @@ describe("the pull", () => {
     expect(t.beads[0]?.beat).toBe(world.beat + 3);
   });
 
-  it("refuses to put two returns on one beat", () => {
+  it("hauls the soonest, so it never lands on a beat another return holds", () => {
+    // The root slides between two landings, so two bills on one beat would put
+    // the second in a column the plate has just been walked out of. Nothing
+    // refuses it: the soonest hauled a beat down is earlier than all the rest.
     const { world, t } = whipping();
     t.beads.push({ beat: world.beat + 3, span: 4, last: false, pulled: false });
+    t.beads.push({ beat: world.beat + 5, span: 4, last: false, pulled: false });
     ledgerHandsHeard(world, 1, drag("ledgerBead", true));
-    // The root slides between two landings, so the second would arrive in a
-    // column the plate has just been walked out of.
-    expect(t.beads[0]?.beat).toBe(world.beat + 4);
+    expect(t.beads.map((b) => b.beat - world.beat)).toEqual([4, 2, 5]);
+    expect(new Set(t.beads.map((b) => b.beat)).size).toBe(t.beads.length);
   });
 
   it("is not heard while the cord is only paying, nor from the navigator", () => {

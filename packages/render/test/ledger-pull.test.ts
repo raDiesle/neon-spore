@@ -161,11 +161,8 @@ describe("the pull, on the soonest return", () => {
   });
 
   it("goes on the return's own last beat, which has nothing left to haul", () => {
-    // `landing <= beat`: a bill arriving on the next beat cannot be brought
-    // forward onto this one (`ledgerPullable`). The refusal the rule makes
-    // beside it — never two returns on one beat — is not asked here, because
-    // it cannot fire: the bead it would refuse is by construction the soonest,
-    // and the beat it would land on is a beat earlier still (`docs/queue.md`).
+    // A bill arriving on the next beat cannot be brought forward onto this one
+    // (`ledgerPullable`).
     const world = open();
     const t = whipping(world);
     only(t).beat = world.beat + 1;

@@ -575,26 +575,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## `ledgerPullable` refuses a case it can never be given
-
-- **Found:** 2026-09-22, claude/queue-the-ledgers-four-handles
-- **Taken:** 2026-09-23, claude/blissful-edison-ae9e44 (claim: claude/queue-ledgerpullable-refuses-a-case-it-can-never-be-gi)
-- **Files:** `packages/sim/src/ledger-gates.ts`, `packages/render/test/ledger-pull.test.ts`
-- **Where:** local
-
-The last of the four refusals — *never onto a beat another return already
-lands on* — cannot fire. The bead it is asked about is `ledgerNext`, which is
-the **minimum**-beat return on the cord; the beat it would be hauled onto is a
-beat earlier still, so no other bead can be standing there. The handles lane
-wrote a test for it, found the case unreachable, and left the guard alone
-because a gate is not a place to be clever.
-
-What to decide: whether the guard is dead or the rule is wrong. If two returns
-were ever meant to be able to share a beat, something else is missing; if they
-were not, the line goes and its paragraph with it. Either way the argument in
-`ledgerPullable`'s own comment — *the root slides between two landings* — is
-today describing a thing that cannot happen.
-
 ## Two bosses say their picture is not built, under a paragraph saying it is
 
 - **Found:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo

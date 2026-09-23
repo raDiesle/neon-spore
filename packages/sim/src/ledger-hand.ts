@@ -144,11 +144,11 @@ function plug(world: World, t: LedgerState, on: boolean): void {
  * of saying the thing the picture already says (`mazeString`'s missing `id`).
  *
  * Once per return — `pulled` is what says the rest of this grab is a thumb
- * resting on a cord — and never onto a beat another return already lands on.
- * The root slides between two landings, so a beat with two bills on it is a
- * column the plate has just been walked out of: the second would be the hull's
- * whatever the pair did, and a handle that could do that to them is a trap
- * rather than a gesture (`ledger-step.ts`, `landing`).
+ * resting on a cord. Being the soonest is also why it never lands on a beat
+ * another return holds: the root slides between two landings, so a beat with
+ * two bills on it would be a column the plate has just been walked out of, and
+ * a haul onto a beat earlier than every other bead cannot make one
+ * (`ledger-step.ts`, `landing`).
  */
 function pull(world: World, t: LedgerState, on: boolean): void {
   if (!on) return;

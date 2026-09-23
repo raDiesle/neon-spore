@@ -40,18 +40,21 @@ export function ledgerFootable(t: LedgerState, cfg: SimConfig, beat: number): bo
  * Four refusals, and each is the movement's own: only in `whipping`, where a
  * warded return is thrown back for free and the cord is the weapon; never the
  * last, which is the one return nobody is meant to answer; never twice, which
- * is what `pulled` remembers; and never onto a beat this bead would share with
- * another, because the root slides between two landings and the second would
- * arrive in a column the plate has just been walked out of.
+ * is what `pulled` remembers; and never on its own last beat, which has
+ * nothing left to be hauled out of.
+ *
+ * **Two returns never end up on one beat from here**, and no refusal is needed
+ * to say so: the bead is the soonest on the cord, so the beat it is hauled
+ * onto is earlier than every other return's. The root slides between two
+ * landings, and a pull that could stack two bills on one beat would be a trap —
+ * it cannot, which `ledger-hand.test.ts` holds.
  */
 export function ledgerPullable(t: LedgerState, cfg: SimConfig, beat: number): LedgerBead | null {
   if (ledgerPhase(t, cfg, beat) !== "whipping") return null;
   const b = ledgerNext(t);
   if (b === null || b.last || b.pulled) return null;
   // A return already on its last beat has nothing left to be hauled out of.
-  const landing = b.beat - 1;
-  if (landing <= beat) return null;
-  if (t.beads.some((o) => o !== b && o.beat === landing)) return null;
+  if (b.beat - 1 <= beat) return null;
   return b;
 }
 

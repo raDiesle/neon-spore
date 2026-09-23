@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-ledgerpullable-refuses-a-case-it-can-never-be-gi
+
+- reading — 5 min. The entry, `ledger-gates.ts`, `ledgerNext` and the two
+  tests that mention the guard.
+- writing — 5 min. The dead line and its paragraph out; the sim test that
+  passed without reaching the guard rewritten to hold the real property.
+- looking — 0 min. Nothing drawn changed.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was noticing that the sim test named for the refusal passed
+vacuously — the bead it added became the soonest and was the one pulled.
+
 ## 2026-09-23 — queue-nineteen-wave-guides-in-acts-1-to-3-fail-the-wor
 
 - reading — 5 min. The entry, the game-words skill, `bun run words` on each
