@@ -518,6 +518,7 @@ question that prompted this one.
 ## Six strings a player reads are outside the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Taken:** 2026-09-23, claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo (claim: claude/queue-six-strings-a-player-reads-are-outside-the-words)
 - **Files:** `apps/game/src/hold.ts`, `apps/game/src/menu-seats.ts`, `tools/words/text.ts`
 
 `tools/words/text.ts` collects player-facing text out of `@neon-spore/content`
