@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## `strokeGlow`'s `intensity` does not fade the line, only the glow around it
 
 - **Found:** 2026-09-22, claude/lost-wound-with-the-plates
+- **Taken:** 2026-09-23, claude/queue-stroke-glow (claim: claude/queue-strokeglow-s-intensity-does-not-fade-the-line-on)
 - **Files:** `packages/render/src/glow.ts`
 
 `strokeGlow(ctx, path, colour, width, intensity)` scales the alpha of its glow
