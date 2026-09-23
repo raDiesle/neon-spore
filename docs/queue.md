@@ -515,16 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Fourteen wave guides in acts 8 to 10 fail the words check
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-23, claude/queue-twenty-six-wave-guides-in-acts-7a-to-7g-fail-the (claim: claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo)
-- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/waves/act-9.ts`, `packages/content/src/waves/act-10.ts`, `tools/words/clean.ts`
-
-Forty-three lines across fourteen waves, the same job and the same skill. These
-are late-game waves, so the pair reading them has read sixteen guides already —
-which is an argument for doing this one last, not for doing it differently.
-
 ## Six strings a player reads are outside the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
@@ -2220,3 +2210,13 @@ never reaches them; the 7a–7g words lane went green there and red inside
 `bun run land`, two characters over on THE DIASTOLE. Move the two tests into
 `packages/content/test/waves.test.ts` (or a `guides.test.ts` beside it),
 leave `briefing.test.ts` with what it draws, and `bun run check` proves it.
+
+## `act-8.ts` is four lines under the size ceiling
+
+- **Found:** 2026-09-23, claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo
+- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/waves.ts`
+
+246 lines: a 128-line doc comment and six waves. The seam is the one act 7
+already uses — THE WELL and THE HANDOVER, with the paragraphs of the comment
+that are about them, move to `act-8b.ts`, and the wave index concatenates both.
+`act-9.ts` (233) is next and splits the same way.

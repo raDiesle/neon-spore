@@ -134,9 +134,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE BEATBOX",
     sentence: "The one where the tap you did not make is the one that counts.",
     guide: {
-      both: "A soundbox that swells on every beat and asks for a number of them. Nothing you can fire touches it. It is answered by tapping the body itself, once a beat, on the beat — and the run is finished by stopping: the first beat that goes by untapped is the beat it is judged on. Right and it goes quiet. Wrong and it puts a wave of sound through the hull and keeps coming.",
-      p1: "The number is over the box on your screen and on nobody else's. Say it early and say it once — they cannot see it, and by the time they have started tapping it is too late to hear it.",
-      p2: "Your thumb, on the body, on the beat — you are the only one who can. Every beat that lands grows an arm on it. Take the thumb off on their number: extra is as wrong as missing, and it goes red the moment either happens.",
+      both: "A soundbox swells each beat and wants a number of taps. No shot touches it. Tap it once a beat, then stop. Wrong, it hits the hull.",
+      p1: "1. Only you see the number over the box.\n2. Say it early and say it once.\n3. Once your partner starts tapping, it is too late to hear it.",
+      p2: "1. Only you can tap the body, once a beat, on the beat.\n2. Each tap grows an arm on it.\n3. Stop on your partner's number. Extra is as wrong as missing.",
       scene: "theBeatbox",
     },
     entries: [
@@ -152,9 +152,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE WEIGHT",
     sentence: "The one where holding it alone looks exactly like holding it together.",
     guide: {
-      both: "A heavy sac, coming down a lane a beat. No shot reaches it and the shield goes straight through, so if it lands the wave is lost. It gives to one thing only: a hand from each of you, on the body itself, at the same moment. Press it on your own and it brightens under your thumb — on your screen, and on nothing the other one can see. So a thumb held alone and two thumbs held together look identical from where you are sitting.",
-      p1: 'You call it. Pick the beat out loud — "on the three" — and put your thumb down on it. Your thumb is off the strip while it is down, so call one you can afford.',
-      p2: "Do not count. Land on the beat they called, not on the one you were about to say, and keep your thumb there until it gives. Yours is the hand that is also the shield, so what they are spending is your dome.",
+      both: "A heavy sac falls a row a beat. No shot or shield stops it. Both of you press it on the same beat. One thumb alone looks the same.",
+      p1: "1. You call it. Say the beat out loud: on the three.\n2. Put your thumb on the body on that beat.\n3. Your thumb is off the strip while it is down. Call one you can afford.",
+      p2: "1. Do not count. Press on the beat your partner calls.\n2. Hold your thumb there until it gives.\n3. While your thumb is down, the shield waits. Your partner spends your dome.",
       scene: "theWeight",
     },
     entries: [
@@ -170,9 +170,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE CAIRN",
     sentence: "The one where the rock you did not pull is the one that lands.",
     guide: {
-      both: "Take the pile apart by hand and ward every rock that comes away; nothing either of you fires reaches it. Leave it standing eight beats and it drops one itself, into a lane only the pilot is shown.",
-      p1: "1. Only you see the lane it drops into by itself. Say that column — it is redrawn every time a rock leaves.\n2. Eight beats of patience, and every pull resets it.\n3. Trigger the plate under every rock.",
-      p2: "1. Say how many you can be under, and which side to pull.\n2. Ward the one you pulled first: twelve beats. Theirs is eight behind it, and only if the pile stands.\n3. Your colours are dead: a rock is warded, not shot.",
+      both: "Take the pile apart by hand. Put the shield under every rock that comes away. Leave it eight beats and it drops one itself. Only Player 1 sees where.",
+      p1: "1. Only you see the column it drops into by itself. Say it.\n2. It changes every time a rock leaves.\n3. Eight beats of patience, and every pull resets it.\n4. Trigger the shield under every rock.",
+      p2: "1. Say how many you can be under, and which side to pull.\n2. A pulled rock lands in twelve beats. Put the shield under it.\n3. The pile's own rock falls eight beats later. Your colours are dead.",
       scene: "theCairn",
     },
     entries: [],
@@ -184,9 +184,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE CODEX",
     sentence: "The one where the button you pressed is not the shot you fired.",
     guide: {
-      both: "Something over the field has the key to the two colours, and while it holds one the two have each other's job: a red bolt kills what cyan kills, and cyan kills what red kills. Nothing about the shot says so — the bolt is the colour that was pressed and sounds like it. The key turns over every four beats, all wave.",
-      p1: "Only you can see it: the air over the field travels in slow bands while the colours are swapped and goes still when they are not. Say which it is, and say it again every time it turns — they cannot see it.",
-      p2: "Both your buttons work and one of them is lying. Fire the colour they say, not the colour of the body — and a body that refuses a colour that should have taken it means the key turned as your thumb came down.",
+      both: "Every four beats, something swaps what the two colours kill. Red kills what cyan should, and cyan what red should. The shot looks and sounds the same.",
+      p1: "1. Only you see it. The air moves in slow bands while the colours swap.\n2. Say which it is, and again every time it turns.",
+      p2: "1. Both your buttons work and one of them lies.\n2. Fire the colour your partner says, not the body's colour.\n3. A body that refuses a shot means the key turned as you pressed.",
     },
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -203,11 +203,11 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theWell",
     name: "THE WELL",
-    sentence: "The one where the lane beside it is the other end of the field.",
+    sentence: "The one where the column beside it is the other end of the field.",
     guide: {
-      both: "The same field, drawn as a clock on one screen and as rows on the other. Columns are hours, so column four is four o'clock and the cannon is the hand. Only the navigator is drawn the warning strip and evenly spaced rows; the pilot is drawn the seam, where the field's two walls meet above the ship and his rail ends.",
-      p1: "1. Your clock carries no warning marks: every arrival is on their strip alone.\n2. Over the rim, four beats of falling is a third of a tile; the last beat is that again.\n3. Eleven and one are your rail's two ends.",
-      p2: "1. You hold the only strip. Say a thing is coming, and its column, early: they hear a number as an hour.\n2. Rows are even here and crowded at their rim, so how soon is yours to say.\n3. Your plate is dead this wave.",
+      both: "One field, a clock on one screen and rows on the other. Columns are hours, and the cannon is the hand. Only Player 2 sees the warning strip.",
+      p1: "1. Your clock has no warning marks. Every arrival shows on your partner's strip alone.\n2. Near the rim, four beats cover a third of a tile. The last beat, as much again.\n3. Eleven and one are your rail's two ends.",
+      p2: "1. Only you see the strip. Say what comes, and its column, early.\n2. Your partner hears a number as an hour.\n3. Your rows sit evenly. Theirs crowd at the rim, so say how soon.\n4. Your shield is dead this wave.",
       scene: "theWell",
     },
     entries: [
@@ -227,9 +227,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE HANDOVER",
     sentence: "The one where your thumb lands on their button.",
     guide: {
-      both: "Nine beats in, your two panels change screens: yours comes up in their colours with their buttons on it, and theirs comes up as yours. Every button still works and none of them is the one you have been pressing all game. The lip of the band counts you down to it and counts you back out of it — eight beats, and then your own hands come home.",
-      p1: "Until the count runs out the cannon and the guard are yours. After it you are holding their plate and their two colours, and the rock is still falling — so say where the cannon was going while it is still your strip.",
-      p2: "Until the count runs out the plate and the two colours are yours. After it you have their strip and their guard, and you have never armed a dome — so make them call the beat, and put the cannon where they ask.",
+      both: "Nine beats in, your panels swap screens. Every button works, but none is the one you know. The band counts down to it, then eight beats back.",
+      p1: "1. Before the swap, the cannon and the trigger are yours.\n2. After it, you hold the shield and the two colours.\n3. Say where the cannon was going while the strip is still yours.",
+      p2: "1. Before the swap, the shield and the two colours are yours.\n2. After it, you hold the cannon and the trigger.\n3. You have never fired the dome. Let your partner call the beat and the column.",
       scene: "theHandover",
     },
     entries: [

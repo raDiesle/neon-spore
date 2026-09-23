@@ -17430,3 +17430,17 @@ SCUTTLE's plates are parts of its frame, so the vocabulary row's answer was
 wrong there and each hit had to be read in its wave.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — fourteen wave guides in acts 8 to 10 pass the words check
+
+- reading — 5 min. The entry and every failing line of the fourteen waves,
+  printed by `bun run words`.
+- writing — 10 min. Forty-five lines rewritten into numbered steps and short
+  sentences, applied per wave and field by a scratch script, then `CLEAN` and
+  `CEILING` regenerated from `bun run words --clean`.
+- looking — 0 min. Guide text only; `bun run words` judges it.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the 220-character cap**: `check:fast` does not run it, so
+every half was measured by a scratch script before landing.

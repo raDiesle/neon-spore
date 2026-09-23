@@ -153,9 +153,9 @@ export const WAVES_ACT_9: Wave[] = [
     name: "THE LEAK",
     sentence: "The one where the column takes three shots instead of one.",
     guide: {
-      both: "You are back on the panel you had before THE LANCE. Every button still works and every tap still fires — what is gone again is the hold: keep a colour down and the lobe fills nothing, so there is no beam of your own and a column of three is three shots.",
-      p1: "Nothing is dead on your strip, and standing still buys you nothing this wave — there is no lobe to fill. Call the next column while they are still firing at this one: the crossing is what costs here, not the shots.",
-      p2: "Tap. Holding a colour fills nothing and the body is still falling while your thumb is down, so take them one at a time and let go between. Three of a colour is three presses now.",
+      both: "Back on the panel from before THE LANCE. Every tap still fires, but holding fills nothing. No beam, so three of a colour takes three shots.",
+      p1: "1. Nothing on your strip is dead, and standing still buys nothing.\n2. Call the next column while your partner fires at this one.\n3. The crossing costs here, not the shots.",
+      p2: "1. Tap. Holding a colour fills nothing.\n2. The body keeps falling while your thumb is down.\n3. Take them one at a time and let go between.\n4. Three of a colour is three presses.",
       scene: "theLeak",
     },
     entries: [
@@ -181,11 +181,10 @@ export const WAVES_ACT_9: Wave[] = [
   {
     id: "theSplice",
     name: "THE SPLICE",
-    sentence:
-      "The one where the number is at the other end of the straw, and only one of you can see it.",
+    sentence: "The one where the number is at the straw's far end, and only one of you sees it.",
     guide: {
-      both: "Straws run the height of the field and cross. Player 2 sees where each goes and the number on it; player 1 sees only the mouths and holds the cannon. Only player 2 can open the maw. Feed them 1, 2, 3. A wrong feed or a spent clock takes the hull and the wave. Three rounds: two straws, then three, then four.",
-      p1: "1. Count the mouths from the left; a ring marks the one you are under.\n2. Slide to the one your partner names, then say THERE: they cannot see the cannon.\n3. The two beats a number falls are yours: be on the next mouth.",
+      both: "Straws cross the field. Player 2 sees each number and where it goes. Player 1 sees the mouths. Feed them in order. A wrong feed loses the wave.",
+      p1: "1. Count the mouths from the left. A ring marks the one you are under.\n2. Slide to the one your partner names, then say THERE: they cannot see the cannon.\n3. The two beats a number falls are yours: be on the next mouth.",
       p2: "1. Trace 1 down to its mouth, count from the left, say it.\n2. Only you can open the maw, and only on your partner's THERE.\n3. Eight beats a straw: the two it falls come off your clock. Trace the next then.",
       scene: "theSplice",
     },
@@ -199,9 +198,9 @@ export const WAVES_ACT_9: Wave[] = [
     name: "THE MINE",
     sentence: "The one where the square has to be found with a finger, not a cannon.",
     guide: {
-      both: "Something is standing still on a tile, and only one of your screens has it. No shot touches it — a bolt bounces off — and the only thing that answers it is the other one's finger on that exact square. The lettered grid is on for both of you. Miss by one tile and the hull goes; miss by more and the count on it drops by one.",
-      p1: "First one, you are the finger: take the letter and the number and press that square on the field itself. The cannon has nothing to do with this. Second one is yours to see — say the square, then say it again.",
-      p2: "First one is yours to see and not to touch: say the square at once, letter then number, and read the count on it — that is how long they have. Second one you press blind. Go straight there; feeling around costs a beat.",
+      both: "Something sits on a tile, on one screen only. No shot touches it. Your partner must press that exact square. Miss by one tile and the hull pays.",
+      p1: "1. First, you press. Hear the letter and number, and press that square on the field.\n2. The cannon plays no part.\n3. The second one is yours to see. Say the square twice.",
+      p2: "1. The first is yours to see, not touch. Say the square at once.\n2. Letter, then number, then the count on it. That is your partner's time.\n3. The second you press blind. Go straight there. Feeling around costs a beat.",
       scene: "theMine",
     },
     entries: [
@@ -218,9 +217,9 @@ export const WAVES_ACT_9: Wave[] = [
     name: "THE MOULT",
     sentence: "The one where the answer you agreed on is the wrong one by the time it lands.",
     guide: {
-      both: "One body, two things by turns. For five beats it is a rock and the dome turns it away. For the next five it is a supply cargo and the maw has to swallow it, and one that breaks on the skin loses the wave. Shooting does nothing to either half. What it is on the beat it reaches the ship is all that counts, and on the last two rows it slides into whatever column the cannon is holding.",
-      p1: "The column, the trigger and the mouth are all yours. Park the cannon under it early — it comes to you — and do what they count you into: rock, hit the trigger; cargo, open the mouth. Never fire at it.",
-      p2: "Only you can see what it turns into next, so the count is yours and it has to be said out loud: rock now, pod in two. Put the shield where they park the cannon and leave it — the rock half still needs it there.",
+      both: "One body turns rock, then cargo, every five beats. The dome turns the rock away. The maw swallows the cargo. Low down, it slides to the cannon.",
+      p1: "1. The column, the trigger and the maw are yours.\n2. Park the cannon under it early. It comes to you.\n3. Do what your partner counts: rock, trigger. Cargo, open the maw.\n4. Never fire at it.",
+      p2: "1. Only you see what it turns into next. Say the count aloud: rock now, cargo in two.\n2. Put the shield where your partner parks the cannon, and leave it.\n3. The rock half still needs it there.",
       scene: "theMoult",
     },
     entries: [

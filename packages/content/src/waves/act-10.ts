@@ -117,9 +117,9 @@ export const WAVES_ACT_10: Wave[] = [
     name: "THE REPRISE",
     sentence: "The one where the wave you have just beaten comes back with nothing to see.",
     guide: {
-      both: "Everything you clear comes down again unseen — the same columns, the same colours, the same spacing — and the wave's own arrivals wait while it plays. Nothing in it can be warded: a body is shot or it reaches the hull, and one that reaches it fails the wave.",
-      p1: "1. Only your strip picks a column: slide it where they say it was.\n2. Say the colours back, in order — the two buttons are theirs.\n3. Nothing in this wave can be warded. One body on the hull loses it.",
-      p2: "1. Say every column while it is still lit, and again as the field goes dark.\n2. Press the colour they call, up the column they are standing in.\n3. Your plate answers nothing here — the shot is the only ward.",
+      both: "Everything you clear comes back down unseen, in the same columns, colours and spacing. New arrivals wait. No shield helps: shoot each body, or lose the wave.",
+      p1: "1. Only your strip picks a column: slide it where they say it was.\n2. Say the colours back, in order. Your partner has the two buttons.\n3. The shield does nothing this wave. One body on the hull loses it.",
+      p2: "1. Say every column while it is still lit, and again as the field goes dark.\n2. Press the colour they call, up the column they are standing in.\n3. Your shield does nothing here. Only the shot stops a body.",
       scene: "theReprise",
     },
     entries: [
@@ -139,9 +139,9 @@ export const WAVES_ACT_10: Wave[] = [
     name: "THE FLIP",
     sentence: "The one where the column you can see is the one it is not in.",
     guide: {
-      both: "Six beats in, something over the field takes the pilot's screen and turns it about its middle. From then on their field is a mirror of itself: a body falling down the left wall is really falling down the right one, on the same row, at the same speed, in the same colour, and nothing about it says so. Every button on both panels still works and both strips still slide where they are told — it is the picture that turned, not the ship. The two walls light up on the screen it happened to, and stay lit while it holds.",
-      p1: "Your field is backwards and your cannon is not. A body against your left wall is one to shoot against your right — count from the wall it is not near. Only the middle column stayed put. Trust their number, not your eyes.",
-      p2: "Yours is the only true picture left, so the columns are all yours. Say every one early, and again while they aim — they can see the body perfectly and cannot believe where it is. Answer a repeated column with a number.",
+      both: "Six beats in, Player 1's screen turns into a mirror. A body on the left wall is really on the right. Buttons still work. Only the picture turned.",
+      p1: "1. Your field is backwards and your cannon is not.\n2. A body on your left wall is one to shoot on your right.\n3. Only the middle column stays put. Trust your partner's number, not your eyes.",
+      p2: "1. Yours is the only true picture, so the columns are all yours.\n2. Say each one early, and again while your partner aims.\n3. Your partner will not believe their eyes.\n4. Answer a repeated column with a number.",
       scene: "theFlip",
     },
     entries: [
@@ -163,9 +163,9 @@ export const WAVES_ACT_10: Wave[] = [
     name: "THE HUSK",
     sentence: "The one where taking the pod in is the mistake.",
     guide: {
-      both: "Three pods hang over the field and one of them is hollow. It hangs where a pod hangs, it beats like a pod, it says on its face what it is carrying, and it is carrying nothing. It comes loose to a shot like any other and it sinks to the ship like any other. Swallow it and the wave is lost. Let it reach a shut maw and it simply lets go of its air and is gone, and that costs you nothing at all.",
-      p1: "Your screen cannot tell you which is which, so do not decide. Open the maw for a pod they have called safe and for no other — a pod nobody named is a pod you let past.",
-      p2: "The hollow one is framed on your screen and on nothing of theirs. Name the two that are real, by column, before either is loose; then name the fake and say to leave it. Saying nothing is what loses this wave.",
+      both: "Three pods hang, and one is hollow. It looks, beats and falls like the others. Swallow it and you lose. Let it reach a shut maw for free.",
+      p1: "1. Your screen cannot tell them apart, so do not decide.\n2. Open the maw only for a pod your partner calls safe.\n3. Let every unnamed pod pass.",
+      p2: "1. Only your screen frames the hollow one.\n2. Name the two real pods, by column, before either comes loose.\n3. Then name the fake and say to leave it.\n4. Saying nothing loses this wave.",
       scene: "theHusk",
     },
     entries: [
@@ -183,7 +183,7 @@ export const WAVES_ACT_10: Wave[] = [
     name: "THE FILAMENT",
     sentence: "The one where you follow a line the other of you is still drawing.",
     guide: {
-      both: "One of you draws the line, the other follows it. A tile a beat and never faster; never more than three tiles apart; never on each other's tile, except the last. Seven filaments.",
+      both: "One of you draws the line, the other follows. One tile a beat, never faster. Stay within three tiles. Never share a tile until the last. Seven filaments.",
       p1: "1. Put your thumb on the lit end and draw up the filament, one tile a beat.\n2. You see how far ahead you are. Say your next tile before you take it.\n3. Faster than a beat snaps it. Wait for your partner.",
       p2: "1. Put your thumb on the lit end and follow the lit tiles behind your partner's.\n2. You see how far behind you are: say it. Past three, it goes dark.\n3. Never land on their tile, until the last one.",
     },
