@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · c02c86d2 — The slab panel form is gone; every control set is a band
+
+THE GAUGE's three were the last slabs and are lobes now, so `slabs.ts`, `PanelForm`/`panelForm`, the `"slab"` control form and the slab branches in the guide's hand and the caption anchor went with nothing using them. The CONTROLS page loses its A SLAB entry and the A BAND line every panel carried — a fix to something wrong rather than unlovely, since the entry named THE GAUGE's and PINBALL's buttons as slabs they no longer are.
+
 ## 2026-09-23 · 936ab271 — `drawOnShip` takes the renderer's `RenderState` rather than a literal of five of its fields
 
 The on-ship pass named every kept field it read in an inline type, which grew a field with each hit look. It takes `Readonly<RenderState>` now — the one object its only caller already hands it — and five type imports go.
