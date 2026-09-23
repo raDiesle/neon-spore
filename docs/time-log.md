@@ -17758,3 +17758,5 @@ had to move into the flesh itself.
 The bottleneck was **no lobe could be posed**: the breaches list is empty
 until a plate parts, so the standing lobes were found by probing a run, and a
 tall one and the body were never seen by an eye at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

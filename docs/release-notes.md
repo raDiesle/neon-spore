@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 1824b62d — THE UNDERTOW's lobes are wet slime pushed up through the plating
+
+Each lobe was a grey fill with a glowing line drawn round it. Now it is wet flesh, lit on its shoulder from above and on its foot by the breach's violet, with a fold where the plate squeezed it and a film of gloss. A tall lobe carries the beam's cyan and red lit inside its wall, over the same thirds as before. The body's last pass is made the same way, in the ship's own deep.
+
 ## 2026-09-23 · b73550cd — THE BATON's arm is a tendon with knuckles, and the bead is a drop
 
 Each socket of the arm is now a knuckle with a wet cup in it. Before, it was a filled blob with a glowing line round it. A socket the bead has still to pass is violet flesh, with the violet pooled in its cup and a glow round it that breathes on the beat. A socket the bead has left is the same knuckle gone grey, with an empty cup, so the arm is still the health bar. A swelling socket stretches shinier and splits at the crown. The spine is a tendon: a sheath, a body and a lit core. On the thread it thins to the body alone. The bead is a shaded drop of its colour, with the light it throws caught on its lower edge. The handle rings are the shared ones and are unchanged.
