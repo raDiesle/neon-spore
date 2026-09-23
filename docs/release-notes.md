@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 5db3ae3e — A phone's frozen height stops at the bars-out height, and the build date leaves the field
+
+The owner said the bottom row of buttons in "both seats" was often cut off, so he could not see or press them. The picture is now never taller than `100svh`, the height with every browser bar showing. A wave opened while the address bar was hidden used to freeze its layout under the strip the bar comes back to. The "BUILT" date moves from the field's bottom corner, where it sat on player 2's last button in TEST, to under BACK in the settings panel. The owner asked for that by name, which is the exemption used for this look. A new test keeps every button's touch ring inside the stage on phones down to 320×480 in all three views.
+
 ## 2026-09-23 · cbb8c3db — THE SCOUT's second arena stands its column on a 2.5-tile pitch
 
 The owner asked for this layout by name (19 September 2026), which is the exemption for the look. The four motes of the column now sit at rows 11, 8.5, 6 and 3.5, the top pair at row 1, and a hazard sweeps between each pair of rows. A scout at rest on any mote is 0.37 of a tile clear of both sweeps; before, it was 0.12. The clock is 24 beats against a flight of 14.

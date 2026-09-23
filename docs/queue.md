@@ -1086,3 +1086,17 @@ test for both players on mobile device."* `bindStageTransport` binds the three
 role buttons and TEST works; on a phone the strip under the field is off the
 foot of the GAME view. Put the three buttons where the phone's GAME view shows
 them, and pin it in `phone-game.test.ts` the way that file pins the rest.
+
+## Unverified at 5db3ae3e: the svh cap on a real phone whose address bar comes bac…
+
+- **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
+- **Files:** `apps/game/index.html`, `apps/game/src/game.css`, `apps/game/src/safe-area.ts`, `apps/game/src/viewport.ts`, `apps/game/test/viewport-furniture.test.ts`, `apps/game/test/viewport-screen.ts`, `docs/queue.md`, `docs/time-log.md`
+
+*A phone's frozen height stops at the bars-out height, and the build date leaves the field* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
+
+- the svh cap on a real phone whose address bar comes back mid-wave — no emulated viewport has the bar
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
