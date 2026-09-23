@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 2e4d5be3 — Cut page three off the clock bosses' drawers and seat predicates
+
+THE HASP and THE SPOOL landing side by side put `boss-draw-clocks-b.ts` at 247 lines and `view-role-clocks-b.ts` at 233. Both are cut on the same seam: the pairs asked for by name from THE GIMBAL on — GIMBAL, BELLOWS, SPOOL, HASP, each two halves of one fight with a half to a seat — move to `boss-draw-clocks-c.ts` (its own `PAIR_KINDS`, guard and `drawPairBoss`, handed across from `boss-draw-clocks.ts` after page two) and `view-role-clocks-c.ts`. `CLOCK_KINDS` is still the whole list. Not a look: every frame is drawn by the same call it was.
+
+## 2026-09-23 · 92a2a5f3 — Draw THE HASP's door, each seat shown only its own half
+
+THE HASP is on screen: three clasps down the middle of the field, each a hinged half-shell pinned over a wheel-hub, the row counting the health and swinging clear at the end onto a passage lit for the first time. The pilot sees the latch beside the working clasp, drifting from cool rock through amber to ember as his hand runs out, and a riveted cap where each wheel is; the navigator sees the wheel — lit and turning while it is free, dark while it is seized, the clasp creeping ajar as she winds — and never the latch or its heat. A seize dims her field for a beat; an opening jolts the row and shudders the hull; the loose bolt is drawn falling to the hull.
+
 ## 2026-09-23 · ea761f18 — Hang THE SPOOL across the top, its line running at the brake's speed
 
 THE SPOOL's body, half one of its look lane: a rock-grey casing with four ribs round a winding of the ship's violet line, run down to the hull. The two paying poses differ only in how fast the line visibly moves — the dashes and the winding's wraps both turn off one number — and no number or colour ever marks the zone. A rib eases up and away and leaves a groove; the slack spool turns a flange to face the ship and drifts off the top. The pilot alone sees his brake, the navigator alone her gauge. The hands — the rail's hit test, the cue word, the film — are the queue's next item.
