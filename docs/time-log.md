@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-the-hasps-picture-has-never-been-drawn — the hands, half two
+
+- reading — 5 min. `sim/hasp-hand.ts` for what each command may carry, the
+  bellows' and the gauge's grips for the carry and the `turns` hold, and the
+  director rows the sim lane had already written.
+- writing — 10 min. `hasp-grip.ts` (two hit tests, the two circles), the
+  hasp cues on a page of their own, the rail cut to the reach so the bar
+  stays under the thumb, `handle-place-boss.ts` cut off `handle-place.ts`,
+  `hasp-grip.test.ts`, §11.37's *The hands*, and the wheel row's refusal
+  corrected in `controls.md` and the director.
+- looking — 5 min. One frame of the latch and its word on the test seat.
+- friction — 5 min. The size hook stopping `handle-place.ts` at 220 lines,
+  a heredoc writing literal backslashes, and the guard hook refusing
+  `biome --unsafe` for an unused import.
+- landing — 5 min. `check:fast`, two commits, `land`.
+
+The bottleneck was **`handle-place.ts` at its ceiling**: the two new
+branches were four lines, and the seam cut before them was the half's one
+real decision.
+
 ## 2026-09-23 — queue-the-hasps-picture-has-never-been-drawn — the body, half one
 
 - reading — 5 min. §20 and §11.37, `sim/hasp.ts` for what a frame may read —

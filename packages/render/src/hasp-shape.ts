@@ -37,9 +37,9 @@ const FACETS = 5;
 const SWING = 0.5;
 /** The hub's radius, in tiles. */
 const HUB = 0.62;
-/** The latch's rail: how far beside the shell's centre, how long, and the bar's half-width. */
+/** The latch's rail: how far beside the shell's centre, and the bar's half-width.
+ * How long it is is not a constant: see `haspRail`. */
 const RAIL_OFF = 2.35;
-const RAIL_LEN = 1.8;
 const BAR_HALF = 0.42;
 
 /** One clasp's centre. `i` counts up from the ship. */
@@ -112,6 +112,11 @@ function railSide(l: Layout, cfg: SimConfig): -1 | 1 {
  * The latch's rail beside clasp `i`: its x, the top the bar rests at with no
  * hand on it, and its length. The bar travels down it as far as the pilot's
  * thumb has carried the latch — the depth the simulation reads.
+ *
+ * **The rail is exactly as long as the reach**, one tile for a thousand: a
+ * drag reports its depth in thousandths of a tile and the simulation cuts it
+ * to `haspReachMilli` (`sim/hasp-hand.ts`), so a rail of any other length
+ * would draw the bar running ahead of the thumb or falling behind it.
  */
 export function haspRail(
   l: Layout,
@@ -120,12 +125,8 @@ export function haspRail(
 ): { x: number; top: number; length: number; side: -1 | 1 } {
   const at = haspCentre(l, cfg, i);
   const side = railSide(l, cfg);
-  return {
-    x: at.x + side * RAIL_OFF * l.tile,
-    top: at.y - (RAIL_LEN / 2) * l.tile,
-    length: RAIL_LEN * l.tile,
-    side,
-  };
+  const length = (cfg.haspReachMilli * l.tile) / 1000;
+  return { x: at.x + side * RAIL_OFF * l.tile, top: at.y - length / 2, length, side };
 }
 
 /** Where the bar sits for a depth in thousandths of the reach, and its half-width. */

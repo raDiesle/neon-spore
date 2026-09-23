@@ -12,6 +12,7 @@ import { gaugeGripUnder } from "./gauge-grip.js";
 import { gimbalRingUnder } from "./gimbal-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
+import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
 import { hiveLobeUnder } from "./hive-grip.js";
 import { instarMarkUnder } from "./instar-mark-grip.js";
 import { hitCircle, type Layout } from "./layout.js";
@@ -135,7 +136,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     ledgerGripUnder(l, x, y, field) ??
     ledgerPullUnder(l, x, y, field) ?? // And the pilot's two on the cord above it (`ledger-pull.ts`).
     antiphonRailUnder(l, x, y, field) ?? // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
-    bellowsHandleUnder(l, x, y, field) // THE BELLOWS's one handle, each seat its own, in whosever beat it is (`bellows-grip.ts`).
+    bellowsHandleUnder(l, x, y, field) ?? // THE BELLOWS's one handle, each seat its own, in whosever beat it is (`bellows-grip.ts`).
+    haspHandleUnder(l, x, y, field) ?? // THE HASP's latch, the pilot's, while a clasp is lit and his hand not burnt (`hasp-grip.ts`).
+    haspRimUnder(l, x, y, field) // And its wheel, the navigator's, turned about the hub (`hasp-grip.ts`).
   );
 }
 

@@ -51,7 +51,7 @@ export const HASP_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE HASP'S WHEEL",
     where:
-      "on the rim of the wheel across the door's face, on player 2's screen, under the same two refusals — and the rim takes her hand in every phase, including the beats it will not move",
+      "on the rim of the wheel across the door's face, on player 2's screen, whenever a clasp is lit — burnt latch or not, seized or free, because her place on the rim is what makes *go* one word",
     seat: "player 2 — the wheel is the navigator's, and she is never shown his latch nor he her rim",
     gesture: "grab and drag",
     does:

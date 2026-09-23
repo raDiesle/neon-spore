@@ -900,6 +900,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-w.ts` | **What THE GAUGE is asking for** — the readings' page `w` |
 | `packages/render/src/boss-cue-read-x.ts` | **What THE VANE is asking for** — page twenty-four, and its own |
 | `packages/render/src/boss-cue-read-y.ts` | **What THE GIMBAL is asking for** — page twenty-five of the readings |
+| `packages/render/src/boss-cue-read-z.ts` | **What THE HASP is asking for** — page twenty-six of the readings, and THE GIMBAL's arrangement next door |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1155,6 +1156,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hasp-parts.ts` | THE HASP's two halves, one to a seat: **the wheel** on the navigator's screen and **the latch** on the… |
 | `packages/render/src/hasp-pose.ts` | **How far through a pose THE HASP is**, and how far each clasp stands open |
 | `packages/render/src/hasp-shape.ts` | **Where THE HASP is**: three clasps down the middle column, each a hinged shell over a hub |
+| `packages/render/src/hasp-grip.ts` | **The two thumbs on THE HASP** — half two of the look lane |
 | `packages/render/src/guard-lapse.ts` | How long the guard button (`band.ts`) keeps fading after its own window closes, in milliseconds |
 | `packages/render/src/handle-draw.ts` | you are changing the shape of a handle — the ring, the gauge, the rest mark and the sag, shared by every one of them |
 | `packages/render/src/gyre-core.ts` | you are drawing the surface in the middle of a gyre wheel — the organelle, its fluid and its nucleus |
@@ -1582,6 +1584,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-over.ts` | what is laid over a body after the body is drawn — the veil's cloud, the veer's rider, the carom's crust, the chute, the volley's shell, the recoil's cage, the coil's dome, the clasp's shield — one `if` per covering |
 | `packages/render/src/creature-axes.ts` | **How wide and how tall a body is actually drawn** — the other half of `creatureRadius` |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
+| `packages/render/src/handle-place-boss.ts` | **Where a boss's handle is standing** — `handle-place.ts`' question |
 | `packages/render/src/handle-word.ts` | you are changing the word under a handle, or which seat reads which half of it |
 | `packages/render/src/handover-look.ts` | **THE HANDOVER's announcement**: the plate on the lip of the band that counts the trade down and counts the panels back, in the same words on both screens |
 | `packages/render/src/handover-hull.ts` | THE HANDOVER on the ship itself: two lobes on the hull handing one height back and forth for the length of the window, under the shipped plate |

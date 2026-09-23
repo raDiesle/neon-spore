@@ -515,21 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE HASP's picture has never been drawn
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-23, claude/queue-task-work-24a30d (claim: claude/queue-the-hasps-picture-has-never-been-drawn)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
-- **Needs:** THE HASP is written and nobody has built its simulation
-- **Where:** local
-
-Lane two of §20, once lane one lands: three sealed hasps down the field's
-centre line, five poses (`.claude/skills/new-boss` §5's standard), the
-latch's own heat as a slow colour drift rather than a bar, the row swinging
-open together at the end. A new silhouette — check
-`packages/content/src/silhouettes.ts` first. One PNG to the owner when it
-moves.
-
 ## THE SPOOL's brake answers no thumb
 
 - **Found:** 2026-09-23, claude/queue-the-spools-picture-has-never-been-drawn

@@ -8206,10 +8206,25 @@ three screens and proves the split both ways: his frame does not move for the
 wheel, the creep or her hand, and hers does not move for the heat or for how
 far past the grip his thumb is.
 
-**What is not built.** The hands: nothing on either screen answers a thumb
-yet — the latch's depth drag and the wheel's bearing drag have no hit test, no
-cue word and no director rows. That is half two of lane two, the rest of the
-same item on `docs/queue.md`.
+**The hands** (`render/hasp-grip.ts`, half two of lane two). Each seat is
+answered on its own half and on no other, the split the drawing keeps, so a
+thumb where the other seat's control would be finds whatever is behind it. His
+press is the latch's bar at rest, and every move after it a depth down the rail
+in thousandths of a tile — **the rail is exactly the reach long**, one tile,
+so the bar stays under the thumb all the way to the notch (`haspRail`). Her
+press is anywhere on the working wheel, and the hold carries the hub's centre
+with `turns` set, so `touch.ts` reads the move as a bearing about it — THE
+GAUGE's dial did it first, and no branch was added. The latch refuses a hand
+while it burns or no clasp is lit; the rim takes hers whenever a clasp is lit,
+seized or not, because her place on it is what makes *go* one word. **Two cue
+words and a third** (`boss-cue-read-z.ts`): `HOLD` on his bar while it is up
+and will take a hand, gone the moment he is past the grip; `TURN` on her wheel
+only while it is free, since a verb on a seized wheel would ask for the waste;
+and `FIRE` over a loose bolt to both. Neither counts anything — the heat and
+the creep are the readouts. **No desk keys**: the latch is a carry, and a key
+for the wheel alone would turn nothing, since it moves only under the latch.
+`render/test/hasp-grip.test.ts` proves the hits, the split, the refusals and
+the words.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/hasp.test.ts`): the door comes in sealed and lights its first latch;
@@ -8223,7 +8238,7 @@ on the last hasp; the second hasp asks further than the first; both hands come
 off an opened one; the bolt comes loose on the second opening, goes out to a
 shot of either colour and strikes the hull if nobody answers it; and the third
 opening swings the row clear and takes the boss out of the wave. Whether any of
-it *reads* is the owner's eye, once the hands are in.
+it *reads* is the owner's eye.
 
 ## 11.38 THE RATCHET — the boss where every step you take stays taken
 
