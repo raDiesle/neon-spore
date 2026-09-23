@@ -541,16 +541,18 @@ disagree about which tiles the head may pass through. The three events —
 `snakePrise`, `snakeLift`, `snakeDrop` — are `events-snake.ts`, the round's
 first, cued by `bind-snake-body.ts` and voiced by `sounds/boss-snake-body.ts`.
 
-**What is not built** (sim lane, 18 September 2026): the picture. The head is
-drawn with the same jaws whether they stick or not, nothing marks the tail as
-a thing a thumb may take hold of, the lifted tiles are drawn on the arena where
-they no longer are, and the three events are on both silent lists. The look
-lane draws the grip off `snakeGrip` and the lift off `snakeLifted`. The
-director's STATES sheet has a card for `crawl` and owes two: its hand cannot
-drive the body onto four points, so `gorge` and `shed` are on `OWED`
-(`tools/director/test/boss-states.test.ts`). *Never watched at tempo*: whether
-a carry on the head is a gesture a thumb can make while the body is moving at
-under half a second a tile.
+**What is not built: the body under the hands** (read against the tree 23
+September 2026). The rings ship (below), each shown only while its grip is
+live, and the director's STATES sheet poses all three of `crawl`, `gorge` and
+`shed` — `OWED` is empty. Three things remain. The head's own jaws are drawn
+the same whether they stick or not — only the ring on the neck and the field's
+`CARRY` say so (`boss-cue-read-g.ts`); the
+lifted tiles are drawn on the arena where they no longer are, since nothing in
+`render/` reads `snakeLifted` or `tailHeld` but the ring; and `snakePrise`,
+`snakeLift` and `snakeDrop` are on both silent lists
+(`effects-ingest-silent-boss-b.ts`, `effects-spark-silent-boss-b.ts`). *Never
+watched at tempo*: whether a carry on the head is a gesture a thumb can make
+while the body is moving at under half a second a tile.
 
 **Both rings ship, and the other seat's fills nothing, 22 September 2026**
 (`render/snake-grip.ts`). His on the neck one tile behind the head, hers on the

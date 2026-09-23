@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-two-bosses-say-their-picture-not-built
+
+- reading — 10 min. Each clause of THE VANE's and SNAKE's paragraphs against
+  `render/` and the director: the arm, the rings, the split, the silent lists,
+  the jaws, the lifted tiles, `OWED`.
+- writing — 5 min. Two paragraphs, each now naming what is left.
+- looking — 0 min.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the reading: every clause was its own grep, and two of the
+five were still true.
+
 ## 2026-09-23 — queue-nothing-says-how-long-a-thumb-waits
 
 - reading — 5 min. The entry, the input buffer, `frame.ts`'s paint, the

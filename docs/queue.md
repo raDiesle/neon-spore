@@ -450,30 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## Two bosses say their picture is not built, under a paragraph saying it is
-
-- **Found:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo
-- **Taken:** 2026-09-23, claude/queue-two-bosses-say-their-picture-not-built (claim: claude/queue-two-bosses-say-their-picture-is-not-built-under)
-- **Files:** `docs/spec/bosses.md`, `docs/spec/interludes.md`
-- **Where:** local
-
-THE VANE's section (bosses.md §11.5) and SNAKE's (interludes.md) still
-carry a **What is not built** (sim lane, 18 September 2026) paragraph saying *the picture* is missing — no ring answers `vaneArm` or
-`vaneHousing`, nothing marks SNAKE's tail as a thing a thumb may take hold of,
-the events are on the silent lists — and in both the paragraph directly under
-it is a dated one saying both rings ship and naming the file that draws them.
-A reader gets the contradiction in two paragraphs. THE THROAT's copy of the
-same staleness was corrected in the lane that found this (its claim that
-`bun run frames` cannot set a boss's own fields was wrong: `--boss` does), and
-the other two were left because checking each clause is its own reading —
-whether the events are still silent, whether the arm is still drawn off the
-cycle, whether the director's `OWED` cards are still owed.
-
-The work is: read each clause of the two paragraphs against the tree, cut what
-now ships, and leave what is genuinely still missing under a heading that says
-what remains rather than *the picture*. The *Never watched at tempo* sentences
-stay — nobody has watched either at tempo.
-
 ## A second candidate in a slot writes the first one's geometry again
 
 - **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d

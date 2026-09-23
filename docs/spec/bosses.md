@@ -994,14 +994,16 @@ numbers, in `BossClockConfig` with the other counts a pair says out loud. The
 three events — `vanePin`, `vaneSlip`, `vaneHaul` — are `events-vane.ts`, the
 boss's first, cued by `bind-vane.ts` and voiced by `sounds/boss-vane.ts`.
 
-**What is not built** (sim lane, 18 September 2026): the picture. The arm is
-still drawn off the cycle on every screen, so a pinned arm draws sweeping on;
-no ring answers `vaneArm` or `vaneHousing`; the three events are on the silent
-lists. The look lane draws the arm off `vaneTipNow`, the pilot's ring on the
-tip under VEER and the navigator's on the housing under SEIZE, the split off
-`vaneSplitCol`, and the slip. *Never watched at tempo*: whether four beats is a
-hold a pair can spend a sentence inside, and whether a thumb on the arm and a
-thumb on the cannon are comfortable on one phone.
+**What is not built: the three events** (read against the tree 23 September
+2026). The arm is drawn where `vane-grip.ts` says the thumb has it, so a pinned
+arm stands still (`vane-draw.ts`); both rings ship (below); the split is drawn
+off `vaneSplitCol` (`vane-bearing.ts`). What is left is that `vanePin`,
+`vaneSlip` and `vaneHaul` are still on both silent lists
+(`effects-ingest-silent-boss-b.ts`, `effects-spark-silent-boss-b.ts`), so a slip
+— the arm torn out of a thumb — shows only as the arm sweeping on, with no
+burst where it let go. *Never watched at tempo*: whether four beats is a hold a
+pair can spend a sentence inside, and whether a thumb on the arm and a thumb on
+the cannon are comfortable on one phone.
 
 **Both rings ship, and the other seat's fills nothing, 22 September 2026**
 (`render/vane-grip.ts`). The pilot's rides the tip of the arm and the
