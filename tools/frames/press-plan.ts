@@ -31,3 +31,31 @@ export function pressPlan(
   plan.push({ advance: Math.max(0, advanceBy - at) });
   return plan;
 }
+
+/**
+ * **Which frame of a strip each press is heard in.** The first frame's run
+ * walks every press up to `advanceBy`; each later frame is `stride` ticks on
+ * and walks the presses that fall inside those ticks, moved onto its own line
+ * so `pressPlan` can lay them out. A press on a frame's own tick belongs to
+ * that frame and is heard one tick before it, the same as the first.
+ *
+ * Without this a strip heard only the first frame's presses, and the guard in
+ * `flags.ts` refused the rest rather than drop them in silence — so a flight
+ * watched over eight frames had to be photographed as eight runs.
+ */
+export function pressesByFrame(
+  presses: readonly PressSpec[],
+  advanceBy: number,
+  frames: number,
+  stride: number,
+): PressSpec[][] {
+  const out: PressSpec[][] = [presses.filter((one) => one.tick <= advanceBy)];
+  for (let i = 1, from = advanceBy; i < frames; i++, from += stride) {
+    out.push(
+      presses
+        .filter((one) => one.tick > from && one.tick <= from + stride)
+        .map((one) => ({ ...one, tick: one.tick - from })),
+    );
+  }
+  return out;
+}

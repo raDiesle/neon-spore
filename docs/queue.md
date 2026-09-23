@@ -450,33 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## `--press` with `--frames` refuses a press the filmstrip would have caught
-
-- **Found:** 2026-09-22, claude/queue-press-knows-no-scout-verb-so-the-scouts-two-ring
-- **Taken:** 2026-09-23, claude/queue-press-with-frames-refuses (claim: claude/queue-press-with-frames-refuses-a-press-the-filmstrip)
-- **Files:** `tools/frames/flags.ts`, `tools/frames/spec.ts`, `tools/frames/test/flags.test.ts`
-
-The guard in `flags.ts` that refuses a press landing after the picture compares
-each press's tick against `spec.ticks` alone. With `--frames` and `--stride`
-the run does not stop at `ticks`: it takes `frames` pictures `strideTicks`
-apart, so the last one is at `ticks + (frames - 1) * strideTicks`. A press
-inside that span is refused with a message naming a number the run never
-stopped at:
-
-    --ticks 400 --frames 8 --stride 120 --press 300:1:scoutTurnLeft=6,900:1:scoutBurn=10
-    --press: a press at tick 900 is after --ticks 400, so the picture is taken
-    before it lands. Raise --ticks, or move the press earlier
-
-The last frame there is tick 1240 and the press at 900 is four frames inside
-it. The lane that hit this wanted a filmstrip of THE SCOUT's flight — the one
-capture a press line most wants, because a flight is a thing you watch go
-wrong somewhere — and photographed six separate single frames with the press
-line hand-truncated for each instead.
-
-The fix is the last frame's tick rather than `spec.ticks`, in both branches of
-the message, and the same arithmetic `capture.ts` already does to know when to
-stop. `--until` is the other half: there the cap is already the right number.
-
 ## `bun run index` adds a row for a new file but never refreshes one that changed
 
 - **Found:** 2026-09-22, claude/wave-lost-screen-redesign

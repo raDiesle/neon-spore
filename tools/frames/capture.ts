@@ -9,7 +9,8 @@ import { putHand } from "./hand.js";
 import { settleOpening } from "./opening-hold.js";
 import { openStage } from "./page.js";
 import { pictureDigest } from "./pixels.js";
-import { reachFirstFrame } from "./reach.js";
+import { pressesByFrame } from "./press-plan.js";
+import { reachFirstFrame, strideOn } from "./reach.js";
 import type { CaptureResult } from "./result.js";
 import type { FrameSpec } from "./spec.js";
 import { backTick } from "./until.js";
@@ -104,6 +105,11 @@ export async function captureFrames(
     // Clamped rather than refused: `--press 0:1:intake` is the documented way
     // to say "from the start", and the start is wherever the opening left off.
     const press0 = spec.press?.map((one) => ({ ...one, tick: Math.max(0, one.tick - startTick) }));
+    // Under `--until` the first frame's tick is not known ahead, so every press
+    // rides the search and the strip after it hears none (`pressesByFrame`).
+    const byFrame = spec.until
+      ? [press0 ?? []]
+      : pressesByFrame(press0 ?? [], spec.ticks - startTick, frames, strideTicks);
 
     const paths: string[] = [];
     const whole: string[] = [];
@@ -118,7 +124,7 @@ export async function captureFrames(
         // `--until`'s event fires (`reach.ts`).
         const at = await reachFirstFrame({ advance, press, tick, heard, sent }, startTick, {
           advanceBy: spec.ticks - startTick,
-          press: press0,
+          press: byFrame[0],
           until: spec.until,
           holdsAfter: (spec.hold?.length ?? 0) > 0,
         });
@@ -133,7 +139,7 @@ export async function captureFrames(
           return await captureFrames(baseUrl, plain, outPrefix, browser);
         }
       } else {
-        await advance(strideTicks);
+        await strideOn({ advance, press, tick, heard, sent }, strideTicks, byFrame[i] ?? []);
       }
 
       // **After the wave's own ticks, never before them.** A hand takes hold of

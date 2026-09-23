@@ -11,8 +11,8 @@ import { missedNote, type UntilSpec } from "./until.js";
  * run and that file stood at 237 of its 250 lines. The seam is a real one:
  * everything here walks a tick line and knows nothing about browsers, files or
  * crops, and everything left next door is about the picture taken once the
- * line has been walked. A strip's later frames do not come through here — they
- * are `--stride` ticks apiece and have nothing to reach.
+ * line has been walked. A strip's later frames are `strideOn`, below: `--stride`
+ * ticks apiece, with nothing to reach but the presses that fall inside them.
  */
 export interface Reach {
   /** Ticks to spend getting to the first frame, when a number says where it
@@ -57,4 +57,13 @@ export async function reachFirstFrame(
   }
   if (until && at === null) throw new Error(missedNote(until, from, d.heard(), reach.holdsAfter));
   return at;
+}
+
+/** A strip's later frame: `by` ticks on, with the presses that fall inside
+ * them heard on the way (`pressesByFrame`). */
+export async function strideOn(d: Driver, by: number, press: readonly PressSpec[]): Promise<void> {
+  for (const step of pressPlan(press, by)) {
+    if (step.advance > 0) await d.advance(step.advance);
+    if (step.press) await d.press(step.press);
+  }
 }

@@ -215,15 +215,22 @@ export function parseFrameSpec(
   // A press past the picture is a press nobody ever sees, and silently
   // clamping it would produce a frame that looks like the shot missed. Under
   // `--until` the picture's tick is not known until the run reaches it, so the
-  // line the presses have to fit inside is how far it will look.
-  const end = until ? until.cap : spec.ticks;
+  // line the presses have to fit inside is how far it will look. A strip goes
+  // on past `--ticks`, one `--stride` a frame, and a press inside it is heard
+  // by the frame it falls in (`pressesByFrame`), so the line is the last frame.
+  const strip = ((spec.frames ?? 1) - 1) * (spec.strideTicks ?? 0);
+  const end = until ? until.cap : spec.ticks + strip;
+  const said =
+    strip > 0
+      ? `the last frame, tick ${end} (--ticks ${spec.ticks}, then ${(spec.frames ?? 1) - 1} × --stride ${spec.strideTicks})`
+      : `--ticks ${spec.ticks}`;
   const late = (press ?? []).find((one) => one.tick > end);
   if (late) {
     throw new Error(
       until
         ? `--press: a press at tick ${late.tick} is past --until-ticks ${end}, so the run stops ` +
             "looking before it lands. Raise --until-ticks, or move the press earlier"
-        : `--press: a press at tick ${late.tick} is after --ticks ${spec.ticks}, so the picture is ` +
+        : `--press: a press at tick ${late.tick} is after ${said}, so the picture is ` +
             "taken before it lands. Raise --ticks, or move the press earlier",
     );
   }

@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-press-with-frames-refuses
+
+- reading — 10 min. `press-plan.ts`, `reach.ts`, the stride loop in
+  `capture.ts` and the guard in `flags.ts`: the strides stepped with no
+  presses at all, so relaxing the guard alone would have dropped them unsaid.
+- writing — 15 min. `pressesByFrame`, `strideOn`, the guard's new end tick
+  and its message, and four tests.
+- looking — 5 min. THE SCOUT at 400 + 7 × 120 with a burn pressed at 900: the
+  frame at 1000 shows it firing.
+- friction — 5 min. `bun run frames HEAD` compares a pair, and the claim commit
+  changes nothing, so it wrote nothing; `.` is the one-tree form.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the reading: the refusal was the visible half, and the
+silent half — strides that never pressed — only showed in the loop.
+
 ## 2026-09-23 — queue-second-candidate-writes-first-geometry
 
 - reading — 10 min. The take plan, its text helpers, how the registry finds a
