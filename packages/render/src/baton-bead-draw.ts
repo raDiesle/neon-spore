@@ -8,6 +8,7 @@ import {
   batonLead,
   type SimConfig,
 } from "@neon-spore/sim";
+import { paintDrop } from "./baton-flesh.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { tileCX } from "./layout.js";
@@ -115,15 +116,13 @@ export function drawBead(
   halo(ctx, x, y, r * reach, hex, bead.struck ? 0.7 : 0.3 + 0.25 * pulse);
   if (merged) halo(ctx, x, y, r * reach * 2, hex, 0.35 + 0.2 * pulse);
   const body = splinePath(blobPoints(x, y, r, r, 3, 0.1, 0.05, time * 1.4, 11, 20), true);
-  ctx.save();
-  ctx.fillStyle = hex;
-  ctx.fill(body);
+  paintDrop(ctx, body, x, y, r, hex, rim, l.tile, bead.struck ? 1 : 0.55 + 0.4 * pulse);
   if (twin) {
+    ctx.save();
     ctx.fillStyle = PUPIL_FILL;
     ctx.fill(new Path2D(circleSubpath(x, y, r * PUPIL)));
+    ctx.restore();
   }
-  ctx.restore();
-  strokeGlow(ctx, body, rim, STROKE.inner, bead.struck ? 1 : 0.5 + 0.4 * pulse);
   // A struck bead wears a ring round it for the rest of the flight — the
   // receipt both seats get for a shot the pilot never saw leave. The merged
   // bead wears one always, and a second, wider one: two beads in one.

@@ -515,24 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE BATON's picture looks like something real
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-23, claude/queue-the-diastoles-picture-looks-like-something-real (claim: claude/queue-the-batons-picture-looks-like-something-real)
-- **Files:** `packages/render/src/baton-bead-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/baton-socket-draw.ts`, `packages/render/src/baton-grip.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
-- **Where:** local
-
-4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
-not a picture per state. Two of those states arrived on 18 September 2026 with
-the §6.2 lane and were drawn by a session with no eye: a swelling socket is the
-husk grown half again and shaking, and the two handle rings are the shipped
-ones. Both want the same look pass as the rest of the arm.
-
-The owner, 18 September 2026: a picture is judged by an eye on a real frame,
-which a cloud session does not have — his own machine takes it.
-
-The brief: `.claude/skills/new-boss` section 6.3.
-
 ## THE UNDERTOW's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

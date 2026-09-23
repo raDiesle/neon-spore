@@ -1640,6 +1640,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/baton-bead-draw.ts` | THE BATON's bead — and its second, and the one the two become |
 | `packages/render/src/baton-grip.ts` | **THE BATON's own arm as a control**: the shell a thumb strips off a swelling socket |
 | `packages/render/src/baton-socket-draw.ts` | **One socket of THE BATON's arm**, drawn |
+| `packages/render/src/baton-flesh.ts` | **What THE BATON's arm is made of**: a tendon hung from above the field |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |

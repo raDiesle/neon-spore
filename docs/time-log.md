@@ -17722,3 +17722,20 @@ through `rgba()` is a different string, so the strength goes in `globalAlpha`
 and the round's own hex stays on the stroke.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE BATON's picture looks like something real
+
+- reading — 5 min. The arm's four draw files, and the tests that read the
+  bead's colour and count the spine's widths off the op log.
+- writing — 10 min. `baton-flesh.ts`: every joint a knuckle with a wet cup,
+  violet live flesh while the bead has yet to pass it and grey once it has; the
+  spine a tendon with a sheath and a lit core; the bead a shaded drop.
+- looking — 10 min. The arm posed with dark, swelling and shed sockets
+  through `--boss-json`, before and after at 2×.
+- friction — 5 min. A second `queue next` claimed THE UNDERTOW as well; the
+  first knuckles were all grey and the count no longer read.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the count living in the outline**: once the violet line
+went, a lit socket and a spent one were the same grey knuckle, so the violet
+had to move into the flesh itself.

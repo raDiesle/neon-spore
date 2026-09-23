@@ -1,10 +1,9 @@
 import type { Point } from "@neon-spore/content";
 import { type BatonState, batonSocketRow, type SimConfig } from "@neon-spore/sim";
 import { drawBead } from "./baton-bead-draw.js";
+import { strokeTendon } from "./baton-flesh.js";
 import { drawSocket, socketX } from "./baton-socket-draw.js";
-import { strokeGlow } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -101,8 +100,9 @@ export function drawBaton(
 
 /**
  * The arm itself, from its root above the field down to the lowest socket
- * that is out. One open stroke, rock grey, for THE VANE's reason: a closed
- * shape would read as a body, and this is a mechanism. When the arm has swung
+ * that is out. One open stroke, for THE VANE's reason: a closed shape would
+ * read as a body, and this is a mechanism — stroked as a tendon, a sheath, a
+ * body and a lit core (`baton-flesh.ts`). When the arm has swung
  * the spine leans across the columns between the socket the bead left and
  * the one it is landing in, so the swing is a bend in the arm and not a jump.
  *
@@ -134,21 +134,9 @@ function drawSpine(
   }
   const split = thread > 0 && pts.length > 2 ? pts.length - 2 : -1;
   const upper = splinePath(split < 0 ? pts : pts.slice(0, split + 1), false);
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = PALETTE.rockDark;
-  ctx.lineWidth = l.tile * SPINE * (1 - (1 - THREAD_WIDTH) * thread);
-  ctx.stroke(upper);
-  if (split >= 0) {
-    const segment = splinePath(pts.slice(split), false);
-    ctx.lineWidth = l.tile * SPINE;
-    ctx.stroke(segment);
-    ctx.restore();
-    strokeGlow(ctx, segment, PALETTE.rock, STROKE.inner, 0.3);
-    strokeGlow(ctx, upper, PALETTE.rock, STROKE.inner, 0.3 * (1 - thread));
-    return;
-  }
-  ctx.restore();
-  strokeGlow(ctx, upper, PALETTE.rock, STROKE.inner, 0.3);
+  const width = l.tile * SPINE;
+  // On the thread the sheath and the lit core go out with the width, so the
+  // hair at the end of the thinning is the tendon's body alone.
+  strokeTendon(ctx, upper, width * (1 - (1 - THREAD_WIDTH) * thread), 1 - thread);
+  if (split >= 0) strokeTendon(ctx, splinePath(pts.slice(split), false), width, 1);
 }

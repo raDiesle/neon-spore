@@ -8,9 +8,8 @@ import {
   batonSocketRow,
   type SimConfig,
 } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
+import { paintKnuckle } from "./baton-flesh.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -119,6 +118,9 @@ function swellOf(cfg: SimConfig, b: BatonState, beat: number, beatPhase: number)
  * the thing about to fall is seen to be about to fall (`sim/baton-shed.ts`).
  * It is a state nothing else in the picture drew, which is why it is drawn
  * here rather than offered — there is no shipped alternative to compare it to.
+ *
+ * What a joint is made of — a knuckle with a wet cup, the violet pooled in a
+ * lit one — is `baton-flesh.ts`; this decides only which and how big.
  */
 export function drawSocket(
   ctx: CanvasRenderingContext2D,
@@ -161,15 +163,5 @@ export function drawSocket(
     ),
     true,
   );
-  ctx.save();
-  ctx.fillStyle = lit ? "#1A0B2A" : PALETTE.rockDark;
-  ctx.fill(ring);
-  ctx.restore();
-  strokeGlow(
-    ctx,
-    ring,
-    lit ? PALETTE.hull : PALETTE.rock,
-    STROKE.outline,
-    lit ? 0.45 + 0.4 * breath : 0.25 * (1 - 0.5 * husk) + 0.5 * swell,
-  );
+  paintKnuckle(ctx, ring, { x, y, r, tile: l.tile, lit, breath, swell });
 }
