@@ -521,6 +521,7 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 ## `new-boss/SKILL.md` is one line under the ceiling
 
 - **Found:** 2026-09-23, claude/queue-the-other-choreographed-bosses-never-say-when-th
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-new-boss-skill-md-is-one-line-under-the-ceiling)
 - **Files:** `.claude/skills/new-boss/SKILL.md`, `.claude/skills/new-boss-more/SKILL.md`
 
 It is 249 lines after §5 gained the `pair-call.ts` line, and the next boss
