@@ -18115,3 +18115,5 @@ straight after it is drawn and the stone above covers what it hides.
 The bottleneck was **keeping the board the board**: every layer had to sit
 under the rings, spokes and seam at a quarter of its strength, so the flesh
 could be seen without an eye counting it as a lane.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
