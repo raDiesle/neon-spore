@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE THROB wears the ammunition colours where the owner wants dots
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-the-lures-corner-frame-says-do-not-shoot-where-t (claim: claude/queue-the-throb-wears-the-ammunition-colours-where-the)
 - **Files:** `packages/render/src/throb.ts`, `packages/render/src/throb-pores.ts`, `packages/render/src/throb-look.ts`
 - **Where:** local
 
