@@ -518,6 +518,7 @@ question that prompted this one.
 ## A peer's message that arrives before this device's run begins is dropped
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf (re-filed 2026-09-23, claude/queue-the-ratchets-picture-has-never-been-drawn, from a paragraph that had come loose under THE RATCHET's entry)
+- **Taken:** 2026-09-23, claude/next-queued-task-4c233b (claim: claude/queue-a-peers-message-that-arrives-before-this-devices)
 - **Files:** `apps/game/src/link-run.ts`, `packages/net/src/lockstep.ts`, `packages/net/test/two-devices-opening.test.ts`
 
 `link-run.ts` builds its `Lockstep` in `begin`, and `receive` hands a message
