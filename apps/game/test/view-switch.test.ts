@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { SCREEN_WORDS } from "@neon-spore/content";
 import { roomHasTheSeat } from "../src/view.js";
 import { installDom } from "./fake-dom.js";
 
@@ -88,6 +89,7 @@ describe("the desk view is reachable either way", () => {
     // Behind three presses on the spore, which is why it cannot be the only way
     // back — but it is still a way, and it is how a room's seat is left.
     expect(menuSeats).toContain('role: "test"');
-    expect(menuSeats).toContain("ONE SCREEN");
+    expect(menuSeats).toContain("...SCREEN_WORDS.test");
+    expect(SCREEN_WORDS.test.name).toBe("ONE SCREEN");
   });
 });

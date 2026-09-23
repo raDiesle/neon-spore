@@ -1,3 +1,4 @@
+import { SCREEN_WORDS } from "@neon-spore/content";
 import type { ViewRole } from "@neon-spore/render";
 import { el } from "./menu-parts.js";
 
@@ -23,21 +24,18 @@ const SEATS: { role: ViewRole; seat?: 1 | 2; tag: string; name: string; what: st
     role: "p1",
     seat: 1,
     tag: "P1",
-    name: "PILOT",
-    what: "Slides the cannon, opens the maw, triggers the shield.",
+    ...SCREEN_WORDS.p1,
   },
   {
     role: "p2",
     seat: 2,
     tag: "P2",
-    name: "NAVIGATOR",
-    what: "Slides the shield, fires red and cyan.",
+    ...SCREEN_WORDS.p2,
   },
   {
     role: "test",
     tag: "BOTH",
-    name: "ONE SCREEN",
-    what: "Both bands and the test rig, for one person at a desk.",
+    ...SCREEN_WORDS.test,
   },
 ];
 

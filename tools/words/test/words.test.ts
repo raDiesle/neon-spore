@@ -73,6 +73,12 @@ describe("the inventory", () => {
     }
   });
 
+  it("reaches the six sentences the game draws outside a wave", () => {
+    const cards = playerText().filter((e) => subject(e).endsWith(" CARD"));
+    expect(new Set(cards.map(subject))).toEqual(new Set(["LINE CARD", "SCREEN CARD"]));
+    expect(cards).toHaveLength(6);
+  });
+
   it("makes one entry per line, because a numbered step is read one at a time", () => {
     const steps = playerText().filter((e) => /^\d\.\s/.test(e.text));
     expect(steps.length).toBeGreaterThan(50);

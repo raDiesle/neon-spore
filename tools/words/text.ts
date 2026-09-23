@@ -19,13 +19,13 @@
  * `packages/content/test/scenes.test.ts`, and a second copy of that limit here
  * would be a rule re-derived rather than called.
  *
- * `apps/game` has six more — the three connection-trouble sentences in
- * `hold.ts` and the three seat descriptions in `menu-seats.ts` — and this tool
- * does not reach them, because importing that package pulls in the DOM. They
- * are an entry in `docs/queue.md`.
+ * **The six sentences `apps/game` draws outside a wave are here too**: the
+ * three bad-line cards and the three screen cards. `apps/game` pulls in the
+ * DOM and this tool may not import it, so the sentences live in
+ * `packages/content/src/screen-words.ts` and the game reads them from there.
  */
 
-import { MECHANIC_IDS, MECHANICS, WAVES } from "@neon-spore/content";
+import { LINK_WORDS, MECHANIC_IDS, MECHANICS, SCREEN_WORDS, WAVES } from "@neon-spore/content";
 
 /**
  * Which screen a string is read on, which is the only thing that decides its
@@ -64,6 +64,12 @@ export function playerText(): TextEntry[] {
   }
   for (const id of MECHANIC_IDS) {
     out.push(...lines(id, "what", MECHANICS[id].what));
+  }
+  for (const [key, card] of Object.entries(LINK_WORDS)) {
+    out.push(...lines(`LINE CARD · ${key}`, "what", card.what));
+  }
+  for (const [key, card] of Object.entries(SCREEN_WORDS)) {
+    out.push(...lines(`SCREEN CARD · ${key}`, "what", card.what));
   }
   return out;
 }

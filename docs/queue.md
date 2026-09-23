@@ -515,29 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Six strings a player reads are outside the words check
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-23, claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo (claim: claude/queue-six-strings-a-player-reads-are-outside-the-words)
-- **Files:** `apps/game/src/hold.ts`, `apps/game/src/menu-seats.ts`, `tools/words/text.ts`
-
-`tools/words/text.ts` collects player-facing text out of `@neon-spore/content`
-and stops there, because importing `apps/game` pulls in the DOM. Six strings
-live on the other side of that line: the three connection-trouble sentences in
-`hold.ts` and the three seat descriptions in `menu-seats.ts`. All six fail the
-rules by eye — *"It is being reached for again — the seat is held for a few
-seconds more"* is a passive, an em dash and a word (`seat`) the player has
-never been shown.
-
-Two ways to reach them, and the second is better: lift the six strings into a
-DOM-free module of their own that both `apps/game` and `tools/words` import, or
-teach `text.ts` to read the two files as text. The first makes them ordinary
-entries with a `kind`; the second is a parser that breaks the next time somebody
-reformats a template literal.
-
-Rewrite them in the same lane, and say in the commit that `menu-seats.ts` is
-where the fourth word for the shield lives.
-
 ## `docs/style-guide.md` carries "How an asset gets made" twice
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
@@ -2222,3 +2199,19 @@ leave `briefing.test.ts` with what it draws, and `bun run check` proves it.
 already uses — THE WELL and THE HANDOVER, with the paragraphs of the comment
 that are about them, move to `act-8b.ts`, and the wave index concatenates both.
 `act-9.ts` (233) is next and splits the same way.
+
+## The screen chooser's two card names say PILOT and NAVIGATOR
+
+- **Found:** 2026-09-23, claude/queue-six-strings-a-player-reads-are-outside-the-words
+- **Files:** `packages/content/src/screen-words.ts`, `tools/words/text.ts`, `.claude/skills/game-words/SKILL.md`
+- **Asks:** Should the two cards read PLAYER 1 and PLAYER 2, or do PILOT and NAVIGATOR stay as the names of the jobs?
+
+`.claude/skills/game-words` says no screen shows a player the word *pilot* or
+*navigator*, and `SCREEN_WORDS.p1.name` and `.p2.name` are exactly those, in
+capitals, on the menu. The words check does not see them because only the
+`what` under each card is in its inventory. Either answer is small: **PLAYER 1
+/ PLAYER 2** changes the two names and adds them to `text.ts` as `name`
+entries, which the vocabulary rows then hold; **keep them** changes the two
+table rows in the skill to say the menu's job names are the one exception.
+The card's tag already reads P1 or P2, which is the argument for keeping a
+job name beside it.

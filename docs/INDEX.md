@@ -821,6 +821,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scene-drag.ts` | **A hand carrying a handle**, turned into the stream of `drag` messages a rehearsal's runner sends — how far |
 | `packages/content/src/scene-act-types.ts` | one moment of a rehearsal — a thumb on a control or a hand on the field, and a field for every gesture the film can show |
 | `packages/content/src/scout-arenas.ts` | THE SCOUT's arenas: two of them, and the arena is the fight |
+| `packages/content/src/screen-words.ts` | The sentences a player reads outside a wave: the card a bad line puts up |
 | `packages/content/src/creatures-beatbox.ts` | THE BEATBOX's row, cut out of `creatures-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |

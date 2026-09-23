@@ -1,3 +1,4 @@
+import { LINK_WORDS } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
 
 /**
@@ -49,25 +50,13 @@ export interface Trouble {
 export function troubleOf(status: LinkStatus): Trouble | null {
   if (status.state === "solo") return null;
   if (status.state === "lost") {
-    return {
-      title: "THE CONNECTION IS GONE",
-      ms: status.awayMs,
-      what: "Nothing is reaching the room any more. Open the room screen to type the code again, or leave and carry on alone.",
-    };
+    return { ...LINK_WORDS.lost, ms: status.awayMs };
   }
   if (status.awayMs >= HOLD_AFTER_MS) {
-    return {
-      title: "REACHING THE ROOM AGAIN",
-      ms: status.awayMs,
-      what: "This phone lost its line, not the game. It is being reached for again — the seat is held for a few seconds more.",
-    };
+    return { ...LINK_WORDS.away, ms: status.awayMs };
   }
   if (status.state === "stalled" && status.stalledMs >= HOLD_AFTER_MS) {
-    return {
-      title: "THE OTHER PHONE HAS GONE QUIET",
-      ms: status.stalledMs,
-      what: "Still connected, and the field is holding still until it speaks again. Wait for it, or leave the room and pick this up later.",
-    };
+    return { ...LINK_WORDS.quiet, ms: status.stalledMs };
   }
   return null;
 }

@@ -153,6 +153,12 @@ export {
 } from "./scenes.js";
 export { SCOUT_ARENAS } from "./scout-arenas.js";
 export {
+  LINK_WORDS,
+  type LinkWords,
+  SCREEN_WORDS,
+  type ScreenWords,
+} from "./screen-words.js";
+export {
   blobPath,
   blobPoints,
   blobRadiusMul,

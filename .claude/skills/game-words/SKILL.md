@@ -20,17 +20,18 @@ guide would ask for. `bun run words` is the same brief as numbers.
 | `packages/content/src/waves/act-*.ts` | `guide.both`, `guide.p1`, `guide.p2` | the guide screen a wave opens on |
 | `packages/content/src/waves/act-*.ts` | `name`, `sentence` | the HUD, the wave list, the guide's last page |
 | `packages/content/src/mechanics-*.ts` | `what` | **a menu button** — the DEMOS page (`apps/game/src/demo-menu.ts`) |
-| `apps/game/src/hold.ts` | `trouble.what` | the screen when the line to the other phone drops |
-| `apps/game/src/menu-seats.ts` | `what` | the seat chooser |
+| `packages/content/src/screen-words.ts` | `LINK_WORDS[].what` | the card when the line to the other phone drops (`apps/game/src/hold.ts`) |
+| `packages/content/src/screen-words.ts` | `SCREEN_WORDS[].what` | the menu's screen chooser (`apps/game/src/menu-seats.ts`) |
 
 **A caption is not here.** `GuideScene.steps[].text` is held to 28 characters
 and to the present tense by `packages/content/test/scenes.test.ts`, and the
 voice for one is `.claude/skills/new-tutorial`. Call that rule, do not
 re-derive it.
 
-**The check reaches the first three rows only** — `tools/words` imports
-`@neon-spore/content`, and importing `apps/game` would pull in the DOM. The
-six strings in `apps/game` are held by this file and by nothing else.
+**The check reaches every row.** `tools/words` imports `@neon-spore/content`
+and may not import `apps/game`, which pulls in the DOM — so a sentence the game
+draws outside a wave is written in `screen-words.ts`, never beside the code
+that draws it.
 
 ## 2 · The six rules
 

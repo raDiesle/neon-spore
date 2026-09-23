@@ -17446,3 +17446,17 @@ The bottleneck was **the 220-character cap**: `check:fast` does not run it, so
 every half was measured by a scratch script before landing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — the six sentences the game draws outside a wave are in the words check
+
+- reading — 5 min. The entry, `hold.ts`, `menu-seats.ts`, `tools/words/text.ts`
+  and `run.ts`, to see how a subject is keyed.
+- writing — 10 min. `packages/content/src/screen-words.ts`, the two call
+  sites, the inventory, a test, the skill's table, and one sentence rewritten.
+- looking — 0 min. `bun run words "LINE CARD"` and `"SCREEN CARD"` judge it.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **where the strings could live**: a tool may not import
+`apps/game`, so the sentences had to move into a package rather than be read
+where they were written.
