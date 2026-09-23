@@ -562,6 +562,7 @@ beside the ones there.
 ## The other choreographed bosses never say when the second seat may act
 
 - **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
+- **Taken:** 2026-09-23, claude/queue-task-work-1d4d22 (claim: claude/queue-the-other-choreographed-bosses-never-say-when-th)
 - **Files:** `packages/render/src/instar-call.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-text.ts`, `packages/sim/src/instar-step.ts`
 
 The owner, 20 September 2026: *for any in-game action which requires one
