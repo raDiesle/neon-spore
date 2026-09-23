@@ -17614,3 +17614,5 @@ to lobes leaves a whole panel form with no user, which is its own lane.
 The bottleneck was **finding the tick play begins**: a press before it is
 dropped in silence, and the first capture came back identical to one with no
 press at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

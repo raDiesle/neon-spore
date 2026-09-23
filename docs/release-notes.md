@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 3d98dfb6 — `bun run frames --press` steers SNAKE and puts both hands on its body
+
+`snakeTurn=left|right` sends the navigator's quarter turn, so a body that turns can be driven through a sequence rather than posed turned with `--boss`. `snakeJaws` prises the stuck jaws open on the pilot's seat, and `snakeTail=N|on|off` holds the tail up on the navigator's — the two hands on the body that no panel has a button for, now in the off-panel seat table.
+
 ## 2026-09-23 · 456cf6d7 — THE GAUGE's buttons are lobes on the ship's band, and its words say what the claw does
 
 THE GAUGE was the last round with a panel of slabs. Its two turns now stand in the pilot's sockets on the band and its call in the navigator's, each with the claw's own face: the turns show the nose swung the way they swing it and light while held, and the call is the REACH button, lit while the claw is out and faint while a call would be refused. The title's second line says what the other seat has instead of what this one cannot do: THE POD IS ON THEIR SCREEN, THE CLAW IS IN THEIR HANDS.
