@@ -577,34 +577,6 @@ line is a reading function and a call, not a second box. Keep #34: the line
 says what the *pair* is under and never a seat's own verb, which is why it
 is drawn bright on both screens.
 
-## A wave with a guide opens on its introduction as well
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-task-work-8ab41c (claim: claude/queue-a-wave-with-a-guide-opens-on-its-introduction-as)
-- **Files:** `packages/sim/src/briefing.ts`, `apps/game/src/waves.ts`, `packages/render/src/wave-intro.ts`, `packages/render/src/ready-page.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *when there is a tutorial/guide skip the wave
-information on the game screen after the "ready?" page, as it is not required
-and we showed it already. For waves with no guide/tutorial show it.*
-
-The three states are `OPENING_GUIDE`, `OPENING_INTRO`, `OPENING_PLAY`, in that
-order, and every wave passes through all three (`briefing.ts`). A wave that
-carried a guide has already put the number, the name and the sentence in front
-of the pair twice over: `wave-intro.ts` is drawn on the last page of a stepped
-guide, over the ready button, which is the thing the pair says READY *to*. Then
-the gate passes and the same three lines stand alone for `INTRO_SECONDS` more.
-
-So the introduction becomes the no-guide case only. `startWave` is already told
-whether this wave has a guide — it is the `guide` flag on `Briefings` — so the
-change is which phase the gate hands over to, and `apps/game/src/waves.ts` must
-stop arming `left = INTRO_SECONDS` for an opening that will not reach the
-introduction. A retry already skips the guide and must keep its introduction:
-that is the one path where the lines have not been shown.
-
-`phase` is in `hashWorld`, so this is a rule both devices read the same way and
-not a thing render may decide.
-
 ## A wave gone again opens at the same speed as the first try
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

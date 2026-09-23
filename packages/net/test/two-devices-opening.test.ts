@@ -179,8 +179,8 @@ describe("a wave's opening over a delayed link", () => {
       320,
     );
     expect(a.phases[0]).toBe(OPENING_GUIDE);
-    // A stepped guide's last page was the wave's name, so the gate opens onto
-    // the field with no introduction in between (`guidePassed`).
+    // The guide's last page was the wave's name, so the gate opens onto the
+    // field with no introduction in between (`guidePassed`).
     expect(firstTickIn(a, OPENING_INTRO)).toBe(-1);
     const started = firstTickIn(a, OPENING_PLAY);
     expect(firstTickIn(b, OPENING_PLAY)).toBe(started);
@@ -197,30 +197,25 @@ describe("a wave's opening over a delayed link", () => {
     expect(a.world.spawned).toBe(1);
   });
 
-  it("takes a prose guide through the gate, then the introduction, on the same ticks", () => {
-    // No pages to turn: the gate is up at once, and passing it leaves the
-    // wave's name still to read, so the acks follow the holds.
+  it("takes a guide with no pages through the gate onto the field, on the same tick", () => {
+    // No pages to turn: the gate is up at once, and it is the wave's name, so
+    // crossing it starts the field with nothing left to read.
     const [a, b] = play(
       true,
       0,
       [
         { tick: 10, player: 1, command: { kind: "brief", on: true } },
         { tick: 30, player: 2, command: { kind: "brief", on: true } },
-        { tick: 120, player: 2, command: { kind: "brief" } },
-        { tick: 140, player: 1, command: { kind: "brief" } },
       ],
       320,
     );
     expect(a.phases[0]).toBe(OPENING_GUIDE);
-    const read = firstTickIn(a, OPENING_INTRO);
+    expect(firstTickIn(a, OPENING_INTRO)).toBe(-1);
+    expect(firstTickIn(b, OPENING_INTRO)).toBe(-1);
     const started = firstTickIn(a, OPENING_PLAY);
-    expect(read).toBeGreaterThan(0);
-    expect(started).toBeGreaterThan(read);
-    expect(firstTickIn(b, OPENING_INTRO)).toBe(read);
     expect(firstTickIn(b, OPENING_PLAY)).toBe(started);
-    // The last hand to move decides each time: seat 2's hold, seat 1's ack.
-    expect(read).toBeGreaterThanOrEqual(30 + DELAYS[1]);
-    expect(started).toBeGreaterThanOrEqual(140 + DELAYS[0]);
+    // The last hand to move decides it: seat 2's hold, landed and filled.
+    expect(started).toBeGreaterThanOrEqual(30 + DELAYS[1]);
     expect(a.world.spawned).toBe(1);
   });
 });

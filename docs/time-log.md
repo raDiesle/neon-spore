@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-a-wave-with-a-guide-opens-on-its-introduction-as
+
+- reading — 5 min. The entry, `sim/briefing.ts`, `guide-steps.ts`, the app's
+  `waves.ts` and every `startWave` caller, to find that every shipped guide
+  already skipped the introduction and only a guide with no pages did not.
+- writing — 5 min. `guidePassed` goes to the field for any guide, the
+  introduction's clock armed only when one stands, four tests re-cut, §1 of
+  `briefings.md` and `wave-intro.ts`'s header.
+- looking — 0 min. Nothing the game draws moved: every guided wave has pages.
+- friction — 15 min. `check:fast` took the machine down twice: one shard
+  process grew past 50 GB. Found by running the shard under a watchdog and
+  halving it — `surface-clear.test.ts` left the canvas stub's module-level log
+  pointing at its array, and `briefing.test.ts` in the same process appended
+  every path coordinate of thousands of frames to it. Fixed in
+  `canvas-stub.ts`, a commit of its own; `check:fast` now peaks at 4.5 GB.
+- landing — 5 min. `check:fast`, the commits, `land`.
+
+Bottleneck: friction — a test double's leak that only shows when two files
+share a shard, and each crash cost the session with it.
+
 ## 2026-09-23 — queue-the-spools-brake-answers-no-thumb — the hands, half two
 
 - reading — 5 min. The bellows' and the hasp's grips and tests, `sim/spool-hand.ts`,

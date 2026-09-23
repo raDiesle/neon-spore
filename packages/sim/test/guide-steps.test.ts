@@ -152,7 +152,10 @@ describe("a guide with pages", () => {
     expect(onReadyPage(world, 1)).toBe(true);
     hold(world, 1);
     hold(world, 2);
-    expect(introHolds(world)).toBe(true);
+    // And past it onto the field, like any other guide: the gate's page was
+    // the wave's name, so there is no introduction left to stand.
+    expect(introHolds(world)).toBe(false);
+    expect(world.brief.phase).toBe(OPENING_PLAY);
   });
 
   it("sends a caller with no thumbs to the gate before filling its circle", () => {
