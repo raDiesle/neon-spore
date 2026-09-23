@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · e2f08e3e — THE HIVE's rehearsal shows Player 2 wringing a lobe
+
+The fifth site is wrung: Player 2's ghost thumb holds column 2's swell from beat 33 until it opens, so it opens with no colour and the cyan shot seals a red site. The wring wakes the mass, so it spills on the spot and a red shot clears it. Every act after it was traced again, the twins and the haul included. A seat-2 `hiveLobe` drag aims at the next site (`scene-aim.ts`), and her ghost thumb follows the pinched lobe (`hivePinchCircle`).
+
 ## 2026-09-23 · bbf863f6 — THE HIVE's FIVE SCARS page opens on the tick the fifth seal lands
 
 The rehearsal page `FIVE SCARS · FOUR TO GO` opened at tick 1980, beat 33. The fifth seal lands at tick 2166, so for three seconds the page stood in front of four scars. It now opens at 2166. A page can now say which world field each of its numbers names (`SceneStep.counts`), and `scene-pages.test.ts` reads each one back at the page's first tick and at the tick it holds on.

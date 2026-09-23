@@ -18392,3 +18392,5 @@ probe of the run, tick by tick, that found the real one.
 
 The bottleneck was **the retrace**: one hand on beat 33 moved every act after
 it, and only a probe of the run found where each one had to go.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
