@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## Two bosses say their picture is not built, under a paragraph saying it is
 
 - **Found:** 2026-09-22, claude/queue-seven-bosses-draw-a-dim-ring-that-nobody-has-loo
+- **Taken:** 2026-09-23, claude/queue-two-bosses-say-their-picture-not-built (claim: claude/queue-two-bosses-say-their-picture-is-not-built-under)
 - **Files:** `docs/spec/bosses.md`, `docs/spec/interludes.md`
 - **Where:** local
 
