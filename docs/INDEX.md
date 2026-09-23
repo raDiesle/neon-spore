@@ -1891,6 +1891,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/canvas-sheets.ts` | The two pages drawn on the game's own canvas over a frame |
 | `apps/game/src/link-clock.ts` | The room's wall clock: the only part of the game that asks what time it is |
 | `apps/game/src/progress.ts` | How far this device has got, kept on this device |
+| `apps/game/src/press-lag-page.ts` | `?lag=1`: the wait between a thumb and the field answering it, in the corner |
+| `apps/game/src/press-lag.ts` | How long a thumb waits for the field: the touch event's own time to the frame that shows its tick, worst of the last hundred |
 | `apps/game/src/menu-entries.ts` | The rows on the menu's three lists — the front page, the PLAY page and the rig — in the order they are read |
 | `apps/game/src/haptics.ts` | A buzz for the two things a player must not miss |
 | `apps/game/src/hello.ts` | THE FIRST THING A DEVICE IS ASKED, ONCE THE SCENE HAS PLAYED |

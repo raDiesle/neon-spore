@@ -14,6 +14,7 @@ import { interpolationRequested } from "./interpolate.js";
 import { shellWiring } from "./main-shell.js";
 import { openWorld } from "./main-world.js";
 import { menuIdleHz } from "./menu-idle.js";
+import { bindPressLag } from "./press-lag-page.js";
 import { pressQuit } from "./quit.js";
 import { bindRasterBurst, bindRasterClasp } from "./raster.js";
 import { createRunState } from "./run-state.js";
@@ -29,6 +30,8 @@ const canvas = document.getElementById("stage") as HTMLCanvasElement | null;
 if (!canvas) throw new Error("canvas #stage missing");
 
 const buffer = new InputBuffer();
+// `?lag=1`: how long a thumb waits for the field, in the corner (`press-lag.ts`).
+bindPressLag(location.href, buffer);
 // `view` is built below this line; the getter is read on a frame, long after.
 const audio = bindAudio(canvas, () => view.role());
 // The config, the world on it, and the three ways a run starts (`main-world.ts`).

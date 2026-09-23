@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-nothing-says-how-long-a-thumb-waits
+
+- reading — 5 min. The entry, the input buffer, `frame.ts`'s paint, the
+  lockstep's delay in `link-run.ts`, and where a touch and a key are heard.
+- writing — 10 min. `PressLag` and its readout, the stamps through the
+  buffer, the `?lag=1` page binding, five tests.
+- looking — 5 min. The readout in the browser pane, which paints at one
+  frame a second, so its figures say nothing about a phone.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the index rows, the commit, `land`.
+
+The bottleneck was the writing: the press has to carry its touch's time
+through the buffer and the lockstep delay without the simulation seeing it.
+
 ## 2026-09-23 — queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
 
 - reading — 5 min. The entry, `computeStage`, `computeLayout`, the panel

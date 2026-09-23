@@ -152,6 +152,8 @@ export function startFrames(p: FrameParts): Frames {
     p.welcome.over(p.ctx, dt);
     p.intro.over(p.ctx, dt);
     frameEvents = [];
+    // `?lag=1` only: this frame answers every press whose tick it shows.
+    p.buffer.lag?.painted(p.world.tick, status.delayTicks, performance.now());
   };
 
   startLoop(
@@ -167,7 +169,7 @@ export function startFrames(p: FrameParts): Frames {
       // moment play resumes. A finished run is not paused — its commands still
       // go through, otherwise the restart tap would never arrive.
       if (!p.run.running() && !p.world.over) {
-        p.buffer.drain(p.world.tick);
+        p.buffer.clear();
         return;
       }
       // Lockstep: a tick may only run once the other device has promised that

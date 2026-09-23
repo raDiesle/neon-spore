@@ -1,12 +1,17 @@
 import type { Command } from "@neon-spore/sim";
+import type { PressLag } from "./press-lag.js";
 
 /**
- * Collects commands until the next tick consumes them. No timestamp is taken
- * here or needed: `drain(tick)` stamps every pending command with the tick it
- * is drained on, which — because the loop's catch-up drains synchronously —
- * is the first tick after the touch, and `link.ts`'s lockstep then schedules
- * it `inputDelayTicks` further out from there. There is no separate moment
- * of "when the screen was touched" to have captured.
+ * Collects commands until the next tick consumes them. `drain(tick)` stamps
+ * every pending command with the tick it is drained on, which — because the
+ * loop's catch-up drains synchronously — is the first tick after the touch,
+ * and `link.ts`'s lockstep then schedules it `inputDelayTicks` further out
+ * from there. The simulation never hears a wall-clock moment.
+ *
+ * `lag` is the one exception, and it is not the simulation's: under `?lag=1` a
+ * press carries the touch event's own time as far as the frame that shows it
+ * (`press-lag.ts`), so the wait a thumb feels can be read rather than argued
+ * about. Unset, which is always unless the flag built one, nothing is stamped.
  *
  * Split out of `input.ts` when the ship itself became touchable and that file
  * reached its length limit. The seam is the honest one: this is the *queue*
@@ -16,15 +21,27 @@ import type { Command } from "@neon-spore/sim";
  * through that file had to move.
  */
 export class InputBuffer {
-  private pending: { player: 1 | 2; command: Command }[] = [];
+  private pending: { player: 1 | 2; command: Command; at: number | null }[] = [];
+  lag: PressLag | null = null;
 
   push(player: 1 | 2, command: Command): void {
-    this.pending.push({ player, command });
+    const at = this.lag ? this.lag.stamp(performance.now()) : null;
+    this.pending.push({ player, command, at });
   }
 
   drain(tick: number): { tick: number; player: 1 | 2; command: Command }[] {
     const out = this.pending.map((p) => ({ tick, player: p.player, command: p.command }));
+    if (this.lag) {
+      const stamps: number[] = [];
+      for (const p of this.pending) if (p.at !== null) stamps.push(p.at);
+      this.lag.drained(stamps, tick);
+    }
     this.pending.length = 0;
     return out;
+  }
+
+  /** Paused: what was pressed is dropped, and was never answered. */
+  clear(): void {
+    this.pending.length = 0;
   }
 }
