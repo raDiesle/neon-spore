@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 764941dd — `bun run frames` says which presses the simulation refused
+
+A press sent into a phase that takes none — SNAKE's spit during the morph, say — changed nothing and came back as a picture with no press in it, and the run said nothing. Each press is now asked first whether the next tick would hear it (the world stepped with and without it, on two copies, and the hashes compared), and the run prints an `unheard:` line naming every refused press by the tick it landed on.
+
 ## 2026-09-23 · 68332a0a — SNAKE's tail end is the body's own end, not a second drawing
 
 On the pilot's seat SNAKE is drawn as its two ends, and the tail end had widths of its own — a quarter tile flaring to the tip whatever the length — and no spine, so coming out of the ship it read as a straight teal tube rather than the last tiles of the animal on the navigator's screen. The ends now read the whole body's widths and markings at that end, and every piece of the body is painted by one `paintSkin`.
