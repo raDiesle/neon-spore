@@ -1076,3 +1076,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 2d3f8edd: ?lag=1's worst and median press-to-frame figures on a r…
+
+- **Found:** 2026-09-23, claude/queue-nothing-says-how-long-a-thumb-waits
+- **Files:** `apps/game/src/frame.ts`, `apps/game/src/input-buffer.ts`, `apps/game/src/main.ts`, `apps/game/src/press-lag-page.ts`, `apps/game/src/press-lag.ts`, `apps/game/test/press-lag.test.ts`, `docs/INDEX.md`, `docs/queue.md`
+
+*?lag=1 shows how long a press waits for the field to answer it* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
+
+- ?lag=1's worst and median press-to-frame figures on a real phone, solo and paired — the browser pane paints at one frame a second
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

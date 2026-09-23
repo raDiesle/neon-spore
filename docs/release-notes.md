@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 2d3f8edd — ?lag=1 shows how long a press waits for the field to answer it
+
+A press is now stamped with its touch's own timeStamp and followed through the input buffer and the lockstep delay to the first painted frame whose world has stepped past it. Behind ?lag=1 a line at the foot of the screen gives the worst and the median of the last hundred, so which gap the pair feels can be measured on a phone rather than argued. Without the flag nothing is stamped and nothing is drawn.
+
 ## 2026-09-23 · 5db3ae3e — A phone's frozen height stops at the bars-out height, and the build date leaves the field
 
 The owner said the bottom row of buttons in "both seats" was often cut off, so he could not see or press them. The picture is now never taller than `100svh`, the height with every browser bar showing. A wave opened while the address bar was hidden used to freeze its layout under the strip the bar comes back to. The "BUILT" date moves from the field's bottom corner, where it sat on player 2's last button in TEST, to under BACK in the settings panel. The owner asked for that by name, which is the exemption used for this look. A new test keeps every button's touch ring inside the stage on phones down to 320×480 in all three views.
