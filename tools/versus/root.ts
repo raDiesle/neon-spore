@@ -10,4 +10,9 @@
 import { join } from "node:path";
 
 export const ROOT = Bun.fileURLToPath(new URL("../../", import.meta.url));
-export const CANDIDATES = join(ROOT, "tools", "versus", "candidates");
+/** Where the candidates are under a repository — this one, or a test's. */
+export function candidatesUnder(root: string): string {
+  return join(root, "tools", "versus", "candidates");
+}
+
+export const CANDIDATES = candidatesUnder(ROOT);

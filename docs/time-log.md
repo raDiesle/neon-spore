@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — `drop` tested against a tree of its own
+
+- reading — 10 min. `decide.ts`, `decided-md.ts`, the registry, slots and pose-row helpers, and the take-function test's temporary tree.
+- writing — 10 min. `root` through `adopt`, `drop`, `removeSlot` and `recordDecision`; `candidatesUnder`; the test.
+- looking — 0 min.
+- friction — 5 min. The guard hook refused a heredoc edit with a doubled backslash, so the edit was re-sent without it.
+- landing — 5 min.
+
+The bottleneck was reading the five modules `drop` reaches, to find every place that named the real tree.
+
 ## 2026-09-23 — THE ORRERY's rehearsal on the half-beat grid
 
 - reading — 5 min. The film's acts and its scene test.

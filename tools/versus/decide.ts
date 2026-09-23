@@ -35,7 +35,7 @@ import { type FileEdit, recordDecision } from "./decided-md.js";
 import { removePoseRow } from "./pose-row.js";
 import { isRefusal, rewriteRecord } from "./record-edit.js";
 import { writeRegistry } from "./registry.js";
-import { CANDIDATES, ROOT } from "./root.js";
+import { candidatesUnder, ROOT } from "./root.js";
 import { candidatesIn, type OnDisk, slotDir, slotsOnDisk } from "./slots.js";
 import { type FunctionTake, planFunctionTake } from "./take-function-fs.js";
 import { quoted, wrap } from "./text.js";
@@ -77,10 +77,10 @@ function noSlot(name: string, open: readonly string[]): Error {
  * value copied into a candidate is the drift this whole arrangement exists to
  * prevent.
  */
-function planFor(won: Variant, as?: string): FileEdit[] {
+function planFor(won: Variant, root: string, as?: string): FileEdit[] {
   const plan: FileEdit[] = [];
   for (const patch of won.patches) {
-    const file = join(ROOT, patch.where.file);
+    const file = join(root, patch.where.file);
     const fields = patch.fields as Record<string, unknown>;
     const current = currentValues(patch);
     // The plain values first, through the writer that compares them against
@@ -101,7 +101,7 @@ function planFor(won: Variant, as?: string): FileEdit[] {
     let text = result.text;
     let taken: FunctionTake | undefined;
     if (functions.length > 0) {
-      const take = planFunctionTake(ROOT, won, patch, functions, text, as);
+      const take = planFunctionTake(root, won, patch, functions, text, as);
       if ("why" in take) {
         throw new Error([take.why, "", ...byHand(won, patch.where.file)].join("\n"));
       }
@@ -120,12 +120,15 @@ function planFor(won: Variant, as?: string): FileEdit[] {
 }
 
 /** The winner into the game, and the slot off the page. `as` names the base of
- * a moved implementation file, when the default is not wanted. */
+ * a moved implementation file, when the default is not wanted. `root` is the
+ * repository written to; the candidates are still the ones this process
+ * imported, since a registry is code and cannot be read from another tree. */
 export async function adopt(
   slotName: string,
   winner: string,
   reason: string,
   as?: string,
+  root = ROOT,
 ): Promise<string[]> {
   const { slot, candidates } = await slotOf(slotName);
   const won = candidates.find((c) => c.name === winner);
@@ -138,12 +141,12 @@ export async function adopt(
     );
   }
 
-  const plan = planFor(won, as);
+  const plan = planFor(won, root, as);
   for (const f of plan) {
-    writeFileSync(join(ROOT, f.file), f.text);
-    for (const m of f.taken?.moves ?? []) writeFileSync(join(ROOT, m.to), m.text);
+    writeFileSync(join(root, f.file), f.text);
+    for (const m of f.taken?.moves ?? []) writeFileSync(join(root, m.to), m.text);
     for (const r of f.taken?.retired ?? []) {
-      if (r.delete) rmSync(join(ROOT, r.file), { force: true });
+      if (r.delete) rmSync(join(root, r.file), { force: true });
     }
   }
 
@@ -159,8 +162,8 @@ export async function adopt(
       out.push(`  ${r.delete ? "deleted " : "kept    "} ${r.note}`);
     }
   }
-  out.push("", ...removeSlot(slot, candidates), "");
-  recordDecision(slot, won, candidates, reason, plan);
+  out.push("", ...removeSlot(slot, candidates, root), "");
+  recordDecision(slot, won, candidates, reason, plan, root);
   out.push(
     "  tools/versus/DECIDED.md — the answer, so the next slot on this record can read it",
     "",
@@ -169,13 +172,15 @@ export async function adopt(
   return out;
 }
 
-/** No answer taken: the slot goes, the game is untouched, the reason is kept. */
-export function drop(slotName: string, reason: string): string[] {
-  const candidates = candidatesIn(CANDIDATES, slotName);
-  if (candidates.length === 0) throw noSlot(slotName, slotsOnDisk(CANDIDATES));
+/** No answer taken: the slot goes, the game is untouched, the reason is kept.
+ * `root` is the repository, which a test points at a tree of its own. */
+export function drop(slotName: string, reason: string, root = ROOT): string[] {
+  const under = candidatesUnder(root);
+  const candidates = candidatesIn(under, slotName);
+  if (candidates.length === 0) throw noSlot(slotName, slotsOnDisk(under));
   const out = [`${slotName} — nothing taken. The game draws what it drew.`, ""];
-  out.push(...removeSlot(slotName, candidates), "");
-  recordDecision(slotName, null, candidates, reason, []);
+  out.push(...removeSlot(slotName, candidates, root), "");
+  recordDecision(slotName, null, candidates, reason, [], root);
   out.push("  tools/versus/DECIDED.md — the reason, which is the only thing left of the slot");
   return out;
 }
@@ -188,17 +193,17 @@ export function drop(slotName: string, reason: string): string[] {
  * arrangement exists to prevent. The row goes for the reason `pose-row.ts`
  * gives — its pose stays in the gallery, the row was only the slot's way to it.
  */
-function removeSlot(slot: string, candidates: readonly OnDisk[]): string[] {
-  for (const c of candidates) rmSync(join(ROOT, c.dir), { recursive: true, force: true });
+function removeSlot(slot: string, candidates: readonly OnDisk[], root: string): string[] {
+  for (const c of candidates) rmSync(join(root, c.dir), { recursive: true, force: true });
   // What is left is what the candidates shared (`slotHelpers`), and it goes too.
-  const dir = join(CANDIDATES, slotDir(slot));
+  const dir = join(candidatesUnder(root), slotDir(slot));
   const shared = existsSync(dir) ? readdirSync(dir) : [];
   rmSync(dir, { recursive: true, force: true });
-  const { count } = writeRegistry(CANDIDATES);
+  const { count } = writeRegistry(candidatesUnder(root));
   return [
     ...candidates.map((c) => `  removed  ${c.dir}`),
     ...shared.map((f) => `  removed  tools/versus/candidates/${slotDir(slot)}/${f}`),
     `  rewrote  tools/versus/candidates/registry.ts — ${count} candidate${count === 1 ? "" : "s"} left`,
-    removePoseRow(ROOT, slot),
+    removePoseRow(root, slot),
   ];
 }

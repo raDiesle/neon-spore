@@ -18,7 +18,7 @@ import type { FunctionTake } from "./take-function-fs.js";
 import { quoted, wrap } from "./text.js";
 import type { Variant } from "./variant.js";
 
-const DECIDED = join(ROOT, "tools", "versus", "DECIDED.md");
+const DECIDED = join("tools", "versus", "DECIDED.md");
 
 /** Everything one file gets written in one adoption. */
 export interface FileEdit {
@@ -37,14 +37,15 @@ export function recordDecision(
   candidates: readonly OnDisk[],
   reason: string,
   plan: readonly FileEdit[],
+  root = ROOT,
 ): void {
-  writeDecided(decidedEntry(slot, won, candidates, reason, plan));
+  writeDecided(join(root, DECIDED), decidedEntry(slot, won, candidates, reason, plan));
 }
 
 /** Append, never rewrite: the file is a record of answers and nothing edits an old one. */
-function writeDecided(entry: string): void {
-  const md = readFileSync(DECIDED, "utf8").replace(/\s+$/, "");
-  writeFileSync(DECIDED, `${md}\n\n${entry}\n`);
+function writeDecided(file: string, entry: string): void {
+  const md = readFileSync(file, "utf8").replace(/\s+$/, "");
+  writeFileSync(file, `${md}\n\n${entry}\n`);
 }
 
 function decidedEntry(

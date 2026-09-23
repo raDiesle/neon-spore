@@ -649,23 +649,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `adopt` and `drop` have no test of what they take off the disk
-
-- **Found:** 2026-09-23, claude/queue-second-candidate-writes-first-geometry
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-adopt-and-drop-have-no-test-of-what-they-take-of)
-- **Files:** `tools/versus/decide.ts`, `tools/versus/root.ts`, `tools/versus/test/`
-
-`removeSlot` in `decide.ts` deletes every candidate directory, and since this
-lane the slot directory with any helper file the candidates shared, then
-rewrites the registry and the director's pose row. None of that is tested:
-`decide.ts` reads `ROOT` and `CANDIDATES` from `root.ts`, so a test would run
-against the real tree. `planFunctionTake` shows the shape that works — it takes
-`root` as an argument and `take-function-fs.test.ts` builds a small tree in a
-temporary directory. The work: pass the root into `adopt`/`drop`/`removeSlot`
-(defaulting to `ROOT`), and write a test that opens a two-candidate slot with a
-shared helper in a temporary tree, drops it, and finds the slot's directory,
-the helper and the registry entry all gone.
-
 ## Nothing settles a conflict in `versus-pose.ts` on a landing
 
 - **Found:** 2026-09-23, claude/queue-replay-registry
