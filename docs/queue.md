@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## The replay settles four generated files and not the fifth, `registry.ts`
 
 - **Found:** 2026-09-22, claude/wave-lost-screen-redesign
+- **Taken:** 2026-09-23, claude/queue-replay-registry (claim: claude/queue-the-replay-settles-four-generated-files-and-not)
 - **Files:** `tools/land/replay.ts`, `tools/versus/candidates/registry.ts`, `tools/land/test/`
 
 `replay.ts` names three conflicts it settles for itself — `docs/queue.md`,
