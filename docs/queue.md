@@ -572,6 +572,7 @@ the caller rather than as a rule.
 ## THE HIVE's rehearsal says FIVE SCARS with four on the mass
 
 - **Found:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-hives-rehearsal-says-five-scars-with-four-on)
 - **Files:** `packages/content/src/scenes/the-hive.ts`, `packages/content/test/scene-pages.test.ts`
 - **Where:** local
 
