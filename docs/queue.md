@@ -484,6 +484,7 @@ job name beside it.
 ## `strokeGlow` under a scale draws its glow scale-times too wide
 
 - **Found:** 2026-09-23, claude/queue-the-pulses-picture-looks-like-something-real
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-strokeglow-under-a-scale-draws-its-glow-scale-ti)
 - **Files:** `packages/render/src/glow.ts`, `packages/render/src/living-skin.ts`, `packages/render/src/pods.ts`, `packages/render/src/ghost.ts`
 
 `strokeGlow` divides nothing: its glow passes add `STROKE.glowSpread` (5)
