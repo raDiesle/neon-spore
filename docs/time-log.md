@@ -18232,3 +18232,5 @@ the event's type.
 
 The bottleneck was **the preview's launch entry**: the game has no route to a
 named tree, so one was written and reverted for a single boot check.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

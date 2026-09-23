@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · e3bfeec9 — The world's opening leaves `main.ts` for `main-world.ts`
+
+`main.ts` sat at exactly 250 lines, the ceiling, so the next lane to add a line to it would have been refused for nothing it had done. The config this build plays at, the world built on it, the wave progression, beat zero (`startTogether`) and the tempo (`playAt`) now come out whole as `openWorld(audio, buffer)` in `apps/game/src/main-world.ts`, in the pattern of `main-shell.ts`. `main.ts` is 189 lines. Nothing it does has changed order in a way anything can see: the progression does no work when it is built.
+
 ## 2026-09-23 · 7d65794a — A resize burst no longer re-reads the phone's furniture on every event
 
 `measure()` used to call `safeArea()`, and reading the resolved padding forces a style and layout flush — once per resize, visual-viewport resize and observer callback. An address bar sliding away fires dozens of those. The inset is now kept in `bindViewport` and read again only on `orientationchange`, on the `ResizeObserver`, and at a run's edge. A test counts the reads across a burst of resizes and finds none. The viewport tests are split into the fake screen, the sizing and the furniture.
