@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · ecde902c — THE SURGE is a sac of membrane blown tight, not a fill with a glowing line round it
+
+The bulb is lit from the upper left and gone to the deep beneath, its three ribs stand out of it as cords with a groove beside each, its lower wall is lit from inside and brightens with the pressure where the pressure is shown, and a film sits high on its left. The outline and its glow are gone. The seam gauge, the grips and the jet are information and stay as they were.
+
 ## 2026-09-23 · f1cca61d — THE LEDGER's halves are riveted plating, not a grey fill with a line round it
 
 Each half is dark metal lit from the upper left and gone to the deep at its far lower edge, laid in three bands whose seams are a groove with a lit lip and two rivets, with a bevel along its top and a glint high on the plate. The pale line round the body is gone and the silhouette, which is the health, holds. The cut faces, the seam, the cord and the grommet carry colour and stay as they were.
