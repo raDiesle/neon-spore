@@ -17668,3 +17668,19 @@ stay by his word, so the realism had to come from what they stand in and from
 the one body he had not ruled on, the ball.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE SCOUT's picture looks like something real
+
+- reading — 5 min. The §6.3 brief, the three SCOUT drawing files and the
+  split in `view-role.ts` that decides what each seat may be told.
+- writing — 10 min. The little ship as a shaded violet body with a bounce of
+  cold light, a centred wet porthole and a film of gloss; home a hollow under
+  its ring; PINBALL's socket moved to `wet-socket.ts` so both call one hollow.
+- looking — 5 min. Both seats before and after, the ship cropped; the nose
+  moved off the porthole on the second look.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the split limits the detail**: anything set toward the
+nose would tell the navigator the heading, so every new part of the body had
+to be symmetric about its centre.

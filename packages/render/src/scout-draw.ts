@@ -12,6 +12,7 @@ import { drawRockBody } from "./meteor.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawPodBody } from "./pods.js";
 import { splinePath } from "./spline.js";
+import { drawWetSocket } from "./wet-socket.js";
 
 /**
  * THE SCOUT's arena, drawn: the little ship, what it is there to collect, what
@@ -71,8 +72,9 @@ export function drawScoutWalls(ctx: CanvasRenderingContext2D, l: Layout, cfg: Si
 }
 
 /**
- * Home: a ring on the water in front of the mother ship's mouth, as wide as
- * what counts as being there (`scoutHomeRadiusMilli`). It brightens for as
+ * Home: a ring round a wet hollow on the water in front of the mother ship's
+ * mouth, as wide as what counts as being there (`scoutHomeRadiusMilli`) — a
+ * place the ship is brought back *into* (`wet-socket.ts`). It brightens for as
  * long as the mouth is open, so the pilot — who cannot see the arena — can at
  * least see the moment the navigator gave them.
  */
@@ -86,6 +88,7 @@ export function drawScoutHome(
   const { x, y } = scoutAt(l, scoutHome(cfg.cols, cfg.rows));
   const r = (cfg.scoutHomeRadiusMilli * l.tile) / 1000;
   const ring = splinePath(blobPoints(x, y, r, r * 0.55, 3, 0.04, 0.03, time * 0.4, 11, 24), true);
+  drawWetSocket(ctx, x, y + r * 0.08, r, r * 0.55, Math.max(1, l.tile * 0.03));
   if (open > 0) halo(ctx, x, y, r * 1.6, PALETTE.pod, 0.5 * open);
   strokeGlow(ctx, ring, PALETTE.pod, STROKE.outline, 0.3 + 0.6 * open);
 }

@@ -7,11 +7,13 @@ import {
   scoutNose,
   scoutPrimed,
 } from "@neon-spore/sim";
-import { halo, strokeGlow } from "./glow.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import { scoutAt } from "./scout-draw.js";
 import { splinePath } from "./spline.js";
+import { drawWetSocket } from "./wet-socket.js";
 
 /**
  * THE SCOUT's little ship, drawn. Split off `scout-draw.ts` — the arena it
@@ -65,11 +67,7 @@ export function drawScout(
   }
 
   const body = splinePath(blobPoints(x, y, r, r * 0.9, 3, 0.1, 0.05, time * 0.7, 5, 24), true);
-  ctx.save();
-  ctx.fillStyle = "#1A0B2A";
-  ctx.fill(body);
-  ctx.restore();
-  strokeGlow(ctx, body, PALETTE.hull, STROKE.outline, 0.7);
+  paintScoutBody(ctx, body, x, y, r);
 
   if (!nose) return;
   const tip = scoutNose(round.headingMilli);
@@ -79,7 +77,9 @@ export function drawScout(
   ctx.lineCap = "round";
   ctx.lineWidth = Math.max(1.4, r * 0.18);
   ctx.beginPath();
-  ctx.moveTo(x, y);
+  // From the skin outward, so the heading never crosses the porthole.
+  const skin = r * 0.7;
+  ctx.moveTo(x + (tip.colMilli / 1000) * skin, y + (tip.rowMilli / 1000) * skin);
   ctx.lineTo(x + (tip.colMilli / 1000) * reach, y + (tip.rowMilli / 1000) * reach);
   ctx.stroke();
   ctx.restore();
@@ -97,6 +97,64 @@ export function drawScout(
     ctx.fill();
     ctx.restore();
   }
+}
+
+/**
+ * **The ship as a made thing** — the mother ship's violet with a curve to it,
+ * lit from above like everything else on the field, rather than a dark fill
+ * with a glowing line round it.
+ *
+ * The body is shaded from a lit shoulder to the deep underneath; a cold
+ * bounce comes up off the water into its underside; a wet porthole sits in
+ * the middle with its lower wall lit; a film of gloss rides the top of the
+ * curve. **The porthole is centred, not toward the nose**: an eye set forward
+ * would tell the navigator the heading, which the split keeps from them
+ * (`showsScoutNose`).
+ */
+function paintScoutBody(
+  ctx: CanvasRenderingContext2D,
+  body: Path2D,
+  x: number,
+  y: number,
+  r: number,
+): void {
+  halo(ctx, x, y, r * 1.9, PALETTE.hull, 0.35);
+  ctx.save();
+  const flesh = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.08, x, y, r * 1.1);
+  flesh.addColorStop(0, PALETTE.sheenRim);
+  flesh.addColorStop(0.28, PALETTE.hull);
+  flesh.addColorStop(1, PALETTE.sheenDeep);
+  ctx.fillStyle = flesh;
+  ctx.fill(body);
+  ctx.clip(body);
+  // The bounce off the water, on the underside.
+  ctx.strokeStyle = rgba(PALETTE.sheenCold, 0.75);
+  ctx.lineWidth = r * 0.16;
+  ctx.beginPath();
+  ctx.arc(x, y - r * 0.12, r * 0.98, Math.PI * 0.18, Math.PI * 0.82);
+  ctx.stroke();
+  ctx.restore();
+  // The porthole: a wet socket in the plating with a glint in it.
+  drawWetSocket(ctx, x, y + r * 0.08, r * 0.42, r * 0.34, Math.max(1, r * 0.08));
+  ctx.save();
+  ctx.fillStyle = rgba(PALETTE.sheenDeep, 0.85);
+  ctx.beginPath();
+  ctx.ellipse(x, y + r * 0.04, r * 0.26, r * 0.2, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.8);
+  ctx.beginPath();
+  ctx.arc(x - r * 0.09, y - r * 0.04, r * 0.06, 0, Math.PI * 2);
+  ctx.fill();
+  // The film over the curve: a soft bloom on the shoulder and a hard point.
+  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.45);
+  ctx.beginPath();
+  ctx.ellipse(x - r * 0.38, y - r * 0.46, r * 0.3, r * 0.13, -0.6, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.95);
+  ctx.beginPath();
+  ctx.arc(x - r * 0.46, y - r * 0.5, r * 0.06, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 /** The wake: two chevrons behind the ship, jittering on the frame clock. */
