@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 32c0cbb4 — The doubled window is decided for every boss, and queued as three lanes
+
+The owner's rule of 22 September — double the time a pair has to act and raise the need beside it — reached THE INSTAR alone. docs/spec/choreographed- windows.md now says which figure doubles on each of the other bosses and what need rises with it, and which are left alone because the figure is a cadence, a latency or a tolerance rather than a deadline (THE THROAT, THE LEDGER, THE SCUTTLE, THE HIVE, THE BATON's flight). The application is three queue items, grouped by the shape of their need.
+
 ## 2026-09-23 · f0c80140 — Act eight is two pages, and act-8.ts is 180 lines
 
 `act-8.ts` stood four lines under the 250-line ceiling. THE WELL and THE HANDOVER, act eight's last two waves, move with their paragraphs to `act-8b.ts` — the seam act seven already uses — and the wave barrel and the director's `ACT_FILES` take one more page each. The order of `WAVES` does not change.
