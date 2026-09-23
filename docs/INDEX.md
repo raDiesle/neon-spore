@@ -1038,6 +1038,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/shell-plate.ts` | WHAT A PLATE IS MADE OF — the paint over the geometry next door |
 | `packages/render/src/shell-cut.ts` | WHERE A PLATE SITS ON A BODY — THE SHELL's armour as geometry and nothing else |
 | `packages/render/src/shell-look.ts` | the one record a candidate SHELL patches |
+| `packages/render/src/shell-bare.ts` | The half that has already been chipped: no plate |
 | `packages/render/src/shield-flash.ts` | The shield's ambient flashes: a soft bright patch popping briefly above the rim, at a random spot and a |
 | `packages/render/src/shield-spark.ts` | The shield's ambient arcs: a few thin discharges thrown outward from the rim, gone almost as soon as they |
 | `packages/render/src/shield.ts` | The shield, as a body rather than a plate |

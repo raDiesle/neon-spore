@@ -5,7 +5,7 @@ import { applyLivingFrame, livingFrame, livingPose } from "./living-frame.js";
 import { PALETTE } from "./palette.js";
 import { crackSeed } from "./shell-cut.js";
 import { SHELL_LOOK } from "./shell-look.js";
-import { PLATE, PLATE_RIM } from "./shell-plate.js";
+import { PLATE_RIM } from "./shell-plate.js";
 
 /**
  * THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`)
@@ -92,7 +92,9 @@ function drawOne(
     near,
   );
   const ink = {
-    plate: hazed(cfg, PLATE, near),
+    // One colour for the face and the edge: the owner's, 20 September 2026
+    // (`shell-plate.ts`).
+    plate: hazed(cfg, PLATE_RIM, near),
     rim: hazed(cfg, PLATE_RIM, near),
     light,
     lineWidth: Math.max(1, r * 0.09) / scale,

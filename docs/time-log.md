@@ -17527,3 +17527,17 @@ the mechanic, the creature, the bestiary, the director and decision #29 each
 said the old price in their own words.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE SHELL's plates are one light colour
+
+- reading — 5 min. The entry, `shell-plate.ts`, `shell-draw.ts`, and who else
+  imports `PLATE`.
+- writing — 10 min. One face colour for both plates, a shallow ramp across
+  the body, a dark cut under the splits, and `shell-bare.ts` cut out at the
+  line limit.
+- looking — 10 min. A frame before, an intact shell and a chipped one after.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the splits on a light slab**: the fill was a two-line
+change, and what the body's colour does against it was the question.

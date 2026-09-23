@@ -1,5 +1,6 @@
 import type { CreatureSilhouette } from "@neon-spore/content";
-import { drawBareRim, drawPlate, type PlateInk } from "./shell-plate.js";
+import { drawBareRim } from "./shell-bare.js";
+import { drawPlate, type PlateInk } from "./shell-plate.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **SHELL** PATCHES.

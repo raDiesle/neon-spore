@@ -515,33 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## A shell's plates are two colours where the owner wants one
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-the-throb-wears-the-ammunition-colours-where-the (claim: claude/queue-a-shells-plates-are-two-colours-where-the-owner)
-- **Files:** `packages/render/src/shell-plate.ts`, `packages/render/src/shell-draw.ts`, `packages/render/src/shell-cut.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *"Shell" enemy: all shell parts should have the
-same colour, which is the light white one, so dark will become unused.*
-
-`shell-plate.ts` has the two: `PLATE`, `#23222C`, the dead material a plate is
-filled with, and `PLATE_RIM`, `PALETTE.rock`, its lit outer edge.
-`shell-draw.ts` hazes both by distance and hands them over as `PlateInk`. The
-ask is that the fill becomes the rim's colour and `PLATE` goes.
-
-It is not a two-line change and the file says why itself. `PLATE` is darker
-than `PALETTE.rockDark` *on purpose*: the splits and the crack carry the
-body's own colour through the armour, and light only reads as light where what
-surrounds it is darker. A white plate makes cyan coming out of a crack a
-scratch on the plate. So the lane that does this has to answer what the splits
-become on a light slab — a dark line rather than a lit one, or the body's
-colour at a weight that still reads — and the wall, the face and the specular
-in the same file each want looking at again against a light fill.
-
-A look the owner asked for by name (`CLAUDE.md`'s first exemption), so it goes
-on the field; a frame of an intact shell and a cracked one is the proof.
-
 ## THE GAUGE's dial is a claw and its band is a pod
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

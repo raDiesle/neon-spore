@@ -1,7 +1,7 @@
 import { type CreatureSilhouette, KEY, surfaceLit } from "@neon-spore/content";
 import { mixHex, rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
-import { bareArc, plateBearing, platePaths } from "./shell-cut.js";
+import { plateBearing, platePaths } from "./shell-cut.js";
 
 /**
  * WHAT A PLATE IS MADE OF — the paint over the geometry next door.
@@ -17,8 +17,16 @@ import { bareArc, plateBearing, platePaths } from "./shell-cut.js";
  * half and filled in one flat grey: the one hard surface in the game with no
  * highlight, no bevel and no thickness at all, sitting directly over a body
  * that had all three. Three things a lid cannot have replaced it, in the order
- * a solid is built — a wall, a face lit by its own normal, and a specular that
+ * a solid is built — a wall, a face with a ramp, and a specular that
  * does not travel — and each is commented where it is drawn.
+ *
+ * **Both plates are one colour** — the owner, 20 September 2026: *all shell
+ * parts should have the same colour, which is the light white one.* The face
+ * used to take the key by its own normal, so the plate over the left half came
+ * out near white and the one over the right near black, and the pair read two
+ * materials. Now both are `PLATE_RIM`, the light one, under one shallow ramp
+ * across the whole body; the light is said by the specular and the lit edge,
+ * which are highlights rather than a second colour.
  *
  * **Nothing on a plate glows.** The split and the crack carry the body's own
  * colour, which on an intact shell is the only way the pair can tell red from
@@ -28,21 +36,17 @@ import { bareArc, plateBearing, platePaths } from "./shell-cut.js";
  * half altogether.
  */
 
-/** Dead, non-living material. Opaque, because the plate has to hide the half
- * of the body behind it — a translucent one would show the whole creature and
- * say nothing.
- *
- * Darker than `PALETTE.rockDark`, which a rock is filled with, and the
- * difference is the splits: light coming out of a crack only reads as light
- * if what surrounds it is darker than it is, and at `rockDark` the cyan came
- * out looking like a scratch on the plate rather than something behind it. */
+/** Dead, non-living material, as THE CRAWLER and THE LID still wear it. The
+ * shell's plates were filled with it until 20 September 2026 and are
+ * `PLATE_RIM` now; the two above are a question for the owner, not this file. */
 export const PLATE = "#23222C";
-/** The plate's lit outer edge. Hard and bright where the body's own outline
- * is soft and coloured; that contrast is most of what says "armour". */
+/** The shell's one colour: every plate's face, and its hard outer edge. Hard
+ * and bright where the body's own outline is soft and coloured; that contrast
+ * is most of what says "armour". */
 export const PLATE_RIM = PALETTE.rock;
 
-/** What one plate is drawn in: its own dead material, and the light of the
- * body behind it. All three already hazed by the caller, which owns the row. */
+/** What one plate is drawn in: its face, its edge, and the light of the body
+ * behind it. All three already hazed by the caller, which owns the row. */
 export interface PlateInk {
   plate: string;
   rim: string;
@@ -63,16 +67,17 @@ export interface PlateInk {
  * the word. */
 const LIFT = 0.05;
 
-/** How much of the plate's value survives where it faces away from the light.
- * A shadow is cool and never black (`docs/style-guide.md`), so the floor is the
- * plate's own dead grey rather than nothing. */
-const FLOOR = 0.22;
-
-/** How far across its own width the face ramps, as shares of the reach either
- * side of centre. Six stops would be a surface; this is a slab, and a slab's
- * face is nearly flat — the ramp is what says which way it is tilted, not what
- * says it is round. */
+/** How far across the body the face ramps, as shares of the reach either side
+ * of centre, and how far toward the background its far end goes. Shallow: the
+ * ramp runs across both plates, and a deep one would make the far plate the
+ * dark one again. */
 const RAMP = 0.9;
+const SHADE = 0.15;
+
+/** How wide the dark cut is that the body's colour shows through, as a share
+ * of the line. On a light slab a coloured line alone is a scratch on it; a cut
+ * darker than the plate with the colour inside it is a crack. */
+const CUT = 2.4;
 
 /** How wide the specular is, as a share of the reach, and how bright. */
 const SPEC_R = 0.34;
@@ -97,15 +102,15 @@ function keyIn(rot: number): { x: number; y: number } {
  * *called* rather than a dot product with `KEY` written out here, which is the
  * same call `warden-plates.ts` makes for the same shape of thing.
  */
-function litFace(piece: number, rot: number): number {
+export function litFace(piece: number, rot: number): number {
   const a = plateBearing(piece) + rot;
   return surfaceLit(Math.cos(a), Math.sin(a), 1, 0);
 }
 
 /**
- * One plate: a slab with a wall and a face lit by the half it is on — the left
- * one bright, the right one nearly out — under a highlight that stays where
- * the light is while the body sways beneath it.
+ * One plate: a slab with a wall and a light face, the same on either half,
+ * under a highlight that stays where the light is while the body sways
+ * beneath it.
  */
 export function drawPlate(
   ctx: CanvasRenderingContext2D,
@@ -131,20 +136,19 @@ export function drawPlate(
   ctx.save();
   ctx.translate(k.x * reach * LIFT, k.y * reach * LIFT);
 
-  // **The face.** One value for the whole plate — a plate over the left half
-  // faces up and left and takes nearly all of the light, the one over the
-  // right almost none — with a shallow ramp across it saying which way it is
-  // tilted. Not a round body's ramp: this is a slab, and a slab is flat.
-  const face = mixHex(ink.plate, PALETTE.rock, FLOOR + (1 - FLOOR) * lit);
+  // **The face**, in the shell's one colour whichever half it is on, with a
+  // shallow ramp away from the key. The ramp is in the body's frame, so it
+  // runs on across the other plate rather than starting again: one slab of
+  // light, not two plates lit two ways.
+  const face = ink.plate;
   const g = ctx.createLinearGradient(
     k.x * reach * RAMP,
     k.y * reach * RAMP,
     -k.x * reach * RAMP,
     -k.y * reach * RAMP,
   );
-  g.addColorStop(0, mixHex(face, PALETTE.rock, 0.35));
-  g.addColorStop(0.55, face);
-  g.addColorStop(1, mixHex(face, PALETTE.background, 0.4));
+  g.addColorStop(0, face);
+  g.addColorStop(1, mixHex(face, PALETTE.background, SHADE));
   ctx.fillStyle = g;
   ctx.fill(p.body);
 
@@ -156,7 +160,7 @@ export function drawPlate(
     ctx.lineWidth = ink.lineWidth * 0.8;
     ctx.stroke(p.arc);
   }
-  ctx.strokeStyle = rgba(ink.rim, 0.35 + 0.4 * lit);
+  ctx.strokeStyle = rgba(ink.rim, 0.75);
   ctx.lineWidth = ink.lineWidth;
   ctx.stroke(p.arc);
 
@@ -186,52 +190,18 @@ export function drawPlate(
   // an intact shell these two lines are the only way the pair can tell a red
   // body from a cyan one, so the colour has to be there; a bloom around them
   // would be armour giving off light, which is the one thing armour does not
-  // do (`shell-draw.ts`, and the owner's answer on 9 September 2026).
+  // do (`shell-draw.ts`, and the owner's answer on 9 September 2026). A dark
+  // cut under each, because the slab is light: the colour reads as coming out
+  // of the plate only where what is round it is darker than it is.
+  ctx.strokeStyle = rgba(PALETTE.background, 0.85);
+  ctx.lineWidth = ink.lineWidth * CUT;
+  ctx.stroke(p.edge);
+  ctx.lineWidth = ink.lineWidth * CUT * 0.8;
+  ctx.stroke(p.crack);
   ctx.strokeStyle = ink.light;
   ctx.lineWidth = ink.lineWidth * 0.9;
   ctx.stroke(p.edge);
   ctx.strokeStyle = rgba(ink.light, 0.8);
   ctx.lineWidth = ink.lineWidth * 0.7;
   ctx.stroke(p.crack);
-}
-
-/**
- * The half that has already been chipped: no plate, but the same hard grey
- * edge the surviving plate is rimmed with, traced along the *body's* own
- * contour rather than the plating's — the body underneath stands at its true
- * size, and this is a border on it, not a ghost of the armour that left.
- *
- * The reason it is drawn at all is the pair's problem, not a decorative one:
- * with one plate on and one off, the two halves of a shell are a hard rim and
- * a soft coloured outline standing side by side, and the rim on the bare half
- * says *this body is still a shell* while the missing plate says *this is the
- * side that is already open*. Once the last plate goes, `drawShellArmour`
- * stops before reaching here and the body is drawn with its own outline
- * alone — which is exactly what "no armour left" has to look like.
- *
- * It is the same material as the plate beside it or the body wears two
- * answers, so it takes the same light: bright where that half faces the key
- * and nearly out where it does not. There is no plate left to lift, which is
- * also the honest picture of a rim with nothing standing on it.
- *
- * Only the arc, never the split down the middle: the plate next door rims
- * only its arc too, and the split is where the body's colour comes out.
- */
-export function drawBareRim(
-  ctx: CanvasRenderingContext2D,
-  s: CreatureSilhouette,
-  piece: number,
-  t: number,
-  ink: PlateInk,
-): void {
-  const lit = litFace(piece, ink.rot);
-  const arc = bareArc(s, piece, t);
-  ctx.strokeStyle = rgba(ink.rim, 0.4 + 0.6 * lit);
-  ctx.lineWidth = ink.lineWidth;
-  ctx.stroke(arc);
-  if (lit > 0.12) {
-    ctx.strokeStyle = rgba(PALETTE.text, 0.1 + 0.4 * lit);
-    ctx.lineWidth = ink.lineWidth * 0.5;
-    ctx.stroke(arc);
-  }
 }

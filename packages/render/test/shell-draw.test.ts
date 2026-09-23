@@ -91,11 +91,10 @@ function drawFrames(world: ReturnType<typeof createWorld>): number {
  * here from the one row the body is on.
  *
  * The **colour** is counted and the alpha is not. A plate and a bared half are
- * the same material and are edged in the same grey, but each is laid down at a
- * strength that follows how much of the key light that half takes — a slab is
- * lit by its own normal (`shell-plate.ts`) — so a test that pinned the whole
- * `rgba(...)` string would be asserting the light angle in the one place that
- * is meant to be about the material. */
+ * the same material and are edged in the same grey; how strongly is a picture
+ * question (`shell-plate.ts`), so a test that pinned the whole `rgba(...)`
+ * string would be asserting a strength in the one place that is meant to be
+ * about the material. */
 function greyStrokes(world: ReturnType<typeof createWorld>): number {
   const { ctx } = stubCanvas();
   const log: string[] = [];

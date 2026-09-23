@@ -179,6 +179,14 @@ a chipped half keeps is the same material as the plate beside it, and a look
 that moved one and not the other would put a body on the field wearing two
 answers.
 
+**Amended 20 September 2026: one grey, not two.** The owner: *all shell parts
+should have the same colour, which is the light white one.* The two-greys
+reading above is gone — both plates are `PLATE_RIM` under one shallow ramp,
+the light is said by the specular and the lit edge, and the splits are a dark
+cut with the body's colour inside it, because a coloured line on a light slab
+is a scratch (`shell-plate.ts`). `PLATE`, the dark, is left to THE CRAWLER and
+THE LID.
+
 
 ## And one on two bodies at once, the same day
 
