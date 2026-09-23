@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE SURGE prints SHIELD across the rock it just spat
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-surge-prints-shield-across-the-rock-it-just)
 - **Files:** `packages/render/src/surge-word.ts`, `packages/render/src/boss-cue-draw.ts`, `packages/render/src/boss-cue-field.ts`
 - **Where:** local
 
