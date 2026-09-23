@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 7c14ebb6 — THE TASTER's rehearsal plays on the game's half-beat grid
+
+Each of its seven shots now sits fifteen ticks before the point its bolt leaves on, as THE HIVE's do. The film names `chargeBeats: 0.5`. The tongue sets, grows, thickens once, pares and shears on the same events as before, and its own test holds on the new grid.
+
 ## 2026-09-23 · fcc2755b — THE CANDLE's rehearsal plays on the game's half-beat grid
 
 Each of its six tapped shots now sits fifteen ticks before the point its bolt leaves on, as THE HIVE's do. The film names `chargeBeats: 0.5` and dims, feeds, smokes and puts out the glow on the same events as before. The held beam that ends it stays where it was, because a lance leaves when it is full, not on the grid.
