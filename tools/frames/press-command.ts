@@ -105,6 +105,16 @@ export function commandFor(
       }
       return { kind, lane };
     }
+    case "valve": {
+      // THE GAUGE's two buttons are one command with a direction, held until
+      // a second press lets go of it (`sim/command-round.ts`).
+      const way = needs();
+      if (way === "off") return { kind, on: false, dir: 1 };
+      if (way !== "left" && way !== "right") {
+        throw new Error(`--press ${whole}: "${one}" — a valve turns left or right, or goes off`);
+      }
+      return { kind, on: true, dir: way === "left" ? -1 : 1 };
+    }
     case "mawTake":
       // The same command the ship's own maw sends; only the seat differs, and
       // the seat is on the press already (`content/src/control-command.ts`).
