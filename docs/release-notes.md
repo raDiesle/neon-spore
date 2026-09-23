@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 28d9d969 — `FRAMES_CHROME` is read when a browser is looked for, not at import
+
+The variable sat in the module-level candidate list, so anything that set it after `chrome.ts` was imported was ignored without a word. `findChrome` now builds the list when it is called: `FRAMES_CHROME` first, then the shipped paths.
+
 ## 2026-09-23 · 1f4226f4 — `bun run pair` sends a before and an after as one PNG
 
 `bun run pair <before.png> <after.png> <out.png>` joins two pictures with a grey gutter, before on the left or on top. Crops wider than they are tall stack and portrait frames sit side by side, whichever is nearer a phone's shape; `--stack` and `--beside` override that. A smaller picture is centred on the grey, never stretched, and frames need not agree on alpha.
