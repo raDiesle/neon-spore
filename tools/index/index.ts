@@ -6,10 +6,6 @@
  * this module is unit-testable on strings.
  */
 
-export const CODE_HEADING = "## Code\n";
-export const START_MARKER = "<!-- index:code:start -->";
-export const END_MARKER = "<!-- index:code:end -->";
-
 /** Package roots, in the order their `###` sections appear. */
 export const GROUPS = [
   "packages/sim",
@@ -22,7 +18,9 @@ export const GROUPS = [
   "tools",
 ] as const;
 
+import { END_MARKER, normaliseEol, START_MARKER, splitDoc } from "./doc.js";
 import { fileBeside } from "./place.js";
+import { refreshRow } from "./refresh.js";
 import { deriveHeaderSentence } from "./sentence.js";
 
 export interface Row {
@@ -80,67 +78,19 @@ export function formatRow(path: string, text: string): string {
 }
 
 /**
- * The document with its line endings settled before anything looks at it.
- *
- * **Every marker in this file ends in a newline**, and `indexOf` is exact — so
- * a `docs/INDEX.md` whose lines end `\r\n` failed to find `## Code\n` and threw
- * *docs/INDEX.md has no "## Code" heading*, which is false and sends a reader
- * looking for a heading that is right there. It cost a turn on 9 September
- * 2026, and it will keep happening: `.gitattributes` settles line endings for
- * everything git touches, but **markdown is not formatted by biome**, so a CRLF
- * `.md` in a working tree passes `bun run check` until a tool that matches on a
- * newline breaks on it — and any session editing a document with a script that
- * writes the platform newline puts one there.
- *
- * Normalising rather than refusing, because the file this writes back is LF
- * either way: `.gitattributes` asks for LF, so a run over a CRLF document
- * quietly repairs it, which is the outcome a refusal would have asked a person
- * to produce by hand. What is left of the old error is now true — if it fires,
- * the heading really is missing.
- */
-export function normaliseEol(text: string): string {
-  return text.includes("\r\n") ? text.replaceAll("\r\n", "\n") : text;
-}
-
-/** Splits the document around the Code table so everything else passes through untouched. */
-export function splitDoc(text: string): {
-  before: string;
-  intro: string;
-  body: string;
-  after: string;
-} {
-  const headingIdx = text.indexOf(CODE_HEADING);
-  if (headingIdx === -1) {
-    throw new Error("docs/INDEX.md has no '## Code' heading to anchor the generated table on");
-  }
-  const before = text.slice(0, headingIdx + CODE_HEADING.length);
-  const rest = text.slice(headingIdx + CODE_HEADING.length);
-  const startIdx = rest.indexOf(START_MARKER);
-  const endIdx = rest.indexOf(END_MARKER);
-  if (startIdx !== -1 && endIdx !== -1) {
-    return {
-      before,
-      intro: rest.slice(0, startIdx).trim(),
-      body: rest.slice(startIdx + START_MARKER.length, endIdx),
-      after: rest.slice(endIdx + END_MARKER.length).trim(),
-    };
-  }
-  // First run: no markers yet, the whole remainder is the old flat table.
-  return { before, intro: "", body: rest, after: "" };
-}
-
-/**
- * What the generator is allowed to ask about the working tree. Three questions
+ * What the generator is allowed to ask about the working tree. Four questions
  * and no file-system access, so the whole of this module stays testable on
  * strings — `run.ts` is the only place that reads a directory.
  */
 export interface Tree {
   /** Every in-scope source file, repo-relative with forward slashes. */
   scope: string[];
-  /** A file's text, asked only for a path that has no row yet. */
+  /** A file's text, asked for a path with no row yet and for one `before` names. */
   read: (relPath: string) => string;
   /** Whether anything is at this path. */
   has: (relPath: string) => boolean;
+  /** A changed file's earlier sources, for `refreshRow`; omitted, every row stays. */
+  before?: (relPath: string) => readonly string[];
 }
 
 /**
@@ -171,11 +121,14 @@ export function rowLives(path: string, has: (relPath: string) => boolean): boole
  * fix the table could not fix the half it was failing on, and the fix was a
  * hand edit found by reading test output. The invariant that survives is the
  * one the keeping was for: a *surviving* row keeps its hand-written text
- * exactly.
+ * exactly — and a row that was only ever the header's own sentence follows the
+ * header when it changes (`refresh.ts`).
  */
 export function generateIndex(currentText: string, tree: Tree): string {
   const { before, intro, body, after } = splitDoc(normaliseEol(currentText));
-  const existing = parseRows(body).filter((r) => rowLives(r.path, tree.has));
+  const existing = parseRows(body)
+    .filter((r) => rowLives(r.path, tree.has))
+    .map((r) => refreshRow(r, () => tree.read(r.path), tree.before?.(r.path) ?? []));
   const existingByPath = new Map(existing.map((r) => [r.path, r]));
   const dirPrefixes = existing.filter((r) => r.path.endsWith("/")).map((r) => r.path);
   const covered = (p: string) => existingByPath.has(p) || dirPrefixes.some((d) => p.startsWith(d));

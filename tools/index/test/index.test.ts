@@ -2,14 +2,8 @@ import { describe, expect, test } from "bun:test";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { itCosts } from "../../test/figure.js";
-import {
-  filterScopeFiles,
-  generateIndex,
-  normaliseEol,
-  parseRows,
-  rowLives,
-  type Tree,
-} from "../index.js";
+import { normaliseEol } from "../doc.js";
+import { filterScopeFiles, generateIndex, parseRows, rowLives, type Tree } from "../index.js";
 import { deriveHeaderSentence } from "../sentence.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");

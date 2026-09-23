@@ -450,32 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## `bun run index` adds a row for a new file but never refreshes one that changed
-
-- **Found:** 2026-09-22, claude/wave-lost-screen-redesign
-- **Taken:** 2026-09-23, claude/queue-index-refresh (claim: claude/queue-bun-run-index-adds-a-row-for-a-new-file-but-neve)
-- **Files:** `tools/index/`, `docs/INDEX.md`, `tools/index/test/index.test.ts`
-
-The lost screen's redesign rewrote the headers of `lost-shut.ts`,
-`lost-look.ts` and `lost-answer.ts`. `bun run index` picked up the three new
-files and wrote correct rows for them, and left all three changed files
-describing what they used to draw — `lost-shut.ts` still said its cut was a
-vertical slot after the slot had gone. The rows had to be edited by hand and
-the generator run again over the top.
-
-So the generator only ever *adds*. That is the wrong default for a map whose
-whole job is to be trusted before a file is opened: a row that was right once
-and is wrong now is worse than a missing row, because nothing about it looks
-stale. A lane has no reason to suspect a row it did not touch, and the file is
-loaded by name in `CLAUDE.md`'s own instruction to read it first.
-
-The work is to make a regenerate actually regenerate: recompute every row from
-the file it names, not just the rows with no file yet. The one thing to be
-careful of is a row somebody wrote better than the generator would — if there
-are any, find them first and decide whether the summary is derived or
-hand-held, because a blind rewrite would flatten them. A test that changes a
-header and asserts the row moves is the proof.
-
 ## The replay settles four generated files and not the fifth, `registry.ts`
 
 - **Found:** 2026-09-22, claude/wave-lost-screen-redesign

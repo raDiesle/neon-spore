@@ -55,10 +55,20 @@ export interface Regenerated {
   added: string[];
   /** Rows this run would drop, the file they name being gone. */
   dropped: string[];
+  /** Rows that were their file's header sentence and follow the header it has now. */
+  refreshed: string[];
 }
 
-/** What `bun run index` would write, worked out without writing it. */
-export function regenerate(root: string): Regenerated {
+/**
+ * What `bun run index` would write, worked out without writing it. `before`
+ * is `sourceAtBase` from `base.ts`, for a caller that wants rows refreshed;
+ * without it every surviving row is kept, which is what a replay mid-rebase
+ * needs, having no base of its own to ask about.
+ */
+export function regenerate(
+  root: string,
+  before?: (relPath: string) => readonly string[],
+): Regenerated {
   const scope = scopeOf(root);
   const path = join(root, "docs", "INDEX.md");
   const was = readFileSync(path, "utf8");
@@ -66,21 +76,26 @@ export function regenerate(root: string): Regenerated {
     scope,
     read: (relPath) => readFileSync(join(root, relPath), "utf8"),
     has: (relPath) => existsSync(join(root, relPath)),
+    before,
   });
-  const before = new Set(parseRows(was).map((r) => r.path));
-  const after = new Set(parseRows(text).map((r) => r.path));
+  const old = new Map(parseRows(was).map((r) => [r.path, r.line]));
+  const now = new Map(parseRows(text).map((r) => [r.path, r.line]));
   return {
     text,
     was,
     scope: scope.length,
-    added: [...after].filter((p) => !before.has(p)),
-    dropped: [...before].filter((p) => !after.has(p)),
+    added: [...now.keys()].filter((p) => !old.has(p)),
+    dropped: [...old.keys()].filter((p) => !now.has(p)),
+    refreshed: [...now].filter(([p, line]) => old.has(p) && old.get(p) !== line).map(([p]) => p),
   };
 }
 
 /** The same, written to disk. Returns what it wrote so the caller can say what moved. */
-export function writeIndex(root: string): Regenerated {
-  const out = regenerate(root);
+export function writeIndex(
+  root: string,
+  before?: (relPath: string) => readonly string[],
+): Regenerated {
+  const out = regenerate(root, before);
   writeFileSync(join(root, "docs", "INDEX.md"), out.text);
   return out;
 }

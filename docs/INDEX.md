@@ -89,7 +89,9 @@ Every `.ts` file under `packages/*/src/**` and `apps/*/src/**` (barrels and
 tests excepted) needs a row here; `tools/index/test/index.test.ts` fails and
 names the path when one is missing or a row's file has been deleted. Run
 `bun run index` to add the missing rows, then edit the new row's text in
-place — the generator keeps whatever is there.
+place — the generator keeps whatever is there. A row that is still exactly its
+file's header sentence follows the header when a lane rewrites it; one edited
+by hand never moves.
 
 <!-- index:code:start -->
 
@@ -2240,6 +2242,7 @@ place — the generator keeps whatever is there.
 | `tools/hooks/shell-words.ts` | A command line, split the way the rules in `guard.ts` need to read it: into commands |
 | `tools/icons/run.ts` | `bun run icons` — the home-screen icons, from `apps/game/icon.svg` |
 | `tools/index/run.ts` | `bun run index` — completes `docs/INDEX.md`'s "## Code" table: every in-scope source file gets a row |
+| `tools/index/refresh.ts` | a row that was its file's header sentence follows the header when it changes; one a person wrote stays |
 | `tools/land/git.ts` | The two ways `land` talks to git — one that swallows failure into `""` for questions where "unknown" and… |
 | `tools/land/idle.ts` | How long a merged worktree is left standing, and how long it has been since anybody worked in one |
 | `tools/land/index-merge.ts` | Keeping a lane's own rows when `docs/INDEX.md` is resolved by regenerating it |
@@ -2316,9 +2319,11 @@ place — the generator keeps whatever is there.
 | `tools/versus/by-hand.ts` | The four steps `adopt` prints when it will not take a slot itself |
 | `tools/versus/pose-row.ts` | The row a slot has in the director's `SLOT_POSE` map, taken out with the slot |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
+| `tools/index/doc.ts` | **The shape of `docs/INDEX.md` around its Code table**: the heading and markers the table is anchored on |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
 | `tools/index/place.ts` | where a new row goes: beside the rows whose names it shares a beginning with |
 | `tools/index/generate.ts` | `docs/INDEX.md` as a function of a checkout |
+| `tools/index/base.ts` | the files this checkout changed, as they were at its merge base with `main` and at `HEAD` — what `refresh.ts` measures against |
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
 | `tools/director/src/waves-act-files.ts` | **Where the waves live on disk**, and nothing about writing them |

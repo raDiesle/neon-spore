@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-index-refresh
+
+- reading — 5 min. `tools/index/`, and a count across the table: 1,766 rows
+  are their header's sentence exactly, 792 are words somebody chose.
+- writing — 5 min. `refresh.ts`, `base.ts`, `doc.ts` split off `index.ts` at
+  220 lines, four tests.
+- looking — 0 min. One real header re-headed and `bun run index` run over it:
+  `refreshed`, and it showed the case no committed version can see.
+- friction — 0 min. The heredoc guard twice, on a `\n` in a Python body.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the reading: a blind regenerate would have flattened 792
+rows, and only counting them showed the line between the two kinds.
+
 ## 2026-09-23 — queue-press-with-frames-refuses
 
 - reading — 10 min. `press-plan.ts`, `reach.ts`, the stride loop in
