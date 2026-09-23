@@ -551,6 +551,7 @@ ones first.
 ## Nineteen wave guides in acts 1 to 3 fail the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Taken:** 2026-09-23, claude/task-queue-work-a3403b (claim: claude/queue-nineteen-wave-guides-in-acts-1-to-3-fail-the-wor)
 - **Files:** `packages/content/src/waves/act-1.ts`, `packages/content/src/waves/act-1b.ts`, `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-3.ts`, `packages/content/src/waves/act-3b.ts`, `tools/words/clean.ts`
 
 Forty-nine lines across nineteen waves. These are the first guides a pair ever
