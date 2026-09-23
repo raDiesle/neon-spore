@@ -901,6 +901,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-x.ts` | **What THE VANE is asking for** — page twenty-four, and its own |
 | `packages/render/src/boss-cue-read-y.ts` | **What THE GIMBAL is asking for** — page twenty-five of the readings |
 | `packages/render/src/boss-cue-read-z.ts` | **What THE HASP is asking for** — page twenty-six of the readings, and THE GIMBAL's arrangement next door |
+| `packages/render/src/boss-cue-read-za.ts` | **What THE SPOOL is asking for** — page twenty-seven of the readings, and the shortest: one handle, one seat |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1677,6 +1678,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/spool-draw.ts` | **THE SPOOL**: a thread-spool slung sideways across the top of the field |
 | `packages/render/src/spool-fx.ts` | What THE SPOOL leaves behind a frame: the **shudder** of the casing when the line slips its zone |
 | `packages/render/src/spool-gauge.ts` | **The navigator's gauge**: a track under the barrel, the zone as a bracket in the middle of it |
+| `packages/render/src/spool-grip.ts` | **The thumb on THE SPOOL's brake** — half two of the look lane |
 | `packages/render/src/spool-line.ts` | **The line**, from the underside of the winding to the hull |
 | `packages/render/src/spool-pose.ts` | **How far through a pose THE SPOOL is** — the clock the whole scene is posed off (§21, *Animation*) |
 | `packages/render/src/spool-shape.ts` | **Where THE SPOOL is**, in field pixels: the barrel slung sideways across the top of the field |

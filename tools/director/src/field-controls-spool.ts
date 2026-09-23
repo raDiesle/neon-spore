@@ -20,7 +20,7 @@ export const SPOOL_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE SPOOL'S BRAKE",
     where:
-      "on the lever down the near side of the spool slung across the top of the field, on player 1's screen, from the first movement opening until the casing goes slack",
+      "on the knob of the rail down the near side of the spool slung across the top of the field, on player 1's screen, from the beat it swings in until the casing goes slack",
     seat: "player 1 — the brake is the pilot's, fixed by the target's name and never negotiated, and his screen is the only one it is drawn on",
     gesture: "grab and drag",
     does:

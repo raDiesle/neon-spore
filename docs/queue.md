@@ -515,22 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE SPOOL's brake answers no thumb
-
-- **Found:** 2026-09-23, claude/queue-the-spools-picture-has-never-been-drawn
-- **Taken:** 2026-09-23, claude/queue-task-work-bf5a80 (claim: claude/queue-the-spools-brake-answers-no-thumb)
-- **Files:** `packages/render/src/spool-shape.ts`, `packages/render/src/spool-brake.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
-- **Where:** local
-
-Half two of THE SPOOL's look lane, the hands: the body is drawn and nothing
-on the field answers a thumb. A hit test on the brake's rail that turns a
-press and drag on the pilot's seat into `spoolBrake` at a depth, read off
-`spoolBrakeAt` so the thumb is answered where the knob is drawn (THE
-BELLOWS's `bellows-grip.ts` is the pattern); the cue word on the knob, one
-word in `CARRY`; the film off `STILL_PROSE`; and the rail's rows in
-`controls.md`. §11.36's *What is not built* lists it. Prove it with a
-new spool-grip.test.ts beside `bellows-grip.test.ts`.
-
 ## THE RATCHET's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
@@ -2375,3 +2359,32 @@ the item and the refs — and a line in `next`'s own output naming it, so a
 session that lost the prompt reprints it rather than claiming again. A test
 in `tools/queue/test/` that `show` leaves the refs and `docs/queue.md`
 untouched proves it.
+
+## THE SPOOL's guide has no film
+
+- **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb
+- **Files:** `packages/content/src/scenes/`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`, `docs/spec/bosses.md`
+- **Where:** local
+
+THE SPOOL is drawn and its brake answers a thumb (`render/spool-grip.ts`,
+§11.36's *The hands*), so there is a screen to rehearse and the reason the
+wave sits on `STILL_PROSE` is gone. Write the rehearsal as
+`.claude/skills/new-tutorial` says: the pilot takes the brake, the line runs
+too fast, the navigator's gauge says *slower*, he carries the knob deeper and
+a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
+`briefings.md` §3.2, and drop §11.36's *What is not built*.
+`bun test packages/content` proves the counts.
+
+## `queue next` prints a relative worktree path that nests inside a session's tree
+
+- **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb
+- **Files:** `tools/queue/prompt.ts`, `tools/queue/test/`
+
+The prompt says `git worktree add .claude/worktrees/<name> <branch>`. Run from
+a session that is itself in `.claude/worktrees/<session>/`, as the desktop app
+starts them, that makes `.claude/worktrees/<session>/.claude/worktrees/<name>`
+— a tree inside a tree. This lane removed it and checked the branch out in its
+own tree instead. The prompt should print the path off the main checkout
+(`git rev-parse --path-format=absolute --git-common-dir`, one level up), or
+say to check the branch out in place when the session is already in a spent
+worktree of its own. A test in `tools/queue/test/` on the printed path proves it.

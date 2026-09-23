@@ -6,6 +6,8 @@ import {
   spoolPayRateMilli,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import type { Layout } from "./layout.js";
+import { type SpoolPose, spoolHome, spoolSide } from "./spool-shape.js";
 
 /**
  * **How far through a pose THE SPOOL is** — the clock the whole scene is
@@ -122,4 +124,34 @@ export function spoolRunMilli(s: SpoolState, cfg: SimConfig, beatPhase: number):
 export function spoolAheadMilli(s: SpoolState, cfg: SimConfig, beatPhase: number): number {
   const want = s.wantMilli + (spoolPaying(s) ? s.wantRateMilli * beatPhase : 0);
   return spoolRunMilli(s, cfg, beatPhase) - want;
+}
+
+/**
+ * **Where the whole body stands this frame**: the axle swung in from beyond
+ * the brake's far end on the way in, and lifting off the top with a lazy
+ * sideways swing on the way out — a thing released rather than a thing
+ * thrown. One function because two pages read it: the drawing hangs every
+ * part off it, and the brake's hit test answers a thumb where the knob is
+ * drawn rather than where it would be with the spool at rest (`spool-grip.ts`).
+ */
+export function spoolPlaced(
+  l: Layout,
+  cfg: SimConfig,
+  s: SpoolState,
+  beat: number,
+  beatPhase: number,
+): SpoolPose {
+  const side = spoolSide(l, cfg);
+  const enter = spoolEnter(s, cfg, beat, beatPhase);
+  const drift = spoolDrift(s, cfg, beat, beatPhase);
+  const home = spoolHome(l, cfg);
+  const at = {
+    x: home.x - side * (1 - enter) * l.tile * 3 + side * Math.sin(drift * Math.PI) * l.tile * 0.6,
+    y: home.y - drift * l.tile * 5,
+  };
+  return {
+    at,
+    turn: spoolTurn(s, cfg, beat, beatPhase),
+    wound: spoolWound(s, cfg, beat, beatPhase),
+  };
 }

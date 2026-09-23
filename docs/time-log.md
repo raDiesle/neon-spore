@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-the-spools-brake-answers-no-thumb — the hands, half two
+
+- reading — 5 min. The bellows' and the hasp's grips and tests, `sim/spool-hand.ts`,
+  the drag's depth in `touch.ts`, and where the film and the rows already stood.
+- writing — 5 min. `spool-grip.ts`, `spoolPlaced` lifted out of the drawing,
+  the knob's travel cut to the reach, the cue page, the two wirings,
+  `spool-grip.test.ts`, §11.36, the rail row and two queue items.
+- looking — 0 min. One frame of the pilot's knob and its word.
+- friction — 0 min. `queue next`'s relative worktree path nested a tree inside
+  this session's own; removed, and the branch checked out in place.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — four registrations across four files, found by reading
+the last lane's diff rather than from any one list.
+
 ## 2026-09-23 — queue-the-hasps-picture-has-never-been-drawn — the hands, half two
 
 - reading — 5 min. `sim/hasp-hand.ts` for what each command may carry, the

@@ -16,6 +16,7 @@ import { hiveHaulCircle } from "./hive-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { orreryRingCircle } from "./orrery-grab.js";
 import { sinewHandleAt } from "./sinew-handles.js";
+import { spoolKnobStanding, spoolTakesHand } from "./spool-grip.js";
 import { surgeBulbCircle } from "./surge-shape.js";
 
 /**
@@ -133,6 +134,14 @@ export function bossHandleCircle(
     if (b === null || !haspWorking(b)) return null;
     if (target === "haspWheel") return haspWheelCircle(l, cfg, b);
     return haspLatchTakes(b) ? haspLatchCircle(l, cfg, b) : null;
+  }
+  if (target === "spoolBrake") {
+    // THE SPOOL's one handle, the pilot's: the knob at the depth his thumb
+    // has it, on the spool as it is placed this frame. Null once the casing
+    // is slack, where no rail is drawn (`spool-grip.ts`).
+    const b = world.boss?.kind === "spool" ? world.boss : null;
+    if (b === null || !spoolTakesHand(b)) return null;
+    return spoolKnobStanding(l, cfg, b, world.beat, beatPhase);
   }
   return undefined;
 }

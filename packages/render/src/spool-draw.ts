@@ -8,21 +8,13 @@ import { drawSpoolBrake } from "./spool-brake.js";
 import type { SpoolFx } from "./spool-fx.js";
 import { drawSpoolGauge } from "./spool-gauge.js";
 import { drawSpoolLine } from "./spool-line.js";
-import {
-  spoolDrift,
-  spoolEnter,
-  spoolRibLift,
-  spoolRunMilli,
-  spoolTurn,
-  spoolWound,
-} from "./spool-pose.js";
+import { spoolDrift, spoolEnter, spoolPlaced, spoolRibLift, spoolRunMilli } from "./spool-pose.js";
 import {
   type SpoolPose,
   spoolBarrelHalf,
   spoolBarrelPath,
   spoolFlangePath,
   spoolFlangeR,
-  spoolHome,
   spoolRibPath,
   spoolSide,
   spoolSocketPath,
@@ -65,15 +57,8 @@ export function drawSpool(
   const side = spoolSide(l, cfg);
   const enter = spoolEnter(s, cfg, beat, beatPhase);
   const drift = spoolDrift(s, cfg, beat, beatPhase);
-  const turn = spoolTurn(s, cfg, beat, beatPhase);
-  const home = spoolHome(l, cfg);
-  // It swings in from beyond the brake's far end, and lets go upward with a
-  // lazy sideways swing — a thing released rather than a thing thrown.
-  const at = {
-    x: home.x - side * (1 - enter) * l.tile * 3 + side * Math.sin(drift * Math.PI) * l.tile * 0.6,
-    y: home.y - drift * l.tile * 5,
-  };
-  const pose: SpoolPose = { at, turn, wound: spoolWound(s, cfg, beat, beatPhase) };
+  const pose = spoolPlaced(l, cfg, s, beat, beatPhase);
+  const { at } = pose;
   const run = spoolRunMilli(s, cfg, beatPhase);
 
   ctx.save();
