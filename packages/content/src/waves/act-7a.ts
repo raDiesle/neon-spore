@@ -83,12 +83,11 @@ export const WAVES_ACT_7A: Wave[] = [
   {
     id: "theChoke",
     name: "THE CHOKE",
-    sentence:
-      "The one where the gun steers itself, and a trigger that waits for it to come back is the mistake.",
+    sentence: "The one where the gun steers itself and a trigger that waits for it is the mistake.",
     guide: {
-      both: "Something is hanging from the top of the field, and it has the steering. Its beam is on the cannon strip, and the cannon walks by itself, a column a beat, wall to wall and back, for the whole wave. The strip is dead and nothing reaches the thing holding it. The trigger still works.",
-      p1: "You cannot steer. The light off the cannon shows you where it goes next, and only you see it: call the column it will be under on the next beat, out loud, before it gets there — and say when it turns at a wall.",
-      p2: "Your trigger works and the cannon is walking. Fire on the pass: the shot that lands is the one fired on the beat the cannon is under a body, so wait for the call, not the sight of it.",
+      both: "Something at the top of the field has the steering. No shot reaches it. The cannon walks by itself, a column a beat, wall to wall. The trigger still works.",
+      p1: "1. You cannot steer.\n2. The light off the cannon shows where it goes next. Only you see it.\n3. Call the column it will be under on the next beat.\n4. Say when it turns at a wall.",
+      p2: "1. Your trigger works. The cannon walks by itself.\n2. Fire on the beat it is under a body.\n3. Wait for the call, not the sight of it.",
     },
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -107,11 +106,11 @@ export const WAVES_ACT_7A: Wave[] = [
   {
     id: "theLimpet",
     name: "THE LIMPET",
-    sentence: "The one where a plate that stands still is the mistake.",
+    sentence: "The one where a shield that stands still is the mistake.",
     guide: {
-      both: "The thing at the top of the field fires a round body with hooks at the plate, very fast, and it clamps on wherever the plate is. No shot touches it. From then on the plate must keep moving: a plate that has not been in a new column for a beat and a half loses the round. A timer over the body says how many beats it stays — when it runs out the line is reeled back in and the body goes with it.",
-      p1: "You cannot move the plate. MOVE SHIELD! is under your dial and over the body: say it the moment it lands and keep saying it, and call the rocks so player 2 knows where they have to be.",
-      p2: "You hold the plate and it is being held. Keep it moving, a column a beat, and do not park it — not even under a rock. Meet the rock on the beat it lands and be gone on the next.",
+      both: "A hooked body sticks to the shield. No shot touches it. Keep the shield moving, a new column each beat, or you lose. Its timer says when it leaves.",
+      p1: "1. You cannot move the shield. MOVE SHIELD! is under your dial.\n2. Say it the moment the body lands. Keep saying it.\n3. Call the rocks so your partner knows where to be.",
+      p2: "1. You hold the shield, and the body holds it too.\n2. Keep it moving, a column a beat. Never park it, not even under a rock.\n3. Meet a rock on the beat it lands. Be gone on the next.",
     },
     entries: [
       { beat: 0, col: 2, kind: "meteor", color: null },
@@ -131,9 +130,9 @@ export const WAVES_ACT_7A: Wave[] = [
     name: "THE LEECH",
     sentence: "The one where a cannon that stands still is the mistake.",
     guide: {
-      both: "The same thing fires the same body at the cannon, four needles instead of hooks, and it drives them into the swelling wherever the cannon is. No shot touches it. From then on the cannon must keep moving: a cannon that has not been in a new column for a beat and a half loses the round. A timer over the body says how many beats it stays before the line is reeled home.",
-      p1: "You hold the cannon and it is being held. Keep it walking, a column a beat — parking it under a body to give player 2 the shot is the mistake. Fire comes from wherever it is.",
-      p2: "You cannot move the cannon, and you are the one with a panel to read it off. MOVE CANNON! is under your dial and over the body. Say it while the body is on, and call the bodies so player 1 walks the cannon through them.",
+      both: "The same body sticks to the cannon. No shot touches it. Keep the cannon moving, a new column each beat, or you lose. Its timer says when it leaves.",
+      p1: "1. You hold the cannon, and the body holds it too.\n2. Keep it walking, a column a beat.\n3. Never park it under a body to line up the shot.\n4. It fires from wherever it is.",
+      p2: "1. You cannot move the cannon. MOVE CANNON! is under your dial.\n2. Say it while the body is on.\n3. Call the bodies so your partner walks the cannon through them.",
     },
     entries: [
       { beat: 0, col: 3, color: "red" },

@@ -71,12 +71,11 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theUndertow",
     name: "THE UNDERTOW",
-    sentence:
-      "The one that comes up through the floor, so the shield faces down and the maw is the only thing pointing the right way.",
+    sentence: "The one that comes up through the floor, where only the maw points the right way.",
     guide: {
       both: "Lobes rise through your own hull. Swallow each one with the maw as it comes through. Hold the maw open under the last.",
       p1: "1. Say the column where the floor bows.\n2. Slide the cannon under it and open the maw as the lobe comes through.\n3. If it bows under you, slide off within two beats.\n4. On the last lobe, hold the maw open.",
-      p2: "1. Put the plate on a breach your partner cannot reach, so it stops widening.\n2. Move it off when they come for that lobe.\n3. The tall one: hold a colour for the beam and let them keep the column.",
+      p2: "1. Put the shield on a breach your partner cannot reach, so it stops widening.\n2. Move it off when they come for that lobe.\n3. The tall one: hold a colour for the beam and let them keep the column.",
       scene: "theUndertow",
     },
     entries: [
@@ -97,7 +96,7 @@ export const WAVES_ACT_7E: Wave[] = [
     guide: {
       both: "Throw a gum level along the mouth's row, into the mouth. Nothing else hurts it. Clear its column before every inhale.",
       p1: "1. Bring a gum down to the mouth's row.\n2. Carry your thumb sideways to fling it level along that row.\n3. Carry the cannon into the mouth's column before the count runs out. Brake a rock climbing it.",
-      p2: "1. Say the mouth's column every time it moves.\n2. Say the beats until the next inhale.\n3. Fire to clear that column before the inhale. The bolt leaves your partner's cannon, so say when he is under it.",
+      p2: "1. Say the mouth's column every time it moves.\n2. Say the beats until the next inhale.\n3. Fire to clear that column before the inhale.\n4. The shot leaves your partner's cannon. Say when it is in that column.",
       scene: "theThroat",
     },
     entries: [
@@ -128,7 +127,7 @@ export const WAVES_ACT_7E: Wave[] = [
     guide: {
       both: "Shoot the core up the middle column, on a beat when every ring's gap is at the bottom.",
       p1: "1. The middle ring is yours alone. The outer one you both see.\n2. Say when the middle ring's gap is at the bottom.\n3. Count with your partner to the beat all three gaps meet, and say it.",
-      p2: "1. The inner ring is yours alone, and so is the core's colour. Say the colour — it changes with each ring.\n2. Say when the inner ring's gap is at the bottom.\n3. Fire on the beat you both counted. A wrong colour costs.",
+      p2: "1. Only you see the inner ring and the core's colour.\n2. Say the colour. It changes with each ring.\n3. Say when the inner ring's gap is at the bottom.\n4. Fire on the beat you both counted. A wrong colour costs.",
       scene: "theOrrery",
     },
     entries: [],
@@ -138,12 +137,11 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theCandle",
     name: "THE CANDLE",
-    sentence:
-      "The one you fight in the dark, where the only light is what your own shots throw and the boss eats the ones it is facing.",
+    sentence: "The one you fight in the dark, lit only by your own shots.",
     guide: {
       both: "The field is dark. Any colour dims the glow, five times. Never shoot into the column it faces.",
-      p1: "1. Say the column the glow faces, every time it turns.\n2. Keep the cannon under the glow and slide with it.\n3. If it faces its own column, say BEAM: a bolt is eaten there, the beam is not.",
-      p2: "1. Fire at the glow once the cannon is under it.\n2. Hold your thumb when your partner names the glow's own column: that shot is eaten.\n3. Hold a colour for the beam when your partner says BEAM.",
+      p1: "1. Say the column the glow faces, every time it turns.\n2. Keep the cannon under the glow and slide with it.\n3. If it faces its own column, say BEAM. It eats a shot there, never the beam.",
+      p2: "1. Fire at the glow once the cannon is under it.\n2. Hold your thumb when your partner names the glow's own column. It eats that shot.\n3. Hold a colour for the beam when your partner says BEAM.",
       scene: "theCandle",
     },
     entries: [
@@ -158,12 +156,11 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theGorge",
     name: "THE GORGE",
-    sentence:
-      "The one that eats your shots, and the only way to hurt it is to overfeed exactly one part of it.",
+    sentence: "The one that eats your shots, until you overfeed one part of it.",
     guide: {
       both: "Fill one intake with four beads of one colour, then one more shot pierces it. A full one torches its column in four beats.",
-      p1: "1. Pick a column and say it.\n2. Pinch a full one: it waits, and the four beats restart when you lift.\n3. Say the count: four beads, then one more.\n4. Trigger the plate on bodies: a shot past one is a bead.",
-      p2: "1. Say which intake is nearest full and its colour.\n2. Its colour fills it; the other takes a bead out.\n3. Any colour pierces a full one.\n4. The last fills itself: pry it late, with the beam filling, or it clenches.",
+      p1: "1. Pick a column and say it.\n2. Pinch a full one: it waits, and the four beats restart when you lift.\n3. Say the count: four beads, then one more.\n4. Trigger the shield on bodies: a shot past one is a bead.",
+      p2: "1. Say which intake is nearest full and its colour.\n2. Its colour fills it. The other takes a bead out.\n3. Any colour pierces a full one.\n4. The last fills itself. Pry it late, with the beam filling, or it clenches.",
       scene: "theGorge",
     },
     entries: [
@@ -184,7 +181,7 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theCurtain",
     name: "THE CURTAIN",
-    sentence: "The one that is in the way, and the two of you shove it aside a column at a time.",
+    sentence: "The one that is in the way, and you both shove it aside a column at a time.",
     guide: {
       both: "Shove the curtain aside, bare the core, shoot it in its colour. Three times. A hem with no lobes left tears off the rail instead.",
       p1: "1. Say which side of the hem is soft, so a shot can take it off.\n2. Shove the curtain the way your partner says.\n3. Keep a hand on it: four beats with none and it rolls back.",

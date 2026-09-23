@@ -515,17 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Twenty-six wave guides in acts 7a to 7g fail the words check
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-23, claude/task-queue-work-0008a1 (claim: claude/queue-twenty-six-wave-guides-in-acts-7a-to-7g-fail-the)
-- **Files:** `packages/content/src/waves/act-7a.ts`, `packages/content/src/waves/act-7b.ts`, `packages/content/src/waves/act-7c.ts`, `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves/act-7f.ts`, `packages/content/src/waves/act-7g.ts`, `tools/words/clean.ts`
-
-Fifty-nine lines across twenty-six waves, the same job and the same skill.
-Several of these are already close — act-7f has two failing lines across two
-waves — so the file order to work in is the one `bun run words` prints, worst
-subject first.
-
 ## Fourteen wave guides in acts 8 to 10 fail the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
@@ -2216,3 +2205,17 @@ ENEMY TYPE WAVE"`. The work: give the DEMOS rows a column that fits the
 longest id (or `auto`), without moving the WAVES rows, and photograph both
 pages. While there, check whether the label should read the wave's `name`
 (`THE LEAD`) rather than its camelCase key (`theLead`), which is what it draws.
+
+## A guide half's 220-character cap is held where `check:fast` never looks
+
+- **Found:** 2026-09-23, claude/queue-twenty-six-wave-guides-in-acts-7a-to-7g-fail-the
+- **Files:** `packages/render/test/briefing.test.ts`, `packages/content/test/waves.test.ts`
+
+The two tests under "the guides the waves carry" in `briefing.test.ts` —
+p1 is not p2, and each half at most 220 characters — read only
+`WAVES[i].guide` and nothing render draws. A lane that edits guide text
+changes `packages/content`, so `check:fast` runs content's own tests and
+never reaches them; the 7a–7g words lane went green there and red inside
+`bun run land`, two characters over on THE DIASTOLE. Move the two tests into
+`packages/content/test/waves.test.ts` (or a `guides.test.ts` beside it),
+leave `briefing.test.ts` with what it draws, and `bun run check` proves it.

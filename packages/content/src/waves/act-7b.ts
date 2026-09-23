@@ -112,9 +112,9 @@ export const WAVES_ACT_7B: Wave[] = [
     name: "THE CLAW",
     sentence: "The one where the gun is a hand, and the hand cannot see what it is reaching for.",
     guide: {
-      both: "The cannon is an arm. It slides the way the cannon did and REACH sends it up its column — it closes on the first thing it meets, comes back, and nothing calls it home early, not even the strip. Power-ups cross the field sideways instead of hanging. A rock the arm closes on is not crushed: it is dropped, and it comes down like a torch.",
-      p1: "The arm is all you have: no trigger, no plate. Slide ahead of a power-up, not at it, and REACH — and never into a lane with a rock in it, because a rock you touch comes down at you like a torch.",
-      p2: "SUCK is the only thing you have, and nothing is caught without it: the arm brings a power-up down to the hull and it is yours only if your mouth is open when it lands. Count the arm down and open on it.",
+      both: "The cannon is an arm. REACH sends it up to grab the first thing it meets. Power-ups cross sideways. A rock it grabs falls like a torch.",
+      p1: "1. The arm is all you have. No trigger, no shield.\n2. Slide ahead of a power-up, not at it. Then REACH.\n3. Never REACH up a column with a rock in it. It falls on you.",
+      p2: "1. SUCK is all you have. You catch nothing without it.\n2. The arm brings a power-up down to the hull.\n3. Count the arm down. Open your mouth as it lands.",
       scene: "theClaw",
     },
     entries: [

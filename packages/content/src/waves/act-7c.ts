@@ -54,7 +54,7 @@ export const WAVES_ACT_7C: Wave[] = [
     id: "theScout",
     name: "THE SCOUT",
     sentence:
-      "The one where the ship puts something small out into the dark, and only one of you can see where it is going.",
+      "The one where the ship sends something small into the dark and only one of you sees it.",
     guide: {
       both: "Fly the little ship to every mote. Touch nothing that moves. Carrying more than three makes it heavy.",
       p1: "1. Hold ◀ or ▶ to swing the nose to the o'clock they give.\n2. BURN for as long as they say. It keeps drifting after.\n3. Ask what is crossing before every burn.\n4. Heavy ship: drag it to prime, or the burn does nothing.",
@@ -72,9 +72,9 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one where something is watching, and the one it is watching has to sit on their hands.",
     guide: {
-      both: "An eye watches one of you at a time, and only the other screen is told who, seven beats early. The other keeps playing.",
-      p1: "1. Every time it turns, listen for YOU or THEM. Your screen is not told.\n2. YOU: a touch breaks the hull. Say what is falling.\n3. THEM: play on, or pull the lid over the eye. Shut, they are free; open, it looks at you.",
-      p2: "1. Say who it picks, each turn: YOU or THEM. They are not told.\n2. YOU: a touch breaks the hull. Your partner holds the plate.\n3. THEM: play on, or pull the lid over the eye. Shut, they are free; open, it looks at you.",
+      both: "An eye watches one of you at a time. Only the other screen is told who, seven beats early. The other keeps playing.",
+      p1: "1. Every time it turns, listen for YOU or THEM. Your screen is not told.\n2. YOU: a touch breaks the hull. Say what is falling.\n3. THEM: play on, or pull the lid shut. Shut, they are free. Open, it looks at you.",
+      p2: "1. Say who it picks, each turn: YOU or THEM. They are not told.\n2. YOU: a touch breaks the hull. Your partner moves the shield.\n3. THEM: play on, or pull the lid shut. Shut, they are free. Open, it looks at you.",
       scene: "theStare",
     },
     entries: [
@@ -101,11 +101,11 @@ export const WAVES_ACT_7C: Wave[] = [
     id: "theCrossing",
     name: "THE CROSSING",
     sentence:
-      "The one where the lane you are aiming up keeps being taken by something you cannot shoot.",
+      "The one where something you cannot shoot keeps crossing the column you are aiming up.",
     guide: {
-      both: "A rock that comes over a side wall instead of the top. It holds one row, crosses two lanes a beat and leaves at the far side — it never reaches the ship and nothing turns it away. What it does is stand in front of the cannon on its way past.",
-      p1: "The arrow at the edge is yours alone: the row it will hold, the side it comes over, the way it will fly. Say the row and count it across — the lane you are aiming up is only yours until it arrives.",
-      p2: "You see it once it is on the field and never before, and the trigger is still yours. Fire on their word: a bolt that meets a rock dies there, and the body above it goes on falling.",
+      both: "A rock comes over a side wall. It holds one row and crosses two columns a beat. It never reaches the ship. It blocks the cannon's shots as it passes.",
+      p1: "1. Only you see the arrow at the edge.\n2. It shows the row, the side and the way it flies.\n3. Say the row. Count it across.\n4. Your column is yours only until it arrives.",
+      p2: "1. You see it only once it is on the field.\n2. The trigger is still yours. Fire on their word.\n3. A shot that meets a rock dies there. The body above goes on falling.",
       scene: "theCrossing",
     },
     entries: [
@@ -124,9 +124,9 @@ export const WAVES_ACT_7C: Wave[] = [
     name: "THE CHOIR",
     sentence: "The one where the half-made gesture is worse than none at all.",
     guide: {
-      both: "Two grey balls, apart, in one lane. Nothing you can fire reaches either of them. What opens them is not on either panel, and it is two moves inside two beats: shake the phone and shake it again, or carry the two big arrows outward — one, then the other. They glow, then close, and the colour bleeds in as they do.",
-      p1: "Yours, and it is not a button. Shake the phone twice; if it will not answer, carry one arrow off its edge and then the other. Two moves, two beats. Stop after the first and it sings, and the hull pays.",
-      p2: "You cannot open it, and a shot before it is one is spent on nothing. The glow says it has started; the colour bleeding in says which trigger. Load it, wait for them to close, then fire up their lane.",
+      both: "Two grey balls sit in one column. No shot reaches them. To open them, shake the phone twice, or carry both big arrows outward. Do it in two beats.",
+      p1: "1. This is yours, and it is not a button.\n2. Shake the phone twice.\n3. No answer? Carry one arrow off its edge, then the other.\n4. Two moves, two beats. Stop after one and it sings, and the hull pays.",
+      p2: "1. You cannot open it. A shot before it opens hits nothing.\n2. The glow says it has started. The colour says which trigger.\n3. Load it, wait for them to close, then fire up their column.",
       scene: "theChoir",
     },
     entries: [
@@ -156,9 +156,9 @@ export const WAVES_ACT_7C: Wave[] = [
     name: "THE BALLOON",
     sentence: "The one where a hand on each of two different bodies is no hands at all.",
     guide: {
-      both: "They come up out of nothing a lane above the ship, swell, and then drift — a row and a lane every other beat, turning at the walls. Reach the top and one turns into a torch there and drops back down the field. Nothing either of you can fire touches them. Each one has a handle on its left and a handle on its right: carry both out at the same instant, two lanes' worth, and hold until the skin gives. The first time it splits in two and the halves part, a lane each way, and both of them go on up, each turning at its own wall. The second pull pops what is left, for nothing.",
-      p1: "Left handles are yours, carried left, and far. Name the one you are taking — its lane, and how high — before you take it: a pull on your own is nothing, and a hand that lets go early gives the hold back.",
-      p2: "Right handles are yours, carried right, and far. Say the one you are taking back before you take it, then hold until it gives. The half nobody agreed on is the one that gets away — up, and back down as a torch.",
+      both: "They drift up, turning at the walls. At the top one falls back as a torch. Pull both its handles out together, and hold. It splits, then pops.",
+      p1: "1. Left handles are yours. Carry them left, and far.\n2. Name the one you take, its column and height, before you take it.\n3. A pull on your own does nothing. Let go early and you lose the hold.",
+      p2: "1. Right handles are yours. Carry them right, and far.\n2. Say which one you take back before you take it.\n3. Hold until it gives.\n4. A half nobody agreed on gets away. It comes back down as a torch.",
       scene: "theBalloon",
     },
     entries: [
