@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 5a0e4e04 — `bun run queue show <n|title>` reprints an item's prompt and claims nothing
+
+`next` prints a prompt longer than a tool call's output, and running it again to read the rest claimed the next free item and pushed its mark. `show` builds the same brief through the same `briefFor` and touches no branch, no line and no remote; `next` now ends by naming it. The listing moved to `list.ts` to keep `run.ts` under its ceiling.
+
 ## 2026-09-23 · 45324f46 — `--until-on N` photographs the rest after an event, as `--until-back` does the rest before one
 
 A screen that comes up a fixed rest after something happens — the lost wave's own screen, about 150 ticks after `waveFailed` and 31 ticks long — is now one flag: `--until waveFailed --until-on 150` steps the same drive on from the event and takes the picture there. Refused without `--until`, at less than one tick, past `--until-ticks`, and beside `--until-back`. The flag parsing moved to `tools/frames/until-flags.ts` when `until.ts` passed the size ceiling.
