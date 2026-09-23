@@ -515,46 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE SURGE prints SHIELD across the rock it just spat
-
-- **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-surge-prints-shield-across-the-rock-it-just)
-- **Files:** `packages/render/src/surge-word.ts`, `packages/render/src/boss-cue-draw.ts`, `packages/render/src/boss-cue-field.ts`
-- **Where:** local
-
-Found by photographing the thing an unverified landing had left unlooked at,
-and the rock's own picture is fine: it leaves the bulb's underside and by the
-next beat it is a clear body with a flame trail under the boss, in the right
-column. What is wrong is the word on top of it.
-
-`surgeWord` returns `WARD` — `{ kind: "PRESS", word: "SHIELD" }` — on the
-pilot's **grip mark**, which is anchored to the bulb. The rock is spat from
-`surgeBulbRow(s, cfg) + 1`, the row directly under the bulb, in one of the
-columns the bulb covers. So the one word the pilot has to read is printed into
-the one place the body he has to answer arrives in: at the spit beat the
-label's plate sits across the rock and the rock's own highlight eats two of
-its glyphs, and it reads `SHIE D`.
-
-The navigator's mark on the same bulb has the second half of it: `PRESS` is
-drawn over the seam, and the seam's black rule goes straight through the word.
-
-Both are anchoring, not art. Either the word moves off the covered columns
-while `surgeWarding` is true, or the grip mark's label goes above the bulb
-rather than below it — the mark itself must stay where the thumb is. A frame
-at the spit beat is one command:
-
-    bun run frames . --wave "THE SURGE" --boss-json '{"notches":2,"heldP1":true,"heldP2":true}' --until surgeRock --seat p1
-
-**A look, so it is offered and not replaced** unless the third exemption is
-taken in the commit: a word printed over the body it names is wrong rather
-than unlovely, which is the same family as a highlight glued to a spinning
-rock (`docs/looks.md`).
-
-Also here, because it is one line in the same file: the constant is still
-called `WARD` after the word it carries became `SHIELD`. `guard` is the
-sanctioned code id for this control (`CLAUDE.md`), so `WARD` is neither the
-player's word nor the code's.
-
 ## Nothing checks the words `packages/render` draws on a playing screen
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c

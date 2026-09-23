@@ -1,12 +1,18 @@
-import { type SimConfig, type SurgeState, surgeHeld } from "@neon-spore/sim";
+import {
+  type SimConfig,
+  type SurgeState,
+  surgeBulbLeft,
+  surgeBulbSpan,
+  surgeHeld,
+} from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
-import { drawCueText } from "./boss-cue-text.js";
+import { drawCueText, WORD_FONT } from "./boss-cue-text.js";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
-import { hitCircle, type Layout } from "./layout.js";
+import { hitCircle, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type Point, surgeBulbCircle } from "./surge-shape.js";
-import { surgeWord } from "./surge-word.js";
+import { SHIELD, surgeWord } from "./surge-word.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -53,6 +59,35 @@ const GRIP_OUT = 0.5;
 const GRIP_DOWN = 0.42;
 /** How big a mark is, in handle radii. */
 const GRIP_R = 0.75;
+
+/** Clear field between `SHIELD` and the bulb's outermost column, in tiles. */
+const SHIELD_CLEAR = 0.15;
+
+/**
+ * Where a mark's word stands across the field: under the mark, except
+ * `SHIELD`, which ends a little clear of the columns the bulb covers on the
+ * mark's side — the rock it names falls in those (`surge-word.ts`). Centred
+ * one column out, its last letter still touched the rock.
+ */
+export function surgeWordX(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  side: -1 | 1,
+  markX: number,
+  word: string,
+): number {
+  if (word !== SHIELD.word) return markX;
+  ctx.save();
+  ctx.font = WORD_FONT;
+  const half = ctx.measureText(word).width / 2;
+  ctx.restore();
+  const left = surgeBulbLeft(cfg);
+  const outer = side < 0 ? left : left + surgeBulbSpan(cfg) - 1;
+  const edge = tileCX(l, outer) + side * l.tile * (0.5 + SHIELD_CLEAR);
+  const x = edge + side * half;
+  return Math.max(half, Math.min(l.width - half, x));
+}
 
 /** Which seat owns which side. Asked by the drawing; the hit test asks neither. */
 export function surgeGripSeat(side: -1 | 1): 1 | 2 {
@@ -122,7 +157,7 @@ export function drawSurgeGrips(
       seat: player,
       kind: say.kind,
       word: say.word,
-      x,
+      x: surgeWordX(ctx, l, cfg, side, x, say.word),
       y,
       halfW: r,
       halfH: r,

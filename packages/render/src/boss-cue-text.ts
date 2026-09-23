@@ -36,8 +36,9 @@ import { PALETTE } from "./palette.js";
  * one boss is the grammar he reads on the next.
  */
 
-/** The verb, and the line over it. THE CHOIR's hand, and a smaller one. */
-const WORD_FONT = '700 11px "Courier New",monospace';
+/** The verb, and the line over it. THE CHOIR's hand, and a smaller one.
+ * The verb's is exported for a drawing that has to know how wide it is. */
+export const WORD_FONT = '700 11px "Courier New",monospace';
 const KIND_FONT = '700 8px "Courier New",monospace';
 
 /** Pixels between the frame and each line of text. */

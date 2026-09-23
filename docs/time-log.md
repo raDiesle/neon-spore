@@ -18297,3 +18297,16 @@ The bottleneck was **the entry's own count**: it said forty-seven, and other
 lanes had already swept all but one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE SURGE prints SHIELD across the rock it just spat
+
+- reading — 5 min. `surge-word.ts`, `surge-grip.ts`, `cueWordY`, where the
+  sim spits the rock.
+- writing — 10 min. `surgeWordX` and its test; `WARD` renamed `SHIELD`.
+- looking — 10 min. Three frames at the spit beat: before, a column out
+  (still touching), measured to the bulb's edge (clear).
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the second frame**: centring the word one column out
+looked right on paper, and only the picture showed the last letter on the rock.

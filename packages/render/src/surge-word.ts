@@ -93,8 +93,17 @@ export interface SurgeWord {
 /** The charge that is on offer while a thumb is off, and the lift once it counts. */
 const CHARGE: SurgeWord = { kind: "HOLD", word: "HOLD" };
 const LIFT: SurgeWord = { kind: "STILL", word: "LIFT" };
-/** The rock in the air, on the one seat that can answer it. */
-const WARD: SurgeWord = { kind: "PRESS", word: "SHIELD" };
+/**
+ * The rock in the air, on the one seat that can answer it.
+ *
+ * **Not drawn under its mark**, the one word here that is not (`surgeWordX`,
+ * `surge-grip.ts`). The rock is spat from the row under the bulb in a column
+ * the bulb covers, so a word under the grip mark was printed across the body
+ * it names: at the spit beat the rock's highlight ate two glyphs and it read
+ * `SHIE D` (21 September 2026). It ends just clear of the bulb's columns on
+ * the mark's own side instead, where no rock of the bulb's falls.
+ */
+export const SHIELD: SurgeWord = { kind: "PRESS", word: "SHIELD" };
 
 /**
  * The one word this seat's grip mark carries this frame, or nothing.
@@ -119,7 +128,7 @@ export function surgeWord(
   const held = surgeHeld(s, player);
   const band = surgeInBand(s, cfg);
   if (held && band) return LIFT;
-  if (warding && player === 1) return WARD;
+  if (warding && player === 1) return SHIELD;
   if (held !== band) return null;
   return CHARGE;
 }
