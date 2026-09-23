@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 67d211ee — A wave gone again stands its introduction for half as long
+
+A pair on a retry has read the wave's three lines already, so every try after the first stands the introduction for 2.75 s instead of 5.5, and the field's rows start that much sooner. One shorter value rather than a fall per retry, and the floor is half: the whole opening — the drop, the standing and the fade — plays at double speed, so the words still land well before they leave.
+
 ## 2026-09-23 · 9ba5215c — Give THE RATCHET its hands: a catch carried down a rail, a pawl pressed on SET
 
 The navigator's catch now takes her thumb at the top of its rail and follows it down, and the pilot's pad takes his press on the pawl's pivot, each on its own screen only and in every phase but the open and the jam. The field says HOLD on her catch while it is not set and LIFT while a clean tooth has spent it, ON SET on his pad while a tooth waits, and FIRE over a loose bolt.

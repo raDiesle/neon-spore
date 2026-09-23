@@ -17299,3 +17299,5 @@ what he waits for without saying anything about her hand.
 
 The bottleneck was **keeping one clock**: the fade is drawn in render/ and
 counted in the app, so the retry's value had to be one function both read.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
