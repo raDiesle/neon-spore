@@ -17990,3 +17990,22 @@ The bottleneck was **the hem**: a narrow lit band along a scalloped edge is
 the outline again, so the light had to rise into the membrane as a glow.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE HIVE's picture looks like something real
+
+- reading — 0 min. `hive-draw.ts`, `hive-shape.ts` and `hive-frame.test.ts`,
+  which counts the bile, the colours, the dim, the swelling's rim and the
+  hull's rim on the scar and the collar.
+- writing — 5 min. `hive-wax.ts`: the mass as wax pressed with comb, lit
+  from the upper left, its top and underside glowing from inside, a film.
+  `hive-cell.ts`: lobes as shaded drops lit inside, breaches as wet sockets
+  with their colour welling. The scar's stitch and the wrung collar stay.
+- looking — 5 min. Both seats before and after at 2×, and a second pass
+  when the red breach had sunk too dark to read and the top band read as a
+  line.
+- friction — 0 min. None.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the breach's colour**: a socket dark enough to look
+sunk hid the red the pilot has to read, so the colour had to come back to
+near full and the shadow go to the lip only.

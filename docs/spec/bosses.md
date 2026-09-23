@@ -2364,9 +2364,16 @@ nothing would make the colour a guess worth taking.
 nearly the width of it: a low dome for a top, flanks that breathe, and an
 underside scalloped into a row of hanging lobes, one a site, in column
 order, in the bile's yellow so it is no kin to THE SCUTTLE's rock a page
-away (`render/hive-draw.ts`, `hive-shape.ts`). A site shut is a lobe with
-nothing in it. A site swelling hangs lower by the beat, its rim brightening
-to the opening, **on the navigator's screen alone** — and two of them at
+away (`render/hive-draw.ts`, `hive-shape.ts`). It is wax, not a fill with a
+glowing line round it (23 September 2026, `hive-wax.ts`, `hive-cell.ts`, a
+look the owner asked for by name, `new-boss-more` §6.3): the mass lit from the
+upper left and gone to the deep beneath, pressed all over with comb, its top
+and its underside lit amber from inside, a film high on the left; each lobe a
+shaded drop of the same wax lit inside its lower wall with a wet point; and a
+breach a wet socket in it, its colour welling from the floor under the lip's
+shadow. A site shut is a lobe with
+nothing in it. A site swelling hangs lower by the beat, lit from inside ever
+brighter to the opening, **on the navigator's screen alone** — and two of them at
 once from the fifth opening. A breach open is an aperture in the lobe, **in
 its colour on the pilot's screen** with the colour's rim breathing, and a
 wax-grey one on the navigator's, so that she sees a breach and not what to
