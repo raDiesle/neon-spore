@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 553d1aa6 — `ledgerPullable` loses a refusal that could never fire
+
+The pull hauls the soonest return on the cord a beat down, so the beat it lands on is earlier than every other return's: two bills on one beat cannot come from here, and the guard that refused it was dead. The comment now says why no refusal is needed, and the sim test named for it — which passed without reaching the guard, because the bead it added became the soonest — now holds the property itself.
+
 ## 2026-09-23 · 8b594646 — `queue take` takes over a claim a landed lane left behind
 
 On 22 September eleven lanes drained the handles entry, each on its own branch, each landing its piece and narrowing the title. Each one left its `Taken:` line and a claim branch derived from the old title. The next lane's `take` read that as held, so every lane ran `release` and then `take`. Now `take` treats a claim as spent when it has a local ref, no worktree stands on it, and main has every commit on it (`tools/queue/spent.ts`). It drops that branch and takes the entry. A cloud claim has no local ref, so it never reads as spent. `lapsed.ts`'s rule stands: a missing ref gives nothing back.
