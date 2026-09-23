@@ -1,9 +1,9 @@
 import type { CairnState, Creature } from "@neon-spore/sim";
-import { cairnUnits, pilePath } from "./cairn-units.js";
+import { drawSlimeFilm, drawSlimeSeams, drawSlimeUnder } from "./cairn-slime.js";
+import { cairnUnits, pilePath, unitPath } from "./cairn-units.js";
 import type { Layout } from "./layout.js";
 import { drawRockBody } from "./meteor.js";
 import { meteorLookFor } from "./meteor-looks.js";
-import { PALETTE } from "./palette.js";
 import { seenFrom } from "./rock-window.js";
 
 /**
@@ -21,13 +21,13 @@ import { seenFrom } from "./rock-window.js";
  * different things somebody swept together, and this is one thing made of
  * seven of the same thing.
  *
- * **The outline is a clip and the seams are a stroke.** Every unit's polygon
+ * **The outline is a clip and the seams are slime.** Every unit's polygon
  * goes into one `Path2D`; filling it would be the union, and clipping to it is
  * the same union used the other way round — so the stones are painted inside
- * the pile's own silhouette and nothing, halo included, reaches past it. Then
- * the same path is stroked, which draws every unit's edge: the ones on the
- * outside are the silhouette and the ones buried inside are the seams, and the
- * seams are the point. Counting the units is counting the fight.
+ * the pile's own silhouette and nothing, halo included, reaches past it. Each
+ * stone's own edge is then stroked as the slime that binds it (`cairn-slime.ts`),
+ * which is its share of the silhouette and of the seams, and the seams are the
+ * point. Counting the units is counting the fight.
  *
  * This is the field of `CAIRN_LOOK` (`cairn-look.ts`), and it is what the
  * first perf run of the wave pointed at: seven whole fires a frame, most of
@@ -51,16 +51,18 @@ export function livePile(
   if (stack.length === 0) return;
   const look = meteorLookFor(body.id);
   const path = pilePath(stack);
+  drawSlimeUnder(ctx, stack, time);
   ctx.save();
   ctx.clip(path);
   for (const u of stack) {
     const seed = body.id * 31 + u.slot;
     drawRockBody(ctx, u.x, u.y, u.r, time, seed, 0, look, seenFrom(stack, u.x, u.y));
+    // Each stone's seam straight after it, so the stone above covers the part
+    // of the line its own body hides and only real joints stay drawn. Inside
+    // the clip, so the silhouette keeps the stroke's inner half and the pile
+    // does not grow a rim wider than the shape it is (`cairn-slime.ts`).
+    drawSlimeSeams(ctx, unitPath(u), l.tile);
   }
-  // Inside the clip, so the silhouette's stroke keeps its inner half and the
-  // pile does not grow a rim half a line wider than the shape it is.
-  ctx.strokeStyle = PALETTE.rockDark;
-  ctx.lineWidth = Math.max(1, l.tile * 0.05);
-  ctx.stroke(path);
+  drawSlimeFilm(ctx, stack);
   ctx.restore();
 }

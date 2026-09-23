@@ -523,56 +523,61 @@ const SCENES: readonly Scene[] = [
     // `fillText` two, and the frame's own interference is the `stroke` and
     // `save` either side of it. The word stands on both screens, because the
     // carry is either seat's, so both seats' rows moved by the same amount.
+    // Remeasured on 23 September 2026, when the stones were bound in slime
+    // (`cairn-slime.ts`): each stone strokes its own seam three times after
+    // it is drawn, where the pile used to stroke one path once, so `stroke`
+    // is fifteen higher; the coat and the strands under the pile are the
+    // new paths, fills and saves, and a gradient each frame for the coat.
     rows: {
       p1: [
         {
           fillRect: 64,
-          stroke: 162,
-          fill: 283,
+          stroke: 177,
+          fill: 293,
           clip: 14,
-          save: 181,
+          save: 189,
           drawImage: 49,
-          createLinearGradient: 132,
+          createLinearGradient: 133,
           createRadialGradient: 79,
-          "new Path2D": 70,
+          "new Path2D": 79,
           fillText: 6,
         },
         {
           fillRect: 64,
-          stroke: 164,
-          fill: 284,
+          stroke: 179,
+          fill: 294,
           clip: 14,
-          save: 181,
+          save: 189,
           drawImage: 49,
-          createLinearGradient: 121,
+          createLinearGradient: 122,
           createRadialGradient: 57,
-          "new Path2D": 45,
+          "new Path2D": 54,
           fillText: 6,
         },
       ],
       p2: [
         {
           fillRect: 63,
-          stroke: 165,
-          fill: 290,
+          stroke: 180,
+          fill: 300,
           clip: 14,
-          save: 182,
+          save: 190,
           drawImage: 48,
-          createLinearGradient: 131,
+          createLinearGradient: 132,
           createRadialGradient: 79,
-          "new Path2D": 68,
+          "new Path2D": 77,
           fillText: 6,
         },
         {
           fillRect: 63,
-          stroke: 167,
-          fill: 291,
+          stroke: 182,
+          fill: 301,
           clip: 14,
-          save: 182,
+          save: 190,
           drawImage: 48,
-          createLinearGradient: 120,
+          createLinearGradient: 121,
           createRadialGradient: 57,
-          "new Path2D": 45,
+          "new Path2D": 54,
           fillText: 6,
         },
       ],

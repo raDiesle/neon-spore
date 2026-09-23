@@ -18077,3 +18077,22 @@ The bottleneck was **the references**: eight lines of `bosses.md` named the
 old file, and each had to be read for which boss it was about.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE CAIRN's picture looks like something real
+
+- reading — 5 min. `cairn-pile.ts`, `cairn-units.ts`, the VERSUS decision
+  that kept the stones the field's own rocks, and `hive-wax.ts` for the
+  material idiom.
+- writing — 5 min. `cairn-slime.ts`: a lobed violet coat behind the stones
+  and a foot under the bottom course, strands with drops that stretch on
+  their own clocks, each stone's seam stroked as lit slime, a film.
+- looking — 5 min. Before and after at 2×, and a second pass when one
+  stroke of the whole pile's path drew every buried edge across the stones
+  above it as a violet web.
+- friction — 0 min. None.
+- landing — 5 min. THE CAIRN's four budget rows remeasured and moved,
+  `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the seams**: a wide stroke of the union path made the
+buried edges louder than the stones, so each stone now strokes its own edge
+straight after it is drawn and the stone above covers what it hides.

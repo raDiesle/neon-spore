@@ -94,16 +94,25 @@ export function cairnUnits(l: Layout, body: Creature, units: number, time: numbe
  * that tracked every facet's wobble would shave the stones it is holding. */
 export function pilePath(units: readonly CairnUnit[]): Path2D {
   const path = new Path2D();
-  for (const u of units) {
-    const spin = signedHash(u.slot, 3) * Math.PI;
-    for (let k = 0; k < 7; k++) {
-      const a = spin + (k / 7) * Math.PI * 2;
-      const x = u.x + Math.cos(a) * u.r;
-      const y = u.y + Math.sin(a) * u.r;
-      if (k === 0) path.moveTo(x, y);
-      else path.lineTo(x, y);
-    }
-    path.closePath();
-  }
+  for (const u of units) unitInto(path, u);
   return path;
+}
+
+/** One unit's facets on their own: the seam it makes with what is under it. */
+export function unitPath(u: CairnUnit): Path2D {
+  const path = new Path2D();
+  unitInto(path, u);
+  return path;
+}
+
+function unitInto(path: Path2D, u: CairnUnit): void {
+  const spin = signedHash(u.slot, 3) * Math.PI;
+  for (let k = 0; k < 7; k++) {
+    const a = spin + (k / 7) * Math.PI * 2;
+    const x = u.x + Math.cos(a) * u.r;
+    const y = u.y + Math.sin(a) * u.r;
+    if (k === 0) path.moveTo(x, y);
+    else path.lineTo(x, y);
+  }
+  path.closePath();
 }
