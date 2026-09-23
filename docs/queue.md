@@ -574,6 +574,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## `packages/content/test/scene-films.test.ts` is 1093 lines
 
 - **Found:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-packages-content-test-scene-films-test-ts-is-109)
 - **Files:** `packages/content/test/scene-films.test.ts`
 
 Four times the ~250-line ceiling, and it grows by a block every time a boss gets
