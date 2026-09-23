@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · c561b89f — A press anywhere along a filmstrip is heard, not refused
+
+`--press` with `--frames N --stride S` refused any press after `--ticks`, even one the strip's later frames were still watching, and the strides between frames stepped with no presses at all. Each frame now gets the presses in its own stride (`pressesByFrame`, `strideOn`), and the guard refuses only a press after the last frame, naming the tick that frame is on.
+
 ## 2026-09-23 · f9f1c2ae — Candidates in one VERSUS slot can share a helper file, and adopt moves it with the winner
 
 A candidate may now import a file that sits beside the slot's candidate directories (`../geometry.js`). `adopt` follows those imports and moves the file into the package with the winner, under the same naming as a sibling, and refuses when two files would land under one name. Closing a slot removes the slot directory with its shared files. A second candidate no longer has to copy the first one's geometry.
