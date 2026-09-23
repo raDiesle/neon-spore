@@ -17877,3 +17877,5 @@ left to go to the deep.
 
 The bottleneck was **the test's one literal alpha**: the fade is proved by
 the body fill at exactly 0.55, so no new paint could use that number.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

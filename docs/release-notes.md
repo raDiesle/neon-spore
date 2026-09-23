@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 92f700f8 — THE TASTER's blades are whetted steel standing in a wet gum
+
+Each blade is steel lit down its leading face and dark down the trailing one, with a grind line and a glint near the point, and no line drawn round it; the colour is still the edge alone. A growing blade is a light moving up through its grey. The crest is a gum of wet flesh with a socket round every root, and a notch is lit from inside with a drop standing in it.
+
 ## 2026-09-23 · 30287be5 — THE CURTAIN is a wet membrane with beads on its hem and a core of flesh behind it
 
 The sheet is lit under a gathered rail and goes to the deep at the hem, each fold a lit line with its shadowed side, a film of gloss high on the left, and no glowing line round it or round any lobe. The lobes are wet grey beads, the pilot's soft ones lit through in the hull's rim; the bare core is dark skin with its colour pooled inside and its lower wall lit from within.
