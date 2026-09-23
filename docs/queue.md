@@ -518,6 +518,7 @@ question that prompted this one.
 ## Fourteen wave guides in acts 8 to 10 fail the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Taken:** 2026-09-23, claude/queue-twenty-six-wave-guides-in-acts-7a-to-7g-fail-the (claim: claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo)
 - **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/waves/act-9.ts`, `packages/content/src/waves/act-10.ts`, `tools/words/clean.ts`
 
 Forty-three lines across fourteen waves, the same job and the same skill. These
