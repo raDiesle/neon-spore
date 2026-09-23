@@ -19,7 +19,7 @@ export interface TestPanel {
 export interface TestBindings {
   world: World;
   jumpToWave: (wave: number) => void;
-  /** The four holds, and the only thing that decides whether a tick runs. */
+  /** The five holds, and the only thing that decides whether a tick runs. */
   run: RunState;
 }
 
@@ -115,13 +115,7 @@ export function bindTestControls({ world, jumpToWave, run }: TestBindings): Test
     }
   }
 
-  // Pausing when the tab goes away keeps a returning player from being buried
-  // under a burst of catch-up ticks — and coming back resumes on its own,
-  // unless the pause was deliberate.
-  document.addEventListener("visibilitychange", () => run.hold("hidden", document.hidden));
-
   refreshWave();
-  run.hold("hidden", document.hidden);
   paint();
   window.setInterval(refreshWave, 250);
   return { open: openPanel };

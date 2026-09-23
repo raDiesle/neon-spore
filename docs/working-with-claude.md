@@ -99,6 +99,13 @@ main's code — and nothing errors, which is the whole problem. The server is
 real, the page loads, and the lane under test is not what answered. Launch by
 absolute path inside your own tree, and ask `/__preview` who replied.
 
+**The Browser pane's page is `hidden` while the pane is not on screen**, and a
+hidden tab is one of the run's holds (`apps/game/src/hidden-hold.ts`): the
+world is held and `world.tick` stays at 0 however long the page has been open.
+Nothing errors, so it reads as a boot that hangs. The one way to tell is to ask
+the page — `document.visibilityState` — and a check that only wants ticks
+drives them through `window.neonSpore` rather than waiting for frames.
+
 **Nothing on a local address installs a service worker.** A cache that answers
 after the server has idled out serves a build that no longer exists, and the
 stale page reads as a bug in the code that just replaced it — which is exactly

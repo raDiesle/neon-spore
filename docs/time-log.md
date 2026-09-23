@@ -18252,3 +18252,16 @@ The bottleneck was **choosing the load to divide by**: the timeout's `LOAD`
 hides the very drift the entry names on the owner's machine.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — The tab's own pause is bound inside the test rig
+
+- reading — 5 min. `testing.ts`, `run-state.ts`, `awake.ts`, and the
+  preview paragraphs of `docs/working-with-claude.md`.
+- writing — 5 min. `hidden-hold.ts` bound from `main.ts`, its test, the
+  paragraph on a hidden Browser pane, two comments that still counted four holds.
+- looking — 0 min. Nothing drawn changed; the hold's test is the evidence.
+- friction — 5 min. A compaction mid-claim; the lane was re-read from the tree.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the compaction**: the claim was made in one context and
+the work done in the next.

@@ -515,35 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## The tab's own pause is bound inside the test rig
-
-- **Found:** 2026-09-21, claude/queue-nothing-keeps-the-screen-awake-and-a-long-hold-l
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-tabs-own-pause-is-bound-inside-the-test-rig)
-- **Files:** `apps/game/src/testing.ts`, `apps/game/src/main.ts`, `docs/working-with-claude.md`
-- **Where:** local
-
-`run.hold("hidden", document.hidden)` — the whole of "a backgrounded tab does
-not play" — is registered by `bindTestControls`, in among the sliders and the
-god-mode switch. It is shipped behaviour and it is not a test control: the
-catch-up cap it protects (`loop.ts`'s `MAX_CATCH_UP_MS`) is in the shipped
-loop, and the screen lock added on the same day re-asks for itself off this
-hold and nothing else (`awake.ts`). Every one of those is a line in a file
-whose docstring opens *the prototype's test rig*. Lift the two lines into a
-file of their own — the name the rest of the app uses for this is a *hold* —
-and let `main.ts` bind it beside the run state it is about.
-
-The second half is what it does to a lane that verifies in the Browser pane.
-**The pane's document reports `hidden` while the pane is not displayed**, so a
-game opened in it is paused: the world never ticks, `world.tick` stays where it
-was, and only the accident of a screenshot — which fronts the page for a
-moment — lets it advance at all. That is how this was found: a wake lock that
-should have been taken at load was not, and the reason was that the run had
-never started. Anything a lane measures over time in that pane — a wave
-watched at tempo, a beat counted, an animation's arc — is measuring a held
-world. `docs/working-with-claude.md` says to verify with `bun run preview` and
-says nothing about this; it should say it in the same paragraph, and name the
-one way to tell (`document.visibilityState` in the page).
-
 ## Sixty-six player-facing lines still say ward, plate or guard
 
 - **Found:** 2026-09-21, claude/queue-the-game-shows-a-player-four-words-for-one-thing
@@ -1417,3 +1388,20 @@ preview:once`, used it, and reverted `.claude/launch.json` — every lane that
 checks the built game in a browser pays the same. Give the game a
 `preview:here` script through the same pointer and a `game-here` entry, and
 say it in `docs/commands.md` and CLAUDE.md's "Verifying in a browser".
+
+## A sharded check reports five figures drifted that hold alone
+
+- **Found:** 2026-09-23, claude/queue-the-tabs-own-pause-is-bound-inside-the-test-rig
+- **Files:** `tools/test/figure.ts`, `tools/test/cpu-time.ts`, `tools/check/shard.ts`, `tools/test/figure.test.ts`
+
+`bun run check:fast` on a quiet Mac (load 6.9 over 14 cores, so `CORE_LOAD`
+reads 1.0) printed five `figure drift:` lines under a green run:
+`tree-walk` 454 ms against 120, `limits` 1656 against 400, `doc-drift-names`
+2629 against 850. Each was timed alone that same afternoon inside its figure.
+What `CORE_LOAD` cannot see is the eight shards `shard.ts` starts at once
+walking the same disk: a one-minute load average lags a burst that lasts
+twenty seconds. `drifted` then divides by 1 and sees a 3–4× check slowdown
+as drift. Either `shard.ts` tells its children how wide it runs (an
+environment variable) and `figure.ts` expects that contention, or `DRIFT`
+goes up under a shard only. The case that earned the tool, 800 ms idle
+against a figure of 120, has to stay loud either way.

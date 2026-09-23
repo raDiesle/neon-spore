@@ -1894,6 +1894,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-entries.ts` | The rows on the menu's three lists — the front page, the PLAY page and the rig — in the order they are read |
 | `apps/game/src/haptics.ts` | A buzz for the two things a player must not miss |
 | `apps/game/src/hello.ts` | THE FIRST THING A DEVICE IS ASKED, ONCE THE SCENE HAS PLAYED |
+| `apps/game/src/hidden-hold.ts` | **The tab going away is a hold** (`run-state.ts`), and this is where it is put down and taken off |
 | `apps/game/src/settings.ts` | The things a player turns on and off, kept on their own device |
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 | `apps/game/src/link-ask.ts` | **What a phone asks the room for**, and nothing it is told |

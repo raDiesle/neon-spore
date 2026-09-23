@@ -8,6 +8,7 @@ import { bindFieldInput } from "./field-input.js";
 import { startFrames } from "./frame.js";
 import { bindTesting } from "./handle.js";
 import { bindHaptics } from "./haptics.js";
+import { bindHiddenHold } from "./hidden-hold.js";
 import { InputBuffer } from "./input.js";
 import { interpolationRequested } from "./interpolate.js";
 import { shellWiring } from "./main-shell.js";
@@ -48,7 +49,7 @@ const beatPhase = (): number => framePhase(world);
 
 /**
  * Whether the world ticks, and who is holding it still — a thumb, the menu,
- * the tuning panel or a tab that went away. One owner, four named holds, so
+ * the tuning panel, the back question or a tab that went away. Five named holds, so
  * that closing one of them cannot resume a game another is still covering
  * (`run-state.ts`).
  */
@@ -57,6 +58,9 @@ const run = createRunState();
 // holds — so the screen is asked to stay on for as long as the world is
 // ticking, and let go the moment anything holds it still (`awake.ts`).
 bindAwake(run);
+// And a tab in the background holds it still, then lets go on the way back
+// (`hidden-hold.ts`).
+bindHiddenHold(run);
 
 const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
