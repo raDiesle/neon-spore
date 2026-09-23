@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 6a11daf5 — new-boss's record of the owner's verdicts is its own page
+
+§7 is the one part of `.claude/skills/new-boss` that grows with every boss he tests, and the size hook asked for the file's next seam at 235 lines. The list moves to `new-boss/owner.md`; §7 names it, what it holds and the rule to read it before designing and add to it after feedback. The skill is 172 lines.
+
+## 2026-09-23 · d0335848 — A guide's words are tested beside them, where check:fast looks
+
+The three tests that read only `WAVES` — a guide's two halves differ, each is at most 220 characters, a wave's name at most 20 — move from `render/test/briefing.test.ts` to `content/test/guides.test.ts`. A lane that edits only guide text changes `packages/content`, so `check:fast` never ran them there, and the 7a–7g words lane went green and then red inside `land`. `briefing.test.ts` keeps what it draws.
+
 ## 2026-09-23 · 0166118e — A DEMOS row names its wave and keeps its id out of the name
 
 The DEMOS page put a mechanic id of up to thirteen letters in the WAVES row's 26px number column, so `slick` ran over `firstStep` and `shell` over `theThirdShot`. A DEMOS row now leads with the wave's name as the WAVES page prints it (`FIRST STEP`, not the key `firstStep`), sets the id to its right, and gives the sentence the row's whole width. The WAVES rows do not move.
