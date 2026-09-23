@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 7459de0d — A check's own width is no longer read as a drifted figure
+
+`bun run check:fast` printed five `figure drift:` lines under a green run, for figures that held when timed alone. The one-minute load average lags the twenty-second burst of eight shards on one disk. `shard.ts` now tells each shard how wide its run is (`SHARD_WIDTH`). `figure.ts` divides by at least that width, up to the 5× measured between alone and eight wide. A whole `bun run test` then prints none, and a figure short by six is still reported.
+
 ## 2026-09-23 · 090b1040 — The tab's own pause is bound beside the run, not inside the test rig
 
 A tab in the background holds the world still, and coming back lets go. That hold was put down by `bindTestControls`, so the game's own pause depended on the tuning panel being wired. It is `bindHiddenHold` in `hidden-hold.ts` now, bound from `main.ts` beside `bindAwake`, with a test of its own. `docs/working-with-claude.md` says why a preview in an agent's Browser pane does not tick while the pane is hidden, and how to tell (`document.visibilityState`).
