@@ -1,4 +1,4 @@
-import { haloSprite, strokeGlow } from "./glow.js";
+import { bodyGlowSpread, haloSprite, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { litRound } from "./key-light.js";
 
@@ -145,7 +145,7 @@ function lit(
   // The neon edge. The line weight is a tenth of the body radius with a
   // one-pixel floor, divided by the scale because the contour is drawn in the
   // silhouette's units and a stroke must not grow with the body.
-  strokeGlow(ctx, path, p.hex, Math.max(1, p.r * 0.1) / p.scale, 1);
+  strokeGlow(ctx, path, p.hex, Math.max(1, p.r * 0.1) / p.scale, 1, 1, bodyGlowSpread(p.scale));
 }
 
 /** The one record a candidate skin patches. */

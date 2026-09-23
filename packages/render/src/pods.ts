@@ -1,6 +1,6 @@
 import { blobPoints, POD } from "@neon-spore/content";
 import type { Pod, PodKind } from "@neon-spore/sim";
-import { halo, strokeGlow } from "./glow.js";
+import { bodyGlowSpread, halo, strokeGlow } from "./glow.js";
 import { HUSK_LOOK } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -108,7 +108,15 @@ export function drawPodBody(
   ctx.scale(scale, scale);
   ctx.fillStyle = PALETTE.podDark;
   ctx.fill(path);
-  strokeGlow(ctx, path, PALETTE.pod, Math.max(1, r * 0.1) / scale, 0.8 + 0.4 * pulse);
+  strokeGlow(
+    ctx,
+    path,
+    PALETTE.pod,
+    Math.max(1, r * 0.1) / scale,
+    0.8 + 0.4 * pulse,
+    1,
+    bodyGlowSpread(scale),
+  );
   drawPodCore(ctx, 0.55 + 0.45 * pulse, kind);
   ctx.restore();
 
@@ -147,7 +155,15 @@ function drawWreck(
   ctx.fill(path);
   // The fire itself stays plain ember up close — that is the wreck, not the
   // kind. The kind reads in the halo below, which is what carries at a glance.
-  strokeGlow(ctx, path, PALETTE.ember, Math.max(1, r * 0.13) / scale, 0.7 + 0.9 * flicker);
+  strokeGlow(
+    ctx,
+    path,
+    PALETTE.ember,
+    Math.max(1, r * 0.13) / scale,
+    0.7 + 0.9 * flicker,
+    1,
+    bodyGlowSpread(scale),
+  );
   drawPodCore(ctx, flicker, kind);
   ctx.restore();
 

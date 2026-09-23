@@ -22,6 +22,12 @@ import { STROKE } from "./palette.js";
  * not read, and is 1 when this returns. The lost screen's focus ring was the
  * case that found it: it came up at full strength over the open field on the
  * first frame of the arrival it was supposed to be fading through.
+ *
+ * **`spread` is in the context's own units, like `width`.** A caller that has
+ * scaled the context passes one it has scaled too — `bodyGlowSpread` for a
+ * body. Left off, it is `STROKE.glowSpread`, which is pixels only on an
+ * unscaled context: THE PULSE's sockets, at a scale of about twenty, drew
+ * clouds twenty times too wide that way (`pulse-body.ts`).
  */
 export function strokeGlow(
   ctx: CanvasRenderingContext2D,
@@ -30,12 +36,13 @@ export function strokeGlow(
   width: number = STROKE.outline,
   intensity = 1,
   alpha = 1,
+  spread: number = STROKE.glowSpread,
 ): void {
   const prev = ctx.globalCompositeOperation;
   ctx.globalCompositeOperation = "lighter";
   ctx.strokeStyle = color;
   for (let i = STROKE.glowPasses; i >= 1; i--) {
-    ctx.lineWidth = width + (i * STROKE.glowSpread) / STROKE.glowPasses;
+    ctx.lineWidth = width + (i * spread) / STROKE.glowPasses;
     ctx.globalAlpha = (0.1 * intensity * alpha) / i;
     ctx.stroke(path);
   }
@@ -44,6 +51,31 @@ export function strokeGlow(
   ctx.lineWidth = width;
   ctx.stroke(path);
   ctx.globalAlpha = 1;
+}
+
+/**
+ * How far a body's glow reaches, for the bodies drawn under a scale: the
+ * living ones, the pod, the wreck and THE GHOST.
+ *
+ * Each draws its contour in its own units and divides its line width by the
+ * scale, and until 23 September 2026 not the glow's spread, so the spread was
+ * counted in the body's units too: at the median scale on a phone, 0.27, a
+ * glow written to reach 5 px reached 1.4. That thin neon edge is what every
+ * body has worn, and whether it stays is the owner's call through VERSUS
+ * (`body:glow`), since the full reach roughly triples the edge on every body
+ * on the field.
+ */
+export interface BodyGlow {
+  /** How much of `STROKE.glowSpread` is counted on the screen rather than in
+   * the body's own units: 0 is the thin edge, 1 the full 5 px. */
+  onScreen: number;
+}
+
+export const BODY_GLOW: BodyGlow = { onScreen: 0 };
+
+/** The spread to hand `strokeGlow` for a body drawn under `scale`, in its units. */
+export function bodyGlowSpread(scale: number): number {
+  return STROKE.glowSpread / scale ** BODY_GLOW.onScreen;
 }
 
 const haloCache = bakedCache<string, HTMLCanvasElement>();

@@ -56,7 +56,10 @@ import {
  * told from a shiver beside it), and the space behind them all
  * (`field:backdrop`), whose question is not whether a back is handsome but
  * whether four bodies in front of it are easier to read; a back judged on an
- * empty field would win on exactly the thing it must lose on.
+ * empty field would win on exactly the thing it must lose on. `body:glow`
+ * lands here for the reason `creature:skin` did: the glow's reach is on every
+ * body at once, and four of them at their own scales show how it grows with
+ * a body's size.
  */
 export const BODIES_POSE: Pose = {
   name: "BODIES · FOUR KINDS AT ONCE",

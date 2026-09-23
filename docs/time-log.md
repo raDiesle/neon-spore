@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — A body's full glow is offered in VERSUS
+
+- reading: 5 min. `strokeGlow`, its four callers under a scale, and how a
+  VERSUS candidate patches a record.
+- writing: 5 min. The spread argument, `BODY_GLOW`, the callers, a test, the
+  candidate and its pose row.
+- looking: 5 min. The pair on the BODIES pose, cropped and stacked.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the picture**: the difference is a few pixels of halo, so
+the pair had to be cropped and stacked before it could be seen on a phone.
+
 ## 2026-09-23 — `drop` tested against a tree of its own
 
 - reading — 10 min. `decide.ts`, `decided-md.ts`, the registry, slots and pose-row helpers, and the take-function test's temporary tree.

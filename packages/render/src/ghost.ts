@@ -13,7 +13,7 @@ import { hazed } from "./depth.js";
 import { drawGhostEyes } from "./ghost-eyes.js";
 import { slabs } from "./ghost-glitch.js";
 import { GHOST_LOOK } from "./ghost-look.js";
-import { halo, strokeGlow } from "./glow.js";
+import { bodyGlowSpread, halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -133,7 +133,15 @@ export function drawGhost(
   // was a shape coming apart into dots, and the tears inside the body and the
   // shards thrown clear of it already say the camouflage is failing. A whole
   // outline is what player 2 finds it by, and the tears are what it is.
-  strokeGlow(ctx, body, haze(rim), STROKE.outline / scale, 0.7 + rage * 0.6);
+  strokeGlow(
+    ctx,
+    body,
+    haze(rim),
+    STROKE.outline / scale,
+    0.7 + rage * 0.6,
+    1,
+    bodyGlowSpread(scale),
+  );
 
   drawGhostEyes(ctx, haze(rim), haze(PALETTE.text), haze(PALETTE.background), rage, t);
   ctx.restore();
