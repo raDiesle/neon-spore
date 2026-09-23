@@ -537,6 +537,7 @@ what `bun run words --clean` prints.
 ## The DEMOS menu puts a paragraph on a button: the other 46
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
+- **Taken:** 2026-09-23, claude/next-queued-task-b7f060 (claim: claude/queue-the-demos-menu-puts-a-paragraph-on-a-button-the)
 - **Files:** `packages/content/src/mechanics-table.ts`, `packages/content/src/mechanics-worn.ts`, `packages/content/src/mechanics-rocks.ts`, `packages/content/src/mechanics-handed.ts`, `tools/words/clean.ts`
 
 The same job as the entry above, for the forty-six `what` sentences between 30
