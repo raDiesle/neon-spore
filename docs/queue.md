@@ -536,6 +536,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE UNDERTOW's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-23, claude/queue-the-diastoles-picture-looks-like-something-real (claim: claude/queue-the-undertows-picture-looks-like-something-real)
 - **Files:** `packages/render/src/undertow-draw.ts`, `packages/render/src/undertow-fx.ts`, `packages/render/src/undertow-lobe.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
