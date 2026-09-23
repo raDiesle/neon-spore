@@ -17630,3 +17630,5 @@ press at all.
 The bottleneck was **the item's own diagnosis**: the teal is the whole body's
 colour on both seats, so the defect was the stub's private widths and missing
 spine, not its colour.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 68332a0a — SNAKE's tail end is the body's own end, not a second drawing
+
+On the pilot's seat SNAKE is drawn as its two ends, and the tail end had widths of its own — a quarter tile flaring to the tip whatever the length — and no spine, so coming out of the ship it read as a straight teal tube rather than the last tiles of the animal on the navigator's screen. The ends now read the whole body's widths and markings at that end, and every piece of the body is painted by one `paintSkin`.
+
 ## 2026-09-23 · 3d98dfb6 — `bun run frames --press` steers SNAKE and puts both hands on its body
 
 `snakeTurn=left|right` sends the navigator's quarter turn, so a body that turns can be driven through a sequence rather than posed turned with `--boss`. `snakeJaws` prises the stuck jaws open on the pilot's seat, and `snakeTail=N|on|off` holds the tail up on the navigator's — the two hands on the body that no panel has a button for, now in the off-panel seat table.
