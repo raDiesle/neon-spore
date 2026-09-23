@@ -79,7 +79,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   tether: {
-    what: "A line out of the rim onto one of your sliding controls. It cannot be shot and it cannot be warded.",
+    what: "A line out of the rim onto one of your sliding controls. A shot cannot cut it, and the shield cannot stop it.",
     reach: "spawn",
     carriedBy: "warden",
   },

@@ -515,41 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Sixty-six player-facing lines still say ward, plate or guard
-
-- **Found:** 2026-09-21, claude/queue-the-game-shows-a-player-four-words-for-one-thing
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-sixty-six-player-facing-lines-still-say-ward-pla)
-- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-7.ts`, `packages/content/src/mechanics-handed.ts`, `packages/content/src/mechanics-worn.ts`, `tools/words/clean.ts`
-
-The owner answered **shield** on 21 September 2026 and the rule went in the
-same day: one row in section 3 of `.claude/skills/game-words` and a sixth
-pattern in `tools/words/measure.ts`. The lane that added it rewrote what it
-could hold in one sitting — the two waves of act 1, BULB QUEEN, and the two
-strings in `apps/game` and `controls.ts` — and split the rest off here rather
-than take a rule and a sweep in one commit.
-
-What is left is **47 lines** on 23 September 2026 (66 when this was filed; the
-acts 1 to 3 guides and the DEMOS rewrites took the rest), all of them in acts 4 and up and in the
-mechanics blurbs. **Not every plate is the shield**: THE WARDEN's plates are
-the boss's own rim, and that rewrite said *piece* there — read what the word
-points at before putting *shield* in its place. `bun run words "<SUBJECT>"` names every one and
-the rule it broke; the five files above are the ones with the most in them and
-not the whole list — twenty files carry at least one. The three sanctioned
-shapes are in the skill and there is no fourth: **put the shield under it**,
-**move the shield there**, **trigger the shield**.
-
-This is the one reason `CEILING` in `tools/words/clean.ts` went **up** on the
-day the rule landed, 290 to 306, rather than down. Every line fixed here comes
-off that number, and the lane that finishes the sweep lowers it to whatever
-`bun run words --clean` then prints — at least the 16 that the new rule newly
-failed. Add each subject to `CLEAN` as it goes green.
-
-**The wave names `THE WARD` and `THE WARDEN` stay.** A wave name is a proper
-noun, not the word a player reads for the object, and renaming one reaches the
-director, the perf rows, the baselines and `docs/spec/`. `warden` is already
-outside the pattern's boundary; `THE WARD` is matched by it and is the one
-place a lane should read the finding and leave the line alone.
-
 ## THE SURGE prints SHIELD across the rock it just spat
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c

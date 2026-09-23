@@ -18283,3 +18283,15 @@ The bottleneck was **measuring the check's own slowdown**: the factor had to
 be read off the same files alone and eight wide before it could be written down.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — Sixty-six player-facing lines still say ward, plate or guard
+
+- reading — 5 min. The entry, the skill's vocabulary row, `clean.ts`.
+- writing — 5 min. `tether`'s blurb, the one line left, onto `CLEAN`;
+  `CEILING` 5 to 4, and the skill's count of what was left.
+- looking — 5 min. Every failing line filtered to the vocabulary row: one.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the entry's own count**: it said forty-seven, and other
+lanes had already swept all but one.

@@ -211,6 +211,7 @@ export const CLEAN: readonly string[] = [
   "strand",
   "surge",
   "taster",
+  "tether",
   "throat",
   "throb",
   "torch",
@@ -241,6 +242,7 @@ export const CLEAN: readonly string[] = [
  *
  * 290 to 305: sixteen newly failing, less the one wave *named* THE WARD, which
  * the row does not reach (`measure.ts` — a name is a proper noun). The
- * remaining sixty-six lines are their own queue entry.
+ * sixty-six lines that row found were swept by 23 September 2026, the last of
+ * them `tether`'s.
  */
-export const CEILING = 5;
+export const CEILING = 4;
