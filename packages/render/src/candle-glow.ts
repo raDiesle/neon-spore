@@ -1,4 +1,5 @@
 import { type CandleState, candleMoving, type SimConfig } from "@neon-spore/sim";
+import { paintFlame } from "./candle-flame.js";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -73,8 +74,6 @@ export function candleFlameY(l: Layout, c: CandleState): number {
 /** The halo's reach in tiles at full glow, and at nothing. */
 const REACH_FULL = 2.4;
 const REACH_OUT = 0.8;
-/** The flame itself, in tiles. */
-const FLAME = 0.14;
 /** Throbs a beat and a half long, slow enough to read as breathing. */
 const THROB_HZ = 0.7;
 /** How deep the throb goes: nought is a steady light. */
@@ -118,8 +117,5 @@ export function drawCandleGlow(
   // read as one light with a hot middle, and both dim with the glow.
   halo(ctx, x, y, reach, PALETTE.ember, (0.25 + 0.35 * share) * throb);
   halo(ctx, x, y, Math.max(2, Math.round(reach * 0.45)), PALETTE.pod, (0.5 + 0.5 * share) * throb);
-  ctx.fillStyle = PALETTE.podRim;
-  ctx.beginPath();
-  ctx.arc(x, y, l.tile * FLAME * (0.6 + 0.4 * share), 0, Math.PI * 2);
-  ctx.fill();
+  paintFlame(ctx, x, y, l.tile, share, time);
 }

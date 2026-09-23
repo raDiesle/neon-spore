@@ -17801,3 +17801,20 @@ count was louder than the one it can, and it had to be dimmed to keep the
 count legible.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE CANDLE's picture looks like something real
+
+- reading — 0 min. `candle-glow.ts`, `candle-grip.ts` and the frame test,
+  which keeps `podRim` for the flame and `emberRim` for the wick's ring.
+- writing — 5 min. `candle-flame.ts`: the flame a candle's drop, its tip
+  wandering, amber reddening to ember at the tip and edge, the hot white low
+  over a charred stub of wick, shrinking with the glow.
+- looking — 0 min. The flame at tick 900 beside the disc it replaced, and
+  the last step posed with `--boss` inside the pilot's ring.
+- friction — 0 min. The first flame, ember outside and amber in, vanished
+  into its own amber halo and read as a white egg.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **a flame in its own light has to be drawn out from the
+inside**: its colour is the halo's colour, so only an ember edge and a
+reddened tip, both inside the shape, separated it from the glow.

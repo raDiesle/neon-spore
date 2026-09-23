@@ -4428,7 +4428,10 @@ off the world every frame rather than ingested, so they hold exactly as long
 as the sim says. A breach lights its own neighbourhood two columns either way
 for two beats on both screens (*a scar is a light source*). The glow is two
 halos and a flame in ember and amber over the boss's column, at one of five
-integer reaches (`render/candle-glow.ts`), with a dim cone from the flame to
+integer reaches (`render/candle-glow.ts`); the flame is a candle's, a drop
+on its round end with its tip wandering, amber reddening to ember at the tip
+and edge, the hot white low over a charred stub of wick, and it shrinks with
+the glow (`render/candle-flame.ts`). A dim cone runs from the flame to
 the top of the column it faces on player 1's screen only, and only while it
 moves. Once `out`, the frame is black and nothing else for the two beats the
 boss stays installed; when the sim takes it away the black lifts over one

@@ -1682,6 +1682,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/candle-dark.ts` | **THE CANDLE's dark**: the field going black |
 | `packages/render/src/candle-glow.ts` | **THE CANDLE's glow**: its health, and the only steady light in the field |
 | `packages/render/src/candle-grip.ts` | THE CANDLE's wick: the stem, the ring on the flame and the ember after it |
+| `packages/render/src/candle-flame.ts` | **What THE CANDLE's flame is made of**: a flame, the shape a candle's is — a drop standing on its round end |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
 | `packages/render/src/cairn-hand.ts` | The hand on THE CAIRN, drawn over the stack by the boss pass — the ordinary ring closed round every stone still standing, and the word PULL |
 | `packages/render/src/cairn-look.ts` | THE ONE RECORD A CANDIDATE **PILE** PATCHES |
