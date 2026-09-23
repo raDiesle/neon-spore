@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · d6f16beb — Fourteen wave guides in acts 8 to 10 now pass the words check
+
+Forty-five lines across THE BEATBOX to THE FILAMENT are rewritten into numbered steps and sentences of at most eighteen words. Lane, bolt, pilot, navigator, ward and plate now read column, shot, Player 1, Player 2 and shield. `CLEAN` grows to 194 waves and `CEILING` falls from 50 to 5.
+
 ## 2026-09-23 · 360f7869 — Twenty-eight wave guides in acts 7a to 7g now pass the words check
 
 Every guide line in acts 7a to 7g is now short enough to say out loud: numbered steps, one thought per sentence, shield for ward and plate, column for lane and shot for bolt. THE SCUTTLE's plates are parts of its frame and are called parts. `CLEAN` grows by twenty-six subjects and `CEILING` falls from 120 to 50.

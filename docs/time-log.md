@@ -17444,3 +17444,5 @@ wrong there and each hit had to be read in its wave.
 
 The bottleneck was **the 220-character cap**: `check:fast` does not run it, so
 every half was measured by a scratch script before landing.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
