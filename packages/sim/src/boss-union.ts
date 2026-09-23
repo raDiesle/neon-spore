@@ -19,6 +19,7 @@ import type { MazeState } from "./maze-state.js";
 import type { OrreryState } from "./orrery.js";
 import type { PinballState } from "./pinball.js";
 import type { PulseState } from "./pulse.js";
+import type { RatchetState } from "./ratchet.js";
 import type { RepriseState } from "./reprise-state.js";
 import type { ScoutState } from "./scout.js";
 import type { ScuttleState } from "./scuttle.js";
@@ -100,4 +101,5 @@ export type BossState =
   | GimbalState
   | BellowsState
   | SpoolState
-  | HaspState;
+  | HaspState
+  | RatchetState;

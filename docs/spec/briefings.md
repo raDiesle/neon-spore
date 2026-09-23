@@ -305,12 +305,12 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty-one of them now**, one per guided wave bar ten, and
+**There are eighty-one of them now**, one per guided wave bar twelve, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The ten that are still the three strings
+rather than a page of prose. The twelve that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE INSTAR, THE FILAMENT, THE GIMBAL, THE BELLOWS, THE SPOOL and
-THE HASP** — and
+CODEX, THE INSTAR, THE FILAMENT, THE GIMBAL, THE BELLOWS, THE SPOOL, THE
+HASP and THE RATCHET** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,

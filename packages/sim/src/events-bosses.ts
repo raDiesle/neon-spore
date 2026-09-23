@@ -16,6 +16,7 @@ import type { LedgerEvent } from "./events-ledger.js";
 import type { PinballEvent } from "./events-pinball.js";
 import type { PulseEvent } from "./events-pulse.js";
 import type { QueenEvent } from "./events-queen.js";
+import type { RatchetEvent } from "./events-ratchet.js";
 import type { ScoutEvent } from "./events-scout.js";
 import type { ScuttleEvent } from "./events-scuttle.js";
 import type { SinewEvent } from "./events-sinew.js";
@@ -73,6 +74,7 @@ export type BossEvent =
   | BellowsEvent
   | SpoolEvent
   | HaspEvent
+  | RatchetEvent
   | QueenEvent
   | DiastoleEvent
   | WardenEvent
@@ -103,6 +105,7 @@ export type { LedgerEvent } from "./events-ledger.js";
 export type { PinballEvent } from "./events-pinball.js";
 export type { PulseEvent } from "./events-pulse.js";
 export type { QueenEvent } from "./events-queen.js";
+export type { RatchetEvent } from "./events-ratchet.js";
 export type { ScoutEvent } from "./events-scout.js";
 export type { ScuttleEvent } from "./events-scuttle.js";
 export type { SinewEvent } from "./events-sinew.js";

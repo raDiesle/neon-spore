@@ -57,6 +57,11 @@ import type { Wave } from "../wave-types.js";
  * colour takes it (`sim/hasp-shot.ts`). It is the only thing in the encounter
  * neither of the two hands can answer, so somebody has to leave their control
  * to do it, and saying which of them is the beat this wave is about.
+ *
+ * **THE RATCHET came in behind it on 23 September 2026**, the newest act
+ * still having room: the first boss where a step, once taken, is never taken
+ * back. Every press climbs the rack a tooth; she decides only whether it was
+ * clean, by holding the catch he cannot see (`sim/ratchet.ts`).
  */
 export const WAVES_ACT_11: Wave[] = [
   {
@@ -83,6 +88,19 @@ export const WAVES_ACT_11: Wave[] = [
     },
     entries: [],
     boss: { kind: "hasp" },
+    bossType: "normal",
+  },
+  {
+    id: "theRatchet",
+    name: "THE RATCHET",
+    sentence: "The one where every step you take stays taken.",
+    guide: {
+      both: "A rack of seven teeth. One of you holds the catch, the other presses the pawl. Every press climbs one tooth, for good. Five clean and it opens.",
+      p1: "1. Press the pawl. Each press climbs one tooth.\n2. It is clean only while they hold the catch. You cannot see their hand.\n3. Wait until they say it is set. Wait too long and a tooth is lost.",
+      p2: "1. Hold the catch down, then tell them it is set.\n2. After each clean tooth, lift your hand and hold again.\n3. Two teeth may be lost. A third and the rack jams. A piece works loose. Shoot it.",
+    },
+    entries: [],
+    boss: { kind: "ratchet" },
     bossType: "normal",
   },
 ];

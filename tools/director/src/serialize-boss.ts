@@ -156,6 +156,8 @@ export function serializeBoss(boss: BossEntry): string {
   // THE HASP authors nothing either: the three clasps are its silhouette and
   // every fuse and winding in it is tuning (`sim/boss-entries-clocks.ts`).
   if (boss.kind === "hasp") return '{ kind: "hasp" }';
+  // THE RATCHET the same: seven teeth is its silhouette (`sim/ratchet.ts`).
+  if (boss.kind === "ratchet") return '{ kind: "ratchet" }';
   // THE GIMBAL's alignments are three bearings apiece and named for the same
   // reason (`packages/content/src/gimbal-script.ts`).
   if (boss.kind === "gimbal") return '{ kind: "gimbal", marks: GIMBAL_SCRIPT }';

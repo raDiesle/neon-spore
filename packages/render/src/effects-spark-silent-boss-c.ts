@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 
 /**
  * **The bosses' half of the not-a-burst list, the third page** — THE GAUGE's
- * four and THE WELL's four.
+ * four, THE WELL's four and THE RATCHET's twelve.
  *
  * Cut off `effects-spark-silent-boss-b.ts` on 22 September 2026, when THE
  * SPOOL's eleven and THE HASP's fourteen landed on that page in one sitting
@@ -31,4 +31,19 @@ export const SILENT_BOSS_C = [
   "wellHeld",
   "wellWound",
   "wellHome",
+  // THE RATCHET's twelve, no burst: nothing draws the rack yet. A click and
+  // jolt on a clean tooth and a flat dead burn belong in a ratchet-fx.ts
+  // read above the loop when the look lane draws it (`docs/queue.md`).
+  "ratchetEnter",
+  "ratchetLit",
+  "ratchetSet",
+  "ratchetLet",
+  "ratchetClick",
+  "ratchetBurn",
+  "ratchetBolt",
+  "ratchetBoltOut",
+  "ratchetBoltHit",
+  "ratchetOpen",
+  "ratchetJam",
+  "ratchetOut",
 ] as const satisfies readonly SimEvent["type"][];

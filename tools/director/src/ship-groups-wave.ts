@@ -60,6 +60,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE BELLOWS — the boss where you may never push while they are pulling",
   "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   "THE HASP — the boss where one of you only has to hold on, and cannot",
+  "THE RATCHET — the boss where every step you take stays taken",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

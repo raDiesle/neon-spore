@@ -2,7 +2,7 @@ import type { GroupName } from "./ship-groups.js";
 
 /**
  * The paragraph under each **choreographed boss's** card, the third page —
- * THE HASP and every boss built after it.
+ * THE HASP and every boss built after it, THE RATCHET next.
  *
  * Cut out of `ship-notes-choreo-b.ts` on 22 September 2026, the day THE HASP
  * landed: that page stood at 238 lines with THE BELLOWS's paragraph on the
@@ -35,4 +35,21 @@ export const CHOREO_NOTES_C = {
     "it, and haspBoltBeats unanswered is one strike on the hull, which is " +
     "the wave. The last clasp opens the door for haspClearBeats and the " +
     "fight is over. See sim/hasp.ts, sim/hasp-hand.ts, sim/config-hasp.ts.",
+  "THE RATCHET — the boss where every step you take stays taken":
+    "Built on 23 September 2026 from docs/spec/bosses-choreographed.md §22 " +
+    "and written up in docs/spec/bosses.md §11.38: the boss where a step, " +
+    "once taken, is never taken back. A rack of seven teeth hangs over the " +
+    "middle of the field, and its health is the teeth. The navigator holds " +
+    "the catch (ratchetCatch, a depth-drag, set past ratchetGripMilli of " +
+    "ratchetReachMilli); the pilot presses the pawl (ratchetPawl). Every " +
+    "press climbs one tooth for good, and it is clean only if the catch is " +
+    "set — which he cannot see. After a clean tooth the catch has to be " +
+    "lifted and set again. Each window is ratchetWindowBeats, shorter by " +
+    "ratchetWindowStepBeats for every tooth spent, and a window nobody " +
+    "answers burns a tooth. Five clean opens the rack for ratchetOpenBeats; " +
+    "a third burn makes five unreachable, and the rack jams into the hull, " +
+    "which is the wave. After the second clean tooth a bolt works loose " +
+    "over the middle column: either colour takes it, and ratchetBoltBeats " +
+    "unanswered is a strike on the hull. See sim/ratchet.ts, " +
+    "sim/ratchet-hand.ts, sim/config-ratchet.ts.",
 } satisfies Partial<Record<GroupName, string>>;

@@ -99,6 +99,7 @@ kinds each of them is.
 - **[THE BELLOWS](#1135-the-bellows--the-boss-where-you-may-never-push-while-they-are-pulling)** · 11.35 — the boss where you may never push while they are pulling
 - **[THE SPOOL](#1136-the-spool--the-boss-where-the-line-runs-out-at-the-speed-one-of-you-reads)** · 11.36 — the boss where the line runs out at the speed one of you reads
 - **[THE HASP](#1137-the-hasp--the-boss-where-one-hand-holds-what-the-other-cannot-see)** · 11.37 — the boss where one hand holds what the other cannot see
+- **[THE RATCHET](#1138-the-ratchet--the-boss-where-every-step-you-take-stays-taken)** · 11.38 — the boss where every step you take stays taken
 
 **Retired — shipped and taken out again, kept for the verdict**
 
@@ -8223,3 +8224,105 @@ off an opened one; the bolt comes loose on the second opening, goes out to a
 shot of either colour and strikes the hull if nobody answers it; and the third
 opening swings the row clear and takes the boss out of the wave. Whether any of
 it *reads* is the owner's eye, once the hands are in.
+
+## 11.38 THE RATCHET — the boss where every step you take stays taken
+
+> The one where nothing is taken back. A rack of seven teeth hangs over the
+> field. He presses the pawl and it climbs, every time; she decides only
+> whether the tooth was clean, by holding a catch he cannot see.
+
+Designed as §22 of [bosses-choreographed](bosses-choreographed.md), and the
+third of the three kinds in `.claude/skills/new-boss` — a choreographed scene.
+The field under it is still (wave `theRatchet`'s `entries` are empty) and the
+boss *is* the picture. It follows THE HASP, which asks a pair to trust a hand
+they cannot see; this one asks them to spend a margin they can never refill.
+
+**It is a rack of seven teeth.** The state (`sim/ratchet.ts`, hashed in
+`sim/ratchet-hash.ts`) is the **phase** and the beat it began, the **teeth**
+left, the **clean** advances banked, how deep the navigator has the catch
+(`catchMilli`) and whether it is spent, whether the pilot's pawl is down,
+whether the last tooth was clean, and the loose bolt's column and the beat it
+came free. Its health is the seven teeth (`RATCHET_TEETH`), and no bar: five
+clean opens it (`RATCHET_CLEAN`), so two teeth are the whole margin.
+
+**The rule, in one sentence.** She holds the catch and says set; he presses
+the pawl; every press climbs one tooth for good, and it is clean only if the
+catch was set.
+
+**The catch is a level and the pawl is an edge** (`sim/ratchet-hand.ts`). The
+catch is a depth drag, THE HASP's latch again: past `ratchetGripMilli` of
+`ratchetReachMilli` it is set, short of it it is not. The pawl is judged on
+the tick it goes down, so a thumb left on the glass is one press. The seats
+are fixed by the target's name — the catch is player 2's, the pawl player 1's
+— and a command from the other seat is not heard.
+
+**The clock** (`sim/ratchet-step.ts`). The rack hangs still for
+`ratchetStillBeats`, then a pawl lights and its window opens:
+`ratchetWindowBeats`, shorter by `ratchetWindowStepBeats` for every tooth
+already spent. A press ends it; a window nobody answers burns a tooth. After a
+tooth the rack climbs for `ratchetClimbBeats` and the next pawl lights. THE
+SLOW spans each window exactly: `openSlow` on the light, `closeSlow` on the
+tooth, clean or burnt — the owner's rule of 22 September 2026.
+
+**A clean tooth spends the catch.** After it, a catch held down sets nothing
+until it has been lifted or drawn back above the grip, so `SET` is said once a
+tooth and meant each time.
+
+**The end.** Five clean and the rack opens (`ratchetOpen`), hangs for
+`ratchetOpenBeats` and goes. The burn that makes five clean unreachable — the
+third, since there are two to spare — jams it (`ratchetJam`), and the jam
+drives into the hull, which is the wave.
+
+**One ordinary hazard, once.** The second clean tooth throws a bolt loose over
+the middle column (`sim/ratchet-shot.ts`); a shot of either colour takes it,
+and `ratchetBoltBeats` unanswered is a strike on the hull.
+
+**Where this departs from the design, and why.** Nine places.
+
+- **The burn is heard.** §22 wants it a silence. It is a dull thud with a low
+  tail under it (`sounds/boss-ratchet.ts`): a pair with no look yet has no
+  other way to know a tooth went, and a clean click and a burn have to be two
+  sounds before they can be two words.
+- **Windows are beats, not milliseconds.** §22's 900/700/600 ms windows are
+  the old measure; a choreographed step is twenty beats since 22 September
+  2026, and each later one shortens by two, which keeps §22's tightening.
+- **A window nobody answers burns a tooth.** §22 does not say; a window with
+  no end would let a pair sit on their last margin for ever.
+- **The catch has to be reset.** §22 row 5 releases it; here a clean tooth
+  spends it, and the hand has to lift, which is the same beat as a gesture.
+- **It jams as soon as five is out of reach.** §22 row 14 lets the rack sit
+  at its ceiling unopened; a jam into the hull is the wave, the owner's rule
+  of 12 September 2026, and playing out dead teeth teaches nothing.
+- **The bolt takes either colour**, in the middle column — THE HASP's and THE
+  GIMBAL's answer: a colour rule on the one hazard is a rule to teach.
+- **No longer hold on rows 9–10.** Every step is the same gesture; a second
+  kind of window is a rule a pair has to be told.
+- **No `SequentialAction`.** The press is never refused, only judged, so
+  there is nothing for it to hold back.
+- **THE SLOW spans every window**, not every catch-and-press pair: the window
+  is the step.
+
+**The sounds are bound** (`audio/bind-ratchet.ts`, `sounds/boss-ratchet.ts`):
+a cue per event over THE HASP's palette of iron hardware, panned to the middle
+where the rack stands. A clean click rises a step for every clean tooth
+banked, so the pair hears how far up they are.
+
+**What is not built.** The look: nothing of the rack is drawn. Every event is
+in `render/src/effects-ingest-silent-boss-c.ts` and
+`effects-spark-silent-boss-c.ts` as one the frame says nothing about, the two
+targets are `unbuilt` in `tools/director/test/on-field-controls.test.ts`, and
+the guide is prose rather than a film. §22's presentation is lane two's whole:
+the rack and its teeth, the catch's white glow, the click and the jolt, the
+strut folding away. Lane two is a separate item on `docs/queue.md`.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/ratchet.test.ts`): the rack comes in with seven teeth and lights
+its first pawl after the still; a press with the catch set climbs clean and
+one without it burns, and a thumb short of the grip sets nothing; a held pawl
+is one press; a clean tooth spends the catch until it is lifted; each target
+is heard from its own seat only; an unanswered window burns a tooth and each
+later window is shorter; THE SLOW opens on the light and closes on the tooth;
+the bolt comes loose on the second clean tooth, goes out to a shot of either
+colour and strikes the hull if nobody answers it; five clean opens the rack
+and takes it out of the wave; and the third burn jams it into the hull. Whether
+any of it *reads* is the owner's eye, after lane two.

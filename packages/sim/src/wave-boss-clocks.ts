@@ -13,6 +13,7 @@ import { installInstar } from "./instar-step.js";
 import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
 import { installOrrery } from "./orrery-step.js";
+import { installRatchet } from "./ratchet-step.js";
 import { installScuttle } from "./scuttle-step.js";
 import { installSinew } from "./sinew-step.js";
 import { installSpool } from "./spool-step.js";
@@ -68,6 +69,7 @@ const CLOCK_KINDS = [
   "bellows",
   "spool",
   "hasp",
+  "ratchet",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -197,6 +199,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // field, a latch on each for one seat and a wheel behind it for the
     // other, and every figure in it tuning (`hasp-step.ts`).
     world.boss = installHasp(world);
+  } else if (boss.kind === "ratchet") {
+    // No creature and no row: a toothed rack down the centre of the field,
+    // seven teeth, a catch for one seat and a pawl for the other, and every
+    // figure in it tuning (`ratchet-step.ts`).
+    world.boss = installRatchet(world);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

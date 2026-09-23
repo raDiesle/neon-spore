@@ -17,6 +17,7 @@
 // fight forbids the pair from working in the same beat.
 // THE HASP's latch and wheel, argued below: the first pair where one of them
 // only moves at all while the other is being held.
+// THE RATCHET's catch and pawl, argued below: a hold, and a press judged by it.
 export type DragTargetD =
   | "hiveLobe"
   | "gimbalOuter"
@@ -25,7 +26,9 @@ export type DragTargetD =
   | "bellowsPush"
   | "spoolBrake"
   | "haspLatch"
-  | "haspWheel";
+  | "haspWheel"
+  | "ratchetCatch"
+  | "ratchetPawl";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -142,4 +145,16 @@ export type DragTargetD =
  * the seat is checked against the name and the wrong one's message does
  * nothing at all. No `id`: there is one row, and one hasp of it open at a
  * time.
+ */
+
+/**
+ * `ratchetCatch` and `ratchetPawl` are the sixty-fifth and sixty-sixth: the
+ * navigator's catch, a depth drag cut to `ratchetReachMilli` and read as a
+ * **level**, `haspLatch`'s gesture exactly; and the pilot's pawl, read as a
+ * **press** — the tick the thumb goes down, and nothing while it stays there.
+ *
+ * The pawl is never refused. Every press in a lit window spends a tooth, and
+ * what her catch decides is only whether the tooth was clean
+ * (`ratchet-hand.ts`). Two names for `haspLatch`'s reason: the seat is the
+ * encounter, and the wrong one's message does nothing.
  */

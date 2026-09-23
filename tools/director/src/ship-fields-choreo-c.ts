@@ -53,4 +53,16 @@ export const CHOREO_FIELD_GROUP_C = {
   haspSlowBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
   haspBoltBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
   haspClearBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  // RatchetConfig — how far the catch travels and the depth it counts as
+  // set at, the still, each window and how much shorter the next one is,
+  // the climb, the loose bolt's patience and the open rack's hang
+  // (`config-ratchet.ts`). Seven teeth and five clean are the silhouette.
+  ratchetReachMilli: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetGripMilli: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetStillBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetWindowBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetWindowStepBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetClimbBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetBoltBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetOpenBeats: "THE RATCHET — the boss where every step you take stays taken",
 } satisfies Record<string, GroupName>;

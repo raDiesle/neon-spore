@@ -54,6 +54,7 @@ type ChoreographedEvent =
           | `bellows${string}`
           | `spool${string}`
           | `hasp${string}`
+          | `ratchet${string}`
           | `diastole${string}`;
       }
     >

@@ -21,6 +21,7 @@ import type {
   AntiphonEntry,
   BellowsEntry,
   HiveEntry,
+  RatchetEntry,
   SpoolEntry,
 } from "./boss-entries-clocks-b.js";
 import type {
@@ -158,6 +159,7 @@ export type BossEntry =
   | BellowsEntry
   | SpoolEntry
   | HaspEntry
+  | RatchetEntry
   // The one that authors a script: the beat list a scene is (`instar.ts`).
   | InstarEntry
   // The one that authors a line: the filaments a pair draws and follows (`filament.ts`).
@@ -169,7 +171,7 @@ export type BossEntry =
 // 2026 — the last rows it held, the way every overflowing page in the
 // repository gives its end of the chain back (`boss-entries-b.ts`).
 export type { MazeEntry, RepriseEntry, WellEntry } from "./boss-entries-b.js";
-// The twenty that are a clock and author nothing, over two pages
+// The twenty-one that are a clock and author nothing, over two pages
 // (`boss-entries-clocks.ts`, `boss-entries-clocks-b.ts`).
 export type {
   BatonEntry,
@@ -193,6 +195,7 @@ export type {
   AntiphonEntry,
   BellowsEntry,
   HiveEntry,
+  RatchetEntry,
   SpoolEntry,
 } from "./boss-entries-clocks-b.js";
 export type {

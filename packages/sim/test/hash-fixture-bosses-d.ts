@@ -21,6 +21,8 @@ export const BOSS_ENTRIES_D = {
   // there is no figure here for the walk to vary. What it has to see varied
   // is in `patchBossD` below, and all of it is state (`hasp-hash.ts`).
   hasp: { kind: "hasp" },
+  // THE RATCHET the same: seven teeth is the silhouette (`RatchetEntry`).
+  ratchet: { kind: "ratchet" },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -46,6 +48,21 @@ export function patchBossD(boss: BossState): void {
     boss.handMilli = 640;
     boss.woundMilli = 520;
     boss.seized = true;
+    boss.boltCol = 4;
+    boss.boltBeat = 6;
+  }
+  if (boss.kind === "ratchet") {
+    // A rack part way up with both hands on it: every field off the value
+    // it is installed with, the catch set and the pawl down, so the walk can
+    // tell a hashed one from one it never sees change (`ratchet-hash.ts`).
+    boss.phase = "climb";
+    boss.phaseBeat = 3;
+    boss.teeth = 4;
+    boss.clean = 2;
+    boss.catchMilli = 700;
+    boss.catchSpent = true;
+    boss.pawlDown = true;
+    boss.cleanLast = true;
     boss.boltCol = 4;
     boss.boltBeat = 6;
   }

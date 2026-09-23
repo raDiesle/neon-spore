@@ -105,4 +105,18 @@ export const INGEST_SILENT_BOSS_C = [
   "haspBoltHit",
   "haspClear",
   "haspOut",
+  // THE RATCHET's twelve, silent for the same reason: nothing draws the
+  // rack yet, and its look lane is its own item (`docs/queue.md`).
+  "ratchetEnter",
+  "ratchetLit",
+  "ratchetSet",
+  "ratchetLet",
+  "ratchetClick",
+  "ratchetBurn",
+  "ratchetBolt",
+  "ratchetBoltOut",
+  "ratchetBoltHit",
+  "ratchetOpen",
+  "ratchetJam",
+  "ratchetOut",
 ] as const satisfies readonly SimEvent["type"][];

@@ -393,6 +393,12 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `docs/spec/bosses.md` §11.37).
   haspLatch: "field",
   haspWheel: "field",
+  // THE RATCHET's two, heard and not yet drawn — `unbuilt` for the
+  // `orreryRing` reason above: the navigator's catch is a depth read as a level and the pilot's
+  // pawl a press, and neither has a handle on a screen until the look lane
+  // lands (`sim/ratchet-hand.ts`, `docs/spec/bosses.md` §11.38).
+  ratchetCatch: "unbuilt",
+  ratchetPawl: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

@@ -39,6 +39,7 @@ type BossId = Extract<
   | "bellows"
   | "spool"
   | "hasp"
+  | "ratchet"
 >;
 
 /**
@@ -192,6 +193,10 @@ export const BOSS_MECHANICS = {
   },
   hasp: {
     what: "He holds the latch down. She turns the wheel, and it only moves while he holds. His hand burns if he holds too long. Three hasps.",
+    reach: "spawn",
+  },
+  ratchet: {
+    what: "One holds the catch, the other presses the pawl. Every press climbs one tooth for good, and is clean only while the catch is held. Five clean of seven.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

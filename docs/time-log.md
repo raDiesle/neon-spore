@@ -17138,3 +17138,26 @@ winding turns by the line's absolute run, so the navigator's zone could only
 be isolated by moving the target, and that was only found by a red frame.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — the ratchet's simulation — every step you take stays taken
+
+- reading — 5 min. §22 of `bosses-choreographed.md`, and THE HASP's landing
+  diff as the list of every file a clock boss is a name in.
+- writing — 10 min. `ratchet.ts`, `ratchet-step.ts`, `ratchet-hand.ts`,
+  `ratchet-shot.ts`, `ratchet-hash.ts`, `config-ratchet.ts`,
+  `events-ratchet.ts` and the barrels they register in; wave 102 and its
+  guide; the twelve sounds and their binding; the two silent lists, the
+  wire's two targets, the director's group, dials, note, sounds, hand and
+  five states; §11.38 and the §22 ledger row.
+- testing — 5 min. `sim/test/ratchet.test.ts`, nineteen of them — clean and
+  burnt, the spent catch, the seats, the window and its slow, the bolt, the
+  open, the jam and the fingerprint.
+- friction — 0 min. `tools/words` is a workspace this worktree's install
+  predated, so `tsc` could not find `@neon-spore/content` until a second
+  `bun install`.
+- landing — 5 min. `baseline:blank`, `index`, `check`, the commit.
+
+The bottleneck was **the director's registrations**, again: the sim was
+written from THE HASP's shape in one pass, and the dozen places in
+`tools/director` that name a boss were found by the typechecker and the
+suite rather than by any list the sim points at.

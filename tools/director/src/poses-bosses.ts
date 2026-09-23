@@ -8,6 +8,7 @@ import { BEAT_HAND_POSES } from "./poses-bosses-hands-beats.js";
 import { CLOCK_HAND_POSES } from "./poses-bosses-hands-clocks.js";
 import { FIELD_HAND_POSES } from "./poses-bosses-hands-field.js";
 import { HANDLE_HAND_POSES } from "./poses-bosses-hands-handles.js";
+import { RATCHET_POSES } from "./poses-bosses-hands-ratchet.js";
 import { SHOT_HAND_POSES } from "./poses-bosses-hands-shots.js";
 import { TAKE_HAND_POSES } from "./poses-bosses-hands-takes.js";
 import { QUEEN_POSES } from "./poses-bosses-queen.js";
@@ -46,6 +47,7 @@ export const BOSS_POSES: Pose[] = [
   ...CLOCK_HAND_POSES,
   ...TAKE_HAND_POSES,
   ...HANDLE_HAND_POSES,
+  ...RATCHET_POSES,
 ];
 
 /** The states of this boss no pose carries yet — what the category still owes. */

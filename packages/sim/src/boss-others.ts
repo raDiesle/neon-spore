@@ -17,6 +17,7 @@ import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
 import { stepMirror } from "./mirror.js";
 import { stepOrrery } from "./orrery-step.js";
+import { stepRatchet } from "./ratchet-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSinew } from "./sinew-step.js";
 import { stepSpool } from "./spool-step.js";
@@ -223,6 +224,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // (`hasp-hand.ts`).
   if (boss.kind === "hasp") {
     stepHasp(world, boss);
+    return;
+  }
+  // THE RATCHET on the beat is the pawl lighting, a window running out, the
+  // climb, the bolt and the open or the jam. A press is judged on the tick,
+  // against her hand (`ratchet-hand.ts`).
+  if (boss.kind === "ratchet") {
+    stepRatchet(world, boss);
     return;
   }
   // And the six that are not stepped here at all, with THE VANE, THE CAIRN,

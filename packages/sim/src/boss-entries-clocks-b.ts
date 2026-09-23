@@ -17,6 +17,8 @@
  * page next door was full when its lane got there, so the newest boss went
  * where there was room rather than pushing a third paragraph across.
  *
+ * THE RATCHET's came here new on 23 September 2026, for the same reason.
+ *
  * Every name here is re-exported from `boss-entries.ts` and from `entries.ts`
  * after it, exactly as next door's are, so nothing that already reached for
  * one through either had to move.
@@ -76,4 +78,17 @@ export interface SpoolEntry {
  */
 export interface AntiphonEntry {
   kind: "antiphon";
+}
+
+/**
+ * What a wave authors when it wants THE RATCHET: nothing, the twenty-first.
+ *
+ * No teeth, though they are the health: seven teeth needing five clean is
+ * the *silhouette* and its margin, and a rack with more would be a softer
+ * boss wearing the same name (`ratchet.ts`, `RATCHET_TEETH`). No windows,
+ * because each is a beat count the pair has to feel rather than a figure
+ * the wave should pick (`config-ratchet.ts`).
+ */
+export interface RatchetEntry {
+  kind: "ratchet";
 }

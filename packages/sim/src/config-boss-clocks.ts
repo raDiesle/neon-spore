@@ -16,6 +16,7 @@ import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { MAZE_GRIP_DEFAULTS, type MazeGripConfig } from "./config-maze-grip.js";
 import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
+import { RATCHET_DEFAULTS, type RatchetConfig } from "./config-ratchet.js";
 import { SCUTTLE_DEFAULTS, type ScuttleConfig } from "./config-scuttle.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
 import { SPOOL_DEFAULTS, type SpoolConfig } from "./config-spool.js";
@@ -82,6 +83,7 @@ export interface BossClockConfig
     BellowsConfig,
     SpoolConfig,
     HaspConfig,
+    RatchetConfig,
     MirrorConfig,
     MazeGripConfig,
     WardenHandConfig,
@@ -113,6 +115,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...BELLOWS_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
+  ...RATCHET_DEFAULTS,
   ...MIRROR_DEFAULTS,
   ...MAZE_GRIP_DEFAULTS,
   ...WARDEN_HAND_DEFAULTS,

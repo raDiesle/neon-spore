@@ -77,6 +77,9 @@ const STILL_PROSE = [
   // there is no screen for a film to rehearse. The guide says the one thing
   // its pilot has to know — keep holding — until the look lane draws it.
   "THE HASP",
+  // And THE RATCHET (§11.38), a fifth time: the rack, its catch and its
+  // pawl are undrawn, and the guide says who holds and who presses.
+  "THE RATCHET",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -103,8 +106,8 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix = "update §1 of docs/spec/briefings.md, which says ninety-two of a hundred and one";
-    expect(guided.length, fix).toBe(92);
-    expect(WAVES.length, fix).toBe(101);
+    expect(guided.length, fix).toBe(93);
+    expect(WAVES.length, fix).toBe(102);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

@@ -188,4 +188,27 @@ export const NO_SUBJECT_C: Record<string, string> = {
   "boss.haspClear":
     "the last clasp gone and the door standing open. Same argument, and it is an opening rather than a thing.",
   "boss.haspOut": "the door falling away and the wave ending. Same argument, and an absence.",
+  // THE RATCHET's twelve. A rack of seven teeth hung over the middle of the
+  // field: a fixture, THE HASP's answer above said about a rack instead of a
+  // door, and every sound is a part of it moving or a hand on it
+  // (`sim/events-ratchet.ts`).
+  "boss.ratchetEnter":
+    "the rack swinging into the top of the field. A fixture hung over the middle, and the sheet's cards are bodies on a grid.",
+  "boss.ratchetLit": "a pawl lighting, its window open. A mark on the fixture. Same argument.",
+  "boss.ratchetSet": "her catch carried past its grip. A hand on a handle, which is no body.",
+  "boss.ratchetLet": "her catch let go. Same argument, and an absence.",
+  "boss.ratchetClick":
+    "a tooth climbing clean under the pawl. What moves is part of the fixture, and there is no card for it.",
+  "boss.ratchetBurn":
+    "a tooth spent with no catch under it. Same argument, and a loss rather than a thing.",
+  "boss.ratchetBolt":
+    "a bolt working loose out of the middle column. Hardware off the rack rather than a body; shot, it is heard as a shot.",
+  "boss.ratchetBoltOut": "that bolt shot out, in either colour. Same argument.",
+  "boss.ratchetBoltHit":
+    "nobody shot it and it reached the hull. What is hit is the ship, which the hull's own sounds already have.",
+  "boss.ratchetOpen":
+    "the fifth clean tooth and the rack standing open. An opening rather than a thing.",
+  "boss.ratchetJam":
+    "the third tooth burnt and the rack jammed into the hull. The fixture failing, and the hull's own sounds carry the hit.",
+  "boss.ratchetOut": "the rack falling away and the wave ending. Same argument, and an absence.",
 };

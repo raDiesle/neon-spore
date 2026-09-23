@@ -17,6 +17,7 @@ import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
+import { ratchetStruck } from "./ratchet-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { firstAlong } from "./shot-reach.js";
 import { spendShot } from "./spend.js";
@@ -201,6 +202,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
+  // And THE RATCHET's, the same again (`ratchet-shot.ts`).
+  ratchetStruck(world, b);
   hiveStruck(world, b);
   return 0;
 }

@@ -17,6 +17,7 @@ import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
+import { ratchetStruck } from "./ratchet-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
 import { firstAlong } from "./shot-reach.js";
@@ -227,6 +228,8 @@ function sweep(world: World, b: Bullet): boolean {
     // And THE HASP's loose bolt, the same shape and the same either colour
     // (`hasp-shot.ts`).
     haspStruck(world, b);
+    // And THE RATCHET's, the same again (`ratchet-shot.ts`).
+    ratchetStruck(world, b);
     hiveStruck(world, b);
     return false;
   }

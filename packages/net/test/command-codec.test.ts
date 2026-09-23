@@ -234,6 +234,12 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "haspLatch", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "haspWheel", on: true, fromMilli: 250 },
   { kind: "drag", target: "haspWheel", on: true, fromMilli: -1 },
+  // THE RATCHET's catch is a depth read as a level, and its pawl a press —
+  // both on the wire, or the wire drops them silently (`sim/ratchet-hand.ts`).
+  { kind: "drag", target: "ratchetCatch", on: true, fromMilli: 0, fromYMilli: 700 },
+  { kind: "drag", target: "ratchetCatch", on: false, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "ratchetPawl", on: true, fromMilli: 0 },
+  { kind: "drag", target: "ratchetPawl", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -382,6 +388,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   spoolBrake: true,
   haspLatch: true,
   haspWheel: true,
+  ratchetCatch: true,
+  ratchetPawl: true,
   crank: true,
   orreryRing: true,
 };

@@ -166,6 +166,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   bellows: { wave: "theBellows" },
   spool: { wave: "theSpool" },
   hasp: { wave: "theHasp" },
+  ratchet: { wave: "theRatchet" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

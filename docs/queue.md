@@ -545,24 +545,6 @@ word in `CARRY`; the film off `STILL_PROSE`; and the rail's rows in
 `controls.md`. §11.36's *What is not built* lists it. Prove it with a
 new spool-grip.test.ts beside `bellows-grip.test.ts`.
 
-## THE RATCHET is written and nobody has built its simulation
-
-- **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
-- **Taken:** 2026-09-23, claude/queue-task-work-39902b (claim: claude/queue-the-ratchet-is-written-and-nobody-has-built-its)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/bosses.ts`, `packages/net/src/command-fields.ts`, `packages/content/src/waves/act-7e.ts`
-
-`docs/spec/bosses-choreographed.md` §22 is a full design: `ratchetCatch` (a
-hold) and `ratchetPawl` (a press, the way THE MAW TAP is) as two new
-`DragTarget` members, `SequentialAction` (§16's own primitive) gating the
-press on the hold, and a rack that only ever advances — never backward — on
-a press, catch primed or not, with an unprimed press burning a tooth for
-nothing. Seven teeth as a hashed `World` field, needing five clean advances
-of the seven to open; the wave entry with its guide, one test per receipt.
-§22's own write-up is explicit that this is a single line in the boss's own
-step function, not a new primitive.
-
-The picture is a separate item, `LOCAL ONLY`, below — do not start it here.
-
 ## THE RATCHET's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses

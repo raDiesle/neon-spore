@@ -16,6 +16,7 @@ import { ledgerHandsHeard } from "./ledger-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
+import { ratchetHeard } from "./ratchet-hand.js";
 import { scuttleHeard } from "./scuttle-hand.js";
 import { spoolHeard } from "./spool-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
@@ -93,6 +94,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // read on the tick: a wheel judged on the beat would keep turning after the
   // latch let go, which is the one lie this boss may not tell (`hasp-hand.ts`).
   for (const c of commands) haspHeard(world, c.player, c.command);
+  // THE RATCHET's catch and pawl, on the tick because a press is judged
+  // against her hand the instant it lands (`ratchet-hand.ts`).
+  for (const c of commands) ratchetHeard(world, c.player, c.command);
   // THE BULB QUEEN's marks under player 1's thumb, on the tick because a pry
   // is a press when it lands and a hold is where the thumb is now (`queen-hand.ts`).
   for (const c of commands) queenHeard(world, c.player, c.command);

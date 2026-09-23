@@ -14,6 +14,7 @@ import { instarHashParts } from "./instar-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
+import { ratchetHashParts } from "./ratchet-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
 import { spoolHashParts } from "./spool-hash.js";
@@ -129,6 +130,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE HASP: the phase, the hasps, both hands, the heat's two beats, the wind and the bolt (`hasp-hash.ts`).
   if (boss.kind === "hasp") {
     for (const n of haspHashParts(boss)) out.push(n);
+  }
+  // THE RATCHET: the phase, the teeth, both hands and the bolt (`ratchet-hash.ts`).
+  if (boss.kind === "ratchet") {
+    for (const n of ratchetHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

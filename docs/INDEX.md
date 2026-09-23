@@ -470,6 +470,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/coil-state.ts` | **What a coil is right now**: which way it is going, whether it is still wearing its dome |
 | `packages/sim/src/config-rock-cross.ts` | **A crossing rock's two numbers**: how far along its row it goes each beat |
 | `packages/sim/src/rock-cross.ts` | **A rock authored to cross the field instead of holding its lane** |
+| `packages/sim/src/ratchet-hand.ts` | **The two hands on THE RATCHET**, off the wire, on the tick — and the gate between them |
+| `packages/sim/src/ratchet-hash.ts` | What THE RATCHET puts into `hashWorld`, and nothing else |
+| `packages/sim/src/ratchet-shot.ts` | **THE RATCHET's one target**: the bolt the second clean advance shakes loose (§22, row 8) |
+| `packages/sim/src/ratchet-step.ts` | THE RATCHET's clock: the pawl lighting, a window running out, the rack climbing, the one bolt |
+| `packages/sim/src/ratchet.ts` | THE RATCHET: a toothed rack down the middle of the field, in full view of both seats |
 | `packages/sim/src/choir-gesture.ts` | **The hand on THE CHOIR**, which is the half of that creature nothing else in this game has |
 | `packages/sim/src/choir.ts` | THE CHOIR: three dots in one membrane, and the first body in this game that **no button can reach** |
 | `packages/sim/src/choke.ts` | THE CHOKE: the cannon strip dead and the cannon walking wall to wall by itself, a column every few beats, for the whole wave |
@@ -559,6 +564,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
 | `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's five and THE MAZE's five** |
+| `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -569,6 +575,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bosses-ledger.ts` | **THE LEDGER's names, in the boss barrel** — its state, its phases |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
+| `packages/sim/src/config-ratchet.ts` | THE RATCHET's tuning: how deep the catch counts as set |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/config-well.ts` | THE WELL's numbers — how long the face stands still, how far it slips a beat |
 | `packages/sim/src/config-warden.ts` | THE WARDEN's throw: how far the swipe has to travel and how many beats the hatch stands open |
@@ -1784,6 +1791,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-diastole.ts` | THE DIASTOLE's two, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 
 ### apps/game
 
@@ -1993,6 +2001,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
 | `tools/director/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
+| `tools/director/src/boss-hands-ratchet.ts` | **THE RATCHET played right, and played blind**, for the STATES sheet |
 | `tools/director/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
 | `tools/director/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
 | `tools/director/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
@@ -2357,6 +2366,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
+| `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's five states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |

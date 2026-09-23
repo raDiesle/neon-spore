@@ -16,6 +16,7 @@ import type {
   LeadEntry,
   LedgerEntry,
   OrreryEntry,
+  RatchetEntry,
   ScoutEntry,
   ScuttleEntry,
   SinewEntry,
@@ -141,6 +142,10 @@ import type {
  *   own pair would be several different bosses wearing one name
  *   (`sim/config-hasp.ts`).
  *
+ * - **THE RATCHET** asks for nothing for THE HASP's reason: the rack hangs
+ *   over `midCol`, its seven teeth are the health, and the window each step
+ *   gives is the cadence a pair learns once (`sim/config-ratchet.ts`).
+ *
  * - **THE LEDGER** asks for nothing for THE TASTER's reason said about a
  *   column rather than a colour: the body stands over the middle, the seam is
  *   the health, and where the cord's socket walks to is the fight's own
@@ -180,7 +185,8 @@ export function bossAuthorsNothing(
   | GimbalEntry
   | BellowsEntry
   | SpoolEntry
-  | HaspEntry {
+  | HaspEntry
+  | RatchetEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -211,6 +217,7 @@ export function bossAuthorsNothing(
     kind === "gimbal" ||
     kind === "bellows" ||
     kind === "spool" ||
-    kind === "hasp"
+    kind === "hasp" ||
+    kind === "ratchet"
   );
 }

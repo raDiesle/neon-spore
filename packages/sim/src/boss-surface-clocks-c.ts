@@ -1,6 +1,6 @@
 /**
  * **The clock bosses' half of the surface, the third page** — THE WELL's face
- * and the thumb on its seam, and nothing else yet.
+ * and the thumb on its seam, and THE RATCHET's rack.
  *
  * Cut when THE HASP's door took `boss-surface-clocks-b.ts` to 258 lines
  * against a 250-line limit, along the seam that file was itself cut on: the
@@ -13,6 +13,26 @@
  * is one something outside `packages/sim` imports.
  */
 
+// THE RATCHET's rack: its phase, its teeth, whether the catch is set and
+// whether a bolt is loose — for the picture, the sound, the cue and the
+// director's hand. Straight off `ratchet.ts` (`docs/spec/bosses.md` §11.38).
+export type { RatchetEntry } from "./boss-entries-clocks-b.js";
+export {
+  NO_CATCH,
+  RATCHET_CLEAN,
+  RATCHET_PHASES,
+  RATCHET_TEETH,
+  type RatchetPhase,
+  type RatchetState,
+  ratchetBoss,
+  ratchetHeld,
+  ratchetJammed,
+  ratchetLoose,
+  ratchetMargin,
+  ratchetOpen,
+  ratchetWindowBeats,
+  ratchetWorking,
+} from "./ratchet.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's
