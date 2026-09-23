@@ -18041,3 +18041,5 @@ if its hand file says so, and no table in the simulation to import instead.
 
 The bottleneck was **the size hook on `states-page.ts`**: two lines took it
 within thirty of the ceiling, and the split was cheaper now than later.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

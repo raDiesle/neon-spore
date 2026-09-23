@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 3b136db5 — A STATES group and card carry their names as `data-group` and `data-pose`, so `bun run shot --click` can find them
+
+`--click` runs plain CSS, which cannot match a heading's text, so a group was `section:nth-of-type(n)` counted by hand. Now `--click '[data-group="THE GAUGE"] h2'` fills that group, and the usage says so. One group's section and cards moved to `states-section.ts`, since the two lines took `states-page.ts` near its ceiling. No look changed.
+
+## 2026-09-23 · 7f0754bd — `bun run crop` takes `--at x,y,w,h --zoom 4`, the spelling `versus:shot` already uses
+
+The same rectangle was four positionals on one tool and `--at` on the other, so the command that worked on one failed on the next. `parseCropArgs` takes the flags, `--flag=value` or `--flag value`, and positionals still fill whatever no flag set; an unknown flag names the three it does take.
+
 ## 2026-09-23 · 6d257499 — `--hold` can hold every handle the wire carries, and a test keeps it so
 
 `bun run frames --hold` knew twenty-eight names and the wire carries sixty-four, so THE PULSE's meter, THE UNDERTOW's pin, THE SCOUT's line, THE LEDGER's four and thirty more answered with a usage line, and six lanes posed their state with `--boss-json` instead of pressing it. The forty-three missing handles are now one row each in `hold-targets-b.ts` — the seat, the second seat's name, the id and whether the gesture is spent on the lift, each read off its hand file — and a test holds the flag's names to `DRAG_TARGETS` both ways, so a target added to the simulation without a row is red.
