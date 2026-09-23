@@ -17283,3 +17283,5 @@ catch's, which does.
 The bottleneck was **the pilot's word**: a press is never refused, so
 `PRESS` on a lit pad would ask for a burnt tooth, and the word had to say
 what he waits for without saying anything about her hand.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
