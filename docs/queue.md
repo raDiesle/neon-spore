@@ -578,6 +578,7 @@ the caller rather than as a rule.
 ## `ledgerPullable` refuses a case it can never be given
 
 - **Found:** 2026-09-22, claude/queue-the-ledgers-four-handles
+- **Taken:** 2026-09-23, claude/blissful-edison-ae9e44 (claim: claude/queue-ledgerpullable-refuses-a-case-it-can-never-be-gi)
 - **Files:** `packages/sim/src/ledger-gates.ts`, `packages/render/test/ledger-pull.test.ts`
 - **Where:** local
 
