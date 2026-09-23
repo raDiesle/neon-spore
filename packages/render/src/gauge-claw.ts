@@ -1,7 +1,7 @@
-import { blobPoints, POD, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { GAUGE_FULL } from "@neon-spore/sim";
 import type { Dial } from "./gauge.js";
-import { halo, strokeGlow } from "./glow.js";
+import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { OWN_SKIN } from "./hull-skin.js";
 import { PALETTE } from "./palette.js";
@@ -30,8 +30,6 @@ import { splinePath } from "./spline.js";
  * smaller pod.
  */
 
-/** How far out the pod stands, as a share of the radius — `gaugeBandMid`'s. */
-export const POD_REACH = 0.81;
 /** How far the claw's rails reach before its hand, as a share of the radius. */
 const RISE = 0.3;
 /** How far out the dotted line runs, past the pod's far edge. */
@@ -44,27 +42,48 @@ const SAG = 0.1;
 /** How far down the ship's body is painted before it is the dark. */
 const DEPTH = 0.4;
 
+/**
+ * Where the claw is and how its hand stands: which way it points, how far out
+ * its fingers are from the pivot, and how far apart. At rest that is the
+ * needle, the rise and the open hand; a call sends it out along its own line
+ * and back (`gauge-catch.ts`), and nothing else ever moves it.
+ */
+export interface ClawPose {
+  aimMilli: number;
+  /** From the pivot to the fingers' root, in pixels. */
+  length: number;
+  /** How far out either finger stands, in pixels. */
+  out: number;
+}
+
+/** The hand's own measures in pixels: its rise at rest, the rails' half-gap,
+ * and how far the fingers reach past their root. */
+export function clawHand(dial: Dial): { rise: number; half: number; reach: number } {
+  const rise = dial.r * RISE;
+  return {
+    rise,
+    half: Math.max(1, rise * ARM_SHAFT_TILES * 1.6),
+    reach: rise * ARM_FINGER_TILES * 1.6,
+  };
+}
+
+/** The claw standing at home, open, pointing where the needle is. */
+export function clawAtRest(dial: Dial, needleMilli: number): ClawPose {
+  const hand = clawHand(dial);
+  return { aimMilli: needleMilli, length: hand.rise, out: hand.half * 2.1 };
+}
+
 /** The unit direction a value on the dial points in. Left is 0, right is full. */
-function along(milli: number): Point {
+export function along(milli: number): Point {
   const a = Math.PI + (milli / GAUGE_FULL) * Math.PI;
   return { x: Math.cos(a), y: Math.sin(a) };
 }
 
 /** The canvas turned so that "up" is the way `milli` points, about the pivot. */
-function aimAt(ctx: CanvasRenderingContext2D, dial: Dial, milli: number): void {
+export function aimAt(ctx: CanvasRenderingContext2D, dial: Dial, milli: number): void {
   const d = along(milli);
   ctx.translate(dial.cx, dial.cy);
   ctx.rotate(Math.atan2(d.y, d.x) + Math.PI / 2);
-}
-
-/**
- * The half-width the pod is drawn at, in pixels: `R·tan θ`, θ the span's own
- * angle about the pivot. Exported because it is the one claim this picture
- * makes that a test can hold (`gauge-claw.test.ts`).
- */
-export function podHalfWidth(dial: Dial, spanMilli: number): number {
-  const theta = Math.min(Math.PI * 0.45, (spanMilli / GAUGE_FULL) * Math.PI);
-  return dial.r * POD_REACH * Math.tan(theta);
 }
 
 /**
@@ -103,30 +122,25 @@ export function drawGaugeShip(ctx: CanvasRenderingContext2D, dial: Dial, width: 
 }
 
 /**
- * The claw, rooted in the crown and turned to where the needle is: two rails
- * and THE CLAW's own open fingers (`reach-arm.ts`), in that arm's proportions
- * with the rise standing in for a tile — the same shares the REACH button
- * takes (`action-face.ts`).
+ * The claw, rooted in the crown and standing as `pose` says: two rails and THE
+ * CLAW's own fingers (`reach-arm.ts`), in that arm's proportions with the rise
+ * standing in for a tile — the same shares the REACH button takes
+ * (`action-face.ts`).
  */
-export function drawGaugeClaw(
-  ctx: CanvasRenderingContext2D,
-  dial: Dial,
-  needleMilli: number,
-): void {
-  const rise = dial.r * RISE;
-  const half = Math.max(1, rise * ARM_SHAFT_TILES * 1.6);
+export function drawGaugeClaw(ctx: CanvasRenderingContext2D, dial: Dial, pose: ClawPose): void {
+  const { rise, half, reach } = clawHand(dial);
   ctx.save();
-  aimAt(ctx, dial, needleMilli);
+  aimAt(ctx, dial, pose.aimMilli);
   ctx.lineCap = "round";
   ctx.strokeStyle = PALETTE.hull;
   ctx.lineWidth = 2.6;
   for (const side of [-1, 1] as const) {
     ctx.beginPath();
     ctx.moveTo(side * half, rise * 0.1);
-    ctx.lineTo(side * half, -rise);
+    ctx.lineTo(side * half, -pose.length);
     ctx.stroke();
   }
-  drawClawFingers(ctx, 0, -rise, half, rise * ARM_FINGER_TILES * 1.6, false);
+  drawClawFingers(ctx, 0, -pose.length, half, reach, false, pose.out);
   // The joint it turns on, over the rails' feet: an arm that swings needs
   // something to swing *about*, and two rails meeting the crown at a slant
   // read as a hand leaning on the ship rather than one mounted in it.
@@ -152,57 +166,20 @@ export function drawGaugeLine(
   ctx: CanvasRenderingContext2D,
   dial: Dial,
   needleMilli: number,
+  alpha = 1,
 ): void {
-  const rise = dial.r * RISE;
-  const from = rise + rise * ARM_FINGER_TILES * 1.6 + 6;
+  if (alpha <= 0) return;
+  const { rise, reach } = clawHand(dial);
+  const from = rise + reach + 6;
   ctx.save();
   aimAt(ctx, dial, needleMilli);
   ctx.lineCap = "round";
   ctx.lineWidth = 3;
-  ctx.strokeStyle = rgba(PALETTE.hullRim, 0.85);
+  ctx.strokeStyle = rgba(PALETTE.hullRim, 0.85 * alpha);
   ctx.setLineDash([0.1, 9]);
   ctx.beginPath();
   ctx.moveTo(0, -from);
   ctx.lineTo(0, -dial.r * LINE_REACH);
   ctx.stroke();
-  ctx.restore();
-}
-
-/**
- * The pod, standing still at the mark, its width across the claw's sweep. The
- * contour is the moored pod's (`POD`, `pods.ts`) held at one instant so the
- * width it is judged by does not breathe, and scaled on its own widest point
- * rather than on `rx`: the lobes stand past the ellipse, and a pod scaled on
- * the ellipse would be wider than the call it is standing for. No mark in the
- * middle — this is not a cargo of any kind, only where the claw has to be.
- */
-export function drawGaugePod(
-  ctx: CanvasRenderingContext2D,
-  dial: Dial,
-  markMilli: number,
-  spanMilli: number,
-  glow: number,
-): void {
-  const w = podHalfWidth(dial, spanMilli);
-  const outline = blobPoints(0, 0, POD.rx, POD.ry, POD.lobes, POD.depth, 0, 0, POD.seed);
-  const widest = Math.max(...outline.map((p) => Math.abs(p.x)));
-  const scale = w / widest;
-  const path = splinePath(outline, true);
-  const at = dial.r * POD_REACH;
-  const d = along(markMilli);
-
-  halo(ctx, dial.cx + d.x * at, dial.cy + d.y * at, w * 2.2, PALETTE.pod, 0.12 + 0.1 * glow);
-  ctx.save();
-  aimAt(ctx, dial, markMilli);
-  ctx.translate(0, -at);
-  ctx.scale(scale, scale);
-  ctx.fillStyle = PALETTE.podDark;
-  ctx.fill(path);
-  strokeGlow(ctx, path, PALETTE.pod, Math.max(1.5, w * 0.12) / scale, 0.8 + 0.4 * glow);
-  ctx.globalAlpha = 0.45 + 0.55 * glow;
-  ctx.fillStyle = PALETTE.podRim;
-  ctx.beginPath();
-  ctx.arc(0, 0, widest * 0.26, 0, Math.PI * 2);
-  ctx.fill();
   ctx.restore();
 }

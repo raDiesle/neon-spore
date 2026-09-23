@@ -17562,3 +17562,19 @@ The bottleneck was **getting the claw off the middle**: the picture drew on
 the first try, and the frame tool had no press that could turn it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE GAUGE never says whether the call caught anything
+
+- reading — 5 min. The entry, `sim/gauge.ts`'s call, `events-gauge.ts`, and
+  the claw and pod just landed.
+- writing — 15 min. `gauge-catch.ts` — the reach, the catch and the empty
+  hand; the pod cut out of `gauge-claw.ts` into `gauge-pod.ts` to keep that
+  file under the limit; `calledTick` in the sim; a test of the timing.
+- looking — 10 min. Two sheets of twelve frames that turned out to be too
+  short, then one hit row and one miss row through to the end.
+- friction — 5 min. The reach was first timed off `calledBeat`, which starts
+  a call made late in a beat half over — found only in the frames.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the call's clock**: the state had the beat of a call and
+not its tick, and only the frames said so.

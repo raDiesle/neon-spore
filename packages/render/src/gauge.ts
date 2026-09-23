@@ -1,13 +1,8 @@
 import { GAUGE_FULL, type GaugeState, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
-import {
-  drawGaugeClaw,
-  drawGaugeLine,
-  drawGaugePod,
-  drawGaugeShip,
-  POD_REACH,
-} from "./gauge-claw.js";
+import { callAge, clawPose, drawGaugeCatch, gaugeLineShown, gaugePodGrown } from "./gauge-catch.js";
+import { drawGaugeClaw, drawGaugeLine, drawGaugeShip } from "./gauge-claw.js";
+import { drawGaugePod, POD_REACH } from "./gauge-pod.js";
 import type { ViewRole } from "./layout.js";
-import { PALETTE } from "./palette.js";
 
 /**
  * THE GAUGE's picture: the ship's claw turning on the crown of the hull, a
@@ -23,12 +18,12 @@ import { PALETTE } from "./palette.js";
  * the hand THE CLAW's panel already carries. Nothing the pair reads is new.
  *
  * No new colours either. Violet and white are the ship's own; the pod is
- * `pod` amber; a call that landed is `good` green and one that did not is
+ * `pod` amber; a catch is `good` green and a hand shut on nothing is
  * `sparkDim`, which are already right and wrong everywhere else.
  *
  * Stateless, like every other draw in this package: everything it shows is on
- * the world, so nothing here outlives a frame and `Effects.reset` has nothing
- * of it to clear.
+ * the world — the call's answer too, read off `calledBeat` and the beat — so
+ * nothing here outlives a frame and `Effects.reset` has nothing of it to clear.
  */
 
 /**
@@ -56,8 +51,9 @@ export interface Dial {
 export interface DialView {
   /** Whether this screen is the one that can see the two marks. */
   showMarks: boolean;
-  beat: number;
   beatPhase: number;
+  /** `world.tick`, which a call's reach is timed from (`gauge-catch.ts`). */
+  tick: number;
   /** The stage's width, which the ship's skin runs across. */
   width: number;
 }
@@ -84,47 +80,22 @@ export function drawGauge(
   // nothing drawn after the claw may cover the thing the pilot is turning
   // (`gauge-claw.ts`).
   drawGaugeShip(ctx, dial, view.width);
+  const age = callAge(cfg, gauge, view.tick);
   // The width **now**, not the one in the config: the band winds tight every
   // few marks and her thumb gives it back, and a pod that stood at the full
   // width through the bind would have her calling a claw the screen shows
   // inside it and being told it was not (`gauge-band.ts`).
   if (view.showMarks) {
     const glow = 0.5 + 0.5 * Math.cos(view.beatPhase * Math.PI * 2);
-    drawGaugePod(ctx, dial, gauge.markMilli, gaugeSpanNow(cfg, gauge), glow);
+    const grown = gaugePodGrown(gauge, age);
+    drawGaugePod(ctx, dial, gauge.markMilli, gaugeSpanNow(cfg, gauge), glow, grown);
   }
-  drawCall(ctx, dial, gauge, view);
-  drawGaugeLine(ctx, dial, gauge.needleMilli);
-  drawGaugeClaw(ctx, dial, gauge.needleMilli);
-}
-
-/**
- * Where the last call landed, fading over two beats, along the claw's own
- * sweep. Both screens show it, and
- * that is deliberate: it is the one thing in the round the pair have to agree
- * about afterwards, and a pilot who never learnt whether his stop was right
- * has no way to get better at obeying.
- */
-function drawCall(
-  ctx: CanvasRenderingContext2D,
-  dial: Dial,
-  gauge: GaugeState,
-  view: DialView,
-): void {
-  const age = view.beat - gauge.calledBeat + view.beatPhase;
-  if (gauge.calledMilli < 0 || age > 2) return;
-  const alpha = Math.max(0, Math.min(1, 1 - age / 2));
-  const a = pointOn(dial, gauge.calledMilli, dial.r * 0.2);
-  const b = pointOn(dial, gauge.calledMilli, dial.r * 1.04);
-
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.strokeStyle = gauge.calledGood ? PALETTE.good : PALETTE.sparkDim;
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(a.x, a.y);
-  ctx.lineTo(b.x, b.y);
-  ctx.stroke();
-  ctx.restore();
+  // A call is the claw going out and coming back, with the pod or without it,
+  // on both screens (`gauge-catch.ts`); the line is hidden while the arm is
+  // out along it.
+  drawGaugeLine(ctx, dial, gauge.needleMilli, gaugeLineShown(age));
+  drawGaugeCatch(ctx, dial, gauge, age);
+  drawGaugeClaw(ctx, dial, clawPose(dial, gauge, age));
 }
 
 /**

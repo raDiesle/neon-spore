@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { GAUGE_FULL, type GaugeState } from "@neon-spore/sim";
 import { type Dial, drawGauge, gaugeBandMid, gaugeNeedleTip } from "../src/gauge.js";
-import { POD_REACH, podHalfWidth } from "../src/gauge-claw.js";
+import { POD_REACH, podHalfWidth } from "../src/gauge-pod.js";
 import { PALETTE } from "../src/palette.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./frame-harness.js";
 
@@ -68,7 +68,7 @@ describe("THE GAUGE's pod", () => {
           return typeof v === "function" ? v.bind(target) : v;
         },
       }) as unknown as CanvasRenderingContext2D;
-      drawGauge(spy, DIAL, CFG, g, { showMarks, beat: 8, beatPhase: 0.3, width: 390 });
+      drawGauge(spy, DIAL, CFG, g, { showMarks, beatPhase: 0.3, tick: 300, width: 390 });
       return fills;
     };
     expect(podFills(true)).toBe(1);

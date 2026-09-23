@@ -139,9 +139,10 @@ export function drawClawFingers(
   half: number,
   reach: number,
   shut: boolean,
+  /** How far out the fingers stand, when a hand is closing on something of a
+   * size its own two gapes do not cover — THE GAUGE's claw, shut on a pod. */
+  out = shut ? half * 0.4 : half * 2.1,
 ): void {
-  const out = shut ? half * 0.4 : half * 2.1;
-
   ctx.strokeStyle = PALETTE.hullRim;
   ctx.lineWidth = 2.6;
   ctx.beginPath();

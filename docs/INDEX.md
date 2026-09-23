@@ -988,7 +988,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name and the one sentence that teaches this seat its half |
 | `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
 | `packages/render/src/gauge-claw.ts` | THE GAUGE as the ship's own hand — the owner, 20 September 2026: *the control idea should stay |
-| `packages/render/src/gauge.ts` | THE GAUGE's picture: a half-round dial, a needle, and two marks that only one of the two screens carries |
+| `packages/render/src/gauge-catch.ts` | What a THE GAUGE call looks like: the claw reaches, shuts, and comes back holding the pod or holding nothing |
+| `packages/render/src/gauge-pod.ts` | THE GAUGE's pod, whose width is the span, and the same body in the claw's hand |
+| `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
 | `packages/render/src/gland-fluid.ts` | THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM and EMBEDDED on 11 September 2026… |

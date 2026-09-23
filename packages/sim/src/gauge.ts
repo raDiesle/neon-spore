@@ -87,6 +87,13 @@ export interface GaugeState {
   /** Whether that call landed. */
   calledGood: boolean;
   /**
+   * `world.tick` of the most recent call. The beat is what the rest between
+   * calls is counted in; this is what the claw's reach is timed from, because
+   * a call made late in a beat would otherwise be drawn as half over the
+   * moment it was made (`render/gauge-catch.ts`).
+   */
+  calledTick: number;
+  /**
    * `world.beat` the valve jammed on, or `-1`. A call that misses jams it and
    * a call that lands frees it, so the state the round is in is the pair's own
    * last answer (`gauge-hand.ts`).
@@ -121,6 +128,7 @@ export function openGauge(world: World): GaugeState {
     calledBeat: NEVER_CALLED,
     calledMilli: -1,
     calledGood: false,
+    calledTick: NEVER_CALLED,
     jamBeat: -1,
     handOn: false,
     liftBeat: -1,
@@ -208,6 +216,7 @@ export function gaugeHeard(world: World, gauge: GaugeState, player: 1 | 2, comma
   gauge.calledBeat = world.beat;
   gauge.calledMilli = gauge.needleMilli;
   gauge.calledGood = good;
+  gauge.calledTick = world.tick;
   if (!good) {
     gauge.misses += 1;
     // And the valve sticks. A miss is the one thing in this round that was

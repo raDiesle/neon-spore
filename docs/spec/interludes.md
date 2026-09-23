@@ -280,6 +280,19 @@ her screen and never on his. **Not one number of the round moved**: the claw
 and the pod stand at `gauge.ts`'s readings about `gaugeDial`'s pivot, where
 the needle and the band always did.
 
+**A call is the claw reaching** (23 September 2026). The owner, 20 September:
+*a very clear visual whether the claw was successful to catch the pod or
+whether it was not within the open area.* On the call the arm runs out along
+its dotted line and shuts. A catch is a body: a pod stands where it was
+called, the hand closes on it in a green ring, carries it home and the ship
+swallows it at the crown, while the navigator's next pod swells in where the
+band has gone. A miss is an absence: the hand shuts on the dark in a grey
+puff and comes back closed and rattling on the valve that has just jammed.
+Both screens — the pod in the hand is where the pilot stopped, and it is the
+one way he learns his stop was right (`render/gauge-catch.ts`). It is timed
+from `calledTick`, the one field the simulation gained, and it is over inside
+the rest between two calls.
+
 **What is not built.** Neither state has a pose of its own in the director's
 gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live
 inside rather than a picture of either. That one is still in

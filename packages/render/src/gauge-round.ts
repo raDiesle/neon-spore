@@ -74,8 +74,8 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   const dial = gaugeDial(l);
   drawGauge(ctx, dial, view.world.cfg, boss, {
     showMarks: showsGaugeMarks(view.role),
-    beat: view.world.beat,
     beatPhase: view.beatPhase,
+    tick: view.world.tick,
     width: l.width,
   });
   // The two thumbs the round can be taken hold of by, after the dial they

@@ -515,34 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE GAUGE never says whether the call caught anything
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-the-gauges-dial-is-a-claw-and-its-band-is-a-pod (claim: claude/queue-the-gauge-never-says-whether-the-call-caught-any)
-- **Files:** `packages/render/src/gauge.ts`, `packages/render/src/gauge-round.ts`, `packages/sim/src/events-gauge.ts`, `packages/sim/src/gauge-hand.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *there should be a very clear visual whether the
-claw was successful to catch the pod or whether it was not within the open
-area.*
-
-The call is the only thing in the round that can be wrong and it costs
-`gaugeCallRestBeats` either way (`sim/gauge.ts`). Today the answer is a change
-of state — jammed, settling — read off `gaugeJammed` and `gaugeSettling`, which
-is a fact the screen has rather than a moment the pair sees. With a claw and a
-pod there are two pictures to draw and they must not be the same one with a
-colour swapped: the claw closes on the pod and takes it, or it closes on
-nothing and comes back empty.
-
-`events-gauge.ts` is where the round's events are pushed, so whether a new one
-is needed is the first question — the render side may already have everything
-it needs off the state, in which case this is `Effects` and a frame count and
-nothing in `sim` moves at all. Anything render keeps between frames for the
-animation belongs in `Effects` and is cleared in `Effects.reset()`
-(`packages/render/test/restart.test.ts`).
-
-Depends on the claw and the pod being drawn first.
-
 ## THE GAUGE's words and buttons are the round's own, not the ship's
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
