@@ -574,6 +574,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## A STATES card cannot be named, and `--click` takes plain CSS
 
 - **Found:** 2026-09-21, claude/queue-the-gauges-two-new-states-have-no-pose-in-the-di
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-states-card-cannot-be-named-and-click-takes-pl)
 - **Files:** `tools/frames/shot-state.ts`, `tools/director/src/states-page.ts`
 
 Photographing one boss's row of state cards took
