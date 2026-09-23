@@ -617,6 +617,7 @@ lines and no test beyond one case per spelling.
 ## A film is proved against a config the game does not play
 
 - **Found:** 2026-09-21, claude/queue-the-hive-has-no-rehearsal-film-no-the-hive-scene
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-film-is-proved-against-a-config-the-game-does)
 - **Files:** `packages/content/test/scene-films.test.ts`, `packages/sim/src/shot-charge.ts`, `apps/game/src/main.ts`
 
 `sceneScript` hands the host's `cfg` straight to the film and retimes nothing.
