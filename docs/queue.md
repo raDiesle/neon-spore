@@ -541,6 +541,7 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 ## `queue next` prints a relative worktree path that nests inside a session's tree
 
 - **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-queue-next-prints-a-relative-worktree-path-that)
 - **Files:** `tools/queue/prompt.ts`, `tools/queue/test/`
 
 The prompt says `git worktree add .claude/worktrees/<name> <branch>`. Run from
