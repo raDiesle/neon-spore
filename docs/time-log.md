@@ -17720,3 +17720,5 @@ blooms round the old sockets were that defect, and clipping them exposed it.
 The bottleneck was **the op log reads colours as written**: a hue passed
 through `rgba()` is a different string, so the strength goes in `globalAlpha`
 and the round's own hex stays on the stroke.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

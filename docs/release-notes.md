@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 5918ecb2 — THE DIASTOLE's chambers are muscle with blood in them, and the strands are vessels
+
+Each chamber is shaded muscle lit from above, with its owner's blood pooled inside it, a wall lit from within, two forked veins and a film of gloss. It is no longer a grey fill with a glowing line round it. The hue, the squeeze and the snap of a contraction still say what they said, now from inside the wall. A husk is the same muscle, dead. The strands between the chambers are tubes with a lit core.
+
 ## 2026-09-23 · d5e609ea — THE PULSE's meter is glass and its sockets are wet pits
 
 The one meter was a rounded bar with a line round it. It is now a glass vessel: a cavity darkest under its top edge, a gloss film along the top, and a lower wall lit in the level's own red-to-violet. Each of the four sockets in the hull is now a pit: dark at the bottom, with a pool of the lane's own light, its far wall lit in the lane colour and a wet film on its lip. The big soft colour clouds round the old sockets are gone. They were `strokeGlow` under a scale, its passes twenty times too wide. The veiled arrival is shaded like stone instead of a dark fill with a glowing line.
