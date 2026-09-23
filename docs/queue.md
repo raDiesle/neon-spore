@@ -450,27 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## `drawOnShip`'s `held` is a structural type that grows with every hit look
-
-- **Found:** 2026-09-22, claude/burst-on-contact
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-drawonship-s-held-is-a-structural-type-that-grow)
-- **Files:** `packages/render/src/frame-on-ship.ts`, `packages/render/src/render-state.ts`
-
-The pass takes its kept state as an inline object type — `fenceStrike`,
-`gumSplash`, `bodyBurst`, `breachStrike`, `effects` — and its own doc already
-saw this coming: *it was two of its fields and became three when the harpoon's
-line arrived, which is the point at which a list of fields is worse than the
-object holding them.* It is five now, and the fifth was added by this lane in
-two places for one call.
-
-Every one of those fields is a `RenderState` field and `RenderState` is what
-the caller passes. The work is to take `RenderState` itself — `readonly` on
-the parameter, so the pass still cannot write to it — and delete the literal.
-What has to be checked first is whether any test or tool builds a `held`
-by hand rather than handing over a whole renderer; if one does, it gets a
-`RenderState` and the fields it cares about, which is shorter than the object
-it builds today.
-
 ## THE SPOOL's guide has no film
 
 - **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb
@@ -822,4 +801,3 @@ column count, a pinch, a pull. Double both halves per
 `docs/spec/choreographed-windows.md`, the SLOW opened at the ask (for the
 first time on THE CURTAIN and THE ANTIPHON), the films re-timed and the
 rehearsals given room.
-

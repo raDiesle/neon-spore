@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — `drawOnShip` takes `RenderState`
+
+- reading — 5 min. The pass, its one caller and `RenderState`'s fields.
+- writing — 5 min. The parameter type and five imports gone.
+- looking — 0 min.
+- friction — 0 min.
+- landing — 10 min. `check:fast`, the commit, `land`.
+
+The bottleneck was landing: a five-minute change waits on a check that takes longer than it did.
+
 ## 2026-09-23 — the doubled window, decided boss by boss
 
 - reading — 30 min. Every `config-<boss>.ts` default and its argument, to tell a deadline from a cadence.

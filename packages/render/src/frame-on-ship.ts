@@ -1,16 +1,12 @@
 import type { World } from "@neon-spore/sim";
-import type { BodyBurst } from "./body-burst.js";
-import type { BreachStrike } from "./breach-strike.js";
 import { drawChokeCoils } from "./choke-hull.js";
 import { drawStuckClingers } from "./cling.js";
-import type { Effects } from "./effects.js";
-import type { FenceStrike } from "./fence-strike.js";
-import type { GumSplash } from "./gum-splash.js";
 import { drawHarpoonMarks } from "./harpoon-mark.js";
 import { heldHarpoons } from "./harpoon-place.js";
 import type { HullFrame, LobePositions, SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawLedgerRoot } from "./ledger-root.js";
+import type { RenderState } from "./render-state.js";
 import type { ViewState } from "./renderer.js";
 import { drawUndertowHull } from "./undertow-draw.js";
 import { drawUndertowGrips } from "./undertow-grip.js";
@@ -38,20 +34,11 @@ export function drawOnShip(
   world: World,
   view: ViewState,
   /**
-   * The renderer's own kept state, whole.
-   *
-   * It was two of its fields — the fence's strike and the gum's splash — and
-   * became three when the harpoon's line arrived, which is the point at which
-   * a list of fields is worse than the object holding them: `canvas2d.ts` is
-   * at its length limit and every pass added here would cost it a line.
+   * The renderer's own kept state, whole — `RenderState` itself rather than a
+   * literal of the fields this pass reads, which grew a field with every hit
+   * look that arrived. `Readonly`, so the pass still cannot swap one out.
    */
-  held: {
-    fenceStrike: FenceStrike;
-    gumSplash: GumSplash;
-    bodyBurst: BodyBurst;
-    breachStrike: BreachStrike;
-    effects: Effects;
-  },
+  held: Readonly<RenderState>,
   hull: HullFrame,
   at: LobePositions,
   surfaceY: SurfaceY,
