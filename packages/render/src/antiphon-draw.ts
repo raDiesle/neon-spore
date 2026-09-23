@@ -8,16 +8,19 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import { faded, paintBud, paintMantle, paintPit } from "./antiphon-flesh.js";
 import type { AntiphonFx } from "./antiphon-fx.js";
 import { drawAntiphonGrip } from "./antiphon-grip.js";
 import { drawAntiphonRailGrip } from "./antiphon-rail-grip.js";
 import {
   antiphonBodyPath,
+  antiphonBox,
   antiphonCentre,
   antiphonContourPath,
   antiphonDecoyLobes,
   antiphonFade,
   antiphonGrowPhase,
+  antiphonHemLobes,
   antiphonOrganCircle,
   antiphonPerch,
   antiphonPitSpot,
@@ -28,7 +31,6 @@ import {
   RAIL_R,
 } from "./antiphon-shape.js";
 import { strokeGlow } from "./glow.js";
-import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { showsAntiphonOrgan, showsAntiphonRail } from "./view-role-clocks-b.js";
@@ -120,21 +122,12 @@ export function drawAntiphon(
   ctx.restore();
 }
 
-/**
- * A colour at the fade: the hex itself while the body stands, so the frame
- * tests can count it, and an `rgba` once it is going — `strokeGlow` owns the
- * alpha, so a fade has to be in the colour (`scuttle-draw.ts`).
- */
-function faded(hex: string, fade: number, alpha = 1): string {
-  return fade >= 1 && alpha >= 1 ? hex : rgba(hex, alpha * fade);
-}
-
 /** A colour's fill and rim. */
 function tone(color: Color): [string, string] {
   return color === "red" ? [PALETTE.red, PALETTE.redRim] : [PALETTE.cyan, PALETTE.cyanRim];
 }
 
-/** The body: a smooth violet mass breathing, glassy and rimmed bright once it is still, closing in on its way out. */
+/** The body: a mantle of membrane breathing, glassier once it is still, closing in on its way out (`antiphon-flesh.ts`). */
 function drawBody(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -143,18 +136,26 @@ function drawBody(
   fade: number,
   still: boolean,
 ): void {
-  const p = antiphonBodyPath(l, cfg, fade, time, still ? 0 : 1);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.background, fade);
-  ctx.fill(p);
-  ctx.fillStyle = faded(PALETTE.hull, fade, still ? 0.42 : 0.28);
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.hull, fade), STROKE.inner, 0.6 * fade);
-  strokeGlow(ctx, p, faded(PALETTE.hullRim, fade), STROKE.inner, (still ? 0.7 : 0.3) * fade);
+  const box = antiphonBox(l, cfg);
+  const mid = (box.left + box.right) * 0.5;
+  const hw = (box.right - box.left) * 0.5 * fade;
+  paintMantle(
+    ctx,
+    antiphonBodyPath(l, cfg, fade, time, still ? 0 : 1),
+    {
+      left: mid - hw,
+      right: mid + hw,
+      top: box.top,
+      bottom: box.bottom,
+      tile: l.tile,
+      lobes: antiphonHemLobes(cfg),
+    },
+    fade,
+    still,
+  );
 }
 
-/** A pit: the shape that made it, sunk into the body small and dark, its rim in the dim violet. */
+/** A pit: the shape that made it, sunk into the body small and dark, a wet socket. */
 function drawPit(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -164,15 +165,12 @@ function drawPit(
   time: number,
   fade: number,
 ): void {
-  const p = antiphonContourPath(shape, antiphonPitSpot(l, cfg, i), l.tile * PIT_R * fade, time);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.background, fade, 0.8);
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.dim, fade), STROKE.inner, 0.6 * fade);
+  const at = antiphonPitSpot(l, cfg, i);
+  const r = l.tile * PIT_R * fade;
+  paintPit(ctx, antiphonContourPath(shape, at, r, time), at.y, r, l.tile, fade);
 }
 
-/** An organ or a candidate hanging off the underside: its contour, filled in `hex` and rimmed in `rim`, breathing. */
+/** An organ or a candidate hanging off the underside: its contour, a bud of `hex` lit inside in `rim`, breathing. */
 function drawContour(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -189,11 +187,7 @@ function drawContour(
   if (rTiles <= 0) return;
   const r = l.tile * rTiles * (1 + 0.03 * Math.sin(time * 4));
   const p = antiphonContourPath(c.shape, at, r, time * 0.3, lobes, turn);
-  ctx.save();
-  ctx.fillStyle = faded(hex, fade, 0.75);
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, faded(rim, fade), STROKE.outline, 0.8 * fade);
+  paintBud(ctx, p, at.x, at.y, r, l.tile, hex, rim, fade);
 }
 
 /** The window: a thread along the underside of the body, shortening from both ends as the beats run out. */

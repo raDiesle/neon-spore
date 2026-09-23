@@ -17970,3 +17970,21 @@ The bottleneck was **finding a frame with a part hanging**: the wave's first
 seconds show only whole plating, so the later ticks had to be probed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE ANTIPHON's picture looks like something real
+
+- reading — 0 min. `antiphon-draw.ts`, `antiphon-shape.ts` and the two frame
+  tests, which count the hull's rim per organ, the dim per pit and the
+  colours' rims per candidate.
+- writing — 5 min. `antiphon-flesh.ts`: the body a mantle of membrane,
+  creased between its lobes, its hem lit from inside, a film; pits as wet
+  sockets; organs and candidates as shaded buds lit inside in their rim.
+  `antiphonHemLobes` exported so the creases are not re-derived. The window
+  and the grips stay.
+- looking — 0 min. Both seats before and after at 2×, and a second pass
+  when the hem's lit band still read as the old line.
+- friction — 0 min. None.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the hem**: a narrow lit band along a scalloped edge is
+the outline again, so the light had to rise into the membrane as a glow.

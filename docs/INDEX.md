@@ -1593,6 +1593,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/after-image.ts` | **THE CANDLE's after-image**: which columns of a dark field were lit, by what |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-fx.ts` | What THE ANTIPHON leaves behind a frame |
+| `packages/render/src/antiphon-flesh.ts` | **What THE ANTIPHON is made of**: a long mantle of membrane |
 | `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-grip.ts` |  |
 | `packages/render/src/antiphon-rail-grip.ts` | **THE ANTIPHON's second handle: the rail, on the one screen it hangs on** — a ring on every candidate… |

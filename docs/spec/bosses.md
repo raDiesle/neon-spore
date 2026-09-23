@@ -6752,12 +6752,16 @@ the design's one time effect is a second viewing angle, and a hand that
 turns the organ is a `Hold` the default set does not have yet — it is the
 look lane's to add, or the owner's to decline (`new-boss` skill §6, open).
 
-**The look** (`render/antiphon-draw.ts`, `antiphon-shape.ts`,
-`antiphon-fx.ts`; the table `content/antiphon-contours.ts`). A smooth
+**The look** (`render/antiphon-draw.ts`, `antiphon-flesh.ts`,
+`antiphon-shape.ts`, `antiphon-fx.ts`; the table `content/antiphon-contours.ts`). A smooth
 violet **body** hangs above row 0 the whole width of the columns — its top
 arched, its flanks breathing, its underside swelling in slow waves one a
-pair of columns — filled in the hull's violet over the background, dark,
-and rimmed in the hull and its rim; not the rock of THE SCUTTLE's slab
+pair of columns — a mantle of membrane in the hull's violet over the
+background, dark, lit along its top and gone to the deep at its hem, the
+hem lit from inside, creased where its lobes meet and wet with a streak of
+film, glassier when still, and never outlined (`antiphon-flesh.ts`,
+`new-boss-more` §6.3); a pit is a wet socket in it and an organ or a
+candidate a shaded bud lit inside its lower wall in its rim; not the rock of THE SCUTTLE's slab
 next door but the thing that is *soft*. The **table** is sixteen contours
 in four families, each family one draft off the shape sheet taken whole
 and three that differ from it by the one thing a sentence can say:

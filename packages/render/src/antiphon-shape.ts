@@ -102,7 +102,7 @@ export function antiphonBodyPath(
   p.moveTo(mid - hw, box.top + arch);
   p.quadraticCurveTo(mid, box.top - arch * 0.6, mid + hw, box.top + arch);
   p.quadraticCurveTo(mid + hw + flank, (box.top + box.bottom) * 0.5, mid + hw, box.bottom - swell);
-  const n = Math.max(1, Math.ceil(cfg.cols / COLS_PER_WAVE));
+  const n = antiphonHemLobes(cfg);
   for (let i = n - 1; i >= 0; i--) {
     const x0 = mid + hw - ((n - i) * hw * 2) / n;
     const x1 = x0 + (hw * 2) / n;
@@ -112,6 +112,11 @@ export function antiphonBodyPath(
   p.quadraticCurveTo(mid - hw - flank, (box.top + box.bottom) * 0.5, mid - hw, box.top + arch);
   p.closePath();
   return p;
+}
+
+/** How many lobes the body's hem has: one for every `COLS_PER_WAVE` columns. */
+export function antiphonHemLobes(cfg: SimConfig): number {
+  return Math.max(1, Math.ceil(cfg.cols / COLS_PER_WAVE));
 }
 
 /**
