@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 5dd73463 — THE REPRISE's tear is a wound, and its count is fangs
+
+The torn edge of the field has body now: a lip, thick in the middle and thinned to the flared tips, ragged under its outer thirds. The mass it holds open sinks to the field's own dark where it comes through, and has a gloss on its lower curve. Each body still owed hangs from the lip as a tapered fang, lit on one side, shaded on the other. It still has no colour and never moves sideways, and the fangs are still the only row of marks.
+
 ## 2026-09-23 · c11976f8 — THE SPLICE's straws are gut, not wire
 
 Every straw in the tangle is a ringed tube now — a dark casing, a translucent wall, rings across it like a windpipe and a wet line down its lit side — and every mouth is a puckered lip under the ring its state is told in. Each straw is still drawn whole before the next, so a crossing is one hose behind another, and nothing on a tube moves: the number in flight is the only thing that travels down it.

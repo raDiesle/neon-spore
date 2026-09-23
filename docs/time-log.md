@@ -18151,3 +18151,5 @@ move, because the number in flight is the one thing that travels down it.
 The bottleneck was **keeping the count the only row of marks**: the rag on
 the lip had to stay out past the teeth, so nothing drawn beside them could be
 counted as one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
