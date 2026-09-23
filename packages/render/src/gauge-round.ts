@@ -1,18 +1,11 @@
-import { controlSetForWave } from "@neon-spore/content";
-import {
-  GAUGE_LEAD_BEATS,
-  type GaugeState,
-  gaugeBeatsLeft,
-  gaugeJammed,
-  gaugeSettling,
-} from "@neon-spore/sim";
+import { GAUGE_LEAD_BEATS, type GaugeState, gaugeBeatsLeft } from "@neon-spore/sim";
+import { drawBand } from "./band.js";
 import { type Dial, drawGauge, showsGaugeMarks } from "./gauge.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
-import { slabPanel } from "./slabs.js";
 
 /**
  * **The dial, in pixels** — one circle, asked for by the picture and by the
@@ -47,18 +40,21 @@ export function gaugeDial(l: Layout): Dial {
 /**
  * THE GAUGE over the whole stage.
  *
- * `canvas2d.ts` hands the frame over and draws nothing else — no grid, no
- * hull, no band. That is the round's first condition: the field is gone, not
- * dimmed and not re-skinned. A round that borrowed the eleven columns would be
- * a wave in a costume.
+ * `canvas2d.ts` hands the frame over and draws nothing else — no grid and no
+ * hull. That is the round's first condition: the field is gone, not dimmed
+ * and not re-skinned. A round that borrowed the eleven columns would be a wave
+ * in a costume. The band stays, as it does on SNAKE and PINBALL: it is not the
+ * field, it is the ship's panel, and it is where the pair's thumbs already
+ * are.
  *
  * It is a boss wave now rather than a category of its own, and this file is
  * what did not change when that happened — which was the point. The two screens
  * are still **not** the same picture, and the difference is still the round.
  *
- * The buttons come from the wave's control set (`slabPanel`), not from
- * geometry invented here. That is the one thing that did change, and it is why
- * the eleven rounds behind this one cost an entry rather than a panel.
+ * The buttons come from the wave's control set and stand in the band's own
+ * sockets (`gauge-button.ts`), not in geometry invented here — the owner, 20
+ * September 2026: *improve the buttons a lot so they fit the regular ship hull
+ * and control set visuals*.
  */
 
 export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
@@ -67,7 +63,6 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
 
   ctx.fillStyle = PALETTE.background;
   ctx.fillRect(0, 0, l.width, l.height);
-  drawEdge(ctx, l);
 
   ctx.textAlign = "center";
   drawGaugeTitle(ctx, l, view.role, l.playHeight * 0.14);
@@ -85,24 +80,15 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // answered at is the circle the ring is drawn from.
   drawGaugeGrip(ctx, l, view.world.cfg, dial, boss, view.role, view.time);
   drawTally(ctx, l, view, boss);
-  drawControls(ctx, l, view, boss);
+  // The ship's own panel, with the round's three in its sockets
+  // (`gauge-button.ts`) — which is also where the machine stops and the dark
+  // begins, the job an inset rectangle round the stage used to do.
+  drawBand(ctx, l, view.world, false, false, view.time, view.controls);
   if (boss.phase === "lead") drawLead(ctx, l, view, boss);
   // The verdict stands through `spent` too: the round is over and holding
   // its own picture until the next wave arrives (`sim/wave-end.ts`).
   if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, view, boss);
   ctx.textAlign = "left";
-}
-
-/**
- * A hard rectangle inset from the stage. It replaces the seam `canvas2d.ts`
- * draws around the field, and it does the same job better here: the round has
- * no grid and no hull, so without an edge there is nothing on screen that says
- * where the machine stops and the dark begins.
- */
-function drawEdge(ctx: CanvasRenderingContext2D, l: Layout): void {
-  ctx.strokeStyle = PALETTE.grid;
-  ctx.lineWidth = 1.4;
-  ctx.strokeRect(6.5, 6.5, Math.max(1, l.width - 13), Math.max(1, l.height - 13));
 }
 
 /**
@@ -143,53 +129,6 @@ function drawTally(
     ctx.fillStyle = left01 < 0.25 ? PALETTE.ember : PALETTE.hull;
     ctx.fillRect(barX, y + 18, Math.max(1, barW * left01), 4);
   }
-}
-
-/** The round's own buttons, lit while a thumb is on one. */
-function drawControls(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  view: ViewState,
-  round: GaugeState,
-): void {
-  const live = round.phase === "play";
-  // See `ViewState.controls`: `view.world.wave` only indexes the shipped
-  // `WAVES` for a host actually playing them, so an explicit `view.controls`
-  // wins when one is given. Not `??` — see `band.ts` for why that spelling is
-  // reserved for a re-derivation `purity.test.ts` watches for.
-  const set = view.controls === undefined ? controlSetForWave(view.world.wave) : view.controls;
-  for (const slab of slabPanel(l, set, view.role)) {
-    const armed = live && gaugeSlabArmed(view, round, slab.control.id);
-    const on =
-      armed &&
-      ((slab.control.id === "gaugeLeft" && round.valve < 0) ||
-        (slab.control.id === "gaugeRight" && round.valve > 0));
-    ctx.fillStyle = on ? "rgba(192,92,255,.28)" : "rgba(16,11,34,.9)";
-    ctx.fillRect(slab.x, slab.y, slab.w, slab.h);
-    ctx.strokeStyle = armed ? PALETTE.hull : PALETTE.grid;
-    ctx.lineWidth = 1.6;
-    ctx.strokeRect(slab.x + 0.5, slab.y + 0.5, Math.max(1, slab.w - 1), Math.max(1, slab.h - 1));
-    ctx.fillStyle = armed ? PALETTE.hullRim : PALETTE.dim;
-    ctx.font = '600 13px "Courier New",monospace';
-    ctx.fillText(slab.control.label, slab.x + slab.w / 2, slab.y + slab.h / 2 + 5);
-  }
-}
-
-/**
- * Whether a slab would answer if it were pressed right now, asked the way the
- * simulation asks it (`sim/gauge.ts`, `gauge-hand.ts`) rather than guessed at.
- *
- * The two states the round gained are both a control going quiet, and a button
- * drawn as live while the round refuses it is the one thing this picture must
- * not do: the valve is dead under a jam, and the call is refused while her own
- * thumb is holding the band open or while his needle is still settling. The
- * rest between two calls is not in here — it is two beats and a slab that
- * blinked every time she pressed would read as a fault rather than a rhythm.
- */
-export function gaugeSlabArmed(view: ViewState, round: GaugeState, id: string): boolean {
-  if (id === "gaugeLeft" || id === "gaugeRight") return !gaugeJammed(round);
-  if (id !== "gaugeCall") return true;
-  return !round.openThumb && !gaugeSettling(view.world.cfg, round, view.world.beat);
 }
 
 /** The count-in, so the round does not begin on a beat nobody was watching. */

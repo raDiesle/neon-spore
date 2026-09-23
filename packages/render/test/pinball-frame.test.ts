@@ -122,9 +122,8 @@ describe("PINBALL draws on all three screens", () => {
     // The director plays a *draft* wave: `world.wave` indexes the shipped
     // `WAVES` and says PINBALL, while the picker has written some other set
     // onto the draft and the game's own `touchDown` hit-tests against that one.
-    // Buttons drawn where nothing answers them is the failure
-    // `test/stage-rounds.test.ts` exists to prevent, arriving through the
-    // drawing side.
+    // Buttons drawn where nothing answers them is the failure this prevents,
+    // arriving through the drawing side.
     //
     // The shield's strip is the tell: PINBALL's own panel carries the cannon
     // and nothing else, so a screen that draws player 2's channel is a screen

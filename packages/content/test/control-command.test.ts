@@ -26,7 +26,7 @@ describe("what a control says", () => {
   });
 
   it("gives a release to exactly the controls a thumb stays on", () => {
-    // The two colours, the gauge's two valve slabs, the bucket's two, and THE
+    // The two colours, the gauge's two turns, the bucket's two, and THE
     // CLAW's crank — a thumb stays on that one too, going round it. Any other
     // control gaining an `up` is a press somebody has quietly turned into a
     // hold, and the panel drawing it would not know.

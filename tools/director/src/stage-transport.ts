@@ -4,8 +4,7 @@ import type { ViewRole } from "@neon-spore/render";
  * The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches.
  * Split out of `stage.ts` on the layout pass that also moved `#briefToggle`
  * and the balance sheet — `stage.ts` was already at its line budget, and this
- * is the same shape `stage-afterrun.ts`, `stage-gauge.ts` and `stage-touch.ts`
- * already use: DOM wiring that reads and writes the one running world through
+ * is the same shape `stage-afterrun.ts` and `stage-touch.ts` already use: DOM wiring that reads and writes the one running world through
  * a small set of callbacks rather than a reference.
  */
 export interface StageTransportDeps {

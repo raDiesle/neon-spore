@@ -106,7 +106,7 @@ What a round costs now:
 | What it is made of | `packages/sim/src/<round>.ts`, integers, the seeded `Rng`, the tick counter |
 | Its clock and its hull cost | `packages/sim/src/<round>-round.ts` |
 | Its numbers | `packages/sim/src/config-<round>.ts`, spread into `DEFAULT_CONFIG` |
-| Its panel | one `ControlSet` of slabs in `packages/content/src/control-sets.ts` |
+| Its panel | one `ControlSet` in `packages/content/src/control-sets.ts`, its buttons lobes in the band's sockets |
 | Its picture | `packages/render/src/<round>.ts`, one file per round |
 | Its guide | the `guide:` on that same wave entry, and its rehearsal in `packages/content/src/scenes.ts` |
 
@@ -249,11 +249,11 @@ screen the band is drawn on. The circle a thumb is answered at is the circle
 the ring is drawn from, which is the one thing a control on a picture has to
 get right.
 
-**And a slab goes out where the round would refuse it**, asked the way the
-simulation asks it and never guessed at (`gaugeSlabArmed`): the two valve
-buttons under a jam, the call under her own thumb or over a settling needle.
-The rest between two calls is not in it — two beats, and a slab that blinked
-every time she pressed would read as a fault rather than a rhythm. The rows
+**And a button goes faint where the round would refuse it**, asked the way
+the simulation asks it and never guessed at (`gaugeLobeArmed`): the two turns
+under a jam, the call under her own thumb or over a settling needle. The rest
+between two calls is not in it — two beats, and a button that blinked every
+time she pressed would read as a fault rather than a rhythm. The rows
 are in [controls](controls.md); the director's are in
 `tools/director/src/field-controls-gauge.ts`.
 
@@ -293,6 +293,20 @@ one way he learns his stop was right (`render/gauge-catch.ts`). It is timed
 from `calledTick`, the one field the simulation gained, and it is over inside
 the rest between two calls.
 
+**Its words and its buttons** (23 September 2026). The owner, 20 September:
+*change the wordings, improve the buttons a lot so they fit the regular ship
+hull and control set visuals.* The header said YOU CANNOT SEE THE MARKS and
+YOU CANNOT TURN IT — a dial nobody draws any more, and what a seat lacks
+rather than what it does. It says *swing the claw where they tell you* and
+THE POD IS ON THEIR SCREEN now, and the navigator's mirror of it
+(`render/gauge-title.ts`). The three bare rectangles are gone: THE GAUGE's
+three are lobes in the band's own sockets, the fifth round to move there
+after THE PULSE, PINBALL, THE SCOUT and SNAKE. The pilot's two turns carry
+the claw's heading and the arc a turn swings it through, SNAKE's wheel on
+THE SCOUT's nose; the navigator's call is THE CLAW's REACH, lit while the arm
+is out (`render/gauge-button.ts`). `touchDown` answers them like any other
+lobe, so the round's listeners in the game and the director were deleted.
+
 **What is not built.** Neither state has a pose of its own in the director's
 gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live
 inside rather than a picture of either. That one is still in
@@ -318,23 +332,19 @@ a seam into `startWave` that the first round with something to give should cut.
 
 ### Its own controls, and not the same ones on both screens
 
-Neither player's band is the answer. A round draws **slabs** instead: whole,
-per-seat buttons that replace the band rather than sitting in it.
+A round's buttons are its own, and they stand on the ship's band: a
+**control set** registered in `packages/content/src/control-sets.ts` beside the
+field's own, whose controls are lobes in the band's sockets. `bandLobes` places
+them and `touchDown` answers them, so a control is never drawn where it is not
+answered — the bug THE GAUGE and PINBALL both shipped with, while each round
+drew **slabs** of its own that replaced the band and needed a listener of its
+own to answer them.
 
-They are a **control set**, registered in `packages/content/src/control-sets.ts`
-beside the field's own. That file used to refuse them, on the ground that the
-thing reaching for them was a round and not a wave; a round is a wave now, so
-the objection is gone. A set's kind — `band` or `slabs` — is *derived* from the
-controls in it (`panelForm`), never declared beside them: the field's own sets
-say nothing new, a round's set is a slab panel by virtue of what is in it, and a
-set that mixed the two is not a panel and throws.
-
-`slabPanel` in `packages/render/src/slabs.ts` places them, dividing a seat's
-width by however many that seat has — so a seat with one button gets one wide
-button rather than a gap where two others used to be. **Three readers, one
-layout**: the draw, the game's hit test and the director's all ask it, so a
-control is never drawn where it is not answered. That property is worth more
-than the file it lives in; it was the bug the round shipped with once already.
+Every round has moved off slabs at the owner's request, THE GAUGE last on 23
+September 2026, and the owner's rule is what is left: a round is free to take
+the field away, and not free to invent a second kind of button while it is
+there. The slab machinery — `panelForm`, `slabs.ts` — has no user now and is
+in [the queue](../queue.md) to go.
 
 Two screens showing the same controls would be the field with a different sprite
 on it. In THE GAUGE, `showsGaugeMarks` and `showsGaugeValve` are what make them

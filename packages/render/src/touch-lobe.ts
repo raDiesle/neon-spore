@@ -17,10 +17,9 @@ import type { Hold, Touch } from "./touch.js";
  *
  * The switch is exhaustive over `ControlId`, on purpose: two strips
  * (`cannon`, `shield`) are answered directly by `touchDown` before
- * `lobeUnder` ever asks about them, and a round's own slabs — THE GAUGE's
- * three and SNAKE's four — are read by their own listener in `apps/game`
- * instead. All of them say so here rather than falling through a `default`
- * that could not tell "decided" from "forgotten" apart from a real lobe.
+ * `lobeUnder` ever asks about them. Both say so here rather than falling
+ * through a `default` that could not tell "decided" from "forgotten" apart
+ * from a real lobe.
  */
 export function lobeMeans(
   id: ControlId,
@@ -118,11 +117,17 @@ export function lobeMeans(
     case "scoutTurnRight":
     case "scoutBurn":
       return { command: controlPress(id).down, hold: { kind: "held", control: id, player: 1 } };
-    case "cannon":
-    case "shield":
+    // THE GAUGE's three, on the band since the owner asked for its buttons to
+    // fit the ship's (20 September 2026). The two turns are **held** — the
+    // claw swings for as long as the thumb stays and stops when it lifts
+    // (`sim/gauge-hand.ts`) — and the call is one press by the other seat.
     case "gaugeLeft":
     case "gaugeRight":
+      return { command: controlPress(id).down, hold: { kind: "held", control: id, player: 1 } };
     case "gaugeCall":
+      return { command: controlPress(id).down, hold: null };
+    case "cannon":
+    case "shield":
       return null;
     default:
       return assertNever(id);

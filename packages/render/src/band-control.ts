@@ -4,6 +4,7 @@ import { faultsNow, reachOut, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import { drawCrankDial } from "./crank-dial.js";
+import { drawGaugeLobe, gaugeLobeOf } from "./gauge-button.js";
 import { halo } from "./glow.js";
 import { guardLapse } from "./guard-lapse.js";
 import { lanceFillFor } from "./lance.js";
@@ -154,6 +155,14 @@ function drawFace(
   const snake = snakeLobeOf(c.id);
   if (snake !== null) {
     drawSnakeLobe(ctx, circle, snake, world, skin);
+    return;
+  }
+  // THE GAUGE's three, the last round to leave its slabs, after the same
+  // request: the claw's two turns under the pilot's thumb, and the reach under
+  // the navigator's (`gauge-button.ts`).
+  const gauge = gaugeLobeOf(c.id);
+  if (gauge !== null) {
+    drawGaugeLobe(ctx, circle, gauge, world, skin);
     return;
   }
   // THE FLEET's five. The arrows are one picture with a direction, so they

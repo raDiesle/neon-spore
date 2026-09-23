@@ -6,9 +6,10 @@ import type { ControlDef } from "./controls.js";
  * Split out of `controls.ts` on line count, along the seam `keys-slide.ts`
  * already cut for the same growth: next door is the **ship**, which is the
  * same on every wave, and this is whichever boss has taken the panel away.
- * Most of these are a `slab` — a round replaces the band rather than adding to
- * it (`docs/spec/interludes.md`) — and there are nine more rounds designed,
- * each wanting a handful, so the growth belongs in a file of its own rather
+ * Every one of them is a lobe on the band now — each round's buttons arrived
+ * as slabs that replaced it, and each was moved into its sockets when the
+ * owner asked for it — and there are nine more rounds designed, each wanting a
+ * handful, so the growth belongs in a file of its own rather
  * than under the cannon's row.
  *
  * **THE PULSE's eight are lobes, and that is the owner's decision rather than
@@ -34,6 +35,12 @@ import type { ControlDef } from "./controls.js";
  * sockets the design named, with the ship on the screen under them, which is
  * the same request the owner made of the two rounds above.
  *
+ * **THE GAUGE's three are lobes, and they were the last slabs.** The owner,
+ * 20 September 2026: *improve the buttons a lot so they fit the regular ship
+ * hull and control set visuals* — the request the four rounds above had
+ * already had granted. The two turns stand in the pilot's sockets and the call
+ * in the navigator's, faced with the claw they move (`gauge-button.ts`).
+ *
  * `CONTROLS` spreads this in place, so nothing that reads the vocabulary had
  * to learn there are two files.
  *
@@ -48,23 +55,23 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
   {
     id: "gaugeLeft",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "LEFT",
-    does: "Held. Turns THE GAUGE's needle down the dial for as long as a thumb is on it.",
+    does: "Held. Swings THE GAUGE's claw left for as long as a thumb is on it.",
   },
   {
     id: "gaugeRight",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "RIGHT",
-    does: "Held. Turns THE GAUGE's needle up the dial for as long as a thumb is on it.",
+    does: "Held. Swings THE GAUGE's claw right for as long as a thumb is on it.",
   },
   {
     id: "gaugeCall",
     player: 2,
-    form: "slab",
+    form: "lobe",
     label: "CALL",
-    does: "Says the needle is between the marks. The only thing in the round that can be wrong.",
+    does: "Sends the claw out along its line. It comes back with the pod, or with nothing and jammed.",
   },
   {
     id: "salvo",

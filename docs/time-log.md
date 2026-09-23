@@ -17580,3 +17580,18 @@ The bottleneck was **the call's clock**: the state had the beat of a call and
 not its tick, and only the frames said so.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE GAUGE's words and buttons are the round's own, not the ship's
+
+- reading — 5 min. The entry, SNAKE's move from slabs to lobes (354e16d4) as
+  the precedent, `touch-lobe.ts`, `band-control.ts` and the round's two
+  binders in the game and the director.
+- writing — 5 min. `gauge-button.ts` — the claw's faces on the band's lobes;
+  the three controls as lobes; the two binders and their tests deleted; the
+  words in `gauge-title.ts`; the spec and the control-set tests.
+- looking — 0 min. Three seats of frames, one sheet.
+- friction — 0 min. `bun run frames` takes `valve=right`, not the control id.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the slab machinery left behind**: moving the last round
+to lobes leaves a whole panel form with no user, which is its own lane.

@@ -29,9 +29,8 @@ import { MILLI, slowRateMilli, type World } from "@neon-spore/sim";
  * nothing — a border closing three times too fast is a vote taken on a picture
  * the phone never draws.
  *
- * **Typed out rather than imported, the same as `keys.ts` and
- * `stage-gauge.ts`.** `apps/game/src/tick-rate.ts` holds the game's reading of
- * it as `tickMs`, and a tool may not import an application, as above. This is
+ * **Typed out rather than imported, the same as `keys.ts`.**
+ * `apps/game/src/tick-rate.ts` holds the game's reading of it as `tickMs`, and a tool may not import an application, as above. This is
  * the reciprocal of that line and nothing else; if the two ever disagree, the
  * game is right.
  */

@@ -117,8 +117,7 @@ describe("THE PULSE draws on all three screens", () => {
     // The director plays a *draft* wave: `world.wave` indexes the shipped
     // `WAVES` and says THE PULSE, while the picker has written some other set
     // onto the draft. Buttons drawn where nothing answers them is the failure
-    // `tools/director/test/stage-rounds.test.ts` exists to prevent, arriving
-    // through the drawing side.
+    // this prevents, arriving through the drawing side.
     //
     // The round is played on the **band** now, so the set handed in has to be
     // one — STANDARD, whose cannon strip is captioned on the panel. A slab set

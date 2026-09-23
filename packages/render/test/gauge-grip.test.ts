@@ -10,8 +10,9 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { gaugeLobeArmed } from "../src/gauge-button.js";
 import { drawGaugeGrip, gaugeBandGrip, gaugeNeedleGrip } from "../src/gauge-grip.js";
-import { gaugeDial, gaugeSlabArmed } from "../src/gauge-round.js";
+import { gaugeDial } from "../src/gauge-round.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
 import {
@@ -197,31 +198,30 @@ describe("the rings", () => {
   });
 });
 
-describe("the slabs", () => {
-  it("go out exactly where the round would refuse the press", () => {
+describe("the lobes", () => {
+  it("go faint exactly where the round would refuse the press", () => {
     const { world, g } = round();
-    const view = { world } as Parameters<typeof gaugeSlabArmed>[0];
-    expect(gaugeSlabArmed(view, g, "gaugeLeft")).toBe(true);
-    expect(gaugeSlabArmed(view, g, "gaugeCall")).toBe(true);
+    expect(gaugeLobeArmed(world, g, "left")).toBe(true);
+    expect(gaugeLobeArmed(world, g, "call")).toBe(true);
     // A jam is his alone: his two buttons go and her call is untouched.
     g.jamBeat = world.beat;
-    expect(gaugeSlabArmed(view, g, "gaugeLeft")).toBe(false);
-    expect(gaugeSlabArmed(view, g, "gaugeRight")).toBe(false);
-    expect(gaugeSlabArmed(view, g, "gaugeCall")).toBe(true);
+    expect(gaugeLobeArmed(world, g, "left")).toBe(false);
+    expect(gaugeLobeArmed(world, g, "right")).toBe(false);
+    expect(gaugeLobeArmed(world, g, "call")).toBe(true);
     // Her own thumb on the band is, and so is a needle still settling.
     g.openThumb = true;
-    expect(gaugeSlabArmed(view, g, "gaugeCall")).toBe(false);
+    expect(gaugeLobeArmed(world, g, "call")).toBe(false);
     g.openThumb = false;
     g.liftBeat = world.beat;
-    expect(gaugeSlabArmed(view, g, "gaugeCall")).toBe(false);
+    expect(gaugeLobeArmed(world, g, "call")).toBe(false);
     g.liftBeat = world.beat - DEFAULT_CONFIG.gaugeSettleBeats;
-    expect(gaugeSlabArmed(view, g, "gaugeCall")).toBe(true);
+    expect(gaugeLobeArmed(world, g, "call")).toBe(true);
   });
 });
 
 describe("on the round's own screen", () => {
   for (const role of ROLES) {
-    it(`draws the dial, the slabs and both rings for ${role}`, () => {
+    it(`draws the claw, the lobes and both rings for ${role}`, () => {
       const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
       const index = waveWith("gauge");
       startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));

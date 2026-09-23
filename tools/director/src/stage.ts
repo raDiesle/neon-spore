@@ -16,7 +16,6 @@ import { runStageLoopWhileSeen, stageTickHz } from "./stage-loop.js";
 import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
 import { bindStageRepeat } from "./stage-repeat.js";
-import { bindStageRounds } from "./stage-rounds.js";
 import { stageStep } from "./stage-step.js";
 import { bindStageTouch } from "./stage-touch.js";
 import { bindStageTrail } from "./stage-trail.js";
@@ -62,15 +61,6 @@ export function bindStage(
   // Ink off the end of a mouse, over the field and nowhere else, and none of
   // it on a phone (`stage-trail.ts`).
   bindStageTrail(canvas);
-  // Every round draws slabs, which `touchDown` cannot answer (`stage-rounds.ts`).
-  bindStageRounds({
-    canvas,
-    at,
-    layout: () => handedLayout(layout(), world), // seated: slabs answer where the frame draws them.
-    world: () => world,
-    controls: currentControlSet,
-    push: (player, command) => keys.push(player, command),
-  });
   const touch = bindStageTouch({
     canvas,
     at,

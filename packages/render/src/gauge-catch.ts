@@ -60,6 +60,11 @@ export function callAge(cfg: SimConfig, gauge: GaugeState, tick: number): number
   return age < 0 ? Number.POSITIVE_INFINITY : age;
 }
 
+/** Whether the claw is still out on a call, or on its way home from one. */
+export function gaugeClawOut(cfg: SimConfig, gauge: GaugeState, tick: number): boolean {
+  return callAge(cfg, gauge, tick) < DONE;
+}
+
 /** How far out either finger stands around a pod it is holding. */
 function heldOut(dial: Dial): number {
   return clawHand(dial).half * 1.9;

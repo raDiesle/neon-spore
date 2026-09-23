@@ -515,35 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE GAUGE's words and buttons are the round's own, not the ship's
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-the-gauge-never-says-whether-the-call-caught-any (claim: claude/queue-the-gauges-words-and-buttons-are-the-rounds-own)
-- **Files:** `packages/render/src/gauge-title.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/slabs.ts`, `apps/game/src/gauge.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *change the wordings, improve the buttons a lot
-so they fit the regular ship hull and control set visuals.*
-
-The words are three lines in `gauge-title.ts` — THE GAUGE, and one of YOU
-CANNOT SEE THE MARKS, YOU CANNOT TURN IT, NEITHER HALF IS ENOUGH ON ITS OWN.
-All three are about a dial with marks on it, and after the claw and the pod
-land none of them describes what is on screen. They are also all negative,
-which is the smaller half of why they read as an explanation rather than as a
-control: what the pilot is told is what he cannot do.
-
-The buttons are `gaugeLeft` and `gaugeRight` in the control set
-(`apps/game/src/gauge.ts`, `slabPanel` in `render/gauge-round.ts`). The round
-already takes them from the wave's control set rather than inventing geometry,
-which is the right half; what it does not do is wear the hull's own plate, the
-grip and the slab treatment the field's controls have. `gauge-grip.ts` is the
-round's own version of those — the plate went with the dial on 23 September —
-and the question this lane answers is how much of it can be deleted in favour
-of `slabs.ts`.
-
-Depends on the claw and the pod: naming a button before the thing it moves has
-a shape is how the wordings got stale the first time.
-
 ## `bun run frames` still cannot turn SNAKE, only pose it turned
 
 - **Found:** 2026-09-20, claude/queue-snakes-picture-looks-like-something-real
@@ -2030,3 +2001,32 @@ entries, which the vocabulary rows then hold; **keep them** changes the two
 table rows in the skill to say the menu's job names are the one exception.
 The card's tag already reads P1 or P2, which is the argument for keeping a
 job name beside it.
+
+## The slab panel form has no user and goes
+
+- **Found:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own
+- **Files:** `packages/render/src/slabs.ts`, `packages/content/src/controls.ts`, `packages/content/src/control-sets.ts`, `packages/content/src/index.ts`, `packages/render/src/index.ts`, `packages/render/src/guide-thumb.ts`, `packages/render/src/caption-anchor.ts`, `apps/game/src/menu-controls.ts`, `packages/content/src/control-sender.ts`, `packages/render/src/band-lobes.ts`, `packages/content/test/control-sets.test.ts`
+
+THE GAUGE's three were the last controls with `form: "slab"`; they are lobes
+since 23 September 2026. What is left is machinery for a panel nothing
+draws: `PanelForm`/`panelForm` and the `"slab"` member of `ControlDef.form`,
+`slabs.ts` and its exports, the slab branches in `guide-thumb.ts` and
+`caption-anchor.ts`, the `A SLAB` line of the controls page
+(`menu-controls.ts` near line 177, and `apps/game/test/controls-page.test.ts`
+line 79), and the comments in `control-sender.ts` and `band-lobes.ts` that
+name it. `control-sets.test.ts` holds, for now, that every set is a band;
+that describe goes with `panelForm`. *Slab* as a word for a drawn shape
+(`nav-slab.ts`, the shell plates) is not this and stays.
+
+## THE GAUGE stands on the ship's real hull
+
+- **Found:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own
+- **Files:** `packages/render/src/gauge-claw.ts`, `packages/render/src/gauge-round.ts`
+
+The round's buttons are the band's lobes now, but the crest the claw hangs
+from (`drawGaugeShip`, at `playHeight * 0.62`) floats above the band with
+empty dark between them, so the claw and the buttons read as two things.
+SNAKE draws the ship's own `drawHull` under its round; THE GAUGE doing the
+same, with the claw standing on its crown and `gaugeDial` placed from the
+hull's top, makes them one ship. A look, and the owner asked for it by name
+(*fit the regular ship hull*, 20 September 2026) — the exemption carries over.

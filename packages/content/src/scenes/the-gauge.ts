@@ -30,7 +30,7 @@ export const THE_GAUGE: GuideScene = {
   boss: { kind: "gauge" },
   acts: [
     // A hold rather than a press: the needle travels for as long as the thumb
-    // is on the slab, and `until` is the tick it lifts (`ControlPress.up`).
+    // is on the lobe, and `until` is the tick it lifts (`ControlPress.up`).
     { tick: 450, control: "gaugeRight", until: 550 },
     { tick: 680, control: "gaugeCall" },
   ],
@@ -42,7 +42,7 @@ export const THE_GAUGE: GuideScene = {
     // Two pages until 18 September 2026: this one on the hull and PLAYER 1
     // TURNS THE VALVE on the valve itself. They are one page now, said on the
     // thumb that does it — the split is what he needs and the verb is what the
-    // slab under the words already is.
+    // lobe under the words already is.
     {
       tick: 180,
       seat: 1,

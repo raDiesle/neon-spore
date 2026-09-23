@@ -99,7 +99,7 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   {
     id: "gauge",
     name: "THE GAUGE",
-    why: "The field is gone, so the band is too: two held slabs for the valve, one for the call.",
+    why: "The pilot swings the claw with two held turns; the navigator, who sees the pod, sends it out with one call.",
     controls: ["gaugeLeft", "gaugeRight", "gaugeCall"],
   },
   {

@@ -985,11 +985,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/egg-curve.ts` | The cannon's wind-up, as pure arithmetic — no canvas anywhere near it |
 | `packages/render/src/frame-passes.ts` | The four passes `Canvas2DRenderer.draw` assembles a frame from, in the order a reader looks for them: the |
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
-| `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name and the one sentence that teaches this seat its half |
+| `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name, the one sentence that teaches this seat its half, and where the other half is |
 | `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
 | `packages/render/src/gauge-claw.ts` | THE GAUGE as the ship's own hand — the owner, 20 September 2026: *the control idea should stay |
 | `packages/render/src/gauge-catch.ts` | What a THE GAUGE call looks like: the claw reaches, shuts, and comes back holding the pod or holding nothing |
 | `packages/render/src/gauge-pod.ts` | THE GAUGE's pod, whose width is the span, and the same body in the claw's hand |
+| `packages/render/src/gauge-button.ts` | THE GAUGE's three presses, as faces on the band's own lobes |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
@@ -1836,7 +1837,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/briefing.ts` | the thumb on a wave's guide |
 | `apps/game/src/back-ask.ts` | **The phone's back gesture asks rather than leaves**: three answers over the field, on one history entry pushed back on every pop |
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
-| `apps/game/src/gauge.ts` | the host's half of THE GAUGE: the two thumbs that play it |
 | `apps/game/src/guide-swipe.ts` | a thumb dragged across a guide, read as a page turn: left is back, right is next |
 | `apps/game/src/handle.ts` | `window.neonSpore` — the handle a headless check drives the game by |
 | `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |
@@ -1913,7 +1913,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/sign-in-standin.ts` | A signed-in person with no Google behind them, so a check can be one |
 | `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
 | `apps/game/src/safe-area.ts` | The strips of the screen the phone keeps for itself, in numbers |
-| `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
 | `apps/game/src/tick-rate.ts` |  |
 | `apps/game/src/quit.ts` | Who pressed QUIT on the lost screen, for the menu to say |
@@ -2163,10 +2162,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/wrinkle.ts` | WRINKLE — meridians of fold that come up across the body on the beat and smooth away again |
 | `tools/director/src/snake-editor.ts` | SNAKE's arena, edited on the grid the pair will play it on |
 | `tools/director/src/stage-afterrun.ts` | The after-run screen honours its own instruction |
-| `tools/director/src/stage-gauge.ts` | A ROUND THAT IS NOT THE FIELD ANSWERS A MOUSE |
 | `tools/director/src/stage-handle.ts` | The handle headless checks drive the stage through |
 | `tools/director/src/stage-loop.ts` | The stage's clock: a fixed-timestep loop of its own rather than the game's |
-| `tools/director/src/stage-rounds.ts` | Every round that is not the field, bound to the director's canvas at once |
 | `tools/director/src/stage-repeat.ts` | A cleared wave stops and asks, rather than starting itself again |
 | `tools/director/src/stage-transport.ts` | The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches |
 | `tools/director/src/state.ts` | The edits and the questions moved out when this file went over the line limit |
