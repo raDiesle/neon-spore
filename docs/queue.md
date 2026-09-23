@@ -518,6 +518,7 @@ question that prompted this one.
 ## Nothing checks the words `packages/render` draws on a playing screen
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-nothing-checks-the-words-packages-render-draws-o)
 - **Files:** `packages/render/src/balance.ts`, `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-o.ts`, `tools/words/text.ts`, `.claude/skills/game-words/SKILL.md`
 
 The owner settled **shield** on 21 September 2026 and it became a row in
