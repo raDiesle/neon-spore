@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { spawnSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadedTimeout } from "./repo-time.js";
+import { itCosts } from "./figure.js";
 
 /**
  * No tracked file is stored with carriage returns in it.
@@ -59,21 +59,17 @@ describe("line endings in the index", () => {
     expect(storedWithCarriageReturns(listing)).toEqual([".claude/settings.json", "docs/queue.md"]);
   });
 
-  it(
-    "finds none in this repository",
-    () => {
-      const listed = spawnSync("git", ["ls-files", "--eol"], { cwd: ROOT, encoding: "utf8" });
-      // A checkout with no git is not a repository this can have an opinion
-      // about — a tarball of the tree, say. Saying so beats passing quietly.
-      expect(listed.status, `git ls-files --eol failed: ${(listed.stderr ?? "").trim()}`).toBe(0);
-      const bad = storedWithCarriageReturns(listed.stdout ?? "");
-      expect(
-        bad,
-        `stored with carriage returns: ${bad.join(", ")}. Run \`git add --renormalize .\` and commit the result — every clone writes these out as they are stored, whatever .gitattributes says.`,
-      ).toEqual([]);
-      // `git ls-files --eol` over the whole repository: cheap alone, and on the
-      // same load curve as everything else here (`tools/test/repo-time.ts`).
-    },
-    loadedTimeout(300),
-  );
+  itCosts(300, "finds none in this repository", () => {
+    const listed = spawnSync("git", ["ls-files", "--eol"], { cwd: ROOT, encoding: "utf8" });
+    // A checkout with no git is not a repository this can have an opinion
+    // about — a tarball of the tree, say. Saying so beats passing quietly.
+    expect(listed.status, `git ls-files --eol failed: ${(listed.stderr ?? "").trim()}`).toBe(0);
+    const bad = storedWithCarriageReturns(listed.stdout ?? "");
+    expect(
+      bad,
+      `stored with carriage returns: ${bad.join(", ")}. Run \`git add --renormalize .\` and commit the result — every clone writes these out as they are stored, whatever .gitattributes says.`,
+    ).toEqual([]);
+    // `git ls-files --eol` over the whole repository: cheap alone, and on the
+    // same load curve as everything else here (`tools/test/repo-time.ts`).
+  });
 });

@@ -1,6 +1,6 @@
-import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { fileURLToPath } from "node:url";
-import { loadedTimeout } from "../../test/repo-time.js";
+import { fileCosts } from "../../test/figure.js";
 
 // What this file is allowed to take, scaled to how busy the machine is
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
@@ -9,7 +9,7 @@ import { loadedTimeout } from "../../test/repo-time.js";
 // 270 ms alone on the slower of the two machines this runs on. The slower one is what
 // is written down — the claim has to hold wherever the file runs, and being generous
 // with a ceiling on patience costs nothing.
-setDefaultTimeout(loadedTimeout(300));
+fileCosts(300);
 
 /**
  * A supervisor that is told to stop takes its child with it.

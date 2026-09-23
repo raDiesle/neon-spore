@@ -1,8 +1,8 @@
-import { expect, setDefaultTimeout, test } from "bun:test";
+import { expect, test } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
-import { loadedTimeout } from "../../test/repo-time.js";
+import { fileCosts } from "../../test/figure.js";
 
 /**
  * The director's fixed-timestep loop exists once, in `stage-loop.ts`.
@@ -41,7 +41,7 @@ import { loadedTimeout } from "../../test/repo-time.js";
  * applies `setDefaultTimeout` to the file the call is in, and a global default
  * would hand the same slack to every test that has made no claim at all.
  */
-setDefaultTimeout(loadedTimeout(450));
+fileCosts(450);
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..");
 const HOME = "src/stage-loop.ts";

@@ -1,9 +1,9 @@
-import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
 import { read } from "../../packages/sim/test/source-scan.ts";
-import { loadedTimeout } from "./repo-time.js";
+import { fileCosts } from "./figure.js";
 
 /**
  * **A worktree is a full copy of the repository sitting inside the
@@ -46,7 +46,7 @@ import { loadedTimeout } from "./repo-time.js";
  * floors there and may only ever give a test *more* time. What it buys is the
  * loaded case, which is the only one that ever failed.
  */
-setDefaultTimeout(loadedTimeout(90));
+fileCosts(120);
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 

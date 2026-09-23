@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { loadedTimeout } from "../../test/repo-time.js";
+import { itCosts } from "../../test/figure.js";
 import {
   filterScopeFiles,
   generateIndex,
@@ -58,63 +58,51 @@ describe("docs/INDEX.md completeness", () => {
    * table — and, before this, threw "docs/INDEX.md has no '## Code' heading" at
    * a reader looking straight at one.
    */
-  test(
-    "reads a CRLF document and writes back the same LF table",
-    () => {
-      const tree = {
-        scope,
-        read: (relPath: string) => readFileSync(join(ROOT, relPath), "utf8"),
-        has: (relPath: string) => existsSync(join(ROOT, relPath)),
-      };
-      const crlf = committed.replaceAll(LF, CR + LF);
-      expect(crlf).not.toBe(committed);
-      expect(generateIndex(crlf, tree)).toBe(generateIndex(committed, tree));
-      // Two full passes over eighteen hundred files: a third of a second alone,
-      // three quarters of a minute under a second session's check
-      // (`tools/test/repo-time.ts`).
-    },
-    loadedTimeout(400),
-  );
+  itCosts(400, "reads a CRLF document and writes back the same LF table", () => {
+    const tree = {
+      scope,
+      read: (relPath: string) => readFileSync(join(ROOT, relPath), "utf8"),
+      has: (relPath: string) => existsSync(join(ROOT, relPath)),
+    };
+    const crlf = committed.replaceAll(LF, CR + LF);
+    expect(crlf).not.toBe(committed);
+    expect(generateIndex(crlf, tree)).toBe(generateIndex(committed, tree));
+    // Two full passes over eighteen hundred files: a third of a second alone,
+    // three quarters of a minute under a second session's check
+    // (`tools/test/repo-time.ts`).
+  });
 
-  test(
-    "generating from the committed file and the tree changes nothing",
-    () => {
-      const generated = generateIndex(committed, {
-        scope,
-        read: (relPath) => readFileSync(join(ROOT, relPath), "utf8"),
-        has: (relPath) => existsSync(join(ROOT, relPath)),
-      });
-      if (generated !== committed) {
-        const before = new Set(parseRows(committed).map((r) => r.path));
-        const after = parseRows(generated);
-        const missing = after.filter((r) => !before.has(r.path)).map((r) => r.path);
-        const stale = [...before].filter(
-          (p) => !p.endsWith("/") && !scope.includes(p) && !after.some((r) => r.path === p),
-        );
-        const hint =
-          missing.length > 0
-            ? `no row for: ${missing.join(", ")}`
-            : stale.length > 0
-              ? `row points at a deleted file: ${stale.join(", ")}`
-              : "row text does not match — see the diff";
-        throw new Error(
-          `docs/INDEX.md is out of date (${hint}). Run \`bun run index\` — it adds and drops rows — and write the text of any it adds.`,
-        );
-      }
-      expect(generated).toBe(committed);
-    },
-    loadedTimeout(250),
-  );
+  itCosts(250, "generating from the committed file and the tree changes nothing", () => {
+    const generated = generateIndex(committed, {
+      scope,
+      read: (relPath) => readFileSync(join(ROOT, relPath), "utf8"),
+      has: (relPath) => existsSync(join(ROOT, relPath)),
+    });
+    if (generated !== committed) {
+      const before = new Set(parseRows(committed).map((r) => r.path));
+      const after = parseRows(generated);
+      const missing = after.filter((r) => !before.has(r.path)).map((r) => r.path);
+      const stale = [...before].filter(
+        (p) => !p.endsWith("/") && !scope.includes(p) && !after.some((r) => r.path === p),
+      );
+      const hint =
+        missing.length > 0
+          ? `no row for: ${missing.join(", ")}`
+          : stale.length > 0
+            ? `row points at a deleted file: ${stale.join(", ")}`
+            : "row text does not match — see the diff";
+      throw new Error(
+        `docs/INDEX.md is out of date (${hint}). Run \`bun run index\` — it adds and drops rows — and write the text of any it adds.`,
+      );
+    }
+    expect(generated).toBe(committed);
+  });
 
-  test(
-    "every row's path exists",
-    () => {
-      const rows = parseRows(committed);
-      const missing = rows.filter((r) => !existsSync(join(ROOT, r.path)));
-      expect(missing.map((r) => r.path)).toEqual([]);
-    },
-    loadedTimeout(150),
-  );
+  itCosts(150, "every row's path exists", () => {
+    const rows = parseRows(committed);
+    const missing = rows.filter((r) => !existsSync(join(ROOT, r.path)));
+    expect(missing.map((r) => r.path)).toEqual([]);
+  });
 });
 
 /**

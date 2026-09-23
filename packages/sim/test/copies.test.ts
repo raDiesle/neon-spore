@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { join, relative } from "node:path";
 import { Glob } from "bun";
-import { loadedTimeout } from "../../../tools/test/repo-time.js";
+import { itCosts } from "../../../tools/test/figure.js";
 import { COPIES } from "./copies-table.js";
 import { ROOT, read, stripNonCode } from "./source-scan.js";
 
@@ -77,29 +77,25 @@ describe("no re-derived rules", () => {
 
     const allowed = new Set([ownerPath, ...(copy.also ?? []).map((f) => join(ROOT, f))]);
 
-    it(
-      `every other file calls ${copy.call} instead of re-deriving it`,
-      async () => {
-        const offenders: string[] = [];
-        for (const file of files) {
-          if (allowed.has(file)) continue;
-          if (copy.pattern.test(await sources.code(file, strip))) {
-            offenders.push(relative(ROOT, file).replaceAll("\\", "/"));
-          }
+    itCosts(450, `every other file calls ${copy.call} instead of re-deriving it`, async () => {
+      const offenders: string[] = [];
+      for (const file of files) {
+        if (allowed.has(file)) continue;
+        if (copy.pattern.test(await sources.code(file, strip))) {
+          offenders.push(relative(ROOT, file).replaceAll("\\", "/"));
         }
-        expect(
-          offenders,
-          `Call ${copy.call} from ${copy.owner} in: ${offenders.join(", ")}`,
-        ).toHaveLength(0);
-        // The first rule to run reads and strips the whole tree — fifteen
-        // hundred files — and every rule after it is served from `Sources`. That
-        // first one costs 205 ms alone on the cloud image, 18 September 2026,
-        // and passed five seconds twice under `bun run check`'s eight shards on
-        // 12 September 2026. What it waits on is the machine, so the budget
-        // rises with the load (`tools/test/repo-time.ts`) rather than standing
-        // at a flat number that is right for one machine and no other.
-      },
-      loadedTimeout(205),
-    );
+      }
+      expect(
+        offenders,
+        `Call ${copy.call} from ${copy.owner} in: ${offenders.join(", ")}`,
+      ).toHaveLength(0);
+      // The first rule to run reads and strips the whole tree — fifteen
+      // hundred files — and every rule after it is served from `Sources`. That
+      // first one costs 205 ms alone on the cloud image, 18 September 2026,
+      // and passed five seconds twice under `bun run check`'s eight shards on
+      // 12 September 2026. What it waits on is the machine, so the budget
+      // rises with the load (`tools/test/repo-time.ts`) rather than standing
+      // at a flat number that is right for one machine and no other.
+    });
   }
 });

@@ -1,7 +1,7 @@
-import { afterAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { afterAll, describe, expect, it } from "bun:test";
 import { mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { loadedTimeout } from "../../test/repo-time.js";
+import { fileCosts } from "../../test/figure.js";
 import { pruneImports } from "../imports.js";
 
 /**
@@ -22,7 +22,7 @@ import { pruneImports } from "../imports.js";
  * machine is measuring than an idle one, so the cap rises when the eight
  * shards do and stays tight when they do not.
  */
-setDefaultTimeout(loadedTimeout(210));
+fileCosts(210);
 
 describe("pruneImports", () => {
   it("takes a stranded name out of a list and leaves the comment above it", () => {

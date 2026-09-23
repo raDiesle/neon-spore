@@ -1,10 +1,10 @@
-import { afterAll, beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdirSync, readFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { loadedTimeout } from "../../test/repo-time.js";
+import { fileCosts } from "../../test/figure.js";
 import { VARIANTS } from "../candidates/index.js";
 import { discover, type Registered, registryText } from "../registry.js";
 import { CANDIDATES, ROOT } from "../root.js";
@@ -14,7 +14,7 @@ import { candidatesIn, slotDir, slotOfDir, slotsOnDisk } from "../slots.js";
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
 // these cases are not. `bunx biome format` once per case, to prove the generated file
 // is printed the way the formatter would print it. 200 ms alone for the widest.
-setDefaultTimeout(loadedTimeout(200));
+fileCosts(200);
 
 /**
  * The registry is generated, so the failure worth catching is the one where

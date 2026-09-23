@@ -1,14 +1,14 @@
-import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
-import { loadedTimeout } from "../../test/repo-time.js";
+import { fileCosts } from "../../test/figure.js";
 import { dialectFor, refusalFor } from "../guard.ts";
 
 // What this file is allowed to take, scaled to how busy the machine is
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
 // these cases are not. Four cases put a payload on the hook's own stdin, which is a
 // `bun` process apiece. 40 ms alone, and the other twenty-seven spawn nothing.
-setDefaultTimeout(loadedTimeout(50));
+fileCosts(50);
 
 const SCRIPT = path.join(import.meta.dir, "..", "guard.ts");
 

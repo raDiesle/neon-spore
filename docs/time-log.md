@@ -18234,3 +18234,19 @@ The bottleneck was **the preview's launch entry**: the game has no route to a
 named tree, so one was written and reverted for a single boot check.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — `loadedTimeout`'s figures were measured once and the tree has grown past them
+
+- reading — 10 min. `repo-time.ts`, `cpu-time.ts`, the twenty callers, and
+  how `shard.ts` hands on a shard's output.
+- writing — 20 min. `figure.ts` (`itCosts`, `fileCosts`, the drift line),
+  `closing.ts` out of `shard.ts` at 220 lines, every caller converted, five
+  figures raised and two tree walks given one.
+- looking — 10 min. Every caller timed alone three times, and the full suite
+  once through `shard.ts --junit` for what a check does to them.
+- friction — 5 min. `LOAD` reads a quiet Mac as eight times loaded, so the
+  first cut would never have spoken here; `CORE_LOAD` replaced it.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **choosing the load to divide by**: the timeout's `LOAD`
+hides the very drift the entry names on the owner's machine.

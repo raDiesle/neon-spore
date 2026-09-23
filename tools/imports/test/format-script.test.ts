@@ -1,14 +1,14 @@
-import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { loadedTimeout } from "../../test/repo-time.js";
+import { fileCosts } from "../../test/figure.js";
 
 // What this file is allowed to take, scaled to how busy the machine is
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
 // these cases are not. Three `biome` child processes, one per case — running the real
 // binary the script runs is the whole point of them. 130 ms alone.
-setDefaultTimeout(loadedTimeout(150));
+fileCosts(150);
 
 /**
  * `bun run format` writes, and the one thing it must not write is a sort.

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { declaredNames, ownSubjectClaims, REMEMBERED, sourceFiles } from "./doc-names.js";
 import { ROOT } from "./doc-paths.js";
-import { loadedTimeout } from "./repo-time.js";
+import { itCosts } from "./figure.js";
 
 /**
  * **A comment that names something in its own file's subject names something
@@ -26,29 +26,27 @@ import { loadedTimeout } from "./repo-time.js";
  * make a red test stop, which is the one way this check can be made worthless.
  */
 describe("a comment naming something in its own file's subject", () => {
-  it(
-    "names something this tree still writes down",
-    () => {
-      const names = declaredNames();
-      const found: string[] = [];
-      let claims = 0;
-      for (const file of sourceFiles()) {
-        const source = readFileSync(join(ROOT, file), "utf8");
-        for (const name of ownSubjectClaims(file, source)) {
-          claims++;
-          const row = `${file} → ${name}`;
-          if (!names.has(name) && !REMEMBERED.has(row)) found.push(row);
-        }
+  itCosts(850, "names something this tree still writes down", () => {
+    const names = declaredNames();
+    const found: string[] = [];
+    let claims = 0;
+    for (const file of sourceFiles()) {
+      const source = readFileSync(join(ROOT, file), "utf8");
+      for (const name of ownSubjectClaims(file, source)) {
+        claims++;
+        const row = `${file} → ${name}`;
+        if (!names.has(name) && !REMEMBERED.has(row)) found.push(row);
       }
-      const missing = [...new Set(found)].sort();
-      // A run that checked nothing would pass.
-      expect(claims).toBeGreaterThan(1000);
-      expect(missing).toEqual([]);
-    },
-    loadedTimeout(120),
-  );
+    }
+    const missing = [...new Set(found)].sort();
+    // A run that checked nothing would pass.
+    expect(claims).toBeGreaterThan(1000);
+    expect(missing).toEqual([]);
+  });
 
-  it("remembers nothing the tree has got back", () => {
+  // `declaredNames()` alone walks every source file, so this one needs a
+  // figure of its own as much as the walk above.
+  itCosts(550, "remembers nothing the tree has got back", () => {
     const names = declaredNames();
     const alive: string[] = [];
     for (const row of REMEMBERED.keys()) {

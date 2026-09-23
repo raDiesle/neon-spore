@@ -1,14 +1,14 @@
-import { describe, expect, setDefaultTimeout, test } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { loadedTimeout } from "../../test/repo-time.js";
+import { fileCosts } from "../../test/figure.js";
 import { commonGitDir, HERE_FILE, hereRoot, writeHere } from "../here.js";
 
 // What this file is allowed to take, scaled to how busy the machine is
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
 // these cases are not. One `bun` running the route script end to end. 270 ms alone.
-setDefaultTimeout(loadedTimeout(300));
+fileCosts(300);
 
 const repoRoot = Bun.fileURLToPath(new URL("../../../", import.meta.url));
 

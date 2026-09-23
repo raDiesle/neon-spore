@@ -56,7 +56,8 @@
 import { readdirSync, statSync } from "node:fs";
 import { cpus, tmpdir } from "node:os";
 import { join, relative } from "node:path";
-import { closingLines, firstFailure, mergeJunit, tallyOf } from "./junit.js";
+import { closingReport } from "./closing.js";
+import { mergeJunit, tallyOf } from "./junit.js";
 import {
   binCount,
   MAX_FILES_PER_SHARD,
@@ -177,35 +178,12 @@ const results = await pool(bins.length, width, async (i) => {
   );
   const text = `${out}${err}`.trim();
   if (text) console.log(text);
-  return { code, xml };
+  return { code, xml, text };
 });
 
 const wall = ((performance.now() - started) / 1000).toFixed(1);
 const merged = mergeJunit(results.map((r) => r.xml));
-const total = tallyOf(merged);
-const failed = results.filter((r) => r.code !== 0).length;
-console.log(
-  `\n${total.tests - total.failures - total.skipped} pass, ${total.failures} fail, ${total.skipped} skipped — ` +
-    `${files.length} files across ${bins.length} shards in ${wall}s wall, ${total.seconds.toFixed(1)}s of test` +
-    (failed > 0 ? `; ${failed} shard${failed === 1 ? "" : "s"} red` : ""),
-);
-// **And what failed, under the counts.** A red run is read from the bottom,
-// and until 14 September 2026 the bottom said only how many — the case's name
-// was in its shard's own block, hundreds of lines up (`firstFailure`).
-const FAILURE_LINES = 12;
-const first = firstFailure(merged);
-if (first) {
-  const where = first.file ? `${first.file}${first.line ? `:${first.line}` : ""} — ` : "";
-  const more = total.failures > 1 ? ` (+${total.failures - 1} more)` : "";
-  console.log(`  first failure: ${where}${first.name}${more}`);
-  // And its message, indented under the name: the `expect` line and the diff,
-  // which is where a case that lists what it found puts the list. Capped both
-  // ways (`closingLines`), so neither a snapshot's diff nor a whole file on
-  // one `Received:` line pushes the counts off the screen.
-  for (const line of closingLines(first.message, FAILURE_LINES)) {
-    console.log(line ? `    ${line}` : "");
-  }
-}
+for (const line of closingReport(merged, results, files.length, wall)) console.log(line);
 if (junit) await Bun.write(junit, merged);
 for (let i = 0; i < bins.length; i++)
   await Bun.file(reportOf(i))

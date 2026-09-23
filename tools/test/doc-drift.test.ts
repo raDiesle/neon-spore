@@ -15,7 +15,7 @@ import {
   skillFiles,
   TREE,
 } from "./doc-paths.js";
-import { loadedTimeout } from "./repo-time.js";
+import { itCosts } from "./figure.js";
 
 /**
  * Document drift, as a test.
@@ -106,40 +106,36 @@ const UNWRITTEN =
   "see docs/queue.md's preamble and the ledger table in docs/spec/bosses-choreographed.md";
 
 describe("a path a document names", () => {
-  it(
-    "is a file this repository has",
-    () => {
-      const found: { doc: string; mention: string }[] = [];
-      let claims = 0;
-      for (const doc of [...docFiles(), ...skillFiles()]) {
-        if (RECORDS.has(doc)) continue;
-        for (const mention of pathClaimsIn(doc)) {
-          claims++;
-          if (!namesAFile(mention) && !KNOWN_GONE.has(mention)) found.push({ doc, mention });
-        }
+  itCosts(350, "is a file this repository has", () => {
+    const found: { doc: string; mention: string }[] = [];
+    let claims = 0;
+    for (const doc of [...docFiles(), ...skillFiles()]) {
+      if (RECORDS.has(doc)) continue;
+      for (const mention of pathClaimsIn(doc)) {
+        claims++;
+        if (!namesAFile(mention) && !KNOWN_GONE.has(mention)) found.push({ doc, mention });
       }
-      // A build output a document names is not drift: `docs/skins.md` says of one
-      // of these, in the same sentence, that it is gitignored.
-      const ignored = ignoredByGit([...new Set(found.map((f) => f.mention))]);
-      const drift = found
-        .filter((f) => !ignored.has(f.mention))
-        .map((f) => `${f.doc} → ${f.mention}`);
-      // A failure here is read by a session that has just written a document,
-      // and most often by one that wrote down work it has not done yet, so the
-      // list says the convention rather than leaving a missing path to look
-      // like a typo: the take commit `e2c4b2c7` turned `main` red with a ledger
-      // row naming the scene file its own lane was about to write.
-      const missing = [...new Set(drift)].sort();
-      if (missing.length > 0) missing.push(UNWRITTEN);
-      // A run that checked nothing would pass. It was 2,211 on the day this landed.
-      expect(claims).toBeGreaterThan(1500);
-      expect(missing).toEqual([]);
-      // Every document read, two thousand paths asked about, and a `git
-      // check-ignore` at the end of it: a third of a second alone and minutes
-      // under another session's check (`tools/test/repo-time.ts`).
-    },
-    loadedTimeout(350),
-  );
+    }
+    // A build output a document names is not drift: `docs/skins.md` says of one
+    // of these, in the same sentence, that it is gitignored.
+    const ignored = ignoredByGit([...new Set(found.map((f) => f.mention))]);
+    const drift = found
+      .filter((f) => !ignored.has(f.mention))
+      .map((f) => `${f.doc} → ${f.mention}`);
+    // A failure here is read by a session that has just written a document,
+    // and most often by one that wrote down work it has not done yet, so the
+    // list says the convention rather than leaving a missing path to look
+    // like a typo: the take commit `e2c4b2c7` turned `main` red with a ledger
+    // row naming the scene file its own lane was about to write.
+    const missing = [...new Set(drift)].sort();
+    if (missing.length > 0) missing.push(UNWRITTEN);
+    // A run that checked nothing would pass. It was 2,211 on the day this landed.
+    expect(claims).toBeGreaterThan(1500);
+    expect(missing).toEqual([]);
+    // Every document read, two thousand paths asked about, and a `git
+    // check-ignore` at the end of it: a third of a second alone and minutes
+    // under another session's check (`tools/test/repo-time.ts`).
+  });
 });
 
 describe("a field of SimConfig", () => {
@@ -160,7 +156,7 @@ describe("a field of SimConfig", () => {
     .map((doc) => readFileSync(join(ROOT, doc), "utf8"))
     .join("\n");
 
-  it("is named in a document", () => {
+  itCosts(300, "is named in a document", () => {
     const unnamed = Object.keys(DEFAULT_CONFIG).filter(
       (field) => !new RegExp(`\\b${field}\\b`).test(specText),
     );
@@ -197,28 +193,24 @@ function namesATsFile(mention: string): boolean {
 }
 
 describe("a comment under packages/*/src or apps/*/src", () => {
-  it(
-    "names a source file this tree still has",
-    () => {
-      const found: { file: string; mention: string }[] = [];
-      let claims = 0;
-      for (const file of sourceFiles()) {
-        const source = readFileSync(join(ROOT, file), "utf8");
-        for (const span of commentSpans(source)) {
-          for (const match of span.matchAll(/`([^`\n]+)`/g)) {
-            const mention = (match[1] ?? "").trim();
-            if (!namesATsFile(mention)) continue;
-            claims++;
-            const basename = mention.split("/").pop() ?? mention;
-            if (!BY_NAME.has(basename)) found.push({ file, mention });
-          }
+  itCosts(350, "names a source file this tree still has", () => {
+    const found: { file: string; mention: string }[] = [];
+    let claims = 0;
+    for (const file of sourceFiles()) {
+      const source = readFileSync(join(ROOT, file), "utf8");
+      for (const span of commentSpans(source)) {
+        for (const match of span.matchAll(/`([^`\n]+)`/g)) {
+          const mention = (match[1] ?? "").trim();
+          if (!namesATsFile(mention)) continue;
+          claims++;
+          const basename = mention.split("/").pop() ?? mention;
+          if (!BY_NAME.has(basename)) found.push({ file, mention });
         }
       }
-      const missing = [...new Set(found.map((f) => `${f.file} → ${f.mention}`))].sort();
-      // A run that checked nothing would pass.
-      expect(claims).toBeGreaterThan(200);
-      expect(missing).toEqual([]);
-    },
-    loadedTimeout(120),
-  );
+    }
+    const missing = [...new Set(found.map((f) => `${f.file} → ${f.mention}`))].sort();
+    // A run that checked nothing would pass.
+    expect(claims).toBeGreaterThan(200);
+    expect(missing).toEqual([]);
+  });
 });

@@ -2631,6 +2631,7 @@ place — the generator keeps whatever is there.
 | `tools/check/shards.ts` | The arithmetic of a sharded `bun test`: which file goes in which bin, how many bins, and the pool that runs them a few at a time |
 | `tools/check/slots.ts` | How many `bun test` shards this machine runs at once, counted across every worktree together rather than within one check |
 | `tools/check/junit.ts` | The shards' JUnit reports, read and merged: each header's tally, the merge the profile reads as one run, and the first failing case |
+| `tools/check/closing.ts` | **What `shard.ts` prints once every shard is in**: the counts, the first failure under them |
 | `tools/breaks/src/main.ts` | `bun run breaks` — every break the engine can make, drawn across time |
 | `tools/breaks/src/page.ts` | Page furniture for the break sheet |
 | `tools/breaks/src/sheet.ts` | Every break the bench knows, drawn across time |

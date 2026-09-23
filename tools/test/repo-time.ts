@@ -151,7 +151,9 @@ export const LOAD: number = Math.max(1, GIT_OP_MS / IDLE_MS);
  * `repoTimeout` exists for arriving by a different road.
  *
  * Pass what the test costs when it is the only thing running, rounded up. The
- * slack is the same three, and for the same reason.
+ * slack is the same three, and for the same reason. A test declares it
+ * through `itCosts` or `fileCosts` (`figure.ts`), which also say when the
+ * figure has stopped being true.
  */
 export function loadedTimeout(idleMs: number): number {
   return Math.min(CEILING_MS, Math.max(FLOOR_MS, Math.ceil(idleMs * LOAD * SLACK)));

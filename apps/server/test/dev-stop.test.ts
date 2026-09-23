@@ -1,7 +1,7 @@
-import { expect, setDefaultTimeout, test } from "bun:test";
+import { expect, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { freePort } from "../../../tools/ports.js";
-import { loadedTimeout } from "../../../tools/test/repo-time.js";
+import { fileCosts } from "../../../tools/test/figure.js";
 import { wranglerCli, wranglerDevCommand } from "../dev.js";
 
 // What this file is allowed to take, scaled to how busy the machine is
@@ -9,8 +9,7 @@ import { wranglerCli, wranglerDevCommand } from "../dev.js";
 // these cases are not. A wrangler started and stopped, which is the slowest child
 // anything in the repository starts: 3.0 s alone on the cloud image on 18 September
 // 2026, of which 2.3 s is the relay coming up and 6 ms is it going quiet again.
-const CASE_MS = loadedTimeout(3000);
-setDefaultTimeout(CASE_MS);
+const CASE_MS = fileCosts(3000);
 
 /**
  * And how long the relay itself gets, **inside** that budget rather than beside it.
