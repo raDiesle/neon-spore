@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 45324f46 — `--until-on N` photographs the rest after an event, as `--until-back` does the rest before one
+
+A screen that comes up a fixed rest after something happens — the lost wave's own screen, about 150 ticks after `waveFailed` and 31 ticks long — is now one flag: `--until waveFailed --until-on 150` steps the same drive on from the event and takes the picture there. Refused without `--until`, at less than one tick, past `--until-ticks`, and beside `--until-back`. The flag parsing moved to `tools/frames/until-flags.ts` when `until.ts` passed the size ceiling.
+
 ## 2026-09-23 · 3ded7caf — A ring, flash or streak on its way out fades its line, not only its glow
 
 `strokeGlow`'s `intensity` scaled the glow passes and then laid the core down at full strength whatever it was told, so every effect that faded by it — a burst ring over the plating, THE PINBALL's blast rings, THE ORRERY's broken orbit, THE VANE's throw streak, a struck ring, THE TASTER's blades arriving, a pulse wash on the skin — kept a bright line to its last frame and vanished at once. It now takes an `alpha` for the whole stroke, and those fifteen calls pass their clock there, with their glow exactly as it was; the lost screen's focus ring, which had worked around it by putting the alpha on the colour, is spelled the same way and draws the same pixels.
