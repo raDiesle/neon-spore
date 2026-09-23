@@ -426,7 +426,6 @@ what the rest of this file holds.
 ## A phone in TEST mode has nowhere to put two bands and the rig
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-21, claude/queue-the-gauges-two-new-states-have-no-pose-in-the-di (claim: claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band)
 - **Files:** `apps/game/src/at-a-desk.ts`, `apps/game/src/testing.ts`, `apps/game/src/game.css`, `apps/game/src/viewport.ts`, `tools/director/src/stage-transport.ts`, `tools/build-stamp.ts`
 - **Where:** local
 
