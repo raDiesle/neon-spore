@@ -521,6 +521,7 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 ## A guide half's 220-character cap is held where `check:fast` never looks
 
 - **Found:** 2026-09-23, claude/queue-twenty-six-wave-guides-in-acts-7a-to-7g-fail-the
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-a-guide-halfs-220-character-cap-is-held-where-ch)
 - **Files:** `packages/render/test/briefing.test.ts`, `packages/content/test/waves.test.ts`
 
 The two tests under "the guides the waves carry" in `briefing.test.ts` —
