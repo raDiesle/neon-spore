@@ -572,6 +572,7 @@ the caller rather than as a rule.
 ## No film holds THE HIVE's lobe from the navigator's seat
 
 - **Found:** 2026-09-21, claude/queue-the-hives-rehearsal-film-clenches-twice-and-teac
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-no-film-holds-the-hives-lobe-from-the-navigators)
 - **Files:** `packages/content/src/scenes/the-hive.ts`, `packages/render/src/guide-hand.ts`, `packages/render/test/hive-frame.test.ts`
 - **Where:** local
 
