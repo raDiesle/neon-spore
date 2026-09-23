@@ -518,6 +518,7 @@ question that prompted this one.
 ## A press the simulation refuses is silent in `bun run frames`
 
 - **Found:** 2026-09-20, claude/snake-board-look
+- **Taken:** 2026-09-23, claude/queue-snakes-tail-stub-comes-out-of-the-ship-as-a-teal (claim: claude/queue-a-press-the-simulation-refuses-is-silent-in-bun)
 - **Files:** `tools/frames/reach.ts`, `tools/frames/drive.ts`, `tools/frames/report.ts`
 - **Where:** local
 
