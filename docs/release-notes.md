@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 1f4226f4 — `bun run pair` sends a before and an after as one PNG
+
+`bun run pair <before.png> <after.png> <out.png>` joins two pictures with a grey gutter, before on the left or on top. Crops wider than they are tall stack and portrait frames sit side by side, whichever is nearer a phone's shape; `--stack` and `--beside` override that. A smaller picture is centred on the grey, never stretched, and frames need not agree on alpha.
+
 ## 2026-09-23 · d76e002f — `queue done` no longer cuts an entry off at a heading it quotes
 
 `parseItems` already ignored a `##` inside a code fence. The editor did not. An entry that quoted the format in its body ended at its own example, so `queue done` left the rest of it behind, glued to the entry above. `take` and the other edits had the same fault. Now the editor reads sections the way the listing does. New entries were already appended at the end of the file, never at the first heading, so nothing was written into the preamble's example.

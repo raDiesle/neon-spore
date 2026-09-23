@@ -18182,3 +18182,5 @@ heading as the end of an entry.
 The bottleneck was **which way to join them**: the entry said to stack
 portrait frames, but a phone fits a picture to its width, so crops stack and
 full frames sit side by side.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
