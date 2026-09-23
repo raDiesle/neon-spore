@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — THE GAUGE stands on the ship's real hull
+
+- reading — 10 min. SNAKE's `drawHull` call, `hull-frame.ts`'s `frame` and `surface`, and the three readers of `gaugeDial`.
+- writing — 10 min. The rest hull and the pivot on its crown, the tally under the title, `drawGaugeShip` gone.
+- looking — 5 min. One frame at tick 600.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was reading: the pivot has to be one point for a finger and a frame, so it is measured off the hull at time zero rather than the breathing one.
+
 ## 2026-09-23 — the slab panel form goes
 
 - reading — 10 min. Every `slab` in the tree, to part the panel form from the drawn shape and the ghost's bands.

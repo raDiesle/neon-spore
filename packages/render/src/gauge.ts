@@ -1,6 +1,6 @@
 import { GAUGE_FULL, type GaugeState, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
 import { callAge, clawPose, drawGaugeCatch, gaugeLineShown, gaugePodGrown } from "./gauge-catch.js";
-import { drawGaugeClaw, drawGaugeLine, drawGaugeShip } from "./gauge-claw.js";
+import { drawGaugeClaw, drawGaugeLine } from "./gauge-claw.js";
 import { drawGaugePod, POD_REACH } from "./gauge-pod.js";
 import type { ViewRole } from "./layout.js";
 
@@ -54,8 +54,6 @@ export interface DialView {
   beatPhase: number;
   /** `world.tick`, which a call's reach is timed from (`gauge-catch.ts`). */
   tick: number;
-  /** The stage's width, which the ship's skin runs across. */
-  width: number;
 }
 
 /** Where a value on the dial sits, as a canvas angle. Left is 0, right is full. */
@@ -75,11 +73,10 @@ export function drawGauge(
   gauge: GaugeState,
   view: DialView,
 ): void {
-  // The ship first and the claw last, which is the object's own order: the
-  // hand stands on the hull, the pod is out in the dark it points into, and
-  // nothing drawn after the claw may cover the thing the pilot is turning
-  // (`gauge-claw.ts`).
-  drawGaugeShip(ctx, dial, view.width);
+  // The claw last, which is the object's own order: the hand stands on the
+  // hull (`gauge-round.ts` draws the ship before this), the pod is out in the
+  // dark it points into, and nothing drawn after the claw may cover the thing
+  // the pilot is turning (`gauge-claw.ts`).
   const age = callAge(cfg, gauge, view.tick);
   // The width **now**, not the one in the config: the band winds tight every
   // few marks and her thumb gives it back, and a pod that stood at the full

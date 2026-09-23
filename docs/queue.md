@@ -481,20 +481,6 @@ table rows in the skill to say the menu's job names are the one exception.
 The card's tag already reads P1 or P2, which is the argument for keeping a
 job name beside it.
 
-## THE GAUGE stands on the ship's real hull
-
-- **Found:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-the-gauge-stands-on-the-ships-real-hull)
-- **Files:** `packages/render/src/gauge-claw.ts`, `packages/render/src/gauge-round.ts`
-
-The round's buttons are the band's lobes now, but the crest the claw hangs
-from (`drawGaugeShip`, at `playHeight * 0.62`) floats above the band with
-empty dark between them, so the claw and the buttons read as two things.
-SNAKE draws the ship's own `drawHull` under its round; THE GAUGE doing the
-same, with the claw standing on its crown and `gaugeDial` placed from the
-hull's top, makes them one ship. A look, and the owner asked for it by name
-(*fit the regular ship hull*, 20 September 2026) — the exemption carries over.
-
 ## `strokeGlow` under a scale draws its glow scale-times too wide
 
 - **Found:** 2026-09-23, claude/queue-the-pulses-picture-looks-like-something-real

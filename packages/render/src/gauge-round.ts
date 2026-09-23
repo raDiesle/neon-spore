@@ -3,26 +3,51 @@ import { drawBand } from "./band.js";
 import { type Dial, drawGauge, showsGaugeMarks } from "./gauge.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
-import type { Layout } from "./layout.js";
+import { drawHull } from "./hull.js";
+import { frame, type HullFrame, type HullMood, type LobePositions, surface } from "./hull-frame.js";
+import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
+import { seatSkin } from "./seat-skin.js";
 
-/**
- * **The dial, in pixels** — one circle, asked for by the picture and by the
- * cue that stands on its needle (`boss-cue-read-w.ts`).
- *
- * The pod's far edge and the dotted line past it stop a breath under the
- * title's last row (`gauge-claw.ts`).
- */
 /** Room above the half-circle for the line's end and the pod's glow, as a
  * share of the radius. */
 const HEADROOM = 0.16;
+/** The tally's pips and bar, under the title: from the title's last row to
+ * the bar's foot. */
+const TALLY_DEPTH = 36;
 
+/** The ship at rest: nothing armed, nothing swallowed, the cannon lobe in the
+ * middle column and no shield — the round has none to raise. */
+const REST_MOOD: HullMood = { armed: 0, intake: 0, chew: 0, charge: 0 };
+
+const restAt = (l: Layout): LobePositions => ({ cannon: (l.cols - 1) / 2, shield: [] });
+
+/** The ship's own hull, at rest, as this layout draws it. */
+function restHull(l: Layout, time: number): HullFrame {
+  return frame(l, time, REST_MOOD, restAt(l));
+}
+
+/**
+ * **The dial, in pixels** — one circle, asked for by the picture, by the
+ * thumbs (`gauge-grip.ts`) and by the cue that stands on its needle
+ * (`boss-cue-read-w.ts`).
+ *
+ * The pivot is the crown of the ship's real cannon lobe, measured off the hull
+ * `drawHull` paints under the round — SNAKE's ship and this one are the same
+ * ship (the owner, 20 September 2026: *fit the regular ship hull*). It is
+ * measured at time zero, so a finger and a frame agree on it; the skin's
+ * breathing under the claw's joint is a pixel or two the joint covers.
+ *
+ * The pod's far edge and the dotted line past it stop a breath under the
+ * tally, which stands under the title's last row (`gauge-claw.ts`).
+ */
 export function gaugeDial(l: Layout): Dial {
   const top = l.playHeight * 0.14;
-  const cy = l.playHeight * 0.62;
+  const cx = tileCX(l, (l.cols - 1) / 2);
+  const cy = surface(restHull(l, 0), cx).y;
   return {
-    cx: l.width / 2,
+    cx,
     cy,
     // And never below a tenth of the screen: a phone too small for the words
     // to fit is a phone where the dial overlaps the title rather than vanishes.
@@ -31,7 +56,7 @@ export function gaugeDial(l: Layout): Dial {
       Math.min(
         l.width * 0.42,
         l.playHeight * 0.3,
-        (cy - top - GAUGE_TITLE_DEPTH - 8) / (1 + HEADROOM),
+        (cy - top - GAUGE_TITLE_DEPTH - TALLY_DEPTH - 8) / (1 + HEADROOM),
       ),
     ),
   };
@@ -40,12 +65,12 @@ export function gaugeDial(l: Layout): Dial {
 /**
  * THE GAUGE over the whole stage.
  *
- * `canvas2d.ts` hands the frame over and draws nothing else — no grid and no
- * hull. That is the round's first condition: the field is gone, not dimmed
- * and not re-skinned. A round that borrowed the eleven columns would be a wave
- * in a costume. The band stays, as it does on SNAKE and PINBALL: it is not the
- * field, it is the ship's panel, and it is where the pair's thumbs already
- * are.
+ * `canvas2d.ts` hands the frame over and draws nothing else — no grid. That
+ * is the round's first condition: the field is gone, not dimmed and not
+ * re-skinned. A round that borrowed the eleven columns would be a wave in a
+ * costume. The hull and the band stay, as they do on SNAKE: neither is the
+ * field, they are the ship, and the claw stands on its crown where the
+ * cannon would.
  *
  * It is a boss wave now rather than a category of its own, and this file is
  * what did not change when that happened — which was the point. The two screens
@@ -64,14 +89,34 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   ctx.fillStyle = PALETTE.background;
   ctx.fillRect(0, 0, l.width, l.height);
 
+  const f = restHull(l, view.time);
+  // `arm`: the cannon lobe carries the claw rather than a mouth, as THE
+  // CLAW's panel does, so the laying pass stays undrawn under its joint.
+  const skin = seatSkin(view.role).hull;
+  drawHull(
+    ctx,
+    l,
+    view.world.scars,
+    view.time,
+    REST_MOOD,
+    restAt(l),
+    undefined,
+    undefined,
+    skin,
+    undefined,
+    f,
+    true,
+  );
+
   ctx.textAlign = "center";
-  drawGaugeTitle(ctx, l, view.role, l.playHeight * 0.14);
+  const top = l.playHeight * 0.14;
+  drawGaugeTitle(ctx, l, view.role, top);
+  drawTally(ctx, l, view, boss, top + GAUGE_TITLE_DEPTH + 14);
   const dial = gaugeDial(l);
   drawGauge(ctx, dial, view.world.cfg, boss, {
     showMarks: showsGaugeMarks(view.role),
     beatPhase: view.beatPhase,
     tick: view.world.tick,
-    width: l.width,
   });
   // The two thumbs the round can be taken hold of by, after the dial they
   // stand on (`gauge-grip.ts`). That file asks this one for `gaugeDial` and
@@ -79,7 +124,6 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // `touch.ts`'s, one direction at runtime, and the circle a thumb is
   // answered at is the circle the ring is drawn from.
   drawGaugeGrip(ctx, l, view.world.cfg, dial, boss, view.role, view.time);
-  drawTally(ctx, l, view, boss);
   // The ship's own panel, with the round's three in its sockets
   // (`gauge-button.ts`) — which is also where the machine stops and the dark
   // begins, the job an inset rectangle round the stage used to do.
@@ -105,12 +149,11 @@ function drawTally(
   l: Layout,
   view: ViewState,
   round: GaugeState,
+  y: number,
 ): void {
   const cfg = view.world.cfg;
-  // Low, just above the band. The dial is the subject and the tally is the
-  // footnote, and a footnote floating in the middle of the empty half of the
-  // screen reads as a second thing to watch.
-  const y = l.playHeight * 0.9;
+  // Under the title, as SNAKE's is: the hull holds the foot of the screen now,
+  // and the tally is the title's footnote rather than a second thing to watch.
   const gap = 15;
   const left = l.width / 2 - ((cfg.gaugeMarks - 1) * gap) / 2;
   for (let i = 0; i < cfg.gaugeMarks; i++) {

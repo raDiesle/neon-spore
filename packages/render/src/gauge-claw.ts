@@ -1,12 +1,10 @@
 import type { Point } from "@neon-spore/content";
 import { GAUGE_FULL } from "@neon-spore/sim";
 import type { Dial } from "./gauge.js";
-import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { OWN_SKIN } from "./hull-skin.js";
 import { PALETTE } from "./palette.js";
 import { ARM_FINGER_TILES, ARM_SHAFT_TILES, drawClawFingers } from "./reach-arm.js";
-import { splinePath } from "./spline.js";
 
 /**
  * THE GAUGE as the ship's own hand — the owner, 20 September 2026: *the
@@ -34,13 +32,6 @@ import { splinePath } from "./spline.js";
 const RISE = 0.3;
 /** How far out the dotted line runs, past the pod's far edge. */
 const LINE_REACH = 1.08;
-/** The ship's crest: how far the cannon lobe stands above the skin, how wide
- * its shoulder is, and how far the skin falls away toward the screen's edges. */
-const LIFT = 0.12;
-const SHOULDER = 0.26;
-const SAG = 0.1;
-/** How far down the ship's body is painted before it is the dark. */
-const DEPTH = 0.4;
 
 /**
  * Where the claw is and how its hand stands: which way it points, how far out
@@ -84,41 +75,6 @@ export function aimAt(ctx: CanvasRenderingContext2D, dial: Dial, milli: number):
   const d = along(milli);
   ctx.translate(dial.cx, dial.cy);
   ctx.rotate(Math.atan2(d.y, d.x) + Math.PI / 2);
-}
-
-/**
- * A stretch of the ship's skin under the pivot, with the cannon lobe standing
- * at the middle so its crown is the pivot itself. The contour is the hull's —
- * an ellipse far wider than the screen, so only the flat arc around its apex
- * shows — and the paint is `OWN_SKIN`'s, fading to the dark within a few
- * tenths of the radius so the round's tally below still stands on nothing.
- */
-export function drawGaugeShip(ctx: CanvasRenderingContext2D, dial: Dial, width: number): void {
-  const { cx, cy, r } = dial;
-  const half = Math.max(width / 2, r) + 8;
-  const pts: Point[] = [];
-  for (let i = 0; i <= 48; i++) {
-    const x = cx - half + (2 * half * i) / 48;
-    const u = Math.abs(x - cx) / (r * SHOULDER);
-    const bump = u >= 1 ? 0 : 0.5 * (1 + Math.cos(Math.PI * u));
-    const fall = ((x - cx) / half) ** 2;
-    pts.push({ x, y: cy + r * LIFT * (1 - bump) + r * SAG * fall });
-  }
-  const skin = splinePath(pts, false);
-  const body = new Path2D(skin);
-  body.lineTo(cx + half, cy + r * (LIFT + SAG + DEPTH));
-  body.lineTo(cx - half, cy + r * (LIFT + SAG + DEPTH));
-  body.closePath();
-
-  const [bright, mid, deep] = OWN_SKIN.body;
-  const fill = ctx.createLinearGradient(0, cy, 0, cy + r * (LIFT + SAG + DEPTH));
-  fill.addColorStop(0, rgba(bright, 0.55));
-  fill.addColorStop(0.3, rgba(mid, 0.5));
-  fill.addColorStop(0.65, rgba(deep, 0.35));
-  fill.addColorStop(1, rgba(PALETTE.background, 0));
-  ctx.fillStyle = fill;
-  ctx.fill(body);
-  strokeGlow(ctx, skin, OWN_SKIN.rim, 2.4, 1);
 }
 
 /**

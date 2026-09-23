@@ -68,7 +68,7 @@ describe("THE GAUGE's pod", () => {
           return typeof v === "function" ? v.bind(target) : v;
         },
       }) as unknown as CanvasRenderingContext2D;
-      drawGauge(spy, DIAL, CFG, g, { showMarks, beatPhase: 0.3, tick: 300, width: 390 });
+      drawGauge(spy, DIAL, CFG, g, { showMarks, beatPhase: 0.3, tick: 300 });
       return fills;
     };
     expect(podFills(true)).toBe(1);

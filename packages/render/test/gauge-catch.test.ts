@@ -49,7 +49,7 @@ function podsOnPilot(g: GaugeState, tick: number): number {
       return typeof v === "function" ? v.bind(target) : v;
     },
   }) as unknown as CanvasRenderingContext2D;
-  drawGauge(spy, DIAL, CFG, g, { showMarks: false, beatPhase: 0.9, tick, width: 390 });
+  drawGauge(spy, DIAL, CFG, g, { showMarks: false, beatPhase: 0.9, tick });
   return fills;
 }
 
