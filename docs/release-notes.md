@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 96435979 — THE SINEW is a tendon of wet cords pulling on a mass of muscle
+
+The mass is muscle now: shaded from the top left, its grain running the way the pull runs, its lower wall lit from inside brighter with the strain, a dark pucker where the tendon goes in, and a film. Every fibre is a wet cord a twentieth of a tile thick with a highlight down its lit side, and the sheath is membrane lit down one side. The glowing line round the mass is gone; the collar, its zone, its sum and its pips are a gauge and stay as they were.
+
 ## 2026-09-23 · 92f700f8 — THE TASTER's blades are whetted steel standing in a wet gum
 
 Each blade is steel lit down its leading face and dark down the trailing one, with a grind line and a glint near the point, and no line drawn round it; the colour is still the edge alone. A growing blade is a light moving up through its grey. The crest is a gum of wet flesh with a socket round every root, and a notch is lit from inside with a drop standing in it.
