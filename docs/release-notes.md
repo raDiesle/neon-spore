@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 45fdc1f2 — Close the queue entry for a SCOUT frame with a mote aboard
+
+The work it asked for landed at ea9cc9e4, under its twin *`--press` knows no scout verb*. `--press` flies the pilot's three, a recorded flight in `scout-press.ts` puts four motes aboard, and the laden ring was photographed. The director poses `laden` too. The rest of the entry, one flag that flies to the nth mote, would reach no state the recorded line does not. The heavy ring waits on the second arena's own entry and on the `--boss-json` question.
+
 ## 2026-09-23 · 5fe170e8 — SNAKE's MAW button goes dark once the jaws stick
 
 Past `snakeGorgeTiles` the MAW press is refused, and the mouth is prised open on the neck instead. Until now the button still lit amber whenever the mouth stood open. Now the head on the button still shows the gape, but the halo and the fill that say press me come only while the press is heard (`snakeMawLit`).

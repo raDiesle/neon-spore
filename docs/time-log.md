@@ -18422,3 +18422,5 @@ state it changes is one the frames tool cannot reach.
 
 The bottleneck was **the twin entry**: the work had landed under another
 title, and only the staleness mark sent this lane to read the log first.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
