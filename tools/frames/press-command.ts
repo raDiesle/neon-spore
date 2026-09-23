@@ -1,3 +1,4 @@
+import { SNAKE_TURNS } from "@neon-spore/sim";
 import { PICKS } from "./press.js";
 
 /**
@@ -114,6 +115,15 @@ export function commandFor(
         throw new Error(`--press ${whole}: "${one}" — a valve turns left or right, or goes off`);
       }
       return { kind, on: true, dir: way === "left" ? -1 : 1 };
+    }
+    case "snakeTurn": {
+      // SNAKE's steering, the navigator's: a quarter turn from wherever the
+      // body is already going, never a heading (`sim/command-round.ts`).
+      const dir = SNAKE_TURNS.find((d) => d === needs());
+      if (!dir) {
+        throw new Error(`--press ${whole}: "${one}" — a snake turns ${SNAKE_TURNS.join(" or ")}`);
+      }
+      return { kind, dir };
     }
     case "mawTake":
       // The same command the ship's own maw sends; only the seat differs, and

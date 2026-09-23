@@ -2570,6 +2570,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |
 | `tools/frames/shot-flags.ts` | READING `bun run shot`'s COMMAND LINE — every flag it takes |
 | `tools/frames/sheet.ts` | **A STRIP OF FRAMES AS ONE PICTURE**, so a scene can be watched rather than read a frame at a time |
+| `tools/frames/snake-press.ts` | **SNAKE's two hands on the body, written on the press line.** Past `snakeGorgeTiles` the jaws stick and the… |
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
 | `tools/frames/versus-shot.ts` | `bun run versus:shot` — one PNG of one VERSUS candidate |
 | `tools/frames/versus-element.ts` | What `versus:shot --at` is measured against: the window the pose cuts, not the stage |

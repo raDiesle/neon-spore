@@ -3,6 +3,7 @@ import { commandFor } from "./press-command.js";
 import { refuseWrongSeat } from "./press-seats.js";
 import { parseOrgans, ringPresses } from "./ring.js";
 import { isScoutHeld, scoutPresses } from "./scout-press.js";
+import { isSnakeHand, snakePresses } from "./snake-press.js";
 import type { PressSpec } from "./spec.js";
 
 /**
@@ -40,6 +41,7 @@ import type { PressSpec } from "./spec.js";
  *   --press 60:2:tap=lowest,120:2:tap=lowest   THE BEATBOX: a run, a beat apart
  *   --press 90:1:reach,240:1:crank=2            THE CLAW: send the arm up, wind it home
  *   --press 246:1:scoutTurnLeft=7,255:1:scoutBurn=20   THE SCOUT: swing the nose, then push
+ *   --press 600:2:snakeTurn=left,640:1:snakeMaw    SNAKE: turn, then open the mouth
  *
  * **The axis is ticks, and a tick is not a beat times `ticksPerBeat`.** It
  * reads like one — "a run, a beat apart" above is 60 and 120 — and for a wave
@@ -116,8 +118,11 @@ const PRESS_KINDS = [
   "launch",
   "crank",
   "orreryRing",
+  "snakeTurn",
   "snakeFire",
   "snakeMaw",
+  "snakeJaws",
+  "snakeTail",
   "scoutTurnLeft",
   "scoutTurnRight",
   "scoutBurn",
@@ -173,6 +178,8 @@ function parseOnePress(one: string, whole: string, wave: number): PressSpec[] {
   // so are two commands from one press (`scout-press.ts`). Her tap is not one
   // of them and falls through with the rest.
   if (isScoutHeld(kind)) return scoutPresses(tick, player, kind, argument, one, whole);
+  // SNAKE's two hands on the body: a prise and a held tail (`snake-press.ts`).
+  if (isSnakeHand(kind)) return snakePresses(tick, player, kind, argument, one, whole);
   const pick =
     (kind === "grip" || kind === "tap") && argument !== undefined ? PICKS[argument] : undefined;
   // The id is filled in by the page, so the command carries a placeholder here

@@ -515,38 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## `bun run frames` still cannot turn SNAKE, only pose it turned
-
-- **Found:** 2026-09-20, claude/queue-snakes-picture-looks-like-something-real
-- **Taken:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own (claim: claude/queue-bun-run-frames-still-cannot-turn-snake-only-pose)
-- **Files:** `tools/frames/press-command.ts`, `tools/frames/press.ts`
-- **Where:** local
-
-`--press 430:2:snakeTurn` is refused — "unknown control. One of cannonCol,
-guard, intake, prime, salvo, aim, reach, mawTake, shieldCol, fire, grip, tap,
-shake, pulseStep, latch, launch, crank, orreryRing" — so the one verb the
-second seat has in this round cannot be sent from the command line. The whole
-of `snake-controls.ts` is out of reach the same way: `snakeTurn`,
-`snakeFire`, `snakeMaw` and the two drags (`snakeJaws`, `snakeTail`).
-
-The look lane worked around it with `--boss "grow=9,turn=1"`, which *poses* a
-long turned body rather than driving one, and that is enough for a still and
-nothing at all for a sequence: a picture of the jaws opening, of the tail being
-shed, or of an attempt ending badly cannot be taken today.
-
-`snakeTurn` takes `left` or `right`, which `AIM_STEPS` already has words for;
-`snakeFire` takes nothing; `snakeMaw` is player 1's. Five cases in the
-`switch` in `commandFor`, plus their rows in `press.ts`' table of which seat
-owns which control.
-
-**Two of the five landed on 20 September 2026.** The board lane needed the
-spit photographed, so `snakeFire` and `snakeMaw` are rows in `press.ts`' table
-now — both take no value and fall through `commandFor`'s default branch, so
-neither needed a `case`. What is still out of reach is the seat that steers:
-`snakeTurn` and the two drags, `snakeJaws` and `snakeTail`. Until they are
-here, a body that turns is still posed with `--boss` and the jaws are still
-only ever seen shut.
-
 ## SNAKE's tail stub comes out of the ship as a teal tube
 
 - **Found:** 2026-09-20, claude/snake-board-look

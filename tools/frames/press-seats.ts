@@ -22,7 +22,7 @@ import { CONTROLS, controlPress, controlSetForWave } from "@neon-spore/content";
  * is decided here.
  *
  * Everything else is a control on somebody's panel and is asked of the wave
- * being captured (`seatsOnPanel`). These five are not:
+ * being captured (`seatsOnPanel`). These seven are not:
  *
  * - `fire` is the shot itself. The panel's own colour buttons send `prime`,
  *   and the shot is what *lifting* one says (`content/src/control-command.ts`),
@@ -40,7 +40,12 @@ import { CONTROLS, controlPress, controlSetForWave } from "@neon-spore/content";
  *   The pilot's for the same reason, and the simulation checks that rather
  *   than trusting it (`orreryRingHeard`).
  *
- * SNAKE's two are **not** here — `snakeFire` and `snakeMaw` are buttons on the
+ * - `snakeJaws` and `snakeTail` are SNAKE's **hands on the body** — the head
+ *   prised open, the tail lifted clear (`render/snake-grip.ts`) — and the
+ *   round refuses each from the other seat (`sim/snake-controls.ts`): the
+ *   jaws are the pilot's, the tail the navigator's.
+ *
+ * SNAKE's two buttons are **not** here — `snakeFire` and `snakeMaw` are buttons on the
  * pilot's panel and `seatsOnPanel` finds them — but they were missing from the
  * list of accepted presses until 20 September 2026, which meant the spit and
  * the open mouth were two pictures the tool could not take at all. Neither is
@@ -55,6 +60,8 @@ const OFF_PANEL_SEAT: Record<string, 1 | 2 | "either"> = {
   tap: 2,
   shake: 1,
   orreryRing: 1,
+  snakeJaws: 1,
+  snakeTail: 2,
 };
 
 /**
@@ -76,7 +83,7 @@ const COMMAND_OF: Record<string, string> = {
  *
  * `null` is not "refused": a press can be perfectly good on a panel that has
  * no button for it — every `--hold` and every frame test sends commands no
- * thumb could reach — and the five in `OFF_PANEL_SEAT` are exactly that case.
+ * thumb could reach — and the seven in `OFF_PANEL_SEAT` are exactly that case.
  * What this answers is the narrower question an older table here got wrong:
  * *when a button for this does exist on the panel being photographed, whose is
  * it?* That table had `intake` down as player 1's — true while the maw was

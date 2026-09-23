@@ -17597,3 +17597,20 @@ The bottleneck was **the slab machinery left behind**: moving the last round
 to lobes leaves a whole panel form with no user, which is its own lane.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — `bun run frames` still cannot turn SNAKE, only pose it turned
+
+- reading — 5 min. `press.ts`, `press-command.ts`, `press-seats.ts`,
+  `scout-press.ts` as the model, and `sim/snake-controls.ts` for what the
+  round hears.
+- writing — 5 min. `snakeTurn` in `commandFor`; `snake-press.ts` for the two
+  hands on the body; their seats; a test of all five.
+- looking — 5 min. Four captures to find where play begins, then the turn,
+  the prise and the lifted tail, each proved by its event.
+- friction — 0 min. `--boss phase=play` loses the wave; the natural morph was
+  the way in.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **finding the tick play begins**: a press before it is
+dropped in silence, and the first capture came back identical to one with no
+press at all.
