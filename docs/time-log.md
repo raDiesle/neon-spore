@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — THE TASTER is retimed for the half-beat grid
+
+- reading — 5 min. The film's acts.
+- writing — 5 min. Seven taps moved and `chargeBeats: 0.5`.
+- looking — 5 min. The probe on both grids.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was nothing but the round of checks: the rule THE THIRD SHOT found held here unchanged.
+
 ## 2026-09-23 — THE CANDLE is retimed for the half-beat grid
 
 - reading — 5 min. The film's acts and where each slide stands before its tap.

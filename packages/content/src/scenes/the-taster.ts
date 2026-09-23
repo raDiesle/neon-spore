@@ -36,21 +36,21 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_TASTER: GuideScene = {
   ticks: 1920,
   bpm: 120,
-  // Written and proved with no shot grid; on the game's half-beat one
-  // the tongue thickens twice instead of once (`scene-types.ts` `chargeBeats`).
-  chargeBeats: 0,
+  // The game's own half-beat grid: every press sits fifteen ticks before the
+  // point its bolt leaves on, as THE HIVE's do (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0.5,
   seed: 1,
   entries: [],
   boss: { kind: "taster" },
   acts: [
-    { tick: 90, control: "fireRed" },
-    { tick: 185, control: "fireRed" },
-    { tick: 215, control: "fireRed" },
-    { tick: 630, control: "fireRed" },
-    { tick: 810, control: "fireCyan" },
-    { tick: 990, control: "fireCyan" },
+    { tick: 75, control: "fireRed" },
+    { tick: 170, control: "fireRed" },
+    { tick: 200, control: "fireRed" },
+    { tick: 615, control: "fireRed" },
+    { tick: 795, control: "fireCyan" },
+    { tick: 975, control: "fireCyan" },
     { tick: 1170, control: "cannon", col: 3, atBoss: true },
-    { tick: 1350, control: "fireCyan" },
+    { tick: 1335, control: "fireCyan" },
   ],
   steps: [
     {
