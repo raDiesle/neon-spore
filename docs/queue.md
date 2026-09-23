@@ -515,30 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## The queue's example block swallowed five entries and nothing noticed
-
-- **Found:** 2026-09-21, claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-queues-example-block-swallowed-five-entries)
-- **Files:** `tools/queue/queue.ts`, `tools/queue/test/queue.test.ts`, `docs/queue.md`
-- **Where:** local
-
-This file's preamble shows the `Asks:` format inside a fenced block, and five
-real entries had been written into that fence — every lane that filed one put
-it directly under the opening ``` because that is where the first `##` in the
-file was, and the next lane copied the last. The fence stayed open over a
-hundred and thirty lines, so the preamble's own closing paragraphs rendered as
-code and five entries did not render as headings at all. This lane made the
-same mistake, saw it in the diff, and moved all six out; the fence on the
-other example had also been written glued to its first line.
-
-The parser never minded, which is why it ran for weeks: it reads `##` at the
-start of a line and knows nothing about fences. That is the fix — the reader
-in `queue.ts` tracks whether it is inside a fence and refuses to see a heading
-there, and `queue add`-shaped writes place a new entry after the preamble
-rather than at the first heading. The test is a file whose fenced example
-contains a `##` line: the listing must not show it, and an entry written into
-that file must land outside the fence.
-
 ## A before/after cannot be sent as one picture
 
 - **Found:** 2026-09-21, claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now

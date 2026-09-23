@@ -16,11 +16,19 @@ import { FILES, FOUND, HEADING, TAKEN } from "./queue.js";
 /**
  * The lines of one `##` section, as a half-open range over `lines`.
  * `[-1, -1]` when no entry carries that title.
+ *
+ * A `##` inside a code fence is not a heading, which is how `parseItems` reads
+ * it too: an entry quoting the format in its body would otherwise end at its
+ * own example, and `queue done` would leave the rest of it behind as the tail
+ * of the entry above.
  */
 function sectionOf(lines: readonly string[], title: string): [number, number] {
   let start = -1;
+  let fenced = false;
   for (let i = 0; i < lines.length; i++) {
-    const m = HEADING.exec(lines[i] ?? "");
+    const line = lines[i] ?? "";
+    if (/^\s*```/.test(line)) fenced = !fenced;
+    const m = fenced ? null : HEADING.exec(line);
     if (!m) continue;
     if (start === -1 && m[1] === title) start = i;
     else if (start !== -1) return [start, i];

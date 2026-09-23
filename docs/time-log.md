@@ -18153,3 +18153,17 @@ the lip had to stay out past the teeth, so nothing drawn beside them could be
 counted as one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — The queue's example block swallowed five entries and nothing noticed
+
+- reading — 5 min. `queue.ts`'s reader, `edit.ts`'s sections, and the tests
+  that already held a fence shut.
+- writing — 5 min. `sectionOf` skips a fenced `##`, and three tests hold
+  `done`, `take` and `hasEntry` to it.
+- looking — 0 min. Nothing drawn.
+- friction — 0 min. None.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **finding what was left**: the reader had learned about
+fences since the entry was filed, and only the editor still counted a quoted
+heading as the end of an entry.
