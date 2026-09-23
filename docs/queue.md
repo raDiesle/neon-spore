@@ -450,40 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## The doubled window reached THE INSTAR alone
-
-- **Found:** 2026-09-22, claude/instar-body-travels
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-the-doubled-window-reached-the-instar-alone)
-- **Files:** `packages/content/src/instar-script.ts`, `packages/sim/src/config-hive.ts`,
-  `packages/sim/src/config-claw.ts`, `packages/sim/src/config-scuttle.ts`,
-  `.claude/skills/new-boss/SKILL.md`, `docs/spec/bosses-choreographed.md`
-
-The owner asked on 22 September 2026 for the time a pair has to act to be
-doubled and the need raised with it, and said in the same message that it is a
-**generic specification for choreographed**. The lane that landed it could only
-apply it where there is one figure to move: THE INSTAR is the only wave on
-`BossSequenceStep`, so its five `windowBeats` and seven needs were doubled and
-the rule was written into the skill and the spec sheet for the next boss
-authored.
-
-Every other boss with an authored window carries its own differently-named
-figure — `hiveOpenBeats`, `tasterWindowBeats`, `scuttleThrowBeats` and the
-rest, one per boss across the `config-*.ts` files — so there is no single
-number and no sed. The work is to decide which of them are choreographed in
-the owner's sense (a window the pair is asked to act inside, not a body that
-merely takes a while), double each one's window, raise the count beside it, and
-move the tests that assert the old figures. A boss whose window is not a window
-the pair acts in is named in the commit as left alone and why.
-
-**The same lane carries the second half of that rule**, filed 22 September
-2026 from `claude/slow-spans-the-window`: a step's window *is* THE SLOW, opened
-when the action is asked for and shut the tick it succeeds or fails
-(`docs/decisions.md` #33). THE INSTAR does this now; every boss above whose
-window turns out to be one the pair acts inside wants `openSlow` moved to the
-ask and `closeSlow(world)` on both exits, and the plain `openSlow` it has today
-kept only where the moment asks for nothing — a death, a fall, an arrival. The
-two halves are one decision per boss, which is why they are one item.
-
 ## `drawOnShip`'s `held` is a structural type that grows with every hit look
 
 - **Found:** 2026-09-22, claude/burst-on-contact
@@ -831,3 +797,28 @@ fade, and pass it as `alpha`. `hull.ts`'s `rimAlpha` is one of them. Each file
 lands under "a fix to something wrong", with one before/after PNG.
 Reproducing the count: a `globalThis` tally in `strokeGlow` keyed on the
 caller's stack frame, dumped by an `afterAll` preload.
+
+## The doubled window: THE GORGE, THE TASTER and THE LEAD
+
+- **Found:** 2026-09-23, claude/task-queue-work-7ae87c
+- **Files:** `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-sinew.ts`, `packages/sim/src/config-candle.ts`, `packages/sim/src/config-antiphon.ts`, `packages/sim/src/curtain-step.ts`, `packages/sim/src/sinew-step.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/antiphon-step.ts`, `packages/content/src/scenes/the-curtain.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
+
+The three whose need is a lance fill or a shot fixed in code. Double each
+window and raise its need to two, as a new named field, exactly as
+`docs/spec/choreographed-windows.md`'s **Doubled** table has it; move THE SLOW
+to the ask and shut it on both exits (its second half); re-time each film
+rather than loosen it, and give a rehearsal that no longer reaches its state a
+bigger `budgetBeats`. `taster-hand.test.ts` holds the pry longer than a fill.
+A guide half that says a count says the new one, in the same lane.
+
+## The doubled window: THE CURTAIN, THE SINEW, THE CANDLE and THE ANTIPHON
+
+- **Found:** 2026-09-23, claude/task-queue-work-7ae87c
+- **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/config-bellows.ts`, `packages/sim/src/config-hasp.ts`, `packages/sim/src/config-baton.ts`, `packages/sim/src/undertow-step.ts`, `packages/sim/src/bellows-step.ts`, `packages/sim/src/hasp-step.ts`, `packages/sim/src/baton-step.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-baton.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
+
+The four whose need is already a named figure beside the window — a lift, a
+column count, a pinch, a pull. Double both halves per
+`docs/spec/choreographed-windows.md`, the SLOW opened at the ask (for the
+first time on THE CURTAIN and THE ANTIPHON), the films re-timed and the
+rehearsals given room.
+

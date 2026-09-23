@@ -56,6 +56,8 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   need raised with it, because a long window with a small need is a step that
   lands itself and the drama goes out of it. Both halves, never one.
   THE INSTAR's own script is the worked example (`content/instar-script.ts`).
+  Every other boss's figure, doubled or left alone and why:
+  `docs/spec/choreographed-windows.md`.
 - **A step's window is exactly THE SLOW** (22 September 2026, generic, in
   his words *"slow effect must take place in the moment any action on the
   game screen is required and when succeeded or failed the action step, it

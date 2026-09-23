@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — the doubled window, decided boss by boss
+
+- reading — 30 min. Every `config-<boss>.ts` default and its argument, to tell a deadline from a cadence.
+- writing — 15 min. `docs/spec/choreographed-windows.md` and three queue lanes.
+- looking — 0 min.
+- friction — 5 min. A context compaction mid-lane.
+- landing — 10 min. `check:fast`, the commit, `land`.
+
+The bottleneck was reading: thirty boss configs each name their clocks differently, and only the prose above each figure says whether it is a window the pair acts inside.
+
 ## 2026-09-23 — queue-act-8-split
 
 - reading — 5 min. `act-8.ts`, the barrel in `waves.ts` and the director's
