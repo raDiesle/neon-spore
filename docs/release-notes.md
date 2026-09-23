@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 40e6f22c — THE SURGE's SHIELD stands beside the rock it names, not across it
+
+On the pilot's screen, THE SURGE printed SHIELD under his grip mark. That is right where the bulb spits its rock, so at the spit beat the word lay across the rock and read "SHIE D", and its PRESS line was cut by the seam. The word now ends just clear of the bulb's columns on the mark's side, measured from its own width. The mark stays where the thumb is. The constant `WARD` is now `SHIELD`. Exemption: a fix to something wrong rather than unlovely.
+
 ## 2026-09-23 · d0c7359f — The last line that said ward now says shield
 
 The tether's DEMOS blurb said it "cannot be warded". It now says "A shot cannot cut it, and the shield cannot stop it." That was the last player-facing line breaking the owner's shield rule, so `tether` joins `CLEAN` and the words ceiling falls from 5 to 4. Exemption: a look the owner asked for by name (the word shield, 21 September 2026).
