@@ -518,17 +518,6 @@ a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
 `briefings.md` §3.2, and drop §11.36's *What is not built*.
 `bun test packages/content` proves the counts.
 
-## `act-8.ts` is four lines under the size ceiling
-
-- **Found:** 2026-09-23, claude/queue-fourteen-wave-guides-in-acts-8-to-10-fail-the-wo
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-act-8-ts-is-four-lines-under-the-size-ceiling)
-- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/waves.ts`
-
-246 lines: a 128-line doc comment and six waves. The seam is the one act 7
-already uses — THE WELL and THE HANDOVER, with the paragraphs of the comment
-that are about them, move to `act-8b.ts`, and the wave index concatenates both.
-`act-9.ts` (233) is next and splits the same way.
-
 ## The screen chooser's two card names say PILOT and NAVIGATOR
 
 - **Found:** 2026-09-23, claude/queue-six-strings-a-player-reads-are-outside-the-words

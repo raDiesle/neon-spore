@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-act-8-split
+
+- reading — 5 min. `act-8.ts`, the barrel in `waves.ts` and the director's
+  `waves-act-files.ts`, which a save splits the flat list back across.
+- writing — 5 min. THE WELL and THE HANDOVER with their paragraphs to
+  `act-8b.ts`, one import and spread in the barrel, one row in `ACT_FILES`.
+- looking — 0 min. Nothing is drawn; the order of `WAVES` is unchanged.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the index row, the commit, `land`.
+
+The bottleneck was knowing every place an act file is registered: the barrel
+and the director's table, which `waves-memo.test.ts` holds to the disk.
+
 ## 2026-09-23 — queue-guide-cap-in-content
 
 - reading — 5 min. `briefing.test.ts`'s prose block and what content already
