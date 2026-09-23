@@ -518,6 +518,7 @@ question that prompted this one.
 ## SNAKE's tail stub comes out of the ship as a teal tube
 
 - **Found:** 2026-09-20, claude/snake-board-look
+- **Taken:** 2026-09-23, claude/queue-bun-run-frames-still-cannot-turn-snake-only-pose (claim: claude/queue-snakes-tail-stub-comes-out-of-the-ship-as-a-teal)
 - **Files:** `packages/render/src/snake-emerge.ts`, `packages/render/src/snake-ribbon.ts`, `packages/render/src/snake-skin.ts`
 - **Where:** local
 
