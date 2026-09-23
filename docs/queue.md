@@ -486,6 +486,7 @@ two halves are one decision per boss, which is why they are one item.
 ## `bun run sheet` sheets frames an earlier capture left behind
 
 - **Found:** 2026-09-22, claude/touch-is-the-damage
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-bun-run-sheet-sheets-frames-an-earlier-capture-l)
 - **Files:** `tools/frames/sheet.ts`, `tools/frames/run.ts`
 
 A capture that wrote eight frames to `docs/frames/working/` was sheeted
