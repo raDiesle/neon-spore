@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## The chain THE INSTAR hangs from is measured in two places
 
 - **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
+- **Taken:** 2026-09-23, claude/queue-instar-chain (claim: claude/queue-the-chain-the-instar-hangs-from-is-measured-in-t)
 - **Files:** `packages/render/src/instar-draw.ts`,
   `packages/render/src/slow-intake-aim.ts`
 
