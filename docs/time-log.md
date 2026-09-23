@@ -17702,3 +17702,5 @@ to be symmetric about its centre.
 The bottleneck was **`strokeGlow` under a scale**: its passes are pixels, so
 inside a unit transform they drew clouds twenty times too wide — the big soft
 blooms round the old sockets were that defect, and clipping them exposed it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

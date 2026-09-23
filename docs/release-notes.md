@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · d5e609ea — THE PULSE's meter is glass and its sockets are wet pits
+
+The one meter was a rounded bar with a line round it. It is now a glass vessel: a cavity darkest under its top edge, a gloss film along the top, and a lower wall lit in the level's own red-to-violet. Each of the four sockets in the hull is now a pit: dark at the bottom, with a pool of the lane's own light, its far wall lit in the lane colour and a wet film on its lip. The big soft colour clouds round the old sockets are gone. They were `strokeGlow` under a scale, its passes twenty times too wide. The veiled arrival is shaded like stone instead of a dark fill with a glowing line.
+
 ## 2026-09-23 · 2d788de0 — THE SCOUT's little ship is a lit body with a porthole, and home is a hollow
 
 The little ship was a dark fill with a glowing line round it. It is now the mother ship's violet with a curve to it: shaded from a lit shoulder to the deep underneath, a cold bounce off the water on its underside, a wet porthole in the middle and a film of gloss on top. The porthole is centred, so the navigator still cannot read the heading off it. The pilot's nose now starts at the skin rather than crossing the porthole. Home is a wet hollow under its ring. PINBALL's socket moved to `wet-socket.ts`, so both draw one hollow.
