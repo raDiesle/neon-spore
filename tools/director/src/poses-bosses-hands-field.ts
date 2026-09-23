@@ -111,6 +111,8 @@ export const FIELD_HAND_POSES: Pose[] = [
       hold: 6,
     },
   ),
+  // VERSUS `scuttle:hang` is judged here: a part is hanging from its socket
+  // and a thumb is on it, so the ring and the socket below are both in frame.
   bossPose(
     "scuttle",
     "held",
@@ -119,6 +121,7 @@ export const FIELD_HAND_POSES: Pose[] = [
       hand: scuttleHand,
       want: (w) => w.boss?.kind === "scuttle" && w.boss.held >= 0 && w.boss.swung < 0,
       budgetBeats: 80,
+      lookAt: "the part hanging under the thumb, and the socket in the row below it",
     },
   ),
   bossPose(

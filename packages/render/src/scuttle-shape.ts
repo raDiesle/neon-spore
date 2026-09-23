@@ -31,25 +31,34 @@ export interface Point {
 }
 
 /**
- * The bottom row's centre above the grid, in tiles, and the pitch between
- * rows; a socket's half width and half height. Three rows at this pitch put
- * the top of the frame 1.6 tiles above the grid, under the HUD's pills
- * rather than through them — THE LEAD's full stalk reaches 1.85 for the
+ * Where the rows stand and how far a loose part falls, in tiles: the bottom
+ * row's centre above the grid, the pitch between rows, and how far a loose
+ * part slides down out of its socket over the cadence. Three rows at this
+ * pitch put the top of the frame 1.6 tiles above the grid, under the HUD's
+ * pills rather than through them — THE LEAD's full stalk reaches 1.85 for the
  * same reason (`lead-shape.ts`).
+ *
+ * A record rather than three constants so VERSUS can offer another answer
+ * (`tools/versus/candidates/scuttle-hang`): the drop is longer than
+ * the pitch, so a part off an upper row comes to rest over the socket below
+ * it (`docs/queue.md`, 21 September 2026).
  */
-const ROW_RISE = 0.55;
-const ROW_PITCH = 0.42;
+export interface ScuttleRows {
+  rise: number;
+  pitch: number;
+  drop: number;
+}
+export const SCUTTLE_ROWS: ScuttleRows = { rise: 0.55, pitch: 0.42, drop: 0.55 };
+/** A socket's half width and half height, in tiles. */
 export const SOCKET_HALF_W = 0.36;
 export const SOCKET_HALF_H = 0.16;
-/** How far a loose part slides down out of its socket over the cadence, in tiles. */
-const HANG_DROP = 0.55;
 /** How far the frame draws back up on the wind-up, in tiles. */
 const WIND_RISE = 0.3;
 
 /** The centre of socket `i`'s row, before any wind-up. */
 export function scuttleRowY(l: Layout, cfg: SimConfig, i: number): number {
   const fromBottom = cfg.scuttleRows - 1 - scuttleSocketRow(cfg, i);
-  return l.gridTop - l.tile * (ROW_RISE + fromBottom * ROW_PITCH);
+  return l.gridTop - l.tile * (SCUTTLE_ROWS.rise + fromBottom * SCUTTLE_ROWS.pitch);
 }
 
 /** The centre of socket `i`, with the frame drawn back by `rise` pixels. */
@@ -119,7 +128,7 @@ export function scuttleHangPhase(
 
 /** How far a loose part hangs below its socket, in pixels, at `phase` of the cadence. */
 export function scuttleHangDrop(l: Layout, phase: number): number {
-  return l.tile * HANG_DROP * Math.sqrt(phase);
+  return l.tile * SCUTTLE_ROWS.drop * Math.sqrt(phase);
 }
 
 /** How far through the wind-up it is, 0 before and 1 at the throw; 0 while it is not winding. */

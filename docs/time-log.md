@@ -18344,3 +18344,18 @@ The bottleneck was **the first run with `@1`**: it showed the flag was never
 broken, and the lane turned from a fix into saying so where it is missed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — A hanging part is drawn over the socket of the row below it
+
+- reading — 10 min. `scuttle-shape.ts` and its readers, VERSUS's README and
+  scaffold, the pose map and its tests.
+- writing — 10 min. `SCUTTLE_ROWS`, two candidates, the pose row and its
+  `lookAt`, `--out` on `versus:shot`.
+- looking — 5 min. Two pairs from `versus:shot`.
+- friction — 5 min. The slot was named `creature:` first, and a boss is not a
+  creature to the pose test; the untracked directory then did not move with
+  `git mv`.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the slot's name**: `creature:` looked right and the pose
+test read it as a promise of a creature on the field.

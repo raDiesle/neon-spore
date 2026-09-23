@@ -515,42 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## A hanging part is drawn over the socket of the row below it
-
-- **Found:** 2026-09-21, claude/queue-unverified-at-5780141b-the-picture-of-a-carried
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-hanging-part-is-drawn-over-the-socket-of-the-r)
-- **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-grip.ts`
-- **Where:** local
-
-THE SCUTTLE's frame is three rows of sockets `ROW_PITCH = 0.42` tiles apart,
-and a loose part slides `HANG_DROP = 0.55` tiles down its thread over the
-cadence (`scuttle-shape.ts`). 0.55 is more than 0.42, so from the second half
-of every cadence a part off row 0 or row 1 is drawn **through** the socket
-directly beneath it and comes to rest 0.13 tiles past its centre.
-
-The grip ring makes it worse rather than showing it: `handleRadiusMilli` is
-300, so a circle of 0.3 tiles is drawn round the sliding part, and a socket is
-`SOCKET_HALF_H = 0.16` tall — the ring swallows the socket below whole. The
-pilot is the one seat shown every socket and every hanging part, and counting
-what is still attached is his whole job in this fight
-(`showsScuttleCount`), so the two plates he has to tell apart are the two
-this draws on top of each other.
-
-Watched at tempo on the pilot's screen:
-
-    bun run frames . --wave "THE SCUTTLE" --seat p1 --events --ticks 390
-
-The capture prints the socket now, so the hold can be aimed at it:
-
-    bun run frames . --wave "THE SCUTTLE" --seat p1 --events --ticks 360 --hold scuttlePart=1000,id=5
-
-**It is a look and it is offered, not replaced.** The drop is one constant and
-the pitch is another, and either of them moving changes what a frame of the
-running game draws: it goes to `tools/versus/candidates/`. The third exemption
-(*a fix to something wrong rather than unlovely*) is arguable here — a shape
-sitting on a shape it has nothing to do with — and the argument is the owner's
-to make, not a lane's.
-
 ## `--boss-json` cannot write a list the boss does not already hold
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-5780141b-the-picture-of-a-carried

@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 /**
- * `bun run versus:shot <slot> <name> [out.png] [--freeze 1.2] [--only candidate]
+ * `bun run versus:shot <slot> <name> [out.png | --out out.png] [--freeze 1.2] [--only candidate]
  * [--rate 0.25] [--zoom 2] [--wait 3000]` — one PNG of one VERSUS candidate.
  *
  * A candidate does not appear in the game by construction, so `bun run frames`
@@ -39,7 +39,10 @@ const flag = (name: string): string | undefined => {
   return i >= 0 ? argv[i + 1] : undefined;
 };
 const positional = argv.filter((a, i) => !a.startsWith("--") && !argv[i - 1]?.startsWith("--"));
-const [slot, name, out] = positional;
+// `--out` as well as the third word, because `bun run frames` spells it that
+// way and a session reaching for the same flag here had it ignored in silence.
+const [slot, name, third] = positional;
+const out = flag("out") ?? third;
 
 if (!slot || !name) {
   console.error("usage: bun run versus:shot <slot> <name> [out.png]");

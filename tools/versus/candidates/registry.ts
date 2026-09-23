@@ -6,5 +6,7 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { HANG_APART } from "./scuttle-hang/apart/index.js";
+import { HANG_SHORT } from "./scuttle-hang/short/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [HANG_APART, HANG_SHORT];
