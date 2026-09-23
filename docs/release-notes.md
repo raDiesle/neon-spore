@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 824f62e1 — `queue next` prints the lane's worktree under the main checkout, by absolute path
+
+The prompt said `git worktree add .claude/worktrees/<name>`, which from a session the desktop app started in its own worktree made a tree inside a tree. It now prints the path under the main checkout, found from the repository's shared git directory, so the command is right from wherever it is run.
+
 ## 2026-09-23 · 5a0e4e04 — `bun run queue show <n|title>` reprints an item's prompt and claims nothing
 
 `next` prints a prompt longer than a tool call's output, and running it again to read the rest claimed the next free item and pushed its mark. `show` builds the same brief through the same `briefFor` and touches no branch, no line and no remote; `next` now ends by naming it. The listing moved to `list.ts` to keep `run.ts` under its ceiling.
