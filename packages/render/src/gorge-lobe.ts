@@ -1,6 +1,9 @@
 import { blobPoints, circleSubpath } from "@neon-spore/content";
 import { type GorgeIntake, gorgeFull, type SimConfig } from "@neon-spore/sim";
+import { paintDrop } from "./baton-flesh.js";
 import { halo, strokeGlow } from "./glow.js";
+import { paintLobeSkin } from "./gorge-flesh.js";
+import { paintFlap, paintPucker } from "./gorge-flesh-torn.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
@@ -22,6 +25,8 @@ import { splinePath } from "./spline.js";
  * It is the whole warning before a one-beat pierce, so it is long rather than
  * loud — a bright flash would read as *done* on a lobe that is exactly not
  * (`docs/spec/bosses-choreographed.md` §3, THE SLOW).
+ *
+ * What the skin, the beads and the flaps are made of is `gorge-flesh.ts`.
  */
 
 /** Beats the beads take to rise to the top of a full lobe. */
@@ -69,19 +74,22 @@ export function drawLobe(
 
   const body = splinePath(blobPoints(x, cy, rx, ry, 3, 0.1, 0.04, time * 0.5, seed, 24), true);
   const { hex, rim } = lobeHex(k.color);
-  // Translucent: the skin is a wash the beads show through, and a full lobe
-  // has no wash at all — that is what *transparent* means here, and it is the
-  // one state change a seat two rows down can read at a glance.
-  if (!full) {
-    ctx.save();
-    ctx.globalAlpha = 0.16;
-    ctx.fillStyle = PALETTE.hull;
-    ctx.fill(body);
-    ctx.restore();
-  }
-  const edge = mouth ? PALETTE.ember : k.beads > 0 ? hex : PALETTE.dim;
-  strokeGlow(ctx, body, edge, STROKE.inner, full ? 0.9 : mouth ? 0.7 : 0.35);
-  if (full) strokeGlow(ctx, body, rim, STROKE.inner, 0.4 + 0.3 * breath);
+  // A full lobe has no wash of skin at all — that is what *transparent* means
+  // here, and it is the one state change a seat two rows down can read at a
+  // glance. The colour the edge used to carry is lit in the floor instead.
+  const floor = mouth ? PALETTE.ember : k.beads > 0 ? hex : PALETTE.dim;
+  paintLobeSkin(ctx, body, {
+    x,
+    cy,
+    rx,
+    ry,
+    tile,
+    floor,
+    floorAlpha: full ? 0.9 : mouth ? 0.75 : k.beads > 0 ? 0.6 : 0.3,
+    wall: full ? rim : null,
+    wallAlpha: 0.3 + 0.2 * breath,
+    full,
+  });
 
   drawBeads(ctx, tile, k, x, y, ry, full ? since : -1, time, hex, rim);
 
@@ -93,15 +101,7 @@ export function drawLobe(
   }
   // The pucker: the intake itself, a small dark mouth under the lobe that a
   // shot goes into. It is what makes the swallow a picture the rule teaches.
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.beginPath();
-  ctx.ellipse(x, y, tile * 0.14, tile * 0.06, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-  const pucker = new Path2D();
-  pucker.ellipse(x, y, tile * 0.14, tile * 0.06, 0, 0, Math.PI * 2);
-  strokeGlow(ctx, pucker, edge, STROKE.inner, 0.5);
+  paintPucker(ctx, x, y, tile, floor);
 }
 
 /**
@@ -132,12 +132,8 @@ function drawBeads(
     const drift = Math.sin(time * 1.7 + i * 1.3) * r * 0.5;
     const by = y - r * 1.6 - i * step - lift * (room - (k.beads - 1) * step);
     halo(ctx, x + drift, by, r * 3, hex, 0.35 + 0.4 * lift);
-    ctx.save();
-    ctx.fillStyle = rim;
-    ctx.beginPath();
-    ctx.arc(x + drift, by, r, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
+    const bead = new Path2D(circleSubpath(x + drift, by, r));
+    paintDrop(ctx, bead, x + drift, by, r, hex, rim, tile, 0.6 + 0.4 * lift);
   }
 }
 
@@ -173,10 +169,6 @@ function drawRuptured(
       x + side * rx * 0.2,
       y - ry * 2,
     );
-    ctx.save();
-    ctx.fillStyle = PALETTE.rockDark;
-    ctx.fill(flap);
-    ctx.restore();
-    strokeGlow(ctx, flap, PALETTE.rock, STROKE.inner, 0.3);
+    paintFlap(ctx, flap, x + side * rx * 0.6, y - ry * 2, y + ry * 0.35, tile);
   }
 }

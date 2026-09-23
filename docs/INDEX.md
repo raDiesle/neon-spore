@@ -1506,6 +1506,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/grip-rings.ts` | The three rings a thumb on a boss's picture is drawn with: asked for, held, thrown off — the queen's and the mirror's |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |
+| `packages/render/src/gorge-flesh-torn.ts` | THE GORGE's openings: the intake puckered under every lobe, and the flaps of a lobe the beam has torn open |
+| `packages/render/src/gorge-flesh.ts` | **What THE GORGE is made of**: a sack of wet membrane, thin enough to see through, veined |
 | `packages/render/src/gorge-lobe.ts` | One lobe of THE GORGE: the intake puckered under it, the beads hanging in it |
 | `packages/render/src/gorge-grip.ts` | **THE GORGE's two thumbs**: the pinch on a full intake and the pry on the mouth |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |

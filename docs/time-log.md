@@ -17820,3 +17820,22 @@ inside**: its colour is the halo's colour, so only an ember edge and a
 reddened tip, both inside the shape, separated it from the glow.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE GORGE's picture looks like something real
+
+- reading — 0 min. `gorge-draw.ts`, `gorge-lobe.ts` and the frame test, which
+  asks for the skin's grey, both bead rims, the flaps' dark and the fire.
+- writing — 5 min. `gorge-flesh.ts` and `gorge-flesh-torn.ts`: the sack a
+  veined wet membrane, each lobe a sac with its beads' colour pooled in its
+  floor, the beads THE BATON's drops, the intake a lipped pucker, a pierced
+  lobe's flaps torn skin. The spec line THE UNDERTOW left stale, fixed too.
+- looking — 0 min. Every state of a lobe at once, posed with `--boss-json`,
+  before and after at 3×.
+- friction — 0 min. The floor's colour, as a narrow stroke inside the lower
+  wall, read as a cup drawn round the beads; pooled and widened, it is light.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **one pose that holds every state**: with `--boss-json`
+writing all seven intakes, a filling, a full, a pierced, an empty and the
+mouth lobe stood side by side in one frame, and the whole look was judged
+there instead of across five captures.

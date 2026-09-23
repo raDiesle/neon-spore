@@ -3726,8 +3726,9 @@ his screen while it is unseated.
 
 **The colours are the design's.** The seam-light is the hull's violet
 (`PALETTE.hull`) as additive light between the raised plate and the skin; the
-flaps and the plate keep the hull's rim; a lobe is rock — `rockDark` under a
-`rock` outline — because it is not a creature and has nothing to say. A tall
+flaps and the plate keep the hull's rim; a lobe is wet rock slime, lit from
+above and from the breach under it, with a fold across its foot, because it is
+not a creature and has nothing to say (`render/undertow-flesh.ts`). A tall
 lobe alone carries the beam's two colours, cyan at its top and red at its
 base, which is the sentence *only the beam takes this* said in paint rather
 than told. The body is the sheen's own deep violet, pinched to the plate's
@@ -4614,16 +4615,18 @@ held) and is no rule: it is the picture of the sack getting heavier, for
 render to ask for. And, small fields being a fact the config allows, *the
 mouth also opens when one intake is all that stands*.
 
-**The look** (`render/gorge-draw.ts`, `gorge-lobe.ts`, `gorge-fx.ts`). A
-violet-grey translucent sack across the seven columns above row 0, THE
+**The look** (`render/gorge-draw.ts`, `gorge-lobe.ts`, `gorge-fx.ts`, and
+what it is made of in `gorge-flesh.ts`). A sack of wet violet-grey membrane,
+veined, lit along its top and deep underneath, across the seven columns above row 0, THE
 DIASTOLE's arrangement, breathing a third of a tile on the beat and hanging a
 row lower for every four beads it holds (`gorgeSink`, read and never stored).
-A lobe over every column with a puckered intake under it, and the beads
-stacked up the lobe in the colour it fills with, drifting against each other
+A lobe of the same skin over every column with a puckered intake under it,
+the colour it fills with pooled in its floor, and the beads — wet drops —
+stacked up the lobe in that colour, drifting against each other
 so the body reads as fluid: the beads are the health bar, and both screens see
 the same ones. THE SLOW is the beat a lobe comes full — the wash goes off it
 and the stack rises to the top over three beats, the only warning before a
-one-beat pierce. A ruptured lobe is two grey flaps hanging open; the mouth is
+one-beat pierce. A ruptured lobe is two flaps of torn grey skin hanging open; the mouth is
 ringed in the fire's colour; after the beam the skin alone is left, grey, going
 out over `gorgeOutBeats`. The split is in what is written about the beads
 (`showsGorgeTally`, `showsGorgeNearest`): the pilot's screen carries a violet

@@ -7,6 +7,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import { paintSack, paintSackGone } from "./gorge-flesh.js";
 import { drawLobe, lobeHex } from "./gorge-lobe.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -117,23 +118,14 @@ export function drawGorge(
     // the beats the fight is held for the beads to leave in.
     const since = beat - g.outBeat + beatPhase;
     const fade = Math.max(0, 1 - since / OUT_FADE);
-    ctx.save();
-    ctx.globalAlpha = 0.1 * fade;
-    ctx.fillStyle = PALETTE.rockDark;
-    ctx.fill(body);
-    ctx.restore();
-    strokeGlow(ctx, body, PALETTE.rock, STROKE.outline, 0.2 + 0.4 * fade);
+    paintSackGone(ctx, body, { ...sack, tile: l.tile }, fade);
     return;
   }
 
   // Violet-grey and translucent: every red and cyan in the fight is a bead,
   // and the skin is the one thing on the screen in neither.
-  ctx.save();
-  ctx.globalAlpha = 0.12 + 0.05 * breath;
-  ctx.fillStyle = PALETTE.dim;
-  ctx.fill(body);
-  ctx.restore();
-  strokeGlow(ctx, body, PALETTE.dim, STROKE.outline, 0.35 + 0.25 * breath);
+  const lobes = g.intakes.map((_, i) => tileCX(l, g.col + i));
+  paintSack(ctx, body, { ...sack, tile: l.tile }, breath, lobes, y);
 
   const nearest = showsGorgeNearest(l.role) ? gorgeNearestFull(g) : -1;
   for (let i = 0; i < g.intakes.length; i++) {
