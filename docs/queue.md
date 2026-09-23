@@ -2223,3 +2223,18 @@ lane that adds a rule to it turns `bun run check` red
 (`packages/sim/test/limits.test.ts`). §5's registrations list is the seam:
 it is already mirrored by `new-boss-state`, so it can move there, or to a
 new-boss/registrations.md, which the skill names in one line.
+
+## A DEMOS row draws its mechanic id over the wave's name
+
+- **Found:** 2026-09-23, claude/queue-the-demos-menu-puts-a-261-word-paragraph-on-a-bu
+- **Files:** `apps/game/src/menu.css`, `apps/game/src/menu-pages.ts`
+
+`#menu .wave` is `grid-template-columns: 26px 1fr`, a column sized for a
+wave's number. The DEMOS page (`menu-pages.ts`, the `demos` loop) puts the
+mechanic id in that span instead, and any id longer than four letters runs
+into the label: `slick` over `firstStep`, `throb` over `theThrob`, `shell`
+over `theThirdShot` in `bun run menu-shot out.png --page "TESTING > JUMP TO
+ENEMY TYPE WAVE"`. The work: give the DEMOS rows a column that fits the
+longest id (or `auto`), without moving the WAVES rows, and photograph both
+pages. While there, check whether the label should read the wave's `name`
+(`THE LEAD`) rather than its camelCase key (`theLead`), which is what it draws.
