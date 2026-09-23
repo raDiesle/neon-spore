@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 96124583 — THE INSTAR's chain is hung from one point, and a copy of it goes red
+
+The plates hang from above the middle of the grid, a tile and a bit over its top edge, and the slow window's light is kept off the whole body along the same line — two copies of the same two numbers, because the first was private to `instar-draw.ts`. `instarChainTop` in `instar-shape.ts` is the one now; both call it, and a row in the copies table fails the next file that writes it out. The chain itself moves to `instar-chain.ts`, the draw file's seam at its line limit. Nothing drawn changes.
+
 ## 2026-09-23 · 7f4e62de — The field's hands leave step.ts for a page of their own
 
 `step.ts` was 246 lines with a boss still to add. The thumbs it reads on the tick — THE MAZE's string, THE WARDEN's rope, THE LID's cord, the grip, THE CLAW's crank, THE ORRERY's ring, THE CHOIR's arrows, THE BALLOON's and THE SINEW's handles, then the bosses' page, THE WEIGHT's clock and THE FLEET — move to `field-hands.ts` in the same order and with their comments, called where the block stood. What stays in `step.ts` is the loop and its order, at 168 lines. Queued: `bun run imports` leaves a split's whole import statements to a hand even when no comment stands above them.
