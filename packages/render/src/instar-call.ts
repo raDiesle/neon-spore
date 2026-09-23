@@ -10,6 +10,7 @@ import {
 import { instarTogetherLeft } from "./instar-together.js";
 import { drawInstarBanner } from "./instar-word.js";
 import type { Layout } from "./layout.js";
+import { nowCall, PAIR_CALL_ABOVE_HULL_TILES, type PairCall, seatCalled } from "./pair-call.js";
 
 /**
  * **The step's own call: who goes when, and how long they have.**
@@ -48,23 +49,17 @@ import type { Layout } from "./layout.js";
  *
  * Centred low on the glass, under both marks and over the hull, because it
  * belongs to the step and not to either ring (`instar-word.ts`'s banner).
+ * **The other bosses with a second seat on the first one's clock say it in
+ * the same place and the same words** (`pair-call.ts`), so a pair who has
+ * learned the line once reads it everywhere.
  */
 
-/** Where the line stands: clear of the lowest mark, clear of the hull. */
-const ABOVE_HULL_TILES = 1.6;
-
-/** What a seat is called out loud, which is what the pair calls each other. */
 function seatName(mark: InstarMark): string {
   if (mark.seat === "both") return "BOTH";
-  return mark.seat === "p1" ? "PILOT" : "NAVIGATOR";
+  return seatCalled(mark.seat === "p1" ? 1 : 2);
 }
 
-export interface InstarCall {
-  /** The grammar line, over the sentence. */
-  kind: string;
-  /** The sentence itself. */
-  word: string;
-}
+export type InstarCall = PairCall;
 
 /**
  * The line for the step as it stands, or `null` where there is nothing for a
@@ -86,14 +81,10 @@ export function instarCall(
     const open = step.marks.findIndex((_, i) => !instarMarkDone(s, i));
     const mark = step.marks[open];
     const left = instarTogetherLeft(s, cfg, waiting, beat, beatPhase) ?? 0;
-    // The whole beats still standing, so the number an eye reads and the
-    // ring closing into the answered mark run out together.
-    const beats = Math.max(1, Math.ceil(left * (cfg.instarTogetherBeats + 1)));
     const who = mark === undefined ? "THE OTHER" : seatName(mark);
-    return {
-      kind: `${who} NOW`,
-      word: `${beats} ${beats === 1 ? "BEAT" : "BEATS"} LEFT`,
-    };
+    // In whole beats, so the number an eye reads and the ring closing into
+    // the answered mark run out together.
+    return nowCall(who, left * (cfg.instarTogetherBeats + 1));
   }
   if (step.marks.every((m) => instarHeld(m.gesture))) {
     return { kind: "EITHER ORDER", word: "BOTH, BEFORE IT CLOSES" };
@@ -118,5 +109,12 @@ export function drawInstarCall(
   // Bright on both screens, always: dim is the field's word for *not yours*
   // (`instar-marks.ts`), and this line is the pair's rather than either
   // seat's.
-  drawInstarBanner(ctx, l, call.word, l.hullY - l.tile * ABOVE_HULL_TILES, true, call.kind);
+  drawInstarBanner(
+    ctx,
+    l,
+    call.word,
+    l.hullY - l.tile * PAIR_CALL_ABOVE_HULL_TILES,
+    true,
+    call.kind,
+  );
 }

@@ -853,6 +853,7 @@ place — the generator keeps whatever is there.
 |---|---|
 | `packages/render/src/palette.ts` | style guide as values |
 | `packages/render/src/panel-plan.ts` | where the controls stand on the panel, as a record — the rows, the radius and each seat's spread, read by the layout and by bandLobes so drawing and touch move together |
+| `packages/render/src/pair-call.ts` | the second seat's clock on every boss that judges one seat against when the other acted — TASTER, DIASTOLE, BATON, SURGE, BELLOWS' finale — as one line naming the seat still out and its beats left |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
 | `packages/render/src/layout-stage.ts` | **Where the game is drawn, before anything is placed inside it.** Cut out of `layout.ts` when THE WELL's roll… |

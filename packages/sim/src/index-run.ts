@@ -16,6 +16,7 @@ export {
   beatPhaseTicks,
   beatStartTick,
   isBeatTick,
+  liftTogetherUntil,
   nearestBeatTick,
 } from "./beat-clock.js";
 export { bossAnswerCol } from "./boss-answer.js";

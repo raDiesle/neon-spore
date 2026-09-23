@@ -1,3 +1,4 @@
+import { liftTogetherUntil } from "./beat-clock.js";
 import {
   type BellowsState,
   bellowsBoss,
@@ -10,7 +11,7 @@ import {
   NO_LIFT,
 } from "./bellows.js";
 import { jamHandles, partSeam, splitWaist } from "./bellows-step.js";
-import { midCol, ticksPerBeat } from "./config.js";
+import { midCol } from "./config.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -118,7 +119,7 @@ export function releaseBellows(world: World, s: BellowsState, player: 1 | 2): vo
     return;
   }
   if (s.liftTick === NO_LIFT) return;
-  const mutual = world.tick - s.liftTick <= ticksPerBeat(world.cfg);
+  const mutual = world.tick <= liftTogetherUntil(world.cfg, s.liftTick);
   s.liftTick = NO_LIFT;
   if (mutual) splitWaist(world, s);
   else world.events.push({ type: "bellowsHold", col: midCol(world.cfg) });

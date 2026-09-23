@@ -17218,3 +17218,28 @@ written from THE HASP's shape in one pass, and the dozen places in
 suite rather than by any list the sim points at.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — pair-call — the second seat's clock on the other bosses
+
+THE INSTAR's *NAVIGATOR NOW / 2 BEATS LEFT* line, carried to every boss whose
+rule judges one seat's act against when the other acted: THE TASTER's pry,
+THE DIASTOLE's clamp, THE BATON's launched bead, THE SURGE's lift and THE
+BELLOWS' finale. Seven more were read and found with none, and are pinned
+silent.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | twelve boss simulations for a stored moment of one seat compared with the other's, and the cue readers that checked a subagent's reading |
+| writing | 10 | `pair-call.ts`, `liftTogetherUntil` shared by the two lifts, `instar-call.ts` onto the shared line, eleven tests, the skill's line |
+| looking | 5 | a frame of THE TASTER mid-pry |
+| friction | 30 | a second item claimed and released; the machine run out of memory twice by a shard past 13 GB — bisected under a watchdog to `surface-clear.test.ts` leaving the canvas stub's log set for `briefing.test.ts`'s frames; the same fix landed first from another lane, and this one's was dropped at the rebase |
+| landing | 5 | `bun run index` and its row, the 250-line ceiling, `check:fast`, this entry, the commit |
+
+**The bottleneck was a test leak, not the work**: two crashes and a bisection
+before the check could run at all. Before it, **the reading**: a coupling is a stored beat of one seat
+compared with the other's, and it only shows in the simulation, so every
+choreographed boss had to be opened — and a subagent's report that THE
+GORGE had one was wrong (its pry and its beam are both the navigator's), which
+only a second reading against the cue readers caught.
+
+*Measured: the rows above are the session's own estimate.*

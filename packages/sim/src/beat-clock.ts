@@ -57,3 +57,13 @@ export function nearestBeatTick(cfg: SimConfig, tick: number): number {
   const tpb = ticksPerBeat(cfg);
   return Math.round(tick / tpb) * tpb;
 }
+
+/**
+ * The last tick a second thumb may lift and still be *together* with a first
+ * one lifted on `liftTick`: one beat of ticks after it. THE SURGE and THE
+ * BELLOWS judge their mutual lift by it, and the call that counts the second
+ * seat down (`render/pair-call.ts`) reads it rather than knowing the width.
+ */
+export function liftTogetherUntil(cfg: SimConfig, liftTick: number): number {
+  return liftTick + ticksPerBeat(cfg);
+}
