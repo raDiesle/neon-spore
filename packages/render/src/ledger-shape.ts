@@ -47,6 +47,8 @@ const DROP = 1.2;
  * these: three columns of eleven, and taller than it is wide.
  */
 const HALF_W = 1.5;
+/** The same, for `ledger-metal.ts`' bands and rivets to span. */
+export const LEDGER_HALF_W = HALF_W;
 /** How far apart the halves stand at a full seam, and once the cord is out. */
 const GAP_MAX = 0.42;
 const PART_MAX = 1.5;

@@ -5733,14 +5733,17 @@ stands until the return lands and what a late call costs is the beat. *And
 with no body behind it (`fleet.ts`, `mirror-round.ts`), because a return is
 damage on a cord and there is nothing falling to size.
 
-**The look** (`render/ledger-draw.ts`, `ledger-shape.ts`, `ledger-cord.ts`,
-`ledger-read.ts`, `ledger-root.ts`, `ledger-fx.ts`). A tall body high in the
+**The look** (`render/ledger-draw.ts`, `ledger-shape.ts`, `ledger-metal.ts`,
+`ledger-cord.ts`, `ledger-read.ts`, `ledger-root.ts`, `ledger-fx.ts`). A tall body high in the
 field, `2.1` tiles above its top edge and `1.2` down into it, **exactly its
 `ledgerCols` wide** because the flanking columns are where a bolt is refused
 and a body narrower than its own rules would refuse from nothing, and cut in
 two down the seam's column: each half is a flat face down the cut and a lobed back
-away from it, filled `rockDark` and stroked `rock` — the same metal as THE
-TASTER's blades — and swaying a sixth of a hertz against its own cord. **Health
+away from it, plated in `rockDark` — the same metal as THE TASTER's blades —
+with no line drawn round it (`ledger-metal.ts`, `new-boss-more` §6.3): lit from
+the upper left and gone to the deep at the far lower edge, laid in three bands
+whose seams are a dark groove with a lit lip and two rivets, a bevel caught
+along its top and a glint high on the plate; and swaying a sixth of a hertz against its own cord. **Health
 is the silhouette and there is no bar**: the two halves stand apart a share of
 `0.42` of a tile per hit down the seam, and the split between them is filled in
 the ammunition colour it is showing and stroked brighter the wider it gets,

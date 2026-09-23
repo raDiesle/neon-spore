@@ -17896,3 +17896,21 @@ The bottleneck was **the cords' width**: a line at `STROKE.inner` read as a
 lit string whatever was painted on it, so the width went onto the tile.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE LEDGER's picture looks like something real
+
+- reading — 0 min. `ledger-draw.ts`, `ledger-cord.ts`, `ledger-shape.ts` and
+  the frame test, which asks for the rock on every screen and counts the rim
+  and the colour on the cut faces.
+- writing — 5 min. `ledger-metal.ts`: each half plating lit from the upper
+  left, three bands with grooves, lips and rivets, a bevel along the top, a
+  glint. The cut faces, the seam, the cord and the grommet stay: colour and
+  markers.
+- looking — 0 min. Both seats before and after at 3×, and a second pass when
+  the dark lower wall lost the silhouette's bottom lobes.
+- friction — 0 min. None.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the silhouette is the health**: shading the lower edge
+toward the deep also took the lobes the pair reads the boss by, so the deep
+had to stay shallow.

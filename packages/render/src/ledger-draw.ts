@@ -4,9 +4,11 @@ import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawLedgerCord } from "./ledger-cord.js";
 import type { LedgerFx } from "./ledger-fx.js";
+import { paintPlate } from "./ledger-metal.js";
 import { drawLedgerPulls } from "./ledger-pull.js";
 import { drawLedgerBeads } from "./ledger-read.js";
 import {
+  LEDGER_HALF_W,
   ledgerBodyY,
   ledgerCordAt,
   ledgerGap,
@@ -40,8 +42,9 @@ import { showsLedgerSocket } from "./view-role-clocks.js";
  * a line down it, then two. The seam widens a share of the way per hit and the
  * halves are thrown apart when the cord comes out.
  *
- * **Colour says whose damage it is.** The body is metal — `rockDark` filled,
- * `rock` stroked, the same material as THE TASTER's blades — the cord and its
+ * **Colour says whose damage it is.** The body is metal — `rockDark` plating
+ * with its seams and rivets in `rock` (`ledger-metal.ts`), the same material as
+ * THE TASTER's blades — the cord and its
  * beads are the hull's violet, because what travels the cord is the ship's
  * own, and the seam carries the ammunition colour it is showing. The one white
  * mark on the field is the navigator's lock, which is interface and not body.
@@ -62,7 +65,8 @@ function strainOf(t: LedgerState, beat: number, beatPhase: number): number {
 }
 
 /**
- * One half of the body: metal, with the seam's colour lit down its cut face.
+ * One half of the body: plating (`ledger-metal.ts`), with the seam's colour
+ * lit down its cut face.
  *
  * The colour is on the **face** rather than through the body for THE TASTER's
  * reason arrived at from the other side: there a blade filled in its own
@@ -81,20 +85,11 @@ function drawHalf(
   lit: number,
 ): void {
   const path = ledgerHalfPath(l, seamX, side, gap, time);
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(path);
-  ctx.fillStyle = rgba(PALETTE.rockDark, 0.85);
-  ctx.fill(path);
-  ctx.strokeStyle = PALETTE.rock;
-  ctx.lineWidth = STROKE.outline;
-  ctx.lineJoin = "round";
-  ctx.stroke(path);
-  ctx.restore();
-  // The cut face, in the colour the seam is showing.
   const { top, bottom } = ledgerBodyY(l);
-  const face = new Path2D();
   const x = seamX + side * gap * 0.5;
+  paintPlate(ctx, path, { inner: x, side, w: l.tile * LEDGER_HALF_W, top, bottom, tile: l.tile });
+  // The cut face, in the colour the seam is showing.
+  const face = new Path2D();
   face.moveTo(x, top);
   face.lineTo(x, bottom);
   strokeGlow(ctx, face, hex, STROKE.inner, 0.5 + 0.5 * lit);
