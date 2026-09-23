@@ -17161,3 +17161,5 @@ The bottleneck was **the director's registrations**, again: the sim was
 written from THE HASP's shape in one pass, and the dozen places in
 `tools/director` that name a boss were found by the typechecker and the
 suite rather than by any list the sim points at.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

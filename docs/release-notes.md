@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 20e3e8c8 — Build THE RATCHET's simulation: every step you take stays taken
+
+Wave 102, THE RATCHET: a rack of seven teeth over the field. The navigator holds the catch, the pilot presses the pawl, and every press climbs one tooth for good — clean only while the catch is set, which he cannot see. Five clean opens it; a third burn jams it into the hull. Each window is twenty beats and THE SLOW, shortening two a tooth; a clean tooth spends the catch, and the second throws a bolt either colour takes. §11.38 argues nine departures from §22. The look is not drawn — its own queue item; every event is silent in the frame, the targets are unbuilt, the guide is prose.
+
 ## 2026-09-23 · 2e4d5be3 — Cut page three off the clock bosses' drawers and seat predicates
 
 THE HASP and THE SPOOL landing side by side put `boss-draw-clocks-b.ts` at 247 lines and `view-role-clocks-b.ts` at 233. Both are cut on the same seam: the pairs asked for by name from THE GIMBAL on — GIMBAL, BELLOWS, SPOOL, HASP, each two halves of one fight with a half to a seat — move to `boss-draw-clocks-c.ts` (its own `PAIR_KINDS`, guard and `drawPairBoss`, handed across from `boss-draw-clocks.ts` after page two) and `view-role-clocks-c.ts`. `CLOCK_KINDS` is still the whole list. Not a look: every frame is drawn by the same call it was.
