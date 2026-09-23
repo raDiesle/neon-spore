@@ -55,60 +55,62 @@ import type { GuideScene } from "../scene-types.js";
 export const THE_ANTIPHON: GuideScene = {
   ticks: 3720,
   bpm: 120,
-  // Written and proved with no shot grid; on the game's half-beat one
-  // two organs sink and the ship never bursts (`scene-types.ts` `chargeBeats`).
-  chargeBeats: 0,
+  // The game's own half-beat grid: every press sits fifteen ticks before the
+  // point its bolt leaves on, as THE HIVE's do (`scene-types.ts` `chargeBeats`).
+  chargeBeats: 0.5,
   seed: 1,
   entries: [],
   boss: { kind: "antiphon" },
   acts: [
     // The wrong one: a decoy at column 8 in red, while the organ is at 9.
     { tick: 365, control: "cannon", col: 5 },
-    { tick: 380, control: "fireRed" },
+    { tick: 365, control: "fireRed" },
     // The pilot's thumb has nothing else to do until the first strip at 785,
     // and this is the turn: a hold on the organ itself, long enough to see it
     // come round (`antiphonTurnBeats`, `render/antiphon-grip.ts`).
     { tick: 600, drag: "antiphonOrgan", hand: 1, until: 780 },
     // The organ, grown, in its colour: the first pit.
     { tick: 785, control: "cannon", col: 0, atBoss: true },
-    { tick: 800, control: "fireCyan" },
+    { tick: 785, control: "fireCyan" },
     // The second, and the rail closes on its family.
     { tick: 1205, control: "cannon", col: 0, atBoss: true },
-    { tick: 1220, control: "fireCyan" },
+    { tick: 1205, control: "fireCyan" },
     // The third, and the three turned down fall, in their colours.
     { tick: 1625, control: "cannon", col: 0, atBoss: true },
-    { tick: 1640, control: "fireCyan" },
+    { tick: 1625, control: "fireCyan" },
     { tick: 1745, control: "cannon", col: 0, atBody: true },
-    { tick: 1760, control: "fireRed" },
+    { tick: 1745, control: "fireRed" },
     { tick: 1865, control: "cannon", col: 0, atBody: true },
-    { tick: 1880, control: "fireCyan" },
+    { tick: 1865, control: "fireCyan" },
     { tick: 1985, control: "cannon", col: 0, atBody: true },
-    { tick: 2000, control: "fireRed" },
+    { tick: 1985, control: "fireRed" },
     // The fourth, and three more fall.
     { tick: 2045, control: "cannon", col: 0, atBoss: true },
-    { tick: 2060, control: "fireCyan" },
+    { tick: 2045, control: "fireCyan" },
     { tick: 2165, control: "cannon", col: 0, atBody: true },
-    { tick: 2180, control: "fireCyan" },
+    { tick: 2165, control: "fireCyan" },
     { tick: 2285, control: "cannon", col: 0, atBody: true },
-    { tick: 2300, control: "fireCyan" },
+    { tick: 2285, control: "fireCyan" },
     { tick: 2405, control: "cannon", col: 0, atBody: true },
-    { tick: 2420, control: "fireRed" },
+    { tick: 2405, control: "fireRed" },
     // The twins, one then the other; four fall with the second.
     { tick: 2465, control: "cannon", col: 0, atBoss: true },
-    { tick: 2480, control: "fireRed" },
-    { tick: 2555, control: "cannon", col: 0, atBoss: true },
-    { tick: 2570, control: "fireCyan" },
+    { tick: 2465, control: "fireRed" },
+    // The second slides only once the first has pitted, or it aims at the
+    // first twin again, so its bolt leaves on the point after that, at 2580.
+    { tick: 2560, control: "cannon", col: 0, atBoss: true },
+    { tick: 2565, control: "fireCyan" },
     { tick: 2705, control: "cannon", col: 0, atBody: true },
-    { tick: 2720, control: "fireCyan" },
+    { tick: 2705, control: "fireCyan" },
     { tick: 2825, control: "cannon", col: 0, atBody: true },
-    { tick: 2840, control: "fireRed" },
+    { tick: 2825, control: "fireRed" },
     { tick: 2945, control: "cannon", col: 0, atBody: true },
-    { tick: 2960, control: "fireCyan" },
+    { tick: 2945, control: "fireCyan" },
     { tick: 3065, control: "cannon", col: 0, atBody: true },
-    { tick: 3080, control: "fireRed" },
+    { tick: 3065, control: "fireRed" },
     // Their own ship, over column 6, in red: every pit erupts.
     { tick: 3245, control: "cannon", col: 0, atBoss: true },
-    { tick: 3260, control: "fireRed" },
+    { tick: 3245, control: "fireRed" },
   ],
   steps: [
     {

@@ -85,7 +85,7 @@ describe("the rehearsal for THE ANTIPHON", () => {
       "destroy slick 1 @41",
       "fire 3 red @41",
       "pit 15 5 @3 b42",
-      "fire 5 cyan @42",
+      "fire 5 cyan @43",
       "pit 12 6 @5 b44",
       "spill cyan @0 b44",
       "spill red @8 b44",

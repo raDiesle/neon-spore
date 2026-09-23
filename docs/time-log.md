@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — THE ANTIPHON's rehearsal on the half-beat grid
+
+- reading — 5 min. The film's acts and its scene test.
+- writing — 5 min. Twenty-two fire acts fifteen earlier, the second twin's slide moved, one test beat.
+- looking — 10 min. Three probe runs to find the twin's slide that matches the old story.
+- friction — 0 min.
+- landing — 5 min.
+
+The bottleneck was the second twin, whose slide aims at the first twin until that twin has pitted, which the grid makes four ticks later.
+
 ## 2026-09-23 — THE TASTER is retimed for the half-beat grid
 
 - reading — 5 min. The film's acts.
