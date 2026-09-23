@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 36746139 — THE VANE's and SNAKE's specs say what is still unbuilt instead of "the picture"
+
+Each clause of the two stale paragraphs was read against the tree. THE VANE's arm, rings and split all ship; only its three events are still silent, so a slip has no burst. SNAKE's rings and all three director poses ship; its jaws still look the same stuck or not, its lifted tiles are drawn where they no longer are, and its three events are silent.
+
 ## 2026-09-23 · 2d3f8edd — ?lag=1 shows how long a press waits for the field to answer it
 
 A press is now stamped with its touch's own timeStamp and followed through the input buffer and the lockstep delay to the first painted frame whose world has stepped past it. Behind ?lag=1 a line at the foot of the screen gives the worst and the median of the last hundred, so which gap the pair feels can be measured on a phone rather than argued. Without the flag nothing is stamped and nothing is drawn.
