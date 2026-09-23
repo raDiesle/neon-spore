@@ -599,6 +599,7 @@ sheet's own tests too.
 ## `bun run crop` and `bun run versus:shot` spell the same rectangle two ways
 
 - **Found:** 2026-09-21, claude/queue-the-slow-is-felt-half-b
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-bun-run-crop-and-bun-run-versus-shot-spell-the-s)
 - **Files:** `tools/frames/crop-png.ts`, `tools/frames/versus-shot.ts`
 
 `versus:shot` takes `--at x,y,w,h` and `--zoom n`. `crop` takes the same two
