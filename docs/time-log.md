@@ -17428,3 +17428,5 @@ pair does, leaving the rest to its sheet under `docs/spec/`.
 The bottleneck was **telling a shield from a plate that is not one**: THE
 SCUTTLE's plates are parts of its frame, so the vocabulary row's answer was
 wrong there and each hit had to be read in its wave.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

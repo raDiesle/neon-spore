@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 360f7869 — Twenty-eight wave guides in acts 7a to 7g now pass the words check
+
+Every guide line in acts 7a to 7g is now short enough to say out loud: numbered steps, one thought per sentence, shield for ward and plate, column for lane and shot for bolt. THE SCUTTLE's plates are parts of its frame and are called parts. `CLEAN` grows by twenty-six subjects and `CEILING` falls from 120 to 50.
+
 ## 2026-09-23 · 445b199f — Correct the ceiling figure in the acts 4 to 7 release note
 
 The note said the words check's ceiling fell from 305 to 245. Those were the numbers before the rebase over the acts 1 to 3 and DEMOS lanes. The ceiling that landed fell from 180 to 120.
