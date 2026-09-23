@@ -1,5 +1,5 @@
 import type { ControlId } from "@neon-spore/content";
-import { type SnakeState, snakeResting, snakeRound, type World } from "@neon-spore/sim";
+import { type SnakeState, snakeGrip, snakeResting, snakeRound, type World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
@@ -32,6 +32,12 @@ import { drawSnakeHead } from "./snake-head.js";
  * *is* the mouth, the way THE SCOUT's MAW is the ship's intake. Both are drawn
  * by the head's own drawer, so the thing under the thumb and the thing on the
  * arena are the same picture at two sizes.
+ *
+ * **MAW goes dark once the jaws stick.** Past `snakeGorgeTiles` the press is
+ * refused outright and the mouth is prised open on the body instead
+ * (`sim/snake-controls.ts`). The head on the face still shows the gape, since
+ * the mouth can still stand open, but the halo and the fill that say *press
+ * me* are gone (`snakeMawLit`).
  */
 
 export type SnakeLobe = "left" | "right" | "fire" | "maw";
@@ -77,7 +83,7 @@ export function drawSnakeLobe(
     return;
   }
   const open = which === "maw" && live ? gape(world.cfg, world.tick, round) : 0;
-  const lit = open > 0;
+  const lit = open > 0 && snakeMawLit(world);
   const hex = which === "maw" ? PALETTE.pod : PALETTE.venom;
   if (lit) halo(ctx, x, y, r * 1.8, hex, 0.5);
   ctx.fillStyle = lit ? hex : skin.dead[0];
@@ -92,6 +98,16 @@ export function drawSnakeLobe(
   if (which === "fire")
     drawVenom(ctx, x, y, r, live && round !== null ? restLeft(world, round) : 1);
   drawSnakeHead(ctx, arena, { x, y: headY }, 0, -1, open, flick(world.tick));
+}
+
+/**
+ * Whether the MAW face is lit: the round in play and its press still answered.
+ * The mouth's own gape says whether it is open. This says only whether the
+ * button under the thumb is the thing that opened it.
+ */
+export function snakeMawLit(world: World): boolean {
+  const round = snakeRound(world);
+  return round !== null && round.phase === "play" && snakeGrip(world.cfg, round) === "crawl";
 }
 
 /** How much of the trigger's rest is still to run, 0 ready to 1 just fired. */

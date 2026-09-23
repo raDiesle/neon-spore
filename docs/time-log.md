@@ -18394,3 +18394,16 @@ The bottleneck was **the retrace**: one hand on beat 33 moved every act after
 it, and only a probe of the run found where each one had to go.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — SNAKE's MAW lobe lights as live in the two grips that refuse it
+
+- reading: 5 min. `snake-button.ts`, `snakeHeard` and `snakeGrip`.
+- writing: 5 min. `snakeMawLit`, its one use, the test and the spec cell.
+- looking: 5 min. One `frames` attempt, refused before any picture.
+- friction: 5 min. `--boss-json` will not write a body longer than the three
+  tiles the round starts with, so no frame of `gorge` could be posed. That is
+  added to the queue item that already asks about it.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the picture**: the fix is one expression, and the only
+state it changes is one the frames tool cannot reach.

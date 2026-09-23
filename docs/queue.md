@@ -562,36 +562,18 @@ probing a no-press run for the ticks they come up at (750–825, 1575), and a
 **tall** lobe or the body's last pass never comes up at all without play, so
 both were proved by the frame tests alone and never seen by an eye.
 
+SNAKE's `body` is the fifth. The round stands it up three tiles long, and its
+grip is its length: `gorge` past `snakeGorgeTiles`, `shed` past
+`snakeShedTiles`. So the MAW face going dark once the jaws stick (23 September
+2026) was refused as *that field holds 3, and 7 came*, and was proved by
+`snake-frame.test.ts` alone.
+
 What to decide: whether the length check is right for every list or only for
 the fixed-width ones. A field whose length the simulation varies is not a
 shape the flag can check against, and the honest options are a per-field
 allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
-
-## SNAKE's MAW lobe lights as live in the two grips that refuse it
-
-- **Found:** 2026-09-21, claude/queue-the-snakes-two-handles-are-heard-and-drawn-nowhere
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-snakes-maw-lobe-lights-as-live-in-the-two-grips)
-- **Files:** `packages/render/src/snake-button.ts`, `packages/render/test/snake-frame.test.ts`
-- **Where:** local
-
-`snakeHeard` refuses the `snakeMaw` press outright once the body is past
-`snakeGorgeTiles` — "the jaws stick and the press is a dead button" — and from
-there the mouth is opened by the drag on the neck instead (`snakeJaws`,
-`sim/snake-controls.ts`). The lobe does not know: `drawSnakeLobe` calls the
-face live on `round.phase === "play"` alone, so through the whole of `gorge`
-and `shed` player 1 has a button drawn exactly as it is drawn when it works,
-and pressing it does nothing at all. It is the same class of defect the
-handles lane exists to fix, the other way round — a control drawn where it is
-not answered, rather than answered where it is not drawn.
-
-The rule is one call away: `snakeGrip(world.cfg, round) === "crawl"` is the
-whole of what `live` should also ask for the maw face (not for FIRE, which is
-refused by its own rest and already shows it). It is one expression in
-`drawSnakeLobe` plus a case in `snake-frame.test.ts` saying the face is dead
-under `gorge`. The head on the face should still show the gape, since the mouth can
-still be open — what changes is the halo and the fill that say *press me*.
 
 ## No frame of THE SCOUT can be taken with a mote aboard
 

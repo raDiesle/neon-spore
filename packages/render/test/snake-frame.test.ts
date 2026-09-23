@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss } from "@neon-spore/content";
 import { createWorld, snakeCrashed, startWave, ticksPerBeat } from "@neon-spore/sim";
 import { computeLayout, computeStage, type ViewRole } from "../src/layout.js";
+import { snakeMawLit } from "../src/snake-button.js";
 import { snakeArena } from "../src/snake-draw.js";
 import { snakeJawsCircle, snakeTailCircle } from "../src/snake-grip.js";
 import {
@@ -146,6 +147,24 @@ describe("SNAKE draws on all three screens", () => {
       if (at === null) throw new Error("a body with no handle on it");
       expect(dialAt(log, at)).toBe(true);
     }
+  });
+
+  // MAW's face says *press me* only while the press is heard: past
+  // `snakeGorgeTiles` the jaws stick and `snakeHeard` refuses it, under
+  // `gorge` and `shed` alike.
+  it("darkens the MAW face once the jaws stick", () => {
+    const world = createWorld(CFG, 7, []);
+    startWave(world, index, [], [], buildBoss(index, CFG.cols));
+    const boss = world.boss;
+    if (boss?.kind !== "snake") throw new Error("SNAKE's wave installed no round");
+    boss.phase = "play";
+    const lit = (length: number) => {
+      boss.body = Array.from({ length }, (_, i) => ({ col: 4, row: 3 + i }));
+      return snakeMawLit(world);
+    };
+    expect(lit(CFG.snakeGorgeTiles)).toBe(true);
+    expect(lit(CFG.snakeGorgeTiles + 1)).toBe(false);
+    expect(lit(CFG.snakeShedTiles + 1)).toBe(false);
   });
 
   // The arena is every pixel the round has: the field's own width, or the
