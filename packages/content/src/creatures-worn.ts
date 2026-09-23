@@ -131,7 +131,7 @@ export const WORN_CREATURES: Record<WornKind | BareKind, CreatureDef> = {
     // offers under the map for exactly these four.
     authorsColor: true,
     blurb:
-      "A slick or a bulb, full size, in its real colour — and only one of you can see that it is neither. Do not shoot it: any shot that lands costs the hull. Left alone it goes on its own, two rows short of the ship.",
+      "A slick or a bulb, full size, in its real colour — and only one of you can see that it is neither. Ignore it: any shot that lands costs the hull. Left alone it goes on its own, two rows short of the ship.",
   },
   shell: {
     kind: "shell",

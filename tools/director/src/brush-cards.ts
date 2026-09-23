@@ -157,7 +157,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   fence: "a wall with a gap; only p1 sees where the gap is",
   slick: "shot with the red cannon",
   bulb: "shot with the cyan cannon",
-  lure: "do not shoot it",
+  lure: "ignore it",
   magnet: "stand aside, hold it, shoot the pole you come in at",
   strand: "beads on a thread; only p2 sees which end is next",
   crawler: "walks the ship; shoot the colours, ward the plates",

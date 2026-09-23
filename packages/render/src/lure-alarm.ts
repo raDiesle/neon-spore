@@ -49,12 +49,12 @@ const ALARM = "#FFFFFF";
 const BOX_MUL = 1.55;
 /** How wide the blip's own frame is on the radar strip, in pixels. */
 const BLIP_HALF = 7;
-/** Two words, and the shortest pair that is still an instruction. It was
- * `LURE — DO NOT SHOOT` until the owner asked for it shorter: the hole in the
- * middle of the body now carries *which creature this is*, so the words beside
- * it only have to carry *what to do*, and a label half as wide is one that
- * fits beside a body in the first or last column. */
-const LABEL = "DO NOT SHOOT";
+/** One word, and still an instruction. It was `LURE — DO NOT SHOOT`, then
+ * `DO NOT SHOOT` when the owner asked for it shorter: the hole in the middle of
+ * the body carries *which creature this is*, so the word beside it only has to
+ * carry *what to do*. The owner, 20 September 2026: say IGNORE instead. A
+ * narrower label also fits beside a body in the first or last column. */
+const LABEL = "IGNORE";
 
 /** Every lure on the field, in draw order. Exported so the radar and the body
  * marking ask the same question once. */

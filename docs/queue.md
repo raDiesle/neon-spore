@@ -515,27 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE LURE's corner frame says DO NOT SHOOT where the owner wants IGNORE
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/queue-docs-style-guide-md-carries-how-an-asset-gets-ma (claim: claude/queue-the-lures-corner-frame-says-do-not-shoot-where-t)
-- **Files:** `packages/render/src/lure-alarm.ts`, `packages/content/src/creatures-worn.ts`, `tools/director/src/brush-cards.ts`
-
-The owner, 20 September 2026: *"Lure" enemy help text: say "Ignore" instead of
-"do not shoot".*
-
-`LABEL` in `lure-alarm.ts` is the frame the navigator reads. The word is
-already short because the owner asked for it short once — the hole in the
-middle is the creature — and IGNORE is shorter still, so the frame's geometry
-only gets easier.
-
-Three other places say the same sentence and should be read before this lands,
-because a game that says two different things about one body is worse than one
-that says the long thing twice: the worn creature's help line in
-`creatures-worn.ts`, the director's brush card in `brush-cards.ts`, and the
-wave text in `packages/content/src/waves/act-3.ts`. `husk-mark.ts` deliberately
-says DO NOT TAKE and is not this; leave it.
-
 ## THE THROB wears the ammunition colours where the owner wants dots
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452

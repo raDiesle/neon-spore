@@ -17476,3 +17476,16 @@ The bottleneck was **the double claim**: the item was small, and the time went
 to noticing that it had been claimed at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE LURE's frame says IGNORE
+
+- reading — 5 min. The entry, `lure-alarm.ts`, and a grep for every place
+  that says the same thing about a lure.
+- writing — 5 min. The label, the creature's blurb, the director's note, THE
+  LURE's P2 guide line, and the husk's comment that compares the two.
+- looking — 5 min. One frame of THE LURE from `bun run frames`.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **finding every copy of the sentence**: four files said it,
+and one in a different phrasing.

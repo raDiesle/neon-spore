@@ -23,7 +23,7 @@ import { drawTargetLock } from "./target-lock.js";
  *
  * What differs is the words, because what the pair must not do differs: a lure
  * must not be shot, and a husk may be shot all day — it is the *maw* that has
- * to stay shut. `DO NOT TAKE` and not `DO NOT SHOOT`, and the two are never on
+ * to stay shut. `DO NOT TAKE` and not the lure's `IGNORE`, and the two are never on
  * screen together, since a lure is a creature and a husk is a pod.
  *
  * Its own file rather than a branch inside `pods.ts` for the reason

@@ -96,7 +96,7 @@ export const WAVES_ACT_3: Wave[] = [
     guide: {
       both: "One of these is not what it looks like. Only one of you can tell.",
       p1: "1. You will see a body worth shooting, and nothing will happen.\n2. Believe your partner and move. Your column is the one you are losing.",
-      p2: "1. The one in the corner frame is a lure. Never fire at it.\n2. Do not wait for a question. Say its column, then the column to go to.",
+      p2: "1. The one in the corner frame is a lure. Ignore it.\n2. Do not wait for a question. Say its column, then the column to go to.",
       scene: "theLure",
     },
     entries: [
