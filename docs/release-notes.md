@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 7d65794a — A resize burst no longer re-reads the phone's furniture on every event
+
+`measure()` used to call `safeArea()`, and reading the resolved padding forces a style and layout flush — once per resize, visual-viewport resize and observer callback. An address bar sliding away fires dozens of those. The inset is now kept in `bindViewport` and read again only on `orientationchange`, on the `ResizeObserver`, and at a run's edge. A test counts the reads across a burst of resizes and finds none. The viewport tests are split into the fake screen, the sizing and the furniture.
+
 ## 2026-09-23 · 28d9d969 — `FRAMES_CHROME` is read when a browser is looked for, not at import
 
 The variable sat in the module-level candidate list, so anything that set it after `chrome.ts` was imported was ignored without a word. `findChrome` now builds the list when it is called: `FRAMES_CHROME` first, then the shipped paths.

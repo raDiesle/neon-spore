@@ -18214,3 +18214,5 @@ The bottleneck was **none worth the name**: the entry named the fix, and
 The bottleneck was **the fake window**: it fired every listener for every
 change, so a resize and a rotation could not be told apart until it learned
 the event's type.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
