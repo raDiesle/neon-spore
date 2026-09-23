@@ -359,42 +359,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A phone in TEST mode has nowhere to put two bands and the rig
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-23, claude/queue-the-scouts-second-arena-leaves-the-scout-nowhere (claim: claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band)
-- **Files:** `apps/game/src/at-a-desk.ts`, `apps/game/src/testing.ts`, `apps/game/src/game.css`, `apps/game/src/viewport.ts`, `tools/director/src/stage-transport.ts`, `tools/build-stamp.ts`
-- **Where:** local
-
-The second half of "Choosing P1 in the game's view switch hides the switch
-itself", split off where that entry said to split it. The first half landed on
-19 September 2026: the switch is taken away by the room now rather than by the
-view, so a seat can be left again.
-
-The owner, 18 September 2026: *"Also make sure in director and for game, when I
-am in solo test mode, I can also test for both players on mobile device."*
-
-The owner, 20 September 2026: *"Maybe it is already resolved, but in game in
-'both seats' the bottom of control set is often cutted, so I can't see buttons
-and use them also horizontal the hull skin is vertical cutted inside of the
-screen. I suggest to remove build information time version below game screen.
-It may push content up and be reason."* Not resolved — this is the same cut he
-is describing. His own guess at the cause is worth trying first and is cheap to
-try: the `#buildStamp` line (`tools/build-stamp.ts`, styled in `game.css`) sits
-under the field and could be the thing pushing the rig's bottom off the bottom
-of a real phone's viewport; if pulling it (or moving it somewhere that doesn't
-compete for height) does not clear the cut on its own, the layout question
-below still needs answering on top of that.
-
-The seat card's own words are *"Both bands and the test rig, for one person at a
-desk"*, and the rig is laid out for one. `at-a-desk.ts` is the question the app
-already asks about the device, asked in one place on purpose, and nothing in
-TEST consults it. What a phone in TEST needs is both bands readable at portrait
-width and the rig reachable without covering the field — which is a layout
-decision and wants an eye on a phone, not a flag. The director's side of the
-same ask is smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works;
-what a phone cannot do is *reach* that strip.
-
 ## Unverified at ce22d819: THE ORRERY's rehearsal film watched at tempo — the thre…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -1084,3 +1048,41 @@ field a `counts` entry:
 
 Add a reader to `COUNT` in the test for each new field. A page that fails is
 moved or reworded, the same way THE HIVE's was.
+
+## A short phone stands the hull between two black side bars
+
+- **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
+- **Files:** `packages/render/src/layout-stage.ts`, `packages/render/src/layout.ts`, `packages/render/src/hull.ts`, `packages/render/test/layout-stage.test.ts`
+- **Where:** local
+- **Asks:** On a phone shorter than about 16:9 of free height, which should give: the dark bars, a wider picture, or a shorter band?
+
+The owner, 20 September 2026: *"horizontal the hull skin is vertical cutted
+inside of the screen."* It is `computeStage` doing what it says: the stage is
+never wider than `cols * tile`, and the tile is whatever the height leaves
+after the band (`bandSoloPct`, 19%) and the radar. At 390×660 — a real phone
+with its bars out — that is 366 of 390 pixels, with 12 dark at each side; at
+375×548 it is 300 of 375. The three answers, each sized:
+
+- **Keep the bars.** The columns are the frame (`layout-stage.ts`'s own
+  comment); nothing changes but that comment, which then says it was asked.
+- **Draw past the columns.** The stage takes the window's width, the field
+  stays `cols * tile` and centred, and the hull's skin, the band and the
+  background are drawn out to the edges. `computeLayout` already carries
+  `gridLeft`; the hull and the band are the work, and `frame.test.ts` redraws.
+- **Shorten the band on a short screen.** `bandHeightFor` takes a smaller
+  share below some height so the tile grows back to the width. The lobes shrink
+  with it; `layout-stage.test.ts`'s touch-ring test holds them inside.
+
+## The director on a phone cannot reach its TEST, P1 and P2 strip
+
+- **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
+- **Files:** `tools/director/src/stage-transport.ts`, `tools/director/src/director-phone.css`, `tools/director/test/phone-game.test.ts`
+- **Where:** local
+
+The director's half of "A phone in TEST mode has nowhere to put two bands and
+the rig", split off when the game's half landed. The owner, 18 September 2026:
+*"make sure in director and for game, when I am in solo test mode, I can also
+test for both players on mobile device."* `bindStageTransport` binds the three
+role buttons and TEST works; on a phone the strip under the field is off the
+foot of the GAME view. Put the three buttons where the phone's GAME view shows
+them, and pin it in `phone-game.test.ts` the way that file pins the rest.

@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
+
+- reading — 5 min. The entry, `computeStage`, `computeLayout`, the panel
+  plan, the lobe's bed, the viewport's frozen height and the safe-area probe.
+- writing — 5 min. The `100svh` cap, the stamp into the settings panel, the
+  touch-ring test, two queue entries for the halves that were not this one.
+- looking — 10 min. TEST at 390×660 and 375×548 in the browser pane, wave 16
+  and wave 1, the stamp found in the panel.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the looking: a phone's own bars are the suspected cause,
+and no emulated viewport has them, so the cut could not be reproduced.
+
 ## 2026-09-23 — queue-the-scouts-second-arena-leaves-the-scout-nowhere
 
 - reading — 5 min. The entry and its two answers, the arena, the flight test,

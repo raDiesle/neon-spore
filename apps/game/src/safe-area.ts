@@ -72,3 +72,34 @@ function probeElement(): HTMLElement | null {
   probe = el;
   return el;
 }
+
+/**
+ * **The shortest the window gets with the browser's own bars shown**, in CSS
+ * pixels, or 0 where the browser cannot say.
+ *
+ * The address bar is furniture too, and the one piece that comes and goes: a
+ * run freezes the height it opened at (`viewport.ts`), so a wave opened with
+ * the bar tucked away is laid out under the strip the bar comes back to, and
+ * the lobes sit behind it for the rest of the wave. The owner's report, 20
+ * September 2026: *the bottom of control set is often cutted.* `100svh` is the
+ * height with every bar out, and the stage is never taller than it.
+ */
+let small: HTMLElement | null = null;
+
+export function smallHeight(): number {
+  if (!small?.isConnected) {
+    if (typeof document === "undefined" || !document.body) return 0;
+    const el = document.createElement("div");
+    el.style.position = "fixed";
+    el.style.top = "0";
+    el.style.width = "0";
+    // A browser that has no `svh` drops the line and the box stays empty,
+    // which answers 0: no cap, the stage it has always had.
+    el.style.height = "100svh";
+    el.style.visibility = "hidden";
+    el.style.pointerEvents = "none";
+    document.body.appendChild(el);
+    small = el;
+  }
+  return Math.round(small.getBoundingClientRect().height);
+}

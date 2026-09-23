@@ -68,4 +68,20 @@ describe("the phone's own furniture", () => {
     for (let h = 730; h < 812; h += 4) s.move({ height: h });
     expect(s.reads()).toBe(bound);
   });
+
+  /**
+   * The owner, 20 September 2026: *the bottom of control set is often
+   * cutted.* A wave freezes the height it opened at, so one opened with the
+   * address bar tucked away was laid out under the strip the bar comes back
+   * to. The picture is never taller than the height with every bar out.
+   */
+  it("is never taller than the height with the bars out, run or no run", () => {
+    const s = screen(true);
+    const g = s.bind();
+    s.run.hold("menu", true);
+    s.bars(700);
+    expect(g.layout().height).toBe(700);
+    s.move({ height: 812 });
+    expect(g.layout().height).toBe(700);
+  });
 });

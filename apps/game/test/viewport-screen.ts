@@ -36,6 +36,9 @@ export interface Screen {
   furniture: (inset: { top?: number; bottom?: number; left?: number; right?: number }) => void;
   /** Every size the renderer was told about, oldest first. */
   sized: { width: number; height: number; dpr: number }[];
+  /** The height with every bar out (`100svh`); 0, the default, is a browser
+   * that cannot say. Read at the same moments the furniture is. */
+  bars: (small: number) => void;
   /** How many times the furniture has been read off the page. */
   reads: () => number;
   run: RunState;
@@ -58,6 +61,7 @@ export function screen(visual: boolean): Screen {
   let reads = 0;
   const sized: { width: number; height: number; dpr: number }[] = [];
   const inset = { top: 0, right: 0, bottom: 0, left: 0 };
+  let small = 0;
   // The layout viewport — taller than what shows, by the address bar.
   const outer = { width: 375, height: 812 };
   const seen = { width: 375, height: 730 };
@@ -75,7 +79,10 @@ export function screen(visual: boolean): Screen {
   define("document", {
     documentElement: {},
     body: { appendChild: (): void => {} },
-    createElement: () => ({ style: { setProperty: (): void => {} } }),
+    createElement: () => ({
+      style: { setProperty: (): void => {} },
+      getBoundingClientRect: () => ({ height: small }),
+    }),
   });
   define("getComputedStyle", () => {
     reads++;
@@ -122,6 +129,10 @@ export function screen(visual: boolean): Screen {
     reads: () => reads,
     run,
     bind: () => bindViewport(canvas, renderer, DEFAULT_CONFIG, () => "test", run),
+    bars: (next) => {
+      small = next;
+      fire();
+    },
     furniture: (next) => {
       Object.assign(inset, next);
       fire();

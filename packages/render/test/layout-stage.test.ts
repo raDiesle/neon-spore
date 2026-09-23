@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { computeLayout } from "../src/layout.js";
 import { computeStage } from "../src/layout-stage.js";
 
 /**
@@ -57,5 +58,23 @@ describe("computeStage and the phone's own furniture", () => {
     );
     expect(s.height).toBe(0);
     expect(s.width).toBe(0);
+  });
+
+  /**
+   * The owner, 20 September 2026: *in "both seats" the bottom of control set
+   * is often cutted, so I can't see buttons and use them.* Every lobe's touch
+   * ring — 30% past the circle drawn (`hitCircle`) — stays inside the stage on
+   * the shortest phones a browser leaves room for, in every view. The height
+   * a run freezes is capped at the bars-out height for the same reason
+   * (`apps/game/src/safe-area.ts`).
+   */
+  it("keeps every lobe's touch ring inside the stage on a short phone", () => {
+    for (const role of ["p1", "p2", "test"] as const)
+      for (const width of [320, 375, 430])
+        for (let height = 480; height <= 932; height += 16) {
+          const s = computeStage({ width, height, dpr: 2 }, cfg, role);
+          const l = computeLayout({ width: s.width, height: s.height, dpr: 2 }, cfg, role);
+          expect(l.lobeY + l.lobeR * 1.3).toBeLessThanOrEqual(s.height);
+        }
   });
 });

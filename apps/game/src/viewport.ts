@@ -12,7 +12,7 @@ import {
 } from "@neon-spore/render";
 import type { SimConfig } from "@neon-spore/sim";
 import type { RunState } from "./run-state.js";
-import { safeArea } from "./safe-area.js";
+import { safeArea, smallHeight } from "./safe-area.js";
 
 /** The rectangle actually showing, in CSS pixels, how dense it is, and the
  * strips of it the phone keeps for itself (`safe-area.ts`). */
@@ -38,13 +38,17 @@ interface Viewport {
  * renderer is sized in whole pixels.
  *
  * The inset is handed in, not read here: reading it forces a style and layout
- * flush, and this runs on every event of an address bar's slide.
+ * flush, and this runs on every event of an address bar's slide. `small` is
+ * the same kind of reading and is handed in beside it: the height with the
+ * bars out (`safe-area.ts`), which the picture is never taller than — so a
+ * height frozen for a run can never put the lobes under a bar coming back.
  */
-function measure(inset: Insets): Viewport {
+function measure(inset: Insets, small: number): Viewport {
   const seen = window.visualViewport;
+  const height = Math.round(seen?.height ?? window.innerHeight);
   return {
     width: Math.round(seen?.width ?? window.innerWidth),
-    height: Math.round(seen?.height ?? window.innerHeight),
+    height: small > 0 ? Math.min(height, small) : height,
     dpr: Math.min(window.devicePixelRatio || 1, 2),
     inset,
   };
@@ -155,10 +159,14 @@ export function bindViewport(
   // The phone's furniture moves on a rotation and the first layout only, so it
   // is read then — `orientationchange`, the observer, a run's edge — and kept.
   let inset = safeArea();
+  let small = smallHeight();
 
   const apply = (forced: boolean): void => {
-    if (forced) inset = safeArea();
-    const next = measure(inset);
+    if (forced) {
+      inset = safeArea();
+      small = smallHeight();
+    }
+    const next = measure(inset, small);
     // A zero-sized viewport happens for real: a hidden tab, and on a phone the
     // moment the address bar animates. Sizing the canvas to it once would leave
     // it at zero for good, because no further resize event need follow.
@@ -175,6 +183,7 @@ export function bindViewport(
   const resize = (): void => apply(false);
   const refresh = (): void => {
     inset = safeArea();
+    small = smallHeight();
     apply(false);
   };
 
