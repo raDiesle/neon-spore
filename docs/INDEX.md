@@ -1230,6 +1230,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/orrery-shaft.ts` | **The shaft**: a corridor of light straight down the core's column, on the one beat a shot can reach the core |
 | `packages/render/src/orrery-shape.ts` | **Where THE ORRERY's three orbits are on the screen**, and nothing about how they are painted |
 | `packages/render/src/orrery-grab.ts` | **The ring under the pilot's thumb**: where he may take hold of it, what a turn of it says |
+| `packages/render/src/orrery-flesh.ts` | **What THE ORRERY is made of**: organs like wet beads strung on their orbits |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |

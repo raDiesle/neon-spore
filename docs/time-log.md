@@ -17780,3 +17780,22 @@ inside the edge read as a second layer, and it took three widths stacked to
 turn it into a cylinder.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE ORRERY's picture looks like something real
+
+- reading — 0 min. `orrery-draw.ts` and the frame test, which looks for the
+  violet of a ring this seat can count and for the core's colour.
+- writing — 5 min. `orrery-flesh.ts`: each organ a wet bead, violet flesh on
+  a ring this seat can count and dimmer rock on one it cannot, and the core
+  membrane with the loaded colour pooled in it.
+- looking — 0 min. The field at tick 900 and the naked core on p2, posed
+  with `--boss`, beside the frame from before.
+- friction — 0 min. Two first tries read wrong: the core's inner wall, lit
+  all round, came back as the outline it replaced; and the grey beads at full
+  strength were brighter than the violet ones.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **a colour that stops being a line has to get quieter**:
+the moment the organs were flesh rather than rings, the ring the seat cannot
+count was louder than the one it can, and it had to be dimmed to keep the
+count legible.

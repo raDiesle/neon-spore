@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
+import { paintCore, paintOrgan } from "./orrery-flesh.js";
 import { drawOrreryGrip } from "./orrery-grab.js";
 import { drawOrreryShaft } from "./orrery-shaft.js";
 import {
@@ -132,16 +133,10 @@ function drawOrgans(
       const at = orreryPoint(l, cfg, ring, gap + k);
       if (at.y >= coreY !== near) continue;
       const body = new Path2D(circleSubpath(at.x, at.y, r));
-      ctx.save();
-      ctx.fillStyle = PALETTE.rockDark;
-      ctx.fill(body);
-      ctx.restore();
       // Violet for a ring this seat can count, rock grey for one it cannot —
       // and the far half of either at about half strength, which is what the
-      // depth is made of.
-      const hue = seen ? PALETTE.wisp : PALETTE.rock;
-      strokeGlow(ctx, body, hue, STROKE.inner, near ? 0.85 : 0.4);
-      if (seen && near) strokeGlow(ctx, body, PALETTE.wispRim, STROKE.inner, 0.35);
+      // depth is made of (`orrery-flesh.ts`).
+      paintOrgan(ctx, body, at.x, at.y, r, seen ? PALETTE.wisp : PALETTE.rock, near, seen);
     }
   }
 }
@@ -181,12 +176,7 @@ function drawCore(
   const r = l.tile * (0.46 + 0.07 * pulse) * (1 - 0.8 * out);
   if (r <= 0) return;
   const body = splinePath(blobPoints(x, y, r, r * 0.9, 3, 0.14, 0.05, time * 0.5, 11, 28), true);
-  ctx.save();
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(body);
-  ctx.restore();
-  strokeGlow(ctx, body, hex, STROKE.outline, (naked ? 0.75 : 0.5) * (1 - out));
-  if (pulse > 0) strokeGlow(ctx, body, rim, STROKE.inner, pulse * (1 - out));
+  paintCore(ctx, body, x, y, r, l.tile, hex, rim, (naked ? 1 : 0.7) * (1 - out), pulse);
 }
 
 /** Beats the going out takes, never nought — the picture divides by it. */
