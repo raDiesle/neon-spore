@@ -202,7 +202,7 @@ export { mantle } from "./warden-mantle.js";
 export { roll } from "./warden-roll.js";
 export { drawWardenSurface, type WardenSurfaceDraw } from "./warden-surface.js";
 export { whorl } from "./warden-whorl.js";
-export { INTRO_SECONDS } from "./wave-intro.js";
+export { INTRO_SECONDS, introSeconds, RETRY_INTRO_SECONDS } from "./wave-intro.js";
 // THE WELL's projection, for the two hosts that have to answer a finger the way
 // it is drawn: the game and the director's stage both ask `showsWell` to fill
 // `Field.well` (`well.ts`, `touch.ts`).

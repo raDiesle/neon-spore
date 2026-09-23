@@ -17285,3 +17285,17 @@ The bottleneck was **the pilot's word**: a press is never refused, so
 what he waits for without saying anything about her hand.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — a wave gone again opens at double speed
+
+- reading — 5 min. The entry, `wave-intro.ts`, `text-drop.ts`, the app's
+  `waves.ts` countdown and where `startWave` counts `waveTries`.
+- writing — 5 min. `introSeconds` and `RETRY_INTRO_SECONDS` beside
+  `INTRO_SECONDS`, the drawing played at the matching pace, the countdown
+  reading it, and `wave-intro-retry.test.ts`.
+- looking — 0 min. Timing only; a still frame shows nothing that moved.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **keeping one clock**: the fade is drawn in render/ and
+counted in the app, so the retry's value had to be one function both read.

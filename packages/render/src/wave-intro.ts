@@ -39,9 +39,28 @@ import { wrapText } from "./wrap-text.js";
  * **Here rather than in the app that counts it**, because the fade at the end
  * of it is drawn here and the countdown is run there — two numbers that have to
  * be the same number, which is the definition of one that should only be
- * written once. `apps/game/src/waves.ts` imports it.
+ * written once. `apps/game/src/waves.ts` imports it, by way of `introSeconds`.
  */
 export const INTRO_SECONDS = 5.5;
+
+/**
+ * How long it stands on every try after the first. The owner, 20 September
+ * 2026: *when players lost the same wave, try and retry, shorten the time to
+ * show the text and start the wave rows earlier.* A pair going again has read
+ * these three lines already; what they need is the TRY count and the field.
+ *
+ * **One shorter value, not a fall per retry**, and half the first: the whole
+ * opening plays at double speed — entrance, standing and fade alike — so the
+ * words still finish arriving well before they leave, and the fourth try
+ * waits no less than the second. A floor rather than nothing, because the
+ * count beside the number is new every time and is worth the glance.
+ */
+export const RETRY_INTRO_SECONDS = INTRO_SECONDS / 2;
+
+/** How long the introduction stands on this try of the wave. */
+export function introSeconds(tries: number): number {
+  return tries > 1 ? RETRY_INTRO_SECONDS : INTRO_SECONDS;
+}
 
 /** How long the exit takes. The entrance is `text-drop.ts`'s own. */
 const FADE = 0.55;
@@ -81,7 +100,10 @@ export function drawIntroduction(
   // The exit is the entrance played backwards into nothing, and it only exists
   // where something is counting: on the ready page the pair is what ends this,
   // and text that had begun to fade would be text that looked like a mistake.
-  const out = fading ? Math.max(0, Math.min(1, (age - (INTRO_SECONDS - FADE)) / FADE)) : 0;
+  // A retry's shorter stand is the same opening played faster, so its words
+  // arrive and leave inside the seconds `waves.ts` counts for it.
+  const t = fading ? age * (INTRO_SECONDS / introSeconds(world.waveTries)) : age;
+  const out = fading ? Math.max(0, Math.min(1, (t - (INTRO_SECONDS - FADE)) / FADE)) : 0;
 
   ctx.textAlign = "center";
   const mid = l.width / 2;
@@ -94,7 +116,7 @@ export function drawIntroduction(
   let y = top ?? l.playHeight * 0.42;
   let line = 0;
 
-  drop(ctx, mid, y, age, line++, out, () => {
+  drop(ctx, mid, y, t, line++, out, () => {
     ctx.font = '600 11px "Courier New",monospace';
     ctx.fillStyle = PALETTE.pod;
     // A wave gone again says which try this is, beside its number: the pair
@@ -104,7 +126,7 @@ export function drawIntroduction(
   });
 
   y += NAME_DROP;
-  drop(ctx, mid, y, age, line++, out, () => {
+  drop(ctx, mid, y, t, line++, out, () => {
     ctx.font = '700 21px "Courier New",monospace';
     ctx.fillStyle = PALETTE.hullRim;
     ctx.fillText(name, 0, 0);
@@ -116,7 +138,7 @@ export function drawIntroduction(
   // two lines of type through one another is the one thing the entrance is not
   // allowed to cost.
   for (const text of lines) {
-    drop(ctx, mid, y, age, line, out, () => {
+    drop(ctx, mid, y, t, line, out, () => {
       ctx.font = BODY;
       ctx.fillStyle = PALETTE.text;
       ctx.fillText(text, 0, 0);

@@ -536,28 +536,6 @@ drives two devices through a beat zero over a wire it controls, so a case that
 begins one device late belongs beside the ones there.
 
 
-## A wave gone again opens at the same speed as the first try
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Taken:** 2026-09-23, claude/next-queued-task-c3ca32 (claim: claude/queue-a-wave-gone-again-opens-at-the-same-speed-as-the)
-- **Files:** `packages/render/src/wave-intro.ts`, `apps/game/src/waves.ts`, `packages/sim/src/wave-fail.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *when players lost the same wave, try and retry,
-shorten the time to show the text and start the wave rows earlier.*
-
-`INTRO_SECONDS` is 5.5 and is one constant for every opening. A pair on its
-fourth attempt at one wave has read those three lines four times and is waiting
-through them for the field. `world.retries` is already counted, and
-`apps/game/src/waves.ts` already knows `retry` when it opens the wave — so the
-seconds can come down with the attempt, to a floor rather than to nothing, and
-`wave-intro.ts`'s own `FADE` and the staggered drop shorten with them or the
-words never finish arriving before they leave.
-
-Two numbers to decide and to say in the commit: the floor, and whether the
-fall is per retry or one shorter value for every attempt after the first. The
-second is the smaller change and the one to try first.
-
 ## The controls answer nothing while the introduction stands
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
