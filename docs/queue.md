@@ -450,27 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## Two render frame files fail under `bun test` and pass on their own
-
-- **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
-- **Taken:** 2026-09-23, claude/queue-frame-contention (claim: claude/queue-two-render-frame-files-fail-under-bun-test-and-p)
-- **Files:** `packages/render/test/queen-frame.test.ts`,
-  `packages/render/test/ship-hand-frame.test.ts`,
-  `packages/render/test/frame-harness.ts`
-
-`bun test` in one process reported both red, at 227 s and 74 s against
-`FRAME_TIMEOUT_MS`; each runs green in 0.4 s alone and green under `bun run
-test`'s shards. So it is contention, not a picture — but `bun test` is the
-command CLAUDE.md offers for one file or one package, and a session that runs
-it whole is handed two failures that mean nothing. `check:fast` showed the same
-shape once: `tools/test/doc-drift-names.test.ts` timed out in a shard and passed
-in 2 s on its own.
-
-Find what the single process is holding on to — the canvas stub's globals are
-installed per file and the harness is evaluated once — and either free it or
-give the frame files a cap that survives a loaded machine. Whichever it is,
-`bun test` whole has to be a command whose red means something.
-
 ## The touch layer guesses the ship's skin, because a `Field` cannot see the hull
 
 - **Found:** 2026-09-22, claude/damage-flash-sync-and-wound-together

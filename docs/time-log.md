@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-frame-contention
+
+- reading — 5 min. The two files, the harness, `cpuTimeout`, and the
+  harness's history since the finding — where 73ce3ad0 already was.
+- writing — 0 min. Nothing to write: the cause had been fixed a day later
+  under another name.
+- looking — 5 min. `bun test` whole, in one process: 21,304 pass, 0 fail,
+  164 s.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the looking: the only way to know the finding was spent was
+to run the whole suite in the one process it was found in.
+
 ## 2026-09-23 — queue-instar-chain
 
 - reading — 5 min. The two copies, `instar-shape.ts`' exports, and the shape
