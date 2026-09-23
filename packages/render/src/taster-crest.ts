@@ -1,4 +1,5 @@
 import { strokeGlow } from "./glow.js";
+import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -71,11 +72,23 @@ export function drawNotch(
   ctx.globalAlpha = 0.25 + 0.3 * wet;
   ctx.fillStyle = PALETTE.background;
   ctx.fill(dent);
+  // The sheen: its wall lit from inside, which is what makes it read as wet
+  // rather than as a hole, and it is the hull's violet because the gap is the
+  // one part of this boss that answers to either colour.
+  ctx.globalAlpha = 1;
+  ctx.clip(dent);
+  ctx.lineWidth = tile * 0.1;
+  ctx.strokeStyle = PALETTE.hull;
+  ctx.globalAlpha = 0.3 + 0.4 * wet + 0.1 * breath;
+  ctx.stroke(dent);
   ctx.restore();
-  // The sheen: what makes it read as wet rather than as a hole, and it is the
-  // hull's violet because the gap is the one part of this boss that answers
-  // to either colour.
-  strokeGlow(ctx, dent, PALETTE.hull, STROKE.inner, 0.3 + 0.4 * wet + 0.1 * breath);
+  // The drop that stands in the bottom of it.
+  ctx.save();
+  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.3 + 0.5 * wet);
+  ctx.beginPath();
+  ctx.ellipse(x - w * 0.2, y + deep * 0.35, tile * 0.05, tile * 0.025, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 /**

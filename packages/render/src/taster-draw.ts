@@ -1,9 +1,8 @@
 import { type SimConfig, type TasterState, tasterPhase, type World } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
 import { BLADE_TILES, type BladeLook, drawBlade } from "./taster-blade.js";
 import { crestPath, drawNotch, drawSeam } from "./taster-crest.js";
+import { paintGum } from "./taster-flesh.js";
 import { drawTasterNext, drawTasterTally } from "./taster-read.js";
 
 /**
@@ -135,12 +134,11 @@ export function drawTaster(
 
   // The ridge first, so every blade stands out of it rather than on top of it.
   const crest = crestPath(left, right, y, thick, l.tile, time);
-  ctx.save();
-  ctx.globalAlpha = 0.22;
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(crest);
-  ctx.restore();
-  strokeGlow(ctx, crest, PALETTE.rock, STROKE.outline, 0.4);
+  const roots: number[] = [];
+  for (let i = 0; i < t.blades.length; i++) {
+    if (t.blades[i]?.shorn === false) roots.push(tileCX(l, t.col + i));
+  }
+  paintGum(ctx, crest, { left, right, y, thick, tile: l.tile }, roots, breath);
 
   // The gaps, and how wet they are: one notch per blade struck off, brighter
   // the nearer the pair is to cutting the crest through. `t.crest` counts the

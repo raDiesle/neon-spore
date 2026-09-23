@@ -1134,6 +1134,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/taster-crest.ts` | **The ridge THE TASTER's blades stand out of**, and the two things the pair can do to it |
 | `packages/render/src/taster-draw.ts` | THE TASTER, drawn: a low crest hugging the top of the field with a fan of blades standing out of it |
 | `packages/render/src/taster-fx.ts` | What THE TASTER leaves behind a frame: a blade coming off the crest |
+| `packages/render/src/taster-flesh.ts` | **What THE TASTER is made of**: blades of whetted steel standing in a gum of wet flesh |
 | `packages/render/src/taster-read.ts` | **What is written about THE TASTER's fan, and which seat is shown it.** Its own file beside `taster-draw.ts` |
 | `packages/render/src/taster-grip.ts` | **THE TASTER's three thumbs on its own fan**: the pilot's pin on a blade that has not decided |
 | `packages/render/src/wisp-body.ts` | you are drawing the wisp's bell — its contour, its spectrum fill, its core, and how the jump squashes it |

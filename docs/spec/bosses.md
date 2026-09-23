@@ -5182,21 +5182,28 @@ standing out of it — one per column, `BLADE_TILES` (0.92) tiles tall at full
 growth, because the space over row 0 is about one tile deep, which is the
 constraint THE ORRERY's lane ran into and argued (§11.21). Nothing of the boss
 is among the creatures, THE GORGE's arrangement (`render/src/taster-draw.ts`,
-`taster-blade.ts`, `taster-crest.ts`).
+`taster-blade.ts`, `taster-crest.ts`, `taster-flesh.ts`). The crest is a gum of
+wet flesh in the hull's grey, lit along the top it holds the blades in and gone
+to the deep underneath, with a film of gloss at its left and a dark socket, its
+lip wet, closed round the root of every blade still standing. Nothing is drawn
+round it or round a blade: since 23 September 2026 the glowing outlines are
+gone (`new-boss-more` §6.3).
 
 **A blade is metal, and the only colour on it is the edge.** The body is
-`rockDark` filled and `rock` stroked, and what carries the colour is a lit rim
+`rockDark` steel, lit down its leading face and dark down the trailing one,
+with a `rock` grind line where the bevel begins and a glint near the point,
+and what carries the colour is a lit rim
 down the leading side in the ammunition colour it grew toward — the one colour
 that cannot break it. A blade *filled* in its colour would read as *shoot me
 with this*, which is the flat opposite of the rule and the one thing this
 picture must not say. Thickness is a second edge line inside the first rather
 than a heavier stroke, which is the style guide's own rule about glow said
 about a blade that is literally thicker. A blade still growing is short,
-colourless and shimmering: the four beats of warning drawn as *not decided yet*
+colourless, with a light moving up through its grey: the four beats of warning drawn as *not decided yet*
 rather than as a small blade.
 
-**The crest carries the damage.** A struck-off blade leaves a notch, sheened in
-the hull's violet because the gap is the one target in this fight with no
+**The crest carries the damage.** A struck-off blade leaves a notch, its wall lit from
+inside in the hull's violet and a drop standing in the bottom of it, because the gap is the one target in this fight with no
 colour of its own, and the sheen brightens with `crest` — the count of shots
 into all of them, so the picture is the fight's progress and never a per-gap
 depth the simulation does not keep. The crest cut through is a lit seam the

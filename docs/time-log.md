@@ -17861,3 +17861,19 @@ it runs the whole edge**: only the rail kept its lit band, and the hem was
 left to go to the deep.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE TASTER's picture looks like something real
+
+- reading — 0 min. `taster-draw.ts`, `taster-blade.ts`, `taster-crest.ts` and
+  the frame test, which asks for the steel's grey and counts the body's fill
+  at exactly `globalAlpha=0.55` to see the fade.
+- writing — 5 min. `taster-flesh.ts`: each blade steel lit down one face, a
+  grind line and a glint, a growing blade a light moving up through the grey,
+  the crest a wet gum with a socket round every root, the notch lit inside.
+- looking — 0 min. One pose with every blade state in it — both colours,
+  thickened, shorn, growing — before and after at 3×.
+- friction — 0 min. None.
+- landing — 0 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the test's one literal alpha**: the fade is proved by
+the body fill at exactly 0.55, so no new paint could use that number.

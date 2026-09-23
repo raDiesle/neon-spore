@@ -1,6 +1,7 @@
 import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { paintSteel, paintUnset } from "./taster-flesh.js";
 
 /**
  * **One blade of THE TASTER's fan**, as a shape and as a paint.
@@ -13,7 +14,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * **A blade is a knife and it is drawn like one.** Metal, not membrane —
  * everything else hanging over this field is a sack, a sheet or a lobe, and
  * this boss is the one whose health is edged. So the body is `rockDark`
- * filled and `rock` stroked, and the **only** colour on it is the edge: a lit
+ * steel, lit and ground (`taster-flesh.ts`), and the **only** colour on it is
+ * the edge: a lit
  * rim down the leading side in the ammunition colour it grew toward, which is
  * the one colour that cannot break it (`sim/taster.ts`). A blade filled in its
  * colour would say *shoot me with this*, which is the flat opposite of the
@@ -121,17 +123,25 @@ export function drawBlade(
   ctx.restore();
 
   if (look.color === null) {
-    // Colourless and shimmering: the pair can see it standing there and
-    // cannot yet say a word about it.
-    const shimmer = 0.3 + 0.2 * Math.sin(time * 3 + x);
-    // The hull's violet-grey rather than the metal's white, for the reason the
-    // edge below is saturated: nothing on this crest may read as an edge until
-    // it is one.
-    strokeGlow(ctx, body, PALETTE.dim, STROKE.inner, look.alpha * shimmer);
+    // Colourless, a light moving up through it: the pair can see it standing
+    // there and cannot yet say a word about it. The grey rather than the
+    // steel, for the reason the edge below is saturated: nothing on this crest
+    // may read as an edge until it is one.
+    paintUnset(ctx, body, y, h, look.alpha, (time * 0.5 + x * 0.013) % 1);
     return;
   }
 
-  strokeGlow(ctx, body, PALETTE.rock, STROKE.inner, look.alpha * 0.5);
+  paintSteel(
+    ctx,
+    body,
+    edgePath(x, y, tile, h, look.lean, 0.45),
+    x,
+    y,
+    h,
+    look.lean,
+    tile,
+    look.alpha,
+  );
   // The edge itself, once for the shot it takes and again inside for the one
   // its own colour bought it.
   //
