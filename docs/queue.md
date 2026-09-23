@@ -518,6 +518,7 @@ question that prompted this one.
 ## A shot into a shut COUNT loses the wave where it should armour the body
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-the-throb-wears-the-ammunition-colours-where-the (claim: claude/queue-a-shot-into-a-shut-count-loses-the-wave-where-it)
 - **Files:** `packages/sim/src/countdown.ts`, `packages/sim/src/colour-armour.ts`, `packages/sim/src/config.ts`, `packages/render/src/countdown-look.ts`
 
 The owner, 20 September 2026: *"Count" enemy hit with the wrong colour or at
