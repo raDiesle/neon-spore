@@ -324,6 +324,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
+- **Taken:** 2026-09-23, claude/queue-release-lapsed-claims (claim: claude/queue-the-scouts-second-arena-leaves-the-scout-nowhere)
 - **Files:** `packages/content/src/scout-arenas.ts`, `packages/sim/src/config-scout.ts`
 - **Asks:** Widen the column's pitch, cut the hazard's touch, or say a mote here is passed and never waited on?
 - **Answered:** 17 September 2026 — move the two hazards. **The answer was given against a wrong option and does not fix this**, so the `Asks:` above replaces it with the three the geometry actually allows.
