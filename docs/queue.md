@@ -1392,6 +1392,7 @@ say it in `docs/commands.md` and CLAUDE.md's "Verifying in a browser".
 ## A sharded check reports five figures drifted that hold alone
 
 - **Found:** 2026-09-23, claude/queue-the-tabs-own-pause-is-bound-inside-the-test-rig
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-sharded-check-reports-five-figures-drifted-tha)
 - **Files:** `tools/test/figure.ts`, `tools/test/cpu-time.ts`, `tools/check/shard.ts`, `tools/test/figure.test.ts`
 
 `bun run check:fast` on a quiet Mac (load 6.9 over 14 cores, so `CORE_LOAD`
