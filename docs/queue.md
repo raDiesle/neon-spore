@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE SINEW's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-23, claude/queue-the-tasters-picture-looks-like-something-real (claim: claude/queue-the-sinews-picture-looks-like-something-real)
 - **Files:** `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-draw.ts`, `packages/render/src/sinew-fibres.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
