@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 71cc6b24 — A body's full neon glow is offered in VERSUS as `body:glow`
+
+Every living body strokes its edge under its own scale, and the glow's spread was scaled with it: at the median 0.27 a body's halo reaches about 1.4 px where 5 were written. `strokeGlow` now takes the spread, and `BODY_GLOW.onScreen` says how much of the scale a body's spread undoes. It stays at 0, so nothing on the field changes. The candidate `full` sets it to 1 and stands on the BODIES pose, per the owner's answer to put it to VERSUS.
+
 ## 2026-09-23 · f18a78a7 — `drop` is tested against a repository of its own
 
 `adopt`, `drop` and the slot removal they share wrote to the real tree and nothing else, so nothing tested what they take off the disk. They take a `root` now, defaulting to the repository, and a test builds a small one in a temporary directory. It drops a two-candidate slot with a shared helper and finds the slot's directory, the helper, its registry entries and its pose row gone, the other slot standing, and the reason in `DECIDED.md`.
