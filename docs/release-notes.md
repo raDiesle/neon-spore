@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 397271cd — A signalled check takes its test shards with it instead of orphaning them
+
+`check:fast` or `shard.ts` sent SIGTERM left its `bun test` children running under launchd, still holding their memory. Both runners now track what they spawn and pass SIGINT, SIGTERM or SIGHUP on to every child still running before they exit (`reap.ts`); a test signals a scratch runner over a sleeping child and finds the child gone.
+
 ## 2026-09-23 · 8f1ff141 — A capture clears its own prefix's old frames before it writes, so a sheet shows only this run
 
 An eight-frame capture into a directory a ten-frame run had used left `-08` and `-09` standing, and `bun run sheet` glued them under the strip. Every capture now removes `<prefix>.png` and `<prefix>-NN.png` first and nothing else beside them. The frame's name, write and clearing moved together into `frame-files.ts`, which keeps `capture.ts` well under its ceiling.
