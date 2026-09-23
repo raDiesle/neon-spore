@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 5d39d8cd — Six rehearsals that broke on the game's shot grid now name the grid they were proved on, and a test asks every other film the same question
+
+The game lays a shot on a half-beat grid and every film test ran with none. Swept at both grids, THE THIRD SHOT and THE ORRERY breached the hull in the game, THE JAM's presses were refused, THE CANDLE never dimmed, THE TASTER thickened twice and THE ANTIPHON never burst, all with green tests. Each now carries `chargeBeats: 0`. `scene-grid.test.ts` holds every film that names no grid to the same events on both. Retiming the six for the half-beat grid is queued.
+
 ## 2026-09-23 · 3b136db5 — A STATES group and card carry their names as `data-group` and `data-pose`, so `bun run shot --click` can find them
 
 `--click` runs plain CSS, which cannot match a heading's text, so a group was `section:nth-of-type(n)` counted by hand. Now `--click '[data-group="THE GAUGE"] h2'` fills that group, and the usage says so. One group's section and cards moved to `states-section.ts`, since the two lines took `states-page.ts` near its ceiling. No look changed.

@@ -18058,3 +18058,5 @@ within thirty of the ceiling, and the split was cheaper now than later.
 The bottleneck was **what "the same film" means**: all but a handful of films
 differ tick by tick, because a later bolt meets its body a row lower, so the
 test had to compare counts of each kind of event rather than streams.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
