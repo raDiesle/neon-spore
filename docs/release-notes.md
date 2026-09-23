@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 169692d8 — THE LEAD is pitted rock and a stalk of wet flesh, not fills with a glowing line round them
+
+The ridge is dark rock laid in strata and pitted, lit along its top and never outlined; the mound is flesh sunk in a socket, lit inside its lower wall; the stalk is a cord strung with shaded drops, and the tip's ring is a pore in its crown. The bolts, the pilot's sill and the lock stay as they were. Exemption: a look the owner asked for by name (new-boss-more §6.3).
+
 ## 2026-09-23 · ecde902c — THE SURGE is a sac of membrane blown tight, not a fill with a glowing line round it
 
 The bulb is lit from the upper left and gone to the deep beneath, its three ribs stand out of it as cords with a groove beside each, its lower wall is lit from inside and brightens with the pressure where the pressure is shown, and a film sits high on its left. The outline and its glow are gone. The seam gauge, the grips and the jet are information and stay as they were.

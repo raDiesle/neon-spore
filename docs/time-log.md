@@ -17949,3 +17949,5 @@ cage over the sac, and they had to sit back into it.
 
 The bottleneck was **the fade**: every colour on the ridge had to go through
 `faded` so the rock thins out with the boss, which the test counts.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
