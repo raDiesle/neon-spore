@@ -572,6 +572,7 @@ the caller rather than as a rule.
 ## SNAKE's MAW lobe lights as live in the two grips that refuse it
 
 - **Found:** 2026-09-21, claude/queue-the-snakes-two-handles-are-heard-and-drawn-nowhere
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-snakes-maw-lobe-lights-as-live-in-the-two-grips)
 - **Files:** `packages/render/src/snake-button.ts`, `packages/render/test/snake-frame.test.ts`
 - **Where:** local
 
