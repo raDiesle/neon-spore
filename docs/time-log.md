@@ -18134,3 +18134,20 @@ The bottleneck was **keeping the tangle traceable**: nothing on a tube may
 move, because the number in flight is the one thing that travels down it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE REPRISE's picture looks like something real
+
+- reading — 5 min. `reprise-draw.ts`, `reprise-fx.ts`, and why the tear
+  wears no colour and never moves sideways.
+- writing — 10 min. `reprise-flesh.ts`: the torn edge a lip with body,
+  ragged under its outer thirds; the mass sunk to the field's dark where it
+  comes through, glossed on its lower curve; the count as fangs.
+- looking — 5 min. The open tear at two counts and the shut one, at 2×, and
+  a second pass when the lip was too thin to find.
+- friction — 5 min. The first frame, at tick 400, caught the tear shut; the
+  echo only runs later in the wave.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **keeping the count the only row of marks**: the rag on
+the lip had to stay out past the teeth, so nothing drawn beside them could be
+counted as one.

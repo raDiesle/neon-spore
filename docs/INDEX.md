@@ -1493,6 +1493,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
 | `packages/render/src/reprise-draw.ts` | THE REPRISE, drawn: the top edge of the field torn open, the wave that has just come down still inside it |
 | `packages/render/src/reprise-fx.ts` | **The one thing THE REPRISE's picture has to remember**: that the count of owed bodies just went down |
+| `packages/render/src/reprise-flesh.ts` | What THE REPRISE's tear is made of: a torn lip, a throat with depth, a glossed mass and fangs for the count |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/countdown.ts` | THE COUNT: the disc, `showsCount`, and the notches it wore — NOTCHES on the LIBRARY |

@@ -3,6 +3,7 @@ import { midCol, type SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawFang, drawTearLip, drawTearMass } from "./reprise-flesh.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -149,10 +150,7 @@ export function drawReprise(
     l.tile * 0.34 * swallow;
 
   const mouth = splinePath(mouthPoints(px, y0, w, deep, time), true);
-  ctx.save();
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(mouth);
-  ctx.restore();
+  drawTearMass(ctx, mouth, px, y0, w, deep);
   // A dim edge on the mass, so it reads as something held in the opening
   // rather than as a shadow the tear happens to be lying on.
   strokeGlow(ctx, mouth, PALETTE.dim, STROKE.inner, open ? 0.55 : 0.3);
@@ -161,7 +159,9 @@ export function drawReprise(
 
   // Last, and over the dark it holds: the tear is the silhouette, and a rim
   // painted under the mass it opens on is a rim the eye never finds.
-  const tear = splinePath(tearPoints(px, y0, w, l.tile * (open ? 0.42 : 0.18)), false);
+  const rim = tearPoints(px, y0, w, l.tile * (open ? 0.42 : 0.18));
+  drawTearLip(ctx, rim, px, l.tile, open);
+  const tear = splinePath(rim, false);
   strokeGlow(ctx, tear, PALETTE.rock, STROKE.outline * 1.4, open ? 0.9 : 0.5);
 }
 
@@ -195,6 +195,7 @@ function drawOwed(
   const step = Math.min(l.tile * 0.4, (w * 1.5) / shown);
   const x0 = px - (step * (shown - 1)) / 2;
   const long = l.tile * DEEP * 0.82;
+  const half = Math.min(step * 0.3, l.tile * 0.1);
   for (let i = 0; i < shown; i++) {
     // The last tooth is the one going, and it goes by shortening and dimming
     // together — one that only faded would still be a mark in the row at the
@@ -202,9 +203,11 @@ function drawOwed(
     const going = swallow > 0 && i === shown - 1;
     const f = going ? swallow : 1;
     const x = x0 + step * i;
+    const tipY = y0 + long * (0.2 + 0.8 * f);
+    drawFang(ctx, x, y0 + l.tile * 0.04, tipY, half, going ? f : 1);
     const tooth = new Path2D();
     tooth.moveTo(x, y0 + l.tile * 0.04);
-    tooth.lineTo(x, y0 + long * (0.2 + 0.8 * f));
-    strokeGlow(ctx, tooth, PALETTE.rock, STROKE.outline * 1.5, going ? 0.95 * f : 0.95);
+    tooth.lineTo(x, tipY);
+    strokeGlow(ctx, tooth, PALETTE.rock, STROKE.inner, going ? 0.5 * f : 0.5);
   }
 }
