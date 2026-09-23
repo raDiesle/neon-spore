@@ -4,6 +4,7 @@ import type { Effects } from "./effects.js";
 import { drawGimbal } from "./gimbal-draw.js";
 import { drawHasp } from "./hasp-draw.js";
 import type { Layout } from "./layout.js";
+import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSpool } from "./spool-draw.js";
 
@@ -26,7 +27,7 @@ import { drawSpool } from "./spool-draw.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const PAIR_KINDS = ["gimbal", "bellows", "spool", "hasp"] as const;
+export const PAIR_KINDS = ["gimbal", "bellows", "spool", "hasp", "ratchet"] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
 
@@ -87,5 +88,16 @@ export function drawPairBoss(
   // (`view-role-clocks-c.ts`). What outlives a frame — the dim of a seize, the
   // flare of a burn, the jolt of a hasp giving — is `effects.boss.hasp`
   // (`hasp-draw.ts`, `hasp-fx.ts`).
-  drawHasp(ctx, l, world, boss, beat, beatPhase, effects.boss.hasp);
+  if (boss.kind === "hasp") {
+    drawHasp(ctx, l, world, boss, beat, beatPhase, effects.boss.hasp);
+    return;
+  }
+
+  // THE RATCHET: a rack of seven plates climbing a strut down the middle
+  // column past a pawl, both screens shown the whole of it; the catch on the
+  // navigator's screen alone and the pawl's pad on the pilot's alone
+  // (`view-role-clocks-c.ts`). What outlives a frame — the jolt and click of
+  // a clean tooth, the hull's shudder — is `effects.boss.ratchet`
+  // (`ratchet-draw.ts`, `ratchet-fx.ts`).
+  drawRatchet(ctx, l, world, boss, beat, beatPhase, effects.boss.ratchet);
 }

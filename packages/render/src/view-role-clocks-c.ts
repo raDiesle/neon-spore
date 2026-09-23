@@ -85,3 +85,20 @@ export const showsSpoolZone = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsHaspLatch = (role: ViewRole): boolean => role !== "p2";
 export const showsHaspWheel = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE RATCHET's two hands, and this boss splits the hands and not the eyes
+ * (§22): both screens are shown the whole rack, the pawl bearing on it, the
+ * lock's pins and every tooth it climbs. The navigator alone is shown **the
+ * catch** — its rail, the bar at her depth and the glow while it is set — and
+ * the pilot alone **the pawl's pad**, the mark he presses and whether a tooth
+ * is waiting on it.
+ *
+ * The catch is the one that matters. He presses when he believes she is
+ * holding, and must never see her hold directly — only her `SET`, across the
+ * delay — so the glow, the bar and the bursts of a set and a let-go are all
+ * drawn on her screens alone (`ratchet-parts.ts`, `ratchet-fx.ts`). `test`
+ * is both.
+ */
+export const showsRatchetPawl = (role: ViewRole): boolean => role !== "p2";
+export const showsRatchetCatch = (role: ViewRole): boolean => role !== "p1";

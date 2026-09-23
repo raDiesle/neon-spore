@@ -535,29 +535,43 @@ new spool-grip.test.ts beside `bellows-grip.test.ts`.
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
 - **Taken:** 2026-09-23, claude/queue-task-work-9465e1 (claim: claude/queue-the-ratchets-picture-has-never-been-drawn)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
-- **Needs:** THE RATCHET is written and nobody has built its simulation
+- **Files:** `packages/render/src/ratchet-shape.ts`, `packages/render/src/handles.ts`, `packages/render/src/boss-cue.ts`, `tools/director/test/on-field-controls.test.ts`
 - **Where:** local
 
-Lane two of §22, once lane one lands: a toothed climbing rack in full view of
-both seats, four poses only — fewer than any other boss on the page, on
-purpose, since the picture is the rack's own remaining teeth rather than a
-body changing shape (`.claude/skills/new-boss` §5's standard, read against a
-boss that is mostly still). A burned tooth is drawn as a flat, unlit
-non-event; a clean advance gets a visible click and jolt. A new silhouette —
-check `packages/content/src/silhouettes.ts` first. One PNG to the owner when
-it moves.
-What to do, and the two halves are separable. The cheap half is to notice:
-`Lockstep` can take the tick its run started on and count a peer message that
-arrives before it, so the ledger reports *commands lost at the start* rather
-than a fingerprint mismatch at tick 240. The real half is to hold what arrives:
-a pre-begin buffer in `link-run.ts` fed into the new scheduler, which needs the
-messages of the *previous* run kept out of it — the room stamps a fresh beat
-zero for every rejoin and an old run's ticks are far ahead of a new one's, so
-the buffer has to be cleared on every `end` and on every welcome that moves the
-stamp. `two-devices-opening.test.ts` already drives two devices through a beat
-zero over a wire it controls, so a case that begins one device late belongs
-beside the ones there.
+Lane two of §22. **The picture landed 23 September 2026** (`render/ratchet-draw.ts`,
+§11.38 *The look*). What is left is **the hands**, THE HASP's second half
+(8dabbcf0) done again:
+
+- a render/ratchet-grip.ts hit test: `ratchetCatch` is P2's depth drag on
+  the catch rail (`ratchetCatchRail`, `ratchetBarAt` in `ratchet-shape.ts`),
+  and `ratchetPawl` is P1's press on the pad at the pawl's pivot
+  (`ratchetPawl`);
+- the `handles.ts` and `handle-place-boss.ts` entries;
+- cue words through `boss-cue.ts` and `boss-cue-read-z.ts`: SET or HOLD on the
+  catch, PRESS on the pawl, FIRE on the bolt;
+- the director rows in `tools/director/src/field-controls-*.ts`, with
+  `ratchetCatch` and `ratchetPawl` moved from `"unbuilt"` to `"field"` in
+  `tools/director/test/on-field-controls.test.ts`;
+- a row in `controls.md` and a grip test.
+
+## A peer's message that arrives before this device's run begins is dropped
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf (re-filed 2026-09-23, claude/queue-the-ratchets-picture-has-never-been-drawn, from a paragraph that had come loose under THE RATCHET's entry)
+- **Files:** `apps/game/src/link-run.ts`, `packages/net/src/lockstep.ts`, `packages/net/test/two-devices-opening.test.ts`
+
+`link-run.ts` builds its `Lockstep` in `begin`, and `receive` hands a message
+to `lockstep?.receive`. Anything the peer sends before this device has begun
+is dropped with no trace. The two halves can be done separately. The cheap
+half is to notice: `Lockstep` can take the tick its run started on and count a
+peer message that arrives before it, so the ledger reports *commands lost at
+the start* rather than a fingerprint mismatch at tick 240. The real half is to
+hold what arrives: a pre-begin buffer in `link-run.ts` fed into the new
+scheduler. That buffer must keep out the messages of the *previous* run: the
+room stamps a fresh beat zero for every rejoin, and an old run's ticks are far
+ahead of a new one's, so the buffer has to be cleared on every `end` and on
+every welcome that moves the stamp. `two-devices-opening.test.ts` already
+drives two devices through a beat zero over a wire it controls, so a case that
+begins one device late belongs beside the ones there.
 
 ## The other choreographed bosses never say when the second seat may act
 

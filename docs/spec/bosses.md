@@ -8322,13 +8322,36 @@ a cue per event over THE HASP's palette of iron hardware, panned to the middle
 where the rack stands. A clean click rises a step for every clean tooth
 banked, so the pair hears how far up they are.
 
-**What is not built.** The look: nothing of the rack is drawn. Every event is
-in `render/src/effects-ingest-silent-boss-c.ts` and
-`effects-spark-silent-boss-c.ts` as one the frame says nothing about, the two
-targets are `unbuilt` in `tools/director/test/on-field-controls.test.ts`, and
-the guide is prose rather than a film. §22's presentation is lane two's whole:
-the rack and its teeth, the catch's white glow, the click and the jolt, the
-strut folding away. Lane two is a separate item on `docs/queue.md`.
+**The look** (`render/ratchet-draw.ts`, 23 September 2026). A strut down the
+middle column and a rack of seven plates climbing inside it — THE CRAWLER from
+the shape sheet's armoured drafts, stood upright with its widest plate at the
+bottom and the step at every seam turned into the tooth
+(`render/ratchet-shape.ts`). A pawl bears on the seam from one side; the lock
+at the top carries five pins; a spring runs from the lock to the rack's top and
+packs tighter as it climbs.
+
+- **The health is the rack.** Plates below the pawl are teeth left, plates
+  above it are spent and drawn slack, and each clean tooth drives a lock pin
+  home and lights it. Nothing prints a number.
+- **The poses** (`render/ratchet-pose.ts`): the still eases in; a tooth climbs
+  over `ratchetClimbBeats` with the pawl's tip riding out over it and dropping —
+  the click; the open tips the whole strut down and away about the lock, a
+  foreshortening, with the lock's jaws springing wide and the unspent teeth
+  still showing; a jam drives the rack down into the hull.
+- **The split is the hands** (`render/view-role-clocks-c.ts`): both screens
+  show the whole rack. The catch — rail, notch, the bar at her depth, and its
+  glow in the target-lock colour while set — is the navigator's alone, dimmed
+  while spent. The press pad on the pawl's pivot is the pilot's alone, lit
+  while a tooth is waiting.
+- **What outlives a frame** (`render/ratchet-fx.ts`): a clean tooth jolts the
+  strut, flashes the seam and sends one shudder through `hull-shock.ts`; a
+  burnt tooth throws nothing on any screen; a set and a let-go burst on the
+  catch's screens only. The bolt falls pale from the lock to the hull.
+
+**What is not built.** The hands: the two targets are still `unbuilt` in
+`tools/director/test/on-field-controls.test.ts`, so there is no hit test for
+the catch or the pawl and no cue words, and the guide is prose. That is the
+second half of lane two, on `docs/queue.md`.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/ratchet.test.ts`): the rack comes in with seven teeth and lights

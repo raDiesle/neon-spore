@@ -31,9 +31,10 @@ export const SILENT_BOSS_C = [
   "wellHeld",
   "wellWound",
   "wellHome",
-  // THE RATCHET's twelve, no burst: nothing draws the rack yet. A click and
-  // jolt on a clean tooth and a flat dead burn belong in a ratchet-fx.ts
-  // read above the loop when the look lane draws it (`docs/queue.md`).
+  // THE RATCHET's twelve, no burst from this table: they are read above the
+  // loop by `ratchet-fx.ts`, THE HASP's way, because a set and a let-go burst
+  // on the catch's screens alone and a table row cannot ask whose screen it
+  // is. A burnt tooth throws nothing anywhere — §22's one silence.
   "ratchetEnter",
   "ratchetLit",
   "ratchetSet",

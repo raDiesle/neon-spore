@@ -105,8 +105,12 @@ export const INGEST_SILENT_BOSS_C = [
   "haspBoltHit",
   "haspClear",
   "haspOut",
-  // THE RATCHET's twelve, silent for the same reason: nothing draws the
-  // rack yet, and its look lane is its own item (`docs/queue.md`).
+  // THE RATCHET's twelve, one family read above the loop the same way: the
+  // jolt and click of a clean tooth, the hull's shudder and every burst are
+  // `effects.boss.ratchet`'s (`ratchet-fx.ts`), a set and a let-go thrown on
+  // the catch's screens alone. How far the rack has climbed, how many pins
+  // are home and whether the catch is set stay read off the boss every frame
+  // (`ratchet-draw.ts`, `docs/spec/bosses.md` §11.38).
   "ratchetEnter",
   "ratchetLit",
   "ratchetSet",

@@ -17183,3 +17183,24 @@ written from THE HASP's shape in one pass, and the dozen places in
 suite rather than by any list the sim points at.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — the ratchet's picture — a rack that climbs and a lock that gives
+
+- reading — 5 min. §22's *Presentation*, the ratchet's state and events in
+  `sim`, THE HASP's picture as the list of files a clock boss is drawn from,
+  and the shape sheet for a silhouette not yet taken.
+- writing — 5 min. `ratchet-shape.ts`, `ratchet-pose.ts`, `ratchet-parts.ts`,
+  `ratchet-draw.ts`, `ratchet-fx.ts`; the two seat predicates; the roster, the
+  ingest and the shock; §11.38's *The look*; THE CRAWLER marked taken.
+- testing — 5 min. `ratchet-frame.test.ts`, twenty-four of them, and three
+  frames through `bun run frames` for an eye.
+- friction — 0 min. `tsc` could not find `@neon-spore/content` until
+  `bun install` ran in this worktree.
+- landing — 5 min. A paragraph of another finding had come loose under this
+  entry in `queue.md` and was re-filed as its own item; `index`, `check:fast`,
+  the commit.
+
+The bottleneck was **the split between the seats**: every part had to be
+put on the right screen, and a pad test that compared frames turned out to
+measure the glow of a phase rather than the pad, so it was dropped for the
+catch's, which does.

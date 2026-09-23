@@ -71,6 +71,9 @@ export function drawOnShip(
   // And THE HASP's, for its design's: an opened hasp is one shudder through
   // the plating rather than a camera moving (`hasp-fx.ts`, §20).
   held.effects.boss.hasp.drawShock(ctx, l, surfaceY, view.time);
+  // And THE RATCHET's: every clean tooth is one shudder through the plating
+  // and a burnt one none (`ratchet-fx.ts`, §22).
+  held.effects.boss.ratchet.drawShock(ctx, l, surfaceY, view.time);
   // And a gum splashing across the ship, on the same membrane and over the
   // same finished hull: the smear where it landed and the ripples running
   // out from it (`gum-splash.ts`).

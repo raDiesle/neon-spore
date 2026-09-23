@@ -100,10 +100,10 @@ export const ARMOURED_DRAFTS: CatalogueEntry[] = [
       period: 3.2,
     }),
     motion: SLITHER,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing carries it: converted from Into the Breach's Centipede, and it is the same form as THE SLATER at nine plates instead of seven and no roll — the RASP-and-BRISTLE pairing made a second time, so the two differ in exactly the numbers that separate an armoured ball from an armoured chain. The claim is the one the catalogue has never made: hard edges that are *alive*, where the life is a wave running down nine straight-sided plates rather than any of them being rounded off. What it has to survive is the frame. It is the longest thin body here, and a long thin body is the first thing a card starves — the 26 px question arrives for this one as `can you still see that it is jointed`, which is the entire difference between this and RIBBON",
+      "THE RATCHET, taken 23 September 2026, as its rack: seven plates stood upright, the widest at the bottom, the flex taken out and the lap at each seam turned into the tooth the pawl bears on (`render/ratchet-shape.ts`). Before that: converted from Into the Breach's Centipede, and it is the same form as THE SLATER at nine plates instead of seven and no roll — the RASP-and-BRISTLE pairing made a second time, so the two differ in exactly the numbers that separate an armoured ball from an armoured chain. The claim is the one the catalogue has never made: hard edges that are *alive*, where the life is a wave running down nine straight-sided plates rather than any of them being rounded off. What it has to survive is the frame. It is the longest thin body here, and a long thin body is the first thing a card starves — the 26 px question arrives for this one as `can you still see that it is jointed`, which is the entire difference between this and RIBBON",
   },
   {
     subject: valved("THE CASE", "a hard shell that hinges open and shuts again", {

@@ -13,6 +13,7 @@ import { InstarFx } from "./instar-fx.js";
 import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
 import { MazeGripFx } from "./maze-grip-fx.js";
+import { RatchetFx } from "./ratchet-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
@@ -153,4 +154,8 @@ export class BossRoster {
    * this boss's receipts are split between the seats like its picture
    * (`hasp-fx.ts`, `view-role-clocks-c.ts`). */
   readonly hasp = new HaspFx();
+  /** THE RATCHET's jolt, click and hull shock, and its receipts' bursts — a
+   * set and a let-go on the catch's screens alone, a burnt tooth nowhere
+   * (`ratchet-fx.ts`, `view-role-clocks-c.ts`). */
+  readonly ratchet = new RatchetFx();
 }

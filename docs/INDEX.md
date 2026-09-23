@@ -1245,6 +1245,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 | `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
+| `packages/render/src/ratchet-draw.ts` | **THE RATCHET**: a strut down the middle of the field, a rack of seven plates climbing inside it past a pawl |
+| `packages/render/src/ratchet-fx.ts` | What THE RATCHET leaves behind a frame |
+| `packages/render/src/ratchet-parts.ts` | THE RATCHET's fittings round the rack: **the lock** at the top of the strut with its five pins |
+| `packages/render/src/ratchet-pose.ts` | **How far through a pose THE RATCHET is** — the clock the rack is posed off (§22, *Animation*) |
+| `packages/render/src/ratchet-shape.ts` | **Where THE RATCHET is**: a strut down the middle column, a rack of seven plates sliding up inside it |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/caption-anchor-boss.ts` | **Where a boss's own fixture is** — the one anchor `caption-anchor.ts` answers per boss rather than per kind… |
 | `packages/render/src/caption-anchor-boss-b.ts` | **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY and THE SCOUT are** |
