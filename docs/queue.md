@@ -450,25 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## The chain THE INSTAR hangs from is measured in two places
-
-- **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d
-- **Taken:** 2026-09-23, claude/queue-instar-chain (claim: claude/queue-the-chain-the-instar-hangs-from-is-measured-in-t)
-- **Files:** `packages/render/src/instar-draw.ts`,
-  `packages/render/src/slow-intake-aim.ts`
-
-`drawSegments` stands the four plates on a line from `instarAt(l, 500, 0).x`,
-`l.gridTop - l.tile * 1.3` down to the head, and it is private to
-`instar-draw.ts`. `slow-intake-aim.ts` needs the same two numbers — the light
-round the boss is kept off the *whole* body, chain included, by a capsule along
-that axis — so it writes them again. Re-hang the chain and the light starts
-crossing the top plate, with nothing red to say so.
-
-Export the anchor from `instar-shape.ts`, where the rest of the body's geometry
-already lives — `instarChainTop(l): Point` — call it from both, and add a row to
-`packages/sim/test/purity.test.ts`'s table of rules that must be called rather
-than re-derived.
-
 ## Two render frame files fail under `bun test` and pass on their own
 
 - **Found:** 2026-09-22, claude/slow-window-visual-candidates-c2e19d

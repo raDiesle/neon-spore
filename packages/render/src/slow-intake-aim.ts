@@ -2,7 +2,7 @@ import type { SimConfig } from "@neon-spore/sim";
 import { beatSeconds, gripsCreature, instarBoss, MILLI, type World } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
-import { instarAt, instarLen } from "./instar-shape.js";
+import { instarAt, instarChainTop, instarLen } from "./instar-shape.js";
 import { instarBody } from "./instar-sway.js";
 import { type Layout, tileCX } from "./layout.js";
 import type { SlowWindow } from "./slow-look.js";
@@ -93,17 +93,10 @@ export function aim(world: World, l: Layout, beat: number, beatPhase: number): A
   if (instar !== null) {
     const { f } = instarBody(instar, world.cfg, beat, beatPhase);
     const { x, y } = instarAt(l, f.headX, f.headY);
-    // Where the chain leaves the field, which is the far end of the body. The
-    // two numbers mirror `drawSegments` in `instar-draw.ts`, which is private
-    // to that file and cannot be called — if the chain is ever re-hung, this
-    // moves with it or the light starts crossing the top plate.
-    return {
-      x,
-      y,
-      r: instarLen(l, f.headR),
-      ax: instarAt(l, 500, 0).x,
-      ay: l.gridTop - l.tile * 1.3,
-    };
+    // Where the chain leaves the field, which is the far end of the body —
+    // the same point `drawInstarChain` hangs it from (`instar-shape.ts`).
+    const top = instarChainTop(l);
+    return { x, y, r: instarLen(l, f.headR), ax: top.x, ay: top.y };
   }
   // Whose grip it is belongs to `grip.ts`, so each body is asked rather than
   // the two grip fields read (`world-ship.ts`, and `focus` does the same).

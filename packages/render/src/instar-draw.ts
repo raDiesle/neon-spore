@@ -2,6 +2,7 @@ import { blobPoints } from "@neon-spore/content";
 import type { InstarState, World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import { drawInstarChain } from "./instar-chain.js";
 import type { InstarFx } from "./instar-fx.js";
 import { drawInstarLimbs } from "./instar-limbs.js";
 import { drawInstarMarks } from "./instar-marks.js";
@@ -60,7 +61,7 @@ export function drawInstar(
 
   ctx.save();
   ctx.translate(fx.flinch * l.tile * 0.25 * Math.sin(time * 40), -fx.jolt * l.tile);
-  const shoulders = drawSegments(ctx, l, f, head, r, time, fade);
+  const shoulders = drawInstarChain(ctx, l, f, head, r, time, fade);
   drawHead(ctx, f, head, r, time, fade);
   drawMouth(ctx, f, head, r, fade);
   drawEyes(ctx, f, head, r, time, fade);
@@ -89,48 +90,6 @@ export function drawPlate(
   ctx.fill(p);
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.hull, fade), STROKE.inner, glow * fade);
-}
-
-/**
- * The chain up out of the frame: four segments from above the top of the
- * grid down to the back of the head, each a little bigger than the last,
- * swaying with the beat. Returns the two shoulders the arms hang from.
- */
-function drawSegments(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  f: Figure,
-  head: Point,
-  r: number,
-  time: number,
-  fade: number,
-): [Point, Point] {
-  const top: Point = { x: instarAt(l, 500, 0).x, y: l.gridTop - l.tile * 1.3 };
-  const sway = Math.sin(time * 1.3) * r * 0.08;
-  let shoulders: [Point, Point] = [head, head];
-  for (let k = 1; k <= 4; k++) {
-    const t = k / 5;
-    const cx = top.x + (head.x - top.x) * t + sway * (1 - t);
-    const cy = top.y + (head.y - top.y) * t;
-    const rad = r * (0.45 + 0.4 * t);
-    const p = splinePath(blobPoints(cx, cy, rad, rad * 0.75, 5, 0.06, 0.02, time, k, 24), true);
-    drawPlate(ctx, p, fade, 0.35);
-    // A ridge across each plate, brighter on the turned back.
-    ctx.save();
-    ctx.strokeStyle = faded(PALETTE.hullRim, fade, 0.35 + 0.4 * f.back);
-    ctx.lineWidth = STROKE.inner;
-    ctx.beginPath();
-    ctx.moveTo(cx - rad * 0.6, cy + rad * 0.2);
-    ctx.quadraticCurveTo(cx, cy + rad * 0.45, cx + rad * 0.6, cy + rad * 0.2);
-    ctx.stroke();
-    ctx.restore();
-    if (k === 3)
-      shoulders = [
-        { x: cx - rad * 0.8, y: cy },
-        { x: cx + rad * 0.8, y: cy },
-      ];
-  }
-  return shoulders;
 }
 
 /** The head: a lobed blob, wider than tall, taller as the mouth gapes and the lunge comes. */

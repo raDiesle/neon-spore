@@ -743,4 +743,14 @@ export const COPIES: Copy[] = [
     owner: "packages/sim/src/spool.ts",
     pattern: /spoolRateFastMilli\s*-\s*\w+\s*\)/,
   },
+  {
+    // **Where THE INSTAR's chain leaves the frame.** The plates hang from it
+    // and the slow window's light is kept off the whole body along it, and
+    // the second of those wrote the two numbers out again because the first
+    // was private to `instar-draw.ts`. Re-hang the chain and a copy lets the
+    // light cross the top plate with nothing red to say so.
+    call: "instarChainTop",
+    owner: "packages/render/src/instar-shape.ts",
+    pattern: /gridTop\s*-\s*\w+\.tile\s*\*\s*1\.3\b/,
+  },
 ];

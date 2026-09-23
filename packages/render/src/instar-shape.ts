@@ -160,6 +160,16 @@ export function instarAt(l: Layout, xMilli: number, yMilli: number): Point {
   };
 }
 
+/**
+ * **Where THE INSTAR's chain leaves the frame**: above the middle of the
+ * grid, a tile and a bit over its top edge. `drawInstarChain` hangs the four
+ * plates from here and `slow-intake-aim.ts` keeps the light off the whole
+ * body along the same line, so the chain is re-hung here or not at all.
+ */
+export function instarChainTop(l: Layout): Point {
+  return { x: instarAt(l, 500, 0).x, y: l.gridTop - l.tile * 1.3 };
+}
+
 /** A length in thousandths of the field's width, in pixels. */
 export function instarLen(l: Layout, milli: number): number {
   return (milli * l.gridWidth) / 1000;

@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-instar-chain
+
+- reading — 5 min. The two copies, `instar-shape.ts`' exports, and the shape
+  of a row in `copies-table.ts`.
+- writing — 5 min. `instarChainTop`, both callers, the table row, and the
+  chain cut into `instar-chain.ts` when the draw file reached its limit.
+- looking — 0 min. The same two numbers in the same place; nothing drawn
+  moved. The row was run once against the copy put back, and went red.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the writing: the size hook asked for the draw file's seam
+in the same diff, and the chain was it.
+
 ## 2026-09-23 — queue-step-lines
 
 - reading — 5 min. `step.ts` whole, and `boss-hands.ts`' header, which named
