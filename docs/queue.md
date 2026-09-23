@@ -516,6 +516,7 @@ The answer picks between:
 ## Six films are pinned to the zero shot grid and show no lay
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054
+- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-six-films-are-pinned-to-the-zero-shot-grid-and-s)
 - **Files:** `packages/content/src/scenes/the-third-shot.ts`, `packages/content/src/scenes/the-jam.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`
 
 Each fell apart on the game's half-beat grid (`scene-grid.test.ts`) and now
