@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 456cf6d7 — THE GAUGE's buttons are lobes on the ship's band, and its words say what the claw does
+
+THE GAUGE was the last round with a panel of slabs. Its two turns now stand in the pilot's sockets on the band and its call in the navigator's, each with the claw's own face: the turns show the nose swung the way they swing it and light while held, and the call is the REACH button, lit while the claw is out and faint while a call would be refused. The title's second line says what the other seat has instead of what this one cannot do: THE POD IS ON THEIR SCREEN, THE CLAW IS IN THEIR HANDS.
+
 ## 2026-09-23 · 858435e8 — THE GAUGE's call is the claw reaching, and it comes back with the pod or with nothing
 
 On a call the claw runs out along its dotted line and shuts. A catch brings back a body: a pod stands where the call was made, and the hand closes on it in a green ring. The hand carries it home, and the ship swallows it at the crown while the navigator's next pod swells in. A miss brings back an empty hand: it shuts on the dark in a grey puff and comes back closed, rattling on the valve that has just jammed. Both screens show it. The coloured stroke that marked the last call is gone. The reach is timed from `calledTick`, a new field in the gauge state that is hashed like the rest. The animation is over inside the rest between two calls. The pod moved into `gauge-pod.ts`.

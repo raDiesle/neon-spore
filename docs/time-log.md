@@ -17595,3 +17595,5 @@ not its tick, and only the frames said so.
 
 The bottleneck was **the slab machinery left behind**: moving the last round
 to lobes leaves a whole panel form with no user, which is its own lane.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
