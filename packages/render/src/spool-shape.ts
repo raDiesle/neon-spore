@@ -52,9 +52,13 @@ const RIB_AT = [0.66, 0.22, -0.22, -0.66] as const;
 /** A rib's half-thickness and how far it stands proud of the winding, in tiles. */
 const RIB_HALF_W = 0.14;
 const RIB_PROUD = 0.24;
-/** The brake's rail: how far outside its flange, how long, and the knob's radius, in tiles. */
+/**
+ * The brake's rail: how far outside its flange, how far below its top the
+ * knob rests with no hand on it, and the knob's radius, in tiles. How far the
+ * knob travels is not a constant: see `spoolBrakeAt`.
+ */
 const RAIL_OUT = 0.45;
-const RAIL = 1.9;
+const RAIL_LEAD = 0.23;
 const KNOB_R = 0.3;
 /** The gauge under the barrel: how far below the flanges, and its half-length, in tiles. */
 const GAUGE_DROP = 0.7;
@@ -181,6 +185,12 @@ export function spoolLineFoot(l: Layout, cfg: SimConfig): Point {
  * **The brake**: the rail hanging outside the brake's flange, the knob on it
  * at the depth the pilot's thumb has it, and the shoe the knob's linkage
  * presses into the flange's rim — deeper in the deeper the grip.
+ *
+ * **The knob travels exactly the reach**, one tile for a thousand: a drag
+ * reports its depth in thousandths of a tile and the simulation cuts it to
+ * `spoolReachMilli` (`sim/spool-hand.ts`), so a rail of any other length
+ * would draw the knob running ahead of the thumb or falling behind it —
+ * `haspRail`'s rule, found there first.
  */
 export function spoolBrakeAt(
   l: Layout,
@@ -191,11 +201,16 @@ export function spoolBrakeAt(
   const side = spoolSide(l, cfg);
   const rim = pose.at.x + side * (spoolBarrelHalf(l, pose.turn) + spoolFlangeR(l) * FLANGE_EDGE);
   const x = rim + side * l.tile * RAIL_OUT;
+  const reach = Math.max(1, cfg.spoolReachMilli);
+  const depth = Math.min(reach, Math.max(0, depthMilli));
   const top = { x, y: pose.at.y - l.tile * 0.35 };
-  const bottom = { x, y: top.y + l.tile * RAIL };
-  const share = Math.min(1, Math.max(0, depthMilli / Math.max(1, cfg.spoolReachMilli)));
-  const knob = { x, y: top.y + l.tile * RAIL * (0.12 + 0.88 * share) };
-  const shoe = { x: rim - side * share * l.tile * 0.16, y: pose.at.y + spoolFlangeR(l) * 0.35 };
+  const rest = top.y + l.tile * RAIL_LEAD;
+  const bottom = { x, y: rest + (reach * l.tile) / 1000 };
+  const knob = { x, y: rest + (depth * l.tile) / 1000 };
+  const shoe = {
+    x: rim - side * (depth / reach) * l.tile * 0.16,
+    y: pose.at.y + spoolFlangeR(l) * 0.35,
+  };
   return { top, bottom, knob, shoe, r: l.tile * KNOB_R };
 }
 

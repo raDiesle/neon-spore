@@ -151,7 +151,10 @@ export function createWaveProgression({
       // sim may not ask content for itself (`content/control-sets.ts`).
       setLance(controlSetForWave(wave)),
     );
-    left = INTRO_SECONDS;
+    // Armed only for an opening that has an introduction in it. A guided wave
+    // crosses its gate straight onto the field (`sim/briefing.ts`), so a clock
+    // set here would be counting down a screen nobody will see.
+    left = introHolds(world) ? INTRO_SECONDS : 0;
     sentAtTick = -1;
     clearQuit();
   };

@@ -25,6 +25,7 @@ import { gaugeCues } from "./boss-cue-read-w.js";
 import { vaneCues } from "./boss-cue-read-x.js";
 import { gimbalCues } from "./boss-cue-read-y.js";
 import { haspCues } from "./boss-cue-read-z.js";
+import { spoolCues } from "./boss-cue-read-za.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -164,6 +165,9 @@ export function bossCues(
     // And THE HASP's, the same two-seat answer on a latch and a wheel (`boss-cue-read-z.ts`).
     case "hasp":
       return haspCues(l, world, boss);
+    // And THE SPOOL's, one word for its one handle (`boss-cue-read-za.ts`).
+    case "spool":
+      return spoolCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

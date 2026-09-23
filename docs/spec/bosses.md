@@ -8035,12 +8035,22 @@ where the paid-out length is against it, right for more line out than wanted
 what *faster* and *slower* are said about. `render/test/spool-frame.test.ts`
 sets every pose on all three screens and proves the split both ways.
 
-**What is not built: the hands**, half two of lane two. There is no hit test on
-the brake's rail yet, so the game cannot send `spoolBrake` from a thumb (the
-director's hand plays it, `boss-hands-spool.ts`); no cue word stands on the
-knob; `THE SPOOL` is still on `STILL_PROSE` with no film; and
-`docs/spec/controls.md` has no rows for the rail. THE BELLOWS's half two
-(`bellows-grip.ts`, `bellows-word.ts`) is the pattern.
+**The hands** (`render/spool-grip.ts`, half two of lane two). The pilot's press
+is the knob at rest, on his screen alone, and every move after it a depth down
+the rail in thousandths of a tile — **the knob travels exactly the reach**, one
+tile, so it stays under the thumb all the way down (`spoolBrakeAt`, THE HASP's
+rule). The rail takes a hand in every phase it is drawn in and none once the
+casing is slack; letting go puts the knob back at the top, which is where the
+next press is answered. The hit test and the drawing place the spool off the
+one `spoolPlaced`, so a knob swinging in is answered where it is drawn. **One
+cue word** (`boss-cue-read-za.ts`): `HOLD`, in `CARRY`, on his knob while a
+movement is paying out and nobody has the brake — gone the moment he takes
+hold, because what is left is *how deep*, and that is hers to say. No desk key.
+`render/test/spool-grip.test.ts` proves the hit, the split, the refusal, the
+knob under the thumb and the word.
+
+**What is not built: the film.** `THE SPOOL` is still on `STILL_PROSE`, and the
+guide says which screen holds what until a rehearsal is written.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/spool.test.ts`): the spool comes in taut and opens its first zone;
@@ -8053,7 +8063,7 @@ protects the head of a movement; a movement played right eases exactly one rib;
 a movement played wrong slips with no rib and throws no rock the first time and
 one down the cannon's own column after that; and the fourth rib leaves the
 spool slack, drifting under THE SLOW and out of the wave. Whether any of it
-*reads* is the owner's eye, after the hands land.
+*reads* is the owner's eye.
 ## 11.37 THE HASP — the boss where one hand holds what the other cannot see
 
 > The one that asks for faith. A door of three iron clasps hangs over the

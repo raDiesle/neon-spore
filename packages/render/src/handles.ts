@@ -31,6 +31,7 @@ import { scoutGripUnder } from "./scout-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
 import { snakeGripUnder } from "./snake-grip.js";
+import { spoolBrakeUnder } from "./spool-grip.js";
 import { stareLidUnder } from "./stare-lid.js";
 import { surgeBulbUnder } from "./surge-grip.js";
 import { tasterGripUnder } from "./taster-grip.js";
@@ -138,7 +139,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     antiphonRailUnder(l, x, y, field) ?? // THE ANTIPHON's rail, the navigator's crossings-off (`antiphon-rail-grip.ts`).
     bellowsHandleUnder(l, x, y, field) ?? // THE BELLOWS's one handle, each seat its own, in whosever beat it is (`bellows-grip.ts`).
     haspHandleUnder(l, x, y, field) ?? // THE HASP's latch, the pilot's, while a clasp is lit and his hand not burnt (`hasp-grip.ts`).
-    haspRimUnder(l, x, y, field) // And its wheel, the navigator's, turned about the hub (`hasp-grip.ts`).
+    haspRimUnder(l, x, y, field) ?? // And its wheel, the navigator's, turned about the hub (`hasp-grip.ts`).
+    spoolBrakeUnder(l, x, y, field) // THE SPOOL's brake, the pilot's, until the casing goes slack (`spool-grip.ts`).
   );
 }
 

@@ -628,7 +628,15 @@ export class StubContext {
  */
 export function stubCanvas(primary = true): { canvas: HTMLCanvasElement; ctx: StubContext } {
   const ctx = new StubContext();
-  if (primary) activeTally = ctx.tally;
+  if (primary) {
+    activeTally = ctx.tally;
+    // And the log with it, which a fresh context does not have. Left pointing
+    // at an earlier test's array, every path coordinate of every later frame
+    // in the process was appended to it: `surface-clear.test.ts` sharing a
+    // shard with `briefing.test.ts` grew one process past 50 GB on 23
+    // September 2026 and took the machine down.
+    activeLog = undefined;
+  }
   const canvas = {
     width: 0,
     height: 0,

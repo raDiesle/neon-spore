@@ -11,6 +11,7 @@ import {
   OPENING_GUIDE,
   OPENING_PLAY,
   type PodEntry,
+  readyFill,
   readyHoldTicks,
   type SimConfig,
   type SpawnEntry,
@@ -25,12 +26,11 @@ import {
  * the two questions here are the two that break a room: does it stop on both
  * devices, and does it start again only when both of them say so.
  *
- * The states are the guide, if the wave carries one, and then the
- * introduction (number, name, sentence — passed by a timer the app runs). Both
- * hold the field; neither is derived from anything. The guide is first because
- * the introduction names the wave the pair is about to play, which wants to be
- * the last thing before the field rather than a title card in front of a
- * tutorial (`briefing.ts`).
+ * The states are the guide, if the wave carries one, or else the introduction
+ * (number, name, sentence — passed by a timer the app runs). Both hold the
+ * field; neither is derived from anything. Never both: the guide ends on a page
+ * that already says the three lines, so crossing its gate starts the field
+ * (`briefing.ts`).
  */
 
 const CFG: SimConfig = { ...DEFAULT_CONFIG, briefings: true };
@@ -65,12 +65,14 @@ describe("the order a wave opens in", () => {
     expect(introHolds(open(false))).toBe(true);
   });
 
-  it("goes guide, introduction, field when the wave carries one", () => {
+  it("goes guide, field when the wave carries one, with no introduction between", () => {
     const world = open(true);
     // The guide does not pass on a press: both circles have to fill first.
     step(world, tap(world, 1, 2));
     expect(world.brief.phase).toBe(OPENING_GUIDE);
-    holdBoth(world);
+    // Held until the guide lets go, and not a tick past it: whatever stands
+    // on the next tick is what the gate handed over to.
+    for (let i = 0; i < 5000 && guideHolds(world); i++) step(world, tap(world, 1, 2));
     expect(world.brief.phase).toBe(OPENING_PLAY);
   });
 
@@ -104,14 +106,17 @@ describe("both seats, or neither", () => {
     expect(guideHolds(world)).toBe(false);
   });
 
-  it("does not carry one seat's hold from the guide into the introduction", () => {
+  it("leaves nothing of the gate behind once the field starts", () => {
     const world = open(true);
     holdBoth(world);
-    // The wave has one state left. Both fills were spent crossing the gate;
-    // the introduction starts clean, or a fast device would put away a screen
-    // its player never looked at.
+    // Both fills were spent crossing the gate, and the next opening — a retry,
+    // which stands on its introduction — starts clean, or a fast device would
+    // put away a screen its player never looked at.
     expect(introHolds(world)).toBe(false);
     expect(briefingHolds(world)).toBe(false);
+    expect(world.brief.ack).toBe(0);
+    expect(readyFill(world, 1)).toBe(0);
+    expect(readyFill(world, 2)).toBe(0);
   });
 
   it("takes the same ack twice as one", () => {
@@ -160,15 +165,15 @@ describe("the field behind it", () => {
 
 describe("the opening in the fingerprint", () => {
   it("hashes differently in each of the three states", () => {
+    // Two worlds, because no one opening passes through all three: a guide
+    // crosses its gate onto the field, and the introduction is the no-guide
+    // case. Same wave, same seed: only the opening differs between them.
     const world = open(true);
     const atGuide = hashWorld(world);
-    // Exactly across the gate and no further: a tap on the tick after it lands
-    // on the introduction, and two of those would take the wave with them.
+    const atIntro = hashWorld(open(false));
     ackBriefing(world, 1);
     ackBriefing(world, 2);
-    expect(introHolds(world)).toBe(true);
-    const atIntro = hashWorld(world);
-    holdBoth(world);
+    expect(world.brief.phase).toBe(OPENING_PLAY);
     const playing = hashWorld(world);
     expect(new Set([atGuide, atIntro, playing]).size).toBe(3);
   });

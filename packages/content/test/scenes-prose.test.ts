@@ -67,10 +67,10 @@ const STILL_PROSE = [
   // waist are all still undrawn, so there is no screen for a film to
   // rehearse. The guide says the taking of turns until the look lane draws it.
   "THE BELLOWS",
-  // And THE SPOOL, whose simulation landed 22 September 2026 (§11.36), for
-  // the same reason a third time: the casing, its four ribs and the line run
-  // down to the hull are all undrawn, so there is no screen for a film to
-  // rehearse. The guide says which seat holds what until the look lane draws it.
+  // And THE SPOOL, whose simulation landed 22 September 2026 (§11.36). Its
+  // picture and its brake's hit test landed on the 23rd, so there is a screen
+  // to rehearse now, and the film is its own item on `docs/queue.md`. The guide
+  // says which seat holds what until it is written.
   "THE SPOOL",
   // And THE HASP the same day (§11.37), for the same reason a fourth time:
   // the door of clasps, its wheel and the latch beside it are undrawn, so

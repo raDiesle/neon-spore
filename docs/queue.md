@@ -515,22 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE SPOOL's brake answers no thumb
-
-- **Found:** 2026-09-23, claude/queue-the-spools-picture-has-never-been-drawn
-- **Taken:** 2026-09-23, claude/queue-task-work-bf5a80 (claim: claude/queue-the-spools-brake-answers-no-thumb)
-- **Files:** `packages/render/src/spool-shape.ts`, `packages/render/src/spool-brake.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
-- **Where:** local
-
-Half two of THE SPOOL's look lane, the hands: the body is drawn and nothing
-on the field answers a thumb. A hit test on the brake's rail that turns a
-press and drag on the pilot's seat into `spoolBrake` at a depth, read off
-`spoolBrakeAt` so the thumb is answered where the knob is drawn (THE
-BELLOWS's `bellows-grip.ts` is the pattern); the cue word on the knob, one
-word in `CARRY`; the film off `STILL_PROSE`; and the rail's rows in
-`controls.md`. §11.36's *What is not built* lists it. Prove it with a
-new spool-grip.test.ts beside `bellows-grip.test.ts`.
-
 ## THE RATCHET's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
@@ -573,65 +557,6 @@ every welcome that moves the stamp. `two-devices-opening.test.ts` already
 drives two devices through a beat zero over a wire it controls, so a case that
 begins one device late belongs beside the ones there.
 
-## The other choreographed bosses never say when the second seat may act
-
-- **Found:** 2026-09-20, claude/queue-tasks-model-switching-e53403
-- **Files:** `packages/render/src/instar-call.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-text.ts`, `packages/sim/src/instar-step.ts`
-
-The owner, 20 September 2026: *for any in-game action which requires one
-player to hit a specific point in time related to the other player's action,
-it should show text and visual for when is the right point in time for the
-other player to act… this is a generic rule for bosses with choreographed
-state actions.* THE INSTAR has it now — `instar-call.ts` draws a line under
-the marks naming the seat still out and the beats it has left. Nothing else
-in the game does.
-
-What to do, in order. **First find the couplings, because they may not all
-exist.** A coupling is any rule where one seat's act is judged against *when
-the other seat acted* rather than against the beat: THE INSTAR's
-`slipLonely` is one. Read the four other choreographed bosses' simulations
-for the same shape — a stored beat of one seat's act compared with another's
-— and write down what each one found, including the ones that found nothing.
-The reading from this lane, which is a reading and not a proof: THE BATON's
-merge and THE CAIRN's hold are timed against the beat and not against each
-other, so there may be no coupling outside THE INSTAR at all. If that is what
-the reading says, this entry closes with a test that pins it, not with a
-feature.
-
-**Then, for each one found, one line.** `instarCall`'s three states are the
-shape: what the rule is while nobody has acted, and who-and-how-long once
-somebody has. The drawing is already shared — `drawInstarBanner`
-(`instar-word.ts`) centres a scanner box on the glass — so a second boss's
-line is a reading function and a call, not a second box. Keep #34: the line
-says what the *pair* is under and never a seat's own verb, which is why it
-is drawn bright on both screens.
-
-## A wave with a guide opens on its introduction as well
-
-- **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
-- **Files:** `packages/sim/src/briefing.ts`, `apps/game/src/waves.ts`, `packages/render/src/wave-intro.ts`, `packages/render/src/ready-page.ts`
-- **Where:** local
-
-The owner, 20 September 2026: *when there is a tutorial/guide skip the wave
-information on the game screen after the "ready?" page, as it is not required
-and we showed it already. For waves with no guide/tutorial show it.*
-
-The three states are `OPENING_GUIDE`, `OPENING_INTRO`, `OPENING_PLAY`, in that
-order, and every wave passes through all three (`briefing.ts`). A wave that
-carried a guide has already put the number, the name and the sentence in front
-of the pair twice over: `wave-intro.ts` is drawn on the last page of a stepped
-guide, over the ready button, which is the thing the pair says READY *to*. Then
-the gate passes and the same three lines stand alone for `INTRO_SECONDS` more.
-
-So the introduction becomes the no-guide case only. `startWave` is already told
-whether this wave has a guide — it is the `guide` flag on `Briefings` — so the
-change is which phase the gate hands over to, and `apps/game/src/waves.ts` must
-stop arming `left = INTRO_SECONDS` for an opening that will not reach the
-introduction. A retry already skips the guide and must keep its introduction:
-that is the one path where the lines have not been shown.
-
-`phase` is in `hashWorld`, so this is a rule both devices read the same way and
-not a thing render may decide.
 
 ## A wave gone again opens at the same speed as the first try
 
@@ -2388,3 +2313,57 @@ the item and the refs — and a line in `next`'s own output naming it, so a
 session that lost the prompt reprints it rather than claiming again. A test
 in `tools/queue/test/` that `show` leaves the refs and `docs/queue.md`
 untouched proves it.
+
+## THE SPOOL's guide has no film
+
+- **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb
+- **Files:** `packages/content/src/scenes/`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`, `docs/spec/bosses.md`
+- **Where:** local
+
+THE SPOOL is drawn and its brake answers a thumb (`render/spool-grip.ts`,
+§11.36's *The hands*), so there is a screen to rehearse and the reason the
+wave sits on `STILL_PROSE` is gone. Write the rehearsal as
+`.claude/skills/new-tutorial` says: the pilot takes the brake, the line runs
+too fast, the navigator's gauge says *slower*, he carries the knob deeper and
+a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
+`briefings.md` §3.2, and drop §11.36's *What is not built*.
+`bun test packages/content` proves the counts.
+
+## `queue next` prints a relative worktree path that nests inside a session's tree
+
+- **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb
+- **Files:** `tools/queue/prompt.ts`, `tools/queue/test/`
+
+The prompt says `git worktree add .claude/worktrees/<name> <branch>`. Run from
+a session that is itself in `.claude/worktrees/<session>/`, as the desktop app
+starts them, that makes `.claude/worktrees/<session>/.claude/worktrees/<name>`
+— a tree inside a tree. This lane removed it and checked the branch out in its
+own tree instead. The prompt should print the path off the main checkout
+(`git rev-parse --path-format=absolute --git-common-dir`, one level up), or
+say to check the branch out in place when the session is already in a spent
+worktree of its own. A test in `tools/queue/test/` on the printed path proves it.
+## A shard outlives the runner that started it
+
+- **Found:** 2026-09-23, claude/queue-the-other-choreographed-bosses-never-say-when-th
+- **Files:** `tools/check/shard.ts`, `tools/check/fast.ts`
+
+A `check:fast` sent SIGTERM left its `bun test` shard running, reparented to
+launchd (PPID 1), still growing and still holding its slot's memory; nothing
+reaped it but its own end. That shard was the 13 GB one — a canvas-stub log
+left set by `surface-clear.test.ts` taking every path `briefing.test.ts`
+drew, fixed in `canvas-stub.ts` by 73ce3ad0 — so an interrupted check can
+leave the worst process of the run behind it. The work: `shard.ts` and
+`fast.ts` forward SIGINT and SIGTERM to every child they spawned before they
+exit, and a test in `tools/check/test/` spawns the runner on a sleeping shard,
+signals it, and asserts the child is gone.
+
+## `new-boss/SKILL.md` is one line under the ceiling
+
+- **Found:** 2026-09-23, claude/queue-the-other-choreographed-bosses-never-say-when-th
+- **Files:** `.claude/skills/new-boss/SKILL.md`, `.claude/skills/new-boss-more/SKILL.md`
+
+It is 249 lines after §5 gained the `pair-call.ts` line, and the next boss
+lane that adds a rule to it turns `bun run check` red
+(`packages/sim/test/limits.test.ts`). §5's registrations list is the seam:
+it is already mirrored by `new-boss-state`, so it can move there, or to a
+new-boss/registrations.md, which the skill names in one line.

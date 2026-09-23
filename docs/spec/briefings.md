@@ -4,9 +4,11 @@
 > order.** A wave with a guide opens on it, and on all but five of them that is
 > a **rehearsal** — the game's own screen at full size, playing the wave the
 > pair is about to meet, one device at a time, with the words inside the picture
-> beside the things they explain. It ends on the ready gate. *Then* the wave's
-> number, name and sentence, plain text on the field, which passes on a timer.
-> Then the wave. A wave with no guide opens straight on its introduction.
+> beside the things they explain. It ends on the ready gate, whose page is the
+> wave's number, name and sentence, and crossing it starts the wave. A wave
+> with no guide — and a wave gone again, which skips its guide — opens instead
+> on its introduction: those three lines alone, plain text on the field, which
+> pass on a timer.
 > §3.2 says which five are still prose and why the count is a test rather than
 > a sentence anybody has to remember.
 >
@@ -19,7 +21,7 @@
 > help at all.
 
 A wave's **opening** is what stands between the pair pressing play and the
-first creature falling. It has two states and the second is optional:
+first creature falling. It is one of two states, never both:
 
 1. **The guide**, if the wave carries one — and it is *first*. A concrete
    instruction about the control or the concept the pair is about to meet:
@@ -30,10 +32,14 @@ first creature falling. It has two states and the second is optional:
    The guide passes when both say READY. Only a wave that introduces something
    new carries one — ninety-two of the hundred and one waves today, and a wave
    with no guide has no circles either.
-2. **The introduction.** `WAVE 4`, the wave's name, its one sentence. Plain
-   text on the field — no panel, no border, nothing to press. It stands for a
-   few seconds and passes on its own. Every wave has one, because every wave
-   has a name and a sentence.
+2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
+   one sentence. Plain text on the field — no panel, no border, nothing to
+   press. It stands for a few seconds and passes on its own. A guided wave has
+   said those three lines on its gate already, and the owner, 20 September
+   2026: *skip the wave information on the game screen after the "ready?"
+   page, as it is not required and we showed it already.* A wave gone again
+   skips its guide, so it gets the introduction — the one guided opening where
+   the lines have not been on screen.
 
 **Teaching first and naming second is the owner's order, and it was the other
 way round to begin with.** What decided it is what each state is *for*: the
@@ -1210,9 +1216,9 @@ The guide shows two pips, one per seat, lit as each ack lands. Without them a
 player who has tapped is looking at a guide that did nothing and has no way to
 tell whether it is their screen that is stuck or their partner.
 
-One seat's hold does not carry from the guide into the introduction. Both fills
-and both ack bits are cleared when a state passes, or a fast device would put
-away a screen its player never looked at.
+Nothing of one opening carries into the next. Both fills and both ack bits are
+cleared when a state passes, or a fast device would put away a screen its
+player never looked at.
 
 Still open: the link chip reads `STALLED` while one player is reading. Worth
 suppressing while the wave is held.

@@ -1,4 +1,4 @@
-import { ticksPerBeat } from "./config.js";
+import { liftTogetherUntil } from "./beat-clock.js";
 import { type SurgeState, surgeBoss, surgeEverting, surgeHeld, surgeSealing } from "./surge.js";
 import { surgeDrop, surgeHandCol, surgeJudge } from "./surge-seam.js";
 import type { Command } from "./types.js";
@@ -37,7 +37,7 @@ export function surgeLift(world: World, s: SurgeState, player: 1 | 2): void {
     s.liftTick = world.tick;
     return;
   }
-  const mutual = s.liftTick >= 0 && world.tick - s.liftTick <= ticksPerBeat(world.cfg);
+  const mutual = s.liftTick >= 0 && world.tick <= liftTogetherUntil(world.cfg, s.liftTick);
   s.liftTick = -1;
   surgeJudge(world, s, mutual);
 }

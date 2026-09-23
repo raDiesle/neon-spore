@@ -22,6 +22,41 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-a-wave-with-a-guide-opens-on-its-introduction-as
+
+- reading — 5 min. The entry, `sim/briefing.ts`, `guide-steps.ts`, the app's
+  `waves.ts` and every `startWave` caller, to find that every shipped guide
+  already skipped the introduction and only a guide with no pages did not.
+- writing — 5 min. `guidePassed` goes to the field for any guide, the
+  introduction's clock armed only when one stands, four tests re-cut, §1 of
+  `briefings.md` and `wave-intro.ts`'s header.
+- looking — 0 min. Nothing the game draws moved: every guided wave has pages.
+- friction — 15 min. `check:fast` took the machine down twice: one shard
+  process grew past 50 GB. Found by running the shard under a watchdog and
+  halving it — `surface-clear.test.ts` left the canvas stub's module-level log
+  pointing at its array, and `briefing.test.ts` in the same process appended
+  every path coordinate of thousands of frames to it. Fixed in
+  `canvas-stub.ts`, a commit of its own; `check:fast` now peaks at 4.5 GB.
+- landing — 5 min. `check:fast`, the commits, `land`.
+
+Bottleneck: friction — a test double's leak that only shows when two files
+share a shard, and each crash cost the session with it.
+
+## 2026-09-23 — queue-the-spools-brake-answers-no-thumb — the hands, half two
+
+- reading — 5 min. The bellows' and the hasp's grips and tests, `sim/spool-hand.ts`,
+  the drag's depth in `touch.ts`, and where the film and the rows already stood.
+- writing — 5 min. `spool-grip.ts`, `spoolPlaced` lifted out of the drawing,
+  the knob's travel cut to the reach, the cue page, the two wirings,
+  `spool-grip.test.ts`, §11.36, the rail row and two queue items.
+- looking — 0 min. One frame of the pilot's knob and its word.
+- friction — 0 min. `queue next`'s relative worktree path nested a tree inside
+  this session's own; removed, and the branch checked out in place.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — four registrations across four files, found by reading
+the last lane's diff rather than from any one list.
+
 ## 2026-09-23 — queue-the-hasps-picture-has-never-been-drawn — the hands, half two
 
 - reading — 5 min. `sim/hasp-hand.ts` for what each command may carry, the
@@ -17183,6 +17218,31 @@ written from THE HASP's shape in one pass, and the dozen places in
 suite rather than by any list the sim points at.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — pair-call — the second seat's clock on the other bosses
+
+THE INSTAR's *NAVIGATOR NOW / 2 BEATS LEFT* line, carried to every boss whose
+rule judges one seat's act against when the other acted: THE TASTER's pry,
+THE DIASTOLE's clamp, THE BATON's launched bead, THE SURGE's lift and THE
+BELLOWS' finale. Seven more were read and found with none, and are pinned
+silent.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | twelve boss simulations for a stored moment of one seat compared with the other's, and the cue readers that checked a subagent's reading |
+| writing | 10 | `pair-call.ts`, `liftTogetherUntil` shared by the two lifts, `instar-call.ts` onto the shared line, eleven tests, the skill's line |
+| looking | 5 | a frame of THE TASTER mid-pry |
+| friction | 30 | a second item claimed and released; the machine run out of memory twice by a shard past 13 GB — bisected under a watchdog to `surface-clear.test.ts` leaving the canvas stub's log set for `briefing.test.ts`'s frames; the same fix landed first from another lane, and this one's was dropped at the rebase |
+| landing | 5 | `bun run index` and its row, the 250-line ceiling, `check:fast`, this entry, the commit |
+
+**The bottleneck was a test leak, not the work**: two crashes and a bisection
+before the check could run at all. Before it, **the reading**: a coupling is a stored beat of one seat
+compared with the other's, and it only shows in the simulation, so every
+choreographed boss had to be opened — and a subagent's report that THE
+GORGE had one was wrong (its pry and its beam are both the navigator's), which
+only a second reading against the cue readers caught.
+
+*Measured: the rows above are the session's own estimate.*
 
 ## 2026-09-23 — the ratchet's picture — a rack that climbs and a lock that gives
 

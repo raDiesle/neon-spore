@@ -1,4 +1,4 @@
-import { clearPages, guideStepped, onReadyPage, toReadyPage } from "./guide-steps.js";
+import { clearPages, onReadyPage, toReadyPage } from "./guide-steps.js";
 import {
   clearReady,
   fillCircle,
@@ -34,10 +34,12 @@ export {
  *
  * **The guide comes first**, if the wave carries one, and ends on **the ready
  * gate**: each seat holds, its circle fills, it says READY when full, and the
- * guide passes when both are. Then **the introduction** — number, name,
- * sentence, plain text on the field — which stands a few seconds and passes on
- * its own. Then **the wave**. A wave with no guide gets the introduction and
- * plays: no circles where there was nothing to read.
+ * guide passes when both are — straight to **the wave**, because the gate's
+ * own page is the wave's number, name and sentence. **The introduction** —
+ * those three lines alone, plain text on the field, standing a few seconds and
+ * passing on their own — is for a wave with no guide, and for a wave gone
+ * again, which skips its guide: no circles where there was nothing to read,
+ * and never the same three lines twice.
  *
  * **That order is the owner's and it was the other way round first.** What
  * decided it is what each state is *for*: the introduction names the wave the
@@ -81,7 +83,7 @@ const ACK_BOTH = ACK_P1 | ACK_P2;
 export interface Briefings {
   /** Where in the opening this wave is — see `OPENING_PLAY` and its siblings. */
   phase: OpeningPhase;
-  /** Whether this wave carries a guide, which is where the introduction goes next. */
+  /** Whether this wave carries a guide, which is whether it opens on one. */
   guide: boolean;
   /** Which seats have acked the introduction — see `ACK_P1`. */
   ack: number;
@@ -196,13 +198,15 @@ export function ackBriefing(world: World, player: 1 | 2): void {
 }
 
 /**
- * The gate is crossed. A guide made of prose leaves the wave's own name still
- * to read; a stepped one does not, because its last page *was* the name and the
- * sentence with the ready button under them (`guide-steps.ts`).
+ * The gate is crossed, and the field starts. The gate's page *was* the wave's
+ * name and sentence, with the circles under them (`render/ready-page.ts`), so
+ * an introduction behind it would be the same three lines a second time — the
+ * owner, 20 September 2026: *not required and we showed it already.* That
+ * holds for a guide of any length, a guide with no pages but the gate included.
  */
 function guidePassed(world: World): void {
   const b = world.brief;
-  b.phase = guideStepped(world) ? OPENING_PLAY : OPENING_INTRO;
+  b.phase = OPENING_PLAY;
   b.ack = 0;
   clearPages(b);
   clearReady(b);

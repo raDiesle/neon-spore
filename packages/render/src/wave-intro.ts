@@ -13,10 +13,11 @@ import { wrapText } from "./wrap-text.js";
  * around text says "press me"; text on the field says "read this, it is about
  * to start".
  *
- * It stands in two places now. Alone, on a timer, for a wave whose guide is
- * prose or which has no guide at all; and on the last page of a stepped guide,
- * over the ready button, where it is what the pair says READY *to*
- * (`ready-page.ts`).
+ * It stands in one place or the other, never both. Alone, on a timer, for a
+ * wave with no guide or one gone again; or on the last page of a guide, over
+ * the ready circles, where it is what the pair says READY *to*
+ * (`ready-page.ts`) — and then the field follows the gate with no second
+ * showing (`sim/briefing.ts`).
  *
  * ## The drop
  *
