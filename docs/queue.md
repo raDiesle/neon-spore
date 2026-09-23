@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE GAUGE's words and buttons are the round's own, not the ship's
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-the-gauge-never-says-whether-the-call-caught-any (claim: claude/queue-the-gauges-words-and-buttons-are-the-rounds-own)
 - **Files:** `packages/render/src/gauge-title.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/slabs.ts`, `apps/game/src/gauge.ts`
 - **Where:** local
 
