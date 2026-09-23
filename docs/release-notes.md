@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 577d251e — new-boss's file table is its own page, and the skill is 235 lines
+
+`.claude/skills/new-boss/SKILL.md` stood at 249 lines, one under the ceiling `limits.test.ts` holds a skill to, so the next boss lane that added a rule would have turned `bun run check` red. §4's table of every file a field boss is a name in moves to `new-boss/registrations.md`, and §4 names it in one line.
+
 ## 2026-09-23 · 397271cd — A signalled check takes its test shards with it instead of orphaning them
 
 `check:fast` or `shard.ts` sent SIGTERM left its `bun test` children running under launchd, still holding their memory. Both runners now track what they spawn and pass SIGINT, SIGTERM or SIGHUP on to every child still running before they exit (`reap.ts`); a test signals a scratch runner over a sleeping child and finds the child gone.
