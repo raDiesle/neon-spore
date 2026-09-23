@@ -89,6 +89,7 @@ bun run reconcile      # bring main up to origin's copy by itself, without sendi
 bun run queue          # technical work waiting, who is already on what, and which entries are stale
 bun run queue status   # DONE, IDLE or BUSY — is anything still being worked on
 bun run queue next     # hand out the first free item: branch + Taken: on main
+bun run queue show <n> # print the prompt `next` would, claiming nothing
 bun run queue take <n> # the same claim, without opening a lane for it
 bun run queue release <n>  # give back an item that was handed out, not started
 bun run queue done "<title>"  # take an entry out once it has landed — never <n>

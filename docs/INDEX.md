@@ -2454,6 +2454,7 @@ by hand never moves.
 | `tools/queue/status.ts` | `bun run queue status` — DONE, IDLE or BUSY, and who is on what |
 | `tools/queue/skipped.ts` | **Why `next` stepped past a free entry**, counted for the listing's foot |
 | `tools/queue/spent.ts` | A claim a lane on this machine made, landed and walked away from |
+| `tools/queue/show.ts` | `bun run queue show <n|title>` — the prompt `next` prints, and nothing else |
 | `tools/queue/where.ts` | Which kind of session is running the queue, and which items it may take |
 | `tools/queue/problems.ts` | What makes an entry one a cold session could act on, and the refusal when it is not |
 | `tools/queue/prompt.ts` | The brief a fresh session reads before it opens a queue item — the branch, the size decision, the entry's body, and what to do when it is green |
@@ -2462,6 +2463,7 @@ by hand never moves.
 | `tools/queue/mark.ts` | The `Taken:` line's own text: what one says, and the two branches to read out of it |
 | `tools/queue/tree.ts` | Where this checkout is, and what refs it has |
 | `tools/queue/lapsed.ts` | A claim with nothing left holding it up |
+| `tools/queue/list.ts` | `bun run queue` with no command: every entry, who holds it, and what the owner is asked |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |

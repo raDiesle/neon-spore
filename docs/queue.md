@@ -523,26 +523,6 @@ by hand rather than handing over a whole renderer; if one does, it gets a
 `RenderState` and the fields it cares about, which is shorter than the object
 it builds today.
 
-## `queue next` run a second time claims a second item
-
-- **Found:** 2026-09-23, claude/queue-task-work-dd734e
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-queue-next-run-a-second-time-claims-a-second-ite)
-- **Files:** `tools/queue/run.ts`, `tools/queue/prompt.ts`
-
-`next` prints a prompt too long for a tool call's output, and the obvious way
-to read the rest is to run it again and page it — which claims the next
-free item, writes its `Taken:` line on `main` and pushes it, before the
-session has read a word of either. This lane did exactly that and had to
-`release` the second one, which is two commits on `origin/main` for nothing.
-
-There is no command that prints an item's prompt without claiming it. The
-work is a `bun run queue show <title>` that calls `promptFor` on a named
-item and changes nothing — the prompt already has everything it needs from
-the item and the refs — and a line in `next`'s own output naming it, so a
-session that lost the prompt reprints it rather than claiming again. A test
-in `tools/queue/test/` that `show` leaves the refs and `docs/queue.md`
-untouched proves it.
-
 ## THE SPOOL's guide has no film
 
 - **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb

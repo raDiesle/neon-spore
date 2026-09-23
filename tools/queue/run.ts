@@ -6,6 +6,8 @@
  * `bun run queue next` — hand the first free item to a session of its own,
  *   passing over one still waiting on the owner (`asking.ts`) and one waiting
  *   on another entry (`needs.ts`).
+ * `bun run queue show <n|title>` — print the prompt `next` would, claiming
+ *   nothing (`show.ts`).
  * `bun run queue take <n|title>` — mark an item ongoing without opening a lane.
  * `bun run queue release <n|title>` — give a handed-out item back.
  * `bun run queue done "<title>"` — take an entry out once it has landed. By
@@ -26,13 +28,12 @@
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
-import { answerTo, asksTag, waiting } from "./asking.js";
+import { waiting } from "./asking.js";
 import { branchFor, claimOn, heldElsewhere, refuseNumbered, unclaimed } from "./claim.js";
 import { clearTaken, removeItem } from "./edit.js";
-import { lapsed, lapsedLine } from "./lapsed.js";
-import { blocked, blockedBy, needsTag } from "./needs.js";
-import { problemsIn, refuseUnlessWhole } from "./problems.js";
-import { promptFor } from "./prompt.js";
+import { printList } from "./list.js";
+import { blocked } from "./needs.js";
+import { refuseUnlessWhole } from "./problems.js";
 import { type Item, match, order, parseItems, pick } from "./queue.js";
 import {
   alsoHere,
@@ -45,14 +46,12 @@ import {
   refs,
   trunkRef,
   trunkTaken,
-  trunkView,
   unmark,
 } from "./repo.js";
-import { skipLines } from "./skipped.js";
+import { briefFor, showItem } from "./show.js";
 import { spentHere } from "./spent.js";
-import { staleLine, staleness } from "./stale.js";
 import { statusLines, statusOf } from "./status.js";
-import { fits, offered, refuseUnlessFits, reservedTag, sessionKind } from "./where.js";
+import { fits, offered, refuseUnlessFits, sessionKind } from "./where.js";
 
 function load(): Item[] {
   const queue = parseItems(readFileSync(PATHS.queue, "utf8"), "queue");
@@ -68,56 +67,7 @@ const kind = sessionKind();
 const today = new Date().toISOString().slice(0, 10);
 
 if (!command || command === "list") {
-  if (items.length === 0) {
-    console.log("The queue is empty. Nothing is waiting.");
-  } else {
-    // Read once for the whole listing: the tree is two thousand paths.
-    const trunk = trunkView();
-    for (const [i, item] of items.entries()) {
-      const held = claimOn(item, known);
-      const parked = item.source === "parked" ? " (parked, half-done)" : "";
-      // The owner reads this list to find what is waiting on *them*, so the
-      // mark goes on the title line rather than under it (`asking.ts`).
-      const tag = `${asksTag(item)}${reservedTag(item)}${needsTag(item, items)}${parked}`;
-      console.log(`${String(i + 1).padStart(2)}. ${item.title}${tag}`);
-      console.log(`    ${item.found}`);
-      console.log(`    ${item.files.join(", ")}`);
-      if (item.asks) console.log(`    ${item.asks}`);
-      // The answer under the question, so a session sees what was decided
-      // without opening the file — it is the thing that makes the entry
-      // claimable again, and it is worth the line.
-      const answer = answerTo(item);
-      if (answer) console.log(`    ${answer}`);
-      if (held) console.log(`    taken — ${held}`);
-      // And under that, when every branch behind it is gone and the mark is
-      // old: the entry is still taken, and this is the sentence that gives it
-      // back (`lapsed.ts`). Nothing is released for it — a cloud session's
-      // live claim looks exactly like this from a local checkout.
-      const gone = held ? lapsed(item, known, today, trunkRef()) : undefined;
-      if (gone) console.log(`    ${lapsedLine(item, gone)}`);
-      // Said under the entry rather than in the count: the mark is for the
-      // session about to claim it, so it re-reads before it works (`stale.ts`).
-      const stale = staleLine(staleness(item, trunk), trunkRef());
-      if (stale) console.log(`    ${stale}`);
-    }
-    const free = unclaimed(items, known);
-    // Said as two numbers when they differ, so a session reading "3 free" in a
-    // sandbox does not go looking for the two it cannot have.
-    const here = free.filter((i) => fits(i, kind)).length;
-    const elsewhere = here === free.length ? "" : ` (${here} of them for a ${kind} session)`;
-    const taken = items.length - free.length;
-    console.log(`\n${items.length} in the queue, ${free.length} free${elsewhere}, ${taken} taken.`);
-    // The three reasons `next` steps past a free entry, counted (`skipped.ts`).
-    for (const line of skipLines(free, items)) console.log(line);
-    console.log("`bun run queue next` hands the first free one to a session of its own,");
-    console.log("`bun run queue take <n>` marks one ongoing without opening a lane,");
-    console.log('and `bun run queue done "<title>"` takes it out — by name, never by number.');
-  }
-  const problems = problemsIn(items);
-  if (problems.length > 0) {
-    console.log("\nEntries a cold session could not act on:");
-    for (const p of problems) console.log(`  - ${p}`);
-  }
+  printList(items, known, kind, today);
 } else if (command === "status") {
   for (const line of statusLines(statusOf(items, known, today, trunkRef()))) console.log(line);
 } else if (command === "next") {
@@ -148,15 +98,15 @@ if (!command || command === "list") {
     refuseUnlessFits(item, kind);
     refuseUnlessWhole(item);
     const branch = claim(item);
-    console.log(
-      `\n${promptFor(
-        item,
-        branch,
-        staleLine(staleness(item, trunkView()), trunkRef()),
-        blockedBy(item, items)?.title,
-      )}`,
-    );
+    console.log(`\n${briefFor(item, branch, items)}`);
+    // Said last, where a truncated read of this output ends: running `next`
+    // again to see the rest claims a second item (`show.ts`).
+    const again = `bun run queue show ${JSON.stringify(item.title)}`;
+    console.log(`\nLost the top of this? \`${again}\` reprints it and claims nothing.`);
   }
+} else if (command === "show") {
+  if (!arg) throw new Error("usage: bun run queue show <n|title>");
+  console.log(showItem(pick(items, arg), items, known));
 } else if (command === "take") {
   if (!arg) throw new Error("usage: bun run queue take <n|title>");
   const item = pick(items, arg);
@@ -235,6 +185,6 @@ if (!command || command === "list") {
   if (hasBranch(branchFor(item))) console.log(`         ${drop(branchFor(item)).note}`);
 } else {
   throw new Error(
-    `unknown command ${JSON.stringify(command)} — list | status | next | take | release | done`,
+    `unknown command ${JSON.stringify(command)} — list | status | next | show | take | release | done`,
   );
 }

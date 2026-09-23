@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-show
+
+- reading — 5 min. `run.ts`'s `next`, `prompt.ts`, `claim.ts` and how the
+  queue tests stand up a repository.
+- writing — 10 min. `show.ts` and `briefFor`, the listing moved to `list.ts`
+  to make room, and a test that runs the tool in a scratch copy.
+- looking — 0 min. Nothing is drawn.
+- friction — 0 min.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the size ceiling: `run.ts` stood at 240 lines, so the
+listing had to move out before `show` could go in.
+
 ## 2026-09-23 — queue-until-forward
 
 - reading — 5 min. `until.ts`, where `--until-back` is parsed and where
