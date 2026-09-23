@@ -515,29 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## The phone's furniture is read again on every one of a resize burst
-
-- **Found:** 2026-09-21, claude/queue-the-band-runs-to-the-screens-edges-where-the-pho
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-the-phones-furniture-is-read-again-on-every-one)
-- **Files:** `apps/game/src/safe-area.ts`, `apps/game/src/viewport.ts`
-- **Where:** local
-
-`measure()` calls `safeArea()`, and `safeArea()` calls `getComputedStyle` on
-the probe and reads a `padding` off it. Reading a resolved length forces the
-browser to flush style and layout there and then, synchronously, before the
-call returns — and `measure()` runs on every `resize`, on every
-`visualViewport` resize, and on every `ResizeObserver` callback. An address bar
-sliding away fires all three, dozens of times, each one a forced flush in the
-middle of a frame. It is paid whether the measurement is then used or thrown
-away by the freeze, because the read happens before either question is asked.
-
-The four numbers change on exactly two events — a rotation and the first
-layout — and on nothing else. So the inset wants to be read once and kept,
-refreshed on `orientationchange` and on the `ResizeObserver` the app already
-binds, with `measure()` reading the kept value. The proof is a test that counts
-`getComputedStyle` calls across a burst of resizes: the fake in
-`apps/game/test/viewport.test.ts` already stands one up and only has to count.
-
 ## `apps/game/src/main.ts` is at the 250-line ceiling exactly
 
 - **Found:** 2026-09-21, claude/queue-the-stage-is-sized-from-a-number-the-address-bar

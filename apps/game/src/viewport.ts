@@ -36,14 +36,17 @@ interface Viewport {
  *
  * Rounded, because the visual viewport is fractional under a pinch and the
  * renderer is sized in whole pixels.
+ *
+ * The inset is handed in, not read here: reading it forces a style and layout
+ * flush, and this runs on every event of an address bar's slide.
  */
-function measure(): Viewport {
+function measure(inset: Insets): Viewport {
   const seen = window.visualViewport;
   return {
     width: Math.round(seen?.width ?? window.innerWidth),
     height: Math.round(seen?.height ?? window.innerHeight),
     dpr: Math.min(window.devicePixelRatio || 1, 2),
-    inset: safeArea(),
+    inset,
   };
 }
 
@@ -149,9 +152,13 @@ export function bindViewport(
   run: RunState,
 ): Geometry {
   let viewport: Viewport = { width: 1, height: 1, dpr: 1, inset: NO_INSET };
+  // The phone's furniture moves on a rotation and the first layout only, so it
+  // is read then — `orientationchange`, the observer, a run's edge — and kept.
+  let inset = safeArea();
 
   const apply = (forced: boolean): void => {
-    const next = measure();
+    if (forced) inset = safeArea();
+    const next = measure(inset);
     // A zero-sized viewport happens for real: a hidden tab, and on a phone the
     // moment the address bar animates. Sizing the canvas to it once would leave
     // it at zero for good, because no further resize event need follow.
@@ -166,6 +173,10 @@ export function bindViewport(
   };
 
   const resize = (): void => apply(false);
+  const refresh = (): void => {
+    inset = safeArea();
+    apply(false);
+  };
 
   const stage = (): Stage => computeStage(viewport, cfg, role());
   const layout = (): Layout => {
@@ -178,7 +189,8 @@ export function bindViewport(
   // once it has stopped. Both are bound: a desktop window has no visual
   // viewport worth the name, and a phone fires both.
   window.visualViewport?.addEventListener("resize", resize);
-  new ResizeObserver(resize).observe(document.documentElement);
+  window.addEventListener("orientationchange", refresh);
+  new ResizeObserver(refresh).observe(document.documentElement);
   // Both edges. The wave opening takes the measurement it is then frozen at,
   // and the wave ending takes the one that was ignored while it ran.
   run.onChange(() => apply(true));

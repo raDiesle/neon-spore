@@ -18198,3 +18198,19 @@ The bottleneck was **none worth the name**: the entry named the fix, and
 `pickChrome` already took its candidates.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — The phone's furniture is read again on every one of a resize burst
+
+- reading — 5 min. `safe-area.ts`, `viewport.ts`'s binding, and the fake
+  window in its test.
+- writing — 10 min. The inset kept in `bindViewport` and read again on
+  `orientationchange`, the observer and a run's edge; the fake counts its
+  reads and tells a `resize` from a rotation; the test file split in three
+  when it passed 250 lines.
+- looking — 0 min. Nothing drawn.
+- friction — 0 min. None.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the fake window**: it fired every listener for every
+change, so a resize and a rotation could not be told apart until it learned
+the event's type.
