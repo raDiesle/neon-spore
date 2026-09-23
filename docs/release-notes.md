@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 16bae115 — THE LURE's frame says IGNORE
+
+The white frame round a lure on Player 2's screen now reads IGNORE instead of DO NOT SHOOT. The owner asked for this word on 20 September 2026, which is the look exemption used here. The creature's blurb, the director's brush note and THE LURE's guide line now say the same word.
+
 ## 2026-09-23 · f22b00e8 — `docs/style-guide.md` says how an asset gets made once
 
 The section appeared twice, back to back. The first copy is gone and the second, with the tighter step 4, stays.
