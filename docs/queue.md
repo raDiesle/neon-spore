@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE LURE's corner frame says DO NOT SHOOT where the owner wants IGNORE
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-docs-style-guide-md-carries-how-an-asset-gets-ma (claim: claude/queue-the-lures-corner-frame-says-do-not-shoot-where-t)
 - **Files:** `packages/render/src/lure-alarm.ts`, `packages/content/src/creatures-worn.ts`, `tools/director/src/brush-cards.ts`
 
 The owner, 20 September 2026: *"Lure" enemy help text: say "Ignore" instead of
