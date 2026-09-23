@@ -109,8 +109,7 @@ function pressed(boss: PulseState, world: World, seat: 1 | 2, lane: number): num
  * Drawn even when the round is not the one running, which is the same rule
  * every other control on the band is drawn under: the picture and the hit test
  * read the same `bandLobes` call, and a button answered but not drawn is the
- * same defect as a button drawn but not answered (`slabs.ts` says it at
- * length). A wave played on this panel with no PULSE behind it — the director
+ * same defect as a button drawn but not answered. A wave played on this panel with no PULSE behind it — the director
  * looking at the set — gets the four bodies resting.
  */
 export function drawPulseLobe(

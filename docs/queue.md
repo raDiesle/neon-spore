@@ -481,23 +481,6 @@ table rows in the skill to say the menu's job names are the one exception.
 The card's tag already reads P1 or P2, which is the argument for keeping a
 job name beside it.
 
-## The slab panel form has no user and goes
-
-- **Found:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own
-- **Taken:** 2026-09-23, claude/task-queue-work-7ae87c (claim: claude/queue-the-slab-panel-form-has-no-user-and-goes)
-- **Files:** `packages/render/src/slabs.ts`, `packages/content/src/controls.ts`, `packages/content/src/control-sets.ts`, `packages/content/src/index.ts`, `packages/render/src/index.ts`, `packages/render/src/guide-thumb.ts`, `packages/render/src/caption-anchor.ts`, `apps/game/src/menu-controls.ts`, `packages/content/src/control-sender.ts`, `packages/render/src/band-lobes.ts`, `packages/content/test/control-sets.test.ts`
-
-THE GAUGE's three were the last controls with `form: "slab"`; they are lobes
-since 23 September 2026. What is left is machinery for a panel nothing
-draws: `PanelForm`/`panelForm` and the `"slab"` member of `ControlDef.form`,
-`slabs.ts` and its exports, the slab branches in `guide-thumb.ts` and
-`caption-anchor.ts`, the `A SLAB` line of the controls page
-(`menu-controls.ts` near line 177, and `apps/game/test/controls-page.test.ts`
-line 79), and the comments in `control-sender.ts` and `band-lobes.ts` that
-name it. `control-sets.test.ts` holds, for now, that every set is a band;
-that describe goes with `panelForm`. *Slab* as a word for a drawn shape
-(`nav-slab.ts`, the shell plates) is not this and stays.
-
 ## THE GAUGE stands on the ship's real hull
 
 - **Found:** 2026-09-23, claude/queue-the-gauges-words-and-buttons-are-the-rounds-own

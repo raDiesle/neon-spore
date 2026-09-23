@@ -850,12 +850,6 @@ body[data-motion="off"] #menu .entry {
   letter-spacing: 0.04em;
   color: var(--ink-soft);
 }
-#menu .panel .form {
-  margin: 6px 0 0;
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  color: var(--ink-faint);
-}
 #menu .panel .seat-half {
   display: grid;
   grid-template-columns: 30px 1fr;

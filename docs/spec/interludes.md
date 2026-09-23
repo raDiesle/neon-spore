@@ -343,8 +343,8 @@ own to answer them.
 Every round has moved off slabs at the owner's request, THE GAUGE last on 23
 September 2026, and the owner's rule is what is left: a round is free to take
 the field away, and not free to invent a second kind of button while it is
-there. The slab machinery — `panelForm`, `slabs.ts` — has no user now and is
-in [the queue](../queue.md) to go.
+there. The slab machinery — `panelForm`, `slabs.ts` — went the same day, with
+nothing left using it.
 
 Two screens showing the same controls would be the field with a different sprite
 on it. In THE GAUGE, `showsGaugeMarks` and `showsGaugeValve` are what make them

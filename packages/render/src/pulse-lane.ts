@@ -12,7 +12,7 @@ import { pulseLobeIds } from "./pulse-button.js";
  * cannot read. `bandLobes` already answers where a lobe is, and it is the same
  * call the band's draw, the game's hit test and the director's all make — so
  * this takes the x of each and nothing works anything out twice. That is the
- * bug THE GAUGE shipped with once, one level up (`slabs.ts`).
+ * bug THE GAUGE shipped with once, one level up, when its buttons were slabs.
  *
  * **A lane ends at the ship's own skin, and every one of them ends somewhere
  * different.** The placeholders are sunk into the hull — the owner's picture,

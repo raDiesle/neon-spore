@@ -59,26 +59,16 @@ export type ControlId =
   | "crank"
   | "mawTake";
 
-/**
- * What a whole panel *is*, rather than what is on it.
- *
- * `band` is the field's: a strip that snaps to a column and lobes beside it,
- * drawn under a grid the pair is playing. `slabs` is a round's: the band is
- * not there at all and the seat's own buttons are squared off against its
- * share of the width. Never a field of a `ControlSet` — `panelForm` reads it
- * off the controls, so the two can never disagree.
- */
-export type PanelForm = "band" | "slabs";
-
 export interface ControlDef {
   id: ControlId;
   /** Whose half of the band it is drawn in. The split is never crossed. */
   player: 1 | 2;
   /**
-   * A strip snaps to a column across the width; a lobe is a round button; a
-   * slab is neither, and is what a round's panel is made of — see `PanelForm`.
+   * A strip snaps to a column across the width; a lobe is a round button.
+   * Every panel is a band of the two — the rounds' slabs, which replaced the
+   * band, went when THE GAUGE's three became lobes (23 September 2026).
    */
-  form: "strip" | "lobe" | "slab";
+  form: "strip" | "lobe";
   /** What the panel says, or would say — the fire lobes are named by colour. */
   label: string;
   /** One line, for somebody reading a list of panels rather than the code. */
@@ -90,7 +80,7 @@ export interface ControlDef {
    * (`render/src/touch-ship.ts`): the cannon carries itself, the maw on a lift
    * that went nowhere, and — on player 2's screen — a colour on a lift that
    * went sideways; the plate carries its own aim and the other seat's trigger.
-   * A round's own slabs are a panel and nothing else. The muzzle's swipe is a
+   * The muzzle's swipe is a
    * tap and only a tap: a hold on the hull has no lobe to draw a fill round,
    * so the lance is the band's and the ship's way in stays the quick one.
    *

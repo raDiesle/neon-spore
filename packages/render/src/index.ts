@@ -151,7 +151,6 @@ export { type Fracture, type Shard, shatter } from "./shatter.js";
 export { type Fall, type ShardPose, shardAt } from "./shatter-fall.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
 export { sirenCentre } from "./siren.js";
-export { hitSlab, type Slab, slabFor, slabPanel } from "./slabs.js";
 export { type Arena, showsSnakeBody, showsSnakeFood, snakeArena } from "./snake-draw.js";
 export { drawSnakeRound } from "./snake-round.js";
 export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";

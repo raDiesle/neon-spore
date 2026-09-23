@@ -76,7 +76,7 @@ describe("the controls page", () => {
   });
 
   it("names every shape a thumb meets on a panel", () => {
-    for (const form of ["THE BAND", "A STRIP", "A LOBE", "A SLAB"]) {
+    for (const form of ["THE BAND", "A STRIP", "A LOBE"]) {
       expect(src, `the phone's half never says "${form}"`).toContain(form);
     }
   });

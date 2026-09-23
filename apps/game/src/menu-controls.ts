@@ -5,7 +5,6 @@ import {
   deskKeys,
   heldBack,
   keyLabel,
-  panelForm,
   setControls,
 } from "@neon-spore/content";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
@@ -51,10 +50,6 @@ const PHONE: [string, string][] = [
   [
     "A LOBE",
     "A round button beside the strip. A tap, and it is over the moment it happens — except the two colours, which are held as well: a thumb that stays on one fills the cannon lobe, and at the top of the fill a lance goes by itself.",
-  ],
-  [
-    "A SLAB",
-    "A round's own button, squared off across the seat's width with the band gone. THE GAUGE's two and PINBALL's bucket are held; the rest are taps.",
   ],
   [
     "THE FIELD",
@@ -174,7 +169,6 @@ function rows(list: [string, string][]): HTMLElement {
 function panelBlock(set: ControlSet): HTMLElement {
   const block = el("div", "panel");
   block.append(el("h3", undefined, set.name), el("p", "why", set.why));
-  block.append(el("p", "form", panelForm(set) === "band" ? "A BAND" : "SLABS"));
   // A rung of the standard ladder says what it is holding back. It is not an
   // exception to the rule above it: a rung is a whole panel like any other,
   // and what this line adds is that the buttons it has not got still have

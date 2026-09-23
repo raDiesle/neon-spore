@@ -22,6 +22,16 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — the slab panel form goes
+
+- reading — 10 min. Every `slab` in the tree, to part the panel form from the drawn shape and the ghost's bands.
+- writing — 10 min. `slabs.ts` deleted, two branches, `panelForm`, the controls page's lines and eight comments.
+- looking — 0 min.
+- friction — 5 min. Took `rx` off a caption anchor on one grep's word; eight other anchors set it, and it went back.
+- landing — 10 min. `check:fast`, the commit, `land`.
+
+The bottleneck was reading: *slab* names three different things in this tree, and only one of them was going.
+
 ## 2026-09-23 — `drawOnShip` takes `RenderState`
 
 - reading — 5 min. The pass, its one caller and `RenderState`'s fields.

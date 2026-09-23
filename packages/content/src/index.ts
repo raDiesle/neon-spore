@@ -24,7 +24,6 @@ export {
   groupsCoveredBy,
   heldBack,
   layoutSet,
-  panelForm,
   panelSends,
   setControls,
   setHas,
@@ -36,7 +35,6 @@ export {
   type ControlDef,
   type ControlId,
   control,
-  type PanelForm,
 } from "./controls.js";
 export {
   authorsBodyColor,

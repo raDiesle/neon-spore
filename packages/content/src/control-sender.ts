@@ -20,7 +20,7 @@ import type { ControlId } from "./controls.js";
  * re-derivation `packages/sim/test/purity.test.ts` keeps a table against.
  *
  * **Nothing here knows about panels.** A caller asks about the controls it has
- * drawn — `bandLobes` for a band, `slabPanel` for a round — and a command no
+ * drawn — `bandLobes` — and a command no
  * control of theirs sent gets no answer at all, which is the honest one: a
  * swipe on the hull and a drag on a boss are presses with no button.
  */

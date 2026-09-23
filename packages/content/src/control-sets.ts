@@ -1,5 +1,5 @@
 import { CONTROL_SETS } from "./control-sets-table.js";
-import { type ControlDef, type ControlId, control, type PanelForm } from "./controls.js";
+import { type ControlDef, type ControlId, control } from "./controls.js";
 
 // And the one question a *creature* asks of a panel, cut out when THE SCOUT's
 // id took this file over the limit (`control-sets-groups.ts`).
@@ -37,23 +37,12 @@ export { controlSetForWave, firstOnPanel, wavesUsingSet } from "./control-sets-w
  * *picture of*, so that the buttons it carries can be drawn in the places they
  * will keep. See `control-sets-table.ts`, which is where the rungs live.
  *
- * **A set is not always a band, and `gauge` is the proof.** THE GAUGE's panel
- * used to be built by hand in render/, outside this file, on the ground that
- * the thing reaching for it was a *round* and not a wave. It is a wave now, so
- * that objection is gone and the set is registered like any other — but its
- * three controls are not strips and lobes, they are **slabs**: they replace the
- * band instead of sitting in it, they are laid out by dividing a seat's width
- * by however many that seat has, and a seat with one gets one wide button
- * rather than a gap where two others used to be.
- *
- * So a set carries a `PanelForm`, and it is **derived from the controls rather
- * than declared beside them** (`panelForm`). That is the whole boundary, and it
- * is one function: the field's own sets say nothing new and never learn the
- * word, a round's set is a slab panel by virtue of what is in it, and a set
- * that mixed the two would be a panel nobody could draw — so it throws, and
- * `test/control-sets.test.ts` is what makes that a failure rather than an
- * opinion. The eleven rounds still to come cost one `ControlDef` per button
- * and one entry in `CONTROL_SETS`; none of them re-invents a panel.
+ * **Every set is a band.** THE GAUGE's panel used to be the exception — built
+ * by hand in render/, then registered here as a panel of *slabs* that replaced
+ * the band instead of sitting in it. Its three are lobes since 23 September
+ * 2026, and the slab form went with them, so a round's set is registered like
+ * any other: one `ControlDef` per button and one entry in `CONTROL_SETS`, and
+ * no panel re-invented.
  *
  * **The snake is one now, and it is what the shape above was for.** This
  * header used to say there was no snake, and it was right at the time: nothing
@@ -61,8 +50,8 @@ export { controlSetForWave, firstOnPanel, wavesUsingSet } from "./control-sets-w
  * pupil slides a column a beat and THE VANE's arm sweeps the top row, but both
  * are things the pair *reads*, answered with the ordinary panel and a hand on
  * the field. `snake` is the first set where a control moves a body, and it
- * cost exactly what the paragraph above promised the eleven rounds would cost:
- * four `ControlDef`s and one entry, and no panel re-invented.
+ * cost exactly what the paragraph above promises: four `ControlDef`s and one
+ * entry.
  *
  * The only boss that touches the controls without a set of its own is still
  * THE MIRROR, and what it does is take all of them away for a few beats
@@ -72,8 +61,7 @@ export { controlSetForWave, firstOnPanel, wavesUsingSet } from "./control-sets-w
  * **`scene` is the empty set by wave**, and it is the first: THE INSTAR has
  * no panel because its body is the panel — every gesture it asks for is a
  * mark drawn on the boss itself and answered where it stands (`sim/instar.ts`).
- * An empty list of controls is a band with nothing on it, which `panelForm`
- * already answers, and the one test that wanted every seat to hold something
+ * An empty list of controls is a band with nothing on it, and the one test that wanted every seat to hold something
  * names this set as the exception it is (`test/control-sets.test.ts`).
  */
 
@@ -139,22 +127,6 @@ export interface ControlSet {
   lance?: false;
 }
 
-/**
- * Which kind of panel a set is, read off the controls in it.
- *
- * Derived rather than declared, because a declaration is a second copy of
- * something already written down and two copies drift. A set that mixed a slab
- * with a strip has no drawing — the slab panel replaces the band the strip
- * lives in — so it is not a panel with a mistake in it, it is not a panel, and
- * this throws rather than picking one.
- */
-export function panelForm(set: ControlSet): PanelForm {
-  const forms = new Set(set.controls.map((id) => control(id).form));
-  const slabs = forms.has("slab");
-  if (slabs && forms.size > 1) throw new Error(`control set ${set.id} mixes slabs with a band`);
-  return slabs ? "slabs" : "band";
-}
-
 /** What a wave gets when it names nothing at all. */
 export const DEFAULT_CONTROL_SET_ID: ControlSetId = "default";
 
@@ -183,9 +155,8 @@ export function setHas(set: ControlSet, id: ControlId): boolean {
  * it — three callers, one answer.
  *
  * **A panel with no colour on it never has the hold**, declared or not, and
- * that half is derived for `panelForm`'s reason: the gesture rides the two
- * colour buttons, so a round that replaced the band with slabs has nowhere to
- * put a thumb. Authoring `lance: false` on THE GAUGE would have been a second
+ * that half is derived rather than declared: the gesture rides the two colour
+ * buttons, so a panel without them has nowhere to put a thumb. Authoring `lance: false` on THE GAUGE would have been a second
  * copy of something the controls already say.
  */
 export function setLance(set: ControlSet): boolean {

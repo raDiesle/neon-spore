@@ -33,8 +33,8 @@ import type { ViewRole } from "./layout.js";
  *
  * A role predicate in render/ for the same reason `showsQueenHint` is: the
  * information split is a fact about a *screen*, not about the world. It is not
- * the same question as which buttons a seat has — that is the control set's,
- * and `slabs.ts` answers it — and keeping the two apart is what lets a later
+ * the same question as which buttons a seat has — that is the control set's
+ * — and keeping the two apart is what lets a later
  * round hand one seat information without also handing it a verb.
  */
 export const showsGaugeMarks = (role: ViewRole): boolean => role !== "p1";

@@ -10,7 +10,6 @@ import { bandLobes, type Layout, tileCX } from "./layout.js";
 import { podCenter } from "./pods.js";
 import { queenMarksBox } from "./queen-figure.js";
 import { radarBlips } from "./radar-blip.js";
-import { slabFor, slabPanel } from "./slabs.js";
 import { shipCircle } from "./touch-ship.js";
 
 /**
@@ -26,7 +25,7 @@ import { shipCircle } from "./touch-ship.js";
  *
  * **Nothing here is placed by coordinate.** Every one of them asks the file
  * that owns the thing: `creature-place.ts` for a body, `layout.ts` for a lobe
- * or a strip, `slabs.ts` for a round's button, `pods.ts` for a pod,
+ * or a strip, `pods.ts` for a pod,
  * `radar-blip.ts` for a mark on the warning strip, `touch-ship.ts` for the
  * swelling a control is reached through, `hud.ts` for the bar. So a caption
  * cannot come off its subject when the layout changes, which is the same rule
@@ -141,20 +140,6 @@ export function anchorPoint(
   }
   if (anchor.at === "control") {
     const def = control(anchor.control);
-    if (def.form === "slab") {
-      // A round's own panel: no band, no strip, a grid of squares instead
-      // (`slabs.ts`). The ring goes round the whole button rather than round a
-      // circle inside it, because a slab has no circle in it.
-      const slab = slabFor(slabPanel(l, set, l.role), anchor.control);
-      if (!slab) return null;
-      return {
-        x: slab.x + slab.w / 2,
-        y: slab.y + slab.h / 2,
-        r: slab.h / 2,
-        rx: slab.w / 2,
-        clear: CLEAR_STRIP,
-      };
-    }
     if (def.form === "lobe") {
       const lobe = bandLobes(l, set, def.player).find((b) => b.control.id === anchor.control);
       return lobe ? { x: lobe.circle.x, y: lobe.circle.y, r: lobe.circle.r, clear: CLEAR } : null;

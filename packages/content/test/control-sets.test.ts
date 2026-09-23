@@ -9,7 +9,6 @@ import {
   groupsCoveredBy,
   heldBack,
   layoutSet,
-  panelForm,
   panelSends,
   setControls,
   setHas,
@@ -83,8 +82,8 @@ describe("control sets", () => {
 
   it("gives no panel without both colours a hold at all, declared or not", () => {
     // Derived rather than authored: the gesture rides the two colour buttons,
-    // so a round that replaced the band with slabs has nowhere to put a thumb
-    // and `lance: false` on it would restate its own control list.
+    // so a panel without them has nowhere to put a thumb and `lance: false`
+    // on it would restate its own control list.
     for (const set of CONTROL_SETS) {
       if (setHas(set, "fireRed") && setHas(set, "fireCyan")) continue;
       expect(setLance(set), `${set.id} fills a lobe it has not got`).toBe(false);
@@ -154,24 +153,6 @@ describe("control sets", () => {
 
   it("refuses a set nobody defined", () => {
     expect(() => controlSet("nonsense" as ControlSetId)).toThrow();
-  });
-});
-
-/**
- * The other kind of panel, and it has no user left. A round used to replace
- * the band with slabs; THE GAUGE was the last, and its three are lobes since
- * 23 September 2026. Until `panelForm` and the slab form are deleted (the
- * queue), this holds that nothing has quietly gone back to them — a round
- * with a panel of slabs would draw no band and answer no lobe.
- */
-describe("a panel of slabs", () => {
-  it("is what no set is any more, the rounds included", () => {
-    for (const set of CONTROL_SETS) expect(panelForm(set), set.id).toBe("band");
-    const rounds = WAVES.filter((w) => w.boss?.kind === "gauge");
-    expect(rounds.length).toBeGreaterThan(0);
-    for (const w of rounds) {
-      expect(panelForm(controlSetForWave(WAVES.indexOf(w))), w.name).toBe("band");
-    }
   });
 });
 

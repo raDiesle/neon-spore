@@ -503,7 +503,8 @@ in it: a set of slabs is a panel that replaces the band, a set of strips and
 lobes is a band, and a set that mixed them is not a panel and throws. The
 field's own sets learned nothing. One layout function answers the draw, the
 game's hit test and the director's, so a control is never drawn where it is not
-answered.
+answered. *(23 September 2026: every round has moved to lobes, and `panelForm`
+and the slab form are gone — every set is a band.)*
 
 **And one rule was retired by name: the pair can lose the run in here.** The
 old sentence was "a run ends on the field, on a hull that reached zero, in the
