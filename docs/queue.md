@@ -578,6 +578,7 @@ the caller rather than as a rule.
 ## No frame of THE SCOUT can be taken with a mote aboard
 
 - **Found:** 2026-09-22, claude/queue-the-scouts-two-handles-are-heard-and-drawn-nowhere
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-no-frame-of-the-scout-can-be-taken-with-a-mote-a)
 - **Files:** `tools/frames/press.ts`, `tools/frames/press-command.ts`, `tools/frames/boss-install.ts`
 - **Where:** local
 
