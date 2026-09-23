@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · ecdaa723 — A shot off zero shuts THE COUNT for three beats instead of losing the wave
+
+A shot that meets THE COUNT off zero, or in the wrong colour on zero, no longer breaks the hull: the body goes grey and refuses every shot for `countdownShutBeats` (three), through the same wrong-colour window every ordinary body has, and it goes on counting and falling. The owner, 20
+
 ## 2026-09-23 · 6ea7b39b — check:fast runs the style guide, breaks and raster tests for a render change
 
 These three tools import `@neon-spore/render`, but the render row in `tools/hooks/scope.ts` did not name them. So a new PALETTE entry passed `check:fast` and failed only in `bun run land`, on the style guide's rule that every colour is filed on the sheet.

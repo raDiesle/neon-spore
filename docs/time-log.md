@@ -17525,3 +17525,5 @@ was correct on paper and said nothing, and a frame was the only thing that caugh
 The bottleneck was **the sentences**: the rule was a dozen lines, but the wave,
 the mechanic, the creature, the bestiary, the director and decision #29 each
 said the old price in their own words.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
