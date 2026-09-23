@@ -518,6 +518,7 @@ question that prompted this one.
 ## A before/after cannot be sent as one picture
 
 - **Found:** 2026-09-21, claude/queue-two-bosses-lift-a-cue-by-hand-where-the-rule-now
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-before-after-cannot-be-sent-as-one-picture)
 - **Files:** `tools/frames/crop-png.ts`, `tools/frames/picture.ts`, `docs/commands.md`
 - **Where:** local
 
