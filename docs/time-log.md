@@ -17113,3 +17113,4 @@ The bottleneck was **a test that had to learn what the picture shares**: the
 winding turns by the line's absolute run, so the navigator's zone could only
 be isolated by moving the target, and that was only found by a red frame.
 
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

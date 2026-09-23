@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · ea761f18 — Hang THE SPOOL across the top, its line running at the brake's speed
+
+THE SPOOL's body, half one of its look lane: a rock-grey casing with four ribs round a winding of the ship's violet line, run down to the hull. The two paying poses differ only in how fast the line visibly moves — the dashes and the winding's wraps both turn off one number — and no number or colour ever marks the zone. A rib eases up and away and leaves a groove; the slack spool turns a flange to face the ship and drifts off the top. The pilot alone sees his brake, the navigator alone her gauge. The hands — the rail's hit test, the cue word, the film — are the queue's next item.
+
 ## 2026-09-23 · 3056c13c — Keep THE INSTAR's together window at two beats for every pose
 
 The owner's answer of 20 September 2026 — "For the moment keep simple" — is now written where the next person would widen it: beside instarTogetherBeats in config-instar.ts and in the §16 rule of bosses-choreographed.md. The window stays one figure for every pose and no step names its own. The half of the entry that was the real difficulty, the picture never saying this clock was running, landed on 20 September as the WAITING ring and the "NOW · BEATS LEFT" line.
