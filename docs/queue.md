@@ -518,6 +518,7 @@ question that prompted this one.
 ## The controls answer nothing while the introduction stands
 
 - **Found:** 2026-09-20, claude/wave-tutorial-enemy-mechanics-3fd452
+- **Taken:** 2026-09-23, claude/queue-a-peers-message-that-arrives-before-this-devices (claim: claude/queue-the-controls-answer-nothing-while-the-introducti)
 - **Files:** `packages/sim/src/step.ts`, `packages/sim/src/briefing.ts`, `apps/game/src/field-input.ts`
 - **Where:** local
 
