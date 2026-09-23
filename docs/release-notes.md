@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 0572da18 — `bun run index` refreshes a row whose file's header changed
+
+The generator only ever added rows, so a file whose header was rewritten went on being described by the header it used to have. A row that is exactly the generator's sentence for the file as it stood at the merge base with `main`, or at `HEAD`, now follows the header; a row anyone wrote by hand — 792 of the 2,558 — never moves. `index.ts`'s document-shape half moved to `doc.ts`.
+
 ## 2026-09-23 · c561b89f — A press anywhere along a filmstrip is heard, not refused
 
 `--press` with `--frames N --stride S` refused any press after `--ticks`, even one the strip's later frames were still watching, and the strides between frames stepped with no presses at all. Each frame now gets the presses in its own stride (`pressesByFrame`, `strideOn`), and the guard refuses only a press after the last frame, naming the tick that frame is on.
