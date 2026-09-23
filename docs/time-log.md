@@ -18407,3 +18407,5 @@ it, and only a probe of the run found where each one had to go.
 
 The bottleneck was **the picture**: the fix is one expression, and the only
 state it changes is one the frames tool cannot reach.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

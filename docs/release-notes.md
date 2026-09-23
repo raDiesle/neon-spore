@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 5fe170e8 — SNAKE's MAW button goes dark once the jaws stick
+
+Past `snakeGorgeTiles` the MAW press is refused, and the mouth is prised open on the neck instead. Until now the button still lit amber whenever the mouth stood open. Now the head on the button still shows the gape, but the halo and the fill that say press me come only while the press is heard (`snakeMawLit`).
+
 ## 2026-09-23 · e2f08e3e — THE HIVE's rehearsal shows Player 2 wringing a lobe
 
 The fifth site is wrung: Player 2's ghost thumb holds column 2's swell from beat 33 until it opens, so it opens with no colour and the cyan shot seals a red site. The wring wakes the mass, so it spills on the spot and a red shot clears it. Every act after it was traced again, the twins and the haul included. A seat-2 `hiveLobe` drag aims at the next site (`scene-aim.ts`), and her ghost thumb follows the pinched lobe (`hivePinchCircle`).
