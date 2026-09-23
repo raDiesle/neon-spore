@@ -25,9 +25,9 @@ export const WAVES_ACT_3B: Wave[] = [
     name: "THE VANE",
     sentence: "The one where the column you were told is never the column it lands in.",
     guide: {
-      both: "The arm at the top folds every rock to its other side. Ward and shoot where things land, not where they were aimed. The bearing asks for a new hand as its pins go.",
-      p1: "1. Read the column off your strip.\n2. Fold it across the arm's column before you say it.\n3. Say it and slide there early.\n4. Third pin on: the ends stop opening. Hold a thumb on the arm and say where it stopped.",
-      p2: "1. Count the column from the arm, not from the edge.\n2. Say the folded column and the colour early.\n3. Move the plate there before it lands.\n4. Last pin: drag the housing off the held arm first, then fire.",
+      both: "The arm folds every rock to its other side. Aim the shield and the shot where things land. The bearing asks for a new hand as its pins go.",
+      p1: "1. Read the column off your strip.\n2. Fold it across the arm's column before you say it.\n3. Say it and slide there early.\n4. Third pin on: the ends stop opening. Hold the arm and say where it stopped.",
+      p2: "1. Count the column from the arm, not from the edge.\n2. Say the folded column and the colour early.\n3. Move the shield there before it lands.\n4. Last pin: drag the housing off the held arm first, then fire.",
       scene: "theVane",
     },
     entries: [
@@ -46,9 +46,9 @@ export const WAVES_ACT_3B: Wave[] = [
     sentence:
       "The one where three of the same colour arrive in one column and one shot takes all three.",
     guide: {
-      both: "The panel is the one you have always had. What is new is that the colours are held as well as tapped: a thumb that stays on one fills the cannon lobe, and at the top of the fill the beam burns the whole column — every body of that colour standing in it, at once. Nothing is fired and nothing travels.",
-      p1: "Get under the column and then do not move. The lobe fills while the cannon stands still, and sliding a column drops the fill back to nothing.",
-      p2: "Hold the colour they are all in instead of tapping it, and keep holding until the column lights. Let go early and it is an ordinary shot and takes one.",
+      both: "Hold a colour instead of tapping it, and the cannon lobe fills. When it is full, the beam burns every body of that colour in the column. Nothing travels.",
+      p1: "1. Get under the column, then do not move.\n2. The lobe fills only while the cannon stands still.\n3. Sliding a column empties it.",
+      p2: "1. Hold the colour they are all in. Do not tap it.\n2. Keep holding until the column lights.\n3. Let go early and it is an ordinary shot. It takes one.",
       scene: "theLance",
     },
     entries: [
@@ -63,9 +63,9 @@ export const WAVES_ACT_3B: Wave[] = [
   {
     id: "thePurge",
     name: "THE PURGE",
-    sentence: "The one where the field is cleared by swallowing, not by shooting.",
+    sentence: "The one where you clear the field by swallowing, not by shooting.",
     guide: {
-      both: "A pod again, and this time the field is full when it comes loose: taking it in clears everything that is falling.",
+      both: "A pod again, and this time the field is full when it comes loose. Taking it in clears everything falling.",
       p1: "Hold it for the beat that is about to go wrong, not for the one that already has.",
       p2: "Freeing it is still a shot, and a shot spent here is a creature still coming.",
       scene: "thePurge",
@@ -82,9 +82,9 @@ export const WAVES_ACT_3B: Wave[] = [
     name: "THE WARD",
     sentence: "The one where the shield answers four rocks untriggered and the fifth on its own.",
     guide: {
-      both: "This pod holds the shield armed for six beats with no trigger at all — and the rocks that come with it are quicker than any you have met: three rows a beat, then four, then five.",
-      p1: "Your trigger is free while it lasts, so spend the hand on something else. Call each rock from your strip the moment it appears — by the time it is on the field it is nearly here.",
-      p2: "Armed is not aimed: the column is still yours to be standing in. Park the shield where the rock is going, not where it is — one slide, no correction.",
+      both: "This pod arms the shield for six beats with no trigger. Its rocks are the fastest yet: three rows a beat, then four, then five.",
+      p1: "1. Your trigger is free while it lasts. Spend the hand on something else.\n2. Call each rock from your strip the moment it appears.\n3. Once it is on the field, it is nearly here.",
+      p2: "1. Armed is not aimed. The column is still yours to stand in.\n2. Park the shield where the rock is going, not where it is.\n3. One slide, no correction.",
       scene: "theWard",
     },
     entries: [

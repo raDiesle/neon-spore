@@ -101,8 +101,9 @@ what a hand does instead — **put the shield under it**, **move the shield
 there**, **trigger the shield**. Reach for one of those three before inventing
 a fourth. `guard` stays as the control's id in the code and reaches no screen.
 
-**Sixty-six lines still say ward, plate or guard**, in acts 2 and up and in
-the mechanics blurbs. They are a `docs/queue.md` entry of their own, which is
+**Forty-seven lines still say ward, plate or guard** (23 September 2026), in
+acts 4 and up and in the mechanics blurbs. A plate that is a boss's own armour
+is not the shield: THE WARDEN's rim says *piece*. They are a `docs/queue.md` entry of their own, which is
 why `CEILING` went up rather than down on the day this row was added — the one
 thing that may raise it.
 

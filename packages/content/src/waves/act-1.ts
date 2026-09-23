@@ -31,9 +31,9 @@ export const WAVES_ACT_1: Wave[] = [
     name: "FIRST STEP",
     sentence: "The one where you only have to be in the right column.",
     guide: {
-      both: "One ship, two screens — and the two screens do not show the same thing. What is coming is on one of them; the control that answers it is on the other. This first one is flat, wide and always red.",
-      p1: "Yours is the cannon, the shield's trigger and the maw. Slide your strip until the cannon stands in its column, and say which column.",
-      p2: "Yours is the shield itself, and the two colours. Press red — nothing leaves the hull until you do.",
+      both: "One ship, two screens, and they show different things. One shows what is coming. The other holds the control that answers it. This first one is always red.",
+      p1: "1. The cannon, the shield's trigger and the maw are yours.\n2. Slide your strip until the cannon stands in its column.\n3. Say which column.",
+      p2: "The shield and the two colours are yours. Press red. Nothing leaves the hull until you do.",
       scene: "firstStep",
     },
     entries: [
@@ -119,9 +119,9 @@ export const WAVES_ACT_1: Wave[] = [
     name: "THE HAND",
     sentence: "The one where three arrive on the same beat and the shield is one column.",
     guide: {
-      both: "Three rocks, one beat, one shield. Either of you can put a finger on the field and hold something back — it falls slower for as long as you hold it, and the hand is the cost.",
-      p1: "Hold the far one where it is, then slide the same thumb sideways and it moves a column. Your thumb is off your own strip while you do, so say what you are holding and where you are putting it.",
-      p2: "Take the near one with the shield, then go and get the one he is holding — in whichever column he has left it.",
+      both: "Three rocks, one beat, one shield. Either of you can hold one back with a finger on the field. It falls slower while you hold it. That costs a hand.",
+      p1: "1. Hold the far one. Slide the same thumb sideways to move it a column.\n2. Your thumb is off your strip now. Say what you hold and where it goes.",
+      p2: "1. Take the near one with the shield.\n2. Then go and get the one your partner holds, in the column they leave it.",
       scene: "theHand",
     },
     entries: [

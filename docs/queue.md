@@ -515,22 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Nineteen wave guides in acts 1 to 3 fail the words check
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-23, claude/task-queue-work-a3403b (claim: claude/queue-nineteen-wave-guides-in-acts-1-to-3-fail-the-wor)
-- **Files:** `packages/content/src/waves/act-1.ts`, `packages/content/src/waves/act-1b.ts`, `packages/content/src/waves/act-2.ts`, `packages/content/src/waves/act-3.ts`, `packages/content/src/waves/act-3b.ts`, `tools/words/clean.ts`
-
-Forty-nine lines across nineteen waves. These are the first guides a pair ever
-reads and they are the ones written as prose: FIRST STEP's `both` is 41 words,
-THE SHELL's 49, THE CLASP's 58.
-
-`bun run words "THE SHELL"` prints every line with the rule and the word.
-`.claude/skills/game-words` section 5 has three rewrites already checked,
-including THE SHELL's and THE COUNT's, and section 4 is the loop. Reach for the
-numbered-step shape the boss guides use — it is why twenty-nine subjects
-already pass.
-
 ## Twenty wave guides in acts 4 to 7 fail the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
@@ -1479,8 +1463,11 @@ could hold in one sitting — the two waves of act 1, BULB QUEEN, and the two
 strings in `apps/game` and `controls.ts` — and split the rest off here rather
 than take a rule and a sweep in one commit.
 
-What is left is **66 lines across 38 subjects**, all of them in acts 2 and up
-and in the mechanics blurbs. `bun run words "<SUBJECT>"` names every one and
+What is left is **47 lines** on 23 September 2026 (66 when this was filed; the
+acts 1 to 3 guides and the DEMOS rewrites took the rest), all of them in acts 4 and up and in the
+mechanics blurbs. **Not every plate is the shield**: THE WARDEN's plates are
+the boss's own rim, and that rewrite said *piece* there — read what the word
+points at before putting *shield* in its place. `bun run words "<SUBJECT>"` names every one and
 the rule it broke; the five files above are the ones with the most in them and
 not the whole list — twenty files carry at least one. The three sanctioned
 shapes are in the skill and there is no fourth: **put the shield under it**,

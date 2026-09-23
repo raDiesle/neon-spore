@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-nineteen-wave-guides-in-acts-1-to-3-fail-the-wor
+
+- reading — 5 min. The entry, the game-words skill, `bun run words` on each
+  of the seventeen subjects still failing, and the tests that read a guide.
+- writing — 5 min. Forty-nine lines rewritten through one replacement script,
+  most halves into numbered steps; `CLEAN` and `CEILING` from `--clean`.
+- looking — 0 min. The guide screen wraps what it is given; nothing drawn
+  changed shape.
+- friction — 0 min. A heredoc with a doubled backslash was refused by the
+  guard, and the script went through the Write tool instead.
+- landing — 5 min. `check:fast` once red on formatting, then green; `land`.
+
+The bottleneck was the word budgets on `both`: four of them came back one
+word over and took a second pass.
+
 ## 2026-09-23 — queue-the-demos-menu-puts-a-paragraph-on-a-button-the
 
 - reading — 0 min. The entry, `tools/words` and the skill's three rewrites;
