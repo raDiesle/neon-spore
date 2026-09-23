@@ -18098,3 +18098,20 @@ buried edges louder than the stones, so each stone now strokes its own edge
 straight after it is drawn and the stone above covers what it hides.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE WELL's picture looks like something real
+
+- reading — 5 min. `well-face.ts`, `well-draw.ts`, `well.ts`'s polar
+  helpers, and the tests that draw the wave on both seats.
+- writing — 5 min. `well-flesh.ts`: the bowl deepening from the rim's flesh
+  to a dark throat at the hub, a lip lobed once a lane with a bead on each
+  lobe, grooves under the spokes, a wet socket round the ship, a film on the
+  far wall. The bowl's wedges moved there with it.
+- looking — 5 min. The pilot's seat before and after at 2×, and a second
+  pass when the film was a thin bright arc that read as a drawn line.
+- friction — 0 min. None.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **keeping the board the board**: every layer had to sit
+under the rings, spokes and seam at a quarter of its strength, so the flesh
+could be seen without an eye counting it as a lane.

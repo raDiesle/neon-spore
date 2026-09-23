@@ -52,7 +52,7 @@ export function drawWellBack(
   flash: number,
 ): void {
   drawBackground(ctx, l, world.wave, view.time);
-  drawWellFace(ctx, l, flash);
+  drawWellFace(ctx, l, flash, view.time);
   drawWellArrivals(ctx, l, world, view.time);
 }
 

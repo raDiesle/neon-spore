@@ -1,5 +1,4 @@
 import { colNumber } from "./coord-grid.js";
-import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import {
@@ -12,6 +11,7 @@ import {
   wellRim,
   wellSectorAngle,
 } from "./well.js";
+import { drawWellFlesh } from "./well-flesh.js";
 
 /**
  * THE WELL's clock face: the bowl, the lanes, the rings and the seam — the
@@ -31,14 +31,13 @@ import {
  * that cannot see it reads the picture as a circle a cannon can walk round, so
  * the two walls are drawn as walls — bright, closed, with the dead sector
  * between them left as backdrop rather than bowl.
+ *
+ * **Under the furniture is flesh** since 23 September 2026: the bowl deepens
+ * toward the hub, the rim has a lip, the spokes lie in grooves and the ship
+ * sits in a socket (`well-flesh.ts`). All of it is under the lines here, so
+ * the board is still what an eye counts.
  */
 
-/**
- * How dark the bowl is over the backdrop. A tenth, which is the grid's own
- * weight: enough that the rim reads as an edge rather than as a drawn ring, and
- * not enough to make a lane darker than the field it is a picture of.
- */
-const BOWL = 0.1;
 /** The share of a sector the seam's walls stand at, either side of twelve. */
 const SEAM = 0.5;
 /**
@@ -50,45 +49,23 @@ const SEAM = 0.5;
  */
 const RING_GAP = 11;
 
-/** The whole face, bottom to top: the bowl, the rings, the spokes, the seam,
+/** The whole face, bottom to top: the bowl and its flesh, the rings, the spokes, the seam,
  * the numbers. `flash` is the beat, the same number every other beat-lit thing
- * in the frame reads. */
-export function drawWellFace(ctx: CanvasRenderingContext2D, l: Layout, flash: number): void {
+ * in the frame reads; `time` breathes the lip. */
+export function drawWellFace(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  flash: number,
+  time: number,
+): void {
   if (l.tile <= 0) return;
   ctx.save();
-  drawBowl(ctx, l);
+  drawWellFlesh(ctx, l, time);
   drawRings(ctx, l, flash);
   drawSpokes(ctx, l);
   drawSeam(ctx, l);
   drawNumbers(ctx, l);
   ctx.restore();
-}
-
-/**
- * The bowl: a disc from the rim in, minus the seam's dead sector.
- *
- * Drawn as one wedge per column rather than as a circle with a bite out of it,
- * because that is what it is — eleven lanes and a gap — and because a ring cut
- * by two radial lines over the top of it reads as a circle with marks on it
- * rather than as a board with a wall in it.
- */
-function drawBowl(ctx: CanvasRenderingContext2D, l: Layout): void {
-  const c = wellCenter(l);
-  const rim = wellRim(l);
-  const hub = wellHub(l);
-  const half = wellSectorAngle(l) / 2;
-  ctx.fillStyle = rgba(PALETTE.grid, BOWL);
-  for (let col = 0; col < l.cols; col++) {
-    // Canvas angles run from the +x axis; the well's run clockwise from up, so
-    // every one of them is a quarter turn behind. `wellAt` is the only other
-    // place that conversion happens and it does it with a sine and a cosine.
-    const mid = wellAngle(l, col) - Math.PI / 2;
-    ctx.beginPath();
-    ctx.arc(c.x, c.y, rim, mid - half, mid + half);
-    ctx.arc(c.x, c.y, hub, mid + half, mid - half, true);
-    ctx.closePath();
-    ctx.fill();
-  }
 }
 
 /**
