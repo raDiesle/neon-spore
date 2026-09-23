@@ -26,12 +26,15 @@ describe("scopeFor", () => {
     expect(scopeFor(["bun.lock"])).toEqual([]);
   });
 
-  it("render is walked by the director, the shape sheet, frames and versus", () => {
+  it("render is walked by the director, the shape sheet, frames and versus, and its palette filed", () => {
     expect(scopeFor(["packages/render/src/effects.ts"])).toEqual([
       "packages/render",
+      "tools/breaks",
       "tools/director",
       "tools/frames",
+      "tools/raster",
       "tools/shape-sheet",
+      "tools/style-guide",
       "tools/versus",
     ]);
   });
@@ -126,9 +129,12 @@ describe("scopeFor", () => {
       "apps/game",
       "packages/audio",
       "packages/render",
+      "tools/breaks",
       "tools/director",
       "tools/frames",
+      "tools/raster",
       "tools/shape-sheet",
+      "tools/style-guide",
       "tools/versus",
     ]);
   });

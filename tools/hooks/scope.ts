@@ -31,13 +31,19 @@ const ROWS: readonly Row[] = [
 
   // render is drawn by the director's preview pages, walked by the shape
   // sheet and rasterised by tools/frames and tools/versus's candidate pairs.
+  // Its palette is filed by the style guide and the breaks sheet, and its
+  // assets checked by tools/raster: a new PALETTE entry went green in
+  // `check:fast` and red in `land` until those three were named (23 September 2026).
   {
     prefix: "packages/render/",
     dirs: [
       "packages/render",
+      "tools/breaks",
       "tools/director",
+      "tools/raster",
       "tools/shape-sheet",
       "tools/frames",
+      "tools/style-guide",
       "tools/versus",
     ],
   },
