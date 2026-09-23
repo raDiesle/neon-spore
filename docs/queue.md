@@ -518,6 +518,7 @@ question that prompted this one.
 ## `--hold surgeBulb` puts no thumb on THE SURGE's bulb
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-hold-surgebulb-puts-no-thumb-on-the-surges-bulb)
 - **Files:** `tools/frames/hold.ts`, `tools/frames/hold-targets.ts`, `packages/sim/src/surge-hand.ts`
 - **Where:** local
 
