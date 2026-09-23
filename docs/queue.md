@@ -518,6 +518,7 @@ question that prompted this one.
 ## A hanging part is drawn over the socket of the row below it
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-5780141b-the-picture-of-a-carried
+- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-a-hanging-part-is-drawn-over-the-socket-of-the-r)
 - **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-grip.ts`
 - **Where:** local
 
