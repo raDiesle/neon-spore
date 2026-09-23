@@ -1,5 +1,6 @@
 import { pulseHeart, scoutLoad } from "@neon-spore/sim";
-import { pinballHand, scoutHand } from "./boss-hands-rounds.js";
+import { pinballHand } from "./boss-hands-rounds.js";
+import { scoutHand } from "./boss-hands-scout.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

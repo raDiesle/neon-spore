@@ -840,10 +840,14 @@ autopilot that points, burns and coasts banks all four of its motes in twelve
 flight — six beats for the talking a rig does not do. It was 40, which is more
 than three times, and at that figure the second of the two failures above could
 only fire for a pair who had stopped flying altogether: the clock was a backstop
-and not a pressure. The second arena is still at 56 against a flight nobody has
-timed, because the autopilot cannot clear it at all — five of its six motes sit
-one tile from a hazard's row and a touch reaches 0.88 of one, which is an open
-question in `docs/queue.md` rather than a figure waiting to be set.
+and not a pressure. **The second arena's is 24, against a flight of fourteen**:
+the same autopilot, taught only to hold its burn until the next two legs are
+clear, banks its six in two trips of three. Its column of motes was moved onto
+a pitch of two and a half tiles on the owner's answer of 19 September 2026, so
+a scout at rest on any mote has 0.37 of a tile to spare from the hazard sweeping
+the row beside it rather than 0.12 — room to stop and be told *now*. The
+waiting rig clears the two-tile column too, in thirteen, so what the pitch
+bought is the stop, not the arena.
 
 **The look, landed 18 September 2026.** The field is gone and nothing else
 is: the ship stands on the screen with its real scars, the band holds the

@@ -75,23 +75,35 @@ export const SCOUT_ARENAS: ScoutArena[] = [
    * little slower, and they are out of step because of it — three and a half
    * beats round against four and three quarters. What changed against the
    * first arena is how much there is to say before the ship is committed.
+   *
+   * **The column is on a pitch of two and a half tiles**, with each hazard's
+   * row half-way between two motes (the owner, 19 September 2026). A touch
+   * reaches 0.88 of a tile, so a scout at rest on a mote has 0.37 to spare as
+   * the hazard sweeps past — on the two-tile pitch it had 0.12, which is a
+   * mote nobody could stop on (`test/scout-flight.test.ts` holds the room).
+   *
+   * **Twenty-four beats, against a flight of fourteen.** The same autopilot
+   * as the first arena's, waiting each hazard out, banks the six in two trips
+   * of three; 24 is the figure the owner asked for and it sits inside the bar
+   * the first arena's clock is held to. It was 56 while nothing could fly the
+   * arena to measure it.
    */
   {
-    beats: 56,
+    beats: 24,
     startColMilli: 3_500,
     startRowMilli: 12_500,
     startHeadingMilli: 0,
     motes: [
-      { colMilli: 3_500, rowMilli: 10_500 },
+      { colMilli: 3_500, rowMilli: 11_000 },
       { colMilli: 3_500, rowMilli: 8_500 },
-      { colMilli: 3_500, rowMilli: 6_500 },
-      { colMilli: 3_500, rowMilli: 4_500 },
-      { colMilli: 1_500, rowMilli: 2_500 },
-      { colMilli: 5_500, rowMilli: 2_500 },
+      { colMilli: 3_500, rowMilli: 6_000 },
+      { colMilli: 3_500, rowMilli: 3_500 },
+      { colMilli: 1_500, rowMilli: 1_000 },
+      { colMilli: 5_500, rowMilli: 1_000 },
     ],
     hazards: [
-      { colMilli: 500, rowMilli: 7_500, vColMilli: 2_600, vRowMilli: 0 },
-      { colMilli: 6_500, rowMilli: 3_500, vColMilli: -3_400, vRowMilli: 0 },
+      { colMilli: 500, rowMilli: 7_250, vColMilli: 2_600, vRowMilli: 0 },
+      { colMilli: 6_500, rowMilli: 2_250, vColMilli: -3_400, vRowMilli: 0 },
     ],
   },
 ];

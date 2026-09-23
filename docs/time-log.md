@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-the-scouts-second-arena-leaves-the-scout-nowhere
+
+- reading — 5 min. The entry and its two answers, the arena, the flight test,
+  the rehearsal and how `SceneRun` steps a world.
+- writing — 10 min. A scratch leg search in `tools/probe/`, then the waiting
+  rig ported into the flight test, the film's arena-two legs, the clock.
+- looking — 0 min. Nothing of the round was photographed; the film test reads
+  the flight back beat by beat.
+- friction — 15 min. The probe's first figure for arena two was `null`
+  because the test's own runner can never reach the second arena, and the
+  film search found nothing until it read the film's eleven columns and
+  sixty-tick beat instead of the default config's. Then `check:fast` found
+  the director's HEAVY pose caught on the new pitch (its hand moved to
+  `boss-hands-scout.ts` and now asks a copy before it burns), and a caption
+  under a page's second and a half, which put the film's turn back at 1340.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the rigs: neither the test's autopilot nor the
+director's could fly arena two until each learned to hold its burn.
+
 ## 2026-09-23 — queue-ledgerpullable-refuses-a-case-it-can-never-be-gi
 
 - reading — 5 min. The entry, `ledger-gates.ts`, `ledgerNext` and the two

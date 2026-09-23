@@ -52,12 +52,12 @@ export const THE_SCOUT: GuideScene = {
     { tick: 875, control: "scoutBurn", until: 907 },
     { tick: 992, control: "scoutMaw" },
     // Arena two: three short burns up the column, about, and home.
-    { tick: 996, control: "scoutBurn", until: 1004 },
-    { tick: 1108, control: "scoutBurn", until: 1120 },
-    { tick: 1265, control: "scoutBurn", until: 1285 },
-    { tick: 1337, control: "scoutTurnRight", until: 1357 },
-    { tick: 1359, control: "scoutBurn", until: 1403 },
-    { tick: 1494, control: "scoutMaw" },
+    { tick: 998, control: "scoutBurn", until: 1006 },
+    { tick: 1036, control: "scoutBurn", until: 1048 },
+    { tick: 1205, control: "scoutBurn", until: 1224 },
+    { tick: 1340, control: "scoutTurnRight", until: 1360 },
+    { tick: 1362, control: "scoutBurn", until: 1405 },
+    { tick: 1578, control: "scoutMaw" },
   ],
   steps: [
     { tick: 0, seat: 2, text: "THE SHIP OPENS. ONE GOES OUT", anchor: { at: "boss" } },

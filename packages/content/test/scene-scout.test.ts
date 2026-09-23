@@ -29,7 +29,7 @@ describe("the rehearsal for THE SCOUT", () => {
         if (e.type === "breach" || e.type === "waveFailed") seen.push(e.type);
     }
     // Four motes picked in a loop and banked together on beat 16, and the
-    // second arena opens the same beat; three of its column come home on 24.
+    // second arena opens the same beat; three of its column come home on 26.
     // Nothing moving is touched: no breach, no wave failed.
     expect(seen).toEqual([
       "arena 0 lead carrying  banked  @0",
@@ -40,10 +40,10 @@ describe("the rehearsal for THE SCOUT", () => {
       "arena 0 play carrying 2,0,1,3 banked  @14",
       "arena 0 play carrying  banked 2,0,1,3 @16",
       "arena 1 play carrying  banked  @16",
-      "arena 1 play carrying 0 banked  @18",
-      "arena 1 play carrying 0,1 banked  @21",
+      "arena 1 play carrying 0 banked  @17",
+      "arena 1 play carrying 0,1 banked  @20",
       "arena 1 play carrying 0,1,2 banked  @21",
-      "arena 1 play carrying  banked 0,1,2 @24",
+      "arena 1 play carrying  banked 0,1,2 @26",
     ]);
   });
 });

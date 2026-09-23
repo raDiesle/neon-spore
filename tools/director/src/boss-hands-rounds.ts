@@ -1,24 +1,18 @@
 import {
   type Color,
-  MAZE_TURN,
   type MirrorStep,
   mazeCoreEntrance,
   mazeCurrent,
   mazeHeartColor,
   mazeRound,
   mirrorGesture,
-  type ScoutState,
-  scoutCurrent,
-  scoutHome,
-  scoutRound,
   type TimedCommand,
-  type World,
 } from "@neon-spore/sim";
 import type { Hand } from "./poses-bosses-kit.js";
 
 /**
  * **The pair's hands on the rounds a hand has to play** — THE MAZE, THE
- * MIRROR's pin, THE SCOUT's little ship, PINBALL's three thumbs — each a
+ * MIRROR's pin, PINBALL's three thumbs — each a
  * `Hand` (`poses-bosses-kit.ts`). A round's other phases arrive with nobody
  * pressing (`poses-bosses-rounds.ts`); these are the ones whose played states
  * do not, and each hand plays the round's own test rig straight: the string
@@ -27,6 +21,7 @@ import type { Hand } from "./poses-bosses-kit.js";
  * THE GAUGE's two are next door in `boss-hands-gauge.ts`, cut off when this
  * file reached its limit: one of them plays its round *wrong* on purpose,
  * which is the only way to the jam, and that wanted saying at some length.
+ * THE SCOUT's little ship is in `boss-hands-scout.ts`, since it looks ahead.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -134,75 +129,6 @@ function lobe(player: 1 | 2, id: 0 | 1, on: boolean, fromMilli: number): Press {
     command: { kind: "drag", target: "mirrorLobe", on, fromMilli, fromYMilli: 0, id },
   };
 }
-
-/** Where the scout is heading for: the first mote it has not got, else home. */
-function scoutTarget(w: World, s: ScoutState): { colMilli: number; rowMilli: number } {
-  const arena = scoutCurrent(s);
-  for (let i = 0; i < arena.motes.length; i++) {
-    if (s.carrying.includes(i) || s.banked.includes(i)) continue;
-    const mote = arena.motes[i];
-    if (mote !== undefined) return mote;
-  }
-  return scoutHome(w.cfg.cols, w.cfg.rows);
-}
-
-/** The heading, in thousandths of a degree, that points along `(dc, dr)`. 0 is straight up. */
-function scoutBearing(dc: number, dr: number): number {
-  const deg = (Math.atan2(dc, -dr) * 180_000) / Math.PI;
-  return ((Math.round(deg) % MAZE_TURN) + MAZE_TURN) % MAZE_TURN;
-}
-
-/** The shortest way round from one heading to another, signed. */
-function turnToward(from: number, to: number): number {
-  const diff = (((to - from) % MAZE_TURN) + MAZE_TURN) % MAZE_TURN;
-  return diff > MAZE_TURN / 2 ? diff - MAZE_TURN : diff;
-}
-
-/**
- * Whether a hazard sits close enough, row and column both, that burning
- * toward the target risks it this beat. `scout-flight.test.ts`'s autopilot
- * never asks this, but it flies the arena's own seven columns; a pose flies
- * it stretched to eleven (`queue-boss.ts`) at the ship's unstretched speed,
- * so the crossing runs long and the hazard is not where the narrow one left it.
- */
-function scoutDanger(s: ScoutState): boolean {
-  return s.hazards.some(
-    (h) => Math.abs(s.rowMilli - h.rowMilli) <= 3_000 && Math.abs(s.colMilli - h.colMilli) <= 3_500,
-  );
-}
-
-/**
- * THE SCOUT: a deliberately stupid autopilot, lifted from
- * `content/test/scout-flight.test.ts`'s own — points the nose at the first
- * mote it has not got, burns while aimed and under half top speed, coasts
- * otherwise, and heads home once it is carrying everything. It does not lead
- * a hazard or plan an order, only hold off a near one (`scoutDanger`), and
- * exists here only to reach `laden` and `heavy`, not to fly well.
- */
-export const scoutHand: Hand = (w) => {
-  const s = scoutRound(w);
-  if (s === null) return [];
-  const want = scoutTarget(w, s);
-  const dc = want.colMilli - s.colMilli;
-  const dr = want.rowMilli - s.rowMilli;
-  const off = turnToward(s.headingMilli, scoutBearing(dc, dr));
-  const out: Press[] = [];
-  const aimed = Math.abs(off) <= w.cfg.scoutTurnMilliDeg;
-  const speedSq = s.vColMilli * s.vColMilli + s.vRowMilli * s.vRowMilli;
-  const cruising = speedSq >= (w.cfg.scoutMaxSpeedMilli / 2) * (w.cfg.scoutMaxSpeedMilli / 2);
-  const dir = off > 0 ? 1 : -1;
-  if (!aimed && s.turn !== dir) {
-    out.push({ player: 1, command: { kind: "scoutTurn", dir, on: true } });
-  } else if (aimed && s.turn !== 0) {
-    out.push({ player: 1, command: { kind: "scoutTurn", dir: 1, on: false } });
-  }
-  const burn = aimed && !cruising && !scoutDanger(s);
-  if (burn !== s.burning) out.push({ player: 1, command: { kind: "scoutBurn", on: burn } });
-  // The navigator holds the mouth open the whole flight — an open mouth costs
-  // nothing, and this hand only has to arrive loaded, not play the maw well.
-  out.push({ player: 2, command: { kind: "scoutMaw" } });
-  return out;
-};
 
 /**
  * PINBALL: latch the needle wherever it has swept to, wind the plunger if the
