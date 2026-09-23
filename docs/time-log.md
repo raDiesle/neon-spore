@@ -17541,3 +17541,5 @@ said the old price in their own words.
 
 The bottleneck was **the splits on a light slab**: the fill was a two-line
 change, and what the body's colour does against it was the question.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 44208d72 — THE SHELL's plates are one light colour
+
+Both plates on a shell are now drawn in the one light grey, where the one over the left half used to come out near white and the one over the right near black. A shallow ramp runs across the whole body, and the specular and the lit edge carry the light. The splits and the crack are a dark cut with the body's colour inside it, so red or cyan still reads on a light slab. Look exemption: asked for by the owner by name, 20 September.
+
 ## 2026-09-23 · ecdaa723 — A shot off zero shuts THE COUNT for three beats instead of losing the wave
 
 A shot that meets THE COUNT off zero, or in the wrong colour on zero, no longer breaks the hull: the body goes grey and refuses every shot for `countdownShutBeats` (three), through the same wrong-colour window every ordinary body has, and it goes on counting and falling. The owner, 20
