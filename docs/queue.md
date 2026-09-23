@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## `--press` with `--frames` refuses a press the filmstrip would have caught
 
 - **Found:** 2026-09-22, claude/queue-press-knows-no-scout-verb-so-the-scouts-two-ring
+- **Taken:** 2026-09-23, claude/queue-press-with-frames-refuses (claim: claude/queue-press-with-frames-refuses-a-press-the-filmstrip)
 - **Files:** `tools/frames/flags.ts`, `tools/frames/spec.ts`, `tools/frames/test/flags.test.ts`
 
 The guard in `flags.ts` that refuses a press landing after the picture compares
