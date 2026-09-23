@@ -7,6 +7,7 @@ import { FleetFx } from "./fleet-fx.js";
 import { FleetGripFx } from "./fleet-grip-fx.js";
 import { GimbalFx } from "./gimbal-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
+import { HaspFx } from "./hasp-fx.js";
 import { HiveFx } from "./hive-fx.js";
 import { InstarFx } from "./instar-fx.js";
 import { LeadFx } from "./lead-fx.js";
@@ -147,4 +148,9 @@ export class BossRoster {
   /** THE SPOOL's shudder, jolt and glare, and its receipts' bursts — a rib's
    * thrown where that rib stood on the casing (`spool-fx.ts`, `spool-shape.ts`). */
   readonly spool = new SpoolFx();
+  /** THE HASP's dim, flare, jolt and hull shock, and its receipts' bursts —
+   * each thrown only on the screens shown the half it happened to, because
+   * this boss's receipts are split between the seats like its picture
+   * (`hasp-fx.ts`, `view-role-clocks-b.ts`). */
+  readonly hasp = new HaspFx();
 }

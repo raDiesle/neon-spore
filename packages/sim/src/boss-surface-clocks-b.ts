@@ -241,7 +241,7 @@ export { gimbalTurnPerTickMilli } from "./gimbal-hand.js";
 // two pictures, the cue and the director's hand. Straight off `hasp.ts`, on
 // this page for THE FLEET's reason above and on one line for THE GIMBAL's.
 // biome-ignore format: one line, so a reading added to the door does not cost a row
-export { HASP_PHASES, type HaspPhase, type HaspState, haspBoss, haspBurning, haspClear, haspHeatMilli, haspHeld, haspLoose, haspTurning, haspWorking, haspWoundMilli } from "./hasp.js";
+export { HASP_COUNT, HASP_PHASES, type HaspPhase, type HaspState, haspBoss, haspBurning, haspClear, haspHeatMilli, haspHeld, haspLoose, haspTurning, haspWorking, haspWoundMilli, NO_BOLT, NO_BURN, NO_LATCH } from "./hasp.js";
 // THE SPOOL's line: the phase, the ribs, the brake's depth, the zone and the
 // paid-out length — the two halves of the `SplitGauge` the pair shout across,
 // and every reading either screen takes. Straight off `spool.ts` and on one

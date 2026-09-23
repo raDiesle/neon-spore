@@ -1141,6 +1141,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lid.ts` | you are drawing the armoured eye itself — the lens, the sliding plates and the fringe |
 | `packages/render/src/ease.ts` | The one easing curve `render/` uses, and the one place it is written out |
 | `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
+| `packages/render/src/hasp-draw.ts` | **THE HASP**: three sealed clasps down the middle of the field |
+| `packages/render/src/hasp-fx.ts` | What THE HASP leaves behind a frame: the **dim** of a wheel seizing under the navigator's hand |
+| `packages/render/src/hasp-parts.ts` | THE HASP's two halves, one to a seat: **the wheel** on the navigator's screen and **the latch** on the… |
+| `packages/render/src/hasp-pose.ts` | **How far through a pose THE HASP is**, and how far each clasp stands open |
+| `packages/render/src/hasp-shape.ts` | **Where THE HASP is**: three clasps down the middle column, each a hinged shell over a hub |
 | `packages/render/src/guard-lapse.ts` | How long the guard button (`band.ts`) keeps fading after its own window closes, in milliseconds |
 | `packages/render/src/handle-draw.ts` | you are changing the shape of a handle — the ring, the gauge, the rest mark and the sag, shared by every one of them |
 | `packages/render/src/gyre-core.ts` | you are drawing the surface in the middle of a gyre wheel — the organelle, its fluid and its nucleus |

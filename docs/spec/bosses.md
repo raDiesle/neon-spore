@@ -8170,15 +8170,45 @@ stands and to its own column for the bolt. The burn and the seize arrive
 together and are panned together, and a pair playing this hears two different
 accidents and says two different words for them, which is the encounter.
 
-**What is not built.** The look: nothing of the door is drawn. The row, the
-three clasps, the latch with its heat drift and the wheel with its winding are
-all in `render/src/effects-ingest-silent-boss-c.ts` and
-`effects-spark-silent-boss-b.ts` as events the frame says nothing about, and
-the guide is prose rather than a film. §20's presentation is lane two's whole:
-the whole-frame dim on a seize, the shudder through `hull-shock.ts` on an
-opening, the five poses, and the latch's cool-to-hot drift — the one departure
-from the colour statement, because it is a hand's own feeling and not a target.
-Lane two is a separate item on `docs/queue.md`.
+**The look** (`render/hasp-draw.ts`, half one of lane two). Three clasps down
+the middle of the field, each THE CASE (`tools/shape-sheet`, `valved`) — two
+faceted half-shells hinged at the nose — pinned over a wheel-hub, the bottom
+one first to open. **One number per clasp is the whole morph**: how far its
+halves have swung (`hasp-pose.ts`, `haspGape`), eased over the phase's own
+beats, so sealed, the working clasp creeping ajar under the wheel, a hasp
+swinging to rest and the whole row swinging clear are one door moving rather
+than pictures cut between. *The health is the row*: a swung clasp is drawn
+fainter than a shut one and nothing prints the number. *The perspective
+changes once*, as the row clears: the passage behind the door is lit down the
+middle column for the first time, in the violet nothing else on this boss
+wears, and every hub spins down together. The loose bolt is drawn falling from
+the second clasp down its own column to the hull, pale, because either colour
+shoots it.
+
+*Each seat is shown its own half and never the other's*
+(`view-role-clocks-b.ts`, `hasp-parts.ts`), and here the split is the fight
+itself. The pilot is shown the latch beside the working clasp — a rail, a
+notch at the grip depth, and a bar at the depth his thumb has it — in **the
+heat's own colour**, rock at a fresh grip drifting through amber to ember as
+his hand runs out (`haspLatchHex`), and a riveted cap where each hub is: never
+a wheel, whether it turns, or that there is one, and so never the creep either,
+which would be the wheel told in the shape of the lid. The navigator is shown
+the wheel — spoked, knurled on the working one, standing where her hand left
+it, lit while it is free and dark while it is seized — and the creep, and never
+the latch, its depth or its heat. The receipts are split the same way
+(`hasp-fx.ts`): a grip, a let-go, a burn and a cooling burst on the latch's
+screens alone, a seize — which dims her whole field for a beat, as the design
+asks — and a freeing on the wheel's alone, and the row, the bolt and the hull
+on both. An opening jolts the row in its mounting and shudders the hull
+(`hull-shock.ts`). `render/test/hasp-frame.test.ts` sets every pose on all
+three screens and proves the split both ways: his frame does not move for the
+wheel, the creep or her hand, and hers does not move for the heat or for how
+far past the grip his thumb is.
+
+**What is not built.** The hands: nothing on either screen answers a thumb
+yet — the latch's depth drag and the wheel's bearing drag have no hit test, no
+cue word and no director rows. That is half two of lane two, the rest of the
+same item on `docs/queue.md`.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/hasp.test.ts`): the door comes in sealed and lights its first latch;
@@ -8192,4 +8222,4 @@ on the last hasp; the second hasp asks further than the first; both hands come
 off an opened one; the bolt comes loose on the second opening, goes out to a
 shot of either colour and strikes the hull if nobody answers it; and the third
 opening swings the row clear and takes the boss out of the wave. Whether any of
-it *reads* is the owner's eye, after lane two.
+it *reads* is the owner's eye, once the hands are in.

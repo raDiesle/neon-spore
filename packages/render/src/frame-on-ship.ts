@@ -68,6 +68,9 @@ export function drawOnShip(
   // moving, on the beat the cord roots in the ship and on every return the
   // pair did not answer (`ledger-fx.ts`).
   held.effects.boss.ledger.drawShock(ctx, l, surfaceY, view.time);
+  // And THE HASP's, for its design's: an opened hasp is one shudder through
+  // the plating rather than a camera moving (`hasp-fx.ts`, §20).
+  held.effects.boss.hasp.drawShock(ctx, l, surfaceY, view.time);
   // And a gum splashing across the ship, on the same membrane and over the
   // same finished hull: the smear where it landed and the ripples running
   // out from it (`gum-splash.ts`).

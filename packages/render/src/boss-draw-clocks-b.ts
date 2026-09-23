@@ -4,6 +4,7 @@ import { drawBellows } from "./bellows-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFilament } from "./filament-draw.js";
 import { drawGimbal } from "./gimbal-draw.js";
+import { drawHasp } from "./hasp-draw.js";
 import { drawHive } from "./hive-draw.js";
 import { drawHiveGrip } from "./hive-grip.js";
 import { drawInstar } from "./instar-draw.js";
@@ -55,6 +56,7 @@ export const FX_KINDS = [
   "gimbal",
   "bellows",
   "spool",
+  "hasp",
 ] as const;
 
 export type FxBoss = Extract<Installed, { kind: (typeof FX_KINDS)[number] }>;
@@ -222,6 +224,16 @@ export function drawFxBoss(
   // `effects.boss.spool` (`spool-draw.ts`, `spool-fx.ts`).
   if (boss.kind === "spool") {
     drawSpool(ctx, l, world, boss, beat, beatPhase, time, effects.boss.spool);
+    return;
+  }
+
+  // THE HASP: three clasps down the middle column, a latch on the pilot's
+  // screen alone and the wheel on the navigator's alone, the row on both
+  // (`view-role-clocks-b.ts`). What outlives a frame — the dim of a seize, the
+  // flare of a burn, the jolt of a hasp giving — is `effects.boss.hasp`
+  // (`hasp-draw.ts`, `hasp-fx.ts`).
+  if (boss.kind === "hasp") {
+    drawHasp(ctx, l, world, boss, beat, beatPhase, effects.boss.hasp);
     return;
   }
 

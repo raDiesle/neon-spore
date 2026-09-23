@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-23 — queue-the-hasps-picture-has-never-been-drawn — the body, half one
+
+- reading — 5 min. §20 and §11.37, `sim/hasp.ts` for what a frame may read —
+  the four phases, `latchMilli`, `wheelMilli`, `woundMilli`, `seized` — THE
+  CASE's `valved` form on the shape sheet, and THE BELLOWS's look as the
+  template: shape page, pose clock, drawer, fx, roster field, silent lists,
+  frame test.
+- writing — 10 min. Five render pages — `hasp-shape.ts`, `hasp-pose.ts`,
+  `hasp-parts.ts` (the wheel for her, the cap and the latch for him),
+  `hasp-draw.ts`, `hasp-fx.ts` — the two seat predicates, the branch, the
+  roster field and its three verbs, the hull shock, both silent lists'
+  reasons, THE CASE marked taken, §11.37's *The look* and the ledger's rows,
+  and `hasp-frame.test.ts`: nineteen cases on three screens.
+- looking — 5 min. Three frames — the working row on the test seat, the
+  pilot's caps and latch, the navigator's clear — and none needed a change.
+- friction — 0 min. One assertion counting a fill the stub logs as `rgba`,
+  the same trap as THE BELLOWS's, moved to the glow's hex in a minute.
+- landing — 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **none worth the name**: THE BELLOWS's pages were a
+template that fit this boss clause for clause, so the half was writing, and
+the only real decision was that the creep is the wheel's and must not reach
+the pilot's lid.
+
 ## 2026-09-22 — queue-the-bellowss-picture-has-never-been-drawn — the body, half one
 
 - reading — 25 min. §11.35 in full, then `sim/bellows.ts` and

@@ -213,3 +213,21 @@ export const showsBellowsPush = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsSpoolBrake = (role: ViewRole): boolean => role !== "p2";
 export const showsSpoolZone = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE HASP's two halves, and the whole of that fight is the gap between them:
+ * the pilot is shown **the latch** — its rail, its bar and the heat drifting
+ * up it — and never the wheel, whether it turns, or that there is one; the
+ * navigator is shown **the wheel** — its spokes, how far it has come and
+ * whether it is free — and never the latch, the heat, or that a hand is the
+ * reason it seizes (§20). Both are shown the three clasps, which are the
+ * health and the door they are both opening.
+ *
+ * What follows from it is stricter than a handle kept off a screen: the
+ * working clasp creeping ajar as the wheel is wound is drawn on the wheel's
+ * screens alone, and so are the bursts of a seize and the dim that says it
+ * (`hasp-pose.ts`, `hasp-fx.ts`) — any of them on his screen would be the
+ * wheel, told by the lid over it. `test` is both.
+ */
+export const showsHaspLatch = (role: ViewRole): boolean => role !== "p2";
+export const showsHaspWheel = (role: ViewRole): boolean => role !== "p1";

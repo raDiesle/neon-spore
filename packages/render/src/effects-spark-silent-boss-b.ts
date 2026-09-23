@@ -212,13 +212,11 @@ export const SILENT_BOSS_B = [
   "throatChoke",
   "throatSwallow",
   "throatEvert",
-  // THE HASP's fourteen, no burst: nothing draws this boss yet — the
-  // simulation landed on its own and the look lane is a separate item
-  // (`docs/spec/bosses.md` §11.37). When it lands, the bursts it wants —
-  // over the latch that burnt, the rim that seized, the clasp that swung
-  // off, the bolt at the hull — belong in a hasp-fx.ts read above the
-  // loop, the way THE GIMBAL's and THE BELLOWS's are, rather than as rows
-  // in this table.
+  // THE HASP's fourteen throw no burst from this table: every burst of
+  // theirs — over the latch that burnt, the rim that seized, the clasp that
+  // swung off, the bolt at the hull — is thrown by `hasp-fx.ts`, above the
+  // loop like THE BELLOWS's, and split between the seats the way the fight
+  // is (`docs/spec/bosses.md` §11.37).
   "haspEnter",
   "haspLit",
   "haspGrip",

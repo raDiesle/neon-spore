@@ -126,10 +126,10 @@ export const ARMOURED_DRAFTS: CatalogueEntry[] = [
       },
     }),
     motion: TWITCH,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing carries it: converted from a beetle's elytra, which is the plainest version in nature of a hard thing that opens — shut and unremarkable most of the time, hinged up before anything happens. It is here because THE LURE's fold was the only silhouette in this game that changed for a reason, and one is not a vocabulary. What is left behind is the whole interior: a real one opens onto folded wings and a soft abdomen, and drawing those would be two mistakes — the cards fill with `evenodd`, so an inner loop punches a hole through the halves as they close over it, and `guarded` already draws a body beside a separate piece. What is only here is the split, so that is all it draws. It carries TWITCH because a body that waits and then flicks is what a telegraph is, and the two clocks are deliberately not in step: if the card only reads while they happen to agree, it is not reading",
+      "THE HASP, taken 23 September 2026, as each of its three clasps, the two halves pinned over a wheel-hub where the interior was left out (`render/hasp-shape.ts`). Before that: converted from a beetle's elytra, which is the plainest version in nature of a hard thing that opens — shut and unremarkable most of the time, hinged up before anything happens. It is here because THE LURE's fold was the only silhouette in this game that changed for a reason, and one is not a vocabulary. What is left behind is the whole interior: a real one opens onto folded wings and a soft abdomen, and drawing those would be two mistakes — the cards fill with `evenodd`, so an inner loop punches a hole through the halves as they close over it, and `guarded` already draws a body beside a separate piece. What is only here is the split, so that is all it draws. It carries TWITCH because a body that waits and then flicks is what a telegraph is, and the two clocks are deliberately not in step: if the card only reads while they happen to agree, it is not reading",
   },
   {
     subject: valved("THE CASE — OPEN", "the same shell, pinned open", {
@@ -141,9 +141,9 @@ export const ARMOURED_DRAFTS: CatalogueEntry[] = [
       gape: 1,
     }),
     motion: SWELL,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "the second half of THE CASE, and the half that decides it: pinned at full gape so the open state is a picture rather than a fifth of a cycle. The question it exists to answer is narrow and is the only one worth asking — is a wedge of field between two hard halves legible as *one body that has opened*, or does it read as two bodies that happen to be near each other? THE HOOD asked the mirror of this and had the easier version of it, because an arc over a body is plainly a second object. This one has to hold the opposite: two outlines that must still be one thing. It carries SWELL because size is the only other way a body can say `now`, and putting the two claims on one card is how you find out whether the shape needed the help",
+      "THE HASP, taken 23 September 2026, as its swung clasps and the row clearing. Before that: the second half of THE CASE, and the half that decides it: pinned at full gape so the open state is a picture rather than a fifth of a cycle. The question it exists to answer is narrow and is the only one worth asking — is a wedge of field between two hard halves legible as *one body that has opened*, or does it read as two bodies that happen to be near each other? THE HOOD asked the mirror of this and had the easier version of it, because an arc over a body is plainly a second object. This one has to hold the opposite: two outlines that must still be one thing. It carries SWELL because size is the only other way a body can say `now`, and putting the two claims on one card is how you find out whether the shape needed the help",
   },
 ];
