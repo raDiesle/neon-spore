@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE PULSE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-23, claude/queue-the-scouts-picture-looks-like-something-real (claim: claude/queue-the-pulses-picture-looks-like-something-real)
 - **Files:** `packages/render/src/pulse-body.ts`, `packages/render/src/pulse-button.ts`, `packages/render/src/pulse-drop.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
