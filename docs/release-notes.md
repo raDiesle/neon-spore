@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · cbc245b6 — The later phone no longer stands still for a round trip at beat zero
+
+The two clocks agree to a few milliseconds, not to none, so one phone always reaches beat zero first, and the first thing it sends is its promise. That promise used to arrive at a run with no scheduler and be dropped. The first phone promises again only after it has ticked, and it ticks on the later phone's word, so the later phone stood on the field for one round trip at every beat zero. `link-run.ts` now holds what arrives before `begin` and hands it to the new scheduler in order.
+
 ## 2026-09-23 · 67d211ee — A wave gone again stands its introduction for half as long
 
 A pair on a retry has read the wave's three lines already, so every try after the first stands the introduction for 2.75 s instead of 5.5, and the field's rows start that much sooner. One shorter value rather than a fall per retry, and the floor is half: the whole opening — the drop, the standing and the fade — plays at double speed, so the words still land well before they leave.
