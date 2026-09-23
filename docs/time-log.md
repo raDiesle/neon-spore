@@ -18326,3 +18326,5 @@ looked right on paper, and only the picture showed the last letter on the rock.
 The bottleneck was **the reach of the scan**: widening it to the scene files
 turned three strings into thirty-seven, and sorting which were answered and
 which wait on the owner was most of the lane.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
