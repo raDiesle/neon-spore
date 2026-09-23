@@ -1712,6 +1712,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/undertow-shape.ts` | THE UNDERTOW's geometry: how far a plate has risen, how high a lobe stands, how wide a breach is |
 | `packages/render/src/undertow-seam.ts` | THE UNDERTOW's seam: the skin lifted between two x's, the violet light under it |
 | `packages/render/src/undertow-fx.ts` | What THE UNDERTOW leaves behind a frame: **the plate closing** under a cannon slid off in time |
+| `packages/render/src/undertow-flesh.ts` | **What THE UNDERTOW is made of** where it comes up through the plating: a slime lobe, wet |
 | `packages/render/src/undertow-grip.ts` | **THE UNDERTOW's two hands**, and the circles the drawing and the hit test share |
 | `packages/render/src/undertow-grip-place.ts` | **THE UNDERTOW's two hands**, and the circles the drawing and the hit test share |
 

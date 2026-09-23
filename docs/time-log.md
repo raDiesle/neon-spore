@@ -17741,3 +17741,20 @@ went, a lit socket and a spent one were the same grey knuckle, so the violet
 had to move into the flesh itself.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — THE UNDERTOW's picture looks like something real
+
+- reading — 5 min. The lobe file, the plate files, and the four tests that
+  count the lobe's grey, the beam colours and the body's ground.
+- writing — 5 min. `undertow-flesh.ts`: a lobe is wet slime lit from above
+  and from the breach under it, with a fold where the plate squeezed it; a
+  tall one carries the beam colours lit inside its wall; the body the same.
+- looking — 10 min. A probe for the ticks a lobe stands at, then before and
+  after at 3×.
+- friction — 5 min. `--boss-json` would not write a breach, so no lobe could
+  be posed; two stacked creases read as a sleeping face.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **no lobe could be posed**: the breaches list is empty
+until a plate parts, so the standing lobes were found by probing a run, and a
+tall one and the body were never seen by an eye at all.

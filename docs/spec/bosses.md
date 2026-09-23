@@ -3779,9 +3779,9 @@ and the free hangs a clear tile over the stuck cannon, above the plate, the
 carriage and the bow rising off the skin in that column. Both are read off
 `l.hullY` rather than the undulating skin: that skin is a function of x the
 draw files are handed and a hit test is not, and a ring is a ring and not a
-trace. Neither covers a lobe's two beam bands, which are rims clipped to the
-top and bottom thirds of an outline half a tile out (`undertow-lobe.ts`) and
-run outside a ring three tenths of a tile across.
+trace. Neither covers a lobe's two beam bands, which are its wall lit from
+inside over the top and bottom thirds, half a tile out (`undertow-flesh.ts`),
+and run outside a ring three tenths of a tile across.
 
 **The free is on both screens, hers bright and his dim; the pin is on hers
 alone.** The bargain `sinew-handles.ts` struck — neither seat can feel the

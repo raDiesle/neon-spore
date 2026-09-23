@@ -515,21 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## THE UNDERTOW's picture looks like something real
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-23, claude/queue-the-diastoles-picture-looks-like-something-real (claim: claude/queue-the-undertows-picture-looks-like-something-real)
-- **Files:** `packages/render/src/undertow-draw.ts`, `packages/render/src/undertow-fx.ts`, `packages/render/src/undertow-lobe.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
-- **Where:** local
-
-5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
-not a picture per state.
-
-The owner, 18 September 2026: a picture is judged by an eye on a real frame,
-which a cloud session does not have — his own machine takes it.
-
-The brief: `.claude/skills/new-boss` section 6.3.
-
 ## THE THROAT's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1249,6 +1234,13 @@ ring. It works, and it costs minutes of a lane per picture, and it only
 reaches states a flight can reach — the heavy ring needs five motes, which
 only the second arena has, and that arena is what *THE SCOUT's second arena
 leaves the scout nowhere to stop* is about. So it is unphotographed today.
+
+THE UNDERTOW's `breaches` is the fourth. It is empty until a plate parts, so
+no lobe — the one vulnerable thing in that fight — can be posed; the lane that
+gave the lobes their material (23 September 2026) found standing ones by
+probing a no-press run for the ticks they come up at (750–825, 1575), and a
+**tall** lobe or the body's last pass never comes up at all without play, so
+both were proved by the frame tests alone and never seen by an eye.
 
 What to decide: whether the length check is right for every list or only for
 the fixed-width ones. A field whose length the simulation varies is not a
