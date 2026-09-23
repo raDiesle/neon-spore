@@ -515,34 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Nothing checks the words `packages/render` draws on a playing screen
-
-- **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
-- **Taken:** 2026-09-23, claude/task-queue-work-e21054 (claim: claude/queue-nothing-checks-the-words-packages-render-draws-o)
-- **Files:** `packages/render/src/balance.ts`, `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-o.ts`, `tools/words/text.ts`, `.claude/skills/game-words/SKILL.md`
-
-The owner settled **shield** on 21 September 2026 and it became a row in
-`tools/words/measure.ts`, so a wave guide that says ward now fails a test.
-Three player-facing strings are outside that check and still say the old
-words:
-
-- `balance.ts:150` — `{ label: "WARDS", tally: s.wards, empty: "no rock reached you" }`, a
-  column heading on the sheet a pair reads after every wave.
-- `boss-cue-read.ts:224` — `markAt(1, "PRESS", "GUARD", …)`, a word drawn on the field.
-- `boss-cue-read-o.ts:156` — `markAt(1, "PRESS", pull ? "PULL" : "GUARD", …)`, the same.
-
-The check's reach is stated in section 1 of `.claude/skills/game-words`: it
-covers `packages/content` and holds the six strings in `apps/game` by hand,
-because `tools/words` imports `@neon-spore/content` and importing further
-would pull in the DOM. That was written when the vocabulary was five rows of
-words no on-field mark used. A mark is the shortest, loudest text in the game
-and it is the text with the least room to be a second word for one thing.
-
-Two halves, and the first does not need the second: change the three strings,
-then decide whether `playerText()` can reach a `MARKS` table without importing
-a canvas — the marks are string literals at call sites today, which is why a
-grep found them and a test cannot.
-
 ## `--hold surgeBulb` puts no thumb on THE SURGE's bulb
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-be40d473-the-picture-of-the-rock-c
@@ -1316,3 +1288,34 @@ preview:once`, used it, and reverted `.claude/launch.json` — every lane that
 checks the built game in a browser pays the same. Give the game a
 `preview:here` script through the same pointer and a `game-here` entry, and
 say it in `docs/commands.md` and CLAUDE.md's "Verifying in a browser".
+
+## Nineteen scene captions still say lane, plate, ward or guard
+
+- **Found:** 2026-09-23, claude/task-queue-work-e21054
+- **Files:** `packages/content/src/scenes/*.ts`, `packages/render/src/duty.ts`, `tools/words/test/drawn.test.ts`
+- **Where:** local
+
+The owner has answered both words: **shield** for ward, plate and guard, and
+**column** for lane (`tools/words/measure.ts`, `VOCABULARY`). The captions a
+rehearsal writes over the field are literals in the scene files, outside
+`playerText()`, so they kept the old words; `drawn.test.ts` lists every one
+in `STANDING`, with the two `LANE` marks in `duty.ts`. Rewrite each in the
+register of `.claude/skills/new-tutorial`, keep it inside the caption limit
+`packages/content/test/scenes.test.ts` holds, strike its `STANDING` line, and
+send one rehearsal frame for the longest caption changed. A look the owner
+asked for by name (shield, column).
+
+## Player-facing marks still say PILOT'S, NAVIGATOR'S and SEAT
+
+- **Found:** 2026-09-23, claude/task-queue-work-e21054
+- **Files:** `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/handle-word.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/maze-grip.ts`, `packages/render/src/maze-string.ts`, `packages/render/src/pair-call.ts`, `packages/render/src/stare-draw.ts`, `packages/render/src/ready-words.ts`, `packages/content/src/screen-words.ts`, `apps/game/src/menu-seats.ts`, `tools/words/test/drawn.test.ts`
+- **Asks:** On a grip mark and a pair call, which does a player read — `P1'S` / `P2'S`, or `PLAYER 1'S` / `PLAYER 2'S`? And the menu's screen chooser, whose card names are PILOT and NAVIGATOR and whose heading is SEAT — `PLAYER 1` / `PLAYER 2` under `SCREEN`, or keep the job names there as a proper noun?
+- **Where:** local
+
+The vocabulary says a player is never shown pilot, navigator or seat, and the
+guides obey it; fifteen drawn literals do not (`drawn.test.ts`, `STANDING`).
+The long form is what the guides say; the short form is what the seat
+switcher already shows and fits a mark a quarter of the width. The chooser is
+the one place the job name could stand as a name, as `THE WARD` does. Once
+answered, change the literals, strike the lines, and send one frame of THE
+FLEET's grip marks.

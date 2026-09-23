@@ -198,7 +198,7 @@ describe("BULB QUEEN", () => {
       row: her.row + 4,
       color: null,
     });
-    expect(word(world, "p1")).toBe("GUARD");
+    expect(word(world, "p1")).toBe("SHIELD");
     expect(cue(world, "p1")?.kind).toBe("PRESS");
     // The bloom outranks it on his screen: two beats against a whole fall.
     q.openBeat = world.beat;
@@ -211,7 +211,7 @@ describe("BULB QUEEN", () => {
       const said = cue(world, role)?.word;
       if (said === undefined) continue;
       expect(said).toMatch(/^[A-Z]+$/);
-      expect(["MOVE", "FIRE", "GUARD"]).toContain(said);
+      expect(["MOVE", "FIRE", "SHIELD"]).toContain(said);
     }
   });
 });

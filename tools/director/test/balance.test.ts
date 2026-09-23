@@ -16,7 +16,7 @@ function world() {
 describe("the director's sheet", () => {
   it("shows a dash, not a zero, for what has not been asked", () => {
     const lines = sheetLines(balanceSheet(world()));
-    expect(lines.map((l) => l.label)).toEqual(["WARDS", "TIMING", "COLOUR", "PODS", "REFUSED"]);
+    expect(lines.map((l) => l.label)).toEqual(["SHIELD", "TIMING", "COLOUR", "PODS", "REFUSED"]);
     for (const line of lines) {
       expect(line.count).toBe("—");
       expect(line.pct).toBeNull();
@@ -31,7 +31,7 @@ describe("the director's sheet", () => {
     w.balance.colorHits = 3;
     w.balance.colorMisses = 1;
     const lines = sheetLines(balanceSheet(w));
-    expect(lines[0]).toEqual({ label: "WARDS", count: "6/8", pct: 75 });
+    expect(lines[0]).toEqual({ label: "SHIELD", count: "6/8", pct: 75 });
     expect(lines[1]).toEqual({ label: "TIMING", count: "6/7", pct: 86 });
     expect(lines[2]).toEqual({ label: "COLOUR", count: "3/4", pct: 75 });
   });

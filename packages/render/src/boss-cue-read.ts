@@ -173,7 +173,7 @@ export function curtainCues(l: Layout, world: World, c: CurtainState): readonly 
  * the **plate** is the navigator's, silent while the plate already stands in
  * the torch's columns (`occupiesCol`, the simulation's own rule) for THE
  * LEDGER's reason — a word over a shield that is where it should be teaches
- * the pair to stop reading words. `GUARD` rides the torch down and is the
+ * the pair to stop reading words. `SHIELD` rides the torch down and is the
  * pilot's, who holds the trigger; it says nothing about *when*, which is the
  * one sentence this fight is built to make them say.
  *
@@ -221,7 +221,7 @@ export function queenCues(
   }
   if (torch !== undefined) {
     const at = creatureCenter(l, world, torch, beatPhase);
-    out.push(markAt(1, "PRESS", "GUARD", at.x, at.y, l, 40));
+    out.push(markAt(1, "PRESS", "SHIELD", at.x, at.y, l, 40));
   }
   return out;
 }

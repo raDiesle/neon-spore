@@ -314,7 +314,7 @@ about (`docs/decisions.md` #34, `packages/render/src/boss-cue-read.ts`). `MOVE`
 stands on the cannon on his hull line for the whole of a bloom, and is not
 taken away when he happens to be under the right one: a word that went away
 there would answer her by disappearing. The torch takes the other two — `MOVE`
-on the plate while it is not standing in the torch's columns, and `GUARD`
+on the plate while it is not standing in the torch's columns, and `SHIELD`
 riding the torch down on the seat that holds the trigger, saying nothing at all
 about *when*. Her rehearsal lost the page that used to say *FIRE THE MARK SHE
 SHOWED* and kept the two the field cannot say: that one of two marks is real,
@@ -1884,7 +1884,7 @@ what comes away is a plain `meteor` and no boss's reading cues an ordinary body
 (THE GORGE's fourth silence) — with seven able to be in the air at once, a frame
 on one would say that one is the dangerous one when what is dangerous is that
 there are several; and **the trigger's own beat**, since the plate is on her
-screen and not his (`showsShield`) and a `GUARD` that went out when the dome was
+screen and not his (`showsShield`) and a `SHIELD` that went out when the dome was
 under a rock would hand him the column he is never shown. Proved in
 `render/test/boss-cue-cairn.test.ts`, the clock's whole silence with it.
 
@@ -5703,7 +5703,7 @@ ring is under them, `ROOT`'s arrangement again.
 **Two of the four get a word on the field and two do not** (`boss-cue-read-o.ts`).
 `ROOT` stands in `rooting`, which used to be the movement with nothing in it,
 and `PULL` stands on the bead in `whipping` once the plate is already in the
-socket, giving it back to `GUARD` on the beat it lands. The plug is a choice
+socket, giving it back to `SHIELD` on the beat it lands. The plug is a choice
 about which of two columns the plate is owed in, which is the design's step 8
 said about the hull, and the haul is the last movement's whole content: a word
 naming either handle would be the pair's own answer handed over.
@@ -5815,7 +5815,7 @@ pair aiming at the silhouette got a refusal that looks exactly like a colour
 mistake, and *stand the cannon on the middle column* was the pilot's first
 guide line and nowhere else. **The colour is never said**: the seam wears it,
 on both screens. **Three silences.** Nothing from the beat the last return goes
-on the cord, `GUARD` and both `MOVE`s included, because it is the one bill the
+on the cord, `SHIELD` and both `MOVE`s included, because it is the one bill the
 pair must not answer and a word about the socket while the plate is meant to be
 leaving it is worse than none. Nothing about the seam from `ledgerWhipSeam`
 hits, where every shot is billed and a warded return widens the split for

@@ -81,7 +81,7 @@ const HALF_H = 0.66;
  * - **The trigger's own beat.** The dome is drawn to both screens alike —
  *   `drawHull` calls `drawShieldRim` with no role test, and THE WELL's own
  *   ring does the same. What `showsShield` gates is her strip, not the
- *   picture: the plate's column is not a fact hidden from him. So a `GUARD`
+ *   picture: the plate's column is not a fact hidden from him. So a `SHIELD`
  *   here would not be handing him anything he cannot already see, and the
  *   silence is not a second reason but **The ward**'s, said again: no boss's
  *   reading cues an ordinary body, and the body under this dome is one.

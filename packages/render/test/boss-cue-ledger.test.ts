@@ -91,7 +91,7 @@ describe("THE LEDGER's words", () => {
   it("puts the trigger on the pilot and the plate on the navigator", () => {
     const { world, t } = coming();
     t.socket = world.shieldCol === 0 ? 1 : 0;
-    expect(word(world, "p1")).toBe("GUARD");
+    expect(word(world, "p1")).toBe("SHIELD");
     expect(word(world, "p2")).toBe("MOVE");
   });
 
@@ -99,7 +99,7 @@ describe("THE LEDGER's words", () => {
     const { world, t } = coming();
     t.socket = world.shieldCol;
     expect(word(world, "p2")).toBeNull();
-    expect(word(world, "p1")).toBe("GUARD");
+    expect(word(world, "p1")).toBe("SHIELD");
   });
 
   it("asks him for the seam's column while the cord is empty", () => {
@@ -175,6 +175,6 @@ describe("THE LEDGER's words", () => {
     // And it goes back to the trigger on the beat it lands, which is the one
     // word that has ever stood on a bead.
     t.beads = [{ beat: world.beat + 1, span: 4, last: false, pulled: false }];
-    expect(word(world, "p1")).toBe("GUARD");
+    expect(word(world, "p1")).toBe("SHIELD");
   });
 });

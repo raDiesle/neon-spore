@@ -52,7 +52,7 @@ import { orreryCorePoint } from "./orrery-shape.js";
  *
  * - **The rocks.** A broken ring sheds three organs and the core spits one
  *   every `orrerySpitBeats`, and not one of them is cued. They are ordinary
- *   meteors answered by the ordinary shield loop, and the two `GUARD`
+ *   meteors answered by the ordinary shield loop, and the two `SHIELD`
  *   precedents in this game both stand on a boss's own special body — BULB
  *   QUEEN's torch, THE LEDGER's bead. More than that: they never come down
  *   the core's column (`spit`, `organCol`), so what a rock asks of the pilot

@@ -18312,3 +18312,17 @@ The bottleneck was **the second frame**: centring the word one column out
 looked right on paper, and only the picture showed the last letter on the rock.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-23 — Nothing checks the words `packages/render` draws on a playing screen
+
+- reading — 10 min. The three strings, their tests, every backticked `GUARD`
+  in comments and spec, and `tools/words` for what `playerText()` reaches.
+- writing — 15 min. The three words, the comments, `drawn.test.ts` and its
+  `STANDING` list, two queue items.
+- looking — 5 min. One frame of BULB QUEEN with the torch marked.
+- friction — 0 min.
+- landing — 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the reach of the scan**: widening it to the scene files
+turned three strings into thirty-seven, and sorting which were answered and
+which wait on the owner was most of the lane.

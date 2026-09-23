@@ -147,7 +147,7 @@ function syncColor(sync: number | null): string {
  */
 function rows(s: BalanceSheet): Row[] {
   return [
-    { label: "WARDS", tally: s.wards, empty: "no rock reached you" },
+    { label: "SHIELD", tally: s.wards, empty: "no rock reached you" },
     { label: "TIMING", tally: s.timing, empty: "no shield was in column" },
     { label: "COLOUR", tally: s.color, empty: "nothing was shot" },
     { label: "PODS", tally: s.pods, empty: "no pod came down" },

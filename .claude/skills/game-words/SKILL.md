@@ -33,6 +33,14 @@ and may not import `apps/game`, which pulls in the DOM — so a sentence the gam
 draws outside a wave is written in `screen-words.ts`, never beside the code
 that draws it.
 
+**A word drawn on the field is reached by the vocabulary alone.** A mark, a
+banner, a tally heading or a scene caption is a literal at its call site, so
+`tools/words/test/drawn.test.ts` reads the source of `packages/render`,
+`apps/game` and `packages/content` for capitalised literals and runs them
+against the vocabulary rows (section 3). What was there on 23 September 2026 is
+its `STANDING` list, which only shrinks — strike the line in the change that
+fixes the word.
+
 ## 2 · The six rules
 
 Every one of them is a row in `tools/words/measure.ts` and fails

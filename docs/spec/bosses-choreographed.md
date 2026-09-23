@@ -2180,7 +2180,7 @@ never the number.
 | Boss | The pilot is told | The navigator is told |
 |---|---|---|
 | THE THROAT | `FLING` (carry) on a gum still on the field — the one verb in the game that exists nowhere else | nothing |
-| THE LEDGER | `GUARD` (press) on the return coming down the cord, which is his half of the picture | `MOVE` (carry) onto the socket, and only while the plate is not already there |
+| THE LEDGER | `SHIELD` (press) on the return coming down the cord, which is his half of the picture | `MOVE` (carry) onto the socket, and only while the plate is not already there |
 | THE LEAD | nothing | `BURN` (hold) on the last pass, when the trigger has quietly stopped working |
 | THE SCUTTLE | `MOVE` (carry) on a hanging part one column off the cannon, and on the cannon itself on the wind-up | `FIRE` (press) on the live part, and `BURN` (hold) on the wind-up |
 | THE DIASTOLE | nothing | `BURN` (hold) from the beat a single-chamber hit stops landing |

@@ -28,7 +28,7 @@ import {
  * 198 lines of its 250 with four fights on it, and this one's reading grew a
  * movement.
  *
- * It said `GUARD` on the return coming down and `MOVE` on the walked socket,
+ * It said `SHIELD` on the return coming down and `MOVE` on the walked socket,
  * which is the half of this fight that happens **after** a shot. What neither
  * word said is where the shot goes, and this is the fourth boss in a row whose
  * field never named the column a bolt is spent in (`boss-cue-read-n.ts`,
@@ -52,7 +52,7 @@ import {
  * - **The last return.** `ledgerLetThrough` is the one bill the pair must
  *   *not* answer, and a field that said so would take the payoff of the whole
  *   encounter and hand it over in a word. Nothing is drawn from the beat that
- *   bead goes on the cord, `GUARD` and both `MOVE`s included: a word about the
+ *   bead goes on the cord, `SHIELD` and both `MOVE`s included: a word about the
  *   socket while the plate is meant to be leaving it is worse than none.
  * - **The seam, from `ledgerWhipSeam` hits on.** From there the cord bills
  *   *everything the cannon does* (`ledgerBills`) and a warded return is thrown
@@ -73,7 +73,7 @@ import {
  * the whole walk starts. `PULL` stands on the bead in `whipping` when the
  * plate is already in the socket — from there a warded return widens the seam
  * for nothing, so a pair that is ahead of the cord is better off hauling the
- * next bill down than waiting for it. It gives the bead back to `GUARD` on the
+ * next bill down than waiting for it. It gives the bead back to `SHIELD` on the
  * beat it lands, because one word stands on one thing. **Both of them drop
  * their frame where his ring is under the bead** — `ROOT`'s arrangement, said
  * about a bead instead of a root (`ledger-pull.ts`, THE STARE's `SHUT`).
@@ -88,7 +88,7 @@ import {
  * And nothing in `out`, where the halves are parting and the wave is held
  * `ledgerOutBeats` so it cannot end on the same beat.
  *
- * **Every mark is on the half of the picture its own seat holds.** `GUARD`
+ * **Every mark is on the half of the picture its own seat holds.** `SHIELD`
  * rides the bead, which is the pilot's (`showsLedgerBead`); the socket's `MOVE`
  * stands in the hole, which is the navigator's (`showsLedgerSocket`); the
  * cannon's `MOVE` stands on the cannon, which is his alone (`showsCannon`);
@@ -177,7 +177,7 @@ export function ledgerCues(
     // Waiting with the plate already in the socket is the pair ahead of the
     // cord, and from `ledgerWhipSeam` hits a warded return is the weapon: the
     // bead is worth hauling down rather than waiting for. One word on the
-    // bead, never two — `GUARD` is the beat it lands on and this is every beat
+    // bead, never two — `SHIELD` is the beat it lands on and this is every beat
     // before it.
     const pull = phase === "whipping" && world.shieldCol === t.socket && left > 1 && !next.pulled;
     // **No frame where his ring is under it**, `ROOT`'s arrangement said
@@ -187,7 +187,7 @@ export function ledgerCues(
     // the dial, which is the one radius clear of both.
     const ringed = ledgerPullable(t, cfg, world.beat) !== null;
     const half = handleRadius(l, cfg) * DIAL_RADII;
-    const word = pull ? "PULL" : "GUARD";
+    const word = pull ? "PULL" : "SHIELD";
     out.push(
       ringed
         ? {

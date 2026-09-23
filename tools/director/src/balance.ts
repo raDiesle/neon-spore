@@ -38,7 +38,7 @@ interface Line {
  */
 export function sheetLines(sheet: BalanceSheet): Line[] {
   return [
-    { label: "WARDS", count: count(sheet.wards.good, sheet.wards.of), pct: share(sheet.wards) },
+    { label: "SHIELD", count: count(sheet.wards.good, sheet.wards.of), pct: share(sheet.wards) },
     { label: "TIMING", count: count(sheet.timing.good, sheet.timing.of), pct: share(sheet.timing) },
     { label: "COLOUR", count: count(sheet.color.good, sheet.color.of), pct: share(sheet.color) },
     { label: "PODS", count: count(sheet.pods.good, sheet.pods.of), pct: share(sheet.pods) },

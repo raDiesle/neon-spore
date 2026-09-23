@@ -681,7 +681,7 @@ hand still draws.
 | THE CURTAIN | `PLAYER 1 SHOVES IT ONE OVER` | `A SHOVE IS ONE COLUMN` | `CARRY` / `SHOVE` on the membrane |
 | THE UNDERTOW | `PLAYER 2 MOVES THE PLATE OFF` | `THE COLUMN IS HIS TO REACH` | `CARRY` / `MOVE` on the plate standing where the maw is coming |
 | THE BATON | `PLAYER 1 PULLS THE TRIGGER` | `PLAYER 1 GREYS FOR A BEAT` | `PRESS` / `LAUNCH` on the bead in its socket |
-| THE LEDGER | `GUARD AS IT LANDS` | — the page is gone | `PRESS` / `GUARD` on the bead riding down the cord |
+| THE LEDGER | `GUARD AS IT LANDS` | — the page is gone | `PRESS` / `SHIELD` on the bead riding down the cord |
 | THE STARE | `WATCHED · TOUCH NOTHING` | — the page is gone | `STILL` at the foot of the gaze, on the watched seat, once the look lands |
 | THE STARE | `WATCHED NEXT · HANDS OFF` | `NO WARNING HERE · ONLY THERE` | the same, two beats on — the tell has no cue, by design |
 | THE STARE | `A BODY · STILL NOTHING` | — the page is gone | the same |

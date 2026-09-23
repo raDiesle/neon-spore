@@ -5,7 +5,7 @@ import { PALETTE } from "./palette.js";
 /** The one-word receipt for what a pod just gave, and the colour it reads in. */
 const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
   purge: { text: "SWEPT", hex: PALETTE.ember },
-  ward: { text: "WARDED", hex: PALETTE.shieldRim },
+  ward: { text: "ARMED", hex: PALETTE.shieldRim },
 };
 
 /**
