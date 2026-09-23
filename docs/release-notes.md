@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 8f1ff141 — A capture clears its own prefix's old frames before it writes, so a sheet shows only this run
+
+An eight-frame capture into a directory a ten-frame run had used left `-08` and `-09` standing, and `bun run sheet` glued them under the strip. Every capture now removes `<prefix>.png` and `<prefix>-NN.png` first and nothing else beside them. The frame's name, write and clearing moved together into `frame-files.ts`, which keeps `capture.ts` well under its ceiling.
+
 ## 2026-09-23 · 824f62e1 — `queue next` prints the lane's worktree under the main checkout, by absolute path
 
 The prompt said `git worktree add .claude/worktrees/<name>`, which from a session the desktop app started in its own worktree made a tree inside a tree. It now prints the path under the main checkout, found from the repository's shared git directory, so the command is right from wherever it is run.
