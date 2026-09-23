@@ -518,6 +518,7 @@ question that prompted this one.
 ## THE HASP's picture has never been drawn
 
 - **Found:** 2026-09-20, claude/queue-five-choreographed-bosses
+- **Taken:** 2026-09-23, claude/queue-task-work-24a30d (claim: claude/queue-the-hasps-picture-has-never-been-drawn)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/content/src/silhouettes.ts`
 - **Needs:** THE HASP is written and nobody has built its simulation
 - **Where:** local
