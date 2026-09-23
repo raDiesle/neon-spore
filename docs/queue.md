@@ -393,6 +393,7 @@ what the rest of this file holds.
 ## Nothing says how long a thumb waits for the field to answer it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-23, claude/queue-nothing-says-how-long-a-thumb-waits (claim: claude/queue-nothing-says-how-long-a-thumb-waits-for-the-fiel)
 - **Files:** `apps/game/src/input-buffer.ts`, `apps/game/src/loop.ts`, `apps/game/src/perf-page.ts`, `apps/game/src/coalesced.ts`
 - **Where:** local
 
