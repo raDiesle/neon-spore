@@ -46,9 +46,9 @@ export const WAVES_ACT_4B: Wave[] = [
     name: "THE RIND",
     sentence: "The one where the shot that lands does not close the column.",
     guide: {
-      both: "Three times the size of an ordinary body, and the matching colour only takes a layer off it. Three sizes, three shots — how big it is is how much is left of it.",
-      p1: "Keep the cannon in its column until the thing is gone. Two of the three shots only make it smaller, and moving off after the first is how you pay for it twice.",
-      p2: "The same colour, three times, and count the sizes down out loud — three, two, one — so both of you know which shot is the last one.",
+      both: "Three times the size of a normal body. The matching colour only takes one layer off.\nThree sizes, three shots. Its size tells you how many are left.",
+      p1: "1. Keep the cannon in its column until it is gone.\n2. The first two shots only make it smaller.\n3. Move off early and you pay for it twice.",
+      p2: "1. Fire the same colour three times.\n2. Count the sizes down out loud: three, two, one.\n3. Then you both know which shot is the last.",
       scene: "theRind",
     },
     entries: [

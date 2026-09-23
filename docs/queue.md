@@ -515,16 +515,6 @@ hundred, not the mean, because the complaint is about the bad ones. Then the
 three entries above can be judged rather than argued about, and so can the
 question that prompted this one.
 
-## Twenty wave guides in acts 4 to 7 fail the words check
-
-- **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37
-- **Taken:** 2026-09-23, claude/next-queued-task-ce4832 (claim: claude/queue-twenty-wave-guides-in-acts-4-to-7-fail-the-words)
-- **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/waves/act-4b.ts`, `packages/content/src/waves/act-5.ts`, `packages/content/src/waves/act-6.ts`, `packages/content/src/waves/act-7.ts`, `tools/words/clean.ts`
-
-Fifty-eight lines across twenty waves, the same job as the acts 1 to 3 entry
-and under the same skill. Take that one first if both are open: the earlier
-guides are read by more pairs.
-
 ## Twenty-six wave guides in acts 7a to 7g fail the words check
 
 - **Found:** 2026-09-21, claude/game-skill-descriptions-cecf37

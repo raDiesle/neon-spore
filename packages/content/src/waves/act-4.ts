@@ -121,9 +121,9 @@ export const WAVES_ACT_4: Wave[] = [
     name: "THE WISP",
     sentence: "The one where you call the square it is still falling toward.",
     guide: {
-      both: "One of you cannot see this one at all. It never comes down at you — it jumps, and lands somewhere else on the field, and the lettered grid under everything is how you say where.",
-      p1: "You will not see it once. Take the letter, put the cannon on it and wait — the square you are told is where it is going, not where it is, so being there early is the whole game. The box hunting the grid is not it.",
-      p2: "Only your screen has it, and the square it will jump to next is marked from the moment it lands, with the arc drawn to it. Say that square immediately — they have the whole dwell to get there. Either colour kills it.",
+      both: "One of you cannot see it at all. It never falls toward you. It jumps and lands somewhere else.\nSay where with the lettered grid under the field.",
+      p1: "1. You never see it. Put the cannon on the square you are told.\n2. That square is where it goes next, not where it is. Be there early.\n3. The box moving over the grid is not it.",
+      p2: "1. Only your screen has it. An arc shows its next square the moment it lands.\n2. Say that square at once. They have the whole wait to get there.\n3. Either colour kills it.",
       scene: "theWisp",
     },
     entries: [
@@ -138,8 +138,8 @@ export const WAVES_ACT_4: Wave[] = [
     sentence: "The one where waiting to see it is the miss.",
     guide: {
       both: "Something is falling that only one of your screens draws. The other gets a band across the row it is in, and nothing at all about the column.",
-      p1: "You will never see it — read the band for how long you have, and take the column you are told. Say the number back: you standing there is the only proof it was heard.",
-      p2: "You are the only one who can see it, and you cannot move the cannon. Say the column as a digit, not “there”, and say it again until they are under it. The last one crosses: call where it is going.",
+      p1: "1. You never see it. Read the band for how long you have.\n2. Take the column you are told.\n3. Say the number back. Standing there shows you heard it.",
+      p2: "1. Only you can see it, and you cannot move the cannon.\n2. Say the column as a digit, not “there”. Repeat it until they are under it.\n3. The last one crosses. Call where it is going.",
       scene: "theGhost",
     },
     entries: [
@@ -168,9 +168,9 @@ export const WAVES_ACT_4: Wave[] = [
     name: "THE ECHO",
     sentence: "The one where the slowest thing on the field is the one to take first.",
     guide: {
-      both: "Half speed down, and it comes apart while it falls. The seam across it says which way — sideways, then up and down — and it strains wide just before it goes. Each wait is longer than the last, so a quiet one is not a finished one.",
-      p1: "Have the cannon on it while it is still one. The fast bodies can wait a beat — this cannot, and every wait you spend on something else is another body to visit.",
-      p2: "Fire it the beat they are under it, not the beat you are free. Once it is a knot, call them by row as well as column — top or bottom — and take them in that order.",
+      both: "It falls at half speed and splits as it falls. The seam shows which way it splits.\nFirst sideways, then up and down. It stretches wide just before it splits.\nEach wait is longer than the last. A quiet one is not the end.",
+      p1: "1. Get the cannon under it while it is still one.\n2. The fast bodies can wait a beat. This one cannot.\n3. Every beat you spend elsewhere means one more body to reach.",
+      p2: "1. Fire on the beat they are under it, not the beat you are free.\n2. Once it splits, call each body by column and by row: top or bottom.\n3. Take them in that order.",
       scene: "theEcho",
     },
     entries: [

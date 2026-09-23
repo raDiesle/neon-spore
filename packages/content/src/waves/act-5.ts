@@ -122,9 +122,9 @@ export const WAVES_ACT_5: Wave[] = [
     name: "THE GYRE",
     sentence: "The one where the column you were told is the right one for a single beat.",
     guide: {
-      both: "Six bodies bolted round a turning wheel, red and cyan alternating. It stops falling in the middle of the field, walks a diamond there, and turns faster the longer it is up — sinking a row each lap until it grinds along the ship.",
-      p1: "SUCK slows the wheel for four beats and does not care where you are standing. Spend it on the beat you have both agreed to fire on, then be in the column — not the other way round.",
-      p2: "Do not call where a body is, call where it will be. One position round the rim per beat, and the colour two along is the other one — so say the colour and the beat together, or it has turned by the time they hear it.",
+      both: "Six bodies on a turning wheel, red and cyan in turn.\nIt stops in the middle of the field and walks a diamond.\nIt turns faster the longer it stays. Each lap it sinks a row, down to the ship.",
+      p1: "1. SUCK slows the wheel for four beats, wherever you stand.\n2. Use it on the beat you both agreed to fire on.\n3. Then get in the column. Not the other way round.",
+      p2: "1. Call where a body will be, not where it is.\n2. It moves one place round the rim each beat. Two along is the other colour.\n3. Say the colour and the beat together, or it has already turned.",
       scene: "theGyre",
     },
     entries: [{ beat: 0, col: 3, kind: "gyre", color: null }],
@@ -134,9 +134,9 @@ export const WAVES_ACT_5: Wave[] = [
     name: "THE LID",
     sentence: "The one where doing your half first is the same as not doing it.",
     guide: {
-      both: "An armoured eye with a cord hanging off its side. The plates over the lens part while the cord is pulled aside and shut the moment it is let go — and only while they stand fully apart does the lens's own colour land.",
-      p1: "Put the cannon in its column BEFORE you take the cord. Both your thumbs are spoken for once you have hold of it, and the plates close the instant you let go.",
-      p2: "Load the colour you can see in the seam and then wait. Count them in out loud: the shot has to leave while the plates are open, not after.",
+      both: "An armoured eye with a cord on its side. Pull the cord aside and the armour over the lens opens.\nLet go and it shuts. The lens's own colour lands only while it is fully open.",
+      p1: "1. Put the cannon in its column BEFORE you take the cord.\n2. Holding the cord takes both your thumbs.\n3. The armour shuts the moment you let go.",
+      p2: "1. Load the colour you see in the gap, then wait.\n2. Count them in out loud.\n3. The shot must leave while the armour is open, not after.",
       scene: "theLid",
     },
     entries: [
@@ -150,9 +150,9 @@ export const WAVES_ACT_5: Wave[] = [
     name: "THE RECOIL",
     sentence: "The one where your own shot is what makes the call wrong.",
     guide: {
-      both: "A slick or a bulb in a sprung cage. The matching colour throws it two rows back up the field and a lane to one side instead of killing it, and the body inside turns over to the other colour on the way. Three times: the cage loses a rib on each of the first two, and the third blows the whole frame off — what falls the rest of the way is a plain body, and the next shot kills it.",
-      p1: "Do not slide off the column when it lands. It bounces a lane left or right and nothing tells you which, so watch where it comes down and get back under it before it starts falling again.",
-      p2: "The colour flips every time one of yours lands. Say the new one out loud before you reload — the trigger you are holding stopped working on your own hit.",
+      both: "A slick or a bulb in a sprung cage. The matching colour throws it back instead of killing it.\nIt goes two rows up and one column to the side. Inside, it flips to the other colour.\nThe first two hits each break a rib. The third breaks the cage off. One more shot kills the plain body.",
+      p1: "1. Do not slide off the column when it lands.\n2. It bounces one column left or right. Nothing tells you which.\n3. Watch where it lands and get back under it before it falls.",
+      p2: "1. Its colour flips every time your shot hits it.\n2. Say the new colour out loud before you reload.\n3. The colour you had loaded is the wrong one now.",
       scene: "theRecoil",
     },
     entries: [
@@ -167,9 +167,9 @@ export const WAVES_ACT_5: Wave[] = [
     name: "THE CAROM",
     sentence: "The one where the shot that finishes it is what starts the other half.",
     guide: {
-      both: "A slick or a bulb sealed in a rock crust, thrown in on a diagonal and bouncing off the side walls. The shield cannot touch it while the crust is on. The matching cannon cracks it open — and what drops out is a plain meteor, coming down at a row a beat, that now has to be warded.",
-      p1: "Do not chase it. It crosses four lanes a beat and turns at the wall, so stand where it is going and wait — and keep a thumb on GUARD, because your own shot is what makes the rock.",
-      p2: "Call the wall, not the body: say which side it turns at and on what beat. Then load the colour burning through the shell, and be on the column the moment it cracks.",
+      both: "A slick or a bulb in a rock crust. It comes in on a diagonal and bounces off the side walls.\nThe shield cannot touch it while the crust is on.\nThe matching colour cracks it. Out drops a plain meteor. Put the shield under it.",
+      p1: "1. Do not chase it. It crosses four columns a beat and turns at the wall.\n2. Stand where it is going and wait.\n3. Keep a thumb on SHIELD. Your own shot makes the rock.",
+      p2: "1. Call the wall, not the body. Say which side it turns at, and on what beat.\n2. Load the colour you see through the shell.\n3. Be on the column the moment it cracks.",
       scene: "theCarom",
     },
     entries: [
@@ -184,9 +184,9 @@ export const WAVES_ACT_5: Wave[] = [
     name: "THE CRYSTAL",
     sentence: "The one where the shield has to be under the craft on the beat the shot lands.",
     guide: {
-      both: "A craft three tiles wide, crossing on a diagonal, an electric field crawling round it. Only the canopy in the middle breaks, in its own colour — and only through the hole the field opens while the shield stands armed under the craft. Any other shot is caught.",
-      p1: "Two thumbs. Put the cannon under the canopy, and press GUARD on the beat player 2 fires — the shot only counts while the shield is up. Watch the field: when it opens underneath, the shield is there.",
-      p2: "Slide the shield under the craft — any of its three lanes; a green column says you have it. Then load the canopy's colour and fire when player 1 says GUARD. A shot anywhere else is caught by the field.",
+      both: "A craft three tiles wide, crossing on a diagonal. A field of sparks crawls round it.\nOnly the canopy in the middle breaks, in its own colour.\nThe field opens a hole only while the shield is up under it. Any other shot fails.",
+      p1: "1. Two thumbs. Put the cannon under the canopy.\n2. Press SHIELD on the beat Player 2 fires. The shot counts only while the shield is up.\n3. Watch the field. When it opens underneath, the shield is there.",
+      p2: "1. Slide the shield under the craft. Any of its three columns works.\n2. A green column says you have it.\n3. Load the canopy's colour and fire when Player 1 says SHIELD.",
       scene: "theCrystal",
     },
     entries: [
@@ -199,12 +199,11 @@ export const WAVES_ACT_5: Wave[] = [
   {
     id: "theGum",
     name: "THE GUM",
-    sentence:
-      "The one where the thing nothing can stop has to be flicked out of the field by hand.",
+    sentence: "The one where nothing stops it, so you flick it off the field by hand.",
     guide: {
-      both: "A sticky mass falling straight down one lane. No shot touches it and the shield does not stop it. Either of you can take it: a thumb on the drop and a swipe to the left or the right, and it flies out of the field along its row. A thumb that only rests on it does nothing. One that reaches the ship hits the hull at once and splashes across the whole of it.",
-      p1: "Say who is taking it — a thumb on the drop is a thumb off your strip. Swipe it in the air, either way; on the ship's row it is too late.",
-      p2: "Your radar shows it coming down. Say the lane, and say who is taking it — a thumb on the drop is a thumb off your strip. Swipe it in the air, either way; on the ship's row it is too late.",
+      both: "A sticky mass falls straight down one column. No shot touches it and the shield does not stop it.\nEither of you can take it. Put a thumb on it and swipe left or right. It flies off along its row.\nA thumb that only rests does nothing. If it reaches the ship, it splashes across the whole hull.",
+      p1: "1. Say who takes it. A thumb on it is a thumb off your strip.\n2. Swipe it while it falls, either way.\n3. On the ship's row it is too late.",
+      p2: "1. Your radar shows it coming. Say the column and who takes it.\n2. A thumb on it is a thumb off your strip.\n3. Swipe it while it falls. On the ship's row it is too late.",
       scene: "theGum",
     },
     entries: [
@@ -218,11 +217,11 @@ export const WAVES_ACT_5: Wave[] = [
   {
     id: "theVolley",
     name: "THE VOLLEY",
-    sentence: "The one where a ward that works is not a body that is gone.",
+    sentence: "The one where the shield works and the body is still there.",
     guide: {
-      both: "A rock with a body sealed inside it, falling down one lane like any other. The shield does not destroy it — a ward hits it straight back up the field and knocks a plate of shell off on the way, and it comes down the same lane again. Three wards, and the shell bursts open in mid-air over a plain slick or bulb the cannon has to finish.",
-      p1: "Do not lift your thumb off GUARD when it works. That was one of three and it is already on its way back down the same column — and the third one hands it to you, so be under it before the shell opens.",
-      p2: "Hold the lane. It comes back to the same column every time, so leave the shield there and answer everything else around it — and read the colour off the seams while you wait. That is what kills it at the end.",
+      both: "A rock with a body sealed inside, falling down one column. The shield does not destroy it.\nThe shield knocks it back up, and a piece of shell comes off. It falls down the same column again.\nAfter three hits the shell bursts in the air. A plain slick or bulb comes out. The cannon finishes it.",
+      p1: "1. Keep your thumb on SHIELD when it works. That was one of three.\n2. It is already coming back down the same column.\n3. The third one hands it to you. Be under it before the shell opens.",
+      p2: "1. Hold the column. It comes back to the same one every time.\n2. Leave the shield there and answer everything else around it.\n3. Read the colour off the cracks while you wait. That colour kills it at the end.",
       scene: "theVolley",
     },
     entries: [

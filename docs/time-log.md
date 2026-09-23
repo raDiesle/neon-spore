@@ -53,6 +53,23 @@ word over and took a second pass.
 The bottleneck was none to speak of: the checker names every failing rule,
 so each line took one draft and two needed a second.
 
+## 2026-09-23 — queue-twenty-wave-guides-in-acts-4-to-7-fail-the-words
+
+- reading — 5 min. The entry, `.claude/skills/game-words`, `bun run words`
+  for each of the twenty waves, and `guide-prose.ts` for how a `\n` draws.
+- writing — 5 min. Sixty lines rewritten as numbered steps through one
+  exact-match script, one line fixed by hand, `CLEAN` and `CEILING`.
+- looking — 0 min. One `bun run frames` of THE COIL's guide, which showed
+  every one of these waves opens on a film, so its prose is on no page
+  of the game's own guide.
+- friction — 0 min. The shell guard refused a heredoc with a doubled
+  backslash; the entry went through the Edit tool instead.
+- landing — 5 min. `check:fast`, the commit, then a rebase over the acts 1
+  to 3 and DEMOS lanes, which had moved `CLEAN` and `CEILING` under it.
+
+The bottleneck was the rewriting itself: every line had to keep its
+mechanic while losing half its words, and nothing but a reader can check that.
+
 ## 2026-09-23 — queue-a-device-that-was-once-in-a-room-never-goes-back
 
 - reading — 5 min. The entry, `view.ts`, the two callers of `setSeat` (the

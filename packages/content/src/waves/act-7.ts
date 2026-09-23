@@ -152,9 +152,9 @@ export const WAVES_ACT_7: Wave[] = [
     name: "THE MAGNET",
     sentence: "The one where standing under it is how you miss.",
     guide: {
-      both: "A horseshoe on two poles, one red and one cyan, with an armoured plate slung underneath. A shot straight up its column hits the plate and bounces off it. Player 1 holds a thumb on the body from another column instead: the shot climbs, turns level with it and comes in sideways. Whichever side it arrives from is the pole it meets, and that pole's colour is the only one that kills it.",
-      p1: "Never stand under it. Take the cannon two or three columns to one side, hold your thumb on the body, and say which side you are coming in from. That is your whole half; the colour is not yours to pick.",
-      p2: "You cannot put a hand on this one, so wait to be told the side and read the pole on it. Load that colour and fire. A bolt that bounces off the underside means they were still in its column.",
+      both: "A horseshoe with two poles, one red and one cyan. Armour hangs under it.\nA shot straight up its column bounces off the armour.\nPlayer 1 holds a thumb on it from another column. The shot climbs, turns and comes in sideways.\nThe side it arrives from is the pole it meets. Only that pole's colour kills it.",
+      p1: "1. Never stand under it. Take the cannon two or three columns to one side.\n2. Hold your thumb on the body. Say which side you come in from.\n3. That is your whole half. The colour is not yours to pick.",
+      p2: "1. You cannot touch this one. Wait to hear the side.\n2. Read the pole on that side. Load its colour and fire.\n3. A shot that bounces off the bottom means they were still under it.",
       scene: "theMagnet",
     },
     entries: [
@@ -168,12 +168,11 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theJam",
     name: "THE JAM",
-    sentence:
-      "The one where the gun will not stop, and the only thing left to decide is what it is pointed at.",
+    sentence: "The one where the gun never stops, and you only choose where it points.",
     guide: {
-      both: "Something is hanging from the top of the field, and it has the gun. Its beam is on RED and CYAN and on the muzzle, and the cannon fires by itself, on every beat, up whichever column player 1 is standing in — alternating: red, cyan, red, cyan. The beam is the colour of the next shot. RED and CYAN are dead, and nothing stops the gun or reaches the thing holding it.",
-      p1: "You are not shooting any more, you are aiming. Slide onto a body on the beat its colour comes up, and be off a lure's column before the next shot lands.",
-      p2: "You have no trigger this wave. Count the colours out loud so they know which beat is theirs, and call the lures — where the gun is pointed is the only thing either of you can still decide.",
+      both: "Something hangs from the top of the field, and it has the gun. Its beam is on RED, CYAN and the muzzle.\nThe cannon fires by itself every beat, up Player 1's column. Red, cyan, red, cyan.\nThe beam shows the next shot's colour. RED and CYAN are dead. Nothing stops the gun or reaches the thing holding it.",
+      p1: "1. You are not shooting now. You are aiming.\n2. Slide onto a body on the beat its colour comes up.\n3. Get off a lure's column before the next shot lands.",
+      p2: "1. You have no trigger this wave.\n2. Count the colours out loud so they know which beat is theirs.\n3. Call the lures. Where the gun points is the only thing you two still choose.",
       scene: "theJam",
     },
     entries: [
@@ -193,9 +192,9 @@ export const WAVES_ACT_7: Wave[] = [
     name: "THE COIL",
     sentence: "The one where the shield never goes away, and it opens whatever it can see.",
     guide: {
-      both: "Something is hanging from the top of the field, and it has the trigger. Its beam is on GUARD and on the plate, and the shield is up over player 2's column on every beat; nobody can put it away and nothing reaches the thing holding it. New on the field is a rock inside a dome of its own. It comes in at the right wall and crosses to the left instead of falling, sinking at every wall it turns at, and nothing touches it while the dome is on. A dome the plate is standing under comes off — but the plate has to see it: a rock falling in the lane between them takes the whole reach, and while one is under a dome nothing happens at all. What comes out runs for the wall furthest from the plate. The charge jumps to another dome still standing and opens that one too. GUARD is dead on player 1's panel.",
-      p1: "The bolt is on your screen and on nobody else's, so which dome opens next is yours to say. Call the column the moment it leaves — they have four beats. GUARD does nothing this wave.",
-      p2: "Do not shield! The plate is yours and it never goes away: a dome you stand under comes open, and what comes out is thrown at the ship from right there. Say the route, and say what is in the lane.",
+      both: "Something hangs from the top of the field. Its beam holds the shield up over Player 2's column, every beat.\nNobody can put it away, and nothing reaches the thing holding it.\nNew here: a rock inside a dome. It comes in at the right wall and crosses left, sinking at each wall.\nNothing touches it while the dome is on. Stand the shield under a dome and the dome comes off.\nA rock falling between them blocks it. What comes out runs for the wall furthest from the shield.\nThe charge then jumps to another dome and opens it too. SHIELD does nothing on Player 1's panel.",
+      p1: "1. Only your screen shows the charge. You say which dome opens next.\n2. Call the column the moment it leaves. They have four beats.\n3. SHIELD does nothing this wave.",
+      p2: "1. Careful with the shield. It is yours, and it never goes away.\n2. A dome you stand under opens. What comes out flies at the ship from right there.\n3. Say the route, and say what is in the column.",
       scene: "theCoil",
     },
     entries: [

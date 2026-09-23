@@ -113,9 +113,9 @@ export const WAVES_ACT_6: Wave[] = [
     name: "THE VEER",
     sentence: "The one where parking the shield under it is what loses it.",
     guide: {
-      both: "A rock with a rider on it. Every third row it steps to one side, and it never stops — the last step lands one row above the ship. Nothing about it can be shot. What lands is still a rock, and still wants the shield.",
-      p1: "You are the only one who sees the arrow over its hat, and it re-aims every three rows all the way down. Say the side out loud every single time — and keep the thumb on GUARD, because saying it is not warding it.",
-      p2: "You can see where it is, not where it is going. Move the shield on what you are told rather than on what you can see, and never park it — there is no row on the way down where the last thing you were told is still true.",
+      both: "A rock with a rider on it. Every third row it steps to one side, and it never stops.\nThe last step lands one row above the ship.\nYou cannot shoot any of it. What lands is still a rock. Put the shield under it.",
+      p1: "1. Only you see the arrow over its hat. It aims again every three rows.\n2. Say the side out loud every single time.\n3. Keep your thumb on SHIELD. Saying it does not stop it.",
+      p2: "1. You see where it is, not where it is going.\n2. Move the shield on what you are told, not on what you see.\n3. Never park it. Every three rows, what you last heard stops being true.",
       scene: "theVeer",
     },
     entries: [
@@ -130,9 +130,9 @@ export const WAVES_ACT_6: Wave[] = [
     name: "THE STRAND",
     sentence: "The one where firing on what you can see is what puts a body back.",
     guide: {
-      both: "Beads on one thread, alternating red and cyan. It comes apart from its ends inward, and only one bead can be shot at a time — a shot at any other swells a dead one back to life.",
-      p1: "You can see the colours and not which bead is lit. Wait to be told which one, put the cannon under it, and say its colour out loud before the trigger comes.",
-      p2: "You can see which bead is lit and no colour at all, and it jumps ends. Count it from the left and say the number every time — then load what you are told, not what you guess.",
+      both: "Beads on one thread, red and cyan in turn. It comes apart from the ends inward.\nOnly one bead at a time takes a shot. A shot at any other brings a dead one back to life.",
+      p1: "1. You see the colours, not which bead is lit.\n2. Wait to hear which one. Put the cannon under it.\n3. Say its colour out loud before the trigger comes.",
+      p2: "1. You see which bead is lit, but no colour. It jumps ends.\n2. Count it from the left and say the number every time.\n3. Then load what you are told, not what you guess.",
       scene: "theStrand",
     },
     entries: [
@@ -146,9 +146,9 @@ export const WAVES_ACT_6: Wave[] = [
     name: "THE CRAWLER",
     sentence: "The one where nothing is falling and standing still is what loses it.",
     guide: {
-      both: "A maggot that walks along the ship instead of falling on it. It cannot hurt you while it walks — but it must not reach the far wall. Every ring comes off. A crosshair marks each one; the ones with the shield above them are the dome's, and that is the head, the tail and every third segment.",
-      p1: "Take the cannon under a colour ring and say which colour you are standing under. The plates are not yours to shoot and the trigger is — so keep a thumb on GUARD and press when you are told the shield is under one.",
-      p2: "Load what you are told and fire straight up. When the next ring wears the shield mark, take the dome under it yourself and say when you are there — you cannot fire it, and they cannot move it.",
+      both: "A maggot that walks along the ship instead of falling on it. It cannot hurt you while it walks.\nIt must not reach the far wall. Every ring has to come off.\nA crosshair marks each ring. A shield above a ring means the shield takes it: head, tail and every third segment.",
+      p1: "1. Take the cannon under a colour ring. Say which colour you are under.\n2. The shield rings are not yours to shoot. The shield trigger is.\n3. Keep a thumb on SHIELD. Press when you hear the shield is under one.",
+      p2: "1. Load what you are told and fire straight up.\n2. When the next ring shows the shield mark, take the shield under it yourself.\n3. Say when you are there. You cannot trigger it, and they cannot move it.",
       scene: "theCrawler",
     },
     entries: [
@@ -164,7 +164,7 @@ export const WAVES_ACT_6: Wave[] = [
     guide: {
       both: "A live wire right across the field, twice as fast as anything else. The trigger does nothing to it. Where the wire is broken, the ship lives.",
       p1: "Only your screen shows where it is open. Every wall in this wave is open in the middle.",
-      p2: "Your wire looks unbroken. The dome is already in the middle, and this wave never asks it to move.",
+      p2: "Your wire looks whole. The shield is already in the middle, and you never move it here.",
       scene: "theFence",
     },
     entries: [
@@ -178,9 +178,9 @@ export const WAVES_ACT_6: Wave[] = [
     name: "THE GAP",
     sentence: "The one where the number has to cross the room before the wire lands.",
     guide: {
-      both: "The same wall, opening somewhere else every time. Only the pilot is shown where, and only the navigator can move the dome.",
-      p1: "Count the break from the left and say the number early. GUARD is worth nothing here.",
-      p2: "Ask, then be in the column you are given before it lands. The current stops crossing to the dome when you are in it.",
+      both: "The same wall, opening somewhere else every time. Only Player 1 sees where. Only Player 2 can move the shield.",
+      p1: "Count the gap from the left and say the number early. SHIELD does nothing here.",
+      p2: "1. Ask. Then move into the column you hear, before it lands.\n2. In the gap, the current stops reaching the shield.",
       scene: "theGap",
     },
     entries: [
@@ -196,9 +196,9 @@ export const WAVES_ACT_6: Wave[] = [
     name: "THE CUT",
     sentence: "The one where the only way through is the one you make.",
     guide: {
-      both: "A wall with no way through at all, and one crack in it. A bolt opens the crack and nothing else opens anything.",
-      p1: "The crack is on your screen only. Say its column and say its colour, then take the cannon under it.",
-      p2: "Load the colour you are told and fire straight up. Then take the dome to the hole the two of you just made.",
+      both: "A wall with no way through at all, and one crack in it. A shot opens the crack. Nothing else opens anything.",
+      p1: "1. Only your screen shows the crack.\n2. Say its column and its colour.\n3. Take the cannon under it.",
+      p2: "1. Load the colour you are told. Fire straight up.\n2. Then take the shield to the hole you both just made.",
       scene: "theCut",
     },
     entries: [
