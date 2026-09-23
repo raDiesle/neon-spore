@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-23 · 8b594646 — `queue take` takes over a claim a landed lane left behind
+
+On 22 September eleven lanes drained the handles entry, each on its own branch, each landing its piece and narrowing the title. Each one left its `Taken:` line and a claim branch derived from the old title. The next lane's `take` read that as held, so every lane ran `release` and then `take`. Now `take` treats a claim as spent when it has a local ref, no worktree stands on it, and main has every commit on it (`tools/queue/spent.ts`). It drops that branch and takes the entry. A cloud claim has no local ref, so it never reads as spent. `lapsed.ts`'s rule stands: a missing ref gives nothing back.
+
 ## 2026-09-23 · 45fdc1f2 — Close the queue entry for a SCOUT frame with a mote aboard
 
 The work it asked for landed at ea9cc9e4, under its twin *`--press` knows no scout verb*. `--press` flies the pilot's three, a recorded flight in `scout-press.ts` puts four motes aboard, and the laden ring was photographed. The director poses `laden` too. The rest of the entry, one flag that flies to the nth mote, would reach no state the recorded line does not. The heavy ring waits on the second arena's own entry and on the `--boss-json` question.

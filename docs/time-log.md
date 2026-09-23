@@ -18438,3 +18438,5 @@ title, and only the staleness mark sent this lane to read the log first.
 
 The bottleneck was **finding the case**: the entry described a failure the code
 already handled, and only the marks in the history showed the one it did not.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
