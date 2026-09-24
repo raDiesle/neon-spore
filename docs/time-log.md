@@ -19677,3 +19677,18 @@ The bottleneck was **writing**: one number, but the panel's strip was sized
 against it, and that coupling only showed as a dead row in a test.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — THE SLOW plays a slowed beat at a quarter of its rate, not a third
+
+- reading: 5 min. `config-slow.ts`, its callers, and every comment that
+  said *a third*.
+- writing: 5 min. The number, its reasoning, and fifteen comments reworded
+  to *the slow rate* so the next change is one line.
+- looking: 0 min. A rate is watched at tempo, and nothing about the frame
+  moves.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, red once on the relay's own 333 fixture,
+  which was a scheduler constant and went back, then green.
+
+The bottleneck was **writing**: the number was one line and the prose that
+repeated it was fifteen.

@@ -110,7 +110,7 @@ export function startWave(
   world.shieldSinceTick = world.tick;
   world.boss = null;
   // And nothing slowed. A window inherited across a wave would open the next
-  // one at a third of wall-clock rate with nothing dramatic happening in it
+  // one at the slow rate with nothing dramatic happening in it
   // (`slow.ts`).
   clearSlow(world);
   // And nothing spent yet. The ledger is what the pair has spent **in this

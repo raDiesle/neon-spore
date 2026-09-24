@@ -60,7 +60,7 @@ export interface CandleConfig {
    * muzzle, never one THE CANDLE ate. One, not the ordinary call's two
    * (`config-slow.ts`): a flash is **seen**, not called across the voice
    * delay — the pair's own press lit it, so there is nothing to be told about
-   * it that a third-rate beat says better than the beat itself.
+   * it that a slowed beat says better than the beat itself.
    */
   candleFlashSlowBeats: number;
 }

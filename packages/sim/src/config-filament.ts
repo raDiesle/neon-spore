@@ -18,7 +18,7 @@ export interface FilamentConfig {
   filamentArmBeats: number;
   /** Beats a pulled filament takes to come out before the next is armed. */
   filamentPullBeats: number;
-  /** Beats the field runs at a third rate from a filament coming out (THE SLOW). */
+  /** Beats the field runs at the slow rate from a filament coming out (THE SLOW). */
   filamentSlowBeats: number;
   /** Beats the beaten body hangs before the wave may end. */
   filamentOutBeats: number;

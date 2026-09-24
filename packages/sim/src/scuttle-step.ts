@@ -160,7 +160,7 @@ function throwLoose(world: World, s: ScuttleState): void {
   s.live = -1;
 }
 
-/** One part left: it draws back for the throw, and the field is watched at a third rate while it does. */
+/** One part left: it draws back for the throw, and the field is watched at the slow rate while it does. */
 function wind(world: World, s: ScuttleState): void {
   const cfg = world.cfg;
   const last = scuttleAttached(s)[0];

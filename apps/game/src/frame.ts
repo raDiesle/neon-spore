@@ -109,9 +109,9 @@ export function startFrames(p: FrameParts): Frames {
     p.haptics.frame(frameEvents);
     p.renderer.draw({
       world: p.world,
-      // **On inside a slow window, whatever the flag says.** At a third of
-      // wall-clock rate the loop runs about two ticks every three frames where
-      // it ran two a frame, so the same world would be drawn twice and the one
+      // **On inside a slow window, whatever the flag says.** At the slow
+      // rate the loop runs about one tick every two frames where it ran two a
+      // frame, so the same world would be drawn more than once and the one
       // moment the boss asks the pair to *look* would be the one that juddered.
       // It replaces no frame the shipped game draws, because there were no
       // slow windows before this boss — CLAUDE.md's *a look with no shipped

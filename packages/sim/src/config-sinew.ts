@@ -46,7 +46,7 @@ export interface SinewConfig {
   sinewDecayFibres: number;
   /** Slack the tendon gains per beat with a hand on it, in thousandths, once it decays. */
   sinewDecayMilli: number;
-  /** Beats a fibre's parting is watched at a third rate (THE SLOW). */
+  /** Beats a fibre's parting is watched at the slow rate (THE SLOW). */
   sinewPartSlowBeats: number;
   /** Beats the mass falls after the last fibre parts, before it lands. */
   sinewFallBeats: number;

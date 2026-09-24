@@ -120,7 +120,7 @@ export function closeSlow(world: World): void {
 /**
  * Nothing slowed. Called by `startWave` for the reason every other wave-local
  * field is cleared there: a window inherited across a wave would open the next
- * one at a third rate with nothing dramatic happening in it.
+ * one at the slow rate with nothing dramatic happening in it.
  */
 export function clearSlow(world: World): void {
   world.slowFromBeat = NO_SLOW;

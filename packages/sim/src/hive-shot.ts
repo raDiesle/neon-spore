@@ -62,7 +62,7 @@ export function hiveStruck(world: World, b: Bullet): void {
     world.events.push({ type: "hiveClench", col: midCol(world.cfg) });
     return;
   }
-  // The last seal is the drama, and it is watched at a third rate.
+  // The last seal is the drama, and it is watched at the slow rate.
   s.downBeat = world.beat;
   enterHivePhase(s, "down", world.beat);
   openSlow(world, world.cfg.hiveSlowBeats);

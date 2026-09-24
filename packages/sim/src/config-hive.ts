@@ -43,7 +43,7 @@ export interface HiveConfig {
   hivePinchBeats: number;
   /** Thousandths of a tile a thumb must drag a clenched underside to relax it. */
   hiveHaulMilli: number;
-  /** Beats the field runs at a third rate from the last seal (THE SLOW). */
+  /** Beats the field runs at the slow rate from the last seal (THE SLOW). */
   hiveSlowBeats: number;
   /** Beats the sealed body hangs before the wave may end. */
   hiveOutBeats: number;

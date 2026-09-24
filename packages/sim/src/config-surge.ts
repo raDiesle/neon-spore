@@ -54,7 +54,7 @@ export interface SurgeConfig {
   surgeBulbRow: number;
   /** Columns the bulb spans, centred on `midCol`: what it absorbs, and where its gums come from. */
   surgeBulbCols: number;
-  /** Beats the pressure's arrival in a notch's band is watched at a third rate (THE SLOW). */
+  /** Beats the pressure's arrival in a notch's band is watched at the slow rate (THE SLOW). */
   surgeNearSlowBeats: number;
   /** Beats the eversion takes once the last notch is open. */
   surgeEvertBeats: number;

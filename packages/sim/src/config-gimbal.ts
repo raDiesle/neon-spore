@@ -20,7 +20,7 @@ export interface GimbalConfig {
   gimbalStillBeats: number;
   /** Beats a shear takes before the next alignment's marks light. */
   gimbalShearBeats: number;
-  /** Beats the field runs at a third rate on each shear (THE SLOW). */
+  /** Beats the field runs at the slow rate on each shear (THE SLOW). */
   gimbalSlowBeats: number;
   /**
    * Beats the leaking seam has before the spark reaches the hull.

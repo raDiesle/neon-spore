@@ -1063,7 +1063,7 @@ possible signal that a window has opened.
   every dramatic beat the game has.
 
 **As shipped, 16 September 2026.** Two dials, and neither is a tempo:
-`slowRateMilli` (333) is the fraction of wall-clock rate a slowed tick is
+`slowRateMilli` (250, a quarter, since 24 September 2026; a third until then) is the fraction of wall-clock rate a slowed tick is
 consumed at, and `slowBeats` (2) is how long an ordinary dramatic window runs
 for — a boss that wants its own length passes one (`sim/config-slow.ts`).
 `openSlow(world, beats)` opens a window from the beat it is called on and never

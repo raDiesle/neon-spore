@@ -38,7 +38,7 @@ export interface ScuttleConfig {
   scuttleWindSlackBeats: number;
   /** Row a thrown pod hangs at, from the top of the field. */
   scuttlePodRow: number;
-  /** Beats the field runs at a third rate from the wind-up (THE SLOW). */
+  /** Beats the field runs at the slow rate from the wind-up (THE SLOW). */
   scuttleSlowBeats: number;
   /** Beats the frame stands empty after the beam before the wave may end. */
   scuttleOutBeats: number;

@@ -22,7 +22,7 @@ export interface InstarConfig {
   /** Thousandths of a tile a thumb must carry a mark before the lift counts a swipe. */
   instarSwipeMilli: number;
   /**
-   * Beats the field runs at a third rate from every step landing, and from
+   * Beats the field runs at the slow rate from every step landing, and from
    * the last (THE SLOW). Doubled on 22 September 2026 with the script's own
    * windows: at two it was a second of slow and the owner could not read the
    * window's own picture before it was gone.

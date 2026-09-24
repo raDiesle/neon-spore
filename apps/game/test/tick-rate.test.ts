@@ -6,8 +6,8 @@ import { tickMs, ticksAhead } from "../src/tick-rate.js";
 /**
  * **A press waits the same number of milliseconds whatever the beat is doing.**
  *
- * THE SLOW makes a tick worth three times its ordinary length, so a delay
- * counted in ticks was three times as long in the hand on exactly the beats a
+ * THE SLOW makes a tick worth four times its ordinary length, so a delay
+ * counted in ticks was four times as long in the hand on exactly the beats a
  * boss made dramatic. `InputDelay` holds milliseconds for that reason, and
  * this file holds the other half: a wait that *crosses the end of a window* is
  * walked rather than divided, because the ticks on the far side of the
@@ -46,7 +46,7 @@ describe("how long a tick is worth", () => {
     expect(tickMs(createWorld(CFG, 1))).toBeCloseTo(ORDINARY, 9);
   });
 
-  test("is three times that inside one of THE SLOW's windows", () => {
+  test("is four times that inside one of THE SLOW's windows", () => {
     expect(tickMs(slowWith(TPB))).toBeCloseTo(ORDINARY * (1000 / CFG.slowRateMilli), 9);
   });
 });
@@ -56,18 +56,18 @@ describe("how far ahead a press is scheduled", () => {
     expect(ticksAhead(linked(), createWorld(CFG, 1))).toBe(24);
     // A window with two whole beats left is far more than 195 ms of slowed
     // ticks, so the wait never leaves it and the division is right again.
-    expect(ticksAhead(linked(), slowWith(TPB * 2))).toBe(8);
+    expect(ticksAhead(linked(), slowWith(TPB * 2))).toBe(6);
   });
 
   /**
-   * The bug. Two slowed ticks are 50 ms; the other 145 ms are spent on the far
-   * side of the boundary at 8⅓ ms each, which is eighteen more. Divided at the
-   * rate in force it would have been eight ticks — 50 ms inside the window and
-   * 50 ms outside it, and a press answered in a third of the time the link
-   * asked for.
+   * The bug. Two slowed ticks are 67 ms at a quarter rate; the other 128 ms
+   * are spent on the far side of the boundary at 8⅓ ms each, which is sixteen
+   * more. Divided at the rate in force it would have been six ticks — 67 ms
+   * inside the window and 33 ms outside it, and a press answered in half the
+   * time the link asked for.
    */
   test("spends the tail of a wait at the rate the tail is played at", () => {
-    expect(ticksAhead(linked(), slowWith(2))).toBe(20);
+    expect(ticksAhead(linked(), slowWith(2))).toBe(18);
   });
 
   /**

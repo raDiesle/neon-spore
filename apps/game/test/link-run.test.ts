@@ -64,7 +64,7 @@ describe("a run whose peer broke its promise", () => {
  * **A press is answered the same number of milliseconds later on every beat.**
  *
  * The delay was a number of *ticks* until 17 September 2026, and THE SLOW
- * makes a tick worth three of its ordinary self — so the same delay was three
+ * makes a tick worth four of its ordinary self — so the same delay was four
  * times as long in the hand on exactly the beats a boss made dramatic, with
  * nothing about the link having changed. What is held constant now is the
  * milliseconds (`net/delay.ts`), and the tick count is asked for every frame
@@ -81,13 +81,13 @@ describe("the delay inside one of THE SLOW's windows", () => {
     const { run, world } = seatOne();
     run.observeLink(150, 16);
     const ordinary = run.delayTicks;
-    // 195 ms at 120 Hz is 24 ticks, and a third of that when a tick is worth
-    // three times as much wall clock.
+    // 195 ms at 120 Hz is 24 ticks, and a quarter of that when a tick is
+    // worth four times as much wall clock.
     expect(ordinary).toBe(24);
 
     slow(world, 4);
     run.observeLink(150, 16);
-    expect(run.delayTicks).toBe(8);
+    expect(run.delayTicks).toBe(6);
     // The same wait in the hand, which is the whole of the fix.
     expect(run.delayMs).toBe(195);
   });
@@ -96,7 +96,7 @@ describe("the delay inside one of THE SLOW's windows", () => {
     const { run, world } = seatOne();
     slow(world, 4);
     run.observeLink(150, 16);
-    expect(run.delayTicks).toBe(8);
+    expect(run.delayTicks).toBe(6);
 
     world.beat = world.slowToBeat;
     run.observeLink(150, 16);

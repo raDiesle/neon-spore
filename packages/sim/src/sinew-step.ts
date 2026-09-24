@@ -122,7 +122,7 @@ function snap(world: World, s: SinewState): void {
 
 /**
  * A fibre parts: the mass drops a row, the zone is rolled again for the next
- * one, and the tendon re-seats — no slack. Watched at a third rate for
+ * one, and the tendon re-seats — no slack. Watched at the slow rate for
  * `sinewPartSlowBeats`, a moment that asks nothing.
  *
  * The last one drops the mass, and the hands stay on for the fall — **the

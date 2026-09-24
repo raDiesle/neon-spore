@@ -31,7 +31,7 @@ import { type Figure, instarFigure, instarPhaseAt } from "./instar-shape.js";
  *
  * **And it is slowed by THE SLOW for free**, which is the whole point: the
  * swing is a function of `beat` and `beatPhase`, and a slow window is beats
- * arriving at a third of the wall-clock rate (`sim/slow.ts`). Nothing here
+ * arriving at the slow rate (`sim/slow.ts`). Nothing here
  * reads a clock, so nothing here has to be told.
  */
 

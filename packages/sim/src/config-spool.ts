@@ -54,7 +54,7 @@ export interface SpoolConfig {
   spoolSlipBeats: number;
   /** Beats a rib takes easing open before the next zone opens. */
   spoolEaseBeats: number;
-  /** Beats the field runs at a third rate as the last rib eases (THE SLOW). */
+  /** Beats the field runs at the slow rate as the last rib eases (THE SLOW). */
   spoolSlowBeats: number;
   /** Beats the slack spool drifts for before the wave may end. */
   spoolSlackBeats: number;
