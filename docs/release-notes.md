@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 9da32cce — A player reads P1'S and P2'S on a mark, and PLAYER 1 and 2 on the menu
+
+The owner's answer to the seat names: a grip mark, THE INSTAR's marks and a pair call say P1'S / P2'S (P1 NOW, P2 NOW), THE STARE names P1 or P2, and the menu's screen chooser shows PLAYER 1 and PLAYER 2 under SCREEN. Waiting for the other seat says THE OTHER PLAYER. No drawn literal says pilot, navigator or seat any more, and the chooser's names are in the words inventory. A look the owner asked for by name.
+
 ## 2026-09-24 · 042c0dce — `--boss-json` writes a list at any length, checked item by item
 
 A list field used to take only a list of its own length, so every list a boss grows — THE SCUTTLE's `loose`, THE LEDGER's `beads`, THE SCOUT's `carrying`, THE UNDERTOW's `breaches`, SNAKE's `body` — could not be posed. The owner chose to check the items' type instead: each item must be a kind the list already holds, and a shape item must carry the keys the others carry. An empty list takes anything. The check moved out of `page.evaluate` into `tools/frames/boss-check.ts`, where it has tests.
