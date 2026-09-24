@@ -19639,3 +19639,5 @@ of the time it takes.
 The bottleneck was **reading**: the fix is a few lines, but there were two
 hosts, a key the director already spends on something else, and a sim that
 refuses the wrong thumb to understand first.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
