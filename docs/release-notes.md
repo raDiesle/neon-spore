@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 1f439024 — The lost screen says WAVE 7 LOST, and its buttons stand higher and solid
+
+The heading carries the wave's number now, and the line under it is the wave's name and how many tries the whole run has taken — `World.runTries`, one per opening, a first try and a retry alike. The TRY count in the top-left corner is gone. The buttons, the words and the plates' seam all came up the screen, and every button stands on a solid backing, so the wound's ring and its blood no longer show through GO TO MENU. The owner asked for all of it by name, which is the look exemption this uses.
+
 ## 2026-09-24 · e6251c62 — A lost wave offers its tutorial again, and opens as a first entry
 
 RETRY WAVE deliberately drops the guide, and that is exactly wrong for the pair who lost because one of them never understood the mechanic. The owner asked for it on 24 September 2026: there must be a way to watch the tutorial again and then restart the wave, as the players entered it the first time. So the lost screen has a third button, TUTORIAL AGAIN, under RETRY WAVE and only on a wave that has a guide to watch. It opens the film, the gate, then the field. A look the owner asked for by name.
