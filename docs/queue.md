@@ -571,41 +571,6 @@ Reproducing the list, from 24 September 2026: a `globalThis` tally in
 caller's stack frame, written out by an `afterAll` in a `--preload` file
 over `bun test packages/render/test` — about a minute, in one process.
 
-## `strokeGlow` is handed an alpha it throws away: the ship and the screens
-
-- **Found:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha
-- **Files:** `packages/render/src/harpoon-line.ts`, `packages/render/src/intro-ear.ts`, `packages/render/src/maw.ts`, `packages/render/src/shield.ts`
-
-`strokeGlow` sets `globalAlpha` for every pass and never reads the one it
-was handed, so a caller's `ctx.globalAlpha = …` just before it does nothing
-to the line. 4 calls in 4 files, by caller and line: `harpoon-line.ts:141`, `intro-ear.ts:146`, `maw.ts:103`, `shield.ts:232`.
-
-**The list was re-counted on 24 September 2026 and is a third of what it
-was.** The first count ran on a test canvas whose `restore` brought back the
-transform and not the alpha, so a fade set inside a `save` looked as if it
-reached every glow drawn after it; of the bodies' sixteen calls, three were
-real (`canvas-stub.ts` restores alpha now). A caller named from a test file's
-own hand-made context with no `save` of its own — `well-frame.test.ts`'s
-`arcsOf` — is the same mirage and is not a call to fix.
-
-The bodies' three were each a fade set on purpose a frame or two up the
-stack — THE PULSE's far arrival, THE RECOIL's spent rib — so the glow's line
-was drawn whole over a fill at a third; and since `strokeGlow` leaves the
-alpha at 1, everything after it in the same picture was whole too
-(`drawPodCore` had the same fault on its own). For each, say whether the fade
-was meant; if it
-was, pass it as `alpha`, dividing `intensity` by it where the call passed
-both so the glow stays put (`ship-marks.ts`'s arrows are the pattern).
-`hull.ts`'s `rimAlpha` looked like one and was an intensity all along, so
-read the doc before the name. Each changes a picture that ships: it lands
-under "a fix to something wrong", with one before/after PNG. More than a
-sitting's worth is split by file before it is started.
-
-Reproducing the list, from 24 September 2026: a `globalThis` tally in
-`strokeGlow` of the calls arriving with `globalAlpha` below 1, keyed on the
-caller's stack frame, written out by an `afterAll` in a `--preload` file
-over `bun test packages/render/test` — about a minute, in one process.
-
 ## `baton.test.ts` is 717 lines and keeps its own copy of the arm's rig
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-baton
@@ -631,3 +596,29 @@ intake (nick, rupture, the mouth opening). Move the mouth's branch and
 `openMouth` into a `gorge-mouth.ts`, and leave
 `gorgeStruck` the dispatcher; `gorge.test.ts` and `gorge-hand.test.ts` prove
 it unchanged.
+
+## The shield rim's shimmer alpha has never reached the line
+
+- **Found:** 2026-09-24, claude/queue-strokeglow-is-handed-an-alpha-it-throws-away-the
+- **Files:** `packages/render/src/shield.ts`
+- **Asks:** give the shield rim the shimmer its alpha was written for, through VERSUS, or delete `alphaBase`/`alphaGlow` as the dead fields they are?
+
+`drawShieldRim` sets `ctx.globalAlpha = w.alphaBase + w.alphaGlow * glow`
+and then calls `strokeGlow`, which sets its own alpha and never reads it, so
+the rim has been drawn with its core at 1 on every frame of every wave. The
+other three callers on that list were fixed as "wrong rather than unlovely";
+this one was not, because it is the rim a player watches all game. Passing the
+figure through as `alpha` would draw that core at about 0.39 when the rim is
+idle and up to 0.97 when a shield is held open and shimmering. That is a
+different rim, not a repaired one.
+
+The two answers:
+
+- **Offer it**: a static VERSUS pair of the rim idle and armed. The candidate
+  passes `w.alphaBase + w.alphaGlow * glow` as `strokeGlow`'s sixth argument
+  and leaves the context alone. If it is adopted, it lands the same way the
+  other three did, with a case in `glow-fade.test.ts`.
+- **Retire it**: delete the two fields, their `ctx.globalAlpha` pair and
+  their doc lines from `shield.ts`. `volley-ward.ts` reads its own copy of
+  the same names and keeps them, because a fill comes after it there. Nothing
+  drawn changes.

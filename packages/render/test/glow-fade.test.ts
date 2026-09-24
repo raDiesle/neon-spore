@@ -1,8 +1,12 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { introEar } from "../src/intro-ear.js";
+import { computeLayout } from "../src/layout.js";
+import { drawChew } from "../src/maw.js";
 import { drawPodCore } from "../src/pods.js";
 import { drawPulseArrival } from "../src/pulse-body.js";
 import { globe } from "../src/recoil-globe.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { CFG } from "./frame-harness.js";
 
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
@@ -90,5 +94,28 @@ describe("THE RECOIL's spent rib", () => {
     const whole = (at: number[]) => at.filter((a) => a === 1).length;
     expect(whole(cage(0))).toBe(2 + 2 * 2);
     expect(whole(cage(4))).toBeGreaterThan(whole(cage(0)));
+  });
+});
+
+describe("the ship and the screens", () => {
+  it("draws the skin coming apart at the maw no more present than its heat", () => {
+    // `chew` 0.4 is the hottest any piece gets: 0.25 + 0.75 * 0.4.
+    const l = computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, "p1");
+    const at = alphas((ctx) =>
+      drawChew(ctx, l, { armed: 0, intake: 0, chew: 0.4, charge: 0 }, 0.2, 200, (x) => ({
+        x,
+        y: 600,
+      })),
+    );
+    expect(at.length).toBeGreaterThan(0);
+    expect(Math.max(...at)).toBeLessThanOrEqual(0.55 + 1e-9);
+  });
+
+  it("brings the intro ear's arcs in with the voice, not whole the frame it starts", () => {
+    // What is whole at a murmur is the ear itself, and no more of it than in
+    // silence: the two arcs' cores stay under the fade.
+    const whole = (cup: number) =>
+      alphas((ctx) => introEar(ctx, 100, 100, 40, "#88ccff", 1, cup)).filter((a) => a === 1).length;
+    expect(whole(0.3)).toBe(whole(0));
   });
 });

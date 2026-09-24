@@ -137,8 +137,10 @@ function cable(
   const line = new Path2D();
   line.moveTo(v.x, v.y);
   line.lineTo(to.x, to.y);
+  // The fade handed to the glow, which sets its own alpha and would draw the
+  // reel's line whole otherwise; and set again for the bead, which it left at 1.
+  strokeGlow(ctx, line, PALETTE.arc, Math.max(1, l.tile * 0.05), 0.5, alpha);
   ctx.globalAlpha = alpha;
-  strokeGlow(ctx, line, PALETTE.arc, Math.max(1, l.tile * 0.05), 0.5);
   // A bright bead running from the lantern to the body, once every PULSE_HZ:
   // the one thing that says which end of this is doing it to the other.
   const phase = (time * PULSE_HZ) % 1;

@@ -22,6 +22,17 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — A fade set around a glowed line reaches it: the ship and the screens
+
+- reading: 5 min. The queue entry, the four callers, the last lane's
+  `glow-fade.test.ts`.
+- writing: 5 min. Three calls, two tests, the shield's question in the queue.
+- looking: 5 min. Finding a frame with the maw chewing, and the pair.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **deciding the shield**: whether a fade that never shipped counts as a fix or a new look.
+
 ## 2026-09-24 — THE ANTIPHON's window is doubled, and THE SLOW spans it
 
 - reading: 5 min. The queue entry, `choreographed-windows.md`, THE CURTAIN's

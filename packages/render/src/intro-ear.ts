@@ -138,14 +138,14 @@ export function introEar(
   // What is arriving: two arcs off the front, only while somebody is talking
   // to it.
   if (listening > 0.02) {
-    ctx.globalAlpha = listening * 0.8;
+    // As an argument: `strokeGlow` sets its own alpha, and the arcs came in
+    // whole the frame anybody spoke rather than with the voice.
     for (let i = 1; i <= 2; i++) {
       const arc = new Path2D();
       const at = r * (0.5 + i * 0.28);
       arc.arc(0.1 * r, 0.08 * r, at, -0.7, 0.7);
-      strokeGlow(ctx, arc, rim, Math.max(1, r * 0.06), 0.55 / i);
+      strokeGlow(ctx, arc, rim, Math.max(1, r * 0.06), 0.55 / i, listening * 0.8);
     }
-    ctx.globalAlpha = 1;
   }
 
   ctx.restore();

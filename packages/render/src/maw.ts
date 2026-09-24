@@ -99,10 +99,18 @@ export function drawChew(
     const near = 1 - Math.abs((a + b) / 2 - cannonX) / half;
     const heat = Math.max(0, near) * mood.chew;
     const piece = splinePath(pts, false);
-    ctx.globalAlpha = 0.25 + 0.75 * heat;
-    strokeGlow(ctx, piece, heat > 0.5 ? PALETTE.podRim : PALETTE.ember, 1.4 + 3.4 * heat, 0.9);
+    // The heat as the glow's alpha, which sets its own: set on the context, the
+    // far pieces were drawn as whole as the ones at the mouth.
+    const fade = 0.25 + 0.75 * heat;
+    strokeGlow(
+      ctx,
+      piece,
+      heat > 0.5 ? PALETTE.podRim : PALETTE.ember,
+      1.4 + 3.4 * heat,
+      0.9,
+      fade,
+    );
   }
-  ctx.globalAlpha = 1;
   ctx.restore();
 }
 
