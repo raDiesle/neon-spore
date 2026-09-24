@@ -628,6 +628,7 @@ over `bun test packages/render/test` — about a minute, in one process.
 ## `check:fast` does not run the words contract when a wave's text changes
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-taster-and-the-lead
+- **Taken:** 2026-09-24, claude/queue-tasks-a65204 (claim: claude/queue-check-fast-does-not-run-the-words-contract-when)
 - **Files:** `tools/check/fast-scope.ts`, `tools/words/test/words.test.ts`
 
 A guide line in `packages/content/src/waves/act-7f.ts` went one word over its
