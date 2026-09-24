@@ -38,11 +38,11 @@ import { computeLayout, computeStage, type Layout, type Stage, type ViewRole } f
  */
 export function filmLayout(box: Layout, cfg: SimConfig, seat: 1 | 2): FilmLayout {
   const role = seatRole(seat);
-  const film = computeStage(
-    { width: box.width, height: Math.max(1, box.height - GUIDE_LOOK.navHeight), dpr: 1 },
-    cfg,
-    role,
-  );
+  const film = computeStage({
+    width: box.width,
+    height: Math.max(1, box.height - GUIDE_LOOK.navHeight),
+    dpr: 1,
+  });
   const size = { width: film.width, dpr: 1 };
   return {
     film,

@@ -1,6 +1,5 @@
 import type { SimConfig } from "@neon-spore/sim";
 import { NO_INSET, type Viewport } from "./renderer.js";
-import type { ViewRole } from "./view-role.js";
 
 /**
  * **Where the game is drawn, before anything is placed inside it.**
@@ -53,7 +52,7 @@ const PHONE_WIDEST = 430;
  * share the band a phone gives one seat (`panel-plan.ts`'s test column), and
  * the stage and the layout ask for that one number before anything is placed.
  */
-export function bandHeightFor(height: number, cfg: SimConfig, _role: ViewRole): number {
+export function bandHeightFor(height: number, cfg: SimConfig): number {
   return (height * cfg.bandSoloPct) / 100;
 }
 
@@ -82,7 +81,7 @@ export function bandHeightFor(height: number, cfg: SimConfig, _role: ViewRole): 
  * lobes in with it, and `bandSoloPct` is a share of the height a thumb is
  * actually allowed rather than of the window's. Nothing was moved by hand.
  */
-export function computeStage(viewport: Viewport, _cfg: SimConfig, _role: ViewRole): Stage {
+export function computeStage(viewport: Viewport): Stage {
   const inset = viewport.inset ?? NO_INSET;
   // Never negative: a window shorter than its own furniture is what a phone
   // reports for a moment while it rotates, and a negative height reaches the

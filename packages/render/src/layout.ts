@@ -104,7 +104,7 @@ export interface Circle {
 export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole): Layout {
   const { width, height } = viewport;
   const solo = role !== "test";
-  const bandHeight = bandHeightFor(height, cfg, role);
+  const bandHeight = bandHeightFor(height, cfg);
   const playHeight = height - bandHeight;
   const bandTop = playHeight;
   const radarHeight = cfg.radarHeightPx;

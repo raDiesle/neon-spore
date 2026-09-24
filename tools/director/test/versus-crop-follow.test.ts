@@ -41,7 +41,7 @@ const PHONE = { width: 380, height: 820, dpr: 1 };
  * `tileCY` rather than spelled out, so one file owns where a tile is. */
 function bodyCentre(pose: Pose, world: World): { x: number; y: number } {
   const role = pose.role ?? "test";
-  const stage = computeStage(PHONE, world.cfg, role);
+  const stage = computeStage(PHONE);
   const layout = computeLayout(
     { width: stage.width, height: stage.height, dpr: PHONE.dpr },
     world.cfg,

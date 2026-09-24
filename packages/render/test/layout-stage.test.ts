@@ -19,27 +19,19 @@ const phone = { width: 375, height: 812, dpr: 2 };
 
 describe("computeStage and the phone's own furniture", () => {
   it("is the whole window where a screen has none", () => {
-    expect(computeStage(phone, cfg, "p1")).toEqual(
-      computeStage({ ...phone, inset: { top: 0, right: 0, bottom: 0, left: 0 } }, cfg, "p1"),
+    expect(computeStage(phone)).toEqual(
+      computeStage({ ...phone, inset: { top: 0, right: 0, bottom: 0, left: 0 } }),
     );
   });
 
   it("gives up the height the notch and the home indicator take", () => {
-    const s = computeStage(
-      { ...phone, inset: { top: 44, right: 0, bottom: 34, left: 0 } },
-      cfg,
-      "p1",
-    );
+    const s = computeStage({ ...phone, inset: { top: 44, right: 0, bottom: 34, left: 0 } });
     expect(s.height).toBe(812 - 78);
     expect(s.top).toBe(44);
   });
 
   it("centres what is left between the side strips rather than in the window", () => {
-    const s = computeStage(
-      { ...phone, inset: { top: 0, right: 0, bottom: 0, left: 100 } },
-      cfg,
-      "p1",
-    );
+    const s = computeStage({ ...phone, inset: { top: 0, right: 0, bottom: 0, left: 100 } });
     // A landscape notch eats the left 100px; the picture is centred in the 275
     // that remain and starts beyond the strip, never under it.
     expect(s.left).toBeGreaterThanOrEqual(100);
@@ -51,11 +43,12 @@ describe("computeStage and the phone's own furniture", () => {
    * height reaches the canvas as a negative radius, which throws.
    */
   it("is empty rather than negative on a window shorter than its own furniture", () => {
-    const s = computeStage(
-      { width: 375, height: 40, dpr: 2, inset: { top: 44, right: 0, bottom: 34, left: 0 } },
-      cfg,
-      "p1",
-    );
+    const s = computeStage({
+      width: 375,
+      height: 40,
+      dpr: 2,
+      inset: { top: 44, right: 0, bottom: 34, left: 0 },
+    });
     expect(s.height).toBe(0);
     expect(s.width).toBe(0);
   });
@@ -71,7 +64,7 @@ describe("computeStage and the phone's own furniture", () => {
       [390, 660],
       [375, 548],
     ] as const) {
-      const s = computeStage({ width, height, dpr: 2 }, cfg, "p1");
+      const s = computeStage({ width, height, dpr: 2 });
       expect(s.width).toBe(width);
       expect(s.left).toBe(0);
       const l = computeLayout({ width: s.width, height: s.height, dpr: 2 }, cfg, "p1");
@@ -81,7 +74,7 @@ describe("computeStage and the phone's own furniture", () => {
   });
 
   it("still caps a desk window at a phone's aspect", () => {
-    const s = computeStage({ width: 1240, height: 900, dpr: 1 }, cfg, "test");
+    const s = computeStage({ width: 1240, height: 900, dpr: 1 });
     expect(s.width).toBeCloseTo(900 * 0.56);
     expect(s.left).toBe(Math.round((1240 - s.width) / 2));
   });
@@ -98,7 +91,7 @@ describe("computeStage and the phone's own furniture", () => {
     for (const role of ["p1", "p2", "test"] as const)
       for (const width of [320, 375, 430])
         for (let height = 480; height <= 932; height += 16) {
-          const s = computeStage({ width, height, dpr: 2 }, cfg, role);
+          const s = computeStage({ width, height, dpr: 2 });
           const l = computeLayout({ width: s.width, height: s.height, dpr: 2 }, cfg, role);
           expect(l.lobeY + l.lobeR * 1.3).toBeLessThanOrEqual(s.height);
         }

@@ -138,7 +138,7 @@ export function poseCropRect(
   role: ViewRole,
   viewport: Viewport,
 ): { x: number; y: number; w: number; h: number } {
-  const stage = computeStage(viewport, world.cfg, role);
+  const stage = computeStage(viewport);
   const layout = computeLayout(
     { width: stage.width, height: stage.height, dpr: viewport.dpr },
     world.cfg,
@@ -211,7 +211,7 @@ export function frameWorld(
   // so a deflection is drawn with its flash on rather than a second later.
   renderer.draw({ ...view, dt: 1 / 60, events: world.events });
 
-  const stage = computeStage(PHONE, cfg, role);
+  const stage = computeStage(PHONE);
   const layout = computeLayout(
     { width: stage.width, height: stage.height, dpr: PHONE.dpr },
     cfg,

@@ -144,7 +144,7 @@ describe("the band draws the panel it is handed", () => {
     controls?: typeof claw,
     player?: 1 | 2,
   ): string[] {
-    const stage = computeStage(VIEWPORT, world.cfg, "test");
+    const stage = computeStage(VIEWPORT);
     const layout = computeLayout(
       { width: stage.width, height: stage.height, dpr: VIEWPORT.dpr },
       world.cfg,

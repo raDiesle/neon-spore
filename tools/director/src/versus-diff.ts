@@ -56,7 +56,7 @@ const BAND_TOUCH_THRESHOLD = 10;
  */
 export function bandTopPx(cfg: SimConfig, role: ViewRole): number {
   const viewport = { ...PROBE_PHONE, dpr: 1 };
-  const stage = computeStage(viewport, cfg, role);
+  const stage = computeStage(viewport);
   const layout = computeLayout({ width: stage.width, height: stage.height, dpr: 1 }, cfg, role);
   return Math.round(stage.top + layout.bandTop);
 }

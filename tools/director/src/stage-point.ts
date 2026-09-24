@@ -90,7 +90,7 @@ export function stageGeometry(
   new ResizeObserver(measure).observe(canvas);
   measure();
 
-  const stage = (): Stage => computeStage(viewport, cfg, role());
+  const stage = (): Stage => computeStage(viewport);
   const layout = (): Layout => {
     const s = stage();
     return computeLayout({ width: s.width, height: s.height, dpr: viewport.dpr }, cfg, role());

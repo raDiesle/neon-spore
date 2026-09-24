@@ -420,18 +420,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## `computeStage` takes a config and a role it no longer reads
-
-- **Found:** 2026-09-24, claude/queue-task-b0bde7
-- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-computestage-takes-a-config-and-a-role-it-no-lon)
-- **Files:** `packages/render/src/layout-stage.ts`, `apps/game/src/viewport.ts`, `packages/render/src/canvas2d.ts`, `packages/render/src/guide-film.ts`, `tools/director/src/pose-art.ts`, `tools/director/src/stage-point.ts`, `tools/director/src/versus-diff.ts`
-
-The eleven tests that call it change with them (`git grep -n "computeStage("`).
-
-Since the stage stopped being capped at the columns (24 September 2026) its
-width is the window's, a 9:16 phone's and `PHONE_WIDEST` — nothing about the
-band, so `cfg` and `role` are `_cfg` and `_role`. Nineteen callers still pass
-both. Drop the two parameters and every argument; `bandHeightFor`'s `_role`
-beside it is the same leftover from 12 September and goes in the same change.
-`bun run check` proves it.

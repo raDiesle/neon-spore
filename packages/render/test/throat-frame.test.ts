@@ -92,7 +92,7 @@ function drawn(world: World, role: ViewRole, ticks: number): { calls: number; te
  * and a half from where the canvas had it — near enough to look right in a
  * picture and far enough to be a lie in a test.
  */
-const STAGE = computeStage(VIEWPORT, CFG, "test");
+const STAGE = computeStage(VIEWPORT);
 const LAYOUT = computeLayout(
   { width: STAGE.width, height: STAGE.height, dpr: VIEWPORT.dpr },
   CFG,

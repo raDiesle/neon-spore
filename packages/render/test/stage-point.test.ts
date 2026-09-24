@@ -17,7 +17,7 @@ import { pointOnStage } from "../src/stage-point.js";
 
 const CFG = DEFAULT_CONFIG;
 const VIEWPORT = { width: 900, height: 1600, dpr: 2 };
-const STAGE = computeStage(VIEWPORT, CFG, "p1");
+const STAGE = computeStage(VIEWPORT);
 const LAYOUT = computeLayout(
   { width: STAGE.width, height: STAGE.height, dpr: VIEWPORT.dpr },
   CFG,

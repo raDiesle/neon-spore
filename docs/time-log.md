@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — `computeStage` takes only the viewport
+
+- reading: 0 min. The queue entry and the nineteen callers `git grep` names.
+- writing: 5 min. Two signatures, and the arguments stripped by one perl
+  pass plus the three calls whose inset nested a second brace.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min. zsh does not split an unquoted variable, so the first
+  pass touched no file; piped through `xargs` instead.
+- landing: 5 min. `check:fast` green first time.
+
+The bottleneck was **landing**: the change is mechanical and the tests are
+the proof, so the check is most of the wall time.
+
 ## 2026-09-24 — A short phone's hull reaches both sides of the screen
 
 - reading: 0 min. `computeStage`, `computeLayout` and the hull's clip.

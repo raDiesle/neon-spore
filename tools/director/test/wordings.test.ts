@@ -18,7 +18,7 @@ import { BULB_COL, SHIELD_COL, wordingsWorld } from "../src/wordings-world.js";
 const world = wordingsWorld();
 
 function layoutFor(role: "p1" | "p2") {
-  const stage = computeStage(PHONE, world.cfg, role);
+  const stage = computeStage(PHONE);
   return computeLayout(
     { width: stage.width, height: stage.height, dpr: PHONE.dpr },
     world.cfg,

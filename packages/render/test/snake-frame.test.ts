@@ -109,7 +109,7 @@ describe("SNAKE draws on all three screens", () => {
    * enough to look right in a picture and far enough to be a lie in a test.
    */
   it("draws both rings on the body they are taken on", () => {
-    const stage = computeStage(VIEWPORT, CFG, "test");
+    const stage = computeStage(VIEWPORT);
     const l = computeLayout(
       { width: stage.width, height: stage.height, dpr: VIEWPORT.dpr },
       CFG,

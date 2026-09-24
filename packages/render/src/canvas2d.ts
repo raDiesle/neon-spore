@@ -73,7 +73,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     const { ctx } = this;
     const { world } = view;
     // The stage depends on the band, and the band on the role: sized per frame, like the layout.
-    const stage = computeStage(this.viewport, world.cfg, view.role);
+    const stage = computeStage(this.viewport);
     // A hidden tab reports a zero-sized window, and a field with no width
     // divides by zero in the hull contour: leave the canvas alone until a size arrives.
     if (stage.width < 1 || stage.height < 1) return;

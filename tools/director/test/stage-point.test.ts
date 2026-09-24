@@ -92,7 +92,7 @@ function stubCanvas() {
 }
 
 const cfg = DEFAULT_CONFIG;
-const stage = () => computeStage(VIEWPORT, cfg, "test");
+const stage = () => computeStage(VIEWPORT);
 const layout = () =>
   computeLayout({ width: stage().width, height: stage().height, dpr: 1 }, cfg, "test");
 
