@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 75d6e2c9 — Tutorial pages that name a count on the field now say which count
+
+Seven more tutorial captions now name the world field their number counts, and `scene-pages.test.ts` reads each one back: - THE HIVE's breaches open; - THE CANDLE's steps of glow; - THE SCUTTLE's parts; - THE ANTIPHON's rail; - THE ORRERY's rings.
+
 ## 2026-09-24 · dc5b55a8 — Scene captions say shield and column, never lane, plate, ward or guard
 
 Twenty-nine tutorial captions across twenty films were reworded to use the player's words: shield for ward, plate and guard, and column for lane. Each still fits in 28 characters. THE UNDERTOW's own armour is now called the hull, because it is not the player's shield. The duty words for THE VEER and THE CAIRN now say COLUMN. The drawn-words check in `tools/words` did not read the `·` character, so every caption containing one escaped it. It reads them now, and that caught ten more captions, including THE ORRERY's "A BOLT IS SPENT", which now says "A SHOT IS SPENT".
