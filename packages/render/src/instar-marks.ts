@@ -11,8 +11,10 @@ import {
 } from "@neon-spore/sim";
 import type { CueKind } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
+import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import { drawInstarCall } from "./instar-call.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
+import { drawInstarHalo, drawInstarTheirs } from "./instar-mark-feedback.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import {
@@ -97,6 +99,7 @@ export function drawInstarMarks(
   time: number,
   morph: number,
   role: ViewRole,
+  verdicts: { at(key: number): GripVerdict | null },
 ): void {
   const step = instarStep(s);
   if (step === null) return;
@@ -134,14 +137,20 @@ export function drawInstarMarks(
         instarTogetherLeft(s, cfg, i, beat, beatPhase),
         side,
       );
-      return;
+    } else {
+      const along = Math.max(0, Math.min(1, (s.progress[i] ?? 0) / mark.need));
+      const held = (s.thumbs[i] ?? 0) !== 0;
+      if (mine) drawInstarHalo(ctx, at.x, at.y, r, time);
+      drawRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
+      if (!mine) drawInstarTheirs(ctx, at.x, at.y, r, time);
+      drawInstarWindow(ctx, at.x, at.y, r, left, mine);
+      const { kind, word } = instarMarkWord(mark, role);
+      drawInstarWord(ctx, l, word, at.x + side * r * 3.1, at.y, side, mine, kind);
     }
-    const along = Math.max(0, Math.min(1, (s.progress[i] ?? 0) / mark.need));
-    const held = (s.thumbs[i] ?? 0) !== 0;
-    drawRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
-    drawInstarWindow(ctx, at.x, at.y, r, left, mine);
-    const { kind, word } = instarMarkWord(mark, role);
-    drawInstarWord(ctx, l, word, at.x + side * r * 3.1, at.y, side, mine, kind);
+    // The verdict goes over the ring or the dot, whichever this frame drew:
+    // the touch that finished a mark is judged green on the mark it finished.
+    const v = verdicts.at(i);
+    if (v !== null) drawVerdictRing(ctx, at.x, at.y, r, v);
   });
   drawInstarCall(ctx, l, s, cfg, beat, beatPhase);
 }
@@ -183,7 +192,7 @@ function drawRing(
     p,
     held || awaited ? PALETTE.redRim : PALETTE.red,
     STROKE.inner,
-    (mine ? (held ? 1.2 : 0.9) : 0.4) * (awaited ? 1.35 : 1),
+    (mine ? (held ? 1.4 : 1.3) : 0.4) * (awaited ? 1.35 : 1),
   );
   ctx.save();
   ctx.strokeStyle = ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
@@ -191,8 +200,11 @@ function drawRing(
   drawInstarGlyph(ctx, gesture, x, y, r, time);
   ctx.restore();
   if (along <= 0) return;
+  // Green: the part is giving, so the carry is going the right way — the
+  // simulation holds a pull the wrong way at nought, so an arc at all is
+  // already the answer to *am I doing it right* (`instar-mark-feedback.ts`).
   ctx.save();
-  ctx.strokeStyle = PALETTE.redRim;
+  ctx.strokeStyle = PALETTE.good;
   ctx.lineWidth = STROKE.outline * 1.6;
   ctx.beginPath();
   ctx.arc(x, y, r * 1.55, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * along);

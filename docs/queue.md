@@ -417,3 +417,43 @@ only the backing store, the director's `measure` loses its two
 the game still fills the screen on a phone-sized viewport and that the stage
 canvas still refits when a director column is dragged; `tools/director/test/stage-point.test.ts`
 is where the second belongs.
+
+## Every boss with a mark answers a touch the way THE INSTAR does
+
+- **Found:** 2026-09-24, claude/bellows-gameplay-clarity
+- **Files:** `packages/render/src/grip-verdict.ts`, `packages/render/src/instar-mark-feedback.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/warden-grip.ts`, `packages/render/src/spool-grip.ts`, `packages/render/src/hasp-grip.ts`, `packages/render/src/sinew-handles.ts`, `.claude/skills/new-boss/owner.md`
+- **Asks:** THE INSTAR now shows all four parts of your touch rule: a halo on this seat's mark, a turning ring on the partner's, a green or red flash on the touched mark, and a progress arc that goes green while a pull goes the right way. Should it go to (a) every boss with a mark or handle, one lane per boss, (b) the choreographed bosses first (THE WARDEN, THE SPOOL, THE HASP, THE SINEW), then the rest, or (c) nowhere yet, because THE INSTAR's version needs changing first — and if so, what?
+
+The owner's generic rule of 24 September 2026 is in `owner.md`, in four
+numbered parts. He asked for one worked example before a roll-out, and THE
+INSTAR is it. `GripVerdicts` and `drawVerdictRing` are already written for any
+boss: a boss's fx class holds one `GripVerdicts`, marks it from the events
+that mean *right* and *wrong* for that boss, clears it wherever its scene
+resets, and the drawer calls `drawVerdictRing` after each mark. Halo and
+partner ring are INSTAR-shaped for now. The first boss to take them moves
+them out of `instar-mark-feedback.ts` into a shared file.
+
+Per boss, the work is:
+- find the events that mean *this touch was right* and *this touch was refused*;
+- mark this seat's wanted mark and the partner's;
+- make the in-progress signal the simulation's own word for "right direction",
+  never a guess the drawer makes;
+- add a test beside `packages/render/test/instar-verdict.test.ts`.
+
+Each boss lands as *a look the owner asked for by name*.
+
+## `frames --hold …@TICK` never fired `--until instarAnswer`
+
+- **Found:** 2026-09-24, claude/bellows-gameplay-clarity
+- **Files:** `tools/frames/run.ts`
+
+Taking THE INSTAR's green verdict for the owner, this command ran for 3000
+ticks and reported no `instarAnswer`, with mark 0 and with mark 1:
+`bun run frames . --wave "THE INSTAR" --seat p1 --boss phase=act,phaseBeat=now --hold "instarMark=0,y=900,id=0@20" --until instarAnswer`
+Its own error says a bare hold only goes on after the wait, so the timed form
+was the one to try. Either that hold never reaches the mark during the wait,
+or `phaseBeat=now` puts the window where a pull cannot land. The picture was
+sent without the flash, and the flash is proved only by the canvas log
+(`packages/render/test/instar-verdict.test.ts`). Find which it is. Then make
+the command above land a pull, or make it refuse the pair with a sentence that
+says why.

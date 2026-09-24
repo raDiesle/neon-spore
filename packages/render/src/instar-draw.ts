@@ -68,7 +68,7 @@ export function drawInstar(
   drawInstarLimbs(ctx, l, f, head, r, shoulders, time, fade);
   ctx.restore();
   fx.place(l, s, sway);
-  drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role);
+  drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role, fx.verdicts);
 }
 
 /** A colour at the fade: the hex itself while the body hangs, so the frame tests can count it (`hive-draw.ts`). */

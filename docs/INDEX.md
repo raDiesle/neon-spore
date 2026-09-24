@@ -1405,6 +1405,7 @@ by hand never moves.
 | `packages/render/src/instar-limbs.ts` | **What THE INSTAR holds and grows**, pose by pose: the two arms and their clawed hands |
 | `packages/render/src/instar-marks.ts` | **THE INSTAR's marks: the only control on the screen.** A red ring on the part the script wants moved |
 | `packages/render/src/instar-mark-grip.ts` | THE INSTAR's marks under a thumb — the hit test alone |
+| `packages/render/src/instar-mark-feedback.ts` | **Which mark is wanted, and by whom**: the halo on this seat's open mark, the turning ring on the partner's |
 | `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the body as it enters, the five the script names |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head, the jaws, the two hands and what they hold |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR swings**, and everything of it swings together |
@@ -1523,6 +1524,7 @@ by hand never moves.
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/grip-beam.ts` | The beam of a brake — the one part of a hand on a rock that is visible from across the room |
 | `packages/render/src/grip-rings.ts` | The three rings a thumb on a boss's picture is drawn with: asked for, held, thrown off — the queen's and the mirror's |
+| `packages/render/src/grip-verdict.ts` | **Was that right?** — answered on the thing the thumb touched, the moment the simulation has judged it |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |
 | `packages/render/src/gorge-flesh-torn.ts` | THE GORGE's openings: the intake puckered under every lobe, and the flaps of a lobe the beam has torn open |

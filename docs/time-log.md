@@ -19545,3 +19545,22 @@ running page, and so was the second column the open menu grew when RUN moved
 into it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — THE INSTAR answers every touch green or red, the worked example
+
+- reading: 25 min. First THE BELLOWS: its sim, grip and fx, before the owner
+  chose removal over repair. Then THE INSTAR's marks, fx and hand, and
+  `owner.md`.
+- writing: 30 min. `grip-verdict.ts`, the halo and partner ring, the arc
+  turning green, the four-part rule in `owner.md`, and the tests. Also a
+  Bellows verdict, written and thrown away.
+- looking: 20 min. Three rounds of frames and crops. The first halo and
+  partner ring were too faint to read on a phone.
+- friction: 10 min. `frames --hold …@TICK` never produced an `instarAnswer`
+  (queued). A red test counted a rim colour that is drawn only as an rgba
+  string.
+- landing: 5 min. `check:fast`, and a commit by path.
+
+The bottleneck was **reading**: the first half hour went into a boss the
+owner then asked to have taken out, so it was spent before the task was
+the right one.

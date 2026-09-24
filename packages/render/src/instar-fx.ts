@@ -1,4 +1,5 @@
 import { type InstarState, instarStep, type SimEvent } from "@neon-spore/sim";
+import { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import { instarAt, instarMarkPoint, type Point } from "./instar-shape.js";
 import type { Sway } from "./instar-sway.js";
@@ -21,6 +22,11 @@ import { PALETTE, STROKE } from "./palette.js";
  * every frame (`place`), since an event carries a mark's *index* and only
  * the picture knows where that part is drawn; a receipt with no mark bursts
  * at the head. Both screens see the same body, so nothing here is per seat.
+ *
+ * **Every touch is judged on the mark it touched** (`grip-verdict.ts`, the
+ * owner's rule of 24 September 2026): a part that moved or gave washes its
+ * mark green, and a refused thumb or a slipped part washes it red — on both
+ * screens, since the partner is the one who says whose mark it was.
  */
 
 const JOLT_TILES = 0.15;
@@ -36,6 +42,8 @@ export class InstarFx {
   private marks: Point[] = [];
   private head: Point | null = null;
   private lash: { from: Point; x: number; life: number } | null = null;
+  /** Whether the last touch on each mark of this step was right, by index. */
+  readonly verdicts = new GripVerdicts();
 
   /** How far the body is lifted right now, in tiles. */
   get jolt(): number {
@@ -72,6 +80,7 @@ export class InstarFx {
           break;
         case "instarMorph":
           at(this.headOr(l), 8, PALETTE.hull);
+          this.verdicts.clear();
           break;
         case "instarShow":
           for (const p of this.marks) at(p, 5, PALETTE.red);
@@ -79,17 +88,21 @@ export class InstarFx {
         case "instarRefuse":
           at(mark(e.mark), 4, PALETTE.dim);
           this.flinchNow = FLINCH;
+          this.verdicts.mark(e.mark, false);
           break;
         case "instarAnswer":
           at(mark(e.mark), 3, PALETTE.redRim);
+          this.verdicts.mark(e.mark, true);
           break;
         case "instarDone":
           at(mark(e.mark), 8, PALETTE.hullRim);
           this.joltNow = Math.max(this.joltNow, JOLT_TILES * 0.4);
+          this.verdicts.mark(e.mark, true);
           break;
         case "instarSlip":
           at(mark(e.mark), 4, PALETTE.dim);
           this.flinchNow = FLINCH * 0.7;
+          this.verdicts.mark(e.mark, false);
           break;
         case "instarLand":
           at(this.headOr(l), 14, PALETTE.hull);
@@ -132,6 +145,7 @@ export class InstarFx {
       this.lash.life -= step;
       if (this.lash.life <= 0) this.lash = null;
     }
+    this.verdicts.update(step);
   }
 
   /** The lash: a red line from the part that was not undone to the hull it struck. */
@@ -155,5 +169,6 @@ export class InstarFx {
     this.marks = [];
     this.head = null;
     this.lash = null;
+    this.verdicts.clear();
   }
 }

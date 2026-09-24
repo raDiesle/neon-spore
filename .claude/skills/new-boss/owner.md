@@ -70,6 +70,30 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   (`decisions.md` #33, `sim/slow.ts`). The measure the pair read follows
   from it: the bar under the boss counts the window down, so it says *time
   left before this step fails* (`render/slow-intake-bar.ts`).
+- **Dislikes, in his words:** THE BELLOWS, played and removed on 24
+  September 2026 — *"it's not clear to me how to play … what does 'push'
+  means? … it's not clear what is goal … why on a curtain a jam is going out,
+  no logical understandable where the connection is."* A spark the shield
+  could not answer, from a lung nobody could say why it was pulled, is a
+  cause and effect with no connection a player could see; THE INSTAR is his
+  counter-example, *we have to open mouth so we can pull tongue — clear
+  understandable*. **Every gesture needs a reason the picture gives**
+  (`bosses.md` §11.35).
+- **Feedback on every touch, generic, 24 September 2026**, in his words
+  *"there should be always in general some visual if player did correct or
+  not, immediately, e.g. green or red colour of the circle he touched with
+  animation."* Four parts, for every boss and every mechanic with a mark:
+  1. **The action wanted right now is the brightest thing on the screen**
+     — more glow, more highlighting, on the mark itself.
+  2. **The other seat's turn shows too, and where**: this seat can see that
+     the partner is the one being waited on, and at which mark.
+  3. **A touch is judged on the mark it touched, at once**: green for right,
+     red for wrong, animated, and never a sound or a burst somewhere else.
+  4. **A gesture started the right way says so while it is still going** —
+     a drag begun in the right direction shows it is on its way to done,
+     before it lands.
+  THE INSTAR is the worked example he asked for before the rest
+  (`render/grip-verdict.ts`); the roll-out is `docs/queue.md`'s.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss
