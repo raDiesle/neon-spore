@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## About 100 `strokeGlow` calls are made at an alpha the call throws away
 
 - **Found:** 2026-09-23, claude/queue-stroke-glow
+- **Taken:** 2026-09-24, claude/queue-apps-game-src-input-ts-is-at-248-lines-with-its (claim: claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha)
 - **Files:** `packages/render/src/glow.ts`, `packages/render/src/ship-hand.ts`, `packages/render/src/ship-marks.ts`, `packages/render/src/hull.ts`, `packages/render/test/`
 
 `strokeGlow` sets `globalAlpha` for every pass and never reads the one it was
