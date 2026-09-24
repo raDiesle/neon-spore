@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE CANDLE's smoke is doubled, and THE SLOW spans it
+
+- reading: 5 min. `candle-step.ts`, `candle-hand.ts`, THE SLOW's
+  `openSlow` and the candle's section of `bosses.md`.
+- writing: 10 min. Two figures, the slow moved to the smoke and shut on
+  the beam or the relight, the flash kept off it, `candle-doubled.test.ts`,
+  §11.22 and the director's pull.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: `openSlow` moves the end rather than extending it, so the
+flash's one-beat window would have cut the smoke's twelve to one; reading
+it before writing the test caught it.
+
 ## 2026-09-24 — THE SINEW's fall is doubled, and THE SLOW spans it
 
 - reading: 5 min. `sinew-step.ts`, the fall's clamp in `sinew.ts`, and the

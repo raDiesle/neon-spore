@@ -1,5 +1,6 @@
 import { type CandleState, candleBoss, candleWicked } from "./candle.js";
 import { enterCandle } from "./candle-step.js";
+import { openSlow } from "./slow.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -23,7 +24,7 @@ import type { World } from "./world.js";
  * is what a flame is put out by, and then **the wick is finished by the
  * beam**, which is the one light this boss was written never to be able to
  * eat (`candle.ts`). Three things to do instead of one, and the fight ends
- * on the two seats doing different ones inside six beats of each other.
+ * on the two seats doing different ones inside twelve beats of each other.
  *
  * **It is the pilot's, and the boss is on both screens.** The glow is the
  * only steady light in a black field and is drawn on every screen
@@ -62,6 +63,10 @@ export function candleWickHeard(world: World, player: 1 | 2, command: Command): 
   // Off the wick. `enterCandle` clears the depth on the way out, so the
   // picture has nothing left to draw a half-pulled flame from.
   enterCandle(world, c, "smoking");
+  // **THE SLOW is the smoke, exactly** (24 September 2026): the one ask in
+  // this fight with a clock on it, opened here and shut by `candle-step.ts`
+  // on either way it ends — the beam landing or the wick lighting again.
+  openSlow(world, world.cfg.candleSmokeBeats);
 }
 
 /**

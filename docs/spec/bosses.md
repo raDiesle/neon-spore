@@ -4425,7 +4425,7 @@ two.
 
 - **`last` — the pilot's thumb, and it is on the glow itself.** No shot
   counts, so nobody is sent anywhere and the column stops mattering: player 1
-  takes hold of the flame and pulls it `candlePinchMilli` (1500) down off the
+  takes hold of the flame and pulls it `candlePinchMilli` (3000) down off the
   wick (`candleWick`, `sim/candle-hand.ts`). It is read as depth from the grab
   the way THE STARE's lid is, clamped to the bottom, and a thumb lifted short
   springs the flame back to the top — `pinchMilli` is zeroed, and the pull has
@@ -4435,13 +4435,21 @@ two.
   `PULL`, on the glow, player 1's (`render/boss-cue-read-m.ts`).
 - **`smoking` — the navigator's beam, on a count.** The flame is off the wick
   and a bolt still does nothing; only the beam reaches what is left. Player 2
-  has `candleSmokeBeats` (6) from the pull to stand the beam in the glow's
+  has `candleSmokeBeats` (12) from the pull to stand the beam in the glow's
   column — `lancePrimeBeats` (3) of that is the fill, which is the pair's
   whole margin. That puts it out (`candleOut`). Late, the wick catches again
   (`candleLit`): the glow comes back to `candleEatSteps` — a step brighter
   than the pair left it — and the boss is *eating* again, drifting and
   swallowing flashes, with the pull to make a second time. Her word turns from
   `FIRE` to `BURN` for as long as it smokes.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): the smoke twelve beats and the pull
+three tiles — and **THE SLOW moved to the ask**, which is the smoke: opened by
+the pull for exactly `candleSmokeBeats` and shut the tick the beam puts the
+wick out or the wick lights again (`sim/candle-hand.ts`, `sim/candle-step.ts`).
+A flash while it smokes leaves that window alone rather than cutting it to a
+beat. Proved in `sim/test/candle-doubled.test.ts`.
 
 Out either way, the boss stays installed `candleOutBeats` (2) more so the
 wave cannot end on the beat the light does, which is the design's *two black
@@ -4576,7 +4584,8 @@ rate* is the rule for every flash, with no exception for a later one over the
 first: a bolt that actually leaves the muzzle — never one THE CANDLE ate —
 opens `candleFlashSlowBeats` (1) of THE SLOW from the beat it fires, both
 screens together (`decisions.md` #33), whatever phase the fight is in,
-including `dark`, before the boss has done anything of its own yet.
+including `dark`, before the boss has done anything of its own yet — all but
+`smoking`, whose window is the smoke's own (above, *Doubled*).
 `sim/candle-step.ts`'s `candleFlash`, called from `bullets.ts`'s `launch`
 beside `candleEats`, so the two never both answer the same press. Not built:
 a picture of its own for the window opening — the field slowing is the only

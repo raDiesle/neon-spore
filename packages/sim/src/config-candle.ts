@@ -32,9 +32,13 @@ export interface CandleConfig {
   candleLastSteps: number;
   /**
    * How far down the pilot's thumb carries the flame to pull it off the wick,
-   * in thousandths of a tile (`candle-hand.ts`). A tile and a half: far enough
+   * in thousandths of a tile (`candle-hand.ts`). Three tiles: far enough
    * that a thumb brushing the glow in the dark is not a pull, short enough to
    * be one stroke on a phone held in one hand.
+   *
+   * **Doubled on the owner's rule, 24 September 2026**, from a tile and a
+   * half, beside `candleSmokeBeats` (`docs/spec/choreographed-windows.md`):
+   * a window twice as long asks twice as much of the hand that opens it.
    */
   candlePinchMilli: number;
   /**
@@ -42,6 +46,11 @@ export interface CandleConfig {
    * lobe and stand the beam in the column inside this, and the pilot has to
    * say which column — so it is a call's worth of time and then some
    * (`docs/spec/latency.md`).
+   *
+   * **Doubled on the owner's rule, 24 September 2026**, from six, and it is
+   * the ask this fight has with a clock on it: THE SLOW opens for exactly
+   * this many beats on the tick the flame comes off (`candle-hand.ts`) and
+   * shuts on the beam landing or the wick lighting again (`candle-step.ts`).
    */
   candleSmokeBeats: number;
   /** Beats the frame is held black after the last step goes out, before the wave may end. */
@@ -61,7 +70,8 @@ export interface CandleConfig {
  *
  * Read as one fight: four beats of the light going out, then a glow that
  * drifts every three beats and turns every four, four hits to bring it to its
- * last step, a pull and a beam inside six beats to finish it, two black beats.
+ * last step, a pull and a beam inside twelve slowed beats to finish it, two
+ * black beats.
  * A fight that is short in beats and long in the dark.
  */
 export const CANDLE_DEFAULTS: CandleConfig = {
@@ -71,8 +81,8 @@ export const CANDLE_DEFAULTS: CandleConfig = {
   candleTurnBeats: 4,
   candleEatSteps: 2,
   candleLastSteps: 1,
-  candlePinchMilli: 1500,
-  candleSmokeBeats: 6,
+  candlePinchMilli: 3000,
+  candleSmokeBeats: 12,
   candleOutBeats: 2,
   candleFlashSlowBeats: 1,
 };

@@ -29,7 +29,7 @@ export const CANDLE_CONTROLS: readonly FieldControlDef[] = [
     does:
       "Pulls the flame off the wick. From the last step on no shot counts at " +
       "all, so nobody is sent anywhere and the column stops mattering: he " +
-      "carries the flame candlePinchMilli — a tile and a half — straight down " +
+      "carries the flame candlePinchMilli — three tiles — straight down " +
       "and the tick it reaches the bottom the wick is smoking " +
       "(sim/candle-hand.ts). A thumb lifted short springs it back to the top " +
       "and the pull has to be made again; a pull upward is no pull. Then the " +

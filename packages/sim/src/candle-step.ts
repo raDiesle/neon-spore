@@ -8,7 +8,7 @@ import {
 } from "./candle.js";
 import { midCol } from "./config.js";
 import { nextInt } from "./rng.js";
-import { openSlow } from "./slow.js";
+import { closeSlow, openSlow } from "./slow.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
 
@@ -104,6 +104,7 @@ export function stepCandle(world: World, c: CandleState): void {
   // with something to lose (`candle.ts`).
   if (c.phase === "smoking") {
     if (world.beat - c.phaseBeat < cfg.candleSmokeBeats) return;
+    closeSlow(world);
     c.glow = Math.min(cfg.candleGlowSteps, c.glow + 1);
     world.events.push({ type: "candleLit", col: c.col, left: c.glow });
     enterCandle(world, c, phaseFor(world, c.glow));
@@ -167,6 +168,7 @@ export function candleStruck(world: World, bullet: Bullet): void {
   if (c.phase === "smoking") {
     if (!bullet.lance) return;
     metColor(world);
+    closeSlow(world);
     c.glow = 0;
     world.events.push({ type: "candleDim", col: c.col, left: 0 });
     enterCandle(world, c, "out");
@@ -213,5 +215,9 @@ export function candleEats(world: World, col: number): boolean {
 export function candleFlash(world: World): void {
   const c = candleBoss(world);
   if (c === null || c.phase === "out") return;
+  // The smoke's own window is up and runs to its own end: a flash re-opening
+  // it would move that end to one beat from now (`openSlow`) and spend the
+  // pair's clock on a bolt that does nothing to the wick.
+  if (c.phase === "smoking") return;
   openSlow(world, world.cfg.candleFlashSlowBeats);
 }

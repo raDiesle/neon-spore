@@ -548,9 +548,9 @@ column count, a pinch, a pull. Double both halves per
 first time on THE CURTAIN and THE ANTIPHON), the films re-timed and the
 rehearsals given room.
 
-Split into four landings, one boss each. **THE CURTAIN and THE SINEW are
-landed** (24 September 2026, `curtain-doubled.test.ts`,
-`sinew-doubled.test.ts`). Left, in order: THE CANDLE, THE ANTIPHON.
+Split into four landings, one boss each. **THE CURTAIN, THE SINEW and THE
+CANDLE are landed** (24 September 2026, `curtain-doubled.test.ts`,
+`sinew-doubled.test.ts`, `candle-doubled.test.ts`). Left: THE ANTIPHON.
 
 ## `strokeGlow` is handed an alpha it throws away: the bodies
 
