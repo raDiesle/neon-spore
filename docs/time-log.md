@@ -19742,3 +19742,16 @@ The bottleneck was **looking**: whether a sheet reads as *splitting* rather
 than as legs only showed across a strip of frames, never in one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — No clock counts the run up in the top-left corner
+
+- reading: 5 min. `hud.ts`, the corner's caption anchor and the scenes that
+  use it, and where the time is still summed up.
+- writing: 5 min. `runLine` down to the retries, the empty corner drawn as
+  nothing, and a queue entry for the eighteen captions that ring it.
+- looking: 0 min. The last frame taken already showed the corner.
+- friction: 0 min.
+- landing: 5 min. `check:fast`.
+
+The bottleneck was **reading**: one line to remove, and a caption anchor
+that pointed at it from eighteen scenes.

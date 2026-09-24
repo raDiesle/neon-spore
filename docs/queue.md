@@ -466,3 +466,17 @@ says why.
 The size hook flagged it when `hitReach` was exported. It is a barrel, so
 the seam is by consumer: the touch exports (`touch*`, `hit*`, the grips)
 as one `export … from` block in a file of their own, re-exported once.
+
+## Eighteen captions point at a corner that is empty until a retry
+
+- **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4
+- **Files:** `packages/render/src/caption-anchor.ts`, `packages/content/src/scene-step-types.ts`
+
+The files are also every scene in the content package's scenes folder
+with a retries anchor (a grep for `at: "retries"` finds them). The run's
+clock left the top-left corner on 24 September 2026, so the
+corner is blank until the first retry, and a guide rarely has one. The
+captions that say *loses the wave* or *the hull pays* still ring that
+corner. Point them at `{ at: "hull" }`, where the hit lands, and retire
+`retries` as an anchor if nothing is left on it; `caption-anchor.test.ts`
+and the scene tests say which still resolve.

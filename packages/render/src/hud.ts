@@ -1,11 +1,11 @@
-import { clockText, playSeconds, retriesText, type World } from "@neon-spore/sim";
+import { retriesText, type World } from "@neon-spore/sim";
 import { drawBalanceSheet } from "./balance.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 
 /**
- * Readouts over the field: the run's line and the guard balance.
+ * Readouts over the field: the run's retries and the guard balance.
  *
  * The four beat dots that stepped off `world.beat % 4` at the top left are
  * gone, at the owner's word on 13 September 2026: the top row is the siren's
@@ -30,17 +30,19 @@ export function runLineBox(l: Layout): { x: number; y: number; w: number; h: num
 }
 
 /**
- * The run's clock and its retries, as the corner reads them: `3:42`, and
- * `3:42 · 2 RETRIES` once a wave has been gone again — and not before: the
- * count goes up when the failed wave opens again, so the lost screen reads
- * the retries taken, not the one it is offering (`sim/wave-start.ts`). What
- * the pair is measured by since 12 September 2026, in place of the points
- * (`wave-fail.ts`).
+ * The run's retries, as the corner reads them: `2 RETRIES` once a wave has
+ * been gone again, and nothing before — the count goes up when the failed
+ * wave opens again, so the lost screen reads the retries taken, not the one
+ * it is offering (`sim/wave-start.ts`).
+ *
+ * **No clock.** The run's time stood here, `3:42 · 2 RETRIES`, from 12
+ * September 2026 until the owner, 24 September: *remove the timer top left,
+ * it's not required.* The time is still what the pair is measured by, and it
+ * is read where a run is summed up — the cleared card and the balance sheet
+ * (`cleared.ts`, `balance.ts`) — never counted up over the field.
  */
 export function runLine(world: World): string {
-  const clock = clockText(playSeconds(world));
-  if (world.retries === 0) return clock;
-  return `${clock} · ${retriesText(world.retries)}`;
+  return world.retries === 0 ? "" : retriesText(world.retries);
 }
 
 export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
@@ -49,8 +51,11 @@ export function drawHud(ctx: CanvasRenderingContext2D, l: Layout, view: ViewStat
   ctx.textAlign = "left";
 
   const line = runLineBox(l);
-  ctx.fillStyle = PALETTE.dim;
-  ctx.fillText(runLine(world), line.x, line.y + line.h - 3);
+  const said = runLine(world);
+  if (said !== "") {
+    ctx.fillStyle = PALETTE.dim;
+    ctx.fillText(said, line.x, line.y + line.h - 3);
+  }
 
   if (world.guard.tries > 0) {
     ctx.font = '9px "Courier New",monospace';
