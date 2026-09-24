@@ -75,7 +75,7 @@ export const THE_WELL: GuideScene = {
     {
       tick: 720,
       seat: 2,
-      text: "PLAYER 2 FIRES THE SAME LANE",
+      text: "PLAYER 2 FIRES THAT COLUMN",
       anchor: { at: "control", control: "fireRed" },
     },
     {

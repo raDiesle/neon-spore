@@ -40,11 +40,11 @@ export const THE_CROSSING: GuideScene = {
   steps: [
     { tick: 0, seat: 1, text: "AN ARROW AT THE EDGE", anchor: { at: "radar" } },
     { tick: 240, seat: 2, text: "PLAYER 2 SEES NO ARROW", anchor: { at: "radar" } },
-    { tick: 480, seat: 1, text: "THE ROCK CROSSES YOUR LANE", anchor: { at: "body" } },
+    { tick: 480, seat: 1, text: "THE ROCK CROSSES YOUR COLUMN", anchor: { at: "body" } },
     {
       tick: 840,
       seat: 2,
-      text: "FIRE WHEN THE LANE IS CLEAR",
+      text: "FIRE ON A CLEAR COLUMN",
       anchor: { at: "control", control: "fireRed" },
     },
   ],

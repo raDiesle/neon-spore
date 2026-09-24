@@ -28,7 +28,7 @@ export const THE_WARD: GuideScene = {
     { tick: 790, control: "shield", col: 5 },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "WARD POD · NO TRIGGER", anchor: { at: "pod" } },
+    { tick: 0, seat: 1, text: "SHIELD POD · NO TRIGGER", anchor: { at: "pod" } },
     {
       tick: 280,
       seat: 2,

@@ -134,11 +134,11 @@ export const THE_SINEW: GuideScene = {
       text: "TOO HARD, AND IT SNAPS",
       anchor: { at: "handle", target: "sinewLeft" },
     },
-    { tick: 1620, seat: 2, text: "IT SHEDS A ROCK · PLATE IT", anchor: { at: "body" } },
+    { tick: 1620, seat: 2, text: "A ROCK · THE SHIELD UNDER IT", anchor: { at: "body" } },
     {
       tick: 1860,
       seat: 1,
-      text: "GUARD AS IT LANDS",
+      text: "TRIGGER AS IT LANDS",
       anchor: { at: "control", control: "guard" },
     },
   ],

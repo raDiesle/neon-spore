@@ -50,7 +50,7 @@ export const THE_CRYSTAL: GuideScene = {
     {
       tick: 1000,
       seat: 1,
-      text: "GUARD AND SHOT, ONE BEAT",
+      text: "SHIELD AND SHOT, ONE BEAT",
       anchor: { at: "control", control: "guard" },
     },
     { tick: 1200, seat: 2, text: "TWO PLAIN BODIES NOW", anchor: { at: "body" } },

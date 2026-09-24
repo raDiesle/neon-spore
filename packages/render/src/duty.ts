@@ -38,7 +38,7 @@ const DUTY_WORD = {
   // The pilot's strip is the only one carrying it at all.
   torch: { p1: "ROCK" },
   // The pilot sees which lane its next step takes.
-  veer: { p1: "LANE" },
+  veer: { p1: "COLUMN" },
   // The navigator sees it is not a body worth a shot.
   lure: { p2: "FAKE" },
   // The navigator sees which side it jumps to next.
@@ -171,7 +171,7 @@ const DUTY_WORD = {
   // the only thing that answers it. The pull itself is either seat's and needs
   // no word — a hand is on the pile or it is not — so what the dials carry is
   // the sentence the fight is actually lost for want of.
-  cairn: { p1: "SAY THE LANE", p2: "BE THERE" },
+  cairn: { p1: "SAY THE COLUMN", p2: "BE THERE" },
   // THE CURTAIN: he is shown which lobes are soft, she where the core hides
   // and what colour it is — each seat's word is the half the other cannot see.
   curtain: { p1: "SAY THE LOBE", p2: "SAY THE SIDE" },

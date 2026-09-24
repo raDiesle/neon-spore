@@ -44,7 +44,7 @@ export const THE_CRAWLER: GuideScene = {
     {
       tick: 1000,
       seat: 1,
-      text: "A PLATE RING WANTS GUARD",
+      text: "ARMOURED RING · THE SHIELD",
       anchor: { at: "control", control: "guard" },
     },
   ],

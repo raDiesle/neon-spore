@@ -106,7 +106,7 @@ export const THE_LEAD: GuideScene = {
     {
       tick: 720,
       seat: 1,
-      text: "GUARD ITS TORCH · TWO MORE",
+      text: "TORCH · SHIELD · TWO MORE",
       anchor: { at: "control", control: "guard" },
     },
     // `STILL` stands on the body for the four beats it does (`boss-cue-read-c.ts`),
@@ -117,7 +117,7 @@ export const THE_LEAD: GuideScene = {
       seat: 2,
       // `BURN` stands on the body through the pass, so what is left to write is
       // whose lane the beam leaves by — the other half of the one gesture.
-      text: "IT LEAVES THE CANNON'S LANE",
+      text: "OUT BY THE CANNON'S COLUMN",
       anchor: { at: "control", control: "fireRed" },
     },
     {

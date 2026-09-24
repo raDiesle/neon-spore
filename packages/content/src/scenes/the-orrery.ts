@@ -160,7 +160,7 @@ export const THE_ORRERY: GuideScene = {
     {
       tick: 1440,
       seat: 1,
-      text: "ITS ROCKS · GUARD ONE A BEAT",
+      text: "ITS ROCKS · A SHIELD A BEAT",
       anchor: { at: "control", control: "guard" },
     },
     {
@@ -172,7 +172,7 @@ export const THE_ORRERY: GuideScene = {
     {
       tick: 1800,
       seat: 2,
-      text: "NAKED · A BOLT IS SPENT",
+      text: "NAKED · A SHOT IS SPENT",
       anchor: { at: "control", control: "fireRed" },
     },
     {

@@ -56,7 +56,7 @@ export const THE_UNDERTOW: GuideScene = {
       text: "ONLY PLAYER 1 SEES THE BOW",
       anchor: { at: "boss", part: "plate" },
     },
-    { tick: 180, seat: 1, text: "A PLATE BOWS FOUR BEATS", anchor: { at: "boss", part: "plate" } },
+    { tick: 180, seat: 1, text: "THE HULL BOWS FOUR BEATS", anchor: { at: "boss", part: "plate" } },
     {
       tick: 360,
       seat: 2,
@@ -108,7 +108,7 @@ export const THE_UNDERTOW: GuideScene = {
     {
       tick: 1560,
       seat: 1,
-      text: "PLAYER 1 IS SHOWN NO PLATE",
+      text: "PLAYER 1 IS SHOWN NO SHIELD",
       anchor: { at: "control", control: "intake" },
     },
     { tick: 1740, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "boss" } },
@@ -125,7 +125,7 @@ export const THE_UNDERTOW: GuideScene = {
     {
       tick: 2100,
       seat: 2,
-      text: "PLAYER 2 PLATES THE FAR ONE",
+      text: "THE SHIELD TAKES THE FAR ONE",
       anchor: { at: "control", control: "shield" },
     },
   ],

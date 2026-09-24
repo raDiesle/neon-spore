@@ -44,7 +44,7 @@ export const THE_ROCK: GuideScene = {
     {
       tick: 480,
       seat: 2,
-      text: "THE PLATE IS ALREADY THERE",
+      text: "THE SHIELD IS ALREADY THERE",
       anchor: { at: "ship", control: "guard" },
     },
     {

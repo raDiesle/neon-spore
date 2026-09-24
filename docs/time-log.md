@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — Scene captions say shield and column
+
+- reading: 5 min. The `game-words` skill, the nineteen standing lines and
+  each caption's page, to tell a player's shield from a boss's own armour.
+- writing: 5 min. One idempotent script over twenty films and `duty.ts`,
+  the drawn-words test widened to read a `·`, and the spec table.
+- looking: 5 min. One frame of THE CROSSING's fourth page.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: fitting `SHIELD` and `COLUMN` into 28 characters. Both are
+longer than the words they replace, and each caption had to be rewritten
+rather than swapped.
+
 ## 2026-09-24 — The game's preview has a `here` route
 
 - reading: 10 min. `here.ts`, `supervise.ts`, `preview.ts`, the launch

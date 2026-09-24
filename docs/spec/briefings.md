@@ -708,11 +708,11 @@ hand still draws.
 | PINBALL | `PLAYER 1 SLIDES THE CANNON` | `THE CANNON ALSO CATCHES` | `CARRY` / `MOVE` on the cannon, his alone, while a ball in the air is coming down somewhere else |
 | THE SCOUT | `AT HOME, PLAYER 2 OPENS MAW` | `ONLY THE MAW TAKES A MOTE` | `PRESS` / `OPEN` on the mother ship's mouth, hers alone, while the little ship stands on it and the mouth is shut |
 | THE UNDERTOW | `PLAYER 1 SLIDES UNDER IT` | `THE MAW REACHES ONE COLUMN` | `CARRY` / `MOVE` on the cannon, his alone, while a lobe stands in a column he is not in |
-| THE UNDERTOW | `THE MAW TAKES IT AGAIN` | `PLAYER 1 IS SHOWN NO PLATE` | `HOLD` / `OPEN` on the lobe standing over his own column |
+| THE UNDERTOW | `THE MAW TAKES IT AGAIN` | `PLAYER 1 IS SHOWN NO SHIELD` | `HOLD` / `OPEN` on the lobe standing over his own column |
 | THE UNDERTOW | `THE MAW TAKES THE NEAR ONE` | `PLAYER 1 CANNOT REACH BOTH` | the same, on the one of the pair he is under — and nothing on the other |
 | THE THROAT | `PLAYER 2 CLEARS IT WITH RED` | `A SHOT STILL KILLS IT THERE` | `PRESS` / `FIRE` on a living body standing in the mouth, hers, while his carriage is in the mouth's column |
 | THE THROAT | `SWIPED LEVEL INTO THE MOUTH` | `IT FLIES THE WAY YOU SWIPE` | `CARRY` / `FLING` on a gum, his alone, on the one beat it is on the mouth's row |
-| THE ORRERY | `NAKED · HOLD RED · THE BEAM` | `NAKED · A BOLT IS SPENT` | `HOLD` / `BURN` on the core, hers alone, once every ring is off and no lobe is already filling |
+| THE ORRERY | `NAKED · HOLD RED · THE BEAM` | `NAKED · A SHOT IS SPENT` | `HOLD` / `BURN` on the core, hers alone, once every ring is off and no lobe is already filling |
 | THE ORRERY | `HOLD THE MIDDLE · IT STANDS` | `THE BEAM USES YOUR COLUMN` | `CARRY` / `MOVE` on the cannon, his alone, whenever it is off the core's column — in every phase the fight has one |
 | THE CANDLE | `PLAYER 2 FIRES · IT DIMS` | `EITHER COLOUR DIMS IT` | `PRESS` / `FIRE` on the glow, hers alone, while the cannon is under it |
 | THE CANDLE | `IT DRIFTS · PLAYER 1 FOLLOWS` | `IT DRIFTS EVERY FEW BEATS` | `CARRY` / `MOVE` on the cannon, his alone, whenever it is off the glow's column |
@@ -723,7 +723,7 @@ hand still draws.
 | THE CURTAIN | `FIRE ITS COLOUR AS IT BARES` | `ITS COLOUR OR IT FIRES BACK` | `PRESS` / `FIRE` on the core, hers alone, once the cannon is in its column |
 | THE TASTER | `PLAYER 1 HOLDS THE NEXT ONE` | `EVERY SHOT FEEDS THE COUNT` | `CARRY` / `MOVE` on the cannon, his alone, while the column he is in has nothing that can be answered |
 | THE CAIRN | `A STILL THUMB MOVES NOTHING` | `NO SHOT REACHES THIS PILE` | `CARRY` / `PULL` on the stack, either seat's — `CARRY` is the kind line, so the page was saying *a thumb carried across the field* in its own words |
-| THE CAIRN | `CARRIED RIGHT · ONE FALLS` | `THE SIDE YOU GO IS ITS LANE` | the same word; the side is the silence it leaves, and the one thing about this fight either of them decides |
+| THE CAIRN | `CARRIED RIGHT · ONE FALLS` | `THE WAY YOU GO IS ITS COLUMN` | the same word; the side is the silence it leaves, and the one thing about this fight either of them decides |
 | THE REPRISE | `DARK · THE TEAR COUNTS THEM` | `DARK · SAY THE COLOURS NOW` | `CARRY` / `MOVE` on his cannon from the beat the tear opens — and the count the rest of the page named is drawn on both screens anyway |
 | THE REPRISE | `SAID · SLIDE AND FIRE BLIND` | `RED BECAUSE THEY SAID SO` | `PRESS` / `FIRE` on the tear, hers, for the whole of the echo — and the `SLIDE` was never hers to do, which is the guide's own defect in a caption |
 

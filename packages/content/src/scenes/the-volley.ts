@@ -63,16 +63,16 @@ export const THE_VOLLEY: GuideScene = {
     {
       tick: 480,
       seat: 2,
-      text: "HOLD THE LANE FOR IT",
+      text: "HOLD THE COLUMN FOR IT",
       anchor: { at: "control", control: "shield" },
     },
     {
       tick: 720,
       seat: 1,
-      text: "YOUR WARD SENDS IT BACK",
+      text: "YOUR SHIELD SENDS IT BACK",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 1140, seat: 1, text: "THREE IN ALL · A PLATE EACH", anchor: { at: "body" } },
+    { tick: 1140, seat: 1, text: "THREE IN ALL · A SHIELD EACH", anchor: { at: "body" } },
     {
       tick: 1760,
       seat: 2,

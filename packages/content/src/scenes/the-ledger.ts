@@ -108,13 +108,13 @@ export const THE_LEDGER: GuideScene = {
     {
       tick: 1080,
       seat: 2,
-      text: "PLATE THERE · FIRE RED",
+      text: "SHIELD THERE · FIRE RED",
       anchor: { at: "control", control: "fireRed" },
     },
     {
       tick: 1260,
       seat: 1,
-      text: "GUARD · IT WHIPS THE SEAM",
+      text: "SHIELD · IT WHIPS THE SEAM",
       anchor: { at: "control", control: "guard" },
     },
     { tick: 1440, seat: 1, text: "NOW EVERY SHOT BILLS YOU", anchor: { at: "boss" } },

@@ -40,7 +40,7 @@ export const TWO_ROCKS: GuideScene = {
     {
       tick: 480,
       seat: 2,
-      text: "PLAYER 2 CARRIES THE PLATE",
+      text: "PLAYER 2 CARRIES THE SHIELD",
       anchor: { at: "control", control: "shield" },
     },
     {

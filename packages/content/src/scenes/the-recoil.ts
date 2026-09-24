@@ -49,7 +49,7 @@ export const THE_RECOIL: GuideScene = {
     {
       tick: 600,
       seat: 1,
-      text: "IT LANDS A LANE OVER",
+      text: "IT LANDS A COLUMN OVER",
       anchor: { at: "control", control: "cannon" },
     },
     {

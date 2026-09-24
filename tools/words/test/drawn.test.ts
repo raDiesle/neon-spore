@@ -21,35 +21,14 @@ import { VOCABULARY } from "../measure.js";
 
 const ROOT = join(import.meta.dir, "../../..");
 const DIRS = ["packages/render/src", "apps/game/src", "packages/content/src"];
-const LITERAL = /"([A-Z][A-Z0-9 ,.'!?-]{1,})"/g;
+const LITERAL = /"([A-Z][A-Z0-9 ,.'!?·-]{1,})"/g;
 const COMMENT = /^\s*(?:\/\/|\/?\*)/;
 
 const STANDING: readonly string[] = [
   "apps/game/src/menu-seats.ts: SEAT",
-  "packages/content/src/scenes/the-cairn.ts: ONLY PLAYER 1 SEES ITS LANE",
-  "packages/content/src/scenes/the-cairn.ts: THE SIDE YOU GO IS ITS LANE",
-  "packages/content/src/scenes/the-clasp.ts: THE WARD OPENS IT",
-  "packages/content/src/scenes/the-coil.ts: THE LANE CLEARS, IT OPENS",
-  "packages/content/src/scenes/the-crawler.ts: A PLATE RING WANTS GUARD",
-  "packages/content/src/scenes/the-crossing.ts: FIRE WHEN THE LANE IS CLEAR",
-  "packages/content/src/scenes/the-crossing.ts: THE ROCK CROSSES YOUR LANE",
-  "packages/content/src/scenes/the-crystal.ts: GUARD AND SHOT, ONE BEAT",
-  "packages/content/src/scenes/the-lead.ts: IT LEAVES THE CANNON'S LANE",
-  "packages/content/src/scenes/the-recoil.ts: IT LANDS A LANE OVER",
-  "packages/content/src/scenes/the-rock.ts: THE PLATE IS ALREADY THERE",
-  "packages/content/src/scenes/the-sinew.ts: GUARD AS IT LANDS",
-  "packages/content/src/scenes/the-undertow.ts: A PLATE BOWS FOUR BEATS",
-  "packages/content/src/scenes/the-undertow.ts: PLAYER 1 IS SHOWN NO PLATE",
-  "packages/content/src/scenes/the-undertow.ts: PLAYER 2 PLATES THE FAR ONE",
-  "packages/content/src/scenes/the-volley.ts: HOLD THE LANE FOR IT",
-  "packages/content/src/scenes/the-volley.ts: YOUR WARD SENDS IT BACK",
-  "packages/content/src/scenes/the-well.ts: PLAYER 2 FIRES THE SAME LANE",
-  "packages/content/src/scenes/two-rocks.ts: PLAYER 2 CARRIES THE PLATE",
   "packages/content/src/screen-words.ts: NAVIGATOR",
   "packages/content/src/screen-words.ts: PILOT",
   "packages/content/src/waves/act-3b.ts: THE WARD",
-  "packages/render/src/duty.ts: LANE",
-  "packages/render/src/duty.ts: SAY THE LANE",
   "packages/render/src/fleet-grip-draw.ts: NAVIGATOR'S",
   "packages/render/src/fleet-grip-draw.ts: PILOT'S",
   "packages/render/src/handle-word.ts: PILOT'S",

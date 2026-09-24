@@ -92,10 +92,10 @@ export const THE_CAIRN: GuideScene = {
     { tick: 0, seat: 1, text: "NO SHOT REACHES THIS PILE", anchor: { at: "held" } },
     // The same cue took `CARRIED`; the side is what is left, and the field will
     // never say it — it is the navigator's to ask for out loud (`cairn.ts`).
-    { tick: 240, seat: 1, text: "THE SIDE YOU GO IS ITS LANE", anchor: { at: "held" } },
+    { tick: 240, seat: 1, text: "THE WAY YOU GO IS ITS COLUMN", anchor: { at: "held" } },
     // Five beats: the lane under the pile fills from a quarter to nearly full
     // on this screen, and on this screen only.
-    { tick: 480, seat: 1, text: "ONLY PLAYER 1 SEES ITS LANE", anchor: { at: "body" } },
+    { tick: 480, seat: 1, text: "ONLY PLAYER 1 SEES IT FILL", anchor: { at: "body" } },
     {
       tick: 780,
       seat: 2,

@@ -54,7 +54,7 @@ export const THE_CLASP: GuideScene = {
     {
       tick: 600,
       seat: 1,
-      text: "THE WARD OPENS IT",
+      text: "THE SHIELD OPENS IT",
       anchor: { at: "control", control: "guard" },
     },
     {

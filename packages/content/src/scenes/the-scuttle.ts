@@ -145,7 +145,7 @@ export const THE_SCUTTLE: GuideScene = {
     {
       tick: 1140,
       seat: 1,
-      text: "THE ROCK IT THREW · GUARD",
+      text: "THE ROCK IT THREW · SHIELD",
       anchor: { at: "control", control: "guard" },
     },
     {

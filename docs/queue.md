@@ -466,23 +466,6 @@ table rows in the skill to say the menu's job names are the one exception.
 The card's tag already reads P1 or P2, which is the argument for keeping a
 job name beside it.
 
-## Nineteen scene captions still say lane, plate, ward or guard
-
-- **Found:** 2026-09-23, claude/task-queue-work-e21054
-- **Taken:** 2026-09-24, claude/queue-the-games-preview-has-no-here-route-and-the-dire (claim: claude/queue-nineteen-scene-captions-still-say-lane-plate-war)
-- **Files:** `packages/content/src/scenes/*.ts`, `packages/render/src/duty.ts`, `tools/words/test/drawn.test.ts`
-- **Where:** local
-
-The owner has answered both words: **shield** for ward, plate and guard, and
-**column** for lane (`tools/words/measure.ts`, `VOCABULARY`). The captions a
-rehearsal writes over the field are literals in the scene files, outside
-`playerText()`, so they kept the old words; `drawn.test.ts` lists every one
-in `STANDING`, with the two `LANE` marks in `duty.ts`. Rewrite each in the
-register of `.claude/skills/new-tutorial`, keep it inside the caption limit
-`packages/content/test/scenes.test.ts` holds, strike its `STANDING` line, and
-send one rehearsal frame for the longest caption changed. A look the owner
-asked for by name (shield, column).
-
 ## Player-facing marks still say PILOT'S, NAVIGATOR'S and SEAT
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054
