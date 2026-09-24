@@ -19005,3 +19005,5 @@ the lane marks it as the owner's instead of finishing it.
 
 The bottleneck was **writing**: the merge is small, and the time went on the
 refusals — each one a case a side-preferring resolver would fail.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
