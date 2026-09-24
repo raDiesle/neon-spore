@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 3fdc65a1 — The pointer rig's `Field` is built beside the bindings it reads
+
+`fieldFrom(bindings)` in `input-bindings.ts` builds the field a hit test is asked with, fresh on every press. `bindControls` now takes its bindings whole instead of destructuring every name only to copy it into the field, which brings `input.ts` from 248 lines to 201.
+
 ## 2026-09-24 · d8164155 — A finger on a body is reached at the field's own config
 
 `creatureAt` is now handed the field rather than its creatures, a phase and a seat. It sizes the reach by the field's `cfg` instead of `DEFAULT_CONFIG`, so a config that draws near bodies bigger is answered out to their edge as drawn. It also places each body by `glidePhase`, like every placement in render/. A balloon refuses a hand and is held by its handles, so that changes nothing today; `touch-reach.test.ts` pins the refusal.
