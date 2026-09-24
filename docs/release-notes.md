@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 25739260 — No kind line says CARRY; a verb that is a motion draws alone
+
+PULL UP, SWIPE DOWN, MOVE and every other carry now stand on the glass as the one word, without CARRY over them — the verb already says what the thumb does. PRESS, HOLD and STILL keep their line. One rule, `saysKind`, and both hands that write a cue call it.
+
 ## 2026-09-24 · 857a67e6 — No clock counts the run up in the top-left corner; the retries stay
 
 The corner read `0:42 · 2 RETRIES`; it reads `2 RETRIES` once there is a retry and nothing before. The run's time is still summed up on the cleared card and the balance sheet. Exemption: a look the owner asked for by name.

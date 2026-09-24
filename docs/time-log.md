@@ -19770,3 +19770,5 @@ that pointed at it from eighteen scenes.
 
 The bottleneck was **reading**: the word stood in thirty readings, and the
 cut was which of them drew it rather than which of them said it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
