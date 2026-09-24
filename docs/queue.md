@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## `creatureAt` glides a balloon by the beat, and reaches at `DEFAULT_CONFIG`
 
 - **Found:** 2026-09-23, claude/queue-touch-hull
+- **Taken:** 2026-09-24, claude/queue-bun-run-imports-leaves-a-splits-whole-import-sta (claim: claude/queue-creatureat-glides-a-balloon-by-the-beat-and-reac)
 - **Files:** `packages/render/src/creature-under.ts`, `packages/render/src/touch.ts`, `packages/render/src/depth.ts`, `packages/render/test/`
 
 The field pass places a body at `glidePhase(world.cfg, world.beat, c,
