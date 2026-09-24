@@ -125,6 +125,19 @@ describe("pruneImports", () => {
     for (const source of cases) expect(pruneImports(source).text).toBe(source);
   });
 
+  it("does not count a property or an object key of the same spelling as a use", () => {
+    const source =
+      'import { flying, name, b } from "./m.ts";\n' +
+      "export const z = b.name + b?.flying + { name: 1, flying: 2 }.name;\n";
+    const { text, dropped } = pruneImports(source);
+    expect(dropped.map((d) => d.name)).toEqual(["flying", "name"]);
+    expect(text.startsWith('import { b } from "./m.ts";')).toBe(true);
+    for (const use of ["[...name]", "c ? name : b", "{ name }", "{ k: name }"]) {
+      const kept = `import { name, b } from "./m.ts";\nexport const z = (c: 1) => ${use};\n`;
+      expect(pruneImports(kept).dropped.map((d) => d.name)).not.toContain("name");
+    }
+  });
+
   it("does not count a mention in a comment as a use", () => {
     const source =
       "// a is explained here and nowhere else\n" +

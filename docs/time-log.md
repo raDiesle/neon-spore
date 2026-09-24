@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — `bun run imports` no longer reads `bead.flying` as a use of `flying`
+
+- reading: 5 min. The queue entry, `imports.ts`, `classify.ts` and
+  `run.ts`'s leftover message.
+- writing: 5 min. `sameSpelling` beside `usedElsewhere`, `Left.lastLine`,
+  the two-way leftover report, one test case.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. The guard hook refused two heredocs for a doubled
+  backslash; both edits went through the Edit tool instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: a `\\s` in a Python heredoc is blocked on
+sight, so a regex edit has to be written with the Edit tool from the start.
+
 ## 2026-09-24 — THE GORGE's mouth is a file of its own
 
 - reading: 5 min. The queue entry, `gorge-step.ts`, and which of its

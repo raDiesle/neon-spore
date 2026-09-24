@@ -565,19 +565,3 @@ The two answers:
 - **Retire it**: delete the two fields, their `ctx.globalAlpha` pair and
   their doc lines from `shield.ts`, and the same pair from
   `volley-ward.ts`. Nothing drawn changes.
-
-## `bun run imports` counts a property of the same name as a use
-
-- **Found:** 2026-09-24, claude/queue-baton-test-ts-is-717-lines-and-keeps-its-own-cop
-- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-bun-run-imports-counts-a-property-of-the-same-na)
-- **Files:** `tools/imports/imports.ts`, `tools/imports/run.ts`, `tools/imports/test/imports.test.ts`
-
-Splitting `baton.test.ts` stranded `flying` in three import lists. Biome
-called it unused; `bun run imports` kept it, because `usedElsewhere` matches
-the bare word and `bead.flying` is the same word. It then listed the three
-statements as "left for somebody to read — each would take a whole
-statement", which none of them would: one name out of eight. Skip a hit
-preceded by `.` (and `?.`), and an object key before `:` that is not a
-shorthand, in `usedElsewhere`; a case in `imports.test.ts` with `x.name`
-beside an unused `name`. And word `run.ts`'s leftover message by what is
-left, since biome's leftovers are not only whole statements.

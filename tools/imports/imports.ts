@@ -19,15 +19,18 @@
  * A name stays whenever there is any doubt. It is dropped only when it occurs
  * nowhere else in the file outside a comment — a use in a string, a type
  * position or a template's substitution all keep it, and so does a mention the
- * scanner is unsure about.
+ * scanner is unsure about. A property or object key of the same spelling is
+ * not a mention: `bead.flying` kept an unused `flying` in three lists when
+ * `baton.test.ts` was split on 24 September 2026.
  */
 
-import { COMMENT, classify } from "./classify.js";
+import { CODE, COMMENT, classify } from "./classify.js";
 import { type ImportDecl, importDecls } from "./scan.js";
 
 /** A statement every one of whose names is unused, under a comment: left alone, and reported. */
 export type Left = {
   readonly line: number;
+  readonly lastLine: number;
   readonly names: readonly string[];
   readonly statement: string;
 };
@@ -47,7 +50,40 @@ function lineOf(text: string, offset: number): number {
   return line;
 }
 
-/** Whether `name` is written anywhere in `text` that is neither a comment nor an import. */
+/** The nearest character before `at` that is not whitespace, or "". */
+function before(text: string, at: number): string {
+  let i = at - 1;
+  while (i >= 0 && /\s/.test(text[i] ?? "")) i--;
+  return text[i] ?? "";
+}
+
+/** The nearest character from `at` on that is not whitespace, or "". */
+function after(text: string, at: number): string {
+  let i = at;
+  while (i < text.length && /\s/.test(text[i] ?? "")) i++;
+  return text[i] ?? "";
+}
+
+/**
+ * Whether a hit in code is only a name *spelled* the same: a property after
+ * `.` or `?.` — never a spread's `...`, which reads the binding — or an
+ * object key that is not a shorthand, `{ name: 1 }` or `, name: 1`. A key
+ * after anything else stays a use, because `c ? name : d` is one.
+ */
+function sameSpelling(text: string, at: number, end: number): boolean {
+  const prev = before(text, at);
+  if (prev === ".") {
+    const dot = text.lastIndexOf(".", at - 1);
+    return text.slice(dot - 2, dot + 1) !== "...";
+  }
+  return (prev === "{" || prev === ",") && after(text, end) === ":";
+}
+
+/**
+ * Whether `name` is written anywhere in `text` that is neither a comment, an
+ * import, nor a property or key of the same spelling. A hit in a string still
+ * counts, since the scanner cannot tell a string from a type there.
+ */
 function usedElsewhere(
   name: string,
   text: string,
@@ -60,6 +96,7 @@ function usedElsewhere(
     const at = hit.index;
     if (kind[at] === COMMENT) continue;
     if (decls.some((d) => at >= d.start && at < d.end)) continue;
+    if (kind[at] === CODE && sameSpelling(text, at, at + name.length)) continue;
     return true;
   }
   return false;
@@ -140,6 +177,7 @@ export function pruneImports(source: string): Pruned {
       }
       left.push({
         line: lineOf(source, decl.start),
+        lastLine: lineOf(source, decl.end - 1),
         names: unused.map((b) => b.local),
         statement: source.slice(decl.start, decl.end).replace(/\s+/g, " "),
       });

@@ -111,10 +111,27 @@ console.log(
     changed.length === 1 ? "" : "s"
   }.`,
 );
-if (remaining.length > 0) {
+// What biome still flags is one of two things, read differently: a statement
+// held because a comment stands over it, or a name the scan kept because its
+// word is written elsewhere in the file, somewhere it could not rule out a use.
+const held: Diagnostic[] = [];
+const kept: Diagnostic[] = [];
+for (const d of remaining) {
+  const { left } = pruneImports(await Bun.file(d.path).text());
+  const whole = left.some((l) => d.line >= l.line && d.line <= l.lastLine);
+  (whole ? held : kept).push(d);
+}
+if (held.length > 0) {
   console.log(
-    `\n${remaining.length} left for somebody to read — each would take a whole statement,\n` +
-      "and the comment above a statement is often the only place a decision is written:",
+    `\n${held.length} whole statement${held.length === 1 ? "" : "s"} left for somebody to read —\n` +
+      "the comment above a statement is often the only place a decision is written:",
   );
-  for (const d of remaining) console.log(`  · ${d.path}:${d.line}  ${d.message}`);
+  for (const d of held) console.log(`  · ${d.path}:${d.line}  ${d.message}`);
+}
+if (kept.length > 0) {
+  console.log(
+    `\n${kept.length} name${kept.length === 1 ? "" : "s"} kept because the word is written elsewhere` +
+      " in the file,\nwhere the scan could not rule out a use — biome says there is none:",
+  );
+  for (const d of kept) console.log(`  · ${d.path}:${d.line}  ${d.message}`);
 }
