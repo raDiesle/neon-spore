@@ -9,10 +9,12 @@ import {
   antiphonShipUp,
   antiphonSinkBeat,
   antiphonTwins,
+  antiphonWindow,
 } from "./antiphon.js";
 import { growCycle } from "./antiphon-rail.js";
 import { midCol } from "./config.js";
 import { livingKindForColor } from "./kinds.js";
+import { closeSlow, openSlow } from "./slow.js";
 import { spawnOne } from "./spawn.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
@@ -36,6 +38,13 @@ import type { World } from "./world.js";
  * field read; from `antiphonFirePits` an organ left undescribed fires one
  * down its own column before it sinks. Nothing else arrives, and in the
  * first phase nothing at all: the design's *generous time*.
+ *
+ * **The window is THE SLOW** (`docs/decisions.md` #33, doubled on the owner's
+ * rule of 24 September 2026): it opens on the beat the organs have pushed all
+ * the way out, which is the beat a bolt first counts, for the window's beats,
+ * and every way a cycle ends shuts it — a pit, a hardening, the window run
+ * out, the ship. The growth and the rest are not slowed: nothing is asked in
+ * them.
  */
 
 /** Install it from the wave's own `boss:` entry: the body risen, smooth, nothing on the rail. */
@@ -74,6 +83,7 @@ function endCycle(world: World, s: AntiphonState): void {
   s.crossed = [];
   s.heldRail = -1;
   s.cycleBeat = world.beat;
+  closeSlow(world);
 }
 
 /** This cycle's organs push out, and the rail is laid. */
@@ -167,7 +177,9 @@ export function stepAntiphon(world: World, s: AntiphonState): void {
     return;
   }
   if (s.organs.length > 0) {
+    const standUp = (s.organs[0]?.grownBeat ?? beat) + cfg.antiphonGrowBeats;
     if (beat >= antiphonSinkBeat(s, cfg)) sink(world, s);
+    else if (beat === standUp) openSlow(world, antiphonWindow(s, cfg));
     return;
   }
   const rested = beat - s.cycleBeat >= cfg.antiphonRestBeats;

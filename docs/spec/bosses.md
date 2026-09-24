@@ -6782,8 +6782,8 @@ in the fight is a candidate the pair rejected or an organ they left alone.
 **The rule, in one sentence.** After `antiphonRestBeats` (2) with nothing
 standing, an organ pushes out of the surface (`antiphonGrow`, with its
 shape and how many grow) over `antiphonGrowBeats` (4), during which
-nothing counts, and then stands its window — `antiphonWindowBeats` (14),
-or `antiphonTightWindowBeats` (8) from `antiphonTightPits` (2) and for the
+nothing counts, and then stands its window — `antiphonWindowBeats` (28),
+or `antiphonTightWindowBeats` (16) from `antiphonTightPits` (2) and for the
 ship — on a rail of `antiphonRail` (3) candidates laid the same beat
 (`sim/antiphon-rail.ts`: shapes, then columns, then colours, then the
 rail's own shuffle, all through `nextInt` in that order, with every column
@@ -6953,7 +6953,7 @@ place on the rail as its `id` — the rail is never re-ordered, so a
 crossing stays where it was made — heard by `sim/antiphon-hand.ts` from
 **player 2 alone**, the pilot's dropped without a sound as `queenMark`
 drops the other seat's. Her thumb on a candidate is `heldRail` and nothing
-else; carrying it `antiphonPullMilli` (400) of a tile down, with the organ
+else; carrying it `antiphonPullMilli` (800) of a tile down, with the organ
 all the way out, **crosses it off**: its place joins `crossed`, an
 `antiphonPull` event says its column and how many candidates are left, and
 from then a bolt in its column and its colour is nothing rather than a
@@ -6983,6 +6983,18 @@ eliminated without either of them saying it, which is the whole of what
 this boss is for. `FIELD_CONTROLS`' second ANTIPHON row, `render/handles.ts`
 and a gallery pose carry it. Never watched at tempo: the picture of a
 candidate coming off the rail is *unverified*.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `antiphonWindowBeats` 14 → 28 and
+`antiphonTightWindowBeats` 8 → 16, with the pull carried twice as far
+(`antiphonPullMilli` 400 → 800). THE SLOW opens on this fight for the first
+time, over the window alone: on the beat the organs have pushed all the way
+out, for the window's beats, and every end of a cycle shuts it — a pit, a
+hardening, a pull off the organ, the window run out, the ship
+(`sim/antiphon-step.ts`, `sim/test/antiphon-doubled.test.ts`). The growth,
+the rest and the still ask nothing and are not slowed. The film answers every
+organ the beat it stands, so it replays unchanged; its page on the tight
+window says sixteen.
 
 **Never watched at tempo.** What the tests say is the mechanism: it rises
 smooth with nothing on the rail and nothing on the field; it holds its

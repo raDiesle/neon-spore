@@ -536,22 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The doubled window: THE CURTAIN, THE SINEW, THE CANDLE and THE ANTIPHON
-
-- **Found:** 2026-09-23, claude/task-queue-work-7ae87c
-- **Taken:** 2026-09-24, claude/queue-the-first-of-two-shots-or-beams-makes-no-sign-th (claim: claude/queue-the-doubled-window-the-curtain-the-sinew-the-can)
-- **Files:** `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-sinew.ts`, `packages/sim/src/config-candle.ts`, `packages/sim/src/config-antiphon.ts`, `packages/sim/src/curtain-step.ts`, `packages/sim/src/sinew-step.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/antiphon-step.ts`, `packages/content/src/scenes/the-curtain.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
-
-The four whose need is already a named figure beside the window — a lift, a
-column count, a pinch, a pull. Double both halves per
-`docs/spec/choreographed-windows.md`, the SLOW opened at the ask (for the
-first time on THE CURTAIN and THE ANTIPHON), the films re-timed and the
-rehearsals given room.
-
-Split into four landings, one boss each. **THE CURTAIN, THE SINEW and THE
-CANDLE are landed** (24 September 2026, `curtain-doubled.test.ts`,
-`sinew-doubled.test.ts`, `candle-doubled.test.ts`). Left: THE ANTIPHON.
-
 ## `strokeGlow` is handed an alpha it throws away: the bosses
 
 - **Found:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha

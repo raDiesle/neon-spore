@@ -67,14 +67,20 @@ export interface AntiphonConfig {
  * rejected candidates arrive from the third, two organs from the fourth,
  * an organ left alone fires from the fourth, and a killed shape comes back
  * from the fifth — the design's four phases, one pit apart.
+ *
+ * **Doubled on the owner's rule, 24 September 2026**
+ * (`docs/spec/choreographed-windows.md`): the window 14 → 28 and the tight
+ * one 8 → 16, with the pull carried twice as far, 400 → 800 thousandths of a
+ * tile — a longer window with the old count would be an ask that answers
+ * itself. The window is THE SLOW (`antiphon-step.ts`).
  */
 export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonShapes: 16,
   antiphonFamily: 4,
   antiphonPits: 6,
   antiphonGrowBeats: 4,
-  antiphonWindowBeats: 14,
-  antiphonTightWindowBeats: 8,
+  antiphonWindowBeats: 28,
+  antiphonTightWindowBeats: 16,
   antiphonRail: 3,
   antiphonRailMax: 6,
   antiphonTightPits: 2,
@@ -87,5 +93,5 @@ export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonShipRail: 3,
   antiphonOutBeats: 3,
   antiphonTurnBeats: 8,
-  antiphonPullMilli: 400,
+  antiphonPullMilli: 800,
 };

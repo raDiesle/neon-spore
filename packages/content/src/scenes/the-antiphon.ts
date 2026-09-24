@@ -12,7 +12,7 @@ import type { GuideScene } from "../scene-types.js";
  * organ's column takes it to a pit; a decoy's colour in the decoy's column
  * hardens the cycle and widens every rail after; an organ left its window
  * sinks back healed. From two pits the rail is one family and the window
- * eight beats; from three every candidate a pit rejected falls as a body
+ * sixteen beats; from three every candidate a pit rejected falls as a body
  * in its colour; from four two organs grow at once. Six pits, and the body
  * goes still and grows their own ship on a rail of ships.
  *
@@ -51,6 +51,10 @@ import type { GuideScene } from "../scene-types.js";
  * item). Not shown: a sunk organ and the body it fires from four pits, and
  * a pit grown again from five — the fight is six pits long and the twins
  * take it from four to six in one cycle.
+ *
+ * **The seam, when this reaches its ceiling**: the pages go to a file of
+ * their own named for them, and the acts stay here beside the paragraphs that
+ * say why each tick is where it is.
  */
 export const THE_ANTIPHON: GuideScene = {
   ticks: 3720,
@@ -159,7 +163,7 @@ export const THE_ANTIPHON: GuideScene = {
     // The window is drawn beside the rail and nowhere else (`drawWindow` inside
     // `showsAntiphonRail`), so this page was on the screen that cannot see the
     // number it names, and the seat racing it was not told.
-    { tick: 1320, seat: 2, text: "TWO PITS · EIGHT BEATS NOW", anchor: { at: "boss" } },
+    { tick: 1320, seat: 2, text: "TWO PITS · SIXTEEN BEATS NOW", anchor: { at: "boss" } },
     {
       tick: 1500,
       seat: 2,

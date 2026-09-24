@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE ANTIPHON's window is doubled, and THE SLOW spans it
+
+- reading: 5 min. The queue entry, `choreographed-windows.md`, THE CURTAIN's
+  landing, `antiphon-step.ts` and its film.
+- writing: 5 min. Three figures, the open and the close, a test of five, §11.31.
+- looking: 0 min. The film answers every organ on its first beat and replays
+  unchanged; nothing drawn moved.
+- friction: 5 min. The claim was held by a branch in a worktree this session
+  may not touch, so the lane went on a branch of its own name.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: a claim left behind by a finished session.
+
 ## 2026-09-24 — `check:fast` runs the words contract whatever changed
 
 - reading: 5 min. The entry, `fast-scope.ts`'s sweeps and their test.
