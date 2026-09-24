@@ -90,6 +90,7 @@ export {
   computeStage,
   flippedLayout,
   hitCircle,
+  hitReach,
   type Layout,
   type Lobe,
   rolledLayout,

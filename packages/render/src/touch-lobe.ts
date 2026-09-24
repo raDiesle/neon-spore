@@ -153,10 +153,19 @@ export function lobeUnder(
   x: number,
   y: number,
 ): Touch | null {
+  // The nearest button whose reach holds the press, never the first in the
+  // row: two reaches may overlap now that they run well past the drawn edge
+  // (`hitReach`), and the thumb meant the one it is closer to.
+  let best: Touch | null = null;
+  let bestDist = Infinity;
   for (const lobe of bandLobes(l, set, player)) {
     if (!hitCircle(lobe.circle, x, y)) continue;
+    const d = Math.hypot(x - lobe.circle.x, y - lobe.circle.y);
+    if (d >= bestDist) continue;
     const said = lobeMeans(lobe.control.id, lobe.circle);
-    if (said) return { player: lobe.control.player, ...said };
+    if (!said) continue;
+    best = { player: lobe.control.player, ...said };
+    bestDist = d;
   }
-  return null;
+  return best;
 }

@@ -5,6 +5,8 @@ import type { Viewport, ViewState } from "./renderer.js";
 // re-exported here so that nothing which asked the layout where a button is
 // had to learn a second file's name (`band-lobes.ts`).
 export { bandLobes, type Lobe } from "./band-lobes.js";
+// The touch reach likewise, on the same limit (`hit.ts`).
+export { HIT_FLOOR_PX, HIT_REACH, hitCircle, hitReach } from "./hit.js";
 
 export {
   seatOf,
@@ -129,9 +131,9 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
   const rowCannon = bandTop + bandHeight * plan.cannonRow[at];
   const rowShield = bandTop + bandHeight * plan.shieldRow[at];
   const rowButton = bandTop + bandHeight * plan.lobeRow[at];
-  // Both seats' lobes share the test view — and `hitCircle` answers a ring 30%
-  // wider than the circle drawn, so they have to be smaller there than on a
-  // screen carrying one role's half.
+  // Both seats' lobes share the test view — and `hitCircle` answers a ring
+  // wider than the circle drawn (`hitReach`), so they have to be smaller there
+  // than on a screen carrying one role's half.
   const r = Math.min(bandHeight * plan.lobeR[at], width * plan.lobeRCap[at]);
   const stripHeight = Math.min(bandHeight * plan.stripH, plan.stripHCap);
   const strips = stripBands({
@@ -139,7 +141,7 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     cannon: rowCannon,
     shield: rowShield,
     button: rowButton,
-    lobeReach: r * 1.3,
+    lobeR: r,
     height: stripHeight,
     shows: { cannon: showsCannon(role), shield: showsShield(role) },
   });
@@ -235,10 +237,4 @@ export function frameLayout(view: ViewState, stage: Stage, dpr: number): Layout 
   const vp = { width: stage.width, height: stage.height, dpr };
   const l = flippedLayout(computeLayout(vp, view.world.cfg, view.role), view.world);
   return rolledLayout(l, view.world);
-}
-
-export function hitCircle(c: Circle, x: number, y: number): boolean {
-  const dx = x - c.x;
-  const dy = y - c.y;
-  return dx * dx + dy * dy <= (c.r * 1.3) ** 2;
 }

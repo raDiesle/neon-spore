@@ -155,7 +155,7 @@ describe("a press on the band", () => {
   });
 
   it("keeps every set's buttons out of each other's rings", () => {
-    // `hitCircle` answers a ring 30% wider than the circle drawn, so buttons
+    // `hitCircle` answers a ring wider than the circle drawn, so buttons
     // that merely do not overlap on screen can still both claim a touch.
     for (const set of CONTROL_SETS) {
       for (const role of ROLES) {

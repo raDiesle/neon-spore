@@ -1686,6 +1686,7 @@ by hand never moves.
 | `packages/render/src/hive-hold.ts` | **THE HIVE's two held states, in field pixels**: how far a clench has drawn the mass up out of reach |
 | `packages/render/src/hive-cell.ts` | **THE HIVE's lobes and breaches, as wax** (`hive-wax.ts` is the mass) |
 | `packages/render/src/hive-wax.ts` | **What THE HIVE is made of**: wax — a dark mass of it, lit from the upper left and gone to the deep beneath |
+| `packages/render/src/hit.ts` | **How far past its drawn edge a circle answers a thumb.** Every ring, lobe |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |

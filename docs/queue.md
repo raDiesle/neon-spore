@@ -457,3 +457,12 @@ sent without the flash, and the flash is proved only by the canvas log
 (`packages/render/test/instar-verdict.test.ts`). Find which it is. Then make
 the command above land a pull, or make it refuse the pair with a sentence that
 says why.
+
+## `render/src/index.ts` is 20 lines under the ceiling
+
+- **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4
+- **Files:** `packages/render/src/index.ts`
+
+The size hook flagged it when `hitReach` was exported. It is a barrel, so
+the seam is by consumer: the touch exports (`touch*`, `hit*`, the grips)
+as one `export … from` block in a file of their own, re-exported once.

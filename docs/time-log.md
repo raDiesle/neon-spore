@@ -19660,3 +19660,18 @@ The bottleneck was **writing**: the banner was two lines to delete and a
 dozen places that described it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — Every circle answers a thumb half again its radius, and at least 24px
+
+- reading: 5 min. `hitCircle`'s callers, `strip-band.ts`, `lobeUnder` and
+  the hover, and the four tests that carry the old 30%.
+- writing: 15 min. `hit.ts` with `hitReach`, the nearest lobe in
+  `lobeUnder` and the hover, the strip stopping at a lobe's drawn edge, and
+  the snake, stage and strip tests restated.
+- looking: 0 min. Held by the touch tests; a reach is not drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, red once on `layout.ts` past 250 lines,
+  split into `hit.ts`, then green.
+
+The bottleneck was **writing**: one number, but the panel's strip was sized
+against it, and that coupling only showed as a dead row in a test.

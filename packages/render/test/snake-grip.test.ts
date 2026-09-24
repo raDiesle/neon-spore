@@ -7,7 +7,7 @@ import {
   startWave,
   type World,
 } from "@neon-spore/sim";
-import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
+import { computeLayout, hitReach, type Layout, type ViewRole } from "../src/layout.js";
 import { snakeJawsCircle, snakeTailCircle } from "../src/snake-grip.js";
 import { type Field, touchDown } from "../src/touch.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
@@ -135,8 +135,13 @@ describe("the pilot's pull on SNAKE's jaws", () => {
     const slid = jaws(l, moved, snake);
     expect(slid.y).not.toBeCloseTo(stored.y, 1);
     expect(target(touchDown(l, slid.x, slid.y, moved))).toBe("snakeJaws");
-    // And the tile it is leaving is no longer a handle at all.
-    expect(target(touchDown(l, stored.x, stored.y, moved))).not.toBe("snakeJaws");
+    // And the tile it is leaving is no longer a handle at all: a press just
+    // past the slid neck's reach, on the side it came from, is one the stale
+    // circle would still have answered.
+    const away = Math.sign(stored.y - slid.y);
+    const past = slid.y + away * (hitReach(slid.r) + 1);
+    expect(Math.abs(past - stored.y)).toBeLessThan(hitReach(stored.r));
+    expect(target(touchDown(l, slid.x, past, moved))).not.toBe("snakeJaws");
   });
 
   it("is nothing while the body still crawls and the press still works", () => {

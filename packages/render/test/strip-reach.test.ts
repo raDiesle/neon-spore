@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { type ControlSet, controlSet } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG } from "@neon-spore/sim";
-import { bandLobes, computeLayout, type Layout, type ViewRole } from "../src/layout.js";
+import { bandLobes, computeLayout, hitReach, type Layout, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown } from "../src/touch.js";
 
 /**
@@ -64,8 +64,8 @@ describe("a strip's share of the band", () => {
       const f = field(seat);
       const strip = seat === 1 ? l.cannonStrip : l.shieldStrip;
       // Down to where the nearest button starts answering — `hitCircle` widens
-      // a lobe by 30%, which is why the reach stops short of the drawn row.
-      const untilRow = Math.floor(l.lobeY - l.lobeR * 1.3);
+      // a lobe by `hitReach`, which is why the reach stops short of the drawn row.
+      const untilRow = Math.floor(l.lobeY - hitReach(l.lobeR));
       const dead: number[] = [];
       for (let y = Math.ceil(l.bandTop); y < untilRow; y++) if (at(l, f, y) !== kind) dead.push(y);
       expect(dead, `${dead.length} rows of the panel answer nothing`).toEqual([]);

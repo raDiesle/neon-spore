@@ -81,9 +81,11 @@ describe("computeStage and the phone's own furniture", () => {
 
   /**
    * The owner, 20 September 2026: *in "both seats" the bottom of control set
-   * is often cutted, so I can't see buttons and use them.* Every lobe's touch
-   * ring — 30% past the circle drawn (`hitCircle`) — stays inside the stage on
-   * the shortest phones a browser leaves room for, in every view. The height
+   * is often cutted, so I can't see buttons and use them.* Every lobe, with
+   * a margin of 30% of its radius for the rim and the hover ring, stays
+   * inside the stage on the shortest phones a browser leaves room for, in
+   * every view. The reach a press is answered at (`hitReach`) is wider still
+   * and may run past the stage's bottom edge, where no thumb lands. The height
    * a run freezes is capped at the bars-out height for the same reason
    * (`apps/game/src/safe-area.ts`).
    */

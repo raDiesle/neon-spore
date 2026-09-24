@@ -21,7 +21,7 @@ import { seatSkin } from "./seat-skin.js";
  * made three files know about a mouse.
  *
  * **The target is the one a press actually answers**, not the drawn circle:
- * `hitCircle` is a ring 30% wider than the button, and a highlight that lit a
+ * `hitCircle` is a ring wider than the button (`hitReach`), and a highlight that lit a
  * smaller area than the press would teach the wrong edge.
  *
  * A phone reports no hover at all — `pointer` is set only for a mouse — so this
@@ -33,19 +33,24 @@ export function drawControlHover(ctx: CanvasRenderingContext2D, l: Layout, view:
   if (!p) return;
   const set = bandControlSet(view.controls, view.world.wave);
   const skin = seatSkin(l.role);
-  for (const player of [1, 2] as const) {
-    for (const lobe of bandLobes(l, set, player)) {
-      if (!hitCircle(lobe.circle, p.x, p.y)) continue;
-      const { x, y, r } = lobe.circle;
-      halo(ctx, x, y, r * 1.9, skin.rim, 0.3);
-      ctx.strokeStyle = skin.rim;
-      ctx.globalAlpha = 0.7;
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.arc(x, y, r * 1.24, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-      return;
-    }
-  }
+  // The nearest reach under the pointer, which is the one a press takes
+  // (`touch-lobe.ts` `lobeUnder`).
+  const lobes = ([1, 2] as const).flatMap((player) => bandLobes(l, set, player));
+  const under = lobes
+    .filter((lobe) => hitCircle(lobe.circle, p.x, p.y))
+    .sort(
+      (a, b) =>
+        Math.hypot(p.x - a.circle.x, p.y - a.circle.y) -
+        Math.hypot(p.x - b.circle.x, p.y - b.circle.y),
+    )[0];
+  if (under === undefined) return;
+  const { x, y, r } = under.circle;
+  halo(ctx, x, y, r * 1.9, skin.rim, 0.3);
+  ctx.strokeStyle = skin.rim;
+  ctx.globalAlpha = 0.7;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(x, y, r * 1.24, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
 }

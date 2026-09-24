@@ -48,10 +48,12 @@ export interface StripRows {
   bandTop: number;
   cannon: number;
   shield: number;
-  /** The button row, and how far from its middle a lobe answers — `hitCircle`
-   * widens a circle by 30%, so this is the radius already widened. */
+  /** The button row, and a lobe's drawn radius. The strip stops at the
+   * drawn edge rather than at the lobe's wider reach (`hitReach`): the lobes
+   * are asked first, so where a reach holds the press the button still wins,
+   * and between two buttons the row goes on belonging to the strip. */
   button: number;
-  lobeReach: number;
+  lobeR: number;
   /** A strip's own thickness, which is the floor on its reach. */
   height: number;
   /** Which of the two this screen carries. A panel showing one strip gives it
@@ -76,7 +78,8 @@ function band(r: StripRows, which: "cannon" | "shield"): Strip {
   // otherwise end up with a strip that answers nothing.
   const own = r.height * 0.75;
   const above = shares && other < y ? (other + y) / 2 : r.bandTop;
-  // Down to where a button starts answering, or halfway to the strip below.
-  const below = shares && other > y ? (other + y) / 2 : r.button - r.lobeReach;
+  // Down to a button's drawn edge, or halfway to the strip below. The button
+  // is asked first, so under the edge its wider reach still wins.
+  const below = shares && other > y ? (other + y) / 2 : r.button - r.lobeR;
   return { y, height: r.height, top: Math.min(above, y - own), bottom: Math.max(below, y + own) };
 }

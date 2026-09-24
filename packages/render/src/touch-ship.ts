@@ -42,7 +42,7 @@ export {
 /** How far above the hull line each lobe's grab circle sits, in tiles. */
 export const CANNON_UP = 0.25;
 export const SHIELD_UP = 0.1;
-/** Grab radius, in tiles. `hitCircle` answers a ring 30% wider again. The
+/** Grab radius, in tiles. `hitCircle` answers a ring wider again (`hitReach`). The
  * well's ring uses the same two (`touch-well.ts`). */
 export const CANNON_R = 0.7;
 export const SHIELD_R = 0.8;
