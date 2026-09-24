@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE GORGE's windows are doubled
+
+- reading: 5 min. The Doubled table, THE GORGE's step, pry and hand, and
+  where each boss that already has THE SLOW opens it.
+- writing: 5 min. `gorge-slow.ts`, the two counts and their resets, the
+  tests, the film re-timed by sixty ticks, guide, director, §11.23, and three
+  queue entries — one a lane the entry before had lost.
+- looking: 0 min.
+- friction: 0 min. `gorge-step.ts` went past 250 lines and `spit` moved to
+  the pry; an edit script with doubled backslashes was refused as a heredoc
+  and went by path.
+- landing: 5 min.
+
+Bottleneck: the film's spat-body page sits on a fixed row, so a pierce that
+takes one shot longer moved every page after it rather than one.
+
 ## 2026-09-24 — The films' pages that name a count say which
 
 - reading: 0 min. The count test, the candidates, and each boss's reader.

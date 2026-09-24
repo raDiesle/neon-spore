@@ -21,7 +21,7 @@ import type { Bullet, Color } from "../src/types.js";
  * THE GORGE's two thumbs (`gorge-hand.ts`): player 1's **pinch** on a full
  * intake, which holds its vent off for as long as it stays and restarts the
  * count from the lift; and player 2's **pry** on the mouth, a window of
- * `gorgePryBeats` without which the beam is clenched on and past which the
+ * `gorgePryBeats` for `gorgePryFills` beams, without which the beam is clenched on and past which the
  * thumb is thrown off with a bead. One receipt per rule, the way
  * `diastole-clamp.test.ts` gives them.
  */
@@ -60,7 +60,7 @@ function feed(world: World, col: number, n: number, color: Color = "red"): void 
 }
 
 function pierce(world: World, i: number): void {
-  feed(world, sack(world).col + i, CFG.gorgeFullBeads + 1);
+  feed(world, sack(world).col + i, CFG.gorgeFullBeads + CFG.gorgeVentShots);
 }
 
 /** A thumb down or up on intake `id`, from `player`. */
@@ -134,6 +134,8 @@ describe("the pinch", () => {
     const g = sack(world);
     feed(world, g.col + 2, CFG.gorgeFullBeads);
     lobe(world, 1, 2, true);
+    feed(world, g.col + 2, CFG.gorgeVentShots - 1);
+    expect(g.pinch).toBe(2);
     feed(world, g.col + 2, 1);
     expect(g.intakes[2]?.ruptured).toBe(true);
     expect(g.pinch).toBe(-1);
@@ -141,7 +143,7 @@ describe("the pinch", () => {
 });
 
 describe("the pry", () => {
-  it("gates the beam: unpried the mouth clenches on it, pried it ends the fight", () => {
+  it("gates the beam: unpried the mouth clenches on it, pried two of it end the fight", () => {
     const world = gorged();
     const g = sack(world);
     const color = g.intakes[3]?.color ?? "red";
@@ -155,29 +157,39 @@ describe("the pry", () => {
     lobe(world, 2, 3, true);
     expect(g.pry).toBe(3);
     expect(world.events.some((e) => e.type === "gorgePry")).toBe(true);
+    expect(world.slowToBeat).toBe(world.beat + CFG.gorgePryBeats);
+    gorgeStruck(world, shot(world, g.col + 3, color, true));
+    expect(g.pryFills).toBe(1);
+    expect(gorgePhase(g, CFG)).toBe("gorged");
     gorgeStruck(world, shot(world, g.col + 3, color, true));
     expect(gorgePhase(g, CFG)).toBe("out");
+    expect(world.slowToBeat).toBe(world.beat);
   });
 
   it("is thrown off past gorgePryBeats: a clench, one bead spat, and a lift owed", () => {
     const world = gorged();
     const g = sack(world);
+    const color = g.intakes[3]?.color ?? "red";
     lobe(world, 2, 3, true);
+    // One fill of the two, and the window runs out on it all the same.
+    gorgeStruck(world, shot(world, g.col + 3, color, true));
     expect(beats(world, CFG.gorgePryBeats - 1).has("gorgeClench")).toBe(false);
     expect(g.pry).toBe(3);
     const seen = beats(world, 2);
     expect(seen.has("gorgeClench")).toBe(true);
     expect(seen.has("gorgeSpit")).toBe(true);
     expect(g.pry).toBe(-1);
+    expect(g.pryFills).toBe(0);
+    expect(world.slowToBeat).toBeLessThanOrEqual(world.beat);
     expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads - 1);
     expect(world.creatures.some((c) => c.col === g.col + 3)).toBe(true);
     // The thumb still down is not a pry: it has to come down again.
-    const color = g.intakes[3]?.color ?? "red";
     beats(world, CFG.gorgeSpitBeats + 1);
     expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
     gorgeStruck(world, shot(world, g.col + 3, color, true));
     expect(g.outBeat).toBe(-1);
     lobe(world, 2, 3, true);
+    gorgeStruck(world, shot(world, g.col + 3, color, true));
     gorgeStruck(world, shot(world, g.col + 3, color, true));
     expect(gorgePhase(g, CFG)).toBe("out");
   });

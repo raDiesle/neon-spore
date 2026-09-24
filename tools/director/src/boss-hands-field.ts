@@ -63,12 +63,14 @@ const lobe = (player: 1 | 2, on: boolean, id: number): Press => ({
 
 /**
  * THE GORGE: an intake fills with its own colour, four beads, and the next
- * shot of that colour ruptures it (`gorgeStruck`) — so the hand feeds the
+ * `gorgeVentShots` shots rupture it (`gorgeStruck`) — so the hand feeds the
  * outermost unpierced intake its colour until it goes, pinching it the tick
  * it comes full so the vent waits (`gorge-hand.ts`), and moves in. Gorged,
- * the mouth takes only the lance in its colour under the pry, and the pry is
- * a window shorter than two fills: the thumb goes over the colour first,
- * then the pry, and both lift once spent (`gorge-pry.ts`).
+ * the mouth takes only the lance in its colour under the pry, `gorgePryFills`
+ * of it, and the pry's window holds two fills with a beat and more to spare:
+ * the thumb goes over the colour first, then the pry, and the colour lifts
+ * after each beam and comes straight back down for the next while the pry
+ * stays (`gorge-pry.ts`).
  */
 export const gorgeHand: Hand = (w) => {
   const g = gorgeBoss(w);
@@ -81,7 +83,7 @@ export const gorgeHand: Hand = (w) => {
     if (!gorgeFull(mouth, w.cfg)) return g.pry < 0 ? [] : [lobe(2, false, g.mouth)];
     const col = g.col + g.mouth;
     if (w.cannonCol !== col) return [aim(col)];
-    if (w.prime?.spent) return [thumb(false, w.prime.color), lobe(2, false, g.mouth)];
+    if (w.prime?.spent) return [thumb(false, w.prime.color)];
     if (w.prime === null) return [thumb(true, mouth.color)];
     return g.pry < 0 ? [lobe(2, true, g.mouth)] : [];
   }

@@ -12,7 +12,7 @@ import type { GuideScene } from "../scene-types.js";
  * 1 is shown (`showsGorgeTally`); a column picked and filled in one colour;
  * **a wrong colour taking a bead back out**, which is the film's one
  * authored mistake and costs nothing but the bead; four of one colour going
- * clear and the fifth piercing it for good; a second column filled the same
+ * clear and two more piercing it for good; a second column filled the same
  * way, and the sack, twice pierced, **spitting the stray back** down its own
  * column as a body of its colour — which is broken by its own colour, the
  * game's one colour rule (`bosses.md` §11.23) — with the cannon slid under it
@@ -27,12 +27,12 @@ import type { GuideScene } from "../scene-types.js";
  *
  * No page is anchored at `retries` and the film takes no hit: the spat body
  * is broken two thirds of the way down the field. The page about the spat
- * body is the film's longest, six beats: a page about a body holds with
+ * body is the film's longest, seven beats: a page about a body holds with
  * that body around the middle of the screen (`scene-pages.test.ts`), and
  * the sack spits from the top.
  */
 export const THE_GORGE: GuideScene = {
-  ticks: 3180,
+  ticks: 3240,
   bpm: 120,
   seed: 1,
   entries: [],
@@ -47,14 +47,16 @@ export const THE_GORGE: GuideScene = {
     { tick: 1350, control: "fireCyan" },
     { tick: 1410, control: "fireCyan" },
     { tick: 1590, control: "fireCyan" },
+    { tick: 1650, control: "fireCyan" },
     { tick: 1830, control: "cannon", col: 4 },
     { tick: 2010, control: "fireRed" },
     { tick: 2070, control: "fireRed" },
     { tick: 2130, control: "fireRed" },
     { tick: 2190, control: "fireRed" },
     { tick: 2280, control: "fireRed" },
-    { tick: 2850, control: "cannon", col: 3 },
-    { tick: 3030, control: "fireRed" },
+    { tick: 2340, control: "fireRed" },
+    { tick: 2910, control: "cannon", col: 3 },
+    { tick: 3090, control: "fireRed" },
   ],
   steps: [
     { tick: 0, seat: 1, text: "A SACK HANGS · IT EATS SHOTS", anchor: { at: "boss" } },
@@ -97,13 +99,14 @@ export const THE_GORGE: GuideScene = {
     // ONE MORE · IT BURSTS stood here. From the beat the fourth bead goes in,
     // the field says PIERCE on her screen and PINCH on his
     // (`render/boss-cue-read-n.ts`), so the page's verb is the field's twice
-    // over. What no cue may carry is the clock under it: `gorgeVentBeats` is
-    // four, it is the only warning the pair gets (`config-gorge.ts`), and it
-    // is the whole reason his other thumb is on the lobe.
+    // over. What no cue may carry is the count and the clock under it: two
+    // shots (`gorgeVentShots`) inside `gorgeVentBeats`, eight, the only
+    // warning the pair gets (`config-gorge.ts`) and the whole reason his
+    // other thumb is on the lobe.
     {
       tick: 1500,
       seat: 2,
-      text: "FOUR BEATS OR IT TORCHES",
+      text: "TWO SHOTS IN EIGHT BEATS",
       anchor: { at: "control", control: "fireCyan" },
     },
     {
@@ -115,18 +118,18 @@ export const THE_GORGE: GuideScene = {
     {
       tick: 1920,
       seat: 2,
-      text: "FOUR RED · THEN ONE MORE",
+      text: "FOUR RED · THEN TWO MORE",
       anchor: { at: "control", control: "fireRed" },
     },
     { tick: 2400, seat: 2, text: "TWO BURST · IT SPITS ONE OUT", anchor: { at: "body" } },
     {
-      tick: 2760,
+      tick: 2820,
       seat: 1,
       text: "PLAYER 1 SLIDES UNDER IT",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 2940,
+      tick: 3000,
       seat: 2,
       text: "ITS OWN COLOUR BREAKS IT",
       anchor: { at: "control", control: "fireRed" },

@@ -34,7 +34,7 @@ describe("the rehearsal for THE GORGE", () => {
     }
     // The stray red into the middle intake first; three cyan into the one
     // player 1 picked, a red taking one back out, two more cyan to full and
-    // the fifth through it; four red into the next and the fifth through
+    // two more through it; four red into the next and two more through
     // that; then the twice-pierced sack spits the stray down the middle,
     // where its own colour breaks it. Nothing vents and the mouth never opens.
     expect(seen).toEqual([
@@ -46,15 +46,15 @@ describe("the rehearsal for THE GORGE", () => {
       "swallow 3 cyan 3 @23",
       "swallow 3 cyan 4 @24",
       "full 3 @24",
-      "rupture 3 6 @27",
+      "rupture 3 6 @28",
       "swallow 7 red 1 @34",
       "swallow 7 red 2 @35",
       "swallow 7 red 3 @36",
       "swallow 7 red 4 @37",
       "full 7 @37",
-      "rupture 7 5 @39",
-      "spit 5 red @40",
-      "destroy slick 5 @50",
+      "rupture 7 5 @40",
+      "spit 5 red @41",
+      "destroy slick 5 @51",
     ]);
   });
 });

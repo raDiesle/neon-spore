@@ -4592,10 +4592,10 @@ an intake — a bullet in `bullets.ts`, or the beam burning its column in
 colour, or its first, fills it a step and counts as a colour met; the other
 colour takes a bead back out and counts as one missed, so the balance reads a
 wrong bead as the wrong shot it was. At `gorgeFullBeads` (4) an intake is
-**full** (`gorgeFull`), and the next shot of any colour, bolt or beam,
-**ruptures** it for good: it hangs open, shots pass through it, and nothing
-goes in again. A full intake nobody pierces within `gorgeVentBeats` (4)
-**vents** — a torch down its column and the intake empty. From
+**full** (`gorgeFull`), and `gorgeVentShots` (2) more shots of any colour,
+bolt or beam, **rupture** it for good: it hangs open, shots pass through it,
+and nothing goes in again. A full intake nobody pierces within
+`gorgeVentBeats` (8) **vents** — a torch down its column and the intake empty. From
 `gorgeSpitRuptures` (2) ruptures the sack **spits**: every `gorgeSpitBeats`
 (3) one bead goes back down its own column as a body of its colour — a slick
 for red, a bulb for cyan — from the emptiest intake that holds one, so *what
@@ -4604,7 +4604,8 @@ ruptures, or when one intake is all that stands, the whole intake nearest
 the centre becomes the **mouth** (`gorgeMouth`), in the colour it holds or one
 of the sack's own choosing: it feeds itself a bead every `gorgeSpitBeats`,
 is never pierced by a bolt, and never vents. **The beam in its colour, while
-it is full, is the one thing that ends the fight** (`gorgeOut`); a beam in
+it is full, `gorgePryFills` (2) times inside one pry, is the one thing that
+ends the fight** (`gorgeOut`); a beam in
 the other colour empties it a bead like any wrong shot. The boss stays
 installed `gorgeOutBeats` (2) more so the wave cannot end on the beat the sack
 does — the design's beads leaving upward.
@@ -4680,7 +4681,7 @@ wrong colour's cost and which screen holds which half.
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 centred and empty, swallows in its columns and nowhere else, lets a bead go
 for the wrong colour and counts the miss, is full at four once and holds no
-more, ruptures on the next shot with shots passing through afterwards, vents a
+more, ruptures on its shots with shots passing through afterwards, vents a
 torch on its count, spits nothing before two ruptures and then one bead a
 count from the emptiest intake as a body of its colour, opens the mouth at
 four ruptures nearest the centre and feeds it to full without venting, is not
@@ -4799,6 +4800,13 @@ the **torch a vent throws**: the pinch is the answer to it and the pinch is
 cued. Nothing at all in `out`. `render/test/boss-cue-gorge.test.ts` proves the
 nine cases, among them the two the old reading had wrong and the full intake
 whose pinch and pierce the mouth's early return was eating.
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `gorgeVentBeats` and `gorgePryBeats`
+4 → 8, the pierce two shots (`gorgeVentShots`) and the pry two beams
+(`gorgePryFills`), and THE SLOW opened for the first time, spanning every ask
+the sack holds — up while any intake waits full or the mouth is pried, shut
+on the tick the last one is answered or runs out (`sim/gorge-slow.ts`). The
+first of two shots has no picture or sound of its own yet (`docs/queue.md`).
 
 ## 11.24 THE CURTAIN — the boss that is in the way
 

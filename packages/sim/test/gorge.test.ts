@@ -23,8 +23,8 @@ import type { Bullet, Color } from "../src/types.js";
 /**
  * THE GORGE, and the sentence it is built to make true: **the one boss you
  * hurt by not shooting.** Every shot that leaves the top of the field under
- * it is swallowed as a bead; four beads fill an intake and the next shot
- * ruptures it, but a full intake left alone vents a torch, and every bead the
+ * it is swallowed as a bead; four beads fill an intake and the next two shots
+ * rupture it, but a full intake left alone vents a torch, and every bead the
  * pair throws in comes back at them once the sack starts spitting. What is
  * checked here is the rule and nothing of the look — the sack, the beads and
  * the rupture are render's, and `gorgeSink` is the one number it asks for.
@@ -69,7 +69,7 @@ function feed(world: World, col: number, n: number, color: Color = "red"): void 
 /** Fill intake `i` and pierce it. */
 function pierce(world: World, i: number): void {
   const col = sack(world).col + i;
-  feed(world, col, CFG.gorgeFullBeads + 1);
+  feed(world, col, CFG.gorgeFullBeads + CFG.gorgeVentShots);
 }
 
 describe("the sack settling", () => {
@@ -121,11 +121,15 @@ describe("full, pierced or vented", () => {
     expect(gorgeSink(g, CFG)).toBe(Math.floor(CFG.gorgeFullBeads / CFG.gorgeSinkPer));
   });
 
-  it("ruptures a full intake on the next shot of any colour, and a shot then passes through", () => {
+  it("ruptures a full intake on its second shot of any colour, and a shot then passes through", () => {
     const world = open();
     const g = sack(world);
     feed(world, g.col + 3, CFG.gorgeFullBeads);
     gorgeStruck(world, shot(world, g.col + 3, "cyan"));
+    expect(g.intakes[3]?.ruptured).toBe(false);
+    expect(g.intakes[3]?.pierced).toBe(1);
+    expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
+    gorgeStruck(world, shot(world, g.col + 3, "red"));
     expect(g.intakes[3]?.ruptured).toBe(true);
     expect(g.ruptures).toBe(1);
     expect(world.events.some((e) => e.type === "gorgeRupture")).toBe(true);
@@ -138,13 +142,42 @@ describe("full, pierced or vented", () => {
     const world = open();
     const g = sack(world);
     feed(world, g.col + 1, CFG.gorgeFullBeads);
+    // One shot of the two, and the count runs on regardless.
+    gorgeStruck(world, shot(world, g.col + 1));
     beats(world, CFG.gorgeVentBeats - 1);
     expect(g.intakes[1]?.beads).toBe(CFG.gorgeFullBeads);
     const seen = beats(world, 2);
     expect(seen.has("gorgeVent")).toBe(true);
     expect(g.intakes[1]?.beads).toBe(0);
     expect(g.intakes[1]?.color).toBeNull();
+    expect(g.intakes[1]?.pierced).toBe(0);
     expect(world.creatures.some((c) => c.kind === "torch" && c.col === g.col + 1)).toBe(true);
+  });
+});
+
+describe("THE SLOW", () => {
+  it("opens on the full intake for the vent's window, and shuts on the rupture", () => {
+    const world = open();
+    const g = sack(world);
+    feed(world, g.col + 3, CFG.gorgeFullBeads);
+    expect(world.slowToBeat).toBe(world.beat + CFG.gorgeVentBeats);
+    feed(world, g.col + 3, CFG.gorgeVentShots);
+    expect(world.slowToBeat).toBe(world.beat);
+  });
+
+  it("shuts on the vent, and stays up while a second intake still waits", () => {
+    const world = open();
+    const g = sack(world);
+    feed(world, g.col + 1, CFG.gorgeFullBeads);
+    beats(world, 2);
+    feed(world, g.col + 5, CFG.gorgeFullBeads);
+    const second = world.beat + CFG.gorgeVentBeats;
+    expect(world.slowToBeat).toBe(second);
+    feed(world, g.col + 5, CFG.gorgeVentShots);
+    expect(world.slowToBeat).toBe(world.beat + CFG.gorgeVentBeats - 2);
+    const seen = beats(world, CFG.gorgeVentBeats);
+    expect(seen.has("gorgeVent")).toBe(true);
+    expect(world.slowToBeat).toBeLessThanOrEqual(world.beat);
   });
 });
 
@@ -188,7 +221,8 @@ describe("the mouth", () => {
     expect(color === "red" || color === "cyan").toBe(true);
     beats(world, CFG.gorgeSpitBeats * CFG.gorgeFullBeads + 1);
     expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
-    // Full, and never vented: the window stays open.
+    // Full, and never vented: the window stays open, and asks nothing on a clock.
+    expect(world.slowToBeat).toBeLessThanOrEqual(world.beat);
     beats(world, CFG.gorgeVentBeats + 1);
     expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
     expect(world.creatures.some((c) => c.kind === "torch" && c.col === g.col + 3)).toBe(false);
@@ -208,13 +242,17 @@ describe("the mouth", () => {
     expect(g.outBeat).toBe(-1);
   });
 
-  it("ends on the beam in its colour while full and pried, and holds the wave before the boss goes", () => {
+  it("ends on two beams in its colour while full and pried, and holds the wave before the boss goes", () => {
     const world = gorged();
     const g = sack(world);
     beats(world, CFG.gorgeSpitBeats * CFG.gorgeFullBeads + 1);
     const color = g.intakes[3]?.color ?? "red";
     // The pry is the navigator's thumb on the mouth (`gorge-hand.test.ts`).
     g.pry = 3;
+    g.pryBeat = world.beat;
+    gorgeStruck(world, shot(world, g.col + 3, color, true));
+    expect(gorgePhase(g, CFG)).toBe("gorged");
+    expect(g.pryFills).toBe(1);
     gorgeStruck(world, shot(world, g.col + 3, color, true));
     expect(gorgePhase(g, CFG)).toBe("out");
     expect(world.events.some((e) => e.type === "gorgeOut")).toBe(true);

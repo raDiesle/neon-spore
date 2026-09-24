@@ -1,4 +1,5 @@
 import { type GorgeState, gorgeBoss, gorgeFull } from "./gorge.js";
+import { gorgeSlow } from "./gorge-slow.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -19,15 +20,15 @@ import type { World } from "./world.js";
  *   **pinch**: the intake does not vent while the thumb stays. His, because
  *   the pilot is the seat holding the cannon on the column and watching the
  *   fill go transparent, and the navigator is the seat still loading the
- *   shot that pierces it — the fight before the pinch was a four-beat window
+ *   shots that pierce it — the fight before the pinch was a four-beat window
  *   the pair had to beat with a word and a reload, and the pinch is the
  *   pilot saying *I have it, take your time* with his other thumb. When the
  *   thumb lifts, the vent count starts again **from the lift** (`vent()`),
  *   so a pinch is a pause and not a pardon: the intake still torches
  *   `gorgeVentBeats` after the pilot lets go.
  * - **Player 2 on the mouth, once there is one,** is a **pry**: the mouth is
- *   held open for `gorgePryBeats`, and the beam in its colour ends the fight
- *   *only inside that window* (`gorgeStruck`) — without it the mouth
+ *   held open for `gorgePryBeats`, and `gorgePryFills` beams in its colour end
+ *   the fight *only inside that window* (`gorgeStruck`) — without it the mouth
  *   **clenches** on the beam, which goes in as nothing. Held past the window
  *   the mouth clenches on the thumb instead: the pry is thrown off and a bead
  *   spat (`gorge-pry.ts`), so a pry is a thing to take *late*, with the beam
@@ -52,6 +53,7 @@ export function gorgeHeard(world: World, player: 1 | 2, command: Command): void 
   if (g === null || g.outBeat >= 0) return;
   if (player === gorgePinchSeat) pinch(world, g, command.id ?? -1, command.on);
   else pry(world, g, command.id ?? -1, command.on);
+  gorgeSlow(world, g);
 }
 
 function pinch(world: World, g: GorgeState, i: number, on: boolean): void {
@@ -74,10 +76,12 @@ function pry(world: World, g: GorgeState, i: number, on: boolean): void {
   if (!on) {
     g.pry = -1;
     g.pryBeat = -1;
+    g.pryFills = 0;
     return;
   }
   if (g.pry >= 0 || g.mouth < 0 || i !== g.mouth) return;
   g.pry = i;
   g.pryBeat = world.beat;
+  g.pryFills = 0;
   world.events.push({ type: "gorgePry", col: g.col + i });
 }

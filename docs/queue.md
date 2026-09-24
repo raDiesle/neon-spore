@@ -536,24 +536,60 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The doubled window: THE GORGE, THE TASTER and THE LEAD
+## The doubled window: THE TASTER and THE LEAD
 
-- **Found:** 2026-09-23, claude/task-queue-work-7ae87c
-- **Taken:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha (claim: claude/queue-the-doubled-window-the-gorge-the-taster-and-the)
-- **Files:** `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-sinew.ts`, `packages/sim/src/config-candle.ts`, `packages/sim/src/config-antiphon.ts`, `packages/sim/src/curtain-step.ts`, `packages/sim/src/sinew-step.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/antiphon-step.ts`, `packages/content/src/scenes/the-curtain.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
+- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Files:** `packages/sim/src/config-taster.ts`, `packages/sim/src/config-lead.ts`, `packages/sim/src/taster-step.ts`, `packages/sim/src/taster-shot.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/src/lead-shot.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/sim/test/taster-hand.test.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
 
-The three whose need is a lance fill or a shot fixed in code. Double each
-window and raise its need to two, as a new named field, exactly as
-`docs/spec/choreographed-windows.md`'s **Doubled** table has it; move THE SLOW
-to the ask and shut it on both exits (its second half); re-time each film
-rather than loosen it, and give a rehearsal that no longer reaches its state a
-bigger `budgetBeats`. `taster-hand.test.ts` holds the pry longer than a fill.
-A guide half that says a count says the new one, in the same lane.
+The two left of the lane that did THE GORGE (`sim/gorge-slow.ts` is the
+pattern: THE SLOW read off the asks standing, called after every change).
+Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
+`tasterPryBeats` 6 → 12 with `tasterPryFills` at two; `leadStillBeats` 4 → 8,
+`leadHoldBeats` 8 → 16 and `leadStillFills` at two. Both move THE SLOW from
+where they open it today (`taster-step.ts`, `lead-step.ts`) to the ask, shut
+by `closeSlow` on both exits. Re-time each film against its
+`scene-<boss>.test.ts` rather than loosen it, say the new counts in the
+guide (`content/src/waves/`), give a director pose that no longer reaches its
+state a bigger `budgetBeats`, and add the dated line to `bosses.md` §11.n.
+`taster-hand.test.ts` holds the pry longer than a fill. One boss a sitting:
+THE TASTER first.
+
+## The doubled window: THE UNDERTOW, THE BELLOWS, THE HASP and THE BATON
+
+- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/config-bellows.ts`, `packages/sim/src/config-hasp.ts`, `packages/sim/src/config-baton.ts`, `packages/sim/src/undertow-step.ts`, `packages/sim/src/bellows-step.ts`, `packages/sim/src/hasp-step.ts`, `packages/sim/src/baton-step.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-baton.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
+
+The third of the three lanes `32c0cbb4` said it queued, and never did: its
+Files line had been left on THE CURTAIN's entry. Per
+`docs/spec/choreographed-windows.md`'s **Doubled** table — THE UNDERTOW's
+stand, unseat and last windows with `undertowHoldBeats` and
+`undertowUnseatSlides`; THE BELLOWS' window with `bellowsExchanges`; THE
+HASP's holds with its wind; THE BATON's swell, merge window and final with
+`batonSwellStrips` and `batonMergeBeats`. THE SLOW moved to the ask on
+UNDERTOW, BELLOWS and HASP, opened for the first time on THE BATON
+(`sim/gorge-slow.ts` is one pattern). BELLOWS and HASP have no film. The
+tests' relations: THE UNDERTOW's breach wide before the stand runs out
+(`undertow.test.ts`), THE BATON's acts equal to its final beats
+(`baton.test.ts`). One boss a sitting.
+
+## The first of THE GORGE's two shots, and of its two beams, makes no sign
+
+- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Files:** `packages/sim/src/gorge-step.ts`, `packages/sim/src/events-gorge.ts`, `packages/render/src/gorge-fx.ts`, `packages/audio/src/`, `.claude/skills/new-boss-state/SKILL.md`
+
+Since the doubled window a full intake takes `gorgeVentShots` (2) and the
+pried mouth `gorgePryFills` (2) beams, and the first of each only moves a
+count — `GorgeIntake.pierced`, `GorgeState.pryFills` — with no event. The
+field and the speaker say nothing until the second, so a pair cannot tell a
+shot that landed from one that went nowhere. Add an event for each (a nick,
+a first fill) with its registrations (`.claude/skills/new-boss-state`), and
+a sound. The picture is a look with no shipped alternative: say which
+exemption in the commit.
 
 ## The doubled window: THE CURTAIN, THE SINEW, THE CANDLE and THE ANTIPHON
 
 - **Found:** 2026-09-23, claude/task-queue-work-7ae87c
-- **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/config-bellows.ts`, `packages/sim/src/config-hasp.ts`, `packages/sim/src/config-baton.ts`, `packages/sim/src/undertow-step.ts`, `packages/sim/src/bellows-step.ts`, `packages/sim/src/hasp-step.ts`, `packages/sim/src/baton-step.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-baton.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
+- **Files:** `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-sinew.ts`, `packages/sim/src/config-candle.ts`, `packages/sim/src/config-antiphon.ts`, `packages/sim/src/curtain-step.ts`, `packages/sim/src/sinew-step.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/antiphon-step.ts`, `packages/content/src/scenes/the-curtain.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
 
 The four whose need is already a named figure beside the window — a lift, a
 column count, a pinch, a pull. Double both halves per

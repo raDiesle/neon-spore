@@ -10,7 +10,8 @@ import {
   gorgePinched,
   gorgePried,
 } from "./gorge.js";
-import { spitFrom, stepGorgePry } from "./gorge-pry.js";
+import { spitEmptiest, stepGorgePry } from "./gorge-pry.js";
+import { gorgeSlow } from "./gorge-slow.js";
 import { nextInt } from "./rng.js";
 import { spawnOne } from "./spawn.js";
 import type { Bullet, Color } from "./types.js";
@@ -32,7 +33,7 @@ export function installGorge(world: World): GorgeState {
   const col = Math.max(0, Math.min(cfg.cols - width, midCol(cfg) - Math.floor(width / 2)));
   const intakes: GorgeIntake[] = [];
   for (let i = 0; i < width; i++)
-    intakes.push({ beads: 0, color: null, fullBeat: -1, ruptured: false });
+    intakes.push({ beads: 0, color: null, fullBeat: -1, ruptured: false, pierced: 0 });
   world.events.push({ type: "gorgeSettle", col, width });
   return {
     kind: "gorge",
@@ -46,6 +47,7 @@ export function installGorge(world: World): GorgeState {
     pinch: -1,
     pry: -1,
     pryBeat: -1,
+    pryFills: 0,
   };
 }
 
@@ -67,6 +69,7 @@ function swallow(world: World, g: GorgeState, i: number, k: GorgeIntake, color: 
   world.events.push({ type: "gorgeSwallow", col, color, beads: k.beads });
   if (k.beads === world.cfg.gorgeFullBeads && k.fullBeat < 0) {
     k.fullBeat = world.beat;
+    k.pierced = 0;
     world.events.push({ type: "gorgeFull", col, color });
   }
 }
@@ -75,6 +78,7 @@ function swallow(world: World, g: GorgeState, i: number, k: GorgeIntake, color: 
 function empty(world: World, g: GorgeState, i: number, k: GorgeIntake): void {
   k.beads = Math.max(0, k.beads - 1);
   k.fullBeat = -1;
+  k.pierced = 0;
   if (k.beads === 0) k.color = null;
   world.events.push({ type: "gorgeEmptied", col: g.col + i, beads: k.beads });
 }
@@ -105,17 +109,24 @@ function openMouth(world: World, g: GorgeState): void {
  * `candleStruck`, a no-op unless THE GORGE is the boss and the column its own.
  *
  * A ruptured intake hangs open and the shot goes through. A full one is
- * pierced by any colour, bolt or beam. Otherwise the shot is a bead: the
- * intake's colour, or its first, fills it a step and counts as a colour met;
- * the other colour takes a bead back out and counts as one missed. The mouth
- * takes beads the same way but is never pierced: the beam in its colour,
- * standing in its column while it is full **and pried open under player 2's
- * thumb**, ends the fight; on a mouth nobody holds it clenches, and the beam
- * goes in as nothing (`gorge-hand.ts`).
+ * pierced by any colour, bolt or beam, and ruptures on the `gorgeVentShots`th.
+ * Otherwise the shot is a bead: the intake's colour, or its first, fills it a
+ * step and counts as a colour met; the other colour takes a bead back out and
+ * counts as one missed. The mouth takes beads the same way but is never
+ * pierced: `gorgePryFills` beams in its colour, standing in its column while
+ * it is full **and pried open under player 2's thumb**, end the fight; on a
+ * mouth nobody holds it clenches, and the beam goes in as nothing
+ * (`gorge-hand.ts`). Whatever it answered, THE SLOW is put where the asks
+ * still standing say (`gorge-slow.ts`).
  */
 export function gorgeStruck(world: World, bullet: Bullet): void {
   const g = gorgeBoss(world);
   if (g === null || g.outBeat >= 0) return;
+  struck(world, g, bullet);
+  gorgeSlow(world, g);
+}
+
+function struck(world: World, g: GorgeState, bullet: Bullet): void {
   const i = gorgeIntakeAt(g, bullet.col);
   const k = g.intakes[i];
   if (k === undefined || k.ruptured) return;
@@ -133,6 +144,8 @@ export function gorgeStruck(world: World, bullet: Bullet): void {
         return;
       }
       metColor(world);
+      g.pryFills += 1;
+      if (g.pryFills < cfg.gorgePryFills) return;
       g.outBeat = world.beat;
       world.events.push({ type: "gorgeOut", col, beads: g.swallowed });
       return;
@@ -143,10 +156,13 @@ export function gorgeStruck(world: World, bullet: Bullet): void {
   }
   if (gorgeFull(k, cfg)) {
     metColor(world);
+    k.pierced += 1;
+    if (k.pierced < cfg.gorgeVentShots) return;
     k.ruptured = true;
     k.beads = 0;
     k.color = null;
     k.fullBeat = -1;
+    k.pierced = 0;
     g.ruptures += 1;
     if (g.pinch === i) g.pinch = -1;
     world.events.push({ type: "gorgeRupture", col, left: standing(g) });
@@ -183,26 +199,10 @@ function vent(world: World, g: GorgeState): void {
     k.beads = 0;
     k.color = null;
     k.fullBeat = -1;
+    k.pierced = 0;
     world.events.push({ type: "gorgeVent", col });
     spawnOne(world, { beat: world.beat, col, kind: "torch", color: null });
   }
-}
-
-/**
- * One bead back down its own column as a body of its colour, from the
- * emptiest intake that holds one: what comes back is what the pair threw
- * away. A full intake is left alone — it is waiting to be pierced.
- */
-function spit(world: World, g: GorgeState): void {
-  const cfg = world.cfg;
-  let pick = -1;
-  for (let i = 0; i < g.intakes.length; i++) {
-    const k = g.intakes[i];
-    if (k === undefined || k.ruptured || i === g.mouth || k.beads === 0) continue;
-    if (gorgeFull(k, cfg)) continue;
-    if (pick < 0 || k.beads < (g.intakes[pick]?.beads ?? 0)) pick = i;
-  }
-  spitFrom(world, g, pick);
 }
 
 /**
@@ -211,8 +211,9 @@ function spit(world: World, g: GorgeState): void {
  * Full intakes vent on their count. Then, on the spit count, the sack either
  * feeds its mouth a bead of the mouth's colour — never past full, never
  * venting — or, once it is spitting, returns one bead to the field. A pry
- * held past its window is thrown off first (`gorge-hand.ts`). After the
- * beam it stands `gorgeOutBeats` and goes.
+ * held past its window is thrown off first (`gorge-hand.ts`), and THE SLOW
+ * is put where the asks left standing say (`gorge-slow.ts`). After the beam
+ * it stands `gorgeOutBeats` and goes.
  */
 export function stepGorge(world: World, g: GorgeState): void {
   const cfg = world.cfg;
@@ -224,6 +225,7 @@ export function stepGorge(world: World, g: GorgeState): void {
   }
   vent(world, g);
   stepGorgePry(world, g);
+  gorgeSlow(world, g);
   if (world.beat - g.spitBeat < cfg.gorgeSpitBeats) return;
   const mouth = g.intakes[g.mouth];
   if (mouth !== undefined) {
@@ -234,5 +236,5 @@ export function stepGorge(world: World, g: GorgeState): void {
   }
   if (g.ruptures < cfg.gorgeSpitRuptures || gorgeBeads(g) === 0) return;
   g.spitBeat = world.beat;
-  spit(world, g);
+  spitEmptiest(world, g);
 }

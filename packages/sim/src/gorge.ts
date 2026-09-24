@@ -16,8 +16,8 @@ import type { World } from "./world.js";
  * **Health runs backwards.** The sack starts empty and the only way to hurt
  * it is to overfeed exactly one part of it: an intake fills only on beads of
  * one colour, a wrong colour takes a bead back out, and at `gorgeFullBeads`
- * it is **full** — pierceable by one more shot, which **ruptures** it for
- * good, but only for `gorgeVentBeats`, after which it **vents** a torch down
+ * it is **full** — pierceable by `gorgeVentShots` more shots, which
+ * **rupture** it for good, but only for `gorgeVentBeats`, after which it **vents** a torch down
  * its own column and is empty again. So the sentence is *stop shooting,
  * except at one column, in one colour.*
  *
@@ -32,7 +32,7 @@ import type { World } from "./world.js";
  * - **gorged**, after `gorgeMouthRuptures` ruptures — the unruptured intake
  *   nearest the centre becomes the **mouth**: it fills itself a bead a spit,
  *   holds at full and never vents, and only the beam in its colour, standing
- *   in its column while it is full, ends the fight.
+ *   in its column `gorgePryFills` times inside one pry, ends the fight.
  * - **out** — every bead it ever held leaves at once, and the boss stays
  *   `gorgeOutBeats` more so the wave cannot end on the same beat.
  *
@@ -63,6 +63,8 @@ export interface GorgeIntake {
   color: Color | null;
   /** `world.beat` it came full on, and the vent counts from; `-1` while not full. */
   fullBeat: number;
+  /** Shots that have gone into it full, toward `gorgeVentShots`; `0` whenever it is not full. */
+  pierced: number;
   /** Pierced, and hanging open for good: a shot up this column meets nothing. */
   ruptured: boolean;
 }
@@ -92,6 +94,8 @@ export interface GorgeState {
   pry: number;
   /** `world.beat` the pry was taken on, and the clench counts from; `-1` while it is not. */
   pryBeat: number;
+  /** Beams in the mouth's colour inside this pry, toward `gorgePryFills`; `0` while it is not pried. */
+  pryFills: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
