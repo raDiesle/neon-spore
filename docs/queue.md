@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## The doubled window: THE LEAD
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-taster-and-the-lead (claim: claude/queue-the-doubled-window-the-lead)
 - **Files:** `packages/sim/src/config-lead.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/src/lead-shot.ts`, `packages/sim/src/lead-hand.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/test/scene-lead.test.ts`, `packages/content/src/waves/`, `tools/director/src/boss-hands-clocks.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
 
 The last of the three bosses the GORGE lane was queued with; THE GORGE and
