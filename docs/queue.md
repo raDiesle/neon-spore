@@ -555,6 +555,7 @@ CANDLE are landed** (24 September 2026, `curtain-doubled.test.ts`,
 ## `strokeGlow` is handed an alpha it throws away: the bodies
 
 - **Found:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha
+- **Taken:** 2026-09-24, claude/next-task-queue-d44755 (claim: claude/queue-strokeglow-is-handed-an-alpha-it-throws-away-the)
 - **Files:** `packages/render/src/balloon-alive.ts`, `packages/render/src/balloon-handles.ts`, `packages/render/src/body-burst.ts`, `packages/render/src/body-mark.ts`, `packages/render/src/crawler-marks.ts`, `packages/render/src/crawler.ts`, `packages/render/src/ghost.ts`, `packages/render/src/living-skin.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/src/meteor-comet.ts`, `packages/render/src/moult.ts`, `packages/render/src/pods.ts`, `packages/render/src/pulse-wash.ts`, `packages/render/src/recoil-globe.ts`, `packages/render/src/scout-draw.ts`, `packages/render/src/wisp-body.ts`
 
 `strokeGlow` sets `globalAlpha` for every pass and never reads the one it
