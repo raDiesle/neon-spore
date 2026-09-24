@@ -57,6 +57,11 @@ export const SWEEPS: readonly string[] = [
   // rows in `scope.ts` catches a document that names a file it has not got;
   // this catches the other direction. It reads the tree in a sixth of a second.
   "tools/test/doc-drift.test.ts",
+  // The sixth reads every line a player sees against its word budget. Those
+  // lines live in `packages/content`, whose row runs only its own package, so
+  // on 24 September 2026 a guide line one word over its thirty was green here
+  // and red minutes into `bun run land`. It reads the tree in half a second.
+  "tools/words/test/words.test.ts",
 ];
 
 /**

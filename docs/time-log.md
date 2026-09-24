@@ -22,6 +22,18 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — `check:fast` runs the words contract whatever changed
+
+- reading: 5 min. The entry, `fast-scope.ts`'s sweeps and their test.
+- writing: 5 min. The sixth sweep and a test that a wave's file reaches it.
+- looking: 0 min. Nothing is drawn.
+- friction: 5 min. The words test first failed to find
+  `@neon-spore/content`; a `bun install` that changed nothing cured it.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: a module that would not resolve until an
+install that reported no changes.
+
 ## 2026-09-24 — THE CANDLE's smoke is doubled, and THE SLOW spans it
 
 - reading: 5 min. `candle-step.ts`, `candle-hand.ts`, THE SLOW's

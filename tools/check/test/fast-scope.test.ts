@@ -68,7 +68,17 @@ describe("fastScopeFor", () => {
       // The document sweep is not one of the three, and a rename in sim is
       // exactly what breaks it.
       "tools/test/doc-drift.test.ts",
+      "tools/words/test/words.test.ts",
     ]);
+  });
+
+  it("a wave's text reaches the words contract", () => {
+    // A guide line one word over its budget in `act-7f.ts` was green here on
+    // 24 September 2026; the words contract was in neither the content row
+    // nor the sweeps.
+    expect(fastScopeFor(["packages/content/src/waves/act-7f.ts"])).toContain(
+      "tools/words/test/words.test.ts",
+    );
   });
 
   it("a shared file with no package of its own is the sweeps alone", () => {

@@ -625,22 +625,6 @@ Reproducing the list, from 24 September 2026: a `globalThis` tally in
 caller's stack frame, written out by an `afterAll` in a `--preload` file
 over `bun test packages/render/test` — about a minute, in one process.
 
-## `check:fast` does not run the words contract when a wave's text changes
-
-- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-taster-and-the-lead
-- **Taken:** 2026-09-24, claude/queue-tasks-a65204 (claim: claude/queue-check-fast-does-not-run-the-words-contract-when)
-- **Files:** `tools/check/fast-scope.ts`, `tools/words/test/words.test.ts`
-
-A guide line in `packages/content/src/waves/act-7f.ts` went one word over its
-budget (31 against 30) and `check:fast` was green: a change under
-`packages/content` runs only that package's tests plus the `SWEEPS`, and
-`tools/words/test/words.test.ts` — which reads every line a player sees — is
-in neither. `bun run land`'s full check was the first to say so, minutes in.
-Add it to `SWEEPS` (it reads the tree in a quarter of a second), or give the
-content row in `tools/hooks/scope.ts` a narrow answer that names
-`tools/words` for `fastScopeFor` alone; the first is one line and the same
-reason the fifth sweep gives.
-
 ## `baton.test.ts` is 717 lines and keeps its own copy of the arm's rig
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-baton
