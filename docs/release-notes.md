@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 04d6a442 — The game's preview has a `here` route: `bun run preview:here` and `game-here`
+
+A session opened in the main checkout can now verify a worktree's built game the way it already could its director: `bun run here` in the worktree, then the `game-here` launch entry. `preview:here` builds the named tree and imports that tree's own `preview.ts` in the same process, on a free port, so a stop takes the server with it — supervising `bun run preview` instead would have left the server holding its port after a stop. CLAUDE.md's "Verifying in a browser" and `docs/commands.md` say so.
+
 ## 2026-09-24 · 2b3281eb — THE SPOOL's guide plays a film: a brake held too shallow, a word, a rib
 
 THE SPOOL's tutorial is now a rehearsal. The pilot takes the brake at the top, the line runs fast and the first movement slips; the navigator's gauge reads too much line and she says slower; he carries the knob deeper and the next movement holds its leg, so a rib eases. THE SPOOL leaves the list of guides that are still prose (eighty-two films, eleven below), and the boss caption anchor gains a spool case, so the navigator's pages stand on the gauge. Look exemption: a look with no shipped alternative — the wave had no film.
