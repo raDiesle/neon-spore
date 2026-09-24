@@ -238,15 +238,22 @@ under the thing it is moving. `render/ship-hand.ts` draws it; a mouse gets the
 same bracket on hover, which is the desktop's half of knowing what a press
 would take hold of before pressing.
 
-**The `test` view is player 1's, unless a seat key is held.** One screen
-showing both bands signs a finger on the field as player 1 — and **while `1`
-or `2` is held on the keyboard, as that seat**, for every gesture the field
-answers: a press, a hold, a drag, a swipe, a turn (`render/desk-seat.ts`,
-read by the game's `field-input.ts` and the director's `stage-field.ts`). So
-one mouse tries the pilot's mark, then the navigator's, on the same screen;
-what one mouse cannot do is hold both at once, which is the director's pose
-or `bun run frames --hold`. The band has every control of both seats without
-any key.
+**The `test` view's mouse is whichever seat the control under it belongs
+to.** One screen shows both bands, and a press on the field takes the seat
+the thing under the thumb is asking for: THE INSTAR's rings say whose they
+are and are read before the press, and every other handle a seat does not own
+is simply not there for it, so the same hit test is run for one seat and then
+the other until one answers (`render/desk-grab.ts`). Either half of a pose may
+therefore be pulled first, in whatever order the pair would have used.
+
+**And while `1` or `2` is held on the keyboard, it is that seat and only that
+seat**, for every gesture the field answers: a press, a hold, a drag, a swipe,
+a turn (`render/desk-seat.ts`, read by the game's `field-input.ts` and the
+director's `stage-field.ts`). That is how a tester asks for the wrong seat on
+purpose — a mark pressed by the hand it was not meant for is refused, and the
+refusal is what a phone shows the player. What one mouse cannot do either way
+is hold both at once, which is the director's pose or `bun run frames --hold`.
+The band has every control of both seats without any key.
 
 ## Tried and set aside
 

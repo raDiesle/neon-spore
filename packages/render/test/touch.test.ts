@@ -129,7 +129,7 @@ describe("a press on the band", () => {
       // The lift is the other half: nothing in the simulation empties a lobe
       // on its own, so a thumb coming off has to be sent — and it is what
       // fires the ordinary shot.
-      expect(touchUp(l, { kind: "held", control: id, player: 2 }, field(2))).toEqual({
+      expect(touchUp(l, { kind: "held", control: id, player: 2 })).toEqual({
         player: 2,
         command: { kind: "prime", on: false, color },
         hold: null,
@@ -287,13 +287,13 @@ describe("a press on the field", () => {
   });
 
   it("lets go when the finger lifts, and only then", () => {
-    expect(touchUp(l, { kind: "grip", id: 1, player: 2, originX: 0 }, field(2))).toEqual({
+    expect(touchUp(l, { kind: "grip", id: 1, player: 2, originX: 0 })).toEqual({
       player: 2,
       command: { kind: "grip", id: NO_GRIP },
       hold: null,
     });
-    expect(touchUp(l, { kind: "cannon" }, field())).toBeNull();
-    expect(touchUp(l, { kind: "shield" }, field())).toBeNull();
+    expect(touchUp(l, { kind: "cannon" })).toBeNull();
+    expect(touchUp(l, { kind: "shield" })).toBeNull();
   });
 });
 
@@ -400,7 +400,7 @@ describe("a hand on THE MAZE's string", () => {
   it("lets go, and says so", () => {
     const hold = grab(mazeField(1))?.hold;
     if (!hold) throw new Error("the handle was not grabbed");
-    expect(touchUp(l, hold, mazeField(1))).toEqual({
+    expect(touchUp(l, hold)).toEqual({
       player: 1,
       command: { kind: "drag", target: "mazeString", on: false, fromMilli: 0, fromYMilli: 0 },
       hold: null,

@@ -76,7 +76,7 @@ describe("player 1 on the ship", () => {
     const at = cannonGrab(l, f.cannonCol);
     const hold = touchDown(l, at.x, at.y, f)?.hold;
     if (!hold) throw new Error("the press took hold of nothing");
-    expect(touchUp(l, hold, f, { x: at.x, y: at.y })).toEqual({
+    expect(touchUp(l, hold, { x: at.x, y: at.y })).toEqual({
       player: 1,
       command: { kind: "intake" },
       hold: null,
@@ -88,12 +88,12 @@ describe("player 1 on the ship", () => {
     const at = cannonGrab(l, f.cannonCol);
     const hold = touchDown(l, at.x, at.y, f)?.hold;
     if (!hold) throw new Error("the press took hold of nothing");
-    expect(touchUp(l, hold, f, { x: cannonGrab(l, 7).x, y: at.y })).toBeNull();
+    expect(touchUp(l, hold, { x: cannonGrab(l, 7).x, y: at.y })).toBeNull();
     // Nor when it stayed inside the tap circle but crossed into the next
     // column on the way: the cannon moved, so the gesture was a slide.
-    expect(touchUp(l, hold, f, { x: at.x + l.tile * 0.6, y: at.y })).toBeNull();
+    expect(touchUp(l, hold, { x: at.x + l.tile * 0.6, y: at.y })).toBeNull();
     // Nor when the pointer was lost with no position to report at all.
-    expect(touchUp(l, hold, f)).toBeNull();
+    expect(touchUp(l, hold)).toBeNull();
   });
 
   it("has no maw to open on a panel that does not carry one", () => {
@@ -102,7 +102,7 @@ describe("player 1 on the ship", () => {
     const hold = touchDown(l, at.x, at.y, f)?.hold;
     expect(hold).toEqual({ kind: "cannon", direct: true });
     if (!hold) throw new Error("the press took hold of nothing");
-    expect(touchUp(l, hold, f, { x: at.x, y: at.y })).toBeNull();
+    expect(touchUp(l, hold, { x: at.x, y: at.y })).toBeNull();
   });
 
   it("fires the shield where player 2 left it, and does not move it", () => {
@@ -115,7 +115,7 @@ describe("player 1 on the ship", () => {
     });
     // The hold is there for the ring alone: the window is the simulation's
     // from the press onwards, so the lift has nothing left to say.
-    expect(touchUp(l, { kind: "guard" }, f)).toBeNull();
+    expect(touchUp(l, { kind: "guard" })).toBeNull();
   });
 });
 
@@ -146,7 +146,7 @@ describe("player 2 on the ship", () => {
     const f = field(2);
     const at = cannonGrab(l, f.cannonCol);
     const hold = { kind: "shot", originX: at.x } as const;
-    const lift = (dx: number) => touchUp(l, hold, f, { x: at.x + dx, y: at.y })?.command;
+    const lift = (dx: number) => touchUp(l, hold, { x: at.x + dx, y: at.y })?.command;
     expect(lift(-l.tile)).toEqual({ kind: "fire", color: "red" });
     expect(lift(l.tile)).toEqual({ kind: "fire", color: "cyan" });
     expect(lift(l.tile * 0.2)).toBeUndefined();
@@ -156,7 +156,7 @@ describe("player 2 on the ship", () => {
   it("fires nothing when the pointer is lost with no position to report", () => {
     const f = field(2);
     const at = cannonGrab(l, f.cannonCol);
-    expect(touchUp(l, { kind: "shot", originX: at.x }, f)).toBeNull();
+    expect(touchUp(l, { kind: "shot", originX: at.x })).toBeNull();
   });
 
   it("does not move the cannon, which is not theirs to move", () => {

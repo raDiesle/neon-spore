@@ -155,9 +155,9 @@ describe("the lift", () => {
 
   it("carries how far the thumb went, in thousandths of a tile", () => {
     const carry = (DEFAULT_CONFIG.mirrorCarryMilli / 1000) * l.tile;
-    const left = touchUp(l, down(), field, { x: at.x - carry, y: at.y });
+    const left = touchUp(l, down(), { x: at.x - carry, y: at.y });
     expect(left?.command).toMatchObject({ target: "mirrorLobe", on: false, fromMilli: -500 });
-    const still = touchUp(l, down(), field, { x: at.x + 2, y: at.y })?.command;
+    const still = touchUp(l, down(), { x: at.x + 2, y: at.y })?.command;
     expect(still).toMatchObject({ target: "mirrorLobe", on: false });
     const fromMilli = still?.kind === "drag" ? still.fromMilli : Number.NaN;
     expect(Math.abs(fromMilli)).toBeLessThan(DEFAULT_CONFIG.mirrorCarryMilli);

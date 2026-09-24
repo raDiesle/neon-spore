@@ -1,4 +1,10 @@
-import { Canvas2DRenderer, DeskSeat, handedLayout, type ViewRole } from "@neon-spore/render";
+import {
+  Canvas2DRenderer,
+  DeskSeat,
+  handedLayout,
+  pointerSeats,
+  type ViewRole,
+} from "@neon-spore/render";
 import {
   createWorld,
   type SimConfig,
@@ -66,7 +72,11 @@ export function bindStage(
     at,
     layout: () => handedLayout(layout(), world), // answered where it is drawn.
     // What a hit test is handed, read fresh on every press (`stage-field.ts`).
-    field: () => stageField(world, role, currentControlSet(), cfg, desk.seat(), renderer.skinY),
+    // A seat may be asked for: with neither key held the press is run for one
+    // seat and then the other until one of them answers (`render/desk-grab.ts`).
+    field: (seat?: 1 | 2) =>
+      stageField(world, role, currentControlSet(), cfg, seat ?? desk.seat(), renderer.skinY),
+    seats: () => pointerSeats(role, desk.seat()),
     push: keys.push,
     world: () => world,
     role: () => role,

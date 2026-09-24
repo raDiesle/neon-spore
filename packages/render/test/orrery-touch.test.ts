@@ -201,7 +201,7 @@ describe("THE ORRERY's ring, turned", () => {
     // Which is the same message a lift sends about the reference, so the next
     // sample outside the dead spot is a fresh start rather than a swing
     // (`sim/orrery-hand.ts`).
-    expect(touchUp(l, hold, field(world))?.command).toMatchObject({
+    expect(touchUp(l, hold)?.command).toMatchObject({
       target: "orreryRing",
       on: false,
     });

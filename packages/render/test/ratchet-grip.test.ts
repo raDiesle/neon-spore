@@ -103,7 +103,7 @@ describe("a thumb on THE RATCHET", () => {
     if (down?.hold?.kind !== "drag") throw new Error("no drag hold");
     const moved = touchMove(l, down.hold, bar.x, bar.y + l.tile * 0.8);
     expect(moved?.command).toMatchObject({ target: "ratchetCatch", on: true, fromYMilli: 800 });
-    const up = touchUp(l, down.hold, field(world, 2), { x: bar.x, y: bar.y });
+    const up = touchUp(l, down.hold, { x: bar.x, y: bar.y });
     expect(up?.command).toMatchObject({ target: "ratchetCatch", on: false });
   });
 

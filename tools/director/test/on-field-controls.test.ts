@@ -1,7 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
-import { controlSetForWave } from "@neon-spore/content";
-import { computeLayout, type Field, type Hold, touchMove, touchUp } from "@neon-spore/render";
+import { computeLayout, type Hold, touchMove, touchUp } from "@neon-spore/render";
 import { DEFAULT_CONFIG, type DragTarget } from "@neon-spore/sim";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
 import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
@@ -476,28 +475,12 @@ describe("TRIED_CONTROLS points at the spec rather than repeating it", () => {
 });
 
 /**
- * The layout every gesture below is answered against, and a field with nothing
- * in it: what is being driven is the branch a `Hold` takes, and none of these
- * branches reads a creature.
+ * The layout every gesture below is answered against. No field: a move and a
+ * lift are answered by the `Hold` alone, and the hold is what carries the seat
+ * that took it (`render/touch.ts`).
  */
 const CFG = DEFAULT_CONFIG;
 const LAYOUT = computeLayout({ width: 390, height: 844, dpr: 3 }, CFG, "test");
-const FIELD: Field = {
-  creatures: [],
-  cannonCol: 5,
-  shieldCol: 5,
-  beatPhase: 0,
-  skinY: null,
-  beat: 0,
-  waveBeat: 0,
-  tick: 0,
-  seat: 1,
-  cfg: CFG,
-  boss: null,
-  controls: controlSetForWave(0),
-  faults: [],
-  well: false,
-};
 
 /**
  * Every shape a `Hold` can take, and where the lift that ends it landed.
@@ -554,10 +537,7 @@ describe("FIELD_CONTROLS against what touch.ts actually sends", () => {
   test("no move or lift sends a command no entry describes", () => {
     for (const { why, hold, at } of GESTURES) {
       if (documentedHoldKind(hold.kind) === "panel") continue;
-      const sent = [
-        touchMove(LAYOUT, hold, at?.x ?? 0, at?.y ?? 0),
-        touchUp(LAYOUT, hold, FIELD, at),
-      ];
+      const sent = [touchMove(LAYOUT, hold, at?.x ?? 0, at?.y ?? 0), touchUp(LAYOUT, hold, at)];
       for (const touch of sent) {
         const kind = touch?.command?.kind;
         if (kind === undefined) continue;
@@ -592,11 +572,15 @@ describe("FIELD_CONTROLS against what touch.ts actually sends", () => {
   test("the maw tap is a second gesture on the cannon, and is described as one", () => {
     // The one this guard was written for. Both are `kind: "cannon"`; the lift
     // is what tells them apart, and a check counting kinds saw only the first.
-    const carried = touchUp(LAYOUT, { kind: "cannon" }, FIELD, { x: 300, y: 700 });
-    const tapped = touchUp(LAYOUT, { kind: "cannon", suck: { x: 120, y: 500 } }, FIELD, {
-      x: 120,
-      y: 500,
-    });
+    const carried = touchUp(LAYOUT, { kind: "cannon" }, { x: 300, y: 700 });
+    const tapped = touchUp(
+      LAYOUT,
+      { kind: "cannon", suck: { x: 120, y: 500 } },
+      {
+        x: 120,
+        y: 500,
+      },
+    );
     expect(carried).toBeNull();
     expect(tapped?.command?.kind).toBe("intake");
     expect(FIELD_CONTROLS.filter((c) => c.holdKind === "cannon").length).toBe(2);

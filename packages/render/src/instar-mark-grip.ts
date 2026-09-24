@@ -1,5 +1,5 @@
 import { type InstarMark, instarActing, instarStep, NO_BEARING } from "@neon-spore/sim";
-import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
+import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import { hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
@@ -16,30 +16,69 @@ import { bossOf } from "./touch-field.js";
  */
 
 /**
- * A press on one of the marks while they are up: the nearest ring under the
- * thumb, as a `drag` on `instarMark` with `id` naming which. A `turn` mark's
- * hold keeps the *mark's centre* as its origin and is flagged `turns`, so
- * every move after it reports a bearing round the ring rather than a carry
- * (`touch-drag.ts` `turnAbout`) — THE CLAW's crank, on the field.
+ * **The nearest ring under the thumb**, with where it is drawn this frame.
+ * The one reading, so the two questions below cannot answer about two
+ * different marks: what a press takes hold of, and whose the ring is.
  */
-export function instarMarkUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+function markUnder(
+  l: Layout,
+  x: number,
+  y: number,
+  field: Field,
+): { id: number; mark: InstarMark; at: Point } | null {
   const s = bossOf(field, "instar");
   if (s === null || !instarActing(s)) return null;
   const step = instarStep(s);
   if (step === null) return null;
   const r = instarMarkRadius(l, field.cfg);
   const sway = instarSway(s, field.cfg, field.beat, field.beatPhase);
-  let best: { id: number; mark: InstarMark; d: number } | null = null;
+  let best: { id: number; mark: InstarMark; at: Point; d: number } | null = null;
   step.marks.forEach((mark, id) => {
     const at = instarMarkPoint(l, mark, sway);
     if (!hitCircle({ x: at.x, y: at.y, r }, x, y)) return;
     const d = (x - at.x) ** 2 + (y - at.y) ** 2;
-    if (best === null || d < best.d) best = { id, mark, d };
+    if (best === null || d < best.d) best = { id, mark, at, d };
   });
-  if (best === null) return null;
-  const { id, mark } = best as { id: number; mark: InstarMark };
+  return best;
+}
+
+/**
+ * **Whose thumb the ring under this point is asking for**, and `undefined`
+ * where there is no ring or it wants both.
+ *
+ * The one control on the field that names a seat and still answers either
+ * thumb: every other handle a seat does not own is simply not there for it,
+ * and a mark is there and **refused**, which is how a phone tells a player
+ * the ring is their partner's (`sim/instar-hand.ts`). That refusal is the
+ * reason the desk cannot find the seat by trying one and then the other, and
+ * this is what it asks instead (`desk-grab.ts`). It reads the same nearest
+ * ring `instarMarkUnder` takes hold of, so the mouse cannot be given one
+ * mark's seat and then hold another.
+ */
+export function instarMarkSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const found = markUnder(l, x, y, field);
+  if (found === null || found.mark.seat === "both") return undefined;
+  return found.mark.seat === "p1" ? 1 : 2;
+}
+
+/**
+ * A press on one of the marks while they are up: the nearest ring under the
+ * thumb, as a `drag` on `instarMark` with `id` naming which. A `turn` mark's
+ * hold keeps the *mark's centre* as its origin and is flagged `turns`, so
+ * every move after it reports a bearing round the ring rather than a carry
+ * (`touch-drag.ts` `turnAbout`) — THE CLAW's crank, on the field.
+ *
+ * **Signed with the field's own seat, whosever mark it is.** A phone that
+ * pressed its partner's ring is told so and counts nothing
+ * (`sim/instar-hand.ts`), which is the one thing this boss says about whose
+ * mark is whose; the desk picks the seat before the press instead
+ * (`instarMarkSeat`).
+ */
+export function instarMarkUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  const found = markUnder(l, x, y, field);
+  if (found === null) return null;
+  const { id, mark, at } = found;
   const turns = mark.gesture === "turn";
-  const at = instarMarkPoint(l, mark, sway);
   return {
     player: field.seat,
     command: {

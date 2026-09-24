@@ -366,3 +366,25 @@ lint and a format run before anything it is meant to prove gets a chance to
 run. Rewrite the literal with the spacing biome wants, or run biome over the
 file the command edited before it reports success, and add a case to the
 adoption test that lints its own output.
+
+## THE HANDOVER re-signs a press the desk picked a seat for
+
+- **Found:** 2026-09-24, claude/test-mode-control-pull-order
+- **Files:** `apps/game/src/input.ts`, `packages/render/src/desk-grab.ts`
+
+On the test screen with no seat key held, a press now takes the seat the
+control under the thumb belongs to (`deskDown`). `bindControls` then hands every
+command through `from`, which replaces the touch's own player with this
+device's seat while `handed()` is true — THE HANDOVER's window. Its comment
+says why that exists and also says what the exception is: *a hand on the field
+is already this seat's*. It is applied to field commands anyway, so during that
+window the navigator's control picked out by `deskDown` is sent as player 1 and
+the simulation refuses it, which is the behaviour the desk was just taught not
+to have.
+
+What to do: `from` should apply to the band and not to a hand on the field —
+the two are told apart by the `Hold`/command the touch carries, the same way
+`documentedHoldKind` tells a panel from a field control
+(`tools/director/src/field-controls-page.ts`). A test belongs beside
+`packages/render/test/desk-grab.test.ts`: a handed-over test screen picks the
+seat the control names, and the band still signs with the device.

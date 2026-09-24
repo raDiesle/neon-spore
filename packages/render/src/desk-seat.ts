@@ -64,9 +64,38 @@ export class DeskSeat {
   }
 }
 
-/** Whose hand the pointer is: the role's own seat, or on the test screen the held seat key's — player 1 with none. */
+/**
+ * **The seats the desk's one pointer may speak for**, the first of them the
+ * one it speaks for unasked.
+ *
+ * A seated screen has one and the test screen with a key held has one. The
+ * test screen with **neither key held has both**, and that is the owner's
+ * fix of 24 September 2026: *when I am in TEST, I cannot choose which of the
+ * actions on screen to pull first — I have to pull player 1's and only then
+ * player 2's. I expect to decide, like players, which control to pull first.*
+ * THE INSTAR's first pose is a mark on the jaw for each seat, and until now a
+ * mouse that pressed the navigator's was signed player 1 and refused
+ * (`sim/instar-hand.ts`), so the pilot's was the only one a desk could answer
+ * first — and its fourth pose, which is the navigator's alone, could not be
+ * answered at all.
+ *
+ * What a press does with the list is `desk-grab.ts`: the seat the control
+ * under the thumb names, else the first seat that finds anything there. A key
+ * still pins the pointer to one seat, which is how a tester asks for the
+ * refusal on purpose.
+ */
+export function pointerSeats(role: ViewRole, held: 1 | 2 | undefined): readonly (1 | 2)[] {
+  if (role === "p1") return [1];
+  if (role === "p2") return [2];
+  return held === undefined ? [1, 2] : [held];
+}
+
+/**
+ * Whose hand the pointer is where only one answer will do — a hold already
+ * taken, a strip, a hover. The head of `pointerSeats`, so the two cannot
+ * drift: player 1 is the desk's unasked seat, as it was.
+ */
 export function pointerSeat(role: ViewRole, held: 1 | 2 | undefined): 1 | 2 {
-  if (role === "p2") return 2;
-  if (role === "test" && held !== undefined) return held;
-  return 1;
+  const [first = 1] = pointerSeats(role, held);
+  return first;
 }

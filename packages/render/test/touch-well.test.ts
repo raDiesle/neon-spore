@@ -151,7 +151,7 @@ describe("a press on a body on the well", () => {
     const next = wellAt(L, wellAngle(L, rock.col + 1), wellHub(L) * 1.7);
     const moved = touchMove(L, hold, next.x, next.y);
     expect(moved?.command).toMatchObject({ kind: "drag", target: "gripBody", fromMilli: 1000 });
-    expect(touchUp(L, hold, f)?.command).toMatchObject({ kind: "grip" });
+    expect(touchUp(L, hold)?.command).toMatchObject({ kind: "grip" });
   });
 
   it("answers nothing where the flat field would have drawn the body", () => {

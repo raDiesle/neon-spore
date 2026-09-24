@@ -62,9 +62,11 @@ export function cueHand(
   const thumbs = new Map<1 | 2, Thumb>();
   const seated = (seat: 1 | 2): Field => ({ ...field(), seat });
 
-  const up = (l: Layout, seat: 1 | 2, t: Thumb, where: boolean): void => {
+  // No seat: the lift is signed by the hold that took it, which is the seat
+  // that pressed (`render/touch.ts` `touchUp`).
+  const up = (l: Layout, t: Thumb, where: boolean): void => {
     const end = where ? { x: t.x, y: t.y } : undefined;
-    const r = touchUp(l, t.hold, seated(seat), end);
+    const r = touchUp(l, t.hold, end);
     if (r?.command) send(r.player, r.command);
   };
 
@@ -90,13 +92,13 @@ export function cueHand(
       if (go === null) continue;
       if (go.do === "lift") {
         thumbs.delete(seat);
-        up(l, seat, t, true);
+        up(l, t, true);
         continue;
       }
       if (go.do === "again") {
         // Off and straight back on, which is what a slap is: the count is of
         // grabs, and a thumb left down is one of them (`sim/instar-hand.ts`).
-        up(l, seat, t, true);
+        up(l, t, true);
         const hold = down(l, seat, t.x, t.y);
         if (hold) t.hold = hold;
         continue;
@@ -107,7 +109,7 @@ export function cueHand(
   };
 
   const lift = (l: Layout, where: boolean): void => {
-    for (const [seat, t] of thumbs) up(l, seat, t, where);
+    for (const t of thumbs.values()) up(l, t, where);
     thumbs.clear();
   };
 

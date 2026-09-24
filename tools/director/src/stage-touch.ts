@@ -1,4 +1,5 @@
 import {
+  deskDown,
   type Field,
   type Hold,
   type Layout,
@@ -6,7 +7,6 @@ import {
   type ShipHand,
   shipHand,
   shipUnder,
-  touchDown,
   touchMove,
   touchUp,
   type ViewRole,
@@ -35,6 +35,12 @@ import type { StagePoint } from "./stage-point.js";
  * had an opinion about it and while the test screen's answer was fixed; the
  * game's field asks the same question and the two hosts share nothing else,
  * so the rule went where both may call it.
+ *
+ * And with **no** key held under `test` the press is `deskDown`'s, which is
+ * the same rule where it has two seats to choose between: the seat the
+ * control under the thumb names, else whichever of them finds anything there
+ * (`render/desk-grab.ts`). That is why the field below is asked for a seat
+ * rather than read — the hit test is run once per seat until one answers.
  */
 
 export interface StageTouch {
@@ -47,8 +53,11 @@ export interface StageTouch {
   at: StagePoint["at"];
   /** Read fresh: the panel is resizable and the role switches under it. */
   layout: () => Layout;
-  /** The field a grab is tested against, and whose hand it is. */
-  field: () => Field;
+  /** The field a grab is tested against, and whose hand it is — the seat the
+   * role bar and the seat keys name, or the one `deskDown` asks for. */
+  field: (seat?: 1 | 2) => Field;
+  /** The seats this stage's one mouse may speak for (`render/desk-seat.ts`). */
+  seats: () => readonly (1 | 2)[];
   push: (player: 1 | 2, command: Command) => void;
   /** The world a card is read off — whether one is up at all right now. */
   world: () => World;
@@ -99,6 +108,7 @@ export function bindStageTouch({
   at,
   layout,
   field,
+  seats,
   push,
   world,
   role,
@@ -136,7 +146,7 @@ export function bindStageTouch({
 
   canvas.addEventListener("pointerdown", (e) => {
     // The wave has not started: the press belongs to its opening, not to the
-    // cannon. This has to run before `touchDown` below ever sees the press —
+    // cannon. This has to run before the hit test below sees the press —
     // the same order the phone plays by, where nothing but the ack reaches the
     // ship while the wave is held (`step.ts`) — so the first press after the
     // opening is gone is the first one that can move anything. What it answers
@@ -146,7 +156,7 @@ export function bindStageTouch({
       e.preventDefault();
       const speaksFor: readonly (1 | 2)[] =
         role() === "test" ? [1, 2] : [pointerSeat(role(), undefined)];
-      const seats = openingPress({
+      const pressed = openingPress({
         world: world(),
         layout: layout(),
         seats: speaksFor,
@@ -154,11 +164,11 @@ export function bindStageTouch({
         push,
         replay,
       });
-      if (seats) briefHolding.set(e.pointerId, seats);
+      if (pressed) briefHolding.set(e.pointerId, pressed);
       return;
     }
     const p = at(e);
-    const t = touchDown(layout(), p.x, p.y, field());
+    const t = deskDown(layout(), p.x, p.y, seats(), field);
     if (!t) return;
     e.preventDefault();
     if (t.hold) {
@@ -203,7 +213,7 @@ export function bindStageTouch({
     if (!hold) return;
     holding.delete(e.pointerId);
     setHand(null);
-    const t = touchUp(layout(), hold, field(), at(e));
+    const t = touchUp(layout(), hold, at(e));
     if (t?.command) send(t.player, t.command);
   };
   window.addEventListener("pointerup", lift);

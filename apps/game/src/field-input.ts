@@ -9,6 +9,7 @@ import {
   handedRole,
   type Layout,
   pointerSeat,
+  pointerSeats,
   rolledLayout,
   shieldGrab,
   showsWell,
@@ -119,6 +120,10 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     // a grip to the player who sent it. THE HANDOVER moves panels between
     // screens and moves nobody between seats (`sim/handover.ts`).
     player: () => pointerSeat(o.role(), desk.seat()),
+    // And with neither key held on the test screen, both — so a press there
+    // may take either seat's control first, whichever the tester reaches for
+    // (`render/desk-seat.ts`, `render/desk-grab.ts`).
+    seats: () => pointerSeats(o.role(), desk.seat()),
     handed: () => handedOver(world),
     cfg: world.cfg,
     // **The boss, whatever it is.** Thirteen of them hang a handle on the field —

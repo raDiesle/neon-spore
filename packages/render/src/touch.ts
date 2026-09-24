@@ -196,8 +196,12 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
  * window losing focus and a mouse dragged off the document (`bindControls`'s
  * `releaseAll`) — where a shot or a maw the player never finished would be
  * worse than none.
+ *
+ * **No field.** A lift is the hold's own — every seat on it was written down
+ * when the finger went down, and the one branch that used to read the field's
+ * seat instead now reads the hold's, for the reason it gives.
  */
-export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch | null {
+export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
   // Player 1's tap on the cannon: it slid nowhere, so what it meant was the
   // maw. `suck` is only on the hold at all when the wave's panel has one, and
   // a lift with no point to report — a window losing focus, a mouse dragged
@@ -235,5 +239,11 @@ export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch 
     return { player: hold.player, command: dragging(hold, dx, dy, false), hold: null };
   }
   if (hold.kind !== "grip") return null;
-  return { player: field.seat, command: { kind: "grip", id: NO_GRIP }, hold: null };
+  // **The seat that took hold**, rather than the one this field is signed
+  // with. They are the same on a phone and on a seated screen, and on the
+  // desk's both-seats screen they are not: a press there is signed with
+  // whichever seat could answer it (`desk-grab.ts`), so a lift read off the
+  // field would let go of the *other* player's hand and leave this one
+  // gripping for good.
+  return { player: hold.player, command: { kind: "grip", id: NO_GRIP }, hold: null };
 }

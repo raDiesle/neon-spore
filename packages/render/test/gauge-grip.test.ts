@@ -117,7 +117,7 @@ describe("a thumb on the needle", () => {
     // the top, which is the nought end of the dial (`sim/gauge-hand.ts`).
     const turned = touchMove(l, hold, dial.cx - dial.r, dial.cy)?.command;
     expect(turned).toMatchObject({ target: "gaugeNeedle", on: true, fromMilli: 750 });
-    const lifted = touchUp(l, hold, field, { x: dial.cx, y: dial.cy - dial.r })?.command;
+    const lifted = touchUp(l, hold, { x: dial.cx, y: dial.cy - dial.r })?.command;
     expect(lifted).toMatchObject({ target: "gaugeNeedle", on: false });
   });
 });
@@ -145,7 +145,7 @@ describe("a thumb on the band", () => {
       target: "gaugeBand",
       on: true,
     });
-    expect(touchUp(l, hold, field, { x: at.x, y: at.y })?.command).toMatchObject({
+    expect(touchUp(l, hold, { x: at.x, y: at.y })?.command).toMatchObject({
       target: "gaugeBand",
       on: false,
     });

@@ -116,7 +116,7 @@ describe("a thumb on the plume", () => {
       target: "fleetBreach",
       on: true,
     });
-    expect(touchUp(l, hold, field, { x: at.x, y: at.y })?.command).toMatchObject({
+    expect(touchUp(l, hold, { x: at.x, y: at.y })?.command).toMatchObject({
       target: "fleetBreach",
       on: false,
     });
@@ -191,7 +191,7 @@ describe("a thumb on the wreck", () => {
     const hold = touch?.hold as Hold;
     const pulled = touchMove(l, hold, at.x, at.y + c.tile * 1.5)?.command;
     expect(pulled?.kind === "drag" && pulled.fromYMilli).toBe(1500);
-    expect(touchUp(l, hold, field, { x: at.x, y: at.y })?.command).toMatchObject({
+    expect(touchUp(l, hold, { x: at.x, y: at.y })?.command).toMatchObject({
       target: "fleetWreck",
       on: false,
     });

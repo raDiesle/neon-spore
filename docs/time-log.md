@@ -19471,3 +19471,19 @@ one, but only because the drop it was arranged against can no longer draw a
 thread at all — six lines of probe told them apart, and nothing else would have.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — The test screen's mouse picks the seat the control belongs to
+
+- reading: 20 min. THE INSTAR's marks from the script to the refusal, both
+  hosts' pointer bindings, and the `Field` every hit test is handed.
+- writing: 25 min. `pointerSeats`, `instarMarkSeat`, `desk-grab.ts`, the seat
+  off `touchUp`, the two hosts and six cases.
+- looking: 0 min. Nothing drawn changes; the marks are where they were.
+- friction: 10 min. A fresh worktree with no `bun install` reported five
+  module errors in files nobody had touched; the seat came off `touchUp` in
+  thirty-five call sites, stripped by one pass with the typecheck as the net.
+- landing: 15 min. `check:fast` red twice — a test that reads `input.ts` as
+  text, and `docs/INDEX.md` missing the new file's row.
+
+The bottleneck was **writing**: the rule itself is nine lines, and the
+argument it no longer needs was written out in fifteen files.

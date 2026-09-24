@@ -139,7 +139,7 @@ describe("the swipe's lift", () => {
     const at = wardenGripCircle(l, body(world, b), b);
     const down = () => touchDown(l, at.x, at.y, field)?.hold as Hold;
     const swipe = (DEFAULT_CONFIG.wardenThrowMilli / 1000) * l.tile;
-    const thrown = touchUp(l, down(), field, { x: at.x + swipe, y: at.y });
+    const thrown = touchUp(l, down(), { x: at.x + swipe, y: at.y });
     expect(thrown?.command).toMatchObject({
       target: "wardenHatch",
       on: false,
@@ -149,7 +149,7 @@ describe("the swipe's lift", () => {
     b.plates = NARROW;
     const p2 = fieldOf(world, 2);
     const held = touchDown(layout("p2"), at.x, at.y, p2)?.hold as Hold;
-    const lifted = touchUp(layout("p2"), held, p2, { x: at.x + swipe, y: at.y });
+    const lifted = touchUp(layout("p2"), held, { x: at.x + swipe, y: at.y });
     expect(lifted?.command).toMatchObject({ target: "wardenEye", on: false, fromMilli: 0 });
   });
 });

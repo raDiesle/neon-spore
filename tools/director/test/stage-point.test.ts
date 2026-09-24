@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import { computeLayout, computeStage, pointerSeat } from "@neon-spore/render";
+import { computeLayout, computeStage, pointerSeat, pointerSeats } from "@neon-spore/render";
 import {
   type Command,
   createWorld,
@@ -133,7 +133,7 @@ describe("the stage's pointer conversion", () => {
       canvas: stub.canvas,
       at: stagePoint(stub.canvas, () => VIEWPORT, stage),
       layout,
-      field: () => ({
+      field: (seat?: 1 | 2) => ({
         creatures: world.creatures,
         cannonCol: world.cannonCol,
         shieldCol: world.shieldCol,
@@ -142,13 +142,14 @@ describe("the stage's pointer conversion", () => {
         beat: 0,
         waveBeat: 0,
         tick: 0,
-        seat: pointerSeat("test", undefined),
+        seat: seat ?? pointerSeat("test", undefined),
         cfg,
         boss: world.boss,
         controls: controlSet(undefined),
         faults: [],
         well: false,
       }),
+      seats: () => pointerSeats("test", undefined),
       push: (player, command) => sent.push({ player, command }),
       world: () => world,
       role: () => "test",

@@ -5,6 +5,7 @@ import {
   computeLayout,
   GUIDE_LOOK,
   pointerSeat,
+  pointerSeats,
   readyCircles,
   shieldGrab,
   type ViewRole,
@@ -141,7 +142,7 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
       // here. `stage-point.test.ts` is where the conversion itself is checked.
       at: (e) => ({ x: e.clientX, y: e.clientY }),
       layout: () => computeLayout(VIEWPORT, cfg, role),
-      field: () => ({
+      field: (seat?: 1 | 2) => ({
         creatures: world.creatures,
         cannonCol: world.cannonCol,
         shieldCol: world.shieldCol,
@@ -150,13 +151,14 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
         beat: 0,
         waveBeat: 0,
         tick: 0,
-        seat: pointerSeat(role, undefined),
+        seat: seat ?? pointerSeat(role, undefined),
         cfg,
         boss: world.boss,
         controls: controlSetForWave(world.wave),
         faults: [],
         well: false,
       }),
+      seats: () => pointerSeats(role, undefined),
       push: (player, command) => {
         sent.push({ player, command });
         pending.push({ tick: world.tick, player, command });
@@ -365,7 +367,7 @@ describe("bindStageTouch reports the hand on the ship", () => {
       // here. `stage-point.test.ts` is where the conversion itself is checked.
       at: (e) => ({ x: e.clientX, y: e.clientY }),
       layout: () => layout,
-      field: () => ({
+      field: (seat?: 1 | 2) => ({
         creatures: world.creatures,
         cannonCol: world.cannonCol,
         shieldCol: world.shieldCol,
@@ -374,13 +376,14 @@ describe("bindStageTouch reports the hand on the ship", () => {
         beat: 0,
         waveBeat: 0,
         tick: 0,
-        seat: pointerSeat(role, undefined),
+        seat: seat ?? pointerSeat(role, undefined),
         cfg,
         boss: world.boss,
         controls: controlSet("default"),
         faults: [],
         well: false,
       }),
+      seats: () => pointerSeats(role, undefined),
       push: (player, command) => pending.push({ tick: world.tick, player, command }),
       world: () => world,
       role: () => role,

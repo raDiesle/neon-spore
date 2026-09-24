@@ -36,6 +36,13 @@ export interface Bindings {
    */
   player: () => 1 | 2;
   /**
+   * The seats this device's one pointer may speak for, most preferred first
+   * (`render/desk-seat.ts` `pointerSeats`). One on a phone and one on a seated
+   * screen; both on the test screen with no seat key held, where a press picks
+   * between them by what is under it (`render/desk-grab.ts`).
+   */
+  seats: () => readonly (1 | 2)[];
+  /**
    * Whether THE HANDOVER has the two panels traded this beat
    * (`sim/handover.ts`).
    *
@@ -132,7 +139,7 @@ export interface Bindings {
  * presses; beside the bindings it reads so that a field added to `Field` is
  * added here and to `Bindings` in one file, not copied through a destructure.
  */
-export function fieldFrom(b: Bindings): Field {
+export function fieldFrom(b: Bindings, seat?: 1 | 2): Field {
   return {
     creatures: b.creatures(),
     cannonCol: b.cannonCol(),
@@ -142,7 +149,9 @@ export function fieldFrom(b: Bindings): Field {
     beat: b.beat(),
     waveBeat: b.waveBeat(),
     tick: b.worldTick(),
-    seat: b.player(),
+    // The seat asked for, where a press is trying each of them in turn
+    // (`render/desk-grab.ts`); this device's own otherwise.
+    seat: seat ?? b.player(),
     cfg: b.cfg,
     boss: b.boss(),
     controls: b.controls(),

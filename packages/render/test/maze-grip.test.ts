@@ -146,7 +146,7 @@ describe("a thumb on the heart", () => {
     const hold = touchDown(l, at.x, at.y, field)?.hold as Hold;
     const pulled = touchMove(l, hold, at.x, at.y + l.tile * 0.6)?.command;
     expect(pulled).toMatchObject({ target: "mazeHeart", on: true, fromYMilli: 600 });
-    const lifted = touchUp(l, hold, field, { x: at.x, y: at.y + l.tile })?.command;
+    const lifted = touchUp(l, hold, { x: at.x, y: at.y + l.tile })?.command;
     expect(lifted).toMatchObject({ target: "mazeHeart", on: false });
   });
 });

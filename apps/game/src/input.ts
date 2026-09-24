@@ -1,4 +1,4 @@
-import { type Hold, shipUnder, touchDown, touchMove, touchUp } from "@neon-spore/render";
+import { deskDown, type Hold, shipUnder, touchMove, touchUp } from "@neon-spore/render";
 import { samplesOf } from "./coalesced.js";
 import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
@@ -33,7 +33,7 @@ export interface Controls {
  * shield and the colours.
  */
 export function bindControls(bindings: Bindings): Controls {
-  const { canvas, buffer, layout, inStage, isOver, player, handed, opening } = bindings;
+  const { canvas, buffer, layout, inStage, isOver, player, handed, opening, seats } = bindings;
   /** Which finger is doing what. What each one *means* is `touch.ts`'s. */
   const holding = new Map<number, Hold>();
   /** **Who a press is from: this device, always.** `touch.ts` signs a press
@@ -45,14 +45,20 @@ export function bindControls(bindings: Bindings): Controls {
   const hand = new ShipHandWatch();
   /** A desk has a hover and a phone does not. Undefined until a mouse moves. */
   let pointer: { x: number; y: number } | undefined;
-  const field = () => fieldFrom(bindings);
+  /** The field as a given seat sees it — asked once per seat while a press is
+   * deciding whose hand it is, and unasked everywhere else. */
+  const field = (seat?: 1 | 2) => fieldFrom(bindings, seat);
 
   const down = (id: number, x: number, y: number): void => {
     if (isOver()) {
       buffer.push(1, { kind: "restart" });
       return;
     }
-    const t = touchDown(layout(), x, y, field());
+    // Which seat the press speaks for is `deskDown`'s on the screen that shows
+    // both: the seat the control under the thumb names, else the first of them
+    // that finds anything there (`render/desk-grab.ts`). One seat everywhere
+    // else, which is every phone.
+    const t = deskDown(layout(), x, y, seats(), field);
     if (!t) return;
     if (t.hold) {
       holding.set(id, t.hold);
@@ -77,7 +83,7 @@ export function bindControls(bindings: Bindings): Controls {
       holding.delete(id);
       // No point to report, so a half-finished swipe fires nothing — see
       // `touchUp`. Losing the window is not a shot the player took.
-      const t = touchUp(layout(), hold, field());
+      const t = touchUp(layout(), hold);
       if (t?.command) buffer.push(from(t), t.command);
     }
     hand.clear();
@@ -137,7 +143,7 @@ export function bindControls(bindings: Bindings): Controls {
     if (!hold) return;
     holding.delete(e.pointerId);
     hand.clear();
-    const t = touchUp(layout(), hold, field(), at);
+    const t = touchUp(layout(), hold, at);
     if (t?.command) buffer.push(from(t), t.command);
   };
   canvas.addEventListener("pointerup", (e) => up(e, inStage(e) ?? undefined));

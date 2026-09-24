@@ -123,7 +123,7 @@ describe("a rung of the standard ladder on the band", () => {
     const hold = touchDown(l, start.x, start.y, f)?.hold;
     if (hold?.kind !== "shot") throw new Error("the muzzle was not taken hold of");
     for (const dx of [-l.tile, l.tile]) {
-      expect(touchUp(l, hold, f, { x: start.x + dx, y: start.y })?.command).toEqual({
+      expect(touchUp(l, hold, { x: start.x + dx, y: start.y })?.command).toEqual({
         kind: "fire",
         color: "red",
       });
@@ -136,11 +136,11 @@ describe("a rung of the standard ladder on the band", () => {
     const start = muzzle(l, f);
     const hold = touchDown(l, start.x, start.y, f)?.hold;
     if (hold?.kind !== "shot") throw new Error("the muzzle was not taken hold of");
-    expect(touchUp(l, hold, f, { x: start.x - l.tile, y: start.y })?.command).toEqual({
+    expect(touchUp(l, hold, { x: start.x - l.tile, y: start.y })?.command).toEqual({
       kind: "fire",
       color: "red",
     });
-    expect(touchUp(l, hold, f, { x: start.x + l.tile, y: start.y })?.command).toEqual({
+    expect(touchUp(l, hold, { x: start.x + l.tile, y: start.y })?.command).toEqual({
       kind: "fire",
       color: "cyan",
     });
