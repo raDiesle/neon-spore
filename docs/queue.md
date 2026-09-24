@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## `gorge-step.ts` is at 250 lines
 
 - **Found:** 2026-09-24, claude/queue-the-first-of-two-shots-or-beams-makes-no-sign-th
+- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-gorge-step-ts-is-at-250-lines)
 - **Files:** `packages/sim/src/gorge-step.ts`
 
 The first-of-two events (`gorgeNick`, `gorgePryFill`) took THE GORGE's step
