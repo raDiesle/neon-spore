@@ -19454,3 +19454,5 @@ first edit is what kept this from being sixteen changes to the picture.
 Bottleneck: **looking**. The red test looked like a stale arrangement and was
 one, but only because the drop it was arranged against can no longer draw a
 thread at all — six lines of probe told them apart, and nothing else would have.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

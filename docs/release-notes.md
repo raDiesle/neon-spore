@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · c924b1b0 — SCUTTLE:HANG · APART taken into the game, SHORT cut
+
+THE SCUTTLE's rows stand further apart and a loose part falls less than the gap between them, so it comes to rest clear of the socket below rather than over it. `SCUTTLE_ROWS` is rise 0.4, pitch 0.6, drop 0.26 — three rows still put the frame's top 1.6 tiles above the grid, under the HUD's pills.
+
 ## 2026-09-24 · b6c9a51e — Four phone checks confirmed on a real phone
 
 The owner checked the four entries only a phone could settle — the browser's own bars at the foot of the director, THE ORRERY's thumb pacing, the svh cap when the address bar comes back, and ?lag=1's figures — and confirmed each is right, so they leave the queue.
