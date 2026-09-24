@@ -50,7 +50,6 @@ export const CHOREO_FIELD_GROUP_C = {
   haspWindMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
   haspWindStepMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
   haspSwingBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
-  haspSlowBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
   haspBoltBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
   haspClearBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
   // RatchetConfig — how far the catch travels and the depth it counts as

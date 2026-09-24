@@ -65,11 +65,11 @@ const HASP_WHEEL: Pose = {
   build: () => {
     const w = fresh([], [], { kind: "hasp" });
     run(w, TPB * 3);
-    // His hold, then her hand: the grab first, then four samples round the
-    // rim. Short of `haspWindMilli`, on purpose — the clasp opening is a
+    // His hold, then her hand: the grab first, then eight samples round the
+    // rim, half of `haspWindMilli`. Short of it, on purpose — the clasp opening is a
     // different picture, and this one is the gesture rather than its end.
     const cmds: TimedCommand[] = [latch(w.tick, 900), rim(w.tick + 1, -1), rim(w.tick + 2, 0)];
-    for (let i = 1; i <= 4; i++) cmds.push(rim(w.tick + 2 + i * 2, i * 100));
+    for (let i = 1; i <= 8; i++) cmds.push(rim(w.tick + 2 + i * 2, i * 100));
     run(w, Math.round(TPB * 1.5), cmds);
     return w;
   },

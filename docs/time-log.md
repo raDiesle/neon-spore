@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE HASP's fuses and winding are doubled
+
+- reading: 0 min. THE HASP's step, hand, state and test, its director hand
+  and poses, and §11.37.
+- writing: 5 min. Twelve and eight beats of fuse, sixteen hundred and eight
+  hundred of turn; THE SLOW moved from the burn mid-wind to the grip, shut
+  on its three ends, and `haspSlowBeats` removed with the moment it timed.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the reading. The only clock this boss has is a grip's fuse, so
+deciding where its ask begins took longer than writing it.
+
 ## 2026-09-24 — THE BELLOWS' window is doubled
 
 - reading: 0 min. THE BELLOWS' step, hand, hash and tests, and the

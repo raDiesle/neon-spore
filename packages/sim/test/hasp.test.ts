@@ -123,10 +123,11 @@ function wind(world: World, ticks: number, by = 200): Set<string> {
   return runTo(world, t + ticks + 2, cmds);
 }
 
-/** One whole hasp wound off, with a hand on the latch the whole way. */
+/** One whole hasp wound off, with a hand on the latch the whole way — the
+ * third's need at two hundred a tick, which is more than the first two ask. */
 function windOff(world: World): Set<string> {
   grip(world);
-  const seen = wind(world, 10);
+  const seen = wind(world, (CFG.haspWindMilli + 2 * CFG.haspWindStepMilli) / 200);
   for (const type of letGo(world)) seen.add(type);
   return seen;
 }
@@ -281,21 +282,6 @@ describe("the heat", () => {
     expect(haspHeld(door(world), world.cfg)).toBe(true);
   });
 
-  it("opens THE SLOW when the burn takes a wind that had begun, and not otherwise", () => {
-    const idle = install();
-    lit(idle);
-    grip(idle);
-    beat(idle, CFG.haspHoldBeats + 1);
-    expect(idle.slowToBeat).toBeLessThanOrEqual(idle.beat);
-
-    const winding = install();
-    lit(winding);
-    grip(winding);
-    wind(winding, 2);
-    beat(winding, CFG.haspHoldBeats + 1);
-    expect(winding.slowToBeat).toBeGreaterThan(winding.beat);
-  });
-
   it("and the fuse is shorter on the last hasp than on the first", () => {
     const first = install({ haspBoltBeats: 99 });
     lit(first);
@@ -319,9 +305,9 @@ describe("the wheel", () => {
     const world = install();
     lit(world);
     grip(world);
-    wind(world, 3);
+    wind(world, (CFG.haspWindMilli * 3) / 800);
     expect(haspWoundMilli(door(world), world.cfg)).toBe(750);
-    expect(wind(world, 1).has("haspOpen")).toBe(true);
+    expect(wind(world, CFG.haspWindMilli / 800).has("haspOpen")).toBe(true);
     expect(door(world).hasps).toBe(HASP_COUNT - 1);
   });
 

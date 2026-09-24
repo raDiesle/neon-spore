@@ -1,7 +1,7 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import { midCol } from "./config.js";
 import { haspBoss, haspBurning, haspHeld, haspNeedMilli, haspWorking, NO_LATCH } from "./hasp.js";
-import { openHasp } from "./hasp-step.js";
+import { haspSlow, openHasp } from "./hasp-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -51,7 +51,8 @@ export function haspHeard(world: World, player: 1 | 2, command: Command): void {
  * he touched it, so a thumb resting short of the grip costs him nothing and
  * a hand that slid off and back on is a fresh grip — the design's *let go
  * before it burns, then grip again*, and the whole of what he can do about
- * a clock he is never shown the end of.
+ * a clock he is never shown the end of. THE SLOW follows the grip, up as
+ * it is taken and shut as it goes (`haspSlow`).
  */
 function latchHeard(world: World, command: Extract<Command, { kind: "drag" }>): void {
   const s = haspBoss(world);
@@ -62,7 +63,9 @@ function latchHeard(world: World, command: Extract<Command, { kind: "drag" }>): 
     if (s.latchMilli === NO_LATCH) return;
     const was = haspHeld(s, cfg);
     s.latchMilli = NO_LATCH;
-    if (was) world.events.push({ type: "haspLet", col: mid });
+    if (!was) return;
+    world.events.push({ type: "haspLet", col: mid });
+    haspSlow(world, s);
     return;
   }
   // A latch still cooling takes no hand at all, and neither does one on a
@@ -75,9 +78,8 @@ function latchHeard(world: World, command: Extract<Command, { kind: "drag" }>): 
   if (now) {
     s.gripBeat = world.beat;
     world.events.push({ type: "haspGrip", col: mid });
-    return;
-  }
-  world.events.push({ type: "haspLet", col: mid });
+  } else world.events.push({ type: "haspLet", col: mid });
+  haspSlow(world, s);
 }
 
 /**

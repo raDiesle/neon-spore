@@ -39,8 +39,8 @@ export const HASP_CONTROLS: readonly FieldControlDef[] = [
       "after he took hold, haspLastHoldBeats on the last clasp, and then it " +
       "is off the bar for haspBurnBeats whatever he does; a hand lifted and " +
       "put back is a fresh hold, which is the whole of what he can do about " +
-      "it. **A burn that lands in the middle of a winding opens THE SLOW** " +
-      "for haspSlowBeats, so the two seats watch the thing go wrong together. " +
+      "it. **THE SLOW spans every grip**, for its fuse, and shuts the tick " +
+      "the grip ends, so the two seats play the ask at the same slow rate. " +
       "No desk key: the bar is a carry, not a turn.",
     source: "handles.ts — haspHandleUnder() under handleUnder(); hasp-grip.ts on the move",
     holdKind: "drag",

@@ -536,18 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The doubled window: THE HASP
-
-- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
-- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-bellows (claim: claude/queue-the-doubled-window-the-hasp)
-- **Files:** `packages/sim/src/config-hasp.ts`, `packages/sim/src/hasp-step.ts`, `tools/director/src/poses-bosses-*.ts`, `docs/spec/bosses.md`
-
-Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
-`haspHoldBeats` 6 → 12, `haspLastHoldBeats` 4 → 8, `haspWindMilli`
-800 → 1600 and `haspWindStepMilli` 400 → 800. THE SLOW moves to the ask
-(`sim/undertow-slow.ts`, `sim/gorge-slow.ts`). No film. The guide's counts,
-the director's budgets, and the dated line in `bosses.md` §11.n.
-
 ## The doubled window: THE BATON
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the

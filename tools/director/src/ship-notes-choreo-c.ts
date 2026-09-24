@@ -28,8 +28,8 @@ export const CHOREO_NOTES_C = {
     "haspWindMilli for the first clasp and haspWindStepMilli more for each " +
     "after it. The latch burns haspHoldBeats after it is taken — " +
     "haspLastHoldBeats on the last clasp, which is shorter — and his hand " +
-    "is off it for haspBurnBeats before he can take it again; a burn that " +
-    "interrupts a wind already begun opens THE SLOW for haspSlowBeats. A " +
+    "is off it for haspBurnBeats before he can take it again. THE SLOW spans " +
+    "every grip for its fuse, shut when the grip ends. A " +
     "clasp given swings off over haspSwingBeats. From the second clasp a " +
     "bolt works loose over the middle column: a shot of either colour takes " +
     "it, and haspBoltBeats unanswered is one strike on the hull, which is " +

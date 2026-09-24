@@ -8222,9 +8222,9 @@ stated in both files.
 
 **The heat is his whole readout** (`haspHeatMilli`), and it is a distance
 rather than a count, so the picture can drift a colour up the mark without
-printing a number. A grip held past `haspHoldBeats` (6) burns his hand off the
+printing a number. A grip held past `haspHoldBeats` (12) burns his hand off the
 latch, which then takes no hand for `haspBurnBeats` (2). **The fuse shortens on
-the last hasp** (`haspLastHoldBeats`, 4), read off the health by
+the last hasp** (`haspLastHoldBeats`, 8), read off the health by
 `haspFuseBeats` rather than counted in a field of its own, so the state cannot
 disagree with itself about which movement it is in.
 
@@ -8232,7 +8232,7 @@ disagree with itself about which movement it is in.
 a seize: a hand going round a dead rim still reports where it is, so the
 instant the latch comes back the wheel resumes from where it stood rather than
 jumping to wherever her thumb has wandered. A hasp opens at
-`haspWindMilli` (800) and every one after it asks `haspWindStepMilli` (400)
+`haspWindMilli` (1600) and every one after it asks `haspWindStepMilli` (800)
 more, which is row 5 — the second cannot be wound inside one grip, so he has
 to let go and take hold again while she keeps turning, and the gap between his
 two grips is the thing they have to say out loud.
@@ -8240,8 +8240,8 @@ two grips is the thing they have to say out loud.
 **The clock** (`sim/hasp-step.ts`). The row hangs sealed for
 `haspStillBeats` (2) before the first latch lights; an opened clasp swings for
 `haspSwingBeats` (3) before the next one does, with both hands off it; and the
-row stands open for `haspClearBeats` (3) before the wave may end. That is every
-beat count in the fight, and none of them is a window anyone can miss.
+row stands open for `haspClearBeats` (3) before the wave may end. None of
+those is a window anyone can miss; the grip's fuse is the only one.
 
 **The seize and the burn are two words for one moment, kept apart on purpose**
 (`sim/events-hasp.ts`). He is burned off a latch he can see; she is seized on a
@@ -8271,11 +8271,11 @@ never unwound here: she keeps what she turned, and a seize costs exactly the
 turning it stole and no more. Taking a movement away would punish the seat who
 cannot see the reason it went, which is the one thing this boss may not do.
 
-*THE SLOW opens on one regrip call, not three.* It opens when the burn takes a
-wind that had **already begun** (`sim/hasp-step.ts`, `haspSlowBeats` 2), which
-is the moment either seat has to act on something the other cannot show them.
-A burn on an idle latch is nobody's emergency and gets no weight, and the fuse
-is long enough that this cannot open twice inside one wind.
+*THE SLOW spans every grip, not three regrip calls.* It is up from the tick
+his hand takes the latch for that grip's fuse, and shut the tick the grip ends
+— let go, burnt off, or the clasp wound open under it (`haspSlow`,
+`sim/hasp-step.ts`). Until the doubling below it opened for two beats when a
+burn took a wind already begun.
 
 *Row 7's bolt takes either colour*, not "their own". Only the navigator holds
 the colour buttons, so a bolt billed to a colour would be a hazard one seat
@@ -8356,13 +8356,21 @@ the wheel is dead under her hand while the latch is up and says so once; it
 turns while he holds and stops the tick he lets go; a thumb short of the grip
 depth holds nothing open and a thumb that stays down goes on holding beat after
 beat; her place on the rim survives a seize; the heat is nought at a fresh grip
-and full when it burns, the hot latch takes no hand until it has cooled, THE
-SLOW opens on a burn mid-wind and not on an idle one, and the fuse is shorter
-on the last hasp; the second hasp asks further than the first; both hands come
+and full when it burns, the hot latch takes no hand until it has cooled, and
+the fuse is shorter on the last hasp; the second hasp asks further than the first; both hands come
 off an opened one; the bolt comes loose on the second opening, goes out to a
 shot of either colour and strikes the hull if nobody answers it; and the third
 opening swings the row clear and takes the boss out of the wave. Whether any of
 it *reads* is the owner's eye.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `haspHoldBeats` 6 → 12,
+`haspLastHoldBeats` 4 → 8, `haspWindMilli` 800 → 1600 and `haspWindStepMilli`
+400 → 800, so a clasp still asks for more turning than a thumb gives in one
+grip. THE SLOW left the burn mid-wind for the grip itself, spanning its fuse
+and shut on all three of its ends (`haspSlow`, `sim/test/hasp-doubled.test.ts`),
+and `haspSlowBeats` went with the moment it timed. The guide says no count and
+did not change.
 
 ## 11.38 THE RATCHET — the boss where every step you take stays taken
 

@@ -7,12 +7,13 @@ import {
   haspHeld,
   haspLoose,
   haspTurning,
+  haspWorking,
   NO_BOLT,
   NO_BURN,
   NO_LATCH,
 } from "./hasp.js";
 import { breachHull } from "./hull-damage.js";
-import { openSlow } from "./slow.js";
+import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -27,11 +28,11 @@ import type { World } from "./world.js";
  * page, once each, so a wheel held still under a hand cannot say `haspSeize`
  * a hundred times a beat.
  *
- * **Nothing in this fight has a window on it.** A latch nobody takes lights
- * and waits; a wheel nobody winds stands where it was left. The whole of the
- * cost is the heat, which is the pilot's alone, and the bolt, which is
- * ordinary — §20 gives the pair no clock to race and the discipline they
- * have to find is each other's.
+ * **The one window in this fight is a grip's fuse.** A latch nobody takes
+ * lights and waits; a wheel nobody winds stands where it was left. The whole
+ * of the cost is the heat, which is the pilot's alone, and the bolt, which is
+ * ordinary — §20 gives the pair no clock to race but the one his hand starts,
+ * and THE SLOW spans exactly that (`haspSlow`).
  */
 
 export function installHasp(world: World): HaspState {
@@ -103,24 +104,31 @@ function haspBurnt(world: World, s: HaspState): boolean {
 
 /**
  * **The heat spent**: a grip held past its fuse burns the pilot's hand off
- * the latch, and the wheel seizes wherever it had got to.
- *
- * **THE SLOW opens here and nowhere else in the fight**, and only when the
- * burn takes a wind that had already begun. That is §20's *regrip call* —
- * the one moment either seat has to act on something the other cannot show
- * them, across the voice delay — and a burn on an idle latch is not that
- * moment and gets no weight. The fuse is long enough that this cannot open
- * twice inside the same wind (`haspHoldBeats`, `haspBurnBeats`).
+ * the latch, and the wheel seizes wherever it had got to — the grip's window
+ * missed, so THE SLOW that spanned it shuts on the same beat.
  */
 function burnHand(world: World, s: HaspState): void {
   const cfg = world.cfg;
   if (!haspHeld(s, cfg)) return;
   if (world.beat - s.gripBeat < haspFuseBeats(s, cfg)) return;
-  const winding = s.woundMilli > 0;
   s.latchMilli = NO_LATCH;
   s.burnBeat = world.beat;
   world.events.push({ type: "haspBurn", col: midCol(cfg) });
-  if (winding) openSlow(world, cfg.haspSlowBeats);
+  haspSlow(world, s);
+}
+
+/**
+ * **THE SLOW spans a grip** (`docs/decisions.md` #33): up from the tick his
+ * hand takes the latch for exactly its fuse, and shut the moment the grip
+ * ends — let go, burnt off, or the clasp wound open under it. A grip is the
+ * ask, because it starts the only clock in the fight and the wind has to fit
+ * inside it; a latch with no hand on it asks nothing and is played at speed.
+ * Read off the state, so a grip taken again after a let is a window again.
+ */
+export function haspSlow(world: World, s: HaspState): void {
+  if (haspWorking(s) && haspHeld(s, world.cfg)) {
+    openSlow(world, s.gripBeat + haspFuseBeats(s, world.cfg) - world.beat);
+  } else closeSlow(world);
 }
 
 /**
@@ -159,6 +167,7 @@ export function openHasp(world: World, s: HaspState): void {
   s.handMilli = NO_BEARING;
   s.seized = false;
   world.events.push({ type: "haspOpen", hasps: s.hasps, col: mid });
+  haspSlow(world, s);
   if (s.hasps === HASP_COUNT - 2) {
     s.boltCol = mid;
     s.boltBeat = world.beat;
