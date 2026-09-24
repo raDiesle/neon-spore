@@ -10,7 +10,8 @@
  * `--write --unsafe` — rightly, because that fix deletes a statement together
  * with the doc comment above it. This is the half of the fix that is safe to
  * run: a specifier comes out of a list, the statement and its comment stay,
- * and a statement that would go entirely is printed rather than deleted.
+ * and a statement that would go entirely is deleted only when no comment
+ * stands directly above it — one that has one is printed instead.
  *
  * biome chooses the files and has the last word on the result; `imports.ts`
  * only decides where to cut. With no argument it asks about the whole

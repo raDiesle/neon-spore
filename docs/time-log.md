@@ -19007,3 +19007,16 @@ The bottleneck was **writing**: the merge is small, and the time went on the
 refusals — each one a case a side-preferring resolver would fail.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — `bun run imports` leaves a split's whole import statements to a hand
+
+- reading: 5 min. `imports.ts`, `scan.ts`, `run.ts` and the tests; the
+  entry named `classify.ts`, which is the scanner and not the place.
+- writing: 10 min. `statementCut`, two cases, the three documents that said
+  a whole statement is only ever printed.
+- looking: 0 min. Nothing is drawn.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: the line-above test had to count a line of
+another multi-line import as an import, and a blank on both sides as one gap.

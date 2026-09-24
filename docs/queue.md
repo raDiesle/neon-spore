@@ -536,22 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `bun run imports` leaves a split's whole import statements to a hand
-
-- **Found:** 2026-09-23, claude/queue-step-lines
-- **Taken:** 2026-09-24, claude/queue-nothing-settles-a-conflict-in-versus-pose-ts-on (claim: claude/queue-bun-run-imports-leaves-a-splits-whole-import-sta)
-- **Files:** `tools/imports/classify.ts`, `tools/imports/imports.ts`, `tools/imports/test/`
-
-Cutting the field's hands out of `step.ts` stranded fourteen whole import
-statements and one specifier. `bun run imports` dropped the specifier and
-printed the fourteen "for somebody to read", because a statement's removal can
-take the comment above it with it — but not one of the fourteen had a comment
-above it, and the guard (rightly) refuses biome's unsafe fix, so they came out
-by a script. The work: in `classify.ts`, a whole unused statement with no
-comment line directly above it (the previous line is another import, blank, or
-the file's start) is dropped like a specifier; one with a comment above it is
-still printed. A test with both kinds in one file is the proof.
-
 ## `creatureAt` glides a balloon by the beat, and reaches at `DEFAULT_CONFIG`
 
 - **Found:** 2026-09-23, claude/queue-touch-hull

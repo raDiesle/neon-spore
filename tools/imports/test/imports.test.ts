@@ -56,6 +56,48 @@ describe("pruneImports", () => {
     expect(left[0]?.line).toBe(2);
   });
 
+  it("drops a whole statement with no comment above it, and leaves one with a comment", () => {
+    const source = [
+      'import { live } from "./live.ts";',
+      'import { gone } from "./gone.ts";',
+      "import {",
+      "  alsoGone,",
+      '} from "./also.ts";',
+      "",
+      'import { spare } from "./spare.ts";',
+      "",
+      "/** Kept for the lobe decision of 3 September. */",
+      'import { lobe } from "./lobe.ts";',
+      "// the cannon slides",
+      'import { slide } from "./slide.ts";',
+      "",
+      "export const z = live;",
+      "",
+    ].join("\n");
+    const { text, dropped, left } = pruneImports(source);
+    expect(text).toBe(
+      [
+        'import { live } from "./live.ts";',
+        "",
+        "/** Kept for the lobe decision of 3 September. */",
+        'import { lobe } from "./lobe.ts";',
+        "// the cannon slides",
+        'import { slide } from "./slide.ts";',
+        "",
+        "export const z = live;",
+        "",
+      ].join("\n"),
+    );
+    expect(dropped.map((d) => d.name)).toEqual(["gone", "alsoGone", "spare"]);
+    expect(left.map((l) => l.names)).toEqual([["lobe"], ["slide"]]);
+  });
+
+  it("keeps a whole statement that shares its line with anything else", () => {
+    const source = 'import { gone } from "./gone.ts"; // why\nexport const z = 1;\n';
+    expect(pruneImports(source).text).toBe(source);
+    expect(pruneImports(source).left).toHaveLength(1);
+  });
+
   it("keeps the default when the list empties, and the list when the default goes", () => {
     const emptied = pruneImports('import def, { a, b } from "./m.ts";\nexport const z = def;\n');
     expect(emptied.text).toBe('import def from "./m.ts";\nexport const z = def;\n');

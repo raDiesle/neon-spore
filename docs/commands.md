@@ -53,8 +53,9 @@ bun run imports        # drop the names a file split stranded in an import list:
                        # biome offers only an unsafe fix for those, which deletes
                        # a statement together with the doc comment above it, so
                        # this does the narrow half — a specifier comes out of a
-                       # list, and a statement that would go entirely is printed
-                       # for somebody to read (tools/imports/, and a path or two
+                       # list, a whole statement goes when no comment is directly
+                       # above it, and one under a comment is printed for
+                       # somebody to read (tools/imports/, and a path or two
                        # narrows it from the whole repository)
 bun run imports:sort   # the sort, as a step of its own — the assist `lint` asks
                        # for when it says "Sort these imports". Read what it

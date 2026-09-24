@@ -9,7 +9,12 @@
  * `step` out of `import { beatPhase, step, type World }` — touches no comment
  * at all, because the comment is attached to the statement and the statement
  * survives. That case is this file. The other one, where the whole statement
- * would go, is reported and left for somebody to read.
+ * would go, is reported and left for somebody to read — **when there is a
+ * comment directly above it**. With none, the statement goes too: the previous
+ * line is another import, a blank or the file's start, so there is nothing
+ * for the cut to take with it. Cutting the field's hands out of `step.ts` on
+ * 23 September 2026 stranded fourteen such statements, not one with a comment
+ * over it, and all fourteen were printed for a person and cut by a script.
  *
  * A name stays whenever there is any doubt. It is dropped only when it occurs
  * nowhere else in the file outside a comment — a use in a string, a type
@@ -20,7 +25,7 @@
 import { COMMENT, classify } from "./classify.js";
 import { type ImportDecl, importDecls } from "./scan.js";
 
-/** A statement every one of whose names is unused: left alone, and reported. */
+/** A statement every one of whose names is unused, under a comment: left alone, and reported. */
 export type Left = {
   readonly line: number;
   readonly names: readonly string[];
@@ -60,6 +65,37 @@ function usedElsewhere(
   return false;
 }
 
+/**
+ * The statement's whole lines, when it can go without taking a comment: it
+ * starts its line, nothing but whitespace follows it on its last one, and the
+ * line above is blank, the file's start, or part of another import. A blank on
+ * both sides goes with it, so the gap it leaves is one blank and not two.
+ */
+function statementCut(
+  text: string,
+  decl: ImportDecl,
+  decls: readonly ImportDecl[],
+): [number, number] | null {
+  const from = text.lastIndexOf("\n", decl.start - 1) + 1;
+  if (text.slice(from, decl.start).trim() !== "") return null;
+  const eol = text.indexOf("\n", decl.end);
+  const lineEnd = eol < 0 ? text.length : eol;
+  if (text.slice(decl.end, lineEnd).trim() !== "") return null;
+  let to = eol < 0 ? text.length : eol + 1;
+
+  let above = from - 2;
+  while (above >= 0 && /\s/.test(text[above] ?? "") && text[above] !== "\n") above--;
+  const blankAbove = from === 0 || above < 0 || text[above] === "\n";
+  if (!blankAbove && !decls.some((d) => d !== decl && above >= d.start && above < d.end)) {
+    return null;
+  }
+  if (blankAbove) {
+    const next = text.indexOf("\n", to);
+    if (next >= 0 && text.slice(to, next).trim() === "") to = next + 1;
+  }
+  return [from, to];
+}
+
 /** A cut, and the whitespace and comma that would otherwise be left behind. */
 function widen(text: string, from: number, to: number, listEnd: number): [number, number] {
   let after = to;
@@ -80,8 +116,9 @@ function widen(text: string, from: number, to: number, listEnd: number): [number
  * `source` with every stranded specifier taken out of its list, plus what was
  * dropped and what was left for a person.
  *
- * Nothing here deletes a statement: when every name a statement binds is
- * unused, the statement is untouched and one `Left` row says so.
+ * When every name a statement binds is unused, the statement goes whole if
+ * `statementCut` finds no comment above it, and each of its names is a
+ * `Dropped` row; otherwise it is untouched and one `Left` row says so.
  */
 export function pruneImports(source: string): Pruned {
   const decls = importDecls(source);
@@ -95,6 +132,12 @@ export function pruneImports(source: string): Pruned {
     const unused = decl.bindings.filter((b) => !usedElsewhere(b.local, source, kind, decls));
     if (unused.length === 0) continue;
     if (unused.length === decl.bindings.length) {
+      const whole = statementCut(source, decl, decls);
+      if (whole) {
+        cuts.push(whole);
+        for (const b of unused) dropped.push({ line: lineOf(source, b.start), name: b.local });
+        continue;
+      }
       left.push({
         line: lineOf(source, decl.start),
         names: unused.map((b) => b.local),
