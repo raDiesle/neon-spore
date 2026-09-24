@@ -469,6 +469,7 @@ job name beside it.
 ## Nineteen scene captions still say lane, plate, ward or guard
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054
+- **Taken:** 2026-09-24, claude/queue-the-games-preview-has-no-here-route-and-the-dire (claim: claude/queue-nineteen-scene-captions-still-say-lane-plate-war)
 - **Files:** `packages/content/src/scenes/*.ts`, `packages/render/src/duty.ts`, `tools/words/test/drawn.test.ts`
 - **Where:** local
 
