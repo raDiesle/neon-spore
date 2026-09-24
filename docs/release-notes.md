@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · d12f5891 — The ship's hand ring and its marks fade their line with their glow
+
+The cup under a hand, the navigator's two colours, the slide arrows, the maw's chevrons and the guard's bolt all set `ctx.globalAlpha` before `strokeGlow`, which ignores it. Their glow faded, but the line itself was drawn at full strength, so a desk's hover drew the cup as bright as a held hand's, and an unlit colour's chevron as bright as a lit one's. Each now passes its fade as `alpha`, and the glow's strength is unchanged.
+
 ## 2026-09-24 · 3fdc65a1 — The pointer rig's `Field` is built beside the bindings it reads
 
 `fieldFrom(bindings)` in `input-bindings.ts` builds the field a hit test is asked with, fresh on every press. `bindControls` now takes its bindings whole instead of destructuring every name only to copy it into the field, which brings `input.ts` from 248 lines to 201.

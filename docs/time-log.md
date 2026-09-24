@@ -19069,3 +19069,5 @@ what is left is the check.
 The bottleneck was **looking**: the one-minute tally is the only way to
 know which calls are affected, and it had to run again for the list the
 next lanes take.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
