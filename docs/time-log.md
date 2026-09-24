@@ -19757,3 +19757,16 @@ The bottleneck was **reading**: one line to remove, and a caption anchor
 that pointed at it from eighteen scenes.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — No kind line says CARRY; the verb is the motion
+
+- reading: 5 min. The two hands that write a cue's kind line, and the
+  twenty-odd readings and tests that name `CARRY`.
+- writing: 5 min. One `saysKind` both hands call, and four tests that
+  counted a drawn `CARRY`.
+- looking: 5 min. One frame of THE INSTAR's pull.
+- friction: 0 min.
+- landing: 5 min. `check:fast`.
+
+The bottleneck was **reading**: the word stood in thirty readings, and the
+cut was which of them drew it rather than which of them said it.

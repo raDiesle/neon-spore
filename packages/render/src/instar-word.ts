@@ -1,3 +1,4 @@
+import { saysKind } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -25,7 +26,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * STARE's and THE FILAMENT's own calls, which name a seat rather than an
  * action, still draw one line. `boss-cue-text.ts`'s own rule travels with it:
  * a kind that equals the word — a `turn` mark's `TURN` over `TURN` — draws
- * once.
+ * once, and `CARRY` over `PULL DOWN` draws `PULL DOWN` alone (`saysKind`).
  *
  * Its own file because `instar-marks.ts` was at its limit with the rings.
  */
@@ -58,7 +59,7 @@ function halfWidth(ctx: CanvasRenderingContext2D, l: Layout, word: string, kind?
   ctx.font = font.word;
   const wordW = ctx.measureText(word).width;
   ctx.font = font.kind;
-  const kindW = kind !== undefined && kind !== word ? ctx.measureText(kind).width : 0;
+  const kindW = saysKind(kind, word) ? ctx.measureText(kind).width : 0;
   return Math.max(wordW, kindW) / 2 + l.tile * FONT_TILES * 0.45;
 }
 
@@ -108,7 +109,7 @@ function paint(
   ctx.textBaseline = "middle";
   ctx.font = font.word;
   const wordW = ctx.measureText(word).width;
-  const say = kind !== undefined && kind !== word;
+  const say = saysKind(kind, word);
   ctx.font = font.kind;
   const kindW = say ? ctx.measureText(kind).width : 0;
   const w = Math.max(wordW, kindW);

@@ -214,7 +214,7 @@ describe("THE REPRISE", () => {
     const echo = until(opened(), repriseEchoing);
     const his = drawn("p1", echo);
     expect(his).toContain("MOVE");
-    expect(his).toContain("CARRY");
+    expect(his).not.toContain("CARRY");
     expect(his).not.toContain("FIRE");
     const hers = drawn("p2", echo);
     expect(hers).toContain("FIRE");

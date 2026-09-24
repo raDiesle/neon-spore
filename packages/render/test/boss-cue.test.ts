@@ -265,6 +265,10 @@ describe("a kind line that is the verb said twice", () => {
   });
 
   it("is drawn wherever it says something the verb does not", () => {
-    expect(lines("CARRY", "PULL")).toEqual(["PULL", "CARRY"]);
+    expect(lines("PRESS", "FIRE")).toEqual(["FIRE", "PRESS"]);
+  });
+
+  it("never says CARRY, whose verb is always the motion (the owner, 24 September 2026)", () => {
+    expect(lines("CARRY", "PULL")).toEqual(["PULL"]);
   });
 });

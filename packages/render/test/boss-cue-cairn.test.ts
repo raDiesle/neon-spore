@@ -186,7 +186,7 @@ describe("THE CAIRN", () => {
     const standing = (): void => {};
     for (const role of ["p1", "p2"] as const) {
       expect(drawn(role, standing)).toContain("PULL");
-      expect(drawn(role, standing)).toContain("CARRY");
+      expect(drawn(role, standing)).not.toContain("CARRY");
     }
     // The clock is on his screen and not on hers, and the word is the same on
     // both regardless: the frames are where that stops being an argument.

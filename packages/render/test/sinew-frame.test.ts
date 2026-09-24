@@ -285,23 +285,24 @@ describe("THE SINEW's word", () => {
   it.each(ROLES)("stands on this seat's handle and not on the other's, on %s", (role) => {
     const { words } = drawn(hung(), role, 3);
     expect(words.filter((w) => w === "PULL").length).toBe(ASKED[role]);
-    expect(words.filter((w) => w === "CARRY").length).toBe(ASKED[role]);
   });
 
-  it.each(ROLES)("says the kind of action over the verb, in the cue's grey, on %s", (role) => {
+  // No `CARRY` over it: the verb is the motion already (`saysKind`, the owner,
+  // 24 September 2026).
+  it.each(ROLES)("says the verb alone, in the cue's grey, on %s", (role) => {
     const { words, text } = drawn(hung(), role, 3);
-    expect(words).toContain("CARRY");
+    expect(words).not.toContain("CARRY");
     expect(text, "the cue is drawn in rock grey, never an ammunition colour").toContain(
       PALETTE.rock,
     );
   });
 
-  it.each(ROLES)("changes the verb and not the kind once the mass falls, on %s", (role) => {
+  it.each(ROLES)("changes the verb once the mass falls, on %s", (role) => {
     const world = hung();
     falling(world);
     const { words } = drawn(world, role, 3);
     expect(words.filter((w) => w === "SWAY").length).toBe(ASKED[role]);
     expect(words).not.toContain("PULL");
-    expect(words.filter((w) => w === "CARRY").length).toBe(ASKED[role]);
+    expect(words).not.toContain("CARRY");
   });
 });

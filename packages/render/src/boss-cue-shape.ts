@@ -107,3 +107,17 @@ export function cueSeen(cue: BossCue, role: ViewRole): boolean {
   if (cue.seat === null) return true;
   return cue.seat === 1 ? showsCannon(role) : showsShield(role);
 }
+
+/**
+ * **Whether the kind line is drawn over this verb.** Not when it is the verb
+ * said twice — `TURN` over `TURN` — and **never `CARRY`**: the owner, 24
+ * September 2026, *why we need the keyword of "Carry"? … "Pull up" its clear
+ * he has to take action, so "Carry" is not required at all.* Every carry's
+ * verb is already the motion — `PULL`, `SWIPE`, `MOVE` — so the line over it
+ * only repeated it in grammar. The kind stays on the cue as data: tests and
+ * the desk still read which gesture a mark asks for. Both hands that write a
+ * cue ask here (`boss-cue-text.ts`, `instar-word.ts`).
+ */
+export function saysKind(kind: string | undefined, word: string): kind is string {
+  return kind !== undefined && kind !== word && kind !== "CARRY";
+}

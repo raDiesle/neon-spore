@@ -1,4 +1,5 @@
 import type { BossCue } from "./boss-cue.js";
+import { saysKind } from "./boss-cue-shape.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -78,7 +79,9 @@ export function drawCueText(ctx: CanvasRenderingContext2D, cue: BossCue, time: n
   // objection `bosses-choreographed.md` raised when those two were left out of
   // the cue altogether, and it is answered here rather than by keeping a second
   // prompt system for three bosses. #34 asks for one word and not for a form.
-  if (cue.kind !== cue.word) {
+  // And `CARRY` never, since the verb under it is always the motion
+  // (`saysKind`).
+  if (saysKind(cue.kind, cue.word)) {
     ctx.globalAlpha = breath * KIND_ALPHA;
     ctx.font = KIND_FONT;
     ctx.fillText(cue.kind, cue.x, kindY(cue.y, cue.halfH, wordY, floor));

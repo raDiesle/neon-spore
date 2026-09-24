@@ -43,13 +43,17 @@ describe("THE INSTAR's scanner box", () => {
   });
 
   it("draws the kind above the verb when the two differ", () => {
-    const texts = drawn("PULL DOWN", "CARRY");
-    expect(texts.map((t) => t.text).sort()).toEqual(["CARRY", "PULL DOWN"]);
-    const kind = texts.find((t) => t.text === "CARRY");
-    const word = texts.find((t) => t.text === "PULL DOWN");
+    const texts = drawn("TAP TAP", "PRESS");
+    expect(texts.map((t) => t.text).sort()).toEqual(["PRESS", "TAP TAP"]);
+    const kind = texts.find((t) => t.text === "PRESS");
+    const word = texts.find((t) => t.text === "TAP TAP");
     expect(kind, "no kind line drawn").toBeTruthy();
     expect(word, "no verb drawn").toBeTruthy();
     expect((kind as TextBox).y).toBeLessThan((word as TextBox).y);
+  });
+
+  it("never draws CARRY: the verb is the motion already, the owner's 24 September", () => {
+    expect(drawn("PULL DOWN", "CARRY").map((t) => t.text)).toEqual(["PULL DOWN"]);
   });
 
   it("draws once when the kind is the verb said twice, THE TURN mark's own case", () => {

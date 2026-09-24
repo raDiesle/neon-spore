@@ -72,6 +72,11 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   stupid idea*); the ring closing on each mark is the only clock. **The
   slow's light runs from the top of the screen**, never from an edge the
   player cannot see (the same day).
+- **No `CARRY` on the glass**, generic, 24 September 2026: *why we need the
+  keyword of "Carry"? … "Pull up" its clear he has to take action.* A verb
+  that is a motion — `PULL UP`, `SWIPE`, `MOVE` — draws alone; the kind line
+  stays only where it adds something (`PRESS`, `HOLD`, `STILL`). One rule,
+  `saysKind` in `render/src/boss-cue-shape.ts`, and both hands call it.
 - **Dislikes, in his words:** THE BELLOWS, played and removed on 24
   September 2026 — *"it's not clear to me how to play … what does 'push'
   means? … it's not clear what is goal … why on a curtain a jam is going out,

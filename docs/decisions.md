@@ -1161,7 +1161,11 @@ a button.
 **The shape, and it is the owner's.** Where the action is, is a mark on the
 field. Beside it, a scan frame with **one word** — the verb the thumb performs.
 Above it, **what kind of action** it is: whose thumb, and whether it is a press,
-a carry, a turn or a hold. Nothing else, and never a sentence.
+a carry, a turn or a hold. Nothing else, and never a sentence. **A carry's
+line is not drawn** (the owner, 24 September 2026: *"Pull up" its clear he has
+to take action, so "Carry" is not required at all*) — the verb under it is
+always the motion, so `CARRY` only said it again (`render/src/boss-cue-shape.ts`,
+`saysKind`).
 
 **Three rules it inherits.**
 
