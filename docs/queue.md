@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## Nothing settles a conflict in `versus-pose.ts` on a landing
 
 - **Found:** 2026-09-23, claude/queue-replay-registry
+- **Taken:** 2026-09-24, claude/queue-unverified-at-5db3ae3e-the-svh-cap-on-a-real-pho (claim: claude/queue-nothing-settles-a-conflict-in-versus-pose-ts-on)
 - **Files:** `tools/land/replay.ts`, `tools/director/src/versus-pose.ts`, `tools/versus/pose-row.ts`, `tools/land/test/`
 
 The replay now settles `candidates/registry.ts` by generating it again, but
