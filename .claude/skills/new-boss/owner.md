@@ -102,6 +102,10 @@ feedback on a boss says one, with the date, in his words where he gave them.**
      travels toward the length that counts (the same day, a second time:
      *direct feedback while swiping down correctly*), and the fill is the
      simulation's word (`instarSwipeAlong`), never the drawer's guess.
+     **A swipe is drawn as a track, not a ring** (the same message): the bar
+     path of a slider without its knob, from where the thumb goes to the
+     length the lift counts at, so the end of the bar is the end of the swipe
+     (`render/src/instar-track.ts`).
   THE INSTAR is the worked example he asked for before the rest
   (`render/grip-verdict.ts`); the roll-out is `docs/queue.md`'s.
 - **Open, for his feedback:** which of the three kinds the next one should be;

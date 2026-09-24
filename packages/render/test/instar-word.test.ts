@@ -56,6 +56,18 @@ describe("THE INSTAR's scanner box", () => {
     expect(drawn("PULL DOWN", "CARRY").map((t) => t.text)).toEqual(["PULL DOWN"]);
   });
 
+  it("hangs off the mark's other side when this one would push it back over the mark", () => {
+    // THE INSTAR's egg clutch, near the right edge: the box clamped to the
+    // glass stood over the swipe it named (24 September 2026).
+    const { ctx } = stubCanvas();
+    ctx.texts = [];
+    const mark = L.width - 20;
+    const c = ctx as unknown as CanvasRenderingContext2D;
+    drawInstarWord(c, L, "SWIPE DOWN", mark + 30, 400, 1, true, undefined, mark - 30);
+    const x = (ctx.texts as TextBox[])[0]?.x ?? mark;
+    expect(x).toBeLessThan(mark - 30);
+  });
+
   it("draws once when the kind is the verb said twice, THE TURN mark's own case", () => {
     const texts = drawn("TURN", "TURN");
     expect(texts.map((t) => t.text)).toEqual(["TURN"]);

@@ -87,10 +87,16 @@ export function drawInstarWord(
   /** The action's grammar, over the verb — one of `boss-cue.ts`'s `CueKind`
    * strings. Left out for a call that names a seat rather than an action. */
   kind?: string,
+  /** The near edge on the mark's other side, to hang the box off instead
+   * when this side has no room for it. */
+  other?: number,
 ): void {
   const half = halfWidth(ctx, l, word, kind) + l.tile * INSET_TILES;
-  const cx =
-    half * 2 >= l.width ? l.width / 2 : Math.min(Math.max(x + side * half, half), l.width - half);
+  const at = (edge: number, way: number): number =>
+    half * 2 >= l.width ? l.width / 2 : Math.min(Math.max(edge + way * half, half), l.width - half);
+  const here = at(x, side);
+  const fits = (edge: number, way: number): boolean => at(edge, way) === edge + way * half;
+  const cx = other === undefined || fits(x, side) || !fits(other, -side) ? here : at(other, -side);
   paint(ctx, l, word, kind, cx, y, mine);
 }
 

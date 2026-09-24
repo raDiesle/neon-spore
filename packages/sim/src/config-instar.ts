@@ -19,7 +19,11 @@ export interface InstarConfig {
    * and that is `render/instar-together.ts`.
    */
   instarTogetherBeats: number;
-  /** Thousandths of a tile a thumb must carry a mark before the lift counts a swipe. */
+  /** Thousandths of a tile a thumb must carry a mark before the lift counts a
+   * swipe — and the length of the track the swipe is drawn as, so the end of
+   * the bar is where the lift counts (`render/src/instar-track.ts`). One and a
+   * half tiles since 24 September 2026: at 0.6 the track was a stub under
+   * the eggs, shorter than the ring it replaced. */
   instarSwipeMilli: number;
   /**
    * Beats the field runs at the slow rate from every step landing, and from
@@ -34,7 +38,7 @@ export interface InstarConfig {
 
 export const INSTAR_DEFAULTS: InstarConfig = {
   instarTogetherBeats: 2,
-  instarSwipeMilli: 600,
+  instarSwipeMilli: 1500,
   instarSlowBeats: 4,
   instarOutBeats: 3,
 };

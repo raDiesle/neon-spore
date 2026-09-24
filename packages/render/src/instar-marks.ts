@@ -23,6 +23,7 @@ import {
   instarAwaited,
   instarTogetherLeft,
 } from "./instar-together.js";
+import { drawInstarSwipe, instarTrack } from "./instar-track.js";
 import { drawInstarWord } from "./instar-word.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -145,18 +146,41 @@ export function drawInstarMarks(
       const count = (s.progress[i] ?? 0) / mark.need;
       const along = Math.max(0, Math.min(1, swipe ? instarSwipeAlong(s, cfg, i) / 1000 : count));
       const held = (s.thumbs[i] ?? 0) !== 0;
+      const { kind, word } = instarMarkWord(mark, role);
+      if (swipe) {
+        // A track and not a ring: the way the thumb goes (`instar-track.ts`).
+        const t = instarTrack(at.x, at.y, r, (l.tile * cfg.instarSwipeMilli) / 1000);
+        drawInstarSwipe(ctx, t, r, mine, held, along, time, awaited, left);
+        const mid = (t.top + t.bottom) / 2;
+        const off = r * 3.1;
+        drawInstarWord(ctx, l, word, at.x + side * off, mid, side, mine, kind, at.x - side * off);
+        drawVerdict(ctx, verdicts, i, at.x, at.y, r);
+        return;
+      }
       if (mine) drawInstarHalo(ctx, at.x, at.y, r, time);
       drawRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
       if (!mine) drawInstarTheirs(ctx, at.x, at.y, r, time);
       drawInstarWindow(ctx, at.x, at.y, r, left, mine);
-      const { kind, word } = instarMarkWord(mark, role);
-      drawInstarWord(ctx, l, word, at.x + side * r * 3.1, at.y, side, mine, kind);
+      const off = r * 3.1;
+      drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, at.x - side * off);
     }
-    // The verdict goes over the ring or the dot, whichever this frame drew:
-    // the touch that finished a mark is judged green on the mark it finished.
-    const v = verdicts.at(i);
-    if (v !== null) drawVerdictRing(ctx, at.x, at.y, r, v);
+    drawVerdict(ctx, verdicts, i, at.x, at.y, r);
   });
+}
+
+/** The verdict goes over the ring, the track's top or the dot, whichever this
+ * frame drew: the touch that finished a mark is judged green on the mark it
+ * finished. */
+function drawVerdict(
+  ctx: CanvasRenderingContext2D,
+  verdicts: { at(key: number): GripVerdict | null },
+  i: number,
+  x: number,
+  y: number,
+  r: number,
+): void {
+  const v = verdicts.at(i);
+  if (v !== null) drawVerdictRing(ctx, x, y, r, v);
 }
 
 /**

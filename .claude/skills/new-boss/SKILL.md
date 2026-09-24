@@ -155,7 +155,9 @@ things, and a boss's look lane is read against all five:
    depth the thumb has it, one egg fewer per swipe, the tongue winding with the
    turn. Progress is read off the body, never off a bar.
 5. **The mark says which gesture**: a breathing ring, a glyph inside it, the
-   window closing as a ring, and the cue's word beside it (`boss-cue.ts`).
+   window closing as a ring, and the cue's word beside it (`boss-cue.ts`) —
+   and a swipe is a track the length of the swipe, never a ring
+   (`instar-track.ts`, the owner's generic rule in `owner.md`).
 
 - **Send one PNG** — `bun run frames . --wave "THE X" --seat p1 --press …` —
   and never a description. Then `bun run land --keep`, and tell the owner the
