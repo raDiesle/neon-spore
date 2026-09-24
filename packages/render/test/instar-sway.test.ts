@@ -54,7 +54,7 @@ function hung(): World {
   return world;
 }
 
-/** The body acting on a step, its marks up and untouched — `instar-call.test.ts`'s arrangement. */
+/** The body acting on a step, its marks up and untouched. */
 function acting(world: World, cursor: number): InstarState {
   const s = instarBoss(world);
   if (s === null) throw new Error("the instar wave hung no body");

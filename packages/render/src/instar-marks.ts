@@ -12,7 +12,6 @@ import {
 import type { CueKind } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
-import { drawInstarCall } from "./instar-call.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import { drawInstarHalo, drawInstarTheirs } from "./instar-mark-feedback.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
@@ -50,9 +49,9 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * about to ask for, so the pair's thumbs are already there when the window
  * opens.
  *
- * **The step's own call stands under both marks** (`instar-call.ts`): who the
- * pose is waiting on and how long they have, which is the one thing neither
- * ring can say because it is about the pair.
+ * **No line is written for the step as a whole.** Two rings up at once are
+ * the pose saying *either order*, and the owner took the sentence that said
+ * it again off the glass on 24 September 2026 (`test/pair-order.test.ts`).
  *
  * **A mark answered while its partner is still out is not finished**, and
  * what that costs is drawn next door (`instar-together.ts`): the dot carries
@@ -152,7 +151,6 @@ export function drawInstarMarks(
     const v = verdicts.at(i);
     if (v !== null) drawVerdictRing(ctx, at.x, at.y, r, v);
   });
-  drawInstarCall(ctx, l, s, cfg, beat, beatPhase);
 }
 
 /**

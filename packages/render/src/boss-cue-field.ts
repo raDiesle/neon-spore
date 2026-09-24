@@ -2,7 +2,6 @@ import type { World } from "@neon-spore/sim";
 import { drawBossCue } from "./boss-cue-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
-import { drawPairCall } from "./pair-call.js";
 import type { ViewState } from "./renderer.js";
 import { wellShown } from "./well.js";
 
@@ -29,9 +28,11 @@ import { wellShown } from "./well.js";
  * `drawBodies` asked before this moved out from under it — not a second copy
  * of the rule, since this is the only other place that rule is needed.
  *
- * **The second seat's clock is drawn here too**, after the cue and for the
- * same reason: it is the other thing the field says to the pair, and nothing
- * drawn later may cover it (`pair-call.ts`).
+ * **Nothing else is written here.** A line over the cannon naming whose turn
+ * it is and counting the beats down stood here until 24 September 2026, when
+ * the owner took it out: two marks up at once already say *either order*, and
+ * a seat that must wait is shown its mark only when its time has come
+ * (`test/pair-order.test.ts`).
  */
 export function drawFieldBossCue(
   ctx: CanvasRenderingContext2D,
@@ -42,5 +43,4 @@ export function drawFieldBossCue(
 ): void {
   if (wellShown(l, world)) return;
   drawBossCue(ctx, l, world, view.beatPhase, view.time, skinY);
-  drawPairCall(ctx, l, world, view.beatPhase);
 }

@@ -857,7 +857,6 @@ by hand never moves.
 |---|---|
 | `packages/render/src/palette.ts` | style guide as values |
 | `packages/render/src/panel-plan.ts` | where the controls stand on the panel, as a record — the rows, the radius and each seat's spread, read by the layout and by bandLobes so drawing and touch move together |
-| `packages/render/src/pair-call.ts` | the second seat's clock on every boss that judges one seat against when the other acted — TASTER, DIASTOLE, BATON, SURGE — as one line naming the seat still out and its beats left |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
 | `packages/render/src/layout-stage.ts` | **Where the game is drawn, before anything is placed inside it.** Cut out of `layout.ts` when THE WELL's roll… |
@@ -1404,7 +1403,6 @@ by hand never moves.
 | `packages/render/src/instar-sway.ts` | **THE INSTAR swings**, and everything of it swings together |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
-| `packages/render/src/instar-call.ts` | **The step's own call**: which seat the pose is waiting on, and how many beats it has left |
 | `packages/render/src/instar-chain.ts` | The chain up out of the frame: four segments from above the top of the grid down to the back of the head |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |

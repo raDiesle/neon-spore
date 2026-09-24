@@ -117,13 +117,9 @@ function count(text: string, colour: string): number {
 }
 
 /** How many rings are standing on this screen, net of the fan's own notches. */
-/** The second seat's clock stands on the glass with a dark backing of its own
- * while the pry's window runs (`pair-call.ts`) — a rectangle, not a ring. */
-const BANNER_BACKING = `set fillStyle=${PALETTE.background}|set globalAlpha=0.55|fillRect(`;
-
 function rings(world: World, role: ViewRole = "test"): number {
   const text = drawn(world, role);
-  return count(text, PALETTE.background) - count(text, BANNER_BACKING) - fan(world).shorn;
+  return count(text, PALETTE.background) - fan(world).shorn;
 }
 
 /** The seats the pin and the pry are *his* on, and the ones the wipe is

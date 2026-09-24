@@ -131,7 +131,9 @@ commit. The shape of it, from THE DIASTOLE, THE CANDLE and THE GORGE:
 - The branch in `boss-draw.ts` is short; the file is near 250.
 - Take the events out of the two silent lists' *reason*, if not the lists.
 - **One seat judged against when the other acted** (a pry the beam must land
-  inside) is a `case` in `render/src/pair-call.ts`; none, its test's silent list.
+  inside) is said by the marks: the waiting seat is shown its mark only once
+  its time has come, and no line over the cannon names a turn
+  (`render/test/pair-order.test.ts`).
 - `render/test/<boss>-frame.test.ts`: every state of the picture on all three
   screens, set rather than waited for, and the split proved both ways.
 - `docs/spec/bosses.md` §11.n gets *The look* and loses *What is not built*.

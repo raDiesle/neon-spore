@@ -19641,3 +19641,20 @@ hosts, a key the director already spends on something else, and a sim that
 refuses the wrong thumb to understand first.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — No line over the cannon says whose turn it is; the marks say the order
+
+- reading: 10 min. `instar-call.ts`, `pair-call.ts` and every boss that
+  called it, and `boss-cue-taster.test.ts` for the pilot-first ordering
+  already held back by the cue.
+- writing: 15 min. Two files and their tests removed, the callers and five
+  comments that named them, `pair-order.test.ts`, the skill's line.
+- looking: 5 min. One frame of THE INSTAR through `bun run frames`, which
+  showed the banner over the two marks.
+- friction: 5 min. The fresh worktree's workspace links, fixed by
+  `bun install`; the browser pane stuck on a policy check.
+- landing: 5 min. `check:fast`, red once on the doc-drift test naming the
+  deleted file from the new-boss skill, then green.
+
+The bottleneck was **writing**: the banner was two lines to delete and a
+dozen places that described it.

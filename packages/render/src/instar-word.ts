@@ -28,13 +28,6 @@ import { PALETTE, STROKE } from "./palette.js";
  * once.
  *
  * Its own file because `instar-marks.ts` was at its limit with the rings.
- *
- * **Two ways to stand.** `drawInstarWord` is the original: an edge and a side,
- * so the box hangs off a ring away from the middle of the field.
- * `drawInstarBanner` centres one on the glass, for a line that belongs to the
- * step rather than to either mark (`instar-call.ts`). One box, drawn twice,
- * because a second implementation of the brackets is a second thing to keep
- * in step.
  */
 
 /** The word's size, in tiles — THE WARDEN's loud hint (`handle-draw.ts`). */
@@ -98,19 +91,6 @@ export function drawInstarWord(
   const cx =
     half * 2 >= l.width ? l.width / 2 : Math.min(Math.max(x + side * half, half), l.width - half);
   paint(ctx, l, word, kind, cx, y, mine);
-}
-
-/** The same box, centred on the glass: a line the whole step is under rather
- * than one mark's label (`instar-call.ts`). */
-export function drawInstarBanner(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  word: string,
-  y: number,
-  mine: boolean,
-  kind?: string,
-): void {
-  paint(ctx, l, word, kind, l.width / 2, y, mine);
 }
 
 function paint(

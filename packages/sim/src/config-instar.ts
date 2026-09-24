@@ -16,7 +16,7 @@ export interface InstarConfig {
    * pose, on the owner's word of 20 September 2026: *"For the moment keep
    * simple."* Not widened, and no step names its own; what made two beats
    * read as too short was the picture never saying this clock was running,
-   * and that is `render/instar-together.ts` and `render/instar-call.ts`.
+   * and that is `render/instar-together.ts`.
    */
   instarTogetherBeats: number;
   /** Thousandths of a tile a thumb must carry a mark before the lift counts a swipe. */

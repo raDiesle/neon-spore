@@ -64,8 +64,7 @@ export const NO_LIFT = -1;
 /**
  * The last tick a second thumb may lift and still be *together* with a first
  * one lifted on `liftTick`: one beat of ticks after it. THE SURGE judges its
- * mutual lift by it, and the call that counts the second seat down
- * (`render/pair-call.ts`) reads it rather than knowing the width.
+ * mutual lift by it.
  */
 export function liftTogetherUntil(cfg: SimConfig, liftTick: number): number {
   return liftTick + ticksPerBeat(cfg);
