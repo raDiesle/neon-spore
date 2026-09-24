@@ -38,17 +38,17 @@ export interface Point {
  * pills rather than through them — THE LEAD's full stalk reaches 1.85 for the
  * same reason (`lead-shape.ts`).
  *
- * A record rather than three constants so VERSUS can offer another answer
- * (`tools/versus/candidates/scuttle-hang`): the drop is longer than
- * the pitch, so a part off an upper row comes to rest over the socket below
- * it (`docs/queue.md`, 21 September 2026).
+ * **The drop is shorter than the pitch**, so a part off an upper row comes to
+ * rest clear of the socket below it rather than over it — VERSUS `apart`,
+ * taken 24 September 2026 (`tools/versus/DECIDED.md`). The bottom row sits
+ * lower to keep the frame's top where it was.
  */
 export interface ScuttleRows {
   rise: number;
   pitch: number;
   drop: number;
 }
-export const SCUTTLE_ROWS: ScuttleRows = { rise: 0.55, pitch: 0.42, drop: 0.55 };
+export const SCUTTLE_ROWS: ScuttleRows = { rise: 0.4, pitch: 0.6, drop: 0.26 };
 /** A socket's half width and half height, in tiles. */
 export const SOCKET_HALF_W = 0.36;
 export const SOCKET_HALF_H = 0.16;

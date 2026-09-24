@@ -19438,3 +19438,19 @@ alpha, so three quarters of it was not there; checking the stub before the
 first edit is what kept this from being sixteen changes to the picture.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — SCUTTLE:HANG · APART taken, SHORT cut
+
+- reading: 5 min. The two candidates, `SCUTTLE_ROWS`, the README's `adopt`
+  section and `DECIDED.md`.
+- writing: 5 min. `bun run versus adopt`, the record's stale doc comment, the
+  thread test's arrangement, the queue entry.
+- looking: 5 min. The thread's geometry probed at six phases once the frame
+  test went red, which is what found the defect.
+- friction: 5 min. Two workspace links missing in a fresh worktree
+  (`bun install --force`), and `adopt` wrote a record literal biome rejects.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: **looking**. The red test looked like a stale arrangement and was
+one, but only because the drop it was arranged against can no longer draw a
+thread at all — six lines of probe told them apart, and nothing else would have.

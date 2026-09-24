@@ -1116,3 +1116,16 @@ skin
 
 The other answers offered were `drain`, `focus`, `frame`, `gather`, `gutter`,
 `hush`, `indraw` and `wash`; they went with the slot.
+
+## `scuttle:hang` / `apart` — taken, 2026-09-24
+
+the rows stand further apart so a loose part hangs between sockets, never over
+the one below
+
+the rows further apart — a loose part falls less than the gap, so it hangs
+between sockets and never over the one below
+
+Written into `packages/render/src/scuttle-shape.ts`, `SCUTTLE_ROWS`: `drop`,
+`pitch` and `rise`.
+
+The other answer offered was `short`; it went with the slot.

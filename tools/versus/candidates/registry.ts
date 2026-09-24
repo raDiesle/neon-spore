@@ -7,7 +7,5 @@
 
 import type { Variant } from "../variant.js";
 import { BODY_FULL } from "./body-glow/full/index.js";
-import { HANG_APART } from "./scuttle-hang/apart/index.js";
-import { HANG_SHORT } from "./scuttle-hang/short/index.js";
 
-export const VARIANTS: Variant[] = [BODY_FULL, HANG_APART, HANG_SHORT];
+export const VARIANTS: Variant[] = [BODY_FULL];

@@ -321,3 +321,48 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## THE SCUTTLE's thread is drawn backwards and never leaves its socket
+
+- **Found:** 2026-09-24, claude/scuttle-hang-versus-swap
+- **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/test/scuttle-frame.test.ts`
+- **Asks:** should the drop grow past 0.32 tiles, or should the part and its socket shrink to make room for the thread?
+
+VERSUS `apart` was taken into the game on 24 September 2026 and set
+`SCUTTLE_ROWS.drop` to 0.26 tiles. `drawThread` runs from the socket's floor
+at `SOCKET_HALF_H` below its centre to the plate's top, another `SOCKET_HALF_H`
+above the plate's centre — so the thread has a visible length only once a part
+has fallen more than **0.32** tiles, and 0.26 is the most it can ever fall.
+At every phase of the cadence the segment is drawn from a lower point to a
+higher one; what reaches the screen is the round cap, not a thread. The part
+also never clears its socket's own lip, so it reads as seated rather than hung.
+
+The guard admits it anyway — `if (to.y - from.y <= l.tile * SOCKET_HALF_H)
+return;` tests against one half height where the drawing spends two — which is
+why nothing went red. `scuttle-frame.test.ts`'s thread test now arranges the
+part at the end of the cadence to stay green, and that only proves the dim ink
+is emitted, not that it is a line.
+
+Two ways out, and they are a look, so they need his answer: **raise the drop**
+past 0.32 tiles, which puts a part off an upper row nearer the socket below it
+and is most of what `apart` was chosen to avoid at pitch 0.6; or **keep the
+drop and shrink the ends** — a smaller `SOCKET_HALF_H` for the socket's floor,
+or a plate half height of its own so the thread starts and ends closer in.
+Whichever is picked, fix the guard to test the same 2 × `SOCKET_HALF_H` the
+drawing spends, and make the test assert the thread's direction rather than
+its ink.
+
+## `versus adopt` writes a record literal biome rejects
+
+- **Found:** 2026-09-24, claude/scuttle-hang-versus-swap
+- **Files:** `tools/versus/record-edit.ts`, `tools/versus/test/record-edit.test.ts`
+
+Adopting `scuttle:hang` / `apart` rewrote `SCUTTLE_ROWS` as
+`{ rise: 0.4, pitch: 0.6, drop: 0.26};` — the space before the closing brace
+is dropped — and `bun run lint` failed on the one line the command had just
+written. `bun run format` fixes it, and the command's own closing words are
+*now `bun run check`*, so every adoption of a single-line record pays a red
+lint and a format run before anything it is meant to prove gets a chance to
+run. Rewrite the literal with the spacing biome wants, or run biome over the
+file the command edited before it reports success, and add a case to the
+adoption test that lints its own output.
