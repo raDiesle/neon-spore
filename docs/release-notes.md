@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 45ddd0e6 — THE ANTIPHON's window is doubled, and THE SLOW spans it
+
+On the owner's rule of 22 September: an organ now stands twenty-eight beats, and sixteen once the rail has closed in on one family. A candidate is pulled off the rail by carrying it eight tenths of a tile rather than four. THE SLOW opens on THE ANTIPHON for the first time. It starts on the beat the organ has pushed all the way out, and it shuts at every end of the cycle: a pit, a hardening, the window running out, or the ship.
+
 ## 2026-09-24 · ba77422e — A fade set around a glowed body reaches its line
 
 THE PULSE draws an arrival far up its lane at a third of its presence, and the pod's and the living mark's edge were drawn whole over that fill: `strokeGlow` does not read the context's alpha, and leaves it at 1, so the pod's core and the mark's interior after it were whole too. The fade now goes down as `alpha` through `drawPulseBody`, `drawPodBody` and `drawLivingMark`, and `drawPodCore` draws under the caller's alpha instead of replacing it — which is also what makes THE MOULT's cargo mark fade in with the cargo, as its comment always said it did. THE RECOIL's spent rib is at seven tenths on its near half now, as its far half already was.
