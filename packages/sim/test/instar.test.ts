@@ -10,6 +10,7 @@ import {
   type InstarState,
   instarBoss,
   instarMarkDone,
+  instarSwipeAlong,
   NOT_DONE,
   type SimConfig,
   slowing,
@@ -247,13 +248,20 @@ describe("the gestures", () => {
     shown(world);
     const short = CFG.instarSwipeMilli - 1;
     const t = world.tick;
-    runTo(world, t + 2, [thumb(t, 2, 0, true, short), thumb(t + 1, 2, 0, false)]);
+    runTo(world, t + 1, [thumb(t, 2, 0, true, short)]);
+    // On its way, and said so before the lift (`instarSwipeAlong`).
+    expect(instarSwipeAlong(s, CFG, 0)).toBe(Math.floor((short * 1000) / CFG.instarSwipeMilli));
+    runTo(world, t + 2, [thumb(t + 1, 2, 0, false)]);
     expect(s.progress[0]).toBe(0);
+    expect(instarSwipeAlong(s, CFG, 0)).toBe(0);
     const u = world.tick;
-    runTo(world, u + 1, [thumb(u, 2, 0, true, CFG.instarSwipeMilli)]);
+    runTo(world, u + 1, [thumb(u, 2, 0, true, CFG.instarSwipeMilli * 2)]);
     expect(s.progress[0]).toBe(0);
-    expect(s.ref[0]).toBe(1);
-    const seen = runTo(world, u + 2, [thumb(u + 1, 2, 0, false)]);
+    expect(instarSwipeAlong(s, CFG, 0)).toBe(1000);
+    // Carried back up, it stays armed: the furthest the carry went is kept.
+    runTo(world, u + 2, [thumb(u + 1, 2, 0, true, 0)]);
+    expect(instarSwipeAlong(s, CFG, 0)).toBe(1000);
+    const seen = runTo(world, u + 3, [thumb(u + 2, 2, 0, false)]);
     expect(s.progress[0]).toBe(1);
     expect(s.ref[0]).toBe(NO_BEARING);
     expect(seen.has("instarAnswer")).toBe(true);

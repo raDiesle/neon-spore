@@ -189,6 +189,7 @@ export {
   instarSeatHears,
   instarStep,
   instarStrikeBeat,
+  instarSwipeAlong,
   NO_GRAB,
   NO_PINCH,
   NOT_DONE,

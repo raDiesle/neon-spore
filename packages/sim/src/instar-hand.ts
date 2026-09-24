@@ -28,7 +28,8 @@ import type { World } from "./world.js";
  *   slips with it on the beat if it was already there (`instar-step.ts`).
  * - `swipeDown` arms on a carry past `instarSwipeMilli` and counts on the lift
  *   that follows: an egg is off the body when the thumb comes away, not when
- *   it is dragged.
+ *   it is dragged. The furthest the carry has gone is kept on the way, so the
+ *   ring can fill before the lift (`instarSwipeAlong`).
  * - `turn` winds clockwise like the crank (`crank.ts`): the step between two
  *   bearings, up to half a turn, is progress; anticlockwise is nothing. The
  *   answer is said once a quarter turn rather than once a tick, so the sound
@@ -97,11 +98,13 @@ function pull(world: World, s: InstarState, i: number, mark: InstarMark, command
 
 function swipe(world: World, s: InstarState, i: number, command: Command): void {
   if (command.kind !== "drag") return;
+  const need = world.cfg.instarSwipeMilli;
   if (command.on) {
-    if ((command.fromYMilli ?? 0) >= world.cfg.instarSwipeMilli) s.ref[i] = 1;
+    const carried = Math.min(need, Math.max(0, command.fromYMilli ?? 0));
+    s.ref[i] = Math.max(s.ref[i] ?? NO_BEARING, carried);
     return;
   }
-  const armed = s.ref[i] === 1;
+  const armed = (s.ref[i] ?? NO_BEARING) >= need;
   s.ref[i] = NO_BEARING;
   if (armed) answerMark(world, s, i, 1);
 }

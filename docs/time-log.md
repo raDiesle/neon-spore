@@ -19772,3 +19772,19 @@ The bottleneck was **reading**: the word stood in thirty readings, and the
 cut was which of them drew it rather than which of them said it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — A swipe's ring fills while the thumb travels
+
+- reading: 5 min. How the simulation arms a swipe and what the ring's arc
+  was reading.
+- writing: 10 min. The carry's furthest reach kept on the mark,
+  `instarSwipeAlong`, the arc reading it, and a test at each end.
+- looking: 0 min. The arc is proved by the test; a still frame cannot show
+  a thumb mid-carry.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, and a queue entry for two surface files the
+  export pushed near their ceiling.
+
+The bottleneck was **writing**: the sim kept only "armed or not", so the
+progress had to become a number the simulation owns before the drawer could
+show it.

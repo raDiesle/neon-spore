@@ -41,17 +41,18 @@ beforeAll(() => {
 
 const TPB = ticksPerBeat(CFG);
 
-/** The gape's marks up — one of each seat's — the window just opened. */
-function acting(): World {
+/** The gape's marks up — one of each seat's — the window just opened; or
+ * step `at`'s. */
+function acting(at = 0): World {
   const world = createWorld(CFG, 3);
   const index = waveWith("instar");
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
   for (let i = 0; i < TPB * 4; i++) step(world, []);
   const s = instarBoss(world) as InstarState;
-  s.cursor = 0;
+  s.cursor = at;
   s.phase = "act";
   s.phaseBeat = world.beat;
-  const n = s.steps[0]?.marks.length ?? 0;
+  const n = s.steps[at]?.marks.length ?? 0;
   s.progress = Array.from({ length: n }, () => 0);
   s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
   s.ref = Array.from({ length: n }, () => NO_BEARING);
@@ -60,8 +61,7 @@ function acting(): World {
 }
 
 /** Nine ticks drawn, with `said` thrown on the first. */
-function drawn(role: ViewRole, said: SimEvent[]): string {
-  const world = acting();
+function drawn(role: ViewRole, said: SimEvent[], world: World = acting()): string {
   const log: string[] = [];
   runFrames(world, role, 9, {
     every: 3,
@@ -101,6 +101,22 @@ describe("THE INSTAR's verdict on a touch", () => {
     expect(count(drawn("p1", []), theirs)).toBeGreaterThan(0);
     expect(count(drawn("p2", []), theirs)).toBeGreaterThan(0);
     expect(count(drawn("test", []), theirs)).toBe(0);
+  });
+
+  it.each(ROLES)("fills a swipe's arc green on its way, before the lift, on %s", (role) => {
+    // The owner, 24 September 2026, generic: a swipe begun the right way
+    // says so while it travels (`sim/instar.ts` `instarSwipeAlong`).
+    const s = instarBoss(acting()) as InstarState;
+    const cursor = s.steps.findIndex((st) => st.marks.some((m) => m.gesture === "swipeDown"));
+    expect(cursor, "the script has no swipe").toBeGreaterThanOrEqual(0);
+    const still = acting(cursor);
+    expect(count(drawn(role, [], still), PALETTE.good)).toBe(0);
+    const going = acting(cursor);
+    const g = instarBoss(going) as InstarState;
+    const i = g.steps[cursor]?.marks.findIndex((m) => m.gesture === "swipeDown") ?? -1;
+    g.ref[i] = Math.floor(CFG.instarSwipeMilli / 2);
+    g.thumbs[i] = 2;
+    expect(count(drawn(role, [], going), PALETTE.good)).toBeGreaterThan(0);
   });
 
   it("keeps one verdict a mark, fades it, and forgets it on clear", () => {

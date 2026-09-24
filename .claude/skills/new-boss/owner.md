@@ -98,7 +98,10 @@ feedback on a boss says one, with the date, in his words where he gave them.**
      red for wrong, animated, and never a sound or a burst somewhere else.
   4. **A gesture started the right way says so while it is still going** —
      a drag begun in the right direction shows it is on its way to done,
-     before it lands.
+     before it lands. A swipe fills its ring continuously as the thumb
+     travels toward the length that counts (the same day, a second time:
+     *direct feedback while swiping down correctly*), and the fill is the
+     simulation's word (`instarSwipeAlong`), never the drawer's guess.
   THE INSTAR is the worked example he asked for before the rest
   (`render/grip-verdict.ts`); the roll-out is `docs/queue.md`'s.
 - **Open, for his feedback:** which of the three kinds the next one should be;

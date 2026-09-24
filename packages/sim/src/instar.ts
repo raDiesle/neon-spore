@@ -1,3 +1,4 @@
+import { NO_BEARING } from "./bearing.js";
 import type { SimConfig } from "./config.js";
 import type { World } from "./world.js";
 
@@ -115,7 +116,8 @@ export interface InstarState {
   /** Per mark: `world.beat` it reached its need, `-1` while it has not. */
   doneBeat: number[];
   /** Per mark: the hand's reference — the last bearing of a turn (`NO_BEARING`
-   * between grabs), or `1` while a swipe has carried far enough to count on the lift. */
+   * between grabs), or the furthest a swipe's carry has gone this grab, in
+   * thousandths of a tile, capped at `instarSwipeMilli` (`instarSwipeAlong`). */
   ref: number[];
   /** Per mark: which seats have a thumb on it, bit 1 for player 1 and bit 2 for player 2. */
   thumbs: number[];
@@ -164,6 +166,23 @@ export function instarAllDone(s: InstarState): boolean {
  */
 export function instarHeld(gesture: InstarGesture): boolean {
   return gesture === "pullDown" || gesture === "pullUp" || gesture === "hold";
+}
+
+/**
+ * **How far the swipe under the thumb is to counting**, in thousandths — nought
+ * with no thumb on it, a thousand once the lift would take an egg off.
+ *
+ * The owner, 24 September 2026, generic: a swipe begun the right way should
+ * fill its ring *on its way*, not only when it lands. The simulation's own
+ * word, so the arc on both phones is the carry the lift will be judged on
+ * (`instar-hand.ts`), and nought for any mark that is not a swipe.
+ */
+export function instarSwipeAlong(s: InstarState, cfg: SimConfig, i: number): number {
+  const mark = instarStep(s)?.marks[i];
+  if (mark?.gesture !== "swipeDown") return 0;
+  const carried = s.ref[i] ?? NO_BEARING;
+  if (carried <= 0 || cfg.instarSwipeMilli <= 0) return 0;
+  return Math.min(1000, Math.floor((carried * 1000) / cfg.instarSwipeMilli));
 }
 
 /** Whether a mark's seat lets `player`'s thumb count. */

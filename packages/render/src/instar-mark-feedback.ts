@@ -21,7 +21,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * The fourth half — a gesture begun the right way says so — is the progress
  * arc going green as the part gives (`instar-marks.ts`), which is the
  * simulation's own word that the carry is in the right direction: a pull the
- * wrong way stands at nought (`sim/instar-hand.ts`).
+ * wrong way stands at nought (`sim/instar-hand.ts`). A swipe's arc is the
+ * carry under the thumb on its way to the length that counts it, filling
+ * before the lift (`sim/instar.ts` `instarSwipeAlong`).
  */
 
 /** How far past the ring the halo reaches, in radii. */

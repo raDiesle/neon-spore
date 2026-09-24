@@ -161,6 +161,7 @@ export {
   instarSeatHears,
   instarStep,
   instarStrikeBeat,
+  instarSwipeAlong,
   NOT_DONE,
 } from "./instar.js";
 export {

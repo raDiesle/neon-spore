@@ -7,6 +7,7 @@ import {
   instarMarkDone,
   instarStep,
   instarStrikeBeat,
+  instarSwipeAlong,
   type SimConfig,
 } from "@neon-spore/sim";
 import type { CueKind } from "./boss-cue.js";
@@ -137,7 +138,12 @@ export function drawInstarMarks(
         side,
       );
     } else {
-      const along = Math.max(0, Math.min(1, (s.progress[i] ?? 0) / mark.need));
+      // A swipe's arc is *this* carry on its way to the lift that counts it
+      // — the owner's, 24 September 2026, generic — and the eggs left on the
+      // body are the count; every other gesture's arc is its count.
+      const swipe = mark.gesture === "swipeDown";
+      const count = (s.progress[i] ?? 0) / mark.need;
+      const along = Math.max(0, Math.min(1, swipe ? instarSwipeAlong(s, cfg, i) / 1000 : count));
       const held = (s.thumbs[i] ?? 0) !== 0;
       if (mine) drawInstarHalo(ctx, at.x, at.y, r, time);
       drawRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);

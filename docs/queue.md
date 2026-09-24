@@ -437,7 +437,9 @@ Per boss, the work is:
 - find the events that mean *this touch was right* and *this touch was refused*;
 - mark this seat's wanted mark and the partner's;
 - make the in-progress signal the simulation's own word for "right direction",
-  never a guess the drawer makes;
+  never a guess the drawer makes — a swipe fills on its way to the length that
+  counts, not only on the lift (`instarSwipeAlong` in `sim/src/instar.ts` is
+  the pattern, the owner's 24 September);
 - add a test beside `packages/render/test/instar-verdict.test.ts`.
 
 Each boss lands as *a look the owner asked for by name*.
@@ -457,6 +459,17 @@ sent without the flash, and the flash is proved only by the canvas log
 (`packages/render/test/instar-verdict.test.ts`). Find which it is. Then make
 the command above land a pull, or make it refuse the pair with a sentence that
 says why.
+
+## Two sim surface files are under ten lines from the ceiling
+
+- **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4
+- **Files:** `packages/sim/src/boss-surface-clocks-b.ts`, `packages/sim/src/bosses-clocks-b.ts`
+
+Both are export lists, at 244 and 242 lines after `instarSwipeAlong` joined
+them. The next export pushes either past 250 and `limits.test.ts` fails.
+THE INSTAR's block is the seam in both: move it into its own surface file
+(for example `boss-surface-instar.ts`) and re-export it from the same places.
+`bun run check` proves that nothing lost its import.
 
 ## `render/src/index.ts` is 20 lines under the ceiling
 
