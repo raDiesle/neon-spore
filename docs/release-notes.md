@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · e3a4c48a — THE UNDERTOW's windows are doubled: ten of stand, two slides, twenty of last
+
+A lobe stands `undertowStandBeats` 10 rather than 5, the floor under the cannon gives `undertowUnseatBeats` 4 for `undertowUnseatSlides` (2) slides — a slide short of the last bows the floor again under the column the cannon stopped in, with the bow's own event — and the last lobe stands `undertowLastBeats` 20 with `undertowHoldBeats` 12 of maw to take it. THE SLOW moved from the last lobe's rise, which asks nothing, to the asks themselves, read off the state (`sim/undertow-slow.ts`): up while a lobe stands, the floor bows under an unanswered cannon or the last lobe waits, shut the beat the last one is answered or comes through. The body swallowed keeps its own `undertowSlowBeats`. The film runs five beats longer, the guide says two slides in four beats, and the director's poses have room for the longer fight.
+
 ## 2026-09-24 · ff7c8658 — THE LEAD's still is doubled: eight beats, sixteen of hold, two beams to end it
 
 The last segment now stands dead `leadStillBeats` 8 rather than 4, a thumb on the stalk holds it up to `leadHoldBeats` 16, and the last movement takes `leadStillFills` (2) beams: one short of the last stops the body dead in the beam's column, a whole new still with the stalk on offer again, and the second downs it. THE SLOW moved from the beat a shot is judged, which asks for nothing, to the still and the pass after it — reopened by a grip and at a wall, shut on the last beam (`docs/decisions.md` #33). `leadSlowBeats` is gone. The guide says eight beats and two beams; the film beams twice and wards a third rock the longer fight now lands.
