@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 7177a486 — computeStage takes only the viewport
+
+Since the stage stopped being capped at the columns its width is the window's, a 9:16 phone's and PHONE_WIDEST — nothing about the band — so the config and the role it was handed went unread. Both parameters are gone from computeStage and from every caller, and bandHeightFor loses the role it has ignored since 12 September. Nothing drawn changes.
+
 ## 2026-09-24 · 1e3c1f65 — A short phone's hull reaches both sides of the screen
 
 A phone shorter than 9:16 of free height — 390x660 with its bars out — stood the ship between two black side bars: the stage was never wider than the columns, nor than 0.56 of the height. The stage is now the phone's whole width (never capped narrower than 430 CSS px, the widest phone upright), the field stays centred in it, and the hull's skin is drawn to the stage's sides. A desk window and every phone of ordinary height draw exactly what they drew. `bun run frames` takes `--size WxH`, which is how the short phone was seen at all.
