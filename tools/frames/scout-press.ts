@@ -11,9 +11,9 @@ import type { PressSpec } from "./spec.js";
  * `carrying` at 0 throughout, because the ship is flown by hand. So neither
  * ring could be photographed, and neither could the flame, the nose swinging
  * or the mouth open at home. `--hold` was no way round it: a thumb on a ring
- * that is not offered is not a ring, and `--boss-json` cannot reach it either,
- * because `carrying` is a list and `installBoss` takes a list of **the same
- * length**, which for an empty one is only the empty one.
+ * that is not offered is not a ring. `--boss-json` could not reach it either
+ * until 24 September 2026, when a list stopped having to keep its length
+ * (`boss-check.ts`); a flight is still the way to a state the play reached.
  *
  * **The pilot's three are a thumb that goes down and comes up**, so a press
  * carries how many ticks it stays down and expands into the two commands the

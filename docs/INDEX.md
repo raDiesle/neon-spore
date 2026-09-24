@@ -2411,6 +2411,7 @@ by hand never moves.
 | `tools/frames/browser-cdp.ts` | THE SECOND WAY IN, for a machine where `chromium.launch()` cannot open one |
 | `tools/frames/boss.ts` | `--boss`, `--boss-json` and `--creature` read off the command line |
 | `tools/frames/boss-install.ts` | Writing `--boss`, `--boss-json` and `--creature` on the world, in the page |
+| `tools/frames/boss-check.ts` | Whether `--boss`, `--boss-json` and `--creature` may be written |
 | `tools/tmp-litter.ts` | The directories a browser run leaves under `.claude/tmp`, and when one of them is spent |
 | `tools/perf/shape.ts` | PUTTING TWO RUNS ON THE SAME FOOTING, and one row from one of them into the other |
 | `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |

@@ -93,9 +93,9 @@ describe("--boss on the command line", () => {
  * `--boss` is scalars by design, and the states that most need a picture are
  * lists — THE BATON's thread, THE UNDERTOW's breaches, THE TASTER's blades, THE
  * GORGE's intakes. The page still owns every question about the boss: whether
- * the field exists, whether it is a list, and whether the list is the right
- * length are all checked against the state that is actually installed
- * (`installBoss`), so what is asked here is the same thing as above — that the
+ * the field exists, whether it is a list, and whether its items are the right
+ * kind are all checked against the state that is actually installed
+ * (`boss-check.ts`), so what is asked here is the same thing as above — that the
  * text becomes the right names and the right kinds of value.
  */
 describe("parseBossJson", () => {

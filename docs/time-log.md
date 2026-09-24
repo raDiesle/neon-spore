@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — `--boss-json` writes a list at any length, checked item by item
+
+- reading: 0 min. The queue entry's five bosses, `boss-install.ts`, and why
+  the check could not be tested where it ran.
+- writing: 5 min. `boss-check.ts` lifted out of `page.evaluate` as a pure
+  `bossRefusal`, the item rule, the page split into a read and a write,
+  fifteen tests.
+- looking: 0 min. Three captures of a second each: THE SCUTTLE's `loose`
+  written from empty, SNAKE's `body` refused a word, SNAKE drawn seven long.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: the rule lived inside a browser call, so
+changing it meant first moving it where a test could reach it.
+
 ## 2026-09-24 — The shield rim's dead opacity figures are gone
 
 - reading: 5 min. The queue, whose nine free items all waited on a phone or
