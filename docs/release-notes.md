@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 857a67e6 — No clock counts the run up in the top-left corner; the retries stay
+
+The corner read `0:42 · 2 RETRIES`; it reads `2 RETRIES` once there is a retry and nothing before. The run's time is still summed up on the cleared card and the balance sheet. Exemption: a look the owner asked for by name.
+
 ## 2026-09-24 · b6845413 — The lost wound bleeds as thick sheets off the rim's corners that split into streams
 
 The blood out of the WAVE LOST hole no longer runs as six straight tubes. It wells from inside the hole, over the three lowest teeth of the torn rim, and hangs there as one thick sheet; then each sheet splits slowly into two or three thinner streams, one leading and the others shorter and later, each ending in a heavier drop that slows as it runs. The flat band inside the rim is now a pool whose surface breathes and ripples. Every run is one fill, so where its parts overlap they join as one liquid. A look the owner asked for by name.
