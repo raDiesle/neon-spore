@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 84304885 — THE BELLOWS' window is doubled: six beats, and both halves twice inside it
+
+The third exchange's shared window is `bellowsWindowBeats` 6 rather than 3, and asks for `bellowsExchanges` (2) rounds of pull and push: her push short of the last lights the marks again, his first, with the marks' own event, and the window keeps counting from where it began (`markAgain`). THE SLOW now spans that window — up with its marks, shut on the tick its seam parts or the handles jam, in or out of turn — and the split keeps its own `bellowsSlowBeats` as the boss's end. The pilot's guide says the third seam takes two; the director's hand lifts a thumb left resting from the round before.
+
 ## 2026-09-24 · e3a4c48a — THE UNDERTOW's windows are doubled: ten of stand, two slides, twenty of last
 
 A lobe stands `undertowStandBeats` 10 rather than 5, the floor under the cannon gives `undertowUnseatBeats` 4 for `undertowUnseatSlides` (2) slides — a slide short of the last bows the floor again under the column the cannon stopped in, with the bow's own event — and the last lobe stands `undertowLastBeats` 20 with `undertowHoldBeats` 12 of maw to take it. THE SLOW moved from the last lobe's rise, which asks nothing, to the asks themselves, read off the state (`sim/undertow-slow.ts`): up while a lobe stands, the floor bows under an unanswered cannon or the last lobe waits, shut the beat the last one is answered or comes through. The body swallowed keeps its own `undertowSlowBeats`. The film runs five beats longer, the guide says two slides in four beats, and the director's poses have room for the longer fight.
