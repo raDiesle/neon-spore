@@ -98,7 +98,7 @@ export const CHOREO_FIELD_GROUP_B = {
   leadHoldBeats: "THE LEAD — the boss you shoot where it will be",
   leadTorchEveryBeats: "THE LEAD — the boss you shoot where it will be",
   leadRockEveryBeats: "THE LEAD — the boss you shoot where it will be",
-  leadSlowBeats: "THE LEAD — the boss you shoot where it will be",
+  leadStillFills: "THE LEAD — the boss you shoot where it will be",
   leadOutBeats: "THE LEAD — the boss you shoot where it will be",
   // ScuttleConfig — the frame's size and how many of its parts are pods, the
   // look before the first throw, the two cadences and the counts they switch

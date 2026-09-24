@@ -85,7 +85,7 @@ export const CHOREO_NOTES_B = {
     "beat, turning at the walls. A shot out of the top hangs leadFlightBeats " +
     "and is judged against the column the body is in then; a hit takes a " +
     "segment, one a beat at most, and a beat every shot missed turns it " +
-    "round. Every judged beat opens THE SLOW leadSlowBeats. From " +
+    "round. From " +
     "leadFastSegments it runs leadFastCols a beat, dropping a torch behind " +
     "every leadTorchEveryBeats and a rock ahead every leadRockEveryBeats; " +
     "from leadForecastSegments the lean says the beat after next. The last " +
@@ -97,8 +97,10 @@ export const CHOREO_NOTES_B = {
     "if she holds past leadHoldBeats, and cannot be taken twice in one " +
     "still. Then it crosses to the farther wall " +
     "leadPassCols a beat, and a wall is another still. Only the beam " +
-    "standing in a column the pass goes through takes it, and the wave " +
-    "holds leadOutBeats more. Nothing about it is authored per wave. See " +
+    "standing in a column the pass goes through takes it, leadStillFills " +
+    "times: one short of the last stops it dead where it met it, another " +
+    "still. THE SLOW runs from each still to the end of its pass, and the " +
+    "wave holds leadOutBeats more. Nothing about it is authored per wave. See " +
     "sim/lead.ts, sim/config-lead.ts.",
   "THE SCUTTLE — the boss that throws itself at you, a part at a time":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §15: " +

@@ -1,5 +1,5 @@
 import { leadBoss, leadPassing, leadShootable, leadStill } from "./lead.js";
-import { leadDown } from "./lead-step.js";
+import { leadMet } from "./lead-step.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
 
@@ -18,7 +18,8 @@ import type { World } from "./world.js";
  * **The beam is the other weapon, and it is judged now**: it stands, so
  * there is no flight to it — a beam up the body's own column on its last
  * pass is the end of it, and a beam up any column while it stands dead
- * still is the plating's answer, nothing. A beam while the stalk still has
+ * still is the plating's answer, nothing (`leadMet` counts it against
+ * `leadStillFills`). A beam while the stalk still has
  * segments to shoot is an ordinary shot with no flight: it burns the column
  * and touches nothing, because the design's beam is the answer to the last
  * segment alone, and a beam that took one earlier would make the last pass
@@ -28,7 +29,7 @@ export function leadStruck(world: World, b: Bullet): void {
   const s = leadBoss(world);
   if (s === null) return;
   if (b.lance) {
-    if (leadPassing(s) && b.col === s.col) leadDown(world, s);
+    if (leadPassing(s) && b.col === s.col) leadMet(world, s, b.col);
     return;
   }
   if (!leadShootable(s) || leadStill(s)) return;

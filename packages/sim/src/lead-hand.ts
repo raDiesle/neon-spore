@@ -1,4 +1,11 @@
-import { type LeadState, leadBoss, leadGrippable, leadHolding, leadStill } from "./lead.js";
+import {
+  type LeadState,
+  leadAsk,
+  leadBoss,
+  leadGrippable,
+  leadHolding,
+  leadStill,
+} from "./lead.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -51,5 +58,6 @@ export function leadHeard(world: World, player: 1 | 2, command: Command): void {
   }
   if (!leadGrippable(s)) return;
   s.heldBeat = world.beat;
+  leadAsk(world, world.cfg.leadHoldBeats);
   world.events.push({ type: "leadGrip", col: s.col });
 }

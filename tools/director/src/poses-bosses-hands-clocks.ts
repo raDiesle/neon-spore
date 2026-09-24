@@ -143,7 +143,7 @@ export const CLOCK_HAND_POSES: Pose[] = [
   bossPose(
     "lead",
     "down",
-    "The beam stood in the pass's own column and the lead is down. P1 aims at the wave again; P2 fires.",
+    "The second beam stood in the pass's own column and the lead is down. P1 aims at the wave again; P2 fires.",
     { hand: leadHand, want: (w) => w.boss?.kind === "lead" && w.boss.downBeat >= 0, hold: 6 },
   ),
   bossPose(

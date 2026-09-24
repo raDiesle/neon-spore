@@ -4800,6 +4800,7 @@ the **torch a vent throws**: the pinch is the answer to it and the pinch is
 cued. Nothing at all in `out`. `render/test/boss-cue-gorge.test.ts` proves the
 nine cases, among them the two the old reading had wrong and the full intake
 whose pinch and pierce the mouth's early return was eating.
+
 **Doubled on the owner's rule, 24 September 2026**
 (`docs/spec/choreographed-windows.md`): `gorgeVentBeats` and `gorgePryBeats`
 4 → 8, the pierce two shots (`gorgeVentShots`) and the pry two beams
@@ -5351,7 +5352,9 @@ has to be is shown to neither seat (`tasterWeak`).
 *never shoot a column whose blade is gone*, which is the opposite of the rule:
 those four shots into the gaps are the only answer to the third movement
 (`reEdge`, and `taster-step.ts` says so in as many words). Corrected with this
-lane. `render/test/boss-cue-taster.test.ts` proves the six cases.**Doubled on the owner's rule, 24 September 2026**
+lane. `render/test/boss-cue-taster.test.ts` proves the six cases.
+
+**Doubled on the owner's rule, 24 September 2026**
 (`docs/spec/choreographed-windows.md`): `tasterPryBeats` 6 → 12 and the
 interlock two beams (`tasterPryFills`), and THE SLOW moved from the beat a
 blade's colour sets, which asks for nothing, to the pry, which is the one
@@ -6174,8 +6177,7 @@ body has moved — it is **judged** against the body's column: a segment off
 the stalk if it is there (`leadHit`, one a beat however many arrive), a
 **miss** if not (`leadMiss`), and a beat on which every judged shot missed
 turns the body round (`leadReverse`), so a wrong sum costs the pair the next
-one as well. THE SLOW opens for `leadSlowBeats` (1) on every judged beat,
-hit or miss. With the climb up the field, which is about a beat at
+one as well. With the climb up the field, which is about a beat at
 `bulletTilesPerBeat`, the pair's lead at a walk is two columns — the
 design's own number. From `leadFastSegments` (4) left it **runs**
 (`leadFastCols`, 2 a beat), and drops a torch in the column it just left
@@ -6184,13 +6186,13 @@ put in every `leadRockEveryBeats` (4) (`leadTorch`, `leadRock`,
 `spawnOne`); from `leadForecastSegments` (2) the lean says where it goes
 the *beat after next* rather than next — the wall turn a beat early
 (`leadHeading`). On the fourth hit it **stops dead** (`leadStill`), stalk
-upright, for `leadStillBeats` (4): nothing touches it, the shots still in
+upright, for `leadStillBeats` (8): nothing touches it, the shots still in
 the air are nothing, and a bolt out of the top is not even put into the
 air. **The still is the one state of this fight a hand can reach into**
 (`sim/lead-hand.ts`, `sim/drag-targets-c.ts`): while it stands there the
 navigator's thumb on the stalk (`leadStalk`, `leadGrip`) keeps it standing —
 the fuse does not burn while she is on it — and it passes the beat she lets
-go (`leadRelease`). A thumb held past `leadHoldBeats` (8) has the stalk
+go (`leadRelease`). A thumb held past `leadHoldBeats` (16) has the stalk
 **torn** out of it (`leadTear`) and it passes anyway; a still already let go
 of or torn free cannot be taken again (`leadGrippable`, `freeBeat`), so
 letting go is the decision it is meant to be. The design's refusal is not
@@ -6199,15 +6201,18 @@ on a body would steer every shot into it, and through the whole still
 `leadShootable` is false and `sim/lead-shot.ts` puts no bolt into the air at
 all — a thumb there can steer nothing, and the only thing it has to give is
 **time**, which is exactly what `lancePrimeBeats` (3) costs inside a still of
-4. On the still's last beat, or from the beat her thumb goes on, the stalk
+8 spent talking. On the still's last beat, or from the beat her thumb goes on, the stalk
 gives the pass away, and it goes toward the farther wall (`leadPass`, `leadPassDir`: the middle goes right)
 at `leadPassCols` (3) a beat, ending only where **the beam is standing the
 whole way up a column it goes through** on that beat (`beamAcross`,
 `world.beam.topMilli === 0`), or where a beam is fired up its own column
-during the pass — `leadDown`, and `leadOut` with the boss gone
-`leadOutBeats` (3) later. A pass that reaches the wall is another still
-(`leadWall`) and a pass back the other way. A beam before the last segment
-burns its column and touches nothing.
+during the pass — the `leadStillFills`th (2) is `leadDown`, and `leadOut`
+with the boss gone `leadOutBeats` (3) later; every one before it stops the
+body dead in the beam's column, a whole new still (`leadMet`, `leadStill`).
+A pass that reaches the wall is another still (`leadWall`) and a pass back
+the other way. A beam before the last segment burns its column and touches
+nothing. THE SLOW spans each still and the pass after it (`leadAsk`),
+reopened by a thumb on the stalk, and shuts on the last beam.
 
 **The split is the eyes, and it is the look lane's.** Player 1 is to be
 shown the lean and never the column; player 2 the column (the aim radar is
@@ -6404,6 +6409,13 @@ never for a beat at tempo: whether the lean's overshoot reads as a lean or
 as a wobble, whether a stalk in the middle of the pilot's screen reads as
 an instrument or as a body he cannot find, and whether the flight's climb
 is long enough for the pair to see it judged are the owner's.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `leadStillBeats` 4 → 8 and
+`leadHoldBeats` 8 → 16, the last movement two beams (`leadStillFills`), and
+THE SLOW moved from the beat a shot is judged, which asks for nothing, to
+the still and its pass; `leadSlowBeats` is gone. The first beam's sign is the
+body stopping dead again, with the still's own event.
 
 ## 11.30 THE SCUTTLE — the boss racing you to its own death
 

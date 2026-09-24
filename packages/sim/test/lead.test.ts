@@ -37,14 +37,16 @@ import type { Bullet, Color } from "../src/types.js";
  * judged against the column the body is in **then** — so the column to
  * shoot is `leadAim`, the sum the pair is doing; that a hit takes a segment
  * and one a beat at most; that a beat on which every shot missed turns it
- * round; that the judged beat opens THE SLOW; that from `leadFastSegments`
+ * round; that from `leadFastSegments`
  * it runs, and drops a torch behind and a rock ahead on their cadences;
  * that from `leadForecastSegments` the lean says the beat after next; that
  * the last segment stops it dead and unhittable, with the lean giving the
  * pass away on the still's last beat; that the pass goes to the farther
- * wall at `leadPassCols` a beat and a wall is another still; and that only
- * the beam standing in a column the pass goes through ends it, after which
- * the wave ends.
+ * wall at `leadPassCols` a beat and a wall is another still; that only
+ * the beam standing in a column the pass goes through ends it, and only the
+ * `leadStillFills`th, each before it stopping the body dead where it met it;
+ * that THE SLOW spans each still and its pass and shuts on the last beam;
+ * and that the wave ends after.
  *
  * The fingerprint is compared between two runs in one process rather than
  * pinned (`docs/decisions.md` #19).
@@ -85,6 +87,12 @@ function shot(world: World, col: number, color: Color = "red", lance = false): B
 /** A beam standing the whole way up `col`, the way `lance-burn.ts` leaves one. */
 function beam(world: World, col: number): void {
   world.beam = { col, color: "red", left: TPB, topMilli: 0 };
+}
+
+/** Beams met on the last movement already, so the next is the one that ends it. */
+function spent(s: LeadState): LeadState {
+  s.stillFills = CFG.leadStillFills - 1;
+  return s;
 }
 
 /** The body stopped dead in `col`, the way the fourth hit leaves it: put a pace short of it, and hit where it will be. */
@@ -161,7 +169,7 @@ describe("the sum", () => {
     expect(world.events.some((e) => e.type === "leadFlight")).toBe(true);
   });
 
-  it("takes a segment from a shot put where the body will be, and opens THE SLOW", () => {
+  it("takes a segment from a shot put where the body will be, and asks nothing slowly", () => {
     const world = open();
     const s = body(world);
     const aim = leadAim(s, CFG);
@@ -172,7 +180,7 @@ describe("the sum", () => {
     expect(s.flights).toEqual([]);
     expect(seen.has("leadHit")).toBe(true);
     expect(seen.has("leadReverse")).toBe(false);
-    expect(slowing(world)).toBe(true);
+    expect(slowing(world)).toBe(false);
   });
 
   it("turns round on a beat every shot missed, and the lean flips with it", () => {
@@ -296,15 +304,32 @@ describe("the last movement", () => {
     expect(s.col).toBe(LAST - CFG.leadPassCols);
   });
 
-  it("is ended by the beam standing in a column the pass goes through, and the wave ends after", () => {
+  it("stops dead where a beam short of the last met the pass, a whole new still", () => {
     const world = open();
     const s = stilled(world);
+    expect(slowing(world)).toBe(true);
+    beats(world, CFG.leadStillBeats);
+    const col = s.col + CFG.leadPassCols - 1;
+    beam(world, col);
+    const seen = beats(world, 1);
+    expect(seen.has("leadStill")).toBe(true);
+    expect(s.downBeat).toBe(-1);
+    expect(s.stillFills).toBe(1);
+    expect(s.col).toBe(col);
+    expect(leadStill(s)).toBe(true);
+    expect(slowing(world)).toBe(true);
+  });
+
+  it("is ended by the beam standing in a column the pass goes through, and the wave ends after", () => {
+    const world = open();
+    const s = spent(stilled(world));
     beats(world, CFG.leadStillBeats);
     beam(world, s.col + CFG.leadPassCols - 1);
     const seen = beats(world, 1);
     expect(seen.has("leadDown")).toBe(true);
     expect(s.segments).toBe(0);
     expect(s.downBeat).toBe(world.beat);
+    expect(slowing(world)).toBe(false);
     const out = beats(world, CFG.leadOutBeats);
     expect(out.has("leadOut")).toBe(true);
     expect(leadBoss(world)).toBeNull();
@@ -312,7 +337,7 @@ describe("the last movement", () => {
 
   it("is ended by a beam fired up its own column on the pass", () => {
     const world = open();
-    const s = stilled(world);
+    const s = spent(stilled(world));
     beats(world, CFG.leadStillBeats + 1);
     expect(leadPassing(s)).toBe(true);
     leadStruck(world, shot(world, s.col, "red", true));

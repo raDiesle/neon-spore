@@ -32,7 +32,7 @@ export const LEAD_CONTROLS: readonly FieldControlDef[] = [
       "not run out, and it passes on the beat she lets go, so the window her " +
       "beam has to fill in is the one she is holding rather than the " +
       "leadStillBeats the fight deals (sim/lead-hand.ts). Her fill needs " +
-      "lancePrimeBeats and the still is narrower than that, which is why the " +
+      "lancePrimeBeats, once for each of leadStillFills, which is why the " +
       "hand exists: a pair who spent the still saying the column have missed " +
       "it. Held past leadHoldBeats the stalk tears out of her and it passes " +
       "anyway — the ring fills with a dial running that fuse down, and the " +

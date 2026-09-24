@@ -1,5 +1,6 @@
 import type { SimConfig } from "./config.js";
 import { midCol } from "./config.js";
+import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -28,8 +29,9 @@ import type { World } from "./world.js";
  * **stops dead**, stalk upright and nothing able to touch it, for
  * `leadStillBeats`, and then makes a **pass** toward the farther wall at
  * `leadPassCols` a beat that only **the beam standing in its column** ends:
- * a pass that reaches the wall is another still and a pass back. THE SLOW
- * opens on every beat a shot is judged.
+ * a pass that reaches the wall is another still and a pass back, and a
+ * beam short of `leadStillFills` stops it dead where it met it, another still
+ * again. THE SLOW is open from the beat it stops to the beat the pass ends.
  *
  * **The still is the one state a hand may reach into** (`lead-hand.ts`).
  * While it stands there, the navigator's thumb on the stalk keeps it
@@ -81,6 +83,8 @@ export interface LeadState {
   heldBeat: number;
   /** `world.beat` the stalk was let go of or tore free on; `-1` until one of those happens in this still. */
   freeBeat: number;
+  /** Beams that have met a pass, of `leadStillFills`. */
+  stillFills: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
@@ -190,4 +194,14 @@ export function leadPassDir(col: number, cfg: SimConfig): -1 | 1 {
 /** Whether a body that moved from `from` to `to` this beat went through `col`. */
 export function leadCrossed(from: number, to: number, col: number): boolean {
   return col >= Math.min(from, to) && col <= Math.max(from, to);
+}
+
+/**
+ * **THE SLOW over the ask**: open from now for `wait` beats of still and the
+ * longest pass after them, and shut by whichever ends the pass first — the
+ * beam (`leadMet`) or the wall, which opens it again (`docs/decisions.md` #33).
+ */
+export function leadAsk(world: World, wait: number): void {
+  const cfg = world.cfg;
+  openSlow(world, wait + Math.ceil((cfg.cols - 1) / cfg.leadPassCols) + 1);
 }

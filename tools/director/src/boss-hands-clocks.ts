@@ -166,7 +166,8 @@ export const ledgerHand: Hand = (w) => {
  * `lancePrimeBeats` before it, and lifts once spent. `late` is which pass
  * beat the beam stands on: the first (0) is the fight played straight; a
  * later one poses the pass itself, which the beam on the first beat would
- * end before it showed.
+ * end before it showed. A beam short of `leadStillFills` stops the body dead
+ * where it met it, a whole new still, and the same reading answers it again.
  */
 export function leadHandLate(late: number): Hand {
   return (w) => {

@@ -2,6 +2,8 @@ import { midCol } from "./config.js";
 import {
   type LeadState,
   leadAim,
+  leadAsk,
+  leadCrossed,
   leadForecasts,
   leadHeading,
   leadHolding,
@@ -14,7 +16,7 @@ import {
   leadTorn,
   leadWalk,
 } from "./lead.js";
-import { openSlow } from "./slow.js";
+import { closeSlow } from "./slow.js";
 import { spawnOne } from "./spawn.js";
 import type { World } from "./world.js";
 
@@ -48,6 +50,7 @@ export function installLead(world: World): LeadState {
     downBeat: -1,
     heldBeat: -1,
     freeBeat: -1,
+    stillFills: 0,
   };
   world.events.push({ type: "leadEnter", col: s.col, dir: s.dir });
   return s;
@@ -95,15 +98,13 @@ function pace(world: World, s: LeadState): void {
  * Every shot due this beat, against the column the body is in now. One
  * segment a beat at most, however many arrived; a beat on which every one
  * missed turns it round — the design's step 4, and the reason a wrong sum
- * costs the pair the next one as well. The judged beat is watched at a third
- * rate either way: the moment the pair finds out is the drama.
+ * costs the pair the next one as well.
  */
 function judge(world: World, s: LeadState): void {
   const cfg = world.cfg;
   const due = s.flights.filter((f) => f.dueBeat <= world.beat);
   if (due.length === 0) return;
   s.flights = s.flights.filter((f) => f.dueBeat > world.beat);
-  openSlow(world, cfg.leadSlowBeats);
   let hit = false;
   for (const f of due) {
     if (f.col === s.col) hit = true;
@@ -122,6 +123,7 @@ function judge(world: World, s: LeadState): void {
     // shots still in the air are nothing, and the stalk stands upright.
     s.stillBeat = world.beat;
     s.flights = [];
+    leadAsk(world, cfg.leadStillBeats);
     world.events.push({ type: "leadStill", col: s.col });
   }
   settleLean(world, s);
@@ -167,29 +169,47 @@ function last(world: World, s: LeadState): void {
   const way = s.dir;
   const at = leadWalk(s.col, s.dir, cfg.leadPassCols, cfg);
   s.col = at.col;
-  if (beamAcross(world, from, s.col)) {
-    leadDown(world, s);
+  if (world.beam !== null && beamAcross(world, from, s.col)) {
+    leadMet(world, s, world.beam.col);
     return;
   }
   s.dir = at.dir;
   settleLean(world, s);
   world.events.push({ type: "leadPace", col: s.col, dir: way, lean: s.lean });
   if (s.col === 0 || s.col === cfg.cols - 1) {
-    s.stillBeat = world.beat;
-    s.passBeat = -1;
     // A wall is a whole new still, and the stalk is there to be taken again.
-    s.heldBeat = -1;
-    s.freeBeat = -1;
-    settleLean(world, s);
+    restill(world, s);
     world.events.push({ type: "leadWall", col: s.col });
   }
+}
+
+/** A still begun here, at a wall or a beam short of the last: the fuse from the top, the stalk on offer, THE SLOW open again. */
+function restill(world: World, s: LeadState): void {
+  s.stillBeat = world.beat;
+  s.passBeat = -1;
+  s.heldBeat = -1;
+  s.freeBeat = -1;
+  leadAsk(world, world.cfg.leadStillBeats);
+  settleLean(world, s);
+}
+
+/** A beam met the pass at `col`: down on the last of `leadStillFills`, and before it stopped dead there, a whole new still. */
+export function leadMet(world: World, s: LeadState, col: number): void {
+  s.stillFills += 1;
+  if (s.stillFills >= world.cfg.leadStillFills) {
+    closeSlow(world);
+    leadDown(world, s);
+    return;
+  }
+  s.col = col;
+  restill(world, s);
+  world.events.push({ type: "leadStill", col: s.col });
 }
 
 /** Whether the beam is standing the whole way up a column the body went through this beat. */
 function beamAcross(world: World, from: number, to: number): boolean {
   const beam = world.beam;
-  if (beam === null || beam.topMilli !== 0) return false;
-  return beam.col >= Math.min(from, to) && beam.col <= Math.max(from, to);
+  return beam !== null && beam.topMilli === 0 && leadCrossed(from, to, beam.col);
 }
 
 /** The beam took the last segment: the body is down where it stands. */

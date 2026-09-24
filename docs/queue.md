@@ -536,24 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The doubled window: THE LEAD
-
-- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
-- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-taster-and-the-lead (claim: claude/queue-the-doubled-window-the-lead)
-- **Files:** `packages/sim/src/config-lead.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/src/lead-shot.ts`, `packages/sim/src/lead-hand.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/test/scene-lead.test.ts`, `packages/content/src/waves/`, `tools/director/src/boss-hands-clocks.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
-
-The last of the three bosses the GORGE lane was queued with; THE GORGE and
-THE TASTER landed on 24 September 2026. Per
-`docs/spec/choreographed-windows.md`'s **Doubled** table: `leadStillBeats`
-4 → 8, `leadHoldBeats` 8 → 16, and `leadStillFills` at two. THE SLOW moves
-from where `lead-step.ts` opens it today to the ask, shut by `closeSlow` on
-both exits — THE TASTER's is the nearest pattern (`taster-hand.ts` opens it
-with the pry for exactly its beats, `taster-shot.ts` shuts it on the last
-beam). Re-time the film against `scene-lead.test.ts` rather than loosen it,
-say the new counts in the guide, give the director's hand
-(`boss-hands-clocks.ts`) the second fill, and add the dated line to
-`bosses.md` §11.n.
-
 ## The doubled window: THE UNDERTOW, THE BELLOWS, THE HASP and THE BATON
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the

@@ -13,7 +13,7 @@ import { WAVES } from "../src/waves.js";
  */
 
 describe("the rehearsal for THE LEAD", () => {
-  it("misses where it is, hits four times where it will be, wards the run's litter, and stands the beam in the pass", () => {
+  it("misses where it is, hits four times where it will be, wards the run's litter, and stands the beam in the pass twice", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theLead");
     const run = new SceneRun(sceneScript("theLead", wave, DEFAULT_CONFIG));
     const seen: string[] = [];
@@ -42,8 +42,10 @@ describe("the rehearsal for THE LEAD", () => {
     // a miss, and it turns. Then four `atBoss` shots, each two beats ahead —
     // 6 at the walk, 0, 8 and 10 at the run — with the run's two torches
     // warded where they land and its first rock's column never shot through.
-    // Still at the right wall, the beam standing in 8 as the pass comes
-    // through, and the rock at 2 warded after it is down. No wall, no hull.
+    // Still at the right wall, and the rock at 2 warded; the first beam
+    // standing in 8 as the pass comes through stops it dead there, the rock
+    // at 6 is warded in that still, and the second beam in the same column
+    // ends the pass leaving 8 (`leadStillFills`). No wall, no hull.
     expect(seen).toEqual([
       "fire 7 @2",
       "leadMiss 7 @4",
@@ -63,11 +65,15 @@ describe("the rehearsal for THE LEAD", () => {
       "hit 8 2 @14",
       "hit 10 1 @15",
       "leadStill 10 @15",
-      "fire 8 beam @19",
-      "leadPass 10 @20",
-      "leadDown 7 @20",
       "deflect meteor 2 @21",
-      "leadOut 7 @23",
+      "fire 8 beam @23",
+      "leadPass 10 @24",
+      "leadStill 8 @24",
+      "deflect meteor 6 @27",
+      "fire 8 beam @32",
+      "leadPass 8 @33",
+      "leadDown 5 @33",
+      "leadOut 5 @36",
     ]);
   });
 });

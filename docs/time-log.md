@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE LEAD's still is doubled
+
+- reading: 0 min. THE LEAD's step, shot, hand and film, and the director's
+  pass hand.
+- writing: 5 min. Eight beats, sixteen of hold, two beams with the first
+  stopping the body dead again, THE SLOW over the still and its pass, the
+  film re-timed with a third rock warded, the guide inside the word budget,
+  and two dated paragraphs in bosses.md unglued.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the film's third rock, which only landed once the fight ran
+longer and needed a shield `atBody` because no column a film can name is 6.
+
 ## 2026-09-24 — THE TASTER's pry is doubled
 
 - reading: 0 min. THE TASTER's step, shot and hand, its two slows, and the
