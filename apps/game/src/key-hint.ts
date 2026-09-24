@@ -34,7 +34,7 @@ export function showKeyHint(canvas: HTMLCanvasElement): void {
   hint.textContent =
     "Keyboard — A/D and J/L slide · I and S are P1's buttons · Q and E are P2's\n" +
     "Each is whatever this wave's panel puts there · W fires red and guards · G grip · ,/. carry\n" +
-    "On a guide — hold F and G, one seat each, or Space for both · hold 1 or 2: the mouse is that seat's" +
+    "On a guide — hold F and G, one seat each, or Space for both · hold 1 or 2: the mouse is that seat's, 3: both" +
     "   Mouse — drag a strip, click a lobe";
   Object.assign(hint.style, {
     position: "fixed",

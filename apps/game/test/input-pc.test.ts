@@ -32,7 +32,7 @@ describe("a held control on a PC", () => {
 
   it("releaseAll answers touchUp for every hold still down, then clears it", () => {
     expect(inputSource).toMatch(
-      /const releaseAll = \(\): void => \{\s*for \(const \[id, hold\] of holding\) \{\s*holding\.delete\(id\);[\s\S]*?const t = touchUp\(layout\(\), hold\);/,
+      /const releaseAll = \(\): void => \{\s*for \(const \[id, holds\] of holding\) \{\s*holding\.delete\(id\);[\s\S]*?for \(const hold of holds\) \{\s*const t = touchUp\(layout\(\), hold\);/,
     );
   });
 
@@ -58,7 +58,7 @@ describe("a held control on a PC", () => {
 describe("a drag read at more than one position a frame", () => {
   it("pushes a command per sample the move carried, not one per event", () => {
     expect(inputSource).toMatch(
-      /for \(const sample of samplesOf\(e\)\) \{\s*const at = inStage\(sample\);[\s\S]*?const t = touchMove\(layout\(\), hold, at\.x, at\.y\);\s*if \(t\?\.command\) buffer\.push\(from\(t\), t\.command\);/,
+      /for \(const sample of samplesOf\(e\)\) \{\s*const at = inStage\(sample\);[\s\S]*?for \(const h of holds\) \{\s*const t = touchMove\(layout\(\), h, at\.x, at\.y\);\s*if \(t\?\.command\) buffer\.push\(from\(t\), t\.command\);/,
     );
   });
 });

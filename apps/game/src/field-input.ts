@@ -99,8 +99,9 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
    */
   const layout = (): Layout =>
     rolledLayout(flippedLayout(handedLayout(o.layout(), world), world), world);
-  // The two seat keys, for the screen that shows both seats: while 1 or 2 is
-  // held the mouse is that player's hand on the field (`render/desk-seat.ts`).
+  // The desk keys, for the screen that shows both seats: while 1 or 2 is held
+  // the mouse is that player's hand on the field, and while 3 is held it is
+  // both players' (`render/desk-seat.ts`).
   const desk = new DeskSeat();
   window.addEventListener("keydown", (e) => desk.down(e.code));
   window.addEventListener("keyup", (e) => desk.up(e.code));
@@ -124,6 +125,9 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     // may take either seat's control first, whichever the tester reaches for
     // (`render/desk-seat.ts`, `render/desk-grab.ts`).
     seats: () => pointerSeats(o.role(), desk.seat()),
+    // And `3`, the test screen's one mouse as both hands at once; a seated
+    // screen has one seat to give whatever is held.
+    both: () => o.role() === "test" && desk.both(),
     handed: () => handedOver(world),
     cfg: world.cfg,
     // **The boss, whatever it is.** Thirteen of them hang a handle on the field —

@@ -1,4 +1,4 @@
-import { instarMarkSeat } from "./instar-mark-grip.js";
+import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
 import type { Layout } from "./layout.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
 
@@ -55,4 +55,46 @@ export function deskDown(
     if (t) return t;
   }
   return null;
+}
+
+/**
+ * **Every hand a desk press is**: the one `deskDown` picks and, where the
+ * press wants both seats, the other seat's on the same point as well. The
+ * owner, 24 September 2026: *on THE INSTAR I cannot use TEST and HOLD BOTH to
+ * continue on one screen — when I hold with the mouse it should be for both
+ * players.* A mark that counts only while both thumbs are on it never starts
+ * from one mouse signed with one seat.
+ *
+ * Two ways a press wants both, and only where the pointer may speak for both
+ * seats — a phone has one seat and is never given a second hand:
+ *
+ * 1. **The control under it says so**: THE INSTAR's `HOLD BOTH` ring
+ *    (`instarMarkBoth`), with no key held at all.
+ * 2. **`both` — the `3` key held** (`desk-seat.ts`): every seat that finds
+ *    something there is on it. Not on a ring that names one seat, which the
+ *    other would only be refused on (`sim/instar-hand.ts`), and not where the
+ *    second hit test answers for the same player — a strip is signed by the
+ *    half it is on, whoever asks, and the same press twice is not two hands.
+ *
+ * Each touch carries its own hold, so the host keeps both until the lift and
+ * lets both go on it.
+ */
+export function deskDownAll(
+  l: Layout,
+  x: number,
+  y: number,
+  seats: readonly (1 | 2)[],
+  fieldFor: (seat: 1 | 2) => Field,
+  both = false,
+): Touch[] {
+  const first = deskDown(l, x, y, seats, fieldFor);
+  if (first === null) return [];
+  const other = first.player === 1 ? 2 : 1;
+  if (!seats.includes(other)) return [first];
+  const field = fieldFor(first.player);
+  const wants =
+    instarMarkBoth(l, x, y, field) || (both && instarMarkSeat(l, x, y, field) === undefined);
+  if (!wants) return [first];
+  const second = touchDown(l, x, y, fieldFor(other));
+  return second !== null && second.player === other ? [first, second] : [first];
 }

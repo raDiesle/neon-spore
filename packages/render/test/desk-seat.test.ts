@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { DeskSeat, pointerSeat, seatKey } from "../src/desk-seat.js";
+import { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "../src/desk-seat.js";
 
 /**
  * One mouse, two seats: the test screen signs a press with whichever seat key
@@ -31,6 +31,27 @@ describe("the desk's seat keys", () => {
     expect(desk.seat()).toBe(1);
     desk.clear();
     expect(desk.seat()).toBeUndefined();
+  });
+
+  it("reads 3 as both seats, on top of a seat key and under one", () => {
+    expect(bothKey("Digit3")).toBe(true);
+    expect(bothKey("Numpad3")).toBe(true);
+    expect(bothKey("Digit1")).toBe(false);
+    const desk = new DeskSeat();
+    expect(desk.down("Digit1")).toBe(true);
+    expect(desk.down("Digit3")).toBe(true);
+    expect(desk.both()).toBe(true);
+    expect(desk.seat()).toBeUndefined();
+    expect(pointerSeats("test", desk.seat())).toEqual([1, 2]);
+    desk.down("Digit2");
+    expect(desk.both()).toBe(false);
+    expect(desk.seat()).toBe(2);
+    desk.up("Digit2");
+    expect(desk.both()).toBe(true);
+    desk.up("Digit3");
+    expect(desk.seat()).toBe(1);
+    desk.clear();
+    expect(desk.both()).toBe(false);
   });
 
   it("moves only the test screen's pointer: a phone's seat is the role bar's", () => {

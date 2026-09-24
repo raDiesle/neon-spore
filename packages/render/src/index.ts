@@ -51,8 +51,8 @@ export {
 } from "./creature-place.js";
 export { creatureAt } from "./creature-under.js";
 export { drawnCol, drawnRow } from "./depth.js";
-export { deskDown } from "./desk-grab.js";
-export { DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-seat.js";
+export { deskDown, deskDownAll } from "./desk-grab.js";
+export { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-seat.js";
 export { smoothstep } from "./ease.js";
 export {
   type Dial,

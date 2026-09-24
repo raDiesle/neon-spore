@@ -62,6 +62,16 @@ export function instarMarkSeat(l: Layout, x: number, y: number, field: Field): 1
 }
 
 /**
+ * **Whether the ring under this point wants both thumbs** — THE INSTAR's
+ * `HOLD BOTH`, which counts only while the two seats are on it together
+ * (`sim/instar-step.ts`). The desk's one mouse answers it as both hands
+ * (`desk-grab.ts` `deskDownAll`); a phone never asks.
+ */
+export function instarMarkBoth(l: Layout, x: number, y: number, field: Field): boolean {
+  return markUnder(l, x, y, field)?.mark.seat === "both";
+}
+
+/**
  * A press on one of the marks while they are up: the nearest ring under the
  * thumb, as a `drag` on `instarMark` with `id` naming which. A `turn` mark's
  * hold keeps the *mark's centre* as its origin and is flagged `turns`, so

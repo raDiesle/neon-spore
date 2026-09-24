@@ -19621,3 +19621,21 @@ The bottleneck was **landing**: the change is one page, and the check is most
 of the time it takes.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — One mouse holds THE INSTAR's HOLD BOTH for both seats; 3 is both hands
+
+- reading: 15 min. `instar-hand.ts` and `instar-step.ts` for how a hold
+  counts, `desk-seat.ts`, `desk-grab.ts`, both hosts' pointer rigs, and the
+  director's own `3` and balloon mirror for the precedent.
+- writing: 20 min. `deskDownAll`, `instarMarkBoth`, `3` in `DeskSeat`, holds
+  kept as a list per pointer in the game and the director, five tests.
+- looking: 0 min. Held by an end-to-end test through the simulation; not
+  opened in a browser.
+- friction: 5 min. Two workspace links missing in the fresh worktree, fixed
+  by `bun install --force`.
+- landing: 5 min. `check:fast`, red once on two source-shape regexes in
+  `input-pc.test.ts`, then green.
+
+The bottleneck was **reading**: the fix is a few lines, but there were two
+hosts, a key the director already spends on something else, and a sim that
+refuses the wrong thumb to understand first.

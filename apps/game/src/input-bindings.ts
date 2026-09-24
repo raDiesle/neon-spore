@@ -43,6 +43,11 @@ export interface Bindings {
    */
   seats: () => readonly (1 | 2)[];
   /**
+   * Whether the desk's `3` is held: a press is every seat's that finds
+   * something under it (`render/desk-seat.ts` `bothKey`). Never on a phone.
+   */
+  both: () => boolean;
+  /**
    * Whether THE HANDOVER has the two panels traded this beat
    * (`sim/handover.ts`).
    *

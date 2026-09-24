@@ -33,34 +33,52 @@ export function seatKey(code: string): 1 | 2 | null {
 }
 
 /**
- * Which of the two seat keys a desk is holding, most recent first — so `2`
+ * **`3`: the pointer is both seats' hand at once**, the owner's ask of 24
+ * September 2026 — *on THE INSTAR I cannot use TEST and HOLD BOTH to continue
+ * on one screen; support 3.* One mouse is one press, and a mark that counts
+ * only while both thumbs are on it (`sim/instar-step.ts`) never starts from
+ * one. While `3` is held a press on the field is every seat's that finds
+ * something there (`desk-grab.ts` `deskDownAll`).
+ */
+export function bothKey(code: string): boolean {
+  return code === "Digit3" || code === "Numpad3";
+}
+
+/**
+ * Which of the three desk keys a desk is holding, most recent first — so `2`
  * pressed over a held `1` is player 2 until it lifts, then player 1 again.
  * Fed by the host's `keydown` and `keyup`, and cleared on `blur`, where a key
  * released over another window would otherwise stay held here for good.
  */
 export class DeskSeat {
-  private held: (1 | 2)[] = [];
+  private held: (1 | 2 | "both")[] = [];
 
-  /** `true` when the code was a seat key, so the host can stop there. */
+  /** `true` when the code was a desk key, so the host can stop there. */
   down(code: string): boolean {
-    const seat = seatKey(code);
-    if (seat === null) return false;
-    this.held = [seat, ...this.held.filter((s) => s !== seat)];
+    const key = bothKey(code) ? "both" : seatKey(code);
+    if (key === null) return false;
+    this.held = [key, ...this.held.filter((s) => s !== key)];
     return true;
   }
 
   up(code: string): void {
-    const seat = seatKey(code);
-    if (seat !== null) this.held = this.held.filter((s) => s !== seat);
+    const key = bothKey(code) ? "both" : seatKey(code);
+    if (key !== null) this.held = this.held.filter((s) => s !== key);
   }
 
   clear(): void {
     this.held = [];
   }
 
-  /** The seat held, or none. */
+  /** The seat held, or none — and none while `3` is the key on top. */
   seat(): 1 | 2 | undefined {
-    return this.held[0];
+    const top = this.held[0];
+    return top === "both" ? undefined : top;
+  }
+
+  /** Whether `3` is the key on top: the pointer is both seats' hand. */
+  both(): boolean {
+    return this.held[0] === "both";
   }
 }
 

@@ -1,5 +1,5 @@
 import {
-  deskDown,
+  deskDownAll,
   type Field,
   type Hold,
   type Layout,
@@ -114,7 +114,9 @@ export function bindStageTouch({
   role,
   replay,
 }: StageTouch): StageHand {
-  const holding = new Map<number, Hold>();
+  /** More than one hold on a pointer is the mouse on a ring that wants both
+   * seats (`render/desk-grab.ts` `deskDownAll`). */
+  const holding = new Map<number, Hold[]>();
   /**
    * Every command this stage sends, and the second seat's copy of it where
    * there is one. The only thing that has one is THE BALLOON's pair of handles
@@ -168,17 +170,22 @@ export function bindStageTouch({
       return;
     }
     const p = at(e);
-    const t = deskDown(layout(), p.x, p.y, seats(), field);
-    if (!t) return;
+    // Both seats on THE INSTAR's HOLD BOTH ring, which one mouse could
+    // otherwise never start. `3` is not the game's both-seats key here: it is
+    // this stage's cue key (`stage-cue-key.ts`).
+    const touches = deskDownAll(layout(), p.x, p.y, seats(), field);
+    if (touches.length === 0) return;
     e.preventDefault();
-    if (t.hold) {
-      holding.set(e.pointerId, t.hold);
-      setHand(shipHand(layout(), t.hold, p.x, p.y, true));
+    const holds = touches.flatMap((t) => (t.hold ? [t.hold] : []));
+    const [first] = holds;
+    if (first) {
+      holding.set(e.pointerId, holds);
+      setHand(shipHand(layout(), first, p.x, p.y, true));
     }
     // Null for the one press that takes hold of something and says nothing
     // yet: player 2's thumb on the muzzle, decided on the lift
     // (`render/touch-ship.ts`).
-    if (t.command) send(t.player, t.command);
+    for (const t of touches) if (t.command) send(t.player, t.command);
   });
   canvas.addEventListener("pointerleave", () => {
     pointer = undefined;
@@ -186,8 +193,9 @@ export function bindStageTouch({
   canvas.addEventListener("pointermove", (e) => {
     const p = at(e);
     pointer = p;
-    const hold = holding.get(e.pointerId);
-    if (!hold) {
+    const holds = holding.get(e.pointerId);
+    const hold = holds?.[0];
+    if (!holds || !hold) {
       // Nothing held: the cup follows the cursor instead, dim. The stage is a
       // desk tool and a desk has a hover, which is the half of "knows which
       // element is active before swiping" a phone answers with the press.
@@ -198,8 +206,10 @@ export function bindStageTouch({
       return;
     }
     setHand(shipHand(layout(), hold, p.x, p.y, true));
-    const t = touchMove(layout(), hold, p.x, p.y);
-    if (t?.command) send(t.player, t.command);
+    for (const h of holds) {
+      const t = touchMove(layout(), h, p.x, p.y);
+      if (t?.command) send(t.player, t.command);
+    }
   });
   // On the window, not the canvas: a thumb that leaves the picture still has
   // to let go of what it was holding.
@@ -209,12 +219,14 @@ export function bindStageTouch({
       briefHolding.delete(e.pointerId);
       for (const seat of seats) push(seat, { kind: "brief", on: false });
     }
-    const hold = holding.get(e.pointerId);
-    if (!hold) return;
+    const holds = holding.get(e.pointerId);
+    if (!holds) return;
     holding.delete(e.pointerId);
     setHand(null);
-    const t = touchUp(layout(), hold, at(e));
-    if (t?.command) send(t.player, t.command);
+    for (const hold of holds) {
+      const t = touchUp(layout(), hold, at(e));
+      if (t?.command) send(t.player, t.command);
+    }
   };
   window.addEventListener("pointerup", lift);
   window.addEventListener("pointercancel", lift);

@@ -1,4 +1,4 @@
-import { deskDown, type Hold, shipUnder, touchMove, touchUp } from "@neon-spore/render";
+import { deskDownAll, type Hold, shipUnder, touchMove, touchUp } from "@neon-spore/render";
 import { samplesOf } from "./coalesced.js";
 import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
@@ -33,9 +33,12 @@ export interface Controls {
  * shield and the colours.
  */
 export function bindControls(bindings: Bindings): Controls {
-  const { canvas, buffer, layout, inStage, isOver, player, handed, opening, seats } = bindings;
-  /** Which finger is doing what. What each one *means* is `touch.ts`'s. */
-  const holding = new Map<number, Hold>();
+  const { canvas, buffer, layout, inStage, isOver, player, handed, opening, seats, both } =
+    bindings;
+  /** Which finger is doing what. What each one *means* is `touch.ts`'s. More
+   * than one hold on a finger is the desk's mouse being both seats' hand
+   * (`render/desk-grab.ts` `deskDownAll`); a phone's finger always has one. */
+  const holding = new Map<number, Hold[]>();
   /** **Who a press is from: this device, always.** `touch.ts` signs a press
    * with the half of the band it landed on, and THE HANDOVER trades which half
    * this screen draws — so while the panels are away that signature is the
@@ -56,17 +59,19 @@ export function bindControls(bindings: Bindings): Controls {
     }
     // Which seat the press speaks for is `deskDown`'s on the screen that shows
     // both: the seat the control under the thumb names, else the first of them
-    // that finds anything there (`render/desk-grab.ts`). One seat everywhere
-    // else, which is every phone.
-    const t = deskDown(layout(), x, y, seats(), field);
-    if (!t) return;
-    if (t.hold) {
-      holding.set(id, t.hold);
-      if (!opening()) hand.down(layout(), t.hold, x, y);
+    // that finds anything there — and both seats on a ring that wants both, or
+    // with `3` held (`render/desk-grab.ts`). One seat everywhere else, which is
+    // every phone.
+    const touches = deskDownAll(layout(), x, y, seats(), field, both());
+    const holds = touches.flatMap((t) => (t.hold ? [t.hold] : []));
+    const [first] = holds;
+    if (first) {
+      holding.set(id, holds);
+      if (!opening()) hand.down(layout(), first, x, y);
     }
     // Null for the one press that takes hold and says nothing yet: player
     // 2's thumb landing on the muzzle, decided on the lift (`render/touch-ship.ts`).
-    if (t.command) buffer.push(from(t), t.command);
+    for (const t of touches) if (t.command) buffer.push(from(t), t.command);
   };
 
   /**
@@ -79,12 +84,14 @@ export function bindControls(bindings: Bindings): Controls {
    * way (`window.blur` and the pointer leaving the document) fires first.
    */
   const releaseAll = (): void => {
-    for (const [id, hold] of holding) {
+    for (const [id, holds] of holding) {
       holding.delete(id);
       // No point to report, so a half-finished swipe fires nothing — see
       // `touchUp`. Losing the window is not a shot the player took.
-      const t = touchUp(layout(), hold);
-      if (t?.command) buffer.push(from(t), t.command);
+      for (const hold of holds) {
+        const t = touchUp(layout(), hold);
+        if (t?.command) buffer.push(from(t), t.command);
+      }
     }
     hand.clear();
     pointer = undefined;
@@ -124,8 +131,9 @@ export function bindControls(bindings: Bindings): Controls {
   canvas.addEventListener("pointermove", (e) => {
     e.preventDefault();
     const p = inStage(e);
-    const hold = p && holding.get(e.pointerId);
-    if (!hold) return hover(e, p);
+    const holds = p && holding.get(e.pointerId);
+    const hold = holds?.[0];
+    if (!holds || !hold) return hover(e, p);
     // Every position the move carries, not only the last: a browser coalesces
     // moves to one event a frame, and a gesture read as a bearing is read
     // backwards when a hand covers half a turn between two samples
@@ -134,17 +142,21 @@ export function bindControls(bindings: Bindings): Controls {
       const at = inStage(sample);
       if (!at) continue;
       hand.down(layout(), hold, at.x, at.y);
-      const t = touchMove(layout(), hold, at.x, at.y);
-      if (t?.command) buffer.push(from(t), t.command);
+      for (const h of holds) {
+        const t = touchMove(layout(), h, at.x, at.y);
+        if (t?.command) buffer.push(from(t), t.command);
+      }
     }
   });
   const up = (e: PointerEvent, at: { x: number; y: number } | undefined): void => {
-    const hold = holding.get(e.pointerId);
-    if (!hold) return;
+    const holds = holding.get(e.pointerId);
+    if (!holds) return;
     holding.delete(e.pointerId);
     hand.clear();
-    const t = touchUp(layout(), hold, at);
-    if (t?.command) buffer.push(from(t), t.command);
+    for (const hold of holds) {
+      const t = touchUp(layout(), hold, at);
+      if (t?.command) buffer.push(from(t), t.command);
+    }
   };
   canvas.addEventListener("pointerup", (e) => up(e, inStage(e) ?? undefined));
   // A cancel is the browser taking the gesture away — a system edge swipe, a

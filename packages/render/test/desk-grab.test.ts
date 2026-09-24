@@ -13,7 +13,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { deskDown } from "../src/desk-grab.js";
+import { deskDown, deskDownAll } from "../src/desk-grab.js";
 import { pointerSeats } from "../src/desk-seat.js";
 import { gaugeBandGrip } from "../src/gauge-grip.js";
 import { gaugeDial } from "../src/gauge-round.js";
@@ -176,6 +176,60 @@ describe("a press on THE INSTAR's marks", () => {
     // this way (`sim/instar-hand.ts`).
     expect(deskDown(L, navigator.x, navigator.y, pointerSeats("test", 1), field)?.player).toBe(1);
     expect(deskDown(L, navigator.x, navigator.y, pointerSeats("test", 2), field)?.player).toBe(2);
+  });
+});
+
+describe("one mouse on a ring that wants both thumbs", () => {
+  it("is both seats' hand, and the hold counts to the end of the pose", () => {
+    // The owner, 24 September 2026: *on THE INSTAR I cannot use TEST and HOLD
+    // BOTH to continue on one screen — when I hold with the mouse it should
+    // be for both players.*
+    const world = hung();
+    const s = acting(world, 4);
+    const id = markOf(s, "both");
+    const at = ringAt(s, world, id);
+    const field = (seat: 1 | 2): Field => instarField(world, seat);
+    const touches = deskDownAll(L, at.x, at.y, BOTH, field);
+    expect(touches.map((t) => t.player)).toEqual([1, 2]);
+    expect(touches.every((t) => t.hold !== undefined)).toBe(true);
+    step(
+      world,
+      touches.flatMap((t) =>
+        t.command ? [{ tick: world.tick, player: t.player, command: t.command }] : [],
+      ),
+    );
+    expect(s.thumbs[id]).toBe(3);
+    const need = s.steps[4]?.marks[id]?.need ?? 0;
+    for (let i = 0; i < TPB * (need + 1) && s.phase === "act"; i++) step(world, []);
+    expect(s.phase).toBe("land");
+    expect(world.over).toBe(false);
+  });
+
+  it("stays one hand on a phone, where the pointer has one seat", () => {
+    const world = hung();
+    const s = acting(world, 4);
+    const at = ringAt(s, world, markOf(s, "both"));
+    const touches = deskDownAll(L, at.x, at.y, [1], (seat) => instarField(world, seat));
+    expect(touches.map((t) => t.player)).toEqual([1]);
+  });
+});
+
+describe("the desk's 3 held", () => {
+  it("gives a ring that names one seat to that seat alone, never a refusal", () => {
+    const world = hung();
+    const s = acting(world, 0);
+    const field = (seat: 1 | 2): Field => instarField(world, seat);
+    const navigator = ringAt(s, world, markOf(s, "p2"));
+    const touches = deskDownAll(L, navigator.x, navigator.y, BOTH, field, true);
+    expect(touches.map((t) => t.player)).toEqual([2]);
+  });
+
+  it("is both hands on the HOLD BOTH ring too", () => {
+    const world = hung();
+    const s = acting(world, 4);
+    const at = ringAt(s, world, markOf(s, "both"));
+    const touches = deskDownAll(L, at.x, at.y, BOTH, (seat) => instarField(world, seat), true);
+    expect(touches.map((t) => t.player)).toEqual([1, 2]);
   });
 });
 
