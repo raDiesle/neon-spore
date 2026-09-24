@@ -7,6 +7,7 @@ import {
   setLance,
   WAVES,
   waveGuideSteps,
+  waveHasGuide,
 } from "@neon-spore/content";
 import { introSeconds } from "@neon-spore/render";
 import {
@@ -106,7 +107,14 @@ export function createWaveProgression({
   /** Whether this run's final clock has already been written down. */
   let ended = false;
 
-  const open = (wave: number, retry = false): void => {
+  /**
+   * `retry` is the same wave after a hit, `guided` is that retry asked for
+   * with its tutorial put back in front of it (`sim/wave-fail.ts`). The two
+   * are separate because they answer different questions: `retry` decides
+   * whether this device has *reached* anywhere new, and `guided` decides only
+   * what stands in front of the field. A guided retry is still a retry.
+   */
+  const open = (wave: number, retry = false, guided = false): void => {
     // The wave after the last authored one is the end of the run: the pair
     // has cleared every wave the game has, and the balance sheet is what is
     // left to see. There used to be generated waves out here, without end
@@ -135,10 +143,13 @@ export function createWaveProgression({
       buildBoss(wave, cfg.cols),
       // A wave gone again after a hit opens on its introduction and not on
       // its guide: the pair has read it, and what they need is the field.
-      !retry && WAVES[wave]?.guide !== undefined,
+      // Unless they asked for it back, which is the whole of what the lost
+      // screen's third button does — from here a guided retry and a first
+      // entry are the same call.
+      (!retry || guided) && waveHasGuide(wave),
       // How many pages this wave's guide has, which is the whole of what the
       // simulation knows about a rehearsal (`sim/guide-steps.ts`).
-      retry ? 0 : waveGuideSteps(wave),
+      !retry || guided ? waveGuideSteps(wave) : 0,
       // And the faults it places, with the beat each enters on. Read off the
       // wave beside its boss, because they are the same kind of fact: read
       // once, before the first tick, and identical on both devices
@@ -163,7 +174,7 @@ export function createWaveProgression({
 
   const handle = (events: readonly SimEvent[]): void => {
     for (const e of events) {
-      if (e.type === "needWave") open(e.wave, e.retry === true);
+      if (e.type === "needWave") open(e.wave, e.retry === true, e.guide === true);
       // One seat answered QUIT on the lost screen: the run is over here and on
       // the other phone alike, and the menu is about to say who (`quit.ts`).
       else if (e.type === "quit") sayQuit(e.player);

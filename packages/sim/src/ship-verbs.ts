@@ -20,6 +20,7 @@ export function reachesShip(c: Command): boolean {
   switch (c.kind) {
     case "restart":
     case "retry":
+    case "retryGuide":
     case "quit":
     case "brief":
     case "guideStep":

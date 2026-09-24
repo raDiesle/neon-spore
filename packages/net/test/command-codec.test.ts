@@ -252,6 +252,11 @@ const ACCEPTED: Command[] = [
   { kind: "shake" },
   { kind: "restart" },
   { kind: "retry" },
+  // The lost screen's third answer: the same wave with its tutorial put back
+  // in front of it. Its own kind precisely so that a peer which does not know
+  // it fails the frame instead of quietly decoding a plain retry
+  // (`sim/command-types.ts`).
+  { kind: "retryGuide" },
   { kind: "quit" },
   // The four the guard below found missing from the codec altogether — THE
   // CLAW's arm and PINBALL's three. Every one of them was dropped on the wire,
@@ -322,6 +327,7 @@ const EVERY_KIND: Record<Command["kind"], true> = {
   scoutTurn: true,
   scoutBurn: true,
   scoutMaw: true,
+  retryGuide: true,
   quit: true,
 };
 

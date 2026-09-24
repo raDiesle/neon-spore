@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { WAVES, waveGuideSteps } from "@neon-spore/content";
+import { WAVES, waveGuideSteps, waveHasGuide } from "@neon-spore/content";
 import {
   ackBriefing,
   createWorld,
@@ -298,21 +298,75 @@ describe("a wave's opening on the stage", () => {
       }
       expect(lostAsks(world)).toBe(true);
       const fx = new OpeningFx();
+      // The same question the screen draws itself from: a wave with a guide
+      // has a third button, and the geometry the thumb is tested against has
+      // to be the geometry the screen was drawn from (`lost-answer.ts`).
+      const guided = waveHasGuide(world.wave);
       for (const age of [0.05, 0.4, 0.9, 4]) {
         fx.update(age, `${world.wave}|lost|${world.retries}`);
-        const b = lostButtons(l);
+        const b = lostButtons(l, guided);
         const pointer = { x: b.retry.x + b.retry.w / 2, y: b.retry.y + b.retry.h / 2 };
         drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
           role: "p1",
           fx,
           pointer,
         });
-        expect(lostHit(l, pointer.x, pointer.y)).toBe("retry");
-        expect(lostHit(l, b.quit.x + 2, b.quit.y + 2)).toBe("quit");
-        expect(lostHit(l, 1, 1)).toBeNull();
+        expect(lostHit(l, pointer.x, pointer.y, guided)).toBe("retry");
+        expect(lostHit(l, b.quit.x + 2, b.quit.y + 2, guided)).toBe("quit");
+        expect(lostHit(l, 1, 1, guided)).toBeNull();
       }
       // And with no clock at all: a still of the screen is a settled one.
       drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, { role: "p2" });
+    }
+  });
+
+  /**
+   * **The way back to the tutorial, and QUIT's air kept while it is there.**
+   *
+   * The owner, 24 September 2026: *there must be a way to watch tutorial again
+   * and then restart wave, like as players entered first time the wave.* The
+   * screen answers it with a third plate under RETRY WAVE, and the one thing
+   * that plate could have broken is the separation the owner asked for a week
+   * earlier — *the quit button we should do less prominent, as player might
+   * accidently press it.* So the gap is measured from whichever plate is
+   * lowest, and it is the same gap either way.
+   *
+   * A wave with no guide has nothing to watch and gets the screen it always
+   * had, which is the other half and the reason `guide` is nullable rather
+   * than a box drawn dead.
+   */
+  it("offers the tutorial again where there is one, without taking QUIT's air", () => {
+    const withGuide = WAVES.findIndex((w) => w.guide !== undefined);
+    const without = WAVES.findIndex((w) => w.guide === undefined);
+    expect(withGuide).toBeGreaterThanOrEqual(0);
+    expect(without).toBeGreaterThanOrEqual(0);
+    for (const [w, h] of [
+      [900, 1600],
+      [390, 844],
+      [240, 480],
+    ] as const) {
+      const l = computeLayout({ width: w, height: h, dpr: 2 }, CFG, "p1");
+      const three = lostButtons(l, true);
+      const two = lostButtons(l, false);
+      expect(two.guide).toBeNull();
+      expect(three.guide).not.toBeNull();
+      const g = three.guide!;
+      // RETRY's sibling: same width, same left edge, under it, and shorter.
+      expect(g.x).toBe(three.retry.x);
+      expect(g.w).toBe(three.retry.w);
+      expect(g.y).toBeGreaterThan(three.retry.y + three.retry.h);
+      expect(g.h).toBeLessThan(three.retry.h);
+      // QUIT is pushed down by exactly the plate that was put in front of it,
+      // so the air between it and the thing above is what it always was.
+      // Close rather than equal: the row starts at a fraction of `playHeight`.
+      expect(three.quit.y - (g.y + g.h)).toBeCloseTo(two.quit.y - (two.retry.y + two.retry.h), 6);
+      expect(three.quit.w).toBe(two.quit.w);
+      // And the whole stack still stands on the field it is drawn over.
+      expect(three.quit.y + three.quit.h).toBeLessThanOrEqual(l.playHeight);
+      // The press, named as the command it sends (`sim/command-types.ts`).
+      expect(lostHit(l, g.x + g.w / 2, g.y + g.h / 2, true)).toBe("retryGuide");
+      // And on a wave with nothing to watch, that same point is not a button.
+      expect(lostHit(l, g.x + g.w / 2, g.y + g.h / 2, false)).toBeNull();
     }
   });
 

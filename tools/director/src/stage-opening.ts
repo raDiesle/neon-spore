@@ -1,3 +1,4 @@
+import { waveHasGuide } from "@neon-spore/content";
 import { type Layout, lostHit, navHit, onNavBar } from "@neon-spore/render";
 import { type Command, introHolds, lostAsks, onReadyPage, type World } from "@neon-spore/sim";
 
@@ -17,9 +18,10 @@ import { type Command, introHolds, lostAsks, onReadyPage, type World } from "@ne
  * wave on twenty times in an afternoon, and making them wait out the timer each
  * time is the thing that would get the whole opening switched off.
  *
- * The lost screen is answered here too (`render/lost-screen.ts`): its two
- * buttons are where the phone draws them, and a press on either speaks for
- * both seats, which is what the phone's press does as well.
+ * The lost screen is answered here too (`render/lost-screen.ts`): its buttons
+ * are where the phone draws them, and a press on any of them speaks for both
+ * seats, which is what the phone's press does as well. `lostHit` names them as
+ * the commands they send, so there is nothing to translate.
  *
  * Its own file beside `stage-touch.ts` because that file is about the *ship* —
  * a hold, a hand, a column — and this is about the two screens in front of it.
@@ -45,7 +47,7 @@ export interface OpeningPress {
 export function openingPress(p: OpeningPress): readonly (1 | 2)[] | null {
   const { world, layout, seats, point, push } = p;
   if (lostAsks(world)) {
-    const hit = lostHit(layout, point.x, point.y);
+    const hit = lostHit(layout, point.x, point.y, waveHasGuide(world.wave));
     if (hit) {
       push(1, { kind: hit });
       push(2, { kind: hit });

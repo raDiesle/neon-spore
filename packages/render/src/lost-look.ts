@@ -35,10 +35,12 @@ import { words } from "./lost-words.js";
  * the paint is told where the breach is, and an answer is expected to be a
  * treatment the breach column is a hole in rather than a card over it.
  *
- * **The buttons are not in this record.** RETRY WAVE and QUIT are drawn by
- * `lost-screen.ts` at boxes `lostButtons` hands out, and `apps/game/src/lost.ts`
- * hit-tests the same boxes — a candidate that moved them would move the
- * picture and not the thumb. What an answer owns is everything above them.
+ * **The buttons are not in this record.** RETRY WAVE, TUTORIAL AGAIN and QUIT
+ * are drawn by `lost-screen.ts` at boxes `lostButtons` hands out, and
+ * `apps/game/src/lost.ts` hit-tests the same boxes — a candidate that moved
+ * them would move the picture and not the thumb. What an answer owns is
+ * everything above them, and `buttonsY` is still the top of the lot however
+ * many there are.
  */
 export interface LostPaint {
   readonly l: Layout;

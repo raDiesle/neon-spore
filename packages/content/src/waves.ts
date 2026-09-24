@@ -106,3 +106,19 @@ export function guideSteps(guide: WaveGuide | undefined): number {
 export function waveGuideSteps(wave: number): number {
   return guideSteps(WAVES[wave]?.guide);
 }
+
+/**
+ * Whether a wave carries a guide at all — asked by everything that offers to
+ * play one.
+ *
+ * `waveGuideSteps` is not this question. A guide made of prose has
+ * `PROSE_PAGES` and a guide with a rehearsal has a page per step, so a count
+ * happens to answer it today; a guide of one page would make the count 1 and a
+ * wave with no guide 0, and the two would be a `> 0` somebody has to remember.
+ * The host asked it as `WAVES[wave]?.guide !== undefined` and the lost screen
+ * was about to ask it again, which is the moment a re-derived rule becomes a
+ * function (`CLAUDE.md`).
+ */
+export function waveHasGuide(wave: number): boolean {
+  return WAVES[wave]?.guide !== undefined;
+}

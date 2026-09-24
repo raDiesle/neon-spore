@@ -1,3 +1,4 @@
+import { waveHasGuide } from "@neon-spore/content";
 import { spanOf, type World } from "@neon-spore/sim";
 import { breachHue } from "./breach-hue.js";
 import { strikeSeed } from "./breach-strike.js";
@@ -8,7 +9,7 @@ import { LOST_LOOK } from "./lost-look.js";
 import { waveName } from "./wave-intro.js";
 
 /**
- * A lost wave stops on a friendly screen: RETRY WAVE or QUIT.
+ * A lost wave stops on a friendly screen: RETRY WAVE, TUTORIAL AGAIN or QUIT.
  *
  * The owner asked for it by name, 13 September 2026, in place of the hold
  * that used to open the same wave again by itself. The field stays under it,
@@ -17,10 +18,12 @@ import { waveName } from "./wave-intro.js";
  * be a screen that took that away. Over it, in the introduction's own type:
  * WAVE LOST, the wave's number and its name, and the try count in the corner
  * (`lost-words.ts`).
- * Then two buttons, the guide bar's own grown bodies with a word on the face
- * instead of a sign, because these two are the one place in the game where a
+ * Then the buttons, the guide bar's own grown bodies with a word on the face
+ * instead of a sign, because these are the one place in the game where a
  * sign would not do: a wave can be *left*, and the word for that has to be
- * read, not guessed.
+ * read, not guessed. TUTORIAL AGAIN is drawn only on a wave that has a guide
+ * to watch, and it opens the wave the way it opened the first time
+ * (`lost-answer.ts`).
  *
  * **One press answers for both phones.** Either seat's RETRY opens the wave
  * again on both; either seat's QUIT ends the run on both, and the other phone
@@ -90,7 +93,11 @@ export function drawLostScreen(
   };
   LOST_LOOK.veil(ctx, paint);
   LOST_LOOK.words(ctx, paint);
-  drawLostAnswer(ctx, l, v);
+  // Whether there is a tutorial to watch again, which is content's fact and
+  // not the world's: `world.brief.guide` says whether *this opening* carried
+  // one, and a wave gone again opens without it — so the button would have
+  // vanished after the first retry, which is the one case it exists for.
+  drawLostAnswer(ctx, l, { ...v, guided: waveHasGuide(world.wave) });
 }
 
 export { type LostButtons, lostButtons, lostHit } from "./lost-answer.js";

@@ -20,13 +20,24 @@ import type { World } from "./world.js";
  * then on `step` holds the field the way an opening does —
  * nothing falls, nothing fires, the tick still counts — for `waveFailBeats`,
  * so the breach is seen where it happened; then the pair is asked, on a
- * screen over the held field: RETRY WAVE or QUIT (`render/lost-screen.ts`).
- * Either seat's press answers for both, first one wins — decided by the owner
- * on 13 September 2026. A retry asks the host for the same wave (`needWave`
- * with `retry`) and the field stays held until it answers; a quit ends the
- * run for both, says who quit, and the room stays. Two devices agree about
- * all of it because every part is the world's: `failTick`, `retries` and
- * `playTicks` are in `hashWorld`, and the answer is a command in lockstep.
+ * screen over the held field (`render/lost-screen.ts`). Either seat's press
+ * answers for both, first one wins — decided by the owner on 13 September
+ * 2026. A retry asks the host for the same wave (`needWave` with `retry`) and
+ * the field stays held until it answers; a quit ends the run for both, says who
+ * quit, and the room stays. Two devices agree about all of it because every
+ * part is the world's: `failTick`, `retries` and `playTicks` are in
+ * `hashWorld`, and the answer is a command in lockstep.
+ *
+ * **There is a third answer, and it is a retry with the guide put back.** The
+ * owner, 24 September 2026: *there must be a way to watch tutorial again and
+ * then restart wave, like as players entered first time the wave.* A plain
+ * retry deliberately skips the guide — the pair has read it, what they need is
+ * the field — and that is exactly wrong for the pair who lost *because* they
+ * had not understood it. So `retryGuide` asks for the same wave with `guide`
+ * on the event, and `apps/game/src/waves.ts` opens it the way a first entry
+ * opens: the film, the gate, then the field. It still counts as a retry,
+ * because it is one, and it is only offered on a wave that has a guide to
+ * watch (`content/waves.ts`, `waveHasGuide`).
  *
  * **A retry is counted when it is taken, not when it is asked for.** The
  * count goes up in `wave-start.ts`, on the tick the failed wave opens again,
@@ -44,7 +55,8 @@ import type { World } from "./world.js";
 export const NOT_FAILED = -1;
 /** `failTick` while the screen is up: the pause is spent, the pair is asked. */
 const ASKED = -2;
-/** `failTick` once a seat answered RETRY: the host is asked, the field held until it answers. */
+/** `failTick` once a seat asked for the wave again, with the guide or without:
+ * the host is asked, the field held until it answers. */
 const ANSWERED = -3;
 
 /** The hull took damage: the wave is lost, from this tick. */
@@ -91,9 +103,10 @@ export function lostAsks(world: World): boolean {
 
 /**
  * One tick of the hold. The pause spends itself into the question; the
- * question is answered by the first `retry` or `quit` to arrive, from either
- * seat — the same wave asked for once, or the run ended for both. `restart`
- * is not read here: it is the balance sheet's word, and the sheet is not up.
+ * question is answered by the first `retry`, `retryGuide` or `quit` to arrive,
+ * from either seat — the same wave asked for once, with or without its guide,
+ * or the run ended for both. `restart` is not read here: it is the balance
+ * sheet's word, and the sheet is not up.
  */
 export function stepFailHold(world: World, commands: readonly TimedCommand[]): void {
   if (world.failTick >= 0) {
@@ -103,9 +116,16 @@ export function stepFailHold(world: World, commands: readonly TimedCommand[]): v
   }
   if (!lostAsks(world)) return;
   for (const c of commands) {
-    if (c.command.kind === "retry") {
+    if (c.command.kind === "retry" || c.command.kind === "retryGuide") {
       world.failTick = ANSWERED;
-      world.events.push({ type: "needWave", wave: world.wave, retry: true });
+      world.events.push({
+        type: "needWave",
+        wave: world.wave,
+        retry: true,
+        // Only when it is asked for, so a plain retry's event is the object it
+        // always was: `retry: true` and nothing else.
+        ...(c.command.kind === "retryGuide" ? { guide: true as const } : {}),
+      });
       return;
     }
     if (c.command.kind === "quit") {

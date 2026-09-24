@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — A lost wave can be watched again before it is played again
+
+- reading: 15 min. `lost-answer.ts`, `wave-fail.ts`, `waves.ts`'s `open`, the
+  codec and the two hit-test callers, and `brief.guide` before it turned out
+  to be the wrong fact to ask.
+- writing: 25 min. The command kind and its codec branch, the `guide` flag on
+  `needWave`, `waveHasGuide`, the third plate and its geometry, and four
+  tests across `sim`, `render` and `apps/game`.
+- looking: 10 min. Two captures of the lost screen, the first of them empty
+  because a headless frame has no painted seconds in it (`--settle`).
+- friction: 0 min.
+- landing: 10 min. `check:fast` and the full check under `land`.
+
+The bottleneck was **writing**, and the half of it that was not the button:
+the same press has to mean the same thing on two phones, so a third answer is
+a command kind, a codec branch, an event field and a host branch before it is
+a plate.
+
 ## 2026-09-24 — The guide's two small buttons join NEXT on the bar
 
 - reading: 15 min. `guide-tide-bar.ts`, `guide-nav.ts`, `guide-look.ts` and

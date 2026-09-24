@@ -130,7 +130,11 @@ describe("the hull", () => {
   });
 
   const ASKED_TICK = BREACH_TICK + TPB * CFG.waveFailBeats;
-  const answer = (tick: number, player: 1 | 2, kind: "retry" | "quit"): TimedCommand => ({
+  const answer = (
+    tick: number,
+    player: 1 | 2,
+    kind: "retry" | "retryGuide" | "quit",
+  ): TimedCommand => ({
     tick,
     player,
     command: { kind },
@@ -182,6 +186,35 @@ describe("the hull", () => {
     ]);
     expect(lostAsks(world)).toBe(false);
     expect(world.over).toBe(false);
+  });
+
+  /**
+   * **The third answer, and the one flag that tells the host about it.**
+   *
+   * The owner, 24 September 2026: *there must be a way to watch tutorial again
+   * and then restart wave, like as players entered first time the wave.* The
+   * simulation's whole share of that is this event — it does not know what a
+   * guide says, only that the host was asked for one (`wave-fail.ts`). Held
+   * here because the flag is the entire seam: a `needWave` that lost it would
+   * open the wave without its film and nothing would fail.
+   */
+  it("carries the guide on a retry that asked for the tutorial, and only then", () => {
+    const guided = run([slick(4, "red")], ASKED_TICK + TPB * 4, [
+      answer(ASKED_TICK + 3, 1, "retryGuide"),
+    ]);
+    expect(guided.events.filter((e) => e.type === "needWave")).toEqual([
+      { type: "needWave", wave: 0, retry: true, guide: true },
+    ]);
+    // It is still a retry, and it still answers for both seats at once.
+    expect(lostAsks(guided.world)).toBe(false);
+    expect(guided.world.over).toBe(false);
+    // And the plain one is untouched: no `guide` key at all, not `guide: false`.
+    const plain = run([slick(4, "red")], ASKED_TICK + TPB * 4, [
+      answer(ASKED_TICK + 3, 1, "retry"),
+    ]);
+    const need = plain.events.find((e) => e.type === "needWave");
+    expect(need).toEqual({ type: "needWave", wave: 0, retry: true });
+    expect(need !== undefined && "guide" in need).toBe(false);
   });
 
   it("ends the run for both when a seat says QUIT, and says which seat", () => {

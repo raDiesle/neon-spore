@@ -180,6 +180,7 @@ export {
   type WaveEntry,
   type WaveGuide,
   waveGuideSteps,
+  waveHasGuide,
 } from "./waves.js";
 export {
   DEMONSTRATIONS,

@@ -20,8 +20,10 @@ export type SimEvent =
   | { type: "beat"; beat: number }
   | { type: "waveStart"; wave: number }
   /** The host is asked for a wave's queue; `retry` when it is the same wave
-   * again after a hit (`wave-fail.ts`), which opens without its guide. */
-  | { type: "needWave"; wave: number; retry?: true }
+   * again after a hit (`wave-fail.ts`), which opens without its guide, and
+   * `guide` when that retry is to open with one anyway — the pair asked to
+   * watch the tutorial again before playing it. */
+  | { type: "needWave"; wave: number; retry?: true; guide?: true }
   /** A hit failed the wave: the field holds, then the pair is asked. */
   | { type: "waveFailed"; wave: number }
   /** One seat answered QUIT on the lost screen: the run is over for both,

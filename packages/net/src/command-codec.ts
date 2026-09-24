@@ -174,9 +174,13 @@ export function decodeCommand(x: unknown): Command | null {
       return { kind: "shake" };
     case "restart":
       return { kind: "restart" };
-    // The lost screen's two answers, from either seat (`sim/wave-fail.ts`).
+    // The lost screen's three answers, from either seat (`sim/wave-fail.ts`).
+    // `retryGuide` is the same wave opened the way it opened the first time,
+    // guide and gate before the field.
     case "retry":
       return { kind: "retry" };
+    case "retryGuide":
+      return { kind: "retryGuide" };
     case "quit":
       return { kind: "quit" };
     default:

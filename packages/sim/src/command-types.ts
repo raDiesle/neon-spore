@@ -207,11 +207,20 @@ export type Command =
   /**
    * The answer to a lost wave (`wave-fail.ts`). The field holds on a screen
    * after the hit until one of these arrives from either seat: `retry` opens
-   * the same wave again, `quit` ends the run for both. Whichever seat presses
-   * first answers for both; a second answer lands on a world that is no
-   * longer asking and does nothing. Decided by the owner, 13 September 2026.
+   * the same wave again, `retryGuide` opens it the way it opened the first
+   * time, `quit` ends the run for both. Whichever seat presses first answers
+   * for both; a second answer lands on a world that is no longer asking and
+   * does nothing. Decided by the owner, 13 September 2026.
+   *
+   * **`retryGuide` is its own kind and not a field on `retry`**, which was the
+   * shorter spelling. A peer that does not know a field drops it and decodes a
+   * plain `retry`, so one phone would open the guide and the other the wave,
+   * and the two worlds would disagree about the phase with nothing on the wire
+   * to say why. A peer that does not know a *kind* fails the frame whole, which
+   * is what `command-codec.ts` promises and the only failure worth having here.
    */
   | { kind: "retry" }
+  | { kind: "retryGuide" }
   | { kind: "quit" };
 
 // **The closed list of things a hand may take hold of** — `DragTarget`, and

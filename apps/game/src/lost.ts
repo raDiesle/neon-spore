@@ -1,3 +1,4 @@
+import { waveHasGuide } from "@neon-spore/content";
 import { type Layout, lostHit } from "@neon-spore/render";
 import { lostAsks, type World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input.js";
@@ -12,7 +13,7 @@ export interface LostOptions {
 }
 
 /**
- * The two presses on a lost wave's screen: RETRY WAVE and QUIT
+ * The presses on a lost wave's screen: RETRY WAVE, TUTORIAL AGAIN and QUIT
  * (`render/lost-screen.ts`).
  *
  * Bound on the canvas beside the field's own listener rather than inside it,
@@ -25,11 +26,13 @@ export interface LostOptions {
  *
  * At a desk, Enter is RETRY WAVE — here rather than in `keys.ts`, because
  * that rig is the wave's and this screen is not part of the wave: nothing
- * under it answers a key while it asks. QUIT has no key: Escape is already
- * the menu's (`menu.ts`), and leaving a run should be a press on the word.
+ * under it answers a key while it asks. TUTORIAL AGAIN and QUIT have no key:
+ * Escape is already the menu's (`menu.ts`), leaving a run should be a press on
+ * the word, and the one key here is for the press a pair makes twenty times an
+ * evening rather than for each of three.
  */
 export function bindLost({ canvas, buffer, world, layout, inStage }: LostOptions): void {
-  const answer = (kind: "retry" | "quit"): void => {
+  const answer = (kind: "retry" | "retryGuide" | "quit"): void => {
     if (kind === "quit") {
       pressQuit(buffer);
       return;
@@ -41,7 +44,10 @@ export function bindLost({ canvas, buffer, world, layout, inStage }: LostOptions
     if (!lostAsks(world)) return;
     const p = inStage(e);
     if (!p) return;
-    const hit = lostHit(layout(), p.x, p.y);
+    // The same question the screen was drawn from, asked the same way
+    // (`render/lost-screen.ts`): a wave with no guide has no third button and
+    // no third box to land on.
+    const hit = lostHit(layout(), p.x, p.y, waveHasGuide(world.wave));
     if (hit) answer(hit);
   });
   window.addEventListener("keydown", (e) => {
