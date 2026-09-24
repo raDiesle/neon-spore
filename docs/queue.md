@@ -508,6 +508,7 @@ with its bars out — that is 366 of 390 pixels, with 12 dark at each side; at
 ## The director on a phone cannot reach its TEST, P1 and P2 strip
 
 - **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
+- **Taken:** 2026-09-24, claude/queue-the-films-pages-name-counts-that-no-test-reads-b (claim: claude/queue-the-director-on-a-phone-cannot-reach-its-test-p1)
 - **Files:** `tools/director/src/stage-transport.ts`, `tools/director/src/director-phone.css`, `tools/director/test/phone-game.test.ts`
 - **Where:** local
 
