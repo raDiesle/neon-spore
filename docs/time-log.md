@@ -19708,3 +19708,17 @@ The bottleneck was **reading**: the doubling was the owner's generic rule,
 and cutting it back had to be shown to be THE INSTAR's alone.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — THE SLOW draws no bar, and its light runs from the top of the screen
+
+- reading: 5 min. `slow-intake.ts`, the bar's file and the four documents
+  that described it, and the streams' clip.
+- writing: 5 min. The bar and its test removed, the clip's top at the
+  screen's edge, the owner's record and the spec, decision and index lines.
+- looking: 5 min. One frame of THE INSTAR's first window through
+  `bun run frames`.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, green first time.
+
+The bottleneck was **reading**: the bar was named as a decision in four
+places, and each had to say it went rather than just lose the line.

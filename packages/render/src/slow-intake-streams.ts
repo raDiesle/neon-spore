@@ -157,10 +157,13 @@ export function drawStreams(
   up: number,
   t: number,
 ): void {
-  const top = l.gridTop;
-  // To the hull and no further: below it is the ship's own tissue, drawn over
+  // **From the top of the screen**, not the field's: the owner, 24 September
+  // 2026, *it is cut by some invisible horizontal top bar, it should go full
+  // game screen*. The field's top edge is nothing a player can see, so light
+  // stopping on it read as a cut. To the hull and no further: below it is the ship's own tissue, drawn over
   // this pass, and a stream has nothing to say about a hand (`slow-look.ts`).
   const floor = l.hullY;
+  const top = 0;
   if (floor <= top || at.r <= 0) return;
 
   ctx.save();

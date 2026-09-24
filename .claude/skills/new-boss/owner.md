@@ -67,9 +67,11 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   beat already won. The slow is *time to talk in*, and the only moment the
   pair need it is while they are working out whose mark is whose. A death or
   a fall, which asks for nothing, keeps its own plain window
-  (`decisions.md` #33, `sim/slow.ts`). The measure the pair read follows
-  from it: the bar under the boss counts the window down, so it says *time
-  left before this step fails* (`render/slow-intake-bar.ts`).
+  (`decisions.md` #33, `sim/slow.ts`). **No bar measures the window** —
+  the owner took the one under the boss out on 24 September 2026 (*it was a
+  stupid idea*); the ring closing on each mark is the only clock. **The
+  slow's light runs from the top of the screen**, never from an edge the
+  player cannot see (the same day).
 - **Dislikes, in his words:** THE BELLOWS, played and removed on 24
   September 2026 — *"it's not clear to me how to play … what does 'push'
   means? … it's not clear what is goal … why on a curtain a jam is going out,

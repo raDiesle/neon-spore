@@ -1063,7 +1063,6 @@ by hand never moves.
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record the look is one field on, and the pass that reads it |
 | `packages/render/src/slow-intake-aim.ts` | Where the body a window is about stands and how wide it is, and how far up the look stands this frame |
-| `packages/render/src/slow-intake-bar.ts` | The window's own measure: a notched bar above the hull, closed to a point when it shuts |
 | `packages/render/src/slow-intake-streams.ts` | The light running inward all the way round the boss, stopping at its skin and never crossing it |
 | `packages/render/src/slow-intake.ts` | THE SLOW's window as it ships: the streams round the boss, then the bar over them |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |

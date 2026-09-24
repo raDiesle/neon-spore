@@ -1104,11 +1104,11 @@ a dramatic beat that asks for nothing is what the mechanism was built for in
 the first place. The distinction to carry to the next scene is whether a thumb
 is wanted, not whether the moment is loud.
 
-**And the measure follows it.** `slow-intake-bar.ts`'s notched bar counts the
-window down, so once the window is the asking the bar reads as *time left to
-answer before the step fails* rather than as a rest between steps — which is
-what the owner asked it to say the same day. It hangs under the boss's body
-for the same reason.
+**And the measure followed it**, until the owner took it out on 24 September
+2026 (*it was a stupid idea to introduce it*). A notched bar counted the
+window down, so once the window was the asking it read as *time left to
+answer before the step fails* rather than as a rest between steps. The ring
+closing on each mark says the same, where the thumb already is.
 
 **Consequences.** `docs/spec/transfers.md`'s filter line is amended to say
 *asymmetric* rather than any wobble, and points here.
