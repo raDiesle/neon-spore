@@ -20,7 +20,7 @@ import { gaugeDial } from "../src/gauge-round.js";
 import { instarMarkPoint } from "../src/instar-shape.js";
 import { instarSway } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
-import type { Field } from "../src/touch.js";
+import { type Field, type Touch, touchMove } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
 
 /**
@@ -117,6 +117,33 @@ describe("a press on THE INSTAR's marks", () => {
     const navigator = ringAt(s, world, markOf(s, "p2"));
     expect(deskDown(L, pilot.x, pilot.y, BOTH, field)?.player).toBe(1);
     expect(deskDown(L, navigator.x, navigator.y, BOTH, field)?.player).toBe(2);
+  });
+
+  it("lets two thumbs on one phone hold both jaws at once, the navigator's first", () => {
+    // The owner, on a phone, 24 September 2026: *pull both players' controls
+    // at the same time and in any order, like players can.* Two fingers are
+    // two presses, each deciding its own seat, and both held to the end.
+    const world = hung();
+    const s = acting(world, 0);
+    const field = (seat: 1 | 2): Field => instarField(world, seat);
+    const send = (t: Touch | null): void => {
+      if (t?.command) step(world, [{ tick: world.tick, player: t.player, command: t.command }]);
+    };
+    const upper = ringAt(s, world, markOf(s, "p2"));
+    const lower = ringAt(s, world, markOf(s, "p1"));
+    const second = deskDown(L, upper.x, upper.y, BOTH, field);
+    send(second);
+    const first = deskDown(L, lower.x, lower.y, BOTH, field);
+    send(first);
+    expect([second?.player, first?.player]).toEqual([2, 1]);
+    if (!second?.hold || !first?.hold) throw new Error("a jaw took no hold");
+    expect(s.thumbs).toEqual([1, 2]);
+    // Pulled apart together, a step at a time, one finger then the other.
+    for (let i = 1; i <= 40; i++) {
+      send(touchMove(L, second.hold, upper.x, upper.y - i * 6));
+      send(touchMove(L, first.hold, lower.x, lower.y + i * 6));
+    }
+    expect(s.phase).toBe("land");
   });
 
   it("answers the pose that is one seat's alone", () => {

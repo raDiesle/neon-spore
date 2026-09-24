@@ -44,6 +44,11 @@ import type { SimConfig } from "@neon-spore/sim";
  * apart: this says whether a card can open at all, a press on the field steps
  * through the one that is up right now and puts it away. Merging them would
  * mean turning briefings on had no way to get the first card off the stage.
+ *
+ * **There are two of it**: `#briefToggleField` is the phone's copy in the strip
+ * over the field, beside TEST/P1/P2, because RUN is behind the menu there (the
+ * owner, 24 September 2026, *add briefing button on screen*). Both flip the one
+ * switch and both light together, the way the role buttons' two copies do.
  */
 export interface PairPanel {
   /**
@@ -55,16 +60,24 @@ export interface PairPanel {
   briefingsOn(): void;
 }
 
+/** RUN's button, and the phone's copy of it over the field. */
+const BRIEF_IDS = ["briefToggle", "briefToggleField"] as const;
+
 export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
-  const briefButton = document.getElementById("briefToggle");
+  const buttons = BRIEF_IDS.map((id) => document.getElementById(id)).filter(
+    (b): b is HTMLElement => b !== null,
+  );
+  const paint = (on: boolean): void => {
+    for (const b of buttons) b.classList.toggle("on", on);
+  };
 
   const set = (on: boolean): void => {
     cfg.briefings = on;
-    briefButton?.classList.toggle("on", on);
+    paint(on);
     onChange();
   };
-  briefButton?.classList.toggle("on", cfg.briefings);
-  briefButton?.addEventListener("click", () => set(!cfg.briefings));
+  paint(cfg.briefings);
+  for (const b of buttons) b.addEventListener("click", () => set(!cfg.briefings));
   return {
     briefingsOn(): void {
       if (!cfg.briefings) set(true);

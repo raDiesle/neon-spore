@@ -215,18 +215,27 @@
      left under it until 24 September 2026, when the field took that band back
      (above); now they are the second line of the top-right corner, under ☰
      and out of the run clock's way. Small, because they are the tool's and
-     not the game's, and 40px tall, which is a thumb's target. */
+     not the game's. BRIEF and ↺ joined them on 24 September 2026, and the
+     owner asked for them smaller in the same message: 32px tall, a thumb's
+     target still. Five abreast ran into the card's TUTORIAL and WAVE badges,
+     which stand centred over the top of the field, and with briefings on by
+     default on a phone a card opens every wave — so they stand one above
+     another down the right edge, clear of both. */
   main[data-view="game"] .role-strip {
     display: flex;
+    flex-direction: column;
     position: absolute;
     top: 44px;
     right: 4px;
     z-index: 10;
-    gap: 4px;
+    gap: 3px;
   }
   main[data-view="game"] .role-strip button {
-    min-width: 44px;
-    min-height: 40px;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0 4px;
+    font-size: 10px;
+    letter-spacing: 0;
     background: rgba(5, 4, 12, 0.72);
   }
   /* RUN, standing in the open menu — `mobile-menu.ts` puts it there and takes

@@ -15,6 +15,7 @@ import { initMobileMenu } from "./mobile-menu.js";
 import { bindNotes } from "./notes-page.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
+import { onPhone } from "./phone-view.js";
 import { bindRail } from "./rail.js";
 import { makeSelection } from "./selection.js";
 import { bindPlace, type PlaceSession } from "./session.js";
@@ -43,7 +44,10 @@ import { bindWaveIo } from "./waves-io.js";
 // defence that cannot be judged, which is what this screen is for. `briefings`
 // stays at `DEFAULT_CONFIG`'s own default (off, for determinism and shape sheets
 // — `config-pair.ts`); `#briefToggle` turns it on to judge an opening card.
-const cfg: SimConfig = { ...DEFAULT_CONFIG };
+// **On a phone it starts on**: the owner, 24 September 2026, *by default for
+// mobile show briefing* — a phone is where a wave is played as the pair would
+// meet it, card first.
+const cfg: SimConfig = { ...DEFAULT_CONFIG, briefings: onPhone() };
 
 // Every column of `<main>` gets a collapse handle (`columns.ts`) and a drag
 // grip on its right edge (`column-resize.ts`, after initColumns, which decides

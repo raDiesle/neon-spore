@@ -142,6 +142,11 @@ describe("the director's GAME view on a phone", () => {
         new RegExp(`<button type="button" data-role="${role}" class="role[ "]`),
       );
     }
+    // And BRIEFINGS and ↺ WAVE beside them, the phone's own copies of RUN's
+    // (the owner, 24 September 2026), bound by id with the originals.
+    for (const id of ["briefToggleField", "restartField"]) {
+      expect(section, `the stage has no #${id}`).toContain(`id="${id}"`);
+    }
     const strip = ruleFor(await phoneBlock(), 'main[data-view="game"] .role-strip');
     expect(strip).toMatch(/display:\s*flex\s*;/);
     expect(strip, "the three do not stand over the field").toMatch(/position:\s*absolute\s*;/);

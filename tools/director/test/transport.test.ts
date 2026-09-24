@@ -96,6 +96,25 @@ describe("BRIEFINGS stays on until pressed again", () => {
     elements.delete("briefToggle");
   });
 
+  it("lights the phone's copy over the field with RUN's, whichever is pressed", () => {
+    // The owner, 24 September 2026: *add briefing button on screen* — a
+    // second button for the one switch, so the two may never disagree.
+    const run = stubButton();
+    const field = stubButton();
+    elements.set("briefToggle", run.el);
+    elements.set("briefToggleField", field.el);
+    const cfg = { ...DEFAULT_CONFIG, briefings: true };
+    bindPairPanel(cfg, () => {});
+    expect([run.isOn(), field.isOn()]).toEqual([true, true]);
+    field.click();
+    expect(cfg.briefings).toBe(false);
+    expect([run.isOn(), field.isOn()]).toEqual([false, false]);
+    run.click();
+    expect([run.isOn(), field.isOn()]).toEqual([true, true]);
+    elements.delete("briefToggle");
+    elements.delete("briefToggleField");
+  });
+
   it("the dismiss (now bindStageTouch in stage-touch.ts) is unrelated code and never reads cfg.briefings", () => {
     // A press on the stage while a card is up pushes `{kind: "brief"}` — it
     // holds no reference to `cfg` at all, so there is nothing here for a

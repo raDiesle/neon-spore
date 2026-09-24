@@ -17,7 +17,11 @@ export interface StageTransportDeps {
 
 export function bindStageTransport(deps: StageTransportDeps): void {
   document.getElementById("play")?.addEventListener("click", deps.onPlayToggle);
-  document.getElementById("restart")?.addEventListener("click", deps.rebuild);
+  // `restartField` is the phone's smaller copy over the field, beside the
+  // role buttons — RUN is behind the menu there.
+  for (const id of ["restart", "restartField"]) {
+    document.getElementById(id)?.addEventListener("click", deps.rebuild);
+  }
   // `✓ CARD` used to live here: the whole stage is the card's button on a
   // phone (`apps/game/src/briefing.ts`), and it stood in for that because
   // `bindStageTouch` already spent the canvas's own pointerdown on the

@@ -19566,3 +19566,22 @@ owner then asked to have taken out, so it was spent before the task was
 the right one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — On a phone the director opens on the briefing, and BRIEF and ↺ stand over the field
+
+- reading: 15 min. The game's test screen, `input.ts`, `field-input.ts` and
+  `briefing.ts` before the request turned out to be the director's; then
+  `stage-touch.ts`, `pair-panel.ts`, `stage-transport.ts` and the phone block.
+- writing: 10 min. The phone default, the two copies bound by id, the strip's
+  CSS, and three tests — two thumbs on THE INSTAR's jaws, both BRIEF copies
+  lit together, both copies present on the stage.
+- looking: 25 min. Two-finger INSTAR presses driven into the game build and
+  the director at 375x812, and the strip moved from a row to a column once a
+  picture showed five abreast across the card's TUTORIAL badge.
+- friction: 10 min. The probe sent its moves to `window` where the stage
+  listens on the canvas, a paused director drained the probe's presses, and a
+  reload dropped the one-load `?view=game` and hid the stage.
+- landing: 5 min. `check:fast` green first time.
+
+The bottleneck was **looking**: THE INSTAR's rings sway with the beat, so
+every synthetic press had to find them again in the same synchronous run.
