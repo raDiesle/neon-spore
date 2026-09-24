@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## The doubled window: THE UNDERTOW, THE BELLOWS, THE HASP and THE BATON
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-lead (claim: claude/queue-the-doubled-window-the-undertow-the-bellows-the)
 - **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/config-bellows.ts`, `packages/sim/src/config-hasp.ts`, `packages/sim/src/config-baton.ts`, `packages/sim/src/undertow-step.ts`, `packages/sim/src/bellows-step.ts`, `packages/sim/src/hasp-step.ts`, `packages/sim/src/baton-step.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-baton.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
 
 The third of the three lanes `32c0cbb4` said it queued, and never did: its
