@@ -394,6 +394,7 @@ what the rest of this file holds.
 ## A short phone stands the hull between two black side bars
 
 - **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
+- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-a-short-phone-stands-the-hull-between-two-black)
 - **Files:** `packages/render/src/layout-stage.ts`, `packages/render/src/layout.ts`, `packages/render/src/hull.ts`, `packages/render/test/layout-stage.test.ts`
 - **Where:** local
 - **Asks:** On a phone shorter than about 16:9 of free height, which should give: the dark bars, a wider picture, or a shorter band?
