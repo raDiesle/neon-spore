@@ -265,7 +265,8 @@ passes such an entry over **on every machine**, the listing marks it
 caller who names it still gets it**: `queue take "<title>"` and `next <n>` hand
 it over to a local session as usual, because the owner has the hardware and
 asks for these by name. A sandbox naming one is refused, with the hardware as
-the reason.
+the reason. `bun run land --unverified` writes the line itself when an item
+says *real phone*, *real device* or *on glass* (`tools/land/unverified.ts`).
 
 The value exists because of what happened without it. On 22 September 2026
 `next` picked the phone-chrome entry five times in one sitting and was given it
@@ -508,8 +509,8 @@ with its bars out — that is 366 of 390 pixels, with 12 dark at each side; at
 ## Unverified at 5db3ae3e: the svh cap on a real phone whose address bar comes bac…
 
 - **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
-- **Taken:** 2026-09-24, claude/queue-the-director-on-a-phone-cannot-reach-its-test-p1 (claim: claude/queue-unverified-at-5db3ae3e-the-svh-cap-on-a-real-pho)
 - **Files:** `apps/game/index.html`, `apps/game/src/game.css`, `apps/game/src/safe-area.ts`, `apps/game/src/viewport.ts`, `apps/game/test/viewport-furniture.test.ts`, `apps/game/test/viewport-screen.ts`, `docs/queue.md`, `docs/time-log.md`
+- **Where:** phone
 
 *A phone's frozen height stops at the bars-out height, and the build date leaves the field* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
 
@@ -524,6 +525,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-23, claude/queue-nothing-says-how-long-a-thumb-waits
 - **Files:** `apps/game/src/frame.ts`, `apps/game/src/input-buffer.ts`, `apps/game/src/main.ts`, `apps/game/src/press-lag-page.ts`, `apps/game/src/press-lag.ts`, `apps/game/test/press-lag.test.ts`, `docs/INDEX.md`, `docs/queue.md`
+- **Where:** phone
 
 *?lag=1 shows how long a press waits for the field to answer it* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
 

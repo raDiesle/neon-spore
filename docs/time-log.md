@@ -18975,3 +18975,18 @@ The bottleneck was **looking**: the band under the field was the only place
 the strip could go without shrinking the picture, and only a shot says it fit.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — `next` handed out an unverified item that needs a real phone
+
+- reading: 5 min. The entry, `where.ts`, `unverified.ts` and the queue's
+  `Where: phone` preamble.
+- writing: 5 min. `whereLine` in `unverified.ts`, one case, and the line on
+  the two entries that lacked it.
+- looking: 0 min. Nothing is drawn; `xcrun simctl` answered that this Mac has
+  no simulator, so no phone could be looked at either.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **the hardware**: the entry needs an address bar that comes
+back mid-wave, and this machine has no phone and no Xcode to emulate one, so
+the lane marks it as the owner's instead of finishing it.

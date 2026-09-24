@@ -123,6 +123,24 @@ export function restLine(files: readonly string[]): string {
   return rest === 0 ? "" : ` The commit touched ${rest} more file${rest === 1 ? "" : "s"}.`;
 }
 
+/**
+ * An item no agent can finish, because what it names is only on a phone.
+ *
+ * `- **Where:** phone` keeps an entry from `bun run queue next`
+ * (`tools/queue/where.ts`), and until 24 September 2026 only a hand wrote it:
+ * two entries this flag wrote — the svh cap under a real address bar, and
+ * `?lag=1`'s figures on a real phone — sat unmarked, and `next` handed the
+ * first of them to a lane with nothing on its desk but a Mac and no Xcode.
+ * The words are the ones every such item has used, and a false positive
+ * costs nothing a caller cannot undo: the entry is still taken by name.
+ */
+const HARDWARE = /\breal (?:phone|device)\b|\bphone in (?:a|the|somebody's) hand\b|\bon glass\b/i;
+
+/** `- **Where:** phone` when any item needs one in a hand, or "" when none does. */
+export function whereLine(items: readonly string[]): string {
+  return items.some((item) => HARDWARE.test(item)) ? "- **Where:** phone" : "";
+}
+
 /** One entry, as it appears in `docs/queue.md`. */
 export function renderUnverified(u: Unverified): string {
   const landed =
@@ -130,11 +148,13 @@ export function renderUnverified(u: Unverified): string {
       ? `*${u.subjects[0]}* landed`
       : `${u.subjects.length} commits landed, ending in *${u.subjects.at(-1)}*,`;
   const list = u.items.map((item) => `- ${item}`).join("\n");
+  const where = whereLine(u.items);
   return [
     `## ${titleFor(u.sha, u.items)}`,
     "",
     `- **Found:** ${u.date}, ${u.branch}`,
     filesLine(u.files),
+    ...(where ? [where] : []),
     "",
     `${landed} from a session that could not look at it.${restLine(u.files)} What went unchecked:`,
     "",

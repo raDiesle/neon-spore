@@ -7,6 +7,7 @@ import {
   parseUnverified,
   renderUnverified,
   type Unverified,
+  whereLine,
 } from "../unverified.js";
 
 /**
@@ -84,6 +85,22 @@ describe("what a landing could not check", () => {
   it("says which commit it is about when several landed at once", () => {
     const several = { ...LANDING, subjects: ["First", "Second", "Third"] };
     expect(renderUnverified(several)).toContain("3 commits landed, ending in *Third*");
+  });
+
+  it("keeps an item that needs a real phone from the automatic pick", () => {
+    // The two entries `next` handed out on 24 September 2026, in their own words.
+    const phone = {
+      ...LANDING,
+      items: ["the svh cap on a real phone whose address bar comes back mid-wave"],
+    };
+    const items = parseItems(renderUnverified(phone), "queue");
+    expect(items[0]?.where).toBe("phone");
+    expect(problemsIn(items)).toEqual([]);
+    expect(whereLine(["?lag=1's figures on a real phone, solo and paired"])).toBe(
+      "- **Where:** phone",
+    );
+    // A screen is not a phone: a wave at tempo stays anybody's.
+    expect(parseItems(renderUnverified(LANDING), "queue")[0]?.where).toBe("anywhere");
   });
 });
 
