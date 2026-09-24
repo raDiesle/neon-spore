@@ -206,9 +206,9 @@ whether it was delegated. Procedure: `.claude/skills/delegate`; the figures:
 
 **`bun run preview`, never `bun run dev:game`.** Only the preview answers
 `curl -s http://localhost:4173/__preview`, and it names the checkout it serves
-in `tree` — **ask who answered before trusting anything you measure.** In a
-worktree launch by absolute path: `.claude/launch.json` carries no `cwd` and
-would start the *main* checkout. `?play=1` opens on the field. Never start a
+in `tree` — **ask who answered before trusting anything you measure.** From a
+worktree: `bun run here`, then the `game-here` entry — a bare entry starts the
+*main* checkout. `?play=1` opens on the field. Never start a
 server with a backgrounded shell command, and never install a service worker on
 a local address (`?pwa=1` is for testing the install itself).
 `docs/working-with-claude.md`.

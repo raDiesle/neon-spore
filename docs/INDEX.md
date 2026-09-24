@@ -2035,7 +2035,8 @@ by hand never moves.
 | `tools/delegate/timeout.ts` | Aider has no run-level limit of its own |
 | `tools/dev/supervise.ts` | `bun run dev` — a hot server, and a hand on its shoulder |
 | `tools/dev/tree-moves.ts` | When the working tree was rewritten under a running server, and by whom |
-| `tools/dev/here.ts` | `bun run here` — say which tree the next `director-here` should serve |
+| `tools/dev/here.ts` | `bun run here` — say which tree the next `director-here` or `game-here` should serve |
+| `tools/dev/preview-here.ts` | `bun run preview:here` — the built game, from the tree `bun run here` last named |
 | `tools/director/build.ts` | Builds the director the way `apps/game/preview.ts` builds the game: a static bundle |
 | `tools/director/server.ts` | The director's server |
 | `tools/director/shapes-page.ts` | Build the shape catalogue into one self-contained page |

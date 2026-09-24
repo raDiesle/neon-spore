@@ -1,7 +1,8 @@
 #!/usr/bin/env bun
 
 /**
- * `bun run here` — say which tree the next `director-here` should serve.
+ * `bun run here` — say which tree the next `director-here` or `game-here`
+ * should serve. The game's half is `preview-here.ts`.
  *
  * The desktop harness starts a `.claude/launch.json` entry in the directory
  * the *session* was opened in. A session that opened in the main checkout and
@@ -80,6 +81,6 @@ export function writeHere(tree: string): string {
 if (import.meta.main) {
   const tree = process.cwd();
   const file = writeHere(tree);
-  console.log(`director-here now serves ${tree}`);
+  console.log(`director-here and game-here now serve ${tree}`);
   console.log(`(written to ${file}; run this from the main checkout to point it back)`);
 }

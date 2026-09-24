@@ -466,24 +466,6 @@ table rows in the skill to say the menu's job names are the one exception.
 The card's tag already reads P1 or P2, which is the argument for keeping a
 job name beside it.
 
-## The game's preview has no `here` route, and the director's does
-
-- **Found:** 2026-09-23, claude/task-queue-work-e21054
-- **Taken:** 2026-09-24, claude/queue-the-spools-guide-has-no-film (claim: claude/queue-the-games-preview-has-no-here-route-and-the-dire)
-- **Files:** `.claude/launch.json`, `apps/game/package.json`, `tools/dev/supervise.ts`, `docs/commands.md`
-- **Where:** local
-
-CLAUDE.md says a worktree launches the preview "by absolute path", because
-`preview_start` starts an entry in the directory the session was opened in.
-The director solved the same problem once: `bun run here` names a tree,
-`supervise.ts --here` serves it, and the `director-here` entry is that route.
-The game's `game` entry has nothing like it, so the boot check for the
-`main.ts` split wrote a `game-e21054` entry with `--cwd <worktree>
-preview:once`, used it, and reverted `.claude/launch.json` — every lane that
-checks the built game in a browser pays the same. Give the game a
-`preview:here` script through the same pointer and a `game-here` entry, and
-say it in `docs/commands.md` and CLAUDE.md's "Verifying in a browser".
-
 ## Nineteen scene captions still say lane, plate, ward or guard
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054

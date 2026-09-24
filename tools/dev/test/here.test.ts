@@ -80,6 +80,31 @@ describe("the route a lane can name", () => {
     expect(entry?.runtimeArgs).toEqual(["run", "dev:here"]);
   });
 
+  test("`preview:here` builds and serves the tree the pointer names, and the harness has the entry", async () => {
+    const pkg = await Bun.file(join(repoRoot, "package.json")).json();
+    expect(pkg.scripts["preview:here"]).toBe("bun tools/dev/preview-here.ts");
+    const launch = await Bun.file(join(repoRoot, ".claude/launch.json")).json();
+    const entry = launch.configurations.find((c: { name: string }) => c.name === "game-here");
+    expect(entry?.runtimeArgs).toEqual(["run", "preview:here"]);
+
+    // The worktree's game stands in for the real one: its build says where it
+    // ran, and its `preview.ts` says which file was imported — the file whose
+    // own tree the real server names on `/__preview`.
+    const { main, wt } = fakeRepo();
+    writeHere(wt);
+    mkdirSync(`${wt}/apps/game`, { recursive: true });
+    writeFileSync(`${wt}/apps/game/build.ts`, "console.log('built in ' + process.cwd());\n");
+    writeFileSync(
+      `${wt}/apps/game/package.json`,
+      JSON.stringify({ scripts: { build: "bun build.ts" } }),
+    );
+    writeFileSync(`${wt}/apps/game/preview.ts`, "console.log('served ' + import.meta.dir);\n");
+    const run = Bun.spawnSync(["bun", join(repoRoot, "tools/dev/preview-here.ts")], { cwd: main });
+    const out = run.stdout.toString().replaceAll("\\", "/");
+    expect(out).toContain(`built in ${wt}/apps/game`);
+    expect(out).toContain(`served ${wt}/apps/game`);
+  });
+
   test("`supervise.ts --here` starts its child in the tree the pointer names", () => {
     const { main, wt } = fakeRepo();
     writeHere(wt);

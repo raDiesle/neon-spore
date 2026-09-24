@@ -23,6 +23,7 @@
     "build:director": "bun tools/director/build.ts",
     "preview": "bun run --cwd apps/game preview",
     "preview:once": "bun run --cwd apps/game preview:once",
+    "preview:here": "bun tools/dev/preview-here.ts",
     "deploy": "bun run build:director && npx wrangler deploy --config wrangler.director.jsonc",
     "deploy:dry": "bun run build:director && npx wrangler deploy --config wrangler.director.jsonc --dry-run",
     "deploy:game": "bun run build:game && npx wrangler deploy --config wrangler.jsonc",

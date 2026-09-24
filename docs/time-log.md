@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — The game's preview has a `here` route
+
+- reading: 10 min. `here.ts`, `supervise.ts`, `preview.ts`, the launch
+  entries and the test that pins `dev:here`.
+- writing: 10 min. `preview-here.ts`, the script, the `game-here` entry, a
+  test against a fake worktree, and the lines in `commands.md` and CLAUDE.md.
+- looking: 5 min. A kill experiment on `bun run`, then the real preview
+  imported from outside its tree and asked who it was.
+- friction: 5 min. The guard refused a heredoc with doubled backslashes, and
+  an edit script missed a CLAUDE.md sentence that was wrapped.
+- landing: 5 min. `index`, `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the orphan**: the obvious route, `supervise.ts --here`
+round `bun run preview`, leaves the server running when it is stopped, and
+only an experiment showed it.
+
 ## 2026-09-24 — THE SPOOL's guide has a film
 
 - reading: 15 min. The tutorial skill, THE HIVE's and THE SINEW's films, the

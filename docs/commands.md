@@ -13,12 +13,14 @@ bun run dev:once       # the same on a free port, beside one that is running
 bun run dev:here       # the same, in the tree `bun run here` last named — the
                        # `director-here` launch entry, for a worktree's director
                        # from a session the harness opened in the main checkout
-bun run here           # name this tree for `dev:here` (tools/dev/here.ts)
+bun run here           # name this tree for `dev:here` and `preview:here` (tools/dev/here.ts)
 bun run dev:game       # the game at localhost:3000, hot reload — for a human
                        # all of them restart themselves after a git operation, so
                        # a half-written bundle is never served (tools/dev/)
 bun run preview        # build, then serve dist/ on 4173 — how an agent verifies
 bun run preview:once   # the same on a free port nobody else can be holding
+bun run preview:here   # the same, in the tree `bun run here` last named — the
+                       # `game-here` launch entry, `director-here`'s twin
 bun run port           # which port this tree's servers answer on, before one is started
 bun run --cwd apps/server dev   # the relay under wrangler; it prints the port
 ```
