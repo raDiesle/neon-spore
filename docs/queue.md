@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## The doubled window: THE BELLOWS
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-undertow-the-bellows-the (claim: claude/queue-the-doubled-window-the-bellows)
 - **Files:** `packages/sim/src/config-bellows.ts`, `packages/sim/src/bellows-step.ts`, `tools/director/src/poses-bosses-*.ts`, `docs/spec/bosses.md`
 
 Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
