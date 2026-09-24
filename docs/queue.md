@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## The doubled window: THE HASP
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-bellows (claim: claude/queue-the-doubled-window-the-hasp)
 - **Files:** `packages/sim/src/config-hasp.ts`, `packages/sim/src/hasp-step.ts`, `tools/director/src/poses-bosses-*.ts`, `docs/spec/bosses.md`
 
 Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
