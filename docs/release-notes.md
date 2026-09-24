@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 6c5fc7d0 — The shield rim's dead opacity figures are gone
+
+`WARD_LOOK.alphaBase` and `alphaGlow` set a `globalAlpha` that `strokeGlow` never read, so the rim and THE VOLLEY's ward have always been drawn with their core at 1. The owner chose to delete the dead figures rather than draw the fade they described. `glowFloor` and the rim's shimmer, which only fed that opacity, went with them. Nothing drawn changes.
+
 ## 2026-09-24 · 98d3d9d0 — `bun run imports` no longer reads `bead.flying` as a use of `flying`
 
 A property after `.` or `?.`, and an object key that is not a shorthand, are only a name spelled the same, and no longer keep an unused import in its list; a spread, a ternary's arm and a shorthand still count. What biome flags afterwards is reported in two groups — whole statements held under a comment, and names kept because their word is written elsewhere — where it used to call every leftover a whole statement.
