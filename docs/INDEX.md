@@ -2350,6 +2350,7 @@ by hand never moves.
 | `tools/frames/launch.ts` | Getting the *wave's arrival* out of the picture |
 | `tools/director/src/ship-notes.ts` | The paragraph under each card's heading, and nothing else |
 | `tools/land/push.ts` | `bun run push` — put the trunk on `origin`, because somebody asked |
+| `tools/land/pose-merge.ts` | Merging the director's `SLOT_POSE` map when a lane and the trunk both changed its rows… |
 | `tools/land/specs.ts` | The spent-delegate-spec half of the sweep |
 | `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: land it on the local trunk, and put the rest to the owner |
 | `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |

@@ -2,7 +2,7 @@
  * The replay, and the conflicts it settles on its own
  *
  * `git rebase` is run here rather than in `run.ts` because it is no longer a
- * single call. Four files conflict on landing after landing and not one of
+ * single call. Five files conflict on landing after landing and not one of
  * those disagreements is one anybody authored:
  *
  * - **`docs/queue.md`**, on every landing that drained an item — `bun run queue
@@ -25,8 +25,12 @@
  *   over them. Added 23 September 2026, after git's own merge of one lane
  *   dropping four candidates and another adding three imported four
  *   directories that were gone.
+ * - **`tools/director/src/versus-pose.ts`**, in the same hours for the same
+ *   reason: every slot has a row in its `SLOT_POSE` map, written by hand and
+ *   taken out by `adopt` and `drop`. Not generated, so it is merged row by
+ *   row, keyed by slot (`pose-merge.ts`). Added 24 September 2026.
  *
- * A fifth, **`docs/release-notes.md`**, is listed here and never reached by a
+ * A sixth, **`docs/release-notes.md`**, is listed here and never reached by a
  * landing: `note-commit.ts` writes it on the trunk after the rebase, so a lane
  * never carries one. It is the other rebase's conflict — the trunk against
  * `origin/main` — and it is registered here because that rebase is this same
@@ -47,6 +51,7 @@ import { git } from "./git.js";
 import { keepLaneRows } from "./index-merge.js";
 import { LEDGER_FILE, mergeLedger } from "./ledger-merge.js";
 import { mergeNotes, NOTES_FILE } from "./notes-merge.js";
+import { mergePoses, POSE_FILE } from "./pose-merge.js";
 import { QUEUE_FILES } from "./queue-guard.js";
 import { mergeQueue } from "./queue-merge.js";
 
@@ -84,6 +89,7 @@ for (const file of QUEUE_FILES) {
 }
 RESOLVERS[LEDGER_FILE] = async ({ base, trunk, lane }) => mergeLedger(base, trunk, lane);
 RESOLVERS[NOTES_FILE] = async ({ base, trunk, lane }) => mergeNotes(base, trunk, lane);
+RESOLVERS[POSE_FILE] = async ({ base, trunk, lane }) => mergePoses(base, trunk, lane);
 RESOLVERS[INDEX_FILE] = async ({ root, file, base, trunk, lane }) => {
   // The trunk's copy is what the generator is run over: it carries every row
   // the trunk added, and the tree it reads is already this commit's, so the

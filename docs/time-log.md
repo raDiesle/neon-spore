@@ -18992,3 +18992,16 @@ back mid-wave, and this machine has no phone and no Xcode to emulate one, so
 the lane marks it as the owner's instead of finishing it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — Nothing settles a conflict in `versus-pose.ts` on a landing
+
+- reading: 5 min. `replay.ts`, `queue-merge.ts`, `pose-row.ts`,
+  `versus-pose.ts` and `replay-registry.test.ts`.
+- writing: 10 min. `pose-merge.ts`, its registration, eight string cases and
+  one real rebase.
+- looking: 0 min. Nothing is drawn.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: the merge is small, and the time went on the
+refusals — each one a case a side-preferring resolver would fail.

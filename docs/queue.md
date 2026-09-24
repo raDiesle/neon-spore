@@ -536,24 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Nothing settles a conflict in `versus-pose.ts` on a landing
-
-- **Found:** 2026-09-23, claude/queue-replay-registry
-- **Taken:** 2026-09-24, claude/queue-unverified-at-5db3ae3e-the-svh-cap-on-a-real-pho (claim: claude/queue-nothing-settles-a-conflict-in-versus-pose-ts-on)
-- **Files:** `tools/land/replay.ts`, `tools/director/src/versus-pose.ts`, `tools/versus/pose-row.ts`, `tools/land/test/`
-
-The replay now settles `candidates/registry.ts` by generating it again, but
-`versus-pose.ts` is the other file every slot touches and it is *not*
-generated: `SLOT_POSE` is rows a lane writes by hand, one per open slot, and
-`adopt`/`drop` take them out (`pose-row.ts`). The map holds one row today, so
-two lanes each adding a row, or one adding while another's `drop` removes the
-last, edit the same two lines and git stops the landing. The work is a keyed
-merge like `queue-merge.ts`'s: parse `SLOT_POSE`'s rows on base, trunk and lane,
-take every row added or removed on either side, refuse when both sides give one
-slot different poses, and register it in `RESOLVERS`. A test in the shape of
-`replay-registry.test.ts`, one side dropping a slot's row and the other adding
-one, is the proof.
-
 ## `bun run imports` leaves a split's whole import statements to a hand
 
 - **Found:** 2026-09-23, claude/queue-step-lines
