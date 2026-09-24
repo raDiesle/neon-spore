@@ -11,7 +11,7 @@ import {
 import { midCol } from "./config.js";
 import { breachHull } from "./hull-damage.js";
 import { NO_SHELL } from "./shell.js";
-import { openSlow } from "./slow.js";
+import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -38,6 +38,7 @@ export function installBellows(world: World): BellowsState {
     phase: "still",
     phaseBeat: world.beat,
     exchangeBeat: world.beat,
+    exchanged: 0,
     seams: BELLOWS_SEAMS,
     handMilli: [NO_HAND, NO_HAND],
     sparkCol: NO_SPARK,
@@ -85,10 +86,34 @@ export function stepBellows(world: World, s: BellowsState): void {
 
 /** The next exchange's marks up, his first, and the shared window counted from here. */
 function lightMarks(world: World, s: BellowsState): void {
+  s.exchangeBeat = world.beat;
+  s.exchanged = 0;
+  markAgain(world, s);
+}
+
+/**
+ * The marks up again, his first. From `lightMarks` for a new exchange, and
+ * from her push short of `bellowsExchanges` in the shared window — which keeps
+ * the `exchangeBeat` it had, so the second round is inside the same window,
+ * and says so with the marks' own event.
+ */
+export function markAgain(world: World, s: BellowsState): void {
   s.phase = "pull";
   s.phaseBeat = world.beat;
-  s.exchangeBeat = world.beat;
   world.events.push({ type: "bellowsMarks", seams: s.seams, col: midCol(world.cfg) });
+  bellowsSlow(world, s);
+}
+
+/**
+ * **THE SLOW spans the one window in the fight** (`docs/decisions.md` #33):
+ * up from the tick the shared exchange's marks light, and shut the moment its
+ * seam parts or the handles jam, in or out of turn. Every other exchange has
+ * no clock and asks nothing slowly; the split keeps its own slow as the end.
+ */
+function bellowsSlow(world: World, s: BellowsState): void {
+  if (bellowsShared(s) && bellowsWorking(s)) {
+    openSlow(world, s.exchangeBeat + world.cfg.bellowsWindowBeats - world.beat);
+  } else closeSlow(world);
 }
 
 /**
@@ -109,6 +134,7 @@ export function jamHandles(
   s.phaseBeat = world.beat;
   s.handMilli = [NO_HAND, NO_HAND];
   world.events.push(event);
+  bellowsSlow(world, s);
 }
 
 /**
@@ -126,6 +152,7 @@ export function partSeam(world: World, s: BellowsState): void {
   s.phase = "seam";
   s.phaseBeat = world.beat;
   world.events.push({ type: "bellowsSeam", seams: s.seams, col: mid });
+  bellowsSlow(world, s);
   if (s.seams === BELLOWS_SEAMS - 2) {
     s.sparkCol = mid;
     s.sparkBeat = world.beat;

@@ -5,12 +5,13 @@ import {
   bellowsChamberCol,
   bellowsHeld,
   bellowsLast,
+  bellowsShared,
   bellowsTurn,
   bellowsWorking,
   NO_HAND,
   NO_LIFT,
 } from "./bellows.js";
-import { jamHandles, partSeam, splitWaist } from "./bellows-step.js";
+import { jamHandles, markAgain, partSeam, splitWaist } from "./bellows-step.js";
 import { midCol } from "./config.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -79,7 +80,9 @@ export function bellowsHeard(world: World, player: 1 | 2, command: Command): voi
  *
  * `bellowsTurn` names the seat the lung is waiting on; anyone else's stroke
  * jams both handles and spends the exchange. His lands the pull and hands the
- * beat to her; hers lands the push, and a clean pull-then-push is a seam.
+ * beat to her; hers lands the push, and a clean pull-then-push is a seam — in
+ * the shared window, the `bellowsExchanges`th of them, each one short of it
+ * lighting the marks again.
  */
 function workHandle(world: World, s: BellowsState, player: 1 | 2): void {
   if (bellowsTurn(s) !== player) {
@@ -94,6 +97,11 @@ function workHandle(world: World, s: BellowsState, player: 1 | 2): void {
     s.phase = "push";
     s.phaseBeat = world.beat;
     world.events.push({ type: "bellowsPulled", col: bellowsChamberCol(world.cfg, 1) });
+    return;
+  }
+  if (bellowsShared(s) && s.exchanged + 1 < world.cfg.bellowsExchanges) {
+    s.exchanged += 1;
+    markAgain(world, s);
     return;
   }
   partSeam(world, s);

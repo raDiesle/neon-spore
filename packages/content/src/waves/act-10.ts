@@ -211,7 +211,7 @@ export const WAVES_ACT_10: Wave[] = [
     sentence: "The one where you may never push while they are pulling.",
     guide: {
       both: "A lung hangs over the field. One of you pulls it open. Then the other shuts it. Never in the same beat. Four seams. Let the last one go together.",
-      p1: "1. The left handle is yours. Drag it down to open your chamber.\n2. Pull only in your own beat. Then wait for them.\n3. On the last seam let go together. Say when.",
+      p1: "1. The left handle is yours. Drag it down to open your chamber.\n2. Pull only in your own beat. Then wait. The third seam takes two.\n3. On the last seam let go together. Say when.",
       p2: "1. The right handle is yours. Drag it down to shut your chamber.\n2. Wait for their pull. Push too early and both handles jam.\n3. The lung breathes down their column once. Shield it.",
     },
     entries: [],

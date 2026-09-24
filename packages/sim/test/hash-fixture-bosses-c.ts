@@ -225,6 +225,7 @@ export function patchBossC(boss: BossState): void {
     boss.phase = "push";
     boss.phaseBeat = 3;
     boss.exchangeBeat = 2;
+    boss.exchanged = 1;
     boss.seams = 2;
     boss.handMilli = [1000, 420];
     boss.sparkCol = 4;

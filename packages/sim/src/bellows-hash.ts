@@ -22,6 +22,7 @@ export function bellowsHashParts(s: BellowsState): number[] {
     BELLOWS_PHASES.indexOf(s.phase) + 1,
     s.phaseBeat,
     s.exchangeBeat,
+    s.exchanged,
     s.seams,
     s.handMilli.length,
     s.handMilli[0],

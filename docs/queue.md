@@ -536,20 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The doubled window: THE BELLOWS
-
-- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
-- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-undertow-the-bellows-the (claim: claude/queue-the-doubled-window-the-bellows)
-- **Files:** `packages/sim/src/config-bellows.ts`, `packages/sim/src/bellows-step.ts`, `tools/director/src/poses-bosses-*.ts`, `docs/spec/bosses.md`
-
-Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
-`bellowsWindowBeats` 3 → 6 and both halves, pull and push, twice
-(`bellowsExchanges`). THE SLOW moves from where `bellows-step.ts` opens it
-to the ask, read off the state — `sim/undertow-slow.ts` is the nearest
-pattern, landed 24 September 2026. No film. Give the director's poses room
-if they run past their budgets, say the new counts in the guide, and add
-the dated line to `bosses.md` §11.n.
-
 ## The doubled window: THE HASP
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the

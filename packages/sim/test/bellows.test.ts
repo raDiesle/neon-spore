@@ -100,12 +100,23 @@ function stroke(world: World, player: 1 | 2, to = REACH): Set<string> {
   return runTo(world, t + 1, [hold(t, player, to)]);
 }
 
-/** A clean exchange, and on past the seam to the next set of marks. */
-function exchange(world: World): void {
-  stroke(world, 1);
-  stroke(world, 2);
+/** Both hands off both handles, so the next stroke is a stroke. */
+function lift(world: World): void {
   const t = world.tick;
   runTo(world, t + 1, [hold(t, 1, 0, false), hold(t, 2, 0, false)]);
+}
+
+/**
+ * A clean exchange — `bellowsExchanges` rounds of it in the shared window —
+ * and on past the seam to the next set of marks.
+ */
+function exchange(world: World): void {
+  const rounds = bellowsShared(lung(world)) ? CFG.bellowsExchanges : 1;
+  for (let i = 0; i < rounds; i++) {
+    stroke(world, 1);
+    stroke(world, 2);
+    lift(world);
+  }
   beat(world, CFG.bellowsSeamBeats + 1);
 }
 
@@ -260,6 +271,11 @@ describe("the two hazards", () => {
     lit(world);
     exchange(world);
     exchange(world);
+    for (let i = 1; i < CFG.bellowsExchanges; i++) {
+      stroke(world, 1);
+      stroke(world, 2);
+      lift(world);
+    }
     stroke(world, 1);
     expect(stroke(world, 2).has("bellowsBreath")).toBe(true);
     const body = world.creatures.find((c) => c.kind === "meteor");

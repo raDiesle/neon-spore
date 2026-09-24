@@ -234,8 +234,9 @@ export const CHOREO_NOTES_B = {
     "one strike on the hull, which is the wave. With one gone the lung " +
     "breathes a body straight down whatever column the cannon is standing " +
     "in, answered with the shield — a departure from the design's row 10 " +
-    "and argued in §11.35. The last exchange is counted: both marks inside " +
-    "bellowsWindowBeats or the handles jam. Then both seats grip and let go " +
+    "and argued in §11.35. The third exchange is counted: bellowsExchanges " +
+    "rounds of both marks inside bellowsWindowBeats, under THE SLOW, or the " +
+    "handles jam. Then both seats grip and let go " +
     "together, inside a beat of each other, and the waist splits in two — " +
     "THE SLOW opens for bellowsSlowBeats and the lung vents for " +
     "bellowsVentBeats. See sim/bellows.ts, sim/bellows-hand.ts, " +

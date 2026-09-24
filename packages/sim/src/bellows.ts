@@ -68,6 +68,9 @@ export interface BellowsState {
   /** `world.beat` this exchange's marks lit — what the shared window of the
    * third exchange is counted from, since that one window spans two phases. */
   exchangeBeat: number;
+  /** Clean rounds this exchange has had, of `bellowsExchanges`: nought until
+   * the shared window's first push, since no other exchange asks for two. */
+  exchanged: number;
   /** Seams left in the waist: `BELLOWS_SEAMS` down to nought. */
   seams: number;
   /** How deep each hand has carried its handle, pilot then navigator, in

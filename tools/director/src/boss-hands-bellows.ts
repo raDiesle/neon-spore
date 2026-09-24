@@ -76,7 +76,9 @@ function handles(w: World, s: BellowsState): Press[] {
   }
   const turn = bellowsTurn(s);
   if (turn === 0) return [drag(1, false, 0), drag(2, false, 0)];
-  if (bellowsHeld(s, turn)) return [];
+  // Still resting on the handle from the shared window's last round: lifted,
+  // so the next press is a stroke (`bellowsExchanges`).
+  if (bellowsHeld(s, turn)) return [drag(turn, false, 0)];
   return [drag(turn, true, w.cfg.bellowsReachMilli)];
 }
 

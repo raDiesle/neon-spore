@@ -7894,7 +7894,8 @@ other split the waist under THE SLOW (`bellowsSlowBeats` 2, `decisions.md`
 #33), venting for `bellowsVentBeats` (3) before the wave may end.
 
 **One window in the whole fight**, the third exchange's
-(`bellowsWindowBeats`, 3), read off the health by `bellowsShared` rather than
+(`bellowsWindowBeats`, 6, for `bellowsExchanges` (2) rounds of pull and
+push), read off the health by `bellowsShared` rather than
 counted in a field of its own. Every other exchange has no clock at all: a
 pull nobody makes is a pull still wanted, and the marks stay up.
 
@@ -8013,6 +8014,17 @@ strikes the hull if nobody answers it; the third seam breathes a body down the
 cannon's own column; and the last seam splits under two hands off in one beat,
 holds under two a beat apart, and vents the lung out of the wave. Whether any
 of it *reads* is the owner's eye, after lane two.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `bellowsWindowBeats` 3 → 6, and the
+third exchange asks for both halves `bellowsExchanges` (2) times inside it —
+her push short of the last lights the marks again, his first, and the window
+keeps counting (`markAgain`), which overrules *a movement that asked for two
+exchanges* above for this one movement. THE SLOW spans that window, up with
+its marks and shut on the tick its seam parts or the handles jam
+(`bellowsSlow`, `sim/test/bellows-doubled.test.ts`); the split keeps its own
+`bellowsSlowBeats` as the boss's end. The pilot's guide says the third seam
+takes two.
 
 ## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
 

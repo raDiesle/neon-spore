@@ -221,6 +221,7 @@ export const CHOREO_FIELD_GROUP_B = {
   bellowsJamBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
   bellowsSeamBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
   bellowsWindowBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
+  bellowsExchanges: "THE BELLOWS — the boss where you may never push while they are pulling",
   bellowsSparkBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
   bellowsSlowBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
   bellowsVentBeats: "THE BELLOWS — the boss where you may never push while they are pulling",

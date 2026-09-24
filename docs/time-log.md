@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE BELLOWS' window is doubled
+
+- reading: 0 min. THE BELLOWS' step, hand, hash and tests, and the
+  director's hand.
+- writing: 5 min. Six beats and two rounds in the third exchange, the marks
+  lit again between them, THE SLOW over the window alone, a test file of its
+  own, the pilot's guide, the spec and the director's hand lifting a thumb
+  left resting from the round before.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the guide — the count first went into the shared half, which was
+already at its word budget, and moved to the pilot's.
+
 ## 2026-09-24 — THE UNDERTOW's windows are doubled
 
 - reading: 0 min. THE UNDERTOW's step, press and hash, its film and guide,
