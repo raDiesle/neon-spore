@@ -22,6 +22,17 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — Four phone checks confirmed by the owner
+
+- reading: 0 min. The four entries' own closing line.
+- writing: 0 min. Four `queue done` calls.
+- looking: 0 min. The owner looked, on his phone.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **landing**: the change is four removals, so the check is
+all of the wall time.
+
 ## 2026-09-24 — `computeStage` takes only the viewport
 
 - reading: 0 min. The queue entry and the nineteen callers `git grep` names.
