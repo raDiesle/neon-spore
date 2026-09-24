@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · c3bfc62f — THE TASTER's pry is doubled: twelve beats open, two beams to end it
+
+The closed fan now stands open `tasterPryBeats` 12 rather than 6 once the pilot hauls it apart, and takes `tasterPryFills` (2) beams in the colour the ledger says the pair has spent least of, read as each beam lands. THE SLOW moved from the beat a blade's colour sets, which asks for nothing, to the pry: opened with it for exactly its beats and shut by the last beam (`docs/decisions.md` #33). `tasterSlowBeats` is gone. The guide says to beam twice; the film never reaches the interlock and is unchanged.
+
 ## 2026-09-24 · 36065c35 — THE GORGE's windows are doubled: two shots through a full intake, two beams under the pry
 
 A full intake now takes two more shots to rupture and vents in eight beats rather than four (`gorgeVentShots`, `gorgeVentBeats`); the gorged mouth takes two beams in its colour inside one pry of eight beats (`gorgePryFills`, `gorgePryBeats`). THE SLOW opens on this boss for the first time and spans every ask the sack holds: up while any intake waits full or the mouth is pried, shut on the tick the last is answered or runs out (`sim/gorge-slow.ts`). The film is re-timed by sixty ticks, and its captions and the wave's guide say the new counts.
