@@ -18990,3 +18990,5 @@ the strip could go without shrinking the picture, and only a shot says it fit.
 The bottleneck was **the hardware**: the entry needs an address bar that comes
 back mid-wave, and this machine has no phone and no Xcode to emulate one, so
 the lane marks it as the owner's instead of finishing it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

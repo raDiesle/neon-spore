@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · a48edac6 — An unverified item that needs a real phone is queued PHONE ONLY
+
+`bun run land --unverified` now writes `- **Where:** phone` when an item says real phone, real device or on glass, so `bun run queue next` stops handing out work no agent can finish. Two entries it wrote without the line — the svh cap under a real address bar, and ?lag=1's figures on a real phone — get it by hand; both stay in the queue for the owner, since this machine has no phone and no simulator to check them on.
+
 ## 2026-09-24 · 5818566f — The director on a phone shows TEST, P1 and P2 under the field
 
 On a phone the GAME view is the field, and RUN with its three role buttons was a scroll under the fold, so a solo test could not switch seats mid-wave. The three buttons now also stand in a strip in the band the field's aspect already leaves under it, and the field gives up nothing. Both copies set the role and both light the one that is on. Desktop never shows the strip.
