@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## The shield rim's shimmer alpha has never reached the line
 
 - **Found:** 2026-09-24, claude/queue-strokeglow-is-handed-an-alpha-it-throws-away-the
+- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-the-shield-rims-shimmer-alpha-has-never-reached)
 - **Files:** `packages/render/src/shield.ts`, `packages/render/src/volley-ward.ts`
 - **Asks:** give the shield rim the shimmer its alpha was written for, through VERSUS, or delete `alphaBase`/`alphaGlow` as the dead fields they are?
 
