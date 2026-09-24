@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 5818566f — The director on a phone shows TEST, P1 and P2 under the field
+
+On a phone the GAME view is the field, and RUN with its three role buttons was a scroll under the fold, so a solo test could not switch seats mid-wave. The three buttons now also stand in a strip in the band the field's aspect already leaves under it, and the field gives up nothing. Both copies set the role and both light the one that is on. Desktop never shows the strip.
+
 ## 2026-09-24 · 75d6e2c9 — Tutorial pages that name a count on the field now say which count
 
 Seven more tutorial captions now name the world field their number counts, and `scene-pages.test.ts` reads each one back: - THE HIVE's breaches open; - THE CANDLE's steps of glow; - THE SCUTTLE's parts; - THE ANTIPHON's rail; - THE ORRERY's rings.
