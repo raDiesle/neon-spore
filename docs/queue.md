@@ -453,6 +453,7 @@ the caller rather than as a rule.
 ## THE SPOOL's guide has no film
 
 - **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb
+- **Taken:** 2026-09-24, claude/queue-tasks-866c9f (claim: claude/queue-the-spools-guide-has-no-film)
 - **Files:** `packages/content/src/scenes/`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`, `docs/spec/bosses.md`
 - **Where:** local
 
