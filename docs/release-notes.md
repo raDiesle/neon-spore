@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · f28f4358 — The first of two shots or beams is said on THE GORGE and THE TASTER
+
+Since the doubled window a full intake takes two pierces and the pried mouth or interlock two beams, and the first of each moved a count and said nothing. It is now an event with `owed`: `gorgeNick`, `gorgePryFill` and `tasterPryFill`, each with its own sound and a smaller burst of what the second will throw — rock for the nick, the mouth's colour for its fill, the edge's colour for the fan's.
+
 ## 2026-09-24 · 71e556a7 — THE BATON's windows are doubled, and THE SLOW spans its asks
 
 On the owner's rule of 22 September: a swelling shell now stands six beats and asks two strips of the locked seat, each a fresh thumb, before it comes away; the draw has twelve beats to hold both thumbs down for four; and the crossing is twenty-two beats long, owing an act in every one. THE SLOW opens on this fight for the first time, over those three asks alone, and shuts on each one's own ends (baton-slow.ts). A handover still plays at speed.
