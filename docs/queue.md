@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## The doubled window: THE BATON
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-hasp (claim: claude/queue-the-doubled-window-the-baton)
 - **Files:** `packages/sim/src/config-baton.ts`, `packages/sim/src/baton-step.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/sim/test/baton.test.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
 
 Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
