@@ -569,6 +569,7 @@ The two answers:
 ## `bun run imports` counts a property of the same name as a use
 
 - **Found:** 2026-09-24, claude/queue-baton-test-ts-is-717-lines-and-keeps-its-own-cop
+- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-bun-run-imports-counts-a-property-of-the-same-na)
 - **Files:** `tools/imports/imports.ts`, `tools/imports/run.ts`, `tools/imports/test/imports.test.ts`
 
 Splitting `baton.test.ts` stranded `flying` in three import lists. Biome
