@@ -19788,3 +19788,5 @@ cut was which of them drew it rather than which of them said it.
 The bottleneck was **writing**: the sim kept only "armed or not", so the
 progress had to become a number the simulation owns before the drawer could
 show it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

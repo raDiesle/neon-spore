@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 15ef4894 — A swipe's ring fills green while the thumb travels, not only on the lift
+
+THE INSTAR's SWIPE DOWN now shows its green arc growing as the thumb carries the egg toward the length that counts, full at the point where letting go will take it off. The simulation keeps the carry's furthest reach on the mark (`instarSwipeAlong`), so both phones draw the same fill; carrying back up does not disarm a swipe that already went far enough.
+
 ## 2026-09-24 · 25739260 — No kind line says CARRY; a verb that is a motion draws alone
 
 PULL UP, SWIPE DOWN, MOVE and every other carry now stand on the glass as the one word, without CARRY over them — the verb already says what the thumb does. PRESS, HOLD and STILL keep their line. One rule, `saysKind`, and both hands that write a cue call it.
