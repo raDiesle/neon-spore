@@ -19587,3 +19587,20 @@ The bottleneck was **looking**: THE INSTAR's rings sway with the beat, so
 every synthetic press had to find them again in the same synchronous run.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — THE BELLOWS is taken out of the game, whole
+
+- reading: 5 min. `git grep -i bellows` across the tree, and THE TELL's own
+  removal (98be232f) as the pattern to follow.
+- writing: 10 min. The 24 files deleted, the registrations taken out of about
+  sixty more, the comments that gave the Bellows as their reason reworded,
+  and §11.35 moved under *Retired* with the owner's verdict.
+- looking: 0 min. Nothing new is drawn; a removal has no frame to show.
+- friction: 5 min. `NO_LIFT` lived in `bellows.ts` but THE SURGE needs it,
+  so it moved to `beat-clock.ts`. Several reworded comments had to be
+  rewrapped by hand.
+- landing: 5 min. `check:fast`, a commit by path, and `land`.
+
+The bottleneck was **writing**: a choreographed boss is registered in about
+sixty files outside its own, and each one has to be found and taken out by
+hand.

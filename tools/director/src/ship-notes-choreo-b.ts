@@ -217,28 +217,4 @@ export const CHOREO_NOTES_B = {
     "unanswered is one strike on the hull, which is the wave. The last shear " +
     "opens THE SLOW gimbalSlowBeats and the hatch hangs gimbalOpenBeats " +
     "more. See sim/gimbal.ts, sim/gimbal-hand.ts, sim/config-gimbal.ts.",
-  "THE BELLOWS — the boss where you may never push while they are pulling":
-    "Designed on 19 September 2026 in docs/spec/bosses-choreographed.md §19 " +
-    "and docs/spec/bosses.md §11.35: the boss built entirely around taking " +
-    "turns. A double-chambered lung hangs across the top of the field, two " +
-    "ribbed housings joined at a leather waist, and its health is the four " +
-    "seams down that waist. Both handles light bellowsStillBeats in, one " +
-    "chamber a seat (bellowsPull is the pilot's, bellowsPush is the " +
-    "navigator's, both ordinary depth-drags). He carries his past " +
-    "bellowsWorkMilli of bellowsReachMilli and the lung is open; she " +
-    "carries hers past the same depth and a seam parts. Either of them " +
-    "stroking out of turn jams both handles for bellowsJamBeats and splits " +
-    "nothing, which is the whole rule. bellowsSeamBeats after a seam the " +
-    "handles light again. With two seams gone a spark leaks from the waist: " +
-    "a shot of either colour shuts it, and bellowsSparkBeats unanswered is " +
-    "one strike on the hull, which is the wave. With one gone the lung " +
-    "breathes a body straight down whatever column the cannon is standing " +
-    "in, answered with the shield — a departure from the design's row 10 " +
-    "and argued in §11.35. The third exchange is counted: bellowsExchanges " +
-    "rounds of both marks inside bellowsWindowBeats, under THE SLOW, or the " +
-    "handles jam. Then both seats grip and let go " +
-    "together, inside a beat of each other, and the waist splits in two — " +
-    "THE SLOW opens for bellowsSlowBeats and the lung vents for " +
-    "bellowsVentBeats. See sim/bellows.ts, sim/bellows-hand.ts, " +
-    "sim/config-bellows.ts.",
 } satisfies Partial<Record<GroupName, string>>;

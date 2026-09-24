@@ -16,7 +16,7 @@ import { PALETTE } from "./palette.js";
  * **How far through a pose THE HASP is**, and how far each clasp stands open
  * — the clock the door is posed off (§20, *Animation*).
  *
- * Its own page off `hasp-draw.ts` for `bellows-pose.ts`'s reason: next door
+ * Its own page off `hasp-draw.ts` for `spool-pose.ts`'s reason: next door
  * is *what the door looks like*, and here is *where the fight has got to*,
  * read off the boss and the beat alone, so nothing is kept between frames and
  * a restart poses the row from the state (`restart.test.ts`).

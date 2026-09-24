@@ -13,8 +13,6 @@
  */
 // THE GIMBAL's two rings, argued below: the first pair of targets that are
 // one object, read from its two opposite faces.
-// THE BELLOWS's handle and plate, argued below: the first pair of targets the
-// fight forbids the pair from working in the same beat.
 // THE HASP's latch and wheel, argued below: the first pair where one of them
 // only moves at all while the other is being held.
 // THE RATCHET's catch and pawl, argued below: a hold, and a press judged by it.
@@ -22,8 +20,6 @@ export type DragTargetD =
   | "hiveLobe"
   | "gimbalOuter"
   | "gimbalInner"
-  | "bellowsPull"
-  | "bellowsPush"
   | "spoolBrake"
   | "haspLatch"
   | "haspWheel"
@@ -77,30 +73,6 @@ export type DragTargetD =
  */
 
 /**
- * `bellowsPull` and `bellowsPush` are the sixtieth and sixty-first, and the
- * first pair whose rule is that **they are never worked in the same beat**.
- *
- * Both are `sinewLeft`'s kind of depth drag — `fromYMilli`, how far *down*
- * the hand has carried the handle from where it took hold, cut to
- * `bellowsReachMilli` — and nothing about the gesture itself is new. What is
- * new is what the two of them are to each other: the pilot's handle draws his
- * chamber open and the navigator's plate pushes hers shut, and a stroke on
- * either in the other seat's beat jams them both (`bellows-hand.ts`,
- * `Alternation`).
- *
- * Two names rather than one target and a side, for `sinewLeft`'s reason
- * exactly: **geometry says which handle is whose** — his hangs off the left
- * chamber and hers off the right — so the seat is checked against the name
- * here rather than carried beside it. No `id`: there is one lung, and one
- * handle to a seat.
- *
- * A stroke is judged on the **edge** the handle crosses and never on where it
- * is resting (`bellowsWorkMilli`): a level would make a held handle an act
- * every tick, which on the one boss whose whole rule is *not in her beat*
- * would jam the pair for holding still.
- */
-
-/**
  * `spoolBrake` is the sixty-second, and the first target whose **value is the
  * whole of it**: every other depth drag in the set is read for an edge it
  * crossed or a beat it was held through, and this one is read for the number
@@ -127,7 +99,7 @@ export type DragTargetD =
  *
  * Neither gesture is new. The latch is a depth drag — `fromYMilli`, cut to
  * `haspReachMilli` — read as a **level** rather than an edge, which is the
- * one thing it does differently from `bellowsPull` next door: what the wheel
+ * one thing it does differently from a stroke, read on the edge it crosses: what the wheel
  * asks every tick is whether the hand is down *now*, so the gesture is
  * *keep holding* and there is nothing to cross. The wheel is a bearing, the
  * `orreryRing` and `gimbalOuter` gesture exactly, and what a step on it is
@@ -139,7 +111,7 @@ export type DragTargetD =
  * only a read of the other hand on the same tick — which is the whole
  * finding §20 was written to make.
  *
- * Two names rather than one target and a side, for `bellowsPull`'s reason:
+ * Two names rather than one target and a side, for `sinewLeft`'s reason:
  * **the seat is the encounter here**, not a convenience — the pilot is shown
  * a latch and never a wheel, the navigator a wheel and never a latch — so
  * the seat is checked against the name and the wrong one's message does

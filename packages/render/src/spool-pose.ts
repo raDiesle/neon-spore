@@ -13,7 +13,8 @@ import { type SpoolPose, spoolHome, spoolSide } from "./spool-shape.js";
  * **How far through a pose THE SPOOL is** — the clock the whole scene is
  * posed off (§21, *Animation*).
  *
- * Its own page off `spool-draw.ts` for `bellows-pose.ts`' reason: there is
+ * Its own page off `spool-draw.ts`, because the two are different questions:
+ * there is
  * *where the spool is*, which a thumb is answered against, and here is *what
  * it is doing*, which nothing is. Every number is read off the boss and the
  * beat, so nothing is kept between frames and a restart poses the spool from

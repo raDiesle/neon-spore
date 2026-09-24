@@ -1,6 +1,5 @@
 import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
-import { BELLOWS_DEFAULTS, type BellowsConfig } from "./config-bellows.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
 import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
@@ -80,7 +79,6 @@ export interface BossClockConfig
     InstarConfig,
     FilamentConfig,
     GimbalConfig,
-    BellowsConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -112,7 +110,6 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...INSTAR_DEFAULTS,
   ...FILAMENT_DEFAULTS,
   ...GIMBAL_DEFAULTS,
-  ...BELLOWS_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

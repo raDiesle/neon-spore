@@ -1,6 +1,5 @@
 import { antiphonHeard, antiphonPulled, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
-import { bellowsHeard } from "./bellows-hand.js";
 import { candleWickHeard } from "./candle-hand.js";
 import { curtainHemHeard } from "./curtain-hand.js";
 import { diastoleHeard } from "./diastole-hand.js";
@@ -82,10 +81,6 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // on it (`gimbal-hand.ts`). Whether it sits true, and for how long, is the
   // beat's and nothing else is.
   for (const c of commands) gimbalHeard(world, c.player, c.command);
-  // THE BELLOWS's handle and plate, on the tick because a stroke is judged the
-  // instant it lands: whose beat it came in is the whole boss, and the finale
-  // is two hands off inside a beat of each other (`bellows-hand.ts`).
-  for (const c of commands) bellowsHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

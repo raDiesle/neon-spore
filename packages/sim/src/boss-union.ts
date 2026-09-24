@@ -1,6 +1,5 @@
 import type { AntiphonState } from "./antiphon.js";
 import type { BatonState } from "./baton.js";
-import type { BellowsState } from "./bellows.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 import type { CairnState } from "./cairn.js";
 import type { CandleState } from "./candle.js";
@@ -99,7 +98,6 @@ export type BossState =
   | InstarState
   | FilamentState
   | GimbalState
-  | BellowsState
   | SpoolState
   | HaspState
   | RatchetState;

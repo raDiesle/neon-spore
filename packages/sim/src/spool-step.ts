@@ -19,12 +19,12 @@ import type { World } from "./world.js";
  * under a correction, the slip that sends a movement back to its head, and
  * the rib that eases when a whole movement was held inside its zone.
  *
- * **Nearly the whole fight is here**, which is the opposite of THE BELLOWS
- * next door and for the opposite reason. A stroke is an edge and so it is
- * judged the instant it lands; a brake is a *level*, and what it is worth is
- * only ever known a beat at a time. So the hand does almost nothing
- * (`spool-hand.ts`) and this page is where the line pays out, where it is
- * measured against the zone, and where every phase of the fight is decided.
+ * **Nearly the whole fight is here**, which is the opposite of a handle boss
+ * and for the opposite reason. A stroke is an edge and so it is judged the
+ * instant it lands; a brake is a *level*, and what it is worth is only ever
+ * known a beat at a time. So the hand does almost nothing (`spool-hand.ts`) and
+ * this page is where the line pays out, where it is measured against the zone,
+ * and where every phase of the fight is decided.
  *
  * **The target is rolled, not authored.** A movement's leg gets its rate off
  * `world.rng` inside `spoolRateSlowMilli`…`spoolRateFastMilli`, which is the
@@ -145,9 +145,9 @@ function slipLine(world: World, s: SpoolState): void {
  * A rock down the column the cannon is standing in — the fight's one ordinary
  * hazard, and an ordinary body from the moment it is thrown.
  *
- * `bellows-step.ts`' argument word for word: the answer the design asks for
- * is the shield, the shield is what turns a body, and a bespoke hazard with a
- * bespoke ward would be a second rule the pair cannot discover by trying it.
+ * The answer the design asks for is the shield, the shield is what turns a
+ * body, and a bespoke hazard with a bespoke ward would be a second rule the
+ * pair cannot discover by trying it.
  */
 function throwRock(world: World): void {
   const col = world.cannonCol;

@@ -28,7 +28,7 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  * fight said for them (`view-role-clocks-c.ts`). What both seats share — the
  * row, the bolt, the hull — bursts on both.
  *
- * Read above the loop like THE BELLOWS's, rather than as rows in a spark table
+ * Read above the loop like THE SPOOL's, rather than as rows in a spark table
  * at its limit (`effects-spark-silent-boss-b.ts`). Everything is cleared in
  * `Effects.reset()` (`restart.test.ts`).
  */

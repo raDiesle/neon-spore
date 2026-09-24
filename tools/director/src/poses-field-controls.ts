@@ -20,7 +20,6 @@ import {
   until,
 } from "./pose-kit.js";
 import { ANTIPHON_PULL, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
-import { BELLOWS_GRIPS } from "./poses-field-controls-bellows.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
@@ -198,10 +197,10 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
   note: "the moment a control touched on the field itself is answered in — controls.md, and the CONTROLS tab's ON THE FIELD page",
   // Every boss's is next door, one file each, and this one keeps the four
   // that belong to no boss: THE SURGE's, THE ANTIPHON's, THE INSTAR's, THE
-  // GIMBAL's, THE SINEW's and THE BELLOWS's went out one at a time, each as
-  // this file reached its limit again (`poses-field-controls-surge.ts`,
-  // `-antiphon.ts`, `-instar.ts`, `-gimbal.ts`, `-sinew.ts`, `-bellows.ts`,
-  // `-spool.ts`, `-hasp.ts`, `-ratchet.ts`).
+  // GIMBAL's and THE SINEW's went out one at a time, each as this file
+  // reached its limit again (`poses-field-controls-surge.ts`, `-antiphon.ts`,
+  // `-instar.ts`, `-gimbal.ts`, `-sinew.ts`, `-spool.ts`, `-hasp.ts`,
+  // `-ratchet.ts`).
   poses: [
     TETHER_TAUT,
     BALLOON_HELD,
@@ -213,7 +212,6 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ANTIPHON_PULL,
     INSTAR_PULL,
     ...GIMBAL_GRIPS,
-    ...BELLOWS_GRIPS,
     SPOOL_BRAKE,
     ...HASP_GRIPS,
     ...RATCHET_GRIPS,

@@ -1,6 +1,5 @@
 import { antiphonHashParts } from "./antiphon-hash.js";
 import { batonHashParts } from "./baton-hash.js";
-import { bellowsHashParts } from "./bellows-hash.js";
 import type { BossState } from "./boss-union.js";
 import { candleHashParts } from "./candle-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
@@ -118,10 +117,6 @@ export function clockHashParts(boss: BossState): number[] {
   // THE GIMBAL: the alignments, the cursor and phase, both rings' bearings and both hands' (`gimbal-hash.ts`).
   if (boss.kind === "gimbal") {
     for (const n of gimbalHashParts(boss)) out.push(n);
-  }
-  // THE BELLOWS: the phase, the seams, both hands' depths, the spark and the lift (`bellows-hash.ts`).
-  if (boss.kind === "bellows") {
-    for (const n of bellowsHashParts(boss)) out.push(n);
   }
   // THE SPOOL: the phase, the ribs, the brake's depth, both lengths and the rolled rate (`spool-hash.ts`).
   if (boss.kind === "spool") {

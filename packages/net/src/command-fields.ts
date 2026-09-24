@@ -27,7 +27,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "ledgerFoot", "ledgerSocket", "ledgerBead", "ledgerCord",
   "leadStalk", "scuttlePart", "antiphonRail", "wellSeam", "hiveLobe",
   "gimbalOuter", "gimbalInner",
-  "bellowsPull", "bellowsPush", "spoolBrake",
+  "spoolBrake",
   "haspLatch", "haspWheel",
   "ratchetCatch", "ratchetPawl",
 ];

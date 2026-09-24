@@ -146,10 +146,7 @@ export function serializeBoss(boss: BossEntry): string {
   // THE FILAMENT's paths are words a hand walks (`sim/filament.ts`), named
   // for the same reason (`packages/content/src/filament-script.ts`).
   if (boss.kind === "filament") return '{ kind: "filament", filaments: FILAMENT_SCRIPT }';
-  // THE BELLOWS authors nothing at all: the four seams are its silhouette and
-  // every tempo in it is tuning (`sim/boss-entries-clocks.ts`).
-  if (boss.kind === "bellows") return '{ kind: "bellows" }';
-  // THE SPOOL authors nothing at all either: four ribs are its silhouette,
+  // THE SPOOL authors nothing at all: four ribs are its silhouette,
   // every window is tuning, and the rate each leg asks for is rolled off the
   // seed so a pair cannot learn a wave by heart (`sim/spool.ts`).
   if (boss.kind === "spool") return '{ kind: "spool" }';

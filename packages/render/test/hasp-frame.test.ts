@@ -33,7 +33,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * wheel spinning free, a wheel seized dark mid-turn, a hasp swinging and the
  * row swung clear — on all three screens.
  *
- * The states are **set** rather than played to, `bellows-frame.test.ts`'s
+ * The states are **set** rather than played to, `spool-frame.test.ts`'s
  * arrangement: `sim/test/hasp.test.ts` proves the gate, the heat and the
  * openings. What this file asks is whether every branch of the picture is one
  * a canvas accepts, and the thing nothing else could catch: **the split**. The

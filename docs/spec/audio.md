@@ -94,7 +94,7 @@ grain changes the game's voice and should be rare; adding a sound is not.
 | `impact` | what a shot does when it arrives | 13 of 14 |
 | `hull` | the hull taking it | 6 of 10 |
 | `pod` | hanging, loose, taken, lost, a husk let go | 7 of 12 |
-| `boss` | the bosses that are built, and the names holding a slot | 324 of 333 |
+| `boss` | the bosses that are built, and the names holding a slot | 308 of 317 |
 | `mirror` | THE MIRROR's half of a sequence, and the verdict | 16 of 17 |
 | `ui` | menu, room, banner, balance sheet, the lost screen | 3 of 17 |
 | `ambient` | the room; never a foreground sound | 0 of 8 |
@@ -110,7 +110,7 @@ in a noisy room throws away.
 
 ## 5 · Built and unspent
 
-106 of the 517 are `spare`: finished, tested, and nothing plays them. That is
+106 of the 501 are `spare`: finished, tested, and nothing plays them. That is
 deliberate. A creature that is still a name in `bestiary.md` is easier to argue
 about once you can hear what it would sound like, and several idea-store entries stand or fall on exactly that — the
 countdown creature is three pips and a hole where the fourth should be, and

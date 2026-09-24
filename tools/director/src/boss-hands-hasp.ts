@@ -12,8 +12,8 @@ import {
  * **THE HASP played right**, for the STATES sheet: the latch kept down and
  * the wheel kept turning, which is the whole of what the pair does.
  *
- * The hand is shorter than THE BELLOWS's next door because this boss has no
- * turn-taking in it and no way to play it wrong that is worth a card — a
+ * The hand has no wrong twin because this boss has no turn-taking in it and
+ * no way to play it wrong that is worth a card — a
  * seize is the pair failing to *keep* doing something rather than doing the
  * other thing, so it is reached by a hand that stops rather than by a hand
  * that misbehaves, and nothing here needs a wrong twin.

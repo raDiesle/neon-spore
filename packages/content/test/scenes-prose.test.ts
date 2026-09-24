@@ -62,11 +62,6 @@ const STILL_PROSE = [
   // game's own screen, and there is no screen to rehearse until the look lane
   // draws the drum and its two rims; the guide says the rule in the meantime.
   "THE GIMBAL",
-  // And THE BELLOWS the same afternoon (§11.35), for THE GIMBAL's reason
-  // word for word: the lung, its two chambers and the four seams down its
-  // waist are all still undrawn, so there is no screen for a film to
-  // rehearse. The guide says the taking of turns until the look lane draws it.
-  "THE BELLOWS",
   // THE SPOOL left this list on 24 September 2026, a day after its brake
   // learnt to answer a thumb: `scenes/the-spool.ts` is the shallow brake, the
   // slip, *slower* and the rib.
@@ -104,8 +99,8 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix = "update §1 of docs/spec/briefings.md, which says ninety-two of a hundred and one";
-    expect(guided.length, fix).toBe(93);
-    expect(WAVES.length, fix).toBe(102);
+    expect(guided.length, fix).toBe(92);
+    expect(WAVES.length, fix).toBe(101);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

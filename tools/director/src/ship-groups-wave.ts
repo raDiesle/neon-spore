@@ -57,7 +57,6 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
   "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   "THE GIMBAL — the boss where the same turn is not the same turn",
-  "THE BELLOWS — the boss where you may never push while they are pulling",
   "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   "THE HASP — the boss where one of you only has to hold on, and cannot",
   "THE RATCHET — the boss where every step you take stays taken",

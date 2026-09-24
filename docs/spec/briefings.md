@@ -313,9 +313,9 @@ looping.
 
 **There are eighty-two of them now**, one per guided wave bar eleven, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The eleven that are still the three strings
+rather than a page of prose. The ten that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE INSTAR, THE FILAMENT, THE GIMBAL, THE BELLOWS, THE HASP and
+CODEX, THE INSTAR, THE FILAMENT, THE GIMBAL, THE HASP and
 THE RATCHET** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written

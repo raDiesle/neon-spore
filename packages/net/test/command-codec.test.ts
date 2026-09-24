@@ -207,17 +207,7 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "gimbalOuter", on: true, fromMilli: -1 },
   { kind: "drag", target: "gimbalInner", on: true, fromMilli: 750 },
   { kind: "drag", target: "gimbalInner", on: false, fromMilli: 0 },
-  // THE BELLOWS's handle and plate: `sinewLeft`'s depth drag twice over, one
-  // target a seat, no id because there is one lung and geometry says whose
-  // handle is whose (`sim/bellows-hand.ts`). Both are here because a codec
-  // that listed one would drop that seat's stroke, and on this boss a stroke
-  // the other device never saw is not a missed beat — it is the pair being
-  // told they jammed a handle nobody worked.
-  { kind: "drag", target: "bellowsPull", on: true, fromMilli: 0, fromYMilli: 800 },
-  { kind: "drag", target: "bellowsPull", on: false, fromMilli: 0, fromYMilli: 0 },
-  { kind: "drag", target: "bellowsPush", on: true, fromMilli: 0, fromYMilli: 700 },
-  { kind: "drag", target: "bellowsPush", on: false, fromMilli: 0, fromYMilli: 0 },
-  // THE SPOOL's brake: the same depth drag once more, the pilot's alone, and
+  // THE SPOOL's brake: `sinewLeft`'s depth drag, the pilot's alone, and
   // the one target whose **resting value** is what the wire is for. A codec
   // that dropped it would not cost the pair a stroke, it would leave the line
   // paying out at whatever depth the last packet carried while the pilot's own
@@ -225,11 +215,11 @@ const ACCEPTED: Command[] = [
   // plausible (`sim/spool-hand.ts`).
   { kind: "drag", target: "spoolBrake", on: true, fromMilli: 0, fromYMilli: 420 },
   { kind: "drag", target: "spoolBrake", on: false, fromMilli: 0, fromYMilli: 0 },
-  // THE HASP's latch and wheel: a depth drag and a bearing, one target a
-  // seat (`sim/hasp-hand.ts`). Both are here for a reason sharper than THE
-  // BELLOWS's above — the latch is the *gate* on the wheel, so a dropped
-  // latch message is not a lost gesture but a wheel that seizes on one
-  // device and turns on the other, which is a desync rather than a fumble.
+  // THE HASP's latch and wheel: a depth drag and a bearing, one target a seat
+  // (`sim/hasp-hand.ts`). Both are here because the latch is the *gate* on the
+  // wheel, so a dropped latch message is not a lost gesture but a wheel that
+  // seizes on one device and turns on the other, which is a desync rather than
+  // a fumble.
   { kind: "drag", target: "haspLatch", on: true, fromMilli: 0, fromYMilli: 800 },
   { kind: "drag", target: "haspLatch", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "haspWheel", on: true, fromMilli: 250 },
@@ -389,8 +379,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   hiveLobe: true,
   gimbalOuter: true,
   gimbalInner: true,
-  bellowsPull: true,
-  bellowsPush: true,
   spoolBrake: true,
   haspLatch: true,
   haspWheel: true,

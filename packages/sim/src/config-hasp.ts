@@ -20,9 +20,8 @@ export interface HaspConfig {
   /**
    * How deep the latch counts as **gripped**, in thousandths of the reach.
    *
-   * Two thirds, `bellowsWorkMilli`'s figure and its argument: a thumb that
-   * brushes the latch has not taken it, and a thumb that means to has no
-   * doubt. Unlike that one this is a **level** rather than an edge — the
+   * Two thirds: a thumb that brushes the latch has not taken it, and a thumb
+   * that means to has no doubt. This is a **level** rather than an edge — the
    * whole gesture is *keep holding*, so what the wheel asks every tick is
    * whether the hand is down now, not whether it crossed something once.
    */

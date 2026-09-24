@@ -226,7 +226,7 @@ export interface ScuttleEntry {
  * (`hasp.ts`, `HASP_COUNT`). No fuse and no winding, because both are things
  * the pair has to feel their way to — how long a grip lasts before it burns
  * and how far a wheel has to go round — and a wave that authored its own
- * would be several different bosses wearing one name, `BellowsEntry`'s
+ * would be several different bosses wearing one name, `SpoolEntry`'s
  * reason next door (`boss-entries-clocks-b.ts`).
  *
  * And nothing about which hand is whose: the latch is the pilot's and the

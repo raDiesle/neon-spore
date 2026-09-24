@@ -13,12 +13,12 @@ import { type SpoolPose, spoolHome, spoolRibX, spoolSide } from "./spool-shape.j
  * Everything else — how fast the line runs, how deep the thumb has the brake,
  * where the line is against its zone, how many ribs are left — is read off
  * the boss every frame (`spool-draw.ts`, `spool-pose.ts`). These three are
- * here for `bellows-fx.ts`' reason: a slip is one tick in the simulation, and
+ * here for `gimbal-fx.ts`' reason: a slip is one tick in the simulation, and
  * a spool that simply went on turning the next frame would be a rule being
  * enforced rather than a line snatched short.
  *
  * **The events of this family are read here, above the loop**, the way THE
- * BELLOWS's are, rather than as rows in a spark table at its limit
+ * GIMBAL's are, rather than as rows in a spark table at its limit
  * (`effects-spark-silent-boss-b.ts` keeps the rows, for the reason written
  * over them). The grip and the let-go throw nothing: the brake's own knob
  * lights under the thumb, and only the pilot is shown it — a burst would tell

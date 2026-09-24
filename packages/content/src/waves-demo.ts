@@ -163,7 +163,6 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   instar: { wave: "theInstar" },
   filament: { wave: "theFilament" },
   gimbal: { wave: "theGimbal" },
-  bellows: { wave: "theBellows" },
   spool: { wave: "theSpool" },
   hasp: { wave: "theHasp" },
   ratchet: { wave: "theRatchet" },

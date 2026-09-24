@@ -18,7 +18,7 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  * **The two thumbs on THE HASP** — half two of the look lane, and the half
  * that makes the door answer a hand at all.
  *
- * Its own page beside `hasp-parts.ts` for `bellows-grip.ts`' reason: the bar
+ * Its own page beside `hasp-parts.ts` for `spool-grip.ts`' reason: the bar
  * and the hub a finger is answered at are the same `haspBarAt` and
  * `haspCentre` the drawing paints, and all this file adds is *whether* the
  * press counts. A seat is answered on its own half and on no other — the

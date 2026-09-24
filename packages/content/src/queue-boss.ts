@@ -178,10 +178,6 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // everything authored about it is a bearing, which is a fraction of a turn
   // and has nothing to do with how wide the field is (`sim/gimbal-step.ts`).
   if (boss.kind === "gimbal") return { ...boss };
-  // THE BELLOWS hangs its waist over `midCol` of whatever field is played
-  // and its two chambers off that, so the only column it ever names is the
-  // one the cannon is already standing in (`sim/bellows-step.ts`).
-  if (boss.kind === "bellows") return { ...boss };
   // THE SPOOL is slung across the top of the field and its line runs to the
   // hull under `midCol`, so it names no column either (`sim/spool-step.ts`).
   // The one thing it ever throws is thrown down the column the cannon is

@@ -58,11 +58,14 @@ export function nearestBeatTick(cfg: SimConfig, tick: number): number {
   return Math.round(tick / tpb) * tpb;
 }
 
+/** Nobody's lift pending, and the tick that says so. */
+export const NO_LIFT = -1;
+
 /**
  * The last tick a second thumb may lift and still be *together* with a first
- * one lifted on `liftTick`: one beat of ticks after it. THE SURGE and THE
- * BELLOWS judge their mutual lift by it, and the call that counts the second
- * seat down (`render/pair-call.ts`) reads it rather than knowing the width.
+ * one lifted on `liftTick`: one beat of ticks after it. THE SURGE judges its
+ * mutual lift by it, and the call that counts the second seat down
+ * (`render/pair-call.ts`) reads it rather than knowing the width.
  */
 export function liftTogetherUntil(cfg: SimConfig, liftTick: number): number {
   return liftTick + ticksPerBeat(cfg);

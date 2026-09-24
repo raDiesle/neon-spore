@@ -19,7 +19,8 @@
 > **The act order names only what is built.** The seven names that once held
 > the empty slots — Strand Nest, The Conductor, The Heart, The Mother, The
 > Codex, The Echoes, The Kernel, The Vessel — and THE TELL, built and taken out
-> again, left the order on 11 September 2026 (`decisions.md` #30). The slots
+> again, left the order on 11 September 2026 (`decisions.md` #30); THE BELLOWS
+> followed it on 24 September 2026. The slots
 > themselves are the act structure's, in
 > [wave-design 8.4](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built),
 > and a boss idea names the one it would fit.
@@ -96,7 +97,6 @@ kinds each of them is.
 - **[THE INSTAR](#1132-the-instar--the-boss-with-no-panel-marked-where-it-will-hurt-you)** · 11.32 — the boss with no panel, marked where it will hurt you
 - **[THE FILAMENT](#1133-the-filament--the-boss-whose-line-one-of-you-draws-while-the-other-follows-it)** · 11.33 — the boss whose line one of you draws while the other follows it
 - **[THE GIMBAL](#1134-the-gimbal--the-boss-where-the-same-turn-is-not-the-same-turn)** · 11.34 — the boss where the same turn is not the same turn
-- **[THE BELLOWS](#1135-the-bellows--the-boss-where-you-may-never-push-while-they-are-pulling)** · 11.35 — the boss where you may never push while they are pulling
 - **[THE SPOOL](#1136-the-spool--the-boss-where-the-line-runs-out-at-the-speed-one-of-you-reads)** · 11.36 — the boss where the line runs out at the speed one of you reads
 - **[THE HASP](#1137-the-hasp--the-boss-where-one-hand-holds-what-the-other-cannot-see)** · 11.37 — the boss where one hand holds what the other cannot see
 - **[THE RATCHET](#1138-the-ratchet--the-boss-where-every-step-you-take-stays-taken)** · 11.38 — the boss where every step you take stays taken
@@ -104,6 +104,7 @@ kinds each of them is.
 **Retired — shipped and taken out again, kept for the verdict**
 
 - **[THE TELL](#119-the-tell--rock-paper-scissors-and-half-the-tell-on-each-screen)** · 11.9 — rock, paper, scissors, and half the tell on each screen
+- **[THE BELLOWS](#1135-the-bellows--the-boss-where-you-may-never-push-while-they-are-pulling)** · 11.35 — the boss where you may never push while they are pulling
 
 ## Fixed and learnable
 
@@ -7503,226 +7504,6 @@ and every root above its free end (`content/test/filament-script.test.ts`).
 Whether a tile a beat is a pace or a crawl, and whether three tiles is a
 window or a leash, is the owner's eye.
 
-## Retired
-
-## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
-
-> The one where the boss shows you what it is about to throw, and only one of
-> you can see it.
-
-**Built and taken out.** It shipped on wave 60 on 8 September 2026 and the
-owner removed it on 11 September 2026: "I do not like it and its hard to
-understand for players. too far away from the actual game setup and how it
-should feel." Everything it was — the sim's ladder and ring, the render's
-three-lobed body and its nine scenes, the reduced panel, the guide scene and
-the wave — was deleted whole rather than switched off; `git log -S tellRound`
-finds it. What follows is the design as it was argued, kept because the
-argument (an odd ring, a split tell, a boss that answers your last throw) may
-be worth having again in a form the pair can read at a glance. Any second try
-has to start from the objection: a rule table drawn on the boss is still a
-rule table, and a round the pair has to be taught three arrows for is not a
-round of this game.
-
-Asked for by the owner on 8 September 2026, with most of it already decided in
-the asking: a boss at the top of the field that reveals at the same moment the
-pair does, a rule table that is on the screen the whole time, several rungs, a
-lost rung starting the ladder again, and a field that looks like the field.
-What was put to this page were two questions — how many throws a ring can hold,
-and how a round of chance is kept from being decided by chance. The answers are
-below and neither of them is a matter of taste.
-
-**The ring is the game's own physics, so two thirds of it needs no teaching.**
-Three throws: BOLT, PLATE, MAW.
-
-| Throw | Beats | Because |
-|---|---|---|
-| PLATE | BOLT | it is what a plate has done in every wave since the first |
-| BOLT | MAW | a mouth open when a bolt arrives swallows it |
-| MAW | PLATE | a plate is a charge, and the maw is the cannon lobe turned inside out — `intake` already empties a lance fill (`packages/sim/src/lance.ts`) |
-
-A pair walks in already knowing the first arrow and guessing the second. Only
-the third has to be shown, and it is shown once, by being done to them.
-
-**Three, five or seven, and never four.** A ring is balanced only where every
-throw beats exactly as many as it loses to — anything else is a throw that is
-simply better, and a throw that is simply better is the only throw. With `n`
-throws each beating `k` and losing to `k`, every throw meets `n - 1` others and
-`n - 1 = 2k`, so **`n` is odd**. Four throws cannot be balanced and neither can
-six. Five is possible and is refused here for the screen rather than for the
-maths: five throws is ten arrows, and ten arrows is a diagram somebody reads
-instead of a rule somebody knows.
-
-**So nothing comes off the panel.** The owner's own proposal was that three
-throws would mean dropping a button, the shield for instance; it would cost the
-ring its best arrow and leave two throws, which is not a ring. The panel is the
-standard set drawn as slabs — the same four labels the pair has held all game —
-and the fourth button is not spare, because **RED and CYAN are both BOLT**. The
-boss wears one of the two colours on its skin, a bolt in the boss's colour
-lands, and a bolt in the other one splashes off and the exchange is a
-stand-off, even where BOLT would have won. That is colour armour
-([systems](systems.md)) asked as a question instead of as a filter, and it is
-what makes player 2's two buttons two decisions rather than one drawn twice.
-
-**One ship, one throw, two seats.** The standard split is untouched and it does
-the whole of the work: player 1 holds SHIELD and SUCK, so he throws PLATE and
-MAW and can never throw BOLT; player 2 holds the two colours, so she throws
-BOLT and nothing else. Which of them is throwing has to be said out loud before
-either presses, because the ship throws once. That is a round's third condition
-([interludes](interludes.md)) satisfied by the panel the game already has,
-without a verb being invented for it.
-
-**The tell is what stops it being a coin toss, and it is split in half.** Every
-rung the boss draws breath for `tellBeats` and shows what it is about to throw:
-one of its three lobes fills. That fill is drawn **on player 1's screen only**.
-The colour it is wearing is drawn **on player 2's screen only**. Neither half
-is a decision — he can see what to beat and cannot throw a bolt, she can throw
-the bolt and cannot see whether a bolt is the right throw at all. Every rung is
-two sentences and one thumb, and the only thing the `Rng` decides is which
-sentence the pair has to say.
-
-**The boss is not drawing out of a bag, it is answering you**, and this is the
-larger half of the same answer. For the opening rungs it throws whatever would
-have beaten the pair's *last* throw — so a pair that notices can steer it: throw
-MAW, and the next thing it throws is BOLT, so throw PLATE. The tell then
-confirms something they had already worked out rather than being the only
-information in the round, and a pair is rewarded for holding a model of its
-opponent, which is what this game is about when two people play it in a bar.
-How many rungs it answers for before it starts mixing is the difficulty curve
-in one integer.
-
-**Five rungs, and a lost rung starts the ladder again.** That is the owner's
-rule and it is the one thing here that needs no argument; what needs an
-argument is why starting again is bearable. The ladder is drawn from the seeded
-`Rng` **once**, when the round opens, and is not drawn again on a restart:
-rungs one to three are the same throws in the same order, so a pair that died
-on rung four comes back through what it already knows in fifteen seconds. It
-costs nothing, because the round is deterministic anyway, and the repetition is
-the reward for having learnt it rather than a tax for having failed. A lost
-rung takes `damageThrowRepeat` off the hull and running the round's clock out
-takes `damageThrow` — SNAKE's two numbers for SNAKE's reason
-([interludes](interludes.md)).
-
-**It gets harder three ways and none of them is luck.** The window shortens
-down the ladder — `tellBeats` at 4, 4, 3, 3, 2 — so the sentence has to get
-shorter, which is the thing a pair actually improves at. From rung four the
-boss **feints**: the fill starts on one lobe and moves to another on the last
-beat, and a feinting boss always shivers first, one beat of the contour going
-tight, so a pair that knows the tell can still be right and a pair that called
-early is wrong for a reason it can name. And the last rung has no guess in it
-at all — three throws on three consecutive beats, every one of them shown
-outright, no feint: the pair finding out whether it can say three words in four
-seconds without talking over itself. A ladder that ends on a coin toss ends on
-somebody else's decision.
-
-**A tie is a bonk, not a re-roll.** The two shapes meet in the middle of the
-field, bounce back wobbling, the rung stands where it was — and the next tell
-is one beat shorter. Mirroring the boss is survivable twice and not three
-times, and no beat of the round is spent on nothing having happened.
-
-**The rules are drawn on the boss, which is why they can always be on screen.**
-Three lobes in a triangle with the three arrows between them: the boss *is* the
-rule table, so it takes no strip of a portrait phone away from the field, and
-the lobe that fills during a tell is one of the ring's own nodes. The instant a
-seat locks, the node for the ship's throw lights **on both screens** — the ship
-has committed and both of them can see to what, which is the owner's second
-sentence about visibility and is also the only way the seat that did not throw
-finds out what its partner did. The boss's node stays dark until the reveal,
-and both nodes light on the same beat.
-
-**Nine little scenes, and not one new noun.** PLATE beating BOLT is the bolt
-crossing the gap and bursting on a plate that snaps up and rings
-(`packages/render/src/hull-shock.ts`, played as a win instead of a hit). BOLT
-beating MAW is the bolt going straight down an open mouth: the boss swells like
-a balloon, holds a beat with every lobe stiff, and vents sparks out of every
-notch at once. MAW beating PLATE is the boss's plate peeling off its own skin
-and going down our mouth in one long slurp, and the boss patting the bare patch
-where it was. The three losses are the same three scenes with the ship and the
-boss swapped — which is how the ring is taught, by having it done to you — and
-the three ties are the bonk.
-
-**The field looks like the field, and this is where that is settled.** It keeps
-the hull, the scars, the cannon, the plate, the backdrop and the HUD, and the
-boss holds the top rows the way every boss does. That is THE PULSE's answer to
-a round's first condition carried one step further, and it is what the owner
-asked for. What it does not keep is the bodies coming down the columns: nothing
-falls, no column is named, and neither the hull nor the boss moves sideways all
-round, so the no-travel rule is not even in the room (`docs/decisions.md` #21).
-
-**The lattice is drawn and the coordinates are not**, which is the owner's
-answer to the one place his wish and the first condition touch. He was given
-three — the grid faint with no numbers on it, no grid at all, or the grid
-exactly as a wave draws it — and took the first. The reasoning he was given for
-it holds: the room the pair is standing in should be the room they know, and a
-lattice carrying coordinates would be inviting them to say "column four" in a
-round where the phrase means nothing. The round's own picture drew it at just
-over half strength, with `drawGrid`'s coordinate argument at nought.
-
-**What it cost** was what [interludes](interludes.md) says a round costs, and
-the forecast held: five files in `packages/sim` (the state, the ring pure over
-its arguments, the clock, the hash and two config numbers), a ladder file and
-one control-set row in `packages/content`, and four files in `packages/render`
-for the picture. Every field of it was in `hashWorld` under the boss tag, and
-a sim test held the ring, the seat split, the ladder and the fingerprint. All
-of it is gone from the tree.
-
-**The panel was a reduction of the standard one**, which is the part that cost
-nothing at all: `{ id: "tell", reduces: "default", controls: ["guard",
-"intake", "fireRed", "fireCyan"] }`. No new `ControlDef`, no new `Command`, no
-slab. `reduces` is what the numbered STANDARDs use to hold a button on the
-pixel it will keep for the rest of the game, and here it holds all four exactly
-where the pair last held them and leaves both strips empty. Every round before
-this needed verbs of its own; this one is the first where reusing the ship's is
-not a shortcut but the encounter itself.
-
-**It was the fifth round, and the fifth copy of one branch.** `step.ts` carried
-THE GAUGE, SNAKE, PINBALL and THE PULSE as four hand-written early returns
-differing in three identifiers; this one would have been a fifth and nine more
-are designed, so they are a table in `packages/sim/src/step-round.ts` now. Four
-other files were sitting exactly on the 250-line ceiling and paying for it —
-`config.ts`, `bosses.ts`, `queue.ts` and the director's `ship-notes.ts` — and
-each was split along the seam this repository has now cut five times for the
-same growth: the rounds are the half that grows. The table and the splits
-outlived the round that caused them.
-
-**The three rules the owner settled**, on 8 September 2026, each between named
-options and each in the code while it stood:
-
-- **Both seats pressing inside the same window loses the rung.** Not a race
-  won by the first thumb: the ship throws once, so who is throwing has to be
-  said out loud before either of them presses, and a first-past-the-post rule
-  would make the round a thing two thumbs do instead of a thing two people say.
-  `tellRoundHeard` cancels the throw outright; the same seat pressing twice is
-  a stutter and changes nothing.
-- **A bolt in the wrong colour turns a win into a stand-off and leaves a loss
-  a loss.** The colour can never help. The alternative — wrong colour always
-  loses — was refused because it makes player 2's half of the tell the only
-  mistake that counts; this version makes it a second chance to be right rather
-  than a second way to be wrong. Were a wrong colour to *excuse* a loss instead,
-  throwing the wrong one into PLATE would be better than throwing the right one,
-  which is the reading `tellResolve` exists to rule out.
-- **The lattice is drawn faint, without coordinates**, as above.
-
-Slot: it stood on wave 60, at the end of act eight, which is where a new wave
-lands rather than a pillar it was designed for. Wave 60 is The Heart's slot
-again.
-
-**What was never built**, and it is one thing: the ladder's last rung was
-designed as *three throws on three consecutive beats, all shown outright* — a
-rung with no guess in it at all, where the difficulty is the pair saying three
-words in four seconds without talking over each other. Every rung the code had
-asked for one throw.
-
-**Why it went**, in the owner's words: hard for players to understand, and too
-far from the actual game setup and how it should feel. Read against this page,
-that is the first condition of a round failing even though the field looked
-like the field: the pair was asked to learn a ring of three arrows and a
-two-screen tell before the first rung meant anything, and nothing in the
-fifty-nine waves before it had taught either. If it is ever tried again, the
-ring has to be one the pair already knows from playing — the plate stopping a
-bolt is the only arrow the game teaches by itself — and the tell has to be a
-thing the game already shows, not a lobe filling on a body built for the
-purpose.
-
 ## 11.34 THE GIMBAL — the boss where the same turn is not the same turn
 
 > The one that divides the geometry. One wheel, gripped from its two opposite
@@ -7899,192 +7680,6 @@ nobody answers it; and the last pair takes the drum through the hatch and out.
 `render/test/gimbal-frame.test.ts` sets each of the six poses on all three
 screens rather than playing to it. Whether any of it *reads* is the owner's
 eye.
-
-## 11.35 THE BELLOWS — the boss where you may never push while they are pulling
-
-> The one that divides the beat. A double-chambered lung hangs over the field,
-> one chamber a seat, and the only way to take a seam off its waist is for one
-> of you to act while the other does nothing at all.
-
-Designed as §19 of [bosses-choreographed](bosses-choreographed.md), and the
-third of the three kinds in `.claude/skills/new-boss` — a choreographed scene.
-The field under it is still (wave `theBellows`'s `entries` are empty) and the
-boss *is* the picture. THE SINEW and THE SURGE both want two hands doing the
-same thing in the same moment; this one spends eleven beats training that out
-of the pair, and then asks for it once.
-
-**It is a lung in two chambers.** The state (`sim/bellows.ts`, hashed in
-`sim/bellows-hash.ts`) is the **phase** and the beat it began, the beat this
-exchange's marks lit, the **seams** left in the waist, both hands' depths on
-their own handles (`handMilli`), the spark's column and the beat it started
-leaking, and `liftTick` — the tick the first of the two hands came off in the
-finale. Its health is the four seams (`BELLOWS_SEAMS`), and no bar: the waist
-narrows, and a gap is a seam gone.
-
-**The rule, in one sentence.** One of you pulls the lung open, then the other
-shuts it, never in the same beat, and a seam parts.
-
-**`Alternation`, spent backwards.** THE BATON's primitive refuses whoever just
-acted; this one refuses whoever did **not**. `bellowsTurn` names the seat the
-lung is waiting on — 1 while the pilot's chamber is shut, 2 once he has drawn
-it open, 0 in every phase where neither handle counts — and a stroke from
-anyone else jams both handles for `bellowsJamBeats` (2) and spends the
-exchange. That is the fight's one fault, and it costs a beat of nothing rather
-than a hull strike on purpose: the pair has to hear it, say whose it was and
-start again, which is the conversation this boss is for.
-
-**The act is an edge, never a level** (`sim/bellows-hand.ts`). A handle
-*crossing* `bellowsWorkMilli` (660) of `bellowsReachMilli` (1000) on its way
-down is the stroke; a thumb resting past it is nothing, and a second stroke
-needs the hand lifted and brought down again. Level would make a held handle
-an act every tick, which on a boss whose whole rule is *not in their beat*
-would jam the pair for holding still. **Geometry says which handle is whose**:
-`bellowsPull` is the pilot's and `bellowsPush` the navigator's, always, and the
-two chambers hang `bellowsChamberCols` (2) either side of the waist so nothing
-on either screen has to label a handle with a seat.
-
-**The clock** (`sim/bellows-step.ts`). The waist hangs tight for
-`bellowsStillBeats` (2); then the marks light, an exchange is pulled and
-pushed, and `bellowsSeamBeats` (3) after a seam parts the next marks light.
-With two seams gone a spark leaks from the new gap and reaches the hull in
-`bellowsSparkBeats` (4) unless a shot shuts it (`sim/bellows-shot.ts`); with
-one gone the lung forces a breath straight down the cannon's column. The last
-seam glows with both handles free, and both hands off inside a beat of each
-other split the waist under THE SLOW (`bellowsSlowBeats` 2, `decisions.md`
-#33), venting for `bellowsVentBeats` (3) before the wave may end.
-
-**One window in the whole fight**, the third exchange's
-(`bellowsWindowBeats`, 6, for `bellowsExchanges` (2) rounds of pull and
-push), read off the health by `bellowsShared` rather than
-counted in a field of its own. Every other exchange has no clock at all: a
-pull nobody makes is a pull still wanted, and the marks stay up.
-
-**The split is the beat.** Both seats see the same lung and neither may work
-it at the same time as the other, so *now* and *not yet* are the only two
-words the fight needs — which is what makes it playable by a pair with fifty
-words of English between them.
-
-**Where this departs from the design, and why.** Four places.
-
-*Row 8's spark takes either colour*, not "their own." Only the navigator holds
-the colour buttons, so a spark billed to a colour would be a hazard one seat
-answers alone while the other watches. A spark is not a body with a colour the
-pair could have got wrong; what it costs to miss is the column, and the column
-is the waist (`sim/bellows-shot.ts`).
-
-*Row 10's breath is answered with the shield, which is the navigator's.* The
-design has the breath thrown at the pilot for the pilot to answer. What leaves
-the lung is an ordinary body from the moment it leaves (`forceBreath`), the
-shield is what turns a body, and `shieldCol` is player 2's command — so the
-breath aimed at where the cannon is standing is a thing *he* is under and
-*she* takes off him, which splits one hazard across both seats instead of
-handing it to one. A bespoke hazard with a bespoke answer would be a second
-rule the pair cannot discover by trying it, which `.claude/skills/new-boss` §2
-forbids.
-
-*Row 7's third exchange inside movement 2 is not built.* One exchange parts
-one seam, four seams end the fight, and that keeps the rule to the single
-sentence above. A movement that asked for two exchanges and then three would
-be a count the pair has to hold as well as a turn they have to take.
-
-*Nothing but the third exchange closes a window.* The design gives several
-rows a window of three or four beats. A window that strikes for being slow
-would make the fight about the count rather than about the turn, and the jam
-already prices acting without listening.
-
-**The sounds are bound** (`audio/bind-bellows.ts`, `sounds/boss-bellows.ts`):
-a cue per event over a leather-and-air palette, and **the pan is what says
-whose beat it is** — a grip or a pull comes from the side that acted, and
-everything the waist does comes from the middle, so a pair that has stopped
-looking at each other's screens can hear the exchange going back and forth.
-The seam pitches up per seam gone.
-
-**The look** (`render/bellows-draw.ts`, half one of lane two). A ribbed
-housing over each seat's own column and the leather waist between them, hung
-across the top of the field. **One number is the whole morph**: how far a
-housing is drawn out (`bellows-pose.ts`, `bellowsFillMilli`), eased over each
-phase's own beats, so the five poses — shut and still, his chamber drawn open
-under his thumb, hers pressed flat as the breath crosses, both caught halfway
-and shuddering in a jam, both swollen on the last seam — are one body moving
-rather than five pictures cut between. The folds are drawn and not counted: a
-chamber at half its reach has the same five folds at half the pitch.
-
-*The health is the waist* (`bellows-waist.ts`): four stitches, the parted ones
-standing open and lit, the leather pinching thinner with every gap, and the
-waist unzipping from the pilot's side so the eye has a direction to read it in.
-Nothing prints the number. *The perspective changes once*, in the vent: the
-halves fall away from each other and turn on their caps to show the hollow they
-have been squeezing all fight (`bellowsMouthPath`). *The reactions* — the
-shudder of a jam, the jolt of a seam letting go, the glare of the vent — are
-`effects.boss.bellows` and are applied to the context, so the lung moves as one
-rigid body and a handle can never shake loose of the chamber it works
-(`bellows-fx.ts`); the sixteen events' bursts are thrown over the chamber of
-whichever seat acted, in the middle for everything the waist does, which is the
-rule the sounds pan by.
-
-*Each seat is shown its own handle and not the other's*
-(`view-role-clocks-c.ts`, `bellows-handle.ts`). Both are shown the whole lung —
-how far each chamber is drawn out is exactly what *now* and *not yet* are said
-about — and what a screen does not carry is the other seat's rail, since a
-handle drawn where no thumb at that desk can reach it is a thing to point at
-instead of a thing to say. A cap and a bar glow while the lung is waiting on
-that seat, and both glow at once on the last seam, which is the one beat of the
-fight the pair acts together. `render/test/bellows-frame.test.ts` sets every
-pose on all three screens and proves the split both ways.
-
-**The hands.** Each bar is answered on the seat that owns it and on no other
-(`render/bellows-grip.ts`), and the circle a press is tested against is the
-**resting** one, carried along by whatever fill the chamber it hangs off has
-this frame — so a thumb is answered where the bar is drawn rather than where
-it was drawn when the fight began. `bellowsHandleStanding` is the other
-question, for the ghost hand and the caption (`handle-place.ts`).
-
-**The wrong seat's grab is taken rather than refused, and that is the whole
-boss.** A hit test that only opened while `bellowsTurn` named this seat would
-have made the jam unreachable and left the lung a machine that cannot be
-played wrong. What it does refuse is what `bellows-hand.ts` refuses — a jam,
-the vent and the opening still — so a press in one of those three falls
-through as if no rail were there.
-
-**The word stands on the bar itself** (`render/bellows-word.ts`, drawn by
-`bellows-handle.ts` rather than by a `case` in `boss-cue.ts`, which is THE
-SINEW's and THE SURGE's arrangement and the one that cannot write a verb at a
-rail this frame put somewhere else). `PULL` on his beat and `PUSH` on hers, in
-`CARRY`; on the last seam both bars say `HOLD` with the hand off and `LIFT`
-with it on, which is THE SURGE's release word for the same gesture. Four
-silences: the seat whose beat it is not, the three handless phases and a seam
-parting — all four are `bellowsTurn` naming nobody — and a bar already carried
-past `bellowsWorkMilli`, whose stroke cannot land again until the hand comes
-off. No number is ever said: the window the third exchange runs under is the
-pair's to feel.
-
-**No desk key.** THE GIMBAL's T and Y are there because a *turn* has nowhere
-else to go; every handle boss before it has none, and a carry down a rail is a
-drag. `render/test/bellows-grip.test.ts` is the receipt, and
-`docs/spec/controls.md` carries the two rows.
-
-**Never watched at tempo.** What the tests say is the mechanism
-(`sim/test/bellows.test.ts`): the lung comes in tight and lights its first
-marks; his stroke opens the chamber and hers parts a seam; a stroke out of
-turn jams both handles, names the seat that caused it and parts nothing; a
-thumb short of the work depth has done nothing and a thumb resting past it is
-not a second stroke; the first exchange never times out and the third does;
-the spark leaks from the second gap, goes out to a bolt of either colour and
-strikes the hull if nobody answers it; the third seam breathes a body down the
-cannon's own column; and the last seam splits under two hands off in one beat,
-holds under two a beat apart, and vents the lung out of the wave. Whether any
-of it *reads* is the owner's eye, after lane two.
-
-**Doubled on the owner's rule, 24 September 2026**
-(`docs/spec/choreographed-windows.md`): `bellowsWindowBeats` 3 → 6, and the
-third exchange asks for both halves `bellowsExchanges` (2) times inside it —
-her push short of the last lights the marks again, his first, and the window
-keeps counting (`markAgain`), which overrules *a movement that asked for two
-exchanges* above for this one movement. THE SLOW spans that window, up with
-its marks and shut on the tick its seam parts or the handles jam
-(`bellowsSlow`, `sim/test/bellows-doubled.test.ts`); the split keeps its own
-`bellowsSlowBeats` as the boss's end. The pilot's guide says the third seam
-takes two.
 
 ## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
 
@@ -8273,7 +7868,7 @@ bearing rather than an optimisation: a wheel judged on the beat would keep
 turning after the latch had let go, which is exactly the lie the fight is
 played against.
 
-**The latch is a level, where THE BELLOWS's handle next door is an edge.** A
+**The latch is a level, where THE BELLOWS's handle was an edge.** A
 thumb past `haspGripMilli` (660 of `haspReachMilli` 1000) is holding for as
 long as it stays there, because the whole gesture is *keep holding*; a stroke
 is judged when it lands and a grip is judged every tick it lasts. The two read
@@ -8566,3 +8161,425 @@ the bolt comes loose on the second clean tooth, goes out to a shot of either
 colour and strikes the hull if nobody answers it; five clean opens the rack
 and takes it out of the wave; and the third burn jams it into the hull. Whether
 any of it *reads* is the owner's eye, after lane two.
+
+## Retired
+
+## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
+
+> The one where the boss shows you what it is about to throw, and only one of
+> you can see it.
+
+**Built and taken out.** It shipped on wave 60 on 8 September 2026 and the
+owner removed it on 11 September 2026: "I do not like it and its hard to
+understand for players. too far away from the actual game setup and how it
+should feel." Everything it was — the sim's ladder and ring, the render's
+three-lobed body and its nine scenes, the reduced panel, the guide scene and
+the wave — was deleted whole rather than switched off; `git log -S tellRound`
+finds it. What follows is the design as it was argued, kept because the
+argument (an odd ring, a split tell, a boss that answers your last throw) may
+be worth having again in a form the pair can read at a glance. Any second try
+has to start from the objection: a rule table drawn on the boss is still a
+rule table, and a round the pair has to be taught three arrows for is not a
+round of this game.
+
+Asked for by the owner on 8 September 2026, with most of it already decided in
+the asking: a boss at the top of the field that reveals at the same moment the
+pair does, a rule table that is on the screen the whole time, several rungs, a
+lost rung starting the ladder again, and a field that looks like the field.
+What was put to this page were two questions — how many throws a ring can hold,
+and how a round of chance is kept from being decided by chance. The answers are
+below and neither of them is a matter of taste.
+
+**The ring is the game's own physics, so two thirds of it needs no teaching.**
+Three throws: BOLT, PLATE, MAW.
+
+| Throw | Beats | Because |
+|---|---|---|
+| PLATE | BOLT | it is what a plate has done in every wave since the first |
+| BOLT | MAW | a mouth open when a bolt arrives swallows it |
+| MAW | PLATE | a plate is a charge, and the maw is the cannon lobe turned inside out — `intake` already empties a lance fill (`packages/sim/src/lance.ts`) |
+
+A pair walks in already knowing the first arrow and guessing the second. Only
+the third has to be shown, and it is shown once, by being done to them.
+
+**Three, five or seven, and never four.** A ring is balanced only where every
+throw beats exactly as many as it loses to — anything else is a throw that is
+simply better, and a throw that is simply better is the only throw. With `n`
+throws each beating `k` and losing to `k`, every throw meets `n - 1` others and
+`n - 1 = 2k`, so **`n` is odd**. Four throws cannot be balanced and neither can
+six. Five is possible and is refused here for the screen rather than for the
+maths: five throws is ten arrows, and ten arrows is a diagram somebody reads
+instead of a rule somebody knows.
+
+**So nothing comes off the panel.** The owner's own proposal was that three
+throws would mean dropping a button, the shield for instance; it would cost the
+ring its best arrow and leave two throws, which is not a ring. The panel is the
+standard set drawn as slabs — the same four labels the pair has held all game —
+and the fourth button is not spare, because **RED and CYAN are both BOLT**. The
+boss wears one of the two colours on its skin, a bolt in the boss's colour
+lands, and a bolt in the other one splashes off and the exchange is a
+stand-off, even where BOLT would have won. That is colour armour
+([systems](systems.md)) asked as a question instead of as a filter, and it is
+what makes player 2's two buttons two decisions rather than one drawn twice.
+
+**One ship, one throw, two seats.** The standard split is untouched and it does
+the whole of the work: player 1 holds SHIELD and SUCK, so he throws PLATE and
+MAW and can never throw BOLT; player 2 holds the two colours, so she throws
+BOLT and nothing else. Which of them is throwing has to be said out loud before
+either presses, because the ship throws once. That is a round's third condition
+([interludes](interludes.md)) satisfied by the panel the game already has,
+without a verb being invented for it.
+
+**The tell is what stops it being a coin toss, and it is split in half.** Every
+rung the boss draws breath for `tellBeats` and shows what it is about to throw:
+one of its three lobes fills. That fill is drawn **on player 1's screen only**.
+The colour it is wearing is drawn **on player 2's screen only**. Neither half
+is a decision — he can see what to beat and cannot throw a bolt, she can throw
+the bolt and cannot see whether a bolt is the right throw at all. Every rung is
+two sentences and one thumb, and the only thing the `Rng` decides is which
+sentence the pair has to say.
+
+**The boss is not drawing out of a bag, it is answering you**, and this is the
+larger half of the same answer. For the opening rungs it throws whatever would
+have beaten the pair's *last* throw — so a pair that notices can steer it: throw
+MAW, and the next thing it throws is BOLT, so throw PLATE. The tell then
+confirms something they had already worked out rather than being the only
+information in the round, and a pair is rewarded for holding a model of its
+opponent, which is what this game is about when two people play it in a bar.
+How many rungs it answers for before it starts mixing is the difficulty curve
+in one integer.
+
+**Five rungs, and a lost rung starts the ladder again.** That is the owner's
+rule and it is the one thing here that needs no argument; what needs an
+argument is why starting again is bearable. The ladder is drawn from the seeded
+`Rng` **once**, when the round opens, and is not drawn again on a restart:
+rungs one to three are the same throws in the same order, so a pair that died
+on rung four comes back through what it already knows in fifteen seconds. It
+costs nothing, because the round is deterministic anyway, and the repetition is
+the reward for having learnt it rather than a tax for having failed. A lost
+rung takes `damageThrowRepeat` off the hull and running the round's clock out
+takes `damageThrow` — SNAKE's two numbers for SNAKE's reason
+([interludes](interludes.md)).
+
+**It gets harder three ways and none of them is luck.** The window shortens
+down the ladder — `tellBeats` at 4, 4, 3, 3, 2 — so the sentence has to get
+shorter, which is the thing a pair actually improves at. From rung four the
+boss **feints**: the fill starts on one lobe and moves to another on the last
+beat, and a feinting boss always shivers first, one beat of the contour going
+tight, so a pair that knows the tell can still be right and a pair that called
+early is wrong for a reason it can name. And the last rung has no guess in it
+at all — three throws on three consecutive beats, every one of them shown
+outright, no feint: the pair finding out whether it can say three words in four
+seconds without talking over itself. A ladder that ends on a coin toss ends on
+somebody else's decision.
+
+**A tie is a bonk, not a re-roll.** The two shapes meet in the middle of the
+field, bounce back wobbling, the rung stands where it was — and the next tell
+is one beat shorter. Mirroring the boss is survivable twice and not three
+times, and no beat of the round is spent on nothing having happened.
+
+**The rules are drawn on the boss, which is why they can always be on screen.**
+Three lobes in a triangle with the three arrows between them: the boss *is* the
+rule table, so it takes no strip of a portrait phone away from the field, and
+the lobe that fills during a tell is one of the ring's own nodes. The instant a
+seat locks, the node for the ship's throw lights **on both screens** — the ship
+has committed and both of them can see to what, which is the owner's second
+sentence about visibility and is also the only way the seat that did not throw
+finds out what its partner did. The boss's node stays dark until the reveal,
+and both nodes light on the same beat.
+
+**Nine little scenes, and not one new noun.** PLATE beating BOLT is the bolt
+crossing the gap and bursting on a plate that snaps up and rings
+(`packages/render/src/hull-shock.ts`, played as a win instead of a hit). BOLT
+beating MAW is the bolt going straight down an open mouth: the boss swells like
+a balloon, holds a beat with every lobe stiff, and vents sparks out of every
+notch at once. MAW beating PLATE is the boss's plate peeling off its own skin
+and going down our mouth in one long slurp, and the boss patting the bare patch
+where it was. The three losses are the same three scenes with the ship and the
+boss swapped — which is how the ring is taught, by having it done to you — and
+the three ties are the bonk.
+
+**The field looks like the field, and this is where that is settled.** It keeps
+the hull, the scars, the cannon, the plate, the backdrop and the HUD, and the
+boss holds the top rows the way every boss does. That is THE PULSE's answer to
+a round's first condition carried one step further, and it is what the owner
+asked for. What it does not keep is the bodies coming down the columns: nothing
+falls, no column is named, and neither the hull nor the boss moves sideways all
+round, so the no-travel rule is not even in the room (`docs/decisions.md` #21).
+
+**The lattice is drawn and the coordinates are not**, which is the owner's
+answer to the one place his wish and the first condition touch. He was given
+three — the grid faint with no numbers on it, no grid at all, or the grid
+exactly as a wave draws it — and took the first. The reasoning he was given for
+it holds: the room the pair is standing in should be the room they know, and a
+lattice carrying coordinates would be inviting them to say "column four" in a
+round where the phrase means nothing. The round's own picture drew it at just
+over half strength, with `drawGrid`'s coordinate argument at nought.
+
+**What it cost** was what [interludes](interludes.md) says a round costs, and
+the forecast held: five files in `packages/sim` (the state, the ring pure over
+its arguments, the clock, the hash and two config numbers), a ladder file and
+one control-set row in `packages/content`, and four files in `packages/render`
+for the picture. Every field of it was in `hashWorld` under the boss tag, and
+a sim test held the ring, the seat split, the ladder and the fingerprint. All
+of it is gone from the tree.
+
+**The panel was a reduction of the standard one**, which is the part that cost
+nothing at all: `{ id: "tell", reduces: "default", controls: ["guard",
+"intake", "fireRed", "fireCyan"] }`. No new `ControlDef`, no new `Command`, no
+slab. `reduces` is what the numbered STANDARDs use to hold a button on the
+pixel it will keep for the rest of the game, and here it holds all four exactly
+where the pair last held them and leaves both strips empty. Every round before
+this needed verbs of its own; this one is the first where reusing the ship's is
+not a shortcut but the encounter itself.
+
+**It was the fifth round, and the fifth copy of one branch.** `step.ts` carried
+THE GAUGE, SNAKE, PINBALL and THE PULSE as four hand-written early returns
+differing in three identifiers; this one would have been a fifth and nine more
+are designed, so they are a table in `packages/sim/src/step-round.ts` now. Four
+other files were sitting exactly on the 250-line ceiling and paying for it —
+`config.ts`, `bosses.ts`, `queue.ts` and the director's `ship-notes.ts` — and
+each was split along the seam this repository has now cut five times for the
+same growth: the rounds are the half that grows. The table and the splits
+outlived the round that caused them.
+
+**The three rules the owner settled**, on 8 September 2026, each between named
+options and each in the code while it stood:
+
+- **Both seats pressing inside the same window loses the rung.** Not a race
+  won by the first thumb: the ship throws once, so who is throwing has to be
+  said out loud before either of them presses, and a first-past-the-post rule
+  would make the round a thing two thumbs do instead of a thing two people say.
+  `tellRoundHeard` cancels the throw outright; the same seat pressing twice is
+  a stutter and changes nothing.
+- **A bolt in the wrong colour turns a win into a stand-off and leaves a loss
+  a loss.** The colour can never help. The alternative — wrong colour always
+  loses — was refused because it makes player 2's half of the tell the only
+  mistake that counts; this version makes it a second chance to be right rather
+  than a second way to be wrong. Were a wrong colour to *excuse* a loss instead,
+  throwing the wrong one into PLATE would be better than throwing the right one,
+  which is the reading `tellResolve` exists to rule out.
+- **The lattice is drawn faint, without coordinates**, as above.
+
+Slot: it stood on wave 60, at the end of act eight, which is where a new wave
+lands rather than a pillar it was designed for. Wave 60 is The Heart's slot
+again.
+
+**What was never built**, and it is one thing: the ladder's last rung was
+designed as *three throws on three consecutive beats, all shown outright* — a
+rung with no guess in it at all, where the difficulty is the pair saying three
+words in four seconds without talking over each other. Every rung the code had
+asked for one throw.
+
+**Why it went**, in the owner's words: hard for players to understand, and too
+far from the actual game setup and how it should feel. Read against this page,
+that is the first condition of a round failing even though the field looked
+like the field: the pair was asked to learn a ring of three arrows and a
+two-screen tell before the first rung meant anything, and nothing in the
+fifty-nine waves before it had taught either. If it is ever tried again, the
+ring has to be one the pair already knows from playing — the plate stopping a
+bolt is the only arrow the game teaches by itself — and the tell has to be a
+thing the game already shows, not a lobe filling on a body built for the
+purpose.
+
+## 11.35 THE BELLOWS — the boss where you may never push while they are pulling
+
+> The one that divides the beat. A double-chambered lung hangs over the field,
+> one chamber a seat, and the only way to take a seam off its waist is for one
+> of you to act while the other does nothing at all.
+
+**Built and taken out.** It shipped on 22 September 2026 and the owner
+removed it on 24 September 2026, after playing it: "it's not clear to me how
+to play … what does 'push' means? … it's not clear what is goal … why on a
+curtain a jam is going out, no logical understandable where the connection
+is." Everything it was — the sim's lung and its hands, the render's two
+chambers and their grips, its sixteen sounds, the wave and the director's
+cards — was deleted whole rather than switched off; `git log -S bellowsPull`
+finds it. What follows is the design as it was argued. Any second try has to
+start from the objection: **every gesture needs a reason the picture gives**.
+A pull that opens nothing anyone can see the use of, and a spark the shield
+cannot answer, are a cause and an effect with no connection a player can find
+— THE INSTAR's *open the mouth so the tongue can be pulled* is the
+counter-example he named (`.claude/skills/new-boss/owner.md`). His four-part
+rule on feedback for every touch came out of the same session and applies to
+every boss still in the game.
+
+Designed as §19 of [bosses-choreographed](bosses-choreographed.md), and the
+third of the three kinds in `.claude/skills/new-boss` — a choreographed scene.
+The field under it is still (wave `theBellows`'s `entries` are empty) and the
+boss *is* the picture. THE SINEW and THE SURGE both want two hands doing the
+same thing in the same moment; this one spends eleven beats training that out
+of the pair, and then asks for it once.
+
+**It is a lung in two chambers.** The state (sim/bellows.ts, hashed in
+sim/bellows-hash.ts) is the **phase** and the beat it began, the beat this
+exchange's marks lit, the **seams** left in the waist, both hands' depths on
+their own handles (`handMilli`), the spark's column and the beat it started
+leaking, and `liftTick` — the tick the first of the two hands came off in the
+finale. Its health is the four seams (`BELLOWS_SEAMS`), and no bar: the waist
+narrows, and a gap is a seam gone.
+
+**The rule, in one sentence.** One of you pulls the lung open, then the other
+shuts it, never in the same beat, and a seam parts.
+
+**`Alternation`, spent backwards.** THE BATON's primitive refuses whoever just
+acted; this one refuses whoever did **not**. `bellowsTurn` names the seat the
+lung is waiting on — 1 while the pilot's chamber is shut, 2 once he has drawn
+it open, 0 in every phase where neither handle counts — and a stroke from
+anyone else jams both handles for `bellowsJamBeats` (2) and spends the
+exchange. That is the fight's one fault, and it costs a beat of nothing rather
+than a hull strike on purpose: the pair has to hear it, say whose it was and
+start again, which is the conversation this boss is for.
+
+**The act is an edge, never a level** (sim/bellows-hand.ts). A handle
+*crossing* `bellowsWorkMilli` (660) of `bellowsReachMilli` (1000) on its way
+down is the stroke; a thumb resting past it is nothing, and a second stroke
+needs the hand lifted and brought down again. Level would make a held handle
+an act every tick, which on a boss whose whole rule is *not in their beat*
+would jam the pair for holding still. **Geometry says which handle is whose**:
+`bellowsPull` is the pilot's and `bellowsPush` the navigator's, always, and the
+two chambers hang `bellowsChamberCols` (2) either side of the waist so nothing
+on either screen has to label a handle with a seat.
+
+**The clock** (sim/bellows-step.ts). The waist hangs tight for
+`bellowsStillBeats` (2); then the marks light, an exchange is pulled and
+pushed, and `bellowsSeamBeats` (3) after a seam parts the next marks light.
+With two seams gone a spark leaks from the new gap and reaches the hull in
+`bellowsSparkBeats` (4) unless a shot shuts it (sim/bellows-shot.ts); with
+one gone the lung forces a breath straight down the cannon's column. The last
+seam glows with both handles free, and both hands off inside a beat of each
+other split the waist under THE SLOW (`bellowsSlowBeats` 2, `decisions.md`
+#33), venting for `bellowsVentBeats` (3) before the wave may end.
+
+**One window in the whole fight**, the third exchange's
+(`bellowsWindowBeats`, 6, for `bellowsExchanges` (2) rounds of pull and
+push), read off the health by `bellowsShared` rather than
+counted in a field of its own. Every other exchange has no clock at all: a
+pull nobody makes is a pull still wanted, and the marks stay up.
+
+**The split is the beat.** Both seats see the same lung and neither may work
+it at the same time as the other, so *now* and *not yet* are the only two
+words the fight needs — which is what makes it playable by a pair with fifty
+words of English between them.
+
+**Where this departs from the design, and why.** Four places.
+
+*Row 8's spark takes either colour*, not "their own." Only the navigator holds
+the colour buttons, so a spark billed to a colour would be a hazard one seat
+answers alone while the other watches. A spark is not a body with a colour the
+pair could have got wrong; what it costs to miss is the column, and the column
+is the waist (sim/bellows-shot.ts).
+
+*Row 10's breath is answered with the shield, which is the navigator's.* The
+design has the breath thrown at the pilot for the pilot to answer. What leaves
+the lung is an ordinary body from the moment it leaves (`forceBreath`), the
+shield is what turns a body, and `shieldCol` is player 2's command — so the
+breath aimed at where the cannon is standing is a thing *he* is under and
+*she* takes off him, which splits one hazard across both seats instead of
+handing it to one. A bespoke hazard with a bespoke answer would be a second
+rule the pair cannot discover by trying it, which `.claude/skills/new-boss` §2
+forbids.
+
+*Row 7's third exchange inside movement 2 is not built.* One exchange parts
+one seam, four seams end the fight, and that keeps the rule to the single
+sentence above. A movement that asked for two exchanges and then three would
+be a count the pair has to hold as well as a turn they have to take.
+
+*Nothing but the third exchange closes a window.* The design gives several
+rows a window of three or four beats. A window that strikes for being slow
+would make the fight about the count rather than about the turn, and the jam
+already prices acting without listening.
+
+**The sounds are bound** (audio/bind-bellows.ts, sounds/boss-bellows.ts):
+a cue per event over a leather-and-air palette, and **the pan is what says
+whose beat it is** — a grip or a pull comes from the side that acted, and
+everything the waist does comes from the middle, so a pair that has stopped
+looking at each other's screens can hear the exchange going back and forth.
+The seam pitches up per seam gone.
+
+**The look** (render/bellows-draw.ts, half one of lane two). A ribbed
+housing over each seat's own column and the leather waist between them, hung
+across the top of the field. **One number is the whole morph**: how far a
+housing is drawn out (bellows-pose.ts, `bellowsFillMilli`), eased over each
+phase's own beats, so the five poses — shut and still, his chamber drawn open
+under his thumb, hers pressed flat as the breath crosses, both caught halfway
+and shuddering in a jam, both swollen on the last seam — are one body moving
+rather than five pictures cut between. The folds are drawn and not counted: a
+chamber at half its reach has the same five folds at half the pitch.
+
+*The health is the waist* (bellows-waist.ts): four stitches, the parted ones
+standing open and lit, the leather pinching thinner with every gap, and the
+waist unzipping from the pilot's side so the eye has a direction to read it in.
+Nothing prints the number. *The perspective changes once*, in the vent: the
+halves fall away from each other and turn on their caps to show the hollow they
+have been squeezing all fight (`bellowsMouthPath`). *The reactions* — the
+shudder of a jam, the jolt of a seam letting go, the glare of the vent — are
+`effects.boss.bellows` and are applied to the context, so the lung moves as one
+rigid body and a handle can never shake loose of the chamber it works
+(bellows-fx.ts); the sixteen events' bursts are thrown over the chamber of
+whichever seat acted, in the middle for everything the waist does, which is the
+rule the sounds pan by.
+
+*Each seat is shown its own handle and not the other's*
+(`view-role-clocks-c.ts`, bellows-handle.ts). Both are shown the whole lung —
+how far each chamber is drawn out is exactly what *now* and *not yet* are said
+about — and what a screen does not carry is the other seat's rail, since a
+handle drawn where no thumb at that desk can reach it is a thing to point at
+instead of a thing to say. A cap and a bar glow while the lung is waiting on
+that seat, and both glow at once on the last seam, which is the one beat of the
+fight the pair acts together. render/test/bellows-frame.test.ts sets every
+pose on all three screens and proves the split both ways.
+
+**The hands.** Each bar is answered on the seat that owns it and on no other
+(render/bellows-grip.ts), and the circle a press is tested against is the
+**resting** one, carried along by whatever fill the chamber it hangs off has
+this frame — so a thumb is answered where the bar is drawn rather than where
+it was drawn when the fight began. `bellowsHandleStanding` is the other
+question, for the ghost hand and the caption (`handle-place.ts`).
+
+**The wrong seat's grab is taken rather than refused, and that is the whole
+boss.** A hit test that only opened while `bellowsTurn` named this seat would
+have made the jam unreachable and left the lung a machine that cannot be
+played wrong. What it does refuse is what bellows-hand.ts refuses — a jam,
+the vent and the opening still — so a press in one of those three falls
+through as if no rail were there.
+
+**The word stands on the bar itself** (render/bellows-word.ts, drawn by
+bellows-handle.ts rather than by a `case` in `boss-cue.ts`, which is THE
+SINEW's and THE SURGE's arrangement and the one that cannot write a verb at a
+rail this frame put somewhere else). `PULL` on his beat and `PUSH` on hers, in
+`CARRY`; on the last seam both bars say `HOLD` with the hand off and `LIFT`
+with it on, which is THE SURGE's release word for the same gesture. Four
+silences: the seat whose beat it is not, the three handless phases and a seam
+parting — all four are `bellowsTurn` naming nobody — and a bar already carried
+past `bellowsWorkMilli`, whose stroke cannot land again until the hand comes
+off. No number is ever said: the window the third exchange runs under is the
+pair's to feel.
+
+**No desk key.** THE GIMBAL's T and Y are there because a *turn* has nowhere
+else to go; every handle boss before it has none, and a carry down a rail is a
+drag. render/test/bellows-grip.test.ts is the receipt, and
+`docs/spec/controls.md` carries the two rows.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(sim/test/bellows.test.ts): the lung comes in tight and lights its first
+marks; his stroke opens the chamber and hers parts a seam; a stroke out of
+turn jams both handles, names the seat that caused it and parts nothing; a
+thumb short of the work depth has done nothing and a thumb resting past it is
+not a second stroke; the first exchange never times out and the third does;
+the spark leaks from the second gap, goes out to a bolt of either colour and
+strikes the hull if nobody answers it; the third seam breathes a body down the
+cannon's own column; and the last seam splits under two hands off in one beat,
+holds under two a beat apart, and vents the lung out of the wave. Whether any
+of it *reads* is the owner's eye, after lane two.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `bellowsWindowBeats` 3 → 6, and the
+third exchange asks for both halves `bellowsExchanges` (2) times inside it —
+her push short of the last lights the marks again, his first, and the window
+keeps counting (`markAgain`), which overrules *a movement that asked for two
+exchanges* above for this one movement. THE SLOW spans that window, up with
+its marks and shut on the tick its seam parts or the handles jam
+(`bellowsSlow`, sim/test/bellows-doubled.test.ts); the split keeps its own
+`bellowsSlowBeats` as the boss's end. The pilot's guide says the third seam
+takes two.

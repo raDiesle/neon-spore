@@ -192,18 +192,6 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     { hold: 6 },
   ),
   bossPose(
-    "bellows",
-    "still",
-    "The lung hangs shut over the field. P1 waits and P2 waits: neither handle is lit yet.",
-    { hold: 6 },
-  ),
-  bossPose(
-    "bellows",
-    "pull",
-    "A mark on the left handle. P1 drags it down to open his chamber; P2 waits for him.",
-    { hold: 6 },
-  ),
-  bossPose(
     "hasp",
     "still",
     "The door of three clasps hangs shut over the field. P1 and P2 both wait: no latch is lit yet.",

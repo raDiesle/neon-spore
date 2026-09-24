@@ -212,20 +212,6 @@ export const CHOREO_FIELD_GROUP_B = {
   gimbalSlowBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
   gimbalSeamBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
   gimbalOpenBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
-  // BellowsConfig — how far a handle travels, the depth a stroke counts at,
-  // how long each phase holds, the one shared window, the spark's patience
-  // and how far the two chambers hang off the waist (`config-bellows.ts`).
-  bellowsReachMilli: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsWorkMilli: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsStillBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsJamBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsSeamBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsWindowBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsExchanges: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsSparkBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsSlowBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsVentBeats: "THE BELLOWS — the boss where you may never push while they are pulling",
-  bellowsChamberCols: "THE BELLOWS — the boss where you may never push while they are pulling",
   // THE SPOOL and everything after it (`ship-fields-choreo-c.ts`).
   ...CHOREO_FIELD_GROUP_C,
 } satisfies Record<string, GroupName>;

@@ -1,5 +1,4 @@
 import type { World } from "@neon-spore/sim";
-import { drawBellows } from "./bellows-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGimbal } from "./gimbal-draw.js";
 import { drawHasp } from "./hasp-draw.js";
@@ -27,7 +26,7 @@ import { drawSpool } from "./spool-draw.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const PAIR_KINDS = ["gimbal", "bellows", "spool", "hasp", "ratchet"] as const;
+export const PAIR_KINDS = ["gimbal", "spool", "hasp", "ratchet"] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
 
@@ -56,19 +55,6 @@ export function drawPairBoss(
   // of the seam — is `effects.boss.gimbal` (`gimbal-fx.ts`).
   if (boss.kind === "gimbal") {
     drawGimbal(ctx, l, world, boss, beat, beatPhase, time, effects.boss.gimbal);
-    return;
-  }
-
-  // THE BELLOWS: a double-chambered lung slung across the top of the field, a
-  // ribbed housing over each seat's own column and the leather waist between
-  // them carrying the four seams that are its health. Both screens are shown
-  // the whole lung — how far each chamber is drawn out is what *now* and *not
-  // yet* are said about — and each seat is shown its own handle alone, which
-  // is all this boss keeps from anybody (`view-role-clocks-c.ts`). What
-  // outlives a frame — the shudder of a jam, the jolt of a seam, the glare of
-  // the vent — is `effects.boss.bellows` (`bellows-draw.ts`, `bellows-fx.ts`).
-  if (boss.kind === "bellows") {
-    drawBellows(ctx, l, world, boss, beat, beatPhase, time, effects.boss.bellows);
     return;
   }
 

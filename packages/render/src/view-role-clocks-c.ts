@@ -33,25 +33,6 @@ export const showsGimbalOuter = (role: ViewRole): boolean => role !== "p2";
 export const showsGimbalInner = (role: ViewRole): boolean => role !== "p1";
 
 /**
- * THE BELLOWS's two handles, one to a seat, and this is the only thing it
- * keeps from anybody: the pilot is shown **the pull** — the rail and bar under
- * his own chamber, at the depth his thumb has it — and the navigator **the
- * push**, under hers. Neither is shown the other's handle at all.
- *
- * Both are shown the whole lung, and that is the point rather than an
- * oversight: how far each chamber is drawn out is exactly what *now* and *not
- * yet* are said about, and a seat that could not see the other's chamber would
- * have nothing to take a turn against. What a screen must not carry is the
- * *other* seat's rail — a handle drawn where no thumb at that desk can reach
- * it is a thing to point at instead of a thing to say, and this fight is only
- * the saying (`bellows-handle.ts`, `sim/bellows.ts`). The split here is the
- * beat, not the eyes, which is the one boss where that is true. `test` is
- * both, and is the only screen the two handles are seen working in turn on.
- */
-export const showsBellowsPull = (role: ViewRole): boolean => role !== "p2";
-export const showsBellowsPush = (role: ViewRole): boolean => role !== "p1";
-
-/**
  * THE SPOOL's two halves of one sentence (§21). The pilot is shown **the
  * brake** — the rail, and the knob at the depth his thumb has it — and never
  * the zone: he feels a depth and is told nothing of what it is worth. The

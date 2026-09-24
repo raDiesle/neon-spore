@@ -8,7 +8,8 @@
  * was the last, and it came alone rather than with company — a page that
  * gave away more than it owed would be making room for work nobody has
  * started. THE BELLOWS's followed the same day, when THE HASP's paragraph
- * took next door over again, by the same rule and for the same reason.
+ * took next door over again, by the same rule and for the same reason; that
+ * boss was taken out of the game on 24 September 2026.
  *
  * THE ANTIPHON's came across on the same rule when THE HASP's own paragraph
  * took the page to 250 again with nothing left to give.
@@ -32,24 +33,6 @@
  */
 export interface HiveEntry {
   kind: "hive";
-}
-
-/**
- * What a wave authors when it wants THE BELLOWS: nothing, the eighteenth.
- *
- * No seams, though they are the health: four gaps down a waist is the
- * *silhouette*, and a lung hung with five would be a different lung
- * (`bellows.ts`, `BELLOWS_SEAMS`). No tempo, because every one of them is a
- * beat count the pair has to feel — how long a jam holds, how long the one
- * shared window is — and a wave that authored its own would be several
- * different bosses wearing one name, `DiastoleEntry`'s reason next door.
- *
- * And nothing about which handle is whose, because that is not a figure at
- * all: his chamber hangs off the left of the waist and hers off the right,
- * geometry rather than data (`bellowsChamberCol`).
- */
-export interface BellowsEntry {
-  kind: "bellows";
 }
 
 /**

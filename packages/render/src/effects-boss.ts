@@ -58,7 +58,6 @@ export class BossTransients extends BossRoster {
     this.undertow.ingest(events, l, cfg, beatSeconds, role);
     this.filament.ingest(events, l, cfg, burst);
     this.gimbal.ingest(events, l, cfg, burst);
-    this.bellows.ingest(events, l, cfg, burst);
     this.spool.ingest(events, l, cfg, burst);
     this.hasp.ingest(events, l, cfg, beatSeconds, role, burst);
     this.ratchet.ingest(events, l, cfg, beatSeconds, role, burst);
@@ -90,7 +89,6 @@ export class BossTransients extends BossRoster {
     this.undertow.update(dt);
     this.filament.update(dt);
     this.gimbal.update(dt);
-    this.bellows.update(dt);
     this.spool.update(dt);
     this.hasp.update(dt);
     this.ratchet.update(dt);
@@ -139,7 +137,6 @@ export class BossTransients extends BossRoster {
     this.undertow.clear();
     this.filament.clear();
     this.gimbal.clear();
-    this.bellows.clear();
     this.spool.clear();
     this.hasp.clear();
     this.ratchet.clear();

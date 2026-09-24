@@ -19,9 +19,8 @@ export const CHOREO_FIELD_GROUP_C = {
   // a leg runs and the grace at the head of one, and the four the picture is
   // given: taut, slipped, easing and adrift (`config-spool.ts`).
   //
-  // The ribs are not here, for `bellowsSeams`' reason: four is the
-  // silhouette and a spool hung with five would be a different spool
-  // (`sim/spool.ts`, `SPOOL_RIBS`). Nor is the rate a leg asks for — that is
+  // The ribs are not here, because four is the silhouette and a spool hung
+  // with five would be a different spool (`sim/spool.ts`, `SPOOL_RIBS`). Nor is the rate a leg asks for — that is
   // rolled off the seed between these two ends, so a pair cannot learn a
   // wave's numbers by heart.
   spoolReachMilli: "THE SPOOL — the boss where the line runs out at the speed one of you reads",

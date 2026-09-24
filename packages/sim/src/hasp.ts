@@ -101,10 +101,9 @@ export function haspWorking(s: HaspState): boolean {
  * **Whether the latch is held**, and the whole of the gate: the wheel turns
  * while this is true and seizes the moment it is not.
  *
- * A **level** rather than an edge, which is the opposite of THE BELLOWS's
- * handle next door and the reason the two read alike but behave nothing
- * alike: a stroke is judged when it lands, and a grip is judged every tick
- * it lasts.
+ * A **level** rather than an edge, which is the opposite of a handle, and the
+ * reason the two read alike but behave nothing alike: a stroke is judged when
+ * it lands, and a grip is judged every tick it lasts.
  */
 export function haspHeld(s: HaspState, cfg: SimConfig): boolean {
   return s.latchMilli !== NO_LATCH && s.latchMilli >= cfg.haspGripMilli;
@@ -119,9 +118,9 @@ export function haspBurning(s: HaspState): boolean {
  * Beats this grip may last before the latch burns him off it — shorter on
  * the last hasp, which is row 8's *the heat window shortens*.
  *
- * Read off the health rather than counted in a movement field of its own,
- * `bellowsShared`'s rule: one hasp left is the last movement, and a state
- * that cannot disagree with itself about which movement it is in.
+ * Read off the health rather than counted in a movement field of its own: one
+ * hasp left is the last movement, and a state that cannot disagree with itself
+ * about which movement it is in.
  */
 export function haspFuseBeats(s: HaspState, cfg: SimConfig): number {
   return s.hasps <= 1 ? cfg.haspLastHoldBeats : cfg.haspHoldBeats;

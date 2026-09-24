@@ -97,20 +97,6 @@ import type { Wave } from "../wave-types.js";
  * three latch-teeth a ring, and nothing in the wave falls: `entries` is empty
  * and the drum is the whole of it.
  */
-/**
- * **THE BELLOWS keeps the default panel too**, and for THE GIMBAL's reason
- * said about a different hazard: the third seam throws a breath of the lung
- * straight down the column the cannon is standing in, and the answer to a
- * falling body is the shield the pair already has. The spark that leaks from
- * the second seam wants a bolt in the same way (`sim/bellows-step.ts`,
- * `docs/spec/bosses.md` §11.35). The two handles are on the field, beside the
- * ordinary set rather than instead of it.
- *
- * **It authors nothing** (`BellowsEntry`): four seams is the silhouette and
- * every window is a beat count the pair has to feel, so the wave says the kind
- * and the lung is the whole of it. `entries` is empty for THE GIMBAL's reason
- * above — nothing falls that the lung did not breathe out.
- */
 export const WAVES_ACT_10: Wave[] = [
   {
     id: "theReprise",
@@ -203,19 +189,6 @@ export const WAVES_ACT_10: Wave[] = [
     },
     entries: [],
     boss: { kind: "gimbal", marks: GIMBAL_SCRIPT },
-    bossType: "normal",
-  },
-  {
-    id: "theBellows",
-    name: "THE BELLOWS",
-    sentence: "The one where you may never push while they are pulling.",
-    guide: {
-      both: "A lung hangs over the field. One of you pulls it open. Then the other shuts it. Never in the same beat. Four seams. Let the last one go together.",
-      p1: "1. The left handle is yours. Drag it down to open your chamber.\n2. Pull only in your own beat. Then wait. The third seam takes two.\n3. On the last seam let go together. Say when.",
-      p2: "1. The right handle is yours. Drag it down to shut your chamber.\n2. Wait for their pull. Push too early and both handles jam.\n3. The lung breathes down their column once. Shield it.",
-    },
-    entries: [],
-    boss: { kind: "bellows" },
     bossType: "normal",
   },
 ];

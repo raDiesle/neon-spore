@@ -11,7 +11,7 @@ import { showsSpoolBrake } from "./view-role-clocks-c.js";
  * **The thumb on THE SPOOL's brake** — half two of the look lane, and the
  * half that makes the one control in the fight answer a hand at all.
  *
- * Its own page beside `spool-brake.ts` for `bellows-grip.ts`' reason: the
+ * Its own page beside `spool-brake.ts`, because only the answer is new: the
  * knob a finger is answered at and the knob the drawing paints are the same
  * `spoolBrakeAt` off the same `spoolPlaced`, and all this file adds is
  * *whether* the press counts.

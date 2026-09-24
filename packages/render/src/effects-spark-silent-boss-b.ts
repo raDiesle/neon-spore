@@ -87,29 +87,6 @@ export const SILENT_BOSS_B = [
   "gimbalSeamHit",
   "gimbalHatch",
   "gimbalOut",
-  // THE BELLOWS's sixteen throw no burst from this table either: they are one
-  // family read above the loop, like THE GIMBAL's above, and every burst of
-  // theirs — over the chamber of whichever seat acted, in the middle for
-  // everything the waist does, and at the hull for the spark nobody shot — is
-  // thrown by `bellows-fx.ts`, which is also where the shudder, the jolt and
-  // the glare live. That is the look lane's answer to the line this comment
-  // used to carry (`docs/spec/bosses.md` §11.35).
-  "bellowsEnter",
-  "bellowsMarks",
-  "bellowsPulled",
-  "bellowsSeam",
-  "bellowsJam",
-  "bellowsLate",
-  "bellowsSpark",
-  "bellowsSparkOut",
-  "bellowsSparkHit",
-  "bellowsBreath",
-  "bellowsGlow",
-  "bellowsGrip",
-  "bellowsSplit",
-  "bellowsHold",
-  "bellowsVent",
-  "bellowsOut",
   // THE SPOOL's eleven: what sparks is one family read above the loop by
   // `spool-fx.ts`, never rows here (`docs/spec/bosses.md` §11.36).
   "spoolEnter",
@@ -215,7 +192,7 @@ export const SILENT_BOSS_B = [
   // THE HASP's fourteen throw no burst from this table: every burst of
   // theirs — over the latch that burnt, the rim that seized, the clasp that
   // swung off, the bolt at the hull — is thrown by `hasp-fx.ts`, above the
-  // loop like THE BELLOWS's, and split between the seats the way the fight
+  // loop like THE GIMBAL's, and split between the seats the way the fight
   // is (`docs/spec/bosses.md` §11.37).
   "haspEnter",
   "haspLit",

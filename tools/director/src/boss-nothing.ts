@@ -1,7 +1,6 @@
 import type {
   AntiphonEntry,
   BatonEntry,
-  BellowsEntry,
   BossEntry,
   CandleEntry,
   CurtainEntry,
@@ -134,13 +133,12 @@ import type {
  *   setting the only thing about this fight that is meant to be the pair's own
  *   doing (`sim/config-taster.ts`).
  *
- * - **THE HASP** asks for nothing for THE BELLOWS's reason: the door hangs
+ * - **THE HASP** asks for nothing, as none of it is the wave's: the door hangs
  *   over `midCol` so there is no column, the three clasps are the health so
- *   there is no number, and **the fuse and the winding are the two numbers
- *   the pair says out loud** — how long his hand lasts and how far her wheel
- *   has to go is the cadence a pair learns once, and a wave that authored its
- *   own pair would be several different bosses wearing one name
- *   (`sim/config-hasp.ts`).
+ *   there is no number, and **the fuse and the winding are the two numbers the
+ *   pair says out loud** — how long his hand lasts and how far her wheel has to
+ *   go is the cadence a pair learns once, and a wave that authored its own pair
+ *   would be several different bosses wearing one name (`sim/config-hasp.ts`).
  *
  * - **THE RATCHET** asks for nothing for THE HASP's reason: the rack hangs
  *   over `midCol`, its seven teeth are the health, and the window each step
@@ -183,7 +181,6 @@ export function bossAuthorsNothing(
   | InstarEntry
   | FilamentEntry
   | GimbalEntry
-  | BellowsEntry
   | SpoolEntry
   | HaspEntry
   | RatchetEntry {
@@ -215,7 +212,6 @@ export function bossAuthorsNothing(
     kind === "instar" ||
     kind === "filament" ||
     kind === "gimbal" ||
-    kind === "bellows" ||
     kind === "spool" ||
     kind === "hasp" ||
     kind === "ratchet"

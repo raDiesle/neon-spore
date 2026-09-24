@@ -7,7 +7,6 @@ import {
   surgeWarding,
   type World,
 } from "@neon-spore/sim";
-import { bellowsHand, bellowsWrongHand } from "./boss-hands-bellows.js";
 import { gimbalHand } from "./boss-hands-gimbal.js";
 import {
   filamentHand,
@@ -48,8 +47,6 @@ const instarIn = (phase: string) => (w: World) =>
   w.boss?.kind === "instar" && w.boss.phase === phase;
 const gimbalIn = (phase: string) => (w: World) =>
   w.boss?.kind === "gimbal" && w.boss.phase === phase;
-const bellowsIn = (phase: string) => (w: World) =>
-  w.boss?.kind === "bellows" && w.boss.phase === phase;
 const filamentIn =
   (phase: string, head = 0) =>
   (w: World) =>
@@ -190,36 +187,6 @@ export const HANDLE_HAND_POSES: Pose[] = [
     "open",
     "The last teeth gone: both rings spin free and the drum splits. P1 aims at the seam; P2 fires.",
     { hand: gimbalHand, want: gimbalIn("open"), hold: 6, budgetBeats: 480 },
-  ),
-  bossPose(
-    "bellows",
-    "push",
-    "His chamber is open and the right handle lit. P2 drags it down to shut hers; P1 holds still.",
-    { hand: bellowsHand, want: bellowsIn("push"), hold: 6 },
-  ),
-  bossPose(
-    "bellows",
-    "jam",
-    "P2 pushed inside P1's beat. Both handles are seized and nothing parted. Both wait it out.",
-    { hand: bellowsWrongHand, want: bellowsIn("jam"), hold: 6 },
-  ),
-  bossPose(
-    "bellows",
-    "seam",
-    "A pull then a push, and one seam is gone from the waist. P1 and P2 take their hands off.",
-    { hand: bellowsHand, want: bellowsIn("seam"), hold: 6 },
-  ),
-  bossPose(
-    "bellows",
-    "last",
-    "One seam left and both handles glow. P1 and P2 grip, then let go in the same beat.",
-    { hand: bellowsHand, want: bellowsIn("last"), hold: 6, budgetBeats: 240 },
-  ),
-  bossPose(
-    "bellows",
-    "vent",
-    "Both let go together: the waist split and the lung is venting. P1 and P2 are done.",
-    { hand: bellowsHand, want: bellowsIn("vent"), hold: 6, budgetBeats: 240 },
   ),
   bossPose(
     "hasp",

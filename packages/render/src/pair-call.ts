@@ -1,9 +1,6 @@
 import {
   type BatonState,
-  type BellowsState,
   batonLandTick,
-  bellowsHeld,
-  bellowsLast,
   type DiastoleState,
   diastoleClampHolds,
   liftTogetherUntil,
@@ -39,12 +36,12 @@ import type { Layout } from "./layout.js";
  *   only inside its window (`diastoleClampHolds`).
  * - **THE BATON** — his launch puts a bead in the air, and her shot has to
  *   meet it before it lands (`batonLandTick`); unstruck, the socket relights.
- * - **THE SURGE** and **THE BELLOWS**' finale — the first thumb off starts a
+ * - **THE SURGE** — the first thumb off starts a
  *   beat, and the second has to lift inside it (`liftTogetherUntil`).
  *
  * And the ones that do not, so nobody reads them again: THE GORGE's pry and
- * beam are both the navigator's; THE BATON's crossing and THE BELLOWS'
- * strokes are judged against the beat, whoever went before; THE CAIRN,
+ * beam are both the navigator's; THE BATON's crossing is judged against
+ * the beat, whoever went before; THE CAIRN,
  * THE ORRERY, THE HASP, THE GIMBAL, THE RATCHET and THE SPOOL keep world
  * clocks or ask for two hands at once, which is a live check with no moment
  * in it (`test/pair-call.test.ts` pins the silence).
@@ -112,7 +109,7 @@ function baton(b: BatonState, cfg: SimConfig, tick: number): Waiting | null {
 }
 
 /**
- * THE SURGE's lift and THE BELLOWS' last one: a first thumb off, the other
+ * THE SURGE's lift: a first thumb off, the other
  * still down, and the tick the second one has until.
  */
 function lift(
@@ -131,11 +128,6 @@ function surge(s: SurgeState, cfg: SimConfig, tick: number): Waiting | null {
   return lift(s.liftTick, (seat) => surgeHeld(s, seat), cfg, tick);
 }
 
-function bellows(s: BellowsState, cfg: SimConfig, tick: number): Waiting | null {
-  if (!bellowsLast(s)) return null;
-  return lift(s.liftTick, (seat) => bellowsHeld(s, seat), cfg, tick);
-}
-
 function waiting(world: World, phase: number): Waiting | null {
   const boss = world.boss;
   const cfg = world.cfg;
@@ -148,8 +140,6 @@ function waiting(world: World, phase: number): Waiting | null {
       return baton(boss, cfg, world.tick);
     case "surge":
       return surge(boss, cfg, world.tick);
-    case "bellows":
-      return bellows(boss, cfg, world.tick);
     default:
       return null;
   }

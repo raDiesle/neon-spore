@@ -52,7 +52,7 @@ import type { Wave } from "../wave-types.js";
  * voices and the one they can do something about.
  *
  * **The cannon has one job in the whole fight**, and it is the same shape as
- * THE GIMBAL's and THE BELLOWS's: from the second hasp a bolt works loose over
+ * THE GIMBAL's: from the second hasp a bolt works loose over
  * the middle column and strikes the hull if it is left there, and either
  * colour takes it (`sim/hasp-shot.ts`). It is the only thing in the encounter
  * neither of the two hands can answer, so somebody has to leave their control

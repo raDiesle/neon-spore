@@ -19,7 +19,6 @@ import type {
 } from "./boss-entries-clocks.js";
 import type {
   AntiphonEntry,
-  BellowsEntry,
   HiveEntry,
   RatchetEntry,
   SpoolEntry,
@@ -156,7 +155,6 @@ export type BossEntry =
   | ScuttleEntry
   | AntiphonEntry
   | HiveEntry
-  | BellowsEntry
   | SpoolEntry
   | HaspEntry
   | RatchetEntry
@@ -193,7 +191,6 @@ export type {
 } from "./boss-entries-clocks.js";
 export type {
   AntiphonEntry,
-  BellowsEntry,
   HiveEntry,
   RatchetEntry,
   SpoolEntry,

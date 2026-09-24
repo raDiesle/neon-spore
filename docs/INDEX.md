@@ -519,10 +519,8 @@ by hand never moves.
 | `packages/sim/src/beatbox-round.ts` | **What happens to a soundbox**: the thumb that lands on it, the run being committed |
 | `packages/sim/src/beatbox.ts` | THE BEATBOX: a soundbox that swells on every beat |
 | `packages/sim/src/config-beatbox.ts` | THE BEATBOX's numbers: how many beats one asks for, how near the beat a tap has to land |
-| `packages/sim/src/config-bellows.ts` | THE BELLOWS's tuning: how far a handle has to be carried to count as worked, how long the jam lasts |
 | `packages/sim/src/creature-state-beatbox.ts` | **THE BEATBOX's three fields**, and the whole of what one box remembers: how many beats it is asking for |
 | `packages/sim/src/events-beatbox.ts` | **What THE BEATBOX does**, as events: a tap landing on the beat |
-| `packages/sim/src/events-bellows.ts` | What THE BELLOWS says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/balloon-pull.ts` | **The two hands on THE BALLOON**, which is the half of that creature nothing else in this game has |
 | `packages/sim/src/balloon-clock.ts` | THE BALLOON's clocks, read and never stored: the swell, which beat is a step and how far along it the picture draws the body, and how far through the hold at full stretch the pair has got |
 | `packages/sim/src/balloon-rub.ts` | What a balloon does once both hands have reached it: the hold, then the split into two halves that both climb, or the pop |
@@ -622,11 +620,6 @@ by hand never moves.
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
 | `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
-| `packages/sim/src/bellows-hand.ts` | **The handle and the plate on THE BELLOWS**, off the wire, on the tick |
-| `packages/sim/src/bellows-hash.ts` | What THE BELLOWS puts into `hashWorld`, and nothing else |
-| `packages/sim/src/bellows-shot.ts` | **THE BELLOWS's one target**: the spark leaking from the gap the second seam left (§19, row 8) |
-| `packages/sim/src/bellows-step.ts` | THE BELLOWS's clock: the marks lighting, the jam running out, the seam parting, the two hazards |
-| `packages/sim/src/bellows.ts` | THE BELLOWS: a double-chambered lung slung across the top of the field |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/undertow-hand.ts` | THE UNDERTOW's two hands, both the navigator's: a pin that plates a lobe, and the thumb that gives an unseated pilot his seat back |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's presses: the maw, the beam and the unseat |
@@ -864,7 +857,7 @@ by hand never moves.
 |---|---|
 | `packages/render/src/palette.ts` | style guide as values |
 | `packages/render/src/panel-plan.ts` | where the controls stand on the panel, as a record — the rows, the radius and each seat's spread, read by the layout and by bandLobes so drawing and touch move together |
-| `packages/render/src/pair-call.ts` | the second seat's clock on every boss that judges one seat against when the other acted — TASTER, DIASTOLE, BATON, SURGE, BELLOWS' finale — as one line naming the seat still out and its beats left |
+| `packages/render/src/pair-call.ts` | the second seat's clock on every boss that judges one seat against when the other acted — TASTER, DIASTOLE, BATON, SURGE — as one line naming the seat still out and its beats left |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
 | `packages/render/src/layout-stage.ts` | **Where the game is drawn, before anything is placed inside it.** Cut out of `layout.ts` when THE WELL's roll… |
@@ -1698,14 +1691,6 @@ by hand never moves.
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
-| `packages/render/src/bellows-draw.ts` | **THE BELLOWS**: a double-chambered lung slung across the top of the field |
-| `packages/render/src/bellows-fx.ts` | What THE BELLOWS leaves behind a frame |
-| `packages/render/src/bellows-handle.ts` | **The end of one housing and the handle hanging off it** |
-| `packages/render/src/bellows-pose.ts` | **How far through a pose THE BELLOWS is**, and how full each chamber is drawn |
-| `packages/render/src/bellows-shape.ts` | **Where THE BELLOWS is**, in field pixels: the two ribbed housings and the handle hanging under each |
-| `packages/render/src/bellows-waist.ts` |  |
-| `packages/render/src/bellows-word.ts` | **What THE BELLOWS is asking of one thumb**, and the four silences beside the three words |
-| `packages/render/src/bellows-grip.ts` | **The thumb on one of THE BELLOWS's two handles** — half two of the look lane |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |
@@ -1822,7 +1807,6 @@ by hand never moves.
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
-| `packages/audio/src/bind-bellows.ts` | THE BELLOWS's sixteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
@@ -1834,7 +1818,7 @@ by hand never moves.
 | `packages/audio/src/bind-hasp.ts` | THE HASP's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
-| `packages/audio/src/bind-spool.ts` | THE SPOOL's eleven, in a file of their own for `bind-bellows.ts`' reason |
+| `packages/audio/src/bind-spool.ts` | THE SPOOL's eleven, in a file of their own so the page that routes them stays a switch |
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-surge.ts` | THE SURGE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
@@ -2056,7 +2040,6 @@ by hand never moves.
 | `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
 | `tools/director/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE DIASTOLE, THE BATON, THE THROAT |
-| `tools/director/src/boss-hands-bellows.ts` | **THE BELLOWS played right**, for the STATES sheet: one seat's stroke at a time |
 | `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN, THE VANE, THE ORRERY, THE CANDLE |
 | `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `tools/director/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
@@ -2136,12 +2119,11 @@ by hand never moves.
 | `tools/director/src/poses-field-controls.ts` | The states the ON THE FIELD tab needed a picture of and the gallery did not have |
 | `tools/director/src/poses-field-controls-surge.ts` | THE SURGE with both thumbs on the bulb and the pressure climbing |
 | `tools/director/src/poses-field-controls-sinew.ts` | THE SINEW with both hands on it and the sum somewhere on the band |
-| `tools/director/src/poses-field-controls-spool.ts` | THE SPOOL's brake under the pilot's thumb — one picture |
+| `tools/director/src/poses-field-controls-spool.ts` | THE SPOOL's brake under the pilot's thumb — one picture, where THE GIMBAL and THE HASP next door each need two |
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
-| `tools/director/src/poses-field-controls-bellows.ts` | THE BELLOWS's two handles, one under each seat's thumb — and, like THE GIMBAL's pair next door |
-| `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb — and, unlike THE BELLOWS's pair next door |
+| `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
@@ -2532,7 +2514,6 @@ by hand never moves.
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
-| `tools/director/src/field-controls-bellows.ts` | THE BELLOWS's two handles, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |

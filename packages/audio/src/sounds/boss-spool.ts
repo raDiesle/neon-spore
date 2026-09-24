@@ -1,5 +1,6 @@
 /**
- * THE SPOOL's eleven, in a file of their own for `boss-bellows.ts`' reason.
+ * THE SPOOL's eleven, in a file of their own so the catalogue stays a list
+ * of spreads.
  *
  * The boss is a **wooden thread-spool slung sideways across the top of the
  * field**, and everything here is line running off a drum and the wood that

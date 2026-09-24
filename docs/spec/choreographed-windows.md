@@ -41,7 +41,6 @@ boss.
 | THE CANDLE | `candleSmokeBeats` 6 → 12 | `candlePinchMilli` 1500 → 3000 |
 | THE ANTIPHON | `antiphonWindowBeats` 14 → 28; `antiphonTightWindowBeats` 8 → 16 | `antiphonPullMilli` 400 → 800 |
 | THE UNDERTOW | `undertowStandBeats` 5 → 10; `undertowUnseatBeats` 2 → 4; `undertowLastBeats` 10 → 20 | `undertowHoldBeats` 6 → 12; the unseat's one slide → two (`undertowUnseatSlides`) |
-| THE BELLOWS | `bellowsWindowBeats` 3 → 6 | both halves, pull and push, twice (`bellowsExchanges`) |
 | THE HASP | `haspHoldBeats` 6 → 12; `haspLastHoldBeats` 4 → 8 | `haspWindMilli` 800 → 1600; `haspWindStepMilli` 400 → 800 |
 | THE BATON | `batonSwellBeats` 3 → 6; `batonMergeWindowBeats` 6 → 12; `batonFinalBeats` 11 → 22 | the swell's one strip → two (`batonSwellStrips`); `batonMergeBeats` 2 → 4; the final is one act a beat, so its need doubles with it |
 
@@ -68,8 +67,8 @@ exits, the step answered or missed. THE INSTAR and THE RATCHET do it. Every
 boss in **Doubled** does it in its lane, in the same commit as its figures:
 
 - **Moved to the ask** where the boss opens THE SLOW today at another moment —
-  THE TASTER, THE LEAD, THE SINEW, THE CANDLE, THE UNDERTOW, THE BELLOWS,
-  THE HASP (`<boss>-step.ts`).
+  THE TASTER, THE LEAD, THE SINEW, THE CANDLE, THE UNDERTOW, THE HASP
+  (`<boss>-step.ts`).
 - **Opened for the first time** where it opens none — THE GORGE, THE CURTAIN,
   THE ANTIPHON, THE BATON.
 
@@ -78,7 +77,7 @@ nothing — is kept, and every boss under **Left alone** keeps what it has.
 
 ## What each lane owes besides the figures
 
-- **The film.** Every boss above but BELLOWS and HASP has one in
+- **The film.** Every boss above but HASP has one in
   `packages/content/src/scenes/the-<boss>.ts`, timed in literal ticks and
   captioned with the old numbers (*FOUR BEATS OR IT TORCHES*), and replayed
   against `DEFAULT_CONFIG` by its `scene-<boss>.test.ts`. It is re-timed, not

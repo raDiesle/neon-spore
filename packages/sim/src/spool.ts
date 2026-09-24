@@ -45,10 +45,9 @@ import type { World } from "./world.js";
 export const NO_BRAKE = -1;
 
 /**
- * The ribs on the casing at the top of the fight — the health, and a figure
- * of the **silhouette** rather than a tuning, `BELLOWS_SEAMS`' reason: the
- * picture draws four ribs round a spool and a wave that hung one with five
- * would be a different spool.
+ * The ribs on the casing at the top of the fight — the health, and a figure of
+ * the **silhouette** rather than a tuning: the picture draws four ribs round a
+ * spool and a wave that hung one with five would be a different spool.
  */
 export const SPOOL_RIBS = 4;
 

@@ -55,13 +55,8 @@ export {
   batonMergeSocket,
   batonSwelling,
 } from "./baton-hand.js";
-// THE BELLOWS's lung, and nearly all of it a reading: whose beat it is, how
-// deep each handle has been carried, which movement the seams say it is in,
-// and the two hazards. Every name is one a screen or the director's hand reads.
-// biome-ignore format: one line, so a reading added to the lung does not cost this page a row
-export { BELLOWS_PHASES, BELLOWS_SEAMS, type BellowsPhase, type BellowsState, bellowsBoss, bellowsChamberCol, bellowsDepthMilli, bellowsHeld, bellowsJammed, bellowsLast, bellowsLeaking, bellowsOpen, bellowsShared, bellowsTurn, bellowsVenting, bellowsWindowLeft, bellowsWorking, NO_HAND, NO_LIFT, NO_SPARK } from "./bellows.js";
 // And THE WARDEN's openness, handed to the third page on 22 September 2026
-// when THE BELLOWS's names took this one to its limit — the last block on the
+// when another boss's names took this one to its limit — the last block on the
 // page goes, never the boss being worked on (`bosses-clocks-c.ts`).
 export * from "./bosses-clocks-c.js";
 // THE DIASTOLE's clamp (18 September 2026): the hurt window the beam asks,

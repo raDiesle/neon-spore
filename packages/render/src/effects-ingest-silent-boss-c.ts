@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 
 /**
  * **The bosses' half of the silent list, the third page** — THE WELL's four,
- * THE GIMBAL's ten and THE BELLOWS's sixteen.
+ * THE GIMBAL's ten, and the bosses after it.
  *
  * Cut off `effects-ingest-silent-boss-b.ts` on 22 September 2026 along the
  * seam every page of this list is cut on: the order the bosses were built
@@ -45,30 +45,6 @@ export const INGEST_SILENT_BOSS_C = [
   "gimbalSeamHit",
   "gimbalHatch",
   "gimbalOut",
-  // THE BELLOWS's sixteen are one family read above the loop, the way THE
-  // GIMBAL's are: the shudder of a jam, the jolt of a seam letting go, the
-  // glare of the vent and every burst are `effects.boss.bellows`'s
-  // (`bellows-fx.ts`). Which seat the lung is waiting on, how deep each
-  // handle has been carried, how many seams are left and whether a spark is
-  // leaking stay read off the boss every frame — a mark that outlived the
-  // frame would be a second answer to *whose beat is it* beside the two
-  // handles themselves (`bellows-draw.ts`, `docs/spec/bosses.md` §11.35).
-  "bellowsEnter",
-  "bellowsMarks",
-  "bellowsPulled",
-  "bellowsSeam",
-  "bellowsJam",
-  "bellowsLate",
-  "bellowsSpark",
-  "bellowsSparkOut",
-  "bellowsSparkHit",
-  "bellowsBreath",
-  "bellowsGlow",
-  "bellowsGrip",
-  "bellowsSplit",
-  "bellowsHold",
-  "bellowsVent",
-  "bellowsOut",
   // THE SPOOL's eleven: the line's length, the zone under it, the brake's
   // depth and the four ribs are all read off the boss every frame, and what
   // outlives a frame — the slip, the rib easing, the loosing — is one family
@@ -84,7 +60,7 @@ export const INGEST_SILENT_BOSS_C = [
   "spoolSlack",
   "spoolDrift",
   "spoolOut",
-  // THE HASP's fourteen are one family read above the loop, THE BELLOWS's
+  // THE HASP's fourteen are one family read above the loop, THE GIMBAL's
   // way: the dim of a seize, the flare of a burn, the jolt of a hasp giving
   // and every burst are `effects.boss.hasp`'s (`hasp-fx.ts`), each thrown on
   // the seats shown the half it happened to. How far the wheel has gone

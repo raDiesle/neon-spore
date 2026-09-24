@@ -1,6 +1,5 @@
 import { installAntiphon } from "./antiphon-step.js";
 import { installBaton } from "./baton-step.js";
-import { installBellows } from "./bellows-step.js";
 import { installCandle } from "./candle-step.js";
 import { installCurtain } from "./curtain-step.js";
 import { installDiastole } from "./diastole-step.js";
@@ -66,7 +65,6 @@ const CLOCK_KINDS = [
   "instar",
   "filament",
   "gimbal",
-  "bellows",
   "spool",
   "hasp",
   "ratchet",
@@ -184,11 +182,6 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // the field, one ring to a seat, turned to the alignments its wave
     // authored (`gimbal-step.ts`).
     world.boss = installGimbal(world, boss.marks);
-  } else if (boss.kind === "bellows") {
-    // No creature and no row: a double-chambered lung slung across the top of
-    // the field, waist tight, four seams whole, and every figure in it tuning
-    // (`bellows-step.ts`).
-    world.boss = installBellows(world);
   } else if (boss.kind === "spool") {
     // No creature and no row: a thread-spool slung sideways across the top of
     // the field, its line already run out to the hull and taut, four ribs

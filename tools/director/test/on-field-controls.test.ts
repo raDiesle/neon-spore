@@ -365,15 +365,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `docs/spec/bosses.md` §11.34).
   gimbalOuter: "field",
   gimbalInner: "field",
-  // THE BELLOWS's two handles, and the rings' arrangement with the opposite
-  // rule on it: `bellowsPull` is the pilot's bar and `bellowsPush` the
-  // navigator's, each answered on the seat that owns it, but the two are never
-  // live at once — a stroke out of turn jams both and spends the exchange, so
-  // the wrong seat's grab is taken rather than refused, which is the whole
-  // fight (`render/bellows-grip.ts`, `sim/bellows-hand.ts`,
-  // `field-controls-bellows.ts`, `docs/spec/bosses.md` §11.35).
-  bellowsPull: "field",
-  bellowsPush: "field",
   // THE SPOOL's brake, one target and one seat: the pilot holds it at a depth
   // and is shown nothing but the mark's own grip, while the figure it has to
   // be matched against is on the navigator's screen. On the field because the

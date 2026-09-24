@@ -17,7 +17,6 @@ export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "
 export type {
   AntiphonEntry,
   BatonEntry,
-  BellowsEntry,
   CairnEntry,
   CandleEntry,
   CurtainEntry,

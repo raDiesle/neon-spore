@@ -1,6 +1,5 @@
 import type { AntiphonEvent } from "./events-antiphon.js";
 import type { BatonEvent } from "./events-baton.js";
-import type { BellowsEvent } from "./events-bellows.js";
 import type { CandleEvent } from "./events-candle.js";
 import type { CurtainEvent } from "./events-curtain.js";
 import type { DiastoleEvent } from "./events-diastole.js";
@@ -71,7 +70,6 @@ export type BossEvent =
   | InstarEvent
   | FilamentEvent
   | GimbalEvent
-  | BellowsEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -89,7 +87,6 @@ export type BossEvent =
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
-export type { BellowsEvent } from "./events-bellows.js";
 export type { CandleEvent } from "./events-candle.js";
 export type { CurtainEvent } from "./events-curtain.js";
 export type { DiastoleEvent } from "./events-diastole.js";

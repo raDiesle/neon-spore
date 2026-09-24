@@ -2,8 +2,8 @@ import { spoolBrakeForRateMilli } from "@neon-spore/sim";
 import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
 
 /**
- * THE SPOOL's brake under the pilot's thumb — one picture, where THE BELLOWS
- * and THE GIMBAL next door each need two.
+ * THE SPOOL's brake under the pilot's thumb — one picture, where THE GIMBAL
+ * and THE HASP next door each need two.
  *
  * One, because this boss's control is **one control on one seat**: there is a
  * single brake, it is the pilot's by the target's own name, and the navigator

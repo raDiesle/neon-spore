@@ -7,7 +7,6 @@ import {
   OUTER,
   type World,
 } from "@neon-spore/sim";
-import { bellowsHandleStanding, bellowsTakesHand } from "./bellows-grip.js";
 import { candleWickAt } from "./candle-grip.js";
 import { curtainHemAt } from "./curtain-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
@@ -112,19 +111,6 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "hive" ? world.boss : null;
     if (b === null || !hiveClenched(b)) return null;
     return hiveHaulCircle(l, cfg, b, world.beat, beatPhase);
-  }
-  if (target === "bellowsPull" || target === "bellowsPush") {
-    // THE BELLOWS's two, one per seat and the target says which — the pilot
-    // pulls his chamber open and the navigator pushes hers shut, so nothing
-    // here is read off the role (`bellows-grip.ts`). The rail hangs off the
-    // cap, so where the bar is standing is both how far the chamber has been
-    // drawn out and how far down the thumb has carried it. Null in the three
-    // phases that take no hand at all, which is where the caption would
-    // otherwise point at a rail the simulation is about to refuse.
-    const b = world.boss?.kind === "bellows" ? world.boss : null;
-    if (b === null || !bellowsTakesHand(b)) return null;
-    const player = target === "bellowsPull" ? 1 : 2;
-    return bellowsHandleStanding(l, cfg, b, player, world.beat, beatPhase);
   }
   if (target === "haspLatch" || target === "haspWheel") {
     // THE HASP's two, one per seat and the target says which. The bar stands

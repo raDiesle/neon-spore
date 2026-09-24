@@ -13,9 +13,8 @@ import {
  * the one thing the fight throws.
  *
  * The hand is one press because the boss is one control, and what it has to
- * get right is the opposite of `boss-hands-bellows.ts` next door. A stroke is
- * an **edge**, so that hand works a handle by pressing it from a hand that is
- * off it and lets go in between. A brake is a **level**: the depth is carried
+ * get right is the opposite of a handle's. A stroke is an **edge**, so a
+ * handle's hand presses it from a hand that is off it and lets go in between. A brake is a **level**: the depth is carried
  * until it is changed, so this hand presses the same target every tick and
  * only the figure moves. Pressing it again at the depth it already has is
  * nothing at all (`sim/spool-hand.ts`), which is what lets a leg's new rolled

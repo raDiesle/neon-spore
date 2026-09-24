@@ -2,7 +2,8 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE SPOOL's eleven, in a file of their own for `bind-bellows.ts`' reason.
+ * THE SPOOL's eleven, in a file of their own so the page that routes them
+ * stays a switch.
  *
  * **The pan says nothing about whose fault anything is, and that is on
  * purpose.** There is one spool, one line and one brake, hung over the middle

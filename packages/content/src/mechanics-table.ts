@@ -140,7 +140,6 @@ export const MECHANICS = {
   instar: BOSS_MECHANICS.instar,
   filament: BOSS_MECHANICS.filament,
   gimbal: BOSS_MECHANICS.gimbal,
-  bellows: BOSS_MECHANICS.bellows,
   spool: BOSS_MECHANICS.spool,
   hasp: BOSS_MECHANICS.hasp,
   ratchet: BOSS_MECHANICS.ratchet,

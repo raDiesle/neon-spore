@@ -23,8 +23,8 @@ import { type Field, type Touch, touchDown } from "./touch.js";
  *    would never reach the second, so the ring is asked whose it is first
  *    (`instar-mark-grip.ts` `instarMarkSeat`).
  * 2. **Every other handle a seat does not own is simply not there for it** —
- *    THE GAUGE's band, THE GIMBAL's inner rim, THE BELLOWS's handle in the
- *    other's beat — so the same hit test run for the second seat finds what
+ *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
+ *    pilot's thumb — so the same hit test run for the second seat finds what
  *    the first could not, and the press is signed with the seat that found it.
  *
  * **A seat key still pins the pointer**, which is how a tester asks for the

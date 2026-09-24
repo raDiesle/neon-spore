@@ -51,7 +51,6 @@ type ChoreographedEvent =
           | `instar${string}`
           | `filament${string}`
           | `gimbal${string}`
-          | `bellows${string}`
           | `spool${string}`
           | `hasp${string}`
           | `ratchet${string}`
@@ -194,7 +193,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "leadDown":
     case "leadOut":
       return leadCue(e, cols);
-    // THE INSTAR, THE FILAMENT, THE GIMBAL, THE BELLOWS, THE DIASTOLE and the
+    // THE INSTAR, THE FILAMENT, THE GIMBAL, THE DIASTOLE and the
     // undertow's own default, which is what a page at its limit gives back
     // (`bind-choreographed-c.ts`) — and since 22 September 2026 THE SCUTTLE,
     // THE ANTIPHON and THE HIVE, the last three cases this page had, handed

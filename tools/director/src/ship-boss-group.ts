@@ -49,7 +49,6 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   instar: "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
   filament: "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   gimbal: "THE GIMBAL — the boss where the same turn is not the same turn",
-  bellows: "THE BELLOWS — the boss where you may never push while they are pulling",
   spool: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   hasp: "THE HASP — the boss where one of you only has to hold on, and cannot",
   ratchet: "THE RATCHET — the boss where every step you take stays taken",

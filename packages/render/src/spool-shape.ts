@@ -8,7 +8,7 @@ import type { Layout } from "./layout.js";
  * winding, the line run down to the hull, the brake's rail and the
  * navigator's gauge. How far through a pose the scene is is `spool-pose.ts`.
  *
- * Its own file for `bellows-shape.ts`' reason: one of the things on this page
+ * Its own file because one of the things on this page
  * is a handle, and a thumb will be answered against the very rail this file
  * places (`layout.ts`'s standing rule that a control is drawn and found in one
  * file). A second copy of *where the brake is* is how a knob comes to be drawn

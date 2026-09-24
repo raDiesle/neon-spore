@@ -5,8 +5,7 @@ import type { FieldControlDef } from "./field-control-def.js";
  *
  * Two rows, one seat each, and they are the only pair here that are **worked
  * at the same time on purpose and do two entirely different things**. THE
- * GIMBAL's rims are offered together and have to agree; THE BELLOWS's bars
- * take turns and jam if they do not; THE SINEW's two add into one number.
+ * GIMBAL's rims are offered together and have to agree; THE SINEW's two add into one number.
  * These two are a hand that does nothing and a hand that does all of it: his
  * latch moves no part of the boss ever, and her wheel is the only thing that
  * opens a clasp — and her wheel only answers while his latch is down.

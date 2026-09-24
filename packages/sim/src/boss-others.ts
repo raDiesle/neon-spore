@@ -1,6 +1,5 @@
 import { stepAntiphon } from "./antiphon-step.js";
 import { stepBaton } from "./baton-step.js";
-import { stepBellows } from "./bellows-step.js";
 import { stepLateBoss } from "./boss-others-b.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
@@ -202,17 +201,8 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepGimbal(world, boss);
     return;
   }
-  // THE BELLOWS on the beat is the lung's own clock alone — the marks, the
-  // jam running out, the seam and the two hazards. Whether a stroke came in
-  // the right seat's beat is a stroke's question and is judged where the
-  // stroke lands (`bellows-hand.ts`).
-  if (boss.kind === "bellows") {
-    stepBellows(world, boss);
-    return;
-  }
-  // THE SPOOL is nearly all clock, which is the opposite of THE BELLOWS above
-  // and for the opposite reason: a stroke is an edge and a brake is a level,
-  // so the line paying out, the zone moving under a correction, the slip and
+  // THE SPOOL is nearly all clock, because a brake is a level rather than an
+  // edge: the line paying out, the zone moving under a correction, the slip and
   // the rib easing are every one of them a beat's question (`spool-step.ts`).
   if (boss.kind === "spool") {
     stepSpool(world, boss);
@@ -236,8 +226,8 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // And the six that are not stepped here at all, with THE VANE, THE CAIRN,
   // THE MAZE, THE SPLICE, THE FLEET and THE WELL, are on the second page
   // (`boss-others-b.ts`). The first hand-across was on 22 September 2026, when
-  // THE GIMBAL's branch took this one over its 250-line limit, and THE
-  // BELLOWS's put it back there the same week. Both times the **last** rows
+  // THE GIMBAL's branch took this one over its 250-line limit, and a later
+  // boss's put it back there the same week. Both times the **last** rows
   // went, never the boss being worked on, whose branch stays under the comment
   // that explains it. The close goes with them, because the arm that catches
   // what nobody named has to stand at the foot of whichever page ends the

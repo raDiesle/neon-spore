@@ -30,8 +30,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * fast, the brake deep and the line crawling, a rib easing open, the line
  * slipped, and the spool slack and drifting free — on all three screens.
  *
- * The states are **set** rather than played to, `bellows-frame.test.ts`'
- * arrangement: `sim/test/spool.test.ts` proves the rate, the zone and the
+ * The states are **set** rather than played to:
+ * `sim/test/spool.test.ts` proves the rate, the zone and the
  * ribs, and what this file asks is whether every branch of the picture is one
  * a canvas accepts, plus the two things nothing else could catch: that **the
  * pilot is shown his grip and not the zone, and the navigator the zone and
@@ -206,7 +206,7 @@ describe("THE SPOOL", () => {
     const going = frame(role, easing);
     const gone = frame(role, (w) => paying(w, 500, 0, SPOOL_RIBS - 1));
     expect(going.text).not.toBe(gone.text);
-    // The rib going glows in the rim the waist's gaps do on THE BELLOWS.
+    // The rib going glows in the wisp's rim.
     expect(count(going.text, PALETTE.wispRim)).toBeGreaterThan(count(gone.text, PALETTE.wispRim));
   });
 

@@ -88,11 +88,9 @@ export const ROWS: Record<string, Row> = {
   // `hive-hand.ts`: his haul on the mass, her pinch on a lobe by `id`.
   hiveLobe: {},
   hiveLobe2: { seat: 2, as: "hiveLobe", id: true },
-  // `gimbal-hand.ts`, `bellows-hand.ts`: a ring each, a handle each.
+  // `gimbal-hand.ts`: a ring each.
   gimbalOuter: {},
   gimbalInner: { seat: 2 },
-  bellowsPull: {},
-  bellowsPush: { seat: 2 },
   // `spool-hand.ts`, `hasp-hand.ts`, `ratchet-hand.ts`.
   spoolBrake: {},
   haspLatch: {},

@@ -2,9 +2,8 @@ import type { TimedCommand } from "@neon-spore/sim";
 import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
 
 /**
- * THE HASP's two hands, one under each seat's thumb — and, unlike THE
- * BELLOWS's pair next door, **the same instant photographed from two seats**
- * rather than two instants.
+ * THE HASP's two hands, one under each seat's thumb — **the same instant
+ * photographed from two seats** rather than two instants.
  *
  * That is the whole reason there are two: this boss's two controls are worked
  * *together*, and neither picture makes sense without the other having been

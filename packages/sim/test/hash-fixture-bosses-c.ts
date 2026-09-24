@@ -86,14 +86,10 @@ export const BOSS_ENTRIES_C = {
       { outerMilli: 600, innerMilli: 400, creepMilli: 15 },
     ],
   },
-  // THE BELLOWS authors nothing at all, which is the entry (`BellowsEntry`):
-  // four seams is the silhouette and every window is tuning, so there is no
-  // figure here for the walk to vary. What it has to see varied is in
-  // `patchBossC` below, and all of it is state (`bellows-hash.ts`).
-  bellows: { kind: "bellows" },
-  // THE SPOOL authors nothing either (`SpoolEntry`), and for one more reason
-  // than THE BELLOWS: the rate each leg asks for is rolled off `world.rng`
-  // rather than written, so a pair cannot learn a wave's numbers by heart.
+  // THE SPOOL authors nothing at all, which is the entry (`SpoolEntry`): four
+  // ribs is the silhouette and every window is tuning, and the rate each leg
+  // asks for is rolled off `world.rng` rather than written, so a pair cannot
+  // learn a wave's numbers by heart.
   // Everything the walk must see varied is state, below (`spool-hash.ts`).
   spool: { kind: "spool" },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
@@ -215,22 +211,6 @@ export function patchBossC(boss: BossState): void {
     boss.handMilli = [180, 820];
     boss.seamCol = 4;
     boss.seamBeat = 6;
-  }
-  if (boss.kind === "bellows") {
-    // The middle of an exchange, two seams down: his chamber open, her hand
-    // part way in, the shared window counted from a beat of its own, the spark
-    // leaking in a column with a beat on it, and a lift pending from the seat
-    // that let go first — every nullable field given a value, so the walk can
-    // tell a hashed one from a field it never sees change (`bellows-hash.ts`).
-    boss.phase = "push";
-    boss.phaseBeat = 3;
-    boss.exchangeBeat = 2;
-    boss.exchanged = 1;
-    boss.seams = 2;
-    boss.handMilli = [1000, 420];
-    boss.sparkCol = 4;
-    boss.sparkBeat = 6;
-    boss.liftTick = 7;
   }
   if (boss.kind === "spool") {
     // Part way down the second movement's second leg: the line paid out past

@@ -1,14 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import {
-  createWorld,
-  NO_HAND,
-  NO_LIFT,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import { createWorld, NO_LIFT, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { pairCall } from "../src/pair-call.js";
 import type { TextBox } from "./canvas-stub.js";
 import {
@@ -116,17 +108,6 @@ describe("the second seat's clock, read", () => {
     s.heldP2 = false;
     expect(pairCall(world, 0)?.kind).toBe("P1 NOW");
     s.liftTick = NO_LIFT;
-    expect(pairCall(world, 0)).toBeNull();
-  });
-
-  it("THE BELLOWS: the same lift, and only in the finale", () => {
-    const world = hung("bellows");
-    const s = boss(world, "bellows");
-    s.phase = "last";
-    s.handMilli = [0, NO_HAND];
-    s.liftTick = world.tick;
-    expect(pairCall(world, 0)).toEqual({ kind: "P1 NOW", word: "1 BEAT LEFT" });
-    s.phase = "pull";
     expect(pairCall(world, 0)).toBeNull();
   });
 

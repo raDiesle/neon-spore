@@ -1,7 +1,6 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { isBeatTick } from "./beat-clock.js";
-import { bellowsStruck } from "./bellows-shot.js";
 import { resolve } from "./bullet-hit.js";
 import { candleStruck } from "./candle-step.js";
 import { hullRow } from "./config.js";
@@ -196,9 +195,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE GIMBAL's leaking seam, the one thing in that whole fight a
   // cannon has to do, and either colour does it (`gimbal-shot.ts`).
   gimbalStruck(world, b);
-  // And THE BELLOWS's leaking spark, the one thing in that whole fight a
-  // cannon has to do, and either colour does it (`bellows-shot.ts`).
-  bellowsStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

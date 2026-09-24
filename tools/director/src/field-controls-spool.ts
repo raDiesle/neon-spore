@@ -5,9 +5,9 @@ import type { FieldControlDef } from "./field-control-def.js";
  *
  * **One row where every other boss on this tab has two**, and that is the
  * boss: there is a single control in the fight, one seat has it, and the other
- * seat's whole half is a reading and a sentence. THE BELLOWS's pair take turns
- * and THE GIMBAL's are offered together; this one is never offered to player 2
- * at all (`sim/spool-hand.ts`).
+ * seat's whole half is a reading and a sentence. THE GIMBAL's pair are
+ * offered together and THE HASP's are worked at once; this one is never
+ * offered to player 2 at all (`sim/spool-hand.ts`).
  *
  * **It is the only row here whose value is the whole of it.** Every other drag
  * on the field is answered by where it ends or by the edge it crosses — a
