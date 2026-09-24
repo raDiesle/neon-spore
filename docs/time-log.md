@@ -19740,3 +19740,5 @@ places, and each had to say it went rather than just lose the line.
 
 The bottleneck was **looking**: whether a sheet reads as *splitting* rather
 than as legs only showed across a strip of frames, never in one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

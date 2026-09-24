@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · b6845413 — The lost wound bleeds as thick sheets off the rim's corners that split into streams
+
+The blood out of the WAVE LOST hole no longer runs as six straight tubes. It wells from inside the hole, over the three lowest teeth of the torn rim, and hangs there as one thick sheet; then each sheet splits slowly into two or three thinner streams, one leading and the others shorter and later, each ending in a heavier drop that slows as it runs. The flat band inside the rim is now a pool whose surface breathes and ripples. Every run is one fill, so where its parts overlap they join as one liquid. A look the owner asked for by name.
+
 ## 2026-09-24 · e5981d6b — THE SLOW draws no bar under the boss, and its light runs from the top of the screen
 
 The notched bar that counted a window down is gone; the ring closing on each mark is the clock. The streams were clipped at the field's top edge, which read as a cut on an invisible line, and now start at the screen's.
