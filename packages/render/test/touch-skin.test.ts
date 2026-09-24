@@ -67,8 +67,8 @@ describe("a body landing under a raised lobe", () => {
   });
 
   it("is found where it was drawn, on the skin the field carries", () => {
-    expect(creatureAt(L, [body], x, drawnY, GLIDE, 1, lobe)).toBe(body);
-    expect(creatureAt(L, [body], x, drawnY, GLIDE, 1, null)).toBeNull();
+    expect(creatureAt(L, field(lobe), x, drawnY)).toBe(body);
+    expect(creatureAt(L, field(null), x, drawnY)).toBeNull();
   });
 
   it("is taken hold of through `touchDown`, which reads `Field.skinY`", () => {

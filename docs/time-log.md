@@ -19022,3 +19022,19 @@ The bottleneck was **writing**: the line-above test had to count a line of
 another multi-line import as an import, and a blank on both sides as one gap.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — `creatureAt` is handed the field
+
+- reading: 5 min. `creature-under.ts`, `glidePhase`, the balloon clock,
+  every caller of `creatureAt`.
+- writing: 5 min. The field-shaped argument, `bodies-under.ts` for the
+  tests, `touch-reach.test.ts`.
+- looking: 0 min. Nothing is drawn.
+- friction: 5 min. The entry's proof could not be written: a balloon
+  refuses a hand (`handMeans`), so `creatureAt` never answers one. The
+  proof moved to the reach, which was the real defect.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: the entry promised a failing balloon press
+that cannot happen, and the half-tile miss it described is inside the
+reach anyway.

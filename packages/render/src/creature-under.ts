@@ -1,8 +1,15 @@
-import { type Creature, DEFAULT_CONFIG, handMeans } from "@neon-spore/sim";
+import { type Creature, handMeans } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
-import type { SurfaceY } from "./hull-frame.js";
+import { glidePhase } from "./depth.js";
 import { landingY } from "./landing.js";
 import type { Layout } from "./layout.js";
+import type { Field } from "./touch-field.js";
+
+/** The part of a `Field` a hand on a body is answered from. */
+export type BodiesUnder = Pick<
+  Field,
+  "creatures" | "beatPhase" | "beat" | "cfg" | "seat" | "skinY"
+>;
 
 /**
  * The creature under **this seat's** finger on the flat field, or null.
@@ -13,9 +20,17 @@ import type { Layout } from "./layout.js";
  * picture it is placing on and started taking the world: the touch layer is
  * handed a field and never a world (`touch-field.ts`), so this reads the flat
  * placement by its own name, and THE WELL's screen answers a finger through
- * `touch-well.ts` instead. The reach is `flatRadius` at `DEFAULT_CONFIG`,
- * which is what every device runs; the field's own `cfg` is worth passing the
- * next time `touch.ts` is open.
+ * `touch-well.ts` instead. The reach is `flatRadius` at the field's own
+ * `cfg`, which the flat pass sizes the body by.
+ *
+ * **A body is answered at the phase it is glided by**, `glidePhase`, as every
+ * placement in render/ is: THE BALLOON's one step is spread over
+ * `balloonClimbBeats`, and on the second beat of one the beat's own phase is
+ * half a tile behind the picture. A balloon refuses a hand today and is held
+ * by its handles (`balloon-handles.ts`), so this is the rule asked rather
+ * than a fix; `touch-reach.test.ts` pins the refusal. The field's `beat` is
+ * what the phase is counted from, which is why this takes the field rather
+ * than its creatures.
  *
  * **The seat is part of the question**, which it was not while a hand meant one
  * thing to everybody. A hand on a rock is a brake either seat may apply; a hand
@@ -41,23 +56,17 @@ import type { Layout } from "./layout.js";
  * all, so the body a lobe has raised is answered as high as it was drawn;
  * without a frame it is `l.hullY`, the flat membrane.
  */
-export function creatureAt(
-  l: Layout,
-  creatures: readonly Creature[],
-  x: number,
-  y: number,
-  beatPhase: number,
-  player: 1 | 2,
-  skinY: SurfaceY | null,
-): Creature | null {
-  const skin = skinY ?? (() => l.hullY);
+export function creatureAt(l: Layout, field: BodiesUnder, x: number, y: number): Creature | null {
+  const { cfg, beat, beatPhase } = field;
+  const skin = field.skinY ?? (() => l.hullY);
   let best: Creature | null = null;
   let bestDist = Number.POSITIVE_INFINITY;
-  for (const c of creatures) {
-    if (handMeans(c.kind, player) === null) continue;
-    const { x: cx, y: flatY } = flatCenter(l, c, beatPhase);
-    const cy = landingY(l, DEFAULT_CONFIG, c, cx, flatY, beatPhase, skin);
-    const reach = flatRadius(l, DEFAULT_CONFIG, c, beatPhase) * 1.6;
+  for (const c of field.creatures) {
+    if (handMeans(c.kind, field.seat) === null) continue;
+    const glide = glidePhase(cfg, beat, c, beatPhase);
+    const { x: cx, y: flatY } = flatCenter(l, c, glide);
+    const cy = landingY(l, cfg, c, cx, flatY, glide, skin);
+    const reach = flatRadius(l, cfg, c, glide) * 1.6;
     const d = Math.hypot(x - cx, y - cy);
     if (d > reach || d >= bestDist) continue;
     best = c;

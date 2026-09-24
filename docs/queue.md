@@ -536,23 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `creatureAt` glides a balloon by the beat, and reaches at `DEFAULT_CONFIG`
-
-- **Found:** 2026-09-23, claude/queue-touch-hull
-- **Taken:** 2026-09-24, claude/queue-bun-run-imports-leaves-a-splits-whole-import-sta (claim: claude/queue-creatureat-glides-a-balloon-by-the-beat-and-reac)
-- **Files:** `packages/render/src/creature-under.ts`, `packages/render/src/touch.ts`, `packages/render/src/depth.ts`, `packages/render/test/`
-
-The field pass places a body at `glidePhase(world.cfg, world.beat, c,
-beatPhase)` (`creatures.ts`), which spreads a balloon's step over several
-beats; `creatureAt` passes the raw `beatPhase` to `flatCenter`, `landingY` and
-`flatRadius`, so a balloon mid-step is answered where it would be on an
-ordinary beat, not where it is drawn. It also sizes the reach by
-`DEFAULT_CONFIG` although the `Field` it is called from carries `cfg`. The
-work: `creatureAt` takes the field's `cfg` and `beat`, asks `glidePhase` per
-body, and uses the result everywhere it now uses `beatPhase`; `touch.ts:68`
-passes them. A test pressing a balloon at its drawn centre mid-step, which
-misses today, is the proof.
-
 ## `apps/game/src/input.ts` is at 248 lines with its seam unchosen
 
 - **Found:** 2026-09-23, claude/queue-touch-hull

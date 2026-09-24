@@ -92,8 +92,8 @@ export interface Field {
    */
   seat: 1 | 2;
   /**
-   * The numbers a hit test needs: the row THE WARDEN's rim hangs its tether
-   * from (`creatureAt`), and how wide THE MAZE's drum stands. The whole config
+   * The numbers a hit test needs: how far a hand on a body reaches
+   * (`creatureAt`), and how wide THE MAZE's drum stands. The whole config
    * rather than the one number picked out of it, which is what this was — the
    * second thing to want one would have been a second field to copy across.
    */

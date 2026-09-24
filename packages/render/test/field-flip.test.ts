@@ -12,6 +12,7 @@ import { creatureAt } from "../src/creature-under.js";
 import { fieldCol, fieldX, flippedLayout } from "../src/field-flip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { flipsField } from "../src/view-role.js";
+import { under } from "./bodies-under.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -134,10 +135,10 @@ describe("a body on a turned screen", () => {
     if (!body) throw new Error("the wave placed no body");
     const turned = flippedLayout(layoutFor("p1"), world);
     const drawn = flatCenter(turned, body, 0);
-    expect(creatureAt(turned, world.creatures, drawn.x, drawn.y, 0, 1, null)).toBe(body);
+    expect(creatureAt(turned, under(world, 0, 1), drawn.x, drawn.y)).toBe(body);
     // And the true picture's pixel, on the turned screen, is not the body.
     const honest = flatCenter(layoutFor("p1"), body, 0);
-    expect(creatureAt(turned, world.creatures, honest.x, honest.y, 0, 1, null)).not.toBe(body);
+    expect(creatureAt(turned, under(world, 0, 1), honest.x, honest.y)).not.toBe(body);
   });
 });
 
