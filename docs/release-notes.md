@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 8b8f0c34 — A fade set around a glowed line reaches it: the ship and the screens
+
+The skin coming apart at the maw now fades along its length the way it was written to. Before, every piece was drawn at full strength, not only the pieces at the mouth. The intro ear's two arcs come in with the voice instead of arriving whole the frame anybody speaks. The reel's cable fades as it is wound home. Each caller passes its fade to `strokeGlow` as the `alpha` argument, which that function reads, instead of setting it on the context, which it ignores. Landed under "a fix to something wrong".
+
 ## 2026-09-24 · 45ddd0e6 — THE ANTIPHON's window is doubled, and THE SLOW spans it
 
 On the owner's rule of 22 September: an organ now stands twenty-eight beats, and sixteen once the rail has closed in on one family. A candidate is pulled off the rail by carrying it eight tenths of a tile rather than four. THE SLOW opens on THE ANTIPHON for the first time. It starts on the beat the organ has pushed all the way out, and it shuts at every end of the cycle: a pit, a hardening, the window running out, or the ship.
