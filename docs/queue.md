@@ -394,6 +394,7 @@ what the rest of this file holds.
 ## The screen chooser's two card names say PILOT and NAVIGATOR
 
 - **Found:** 2026-09-23, claude/queue-six-strings-a-player-reads-are-outside-the-words
+- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-the-screen-choosers-two-card-names-say-pilot-and)
 - **Files:** `packages/content/src/screen-words.ts`, `tools/words/text.ts`, `.claude/skills/game-words/SKILL.md`
 - **Asks:** Should the two cards read PLAYER 1 and PLAYER 2, or do PILOT and NAVIGATOR stay as the names of the jobs?
 
