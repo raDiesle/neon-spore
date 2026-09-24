@@ -1,10 +1,16 @@
 import { describe, expect, it } from "bun:test";
 import {
+  antiphonBoss,
+  candleBoss,
   DEFAULT_CONFIG,
   hiveBoss,
   hiveLeft,
+  hiveOpenCount,
   hiveSealedCount,
+  ORRERY_RINGS,
   SceneRun,
+  scuttleBoss,
+  scuttleLeft,
   type World,
 } from "@neon-spore/sim";
 import { controlSetForWave, setHas } from "../src/index.js";
@@ -45,6 +51,17 @@ const COUNT: Record<SceneCount["of"], (w: World) => number | null> = {
     const s = hiveBoss(w);
     return s ? hiveLeft(s) : null;
   },
+  hiveOpen: (w) => {
+    const s = hiveBoss(w);
+    return s ? hiveOpenCount(s) : null;
+  },
+  candleGlow: (w) => candleBoss(w)?.glow ?? null,
+  scuttleParts: (w) => {
+    const s = scuttleBoss(w);
+    return s ? scuttleLeft(s) : null;
+  },
+  antiphonRail: (w) => antiphonBoss(w)?.rail.length ?? null,
+  orreryRings: (w) => (w.boss?.kind === "orrery" ? ORRERY_RINGS - w.boss.broken : null),
 };
 
 describe("the pages a rehearsal is read off", () => {
@@ -172,7 +189,7 @@ describe("the pages a rehearsal is read off", () => {
       scene.steps.forEach((step, i) => {
         const span = stepSpan(scene, i);
         for (const count of step.counts ?? []) {
-          for (const tick of [span.from, span.to]) {
+          for (const tick of count.played ? [span.to] : [span.from, span.to]) {
             run.restart(tick);
             expect(
               COUNT[count.of](run.world),

@@ -90,25 +90,32 @@ export const THE_CANDLE: GuideScene = {
       text: "EITHER COLOUR DIMS IT",
       anchor: { at: "control", control: "fireRed" },
     },
+    // PLAYER 2 FIRES WHERE HE SAYS stood on the page after the next one, and
+    // both halves are now the field's: her verb stands on the glow, and it
+    // goes quiet while the cannon is anywhere else. So the page takes the
+    // count instead, which a cue may never carry — the steps of glow, and the
+    // halo is the whole of them. It said FIVE HITS until 24 September 2026,
+    // over a halo the first shot had already taken down to four, and it stood
+    // on 600 to 780 with the next dim landing on 756. It names what the halo
+    // shows now (`test/scene-pages.test.ts`), on the one page-long stretch
+    // that holds four from its first frame to its last: straight after the
+    // dim the page before is about.
+    {
+      tick: 420,
+      seat: 2,
+      text: "FOUR MORE PUT IT OUT",
+      anchor: { at: "control", control: "fireCyan" },
+      counts: [{ of: "candleGlow", is: 4 }],
+    },
     // PLAYER 1 FOLLOWS came off this page on 19 September 2026: the field
     // writes MOVE on the cannon the whole time it is out from under the glow
     // (`boss-cue-read-m.ts`), which is the following. What no cue states is
     // why it keeps happening — the light does not stay still.
     {
-      tick: 420,
+      tick: 600,
       seat: 1,
       text: "IT DRIFTS EVERY FEW BEATS",
       anchor: { at: "control", control: "cannon" },
-    },
-    // PLAYER 2 FIRES WHERE HE SAYS stood here, and both halves are now the
-    // field's: her verb stands on the glow, and it goes quiet while the
-    // cannon is anywhere else. So the page takes the count instead, which a
-    // cue may never carry — five steps, and the halo is the whole of them.
-    {
-      tick: 600,
-      seat: 2,
-      text: "FIVE HITS PUT IT OUT",
-      anchor: { at: "control", control: "fireCyan" },
     },
     {
       tick: 780,

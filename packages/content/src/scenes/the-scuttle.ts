@@ -122,7 +122,13 @@ export const THE_SCUTTLE: GuideScene = {
     { tick: 2300, control: "fireCyan", until: 2540 },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "TWENTY-ONE PARTS · COUNT", anchor: { at: "boss" } },
+    {
+      tick: 0,
+      seat: 1,
+      text: "TWENTY-ONE PARTS · COUNT",
+      anchor: { at: "boss" },
+      counts: [{ of: "scuttleParts", is: 21 }],
+    },
     {
       tick: 240,
       seat: 2,
@@ -179,6 +185,10 @@ export const THE_SCUTTLE: GuideScene = {
       anchor: { at: "control", control: "fireCyan" },
     },
     { tick: 2520, seat: 1, text: "DOWN · IT LETS GO IN THREE", anchor: { at: "boss" } },
+    // No `counts`, and not for want of one: the last part went on beat 41 and
+    // the body leaves the field before this page opens, so what it stands in
+    // front of is the empty top of the field — the NONE is the absence, and
+    // there is no boss left for `test/scene-pages.test.ts` to read a zero off.
     { tick: 2700, seat: 1, text: "OUT · NONE LEFT TO COUNT", anchor: { at: "boss" } },
   ],
 };

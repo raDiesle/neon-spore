@@ -125,7 +125,13 @@ export const THE_ORRERY: GuideScene = {
     { tick: 2652, control: "guard" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "THREE RINGS · ONE GAP EACH", anchor: { at: "boss" } },
+    {
+      tick: 0,
+      seat: 1,
+      text: "THREE RINGS · ONE GAP EACH",
+      anchor: { at: "boss" },
+      counts: [{ of: "orreryRings", is: 3 }],
+    },
     {
       tick: 240,
       seat: 2,
@@ -156,6 +162,7 @@ export const THE_ORRERY: GuideScene = {
       seat: 2,
       text: "TWO RINGS · NOW IT IS RED",
       anchor: { at: "control", control: "fireRed" },
+      counts: [{ of: "orreryRings", is: 2 }],
     },
     {
       tick: 1440,

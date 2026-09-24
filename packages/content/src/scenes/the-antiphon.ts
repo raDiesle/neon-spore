@@ -119,7 +119,13 @@ export const THE_ANTIPHON: GuideScene = {
       text: "IT GROWS ONE · SAY ITS SHAPE",
       anchor: { at: "boss", part: "organ" },
     },
-    { tick: 240, seat: 2, text: "THREE ON THE RAIL · WHICH", anchor: { at: "boss", part: "rail" } },
+    {
+      tick: 240,
+      seat: 2,
+      text: "THREE ON THE RAIL · WHICH",
+      anchor: { at: "boss", part: "rail" },
+      counts: [{ of: "antiphonRail", is: 3 }],
+    },
     {
       tick: 420,
       seat: 2,

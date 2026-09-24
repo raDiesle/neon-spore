@@ -481,29 +481,6 @@ the one place the job name could stand as a name, as `THE WARD` does. Once
 answered, change the literals, strike the lines, and send one frame of THE
 FLEET's grip marks.
 
-## The films' pages name counts that no test reads back
-
-- **Found:** 2026-09-23, claude/queue-the-hives-rehearsal-says-five-scars-with-four-on
-- **Taken:** 2026-09-24, claude/queue-nineteen-scene-captions-still-say-lane-plate-war (claim: claude/queue-the-films-pages-name-counts-that-no-test-reads-b)
-- **Files:** `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/`, `packages/content/test/scene-pages.test.ts`
-- **Where:** local
-
-`SceneStep.counts` lets a page say which world field each of its numbers is,
-and `scene-pages.test.ts` reads each one back at both ends of the page. Only
-THE HIVE's `FIVE SCARS · FOUR TO GO` uses it so far. Some sixty other captions
-name a number (`grep -rhoE 'text: "[^"]*(ONE|TWO|THREE|FOUR|FIVE|[0-9])' packages/content/src/scenes/`),
-and most of them are rules, like `A TORCH EVERY EIGHT BEATS`, not counts of
-the field. Go through them and give each one that counts something on the
-field a `counts` entry:
-- `FIVE HITS PUT IT OUT`
-- `OUT · NONE LEFT TO COUNT`
-- `TWO OPEN · TWO COLOURS`
-- `ONE SEALED · ONE SPILLING`
-- `THREE ON THE RAIL · WHICH`
-
-Add a reader to `COUNT` in the test for each new field. A page that fails is
-moved or reworded, the same way THE HIVE's was.
-
 ## A short phone stands the hull between two black side bars
 
 - **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band

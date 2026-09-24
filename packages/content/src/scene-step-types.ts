@@ -160,7 +160,28 @@ export interface SceneStep {
 
 /** A number a page names, and which world field holds it (`scene-pages.test.ts`). */
 export interface SceneCount {
-  /** THE HIVE's sealed sites (`hiveSealedCount`), or those not yet sealed (`hiveLeft`). */
-  of: "hiveScars" | "hiveLeft";
+  /**
+   * THE HIVE's sealed sites (`hiveSealedCount`), those not yet sealed
+   * (`hiveLeft`) and those spilling now (`hiveOpenCount`); THE CANDLE's steps
+   * of glow; THE SCUTTLE's parts in their sockets (`scuttleLeft`); THE
+   * ANTIPHON's candidates on the rail; THE ORRERY's rings still standing.
+   */
+  of:
+    | "hiveScars"
+    | "hiveLeft"
+    | "hiveOpen"
+    | "candleGlow"
+    | "scuttleParts"
+    | "antiphonRail"
+    | "orreryRings";
   is: number;
+  /**
+   * The page plays *into* the number rather than opening on it, so it is read
+   * on the frame the page stands on and not on its first. For a count that
+   * changes on the boundary between two pages that each name it: a page
+   * stands on the next one's first tick, so no tick can be both. THE HIVE's
+   * `ONE SEALED · ONE SPILLING` opens ten ticks before the seal it names, and
+   * `TWO OPEN · TWO COLOURS` before it stands in front of two.
+   */
+  played?: true;
 }

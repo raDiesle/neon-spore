@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — The films' pages that name a count say which
+
+- reading: 0 min. The count test, the candidates, and each boss's reader.
+- writing: 5 min. Readers for five more fields, `played` for a count a
+  page plays into, THE CANDLE's two middle pages swapped, THE HIVE's last
+  page ten ticks sooner.
+- looking: 5 min. A probe printing each count across its page, and one
+  frame of THE CANDLE.
+- friction: 0 min. Delaying THE CANDLE's second shot broke its feed, and
+  the swap replaced it inside a minute.
+- landing: 0 min.
+
+Bottleneck: a count that changes on the tick two pages share cannot be true
+on both, and seeing that took a probe of every tick rather than the test's
+two.
+
 ## 2026-09-24 — Scene captions say shield and column
 
 - reading: 5 min. The `game-words` skill, the nineteen standing lines and

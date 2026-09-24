@@ -180,16 +180,29 @@ export const THE_HIVE: GuideScene = {
       text: "SAY BOTH · HE PICKS ONE",
       anchor: { at: "control", control: "fireRed" },
     },
-    // The two pages the twins are for open on the beat the twins open and the
-    // tick the first is sealed, so each is read from a frame of the
-    // thing it names — and the loop runs a beat past the last page so the
-    // second gets its two seconds, which `test/scene-pages.test.ts` asks for.
-    { tick: 2640, seat: 1, text: "TWO OPEN · TWO COLOURS", anchor: { at: "boss", part: "breach" } },
+    // The two pages the twins are for open on the beat the twins open and ten
+    // ticks before the first is sealed (on 2830). A page stands on the next
+    // one's first tick, so the second opening *on* the seal left the first
+    // standing in front of one open with TWO OPEN over it; now the second
+    // plays into the seal it names (`played`, `test/scene-pages.test.ts`).
+    // The loop runs a beat past the last page so the second gets its two
+    // seconds.
     {
-      tick: 2830,
+      tick: 2640,
+      seat: 1,
+      text: "TWO OPEN · TWO COLOURS",
+      anchor: { at: "boss", part: "breach" },
+      counts: [{ of: "hiveOpen", is: 2 }],
+    },
+    {
+      tick: 2820,
       seat: 2,
       text: "ONE SEALED · ONE SPILLING",
       anchor: { at: "boss", part: "breach" },
+      counts: [
+        { of: "hiveScars", is: 6, played: true },
+        { of: "hiveOpen", is: 1, played: true },
+      ],
     },
   ],
 };

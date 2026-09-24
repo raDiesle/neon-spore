@@ -716,7 +716,7 @@ hand still draws.
 | THE ORRERY | `HOLD THE MIDDLE · IT STANDS` | `THE BEAM USES YOUR COLUMN` | `CARRY` / `MOVE` on the cannon, his alone, whenever it is off the core's column — in every phase the fight has one |
 | THE CANDLE | `PLAYER 2 FIRES · IT DIMS` | `EITHER COLOUR DIMS IT` | `PRESS` / `FIRE` on the glow, hers alone, while the cannon is under it |
 | THE CANDLE | `IT DRIFTS · PLAYER 1 FOLLOWS` | `IT DRIFTS EVERY FEW BEATS` | `CARRY` / `MOVE` on the cannon, his alone, whenever it is off the glow's column |
-| THE CANDLE | `PLAYER 2 FIRES WHERE HE SAYS` | `FIVE HITS PUT IT OUT` | both of the above at once — her verb stands on the glow and goes quiet the moment his cannon leaves its column |
+| THE CANDLE | `PLAYER 2 FIRES WHERE HE SAYS` | `FOUR MORE PUT IT OUT` | both of the above at once — her verb stands on the glow and goes quiet the moment his cannon leaves its column |
 | THE CANDLE | `PLAYER 2 FIRES · CLEAR` | `OFF ITS FACE · IT DIMS` | the same `PRESS` / `FIRE`; the clearing is the half it cannot say, because only he is drawn the cone |
 | THE GORGE | `ONE MORE · IT BURSTS` | `FOUR BEATS OR IT TORCHES` | `PRESS` / `PIERCE` on the intake, hers alone, while the cannon is under it — beside `HOLD` / `PINCH` on his |
 | THE CURTAIN | `HOLD IT · CARRY IT FOUR OVER` | `FOUR OVER AND IT IS CLEAR` | `CARRY` / `SHOVE` on the sheet — `CARRY` is the kind line, so the page was saying the field's word to get to its count |
