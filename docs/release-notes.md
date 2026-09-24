@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 36065c35 — THE GORGE's windows are doubled: two shots through a full intake, two beams under the pry
+
+A full intake now takes two more shots to rupture and vents in eight beats rather than four (`gorgeVentShots`, `gorgeVentBeats`); the gorged mouth takes two beams in its colour inside one pry of eight beats (`gorgePryFills`, `gorgePryBeats`). THE SLOW opens on this boss for the first time and spans every ask the sack holds: up while any intake waits full or the mouth is pried, shut on the tick the last is answered or runs out (`sim/gorge-slow.ts`). The film is re-timed by sixty ticks, and its captions and the wave's guide say the new counts.
+
 ## 2026-09-24 · d12f5891 — The ship's hand ring and its marks fade their line with their glow
 
 The cup under a hand, the navigator's two colours, the slide arrows, the maw's chevrons and the guard's bolt all set `ctx.globalAlpha` before `strokeGlow`, which ignores it. Their glow faded, but the line itself was drawn at full strength, so a desk's hover drew the cup as bright as a held hand's, and an unlit colour's chevron as bright as a lit one's. Each now passes its fade as `alpha`, and the glow's strength is unchanged.
