@@ -146,6 +146,28 @@ describe("the welcome before a device's first tutorial", () => {
     }
   });
 
+  it("writes the three labels clear of one another", () => {
+    // The two icon-only buttons are narrower than the words that name them
+    // (`guide-tide-bar.ts`), so laid on one row PLAY AGAIN's ground covers
+    // BACK's. A label that will not fit beside the one before it steps a row
+    // further from the bar (`guide-welcome.ts`), and this is what that is for.
+    for (const size of SIZES) {
+      const { texts } = welcome(size, 0.5);
+      const rows = ["BACK", "PLAY AGAIN", "NEXT"].map((w) => texts.find((t) => t.text === w));
+      for (const [i, one] of rows.entries()) {
+        expect(one, `${size.width}: no label ${i}`).toBeDefined();
+        for (const two of rows.slice(i + 1)) {
+          const apart =
+            one!.x + one!.w <= two!.x ||
+            two!.x + two!.w <= one!.x ||
+            one!.y + one!.h <= two!.y ||
+            two!.y + two!.h <= one!.y;
+          expect(apart, `${size.width}: ${one!.text} lies over ${two!.text}`).toBe(true);
+        }
+      }
+    }
+  });
+
   it("keeps its title clear of the band the badge stands in", () => {
     for (const size of SIZES) {
       const { texts } = welcome(size, 0);

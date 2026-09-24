@@ -36,7 +36,7 @@ export const CORNER = 9;
  * lobes add, so the deepest point of the wave lands at seven and a half — still
  * shorter than the lid it replaces, at every point of it.
  */
-const CREST_H = 4.5;
+export const CREST_H = 4.5;
 const CREST_IN = 5;
 /**
  * How far the lobes swell either side of that floor.

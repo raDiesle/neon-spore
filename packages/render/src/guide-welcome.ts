@@ -35,6 +35,9 @@ import { PALETTE } from "./palette.js";
 const TITLE_GAP = 30;
 /** How fast the one line that asks for a press breathes. */
 const BREATH = 2.2;
+/** The air a label keeps from the one beside it, and the step it takes back
+ * when there is none to be had. */
+const ROW_CLEAR = 8;
 
 const TITLE = ["WELCOME", "LET'S START WITH THE TUTORIAL"];
 const WAITS = ["THE PICTURE WAITS FOR YOU", "THE BAR TURNS THE PAGES"];
@@ -68,15 +71,37 @@ export function drawGuideWelcome(ctx: CanvasRenderingContext2D, l: Layout, age: 
   // go, each label is placed off its own button rather than off a shared row:
   // one up in the bezel takes its label underneath, one down by the bar takes
   // its label above.
+  //
+  // **And stacked when they will not fit side by side.** A label is as wide as
+  // its word and a button may be as narrow as a sign — BACK and REPLAY are
+  // icon plates 54 across, and PLAY AGAIN is twice that
+  // (`guide-tide-bar.ts`). Written on one line the three grounds lie over each
+  // other, so a label that would touch the one before it steps a row further
+  // from the bar and its leader simply grows. The leader is vertical and runs
+  // from the button's own middle, which no stepped-back label is over: it is
+  // the labels that are wide, not the gaps between the buttons.
   const boxes = [b.back, b.replay, b.next] as const;
   const rowH = labelSize(ctx, [SIGNS[0]]).h;
   let lowest = b.bar.y;
+  /** What is already written on each row, per side, as spans across. */
+  const taken = new Map<string, { x: number; w: number }[]>();
   boxes.forEach((btn, i) => {
     const sign = SIGNS[i]!;
     const { w, h } = labelSize(ctx, [sign]);
     const x = Math.max(6, Math.min(l.width - w - 6, btn.x + btn.w / 2 - w / 2));
     const under = btn.y + btn.h < picture / 2;
-    const y = under ? btn.y + btn.h + 14 : btn.y - LIFT - h - 14;
+    let row = 0;
+    while (
+      (taken.get(`${under}:${row}`) ?? []).some(
+        (was) => x < was.x + was.w + ROW_CLEAR && was.x < x + w + ROW_CLEAR,
+      )
+    ) {
+      row += 1;
+    }
+    const key = `${under}:${row}`;
+    taken.set(key, [...(taken.get(key) ?? []), { x, w }]);
+    const step = row * (h + ROW_CLEAR);
+    const y = under ? btn.y + btn.h + 14 + step : btn.y - LIFT - h - 14 - step;
     const box = { x, y, w, h };
     if (!under) lowest = Math.min(lowest, y);
     drawLabelGround(ctx, box);

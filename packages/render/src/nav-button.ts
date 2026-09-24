@@ -185,7 +185,7 @@ const LOOP_TO = Math.PI * 1.16;
  * positioned correct*. Now the end point and the direction come from one
  * angle — move the gap and the head follows it round without being told.
  */
-function loopSign(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): void {
+export function loopSign(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): void {
   const rr = r * 0.74;
   ctx.lineWidth = Math.max(1.6, r * 0.22);
   ctx.lineCap = "round";

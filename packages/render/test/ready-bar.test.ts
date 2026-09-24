@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { WAVES, waveGuideSteps } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, toReadyPage, type World } from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
+import { GUIDE_LOOK } from "../src/guide-look.js";
 import { computeLayout } from "../src/layout.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
 
@@ -13,14 +14,17 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * A seat on the last page of a guide could always page back — `guideStepHeard`
  * refuses only a seat that has said READY (`sim/guide-steps.ts`) — and the bar
  * under the page carried BACK for it. Nobody could see it: two of the bar's
- * three hang in the top bezel (`guide-tide-bar.ts`) and the gate drew its band
- * *after* the bar, straight over both. The owner, 20 September 2026: *on the
- * Ready? screen it should also be possible to go back through the steps of the
- * tutorial.*
+ * three hung in the top bezel and the gate drew its band *after* the bar,
+ * straight over both. The owner, 20 September 2026: *on the Ready? screen it
+ * should also be possible to go back through the steps of the tutorial.*
  *
- * So the order is the assertion. A button drawn under the thing that covers it
- * is a button that does not exist, and this is the one page in the guide where
- * the two are drawn in the other order.
+ * **Both halves of that are checked, because only one of them moved.** All
+ * three buttons are on the bar at the foot now (`guide-tide-bar.ts`, 24
+ * September 2026), so no band can reach them wherever it is drawn — that is
+ * the geometry below, and it is the assertion that outlives an arrangement.
+ * The order is still the other half: the bar goes on after the band, and NEXT
+ * is the word left on it to say so. A button drawn under the thing that covers
+ * it is a button that does not exist.
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
@@ -51,20 +55,28 @@ function said(texts: TextBox[], word: string): number {
 }
 
 describe("the bar on the gate", () => {
-  it("draws BACK after the band, so the membrane is not over it", () => {
+  it("draws the bar after the band, so the membrane is not over it", () => {
     const texts = gate();
     const band = said(texts, "TUTORIAL");
-    const back = said(texts, "BACK");
+    const next = said(texts, "NEXT");
     expect(band, "the band says TUTORIAL on every page").toBeGreaterThanOrEqual(0);
-    expect(back, "the gate carries BACK").toBeGreaterThanOrEqual(0);
-    expect(back).toBeGreaterThan(band);
+    expect(next, "the gate carries the bar").toBeGreaterThanOrEqual(0);
+    expect(next).toBeGreaterThan(band);
   });
 
-  it("draws the whole bar last, the three of them together", () => {
-    const texts = gate();
-    const band = said(texts, "TUTORIAL");
-    for (const word of ["BACK", "REPLAY", "NEXT"]) {
-      expect(said(texts, word), word).toBeGreaterThan(band);
+  it("keeps the way back clear of the band, wherever the band ends", () => {
+    // BACK and REPLAY carry signs rather than words now, so there is nothing
+    // of theirs in `texts` to order. What the owner asked for is a way back a
+    // thumb can reach, and the geometry says it plainly: both are below the
+    // band's foot, so no drawing order can put one under the other.
+    const l = computeLayout(SIZE, CFG, "p1");
+    const b = GUIDE_LOOK.buttons(l);
+    for (const [word, box] of [
+      ["BACK", b.back],
+      ["REPLAY", b.replay],
+      ["NEXT", b.next],
+    ] as const) {
+      expect(box.y, word).toBeGreaterThanOrEqual(GUIDE_LOOK.bandFoot);
     }
   });
 

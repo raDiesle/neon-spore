@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — The guide's two small buttons join NEXT on the bar
+
+- reading: 15 min. `guide-tide-bar.ts`, `guide-nav.ts`, `guide-look.ts` and
+  the six tests and two drawings that read `GUIDE_LOOK.buttons`.
+- writing: 15 min. The row, the sign plate, the welcome page's stacking, and
+  the two tests that had been written against the words the two used to say.
+- looking: 5 min. One frame of wave 1's first page.
+- friction: 5 min. `bunx tsc` named three tools' packages missing until
+  `bun install` ran in this worktree; nothing was actually wrong with them.
+- landing: 5 min. `check:fast` green first time.
+
+The bottleneck was **reading**: the buttons' geometry is one promise shared by
+a drawing, two hit tests and a director, so moving it meant finding every
+reader before a line moved.
+
 ## 2026-09-24 — Four phone checks confirmed by the owner
 
 - reading: 0 min. The four entries' own closing line.

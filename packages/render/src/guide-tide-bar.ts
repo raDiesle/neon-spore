@@ -1,29 +1,40 @@
 import { halo } from "./glow.js";
 import type { GuideLook } from "./guide-look.js";
 import { inside, type NavBox, type NavButtons } from "./guide-nav.js";
-import { CORNER, plate, wordPlate } from "./guide-tide-plate.js";
+import { arrow, CORNER, CREST_H, plate, wordPlate } from "./guide-tide-plate.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawBeads, loopSign } from "./nav-button.js";
 import { drawNavFeeder } from "./nav-feeder.js";
 import { slab } from "./nav-slab.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 
 /**
- * TIDE's bar, and the two of its three that are not on it.
+ * TIDE's bar, and the row of three a guide is turned by.
  *
  * Out of `guide-tide.ts` on line count on 16 September 2026, when the badge's
  * rows were measured and the file went past 250. The seam is the one the page
  * already has: the band across the top is what a page *is*, and this is what a
  * page is turned by. They share nothing but the plate and the numbers below.
  *
- * **BACK and REPLAY are up in the top bezel**, which is CONSOLE's arrangement
- * and the owner's own reading of it — the thumb's reach at the foot of a phone
- * belongs to the one button that is pressed on every page, so NEXT gets the
- * whole width and the two that are pressed rarely get out of its way. All
- * three say their names: *NEXT must say "Next" in text also, to be easier to
- * find and to click*, and a bar where one of three carries a word and two
- * carry signs is a bar with two kits in it.
+ * **All three are on the bar, in one row, and only NEXT carries a word.** They
+ * were not: BACK and REPLAY hung in the top bezel, which is CONSOLE's
+ * arrangement, and all three said their names. The owner asked for the row on
+ * 24 September 2026 — *the "retry" button navigation I suggest to have left
+ * next to "Next" button, as well the prev button, but much less wide with icon
+ * only both* — and the reading behind it is the one the bezel was meant to
+ * serve: a page is turned with one thumb at the foot of the phone, so the two
+ * that turn it the other way should be under that thumb too, not an inch from
+ * the notch. They are `SMALL_W` wide against NEXT's remainder, which is what
+ * keeps the press a pair makes on every page the easy one to find.
+ *
+ * **A sign on the two, the word on NEXT.** A word costs width and there is
+ * none left at this size, and the two signs are the bar's own from before TIDE
+ * (`nav-button.ts`): the grown arrow and the loop with a head on its line.
+ * NEXT keeps its word, which is the owner's one standing ask of this bar —
+ * *NEXT must say "Next" in text also, to be easier to find and to click* — and
+ * it is the button that had the room.
  *
  * **The pages are drawn to be counted.** CONSOLE filled the ones already read
  * in amber and the rest in `#332B57` on a near-black bezel — *can we make the
@@ -36,22 +47,39 @@ import { seatSkin } from "./seat-skin.js";
 export const NAV_HEIGHT = 96;
 
 const WORD_FONT = '700 20px "Courier New",monospace';
-const SMALL_FONT = '700 13px "Courier New",monospace';
 
-const SMALL_W = 78;
-const SMALL_H = 42;
+/**
+ * How wide an icon-only button is, and the floor it shrinks to.
+ *
+ * A share of the stage rather than a fixed number, because the row has to hold
+ * on a 240-wide screen as well as on a tablet: two of these and NEXT's word
+ * share one width, and a pair of plates that stayed 54 wide would leave NEXT
+ * too narrow to read at the bottom of that range.
+ */
+const SMALL_W = 54;
+const SMALL_MIN = 38;
 const NEXT_H = 58;
 const GAP = 12;
+/** Between the two small ones and NEXT: closer than the bar's own margin, so
+ * the three read as one row rather than as a pair and a button. */
+const ROW_GAP = 10;
+/** How big a sign on an icon-only plate is. NEXT's own arrow is eleven, and
+ * the three read as one kit only while they are the same size. */
+const SIGN_R = 11;
 /** Seconds the bar stays lit after a press on the picture (`guide-nav.ts`). */
 const NUDGE_S = 0.6;
 
 export function buttons(l: Layout): NavButtons {
   const top = l.height - NAV_HEIGHT;
+  const edge = GAP + 8;
+  const small = Math.max(SMALL_MIN, Math.min(SMALL_W, Math.round(l.width * 0.14)));
+  const y = top + 26;
+  const step = small + ROW_GAP;
   return {
     bar: { x: 0, y: top, w: l.width, h: NAV_HEIGHT },
-    back: { x: GAP, y: 26, w: SMALL_W, h: SMALL_H },
-    replay: { x: l.width - GAP - SMALL_W, y: 26, w: SMALL_W, h: SMALL_H },
-    next: { x: GAP + 8, y: top + 26, w: l.width - GAP * 2 - 16, h: NEXT_H },
+    back: { x: edge, y, w: small, h: NEXT_H },
+    replay: { x: edge + step, y, w: small, h: NEXT_H },
+    next: { x: edge + step * 2, y, w: l.width - edge * 2 - step * 2, h: NEXT_H },
   };
 }
 
@@ -70,37 +98,42 @@ export const nav: GuideLook["nav"] = (ctx, l, s) => {
     ? 0
     : Math.max(nudge, s.played ? 0.55 + 0.45 * Math.abs(Math.sin(age * 2.4)) : 0);
 
-  // The two small ones hang off the top bezel the way the bar's hang off the
-  // bar: nothing on this page simply sits where it was put.
-  drawNavFeeder(ctx, b.back.x + b.back.w / 2, 2, b.back.y + 6, PALETTE.hull, age * 1.1);
+  // All three hang off the bar's own membrane, each on its own clock: nothing
+  // on this page simply sits where it was put.
+  drawNavFeeder(ctx, b.back.x + b.back.w / 2, b.bar.y + 2, b.back.y + 8, PALETTE.hull, age * 1.1);
   drawNavFeeder(
     ctx,
     b.replay.x + b.replay.w / 2,
-    2,
-    b.replay.y + 6,
+    b.bar.y + 2,
+    b.replay.y + 8,
     PALETTE.shieldRim,
     age * 1.1 + 2.1,
   );
-  wordPlate(
+  drawNavFeeder(
+    ctx,
+    b.next.x + b.next.w / 2,
+    b.bar.y + 2,
+    b.next.y + 8,
+    PALETTE.pod,
+    age * 1.1 + 4.2,
+  );
+  signPlate(
     ctx,
     { ...b.back, ...paint, live: canBack, hex: PALETTE.hull, glow: 0, hover: over(b.back) },
-    "BACK",
-    -1,
-    SMALL_FONT,
-    7,
+    "back",
   );
-  // REPLAY says its name too. The shipped bar puts a loop sign here, and the
-  // owner's ask was that a button be easier to find and to click — which is
-  // the argument for the word, and it makes all three one shape.
-  replayPlate(ctx, {
-    ...b.replay,
-    ...paint,
-    live: s.replay ?? false,
-    hex: PALETTE.shieldRim,
-    glow: 0,
-    hover: over(b.replay),
-  });
-  drawNavFeeder(ctx, l.width / 2, b.bar.y + 2, b.next.y + 8, PALETTE.pod, age * 1.1 + 4.2);
+  signPlate(
+    ctx,
+    {
+      ...b.replay,
+      ...paint,
+      live: s.replay ?? false,
+      hex: PALETTE.shieldRim,
+      glow: 0,
+      hover: over(b.replay),
+    },
+    "replay",
+  );
   wordPlate(
     ctx,
     { ...b.next, ...paint, live: !last, hex: PALETTE.pod, glow, hover: over(b.next) },
@@ -112,17 +145,33 @@ export const nav: GuideLook["nav"] = (ctx, l, s) => {
   steps(ctx, l, s.page, s.pages);
 };
 
-/** REPLAY: the plate with its name centred on it and no arrow either side. */
-function replayPlate(
+/**
+ * An icon-only plate: TIDE's cut body with one of the bar's own signs on the
+ * face of it, centred, and a bead hanging off the sign the way NEXT's arrow
+ * has one.
+ *
+ * **The signs are `nav-button.ts`'s**, not new ones. That file drew the whole
+ * bar before TIDE and its two shapes — the grown arrow with the concave back,
+ * the loop with a head tangent to its own line — were each argued out with the
+ * owner. A second pair drawn here would be the same two shapes disagreeing.
+ */
+function signPlate(
   ctx: CanvasRenderingContext2D,
   p: NavBox & { live: boolean; hex: string; glow: number; hover: boolean },
+  sign: "back" | "replay",
 ): void {
   plate(ctx, p, p);
-  ctx.font = SMALL_FONT;
-  ctx.fillStyle = p.live ? (p.hover ? "#FFF6E4" : p.hex) : "#3A3160";
-  ctx.textAlign = "center";
-  ctx.fillText("REPLAY", p.x + p.w / 2, p.y + p.h / 2 + 10);
-  ctx.textAlign = "left";
+  const lit = p.live && (p.hover || p.glow > 0);
+  const size = SIGN_R * (1 + 0.12 * p.glow);
+  ctx.fillStyle = p.live ? (lit ? "#FFF6E4" : p.hex) : "#3A3160";
+  ctx.strokeStyle = ctx.fillStyle;
+  // On the middle of the body below the crest, the way a word is: the crest
+  // takes the top of the plate and a sign centred on the box rides high.
+  const cy = p.y + (p.h + CREST_H) / 2;
+  const cx = p.x + p.w / 2;
+  if (sign === "replay") loopSign(ctx, cx, cy, size);
+  else arrow(ctx, cx, cy, size, -1);
+  if (p.live) drawBeads(ctx, cx + size * 0.1, cy + size * 1.05, size);
 }
 
 /**
