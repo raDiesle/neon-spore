@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## The first of two shots or beams makes no sign: THE GORGE, THE TASTER
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-baton (claim: claude/queue-the-first-of-two-shots-or-beams-makes-no-sign-th)
 - **Files:** `packages/sim/src/gorge-step.ts`, `packages/sim/src/events-gorge.ts`, `packages/render/src/gorge-fx.ts`, `packages/audio/src/`, `.claude/skills/new-boss-state/SKILL.md`
 
 Since the doubled window a full intake takes `gorgeVentShots` (2) and the
