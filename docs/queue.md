@@ -484,6 +484,7 @@ FLEET's grip marks.
 ## The films' pages name counts that no test reads back
 
 - **Found:** 2026-09-23, claude/queue-the-hives-rehearsal-says-five-scars-with-four-on
+- **Taken:** 2026-09-24, claude/queue-nineteen-scene-captions-still-say-lane-plate-war (claim: claude/queue-the-films-pages-name-counts-that-no-test-reads-b)
 - **Files:** `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/`, `packages/content/test/scene-pages.test.ts`
 - **Where:** local
 
