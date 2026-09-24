@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE TASTER's pry is doubled
+
+- reading: 0 min. THE TASTER's step, shot and hand, its two slows, and the
+  director's closed-fan hand.
+- writing: 5 min. Twelve beats and two beams, THE SLOW moved from the set to
+  the pry, the tests, the guide, the director's margin read off the beams
+  still owed, §11.25, and THE LEAD's entry rewritten to stand alone.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 10 min. The guide line went one word over the words budget, and
+  only `land`'s full check said so: `check:fast` never runs that contract
+  for a wave (queued).
+
+Bottleneck: a full check spent on one word that a quarter-second test in the
+fast check would have caught.
+
 ## 2026-09-24 — THE GORGE's windows are doubled
 
 - reading: 5 min. The Doubled table, THE GORGE's step, pry and hand, and

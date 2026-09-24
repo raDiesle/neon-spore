@@ -1,6 +1,5 @@
 import { midCol } from "./config.js";
 import { nextInt } from "./rng.js";
-import { openSlow } from "./slow.js";
 import {
   type TasterBlade,
   type TasterState,
@@ -52,9 +51,10 @@ export function installTaster(world: World): TasterState {
 }
 
 /**
- * Every blade whose growth is up **sets its colour**, off the ledger — the one
- * beat of this fight the design gives THE SLOW, because it is the moment the
- * pair learns whether their last conversation worked.
+ * Every blade whose growth is up **sets its colour**, off the ledger — the
+ * moment the pair learns whether their last conversation worked. It held THE
+ * SLOW for a beat until 24 September 2026, when the slow moved to the pry,
+ * the one ask in this fight with a clock on it (`taster-hand.ts`).
  *
  * Several setting on one beat read the same window and therefore set the same
  * colour, which is the design's *three blades in that same colour at once* with
@@ -78,7 +78,6 @@ function setEdges(world: World, t: TasterState): void {
     k.layers = 1;
     k.setBeat = world.beat;
     world.events.push({ type: "tasterSet", col: t.col + i, color: k.edge });
-    openSlow(world, cfg.tasterSlowBeats);
     if (!held) continue;
     // Held to the end, and the edge came up heavy for it: the bet's other
     // side, and the reason a pin is not a free look at the ledger.
@@ -125,7 +124,6 @@ function reEdge(world: World, t: TasterState): void {
   }
   if (!moved) return;
   world.events.push({ type: "tasterTaste", color: lean });
-  openSlow(world, cfg.tasterSlowBeats);
 }
 
 /**
@@ -160,6 +158,7 @@ function stepTasterHands(world: World, t: TasterState): void {
   if (t.pryBeat >= 0 && !tasterPried(t, world.beat, cfg)) {
     t.pryBeat = -1;
     t.pryMilli = 0;
+    t.pryFills = 0;
     world.events.push({
       type: "tasterClose",
       col: t.col + Math.floor(t.blades.length / 2),

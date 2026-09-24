@@ -37,9 +37,9 @@ export const WAVES_ACT_7F: Wave[] = [
     name: "THE TASTER",
     sentence: "The one where the colour you keep firing is the colour that stops working.",
     guide: {
-      both: "Strike each blade off with the colour it is not. Cut the gaps to stop the fan re-edging. The last two lock over the body. Pull them apart, then beam.",
+      both: "Strike each blade off with the colour it is not. Cut the gaps to stop the fan re-edging. The last two lock over the body. Pull them apart, beam twice.",
       p1: "1. Say the colour on the next blade.\n2. Hold the cannon on that blade's column.\n3. Once three grow at once, hold one so it cannot decide.\n4. On the last two, drag the locked blades apart for the beam.",
-      p2: "1. Fire the colour the blade is not.\n2. Keep the colours level: the next blade takes the one you use most.\n3. Drag across a gap: it cuts and costs no colour.\n4. Beam the colour you fired least, once they are apart.",
+      p2: "1. Fire the colour the blade is not.\n2. Keep the colours level: the next blade takes the one you use most.\n3. Drag across a gap: it cuts and costs no colour.\n4. Once they are apart, beam twice the colour you fired least.",
       scene: "theTaster",
     },
     entries: [

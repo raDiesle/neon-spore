@@ -89,7 +89,7 @@ export const CLOCK_HAND_POSES: Pose[] = [
   bossPose(
     "taster",
     "out",
-    "The beam went through the closed fan and the taster is out. P1 aims at the wave again; P2 fires.",
+    "Two beams went through the closed fan and the taster is out. P1 aims at the wave again; P2 fires.",
     { hand: tasterHand, want: tasterIs("out"), hold: 6 },
   ),
   bossPose(

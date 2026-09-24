@@ -1,4 +1,5 @@
 import { metColor, missedColor } from "./balance.js";
+import { closeSlow } from "./slow.js";
 import {
   type TasterBlade,
   type TasterState,
@@ -142,6 +143,9 @@ export function tasterStruck(world: World, bullet: Bullet): void {
  *
  * A refused bolt counts nothing for its own reason, which has not changed: a
  * single shot never reached this fan and never will.
+ *
+ * **Two beams since 24 September 2026** (`tasterPryFills`): each right one is
+ * a colour met, and the last inside the pry ends the fight and the slow.
  */
 function interlock(world: World, t: TasterState, bullet: Bullet, col: number): void {
   if (!bullet.lance || !tasterPried(t, world.beat, world.cfg)) {
@@ -155,6 +159,9 @@ function interlock(world: World, t: TasterState, bullet: Bullet, col: number): v
     return;
   }
   metColor(world);
+  t.pryFills += 1;
+  if (t.pryFills < world.cfg.tasterPryFills) return;
+  closeSlow(world);
   t.outBeat = world.beat;
   world.events.push({ type: "tasterOut", col, color: want });
 }

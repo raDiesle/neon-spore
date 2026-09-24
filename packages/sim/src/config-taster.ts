@@ -48,8 +48,8 @@ export interface TasterConfig {
   tasterPryMilli: number;
   /** Beats the prised interlock stands open, which is the beam's whole window. */
   tasterPryBeats: number;
-  /** Beats THE SLOW holds as a blade's colour crystallises. */
-  tasterSlowBeats: number;
+  /** Beams in the weak colour the interlock takes inside one pry before it opens. */
+  tasterPryFills: number;
   /** Beats the fan stands unlocked after the beam, before the wave may end. */
   tasterOutBeats: number;
 }
@@ -74,6 +74,13 @@ export interface TasterConfig {
  * interlock stands open six beats, the beam takes three to fill, and the three
  * left over are the pair's whole margin — the margin THE CANDLE's smoke gives,
  * read off the same number (`config-candle.ts`).
+ *
+ * **Doubled on the owner's rule, 24 September 2026**
+ * (`docs/spec/choreographed-windows.md`): the interlock takes
+ * `tasterPryFills` beams now, and stands open twelve beats — two fills are
+ * six, and the six left over are the same margin twice. THE SLOW that used to
+ * mark a blade's colour setting moved to the pry, and spans it exactly
+ * (`taster-hand.ts`).
  */
 export const TASTER_DEFAULTS: TasterConfig = {
   tasterBlades: 11,
@@ -90,7 +97,7 @@ export const TASTER_DEFAULTS: TasterConfig = {
   tasterPinBeats: 3,
   tasterWipeMilli: 900,
   tasterPryMilli: 1900,
-  tasterPryBeats: 6,
-  tasterSlowBeats: 1,
+  tasterPryBeats: 12,
+  tasterPryFills: 2,
   tasterOutBeats: 2,
 };

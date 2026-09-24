@@ -186,8 +186,10 @@ export const CHOREO_NOTES = {
     "cuts into the gaps open the crest and stop it. With tasterClosedBlades " +
     "left the fan closes over the body and nothing reaches it until player 1 " +
     "has carried the interlock tasterPryMilli apart; it stands open " +
-    "tasterPryBeats, and the beam in the colour they have spent least of ends " +
-    "it inside that, holding the wave tasterOutBeats more. Three of its " +
+    "tasterPryBeats, and tasterPryFills beams in the colour they have spent " +
+    "least of end it inside that, holding the wave tasterOutBeats more. THE " +
+    "SLOW spans the pry exactly (doubled on the owner's rule, 24 September " +
+    "2026). Three of its " +
     "movements are answered on the fan itself: player 1 holds a growing blade " +
     "out of its decision for tasterPinBeats, after which it sets thick, and " +
     "player 2 carries a thumb tasterWipeMilli across a soft column to cut the " +

@@ -5115,12 +5115,14 @@ bolt of either colour, counts nothing on the balance sheet, and is still a
 colour spent into the ledger, which is the whole trap. With two blades left
 they **interlock** over the body and no single bolt of either colour touches
 them: nothing reaches the interlock at all until the pilot has hauled it
-apart, and then **the beam in the colour the ledger says the pair has spent
-least of** opens the fan (`tasterWeak`, `tasterOut`), and the boss stays
-installed `tasterOutBeats` (2) beats more so the wave cannot end on the beat
-the fan does. The beat an edge sets is the one beat of this fight given THE
-SLOW, `tasterSlowBeats` (1), because it is the moment the pair learns whether
-their last conversation worked.
+apart, and then **`tasterPryFills` (2) beams in the colour the ledger says
+the pair has spent least of** open the fan (`tasterWeak`, `tasterOut`), and
+the boss stays installed `tasterOutBeats` (2) beats more so the wave cannot
+end on the beat the fan does. The colour is read as each beam lands, so a
+close ledger the first beam turned over asks the other colour of the second
+— the read on the navigator's screen says which. THE SLOW spans the pry
+exactly: opened with it, shut by the last beam or run out on the beat the
+interlock locks again.
 
 **Three movements are answered on the fan and not on the panel**
 (`sim/taster-hand.ts`, 19 September 2026, the §6.2 ask). The fight shipped as
@@ -5145,12 +5147,12 @@ question was whose hands are free in which movement.
   arrived is gone for good (`latency.md`), and one cut per grab.
 - **`closed` is the pilot's pry** (`tasterLock`, no `id`: there is one
   interlock and it is the boss). `fromYMilli` against `tasterPryMilli` (1900),
-  read the way THE CANDLE's wick is, and what it buys is `tasterPryBeats` (6)
-  beats in which her beam is worth something — outside them the fan refuses it
-  exactly as it refuses a bolt, and the window shutting undone locks the fan
-  again with `tasterClose` and the pry to make afresh. Six beats against
-  `lancePrimeBeats` (3) leaves the pair three beats of margin, which is the
-  margin THE CANDLE's smoke gives read off the same number. He may let go the
+  read the way THE CANDLE's wick is, and what it buys is `tasterPryBeats` (12)
+  beats in which her beams are worth something — outside them the fan refuses
+  them exactly as it refuses a bolt, and the window shutting undone locks the
+  fan again with `tasterClose` and the pry, and both beams, to make afresh.
+  Twelve beats against two fills of `lancePrimeBeats` (3) leaves the pair six
+  beats of margin. He may let go the
   moment it is open: the window is a beat count and not a hold, and his hands
   are the cannon she still needs under the crest.
 
@@ -5349,7 +5351,13 @@ has to be is shown to neither seat (`tasterWeak`).
 *never shoot a column whose blade is gone*, which is the opposite of the rule:
 those four shots into the gaps are the only answer to the third movement
 (`reEdge`, and `taster-step.ts` says so in as many words). Corrected with this
-lane. `render/test/boss-cue-taster.test.ts` proves the six cases.
+lane. `render/test/boss-cue-taster.test.ts` proves the six cases.**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `tasterPryBeats` 6 → 12 and the
+interlock two beams (`tasterPryFills`), and THE SLOW moved from the beat a
+blade's colour sets, which asks for nothing, to the pry, which is the one
+ask here with a clock on it. The first beam has no picture or sound of its
+own yet (`docs/queue.md`).
+
 ## 11.26 THE SINEW — the boss that asks how hard, not when
 
 > The one where the answer is a magnitude, and neither of you can see the

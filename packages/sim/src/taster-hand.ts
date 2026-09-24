@@ -1,4 +1,5 @@
 import type { SimConfig } from "./config.js";
+import { openSlow } from "./slow.js";
 import {
   type TasterState,
   tasterBladeAt,
@@ -46,8 +47,8 @@ import type { World } from "./world.js";
  * - `tasterLock` — **the pilot's, on the `closed` interlock.** It used to fall
  *   to the beam alone. It falls to two seats now: his carry hauls the last
  *   blades `tasterPryMilli` off each other and they stand open
- *   `tasterPryBeats`, and her beam in the colour the ledger says they are
- *   short of has to land inside that. He may let go the moment it is open —
+ *   `tasterPryBeats`, and `tasterPryFills` of her beams in the colour the
+ *   ledger says they are short of have to land inside that. He may let go the moment it is open —
  *   the window is a beat count and not a hold — because his hands are the
  *   cannon and she still needs him under the crest.
  *
@@ -94,9 +95,9 @@ export function tasterPryable(t: TasterState, beat: number, cfg: SimConfig): boo
 /** All three hands at rest, for the fan's own install — their fields, in their file. */
 export function tasterHandsFresh(): Pick<
   TasterState,
-  "pin" | "pinBeats" | "wipe" | "wiped" | "pryMilli" | "pryBeat"
+  "pin" | "pinBeats" | "wipe" | "wiped" | "pryMilli" | "pryBeat" | "pryFills"
 > {
-  return { pin: -1, pinBeats: 0, wipe: -1, wiped: false, pryMilli: 0, pryBeat: -1 };
+  return { pin: -1, pinBeats: 0, wipe: -1, wiped: false, pryMilli: 0, pryBeat: -1, pryFills: 0 };
 }
 
 export function tasterHandsHeard(world: World, player: 1 | 2, command: Command): void {
@@ -180,6 +181,10 @@ function wipe(world: World, t: TasterState, on: boolean, col: number, fromMilli:
  * `Math.max(0, …)` is — THE CANDLE's wick, read the same way. The bottom is
  * the event, and the depth is left standing where it is so the picture has
  * something to draw a half-opened interlock from until he lifts.
+ *
+ * **THE SLOW spans the window exactly** (`docs/decisions.md` #33): opened
+ * here for `tasterPryBeats`, so it runs out on the beat the interlock locks
+ * again, and shut by `closeSlow` in `taster-shot.ts` when the last beam lands.
  */
 function pry(world: World, t: TasterState, on: boolean, fromYMilli: number): void {
   if (!on) {
@@ -191,5 +196,7 @@ function pry(world: World, t: TasterState, on: boolean, fromYMilli: number): voi
   t.pryMilli = Math.max(0, Math.min(cfg.tasterPryMilli, Math.round(fromYMilli)));
   if (t.pryMilli < cfg.tasterPryMilli) return;
   t.pryBeat = world.beat;
+  t.pryFills = 0;
+  openSlow(world, cfg.tasterPryBeats);
   world.events.push({ type: "tasterPry", col: t.col + Math.floor(t.blades.length / 2) });
 }

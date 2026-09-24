@@ -311,9 +311,9 @@ describe("the pry", () => {
     expect(seen.has("tasterClose")).toBe(true);
   });
 
-  it("leaves the pair beats of margin the beam can be filled in", () => {
+  it("leaves the pair beats of margin every beam can be filled in", () => {
     // The whole reason the number is what it is (`config-taster.ts`).
-    expect(CFG.tasterPryBeats).toBeGreaterThan(CFG.lancePrimeBeats);
+    expect(CFG.tasterPryBeats).toBeGreaterThan(CFG.tasterPryFills * CFG.lancePrimeBeats);
   });
 
   it("cannot be restarted inside its own window", () => {

@@ -72,9 +72,6 @@ const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null;
 /** The first tick of a beat, where a fill has to start to finish on one. */
 const onBeat = (w: World): boolean => w.tick % TPB === 0;
 
-/** The lead the closed fan is opened against: the beam's own spend counts, and the margin has to survive it. */
-const TASTER_MARGIN = 3;
-
 /**
  * THE TASTER: a set blade breaks to the colour opposite its edge, so the
  * hand shoots the nearest standing edged blade with the other colour
@@ -85,7 +82,9 @@ const TASTER_MARGIN = 3;
  * crest until the margin is safe, then hauls the interlock apart and holds
  * the minority down inside the same tick. The two go together because the
  * window is `tasterPryBeats` and the fill is `lancePrimeBeats`, and starting
- * the fill after the haul is the only order that lands inside it.
+ * the fill after the haul is the only order that lands inside it. The margin
+ * is one more than the beams still owed (`tasterPryFills`), because each
+ * beam's own spend narrows it by one and the last must still find it leaning.
  */
 export const tasterHand: Hand = (w) => {
   const t = tasterBoss(w);
@@ -98,7 +97,7 @@ export const tasterHand: Hand = (w) => {
     const red = spentOver(w, tasterWindow(t, w.cfg), "red");
     const cyan = spentOver(w, tasterWindow(t, w.cfg), "cyan");
     const hi: Color = red >= cyan ? "red" : "cyan";
-    if (Math.abs(red - cyan) >= TASTER_MARGIN) {
+    if (Math.abs(red - cyan) > w.cfg.tasterPryFills - t.pryFills) {
       const out: Press[] = [];
       // Again if the window shut with nothing in it: the fan locks back over
       // the body and the haul is simply made afresh (`taster-step.ts`).

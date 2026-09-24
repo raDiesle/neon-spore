@@ -196,7 +196,7 @@ export const CHOREO_FIELD_GROUP = {
     "THE TASTER — the boss that grows its armour in the colour you have been spending",
   tasterPryBeats:
     "THE TASTER — the boss that grows its armour in the colour you have been spending",
-  tasterSlowBeats:
+  tasterPryFills:
     "THE TASTER — the boss that grows its armour in the colour you have been spending",
   tasterOutBeats:
     "THE TASTER — the boss that grows its armour in the colour you have been spending",

@@ -53,8 +53,8 @@ import type { World } from "./world.js";
  * - **closed**, with `tasterClosedBlades` left — the last blades interlock over
  *   the body, edged in both colours, and nothing reaches them at all until the
  *   pilot has carried the interlock `tasterPryMilli` apart. It stands open
- *   `tasterPryBeats`, and in that window the beam in the colour the ledger says
- *   the pair has spent **least** of opens it.
+ *   `tasterPryBeats`, and in that window `tasterPryFills` beams in the colour
+ *   the ledger says the pair has spent **least** of open it.
  * - **out** — the fan unlocks outward and the boss stands `tasterOutBeats` more
  *   so the wave cannot end on the same beat.
  *
@@ -117,6 +117,8 @@ export interface TasterState {
   pryMilli: number;
   /** `world.beat` the interlock was prised open on; `-1` while it is shut. */
   pryBeat: number;
+  /** Beams in the weak colour taken inside this pry, out at `tasterPryFills`. */
+  pryFills: number;
   /** `world.beat` the beam ended it on; `-1` while it stands. */
   outBeat: number;
 }
@@ -226,13 +228,10 @@ export function tasterOrder(width: number): number[] {
 
 /**
  * **Whether the interlock stands prised apart**, and therefore whether the
- * beam reaches anything at all.
- *
- * A pure function of the beat the pilot's carry reached the bottom on, for
- * `tasterPhase`'s reason said about a window rather than a movement: a flag
- * stepped down once a beat would be read by `tasterStruck` on the tick, which
- * is the other side of `onBeat` from where it was written, and the tick a
- * beam lands on is the whole of what this window decides.
+ * beam reaches anything at all. A pure function of the beat the carry reached
+ * the bottom on, for `tasterPhase`'s reason: a flag stepped down once a beat
+ * would be read by `tasterStruck` on the other side of `onBeat` from where it
+ * was written, and the tick a beam lands on is what this window decides.
  */
 export function tasterPried(t: TasterState, beat: number, cfg: SimConfig): boolean {
   return t.pryBeat >= 0 && beat - t.pryBeat < cfg.tasterPryBeats;

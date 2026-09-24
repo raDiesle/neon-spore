@@ -76,6 +76,11 @@ function shot(world: World, col: number, color: Color = "red", lance = false): B
   return { id: world.nextId++, col, row: 0, subMilli: 0, color, lance, driftMilli: 0, aimMilli: 0 };
 }
 
+/** `n` beams of one colour into the interlock, `tasterPryFills` unless said. */
+function beams(world: World, t: TasterState, color: Color, n = CFG.tasterPryFills): void {
+  for (let i = 0; i < n; i++) tasterStruck(world, shot(world, t.col, color, true));
+}
+
 /** `n` colours out of the muzzle, without a shot on the field. */
 function spend(world: World, n: number, color: Color): void {
   for (let i = 0; i < n; i++) spendShot(world, color);
@@ -140,7 +145,7 @@ describe("the crest arriving", () => {
 });
 
 describe("the colour a blade grows in", () => {
-  it("is the colour the pair has been leaning on, and slows the beat it sets", () => {
+  it("is the colour the pair has been leaning on, and no longer slows the beat it sets", () => {
     const world = open();
     const t = fan(world);
     spend(world, 5, "cyan");
@@ -150,7 +155,8 @@ describe("the colour a blade grows in", () => {
     expect(seen.has("tasterSet")).toBe(true);
     expect(tasterStanding(t)).toBe(1);
     expect(t.blades.find((k) => k.setBeat >= 0)?.edge).toBe("cyan");
-    expect(slowing(world)).toBe(true);
+    // THE SLOW moved to the pry on 24 September 2026 (`taster-hand.ts`).
+    expect(slowing(world)).toBe(false);
   });
 
   it("is rolled off the seeded rng on a dead heat, the same way on both devices", () => {
@@ -356,11 +362,35 @@ describe("the interlock", () => {
     spend(world, 5, "red");
     pryOpen(world, t);
     expect(tasterWeak(world, t)).toBe("cyan");
-    tasterStruck(world, shot(world, t.col, "cyan", true));
+    beams(world, t, "cyan", CFG.tasterPryFills - 1);
+    expect(t.outBeat).toBe(-1);
+    expect(world.events.some((e) => e.type === "tasterOut")).toBe(false);
+    beams(world, t, "cyan", 1);
     expect(t.outBeat).toBe(world.beat);
     expect(tasterPhase(t, CFG)).toBe("out");
-    expect(world.balance.colorHits).toBe(1);
+    expect(world.balance.colorHits).toBe(CFG.tasterPryFills);
     expect(world.events.some((e) => e.type === "tasterOut")).toBe(true);
+  });
+
+  it("slows the beat for exactly the pry, and the last beam shuts it", () => {
+    const { world, t } = closed();
+    spend(world, 5, "red");
+    expect(slowing(world)).toBe(false);
+    pryOpen(world, t);
+    expect(world.slowToBeat).toBe(world.beat + CFG.tasterPryBeats);
+    beams(world, t, "cyan");
+    expect(slowing(world)).toBe(false);
+  });
+
+  it("lets a pry that runs out take its slow and its beams with it", () => {
+    const { world, t } = closed();
+    spend(world, 5, "red");
+    pryOpen(world, t);
+    beams(world, t, "cyan", CFG.tasterPryFills - 1);
+    beats(world, CFG.tasterPryBeats + 1);
+    expect(tasterPried(t, world.beat, CFG)).toBe(false);
+    expect(t.pryFills).toBe(0);
+    expect(slowing(world)).toBe(false);
   });
 
   it("refuses the beam in the colour it has been fed, and counts that miss", () => {
@@ -389,7 +419,7 @@ describe("the interlock", () => {
     const { world, t } = closed();
     spend(world, 5, "red");
     pryOpen(world, t);
-    tasterStruck(world, shot(world, t.col, "cyan", true));
+    beams(world, t, "cyan");
     beats(world, CFG.tasterOutBeats - 1);
     expect(tasterBoss(world)).not.toBeNull();
     beats(world, 2);
@@ -400,7 +430,7 @@ describe("the interlock", () => {
     const { world, t } = closed();
     spend(world, 5, "red");
     pryOpen(world, t);
-    tasterStruck(world, shot(world, t.col, "cyan", true));
+    beams(world, t, "cyan");
     const hits = world.balance.colorHits;
     tasterStruck(world, shot(world, t.col, "cyan", true));
     expect(world.balance.colorHits).toBe(hits);

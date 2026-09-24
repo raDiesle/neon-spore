@@ -536,24 +536,22 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The doubled window: THE TASTER and THE LEAD
+## The doubled window: THE LEAD
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
-- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the (claim: claude/queue-the-doubled-window-the-taster-and-the-lead)
-- **Files:** `packages/sim/src/config-taster.ts`, `packages/sim/src/config-lead.ts`, `packages/sim/src/taster-step.ts`, `packages/sim/src/taster-shot.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/src/lead-shot.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/sim/test/taster-hand.test.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
+- **Files:** `packages/sim/src/config-lead.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/src/lead-shot.ts`, `packages/sim/src/lead-hand.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/test/scene-lead.test.ts`, `packages/content/src/waves/`, `tools/director/src/boss-hands-clocks.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
 
-The two left of the lane that did THE GORGE (`sim/gorge-slow.ts` is the
-pattern: THE SLOW read off the asks standing, called after every change).
-Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
-`tasterPryBeats` 6 → 12 with `tasterPryFills` at two; `leadStillBeats` 4 → 8,
-`leadHoldBeats` 8 → 16 and `leadStillFills` at two. Both move THE SLOW from
-where they open it today (`taster-step.ts`, `lead-step.ts`) to the ask, shut
-by `closeSlow` on both exits. Re-time each film against its
-`scene-<boss>.test.ts` rather than loosen it, say the new counts in the
-guide (`content/src/waves/`), give a director pose that no longer reaches its
-state a bigger `budgetBeats`, and add the dated line to `bosses.md` §11.n.
-`taster-hand.test.ts` holds the pry longer than a fill. One boss a sitting:
-THE TASTER first.
+The last of the three bosses the GORGE lane was queued with; THE GORGE and
+THE TASTER landed on 24 September 2026. Per
+`docs/spec/choreographed-windows.md`'s **Doubled** table: `leadStillBeats`
+4 → 8, `leadHoldBeats` 8 → 16, and `leadStillFills` at two. THE SLOW moves
+from where `lead-step.ts` opens it today to the ask, shut by `closeSlow` on
+both exits — THE TASTER's is the nearest pattern (`taster-hand.ts` opens it
+with the pry for exactly its beats, `taster-shot.ts` shuts it on the last
+beam). Re-time the film against `scene-lead.test.ts` rather than loosen it,
+say the new counts in the guide, give the director's hand
+(`boss-hands-clocks.ts`) the second fill, and add the dated line to
+`bosses.md` §11.n.
 
 ## The doubled window: THE UNDERTOW, THE BELLOWS, THE HASP and THE BATON
 
@@ -573,14 +571,16 @@ tests' relations: THE UNDERTOW's breach wide before the stand runs out
 (`undertow.test.ts`), THE BATON's acts equal to its final beats
 (`baton.test.ts`). One boss a sitting.
 
-## The first of THE GORGE's two shots, and of its two beams, makes no sign
+## The first of two shots or beams makes no sign: THE GORGE, THE TASTER
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
 - **Files:** `packages/sim/src/gorge-step.ts`, `packages/sim/src/events-gorge.ts`, `packages/render/src/gorge-fx.ts`, `packages/audio/src/`, `.claude/skills/new-boss-state/SKILL.md`
 
 Since the doubled window a full intake takes `gorgeVentShots` (2) and the
 pried mouth `gorgePryFills` (2) beams, and the first of each only moves a
-count — `GorgeIntake.pierced`, `GorgeState.pryFills` — with no event. The
+count — `GorgeIntake.pierced`, `GorgeState.pryFills`, and THE TASTER's
+`TasterState.pryFills` since the same day (`tasterPryFills`, `taster-shot.ts`,
+`events-taster.ts`, `render/src/taster-fx.ts`) — with no event. The
 field and the speaker say nothing until the second, so a pair cannot tell a
 shot that landed from one that went nowhere. Add an event for each (a nick,
 a first fill) with its registrations (`.claude/skills/new-boss-state`), and
@@ -669,3 +669,18 @@ Reproducing the list, from 24 September 2026: a `globalThis` tally in
 `strokeGlow` of the calls arriving with `globalAlpha` below 1, keyed on the
 caller's stack frame, written out by an `afterAll` in a `--preload` file
 over `bun test packages/render/test` — about a minute, in one process.
+
+## `check:fast` does not run the words contract when a wave's text changes
+
+- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-taster-and-the-lead
+- **Files:** `tools/check/fast-scope.ts`, `tools/words/test/words.test.ts`
+
+A guide line in `packages/content/src/waves/act-7f.ts` went one word over its
+budget (31 against 30) and `check:fast` was green: a change under
+`packages/content` runs only that package's tests plus the `SWEEPS`, and
+`tools/words/test/words.test.ts` — which reads every line a player sees — is
+in neither. `bun run land`'s full check was the first to say so, minutes in.
+Add it to `SWEEPS` (it reads the tree in a quarter of a second), or give the
+content row in `tools/hooks/scope.ts` a narrow answer that names
+`tools/words` for `fastScopeFor` alone; the first is one line and the same
+reason the fifth sweep gives.

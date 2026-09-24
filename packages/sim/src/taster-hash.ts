@@ -37,6 +37,7 @@ export function tasterHashParts(t: TasterState): number[] {
     t.wiped ? 1 : 0,
     t.pryMilli,
     t.pryBeat,
+    t.pryFills,
     t.outBeat,
   ];
   for (const k of t.blades) {
