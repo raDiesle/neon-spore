@@ -108,6 +108,12 @@
 .transport label.field {
   margin-top: 8px;
 }
+/* TEST, P1 and P2 again, under the field — a phone's alone
+   (director-phone.css), where RUN is a scroll away. Beside a desktop field
+   RUN is already in view, and a second copy would only be a row of height. */
+.role-strip {
+  display: none;
+}
 .transport .note {
   margin: 4px 0 8px;
 }

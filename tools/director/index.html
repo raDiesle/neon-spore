@@ -231,6 +231,18 @@
       <section class="stage-col" data-view="game" data-column="game" data-column-title="GAME">
         <div id="stageWrap">
           <div id="stageBox"><canvas id="stage"></canvas></div>
+          <!-- The same three role buttons as RUN's, for a phone alone: there
+               RUN is a scroll under the field, and a solo test that means to
+               play both seats switches between them the whole time (the
+               owner, 18 September 2026). It stands in the band the field's
+               aspect already leaves under it, so the field gives nothing up.
+               `bindStageTransport` binds every `button.role`, so both copies
+               set the role and both light the one that is on. -->
+          <div class="role-strip">
+            <button type="button" data-role="test" class="role on">TEST</button>
+            <button type="button" data-role="p1" class="role">P1</button>
+            <button type="button" data-role="p2" class="role">P2</button>
+          </div>
           <!-- Up when the wave has cleared: the stage pauses under it, and a
                click anywhere runs the wave again (stage-repeat.ts). -->
           <div id="repeatWave" hidden>

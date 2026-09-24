@@ -18959,3 +18959,17 @@ The bottleneck was **finding the case**: the entry described a failure the code
 already handled, and only the marks in the history showed the one it did not.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — The director on a phone cannot reach its TEST, P1 and P2 strip
+
+- reading: 5 min. `stage-transport.ts`, `director-phone.css`'s GAME block,
+  `director-field.css` and `phone-game.test.ts`.
+- writing: 5 min. The strip in the stage section, its two rules, the
+  by-role toggle and one case.
+- looking: 5 min. Two phone shots at 375x812: the strip stands in the band
+  the field's aspect leaves, and the field gives nothing up.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: the band under the field was the only place
+the strip could go without shrinking the picture, and only a shot says it fit.

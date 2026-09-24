@@ -505,21 +505,6 @@ with its bars out — that is 366 of 390 pixels, with 12 dark at each side; at
   share below some height so the tile grows back to the width. The lobes shrink
   with it; `layout-stage.test.ts`'s touch-ring test holds them inside.
 
-## The director on a phone cannot reach its TEST, P1 and P2 strip
-
-- **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
-- **Taken:** 2026-09-24, claude/queue-the-films-pages-name-counts-that-no-test-reads-b (claim: claude/queue-the-director-on-a-phone-cannot-reach-its-test-p1)
-- **Files:** `tools/director/src/stage-transport.ts`, `tools/director/src/director-phone.css`, `tools/director/test/phone-game.test.ts`
-- **Where:** local
-
-The director's half of "A phone in TEST mode has nowhere to put two bands and
-the rig", split off when the game's half landed. The owner, 18 September 2026:
-*"make sure in director and for game, when I am in solo test mode, I can also
-test for both players on mobile device."* `bindStageTransport` binds the three
-role buttons and TEST works; on a phone the strip under the field is off the
-foot of the GAME view. Put the three buttons where the phone's GAME view shows
-them, and pin it in `phone-game.test.ts` the way that file pins the rest.
-
 ## Unverified at 5db3ae3e: the svh cap on a real phone whose address bar comes bac…
 
 - **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band

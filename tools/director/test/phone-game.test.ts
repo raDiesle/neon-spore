@@ -80,6 +80,26 @@ describe("the director's GAME view on a phone", () => {
     );
   });
 
+  it("puts TEST, P1 and P2 under the field, where a solo test can reach them", async () => {
+    // The owner, 18 September 2026: *"when I am in solo test mode, I can also
+    // test for both players on mobile device."* RUN is under the fold, so the
+    // three role buttons are copied into the stage's own section.
+    const html = await Bun.file(join(SRC, "..", "index.html")).text();
+    const stage = html.slice(html.indexOf('<section class="stage-col"'));
+    const section = stage.slice(0, stage.indexOf("</section>"));
+    for (const role of ["test", "p1", "p2"]) {
+      expect(section, `the stage has no ${role} button`).toMatch(
+        new RegExp(`<button type="button" data-role="${role}" class="role[ "]`),
+      );
+    }
+    expect(ruleFor(await phoneBlock(), 'main[data-view="game"] .role-strip')).toMatch(
+      /display:\s*flex\s*;/,
+    );
+    // And a desktop, whose RUN is in view beside the field, never sees them.
+    const field = await Bun.file(join(SRC, "director-field.css")).text();
+    expect(ruleFor(field, ".role-strip")).toMatch(/display:\s*none\s*;/);
+  });
+
   it("takes the panel off all four edges of the picture", async () => {
     const rule = ruleFor(await phoneBlock(), STAGE);
     expect(rule, "ten pixels of panel are still down each edge").toMatch(/padding:\s*0\s*;/);

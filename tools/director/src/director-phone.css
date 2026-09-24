@@ -134,6 +134,25 @@
     padding: 0;
     border-right: 0;
   }
+  /* **TEST, P1 AND P2 UNDER THE FIELD**, which is the one row of RUN that
+     a solo test needs mid-wave: the owner, 18 September 2026, *"when I am in
+     solo test mode, I can also test for both players on mobile device."* RUN
+     is a flick under the fold, and switching seat is done over and over while
+     the wave runs, so the three stand in the band the field's own aspect
+     leaves under it (the 67px above) rather than asking for a scroll each
+     time. 40px of it, a third of the row each — the same copies RUN has, so
+     the strip is a second place to press and not a second state. */
+  main[data-view="game"] .role-strip {
+    display: flex;
+    flex: 0 0 auto;
+    align-self: stretch;
+    gap: 6px;
+    padding: 0 6px 6px;
+  }
+  main[data-view="game"] .role-strip button {
+    flex: 1 1 0;
+    min-height: 40px;
+  }
   main[data-view="map"] > section.brush-col[data-view="map"] {
     display: flex;
   }

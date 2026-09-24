@@ -1,7 +1,8 @@
 import type { ViewRole } from "@neon-spore/render";
 
 /**
- * The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches.
+ * The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches
+ * — which are there twice, in RUN and in the phone's strip under the field.
  * Split out of `stage.ts` on the layout pass that also moved `#briefToggle`
  * and the balance sheet — `stage.ts` was already at its line budget, and this
  * is the same shape `stage-afterrun.ts` and `stage-touch.ts` already use: DOM wiring that reads and writes the one running world through
@@ -28,8 +29,10 @@ export function bindStageTransport(deps: StageTransportDeps): void {
   for (const button of document.querySelectorAll<HTMLElement>("button.role")) {
     button.addEventListener("click", () => {
       deps.setRole((button.dataset.role as ViewRole) ?? "test");
-      for (const other of document.querySelectorAll("button.role")) {
-        other.classList.toggle("on", other === button);
+      // By role, not by element: the phone's strip under the field is a
+      // second copy of the three, and both copies say which one is on.
+      for (const other of document.querySelectorAll<HTMLElement>("button.role")) {
+        other.classList.toggle("on", other.dataset.role === button.dataset.role);
       }
     });
   }
