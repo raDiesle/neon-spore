@@ -263,8 +263,16 @@ describe("THE UNDERTOW", () => {
     untilBow(world);
     const col = world.cannonCol;
     const scarsBefore = world.scars.length;
-    step(world, [cmd(world, 1, { kind: "cannonCol", col: col === 0 ? 1 : 0 })]);
-    const seen = beats(world, CFG.undertowUnseatBeats + 1);
+    // Every slide short of `undertowUnseatSlides` the floor follows him
+    // (`undertowFollow`), inside the same window.
+    for (let i = 1; i <= CFG.undertowUnseatSlides; i++) {
+      const to = world.cannonCol === 0 ? 1 : world.cannonCol - 1;
+      step(world, [cmd(world, 1, { kind: "cannonCol", col: to })]);
+      if (i === CFG.undertowUnseatSlides) break;
+      beats(world, 1);
+      expect(floor(world).breaches[0]?.col).toBe(to);
+    }
+    const seen = beats(world, CFG.undertowUnseatBeats);
     expect(seen.has("undertowClosed")).toBe(true);
     expect(seen.has("undertowLobe")).toBe(false);
     const u = floor(world);

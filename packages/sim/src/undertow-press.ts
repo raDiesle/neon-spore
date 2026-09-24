@@ -9,6 +9,7 @@ import {
   undertowPinned,
   undertowUnseated,
 } from "./undertow.js";
+import { undertowSlow } from "./undertow-slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -51,6 +52,7 @@ export function undertowTake(
   if (i >= 0) u.breaches.splice(i, 1);
   u.taken += 1;
   world.events.push({ type: "undertowTaken", col: b.col });
+  undertowSlow(world, u);
   return true;
 }
 
@@ -77,6 +79,20 @@ export function undertowBurned(world: World, col: number): void {
   if (u === null) return;
   const b = undertowLobeAt(u, col);
   if (b !== null) undertowTake(world, u, b, true);
+}
+
+/**
+ * **The floor follows the cannon**, on the beat, while it bows under it: a
+ * slide short of `undertowUnseatSlides` bows it again under the column the
+ * carriage stopped in, inside the same window, and says so with the bow's own
+ * event. The last slide is answered where it always was — the cannon off the
+ * bow when it parts (`undertow-step.ts`, `through`).
+ */
+export function undertowFollow(world: World, u: UndertowState, b: UndertowBreach): void {
+  if (world.cannonCol === b.col || u.slid + 1 >= world.cfg.undertowUnseatSlides) return;
+  u.slid += 1;
+  b.col = world.cannonCol;
+  world.events.push({ type: "undertowBow", col: b.col });
 }
 
 /**

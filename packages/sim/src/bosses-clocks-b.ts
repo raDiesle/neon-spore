@@ -222,6 +222,7 @@ export {
   type UndertowPhase,
   type UndertowState,
   undertowBoss,
+  undertowBowBeats,
   undertowBreachAt,
   undertowLastCol,
   undertowLobeAt,
@@ -229,7 +230,6 @@ export {
   undertowPlateBeside,
   undertowUnseated,
 } from "./undertow.js";
-export { undertowBowBeats } from "./undertow-step.js";
 // THE VANE's two hands (18 September 2026): where the arm is standing once a
 // thumb has pinned it, and whether the bearing is open under each of its three
 // phases. A clock on this page's terms — the pin runs for `vanePinBeats` and

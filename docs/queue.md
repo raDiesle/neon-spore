@@ -536,24 +536,43 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The doubled window: THE UNDERTOW, THE BELLOWS, THE HASP and THE BATON
+## The doubled window: THE BELLOWS
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
-- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-lead (claim: claude/queue-the-doubled-window-the-undertow-the-bellows-the)
-- **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/config-bellows.ts`, `packages/sim/src/config-hasp.ts`, `packages/sim/src/config-baton.ts`, `packages/sim/src/undertow-step.ts`, `packages/sim/src/bellows-step.ts`, `packages/sim/src/hasp-step.ts`, `packages/sim/src/baton-step.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-baton.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
+- **Files:** `packages/sim/src/config-bellows.ts`, `packages/sim/src/bellows-step.ts`, `tools/director/src/poses-bosses-*.ts`, `docs/spec/bosses.md`
 
-The third of the three lanes `32c0cbb4` said it queued, and never did: its
-Files line had been left on THE CURTAIN's entry. Per
-`docs/spec/choreographed-windows.md`'s **Doubled** table — THE UNDERTOW's
-stand, unseat and last windows with `undertowHoldBeats` and
-`undertowUnseatSlides`; THE BELLOWS' window with `bellowsExchanges`; THE
-HASP's holds with its wind; THE BATON's swell, merge window and final with
-`batonSwellStrips` and `batonMergeBeats`. THE SLOW moved to the ask on
-UNDERTOW, BELLOWS and HASP, opened for the first time on THE BATON
-(`sim/gorge-slow.ts` is one pattern). BELLOWS and HASP have no film. The
-tests' relations: THE UNDERTOW's breach wide before the stand runs out
-(`undertow.test.ts`), THE BATON's acts equal to its final beats
-(`baton.test.ts`). One boss a sitting.
+Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
+`bellowsWindowBeats` 3 → 6 and both halves, pull and push, twice
+(`bellowsExchanges`). THE SLOW moves from where `bellows-step.ts` opens it
+to the ask, read off the state — `sim/undertow-slow.ts` is the nearest
+pattern, landed 24 September 2026. No film. Give the director's poses room
+if they run past their budgets, say the new counts in the guide, and add
+the dated line to `bosses.md` §11.n.
+
+## The doubled window: THE HASP
+
+- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Files:** `packages/sim/src/config-hasp.ts`, `packages/sim/src/hasp-step.ts`, `tools/director/src/poses-bosses-*.ts`, `docs/spec/bosses.md`
+
+Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
+`haspHoldBeats` 6 → 12, `haspLastHoldBeats` 4 → 8, `haspWindMilli`
+800 → 1600 and `haspWindStepMilli` 400 → 800. THE SLOW moves to the ask
+(`sim/undertow-slow.ts`, `sim/gorge-slow.ts`). No film. The guide's counts,
+the director's budgets, and the dated line in `bosses.md` §11.n.
+
+## The doubled window: THE BATON
+
+- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
+- **Files:** `packages/sim/src/config-baton.ts`, `packages/sim/src/baton-step.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/sim/test/baton.test.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
+
+Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
+`batonSwellBeats` 3 → 6 with two strips (`batonSwellStrips`),
+`batonMergeWindowBeats` 6 → 12, `batonMergeBeats` 2 → 4 and
+`batonFinalBeats` 11 → 22. THE SLOW opens here for the first time, over the
+asks only (`sim/undertow-slow.ts`). Re-time the film against its scene
+test rather than loosen it, hold the relation *the acts equal the final's
+beats* in `baton.test.ts`, the guide's counts, the director's budgets, and
+the dated line in `bosses.md` §11.n.
 
 ## The first of two shots or beams makes no sign: THE GORGE, THE TASTER
 

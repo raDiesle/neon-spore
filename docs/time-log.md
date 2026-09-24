@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE UNDERTOW's windows are doubled
+
+- reading: 0 min. THE UNDERTOW's step, press and hash, its film and guide,
+  and the director's poses.
+- writing: 5 min. Ten beats of stand, four of unseat for two slides with the
+  floor following the first, twelve of hold and twenty of last; THE SLOW read
+  off the asks; the film five beats later; the queue entry split three ways.
+- looking: 0 min.
+- friction: 0 min. A variable named `window` tripped the purity test's DOM
+  ban and was renamed.
+- landing: 5 min.
+
+Bottleneck: the director's poses — five of six went past their budgets on
+the doubled clock and were walked by a probe to find how much room each needs.
+
 ## 2026-09-24 — THE LEAD's still is doubled
 
 - reading: 0 min. THE LEAD's step, shot, hand and film, and the director's

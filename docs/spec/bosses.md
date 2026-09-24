@@ -3643,7 +3643,7 @@ false`), and the arrivals around it are the wave's own
 design page's step 8 asks).
 
 **The rule, in one sentence.** A plate bows for `undertowBowBeats` (4) and a
-lobe stands through it for `undertowStandBeats` (5); the maw opened under it
+lobe stands through it for `undertowStandBeats` (10); the maw opened under it
 takes it (`undertowTake`, asked from `intake` before the pods are), a tall one
 is the beam's alone (`releaseLance` → `undertowBurned`), and one left standing
 withdraws and **the column is a scar** — `scarHull`, cut out of `breachHull`
@@ -3651,9 +3651,9 @@ so a scar can be laid without the wave being lost — and `undertowRestBeats`
 (2) of empty field pass before the next plate bows. While a lobe stands its
 breach widens `undertowWidenMilli` (100) a beat unless the shield is on its
 column, and at `undertowWideMilli` (400) a second lobe comes through next
-door, already standing. **The stand is five beats so that this can happen at
-all**: an unplated breach is at 400 on its fourth beat and breeds there, and
-withdraws on its fifth. At four it withdrew at 300 and the second lobe was a
+door, already standing. **The stand is longer than four beats so that this
+can happen at all**: an unplated breach is at 400 on its fourth beat and
+breeds there, and withdraws later. At four it withdrew at 300 and the second lobe was a
 sentence on this page the game never performed — `undertow.test.ts` reached it
 only by setting `undertowStandBeats` to 40, and now runs on the shipped
 figures.
@@ -3661,16 +3661,19 @@ figures.
 **The four parts.** `undertowSingles` (3) pushes alone; `undertowPairs` (2)
 in pairs `undertowPairGap` (4) columns apart, so the maw reaches one and the
 pair have to say which; `undertowTalls` (2) tall; then one under the cannon's
-own column, which has `undertowUnseatBeats` (2) to slide off — if it does not,
+own column, which has `undertowUnseatBeats` (4) to slide off
+`undertowUnseatSlides` (2) times — the floor follows every slide short of the
+last (`undertowFollow`) — and if it does not,
 every press from that seat is swallowed for `undertowUnseatedBeats` (4)
 (`undertowUnseats`, in the lock chain `command-locks.ts` now holds for THE
 MIRROR, THE MALFUNCTION, THE STARE and THE BATON as well). Last, the whole
 edge lifts for `undertowRiseBeats` (4) and one lobe rises in `midCol`: the maw
-held open under it for `undertowHoldBeats` (6), counted on the beat, takes
+held open under it for `undertowHoldBeats` (12), counted on the beat, takes
 the body down through the breach in `undertowDownBeats` (4); `undertowLastBeats`
-(10) standing and it comes through the other way, a heavy breach at the middle
-and the wave lost. The rise and the body passing each open `undertowSlowBeats`
-(2) of THE SLOW.
+(20) standing and it comes through the other way, a heavy breach at the middle
+and the wave lost. THE SLOW spans every ask — a lobe standing, the floor under
+the cannon, the last lobe (`undertow-slow.ts`) — and the body passing opens
+`undertowSlowBeats` (2) of its own.
 
 **Health is the hull.** Every hole it punches is also a hole to reach into,
 and a hole it withdraws from is a scar in the pair's own hull for the rest of
@@ -3837,12 +3840,23 @@ is in the middle and then `OPEN` for the hold, and she is told nothing, since
 
 **And two things the field is deliberately not given.** An ordinary bow in
 phases one, two and hard carries no word: the lobe stands for
-`undertowStandBeats` afterwards and the maw reaches it through all five, so a
+`undertowStandBeats` afterwards and the maw reaches it through all ten, so a
 cue on the bow would be the field talking over a fight that has not asked yet,
 and the rehearsal teaches that answer instead. Nor is there a word telling her
 to *put* the plate on a breach to stop it widening — the widening is slow
 pressure rather than a moment, and which of two lobes the plate goes to is the
 pair's own sentence, which is what the last part of this fight is made of.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `undertowStandBeats` 5 → 10,
+`undertowUnseatBeats` 2 → 4 with two slides (`undertowUnseatSlides`, the
+floor re-bowing under the cannon after the first, with the bow's own event),
+`undertowHoldBeats` 6 → 12 and `undertowLastBeats` 10 → 20. THE SLOW left
+the last lobe's rise for the asks themselves, up while any lobe stands, the
+floor bows under an unanswered cannon or the last lobe waits, and shut the
+beat the last one is answered (`sim/undertow-slow.ts`); a lobe through the
+hull shuts it, the body swallowed keeps its own. The rehearsal is 300 ticks
+longer and its takings five beats later.
 
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 

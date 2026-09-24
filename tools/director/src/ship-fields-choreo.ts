@@ -97,6 +97,7 @@ export const CHOREO_FIELD_GROUP = {
   undertowWidenMilli: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowWideMilli: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowUnseatBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowUnseatSlides: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowUnseatedBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowFreeBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowRiseBeats: "THE UNDERTOW — the boss under the floor, answered downward",

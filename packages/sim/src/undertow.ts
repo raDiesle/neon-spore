@@ -100,6 +100,8 @@ export interface UndertowState {
   unseatedUntil: number;
   /** Beats the maw has been open under the last lobe, counted on the beat. */
   hold: number;
+  /** Slides off the floor bowing under the cannon it has followed, of `undertowUnseatSlides`. */
+  slid: number;
   /** The column player 2's thumb is pinning, or -1: her second plate (`undertow-hand.ts`). */
   pinCol: number;
   /** Whether her thumb is on the unseated pilot's column right now. */
@@ -112,6 +114,18 @@ export interface UndertowState {
 export function undertowBoss(world: World): UndertowState | null {
   const boss = world.boss;
   return boss !== null && boss.kind === "undertow" ? boss : null;
+}
+
+/**
+ * Beats the floor bows in this phase before the lobe is through. Exported for
+ * the picture: how far a plate has risen is this count read against the beat,
+ * and a render-side copy of which phase takes which count would be the rule
+ * re-derived (`purity.test.ts`).
+ */
+export function undertowBowBeats(cfg: SimConfig, phase: UndertowPhase): number {
+  if (phase === "seat") return cfg.undertowUnseatBeats;
+  if (phase === "last") return cfg.undertowRiseBeats;
+  return cfg.undertowBowBeats;
 }
 
 /** Where the last lobe comes up, and the body after it: dead centre. */

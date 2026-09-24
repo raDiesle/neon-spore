@@ -54,6 +54,7 @@ function floor(over: Partial<UndertowState> = {}): UndertowState {
     scars: 0,
     unseatedUntil: -1,
     hold: 0,
+    slid: 0,
     pinCol: -1,
     freeHeld: false,
     freed: 0,

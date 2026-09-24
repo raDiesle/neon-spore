@@ -629,6 +629,7 @@ by hand never moves.
 | `packages/sim/src/undertow-hand.ts` | THE UNDERTOW's two hands, both the navigator's: a pin that plates a lobe, and the thumb that gives an unseated pilot his seat back |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's presses: the maw, the beam and the unseat |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the push, the bow, the lobe coming through, the widening, the withdrawal |
+| `packages/sim/src/undertow-slow.ts` | THE SLOW on THE UNDERTOW, spanning its asks: a lobe standing, the floor under the cannon, the last lobe |
 | `packages/sim/src/undertow.ts` | THE UNDERTOW: where you are being hit from |
 | `packages/sim/src/antiphon-hash.ts` | What THE ANTIPHON puts into `hashWorld`, and nothing else |
 | `packages/sim/src/antiphon-hand.ts` | **A thumb resting on THE ANTIPHON's organ**, off the wire, on the tick |

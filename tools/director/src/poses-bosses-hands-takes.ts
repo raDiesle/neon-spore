@@ -88,7 +88,7 @@ export const TAKE_HAND_POSES: Pose[] = [
       hand: undertowHand,
       want: (w) => w.boss?.kind === "undertow" && w.boss.phase === "taken",
       hold: TPB * 2,
-      budgetBeats: 150,
+      budgetBeats: 190,
     },
   ),
   bossPose(

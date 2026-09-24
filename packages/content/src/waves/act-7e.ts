@@ -74,7 +74,7 @@ export const WAVES_ACT_7E: Wave[] = [
     sentence: "The one that comes up through the floor, where only the maw points the right way.",
     guide: {
       both: "Lobes rise through your own hull. Swallow each one with the maw as it comes through. Hold the maw open under the last.",
-      p1: "1. Say the column where the floor bows.\n2. Slide the cannon under it and open the maw as the lobe comes through.\n3. If it bows under you, slide off within two beats.\n4. On the last lobe, hold the maw open.",
+      p1: "1. Say the column where the floor bows.\n2. Slide the cannon under it and open the maw as the lobe comes through.\n3. If it bows under you, slide off twice in four beats: it follows.\n4. On the last lobe, hold the maw open.",
       p2: "1. Put the shield on a breach your partner cannot reach, so it stops widening.\n2. Move it off when they come for that lobe.\n3. The tall one: hold a colour for the beam and let them keep the column.",
       scene: "theUndertow",
     },

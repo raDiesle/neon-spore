@@ -32,12 +32,12 @@ describe("the rehearsal for THE UNDERTOW", () => {
     // `atBoss`; of the pair the maw takes the near one and the plated far one
     // withdraws.
     expect(seen).toEqual([
-      "undertowScar 9 @11",
-      "undertowScar 10 @15",
-      "undertowTaken 7 @21",
-      "undertowTaken 5 @27",
-      "undertowTaken 3 @33",
-      "undertowScar 7 @38",
+      "undertowScar 9 @16",
+      "undertowScar 10 @20",
+      "undertowTaken 7 @26",
+      "undertowTaken 5 @32",
+      "undertowTaken 3 @38",
+      "undertowScar 7 @48",
     ]);
     expect(run.world.shieldCol).toBe(7);
     expect(run.world.cannonCol).toBe(3);

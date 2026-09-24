@@ -2,17 +2,19 @@ import type { SimConfig } from "./config.js";
 import { breachHull, scarHull } from "./hull-damage.js";
 import { mawOpen } from "./pod-intake.js";
 import { nextInt } from "./rng.js";
-import { openSlow } from "./slow.js";
+import { closeSlow, openSlow } from "./slow.js";
 import {
   type UndertowBreach,
   type UndertowPhase,
   type UndertowState,
+  undertowBowBeats,
   undertowLastCol,
   undertowPinned,
   undertowPlateBeside,
 } from "./undertow.js";
 import { stepUndertowHands, undertowHandsFresh } from "./undertow-hand.js";
-import { undertowTake } from "./undertow-press.js";
+import { undertowFollow, undertowTake } from "./undertow-press.js";
+import { undertowSlow } from "./undertow-slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -43,6 +45,7 @@ export function installUndertow(world: World): UndertowState {
     scars: 0,
     unseatedUntil: -1,
     hold: 0,
+    slid: 0,
     ...undertowHandsFresh(),
   };
 }
@@ -53,18 +56,6 @@ function pushesIn(cfg: SimConfig, phase: UndertowPhase): number {
   if (phase === "two") return cfg.undertowPairs;
   if (phase === "hard") return cfg.undertowTalls;
   return phase === "taken" ? 0 : 1;
-}
-
-/**
- * Beats the floor bows in this phase before the lobe is through. Exported for
- * the picture: how far a plate has risen is this count read against the beat,
- * and a render-side copy of which phase takes which count would be the rule
- * re-derived (`purity.test.ts`).
- */
-export function undertowBowBeats(cfg: SimConfig, phase: UndertowPhase): number {
-  if (phase === "seat") return cfg.undertowUnseatBeats;
-  if (phase === "last") return cfg.undertowRiseBeats;
-  return cfg.undertowBowBeats;
 }
 
 function bow(world: World, u: UndertowState, col: number, tall: boolean): void {
@@ -114,7 +105,6 @@ function push(world: World, u: UndertowState): void {
     case "last":
       bow(world, u, undertowLastCol(cfg), false);
       world.events.push({ type: "undertowRise", col: undertowLastCol(cfg) });
-      openSlow(world, cfg.undertowSlowBeats);
       return;
     case "taken":
       return;
@@ -205,6 +195,7 @@ function last(world: World, u: UndertowState, b: UndertowBreach): void {
   if (world.beat - b.stageBeat >= cfg.undertowLastBeats) {
     breachHull(world, b.col, "slick", 0, "heavy");
     world.events.push({ type: "undertowThrough", col: b.col });
+    closeSlow(world);
     u.breaches = [];
     u.phase = "taken";
     u.phaseBeat = world.beat;
@@ -233,6 +224,7 @@ export function stepUndertow(world: World, u: UndertowState): void {
   for (const b of [...u.breaches]) {
     const since = world.beat - b.stageBeat;
     if (b.stage === "bowing") {
+      if (u.phase === "seat") undertowFollow(world, u, b);
       if (since >= undertowBowBeats(cfg, u.phase)) through(world, u, b);
     } else if (u.phase === "last") {
       last(world, u, b);
@@ -243,7 +235,9 @@ export function stepUndertow(world: World, u: UndertowState): void {
     }
   }
   // `last` and `through` may have just ended the fight: a taken boss rests.
-  if (u.breaches.length > 0 || (u.phase as UndertowPhase) === "taken") return;
-  if (u.restBeat < 0) u.restBeat = world.beat;
-  else if (world.beat - u.restBeat >= cfg.undertowRestBeats) push(world, u);
+  if (u.breaches.length === 0 && (u.phase as UndertowPhase) !== "taken") {
+    if (u.restBeat < 0) u.restBeat = world.beat;
+    else if (world.beat - u.restBeat >= cfg.undertowRestBeats) push(world, u);
+  }
+  undertowSlow(world, u);
 }

@@ -18,6 +18,11 @@ import type { GuideScene } from "../scene-types.js";
  * the first pair, four columns apart, where the maw takes the near one and
  * the plate stands on the far one.
  *
+ * Every lobe stands `undertowStandBeats` ten since the owner's doubling, 24
+ * September 2026 (`docs/spec/choreographed-windows.md`): the two scars come
+ * five beats later, everything from the first taking moved with them, and
+ * the film ends on the plated far lobe withdrawing, before the next push.
+ *
  * Where a lobe comes up is the seeded rng's and not an author's, so the
  * cannon acts say `atBoss` and `bossAnswerCol` reads the first breach at the
  * moment the thumb goes down. The shield's column is authored, and that is
@@ -34,20 +39,20 @@ import type { GuideScene } from "../scene-types.js";
  * which is the first page, and the anchor is told by the same predicate.
  */
 export const THE_UNDERTOW: GuideScene = {
-  ticks: 2400,
+  ticks: 2940,
   bpm: 120,
   seed: 36,
   entries: [],
   boss: { kind: "undertow" },
   acts: [
-    { tick: 1110, control: "cannon", col: 3, atBoss: true },
-    { tick: 1240, control: "intake" },
     { tick: 1410, control: "cannon", col: 3, atBoss: true },
-    { tick: 1440, control: "shield", col: 0 },
-    { tick: 1600, control: "intake" },
-    { tick: 1770, control: "cannon", col: 3, atBoss: true },
-    { tick: 1965, control: "intake" },
-    { tick: 2140, control: "shield", col: 4 },
+    { tick: 1540, control: "intake" },
+    { tick: 1710, control: "cannon", col: 3, atBoss: true },
+    { tick: 1740, control: "shield", col: 0 },
+    { tick: 1900, control: "intake" },
+    { tick: 2070, control: "cannon", col: 3, atBoss: true },
+    { tick: 2265, control: "intake" },
+    { tick: 2440, control: "shield", col: 4 },
   ],
   steps: [
     {
@@ -77,13 +82,13 @@ export const THE_UNDERTOW: GuideScene = {
     // (`undertow-press.ts`, `lance-burn.ts`), and a cue may never name a
     // column.
     {
-      tick: 1020,
+      tick: 1320,
       seat: 1,
       text: "THE MAW REACHES ONE COLUMN",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 1200,
+      tick: 1500,
       seat: 1,
       text: "MAW OPEN AS IT COMES THROUGH",
       anchor: { at: "control", control: "intake" },
@@ -95,7 +100,7 @@ export const THE_UNDERTOW: GuideScene = {
     // screen and says the reason instead of the verb. MAW OPEN AS IT COMES
     // THROUGH above stays: its subject is the beat, not the gesture.
     {
-      tick: 1380,
+      tick: 1680,
       seat: 2,
       text: "THE COLUMN IS HIS TO REACH",
       anchor: { at: "control", control: "shield" },
@@ -106,24 +111,24 @@ export const THE_UNDERTOW: GuideScene = {
     // page said THE MAW TAKES IT AGAIN, which was the film narrating its own
     // verb a second time.
     {
-      tick: 1560,
+      tick: 1860,
       seat: 1,
       text: "PLAYER 1 IS SHOWN NO SHIELD",
       anchor: { at: "control", control: "intake" },
     },
-    { tick: 1740, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "boss" } },
+    { tick: 2040, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "boss" } },
     // Why the last lesson divides at all — one carriage, two lobes, four
     // columns apart. The cue says `OPEN` on the one he is under and nothing
     // about the other, because *which* is the pair's own sentence; the page
     // below answers it on her screen.
     {
-      tick: 1920,
+      tick: 2220,
       seat: 1,
       text: "PLAYER 1 CANNOT REACH BOTH",
       anchor: { at: "control", control: "intake" },
     },
     {
-      tick: 2100,
+      tick: 2400,
       seat: 2,
       text: "THE SHIELD TAKES THE FAR ONE",
       anchor: { at: "control", control: "shield" },

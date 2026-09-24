@@ -15,6 +15,12 @@
  * of them agreeing which of two he can reach. `docs/spec/latency.md` puts a
  * word at about a beat and the press after it at another, so nothing here
  * that asks for a call is shorter than four.
+ *
+ * **Doubled on the owner's rule, 24 September 2026**
+ * (`docs/spec/choreographed-windows.md`): the stand, the unseat and the last
+ * lobe are twice what they were, the hold under the last is twice as long,
+ * and the unseat asks for two slides — so none of them is a window that
+ * lands itself.
  */
 export interface UndertowConfig {
   /** Pushes in the first part: one column at a time, the maw alone answers. */
@@ -29,10 +35,10 @@ export interface UndertowConfig {
   undertowBowBeats: number;
   /**
    * Beats a lobe stands in its breach before it withdraws and the breach is a
-   * scar. **Five, so that an unplated breach reaches `undertowWideMilli` on
-   * the fourth beat and lets a second lobe through on it** — at four it
-   * withdrew at 300 of the 400 it needed and the second lobe was a rule the
-   * game could not perform (`docs/spec/bosses.md` §11.20).
+   * scar. **Longer than the four an unplated breach takes to reach
+   * `undertowWideMilli`**, so the second lobe it lets through is a rule the
+   * game performs — at four it withdrew at 300 of the 400 it needed
+   * (`docs/spec/bosses.md` §11.20). Five until the doubling made it ten.
    */
   undertowStandBeats: number;
   /** Beats of empty field between one push resolving and the next bow beginning. */
@@ -47,10 +53,16 @@ export interface UndertowConfig {
   undertowWideMilli: number;
   /**
    * Beats player 1 has to slide the cannon off its own column once the floor
-   * bows under it. Two, and seen rather than called: it is his screen and his
-   * thumb.
+   * bows under it, and off again wherever it follows him. Four, for two
+   * slides, and seen rather than called: it is his screen and his thumb.
    */
   undertowUnseatBeats: number;
+  /**
+   * Slides the unseat asks for. Every one short of the last, the floor bows
+   * again under the column the cannon stopped in (`undertowFollow`), inside
+   * the same `undertowUnseatBeats`.
+   */
+  undertowUnseatSlides: number;
   /** Beats the cannon is unseated — every press from that seat swallowed — when he did not. */
   undertowUnseatedBeats: number;
   /**
@@ -68,7 +80,11 @@ export interface UndertowConfig {
   undertowLastBeats: number;
   /** Beats the body takes to pass through the breach once taken, before the wave may end. */
   undertowDownBeats: number;
-  /** Beats of THE SLOW opened on the last lobe rising and again on the body passing through. */
+  /**
+   * Beats of THE SLOW opened on the body passing through. Every ask — a lobe
+   * standing, the floor under the cannon, the last lobe — is slowed for its
+   * own window instead (`undertowSlow`).
+   */
   undertowSlowBeats: number;
 }
 
@@ -85,16 +101,17 @@ export const UNDERTOW_DEFAULTS: UndertowConfig = {
   undertowPairGap: 4,
   undertowTalls: 2,
   undertowBowBeats: 4,
-  undertowStandBeats: 5,
+  undertowStandBeats: 10,
   undertowRestBeats: 2,
   undertowWidenMilli: 100,
   undertowWideMilli: 400,
-  undertowUnseatBeats: 2,
+  undertowUnseatBeats: 4,
+  undertowUnseatSlides: 2,
   undertowUnseatedBeats: 4,
   undertowFreeBeats: 2,
   undertowRiseBeats: 4,
-  undertowHoldBeats: 6,
-  undertowLastBeats: 10,
+  undertowHoldBeats: 12,
+  undertowLastBeats: 20,
   undertowDownBeats: 4,
   undertowSlowBeats: 2,
 };

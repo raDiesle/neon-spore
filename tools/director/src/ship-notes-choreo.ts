@@ -110,13 +110,15 @@ export const CHOREO_NOTES = {
     "undertowWideMilli a second lobe comes through next door. It pushes " +
     "undertowSingles times alone, undertowPairs times in pairs " +
     "undertowPairGap apart, undertowTalls times tall, then once under the " +
-    "cannon, which has undertowUnseatBeats to slide off or is unseated for " +
+    "cannon, which has undertowUnseatBeats to slide off undertowUnseatSlides " +
+    "times — the floor follows every slide short of the last — or is unseated for " +
     "undertowUnseatedBeats. Last, the whole edge lifts for undertowRiseBeats " +
     "and one lobe rises in the middle: the maw held open under it for " +
     "undertowHoldBeats takes the body down in undertowDownBeats, and " +
     "undertowLastBeats standing sends it through the hull instead. " +
-    "undertowRestBeats of quiet sit between pushes; the rise and the body " +
-    "passing through each open undertowSlowBeats of THE SLOW. Nothing about " +
+    "undertowRestBeats of quiet sit between pushes. THE SLOW spans every ask " +
+    "— a lobe standing, the floor under the cannon, the last lobe — and the " +
+    "body passing through opens undertowSlowBeats of its own. Nothing about " +
     "it is authored per wave. See sim/undertow.ts, sim/config-undertow.ts.",
   "THE CANDLE — the boss fought in the dark":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §14: " +
