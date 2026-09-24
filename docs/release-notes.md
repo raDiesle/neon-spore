@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 9fcbbcfd — On the test screen a press takes the seat of the control under it
+
+The screen that shows both seats used to sign every press player 1, so THE INSTAR's first pose could only be answered pilot-first and its fourth, the navigator's alone, not at all. A press with no seat key held now picks a seat for itself: the marks say whose they are and are asked before the press, and every other handle a seat does not own is simply not there for it, so the same hit test is run for one seat and then the other until one answers.
+
 ## 2026-09-24 · 44b45db5 — The guide's BACK and REPLAY sit beside NEXT, as signs
 
 Both were up in the top bezel and both said their names. The owner asked for the row on 24 September 2026: the retry button next to NEXT, the prev button with it, both much less wide and carrying an icon only. So the bar holds all three, left to right, with BACK and REPLAY at a share of the stage's width and NEXT taking what is left. A look the owner asked for by name.
