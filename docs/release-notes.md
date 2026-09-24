@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 0fa31201 — THE INSTAR's windows are eight beats for two marks, six for one, nine for the lunge
+
+They were twenty-four, sixteen and twenty, and a window is played wholly inside THE SLOW, so at the new quarter rate that was a minute of wall clock. Eight beats is twenty seconds. The needs are unchanged. Exemption: a look the owner asked for by name.
+
 ## 2026-09-24 · 40885694 — THE SLOW plays a slowed beat at a quarter of its rate, where it played a third
 
 `slowRateMilli` is 250. Every boss's slow window is watched slower, still above the fifth where the click stops sounding like a clock. Exemption: a look the owner asked for by name.
