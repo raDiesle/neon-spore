@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## `apps/game/src/input.ts` is at 248 lines with its seam unchosen
 
 - **Found:** 2026-09-23, claude/queue-touch-hull
+- **Taken:** 2026-09-24, claude/queue-creatureat-glides-a-balloon-by-the-beat-and-reac (claim: claude/queue-apps-game-src-input-ts-is-at-248-lines-with-its)
 - **Files:** `apps/game/src/input.ts`, `apps/game/src/input-bindings.ts`
 
 Handing the field the renderer's skin took one binding and one line, and the
