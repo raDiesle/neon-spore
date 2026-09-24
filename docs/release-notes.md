@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 8e9b37fa — THE HASP's fuses and winding are doubled, and THE SLOW spans every grip
+
+On the owner's rule of 22 September: a grip now lasts twelve beats before it burns (eight on the last clasp), and a clasp asks sixteen hundred of turn, eight hundred more for each after it. THE SLOW no longer opens for two beats when a burn takes a wind; it spans each grip for its fuse and shuts the tick the grip ends - let go, burnt off, or the clasp wound open (haspSlow). haspSlowBeats is gone with the moment it timed.
+
 ## 2026-09-24 · 84304885 — THE BELLOWS' window is doubled: six beats, and both halves twice inside it
 
 The third exchange's shared window is `bellowsWindowBeats` 6 rather than 3, and asks for `bellowsExchanges` (2) rounds of pull and push: her push short of the last lights the marks again, his first, with the marks' own event, and the window keeps counting from where it began (`markAgain`). THE SLOW now spans that window — up with its marks, shut on the tick its seam parts or the handles jam, in or out of turn — and the split keeps its own `bellowsSlowBeats` as the boss's end. The pilot's guide says the third seam takes two; the director's hand lifts a thumb left resting from the round before.
