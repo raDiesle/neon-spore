@@ -536,20 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `baton.test.ts` is 717 lines and keeps its own copy of the arm's rig
-
-- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-baton
-- **Taken:** 2026-09-24, claude/queue-task-b35678 (claim: claude/queue-baton-test-ts-is-717-lines-and-keeps-its-own-cop)
-- **Files:** `packages/sim/test/baton.test.ts`, `packages/sim/test/baton-fixture.ts`
-
-THE BATON's two-thumb helpers moved into `baton-fixture.ts` when the doubled
-window needed them in a third file, and `baton-hand.test.ts` came down to
-199 lines. `baton.test.ts` still defines its own `open`, `arm`, `launch`,
-`shoot`, `handover`, `nextBeat`, `act` and the rest, nearly word for word, at
-almost three times the size ceiling. Import them from the fixture, then split
-what is left by stage — unfold and handover, swing and shed, merge and
-crossing — the way `baton-hand.test.ts` and `baton-doubled.test.ts` split.
-
 ## `gorge-step.ts` is at 250 lines
 
 - **Found:** 2026-09-24, claude/queue-the-first-of-two-shots-or-beams-makes-no-sign-th
@@ -592,3 +578,18 @@ The two answers:
 - **Retire it**: delete the two fields, their `ctx.globalAlpha` pair and
   their doc lines from `shield.ts`, and the same pair from
   `volley-ward.ts`. Nothing drawn changes.
+
+## `bun run imports` counts a property of the same name as a use
+
+- **Found:** 2026-09-24, claude/queue-baton-test-ts-is-717-lines-and-keeps-its-own-cop
+- **Files:** `tools/imports/imports.ts`, `tools/imports/run.ts`, `tools/imports/test/imports.test.ts`
+
+Splitting `baton.test.ts` stranded `flying` in three import lists. Biome
+called it unused; `bun run imports` kept it, because `usedElsewhere` matches
+the bare word and `bead.flying` is the same word. It then listed the three
+statements as "left for somebody to read — each would take a whole
+statement", which none of them would: one name out of eight. Skip a hit
+preceded by `.` (and `?.`), and an object key before `:` that is not a
+shorthand, in `usedElsewhere`; a case in `imports.test.ts` with `x.name`
+beside an unused `name`. And word `run.ts`'s leftover message by what is
+left, since biome's leftovers are not only whole statements.

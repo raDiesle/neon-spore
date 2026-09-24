@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE BATON's tests share one rig and split by stage
+
+- reading: 5 min. `baton.test.ts`, the fixture, and how `baton-hand` split.
+- writing: 5 min. `lead`, `merged` and `cross` into the fixture, a seed on
+  `open`, the thirty tests dealt into three files by line range.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. The imports each split file took were guessed from the
+  words in it, comments included; the unused ones had to come out by hand,
+  since the guard refuses biome's unsafe fix and `bun run imports` leaves a
+  whole list for a person.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: pruning the import lists a split strands.
+
 ## 2026-09-24 — A fade set around a glowed line reaches it: THE SPOOL
 
 - reading: 5 min. The four spool files, and where `drawSpool` hands its fade

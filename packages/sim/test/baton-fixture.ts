@@ -5,6 +5,7 @@ import {
   batonBoss,
   batonDark,
   batonLaunchable,
+  batonLead,
   batonMayStrip,
   batonMergeSocket,
   batonSocketCol,
@@ -20,16 +21,18 @@ import {
 
 /**
  * THE BATON's test rig: the arm installed, and the handovers, strips and
- * draws that drive it. Shared by `baton-hand.test.ts`, which is the two
- * thumbs' rules, and `baton-doubled.test.ts`, which is THE SLOW over them.
+ * draws that drive it. Shared by `baton.test.ts` (unfold and handover),
+ * `baton-swing.test.ts` (swing, shed and the twin), `baton-crossing.test.ts`
+ * (merge and crossing), `baton-hand.test.ts`, which is the two thumbs' rules,
+ * and `baton-doubled.test.ts`, which is THE SLOW over them.
  */
 
 export const CFG: SimConfig = DEFAULT_CONFIG;
 export const TPB = ticksPerBeat(CFG);
 
-/** The arm installed on its own wave, as `baton.test.ts` opens it. */
-export function open(cfg: SimConfig = CFG): World {
-  const world = createWorld(cfg, 3);
+/** The arm installed on its own wave. */
+export function open(cfg: SimConfig = CFG, seed = 3): World {
+  const world = createWorld(cfg, seed);
   startWave(world, 6, [], [], { kind: "baton" });
   return world;
 }
@@ -47,6 +50,13 @@ export function arm(world: World): BatonState {
   const b = batonBoss(world);
   if (b === null) throw new Error("THE BATON is not the boss");
   return b;
+}
+
+/** The bead furthest down the arm. */
+export function lead(world: World): BatonBead {
+  const bead = batonLead(arm(world));
+  if (bead === null) throw new Error("no bead on the arm");
+  return bead;
 }
 
 /** The bead in the air, if one is. */
@@ -202,4 +212,24 @@ export function crossing(world: World): void {
   bothDown(world, world.cfg.batonMergeWindowBeats);
   launch(world);
   expect(arm(world).stage).toBe("crossing");
+}
+
+/** Handovers, and the draw when it is asked for, until the two beads are one. */
+export function merged(world: World): void {
+  for (let i = 0; i < 40 && !arm(world).merged; i++) {
+    if (arm(world).stage === "merging") bothDown(world, 40);
+    else handover(world);
+  }
+  expect(arm(world).merged).toBe(true);
+}
+
+/** The merged bead launched and every act made in its beat, to the drop. */
+export function cross(world: World): void {
+  merged(world);
+  launch(world);
+  expect(arm(world).stage).toBe("crossing");
+  for (let i = 0; i < CFG.batonFinalBeats + 2 && arm(world).stage === "crossing"; i++) {
+    nextBeat(world);
+    if (arm(world).stage === "crossing") act(world);
+  }
 }
