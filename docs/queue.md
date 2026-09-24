@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## The doubled window: THE GORGE, THE TASTER and THE LEAD
 
 - **Found:** 2026-09-23, claude/task-queue-work-7ae87c
+- **Taken:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha (claim: claude/queue-the-doubled-window-the-gorge-the-taster-and-the)
 - **Files:** `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-sinew.ts`, `packages/sim/src/config-candle.ts`, `packages/sim/src/config-antiphon.ts`, `packages/sim/src/curtain-step.ts`, `packages/sim/src/sinew-step.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/antiphon-step.ts`, `packages/content/src/scenes/the-curtain.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
 
 The three whose need is a lance fill or a shot fixed in code. Double each
