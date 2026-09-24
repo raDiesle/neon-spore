@@ -536,23 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The first of two shots or beams makes no sign: THE GORGE, THE TASTER
-
-- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
-- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-baton (claim: claude/queue-the-first-of-two-shots-or-beams-makes-no-sign-th)
-- **Files:** `packages/sim/src/gorge-step.ts`, `packages/sim/src/events-gorge.ts`, `packages/render/src/gorge-fx.ts`, `packages/audio/src/`, `.claude/skills/new-boss-state/SKILL.md`
-
-Since the doubled window a full intake takes `gorgeVentShots` (2) and the
-pried mouth `gorgePryFills` (2) beams, and the first of each only moves a
-count — `GorgeIntake.pierced`, `GorgeState.pryFills`, and THE TASTER's
-`TasterState.pryFills` since the same day (`tasterPryFills`, `taster-shot.ts`,
-`events-taster.ts`, `render/src/taster-fx.ts`) — with no event. The
-field and the speaker say nothing until the second, so a pair cannot tell a
-shot that landed from one that went nowhere. Add an event for each (a nick,
-a first fill) with its registrations (`.claude/skills/new-boss-state`), and
-a sound. The picture is a look with no shipped alternative: say which
-exemption in the commit.
-
 ## The doubled window: THE CURTAIN, THE SINEW, THE CANDLE and THE ANTIPHON
 
 - **Found:** 2026-09-23, claude/task-queue-work-7ae87c
@@ -663,3 +646,16 @@ window needed them in a third file, and `baton-hand.test.ts` came down to
 almost three times the size ceiling. Import them from the fixture, then split
 what is left by stage — unfold and handover, swing and shed, merge and
 crossing — the way `baton-hand.test.ts` and `baton-doubled.test.ts` split.
+
+## `gorge-step.ts` is at 250 lines
+
+- **Found:** 2026-09-24, claude/queue-the-first-of-two-shots-or-beams-makes-no-sign-th
+- **Files:** `packages/sim/src/gorge-step.ts`
+
+The first-of-two events (`gorgeNick`, `gorgePryFill`) took THE GORGE's step
+file to the size ceiling exactly. `struck()` has two branches that each read
+as a file's worth: the mouth (clench, pry fill, out, swallow) and the full
+intake (nick, rupture, the mouth opening). Move the mouth's branch and
+`openMouth` into a `gorge-mouth.ts`, and leave
+`gorgeStruck` the dispatcher; `gorge.test.ts` and `gorge-hand.test.ts` prove
+it unchanged.

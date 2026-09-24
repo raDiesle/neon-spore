@@ -2,9 +2,9 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE TASTER's fifteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE TASTER's sixteen, in a file of their own for `bind-gorge.ts`' reason.
  *
- * Thirteen of them name a column and are panned to it, because a column is a
+ * Fourteen of them name a column and are panned to it, because a column is a
  * blade: which one just grew, set, thickened or came off is the whole of what
  * the pair has to say to each other, and player 2's screen does not carry the
  * ledger that says why.
@@ -44,6 +44,7 @@ export function tasterCue(
         | "tasterPin"
         | "tasterWipe"
         | "tasterPry"
+        | "tasterPryFill"
         | "tasterOut";
     }
   >,
@@ -88,6 +89,8 @@ export function tasterCue(
       return { id: "boss.tasterWipe", pan: panForCol(e.col, cols) };
     case "tasterPry":
       return { id: "boss.tasterPry", pan: panForCol(e.col, cols) };
+    case "tasterPryFill":
+      return { id: "boss.tasterPryFill", pan: panForCol(e.col, cols) };
     case "tasterOut":
       return { id: "boss.tasterOut", pan: panForCol(e.col, cols) };
   }

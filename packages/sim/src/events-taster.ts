@@ -64,5 +64,7 @@ export type TasterEvent =
   | ({ type: "tasterWipe" } & TasterColEvent)
   /** The interlock carried apart: it stands open `tasterPryBeats`, and only then does the beam reach. */
   | ({ type: "tasterPry" } & TasterColEvent)
+  /** A right beam of `color` into the pried interlock, and it held; `owed` more open the fan. */
+  | ({ type: "tasterPryFill"; color: Color; owed: number } & TasterColEvent)
   /** The beam in the colour it never tasted: the fan unlocks outward, and it is over. */
   | ({ type: "tasterOut"; color: Color } & TasterColEvent);

@@ -116,6 +116,10 @@ export class TasterFx {
         case "tasterRefused":
           burst(tileCX(l, e.col), y - l.tile * 0.4, 3, PALETTE.sparkDim);
           break;
+        case "tasterPryFill":
+          // The payoff's burst, smaller: the fan answered, and one beam owed.
+          burst(tileCX(l, e.col), y - l.tile * 0.5, 8, edgeHex(e.color).rim);
+          break;
         case "tasterOut":
           burst(tileCX(l, e.col), y - l.tile * 0.5, 20, edgeHex(e.color).rim);
           break;

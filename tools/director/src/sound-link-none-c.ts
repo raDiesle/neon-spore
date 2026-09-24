@@ -211,4 +211,9 @@ export const NO_SUBJECT_C: Record<string, string> = {
   "boss.ratchetJam":
     "the third tooth burnt and the rack jammed into the hull. The fixture failing, and the hull's own sounds carry the hit.",
   "boss.ratchetOut": "the rack falling away and the wave ending. Same argument, and an absence.",
+  // THE TASTER's first beam of two, after its page had filled. The fan is
+  // eleven columns of one edge, and the sheet has no card for it
+  // (`sound-link-none.ts`, boss.tasterRise).
+  "boss.tasterPryFill":
+    "a right beam into the pried interlock short of the last, one still owed. The fan's, and a fan of blades is not a card.",
 };

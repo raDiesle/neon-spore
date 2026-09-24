@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — The first of two shots or beams is said: THE GORGE, THE TASTER
+
+- reading: 10 min. The three short returns in `gorge-step.ts` and
+  `taster-shot.ts`, and every page an existing gorge or taster event is
+  registered on, found by grep across a compaction.
+- writing: 10 min. `gorgeNick`, `gorgePryFill` and `tasterPryFill` with
+  `owed`, three sounds, two fx bursts, the silent lists, the sound links and
+  the counts in `audio.md`.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the reading. Each registration page for the two bosses was full,
+so each new row had to go on the page with room, beside a comment.
+
 ## 2026-09-24 — THE BATON's windows are doubled, and THE SLOW spans its asks
 
 - reading: 5 min. THE BATON's seven sim files, the director's hand, the

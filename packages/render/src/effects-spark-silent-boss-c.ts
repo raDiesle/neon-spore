@@ -47,4 +47,10 @@ export const SILENT_BOSS_C = [
   "ratchetOpen",
   "ratchetJam",
   "ratchetOut",
+  // THE GORGE's and THE TASTER's first halves, landed after their pages
+  // filled: no burst from this table, because each boss's bursts are read
+  // above the loop by its own fx file (`gorge-fx.ts`, `taster-fx.ts`).
+  "gorgeNick",
+  "gorgePryFill",
+  "tasterPryFill",
 ] as const satisfies readonly SimEvent["type"][];

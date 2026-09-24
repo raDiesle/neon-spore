@@ -365,6 +365,12 @@ describe("the interlock", () => {
     beams(world, t, "cyan", CFG.tasterPryFills - 1);
     expect(t.outBeat).toBe(-1);
     expect(world.events.some((e) => e.type === "tasterOut")).toBe(false);
+    expect(world.events).toContainEqual({
+      type: "tasterPryFill",
+      col: t.col,
+      color: "cyan",
+      owed: 1,
+    });
     beams(world, t, "cyan", 1);
     expect(t.outBeat).toBe(world.beat);
     expect(tasterPhase(t, CFG)).toBe("out");

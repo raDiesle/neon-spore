@@ -109,7 +109,9 @@ function openMouth(world: World, g: GorgeState): void {
  * `candleStruck`, a no-op unless THE GORGE is the boss and the column its own.
  *
  * A ruptured intake hangs open and the shot goes through. A full one is
- * pierced by any colour, bolt or beam, and ruptures on the `gorgeVentShots`th.
+ * pierced by any colour, bolt or beam, and ruptures on the `gorgeVentShots`th;
+ * every shot short of it is a `gorgeNick`, as every beam short of the last
+ * into the pried mouth is a `gorgePryFill`, so no shot that landed is silent.
  * Otherwise the shot is a bead: the intake's colour, or its first, fills it a
  * step and counts as a colour met; the other colour takes a bead back out and
  * counts as one missed. The mouth takes beads the same way but is never
@@ -145,7 +147,11 @@ function struck(world: World, g: GorgeState, bullet: Bullet): void {
       }
       metColor(world);
       g.pryFills += 1;
-      if (g.pryFills < cfg.gorgePryFills) return;
+      if (g.pryFills < cfg.gorgePryFills) {
+        const owed = cfg.gorgePryFills - g.pryFills;
+        world.events.push({ type: "gorgePryFill", col, color: bullet.color, owed });
+        return;
+      }
       g.outBeat = world.beat;
       world.events.push({ type: "gorgeOut", col, beads: g.swallowed });
       return;
@@ -157,7 +163,11 @@ function struck(world: World, g: GorgeState, bullet: Bullet): void {
   if (gorgeFull(k, cfg)) {
     metColor(world);
     k.pierced += 1;
-    if (k.pierced < cfg.gorgeVentShots) return;
+    if (k.pierced < cfg.gorgeVentShots) {
+      const owed = cfg.gorgeVentShots - k.pierced;
+      world.events.push({ type: "gorgeNick", col, color: k.color ?? bullet.color, owed });
+      return;
+    }
     k.ruptured = true;
     k.beads = 0;
     k.color = null;

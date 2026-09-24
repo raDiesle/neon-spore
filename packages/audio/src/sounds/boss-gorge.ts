@@ -1,5 +1,5 @@
 /**
- * THE GORGE's twelve, in a file of their own for `boss-candle.ts`' reason.
+ * THE GORGE's fourteen, in a file of their own for `boss-candle.ts`' reason.
  *
  * The boss is a **sack full of fluid**, and everything here is wet: a bead
  * going in is a swallow, a bead coming out is a gulp in reverse, a full
@@ -71,6 +71,20 @@ export const BOSS_GORGE_SOUNDS: SoundDef[] = [
       noise(0.3, { type: "bandpass", freq: 3200, toFreq: 500, q: 1.5 }, 0.004, 0.02, 0.5),
       after(0.04, thud(140, 50, 0.3, 0.4)),
       after(0.14, burst(soft(0.5, tick(0.2, 0, 1100)), 4, 0.06, 0.7, -60)),
+    ],
+  },
+  {
+    id: "boss.gorgeNick",
+    family: "boss",
+    blurb: "A full skin pricked and holding: a short wet prick, and a small give under it.",
+    status: "bound",
+    use: "THE GORGE's full intake taking a shot short of the rupture — the pierce landed, and one more is owed.",
+    level: 0.34,
+    // The rupture's opening with the tear taken off it: the same skin, not
+    // yet giving, so the two read as one act in two halves.
+    layers: [
+      noise(0.08, { type: "bandpass", freq: 3200, toFreq: 1800, q: 2 }, 0.003, 0.015, 0.45),
+      after(0.03, soft(0.5, thud(150, 90, 0.12, 0.3))),
     ],
   },
   {
@@ -146,6 +160,20 @@ export const BOSS_GORGE_SOUNDS: SoundDef[] = [
     layers: [
       noise(0.28, { type: "bandpass", freq: 600, toFreq: 3400, q: 1.6 }, 0.02, 0.08, 0.4),
       after(0.15, spore(2200, 0.8, 0.1, 8)),
+    ],
+  },
+  {
+    id: "boss.gorgePryFill",
+    family: "boss",
+    blurb: "A beam going into the held-open mouth: a deep wet gulp, and a tone left rising.",
+    status: "bound",
+    use: "THE GORGE — a beam in the pried mouth short of the last; one more ends the fight.",
+    level: 0.4,
+    // The swallow's gulp made slow and low, with the fill's tone left hanging
+    // above the band as the thing still owed.
+    layers: [
+      noise(0.16, { type: "lowpass", freq: 900, toFreq: 220, q: 1.2 }, 0.01, 0.04, 0.42),
+      after(0.1, spore(3000, 0.6, 0.1, 10)),
     ],
   },
   {

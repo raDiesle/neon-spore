@@ -4834,7 +4834,9 @@ whose pinch and pierce the mouth's early return was eating.
 (`gorgePryFills`), and THE SLOW opened for the first time, spanning every ask
 the sack holds — up while any intake waits full or the mouth is pried, shut
 on the tick the last one is answered or runs out (`sim/gorge-slow.ts`). The
-first of two shots has no picture or sound of its own yet (`docs/queue.md`).
+first of two shots is said since the same day: a pierce short of the rupture
+is a `gorgeNick` and a beam short of the last a `gorgePryFill`, each with
+`owed`, a sound and a smaller burst of what the second will throw.
 
 ## 11.24 THE CURTAIN — the boss that is in the way
 
@@ -5385,8 +5387,8 @@ lane. `render/test/boss-cue-taster.test.ts` proves the six cases.
 (`docs/spec/choreographed-windows.md`): `tasterPryBeats` 6 → 12 and the
 interlock two beams (`tasterPryFills`), and THE SLOW moved from the beat a
 blade's colour sets, which asks for nothing, to the pry, which is the one
-ask here with a clock on it. The first beam has no picture or sound of its
-own yet (`docs/queue.md`).
+ask here with a clock on it. The first beam is said since the same day: a
+`tasterPryFill` with `owed`, a sound, and a smaller burst of the payoff's.
 
 ## 11.26 THE SINEW — the boss that asks how hard, not when
 

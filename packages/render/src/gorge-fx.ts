@@ -6,7 +6,7 @@ import { PALETTE } from "./palette.js";
 
 /**
  * What THE GORGE leaves behind a frame: the beads leaving at the end, and the
- * bursts its twelve receipts throw on the way there.
+ * bursts its fourteen receipts throw on the way there.
  *
  * Everything else about the sack is drawn off the boss every frame
  * (`gorge-draw.ts`). The payoff is the exception, and it is the loudest frame
@@ -26,7 +26,10 @@ import { PALETTE } from "./palette.js";
  *
  * The bursts go through `Sparks` like any other event's, and are here rather
  * than in `effects-spark.ts`'s table because that file is at its limit and the
- * twelve are one family: read once, above the loop, the way THE MIRROR's are.
+ * fourteen are one family: read once, above the loop, the way THE MIRROR's are.
+ * The first of two pierces and the first of two fills are the rupture's and
+ * the payoff's first halves — a little of the rock, a little of the mouth's
+ * colour — so a shot that landed and left a count owing is never silent.
  * The two thumbs' bursts are small and white — a thumb landing is the
  * handle's colour, not the sack's — and the clench is the sack's rock, a
  * mouth shutting on something.
@@ -70,6 +73,9 @@ export class GorgeFx {
         case "gorgeRupture":
           burst(tileCX(l, e.col), top, 16, PALETTE.rock);
           break;
+        case "gorgeNick":
+          burst(tileCX(l, e.col), top, 6, PALETTE.rock);
+          break;
         case "gorgeVent":
           burst(tileCX(l, e.col), top, 6, PALETTE.ember);
           break;
@@ -87,6 +93,9 @@ export class GorgeFx {
           break;
         case "gorgePry":
           burst(tileCX(l, e.col), top - l.tile * 0.5, 8, PALETTE.text);
+          break;
+        case "gorgePryFill":
+          burst(tileCX(l, e.col), top, 10, e.color === "red" ? PALETTE.redRim : PALETTE.cyanRim);
           break;
         case "gorgeClench":
           burst(tileCX(l, e.col), top, 14, PALETTE.rock);

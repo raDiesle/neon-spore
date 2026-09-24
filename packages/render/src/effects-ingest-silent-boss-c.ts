@@ -123,4 +123,11 @@ export const INGEST_SILENT_BOSS_C = [
   "ratchetOpen",
   "ratchetJam",
   "ratchetOut",
+  // THE GORGE's and THE TASTER's first halves, which arrived on 24 September
+  // 2026 after their own pages had filled: a shot that landed with one more
+  // owed. Their bursts are `gorge-fx.ts`' and `taster-fx.ts`', read above the
+  // loop with the rest of each boss's; what is owed stays read off the state.
+  "gorgeNick",
+  "gorgePryFill",
+  "tasterPryFill",
 ] as const satisfies readonly SimEvent["type"][];

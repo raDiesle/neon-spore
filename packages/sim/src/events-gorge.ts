@@ -32,6 +32,8 @@ export type GorgeEvent =
   | ({ type: "gorgeFull"; color: Color } & GorgeColEvent)
   /** A full intake was pierced and hangs open for good; `left` is how many can still be. */
   | ({ type: "gorgeRupture"; left: number } & GorgeColEvent)
+  /** A full intake took a shot of the `gorgeVentShots` and held; `owed` more rupture it. */
+  | ({ type: "gorgeNick"; color: Color; owed: number } & GorgeColEvent)
   /** A full intake nobody pierced let go: a torch down `col`, and the intake empty. */
   | ({ type: "gorgeVent" } & GorgeColEvent)
   /** A bead returned down its own column as a body of `color`. */
@@ -44,6 +46,8 @@ export type GorgeEvent =
   | ({ type: "gorgePinch" } & GorgeColEvent)
   /** Player 2's thumb pried the mouth open: for `gorgePryBeats`, the beam can end it. */
   | ({ type: "gorgePry" } & GorgeColEvent)
+  /** A beam of `color` went into the pried mouth and it held; `owed` more end the fight. */
+  | ({ type: "gorgePryFill"; color: Color; owed: number } & GorgeColEvent)
   /**
    * The mouth clenched: on a beam with no thumb prying it, which went in as
    * nothing, or on a thumb held past its window, thrown off with a bead spat.

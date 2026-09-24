@@ -1,5 +1,5 @@
 /**
- * THE TASTER's fifteen, in a file of their own for `boss-gorge.ts`' reason.
+ * THE TASTER's sixteen, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is **eleven blades**, and everything here is a blade being worked:
  * growing is a whetstone, setting is a single struck edge, thickening is that
@@ -187,6 +187,18 @@ export const BOSS_TASTER_SOUNDS: SoundDef[] = [
       after(0.08, sub(56, 0.5, 0.38)),
       after(0.24, metal(4600, 0.3, 0.2, 150)),
     ],
+  },
+  {
+    id: "boss.tasterPryFill",
+    family: "boss",
+    blurb:
+      "A beam ringing into the open interlock: one struck edge and a low weight, and no give yet.",
+    status: "bound",
+    use: "THE TASTER — a right beam into the pried interlock short of the last; one more opens the fan.",
+    level: 0.4,
+    // `tasterOut`'s first grain on its own and short: the fan answered, and
+    // not yet thrown open.
+    layers: [metal(4800, 0.2, 0.18, 200), after(0.03, sub(62, 0.3, 0.32))],
   },
   {
     id: "boss.tasterOut",

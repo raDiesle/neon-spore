@@ -160,6 +160,7 @@ describe("the pry", () => {
     expect(world.slowToBeat).toBe(world.beat + CFG.gorgePryBeats);
     gorgeStruck(world, shot(world, g.col + 3, color, true));
     expect(g.pryFills).toBe(1);
+    expect(world.events).toContainEqual({ type: "gorgePryFill", col: g.col + 3, color, owed: 1 });
     expect(gorgePhase(g, CFG)).toBe("gorged");
     gorgeStruck(world, shot(world, g.col + 3, color, true));
     expect(gorgePhase(g, CFG)).toBe("out");

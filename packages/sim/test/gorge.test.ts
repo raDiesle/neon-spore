@@ -128,6 +128,12 @@ describe("full, pierced or vented", () => {
     gorgeStruck(world, shot(world, g.col + 3, "cyan"));
     expect(g.intakes[3]?.ruptured).toBe(false);
     expect(g.intakes[3]?.pierced).toBe(1);
+    expect(world.events).toContainEqual({
+      type: "gorgeNick",
+      col: g.col + 3,
+      color: "red",
+      owed: 1,
+    });
     expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
     gorgeStruck(world, shot(world, g.col + 3, "red"));
     expect(g.intakes[3]?.ruptured).toBe(true);

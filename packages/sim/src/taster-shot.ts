@@ -145,7 +145,8 @@ export function tasterStruck(world: World, bullet: Bullet): void {
  * single shot never reached this fan and never will.
  *
  * **Two beams since 24 September 2026** (`tasterPryFills`): each right one is
- * a colour met, and the last inside the pry ends the fight and the slow.
+ * a colour met, and the last inside the pry ends the fight and the slow;
+ * every one short of it is a `tasterPryFill`, so the first is heard and seen.
  */
 function interlock(world: World, t: TasterState, bullet: Bullet, col: number): void {
   if (!bullet.lance || !tasterPried(t, world.beat, world.cfg)) {
@@ -160,7 +161,11 @@ function interlock(world: World, t: TasterState, bullet: Bullet, col: number): v
   }
   metColor(world);
   t.pryFills += 1;
-  if (t.pryFills < world.cfg.tasterPryFills) return;
+  if (t.pryFills < world.cfg.tasterPryFills) {
+    const owed = world.cfg.tasterPryFills - t.pryFills;
+    world.events.push({ type: "tasterPryFill", col, color: want, owed });
+    return;
+  }
   closeSlow(world);
   t.outBeat = world.beat;
   world.events.push({ type: "tasterOut", col, color: want });
