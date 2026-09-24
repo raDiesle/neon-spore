@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 042c0dce — `--boss-json` writes a list at any length, checked item by item
+
+A list field used to take only a list of its own length, so every list a boss grows — THE SCUTTLE's `loose`, THE LEDGER's `beads`, THE SCOUT's `carrying`, THE UNDERTOW's `breaches`, SNAKE's `body` — could not be posed. The owner chose to check the items' type instead: each item must be a kind the list already holds, and a shape item must carry the keys the others carry. An empty list takes anything. The check moved out of `page.evaluate` into `tools/frames/boss-check.ts`, where it has tests.
+
 ## 2026-09-24 · 6c5fc7d0 — The shield rim's dead opacity figures are gone
 
 `WARD_LOOK.alphaBase` and `alphaGlow` set a `globalAlpha` that `strokeGlow` never read, so the rim and THE VOLLEY's ward have always been drawn with their core at 1. The owner chose to delete the dead figures rather than draw the fade they described. `glowFloor` and the rim's shimmer, which only fed that opacity, went with them. Nothing drawn changes.
