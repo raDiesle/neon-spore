@@ -407,6 +407,7 @@ by hand never moves.
 | `packages/sim/src/gorge-step.ts` | THE GORGE's clock — the vent, the spit, the mouth feeding itself and the beats after the beam |
 | `packages/sim/src/gorge-slow.ts` | **THE SLOW on THE GORGE spans its asks exactly** (`docs/decisions.md` #33) |
 | `packages/sim/src/gorge-pry.ts` | **The pry's own clock, and the bead a spit is**: what `gorge-step.ts` runs on the beat for player 2's thumb |
+| `packages/sim/src/gorge-mouth.ts` | **A bead in, a bead out, and THE GORGE's mouth**: what a shot does to an intake that takes it as a bead |
 | `packages/sim/src/gorge.ts` | THE GORGE: what not to do |
 | `packages/sim/src/gimbal-hand.ts` | Two hands on THE GIMBAL, one ring each, and **the same turn means two different things** |
 | `packages/sim/src/gimbal-hash.ts` | What THE GIMBAL puts into `hashWorld`, and nothing else |

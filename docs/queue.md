@@ -536,20 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `gorge-step.ts` is at 250 lines
-
-- **Found:** 2026-09-24, claude/queue-the-first-of-two-shots-or-beams-makes-no-sign-th
-- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-gorge-step-ts-is-at-250-lines)
-- **Files:** `packages/sim/src/gorge-step.ts`
-
-The first-of-two events (`gorgeNick`, `gorgePryFill`) took THE GORGE's step
-file to the size ceiling exactly. `struck()` has two branches that each read
-as a file's worth: the mouth (clench, pry fill, out, swallow) and the full
-intake (nick, rupture, the mouth opening). Move the mouth's branch and
-`openMouth` into a `gorge-mouth.ts`, and leave
-`gorgeStruck` the dispatcher; `gorge.test.ts` and `gorge-hand.test.ts` prove
-it unchanged.
-
 ## The shield rim's shimmer alpha has never reached the line
 
 - **Found:** 2026-09-24, claude/queue-strokeglow-is-handed-an-alpha-it-throws-away-the

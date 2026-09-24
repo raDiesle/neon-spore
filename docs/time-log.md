@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE GORGE's mouth is a file of its own
+
+- reading: 5 min. The queue entry, `gorge-step.ts`, and which of its
+  helpers the mouth and the full intake share.
+- writing: 5 min. `gorge-mouth.ts` with the bead in and out, `openMouth`
+  and the mouth's branch; `struck` left the dispatcher.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. The after-edit determinism hook timed one test out under
+  a full run's load; `check:fast` refused on two missing workspace links
+  until `bun install --force`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: `swallow` and `empty` serve both branches,
+so they had to move with the mouth to keep the two files from importing
+each other.
+
 ## 2026-09-24 — THE BATON's tests share one rig and split by stage
 
 - reading: 5 min. `baton.test.ts`, the fixture, and how `baton-hand` split.
