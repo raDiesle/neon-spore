@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · b123d84c — THE GORGE's mouth is a file of its own
+
+`gorge-step.ts` stood at the 250-line ceiling. The bead in and out, the mouth opening and a shot into the mouth are now `gorge-mouth.ts`; `gorgeStruck` stays the dispatcher and pierces a full intake itself. Nothing a player sees or the simulation does changed; the gorge tests prove it.
+
 ## 2026-09-24 · ed2f808d — THE BATON's tests share one rig and split by stage
 
 `baton.test.ts` was 717 lines and kept its own copy of the helpers in `baton-fixture.ts`. It now imports them — the fixture gains `lead`, `merged`, `cross` and a seed on `open` — and its thirty tests are dealt into three files: the unfold and handover stay in `baton.test.ts`, the swing, shed and twin go to `baton-swing.test.ts`, the merge and crossing to `baton-crossing.test.ts`. No test changed.
