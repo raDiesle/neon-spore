@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## `baton.test.ts` is 717 lines and keeps its own copy of the arm's rig
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-baton
+- **Taken:** 2026-09-24, claude/queue-task-b35678 (claim: claude/queue-baton-test-ts-is-717-lines-and-keeps-its-own-cop)
 - **Files:** `packages/sim/test/baton.test.ts`, `packages/sim/test/baton-fixture.ts`
 
 THE BATON's two-thumb helpers moved into `baton-fixture.ts` when the doubled
