@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · d8164155 — A finger on a body is reached at the field's own config
+
+`creatureAt` is now handed the field rather than its creatures, a phase and a seat. It sizes the reach by the field's `cfg` instead of `DEFAULT_CONFIG`, so a config that draws near bodies bigger is answered out to their edge as drawn. It also places each body by `glidePhase`, like every placement in render/. A balloon refuses a hand and is held by its handles, so that changes nothing today; `touch-reach.test.ts` pins the refusal.
+
 ## 2026-09-24 · 4bab4e9c — `bun run imports` drops a whole unused import with no comment above it
 
 A statement every one of whose names a split left unused now comes out whole when the line above it is another import, a blank or the file's start, so there is no comment for the cut to take with it. One with a comment directly above it is still printed for somebody to read, and so is one sharing its line with anything else.

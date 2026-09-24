@@ -19038,3 +19038,5 @@ another multi-line import as an import, and a blank on both sides as one gap.
 The bottleneck was **friction**: the entry promised a failing balloon press
 that cannot happen, and the half-tile miss it described is inside the
 reach anyway.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
