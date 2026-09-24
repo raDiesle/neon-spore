@@ -391,31 +391,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A short phone stands the hull between two black side bars
-
-- **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
-- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-a-short-phone-stands-the-hull-between-two-black)
-- **Files:** `packages/render/src/layout-stage.ts`, `packages/render/src/layout.ts`, `packages/render/src/hull.ts`, `packages/render/test/layout-stage.test.ts`
-- **Where:** local
-- **Asks:** On a phone shorter than about 16:9 of free height, which should give: the dark bars, a wider picture, or a shorter band?
-
-The owner, 20 September 2026: *"horizontal the hull skin is vertical cutted
-inside of the screen."* It is `computeStage` doing what it says: the stage is
-never wider than `cols * tile`, and the tile is whatever the height leaves
-after the band (`bandSoloPct`, 19%) and the radar. At 390×660 — a real phone
-with its bars out — that is 366 of 390 pixels, with 12 dark at each side; at
-375×548 it is 300 of 375. The three answers, each sized:
-
-- **Keep the bars.** The columns are the frame (`layout-stage.ts`'s own
-  comment); nothing changes but that comment, which then says it was asked.
-- **Draw past the columns.** The stage takes the window's width, the field
-  stays `cols * tile` and centred, and the hull's skin, the band and the
-  background are drawn out to the edges. `computeLayout` already carries
-  `gridLeft`; the hull and the band are the work, and `frame.test.ts` redraws.
-- **Shorten the band on a short screen.** `bandHeightFor` takes a smaller
-  share below some height so the tile grows back to the width. The lobes shrink
-  with it; `layout-stage.test.ts`'s touch-ring test holds them inside.
-
 ## Unverified at 5db3ae3e: the svh cap on a real phone whose address bar comes bac…
 
 - **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
@@ -445,3 +420,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `computeStage` takes a config and a role it no longer reads
+
+- **Found:** 2026-09-24, claude/queue-task-b0bde7
+- **Files:** `packages/render/src/layout-stage.ts`, `apps/game/src/viewport.ts`, `packages/render/src/canvas2d.ts`, `packages/render/src/guide-film.ts`, `tools/director/src/pose-art.ts`, `tools/director/src/stage-point.ts`, `tools/director/src/versus-diff.ts`
+
+The eleven tests that call it change with them (`git grep -n "computeStage("`).
+
+Since the stage stopped being capped at the columns (24 September 2026) its
+width is the window's, a 9:16 phone's and `PHONE_WIDEST` — nothing about the
+band, so `cfg` and `role` are `_cfg` and `_role`. Nineteen callers still pass
+both. Drop the two parameters and every argument; `bandHeightFor`'s `_role`
+beside it is the same leftover from 12 September and goes in the same change.
+`bun run check` proves it.

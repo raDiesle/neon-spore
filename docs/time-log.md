@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — A short phone's hull reaches both sides of the screen
+
+- reading: 0 min. `computeStage`, `computeLayout` and the hull's clip.
+- writing: 5 min. `--size` on `bun run frames`, the stage's phone floor,
+  the hull drawn to the stage's sides, two tests and three comments.
+- looking: 0 min. Three frames at 390x660 and 375x548, and a crop of the
+  flank; the second showed the aspect cap cutting as much as the columns.
+- friction: 0 min. `bun run frames` had no viewport flag — added, not
+  worked around.
+- landing: 5 min. `check:fast` red once on the director's pointer test,
+  whose window stopped being wider than its stage.
+
+The bottleneck was **looking**: the queue entry named the columns as the
+cause, and only the first frame showed the aspect cap was half of it.
+
 ## 2026-09-24 — A player reads P1'S and P2'S on a mark, and PLAYER 1 and 2 on the menu
 
 - reading: 0 min. The two queue entries and the fifteen `STANDING` lines.

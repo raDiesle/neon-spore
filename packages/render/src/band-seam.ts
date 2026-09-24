@@ -81,9 +81,10 @@ function seamPoints(l: Layout, time: number, lobes: readonly Circle[]): Point[] 
  * answer: a flat band of one colour under a gradient is exactly the horizontal
  * cut this shape was drawn to avoid.
  *
- * What is left is the strip beside the columns. The hull is clipped to the
- * field, and a stage wider than it — which the phone never is, and a test or a
- * director frame may be — would otherwise show background through the dip.
+ * What is left is the strip beside the columns. The hull reaches the stage's
+ * sides now (`hull.ts`, 24 September 2026), and a short phone's stage is wider
+ * than its field; this stays as the floor under the flanks, in the ship's own
+ * deepest colour, so the dip never shows background whatever skin is on top.
  */
 export function drawSeamFlesh(
   ctx: CanvasRenderingContext2D,

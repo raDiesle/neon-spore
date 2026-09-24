@@ -59,8 +59,10 @@ afterAll(() => {
  * band was taller than a phone's and the field correspondingly narrower;
  * since the band is one share in every view (`layout.ts`) the field fills
  * 391 of those, and the offset this file exists for needs a wider canvas.
+ * 520 since the stage stopped being capped narrower than a phone
+ * (`layout-stage.ts`'s `PHONE_WIDEST`): at 460 it was 430 of them.
  */
-const VIEWPORT = { width: 460, height: 700, dpr: 1 };
+const VIEWPORT = { width: 520, height: 700, dpr: 1 };
 /** The canvas is laid out bigger than the renderer was told — browser zoom. */
 const ZOOM = 1.25;
 const RECT = { left: 100, top: 20 };

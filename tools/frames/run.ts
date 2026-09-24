@@ -39,7 +39,7 @@ import { dirname, join } from "node:path";
  * | `--hold` | `hold.ts`; every one of them, not the first, in `flags.ts` |
  * | `--hand`, `--hand-over` | `hand.ts` |
  * | `--press` | `press.ts`; the column it names in `press-column.ts` |
- * | `--settle`, `--boss-round`, `--seat`, `--ticks` | `spec.ts`, on the field each one sets |
+ * | `--settle`, `--boss-round`, `--seat`, `--ticks`, `--size` | `spec.ts`, on the field each one sets |
  * | `--wave` | `wave.ts`, which answers it against the right list |
  *
  * What is left here is one **recipe** per flag, which is what somebody reaching
@@ -57,6 +57,7 @@ import { dirname, join } from "node:path";
  *   bun run frames . --wave 21 --events   what fired, and on which tick
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
+ *   bun run frames . --wave 21 --seat p1 --size 390x660   a short phone, its bars out
  *   bun run frames . --wave "THE CLASP" --raster   the baked looks, which are off by default
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  a thumb on a cord
  *   bun run frames <sha> --wave 21 --hold balloonLeft=-1600,id=1 --hold balloonRight=1600,id=1   both hands
@@ -109,7 +110,7 @@ async function main(): Promise<void> {
       'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
         "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
-        "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] " +
+        "[--settle N] [--size WxH] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] " +
         "[--creature key=value,…] [--raster] " +
         "[--until EVENT] [--until-ticks N] [--until-back N | --until-on N] [--events] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",

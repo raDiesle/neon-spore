@@ -45,12 +45,12 @@ export { type HullSkin, MIRROR_SKIN, OWN_SKIN } from "./hull-skin.js";
  * as a height field over x (`hullPointAtX`), so a lobe stands above the column
  * it belongs to instead of leaning towards the middle of the field.
  */
-/** How far past the field edges to sample, so the contour never ends in view. */
+/** How far past the stage's edges to sample, so the contour never ends in view. */
 const MARGIN = 0.12;
 
 function pointsAcross(f: HullFrame, l: Layout, steps: number) {
-  const from = l.gridLeft - MARGIN * l.gridWidth;
-  const to = l.gridLeft + (1 + MARGIN) * l.gridWidth;
+  const from = -MARGIN * l.gridWidth;
+  const to = l.width + MARGIN * l.gridWidth;
   const pts = [];
   for (let i = 0; i <= steps; i++) pts.push(surface(f, from + (to - from) * (i / steps)));
   return pts;
@@ -99,14 +99,17 @@ export function drawHull(
   // as a bump glued to a line.
   const pts = pointsAcross(f, l, 140);
 
-  const right = l.gridLeft + l.gridWidth;
   const bottom = hullBottom(l);
   const body = splinePath(pts, false);
-  const filled = splineSkirt(pts, right, bottom, l.gridLeft, bottom);
+  const filled = splineSkirt(pts, l.width, bottom, 0, bottom);
 
-  // The hull is cut off at the columns, not at the window: the contour is
-  // sampled past both edges so it never ends in view, but nothing of the ship
-  // is drawn outside the coordinate field. The bottom edge is `hullBottom` —
+  // The hull is cut off at the stage, not at the columns: the contour is
+  // sampled past both edges so it never ends in view. It was cut at the
+  // columns until 24 September 2026, when a phone shorter than 9:16 of free
+  // height stood the ship between two black bars and the owner asked for the
+  // skin to reach the sides (`layout-stage.ts`). Wherever the field fills the
+  // stage — every phone of ordinary height — the two are the same line.
+  // The bottom edge is `hullBottom` —
   // not `l.height`, and no longer `bandTop`: the ship ends at its own membrane,
   // and everything here has to agree with it, or the one shape with negative
   // lift (the maw, inverted past the hull line) is sliced down its own throat.
@@ -119,7 +122,7 @@ export function drawHull(
   // believes.
   ctx.translate(shake.x, shake.y);
   ctx.beginPath();
-  ctx.rect(l.gridLeft, 0, l.gridWidth, bottom);
+  ctx.rect(0, 0, l.width, bottom);
   ctx.clip();
 
   // Dark where it is thick, bright at the skin: a jellyfish is mostly the
@@ -151,9 +154,9 @@ export function drawHull(
   HULL_LIGHT.lit(ctx, {
     region: filled,
     body,
-    x: l.gridLeft,
+    x: 0,
     y: top,
-    w: l.gridWidth,
+    w: l.width,
     h: bottom - top,
     half: LIGHT_HALF.hull,
     skin: skin_,

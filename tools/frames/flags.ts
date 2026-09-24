@@ -152,6 +152,12 @@ export function parseFrameSpec(
   }
 
   const atValue = after("at");
+  // A phone other than 390x844, for what only a short or a narrow one shows —
+  // the side bars a short screen stood the hull between had no picture (`page.ts`).
+  const size = after("size");
+  const [vw, vh] = (size ?? "").split("x").map(Number);
+  if (size !== undefined && !(vw! > 0 && vh! > 0))
+    throw new Error(`--size ${size}: WxH, e.g. 390x660`);
 
   // What ends the first run: a number, or something happening. `--ticks` is
   // read for whether it was *written* and not only for its value, because the
@@ -188,6 +194,7 @@ export function parseFrameSpec(
     settle: flag("settle", 0),
     at: atValue === undefined ? undefined : parseAt(atValue),
     zoom: flag("zoom", 1),
+    ...(size === undefined ? {} : { viewport: { width: vw!, height: vh! } }),
     // Undefined rather than 0, so a wave whose boss has no rounds is only
     // refused when somebody actually asked for one.
     ...(argv.includes("--boss-round") ? { bossRound: flag("boss-round", 0) } : {}),

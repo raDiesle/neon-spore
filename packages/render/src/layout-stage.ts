@@ -33,6 +33,14 @@ export interface Stage {
 
 /** Widest the stage is allowed to get, width / height. Roughly a 9:16 phone. */
 const STAGE_ASPECT = 0.56;
+/**
+ * **But never capped narrower than this, in CSS pixels** — the widest phone
+ * held upright (430, the biggest iPhone). The cap is there so a desk window
+ * does not draw a hull nobody will see; a phone's own width is never that, and
+ * a phone shorter than 9:16 of free height was being cut to the cap with black
+ * at both sides (`computeStage`).
+ */
+const PHONE_WIDEST = 430;
 
 /**
  * The band is a share of the screen height, and it is the same share in every
@@ -50,12 +58,20 @@ export function bandHeightFor(height: number, cfg: SimConfig, _role: ViewRole): 
 }
 
 /**
- * The columns are the frame, not the phone. The hull is exactly as wide as the
- * field and is clipped to it, so any stage wider than the columns shows empty
- * background beside the ship — and it changes width with the band, which is why
- * the gap used to move when the view switched. The tile is whatever the height
- * leaves; the stage is that many columns wide, and never wider than a phone or
- * than the window.
+ * **The phone is the frame, not the columns.** The stage is as wide as the
+ * window, never wider than a 9:16 phone of that height — and never capped
+ * narrower than `PHONE_WIDEST`, because that cap is there for a desk window
+ * and a phone upright is never too wide. The field is `cols * tile`, centred
+ * in it (`computeLayout`), and the hull's skin runs past the columns to the
+ * stage's sides (`hull.ts`).
+ *
+ * It was the other way round until 24 September 2026: the stage was never
+ * wider than the columns, so a phone shorter than 9:16 of free height — 390x660
+ * with its bars out — stood the ship between two black side bars, and the
+ * owner saw *the hull skin cut vertically inside the screen*. Asked which
+ * should give, the bars, the band or the picture, the owner left it to the
+ * lane; the picture gave, because a shorter band shrinks the lobes a thumb
+ * aims at on exactly the phones where they are smallest already.
  *
  * **And never out into the phone's own furniture.** `viewport.inset` is the
  * strips the device keeps — the notch and the status bar above, the home
@@ -66,15 +82,14 @@ export function bandHeightFor(height: number, cfg: SimConfig, _role: ViewRole): 
  * lobes in with it, and `bandSoloPct` is a share of the height a thumb is
  * actually allowed rather than of the window's. Nothing was moved by hand.
  */
-export function computeStage(viewport: Viewport, cfg: SimConfig, role: ViewRole): Stage {
+export function computeStage(viewport: Viewport, _cfg: SimConfig, _role: ViewRole): Stage {
   const inset = viewport.inset ?? NO_INSET;
   // Never negative: a window shorter than its own furniture is what a phone
   // reports for a moment while it rotates, and a negative height reaches the
   // canvas as a negative radius, which throws.
   const height = Math.max(0, viewport.height - inset.top - inset.bottom);
   const across = Math.max(0, viewport.width - inset.left - inset.right);
-  const usable = height - bandHeightFor(height, cfg, role) - cfg.radarHeightPx;
-  const tile = Math.max(0, usable / cfg.rows);
-  const width = Math.min(across, height * STAGE_ASPECT, cfg.cols * tile);
+  // And empty with it: a stage with no height has nothing to be wide for.
+  const width = height === 0 ? 0 : Math.min(across, Math.max(height * STAGE_ASPECT, PHONE_WIDEST));
   return { left: inset.left + Math.round((across - width) / 2), top: inset.top, width, height };
 }

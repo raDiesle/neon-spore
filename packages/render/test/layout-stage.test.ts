@@ -61,6 +61,32 @@ describe("computeStage and the phone's own furniture", () => {
   });
 
   /**
+   * The owner, 20 September 2026: *"horizontal the hull skin is vertical
+   * cutted inside of the screen."* A phone shorter than 9:16 of free height
+   * stood the hull between two black side bars; the stage is its whole width
+   * now, with the field centred in it (`layout-stage.ts`).
+   */
+  it("is a short phone's whole width, with the field centred in it", () => {
+    for (const [width, height] of [
+      [390, 660],
+      [375, 548],
+    ] as const) {
+      const s = computeStage({ width, height, dpr: 2 }, cfg, "p1");
+      expect(s.width).toBe(width);
+      expect(s.left).toBe(0);
+      const l = computeLayout({ width: s.width, height: s.height, dpr: 2 }, cfg, "p1");
+      expect(l.gridWidth).toBeLessThan(width);
+      expect(l.gridLeft * 2 + l.gridWidth).toBeCloseTo(width);
+    }
+  });
+
+  it("still caps a desk window at a phone's aspect", () => {
+    const s = computeStage({ width: 1240, height: 900, dpr: 1 }, cfg, "test");
+    expect(s.width).toBeCloseTo(900 * 0.56);
+    expect(s.left).toBe(Math.round((1240 - s.width) / 2));
+  });
+
+  /**
    * The owner, 20 September 2026: *in "both seats" the bottom of control set
    * is often cutted, so I can't see buttons and use them.* Every lobe's touch
    * ring — 30% past the circle drawn (`hitCircle`) — stays inside the stage on
