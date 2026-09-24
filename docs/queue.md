@@ -539,6 +539,7 @@ what the rest of this file holds.
 ## `bun run imports` leaves a split's whole import statements to a hand
 
 - **Found:** 2026-09-23, claude/queue-step-lines
+- **Taken:** 2026-09-24, claude/queue-nothing-settles-a-conflict-in-versus-pose-ts-on (claim: claude/queue-bun-run-imports-leaves-a-splits-whole-import-sta)
 - **Files:** `tools/imports/classify.ts`, `tools/imports/imports.ts`, `tools/imports/test/`
 
 Cutting the field's hands out of `step.ts` stranded fourteen whole import
