@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 44b45db5 — The guide's BACK and REPLAY sit beside NEXT, as signs
+
+Both were up in the top bezel and both said their names. The owner asked for the row on 24 September 2026: the retry button next to NEXT, the prev button with it, both much less wide and carrying an icon only. So the bar holds all three, left to right, with BACK and REPLAY at a share of the stage's width and NEXT taking what is left. A look the owner asked for by name.
+
 ## 2026-09-24 · c924b1b0 — SCUTTLE:HANG · APART taken into the game, SHORT cut
 
 THE SCUTTLE's rows stand further apart and a loose part falls less than the gap between them, so it comes to rest clear of the socket below rather than over it. `SCUTTLE_ROWS` is rise 0.4, pitch 0.6, drop 0.26 — three rows still put the frame's top 1.6 tiles above the grid, under the HUD's pills.
