@@ -469,6 +469,7 @@ job name beside it.
 ## The game's preview has no `here` route, and the director's does
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054
+- **Taken:** 2026-09-24, claude/queue-the-spools-guide-has-no-film (claim: claude/queue-the-games-preview-has-no-here-route-and-the-dire)
 - **Files:** `.claude/launch.json`, `apps/game/package.json`, `tools/dev/supervise.ts`, `docs/commands.md`
 - **Where:** local
 
