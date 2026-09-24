@@ -1,4 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { drawIrisMarks } from "../src/eye-iris.js";
+import { drawFenceSkull } from "../src/fence-skull.js";
 import { introEar } from "../src/intro-ear.js";
 import { computeLayout } from "../src/layout.js";
 import { drawChew } from "../src/maw.js";
@@ -117,5 +119,26 @@ describe("the ship and the screens", () => {
     const whole = (cup: number) =>
       alphas((ctx) => introEar(ctx, 100, 100, 40, "#88ccff", 1, cup)).filter((a) => a === 1).length;
     expect(whole(0.3)).toBe(whole(0));
+  });
+});
+
+describe("the bosses", () => {
+  const l = computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, "p1");
+
+  it("draws THE FENCE's skull no brighter than the fan's nearness, every line of it", () => {
+    // `force` 0 is the faintest it is drawn: 0.6.
+    const at = alphas((ctx) => drawFenceSkull(ctx, l, 200, 300, 0, 0.4));
+    expect(at.length).toBeGreaterThan(0);
+    expect(Math.max(...at)).toBeLessThanOrEqual(0.6 + 1e-9);
+  });
+
+  it("dims an eye's iris with the surface it rides, the ring and the hole alike", () => {
+    // Half dimmed by the ball (`eye-ball.ts`), and a hole a third open.
+    const at = alphas((ctx) => {
+      ctx.globalAlpha = 0.5;
+      drawIrisMarks(ctx, 100, 100, 12, { hex: "#ff4060", rim: "#ffb0c0" }, 0.3, 1.2);
+    });
+    expect(at.length).toBeGreaterThan(0);
+    expect(Math.max(...at)).toBeLessThanOrEqual(0.5 + 1e-9);
   });
 });

@@ -147,17 +147,26 @@ export function drawFenceSkull(
   ctx.fill(run(CRANIUM, strike, 0, true, cx, cy, size));
   ctx.fill(run(JAW, strike, 40, true, cx, cy, size));
 
+  // The face at `alpha` line by line: `strokeGlow` sets its own alpha and
+  // leaves it at 1, so the context's reached the dark behind it and no line.
   const wide = Math.max(1.6, l.tile * 0.045);
   const fine = Math.max(1.2, l.tile * 0.03);
-  strokeGlow(ctx, run(CRANIUM, strike, 0, true, cx, cy, size), PALETTE.arc, wide, 1.6);
-  strokeGlow(ctx, run(JAW, strike, 40, true, cx, cy, size), PALETTE.arc, wide, 1.4);
+  strokeGlow(ctx, run(CRANIUM, strike, 0, true, cx, cy, size), PALETTE.arc, wide, 1.6, alpha);
+  strokeGlow(ctx, run(JAW, strike, 40, true, cx, cy, size), PALETTE.arc, wide, 1.4, alpha);
   // The sockets and the nose in the hot white, which is what makes the shape
   // resolve into a face rather than into a knot of current.
   const mirror = SOCKET.map(([x, y]) => [-x, y] as const);
   for (const [i, eye] of [SOCKET, mirror].entries()) {
-    strokeGlow(ctx, run(eye, strike, 60 + i * 20, true, cx, cy, size), PALETTE.arcRim, fine, 1.4);
+    strokeGlow(
+      ctx,
+      run(eye, strike, 60 + i * 20, true, cx, cy, size),
+      PALETTE.arcRim,
+      fine,
+      1.4,
+      alpha,
+    );
   }
-  strokeGlow(ctx, run(NOSE, strike, 100, true, cx, cy, size), PALETTE.arcRim, fine, 1.2);
+  strokeGlow(ctx, run(NOSE, strike, 100, true, cx, cy, size), PALETTE.arcRim, fine, 1.2, alpha);
   // The teeth: four ticks across the jaw, struck on the same clock.
   const teeth = new Path2D();
   for (let i = 1; i < 5; i++) {
@@ -165,7 +174,7 @@ export function drawFenceSkull(
     teeth.moveTo(x, cy + 0.28 * size);
     teeth.lineTo(x, cy + (0.48 + signedHash(i, 7, strike) * 0.04) * size);
   }
-  strokeGlow(ctx, teeth, PALETTE.arcRim, fine, 1);
+  strokeGlow(ctx, teeth, PALETTE.arcRim, fine, 1, alpha);
   halo(ctx, cx, cy, size * 0.9, PALETTE.arc, 0.35 * alpha);
   ctx.restore();
 }

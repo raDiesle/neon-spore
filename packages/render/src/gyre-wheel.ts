@@ -111,14 +111,14 @@ export function drawWheel(
   // running behind each of them and out to the next.
   ctx.setLineDash([]);
   ctx.lineDashOffset = 0;
-  ctx.globalAlpha = 0.85;
   // Through `strokeGlow` rather than a plain stroke, and that is the whole of
   // "more neon": violet is a third the luminance of the grey this used to be
   // drawn in, so the same alpha that read as metal reads as nothing at all. The
   // aura round the line is where a neon line's brightness comes from — never a
   // thicker line (`glow.ts`).
   for (const k of [1 - RIM_SPLIT, 1 + RIM_SPLIT]) {
-    strokeGlow(ctx, band(x, y, at, k), tint, STROKE.inner, 1.4 + pull);
+    // At 0.85 as an argument: `strokeGlow` sets its own alpha.
+    strokeGlow(ctx, band(x, y, at, k), tint, STROKE.inner, 1.4 + pull, 0.85);
   }
 
   // And the fluid inside that wall: a bright short run of it going round at the
@@ -138,8 +138,6 @@ export function drawWheel(
   // the corner rather than short of it, because the corner *is* the middle of a
   // body — the spoke runs under the contour and the contour is drawn over it,
   // which is what a thing bolted through the middle looks like.
-  ctx.lineWidth = STROKE.inner;
-  ctx.globalAlpha = 0.6 + 0.3 * pull;
   const spokes = new Path2D();
   for (const p of at) {
     const dx = p.x - x;
@@ -149,7 +147,7 @@ export function drawWheel(
     spokes.moveTo(x, y);
     spokes.quadraticCurveTo(x + dx * 0.5 + dy * SPOKE_BOW, y + dy * 0.5 - dx * SPOKE_BOW, p.x, p.y);
   }
-  strokeGlow(ctx, spokes, tint, STROKE.inner, 0.9 + pull);
+  strokeGlow(ctx, spokes, tint, STROKE.inner, 0.9 + pull, 0.6 + 0.3 * pull);
 
   ctx.restore();
 

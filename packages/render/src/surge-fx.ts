@@ -156,8 +156,8 @@ export class SurgeFx {
     p.moveTo(this.bulbX, this.bulbY);
     p.lineTo(this.bulbX, this.bulbY - reach);
     ctx.save();
-    ctx.globalAlpha = left;
-    strokeGlow(ctx, p, PALETTE.hullRim, STROKE.outline * 2 * left, 1.2);
+    // What is left of the jet as the glow's alpha, which sets its own.
+    strokeGlow(ctx, p, PALETTE.hullRim, STROKE.outline * 2 * left, 1.2, left);
     ctx.fillStyle = rgba(PALETTE.hull, 0.35 * left);
     ctx.beginPath();
     ctx.ellipse(this.bulbX, this.bulbY - reach, l.tile * 0.3, l.tile * 0.18, 0, 0, Math.PI * 2);

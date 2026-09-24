@@ -87,8 +87,9 @@ export class WardenFx {
         pts.push({ x: x + slack * Math.sin(k * Math.PI), y: topY + (headY - topY) * k });
       }
       ctx.save();
-      ctx.globalAlpha = Math.max(0, 1 - t) ** 1.2;
-      strokeGlow(ctx, splinePath(pts, false), PALETTE.rock, STROKE.inner, 0.8);
+      // The fade as the glow's alpha, which sets its own.
+      const fade = Math.max(0, 1 - t) ** 1.2;
+      strokeGlow(ctx, splinePath(pts, false), PALETTE.rock, STROKE.inner, 0.8, fade);
       ctx.restore();
     }
   }

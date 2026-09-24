@@ -92,7 +92,12 @@ function drawHalf(
   const face = new Path2D();
   face.moveTo(x, top);
   face.lineTo(x, bottom);
-  strokeGlow(ctx, face, hex, STROKE.inner, 0.5 + 0.5 * lit);
+  // The boss's fade going out is on the context (`drawLedger`), and
+  // `strokeGlow` neither reads it nor puts it back: handed on and set again, or
+  // the cut face and the whole second half were drawn whole as it went.
+  const fade = ctx.globalAlpha;
+  strokeGlow(ctx, face, hex, STROKE.inner, 0.5 + 0.5 * lit, fade);
+  ctx.globalAlpha = fade;
 }
 
 export function drawLedger(

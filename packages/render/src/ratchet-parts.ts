@@ -64,8 +64,14 @@ export function drawRatchetLock(
     const home = k < s.clean;
     ctx.fillStyle = home ? PALETTE.rock : rgba(PALETTE.rockDark, 0.9);
     ctx.fill(pin);
-    if (home) strokeGlow(ctx, pin, PALETTE.rock, STROKE.inner, 0.9);
-    else {
+    if (home) {
+      // The strut's fade is on the context (`ratchet-draw.ts`), and
+      // `strokeGlow` neither reads it nor puts it back: handed on and set
+      // again, or the first clean pin and all of the lock after it were whole.
+      const fade = ctx.globalAlpha;
+      strokeGlow(ctx, pin, PALETTE.rock, STROKE.inner, 0.9, fade);
+      ctx.globalAlpha = fade;
+    } else {
       ctx.lineWidth = STROKE.inner;
       ctx.strokeStyle = rgba(PALETTE.rock, 0.4);
       ctx.stroke(pin);

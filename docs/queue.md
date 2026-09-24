@@ -536,14 +536,21 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `strokeGlow` is handed an alpha it throws away: the bosses
+## `strokeGlow` is handed an alpha it throws away: THE SPOOL
 
 - **Found:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha
-- **Files:** `packages/render/src/eye-iris.ts`, `packages/render/src/fence-skull.ts`, `packages/render/src/gyre-orbit.ts`, `packages/render/src/gyre-wheel.ts`, `packages/render/src/queen-weakpoint.ts`, `packages/render/src/ratchet-parts.ts`, `packages/render/src/spool-brake.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/spool-gauge.ts`, `packages/render/src/spool-line.ts`, `packages/render/src/surge-fx.ts`, `packages/render/src/volley-ward.ts`, `packages/render/src/warden-fx.ts`
+- **Files:** `packages/render/src/spool-brake.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/spool-gauge.ts`, `packages/render/src/spool-line.ts`
 
 `strokeGlow` sets `globalAlpha` for every pass and never reads the one it
 was handed, so a caller's `ctx.globalAlpha = …` just before it does nothing
-to the line. 19 calls in 13 files, by caller and line: `eye-iris.ts:122,136`, `fence-skull.ts:152`, `gyre-orbit.ts:79,146`, `gyre-wheel.ts:121,152`, `queen-weakpoint.ts:210`, `ratchet-parts.ts:67`, `spool-brake.ts:41`, `spool-draw.ts:95,112,154,192`, `spool-gauge.ts:64`, `spool-line.ts:49`, `surge-fx.ts:160`, `volley-ward.ts:69`, `warden-fx.ts:91`.
+to the line. 8 calls in 4 files, by caller and line: `spool-brake.ts:41`, `spool-draw.ts:95,112,154,192`, `spool-gauge.ts:64`, `spool-line.ts:49`.
+
+**The rest of the bosses landed on 24 September 2026**, and the split was
+made before any of it was started. THE VOLLEY's ward went to the shield's
+question, because it copies the shield. THE LEDGER's cut face, which the
+first count missed, was fixed with the rest. A fade that reaches a glow from
+further up the stack is handed on as `ctx.globalAlpha` and set again after
+it: `ratchet-parts.ts` and `ledger-draw.ts` are the pattern.
 
 **The list was re-counted on 24 September 2026 and is a third of what it
 was.** The first count ran on a test canvas whose `restore` brought back the
@@ -600,7 +607,7 @@ it unchanged.
 ## The shield rim's shimmer alpha has never reached the line
 
 - **Found:** 2026-09-24, claude/queue-strokeglow-is-handed-an-alpha-it-throws-away-the
-- **Files:** `packages/render/src/shield.ts`
+- **Files:** `packages/render/src/shield.ts`, `packages/render/src/volley-ward.ts`
 - **Asks:** give the shield rim the shimmer its alpha was written for, through VERSUS, or delete `alphaBase`/`alphaGlow` as the dead fields they are?
 
 `drawShieldRim` sets `ctx.globalAlpha = w.alphaBase + w.alphaGlow * glow`
@@ -612,13 +619,17 @@ figure through as `alpha` would draw that core at about 0.39 when the rim is
 idle and up to 0.97 when a shield is held open and shimmering. That is a
 different rim, not a repaired one.
 
+**THE VOLLEY's ward is the same question.** `drawVolleyWard` draws an arc of
+the shield rim in front of a body, from the same `WARD_LOOK`, and it has the
+same fault at `volley-ward.ts:69`. It was taken off the bosses' list so that
+it stays alike with the rim it copies, whichever answer comes.
+
 The two answers:
 
 - **Offer it**: a static VERSUS pair of the rim idle and armed. The candidate
   passes `w.alphaBase + w.alphaGlow * glow` as `strokeGlow`'s sixth argument
-  and leaves the context alone. If it is adopted, it lands the same way the
-  other three did, with a case in `glow-fade.test.ts`.
+  and leaves the context alone, in both files. If it is adopted, it lands
+  the same way the other callers did, with a case in `glow-fade.test.ts`.
 - **Retire it**: delete the two fields, their `ctx.globalAlpha` pair and
-  their doc lines from `shield.ts`. `volley-ward.ts` reads its own copy of
-  the same names and keeps them, because a fill comes after it there. Nothing
-  drawn changes.
+  their doc lines from `shield.ts`, and the same pair from
+  `volley-ward.ts`. Nothing drawn changes.

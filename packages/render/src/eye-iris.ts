@@ -119,7 +119,10 @@ export function drawIrisMarks(
     iris.moveTo(cx + Math.cos(a) * pr * SPOKE_IN, cy + Math.sin(a) * pr * SPOKE_IN);
     iris.lineTo(cx + Math.cos(a) * pr * SPOKE_OUT, cy + Math.sin(a) * pr * SPOKE_OUT);
   }
-  strokeGlow(ctx, iris, ink.rim, STROKE.inner, 0.4 + openness * 0.5);
+  // The surface's dim arrives on the context (`eye-ball.ts`), and `strokeGlow`
+  // does not read the context's alpha: handed on, or the ring is whole at the
+  // edge of the ball where everything else under it has dimmed.
+  strokeGlow(ctx, iris, ink.rim, STROKE.inner, 0.4 + openness * 0.5, ctx.globalAlpha);
 
   // The hole, over the machinery it turns outside of, so a spoke never crosses
   // it. Cut by the lids rather than sized to miss them — the clip is the
@@ -133,5 +136,7 @@ export function drawIrisMarks(
   ctx.globalAlpha = openness;
   ctx.fillStyle = PALETTE.background;
   ctx.fill(pupil);
-  strokeGlow(ctx, pupil, ink.rim, STROKE.inner, 1.2 * openness);
+  // The opening as the rim's alpha, and out of its intensity so the glow round
+  // it is what it was: the edge of a hole going shut went on being drawn whole.
+  strokeGlow(ctx, pupil, ink.rim, STROKE.inner, 1.2, openness);
 }

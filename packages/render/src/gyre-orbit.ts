@@ -75,8 +75,10 @@ function band(
   const flush = (): void => {
     if (run === null) return;
     const width = STROKE.inner * (nearSide ? NEAR_WIDTH : NEAR_WIDTH * FAR_KEEP);
-    ctx.globalAlpha = strength * (nearSide ? 1 : FAR_KEEP);
-    strokeGlow(ctx, run, hex, width, nearSide ? 0.45 : 0.25);
+    // The strength as the glow's alpha, which sets its own: on the context it
+    // reached no band, and a far half was as whole as a near one.
+    const fade = strength * (nearSide ? 1 : FAR_KEEP);
+    strokeGlow(ctx, run, hex, width, nearSide ? 0.45 : 0.25, fade);
     run = null;
   };
   for (let i = 0; i <= POINTS; i++) {
@@ -141,9 +143,8 @@ export function orbit(d: GyreCoreDraw): void {
   ctx.restore();
 
   // The membrane over its contents, turned with the wheel — the shipped pass.
-  ctx.globalAlpha = 0.9;
   ctx.rotate(flow);
-  strokeGlow(ctx, skin, tint, STROKE.inner, 1.4 + pull);
+  strokeGlow(ctx, skin, tint, STROKE.inner, 1.4 + pull, 0.9);
   ctx.restore();
   ctx.restore();
 

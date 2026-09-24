@@ -22,6 +22,17 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — A fade set around a glowed line reaches it: the bosses but THE SPOOL
+
+- reading: 15 min. The eleven callers and, for three of them, the fade set a
+  frame up the stack. A tally over `bun test packages/render/test`, run twice.
+- writing: 10 min. Ten calls in nine files, two tests, the queue split.
+- looking: 5 min. THE GYRE before and after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: three of the fades arrive from a caller, and each needed its own stack walked.
+
 ## 2026-09-24 — A fade set around a glowed line reaches it: the ship and the screens
 
 - reading: 5 min. The queue entry, the four callers, the last lane's

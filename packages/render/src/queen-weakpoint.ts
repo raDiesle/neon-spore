@@ -205,11 +205,8 @@ export function drawMark(
     ctx.fillStyle = PALETTE.rockDark;
     ctx.fill(path);
     const tell = (announced ? 1 : PENDING_ALPHA) * (1 - ball);
-    if (tell > 0) {
-      ctx.globalAlpha = tell;
-      strokeGlow(ctx, path, hex, line, 1);
-      ctx.globalAlpha = 1;
-    }
+    // As an argument: set on the context, it never reached the line.
+    if (tell > 0) strokeGlow(ctx, path, hex, line, 1, tell);
     ctx.strokeStyle = PALETTE.rock;
     ctx.lineWidth = line * 0.6;
     ctx.stroke(path);
