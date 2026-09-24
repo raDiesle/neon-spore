@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 4bab4e9c — `bun run imports` drops a whole unused import with no comment above it
+
+A statement every one of whose names a split left unused now comes out whole when the line above it is another import, a blank or the file's start, so there is no comment for the cut to take with it. One with a comment directly above it is still printed for somebody to read, and so is one sharing its line with anything else.
+
 ## 2026-09-24 · fccd1ba8 — A landing settles a conflict in the director's SLOT_POSE map by itself
 
 Two lanes that each add a VERSUS slot's pose row, or one that adds while another's adopt or drop takes one out, no longer stop `bun run land`. The replay merges `versus-pose.ts` row by row, keyed by slot, taking every row either side added, changed or removed, and refuses when both sides give one slot different poses or both rewrite anything outside the map.

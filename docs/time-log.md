@@ -19020,3 +19020,5 @@ refusals — each one a case a side-preferring resolver would fail.
 
 The bottleneck was **writing**: the line-above test had to count a line of
 another multi-line import as an import, and a blank on both sides as one gap.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
