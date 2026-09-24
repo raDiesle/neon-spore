@@ -19040,3 +19040,15 @@ that cannot happen, and the half-tile miss it described is inside the
 reach anyway.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — `input.ts`'s `Field` builder moves beside the bindings
+
+- reading: 0 min. `input.ts` and `input-bindings.ts`; the entry named the cut.
+- writing: 5 min. `fieldFrom`, and `bindControls` taking its bindings whole
+  instead of destructuring twenty-five names.
+- looking: 0 min. Nothing is drawn.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **landing**: the cut itself was chosen in the entry, and
+what is left is the check.

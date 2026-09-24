@@ -1,13 +1,6 @@
-import {
-  type Field,
-  type Hold,
-  shipUnder,
-  touchDown,
-  touchMove,
-  touchUp,
-} from "@neon-spore/render";
+import { type Hold, shipUnder, touchDown, touchMove, touchUp } from "@neon-spore/render";
 import { samplesOf } from "./coalesced.js";
-import type { Bindings } from "./input-bindings.js";
+import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
 import { ShipHandWatch } from "./ship-hand.js";
@@ -39,33 +32,8 @@ export interface Controls {
  * the real split: player 1 has the cannon and the trigger, player 2 has the
  * shield and the colours.
  */
-export function bindControls({
-  canvas,
-  buffer,
-  layout,
-  inStage,
-  isOver,
-  player,
-  handed,
-  cfg,
-  boss,
-  controls,
-  faults,
-  creatures,
-  cannonCol,
-  shieldCol,
-  opening,
-  beatPhase,
-  skinY,
-  beat,
-  waveBeat,
-  worldTick,
-  well,
-  guideHolds,
-  onPauseToggle,
-  onWaveStep,
-  onGuideReplay,
-}: Bindings): Controls {
+export function bindControls(bindings: Bindings): Controls {
+  const { canvas, buffer, layout, inStage, isOver, player, handed, opening } = bindings;
   /** Which finger is doing what. What each one *means* is `touch.ts`'s. */
   const holding = new Map<number, Hold>();
   /** **Who a press is from: this device, always.** `touch.ts` signs a press
@@ -77,22 +45,7 @@ export function bindControls({
   const hand = new ShipHandWatch();
   /** A desk has a hover and a phone does not. Undefined until a mouse moves. */
   let pointer: { x: number; y: number } | undefined;
-  const field = (): Field => ({
-    creatures: creatures(),
-    cannonCol: cannonCol(),
-    shieldCol: shieldCol(),
-    beatPhase: beatPhase(),
-    skinY: skinY(),
-    beat: beat(),
-    waveBeat: waveBeat(),
-    tick: worldTick(),
-    seat: player(),
-    cfg,
-    boss: boss(),
-    controls: controls(),
-    faults: faults(), // in force this beat; the well's clock is one seat's (`render/well.ts`)
-    well: well(),
-  });
+  const field = () => fieldFrom(bindings);
 
   const down = (id: number, x: number, y: number): void => {
     if (isOver()) {
@@ -231,16 +184,16 @@ export function bindControls({
     tick: bindKeys({
       buffer,
       layout,
-      cfg,
+      cfg: bindings.cfg,
       isOver,
-      creatures,
-      guideHolds,
-      onPauseToggle,
-      onWaveStep,
-      onGuideReplay,
+      creatures: bindings.creatures,
+      guideHolds: bindings.guideHolds,
+      onPauseToggle: bindings.onPauseToggle,
+      onWaveStep: bindings.onWaveStep,
+      onGuideReplay: bindings.onGuideReplay,
       // The wave's own panel, which is what the desk keyboard is now gated by
       // (`keys.ts`). The same accessor the band and the hit test already take.
-      controls,
+      controls: bindings.controls,
     }),
     hand,
     pointer: () => pointer,

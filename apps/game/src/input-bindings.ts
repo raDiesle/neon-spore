@@ -125,3 +125,28 @@ export interface Bindings {
   /** R, behind a guide: play its page of film again (`render/guide-nav.ts`). */
   onGuideReplay: () => void;
 }
+
+/**
+ * The `Field` a hit test is asked with, read off the bindings at this press.
+ * Built fresh every time, because every one of these moves between two
+ * presses; beside the bindings it reads so that a field added to `Field` is
+ * added here and to `Bindings` in one file, not copied through a destructure.
+ */
+export function fieldFrom(b: Bindings): Field {
+  return {
+    creatures: b.creatures(),
+    cannonCol: b.cannonCol(),
+    shieldCol: b.shieldCol(),
+    beatPhase: b.beatPhase(),
+    skinY: b.skinY(),
+    beat: b.beat(),
+    waveBeat: b.waveBeat(),
+    tick: b.worldTick(),
+    seat: b.player(),
+    cfg: b.cfg,
+    boss: b.boss(),
+    controls: b.controls(),
+    faults: b.faults(), // in force this beat; the well's clock is one seat's (`render/well.ts`)
+    well: b.well(),
+  };
+}

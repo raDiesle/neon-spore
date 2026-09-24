@@ -536,21 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `apps/game/src/input.ts` is at 248 lines with its seam unchosen
-
-- **Found:** 2026-09-23, claude/queue-touch-hull
-- **Taken:** 2026-09-24, claude/queue-creatureat-glides-a-balloon-by-the-beat-and-reac (claim: claude/queue-apps-game-src-input-ts-is-at-248-lines-with-its)
-- **Files:** `apps/game/src/input.ts`, `apps/game/src/input-bindings.ts`
-
-Handing the field the renderer's skin took one binding and one line, and the
-size hook asked for the seam. The file is one `bindControls` closure: the
-`Field` builder and the destructured bindings at the top, then the pointer
-handlers (`down`, `move`, `up`, `releaseAll`, the desk's hover). The cut that
-reads cleanly is the `Field` — a `fieldFrom(bindings)` in
-`input-bindings.ts` beside the bindings it reads, called once per press — which
-also drops the thirteen names destructured only to be copied into it.
-`bunx tsc --noEmit` and the existing input tests are the proof.
-
 ## About 100 `strokeGlow` calls are made at an alpha the call throws away
 
 - **Found:** 2026-09-23, claude/queue-stroke-glow
