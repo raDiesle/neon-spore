@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 8deded4e — A swipe is drawn as a track the length of the swipe, not as a ring
+
+THE INSTAR's SWIPE DOWN is now a rounded bar from the egg clutch down, like a slider's path with no knob, and its green fill runs down the bar as the thumb carries. The end of the bar is where letting go counts, so the swipe is one and a half tiles now — at 0.6 the bar was a stub under the eggs. The word next to a mark moves to the mark's other side when this side would push it back over the mark.
+
 ## 2026-09-24 · 15ef4894 — A swipe's ring fills green while the thumb travels, not only on the lift
 
 THE INSTAR's SWIPE DOWN now shows its green arc growing as the thumb carries the egg toward the length that counts, full at the point where letting go will take it off. The simulation keeps the carry's furthest reach on the mark (`instarSwipeAlong`), so both phones draw the same fill; carrying back up does not disarm a swipe that already went far enough.

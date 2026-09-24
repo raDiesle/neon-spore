@@ -19804,3 +19804,5 @@ show it.
 
 The bottleneck was **looking**: the swipe's 0.6-tile length was only
 visibly wrong once it was drawn as a bar, so the length moved to 1.5.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
