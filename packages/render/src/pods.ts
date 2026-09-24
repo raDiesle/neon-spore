@@ -97,6 +97,10 @@ export function drawPodBody(
   r: number,
   t: number,
   kind: PodKind,
+  /** How present the pod's glowed line and halo are, for the one caller that
+   * fades it — THE PULSE's arrival (`drawLivingMark` says why it is a
+   * parameter). */
+  alpha = 1,
 ): void {
   const scale = r / Math.max(POD.rx, POD.ry);
   const pulse = 0.5 + 0.5 * Math.sin(t * 2.4);
@@ -106,6 +110,7 @@ export function drawPodBody(
   ctx.translate(x, y);
   ctx.rotate(Math.sin(t * 0.6) * 0.08);
   ctx.scale(scale, scale);
+  const was = ctx.globalAlpha;
   ctx.fillStyle = PALETTE.podDark;
   ctx.fill(path);
   strokeGlow(
@@ -114,13 +119,14 @@ export function drawPodBody(
     PALETTE.pod,
     Math.max(1, r * 0.1) / scale,
     0.8 + 0.4 * pulse,
-    1,
+    alpha,
     bodyGlowSpread(scale),
   );
+  ctx.globalAlpha = was;
   drawPodCore(ctx, 0.55 + 0.45 * pulse, kind);
   ctx.restore();
 
-  halo(ctx, x, y, r * (2.1 + 0.3 * pulse), PALETTE.pod, 0.14 + 0.1 * pulse);
+  halo(ctx, x, y, r * (2.1 + 0.3 * pulse), PALETTE.pod, (0.14 + 0.1 * pulse) * alpha);
 }
 
 /** Loose: tumbling, flickering, trailing what it is losing. */
@@ -185,12 +191,16 @@ export function drawPodCore(
   brightness: number,
   kind: PodKind,
 ): void {
-  ctx.globalAlpha = 0.35 + 0.65 * brightness;
+  // Under the caller's own alpha rather than over it: THE MOULT fades this in
+  // with the cargo and THE PULSE fades a far arrival, and until 24 September
+  // 2026 both set a fade here that the core replaced with its own.
+  const was = ctx.globalAlpha;
+  ctx.globalAlpha = was * (0.35 + 0.65 * brightness);
   ctx.fillStyle = PALETTE.podRim;
   ctx.beginPath();
   ctx.arc(0, 0, POD.rx * (0.24 + 0.06 * brightness), 0, Math.PI * 2);
   ctx.fill();
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = was;
   ctx.strokeStyle = PALETTE.pod;
   ctx.lineWidth = STROKE.inner * 3;
   ctx.beginPath();

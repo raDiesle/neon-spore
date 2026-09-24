@@ -397,6 +397,10 @@ export class StubContext {
    */
   private m: [number, number, number, number, number, number] = [1, 0, 0, 1, 0, 0];
   private mStack: [number, number, number, number, number, number][] = [];
+  /** The alpha and the compositing a `save` holds, as a real context does: a
+   * fade set inside a `save` that outlived its `restore` here once made a glow
+   * look as if it arrived faded when a browser would have handed it 1. */
+  private aStack: [number, string][] = [];
 
   private mul(n: readonly number[]): void {
     const [a, b, c, d, e, f] = this.m;
@@ -420,11 +424,14 @@ export class StubContext {
   save(): void {
     this.mark("save");
     this.mStack.push([...this.m]);
+    this.aStack.push([this._globalAlpha, this._globalCompositeOperation]);
   }
   restore(): void {
     this.mark("restore");
     const was = this.mStack.pop();
     if (was) this.m = was;
+    const paint = this.aStack.pop();
+    if (paint) [this._globalAlpha, this._globalCompositeOperation] = paint;
   }
   beginPath(): void {
     this.mark("beginPath");

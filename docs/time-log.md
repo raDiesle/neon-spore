@@ -19246,3 +19246,19 @@ know which calls are affected, and it had to run again for the list the
 next lanes take.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — A fade set around a glowed body reaches its line
+
+- reading: 5 min. The sixteen callers, `glow.ts`, the tally re-run, and
+  `canvas-stub.ts` once twelve of the sixteen turned out to be its doing.
+- writing: 5 min. `alpha` through `drawPulseBody`, `drawPodBody` and
+  `drawLivingMark`, `drawPodCore` under the caller's alpha, the spent rib,
+  the stub's alpha stack, `glow-fade.test.ts`, the two sibling entries.
+- looking: 5 min. Two more tally runs, and `frames` at three ticks of THE
+  PULSE before one had an arrival far up its lane.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the queue entry's list came off a stub that did not restore
+alpha, so three quarters of it was not there; checking the stub before the
+first edit is what kept this from being sixteen changes to the picture.

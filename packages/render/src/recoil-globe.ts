@@ -119,11 +119,16 @@ function meridian(
   const lit = litN > 0 ? litSum / litN : 0;
   const shade = surfaceDim(near ? 0.55 : FAR_FLOOR, lit);
   const colour = mixHex(mixHex(SHADOW, d.dark, 0.6), hex, shade);
-  ctx.globalAlpha = spent ? 0.7 : 1;
+  // A spent rib at seven tenths, near half and far. The near half is
+  // `strokeGlow`'s, which takes the fade as its own `alpha` — it reads nothing
+  // off the context and leaves it at 1, so until 24 September 2026 the near
+  // stubs of a spent rib were drawn whole.
+  const fade = spent ? 0.7 : 1;
+  ctx.globalAlpha = fade;
   for (const pts of runs) {
     if (pts.length < 2) continue;
     const path = run(x, y, r, pts);
-    if (near) strokeGlow(ctx, path, colour, width, glow * (0.5 + 0.5 * lit));
+    if (near) strokeGlow(ctx, path, colour, width, glow * (0.5 + 0.5 * lit), fade);
     else {
       ctx.strokeStyle = colour;
       ctx.lineWidth = width * FAR_WIDTH;

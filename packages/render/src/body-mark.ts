@@ -59,6 +59,11 @@ export function drawLivingMark(
   r: number,
   kind: CreatureKind,
   tint: MarkTint,
+  /** How present the mark's glowed line is — THE PULSE's arrival fading in
+   * from far up its lane. `strokeGlow` does not read the context's own alpha,
+   * so a fade set around this call reached the fill and not the line; the
+   * caller's alpha is put back after it, for the interior. */
+  alpha = 1,
 ): void {
   const shape = livingSilhouette(kind);
   const s = r / Math.max(shape.rx, shape.ry);
@@ -66,9 +71,11 @@ export function drawLivingMark(
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(s, s);
+  const was = ctx.globalAlpha;
   ctx.fillStyle = tint.dark;
   ctx.fill(blob);
-  strokeGlow(ctx, blob, tint.hex, Math.max(1, r * 0.15) / s, 1);
+  strokeGlow(ctx, blob, tint.hex, Math.max(1, r * 0.15) / s, 1, alpha);
+  ctx.globalAlpha = was;
   // A mark is a still picture of one body: no rotation to undo and no clock,
   // so an interior with a light or a pulse in it draws its resting frame.
   drawDetails(ctx, kind, {

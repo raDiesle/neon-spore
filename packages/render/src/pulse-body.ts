@@ -66,7 +66,11 @@ export function drawPulseArrival(ctx: CanvasRenderingContext2D, a: BodyLook): vo
   ctx.save();
   // Far up the lane it is faint and it solidifies as it comes, which is what
   // gives the eye a distance to read off a screen with no perspective in it.
-  ctx.globalAlpha = 0.35 + 0.65 * a.near;
+  // Handed down as well as set: a pod's and a mark's glowed line are drawn by
+  // `strokeGlow`, which does not read this, and drew at full strength over a
+  // fill at a third until 24 September 2026.
+  const fade = 0.35 + 0.65 * a.near;
+  ctx.globalAlpha = fade;
   if (a.veiled === true) {
     // **The contour only, in the rock grey armour wears** — the game's own
     // word for *you cannot act on this yet*. Drawing the real body and then
@@ -91,7 +95,7 @@ export function drawPulseArrival(ctx: CanvasRenderingContext2D, a: BodyLook): vo
     ctx.lineWidth = 1 / a.r;
     ctx.stroke(path);
   } else {
-    drawPulseBody(ctx, a.x, a.y, a.r, lane, a.time, a.seed);
+    drawPulseBody(ctx, a.x, a.y, a.r, lane, a.time, a.seed, fade);
   }
   ctx.restore();
 

@@ -92,6 +92,8 @@ export function drawPulseBody(
   lane: PulseLane,
   time: number,
   seed: number,
+  /** How present it is: an arrival far up its lane is faint. */
+  alpha = 1,
 ): void {
   if (lane === "meteor") {
     // Two pits, which is what an unshot rock carries on the field.
@@ -99,8 +101,8 @@ export function drawPulseBody(
     return;
   }
   if (lane === "pod") {
-    drawPodBody(ctx, x, y, r, time + (seed % 7) * 0.83, "ward");
+    drawPodBody(ctx, x, y, r, time + (seed % 7) * 0.83, "ward", alpha);
     return;
   }
-  drawLivingMark(ctx, x, y, r, lane, TINT[lane]);
+  drawLivingMark(ctx, x, y, r, lane, TINT[lane], alpha);
 }
