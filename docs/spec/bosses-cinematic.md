@@ -1,18 +1,20 @@
-# Bosses, cinematic — twenty more of the third kind, in words only
+# Bosses, cinematic — nineteen more of the third kind, in words only
 
 > **Status: not built, and not meant to be yet.** The owner asked (18
 > September 2026) for a design brief of twenty bosses of the third kind — the
 > choreographed scene of `.claude/skills/new-boss` §1, a beat list that will
 > not advance until the beat is performed on the boss's own picture — and said
 > to implement nothing and touch no code. This page is that brief and nothing
-> else: twenty questions, each with what it splits, what part of the
+> else: nineteen questions, each with what it splits, what part of the
 > silhouette goes away, a beat list naming its gesture, and a self-assessed
 > pass against the filters on
 > [bosses-choreographed](bosses-choreographed.md#the-filter-these-fifteen-had-to-pass).
 > Queued as *Twenty bosses of the third kind: the brief, and where it goes*
 > (`docs/queue.md`, answered 19 September 2026): a page of its own beside
 > `bosses-choreographed.md`, because that page's fifteen are designed and
-> claimed on a ledger and these twenty are not.
+> claimed on a ledger and these nineteen are not.
+> THE BELLOWS, the fourth of the twenty, was taken out on 24 September 2026
+> with the built boss of the same name ([bosses](bosses.md) §11.35).
 
 **Read [bosses-choreographed](bosses-choreographed.md) first.** Its seventeen
 concepts, its refused-by-name twelve, its reusable primitive library and its
@@ -29,7 +31,7 @@ of dozens of cards by the owner's own eye, and several close misses below say
 so plainly rather than pretend otherwise. Every entry names its nearest
 built neighbour and how it differs; the owner's is the actual verdict, the
 same as filter 8 has always been. Nothing here claims to be finished
-design — it is twenty candidates for one afternoon's culling.
+design — it is nineteen candidates for one afternoon's culling.
 
 **Template**, lighter than the built fifteen's because this is words rather
 than a landing: the question, what it splits, the silhouette and its count,
@@ -43,23 +45,22 @@ THE SLOW or THE DRAG where either applies, and the nearest neighbour.
 1. [THE FERRY](#1-the-ferry--whose-aim-it-is-when-only-one-of-you-can-see-where-you-are-pointing) — whose aim it is, when only one of you can see where you are pointing
 2. [THE LATCH](#2-the-latch--whether-you-can-share-one-grip-without-ever-both-letting-go-at-once) — whether you can share one grip without ever both letting go at once
 3. [THE SEXTANT](#3-the-sextant--whether-your-two-guesses-average-to-the-truth) — whether your two guesses average to the truth
-4. [THE BELLOWS](#4-the-bellows--whether-you-can-move-opposite-each-other-on-purpose) — whether you can move opposite each other on purpose
-5. [THE TALLY](#5-the-tally--whether-you-know-what-they-have-been-doing-not-what-you-have) — whether you know what they have been doing, not what you have
-6. [THE RATCHET](#6-the-ratchet--whether-you-can-catch-the-same-thing-twice-in-two-different-places) — whether you can catch the same thing twice, in two different places
-7. [THE UNDERWRITE](#7-the-underwrite--whether-you-vouch-for-a-thing-you-cannot-check-yourself) — whether you vouch for a thing you cannot check yourself
-8. [THE FOUNDRY](#8-the-foundry--whether-one-of-you-can-stop-the-others-hand-in-place) — whether one of you can stop the other's hand in place
-9. [THE FLUME](#9-the-flume--whether-the-shape-you-drew-says-something-to-them-later) — whether the shape you drew says something to them, later
-10. [THE MANIFOLD](#10-the-manifold--whether-you-can-catch-a-beat-neither-of-you-set) — whether you can catch a beat neither of you set
-11. [THE SPOOL](#11-the-spool--whether-you-can-both-keep-pulling-not-just-pull-once) — whether you can both keep pulling, not just pull once
-12. [THE OATH](#12-the-oath--whether-you-can-do-nothing-together-at-the-same-time) — whether you can do nothing, together, at the same time
-13. [THE OSSUARY](#13-the-ossuary--whether-the-same-body-means-the-same-thing-to-both-of-you-this-beat) — whether the same body means the same thing to both of you, this beat
-14. [THE RIVET](#14-the-rivet--whether-doing-well-makes-the-next-beat-harder-to-read) — whether doing well makes the next beat harder to read
-15. [THE SCONCE](#15-the-sconce--whether-you-can-talk-them-through-a-beat-you-cannot-see-together) — whether you can talk them through a beat you cannot see together
-16. [THE GANTRY](#16-the-gantry--whether-you-can-keep-firing-while-they-are-holding-the-gun-down) — whether you can keep firing while they are holding the gun down
-17. [THE GRIST](#17-the-grist--whether-your-misses-cost-you-twice) — whether your misses cost you twice
-18. [THE WICKER](#18-the-wicker--whether-you-remember-what-you-started) — whether you remember what you started
-19. [THE QUARRY](#19-the-quarry--whether-you-can-keep-a-shared-sense-of-whose-turn-it-feels-like) — whether you can keep a shared sense of whose turn it feels like
-20. [THE ZENITH](#20-the-zenith--the-finale-that-spends-everything-already-built) — the finale that spends everything already built
+4. [THE TALLY](#4-the-tally--whether-you-know-what-they-have-been-doing-not-what-you-have) — whether you know what they have been doing, not what you have
+5. [THE RATCHET](#5-the-ratchet--whether-you-can-catch-the-same-thing-twice-in-two-different-places) — whether you can catch the same thing twice, in two different places
+6. [THE UNDERWRITE](#6-the-underwrite--whether-you-vouch-for-a-thing-you-cannot-check-yourself) — whether you vouch for a thing you cannot check yourself
+7. [THE FOUNDRY](#7-the-foundry--whether-one-of-you-can-stop-the-others-hand-in-place) — whether one of you can stop the other's hand in place
+8. [THE FLUME](#8-the-flume--whether-the-shape-you-drew-says-something-to-them-later) — whether the shape you drew says something to them, later
+9. [THE MANIFOLD](#9-the-manifold--whether-you-can-catch-a-beat-neither-of-you-set) — whether you can catch a beat neither of you set
+10. [THE SPOOL](#10-the-spool--whether-you-can-both-keep-pulling-not-just-pull-once) — whether you can both keep pulling, not just pull once
+11. [THE OATH](#11-the-oath--whether-you-can-do-nothing-together-at-the-same-time) — whether you can do nothing, together, at the same time
+12. [THE OSSUARY](#12-the-ossuary--whether-the-same-body-means-the-same-thing-to-both-of-you-this-beat) — whether the same body means the same thing to both of you, this beat
+13. [THE RIVET](#13-the-rivet--whether-doing-well-makes-the-next-beat-harder-to-read) — whether doing well makes the next beat harder to read
+14. [THE SCONCE](#14-the-sconce--whether-you-can-talk-them-through-a-beat-you-cannot-see-together) — whether you can talk them through a beat you cannot see together
+15. [THE GANTRY](#15-the-gantry--whether-you-can-keep-firing-while-they-are-holding-the-gun-down) — whether you can keep firing while they are holding the gun down
+16. [THE GRIST](#16-the-grist--whether-your-misses-cost-you-twice) — whether your misses cost you twice
+17. [THE WICKER](#17-the-wicker--whether-you-remember-what-you-started) — whether you remember what you started
+18. [THE QUARRY](#18-the-quarry--whether-you-can-keep-a-shared-sense-of-whose-turn-it-feels-like) — whether you can keep a shared sense of whose turn it feels like
+19. [THE ZENITH](#19-the-zenith--the-finale-that-spends-everything-already-built) — the finale that spends everything already built
 
 ---
 
@@ -118,27 +119,7 @@ ORRERY — same gesture, arithmetic on a sum of two positions rather than three
 separate cadences; close enough that the owner may prefer it as ORRERY's
 fourth ring instead of a boss of its own.
 
-### 4. THE BELLOWS — whether you can move opposite each other on purpose
-
-**Splits** hands: both hold the same organ, and the fight wants their pulls
-to *disagree*. **Silhouette**: a ribbed sac over the middle of the field, six
-ribs; each full anti-phase stroke cracks one. **Mechanic**: both seats hold
-and drag depth on one `DragTarget`; a rib cracks on the beat the two depths'
-*difference* — not their sum, the opposite arithmetic from
-[THE SINEW](bosses-choreographed.md#8-the-sinew--how-hard-not-when) and
-[THE SURGE](bosses-choreographed.md#9-the-surge--whether-you-can-stop) — stays
-above `bellowsSplitMilli` for a held beat; pulling the same way as your
-partner does nothing at all, which is the one silence this fight has. Wants
-`ChargeSum` with a difference target rather than a sum one — same primitive,
-opposite function, worth naming rather than a new one. **Beats**: (1–2) both
-drag, continuous; (3) a beat held apart past the target cracks a rib; (4)
-pulled together by mistake, nothing happens and the beat is free. **Time**:
-DRAG on the sac's own sink between strokes — the crack costs the pair a beat
-of stillness before the next rib can be read. **Nearest neighbour**: THE
-SINEW/THE SURGE, named above — the same summed-magnitude family, run
-backwards.
-
-### 5. THE TALLY — whether you know what they have been doing, not what you have
+### 4. THE TALLY — whether you know what they have been doing, not what you have
 
 **Splits** eyes: each seat is shown the *other's* own recent colour spend and
 must fire the colour it names. **Silhouette**: a scored tally-stick body,
@@ -156,7 +137,7 @@ along it; the fourth-question test is whether *reading someone else's
 history* is different enough from *reading your own* to carry a whole boss,
 which is the owner's to weigh.
 
-### 6. THE RATCHET — whether you can catch the same thing twice, in two different places
+### 5. THE RATCHET — whether you can catch the same thing twice, in two different places
 
 **Splits** hands: one seat's presses count, and the target moves under them
 between presses. **Silhouette**: a cogged drum with seven pawls standing
@@ -172,7 +153,7 @@ that it cannot be anticipated by rhythm. **Nearest neighbour**: none
 built — the second brief's own table marks repeated-tap absent, and this is
 the first concept on either page to spend it.
 
-### 7. THE UNDERWRITE — whether you vouch for a thing you cannot check yourself
+### 6. THE UNDERWRITE — whether you vouch for a thing you cannot check yourself
 
 **Splits** eyes and hands both: one seat is shown a claim about the boss that
 may be true or false, the other is shown nothing and must act on the first
@@ -195,7 +176,7 @@ being *wrong on purpose sometimes*; closest is
 candidates, differing because ANTIPHON's rail never lies and this boss's
 decoy is drawn to be believed.
 
-### 8. THE FOUNDRY — whether one of you can stop the other's hand in place
+### 7. THE FOUNDRY — whether one of you can stop the other's hand in place
 
 **Splits** hands: one seat drags continuously, the other's single timed tap
 freezes it exactly where it stands. **Silhouette**: a pouring ladle over a
@@ -214,7 +195,7 @@ is `FreezeTap`'s first home, which is exactly the library's own rule: *a
 primitive earns its name on the second boss that needs it, not the first*,
 and this would be its first.
 
-### 9. THE FLUME — whether the shape you drew says something to them, later
+### 8. THE FLUME — whether the shape you drew says something to them, later
 
 **Splits** hands then eyes: one seat traces alone, the other reads the result
 of the trace rather than following it live. **Silhouette**: a channelled
@@ -234,7 +215,7 @@ named above — same gesture, and a genuinely different question (a shape as a
 *message*, decided once, rather than a line as a *thing followed live*), so
 the second use the library asked for is earned rather than borrowed thin.
 
-### 10. THE MANIFOLD — whether you can catch a beat neither of you set
+### 9. THE MANIFOLD — whether you can catch a beat neither of you set
 
 **Splits** hands: two valves, one each, that must both be struck on the same
 beat as a third cadence belonging to nobody. **Silhouette**: a triple-piped
@@ -252,7 +233,7 @@ DIASTOLE, named above — same coincidence-window shape, with the third
 cadence taken away from both seats rather than owned by either, which is the
 actual new question: catching a beat you did not set, together.
 
-### 11. THE SPOOL — whether you can both keep pulling, not just pull once
+### 10. THE SPOOL — whether you can both keep pulling, not just pull once
 
 **Splits** hands: a body reeling itself in at a fixed rate that only slows
 while both are actively dragging against it, continuously. **Silhouette**: a
@@ -271,7 +252,7 @@ beats, not seconds. **Nearest neighbour**: THE SINEW, named above — same
 crossing, which is closer to a genuinely different question (stamina, not
 strength) than most entries here.
 
-### 12. THE OATH — whether you can do nothing, together, at the same time
+### 11. THE OATH — whether you can do nothing, together, at the same time
 
 **Splits** hands: the fight is passed by both thumbs leaving the glass at
 once, not by anything pressed. **Silhouette**: a coiled body that unwinds one
@@ -291,7 +272,7 @@ named above — same primitive, individual restraint versus synchronized
 absence; the two are close enough that the owner may want only one boss built
 on `RestraintGate`.
 
-### 13. THE OSSUARY — whether the same body means the same thing to both of you, this beat
+### 12. THE OSSUARY — whether the same body means the same thing to both of you, this beat
 
 **Splits** eyes: the same limb reads as the boss's health on one screen and
 as its armour on the other, and which is true *changes* every few beats.
@@ -311,7 +292,7 @@ it out. **Nearest neighbour**: the Bulb Queen, named above — same primitive,
 made to disagree with itself over time instead of holding one fixed split,
 which is the clearest "same coupling, harder question" entry on this page.
 
-### 14. THE RIVET — whether doing well makes the next beat harder to read
+### 13. THE RIVET — whether doing well makes the next beat harder to read
 
 **Splits** hands: every completed beat leaves a mark on the boss's own
 surface that partly obscures the next one. **Silhouette**: a riveted plate
@@ -329,7 +310,7 @@ own accumulated success the source of the difficulty; closest structurally is
 [THE TASTER](bosses-choreographed.md#4-the-taster--what-you-have-already-spent),
 which reads the pair's spend rather than the boss's own scar.
 
-### 15. THE SCONCE — whether you can talk them through a beat you cannot see together
+### 14. THE SCONCE — whether you can talk them through a beat you cannot see together
 
 **Splits** eyes: one seat's screen goes dark on a schedule the *other's*
 does not share, unpredictably and separately, so the lit seat must call a
@@ -349,7 +330,7 @@ wait. **Nearest neighbour**: THE CANDLE, named above — same primitive, traded
 from synchronized to asymmetric, which is close enough that the owner may
 prefer it as a CANDLE variant beat rather than a boss of its own.
 
-### 16. THE GANTRY — whether you can keep firing while they are holding the gun down
+### 15. THE GANTRY — whether you can keep firing while they are holding the gun down
 
 **Splits** hands: the boss lifts the ship's own cannon mount, and the seat
 holding it down cannot fire at all — not merely occupied, actually without a
@@ -369,7 +350,7 @@ grapples; (4) all four gone, the mount releases and both cannons return.
 flagged as the closest reuse of a *field*-boss (rather than choreographed)
 coupling on this page.
 
-### 17. THE GRIST — whether your misses cost you twice
+### 16. THE GRIST — whether your misses cost you twice
 
 **Splits** hands: nothing new to aim at, but every shot that hits nothing at
 all becomes the boss's next arrival. **Silhouette**: a milling body with
@@ -390,7 +371,7 @@ spirit — a cost that travels backward in time from the pair's own play — thi
 is closer to a *wave-design* idea than a scene, and the owner may want it
 built as a difficulty modifier rather than a boss.
 
-### 18. THE WICKER — whether you remember what you started
+### 17. THE WICKER — whether you remember what you started
 
 **Splits** hands: one seat plants a mark now, and its consequence arrives
 several beats later at a place both of them have to remember to clear.
@@ -410,7 +391,7 @@ asks for the pair's remembered moves read back to them by the boss; this asks
 them to remember a debt nothing ever reads back, which is the sharper
 version and the reason `DelayedConsequence` is still unbuilt.
 
-### 19. THE QUARRY — whether you can keep a shared sense of whose turn it feels like
+### 18. THE QUARRY — whether you can keep a shared sense of whose turn it feels like
 
 **Splits** hands: unlike a fixed alternation, this fight tracks who acted
 *least recently* and asks for them next, without ever saying so. **Silhouette**:
@@ -429,7 +410,7 @@ reasonably fold this into a BATON variant rather than a boss of its own,
 since the difference (soft tracking versus a hard lock) is a tuning knob more
 than a new question.
 
-### 20. THE ZENITH — the finale that spends everything already built
+### 19. THE ZENITH — the finale that spends everything already built
 
 **Splits** whichever each of its scenes already splits — this is the "final
 multi-mechanic cinematic" category
@@ -463,7 +444,7 @@ build-first primitives this brief never needed on its own, and the one
 there is nothing to collide over yet — the claim happens the ordinary way,
 `.claude/skills/new-boss` §3, the day the owner picks one to build.
 
-**Six of the twenty are flagged as close to a shipped neighbour** in their
+**Six of the nineteen are flagged as close to a shipped neighbour** in their
 own entries — THE FERRY, THE SEXTANT, THE TALLY, THE SCONCE, THE GANTRY and
 THE QUARRY — because saying so plainly, the way
 [Refused by name](bosses-choreographed.md#refused-by-name) does for the
@@ -475,7 +456,7 @@ already named and never built**: THE RATCHET (`RepeatedTap`), THE FOUNDRY
 comes to the brief's own "final multi-mechanic" ask being answered by
 spending debt rather than inventing more of it.
 
-**Open, for the owner:** which of the twenty are worth building at all; which
+**Open, for the owner:** which of the nineteen are worth building at all; which
 of the six flagged pairs should merge with their neighbour instead of
 standing apart; and whether THE RATCHET or THE FOUNDRY should be the one to
 finally spend its named, unbuilt primitive.

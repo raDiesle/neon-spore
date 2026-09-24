@@ -19606,3 +19606,16 @@ sixty files outside its own, and each one has to be found and taken out by
 hand.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — The unbuilt cinematic THE BELLOWS is taken out of the brief
+
+- reading: 5 min. `git grep -i bellows` for any concept left, and the
+  cinematic brief's references to its own numbers.
+- writing: 5 min. The entry and its contents row removed, sections 5–20
+  renumbered to 4–19, and the counts moved from twenty to nineteen.
+- looking: 0 min. Nothing is drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, a commit by path, and `land`.
+
+The bottleneck was **landing**: the change is one page, and the check is most
+of the time it takes.

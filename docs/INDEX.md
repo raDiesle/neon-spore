@@ -78,7 +78,7 @@ the code disagree, and the code is the truth for numbers.
 | `docs/spec/transfers-hazelight.md` | you are mining It Takes Two or Split Fiction — they are a reference for the shape of a round, not for a creature |
 | `docs/spec/interludes.md` | you are building a round that is not the field: its own rules, controls and picture |
 | `docs/spec/bosses-choreographed.md` | you want a boss that goes somewhere rather than loops — A Way Out read against this engine, fifteen concepts, and the primitive library a choreographed encounter would need |
-| `docs/spec/bosses-cinematic.md` | you are picking the next choreographed boss to build — the owner's own brief, twenty more concepts in words only, none claimed yet |
+| `docs/spec/bosses-cinematic.md` | you are picking the next choreographed boss to build — the owner's own brief, nineteen more concepts in words only, none claimed yet |
 | `docs/spec/choreographed-windows.md` | you are doubling a boss's window on the owner's rule — which figure doubles, which need rises beside it, and which bosses are left alone and why |
 
 The German original has been translated in full and deleted; it is in the git
