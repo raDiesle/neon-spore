@@ -523,7 +523,6 @@ them, and pin it in `phone-game.test.ts` the way that file pins the rest.
 ## Unverified at 5db3ae3e: the svh cap on a real phone whose address bar comes bac…
 
 - **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band
-- **Taken:** 2026-09-24, claude/queue-the-films-pages-name-counts-that-no-test-reads-b (claim: claude/queue-unverified-at-5db3ae3e-the-svh-cap-on-a-real-pho)
 - **Files:** `apps/game/index.html`, `apps/game/src/game.css`, `apps/game/src/safe-area.ts`, `apps/game/src/viewport.ts`, `apps/game/test/viewport-furniture.test.ts`, `apps/game/test/viewport-screen.ts`, `docs/queue.md`, `docs/time-log.md`
 
 *A phone's frozen height stops at the bars-out height, and the build date leaves the field* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
