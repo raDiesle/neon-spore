@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 11db26bc — THE CANDLE's smoke is doubled, and THE SLOW spans it
+
+The smoking wick now gives the beam twelve beats instead of six, and the pull that starts it carries the flame three tiles down instead of a tile and a half. THE SLOW moved to that ask: the pull opens it for exactly the smoke, and it shuts the tick the beam puts the wick out or the wick lights again. A flash during the smoke no longer re-opens THE SLOW, which would have cut the smoke's window to one beat. Every other flash keeps its one-beat slow. The third of four doubled-window landings (docs/spec/choreographed-windows.md).
+
 ## 2026-09-24 · 75555fdc — THE SINEW's fall is doubled, and THE SLOW spans it
 
 On the owner's rule of 22 September: the mass now falls for eight beats, and it has to be walked four columns from the middle to land clear. THE SLOW moves to the ask, which is the fall: the last fibre opens it for the whole fall, and the beat the mass is walked clear or lands shuts it. An earlier fibre's part keeps its own short slow.
