@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · b3d24159 — The director's GAME view is the whole phone screen
+
+The owner: *"in director on mobile, when opening game screen e.g. from wave list, the game must fit 100 height and width so I can play it with focus and without scroll."* Three things stood between the picture and the screen. The header — 76px of NEON SPORE — DIRECTOR, SAVE and the build stamp on two rows, which on a real phone with the browser's own bars out is what makes the field height-limited and stands it between black side bars — is `position: fixed` in this view, and the body grid drops to one row so `main` is the viewport rather than being auto-placed into the header's. The aspect box on `#stage` reserved a second band at the foot, 67px at 375x812, for an aspect `computeStage` already gives inside the canvas, so on a phone it is `aspect-ratio: auto` and the canvas is simply the pane. And the view no longer scrolls: RUN was a thumb-flick under the fold from 18 September, which a field filling the screen cannot have — the canvas answers every press itself (`touch-action: none`), so there is no gesture left for the flick — and `mobile-menu.ts` moves the one transport into the open ☰ instead, moved and not copied, home again on the way out.
+
 ## 2026-09-24 · 9fcbbcfd — On the test screen a press takes the seat of the control under it
 
 The screen that shows both seats used to sign every press player 1, so THE INSTAR's first pose could only be answered pilot-first and its fourth, the navigator's alone, not at all. A press with no seat key held now picks a seat for itself: the marks say whose they are and are asked before the press, and every other handle a seat does not own is simply not there for it, so the same hit test is run for one seat and then the other until one answers.

@@ -19509,3 +19509,5 @@ The bottleneck was **looking**: nothing about this is provable from the sheet
 — the 76px header and the 67px aspect band were both found by measuring a
 running page, and so was the second column the open menu grew when RUN moved
 into it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
