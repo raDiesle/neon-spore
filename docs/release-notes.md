@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 75555fdc — THE SINEW's fall is doubled, and THE SLOW spans it
+
+On the owner's rule of 22 September: the mass now falls for eight beats, and it has to be walked four columns from the middle to land clear. THE SLOW moves to the ask, which is the fall: the last fibre opens it for the whole fall, and the beat the mass is walked clear or lands shuts it. An earlier fibre's part keeps its own short slow.
+
 ## 2026-09-24 · af633c00 — THE CURTAIN's windows are doubled, and THE SLOW spans its jam
 
 On the owner's rule of 22 September: a soft set now stands twelve beats with three lobes soft at once, and a hit jams the rail for twelve beats with the hem carried two and a half tiles. THE SLOW opens on THE CURTAIN for the first time, over the jam alone: the hit that jams the rail opens it, and the next hit or the jam running out shuts it. The soft set is redrawn whether or not it was answered, so it keeps the fight's own tempo.
