@@ -21,8 +21,12 @@ export interface HullSkin {
   /** The outline, and what its glow is made of. */
   rim: string;
   /** How strong the rim glows, 0..1; absent is full. The ship's own is always
-   * full — it has no points to dim with — and THE MIRROR's fades with its. */
-  rimAlpha?: number;
+   * full — it has no points to dim with — and THE MIRROR's fades with its.
+   * The glow only, handed to `strokeGlow` as its intensity: the line itself
+   * stays whole, so a mirror down to its last points still has an outline.
+   * Named `rimAlpha` until 24 September 2026, which read as a fade of the
+   * whole rim and was not one. */
+  rimGlow?: number;
   /** The bright edge on the muzzle. */
   edge: string;
   /** Inside the muzzle. */

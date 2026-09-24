@@ -169,7 +169,7 @@ export function drawHull(
   // And round every plate that is gone, for the same reason: a hull two
   // columns shorter is shorter in its outline first (`plate-gap.ts`).
   const gaps = plateGaps(l, scars, (x) => skin(f, x));
-  strokeHullRim(ctx, l, body, openCraters, gaps, skin_.rim, skin_.rimAlpha ?? 1);
+  strokeHullRim(ctx, l, body, openCraters, gaps, skin_.rim, skin_.rimGlow ?? 1);
 
   // What the thing that broke the hull left on it, in its own colour, under
   // the cracks: the tear is the sharpest thing about a breach and reads over
@@ -236,11 +236,11 @@ function strokeHullRim(
   craters: Crater[],
   gaps: readonly PlateGap[],
   rim: string,
-  alpha: number,
+  glow: number,
 ): void {
   ctx.save();
   clipOutMouths(ctx, l, craters);
   clipOutPlates(ctx, l, gaps);
-  strokeGlow(ctx, body, rim, STROKE.outline + 0.6, alpha);
+  strokeGlow(ctx, body, rim, STROKE.outline + 0.6, glow);
   ctx.restore();
 }

@@ -98,7 +98,7 @@ function lobe(
   ctx.fillStyle = g;
   ctx.fill(body);
   ctx.lineCap = "round";
-  strokeGlow(ctx, top, skin.rim, STROKE.outline + 0.6, skin.rimAlpha ?? 1);
+  strokeGlow(ctx, top, skin.rim, STROKE.outline + 0.6, skin.rimGlow ?? 1);
 }
 
 /** The plate as shipped, and the hull saying the same thing under it. */

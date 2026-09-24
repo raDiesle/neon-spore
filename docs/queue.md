@@ -536,30 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## About 100 `strokeGlow` calls are made at an alpha the call throws away
-
-- **Found:** 2026-09-23, claude/queue-stroke-glow
-- **Taken:** 2026-09-24, claude/queue-apps-game-src-input-ts-is-at-248-lines-with-its (claim: claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha)
-- **Files:** `packages/render/src/glow.ts`, `packages/render/src/ship-hand.ts`, `packages/render/src/ship-marks.ts`, `packages/render/src/hull.ts`, `packages/render/test/`
-
-`strokeGlow` sets `globalAlpha` for every pass and never reads the one it was
-handed, so a caller's `ctx.globalAlpha = …` just before it does nothing. A run
-of `packages/render/test` with `strokeGlow` counting the calls that arrive
-below 1 found 104 call sites in 81 files. Some mean it plainly:
-- `ship-hand.ts` sets the cup's and the chevrons' alpha, then passes it again
-  as the intensity;
-- `ship-marks.ts` does the same for the arrows, the chevrons and the bolt.
-
-Most are an alpha left over from a fill inside the same `save` — a body's
-fade, a haze — so the glow is probably drawn at full presence over a body
-drawn at half. `strokeGlow` now takes an `alpha` for the whole stroke, and the
-clock fades already pass it; these are the steady ones, so each one changes a
-picture that ships. Go through them file by file, say which ones meant the
-fade, and pass it as `alpha`. `hull.ts`'s `rimAlpha` is one of them. Each file
-lands under "a fix to something wrong", with one before/after PNG.
-Reproducing the count: a `globalThis` tally in `strokeGlow` keyed on the
-caller's stack frame, dumped by an `afterAll` preload.
-
 ## The doubled window: THE GORGE, THE TASTER and THE LEAD
 
 - **Found:** 2026-09-23, claude/task-queue-work-7ae87c
@@ -583,3 +559,75 @@ column count, a pinch, a pull. Double both halves per
 `docs/spec/choreographed-windows.md`, the SLOW opened at the ask (for the
 first time on THE CURTAIN and THE ANTIPHON), the films re-timed and the
 rehearsals given room.
+
+## `strokeGlow` is handed an alpha it throws away: the bodies
+
+- **Found:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha
+- **Files:** `packages/render/src/balloon-alive.ts`, `packages/render/src/balloon-handles.ts`, `packages/render/src/body-burst.ts`, `packages/render/src/body-mark.ts`, `packages/render/src/crawler-marks.ts`, `packages/render/src/crawler.ts`, `packages/render/src/ghost.ts`, `packages/render/src/living-skin.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/src/meteor-comet.ts`, `packages/render/src/moult.ts`, `packages/render/src/pods.ts`, `packages/render/src/pulse-wash.ts`, `packages/render/src/recoil-globe.ts`, `packages/render/src/scout-draw.ts`, `packages/render/src/wisp-body.ts`
+
+`strokeGlow` sets `globalAlpha` for every pass and never reads the one it
+was handed, so a caller's `ctx.globalAlpha = …` just before it does nothing
+to the line. 16 calls in 16 files, by caller and line: `balloon-alive.ts:126`, `balloon-handles.ts:158`, `body-burst.ts:142`, `body-mark.ts:71`, `crawler-marks.ts:87`, `crawler.ts:146`, `ghost.ts:136`, `living-skin.ts:148`, `meteor-blaze.ts:144`, `meteor-comet.ts:143`, `moult.ts:110`, `pods.ts:111`, `pulse-wash.ts:138`, `recoil-globe.ts:126`, `scout-draw.ts:93`, `wisp-body.ts:140`.
+
+Most are probably an alpha left over from a fill inside the same `save` — a
+body's fade, a haze — so the glow's line is drawn at full presence over
+something drawn at half. For each, say whether the fade was meant; if it
+was, pass it as `alpha`, dividing `intensity` by it where the call passed
+both so the glow stays put (`ship-marks.ts`'s arrows are the pattern).
+`hull.ts`'s `rimAlpha` looked like one and was an intensity all along, so
+read the doc before the name. Each changes a picture that ships: it lands
+under "a fix to something wrong", with one before/after PNG. More than a
+sitting's worth is split by file before it is started.
+
+Reproducing the list, from 24 September 2026: a `globalThis` tally in
+`strokeGlow` of the calls arriving with `globalAlpha` below 1, keyed on the
+caller's stack frame, written out by an `afterAll` in a `--preload` file
+over `bun test packages/render/test` — about a minute, in one process.
+
+## `strokeGlow` is handed an alpha it throws away: the bosses
+
+- **Found:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha
+- **Files:** `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-bead-draw.ts`, `packages/render/src/bellows-handle.ts`, `packages/render/src/curtain-sheet.ts`, `packages/render/src/diastole-bridge.ts`, `packages/render/src/diastole-draw.ts`, `packages/render/src/eye-iris.ts`, `packages/render/src/eye-lens.ts`, `packages/render/src/eye.ts`, `packages/render/src/fence-crack.ts`, `packages/render/src/fence-skull.ts`, `packages/render/src/fence-wire.ts`, `packages/render/src/filament-draw.ts`, `packages/render/src/gorge-draw.ts`, `packages/render/src/gorge-lobe.ts`, `packages/render/src/gyre-orbit.ts`, `packages/render/src/gyre-wheel.ts`, `packages/render/src/hive-draw.ts`, `packages/render/src/instar-draw.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/instar-together.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-draw.ts`, `packages/render/src/magnet-lanes.ts`, `packages/render/src/maze-heart.ts`, `packages/render/src/maze-string.ts`, `packages/render/src/orrery-draw.ts`, `packages/render/src/orrery-grab.ts`, `packages/render/src/queen-weakpoint.ts`, `packages/render/src/ratchet-parts.ts`, `packages/render/src/reprise-draw.ts`, `packages/render/src/sinew-band.ts`, `packages/render/src/spool-brake.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/spool-gauge.ts`, `packages/render/src/spool-line.ts`, `packages/render/src/stare-draw.ts`, `packages/render/src/strand-bead.ts`, `packages/render/src/strand.ts`, `packages/render/src/surge-fx.ts`, `packages/render/src/surge-gauge.ts`, `packages/render/src/taster-blade.ts`, `packages/render/src/taster-crest.ts`, `packages/render/src/taster-read.ts`, `packages/render/src/undertow-draw.ts`, `packages/render/src/undertow-seam.ts`, `packages/render/src/vane-bearing.ts`, `packages/render/src/volley-ward.ts`, `packages/render/src/warden-cilia.ts`, `packages/render/src/warden-fx.ts`, `packages/render/src/warden-veins.ts`
+
+`strokeGlow` sets `globalAlpha` for every pass and never reads the one it
+was handed, so a caller's `ctx.globalAlpha = …` just before it does nothing
+to the line. 70 calls in 52 files, by caller and line: `antiphon-draw.ts:208`, `baton-bead-draw.ts:131`, `bellows-handle.ts:64`, `curtain-sheet.ts:133`, `diastole-bridge.ts:87`, `diastole-draw.ts:229`, `eye-iris.ts:122,136`, `eye-lens.ts:156`, `eye.ts:146`, `fence-crack.ts:96`, `fence-skull.ts:152`, `fence-wire.ts:184`, `filament-draw.ts:105,151,171,200`, `gorge-draw.ts:157`, `gorge-lobe.ts:100`, `gyre-orbit.ts:79,146`, `gyre-wheel.ts:121,152`, `hive-draw.ts:214,232`, `instar-draw.ts:92`, `instar-marks.ts:181`, `instar-together.ts:111,129`, `lead-draw.ts:131,165`, `ledger-cord.ts:111`, `ledger-draw.ts:95`, `magnet-lanes.ts:47`, `maze-heart.ts:141`, `maze-string.ts:150`, `orrery-draw.ts:97,101,207`, `orrery-grab.ts:218`, `queen-weakpoint.ts:198,210`, `ratchet-parts.ts:67`, `reprise-draw.ts:156,211`, `sinew-band.ts:144`, `spool-brake.ts:41`, `spool-draw.ts:95,112,154,192`, `spool-gauge.ts:64`, `spool-line.ts:49`, `stare-draw.ts:89`, `strand-bead.ts:141`, `strand.ts:152`, `surge-fx.ts:160`, `surge-gauge.ts:105,136`, `taster-blade.ts:155`, `taster-crest.ts:115`, `taster-read.ts:119`, `undertow-draw.ts:104,135`, `undertow-seam.ts:93`, `vane-bearing.ts:157`, `volley-ward.ts:69`, `warden-cilia.ts:83`, `warden-fx.ts:91`, `warden-veins.ts:85`.
+
+Most are probably an alpha left over from a fill inside the same `save` — a
+body's fade, a haze — so the glow's line is drawn at full presence over
+something drawn at half. For each, say whether the fade was meant; if it
+was, pass it as `alpha`, dividing `intensity` by it where the call passed
+both so the glow stays put (`ship-marks.ts`'s arrows are the pattern).
+`hull.ts`'s `rimAlpha` looked like one and was an intensity all along, so
+read the doc before the name. Each changes a picture that ships: it lands
+under "a fix to something wrong", with one before/after PNG. More than a
+sitting's worth is split by file before it is started.
+
+Reproducing the list, from 24 September 2026: a `globalThis` tally in
+`strokeGlow` of the calls arriving with `globalAlpha` below 1, keyed on the
+caller's stack frame, written out by an `afterAll` in a `--preload` file
+over `bun test packages/render/test` — about a minute, in one process.
+
+## `strokeGlow` is handed an alpha it throws away: the ship and the screens
+
+- **Found:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha
+- **Files:** `packages/render/src/breach-hammer.ts`, `packages/render/src/breach-rend.ts`, `packages/render/src/cannon-maw.ts`, `packages/render/src/fault-emitter.ts`, `packages/render/src/grip-rings.ts`, `packages/render/src/handle-draw.ts`, `packages/render/src/harpoon-line.ts`, `packages/render/src/hull-shock.ts`, `packages/render/src/intro-ear.ts`, `packages/render/src/lost-shut.ts`, `packages/render/src/maw.ts`, `packages/render/src/shield.ts`
+
+`strokeGlow` sets `globalAlpha` for every pass and never reads the one it
+was handed, so a caller's `ctx.globalAlpha = …` just before it does nothing
+to the line. 12 calls in 12 files, by caller and line: `breach-hammer.ts:69`, `breach-rend.ts:76`, `cannon-maw.ts:129`, `fault-emitter.ts:107`, `grip-rings.ts:31`, `handle-draw.ts:189`, `harpoon-line.ts:141`, `hull-shock.ts:94`, `intro-ear.ts:146`, `lost-shut.ts:108`, `maw.ts:103`, `shield.ts:232`.
+
+Most are probably an alpha left over from a fill inside the same `save` — a
+body's fade, a haze — so the glow's line is drawn at full presence over
+something drawn at half. For each, say whether the fade was meant; if it
+was, pass it as `alpha`, dividing `intensity` by it where the call passed
+both so the glow stays put (`ship-marks.ts`'s arrows are the pattern).
+`hull.ts`'s `rimAlpha` looked like one and was an intensity all along, so
+read the doc before the name. Each changes a picture that ships: it lands
+under "a fix to something wrong", with one before/after PNG. More than a
+sitting's worth is split by file before it is started.
+
+Reproducing the list, from 24 September 2026: a `globalThis` tally in
+`strokeGlow` of the calls arriving with `globalAlpha` below 1, keyed on the
+caller's stack frame, written out by an `afterAll` in a `--preload` file
+over `bun test packages/render/test` — about a minute, in one process.

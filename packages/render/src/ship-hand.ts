@@ -116,9 +116,10 @@ export function drawShipHand(
   halo(ctx, at.x, at.y, r * 1.4, base, 0.1 * alpha);
   const cup = new Path2D();
   cup.arc(at.x, at.y, r, Math.PI - CUP, 2 * Math.PI + CUP);
-  ctx.globalAlpha = alpha;
-  strokeGlow(ctx, cup, base, 2, alpha);
-  ctx.globalAlpha = 1;
+  // The hover's fade as `alpha`, so the line fades with its glow: a
+  // `globalAlpha` set here was thrown away by `strokeGlow`, and a desk's
+  // hover drew the cup's line as bright as a hand's.
+  strokeGlow(ctx, cup, base, 2, 1, alpha);
   // What this hand would *do*, in the colours the band already says it in —
   // arrows for a swelling that travels, the maw, the bolt (`ship-marks.ts`).
   // Player 2's two colours stay here rather than joining them: they are not a
@@ -157,8 +158,6 @@ function drawColours(
     chevron.moveTo(x - side * w, at.y - w);
     chevron.lineTo(x + side * w, at.y);
     chevron.lineTo(x - side * w, at.y + w);
-    ctx.globalAlpha = (lit ? 1 : 0.3) * alpha;
-    strokeGlow(ctx, chevron, color, lit ? 2.4 : 1.4, lit ? alpha : 0.3 * alpha);
-    ctx.globalAlpha = 1;
+    strokeGlow(ctx, chevron, color, lit ? 2.4 : 1.4, 1, (lit ? 1 : 0.3) * alpha);
   }
 }

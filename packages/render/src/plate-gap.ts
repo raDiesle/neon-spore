@@ -159,7 +159,7 @@ export function drawPlateGaps(
     ctx.fillStyle = skin.body[3];
     ctx.fill(hole);
     ctx.lineJoin = "round";
-    strokeGlow(ctx, open, skin.rim, STROKE.outline, 0.7 * (skin.rimAlpha ?? 1));
+    strokeGlow(ctx, open, skin.rim, STROKE.outline, 0.7 * (skin.rimGlow ?? 1));
     ctx.restore();
   }
 }

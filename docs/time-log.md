@@ -19054,3 +19054,18 @@ The bottleneck was **landing**: the cut itself was chosen in the entry, and
 what is left is the check.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — The ship's hand ring and marks fade their line with their glow
+
+- reading: 5 min. `glow.ts`, the three files the entry named, `rimAlpha`'s
+  callers and its doc.
+- writing: 5 min. Five calls passing their fade as `alpha`, `rimAlpha`
+  renamed `rimGlow`, three queue entries for the other 98 calls.
+- looking: 5 min. The tally rerun over `packages/render/test`, and one
+  before/after of the navigator's colours.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: the one-minute tally is the only way to
+know which calls are affected, and it had to run again for the list the
+next lanes take.

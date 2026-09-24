@@ -80,9 +80,9 @@ function drawSlide(
     arrow.moveTo(x - side * w, at.y - w);
     arrow.lineTo(x + side * w, at.y);
     arrow.lineTo(x - side * w, at.y + w);
-    ctx.globalAlpha = 0.55 * alpha;
-    strokeGlow(ctx, arrow, base, 1.6, 0.45 * alpha);
-    ctx.globalAlpha = 1;
+    // The line at 0.55 and its glow at 0.45: the glow scaled by both, so
+    // `0.45 / 0.55` of the fade.
+    strokeGlow(ctx, arrow, base, 1.6, 0.45 / 0.55, 0.55 * alpha);
   }
 }
 
@@ -114,9 +114,7 @@ function drawSuck(
     chevron.moveTo(at.x - w, y - r * 0.16);
     chevron.lineTo(at.x, y + r * 0.16);
     chevron.lineTo(at.x + w, y - r * 0.16);
-    ctx.globalAlpha = lit * alpha;
-    strokeGlow(ctx, chevron, PALETTE.pod, 2, lit * alpha);
-    ctx.globalAlpha = 1;
+    strokeGlow(ctx, chevron, PALETTE.pod, 2, 1, lit * alpha);
   }
 }
 
@@ -140,10 +138,8 @@ function drawGuard(ctx: CanvasRenderingContext2D, at: Circle, r: number, alpha: 
   bolt.lineTo(at.x + w * 0.15, y + h * 0.1);
   bolt.lineTo(at.x - w * 0.6, y + h);
   halo(ctx, at.x, y, r * 1.1, PALETTE.shield, 0.3 * alpha);
-  ctx.globalAlpha = alpha;
   // The lobe's own cyan and not the paler rim the cup is drawn in: the cup is
   // nearly white, and a bolt that shared its colour would read as a piece of
   // the bracket rather than as the SHIELD button standing over the plate.
-  strokeGlow(ctx, bolt, PALETTE.shield, 2.4, alpha);
-  ctx.globalAlpha = 1;
+  strokeGlow(ctx, bolt, PALETTE.shield, 2.4, 1, alpha);
 }
