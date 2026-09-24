@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 98d3d9d0 — `bun run imports` no longer reads `bead.flying` as a use of `flying`
+
+A property after `.` or `?.`, and an object key that is not a shorthand, are only a name spelled the same, and no longer keep an unused import in its list; a spread, a ternary's arm and a shorthand still count. What biome flags afterwards is reported in two groups — whole statements held under a comment, and names kept because their word is written elsewhere — where it used to call every leftover a whole statement.
+
 ## 2026-09-24 · b123d84c — THE GORGE's mouth is a file of its own
 
 `gorge-step.ts` stood at the 250-line ceiling. The bead in and out, the mouth opening and a shot into the mouth are now `gorge-mouth.ts`; `gorgeStruck` stays the dispatcher and pierces a full intake itself. Nothing a player sees or the simulation does changed; the gorge tests prove it.
