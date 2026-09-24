@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · ff7c8658 — THE LEAD's still is doubled: eight beats, sixteen of hold, two beams to end it
+
+The last segment now stands dead `leadStillBeats` 8 rather than 4, a thumb on the stalk holds it up to `leadHoldBeats` 16, and the last movement takes `leadStillFills` (2) beams: one short of the last stops the body dead in the beam's column, a whole new still with the stalk on offer again, and the second downs it. THE SLOW moved from the beat a shot is judged, which asks for nothing, to the still and the pass after it — reopened by a grip and at a wall, shut on the last beam (`docs/decisions.md` #33). `leadSlowBeats` is gone. The guide says eight beats and two beams; the film beams twice and wards a third rock the longer fight now lands.
+
 ## 2026-09-24 · c3bfc62f — THE TASTER's pry is doubled: twelve beats open, two beams to end it
 
 The closed fan now stands open `tasterPryBeats` 12 rather than 6 once the pilot hauls it apart, and takes `tasterPryFills` (2) beams in the colour the ledger says the pair has spent least of, read as each beam lands. THE SLOW moved from the beat a blade's colour sets, which asks for nothing, to the pry: opened with it for exactly its beats and shut by the last beam (`docs/decisions.md` #33). `tasterSlowBeats` is gone. The guide says to beam twice; the film never reaches the interlock and is unchanged.
