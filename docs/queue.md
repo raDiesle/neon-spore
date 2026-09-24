@@ -424,6 +424,7 @@ what the rest of this file holds.
 ## `computeStage` takes a config and a role it no longer reads
 
 - **Found:** 2026-09-24, claude/queue-task-b0bde7
+- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-computestage-takes-a-config-and-a-role-it-no-lon)
 - **Files:** `packages/render/src/layout-stage.ts`, `apps/game/src/viewport.ts`, `packages/render/src/canvas2d.ts`, `packages/render/src/guide-film.ts`, `tools/director/src/pose-art.ts`, `tools/director/src/stage-point.ts`, `tools/director/src/versus-diff.ts`
 
 The eleven tests that call it change with them (`git grep -n "computeStage("`).
