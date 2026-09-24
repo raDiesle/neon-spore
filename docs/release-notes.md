@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 5a5eb119 — No line over the cannon says whose turn it is; the marks say the order
+
+THE INSTAR's EITHER ORDER / FINISH TOGETHER / P2 NOW banner, and the seat-and-clock line THE TASTER, THE DIASTOLE, THE BATON and THE SURGE wrote over the cannon, are gone. Two marks up at once already say either order, and a seat that must wait is shown its mark only when its time has come.
+
 ## 2026-09-24 · 2aa0f575 — One mouse holds THE INSTAR's HOLD BOTH for both seats, and 3 is both hands
 
 On the TEST screen a press on THE INSTAR's HOLD BOTH ring is now both seats' thumb at once, so the last pose can be held to the end with one mouse, in the game and in the director. In the game, holding 3 makes the mouse both players' hand on the field (next to 1 and 2, which pick one seat); a ring that names one seat still goes to that seat alone. Phones are unchanged.
