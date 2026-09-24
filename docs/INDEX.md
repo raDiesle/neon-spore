@@ -1377,8 +1377,9 @@ by hand never moves.
 | `packages/render/src/lost-answer.ts` | What the pair does about a lost wave: RETRY WAVE and GO TO MENU |
 | `packages/render/src/lost-words.ts` | The words of the lost screen: WAVE 7 LOST, and under it the wave's name and how many tries the run has taken |
 | `packages/render/src/lost-wound.ts` | Where the ship was broken, drawn as a wound: a ragged hole in the plates with a focus ring round it |
-| `packages/render/src/lost-bleed.ts` | What bleeds out of the wound: the collar of blood standing inside its rim |
+| `packages/render/src/lost-bleed.ts` | What bleeds out of the wound: the pool standing inside its lower rim |
 | `packages/render/src/lost-boxes.ts` | Where the lost screen's buttons are: the one geometry the picture (`lost-answer.ts`) and the thumb… |
+| `packages/render/src/lost-ribbon.ts` | The shapes the blood out of the lost screen's wound is drawn from: a centre line |
 | `packages/render/src/creature-tint.ts` | The three colours a body carries, and what they are mid-turn |
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
 | `packages/render/src/recoil-look.ts` | THE ONE RECORD A CANDIDATE **RECOIL** PATCHES |

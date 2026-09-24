@@ -19724,3 +19724,19 @@ The bottleneck was **reading**: the bar was named as a decision in four
 places, and each had to say it went rather than just lose the line.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — The lost wound bleeds as sheets that split, off the rim's corners
+
+- reading: 5 min. `lost-bleed.ts`, `lost-wound.ts`, `lost-shut.ts` and the
+  frames recipe for the lost screen.
+- writing: 5 min. The pool, the corner finder, the sheet-then-streams run as
+  one fill, and the split into `lost-ribbon.ts`.
+- looking: 5 min. Five strips of the lost screen; the first showed holes in
+  the beads from the ribbons winding against `arc`, the next legs that never
+  read as a split.
+- friction: 0 min. The typecheck failed until the worktree had its own
+  `bun install`.
+- landing: 5 min. `check:fast`, red once on the index row for the new file.
+
+The bottleneck was **looking**: whether a sheet reads as *splitting* rather
+than as legs only showed across a strip of frames, never in one.

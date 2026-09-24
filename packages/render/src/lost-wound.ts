@@ -1,6 +1,6 @@
 import { halo, strokeGlow } from "./glow.js";
 import { signedHash } from "./hash.js";
-import { collar, tongues } from "./lost-bleed.js";
+import { pool, runs } from "./lost-bleed.js";
 import type { LostPaint } from "./lost-look.js";
 import { PALETTE } from "./palette.js";
 
@@ -23,8 +23,8 @@ import { PALETTE } from "./palette.js";
  * (deleted with this), which is the movement he asked to have
  * taken away — a screen the pair are meant to read had a curtain crossing it.
  * What is left moving is one thing in one place, and it is `lost-bleed.ts`:
- * six slow tongues of red out of one rim, the shortest of them thirteen
- * seconds long.
+ * three slow runs of red off the lowest teeth of the rim, each a thick sheet
+ * that splits into two or three streams over some seventeen seconds.
  *
  * **The blood is red and not the hull's violet.** The rivulets argued the
  * other way — the ship is what was broken, so the screen should bleed the
@@ -49,7 +49,7 @@ const RING = 1.35;
 /**
  * The bloom under the whole thing, as a multiple of the hole's radius.
  *
- * One sprite at one radius for the whole wound rather than one per tongue
+ * One sprite at one radius for the whole wound rather than one per run
  * head: `halo` bakes per colour and radius and keeps it for the session
  * (`glow.ts`), and `baked-growth.test.ts` is the test that said so the last
  * time this screen bled — thirteen rivulet heads at their own thicknesses
@@ -129,13 +129,13 @@ export function traceWound(ctx: CanvasRenderingContext2D, w: Wound): void {
 }
 
 /**
- * The wound: the bloom behind it, the collar of blood standing inside the rim,
- * the tongues that come out of it, the lit rim itself and the focus ring.
+ * The wound: the bloom behind it, the pool of blood standing inside the rim,
+ * the lit rim itself and the focus ring, and the runs that come over the rim.
  *
  * **The ring is still.** Every picture this screen has worn moved, and the
  * owner's complaint on 22 September 2026 was that it moved; what points at the
  * place is a reticle that is simply there, and the only thing left with a
- * clock on it is the blood — six tongues, the fastest of them thirteen seconds
+ * clock on it is the blood — three runs, the fastest of them seventeen seconds
  * end to end.
  *
  * **What arrives is its light.** The whole wound is drawn at `w.arrive`, which
@@ -147,15 +147,14 @@ export function traceWound(ctx: CanvasRenderingContext2D, w: Wound): void {
  * a single pixel of it showed. Nothing here moves on that clock; it only
  * lights.
  *
- * The collar is what *keeps* it bleeding. A tongue runs, thins and goes, and a
- * hole with only tongues on it empties between them; a band of red standing
- * inside the rim the whole time, swelling on a slow breath, is the screen
- * saying that more is coming up behind — which is what the owner asked for in
- * the same sentence as the tongues.
+ * **The pool goes under the rim and the runs over it.** The pool is blood
+ * standing in the hole, so the lit edge is drawn across it; a run is blood
+ * coming *out*, from inside to outside, so it is drawn last and covers the rim
+ * where it crosses it (`lost-bleed.ts`).
  */
 export function drawWound(ctx: CanvasRenderingContext2D, w: Wound, age: number): void {
   halo(ctx, w.cx, w.cy, w.r * BLOOM, PALETTE.red, 0.15 * w.arrive);
-  collar(ctx, w, age);
+  pool(ctx, w, age);
 
   // The rim and the reticle, lit in the colour the hit arrived in
   // (`breach-hue.ts`) — and **the arrival is their alpha, not only their
@@ -172,7 +171,7 @@ export function drawWound(ctx: CanvasRenderingContext2D, w: Wound, age: number):
   strokeGlow(ctx, edge, w.hex, bright, w.arrive, w.arrive);
 
   strokeGlow(ctx, reticle(w), w.hex, Math.max(1, w.r * 0.03), 0.5 * w.arrive, w.arrive);
-  tongues(ctx, w, age);
+  runs(ctx, w, age);
 }
 
 /** The reticle: the ring, and the four ticks that make it read as an aim. */
