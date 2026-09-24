@@ -44,6 +44,10 @@
     inset: 0;
     z-index: 50;
     flex-direction: column;
+    /* The compact bar wraps (above); a column that wraps puts everything past
+       the fold in a *second column*, off the right edge. It only showed once
+       the menu grew past one screen, which is when RUN moved into it. */
+    flex-wrap: nowrap;
     align-items: stretch;
     overflow-y: auto;
     padding: 16px;
@@ -109,22 +113,49 @@
      "left right top bottom" the ask names, and on a phone there is no second
      column for that border to divide from.
 
-     Seen at 375x812 on 19 September 2026: the field stops about 67px short of
-     the foot, and that band is not this block failing to fill. `#stage` keeps
-     the renderer's aspect at `min(100cqh, 100cqw / 0.56)` (director-field.css),
-     which on a 375-wide phone is 669px tall whichever way `main` is sized — the
-     canvas is width-limited here, so the band is the aspect's own reserve and
-     a taller `main` only makes it deeper. Do not try to close it by giving the
-     stage more height; the only thing that would close it is cropping the
-     wave. */
+     **AND THE FIELD IS THE WHOLE SCREEN, BOTH WAYS** (24 September 2026).
+     The owner: *"when opening game screen e.g. from wave list, the game must
+     fit 100 height and width so I can play it with focus and without
+     scroll."*
+
+     Two things stood in the way of the whole of it, and neither was this
+     block failing to fill. The first was the header: 76px of NEON SPORE —
+     DIRECTOR, SAVE and the build stamp wrapped onto two rows, which is the
+     "top" of the same owner's earlier *"nothing else left right top bottom is
+     disturbing to play"* and, on a real phone with the browser's own bars out,
+     the 76px that makes the field height-limited and stands it between two
+     black side bars. It is `position: fixed` here, so the body grid's first
+     row has nothing in it and `main` is the viewport; all of it is hidden but
+     ☰ MENU, which is the one way out the owner named.
+
+     The second was the aspect. `#stage` keeps `min(100cqh, 100cqw / 0.56)`
+     on a desk (director-field.css), where a window far wider than a phone
+     would otherwise draw a hull nobody will see; on a phone that same rule was
+     reserving a band at the foot — 67px at 375x812 — for an aspect the screen
+     already has. It is not needed here, because `computeStage`
+     (render/layout-stage.ts) does the identical job inside the canvas: it
+     fills the height it is given and takes `min(across, max(height * 0.56,
+     430))` of width, which on any phone held upright is the whole of it. So
+     the canvas is simply the pane, and the picture is the screen.
+
+     What the canvas gave up is where ☰ and the seat buttons now stand: two
+     small groups over the top-right corner, which is empty sky in every wave
+     and clear of the run clock at the top-left. */
   main[data-view="game"] {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow: hidden;
   }
+  /* **AND RUN IS NOT UNDER THE FIELD ANY MORE; IT IS IN THE MENU.** It was one
+     thumb-flick below from 18 September 2026, which needed the view to scroll —
+     and a field that is the whole screen is a field a thumb is always on, so
+     the flick would have to come off the canvas, which now answers every press
+     itself (`touch-action: none`, director-field.css). One of the two had to
+     go, and the owner named which: *"without scroll"*. `mobile-menu.ts` moves
+     the transport into the open menu instead, which is the ☰ the same sentence
+     leaves standing. */
   main[data-view="game"] > section[data-view="game"] {
-    display: block;
-    flex: 0 0 auto;
+    display: none;
   }
   main[data-view="game"] > section.stage-col[data-view="game"] {
     display: flex;
@@ -134,24 +165,78 @@
     padding: 0;
     border-right: 0;
   }
-  /* **TEST, P1 AND P2 UNDER THE FIELD**, which is the one row of RUN that
+  /* The canvas is the pane, and `computeStage` letterboxes inside it — see
+     the block above. `aspect-ratio: auto` is what undoes the desk's 0.56 box;
+     the two lengths are read once, before the renderer writes its own measured
+     pixels back as an inline style (`stage-point.ts`). */
+  main[data-view="game"] #stage {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border: 0;
+    border-radius: 0;
+  }
+  /* **☰ MENU OVER THE FIELD, AND NOTHING ELSE OF THE HEADER.** Fixed rather
+     than hidden, so the body grid's `auto` row collapses and `main` is the
+     whole viewport; `:not(.menu-open)` leaves the full-screen menu above
+     untouched, which is the same header opened out. */
+  body:has(main[data-view="game"]):not(.menu-open) {
+    /* One row, because `main` is the only thing left in the flow: with the
+       header out of it `main` would otherwise be auto-placed into the `auto`
+       row above and take its content's height — 324px of RUN, with the field
+       collapsed inside it and the `1fr` row below empty. */
+    grid-template-rows: 1fr;
+  }
+  body:has(main[data-view="game"]):not(.menu-open) header {
+    position: fixed;
+    top: 4px;
+    right: 4px;
+    left: auto;
+    z-index: 40;
+    width: auto;
+    height: auto;
+    padding: 0;
+    gap: 0;
+    background: none;
+    border-bottom: 0;
+  }
+  body:has(main[data-view="game"]):not(.menu-open) header > :not(#menuToggle) {
+    display: none;
+  }
+  body:has(main[data-view="game"]):not(.menu-open) #menuToggle {
+    background: rgba(5, 4, 12, 0.72);
+  }
+  /* **TEST, P1 AND P2 OVER THE FIELD**, which is the one row of RUN that
      a solo test needs mid-wave: the owner, 18 September 2026, *"when I am in
      solo test mode, I can also test for both players on mobile device."* RUN
      is a flick under the fold, and switching seat is done over and over while
-     the wave runs, so the three stand in the band the field's own aspect
-     leaves under it (the 67px above) rather than asking for a scroll each
-     time. 40px of it, a third of the row each — the same copies RUN has, so
-     the strip is a second place to press and not a second state. */
+     the wave runs, so the three stand where a thumb already is rather than
+     asking for a scroll each time. They stood in the band the field's aspect
+     left under it until 24 September 2026, when the field took that band back
+     (above); now they are the second line of the top-right corner, under ☰
+     and out of the run clock's way. Small, because they are the tool's and
+     not the game's, and 40px tall, which is a thumb's target. */
   main[data-view="game"] .role-strip {
     display: flex;
-    flex: 0 0 auto;
-    align-self: stretch;
-    gap: 6px;
-    padding: 0 6px 6px;
+    position: absolute;
+    top: 44px;
+    right: 4px;
+    z-index: 10;
+    gap: 4px;
   }
   main[data-view="game"] .role-strip button {
-    flex: 1 1 0;
+    min-width: 44px;
     min-height: 40px;
+    background: rgba(5, 4, 12, 0.72);
+  }
+  /* RUN, standing in the open menu — `mobile-menu.ts` puts it there and takes
+     it back out again, so it is the same ten controls and not a second set.
+     Under the menu's own rows, because the menu is first a way to another
+     wave and only then a way to act on this one. */
+  body.menu-open header .transport {
+    display: flex;
+    width: 100%;
+    margin-top: 8px;
   }
   main[data-view="map"] > section.brush-col[data-view="map"] {
     display: flex;

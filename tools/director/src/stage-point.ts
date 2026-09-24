@@ -77,7 +77,23 @@ export function stageGeometry(
   onResize: (viewport: Viewport) => void,
 ): StageGeometry {
   let viewport: Viewport = { width: 0, height: 0, dpr: 1 };
+  /**
+   * **The sheet says how big the canvas is; the renderer only echoes it.**
+   *
+   * `Canvas2DRenderer.resize` writes the size it was handed back as an inline
+   * `style.width`/`style.height`, because in `apps/game` the renderer is the
+   * one that decides. Here the sheet decides — `min(100cqh, 100cqw / 0.56)` on
+   * a desk, the whole pane on a phone (`director-field.css`,
+   * `director-phone.css`) — and an inline length beats a sheet. So the first
+   * measurement stuck: the canvas kept the pixels it was born with, and a
+   * rotation, a phone's address bar sliding back in or a dragged column
+   * resizer left the picture at the old size with no way back. Clearing the
+   * two lines first is what hands the question to the sheet again; the rect is
+   * read after, and `onResize` writes the answer back.
+   */
   const measure = (): void => {
+    canvas.style.removeProperty("width");
+    canvas.style.removeProperty("height");
     const rect = canvas.getBoundingClientRect();
     if (rect.width < 1 || rect.height < 1) return;
     viewport = {
@@ -87,7 +103,12 @@ export function stageGeometry(
     };
     onResize(viewport);
   };
-  new ResizeObserver(measure).observe(canvas);
+  // The canvas alone is not enough once the sheet sizes it from its box: a
+  // canvas whose own inline size never changes is a canvas the observer never
+  // hears about, and the box is the thing that actually moved.
+  const watch = new ResizeObserver(measure);
+  watch.observe(canvas);
+  if (canvas.parentElement) watch.observe(canvas.parentElement);
   measure();
 
   const stage = (): Stage => computeStage(viewport);

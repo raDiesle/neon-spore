@@ -388,3 +388,32 @@ the two are told apart by the `Hold`/command the touch carries, the same way
 (`tools/director/src/field-controls-page.ts`). A test belongs beside
 `packages/render/test/desk-grab.test.ts`: a handed-over test screen picks the
 seat the control names, and the band still signs with the device.
+
+## The renderer writes a CSS size its host has to undo every frame it measures
+
+- **Found:** 2026-09-24, claude/mobile-game-screen-fit
+- **Files:** `packages/render/src/canvas2d.ts`, `tools/director/src/stage-point.ts`, `apps/game/src/viewport.ts`
+
+`Canvas2DRenderer.resize` sets the backing store *and* writes
+`style.width`/`style.height` in px. In `apps/game` that is right — the renderer
+is what decides how big the canvas is there. In the director it is backwards:
+the sheet decides (`min(100cqh, 100cqw / 0.56)` on a desk, the whole pane on a
+phone), and an inline length beats a sheet, so the first measurement stuck. The
+canvas kept the pixels it was born with, and a rotation, a phone's address bar
+sliding back in or a dragged column resizer left the picture at the old size
+with no way back.
+
+What was done on 24 September 2026 is a workaround: `stageGeometry`'s `measure`
+calls `removeProperty` on both before it reads the rect, and observes the
+canvas's parent as well as the canvas, because a canvas whose own inline size
+never changes is one the observer never hears about. It works, and it means two
+files disagree about who owns one property, once a frame.
+
+The fix is to take the two lines out of `resize` and give the game's host the
+job instead — `apps/game/src/viewport.ts` already measures and already calls
+`resize`, so it can write the px it just decided on. Then the renderer sets
+only the backing store, the director's `measure` loses its two
+`removeProperty` calls, and the sheet is the one answer on both hosts. Check
+the game still fills the screen on a phone-sized viewport and that the stage
+canvas still refits when a director column is dragged; `tools/director/test/stage-point.test.ts`
+is where the second belongs.

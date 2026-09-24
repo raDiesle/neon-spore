@@ -57,11 +57,49 @@ export function initMobileMenu(search: string = location.search): void {
     document.body.classList.toggle("menu-open");
   });
 
+  // RUN follows the menu rather than any one of the four callers that open or
+  // close it — `showPhoneView` is one of them and has no business knowing what
+  // a transport is (`phone-view.ts`).
+  new MutationObserver(() => holdTransport(document.body.classList.contains("menu-open"))).observe(
+    document.body,
+    { attributeFilter: ["class"] },
+  );
+
   // `?view=` is a one-load override for a session driving the page with no
   // mouse (mirrors columns.ts's `?closed=`) — it jumps straight past the
   // menu. Otherwise the phone always opens on the menu, even on a repeat
   // visit: that is the point being asked for, not a default to remember.
   if (onPhone() && !isPhoneView(forced)) {
     document.body.classList.add("menu-open");
+    holdTransport(true);
   }
+}
+
+/**
+ * **RUN, WHILE THE MENU IS OPEN.**
+ *
+ * The GAME view is the whole screen from 24 September 2026 — the owner: *"the
+ * game must fit 100 height and width so I can play it with focus and without
+ * scroll."* RUN stood one thumb-flick under the field before that, which cost
+ * the view a scroll; and a canvas filling the screen answers every press
+ * itself (`touch-action: none`), so the flick had nowhere left to start from.
+ *
+ * So the transport stands in the open menu instead, which is the ☰ the same
+ * owner's *"only menu button"* leaves on screen. **Moved, not copied**: ⏸ and
+ * DIFFICULTY are bound to these elements by id (`stage-transport.ts`,
+ * `pair-panel.ts`), and a second set of them would be a second state to keep
+ * right. It goes home to its own section on the way out, so a desk — which
+ * never opens this menu — sees the column it always had.
+ *
+ * Called off `body`'s own class rather than from each of the places that open
+ * and close the menu: `showPhoneView` is one of them, reached from a row in
+ * the wave list, and that file has no business knowing what a transport is.
+ */
+function holdTransport(open: boolean): void {
+  const transport = document.querySelector<HTMLElement>(".transport");
+  const header = document.querySelector("header");
+  const home = document.querySelector('section[data-column="run"]');
+  if (!transport || !header || !home) return;
+  if (open && onPhone()) header.append(transport);
+  else if (transport.parentElement === header) home.append(transport);
 }

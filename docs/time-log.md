@@ -19489,3 +19489,23 @@ The bottleneck was **writing**: the rule itself is nine lines, and the
 argument it no longer needs was written out in fifteen files.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — The phone's GAME view is the whole screen
+
+- reading: 15 min. The phone block, `phone-view.ts`, `rail-open.ts`,
+  `computeStage`, `Canvas2DRenderer.resize` and the two sheet-reading tests.
+- writing: 30 min. The GAME block rewritten, `measure` taught to clear the
+  renderer's inline px, `holdTransport` in `mobile-menu.ts`, and the tests.
+- looking: 30 min. Two dozen measurements at 375x812 and 390x660 and a desk
+  at 1200x800 — and one whole design seen and dropped, the scroll-snap pair
+  of pages, once `touch-action: none` made the flick impossible to start.
+- friction: 20 min. `preview_start` reported port 3000 for a server on
+  64558; a `javascript_tool` call hung 45s against a hidden Browser pane;
+  `tsc` could not resolve two workspace packages until the worktree's
+  `node_modules` was removed and reinstalled.
+- landing: 10 min. `check:fast` green first time, twice.
+
+The bottleneck was **looking**: nothing about this is provable from the sheet
+— the 76px header and the 67px aspect band were both found by measuring a
+running page, and so was the second column the open menu grew when RUN moved
+into it.

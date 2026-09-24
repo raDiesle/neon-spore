@@ -86,6 +86,15 @@
   border-radius: 8px;
   display: block;
   cursor: crosshair;
+  /* A drag on the field is the cannon, never the page. `stage-touch.ts` calls
+     `preventDefault` on the presses it claims, which a phone ignores for
+     scrolling — the browser has already decided the gesture is a scroll by
+     then. On a phone the field is the whole screen (director-phone.css), so
+     every thumb that slides the cannon starts on the canvas, and without this
+     a phone would answer the first of those slides by dragging the page. It
+     is also why RUN stands in the menu rather than a flick below the field:
+     there is no gesture left for the flick to be made of. */
+  touch-action: none;
 }
 /* **One control a line, in a column of its own beside the field.** It was a
    wrapping row under the stage until 15 September 2026, which cost the field
@@ -108,9 +117,11 @@
 .transport label.field {
   margin-top: 8px;
 }
-/* TEST, P1 and P2 again, under the field — a phone's alone
-   (director-phone.css), where RUN is a scroll away. Beside a desktop field
-   RUN is already in view, and a second copy would only be a row of height. */
+/* TEST, P1 and P2 again — a phone's alone (director-phone.css), where they
+   stand over the field's top-right corner because RUN is behind the menu and
+   switching seat is done over and over while the wave runs. Beside a desktop
+   field RUN is already in view, and a second copy would only be a row of
+   height. */
 .role-strip {
   display: none;
 }
