@@ -18,10 +18,10 @@ import type { GuideScene } from "../scene-types.js";
  * sentence the fight repeats twice more.
  *
  * **The hem's page shows the gesture and not the shot it is for.** The drift
- * puts the core in column nine, and no authored column reaches nine on an
- * eleven-wide field (`mapCol`), so a film that wanted player 2 firing through
- * the gap would first have to spend a page sliding the cannon — a page about
- * the cannon, in the middle of the one fight that is about a pair of hands.
+ * puts the core in column eight, three over from the cannon, so a film that
+ * wanted player 2 firing through the gap would first have to spend a page
+ * sliding the cannon — a page about the cannon, in the middle of the one
+ * fight that is about a pair of hands.
  * What the pair need from this page is that the rail can jam, that the hem is
  * what gives when it does, and that the gap shuts when the thumb leaves.
  *
@@ -35,8 +35,8 @@ import type { GuideScene } from "../scene-types.js";
  * (`installCurtain`), and 64 puts the core under the cannon's starting
  * column in cyan, so no page is spent sliding the cannon; and the soft set
  * is redrawn by the rng every `curtainSoftBeats`, and 64 makes the lobe over
- * that column soft from beat twelve to thirty, which is the window page five
- * fires into. Page three fires into the same lobe at beat seven, when it is
+ * that column soft in the set drawn on beat twelve, which is the window page
+ * five fires into. Page three fires into the same lobe at beat seven, when it is
  * not soft, so the cloth is seen eating a shot before the hem is seen giving
  * one up.
  *
@@ -77,9 +77,10 @@ export const THE_CURTAIN: GuideScene = {
     // The hit jams the rail for `curtainPinBeats`, and this is the gesture that
     // answers a jam: the hem, carried up and **held** there. No distance is
     // written — `tautMilli` reads `curtainLiftMilli` off the config and carries
-    // it upward, and there is no half-lift that opens anything. It is let go a
-    // few ticks before the jam runs out, so the page shows a hand choosing to
-    // drop the hem rather than one whose handle vanished under it.
+    // it upward, and there is no half-lift that opens anything. It is let go
+    // well inside the jam — twelve beats since 24 September 2026, longer than
+    // what is left of the film — so the page shows a hand choosing to drop the
+    // hem and the gap shutting behind it, under THE SLOW the jam opened.
     { tick: 2200, drag: "curtainHem", by: 2320, until: 2450 },
   ],
   steps: [

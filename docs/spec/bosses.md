@@ -5057,15 +5057,28 @@ characters (`content/test/scene-pages.test.ts`), and `STUCK` was picked over
 `JAMMED` for the same reason every word on this glass is: the pair may not be
 reading their first language. **The
 page shows the gesture and not the shot it is for.** The drift after the first
-hit puts the core in column nine, and no authored column reaches nine on an
-eleven-wide field (`mapCol`), so a film wanting the navigator to fire through
-the lifted gap would spend a page sliding the cannon — a page about the cannon,
-in the middle of the one fight that is about a pair of hands. The hem is let go
-a few ticks before the jam runs out, so the page ends on a hand choosing to
-drop the cloth rather than one whose handle vanished under it.
+hit puts the core in column eight, three over from the cannon, so a film
+wanting the navigator to fire through the lifted gap would spend a page sliding
+the cannon — a page about the cannon, in the middle of the one fight that is
+about a pair of hands. The hem is let go well inside the jam, so the page ends
+on a hand choosing to drop the cloth and the gap shutting behind it.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `curtainSoftBeats` 6 → 12 with three
+lobes soft at once where there were two (`curtainSoftCount`), and
+`curtainPinBeats` 6 → 12 with the hem carried twice as far (`curtainLiftMilli`
+1250 → 2500). THE SLOW opens on this fight for the first time, over the jam
+alone: the hit that jams the rail opens it for the jam's beats, and the next
+hit or the jam running out shuts it (`sim/curtain-shot.ts`,
+`sim/test/curtain-doubled.test.ts`). The soft set is not slowed: it is redrawn
+on its own count whether it was answered or not, a cadence rather than an ask,
+and a slow over it would be a slow over the whole of `hung`. The film was
+replayed rather than re-timed — the core now drifts to column eight in cyan,
+and the lift still tops out on the same beat; the guide says no count and did
+not change.
 
 **Never watched at tempo.** What the tests say is the mechanism: it unrolls
-seven wide and centred with the core under it and two soft lobes drawn; the
+seven wide and centred with the core under it and three soft lobes drawn; the
 soft set is redrawn on its count; a hand carried across it moves the whole
 sheet a column and cannot walk it further on one beat; two thumbs opposite
 hold it; it goes off the wall exactly as far as its keep and uncovers the

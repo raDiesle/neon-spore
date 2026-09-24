@@ -43,15 +43,14 @@ describe("the rehearsal for THE CURTAIN", () => {
     // the sheet rolls back four beats later; then four shoves two beats
     // apart bare the core on beat thirty-four, the own-colour bolt lands the
     // beat after, the nearest lobe drops and the core drifts under the
-    // fabric in red. It never fires: the hit lands before its count.
+    // fabric in cyan. It never fires: the hit lands before its count.
     //
-    // The same hit jams the rail for six beats, which is the fight's second
+    // The same hit jams the rail for twelve beats, which is the fight's second
     // state and the one the film was written for a second time: the pilot lets
     // the sheet go, takes the hem instead, and carries it to the top on beat
     // thirty-eight. The gap stays open until he drops it — there is no second
-    // core hit in this film, because the core drifted to a column no authored
-    // one reaches (`mapCol`) and a page spent sliding the cannon there would be
-    // a page about the cannon.
+    // core hit in this film, because the core drifted three columns from the
+    // cannon and a page spent sliding it there would be a page about the cannon.
     expect(seen).toEqual([
       "bounce 5 @8",
       "lobeOff 5 6 @14",
@@ -63,9 +62,9 @@ describe("the rehearsal for THE CURTAIN", () => {
       "shove 6 1 @34",
       "coreHit 5 2 @35",
       "lobeOff 6 5 @35",
-      "shadow 9 red @35",
-      "pin 9 6 @35",
-      "lift 9 @38",
+      "shadow 8 cyan @35",
+      "pin 8 12 @35",
+      "lift 8 @38",
     ]);
     expect(run.world.creatures.filter((c) => c.kind !== "curtain")).toHaveLength(0);
   });

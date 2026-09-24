@@ -9,6 +9,7 @@ import { removeCreatures } from "./field.js";
 import { gripCount } from "./grip.js";
 import { nextInt } from "./rng.js";
 import { NO_SHELL } from "./shell.js";
+import { closeSlow } from "./slow.js";
 import { CURTAIN_COLS } from "./span.js";
 import { spawnOne } from "./spawn.js";
 import type { Creature } from "./types.js";
@@ -172,6 +173,8 @@ export function stepCurtain(world: World, c: CurtainState): void {
     return;
   }
   if (c.phase === "pinned" && world.beat - c.phaseBeat >= cfg.curtainPinBeats) {
+    // The jam ran out unanswered: its slow ends with it (`curtain-shot.ts`).
+    closeSlow(world);
     enterCurtain(world, c, "hung");
   }
   const body = curtainBody(world, c);

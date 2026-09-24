@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE CURTAIN's windows are doubled, and THE SLOW spans its jam
+
+- reading: 10 min. The curtain's eight sim files, THE SLOW's contract and
+  the two earlier doubled lanes' shape, across a compaction.
+- writing: 10 min. Four figures, the slow opened on the jam and shut on
+  both exits, `curtain-doubled.test.ts`, the film's comments and §11.24.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: deciding which of the two windows is an ask. The soft set is
+redrawn whether or not it was answered, so only the jam got THE SLOW.
+
 ## 2026-09-24 — The first of two shots or beams is said: THE GORGE, THE TASTER
 
 - reading: 10 min. The three short returns in `gorge-step.ts` and

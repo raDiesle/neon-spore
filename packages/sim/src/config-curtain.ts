@@ -45,29 +45,35 @@ export interface CurtainConfig {
 /**
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
- * Read as one fight: seven lobes, two soft at a time for six beats; the core
+ * Read as one fight: seven lobes, three soft at a time for twelve beats; the core
  * fires every four beats once it is bare and every second beat once it is
  * naked; four beats of nobody holding the fabric and it rolls a column back;
  * three hits end it. Each hit drops a lobe, so the hem is bare by the third
  * shove cycle at the latest and the last one tears it off.
  *
- * A hit also jams the rail for six beats — one shove cycle's worth, so the
- * pair is never waiting on it with nothing to do — and the hem is lifted a
- * tile and a quarter in that time, a little under THE CANDLE's pull
+ * A hit also jams the rail for twelve beats — one shove cycle's worth, so the
+ * pair is never waiting on it with nothing to do — and the hem is lifted two
+ * tiles and a half in that time, a little under THE CANDLE's pull
  * (`candlePinchMilli`) because it is carried against a rail rather than down
  * a column and wants to read as heavier per millimetre, not longer.
+ *
+ * **Doubled on the owner's rule, 24 September 2026** (`docs/spec/
+ * choreographed-windows.md`): both windows twice as long — the soft set and
+ * the jam — and the need beside each raised, a third lobe soft at once and
+ * the hem carried twice as far, so a longer window is not a step that lands
+ * itself. The jam is THE SLOW (`curtain-shot.ts`).
  */
 export const CURTAIN_DEFAULTS: CurtainConfig = {
   curtainRow: 1,
   curtainKeepCols: 2,
-  curtainSoftBeats: 6,
-  curtainSoftCount: 2,
+  curtainSoftBeats: 12,
+  curtainSoftCount: 3,
   curtainLightLobes: 4,
   curtainFireBeats: 4,
   curtainNakedFireBeats: 2,
   curtainRerollBeats: 4,
-  curtainPinBeats: 6,
-  curtainLiftMilli: 1250,
+  curtainPinBeats: 12,
+  curtainLiftMilli: 2500,
   curtainCoreHits: 3,
   curtainOutBeats: 2,
 };

@@ -2,6 +2,7 @@ import { metColor, missedColor } from "./balance.js";
 import { curtainBody, curtainBoss, curtainCoreBare } from "./curtain.js";
 import { curtainDrift, curtainFire, curtainLobeOff, enterCurtain } from "./curtain-step.js";
 import { creatureLane } from "./mid-beat.js";
+import { closeSlow, openSlow } from "./slow.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -46,6 +47,10 @@ export function curtainStruck(world: World, b: Bullet): void {
     return;
   }
   metColor(world);
+  // The jam's ask answered, or the fight's last: either way the slow over
+  // the jam stops on the hit (`slow.ts` `closeSlow`), and a hit that jams
+  // the rail again below opens the next one.
+  closeSlow(world);
   c.coreHits += 1;
   const left = world.cfg.curtainCoreHits - c.coreHits;
   world.events.push({ type: "curtainCoreHit", col: c.coreCol, left });
@@ -72,8 +77,16 @@ export function curtainStruck(world: World, b: Bullet): void {
   // cannot now shove: for `curtainPinBeats` the rail holds and the way back to
   // the core is the hem, lifted and held (`curtain-hand.ts`). A torn sheet has
   // no rail to jam, so a naked core is answered the way it always was.
+  //
+  // **The jam is THE SLOW** (`docs/decisions.md` #33), opened here for the
+  // whole of it: LIFT and FIRE is the one ask in this fight that comes up on
+  // a tick and closes on a clock. It shuts on the next hit (above) or with the
+  // jam (`stepCurtain`). The soft set is not slowed: it is redrawn on its own
+  // count whether or not it was answered, so it is the fight's cadence, and a
+  // slow over it would be a slow over the whole of `hung`.
   if (c.phase === "hung" && body !== undefined) {
     enterCurtain(world, c, "pinned");
+    openSlow(world, world.cfg.curtainPinBeats);
     world.events.push({ type: "curtainPin", col: c.coreCol, beats: world.cfg.curtainPinBeats });
   }
 }
