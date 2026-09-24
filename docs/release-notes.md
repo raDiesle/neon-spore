@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · ed2f808d — THE BATON's tests share one rig and split by stage
+
+`baton.test.ts` was 717 lines and kept its own copy of the helpers in `baton-fixture.ts`. It now imports them — the fixture gains `lead`, `merged`, `cross` and a seed on `open` — and its thirty tests are dealt into three files: the unfold and handover stay in `baton.test.ts`, the swing, shed and twin go to `baton-swing.test.ts`, the merge and crossing to `baton-crossing.test.ts`. No test changed.
+
 ## 2026-09-24 · 4be784d9 — A fade set around a glowed line reaches it: THE SPOOL
 
 THE SPOOL fades as one body while it swings in and drifts. Its flange rims, spokes, barrel, ribs and line now take that fade instead of drawing at full strength over fills at a fraction. Before this, the brake and the gauge lost the fade after their first glow, and their shoe, knob and bead came up at full strength. The bracket's halo breathes exactly as before. Exemption: a fix to something wrong rather than unlovely.
