@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · af633c00 — THE CURTAIN's windows are doubled, and THE SLOW spans its jam
+
+On the owner's rule of 22 September: a soft set now stands twelve beats with three lobes soft at once, and a hit jams the rail for twelve beats with the hem carried two and a half tiles. THE SLOW opens on THE CURTAIN for the first time, over the jam alone: the hit that jams the rail opens it, and the next hit or the jam running out shuts it. The soft set is redrawn whether or not it was answered, so it keeps the fight's own tempo.
+
 ## 2026-09-24 · f28f4358 — The first of two shots or beams is said on THE GORGE and THE TASTER
 
 Since the doubled window a full intake takes two pierces and the pried mouth or interlock two beams, and the first of each moved a count and said nothing. It is now an event with `owed`: `gorgeNick`, `gorgePryFill` and `tasterPryFill`, each with its own sound and a smaller burst of what the second will throw — rock for the nick, the mouth's colour for its fill, the edge's colour for the fan's.
