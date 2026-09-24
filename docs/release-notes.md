@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 46faa80f — Every circle on the glass answers a thumb half again its radius, never under 24px
+
+The touch reach of every mark, lobe, handle and button was 30% past the drawn edge; it is now 50%, with a 48px target as the floor, in one place (`hitReach`). Where two reaches overlap a press takes the nearest button, and the panel's strip keeps answering between buttons down to their drawn edge. Not a look: nothing drawn changes.
+
 ## 2026-09-24 · 5a5eb119 — No line over the cannon says whose turn it is; the marks say the order
 
 THE INSTAR's EITHER ORDER / FINISH TOGETHER / P2 NOW banner, and the seat-and-clock line THE TASTER, THE DIASTOLE, THE BATON and THE SURGE wrote over the cannon, are gone. Two marks up at once already say either order, and a seat that must wait is shown its mark only when its time has come.
