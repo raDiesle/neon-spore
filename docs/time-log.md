@@ -19692,3 +19692,5 @@ against it, and that coupling only showed as a dead row in a test.
 
 The bottleneck was **writing**: the number was one line and the prose that
 repeated it was fifteen.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

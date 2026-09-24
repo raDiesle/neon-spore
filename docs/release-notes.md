@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 40885694 — THE SLOW plays a slowed beat at a quarter of its rate, where it played a third
+
+`slowRateMilli` is 250. Every boss's slow window is watched slower, still above the fifth where the click stops sounding like a clock. Exemption: a look the owner asked for by name.
+
 ## 2026-09-24 · 46faa80f — Every circle on the glass answers a thumb half again its radius, never under 24px
 
 The touch reach of every mark, lobe, handle and button was 30% past the drawn edge; it is now 50%, with a 48px target as the floor, in one place (`hitReach`). Where two reaches overlap a press takes the nearest button, and the panel's strip keeps answering between buttons down to their drawn edge. Not a look: nothing drawn changes.
