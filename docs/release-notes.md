@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · b6c9a51e — Four phone checks confirmed on a real phone
+
+The owner checked the four entries only a phone could settle — the browser's own bars at the foot of the director, THE ORRERY's thumb pacing, the svh cap when the address bar comes back, and ?lag=1's figures — and confirmed each is right, so they leave the queue.
+
 ## 2026-09-24 · 7177a486 — computeStage takes only the viewport
 
 Since the stage stopped being capped at the columns its width is the window's, a 9:16 phone's and PHONE_WIDEST — nothing about the band — so the config and the role it was handed went unread. Both parameters are gone from computeStage and from every caller, and bandHeightFor loses the role it has ignored since 12 September. Nothing drawn changes.
