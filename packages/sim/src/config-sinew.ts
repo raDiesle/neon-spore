@@ -68,7 +68,14 @@ export interface SinewConfig {
  * both hands carried 400 outward — two fifths of a reach, far enough that it
  * is a gesture and not a wobble. The mass starts on row 5 and is on
  * row 10 by the last fibre, four rows over the hull; when it falls it has
- * four beats to be walked three columns.
+ * eight beats to be walked four columns.
+ *
+ * **Doubled on the owner's rule, 24 September 2026** (`docs/spec/
+ * choreographed-windows.md`): the fall 4 → 8 beats and the walk 3 → 4
+ * columns. Four and not the five that page first asked for: the mass is
+ * three wide and kept on an eleven-column field, so its middle stops a
+ * column short of either wall and four from `midCol` is as far as it goes.
+ * The fall is THE SLOW (`sinew-step.ts`).
  */
 export const SINEW_DEFAULTS: SinewConfig = {
   sinewFibres: 6,
@@ -86,8 +93,8 @@ export const SINEW_DEFAULTS: SinewConfig = {
   sinewDecayFibres: 4,
   sinewDecayMilli: 60,
   sinewPartSlowBeats: 2,
-  sinewFallBeats: 4,
+  sinewFallBeats: 8,
   sinewSwayMilli: 300,
-  sinewClearCols: 3,
+  sinewClearCols: 4,
   sinewOutBeats: 2,
 };

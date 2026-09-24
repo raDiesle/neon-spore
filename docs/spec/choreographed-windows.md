@@ -37,7 +37,7 @@ boss.
 | THE TASTER | `tasterPryBeats` 6 → 12 | one fill → two (`tasterPryFills`) |
 | THE LEAD | `leadStillBeats` 4 → 8, and `leadHoldBeats` 8 → 16, argued as twice the still | one fill → two (`leadStillFills`) |
 | THE CURTAIN | `curtainSoftBeats` 6 → 12; `curtainPinBeats` 6 → 12 | `curtainSoftCount` 2 → 3; `curtainLiftMilli` 1250 → 2500 |
-| THE SINEW | `sinewFallBeats` 4 → 8 | `sinewClearCols` 3 → 5 — seven columns, so five and not six |
+| THE SINEW | `sinewFallBeats` 4 → 8 | `sinewClearCols` 3 → 4 — the three-wide mass is kept on an eleven-column field, so four from the middle is the wall; the five first written here could not be walked |
 | THE CANDLE | `candleSmokeBeats` 6 → 12 | `candlePinchMilli` 1500 → 3000 |
 | THE ANTIPHON | `antiphonWindowBeats` 14 → 28; `antiphonTightWindowBeats` 8 → 16 | `antiphonPullMilli` 400 → 800 |
 | THE UNDERTOW | `undertowStandBeats` 5 → 10; `undertowUnseatBeats` 2 → 4; `undertowLastBeats` 10 → 20 | `undertowHoldBeats` 6 → 12; the unseat's one slide → two (`undertowUnseatSlides`) |

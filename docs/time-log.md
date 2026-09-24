@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE SINEW's fall is doubled, and THE SLOW spans it
+
+- reading: 5 min. `sinew-step.ts`, the fall's clamp in `sinew.ts`, and the
+  fall's tests.
+- writing: 10 min. Two figures, the slow moved to the fall and shut on the
+  walk or the landing, `sinew-doubled.test.ts`, §11.26 and the corrected
+  spec row.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the spec row's five columns could not be reached on an eleven-
+column field; reading the clamp before writing the figure caught it.
+
 ## 2026-09-24 — THE CURTAIN's windows are doubled, and THE SLOW spans its jam
 
 - reading: 10 min. The curtain's eight sim files, THE SLOW's contract and

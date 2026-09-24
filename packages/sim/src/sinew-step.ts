@@ -17,7 +17,7 @@ import {
   sinewZoneWidth,
 } from "./sinew.js";
 import { catchSinew, releaseSinew } from "./sinew-hand.js";
-import { openSlow } from "./slow.js";
+import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -122,21 +122,27 @@ function snap(world: World, s: SinewState): void {
 
 /**
  * A fibre parts: the mass drops a row, the zone is rolled again for the next
- * one, and the tendon re-seats — no slack. The last one drops the mass, and
- * the hands stay on for the fall. Watched at a third rate either way.
+ * one, and the tendon re-seats — no slack. Watched at a third rate for
+ * `sinewPartSlowBeats`, a moment that asks nothing.
+ *
+ * The last one drops the mass, and the hands stay on for the fall — **the
+ * one ask in this fight with a clock on it**, so THE SLOW spans the whole of
+ * it from here (`docs/decisions.md` #33) and is shut the beat the mass is
+ * walked clear or lands (`fall`).
  */
 function part(world: World, s: SinewState): void {
   const cfg = world.cfg;
   s.fibres -= 1;
   s.holdBeat = -1;
   s.slackMilli = 0;
-  openSlow(world, cfg.sinewPartSlowBeats);
   if (s.fibres <= 0) {
+    openSlow(world, cfg.sinewFallBeats);
     s.fallBeat = world.beat;
     const row = sinewMassRow(s, cfg, world.beat);
     world.events.push({ type: "sinewFall", col: s.massCol, row });
     return;
   }
+  openSlow(world, cfg.sinewPartSlowBeats);
   rollZone(world, s);
   world.events.push({
     type: "sinewPart",
@@ -150,10 +156,13 @@ function part(world: World, s: SinewState): void {
  * One beat of the fall. Both hands carried past `sinewSwayMilli` the same
  * way walk the mass a column that way; at `sinewFallBeats` it lands — at the
  * wall if it was walked `sinewClearCols` from the middle, on the hull if not.
+ * THE SLOW over the fall stops on whichever comes first: the walk answered,
+ * or the landing.
  */
 function fall(world: World, s: SinewState): void {
   const cfg = world.cfg;
   if (world.beat - s.fallBeat >= cfg.sinewFallBeats) {
+    closeSlow(world);
     s.outBeat = world.beat;
     if (sinewWalked(s, cfg) >= cfg.sinewClearCols) {
       world.events.push({ type: "sinewOut", col: s.massCol });
@@ -175,6 +184,7 @@ function fall(world: World, s: SinewState): void {
   if (col === s.massCol) return;
   s.massCol = col;
   world.events.push({ type: "sinewSwing", col, dir });
+  if (sinewWalked(s, cfg) >= cfg.sinewClearCols) closeSlow(world);
 }
 
 /**

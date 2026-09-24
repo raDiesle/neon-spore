@@ -5448,9 +5448,9 @@ out of the zone the other way, or a hand lifted, restarts the count
 slack** under a held hand by `sinewDecayMilli` (60) a beat, so the same two
 thumbs read less every beat, until both hands come off and the slack is
 gone. The last fibre's zone is the one step under the band's top. When it
-parts the mass **falls** (`sinewFall`) over `sinewFallBeats` (4), and on every
+parts the mass **falls** (`sinewFall`) over `sinewFallBeats` (8), and on every
 beat of the fall both handles swayed `sinewSwayMilli` (300) the same way walk
-it a column that way (`sinewSwing`); `sinewClearCols` (3) columns from the
+it a column that way (`sinewSwing`); `sinewClearCols` (4) columns from the
 middle it lands **clear** (`sinewOut`, the boss held `sinewOutBeats` (2) more
 and then gone), fewer and it lands **on the hull** (`sinewCrush`): a heavy
 breach in its column, which fails the wave (12 September 2026).
@@ -5630,11 +5630,22 @@ while a hand is on and goes only when both are off, and never before the
 fourth nor on the last; the last zone's top is one step under the band's and
 it is one step wide; the last snap throws three; the last part starts the
 fall with the hands still on; a fall swings one column a beat only with both
-hands swayed the same way past the threshold; three columns walked lands
+hands swayed the same way past the threshold; four columns walked lands
 clear, the boss is gone two beats later and the wave wants its next; fewer
 lands on the hull with a breach; and the same run fingerprints the same way
 twice and differently for another seed (`sim/test/sinew.test.ts`). Nothing of
 it has been seen in a frame.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `sinewFallBeats` 4 → 8 and
+`sinewClearCols` 3 → 4. Four and not the five that page first wrote: the
+mass is three wide and kept on an eleven-column field, so four from the
+middle is the wall, and five would be a fall no pair could walk clear. THE
+SLOW is moved to the ask, which is the fall: the last fibre opens it for all
+eight beats, and the beat the mass is walked clear or lands shuts it
+(`sim/sinew-step.ts`, `sim/test/sinew-doubled.test.ts`). An earlier fibre's
+part keeps its own `sinewPartSlowBeats`, a moment that asks nothing. The film
+ends before the fall and replays unchanged; the guide says no count.
 
 ## 11.27 THE LEDGER — the boss that bills your own hull for every shot
 

@@ -39,7 +39,7 @@ import {
  * letting go resets it, and not on the last fibre; that the last fibre's
  * zone is the step under the band's top; that the last fibre drops the mass
  * and both hands pulling one way walk it a column a beat; and that it lands
- * at the wall three columns out and on the hull otherwise.
+ * at the wall `sinewClearCols` out and on the hull otherwise.
  *
  * The fingerprint is compared between two runs in one process rather than
  * pinned (`docs/decisions.md` #19).
@@ -429,7 +429,7 @@ describe("the fall", () => {
     expect(s.massCol).toBe(midCol(CFG) - 1);
   });
 
-  it("lands at the wall three columns out, and the wave ends after", () => {
+  it("lands at the wall walked clear, and the wave ends after", () => {
     const { world, s } = falling();
     const from = world.tick;
     const sway = CFG.sinewSwayMilli;
