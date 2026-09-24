@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 1e3c1f65 — A short phone's hull reaches both sides of the screen
+
+A phone shorter than 9:16 of free height — 390x660 with its bars out — stood the ship between two black side bars: the stage was never wider than the columns, nor than 0.56 of the height. The stage is now the phone's whole width (never capped narrower than 430 CSS px, the widest phone upright), the field stays centred in it, and the hull's skin is drawn to the stage's sides. A desk window and every phone of ordinary height draw exactly what they drew. `bun run frames` takes `--size WxH`, which is how the short phone was seen at all.
+
 ## 2026-09-24 · 9da32cce — A player reads P1'S and P2'S on a mark, and PLAYER 1 and 2 on the menu
 
 The owner's answer to the seat names: a grip mark, THE INSTAR's marks and a pair call say P1'S / P2'S (P1 NOW, P2 NOW), THE STARE names P1 or P2, and the menu's screen chooser shows PLAYER 1 and PLAYER 2 under SCREEN. Waiting for the other seat says THE OTHER PLAYER. No drawn literal says pilot, navigator or seat any more, and the chooser's names are in the words inventory. A look the owner asked for by name.
