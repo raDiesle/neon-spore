@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 96d6514d — THE BELLOWS is taken out of the game, whole
+
+The owner played it and asked for it gone: "it's not clear to me how to play … what does 'push' means? … it's not clear what is goal … why on a curtain a jam is going out, no logical understandable where the connection is." Its simulation, drawing, sixteen sounds, wave, drag targets and director cards are deleted rather than switched off, as THE TELL's were. The design stays in bosses.md §11.35, now under Retired and moved to the end of the page with his verdict, and his lesson stays in the new-boss skill's owner page: every gesture needs a reason the picture gives. `NO_LIFT`, which THE SURGE needs, moved from the deleted file to beat-clock.ts. The waves after it move up one.
+
 ## 2026-09-24 · a25a99cd — On a phone the director opens on the briefing, and BRIEF and ↺ stand over the field
 
 The director's GAME view on a phone starts with briefings on, and the strip over the field carries BRIEF and ↺ beside TEST, P1 and P2 — the phone's own copies of RUN's BRIEFINGS and ↺ WAVE, lit and bound with them. The five are smaller, 32px, and stand in a column down the right edge under ☰, clear of the card's TUTORIAL and WAVE badges. Under TEST two thumbs already hold both of THE INSTAR's jaws at once, in either order; a test now pins it.

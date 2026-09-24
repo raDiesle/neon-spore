@@ -19604,3 +19604,5 @@ every synthetic press had to find them again in the same synchronous run.
 The bottleneck was **writing**: a choreographed boss is registered in about
 sixty files outside its own, and each one has to be found and taken out by
 hand.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
