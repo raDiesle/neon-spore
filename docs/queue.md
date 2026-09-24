@@ -394,6 +394,7 @@ what the rest of this file holds.
 ## `--boss-json` cannot write a list the boss does not already hold
 
 - **Found:** 2026-09-21, claude/queue-unverified-at-5780141b-the-picture-of-a-carried
+- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-boss-json-cannot-write-a-list-the-boss-does-not)
 - **Files:** `tools/frames/boss-install.ts`, `tools/frames/boss.ts`, `tools/frames/test/boss-flag.test.ts`
 - **Asks:** May a boss's list field be written at a length the simulation did not stand it up with?
 - **Where:** local
