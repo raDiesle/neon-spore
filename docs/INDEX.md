@@ -1384,9 +1384,10 @@ by hand never moves.
 | `packages/render/src/lost-shut.ts` | The lost screen: plates that shut, and a wound where the hull was broken |
 | `packages/render/src/lost-look.ts` | THE ONE RECORD A CANDIDATE **LOST SCREEN** WOULD PATCH |
 | `packages/render/src/lost-answer.ts` | What the pair does about a lost wave: RETRY WAVE and GO TO MENU |
-| `packages/render/src/lost-words.ts` | The words of the lost screen: WAVE LOST, which wave it was, and the try count in the corner |
+| `packages/render/src/lost-words.ts` | The words of the lost screen: WAVE 7 LOST, and under it the wave's name and how many tries the run has taken |
 | `packages/render/src/lost-wound.ts` | Where the ship was broken, drawn as a wound: a ragged hole in the plates with a focus ring round it |
 | `packages/render/src/lost-bleed.ts` | What bleeds out of the wound: the collar of blood standing inside its rim |
+| `packages/render/src/lost-boxes.ts` | Where the lost screen's buttons are: the one geometry the picture (`lost-answer.ts`) and the thumb… |
 | `packages/render/src/creature-tint.ts` | The three colours a body carries, and what they are mid-turn |
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
 | `packages/render/src/recoil-look.ts` | THE ONE RECORD A CANDIDATE **RECOIL** PATCHES |

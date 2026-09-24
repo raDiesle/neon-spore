@@ -308,6 +308,7 @@ describe("the fingerprint covers the world", () => {
         "restBeat",
         "retries",
         "rng",
+        "runTries",
         "scars",
         "shieldCol",
         "shieldSinceTick",

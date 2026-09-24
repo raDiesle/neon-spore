@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — The lost screen says WAVE 7 LOST and its buttons came up
+
+- reading: 10 min. The five `lost-*.ts` files, the frame's draw order in
+  `canvas2d.ts` and `frame-ship.ts`, and `startWave`'s two try counts.
+- writing: 20 min. `World.runTries` through hash and reset, the fitted
+  heading, the moved row and seam, the solid backing under each plate, the
+  split into `lost-boxes.ts`, and two tests.
+- looking: 10 min. Three captures of the lost screen, before and after, at
+  390x844 and at 240x480 with wave 42's longer heading.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, red once on the 250-line limit, then green.
+
+The bottleneck was **reading**: the ask said *on highest layer*, and the
+answer was not the draw order — the buttons were already last — but a plate
+body that is two-thirds transparent, and QUIT drawn at seventy per cent.
+
 ## 2026-09-24 — A lost wave can be watched again before it is played again
 
 - reading: 15 min. `lost-answer.ts`, `wave-fail.ts`, `waves.ts`'s `open`, the

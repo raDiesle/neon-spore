@@ -25,6 +25,7 @@ export function resetRun(world: World): void {
   world.retries = 0;
   world.playTicks = 0;
   world.waveTries = 0;
+  world.runTries = 0;
   world.guard.tries = 0;
   world.guard.deflected = 0;
   world.guard.mistimed = 0;

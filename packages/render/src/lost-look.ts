@@ -46,7 +46,8 @@ export interface LostPaint {
   readonly l: Layout;
   /** Seconds the screen has been up; the words fall in over the first of them. */
   readonly age: number;
-  /** Which wave, 1-based, what it is called, and which try this was. */
+  /** Which wave, 1-based, what it is called, and how many tries the whole
+   * run has taken, this one included (`World.runTries`). */
   readonly wave: number;
   readonly name: string;
   readonly tries: number;

@@ -43,8 +43,15 @@ import { drawWound, traceWound, woundOf } from "./lost-wound.js";
  */
 const CLOSE = 0.26;
 
-/** Where the two plates meet, as a share of the play area. */
-const SEAM = 0.44;
+/**
+ * Where the two plates meet, as a share of the play area.
+ *
+ * It was 0.44 until 24 September 2026, when the owner asked for the buttons
+ * *more top* (`lost-answer.ts`): the seam is the line between what the screen
+ * says and what the pair can do about it, so it came up with them and still
+ * runs above RETRY WAVE rather than through it.
+ */
+const SEAM = 0.3;
 
 const PLATE = "#0C0A16";
 const EDGE = "#2A2140";

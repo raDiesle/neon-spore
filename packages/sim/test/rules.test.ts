@@ -163,14 +163,18 @@ describe("the hull", () => {
     expect(failHolds(world)).toBe(true);
     expect(world.retries).toBe(0);
     expect(world.waveTries).toBe(1);
+    expect(world.runTries).toBe(1);
     startWave(world, world.wave, [slick(4, "red")]);
     expect(failHolds(world)).toBe(false);
     expect(world.retries).toBe(1);
     expect(world.waveTries).toBe(2);
-    // The next wave, or a jump, is a first try and costs nothing.
+    expect(world.runTries).toBe(2);
+    // The next wave, or a jump, is a first try and costs nothing — but it is
+    // still a try, and the run's own count takes it (`lost-words.ts`).
     startWave(world, world.wave + 1, []);
     expect(world.retries).toBe(1);
     expect(world.waveTries).toBe(1);
+    expect(world.runTries).toBe(3);
   });
 
   it("asks for the same wave once a seat says RETRY, and only once", () => {

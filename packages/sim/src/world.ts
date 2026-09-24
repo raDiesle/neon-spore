@@ -178,6 +178,10 @@ export interface World extends ShipState {
   /** Which try at the current wave this is: 1 on a clean open, one more for
    * every retry (`wave-start.ts`). The intro says `TRY n` from 2. */
   waveTries: number;
+  /** Every try at every wave over the whole run: one for each opening, a first
+   * try and a retry alike (`wave-start.ts`). The lost screen prints it beside
+   * the wave's name (`render/lost-words.ts`). */
+  runTries: number;
 
   over: boolean;
 
@@ -230,6 +234,7 @@ export function createWorld(
     retries: 0,
     playTicks: 0,
     waveTries: 0,
+    runTries: 0,
     over: false,
     events: [],
   };

@@ -64,6 +64,7 @@ export function startWave(
     world.waveTries += 1;
     world.retries += 1;
   }
+  world.runTries += 1;
   world.failTick = NOT_FAILED;
   world.heldTick = NOT_FAILED;
   world.queue = queue;

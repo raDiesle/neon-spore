@@ -16,7 +16,7 @@ import { waveName } from "./wave-intro.js";
  * greyed, with the breach still where it was seen — the point of the pause was
  * that the pair look at where it got through, and a screen that hid it would
  * be a screen that took that away. Over it, in the introduction's own type:
- * WAVE LOST, the wave's number and its name, and the try count in the corner
+ * WAVE 7 LOST, and under it the wave's name and the run's tries
  * (`lost-words.ts`).
  * Then the buttons, the guide bar's own grown bodies with a word on the face
  * instead of a sign, because these are the one place in the game where a
@@ -70,7 +70,7 @@ export function drawLostScreen(
     age: v.age,
     wave: world.wave + 1,
     name: waveName(world),
-    tries: Math.max(1, world.waveTries),
+    tries: Math.max(1, world.runTries),
     breachX: scarred === undefined ? null : tileCX(l, scarred.col),
     // **The colour the hit arrived in, off the scar itself.** A `Scar` carried
     // what hit the ship and not what colour it was wearing until 17 September
