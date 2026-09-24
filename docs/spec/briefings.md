@@ -301,7 +301,7 @@ before a room is even joined.
   says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The rehearsals — all but seven of them
+### 3.2 The rehearsals — all but eleven of them
 
 A guide that names a `scene` does not draw a panel of prose at all. It plays a
 **rehearsal**: the game's own screen at full size, one device at a time. FIRST
@@ -311,18 +311,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty-one of them now**, one per guided wave bar twelve, and
+**There are eighty-two of them now**, one per guided wave bar eleven, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The twelve that are still the three strings
+rather than a page of prose. The eleven that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE INSTAR, THE FILAMENT, THE GIMBAL, THE BELLOWS, THE SPOOL, THE
-HASP and THE RATCHET** — and
+CODEX, THE INSTAR, THE FILAMENT, THE GIMBAL, THE BELLOWS, THE HASP and
+THE RATCHET** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those ten is a film nobody has written, and since THE
+**Every one of those eleven is a film nobody has written, and since THE
 HIVE's they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
@@ -432,6 +432,14 @@ and the ring comes off on 14, 26 and 30; the last wind is **let go of
 halfway through** to ward a rock and finished after, which is the one thing
 this film shows that no other does — a gesture a pair will be interrupted in
 every time.
+THE SPOOL's (24 September 2026) is the fight's one exchange played wrong and
+then right: the pilot takes the brake at the top, the line gains on the
+navigator's bracket until the first movement slips — the one slip that costs
+nothing — her page says *slower*, and his carries the knob 520 deep in the
+slip and holds it through the next movement until a rib eases. The rates are
+the seed's, so the depth is written against them and
+`scene-spool.test.ts` holds both; the hand is on the brake before the first
+zone opens, so the knob's `HOLD` never stands and no page says it.
 THE SCOUT's, the same day, is the first film of a round flown rather than
 shot, and the first whose acts were searched for rather than authored: a
 burn is a push that keeps going and a turn does nothing to the drift, so

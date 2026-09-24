@@ -450,22 +450,6 @@ allowance, a check against the field's *element* type instead of its length,
 or leaving it and saying so in the refusal — which today reads as a bug in
 the caller rather than as a rule.
 
-## THE SPOOL's guide has no film
-
-- **Found:** 2026-09-23, claude/queue-the-spools-brake-answers-no-thumb
-- **Taken:** 2026-09-24, claude/queue-tasks-866c9f (claim: claude/queue-the-spools-guide-has-no-film)
-- **Files:** `packages/content/src/scenes/`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`, `docs/spec/bosses.md`
-- **Where:** local
-
-THE SPOOL is drawn and its brake answers a thumb (`render/spool-grip.ts`,
-§11.36's *The hands*), so there is a screen to rehearse and the reason the
-wave sits on `STILL_PROSE` is gone. Write the rehearsal as
-`.claude/skills/new-tutorial` says: the pilot takes the brake, the line runs
-too fast, the navigator's gauge says *slower*, he carries the knob deeper and
-a rib eases. Take `THE SPOOL` off `STILL_PROSE`, move the two counts in
-`briefings.md` §3.2, and drop §11.36's *What is not built*.
-`bun test packages/content` proves the counts.
-
 ## The screen chooser's two card names say PILOT and NAVIGATOR
 
 - **Found:** 2026-09-23, claude/queue-six-strings-a-player-reads-are-outside-the-words

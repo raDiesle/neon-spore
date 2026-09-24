@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE SPOOL's guide has a film
+
+- reading: 15 min. The tutorial skill, THE HIVE's and THE SINEW's films, the
+  spool's simulation (the rate roll, the grace, the slip), and the caption
+  anchors from `-boss` to `-boss-f`.
+- writing: 15 min. The scene, the drag reach, its test, the prose list, the
+  two spec paragraphs and a spool case in the boss anchor.
+- looking: 15 min. Probing seed 1's rates to set the depths, then the pages
+  in `bun run frames`, which showed the navigator's captions not drawn at all.
+- friction: 5 min. A scratch probe test, a heredoc the guard refused, and no
+  `timeout` on macOS.
+- landing: 5 min. `index`, `queue done`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the rolled rate**: a film about a speed has to be written
+against numbers the rng hands out, so the depths were found by running the
+world tick by tick before a page could be written.
+
 ## 2026-09-23 — A body's full glow is offered in VERSUS
 
 - reading: 5 min. `strokeGlow`, its four callers under a scale, and how a

@@ -1,15 +1,18 @@
 import type { BossPart } from "@neon-spore/content";
-import type { SimConfig, World } from "@neon-spore/sim";
+import type { SimConfig, SpoolState, World } from "@neon-spore/sim";
 import type { AnchorPoint } from "./caption-anchor.js";
 import { box } from "./caption-anchor-box.js";
 import { gaugeDial } from "./gauge-round.js";
 import type { Layout } from "./layout.js";
 import { mazeDrum } from "./maze-walls.js";
 import { repriseTearBox } from "./reprise-draw.js";
+import { spoolPlaced } from "./spool-pose.js";
+import { spoolGaugeAt } from "./spool-shape.js";
 
 /**
  * **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the
- * sixth of `caption-anchor-boss.ts`, split off `-e` on line count.
+ * sixth of `caption-anchor-boss.ts`, split off `-e` on line count — and THE
+ * SPOOL's gauge, the newest boss whose film asked, because this file had room.
  *
  * **These three are rounds and not bosses**, and that was the question the
  * queue entry left open: a round is its own picture, and one that throws the
@@ -31,12 +34,14 @@ export function bossAnchorF(
   l: Layout,
   world: World,
   _part: BossPart | undefined,
+  beatPhase: number,
 ): AnchorPoint | null {
   const cfg = world.cfg;
   const kind = world.boss?.kind;
   if (kind === "gauge") return gaugeFace(l);
   if (kind === "maze") return mazeWheel(l, cfg);
   if (kind === "reprise") return box(repriseTearBox(l, cfg));
+  if (world.boss?.kind === "spool") return spoolGauge(l, world, world.boss, beatPhase);
   return null;
 }
 
@@ -61,4 +66,19 @@ function gaugeFace(l: Layout): AnchorPoint {
 function mazeWheel(l: Layout, cfg: SimConfig): AnchorPoint {
   const drum = mazeDrum(l, cfg);
   return box({ x: drum.cx, y: drum.cy, rx: drum.r, ry: drum.r });
+}
+
+/**
+ * THE SPOOL: the navigator's gauge under the barrel, which is the half of the
+ * fight only her screen shows — both of the film's pages on her seat are
+ * about it. Asked of the pose the drawing hangs it off (`spoolPlaced`), so a
+ * caption follows the body in as it swings on rather than waiting where it
+ * will come to rest. The box is the track and the bead's height, no more: a
+ * box round the whole body would stand the caption off the gauge by the
+ * height of the flanges.
+ */
+function spoolGauge(l: Layout, world: World, s: SpoolState, beatPhase: number): AnchorPoint {
+  const pose = spoolPlaced(l, world.cfg, s, world.beat, beatPhase);
+  const { mid, half } = spoolGaugeAt(l, pose);
+  return box({ x: mid.x, y: mid.y, rx: half, ry: l.tile * 0.3 });
 }

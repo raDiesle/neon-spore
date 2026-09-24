@@ -71,6 +71,10 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // navigator's hand (`hand: 2`) is a pinch on one lobe, which reads no
   // distance at all and is carried this far for nothing.
   if (target === "hiveLobe") return cfg.hiveHaulMilli;
+  // THE SPOOL's brake is a depth rather than a distance to anywhere
+  // (`sim/spool-hand.ts`), so a film about it writes `toMilli` every time; left
+  // out, it is the whole reach, which is the slowest the line runs.
+  if (target === "spoolBrake") return cfg.spoolReachMilli;
   return cfg.mazeTurnMilli;
 }
 

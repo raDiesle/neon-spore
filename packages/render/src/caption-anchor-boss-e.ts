@@ -62,7 +62,7 @@ export function bossAnchorE(
   const boss = world.boss;
   if (boss?.kind === "throat") return throatPart(l, cfg, boss, part, world.beat, beatPhase);
   // The three rounds of the sixth file, on the same line-count argument.
-  return bossAnchorF(l, world, part);
+  return bossAnchorF(l, world, part, beatPhase);
 }
 
 /** How much of a tile the cord is worth on either side of its own line. */

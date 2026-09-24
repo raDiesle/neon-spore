@@ -8107,8 +8107,10 @@ hold, because what is left is *how deep*, and that is hers to say. No desk key.
 `render/test/spool-grip.test.ts` proves the hit, the split, the refusal, the
 knob under the thumb and the word.
 
-**What is not built: the film.** `THE SPOOL` is still on `STILL_PROSE`, and the
-guide says which screen holds what until a rehearsal is written.
+**The film** (`content/scenes/the-spool.ts`, 24 September 2026) is the one
+exchange the fight is made of, played wrong and then right: the brake taken at
+the top, the first movement slipping on it, *slower* on her page and the knob
+carried 520 deep for the next, which eases a rib (`scene-spool.test.ts`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/spool.test.ts`): the spool comes in taut and opens its first zone;
