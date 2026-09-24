@@ -33,8 +33,9 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    together for six beats; either coming off is the hold broken.
  *
  * **The clocks.** A morph is four beats, the moult six — the pair is meant
- * to watch it. A window is twenty-four beats for two marks and sixteen for
- * one; a landing is three beats of the part giving. The reasoning for each
+ * to watch it. A window is eight beats for two marks, six for one and nine
+ * for the lunge, whose hold is six of them; a landing is three beats of the
+ * part giving. The reasoning for each
  * figure being the step's and not tuning: `sim/config-instar.ts`.
  *
  * **The windows were doubled and every need raised on 22 September 2026**,
@@ -45,12 +46,19 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  * reached the end of. Doubling it buys the saying, and raising the need is
  * what keeps the beat from being over the moment they stop talking — a
  * longer window with the old count is a step that lands itself.
+ *
+ * **And cut to a third on 24 September 2026**, the owner: *the time players
+ * have is huge, it's too much.* The doubling was measured in beats, and a
+ * window is played wholly inside THE SLOW, which went from a third to a
+ * quarter rate the same day — so twenty-four beats had become a minute of
+ * wall clock. Eight is twenty seconds in the hand, which still holds the
+ * saying; the needs stay where the doubling put them.
  */
 export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   {
     pose: "gape",
     morphBeats: 4,
-    windowBeats: 24,
+    windowBeats: 8,
     landBeats: 3,
     marks: [
       { seat: "p1", part: "jaw", gesture: "pullDown", xMilli: 500, yMilli: 440, need: 2500 },
@@ -60,7 +68,7 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   {
     pose: "armed",
     morphBeats: 4,
-    windowBeats: 24,
+    windowBeats: 8,
     landBeats: 3,
     marks: [
       { seat: "p1", part: "hand", gesture: "tap", xMilli: 280, yMilli: 400, need: 9 },
@@ -70,7 +78,7 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   {
     pose: "moulted",
     morphBeats: 6,
-    windowBeats: 24,
+    windowBeats: 8,
     landBeats: 3,
     marks: [
       { seat: "p2", part: "hand", gesture: "tap", xMilli: 720, yMilli: 380, need: 12 },
@@ -80,14 +88,14 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   {
     pose: "turned",
     morphBeats: 4,
-    windowBeats: 16,
+    windowBeats: 6,
     landBeats: 3,
     marks: [{ seat: "p2", part: "tail", gesture: "pullUp", xMilli: 500, yMilli: 500, need: 3000 }],
   },
   {
     pose: "lunge",
     morphBeats: 4,
-    windowBeats: 20,
+    windowBeats: 9,
     landBeats: 4,
     marks: [{ seat: "both", part: "head", gesture: "hold", xMilli: 500, yMilli: 320, need: 6 }],
   },

@@ -19694,3 +19694,15 @@ The bottleneck was **writing**: the number was one line and the prose that
 repeated it was fifteen.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-24 — THE INSTAR's windows are eight beats, twenty seconds in the hand
+
+- reading: 5 min. The script, the doubling's reasoning, and
+  `choreographed-windows.md` for whether the cut is generic.
+- writing: 5 min. Five numbers, the script's header, and the page's note.
+- looking: 0 min. A window's length is watched at tempo, not in a frame.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, green first time.
+
+The bottleneck was **reading**: the doubling was the owner's generic rule,
+and cutting it back had to be shown to be THE INSTAR's alone.

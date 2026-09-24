@@ -8,6 +8,13 @@ its own in `packages/sim/src/config-<boss>.ts`, so there is no one number and
 no sed. This page is the decision, per boss; the application is three lanes in
 `docs/queue.md`, each titled *The doubled window: …*.
 
+**THE INSTAR's came back down on 24 September 2026**, the owner: *the time
+players have is huge, it's too much.* It is the one boss whose whole window
+is played inside THE SLOW, and the slow went to a quarter rate the same day,
+so its twenty-four beats were a minute in the hand; they are eight now,
+twenty seconds (`content/instar-script.ts`). The other bosses' windows run
+at the ordinary rate and were not asked about.
+
 ## What counts as a window in his sense
 
 **A step's deadline**: something comes up — a mark, a vent, a still body, a
