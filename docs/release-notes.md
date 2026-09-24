@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · e5981d6b — THE SLOW draws no bar under the boss, and its light runs from the top of the screen
+
+The notched bar that counted a window down is gone; the ring closing on each mark is the clock. The streams were clipped at the field's top edge, which read as a cut on an invisible line, and now start at the screen's.
+
 ## 2026-09-24 · 0fa31201 — THE INSTAR's windows are eight beats for two marks, six for one, nine for the lunge
 
 They were twenty-four, sixteen and twenty, and a window is played wholly inside THE SLOW, so at the new quarter rate that was a minute of wall clock. Eight beats is twenty seconds. The needs are unchanged. Exemption: a look the owner asked for by name.

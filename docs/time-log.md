@@ -19722,3 +19722,5 @@ and cutting it back had to be shown to be THE INSTAR's alone.
 
 The bottleneck was **reading**: the bar was named as a decision in four
 places, and each had to say it went rather than just lose the line.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
