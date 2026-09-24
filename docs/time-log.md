@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — The shield rim's dead opacity figures are gone
+
+- reading: 5 min. The queue, whose nine free items all waited on a phone or
+  on an answer; the four questions put to the owner; `strokeGlow`'s contract.
+- writing: 5 min. `alphaBase`, `alphaGlow` and `glowFloor` out of
+  `WARD_LOOK`, the rim's unused shimmer out of `drawShieldRim`, one line out
+  of `volley-ward.ts`.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: the whole queue was blocked on the owner, so
+the lane began by asking rather than by working.
+
 ## 2026-09-24 — `bun run imports` no longer reads `bead.flying` as a use of `flying`
 
 - reading: 5 min. The queue entry, `imports.ts`, `classify.ts` and

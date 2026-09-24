@@ -129,7 +129,9 @@ export class ShieldBody {
  *
  * The shimmer is two sines rather than one so the band never settles into a
  * period an eye can predict, which is most of what stops a lit rim reading as
- * a painted stripe.
+ * a painted stripe. Only THE VOLLEY's ward reads it: the hull's rim once set
+ * an opacity from it that `strokeGlow` never read, and the owner had the dead
+ * figure deleted rather than drawn (24 September 2026).
  */
 export interface WardLook {
   /** Half width of the bright stretch beyond the outermost segment, in tiles. */
@@ -140,11 +142,6 @@ export interface WardLook {
   shimmerHzA: number;
   shimmerB: number;
   shimmerHzB: number;
-  /** Floor under `armed * shimmer`, so a passive rim is still a rim. */
-  glowFloor: number;
-  /** Opacity: a constant plus the glow's share of it. */
-  alphaBase: number;
-  alphaGlow: number;
   /** Stroke width at rest, and what a full arm adds. */
   widthBase: number;
   widthArmed: number;
@@ -160,9 +157,6 @@ export const WARD_LOOK: WardLook = {
   shimmerHzA: 1.5,
   shimmerB: 0.16,
   shimmerHzB: 0.7,
-  glowFloor: 0.22,
-  alphaBase: 0.22,
-  alphaGlow: 0.75,
   widthBase: 2,
   widthArmed: 11,
   intensityBase: 0.35,
@@ -216,11 +210,6 @@ export function drawShieldRim(
   const span = rimSpan(l, at);
   if (!span) return;
   const w = WARD_LOOK;
-  const shimmer =
-    w.shimmerBase +
-    w.shimmerA * Math.sin(time * w.shimmerHzA) +
-    w.shimmerB * Math.sin(time * w.shimmerHzB + 1.7);
-  const glow = Math.max(w.glowFloor, armed * shimmer);
   const cols = at.shield.map((s) => s.col);
   const { from, to } = span;
   const pts: Point[] = [];
@@ -228,7 +217,6 @@ export function drawShieldRim(
   for (let i = 0; i <= steps; i++) pts.push(surface(from + (to - from) * (i / steps)));
 
   const seg = splinePath(pts, false);
-  ctx.globalAlpha = w.alphaBase + w.alphaGlow * glow;
   strokeGlow(
     ctx,
     seg,
@@ -236,7 +224,6 @@ export function drawShieldRim(
     w.widthBase + w.widthArmed * armed,
     w.intensityBase + w.intensityArmed * armed,
   );
-  ctx.globalAlpha = 1;
   // Presence, not the catch; `resonance` is the exception — `resonantLook`.
   drawShieldSparks(ctx, l, time, cols, surface, resonance);
   drawShieldFlashes(ctx, l, time, from, to, surface); // the rim's own span

@@ -535,34 +535,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## The shield rim's shimmer alpha has never reached the line
-
-- **Found:** 2026-09-24, claude/queue-strokeglow-is-handed-an-alpha-it-throws-away-the
-- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-the-shield-rims-shimmer-alpha-has-never-reached)
-- **Files:** `packages/render/src/shield.ts`, `packages/render/src/volley-ward.ts`
-- **Asks:** give the shield rim the shimmer its alpha was written for, through VERSUS, or delete `alphaBase`/`alphaGlow` as the dead fields they are?
-
-`drawShieldRim` sets `ctx.globalAlpha = w.alphaBase + w.alphaGlow * glow`
-and then calls `strokeGlow`, which sets its own alpha and never reads it, so
-the rim has been drawn with its core at 1 on every frame of every wave. The
-other three callers on that list were fixed as "wrong rather than unlovely";
-this one was not, because it is the rim a player watches all game. Passing the
-figure through as `alpha` would draw that core at about 0.39 when the rim is
-idle and up to 0.97 when a shield is held open and shimmering. That is a
-different rim, not a repaired one.
-
-**THE VOLLEY's ward is the same question.** `drawVolleyWard` draws an arc of
-the shield rim in front of a body, from the same `WARD_LOOK`, and it has the
-same fault at `volley-ward.ts:69`. It was taken off the bosses' list so that
-it stays alike with the rim it copies, whichever answer comes.
-
-The two answers:
-
-- **Offer it**: a static VERSUS pair of the rim idle and armed. The candidate
-  passes `w.alphaBase + w.alphaGlow * glow` as `strokeGlow`'s sixth argument
-  and leaves the context alone, in both files. If it is adopted, it lands
-  the same way the other callers did, with a case in `glow-fade.test.ts`.
-- **Retire it**: delete the two fields, their `ctx.globalAlpha` pair and
-  their doc lines from `shield.ts`, and the same pair from
-  `volley-ward.ts`. Nothing drawn changes.

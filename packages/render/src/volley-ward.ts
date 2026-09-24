@@ -65,7 +65,6 @@ export function drawVolleyWard(
   const band = new Path2D();
   band.arc(0, 0, r * STANDOFF, lead - ARC, lead + ARC);
   ctx.save();
-  ctx.globalAlpha = w.alphaBase + w.alphaGlow * shimmer;
   strokeGlow(ctx, band, PALETTE.shieldRim, w.widthBase, w.intensityBase + shimmer);
   ctx.restore();
 }
