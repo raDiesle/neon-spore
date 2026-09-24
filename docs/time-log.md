@@ -19262,3 +19262,5 @@ next lanes take.
 Bottleneck: the queue entry's list came off a stub that did not restore
 alpha, so three quarters of it was not there; checking the stub before the
 first edit is what kept this from being sixteen changes to the picture.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

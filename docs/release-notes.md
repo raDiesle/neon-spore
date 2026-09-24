@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · ba77422e — A fade set around a glowed body reaches its line
+
+THE PULSE draws an arrival far up its lane at a third of its presence, and the pod's and the living mark's edge were drawn whole over that fill: `strokeGlow` does not read the context's alpha, and leaves it at 1, so the pod's core and the mark's interior after it were whole too. The fade now goes down as `alpha` through `drawPulseBody`, `drawPodBody` and `drawLivingMark`, and `drawPodCore` draws under the caller's alpha instead of replacing it — which is also what makes THE MOULT's cargo mark fade in with the cargo, as its comment always said it did. THE RECOIL's spent rib is at seven tenths on its near half now, as its far half already was.
+
 ## 2026-09-24 · 02993bb0 — `check:fast` runs the words contract whatever changed
 
 A guide line in `act-7f.ts` went one word over its budget and `check:fast` was green: a change under `packages/content` ran only that package and the sweeps, and `tools/words/test/words.test.ts` was in neither. It is the sixth sweep now; it reads the tree in half a second.
