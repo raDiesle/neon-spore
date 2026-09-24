@@ -22,6 +22,18 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — A fade set around a glowed line reaches it: THE SPOOL
+
+- reading: 5 min. The four spool files, and where `drawSpool` hands its fade
+  down to the brake and the gauge.
+- writing: 5 min. Eight calls, and a test on the brake and the gauge.
+- looking: 5 min. THE SPOOL swinging in, before and after.
+- friction: 5 min. The first test failed with the fix in place: the brake's
+  fills sit after a glow, and each glow leaves the alpha at 1.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: a glow sets the alpha back to 1 when it returns, so each fill after one needed the fade set again, and only the test showed it.
+
 ## 2026-09-24 — A fade set around a glowed line reaches it: the bosses but THE SPOOL
 
 - reading: 15 min. The eleven callers and, for three of them, the fade set a

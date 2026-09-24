@@ -92,7 +92,7 @@ function drawFlange(
   const path = spoolFlangePath(l, pose, end, facing);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(path);
-  strokeGlow(ctx, path, PALETTE.rock, STROKE.outline, 0.8);
+  strokeGlow(ctx, path, PALETTE.rock, STROKE.outline, 0.8, alpha);
   ctx.globalAlpha = alpha;
   if (!facing || pose.turn < 0.05) return;
   // The face the turn brings round: a hub and five spokes, which were edge on
@@ -108,8 +108,7 @@ function drawFlange(
   }
   spokes.moveTo(x + l.tile * 0.3 * open, pose.at.y);
   spokes.ellipse(x, pose.at.y, l.tile * 0.3 * open, l.tile * 0.3, 0, 0, Math.PI * 2);
-  ctx.globalAlpha = alpha * pose.turn;
-  strokeGlow(ctx, spokes, PALETTE.rock, STROKE.inner, 0.6);
+  strokeGlow(ctx, spokes, PALETTE.rock, STROKE.inner, 0.6, alpha * pose.turn);
   ctx.globalAlpha = alpha;
 }
 
@@ -150,8 +149,7 @@ function drawBarrel(
     ctx.globalAlpha = alpha * (0.2 + 0.6 * f.lit * f.sx);
     ctx.stroke(wrap);
   }
-  ctx.globalAlpha = alpha;
-  strokeGlow(ctx, path, PALETTE.rock, STROKE.inner, 0.5);
+  strokeGlow(ctx, path, PALETTE.rock, STROKE.inner, 0.5, alpha);
   ctx.globalAlpha = alpha;
 }
 
@@ -189,7 +187,14 @@ function drawRibs(
     ctx.globalAlpha = alpha * (1 - up);
     ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
     ctx.fill(rib);
-    strokeGlow(ctx, rib, i === going ? PALETTE.wispRim : PALETTE.rock, STROKE.outline, 0.9);
+    strokeGlow(
+      ctx,
+      rib,
+      i === going ? PALETTE.wispRim : PALETTE.rock,
+      STROKE.outline,
+      0.9,
+      alpha * (1 - up),
+    );
     ctx.globalAlpha = alpha;
   }
 }

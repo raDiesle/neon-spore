@@ -27,6 +27,7 @@ export function drawSpoolBrake(
   pose: SpoolPose,
   time: number,
 ): void {
+  const fade = ctx.globalAlpha;
   const held = spoolHeld(s);
   const b = spoolBrakeAt(l, cfg, pose, spoolDepthMilli(s));
 
@@ -38,14 +39,16 @@ export function drawSpoolBrake(
   ctx.lineWidth = l.tile * 0.16;
   ctx.stroke(rail);
   ctx.lineCap = "butt";
-  strokeGlow(ctx, rail, PALETTE.rock, STROKE.inner, 0.4);
+  strokeGlow(ctx, rail, PALETTE.rock, STROKE.inner, 0.4, fade);
+  ctx.globalAlpha = fade;
 
   // The linkage from knob to shoe: a straight arm, so how far it leans is how
   // hard the shoe is pressed.
   const arm = new Path2D();
   arm.moveTo(b.knob.x, b.knob.y);
   arm.lineTo(b.shoe.x, b.shoe.y);
-  strokeGlow(ctx, arm, PALETTE.rock, STROKE.inner, held ? 0.8 : 0.3);
+  strokeGlow(ctx, arm, PALETTE.rock, STROKE.inner, held ? 0.8 : 0.3, fade);
+  ctx.globalAlpha = fade;
   const shoe = new Path2D();
   shoe.ellipse(b.shoe.x, b.shoe.y, l.tile * 0.08, l.tile * 0.22, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.rock, held ? 0.8 : 0.4);
@@ -55,16 +58,16 @@ export function drawSpoolBrake(
   knob.arc(b.knob.x, b.knob.y, b.r, 0, Math.PI * 2);
   ctx.fillStyle = rgba(held ? PALETTE.rock : PALETTE.rockDark, held ? 0.9 : 0.8);
   ctx.fill(knob);
-  strokeGlow(ctx, knob, PALETTE.rock, STROKE.outline, held ? 1.2 : 0.5);
+  strokeGlow(ctx, knob, PALETTE.rock, STROKE.outline, held ? 1.2 : 0.5, fade);
 
   if (!held) {
     const breath = 0.5 + 0.5 * Math.sin(time * 4);
     const ring = new Path2D();
     ring.arc(b.knob.x, b.knob.y, b.r * (1.5 + 0.35 * breath), 0, Math.PI * 2);
-    ctx.globalAlpha = 0.35 + 0.45 * breath;
+    ctx.globalAlpha = fade * (0.35 + 0.45 * breath);
     ctx.strokeStyle = PALETTE.rock;
     ctx.lineWidth = STROKE.inner;
     ctx.stroke(ring);
-    ctx.globalAlpha = 1;
   }
+  ctx.globalAlpha = fade;
 }

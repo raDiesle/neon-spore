@@ -46,7 +46,7 @@ export function drawSpoolLine(
   ctx.globalAlpha = alpha;
   ctx.setLineDash([l.tile * 0.22, l.tile * 0.3]);
   ctx.lineDashOffset = -(run * l.tile) / 100;
-  strokeGlow(ctx, line, PALETTE.hull, STROKE.outline, 0.8);
+  strokeGlow(ctx, line, PALETTE.hull, STROKE.outline, 0.8, alpha);
   ctx.setLineDash([]);
   ctx.lineDashOffset = 0;
   ctx.globalAlpha = alpha;

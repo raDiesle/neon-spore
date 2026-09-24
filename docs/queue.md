@@ -536,48 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `strokeGlow` is handed an alpha it throws away: THE SPOOL
-
-- **Found:** 2026-09-24, claude/queue-about-100-strokeglow-calls-are-made-at-an-alpha
-- **Files:** `packages/render/src/spool-brake.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/spool-gauge.ts`, `packages/render/src/spool-line.ts`
-
-`strokeGlow` sets `globalAlpha` for every pass and never reads the one it
-was handed, so a caller's `ctx.globalAlpha = …` just before it does nothing
-to the line. 8 calls in 4 files, by caller and line: `spool-brake.ts:41`, `spool-draw.ts:95,112,154,192`, `spool-gauge.ts:64`, `spool-line.ts:49`.
-
-**The rest of the bosses landed on 24 September 2026**, and the split was
-made before any of it was started. THE VOLLEY's ward went to the shield's
-question, because it copies the shield. THE LEDGER's cut face, which the
-first count missed, was fixed with the rest. A fade that reaches a glow from
-further up the stack is handed on as `ctx.globalAlpha` and set again after
-it: `ratchet-parts.ts` and `ledger-draw.ts` are the pattern.
-
-**The list was re-counted on 24 September 2026 and is a third of what it
-was.** The first count ran on a test canvas whose `restore` brought back the
-transform and not the alpha, so a fade set inside a `save` looked as if it
-reached every glow drawn after it; of the bodies' sixteen calls, three were
-real (`canvas-stub.ts` restores alpha now). A caller named from a test file's
-own hand-made context with no `save` of its own — `well-frame.test.ts`'s
-`arcsOf` — is the same mirage and is not a call to fix.
-
-The bodies' three were each a fade set on purpose a frame or two up the
-stack — THE PULSE's far arrival, THE RECOIL's spent rib — so the glow's line
-was drawn whole over a fill at a third; and since `strokeGlow` leaves the
-alpha at 1, everything after it in the same picture was whole too
-(`drawPodCore` had the same fault on its own). For each, say whether the fade
-was meant; if it
-was, pass it as `alpha`, dividing `intensity` by it where the call passed
-both so the glow stays put (`ship-marks.ts`'s arrows are the pattern).
-`hull.ts`'s `rimAlpha` looked like one and was an intensity all along, so
-read the doc before the name. Each changes a picture that ships: it lands
-under "a fix to something wrong", with one before/after PNG. More than a
-sitting's worth is split by file before it is started.
-
-Reproducing the list, from 24 September 2026: a `globalThis` tally in
-`strokeGlow` of the calls arriving with `globalAlpha` below 1, keyed on the
-caller's stack frame, written out by an `afterAll` in a `--preload` file
-over `bun test packages/render/test` — about a minute, in one process.
-
 ## `baton.test.ts` is 717 lines and keeps its own copy of the arm's rig
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-baton

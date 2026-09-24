@@ -34,6 +34,7 @@ export function drawSpoolGauge(
   beatPhase: number,
   time: number,
 ): void {
+  const fade = ctx.globalAlpha;
   const g = spoolGaugeAt(l, pose);
   const { mid, half } = g;
   const wide = Math.max(1, cfg.spoolZoneWideMilli);
@@ -60,8 +61,11 @@ export function drawSpoolGauge(
     bracket.lineTo(x, mid.y + h);
     bracket.lineTo(x - side * l.tile * 0.14, mid.y + h);
   }
-  ctx.globalAlpha = 0.45 + 0.55 * grace;
-  strokeGlow(ctx, bracket, PALETTE.rock, STROKE.outline, 0.4 + 0.6 * grace);
+  // The blink is the bracket's presence and the grace its light: the halo is
+  // divided back by the blink so it breathes as it always has.
+  const blink = 0.45 + 0.55 * grace;
+  strokeGlow(ctx, bracket, PALETTE.rock, STROKE.outline, (0.4 + 0.6 * grace) / blink, fade * blink);
+  ctx.globalAlpha = fade;
 
   const off = spoolAheadMilli(s, cfg, beatPhase) / wide;
   const x = mid.x + Math.min(OVERRUN, Math.max(-OVERRUN, off)) * half;
@@ -69,5 +73,6 @@ export function drawSpoolGauge(
   bead.arc(x, mid.y, l.tile * 0.17, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.hull, 0.9);
   ctx.fill(bead);
-  strokeGlow(ctx, bead, PALETTE.hullRim, STROKE.inner, 0.9);
+  strokeGlow(ctx, bead, PALETTE.hullRim, STROKE.inner, 0.9, fade);
+  ctx.globalAlpha = fade;
 }

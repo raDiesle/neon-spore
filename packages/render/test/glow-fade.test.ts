@@ -1,4 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { buildBoss, buildQueue } from "@neon-spore/content";
+import { createWorld, NO_BRAKE, SPOOL_RIBS, startWave } from "@neon-spore/sim";
 import { drawIrisMarks } from "../src/eye-iris.js";
 import { drawFenceSkull } from "../src/fence-skull.js";
 import { introEar } from "../src/intro-ear.js";
@@ -7,8 +9,11 @@ import { drawChew } from "../src/maw.js";
 import { drawPodCore } from "../src/pods.js";
 import { drawPulseArrival } from "../src/pulse-body.js";
 import { globe } from "../src/recoil-globe.js";
+import { drawSpoolBrake } from "../src/spool-brake.js";
+import { drawSpoolGauge } from "../src/spool-gauge.js";
+import { spoolPlaced } from "../src/spool-pose.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
-import { CFG } from "./frame-harness.js";
+import { CFG, waveWith } from "./frame-harness.js";
 
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
@@ -140,5 +145,35 @@ describe("the bosses", () => {
     });
     expect(at.length).toBeGreaterThan(0);
     expect(Math.max(...at)).toBeLessThanOrEqual(0.5 + 1e-9);
+  });
+});
+
+describe("THE SPOOL", () => {
+  // Mid-movement, with the brake off and the bracket still in its grace: the
+  // breathing ring and the blinking bracket are both drawn.
+  function paying() {
+    const world = createWorld(CFG, 5);
+    const index = waveWith("spool");
+    startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+    if (world.boss?.kind !== "spool") throw new Error("the spool wave hung no spool");
+    world.beat += 8;
+    const s = world.boss;
+    s.phase = "pay";
+    s.phaseBeat = world.beat - 1;
+    s.ribs = SPOOL_RIBS;
+    s.brakeMilli = NO_BRAKE;
+    const l = computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, "p1");
+    return { world, s, l, pose: spoolPlaced(l, CFG, s, world.beat, 0.4) };
+  }
+
+  it("draws its brake and its gauge under the body's fade, as it swings in", () => {
+    const { world, s, l, pose } = paying();
+    const at = alphas((ctx) => {
+      ctx.globalAlpha = 0.3;
+      drawSpoolBrake(ctx, l, CFG, s, pose, 1.1);
+      drawSpoolGauge(ctx, l, CFG, s, pose, world.beat, 0.4, 1.1);
+    });
+    expect(at.length).toBeGreaterThan(0);
+    expect(Math.max(...at)).toBeLessThanOrEqual(0.3 + 1e-9);
   });
 });
