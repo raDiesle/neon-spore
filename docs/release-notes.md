@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 2b3281eb — THE SPOOL's guide plays a film: a brake held too shallow, a word, a rib
+
+THE SPOOL's tutorial is now a rehearsal. The pilot takes the brake at the top, the line runs fast and the first movement slips; the navigator's gauge reads too much line and she says slower; he carries the knob deeper and the next movement holds its leg, so a rib eases. THE SPOOL leaves the list of guides that are still prose (eighty-two films, eleven below), and the boss caption anchor gains a spool case, so the navigator's pages stand on the gauge. Look exemption: a look with no shipped alternative — the wave had no film.
+
 ## 2026-09-23 · 71cc6b24 — A body's full neon glow is offered in VERSUS as `body:glow`
 
 Every living body strokes its edge under its own scale, and the glow's spread was scaled with it: at the median 0.27 a body's halo reaches about 1.4 px where 5 were written. `strokeGlow` now takes the spread, and `BODY_GLOW.onScreen` says how much of the scale a body's spread undoes. It stays at 0, so nothing on the field changes. The candidate `full` sets it to 1 and stands on the BODIES pose, per the owner's answer to put it to VERSUS.
