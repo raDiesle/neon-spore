@@ -51,6 +51,8 @@ export function batonHashParts(b: BatonState): number[] {
     // disagreed about the count of a hold would merge the beads on its own.
     b.swellSocket,
     b.swellBeat,
+    b.stripped,
+    b.stripThumbs,
     b.mergeThumbs,
     b.mergeHeld,
     b.threadBeat,

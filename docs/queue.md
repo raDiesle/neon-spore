@@ -536,21 +536,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The doubled window: THE BATON
-
-- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
-- **Taken:** 2026-09-24, claude/queue-the-doubled-window-the-hasp (claim: claude/queue-the-doubled-window-the-baton)
-- **Files:** `packages/sim/src/config-baton.ts`, `packages/sim/src/baton-step.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/sim/test/baton.test.ts`, `tools/director/src/poses-bosses-hands-*.ts`, `docs/spec/bosses.md`
-
-Per `docs/spec/choreographed-windows.md`'s **Doubled** table:
-`batonSwellBeats` 3 → 6 with two strips (`batonSwellStrips`),
-`batonMergeWindowBeats` 6 → 12, `batonMergeBeats` 2 → 4 and
-`batonFinalBeats` 11 → 22. THE SLOW opens here for the first time, over the
-asks only (`sim/undertow-slow.ts`). Re-time the film against its scene
-test rather than loosen it, hold the relation *the acts equal the final's
-beats* in `baton.test.ts`, the guide's counts, the director's budgets, and
-the dated line in `bosses.md` §11.n.
-
 ## The first of two shots or beams makes no sign: THE GORGE, THE TASTER
 
 - **Found:** 2026-09-24, claude/queue-the-doubled-window-the-gorge-the-taster-and-the
@@ -664,3 +649,16 @@ Add it to `SWEEPS` (it reads the tree in a quarter of a second), or give the
 content row in `tools/hooks/scope.ts` a narrow answer that names
 `tools/words` for `fastScopeFor` alone; the first is one line and the same
 reason the fifth sweep gives.
+
+## `baton.test.ts` is 717 lines and keeps its own copy of the arm's rig
+
+- **Found:** 2026-09-24, claude/queue-the-doubled-window-the-baton
+- **Files:** `packages/sim/test/baton.test.ts`, `packages/sim/test/baton-fixture.ts`
+
+THE BATON's two-thumb helpers moved into `baton-fixture.ts` when the doubled
+window needed them in a third file, and `baton-hand.test.ts` came down to
+199 lines. `baton.test.ts` still defines its own `open`, `arm`, `launch`,
+`shoot`, `handover`, `nextBeat`, `act` and the rest, nearly word for word, at
+almost three times the size ceiling. Import them from the fixture, then split
+what is left by stage — unfold and handover, swing and shed, merge and
+crossing — the way `baton-hand.test.ts` and `baton-doubled.test.ts` split.

@@ -533,6 +533,7 @@ by hand never moves.
 | `packages/sim/src/baton-pair.ts` | THE BATON's second bead: its lighting and the merge that ends it |
 | `packages/sim/src/baton-step.ts` | THE BATON's clock: the unfold, the landing, the settle and the fold |
 | `packages/sim/src/baton-shed.ts` | **THE BATON's arm giving way** — the swell, the shell that drops and the rock it becomes |
+| `packages/sim/src/baton-slow.ts` | THE SLOW on THE BATON, spanning its asks: a swelling shell, the draw's window, the crossing |
 | `packages/sim/src/baton-bead.ts` | Where a bead of THE BATON is on a tick |
 | `packages/sim/src/baton-cross.ts` | THE BATON's crossing: the merged bead's last flight |
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |

@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — THE BATON's windows are doubled, and THE SLOW spans its asks
+
+- reading: 5 min. THE BATON's seven sim files, the director's hand, the
+  film and its scene test, and §11.18, read again after a compaction.
+- writing: 5 min. Six beats of swell asking two fresh strips, a twelve-beat
+  draw of four, a crossing of twenty-two acts; `baton-slow.ts`; the test rig
+  moved into `baton-fixture.ts` and ten new tests.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the reading. A drag repeats its press on every move, so the
+second strip needed a thumb mask before it could count, and finding that
+meant reading the hand's input path.
+
 ## 2026-09-24 — THE HASP's fuses and winding are doubled
 
 - reading: 0 min. THE HASP's step, hand, state and test, its director hand

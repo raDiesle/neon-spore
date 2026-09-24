@@ -64,6 +64,7 @@ export const CHOREO_FIELD_GROUP = {
   batonShedAfter: "THE BATON — a bead passed down an arm, one seat a beat",
   batonShedBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonSwellBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonSwellStrips: "THE BATON — a bead passed down an arm, one seat a beat",
   batonMergeBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonMergeWindowBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonTwinAfter: "THE BATON — a bead passed down an arm, one seat a beat",

@@ -71,20 +71,27 @@ export interface BatonConfig {
    * **Carved out of `batonShedBeats` and not added to it**: the next swell
    * begins `batonShedBeats - batonSwellBeats` after the last shell left, so a
    * pair who never touches the arm meets exactly the rocks it met before, on
-   * the same count. Three, which is one flight — long enough that the seat who
-   * just acted can see it come up and reach it before their turn comes round.
+   * the same count. Six, which is two flights — three until the doubling, and
+   * the second flight is the room for the second strip.
    */
   batonSwellBeats: number;
   /**
+   * Presses the locked seat owes one swelling shell before it comes away —
+   * each a fresh thumb, so a hold dragged across the socket is one. Two since
+   * the doubling (`docs/spec/choreographed-windows.md`); one before it.
+   */
+  batonSwellStrips: number;
+  /**
    * Beats both thumbs have to be on the two beads together before they become
-   * one (`merging`). Two: long enough that it is a thing said and answered,
-   * short enough that it is not a hold through a rock.
+   * one (`merging`). Four: long enough that it is a thing said and answered,
+   * short enough that it is not a hold through a rock. Two until the doubling.
    */
   batonMergeBeats: number;
   /**
    * Beats the pair has to find that hold before the bead that waited is shaken
    * back to the top socket — the same price a bead that sat too long pays
-   * anywhere else on the arm (`settle`). Six: two goes at it.
+   * anywhere else on the arm (`settle`). Twelve: still two goes at the
+   * doubled hold, and six until the doubling.
    */
   batonMergeWindowBeats: number;
   /**
@@ -97,8 +104,9 @@ export interface BatonConfig {
   /**
    * Beats the merged bead's last flight takes, out of the last socket — and
    * the acts the pair owe it, one a beat, alternating, with no miss: the
-   * design's step 13, *the length of the whole arm in one crossing*. Eleven,
-   * one for each socket the arm had.
+   * design's step 13, *the length of the whole arm in one crossing*.
+   * Twenty-two, two for each socket the arm had — eleven, one each, until the
+   * doubling.
    */
   batonFinalBeats: number;
   /**
@@ -132,11 +140,12 @@ export const BATON_DEFAULTS: BatonConfig = {
   batonSwingAfter: 4,
   batonShedAfter: 6,
   batonShedBeats: 8,
-  batonSwellBeats: 3,
-  batonMergeBeats: 2,
-  batonMergeWindowBeats: 6,
+  batonSwellBeats: 6,
+  batonSwellStrips: 2,
+  batonMergeBeats: 4,
+  batonMergeWindowBeats: 12,
   batonTwinAfter: 3,
-  batonFinalBeats: 11,
+  batonFinalBeats: 22,
   batonDownBeats: 4,
   batonThreadBeats: 1,
 };

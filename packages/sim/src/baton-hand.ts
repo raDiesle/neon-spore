@@ -1,4 +1,5 @@
 import { BATON_SOCKET_SHED, BATON_SOCKET_SWELL, type BatonState, batonLocked } from "./baton.js";
+import { batonSlow } from "./baton-slow.js";
 import { batonBoss } from "./baton-step.js";
 import type { SimConfig } from "./config.js";
 import type { Command } from "./types.js";
@@ -17,8 +18,9 @@ import type { World } from "./world.js";
  * **The strip.** A dead socket does not let go all at once any more: its shell
  * swells for `batonSwellBeats` first (`BATON_SOCKET_SWELL`), and only then
  * drops down the arm's own column as the rock it has always dropped. Inside
- * that window a thumb takes it off clean and nothing falls — and **the thumb
- * has to be the locked seat's**. Which seat that is, is the metronome's own
+ * that window `batonSwellStrips` presses take it off clean and nothing falls
+ * — each a fresh thumb, since a drag held on the arm repeats its press every
+ * move (`stripThumbs`) — and **every one has to be the locked seat's**. Which seat that is, is the metronome's own
  * answer, so the mark stands on one screen and moves to the other with the
  * turn; a pair who stop handing over have nobody locked and nobody who may
  * strip, and the shells come down on them. The other seat's press is
@@ -75,16 +77,29 @@ function refuse(world: World, b: BatonState, socket: number): void {
 }
 
 /**
- * The strip: the shell comes away in the hand, the socket is shed with no rock
- * under it, and `shedBeat` moves as it would have on the drop — so the arm's
- * next shell begins swelling on exactly the count it was going to.
+ * The strip: a fresh press by the locked seat loosens the shell, and the last
+ * of `batonSwellStrips` takes it away in the hand. The socket is shed with no
+ * rock under it, and `shedBeat` moves as it would have on the drop — so the
+ * arm's next shell begins swelling on exactly the count it was going to. A
+ * thumb already down counts nothing until it has been lifted, whatever it is
+ * over; a refused press is refused once, not every move of the drag.
  */
 function strip(world: World, b: BatonState, player: 1 | 2, command: Command): void {
-  if (command.kind !== "drag" || !command.on) return;
+  if (command.kind !== "drag") return;
+  if (!command.on) {
+    b.stripThumbs &= ~bit(player);
+    return;
+  }
   const socket = b.swellSocket;
-  if (socket < 0 || command.id !== socket) return;
+  if (socket < 0 || command.id !== socket || (b.stripThumbs & bit(player)) !== 0) return;
+  b.stripThumbs |= bit(player);
   if (!batonLocked(b, player, world.beat)) {
     refuse(world, b, socket);
+    return;
+  }
+  b.stripped += 1;
+  if (b.stripped < world.cfg.batonSwellStrips) {
+    world.events.push({ type: "batonStripped", col: b.col, socket });
     return;
   }
   b.sockets[socket] = BATON_SOCKET_SHED;
@@ -92,6 +107,7 @@ function strip(world: World, b: BatonState, player: 1 | 2, command: Command): vo
   b.swellBeat = -1;
   b.shedBeat = world.beat;
   world.events.push({ type: "batonStripped", col: b.col, socket });
+  batonSlow(world, b);
 }
 
 /**

@@ -3073,7 +3073,7 @@ waits there (`batonWaiting`) while the second catches up to the one above it,
 and the two become one bead (`batonMerged`), which is the one that drops.
 
 **The crossing** — the design's step 13, as of 17 September 2026. The merged
-bead's one flight out of the last socket is `batonFinalBeats` (11) long, the
+bead's one flight out of the last socket is `batonFinalBeats` (22) long, the
 length of the whole arm in one crossing (`sim/baton-cross.ts`, the stage
 `crossing`), and it owes an act a beat: player 1's trigger is act 0 and the
 launch, her shot of the bead's colour act 1, his trigger act 2, and so on,
@@ -3083,7 +3083,7 @@ beat lock is the alternation: the seat that acted is locked for the beat the
 other's act is due in. On every beat `batonCrossBeat` asks whether the act
 due inside the beat before was made; one not made is a miss (`batonMissed`),
 and the bead is back at the top of an arm every socket of which is lit again
-— the whole descent to earn back, as the page says. Eleven acts made and the
+— the whole descent to earn back, as the page says. Every act made and the
 bead drops out of the last socket as a pod (`drop`), `handovers` kept. Three
 departures from the page. *The two beads become one at the merge* (§ above),
 not at the top of the crossing: the design has step 12 and 13 as one moment,
@@ -3115,10 +3115,11 @@ neither on the panel (`sim/baton-hand.ts`, the `batonSocket` target, `id` the
 socket).
 
 *The strip.* A dead socket no longer lets go all at once: it **swells** for
-`batonSwellBeats` (3) first (`BATON_SOCKET_SWELL`), and only then drops its
-shell down the column as the rock it always dropped. Inside that window a press
-takes the shell off clean and nothing falls — and the press has to be **the
-locked seat's**. Which seat that is, is the metronome's own answer, so the ring
+`batonSwellBeats` (6) first (`BATON_SOCKET_SWELL`), and only then drops its
+shell down the column as the rock it always dropped. Inside that window
+`batonSwellStrips` (2) presses take the shell off clean and nothing falls —
+each a fresh thumb, since a drag held on the arm repeats its press every move
+(`stripThumbs`) — and every press has to be **the locked seat's**. Which seat that is, is the metronome's own answer, so the ring
 and the word stand on the phone of whoever just acted and cross to the other
 when the turn does; on a beat neither of them acted in, nobody is locked and
 nobody may strip. The other seat's press is refused with a sound rather than
@@ -3130,10 +3131,10 @@ never reach for the arm meet the same rocks on the same counts they always did.
 
 *The draw.* Two beads at rest in the last two sockets no longer become one by
 arriving: the arm enters a stage of its own, `merging`, and the pair has
-`batonMergeWindowBeats` (6) to draw them together with a thumb each — player 1
+`batonMergeWindowBeats` (12) to draw them together with a thumb each — player 1
 on the upper bead, player 2 on the one that waited, by geometry and never by
 colour. The count runs only while **both** are down and goes back to nought the
-moment either lifts (`batonMergeBeats`, 2): THE INSTAR's *together means
+moment either lifts (`batonMergeBeats`, 4): THE INSTAR's *together means
 together*, arriving in the one fight whose whole content is that the two of
 them may never act on the same beat. The window closing short shakes the bead
 that waited back to the top socket (`batonParted`) and the dark sockets stay
@@ -3234,6 +3235,18 @@ one thumb on a bead never counts however long it is held, that both merge and
 either lifting puts the count back to nought, and that the window closing short
 shakes the bead that waited home and leaves every dark socket dark
 (`sim/test/baton-hand.test.ts`).
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): `batonSwellBeats` 3 → 6 with two
+strips where there was one (`batonSwellStrips`), `batonMergeWindowBeats` 6 → 12,
+`batonMergeBeats` 2 → 4 and `batonFinalBeats` 11 → 22 — so the crossing owes
+twenty-two acts, and *the acts equal the final's beats* still holds in
+`baton.test.ts`. THE SLOW opens on this fight for the first time, over the
+asks alone: a swelling shell, the draw's window and the crossing, each shut on
+its own ends (`sim/baton-slow.ts`, `sim/test/baton-doubled.test.ts`). A
+handover is not an ask and plays at speed. The film teaches only the handover,
+reaches none of the doubled windows and was not re-timed; the guide says no
+count and did not change.
 
 ## 11.19 THE THROAT — the boss you answer by feeding it
 

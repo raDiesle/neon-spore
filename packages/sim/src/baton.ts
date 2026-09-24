@@ -167,6 +167,10 @@ export interface BatonState {
   swellSocket: number;
   /** `world.beat` that swell began on, -1 while there is none. */
   swellBeat: number;
+  /** Strips the locked seat has made on this swell, short of `batonSwellStrips`. */
+  stripped: number;
+  /** Whose thumbs are down on the arm under `passing`, so a drag counts once: bits as `mergeThumbs`. */
+  stripThumbs: number;
   /** Whose thumbs are on the two beads under `merging`: bit 1 player 1's, bit 2 player 2's. */
   mergeThumbs: number;
   /** Beats both thumbs have been down together, running. Reset by either letting go. */

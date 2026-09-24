@@ -67,7 +67,10 @@ export const CHOREO_NOTES = {
     "The merged bead's flight out of it is the crossing, batonFinalBeats " +
     "long, owing an act a beat in turn — a miss sends it back to the top of " +
     "a relit arm. Made whole, the bead falls as a pod, the maw takes it, and " +
-    "the arm folds away in batonDownBeats. Nothing about it is authored per " +
+    "the arm folds away in batonDownBeats. THE SLOW spans the asks alone: a " +
+    "shell swelling for its batonSwellStrips, the draw's " +
+    "batonMergeWindowBeats and the crossing, each shut on its own end " +
+    "(sim/baton-slow.ts). Nothing about it is authored per " +
     "wave. See sim/baton.ts, sim/baton-cross.ts, sim/config-baton.ts.",
   "THE THROAT — the boss you answer by feeding it":
     "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §1, " +

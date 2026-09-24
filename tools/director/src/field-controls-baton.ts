@@ -23,9 +23,11 @@ export const BATON_CONTROLS: readonly FieldControlDef[] = [
     seat: "whichever seat is locked this beat — the one whose panel is grey",
     gesture: "press",
     does:
-      "Strips the shell off clean: the socket sheds with no rock under it, and " +
+      "batonSwellStrips fresh presses strip the shell off clean — a thumb " +
+      "dragged across it is one — and the socket sheds with no rock under it; " +
       "the arm's next shell begins swelling on the count it was going to " +
-      "anyway. A dial round the ring runs the batonSwellBeats window out; the " +
+      "anyway. THE SLOW spans the swell. A dial round the ring runs the " +
+      "batonSwellBeats window out; the " +
       "shell nobody takes falls down the arm's column as a rock, which is what " +
       "it always did. The other seat's press is refused with a sound, because " +
       "both screens draw the arm and it can see what it was refused " +

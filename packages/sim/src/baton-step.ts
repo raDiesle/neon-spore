@@ -12,6 +12,7 @@ import { batonLandTick, batonWaiting } from "./baton-bead.js";
 import { batonCrossBeat } from "./baton-cross.js";
 import { batonMerge, batonTwin, stepBatonMerge } from "./baton-pair.js";
 import { stepBatonShed } from "./baton-shed.js";
+import { batonSlow } from "./baton-slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -69,6 +70,8 @@ export function installBaton(world: World): BatonState {
     shedBeat: -1,
     swellSocket: -1,
     swellBeat: -1,
+    stripped: 0,
+    stripThumbs: 0,
     mergeThumbs: 0,
     mergeHeld: 0,
     threadBeat: -1,
@@ -98,8 +101,13 @@ function turnBeats(world: World, b: BatonState): number {
   return tight ? cfg.batonTightTurnBeats : cfg.batonTurnBeats;
 }
 
-/** One beat of the arm. */
+/** One beat of the arm, and THE SLOW read off wherever it left the arm. */
 export function stepBaton(world: World, b: BatonState): void {
+  beat(world, b);
+  batonSlow(world, b);
+}
+
+function beat(world: World, b: BatonState): void {
   const cfg = world.cfg;
   const since = world.beat - b.stageBeat;
   if (b.stage === "down") {

@@ -167,17 +167,23 @@ function draws(w: World, seats: readonly (1 | 2)[]): Press[] {
   return [...out, aim(batonSocketCol(b, next.socket)), trigger()];
 }
 
-/** The shell coming away, taken by whichever seat the beat locked out. */
+/**
+ * The shell coming away, taken by whichever seat the beat locked out — a
+ * fresh press every other tick, lifting in between, because the arm counts a
+ * thumb already down once (`stripThumbs`) and the shell asks for
+ * `batonSwellStrips` of them.
+ */
 function strip(w: World, b: BatonState): Press[] {
   for (const player of [1, 2] as const) {
     if (!batonMayStrip(b, player, w.beat)) continue;
+    const down = (b.stripThumbs & (player === 1 ? 1 : 2)) !== 0;
     return [
       {
         player,
         command: {
           kind: "drag",
           target: "batonSocket",
-          on: true,
+          on: !down,
           fromMilli: 0,
           fromYMilli: 0,
           id: b.swellSocket,

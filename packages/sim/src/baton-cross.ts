@@ -7,6 +7,7 @@ import {
   batonFlip,
 } from "./baton.js";
 import { batonLandTick } from "./baton-bead.js";
+import { batonSlow } from "./baton-slow.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -43,6 +44,7 @@ export function batonCrossLaunch(world: World, b: BatonState, bead: BatonBead): 
   b.acts = 0;
   bead.final = true;
   batonAct(world, b);
+  batonSlow(world, b);
 }
 
 /** An act made in turn: counted, and said. */
@@ -98,6 +100,7 @@ function miss(world: World, b: BatonState, bead: BatonBead): void {
   // (`baton-shed.ts`).
   b.swellSocket = -1;
   b.swellBeat = -1;
+  b.stripped = 0;
   bead.flying = false;
   bead.final = false;
   bead.flightTick = -1;

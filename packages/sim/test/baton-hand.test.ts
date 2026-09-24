@@ -3,25 +3,27 @@ import {
   BATON_SOCKET_DARK,
   BATON_SOCKET_SHED,
   BATON_SOCKET_SWELL,
-  type BatonBead,
-  type BatonState,
-  batonBoss,
   batonDark,
   batonDrawing,
-  batonLaunchable,
-  batonMayStrip,
   batonMergeSocket,
-  batonSocketCol,
-  createWorld,
-  DEFAULT_CONFIG,
   hashWorld,
-  type SimConfig,
-  startWave,
   step,
-  type TimedCommand,
-  ticksPerBeat,
-  type World,
 } from "../src/index.js";
+import {
+  acts,
+  arm,
+  beats,
+  bothDown,
+  CFG,
+  merging,
+  open,
+  QUIET,
+  said,
+  strips,
+  swelling,
+  TPB,
+  thumb,
+} from "./baton-fixture.js";
 
 /**
  * **THE BATON's two thumbs on its own arm** — the states answered on the
@@ -33,124 +35,6 @@ import {
  * every beat, and the draw takes **both** thumbs at once, which is the one
  * thing this fight has never let the pair do.
  */
-
-const CFG: SimConfig = DEFAULT_CONFIG;
-const TPB = ticksPerBeat(CFG);
-
-/** The arm installed on its own wave, as `baton.test.ts` opens it. */
-function open(cfg: SimConfig = CFG): World {
-  const world = createWorld(cfg, 3);
-  startWave(world, 6, [], [], { kind: "baton" });
-  return world;
-}
-
-/**
- * The same arm with nothing shedding off it. The draw is eleven handovers
- * down the arm, and a shell let go in the middle of them is a rock nobody in
- * a test is warding — which fails the wave and stops the fight (the owner's
- * rule of 12 September 2026, `wave-fail.ts`). The swell has its own receipts
- * above; these are about the last two sockets.
- */
-const QUIET: SimConfig = { ...CFG, batonShedAfter: CFG.batonSockets + 1 };
-
-function arm(world: World): BatonState {
-  const b = batonBoss(world);
-  if (b === null) throw new Error("THE BATON is not the boss");
-  return b;
-}
-
-/** The bead in the air, if one is. */
-function flying(world: World): BatonBead | null {
-  return arm(world).beads.find((bead) => bead.flying) ?? null;
-}
-
-function cmd(world: World, player: 1 | 2, command: TimedCommand["command"]): TimedCommand {
-  return { tick: world.tick, player, command };
-}
-
-function beats(world: World, n: number): void {
-  for (let i = 0; i < n * TPB; i++) step(world, []);
-}
-
-/** Run until the arm reaches a stage, or give up. Returns the beats it took. */
-function until(world: World, stage: BatonState["stage"], cap = 40): number {
-  const from = world.beat;
-  for (let i = 0; i < cap * TPB; i++) {
-    if (arm(world).stage === stage) return world.beat - from;
-    step(world, []);
-  }
-  throw new Error(`the arm never reached ${stage}`);
-}
-
-/** Run until no bead is in the air. */
-function landed(world: World): void {
-  for (let i = 0; i < 40 * TPB && flying(world) !== null; i++) step(world, []);
-  if (flying(world) !== null) throw new Error("the bead never came down");
-}
-
-/** Player 1 under the bead the trigger will send, then the trigger: it is in the air. */
-function launch(world: World): BatonBead {
-  until(world, "passing");
-  const next = batonLaunchable(CFG, arm(world));
-  if (next === null) throw new Error("nothing to launch");
-  step(world, [
-    cmd(world, 1, { kind: "cannonCol", col: batonSocketCol(arm(world), next.socket) }),
-    cmd(world, 1, { kind: "guard" }),
-  ]);
-  const bead = flying(world);
-  if (bead === null) throw new Error("the trigger sent nothing");
-  return bead;
-}
-
-/** Player 2's bolt, and the ticks until it reaches the bead or the bead lands. */
-function shoot(world: World, color: "red" | "cyan"): void {
-  step(world, [cmd(world, 2, { kind: "fire", color })]);
-  for (let i = 0; i < CFG.batonFlightBeats * TPB; i++) {
-    if (world.bullets.length === 0) return;
-    step(world, []);
-  }
-}
-
-/** One whole handover, right colour: launched, struck, landed. */
-function handover(world: World): void {
-  const bead = launch(world);
-  shoot(world, bead.color);
-  expect(bead.struck).toBe(true);
-  landed(world);
-}
-
-/** A thumb down on, or up off, a socket of the arm. */
-function thumb(world: World, player: 1 | 2, socket: number, on: boolean): TimedCommand {
-  return cmd(world, player, {
-    kind: "drag",
-    target: "batonSocket",
-    on,
-    fromMilli: 0,
-    fromYMilli: 0,
-    id: socket,
-  });
-}
-
-/** Handovers until a shell is coming away, and the socket it is coming off. */
-function swelling(world: World): number {
-  for (let i = 0; i < 30 && batonDark(arm(world)) < CFG.batonShedAfter; i++) handover(world);
-  for (let i = 0; i < 40 * TPB && arm(world).swellSocket < 0; i++) step(world, []);
-  const socket = arm(world).swellSocket;
-  expect(socket).toBeGreaterThanOrEqual(0);
-  return socket;
-}
-
-/**
- * That seat acted, so the beat has it locked out of the ship — which is what
- * makes it the one seat that may reach the arm (`batonMayStrip`). Player 1's
- * act is the trigger and player 2's is a shot, whatever it met.
- */
-function acts(world: World, player: 1 | 2): void {
-  step(world, [
-    player === 1 ? cmd(world, 1, { kind: "guard" }) : cmd(world, 2, { kind: "fire", color: "red" }),
-  ]);
-  expect(batonMayStrip(arm(world), player, world.beat)).toBe(true);
-}
 
 describe("THE BATON's strip", () => {
   it("swells a dead socket before it lets go, and the rock is the same count away", () => {
@@ -168,7 +52,7 @@ describe("THE BATON's strip", () => {
     const world = open();
     const socket = swelling(world);
     acts(world, 2);
-    step(world, [thumb(world, 2, socket, true)]);
+    strips(world, 2, socket);
     const b = arm(world);
     expect(b.sockets[socket]).toBe(BATON_SOCKET_SHED);
     expect(b.swellSocket).toBe(-1);
@@ -209,31 +93,6 @@ describe("THE BATON's strip", () => {
     expect(world.events.some((e) => e.type === "batonStripped")).toBe(true);
   });
 });
-
-/** Handovers until both beads are at rest in the last two sockets. */
-function merging(world: World): void {
-  for (let i = 0; i < 40 && arm(world).stage !== "merging"; i++) handover(world);
-  expect(arm(world).stage).toBe("merging");
-}
-
-/** Both thumbs down, for `n` beats or until the arm is done with them. */
-function bothDown(world: World, n: number): void {
-  const p1 = batonMergeSocket(CFG, 1);
-  const p2 = batonMergeSocket(CFG, 2);
-  for (let i = 0; i < n * TPB && arm(world).stage === "merging"; i++) {
-    step(world, [thumb(world, 1, p1, true), thumb(world, 2, p2, true)]);
-  }
-}
-
-/** Every event said over `n` beats, since `world.events` is one step's worth. */
-function said(world: World, n: number): Set<string> {
-  const out = new Set<string>();
-  for (let i = 0; i < n * TPB; i++) {
-    step(world, []);
-    for (const e of world.events) out.add(e.type);
-  }
-  return out;
-}
 
 describe("THE BATON's draw", () => {
   it("stops the arm at the last two sockets instead of merging on arrival", () => {

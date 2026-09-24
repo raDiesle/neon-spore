@@ -61,6 +61,8 @@ export function stepBatonShed(world: World, b: BatonState): void {
   b.sockets[socket] = BATON_SOCKET_SWELL;
   b.swellSocket = socket;
   b.swellBeat = world.beat;
+  b.stripped = 0;
+  b.stripThumbs = 0;
   world.events.push({ type: "batonSwell", col: b.col, socket });
 }
 
