@@ -410,6 +410,7 @@ job name beside it.
 ## Player-facing marks still say PILOT'S, NAVIGATOR'S and SEAT
 
 - **Found:** 2026-09-23, claude/task-queue-work-e21054
+- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-player-facing-marks-still-say-pilots-navigators)
 - **Files:** `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/handle-word.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/maze-grip.ts`, `packages/render/src/maze-string.ts`, `packages/render/src/pair-call.ts`, `packages/render/src/stare-draw.ts`, `packages/render/src/ready-words.ts`, `packages/content/src/screen-words.ts`, `apps/game/src/menu-seats.ts`, `tools/words/test/drawn.test.ts`
 - **Asks:** On a grip mark and a pair call, which does a player read — `P1'S` / `P2'S`, or `PLAYER 1'S` / `PLAYER 2'S`? And the menu's screen chooser, whose card names are PILOT and NAVIGATOR and whose heading is SEAT — `PLAYER 1` / `PLAYER 2` under `SCREEN`, or keep the job names there as a proper noun?
 - **Where:** local
