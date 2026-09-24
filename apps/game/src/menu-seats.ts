@@ -58,7 +58,7 @@ export interface SeatBlock {
 
 export function buildSeats(onSeat: (role: ViewRole) => void): SeatBlock {
   const block = el("div", "seats");
-  block.append(el("h2", undefined, "SEAT"));
+  block.append(el("h2", undefined, "SCREEN"));
   const note = el("p", "seat-note");
   const buttons = SEATS.map((s) => {
     const button = el("button", "seat-card");

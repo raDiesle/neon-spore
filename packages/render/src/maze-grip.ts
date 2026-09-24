@@ -40,7 +40,7 @@ import type { ViewRole } from "./view-role.js";
 const RING_MUL = 0.72;
 
 /** Whose it is, in words: the navigator's, and the pilot is told so. */
-const HEART_WORDS: HandleWords = { seat: 2, mine: "PULL", theirs: "NAVIGATOR'S" };
+const HEART_WORDS: HandleWords = { seat: 2, mine: "PULL", theirs: "P2'S" };
 
 /** No wheel up, no room: a radius of nought is never hit and never drawn. */
 const NO_ROOM = 0;

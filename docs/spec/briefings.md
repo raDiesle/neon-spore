@@ -882,7 +882,7 @@ its verb to the cue and gained what a call costs: `EACH GOOD CALL MOVES THEM`.
 THE WARDEN's two rows are the same day and are the first for a boss whose
 handle is **on the field**, which is what makes them different from the eleven
 above. A handle already draws a word of its own while nobody is holding it —
-`PULL` on the seat whose it is, `PILOT'S` on the other (`handle-draw.ts`) — so
+`PULL` on the seat whose it is, `P1'S` on the other (`handle-draw.ts`) — so
 his page was the third copy of one word, and it came out whole rather than
 being rewritten: the cue speaks only *after* the grab, `CARRY` / `PULL` while
 the line is short and `HOLD` once it is taut, which is the half no picture was

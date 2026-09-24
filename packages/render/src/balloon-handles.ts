@@ -174,7 +174,7 @@ function drawOne(
 /**
  * Which way this one has to go, and whose it is.
  *
- * `drawHandleHint`'s three older callers say "PULL" to the pilot and "PILOT'S"
+ * `drawHandleHint`'s three older callers say "PULL" to the pilot and "P1'S"
  * to the navigator, because every handle written before this one was the
  * pilot's. Here each seat has one, so the word names the *direction* instead:
  * the pair already knows whose side is whose, and what a thumb needs told is

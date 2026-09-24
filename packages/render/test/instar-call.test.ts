@@ -108,7 +108,7 @@ describe("the call, read", () => {
     const call = instarCall(s, CFG, world.beat, 0);
     const open = s.steps[at]?.marks[1];
     expect(open?.seat === "p1" || open?.seat === "p2").toBe(true);
-    expect(call?.kind).toBe(open?.seat === "p1" ? "PILOT NOW" : "NAVIGATOR NOW");
+    expect(call?.kind).toBe(open?.seat === "p1" ? "P1 NOW" : "P2 NOW");
   });
 
   it("counts the beats down as the together window closes", () => {
@@ -160,7 +160,7 @@ describe("the call, drawn", () => {
     });
     const said = texts.map((t) => t.text);
     const open = s.steps[at]?.marks[1];
-    expect(said).toContain(open?.seat === "p1" ? "PILOT NOW" : "NAVIGATOR NOW");
+    expect(said).toContain(open?.seat === "p1" ? "P1 NOW" : "P2 NOW");
     expect(said.some((t) => t.endsWith("BEATS LEFT") || t.endsWith("BEAT LEFT"))).toBe(true);
   });
 });

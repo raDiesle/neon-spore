@@ -157,4 +157,4 @@ export function drawMazeString(
 }
 
 /** The pilot's, still — but under `grip` the hand holds rather than pulls. */
-const BRACE_WORDS: HandleWords = { seat: 1, mine: "HOLD", theirs: "PILOT'S" };
+const BRACE_WORDS: HandleWords = { seat: 1, mine: "HOLD", theirs: "P1'S" };

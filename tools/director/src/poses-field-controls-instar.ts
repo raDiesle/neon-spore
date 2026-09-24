@@ -11,12 +11,12 @@ import { fresh, type Pose, run, runUntil } from "./pose-kit.js";
  * the reader is asking is what a mark looks like when it is *yours* and
  * half answered — the ring bright under a thumb, its arc half filled, the
  * word PULL DOWN over it, the window ring closing in — and, beside it, the
- * navigator's mark on the upper jaw dim, with NAVIGATOR'S over it and its
+ * navigator's mark on the upper jaw dim, with P2'S over it and its
  * arc empty, because she has not pulled yet (`render/instar-marks.ts`).
  */
 export const INSTAR_PULL: Pose = {
   name: "INSTAR · THE JAW HALF PULLED",
-  note: "THE INSTAR hung head-down over the field in the gape, the lower jaw dragged half its way by a thumb on the pilot's mark — ring bright, arc half round, PULL DOWN in its box — and the navigator's mark on the upper jaw dim, NAVIGATOR'S over it, arc empty. The window ring stands partway in on both. Player 1's screen.",
+  note: "THE INSTAR hung head-down over the field in the gape, the lower jaw dragged half its way by a thumb on the pilot's mark — ring bright, arc half round, PULL DOWN in its box — and the navigator's mark on the upper jaw dim, P2'S over it, arc empty. The window ring stands partway in on both. Player 1's screen.",
   lookAt:
     "whether the two marks read as his and hers at a glance, whether the jaw reads as pulled by the thumb rather than open on its own, and whether the closing ring reads as time running out",
   crop: "field",

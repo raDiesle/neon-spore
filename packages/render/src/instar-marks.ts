@@ -39,8 +39,8 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * Whose the mark is, is the split of this boss (`view-role-clocks-b.ts`):
  * on the seat it wants, the ring is bright and the box carries the kind and
  * the gesture (`docs/decisions.md` #34's own vocabulary, `boss-cue.ts`); on
- * the other, the ring is dim and the box carries one line, *PILOT'S* or
- * *NAVIGATOR'S*, because that seat's job is to watch it and say when it is
+ * the other, the ring is dim and the box carries one line, *P1'S* or
+ * *P2'S*, because that seat's job is to watch it and say when it is
  * done.
  *
  * Nothing is drawn but in the `act` phase, save the **anticipation**: over
@@ -81,7 +81,7 @@ export const INSTAR_WORDS: Record<InstarGesture, { kind: CueKind; word: string }
  * own mark, the owner's name alone on its partner's. */
 export function instarMarkWord(mark: InstarMark, role: ViewRole): { kind?: CueKind; word: string } {
   if (instarMarkIsMine(role, mark.seat)) return INSTAR_WORDS[mark.gesture];
-  return { word: mark.seat === "p1" ? "PILOT'S" : "NAVIGATOR'S" };
+  return { word: mark.seat === "p1" ? "P1'S" : "P2'S" };
 }
 
 /** The morph's last stretch over which the marks glow up on their parts. */

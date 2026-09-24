@@ -62,7 +62,7 @@ describe("the second seat's clock, read", () => {
     const world = hung("taster");
     boss(world, "taster").pryBeat = world.beat;
     const n = CFG.tasterPryBeats;
-    expect(pairCall(world, 0)).toEqual({ kind: "NAVIGATOR NOW", word: `${n} BEATS LEFT` });
+    expect(pairCall(world, 0)).toEqual({ kind: "P2 NOW", word: `${n} BEATS LEFT` });
     world.beat += n - 1;
     expect(pairCall(world, 0.5)?.word).toBe("1 BEAT LEFT");
     world.beat += 1;
@@ -76,7 +76,7 @@ describe("the second seat's clock, read", () => {
     b.clampBeat = world.beat;
     b.clampUntil = world.beat + CFG.diastoleClampBeats;
     const n = CFG.diastoleClampBeats;
-    expect(pairCall(world, 0)).toEqual({ kind: "NAVIGATOR NOW", word: `${n} BEATS LEFT` });
+    expect(pairCall(world, 0)).toEqual({ kind: "P2 NOW", word: `${n} BEATS LEFT` });
     // Caught on the next contraction: the window has not opened yet.
     b.clampBeat = world.beat + 1;
     expect(pairCall(world, 0)).toBeNull();
@@ -97,7 +97,7 @@ describe("the second seat's clock, read", () => {
     bead.struck = false;
     bead.flightTick = world.tick;
     const n = CFG.batonFlightBeats;
-    expect(pairCall(world, 0)).toEqual({ kind: "NAVIGATOR NOW", word: `${n} BEATS LEFT` });
+    expect(pairCall(world, 0)).toEqual({ kind: "P2 NOW", word: `${n} BEATS LEFT` });
     bead.struck = true;
     expect(pairCall(world, 0)).toBeNull();
   });
@@ -108,13 +108,13 @@ describe("the second seat's clock, read", () => {
     s.heldP1 = false;
     s.heldP2 = true;
     s.liftTick = world.tick;
-    expect(pairCall(world, 0)).toEqual({ kind: "NAVIGATOR NOW", word: "1 BEAT LEFT" });
+    expect(pairCall(world, 0)).toEqual({ kind: "P2 NOW", word: "1 BEAT LEFT" });
     world.tick += TPB + 1;
     expect(pairCall(world, 0)).toBeNull();
     world.tick -= TPB + 1;
     s.heldP1 = true;
     s.heldP2 = false;
-    expect(pairCall(world, 0)?.kind).toBe("PILOT NOW");
+    expect(pairCall(world, 0)?.kind).toBe("P1 NOW");
     s.liftTick = NO_LIFT;
     expect(pairCall(world, 0)).toBeNull();
   });
@@ -125,7 +125,7 @@ describe("the second seat's clock, read", () => {
     s.phase = "last";
     s.handMilli = [0, NO_HAND];
     s.liftTick = world.tick;
-    expect(pairCall(world, 0)).toEqual({ kind: "PILOT NOW", word: "1 BEAT LEFT" });
+    expect(pairCall(world, 0)).toEqual({ kind: "P1 NOW", word: "1 BEAT LEFT" });
     s.phase = "pull";
     expect(pairCall(world, 0)).toBeNull();
   });
@@ -157,7 +157,7 @@ describe("the second seat's clock, drawn", () => {
       },
     });
     const said = texts.map((t) => t.text);
-    expect(said).toContain("NAVIGATOR NOW");
+    expect(said).toContain("P2 NOW");
     expect(said.some((t) => t.endsWith("BEATS LEFT"))).toBe(true);
   });
 });

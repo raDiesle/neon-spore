@@ -83,7 +83,7 @@ export function waiting(
   y: number,
   s: WaitingState,
 ): void {
-  const them = s.both ? "THE OTHER SEAT" : seatName(s.other, s.names);
+  const them = s.both ? "THE OTHER PLAYER" : seatName(s.other, s.names);
   ctx.textAlign = "center";
   if (s.mineReady && !s.theirsReady) {
     ctx.globalAlpha = 0.62 + 0.38 * Math.abs(Math.sin(s.beat * 2.2));

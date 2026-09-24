@@ -22,10 +22,10 @@ import { seatOf } from "./view-role.js";
 const PLUME_TILES = 1.5;
 
 /** Whose each is, in words. Only ever read by the seat that owns it (`fleet-grip.ts`). */
-const RAKE_WORDS: HandleWords = { seat: 1, mine: "RAKE", theirs: "PILOT'S" };
-const KEEP_WORDS: HandleWords = { seat: 1, mine: "HOLD", theirs: "PILOT'S" };
-const BREACH_WORDS: HandleWords = { seat: 2, mine: "HOLD", theirs: "NAVIGATOR'S" };
-const WRECK_WORDS: HandleWords = { seat: 2, mine: "PULL", theirs: "NAVIGATOR'S" };
+const RAKE_WORDS: HandleWords = { seat: 1, mine: "RAKE", theirs: "P1'S" };
+const KEEP_WORDS: HandleWords = { seat: 1, mine: "HOLD", theirs: "P1'S" };
+const BREACH_WORDS: HandleWords = { seat: 2, mine: "HOLD", theirs: "P2'S" };
+const WRECK_WORDS: HandleWords = { seat: 2, mine: "PULL", theirs: "P2'S" };
 
 /** This seat's ring under this state: whether a thumb is on it, and its word. */
 function gripOf(b: FleetState, seat: 1 | 2): { held: boolean; words: HandleWords } {

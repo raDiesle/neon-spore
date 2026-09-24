@@ -30,8 +30,8 @@ import { showsStareTarget, showsStareWatched } from "./view-role-clocks-b.js";
  * knows a look is coming (`docs/spec/bosses.md` §11.16).
  *
  * **What one screen sees**: the seat's name beside the eye, on the screen of
- * the seat that is *not* about to be frozen — PILOT on the navigator's,
- * NAVIGATOR on the pilot's — from the beat the turn begins to the beat the
+ * the seat that is *not* about to be frozen — P1 on the navigator's,
+ * P2 on the pilot's — from the beat the turn begins to the beat the
  * look ends; and, once the look has landed, the gaze itself falling on the
  * watched seat's field, red from the eye down over the first rows, which is
  * the picture's *hands off* to the one pair of hands it is about
@@ -99,7 +99,7 @@ export function drawStare(
 
   // And the name, on the screen that is told.
   if (told && boss.watching !== 0 && showsStareTarget(l.role, boss.watching)) {
-    const word = boss.watching === 1 ? "PILOT" : "NAVIGATOR";
+    const word = boss.watching === 1 ? "P1" : "P2";
     drawInstarWord(ctx, l, word, eye.cx + eye.rx * 1.2, eye.cy, 1, true);
   }
 }

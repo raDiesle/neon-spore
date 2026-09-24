@@ -38,8 +38,8 @@ function drawn(word: string, kind?: string): TextBox[] {
 
 describe("THE INSTAR's scanner box", () => {
   it("draws one line when no kind is given — THE STARE's and THE FILAMENT's own calls", () => {
-    const texts = drawn("PILOT'S");
-    expect(texts.map((t) => t.text)).toEqual(["PILOT'S"]);
+    const texts = drawn("P1'S");
+    expect(texts.map((t) => t.text)).toEqual(["P1'S"]);
   });
 
   it("draws the kind above the verb when the two differ", () => {

@@ -21,7 +21,7 @@ guide would ask for. `bun run words` is the same brief as numbers.
 | `packages/content/src/waves/act-*.ts` | `name`, `sentence` | the HUD, the wave list, the guide's last page |
 | `packages/content/src/mechanics-*.ts` | `what` | **a menu button** — the DEMOS page (`apps/game/src/demo-menu.ts`) |
 | `packages/content/src/screen-words.ts` | `LINK_WORDS[].what` | the card when the line to the other phone drops (`apps/game/src/hold.ts`) |
-| `packages/content/src/screen-words.ts` | `SCREEN_WORDS[].what` | the menu's screen chooser (`apps/game/src/menu-seats.ts`) |
+| `packages/content/src/screen-words.ts` | `SCREEN_WORDS[].name`, `.what` | the menu's screen chooser (`apps/game/src/menu-seats.ts`) |
 
 **A caption is not here.** `GuideScene.steps[].text` is held to 28 characters
 and to the present tense by `packages/content/test/scenes.test.ts`, and the
@@ -99,8 +99,8 @@ contradicted in text a player reads:
 |---|---|---|
 | lane | **column** | `CLAUDE.md` fixes it, and the strip is drawn in columns |
 | bolt | **shot** | the player presses a trigger; what leaves is a shot |
-| pilot | **Player 1** | no screen anywhere shows a player the word *pilot* |
-| navigator | **Player 2** | the same |
+| pilot | **Player 1** — **P1** on a mark or a call | no screen anywhere shows a player the word *pilot*; the short form fits a mark, the owner, 24 September 2026 |
+| navigator | **Player 2** — **P2** on a mark or a call | the same |
 | seat | **screen** | *seat* is the code's word; a player has a screen |
 | ward, plate, guard | **shield** | the owner's word, 21 September 2026 — the button a thumb is on already says it |
 

@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-24 — A player reads P1'S and P2'S on a mark, and PLAYER 1 and 2 on the menu
+
+- reading: 0 min. The two queue entries and the fifteen `STANDING` lines.
+- writing: 5 min. The literals, four comments, the spec and director notes
+  that quote them, the chooser's names into `playerText`, and the skill's
+  two vocabulary rows.
+- looking: 0 min. THE FLEET's frame showed no `theirs` word on either
+  screen, so the picture is THE INSTAR's instead.
+- friction: 0 min.
+- landing: 5 min. `check:fast` red once on THE STARE's frame test, which
+  told the two names apart by their width; it now reads the words.
+
+The bottleneck was **landing**: a test that proved a word by the picture it
+made could not tell two words of one width apart.
+
 ## 2026-09-24 — `--boss-json` writes a list at any length, checked item by item
 
 - reading: 0 min. The queue entry's five bosses, `boss-install.ts`, and why

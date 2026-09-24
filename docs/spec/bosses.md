@@ -732,7 +732,7 @@ their partner scored.
 `docs/decisions.md` #34). Three words, and the first cue for a boss whose
 handle is on the field — which is what decides when it may speak at all. A
 handle draws its own word while nobody is holding it, `PULL` on the seat whose
-it is and `PILOT'S` on the other (`handle-draw.ts`), so the cue says nothing
+it is and `P1'S` on the other (`handle-draw.ts`), so the cue says nothing
 until the grab: then `CARRY` / `PULL` on the handle wherever he has carried it
 while the line is short, and `HOLD` — the word and the kind at once — once it
 is taut, because what the fight wants of him then is a hand that does nothing.
@@ -1723,7 +1723,7 @@ the picture, her pull on the picture; `verdict`. The two dials are in
 ring, the circle the muscle already beats in — is her handle: a ring stands
 on it on the navigator's screen alone (and `test`), THE GORGE's and THE
 MIRROR's ring (`grip-rings.ts`), breathing until her thumb lands and filled
-once it has, with `PULL` over it until then and `NAVIGATOR'S` on his side of
+once it has, with `PULL` over it until then and `P2'S` on his side of
 the words. Round it, on both screens, the dial of `mazeGripBeats` running
 out from the beat the shot arrived — the one readout of the window, on the
 screen that has to pull inside it and the screen that has to hold. The
@@ -7260,7 +7260,7 @@ briefing*. Both are in the picture.
   and over each a **scanner box of two lines**, bright on the seat whose
   mark it is — the gesture (PULL DOWN, PULL UP, TAP TAP, SWIPE DOWN, TURN,
   HOLD BOTH) and, above it, the kind of action it is (CARRY, PRESS, TURN,
-  HOLD) — dim and one line, *PILOT'S* or *NAVIGATOR'S*, on the other
+  HOLD) — dim and one line, *P1'S* or *P2'S*, on the other
   (`instar-word.ts`, `instarMarkIsMine` in `view-role-clocks-b.ts`). **The
   kind line is 19 September 2026's finding**: the owner's own brief for
   this box asked for it from the start (*"one word … and above it what

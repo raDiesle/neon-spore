@@ -22,7 +22,7 @@ import { wardenGripCircle } from "./warden-grip.js";
  * The five pages before this one mark a body, a lobe, a socket or a door. This
  * one marks a thing a hand is *already holding*, and that changes what may be
  * said: a handle draws its own word while nobody has it — `PULL` to the seat
- * whose it is and `PILOT'S` to the other (`handle-draw.ts`) — so a cue that
+ * whose it is and `P1'S` to the other (`handle-draw.ts`) — so a cue that
  * repeated it would be the four-pictures-for-one-idea mistake `target-lock.ts`
  * records the owner ending. What the picture does *not* say is what happens
  * after the grab, and that is the whole of this page.

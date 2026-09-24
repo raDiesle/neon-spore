@@ -391,39 +391,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The screen chooser's two card names say PILOT and NAVIGATOR
-
-- **Found:** 2026-09-23, claude/queue-six-strings-a-player-reads-are-outside-the-words
-- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-the-screen-choosers-two-card-names-say-pilot-and)
-- **Files:** `packages/content/src/screen-words.ts`, `tools/words/text.ts`, `.claude/skills/game-words/SKILL.md`
-- **Asks:** Should the two cards read PLAYER 1 and PLAYER 2, or do PILOT and NAVIGATOR stay as the names of the jobs?
-
-`.claude/skills/game-words` says no screen shows a player the word *pilot* or
-*navigator*, and `SCREEN_WORDS.p1.name` and `.p2.name` are exactly those, in
-capitals, on the menu. The words check does not see them because only the
-`what` under each card is in its inventory. Either answer is small: **PLAYER 1
-/ PLAYER 2** changes the two names and adds them to `text.ts` as `name`
-entries, which the vocabulary rows then hold; **keep them** changes the two
-table rows in the skill to say the menu's job names are the one exception.
-The card's tag already reads P1 or P2, which is the argument for keeping a
-job name beside it.
-
-## Player-facing marks still say PILOT'S, NAVIGATOR'S and SEAT
-
-- **Found:** 2026-09-23, claude/task-queue-work-e21054
-- **Taken:** 2026-09-24, claude/queue-task-b0bde7 (claim: claude/queue-player-facing-marks-still-say-pilots-navigators)
-- **Files:** `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/handle-word.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/maze-grip.ts`, `packages/render/src/maze-string.ts`, `packages/render/src/pair-call.ts`, `packages/render/src/stare-draw.ts`, `packages/render/src/ready-words.ts`, `packages/content/src/screen-words.ts`, `apps/game/src/menu-seats.ts`, `tools/words/test/drawn.test.ts`
-- **Asks:** On a grip mark and a pair call, which does a player read — `P1'S` / `P2'S`, or `PLAYER 1'S` / `PLAYER 2'S`? And the menu's screen chooser, whose card names are PILOT and NAVIGATOR and whose heading is SEAT — `PLAYER 1` / `PLAYER 2` under `SCREEN`, or keep the job names there as a proper noun?
-- **Where:** local
-
-The vocabulary says a player is never shown pilot, navigator or seat, and the
-guides obey it; fifteen drawn literals do not (`drawn.test.ts`, `STANDING`).
-The long form is what the guides say; the short form is what the seat
-switcher already shows and fits a mark a quarter of the width. The chooser is
-the one place the job name could stand as a name, as `THE WARD` does. Once
-answered, change the literals, strike the lines, and send one frame of THE
-FLEET's grip marks.
-
 ## A short phone stands the hull between two black side bars
 
 - **Found:** 2026-09-23, claude/queue-a-phone-in-test-mode-has-nowhere-to-put-two-band

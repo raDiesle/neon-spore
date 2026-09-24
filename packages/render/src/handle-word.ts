@@ -40,7 +40,7 @@ export const HINT_SOFT: HintStyle = { fontTiles: 0.26, mine: 0.8, theirs: 0.4 };
  * until THE BALLOON, which has one per seat, and the seat was baked in here as
  * `role !== "p2"` — so the balloon grew a four-line copy of this word with the
  * seat passed in. `HandleWords` is that copy folded back: the three older
- * callers pass `{ seat: 1, mine: "PULL", theirs: "PILOT'S" }` and draw byte for
+ * callers pass `{ seat: 1, mine: "PULL", theirs: "P1'S" }` and draw byte for
  * byte what they always drew.
  */
 export interface HandleWords {
@@ -55,7 +55,7 @@ export interface HandleWords {
 
 /** The pilot's handle, said the way the three handles older than THE BALLOON
  * say it. Named so a fourth one of the same kind does not spell it out again. */
-export const PILOT_HANDLE: HandleWords = { seat: 1, mine: "PULL", theirs: "PILOT'S" };
+export const PILOT_HANDLE: HandleWords = { seat: 1, mine: "PULL", theirs: "P1'S" };
 
 export function drawHandleHint(
   ctx: CanvasRenderingContext2D,

@@ -64,7 +64,7 @@ import type { Layout } from "./layout.js";
 
 /** What a seat is called out loud, which is what the pair calls each other. */
 export function seatCalled(seat: 1 | 2): string {
-  return seat === 1 ? "PILOT" : "NAVIGATOR";
+  return seat === 1 ? "P1" : "P2";
 }
 
 export interface PairCall {

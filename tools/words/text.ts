@@ -69,6 +69,7 @@ export function playerText(): TextEntry[] {
     out.push(...lines(`LINE CARD · ${key}`, "what", card.what));
   }
   for (const [key, card] of Object.entries(SCREEN_WORDS)) {
+    out.push({ id: `SCREEN CARD · ${key} · name`, kind: "name", text: card.name });
     out.push(...lines(`SCREEN CARD · ${key}`, "what", card.what));
   }
   return out;

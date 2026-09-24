@@ -35,9 +35,9 @@ export interface ScreenWords {
   what: string;
 }
 
-/** The job each card names, and the sentence under it. */
+/** Whose screen each card is, and the sentence under it. */
 export const SCREEN_WORDS: Record<"p1" | "p2" | "test", ScreenWords> = {
-  p1: { name: "PILOT", what: "Slides the cannon, opens the maw, triggers the shield." },
-  p2: { name: "NAVIGATOR", what: "Slides the shield, fires red and cyan." },
+  p1: { name: "PLAYER 1", what: "Slides the cannon, opens the maw, triggers the shield." },
+  p2: { name: "PLAYER 2", what: "Slides the shield, fires red and cyan." },
   test: { name: "ONE SCREEN", what: "Both bands and the test rig, for one person at a desk." },
 };

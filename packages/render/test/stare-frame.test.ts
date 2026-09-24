@@ -14,6 +14,7 @@ import { bandLobes } from "../src/band-lobes.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import type { TextBox } from "./canvas-stub.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -121,15 +122,24 @@ function back(world: World): StareState {
   return s;
 }
 
-function drawn(world: World, role: ViewRole, ticks: number): { calls: number; text: string } {
+interface Drawn {
+  calls: number;
+  text: string;
+  /** Every word `fillText` was given, in order. */
+  words: string[];
+}
+
+function drawn(world: World, role: ViewRole, ticks: number): Drawn {
   const log: string[] = [];
+  const boxes: TextBox[] = [];
   const { ctx } = runFrames(world, role, ticks, {
     every: 3,
     onCanvas: (c) => {
       c.log = log;
+      c.texts = boxes;
     },
   });
-  return { calls: ctx.calls, text: log.join("|") };
+  return { calls: ctx.calls, text: log.join("|"), words: boxes.map((b) => b.text) };
 }
 
 function count(text: string, colour: string): number {
@@ -137,7 +147,7 @@ function count(text: string, colour: string): number {
 }
 
 /** Three frames, inside a beat, with the eye set as `arrange` says. */
-function frame(role: ViewRole, arrange: (world: World) => void): { calls: number; text: string } {
+function frame(role: ViewRole, arrange: (world: World) => void): Drawn {
   const world = hung();
   away(world);
   arrange(world);
@@ -180,10 +190,11 @@ describe("THE STARE's eye", () => {
     expect(named("p2", 2)).toBe(bare("p2"));
     expect(named("test", 1)).toBeGreaterThan(bare("test"));
     expect(named("test", 2)).toBeGreaterThan(bare("test"));
-    // And it says which: the two names are two pictures on the screen told.
-    expect(frame("test", (w) => turning(w, 1)).text).not.toBe(
-      frame("test", (w) => turning(w, 2)).text,
-    );
+    // And it says which. The two names are one width since they became P1
+    // and P2, so it is the word that is asked, not the picture.
+    expect(frame("test", (w) => turning(w, 1)).words).toContain("P1");
+    expect(frame("test", (w) => turning(w, 2)).words).toContain("P2");
+    expect(frame("test", (w) => turning(w, 2)).words).not.toContain("P1");
   });
 
   it("lays the gaze on the watched seat's field and not the other's", () => {

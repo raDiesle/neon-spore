@@ -22,7 +22,7 @@ export const INSTAR_CONTROLS: readonly FieldControlDef[] = [
       "the step's window is open; a second ring closing in on it is the window",
     seat:
       "the seat the mark names — bright with the gesture's word on that seat's " +
-      "screen, dim with PILOT'S or NAVIGATOR'S on the other; a middle mark wants " +
+      "screen, dim with P1'S or P2'S on the other; a middle mark wants " +
       "both thumbs; the test screen is both",
     // The hold is a drag; what the drag *means* — a tap, a swipe, a turn, a
     // hold — is the mark's gesture, said in `does`.
