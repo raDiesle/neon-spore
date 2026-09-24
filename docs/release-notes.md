@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · a25a99cd — On a phone the director opens on the briefing, and BRIEF and ↺ stand over the field
+
+The director's GAME view on a phone starts with briefings on, and the strip over the field carries BRIEF and ↺ beside TEST, P1 and P2 — the phone's own copies of RUN's BRIEFINGS and ↺ WAVE, lit and bound with them. The five are smaller, 32px, and stand in a column down the right edge under ☰, clear of the card's TUTORIAL and WAVE badges. Under TEST two thumbs already hold both of THE INSTAR's jaws at once, in either order; a test now pins it.
+
 ## 2026-09-24 · 74ba3bc0 — THE INSTAR answers every touch green or red, and shows whose mark is waited on
 
 A touch on THE INSTAR is now judged on the mark it touched, straight away. If it moved the part, the mark washes green and a green ring opens off it. If it was refused or the part slipped, the mark washes red. This seat's open mark wears a breathing halo, so it is the brightest thing on the screen. The partner's open mark wears a turning dashed ring beside its "P2'S" label. The progress arc is green, so a pull begun the right way shows it is on its way.
