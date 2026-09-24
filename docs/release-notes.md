@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-24 · 71e556a7 — THE BATON's windows are doubled, and THE SLOW spans its asks
+
+On the owner's rule of 22 September: a swelling shell now stands six beats and asks two strips of the locked seat, each a fresh thumb, before it comes away; the draw has twelve beats to hold both thumbs down for four; and the crossing is twenty-two beats long, owing an act in every one. THE SLOW opens on this fight for the first time, over those three asks alone, and shuts on each one's own ends (baton-slow.ts). A handover still plays at speed.
+
 ## 2026-09-24 · 8e9b37fa — THE HASP's fuses and winding are doubled, and THE SLOW spans every grip
 
 On the owner's rule of 22 September: a grip now lasts twelve beats before it burns (eight on the last clasp), and a clasp asks sixteen hundred of turn, eight hundred more for each after it. THE SLOW no longer opens for two beats when a burn takes a wind; it spans each grip for its fuse and shuts the tick the grip ends - let go, burnt off, or the clasp wound open (haspSlow). haspSlowBeats is gone with the moment it timed.
