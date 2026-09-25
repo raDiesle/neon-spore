@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · cb334414 — THE SPLICE looks like the inside of a living ship
+
+Each mouth is now a grown pipe with SUCK on its rim, Super Mario's shape made of flesh, and the straw runs down inside it. A sucked number shakes for a beat while air rushes in round it, then travels, and swells the pipe on its way down. The numbers are amber slime drops that glint like a power-up. The clock is an eater, the shape sheet's TENDRIL, let down from an orifice in the ceiling as the beats are spent; it opens its mouth near the end, takes the number with its tongue when time runs out, and drops onto the hull. Ribbed flesh walls, a vaulted ceiling and pulsing veins make the field a hold.
+
 ## 2026-09-25 · ce9ba170 — THE MAZE's way in flares into a funnel as wide as its snap
 
 The rim's cut now opens outward into a funnel: narrow where it meets the corridor, and at its mouth exactly as wide as the window a way in clicks onto the ship's column from. So the part of the rim that will catch is the part that looks like it will. The lit door's green cut ends follow the same lips.

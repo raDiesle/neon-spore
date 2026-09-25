@@ -20084,3 +20084,5 @@ so the bezel, the door and the rule all ask one file for its width.
 
 The bottleneck was **writing**: five pictures, each with its own motion, had to
 be drawn off the beat alone without leaking the clock to the pilot.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
