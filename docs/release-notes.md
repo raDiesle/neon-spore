@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 51591137 — THE INSTAR closes a mouth about to breathe fire, then its brood, then its tail
+
+The owner's choreography of 25 September 2026 is the script: three steps instead of five. It flies in slowly from far off, jaws already open on a fire, and the pair push the jaws shut; it flies off, crosses twice and comes in side on, and one seat squashes the eggs on its back while the other swipes them off; it goes out one side and in the other, and each seat taps its own blade of the forked tail back. Every step now names how the body arrives (`approach`, `passes`, `cross`), and the arrival is in the hash. The picture is still the larva's until the look lane lands; that lane is the owner's ask by name.
+
 ## 2026-09-25 · cb334414 — THE SPLICE looks like the inside of a living ship
 
 Each mouth is now a grown pipe with SUCK on its rim, Super Mario's shape made of flesh, and the straw runs down inside it. A sucked number shakes for a beat while air rushes in round it, then travels, and swells the pipe on its way down. The numbers are amber slime drops that glint like a power-up. The clock is an eater, the shape sheet's TENDRIL, let down from an orifice in the ceiling as the beats are spent; it opens its mouth near the end, takes the number with its tongue when time runs out, and drops onto the hull. Ribbed flesh walls, a vaulted ceiling and pulsing veins make the field a hold.
