@@ -49,10 +49,7 @@ export {
   livingScale,
   rindPrevBodyMul,
 } from "./creature-place.js";
-export { creatureAt } from "./creature-under.js";
 export { drawnCol, drawnRow } from "./depth.js";
-export { deskDown, deskDownAll, pressSeat } from "./desk-grab.js";
-export { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-seat.js";
 export { smoothstep } from "./ease.js";
 export {
   type Dial,
@@ -87,6 +84,9 @@ export {
   type HullBreakLook,
   type HullBreakPaint,
 } from "./hull-break-look.js";
+// A finger on the field, and whose it is: every name a host needs to answer a
+// touch the way the frame is drawn, on a page of its own (`index-touch.ts`).
+export * from "./index-touch.js";
 export { drawIntroScene, introOver, playBox } from "./intro-scene.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {
@@ -166,7 +166,6 @@ export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";
 export { SplashTrail } from "./splash-trail.js";
 export { splinters } from "./splinter.js";
 export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
-export { type CanvasBox, clientOfStage, pointOnStage } from "./stage-point.js";
 export { clearSurface } from "./surface-clear.js";
 // THE WARDEN's four ropes and the switch between them, for the ON THE FIELD
 // page to draw each as the real thing (`tether-looks.ts`).
@@ -177,20 +176,6 @@ export {
   useTetherLook,
 } from "./tether-looks.js";
 export { drawTorchRock } from "./torch.js";
-export { type Field, type Hold, type Touch, touchDown, touchMove, touchUp } from "./touch.js";
-export {
-  cannonGrab,
-  type ShipHand,
-  type ShipMark,
-  shieldGrab,
-  shipHand,
-  shipUnder,
-  sucksOnLift,
-  swipeColor,
-} from "./touch-ship.js";
-/** Where the two lobes ride THE WELL's ring, for a caller that has to put a
- * pointer on one rather than read where one landed (`apps/game/src/field-input.ts`). */
-export { wellCannonGrab, wellShieldGrab } from "./touch-well.js";
 export { drawVane } from "./vane-draw.js";
 export { drawVeilCloud } from "./veil.js";
 export { foam } from "./veil-foam.js";

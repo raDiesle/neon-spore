@@ -397,16 +397,6 @@ Per boss, the work is:
 
 Each boss lands as *a look the owner asked for by name*.
 
-## `render/src/index.ts` is 20 lines under the ceiling
-
-- **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4
-- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-render-src-index-ts-is-20-lines-under-the-ceilin)
-- **Files:** `packages/render/src/index.ts`
-
-The size hook flagged it when `hitReach` was exported. It is a barrel, so
-the seam is by consumer: the touch exports (`touch*`, `hit*`, the grips)
-as one `export … from` block in a file of their own, re-exported once.
-
 ## Eighteen captions point at a corner that is empty until a retry
 
 - **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4

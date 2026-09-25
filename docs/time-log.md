@@ -20602,3 +20602,16 @@ The bottleneck was **the sort**: Biome orders `export *` lines among the named
 lists, and the new line had to go where it says.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The touch half of render's barrel is a page of its own
+
+- reading: 5 min. The barrel, and who reads `gripLabel`: the wording of a
+  drawn grip, which stays in `index.ts`.
+- writing: 5 min. `index-touch.ts` with the touch, desk and stage-point names;
+  `index.ts` re-exports it whole.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `imports:sort`, `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: the seam had to be drawn by who imports each
+name, and one name that looked like touch was a drawing's.

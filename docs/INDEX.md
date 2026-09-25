@@ -1432,6 +1432,7 @@ by hand never moves.
 | `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
 | `packages/render/src/instar-eggs.ts` | THE INSTAR's clutch, one egg per swipe, and the egg each counted swipe drops to the hull |
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
+| `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
