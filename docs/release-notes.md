@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 6eeeb25a7 — THE INSTAR bites three times, and the jaws push back
+
+THE INSTAR's first scene now has three bites. After the jaws meet, the dragon forces them open again where it is, a new arrival `stay` with no flight. On the second bite the jaws push back against both thumbs every beat, and on the third twice as hard. A jaw shut early and held still opens again under the thumb, so each pull has to go further and the two jaws have to meet at once.
+
 ## 2026-09-25 · f4d3e5e97 — Queue and time log: four more bosses wear the blow
 
 THE THROAT, THE BATON, THE CAIRN and THE VANE are on the list of bosses that wear the blow. Two findings are queued: THE VANE's pin has no event and no sound, and boss-hurt.test.ts is past 250 lines.
