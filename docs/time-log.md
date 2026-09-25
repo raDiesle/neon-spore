@@ -19914,3 +19914,5 @@ GLAND's nerves, and it takes a knob on one screen and not on the other.
 
 The bottleneck was **looking**: the clock only read once it sat on a dark
 disc wider than the track it covers.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

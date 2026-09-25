@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · c4dca831 — The partner's mark shows a waiting clock, not the gesture
+
+On THE INSTAR, a mark that belongs to the other player no longer shows the gesture inside it: a gesture on a mark read as this player's next move. It shows a clock face with its hand going round instead, on rings and on the swipe's track, and the box beside it still says whose it is.
+
 ## 2026-09-25 · 0ab570b6 — A shot runs from its button up the cord to the cannon
 
 When a shot leaves, the button that fired it flashes in the shot's colour, a bright pulse runs up the cord from that button to the cannon, and the top of the cannon bursts where the pulse arrives, red or cyan. On player 1's screen the pulse runs the cord from the cannon's knob to the hull.
