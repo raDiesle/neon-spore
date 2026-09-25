@@ -15,10 +15,11 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE VANE's blow, which `boss-hurt.test.ts`'s table cannot hold: a pin
- * knocked out of the bearing pushes no event, so the blow is a count of pins
- * lower than the last frame drew (`boss-blows.ts`), and the case here takes a
- * pin away rather than pushing a landing.
+ * The blows `boss-hurt.test.ts`'s table cannot hold, because no event deals
+ * them. THE VANE's pin knocked out pushes none, so the blow is a count of pins
+ * lower than the last frame drew (`boss-blows.ts`); THE MAZE's is timed by
+ * the right verdict on the picture, as its wound is (`maze-heart.ts`). The
+ * cases here change the world rather than push a landing.
  */
 
 beforeAll(installCanvasGlobals);
@@ -59,11 +60,38 @@ describe("THE VANE's blow", () => {
   });
 });
 
-function fourBeatsIn(): World {
+describe("THE MAZE's blow", () => {
+  it("washes the heart red while a right verdict's wound shows, and not after", () => {
+    const rims = (fresh: boolean): number => {
+      const world = fourBeatsIn("maze");
+      const m = world.boss;
+      if (m?.kind !== "maze") throw new Error("the maze wave hung no drum");
+      // A cyan heart, so the only red rim on it is the blow's.
+      m.round = 1;
+      // The same verdict both times, and only the wound's age differs: two
+      // beats on it is over (`maze-pulse.ts`).
+      m.phase = "verdict";
+      m.verdict = 1;
+      m.phaseBeat = world.beat - (fresh ? 0 : 2);
+      const log: string[] = [];
+      runFrames(world, "p1", 3, {
+        every: 3,
+        onCanvas: (c) => {
+          c.log = log;
+        },
+        onTick: () => {},
+      });
+      return log.join("|").split(PALETTE.redRim).length;
+    };
+    expect(rims(true)).toBeGreaterThan(rims(false));
+  });
+});
+
+function fourBeatsIn(boss: "vane" | "maze" = "vane"): World {
   const world = createWorld(CFG, 3);
-  const index = waveWith("vane");
+  const index = waveWith(boss);
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
   for (let i = 0; i < ticksPerBeat(CFG) * 4; i++) step(world, []);
-  if (world.boss?.kind !== "vane") throw new Error("the vane wave hung no arm");
+  if (world.boss?.kind !== boss) throw new Error(`the ${boss} wave installed no boss`);
   return world;
 }

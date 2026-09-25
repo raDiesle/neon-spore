@@ -1,5 +1,6 @@
 import { blobPoints } from "@neon-spore/content";
 import type { MazeState } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import { drawMazeBlood } from "./maze-blood.js";
 import { heartPulse, mazeHeartBlood, thump } from "./maze-pulse.js";
@@ -37,7 +38,10 @@ import { splinePath } from "./spline.js";
  * **A hit is meant to be unmissable.** The muscle is thrown open, a ring of
  * light leaves it, and blood goes out across the floor of the room and stays
  * there — through the next round and the one after, because the drum is
- * replaced and the heart is not (`maze-blood.ts`).
+ * replaced and the heart is not (`maze-blood.ts`). And it takes the blow
+ * every boss the pair beats takes (`boss-hurt.ts`): the muscle shakes and goes
+ * red for as long as the wound shows, timed by the verdict on the picture as
+ * THE FILAMENT's is, so there is still nothing here to clear.
  *
  * **The round's clock is worn on its outside**, as the contour filling round
  * in red (`maze-timer.ts`) — on the one body both screens are already looking
@@ -91,6 +95,7 @@ function skinOf(body: number, t: number): MazeSkin {
  * navigator's tear (`maze-grip.ts`). The blood and the veins' far ends stay
  * where the room is; only the body and its roots move, so a pull reads as
  * the heart coming away from the wall rather than the whole room sliding.
+ * `shake` is the blow's, sideways, in pixels, and moves the same things.
  */
 export function drawMazeHeart(
   ctx: CanvasRenderingContext2D,
@@ -101,10 +106,12 @@ export function drawMazeHeart(
   beat: number,
   beatPhase: number,
   pull = 0,
+  shake = 0,
 ): void {
   const { tint, rim } = mazeHeartBlood(m.round);
   const { time, struck, squeeze } = heartPulse(m, beat, beatPhase);
   const body = r * REST * (1 + SWELL * squeeze) * (1 + 0.28 * struck);
+  const mx = cx + shake;
   const my = cy + pull;
 
   drawMazeBlood(ctx, cx, cy, r, m, (round) => mazeHeartBlood(round).tint, beat, beatPhase);
@@ -123,7 +130,7 @@ export function drawMazeHeart(
     const ox = Math.cos(a);
     const oy = Math.sin(a);
     const reach = (r - body) * (1.04 + 0.16 * squeeze);
-    const rootX = cx + ox * body * 0.96;
+    const rootX = mx + ox * body * 0.96;
     const rootY = my + oy * body * 0.96;
     const tipX = cx + ox * (body * 0.96 + reach);
     const tipY = cy + oy * (body * 0.96 + reach);
@@ -143,12 +150,12 @@ export function drawMazeHeart(
   // The aura, which is what makes the middle read as lit from inside rather
   // than as a disc laid on the drum. It swells with the squeeze and with
   // nothing else.
-  halo(ctx, cx, my, body * (1.7 + squeeze * 1.3), tint, 0.1 + 0.3 * squeeze);
+  halo(ctx, mx, my, body * (1.7 + squeeze * 1.3), tint, 0.1 + 0.3 * squeeze);
 
   // The muscle. Its lobes lie on their side — one turn, applied to the whole
   // contour, so there is no second copy of the angle anywhere below.
   ctx.save();
-  ctx.translate(cx, my);
+  ctx.translate(mx, my);
   ctx.rotate(Math.PI / 2);
   const s = skinOf(body, time);
   const ring = blobPoints(0, 0, s.rx, s.ry, s.lobes, s.depth, s.wobble, s.t, s.seed, SKIN_POINTS);
@@ -169,6 +176,7 @@ export function drawMazeHeart(
   ctx.fill(skin);
   ctx.globalAlpha = 1;
   strokeGlow(ctx, skin, rim, STROKE.inner, 0.5 + 0.4 * squeeze);
+  drawHurt(ctx, skin, struck);
 
   // The chamber inside, which is the half of the thump the eye actually reads:
   // it fills late and empties slowly, so the muscle is never uniformly bright.
@@ -193,9 +201,9 @@ export function drawMazeHeart(
     ctx.strokeStyle = rim;
     ctx.lineWidth = 2 + 6 * struck;
     ctx.beginPath();
-    ctx.arc(cx, my, r * (0.5 + 1.5 * (1 - struck)), 0, Math.PI * 2);
+    ctx.arc(mx, my, r * (0.5 + 1.5 * (1 - struck)), 0, Math.PI * 2);
     ctx.stroke();
-    halo(ctx, cx, my, r * (1.2 + 1.4 * struck), rim, struck * 0.5);
+    halo(ctx, mx, my, r * (1.2 + 1.4 * struck), rim, struck * 0.5);
     ctx.globalAlpha = 1;
   }
   ctx.restore();

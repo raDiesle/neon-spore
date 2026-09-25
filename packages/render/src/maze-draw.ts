@@ -1,11 +1,12 @@
 import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@neon-spore/sim";
+import { hurtShake } from "./boss-hurt.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMazeDoors } from "./maze-door.js";
 import { mazeCrash, mazeFall } from "./maze-fall.js";
 import { drawMazeGrip, mazeHeartPull } from "./maze-grip.js";
 import { drawMazeHeart } from "./maze-heart.js";
 import { MAZE_LOOK } from "./maze-look.js";
-import { mazeHeartBlood } from "./maze-pulse.js";
+import { heartPulse, mazeHeartBlood } from "./maze-pulse.js";
 import { drawMazeShot } from "./maze-shot.js";
 import { drawMazeSpill, mazeSpillAge } from "./maze-spill.js";
 import { drawMazeStages } from "./maze-stage.js";
@@ -81,7 +82,9 @@ export function drawMaze(
   const crash = mazeCrash(m, beat, beatPhase);
   MAZE_LOOK.walls(ctx, drum, wheel, m.angleMilli, { fall, crash, hullY: l.hullY }, cfg);
   // What is at the end of the walk, drawn before the trail and the shot so
-  // both of them arrive *on* it rather than behind it.
+  // both of them arrive *on* it rather than behind it. A right verdict is the
+  // blow, shaking it for as long as the wound shows (`maze-heart.ts`).
+  const struck = heartPulse(m, beat, beatPhase).struck;
   drawMazeHeart(
     ctx,
     drum.cx,
@@ -91,6 +94,7 @@ export function drawMaze(
     beat,
     beatPhase,
     mazeHeartPull(l, m),
+    hurtShake(struck, time, l.tile),
   );
   drawMazeString(ctx, l, cfg, m, role, time);
   drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase, fall);
