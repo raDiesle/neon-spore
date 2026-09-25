@@ -21083,3 +21083,5 @@ to be probed and re-timed by hand once the grid moved.
 Bottleneck: most mentions were a borrowed reason ("for THE CANDLE's
 reason"), and each had to be read to find out whether the reason survives
 without the name or has to be written out.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
