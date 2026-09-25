@@ -23,8 +23,9 @@ import { showsCurtainShadow, showsCurtainSoft } from "./view-role-clocks.js";
  * hangs is its body's column, carried across a shove by `drawnCol` the way
  * every creature's glide is; which lobes stand and which are soft are the
  * state's; where the core is and whether it can be seen are the state's and
- * `curtainCoreBare`. The one thing that outlives a frame — the sheet falling
- * off the rail — is `curtain-fx.ts`'s.
+ * `curtainCoreBare`. The things that outlive a frame — the sheet falling
+ * off the rail, and the blow of a core hit, handed in as `hurt` — are
+ * `curtain-fx.ts`'s.
  *
  * **The order is the occlusion.** The core is drawn first and the fabric
  * over it, so a covered core is a colour *through* the membrane and a bare
@@ -63,6 +64,8 @@ export function drawCurtain(
   time: number,
   /** The two people's names, for the word under the ring (`grip.ts`). */
   names?: SeatNames,
+  /** How hard the blow of a core hit still shows (`curtain-fx.ts`). */
+  hurt = 0,
 ): void {
   if (l.tile <= 0) return;
   const { cfg } = world;
@@ -76,7 +79,8 @@ export function drawCurtain(
   if (bare || showsCurtainShadow(l.role)) {
     const out = c.phase === "out" ? (beat - c.phaseBeat + beatPhase) / cfg.curtainOutBeats : 0;
     const naked = c.phase === "torn";
-    drawCurtainCore(ctx, l, tileCX(l, c.coreCol), cy, c.coreColor, bare, naked, out, time);
+    const x = tileCX(l, c.coreCol);
+    drawCurtainCore(ctx, l, x, cy, c.coreColor, bare, naked, out, time, hurt);
   }
 
   if (body === undefined) return; // Torn off the rail: the core hangs alone.
@@ -86,7 +90,8 @@ export function drawCurtain(
   // carried by its top edge.
   const lag = ((body.fromCol ?? body.col) - at) * l.tile * 0.35;
   const soft = showsCurtainSoft(l.role) ? c.soft : [];
-  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, curtainHemLift(l, cfg, c), time);
+  const lift = curtainHemLift(l, cfg, c);
+  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, lift, time, hurt);
 
   // The jam, over the sheet's own rail, and the hem's ring over the sheet: both
   // are the `pinned` state and nothing else, and both draw on both screens —

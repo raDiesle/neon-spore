@@ -201,6 +201,18 @@ const ROWS: Row[] = [
     ],
     hurt: (fx) => fx.boss.lead.hurt,
   },
+  {
+    boss: "curtain",
+    land: [
+      { type: "curtainCoreHit", left: 2, col: 5 },
+      { type: "curtainOut", col: 5 },
+    ],
+    part: [
+      { type: "curtainLobeOff", left: 6, col: 5 },
+      { type: "curtainShove", dir: 1, stride: 1, col: 3 },
+    ],
+    hurt: (fx) => fx.boss.curtain.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

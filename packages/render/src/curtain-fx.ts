@@ -1,5 +1,6 @@
 import { CURTAIN_COLS, type SimConfig, type SimEvent } from "@neon-spore/sim";
 import { hash01 } from "./backdrop.js";
+import { BossHurt } from "./boss-hurt.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -18,6 +19,12 @@ import { PALETTE, STROKE } from "./palette.js";
  * The bursts go through `Sparks` like any other event's, and are read here,
  * above the loop, because `effects-spark.ts`'s table is at its limit and the
  * ten are one family — THE GORGE's arrangement (`gorge-fx.ts`).
+ *
+ * **A core hit is a sequence landed** — the fabric shoved or gathered off
+ * it and a shot in its colour through the gap — and so is the last, so both
+ * deal the boss the blow every boss takes (`boss-hurt.ts`). Its drawer is
+ * handed no fx, so the caller shakes it and hands it the blow's `value`
+ * (`boss-draw-clocks.ts`). A lobe off or a shove deals nothing.
  */
 
 /** Beats the torn sheet takes to fall out of the picture. */
@@ -35,6 +42,8 @@ interface Sheet {
 
 export class CurtainFx {
   private sheets: Sheet[] = [];
+  /** The blow a core hit deals the boss. */
+  readonly hurt = new BossHurt();
 
   ingest(
     events: readonly SimEvent[],
@@ -68,6 +77,7 @@ export class CurtainFx {
           burst(tileCX(l, e.col), hem, 8, PALETTE.hull);
           break;
         case "curtainCoreHit":
+          this.hurt.hit();
           burst(tileCX(l, e.col), cy, 10, PALETTE.hullRim);
           break;
         case "curtainFire":
@@ -78,6 +88,7 @@ export class CurtainFx {
           this.tear(l, e.col, cy, spb);
           break;
         case "curtainOut":
+          this.hurt.hit();
           burst(tileCX(l, e.col), cy, 20, PALETTE.hullRim);
           break;
         default:
@@ -101,6 +112,7 @@ export class CurtainFx {
   update(dt: number): void {
     for (const s of this.sheets) s.left -= dt;
     this.sheets = this.sheets.filter((s) => s.left > 0);
+    this.hurt.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -132,5 +144,6 @@ export class CurtainFx {
 
   clear(): void {
     this.sheets = [];
+    this.hurt.clear();
   }
 }

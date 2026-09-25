@@ -131,8 +131,14 @@ export function drawClockBoss(
 
   // THE CURTAIN: a body among the creatures and its hand ring over it, for
   // THE CAIRN's reason, and the core behind it read by seat (`curtain-draw.ts`).
+  // The blow of a core hit shakes the sheet, the core and the ring as one.
   if (boss.kind === "curtain") {
-    drawCurtain(ctx, l, world, boss, world.beat, view.beatPhase, view.time, view.names);
+    const hurt = effects.boss.curtain.hurt;
+    ctx.save();
+    ctx.translate(hurt.shakeX(view.time, l.tile), 0);
+    const { beatPhase, time, names } = view;
+    drawCurtain(ctx, l, world, boss, world.beat, beatPhase, time, names, hurt.value);
+    ctx.restore();
     return;
   }
 

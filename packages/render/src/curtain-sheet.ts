@@ -1,5 +1,6 @@
 import { blobPoints } from "@neon-spore/content";
 import { type Color, CURTAIN_COLS } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { paintBead, paintCoreBody, paintSheet } from "./curtain-flesh.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -53,6 +54,8 @@ export function drawCurtainSheet(
    */
   lift: number,
   time: number,
+  /** How hard the blow of a core hit still shows (`curtain-fx.ts`). */
+  hurt = 0,
 ): void {
   const t = l.tile;
   const railY = cy - t * RAIL_RISE;
@@ -87,6 +90,7 @@ export function drawCurtainSheet(
     shadows.quadraticCurveTo(x + t * 0.08 + sway, (railY + hemY) / 2, x + t * 0.07 + lag, hemY);
   }
   paintSheet(ctx, path, folds, shadows, { x0, x1, railY, hemY, tile: t });
+  drawHurt(ctx, path, hurt);
   // The lobes along the hem: the boss's health, and the pilot's soft ones lit.
   for (let i = 0; i < CURTAIN_COLS; i++) {
     if (!(lobes[i] ?? false)) continue;
@@ -150,6 +154,7 @@ export function drawCurtainCore(
   naked: boolean,
   out: number,
   time: number,
+  hurt = 0,
 ): void {
   const t = l.tile;
   const hex = color === "red" ? PALETTE.red : PALETTE.cyan;
@@ -175,4 +180,5 @@ export function drawCurtainCore(
   const dark = color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
   const beat = naked ? 0.5 + 0.5 * Math.sin(time * 9) : 0;
   paintCoreBody(ctx, path, x, y, r, t, hex, dark, rimHex, beat, fade);
+  drawHurt(ctx, path, hurt * fade);
 }
