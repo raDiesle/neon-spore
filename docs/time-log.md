@@ -20573,3 +20573,17 @@ The bottleneck was **reading**: the recipe was wrong three ways at once — the
 other seat's mark, the wrong direction, and under half the pull's need.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The director's map stays on the wave's row once the wave is not playing
+
+- reading: 5 min. `grid-follow.ts`, `grid.ts`'s `mark`, `stage-step.ts`'s
+  tick-counted beat, and how `step.ts` holds `waveBeat` through a briefing, a
+  lost wave and the rest after a clear.
+- writing: 5 min. The map follows `waveBeat` while the wave is live, and three
+  tests on a real world, each red on the old code.
+- looking: 0 min. Proved by tests; nothing drawn in the game changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the queue entry for SEEK, the commit, `land`.
+
+The bottleneck was **reading**: the map's beat came from the tick, three files
+away from the sim's own `waveBeat`, which already stood still in the right places.

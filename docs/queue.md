@@ -796,3 +796,17 @@ The conflict was resolved by hand, keeping both entries. Decide which end the
 ledger grows from. Then either merge at that end, or have the resolver accept
 an insertion at either end. Add a test in `tools/land/test` that uses two
 top-inserted entries. Provable with `bun run check`.
+
+## The director's SEEK counts ticks, so a briefing eats the row it was sent to
+
+- **Found:** 2026-09-25, claude/wave-row-positioning-director-11eb05
+- **Files:** `tools/director/src/stage.ts`, `tools/director/test/stage-step.test.ts`
+
+`seek(beat)` in `stage.ts` rebuilds the world and steps `beat * ticksPerBeat` ticks. With
+`briefings` on — the director on a phone, or the SHIP toggle — the wave's
+introduction and guide hold `waveBeat` at 0 while the tick counts, so a press
+on row 12 lands on row 0 behind the briefing. The map now marks `waveBeat`, so
+it says so honestly rather than pretending. Step until `world.waveBeat` reaches
+the beat (acking the briefing with `ackBriefing` for both seats first, or
+seeking with the opening skipped), with a cap for a wave that ends first.
+Provable with a test beside "the row the map follows".

@@ -1,6 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import type { ViewState } from "@neon-spore/render";
-import { createWorld, DEFAULT_CONFIG, ticksPerBeat, type World } from "@neon-spore/sim";
+import {
+  createWorld,
+  DEFAULT_CONFIG,
+  failWave,
+  type SimConfig,
+  startWave,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { stageStep } from "../src/stage-step.js";
 
 /**
@@ -18,15 +26,15 @@ import { stageStep } from "../src/stage-step.js";
 
 const PER_BEAT = ticksPerBeat(DEFAULT_CONFIG);
 
-function rig(startRunning = true) {
-  const world: World = createWorld(DEFAULT_CONFIG, 0);
+function rig(startRunning = true, cfg: SimConfig = DEFAULT_CONFIG) {
+  const world: World = createWorld(cfg, 0);
   const frames: ViewState[] = [];
   const drained: number[] = [];
   const order: string[] = [];
   const beats: number[] = [];
   let running = startRunning;
   const step = stageStep({
-    cfg: DEFAULT_CONFIG,
+    cfg,
     world: () => world,
     renderer: { draw: (seen) => frames.push(seen) },
     keys: {
@@ -102,6 +110,48 @@ describe("what the beat says", () => {
     r.step.opened();
     expect(r.step.beat()).toBe(0);
     expect(r.beats.at(-1)).toBe(0);
+  });
+});
+
+/**
+ * The row the map marks is the wave's, not the clock's. The tick counts on
+ * through a briefing, a lost screen and the rest after a clear, and the map
+ * used to walk on down with it — past the last row of a wave already over.
+ */
+describe("the row the map follows", () => {
+  const beats = (r: ReturnType<typeof rig>, n: number): void => {
+    for (let i = 0; i < n * PER_BEAT; i++) r.step.advance();
+  };
+  // Something far down the map, so the wave stays open while it is played.
+  const late = [{ beat: 60, col: 0, kind: "slick" as const, color: null }];
+
+  it("stands on the first row while the wave's briefing is up", () => {
+    const r = rig(true, { ...DEFAULT_CONFIG, briefings: true });
+    startWave(r.world, 0, [...late], [], null, true, 2);
+    r.step.opened();
+    beats(r, 5);
+    expect(r.world.tick).toBe(5 * PER_BEAT);
+    expect(r.beats).toEqual([0]);
+  });
+
+  it("stays on the row a lost wave was lost on", () => {
+    const r = rig();
+    startWave(r.world, 0, [...late]);
+    r.step.opened();
+    beats(r, 3);
+    failWave(r.world);
+    beats(r, 4);
+    expect(r.beats.at(-1)).toBe(3);
+    expect(r.step.beat()).toBe(3);
+  });
+
+  it("stays on the row a wave was cleared on, through the rest after it", () => {
+    const r = rig();
+    startWave(r.world, 0, []);
+    r.step.opened();
+    beats(r, 1 + DEFAULT_CONFIG.waveRestBeats);
+    expect(r.world.restBeat).not.toBe(0);
+    expect(r.beats).toEqual([0, 1]);
   });
 });
 

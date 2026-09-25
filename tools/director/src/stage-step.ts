@@ -5,7 +5,6 @@ import {
   type SimEvent,
   step,
   type TimedCommand,
-  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 import type { Keys } from "./keys.js";
@@ -45,7 +44,13 @@ export interface StageStepParts {
   guide(): ViewState["guide"];
   hand(): ViewState["hand"];
   pointer(): ViewState["pointer"];
-  /** Said once when the beat changes, which is what the timeline follows. */
+  /**
+   * Said once when the wave's row changes, which is what the map follows: the
+   * wave's own beat, not the tick's. It stands on the first row through the
+   * introduction and the guide, and on the row the wave ended on through the
+   * lost screen and the rest after a clear — the tick counts through all four
+   * and the map used to walk on down past the end of the wave with it.
+   */
   onBeat(beat: number): void;
   onFrame(): void;
   /**
@@ -70,7 +75,7 @@ export interface StageStep {
 }
 
 export function stageStep(parts: StageStepParts): StageStep {
-  const { cfg, world, renderer, keys } = parts;
+  const { world, renderer, keys } = parts;
   /**
    * Everything the simulation reported since the last frame. A frame covers
    * several ticks and `world.events` is cleared every one of them, so they are
@@ -81,16 +86,20 @@ export function stageStep(parts: StageStepParts): StageStep {
 
   const stepOnce = (): void => {
     const w = world();
+    // Asked before the step, so the tick that clears the wave still moves the
+    // map onto the row it cleared on, and every tick of the rest after it
+    // leaves it there. A lost wave and a briefing hold `waveBeat` still on
+    // their own; a clear's rest keeps counting it (`wave-end.ts`).
+    const live = !w.over && w.restBeat === 0;
     const auto = parts.auto?.(w) ?? [];
     step(w, auto.length > 0 ? [...keys.drain(w.tick), ...auto] : keys.drain(w.tick));
     if (w.events.length > 0) {
       frameEvents.push(...w.events);
       for (const e of w.events) if (e.type === "needWave") parts.onNeedWave(e.retry === true);
     }
-    const beat = Math.floor(w.tick / ticksPerBeat(cfg));
-    if (beat !== lastBeat) {
-      lastBeat = beat;
-      parts.onBeat(beat);
+    if (live && w.waveBeat !== lastBeat) {
+      lastBeat = w.waveBeat;
+      parts.onBeat(lastBeat);
     }
   };
 
