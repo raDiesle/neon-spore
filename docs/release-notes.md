@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 9e8ce25fb — THE THROAT's fight says why under each word, and what the mouth just took
+
+Each of THE THROAT's cue words now has a short line under it saying what it is for: FLING over INTO THE MOUTH, FIRE over OR THE THROAT HEALS, BRAKE over OR THE THROAT EATS IT. A gum still above the mouth's row says WAIT · SWIPE ON THE MOUTH ROW where it used to say nothing. For two beats after something goes into the mouth, the mouth writes RING DOWN for a gum and SWALLOWED · RING HEALS for a body. The words are read from the world and never say a column, a colour or a count. The owner asked for in-game help in the moments of this fight by name, and that is the exemption this look uses.
+
 ## 2026-09-25 · 11cd43707 — The map's trash asks nothing, and a drag along it marks many rows
 
 Pressing a row's trash in the director takes the row out at once, with no question about what is on it. Pressing the trash and dragging up or down along the trash column marks a run of rows; a press on any trash inside the mark removes them all, and a press anywhere else or Escape lets the mark go. A tool, not a look: nothing the game draws changes.
