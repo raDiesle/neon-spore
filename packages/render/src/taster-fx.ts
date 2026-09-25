@@ -1,4 +1,5 @@
 import type { Color, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { bladePath, edgeHex } from "./taster-blade.js";
@@ -29,6 +30,10 @@ import { tasterCrestY } from "./taster-draw.js";
  * above the loop, because `effects-spark.ts`'s table is at its limit and the
  * twelve are one family — THE GORGE's and THE CURTAIN's arrangement
  * (`gorge-fx.ts`, `curtain-fx.ts`).
+ *
+ * **A blade struck off is a sequence landed**, and so is the fan unlocking,
+ * so both deal the crest the blow every boss takes (`boss-hurt.ts`). A layer
+ * pared off a thickened blade deals nothing.
  */
 
 /** Beats a shorn blade takes to tumble out of the picture. */
@@ -65,6 +70,8 @@ export class TasterFx {
   private edges = new Map<number, Color>();
   /** The crest's own span, off `tasterRise`: the two fan-wide events need it. */
   private span: { col: number; width: number } | null = null;
+  /** The blow a blade struck off deals the crest. */
+  readonly hurt = new BossHurt();
 
   ingest(
     events: readonly SimEvent[],
@@ -99,6 +106,7 @@ export class TasterFx {
         case "tasterShear":
           burst(tileCX(l, e.col), y - l.tile * 0.5, 12, PALETTE.rockDark);
           this.shear(l, e.col, y, spb);
+          this.hurt.hit();
           break;
         case "tasterCrest":
           burst(tileCX(l, e.col), y + l.tile * 0.2, 5, PALETTE.hull);
@@ -122,6 +130,7 @@ export class TasterFx {
           break;
         case "tasterOut":
           burst(tileCX(l, e.col), y - l.tile * 0.5, 20, edgeHex(e.color).rim);
+          this.hurt.hit();
           break;
         default:
           break;
@@ -177,6 +186,7 @@ export class TasterFx {
     for (const s of this.shivers) s.left -= dt;
     this.shards = this.shards.filter((s) => s.left > 0);
     this.shivers = this.shivers.filter((s) => s.left > 0);
+    this.hurt.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -215,5 +225,6 @@ export class TasterFx {
     this.shivers = [];
     this.edges.clear();
     this.span = null;
+    this.hurt.clear();
   }
 }

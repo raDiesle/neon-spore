@@ -1,4 +1,5 @@
 import { type SimConfig, type TasterState, tasterPhase, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { BLADE_TILES, type BladeLook, drawBlade } from "./taster-blade.js";
 import { crestPath, drawNotch, drawSeam } from "./taster-crest.js";
@@ -125,6 +126,8 @@ export function drawTaster(
   t: TasterState,
   beatPhase: number,
   time: number,
+  /** The blow a blade struck off deals the crest, 0..1 (`boss-hurt.ts`). */
+  hurt = 0,
 ): void {
   if (l.tile <= 0) return;
   const { cfg } = world;
@@ -139,6 +142,7 @@ export function drawTaster(
     if (t.blades[i]?.shorn === false) roots.push(tileCX(l, t.col + i));
   }
   paintGum(ctx, crest, { left, right, y, thick, tile: l.tile }, roots, breath);
+  drawHurt(ctx, crest, hurt);
 
   // The gaps, and how wet they are: one notch per blade struck off, brighter
   // the nearer the pair is to cutting the crest through. `t.crest` counts the

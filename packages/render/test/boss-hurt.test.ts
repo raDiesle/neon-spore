@@ -147,6 +147,15 @@ const ROWS: Row[] = [
     part: [{ type: "surgeNear", col: 5 }],
     hurt: (fx) => fx.boss.surge.hurt,
   },
+  {
+    boss: "taster",
+    land: [
+      { type: "tasterShear", left: 5, col: 3 },
+      { type: "tasterOut", color: "red", col: 3 },
+    ],
+    part: [{ type: "tasterPare", layers: 1, col: 3 }],
+    hurt: (fx) => fx.boss.taster.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

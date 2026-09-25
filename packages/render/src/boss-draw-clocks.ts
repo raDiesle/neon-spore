@@ -172,11 +172,15 @@ export function drawClockBoss(
   // what differs is the one number each seat is given about them
   // (`taster-draw.ts`, `taster-read.ts`).
   if (boss.kind === "taster") {
-    drawTaster(ctx, l, world, boss, view.beatPhase, view.time);
+    const hurt = effects.boss.taster.hurt;
+    ctx.save();
+    ctx.translate(hurt.shakeX(view.time, l.tile), 0);
+    drawTaster(ctx, l, world, boss, view.beatPhase, view.time, hurt.value);
     // And its three thumbs, over the fan for THE GORGE's reason eight branches
     // up: a ring is drawn on the thing it takes hold of, and one under a blade
     // would be a handle the boss paints over (`taster-grip.ts`).
     drawTasterGrips(ctx, l, world.cfg, boss, view.beatPhase, world.beat, view.time);
+    ctx.restore();
     return;
   }
 
