@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
 import { leadRidgeY } from "./lead-shape.js";
@@ -28,6 +29,10 @@ import { showsLeadLean } from "./view-role-clocks.js";
  * receipt never says a column his screen keeps from him. The ones about a
  * **shot** or a **drop** are thrown at their own column: the shot is his,
  * and a torch or a rock is on the field for both to see.
+ *
+ * **A hit is a sequence landed** — a shot led to where the body would be —
+ * and so is the beam taking the last segment, so both deal the stalk the
+ * blow every boss takes (`boss-hurt.ts`). A flight or a miss deals nothing.
  */
 
 /** The spring: its stiffness and its damping, a little under critical. */
@@ -55,6 +60,8 @@ export class LeadFx {
   private tumbleX = 0;
   private tumbleY = 0;
   private tumbleR = 0;
+  /** The blow a hit deals the stalk. */
+  readonly hurt = new BossHurt();
 
   /** Where the stalk stood this frame, for the receipts with no column of their own on this screen. */
   note(footX: number, footY: number, tipX: number, tipY: number): void {
@@ -104,6 +111,7 @@ export class LeadFx {
           atCol(e.col, ridge.bottom, 3, PALETTE.text);
           break;
         case "leadHit":
+          this.hurt.hit();
           atCol(e.col, ridge.top, 12, PALETTE.hullRim);
           if (this.noted) {
             this.tumbleLife = TUMBLE_BEATS * spb;
@@ -136,6 +144,7 @@ export class LeadFx {
           atFoot(6, PALETTE.dim);
           break;
         case "leadDown":
+          this.hurt.hit();
           atFoot(24, PALETTE.hullRim);
           if (this.noted) burst(this.tipX, this.tipY, 10, PALETTE.hull);
           break;
@@ -154,6 +163,7 @@ export class LeadFx {
     this.vel += (this.target - this.angleNow) * SPRING_K * step - this.vel * SPRING_C * step;
     this.angleNow = Math.max(-ANGLE_MAX, Math.min(ANGLE_MAX, this.angleNow + this.vel * step));
     this.tumbleLeft = Math.max(0, this.tumbleLeft - dt);
+    this.hurt.update(dt);
   }
 
   /** The segment that came off: a bead falling from where the tip was, fading as it goes. */
@@ -184,5 +194,6 @@ export class LeadFx {
     this.tumbleX = 0;
     this.tumbleY = 0;
     this.tumbleR = 0;
+    this.hurt.clear();
   }
 }

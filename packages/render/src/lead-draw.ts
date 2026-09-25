@@ -1,4 +1,5 @@
 import { type LeadState, leadStill, type SimConfig, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -67,9 +68,12 @@ export function drawLead(
   ctx.save();
   drawRidge(ctx, l, time, fade);
   drawFlights(ctx, l, cfg, s, beat, beatPhase, time, fade);
-  if (placed) drawMound(ctx, l, foot, still, time, fade);
+  // The blow of a hit shakes the body and not the ridge it stands on.
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  const hurt = fx.hurt.value * fade;
+  if (placed) drawMound(ctx, l, foot, still, time, fade, hurt);
   else drawSill(ctx, l, foot, fade);
-  drawStalk(ctx, l, s, foot, angle, placed, still, time);
+  drawStalk(ctx, l, s, foot, angle, placed, still, time, hurt);
   if (placed && s.segments > 0) {
     drawTargetLock(
       ctx,
@@ -146,6 +150,7 @@ function drawMound(
   still: boolean,
   time: number,
   fade: number,
+  hurt: number,
 ): void {
   const breath = still ? 0 : 0.04 * Math.sin(time * 3);
   const rx = l.tile * (0.5 + breath);
@@ -155,6 +160,7 @@ function drawMound(
   const hex = still ? PALETTE.dim : PALETTE.hull;
   const rim = still ? PALETTE.rock : PALETTE.hullRim;
   paintMound(ctx, p, foot.x, foot.y, rx, ry, l.tile, hex, rim, fade);
+  drawHurt(ctx, p, hurt);
 }
 
 /** The pilot's sill: a short grey bar the readout stands on, so a stalk in the middle of his screen reads as an instrument and not a body in the middle column. */
@@ -183,6 +189,7 @@ function drawStalk(
   placed: boolean,
   still: boolean,
   time: number,
+  hurt: number,
 ): void {
   if (s.segments <= 0) return;
   const length = leadStalkLength(l, s);
@@ -194,10 +201,14 @@ function drawStalk(
   stem.moveTo(foot.x, foot.y);
   stem.lineTo(tip.x, tip.y);
   paintStem(ctx, stem, hex, l.tile, still ? 0.5 : 0.85);
+  const beads = new Path2D();
   for (let i = 1; i <= s.segments; i++) {
     const at = leadAlong(foot, angle, (length * (i - 0.5)) / s.segments);
     const last = i === s.segments;
     const r = l.tile * (last ? TIP : BEAD) * (1 + (last && !still ? 0.08 * Math.sin(time * 5) : 0));
     paintBead(ctx, at.x, at.y, r, last ? rim : hex, last ? 0.95 : 0.8, last);
+    beads.moveTo(at.x + r, at.y);
+    beads.arc(at.x, at.y, r, 0, Math.PI * 2);
   }
+  drawHurt(ctx, beads, hurt);
 }

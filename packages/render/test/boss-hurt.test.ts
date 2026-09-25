@@ -189,6 +189,18 @@ const ROWS: Row[] = [
     ],
     hurt: (fx) => fx.boss.ledger.hurt,
   },
+  {
+    boss: "lead",
+    land: [
+      { type: "leadHit", segments: 3, col: 5 },
+      { type: "leadDown", col: 5 },
+    ],
+    part: [
+      { type: "leadFlight", dueBeat: 9, col: 5 },
+      { type: "leadMiss", col: 5 },
+    ],
+    hurt: (fx) => fx.boss.lead.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {
