@@ -176,6 +176,19 @@ const ROWS: Row[] = [
     part: [{ type: "antiphonGrow", shape: 0, organs: 1, col: 3 }],
     hurt: (fx) => fx.boss.antiphon.hurt,
   },
+  {
+    boss: "ledger",
+    land: [
+      { type: "ledgerSeam", seam: 1, color: "red", col: 5 },
+      { type: "ledgerWhip", seam: 2, col: 5 },
+      { type: "ledgerTear", col: 5 },
+    ],
+    part: [
+      { type: "ledgerWard", col: 5 },
+      { type: "ledgerRefused", col: 5 },
+    ],
+    hurt: (fx) => fx.boss.ledger.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

@@ -1,4 +1,5 @@
 import { type LedgerState, ledgerPhase, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -83,19 +84,22 @@ function drawHalf(
   time: number,
   hex: string,
   lit: number,
+  hurt: number,
 ): void {
-  const path = ledgerHalfPath(l, seamX, side, gap, time);
-  const { top, bottom } = ledgerBodyY(l);
-  const x = seamX + side * gap * 0.5;
-  paintPlate(ctx, path, { inner: x, side, w: l.tile * LEDGER_HALF_W, top, bottom, tile: l.tile });
-  // The cut face, in the colour the seam is showing.
-  const face = new Path2D();
-  face.moveTo(x, top);
-  face.lineTo(x, bottom);
   // The boss's fade going out is on the context (`drawLedger`), and
   // `strokeGlow` neither reads it nor puts it back: handed on and set again, or
   // the cut face and the whole second half were drawn whole as it went.
   const fade = ctx.globalAlpha;
+  const path = ledgerHalfPath(l, seamX, side, gap, time);
+  const { top, bottom } = ledgerBodyY(l);
+  const x = seamX + side * gap * 0.5;
+  paintPlate(ctx, path, { inner: x, side, w: l.tile * LEDGER_HALF_W, top, bottom, tile: l.tile });
+  drawHurt(ctx, path, hurt * fade);
+  ctx.globalAlpha = fade;
+  // The cut face, in the colour the seam is showing.
+  const face = new Path2D();
+  face.moveTo(x, top);
+  face.lineTo(x, bottom);
   strokeGlow(ctx, face, hex, STROKE.inner, 0.5 + 0.5 * lit, fade);
   ctx.globalAlpha = fade;
 }
@@ -145,11 +149,16 @@ export function drawLedger(
   const hex = t.want === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = t.want === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   const lit = phase === "rooting" ? 0 : 1;
-  drawHalf(ctx, l, seamX, -1, gap, time, hex, lit);
-  drawHalf(ctx, l, seamX, 1, gap, time, hex, lit);
+  // The blow of a widened seam shakes the halves and not the cord: its foot
+  // is in the ship's plating, and the plating does not shake.
+  ctx.save();
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  drawHalf(ctx, l, seamX, -1, gap, time, hex, lit, fx.hurt.value);
+  drawHalf(ctx, l, seamX, 1, gap, time, hex, lit, fx.hurt.value);
   // And what is between them, once there is anything between them: the split
   // itself, lit in the colour that widens it, brighter the wider it is.
   if (gap > l.tile * 0.02 && !out) drawSeam(ctx, l, seamX, gap, rim, taut);
+  ctx.restore();
 
   // And the pilot's read, with his two hands under it. **Hers is not here**:
   // the grommet, the lock and her one ring are drawn on the finished ship,

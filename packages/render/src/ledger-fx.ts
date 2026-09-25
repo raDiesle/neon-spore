@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { drawHullShock } from "./hull-shock.js";
@@ -32,6 +33,11 @@ import { PALETTE } from "./palette.js";
  * eleven are one family — THE GORGE's, THE CURTAIN's and THE SINEW's
  * arrangement. Every one of the eleven carries a column, so none of them needs
  * to be told where the cord was last drawn.
+ *
+ * **A seam widened is a sequence landed** — the seam's colour up its column,
+ * or a return warded back up the cord — and so is the tear, so each deals the
+ * halves the blow every boss takes (`boss-hurt.ts`). The ward itself, and a
+ * bolt refused, deal nothing.
  */
 
 /** The whip: how many beats it takes to travel the cord, body-ward. */
@@ -50,6 +56,8 @@ export class LedgerFx {
   private flashLife = 1;
   private shockLeft = 0;
   private shockLife = 1;
+  /** The blow a widened seam deals the halves. */
+  readonly hurt = new BossHurt();
 
   /**
    * How far up the cord the whip has got: 1 at the socket, 0 at the body, and
@@ -87,6 +95,7 @@ export class LedgerFx {
           this.shockLeft = this.shockLife;
           break;
         case "ledgerSeam":
+          this.hurt.hit();
           // The split widening, in the colour it is showing *next*: the thing
           // the navigator has to load, thrown where she has to aim it.
           burst(tileCX(l, e.col), above, 8, e.color === "red" ? PALETTE.redRim : PALETTE.cyanRim);
@@ -104,6 +113,7 @@ export class LedgerFx {
           this.whipLeft = this.whipLife;
           break;
         case "ledgerWhip":
+          this.hurt.hit();
           burst(tileCX(l, e.col), l.hullY, 6, PALETTE.hullRim);
           break;
         case "ledgerBill":
@@ -123,6 +133,7 @@ export class LedgerFx {
           burst(tileCX(l, e.col), l.hullY, 4, PALETTE.dim);
           break;
         case "ledgerTear":
+          this.hurt.hit();
           burst(tileCX(l, e.col), l.hullY, 24, PALETTE.hullRim);
           this.flashLife = FLASH_BEATS * spb;
           this.flashLeft = this.flashLife;
@@ -139,6 +150,7 @@ export class LedgerFx {
     this.whipLeft = Math.max(0, this.whipLeft - dt);
     this.flashLeft = Math.max(0, this.flashLeft - dt);
     this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.hurt.update(dt);
   }
 
   /** The tear: the field lit violet for a beat, dying away. */
@@ -164,5 +176,6 @@ export class LedgerFx {
     this.whipLife = 1;
     this.flashLife = 1;
     this.shockLife = 1;
+    this.hurt.clear();
   }
 }
