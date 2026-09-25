@@ -28,6 +28,25 @@ export function spliceMouthY(l: Layout, cfg: SimConfig): number {
 }
 
 /**
+ * How long a mouth's pipe is, in tiles: the straw ends at its top and the
+ * number rides straight down inside it to the opening (`splice-pipe.ts`).
+ */
+export const SPLICE_PIPE_TILES = 1.15;
+
+/** The y a pipe's top stands at — where its straw goes in. */
+export function splicePipeTopY(l: Layout, cfg: SimConfig): number {
+  return spliceMouthY(l, cfg) - l.tile * SPLICE_PIPE_TILES;
+}
+
+/**
+ * The beats a number spends shaking loose at its top end before it moves:
+ * the first of `spliceFeedBeats`, which the owner asked to be a rumble rather
+ * than an instant swallow (25 September 2026). Picture only — the simulation
+ * judges the feed on the last beat either way.
+ */
+export const SPLICE_SHAKE_BEATS = 1;
+
+/**
  * A mouth's own radius. Here rather than in `drawMouths`, which used to hold
  * it alone, because the cue wants the same number: a number arriving is drawn
  * *in* its mouth, so the top of this ring is the line under which the cue's
@@ -38,7 +57,8 @@ export function spliceMouthR(l: Layout): number {
 }
 
 /**
- * One straw as a quadratic curve, from its numbered top end down to its mouth.
+ * One straw as a quadratic curve, from its numbered top end down to the top of
+ * its mouth's pipe, and then straight down the pipe to the opening at `ym`.
  *
  * Quadratic and not a polyline through the middle column, because the tangle
  * has to read as *hose* rather than as a wiring diagram: a bend is where the
@@ -55,6 +75,8 @@ export interface SpliceCurve {
   cy: number;
   x1: number;
   y1: number;
+  /** The mouth, straight under `x1, y1` at the bottom of the pipe. */
+  ym: number;
 }
 
 export function spliceCurve(
@@ -65,7 +87,7 @@ export function spliceCurve(
 ): SpliceCurve {
   const top = s.topOf[entrance] ?? entrance;
   const y0 = spliceTopY(l, cfg);
-  const y1 = spliceMouthY(l, cfg);
+  const y1 = splicePipeTopY(l, cfg);
   return {
     x0: tileCX(l, s.topCols[top] ?? 0),
     y0,
@@ -78,15 +100,25 @@ export function spliceCurve(
     cy: y0 + (y1 - y0) * 0.55,
     x1: tileCX(l, s.entranceCols[entrance] ?? 0),
     y1,
+    ym: spliceMouthY(l, cfg),
   };
 }
 
-/** A point along one, `t` from the top end (0) to the mouth (1). */
+/**
+ * A point along one, `t` from the top end (0) to the mouth (1), at an even
+ * pace across the join: `t` is shared between the curve and the pipe by their
+ * lengths, so the number does not slow down where it goes in.
+ */
 export function spliceAt(c: SpliceCurve, t: number): { x: number; y: number } {
-  const u = 1 - t;
+  const bend = Math.hypot(c.cx - c.x0, c.cy - c.y0) + Math.hypot(c.x1 - c.cx, c.y1 - c.cy);
+  const pipe = c.ym - c.y1;
+  const k = bend / (bend + pipe || 1);
+  if (t > k) return { x: c.x1, y: c.y1 + (pipe * (t - k)) / (1 - k) };
+  const q = t / (k || 1);
+  const u = 1 - q;
   return {
-    x: u * u * c.x0 + 2 * u * t * c.cx + t * t * c.x1,
-    y: u * u * c.y0 + 2 * u * t * c.cy + t * t * c.y1,
+    x: u * u * c.x0 + 2 * u * q * c.cx + q * q * c.x1,
+    y: u * u * c.y0 + 2 * u * q * c.cy + q * q * c.y1,
   };
 }
 
@@ -95,7 +127,10 @@ export function spliceAt(c: SpliceCurve, t: number): { x: number; y: number } {
  * curve and the fraction of it the travel has covered, in one call.
  *
  * `beat` is the beat *and its phase*, so the token moves between beats rather
- * than jumping on them. The fraction is clamped at both ends: a feed is judged
+ * than jumping on them. For `SPLICE_SHAKE_BEATS` it stays on its top end —
+ * the rumble is drawn round it, not in this point (`splice-ball.ts`) — and
+ * then it is pulled, slow and then fast, the way a thing is sucked. The
+ * fraction is clamped at both ends: a feed is judged
  * on the beat `spliceFeedBeats` is reached (`sim/splice-round.ts`), and a frame
  * drawn a phase past that would otherwise put the number below its own mouth.
  *
@@ -112,8 +147,9 @@ export function spliceFlightAt(
   beat: number,
 ): { x: number; y: number } | null {
   if (s.feedFrom === -1) return null;
-  const t = Math.max(0, Math.min(1, (beat - s.feedBeat) / cfg.spliceFeedBeats));
-  return spliceAt(spliceCurve(l, cfg, s, s.feedFrom), t);
+  const travel = Math.max(1, cfg.spliceFeedBeats - SPLICE_SHAKE_BEATS);
+  const u = Math.max(0, Math.min(1, (beat - s.feedBeat - SPLICE_SHAKE_BEATS) / travel));
+  return spliceAt(spliceCurve(l, cfg, s, s.feedFrom), u * (0.35 + 0.65 * u));
 }
 
 /**
@@ -146,7 +182,7 @@ export function drawStraws(
 
 /**
  * The stub the seat holding the cannon is given: the same curve and the same
- * tube, fading in from nothing a hand's width over the mouths.
+ * tube, fading in from nothing a tile over the pipes.
  *
  * It is the *same* curve and not a straight tail, so the direction a straw
  * leaves its mouth in is honest — that is the one thing the pilot can
@@ -159,10 +195,15 @@ export function drawStubs(
   cfg: SimConfig,
   s: SpliceState,
 ): void {
-  const topY = spliceMouthY(l, cfg) - l.tile * 1.2;
+  const topY = spliceStubTopY(l, cfg);
   const wide = Math.max(2, l.tile * 0.2);
   for (let e = 0; e < s.entranceCols.length; e++) {
     drawTubeStub(ctx, spliceCurve(l, cfg, s, e), wide, topY);
   }
   ctx.lineWidth = 1;
+}
+
+/** Where the pilot's stubs are gone, and a number in flight with them. */
+export function spliceStubTopY(l: Layout, cfg: SimConfig): number {
+  return splicePipeTopY(l, cfg) - l.tile;
 }

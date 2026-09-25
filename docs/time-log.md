@@ -20068,3 +20068,19 @@ The bottleneck was **writing**: the funnel had to be the snap window drawn,
 so the bezel, the door and the rule all ask one file for its width.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SPLICE looks like the inside of a living ship
+
+- reading: 10 min. The splice render files, the TENDRIL and sac helpers, the
+  palette, and the frames tool's flags for pressing and stopping on events.
+- writing: 55 min. The pipe, the slime ball and its air rush, the eater's body
+  and its three states, the hold, the straw ending inside the pipe, the
+  shake beat, and the split of the eater's body out of its timing.
+- looking: 20 min. Idle, shake, travel, late clock, bite and drop on the
+  navigator's seat, the drop on the pilot's, and crops of the ball and eater.
+- friction: 5 min. The test canvas has no `strokeText`, and a scripted split
+  moved one function too many.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: five pictures, each with its own motion, had to
+be drawn off the beat alone without leaking the clock to the pilot.

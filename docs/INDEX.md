@@ -1477,6 +1477,11 @@ by hand never moves.
 | `packages/render/src/splice-draw.ts` | THE SPLICE, drawn — and drawn differently on each screen, which is the fight |
 | `packages/render/src/splice-straws.ts` | THE SPLICE's straws, as geometry and as lines |
 | `packages/render/src/splice-flesh.ts` | What THE SPLICE's straws and mouths are made of: ringed tubes and puckered lips |
+| `packages/render/src/splice-ball.ts` | **THE SPLICE's numbers, as something to collect**: an amber drop of slime with the digit in it, a halo |
+| `packages/render/src/splice-eater-body.ts` | THE SPLICE eater's body (`splice-eater.ts` says when and where): the shape sheet's TENDRIL draft |
+| `packages/render/src/splice-eater.ts` | **THE SPLICE's clock, as the thing that eats the number** (the owner, 25 September 2026 |
+| `packages/render/src/splice-hold.ts` | **Where THE SPLICE is fought**: the inside of a living ship |
+| `packages/render/src/splice-pipe.ts` | **THE SPLICE's mouths, as pipes**: each straw goes into the top of a short grown pipe that hangs over the… |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
 | `packages/render/src/effects-ingest-silent-boss.ts` | **The bosses' half of the silent list**, and nothing else |
 | `packages/render/src/effects-ingest-silent-boss-b.ts` | **The bosses' half of the silent list, the second page** — from THE ANTIPHON on |

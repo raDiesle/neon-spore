@@ -133,11 +133,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
   {
     subject: sac("TENDRIL", "long, hanging, boneless", 0.34, 24, 66),
     motion: SLITHER,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "The Colony",
     owner:
-      "the Colony's root or brood fibre — taller than it is wide, so it reads against every round thing on the field, and the wave runs its length rather than around it",
+      "THE SPLICE's eater, taken 25 September 2026 (`render/splice-eater-body.ts`): the round's clock, let down out of the hold's ceiling as the beats are spent, which eats the number the pair did not suck in time. Before that: the Colony's root or brood fibre — taller than it is wide, so it reads against every round thing on the field, and the wave runs its length rather than around it",
   },
   {
     subject: hooked("NOTCH 1", "a barb, and the barb is the aim", 32, 30, 0.85, 5),

@@ -118,7 +118,7 @@ function splicePart(
   const curves = s.entranceCols.map((_, i) => spliceCurve(l, cfg, s, i));
   if (part === "mouths") {
     return around(
-      curves.map((c) => ({ x: c.x1, y: c.y1 })),
+      curves.map((c) => ({ x: c.x1, y: c.ym })),
       l.tile * MOUTH_R,
     );
   }
@@ -126,7 +126,7 @@ function splicePart(
   return around(
     curves.flatMap((c) => [
       { x: c.x0, y: c.y0 },
-      { x: c.x1, y: c.y1 },
+      { x: c.x1, y: c.ym },
     ]),
     l.tile * MOUTH_R,
   );
