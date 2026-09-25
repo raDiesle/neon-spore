@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE FILAMENT's ten, in a file of their own for `bind-gorge.ts`' reason.
+ * THE FILAMENT's eleven, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one is panned to the column it happened over, and here the pan is
  * **the thumb**: a tile drawn and a tile followed come from where the thumb
@@ -11,7 +11,8 @@ import { type Cue, panForCol } from "./bind.js";
  * pilot's thumb is going. The drawn tile is pitched up a little per row
  * climbed, so a filament being pulled in is a scale going up, and the two
  * faults that are one seat's each — the snap his, the recoil hers — are
- * distinct sounds; the dark, which is the two of them, is a third. The
+ * distinct sounds; the dark, which is the two of them, is a third, and the
+ * late — a thumb that never moved — a fourth, from under the thumb waited on. The
  * body's own — coming in, a filament arming, one pulled, going down and out
  * — are from the free end or the middle, where they hang.
  */
@@ -27,6 +28,7 @@ export function filamentCue(
         | "filamentSnap"
         | "filamentRecoil"
         | "filamentDark"
+        | "filamentLate"
         | "filamentPulled"
         | "filamentDown"
         | "filamentOut";
@@ -51,6 +53,8 @@ export function filamentCue(
       return { id: "boss.filamentRecoil", pan };
     case "filamentDark":
       return { id: "boss.filamentDark", pan };
+    case "filamentLate":
+      return { id: "boss.filamentLate", pan };
     case "filamentPulled":
       // A step up per filament out, so how far through the pair is can be heard.
       return { id: "boss.filamentPulled", pan, pitch: 1 + Math.min(6, e.index) * 0.05 };

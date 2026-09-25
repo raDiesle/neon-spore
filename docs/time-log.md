@@ -20494,3 +20494,19 @@ The bottleneck was **writing**: the bar's file was at its line limit, so the
 sign plates had to move into their own file before SKIP could join the row.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE FILAMENT has a clock, and every fault loses the wave
+
+- reading: 10 min. THE FILAMENT's state, hand and step, `wave-fail.ts`, the
+  new-boss-state list of registrations, and the owner's rules in `owner.md`.
+- writing: 25 min. `filament-turn.ts`, the late fault and the strike, the
+  eleventh sound and its rows, seven clock tests, the spec and the guide.
+- looking: 0 min. Nothing drawn moved except the red burst on a late line;
+  the picture is the next lane.
+- friction: 5 min. A page of the silent-event rows hit its limit mid-edit and
+  handed THE GAUGE to the next page; the guard refused a doubled backslash.
+- landing: 10 min. `check:fast` found the guide over 220 characters and the
+  audio spec's counts one short, then the commit and `bun run land`.
+
+The bottleneck was **writing**: one new event is fourteen registrations across
+sim, audio, render and the director, and each is found by the typecheck.

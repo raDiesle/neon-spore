@@ -146,6 +146,7 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.filamentSnap": "a filament snapping under a thumb carried too fast. Same argument.",
   "boss.filamentRecoil": "the two thumbs meeting and the filament recoiling. Same argument.",
   "boss.filamentDark": "the lit part going dark behind a gap too wide. Same argument.",
+  "boss.filamentLate": "a line standing past its clock. Same argument.",
   "boss.filamentPulled": "a filament pulled out whole and the body narrowing. Same argument.",
   "boss.filamentDown": "the last filament out under THE SLOW. Same argument.",
   "boss.filamentOut":

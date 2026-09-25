@@ -16,6 +16,10 @@ export interface FilamentConfig {
   filamentGapTiles: number;
   /** Beats a filament hangs lit at its free end before the thumbs count. */
   filamentArmBeats: number;
+  /** Beats the pilot has to light the first tile before the line strikes the hull. */
+  filamentStartBeats: number;
+  /** Beats the line may stand still after that, either thumb's move restarting them. */
+  filamentStallBeats: number;
   /** Beats a pulled filament takes to come out before the next is armed. */
   filamentPullBeats: number;
   /** Beats the field runs at the slow rate from a filament coming out (THE SLOW). */
@@ -27,6 +31,8 @@ export interface FilamentConfig {
 export const FILAMENT_DEFAULTS: FilamentConfig = {
   filamentGapTiles: 3,
   filamentArmBeats: 2,
+  filamentStartBeats: 12,
+  filamentStallBeats: 6,
   filamentPullBeats: 3,
   filamentSlowBeats: 2,
   filamentOutBeats: 3,

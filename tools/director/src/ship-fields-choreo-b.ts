@@ -189,11 +189,15 @@ export const CHOREO_FIELD_GROUP_B = {
   instarOutBeats:
     "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
   // FilamentConfig — the gap the navigator may fall behind, the arm before
-  // the thumbs count, the pull after a filament is traced, THE SLOW on the
+  // the thumbs count, the line's clock for the first tile and every one after, the pull after a filament is traced, THE SLOW on the
   // last and how long the body hangs after (`config-filament.ts`).
   filamentGapTiles:
     "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   filamentArmBeats:
+    "THE FILAMENT — the boss whose line one of you draws while the other follows it",
+  filamentStartBeats:
+    "THE FILAMENT — the boss whose line one of you draws while the other follows it",
+  filamentStallBeats:
     "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   filamentPullBeats:
     "THE FILAMENT — the boss whose line one of you draws while the other follows it",

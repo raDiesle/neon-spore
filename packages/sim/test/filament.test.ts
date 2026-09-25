@@ -26,7 +26,8 @@ import {
  * part, and her thumb reaching his is the recoil unless his is the root, in
  * which case it is the pull; that a gap past the window is the filament
  * going dark; that every one of those is the filament back to its free end
- * with both grabs let go; that a pull is THE SLOW and the next filament
+ * with both grabs let go, and a strike on the hull that is the wave; that a
+ * pull is THE SLOW and the next filament
  * armed; and that the last is the body down, out, and the wave cleared.
  *
  * The fingerprint is compared between two runs in one process rather than
@@ -44,8 +45,12 @@ const PATHS: FilamentPath[] = [
   { col: 3, row: 9, moves: "UU" },
 ];
 
-function install(paths: readonly FilamentPath[] = PATHS, seed = 0): World {
-  const world = createWorld({ ...CFG }, seed);
+function install(
+  paths: readonly FilamentPath[] = PATHS,
+  seed = 0,
+  hullInvulnerable = false,
+): World {
+  const world = createWorld({ ...CFG, hullInvulnerable }, seed);
   startWave(world, 0, [], [], { kind: "filament", filaments: paths });
   return world;
 }
@@ -199,6 +204,7 @@ describe("the pilot draws", () => {
     carry(world, 1, 1);
     const seen = carry(world, 1, 2);
     expect(seen.has("filamentSnap")).toBe(true);
+    expect(seen.has("waveFailed")).toBe(true);
     expect(s.head).toBe(0);
     expect(s.tail).toBe(0);
     expect(s.headBeat).toBe(NOT_DRAWN);
@@ -206,8 +212,8 @@ describe("the pilot draws", () => {
     expect(s.phase).toBe("trace");
   });
 
-  it("snaps it on a tile skipped, and the thumb has to grab again", () => {
-    const world = install();
+  it("snaps it on a tile skipped, and on a hull that cannot be struck the thumb grabs again", () => {
+    const world = install(PATHS, 0, true);
     const s = filament(world);
     armed(world);
     grabbed(world);
@@ -252,6 +258,7 @@ describe("the pilot draws", () => {
     const seen = carry(world, 1, CFG.filamentGapTiles + 1);
     expect(seen.has("filamentDrawn")).toBe(true);
     expect(seen.has("filamentDark")).toBe(true);
+    expect(seen.has("waveFailed")).toBe(true);
     expect(s.head).toBe(0);
     expect(s.grab).toEqual([NO_GRAB, NO_GRAB]);
   });
@@ -285,6 +292,7 @@ describe("the navigator follows", () => {
     carry(world, 1, 1);
     const seen = carry(world, 2, 1);
     expect(seen.has("filamentRecoil")).toBe(true);
+    expect(seen.has("waveFailed")).toBe(true);
     expect(s.head).toBe(0);
     expect(s.tail).toBe(0);
     expect(s.grab).toEqual([NO_GRAB, NO_GRAB]);
@@ -315,6 +323,8 @@ describe("a filament traced end to end", () => {
     expect(seen.has("filamentRecoil")).toBe(false);
     expect(seen.has("filamentDark")).toBe(false);
     expect(seen.has("filamentPulled")).toBe(true);
+    expect(seen.has("filamentLate")).toBe(false);
+    expect(seen.has("waveFailed")).toBe(false);
     expect(s.phase).toBe("pull");
     expect(s.cursor).toBe(0);
     expect(world.slowToBeat).toBe(world.slowFromBeat + CFG.filamentSlowBeats);

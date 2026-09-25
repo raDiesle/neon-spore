@@ -24,7 +24,9 @@ import type { SimEvent } from "@neon-spore/sim";
  * than here — the one departure, and the reason is arithmetic: the boss that
  * moved is four rows and the boss being worked on is ten, so handing THE
  * WELL across bought less room than the rows needed and a second boss would
- * have had to be torn out of the middle to make the difference.
+ * have had to be torn out of the middle to make the difference. THE GAUGE's
+ * four followed on 25 September 2026, when THE FILAMENT's late put this page
+ * at its ceiling — the last boss here, by the same rule.
  *
  * Every row means what it means there — *this event leaves nothing behind
  * for the next frame* — and the reasons stay with the rows.
@@ -103,7 +105,7 @@ export const INGEST_SILENT_BOSS_B = [
   "instarStrike",
   "instarDown",
   "instarOut",
-  // THE FILAMENT's ten are one family read above the loop, the way THE
+  // THE FILAMENT's eleven are one family read above the loop, the way THE
   // INSTAR's are: the whip of a snap or a recoil, the dark of a gap, the jolt
   // of a pull, and every burst, are `effects.boss.filament`'s
   // (`filament-fx.ts`); the lit tiles, the two thumbs and the gap are read
@@ -115,6 +117,7 @@ export const INGEST_SILENT_BOSS_B = [
   "filamentSnap",
   "filamentRecoil",
   "filamentDark",
+  "filamentLate",
   "filamentPulled",
   "filamentDown",
   "filamentOut",
@@ -235,14 +238,4 @@ export const INGEST_SILENT_BOSS_B = [
   "scuttleLast",
   "scuttleDown",
   "scuttleOut",
-  // THE GAUGE's four, the first events this round has had at all: the needle,
-  // the band, the jam and the bind are every one of them world state, read off
-  // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame
-  // (`render/gauge.ts`, `docs/queue.md`, 19 September 2026). Sound is what was
-  // missing, not a picture — nothing about a mark, a miss, a jam or a bind
-  // outlives the frame it happens on.
-  "gaugeMark",
-  "gaugeMiss",
-  "gaugeJam",
-  "gaugeBind",
 ] as const satisfies readonly SimEvent["type"][];

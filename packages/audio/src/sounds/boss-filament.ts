@@ -1,5 +1,5 @@
 /**
- * THE FILAMENT's ten, in a file of their own for `boss-gorge.ts`' reason.
+ * THE FILAMENT's eleven, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **bundle of loose lines hanging from a body**, and
  * everything here is the sound of a line under tension and what happens to
@@ -10,7 +10,8 @@
  * navigator's, so the ear can tell the two thumbs apart; the snap is the
  * line breaking, a short bright crack and the slack falling; the recoil is
  * the two thumbs meeting, a dull knock and the line twanging back; the dark
- * is the light going out of the line, a falling air and nothing after it.
+ * is the light going out of the line, a falling air and nothing after it;
+ * the late is a line left standing past its clock, a low sag and a drop.
  * The pulled is a filament coming out of the body, a long rising slide and
  * a release, pitched up per filament; the down is the last one out under
  * THE SLOW, the body loosening; the out is it dropping away. Low and soft
@@ -95,6 +96,15 @@ export const BOSS_FILAMENT_SOUNDS: SoundDef[] = [
     use: "The gap past the window — the filament dark, back to its free end.",
     level: 0.34,
     layers: [air(1800, 400, 0.4, 0.14, 1.6), after(0.2, soft(0.4, sub(60, 0.3, 0.3)))],
+  },
+  {
+    id: "boss.filamentLate",
+    family: "boss",
+    blurb: "A line left standing too long: a low sag and a drop.",
+    status: "bound",
+    use: "THE FILAMENT's clock run out with the line still — a strike on the hull.",
+    level: 0.36,
+    layers: [sub(90, 0.5, 0.3), after(0.12, soft(0.35, spore(260, 0.4, 0.12, -80)))],
   },
   {
     id: "boss.filamentPulled",

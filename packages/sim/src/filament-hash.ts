@@ -22,6 +22,7 @@ export function filamentHashParts(s: FilamentState): number[] {
     s.head,
     s.tail,
     s.headBeat,
+    s.stillBeat,
     s.grab.length,
     s.grab[0],
     s.grab[1],

@@ -115,6 +115,7 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "filamentSnap":
     case "filamentRecoil":
     case "filamentDark":
+    case "filamentLate":
     case "filamentPulled":
     case "filamentDown":
     case "filamentOut":

@@ -8,10 +8,12 @@
  * carry `row` too, because a line is drawn a tile at a time and the look
  * lights the one tile and no other.
  *
- * **Three ways a filament starts again** and each has its own word, because
+ * **Four ways a filament fails** and each has its own word, because
  * each is a different pair's mistake: `filamentSnap` is his hand too fast,
  * `filamentRecoil` is hers on his, `filamentDark` is the two of them too far
- * apart. A sound that said *again* for all three would say nothing.
+ * apart — and a fourth, `filamentLate`, is a thumb that never moved. A sound
+ * that said *again* for all four would say nothing. Each is a strike on the
+ * hull, so each is the wave; the strike's own events are the hull's.
  */
 
 interface FilamentColEvent {
@@ -34,6 +36,9 @@ export type FilamentEvent =
   | ({ type: "filamentRecoil" } & FilamentColEvent)
   /** The gap passed `filamentGapTiles`: the filament goes dark, back to its free end. */
   | ({ type: "filamentDark" } & FilamentColEvent)
+  /** The line stood still past its clock: `seat` is the thumb it was waiting
+   * on — the pilot's when his move was open, else the navigator's. */
+  | ({ type: "filamentLate"; seat: 1 | 2 } & FilamentColEvent)
   /** Filament `index` was traced end to end: it is pulled out and the body narrows. */
   | ({ type: "filamentPulled"; index: number } & FilamentColEvent)
   /** The last filament is out: the body is beaten and hangs. */

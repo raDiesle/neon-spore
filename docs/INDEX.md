@@ -226,6 +226,7 @@ by hand never moves.
 | `packages/sim/src/filament-hand.ts` | Two thumbs on THE FILAMENT: the pilot's drawing it, the navigator's following |
 | `packages/sim/src/filament-hash.ts` | What THE FILAMENT puts into `hashWorld`, and nothing else |
 | `packages/sim/src/filament-step.ts` | THE FILAMENT's clock: the arm, the pull, the next filament, the end |
+| `packages/sim/src/filament-turn.ts` | Whose move THE FILAMENT waits on, and the beat a line standing still strikes the hull |
 | `packages/sim/src/filament.ts` | THE FILAMENT: a body over the field made of loose filaments, the way a nerve is a bundle |
 | `packages/sim/src/config-derived.ts` | what the config implies: ticks per beat, ms to ticks, the hull row, the middle column |
 | `packages/sim/src/config-diastole.ts` | THE DIASTOLE's five numbers — the two cadences, which must stay coprime, and what a chamber and a burst are worth |
@@ -1827,7 +1828,7 @@ by hand never moves.
 | `packages/audio/src/bind-ledger.ts` | THE LEDGER's eleven, in a file of their own for `bind-taster.ts`' reason |
 | `packages/audio/src/bind-lead.ts` | THE LEAD's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
-| `packages/audio/src/bind-filament.ts` | THE FILAMENT's ten, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-filament.ts` | THE FILAMENT's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
 | `packages/audio/src/bind-pinball-hand.ts` | PINBALL's two hands on the table, in a file of their own for `bind-snake-body.ts`' reason |

@@ -24,7 +24,7 @@ import type { World } from "./world.js";
  * beat **snaps** it; the navigator's thumb reaching his is the two thumbs
  * colliding and the filament **recoils**; a gap opened past the window is
  * the filament going **dark** — the slip THE INSTAR already has
- * (`filament-hand.ts`, `filament-step.ts`).
+ * (`filament-hand.ts`, `filament-step.ts`). Each is a strike on the hull too.
  *
  * **Both thumbs are one `drag` at the `filament` target** — `TraceDrag`, the
  * fourth gesture primitive on that page and the only one that is a boss
@@ -35,10 +35,11 @@ import type { World } from "./world.js";
  * of the field, and the tile either is the next one on the filament or is
  * nothing. The path lit so far is the state, hashed whole (`filament-hash.ts`).
  *
- * **Nothing here strikes the hull.** The design has no strike in it: what a
- * fault costs is the filament, back to its free end, and the wave is the
- * time it takes. That is written up as the one open figure for the owner
- * (`docs/spec/bosses.md` §11).
+ * **Every fault strikes the hull**, and so is the wave — the owner, 25
+ * September 2026, answering the one figure the design left him: *when any
+ * player failed, then wave is over and must be repeated.* A snap, a recoil,
+ * a line gone dark, and a line left standing past its clock
+ * (`filament-turn.ts`) are each one strike (`filament-step.ts`).
  */
 
 /** One tile of the field, the unit a filament is made of. */
@@ -88,6 +89,9 @@ export interface FilamentState {
   /** `world.beat` the head last advanced — `NOT_DRAWN` since the arm — so a
    * second tile in the same beat is the snap. */
   headBeat: number;
+  /** `world.beat` the line last moved — either thumb, or the trace beginning —
+   * from which its clock runs (`filament-turn.ts`). */
+  stillBeat: number;
   /** The index each thumb grabbed at, `NO_GRAB` while it is off: player 1's
    * then player 2's. A move is a displacement from that tile. */
   grab: [number, number];

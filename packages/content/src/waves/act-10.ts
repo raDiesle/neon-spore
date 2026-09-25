@@ -71,10 +71,10 @@ import type { Wave } from "../wave-types.js";
  */
 /**
  * **THE FILAMENT authors its filaments and nothing that falls.** The body is
- * the wave (`filament-script.ts`, `bossFillsWave`), and nothing in it strikes
- * the hull: what a fault costs is the filament, back to its free end, so the
- * wave is as long as the pair take over it and cannot be lost. The design
- * has no strike, and none is invented here (`docs/spec/bosses.md` §11).
+ * the wave (`filament-script.ts`, `bossFillsWave`). Every fault strikes the
+ * hull, and so does a line left standing past its clock, which is the wave
+ * lost and played again — the owner, 25 September 2026: *not infinite, and
+ * the ship takes damage* (`sim/filament-turn.ts`, `docs/spec/bosses.md` §11).
  *
  * **Its guide is the only place the window is a number.** The pilot's screen
  * shows how far ahead he is and the navigator's how far behind she is, and
@@ -156,9 +156,9 @@ export const WAVES_ACT_10: Wave[] = [
     id: "theFilament",
     name: "THE FILAMENT",
     guide: {
-      both: "One of you draws the line, the other follows. One tile a beat, never faster. Stay within three tiles. Never share a tile until the last. Seven filaments.",
-      p1: "1. Put your thumb on the lit end and draw up the filament, one tile a beat.\n2. You see how far ahead you are. Say your next tile before you take it.\n3. Faster than a beat snaps it. Wait for your partner.",
-      p2: "1. Put your thumb on the lit end and follow the lit tiles behind your partner's.\n2. You see how far behind you are: say it. Past three, it goes dark.\n3. Never land on their tile, until the last one.",
+      both: "One of you draws the line, the other follows. One tile a beat. Stay within three tiles. Never share a tile until the last. A mistake loses the wave.",
+      p1: "1. Put your thumb on the lit end and draw up the filament, one tile a beat.\n2. Say your next tile before you take it.\n3. Faster than a beat snaps it. Wait for your partner.\n4. Wait too long and the ship is hit.",
+      p2: "1. Put your thumb on the lit end. Follow the lit tiles behind your partner.\n2. Say how far behind you are. Past three, it goes dark.\n3. Never land on their tile before the last.\n4. Wait too long and the ship is hit.",
     },
     entries: [],
     boss: { kind: "filament", filaments: FILAMENT_SCRIPT },

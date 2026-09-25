@@ -7417,15 +7417,28 @@ there is the filament traced end to end and **pulled** out over
 (`filamentDown`) and out `filamentOutBeats` (3) later (`filamentOut`),
 which is when the wave may end (`bossHoldsWave`).
 
-**Three things undo a filament**, and each is the filament back to its
+**Four things fail a filament**, and each strikes the hull under its tile
+(`strikeFilament`) — which under the owner's rule of 12 September is the wave,
+lost and played again (`wave-fail.ts`) — and puts the filament back to its
 free end with both grabs let go (`restartFilament`): two tiles lit in one
 beat, or a tile skipped, is the **snap** (`filamentSnap`) — the pilot
 carried faster than a tile a beat; her thumb reaching his before the root
 is the two thumbs colliding and the **recoil** (`filamentRecoil`); a tile
 lit that leaves her more than `filamentGapTiles` behind is the filament
 going **dark** (`filamentDark`) — he drew what she could not keep up with,
-the slip §11.32 already has. A thumb still down after any of them has to
-lift and grab again, because its grab was at a tile no longer lit.
+the slip §11.32 already has; and the line left standing past its clock is
+**late** (`filamentLate`, with the seat it waited on). A thumb still down
+after any of them has to lift and grab again, because its grab was at a tile
+no longer lit.
+
+**The clock** (`sim/filament-turn.ts`) is the owner's, 25 September 2026:
+*not infinite, and the ship takes damage*. It is one clock, because the line
+is one thing: it runs from `stillBeat`, the beat either thumb last moved the
+line or the trace began, and it gives the first tile `filamentStartBeats` (12)
+and every one after `filamentStallBeats` (6). Whose move the line waits on is
+a reading of the two indices, not a second clock (`filamentWaitingOn`): his at
+a gap of one, hers at the window, either's between — and the strike falls
+under the pilot's tile when his move was open, under hers otherwise.
 
 **Both thumbs are one `Command`.** Each is the `drag` at the `filament`
 target — `TraceDrag`, the fourth gesture primitive on `sim/drag-targets.ts`
@@ -7500,15 +7513,12 @@ frame does not move with her tail and hers does not move with his head, the
 held ring is redder, the pull has no ring and a narrower body, the down fades
 and the out has no body, and the transients reset.
 
-**What is not built** is the film: the ten events are drawn by the picture
+**What is not built** is the film: the eleven events are drawn by the picture
 and no longer silent by omission, but the guide is still prose
-(`content/test/scenes-prose.test.ts`, `STILL_PROSE`). **One figure is the
-owner's**: nothing here strikes the hull. The design has no strike in it —
-what a fault costs is the filament, back to its free end, and the wave is
-the time it takes — and every other boss on this page can lose the pair the
-wave. Whether a boss that can only be slowed and never lost is a boss of
-this game, or wants a strike after some count of snaps, is his call, and it
-is a `filamentStrikes` field and one branch in `filament-hand.ts` either way.
+(`content/test/scenes-prose.test.ts`, `STILL_PROSE`). The figure this page
+once left open — a boss that could only be slowed and never lost — the owner
+closed on 25 September 2026: every fault strikes the hull, and so does the
+clock.
 
 **The sounds are bound** (`audio/bind-filament.ts`): a cue per event, panned
 to the tile's column, a tile drawn or followed pitched higher the further
@@ -7526,8 +7536,14 @@ and never onto what is not lit; her thumb reaching his before the root is
 the recoil; a filament traced end to end is pulled under THE SLOW and the
 next armed after the pull; no thumb is heard while it is pulled; the last
 is the body down, then out, and the wave cleared; and the same thumbs
-fingerprint the same way twice and differently once a tile is lit
-(`sim/test/filament.test.ts`, fourteen); and the seven filaments of the
+fingerprint the same way twice and differently once a tile is lit, and a
+snap, a recoil and a dark each lose the wave (`sim/test/filament.test.ts`,
+fourteen); the line waits on his move at a gap of one, on either's between
+and on hers at the window, a second tile in a beat reads as the snap before
+it is one, the first tile's clock is the long one and every later one the
+short one, the strike falls under the thumb the line waited on and loses the
+wave, her move restarts the clock as much as his, and nothing is late while
+a filament arms (`sim/test/filament-clock.test.ts`, seven); and the seven filaments of the
 script are each walkable, each longer than the last, the first straight
 and every root above its free end (`content/test/filament-script.test.ts`).
 Whether a tile a beat is a pace or a crawl, and whether three tiles is a

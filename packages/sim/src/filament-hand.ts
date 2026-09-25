@@ -9,7 +9,7 @@ import {
   filamentTracing,
   NO_GRAB,
 } from "./filament.js";
-import { pullFilament, restartFilament } from "./filament-step.js";
+import { pullFilament, strikeFilament } from "./filament-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -44,9 +44,13 @@ import type { World } from "./world.js";
  * refused on, only a line, and the line each seat is shown says whose it is
  * (`docs/spec/bosses-choreographed.md` §17, *what each seat sees*).
  *
- * Every restart is `restartFilament` (`filament-step.ts`): head, tail, the
- * beat and both grabs to nought. A thumb still down after one has to lift
- * and grab again, because its grab origin was a tile that is no longer lit.
+ * **Every fault is a strike on the hull**, which is the wave (the owner, 25
+ * September 2026: *when any player failed, then wave is over and must be
+ * repeated*), and the filament back to its free end for a hull that cannot
+ * be struck (`strikeFilament`, `filament-step.ts`): head, tail, the beats and
+ * both grabs to nought. A thumb still down after one has to lift and grab
+ * again, because its grab origin was a tile that is no longer lit. Every move
+ * that counts restarts the line's clock (`stillBeat`, `filament-turn.ts`).
  */
 
 const PILOT = 1;
@@ -97,15 +101,16 @@ function draw(world: World, s: FilamentState, idx: number, tile: FilamentTile): 
   if (idx <= s.head) return;
   if (idx > s.head + 1 || s.headBeat === world.beat) {
     world.events.push({ type: "filamentSnap", col: tile.col });
-    restartFilament(s);
+    strikeFilament(world, s, tile.col, tile.row);
     return;
   }
   s.head = idx;
   s.headBeat = world.beat;
+  s.stillBeat = world.beat;
   world.events.push({ type: "filamentDrawn", col: tile.col, row: tile.row });
   if (filamentGap(s) > world.cfg.filamentGapTiles) {
     world.events.push({ type: "filamentDark", col: tile.col });
-    restartFilament(s);
+    strikeFilament(world, s, tile.col, tile.row);
   }
 }
 
@@ -121,9 +126,10 @@ function follow(world: World, s: FilamentState, idx: number, tile: FilamentTile)
       return;
     }
     world.events.push({ type: "filamentRecoil", col: tile.col });
-    restartFilament(s);
+    strikeFilament(world, s, tile.col, tile.row);
     return;
   }
   s.tail = idx;
+  s.stillBeat = world.beat;
   world.events.push({ type: "filamentFollowed", col: tile.col, row: tile.row });
 }

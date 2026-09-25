@@ -216,6 +216,8 @@ export {
   wardenLidsMilli,
   wardenThrown,
 } from "./bosses-clocks-b.js";
+// THE FILAMENT's clock: whose move the line waits on, and until which beat.
+export * from "./filament-turn.js";
 export { fleetWindowLeft } from "./fleet-flood.js";
 export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";
 // THE FLEET's second and third states: the phase, the window and the plume

@@ -325,6 +325,7 @@ const SAMPLES: Record<string, SimEvent> = {
   filamentSnap: { type: "filamentSnap", col: 5 },
   filamentRecoil: { type: "filamentRecoil", col: 5 },
   filamentDark: { type: "filamentDark", col: 5 },
+  filamentLate: { type: "filamentLate", seat: 1, col: 5 },
   filamentPulled: { type: "filamentPulled", col: 5, index: 2 },
   filamentDown: { type: "filamentDown", col: 5 },
   filamentOut: { type: "filamentOut", col: 5 },

@@ -93,6 +93,8 @@ export {
   NOT_DRAWN,
   walkFilament,
 } from "./filament.js";
+// THE FILAMENT's clock: whose move the line waits on, and until which beat.
+export * from "./filament-turn.js";
 // THE GIMBAL's clock is nearly the whole boss: a ring is a position rather
 // than an event, so the marks, the hold, the shear and the seam are all beats,
 // and every name here is one a screen or a content test reads.

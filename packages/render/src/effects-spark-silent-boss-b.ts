@@ -57,7 +57,7 @@ export const SILENT_BOSS_B = [
   "instarStrike",
   "instarDown",
   "instarOut",
-  // THE FILAMENT's ten throw no burst from this table: they are one family
+  // THE FILAMENT's eleven throw no burst from this table: they are one family
   // read above the loop, the way THE INSTAR's are, and every burst of theirs
   // — on the tile drawn, on the head that snapped, on the body a filament
   // came out of — is thrown by `filament-fx.ts` (`docs/spec/bosses.md` §11.33).
@@ -68,6 +68,7 @@ export const SILENT_BOSS_B = [
   "filamentSnap",
   "filamentRecoil",
   "filamentDark",
+  "filamentLate",
   "filamentPulled",
   "filamentDown",
   "filamentOut",

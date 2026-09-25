@@ -96,6 +96,10 @@ export class FilamentFx {
           at(this.head ?? tile(e.col, 0), 6, PALETTE.dim);
           this.darkNow = 1;
           break;
+        case "filamentLate":
+          at(this.head ?? tile(e.col, 0), 8, PALETTE.red);
+          this.darkNow = 1;
+          break;
         case "filamentPulled":
           at(this.end ?? tile(e.col, 0), 14, PALETTE.wispRim);
           this.joltNow = JOLT_TILES;

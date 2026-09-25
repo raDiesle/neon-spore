@@ -2,7 +2,8 @@ import type { SimEvent } from "@neon-spore/sim";
 
 /**
  * **The bosses' half of the silent list, the third page** — THE WELL's four,
- * THE GIMBAL's ten, and the bosses after it.
+ * THE GIMBAL's ten, the bosses after it, and THE GAUGE's four, handed across
+ * from page two on 25 September 2026.
  *
  * Cut off `effects-ingest-silent-boss-b.ts` on 22 September 2026 along the
  * seam every page of this list is cut on: the order the bosses were built
@@ -106,4 +107,14 @@ export const INGEST_SILENT_BOSS_C = [
   "gorgeNick",
   "gorgePryFill",
   "tasterPryFill",
+  // THE GAUGE's four, the first events this round has had at all: the needle,
+  // the band, the jam and the bind are every one of them world state, read off
+  // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame
+  // (`render/gauge.ts`, `docs/queue.md`, 19 September 2026). Sound is what was
+  // missing, not a picture — nothing about a mark, a miss, a jam or a bind
+  // outlives the frame it happens on.
+  "gaugeMark",
+  "gaugeMiss",
+  "gaugeJam",
+  "gaugeBind",
 ] as const satisfies readonly SimEvent["type"][];

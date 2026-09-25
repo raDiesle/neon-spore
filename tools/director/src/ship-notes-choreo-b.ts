@@ -192,10 +192,12 @@ export const CHOREO_NOTES_B = {
     "pilot draws it a tile a beat from the free end, the navigator follows " +
     "on the lit part behind him. Two tiles in a beat snap it; her thumb on " +
     "his tile is a recoil; a gap past filamentGapTiles is the filament going " +
-    "dark — each starts that filament again from its free end. Her thumb on " +
+    "dark; a line still past filamentStartBeats for the first tile or " +
+    "filamentStallBeats after is late — each strikes the hull, which is the " +
+    "wave (25 September 2026). Her thumb on " +
     "the root pulls the filament out over filamentPullBeats; the seventh " +
     "opens THE SLOW filamentSlowBeats and the body hangs filamentOutBeats " +
-    "more. Nothing strikes the hull. See sim/filament.ts, sim/filament-" +
+    "more. See sim/filament.ts, sim/filament-turn.ts, sim/filament-" +
     "hand.ts, sim/config-filament.ts.",
   "THE GIMBAL — the boss where the same turn is not the same turn":
     "Designed on 19 September 2026 in docs/spec/bosses-choreographed.md §18 " +
