@@ -20556,3 +20556,5 @@ two new lines, and its measurement had to move out before anything landed.
 
 The bottleneck was **reading**: the recipe was wrong three ways at once — the
 other seat's mark, the wrong direction, and under half the pull's need.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

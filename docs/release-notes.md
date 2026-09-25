@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 17e99ee1a — frames --hold on THE INSTAR lands a pull or a swipe, or says whose the mark is
+
+The recipe pressed the navigator's mark from the pilot's seat, and a run waiting for `--until` ended on a miss that never mentioned the refused presses. A miss now names them, and THE INSTAR's own `instarRefuse` names the seat. `instarSwipe` and `instarSwipe2` send the grab, the carry and the lift on one tick. The hold.ts recipe is written for the first step.
+
 ## 2026-09-25 · 0a6610e96 — THE REPRISE has a fuse along the top of the screen
 
 While a stretch is recorded, THE SLOW's fuse burns down to the beat the field goes dark, turning orange at half and red for the last two beats. While the echo plays it fills back up in the tear's grey and is whole on the beat the last body is sent, so one line carries both clocks. It is gone after the last echo. A look the owner asked for by name.
