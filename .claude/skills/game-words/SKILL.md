@@ -185,7 +185,15 @@ test the third time somebody repeats it. If it can be measured, measure it.
 
 ### Corrections
 
-*Nothing yet. The first one goes here, dated, with the line before and after.*
+**25 September 2026, THE UNDERTOW** — *try to improve text so i understand
+it*, and *one word to tell what action i have to do e.g. "suck" or "shoot"*.
+Say the word on the button, not the machine's word for what happens:
+
+- the cue over a lobe: `OPEN` → **`SUCK`**, the maw's own label; `BURN` →
+  **`SHOOT`**, what the trigger does.
+- `ONLY PLAYER 1 SEES THE BOW` → **`ONLY PLAYER 1 SEES IT BULGE`**.
+- `THE COLUMN IS HIS TO REACH` → **`A SHIELD HERE BLOCKS SUCK`** — a pronoun
+  pointing at a reason is not the reason.
 
 ## 7 · The checklist
 

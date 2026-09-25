@@ -1,6 +1,7 @@
 import { type ControlSet, control, type SceneAnchor } from "@neon-spore/content";
 import { type Creature, gripCount, type World } from "@neon-spore/sim";
 import { bossAnchor } from "./caption-anchor-boss.js";
+import { clearOfHull } from "./caption-hull-room.js";
 import { creatureHalfAxes } from "./creature-axes.js";
 import { creatureCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
@@ -141,11 +142,15 @@ export function anchorPoint(
     const def = control(anchor.control);
     if (def.form === "lobe") {
       const lobe = bandLobes(l, set, def.player).find((b) => b.control.id === anchor.control);
-      return lobe ? { x: lobe.circle.x, y: lobe.circle.y, r: lobe.circle.r, clear: CLEAR } : null;
+      if (!lobe) return null;
+      const at = { x: lobe.circle.x, y: lobe.circle.y, r: lobe.circle.r, clear: CLEAR };
+      return clearOfHull(l, world, at);
     }
     const strip = anchor.control === "shield" ? l.shieldStrip : l.cannonStrip;
     const col = anchor.control === "shield" ? world.shieldCol : world.cannonCol;
-    return { x: tileCX(l, col), y: strip.y, r: strip.height * 0.7, clear: CLEAR_STRIP };
+    const at = { x: tileCX(l, col), y: strip.y, r: strip.height * 0.7, clear: CLEAR_STRIP };
+    // A boss fought in the plating is covered by a box that close (`caption-hull-room.ts`).
+    return clearOfHull(l, world, at);
   }
   // A boss's own fixture, per kind — the one branch that is a file of its
   // own, because every boss answers it differently (`caption-anchor-boss.ts`).

@@ -100,7 +100,7 @@ describe("a lobe standing under the cannon", () => {
     // case below — park hers out of the way so this one is about the lobe.
     world.shieldCol = elsewhere(world);
     u.breaches.push(breach(world, world.cannonCol));
-    expect(word(world, "p1")).toBe("OPEN");
+    expect(word(world, "p1")).toBe("SUCK");
     expect(cue(world, "p1")?.kind).toBe("HOLD");
     // Nothing for her: the maw is his alone, and a word on her screen this
     // beat would be the fight asking for a thumb that changes no rule.
@@ -109,7 +109,7 @@ describe("a lobe standing under the cannon", () => {
     const tall = opened();
     tall.world.shieldCol = elsewhere(tall.world);
     tall.u.breaches.push(breach(tall.world, tall.world.cannonCol, { tall: true }));
-    expect(word(tall.world, "p2")).toBe("BURN");
+    expect(word(tall.world, "p2")).toBe("SHOOT");
     expect(cue(tall.world, "p2")?.kind).toBe("HOLD");
     expect(word(tall.world, "p1")).toBeNull();
   });
@@ -156,7 +156,7 @@ describe("the shield in the way", () => {
     expect(word(world, "p2")).toBe("MOVE");
     // The pilot still has his own half of the same beat: the maw is a window
     // and not a shot, so the beat she clears the column he is already open.
-    expect(word(world, "p1")).toBe("OPEN");
+    expect(word(world, "p1")).toBe("SUCK");
   });
 
   it("says nothing to her about a plate that is not on a lobe's column", () => {
@@ -215,7 +215,7 @@ describe("the last lobe", () => {
     const { world, u } = opened();
     u.phase = "last";
     u.breaches.push(breach(world, world.cannonCol));
-    expect(word(world, "p1")).toBe("OPEN");
+    expect(word(world, "p1")).toBe("SUCK");
     // Her plate is on the same column and she is still told nothing:
     // `undertowTake` refuses in this phase, so moving it changes no rule.
     expect(world.shieldCol).toBe(world.cannonCol);

@@ -1297,6 +1297,7 @@ by hand never moves.
 | `packages/render/src/caption-anchor-boss-e.ts` | **Where the fixtures of THE LEDGER and THE SPLICE are** — the fifth of `caption-anchor-boss.ts` |
 | `packages/render/src/caption-anchor-boss-f.ts` | **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the sixth of `caption-anchor-boss.ts` |
 | `packages/render/src/caption-anchor-box.ts` | **The ring round a boss's fixture** — the two shapes every line of `caption-anchor-boss*.ts` answers with |
+| `packages/render/src/caption-hull-room.ts` | A caption on a control stands above THE UNDERTOW's lobes rather than over the plating they come through |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |
 | `packages/render/src/guide-welcome.ts` | The page before a device's first tutorial: what the stepper is |

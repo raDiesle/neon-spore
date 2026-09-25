@@ -35,12 +35,9 @@ the field, a control on the band, the hull, the bar. **Never place a caption by
 coordinate**, and never write a paragraph under the picture: the eye reading
 the paragraph is not watching the thing it describes.
 
-A caption over a *strip* stands closer to it than one over anything else
-(`CLEAR_STRIP` in `guide-caption.ts`), because the strip is the bottom edge of
-the ship and a box at full clearance covers the hull:
-
-> *The box overlaps the cannon, can we move it more down, so we see the ship
-> more, just some.*
+A caption over a *strip* stands closer to it (`CLEAR_STRIP`, `caption-anchor.ts`)
+— *can we move it more down, so we see the ship more* — except over a fight
+*in* the hull, THE UNDERTOW's, where it stands clear of it (`caption-hull-room.ts`).
 
 ### One screen at a time, and the switch is announced three ways
 

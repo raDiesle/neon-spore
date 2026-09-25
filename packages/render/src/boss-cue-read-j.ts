@@ -25,6 +25,13 @@ import { type Layout, tileCX } from "./layout.js";
  * is only burnt once the navigator's hold has filled the lance. So a word
  * asking for the burn is hers and a word asking for the column is his, on the
  * same lobe, one beat apart.
+ *
+ * **The words are the buttons' own since 25 September 2026**: the maw's is
+ * `SUCK`, which is what its lobe in the band says (`content/controls.ts`),
+ * and the held trigger's is `SHOOT` — the owner, *add help text during game
+ * (one word) to tell what action i have to do e.g. "suck" or "shoot"*. They
+ * said `OPEN` and `BURN`, the machine's words for what happens rather than
+ * the player's for what the thumb does.
  */
 
 /** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
@@ -137,7 +144,7 @@ function standing(
   const y = skinY(x);
   const under = world.cannonCol === b.col;
   if (u.phase === "last") {
-    out.unshift(under ? markAt(1, "HOLD", "OPEN", x, y, l, 46) : moveCannon(l, world, 46));
+    out.unshift(under ? markAt(1, "HOLD", "SUCK", x, y, l, 46) : moveCannon(l, world, 46));
     return;
   }
   // A tall lobe is the beam's and the maw would break on it (`undertow-press.ts`),
@@ -145,7 +152,7 @@ function standing(
   // carriage decides what it burns. Two seats, one gesture.
   if (b.tall) {
     out.push(
-      under ? markAt(2, "HOLD", "BURN", x, y, l, 44 + b.col) : moveCannon(l, world, 44 + b.col),
+      under ? markAt(2, "HOLD", "SHOOT", x, y, l, 44 + b.col) : moveCannon(l, world, 44 + b.col),
     );
     return;
   }
@@ -154,7 +161,7 @@ function standing(
   // holds the maw open over a lobe that will not come in and neither of them
   // learns why. It is her thumb that moves the shield, so it is her word.
   //
-  // His `OPEN` stands beside it rather than waiting for her: the maw is a
+  // His `SUCK` stands beside it rather than waiting for her: the maw is a
   // window and not a shot (`mawOpen`), the two words are one gesture between
   // two seats, and the beat she clears the column he is already open. That is
   // not the unseat's case above, where there is no beat of his at all.
@@ -162,6 +169,6 @@ function standing(
     out.push(markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, 49));
   }
   out.push(
-    under ? markAt(1, "HOLD", "OPEN", x, y, l, 44 + b.col) : moveCannon(l, world, 44 + b.col),
+    under ? markAt(1, "HOLD", "SUCK", x, y, l, 44 + b.col) : moveCannon(l, world, 44 + b.col),
   );
 }

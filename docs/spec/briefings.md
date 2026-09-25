@@ -697,7 +697,7 @@ hand still draws.
 |---|---|---|---|
 | THE CANDLE | `PLAYER 1 SLIDES CLEAR OF IT` | `PLAYER 1 CALLS ITS COLUMN` | `CARRY` / `MOVE` on the cannon, his alone — while it was eating his column until 19 September 2026, and whenever it is off the glow's column since |
 | THE CURTAIN | `PLAYER 1 SHOVES IT ONE OVER` | `A SHOVE IS ONE COLUMN` | `CARRY` / `SHOVE` on the membrane |
-| THE UNDERTOW | `PLAYER 2 MOVES THE PLATE OFF` | `THE COLUMN IS HIS TO REACH` | `CARRY` / `MOVE` on the plate standing where the maw is coming |
+| THE UNDERTOW | `PLAYER 2 MOVES THE PLATE OFF` | `A SHIELD HERE BLOCKS SUCK` | `CARRY` / `MOVE` on the plate standing where the maw is coming |
 | THE BATON | `PLAYER 1 PULLS THE TRIGGER` | `PLAYER 1 GREYS FOR A BEAT` | `PRESS` / `LAUNCH` on the bead in its socket |
 | THE LEDGER | `GUARD AS IT LANDS` | — the page is gone | `PRESS` / `SHIELD` on the bead riding down the cord |
 | THE STARE | `WATCHED · TOUCH NOTHING` | — the page is gone | `STILL` at the foot of the gaze, on the watched seat, once the look lands |
@@ -717,8 +717,8 @@ hand still draws.
 | SNAKE | `AND THE NEXT ONE` | `A METEOR STOPS THE SHOT` | `PRESS` / `FIRE` on a reachable enemy and `PRESS` / `OPEN` on the next point, his alone |
 | PINBALL | `PLAYER 1 SLIDES THE CANNON` | `THE CANNON ALSO CATCHES` | `CARRY` / `MOVE` on the cannon, his alone, while a ball in the air is coming down somewhere else |
 | THE SCOUT | `AT HOME, PLAYER 2 OPENS MAW` | `ONLY THE MAW TAKES A MOTE` | `PRESS` / `OPEN` on the mother ship's mouth, hers alone, while the little ship stands on it and the mouth is shut |
-| THE UNDERTOW | `PLAYER 1 SLIDES UNDER IT` | `THE MAW REACHES ONE COLUMN` | `CARRY` / `MOVE` on the cannon, his alone, while a lobe stands in a column he is not in |
-| THE UNDERTOW | `THE MAW TAKES IT AGAIN` | `PLAYER 1 IS SHOWN NO SHIELD` | `HOLD` / `OPEN` on the lobe standing over his own column |
+| THE UNDERTOW | `PLAYER 1 SLIDES UNDER IT` | `THE CANNON MUST BE UNDER IT` | `CARRY` / `MOVE` on the cannon, his alone, while a lobe stands in a column he is not in |
+| THE UNDERTOW | `THE MAW TAKES IT AGAIN` | `PLAYER 1 SEES NO SHIELD` | `HOLD` / `SUCK` on the lobe standing over his own column |
 | THE UNDERTOW | `THE MAW TAKES THE NEAR ONE` | `PLAYER 1 CANNOT REACH BOTH` | the same, on the one of the pair he is under — and nothing on the other |
 | THE THROAT | `PLAYER 2 CLEARS IT WITH RED` | `A SHOT STILL KILLS IT THERE` | `PRESS` / `FIRE` on a living body standing in the mouth, hers, while his carriage is in the mouth's column |
 | THE THROAT | `SWIPED LEVEL INTO THE MOUTH` | `IT FLIES THE WAY YOU SWIPE` | `CARRY` / `FLING` on a gum, his alone, on the one beat it is on the mouth's row |

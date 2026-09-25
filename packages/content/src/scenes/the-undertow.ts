@@ -58,18 +58,28 @@ export const THE_UNDERTOW: GuideScene = {
     {
       tick: 0,
       seat: 1,
-      text: "ONLY PLAYER 1 SEES THE BOW",
+      text: "ONLY PLAYER 1 SEES IT BULGE",
       anchor: { at: "boss", part: "plate" },
     },
-    { tick: 180, seat: 1, text: "THE HULL BOWS FOUR BEATS", anchor: { at: "boss", part: "plate" } },
+    {
+      tick: 180,
+      seat: 1,
+      text: "A LOBE COMES UP IN 4 BEATS",
+      anchor: { at: "boss", part: "plate" },
+    },
     {
       tick: 360,
       seat: 2,
-      text: "A LOBE STANDS · NOBODY MOVES",
+      text: "A LOBE IS UP · NO ONE ACTS",
       anchor: { at: "boss", part: "lobe" },
     },
-    { tick: 540, seat: 2, text: "LEFT ALONE · IT WIDENS", anchor: { at: "boss", part: "lobe" } },
-    { tick: 720, seat: 2, text: "A SECOND LOBE · BOTH SCAR", anchor: { at: "boss" } },
+    {
+      tick: 540,
+      seat: 2,
+      text: "LEFT ALONE · THE HOLE GROWS",
+      anchor: { at: "boss", part: "lobe" },
+    },
+    { tick: 720, seat: 2, text: "IT SPREADS · TWO SCARS STAY", anchor: { at: "boss" } },
     // Three pages here said a verb the fight now writes itself, 18 September
     // 2026 (`boss-cue-read-j.ts`): the slide, and the maw twice. All three
     // kept their tick, their seat and their anchor, because every one of them
@@ -84,25 +94,25 @@ export const THE_UNDERTOW: GuideScene = {
     {
       tick: 1320,
       seat: 1,
-      text: "THE MAW REACHES ONE COLUMN",
+      text: "THE CANNON MUST BE UNDER IT",
       anchor: { at: "control", control: "cannon" },
     },
     {
       tick: 1500,
       seat: 1,
-      text: "MAW OPEN AS IT COMES THROUGH",
+      text: "SUCK TAKES THE RISING LOBE",
       anchor: { at: "control", control: "intake" },
     },
     // This page said PLAYER 2 MOVES THE PLATE OFF until 17 September 2026: the
     // fight writes CARRY over the plate and MOVE under it exactly while it
     // stands in the column the maw is coming for (`decisions.md` #34). The
     // plate at 1440 is hers and both neighbours are his, so the page keeps her
-    // screen and says the reason instead of the verb. MAW OPEN AS IT COMES
-    // THROUGH above stays: its subject is the beat, not the gesture.
+    // screen and says the reason instead of the verb. The page above it keeps
+    // SUCK: its subject is the beat, not the gesture.
     {
       tick: 1680,
       seat: 2,
-      text: "THE COLUMN IS HIS TO REACH",
+      text: "A SHIELD HERE BLOCKS SUCK",
       anchor: { at: "control", control: "shield" },
     },
     // The beat after her plate was in his way, which is the moment the split
@@ -110,13 +120,20 @@ export const THE_UNDERTOW: GuideScene = {
     // `showsShield`), so the column he needs is a sentence she has to say. The
     // page said THE MAW TAKES IT AGAIN, which was the film narrating its own
     // verb a second time.
+    //
+    // **Every caption was reworded on 25 September 2026**, for a player who
+    // read them and could not follow: *try to improve text so i understand
+    // it.* BOW became BULGE, the maw became SUCK — the word on its button —
+    // and the three reasons say the thing itself (the cannon under the lobe,
+    // the shield blocking the suck, no shield on his screen) rather than
+    // a pronoun pointing at it.
     {
       tick: 1860,
       seat: 1,
-      text: "PLAYER 1 IS SHOWN NO SHIELD",
+      text: "PLAYER 1 SEES NO SHIELD",
       anchor: { at: "control", control: "intake" },
     },
-    { tick: 2040, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "boss" } },
+    { tick: 2040, seat: 2, text: "TWO LOBES · FAR APART", anchor: { at: "boss" } },
     // Why the last lesson divides at all — one carriage, two lobes, four
     // columns apart. The cue says `OPEN` on the one he is under and nothing
     // about the other, because *which* is the pair's own sentence; the page
@@ -130,7 +147,7 @@ export const THE_UNDERTOW: GuideScene = {
     {
       tick: 2400,
       seat: 2,
-      text: "THE SHIELD TAKES THE FAR ONE",
+      text: "SHIELD STOPS THE OTHER ONE",
       anchor: { at: "control", control: "shield" },
     },
   ],

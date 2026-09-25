@@ -20664,3 +20664,15 @@ The bottleneck was **looking**: the count had to be seen at phone size to find
 out that a hollow ring reads as a digit.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE UNDERTOW's captions stand over the hull, and say SUCK
+
+- reading: 5 min. The film, the caption anchor, the fight's cue reading, #34.
+- writing: 5 min. `caption-hull-room.ts`, twelve captions, two cue words.
+- looking: 5 min. Guide pages before and after, and the fight on player 1's
+  screen under a lobe.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: `--press cannonCol` names a mapped column, so
+the first frame put the cannon one column off the lobe.
