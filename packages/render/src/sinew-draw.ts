@@ -1,4 +1,5 @@
 import { type SimConfig, type SinewState, sinewSwinging, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -51,7 +52,10 @@ export function drawSinew(
   const swinging = sinewSwinging(s, world);
   const swing = swinging ? fx.swingTiles : 0;
   const root = sinewAnchor(l, cfg);
-  const mass = sinewMassCentre(l, cfg, s, beat, beatPhase, swing);
+  // A fibre parted shakes the mass and not the root: the fibres and the
+  // handles' cords follow it, the way they follow the swing (`boss-hurt.ts`).
+  const hung = sinewMassCentre(l, cfg, s, beat, beatPhase, swing);
+  const mass = { x: hung.x + fx.hurt.shakeX(time, l.tile), y: hung.y };
   fx.note(mass.x, mass.y);
   const rx = sinewMassRx(l, cfg);
   const landed = sinewLanded(s);
@@ -70,7 +74,7 @@ export function drawSinew(
     drawSinewFibres(ctx, l, cfg, s, root, mass, rx, time);
     drawSinewBand(ctx, l, cfg, s, root, mass, beat, beatPhase, time);
   }
-  drawMass(ctx, l, cfg, mass, rx, time, sinewSum01(s, cfg), sinewCrushed(s, cfg));
+  drawMass(ctx, l, cfg, mass, rx, time, sinewSum01(s, cfg), sinewCrushed(s, cfg), fx.hurt.value);
   if (!landed) drawSinewHandles(ctx, l, cfg, s, mass, beat, beatPhase, time, swing, swinging);
   ctx.restore();
 }
@@ -90,10 +94,12 @@ function drawMass(
   time: number,
   strain: number,
   crushed: boolean,
+  hurt: number,
 ): void {
   const path = sinewMassPath(l, cfg, c, time);
   const hex = crushed ? PALETTE.ember : mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.35);
   const rim = crushed ? PALETTE.emberRim : PALETTE.hullRim;
   const m = { x: c.x, y: c.y, rx, ry: sinewMassRy(l), tile: l.tile };
   paintMass(ctx, path, m, hex, rim, strain);
+  drawHurt(ctx, path, hurt);
 }

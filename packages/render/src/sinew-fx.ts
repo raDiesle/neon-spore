@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { drawHullShock } from "./hull-shock.js";
@@ -27,6 +28,10 @@ import { PALETTE } from "./palette.js";
  * The ones with no row on them are thrown at the mass as it was last drawn,
  * which `note` is told every frame; before the first frame they are thrown
  * nowhere, and nothing is lost.
+ *
+ * **A fibre parted is a sequence landed** — the sum held in its zone for the
+ * count — and so is the last, so both deal the mass the blow every boss
+ * takes (`boss-hurt.ts`). Coming into the zone deals nothing.
  */
 
 /** The whip: how far the mass swings at the instant of the snap, in tiles,
@@ -50,6 +55,8 @@ export class SinewFx {
   private massX = 0;
   private massY = 0;
   private noted = false;
+  /** The blow a fibre parted deals the mass. */
+  readonly hurt = new BossHurt();
 
   /** Where the mass was drawn this frame, for the receipts with no row of their own. */
   note(x: number, y: number): void {
@@ -101,6 +108,7 @@ export class SinewFx {
           break;
         case "sinewPart":
           burst(tileCX(l, e.col), tileCY(l, e.row) - l.tile, 12, PALETTE.hullRim);
+          this.hurt.hit();
           break;
         case "sinewSnap":
           atMass(16, PALETTE.ember);
@@ -120,6 +128,7 @@ export class SinewFx {
           break;
         case "sinewFall":
           burst(tileCX(l, e.col), tileCY(l, e.row), 10, PALETTE.hull);
+          this.hurt.hit();
           break;
         case "sinewSwing":
           burst(tileCX(l, e.col), this.massY, 5, PALETTE.hullRim);
@@ -149,6 +158,7 @@ export class SinewFx {
     this.whipLeft = Math.max(0, this.whipLeft - dt);
     this.flashLeft = Math.max(0, this.flashLeft - dt);
     this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.hurt.update(dt);
   }
 
   /** The flash: the whole field lit for a beat, dying away. */
@@ -177,5 +187,6 @@ export class SinewFx {
     this.massX = 0;
     this.massY = 0;
     this.noted = false;
+    this.hurt.clear();
   }
 }

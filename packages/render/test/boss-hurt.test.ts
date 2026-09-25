@@ -93,6 +93,15 @@ const ROWS: Row[] = [
     part: [{ type: "haspGrip", col: 3 }],
     hurt: (fx) => fx.boss.hasp.hurt,
   },
+  {
+    boss: "sinew",
+    land: [
+      { type: "sinewPart", fibres: 2, row: 3, col: 3 },
+      { type: "sinewFall", row: 3, col: 3 },
+    ],
+    part: [{ type: "sinewEnter", col: 3 }],
+    hurt: (fx) => fx.boss.sinew.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {
