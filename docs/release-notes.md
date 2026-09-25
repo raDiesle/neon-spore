@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · d9ff755de — Queue and time log: four more bosses wear the blow
+
+THE ANTIPHON, THE LEDGER, THE LEAD and THE CURTAIN are added to the queue entry's worn-so-far list, and the lane's time is logged.
+
+## 2026-09-25 · d3cc5e2b1 — THE CURTAIN shakes and goes red when its core is hit
+
+A core hit, the fabric shoved or gathered off the core and a shot in its colour through the gap, and the last hit are sequences landed. Each deals THE CURTAIN the blow every boss takes: the sheet, the core and the ring shake as one, and the sheet and a bare core wash red for half a second. A lobe off or a shove deals nothing. A look the owner asked for by name (24 September 2026).
+
+## 2026-09-25 · c4da4407e — THE LEAD shakes and goes red when a shot leads it
+
+A hit, a shot led to where the body would be, and the beam taking the last segment are sequences landed. Each deals THE LEAD's mound and stalk the blow every boss takes: a shake and a red wash for half a second. The ridge it stands on does not shake. A flight or a miss deals nothing. A look the owner asked for by name (24 September 2026).
+
+## 2026-09-25 · 0b39e3bfa — THE LEDGER shakes and goes red when its seam widens
+
+A seam widened, by the seam's colour up its column or by a return warded back up the cord, and the tear are sequences landed. Each deals THE LEDGER's halves the blow every boss takes: a shake and a red wash for half a second. The cord does not shake, since its foot is in the ship. The ward on its own and a bolt refused deal nothing. A look the owner asked for by name (24 September 2026).
+
+## 2026-09-25 · 0f2939a9c — THE ANTIPHON shakes and goes red when a shape is named
+
+A pit, when the organ's colour reaches its column, and the burst are sequences landed. Each deals THE ANTIPHON's body the blow every boss takes: a shake and a red wash for half a second. A growth deals nothing. A look the owner asked for by name (24 September 2026).
+
 ## 2026-09-25 · 6e44a2c02 — THE INSTAR asks twice as much in half the time, over seven steps
 
 Every need is doubled and every window halved, on the owner's ask: a jaw is pushed four tiles, the nests hold sixteen eggs to tap and ten to swipe, a blade takes twenty taps, all in four beats. Four steps are added after the first three: a lunge whose brow both seats hold off together, the fire again with the seats swapped on the jaws, a coil whose two blades are each wound two turns, and a last lash with one blade tapped and the other wound.
