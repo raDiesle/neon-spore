@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import type { SurfaceY } from "./hull-frame.js";
@@ -28,6 +29,10 @@ import { showsRatchetCatch, showsRatchetPawl } from "./view-role-clocks-c.js";
  *
  * Read above the loop like THE HASP's. Everything is cleared in
  * `Effects.reset()` (`restart.test.ts`).
+ *
+ * **A clean tooth is a sequence landed** — her catch set and his press in
+ * the window — and so is the lock giving, so both deal the rack the blow
+ * every boss takes (`boss-hurt.ts`). Setting the catch alone deals nothing.
  */
 
 const JOLT_TILES = 0.16;
@@ -41,6 +46,8 @@ export class RatchetFx {
   private clickNow = 0;
   private shockLeft = 0;
   private shockLife = 1;
+  /** The blow a clean tooth deals the rack. */
+  readonly hurt = new BossHurt();
 
   /** How far the strut is thrown down in its mounting right now, in tiles. */
   get jolt(): number {
@@ -94,6 +101,7 @@ export class RatchetFx {
           this.joltNow = JOLT_TILES;
           this.clickNow = 1;
           this.shock(beatSeconds);
+          this.hurt.hit();
           break;
         case "ratchetBolt": {
           const lock = ratchetLock(l, cfg);
@@ -111,6 +119,7 @@ export class RatchetFx {
           const lock = ratchetLock(l, cfg);
           burst(lock.x, lock.y, 30, PALETTE.rock);
           this.shock(beatSeconds);
+          this.hurt.hit();
           break;
         }
         case "ratchetJam":
@@ -141,6 +150,7 @@ export class RatchetFx {
     this.clickNow = Math.max(0, this.clickNow - this.clickNow * CLICK_DECAY * step);
     if (this.clickNow < 0.002) this.clickNow = 0;
     this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.hurt.update(dt);
   }
 
   /** The shudder down the plating as a clean tooth lands, on the finished ship (`frame-on-ship.ts`). */
@@ -154,5 +164,6 @@ export class RatchetFx {
     this.clickNow = 0;
     this.shockLeft = 0;
     this.shockLife = 1;
+    this.hurt.clear();
   }
 }

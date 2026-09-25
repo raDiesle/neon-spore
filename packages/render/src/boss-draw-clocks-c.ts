@@ -85,5 +85,5 @@ export function drawPairBoss(
   // (`view-role-clocks-c.ts`). What outlives a frame — the jolt and click of
   // a clean tooth, the hull's shudder — is `effects.boss.ratchet`
   // (`ratchet-draw.ts`, `ratchet-fx.ts`).
-  drawRatchet(ctx, l, world, boss, beat, beatPhase, effects.boss.ratchet);
+  drawRatchet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.ratchet);
 }

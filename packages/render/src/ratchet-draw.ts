@@ -1,4 +1,5 @@
 import { RATCHET_TEETH, type RatchetState, ratchetLoose, type World } from "@neon-spore/sim";
+import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
@@ -59,6 +60,7 @@ export function drawRatchet(
   s: RatchetState,
   beat: number,
   beatPhase: number,
+  time: number,
   fx: RatchetFx,
 ): void {
   const cfg = world.cfg;
@@ -75,7 +77,7 @@ export function drawRatchet(
   // The jolt of a clean tooth drops the whole strut in its mounting, applied
   // to the context so the rack, the pawl and the lock stay one machine.
   ctx.globalAlpha = (0.15 + 0.85 * lit) * (1 - 0.55 * fold);
-  ctx.translate(0, fx.jolt * l.tile);
+  ctx.translate(fx.hurt.shakeX(time, l.tile), fx.jolt * l.tile);
   // **The perspective change**: once the lock gives, the strut tips down and
   // away from the ship about the lock at its top — foreshortened toward it,
   // and a little wider as its far end comes nearer the eye.
@@ -86,7 +88,9 @@ export function drawRatchet(
   }
   drawStrut(ctx, l, world);
   drawRatchetSpring(ctx, l, cfg, top);
-  for (let i = 0; i < RATCHET_TEETH; i++) drawPlate(ctx, l, world, i, top, i + 1 <= rise + 1e-6);
+  for (let i = 0; i < RATCHET_TEETH; i++) {
+    drawPlate(ctx, l, world, i, top, i + 1 <= rise + 1e-6, fx.hurt.value);
+  }
   const bears = Math.max(0, Math.min(RATCHET_TEETH - 1, Math.round(rise) - 1));
   const lift = ratchetPawlLift(s, cfg, beat, beatPhase);
   drawRatchetPawl(ctx, l, cfg, s, bears, lift, showsRatchetPawl(l.role));
@@ -103,6 +107,7 @@ export function drawRatchet(
 interface RatchetFx {
   readonly jolt: number;
   readonly click: number;
+  readonly hurt: BossHurt;
 }
 
 /** The strut: two rails from the lock down past the rack's lowest reach, and the seam the pawl bears on. */
@@ -131,6 +136,7 @@ function drawPlate(
   i: number,
   top: number,
   spent: boolean,
+  hurt: number,
 ): void {
   const plate = ratchetPlatePath(l, world.cfg, i, top);
   ctx.fillStyle = rgba(PALETTE.rockDark, spent ? 0.3 : 0.9);
@@ -138,6 +144,7 @@ function drawPlate(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = spent ? rgba(PALETTE.rock, 0.35) : PALETTE.rock;
   ctx.stroke(plate);
+  drawHurt(ctx, plate, hurt);
 }
 
 /** The click: a flash along the seam where the pawl has just dropped onto a clean tooth. */
