@@ -116,10 +116,9 @@ const RUN_LINE = /^\d+:\d{2}( ·|$)/;
  * September 2026 with the clamp it holds: the kind line used to stop at the
  * top of the *canvas*, which on a rehearsal is 94 pixels inside the plate, and
  * a film draws the cue like anything else (`guide-seat.ts` → `drawBodies`).
- * Four bosses put a word under the band — THE GORGE's intakes had the kind
- * line in it, and THE CANDLE's glow, THE DIASTOLE's bridge and THE SCUTTLE's
- * borrowed lock box stand in the band with their marks, so the verb was in it
- * too. Since then the picture — cue included — is laid out below the band
+ * Bosses put a word under the band — THE GORGE's intakes had the kind line
+ * in it, and THE SCUTTLE's borrowed lock box stands in the band with its
+ * mark, so the verb was in it too. Since then the picture — cue included — is laid out below the band
  * altogether (`guide-film.ts`), which is what keeps both lines out of it now.
  *
  * **A word the plate covers is the tutorial covering the one thing the field
@@ -227,7 +226,7 @@ describe("the tutorial plate and a round's header", () => {
  * field was anchored to the panel at the bottom, so row 0 stood about the bar's
  * height higher in a film than in the wave — under the band. Anything a boss
  * hangs *over* row 0 was drawn there and then covered: THE TASTER's crest and
- * fan, THE GORGE's sack, THE ANTIPHON's body and rail, THE ORRERY's top arc.
+ * fan, THE GORGE's sack, THE ANTIPHON's body and rail.
  * The band's foot comes off the playable height now, the way the bar's already
  * did (`guide-film.ts`), and this is the geometry of that: the picture begins
  * at the band's foot, and row 0 with the deepest overhang any boss draws over

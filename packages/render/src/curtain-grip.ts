@@ -28,8 +28,8 @@ import { bossOf } from "./touch-field.js";
  * the field is the same reckoning the grip ring already uses, and it says the
  * true thing: *the cloth, here*.
  *
- * **The lift is remapped and not one-to-one.** THE CANDLE's flame is exactly
- * under the thumb because a flame has to be; a hem the simulation calls high
+ * **The lift is remapped and not one-to-one.** A handle that is a point can
+ * sit exactly under the thumb; a hem the simulation calls high
  * has to *look* gathered, which is `stare-lid.ts`' case. Half a tile of thumb
  * is not a sheet's worth of hem, so the full `curtainLiftMilli` draws the edge
  * up `HEM_DROP + RAIL_RISE - HEM_GATHER` tiles — to a sliver of cloth under the
@@ -37,8 +37,7 @@ import { bossOf } from "./touch-field.js";
  * the core opens for nothing else: the core is drawn first and the sheet over
  * it (`curtain-draw.ts`), so cloth lifted off a column is a column seen.
  *
- * **The ring is on both screens**, which is THE CANDLE's arrangement and for
- * its reason: the gauge closing is the navigator's cue, because the instant it
+ * **The ring is on both screens**, because the gauge closing is the navigator's cue, because the instant it
  * closes is the instant her shot up that column is worth something. Whose
  * thumb it is is said by the field's own word, `LIFT`.
  *

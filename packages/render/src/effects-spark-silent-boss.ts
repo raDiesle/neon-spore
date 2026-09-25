@@ -17,7 +17,7 @@ import type { SimEvent } from "@neon-spore/sim";
  * there, and the next boss lands without touching anybody's comment. **This
  * page is full.** From THE INSTAR on the rows are on the second,
  * `effects-spark-silent-boss-b.ts`, and that is where the next boss's go.
- * The boundary moved a boss earlier when THE CANDLE's two new rows put this
+ * The boundary moved a boss earlier when one boss's two new rows put this
  * page over its limit again, and again on 19 September 2026 when THE
  * ANTIPHON's own ten did — `surgeRock` had already taken this page to
  * exactly 250 lines, the ceiling and not under it, so the next boss to land

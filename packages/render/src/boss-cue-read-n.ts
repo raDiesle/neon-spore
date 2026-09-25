@@ -40,11 +40,11 @@ import { type Layout, tileCX } from "./layout.js";
  *   exactly one column worth a shot and a clock on it.
  * - **The mouth.** It is the unruptured intake nearest the centre, it does not
  *   move, and the beam in its colour standing in its column is the only thing
- *   that ends the fight (`gorge.ts`). THE ORRERY's `MOVE` is a park and THE
- *   CANDLE's is a chase; this one is a park with a clock nowhere near it.
+ *   that ends the fight (`gorge.ts`). Its `MOVE` is a park with a clock
+ *   nowhere near it.
  *
  * **And the navigator is told only what the cannon's own column can answer.**
- * THE CANDLE's pairing and THE THROAT's before it: one gesture across two
+ * THE THROAT's pairing: one gesture across two
  * seats, so while the cannon is elsewhere she is told nothing rather than told
  * to `PIERCE` up a lane the shot cannot reach the intake from. It costs her
  * nothing — the ring she is shown stays on the lobe nearest full either way

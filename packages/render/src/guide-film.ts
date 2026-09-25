@@ -71,8 +71,7 @@ export function filmLayout(box: Layout, cfg: SimConfig, seat: 1 | 2): FilmLayout
  * seat draw only ever handed the HUD (`ViewState.clearTop`). Anything hung
  * *over* row 0 was drawn there and then covered: THE TASTER's crest and fan in
  * every page of its film, THE GORGE's sack in the first page of its, THE
- * ANTIPHON's body and the navigator's rail in all of its, THE ORRERY's top arc
- * so that its *three rings* showed two and a half — and the boss cue on the
+ * ANTIPHON's body and the navigator's rail in all of its — and the boss cue on the
  * marks that stand high (`boss-cue-draw.ts`). A film that hides the thing the
  * page is about is the one picture of it that does not show it.
  *

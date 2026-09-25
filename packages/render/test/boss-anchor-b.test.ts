@@ -26,10 +26,10 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * WHERE A CAPTION ABOUT A BOSS'S OWN FIXTURE POINTS — the five films of the
+ * WHERE A CAPTION ABOUT A BOSS'S OWN FIXTURE POINTS — the films of the
  * second half (`caption-anchor-boss-b.ts`): THE LEAD's stalk, THE SCUTTLE's
- * frame and live part, THE ANTIPHON's body, organ and rail, THE ORRERY's
- * orbits, ring and core, THE SCOUT's ship and hazards. Each is proved to
+ * frame and live part, THE ANTIPHON's body, organ and rail, THE SCOUT's ship
+ * and hazards. Each is proved to
  * land where the boss's shape file puts the thing, and each part one seat
  * is not shown to be no ring on that seat's screen (`boss-anchor.test.ts`).
  */

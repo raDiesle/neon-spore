@@ -160,8 +160,7 @@ function drawHaul(
 /**
  * A receipt at the mouth: a ring going out from it for a beat.
  *
- * Both of them are on both screens, THE DIASTOLE's `drawStruck`'s argument said
- * about the other direction: a choke and a heal are the two facts in this fight
+ * Both of them are on both screens: a choke and a heal are the two facts in this fight
  * neither player has to be told by the other, and the pair that just fed the
  * boss by mistake deserves to see it happen. Grey going out is a ring lost,
  * pale venom is one the throat got back.

@@ -6,17 +6,16 @@ import { leadWord } from "./lead-word.js";
 
 /**
  * **What THE LEAD is asking for** — page three of the readings, its page
- * alone since 19 September 2026. THE THROAT and THE ORRERY left it for pages
- * eleven and twelve, THE LEDGER for page fifteen, and the finding that
+ * alone since 19 September 2026. THE THROAT and one more boss left it for
+ * pages eleven and twelve, THE LEDGER for page fifteen, and the finding that
  * reserved this page (`docs/queue.md`) said the seam it had drawn — the
  * older half of the choreographed page against the newer — was gone with
- * them: the three left, THE LEAD, THE SCUTTLE and THE DIASTOLE, were all
- * about **a count nobody may be given**, so the split left to make was one
- * page a boss, as the other four already are. THE SCUTTLE went to the
- * readings' page `t`, THE DIASTOLE to page `u` — a letter rather than a
+ * them: the three left, THE LEAD, THE SCUTTLE and one more, were all about
+ * **a count nobody may be given**, so the split left to make was one page a
+ * boss. THE SCUTTLE went to the readings' page `t` — a letter rather than a
  * number, page `s`'s own reason: a sibling lane is writing another page the
- * same day, and a number here would describe whichever of the three lands
- * first rather than this page.
+ * same day, and a number here would describe whichever page lands first
+ * rather than this one.
  *
  * The rule that decided almost every line here decides it alone now: #34's
  * third, **it says the verb and never the answer.** THE LEAD is the

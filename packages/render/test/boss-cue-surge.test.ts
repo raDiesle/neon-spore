@@ -54,7 +54,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * and the vent's sink, which are the drawing's rather than the simulation's. The
  * last case runs real frames to prove the two are wired together.
  *
- * The states are set rather than played into, as in `boss-cue-candle.test.ts`:
+ * The states are set rather than played into:
  * the charge, the vent, the burst and the eversion are proved in
  * `sim/test/surge*.test.ts`.
  */

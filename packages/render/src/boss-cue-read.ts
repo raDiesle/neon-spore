@@ -80,7 +80,7 @@ function markAt(
  * - **While the core is bare**, its own column, because that is the only lane
  *   a hit comes off it in and the fabric rolls back over it
  *   `curtainRerollBeats` after the last hand leaves. Her `FIRE` waits behind
- *   it, THE CANDLE's pairing: off the column she is told nothing rather than
+ *   it, THE THROAT's pairing: off the column she is told nothing rather than
  *   told to fire up a lane the core cannot be reached in.
  * - **While it is covered**, a **soft** lobe's column. The hem is the health
  *   and a bolt into a soft lobe is what takes it (`curtainHemStruck`), and

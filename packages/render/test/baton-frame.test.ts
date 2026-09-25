@@ -31,7 +31,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * THE BATON through its stages, on both screens.
  *
  * The stages are **played into where a command reaches them and set where it
- * does not**, for `diastole-frame.test.ts`'s reason: a flight is one press
+ * does not**: a flight is one press
  * away and is pressed, while a dark socket, a shed one and the fold at the
  * end are each a run of handovers deep — `sim/test/baton.test.ts` proves those
  * and this file only asks whether every branch of the picture is drawn. The

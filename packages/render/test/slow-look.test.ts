@@ -28,8 +28,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * (`src/slow-intake.ts`). The first cases below are the only ones of these a
  * regression would show up in the running game.
  *
- * The window is **set** rather than played into, as `boss-cue-candle.test.ts`
- * sets THE CANDLE's: `sim/test/slow.test.ts` owns when a boss opens one, and a
+ * The window is **set** rather than played into: `sim/test/slow.test.ts` owns when a boss opens one, and a
  * render test that waited out `instarSlowBeats` would be that suite's second
  * copy.
  */

@@ -14,7 +14,7 @@ import { bossOf } from "./touch-field.js";
  * The rule shipped ahead of the picture (`sim/pulse-hand.ts`), and the wave's
  * own guide has been telling the pair about it the whole time — *Bar low: a
  * thumb on it carries them* — over a bar with nothing on it to take hold of.
- * That is `orreryRing`'s walk, made a fifth time: the target was heard and
+ * That is the walk four handles made before it: the target was heard and
  * drawn nowhere, so `on-field-controls.test.ts` had it filed as `unbuilt` and
  * the ON THE FIELD tab had no row for it.
  *

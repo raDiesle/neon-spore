@@ -20,7 +20,7 @@ import { showsGorgeNearest, showsGorgeTally } from "./view-role-clocks.js";
  * the field, breathing on the beat, with a lobe over each column and the
  * beads it has swallowed hanging in them (`gorge-lobe.ts`).
  *
- * **The whole boss is above row 0**, THE DIASTOLE's arrangement and for the
+ * **The whole boss is above row 0**, THE VANE's arrangement and for the
  * same reason: there is no body of it among the creatures, and a shot answers
  * it by leaving the field up its own column and into the intake there
  * (`sim/gorge-step.ts`). What is under it is the ordinary field, which is

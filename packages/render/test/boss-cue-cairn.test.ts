@@ -58,7 +58,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * is shown the clock it would otherwise be timed on. The screen that must never
  * carry it is a screen with no pile on it, and the last case is that.
  *
- * The states are set rather than played into, as in `boss-cue-candle.test.ts`:
+ * The states are set rather than played into:
  * the pull, the shed and the reset are proved in `sim/test/cairn*.test.ts`.
  */
 

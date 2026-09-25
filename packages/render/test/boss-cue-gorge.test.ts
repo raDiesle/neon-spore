@@ -39,7 +39,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * mouth empty, and a pry taken there clenches at `gorgePryBeats` and spits a
  * bead for nothing (`gorge-pry.ts`).
  *
- * The states are set rather than played into, as in `boss-cue-candle.test.ts`:
+ * The states are set rather than played into:
  * the vent, the spit and the mouth's own clock are all proved in
  * `sim/test/gorge*.test.ts`, and a test that fed an intake through
  * `gorgeStruck` to find it full would be that suite's second copy.

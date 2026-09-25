@@ -101,20 +101,18 @@ export interface Field {
   /**
    * **The boss running, whatever it is**, `null` between them.
    *
-   * This was thirteen fields — `maze`, `warden`, `orrery`, `sinew`, `surge`,
-   * `antiphon`, `instar`, `filament`, `stare`, `queen`, `diastole`, `mirror`,
-   * `gorge` — one per boss a thumb can reach, each written down four more
-   * times in `apps/game/src/input.ts` and once in every `Field` literal in the
-   * tests. Thirteen names for one fact is thirteen places a fourteenth boss
-   * has to be added, and `input.ts` folded two comments to fit the thirteenth.
+   * This was a field per boss a thumb can reach — `maze`, `warden`, `sinew`,
+   * `surge`, `antiphon`, `instar`, `filament`, `stare`, `queen`, `mirror`,
+   * `gorge` among them — each written down four more times in
+   * `apps/game/src/input.ts` and once in every `Field` literal in the tests.
+   * A name per boss for one fact is one more place every new boss has to be
+   * added, and `input.ts` folded two comments to fit the last of them.
    *
    * **Required, and stated rather than defaulted**, which is the whole of what
-   * the thirteen paragraphs this replaces were saying, each in its own boss's
-   * words: a caller that quietly meant `null` would leave a handle that is
-   * *drawn* answering nothing — the pilot's hand falling through THE ORRERY's
-   * ring onto the rocks behind it, THE SURGE's one bulb with neither thumb on
-   * it, THE INSTAR's marks dead on a wave that has no panel at all, THE
-   * DIASTOLE's last chamber open on no beat. A control answered where it is
+   * the paragraphs this replaces were saying, each in its own boss's words: a
+   * caller that quietly meant `null` would leave a handle that is *drawn*
+   * answering nothing — THE SURGE's one bulb with neither thumb on it, THE
+   * INSTAR's marks dead on a wave that has no panel at all. A control answered where it is
    * not drawn, and a control drawn where it is not answered, are the two
    * things this file exists to prevent, and a required field makes the
    * compiler ask about both.

@@ -13,11 +13,11 @@ import { scuttleRowY } from "./scuttle-shape.js";
 
 /**
  * **What THE SCUTTLE is asking for** — the readings' page `t`, split off
- * `boss-cue-read-c.ts` on 19 September 2026 alongside THE DIASTOLE, which
+ * `boss-cue-read-c.ts` on 19 September 2026 alongside one more boss, which
  * went to page `u`; THE LEAD stayed on page three, alone. The finding that
  * reserved page three (`docs/queue.md`) had already said what was left of it
- * to split: one page a boss, the way THE THROAT, THE ORRERY and THE LEDGER
- * had already gone to pages eleven, twelve and fifteen. The letter rather
+ * to split: one page a boss, the way THE THROAT and THE LEDGER had already
+ * gone to pages eleven and fifteen. The letter rather
  * than a number is page `s`'s own reason — a sibling lane is writing another
  * page the same day, and a number here would be a number about whichever of
  * the three lands first.

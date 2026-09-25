@@ -58,8 +58,7 @@ const KIND_GAP = 9;
 /**
  * The kind line never leaves the canvas, whatever the mark is standing on —
  * and never leaves the *picture* either: any boss whose mark stands high —
- * THE BATON's bead in the top socket, THE CANDLE's glow, THE GORGE's
- * intakes, THE SCUTTLE's lock at `gridTop` — would otherwise put PRESS or
+ * THE BATON's bead in the top socket, THE GORGE's intakes, THE SCUTTLE's lock at `gridTop` — would otherwise put PRESS or
  * HOLD under it.
  */
 const TOP_EDGE = 10;
@@ -153,8 +152,8 @@ export function cueWordY(cue: BossCue, floor: number = TOP_EDGE): number {
  *
  * - a mark under it with its line poking in — THE GORGE's intakes — has the
  *   line pushed down to the floor and nothing else moves;
- * - a mark **inside** it — THE CANDLE's glow, THE DIASTOLE's bridge, THE
- *   SCUTTLE's borrowed lock box at the socket row — would have the line under
+ * - a mark **inside** it — THE SCUTTLE's borrowed lock box at the socket
+ *   row — would have the line under
  *   the verb whatever it did, so it is put there on purpose, a line's height
  *   below, which reads in the order it is anyway learned in: the verb is the
  *   instruction and the kind is its grammar;

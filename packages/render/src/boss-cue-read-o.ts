@@ -24,7 +24,7 @@ import {
 
 /**
  * **What THE LEDGER is asking for** — page fifteen of the readings, and its own
- * page for the reason THE THROAT and THE ORRERY have theirs: page three was at
+ * page for the reason THE THROAT has its: page three was at
  * 198 lines of its 250 with four fights on it, and this one's reading grew a
  * movement.
  *
@@ -122,7 +122,7 @@ function markAt(
  * for: hers on the plate in the socket's column, his on the trigger on the
  * beat it lands. While the cord is empty nothing is coming, and what the fight
  * wants is the next hit — so the column comes first and the press follows it,
- * THE CANDLE's and THE THROAT's pairing, one gesture across two seats.
+ * THE THROAT's pairing, one gesture across two seats.
  */
 export function ledgerCues(
   l: Layout,

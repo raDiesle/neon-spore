@@ -44,7 +44,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * question the design put in step 8. A lane making this boss "clearer" by
  * lighting either would be caught here (`decisions.md` #34).
  *
- * The states are set rather than played into, as in `boss-cue-candle.test.ts`:
+ * The states are set rather than played into:
  * the seam, the cadence, the walk and the tear are proved in
  * `sim/test/ledger*.test.ts`.
  */

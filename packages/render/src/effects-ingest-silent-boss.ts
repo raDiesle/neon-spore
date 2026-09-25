@@ -18,7 +18,7 @@ import type { SimEvent } from "@neon-spore/sim";
  *
  * **This page is full, and gives a boss back rather than grow.** From THE
  * CAIRN on the rows are on the second, `effects-ingest-silent-boss-b.ts`. The
- * boundary moved a boss earlier when THE CANDLE's two new rows put this page
+ * boundary moved a boss earlier when one boss's two new rows put this page
  * over its limit, and again when THE CURTAIN's three did: the seam is build
  * order, so it is the *last* boss here that goes next door, never the one
  * being worked on.

@@ -19,8 +19,7 @@ import { drawTasterNext, drawTasterTally } from "./taster-read.js";
  * blade coming off, the shiver when the fan re-edges, the crest opening for
  * good — are `taster-fx.ts`'s.
  *
- * **The whole boss is above row 0**, THE GORGE's and THE DIASTOLE's
- * arrangement: nothing of it is among the creatures, and a shot answers it by
+ * **The whole boss is above row 0**, THE GORGE's arrangement: nothing of it is among the creatures, and a shot answers it by
  * leaving the field up its own column into whatever stands over it. The field
  * beneath is the ordinary field, and it is where the argument is made — every
  * shot the pair takes at a body down there is a colour in the ledger this boss

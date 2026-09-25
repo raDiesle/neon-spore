@@ -28,8 +28,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * THE GORGE's sack, on both screens.
  *
- * The lobes' states are **set** rather than fed, `candle-frame.test.ts`'s
- * arrangement: `sim/test/gorge.test.ts` proves the swallow and the pierce,
+ * The lobes' states are **set** rather than fed: `sim/test/gorge.test.ts` proves the swallow and the pierce,
  * and what this file asks is whether every branch of the picture is one a
  * canvas accepts — a lobe filling, full, ruptured, the mouth, the sack gone —
  * and the two things nothing else in the suite could catch: that the tally is

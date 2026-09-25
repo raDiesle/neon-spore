@@ -48,8 +48,7 @@ import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
  *
  * Each answer comes out of the file that draws that handle, so the hand cannot
  * stand where the handle is not. Null wherever the handle is not on the field:
- * the wheel between rounds, a warden with no line, a wave with no eye in it, an
- * orrery with every ring already off.
+ * the wheel between rounds, a warden with no line, a wave with no eye in it.
  */
 export function handleCircle(
   l: Layout,

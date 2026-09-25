@@ -225,7 +225,7 @@ export const TALKER = {
   // and what the siren asks for is a number said out loud, which is THE
   // GHOST's sentence in a boss's body.
   cairn: "p1",
-  // THE CURTAIN: `"both"`, THE WEIGHT's answer for THE DIASTOLE's reason.
+  // THE CURTAIN: `"both"`, THE WEIGHT's answer.
   // The pilot alone is shown which lobes are soft, the navigator alone where
   // the core's shadow falls and what colour it is, so neither screen holds a
   // sentence the other can finish — both have to speak, every cycle.

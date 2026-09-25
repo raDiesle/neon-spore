@@ -38,7 +38,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * so its `SHEAR` was a word about a lane eleven columns wide that happened to
  * contain one. It sets the cannon now.
  *
- * The states are set rather than played into, as in `boss-cue-candle.test.ts`:
+ * The states are set rather than played into:
  * the grow, the set and the re-edge are proved in `sim/test/taster*.test.ts`.
  *
  * Three more words went in on 19 September 2026 with the three hands
@@ -151,7 +151,7 @@ describe("THE TASTER", () => {
     growing.growBeat = world.beat;
     world.cannonCol = t.col + 5;
     // His own blade is growing and will stand in his own column, so the word
-    // that walked THE CANDLE's pilot off his lane is not said here.
+    // that would walk him off his lane is not said here.
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });

@@ -42,7 +42,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * and `SHOVE` does not, which is one gesture per state and the whole point of
  * the cue having an arm per state.
  *
- * The states are set rather than played into, as in `boss-cue-candle.test.ts`:
+ * The states are set rather than played into:
  * the roll-back, the soft redraw, the jam and the tear are proved in
  * `sim/test/curtain*.test.ts`.
  */
@@ -142,7 +142,7 @@ describe("THE CURTAIN", () => {
     c.phase = "torn";
     c.phaseBeat = world.beat;
     world.cannonCol = other(c.coreCol);
-    // THE CANDLE's pairing: a `FIRE` up a lane `curtainStruck` refuses is
+    // THE THROAT's pairing: a `FIRE` up a lane `curtainStruck` refuses is
     // worse than no word, so it waits behind his column.
     expect(word(world, "p1")).toBe("MOVE");
     expect(word(world, "p2")).toBeNull();

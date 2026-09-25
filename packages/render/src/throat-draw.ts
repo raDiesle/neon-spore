@@ -140,8 +140,7 @@ function drawSkin(
 /**
  * One ring muscle.
  *
- * Three states, and THE DIASTOLE's chamber is the argument for there being
- * three rather than two: a taut ring is a lit band of muscle, a taut ring with
+ * Three states rather than two: a taut ring is a lit band of muscle, a taut ring with
  * the gulp in it has its crest lit in the hull's rim for the beat the
  * contraction is passing through, and a slack one is a dark limp band **drawn
  * inside its own station** — the design's *hangs limp inside the tube*, which

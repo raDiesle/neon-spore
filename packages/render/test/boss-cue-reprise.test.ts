@@ -52,8 +52,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * standing there.
  *
  * The first echo is played into — it opens on wave beat twelve with nobody
- * touching a control — and the beat it *shuts* is set, as in
- * `boss-cue-candle.test.ts`: a pair that presses nothing loses this wave to the
+ * touching a control — and the beat it *shuts* is set: a pair that presses
+ * nothing loses this wave to the
  * hull before the echo can spend itself, and `world` stops advancing there. The
  * clock is `content/test/scene-reprise.test.ts`'s to prove and it does (*seen
  * @18*, an unseen bulb taken at @20, the last of them on the hull at @33); what

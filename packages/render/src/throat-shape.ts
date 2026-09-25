@@ -120,8 +120,7 @@ export function ringSqueeze(
  * one: `throatMouthCol` says the mouth **is** in this column for the whole of
  * this beat, a fling is judged against that column by a sweep, and a mouth
  * drawn still travelling toward it would be a picture disagreeing with the hit
- * test for two thirds of every beat. THE DIASTOLE's squeeze is shaped the same
- * way and for the same reason — snap, then rest.
+ * test for two thirds of every beat — so it snaps, then rests.
  */
 export function mouthX(
   l: Layout,
