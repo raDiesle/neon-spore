@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 2ea95088f — THE MAZE takes one shot per trigger on the game's shot grid too
+
+On a phone a press waits for the half-beat, so it lays a charge and no bullet yet, and the bullet THE MAZE drops when the drum takes a shot was not there to drop. Half a beat later an ordinary bolt went up the column and off the top of the field while the drum walked the shot it had taken. The charge is now marked when the drum takes it, and goes out as a muzzle flash with no bolt. A fix to something wrong rather than unlovely.
+
+## 2026-09-25 · 67db8b534 — A cannon shot flies on to the top of the screen before it goes
+
+On a phone upright the field is shorter than the screen, so a bolt that left the top row vanished several tiles below the top edge. The simulation now says `shotOut` when a shot leaves, with where it stood, and the picture carries the bolt on at the speed it climbed until it is past the top of the stage. A bolt that a boss hanging above the field took is not carried; neither is one on THE WELL. A look the owner asked for by name.
+
 ## 2026-09-25 · 0524e9c59 — THE SPLICE's eater breaks through the wall twice and pours venom on the hull
 
 The eater is a big red alien head on a neck, broken through the hold's right wall near the top, with the back end of the same body broken through lower down. Its tongue snaps at the number nearest to it rather than the one the pair owes next, so it no longer points at the answer. When the clock runs out it eats that number, the lump goes down inside the wall, and the back end pours it out as venom onto the hull where the cannon stood — landing on the beat the slick breach is filed. The neck and back end are TENDRIL, the head is SYMBIOSIS held merged; both holes are torn, with flaps of wall over the roots.
