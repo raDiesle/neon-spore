@@ -61,8 +61,8 @@ import type { Wave } from "../wave-types.js";
  * descriptions and visual helps, so remove completely the guide/tutorial
  * stepper part with its text.* The marks are the instruction, where a mark
  * sits says whose, and its scanner box names the gesture; the wave opens on
- * its number and name. `test/waves.test.ts` names it as the one wave first on
- * a panel with nothing to say. The comment is up here rather than on the
+ * its number and name. `test/waves.test.ts` names it, with THE FILAMENT, as a
+ * wave first on a panel with nothing to say. The comment is up here rather than on the
  * wave because the director writes this file back and keeps nothing between
  * a wave's braces.
  */

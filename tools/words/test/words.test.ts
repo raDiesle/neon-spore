@@ -88,7 +88,10 @@ describe("the inventory", () => {
 
   it("makes one entry per line, because a numbered step is read one at a time", () => {
     const steps = playerText().filter((e) => /^\d\.\s/.test(e.text));
-    expect(steps.length).toBeGreaterThan(50);
+    // A floor that proves the steps are reached, not a count of them: every
+    // guide taken off for its field takes its steps with it (THE INSTAR's and
+    // THE FILAMENT's, 25 September 2026, took it from sixty-one to forty-nine).
+    expect(steps.length).toBeGreaterThan(40);
     for (const step of steps) expect(step.text).not.toContain("\n");
   });
 });

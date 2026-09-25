@@ -22,6 +22,18 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE FILAMENT carries no guide either
+
+- reading: 5 min. `act-10.ts`'s comment, which called the guide the only
+  place the window was a number, against the pips that now draw it.
+- writing: 5 min. The guide out, `SAYS_ITSELF` two long, the counts by one.
+- looking: 0 min. No picture: the wave opens on its name.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: the file's own comment said the guide carried the *three*, so the
+field had to be read to see it says it too before the guide could go.
+
 ## 2026-09-25 — THE INSTAR's next six, queued one per sequence
 
 - reading: 10 min. The gestures, the config, the fire, eggs, tail and eye

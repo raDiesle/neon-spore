@@ -14,7 +14,7 @@ import { SCENES } from "../src/scenes.js";
  * (`sim/test/copies-table.ts`). So the numbers in that section are here, in the
  * package that owns them.
  *
- * Both directions matter. A film written for one of the nine below fails this
+ * Both directions matter. A film written for one of the eight below fails this
  * and the failure says to update the section; a guide that loses its film fails
  * it the other way. Neither is a defect in the film — it is the document being
  * asked to keep up, which is the only thing that was ever wrong with it.
@@ -43,13 +43,8 @@ const STILL_PROSE = [
   // THE INSTAR left this list on 25 September 2026 without a film: the owner
   // took its guide off, because its marks say their own words on the field
   // (`waves.test.ts`, `SAYS_ITSELF`).
-  // And THE FILAMENT, drawn 18 September 2026 (`render/filament-draw.ts` and
-  // the three files beside it, `bosses.md` §11.33) with its film still owed:
-  // its guide already says the one rule each seat has — draw a tile a beat,
-  // follow the lit part — and its words are on the field beside the rings, so
-  // whether a boss that says its own verbs wants a film is the question THE
-  // INSTAR's guide was dropped over, and it waits on the owner's eye.
-  "THE FILAMENT",
+  // And THE FILAMENT the same day, the same way: asked whether it wanted a
+  // film, the owner answered *both guides go*.
   // And THE GIMBAL, whose simulation landed 22 September 2026 (`bosses.md`
   // §11.34) with nothing of it drawn at all yet. A film is a rehearsal of the
   // game's own screen, and there is no screen to rehearse until the look lane
@@ -91,8 +86,8 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says eighty-nine of ninety-nine";
-    expect(guided.length, fix).toBe(89);
+    const fix = "update §1 of docs/spec/briefings.md, which says eighty-eight of ninety-nine";
+    expect(guided.length, fix).toBe(88);
     expect(WAVES.length, fix).toBe(99);
   });
 

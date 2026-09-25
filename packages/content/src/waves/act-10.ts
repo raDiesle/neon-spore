@@ -76,10 +76,10 @@ import type { Wave } from "../wave-types.js";
  * lost and played again — the owner, 25 September 2026: *not infinite, and
  * the ship takes damage* (`sim/filament-turn.ts`, `docs/spec/bosses.md` §11).
  *
- * **Its guide is the only place the window is a number.** The pilot's screen
- * shows how far ahead he is and the navigator's how far behind she is, and
- * neither shows the other's, so *three* is what the pair has to carry in
- * their heads — the guide says it once and the picture never does again.
+ * **It carries no guide**, THE INSTAR's way: the owner, 25 September 2026,
+ * took both off together. Each ring says whether its move is open, and the
+ * window is three pips under it (`render/filament-turn-draw.ts`), so the
+ * field says the one number the guide used to carry.
  * The panel is empty (`controls: "scene"`): there is no cannon to fire at a
  * line and no colour to load, only two thumbs on the field.
  */
@@ -175,11 +175,6 @@ export const WAVES_ACT_10: Wave[] = [
   {
     id: "theFilament",
     name: "THE FILAMENT",
-    guide: {
-      both: "Carry your tools up a vein to the heart. One draws, one follows. One tile a beat. Stay within three tiles. A mistake loses the wave.",
-      p1: "1. Put your thumb on the lit end and draw up the vein, one tile a beat.\n2. Say your next tile before you take it.\n3. Faster than a beat snaps it. Wait for your partner.\n4. Wait too long and the ship is hit.",
-      p2: "1. Put your thumb on the lit end. Follow the lit tiles behind your partner.\n2. Say how far behind you are. Past three, it goes dark.\n3. Never land on their tile before the last.\n4. Wait too long and the ship is hit.",
-    },
     entries: [],
     boss: { kind: "filament", filaments: FILAMENT_SCRIPT },
     bossType: "normal",

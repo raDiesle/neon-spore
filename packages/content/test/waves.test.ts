@@ -206,10 +206,12 @@ describe("wave content", () => {
    * action over it, on the seat that can act, so the owner took its guide off
    * on 25 September 2026: *the boss is self explanatory, because it contains
    * in game text descriptions and visual helps, so remove completely the
-   * guide/tutorial stepper part with its text.* A name goes here only on the
-   * owner's word.
+   * guide/tutorial stepper part with its text.* THE FILAMENT's rings and
+   * pips say its rule the same way, and asked which it wanted, a film or
+   * none, the owner answered the same day: *both guides go*. A name goes here
+   * only on the owner's word.
    */
-  const SAYS_ITSELF = new Set(["THE INSTAR"]);
+  const SAYS_ITSELF = new Set(["THE INSTAR", "THE FILAMENT"]);
 
   it("gives the first wave that carries anything new a guide", () => {
     const seen = new Set<string>();
