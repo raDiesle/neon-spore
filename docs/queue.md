@@ -400,6 +400,7 @@ Each boss lands as *a look the owner asked for by name*.
 ## `frames --hold …@TICK` never fired `--until instarAnswer`
 
 - **Found:** 2026-09-24, claude/bellows-gameplay-clarity
+- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-frames-hold-tick-never-fired-until-instaranswer)
 - **Files:** `tools/frames/run.ts`
 
 Taking THE INSTAR's green verdict for the owner, this command ran for 3000
