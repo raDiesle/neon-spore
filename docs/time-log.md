@@ -20884,3 +20884,18 @@ found that twenty taps push a blade out from under the thumb the rig kept
 putting down in one place.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE INSTAR carries no guide
+
+- reading: 5 min. The two must-have-a-guide tests in `waves.test.ts`,
+  `STILL_PROSE`, and §3.2's counts.
+- writing: 10 min. The guide out, `SAYS_ITSELF` in both tests, the counts
+  of §1 and §3.2, the FILAMENT half of the queue question.
+- looking: 0 min. No picture: the wave opens on its name, as any unguided one.
+- friction: 5 min. The guard hook refused a heredoc with a doubled backslash;
+  the edits went through the editor instead.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: §3.2 already counted eleven and eighty-two against ten and
+eighty on disk, so the figures had to be read off `WAVES` before any could
+be corrected by one.

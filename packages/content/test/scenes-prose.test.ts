@@ -14,7 +14,7 @@ import { SCENES } from "../src/scenes.js";
  * (`sim/test/copies-table.ts`). So the numbers in that section are here, in the
  * package that owns them.
  *
- * Both directions matter. A film written for one of the eleven below fails this
+ * Both directions matter. A film written for one of the nine below fails this
  * and the failure says to update the section; a guide that loses its film fails
  * it the other way. Neither is a defect in the film — it is the document being
  * asked to keep up, which is the only thing that was ever wrong with it.
@@ -40,22 +40,15 @@ const STILL_PROSE = [
   // THE HIVE left this list on 21 September 2026: the wave it could not be
   // filmed against — nobody could finish it — was fixed on the 20th, and
   // `scenes/the-hive.ts` is the film of it being won.
-  // And THE INSTAR, which is drawn too, and is the picture every other boss's
-  // is now measured against (`render/instar-draw.ts` and the eight files beside
-  // it). Its guide names the rule and leaves the gestures to the body: each
-  // mark carries its own word in a scanner box with the kind of action over it,
-  // which is the case `docs/decisions.md` #34 says a briefing gives its words
-  // back to — and, until 19 September 2026, only the word half of that box had
-  // ever been drawn (`render/instar-word.ts`). With the kind line landed the
-  // question this comment used to carry is answered: no film, a guide of two
-  // lines a phone, and every gesture the box's to say.
-  "THE INSTAR",
+  // THE INSTAR left this list on 25 September 2026 without a film: the owner
+  // took its guide off, because its marks say their own words on the field
+  // (`waves.test.ts`, `SAYS_ITSELF`).
   // And THE FILAMENT, drawn 18 September 2026 (`render/filament-draw.ts` and
   // the three files beside it, `bosses.md` §11.33) with its film still owed:
   // its guide already says the one rule each seat has — draw a tile a beat,
   // follow the lit part — and its words are on the field beside the rings, so
-  // whether a boss that says its own verbs wants a film is THE INSTAR's
-  // question again, and it waits on the owner's eye on both.
+  // whether a boss that says its own verbs wants a film is the question THE
+  // INSTAR's guide was dropped over, and it waits on the owner's eye.
   "THE FILAMENT",
   // And THE GIMBAL, whose simulation landed 22 September 2026 (`bosses.md`
   // §11.34) with nothing of it drawn at all yet. A film is a rehearsal of the
@@ -87,9 +80,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-two films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Eighty-two, which is the number in the section. A film with no wave
+    // Eighty, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
@@ -98,8 +91,8 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says ninety of ninety-nine";
-    expect(guided.length, fix).toBe(90);
+    const fix = "update §1 of docs/spec/briefings.md, which says eighty-nine of ninety-nine";
+    expect(guided.length, fix).toBe(89);
     expect(WAVES.length, fix).toBe(99);
   });
 

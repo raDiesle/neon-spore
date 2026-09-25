@@ -751,18 +751,19 @@ films it in the same sitting, as the five items above do, and deletes its
 `both`/`p1`/`p2`. Until then the words are what the pair reads, and they stay.
 Not startable by a fresh session before the look lands — take it after.
 
-## Whether THE INSTAR and THE FILAMENT need a film at all
+## Whether THE FILAMENT needs a film at all
 
 - **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
-- **Files:** `packages/content/src/waves/act-7g.ts`, `packages/content/src/waves/act-10.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/content/test/waves.test.ts`, `docs/spec/briefings.md`
-- **Asks:** A boss that says its own verbs on the field — THE INSTAR's scanner box, THE FILAMENT's words beside the rings — do you want (a) a film written for each, like every other boss, or (b) the guide dropped, so the wave opens on its number and name and the field does the teaching?
+- **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/content/test/waves.test.ts`, `docs/spec/briefings.md`
+- **Asks:** A boss that says its own verbs on the field — THE FILAMENT's words beside the rings — do you want (a) a film written for it, like every other boss, or (b) the guide dropped, so the wave opens on its number and name and the field does the teaching?
 
-Both guides are still `both`/`p1`/`p2`. Under the owner's *a film or words, not
-both* (25 September 2026) the words are a stopgap, and these two are the case
-where the field may already say everything. (a) is the five items above, twice.
-(b) deletes each `guide` and needs `waves.test.ts`'s *first to carry a boss
-has a guide* rule to name these two as the exception, the way it names wave 1
-and THE HAND's; `STILL_PROSE` and §3.2 lose both names either way.
+Its guide is still `both`/`p1`/`p2`. Under the owner's *a film or words, not
+both* (25 September 2026) the words are a stopgap, and this is the case where
+the field may already say everything. THE INSTAR asked the same question and
+was answered (b) the same day (claude/instar-boss-enhancements-1ae51f): its
+guide is gone and `waves.test.ts`'s `SAYS_ITSELF` names it. (a) is the five
+film items above; (b) deletes the `guide`, adds THE FILAMENT to `SAYS_ITSELF`,
+and takes it off `STILL_PROSE` and §3.2, whose counts drop by one.
 
 ## `bun run shot` has no way to name a wave, and the filter route misses it
 

@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — ninety of the ninety-nine waves today, and a wave
+   new carries one — eighty-nine of the ninety-nine waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -302,7 +302,7 @@ before a room is even joined.
   says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The rehearsals — all but eleven of them
+### 3.2 The rehearsals — all but nine of them
 
 A guide that names a `scene` does not draw a panel of prose at all. It plays a
 **rehearsal**: the game's own screen at full size, one device at a time. FIRST
@@ -312,18 +312,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty-two of them now**, one per guided wave bar eleven, and
+**There are eighty of them now**, one per guided wave bar nine, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The ten that are still the three strings
+rather than a page of prose. The nine that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE INSTAR, THE FILAMENT, THE GIMBAL, THE HASP and
+CODEX, THE FILAMENT, THE GIMBAL, THE HASP and
 THE RATCHET** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those eleven is a film nobody has written, and since THE
+**Every one of those nine is a film nobody has written, and since THE
 HIVE's they are owed by the lanes that draw them.** THE GORGE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026), every column authored because the sack does
@@ -532,7 +532,12 @@ the gesture ever landed — so the guide had been carrying the line the box now
 says on its own: *find the bright mark with a word over it*. With the box
 naming what and how, the guide only needs to say that a bright mark is the
 pair's own and a dim one is watched, and drops from three steps to two on each
-phone.
+phone. **On 25 September 2026 it came off altogether**, in the owner's words:
+*the boss is self explanatory, because it contains in game text descriptions
+and visual helps, so remove completely the guide/tutorial stepper part with its
+text.* THE INSTAR is the one wave first on a panel with no guide
+(`test/waves.test.ts`, `SAYS_ITSELF`); it opens on its number, name and
+sentence like any unguided wave.
 
 **A wave with a film carries no prose.** Until 25 September 2026 this said a
 filmed wave kept its three strings as well, for a phone that had already

@@ -200,6 +200,17 @@ describe("wave content", () => {
    * whole list in order, because the first wave to carry something is a fact
    * about the order and not about any one wave.
    */
+  /**
+   * **The waves that teach themselves**, and the only exception to either
+   * guarantee below. THE INSTAR's marks name their own gesture and the kind of
+   * action over it, on the seat that can act, so the owner took its guide off
+   * on 25 September 2026: *the boss is self explanatory, because it contains
+   * in game text descriptions and visual helps, so remove completely the
+   * guide/tutorial stepper part with its text.* A name goes here only on the
+   * owner's word.
+   */
+  const SAYS_ITSELF = new Set(["THE INSTAR"]);
+
   it("gives the first wave that carries anything new a guide", () => {
     const seen = new Set<string>();
     for (const [i, wave] of WAVES.entries()) {
@@ -212,7 +223,7 @@ describe("wave content", () => {
         seen.add(id);
         introduced.push(id);
       }
-      if (introduced.length === 0) continue;
+      if (introduced.length === 0 || SAYS_ITSELF.has(wave.name)) continue;
       expect(
         wave.guide,
         `wave ${i + 1} · ${wave.name} is the first to carry ${introduced.join(", ")} and says nothing about it`,
@@ -259,7 +270,7 @@ describe("wave content", () => {
 
   it("gives the first wave played on a panel a guide that introduces it", () => {
     for (const [i, wave] of WAVES.entries()) {
-      if (!firstOnPanel(WAVES, i)) continue;
+      if (!firstOnPanel(WAVES, i) || SAYS_ITSELF.has(wave.name)) continue;
       expect(
         wave.guide,
         `wave ${i + 1} · ${wave.name} is the first played on ${controlSetForWave(i).name} and says nothing about it`,

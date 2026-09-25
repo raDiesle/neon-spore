@@ -54,14 +54,17 @@ import type { Wave } from "../wave-types.js";
  * breaches are spilling at once, never whether one is.
  *
  * **THE INSTAR authors its script and nothing that falls.** The body is the
- * wave (`instar-script.ts`, `bossFillsWave`), and **its guide says only that
- * there is nothing to read.** The owner's ask of 17 September 2026 was a
- * boss understood without a tutorial — and the game's rule is that the first
- * wave on a panel carries one (`test/waves.test.ts`), so this one is the
- * shortest it can be: the marks are the instruction, and where a mark sits
- * says whose. Nothing in it names a gesture; the picture does that. The
- * comment is up here rather than on the wave because the director writes
- * this file back and keeps nothing between a wave's braces.
+ * wave (`instar-script.ts`, `bossFillsWave`), and **it carries no guide.**
+ * The owner's ask of 17 September 2026 was a boss understood without a
+ * tutorial, and on 25 September 2026 the owner took what was left of one off:
+ * *the boss is self explanatory, because it contains in game text
+ * descriptions and visual helps, so remove completely the guide/tutorial
+ * stepper part with its text.* The marks are the instruction, where a mark
+ * sits says whose, and its scanner box names the gesture; the wave opens on
+ * its number and name. `test/waves.test.ts` names it as the one wave first on
+ * a panel with nothing to say. The comment is up here rather than on the
+ * wave because the director writes this file back and keeps nothing between
+ * a wave's braces.
  */
 export const WAVES_ACT_7G: Wave[] = [
   {
@@ -154,11 +157,6 @@ export const WAVES_ACT_7G: Wave[] = [
   {
     id: "theInstar",
     name: "THE INSTAR",
-    guide: {
-      both: "No buttons. The body marks in red where it wants a hand. A word says what, a line above says what kind.",
-      p1: "1. The bright mark is yours: do what its two words say, before the ring closes.\n2. A dim mark is hers: watch it, and say when she has it.",
-      p2: "1. The bright mark is yours: do what its two words say, before the ring closes.\n2. A dim mark is his: say when he has it, then wait for him to say yours.",
-    },
     entries: [],
     boss: { kind: "instar", steps: INSTAR_SCRIPT },
     bossType: "normal",
