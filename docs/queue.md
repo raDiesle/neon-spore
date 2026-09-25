@@ -904,6 +904,7 @@ which is a new event, `instarShove`, and so the twelve registrations
 ## THE INSTAR, breath: a second gesture during the bite
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Taken:** 2026-09-25, claude/instar-boss-enhancements-1ae51f (claim: claude/queue-the-instar-breath-a-second-gesture-during-the-bi)
 - **Files:** `packages/content/src/instar-script.ts`, `packages/sim/test/instar-push.test.ts`, `packages/render/src/instar-draw.ts`
 - **Asks:** Which gesture goes with the third bite — (a) between the bites, a mark on the fire in the mouth that one seat taps out while the jaws are forced open, (b) during the third bite, one seat pulls its jaw while the other taps the fire, then both pull, or (c) none, the push is enough?
 
