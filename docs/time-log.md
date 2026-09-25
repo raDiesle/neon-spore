@@ -21068,3 +21068,18 @@ Bottleneck: the tutorial film is timed to the tick against the map, so it had
 to be probed and re-timed by hand once the grid moved.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — Comments stop arguing from three removed bosses
+
+- reading: 20 min. 114 mentions across 72 files, each read in place to
+  decide whether its reason still stood without the name.
+- writing: 25 min. Three edit scripts, one per landing: the game, content
+  and sim; render; the director.
+- looking: 0 min. Comments only; nothing drawn moved.
+- friction: 5 min. The item's `Files:` line named ten of the 72, so the
+  real list came from `git grep`, and a commit count had to be amended.
+- landing: 10 min. Three `check:fast` runs and three `land`s.
+
+Bottleneck: most mentions were a borrowed reason ("for THE CANDLE's
+reason"), and each had to be read to find out whether the reason survives
+without the name or has to be written out.

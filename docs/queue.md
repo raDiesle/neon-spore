@@ -322,23 +322,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Comments still argue from THE DIASTOLE, THE ORRERY and THE CANDLE
-
-- **Found:** 2026-09-25, claude/remove-three-bosses-cdb822
-- **Taken:** 2026-09-25, claude/queue-comments-still-argue-from-the-diastole-the-orrer
-- **Files:** `packages/render/src/boss-cue-read-c.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/touch-field.ts`, `packages/render/test/boss-cue-gorge.test.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/throat.ts`, `apps/game/src/keys.ts`, `apps/game/src/field-input.ts`, `tools/director/src/poses-bosses-kit.ts`
-
-The three bosses left the game on 25 September 2026, and every file that
-named one of their files was fixed in that lane. About seventy files still
-argue *from* them in prose: "THE CANDLE's pairing", "for THE DIASTOLE's
-reason", "as in boss-cue-candle.test.ts", a list of handles with THE ORRERY's
-ring in it. `git grep -n -iE "diastole|orrery|candle" -- apps packages tools
-':!*.md'` lists them. For each, state the reason in place of the name, or name
-a boss still in the game that has the same arrangement (THE GORGE, THE
-CURTAIN, THE THROAT, THE GIMBAL); a list that counts handles or pages loses
-the three and its number. Comments only — `bun run check` is the proof that
-nothing else moved.
-
 ## `bun run imports` calls a name used only in a top-level call unused
 
 - **Found:** 2026-09-25, claude/remove-three-bosses-cdb822

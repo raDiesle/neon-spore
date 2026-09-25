@@ -10,8 +10,8 @@ import { bossPose } from "./poses-bosses-kit.js";
  *
  * What arrives unattended is what is here: THE STARE's whole cycle, THE
  * UNDERTOW's five of six, the first phase of each boss whose next phase is
- * something the pair has to *earn* — a plate off THE WARDEN, a ring off THE
- * ORRERY, a chamber struck on THE DIASTOLE. Those are owed, named in each
+ * something the pair has to *earn*, such as a plate off THE WARDEN. Those
+ * are owed, named in each
  * group's note, and the pose that earns each sends the cannon's own commands
  * the way `poses-field-controls*.ts` already does for a handle.
  */

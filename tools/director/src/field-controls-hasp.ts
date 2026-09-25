@@ -54,7 +54,7 @@ export const HASP_CONTROLS: readonly FieldControlDef[] = [
     seat: "player 2 — the wheel is the navigator's, and she is never shown his latch nor he her rim",
     gesture: "grab and drag",
     does:
-      "A **bearing** round the rim, THE GIMBAL's gesture and THE ORRERY's: " +
+      "A **bearing** round the rim, THE GIMBAL's gesture: " +
       "the grab carries none and every sample after it is where her thumb " +
       "is, so a finger four times round is four turns rather than none " +
       "(sim/bearing.ts). **It is wound by travel, not turned to a mark** — " +

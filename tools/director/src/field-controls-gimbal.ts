@@ -3,10 +3,7 @@ import type { FieldControlDef } from "./field-control-def.js";
 /**
  * THE GIMBAL's two rings, as rows of the ON THE FIELD tab.
  *
- * Two rows rather than one, and this is the opposite call from THE ORRERY's
- * next door: there one hand moves inward as the rings come off and it is one
- * control with one target, so one row. Here there are two targets, two seats
- * and two rims — and the pair are only ever offered *together*, one on each
+ * Two rows rather than one: there are two targets, two seats and two rims — and the pair are only ever offered *together*, one on each
  * phone, which no other entry on this tab is. THE SINEW's pair is the
  * nearest, and its two add into one number; these two have to agree about a
  * direction instead.

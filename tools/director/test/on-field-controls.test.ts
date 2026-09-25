@@ -94,12 +94,11 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  * - **`field`** — a handle a thumb can reach on a screen today, which must
  *   have a `FIELD_CONTROLS` row.
  * - **`unbuilt`** — heard by the simulation with nothing drawn to take hold
- *   of, which must **not** have one. That is the `orreryRing` precedent and
+ *   of, which must **not** have one. That is **the walk**'s precedent, and
  *   the row's own fields are why: `where` is a place on the screen and
  *   `source` is a branch of `touch.ts`, and neither exists while the target is
- *   only heard. `orreryRing` made the walk one lane later, `sinewLeft` and
- *   `sinewRight` the lane after that, `candleWick` and `curtainHem` in two
- *   halves of one lane each, `pulseMeter` the fifth, THE VANE's two the sixth —
+ *   only heard. The first ring made the walk one lane later, `sinewLeft` and
+ *   `sinewRight` the lane after that, `curtainHem` in two halves of one lane, `pulseMeter` the fifth, THE VANE's two the sixth —
  *   and the seventeen still sitting here are the backlog, each of them a look before it is a row.
  *
  * **The `unbuilt` comments say "as every one above it" and not a number.**
@@ -224,7 +223,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE PULSE's meter, the one thing in the game both seats may take hold of
   // at once, and the only handle here on an **interlude**: a hand on a
   // reading rather than on a body, so the bar itself is the button and there
-  // is no ring (`sim/pulse-hand.ts`). The fifth to make `orreryRing`'s walk,
+  // is no ring (`sim/pulse-hand.ts`). The fifth to make the walk,
   // and the one the wave's own guide had been promising the whole time —
   // *Bar low: a thumb on it carries them* over a bar with nothing on it
   // (`render/pulse-grip.ts`, `field-controls-pulse.ts`).
@@ -246,7 +245,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // thumb on a ring already gone slack holds the gullet's breath, and in
   // `open` a carry drags the tube itself a column off its meal
   // (`sim/throat-hand.ts`, `render/throat-grip.ts`). The seventh and eighth
-  // to make `orreryRing`'s walk, and the first whose *cue* was already on the
+  // to make the walk, and the first whose *cue* was already on the
   // field: `CINCH` and `HAUL` have been printed over bare tube since the
   // fight shipped, and this is the pair of rings they were pointing at.
   throatRing: "field",
@@ -254,8 +253,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE CURTAIN's hem, the pilot's alone and heard only while the rail is
   // jammed: carried **up** past `curtainLiftMilli`, it holds a gap open over
   // the core for as long as the thumb stays there (`sim/curtain-hand.ts`).
-  // The fourth to make `orreryRing`'s walk, and in two halves of one lane as
-  // `candleWick` was one boss earlier: the lift was heard by the simulation
+  // The fourth to make the walk, and in two halves of one lane: the lift was heard by the simulation
   // with nothing on the screen to take hold of, and the look gave it a ring
   // on the fabric's own edge and a row (`render/curtain-grip.ts`,
   // `field-controls-curtain.ts`, `docs/spec/bosses.md` §11.24).
@@ -265,7 +263,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // growing blade while the fan is `fanning`, the navigator wipes a soft
   // column while it is `hurrying`, and the pilot prises the `closed`
   // interlock open for her beam (`sim/taster-hand.ts`). The fifth set to make
-  // `orreryRing`'s walk, and the first to make it three at once: all three
+  // the walk, and the first to make it three at once: all three
   // were heard by the simulation with nothing on the screen to take hold of,
   // and the look gave each a ring on its own movement's problem — the root of
   // an undecided blade, the air over a gap, the middle of the shut crest
@@ -281,7 +279,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // and she has carried the plate out of the socket's column
   // (`sim/ledger-hand.ts`).
   //
-  // **Her two are the sixth set to make `orreryRing`'s walk, and the first to
+  // **Her two are the sixth set to make the walk, and the first to
   // land on one circle.** They are the same hand on the same thing at two
   // times — the root of the cord — and they are never offered together, so
   // the look gave them one ring a tile and a fifth above the plating and

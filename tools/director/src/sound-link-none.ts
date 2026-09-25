@@ -12,13 +12,12 @@
  * (`sound-link-pulse.ts`); everything here is a one-off.
  *
  * **This page is full, and gives a boss back rather than grow.** THE LEAD's
- * fourteen filled it once and went next door on 19 September 2026, when THE
- * CANDLE's two new rows put it over its limit again, so the second page now
+ * fourteen filled it once and went next door on 19 September 2026, when one
+ * boss's two new rows put it over its limit again, so the second page now
  * runs from THE SURGE on, and a third page from THE GAUGE on was cut off
  * *that* one the same day by the same rule. The seam is build order: it is
  * the *last* boss on a full page that goes across, never the one being
- * worked on — THE CANDLE's rows stay where the comment above them explains
- * them.
+ * worked on.
  */
 import { NO_SUBJECT_B } from "./sound-link-none-b.js";
 import { NO_SUBJECT_C } from "./sound-link-none-c.js";

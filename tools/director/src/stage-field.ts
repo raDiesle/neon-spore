@@ -6,7 +6,7 @@ import { faultsNow, framePhase, type World } from "@neon-spore/sim";
 /**
  * **What the stage hands a hit test**, and nothing else.
  *
- * Cut out of `stage.ts` when THE ORRERY's ring took that file one line over
+ * Cut out of `stage.ts` when one more boss's ring took that file one line over
  * its limit, along a seam that was already there: the rest of that function is
  * bindings and a loop, and this is a *shape* — the same split
  * `touch-field.ts` is on the other side of the call, and for the same reason.

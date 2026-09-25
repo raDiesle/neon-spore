@@ -10,7 +10,7 @@ import type { Hand } from "./poses-bosses-kit.js";
 /**
  * **The pair's hands on THE BULB QUEEN**, and her own page for the reason
  * every other boss on `boss-hands-shots.ts` is not on one: that page went
- * over its 250 on 19 September 2026, when THE CANDLE's last step turned out
+ * over its 250 on 19 September 2026, when one boss's last step turned out
  * to be two gestures rather than a shot. The seam is the one the silent
  * effects pages use — the page hands its *last* boss across rather than the
  * lane cutting its own rows out of the middle — and here the last boss is

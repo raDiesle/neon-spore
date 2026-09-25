@@ -12,8 +12,8 @@ import type { FieldControlDef } from "./field-control-def.js";
  * `render/curtain-grip.ts`, `docs/spec/bosses.md` §11.24).
  *
  * **It is held rather than spent**, which is what separates it from every
- * other carry here. THE CANDLE's pull reaches the bottom and the wick is
- * smoking whether the thumb stays or goes; this one opens the gap **while**
+ * other carry here. THE TASTER's pry reaches the bottom and the interlock is
+ * open whether the thumb stays or goes; this one opens the gap **while**
  * it is at the top and shuts it the tick it is not, so the shot has to be
  * fired into a hand that is still holding. Two people, two states, one word
  * each: SHOVE, FIRE, LIFT.
