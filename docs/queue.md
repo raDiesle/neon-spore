@@ -374,6 +374,7 @@ its ink.
 ## The renderer writes a CSS size its host has to undo every frame it measures
 
 - **Found:** 2026-09-24, claude/mobile-game-screen-fit
+- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-the-renderer-writes-a-css-size-its-host-has-to-u)
 - **Files:** `packages/render/src/canvas2d.ts`, `tools/director/src/stage-point.ts`, `apps/game/src/viewport.ts`
 
 `Canvas2DRenderer.resize` sets the backing store *and* writes
