@@ -68,18 +68,6 @@ export const SILENT_BOSS = [
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",
-  // THE CANDLE's nine: the dark is a mask read off the world every frame
-  // (`candle-dark.ts`), and a spark in it would be a light the design forbids.
-  // The smoking wick least of all: what it is is the absence of a light.
-  "candleDark",
-  "candleDim",
-  "candleMove",
-  "candleTurn",
-  "candleFed",
-  "candleLast",
-  "candleSmoke",
-  "candleLit",
-  "candleOut",
   // THE MIRROR's four: the ghost shot, the echo, the verdict and the fall —
   // `simon-fx.ts` owns the whole sequence.
   "mirrorShow",

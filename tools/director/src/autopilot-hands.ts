@@ -1,7 +1,7 @@
 import type { World } from "@neon-spore/sim";
 import { fleetHand } from "./boss-hand-fleet.js";
 import { hiveHand } from "./boss-hand-hive.js";
-import { batonHand, diastoleHand, throatHand } from "./boss-hands-beats.js";
+import { batonHand, throatHand } from "./boss-hands-beats.js";
 import { leadHand, ledgerHand, tasterHand } from "./boss-hands-clocks.js";
 import { curtainHand, gorgeHand, scuttleHand } from "./boss-hands-field.js";
 import { gaugeHand } from "./boss-hands-gauge.js";
@@ -12,7 +12,7 @@ import { queenHand } from "./boss-hands-queen.js";
 import { ratchetHand } from "./boss-hands-ratchet.js";
 import { mazeHand, mirrorHand, pinballHand } from "./boss-hands-rounds.js";
 import { scoutHand } from "./boss-hands-scout.js";
-import { candleHand, orreryHand, vaneHand, wardenHand } from "./boss-hands-shots.js";
+import { vaneHand, wardenHand } from "./boss-hands-shots.js";
 import { snakeHand } from "./boss-hands-snake.js";
 import { spoolHand } from "./boss-hands-spool.js";
 import { lidHand } from "./boss-hands-stare.js";
@@ -47,9 +47,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   antiphon: antiphonHand,
   baton: batonHand,
   cairn: cairnHand,
-  candle: candleHand,
   curtain: curtainHand,
-  diastole: diastoleHand,
   filament: filamentHand,
   fleet: fleetHand,
   gauge: gaugeHand,
@@ -62,7 +60,6 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   ledger: ledgerHand,
   maze: mazeHand,
   mirror: mirrorHand,
-  orrery: orreryHand,
   pinball: pinballHand,
   queen: queenHand,
   ratchet: ratchetHand,

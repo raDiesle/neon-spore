@@ -103,7 +103,7 @@ export function drawCurtainSheet(
  * hit holds it, brightest the beat it lands and gone as the jam runs out
  * (`sim/curtain-step.ts`). It is the pair's only clock on this state, so the
  * brightness *is* the count — there is no number and no word for how long,
- * which is `candle-glow.ts`' rule about the ember and for its reason.
+ * because a number would be a second clock to read against the first.
  *
  * Rock grey, and the one grey thing on a violet sheet: the rail is the part
  * of this boss that is not cloth, and a bar in the hull's own colour would

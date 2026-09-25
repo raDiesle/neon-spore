@@ -62,8 +62,7 @@ import {
  *   left are the ones about the return they have already earned. In `paying` it
  *   stands, because a shot at the seam is free of any bill and is the only
  *   thing that moves the fight.
- * - **While a colour is held.** `gripBrakes`' rule, and THE CANDLE's
- *   (`boss-cue-read-m.ts`): a word over something already being answered
+ * - **While a colour is held.** `gripBrakes`' rule: a word over something already being answered
  *   teaches the pair to stop reading the words.
  *
  * **Two more words, for two of the four hands** (`sim/ledger-hand.ts`).

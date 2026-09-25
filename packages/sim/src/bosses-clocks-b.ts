@@ -62,16 +62,6 @@ export * from "./boss-surface-instar.js";
 // when another boss's names took this one to its limit — the last block on the
 // page goes, never the boss being worked on (`bosses-clocks-c.ts`).
 export * from "./bosses-clocks-c.js";
-// THE DIASTOLE's clamp (18 September 2026): the hurt window the beam asks,
-// which the clamp moved off `diastole.ts`, and the seat whose thumb it is.
-export {
-  clearDiastoleClamp,
-  diastoleClamped,
-  diastoleClampHolds,
-  diastoleClampSeat,
-  diastoleCoincides,
-  diastoleOpen,
-} from "./diastole-open.js";
 // THE FILAMENT's clock is the pauses between filaments; the line itself is
 // the thumbs' (`filament.ts`), and every name here is one a screen or a
 // content test reads — the tiles lit, the two indices, the words walked.

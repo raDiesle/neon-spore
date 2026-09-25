@@ -38,7 +38,6 @@ export type DragTargetB =
   | "undertowFree"
   | "throatRing"
   | "throatTube"
-  | "candleWick"
   | "curtainHem"
   // THE TASTER's three and THE LEDGER's four, argued beside themselves on the
   // third page: this one filled the way the first did.
@@ -168,21 +167,6 @@ export type DragTargetB =
  */
 
 /**
- * `candleWick` is the forty-fourth, and the only handle in this union a seat
- * takes hold of **in the dark**. THE CANDLE's flame is the one steady light
- * in a black field and is drawn on both screens (`candle-glow.ts`), so it is
- * the one thing there is to point at — and from the last step down it is the
- * pilot's to pull down off the wick, `fromYMilli` against `candlePinchMilli`
- * the way THE STARE's lid is read. No `id`: one flame, and it is the boss.
- *
- * What it buys is the phase behind it: a wick smoking for `candleSmokeBeats`
- * and nothing but the navigator's beam able to reach it (`candle-hand.ts`).
- * Player 1's alone, for `queenMark`'s reason — her hands are the trigger and
- * the lobe, and the fight ends on the two of them doing different things —
- * and her press is dropped without a sound.
- */
-
-/**
  * `curtainHem` is the forty-fifth, and the only handle in this union that is
  * a **way past** the fight's own first gesture rather than a gesture of its
  * own standing. THE CURTAIN is shoved along its rail by either seat's hands,
@@ -195,6 +179,6 @@ export type DragTargetB =
  * whole worth is that it is still held. The core is bare while the hem is at
  * the top and covered the tick it is not (`curtainHemHigh`), so the shot has
  * to be fired into a hand that has not let go. Player 1's alone, for
- * `candleWick`'s reason: the shadow to call is already hers, and the fight
+ * `queenMark`'s reason: the shadow to call is already hers, and the fight
  * ends on the two of them doing different things.
  */

@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
-  type DiastoleState,
   type LeadState,
   type ScuttleState,
   scuttleSocketCol,
@@ -24,21 +23,19 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **The three older choreographed bosses, and what the field is allowed to say
- * about them** — THE LEAD (`render/src/boss-cue-read-c.ts`), THE SCUTTLE
- * (`-t.ts`) and THE DIASTOLE (`-u.ts`), one page each since 19 September 2026.
- * THE THROAT was a fourth, THE ORRERY a fifth and THE LEDGER the first until
- * each fight was read whole; their cases are in `boss-cue-throat.test.ts`,
- * `boss-cue-orrery.test.ts` and `boss-cue-ledger.test.ts`.
+ * **The two older choreographed bosses, and what the field is allowed to say
+ * about them** — THE LEAD (`render/src/boss-cue-read-c.ts`) and THE SCUTTLE
+ * (`-t.ts`), one page each since 19 September 2026. THE THROAT was a third and
+ * THE LEDGER the first until each fight was read whole; their cases are in
+ * `boss-cue-throat.test.ts` and `boss-cue-ledger.test.ts`.
  *
  * Half of this file is about **silence**, which is the unusual thing to test
  * and the reason it is worth a file. Each of these fights is a number the pair
  * says out loud — where the cord roots next, where the body will be when the
- * shot lands, which beat the two chambers coincide — and a cue that lit at the
- * right moment would answer it. So THE DIASTOLE's coincidence and THE LEAD's
- * column each have a case here asserting that
- * **nothing is drawn**, and those cases are the ones that would catch a lane
- * making this boss "clearer" by taking its subject away (`decisions.md` #34,
+ * shot lands — and a cue that lit at the right moment would answer it. So THE
+ * LEAD's column has a case here asserting that **nothing is drawn**, and that
+ * case is the one that would catch a lane making this boss "clearer" by taking
+ * its subject away (`decisions.md` #34,
  * *reconsider if a cue starts carrying a column, a colour or a count*).
  */
 
@@ -227,67 +224,3 @@ describe("THE SCUTTLE", () => {
 function col0(col: number): number {
   return col === 0 ? 1 : 0;
 }
-
-describe("THE DIASTOLE", () => {
-  it("says nothing at all while the pair is holding two counts", () => {
-    const world = opened("diastole");
-    const b = installed<DiastoleState>(world, "diastole");
-    b.phase = "one";
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
-  });
-
-  it("names the beam once a single-chamber hit has stopped landing", () => {
-    const world = opened("diastole");
-    const b = installed<DiastoleState>(world, "diastole");
-    b.phase = "two";
-    expect(word(world, "p2")).toBe("BURN");
-    // And it still says nothing about the coincidence, which is the fight.
-    expect(cue(world, "p2")?.kind).toBe("HOLD");
-    expect(word(world, "p1")).toBeNull();
-  });
-
-  it("asks the pilot for the clamp once the chamber beats alone, and never for the beat", () => {
-    const world = opened("diastole");
-    const b = installed<DiastoleState>(world, "diastole");
-    b.phase = "alone";
-    b.leftHits = 0;
-    b.clampBeat = -1;
-    b.clampUntil = -1;
-    expect(word(world, "p1")).toBe("CLAMP");
-    expect(cue(world, "p1")?.kind).toBe("HOLD");
-    // And nothing to her yet: the beam lands only under the clamp, so a word
-    // over the bridge before there is one is a word over a refusing lance.
-    expect(word(world, "p2")).toBeNull();
-    // A spasm has nothing to hold for eight beats, and the chamber says so itself.
-    b.phase = "spasm";
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
-  });
-
-  it("hands the word to her the moment the thumb lands, and takes his away", () => {
-    const world = opened("diastole");
-    const b = installed<DiastoleState>(world, "diastole");
-    b.phase = "alone";
-    b.leftHits = 0;
-    b.clampBeat = world.beat;
-    b.clampUntil = world.beat + world.cfg.diastoleClampBeats;
-    expect(word(world, "p2")).toBe("BURN");
-    // Nothing to him: what the fight wants now is a thumb that comes off
-    // before the dial closes, and `HOLD` would be asking for the spasm.
-    expect(word(world, "p1")).toBeNull();
-  });
-
-  it("goes quiet on both once the clamp has outlived its window", () => {
-    const world = opened("diastole");
-    const b = installed<DiastoleState>(world, "diastole");
-    b.phase = "alone";
-    b.leftHits = 0;
-    // A thumb that came down a whole window ago and has never come off.
-    world.beat = 20;
-    b.clampBeat = world.beat - world.cfg.diastoleClampBeats;
-    b.clampUntil = world.beat;
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
-  });
-});

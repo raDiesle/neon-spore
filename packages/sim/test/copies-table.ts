@@ -599,19 +599,6 @@ export const COPIES: Copy[] = [
     pattern: /tickHz\s*\*\s*60\s*\)\s*\/\s*(?:\w+\.)*bpm/,
   },
   {
-    // The rate a rig with no finger turns THE ORRERY's ring at: one organ a
-    // beat, which is the gearing over the tempo. Four rigs ask for it — the
-    // desk keyboard, `bun run frames`'s press line, a rehearsal's ghost thumb
-    // and the gallery's hand winding a cracked ring home
-    // (`tools/director/src/boss-hands-shots.ts`) — and the crank next door has
-    // exactly this shape of rule with nothing but prose holding it. A fifth
-    // rig that spelled the quotient out would turn a ring at a rate that
-    // stopped following the picture the day either number moved.
-    call: "orreryTurnPerTickMilli",
-    owner: "packages/sim/src/orrery-hand.ts",
-    pattern: /orreryHandMilliPerOrgan\s*\/\s*ticksPerBeat/,
-  },
-  {
     // The tempo as seconds: `60 / bpm`. Fifteen copies across four packages
     // when the row was written — three of them a module constant each named
     // `BEAT_SECONDS`, the rest inline in a cadence or a delay. The first

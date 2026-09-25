@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   batonBoss,
-  candleBoss,
   createWorld,
   type GorgeState,
   gorgeBoss,
@@ -31,7 +30,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **The one word the field says**, on six bosses and on the seat that can
+ * **The one word the field says**, on five bosses and on the seat that can
  * answer it (`render/src/boss-cue.ts`, `docs/decisions.md` #34).
  *
  * THE BATON's own cases went to `boss-cue-baton.test.ts` on 18 September 2026,
@@ -39,12 +38,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * went to `boss-cue-undertow.test.ts` the same day with
  * `boss-cue-read-j.ts`; both are still in the sweep at the foot of this file,
  * which is about what a cue may *contain* and wants every boss in it. THE
- * CANDLE's went to `boss-cue-candle.test.ts` on 19 September 2026, with
- * `boss-cue-read-m.ts` and the column that reading found, and THE GORGE's to
- * `boss-cue-gorge.test.ts` the same day with `boss-cue-read-n.ts`, for the same
- * reason twice over — the column was missing there too. THE CURTAIN's went to
- * `boss-cue-curtain.test.ts` an hour later, for the third time, and THE
- * TASTER's to `boss-cue-taster.test.ts` after it, for the fourth: both readings
+ * GORGE's went to `boss-cue-gorge.test.ts` on 19 September 2026 with
+ * `boss-cue-read-n.ts`, because the column was missing there. THE CURTAIN's
+ * went to `boss-cue-curtain.test.ts` an hour later, and THE TASTER's to
+ * `boss-cue-taster.test.ts` after it: both readings
  * stayed where they were, which had the room, and their cases did not.
  *
  * The readings are asked **directly** rather than through a frame, for
@@ -90,17 +87,10 @@ function boss<T>(found: T | null, what: string): T {
 }
 
 describe("what a cue may say", () => {
-  /** Every cue six arrangements produce, on every seat. */
+  /** Every cue five arrangements produce, on every seat. */
   function every(): BossCue[] {
     const out: BossCue[] = [];
     const worlds: World[] = [];
-    const candle = opened("candle");
-    // Under the light, so the sweep sees the flash rather than the `MOVE` a
-    // cannon off the glow's column would give it (`boss-cue-read-m.ts`).
-    const c = boss(candleBoss(candle), "candle");
-    c.phase = "eating";
-    candle.cannonCol = c.col;
-    worlds.push(candle);
     const gorge = opened("gorge");
     const g = boss(gorgeBoss(gorge), "gorge");
     g.mouth = 3;

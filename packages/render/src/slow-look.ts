@@ -86,8 +86,8 @@ export interface SlowLook {
    *
    * The station is the argument: the window is about the *field*, and the band
    * is how the pair answers it — a wash that dimmed the panel would dim the
-   * thing being hurried toward. It sits beside `drawCandleField`, over every
-   * body on the field and under the hull, for that reason alone (`canvas2d.ts`).
+   * thing being hurried toward. It sits over every body on the field and under
+   * the hull for that reason alone (`canvas2d.ts`).
    */
   paint(
     ctx: CanvasRenderingContext2D,

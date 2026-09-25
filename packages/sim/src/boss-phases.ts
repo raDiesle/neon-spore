@@ -1,7 +1,5 @@
 import { BATON_STAGES } from "./baton.js";
 import type { BossEntry } from "./boss-entries.js";
-import { CANDLE_PHASES } from "./candle.js";
-import { DIASTOLE_PHASES } from "./diastole.js";
 import { FILAMENT_PHASES } from "./filament.js";
 import { FLEET_PHASES } from "./fleet-state.js";
 import { GAUGE_PHASES } from "./gauge.js";
@@ -14,7 +12,6 @@ import { HIVE_LOBES } from "./hive-lobe.js";
 import { INSTAR_PHASES } from "./instar.js";
 import { LEDGER_PHASES } from "./ledger.js";
 import { MAZE_PHASES } from "./maze.js";
-import { ORRERY_PHASES } from "./orrery.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
 import { RATCHET_PHASES } from "./ratchet.js";
@@ -97,12 +94,9 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   // sheet with only the first would be lying by omission (`hive-lobe.ts`).
   hive: [...HIVE_PHASES, ...HIVE_LOBES],
   stare: STARE_PHASES,
-  diastole: DIASTOLE_PHASES,
   baton: BATON_STAGES,
   throat: THROAT_PHASES,
   undertow: UNDERTOW_PHASES,
-  orrery: ORRERY_PHASES,
-  candle: CANDLE_PHASES,
   gorge: GORGE_PHASES,
   taster: TASTER_PHASES,
   ledger: LEDGER_PHASES,

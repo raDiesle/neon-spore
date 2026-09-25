@@ -1,9 +1,7 @@
 import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { antiphonRailUnder } from "./antiphon-rail-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
-import { candleWickUnder } from "./candle-grip.js";
 import { curtainHemUnder } from "./curtain-grip.js";
-import { diastoleClampUnder } from "./diastole-clamp.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { fleetGripUnder } from "./fleet-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
@@ -20,7 +18,6 @@ import { ledgerGripUnder } from "./ledger-grip.js";
 import { ledgerPullUnder } from "./ledger-pull.js";
 import { mazeHeartUnder } from "./maze-grip.js";
 import { mirrorLobeUnder } from "./mirror-grip.js";
-import { orreryRingUnder } from "./orrery-grab.js";
 import { pinballGripUnder } from "./pinball-grip.js";
 import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
@@ -43,21 +40,11 @@ import { wardenGripUnder } from "./warden-grip.js";
  * The handles: the things drawn **on the field** that a hand takes hold of and
  * carries, as opposed to the strips and lobes below the band.
  *
- * **THE ORRERY's ring is the sixth and it is not in this file**, because it is
- * not a circle: it is an ellipse the width of the field, hit-tested by bearing
- * and drawn with the mark that says it turns, and both halves of that live
- * together in `orrery-grab.ts` for the reason the header there gives. It is
- * asked **last**, which is not a decision about which control wins — a wave
- * with the orrery in it has no maze, no warden, no lid and no balloon — but
- * about what a miss falls through to: the ring hangs over the top rows where
- * this boss's own rocks come in, and a thumb that misses the line should find
- * the rock behind it exactly as it would with no ring there.
- *
- * THE SINEW's pair is the seventh and lives with its drawing in
- * `sinew-handles.ts` for THE ORRERY's reason: the rest a thumb is answered at
- * is the rest the ring is drawn from, and one file keeps them one fact.
- * THE SURGE's bulb is the eighth and the first taken by both seats at once, in
- * `surge-grip.ts` for the same reason. THE ANTIPHON's organ is the ninth, on
+ * THE SINEW's pair lives with its drawing in `sinew-handles.ts`: the rest a
+ * thumb is answered at is the rest the ring is drawn from, and one file keeps
+ * them one fact.
+ * THE SURGE's bulb is the first taken by both seats at once, in
+ * `surge-grip.ts` for the same reason. THE ANTIPHON's organ is next, on
  * the one screen that shows it, in `antiphon-grip.ts`.
  *
  * There were three of them here — THE MAZE's string, THE WARDEN's rope and THE
@@ -95,7 +82,6 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     sinewHandleUnder(l, x, y, field) ??
     surgeBulbUnder(l, x, y, field) ??
     antiphonOrganUnder(l, x, y, field) ??
-    orreryRingUnder(l, x, y, field) ??
     // THE GIMBAL's rim, and the only handle in the game **both** seats have one
     // of at once: the outer ring is the pilot's and the inner the navigator's,
     // and geometry is what says so (`gimbal-grip.ts`).
@@ -104,14 +90,12 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     filamentGrabUnder(l, x, y, field) ??
     stareLidUnder(l, x, y, field) ??
     queenMarkUnder(l, x, y, field) ?? // THE BULB QUEEN's marks, under BROOD and SCREAM (`queen-grip.ts`).
-    diastoleClampUnder(l, x, y, field) ?? // THE DIASTOLE's clamp on the alone chamber (`diastole-clamp.ts`).
     mirrorLobeUnder(l, x, y, field) ?? // THE MIRROR's two lobes, its last round and its pin (`mirror-grip.ts`).
     gorgeGripUnder(l, x, y, field) ?? // THE GORGE's pinch and pry, the full intakes and the mouth (`gorge-grip.ts`).
     mazeHeartUnder(l, x, y, field) ?? // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
     gaugeGripUnder(l, x, y, field) ?? // THE GAUGE's jammed needle and wound band (`gauge-grip.ts`).
     batonSocketUnder(l, x, y, field) ?? // THE BATON's swelling socket and its two beads (`baton-grip.ts`).
     fleetGripUnder(l, x, y, field) ?? // THE FLEET's wound, under `flood` and `wreck` (`fleet-grip.ts`).
-    candleWickUnder(l, x, y, field) ?? // THE CANDLE's flame, at the last step, in the dark (`candle-grip.ts`).
     curtainHemUnder(l, x, y, field) ?? // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).
     leadStalkUnder(l, x, y, field) ?? // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
     scuttlePartUnder(l, x, y, field) ?? // THE SCUTTLE's hanging parts, while one may still be carried (`scuttle-grip.ts`).

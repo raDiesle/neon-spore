@@ -1072,7 +1072,7 @@ same step; `slowing` and `slowRateMilli` are the two questions
 `apps/game/src/frame.ts` asks once a frame (`sim/slow.ts`). The judder fix
 above went on with it: `frame.ts` interpolates while a window is open whether
 or not the flag is set, under *a look with no shipped alternative*. THE
-DIASTOLE ([bosses](spec/bosses.md) §11.17) is the first and so far only caller.
+DIASTOLE ([bosses](spec/bosses.md) §11.17, retired) was the first caller.
 
 **When it opens and when it shuts, on a choreographed boss.** *22 September
 2026.* The owner, generic and in his words:

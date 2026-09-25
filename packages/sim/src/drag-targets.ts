@@ -27,7 +27,6 @@ export type DragTarget =
   | "balloonLeft"
   | "balloonRight"
   | "crank"
-  | "orreryRing"
   | "sinewLeft"
   | "sinewRight"
   | "surgeBulb"
@@ -36,7 +35,6 @@ export type DragTarget =
   | "filament"
   | "stareLid"
   | "queenMark"
-  | "diastoleChamber"
   | "mirrorLobe"
   | "gorgeLobe"
   | "mazeHeart"
@@ -91,20 +89,6 @@ export type DragTarget =
  */
 
 /**
- * `orreryRing` is the tenth, and it is the crank's gesture put back on the
- * field: a bearing in thousandths of a turn, reported by a thumb going round
- * one of THE ORRERY's orbits (`orrery-hand.ts`). It is the second target in
- * this list that is not a distance, and the first that is a bearing on
- * something the field is carrying rather than on a control of the panel.
- *
- * It carries no `id`, and the reason is this boss's own: **the hand never
- * names the ring.** Which ring answers is the outermost one still standing,
- * which is the boss's business and not the thumb's — and it has to be, because
- * two of the three rings are drawn as a blank grey arc on one of the two
- * screens, so a hand that named a ring could name one it cannot see.
- */
-
-/**
  * `gripBody` is the fourth and the first that is not a handle at all: it is
  * **the body the grip is already holding**, carried sideways. The hold that
  * sends it is a `grip` rather than a `drag` (`render/touch-hold.ts`) — one
@@ -122,8 +106,7 @@ export type DragTarget =
  * `fromYMilli` is the depth, the first handle in this list to be read on the
  * y — and what the two report is **added**: a sum on a band neither seat can
  * read whole, which is the first magnitude the pair has ever had to say to
- * each other. No `id`, for `orreryRing`'s reason: there is one tendon, and it
- * is the boss.
+ * each other. No `id`: there is one tendon, and it is the boss.
  */
 
 /**
@@ -133,8 +116,7 @@ export type DragTarget =
  * says whose (`Command.player`); the press reports nothing — no depth, no
  * sway — and the `on: false` a lift already sends is the whole command
  * (`surge-hand.ts`): the second lift inside a beat of the first is what the
- * pressure is judged on. No `id`, for `orreryRing`'s reason: one bulb, and
- * it is the boss.
+ * pressure is judged on. No `id`: one bulb, and it is the boss.
  */
 
 /**
@@ -144,8 +126,8 @@ export type DragTarget =
  * it — what is bought is a second viewing angle on a shape one seat has to
  * describe to the other (`antiphon-hand.ts`). The press reports nothing but
  * `on`, like the bulb's, and either seat may send it; the organ is drawn on
- * the pilot's screen alone, so his is the thumb that finds it. No `id`, for
- * `orreryRing`'s reason: whatever stands turns, and it is the boss.
+ * the pilot's screen alone, so his is the thumb that finds it. No `id`:
+ * whatever stands turns, and it is the boss.
  */
 
 /**
@@ -195,16 +177,6 @@ export type DragTarget =
  */
 
 /**
- * `diastoleChamber` is the nineteenth, and THE DIASTOLE's — the second §11
- * boss given a handle after shipping for the same ask (`docs/queue.md`
- * §6.2). The right chamber, while it beats alone, under player 1's thumb:
- * a press on its contraction clamps it, and holds the beat open for
- * `diastoleClampBeats` so the beam can land on a beat one seat cannot see
- * and the other cannot hold (`diastole-hand.ts`). Player 1's, though the
- * chamber is player 2's, because the seat who sees the beat has to *say*
- * it: the other seat's press is dropped without a sound, since his screen
- * is the one that draws the chamber beating and never draws the ring. No
- * `id`: one chamber is left by then, and it is the boss.
  * `mirrorLobe` is the twentieth, and THE MIRROR's — the third shipped
  * boss given a handle on its picture for the same ask as the queen's, and
  * the first whose handle is **the pair's own ship, upside down**. Two lobes,

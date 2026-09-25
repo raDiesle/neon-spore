@@ -37,20 +37,6 @@ export const CHOREO_FIELD_GROUP = {
   stareLidPullMilli: "THE STARE — an eye that freezes whoever it looks at",
   stareLidHoldBeats: "THE STARE — an eye that freezes whoever it looks at",
   stareReopenBeats: "THE STARE — an eye that freezes whoever it looks at",
-  // DiastoleConfig — two cadences that do not divide each other, what a
-  // chamber can take, and how long the bridge takes to split. Every one of
-  // them is the pair's arithmetic rather than a difficulty knob: three against
-  // five is a coincidence every fifteen beats, and a pair that changed either
-  // number would be counting a different boss (`config-diastole.ts`).
-  diastoleLeftBeats: "THE DIASTOLE — two hearts on two cadences, one each",
-  diastoleRightBeats: "THE DIASTOLE — two hearts on two cadences, one each",
-  diastoleRightAloneBeats: "THE DIASTOLE — two hearts on two cadences, one each",
-  diastoleChamberHits: "THE DIASTOLE — two hearts on two cadences, one each",
-  diastoleBurstBeats: "THE DIASTOLE — two hearts on two cadences, one each",
-  // And the clamp's two: how long a thumb holds the alone chamber open, and
-  // what a thumb on the wrong beat costs (`diastole-hand.ts`).
-  diastoleClampBeats: "THE DIASTOLE — two hearts on two cadences, one each",
-  diastoleSpasmBeats: "THE DIASTOLE — two hearts on two cadences, one each",
   // BatonConfig — the arm's length and every beat a handover takes. All of
   // them are the pair's cadence: a flight is a word and a press, a turn is a
   // look and a word, and a lock is *not you, not this beat* (`config-baton.ts`).
@@ -106,35 +92,6 @@ export const CHOREO_FIELD_GROUP = {
   undertowLastBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowDownBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowSlowBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  // OrreryConfig — three orbits, the beat they first come together on, what
-  // the core does with the gap once a ring is off it, and what a turn of the
-  // pilot's thumb costs. Every one but the last is a count the pair says out
-  // loud; the last is a measure of a thumb (`config-orrery.ts`).
-  orreryOuterOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
-  orreryMiddleOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
-  orreryInnerOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
-  orreryFirstBeats: "THE ORRERY — three orbits, and neither of you can see all three",
-  orrerySpitBeats: "THE ORRERY — three orbits, and neither of you can see all three",
-  orreryDebris: "THE ORRERY — three orbits, and neither of you can see all three",
-  orrerySlowBeats: "THE ORRERY — three orbits, and neither of you can see all three",
-  orreryOutBeats: "THE ORRERY — three orbits, and neither of you can see all three",
-  orreryHandMilliPerOrgan: "THE ORRERY — three orbits, and neither of you can see all three",
-  orreryCrackOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
-  // CandleConfig — how many steps the glow has, how long the dark takes to
-  // fall, the counts it drifts, turns, eats and goes out on, and the two the
-  // last step is played on: how far the thumb carries the flame off the wick
-  // and how long the wick smokes. Every one a count the pair says aloud in
-  // the dark (`config-candle.ts`).
-  candleGlowSteps: "THE CANDLE — the boss fought in the dark",
-  candleDarkBeats: "THE CANDLE — the boss fought in the dark",
-  candleMoveBeats: "THE CANDLE — the boss fought in the dark",
-  candleTurnBeats: "THE CANDLE — the boss fought in the dark",
-  candleEatSteps: "THE CANDLE — the boss fought in the dark",
-  candleLastSteps: "THE CANDLE — the boss fought in the dark",
-  candlePinchMilli: "THE CANDLE — the boss fought in the dark",
-  candleSmokeBeats: "THE CANDLE — the boss fought in the dark",
-  candleOutBeats: "THE CANDLE — the boss fought in the dark",
-  candleFlashSlowBeats: "THE CANDLE — the boss fought in the dark",
   // GorgeConfig — how wide the sack is, how many beads fill an intake, how
   // long a full one holds before venting, and when it spits and gorges
   // (`config-gorge.ts`).

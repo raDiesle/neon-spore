@@ -21,11 +21,6 @@ export interface Memory {
   mirrorPhase: string;
   /** Whether the queen was open on the previous frame. */
   queenOpen: boolean;
-  /** THE ORRERY's three clocks as last seen — a ring off, a spit, the phase —
-   * so each edge of them sounds once (`mixer-boss.ts`). */
-  orreryBrokeBeat: number;
-  orrerySpatBeat: number;
-  orreryPhase: string;
   /** How many torches were on the field. A new one is an alarm. */
   torches: number;
   /** Creatures on the field, so a wave running out can be heard. */
@@ -62,9 +57,6 @@ export function blankMemory(): Memory {
     bossKind: "",
     mirrorPhase: "",
     queenOpen: false,
-    orreryBrokeBeat: -1,
-    orrerySpatBeat: -1,
-    orreryPhase: "",
     torches: 0,
     creatures: 0,
     strainBeat: -1,

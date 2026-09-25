@@ -18,7 +18,7 @@ import { showsCannon, showsShield } from "./view-role.js";
 /**
  * **THE BATON's own arm as a control**: the shell a thumb strips off a
  * swelling socket, and the two beads a thumb each draws into one. Drawn and
- * answered in one file for `diastole-clamp.ts`' reason — the circle a thumb is
+ * answered in one file for `gorge-grip.ts`' reason — the circle a thumb is
  * answered at is the circle the ring is drawn from.
  *
  * **The strip's ring is on whichever screen the beat put it.** Every other

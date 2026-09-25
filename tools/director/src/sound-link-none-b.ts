@@ -157,12 +157,6 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "the lid pulled down to the bottom over the eye, by the seat it was not looking at. The eye's, and the sheet has no card for the eye (`sim/stare-hand.ts`).",
   "boss.stareOpen":
     "the lid starting back up — the thumb lifted, or the eye forced it — and the eye about to look at whoever pulled it. Same argument.",
-  // THE DIASTOLE's clamp, the two moments of it. The twin lobe is a fixture
-  // over the field the sheet has no card for (`sim/diastole-hand.ts`).
-  "boss.diastoleClamp":
-    "player 1's thumb catching the alone chamber on its contraction, and holding it open for the beam. The lobe's, and the sheet has no card for the lobe.",
-  "boss.diastoleSpasm":
-    "the chamber refusing a clamp on the wrong beat, or one held too long: eight beats in which nothing lands. Same argument.",
   // THE GORGE's two thumbs and the clench. The sack is the fixture the first
   // page has no card for (`sound-link-none.ts`, boss.gorgeSettle).
   "boss.gorgePinch":

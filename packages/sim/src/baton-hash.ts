@@ -3,8 +3,8 @@ import { BATON_STAGES, type BatonState } from "./baton.js";
 /**
  * What THE BATON puts into `hashWorld`, and nothing else.
  *
- * Its own file for the reason `stare-hash.ts` and `diastole-hash.ts` are
- * ones: `hash-boss.ts` grows by a whole boss at a time.
+ * Its own file for the reason `stare-hash.ts` is
+ * one: `hash-boss.ts` grows by a whole boss at a time.
  *
  * **The two locks are the fields that matter most.** They decide which of two
  * people may touch their own phone on this beat, so two devices disagreeing

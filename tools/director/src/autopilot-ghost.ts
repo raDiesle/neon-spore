@@ -42,7 +42,7 @@ interface Thumb {
 /** How finely the field is swept for a grab, in tiles. */
 const SWEEP = 0.5;
 
-const TURNED = new Set(["crank", "orreryRing", "gimbalOuter", "gimbalInner"]);
+const TURNED = new Set(["crank", "gimbalOuter", "gimbalInner"]);
 
 function keyOf(c: Command): string {
   if (c.kind !== "drag") return c.kind;

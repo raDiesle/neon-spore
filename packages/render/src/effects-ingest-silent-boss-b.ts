@@ -121,12 +121,6 @@ export const INGEST_SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
-  // THE DIASTOLE's clamp catching leaves nothing behind for the next frame:
-  // the held chamber is world state, squeezed shut off `clampBeat` on every
-  // frame the window holds (`diastole-draw.ts`), and the catch itself is one
-  // burst in `effects-spark-handed.ts`. The spasm is not here — it is a
-  // shudder of the hull as well (`effects-ingest.ts`).
-  "diastoleClamp",
   // THE MIRROR's pin: both thumbs landing on its lobes, or one leaving. Read
   // above the loop with its other four, by `MirrorFx.grip` (`mirror-grip-fx.ts`).
   "mirrorGrip",

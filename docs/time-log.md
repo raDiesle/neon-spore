@@ -20824,3 +20824,17 @@ Bottleneck: a fault kind reaches about forty files through `Record` tables and
 page rules that are only found when they fail, one at a time.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE DIASTOLE, THE ORRERY and THE CANDLE leave the game
+
+- reading: 5 min. Every file each boss is a name in, from the new-boss skill.
+- writing: 25 min. The deletions, the registrations in every package and
+  tool, the comments naming deleted files, and three sections moved to
+  *Retired*.
+- looking: 0 min. Nothing new is drawn; a removed boss has no frame.
+- friction: 5 min. A heredoc run before its variable was set, and a bare
+  `cat >` that waited on stdin.
+- landing: 10 min. The full `bun test`, `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: the long tail of cross-references in prose,
+tools and documents, each found only by a red test.

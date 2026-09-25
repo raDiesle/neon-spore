@@ -4,19 +4,18 @@ import {
   type Command,
   gimbalTurnPerTickMilli,
   NO_BEARING,
-  orreryTurnPerTickMilli,
   type SimConfig,
   windPerTickMilli,
 } from "@neon-spore/sim";
 
 /**
  * The desk keyboard's keys that stand in for a hand **going round in a
- * circle**: THE CLAW's crank on the panel, THE ORRERY's ring on the field, and
- * THE GIMBAL's two rings — one per seat, and the first pair.
+ * circle**: THE CLAW's crank on the panel, and THE GIMBAL's two rings on the
+ * field — one per seat.
  *
  * A key cannot turn. Every other control in the game is a press or a hold and
  * a key is exactly as good as a thumb at both, which is the whole of
- * `keys-desk.ts`'s bargain — but these two are turned, and what they answer is
+ * `keys-desk.ts`'s bargain — but these are turned, and what they answer is
  * the *bearing* a finger reports going round them (`sim/bearing.ts`). A key
  * held down reports nothing at all, so each rig below turns on the player's
  * behalf: one bearing per sim tick, a little further round each time, for as
@@ -24,9 +23,9 @@ import {
  *
  * **At the rate the simulation names, never one chosen here.** The crank turns
  * at `windPerTickMilli`, the speed the arm used to come home under its own
- * power; the ring turns at `orreryTurnPerTickMilli`, one organ a beat, which is
- * the ring's own drift. Both are asked for rather than written out, so a change
- * to either mechanism reaches the desk in the same edit.
+ * power; the rings turn at `gimbalTurnPerTickMilli`. Both are asked for rather
+ * than written out, so a change to either mechanism reaches the desk in the
+ * same edit.
  *
  * **And with a shift held, the other way round.** A key cannot be turned either
  * way, so the direction is chosen when it goes down: the key alone turns
@@ -35,9 +34,8 @@ import {
  * the desk keyboard is not allowed to spend one — the owner's rule is that a
  * panel borrows the keys that are already there (`keys-desk.ts`).
  *
- * **One file for both, because they are one trick.** It was the crank's alone
- * — this file, before the ring existed — and the ring arrived with nothing to
- * copy but the whole of it: a grab that carries no bearing, a bearing a tick
+ * **One file for all of them, because they are one trick.** It was the crank's
+ * alone, and the rings arrived with nothing to copy but the whole of it: a grab that carries no bearing, a bearing a tick
  * from nought, a release, and a rate read off the rules. Two files would have
  * been that paragraph twice, and the second copy is the one that stops being
  * true.
@@ -60,25 +58,16 @@ export interface Turning {
 }
 
 /**
- * The letter THE ORRERY's ring is turned with at a desk.
- *
- * **A letter of its own, which almost nothing here gets**, and THE CHOIR's
- * shake is the precedent (`keys.ts`'s `KeyK`): the ring is not a button on any
- * panel, so `deskKeys` has no slot to put it in, and it is a gesture a desk
- * cannot make at all. It sends a `drag` either way, which is one of the kinds
- * no panel may refuse (`content/src/control-sets-keys.ts`), and on a field with
- * no orrery on it the simulation does nothing with one (`orreryRingHeard`) — so
- * there is nothing to gate and nothing to gate it on.
- */
-const RING_KEY = "KeyO";
-
-/**
  * THE GIMBAL's two, and the first time this file has had to spend a key on
  * **each seat**: the outer ring is the pilot's and the inner the navigator's,
  * always, and a desk with one key for both would be a desk that could never
  * put the two rings true together — which is the only thing this boss asks
- * for. Letters of their own for the ring's reason above: neither is a button
- * on any panel, so `deskKeys` has no slot to seat them in.
+ * for. Letters of their own, which almost nothing here gets, and THE CHOIR's
+ * shake is the precedent (`keys.ts`'s `KeyK`): neither ring is a button on any
+ * panel, so `deskKeys` has no slot to seat them in. Each sends a `drag`, which
+ * is one of the kinds no panel may refuse (`content/src/control-sets-keys.ts`),
+ * and on a field with no gimbal the simulation does nothing with one — so
+ * there is nothing to gate and nothing to gate it on.
  *
  * **T and Y, adjacent under one hand and both unspent.** The pair wanted to
  * be G and H, which is where a right hand rests — but G is already the grip,
@@ -97,12 +86,11 @@ export function bindTurning(
   controls: () => ControlSet,
 ): Turning {
   const crank = crankRig(cfg, send, controls);
-  const ring = ringRig(cfg, send);
   const rings = [
     gimbalRig(cfg, send, "gimbalOuter", 1),
     gimbalRig(cfg, send, "gimbalInner", 2),
   ] as const;
-  const all = [crank, ring, ...rings] as const;
+  const all = [crank, ...rings] as const;
   return {
     down: (code, back = false) => all.some((r) => r.down(code, back)),
     up: (code) => all.some((r) => r.up(code)),
@@ -157,47 +145,10 @@ function crankRig(
 }
 
 /**
- * The ring, which is a handle on the **field** rather than a control on a
- * panel — so there is no `ControlId` to ask for a press and the two messages
- * are written out: a grab carrying `NO_BEARING`, and a lift saying the hand is
- * off (`sim/orrery-hand.ts` reads both as *no reference yet*).
- *
- * Player 1's, unauthored and unasked, because the ring is his every beat of the
- * fight: the navigator carries both colours and the core's own colour is the
- * one thing she reads off this boss.
- */
-function ringRig(cfg: SimConfig, send: (player: 1 | 2, command: Command) => void): Turning {
-  const step = orreryTurnPerTickMilli(cfg);
-  let at: number | null = null;
-  let way: 1 | -1 = 1;
-  const drag = (on: boolean, fromMilli: number): Command =>
-    ({ kind: "drag", target: "orreryRing", on, fromMilli }) as const;
-
-  return {
-    down: (code, back = false) => {
-      if (code !== RING_KEY) return false;
-      way = back ? -1 : 1;
-      send(1, drag(true, NO_BEARING));
-      at = 0;
-      return true;
-    },
-    up: (code) => {
-      if (code !== RING_KEY) return false;
-      at = null;
-      send(1, drag(false, NO_BEARING));
-      return true;
-    },
-    tick: () => {
-      if (at === null) return;
-      send(1, drag(true, at));
-      at = (at + way * step + BEARING_TURN) % BEARING_TURN;
-    },
-  };
-}
-
-/**
- * One of THE GIMBAL's rings, and it is the orrery's rig with the seat and the
- * target handed in rather than written down: a grab carrying `NO_BEARING`, a
+ * One of THE GIMBAL's rings, which is a handle on the **field** rather than a
+ * control on a panel — so there is no `ControlId` to ask for a press and the
+ * messages are written out, with the seat and the target handed in: a grab
+ * carrying `NO_BEARING`, a
  * bearing a tick from nought, a lift, and a rate read off the rules
  * (`gimbalTurnPerTickMilli`).
  *

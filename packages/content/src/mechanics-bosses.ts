@@ -17,12 +17,9 @@ type BossId = Extract<
   | "splice"
   | "reprise"
   | "stare"
-  | "diastole"
   | "baton"
   | "throat"
   | "undertow"
-  | "orrery"
-  | "candle"
   | "gorge"
   | "curtain"
   | "taster"
@@ -102,10 +99,6 @@ export const BOSS_MECHANICS = {
     what: "Mouths with tangled straws, each ending in a number. Feed them in order with the cannon and the maw. One of you sees the numbers. The other feeds.",
     reach: "spawn",
   },
-  diastole: {
-    what: "Two chambers beat on their own counts. Each of you sees only your own. Shoot a chamber on its beat. Later only the beam lands, on a shared beat.",
-    reach: "spawn",
-  },
   throat: {
     what: "A mouth that swallows its own column. No shot touches it. Fling a gum level into the mouth. One of you sees the mouth. The other flings.",
     reach: "spawn",
@@ -116,14 +109,6 @@ export const BOSS_MECHANICS = {
   },
   baton: {
     what: "A bead walks down an arm. Player 1 launches it. Player 2 shoots it in the air. Take turns down all eleven sockets.",
-    reach: "spawn",
-  },
-  orrery: {
-    what: "Three rings turn round a core, each with a gap. Shoot the core when all the gaps line up below. Each of you sees one ring the other cannot.",
-    reach: "spawn",
-  },
-  candle: {
-    what: "The field goes dark. Shoot up the column under its glow. Later it eats a shot fired from the column it faces. Only Player 1 sees which.",
     reach: "spawn",
   },
   gorge: {

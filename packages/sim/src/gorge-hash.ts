@@ -3,7 +3,7 @@ import type { GorgeState } from "./gorge.js";
 /**
  * What THE GORGE puts into `hashWorld`, and nothing else.
  *
- * Its own file for the reason `candle-hash.ts` is one: `hash-boss.ts` grows
+ * Its own file for the reason `throat-hash.ts` is one: `hash-boss.ts` grows
  * by a whole boss at a time.
  *
  * **The intakes are the fields that matter most**, all five numbers of each:

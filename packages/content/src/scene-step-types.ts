@@ -38,20 +38,10 @@ export type BossPart =
   | "organ"
   /** THE ANTIPHON's rail of candidates along the underside — the navigator's. */
   | "rail"
-  /**
-   * One ring of a boss that has several and one of them matters: THE ORRERY's
-   * orbit this seat alone sees true — the middle on the pilot's, the inner on
-   * the navigator's — and THE THROAT's lowest muscle still holding.
-   */
+  /** THE THROAT's lowest muscle still holding. */
   | "ring"
-  /** THE ORRERY's core in the middle of the orbits. */
-  | "core"
   /** THE SCOUT's burning rocks crossing the arena — the navigator's. */
   | "hazard"
-  /** THE CANDLE's face: the mouth of the cone it eats flashes out of — the pilot's. */
-  | "face"
-  /** THE DIASTOLE's left chamber, the pilot's count and grey on the navigator's screen. */
-  | "left"
   /** THE LEDGER's cord, from the body's underside to the hull it is rooted in. */
   | "cord"
   /** THE LEDGER's lock on the socket's column, and its chevron — the navigator's. */
@@ -171,18 +161,10 @@ export interface SceneStep {
 export interface SceneCount {
   /**
    * THE HIVE's sealed sites (`hiveSealedCount`), those not yet sealed
-   * (`hiveLeft`) and those spilling now (`hiveOpenCount`); THE CANDLE's steps
-   * of glow; THE SCUTTLE's parts in their sockets (`scuttleLeft`); THE
-   * ANTIPHON's candidates on the rail; THE ORRERY's rings still standing.
+   * (`hiveLeft`) and those spilling now (`hiveOpenCount`); THE SCUTTLE's parts
+   * in their sockets (`scuttleLeft`); THE ANTIPHON's candidates on the rail.
    */
-  of:
-    | "hiveScars"
-    | "hiveLeft"
-    | "hiveOpen"
-    | "candleGlow"
-    | "scuttleParts"
-    | "antiphonRail"
-    | "orreryRings";
+  of: "hiveScars" | "hiveLeft" | "hiveOpen" | "scuttleParts" | "antiphonRail";
   is: number;
   /**
    * The page plays *into* the number rather than opening on it, so it is read

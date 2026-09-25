@@ -1,11 +1,8 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
-import { isBeatTick } from "./beat-clock.js";
 import { resolve } from "./bullet-hit.js";
-import { candleStruck } from "./candle-step.js";
 import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
-import { diastoleStruck } from "./diastole-step.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { haspStruck } from "./hasp-shot.js";
@@ -14,7 +11,6 @@ import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
-import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
@@ -57,28 +53,6 @@ import type { World } from "./world.js";
  * all (docs/spec/systems.md 5.2), and audio/ has bound the moment since the
  * day the lance had a button of its own.
  */
-/**
- * **The beat the beam goes off on**, which is not always `world.beat`.
- *
- * `releaseLance` runs *before* `onBeat` in `step.ts`, deliberately — the lobe
- * fills on the tick counter, so the tick it comes full on is that one whatever
- * else happens next. The cost of that order is here: a fill that tops out on a
- * boundary tick burns its column while the counter still reads the beat that
- * has just ended, and a pair who started the fill exactly `lancePrimeBeats`
- * before a beat they had counted to would be judged one beat early. Nothing
- * could tell until THE DIASTOLE, which is the first thing in the game to read
- * the *beat* off a beam rather than only the column (`diastole-step.ts`).
- *
- * Not `beat-clock.ts`'s forbidden arithmetic, and the difference matters: that
- * file refuses to turn a beat back into a tick, because `world.beat` is a label
- * and a label multiplied is silently a different moment. This does the legal
- * direction — it reads the label and adds the beat `step` is about to count
- * three lines further down.
- */
-export function beamBeat(world: World): number {
-  return world.beat + (isBeatTick(world.cfg, world.tick) ? 1 : 0);
-}
-
 export function releaseLance(world: World): void {
   if (world.over || !lanceReady(world)) return;
   const color = primeColor(world);
@@ -161,17 +135,8 @@ function burnColumn(world: World, col: number, color: Color): number {
     from = met;
   }
   // Nothing left in the column, so it reaches the top of the field — where THE
-  // VANE's bearing hangs and THE DIASTOLE's twin lobe, the two things above the
-  // grid at all. The beam is the only shot that reaches a chamber once both are
-  // beating, and `b.lance` is how `diastoleStruck` knows it is one
-  // (`diastole-step.ts`).
+  // VANE's bearing hangs and the other bosses above the grid.
   vaneStruck(world, b);
-  diastoleStruck(world, b, beamBeat(world));
-  // And THE ORRERY, where the beam is the only thing that finishes the fight:
-  // a naked core takes the lance and nothing else (`orrery-shot.ts`).
-  orreryStruck(world, b, beamBeat(world));
-  // And THE CANDLE, which the beam dims like a shot would (`candle-step.ts`).
-  candleStruck(world, b);
   // And THE GORGE, where the beam in the mouth is what ends the fight
   // (`gorge-step.ts`).
   gorgeStruck(world, b);

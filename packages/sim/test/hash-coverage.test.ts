@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
 import { CREATURE_KINDS } from "../src/creature-kinds.js";
-import { DIASTOLE_PHASES } from "../src/diastole.js";
 import { FLEET_DIRS } from "../src/fleet-board.js";
 import { FLEET_PHASES } from "../src/fleet-state.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
@@ -88,7 +87,6 @@ const FAMILIES: readonly (readonly string[])[] = [
   MIRROR_STEPS,
   MAZE_PHASES,
   MAZE_REASONS,
-  DIASTOLE_PHASES,
   MIRROR_PHASES,
   GAUGE_PHASES,
   FLEET_DIRS,

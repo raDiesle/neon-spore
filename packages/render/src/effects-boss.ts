@@ -7,7 +7,7 @@ import type { Layout, ViewRole } from "./layout.js";
  * every one here is public, because the boss is drawn as a whole body by
  * `boss-draw.ts` and `boss-draw-clocks.ts` rather than as a handful of
  * particles by `Effects.draw`, and the drawer asks the transient where it is
- * up to (`fx.mirror.armed`, `fleet.spent`, `afterImage.lit`).
+ * up to (`fx.mirror.armed`, `fleet.spent`).
  *
  * Cut out of `effects.ts` on 17 September 2026, when THE TASTER's put that
  * roster at 250 lines for the third time and the next boss would have paid
@@ -19,24 +19,23 @@ import type { Layout, ViewRole } from "./layout.js";
  *
  * Four verbs, the same four `BodyTransients` agrees on, so `effects-frame.ts`
  * says one word to this object per frame rather than eight. The order inside
- * each is the order the roster had, and the two that are not `clear` —
- * `warden.reset()`, `afterImage.clear()` — are each transient's own name for
- * forgetting. `restart.test.ts` compares a used `Effects` to a fresh one field
- * by field, and this is one field, compared whole.
+ * each is the order the roster had, and the one that is not `clear` —
+ * `warden.reset()` — is that transient's own name for forgetting.
+ * `restart.test.ts` compares a used `Effects` to a fresh one field by field,
+ * and this is one field, compared whole.
  *
  * **The roster of fields is `effects-boss-roster.ts`**, the base class this
  * extends, cut off on 22 September 2026 when THE GIMBAL's transient met this
  * page at 245 lines. What is left here is the four verbs.
  */
 export class BossTransients extends BossRoster {
-  /** `role` is the layout's: a flash lights only the screen whose control
-   * made it (`after-image.ts`). */
+  /** `role` is the layout's: a seat's own transient is drawn only on its
+   * own screen. */
   ingest(
     events: readonly SimEvent[],
     l: Layout,
     cfg: SimConfig,
     beatSeconds: number,
-    time: number,
     role: ViewRole,
     burst: Burst,
   ): void {
@@ -61,7 +60,6 @@ export class BossTransients extends BossRoster {
     this.spool.ingest(events, l, cfg, burst);
     this.hasp.ingest(events, l, cfg, beatSeconds, role, burst);
     this.ratchet.ingest(events, l, cfg, beatSeconds, role, burst);
-    this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
     this.fleetGrip.ingest(events, l, burst);
   }
@@ -98,7 +96,6 @@ export class BossTransients extends BossRoster {
 
   /** The ten drawn under the hull with everything else. The mirror, the
    * maze, the warden, the fleet and the reprise are drawn by the boss pass, the
-   * after-image by the renderer between the bodies and the ship, the
    * sinew's shock on the finished ship (`frame-on-ship.ts`) and the stare's
    * flash over the band, last of the frame (`canvas2d.ts`). */
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -120,7 +117,6 @@ export class BossTransients extends BossRoster {
     this.fleet.clear();
     this.fleetGrip.clear();
     this.reprise.clear();
-    this.afterImage.clear();
     this.gorge.clear();
     this.maze.clear();
     this.curtain.clear();

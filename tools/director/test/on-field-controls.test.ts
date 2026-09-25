@@ -116,7 +116,6 @@ type TargetPlace = "panel" | "field" | "unbuilt";
 
 const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   crank: "panel",
-  orreryRing: "field",
   mazeString: "field",
   wardenTether: "field",
   lidString: "field",
@@ -127,7 +126,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   balloonRight: "field",
   sinewLeft: "field",
   sinewRight: "field",
-  candleWick: "field",
   // `surgeBulb` is the same again, and the first one target both seats
   // send: heard by `sim/surge-hand.ts`, answered anywhere on the bulb by
   // `render/surge-grip.ts` (`docs/spec/bosses.md` §11.28).
@@ -159,12 +157,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // pried open under BROOD, held open under SCREAM (`sim/queen-hand.ts`,
   // `field-controls-queen.ts`).
   queenMark: "field",
-  // `diastoleChamber` is THE DIASTOLE's alone right chamber under player
-  // 1's thumb — a clamp on its contraction (`sim/diastole-hand.ts`),
-  // answered by `diastoleClampUnder` under `handleUnder()` at the ring
-  // only that seat's screen draws (`render/diastole-clamp.ts`,
-  // `field-controls-diastole.ts`).
-  diastoleChamber: "field",
   // `mirrorLobe` is THE MIRROR's own ship under both thumbs — the last
   // round reflected on it, then pinned (`sim/mirror-hand.ts`,
   // `field-controls-mirror.ts`).

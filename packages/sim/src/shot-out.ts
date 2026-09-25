@@ -1,15 +1,12 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { bulletShown } from "./bullet-types.js";
-import { candleStruck } from "./candle-step.js";
 import { curtainStruck } from "./curtain-shot.js";
-import { diastoleStruck } from "./diastole-step.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerStruck } from "./ledger-shot.js";
-import { orreryStruck } from "./orrery-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { tasterStruck } from "./taster-shot.js";
@@ -36,7 +33,7 @@ import type { World } from "./world.js";
  *
  * Every call below is a no-op unless its own boss is installed and its own
  * window is open. The bosses that hang above the field — THE VANE's bearing,
- * THE DIASTOLE's twin lobe, THE ORRERY's rings and the rest — are the things in
+ * THE GORGE's sack, THE CURTAIN's fabric and the rest — are the things in
  * the game that are not on the grid at all (docs/spec/bosses.md §11.5).
  */
 export function shotLeaves(world: World, b: Bullet, to: number): void {
@@ -44,13 +41,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   // boss off the world in the same breath as the shot that pulled it.
   const taken = skyTaken(world);
   vaneStruck(world, b);
-  diastoleStruck(world, b, world.beat);
-  // THE ORRERY's core, which is three rings up: a bolt that got here on a
-  // beat every gap is at the bottom of its orbit takes the outermost ring
-  // still standing (`orrery-shot.ts`).
-  orreryStruck(world, b, world.beat);
-  // THE CANDLE's glow, a step dimmer for any colour up its own column.
-  candleStruck(world, b);
   // THE GORGE's sack, which swallows the shot as a bead (`gorge-step.ts`).
   gorgeStruck(world, b);
   // THE CURTAIN's core, if the fabric is shoved clear of it (`curtain-shot.ts`).
@@ -100,16 +90,13 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
  * The bosses that hang above the field, each with a call above. While one of
  * them is up the sky is its own: a bolt out of the top has gone into it, and
  * whatever it did there is that boss's answer — including, on purpose, no
- * answer at all. THE ORRERY's shut shaft and THE VANE's shut housing are
- * armour a shot goes into for nothing (`orrery-shot.ts`), and a right-colour
- * ring cracked says nothing in an event either, so no count of what the calls
+ * answer at all. THE VANE's shut housing is
+ * armour a shot goes into for nothing (`vane.ts`), and a shot a boss swallows
+ * says nothing in an event either, so no count of what the calls
  * said could tell a bolt that met one from a bolt that met the sky.
  */
 export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "vane",
-  "diastole",
-  "orrery",
-  "candle",
   "gorge",
   "curtain",
   "taster",

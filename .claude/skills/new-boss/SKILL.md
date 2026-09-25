@@ -115,7 +115,7 @@ catches a guide half over 220. Run `bun run check:fast`, commit by path, `bun ru
 ## 5. Lane two: the look
 
 A new boss's look is **a look with no shipped alternative** — say so in the
-commit. The shape of it, from THE DIASTOLE, THE CANDLE and THE GORGE:
+commit. The shape of it, from THE GORGE and THE CURTAIN:
 
 - `render/src/<boss>-draw.ts` reads the boss off `world` every frame and keeps
   nothing; split a `<boss>-lobe.ts` or `<boss>-shape.ts` off before 250.

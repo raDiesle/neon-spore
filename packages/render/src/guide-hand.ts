@@ -1,12 +1,5 @@
 import { actCol, control, type GuideScene } from "@neon-spore/content";
-import {
-  type Creature,
-  gripsCreature,
-  lidIsHeld,
-  occupiesCol,
-  orreryHandHolds,
-  type World,
-} from "@neon-spore/sim";
+import { type Creature, gripsCreature, lidIsHeld, occupiesCol, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { handleCircle } from "./handles.js";
 import { hivePinchCircle } from "./hive-grip.js";
@@ -233,12 +226,6 @@ export function handleThumb(
   // which is where `hive-hold.ts` is drawing the mass.
   if (world.boss?.kind === "hive" && world.boss.haulMilli > 0) {
     return handleCircle(l, world, "hiveLobe", beatPhase);
-  }
-  // THE ORRERY's ring, which is held for as long as a bearing is on record
-  // rather than by a flag of its own: a hand off the ring and a hand with no
-  // reference yet are one state on this control (`sim/orrery-hand.ts`).
-  if (world.boss?.kind === "orrery" && orreryHandHolds(world.boss)) {
-    return handleCircle(l, world, "orreryRing", beatPhase);
   }
   return null;
 }

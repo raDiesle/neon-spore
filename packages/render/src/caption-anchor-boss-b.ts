@@ -4,7 +4,6 @@ import {
   antiphonBoss,
   type LeadState,
   leadBoss,
-  ORRERY_RINGS,
   type ScoutState,
   type ScuttleState,
   type SimConfig,
@@ -22,10 +21,9 @@ import {
 } from "./antiphon-shape.js";
 import type { AnchorPoint } from "./caption-anchor.js";
 import { bossAnchorC } from "./caption-anchor-boss-c.js";
-import { around, box, CLEAR } from "./caption-anchor-box.js";
+import { around, box } from "./caption-anchor-box.js";
 import type { Layout } from "./layout.js";
 import { leadAlong, leadAskedAngle, leadFoot, leadStalkLength } from "./lead-shape.js";
-import { orreryCorePoint, orreryOrganR, orreryRx, orreryRy } from "./orrery-shape.js";
 import { scoutAt } from "./scout-draw.js";
 import {
   scuttleBox,
@@ -36,12 +34,11 @@ import {
   scuttleWindRise,
 } from "./scuttle-shape.js";
 import { showsScoutArena } from "./view-role.js";
-import { showsOrreryRing } from "./view-role-clocks.js";
 import { showsAntiphonOrgan, showsAntiphonRail, showsScuttleLive } from "./view-role-clocks-b.js";
 
 /**
- * **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY
- * and THE SCOUT are** — the second of `caption-anchor-boss.ts`, split off it
+ * **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON and THE
+ * SCOUT are** — the second of `caption-anchor-boss.ts`, split off it
  * on line count, and read the same way: each line asks the boss's own shape
  * file, and a part a screen does not draw is no ring at all. The ring itself
  * is `caption-anchor-box.ts`, shared by all three.
@@ -60,7 +57,6 @@ export function bossAnchorB(
   if (scuttle !== null) return scuttlePart(l, cfg, scuttle, part, world.beat, beatPhase);
   const antiphon = antiphonBoss(world);
   if (antiphon !== null) return antiphonPart(l, cfg, antiphon, part);
-  if (world.boss?.kind === "orrery") return orreryPart(l, cfg, part);
   const scout = scoutRound(world);
   if (scout !== null) return scoutPart(l, cfg, scout, part);
   // The three of the third file, on the same line-count argument.
@@ -142,29 +138,6 @@ function antiphonPart(
     y: (b.top + b.bottom) * 0.5,
     rx: (b.right - b.left) * 0.5,
     ry: (b.bottom - b.top) * 0.5,
-  });
-}
-
-/**
- * THE ORRERY: the core inside every orbit; `core`, the core alone; `ring`,
- * the one orbit this seat is shown true and the other is not — the middle
- * on the pilot's, the inner on the navigator's (`showsOrreryRing`), and the
- * inner where both are.
- */
-function orreryPart(l: Layout, cfg: SimConfig, part: BossPart | undefined): AnchorPoint {
-  const core = orreryCorePoint(l, cfg);
-  if (part === "core") {
-    const r = l.tile * 0.53;
-    return { x: core.x, y: core.y, r: r + 6, rx: r + 6, clear: CLEAR };
-  }
-  const inner = ORRERY_RINGS - 1;
-  const ring = part === "ring" ? (showsOrreryRing(l.role, inner) ? inner : 1) : 0;
-  const organ = orreryOrganR(l);
-  return box({
-    x: core.x,
-    y: core.y,
-    rx: orreryRx(cfg, ring) * l.tile + organ,
-    ry: orreryRy(cfg, ring) * l.tile + organ,
   });
 }
 

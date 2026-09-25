@@ -73,8 +73,8 @@ function markAt(
  * the cannon is in a column nothing can be answered in *and* some other column
  * can — off the crest, or on a blade that has not decided. It does **not**
  * stand merely because his own blade is growing: that blade will stand in that
- * column, and a word that walked him off it would be THE CANDLE's defect a
- * fourth time (`boss-cue-read-m.ts`). At the top of the fight, with one blade
+ * column, and a word that walked him off it would walk him off the only
+ * column a shot lands from. At the top of the fight, with one blade
  * growing and nothing shorn, nothing can be answered anywhere and nothing is
  * said.
  *

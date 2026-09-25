@@ -1,7 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { antiphonCue } from "./bind-antiphon.js";
 import type { Cue } from "./bind-cue.js";
-import { diastoleCue } from "./bind-diastole.js";
 import { filamentCue } from "./bind-filament.js";
 import { gimbalCue } from "./bind-gimbal.js";
 import { haspCue } from "./bind-hasp.js";
@@ -19,8 +18,8 @@ import { undertowCue } from "./bind-undertow.js";
  * The seam is the page's own build order, the rule the other overflowing
  * pages carry in their headers: a page at the limit gives its **last** bosses
  * back, never the boss being worked on, whose cases stay with the comment
- * that explains them. THE INSTAR, THE FILAMENT and THE DIASTOLE were the
- * three below THE SCUTTLE, and THE UNDERTOW comes with them because it is not
+ * that explains them. THE INSTAR and THE FILAMENT were the
+ * two below THE SCUTTLE, and THE UNDERTOW comes with them because it is not
  * a case at all — it is the `default`, and a default has to stand at the foot
  * of whichever page ends the chain.
  *
@@ -50,7 +49,6 @@ type LateEvent = Extract<
       | `spool${string}`
       | `hasp${string}`
       | `ratchet${string}`
-      | `diastole${string}`
       | `undertow${string}`;
   }
 >;
@@ -177,9 +175,6 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "ratchetJam":
     case "ratchetOut":
       return ratchetCue(e, cols);
-    case "diastoleClamp":
-    case "diastoleSpasm":
-      return diastoleCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

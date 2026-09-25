@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import {
   type BossEntry,
+  bossAnswerCol,
   DEFAULT_CONFIG,
-  diastoleChamberCol,
   SceneRun,
   type SimEvent,
   type SpawnEntry,
@@ -86,9 +86,9 @@ describe("a strip act aimed at a body", () => {
 
 /**
  * **A strip that goes where the boss is answered from** — the same hole in
- * `mapCol`, with no body on the field to find. THE DIASTOLE's left chamber
- * hangs over column 4, which no authored column reaches, and its film is a
- * cannon under that chamber; `bossAnswerCol` (`sim/boss-answer.ts`) is what
+ * `mapCol`, with no body on the field to find. THE LEAD paces the field and
+ * the column to stand under is the one it will be in two beats on, which no
+ * film can author; `bossAnswerCol` (`sim/boss-answer.ts`) is what
  * the press and the ghost thumb both ask. One half each: it lands on the
  * boss's column, and a boss with no answer leaves the press as written.
  */
@@ -116,11 +116,14 @@ describe("a strip act aimed at the boss", () => {
     });
   }
 
-  it("lands under THE DIASTOLE's left chamber, a column no authored one reaches", () => {
-    const scene = run({ kind: "diastole" }, true, 2);
-    for (let i = 0; i <= 101; i++) scene.advance([]);
-    expect(scene.world.cannonCol).toBe(diastoleChamberCol(DEFAULT_CONFIG, -1));
-    expect(scene.world.cannonCol).toBe(4);
+  it("lands under THE LEAD's two-beats-on column, which the film cannot know", () => {
+    const scene = run({ kind: "lead" }, true, 2);
+    for (let i = 0; i <= 100; i++) scene.advance([]);
+    const answer = bossAnswerCol(scene.world);
+    scene.advance([]);
+    expect(answer).not.toBeNull();
+    expect(answer).not.toBe(2);
+    expect(scene.world.cannonCol).toBe(answer as number);
   });
 
   it("leaves the press where it was written under a boss with no answer", () => {

@@ -6,7 +6,7 @@ import type { World } from "./world.js";
  * **The one hand on THE CURTAIN that is not the shove**: the hem, lifted off
  * the floor by the pilot while the rail is jammed, off the wire, on the tick.
  *
- * Cut off `curtain-step.ts` at the seam `candle-hand.ts` names: next door is
+ * Cut off `curtain-step.ts` at the seam `gorge-hand.ts` names: next door is
  * what the *sheet* does on the beat — the jam running down, the soft set
  * redrawn, the core firing — and this is what the *thumb* does. On the tick
  * rather than the beat (`step.ts`), because the gap over the core is open
@@ -29,7 +29,7 @@ import type { World } from "./world.js";
  * the hem is his for the reason the shadow is not: the hand goes to the seat
  * that is not already being asked for the column. Hers is the shot through
  * the gap he opens; a lift sent from her seat is dropped without a sound,
- * exactly as `candleWickHeard` drops the other seat's.
+ * exactly as `gorgeHeard` drops the other seat's.
  *
  * **Only while `pinned`.** A sheet free to slide gives sideways before it
  * gives upward, and a hem that could be lifted from `hung` would be a second,

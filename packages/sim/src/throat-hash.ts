@@ -3,7 +3,7 @@ import { THROAT_PHASES, type ThroatState } from "./throat.js";
 /**
  * What THE THROAT puts into `hashWorld`, and nothing else.
  *
- * Its own file for the reason `diastole-hash.ts` and `stare-hash.ts` are ones:
+ * Its own file for the reason `stare-hash.ts` is one:
  * `hash-boss.ts` grows by a whole boss at a time.
  *
  * **`mouthFrom` and `phaseBeat` together *are* the mouth's position**, and

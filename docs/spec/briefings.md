@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — ninety-three of the hundred and two waves today, and a wave
+   new carries one — ninety of the ninety-nine waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -324,11 +324,9 @@ for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
 **Every one of those eleven is a film nobody has written, and since THE
-HIVE's they are owed by the lanes that draw them.** THE CANDLE's was the
+HIVE's they are owed by the lanes that draw them.** THE GORGE's was the
 first of the boss films written after its look landed rather than with it
-(17 September 2026): a black field, the glow drifting off the rng and every
-slide under it an `atBoss` act, the one authored column the mistake. THE
-GORGE's followed the same day, every column authored because the sack does
+(17 September 2026), every column authored because the sack does
 not move, and the film ends two ruptures short of the mouth: what it teaches
 is the restraint, and the mouth is the prose. THE CURTAIN's, the same day
 again, is the first film whose every act is the pilot's hand on the boss —
@@ -418,21 +416,6 @@ then six organs taken where they stand, every column an `atBoss` strip
 fire the colour only the navigator is shown; from the third pit what the
 rail rejected falls as bodies and each is taken by `atBody` two beats apart,
 the twins one and then the other, and their own ship last among ships.
-THE ORRERY's (18 September 2026) is the arithmetic and the hand: the
-cannon in the middle column all fight, three shots on beats 11, 23 and 27
-to be judged on the alignments the anchors give — 12, 24 and 28 — each in
-the colour the core turned to, the beam held from beat 29 and standing by
-32; and ten rocks, eight shed one a beat from the broken rings and two
-spat, every one warded by an `atBody` shield the beat before it lands with
-a guard after it, because the seed puts them in columns no authored strip
-reaches. Writing it found the boss unwinnable as built — three organs let
-go on one beat land on one beat in three columns — and the shed is one a
-beat since (`sim/orrery-step.ts`). Since the crack (19 September 2026) each
-of those shots only jams a ring, so each is followed by a wind of two organs
-and the ring comes off on 14, 26 and 30; the last wind is **let go of
-halfway through** to ward a rock and finished after, which is the one thing
-this film shows that no other does — a gesture a pair will be interrupted in
-every time.
 THE SPOOL's (24 September 2026) is the fight's one exchange played wrong and
 then right: the pilot takes the brake at the top, the line gains on the
 navigator's bracket until the first movement slips — the one slip that costs
@@ -693,6 +676,11 @@ tick, their seat and their anchor and were rewritten to the half a cue may never
 carry; one came out whole, because the page before it is the same seat and the
 hand still draws.
 
+THE CANDLE's and THE ORRERY's rows, and the paragraphs after the table about
+them and THE DIASTOLE, are the record of three bosses taken out of the game on
+25 September 2026 (now under *Retired* in [bosses](bosses.md)). The lessons
+stand; the films and the files they name do not.
+
 | Film | What it said | What it says now | The cue that took the verb |
 |---|---|---|---|
 | THE CANDLE | `PLAYER 1 SLIDES CLEAR OF IT` | `PLAYER 1 CALLS ITS COLUMN` | `CARRY` / `MOVE` on the cannon, his alone — while it was eating his column until 19 September 2026, and whenever it is off the glow's column since |
@@ -762,7 +750,7 @@ What that missed is that the *column* was the silence: a bolt and the beam
 both leave the cannon's own column, the core hangs over one column for the
 whole fight, and `spitting` spends itself trying to drive the pilot off it —
 so `1. Keep the cannon in the middle column` was a step the field could say
-and did not (`boss-cue-read-l.ts`). It says it now, and both of the pages
+and did not (boss-cue-read-l.ts). It says it now, and both of the pages
 above went with it, and so did the navigator's fourth step, which named the
 beam that `BURN` now names. What is left of the two halves is the split
 picture, the sentence each seat has to say and what a wrong colour costs. **A prose half is only safe against the reading the fight
@@ -778,7 +766,7 @@ the fight's one mistake said out loud — and it left the *drift* silent, though
 the drift is the pilot's whole job and the guide's first line. Worse than
 silent: where the flame is turned at the glow's own column the old word walked
 him off the only column a shot lands from. `MOVE` is the glow's column now and
-nothing else (`boss-cue-read-m.ts`), which covers every beat the old word was
+nothing else (boss-cue-read-m.ts), which covers every beat the old word was
 right in, and the faced column stays the one sentence the pair must say — the
 cone is on his screen alone, and a word that went quiet on her trigger there
 would be that cone read out for her. Three of the four pages kept their tick,

@@ -2,8 +2,8 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE WARDEN's second and third hands, in a file of their own for
- * `bind-diastole.ts`' reason — `bind-warden.ts` holds the rope's four and is
+ * THE WARDEN's second and third hands, in a file of their own because
+ * `bind-warden.ts` holds the rope's four and is
  * `bind.ts`'s, which is full — and all three panned to the pupil's column,
  * because each is a hand on a thing in a lane the other seat cannot feel.
  *

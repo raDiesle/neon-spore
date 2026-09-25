@@ -112,13 +112,6 @@ export {
   throatHolds,
 } from "./bosses.js";
 export {
-  diastoleClamped,
-  // THE DIASTOLE's clamp: the window the picture holds the chamber open
-  // for, whose thumb it is, and the coincidence the director primes on.
-  diastoleClampHolds,
-  diastoleClampSeat,
-  diastoleCoincides,
-  diastoleOpen,
   FILAMENT_PHASES,
   type FilamentEntry,
   type FilamentPath,

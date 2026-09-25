@@ -69,12 +69,6 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     { hand: lidHand(true), hold: 1 },
   ),
   bossPose(
-    "diastole",
-    "one",
-    "The left chamber beats alone on a count of one. P1 clamps it on the beat; P2 primes the beam.",
-    { hold: 12 },
-  ),
-  bossPose(
     "baton",
     "unfolding",
     "The arm unfolds a socket a beat. P1 counts the sockets; P2 counts with him — nothing to press.",
@@ -121,24 +115,6 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "last",
     "Every seam lit and one lobe in the middle that will not go. P1 holds the maw open; P2 waits.",
     { hold: 12, budgetBeats: 170 },
-  ),
-  bossPose(
-    "orrery",
-    "rings",
-    "Three orbits turn and nothing comes down. P1 holds the cannon still; P2 reads the rings she can see.",
-    { hold: 12 },
-  ),
-  bossPose(
-    "candle",
-    "dark",
-    "The field is black and the glow full. P1 aims into the dark; P2 fires — a shot lights its column.",
-    { hold: 3 },
-  ),
-  bossPose(
-    "candle",
-    "full",
-    "The glow drifts and dims a step for any colour. P1 aims off the column it faces; P2 fires.",
-    { hold: 12 },
   ),
   bossPose(
     "instar",

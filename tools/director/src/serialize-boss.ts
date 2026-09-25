@@ -88,10 +88,7 @@ export function serializeBoss(boss: BossEntry): string {
   // THE STARE has nothing to write out at all — the shortest of the fourteen,
   // with THE WELL's and for the same reason: the entry is the name.
   if (boss.kind === "stare") return '{ kind: "stare" }';
-  // And THE DIASTOLE, the third of the same length: no column, no health and
-  // no cadences, because the cadences are the boss (`sim/config-diastole.ts`).
-  if (boss.kind === "diastole") return '{ kind: "diastole" }';
-  // And THE BATON, the fourth: no column, no health and no cadence, because
+  // And THE BATON, the third: no column, no health and no cadence, because
   // the arm's length and every beat it keeps are tuning (`sim/config-baton.ts`).
   if (boss.kind === "baton") return '{ kind: "baton" }';
   // And THE THROAT, the fourth of the same length, and for the reason its own
@@ -100,43 +97,36 @@ export function serializeBoss(boss: BossEntry): string {
   // And THE UNDERTOW, the fifth of that length: no column, because it draws its own; no
   // health, because the pushes are counted (`sim/config-undertow.ts`).
   if (boss.kind === "undertow") return '{ kind: "undertow" }';
-  // And THE ORRERY, the sixth: no column, because the only column a shot can
-  // reach its core up is the middle of the field; no health, because the three
-  // rings are taken on beats nobody authors (`sim/config-orrery.ts`).
-  if (boss.kind === "orrery") return '{ kind: "orrery" }';
-  // And THE CANDLE, the seventh: no column, it starts in the middle and
-  // drifts; no health, the glow is five steps (`sim/config-candle.ts`).
-  if (boss.kind === "candle") return '{ kind: "candle" }';
-  // And THE GORGE, the eighth: no column, the sack is centred and as wide as
+  // And THE GORGE, the sixth: no column, the sack is centred and as wide as
   // the field allows; no health, it runs backwards (`sim/config-gorge.ts`).
   if (boss.kind === "gorge") return '{ kind: "gorge" }';
-  // And THE CURTAIN, the ninth: no column, the sheet is centred and its core
+  // And THE CURTAIN, the seventh: no column, the sheet is centred and its core
   // rolled behind it; no health, the hem's lobes are it (`sim/config-curtain.ts`).
   if (boss.kind === "curtain") return '{ kind: "curtain" }';
-  // And THE TASTER, the tenth: no column, the crest is centred and as wide as
+  // And THE TASTER, the eighth: no column, the crest is centred and as wide as
   // the field allows; no health, the fan is eleven blades and every one of
   // their colours is read off what the pair has spent (`sim/config-taster.ts`).
   if (boss.kind === "taster") return '{ kind: "taster" }';
-  // And THE SINEW, the eleventh: no column, the mass hangs over the middle; no
+  // And THE SINEW, the ninth: no column, the mass hangs over the middle; no
   // health, the fibres are it (`sim/config-sinew.ts`).
   if (boss.kind === "sinew") return '{ kind: "sinew" }';
-  // And THE LEDGER, the twelfth: no column, the body stands over the middle and
+  // And THE LEDGER, the tenth: no column, the body stands over the middle and
   // the cord's socket walks from under it; no health, the seam is it
   // (`sim/config-ledger.ts`).
   if (boss.kind === "ledger") return '{ kind: "ledger" }';
-  // And THE SURGE, the thirteenth: no column, the bulb hangs over the middle; no
+  // And THE SURGE, the eleventh: no column, the bulb hangs over the middle; no
   // health, the notches are it (`sim/config-surge.ts`).
   if (boss.kind === "surge") return '{ kind: "surge" }';
-  // And THE LEAD, the fourteenth: no column, the body comes in over the middle
+  // And THE LEAD, the twelfth: no column, the body comes in over the middle
   // and walks; no health, the stalk is it (`sim/config-lead.ts`).
   if (boss.kind === "lead") return '{ kind: "lead" }';
-  // And THE SCUTTLE, the fifteenth: no column, the frame hangs over the
+  // And THE SCUTTLE, the thirteenth: no column, the frame hangs over the
   // middle; no health, the parts are it (`sim/config-scuttle.ts`).
   if (boss.kind === "scuttle") return '{ kind: "scuttle" }';
-  // And THE ANTIPHON, the sixteenth: no column, the body rises over the
+  // And THE ANTIPHON, the fourteenth: no column, the body rises over the
   // middle; no health, the pits are it (`sim/config-antiphon.ts`).
   if (boss.kind === "antiphon") return '{ kind: "antiphon" }';
-  // And THE HIVE, the seventeenth: no column, the sites are sown by the seed;
+  // And THE HIVE, the fifteenth: no column, the sites are sown by the seed;
   // no health, the unsealed sites are it (`sim/config-hive.ts`).
   if (boss.kind === "hive") return '{ kind: "hive" }';
   // THE INSTAR's script is named rather than written out, for THE PULSE's

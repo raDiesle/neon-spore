@@ -21,9 +21,8 @@ import type { Layout } from "./layout.js";
  * stands the picture on these (`gimbal-draw.ts`), and the thumb that turns a
  * ring will be answered at the rim the picture drew, not at a second one.
  *
- * **A ring is a circle here, never an ellipse.** THE ORRERY's rings are
- * flattened because a shot has to pass through the near side of one
- * (`orrery-shape.ts`); nothing is ever fired at these, and a bearing read off
+ * **A ring is a circle here, never an ellipse.** Nothing is ever fired at
+ * these, so nothing asks for a near side to pass through, and a bearing read off
  * a squashed circle races through quadrants across the top — which is exactly
  * the sense this boss is asking the pair to agree about. So the ring each
  * seat grips is drawn face-on to them, and what says the two are set at right

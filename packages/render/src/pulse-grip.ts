@@ -8,7 +8,7 @@ import { bossOf } from "./touch-field.js";
 /**
  * **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the
  * box a thumb is answered in, and the outline that says the second is there —
- * one file for `candle-grip.ts`' reason, that the shape a hand is answered at
+ * one file for `gorge-grip.ts`' reason, that the shape a hand is answered at
  * is the shape the picture is drawn from.
  *
  * The rule shipped ahead of the picture (`sim/pulse-hand.ts`), and the wave's

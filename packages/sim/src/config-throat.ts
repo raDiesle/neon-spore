@@ -3,7 +3,7 @@
  * hangs, how often it inhales and how far it slides between inhales
  * (`throat.ts`, `docs/spec/bosses-choreographed.md` §1).
  *
- * Its own file for the reason `config-diastole.ts` gives: `SimConfig` extends
+ * Its own file for the reason `config-stare.ts` gives: `SimConfig` extends
  * it rather than nesting it, so every call site still reads
  * `cfg.throatInhaleBeats`.
  *

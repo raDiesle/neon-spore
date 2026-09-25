@@ -158,41 +158,6 @@ const GUIDE_HOLD: Pose = {
   },
 };
 
-/**
- * THE ORRERY's ring with the pilot's thumb on it, and the knurl lit.
- *
- * The fifth of these and the only one that is not a small circle: the control
- * is the outermost unbroken orbit, the whole way round, so what a reader of the
- * ON THE FIELD tab has to be able to find is the knurl — the ticks across one
- * of the three rings, which say *this is the one your hand answers*
- * (`render/orrery-grab.ts`). Player 1's screen, because it is his hand, and a
- * few beats in so the gaps are nowhere near where they were anchored.
- *
- * Two messages, because a bearing needs a reference: the grab carries
- * `NO_BEARING` and turns nothing, and the sample after it is the thumb's first
- * position. That is also what lights the knurl — `orreryHandHolds` is true from
- * the second message on.
- */
-const ORRERY_RING: Pose = {
-  name: "ORRERY · THE RING UNDER A THUMB",
-  note: "THE ORRERY hanging over the field: a core in the middle column inside three flattened orbits of organs, with the pilot's thumb on the outer ring. The ticks across that ring are the knurl — the mark that says which of the three a hand can turn — and they are lit because a hand is on it. Player 1's screen; the middle ring is true here and the inner one is a gapless grey arc he has to be told about.",
-  lookAt:
-    "the ticks across the outermost orbit, and whether it is obvious that they belong to that ring rather than to the one inside it",
-  crop: "field",
-  role: "p1",
-  build: () => {
-    const w = fresh([], [], { kind: "orrery" });
-    run(w, TPB * 5);
-    const grab = { kind: "drag", target: "orreryRing", on: true, fromMilli: -1 } as const;
-    const at = { kind: "drag", target: "orreryRing", on: true, fromMilli: 120 } as const;
-    run(w, 2, [
-      { tick: w.tick, player: 1, command: grab },
-      { tick: w.tick + 1, player: 1, command: at },
-    ]);
-    return w;
-  },
-};
-
 export const FIELD_CONTROL_GROUP: PoseGroup = {
   title: "ON THE FIELD",
   note: "the moment a control touched on the field itself is answered in — controls.md, and the CONTROLS tab's ON THE FIELD page",
@@ -206,7 +171,6 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     TETHER_TAUT,
     BALLOON_HELD,
     GUM_FLUNG,
-    ORRERY_RING,
     SINEW_PULL,
     SURGE_HOLD,
     ANTIPHON_TURN,

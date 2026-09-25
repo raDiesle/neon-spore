@@ -17,7 +17,6 @@ import { antiphonBox, antiphonCentre } from "../src/antiphon-shape.js";
 import { anchorPoint } from "../src/caption-anchor.js";
 import { computeLayout } from "../src/layout.js";
 import { leadFoot } from "../src/lead-shape.js";
-import { orreryCorePoint, orreryRx } from "../src/orrery-shape.js";
 import { scoutAt } from "../src/scout-draw.js";
 import { scuttleBox, scuttleSocket } from "../src/scuttle-shape.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
@@ -123,30 +122,6 @@ describe("a caption pointed at THE ANTIPHON", () => {
     expect(at).not.toBeNull();
     expect(at?.y ?? 0).toBeGreaterThan(antiphonBox(NAVIGATOR, CFG).bottom - NAVIGATOR.tile);
     expect(anchorPoint(PILOT, world, SET, { at: "boss", part: "rail" }, 0)).toBeNull();
-  });
-});
-
-describe("a caption pointed at THE ORRERY", () => {
-  it("rings every orbit round the core when no part is named", () => {
-    const world = withBoss({ kind: "orrery" });
-    for (const l of BOTH) {
-      const at = anchorPoint(l, world, SET, { at: "boss" }, 0);
-      const core = orreryCorePoint(l, CFG);
-      expect(at?.x).toBe(core.x);
-      expect(at?.y).toBe(core.y);
-      expect(at?.rx ?? 0).toBeGreaterThan(orreryRx(CFG, 0) * l.tile);
-    }
-  });
-
-  it("rings the core alone for `core`, and this seat's own ring for `ring`", () => {
-    const world = withBoss({ kind: "orrery" });
-    const core = anchorPoint(PILOT, world, SET, { at: "boss", part: "core" }, 0);
-    expect(core?.r ?? 0).toBeLessThan(PILOT.tile);
-    const his = anchorPoint(PILOT, world, SET, { at: "boss", part: "ring" }, 0);
-    const hers = anchorPoint(NAVIGATOR, world, SET, { at: "boss", part: "ring" }, 0);
-    // The middle ring is wider than the inner: his ring is the middle, hers the inner.
-    expect(his?.rx ?? 0).toBeGreaterThan(hers?.rx ?? 0);
-    expect(hers?.rx ?? 0).toBeGreaterThan(core?.rx ?? 0);
   });
 });
 

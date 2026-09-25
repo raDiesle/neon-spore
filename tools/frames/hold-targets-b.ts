@@ -37,11 +37,8 @@ export const ROWS: Record<string, Row> = {
   // `grip-push.ts`: either seat's hand on the body its own grip already holds.
   gripBody: { id: true },
   gripBody2: { seat: 2, as: "gripBody", id: true },
-  // `crank.ts`, `orrery-hand.ts`: a bearing, the pilot's.
+  // `crank.ts`: a bearing, the pilot's.
   crank: {},
-  orreryRing: {},
-  // `diastole-hand.ts`: `diastoleClampSeat` is 1.
-  diastoleChamber: {},
   // `gorge-hand.ts`: the pilot pinches an intake, anyone else pries the mouth.
   gorgeLobe: { id: true },
   gorgeLobe2: { seat: 2, as: "gorgeLobe", id: true },
@@ -73,8 +70,7 @@ export const ROWS: Record<string, Row> = {
   // `undertow-hand.ts`: both hers; the pin's `id` is the lobe's column.
   undertowPin: { seat: 2, id: true },
   undertowFree: { seat: 2 },
-  // `candle-hand.ts`, `curtain-hand.ts`.
-  candleWick: {},
+  // `curtain-hand.ts`.
   curtainHem: {},
   // `taster-hand.ts`: the blade's and the gap's `id` are columns.
   tasterBlade: { id: true },

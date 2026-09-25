@@ -2,9 +2,7 @@ import type { AntiphonState } from "./antiphon.js";
 import type { BatonState } from "./baton.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 import type { CairnState } from "./cairn.js";
-import type { CandleState } from "./candle.js";
 import type { CurtainState } from "./curtain.js";
-import type { DiastoleState } from "./diastole.js";
 import type { FilamentState } from "./filament.js";
 import type { GaugeState } from "./gauge.js";
 import type { GimbalState } from "./gimbal.js";
@@ -15,7 +13,6 @@ import type { InstarState } from "./instar.js";
 import type { LeadState } from "./lead.js";
 import type { LedgerState } from "./ledger.js";
 import type { MazeState } from "./maze-state.js";
-import type { OrreryState } from "./orrery.js";
 import type { PinballState } from "./pinball.js";
 import type { PulseState } from "./pulse.js";
 import type { RatchetState } from "./ratchet.js";
@@ -79,12 +76,9 @@ export type BossState =
   | SpliceState
   | ScoutState
   | StareState
-  | DiastoleState
   | BatonState
   | ThroatState
   | UndertowState
-  | OrreryState
-  | CandleState
   | GorgeState
   | CurtainState
   | TasterState

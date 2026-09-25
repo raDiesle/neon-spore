@@ -24,8 +24,8 @@ import type { ViewState } from "./renderer.js";
  *   effects are not filtered, so a kill in the dark still bursts; the ship and
  *   what stands on it are below the dark and stay.
  * - **`drawDarkField`** lays the black over the field, tile by tile, thinner
- *   where a light stands. Over the bodies and under the ship, THE CANDLE's
- *   station and its reason (`candle-dark.ts`): the ship is not in the dark.
+ *   where a light stands. Over the bodies and under the ship, because the
+ *   ship is not in the dark (`canvas2d.ts`).
  *
  * Built 25 September 2026 because the owner asked for the fault by name. The
  * light is square and soft-edged — a first look, and VERSUS is where a better

@@ -1,4 +1,3 @@
-import { AfterImage } from "./after-image.js";
 import { AntiphonFx } from "./antiphon-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { FilamentFx } from "./filament-fx.js";
@@ -71,11 +70,6 @@ export class BossRoster {
    * (`reprise-fx.ts`).
    */
   readonly reprise = new RepriseFx();
-  /** THE CANDLE's after-image: which columns of the dark field were lit, by
-   * what, and how long ago. Public and drawn by the renderer between the
-   * bodies and the ship rather than here — it is a mask over the field, not
-   * a thing on it (`after-image.ts`, `candle-dark.ts`). */
-  readonly afterImage = new AfterImage();
   /** THE GORGE's beads leaving at the end, and the bursts its receipts throw
    * on the way there — read above the loop, the way the mirror's are
    * (`gorge-fx.ts`). */

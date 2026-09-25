@@ -1,14 +1,11 @@
 import type { GuideScene } from "./scene-types.js";
 import { THE_ANTIPHON } from "./scenes/the-antiphon.js";
 import { THE_BATON } from "./scenes/the-baton.js";
-import { THE_CANDLE } from "./scenes/the-candle.js";
 import { THE_CURTAIN } from "./scenes/the-curtain.js";
-import { THE_DIASTOLE } from "./scenes/the-diastole.js";
 import { THE_GORGE } from "./scenes/the-gorge.js";
 import { THE_HIVE } from "./scenes/the-hive.js";
 import { THE_LEAD } from "./scenes/the-lead.js";
 import { THE_LEDGER } from "./scenes/the-ledger.js";
-import { THE_ORRERY } from "./scenes/the-orrery.js";
 import { THE_SCOUT } from "./scenes/the-scout.js";
 import { THE_SCUTTLE } from "./scenes/the-scuttle.js";
 import { THE_SINEW } from "./scenes/the-sinew.js";
@@ -33,11 +30,9 @@ import { THE_UNDERTOW } from "./scenes/the-undertow.js";
  * In the order the spec's ledger built them.
  */
 export type ChoreographedSceneId =
-  | "theDiastole"
   | "theBaton"
   | "theThroat"
   | "theUndertow"
-  | "theCandle"
   | "theGorge"
   | "theCurtain"
   | "theTaster"
@@ -47,17 +42,14 @@ export type ChoreographedSceneId =
   | "theLead"
   | "theScuttle"
   | "theAntiphon"
-  | "theOrrery"
   | "theScout"
   | "theHive"
   | "theSpool";
 
 export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
-  theDiastole: THE_DIASTOLE,
   theBaton: THE_BATON,
   theThroat: THE_THROAT,
   theUndertow: THE_UNDERTOW,
-  theCandle: THE_CANDLE,
   theGorge: THE_GORGE,
   theCurtain: THE_CURTAIN,
   theTaster: THE_TASTER,
@@ -67,7 +59,6 @@ export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theLead: THE_LEAD,
   theScuttle: THE_SCUTTLE,
   theAntiphon: THE_ANTIPHON,
-  theOrrery: THE_ORRERY,
   theScout: THE_SCOUT,
   theHive: THE_HIVE,
   theSpool: THE_SPOOL,

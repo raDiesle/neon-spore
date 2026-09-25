@@ -37,7 +37,7 @@ export type DragTargetD =
  * cannon and covers nothing with the shield, for the reason the seam does.
  *
  * **Clenched**, the handle is the whole underside and `fromYMilli` is the
- * pilot dragging it back within reach — down only, as `candleWick`'s is,
+ * pilot dragging it back within reach — down only, as `antiphonRail`'s is,
  * because a mass already at the top of the field has nowhere up to go.
  * **Swelling**, the handle is one lobe, `id` names which, and what the
  * navigator is doing is holding it rather than carrying it: the gesture is
@@ -102,7 +102,7 @@ export type DragTargetD =
  * one thing it does differently from a stroke, read on the edge it crosses: what the wheel
  * asks every tick is whether the hand is down *now*, so the gesture is
  * *keep holding* and there is nothing to cross. The wheel is a bearing, the
- * `orreryRing` and `gimbalOuter` gesture exactly, and what a step on it is
+ * `crank` and `gimbalOuter` gesture exactly, and what a step on it is
  * worth is how far it travelled.
  *
  * What is new is the gate, and it is not in the engine: the wheel's own hand

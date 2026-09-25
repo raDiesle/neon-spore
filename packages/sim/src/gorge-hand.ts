@@ -7,7 +7,7 @@ import type { World } from "./world.js";
  * **The two hands on THE GORGE**: player 1's pinch on a full intake and
  * player 2's pry on the mouth, off the wire, on the tick.
  *
- * Cut off `gorge-step.ts` at the seam `diastole-hand.ts` names: next door is
+ * Cut off `gorge-step.ts` at the seam every boss's hand file cuts: next door is
  * what the *sack* does on the beat, and this is what the *thumbs* do, which
  * is the half with the coupling in it. On the tick rather than the beat
  * (`boss-hands.ts`), because a vent is on the beat and a pinch that waited

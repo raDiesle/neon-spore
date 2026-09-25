@@ -2,7 +2,7 @@
  * **What THE WARDEN's second and third hands do that neither screen already
  * says**, as three events (`warden-hand.ts`).
  *
- * Its own file on `events-diastole.ts`' terms: one boss, one arm of
+ * Its own file on `events-gorge.ts`' terms: one boss, one arm of
  * `SimEvent`, and a file `packages/audio/test/bind.test.ts` has to be told
  * the name of. The rope's four — the line coming down, the eye opening, a
  * plate off, the ring gone — are older than this file and stay in

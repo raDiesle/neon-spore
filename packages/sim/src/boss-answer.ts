@@ -1,7 +1,4 @@
 import { antiphonBoss } from "./antiphon.js";
-import { candleBoss, candleEating } from "./candle.js";
-import { diastoleBridgeCol, diastoleChamberCol } from "./diastole.js";
-import { diastoleBoss } from "./diastole-step.js";
 import { leadBoss, leadLead, leadShootable, leadStill } from "./lead.js";
 import { ledgerBoss } from "./ledger.js";
 import { scuttleBoss, scuttleNextCol } from "./scuttle.js";
@@ -16,12 +13,10 @@ import type { World } from "./world.js";
  * A rehearsal's strip is authored in seven columns and `mapCol` reaches seven
  * of the game's eleven with them: 0, 2, 3, 5, 7, 8 and 10 and nothing else
  * (`content/src/queue.ts`). A body in a column outside that list is what
- * `atBody` was written for (`scene-aim.ts`), and two bosses are the same hole
- * with no body to find. THE DIASTOLE's left chamber hangs over column 4 — one
- * off the middle, and no authored column rounds to it. THE UNDERTOW's first
- * lobe comes up wherever the seeded rng says, in any of the eleven, and the
- * film cannot know which until the world does. THE CANDLE's glow drifts a
- * column at a time off the same rng. THE TASTER's fan opens from the middle
+ * `atBody` was written for (`scene-aim.ts`), and several bosses are the same
+ * hole with no body to find. THE UNDERTOW's first lobe comes up wherever the
+ * seeded rng says, in any of the eleven, and the film cannot know which until
+ * the world does. THE TASTER's fan opens from the middle
  * outward and its second blade stands over column 6, which no authored
  * column reaches either. THE LEDGER's socket walks a column along the hull
  * per return, into every column there is. THE LEAD is never where it is: the
@@ -43,13 +38,6 @@ import type { World } from "./world.js";
  * copy of each boss's geometry.
  */
 export function bossAnswerCol(world: World): number | null {
-  const d = diastoleBoss(world);
-  if (d !== null) {
-    // The left chamber while it beats alone; the bridge from the moment the
-    // right wakes, which is the rule in `diastoleStruck` read as a column.
-    if (d.phase === "burst") return null;
-    return d.phase === "one" ? diastoleChamberCol(world.cfg, -1) : diastoleBridgeCol(world.cfg);
-  }
   const u = undertowBoss(world);
   if (u !== null) {
     // The breach the maw answers: the first one up. Two come up four apart in
@@ -58,14 +46,6 @@ export function bossAnswerCol(world: World): number | null {
     // cannon itself and the answer is to leave, so it has no column here.
     if (u.phase === "seat") return null;
     return u.breaches[0]?.col ?? null;
-  }
-  const c = candleBoss(world);
-  if (c !== null) {
-    // The column the glow hangs over, which is the one a shot dims it from
-    // (`candleStruck`) — unless it is eating from that very column, when the
-    // answer is to leave it (`candleEats`) and no column is the answer.
-    if (c.phase === "dark" || c.phase === "out") return null;
-    return candleEating(c) && c.faceCol === c.col ? null : c.col;
   }
   const t = tasterBoss(world);
   if (t !== null) return tasterAnswerCol(world, t);

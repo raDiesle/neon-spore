@@ -150,7 +150,7 @@ by hand never moves.
 | `packages/sim/src/gauge-hand.ts` | **THE GAUGE's two thumbs on the dial itself** |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
 | `packages/sim/src/hash-boss.ts` | the boss half of the world fingerprint |
-| `packages/sim/src/hash-boss-clocks.ts` | The fingerprint's share of **the bosses that are a clock** — THE STARE, THE DIASTOLE, THE BATON |
+| `packages/sim/src/hash-boss-clocks.ts` | The fingerprint's share of **the bosses that are a clock** — THE STARE, THE BATON, THE THROAT and THE UNDERTOW |
 | `packages/sim/src/hull-types.ts` | what the hull remembers: where it broke, and how the pair have been doing at stopping it breaking |
 | `packages/sim/src/hull.ts` | the row the shield answers a rock on: one above the ship's own |
 | `packages/sim/src/kinds.ts` | what a `CreatureKind` *means*: colour, fall speed, width, whether a hand may be put on it |
@@ -231,7 +231,6 @@ by hand never moves.
 | `packages/sim/src/filament-turn.ts` | Whose move THE FILAMENT waits on, and the beat a line standing still strikes the hull |
 | `packages/sim/src/filament.ts` | THE FILAMENT: a body over the field made of loose filaments, the way a nerve is a bundle |
 | `packages/sim/src/config-derived.ts` | what the config implies: ticks per beat, ms to ticks, the hull row, the middle column |
-| `packages/sim/src/config-diastole.ts` | THE DIASTOLE's five numbers — the two cadences, which must stay coprime, and what a chamber and a burst are worth |
 | `packages/sim/src/bullet-hit-boss.ts` | a shot met the queen or the warden and you want to know which half of the pair a rejection is charged to |
 | `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
@@ -268,18 +267,12 @@ by hand never moves.
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
 | `packages/sim/src/cairn.ts` | THE CAIRN: a pile of seven rocks nothing fired reaches, taken apart by a hand carried sideways, and the clock that drops one itself into a lane only player 1 is shown |
 | `packages/sim/src/cairn-hold.ts` | THE CAIRN's second gesture: a hand resting on the pile stops its shed clock for four beats, on the grip the pair already has and with no new word on the field |
-| `packages/sim/src/candle-hash.ts` | What THE CANDLE puts into `hashWorld`, and nothing else |
-| `packages/sim/src/candle-hand.ts` | **The one hand on THE CANDLE**: the flame, pulled down off the wick by the pilot, off the wire, on the tick |
-| `packages/sim/src/candle-step.ts` | THE CANDLE's clock — the drift, the turn, the last step and the black frame |
-| `packages/sim/src/candle.ts` | THE CANDLE: whether you can act in the dark |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
-| `packages/sim/src/config-candle.ts` | THE CANDLE's numbers — how many steps its glow has, how long the field takes to go black |
 | `packages/sim/src/config-cairn.ts` | THE CAIRN's two clocks: the beats the pile stands before it sheds a rock itself, and the beats a still thumb buys back off them |
 | `packages/sim/src/impact.ts` | **How heavy one body lands when it reaches the hull**, for everything the shield was never offered — the weight picks the sound, and a hit costs the wave whatever hit |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
 | `packages/sim/src/chute.ts` | THE CHUTE: the slick or the bulb thrown clear of a cracked carom |
 | `packages/sim/src/events-carom.ts` | **Everything THE CAROM and the body it throws out do**, as events |
-| `packages/sim/src/events-candle.ts` | **Everything THE CANDLE does that neither screen already says**, as events |
 | `packages/sim/src/config-pod.ts` | THE POD's numbers: how a capsule shot loose falls, how it steers itself into the maw |
 | `packages/sim/src/config-volley.ts` | THE VOLLEY's numbers: how steeply it comes in, how far a ward throws it back up the field |
 | `packages/sim/src/cross.ts` | **A body crossing the field and turning at its side walls** |
@@ -429,13 +422,6 @@ by hand never moves.
 | `packages/sim/src/config-coil.ts` | THE COIL's numbers: how far it crosses the field each beat, how far it sinks at a wall |
 | `packages/sim/src/events-coil.ts` | **THE COIL's two**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/sim/src/own-step.ts` | **The bodies that move by a rule of their own instead of falling** |
-| `packages/sim/src/orrery-gap.ts` | **Where a gap is on the field**, as opposed to where it is in the beat |
-| `packages/sim/src/orrery-hash.ts` | What THE ORRERY puts into `hashWorld`, and nothing else |
-| `packages/sim/src/orrery-hand.ts` | **The pilot's hand on a ring**: the one thing in this fight that can move a gap off a beat the pair has… |
-| `packages/sim/src/orrery-shot.ts` | What a shot that left the top of a column does when THE ORRERY is up |
-| `packages/sim/src/orrery-step.ts` | THE ORRERY's clock: the core's own fire, the organs that come off a broken ring, and the going out |
-| `packages/sim/src/orrery-beat.ts` | **THE ORRERY in the beat**: where each gap stands on a beat that has not happened |
-| `packages/sim/src/orrery.ts` | THE ORRERY: whether you can agree on **when** |
 | `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
 | `packages/sim/src/pod-effects.ts` | What a pod *gives*, once the mouth has closed on it |
@@ -554,11 +540,6 @@ by hand never moves.
 | `packages/sim/src/drag-targets-c.ts` | **Every thing on this field a hand may take hold of, the third page** — the names from THE TASTER's fan on |
 | `packages/sim/src/drag-targets-d.ts` | **Every thing on this field a hand may take hold of, the fourth page** — the names from THE HIVE's underside on |
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
-| `packages/sim/src/diastole-hash.ts` | what THE DIASTOLE puts into the world fingerprint, and nothing else |
-| `packages/sim/src/diastole-hand.ts` | **The one hand on THE DIASTOLE**: the clamp, player 1's thumb on the right chamber while it beats alone |
-| `packages/sim/src/diastole-step.ts` | THE DIASTOLE's four phases, and the one shot that takes a chamber |
-| `packages/sim/src/diastole-open.ts` | **When THE DIASTOLE can be hurt** — the one question the beam asks |
-| `packages/sim/src/diastole.ts` | THE DIASTOLE's shape and its questions — which column, which colour, which seat, and whether a chamber is contracting on a given beat |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
 | `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
@@ -572,7 +553,6 @@ by hand never moves.
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
-| `packages/sim/src/events-diastole.ts` | **What THE DIASTOLE's clamp does that neither screen already says**, as two events (`diastole-hand.ts`) |
 | `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
 | `packages/sim/src/events-well.ts` | **Everything THE WELL does that neither screen already says**, as events |
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
@@ -596,7 +576,6 @@ by hand never moves.
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how many times it pushes up through the floor in each part of the fight |
 | `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
 | `packages/sim/src/config-taster.ts` | THE TASTER's numbers — how many blades the fan holds |
-| `packages/sim/src/config-orrery.ts` | **THE ORRERY's numbers**: three orbits, the beat they first come together on |
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
@@ -691,7 +670,7 @@ by hand never moves.
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
 | `packages/content/src/scene-types.ts` | The shapes a rehearsal is written in |
-| `packages/content/src/scene-turn.ts` | **A hand that turns rather than carries**, and there are two of them: THE CLAW's crank on the panel |
+| `packages/content/src/scene-turn.ts` | **A hand that turns rather than carries**: THE CLAW's crank on the panel |
 | `packages/content/src/scenes/first-step.ts` | FIRST STEP's rehearsal: the game's first exchange, in eleven seconds |
 | `packages/content/src/scenes/the-hand.ts` | THE HAND's rehearsal: the one verb neither seat owns |
 | `packages/content/src/scenes/the-handover.ts` | THE HANDOVER's rehearsal: the panels trade while the pair is watching |
@@ -701,7 +680,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-torch.ts` | TORCH's rehearsal: the warning strip, and the fact that only one of them has it |
 | `packages/content/src/scenes/the-dart.ts` | THE DART's rehearsal: the column you were given is the column it has already left |
 | `packages/content/src/scenes/the-dark.ts` | THE DARK's rehearsal: a field put out, a thumb lighting it, and the body nobody lit |
-| `packages/content/src/scenes/the-diastole.ts` | THE DIASTOLE's rehearsal: a count said out loud, and then two of them |
 | `packages/content/src/scenes/the-lure.ts` | THE LURE's rehearsal: the shot you are waiting for must never come |
 | `packages/content/src/scenes/the-throb.ts` | THE THROB's rehearsal: the wave where firing on sight is the miss |
 | `packages/content/src/scenes/the-throat.ts` | THE THROAT's rehearsal: what it takes, and the one thing that hurts it |
@@ -750,7 +728,6 @@ by hand never moves.
 | `packages/content/src/mechanics-rocks.ts` | The six rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took that file past its 250-line… |
 | `packages/content/src/scenes/the-carom.ts` | THE CAROM's rehearsal: a shape, then an order |
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
-| `packages/content/src/scenes/the-candle.ts` | THE CANDLE's rehearsal: the field goes black, and the pair fights by the light of its own shots |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
 | `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |
@@ -797,7 +774,7 @@ by hand never moves.
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 | `packages/content/src/waves/act-7a.ts` | Three waves between the two halves of act seven: THE CHOKE (the steer fault), THE LIMPET and THE LEECH |
 | `packages/content/src/waves/act-7c.ts` | The third page of act seven, cut off `act-7b.ts` when THE STARE took that file twenty-one lines over the… |
-| `packages/content/src/waves/act-7d.ts` | The fourth page of act seven, cut off `act-7c.ts` on 20 September 2026 — THE DIASTOLE and THE BATON, when that page had no room left and no letter to give |
+| `packages/content/src/waves/act-7d.ts` | The fourth page of act seven, cut off `act-7c.ts` on 20 September 2026 — THE BATON, when that page had no room left and no letter to give |
 | `packages/content/src/waves/act-7e.ts` | The fifth page of act seven, cut off `act-7c.ts` when THE THROAT and THE BATON landed on it within an hour… |
 | `packages/content/src/waves/act-7f.ts` | The sixth page of act seven, cut off `act-7e.ts` on 19 September 2026 when THE TASTER and THE SINEW needed a page between it and the old `act-7e.ts` |
 | `packages/content/src/waves/act-7g.ts` | The seventh page of act seven, cut off `act-7e.ts` when THE LEAD would have taken it over the 250-line… |
@@ -822,7 +799,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, and the pair answers it downward |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: a wrong candidate first, then six organs described across the two seats |
-| `packages/content/src/scenes/the-orrery.ts` | THE ORRERY's rehearsal: three rings cracked on counted beats and wound off by hand, every rock they shed guarded |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
 | `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
 | `packages/content/src/scenes-owed.ts` | The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2 listed as *a film nobody has written* |
@@ -902,8 +878,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-i-b.ts` | **THE BATON's `passing`** — the second half of page nine, and the readings' first cut *within* a boss |
 | `packages/render/src/boss-cue-read-j.ts` | **What THE UNDERTOW is asking for** — page ten of the readings |
 | `packages/render/src/boss-cue-read-k.ts` | **What THE THROAT is asking for** — page eleven of the readings |
-| `packages/render/src/boss-cue-read-l.ts` | **What THE ORRERY is asking for** — page twelve of the readings |
-| `packages/render/src/boss-cue-read-m.ts` | **What THE CANDLE is asking for** — page thirteen of the readings, and its own page for page twelve's reason |
 | `packages/render/src/boss-cue-read-n.ts` | **What THE GORGE is asking for** — page fourteen of the readings |
 | `packages/render/src/boss-cue-read-o.ts` | **What THE LEDGER is asking for** — page fifteen of the readings |
 | `packages/render/src/boss-cue-read-p.ts` | **What THE ANTIPHON is asking for** — page sixteen of the readings |
@@ -911,7 +885,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-r.ts` | **What THE WELL is asking for** — page eighteen of the readings |
 | `packages/render/src/boss-cue-read-s.ts` | **What THE REPRISE is asking for** — the readings' page `s` |
 | `packages/render/src/boss-cue-read-t.ts` | **What THE SCUTTLE is asking for** — the readings' page `t` |
-| `packages/render/src/boss-cue-read-u.ts` | **What THE DIASTOLE is asking for** — the readings' page `u` |
 | `packages/render/src/boss-cue-read-v.ts` | **What THE HIVE is asking for** — the readings' page `v`, a letter rather |
 | `packages/render/src/boss-cue-read-w.ts` | **What THE GAUGE is asking for** — the readings' page `w` |
 | `packages/render/src/boss-cue-read-x.ts` | **What THE VANE is asking for** — page twenty-four, and its own |
@@ -1129,7 +1102,7 @@ by hand never moves.
 | `packages/render/src/fleet-marks.ts` | THE FLEET's shared half: every square already spent, and the sights standing on one |
 | `packages/render/src/band-control.ts` | One control of the band, drawn — a lobe or a strip, whichever the set says |
 | `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |
-| `packages/render/src/view-role-clocks.ts` | **The clock bosses' halves** — what each seat is shown of THE DIASTOLE onward |
+| `packages/render/src/view-role-clocks.ts` | **The clock bosses' halves** — what each seat is shown of THE THROAT onward |
 | `packages/render/src/view-role-clocks-b.ts` | **The clock bosses' halves, page two** |
 | `packages/render/src/view-role-clocks-c.ts` | **The clock bosses' halves, page three** |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
@@ -1257,11 +1230,6 @@ by hand never moves.
 | `packages/render/src/guide-plate.ts` | The body under the tutorial's corner plate: the panel's button recipe stretched to a plate, split from `guide-switch.ts` |
 | `packages/render/src/opening-fx.ts` | The clocks a wave's opening keeps between frames — the page's, the wave's — and the blobs a READY throws |
 | `packages/render/src/opening-key.ts` | Which page of a wave's opening is up, as a string only the clocks compare |
-| `packages/render/src/orrery-draw.ts` | THE ORRERY, drawn: a core in the middle column held inside three flattened orbits of organs |
-| `packages/render/src/orrery-shaft.ts` | **The shaft**: a corridor of light straight down the core's column, on the one beat a shot can reach the core |
-| `packages/render/src/orrery-shape.ts` | **Where THE ORRERY's three orbits are on the screen**, and nothing about how they are painted |
-| `packages/render/src/orrery-grab.ts` | **The ring under the pilot's thumb**: where he may take hold of it, what a turn of it says |
-| `packages/render/src/orrery-flesh.ts` | **What THE ORRERY is made of**: organs like wet beads strung on their orbits |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the press into its hole, the waiting and the rolling |
@@ -1295,8 +1263,8 @@ by hand never moves.
 | `packages/render/src/ratchet-grip.ts` | **The two thumbs on THE RATCHET**: half two of the look lane |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/caption-anchor-boss.ts` | **Where a boss's own fixture is** — the one anchor `caption-anchor.ts` answers per boss rather than per kind… |
-| `packages/render/src/caption-anchor-boss-b.ts` | **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY and THE SCOUT are** |
-| `packages/render/src/caption-anchor-boss-c.ts` | **Where the fixtures of THE CANDLE, THE BATON and THE DIASTOLE are** — the third of `caption-anchor-boss.ts` |
+| `packages/render/src/caption-anchor-boss-b.ts` | **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON and THE SCOUT are** |
+| `packages/render/src/caption-anchor-boss-c.ts` | **Where THE BATON's fixtures are** — the third of `caption-anchor-boss.ts`, split off `-b` on line count |
 | `packages/render/src/caption-anchor-boss-d.ts` | **Where the fixtures of THE GORGE, THE FLEET, THE MIRROR and THE STARE are** |
 | `packages/render/src/caption-anchor-boss-e.ts` | **Where the fixtures of THE LEDGER and THE SPLICE are** — the fifth of `caption-anchor-boss.ts` |
 | `packages/render/src/caption-anchor-boss-f.ts` | **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the sixth of `caption-anchor-boss.ts` |
@@ -1659,7 +1627,6 @@ by hand never moves.
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
-| `packages/render/src/after-image.ts` | **THE CANDLE's after-image**: which columns of a dark field were lit, by what |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-fx.ts` | What THE ANTIPHON leaves behind a frame |
 | `packages/render/src/antiphon-flesh.ts` | **What THE ANTIPHON is made of**: a long mantle of membrane |
@@ -1703,10 +1670,6 @@ by hand never moves.
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |
 | `packages/render/src/dark-tap.ts` | **A finger on THE DARK**: a press anywhere on the field lights the square under it |
-| `packages/render/src/diastole-draw.ts` | you are drawing THE DIASTOLE — the two chambers above row 0, which seat is shown which one beating, and the bridge parting |
-| `packages/render/src/diastole-bridge.ts` | the bundle between THE DIASTOLE's two chambers, and why it never lights on the coincidence |
-| `packages/render/src/diastole-clamp.ts` | **THE DIASTOLE's clamp**: the one thing on the twin lobe a hand takes hold of |
-| `packages/render/src/diastole-flesh.ts` | **What THE DIASTOLE's chambers are made of**: muscle, lit from above |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
@@ -1758,10 +1721,6 @@ by hand never moves.
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |
-| `packages/render/src/candle-dark.ts` | **THE CANDLE's dark**: the field going black |
-| `packages/render/src/candle-glow.ts` | **THE CANDLE's glow**: its health, and the only steady light in the field |
-| `packages/render/src/candle-grip.ts` | THE CANDLE's wick: the stem, the ring on the flame and the ember after it |
-| `packages/render/src/candle-flame.ts` | **What THE CANDLE's flame is made of**: a flame, the shape a candle's is — a drop standing on its round end |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
 | `packages/render/src/cairn-hand.ts` | The hand on THE CAIRN, drawn over the stack by the boss pass — the ordinary ring closed round every stone still standing, and the word PULL |
 | `packages/render/src/cairn-look.ts` | THE ONE RECORD A CANDIDATE **PILE** PATCHES |
@@ -1844,7 +1803,6 @@ by hand never moves.
 | `packages/audio/src/music/themes.ts` | Nine pieces of music, none of which the game plays — the six below, and the three `deep.ts` adds |
 | `packages/audio/src/mixer-boss.ts` | the bosses' clocks, heard by comparing frames rather than by an event |
 | `packages/audio/src/bind-carom.ts` | **What THE CAROM and the body it throws out sound like**: a wall, a crack, an ejection and a canopy |
-| `packages/audio/src/bind-candle.ts` | THE CANDLE's seven, in a file of their own for `bind-undertow.ts`' reason |
 | `packages/audio/src/bind-volley.ts` | **What THE VOLLEY sounds like**: a ward that sends it back |
 | `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
 | `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |
@@ -1874,7 +1832,7 @@ by hand never moves.
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
-| `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own for `bind-candle.ts`' reason |
+| `packages/audio/src/bind-gorge.ts` | THE GORGE's fourteen, in a file of their own because `bind.ts` is full |
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's four, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
@@ -1898,7 +1856,6 @@ by hand never moves.
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
-| `packages/audio/src/bind-diastole.ts` | THE DIASTOLE's two, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 
 ### apps/game
@@ -2104,8 +2061,8 @@ by hand never moves.
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
 | `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
-| `tools/director/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE DIASTOLE, THE BATON, THE THROAT |
-| `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN, THE VANE, THE ORRERY, THE CANDLE |
+| `tools/director/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE BATON and THE THROAT |
+| `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN and THE VANE |
 | `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `tools/director/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
 | `tools/director/src/boss-hands-scout.ts` | **THE SCOUT's own hand** — the flight test's stupid autopilot, holding any burn that two beats of flying on would be caught after |
@@ -2481,8 +2438,8 @@ by hand never moves.
 | `tools/director/src/poses-bosses-queen.ts` | THE BULB QUEEN's three states — the oldest boss |
 | `tools/director/src/poses-bosses-rounds.ts` | **The rounds' states** — the bosses that take the field away and hand the pair a screen of their own… |
 | `tools/director/src/poses-bosses-rounds-b.ts` | **The rounds' states, the second page** — PINBALL's and THE PULSE's |
-| `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE DIASTOLE's chambers, THE BATON's crossing, THE THROAT's inhale |
-| `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins, THE ORRERY's rings |
+| `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE BATON's crossing, THE THROAT's inhale |
+| `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins |
 | `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |
 | `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
@@ -2592,7 +2549,6 @@ by hand never moves.
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-throat.ts` | **THE THROAT's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-taster.ts` | **THE TASTER's three thumbs on its own fan**, in a file of its own |
-| `tools/director/src/field-controls-orrery.ts` | THE ORRERY's ring, as a row of the ON THE FIELD tab — its own file for `field-controls-balloon.ts`'s reason |
 | `tools/director/src/field-controls-sinew.ts` | THE SINEW's two handles, in a file of their own |
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
 | `tools/director/src/field-controls-stare.ts` | THE STARE's lid, in a file of its own — `field-controls-page.ts` is at its limit |
@@ -2607,10 +2563,8 @@ by hand never moves.
 | `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-mirror.ts` | THE MIRROR's lobes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |
-| `tools/director/src/field-controls-diastole.ts` | THE DIASTOLE's clamp, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-warden.ts` | THE WARDEN's thumb and swipe, the director's two rows |
 | `tools/director/src/field-controls-well.ts` | **THE WELL's seam**, in a file of its own, the split every boss since THE INSTAR has made |
-| `tools/director/src/field-controls-candle.ts` | THE CANDLE's wick: the ON THE FIELD row for the one handle taken hold of in the dark |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
@@ -2678,7 +2632,6 @@ by hand never moves.
 | `tools/frames/result.ts` | **What a capture answers with** — the paths, the digest of each whole frame, the tick each was taken at and what fired on the way; the mirror of `spec.ts` |
 | `tools/frames/room-shot.ts` | `bun run room-shot <out-prefix> [--size 390x844] [--scale 2] [--names "ADA,BEN"]` |
 | `tools/frames/room-phones.ts` | A PHONE IN A ROOM, as `room-shot.ts` and a throwaway probe both drive one |
-| `tools/frames/ring.ts` | **A turn of THE ORRERY's ring, written on the press line.** The crank's own case, one boss over |
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
 | `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |
 | `tools/frames/shot-flags.ts` | READING `bun run shot`'s COMMAND LINE — every flag it takes |

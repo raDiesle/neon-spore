@@ -7,7 +7,6 @@ import { gimbalRingTurn } from "./gimbal-grip.js";
 import { handleUnder } from "./handles.js";
 import { colFromX, type Layout } from "./layout.js";
 import { mineUnder } from "./mine-tap.js";
-import { orreryRingTurn } from "./orrery-grab.js";
 
 // What a hit test is handed, and what it hands back: both lifted out when this
 // file went over its limit, and re-exported so nothing reaching for a `Field`,
@@ -134,17 +133,12 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     // **The crank is not carried anywhere, it is turned**, and what a turn
     // reports is an angle rather than a distance (`touch-drag.ts`).
     if (hold.target === "crank") return crankTurn(hold, x, y);
-    // **And THE ORRERY's ring, which is turned about the core.** Its own
-    // function rather than the crank's: the ring is an ellipse, so the angle
-    // is read off unsquashed offsets, and it is the one gesture in the game
-    // that is mirrored for a turned seat — the finger is following a body
-    // round rather than pointing at a column (`orrery-grab.ts`).
-    if (hold.target === "orreryRing") return orreryRingTurn(l, hold, x, y);
-    // **And THE GIMBAL's two rims**, turned about the drum. Its own function
-    // again rather than the crank's: the circle is centred on the boss and the
-    // fold is undone before the bearing goes out, for the orrery's reason —
-    // a finger chasing a mark round a circle is following a body
-    // (`gimbal-grip.ts`).
+    // **And THE GIMBAL's two rims**, turned about the drum. Their own
+    // function rather than the crank's: the circle is centred on the boss,
+    // and it is the one gesture in the game that is mirrored for a turned
+    // seat — the fold is undone before the bearing goes out, because a finger
+    // chasing a mark round a circle is following a body rather than pointing
+    // at a column (`gimbal-grip.ts`).
     if (hold.target === "gimbalOuter" || hold.target === "gimbalInner") {
       return gimbalRingTurn(l, hold, x, y);
     }

@@ -72,8 +72,8 @@ export interface TasterConfig {
  * other — because the hands have to feel different from one another under a
  * thumb that cannot look. And `tasterPryBeats` is twice `lancePrimeBeats`: the
  * interlock stands open six beats, the beam takes three to fill, and the three
- * left over are the pair's whole margin — the margin THE CANDLE's smoke gives,
- * read off the same number (`config-candle.ts`).
+ * left over are the pair's whole margin, read off the same number
+ * (`config-shot.ts`).
  *
  * **Doubled on the owner's rule, 24 September 2026**
  * (`docs/spec/choreographed-windows.md`): the interlock takes

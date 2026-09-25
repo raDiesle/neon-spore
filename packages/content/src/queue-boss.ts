@@ -93,18 +93,13 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // and what it does is decided by the clock rather than by a place
   // (`sim/stare.ts`). The shortest entry of the fourteen, with THE WELL's.
   if (boss.kind === "stare") return { ...boss };
-  // THE DIASTOLE has nothing to remap either, and it is the one entry where
-  // that is a *geometric* claim rather than an absence: the bridge column is
-  // `midCol` of whatever field is actually being played, so the twin lobe is
-  // centred on an eleven-column field as exactly as on the seven it was
-  // authored against (`sim/diastole.ts`).
-  if (boss.kind === "diastole") return { ...boss };
-  // THE BATON has nothing to remap for THE DIASTOLE's reason: the arm hangs
+  // THE BATON has nothing to remap either, and that is a *geometric* claim
+  // rather than an absence: the arm hangs
   // in `midCol` of the field being played and swings a column either side of
   // it, so it is as centred on eleven columns as on the seven it was authored
   // against (`sim/baton.ts`).
   if (boss.kind === "baton") return { ...boss };
-  // THE THROAT has nothing to remap, and like THE DIASTOLE that is geometry
+  // THE THROAT has nothing to remap, and like THE BATON that is geometry
   // rather than absence: the mouth starts at `midCol` of whatever field is
   // actually played and its travel reflects inside that field's own walls, so
   // the gullet is centred on eleven columns as exactly as on the seven it was
@@ -114,14 +109,6 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // drawn from the field being played, and the last one is `midCol` of it
   // (`sim/undertow-step.ts`).
   if (boss.kind === "undertow") return { ...boss };
-  // THE ORRERY has nothing to remap either, and for the strongest form of the
-  // reason: the one column it can be shot up is the middle of the field
-  // whatever the field is, because the rings are concentric about it
-  // (`sim/orrery.ts`).
-  if (boss.kind === "orrery") return { ...boss };
-  // THE CANDLE starts at `midCol` of whatever field is played and drifts from
-  // there, so there is no authored column to remap (`sim/candle-step.ts`).
-  if (boss.kind === "candle") return { ...boss };
   // THE GORGE is centred on `midCol` of whatever field is played and is as
   // wide as `gorgeIntakes` lets it be, so there is nothing to remap
   // (`sim/gorge-step.ts`).

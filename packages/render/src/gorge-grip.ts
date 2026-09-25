@@ -16,8 +16,8 @@ import { showsGorgePinch, showsGorgePry } from "./view-role-clocks-b.js";
 
 /**
  * **THE GORGE's two thumbs**: the pinch on a full intake and the pry on the
- * mouth, drawn and answered in one file for `diastole-clamp.ts`' reason —
- * the circle a thumb is answered at is the circle the ring is drawn from.
+ * mouth, drawn and answered in one file because the circle a thumb is
+ * answered at is the circle the ring is drawn from.
  *
  * A ring stands in every lobe a seat's thumb could take this beat, on that
  * seat's screen alone (`showsGorgePinch`, `showsGorgePry`): the pilot's over

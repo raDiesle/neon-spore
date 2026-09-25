@@ -4,14 +4,11 @@ import { drawBatonGrip } from "./baton-grip.js";
 import { drawFxBoss, FX_KINDS, isFxBoss } from "./boss-draw-clocks-b.js";
 import { drawPairBoss, isPairBoss, PAIR_KINDS } from "./boss-draw-clocks-c.js";
 import { drawCurtain } from "./curtain-draw.js";
-import { drawDiastoleClamp } from "./diastole-clamp.js";
-import { drawDiastole } from "./diastole-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
 import { drawGorgeGrip } from "./gorge-grip.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
-import { drawOrrery } from "./orrery-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawTaster } from "./taster-draw.js";
 import { drawTasterGrips } from "./taster-grip.js";
@@ -44,12 +41,9 @@ type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
 const CLOCK_KINDS = [
-  "diastole",
-  "orrery",
   "baton",
   "throat",
   "undertow",
-  "candle",
   "gorge",
   "curtain",
   "taster",
@@ -80,30 +74,6 @@ export function drawClockBoss(
   effects: Effects,
 ): void {
   const { world } = view;
-
-  // THE DIASTOLE, and it is above row 0 for THE VANE's reason: the twin lobe
-  // hangs off the top edge, so there is no body of it among the creatures. The
-  // seat is read off the layout inside, because the split here is symmetric —
-  // each screen is shown one chamber beating and one still (`diastole-draw.ts`).
-  // The clamp's ring is drawn after the chambers and from here rather than
-  // from inside, since it reads the shelf the chambers hang on
-  // (`diastole-clamp.ts`, `diastoleY`).
-  if (boss.kind === "diastole") {
-    drawDiastole(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
-    drawDiastoleClamp(ctx, l, world.cfg, boss, l.role, world.beat, view.beatPhase, view.time);
-    return;
-  }
-
-  // THE ORRERY: a core in the middle column inside three flattened orbits,
-  // above and across the top of the field rather than on it — nothing of it is
-  // among the creatures, for THE VANE's reason. Two of the three rings are
-  // drawn solid on any one screen, which is the encounter rather than a trick
-  // of the drawing, and the corridor of light down the middle is the one beat
-  // a shot can reach the core (`orrery-draw.ts`).
-  if (boss.kind === "orrery") {
-    drawOrrery(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
-    return;
-  }
 
   // THE BATON: an arm down the middle column with the bead in it, the same on
   // both screens — the split is on the band, where the seat that just acted
@@ -144,12 +114,6 @@ export function drawClockBoss(
     drawUndertowLobes(ctx, l, cfg, boss, world.beat, beatPhase, time, skinY, hurt.value, shake);
     return;
   }
-
-  // THE CANDLE draws nothing among the bodies: it is a light, and a light
-  // goes *over* the dark, so the glow is drawn by the same pass that lays
-  // the black on the field — after every body and before the ship
-  // (`candle-dark.ts`, `candle-glow.ts`).
-  if (boss.kind === "candle") return;
 
   // THE GORGE: a sack across seven columns above row 0, the seat read off
   // the layout inside (`gorge-draw.ts`).

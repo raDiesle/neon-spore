@@ -1,8 +1,6 @@
 import type { AntiphonEvent } from "./events-antiphon.js";
 import type { BatonEvent } from "./events-baton.js";
-import type { CandleEvent } from "./events-candle.js";
 import type { CurtainEvent } from "./events-curtain.js";
-import type { DiastoleEvent } from "./events-diastole.js";
 import type { FilamentEvent } from "./events-filament.js";
 import type { GaugeEvent } from "./events-gauge.js";
 import type { GimbalEvent } from "./events-gimbal.js";
@@ -56,7 +54,6 @@ export type BossEvent =
   | StareEvent
   | BatonEvent
   | UndertowEvent
-  | CandleEvent
   | GorgeEvent
   | CurtainEvent
   | TasterEvent
@@ -74,7 +71,6 @@ export type BossEvent =
   | HaspEvent
   | RatchetEvent
   | QueenEvent
-  | DiastoleEvent
   | WardenEvent
   | VaneEvent
   | SnakeEvent
@@ -87,9 +83,7 @@ export type BossEvent =
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
-export type { CandleEvent } from "./events-candle.js";
 export type { CurtainEvent } from "./events-curtain.js";
-export type { DiastoleEvent } from "./events-diastole.js";
 export type { FilamentEvent } from "./events-filament.js";
 export type { GaugeEvent } from "./events-gauge.js";
 export type { GimbalEvent } from "./events-gimbal.js";

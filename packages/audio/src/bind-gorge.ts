@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE GORGE's fourteen, in a file of their own for `bind-candle.ts`' reason.
+ * THE GORGE's fourteen, in a file of their own because `bind.ts` is full.
  *
  * Every one of them is panned, because every one of them names a column:
  * the sack is seven intakes wide and which one just swallowed, filled,

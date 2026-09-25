@@ -22,28 +22,6 @@ import { CHOREO_NOTES_C } from "./ship-notes-choreo-c.js";
  * next boss's would have landed on the wall.
  */
 export const CHOREO_NOTES = {
-  "THE DIASTOLE — two hearts on two cadences, one each":
-    "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §7, " +
-    "and the safe version of the boss THE CONDUCTOR was deferred for: the " +
-    "tempo never bends, but there are two counts on it and neither player can " +
-    "see both. The left chamber contracts every diastoleLeftBeats and is " +
-    "player 1's; the right every diastoleRightBeats and is player 2's; the " +
-    "far chamber is a still grey mass on the other screen, and geometry says " +
-    "whose. Three against five meet every fifteen beats and on no beat " +
-    "between — a pair of numbers that stopped being coprime would quietly " +
-    "stop being the boss. While the left beats alone an ordinary shot of its " +
-    "colour takes it on one of its contractions; from the moment the right " +
-    "wakes the only thing that lands is the LANCE beam standing in the " +
-    "bridge column on a beat every standing chamber is contracting on. " +
-    "diastoleChamberHits is each chamber's health and the fight's shape. The " +
-    "coincidence and the burst both open one of THE SLOW's windows, whose own " +
-    "two dials are under THE BEAT. Alone, the right chamber's beat has to be " +
-    "held as well: player 2 sees it and says now, player 1 clamps the chamber " +
-    "on it — a thumb held on it, diastoleChamber — and the beam lands under " +
-    "the clamp for diastoleClampBeats. A clamp on the wrong beat, or one held " +
-    "past its window, is a spasm: diastoleSpasmBeats in which nothing lands. " +
-    "Nothing about it is authored per wave. " +
-    "See sim/diastole.ts, sim/diastole-hand.ts, sim/config-diastole.ts, docs/decisions.md #33.",
   "THE BATON — a bead passed down an arm, one seat a beat":
     "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §10: " +
     "an arm of batonSockets sockets hangs from the top of the middle column " +
@@ -88,20 +66,6 @@ export const CHOREO_NOTES = {
     "Shots pass through the tube on purpose: that is player 2's answer to a " +
     "creature about to be eaten. Nothing is authored per wave. " +
     "See sim/throat.ts, sim/config-throat.ts, sim/throat-pull.ts.",
-  "THE ORRERY — three orbits, and neither of you can see all three":
-    "Three rings about a core in the middle column, coming round every " +
-    "orreryOuterOrgans, orreryMiddleOrgans and orreryInnerOrgans beats — one " +
-    "organ a beat, so the count is the cadence. Every ring is anchored so all " +
-    "three gaps first stand at the bottom of their orbits orreryFirstBeats " +
-    "after the install, and after that whenever the three come round " +
-    "together. A shot up the middle column on such a beat, in the colour the " +
-    "core is showing, takes the outermost ring still standing and sheds " +
-    "orreryDebris of its organs as rocks. From the first break the core " +
-    "spits a rock every orrerySpitBeats down the column its innermost ring " +
-    "is pointing at, never its own and never on a beat the shaft is open. An " +
-    "alignment opens orrerySlowBeats of THE SLOW as it comes up; the naked " +
-    "core takes the beam alone and goes out over orreryOutBeats. Nothing " +
-    "about it is authored per wave. See sim/orrery.ts, sim/config-orrery.ts.",
   "THE UNDERTOW — the boss under the floor, answered downward":
     "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §13: " +
     "the one boss that comes up through the hull. A plate bows for " +
@@ -123,21 +87,6 @@ export const CHOREO_NOTES = {
     "— a lobe standing, the floor under the cannon, the last lobe — and the " +
     "body passing through opens undertowSlowBeats of its own. Nothing about " +
     "it is authored per wave. See sim/undertow.ts, sim/config-undertow.ts.",
-  "THE CANDLE — the boss fought in the dark":
-    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §14: " +
-    "the one boss fought in the dark. The sim does not know the field is " +
-    "black — darkness and the per-seat light are the look's. The boss is a " +
-    "glow of candleGlowSteps that any colour dims a step, from the cannon's " +
-    "column or the beam's. It arrives dark for candleDarkBeats, then drifts " +
-    "a column every candleMoveBeats and turns to face a column every " +
-    "candleTurnBeats, seen by player 1 alone. At candleEatSteps left it eats " +
-    "the shot from the column it faces and re-brightens a step; at " +
-    "candleLastSteps it stops moving, turning and eating, and no shot counts " +
-    "at all: player 1 pulls the flame candlePinchMilli down off the wick, and " +
-    "player 2 has candleSmokeBeats to stand the beam in that column before it " +
-    "lights again a step brighter. That puts it out, holding the wave " +
-    "candleOutBeats more. Nothing about it is authored per wave. See " +
-    "sim/candle.ts, sim/config-candle.ts.",
   "THE GORGE — the boss you hurt by not shooting":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §3: " +
     "the one boss whose health runs backwards. A sack gorgeIntakes wide sits " +

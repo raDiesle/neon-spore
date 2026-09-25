@@ -16,13 +16,13 @@ export const COLORS = ["red", "cyan"] as const;
 // biome-ignore format: one line a row of the sim's DragTarget union, kept flat so the file stays under its limit
 export const DRAG_TARGETS: readonly DragTarget[] = [
   "mazeString", "wardenTether", "lidString", "gripBody", "choirLeft", "choirRight",
-  "balloonLeft", "balloonRight", "crank", "orreryRing", "sinewLeft", "sinewRight",
+  "balloonLeft", "balloonRight", "crank", "sinewLeft", "sinewRight",
   "surgeBulb", "antiphonOrgan", "instarMark", "filament", "stareLid", "queenMark",
-  "diastoleChamber", "mirrorLobe", "gorgeLobe", "mazeHeart", "gaugeNeedle", "gaugeBand",
+  "mirrorLobe", "gorgeLobe", "mazeHeart", "gaugeNeedle", "gaugeBand",
   "wardenEye", "wardenHatch", "fleetBreach", "fleetRake", "fleetWreck",
   "vaneArm", "vaneHousing", "snakeJaws", "snakeTail", "pinPlunger", "pinTable",
   "scoutLine", "scoutPrime", "pulseMeter", "batonSocket", "undertowPin", "undertowFree",
-  "throatRing", "throatTube", "candleWick", "curtainHem",
+  "throatRing", "throatTube", "curtainHem",
   "tasterBlade", "tasterGap", "tasterLock",
   "ledgerFoot", "ledgerSocket", "ledgerBead", "ledgerCord",
   "leadStalk", "scuttlePart", "antiphonRail", "wellSeam", "hiveLobe",

@@ -17,8 +17,7 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
  * mouth's row, and **not one of them is stored anywhere**. The simulation holds
  * a phase, an anchor, a slack count and two receipt beats (`sim/throat.ts`),
  * and everything the picture needs is arithmetic over those — which is the
- * same bargain `diastole-draw.ts` and `baton-draw.ts` take, and the reason
- * neither of them owns an `Effects` field. A restart cannot show this fight the
+ * same bargain `baton-draw.ts` takes, and the reason it does not own an `Effects` field. A restart cannot show this fight the
  * last one's gullet because there is nothing here to carry.
  *
  * Kept apart from the drawing because the two are read for different reasons:

@@ -1,9 +1,7 @@
 import { antiphonHashParts } from "./antiphon-hash.js";
 import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
-import { candleHashParts } from "./candle-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
-import { diastoleHashParts } from "./diastole-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
@@ -12,7 +10,6 @@ import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
-import { orreryHashParts } from "./orrery-hash.js";
 import { ratchetHashParts } from "./ratchet-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
@@ -26,7 +23,7 @@ import { wellHashParts } from "./well-hash.js";
 
 /**
  * The fingerprint's share of **the bosses that are a clock** — THE STARE, THE
- * DIASTOLE, THE BATON, THE THROAT and THE UNDERTOW.
+ * BATON, THE THROAT and THE UNDERTOW.
  *
  * Split out of `hash-boss.ts` when THE UNDERTOW took that file four lines over
  * its 250-line limit, along the seam `bosses-clocks.ts`,
@@ -45,12 +42,6 @@ export function clockHashParts(boss: BossState): number[] {
   if (boss.kind === "stare") {
     for (const n of stareHashParts(boss)) out.push(n);
   }
-  // THE DIASTOLE, gathered beside the boss like the six above it — and the one
-  // whose numbers are *two clocks and the origin they run from*, which is why
-  // they matter as much as any board (`diastole-hash.ts`).
-  if (boss.kind === "diastole") {
-    for (const n of diastoleHashParts(boss)) out.push(n);
-  }
   // THE BATON, gathered beside the boss like the seven above it — and the one
   // whose numbers are *two locks*, one per seat, which decide who may touch
   // their own phone this beat (`baton-hash.ts`).
@@ -68,18 +59,6 @@ export function clockHashParts(boss: BossState): number[] {
   // asked to answer a hole and the other to plate it (`undertow-hash.ts`).
   if (boss.kind === "undertow") {
     for (const n of undertowHashParts(boss)) out.push(n);
-  }
-  // THE ORRERY, whose numbers are *anchors* rather than positions: nothing
-  // about a ring is stepped, so two devices agree about where every gap is
-  // exactly when they agree about these, and one beat out is a pair firing
-  // into armour on one screen and into the core on the other
-  // (`orrery-hash.ts`).
-  if (boss.kind === "orrery") {
-    for (const n of orreryHashParts(boss)) out.push(n);
-  }
-  // THE CANDLE: the glow, where it stands, where it faces (`candle-hash.ts`).
-  if (boss.kind === "candle") {
-    for (const n of candleHashParts(boss)) out.push(n);
   }
   // THE GORGE: every intake's tally, colour and state (`gorge-hash.ts`).
   if (boss.kind === "gorge") {

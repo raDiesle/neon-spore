@@ -19,8 +19,7 @@ import type { World } from "./world.js";
  * a blade is struck off by the colour it is *not*, thickened by the colour it
  * is, and the crest where one used to be takes either.
  *
- * Its own file beside `taster-step.ts` for `orrery-shot.ts`' reason, said about
- * a fan rather than about three rings: next door is the fight's **clock** — a
+ * Its own file beside `taster-step.ts`: next door is the fight's **clock** — a
  * blade out of the crest, a colour setting on the ledger, the re-edge — and
  * everything here happens on the **tick** a bolt or a beam leaves the top of a
  * column, because a blade that sheared on the next beat would be a blade the

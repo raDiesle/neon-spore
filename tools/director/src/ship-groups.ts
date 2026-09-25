@@ -21,12 +21,9 @@ export type GroupName =
   | "THE CAIRN — a pile of rocks taken apart by hand"
   | "THE SCOUT — a little ship one of you flies"
   | "THE STARE — an eye that freezes whoever it looks at"
-  | "THE DIASTOLE — two hearts on two cadences, one each"
   | "THE BATON — a bead passed down an arm, one seat a beat"
   | "THE THROAT — the boss you answer by feeding it"
   | "THE UNDERTOW — the boss under the floor, answered downward"
-  | "THE ORRERY — three orbits, and neither of you can see all three"
-  | "THE CANDLE — the boss fought in the dark"
   | "THE GORGE — the boss you hurt by not shooting"
   | "THE CURTAIN — the boss that is in the way"
   | "THE TASTER — the boss that grows its armour in the colour you have been spending"
@@ -114,12 +111,9 @@ export const GROUP_ORDER: GroupName[] = [
   "SNAKE — a round the ship is the body of",
   "THE SCOUT — a little ship one of you flies",
   "THE STARE — an eye that freezes whoever it looks at",
-  "THE DIASTOLE — two hearts on two cadences, one each",
   "THE BATON — a bead passed down an arm, one seat a beat",
   "THE THROAT — the boss you answer by feeding it",
   "THE UNDERTOW — the boss under the floor, answered downward",
-  "THE ORRERY — three orbits, and neither of you can see all three",
-  "THE CANDLE — the boss fought in the dark",
   "THE GORGE — the boss you hurt by not shooting",
   "THE CURTAIN — the boss that is in the way",
   "THE TASTER — the boss that grows its armour in the colour you have been spending",

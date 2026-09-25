@@ -6,8 +6,7 @@
  *
  * **A boss's later phases are a run of correct presses deep**, and that is what
  * made most of them unphotographable. THE THROAT's eversion needs five gums
- * flung into a walking mouth; THE DIASTOLE's second chamber needs the first one
- * spent on a coincidence beat; THE BATON's shed socket needs a handover missed.
+ * flung into a walking mouth; THE BATON's shed socket needs a handover missed.
  * Three lanes in a row landed a look and said in the commit message that its
  * most important frame had never been seen — the sag, the limp rings, the
  * eversion — and each one fell back to arithmetic in a test, which is the right

@@ -13,7 +13,7 @@
  * number nobody can hear.
  *
  * `bosses.ts` re-exports the whole of it, so nothing that already reached for
- * a `DiastoleSide` or a `BatonStage` through `@neon-spore/sim` had to move.
+ * a `BatonStage` through `@neon-spore/sim` had to move.
  */
 
 export {
@@ -41,18 +41,6 @@ export * from "./bosses-clocks-b.js";
 // THE LEDGER is a clock too, and it has a page of its own: the one boss here
 // whose single drawn object is cut in half by seat (`bosses-ledger.ts`).
 export * from "./bosses-ledger.js";
-// THE CANDLE keeps the shortest clock of the six: a glow that drifts and
-// turns on counts the pair says out loud, in a dark the sim does not know.
-export {
-  CANDLE_PHASES,
-  type CandlePhase,
-  type CandleState,
-  candleBoss,
-  candleEating,
-  candleMoving,
-  candleSmoking,
-  candleWicked,
-} from "./candle.js";
 export {
   type CurtainState,
   curtainBody,
@@ -64,24 +52,6 @@ export {
   curtainSoftAt,
   curtainStride,
 } from "./curtain.js";
-export {
-  DIASTOLE_PHASES,
-  DIASTOLE_SIDES,
-  type DiastolePhase,
-  type DiastoleSide,
-  type DiastoleState,
-  diastoleBeating,
-  diastoleBridgeCol,
-  diastoleChamberCol,
-  diastoleColor,
-  diastoleContracts,
-  diastoleEvery,
-  diastoleHits,
-  diastoleSeat,
-  diastoleSince,
-  diastoleStanding,
-} from "./diastole.js";
-export { diastoleBoss } from "./diastole-step.js";
 // THE GORGE keeps no clock of its own but the vent and the spit: what it
 // holds is the pair's own shots, seven tallies wide.
 export {
@@ -97,40 +67,6 @@ export {
   gorgePhase,
   gorgeSink,
 } from "./gorge.js";
-// THE ORRERY is three clocks rather than one, and the only number the pair
-// ever wants off it is a beat that has not happened yet (`orreryNextOpen`).
-export {
-  ORRERY_PHASES,
-  ORRERY_RINGS,
-  type OrreryPhase,
-  type OrreryState,
-  orreryBoss,
-  orreryCoreCol,
-  orreryDir,
-  orreryOrbit,
-  orreryRingBroken,
-} from "./orrery.js";
-// The same rings asked about a beat that has not happened yet, which is the
-// whole of what the navigator's readout is made of (`orrery-beat.ts`).
-export {
-  orreryAdrift,
-  orreryGapSlot,
-  orreryNextOpen,
-  orreryRingOpen,
-  orreryShaftOpen,
-} from "./orrery-beat.js";
-export { orreryGapCol, orreryReach } from "./orrery-gap.js";
-// The pilot's hand on a ring, and the two things the picture asks about it:
-// which ring answers a thumb, and how far it is wound against its next
-// detent — which is a strain to be drawn and never a rotation
-// (`orrery-hand.ts`).
-export {
-  NO_RING,
-  orreryHandHolds,
-  orreryHandRing,
-  orreryTurnPerTickMilli,
-  orreryWoundMilli,
-} from "./orrery-hand.js";
 // THE CURTAIN keeps a clock for each of the roll-back, the soft set and the
 // core's fire, and the one number the pair wants off it is where the fabric
 // is not (`curtainCoreBare`).

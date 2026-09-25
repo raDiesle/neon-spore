@@ -10,8 +10,6 @@ import { pinballCues, scoutCues } from "./boss-cue-read-h.js";
 import { batonCues } from "./boss-cue-read-i.js";
 import { undertowCues } from "./boss-cue-read-j.js";
 import { throatCues } from "./boss-cue-read-k.js";
-import { orreryCues } from "./boss-cue-read-l.js";
-import { candleCues } from "./boss-cue-read-m.js";
 import { gorgeCues } from "./boss-cue-read-n.js";
 import { ledgerCues } from "./boss-cue-read-o.js";
 import { antiphonCues } from "./boss-cue-read-p.js";
@@ -19,7 +17,6 @@ import { cairnCues } from "./boss-cue-read-q.js";
 import { wellCues } from "./boss-cue-read-r.js";
 import { repriseCues } from "./boss-cue-read-s.js";
 import { scuttleCues } from "./boss-cue-read-t.js";
-import { diastoleCues } from "./boss-cue-read-u.js";
 import { hiveCues } from "./boss-cue-read-v.js";
 import { gaugeCues } from "./boss-cue-read-w.js";
 import { vaneCues } from "./boss-cue-read-x.js";
@@ -102,8 +99,6 @@ export function bossCues(
   const boss = world.boss;
   if (boss === null) return NONE;
   switch (boss.kind) {
-    case "candle":
-      return candleCues(l, world, boss);
     case "gorge":
       return gorgeCues(l, world, boss);
     case "curtain":
@@ -124,10 +119,6 @@ export function bossCues(
       return scuttleCues(l, world, boss);
     case "antiphon":
       return antiphonCues(l, world, boss);
-    case "diastole":
-      return diastoleCues(l, world, boss);
-    case "orrery":
-      return orreryCues(l, world, boss);
     case "queen":
       return queenCues(l, world, boss, beatPhase);
     case "stare":

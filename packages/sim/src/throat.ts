@@ -80,8 +80,8 @@ export interface ThroatState {
    * An anchor rather than a position, and the difference is the boss. A stored
    * column would have to be stepped by something, and whatever stepped it
    * would sit on one side of `onBeat` while the pull and the hit tests sat on
-   * the other (`step.ts`, and `beamBeat` in `lance-burn.ts` is the bug that
-   * arrangement already caused once). Worse, player 2's readout is *which
+   * the other (`step.ts`, where a beam on a boundary tick burns while the
+   * counter still reads the beat that has just ended). Worse, player 2's readout is *which
    * column the mouth will be in* — a question about a beat that has not
    * happened — and a stepper cannot answer it at all.
    */

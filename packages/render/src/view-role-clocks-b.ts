@@ -1,4 +1,4 @@
-import { diastoleClampSeat, gorgePinchSeat, gorgePrySeat, type InstarSeat } from "@neon-spore/sim";
+import { gorgePinchSeat, gorgePrySeat, type InstarSeat } from "@neon-spore/sim";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -127,19 +127,6 @@ export const showsStareLid = (role: ViewRole, watching: 1 | 2): boolean =>
  */
 export const showsFilamentAhead = (role: ViewRole): boolean => role !== "p2";
 export const showsFilamentBehind = (role: ViewRole): boolean => role !== "p1";
-
-/**
- * THE DIASTOLE's clamp, on the screen of the seat whose thumb it is — the
- * pilot's, and the boss says so rather than this file (`diastoleClampSeat`,
- * `sim/diastole-open.ts`). It is the seat that is shown the alone chamber
- * grey and cannot see it beat, on purpose: the ring says *this, and your
- * thumb*, never *when*, and the beat stays the navigator's to say. The
- * held chamber itself — squeezed shut under the clamp — is on every screen,
- * the way THE STARE's lid is; only the ring and its word are the clamper's
- * (`diastole-clamp.ts`). `test` is both.
- */
-export const showsDiastoleClamp = (role: ViewRole): boolean =>
-  role === "test" || role === `p${diastoleClampSeat}`;
 
 /**
  * THE GORGE's two thumbs, each on the screen of the seat whose thumb it is,

@@ -33,64 +33,58 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // nothing to place, and no clock of its own that ends anything. What it does
   // is make the wave its author wrote cost more to play (`stare.ts`), so a
   // stare wave with no arrivals is an eye watching an empty field.
-  // THE DIASTOLE is the fifth, and THE VANE's case exactly: a twin lobe
-  // hanging above the grid that falls nothing and reaches nothing, whose whole
-  // behaviour is deciding when a shot into the top of a column counts
-  // (`diastole.ts`). A diastole wave with no arrivals would be two hearts
-  // beating over an empty field — and worse, a boss nobody could author
-  // pressure against, since the pressure *is* the wave.
-  // THE BATON is the sixth: an arm hanging in one column that falls nothing
+  // THE BATON is the fifth: an arm hanging in one column that falls nothing
   // but its own dead segments, whose whole behaviour is whose turn it is
   // (`baton.ts`). The arrivals around it are the wave's own.
-  // THE THROAT is the seventh, and the one where it is the *point* rather than
+  // THE THROAT is the sixth, and the one where it is the *point* rather than
   // the shape: what the boss eats is the wave's own arrivals, and every
   // creature it swallows re-tightens a slack ring (`throat-step.ts`). A throat
   // that spawned its own dinner would be a boss healing off bodies its author
   // never wrote, which is to say a boss whose difficulty nobody set.
-  // THE UNDERTOW is the eighth, and the one that is underneath the field
+  // THE UNDERTOW is the seventh, and the one that is underneath the field
   // rather than above it: a fixture in the hull that pushes up through the
   // floor and falls nothing at all (`undertow.ts`). What comes down over it
   // is the wave's own.
-  // THE GORGE is the ninth, and the one that sends bodies *because* of the
+  // THE GORGE is the eighth, and the one that sends bodies *because* of the
   // wave's own: a sack that swallows every shot nobody aimed at a creature,
   // and falls only what the pair overfed it with — a vented torch, a spat
   // bead (`gorge-step.ts`). The arrivals the pair must not shoot at are
   // authored, or there is nothing for the restraint to be against.
-  // THE TASTER is the tenth, and the reason is the fight itself: what its fan
+  // THE TASTER is the ninth, and the reason is the fight itself: what its fan
   // tastes is the colours the pair spend *answering the wave*, so a taster
   // that sent its own bodies would be a boss feeding the ledger it then reads
   // (`taster.ts`). The design's step 7 — a blade sweeping down and throwing a
   // rock — is dropped for exactly that, and this page's own ruling says so:
   // *a boss on this page is fed by its wave, not by itself*
   // (`docs/spec/bosses-choreographed.md`).
-  // THE SINEW is the eleventh, and the one whose hands-off beat is the point: a
+  // THE SINEW is the tenth, and the one whose hands-off beat is the point: a
   // tendon the cannon cannot touch, that falls only what the pair's own
   // snap-backs shake out of it (`sinew-step.ts`). The arrivals under it are
   // authored, so that letting go of the handles to shoot is a decision.
-  // THE LEDGER is the twelfth, and its wave is the bill: from the third hit
+  // THE LEDGER is the eleventh, and its wave is the bill: from the third hit
   // the cord charges the pair for **every** shot the cannon takes, so what
   // falls has to be the wave's own or the boss would be posting itself the
   // bills it then makes them ward (`ledger.ts`). The arrivals are authored for
   // the one decision the design asks for — *choose what to shoot at all*.
-  // THE SURGE is the thirteenth, for the same reason turned round: a bulb the
+  // THE SURGE is the twelfth, for the same reason turned round: a bulb the
   // cannon cannot touch, that throws nothing but what its own bursts throw
   // (`surge-seam.ts`) — and from its second notch the wave's arrivals are
   // its food, so shooting them is the other thing the hands are for.
-  // THE LEAD is the fourteenth: a body pacing over the top of the field with
+  // THE LEAD is the thirteenth: a body pacing over the top of the field with
   // nothing of itself on the grid, that falls only what its run drops behind
   // and ahead of itself (`lead-step.ts`). The arrivals under it are authored,
   // so that a shot put ahead of the body is a shot not put into the wave.
-  // THE SCUTTLE is the fifteenth, and the one that goes the other way: it is
+  // THE SCUTTLE is the fourteenth, and the one that goes the other way: it is
   // **not** on the list, because it fills its wave — every body that falls in
   // it is a part of the frame thrown down as a meteor, a slick, a bulb or a
   // pod (`scuttle-step.ts`), and which socket goes next is the frame's own
-  // clock, not an author's. It is THE ORRERY's case on the choreographed page
-  // — the ruling there that *a boss on this page is fed by its wave* is about
-  // a boss that reads the wave, and this one reads nothing.
-  // THE ANTIPHON is the sixteenth and reads nothing either: what falls in it
+  // clock, not an author's. The ruling on the choreographed page that *a boss
+  // on this page is fed by its wave* is about a boss that reads the wave, and
+  // this one reads nothing.
+  // THE ANTIPHON is the fifteenth and reads nothing either: what falls in it
   // is what the pair got wrong — a candidate a pit rejected, an organ left
   // to sink — and the design says *nothing else arrives* (`antiphon-step.ts`).
-  // THE HIVE is the seventeenth and THE SCUTTLE's case again: not on the list,
+  // THE HIVE is the sixteenth and THE SCUTTLE's case again: not on the list,
   // because everything that falls in its wave is a rock an open breach
   // spilled (`hive-step.ts`), and a wave authored beside it would be a
   // spill nobody could seal.
@@ -99,7 +93,6 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "well" &&
     kind !== "reprise" &&
     kind !== "stare" &&
-    kind !== "diastole" &&
     kind !== "baton" &&
     kind !== "throat" &&
     kind !== "undertow" &&
@@ -171,12 +164,9 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "scout",
   "reprise",
   "stare",
-  "diastole",
   "baton",
   "throat",
   "undertow",
-  "orrery",
-  "candle",
   "gorge",
   "curtain",
   "taster",

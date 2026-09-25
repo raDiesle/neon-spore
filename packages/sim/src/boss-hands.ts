@@ -1,8 +1,6 @@
 import { antiphonHeard, antiphonPulled, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
-import { candleWickHeard } from "./candle-hand.js";
 import { curtainHemHeard } from "./curtain-hand.js";
-import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
 import { gimbalHeard } from "./gimbal-hand.js";
@@ -95,10 +93,6 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE BULB QUEEN's marks under player 1's thumb, on the tick because a pry
   // is a press when it lands and a hold is where the thumb is now (`queen-hand.ts`).
   for (const c of commands) queenHeard(world, c.player, c.command);
-  // THE DIASTOLE's clamp, on the tick because *now* is said on a tick, and a
-  // clamp that waited for the beat would catch the beat after the one that
-  // was said (`diastole-hand.ts`).
-  for (const c of commands) diastoleHeard(world, c.player, c.command);
   // THE MIRROR's lobes under both thumbs, on the tick because a step given
   // back on its ship lands when the thumb lifts, and the pin is where both
   // thumbs are now (`mirror-hand.ts`).
@@ -131,10 +125,6 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // Both are *spent* on the beat, by `throatBreathes` and `throatHaul`, which
   // is this fight's own promise: every change lands on a count somebody said.
   for (const c of commands) throatHeard(world, c.player, c.command);
-  // THE CANDLE's pull on the flame, on the tick because the tick it comes off
-  // the wick is the tick her beam starts being worth something, and the count
-  // it is raced against starts there (`candle-hand.ts`).
-  for (const c of commands) candleWickHeard(world, c.player, c.command);
   // THE CURTAIN's lift on the hem, on the tick because the gap over the core
   // is open only while the thumb is at the top, and a lift answered on the
   // next beat would be a gap the pilot had already let go of

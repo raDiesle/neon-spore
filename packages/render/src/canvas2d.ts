@@ -1,6 +1,5 @@
 import { guardArmed, mawOpen, mineOnField, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { bandControlSet } from "./band.js";
-import { drawCandleField } from "./candle-dark.js";
 import { HeldHost } from "./canvas2d-held.js";
 import { drawStageSeam, paintOutside } from "./canvas2d-stage.js";
 import { drawTakeover } from "./canvas2d-takeover.js";
@@ -170,10 +169,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY, skinY);
     // The pieces a bolt knocked out of a wall, under the hull (`fence-shards.ts`).
     this.held.fenceShards.draw(ctx, l);
-    // THE CANDLE: the field goes black here, over every body on it and under
-    // the ship, whose own glow is a light the dark leaves (`candle-dark.ts`).
-    drawCandleField(ctx, l, view, this.held.effects);
-    // THE DARK, on the same station: the field put out, and a finger's light
+    // THE DARK, on this station: the field put out, and a finger's light
     // the only way back into it (`dark-field.ts`; `seenView` took the bodies out).
     drawDarkField(ctx, l, view);
     // And, on the same station, THE SLOW's window: over every body on the
@@ -183,9 +179,8 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     drawFieldSlow(ctx, l, world, view);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
-    // The one word the boss wants, over the finished ship and THE CANDLE's
-    // own dark alike — both paint over anything drawn earlier
-    // (`frame-field.ts`'s `drawFieldBossCue`).
+    // The one word the boss wants, over the finished ship — it paints over
+    // anything drawn earlier (`frame-field.ts`'s `drawFieldBossCue`).
     drawFieldBossCue(ctx, l, world, view, skinY);
     // Over the finished ship, what is stuck to it (`frame-on-ship.ts`).
     drawOnShip(ctx, l, world, view, this.held, hull, at, surfaceY);

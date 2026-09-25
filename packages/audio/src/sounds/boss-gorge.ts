@@ -1,5 +1,5 @@
 /**
- * THE GORGE's fourteen, in a file of their own for `boss-candle.ts`' reason.
+ * THE GORGE's fourteen, in a file of their own so `boss.ts` stays under its limit.
  *
  * The boss is a **sack full of fluid**, and everything here is wet: a bead
  * going in is a swallow, a bead coming out is a gulp in reverse, a full

@@ -1,7 +1,7 @@
 import type { ViewRole } from "./view-role.js";
 
 /**
- * **The clock bosses' halves** — what each seat is shown of THE DIASTOLE
+ * **The clock bosses' halves** — what each seat is shown of THE THROAT
  * onward, the bosses from `docs/spec/bosses-choreographed.md` whose whole
  * difficulty is a beat count the pair says out loud.
  *
@@ -21,27 +21,6 @@ import type { ViewRole } from "./view-role.js";
  * a different thing kept from each seat — is what makes a fight two counts
  * rather than one count and one witness.
  */
-
-/**
- * *Whether this screen sees that chamber of THE DIASTOLE beating true.* One
- * each: the pilot owns the left chamber, the navigator the right, and the one
- * a seat does not own is drawn as a still grey mass on that screen
- * (`sim/diastoleSeat`, `diastole-draw.ts`).
- *
- * The second entry here to take an argument, and for THE FLIP's reason — which
- * seat owns which chamber is the boss's to say, not this file's. It is also the
- * first split in this list that is **symmetric**: every other one keeps
- * something from *one* of the two seats, and this keeps a different thing from
- * each of them, which is what makes the fight two counts rather than one count
- * and one witness.
- *
- * `test` is both halves at once, so it sees both beating — and here that is not
- * the usual *follow the pilot* default but the only honest answer: a person
- * playing alone is holding both counts, and a screen that showed one chamber
- * grey would be hiding a count from the only pair there is.
- */
-export const showsDiastoleBeat = (role: ViewRole, seat: 1 | 2): boolean =>
-  role === "test" || (seat === 1 ? role === "p1" : role === "p2");
 
 /**
  * *Where it will be, and when* — THE THROAT's next inhale: the column the mouth
@@ -72,66 +51,9 @@ export const showsThroatLock = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsUndertowBow = (role: ViewRole): boolean => role !== "p2";
 /**
- * *Whether this screen sees that ring of THE ORRERY true.* The outer ring on
- * both, the middle on the pilot's alone and the inner on the navigator's — and
- * the one a seat does not own is drawn as an unbroken arc with **no gap in it
- * at all** (`orrery-draw.ts`).
- *
- * The second symmetric split in this list after THE DIASTOLE's chambers, and
- * the sharper of the two. There, each seat is kept from one count. Here each
- * seat is kept from one count *and given a third they share*, which is what
- * makes the fight a conversation rather than two monologues: the outer ring is
- * the common ground both of them can point at while they argue about the two
- * they cannot both see. Take it away and there is nothing to calibrate against;
- * give them all three and there is nothing to say.
- *
- * A ring drawn solid is not a lie, and that matters more here than anywhere
- * else in this file: an arc with no gap is exactly what an orbit you cannot
- * resolve looks like, and the seat that owns it is being asked for the one fact
- * — *three out, coming back* — rather than for a picture.
- *
- * `test` sees every ring true, the usual *one person is holding both seats*
- * answer, and here it is also the only honest one: a screen that greyed a ring
- * would be hiding a count from the only pair there is.
- */
-export const showsOrreryRing = (role: ViewRole, ring: number): boolean =>
-  ring === 0 || role === "test" || (ring === 1 ? role === "p1" : role === "p2");
-/**
- * *Whether this screen draws the grip on the ring the pilot's hand can turn.*
- *
- * His, like every other handle on the field, and the mark is on his screen
- * only: a knurl drawn on the navigator's would be a control she is being shown
- * and cannot use (`orrery-grab.ts`).
- *
- * **It is drawn on a ring he cannot read, and that is the point.** The hand
- * moves inward as the rings come off (`orreryHandRing`), so at the end of the
- * fight the knurl is on the inner ring — grey on his screen, gapless, the one
- * ring that is hers — and he is turning it on her word alone. A picture that
- * put the grip only where he could see what he was doing would have quietly
- * taken the last third of this boss away.
- */
-export const showsOrreryGrip = (role: ViewRole): boolean => role !== "p2";
-/**
- * THE CANDLE's three, the deepest split in this list: **the same dark field,
- * lit differently on the two phones.** Every other entry keeps a fact about
- * a lit field from one seat; these light the field itself, and a flash is
- * drawn only on the screen of the seat whose control made it
- * (`candle-dark.ts`, `after-image.ts`).
- *
- * The muzzle flash is the navigator's — she fires, and three columns light on
- * her screen for a beat. The guard window is the pilot's — he pulls the
- * trigger, and the plate's column lights on his. The beam is both seats',
- * because it takes both to make: her colour held, his column kept. And the
- * column the glow *faces*, the one it eats flashes from, is the pilot's alone,
- * for the reason it is in the rule: the seat that fires cannot see which
- * column not to fire from, and has to be told (`sim/candle.ts`).
- */
-export const showsCandleMuzzle = (role: ViewRole): boolean => role !== "p1";
-export const showsCandleGuard = (role: ViewRole): boolean => role !== "p2";
-export const showsCandleFace = (role: ViewRole): boolean => role !== "p2";
-/**
- * THE GORGE's two, symmetric the way THE DIASTOLE's chambers are: the same
- * beads on both screens, and a different sentence written about them on each.
+ * THE GORGE's two, and symmetric — a different thing kept from each seat:
+ * the same beads on both screens, and a different sentence written about them
+ * on each.
  * The pilot is shown the **count** in every lobe, a violet tally under it —
  * he owns the column and the trigger, so the seat that has to hold a lobe at
  * three and say *one more* is the seat given the three. The navigator is

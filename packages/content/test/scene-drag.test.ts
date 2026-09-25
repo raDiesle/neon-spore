@@ -3,9 +3,6 @@ import {
   DEFAULT_CONFIG,
   lidIsHeld,
   lidIsOpen,
-  orreryHandHolds,
-  orreryOrbit,
-  orreryTurnPerTickMilli,
   SceneRun,
   type SceneScript,
   type SimEvent,
@@ -172,99 +169,5 @@ describe("what a drag act turns into", () => {
     const last = out[out.length - 1];
     expect(last?.tick).toBe(40);
     expect(last?.command.kind === "drag" && last.command.on).toBe(false);
-  });
-});
-
-/**
- * **A hand on a ring**, which is the one handle a film may not carry anywhere.
- *
- * It is here rather than beside the cord's tests because the gesture is the
- * same act with the same field on it — and because the bug it was written for
- * lived in this file's own `pullsDown`: that predicate answered `true` for
- * `orreryRing`, so a film authoring one would have sent a stream of *downward
- * pixels* at a control that reads thousandths of a turn. Nothing would have
- * thrown; the ring would have turned by whatever those numbers happened to mean
- * (`docs/queue.md`, 17 September 2026).
- */
-describe("a rehearsal's hand on THE ORRERY's ring", () => {
-  const ACT: SceneAct = { tick: 90, drag: "orreryRing", until: 390 };
-
-  /** The act run against a real orrery, and what the ring's anchor did. */
-  function turn(act: SceneAct): { from: number[]; held: boolean[] } {
-    const script: SceneScript = {
-      cfg: CFG,
-      seed: SCENE.seed,
-      wave: 0,
-      queue: [],
-      pods: [],
-      hasLance: true,
-      faults: [],
-      boss: { kind: "orrery" },
-      commands: sceneCommands(act, CFG)
-        .slice()
-        .sort((a, b) => a.tick - b.tick),
-      ticks: SCENE.ticks,
-    };
-    const run = new SceneRun(script);
-    const from: number[] = [];
-    const held: boolean[] = [];
-    const spent: SimEvent[] = [];
-    for (let t = 0; t < SCENE.ticks - 1; t++) {
-      run.advance(spent);
-      const b = run.world.boss?.kind === "orrery" ? run.world.boss : null;
-      from.push(b?.from[0] ?? -1);
-      held.push(b !== null && orreryHandHolds(b));
-    }
-    return { from, held };
-  }
-
-  const orbit = orreryOrbit(CFG, 0);
-
-  it("turns the ring it is on, several organs' worth, and writes the anchor", () => {
-    const { from } = turn(ACT);
-    const start = from[0] ?? 0;
-    // The anchor rather than a position: a gap's place stays a function of the
-    // beat, which is the whole of this boss's rule (`sim/orrery.ts`). What a
-    // hand buys is sockets, so the end of the act is a whole number of them on
-    // from the start and every step between is one of them.
-    const moved = ((from.at(-1) ?? 0) - start + orbit) % orbit;
-    expect(moved, "the anchor never moved under the hand").toBeGreaterThan(1);
-    for (const at of from) expect(Number.isInteger(at)).toBe(true);
-  });
-
-  it("goes exactly as far the other way when the film says which way", () => {
-    // `dir` is the one field a ring borrows from a carry, and on this control a
-    // direction is the whole of what a hand chooses: the same turn hurries the
-    // outer ring's gap along and fights the middle one's drift. The same act
-    // either way round has to be the same distance, or the rig is turning at
-    // two rates and a film about the drift proves nothing.
-    const fwd = turn(ACT).from;
-    const back = turn({ ...ACT, dir: -1 }).from;
-    const start = fwd[0] ?? 0;
-    const ahead = ((fwd.at(-1) ?? 0) - start + orbit) % orbit;
-    const behind = (start - (back.at(-1) ?? 0) + orbit) % orbit;
-    expect(behind).toBe(ahead);
-  });
-
-  it("lets go, so the loop does not end with a thumb on the ring", () => {
-    const { held } = turn(ACT);
-    expect(held.some(Boolean), "no hand ever reached the ring").toBe(true);
-    expect(held.at(-1), "the hand was still on the ring at the end").toBe(false);
-  });
-
-  it("sends bearings and never a distance, which is the defect this fixes", () => {
-    const drags = sceneCommands(ACT, CFG)
-      .map((c) => (c.command.kind === "drag" ? c.command : null))
-      .filter((c) => c !== null);
-    expect(drags.length).toBeGreaterThan(2);
-    for (const d of drags) {
-      // No axis at all: a carry writes both, and a bearing is neither.
-      expect(d.fromYMilli, "a ring was sent a y-displacement").toBeUndefined();
-    }
-    // And the bearings themselves walk round the circle rather than standing
-    // still, at the rate the rules name — one sample every six ticks, which is
-    // how often a film says where a turning hand has got to (`scene-turn.ts`).
-    const bearings = drags.map((d) => d.fromMilli).filter((m) => m >= 0);
-    expect((bearings[1] ?? 0) - (bearings[0] ?? 0)).toBe(orreryTurnPerTickMilli(CFG) * 6);
   });
 });

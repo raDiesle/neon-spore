@@ -1,7 +1,6 @@
 import type { DragTarget, SceneCommand, SimConfig } from "@neon-spore/sim";
 import type { SceneAct } from "./scene-act-types.js";
 import { actCol } from "./scene-script.js";
-import { ringCommands, turnsRound } from "./scene-turn.js";
 
 /**
  * **A hand carrying a handle**, turned into the stream of `drag` messages a
@@ -13,9 +12,8 @@ import { ringCommands, turnsRound } from "./scene-turn.js";
  * and the only one that has to know anything about the handles themselves —
  * how far each of them goes, and which way.
  *
- * **A handle that is turned is `scene-turn.ts`'s**, and a carry stops at the
- * door: a bearing has no destination and no axis, so nothing below it has an
- * answer for one. `dragCommands` hands those straight over.
+ * **A handle that is turned is `scene-turn.ts`'s** — THE CLAW's crank, which a
+ * film authors as a press rather than a drag, so nothing here meets one.
  */
 
 /**
@@ -52,11 +50,6 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // THE SURGE's bulb is not carried at all: a thumb on the glass charges it
   // and the lift is the gesture (`sim/surge-hand.ts` reads neither distance).
   if (target === "surgeBulb") return 0;
-  // THE CANDLE's wick is a pull with a bottom to it: the flame is off the
-  // wick at `candlePinchMilli` and not a thousandth before
-  // (`sim/candle-hand.ts`), so a film that does not say means all the way
-  // down — there is no half-pull that does anything.
-  if (target === "candleWick") return cfg.candlePinchMilli;
   // THE CURTAIN's hem is the same pull turned over: it is carried **up**, and
   // the gap over the core opens at `curtainLiftMilli` and not a thousandth
   // before (`sim/curtain-hand.ts`). The sign is the direction, so a film that
@@ -95,12 +88,6 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
  */
 function pullsDown(target: DragTarget): boolean {
   return (
-    // And never a ring, which is the one handle that is not carried anywhere at
-    // all: it is turned, and this predicate answered `true` for it for a day —
-    // a film would have sent a stream of downward pixels at a control reading
-    // thousandths of a turn, which does not throw and does not show
-    // (`scene-turn.ts`, and `docs/queue.md` for how it was found).
-    !turnsRound(target) &&
     target !== "mazeString" &&
     target !== "gripBody" &&
     target !== "choirLeft" &&
@@ -159,9 +146,6 @@ function byColumn(target: DragTarget): boolean {
 
 export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   const target = act.drag as DragTarget;
-  // A ring is turned, and everything below this line is about a distance and
-  // an axis (`scene-turn.ts`).
-  if (turnsRound(target)) return ringCommands(act, cfg);
   const player = dragSeat(target, act.hand);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;

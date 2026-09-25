@@ -3,7 +3,7 @@ import type { Color } from "./types.js";
 /**
  * **Everything THE GORGE does that neither screen already says**, as events.
  *
- * Its own file on `events-candle.ts`' terms — one boss taken apart rather
+ * Its own file on `events-warden.ts`' terms — one boss taken apart rather
  * than incidents that share a body — and one arm of `SimEvent`, so every
  * consumer still switches over the whole list.
  *

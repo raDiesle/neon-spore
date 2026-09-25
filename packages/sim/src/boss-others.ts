@@ -3,9 +3,7 @@ import { stepBaton } from "./baton-step.js";
 import { stepLateBoss } from "./boss-others-b.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
-import { stepCandle } from "./candle-step.js";
 import { stepCurtain } from "./curtain-step.js";
-import { stepDiastole } from "./diastole-step.js";
 import { stepFilament } from "./filament-step.js";
 import { stepGimbal } from "./gimbal-step.js";
 import { stepGorge } from "./gorge-step.js";
@@ -15,7 +13,6 @@ import { stepInstar } from "./instar-step.js";
 import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
 import { stepMirror } from "./mirror.js";
-import { stepOrrery } from "./orrery-step.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSinew } from "./sinew-step.js";
@@ -64,14 +61,6 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepStare(world, boss);
     return;
   }
-  // THE DIASTOLE is four phases and nothing else: a contraction is derived
-  // from the beat and the origin, and a hit arrives on the tick a shot leaves
-  // through the top of a column. What the beat owns is when a cadence moves
-  // and when the bridge has finished bursting (`diastole-step.ts`).
-  if (boss.kind === "diastole") {
-    stepDiastole(world, boss);
-    return;
-  }
   // THE BATON on the beat is the arm's own clock: a bead lands, a bead that
   // sat too long is shaken home, a dead segment lets go. Both presses — the
   // launch and the strike — arrive on the tick, from `commands.ts` and
@@ -93,23 +82,6 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // `commands.ts` and `lance-burn.ts` (`undertow-press.ts`).
   if (boss.kind === "undertow") {
     stepUndertow(world, boss);
-    return;
-  }
-  // THE ORRERY on the beat is three orbits that nothing steps — where a gap
-  // is is arithmetic over its anchor — so what is left for the clock is the
-  // core's own fire, the organs coming off a ring that has just been taken,
-  // and THE SLOW opened as an alignment comes up (`orrery-step.ts`). The one
-  // thing that takes a ring off arrives from the top of a column
-  // (`orrery-shot.ts`).
-  if (boss.kind === "orrery") {
-    stepOrrery(world, boss);
-    return;
-  }
-  // THE CANDLE on the beat is the glow's clock: the drift, the turn, and the
-  // black beats after the last step. The two moments a shot meets it are on
-  // the tick, from `bullets.ts` and `lance-burn.ts` (`candle-step.ts`).
-  if (boss.kind === "candle") {
-    stepCandle(world, boss);
     return;
   }
   // THE GORGE on the beat is the sack's clock: the vent, the spit, the mouth

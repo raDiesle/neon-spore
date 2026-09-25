@@ -59,7 +59,7 @@ export function ingestAll(
     const at = put(x, y);
     fx.sparks.burst(at.x, at.y, n, hex);
   };
-  fx.boss.ingest(events, l, cfg, spb, time, l.role, burst);
+  fx.boss.ingest(events, l, cfg, spb, l.role, burst);
   fx.bodies.ingest(events, l, cfg, spb, time);
   fx.recoilLeap.ingest(events, spb);
   fx.coilFlight.ingest(events, l, spb);

@@ -1,16 +1,9 @@
-import {
-  batonDrawHand,
-  batonHand,
-  diastoleHand,
-  diastoleSpasmHand,
-  throatHand,
-} from "./boss-hands-beats.js";
+import { batonDrawHand, batonHand, throatHand } from "./boss-hands-beats.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **The states a beat earns** — THE DIASTOLE's chambers, THE BATON's
- * crossing, THE THROAT's inhale — posed the way `poses-bosses-hands-shots.ts`
+ * **The states a beat earns** — THE BATON's crossing, THE THROAT's inhale — posed the way `poses-bosses-hands-shots.ts`
  * poses the shot bosses': the boss's wave, a hand on the controls
  * (`boss-hands-beats.ts`), the run held until the state is there.
  *
@@ -23,30 +16,6 @@ import { bossPose } from "./poses-bosses-kit.js";
  */
 
 export const BEAT_HAND_POSES: Pose[] = [
-  bossPose(
-    "diastole",
-    "two",
-    "Both chambers beat on their own counts and only the beam lands. P1 aims at the bridge; P2 primes before they meet.",
-    { hand: diastoleHand, hold: 12 },
-  ),
-  bossPose(
-    "diastole",
-    "alone",
-    "One chamber left, beating on seven. P1 clamps it the beat before; P2 primes, and the beam lands under the clamp.",
-    { hand: diastoleHand, hold: 12 },
-  ),
-  bossPose(
-    "diastole",
-    "spasm",
-    "The clamp came on the wrong beat: eight beats of spasm and nothing lands. P1 lifts his thumb; P2 waits.",
-    { hand: diastoleSpasmHand, hold: 12 },
-  ),
-  bossPose(
-    "diastole",
-    "burst",
-    "The second chamber burst and the heart is still. P1 aims at the wave again; P2 fires.",
-    { hand: diastoleHand, hold: 6 },
-  ),
   bossPose(
     "baton",
     "merging",

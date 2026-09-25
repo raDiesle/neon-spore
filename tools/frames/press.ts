@@ -1,7 +1,6 @@
 import { crankPresses, parseTurns } from "./crank.js";
 import { commandFor } from "./press-command.js";
 import { refuseWrongSeat } from "./press-seats.js";
-import { parseOrgans, ringPresses } from "./ring.js";
 import { isScoutHeld, scoutPresses } from "./scout-press.js";
 import { isSnakeHand, snakePresses } from "./snake-press.js";
 import type { PressSpec } from "./spec.js";
@@ -94,7 +93,7 @@ import type { PressSpec } from "./spec.js";
  * Listed rather than derived from the panels, and deliberately: a press is a
  * thing a person types, and several are named for the thing under the thumb
  * rather than for the command it sends — `mawTake` and `crank` for a button,
- * `orreryRing` for a handle on the field, THE SCOUT's two arrows for the two
+ * THE SCOUT's two arrows for the two
  * buttons that send one `scoutTurn` between them. A reader who has just been
  * told `mawTake` is unknown, because the wave they picked has no maw, has been
  * told the wrong thing.
@@ -117,7 +116,6 @@ const PRESS_KINDS = [
   "latch",
   "launch",
   "crank",
-  "orreryRing",
   "snakeTurn",
   "snakeFire",
   "snakeMaw",
@@ -165,15 +163,10 @@ function parseOnePress(one: string, whole: string, wave: number): PressSpec[] {
     );
   }
   refuseWrongSeat(kind, player, wave, one, whole);
-  // The two controls that are a stream rather than a command, and the only
-  // place this function answers with more than one press. Both are turned and
-  // both say a *bearing*; what a turn of one is worth is the mechanism's, and
-  // so is the spelling — turns of the drum for the crank, organs of the ring
-  // for the pair that counts them (`crank.ts`, `ring.ts`).
+  // The control that is a stream rather than a command, and the one place
+  // this function answers with more than one press: it is turned and says a
+  // *bearing*, and what a turn is worth is the mechanism's (`crank.ts`).
   if (kind === "crank") return crankPresses(tick, player, parseTurns(argument, one, whole));
-  if (kind === "orreryRing") {
-    return ringPresses(tick, player, parseOrgans(argument, one, whole));
-  }
   // The pilot's three on THE SCOUT, which are a thumb down and a thumb up and
   // so are two commands from one press (`scout-press.ts`). Her tap is not one
   // of them and falls through with the rest.

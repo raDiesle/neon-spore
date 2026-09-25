@@ -1,8 +1,6 @@
 import { installAntiphon } from "./antiphon-step.js";
 import { installBaton } from "./baton-step.js";
-import { installCandle } from "./candle-step.js";
 import { installCurtain } from "./curtain-step.js";
-import { installDiastole } from "./diastole-step.js";
 import { installFilament } from "./filament-step.js";
 import { installGimbal } from "./gimbal-step.js";
 import { installGorge } from "./gorge-step.js";
@@ -11,7 +9,6 @@ import { installHive } from "./hive-step.js";
 import { installInstar } from "./instar-step.js";
 import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
-import { installOrrery } from "./orrery-step.js";
 import { installRatchet } from "./ratchet-step.js";
 import { installScuttle } from "./scuttle-step.js";
 import { installSinew } from "./sinew-step.js";
@@ -46,12 +43,9 @@ import type { BossEntry, World } from "./world.js";
 
 /** The kinds this file installs. Appended, like every list of boss kinds. */
 const CLOCK_KINDS = [
-  "diastole",
   "baton",
   "throat",
   "undertow",
-  "orrery",
-  "candle",
   "gorge",
   "curtain",
   "taster",
@@ -77,15 +71,7 @@ export function isClockEntry(boss: BossEntry): boss is ClockEntry {
 }
 
 export function installClockBoss(world: World, boss: ClockEntry): void {
-  if (boss.kind === "diastole") {
-    // No creature and no row, THE VANE's shape one boss along: the twin lobe
-    // hangs above the grid in the top three columns, so there is nothing of it
-    // for the fall loop, the hull or a hand to find. The only thing that ever
-    // reaches a chamber is a shot that left through the top of a column
-    // (`diastole-step.ts`), and the arrivals underneath are the ones the wave's
-    // own author wrote (`bossFillsWave`).
-    world.boss = installDiastole(world);
-  } else if (boss.kind === "baton") {
+  if (boss.kind === "baton") {
     // No creature and no row of its own: the arm hangs in the middle column
     // and the bead in it is not a body, so the fall loop, the hull and a hand
     // find nothing of it. What it does put on the field it puts there as
@@ -110,21 +96,6 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // lobe not held is `breachHull` like any other hit (`undertow-step.ts`).
     // The arrivals over it are the wave's own (`bossFillsWave`).
     world.boss = installUndertow(world);
-  } else if (boss.kind === "orrery") {
-    // No creature and no row again, and this one is *concentric*: three rings
-    // of organs around a core, all of it above the grid and none of it a body,
-    // so the fall loop, the hull and a hand find nothing of it. What it puts on
-    // the field it puts there as meteors — organs off a broken ring and the
-    // core's own fire — which is THE BATON's shed segment exactly, and the one
-    // boss on the choreographed page that fills its own wave: neither the beat
-    // a ring breaks nor the column its organs come off in is writable by an
-    // author, because both are decided by when the pair managed to agree
-    // (`orrery-step.ts`, `bossFillsWave`).
-    world.boss = installOrrery(world);
-  } else if (boss.kind === "candle") {
-    // No creature and no row: a glow above the grid that nothing on the field
-    // touches, in a dark the sim does not know about (`candle-step.ts`).
-    world.boss = installCandle(world);
   } else if (boss.kind === "gorge") {
     // No creature and no row: a sack above the grid that swallows what the
     // pair fires past the field, and falls only what they overfed it with

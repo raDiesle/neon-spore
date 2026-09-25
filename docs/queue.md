@@ -322,23 +322,49 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
+## Comments still argue from THE DIASTOLE, THE ORRERY and THE CANDLE
+
+- **Found:** 2026-09-25, claude/remove-three-bosses-cdb822
+- **Files:** `packages/render/src/boss-cue-read-c.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/touch-field.ts`, `packages/render/test/boss-cue-gorge.test.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/throat.ts`, `apps/game/src/keys.ts`, `apps/game/src/field-input.ts`, `tools/director/src/poses-bosses-kit.ts`
+
+The three bosses left the game on 25 September 2026, and every file that
+named one of their files was fixed in that lane. About seventy files still
+argue *from* them in prose: "THE CANDLE's pairing", "for THE DIASTOLE's
+reason", "as in boss-cue-candle.test.ts", a list of handles with THE ORRERY's
+ring in it. `git grep -n -iE "diastole|orrery|candle" -- apps packages tools
+':!*.md'` lists them. For each, state the reason in place of the name, or name
+a boss still in the game that has the same arrangement (THE GORGE, THE
+CURTAIN, THE THROAT, THE GIMBAL); a list that counts handles or pages loses
+the three and its number. Comments only — `bun run check` is the proof that
+nothing else moved.
+
+## `bun run imports` calls a name used only in a top-level call unused
+
+- **Found:** 2026-09-25, claude/remove-three-bosses-cdb822
+- **Files:** `tools/imports/scan.ts`, `tools/imports/run.ts`, `packages/render/test/boss-anchor-c.test.ts`
+
+After the three bosses left, `bun run imports` listed `setDefaultTimeout` in
+`boss-anchor-c.test.ts` as unused beside three names that were, then found its
+own cut left `setDefaultTimeout(FRAME_TIMEOUT_MS);` undeclared and put
+everything back, so none of the three real ones were cut; they were taken out
+by hand. The scan misses a use that is a bare statement at module level. Add
+that file's shape to `tools/imports/test` and make the scan count it.
+
 ## On HARD, whether a shot into a sky boss's armour is a wasted shot
 
 - **Found:** 2026-09-25, claude/hard-wasted-shot
-- **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/orrery-shot.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/test/wasted-shot.test.ts`
+- **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/test/wasted-shot.test.ts`
 - **Asks:** under a boss that hangs above the field, should a shot that meets nothing up there lose the wave on HARD too, or keep costing nothing, as it does now?
 
 HARD's rule (a shot out of the top that nothing took loses the wave) is off
-while any of the fifteen bosses in `SKY_BOSSES` is up. Several of them let a
-shot into shut armour cost nothing, by design: THE ORRERY's shut shaft, THE
-VANE's shut housing, THE DIASTOLE's slack chamber, THE CANDLE's last step.
-Their right-colour hits push no event either, so the calls in `shotLeaves`
-cannot tell a bolt that met armour from one that met the sky. Two answers:
+while any of the twelve bosses in `SKY_BOSSES` is up. THE VANE lets a shot
+into its shut housing cost nothing, by design, and a right-colour hit on a sky
+boss pushes no event either, so the calls in `shotLeaves` cannot tell a bolt that met armour from one that met the sky. Two answers:
 **keep the exemption** (nothing to do; delete this entry), or **judge each sky
 boss on HARD**. That means each `*Struck` hook returns whether the bolt met
 anything, the silent armour paths return true, the rest false, and
 `shotLeaves` asks the hooks rather than `SKY_BOSSES`. THE LEAD's later
-`leadMiss` (`lead-step.ts`) is the same question a beat late. About fifteen
+`leadMiss` (`lead-step.ts`) is the same question a beat late. About twelve
 small hook files, and a test per boss in `wasted-shot.test.ts`.
 
 ## THE SCUTTLE's thread is drawn backwards and never leaves its socket
@@ -431,13 +457,13 @@ to it. The rest are each boss's own `*-fx.ts` in `packages/render/src/`.
 ## The other pull handles show the path they can be pulled
 
 - **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
-- **Files:** `packages/render/src/lid-string.ts`, `packages/render/src/candle-grip.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/diastole-clamp.ts`, `packages/render/src/stare-lid.ts`, `packages/render/src/pull-track.ts`, `packages/render/src/pull-knob.ts`
+- **Files:** `packages/render/src/lid-string.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/stare-lid.ts`, `packages/render/src/pull-track.ts`, `packages/render/src/pull-knob.ts`
 
 The owner's generic rule of 25 September 2026 (`owner.md`): a handle you
 pull is drawn as a thin channel along its travel that fills green behind
 the hand, a big circle to start, and a grab far wider than the circle — not
 a ring with a dial. THE WARDEN's rope and THE MAZE's lever wear it
-(`tether.ts`, `tether-track.ts`, `maze-string.ts`). The five files above
+(`tether.ts`, `tether-track.ts`, `maze-string.ts`). The three files above
 still draw `drawHandleRest` and `drawHandleRing` for a pull measured as a
 distance: give each a track builder beside `tether-track.ts` (from where the
 hand took it, the taut distance long, the way the field fits it straight,

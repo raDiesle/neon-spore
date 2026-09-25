@@ -15,11 +15,9 @@ import { wellShown } from "./well.js";
  * Two passes paint over whatever `drawBodies` left behind, and a cue standing
  * where either one reaches lost its word to it: `drawShip`, over anything at
  * `l.hullY` — `MOVE` on the cannon, on every boss that parks it there,
- * confirmed on a real frame of THE ORRERY and THE THROAT
- * (`docs/queue.md`, "A cue standing on the hull line has its verb drawn under
- * the ship") — and, found the same session, `candle-dark.ts`'s own black,
- * which comes down over the *whole* height of an unlit column and is why THE
- * CANDLE's `FIRE` never showed even standing on the glow, its one lit tile.
+ * confirmed on a real frame of THE THROAT (`docs/queue.md`, "A cue standing
+ * on the hull line has its verb drawn under the ship") — and, found the same
+ * session, a boss's own black laid over the whole height of an unlit column.
  * Both fixes are the same fix: draw the cue after both of them rather than
  * teach either one to leave a hole for it.
  *

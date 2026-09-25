@@ -1,14 +1,11 @@
 import type { MazeEntry, RepriseEntry, WellEntry } from "./boss-entries-b.js";
 import type {
   BatonEntry,
-  CandleEntry,
   CurtainEntry,
-  DiastoleEntry,
   GorgeEntry,
   HaspEntry,
   LeadEntry,
   LedgerEntry,
-  OrreryEntry,
   ScuttleEntry,
   SinewEntry,
   StareEntry,
@@ -139,12 +136,9 @@ export type BossEntry =
   | SpliceEntry
   | ScoutEntry
   | StareEntry
-  | DiastoleEntry
   | BatonEntry
   | ThroatEntry
   | UndertowEntry
-  | OrreryEntry
-  | CandleEntry
   | GorgeEntry
   | CurtainEntry
   | TasterEntry
@@ -173,14 +167,11 @@ export type { MazeEntry, RepriseEntry, WellEntry } from "./boss-entries-b.js";
 // (`boss-entries-clocks.ts`, `boss-entries-clocks-b.ts`).
 export type {
   BatonEntry,
-  CandleEntry,
   CurtainEntry,
-  DiastoleEntry,
   GorgeEntry,
   HaspEntry,
   LeadEntry,
   LedgerEntry,
-  OrreryEntry,
   ScuttleEntry,
   SinewEntry,
   StareEntry,

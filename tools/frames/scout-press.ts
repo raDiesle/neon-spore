@@ -63,7 +63,7 @@ import type { PressSpec } from "./spec.js";
  * exactly what `purity.test.ts`' table of rules-that-must-be-called exists to
  * stop. The name a press is written under is therefore the **control's**, not
  * the command's: `scoutTurnLeft`, the thing under the thumb, which is how
- * `mawTake`, `crank` and `orreryRing` are already spelled.
+ * `mawTake` and `crank` are already spelled.
  *
  * Her `scoutMaw` is not here. It is a moment rather than a hold — one tap, and
  * the mouth stands open for `scoutMawTicks` by itself — so it is a press with

@@ -8,13 +8,6 @@ import {
   batonMergeSocket,
   batonSocketCol,
   type Color,
-  diastoleBoss,
-  diastoleBridgeCol,
-  diastoleChamberCol,
-  diastoleClamped,
-  diastoleCoincides,
-  diastoleColor,
-  diastoleContracts,
   gumIsFlung,
   MILLI,
   type TimedCommand,
@@ -23,17 +16,14 @@ import {
   throatMouthRow,
   type World,
 } from "@neon-spore/sim";
-import { POSE_TPB as TPB } from "./pose-kit.js";
 import type { Hand } from "./poses-bosses-kit.js";
 
 /**
- * **The pair's hands on the bosses a beat answers** — THE DIASTOLE, THE
- * BATON, THE THROAT — each a `Hand` (`poses-bosses-kit.ts`). The shot
- * bosses' hands (`boss-hands-shots.ts`) spray and let the boss judge the
- * beat; these three cannot, because what they answer is not a shot but a
- * moment: a fill that has to *finish* on the beat two counts meet, a turn
- * taken and then the other seat's, a gum flung along a row as the mouth
- * passes. So each hand reads the moment off the field the way the pair
+ * **The pair's hands on the bosses a beat answers** — THE BATON and THE
+ * THROAT — each a `Hand` (`poses-bosses-kit.ts`). The shot bosses' hands
+ * (`boss-hands-shots.ts`) spray and let the boss judge the beat; these two
+ * cannot, because what they answer is not a shot but a moment: a turn taken
+ * and then the other seat's, a gum flung along a row as the mouth passes. So each hand reads the moment off the field the way the pair
  * does — off the boss's own predicates, never off a clock of its own — and
  * presses when it is there.
  */
@@ -43,69 +33,9 @@ type Press = Omit<TimedCommand, "tick">;
 const aim = (col: number): Press => ({ player: 1, command: { kind: "cannonCol", col } });
 const fire = (color: Color): Press => ({ player: 2, command: { kind: "fire", color } });
 const trigger = (): Press => ({ player: 1, command: { kind: "guard" } });
-const thumb = (on: boolean, color: Color): Press => ({
-  player: 2,
-  command: { kind: "prime", on, color },
-});
-
-/** Player 1's thumb on THE DIASTOLE's alone chamber, down or lifted (`sim/diastole-hand.ts`). */
-const clamp = (on: boolean): Press => ({
-  player: 1,
-  command: { kind: "drag", target: "diastoleChamber", on, fromMilli: 0 },
-});
 
 /** The cannon is free: nothing of the pair's is on its way up. */
 const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null;
-/** The first tick of a beat, where a fill has to start to finish on one. */
-const onBeat = (w: World): boolean => w.tick % TPB === 0;
-
-/**
- * THE DIASTOLE: while the left beats alone, the left's colour up the left's
- * column whenever the cannon is free — a shot into a slack chamber costs
- * nothing (`chamberStruck`). From the right's waking, nothing single lands:
- * the cannon stands in the bridge and the navigator's thumb goes down
- * `lancePrimeBeats` before a coincidence, so the beam stands in the bridge
- * on the beat both are closed (`bridgeStruck`). A spent thumb lifts, so the
- * next fill can start.
- *
- * Alone, the beat has to be **clamped** as well (`sim/diastole-hand.ts`):
- * the navigator primes on the right's contraction the way she primed on the
- * coincidence, and the pilot's thumb goes down on the chamber the beat
- * before it — the earliest press the clamp allows — while a fill is on its
- * way, so the beam lands under the clamp. Both thumbs lift once the beam
- * is spent, or a clamp left down past its window would spasm the chamber.
- */
-export const diastoleHand: Hand = (w) => {
-  const b = diastoleBoss(w);
-  if (b === null || b.phase === "burst" || b.phase === "spasm") return [];
-  if (b.phase === "one") {
-    const col = diastoleChamberCol(w.cfg, -1);
-    if (w.cannonCol !== col) return [aim(col)];
-    return free(w) ? [fire(diastoleColor(-1))] : [];
-  }
-  const bridge = diastoleBridgeCol(w.cfg);
-  if (w.cannonCol !== bridge) return [aim(bridge)];
-  if (w.prime?.spent) return [thumb(false, w.prime.color), clamp(false)];
-  if (b.phase === "alone" && w.prime !== null && !diastoleClamped(b)) {
-    const next = diastoleContracts(b, w.beat, 1) || diastoleContracts(b, w.beat + 1, 1);
-    if (next) return [clamp(true)];
-  }
-  if (w.prime !== null || !onBeat(w)) return [];
-  const due = w.beat + w.cfg.lancePrimeBeats;
-  const there = b.phase === "alone" ? diastoleContracts(b, due, 1) : diastoleCoincides(b, due);
-  return there ? [thumb(true, "red")] : [];
-};
-
-/**
- * The same pair, and the pilot's thumb down on the alone chamber with no
- * fill on its way: a clamp on the wrong beat, or one that outlives its
- * window, and the chamber goes into spasm either way.
- */
-export const diastoleSpasmHand: Hand = (w) => {
-  const b = diastoleBoss(w);
-  if (b === null || b.phase !== "alone") return diastoleHand(w);
-  return diastoleClamped(b) ? [] : [clamp(true)];
-};
 
 /**
  * THE BATON: the pilot under the bead that sits longest and his trigger

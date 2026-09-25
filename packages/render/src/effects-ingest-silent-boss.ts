@@ -87,20 +87,6 @@ export const INGEST_SILENT_BOSS = [
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",
-  // THE CANDLE's nine, silent for the same reason: the dark, the glow and
-  // its face are read off the world every frame (`candle-dark.ts`), and the
-  // one light an event makes — the shot's flash — is the `fire` next door.
-  // The wick smoking and the wick catching again are the same: both are the
-  // boss's own phase, and the phase is what `candle-glow.ts` draws.
-  "candleDark",
-  "candleDim",
-  "candleMove",
-  "candleTurn",
-  "candleFed",
-  "candleLast",
-  "candleSmoke",
-  "candleLit",
-  "candleOut",
   // THE GORGE's nine, read above the loop by `gorge-fx.ts` the way the
   // mirror's are: the bursts and the beads leaving are its; the sack, the
   // lobes and the beads in them are drawn off the boss every frame.

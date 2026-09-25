@@ -9,7 +9,7 @@ import { bossOf } from "./touch-field.js";
 
 /**
  * **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold
- * of, drawn and answered in one file for `candle-grip.ts`' reason — the circle
+ * of, drawn and answered in one file for `gorge-grip.ts`' reason — the circle
  * a thumb is answered at is the circle the ring is drawn from.
  *
  * The sheet itself is carried by both hands at once and has no handle: it is

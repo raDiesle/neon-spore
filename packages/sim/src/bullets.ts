@@ -1,6 +1,5 @@
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
-import { candleEats, candleFlash } from "./candle-step.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { ledgerBills } from "./ledger-shot.js";
@@ -61,9 +60,6 @@ function launch(world: World, color: Color): void {
   // the bolt that leaves the muzzle is the colour the navigator asked for and
   // the secret is kept (`codex.ts`).
   const means = shotMeans(world, color);
-  // THE CANDLE eats a flash fired from the column it faces: no bolt, no
-  // `fire`, nothing lit — the press is spent on its glow (`candle-step.ts`).
-  if (candleEats(world, world.cannonCol)) return;
   // **The one place an ordinary bolt is counted as spent**, and with the
   // colour it means rather than the one that was pressed: what a boss tastes
   // is the ammunition that went past it (`spend.ts`).
@@ -89,10 +85,6 @@ function launch(world: World, color: Color): void {
   // The colour the thumb pressed, never the one it means: this is what the
   // muzzle flashes and what the ear gets, and both belong to the press.
   world.events.push({ type: "fire", col: world.cannonCol, color, lance: false });
-  // THE CANDLE's field is lit by nothing but the pair's own weapons: a bolt
-  // that got this far actually flashed, so THE SLOW opens for it, whatever
-  // phase the fight is in (`candle-step.ts`).
-  candleFlash(world);
 }
 
 /**

@@ -3,7 +3,7 @@
  * the air, how long it sits before the arm shakes it home, and when the arm
  * starts giving way (`baton.ts`, `docs/spec/bosses-choreographed.md` §10).
  *
- * Its own file for the reason `config-stare.ts` and `config-diastole.ts` give:
+ * Its own file for the reason `config-stare.ts` and `config-throat.ts` give:
  * `SimConfig` extends it rather than nesting it, so every call site still
  * reads `cfg.batonFlightBeats`, and the split is about how much of one file a
  * reader has to hold at once.

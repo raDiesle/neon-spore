@@ -59,10 +59,6 @@ const ACCEPTED: Command[] = [
   // THE BULB QUEEN's marks: `id` 0 is the left, 1 the right, and what the
   // press is worth is her phase's (`sim/queen-hand.ts`).
   { kind: "drag", target: "queenMark", on: true, fromMilli: 250, fromYMilli: 400, id: 1 },
-  // THE DIASTOLE's clamp: a press and a lift, no depth read, no id — one
-  // chamber is left by then (`sim/diastole-hand.ts`).
-  { kind: "drag", target: "diastoleChamber", on: true, fromMilli: 0 },
-  { kind: "drag", target: "diastoleChamber", on: false, fromMilli: 0 },
   { kind: "drag", target: "mirrorLobe", on: false, fromMilli: -600, fromYMilli: 0, id: 0 },
   // THE GORGE's intakes: `id` is the intake, and whose thumb it is says
   // whether it is the pinch or the pry (`sim/gorge-hand.ts`).
@@ -124,11 +120,6 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "throatRing", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "throatRing", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "throatTube", on: false, fromMilli: -900, fromYMilli: 0 },
-  // THE CANDLE's wick, the one handle a seat takes hold of in the dark: the
-  // depth of the pull is `fromYMilli` alone and the pilot's thumb never
-  // wanders sideways, so `fromMilli` rides along at nought (`sim/candle-hand.ts`).
-  { kind: "drag", target: "candleWick", on: true, fromMilli: 0, fromYMilli: 1500 },
-  { kind: "drag", target: "candleWick", on: false, fromMilli: 0, fromYMilli: 0 },
   // THE CURTAIN's hem, carried **up** rather than down: the codec has to keep
   // a negative `fromYMilli` whole, because the lift is read off its size
   // against `curtainLiftMilli` (`sim/curtain-hand.ts`). A sign dropped on the
@@ -233,13 +224,6 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "ratchetPawl", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
-  // THE ORRERY's outermost unbroken ring: the same bearing, on the field
-  // instead of on the panel, and carrying no id because the hand never names
-  // the ring (`sim/orrery-hand.ts`). A codec that dropped it would leave the
-  // pilot turning a ring on his own screen alone — which on this boss is two
-  // devices firing at two different beats.
-  { kind: "drag", target: "orreryRing", on: true, fromMilli: 250 },
-  { kind: "drag", target: "orreryRing", on: false, fromMilli: -1 },
   { kind: "shake" },
   { kind: "restart" },
   { kind: "retry" },
@@ -340,7 +324,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   filament: true,
   stareLid: true,
   queenMark: true,
-  diastoleChamber: true,
   mirrorLobe: true,
   gorgeLobe: true,
   mazeHeart: true,
@@ -365,7 +348,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   undertowFree: true,
   throatRing: true,
   throatTube: true,
-  candleWick: true,
   curtainHem: true,
   tasterBlade: true,
   tasterGap: true,
@@ -387,7 +369,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   ratchetCatch: true,
   ratchetPawl: true,
   crank: true,
-  orreryRing: true,
 };
 
 describe("decodeCommand: one accepted example per variant", () => {

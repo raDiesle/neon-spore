@@ -60,7 +60,7 @@ export type DragTargetC =
  * is wiped from either side.
  *
  * `tasterLock` is the pilot's carry on the closed interlock, `fromYMilli`
- * against `tasterPryMilli` the way THE CANDLE's wick is read. No `id`: there
+ * against `tasterPryMilli`. No `id`: there
  * is one interlock, and it is the boss. What it buys is the window behind it
  * — `tasterPryBeats` in which her beam is worth something and outside which
  * the fan refuses it — so the fight ends on the two seats doing different
@@ -89,7 +89,7 @@ export type DragTargetC =
  * reason with the picture behind it — the beads are drawn in the order they
  * land, so the lowest one is the next bill and the only one a thumb is on. The
  * second is his carry down the `taut` cord, `fromYMilli` against
- * `ledgerHaulMilli` as THE CANDLE's wick is read, and it is the one handle in
+ * `ledgerHaulMilli`, and it is the one handle in
  * this union the simulation refuses **for something the holder cannot see**:
  * it will not come while the plate is still in the socket's column, which is
  * the last return being let through, said with two hands (`ledger-hand.ts`).
@@ -195,7 +195,7 @@ export type DragTargetC =
  * stand at once and which one she took is most of what the hand says. It is
  * an index and not a column because a crossing has to stay where it was
  * made, so the rail is never re-ordered. `fromYMilli` is the pull and its
- * sign is not the point — only *down*, as `candleWick`'s is, because up off
+ * sign is not the point — only *down*, as `curtainHem`'s is *up*, because up off
  * a rail hung over the top of the field is off the screen.
  */
 

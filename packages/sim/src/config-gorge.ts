@@ -5,7 +5,7 @@
  * how long it stands after the beam ends it (`gorge.ts`,
  * `docs/spec/bosses-choreographed.md` §3).
  *
- * Its own file for `config-candle.ts`' reason: `SimConfig` extends it rather
+ * Its own file for `config-stare.ts`' reason: `SimConfig` extends it rather
  * than nesting it, so every call site reads `cfg.gorgeFullBeads`, and the
  * split is about how much of one file a reader has to hold at once.
  *

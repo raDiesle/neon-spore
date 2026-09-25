@@ -43,33 +43,9 @@ export interface StareEntry {
 }
 
 /**
- * What a wave authors when it wants THE DIASTOLE, which is nothing at all —
- * THE STARE's entry one boss along, and for three reasons rather than one.
- *
- * No column: the twin lobe hangs dead centre above the grid, and one placed off
- * centre would have a long side and a short one, so the cannon would be a
- * different distance from the bridge depending on which way it came — the one
- * thing this fight must not add to its arithmetic (`diastoleBridgeCol`).
- *
- * No health: it is two chambers of `diastoleChamberHits` each, and the number
- * is the fight's shape rather than its length — the left gives two of them up
- * to ordinary shots before the right ever wakes, which is how the pair learns
- * that a cadence has to be counted rather than watched.
- *
- * And no cadences, which is the one that had to be argued: **they are the boss
- * and they are tuning anyway** (`config-diastole.ts`). Three against five is a
- * coincidence every fifteen beats and on no beat between; a wave that authored
- * its own pair would be several different bosses wearing one name, and worse
- * than that, a boss nobody could ever have learned to count.
- */
-export interface DiastoleEntry {
-  kind: "diastole";
-}
-
-/**
  * What a wave authors when it wants THE BATON, which is nothing at all —
- * THE STARE's entry one boss along. No column: the arm hangs dead centre for
- * THE DIASTOLE's reason. No health: it is `batonSockets` sockets and the
+ * THE STARE's entry one boss along. No column: the arm hangs dead centre, so
+ * the cannon is the same distance from it whichever way it comes. No health: it is `batonSockets` sockets and the
  * fight's length is the pair's own alternation. And no cadence, because the
  * cadence *is* the boss and is tuning (`config-baton.ts`): a wave that
  * authored its own flight length would be several different bosses wearing
@@ -81,7 +57,7 @@ export interface BatonEntry {
 
 /**
  * What a wave authors when it wants THE THROAT, which is nothing at all — THE
- * DIASTOLE's entry one boss along, and for its three reasons said about a tube.
+ * BATON's entry one boss along, and for its three reasons said about a tube.
  *
  * No column: the gullet hangs dead centre and its mouth walks the field from
  * there (`throatHomeCol`). No health: it is `throatRings` ring muscles, and the
@@ -96,7 +72,7 @@ export interface ThroatEntry {
 
 /**
  * What a wave authors when it wants THE UNDERTOW, which is nothing at all —
- * the fourth boss in a row to author nothing. No column: it pushes where the
+ * the third boss in a row to author nothing. No column: it pushes where the
  * seeded rng says and, once, where the cannon is standing. No health: the
  * fight is a fixed number of pushes and the last of them is a hold, not a
  * hit (`undertow.ts`). Every count is tuning (`config-undertow.ts`), for
@@ -105,33 +81,6 @@ export interface ThroatEntry {
  */
 export interface UndertowEntry {
   kind: "undertow";
-}
-
-/**
- * What a wave authors when it wants THE ORRERY, which is nothing at all — the
- * fifth in a row, and the first where the *place* is not merely unauthorable
- * but is the whole of what the design had to give up. No column: the rings are
- * concentric about a core in the middle of the field, so the one column a shot
- * can ever reach it up is the middle one, and a wave that moved it would move
- * the cannon's home rather than the boss. No health: it is three rings and a
- * core, and which beat each of them can be taken on is arithmetic over three
- * orbits (`orrery-beat.ts`). The three orbits and the beat they first meet on are
- * tuning (`config-orrery.ts`), for THE DIASTOLE's reason said about three
- * cadences instead of two: the pair's job is to *count* them, and a boss whose
- * arithmetic changed per wave is a boss nobody could ever have learned.
- */
-export interface OrreryEntry {
-  kind: "orrery";
-}
-
-/**
- * What a wave authors when it wants THE CANDLE, which is nothing at all —
- * the sixth. No column: the glow starts dead centre and drifts where the
- * seeded rng says. No health: the glow is five steps and five is the number
- * a pair can tell apart in the dark (`candle.ts`, `config-candle.ts`).
- */
-export interface CandleEntry {
-  kind: "candle";
 }
 
 /**

@@ -79,12 +79,9 @@ kinds each of them is.
 - **[THE HIVE](#1114-the-hive--the-boss-you-seal-and-every-breach-you-have-not-sealed-yet-is-spilling)** · 11.14 — the boss you seal, and every breach you have not sealed yet is spilling
 - **[THE REPRISE](#1115-the-reprise--the-wave-you-have-just-beaten-sent-again-unseen)** · 11.15 — the wave you have just beaten, sent again unseen
 - **[THE STARE](#1116-the-stare--the-thing-that-looks-and-the-hands-that-must-not-move)** · 11.16 — the thing that looks, and the hands that must not move
-- **[THE DIASTOLE](#1117-the-diastole--two-hearts-on-two-cadences-one-each)** · 11.17 — two hearts on two cadences, one each
 - **[THE BATON](#1118-the-baton--a-bead-passed-down-an-arm-one-seat-a-beat)** · 11.18 — a bead passed down an arm, one seat a beat
 - **[THE THROAT](#1119-the-throat--the-boss-you-answer-by-feeding-it)** · 11.19 — the boss you answer by feeding it
 - **[THE UNDERTOW](#1120-the-undertow--the-boss-under-the-floor-answered-downward)** · 11.20 — the boss under the floor, answered downward
-- **[THE ORRERY](#1121-the-orrery--three-orbits-and-neither-of-you-can-see-all-three)** · 11.21 — three orbits, and neither of you can see all three
-- **[THE CANDLE](#1122-the-candle--the-boss-fought-in-the-dark)** · 11.22 — the boss fought in the dark
 - **[THE GORGE](#1123-the-gorge--the-boss-you-hurt-by-not-shooting)** · 11.23 — the boss you hurt by not shooting
 - **[THE CURTAIN](#1124-the-curtain--the-boss-that-is-in-the-way)** · 11.24 — the boss that is in the way
 - **[THE TASTER](#1125-the-taster--the-boss-that-grows-armour-in-the-colour-you-spend)** · 11.25 — the boss that grows armour in the colour you spend
@@ -104,6 +101,9 @@ kinds each of them is.
 **Retired — shipped and taken out again, kept for the verdict**
 
 - **[THE TELL](#119-the-tell--rock-paper-scissors-and-half-the-tell-on-each-screen)** · 11.9 — rock, paper, scissors, and half the tell on each screen
+- **[THE DIASTOLE](#1117-the-diastole--two-hearts-on-two-cadences-one-each)** · 11.17 — two hearts on two cadences, one each
+- **[THE ORRERY](#1121-the-orrery--three-orbits-and-neither-of-you-can-see-all-three)** · 11.21 — three orbits, and neither of you can see all three
+- **[THE CANDLE](#1122-the-candle--the-boss-fought-in-the-dark)** · 11.22 — the boss fought in the dark
 - **[THE BELLOWS](#1135-the-bellows--the-boss-where-you-may-never-push-while-they-are-pulling)** · 11.35 — the boss where you may never push while they are pulling
 
 ## Fixed and learnable
@@ -2856,178 +2856,6 @@ the guide halves lost *hands off* for what the field cannot say — that the
 watched screen gets no warning, and what a touch costs (briefings, *A page
 the fight now speaks for loses its verb*).
 
-## 11.17 THE DIASTOLE — two hearts on two cadences, one each
-
-> The one where you are each counting a different number and neither of you can
-> see the other's.
-
-Designed as §7 of [bosses-choreographed](bosses-choreographed.md), where the
-argument for it is: the beat is the pair's shared ground and every mechanic in
-the game hangs off it, and this is the only way to make the beat *hard* without
-bending it. It is the safe half of what The Conductor (30) was deferred for
-(`decisions.md` #33) — the tempo is never asymmetric, only
-the count each seat is keeping is.
-
-**The shape.** A twin lobe hangs **above the top of the field**, one lane
-either side of the middle, with a bridge of vessels across the middle column.
-That geometry is the whole reason it needs no new creature and no new
-interaction with the fall loop: a shot reaches it only by leaving through the
-top of a column nothing was standing in, which is the hook THE VANE's bearing
-already hangs on (`sim/bullets.ts`, `sim/lance-burn.ts`). The left chamber is
-red and player 1's; the right is cyan and player 2's; each seat sees only its
-own chamber beating true and the other as a still grey mass.
-
-**The rule, in one sentence.** While the left beats alone, an ordinary shot of
-its colour standing in its column on one of its contractions takes it; from the
-moment the right wakes, **only the lance beam standing in the bridge column on
-a beat every standing chamber is contracting on lands**. That covers both the
-two-chamber coincidence and the one-chamber endgame, which is why it is one
-sentence rather than two.
-
-**Four phases in order and a fifth off to the side, and each one re-anchors
-both counts** to the beat it began on —
-that is the point of a phase here rather than a side effect of one, because
-each seat watches its own chamber contract and so watches its count move.
-`one`: the left beats every `diastoleLeftBeats` (3) and the right is still, so
-the pair learns that a count is a thing said out loud. `two`: the right wakes
-on `diastoleRightBeats` (5), and 3 against 5 coincides every fifteen beats and
-on no beat between. `alone`: the left has collapsed and the right goes to
-`diastoleRightAloneBeats` (7) — the count the pair spent half the fight
-learning is not the count that finishes it. `burst`: both are down,
-`diastoleBurstBeats` (4) of the bridge distending and splitting, and the boss
-is nulled at the end of it rather than at the last hit, so the picture gets the
-whole burst before the wave is allowed to close under it. Each chamber takes
-`diastoleChamberHits` (3). `spasm` is the fifth, entered only from `alone` and
-only by a wrong clamp, below; it appends to the phase list rather than sitting
-between `alone` and `burst` because the index is the wire value.
-
-**Alone, the beat has to be held, not only counted** (18 September 2026,
-`sim/diastole-hand.ts`, `sim/diastole-open.ts`). This is the one departure from
-the design page and it is argued by name. As designed, the endgame was the
-right chamber's own beat on a count of seven, and only the navigator could see
-it: the beat was found by one seat and hit by the other, blind, a single beat
-wide. That is a coincidence with nothing to coincide — the boss's own sentence
-run out of chambers — and at 96 BPM it is a coin toss with a conversation on
-top. So the pair holds it. The navigator sees the beat and says *now*; the
-pilot's thumb comes down on the grey chamber (`diastoleChamber`, the nineteenth
-`DragTarget`); a thumb that lands on the contraction or on the beat before it
-*catches* it and the chamber stays open for `diastoleClampBeats` (2 — a beat
-and the next, the width of a spoken *now*; three would reach the next
-contraction) from the beat caught. Under a clamp the beam in the bridge lands;
-with no clamp on it the alone chamber is open on no beat at all, however well
-the count was kept. A thumb on any other beat, or one held past its window, is
-a **spasm**: the chamber stops beating for `diastoleSpasmBeats` (8 — the alone
-cadence and a beat over, so a wrong clamp always costs more than waiting) and
-nothing lands in it, then it beats again from where it stopped. Lifting the
-thumb costs nothing; the beam that lands under a clamp lets it go. The thumb
-is player 1's because player 2 is the one who can see the beat and must say
-it — the split stays the encounter. Nothing here charges the hull, for the
-reason a slack chamber charges nothing: the cost of a wrong clamp is eight
-beats of a chamber that cannot be hurt, and that is cost enough.
-
-**A shot into a slack chamber costs nothing**, which is THE VANE's shut housing
-exactly: the window is visibly not open on the screen of the seat that owns it,
-and charging for a shot at something plainly not there would be charging for
-the pair's own eyes. A shot inside the window in the *wrong* colour is a colour
-miss and nothing else. A fill completed on a beat that is not the coincidence
-costs the pair the fill — `lancePrimeBeats` of a cannon held still — and that
-is cost enough without a charge on top.
-
-**It is fed by its wave, not by itself** (`bossFillsWave === false`, THE VANE's
-family), against the design page's own late phase where the boss spawned rocks.
-The arrivals are authored in `content/src/waves/act-7d.ts`, spread evenly and
-deliberately *not* laid against the chambers' counts: a wave whose rocks landed
-on the coincidences would be teaching the count twice, once honestly and once
-by accident.
-
-**It is the first thing in the game to open THE SLOW** — on the coincidence
-strike and on the burst, and nowhere else. A slow on every ordinary hit of the
-learning phase would be the brief's own refusal, *do not turn the entire game
-into permanent slow motion* ([decisions](../decisions.md) #33).
-
-**Drawn, and the picture has three states rather than two.** The two chambers
-hang above row 0, one lane either side of the middle, with the bundle bowing
-between them (`render/src/diastole-draw.ts`, `diastole-bridge.ts`). A chamber a
-seat owns *and* that is keeping a cadence pulses in that seat's colour; one a
-seat owns that has not woken wears the colour and stands perfectly still; one a
-seat does not own is grey. The third state was not designed — it came out of
-the first frame ever taken of this boss, where the navigator's screen through
-the whole of phase `one` was two identical grey masses and the seat that has to
-hold the other player's number could not tell which chamber would become its
-own. Ownership is not timing, so saying it gives away nothing.
-
-**The squeeze is size and brightness only.** A first version deepened the blob's
-lobes on the contraction and the contracting chamber read as a four-pointed
-star while the resting one read as a sac — one body doing something became two
-different bodies. The lobe count is the health and nothing else moves it.
-
-**The bundle never lights on the coincidence**, and that is a refusal rather
-than an omission: it would be the easiest glow in the game to write and it
-would hand the pair the one number they are supposed to arrive at by talking.
-The only thing that moves it is the burst.
-
-**The clamp's look is the ring, the held chamber and the shudder**
-(`render/src/diastole-clamp.ts`, `diastole-draw.ts`, 18 September 2026). The
-ring is a handle's — `handleRadius`, the rock grey with a white rim — on the
-right chamber, on player 1's screen alone, from the beat the left collapses:
-the pilot is the seat shown that chamber grey, so the ring is on the one screen
-that cannot see the beat, and it breathes off the wall clock, which is nobody's
-count. It says *this, and your thumb*, and the word over it is CLAMP
-(`boss-cue-read-u.ts`, below); the when is still the navigator's to say. Under the
-thumb it fills and a dial runs the two-beat window out. The chamber under it is
-**squeezed shut on every screen** while the clamp holds — the contraction,
-kept — with the handle's white as its inner rim on the screen that sees it grey
-and the cyan on the screens that own it, because a clamp is a fact both seats
-can see and no count is in it. The spasm has no ring and no word: the chamber
-shudders off the wall clock for its eight beats, dark, and the hull shudders
-once as it starts. The catch is six white sparks off the chamber, the miss ten
-grey ones (`effects-spark-handed.ts`). Every one of these is read off the boss
-each frame, so nothing outlives a frame and there is no `Effects` field to
-clear. A frame test sets each state on all three screens and proves the ring
-reaches only the pilot's and the squeeze reaches every one
-(`render/test/diastole-clamp.test.ts`).
-
-**What the field says** (`render/src/boss-cue-read-u.ts`, 18 September 2026,
-`docs/decisions.md` #34). Two words, one a seat, and in `alone` **they follow
-the thumb** — which is the half the first reading was missing: it wrote both of
-them for the whole of the phase, and for most of the phase neither was true.
-While the two chambers beat, `HOLD` / `BURN` stands on the bridge, hers, and
-nothing on his. Alone, with no thumb on the chamber, `HOLD` / `CLAMP` stands on
-the ring, his, and she is told **nothing at all**: the beam lands only under a
-clamp (`diastoleOpen`), so a word over the bridge before there is one is a word
-over a lance that is refusing. With the thumb down and the window open it
-swaps — `BURN` to her, nothing to him — because what the fight wants of his
-thumb then is *let go before the dial closes*, and a `HOLD` on the ring would be
-the field asking for the spasm; the ring's own dial is the whole of what is left
-to say. Once the window has lapsed under a thumb still held, both screens go
-quiet: he is late and the next thing the round does is the spasm. The spasm
-itself cues nothing, for the reason it has no ring.
-
-**Neither word is ever a count, and no page of the film comes down for them.**
-Where and what, never when — the when is the navigator's to say in both phases,
-and her own film page is `PLAYER 2 HOLDS RED · ON 15`, a colour and a number,
-which is exactly what a cue may not carry (`docs/spec/briefings.md`). THE
-DIASTOLE stays one of the films that read as unprunable, and the widened cue did
-not change that: a fight whose pages are all counts has nothing a verb can
-replace.
-
-**What it still does not draw**: the hull's own pulse. A light that beat in each
-seat's colour from inside the ship would be a change to something the game
-already draws every frame, so it is a VERSUS candidate rather than a lane
-(`docs/looks.md`, `hull-light.ts`).
-
-**Never watched at tempo.** Whether a pair can hold two counts at all at 96 BPM
-is a thing a person finds out with another person, and neither the tests nor
-the typecheck can say it. What the tests do say is the arithmetic: that three
-and five meet every fifteen beats and on no beat between, that a chamber can
-only be hurt while contracting, that nothing single lands once both are
-beating, and that the beam in the bridge takes both at once
-(`sim/test/diastole.test.ts`); and the clamp's rules one by one, through the
-beam's own beat, with a clamp sent the beat before
-(`sim/test/diastole-clamp.test.ts`). Whether *now* fits in two beats is the
-same kind of thing, and so is whether a ring that breathes on no count reads
-as a place to wait rather than a beat to follow.
-
 ## 11.18 THE BATON — a bead passed down an arm, one seat a beat
 
 > The one where acting locks you out of the next beat, so the two of you have
@@ -3911,734 +3739,6 @@ floor bows under an unanswered cannon or the last lobe waits, and shut the
 beat the last one is answered (`sim/undertow-slow.ts`); a lobe through the
 hull shuts it, the body swallowed keeps its own. The rehearsal is 300 ticks
 longer and its takings five beats later.
-
-## 11.21 THE ORRERY — three orbits, and neither of you can see all three
-
-*Built 17 September 2026 in five lanes — the rings, the hand, the picture, the
-handle and the three rigs that turn it with no finger, then a sixth on 19
-September that gave it a second verb. The design is [bosses-choreographed](bosses-choreographed.md) §2,
-and this section is the record of what shipped, including five places where it
-shipped differently from the design, each said here by name. **Never watched at
-tempo**, which is the last paragraph.*
-
-> The one where you each see two of the three rings.
-
-**The question.** *Whether you can agree on a beat you are each half-blind
-to.* The design page puts it next to THE QUEEN and that comparison is the
-whole boss: she asks **which column**, and this asks **which beat** — and
-makes the answer uncomputable from either seat alone.
-
-**The shape.** A core in the middle column with three concentric rings of
-orbiting organs around it, each ring with exactly one gap. A ring's organ
-count is also the beats it takes to come round, one organ a beat, so the count
-*is* the cadence: `orreryOuterOrgans` 8, `orreryMiddleOrgans` 6,
-`orreryInnerOrgans` 4. Nothing of it is a body — no creature, no row — so the
-fall loop, the hull and a hand find nothing of it, and the only thing that
-ever reaches it is a shot that left the top of a column (`sim/orrery.ts`,
-`sim/wave-boss-clocks.ts`).
-
-**The column is never in question, and that is the first departure.** The
-rings are concentric about the core, so a shot that passes all three gaps
-arrives at the middle of the field and nowhere else: `orreryCoreCol` is
-`midCol` and the cannon is parked in it for the whole fight. The design's beat
-list has player 2 *calling which column the gap will stand over* and player 1
-sliding the cannon there, which would have made a second QUEEN out of a boss
-the same page says is the opposite of one. What the pair cannot compute apart
-is the moment, and the moment is all this asks for.
-
-**A gap's place is a function of the beat.** Each ring carries where its gap
-stood on `anchorBeat`, as a slot of its own orbit, and slot 0 is the bottom of
-the ring — the one slot a shot can pass through (`orreryGapSlot`,
-`orreryRingOpen`). Nothing is stepped. That is THE THROAT's rule and this boss
-is the reason it was written down in general terms: `orreryNextOpen` answers a
-question about a beat that has not happened yet, which is the only number
-player 2's readout will ever want, and a stepper cannot answer it.
-
-**The three orbits are not coprime, and the design says they should be — the
-second departure.** Coprime is the right tool for *two* cadences that must
-meet rarely, which is THE DIASTOLE's 3 against 5 meeting every 15 beats and on
-no beat between. For *three* it maximises exactly the number this fight cannot
-afford: 8, 6 and 5 as the page asks come together every **120** beats, which is
-a wave and a half of waiting for one shot. 8, 6 and 4 come together every 24.
-What a shared factor actually costs is that two rings meet oftener than three
-do, and that is not a leak — a seat watching two gaps cross knows nothing
-whatever about the third, which is the only secret this boss keeps.
-
-**Every ring is anchored off one number**, `orreryFirstBeats` 12, so that all
-three gaps first stand at the bottom of their orbits twelve beats after the
-wave puts the boss up (`orreryAnchors`). Three residues picked apart need not
-ever come together, and with orbits that share factors they usually do not: a
-boss that could install itself unbeatable is not a boss.
-
-**Per-seat truth is the fight.** The outer ring is drawn true on both screens,
-the middle on player 1's alone and the inner on player 2's alone; on the other
-screen each is an unbroken grey arc with no gap in it at all. So the arithmetic
-has to be done out loud, in halves, by two people who can each check exactly
-one third of the other's work. That is the design's `PerSeatTruth`, and it is
-the one part of this boss that is entirely the picture's: the simulation knows
-where every gap is and says so to anybody who asks, exactly as it does for
-THE QUEEN's two marks. The split is `showsOrreryRing` in
-`render/view-role.ts`, and it is **the sharper of the game's two symmetric
-splits**: THE DIASTOLE keeps each seat from one of two chambers, and this keeps
-each seat from one of three rings *and gives them a third they share*. The
-outer ring is true on both screens on purpose — a pair with nothing in common
-have nothing to calibrate against, and the ring they can both count is what
-makes the other two worth saying out loud.
-
-**Health is the rings, outermost first.** A landed shot reaches the outermost
-ring still standing, so the arithmetic gets *easier* as the
-fight goes on — three gaps, then two, then one — while the blindness gets
-worse: the last gap left is the inner one, which player 1 cannot see at all,
-and he fires on her word alone. Three things have to be true for a shot to
-land and each belongs to a different half of the pair: the column is the
-core's, the beat is one every unbroken ring is open on, and the colour is the
-one the core is showing, which **changes every time a ring comes off** so that
-a pair who learned it once has to read it again. A shot on a closed shaft
-costs nothing and is not even a reject — it is armour both screens were
-drawing. A shot in the wrong colour is a colour miss and nothing else
-(`sim/orrery-shot.ts`).
-
-**A shot cracks a ring; the thumb takes it off** (`orreryCrack`,
-`orrery-hand.ts`, 19 September 2026). As first shipped, a landed shot *was* a
-ring — the pair agreed on a beat, he fired, and a third of the boss fell off
-with nothing further asked of either of them. What that left was a fight whose
-whole second control was optional: the hand could bring an alignment forward
-and a pair who never touched it lost nothing but time, which is why
-`boss-cue-read-l.ts` could find no honest moment to ask for it. So a shot now
-knocks the ring's gap `orreryCrackOrgans` 2 short of the bottom and **jams it
-there** — the ring stops drifting, the shaft is shut, and the only thing that
-opens it is the pilot winding the gap home one organ at a time. The detent
-that lands it on slot 0 is `orreryBreak`, and the ring comes away there.
-
-**Two organs, and the number is the whole of the decision.** One would be a
-formality and four is a minute of thumb at a turn and a half each; two is two
-beats of a hand that is also holding a cannon in a column rocks are coming
-down, which is the cost this fight already charges for everything else. And
-the gesture arrives on an empty field the first time: the core is silent until
-a ring is actually *off* (`spit` reads `broken`, not the phase), so the pair
-meets the winding on the first crack with nothing falling, and winds the other
-two with rocks in the air.
-
-**`seized` is a phase rather than a flag**, fourth of five
-(`ORRERY_PHASES`) and carrying no new field of its own — the jam is
-`from[ring]` and `phase`, both already in the fingerprint, so `hashWorld` and
-the wire are untouched and `orreryRing` was already a `DragTarget`. While a
-ring is seized its gap *is* its anchor: `orreryGapSlot` returns the anchor
-unstepped, which is how a ring that is still described by arithmetic over a
-beat can also be standing still.
-
-**And it is the one moment this boss can ask for a word.** THE CUE could say
-nothing here while the rings turned, because when a turn is worth making is a
-function of where the gaps are and a `TURN` lit then would be the alignment
-said out loud (#34's third rule). A cracked ring is the opposite: one thing to
-do, no beat to keep, and the answer is not in the word. `OPEN` stands on the
-grip, on the pilot's seat alone, ahead of the column
-(`render/boss-cue-read-l.ts`).
-
-**There is a second such moment, and the hand makes it.** The orbits share
-factors on purpose, so an alignment exists only where the three anchors agree
-modulo what they share — and a thumb writes an anchor. One stray organ can
-therefore leave the rings in an arrangement that never lines up again: six of
-the outer ring's eight positions are one, measured. Nothing is broken by it —
-a shot on a shut shaft costs nothing and the rings go on turning — but the
-pair is then counting towards a beat that is not coming, and it is the one
-failure in this fight that patience makes worse. `orreryAdrift` asks
-`orreryNextOpen` over exactly one full cycle, the least common multiple of the
-standing rings' orbits (`orreryCycle`, 24 beats at the top of the fight):
-inside that horizon *not yet* and *never* are the same answer, which is what
-turns a search that ran out into a fact about the fight. The field then says
-`TURN`, on the grip and ahead of the column, and it is honest in both
-directions — turning the ring under the hand always reaches a parity that
-aligns, because that ring runs through every residue of its own orbit while
-the ones behind it hold still.
-
-**It fills its own wave, which is the third departure — and the page asks for
-this one to be said out loud with its reason.** THE DIASTOLE's lane wrote down
-that a boss on that page is fed by its wave and not by itself. This is the
-exception it allowed for: a ring that comes off sheds `orreryDebris` 3 of its
-organs as ordinary meteors, and from the first break the core spits one of its
-own every `orrerySpitBeats` 4 beats. Neither the beat a ring breaks on nor the
-column its organs come off in is writable by an author, because both are
-decided by *when the pair managed to agree* — which is the whole of what this
-fight is about. Three organs rather than the ring's whole eight is the fourth
-departure and the smallest: eight rocks arriving on one beat is a wave, and
-this is meant to be a consequence.
-
-**They come off one a beat, and the core is quiet while they do** — found by
-the rehearsal lane on 18 September 2026, the first time the fight was run
-through. As landed, the three let go on the beat the ring broke, fell at one
-rate and reached the plating on one beat in three columns; the shield wards
-one column, and every hull damage fails the wave (12 September 2026), so the
-first ring off was the wave lost, with the shield in the right place. The
-first organ now falls on the break itself and the next two on the beats
-after it, so they land a beat apart in their three columns — which is what
-*three is the number the shield can just about answer* was meant to say. And
-a break counts as the core's own throw for the spit clock: the rock it spat
-on the beat after a break landed under the second organ, one rock more than
-the pair has an answer for (`sim/orrery-step.ts`, `orreryBreak`).
-
-**The core never spits down its own column**, and the rule pays for itself
-twice. A meteor cannot be shot, so a rock spat down the shaft would stand in
-the only column the pair is allowed to fire up, for the fifteen beats it takes
-to fall, with nothing either of them able to do about it. And a core aiming at
-the seat directly beneath it is a boss that does not have to be read. It is
-silent on a beat the shaft is open for the same reason said about the moment
-rather than the place: **the beat the pair can reach the core is the one beat
-the core does not reach them** (`sim/orrery-step.ts`).
-
-**Which column a rock does come down** is the column the innermost ring still
-standing is pointing at (`orreryGapCol`), and that number is a triangle rather
-than a circle's own cosine. A gap that crossed the field fast in the middle and
-hung at the walls — which is what an orbit at a constant angular rate looks
-like from below — cannot be counted in beats by somebody who is also talking.
-A gap that moves an even share of its reach per organ can: *three out, coming
-back*. The organs are drawn on the circle where they belong; it is the gap the
-pair reads, and it reads evenly.
-
-**And player 1 can turn a ring by hand** (`sim/orrery-hand.ts`). A drag on
-the ring reports a **bearing** — where the thumb is round the circle, in
-thousandths of a turn — exactly as THE CLAW's crank does, and this is the one
-thing in the fight that can move a gap off a beat the pair has already agreed
-on. It is the design's step 10, and the page is right about what it is for:
-the alignment can be *brought forward* rather than waited for, so an
-arithmetic problem becomes a physical one. On a ring that is turning it stays
-exactly that — offered, never asked for — and on a cracked one it is the only
-way forward.
-
-**It writes the anchor, not a position**, which is the only way it could exist
-at all on this boss. The hand adds whole organs to `from[ring]` and the ring
-goes on turning at its own cadence around the new anchor, so every gap is
-still a function of the beat and `orreryNextOpen` is still answerable. A hand
-that stepped a stored slot would have made player 2's readout a lie the moment
-it was asked.
-
-**The ring turns in whole organs, and the gearing is the difficulty.**
-`orreryHandMilliPerOrgan` 1500 is the thumb travel one detent costs — a turn
-and a half — and the remainder is banked against the next one rather than
-lost. Read against the ring's own drift of one organ a beat, that number says
-the whole control: **holding** a gap still would cost a turn and a half every
-beat, 2.4 turns a second at 96 BPM, which no thumb has; **bringing** an
-alignment one organ forward costs a turn and a half whenever the pilot can
-spare the hand. So the hand bends the arithmetic and cannot break it, and what
-it actually costs is his attention — the ring is on the field and the cannon
-is on the panel, and he cannot be on both. A bank wound against a ring dies
-with that ring.
-
-**The hand moves inward as the rings come off, which is the fifth departure.**
-The design gives the pilot the outer ring and stops, which would make him a
-spectator for two thirds of a fight whose health *is* the rings. So the hand
-is always on the outermost one still standing (`orreryHandRing`), and the
-fight gets better rather than thinner: once the outer ring is gone he is
-turning the middle one, true on his screen and a blank grey arc on hers — and
-at the end he is turning the inner one, which he cannot see at all, on her
-word alone. That is this boss's own sentence played on a control instead of a
-readout. It is also why the drag carries no `id`: **the hand never names the
-ring**, because a hand that could would be able to name one it cannot see.
-
-**And the ring has no flywheel**, against the design's animation note, which
-asks for it to keep a little of the thumb's motion after the lift. A gap
-moving with nobody's hand on it is exactly what this boss's central rule
-forbids, and for the reason the rule exists — one seat's readout is about a
-beat that has not happened. The overshoot the design wants is still there and
-it is the thumb's: at a turn and a half an organ, a hand that keeps going past
-the socket it wanted has bought the next one.
-
-**A bearing is its own vocabulary now** (`sim/bearing.ts`). `TURN`,
-`NO_BEARING` and `MAX_BEARING_STEP` were THE CLAW's, in `sim/crank.ts`, and a
-second mechanism turning made them shared — a boss reaching into a control's
-file for a unit, and worse, a real import cycle that left `TURN` undefined
-while THE ORRERY's module body read it. The old names `NO_CRANK` and
-`CRANK_TURN` are gone; neither was ever on the wire.
-
-**THE SLOW, in one place, and it is the whole design.** `orrerySlowBeats` 2
-opens on the beat before an alignment and runs through it, so a window one beat
-wide is about three seconds of real time for a pair to say *now* across a voice
-delay. This is the concept THE SLOW was ruled in for
-(`docs/decisions.md` #33): three rings on integer cadences are the entire
-boss, and stretching the *rings* would break the arithmetic the pair has been
-doing, where stretching the second breaks nothing.
-
-**The finish is the lance and nothing else.** With every ring gone the core is
-naked and an ordinary bolt is spent on it: she holds a colour for
-`lancePrimeBeats` while he keeps the cannon still in a column the core is
-spitting rocks down, and neither half of that is worth anything without the
-other. The beam standing in the column takes it, and it goes out over
-`orreryOutBeats` 5, slowed for the whole of it, because that is the picture
-this fight was for.
-
-**The fingerprint is anchors rather than positions** (`sim/orrery-hash.ts`).
-Nothing about a ring is stepped, so there is no position to compare: two
-devices agree about where every gap is exactly when they agree about `from` and
-`anchorBeat`, and one beat out is a pair firing into armour on one screen and
-into the core on the other.
-
-**The orbits are flattened, and that is the whole of the composition**
-(`render/orrery-shape.ts`). `orreryReach` already says a ring spans most of
-the field's width, and the space above row 0 is a tile deep, so a circle of
-that width could not be drawn at all — and a circle squeezed into that height
-would put a ring's near side and its far side within a few pixels of each
-other, when the near side is the only one a shot can reach. At
-`ORRERY_FLATTEN` 0.3 the outer ring's bottom and top are three rows apart,
-which is what makes *three out, coming back* a thing an eye can follow. Slot 0
-is drawn at the bottom over the core's own column, which is the sim's
-convention read straight off, and the picture goes through `fieldX` — so a
-turned seat sees the whole orrery mirrored, and the pilot's *three out to the
-right* is the navigator's three out to the left.
-
-**A ring arrives in a rhythm rather than at a speed.** An organ leaves its
-socket and is at the next one in a little under half a beat, then sits
-(`STEP_PHASE`, eased through `render/ease.ts`). A ring gliding evenly would
-give the pair three speeds to compare and nobody can compare three speeds
-while talking; three rings that snap and wait give them three *rhythms*, and
-the difference between eight beats round and six is then something you can
-hear in your own counting. **The strain on the ring the pilot is turning is
-never drawn as rotation**, for the boss's own reason: what he buys is a
-detent, and a ring shown creeping under his thumb would be a gap moving
-between two slots it can never be in.
-
-**A broken ring is not erased** (`render/orrery-draw.ts`). Its orbit stays as
-a dashed grey line with its organs gone: the pair have been counting against
-it for a minute, and a fight that deleted the thing they were counting would
-take the count with it. The near organs are drawn after the core and the far
-ones before it, so the ring passes in front of the core and behind it, and the
-near arc is brighter — position says which side a gap is on, and brightness
-says it a second time. Violet is *a ring this screen can count* and rock grey
-is *a ring you have to be told about*, which is the per-seat split made a
-colour.
-
-**The shaft is a corridor of light down the core's column**
-(`render/orrery-shaft.ts`), dim and one column wide, on the beats a shot could
-reach the core and on no others. The design credits `light-shafts.ts` and that
-is the wrong tool twice over: it hashes over wall-clock time where this is a
-fact about a beat, and it is bright where this has to be readable without
-being mistaken for the lance. It is the one mark in the fight that says *now*
-to both seats at once, and it says nothing about the two rings a seat cannot
-see.
-
-**And a real thumb can turn it** (`render/orrery-grab.ts`). The ring is
-answered where it is drawn, which is this game's standing rule and is at its
-sharpest here: the control is not a circle on a body like every other handle
-(`handles.ts`) but **an ellipse the width of the field**, so the hit test and
-the mark that says it turns live in one file, and a hand takes hold anywhere on
-the line — the ring turns as a whole, and nothing on it is more of a handle
-than the rest.
-
-**The ellipse is unsquashed before the angle is read**, and that is the one
-piece of arithmetic the control could not do without. The rings are drawn
-flattened, so a finger tracing the line an eye follows would race through
-quadrants across the top and crawl up the sides if its bearing came off the
-pixels. Divide the vertical offset by the flattening first and what comes out
-is the **slot** under the finger — the same parameter an organ is drawn at — so
-a thumb that tracks an organ round the ring turns the ring at exactly the rate
-the picture says it is going. One turn of the thumb is one lap of whichever
-ring it is on, so `orreryHandMilliPerOrgan` gets *lighter* as the rings come
-off and the pair's information gets worse.
-
-**The fold reaches the finger here, and nowhere else in the game.** A strip is
-answered by column and never mirrored, because a seat whose finger turns with
-its eye is a seat for which nothing has happened (`render/field-flip.ts`). But
-this hand is following a *body* rather than pointing at a column, so on a
-turned screen the bearing is mirrored with the organs and a thumb chasing one
-chases the one it can see. What goes on the wire is still the ring's own slot,
-identical on both devices.
-
-**The knurl is the only feedback it has**: ticks across the ring the hand
-answers, drawn on the pilot's screen alone and lit while a hand is on it —
-`PALETTE.hullRim` at rest and `PALETTE.pod` held, which is THE MAZE's string's
-own arrangement. The control is silent until a whole organ has been paid for,
-so without the knurl a pilot turning short of a detent would have no way to
-know his thumb was being heard. It is drawn on a ring he cannot read once the
-outer two are gone, and that is the point rather than an oversight: a picture
-that put the grip only where he could see what he was doing would have quietly
-taken the last third of this boss away (`showsOrreryGrip`).
-
-**And the three hands that are not hands are in**, which is what makes the
-control reachable by anything but a phone: the desk keyboard, `bun run
-frames`'s `--press` spelling, and a rehearsal's ghost thumb. All three turn at
-`orreryTurnPerTickMilli`, which is **one organ a beat** — the ring's own
-drift — and is derived from the gearing and the tempo rather than chosen, so a
-change to either reaches all three in the same edit
-(`sim/test/copies-table.ts` carries the row). That rate is the honest
-stand-in for the same reason the crank's is, and it says something the fight is
-about for free: the same key held on the *middle* ring, which runs the other
-way, holds a gap still.
-
-At a desk the ring is **O**, with shift for the other way round. A letter of
-its own, which almost nothing in this game gets — the rule is that a panel
-borrows the keys that are already there — and THE CHOIR's shake on K is the
-precedent: the ring is not a button on any panel, so `deskKeys` has no slot to
-put it in, and it is a gesture a desk cannot make at all. On a field with no
-orrery the simulation does nothing with the `drag` it sends, so there is
-nothing to gate (`apps/game/src/keys-turn.ts`, which is the crank's old file
-under a name that fits two).
-
-`--press 200:1:orreryRing=3` turns it three organs from tick 200, negative for
-the other way. **Organs rather than turns**, which is the one place this parts
-from the crank's spelling: a turn of the drum is the thing a player of THE CLAW
-feels, and an organ is the thing this pair *counts*. A film authors it as the
-handle it is — `{ tick, drag: "orreryRing", until }`, with `dir` for which way
-round and never a distance — and the ghost hand is placed from the bearing the
-simulation recorded, so a thumb in a rehearsal stands where the ring says the
-hand is (`content/src/scene-turn.ts`, `render/orrery-grab.ts`).
-
-That last one was the piece with a defect rather than a gap. `scene-drag.ts`'s
-`pullsDown` answered **true** for `orreryRing` for a day, so a film that had
-authored one would have sent a stream of downward pixels at a control reading
-thousandths of a turn — nothing would have thrown, and the ring would have
-turned by whatever those numbers happened to mean. It is the fourth exception
-in that predicate and the reason the predicate is now asked as a question
-(`turnsRound`) rather than compared at the call site.
-
-**It is heard off its state, not off events, and it is the first boss of
-this page that is.** The simulation shipped without an event of its own, on
-`events-undertow.ts`' rule — an event is for an edge that is *not* in the
-world a frame later, and every edge here is: `brokeBeat`, `spatBeat`,
-`phase`. So the mixer reads them the way it reads the queen's armour and THE
-MIRROR's count-in, frame against remembered frame (`audio/mixer-boss.ts`,
-`soundOrrery`): a ring off, pitched up a step for every ring gone so the count
-can be kept by ear; the core spitting, on the core's column; the core going
-out, unpanned, over the five beats the picture takes. **The shaft opening is
-not one of them**, and must never be — that beat is the fight, and the ear is
-told it no more than either screen is. An `OrreryEvent` arm would have been
-three events restating three fields; the file the mixer already had for a
-boss's clock was the honest place (`docs/spec/audio.md` §6).
-
-**Never watched at tempo.** What the tests say is the mechanism: the three
-orbits come round on their own counts, the anchors put the first alignment
-where the configuration says, the shaft is open only when every unbroken ring
-is, a shot on the beat takes the outermost ring and changes the colour, one
-off the beat costs nothing, the wrong colour is a colour miss, the organs come
-off, the core spits and never down its own column, the naked core refuses a
-bolt and takes the beam, and the same run fingerprints the same way twice
-(`sim/test/orrery.test.ts`) — and, for the crack, that a shot on the beat
-jams the ring instead of taking it, that a jammed gap does not drift with the
-beat, that the shaft is shut and a second shot up it costs nothing, that the
-colour does not turn until the ring actually comes away, that two organs of
-thumb take it and one does not, that the core stays quiet through the first
-crack and spits through the next two, and that the hand cannot wind a ring off
-twice on one beat (`sim/test/orrery-seize.test.ts`) — and, for the hand, that the first sample after a
-grab is a reference and turns nothing, that a thumb past the top is read the
-short way round, that a turn shorter than a detent is banked and finished
-later, that the bank survives a lift and moves nothing on its own, that
-turning back gives up exactly what turning in bought, that it is player 1's
-alone, that a turned ring still comes round on its own count, and that four
-organs of the outer ring turn a twelve-beat wait into this beat
-(`sim/test/orrery-hand.test.ts`). The picture is tested where it has a right
-answer rather than a nice one: that slot 0 is drawn at the bottom over the
-core's column and the slot opposite it at the top, that the three rings nest
-and every one is flattened the same way, that a quarter turn out mirrors for
-the turned seat, that a ring only ever crosses one organ over a beat and never
-past the one it is arriving at (`render/test/orrery-shape.test.ts`), and that
-every phase draws on every screen, the flare and the shaft each cost something
-on the beat they are open and nothing on the beat after, and **a state with
-only the inner ring standing puts violet on the navigator's screen and none
-anywhere on the pilot's** (`render/test/orrery-frame.test.ts`) — and that
-`OPEN` names the cracked ring on the pilot's seat alone, stands on the ring
-rather than the hull line, and comes ahead of the column
-(`render/test/boss-cue-orrery.test.ts`). The STATES sheet carries a card for
-it like any other phase — *a ring is cracked and stuck*, the pilot turns and
-the navigator waits — and the gallery's own hand had to learn the second
-gesture to draw the three cards behind it at all: a rig that could fire but
-not wind left the boss standing in `seized` until its budget ran out
-(`tools/director/src/boss-hands-shots.ts`). **No eye has
-seen it and no pair has fought it**: whether three flattened arcs of organs
-read as three cadences at 26 pixels, and whether a turn and a half an organ is
-heavy enough to be a decision and light enough to be worth making with a rock
-coming down the same column every four beats, are things a person sees at
-tempo. The handle is tested where it can be: the ring answers a press on its
-line and nothing in the open space behind it, the grab carries no bearing, the
-seat is the pilot's, the hand moves inward with the breaks, each quarter of the
-way round reports a quarter of a turn, a turned screen mirrors it, a finger
-wandered in to the core has no bearing at all — and, end to end through `step`,
-a turn and a half of the thumb moves the gap exactly one organ
-(`render/test/orrery-touch.test.ts`). The three rigs are held where each of
-them can be: the desk key opens with a bare grab and then one bearing a tick,
-turns the other way with a shift, sends nothing before it is pressed and
-nothing after it is let go, and a beat of it is exactly one organ
-(`apps/game/test/keys-turn.test.ts`); the press line carries a whole organ's
-travel per organ asked for and never a bearing outside one turn
-(`tools/frames/test/ring.test.ts`); and a film's hand, run against a real
-orrery, moves the anchor by whole organs, exactly as far the other way when
-`dir` says so, lets go before the loop ends and **never sends a
-y-displacement** (`content/test/scene-drag.test.ts`). The ghost thumb stands at
-the bottom of the ring before anything has hold of it, rides the recorded
-bearing round, moves inward with the breaks and is gone with the last of them
-(`render/test/orrery-touch.test.ts`).
-
-**The rehearsal** (`packages/content/src/scenes/the-orrery.ts`,
-18 September 2026) is the arithmetic played once: the cannon put in the middle
-column on beat 9 and never moved; cyan fired on beat 11 to be judged on the
-first alignment, 12; red on 23 for 24, the beat six and four next meet with
-the outer ring gone; cyan on 27 for 28, the inner ring alone; red held from
-29 and the beam standing on 32, out over the five after. Every one of the ten
-rocks — eight shed, two spat on beats 19 and 23 — is warded by an
-`atBody` shield the beat before it lands with a guard after it, because the
-seed decides their columns and none is one an authored strip reaches.
-
-The crack (19 September 2026) made it a film about a hand as well. Each of
-those three shots now only jams a ring, so each is followed by a wind — two
-organs of thumb, and the ring comes off two beats after the shot rather than
-on it: beats 14, 26 and 30. **The last of the three is wound in two pieces**,
-because a rock lands in the middle of it and the hand that winds is the hand
-that wards; the bank survives the lift (`windMilli`), so the second piece pays
-for the organ the first did not, and a pair watching it is shown the
-interruption rather than a clean turn they will never get. Fourteen pages,
-six the navigator's, and one of them — `IT CRACKS · TURN IT OPEN`, on the
-ring — is the second verb taught where it happens. Two others were rewritten
-on 19 September 2026, when the field learnt to say the column: `NAKED · HOLD RED · THE BEAM` lost the verb and became `NAKED · A BOLT
-IS SPENT`, and `HOLD THE MIDDLE · IT STANDS` became `THE BEAM USES YOUR
-COLUMN` — the reason each seat must stand where it does, which is the thing a
-word on the glass cannot say ([briefings](briefings.md) §7).
-
-**What the field says** (`render/src/boss-cue-read-l.ts`, 19 September 2026,
-[decisions](../decisions.md) #34). It shipped on 18 September with one word —
-`HOLD` / `BURN` on the naked core — and that word was right and was not the
-fight. **The silence that mattered was the column.** A bolt and the beam both
-leave the cannon's own column (`fire.ts`), the core hangs over exactly one for
-the whole fight (`orreryCoreCol`, which is `midCol`), and `spitting` spends
-itself throwing rocks down every column but that one to drive the pilot off it
-(`orrery-step.ts`) — and nothing on his band said so. `CARRY` / `MOVE` stands
-on his carriage whenever it is off the core's column, in every phase the fight
-has one, and it retires guide step p1-1 — as `BURN` retires the navigator's
-step naming the beam.
-
-**The beam is behind it**, which is THE THROAT's and THE UNDERTOW's pairing a
-third time: the colour buttons are hers and they fire straight up *his* column,
-so while his carriage is off it she is told nothing at all rather than told to
-`BURN` up an empty lane. Once he is parked, `HOLD` / `BURN` on the core in
-`naked` — and quiet while `priming`, for `gripBrakes`' reason. Nothing at all
-once the core is out.
-
-**And the three silences are the boss.** Not the open beat:
-`orreryShaftOpen`, `orreryNextOpen` and `orreryGapSlot` are deliberately not
-read in that file, because a word appearing on the beat every gap meets would
-*be* this fight. Not the colour: `b.color` is not read either. Not the shed and
-spat rocks: `spit` and `organCol` both refuse the core's column, so every one
-of them is an ordinary body answered by the ordinary shield loop, and a word
-pointing at one would be the field arguing against its own `MOVE`. The pilot's
-hand on a ring has no word yet and that is a decision with an argument behind
-it, written out in the file: the hand is *offered* rather than asked for — a
-`TURN` that lit when a turn would help would say the alignment out loud, and
-one that stood whenever a ring was turnable would stand for the whole fight.
-Proved on both screens, with the silences: `render/test/boss-cue-orrery.test.ts`.
-
-## 11.22 THE CANDLE — the boss fought in the dark
-
-> The one you fight in the dark, where the only light is what your own shots
-> throw and the boss eats the ones it is facing.
-
-Designed as §14 of [bosses-choreographed](bosses-choreographed.md), where the
-argument for it is: every other fight is lit, and this is the one where the
-pair's own instruments are the light — a muzzle flash, a plate flashing, the
-beam — each drawn on the seat that made it, so the two phones light two
-different columns and the field is only whole in the talking.
-
-**The simulation does not know the field is dark.** That is the whole of the
-split: darkness, the after-image, the per-seat light are the look's
-(`render/candle-dark.ts`, below). What
-`packages/sim` holds is a **glow**: `candleGlowSteps` (5) of health, a column
-it stands in, a column it faces, a phase — `dark`, `full`, `eating`, `last`,
-`smoking`, `out` — and how far down the wick the pilot's thumb has come,
-`pinchMilli` (`sim/candle.ts`, hashed in `sim/candle-hash.ts`). It is a
-fixture, not a body (`bossFillsWave === false`), and the arrivals around it
-are the wave's own (`content/src/waves/act-7e.ts`, "THE CANDLE").
-
-**The rule, in one sentence.** Any colour up its own column dims it a step —
-a bullet reaching the top of the field (`bullets.ts`) or the beam burning the
-column (`lance-burn.ts`), both through `candleStruck`, which counts as a
-colour met (`metColor`) so the balance cannot tell it from a kill — and five
-steps put it out. It arrives dark for `candleDarkBeats` (4), unstrikable and
-still; then drifts one column every `candleMoveBeats` (3), reversing at the
-edges, and turns to face a column every `candleTurnBeats` (4), which is the
-one thing player 1 sees and player 2 does not. At `candleEatSteps` (2) left
-it **eats**: a shot fired from the column it faces never becomes a bullet —
-`candleEats`, asked from `launch` before the bullet is laid — and the glow
-comes back a step (`candleFed`), never past full. At `candleLastSteps` (1)
-it stops moving, turning and eating (`candleLast`) — and the trigger stops
-counting with them: from `last` on, `candleStruck` takes nothing at all, and
-what finishes the fight is two gestures neither seat has made yet.
-
-**The last step is two gestures, one of them on the picture** (19 September
-2026, `docs/queue.md`). The brief this boss was built to asks a boss to change
-state more than once and to want more than one gesture, and THE CANDLE
-answered the whole fight on the ordinary panel. So the last step is split in
-two.
-
-- **`last` — the pilot's thumb, and it is on the glow itself.** No shot
-  counts, so nobody is sent anywhere and the column stops mattering: player 1
-  takes hold of the flame and pulls it `candlePinchMilli` (3000) down off the
-  wick (`candleWick`, `sim/candle-hand.ts`). It is read as depth from the grab
-  the way THE STARE's lid is, clamped to the bottom, and a thumb lifted short
-  springs the flame back to the top — `pinchMilli` is zeroed, and the pull has
-  to be made again. Reaching the bottom pushes `candleSmoke` and enters
-  `smoking`. It is the one handle in the game a seat takes hold of in the
-  dark, and the one word in this fight that is not behind the cannon:
-  `PULL`, on the glow, player 1's (`render/boss-cue-read-m.ts`).
-- **`smoking` — the navigator's beam, on a count.** The flame is off the wick
-  and a bolt still does nothing; only the beam reaches what is left. Player 2
-  has `candleSmokeBeats` (12) from the pull to stand the beam in the glow's
-  column — `lancePrimeBeats` (3) of that is the fill, which is the pair's
-  whole margin. That puts it out (`candleOut`). Late, the wick catches again
-  (`candleLit`): the glow comes back to `candleEatSteps` — a step brighter
-  than the pair left it — and the boss is *eating* again, drifting and
-  swallowing flashes, with the pull to make a second time. Her word turns from
-  `FIRE` to `BURN` for as long as it smokes.
-
-**Doubled on the owner's rule, 24 September 2026**
-(`docs/spec/choreographed-windows.md`): the smoke twelve beats and the pull
-three tiles — and **THE SLOW moved to the ask**, which is the smoke: opened by
-the pull for exactly `candleSmokeBeats` and shut the tick the beam puts the
-wick out or the wick lights again (`sim/candle-hand.ts`, `sim/candle-step.ts`).
-A flash while it smokes leaves that window alone rather than cutting it to a
-beat. Proved in `sim/test/candle-doubled.test.ts`.
-
-Out either way, the boss stays installed `candleOutBeats` (2) more so the
-wave cannot end on the beat the light does, which is the design's *two black
-beats*.
-
-**Health is the glow, and nothing else is.** There is no hull damage in it
-and no scar: a candle that eats a shot is a candle that lasts longer, and the
-pair's whole cost is beats.
-
-**The dark is a mask, not a frame buffer.** `render/candle-dark.ts` is one
-pass between the bodies and the ship (`canvas2d.ts`): the field is drawn as it
-always is, then black is laid over it from the top of the field to the hull,
-coming down over `candleDarkBeats` from the beat the boss arrives, with holes
-where a light stands. The design's after-image — *the frame the flash lit
-stays, dimming* — is **not** a kept picture of the field: there is no offscreen
-field to keep, the test canvas has no pixels, and bodies go on falling under
-a still picture, which would put a rock two rows from where the pair would
-shoot it. It is a **per-column light** (`render/after-image.ts`): which
-columns were lit, by what, and how long ago; a lit column is the field as it
-is, dim, through a wash of the colour that lit it, and the fade shortens with
-the glow (`AFTER_BEATS` at full, half that at the last step — the design's
-step 8). Three lights, each on the seat whose control made it
-(`view-role.ts`): a shot's flash three columns wide for a beat on player 2's
-screen; the guard window on the plate's column for as long as it is armed,
-and the beam on its own for as long as it stands, on player 1's — both read
-off the world every frame rather than ingested, so they hold exactly as long
-as the sim says. A breach lights its own neighbourhood two columns either way
-for two beats on both screens (*a scar is a light source*). The glow is two
-halos and a flame in ember and amber over the boss's column, at one of five
-integer reaches (`render/candle-glow.ts`); the flame is a candle's, a drop
-on its round end with its tip wandering, amber reddening to ember at the tip
-and edge, the hot white low over a charred stub of wick, and it shrinks with
-the glow (`render/candle-flame.ts`). A dim cone runs from the flame to
-the top of the column it faces on player 1's screen only, and only while it
-moves. Once `out`, the frame is black and nothing else for the two beats the
-boss stays installed; when the sim takes it away the black lifts over one
-beat — the design's wave-end light coming up on a field the pair never saw.
-Proved on both screens in `render/test/candle-frame.test.ts`.
-
-**The last step's own picture** (`render/candle-grip.ts`, 19 September 2026).
-The boss is a point of light and nothing else, so there was nothing on the
-screen to take hold of: the pull shipped heard by the simulation and drawn
-nowhere, which is the half of a lane the split names. The look gives the glow
-the one part a candle has besides its flame — a wick hanging from the shelf
-the light hangs on, straight down the column it is over, exactly
-`candlePinchMilli` long in pixels so the travel is **one-to-one with the
-thumb** and the flame comes off under his finger. THE STARE's lid remaps its
-pull onto the eye's own height because a lid the simulation calls shut has to
-*look* shut; nothing here has to look like anything. The flame rides the stem
-— `candleFlameY` in `candle-glow.ts`, and the halos go down with it, because
-a light that stayed put while its flame came away would be two things — and
-the ring round it is drawn **on both screens**, THE MAZE's, THE WARDEN's and
-THE LID's arrangement rather than THE STARE's: the gauge closing into a whole
-circle is the navigator's cue, since the instant it closes is the instant her
-beam starts being worth something. Whose thumb it is is said once, by `PULL`
-on the glow, and no hint is drawn under the ring. At `smoking` there is no
-flame drawn at all: an ember at the stem's tip and a plume of six fading
-segments wandering off it, and **the ember is the clock** — it swells through
-four fixed reaches and flickers from three to eleven a second as the wick
-comes back towards a flame, which is the whole of `candleSmokeBeats` spent on
-the one thing left in a black frame. The reaches are quantised because
-`haloSprite` bakes a canvas per colour *and* radius, so a reach that swelled
-smoothly would bake one a frame. Proved in `candle-frame.test.ts`: the travel
-as arithmetic off `candlePinchMilli`, the stem and its ring on all three
-screens at the last step, and an ember with no flame at `smoking`.
-
-**Corner light first** (the design's step 1, landed 17 September 2026): the
-black does not fall evenly. It is a front (`candleDarkAt`, `candle-dark.ts`)
-that starts at the side the sky's one corner light stands on — bottom right,
-`corner-light.ts` — and rolls across the field column by column over the
-same four beats, each column taking half the count to go, so the corner is
-black while the far edge is still lit and the last light to go out is the
-one furthest from it; the margins beside the grid go with the column beside
-them. The glow is drawn over the black, so once the front has crossed it is
-what is left. A look the owner asked for by name. Proved in
-`candle-frame.test.ts`: two beats in, the right of the field is full black
-and the left not yet drawn.
-
-**The rehearsal** (`content/src/scenes/the-candle.ts`, 17 September 2026,
-twelve pages over 2400 ticks at seed 8): the field goes black, player 2
-fires and it dims; it drifts and player 1 follows — every slide under it an
-`atBoss` act, aimed by `bossAnswerCol` off the glow's own column, since where
-it drifts is the rng's and not an author's — two more fires and it starts
-eating; *only player 1 sees its face*, held on the hull; then the one
-authored slide in the film, to the column it faces, and the shot from there
-is eaten on player 2's screen; player 1 slides back under the glow, two clean
-fires stop it, and the beam's one step puts it out, with the two black beats after. A
-film takes a hit only from a page anchored at `hit`, and none is: the
-eaten shot costs nothing, which is the lesson. Proved in
-`content/test/scene-candle.test.ts` as the sequence of dims, the one `candleFed`
-and the `candleOut`, all inside the loop. Four of its pages were rewritten on
-19 September 2026, when the field learnt to say the drift: `PLAYER 2 FIRES ·
-IT DIMS` became `EITHER COLOUR DIMS IT`, `IT DRIFTS · PLAYER 1 FOLLOWS` became
-`IT DRIFTS EVERY FEW BEATS`, `PLAYER 2 FIRES WHERE HE SAYS` became `FIVE HITS
-PUT IT OUT` and `PLAYER 2 FIRES · CLEAR` became `OFF ITS FACE · IT DIMS` —
-the colour rule, the drift, the count and the cone, which are the four halves
-a word on the glass may never carry ([briefings](briefings.md) §7).
-
-**What the field says** (`render/src/boss-cue-read-m.ts`, 19 September 2026,
-[decisions](../decisions.md) #34). It shipped with `PRESS` / `FIRE` on the
-glow and `CARRY` / `MOVE` on the cannon whenever the pilot stood in the column
-the flame was turned to, which was honest about the fight's one mistake and
-**silent about the drift** — the pilot's whole job and the guide's first line.
-A bolt and the beam both leave the cannon's own column (`fire.ts`) and
-`candleStruck` takes a step off the glow only for a shot out of the column the
-glow hangs over, and that column moves every `candleMoveBeats`. So `MOVE`
-stands on his cannon whenever it is off the **glow's** column and nothing
-else, which covers every beat the old word was right in — and where the flame
-is turned at the glow's own column the old word was worse than silent, because
-it walked him off the only column a shot lands from. The beam is not eaten
-(`lance-burn.ts` goes straight to `candleStruck`), so that beat wants him
-standing his ground and saying *beam*.
-
-**The trigger is behind the column**, which is THE THROAT's, THE UNDERTOW's
-and THE ORRERY's pairing again: while his cannon is off the glow's column she
-is told nothing rather than told to `FIRE` up a lane no step comes off — and
-quiet while `priming`, for `gripBrakes`' reason. Nothing at all in `dark`,
-where the light is still going out, or in `out`.
-
-**And the faced column is the silence that makes the fight.** `showsCandleFace`
-draws the cone on player 1's screen alone, and `view-role-clocks.ts` says why
-in as many words: *the seat that fires cannot see which column not to fire
-from, and has to be told*. So `FIRE` goes on standing over the glow while the
-flame is turned at it, and his voice is the only thing that stops her. A word
-that went quiet there would be that cone read out on her screen — the one
-sentence this fight is made of, answered by the field. Proved on both screens,
-with the silences: `render/test/boss-cue-candle.test.ts`.
-
-**Every flash opens THE SLOW** (20 September 2026, `docs/queue.md`, answered
-19 September). The design's *the beat a flash lands is played at a third
-rate* is the rule for every flash, with no exception for a later one over the
-first: a bolt that actually leaves the muzzle — never one THE CANDLE ate —
-opens `candleFlashSlowBeats` (1) of THE SLOW from the beat it fires, both
-screens together (`decisions.md` #33), whatever phase the fight is in,
-including `dark`, before the boss has done anything of its own yet — all but
-`smoking`, whose window is the smoke's own (above, *Doubled*).
-`sim/candle-step.ts`'s `candleFlash`, called from `bullets.ts`'s `launch`
-beside `candleEats`, so the two never both answer the same press. Not built:
-a picture of its own for the window opening — the field slowing is the only
-sign of it, same as every other boss on THE SLOW.
-
-**Never watched at tempo.** What the tests say is the mechanism: it arrives
-full at the middle column facing its own, cannot be struck and does not move
-while dark, dims a step for either colour with the other column untouched,
-drifts within the field and turns on its count, eats the faced column's shot
-and no other and never past full, the beam dims it while it eats, the last
-step stands still, the wave stays open for the two beats after, and the same
-run fingerprints the same way twice (`sim/test/candle.test.ts`).
 
 ## 11.23 THE GORGE — the boss you hurt by not shooting
 
@@ -8496,6 +7596,924 @@ ring has to be one the pair already knows from playing — the plate stopping a
 bolt is the only arrow the game teaches by itself — and the tell has to be a
 thing the game already shows, not a lobe filling on a body built for the
 purpose.
+
+## 11.17 THE DIASTOLE — two hearts on two cadences, one each
+
+**Built and taken out.** It shipped and the owner removed it on 25 September
+2026, with THE ORRERY and THE CANDLE in the same lane. Everything it was — the sim,
+the render, its sounds, its guide scene, its wave and the director's cards — was
+deleted whole rather than switched off; `git log -S diastoleClamp` finds it. What follows
+is the design and the record of what shipped, as they stood on the day it went.
+
+> The one where you are each counting a different number and neither of you can
+> see the other's.
+
+Designed as §7 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: the beat is the pair's shared ground and every mechanic in
+the game hangs off it, and this is the only way to make the beat *hard* without
+bending it. It is the safe half of what The Conductor (30) was deferred for
+(`decisions.md` #33) — the tempo is never asymmetric, only
+the count each seat is keeping is.
+
+**The shape.** A twin lobe hangs **above the top of the field**, one lane
+either side of the middle, with a bridge of vessels across the middle column.
+That geometry is the whole reason it needs no new creature and no new
+interaction with the fall loop: a shot reaches it only by leaving through the
+top of a column nothing was standing in, which is the hook THE VANE's bearing
+already hangs on (`sim/bullets.ts`, `sim/lance-burn.ts`). The left chamber is
+red and player 1's; the right is cyan and player 2's; each seat sees only its
+own chamber beating true and the other as a still grey mass.
+
+**The rule, in one sentence.** While the left beats alone, an ordinary shot of
+its colour standing in its column on one of its contractions takes it; from the
+moment the right wakes, **only the lance beam standing in the bridge column on
+a beat every standing chamber is contracting on lands**. That covers both the
+two-chamber coincidence and the one-chamber endgame, which is why it is one
+sentence rather than two.
+
+**Four phases in order and a fifth off to the side, and each one re-anchors
+both counts** to the beat it began on —
+that is the point of a phase here rather than a side effect of one, because
+each seat watches its own chamber contract and so watches its count move.
+`one`: the left beats every `diastoleLeftBeats` (3) and the right is still, so
+the pair learns that a count is a thing said out loud. `two`: the right wakes
+on `diastoleRightBeats` (5), and 3 against 5 coincides every fifteen beats and
+on no beat between. `alone`: the left has collapsed and the right goes to
+`diastoleRightAloneBeats` (7) — the count the pair spent half the fight
+learning is not the count that finishes it. `burst`: both are down,
+`diastoleBurstBeats` (4) of the bridge distending and splitting, and the boss
+is nulled at the end of it rather than at the last hit, so the picture gets the
+whole burst before the wave is allowed to close under it. Each chamber takes
+`diastoleChamberHits` (3). `spasm` is the fifth, entered only from `alone` and
+only by a wrong clamp, below; it appends to the phase list rather than sitting
+between `alone` and `burst` because the index is the wire value.
+
+**Alone, the beat has to be held, not only counted** (18 September 2026,
+sim/diastole-hand.ts, sim/diastole-open.ts). This is the one departure from
+the design page and it is argued by name. As designed, the endgame was the
+right chamber's own beat on a count of seven, and only the navigator could see
+it: the beat was found by one seat and hit by the other, blind, a single beat
+wide. That is a coincidence with nothing to coincide — the boss's own sentence
+run out of chambers — and at 96 BPM it is a coin toss with a conversation on
+top. So the pair holds it. The navigator sees the beat and says *now*; the
+pilot's thumb comes down on the grey chamber (`diastoleChamber`, the nineteenth
+`DragTarget`); a thumb that lands on the contraction or on the beat before it
+*catches* it and the chamber stays open for `diastoleClampBeats` (2 — a beat
+and the next, the width of a spoken *now*; three would reach the next
+contraction) from the beat caught. Under a clamp the beam in the bridge lands;
+with no clamp on it the alone chamber is open on no beat at all, however well
+the count was kept. A thumb on any other beat, or one held past its window, is
+a **spasm**: the chamber stops beating for `diastoleSpasmBeats` (8 — the alone
+cadence and a beat over, so a wrong clamp always costs more than waiting) and
+nothing lands in it, then it beats again from where it stopped. Lifting the
+thumb costs nothing; the beam that lands under a clamp lets it go. The thumb
+is player 1's because player 2 is the one who can see the beat and must say
+it — the split stays the encounter. Nothing here charges the hull, for the
+reason a slack chamber charges nothing: the cost of a wrong clamp is eight
+beats of a chamber that cannot be hurt, and that is cost enough.
+
+**A shot into a slack chamber costs nothing**, which is THE VANE's shut housing
+exactly: the window is visibly not open on the screen of the seat that owns it,
+and charging for a shot at something plainly not there would be charging for
+the pair's own eyes. A shot inside the window in the *wrong* colour is a colour
+miss and nothing else. A fill completed on a beat that is not the coincidence
+costs the pair the fill — `lancePrimeBeats` of a cannon held still — and that
+is cost enough without a charge on top.
+
+**It is fed by its wave, not by itself** (`bossFillsWave === false`, THE VANE's
+family), against the design page's own late phase where the boss spawned rocks.
+The arrivals are authored in `content/src/waves/act-7d.ts`, spread evenly and
+deliberately *not* laid against the chambers' counts: a wave whose rocks landed
+on the coincidences would be teaching the count twice, once honestly and once
+by accident.
+
+**It is the first thing in the game to open THE SLOW** — on the coincidence
+strike and on the burst, and nowhere else. A slow on every ordinary hit of the
+learning phase would be the brief's own refusal, *do not turn the entire game
+into permanent slow motion* ([decisions](../decisions.md) #33).
+
+**Drawn, and the picture has three states rather than two.** The two chambers
+hang above row 0, one lane either side of the middle, with the bundle bowing
+between them (render/src/diastole-draw.ts, `diastole-bridge.ts`). A chamber a
+seat owns *and* that is keeping a cadence pulses in that seat's colour; one a
+seat owns that has not woken wears the colour and stands perfectly still; one a
+seat does not own is grey. The third state was not designed — it came out of
+the first frame ever taken of this boss, where the navigator's screen through
+the whole of phase `one` was two identical grey masses and the seat that has to
+hold the other player's number could not tell which chamber would become its
+own. Ownership is not timing, so saying it gives away nothing.
+
+**The squeeze is size and brightness only.** A first version deepened the blob's
+lobes on the contraction and the contracting chamber read as a four-pointed
+star while the resting one read as a sac — one body doing something became two
+different bodies. The lobe count is the health and nothing else moves it.
+
+**The bundle never lights on the coincidence**, and that is a refusal rather
+than an omission: it would be the easiest glow in the game to write and it
+would hand the pair the one number they are supposed to arrive at by talking.
+The only thing that moves it is the burst.
+
+**The clamp's look is the ring, the held chamber and the shudder**
+(render/src/diastole-clamp.ts, `diastole-draw.ts`, 18 September 2026). The
+ring is a handle's — `handleRadius`, the rock grey with a white rim — on the
+right chamber, on player 1's screen alone, from the beat the left collapses:
+the pilot is the seat shown that chamber grey, so the ring is on the one screen
+that cannot see the beat, and it breathes off the wall clock, which is nobody's
+count. It says *this, and your thumb*, and the word over it is CLAMP
+(`boss-cue-read-u.ts`, below); the when is still the navigator's to say. Under the
+thumb it fills and a dial runs the two-beat window out. The chamber under it is
+**squeezed shut on every screen** while the clamp holds — the contraction,
+kept — with the handle's white as its inner rim on the screen that sees it grey
+and the cyan on the screens that own it, because a clamp is a fact both seats
+can see and no count is in it. The spasm has no ring and no word: the chamber
+shudders off the wall clock for its eight beats, dark, and the hull shudders
+once as it starts. The catch is six white sparks off the chamber, the miss ten
+grey ones (`effects-spark-handed.ts`). Every one of these is read off the boss
+each frame, so nothing outlives a frame and there is no `Effects` field to
+clear. A frame test sets each state on all three screens and proves the ring
+reaches only the pilot's and the squeeze reaches every one
+(render/test/diastole-clamp.test.ts).
+
+**What the field says** (render/src/boss-cue-read-u.ts, 18 September 2026,
+`docs/decisions.md` #34). Two words, one a seat, and in `alone` **they follow
+the thumb** — which is the half the first reading was missing: it wrote both of
+them for the whole of the phase, and for most of the phase neither was true.
+While the two chambers beat, `HOLD` / `BURN` stands on the bridge, hers, and
+nothing on his. Alone, with no thumb on the chamber, `HOLD` / `CLAMP` stands on
+the ring, his, and she is told **nothing at all**: the beam lands only under a
+clamp (`diastoleOpen`), so a word over the bridge before there is one is a word
+over a lance that is refusing. With the thumb down and the window open it
+swaps — `BURN` to her, nothing to him — because what the fight wants of his
+thumb then is *let go before the dial closes*, and a `HOLD` on the ring would be
+the field asking for the spasm; the ring's own dial is the whole of what is left
+to say. Once the window has lapsed under a thumb still held, both screens go
+quiet: he is late and the next thing the round does is the spasm. The spasm
+itself cues nothing, for the reason it has no ring.
+
+**Neither word is ever a count, and no page of the film comes down for them.**
+Where and what, never when — the when is the navigator's to say in both phases,
+and her own film page is `PLAYER 2 HOLDS RED · ON 15`, a colour and a number,
+which is exactly what a cue may not carry (`docs/spec/briefings.md`). THE
+DIASTOLE stays one of the films that read as unprunable, and the widened cue did
+not change that: a fight whose pages are all counts has nothing a verb can
+replace.
+
+**What it still does not draw**: the hull's own pulse. A light that beat in each
+seat's colour from inside the ship would be a change to something the game
+already draws every frame, so it is a VERSUS candidate rather than a lane
+(`docs/looks.md`, `hull-light.ts`).
+
+**Never watched at tempo.** Whether a pair can hold two counts at all at 96 BPM
+is a thing a person finds out with another person, and neither the tests nor
+the typecheck can say it. What the tests do say is the arithmetic: that three
+and five meet every fifteen beats and on no beat between, that a chamber can
+only be hurt while contracting, that nothing single lands once both are
+beating, and that the beam in the bridge takes both at once
+(sim/test/diastole.test.ts); and the clamp's rules one by one, through the
+beam's own beat, with a clamp sent the beat before
+(sim/test/diastole-clamp.test.ts). Whether *now* fits in two beats is the
+same kind of thing, and so is whether a ring that breathes on no count reads
+as a place to wait rather than a beat to follow.
+
+## 11.21 THE ORRERY — three orbits, and neither of you can see all three
+
+**Built and taken out.** It shipped and the owner removed it on 25 September
+2026, with THE DIASTOLE and THE CANDLE in the same lane. Everything it was — the sim,
+the render, its sounds, its guide scene, its wave and the director's cards — was
+deleted whole rather than switched off; `git log -S orreryRing` finds it. What follows
+is the design and the record of what shipped, as they stood on the day it went.
+
+*Built 17 September 2026 in five lanes — the rings, the hand, the picture, the
+handle and the three rigs that turn it with no finger, then a sixth on 19
+September that gave it a second verb. The design is [bosses-choreographed](bosses-choreographed.md) §2,
+and this section is the record of what shipped, including five places where it
+shipped differently from the design, each said here by name. **Never watched at
+tempo**, which is the last paragraph.*
+
+> The one where you each see two of the three rings.
+
+**The question.** *Whether you can agree on a beat you are each half-blind
+to.* The design page puts it next to THE QUEEN and that comparison is the
+whole boss: she asks **which column**, and this asks **which beat** — and
+makes the answer uncomputable from either seat alone.
+
+**The shape.** A core in the middle column with three concentric rings of
+orbiting organs around it, each ring with exactly one gap. A ring's organ
+count is also the beats it takes to come round, one organ a beat, so the count
+*is* the cadence: `orreryOuterOrgans` 8, `orreryMiddleOrgans` 6,
+`orreryInnerOrgans` 4. Nothing of it is a body — no creature, no row — so the
+fall loop, the hull and a hand find nothing of it, and the only thing that
+ever reaches it is a shot that left the top of a column (sim/orrery.ts,
+`sim/wave-boss-clocks.ts`).
+
+**The column is never in question, and that is the first departure.** The
+rings are concentric about the core, so a shot that passes all three gaps
+arrives at the middle of the field and nowhere else: `orreryCoreCol` is
+`midCol` and the cannon is parked in it for the whole fight. The design's beat
+list has player 2 *calling which column the gap will stand over* and player 1
+sliding the cannon there, which would have made a second QUEEN out of a boss
+the same page says is the opposite of one. What the pair cannot compute apart
+is the moment, and the moment is all this asks for.
+
+**A gap's place is a function of the beat.** Each ring carries where its gap
+stood on `anchorBeat`, as a slot of its own orbit, and slot 0 is the bottom of
+the ring — the one slot a shot can pass through (`orreryGapSlot`,
+`orreryRingOpen`). Nothing is stepped. That is THE THROAT's rule and this boss
+is the reason it was written down in general terms: `orreryNextOpen` answers a
+question about a beat that has not happened yet, which is the only number
+player 2's readout will ever want, and a stepper cannot answer it.
+
+**The three orbits are not coprime, and the design says they should be — the
+second departure.** Coprime is the right tool for *two* cadences that must
+meet rarely, which is THE DIASTOLE's 3 against 5 meeting every 15 beats and on
+no beat between. For *three* it maximises exactly the number this fight cannot
+afford: 8, 6 and 5 as the page asks come together every **120** beats, which is
+a wave and a half of waiting for one shot. 8, 6 and 4 come together every 24.
+What a shared factor actually costs is that two rings meet oftener than three
+do, and that is not a leak — a seat watching two gaps cross knows nothing
+whatever about the third, which is the only secret this boss keeps.
+
+**Every ring is anchored off one number**, `orreryFirstBeats` 12, so that all
+three gaps first stand at the bottom of their orbits twelve beats after the
+wave puts the boss up (`orreryAnchors`). Three residues picked apart need not
+ever come together, and with orbits that share factors they usually do not: a
+boss that could install itself unbeatable is not a boss.
+
+**Per-seat truth is the fight.** The outer ring is drawn true on both screens,
+the middle on player 1's alone and the inner on player 2's alone; on the other
+screen each is an unbroken grey arc with no gap in it at all. So the arithmetic
+has to be done out loud, in halves, by two people who can each check exactly
+one third of the other's work. That is the design's `PerSeatTruth`, and it is
+the one part of this boss that is entirely the picture's: the simulation knows
+where every gap is and says so to anybody who asks, exactly as it does for
+THE QUEEN's two marks. The split is `showsOrreryRing` in
+`render/view-role.ts`, and it is **the sharper of the game's two symmetric
+splits**: THE DIASTOLE keeps each seat from one of two chambers, and this keeps
+each seat from one of three rings *and gives them a third they share*. The
+outer ring is true on both screens on purpose — a pair with nothing in common
+have nothing to calibrate against, and the ring they can both count is what
+makes the other two worth saying out loud.
+
+**Health is the rings, outermost first.** A landed shot reaches the outermost
+ring still standing, so the arithmetic gets *easier* as the
+fight goes on — three gaps, then two, then one — while the blindness gets
+worse: the last gap left is the inner one, which player 1 cannot see at all,
+and he fires on her word alone. Three things have to be true for a shot to
+land and each belongs to a different half of the pair: the column is the
+core's, the beat is one every unbroken ring is open on, and the colour is the
+one the core is showing, which **changes every time a ring comes off** so that
+a pair who learned it once has to read it again. A shot on a closed shaft
+costs nothing and is not even a reject — it is armour both screens were
+drawing. A shot in the wrong colour is a colour miss and nothing else
+(sim/orrery-shot.ts).
+
+**A shot cracks a ring; the thumb takes it off** (`orreryCrack`,
+`orrery-hand.ts`, 19 September 2026). As first shipped, a landed shot *was* a
+ring — the pair agreed on a beat, he fired, and a third of the boss fell off
+with nothing further asked of either of them. What that left was a fight whose
+whole second control was optional: the hand could bring an alignment forward
+and a pair who never touched it lost nothing but time, which is why
+`boss-cue-read-l.ts` could find no honest moment to ask for it. So a shot now
+knocks the ring's gap `orreryCrackOrgans` 2 short of the bottom and **jams it
+there** — the ring stops drifting, the shaft is shut, and the only thing that
+opens it is the pilot winding the gap home one organ at a time. The detent
+that lands it on slot 0 is `orreryBreak`, and the ring comes away there.
+
+**Two organs, and the number is the whole of the decision.** One would be a
+formality and four is a minute of thumb at a turn and a half each; two is two
+beats of a hand that is also holding a cannon in a column rocks are coming
+down, which is the cost this fight already charges for everything else. And
+the gesture arrives on an empty field the first time: the core is silent until
+a ring is actually *off* (`spit` reads `broken`, not the phase), so the pair
+meets the winding on the first crack with nothing falling, and winds the other
+two with rocks in the air.
+
+**`seized` is a phase rather than a flag**, fourth of five
+(`ORRERY_PHASES`) and carrying no new field of its own — the jam is
+`from[ring]` and `phase`, both already in the fingerprint, so `hashWorld` and
+the wire are untouched and `orreryRing` was already a `DragTarget`. While a
+ring is seized its gap *is* its anchor: `orreryGapSlot` returns the anchor
+unstepped, which is how a ring that is still described by arithmetic over a
+beat can also be standing still.
+
+**And it is the one moment this boss can ask for a word.** THE CUE could say
+nothing here while the rings turned, because when a turn is worth making is a
+function of where the gaps are and a `TURN` lit then would be the alignment
+said out loud (#34's third rule). A cracked ring is the opposite: one thing to
+do, no beat to keep, and the answer is not in the word. `OPEN` stands on the
+grip, on the pilot's seat alone, ahead of the column
+(render/boss-cue-read-l.ts).
+
+**There is a second such moment, and the hand makes it.** The orbits share
+factors on purpose, so an alignment exists only where the three anchors agree
+modulo what they share — and a thumb writes an anchor. One stray organ can
+therefore leave the rings in an arrangement that never lines up again: six of
+the outer ring's eight positions are one, measured. Nothing is broken by it —
+a shot on a shut shaft costs nothing and the rings go on turning — but the
+pair is then counting towards a beat that is not coming, and it is the one
+failure in this fight that patience makes worse. `orreryAdrift` asks
+`orreryNextOpen` over exactly one full cycle, the least common multiple of the
+standing rings' orbits (`orreryCycle`, 24 beats at the top of the fight):
+inside that horizon *not yet* and *never* are the same answer, which is what
+turns a search that ran out into a fact about the fight. The field then says
+`TURN`, on the grip and ahead of the column, and it is honest in both
+directions — turning the ring under the hand always reaches a parity that
+aligns, because that ring runs through every residue of its own orbit while
+the ones behind it hold still.
+
+**It fills its own wave, which is the third departure — and the page asks for
+this one to be said out loud with its reason.** THE DIASTOLE's lane wrote down
+that a boss on that page is fed by its wave and not by itself. This is the
+exception it allowed for: a ring that comes off sheds `orreryDebris` 3 of its
+organs as ordinary meteors, and from the first break the core spits one of its
+own every `orrerySpitBeats` 4 beats. Neither the beat a ring breaks on nor the
+column its organs come off in is writable by an author, because both are
+decided by *when the pair managed to agree* — which is the whole of what this
+fight is about. Three organs rather than the ring's whole eight is the fourth
+departure and the smallest: eight rocks arriving on one beat is a wave, and
+this is meant to be a consequence.
+
+**They come off one a beat, and the core is quiet while they do** — found by
+the rehearsal lane on 18 September 2026, the first time the fight was run
+through. As landed, the three let go on the beat the ring broke, fell at one
+rate and reached the plating on one beat in three columns; the shield wards
+one column, and every hull damage fails the wave (12 September 2026), so the
+first ring off was the wave lost, with the shield in the right place. The
+first organ now falls on the break itself and the next two on the beats
+after it, so they land a beat apart in their three columns — which is what
+*three is the number the shield can just about answer* was meant to say. And
+a break counts as the core's own throw for the spit clock: the rock it spat
+on the beat after a break landed under the second organ, one rock more than
+the pair has an answer for (sim/orrery-step.ts, `orreryBreak`).
+
+**The core never spits down its own column**, and the rule pays for itself
+twice. A meteor cannot be shot, so a rock spat down the shaft would stand in
+the only column the pair is allowed to fire up, for the fifteen beats it takes
+to fall, with nothing either of them able to do about it. And a core aiming at
+the seat directly beneath it is a boss that does not have to be read. It is
+silent on a beat the shaft is open for the same reason said about the moment
+rather than the place: **the beat the pair can reach the core is the one beat
+the core does not reach them** (sim/orrery-step.ts).
+
+**Which column a rock does come down** is the column the innermost ring still
+standing is pointing at (`orreryGapCol`), and that number is a triangle rather
+than a circle's own cosine. A gap that crossed the field fast in the middle and
+hung at the walls — which is what an orbit at a constant angular rate looks
+like from below — cannot be counted in beats by somebody who is also talking.
+A gap that moves an even share of its reach per organ can: *three out, coming
+back*. The organs are drawn on the circle where they belong; it is the gap the
+pair reads, and it reads evenly.
+
+**And player 1 can turn a ring by hand** (sim/orrery-hand.ts). A drag on
+the ring reports a **bearing** — where the thumb is round the circle, in
+thousandths of a turn — exactly as THE CLAW's crank does, and this is the one
+thing in the fight that can move a gap off a beat the pair has already agreed
+on. It is the design's step 10, and the page is right about what it is for:
+the alignment can be *brought forward* rather than waited for, so an
+arithmetic problem becomes a physical one. On a ring that is turning it stays
+exactly that — offered, never asked for — and on a cracked one it is the only
+way forward.
+
+**It writes the anchor, not a position**, which is the only way it could exist
+at all on this boss. The hand adds whole organs to `from[ring]` and the ring
+goes on turning at its own cadence around the new anchor, so every gap is
+still a function of the beat and `orreryNextOpen` is still answerable. A hand
+that stepped a stored slot would have made player 2's readout a lie the moment
+it was asked.
+
+**The ring turns in whole organs, and the gearing is the difficulty.**
+`orreryHandMilliPerOrgan` 1500 is the thumb travel one detent costs — a turn
+and a half — and the remainder is banked against the next one rather than
+lost. Read against the ring's own drift of one organ a beat, that number says
+the whole control: **holding** a gap still would cost a turn and a half every
+beat, 2.4 turns a second at 96 BPM, which no thumb has; **bringing** an
+alignment one organ forward costs a turn and a half whenever the pilot can
+spare the hand. So the hand bends the arithmetic and cannot break it, and what
+it actually costs is his attention — the ring is on the field and the cannon
+is on the panel, and he cannot be on both. A bank wound against a ring dies
+with that ring.
+
+**The hand moves inward as the rings come off, which is the fifth departure.**
+The design gives the pilot the outer ring and stops, which would make him a
+spectator for two thirds of a fight whose health *is* the rings. So the hand
+is always on the outermost one still standing (`orreryHandRing`), and the
+fight gets better rather than thinner: once the outer ring is gone he is
+turning the middle one, true on his screen and a blank grey arc on hers — and
+at the end he is turning the inner one, which he cannot see at all, on her
+word alone. That is this boss's own sentence played on a control instead of a
+readout. It is also why the drag carries no `id`: **the hand never names the
+ring**, because a hand that could would be able to name one it cannot see.
+
+**And the ring has no flywheel**, against the design's animation note, which
+asks for it to keep a little of the thumb's motion after the lift. A gap
+moving with nobody's hand on it is exactly what this boss's central rule
+forbids, and for the reason the rule exists — one seat's readout is about a
+beat that has not happened. The overshoot the design wants is still there and
+it is the thumb's: at a turn and a half an organ, a hand that keeps going past
+the socket it wanted has bought the next one.
+
+**A bearing is its own vocabulary now** (`sim/bearing.ts`). `TURN`,
+`NO_BEARING` and `MAX_BEARING_STEP` were THE CLAW's, in `sim/crank.ts`, and a
+second mechanism turning made them shared — a boss reaching into a control's
+file for a unit, and worse, a real import cycle that left `TURN` undefined
+while THE ORRERY's module body read it. The old names `NO_CRANK` and
+`CRANK_TURN` are gone; neither was ever on the wire.
+
+**THE SLOW, in one place, and it is the whole design.** `orrerySlowBeats` 2
+opens on the beat before an alignment and runs through it, so a window one beat
+wide is about three seconds of real time for a pair to say *now* across a voice
+delay. This is the concept THE SLOW was ruled in for
+(`docs/decisions.md` #33): three rings on integer cadences are the entire
+boss, and stretching the *rings* would break the arithmetic the pair has been
+doing, where stretching the second breaks nothing.
+
+**The finish is the lance and nothing else.** With every ring gone the core is
+naked and an ordinary bolt is spent on it: she holds a colour for
+`lancePrimeBeats` while he keeps the cannon still in a column the core is
+spitting rocks down, and neither half of that is worth anything without the
+other. The beam standing in the column takes it, and it goes out over
+`orreryOutBeats` 5, slowed for the whole of it, because that is the picture
+this fight was for.
+
+**The fingerprint is anchors rather than positions** (sim/orrery-hash.ts).
+Nothing about a ring is stepped, so there is no position to compare: two
+devices agree about where every gap is exactly when they agree about `from` and
+`anchorBeat`, and one beat out is a pair firing into armour on one screen and
+into the core on the other.
+
+**The orbits are flattened, and that is the whole of the composition**
+(render/orrery-shape.ts). `orreryReach` already says a ring spans most of
+the field's width, and the space above row 0 is a tile deep, so a circle of
+that width could not be drawn at all — and a circle squeezed into that height
+would put a ring's near side and its far side within a few pixels of each
+other, when the near side is the only one a shot can reach. At
+`ORRERY_FLATTEN` 0.3 the outer ring's bottom and top are three rows apart,
+which is what makes *three out, coming back* a thing an eye can follow. Slot 0
+is drawn at the bottom over the core's own column, which is the sim's
+convention read straight off, and the picture goes through `fieldX` — so a
+turned seat sees the whole orrery mirrored, and the pilot's *three out to the
+right* is the navigator's three out to the left.
+
+**A ring arrives in a rhythm rather than at a speed.** An organ leaves its
+socket and is at the next one in a little under half a beat, then sits
+(`STEP_PHASE`, eased through `render/ease.ts`). A ring gliding evenly would
+give the pair three speeds to compare and nobody can compare three speeds
+while talking; three rings that snap and wait give them three *rhythms*, and
+the difference between eight beats round and six is then something you can
+hear in your own counting. **The strain on the ring the pilot is turning is
+never drawn as rotation**, for the boss's own reason: what he buys is a
+detent, and a ring shown creeping under his thumb would be a gap moving
+between two slots it can never be in.
+
+**A broken ring is not erased** (render/orrery-draw.ts). Its orbit stays as
+a dashed grey line with its organs gone: the pair have been counting against
+it for a minute, and a fight that deleted the thing they were counting would
+take the count with it. The near organs are drawn after the core and the far
+ones before it, so the ring passes in front of the core and behind it, and the
+near arc is brighter — position says which side a gap is on, and brightness
+says it a second time. Violet is *a ring this screen can count* and rock grey
+is *a ring you have to be told about*, which is the per-seat split made a
+colour.
+
+**The shaft is a corridor of light down the core's column**
+(render/orrery-shaft.ts), dim and one column wide, on the beats a shot could
+reach the core and on no others. The design credits `light-shafts.ts` and that
+is the wrong tool twice over: it hashes over wall-clock time where this is a
+fact about a beat, and it is bright where this has to be readable without
+being mistaken for the lance. It is the one mark in the fight that says *now*
+to both seats at once, and it says nothing about the two rings a seat cannot
+see.
+
+**And a real thumb can turn it** (render/orrery-grab.ts). The ring is
+answered where it is drawn, which is this game's standing rule and is at its
+sharpest here: the control is not a circle on a body like every other handle
+(`handles.ts`) but **an ellipse the width of the field**, so the hit test and
+the mark that says it turns live in one file, and a hand takes hold anywhere on
+the line — the ring turns as a whole, and nothing on it is more of a handle
+than the rest.
+
+**The ellipse is unsquashed before the angle is read**, and that is the one
+piece of arithmetic the control could not do without. The rings are drawn
+flattened, so a finger tracing the line an eye follows would race through
+quadrants across the top and crawl up the sides if its bearing came off the
+pixels. Divide the vertical offset by the flattening first and what comes out
+is the **slot** under the finger — the same parameter an organ is drawn at — so
+a thumb that tracks an organ round the ring turns the ring at exactly the rate
+the picture says it is going. One turn of the thumb is one lap of whichever
+ring it is on, so `orreryHandMilliPerOrgan` gets *lighter* as the rings come
+off and the pair's information gets worse.
+
+**The fold reaches the finger here, and nowhere else in the game.** A strip is
+answered by column and never mirrored, because a seat whose finger turns with
+its eye is a seat for which nothing has happened (`render/field-flip.ts`). But
+this hand is following a *body* rather than pointing at a column, so on a
+turned screen the bearing is mirrored with the organs and a thumb chasing one
+chases the one it can see. What goes on the wire is still the ring's own slot,
+identical on both devices.
+
+**The knurl is the only feedback it has**: ticks across the ring the hand
+answers, drawn on the pilot's screen alone and lit while a hand is on it —
+`PALETTE.hullRim` at rest and `PALETTE.pod` held, which is THE MAZE's string's
+own arrangement. The control is silent until a whole organ has been paid for,
+so without the knurl a pilot turning short of a detent would have no way to
+know his thumb was being heard. It is drawn on a ring he cannot read once the
+outer two are gone, and that is the point rather than an oversight: a picture
+that put the grip only where he could see what he was doing would have quietly
+taken the last third of this boss away (`showsOrreryGrip`).
+
+**And the three hands that are not hands are in**, which is what makes the
+control reachable by anything but a phone: the desk keyboard, `bun run
+frames`'s `--press` spelling, and a rehearsal's ghost thumb. All three turn at
+`orreryTurnPerTickMilli`, which is **one organ a beat** — the ring's own
+drift — and is derived from the gearing and the tempo rather than chosen, so a
+change to either reaches all three in the same edit
+(`sim/test/copies-table.ts` carries the row). That rate is the honest
+stand-in for the same reason the crank's is, and it says something the fight is
+about for free: the same key held on the *middle* ring, which runs the other
+way, holds a gap still.
+
+At a desk the ring is **O**, with shift for the other way round. A letter of
+its own, which almost nothing in this game gets — the rule is that a panel
+borrows the keys that are already there — and THE CHOIR's shake on K is the
+precedent: the ring is not a button on any panel, so `deskKeys` has no slot to
+put it in, and it is a gesture a desk cannot make at all. On a field with no
+orrery the simulation does nothing with the `drag` it sends, so there is
+nothing to gate (`apps/game/src/keys-turn.ts`, which is the crank's old file
+under a name that fits two).
+
+`--press 200:1:orreryRing=3` turns it three organs from tick 200, negative for
+the other way. **Organs rather than turns**, which is the one place this parts
+from the crank's spelling: a turn of the drum is the thing a player of THE CLAW
+feels, and an organ is the thing this pair *counts*. A film authors it as the
+handle it is — `{ tick, drag: "orreryRing", until }`, with `dir` for which way
+round and never a distance — and the ghost hand is placed from the bearing the
+simulation recorded, so a thumb in a rehearsal stands where the ring says the
+hand is (`content/src/scene-turn.ts`, render/orrery-grab.ts).
+
+That last one was the piece with a defect rather than a gap. `scene-drag.ts`'s
+`pullsDown` answered **true** for `orreryRing` for a day, so a film that had
+authored one would have sent a stream of downward pixels at a control reading
+thousandths of a turn — nothing would have thrown, and the ring would have
+turned by whatever those numbers happened to mean. It is the fourth exception
+in that predicate and the reason the predicate is now asked as a question
+(`turnsRound`) rather than compared at the call site.
+
+**It is heard off its state, not off events, and it is the first boss of
+this page that is.** The simulation shipped without an event of its own, on
+`events-undertow.ts`' rule — an event is for an edge that is *not* in the
+world a frame later, and every edge here is: `brokeBeat`, `spatBeat`,
+`phase`. So the mixer reads them the way it reads the queen's armour and THE
+MIRROR's count-in, frame against remembered frame (`audio/mixer-boss.ts`,
+`soundOrrery`): a ring off, pitched up a step for every ring gone so the count
+can be kept by ear; the core spitting, on the core's column; the core going
+out, unpanned, over the five beats the picture takes. **The shaft opening is
+not one of them**, and must never be — that beat is the fight, and the ear is
+told it no more than either screen is. An `OrreryEvent` arm would have been
+three events restating three fields; the file the mixer already had for a
+boss's clock was the honest place (`docs/spec/audio.md` §6).
+
+**Never watched at tempo.** What the tests say is the mechanism: the three
+orbits come round on their own counts, the anchors put the first alignment
+where the configuration says, the shaft is open only when every unbroken ring
+is, a shot on the beat takes the outermost ring and changes the colour, one
+off the beat costs nothing, the wrong colour is a colour miss, the organs come
+off, the core spits and never down its own column, the naked core refuses a
+bolt and takes the beam, and the same run fingerprints the same way twice
+(sim/test/orrery.test.ts) — and, for the crack, that a shot on the beat
+jams the ring instead of taking it, that a jammed gap does not drift with the
+beat, that the shaft is shut and a second shot up it costs nothing, that the
+colour does not turn until the ring actually comes away, that two organs of
+thumb take it and one does not, that the core stays quiet through the first
+crack and spits through the next two, and that the hand cannot wind a ring off
+twice on one beat (sim/test/orrery-seize.test.ts) — and, for the hand, that the first sample after a
+grab is a reference and turns nothing, that a thumb past the top is read the
+short way round, that a turn shorter than a detent is banked and finished
+later, that the bank survives a lift and moves nothing on its own, that
+turning back gives up exactly what turning in bought, that it is player 1's
+alone, that a turned ring still comes round on its own count, and that four
+organs of the outer ring turn a twelve-beat wait into this beat
+(sim/test/orrery-hand.test.ts). The picture is tested where it has a right
+answer rather than a nice one: that slot 0 is drawn at the bottom over the
+core's column and the slot opposite it at the top, that the three rings nest
+and every one is flattened the same way, that a quarter turn out mirrors for
+the turned seat, that a ring only ever crosses one organ over a beat and never
+past the one it is arriving at (render/test/orrery-shape.test.ts), and that
+every phase draws on every screen, the flare and the shaft each cost something
+on the beat they are open and nothing on the beat after, and **a state with
+only the inner ring standing puts violet on the navigator's screen and none
+anywhere on the pilot's** (render/test/orrery-frame.test.ts) — and that
+`OPEN` names the cracked ring on the pilot's seat alone, stands on the ring
+rather than the hull line, and comes ahead of the column
+(render/test/boss-cue-orrery.test.ts). The STATES sheet carries a card for
+it like any other phase — *a ring is cracked and stuck*, the pilot turns and
+the navigator waits — and the gallery's own hand had to learn the second
+gesture to draw the three cards behind it at all: a rig that could fire but
+not wind left the boss standing in `seized` until its budget ran out
+(`tools/director/src/boss-hands-shots.ts`). **No eye has
+seen it and no pair has fought it**: whether three flattened arcs of organs
+read as three cadences at 26 pixels, and whether a turn and a half an organ is
+heavy enough to be a decision and light enough to be worth making with a rock
+coming down the same column every four beats, are things a person sees at
+tempo. The handle is tested where it can be: the ring answers a press on its
+line and nothing in the open space behind it, the grab carries no bearing, the
+seat is the pilot's, the hand moves inward with the breaks, each quarter of the
+way round reports a quarter of a turn, a turned screen mirrors it, a finger
+wandered in to the core has no bearing at all — and, end to end through `step`,
+a turn and a half of the thumb moves the gap exactly one organ
+(render/test/orrery-touch.test.ts). The three rigs are held where each of
+them can be: the desk key opens with a bare grab and then one bearing a tick,
+turns the other way with a shift, sends nothing before it is pressed and
+nothing after it is let go, and a beat of it is exactly one organ
+(`apps/game/test/keys-turn.test.ts`); the press line carries a whole organ's
+travel per organ asked for and never a bearing outside one turn
+(tools/frames/test/ring.test.ts); and a film's hand, run against a real
+orrery, moves the anchor by whole organs, exactly as far the other way when
+`dir` says so, lets go before the loop ends and **never sends a
+y-displacement** (`content/test/scene-drag.test.ts`). The ghost thumb stands at
+the bottom of the ring before anything has hold of it, rides the recorded
+bearing round, moves inward with the breaks and is gone with the last of them
+(render/test/orrery-touch.test.ts).
+
+**The rehearsal** (packages/content/src/scenes/the-orrery.ts,
+18 September 2026) is the arithmetic played once: the cannon put in the middle
+column on beat 9 and never moved; cyan fired on beat 11 to be judged on the
+first alignment, 12; red on 23 for 24, the beat six and four next meet with
+the outer ring gone; cyan on 27 for 28, the inner ring alone; red held from
+29 and the beam standing on 32, out over the five after. Every one of the ten
+rocks — eight shed, two spat on beats 19 and 23 — is warded by an
+`atBody` shield the beat before it lands with a guard after it, because the
+seed decides their columns and none is one an authored strip reaches.
+
+The crack (19 September 2026) made it a film about a hand as well. Each of
+those three shots now only jams a ring, so each is followed by a wind — two
+organs of thumb, and the ring comes off two beats after the shot rather than
+on it: beats 14, 26 and 30. **The last of the three is wound in two pieces**,
+because a rock lands in the middle of it and the hand that winds is the hand
+that wards; the bank survives the lift (`windMilli`), so the second piece pays
+for the organ the first did not, and a pair watching it is shown the
+interruption rather than a clean turn they will never get. Fourteen pages,
+six the navigator's, and one of them — `IT CRACKS · TURN IT OPEN`, on the
+ring — is the second verb taught where it happens. Two others were rewritten
+on 19 September 2026, when the field learnt to say the column: `NAKED · HOLD RED · THE BEAM` lost the verb and became `NAKED · A BOLT
+IS SPENT`, and `HOLD THE MIDDLE · IT STANDS` became `THE BEAM USES YOUR
+COLUMN` — the reason each seat must stand where it does, which is the thing a
+word on the glass cannot say ([briefings](briefings.md) §7).
+
+**What the field says** (render/src/boss-cue-read-l.ts, 19 September 2026,
+[decisions](../decisions.md) #34). It shipped on 18 September with one word —
+`HOLD` / `BURN` on the naked core — and that word was right and was not the
+fight. **The silence that mattered was the column.** A bolt and the beam both
+leave the cannon's own column (`fire.ts`), the core hangs over exactly one for
+the whole fight (`orreryCoreCol`, which is `midCol`), and `spitting` spends
+itself throwing rocks down every column but that one to drive the pilot off it
+(`orrery-step.ts`) — and nothing on his band said so. `CARRY` / `MOVE` stands
+on his carriage whenever it is off the core's column, in every phase the fight
+has one, and it retires guide step p1-1 — as `BURN` retires the navigator's
+step naming the beam.
+
+**The beam is behind it**, which is THE THROAT's and THE UNDERTOW's pairing a
+third time: the colour buttons are hers and they fire straight up *his* column,
+so while his carriage is off it she is told nothing at all rather than told to
+`BURN` up an empty lane. Once he is parked, `HOLD` / `BURN` on the core in
+`naked` — and quiet while `priming`, for `gripBrakes`' reason. Nothing at all
+once the core is out.
+
+**And the three silences are the boss.** Not the open beat:
+`orreryShaftOpen`, `orreryNextOpen` and `orreryGapSlot` are deliberately not
+read in that file, because a word appearing on the beat every gap meets would
+*be* this fight. Not the colour: `b.color` is not read either. Not the shed and
+spat rocks: `spit` and `organCol` both refuse the core's column, so every one
+of them is an ordinary body answered by the ordinary shield loop, and a word
+pointing at one would be the field arguing against its own `MOVE`. The pilot's
+hand on a ring has no word yet and that is a decision with an argument behind
+it, written out in the file: the hand is *offered* rather than asked for — a
+`TURN` that lit when a turn would help would say the alignment out loud, and
+one that stood whenever a ring was turnable would stand for the whole fight.
+Proved on both screens, with the silences: render/test/boss-cue-orrery.test.ts.
+
+## 11.22 THE CANDLE — the boss fought in the dark
+
+**Built and taken out.** It shipped and the owner removed it on 25 September
+2026, with THE DIASTOLE and THE ORRERY in the same lane. Everything it was — the sim,
+the render, its sounds, its guide scene, its wave and the director's cards — was
+deleted whole rather than switched off; `git log -S candleWick` finds it. What follows
+is the design and the record of what shipped, as they stood on the day it went.
+
+> The one you fight in the dark, where the only light is what your own shots
+> throw and the boss eats the ones it is facing.
+
+Designed as §14 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: every other fight is lit, and this is the one where the
+pair's own instruments are the light — a muzzle flash, a plate flashing, the
+beam — each drawn on the seat that made it, so the two phones light two
+different columns and the field is only whole in the talking.
+
+**The simulation does not know the field is dark.** That is the whole of the
+split: darkness, the after-image, the per-seat light are the look's
+(render/candle-dark.ts, below). What
+`packages/sim` holds is a **glow**: `candleGlowSteps` (5) of health, a column
+it stands in, a column it faces, a phase — `dark`, `full`, `eating`, `last`,
+`smoking`, `out` — and how far down the wick the pilot's thumb has come,
+`pinchMilli` (sim/candle.ts, hashed in sim/candle-hash.ts). It is a
+fixture, not a body (`bossFillsWave === false`), and the arrivals around it
+are the wave's own (`content/src/waves/act-7e.ts`, "THE CANDLE").
+
+**The rule, in one sentence.** Any colour up its own column dims it a step —
+a bullet reaching the top of the field (`bullets.ts`) or the beam burning the
+column (`lance-burn.ts`), both through `candleStruck`, which counts as a
+colour met (`metColor`) so the balance cannot tell it from a kill — and five
+steps put it out. It arrives dark for `candleDarkBeats` (4), unstrikable and
+still; then drifts one column every `candleMoveBeats` (3), reversing at the
+edges, and turns to face a column every `candleTurnBeats` (4), which is the
+one thing player 1 sees and player 2 does not. At `candleEatSteps` (2) left
+it **eats**: a shot fired from the column it faces never becomes a bullet —
+`candleEats`, asked from `launch` before the bullet is laid — and the glow
+comes back a step (`candleFed`), never past full. At `candleLastSteps` (1)
+it stops moving, turning and eating (`candleLast`) — and the trigger stops
+counting with them: from `last` on, `candleStruck` takes nothing at all, and
+what finishes the fight is two gestures neither seat has made yet.
+
+**The last step is two gestures, one of them on the picture** (19 September
+2026, `docs/queue.md`). The brief this boss was built to asks a boss to change
+state more than once and to want more than one gesture, and THE CANDLE
+answered the whole fight on the ordinary panel. So the last step is split in
+two.
+
+- **`last` — the pilot's thumb, and it is on the glow itself.** No shot
+  counts, so nobody is sent anywhere and the column stops mattering: player 1
+  takes hold of the flame and pulls it `candlePinchMilli` (3000) down off the
+  wick (`candleWick`, sim/candle-hand.ts). It is read as depth from the grab
+  the way THE STARE's lid is, clamped to the bottom, and a thumb lifted short
+  springs the flame back to the top — `pinchMilli` is zeroed, and the pull has
+  to be made again. Reaching the bottom pushes `candleSmoke` and enters
+  `smoking`. It is the one handle in the game a seat takes hold of in the
+  dark, and the one word in this fight that is not behind the cannon:
+  `PULL`, on the glow, player 1's (render/boss-cue-read-m.ts).
+- **`smoking` — the navigator's beam, on a count.** The flame is off the wick
+  and a bolt still does nothing; only the beam reaches what is left. Player 2
+  has `candleSmokeBeats` (12) from the pull to stand the beam in the glow's
+  column — `lancePrimeBeats` (3) of that is the fill, which is the pair's
+  whole margin. That puts it out (`candleOut`). Late, the wick catches again
+  (`candleLit`): the glow comes back to `candleEatSteps` — a step brighter
+  than the pair left it — and the boss is *eating* again, drifting and
+  swallowing flashes, with the pull to make a second time. Her word turns from
+  `FIRE` to `BURN` for as long as it smokes.
+
+**Doubled on the owner's rule, 24 September 2026**
+(`docs/spec/choreographed-windows.md`): the smoke twelve beats and the pull
+three tiles — and **THE SLOW moved to the ask**, which is the smoke: opened by
+the pull for exactly `candleSmokeBeats` and shut the tick the beam puts the
+wick out or the wick lights again (sim/candle-hand.ts, sim/candle-step.ts).
+A flash while it smokes leaves that window alone rather than cutting it to a
+beat. Proved in sim/test/candle-doubled.test.ts.
+
+Out either way, the boss stays installed `candleOutBeats` (2) more so the
+wave cannot end on the beat the light does, which is the design's *two black
+beats*.
+
+**Health is the glow, and nothing else is.** There is no hull damage in it
+and no scar: a candle that eats a shot is a candle that lasts longer, and the
+pair's whole cost is beats.
+
+**The dark is a mask, not a frame buffer.** render/candle-dark.ts is one
+pass between the bodies and the ship (`canvas2d.ts`): the field is drawn as it
+always is, then black is laid over it from the top of the field to the hull,
+coming down over `candleDarkBeats` from the beat the boss arrives, with holes
+where a light stands. The design's after-image — *the frame the flash lit
+stays, dimming* — is **not** a kept picture of the field: there is no offscreen
+field to keep, the test canvas has no pixels, and bodies go on falling under
+a still picture, which would put a rock two rows from where the pair would
+shoot it. It is a **per-column light** (render/after-image.ts): which
+columns were lit, by what, and how long ago; a lit column is the field as it
+is, dim, through a wash of the colour that lit it, and the fade shortens with
+the glow (`AFTER_BEATS` at full, half that at the last step — the design's
+step 8). Three lights, each on the seat whose control made it
+(`view-role.ts`): a shot's flash three columns wide for a beat on player 2's
+screen; the guard window on the plate's column for as long as it is armed,
+and the beam on its own for as long as it stands, on player 1's — both read
+off the world every frame rather than ingested, so they hold exactly as long
+as the sim says. A breach lights its own neighbourhood two columns either way
+for two beats on both screens (*a scar is a light source*). The glow is two
+halos and a flame in ember and amber over the boss's column, at one of five
+integer reaches (render/candle-glow.ts); the flame is a candle's, a drop
+on its round end with its tip wandering, amber reddening to ember at the tip
+and edge, the hot white low over a charred stub of wick, and it shrinks with
+the glow (render/candle-flame.ts). A dim cone runs from the flame to
+the top of the column it faces on player 1's screen only, and only while it
+moves. Once `out`, the frame is black and nothing else for the two beats the
+boss stays installed; when the sim takes it away the black lifts over one
+beat — the design's wave-end light coming up on a field the pair never saw.
+Proved on both screens in render/test/candle-frame.test.ts.
+
+**The last step's own picture** (render/candle-grip.ts, 19 September 2026).
+The boss is a point of light and nothing else, so there was nothing on the
+screen to take hold of: the pull shipped heard by the simulation and drawn
+nowhere, which is the half of a lane the split names. The look gives the glow
+the one part a candle has besides its flame — a wick hanging from the shelf
+the light hangs on, straight down the column it is over, exactly
+`candlePinchMilli` long in pixels so the travel is **one-to-one with the
+thumb** and the flame comes off under his finger. THE STARE's lid remaps its
+pull onto the eye's own height because a lid the simulation calls shut has to
+*look* shut; nothing here has to look like anything. The flame rides the stem
+— `candleFlameY` in `candle-glow.ts`, and the halos go down with it, because
+a light that stayed put while its flame came away would be two things — and
+the ring round it is drawn **on both screens**, THE MAZE's, THE WARDEN's and
+THE LID's arrangement rather than THE STARE's: the gauge closing into a whole
+circle is the navigator's cue, since the instant it closes is the instant her
+beam starts being worth something. Whose thumb it is is said once, by `PULL`
+on the glow, and no hint is drawn under the ring. At `smoking` there is no
+flame drawn at all: an ember at the stem's tip and a plume of six fading
+segments wandering off it, and **the ember is the clock** — it swells through
+four fixed reaches and flickers from three to eleven a second as the wick
+comes back towards a flame, which is the whole of `candleSmokeBeats` spent on
+the one thing left in a black frame. The reaches are quantised because
+`haloSprite` bakes a canvas per colour *and* radius, so a reach that swelled
+smoothly would bake one a frame. Proved in `candle-frame.test.ts`: the travel
+as arithmetic off `candlePinchMilli`, the stem and its ring on all three
+screens at the last step, and an ember with no flame at `smoking`.
+
+**Corner light first** (the design's step 1, landed 17 September 2026): the
+black does not fall evenly. It is a front (`candleDarkAt`, `candle-dark.ts`)
+that starts at the side the sky's one corner light stands on — bottom right,
+`corner-light.ts` — and rolls across the field column by column over the
+same four beats, each column taking half the count to go, so the corner is
+black while the far edge is still lit and the last light to go out is the
+one furthest from it; the margins beside the grid go with the column beside
+them. The glow is drawn over the black, so once the front has crossed it is
+what is left. A look the owner asked for by name. Proved in
+`candle-frame.test.ts`: two beats in, the right of the field is full black
+and the left not yet drawn.
+
+**The rehearsal** (content/src/scenes/the-candle.ts, 17 September 2026,
+twelve pages over 2400 ticks at seed 8): the field goes black, player 2
+fires and it dims; it drifts and player 1 follows — every slide under it an
+`atBoss` act, aimed by `bossAnswerCol` off the glow's own column, since where
+it drifts is the rng's and not an author's — two more fires and it starts
+eating; *only player 1 sees its face*, held on the hull; then the one
+authored slide in the film, to the column it faces, and the shot from there
+is eaten on player 2's screen; player 1 slides back under the glow, two clean
+fires stop it, and the beam's one step puts it out, with the two black beats after. A
+film takes a hit only from a page anchored at `hit`, and none is: the
+eaten shot costs nothing, which is the lesson. Proved in
+content/test/scene-candle.test.ts as the sequence of dims, the one `candleFed`
+and the `candleOut`, all inside the loop. Four of its pages were rewritten on
+19 September 2026, when the field learnt to say the drift: `PLAYER 2 FIRES ·
+IT DIMS` became `EITHER COLOUR DIMS IT`, `IT DRIFTS · PLAYER 1 FOLLOWS` became
+`IT DRIFTS EVERY FEW BEATS`, `PLAYER 2 FIRES WHERE HE SAYS` became `FIVE HITS
+PUT IT OUT` and `PLAYER 2 FIRES · CLEAR` became `OFF ITS FACE · IT DIMS` —
+the colour rule, the drift, the count and the cone, which are the four halves
+a word on the glass may never carry ([briefings](briefings.md) §7).
+
+**What the field says** (render/src/boss-cue-read-m.ts, 19 September 2026,
+[decisions](../decisions.md) #34). It shipped with `PRESS` / `FIRE` on the
+glow and `CARRY` / `MOVE` on the cannon whenever the pilot stood in the column
+the flame was turned to, which was honest about the fight's one mistake and
+**silent about the drift** — the pilot's whole job and the guide's first line.
+A bolt and the beam both leave the cannon's own column (`fire.ts`) and
+`candleStruck` takes a step off the glow only for a shot out of the column the
+glow hangs over, and that column moves every `candleMoveBeats`. So `MOVE`
+stands on his cannon whenever it is off the **glow's** column and nothing
+else, which covers every beat the old word was right in — and where the flame
+is turned at the glow's own column the old word was worse than silent, because
+it walked him off the only column a shot lands from. The beam is not eaten
+(`lance-burn.ts` goes straight to `candleStruck`), so that beat wants him
+standing his ground and saying *beam*.
+
+**The trigger is behind the column**, which is THE THROAT's, THE UNDERTOW's
+and THE ORRERY's pairing again: while his cannon is off the glow's column she
+is told nothing rather than told to `FIRE` up a lane no step comes off — and
+quiet while `priming`, for `gripBrakes`' reason. Nothing at all in `dark`,
+where the light is still going out, or in `out`.
+
+**And the faced column is the silence that makes the fight.** `showsCandleFace`
+draws the cone on player 1's screen alone, and `view-role-clocks.ts` says why
+in as many words: *the seat that fires cannot see which column not to fire
+from, and has to be told*. So `FIRE` goes on standing over the glow while the
+flame is turned at it, and his voice is the only thing that stops her. A word
+that went quiet there would be that cone read out on her screen — the one
+sentence this fight is made of, answered by the field. Proved on both screens,
+with the silences: render/test/boss-cue-candle.test.ts.
+
+**Every flash opens THE SLOW** (20 September 2026, `docs/queue.md`, answered
+19 September). The design's *the beat a flash lands is played at a third
+rate* is the rule for every flash, with no exception for a later one over the
+first: a bolt that actually leaves the muzzle — never one THE CANDLE ate —
+opens `candleFlashSlowBeats` (1) of THE SLOW from the beat it fires, both
+screens together (`decisions.md` #33), whatever phase the fight is in,
+including `dark`, before the boss has done anything of its own yet — all but
+`smoking`, whose window is the smoke's own (above, *Doubled*).
+sim/candle-step.ts's `candleFlash`, called from `bullets.ts`'s `launch`
+beside `candleEats`, so the two never both answer the same press. Not built:
+a picture of its own for the window opening — the field slowing is the only
+sign of it, same as every other boss on THE SLOW.
+
+**Never watched at tempo.** What the tests say is the mechanism: it arrives
+full at the middle column facing its own, cannot be struck and does not move
+while dark, dims a step for either colour with the other column untouched,
+drifts within the field and turns on its count, eats the faced column's shot
+and no other and never past full, the beam dims it while it eats, the last
+step stands still, the wave stays open for the two beats after, and the same
+run fingerprints the same way twice (sim/test/candle.test.ts).
 
 ## 11.35 THE BELLOWS — the boss where you may never push while they are pulling
 

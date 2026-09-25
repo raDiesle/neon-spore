@@ -20,9 +20,8 @@ import { bossOf } from "./touch-field.js";
  * of it says, and the knurl that tells the seat it can be turned.
  *
  * The drawing and the hit test are in one file, which is `layout.ts`'s
- * standing rule and THE ORRERY's ring's own arrangement (`orrery-grab.ts`) —
- * a control is never drawn in one place and answered in another. This is the
- * second whole-circle handle in the game and the first that **both** seats
+ * standing rule — a control is never drawn in one place and answered in
+ * another. This is the whole-circle handle in the game that **both** seats
  * have one of at once, so the two halves drifting apart would drift apart
  * twice over, once per seat, and only one of them would ever be looked at.
  *
@@ -33,7 +32,7 @@ import { bossOf } from "./touch-field.js";
  * simulation reads it as — and the mirror between the two faces is applied
  * there, once, where the boss's one line lives (`sim/gimbal-hand.ts`).
  *
- * **The fold is undone here**, THE ORRERY's ring's reason exactly: a finger
+ * **The fold is undone here**, and for this reason: a finger
  * chasing a mark round a circle is following a body rather than pointing at a
  * column, so on a turned screen the bearing is mirrored back before it is
  * sent and a thumb chasing the mark it can see chases the right one
@@ -154,7 +153,7 @@ export function gimbalRingTurn(
  * The knurl: short ticks across this seat's own rim, so a thumb that has moved
  * the ring less than a tooth's width still sees that it was heard.
  *
- * THE ORRERY's ring's reason, and it is worth more here: the rings are silent
+ * It is worth more here than on any other handle: the rings are silent
  * until one sits true, and on this boss the pair is already being lied to
  * about direction. A rim with no texture on it would leave a navigator who has
  * turned the wrong way unable to tell that from a rim that is not hers.

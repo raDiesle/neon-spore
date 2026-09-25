@@ -10,7 +10,7 @@ import type { World } from "./world.js";
  * different things**.
  *
  * Both are a `drag` carrying a **bearing** rather than a displacement, the
- * crank's own gesture (`crank.ts`, `orrery-hand.ts`, and the argument in
+ * crank's own gesture (`crank.ts`, and the argument in
  * `bearing.ts`): a finger going round a ring says where it *is*, because one
  * four times round the same circle is back where it grabbed four times over.
  * The first sample after a hand goes on says only where it started, which is

@@ -112,23 +112,6 @@ export const NO_SUBJECT: Record<string, string> = {
     "the body following its lobe down through the hole. What this marks is a hull closed over a thing inside it — an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.undertowThrough":
     "the last lobe coming through the other way. What gives is the hull, and the wave with it.",
-  // THE CANDLE's nine. The boss is a glow in a dark the sheet has no card
-  // for, and none of these is a body standing anywhere: a light going down a
-  // step, drifting, turning, brightening, coming off its wick, catching
-  // again, going out.
-  "boss.candleDark":
-    "the field going black as the boss arrives. What changes is the whole field, which is not a card (`sim/candle.ts`).",
-  "boss.candleDim": "the glow losing a step to a shot or the beam. Same argument.",
-  "boss.candleMove": "the glow drifting a column. Same argument.",
-  "boss.candleTurn": "the glow turning to face a column, seen on one seat. Same argument.",
-  "boss.candleFed": "a flash swallowed and the glow brightening a step. Same argument.",
-  "boss.candleLast": "the glow down to its last step and standing still. Same argument.",
-  "boss.candleSmoke":
-    "the flame pulled down off the wick. What is left is smoke over an unlit wick, which is a state of the same light and not a second body.",
-  "boss.candleLit":
-    "the wick catching again a step brighter, the beam having come late. Same argument.",
-  "boss.candleOut":
-    "the last step gone. What this marks is a field with no light in it — an absence like ui.waveClear rather than a thing standing anywhere.",
   // THE GORGE's nine. The boss is a sack the sheet has no card for, and
   // what these mark is fluid moving in and out of it, never a body standing.
   "boss.gorgeSettle":
@@ -220,15 +203,6 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.sinewOut":
     "the mass down at the wall. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.sinewCrush": "the mass down on the hull. Same argument, with a breach under it.",
-  // THE ORRERY's three. The boss is a core inside three orbits of organs
-  // drawn by arithmetic (render/orrery-draw.ts), and the sheet has no card for
-  // an orbit — what these mark is a ring gone, a core answering and a core out.
-  "boss.orreryBreak":
-    "a ring of organs parting at its gap. What comes off is an orbit, which is a circle the arithmetic draws and not a body the sheet has a contour for; the organs it sheds fall as rocks, and a rock already has a card.",
-  "boss.orrerySpit":
-    "the core letting an organ go down a column. The subject is the core, which is drawn as a blob in the middle of three orbits and has no card of its own; the rock is heard as a rock when it lands.",
-  "boss.orreryOut":
-    "the core going out from the centre outward. Like boss.gorgeOut, what this marks is a frame with nothing under its top — an absence rather than a thing standing anywhere.",
   // THE SURGE's twelve. The boss is a sac the sheet has no card for, and what
   // these mark is a press, a release and a burst, never a body standing anywhere.
   "assist.handOver":

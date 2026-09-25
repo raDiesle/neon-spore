@@ -1,9 +1,7 @@
 import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
-import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
-import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
 import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
@@ -15,7 +13,6 @@ import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { MAZE_GRIP_DEFAULTS, type MazeGripConfig } from "./config-maze-grip.js";
 import { MAZE_TURN_DEFAULTS, type MazeTurnConfig } from "./config-maze-turn.js";
 import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
-import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
 import { RATCHET_DEFAULTS, type RatchetConfig } from "./config-ratchet.js";
 import { SCUTTLE_DEFAULTS, type ScuttleConfig } from "./config-scuttle.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
@@ -30,7 +27,6 @@ import { WARDEN_HAND_DEFAULTS, type WardenHandConfig } from "./config-warden.js"
 import { WELL_DEFAULTS, type WellConfig } from "./config-well.js";
 
 export { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
-export { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 export { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 export { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
 export { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
@@ -61,12 +57,9 @@ export { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
  */
 export interface BossClockConfig
   extends StareConfig,
-    DiastoleConfig,
     BatonConfig,
     ThroatConfig,
     UndertowConfig,
-    OrreryConfig,
-    CandleConfig,
     GorgeConfig,
     CurtainConfig,
     TasterConfig,
@@ -93,12 +86,9 @@ export interface BossClockConfig
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
-  ...DIASTOLE_DEFAULTS,
   ...BATON_DEFAULTS,
   ...THROAT_DEFAULTS,
   ...UNDERTOW_DEFAULTS,
-  ...ORRERY_DEFAULTS,
-  ...CANDLE_DEFAULTS,
   ...GORGE_DEFAULTS,
   ...CURTAIN_DEFAULTS,
   ...TASTER_DEFAULTS,

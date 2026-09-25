@@ -1,6 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { batonCue } from "./bind-baton.js";
-import { candleCue } from "./bind-candle.js";
 import { type AddedEvent, addedCue, isAddedEvent } from "./bind-choreographed-b.js";
 import { lateCue } from "./bind-choreographed-c.js";
 import type { Cue } from "./bind-cue.js";
@@ -37,7 +36,6 @@ type ChoreographedEvent =
         type:
           | `baton${string}`
           | `undertow${string}`
-          | `candle${string}`
           | `gorge${string}`
           | `curtain${string}`
           | `taster${string}`
@@ -53,8 +51,7 @@ type ChoreographedEvent =
           | `gimbal${string}`
           | `spool${string}`
           | `hasp${string}`
-          | `ratchet${string}`
-          | `diastole${string}`;
+          | `ratchet${string}`;
       }
     >
   // And the events added to bosses that had already shipped, which have to be
@@ -84,16 +81,6 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "batonParted":
     case "batonDown":
       return batonCue(e, cols);
-    case "candleDark":
-    case "candleDim":
-    case "candleMove":
-    case "candleTurn":
-    case "candleFed":
-    case "candleLast":
-    case "candleSmoke":
-    case "candleLit":
-    case "candleOut":
-      return candleCue(e, cols);
     case "gorgeSettle":
     case "gorgeSwallow":
     case "gorgeEmptied":
@@ -193,7 +180,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "leadDown":
     case "leadOut":
       return leadCue(e, cols);
-    // THE INSTAR, THE FILAMENT, THE GIMBAL, THE DIASTOLE and the
+    // THE INSTAR, THE FILAMENT, THE GIMBAL and the
     // undertow's own default, which is what a page at its limit gives back
     // (`bind-choreographed-c.ts`) — and since 22 September 2026 THE SCUTTLE,
     // THE ANTIPHON and THE HIVE, the last three cases this page had, handed

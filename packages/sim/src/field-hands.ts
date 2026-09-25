@@ -8,7 +8,6 @@ import { fleetHeard } from "./fleet.js";
 import { gripPushHeard } from "./grip-push.js";
 import { lidHeard } from "./lid.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
-import { orreryRingHeard } from "./orrery-hand.js";
 import { sinewHeard } from "./sinew-hand.js";
 import type { TimedCommand } from "./types.js";
 import { vaneHeard } from "./vane-hand.js";
@@ -61,13 +60,6 @@ export function fieldHandsHeard(world: World, commands: readonly TimedCommand[])
   // the one `drag` in the game that is a hand on a *control* rather than on
   // something the field is carrying.
   for (const c of commands) crankHeard(world, c.player, c.command);
-  // THE ORRERY's outermost unbroken ring, which is that same bearing put back
-  // on the field — and read here for the crank's reason with a second one of
-  // its own: what the hand writes is the ring's *anchor*, and the beat is
-  // where every other thing about this boss is decided, so a turn answered
-  // there would move a gap in the same instant the pair was counting itself
-  // into (`orrery-hand.ts`).
-  for (const c of commands) orreryRingHeard(world, c.player, c.command);
   // THE CHOIR's two arrows, read on the tick with the other four hands for
   // their reason: how far the pilot has carried one is never stale, and the
   // window between the two of them is counted in ticks (`choir-gesture.ts`).
@@ -94,8 +86,7 @@ export function fieldHandsHeard(world: World, commands: readonly TimedCommand[])
   for (const c of commands) sinewHeard(world, c.player, c.command);
   // The choreographed bosses' hands — THE STARE's lid, THE SURGE's lift,
   // THE ANTIPHON's organ, THE INSTAR's marks, THE FILAMENT's thumbs, THE
-  // GIMBAL's rings, THE BULB QUEEN's marks, THE DIASTOLE's clamp — on the tick with the
-  // rest, each for its own reason, on a page of their own (`boss-hands.ts`).
+  // GIMBAL's rings, THE BULB QUEEN's marks — on the tick with the rest, each for its own reason, on a page of their own (`boss-hands.ts`).
   bossHandsHeard(world, commands);
   // And the two hands on THE WEIGHT, which is not a command at all: the press
   // is the ordinary `grip` and `applyCommand` has already recorded it, so what

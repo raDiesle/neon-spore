@@ -18,8 +18,8 @@ import type { Wave } from "../wave-types.js";
  * later than the game has always played them, since they were this page's own
  * last two waves.
  *
- * **It took the letter `e` on 20 September 2026**, when THE DIASTOLE and THE
- * BATON needed a page of their own between `act-7c.ts` and this one and every
+ * **It took the letter `e` on 20 September 2026**, when THE BATON (and a
+ * wave since removed) needed a page of their own between `act-7c.ts` and this one and every
  * page from here on shifted up a letter (`docs/queue.md`'s *Act seven has no
  * room* entry).
  *
@@ -35,7 +35,7 @@ import type { Wave } from "../wave-types.js";
  * column 3 — `midCol` of whatever field is played — and every arrival on it is
  * one of two things: a gum for player 1 to fling into that mouth, or a body the
  * throat will swallow and heal off if the pair leaves it standing there. So the
- * middle column is not kept clear the way THE DIASTOLE's is next door; it is
+ * middle column is not kept clear; it is
  * *stocked*, on purpose, with the bodies whose answer is a cannon shot and the
  * ones whose answer is a hand.
  *
@@ -45,14 +45,8 @@ import type { Wave } from "../wave-types.js";
  * beats later and a swipe from there crosses `gumFlingCols` into the mouth on
  * the next beat; one at the wall gives three beats of flight and a moved mouth.
  *
- * **Nothing is placed against the inhale's own count**, for THE DIASTOLE's
- * reason one page up: which beat the tube tightens on depends on when the pair
+ * **Nothing is placed against the inhale's own count**: which beat the tube tightens on depends on when the pair
  * chokes its second ring, a beat nobody can know at authoring time.
- *
- * **THE CANDLE's arrivals are few and far apart, on purpose.** The fight is
- * in the dark, and a field with bodies in it is a field the pair has to light
- * to read; four slicks at the walls, one every twelve beats, are enough to
- * make the muzzle flash worth something without making the wave about them.
  *
  * **THE GORGE's arrivals are what the pair must answer without missing.** The
  * sack swallows every shot that reaches the top of the field, so the cost of
@@ -64,7 +58,7 @@ import type { Wave } from "../wave-types.js";
  * wave (`sim/wave-fail.ts`); what is authored is a field the restraint is
  * against.
  *
- * **THE CURTAIN's wave is empty**, THE ORRERY's case one wave up: what falls is
+ * **THE CURTAIN's wave is empty**: what falls is
  * the core's own fire, from where and when the pair left it bare (`sim/curtain-step.ts`).
  */
 export const WAVES_ACT_7E: Wave[] = [
@@ -110,31 +104,6 @@ export const WAVES_ACT_7E: Wave[] = [
       { beat: 76, col: 2, kind: "gum", color: null },
     ],
     boss: { kind: "throat" },
-    bossType: "normal",
-  },
-  {
-    id: "theOrrery",
-    name: "THE ORRERY",
-    guide: {
-      scene: "theOrrery",
-    },
-    entries: [],
-    boss: { kind: "orrery" },
-    bossType: "normal",
-  },
-  {
-    id: "theCandle",
-    name: "THE CANDLE",
-    guide: {
-      scene: "theCandle",
-    },
-    entries: [
-      { beat: 18, col: 1, color: "red" },
-      { beat: 30, col: 5, color: "cyan" },
-      { beat: 42, col: 0, color: "cyan" },
-      { beat: 54, col: 6, color: "red" },
-    ],
-    boss: { kind: "candle" },
     bossType: "normal",
   },
   {

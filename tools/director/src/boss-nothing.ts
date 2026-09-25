@@ -2,9 +2,7 @@ import type {
   AntiphonEntry,
   BatonEntry,
   BossEntry,
-  CandleEntry,
   CurtainEntry,
-  DiastoleEntry,
   FilamentEntry,
   GaugeEntry,
   GimbalEntry,
@@ -14,7 +12,6 @@ import type {
   InstarEntry,
   LeadEntry,
   LedgerEntry,
-  OrreryEntry,
   RatchetEntry,
   ScoutEntry,
   ScuttleEntry,
@@ -60,12 +57,6 @@ import type {
  *   warning is the boss's fairness rather than a per-wave decision
  *   (`sim/stare.ts`).
  *
- * - **THE DIASTOLE** asks for nothing for three reasons rather than one: the
- *   twin lobe is a fixture dead centre so there is no column, the two chambers
- *   are the health so there is no number, and **the two cadences are the boss**
- *   — three against five is a coincidence every fifteen beats, and a wave that
- *   authored its own pair would be a boss nobody could ever have learned to
- *   count (`sim/config-diastole.ts`).
  * - **THE BATON** asks for nothing for THE STARE's reason and one more: the
  *   arm hangs in `midCol` so there is no column, the sockets are the health so
  *   there is no number, and the wave underneath is the wave its author wrote.
@@ -103,7 +94,7 @@ import type {
  *   where it is on any beat is what the pair has hit and missed — a wave
  *   that authored its path would be a boss with its sum printed on it
  *   (`sim/config-lead.ts`).
- * - **THE SCUTTLE** asks for nothing for THE ORRERY's reason: the frame hangs
+ * - **THE SCUTTLE** asks for nothing for THE LEAD's reason: the frame hangs
  *   over `midCol` so there is no column, its parts are the health so there
  *   is no number, and which socket holds a pod and which a rock is the
  *   seed's — a wave that authored the frame would be a boss with its throws
@@ -162,12 +153,9 @@ export function bossAuthorsNothing(
   | WellEntry
   | ScoutEntry
   | StareEntry
-  | DiastoleEntry
   | BatonEntry
   | ThroatEntry
   | UndertowEntry
-  | OrreryEntry
-  | CandleEntry
   | GorgeEntry
   | CurtainEntry
   | TasterEntry
@@ -193,12 +181,9 @@ export function bossAuthorsNothing(
     kind === "well" ||
     kind === "scout" ||
     kind === "stare" ||
-    kind === "diastole" ||
     kind === "baton" ||
     kind === "throat" ||
     kind === "undertow" ||
-    kind === "orrery" ||
-    kind === "candle" ||
     kind === "gorge" ||
     kind === "curtain" ||
     kind === "taster" ||

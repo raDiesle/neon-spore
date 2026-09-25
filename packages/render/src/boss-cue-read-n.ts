@@ -24,9 +24,8 @@ import { type Layout, tileCX } from "./layout.js";
  * fight only ends it *standing in the mouth's column*. So the pilot held a
  * whole fight with one word on his screen — `PINCH`, which stops a clock — and
  * nothing at all on the two moments the fight cannot be finished without him.
- * It is THE CANDLE's defect the other way round (`boss-cue-read-m.ts`): there
- * the word walked him off the only column a shot lands from, here there was no
- * word.
+ * The opposite defect would be a word that walked him off the only column a
+ * shot lands from; here there was no word at all.
  *
  * **`MOVE` stands on the cannon, and only where the column is not his own
  * choice.** That line is the whole of this reading's judgement. The fight is

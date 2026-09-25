@@ -47,11 +47,6 @@ export const BOSS_ENTRIES_B = {
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
   stare: { kind: "stare" },
-  // THE DIASTOLE authors nothing at all either, and for one reason more than
-  // THE STARE's: its two cadences are the boss, so they are tuning rather than
-  // authoring (`config-diastole.ts`). Everything it remembers is a clock the
-  // fixture's world will have moved by the time it is fingerprinted.
-  diastole: { kind: "diastole" },
   // THE BATON authors nothing either: the arm's length and every beat it
   // keeps are tuning (`config-baton.ts`), and what it remembers — which socket
   // the bead is in, whose turn it is — is what the fixture's world has moved
@@ -61,19 +56,11 @@ export const BOSS_ENTRIES_B = {
   // what it eats is the wave's own arrivals, so its difficulty is the wave's
   // and its two clocks are tuning (`config-throat.ts`).
   throat: { kind: "throat" },
-  // THE ORRERY authors nothing either: three orbits and the beat they first
-  // meet on are tuning, and the column is the middle of the field
-  // (`config-orrery.ts`).
-  orrery: { kind: "orrery" },
   // THE UNDERTOW authors nothing either: how many pushes and how long each
   // stands are tuning (`config-undertow.ts`), and what it remembers — which
   // columns are open and how wide — is what the fixture's world has moved by
   // the time it is fingerprinted (`undertow-hash.ts`).
   undertow: { kind: "undertow" },
-  // THE CANDLE authors nothing: the glow's five steps are tuning
-  // (`config-candle.ts`), and where it hangs and what it faces are what the
-  // fixture's world has moved by the time it is fingerprinted (`candle-hash.ts`).
-  candle: { kind: "candle" },
   // THE GORGE authors nothing either: the sack's width and fill are tuning
   // (`config-gorge.ts`), and what its intakes hold is what the fixture's world
   // has fired into them by the time it is fingerprinted (`gorge-hash.ts`).

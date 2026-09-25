@@ -1,6 +1,6 @@
 /**
- * THE WARDEN's second and third hands, in a file of their own for
- * `boss-diastole.ts`' reason: the rope's four are older than the split and
+ * THE WARDEN's second and third hands, in a file of their own because
+ * `boss.ts` is full: the rope's four are older than the split and
  * stay in `boss.ts`. These are a thumb landing on an eye, a door thrown, and
  * a door slamming — and all three stay out of the 300–3000 Hz band, because
  * under NARROW and GLARE the pair is saying *hold* and *now* to each other

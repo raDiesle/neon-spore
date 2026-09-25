@@ -14,13 +14,13 @@
  * is the only one that ever knew a pixel.
  *
  * **Its own file because there are two of them now.** THE CLAW's crank was the
- * first (`crank.ts`) and these three numbers lived there; THE ORRERY's rings
+ * first (`crank.ts`) and these three numbers lived there; THE GIMBAL's rings
  * are the second, and a thumb goes round one of those on the *field* rather
- * than on the panel (`orrery-hand.ts`). Importing them from the crank would
+ * than on the panel (`gimbal-hand.ts`). Importing them from the crank would
  * have been a boss reaching into a control's file for a unit — and it does not
  * even work: `crank.ts` reaches the field through `reach.ts`, the field reaches
  * every boss through `boss-others.ts`, and the cycle left `TURN` undefined at
- * the moment THE ORRERY's module body read it. A shared vocabulary in a file
+ * the moment a boss's module body read it. A shared vocabulary in a file
  * that imports nothing cannot do that to anybody.
  *
  * Anything that turns is welcome here. Nothing that *winds* is: what a bearing
@@ -36,7 +36,7 @@ export const TURN = 1000;
  * One value for the two states, because they are one state: a hand that has
  * just gone on has no reference yet, and neither has a circle nobody is
  * touching. Anything negative reads as this, so a caller has nothing to get
- * wrong (`crankHeard`, `orreryRingHeard`).
+ * wrong (`crankHeard`, `gimbalHeard`).
  */
 export const NO_BEARING = -1;
 

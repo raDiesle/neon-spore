@@ -4,7 +4,7 @@
  * (`warden-hand.ts`, `docs/spec/bosses.md` §11.4, *Three phases, three
  * gestures*).
  *
- * Its own file, next to `config-diastole.ts` and for its reason: `SimConfig`
+ * Its own file, next to `config-throat.ts` and for its reason: `SimConfig`
  * extends it rather than nesting it, so every call site reads
  * `cfg.wardenThrowBeats`. The boss's *place* — its row, how far the line
  * hangs, how taut a pull has to be — stays in `config-boss.ts`; these two are

@@ -7,13 +7,11 @@ import {
   OUTER,
   type World,
 } from "@neon-spore/sim";
-import { candleWickAt } from "./candle-grip.js";
 import { curtainHemAt } from "./curtain-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js";
 import { hiveHaulCircle } from "./hive-grip.js";
 import type { Circle, Layout } from "./layout.js";
-import { orreryRingCircle } from "./orrery-grab.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
 import { sinewHandleAt } from "./sinew-handles.js";
 import { spoolKnobStanding, spoolTakesHand } from "./spool-grip.js";
@@ -41,14 +39,6 @@ export function bossHandleCircle(
   beatPhase: number,
 ): Circle | null | undefined {
   const cfg = world.cfg;
-  if (target === "orreryRing") {
-    // The one handle that is not a circle hanging off a body: it is a whole
-    // ellipse the width of the field, and where a hand on it *is* is the
-    // bearing the simulation recorded (`orrery-grab.ts`). Null on a field with
-    // no orrery, and on one whose rings are all off.
-    const b = world.boss?.kind === "orrery" ? world.boss : null;
-    return b === null ? null : orreryRingCircle(l, cfg, b);
-  }
   if (target === "gimbalOuter" || target === "gimbalInner") {
     // THE GIMBAL's two, and the first pair of whole-circle handles the game
     // has had at once: the outer ring is the pilot's and the inner the
@@ -78,15 +68,6 @@ export function bossHandleCircle(
     // bulb on the field.
     const s = world.boss?.kind === "surge" ? world.boss : null;
     return s === null ? null : surgeBulbCircle(l, cfg, s);
-  }
-  if (target === "candleWick") {
-    // THE CANDLE's flame, and the one handle on this field that is a light:
-    // where it is standing is the wick's root plus the pilot's thumb, which
-    // is `candle-grip.ts`' own answer. Null on a field with no glow, and on
-    // every phase but the last — the caption may only point at a handle a
-    // hand can be on, and the flame is not one four phases out of six.
-    const b = world.boss?.kind === "candle" ? world.boss : null;
-    return b === null || b.phase !== "last" ? null : candleWickAt(l, cfg, b);
   }
   if (target === "curtainHem") {
     // THE CURTAIN's hem, and the one handle whose rest is not over the thing it

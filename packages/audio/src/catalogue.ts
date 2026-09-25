@@ -15,9 +15,7 @@ import { BOSS_SOUNDS } from "./sounds/boss.js";
 import { BOSS_ANTIPHON_SOUNDS } from "./sounds/boss-antiphon.js";
 import { BOSS_BATON_SOUNDS } from "./sounds/boss-baton.js";
 import { BOSS_BATON_HAND_SOUNDS } from "./sounds/boss-baton-hand.js";
-import { BOSS_CANDLE_SOUNDS } from "./sounds/boss-candle.js";
 import { BOSS_CURTAIN_SOUNDS } from "./sounds/boss-curtain.js";
-import { BOSS_DIASTOLE_SOUNDS } from "./sounds/boss-diastole.js";
 import { BOSS_FILAMENT_SOUNDS } from "./sounds/boss-filament.js";
 import { BOSS_GAUGE_SOUNDS } from "./sounds/boss-gauge.js";
 import { BOSS_GIMBAL_SOUNDS } from "./sounds/boss-gimbal.js";
@@ -27,7 +25,6 @@ import { BOSS_HIVE_SOUNDS } from "./sounds/boss-hive.js";
 import { BOSS_INSTAR_SOUNDS } from "./sounds/boss-instar.js";
 import { BOSS_LEAD_SOUNDS } from "./sounds/boss-lead.js";
 import { BOSS_LEDGER_SOUNDS } from "./sounds/boss-ledger.js";
-import { BOSS_ORRERY_SOUNDS } from "./sounds/boss-orrery.js";
 import { BOSS_PINBALL_HAND_SOUNDS } from "./sounds/boss-pinball-hand.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
 import { BOSS_PULSE_HAND_SOUNDS } from "./sounds/boss-pulse-hand.js";
@@ -75,13 +72,11 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_BATON_SOUNDS,
   ...BOSS_BATON_HAND_SOUNDS,
   ...BOSS_UNDERTOW_SOUNDS,
-  ...BOSS_CANDLE_SOUNDS,
   ...BOSS_GORGE_SOUNDS,
   ...BOSS_CURTAIN_SOUNDS,
   ...BOSS_TASTER_SOUNDS,
   ...BOSS_LEDGER_SOUNDS,
   ...BOSS_SINEW_SOUNDS,
-  ...BOSS_ORRERY_SOUNDS,
   ...BOSS_SURGE_SOUNDS,
   ...BOSS_LEAD_SOUNDS,
   ...BOSS_SCUTTLE_SOUNDS,
@@ -93,7 +88,6 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_SPOOL_SOUNDS,
   ...BOSS_HASP_SOUNDS,
   ...BOSS_RATCHET_SOUNDS,
-  ...BOSS_DIASTOLE_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

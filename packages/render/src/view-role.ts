@@ -14,7 +14,7 @@
  *
  * **The clock bosses' splits are next door** (`view-role-clocks.ts`), on the
  * seam `packages/sim` cuts three files down and `boss-draw-clocks.ts` draws
- * along: THE DIASTOLE onward, the bosses whose whole difficulty is a count
+ * along: THE THROAT onward, the bosses whose whole difficulty is a count
  * said out loud, each with a paragraph over its predicate. THE TASTER's two
  * put this file at 245 lines, and the next boss would have paid for its line
  * by rewording somebody else's paragraph. What stays here is the ship's own
