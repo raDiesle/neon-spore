@@ -9,6 +9,24 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 42451a382 — Queue: the blow's roll-out names the bosses that wear it
+
+## 2026-09-25 · 59ecb3282 — THE SINEW shakes and goes red when a fibre parts
+
+A fibre parted is THE SINEW's landed sequence — the pair's sum held in the zone for the count — so it now takes the blow every boss is to take (`boss-hurt.ts`): the mass shakes for half a second, its fibres and cords following it from a root that stays put, and it washes red; the last fibre does the same. Coming into the zone deals nothing. A look the owner asked for by name, 24 September 2026.
+
+## 2026-09-25 · 0b1eef853 — THE HASP shakes and goes red when a hasp is wound open
+
+A hasp wound open is THE HASP's landed sequence — the latch held while the wheel winds — so it now takes the blow every boss is to take (`boss-hurt.ts`): the row shakes for half a second and every clasp washes red, on both screens. A grip alone deals nothing. A look the owner asked for by name, 24 September 2026.
+
+## 2026-09-25 · afeda6072 — THE SPOOL shakes and goes red when a rib eases
+
+A rib eased is THE SPOOL's landed sequence — a whole movement held in its zone — so it now takes the blow every boss is to take (`boss-hurt.ts`): the casing and its line shake for half a second and the barrel and both flanges wash red, and the fourth rib's loosing does the same. A leg of a movement deals nothing. A look the owner asked for by name, 24 September 2026.
+
+## 2026-09-25 · fa574083c — THE WARDEN shakes and goes red when a plate comes off
+
+A plate off is THE WARDEN's landed sequence — rope held, hatch open, shot through — so it now takes the blow every boss is to take (`boss-hurt.ts`): the body, the rope's snap-back and the eye's rings shake for half a second and the body washes red, and the last plate does the same. A look the owner asked for by name, 24 September 2026.
+
 ## 2026-09-25 · 9e8ce25fb — THE THROAT's fight says why under each word, and what the mouth just took
 
 Each of THE THROAT's cue words now has a short line under it saying what it is for: FLING over INTO THE MOUTH, FIRE over OR THE THROAT HEALS, BRAKE over OR THE THROAT EATS IT. A gum still above the mouth's row says WAIT · SWIPE ON THE MOUTH ROW where it used to say nothing. For two beats after something goes into the mouth, the mouth writes RING DOWN for a gum and SWALLOWED · RING HEALS for a body. The words are read from the world and never say a column, a colour or a count. The owner asked for in-game help in the moments of this fight by name, and that is the exemption this look uses.
