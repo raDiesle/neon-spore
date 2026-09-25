@@ -20678,3 +20678,16 @@ The bottleneck was **looking**: `--press cannonCol` names a mapped column, so
 the first frame put the cannon one column off the lobe.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE THROAT's guide says the goal and shows a swallow healing a ring
+
+- reading: 15 min. The film, §1 of the choreographed spec, the throat's
+  clock, feed and pull files, and its field cues.
+- writing: 10 min. The nine pages and the rock re-timed, the film's test.
+- looking: 5 min. A beat-by-beat trace to place the rock, two frames.
+- friction: 5 min. `tools/words` could not find `@neon-spore/content` until
+  this worktree was installed again.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: what the fight actually costs lives in four
+simulation files, and the old film's comment was the only summary of it.
