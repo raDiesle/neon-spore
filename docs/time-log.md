@@ -20899,3 +20899,5 @@ putting down in one place.
 Bottleneck: §3.2 already counted eleven and eighty-two against ten and
 eighty on disk, so the figures had to be read off `WAVES` before any could
 be corrected by one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
