@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 22a8f8ccf — THE FILAMENT shows whose move it is, on both screens
+
+Both thumbs are on both screens now. Your own ring is green when your move is open, and red with WAIT when it is not. Arrows march the way your thumb goes. Pips and a red bar show how far apart the two of you may get. The partner the line is waiting on wears a clock, and an arc round the ring runs down to the strike. A pulled filament turns green, says PULLED and how many are left, and the body shakes red.
+
 ## 2026-09-25 · 17e99ee1a — frames --hold on THE INSTAR lands a pull or a swipe, or says whose the mark is
 
 The recipe pressed the navigator's mark from the pilot's seat, and a run waiting for `--until` ended on a miss that never mentioned the refused presses. A miss now names them, and THE INSTAR's own `instarRefuse` names the seat. `instarSwipe` and `instarSwipe2` send the grab, the carry and the lift on one tick. The hold.ts recipe is written for the first step.
