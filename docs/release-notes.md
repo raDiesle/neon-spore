@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 16f1e67b — THE SLOW counts its window down with a fuse along the top of the screen
+
+While the game is slowed for a step, a bright line across the top edge of the screen burns in from both ends and meets in the middle on the beat the step fails, turning red for the last two beats. It is drawn on every boss's window of five beats or more, and a step answered early takes it away with the window. Nothing is drawn under the boss or between the marks.
+
 ## 2026-09-25 · 51591137 — THE INSTAR closes a mouth about to breathe fire, then its brood, then its tail
 
 The owner's choreography of 25 September 2026 is the script: three steps instead of five. It flies in slowly from far off, jaws already open on a fire, and the pair push the jaws shut; it flies off, crosses twice and comes in side on, and one seat squashes the eggs on its back while the other swipes them off; it goes out one side and in the other, and each seat taps its own blade of the forked tail back. Every step now names how the body arrives (`approach`, `passes`, `cross`), and the arrival is in the hash. The picture is still the larva's until the look lane lands; that lane is the owner's ask by name.

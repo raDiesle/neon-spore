@@ -20116,3 +20116,5 @@ be drawn off the beat alone without leaking the clock to the pilot.
 
 The bottleneck was **reading**: the world does not say whether a window asks
 for anything, and the answer had to come from every boss's window length.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
