@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 8c27449ec — Comments in render stop arguing from three removed bosses
+
+Thirty-one files in packages/render named THE DIASTOLE, THE ORRERY or THE CANDLE as the reason for an arrangement, or as the test it copied. Each now states the reason itself or names a boss still in the game (THE THROAT's pairing, THE GORGE's and THE VANE's place above row 0), and the lists lose the three. Comments only.
+
 ## 2026-09-25 · 5a12affd9 — Comments in the game, content and sim stop arguing from three removed bosses
 
 Thirty files in apps/game, packages/content and packages/sim still explained themselves by THE DIASTOLE, THE ORRERY or THE CANDLE, a week after the three left the game. Each now states the reason itself, or names a boss still in the game with the same arrangement: THE GIMBAL for a ring turned by a bearing, THE TASTER and THE LEDGER for a pull read one way. Lists of handles lose the three and their count. Comments only.
