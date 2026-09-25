@@ -200,6 +200,15 @@ export interface SnakeState {
    */
   bumpCol: number;
   bumpRow: number;
+  /**
+   * `world.beat` the arena was cleared on, or -1 while something still stands.
+   *
+   * A cleared round is not over: the body has to go home, into the ship's mouth
+   * at the middle of the floor, before the next arena opens (the owner, 25
+   * September 2026). The clock stops on this beat, and the picture opens the
+   * mouth off it (`snake-arena.ts`, `snakeGate`).
+   */
+  clearBeat: number;
 }
 
 /**

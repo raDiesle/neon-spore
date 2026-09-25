@@ -10,7 +10,16 @@ import {
   snakePointAt,
   snakeRockAt,
 } from "./snake-arena.js";
-import { snakeOpenRound } from "./snake-open.js";
+import {
+  creep,
+  creepHome,
+  snakeAtGate,
+  snakeCameHome,
+  snakeGoingHome,
+  snakeHome,
+  snakeInside,
+  snakeStepTicks,
+} from "./snake-home.js";
 import type { World } from "./world.js";
 
 /**
@@ -44,10 +53,12 @@ import type { World } from "./world.js";
 export function stepSnake(world: World, snake: SnakeState): boolean | null {
   const round = snakeCurrent(snake);
   // Cleared first, so the last enemy shot on the last beat of a round wins
-  // it rather than losing it by a tick.
-  if (snakeCleared(snake)) return openNextRound(world, snake);
-  if (world.beat - snake.roundBeat >= round.beats) return runOut(world);
-  if (world.tick - snake.stepTick < round.stepTicks) return null;
+  // it rather than losing it by a tick. Cleared stops the clock, and the round
+  // is over only once the body is home inside the ship (`snake-home.ts`).
+  if (snakeCleared(snake) && !snakeGoingHome(snake)) snake.clearBeat = world.beat;
+  if (snakeHome(world.cfg, snake)) return snakeCameHome(world, snake);
+  if (!snakeGoingHome(snake) && world.beat - snake.roundBeat >= round.beats) return runOut(world);
+  if (world.tick - snake.stepTick < snakeStepTicks(world.cfg, snake)) return null;
   snake.stepTick = world.tick;
   return advance(world, snake);
 }
@@ -60,18 +71,6 @@ export function stepSnake(world: World, snake: SnakeState): boolean | null {
 function runOut(world: World): false {
   breachHull(world, midCol(world.cfg), "meteorFastest", 0, "heavy");
   return false;
-}
-
-/**
- * The next round, or the end of them.
- *
- * The body starts over with it, because the arena does: a round is a placed
- * map and the pair has to be able to read it from the same square every time.
- */
-function openNextRound(world: World, snake: SnakeState): boolean | null {
-  if (snake.round >= snake.rounds.length - 1) return true;
-  snakeOpenRound(world, snake, snake.round + 1);
-  return null;
 }
 
 /**
@@ -108,14 +107,16 @@ function zero(n: number): number {
  * (`SnakeState.turn`).
  */
 function advance(world: World, snake: SnakeState): false | null {
+  const head = snake.body[0];
+  if (!head) return null;
+  if (snakeInside(world.cfg, head)) return creepHome(snake, head);
   const [dirCol, dirRow] = turned(snake.dirCol, snake.dirRow, snake.turn);
   snake.dirCol = dirCol;
   snake.dirRow = dirRow;
   snake.turn = 0;
-  const head = snake.body[0];
-  if (!head) return null;
   const col = head.col + dirCol;
   const row = head.row + dirRow;
+  if (snakeAtGate(world.cfg, snake, col, row)) return creep(snake, col, row);
   if (!snakeOnBoard(world, col, row)) return crash(world, snake, col, row);
   // The tail is spared unless a point is still being paid out: it moves off
   // its tile on the same step the head arrives, so a body going round its own
@@ -141,14 +142,11 @@ function advance(world: World, snake: SnakeState): false | null {
     return crash(world, snake, col, row);
   }
 
-  snake.body.unshift({ col, row });
   if (point !== -1) {
     snake.taken.push(point);
     snake.grow += world.cfg.snakeGrowTiles;
   }
-  if (snake.grow > 0) snake.grow -= 1;
-  else snake.body.pop();
-  return null;
+  return creep(snake, col, row);
 }
 
 /**

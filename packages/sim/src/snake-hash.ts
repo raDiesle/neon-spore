@@ -51,6 +51,7 @@ export function snakeHashParts(b: SnakeState): number[] {
   push(b.crashTick);
   push(b.bumpCol);
   push(b.bumpRow);
+  push(b.clearBeat);
   push(b.body.length);
   for (const tile of b.body) {
     push(tile.col);

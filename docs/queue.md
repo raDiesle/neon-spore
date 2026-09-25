@@ -908,3 +908,33 @@ Slicks and bulbs with a rock or two, the shield shown; the guide's rehearsal
 shows a push, the red shield and ONE LAST CHANCE, then the cannon finishing it.
 Follow both skills; THE VOLLEY's rehearsal is the nearest pattern.
 `bun run check` holds it.
+
+## SNAKE: the buttons say EAT and SHOOT, and the field hints which one
+
+- **Found:** 2026-09-25, claude/snake-game-mechanics-ee4ed4
+- **Files:** `packages/render/src/snake-button.ts`, `packages/render/src/boss-cue-read-g.ts`, `packages/render/test/boss-cue-snake.test.ts`, `tools/words/test/drawn.test.ts`
+
+The owner, 25 September 2026: *the controls button is not clear if its eating
+or shooting. and have a hint if to eat or to shoot, if the snake looks on it
+or if its the most near item next to snake head.* Put the words **SHOOT** and
+**EAT** on player 1's two lobes (the owner's own words for these, as THE
+UNDERTOW's SUCK and SHOOT; `.claude/skills/game-words` section 6). Change the
+cue in `boss-cue-read-g.ts` from PRESS/OPEN and PRESS/FIRE to **EAT** on a point
+and **SHOOT** on an enemy the shot reaches (`snakeShotStop`). Put the hint on
+the item the head faces. If it faces none, put it on the nearest item to the
+head. Both screens show it. `bun run words` and `bun test tools/words` hold
+the words, and `bun run check` the rest. A look the owner asked for by name.
+
+## SNAKE: the hull and the band at half height in this round
+
+- **Found:** 2026-09-25, claude/snake-game-mechanics-ee4ed4
+- **Files:** `packages/render/src/layout.ts`, `packages/render/src/field-flip.ts`, `packages/render/src/well-roll.ts`, `apps/game/src/viewport.ts`, `apps/game/src/field-input.ts`, `packages/render/src/hull-frame.ts`, `packages/render/src/snake-draw.ts`
+
+The owner, 25 September 2026: *have hull ship height around half of regular
+one, as we have smaller controls.* While a SNAKE round holds the world, the
+band and the hull are about half their usual height, and the arena grows into
+the room they give up. The layout has to be world-aware in two places that
+must agree: render's `frameLayout` (with `flippedLayout`/`rolledLayout`) and
+the game's input `layout()` in `apps/game/src/viewport.ts`, which hit-tests
+without the world today. A test that a press on a SNAKE lobe lands where the
+lobe is drawn holds the pair together. A look the owner asked for by name.

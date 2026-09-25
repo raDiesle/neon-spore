@@ -86,7 +86,9 @@ export function drawTally(
 ): void {
   const target = round.rounds[round.round];
   if (!target) return;
-  const spent = view.world.beat - round.roundBeat;
+  // The clock stops on the beat the arena is cleared: the way home is not on it.
+  const now = round.clearBeat >= 0 ? round.clearBeat : view.world.beat;
+  const spent = now - round.roundBeat;
   const left01 = Math.max(0, Math.min(1, 1 - spent / target.beats));
   ctx.fillStyle = PALETTE.dim;
   ctx.font = '9px "Courier New",monospace';

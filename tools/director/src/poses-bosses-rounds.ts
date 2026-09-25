@@ -167,7 +167,7 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "snake",
     "crawl",
-    "Three tiles of body and the verbs answer as built. P1 prises the jaws; P2 turns the wheel.",
+    "Up to ten tiles of body and the verbs answer as built. P1 prises the jaws; P2 turns the wheel.",
     {
       ...FULL,
       want: (w) =>
@@ -178,7 +178,7 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "snake",
     "gorge",
-    "Six tiles of body and the jaws stick to a press. P1 prises them apart instead; P2 turns it at the wall.",
+    "Eleven tiles of body and the jaws stick to a press. P1 prises them apart instead; P2 turns it at the wall.",
     {
       ...FULL,
       hand: snakeHand,
@@ -190,14 +190,16 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "snake",
     "shed",
-    "Eight tiles of body and the tail is dragging. P1 still prises the jaws; P2 turns it at the wall.",
+    "Fifteen tiles of body and the tail is dragging. P1 still prises the jaws; P2 turns it at the wall.",
     {
       ...FULL,
       hand: snakeHand,
       want: (w) =>
         w.boss?.kind === "snake" && w.boss.phase === "play" && snakeGrip(w.cfg, w.boss) === "shed",
       hold: 12,
-      budgetBeats: 90,
+      // Fifteen tiles is the third arena, and each arena ends with the body
+      // going home and coming out again (`sim/snake-home.ts`).
+      budgetBeats: 140,
     },
   ),
   bossPose(

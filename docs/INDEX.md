@@ -418,6 +418,7 @@ by hand never moves.
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
 | `packages/sim/src/config-cling.ts` | THE LIMPET's and THE LEECH's numbers: how many beats a control may stand still with one on it before it goes… |
 | `packages/sim/src/snake-hash.ts` | What SNAKE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/snake-home.ts` | **Going home**: what the body does between a cleared arena and the next |
 | `packages/sim/src/coil.ts` | THE COIL: a rock sitting inside a dome of its own |
 | `packages/sim/src/config-coil.ts` | THE COIL's numbers: how far it crosses the field each beat, how far it sinks at a wall |
 | `packages/sim/src/events-coil.ts` | **THE COIL's two**: a dome coming off, and the charge it was holding leaving for the next one |
@@ -1118,6 +1119,7 @@ by hand never moves.
 | `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
 | `packages/render/src/snake-head.ts` | The head, shut and open |
+| `packages/render/src/snake-home.ts` | **The mouth on the way home**, the picture half of `sim/snake-home.ts` |
 | `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |
 | `packages/render/src/gyre-wind.ts` | you are drawing the pull between the ship and a wheel — the wind that says the maw is worth spending |

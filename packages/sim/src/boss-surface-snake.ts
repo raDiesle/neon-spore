@@ -22,6 +22,11 @@ export {
   // player 2's thumb is on it — read, never re-derived from `body.length`
   // (`snake.ts`, `docs/spec/interludes.md`).
   snakeCrashed,
+  // The mouth in the floor and whether it is open, and the step the body is
+  // on this tick: the picture slides on the same step the simulation takes
+  // (`snake-home.ts`).
+  snakeGate,
+  snakeGoingHome,
   snakeGrip,
   snakeHolds,
   snakeLifted,
@@ -32,4 +37,5 @@ export {
   snakeResting,
   snakeRound,
   snakeShotStop,
+  snakeStepTicks,
 } from "./bosses.js";

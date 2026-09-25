@@ -57,7 +57,7 @@ function ringRadius(l: Layout, cfg: SimConfig, arena: Arena): number {
 /** Where the body's joints are this tick, slid. Null while there is no body. */
 function joints(l: Layout, cfg: SimConfig, snake: SnakeState, tick: number) {
   const arena = snakeArena(l, cfg);
-  return { arena, at: snakeJoints(arena, snake, snakeSlide(snake, tick)) };
+  return { arena, at: snakeJoints(arena, snake, snakeSlide(cfg, snake, tick)) };
 }
 
 /** The pilot's circle: on the neck, a tile behind the jaws he is prising. */

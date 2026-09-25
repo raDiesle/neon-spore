@@ -1,4 +1,4 @@
-import type { SnakeState } from "@neon-spore/sim";
+import { type SimConfig, type SnakeState, snakeStepTicks } from "@neon-spore/sim";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
 import { drawSnakeHead } from "./snake-head.js";
 import { drawJointRibbon } from "./snake-ribbon.js";
@@ -44,12 +44,14 @@ function centre(arena: Arena, col: number, row: number): { x: number; y: number 
  *
  * Reads the world and nothing else. While the ship is still folding there is
  * no step to be part-way through, so it is 0 and the body sits on its tiles.
+ * The step is the simulation's own (`snakeStepTicks`), which is quicker once
+ * the head is through the mouth on the way home.
  */
-export function snakeSlide(snake: SnakeState, tick: number): number {
-  if (snake.phase !== "play") return 0;
-  const round = snake.rounds[snake.round];
-  if (!round || round.stepTicks <= 0) return 0;
-  return Math.max(0, Math.min(1, (tick - snake.stepTick) / round.stepTicks));
+export function snakeSlide(cfg: SimConfig, snake: SnakeState, tick: number): number {
+  if (snake.phase !== "play" || snake.body.length === 0) return 0;
+  const step = snakeStepTicks(cfg, snake);
+  if (step <= 0) return 0;
+  return Math.max(0, Math.min(1, (tick - snake.stepTick) / step));
 }
 
 /** Radians of the crawl wave one segment of body covers. */

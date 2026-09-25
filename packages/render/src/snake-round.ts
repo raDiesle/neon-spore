@@ -20,8 +20,9 @@ import {
   SNAKE_NAME_Y,
   snakeArena,
 } from "./snake-draw.js";
-import { clipAboveHull, drawEmergeSlime, emergeIntake, emergeOffset } from "./snake-emerge.js";
+import { clipAboveHull, drawEmergeSlime, emergeOffset } from "./snake-emerge.js";
 import { drawSnakeGrips } from "./snake-grip.js";
+import { drawSnakeGate, snakeIntake } from "./snake-home.js";
 import { drawTally, drawTitle, drawVerdict } from "./snake-panel.js";
 import { drawSnakeShot } from "./snake-shot.js";
 
@@ -55,11 +56,11 @@ import { drawSnakeShot } from "./snake-shot.js";
 /**
  * The ship stands still with its cannon over the middle column, which is the
  * column the body starts in; the shield stays where the wave left it. The
- * intake is the mouth the body comes out of, open for the emergence and shut
- * once the tail is clear.
+ * intake is the mouth the body comes out of, open for the emergence, shut
+ * once the tail is clear, and open again for the way home (`snake-home.ts`).
  */
 function stillPose(world: World, round: SnakeState, beatPhase: number) {
-  const open = round.phase === "morph" ? emergeIntake(emerge01(world, beatPhase, round)) : 0;
+  const open = snakeIntake(world, beatPhase, round);
   return {
     at: {
       cannon: (world.cfg.cols - 1) / 2,
@@ -138,6 +139,7 @@ function drawStanding(
   const pulse = Math.abs(0.5 - view.beatPhase) * 2;
   drawSnakeRocks(ctx, arena, round);
   drawSnakeItems(ctx, arena, round, pulse);
+  drawSnakeGate(ctx, arena, view.world, round, pulse);
 }
 
 /**
@@ -167,13 +169,14 @@ function drawBody(
     return null;
   }
   const at = t < 1 ? emergeOffset(l, arena, round, t) : null;
+  const slide = snakeSlide(view.world.cfg, round, view.world.tick);
   ctx.save();
   if (at !== null) ctx.translate(at.dx, at.dy);
   drawSnakeBody(
     ctx,
     arena,
     round,
-    snakeSlide(round, view.world.tick),
+    slide,
     gape(view.world.cfg, view.world.tick, round),
     flick(view.world.tick),
   );
@@ -182,7 +185,7 @@ function drawBody(
   // the shot left on, so the fade is that number against this one.
   const since = view.world.beat - round.shotBeat + view.beatPhase;
   if (since < 1.2) {
-    drawSnakeShot(ctx, arena, round, 1 - since / 1.2, snakeSlide(round, view.world.tick));
+    drawSnakeShot(ctx, arena, round, 1 - since / 1.2, slide);
   }
   return at;
 }

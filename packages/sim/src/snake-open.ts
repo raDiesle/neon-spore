@@ -53,6 +53,7 @@ export function openSnake(world: World, rounds: readonly SnakeRound[]): SnakeSta
     crashTick: -1,
     bumpCol: -1,
     bumpRow: -1,
+    clearBeat: -1,
   };
   resetBody(world, snake);
   return snake;
@@ -84,7 +85,7 @@ export function resetBody(world: World, snake: SnakeState): void {
 /**
  * Open a numbered round, arena and body together.
  *
- * The one way in, so the fight's own `openNextRound` and a caller jumping to
+ * The one way in, so the way home (`snakeCameHome`) and a caller jumping to
  * an arena cannot disagree about what a round is: the body starts over because
  * the map does, and what was struck or taken belongs to the round that is over.
  */
@@ -93,5 +94,6 @@ export function snakeOpenRound(world: World, snake: SnakeState, round: number): 
   snake.roundBeat = world.beat;
   snake.struck = [];
   snake.taken = [];
+  snake.clearBeat = -1;
   resetBody(world, snake);
 }

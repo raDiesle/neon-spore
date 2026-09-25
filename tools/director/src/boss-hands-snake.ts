@@ -2,6 +2,8 @@ import {
   type SnakeRound,
   type SnakeState,
   type SnakeTile,
+  snakeGate,
+  snakeGoingHome,
   snakePointAt,
   snakeResting,
   snakeRound,
@@ -115,9 +117,16 @@ function bfsFirstTurn(w: World, s: SnakeState, round: SnakeRound): -1 | 0 | 1 | 
   const prev = new Map<string, { turn: -1 | 0 | 1; from: string } | null>();
   prev.set(start, null);
   const queue: string[] = [start];
+  // A cleared arena has one goal left, the mouth in the floor (`snake-home.ts`).
+  const home = snakeGoingHome(s);
+  const gate = snakeGate(w.cfg);
+  const atGate = (col: number, row: number): boolean =>
+    home && col === gate.col && row === gate.row;
   const isGoal = (col: number, row: number, dc: number, dr: number): boolean =>
-    snakePointAt(s, col, row) !== -1 ||
-    wouldHit(round, s.struck, s.body, s.grow, w.cfg, col, row, dc, dr);
+    home
+      ? atGate(col, row)
+      : snakePointAt(s, col, row) !== -1 ||
+        wouldHit(round, s.struck, s.body, s.grow, w.cfg, col, row, dc, dr);
   let goal = isGoal(head.col, head.row, s.dirCol, s.dirRow) ? start : null;
   while (queue.length > 0 && goal === null) {
     const cur = queue.shift();
@@ -127,7 +136,8 @@ function bfsFirstTurn(w: World, s: SnakeState, round: SnakeRound): -1 | 0 | 1 | 
       const nd = turnedDir(dc, dr, turn);
       const nc = col + nd.dc;
       const nr = row + nd.dr;
-      if (nc < 0 || nr < 0 || nc >= w.cfg.snakeCols || nr >= w.cfg.snakeRows) continue;
+      const off = nc < 0 || nr < 0 || nc >= w.cfg.snakeCols || nr >= w.cfg.snakeRows;
+      if (off && !atGate(nc, nr)) continue;
       if (occupied(round, s.struck, s.body, s.grow, nc, nr) && snakePointAt(s, nc, nr) === -1)
         continue;
       const nk = key(nc, nr, nd.dc, nd.dr);

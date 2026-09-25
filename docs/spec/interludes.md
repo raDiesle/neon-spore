@@ -628,6 +628,17 @@ the phase, its beats and the body's resting tiles are what they were, and
 `render/test/snake-frame.test.ts` draws the emergence on its own and holds the
 arena to the field's width or the hull.
 
+**A cleared arena is not a round won until the body is home**
+(`sim/snake-home.ts`, the owner, 25 September 2026). Once every enemy is down
+and every point is swallowed, the clock stops and the ship's mouth opens again.
+The floor stays a wall everywhere but one tile: the one under the middle
+column. Player 2 steers the body onto it, heading down, and a chevron on the
+last tile of the floor shows where. Past that tile nothing is steered: the head
+goes straight down into the ship on a quicker step (`snakeHomeStepTicks`), and
+once the whole body is inside, the next arena opens and the body comes out of
+the same open mouth. After the last arena the mouth closes behind the tail
+under the verdict. Missing the mouth is a crash like any other wall.
+
 **The rest of its numbers are in `packages/sim/src/config-snake.ts`.**
 `snakeCols` and `snakeRows` are the arena in tiles, and have nothing to do with
 the field's `cols`, because the field is gone. `snakeStartTiles` is how long the

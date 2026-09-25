@@ -21080,6 +21080,20 @@ to be probed and re-timed by hand once the grid moved.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-25 — SNAKE goes home into the ship between arenas
+
+- reading: 15 min. The step, the round's phases, the emergence and its clip,
+  and the director's hand that plays the round.
+- writing: 30 min. The gate, the way in, the next round coming out again,
+  the mouth opening off the clear, the arrow, and tests on both sides.
+- looking: 10 min. A probe of the director's hand through all three arenas.
+- friction: 5 min. The SHED pose ran out of budget once each arena ended
+  with a way home, and a comment still named the renamed function.
+- landing: 5 min. `check:fast`, one commit, `land`.
+
+Bottleneck: the director's pose budget was tuned to the old pace, and only
+a probe of its whole run showed it still reached SHED, just later.
+
 ## 2026-09-25 — Comments stop arguing from three removed bosses
 
 - reading: 20 min. 114 mentions across 72 files, each read in place to

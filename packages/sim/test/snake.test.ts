@@ -415,35 +415,17 @@ describe("the field holds where the body crashed", () => {
 });
 
 describe("the rounds, and the two ways out of them", () => {
-  it("opens the next one once the arena is clear", () => {
+  it("does not open the next one on a clear arena: the body goes home first", () => {
     const world = open();
     play(world);
     const snake = round(world);
     snake.struck = [0, 1];
     snake.taken = [0, 1];
     step(world, []);
-    expect(snake.round).toBe(1);
-    expect(snake.struck).toEqual([]);
-    expect(snake.roundBeat).toBe(world.beat);
-  });
-
-  it("passes when the last one is cleared, and holds its own picture after", () => {
-    const world = open();
-    play(world);
-    const snake = round(world);
-    snake.round = ROUNDS.length - 1;
-    snake.struck = [0];
-    snake.taken = [0];
-
-    step(world, []);
-    expect(snake.phase).toBe("verdict");
-    expect(snake.passed).toBe(true);
-    // Spent rather than gone: the round stays installed so the field — with
-    // its hull and its ship — does not come back for the beats of rest before
-    // the next wave (`sim/wave-end.ts`).
-    for (let i = 0; i < 6 * TPB; i++) step(world, []);
-    expect(snake.phase).toBe("spent");
-    expect(snakeRound(world)).not.toBeNull();
+    expect(snake.round).toBe(0);
+    expect(snake.phase).toBe("play");
+    expect(snake.clearBeat).toBe(world.beat);
+    // The rest of the way home is `snake-home.test.ts`.
   });
 
   it("costs the hull when the clock runs out, and says so", () => {

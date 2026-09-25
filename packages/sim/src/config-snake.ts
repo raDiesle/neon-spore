@@ -99,6 +99,12 @@ export interface SnakeConfig {
    * five of the old ones: still short of the arena, still a reason to steer.
    */
   snakeShotTiles: number;
+  /**
+   * Ticks between two steps once the head is through the ship's mouth, on the
+   * way home after a cleared round. Quicker than any round's own step: there
+   * is nothing left to steer, and the pair is waiting on the next arena.
+   */
+  snakeHomeStepTicks: number;
 }
 
 /**
@@ -132,4 +138,5 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   // Ten small tiles, five of the old ones. Short enough that the shot is
   // still a reason to steer.
   snakeShotTiles: 10,
+  snakeHomeStepTicks: 10,
 };
