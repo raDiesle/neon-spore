@@ -460,6 +460,14 @@ sent without the flash, and the flash is proved only by the canvas log
 the command above land a pull, or make it refuse the pair with a sentence that
 says why.
 
+The same on 25 September, for a swipe: filming the egg THE INSTAR drops on
+a counted swipe found no way to swipe — `--hold instarMark` is a pull's
+depth, not a lift — and a `drag` on `instarMark` sent by hand through
+`window.neonSpore.send` to a preview at wave 82 was not heard either
+(`wouldHear(2, …)` said false). The fall is proved only by
+`packages/render/test/instar-eggs.test.ts`. A swipe needs a lift after its
+carry, so whatever fixes the hold should take an `instarLift` too.
+
 ## Two sim surface files are under ten lines from the ceiling
 
 - **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4
@@ -494,18 +502,17 @@ corner. Point them at `{ at: "hull" }`, where the hit lands, and retire
 `retries` as an anchor if nothing is left on it; `caption-anchor.test.ts`
 and the scene tests say which still resolve.
 
-## `bun run frames` cannot swipe, pull or turn an INSTAR mark
+## Every boss shows the blow of a sequence the pair landed
 
 - **Found:** 2026-09-25, claude/instar-ui-refinements-b5cec4
-- **Files:** `tools/frames/press-seats.ts`, `tools/frames/press-command.ts`, `tools/frames/press.ts`
+- **Files:** `packages/render/src/boss-hurt.ts`, `packages/render/src/instar-fx.ts`, `packages/render/test/boss-hurt.test.ts`
 
-A mark is answered by a `drag` on `instarMark` with an `id`
-(`render/src/instar-mark-grip.ts`), and `--press` has no verb for it, so
-nothing the pair does to THE INSTAR can be filmed: the falling egg of 25
-September went unfilmed and was proved only by `instar-eggs.test.ts`.
-Sending the drag through `window.neonSpore.send` by hand was not heard
-either (`wouldHear(2, …)` said false on a preview at wave 82), which is the
-first thing to find out. Add `instar=<id>:<fromYMilli>` and `instarLift=<id>`
-(seat from the mark), and a `tools/frames/test` case that a swipe press
-reaches `instarAnswer`.
+The owner's generic rule of 24 September 2026 (`owner.md`): a landed
+sequence shakes the boss and washes its body red for a moment. THE INSTAR
+wears it (`instar-fx.ts`, `instar-draw.ts`); no other boss does. The work
+is in each boss's own fx file beside `instar-fx.ts`. Per boss:
+find the event that means *a sequence landed* (not one part of it), hold a
+`BossHurt` in its fx class, `hit()` it there, add `shakeX` to the body's
+translate and `drawHurt` over its plates, and add a case to
+`boss-hurt.test.ts`. Each lands as *a look the owner asked for by name*.
 

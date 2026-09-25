@@ -1,5 +1,6 @@
 import { blobPoints } from "@neon-spore/content";
 import type { InstarState, World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { drawInstarChain } from "./instar-chain.js";
@@ -60,9 +61,11 @@ export function drawInstar(
   const r = instarLen(l, f.headR);
 
   ctx.save();
-  ctx.translate(fx.flinch * l.tile * 0.25 * Math.sin(time * 40), -fx.jolt * l.tile);
-  const shoulders = drawInstarChain(ctx, l, f, head, r, time, fade);
-  drawHead(ctx, f, head, r, time, fade);
+  const shake = fx.flinch * l.tile * 0.25 * Math.sin(time * 40) + fx.hurt.shakeX(time, l.tile);
+  ctx.translate(shake, -fx.jolt * l.tile);
+  const hurt = fx.hurt.value;
+  const shoulders = drawInstarChain(ctx, l, f, head, r, time, fade, hurt);
+  drawHead(ctx, f, head, r, time, fade, hurt);
   drawMouth(ctx, f, head, r, fade);
   drawEyes(ctx, f, head, r, time, fade);
   drawInstarLimbs(ctx, l, f, head, r, shoulders, time, fade);
@@ -76,12 +79,14 @@ export function faded(hex: string, fade: number, alpha = 1): string {
   return fade >= 1 && alpha >= 1 ? hex : rgba(hex, alpha * fade);
 }
 
-/** One plated blob of the body, filled dark and rimmed in the hull's violet. */
+/** One plated blob of the body, filled dark and rimmed in the hull's violet —
+ * and washed red while the body shows a blow (`boss-hurt.ts`). */
 export function drawPlate(
   ctx: CanvasRenderingContext2D,
   p: Path2D,
   fade: number,
   glow = 0.5,
+  hurt = 0,
 ): void {
   ctx.save();
   ctx.fillStyle = faded(PALETTE.background, fade);
@@ -90,6 +95,7 @@ export function drawPlate(
   ctx.fill(p);
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.hull, fade), STROKE.inner, glow * fade);
+  drawHurt(ctx, p, hurt * fade);
 }
 
 /** The head: a lobed blob, wider than tall, taller as the mouth gapes and the lunge comes. */
@@ -100,10 +106,11 @@ function drawHead(
   r: number,
   time: number,
   fade: number,
+  hurt: number,
 ): void {
   const ry = r * (0.85 + 0.2 * (f.jawUp + f.jawDown) * 0.5 + 0.1 * f.reach);
   const p = splinePath(blobPoints(head.x, head.y, r, ry, 6, 0.05, 0.02, time, 9, 24), true);
-  drawPlate(ctx, p, fade, 0.6 + 0.4 * f.reach);
+  drawPlate(ctx, p, fade, 0.6 + 0.4 * f.reach, hurt);
   if (f.back <= 0.01) return;
   // The back of the head: a spine of knuckles down its middle and no face.
   ctx.save();

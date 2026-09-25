@@ -19868,3 +19868,17 @@ The bottleneck was **looking**: finding a wave whose first breach was a rock
 took longer than drawing the marks.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — A step the pair lands shakes THE INSTAR and washes it red
+
+- reading: 5 min. Where the body's plates are painted and which event says
+  a step landed.
+- writing: 15 min. `boss-hurt.ts` for any boss, the blow wired into THE
+  INSTAR's fx, head and chain, and its test.
+- looking: 0 min. The blow cannot be filmed until `frames` can land a step.
+- friction: 10 min. A `-0` from the shake at rest failed a `toBe(0)`, and
+  a glob on the queue's `Files:` line failed the doc-drift test.
+- landing: 5 min. `check:fast` and the index.
+
+The bottleneck was **writing**: the blow had to be a class any boss can
+hold, not an INSTAR field, and the red has to reach every plate.

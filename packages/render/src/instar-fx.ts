@@ -1,4 +1,5 @@
 import { type InstarState, instarStep, type SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import { FallingEggs } from "./instar-eggs.js";
@@ -12,7 +13,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * the last, the **flinch** at a refused thumb or a slipped mark — a lateral
  * shiver of the whole body — the **lash** a strike draws from the part to
  * the hull, the **eggs** a swipe takes off the clutch falling to the hull
- * (`instar-eggs.ts`), and the bursts its eleven receipts throw.
+ * (`instar-eggs.ts`), the **hurt** of a step the pair landed — a shake and
+ * a red glow on the body (`boss-hurt.ts`) — and the bursts its eleven
+ * receipts throw.
  *
  * Everything else is drawn off the world every frame (`instar-draw.ts`).
  * These are here for THE HIVE's reason: a landing is one tick in the
@@ -49,6 +52,8 @@ export class InstarFx {
   readonly verdicts = new GripVerdicts();
   /** The eggs swiped off the clutch, on their way down to the hull. */
   readonly eggs = new FallingEggs();
+  /** The blow a landed step deals the body. */
+  readonly hurt = new BossHurt();
 
   /** How far the body is lifted right now, in tiles. */
   get jolt(): number {
@@ -115,6 +120,7 @@ export class InstarFx {
         case "instarLand":
           at(this.headOr(l), 14, PALETTE.hull);
           this.joltNow = JOLT_TILES;
+          this.hurt.hit();
           break;
         case "instarStrike":
           at({ x: tileCX(l, e.col), y: l.hullY }, 16, PALETTE.red);
@@ -128,6 +134,7 @@ export class InstarFx {
         case "instarDown":
           at(this.headOr(l), 30, PALETTE.hullRim);
           this.joltNow = JOLT_TILES * 2;
+          this.hurt.hit();
           break;
         case "instarOut":
           at(this.headOr(l), 12, PALETTE.dim);
@@ -155,6 +162,7 @@ export class InstarFx {
     }
     this.verdicts.update(step);
     this.eggs.update(step);
+    this.hurt.update(step);
   }
 
   /** The falling eggs, and the lash: a red line from the part that was not
@@ -183,5 +191,6 @@ export class InstarFx {
     this.headR = 0;
     this.verdicts.clear();
     this.eggs.clear();
+    this.hurt.clear();
   }
 }

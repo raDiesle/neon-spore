@@ -22,6 +22,7 @@ export function drawInstarChain(
   r: number,
   time: number,
   fade: number,
+  hurt = 0,
 ): [Point, Point] {
   const top = instarChainTop(l);
   const sway = Math.sin(time * 1.3) * r * 0.08;
@@ -32,7 +33,7 @@ export function drawInstarChain(
     const cy = top.y + (head.y - top.y) * t;
     const rad = r * (0.45 + 0.4 * t);
     const p = splinePath(blobPoints(cx, cy, rad, rad * 0.75, 5, 0.06, 0.02, time, k, 24), true);
-    drawPlate(ctx, p, fade, 0.35);
+    drawPlate(ctx, p, fade, 0.35, hurt);
     // A ridge across each plate, brighter on the turned back.
     ctx.save();
     ctx.strokeStyle = faded(PALETTE.hullRim, fade, 0.35 + 0.4 * f.back);

@@ -77,6 +77,12 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   that is a motion — `PULL UP`, `SWIPE`, `MOVE` — draws alone; the kind line
   stays only where it adds something (`PRESS`, `HOLD`, `STILL`). One rule,
   `saysKind` in `render/src/boss-cue-shape.ts`, and both hands call it.
+- **A landed sequence shows the blow**, generic, 24 September 2026: *when
+  player succeeded a sequence, it should have some visual that enemy took
+  damage e.g. its shaking for a moment and body glows red for a moment.* A
+  boss's fx holds one `BossHurt` (`render/src/boss-hurt.ts`), hits it on the
+  event that means a sequence landed — never on one mark alone — shifts the
+  body by `shakeX` and lays `drawHurt` over its plates. Half a second.
 - **Dislikes, in his words:** THE BELLOWS, played and removed on 24
   September 2026 — *"it's not clear to me how to play … what does 'push'
   means? … it's not clear what is goal … why on a curtain a jam is going out,
