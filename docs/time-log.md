@@ -20274,3 +20274,5 @@ between them, had to stand on the same marks the script already placed.
 
 The bottleneck was **reading**: deciding which of the `STILL`s were waits and
 which were the rule took longer than removing them.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

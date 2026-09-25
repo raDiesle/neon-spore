@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 759f505b — THE SPLICE and THE ANTIPHON wait without a box
+
+The WAIT frame riding THE SPLICE's number down its straw, and the STILL frame on THE ANTIPHON's body for the four beats it stands still, are gone: the owner, 25 September 2026, "for the player it is clear to wait". Both waits are drawn on the field already — the number in the air, the body gone still on both screens — so the frame only covered what the player was watching. THE STARE's STILL stays, because there being still is the rule, and so do SINEW's and THE SURGE's LIFT, which ask for a press.
+
 ## 2026-09-25 · e6295c02 — THE INSTAR looks like a dragon of a living ship
 
 It flies in from far and small, growing at the screen, and stands face-on with its jaws wide and a fireball turning in the mouth that grows as the window runs and is squeezed out as the pair push the jaws shut. It flies out and passes back side-on with two rumbling silk nests on its back, eight eggs to squash and five to swipe, then crosses out and in from the other side and swings its forked tail at the ship, pushed back by every tap. A part not stopped floods the screen with fire, hatches a swarm onto the hull, or slams the tail down.
