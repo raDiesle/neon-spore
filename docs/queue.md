@@ -400,6 +400,7 @@ Each boss lands as *a look the owner asked for by name*.
 ## Every boss shows the blow of a sequence the pair landed
 
 - **Found:** 2026-09-25, claude/instar-ui-refinements-b5cec4
+- **Taken:** 2026-09-25, claude/task-queue-work-37db18 (claim: claude/queue-every-boss-shows-the-blow-of-a-sequence-the-pair)
 - **Files:** `packages/render/src/boss-hurt.ts`, `packages/render/src/instar-fx.ts`, `packages/render/test/boss-hurt.test.ts`
 
 The owner's generic rule of 24 September 2026 (`owner.md`): a landed
