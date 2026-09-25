@@ -1,11 +1,4 @@
-import {
-  repriseClock,
-  repriseEchoing,
-  repriseLeft,
-  wardenHatchMilli,
-  wardenLidsMilli,
-  wardenTether,
-} from "@neon-spore/sim";
+import { repriseClock, wardenHatchMilli, wardenLidsMilli, wardenTether } from "@neon-spore/sim";
 import { drawClockBoss, isClockBoss } from "./boss-draw-clocks.js";
 import { cairnBody, drawCairn } from "./cairn.js";
 import { drawPileHand } from "./cairn-hand.js";
@@ -129,16 +122,25 @@ export function drawBoss(
     return;
   }
 
-  // THE REPRISE: how many bodies are still owed, read off the world, and a
-  // swallow as each one goes — the one thing the picture has to remember for
-  // itself (`reprise-fx.ts`). No body among the creatures, for the vane's reason.
+  // THE REPRISE: recording or playing, how many bodies it holds or still
+  // owes, how many unseen are still falling, and a swallow as each one goes —
+  // the moments the picture has to remember for itself (`reprise-fx.ts`). No
+  // body among the creatures, for the vane's reason.
   if (boss.kind === "reprise") {
-    const echo = effects.boss.reprise;
-    echo.note(boss.at < 0 ? -1 : boss.left);
-    const seen = repriseEchoing(world);
-    drawReprise(ctx, l, world.cfg, seen, repriseLeft(world), echo.swallow, view.time);
-    // And how long until the dark, or how far through it (`reprise-fuse.ts`).
     const clock = repriseClock(world);
+    const phase = clock === null ? null : clock.echo ? "play" : "rec";
+    const eggs = clock?.count ?? 0;
+    const fx = effects.boss.reprise;
+    fx.note(phase, eggs, view.time);
+    drawReprise(ctx, l, world.cfg, {
+      phase,
+      eggs,
+      standing: view.unseen ?? 0,
+      fx,
+      beatPhase: view.beatPhase,
+      time: view.time,
+    });
+    // And how long until the dark, or how far through it (`reprise-fuse.ts`).
     if (clock) drawRepriseFuse(ctx, l, clock, view.beatPhase);
     return;
   }

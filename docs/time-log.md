@@ -20633,3 +20633,19 @@ the scene tests use the anchor to tell a cost from a place, so the cost kept
 an anchor of its own.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE REPRISE is a camera: a lens that records and plays back, and eggs for its count
+
+- reading: 10 min. `reprise-draw.ts`, `reprise-flesh.ts`, `reprise-fx.ts`,
+  `unseen.ts`, THE WEIGHT in the shape drafts and the §11.15 cue argument.
+- writing: 45 min. The sac, the lens, the egg ring and its dashed shells, the
+  halo and the beam in three new files; `ViewState.unseen`; the unseen tests
+  rewritten to compare against a displaced world.
+- looking: 25 min. Frames at REC and PLAY, eggs enlarged twice and the hollow
+  redrawn as a dashed egg when it read as a nought.
+- friction: 10 min. A first frame that paints cached sprites made two log
+  comparisons disagree; a comment script that stopped at its first miss.
+- landing: 10 min. The spec, the index, the comments, `check:fast`, `land`.
+
+The bottleneck was **looking**: the count had to be seen at phone size to find
+out that a hollow ring reads as a digit.

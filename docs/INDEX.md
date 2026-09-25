@@ -1535,10 +1535,13 @@ by hand never moves.
 | `packages/render/src/coil-flight.ts` | THE COIL's freed rock drawn thrown from the dome's tile to the far wall's hull from the frame the dome went, its tail from the dome and the line lit a moment after the hit |
 | `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
-| `packages/render/src/reprise-draw.ts` | THE REPRISE, drawn: the top edge of the field torn open, the wave that has just come down still inside it |
-| `packages/render/src/reprise-fx.ts` | **The one thing THE REPRISE's picture has to remember**: that the count of owed bodies just went down |
-| `packages/render/src/reprise-flesh.ts` | What THE REPRISE's tear is made of: a torn lip, a throat with depth, a glossed mass and fangs for the count |
+| `packages/render/src/reprise-draw.ts` | THE REPRISE, drawn: a sac hung through a tear in the field's top edge, a camera lens for an eye and a ring of eggs for a count; places the parts and says how big |
+| `packages/render/src/reprise-fx.ts` | **What THE REPRISE's picture has to remember**: the swallow, and the moments the phase flipped and a body was recorded |
+| `packages/render/src/reprise-flesh.ts` | THE REPRISE's torn lip along the field's top edge, ragged only out past the sac |
 | `packages/render/src/reprise-fuse.ts` | **THE REPRISE's measure along the top of the screen**: THE SLOW's fuse burning down to the dark, then filling back up through the echo |
+| `packages/render/src/reprise-body.ts` | THE REPRISE's body: THE WEIGHT's sac hung through the tear on two cords, a halo that pulses on the beat, and the beam while an echo plays |
+| `packages/render/src/reprise-brood.ts` | THE REPRISE's count: a ring of eggs round the lens, laid as bodies are recorded and spent as they are sent, then a dashed shell per unseen body still falling |
+| `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/countdown.ts` | THE COUNT: the disc, `showsCount`, and the notches it wore — NOTCHES on the LIBRARY |

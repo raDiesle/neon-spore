@@ -61,6 +61,11 @@ export interface ViewState {
   /** False while paused, so the field can dim without the loop stopping. */
   running: boolean;
   /**
+   * Bodies `seenView` took out of this frame because no screen may draw them
+   * (`unseen.ts`). Set there and nowhere else; THE REPRISE counts them.
+   */
+  unseen?: number;
+  /**
    * The panel this wave is played on, stated rather than inferred.
    *
    * `world.wave` is a bare index, and it means two different things depending

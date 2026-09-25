@@ -22,7 +22,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * WHERE A CAPTION ABOUT A ROUND'S OWN FIXTURE POINTS — the three of the sixth
  * file (`caption-anchor-boss-f.ts`): THE GAUGE's dial, THE MAZE's drum, THE
- * REPRISE's tear. None of them takes a `part`, because each round draws one
+ * REPRISE's sac. None of them takes a `part`, because each round draws one
  * thing its film has a page about.
  *
  * All three pages said what they say over the middle of the player's own
@@ -71,7 +71,7 @@ describe("where a page about one of the three rounds points", () => {
     expect(PILOT.hullY - at.y).toBeGreaterThan(OFF_THE_HULL);
   });
 
-  it("rings THE REPRISE's tear across the top of the field", () => {
+  it("rings THE REPRISE's sac across the top of the field", () => {
     const world = withBoss({ kind: "reprise", beat: 12 });
     const at = anchorPoint(PILOT, world, SET, { at: "boss" }, 0);
     const tear = repriseTearBox(PILOT, CFG);
@@ -79,7 +79,7 @@ describe("where a page about one of the three rounds points", () => {
     if (at === null) return;
     expect(at.x).toBeCloseTo(tear.x, 3);
     expect(at.y).toBeCloseTo(tear.y, 3);
-    // The tear is the widest thing on the screen and barely tall at all.
+    // The sac and its torn edge are wider than they are tall.
     expect(at.rx ?? at.r).toBeGreaterThan(at.r);
     expect(PILOT.hullY - at.y).toBeGreaterThan(OFF_THE_HULL);
   });

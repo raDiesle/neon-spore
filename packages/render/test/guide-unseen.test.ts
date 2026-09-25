@@ -11,6 +11,7 @@ import {
   stubCanvas,
   waveWith,
 } from "./frame-harness.js";
+import { displaced } from "./unseen-shift.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -22,8 +23,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * as it stood — every body, including the ones THE REPRISE forbids either
  * screen to draw (`unseen.ts`). Its film taught the dark with the lights
  * on. The proof is the one `reprise-frame.test.ts` uses for the phone: the
- * same tick drawn with the echo standing and with it lifted off has to cost
- * the canvas exactly the same.
+ * same tick drawn as it stands and with every unseen body moved and
+ * recoloured has to make the same canvas calls, in order (`unseen-shift.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -39,8 +40,10 @@ function reprised(): World {
   return world;
 }
 
-function oneSeatFrame(world: World, seat: 1 | 2): number {
+function oneSeatFrame(world: World, seat: 1 | 2): string[] {
   const { ctx } = stubCanvas();
+  const log: string[] = [];
+  ctx.log = log;
   const role = seatRole(seat);
   const l = computeLayout(PHONE, CFG, role);
   new SeatView().draw(ctx as unknown as CanvasRenderingContext2D, l, {
@@ -53,7 +56,7 @@ function oneSeatFrame(world: World, seat: 1 | 2): number {
     running: true,
     controls: controlSetForWave(waveWith("reprise")),
   });
-  return ctx.calls;
+  return log;
 }
 
 describe("a seat's screen inside a rehearsal", () => {
@@ -64,9 +67,11 @@ describe("a seat's screen inside a rehearsal", () => {
         world.creatures.some((c) => c.unseen === true),
         "the echo had nothing standing",
       ).toBe(true);
+      // Once to warm: the first frame in a process also paints the sprites
+      // the module caches, and that is a longer log than any frame after it.
+      oneSeatFrame(world, seat);
       const drawn = oneSeatFrame(world, seat);
-      world.creatures = world.creatures.filter((c) => c.unseen !== true);
-      expect(oneSeatFrame(world, seat)).toBe(drawn);
+      expect(oneSeatFrame(displaced(world), seat)).toEqual(drawn);
     });
   }
 });

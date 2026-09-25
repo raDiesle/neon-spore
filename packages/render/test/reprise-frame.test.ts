@@ -16,12 +16,13 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { displaced } from "./unseen-shift.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE REPRISE, drawn — the one boss whose claim on this file is that it draws
- * **nothing**.
+ * **nothing where a body is**.
  *
  * A body the mechanism has sent again is on the field like any other: it
  * falls, the shield turns it, a bolt takes it, and it costs the hull if it
@@ -29,9 +30,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * (`sim/reprise.ts`). So what is worth holding here is a negative, and it is
  * one an eye cannot check: an unseen slick drawn in its own dark grey against
  * a dark field would look very much like nothing at all. The frame is
- * therefore measured — the same tick of the same wave, drawn once with the
- * echo standing on the field and once with it lifted off, and the two have to
- * cost the canvas exactly the same.
+ * therefore compared call by call — the same tick of the same wave, drawn once
+ * as it stands and once with every unseen body moved and recoloured
+ * (`unseen-shift.ts`), and the two logs have to be identical. The boss's count
+ * of them is in both; where they are and what colour is in neither.
  *
  * And the ordinary half, for the reason every `*-frame.test.ts` here exists:
  * the whole wave through a canvas that refuses what a real one refuses, on
@@ -51,9 +53,20 @@ function reprised(beats: number): World {
   return world;
 }
 
-/** One frame of a world already stepped, with nothing stepped further. */
-function oneFrame(world: World, role: (typeof ROLES)[number]): number {
-  return runFrames(world, role, 1, { onTick: () => {} }).ctx.calls;
+/** The ordered log of one frame of a world already stepped, with nothing
+ * stepped further. */
+function oneFrame(world: World, role: (typeof ROLES)[number]): string[] {
+  // Once to warm: the first frame in a process also paints the sprites the
+  // module caches, and that is a longer log than any frame after it.
+  runFrames(world, role, 1, { onTick: () => {} });
+  const log: string[] = [];
+  runFrames(world, role, 1, {
+    onTick: () => {},
+    onCanvas: (ctx) => {
+      ctx.log = log;
+    },
+  });
+  return log;
 }
 
 describe("a frame of THE REPRISE", () => {
@@ -77,11 +90,10 @@ describe("a frame of THE REPRISE", () => {
       const unseen = world.creatures.filter((c) => c.unseen === true);
       expect(unseen.length, `${role}: the echo had nothing standing`).toBeGreaterThan(0);
       const drawn = oneFrame(world, role);
-      // The same tick with the echo lifted off the field. Nothing else about
-      // the world moves, so a single mark drawn for one of those bodies would
-      // show up here as a difference of calls.
-      world.creatures = world.creatures.filter((c) => c.unseen !== true);
-      expect(oneFrame(world, role), role).toBe(drawn);
+      // The same tick with the echo moved and recoloured. Nothing else about
+      // the world changes, so a single mark drawn for one of those bodies
+      // would show up here as a line that differs.
+      expect(oneFrame(displaced(world), role), role).toEqual(drawn);
     }
   });
 });
@@ -111,11 +123,7 @@ describe("a body no screen may draw", () => {
         const world = standing(kind);
         expect(world.creatures.length, `${kind} never arrived`).toBeGreaterThan(0);
         const drawn = oneFrame(world, role);
-        const lifted: World = {
-          ...world,
-          creatures: world.creatures.filter((c) => c.unseen !== true),
-        };
-        expect(oneFrame(lifted, role), `${kind}/${role}`).toBe(drawn);
+        expect(oneFrame(displaced(world), role), `${kind}/${role}`).toEqual(drawn);
       }
     });
   }

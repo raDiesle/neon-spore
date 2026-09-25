@@ -2566,16 +2566,26 @@ is the meteor kinds and `volley`. The strip stays silent for an echoed body, and
 so does the siren: an arrival nobody can see announces nothing
 (`radar-blip.ts`, `comms.ts`).
 
-**What is drawn is a tear and a tally, and nothing else.** The field's own top
-edge is torn open at the middle column, lifted and flared at both ends, with
-the dark the wave went into hanging under it; one **tooth** in that tear for
-every body the running echo still owes; and a **swallow** — the tear clenching
-and the mass heaving down through it — each time one is sent
-(`render/src/reprise-draw.ts`). It is rock grey and it does not move sideways,
-because a colour would hand the navigator half of what they were meant to have
-remembered and a column would hand the pilot the other half. The tear shuts to
-a seam while a stretch is running seen, so the silhouette alone says whether
-the field in front of the pair is one they can see.
+**What is drawn is a camera creature, since 25 September 2026** — the owner:
+*increase the graphics of boss … not clear what the "teeths" are about … when
+the recording of units is started and the playing of invisible sequence starts
+also should be graphical and animation visible with something a human being
+can relate to … boss can be somehow more visible on the screen, some more
+focus.* The body is THE WEIGHT (`tools/shape-sheet/src/drafts/bosses.ts`, a
+sac hung heavy) pushed through THE BREACH's tear, which is what this boss was
+before and which stays as the field's torn top edge; two cords hang it from
+the top of the screen (`render/src/reprise-body.ts`). Its eye is a **camera
+lens** (`reprise-lens.ts`): while a stretch is recorded a **red dot** blinks in
+the pupil on the beat, and recording starts with the shutter closing and
+opening and a white ring going out; while the echo plays a **triangle** stands
+in the pupil, and playback starts with scan lines rolling down the glass and a
+pale **beam** falling from the lens across the whole field. A soft halo behind
+the sac pulses on the beat, so the eye finds it on an empty screen, and a
+**swallow** — the sac clenching — goes with each body sent. It is rock grey and
+it does not move sideways, because a colour would hand the navigator half of
+what they were meant to have remembered and a column would hand the pilot the
+other half; the one red is the camera's dot, lit for every body alike, and the
+beam is the field's full width.
 
 **And a fuse along the top of the screen, since 25 September 2026**
 (`render/src/reprise-fuse.ts`), the owner's: *some loading indicator … when
@@ -2584,7 +2594,7 @@ invisible time*. It is THE SLOW's fuse, the same line in the same place, and
 it carries both of this fight's clocks. While a stretch is recorded it burns in
 from both ends and meets in the middle on the beat the field goes dark,
 orange at half and red for the last two beats. While the echo plays it fills
-back out from the middle in the tear's grey and is whole on the beat the last
+back out from the middle in the boss's grey and is whole on the beat the last
 body is sent. It is read off `repriseClock` and says nothing the pair could
 not have counted: when the dark falls follows from `every`, and when it lifts
 follows from the stretch they watched. After the last echo it is gone, because
@@ -2592,12 +2602,20 @@ there is no dark left to count down to. The director's map marks the row each
 echo falls after, from `reprisePlan`, which walks the same clock.
 
 The count is a shape and never a digit, which is the arrangement
-`beatbox-count.ts` already argues for: a row says *this many are still to come*
-at a glance, and a number has to be read. The one going out is drawn shortening
-rather than removed between two frames — without it a swallow is a clench with
-nothing to explain it. `repriseLeft` is the whole of what the picture is given,
-and `RepriseFx` is the one thing it remembers between frames, because a count
-read fresh says nothing about the moment it changed.
+`beatbox-count.ts` already argues for: a ring says *this many* at a glance, and
+a number has to be read. It is a **ring of eggs** round the lens
+(`reprise-brood.ts`), which replaced the row of teeth: an egg is laid, with a
+pop, for each body recorded, and one is spent, with a flash and a drop into the
+tear, for each body sent. After the eggs stand **dashed shells, one for each
+unseen body still on the field** — the owner's *remaining enemies on the
+screen, some kind of count*, and the one number the pair could not count for
+themselves. It says how many and never where: `seenView` hands the draw pass a
+count and nothing else (`ViewState.unseen`), and
+`render/test/reprise-frame.test.ts` proves a frame is the same op for op when
+every unseen body is moved and recoloured. `repriseClock` is what the picture
+is given, and `RepriseFx` is the one thing it remembers between frames — the
+swallow, and the moments the phase flipped and a body was recorded — because a
+count read fresh says nothing about the moment it changed.
 
 **A body neither screen may draw is taken off the frame once**, as it arrives,
 rather than skipped by each pass that would have drawn it
@@ -2609,9 +2627,9 @@ from the outline the body had, so the pair learns it was right by seeing the
 kill and never by seeing the body (`body-hit.ts`).
 
 **The words** (`render/src/boss-cue-read-s.ts`, 19 September 2026, the readings'
-page `s`). Two, and they stand for exactly as long as the tear is open:
+page `s`). Two, and they stand for exactly as long as the echo plays:
 `CARRY` / `MOVE` on the pilot's cannon where it stands, and `PRESS` / `FIRE` on
-the mouth of the tear, the navigator's. The reading said nothing before that —
+the lens, the navigator's. The reading said nothing before that —
 this boss builds no cue in its own drawing either, so the absence was real — and
 it is the one fight in the game where that costs the most: **a field with no
 body drawn on it asks for nothing by its own picture**, and the instinct a pair
@@ -2619,8 +2637,8 @@ brings to an empty screen is to wait until they can see something. One body on
 the hull fails the wave.
 
 **The gate is `repriseEchoing` and nothing else, and that is the whole licence.**
-The tear is drawn on both seats with no `showsX` anywhere near it and is shut to
-a seam while a stretch runs seen, so an echo running is a fact both screens
+The boss is drawn on both seats with no `showsX` anywhere near it and shows the
+red dot while a stretch runs seen and the triangle while it plays, so an echo running is a fact both screens
 already hold in the same picture: a word that appears with it says nothing new,
 and — the half of the test that catches more lanes — its absence says nothing
 either. Nothing here reads `left`, `cursor`, `from` or `held`. `MOVE` is **not**
@@ -2629,18 +2647,20 @@ would be under is an unseen body's and a word that went out on it would be that
 body marked by its own absence, which is the one thing `unseen.ts` exists to make
 impossible.
 
-**Six silences.** The column, because the mark for the press stands on the tear,
+**Six silences.** The column, because the mark for the press stands on the lens,
 which hangs on `midCol` and does not move sideways for anything. The colour,
 because half of what the pair had to remember is which of the two buttons a body
-takes. The count, because the teeth already draw it on both screens and #34's
+takes. The count, because the eggs already draw it on both screens and #34's
 *reconsider if* names a count outright. The beat, because the swallow already
 says *one has just gone* and a word that arrived with it would say *now* on the
 beat a body enters rather than the beat it comes into reach. The lance, because
 `HOLD` / `BURN` is the family's word wherever a column holds several and whether
 one does is the answer here. And the sixth, which is the wave: `closeEcho` runs
-on the beat the echo's **last body is sent**, not the beat it lands, so the tear
-shuts and both words go out while bodies nothing drew are still falling — a word
-that stayed up would announce, by standing there, the body nobody said. Proved in
+on the beat the echo's **last body is sent**, not the beat it lands, so the
+triangle and both words go out while bodies nothing drew are still falling — a
+word that stayed up would announce, by standing there, the body nobody said.
+Since 25 September 2026 the egg ring counts those bodies as dashed shells, how
+many and never where; a word would be a second picture for that count. Proved in
 `render/test/boss-cue-reprise.test.ts`, that last silence with it.
 
 **And the briefing had sent both seats to the plate**, which cannot touch this

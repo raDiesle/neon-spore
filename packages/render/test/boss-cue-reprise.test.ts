@@ -37,9 +37,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * they can see something. One body on the hull fails the wave.
  *
  * **Every case below is really about the gate.** Both words stand for exactly
- * as long as `repriseEchoing`, and that is legal because the tear is drawn on
- * both seats with no `showsX` anywhere near it and is *shut to a seam* while a
- * stretch runs seen — so the word's arrival and its absence each say a thing
+ * as long as `repriseEchoing`, and that is legal because the boss is drawn on
+ * both seats with no `showsX` anywhere near it and shows the triangle exactly
+ * while an echo plays — so the word's arrival and its absence each say a thing
  * both screens are already shown. Nothing reads the count, the cursor or the
  * beat.
  *
@@ -157,7 +157,7 @@ describe("THE REPRISE", () => {
     const world = until(opened(), repriseEchoing);
     const s = installed(world);
     const before = { p1: cue(world, "p1"), p2: cue(world, "p2") };
-    // The count is the tear's, as a row of teeth, on both screens — and #34
+    // The count is the boss's, as a ring of eggs, on both screens — and #34
     // forbids a cue carrying one at all. Nothing below moves with it.
     for (const left of [1, 2, 5]) {
       s.left = left;

@@ -39,11 +39,21 @@ import type { ViewState } from "./renderer.js";
  *   (`apps/game/src/field-input.ts`), because whether an invisible body can be
  *   taken hold of is the simulation's rule and not the picture's.
  *
+ * **How many it took out is kept**, as `ViewState.unseen`: THE REPRISE counts
+ * the unseen bodies still falling as hollow rings round its lens
+ * (`reprise-brood.ts`) — how many, never where — and the boss pass reads a
+ * field this function has already emptied of them.
+ *
  * The object itself when there is nothing to take out, which is every wave but
  * one: an ordinary frame allocates nothing here.
  */
 export function seenView(view: ViewState): ViewState {
   const { creatures } = view.world;
   if (!creatures.some((c) => c.unseen)) return view;
-  return { ...view, world: { ...view.world, creatures: creatures.filter((c) => !c.unseen) } };
+  const seen = creatures.filter((c) => !c.unseen);
+  return {
+    ...view,
+    unseen: creatures.length - seen.length,
+    world: { ...view.world, creatures: seen },
+  };
 }
