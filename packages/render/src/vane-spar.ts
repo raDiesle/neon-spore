@@ -1,4 +1,5 @@
 import type { Point } from "@neon-spore/content";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litColour } from "./key-light.js";
@@ -91,6 +92,8 @@ export function drawArm(
   tx: number,
   ty: number,
   whip: number,
+  /** How red the blow of a knocked-out pin still shows on the spar. */
+  hurt = 0,
 ): void {
   // The lever's own angle, and the one number the two halves share: the spar
   // leaves the hub pointing at the tip and the weight leaves it pointing away,
@@ -116,6 +119,7 @@ export function drawArm(
   ctx.strokeStyle = rgba(PALETTE.rock, 0.55);
   ctx.lineWidth = STROKE.inner;
   ctx.stroke(body);
+  drawHurt(ctx, body, hurt);
 
   bracing(ctx, l, pts);
   fork(ctx, l, px, py, tx, ty);

@@ -1,5 +1,6 @@
 import { circleSubpath } from "@neon-spore/content";
 import { type VaneState, vaneSplitCol, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import { litColour } from "./key-light.js";
@@ -69,10 +70,12 @@ export function drawBearing(
   open: boolean,
   hex: string,
   rim: string,
+  /** How red the blow of a knocked-out pin still shows on the hub (`boss-blows.ts`). */
+  hurt = 0,
 ): void {
   mount(ctx, l, px, py);
   flange(ctx, world, b, px, py, hub);
-  boss(ctx, px, py, hub);
+  boss(ctx, px, py, hub, hurt);
   split(ctx, l, world, b, px, py, open, hex, rim);
 }
 
@@ -150,7 +153,13 @@ function flange(
 }
 
 /** The hub itself: the disc, the nut on its face and the keyway across it. */
-function boss(ctx: CanvasRenderingContext2D, px: number, py: number, hub: number): void {
+function boss(
+  ctx: CanvasRenderingContext2D,
+  px: number,
+  py: number,
+  hub: number,
+  hurt: number,
+): void {
   const disc = new Path2D(circleSubpath(px, py, hub));
   ctx.fillStyle = steelRamp(ctx, py - hub, py + hub);
   ctx.fill(disc);
@@ -171,6 +180,7 @@ function boss(ctx: CanvasRenderingContext2D, px: number, py: number, hub: number
   key.lineTo(px, py + k);
   ctx.strokeStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.stroke(key);
+  drawHurt(ctx, disc, hurt);
 }
 
 /**

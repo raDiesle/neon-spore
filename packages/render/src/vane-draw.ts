@@ -1,5 +1,6 @@
 import { circleSubpath } from "@neon-spore/content";
 import { type VaneState, vaneColor, vaneOpen, vaneOpeningNow, type World } from "@neon-spore/sim";
+import type { BossHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -29,8 +30,10 @@ import { drawArm } from "./vane-spar.js";
  * getting *longer*, which is the same bargain the Bulb Queen makes by sinking.
  *
  * Nothing here is held between frames. Everything it draws comes off the world
- * and the beat, so there is no `Effects` field to clear and no way for a
- * restart to show this fight the last one's arm.
+ * and the beat, so there is no way for a restart to show this fight the last
+ * one's arm. The one thing handed in is the blow of a knocked-out pin, which
+ * shakes the whole mechanism and reddens the hub and the spar
+ * (`boss-blows.ts`).
  */
 
 /** Beats a throw's streak takes to go out. Short — it is a flick, not a trail. */
@@ -43,6 +46,22 @@ export function drawVane(
   b: VaneState,
   beatPhase: number,
   time: number,
+  hurt: BossHurt,
+): void {
+  ctx.save();
+  ctx.translate(hurt.shakeX(time, l.tile), 0);
+  drawMechanism(ctx, l, world, b, beatPhase, time, hurt.value);
+  ctx.restore();
+}
+
+function drawMechanism(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  b: VaneState,
+  beatPhase: number,
+  time: number,
+  hurt: number,
 ): void {
   const cfg = world.cfg;
   const { x: px, y: py, r: hub } = vaneHubAt(l, cfg);
@@ -69,8 +88,8 @@ export function drawVane(
   const hex = vaneColor(opening) === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
-  drawBearing(ctx, l, world, b, px, py, hub, open, hex, rim);
-  drawArm(ctx, l, px, py, hub, tx, ty, whip);
+  drawBearing(ctx, l, world, b, px, py, hub, open, hex, rim, hurt);
+  drawArm(ctx, l, px, py, hub, tx, ty, whip, hurt);
   // The two hands, under the tip so the ring circles it rather than covering
   // it, and over the spar so a thumb is never behind the thing it is on
   // (`vane-grip.ts`).
