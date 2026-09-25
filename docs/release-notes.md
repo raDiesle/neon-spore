@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · d447cddbc — The canvas's size on the page is its host's, not the renderer's
+
+`Canvas2DRenderer.resize` sets the backing store only. The game's viewport, which decides the size, now writes the px itself, and the director's stage no longer deletes an inline length before every measurement: the sheet is the one answer there. `viewport.ts`'s measurement moved to `viewport-measure.ts` to keep it under the ceiling.
+
 ## 2026-09-25 · 610fc26fb — The time log merges on its own again: a duplicated entry had stopped every landing's merge
 
 The AUTO lane's entry was in docs/time-log.md twice, a draft above the final, under one heading with two bodies. The record merge refuses that on every side, so each landing that hour stopped on the ledger and was resolved by hand. The draft is gone, and a test now holds that the ledger as it stands merges.

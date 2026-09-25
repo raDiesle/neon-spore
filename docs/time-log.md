@@ -20528,3 +20528,5 @@ ledger merge refuse, silently, until somebody read why.
 
 The bottleneck was **the ceiling**: `viewport.ts` went to 245 lines with the
 two new lines, and its measurement had to move out before anything landed.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
