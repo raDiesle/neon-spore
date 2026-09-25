@@ -107,20 +107,6 @@ the strength a phone needs.
   test backwards, five tests.
 - looking: 5 min. The browser pane and `bun run shot`, and the labels moved
   apart after the first picture.
-- friction: 0 min.
-- landing: 5 min. `check:fast`, one index row per new file.
-
-The bottleneck was the picture: the pane opened the wrong port and
-`bun run shot --click` was the way to a PNG.
-
-## 2026-09-25 — AUTO: the director plays a seat live, with its finger drawn
-
-- reading: 5 min. The boss hands, `touch.ts`'s drag carry, the stage's step
-  and seat plumbing.
-- writing: 10 min. The hand table, the stage row, the ghost that runs the hit
-  test backwards, five tests.
-- looking: 5 min. The browser pane and `bun run shot`, and the labels moved
-  apart after the first picture.
 - friction: 5 min. The pane opened the game's port rather than the
   director's, and a stray `cat` in one shell command waited on stdin.
 - landing: 5 min. `check:fast`, one index row per new file.
@@ -20512,3 +20498,17 @@ The bottleneck was **writing**: one new event is fourteen registrations across
 sim, audio, render and the director, and each is found by the typecheck.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The ledger merges again: the AUTO lane's draft entry is gone
+
+- reading: 5 min. Why `land` stopped on `docs/time-log.md` although
+  `ledger-merge.ts` exists: `byTitle` refuses a heading filed twice with two
+  bodies, and the AUTO lane's draft sat above its final entry.
+- writing: 0 min. The draft removed, and a test that the ledger as it stands
+  merges.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. The previous landing's ledger conflict, resolved by hand.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: one duplicated heading made every landing's
+ledger merge refuse, silently, until somebody read why.

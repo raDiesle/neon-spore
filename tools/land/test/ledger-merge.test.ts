@@ -106,4 +106,15 @@ describe("the file it is registered for", () => {
     // `replay.ts` keys its resolver on the same constant.
     expect(LEDGER_FILE).toBe("docs/time-log.md");
   });
+
+  test("merges as it stands, so no landing is left to resolve it by hand", async () => {
+    // One heading filed twice with two bodies makes the merge refuse on every
+    // side, and every landing that hour conflicts on the ledger. On 25
+    // September 2026 the AUTO lane's draft entry sat above its final one and
+    // did exactly that, to the next lane that landed.
+    const now = await Bun.file(new URL("../../../docs/time-log.md", import.meta.url)).text();
+    const trunk = `${now}\n${entry("trunk-lane", 5)}`;
+    const lane = `${now}\n${entry("this-lane", 10)}`;
+    expect(mergeLedger(now, trunk, lane)).not.toBeNull();
+  });
 });
