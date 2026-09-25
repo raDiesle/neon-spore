@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 946550268 — THE FILAMENT opens with no guide, like THE INSTAR
+
+The owner's answer to the queue's question was both guides go. The wave opens on its number and name, and the field teaches the rest: each ring says whether its move is open, and three pips under it are the window. `waves.test.ts` names both waves in `SAYS_ITSELF`, and `briefings.md` counts eighty-eight guided waves, eighty films and eight in words.
+
 ## 2026-09-25 · ee50e9689 — Queue and time log: three more bosses wear the blow
 
 THE SCUTTLE, THE FLEET and THE QUEEN join the list; THE REPRISE is noted as never wearing it, and what THE MIRROR needs first is written down.
