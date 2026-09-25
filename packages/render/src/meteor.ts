@@ -88,6 +88,11 @@ function rockHits(seed: number, holes: number, r: number): readonly RockHit[] {
  * part of it through — THE CAIRN's pile, and nothing else so far — so the
  * marks that could not show are never built (`rock-window.ts`). In the
  * rock-centred screen frame; the whole screen when left out.
+ *
+ * `roll` is an extra turn on top of the rock's own slow spin, in radians — a
+ * rock rolling off the hull turns by the distance it covered over its radius
+ * (`rock-impact.ts`). The body and its pits turn with it; the light does not,
+ * because `keyAxis` is taken from the same total turn.
  */
 export function drawRockBody(
   ctx: CanvasRenderingContext2D,
@@ -99,6 +104,7 @@ export function drawRockBody(
   holes: number,
   look: MeteorLook = meteorLookFor(seed),
   within: Window = WHOLE,
+  roll = 0,
 ): void {
   const d = crystalPath(
     0,
@@ -113,7 +119,7 @@ export function drawRockBody(
   );
   const path = new Path2D(d);
 
-  const turn = (seed % 13) * 0.48 + time * 0.12;
+  const turn = (seed % 13) * 0.48 + time * 0.12 + roll;
   const hits = rockHits(seed, holes, r);
   ctx.save();
   ctx.translate(x, y);

@@ -3,15 +3,9 @@ import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { drawRockBody, wearsRockLook } from "./meteor.js";
 import { PALETTE } from "./palette.js";
-import {
-  currentX,
-  driftedOffscreen,
-  floatSeconds,
-  liftoffRise,
-  stickStart,
-  travelled,
-} from "./rock-drift.js";
+import { currentX, driftedOffscreen, liftoffRise, stickStart, travelled } from "./rock-drift.js";
 import type { Impact } from "./rock-impact-state.js";
+import { RockScuffs, scuffStep } from "./rock-scuffs.js";
 import { rockRadius, torchRotation } from "./rock-size.js";
 import { drawTorchRock, drawTorchTail } from "./torch.js";
 
@@ -21,7 +15,8 @@ import { drawTorchRock, drawTorchTail } from "./torch.js";
  * so render/ never gets a frame to glide it through that final step; this
  * replays it at the speed every earlier beat had. A miss then sinks into the
  * skin and rolls off the field, a deflect hands its point to `DeflectFx` and
- * is gone. How it rolls off is `rock-drift.ts`.
+ * is gone. How fast it rolls off is `rock-drift.ts`; the marks it leaves on
+ * the way are `rock-scuffs.ts`.
  */
 
 /** How long the torch's tail lasts once it is in the hull — long enough not
@@ -46,11 +41,13 @@ const TAIL_LIFE = 0.15;
  */
 export class RockImpactFx {
   private impacts: Impact[] = [];
+  private scuffs = new RockScuffs();
 
   /** Drop every impact still falling, stuck or rolling — for a restart,
    * else one would land on the new run's hull. See `Effects.reset`. */
   clear(): void {
     this.impacts.length = 0;
+    this.scuffs.clear();
   }
 
   /** `beatSeconds` is how long one beat takes at the tempo the miss happened
@@ -93,10 +90,12 @@ export class RockImpactFx {
       onArrive,
       arrived: false,
       tail,
+      scuffed: 0,
     });
   }
 
   update(dt: number, l: Layout): void {
+    this.scuffs.update(dt);
     for (let i = this.impacts.length - 1; i >= 0; i--) {
       const im = this.impacts[i]!;
       im.t += dt;
@@ -115,6 +114,7 @@ export class RockImpactFx {
     time: number,
     skinAt: (x: number) => number,
   ): void {
+    this.scuffs.draw(ctx, skinAt);
     for (const im of this.impacts) {
       const x = currentX(im);
       const surfaceY = skinAt(x);
@@ -147,26 +147,43 @@ export class RockImpactFx {
         im.onArrive(x, im.embed ? surfaceY : arriveY);
       }
 
-      const floating = im.t > stuckAt;
-      const floatT = floatSeconds(im);
+      const rolling = im.t > stuckAt;
       const rise = liftoffRise(im);
       // It came down without turning (`drawTorch`) and lands the same way up
-      // it fell. Leaving, it *rolls*: the turn is its travel over its own
-      // radius — the arc a wheel that size covers going that far — and since
-      // it leaves at `DRIFT_SPEED`, not from a standstill, the roll starts
-      // the same instant the drift does.
-      const rotation = im.rotation0 + (im.dir * travelled(im)) / im.r;
+      // it fell. Leaving, it *rolls like a ball*: the turn is its travel over
+      // its own radius — the arc a wheel that size covers going that far — so
+      // it turns slowly while it is tipping out of its hole and spins up as
+      // it runs away (`rock-drift.ts`).
+      const roll = (im.dir * travelled(im)) / im.r;
 
       // Sunk half its radius into the hull — exactly the crater's own depth,
       // so it sits in the hole it made — and riding the same surface point,
-      // so the ship's motion carries it while stuck. Letting go, it eases up
-      // clear of the line rather than jumping, and only bobs once risen.
-      const bob = floating ? Math.sin(floatT * 2.4) * im.r * 0.12 * rise : 0;
-      const y = falling
-        ? im.y0 + im.fallSpeed * im.t
-        : floating
-          ? stuckY + (surfaceY - im.r * 1.1 - stuckY) * rise + bob
-          : stuckY;
+      // so the ship's motion carries it while stuck. Letting go, it climbs out
+      // onto the skin and rolls on it: its centre a radius off the skin along
+      // the dome's own normal, touching it at `x`, never hovering over it.
+      let cx = x;
+      let y = stuckY;
+      if (falling) y = im.y0 + im.fallSpeed * im.t;
+      else if (rolling) {
+        const slope = (skinAt(x + 2) - skinAt(x - 2)) / 4;
+        const k = Math.hypot(1, slope);
+        cx = x + ((slope * im.r) / k) * rise;
+        y = stuckY + (surfaceY - im.r / k - stuckY) * rise;
+        // A mark each step of the roll once it is out of its hole — where the
+        // step fell on its path, not where the frame happened to catch it.
+        const step = scuffStep(im.r);
+        while (rise >= 1 && travelled(im) >= (im.scuffed + 1) * step) {
+          im.scuffed += 1;
+          const tint = im.kind === "torch" ? PALETTE.ember : PALETTE.rock;
+          this.scuffs.add(
+            im.x0 + im.dir * im.scuffed * step,
+            im.dir,
+            im.r,
+            tint,
+            im.seed * 31 + im.scuffed,
+          );
+        }
+      }
 
       if (!im.embed && !falling) continue;
 
@@ -179,20 +196,23 @@ export class RockImpactFx {
 
       // While it is still stuck, a low ember glow sells the "melted into the
       // skin" contact rather than a rock merely floating in front of it.
-      if (!falling && !floating) halo(ctx, x, surfaceY, im.r * 1.1, PALETTE.ember, 0.22);
+      if (!falling && !rolling) halo(ctx, x, surfaceY, im.r * 1.1, PALETTE.ember, 0.22);
 
-      const clock = falling || floating ? time : im.spawnTime;
+      // Its shape holds still from the moment it lands: the roll turns it
+      // from there, and a rock whose facets also wobbled while it rolled
+      // would read as melting rather than turning.
+      const clock = falling ? time : im.spawnTime + im.fallLife;
       // A plain rock is the same rock it was on the field — `drawRockBody`,
       // by its own seed and craters, spinning as it spun — so nothing changes
       // about it at the hull but where it is. The torch keeps its own draw and
       // its ember ring, which no other tier carries (`drawTorchRock`).
       if (wearsRockLook(im.kind)) {
-        drawRockBody(ctx, x, y, im.r, clock, im.seed, im.holes);
+        drawRockBody(ctx, cx, y, im.r, clock, im.seed, im.holes, undefined, undefined, roll);
         continue;
       }
       ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(rotation);
+      ctx.translate(cx, y);
+      ctx.rotate(im.rotation0 + roll);
       drawTorchRock(ctx, im.r, clock, im.kind === "torch");
       ctx.restore();
     }

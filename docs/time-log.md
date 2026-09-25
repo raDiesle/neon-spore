@@ -19851,3 +19851,18 @@ The bottleneck was **reading**: `Field` has sixty constructors, so the flag
 had to be the one optional field on it rather than a required one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — A rock rolls off the hull like a ball, and scuffs the skin
+
+- reading: 10 min. `rock-impact.ts`, `rock-drift.ts`, `drawRockBody`, and
+  where the hull's own damage is drawn.
+- writing: 15 min. The new pace, the roll on the skin, `roll` on
+  `drawRockBody`, `rock-scuffs.ts`, and six tests.
+- looking: 15 min. Three strips of THE WARD's breach, cropped to the hull;
+  the first marks read as a dashed line and got their own length and lean.
+- friction: 5 min. The first two waves tried breached with a slick and a
+  bulb, not a rock; the canvas stub logs no `translate` or `rotate`.
+- landing: 5 min. `check:fast`, red once on the index.
+
+The bottleneck was **looking**: finding a wave whose first breach was a rock
+took longer than drawing the marks.

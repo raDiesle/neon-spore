@@ -44,4 +44,6 @@ export interface Impact {
   arrived: boolean;
   /** Whether it drags the torch's streak from the top of the field. */
   tail: boolean;
+  /** How many marks it has left on the skin rolling off (`rock-scuffs.ts`). */
+  scuffed: number;
 }
