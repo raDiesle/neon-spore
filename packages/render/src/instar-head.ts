@@ -1,5 +1,7 @@
 import { strokeGlow } from "./glow.js";
 import { drawFireball } from "./instar-fire.js";
+import { drawEye, drawHorns, drawSinews, drawTeeth, r2 } from "./instar-head-parts.js";
+import { drawDrip, drawScales } from "./instar-hide.js";
 import { drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
 import type { Point } from "./instar-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -24,11 +26,6 @@ import { PALETTE, STROKE } from "./palette.js";
 /** How far each lip stands off the middle of the mouth, in head radii: shut and wide. */
 const LIP_SHUT = 0.08;
 const LIP_OPEN = 0.75;
-
-const r2 = (o: Point, r: number, x: number, y: number): Point => ({
-  x: o.x + x * r,
-  y: o.y + y * r,
-});
 
 /** The upper jaw and brow, from the lip up, in head radii. */
 const UPPER: readonly (readonly [number, number])[] = [
@@ -71,7 +68,15 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     else chin.lineTo(p.x, p.y);
   });
   chin.closePath();
-  drawPlate(ctx, chin, fade, 0.6, hurt);
+  const jaw = { x: down.x, y: down.y + r * 0.28, r: r * 0.72, ry: r * 0.36 };
+  drawPlate(ctx, chin, fade, 0.6, hurt, jaw);
+  drawScales(ctx, chin, jaw, r * 0.11, fade);
+  // Slime off the chin, stretching and giving back.
+  for (const [x, y, k] of [
+    [-0.3, 0.5, 1],
+    [0.22, 0.56, 2],
+  ] as const)
+    drawDrip(ctx, r2(down, r, x, y), r * 0.3, r * 0.028, time, k, fade);
   drawSeam(ctx, r2(down, r, -0.4, 0.3), r2(down, r, 0, 0.42), r2(down, r, 0.4, 0.3), fade);
   // The mouth, lip to lip, and the throat lit by the fire in it.
   const mouth = new Path2D();
@@ -99,6 +104,19 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
   drawSinews(ctx, up, down, r, gap, fade);
   drawTeeth(ctx, up, r, 1, 0.1 + 0.08 * f.jawUp, fade);
   drawTeeth(ctx, down, r, -1, 0.08 + 0.07 * f.jawDown, fade);
+  // Spit off the long fangs, while the mouth is open far enough to hang in.
+  if (gap > 0.6)
+    for (const s of [-1, 1])
+      drawDrip(
+        ctx,
+        r2(up, r, s * 0.35, 0.22),
+        r * 0.22,
+        r * 0.018,
+        time,
+        3 + s,
+        fade,
+        PALETTE.emberRim,
+      );
   const skull = new Path2D();
   UPPER.forEach(([x, y], i) => {
     const p = r2(up, r, x, y);
@@ -106,7 +124,9 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     else skull.lineTo(p.x, p.y);
   });
   skull.closePath();
-  drawPlate(ctx, skull, fade, 0.7, hurt);
+  const brow = { x: up.x, y: up.y - r * 0.36, r: r * 0.9, ry: r * 0.42 };
+  drawPlate(ctx, skull, fade, 0.7, hurt, brow);
+  drawScales(ctx, skull, brow, r * 0.12, fade);
   drawSeam(ctx, r2(up, r, 0, -0.54), r2(up, r, 0.03, -0.3), r2(up, r, 0, -0.08), fade, 0.6);
   // The nostrils, smoking with the fire behind them.
   ctx.save();
@@ -123,115 +143,4 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
   }
   ctx.restore();
   for (const s of [-1, 1]) drawEye(ctx, r2(up, r, s * 0.48, -0.44), r, s, f.eye, time, fade);
-}
-
-/** Two horns off each brow, swept back and out. */
-function drawHorns(ctx: CanvasRenderingContext2D, up: Point, r: number, s: number, fade: number) {
-  for (const [bx, by, cx, cy, tx, ty, w] of [
-    [0.6, -0.64, 1.05, -0.85, 1.22, -1.42, 0.13],
-    [0.84, -0.4, 1.2, -0.45, 1.36, -0.78, 0.08],
-  ] as const) {
-    const base = r2(up, r, s * bx, by);
-    const tip = r2(up, r, s * tx, ty);
-    const p = new Path2D();
-    p.moveTo(base.x - s * w * r, base.y);
-    p.quadraticCurveTo(up.x + s * (cx - w) * r, up.y + cy * r, tip.x, tip.y);
-    p.quadraticCurveTo(up.x + s * (cx + w) * r, up.y + (cy + w) * r, base.x + s * w * r, base.y);
-    p.closePath();
-    ctx.save();
-    ctx.fillStyle = faded(PALETTE.rockDark, fade);
-    ctx.fill(p);
-    ctx.restore();
-    strokeGlow(ctx, p, faded(PALETTE.rock, fade), STROKE.inner, 0.3 * fade);
-  }
-}
-
-/** A slanted gold eye with a slit pupil, narrowed as `eye` goes to nought. */
-function drawEye(
-  ctx: CanvasRenderingContext2D,
-  at: Point,
-  r: number,
-  s: number,
-  open: number,
-  time: number,
-  fade: number,
-): void {
-  drawSeam(
-    ctx,
-    r2(at, r, -0.2, -0.12 + s * 0.05),
-    r2(at, r, 0, -0.2),
-    r2(at, r, 0.2, -0.12 - s * 0.05),
-    fade,
-    0.7,
-  );
-  if (open <= 0.02) return;
-  const tilt = -s * 0.35;
-  const p = new Path2D();
-  p.ellipse(at.x, at.y, r * 0.17, r * 0.075 * open, tilt, 0, Math.PI * 2);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.pod, fade, 0.95);
-  ctx.fill(p);
-  ctx.fillStyle = faded(PALETTE.background, fade);
-  ctx.beginPath();
-  const look = Math.sin(time * 0.6) * r * 0.04;
-  ctx.ellipse(at.x + look, at.y, r * 0.022, r * 0.068 * open, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.podRim, fade), STROKE.inner, 0.7 * fade);
-}
-
-/** The strings of sinew between the two jaws, gone once they are near shut. */
-function drawSinews(
-  ctx: CanvasRenderingContext2D,
-  up: Point,
-  down: Point,
-  r: number,
-  gap: number,
-  fade: number,
-): void {
-  if (gap < 0.4) return;
-  ctx.save();
-  ctx.strokeStyle = faded(PALETTE.hullRim, fade, 0.3);
-  ctx.lineWidth = STROKE.inner;
-  for (const x of [-0.56, -0.42, 0.44, 0.58]) {
-    ctx.beginPath();
-    ctx.moveTo(up.x + x * r, up.y + 0.04 * r);
-    ctx.quadraticCurveTo(
-      up.x + x * 1.08 * r,
-      (up.y + down.y) / 2,
-      down.x + x * r,
-      down.y - 0.04 * r,
-    );
-    ctx.stroke();
-  }
-  ctx.restore();
-}
-
-/** A row of fangs on one lip, `dir` 1 hanging down and -1 standing up; the
- * two outermost are the long ones. */
-function drawTeeth(
-  ctx: CanvasRenderingContext2D,
-  lip: Point,
-  r: number,
-  dir: 1 | -1,
-  len: number,
-  fade: number,
-): void {
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.rock, fade, 0.95);
-  const n = dir === 1 ? 7 : 6;
-  for (let i = 0; i < n; i++) {
-    const u = -0.52 + (1.04 * i) / (n - 1);
-    const sag = dir * 0.1 * (1 - (u / 0.64) ** 2) - dir * 0.02;
-    const x = lip.x + u * r;
-    const y = lip.y + sag * r;
-    const fang = i === 1 || i === n - 2 ? 1.9 : 1;
-    ctx.beginPath();
-    ctx.moveTo(x - r * 0.04, y);
-    ctx.lineTo(x + r * 0.04, y);
-    ctx.lineTo(x, y + dir * len * fang * r);
-    ctx.closePath();
-    ctx.fill();
-  }
-  ctx.restore();
 }

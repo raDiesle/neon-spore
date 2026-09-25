@@ -1,7 +1,8 @@
 import { blobPoints } from "@neon-spore/content";
 import { halo } from "./glow.js";
 import { drawFrontHead } from "./instar-head.js";
-import { drawLamp, drawPlate, drawSeam, type Look, toward } from "./instar-plate.js";
+import { drawScales } from "./instar-hide.js";
+import { drawLamp, drawPlate, drawSeam, faded, type Look, toward } from "./instar-plate.js";
 import { instarFarEnd } from "./instar-shape.js";
 import { drawWing } from "./instar-wings.js";
 import type { Layout } from "./layout.js";
@@ -44,7 +45,9 @@ export function drawFront(ctx: CanvasRenderingContext2D, l: Layout, look: Look):
       blobPoints(c.x, c.y, rad, rad * 0.62, 5, 0.05, 0.02, time, 40 + k, 20),
       true,
     );
-    drawPlate(ctx, p, fade, 0.35 + 0.2 * t, hurt);
+    const form = { x: c.x, y: c.y, r: rad, ry: rad * 0.62 };
+    drawPlate(ctx, p, fade, 0.35 + 0.2 * t, hurt, form);
+    drawScales(ctx, p, form, rad * 0.24, fade);
     const y = c.y + rad * 0.15;
     drawSeam(
       ctx,
@@ -71,6 +74,21 @@ function drawEngines(
 ): void {
   const flick = 0.75 + 0.25 * Math.sin(time * 21);
   const size = Math.max(4, Math.round((r * 0.32) / 4) * 4);
-  for (const s of [-1, 1])
-    halo(ctx, rear.x + s * r * 0.18, rear.y - r * 0.05, size, PALETTE.ember, 0.7 * flick * fade);
+  for (const s of [-1, 1]) {
+    const x = rear.x + s * r * 0.18;
+    const y = rear.y - r * 0.05;
+    halo(ctx, x, y, size, PALETTE.ember, 0.7 * flick * fade);
+    // The nozzle: a ring of hide round the burn, and its white-hot core.
+    ctx.save();
+    ctx.strokeStyle = faded(PALETTE.rockDark, fade);
+    ctx.lineWidth = Math.max(1, r * 0.035);
+    ctx.beginPath();
+    ctx.ellipse(x, y, r * 0.09, r * 0.06, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = faded(PALETTE.emberRim, fade, 0.8 * flick);
+    ctx.beginPath();
+    ctx.ellipse(x, y, r * 0.045, r * 0.03, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
 }

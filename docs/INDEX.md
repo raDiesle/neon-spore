@@ -1432,6 +1432,7 @@ by hand never moves.
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |
 | `packages/render/src/instar-strike.ts` | **What THE INSTAR does when the pair do not stop it**, one picture per part |
+| `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
@@ -1439,6 +1440,8 @@ by hand never moves.
 | `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
 | `packages/render/src/instar-eggs.ts` | THE INSTAR's clutch, one egg per swipe, and the egg each counted swipe drops to the hull |
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
+| `packages/render/src/instar-head-parts.ts` | **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and the sinew strung between the jaws |
+| `packages/render/src/instar-hide.ts` | **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays down |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |

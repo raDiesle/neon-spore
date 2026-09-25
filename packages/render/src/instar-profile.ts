@@ -1,11 +1,13 @@
-import { halo, strokeGlow } from "./glow.js";
+import { halo } from "./glow.js";
 import { drawNests } from "./instar-eggs.js";
+import { drawScales } from "./instar-hide.js";
 import { drawLamp, drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-shape.js";
+import { drawSideHead } from "./instar-side-head.js";
 import { drawTail } from "./instar-tail.js";
 import { drawWing } from "./instar-wings.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -69,8 +71,21 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
     0.7 * flick * fade,
   );
   const hide = splinePath([...top, ...bottom.reverse()], true);
-  drawPlate(ctx, hide, fade, 0.5, hurt);
   bottom.reverse();
+  // The whole length lit as one long body: centred on its middle, turned the
+  // way it runs from the neck to the rear.
+  const from = spine[0] as Point;
+  const mid = spine[N / 2] as Point;
+  const form = {
+    x: mid.x,
+    y: mid.y,
+    r: Math.hypot(rear.x - from.x, rear.y - from.y) / 2,
+    ry: r * 0.5,
+    angle: Math.atan2(rear.y - from.y, rear.x - from.x),
+  };
+  drawPlate(ctx, hide, fade, 0.5, hurt, form);
+  drawScales(ctx, hide, { ...form, y: form.y - r * 0.12, ry: r * 0.3 }, r * 0.13, fade);
+  drawScutes(ctx, bottom, spine, r, fade);
   for (let i = 2; i < N - 1; i += 2) {
     const a = top[i] as Point;
     const b = bottom[i] as Point;
@@ -90,6 +105,36 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   drawSideHead(ctx, look);
 }
 
+/** The belly: broad plates across the underside, each lit at its front edge
+ * and shadowed at its back, the way a snake's run. */
+function drawScutes(
+  ctx: CanvasRenderingContext2D,
+  bottom: readonly Point[],
+  spine: readonly Point[],
+  r: number,
+  fade: number,
+): void {
+  ctx.save();
+  ctx.lineCap = "round";
+  ctx.lineWidth = Math.max(1, r * 0.03);
+  for (let i = 1; i < N - 1; i++) {
+    const b = bottom[i] as Point;
+    const s = spine[i] as Point;
+    const inner = { x: b.x + (s.x - b.x) * 0.45, y: b.y + (s.y - b.y) * 0.45 };
+    ctx.strokeStyle = faded(PALETTE.background, fade, 0.55);
+    ctx.beginPath();
+    ctx.moveTo(b.x, b.y);
+    ctx.lineTo(inner.x, inner.y);
+    ctx.stroke();
+    ctx.strokeStyle = faded(PALETTE.hullRim, fade, 0.18);
+    ctx.beginPath();
+    ctx.moveTo(b.x - r * 0.03, b.y);
+    ctx.lineTo(inner.x - r * 0.03, inner.y);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
 /** A point `u` of the way along a Catmull-Rom spline through `k`. */
 function along(k: readonly Point[], u: number): Point {
   const n = k.length - 1;
@@ -107,114 +152,4 @@ function along(k: readonly Point[], u: number): Point {
       (2 * a - 5 * b + 4 * c2 - d) * t * t +
       (-a + 3 * b - 3 * c2 + d) * t * t * t);
   return { x: c(p0.x, p1.x, p2.x, p3.x), y: c(p0.y, p1.y, p2.y, p3.y) };
-}
-
-/** The head in profile, snout to the left: the skull and its horns, the eye,
- * the lower jaw hinged open under it. */
-function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
-  const { f, head, r, fade, hurt, time } = look;
-  const at = (x: number, y: number): Point => ({ x: head.x + x * r, y: head.y + y * r });
-  const hinge = at(0.3, 0.08);
-  const open = (0.15 + 0.55 * (f.jawUp + f.jawDown) * 0.5) * 0.8;
-  const cos = Math.cos(-open);
-  const sin = Math.sin(-open);
-  const jaw = (x: number, y: number): Point => {
-    const p = at(x, y);
-    const dx = p.x - hinge.x;
-    const dy = p.y - hinge.y;
-    return { x: hinge.x + dx * cos - dy * sin, y: hinge.y + dx * sin + dy * cos };
-  };
-  const lower = splinePath(
-    [
-      jaw(0.3, 0.08),
-      jaw(-0.3, 0.1),
-      jaw(-0.95, 0.12),
-      jaw(-0.9, 0.24),
-      jaw(-0.3, 0.32),
-      jaw(0.45, 0.3),
-    ],
-    true,
-  );
-  const mouth = new Path2D();
-  for (const [i, p] of [at(0.3, 0.08), at(-1.1, 0.05), jaw(-0.95, 0.12), hinge].entries()) {
-    if (i === 0) mouth.moveTo(p.x, p.y);
-    else mouth.lineTo(p.x, p.y);
-  }
-  mouth.closePath();
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.background, fade);
-  ctx.fill(mouth);
-  ctx.fillStyle = faded(PALETTE.ember, fade, 0.25);
-  ctx.fill(mouth);
-  ctx.restore();
-  drawPlate(ctx, lower, fade, 0.6, hurt);
-  for (const [bx, by, tx, ty] of [
-    [0.4, -0.42, 1.3, -0.98],
-    [0.15, -0.5, 0.75, -1.08],
-  ] as const) {
-    const horn = new Path2D();
-    const b = at(bx, by);
-    horn.moveTo(b.x - r * 0.1, b.y);
-    horn.quadraticCurveTo(
-      at(bx + 0.5, by - 0.2).x,
-      at(bx + 0.5, by - 0.2).y,
-      at(tx, ty).x,
-      at(tx, ty).y,
-    );
-    horn.quadraticCurveTo(
-      at(bx + 0.45, by + 0.05).x,
-      at(bx + 0.45, by + 0.05).y,
-      b.x + r * 0.12,
-      b.y + r * 0.05,
-    );
-    horn.closePath();
-    ctx.save();
-    ctx.fillStyle = faded(PALETTE.rockDark, fade);
-    ctx.fill(horn);
-    ctx.restore();
-    strokeGlow(ctx, horn, faded(PALETTE.rock, fade), STROKE.inner, 0.3 * fade);
-  }
-  const skull = splinePath(
-    [
-      at(0.62, -0.38),
-      at(0.15, -0.56),
-      at(-0.3, -0.4),
-      at(-0.8, -0.24),
-      at(-1.15, -0.08),
-      at(-1.1, 0.05),
-      at(-0.4, 0.08),
-      at(0.35, 0.1),
-      at(0.78, 0.02),
-    ],
-    true,
-  );
-  drawPlate(ctx, skull, fade, 0.7, hurt);
-  // Teeth along the upper lip, over the open mouth.
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.rock, fade, 0.95);
-  for (let i = 0; i < 5; i++) {
-    const p = at(-0.95 + i * 0.25, 0.06);
-    ctx.beginPath();
-    ctx.moveTo(p.x - r * 0.035, p.y);
-    ctx.lineTo(p.x + r * 0.035, p.y);
-    ctx.lineTo(p.x, p.y + r * (i === 1 ? 0.2 : 0.11));
-    ctx.closePath();
-    ctx.fill();
-  }
-  ctx.restore();
-  drawSeam(ctx, at(-0.9, -0.16), at(-0.4, -0.3), at(0.1, -0.42), fade, 0.5);
-  drawLamp(ctx, at(-1.02, -0.06), r * 0.03, fade, 0.5 + 0.5 * Math.sin(time * 3));
-  if (f.eye <= 0.02) return;
-  const eye = at(-0.12, -0.27);
-  const p = new Path2D();
-  p.ellipse(eye.x, eye.y, r * 0.15, r * 0.065 * f.eye, 0.25, 0, Math.PI * 2);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.pod, fade, 0.95);
-  ctx.fill(p);
-  ctx.fillStyle = faded(PALETTE.background, fade);
-  ctx.beginPath();
-  ctx.ellipse(eye.x - r * 0.03, eye.y, r * 0.02, r * 0.06 * f.eye, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.podRim, fade), STROKE.inner, 0.7 * fade);
 }

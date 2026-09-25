@@ -1,6 +1,7 @@
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import { type Form, lightHide } from "./instar-hide.js";
 import type { Figure, Point } from "./instar-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -39,13 +40,15 @@ export function faded(hex: string, fade: number, alpha = 1): string {
   return fade >= 1 && alpha >= 1 ? hex : rgba(hex, alpha * fade);
 }
 
-/** One plate of hide, filled dark and rimmed in the hull's violet. */
+/** One plate of hide, filled dark and rimmed in the hull's violet — and,
+ * given its `form`, lit as flesh under the key (`instar-hide.ts`). */
 export function drawPlate(
   ctx: CanvasRenderingContext2D,
   p: Path2D,
   fade: number,
   glow = 0.5,
   hurt = 0,
+  form?: Form,
 ): void {
   ctx.save();
   ctx.fillStyle = faded(PALETTE.background, fade);
@@ -53,6 +56,7 @@ export function drawPlate(
   ctx.fillStyle = faded(PALETTE.sheenDeep, fade, 0.9);
   ctx.fill(p);
   ctx.restore();
+  if (form !== undefined) lightHide(ctx, p, form, fade);
   strokeGlow(ctx, p, faded(PALETTE.hull, fade), STROKE.inner, glow * fade);
   drawHurt(ctx, p, hurt * fade);
 }

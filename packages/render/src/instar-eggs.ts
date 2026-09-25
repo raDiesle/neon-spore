@@ -1,5 +1,6 @@
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import { drawGlint } from "./instar-hide.js";
 import { faded, type Look } from "./instar-plate.js";
 import { instarAt, type Point } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
@@ -79,6 +80,18 @@ function drawEgg(
   ctx.save();
   ctx.fillStyle = faded(PALETTE.bile, fade, 0.8);
   ctx.fill(p);
+  // A shell thin enough to see into: lit through on the key's side, the
+  // yolk gone deep toward the far one.
+  ctx.save();
+  ctx.clip(p);
+  const w = r * EGG_W;
+  const shell = ctx.createRadialGradient(x - w * 0.35, y - w * 0.4, 0, x, y, r * EGG_H * 1.1);
+  shell.addColorStop(0, faded(PALETTE.bileRim, fade, 0.55));
+  shell.addColorStop(0.5, faded(PALETTE.bile, fade, 0));
+  shell.addColorStop(1, faded(PALETTE.bileDeep, fade, 0.7));
+  ctx.fillStyle = shell;
+  ctx.fillRect(x - w * 1.5, y - w * 1.8, w * 3, w * 3.6);
+  ctx.restore();
   ctx.strokeStyle = faded(PALETTE.bileDeep, fade, 0.9);
   ctx.lineWidth = Math.max(1, r * 0.03);
   ctx.lineCap = "round";
@@ -87,6 +100,7 @@ function drawEgg(
   ctx.stroke();
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.bileRim, fade), STROKE.inner, 0.6 * fade);
+  drawGlint(ctx, { x: x - r * EGG_W * 0.35, y: y - r * EGG_H * 0.45 }, r * 0.022, fade, 0.7);
 }
 
 /** The two nests on the back, each shivering with the window, one egg
@@ -107,14 +121,28 @@ function drawNest(
 ): void {
   if (n <= 0) return;
   const { r, time, fade, threat } = look;
-  // The silk: a low mound, and threads crossing over it.
+  // The slime the nest sits in, pooled on the back and glistening; then the
+  // silk: a low mound, and threads crossing over it.
+  ctx.save();
+  ctx.fillStyle = faded(PALETTE.venom, fade, 0.22);
+  ctx.beginPath();
+  ctx.ellipse(at.x, at.y + r * 0.06, r * 0.62, r * 0.09, 0, 0, Math.PI * 2);
+  ctx.fill();
   const silk = new Path2D();
   silk.ellipse(at.x, at.y + r * 0.05, r * 0.5, r * 0.26, 0, Math.PI, Math.PI * 2);
   silk.closePath();
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.text, fade, 0.14);
+  const sheen = ctx.createLinearGradient(
+    at.x - r * 0.3,
+    at.y - r * 0.25,
+    at.x + r * 0.3,
+    at.y + r * 0.05,
+  );
+  sheen.addColorStop(0, faded(PALETTE.text, fade, 0.24));
+  sheen.addColorStop(1, faded(PALETTE.text, fade, 0.06));
+  ctx.fillStyle = sheen;
   ctx.fill(silk);
   ctx.restore();
+  drawGlint(ctx, { x: at.x - r * 0.4, y: at.y + r * 0.05 }, r * 0.018, fade, 0.5);
   const rumble = 0.25 + 0.75 * threat;
   spots.slice(0, n).forEach(([dx, dy], i) => {
     const k = time * (24 + i) + i * 2.1 + seed;

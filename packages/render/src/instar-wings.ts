@@ -16,6 +16,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * makes THE SLOW visible on it (`instar-sway.ts`).
  */
 
+/** The cool the far skin goes to, never black (`.claude/skills/depth`). */
+const SHADOW = "#0B1024";
+
 /** The wing in its own frame, in head radii: elbow, wrist, three fingertips. */
 const ELBOW: Point = { x: -0.7, y: -0.75 };
 const WRIST: Point = { x: -1.45, y: -1.05 };
@@ -76,16 +79,33 @@ export function drawWing(
   ctx.fill(membrane);
   ctx.fillStyle = faded(PALETTE.sheenDeep, fade, 0.75 * skin);
   ctx.fill(membrane);
-  // Veins, from each bone into the skin on either side of it.
+  // Skin thin enough to glow: lit through near the bones at the wrist, going
+  // to the cool dark out at the scalloped hem.
+  const hem = toward(tips[1] as Point, root, 0.3);
+  const through = ctx.createLinearGradient(wrist.x, wrist.y, hem.x, hem.y);
+  through.addColorStop(0, faded(PALETTE.sheenMid, fade, 0.3 * skin));
+  through.addColorStop(0.55, faded(PALETTE.hull, fade, 0.1 * skin));
+  through.addColorStop(1, faded(SHADOW, fade, 0.5));
+  ctx.fillStyle = through;
+  ctx.fill(membrane);
+  // Veins, from each bone into the skin, forking as they go.
+  ctx.clip(membrane);
   ctx.strokeStyle = faded(PALETTE.sheenCold, fade, 0.35 * skin);
   ctx.lineWidth = STROKE.inner;
+  ctx.beginPath();
   for (const t of tips) {
-    const m = toward(wrist, t, 0.55);
-    ctx.beginPath();
-    ctx.moveTo(m.x, m.y);
-    ctx.lineTo(toward(m, root, 0.25).x, toward(m, root, 0.25).y);
-    ctx.stroke();
+    for (const u of [0.35, 0.6, 0.82]) {
+      const m = toward(wrist, t, u);
+      const out = toward(m, root, 0.22);
+      ctx.moveTo(m.x, m.y);
+      ctx.lineTo(out.x, out.y);
+      const fork = toward(m, out, 0.55);
+      const twig = toward(out, t, 0.35);
+      ctx.moveTo(fork.x, fork.y);
+      ctx.lineTo(twig.x, twig.y);
+    }
   }
+  ctx.stroke();
   ctx.restore();
   strokeGlow(ctx, membrane, faded(PALETTE.sheenMid, fade, skin), STROKE.inner, 0.3 * fade);
   const bones = new Path2D();

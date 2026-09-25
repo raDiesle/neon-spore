@@ -20763,3 +20763,17 @@ The bottleneck was **reading**: the switch for the hull already existed and
 only had to be found.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE INSTAR's hide is lit flesh, scaled, wet and dripping
+
+- reading: 15 min. Every `instar-*.ts` drawer, `queen-carapace.ts`,
+  `antiphon-flesh.ts`, `key-light.ts` and the frame test's PLATE marker.
+- writing: 30 min. `instar-hide.ts`, forms through `drawPlate`, the head and
+  the side head split out, the tail's rings, the wings' veins, the eggs' shell.
+- looking: 10 min. Before and after frames of the three steps.
+- friction: 5 min. A typecheck that could not find the workspace packages
+  until this worktree was installed.
+- landing: 5 min. INDEX, `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: nine drawers, each one needing its own form
+for the light to fall on it.

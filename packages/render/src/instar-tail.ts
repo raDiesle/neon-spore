@@ -1,4 +1,5 @@
 import { strokeGlow } from "./glow.js";
+import { drawGlint } from "./instar-hide.js";
 import { drawPlate, faded, type Look, toward } from "./instar-plate.js";
 import { instarAt, type Point } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
@@ -63,7 +64,18 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
         { x: nx, y: ny },
       ]);
   });
-  drawPlate(ctx, splinePath([...left, ...right.reverse()], true), fade, 0.5, hurt);
+  const hide = splinePath([...left, ...right.reverse()], true);
+  right.reverse();
+  const m = mid[Math.round(N / 2)] as Point;
+  const chord = Math.hypot(fork.x - rear.x, fork.y - rear.y);
+  drawPlate(ctx, hide, fade, 0.5, hurt, {
+    x: m.x,
+    y: m.y,
+    r: Math.max(r * 0.3, chord / 2),
+    ry: r * 0.3,
+    angle: Math.atan2(fork.y - rear.y, fork.x - rear.x),
+  });
+  drawRings(ctx, left, right, r, fade);
   ctx.save();
   ctx.fillStyle = faded(PALETTE.rock, fade, 0.9);
   for (const [p, n] of spikes) {
@@ -83,6 +95,39 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
     const k = 0.35 + 0.65 * f.tail;
     drawBlade(ctx, fork, { x: fork.x + reach.x * k, y: fork.y + reach.y * k }, s, look);
   }
+}
+
+/** The tail's rings: a dark groove across it every other sample, lit just
+ * behind on the side toward the key. */
+function drawRings(
+  ctx: CanvasRenderingContext2D,
+  left: readonly Point[],
+  right: readonly Point[],
+  r: number,
+  fade: number,
+): void {
+  ctx.save();
+  ctx.lineCap = "round";
+  ctx.lineWidth = Math.max(1, r * 0.028);
+  for (let i = 2; i < N; i += 2) {
+    const a = left[i] as Point;
+    const b = right[i] as Point;
+    const bow = {
+      x: (a.x + b.x) / 2 + (b.y - a.y) * 0.15,
+      y: (a.y + b.y) / 2 - (b.x - a.x) * 0.15,
+    };
+    ctx.strokeStyle = faded(PALETTE.background, fade, 0.6);
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.quadraticCurveTo(bow.x, bow.y, b.x, b.y);
+    ctx.stroke();
+    ctx.strokeStyle = faded(PALETTE.hullRim, fade, 0.2);
+    ctx.beginPath();
+    ctx.moveTo(a.x - r * 0.025, a.y - r * 0.025);
+    ctx.quadraticCurveTo(bow.x - r * 0.025, bow.y - r * 0.025, b.x - r * 0.025, b.y - r * 0.025);
+    ctx.stroke();
+  }
+  ctx.restore();
 }
 
 /** One blade of the fork: a hooked crescent from the fork to its tip. */
@@ -107,7 +152,15 @@ function drawBlade(ctx: CanvasRenderingContext2D, from: Point, tip: Point, s: nu
   ctx.save();
   ctx.fillStyle = faded(PALETTE.rockDark, fade);
   ctx.fill(p);
+  // Bone, ground to an edge: pale along the back, dark down the cutting side.
+  const back = { x: mx + sx * len * 0.3, y: my + sy * len * 0.3 };
+  const g = ctx.createLinearGradient(back.x, back.y, mx, my);
+  g.addColorStop(0, faded(PALETTE.rock, fade, 0.6));
+  g.addColorStop(1, faded(PALETTE.rock, fade, 0));
+  ctx.fillStyle = g;
+  ctx.fill(p);
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.rock, fade), STROKE.inner, 0.4 * fade);
+  drawGlint(ctx, toward(from, tip, 0.8), r * 0.025, fade, 0.6);
   if (threat > 0) strokeGlow(ctx, p, faded(PALETTE.red, fade), STROKE.outline, threat * fade);
 }
