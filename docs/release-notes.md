@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · ff679756b — THE UNDERTOW's tutorial boxes stand over the hull, and the fight says SUCK
+
+The captions on the cannon, the maw and the shield stood just over their controls, which on THE UNDERTOW is on top of the plating the lobes come through, so the enemy was hidden behind the words. They now stand a lobe and a half above the hull. All twelve captions are reworded in plainer words (BOW is BULGE, the maw is SUCK, the reasons name the thing), and in the fight the cue over a lobe says SUCK for player 1 and SHOOT for player 2 in place of OPEN and BURN — the words on the buttons. A look the owner asked for by name.
+
 ## 2026-09-25 · b5754a821 — THE FILAMENT is an alien's heart, its filaments veins, and each thumb carries a tool
 
 The body over the field is now a beating heart, and each filament is a vein running into its point. The lit run is drawn as a tube with a pulse flowing toward the heart. Player 1's thumb carries the rasp, a spinning steel burr. Player 2's thumb carries the corona, a gold ring of nodes. Every screen shows its own tool bright and the partner's at half. The heart loses a vessel and shrinks with every pull.
