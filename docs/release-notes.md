@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 26cb47b73 — THE DARK's film lights the body it points at, and LIGHTS OUT shows over the black
+
+Two defects, found by the first frame of THE DARK's film. First, the swipe on the film's second page lit the row under the body. A falling body is drawn gliding in from the row above its own, and the light is measured against the drawn row, so the page said PLAYER 1 LIGHTS THE DARK over a light with nothing in it. The swipe is now one row up, and the bulb shows under its caption. Second, the fault's lantern and its LIGHTS OUT line are drawn among the bodies, so the dark covered the one thing on the field that says the field is out. `drawDarkField` now draws both again over the black, and a test holds that LIGHTS OUT is in the dark pass.
+
 ## 2026-09-25 · 93c9b73a7 — THE DIASTOLE, THE ORRERY and THE CANDLE leave the game
 
 The three bosses are deleted whole at the owner's word, not switched off: the simulation, the render, their sounds, guide scenes, waves, the director's cards and poses, the frames rig's ring, and every registration that named them. Their design sections in docs/spec/bosses.md move under Retired, and `git log -S diastoleClamp`, `orreryRing` and `candleWick` find the code. The game now has ninety-eight waves, eighty-nine of them guided.
