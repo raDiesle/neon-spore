@@ -130,6 +130,8 @@ export const INGEST_SILENT = [
   "quit",
   "lanceFull",
   "lanceSpilled",
+  // Read by `ShotOutFx.ingest` before this switch, the way the volley's are.
+  "shotOut",
   "hole",
   "grip",
   // THE PUSH's lane change. Heard rather than seen: the carry is bound to a

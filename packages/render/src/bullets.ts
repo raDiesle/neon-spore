@@ -85,43 +85,60 @@ export function drawBullets(
     // (`sim/codex.ts`).
     const hex = bulletShown(b) === "red" ? PALETTE.red : PALETTE.cyan;
     const frac = b.subMilli / 1000;
-    const row = b.row - frac;
-    const col = b.col + b.driftMilli / 1000;
-    const x = tileCX(l, col);
-    const y = tileCY(l, row);
-    // How far back down the shot's own path the tail begins — and the path has
-    // two legs, so the tail has two forms. A bolt with nothing sideways on it
-    // is climbing, and its tail hangs `back` tiles straight below, which is
-    // every shot in the game but one. A bolt carrying an `aimMilli` has turned
-    // the corner of a lock and is running level into the body, so its tail
-    // trails `back` *columns* behind it on the same row — the same length of
-    // path, laid along the leg it is actually on (`sim/lock.ts`).
-    const back = Math.max(0, look.tailBack(frac));
-    const across = Math.sign(b.aimMilli);
-    const fromY = tileCY(l, row + (across === 0 ? back : 0));
-    const fromX = tileCX(l, col - across * back);
-
-    // A tail behind the head, so the direction is legible even at twelve tiles
-    // a beat.
-    ctx.globalAlpha = look.tailAlpha;
-    ctx.strokeStyle = hex;
-    ctx.lineWidth = look.tailWidth;
-    ctx.beginPath();
-    ctx.moveTo(fromX, fromY);
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-
-    halo(ctx, x, y, l.tile * look.haloMul, hex, look.haloAlpha);
-    ctx.fillStyle = hex;
-    ctx.beginPath();
-    ctx.arc(x, y, l.tile * look.coreMul, 0, Math.PI * 2);
-    ctx.fill();
-    if (look.ringWidth <= 0) continue;
-    ctx.strokeStyle = look.ringColor ?? hex;
-    ctx.lineWidth = look.ringWidth;
-    ctx.beginPath();
-    ctx.arc(x, y, l.tile * look.ringMul, 0, Math.PI * 2);
-    ctx.stroke();
+    drawShot(ctx, l, look, b.col + b.driftMilli / 1000, b.row - frac, frac, b.aimMilli, hex);
   }
+}
+
+/**
+ * One shot's tail, halo and head, at a column and a row that may both be
+ * fractional — the field's own bolts, and the ones `shot-out.ts` carries on
+ * past the top row, which are drawn by this and nothing else so the two cannot
+ * part at the seam.
+ */
+export function drawShot(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  look: ShotLook,
+  col: number,
+  row: number,
+  frac: number,
+  aimMilli: number,
+  hex: string,
+): void {
+  const x = tileCX(l, col);
+  const y = tileCY(l, row);
+  // How far back down the shot's own path the tail begins — and the path has
+  // two legs, so the tail has two forms. A bolt with nothing sideways on it
+  // is climbing, and its tail hangs `back` tiles straight below, which is
+  // every shot in the game but one. A bolt carrying an `aimMilli` has turned
+  // the corner of a lock and is running level into the body, so its tail
+  // trails `back` *columns* behind it on the same row — the same length of
+  // path, laid along the leg it is actually on (`sim/lock.ts`).
+  const back = Math.max(0, look.tailBack(frac));
+  const across = Math.sign(aimMilli);
+  const fromY = tileCY(l, row + (across === 0 ? back : 0));
+  const fromX = tileCX(l, col - across * back);
+
+  // A tail behind the head, so the direction is legible even at twelve tiles
+  // a beat.
+  ctx.globalAlpha = look.tailAlpha;
+  ctx.strokeStyle = hex;
+  ctx.lineWidth = look.tailWidth;
+  ctx.beginPath();
+  ctx.moveTo(fromX, fromY);
+  ctx.lineTo(x, y);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  halo(ctx, x, y, l.tile * look.haloMul, hex, look.haloAlpha);
+  ctx.fillStyle = hex;
+  ctx.beginPath();
+  ctx.arc(x, y, l.tile * look.coreMul, 0, Math.PI * 2);
+  ctx.fill();
+  if (look.ringWidth <= 0) return;
+  ctx.strokeStyle = look.ringColor ?? hex;
+  ctx.lineWidth = look.ringWidth;
+  ctx.beginPath();
+  ctx.arc(x, y, l.tile * look.ringMul, 0, Math.PI * 2);
+  ctx.stroke();
 }

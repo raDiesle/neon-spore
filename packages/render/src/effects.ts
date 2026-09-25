@@ -22,6 +22,7 @@ import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
 import { RecoilLeapFx } from "./recoil-leap.js";
 import { RockImpactFx } from "./rock-impact.js";
+import { ShotOutFx } from "./shot-out.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
 import { VolleyShardsFx } from "./volley-shards.js";
@@ -86,6 +87,8 @@ export class Effects {
   readonly harpoonLine = new HarpoonLineFx();
   /** THE VOLLEY's shell in pieces (`volley-shards.ts`). */
   readonly volleyShards = new VolleyShardsFx();
+  /** A bolt carried on past the top row to the top of the screen (`shot-out.ts`). */
+  readonly shotOut = new ShotOutFx();
   /** THE CRAWLER's three: a burst ring's goo, the swept lane, the burrow's
    * banks — each outliving what it is about (`crawler-fx.ts`). */
   readonly crawler = new CrawlerFx();

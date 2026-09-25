@@ -1,29 +1,17 @@
-import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
-import { candleEats, candleFlash, candleStruck } from "./candle-step.js";
+import { candleEats, candleFlash } from "./candle-step.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
-import { curtainStruck } from "./curtain-shot.js";
-import { diastoleStruck } from "./diastole-step.js";
-import { gimbalStruck } from "./gimbal-shot.js";
-import { gorgeStruck } from "./gorge-step.js";
-import { haspStruck } from "./hasp-shot.js";
-import { hiveStruck } from "./hive-shot.js";
-import { leadStruck } from "./lead-shot.js";
-import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
+import { ledgerBills } from "./ledger-shot.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
-import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
-import { ratchetStruck } from "./ratchet-shot.js";
-import { scuttleStruck } from "./scuttle-shot.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
+import { shotLeaves } from "./shot-out.js";
 import { firstAlong } from "./shot-reach.js";
 import { spendShot } from "./spend.js";
-import { tasterStruck } from "./taster-shot.js";
 import type { Bullet, Color } from "./types.js";
-import { vaneStruck } from "./vane.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -183,50 +171,10 @@ function sweep(world: World, b: Bullet): boolean {
     from = met;
   }
 
-  // Gone past the top of the field — which is where THE VANE's bearing hangs
-  // and THE DIASTOLE's twin lobe, the two things in the game that are not on
-  // the grid at all. Every other shot that gets here is simply spent; both
-  // calls are no-ops unless their own boss is installed and its own window is
-  // open (docs/spec/bosses.md §11.5, `diastole.ts`).
+  // Gone past the top of the field: spent, after whatever hangs up there has
+  // had its chance at it, and said so (`shot-out.ts`).
   if (to < 0) {
-    vaneStruck(world, b);
-    diastoleStruck(world, b, world.beat);
-    // And THE ORRERY's core, which is three rings up: a bolt that got here on a
-    // beat every gap is at the bottom of its orbit takes the outermost ring
-    // still standing (`orrery-shot.ts`).
-    orreryStruck(world, b, world.beat);
-    // And THE CANDLE's glow, a step dimmer for any colour up its own column.
-    candleStruck(world, b);
-    // And THE GORGE's sack, which swallows the shot as a bead (`gorge-step.ts`).
-    gorgeStruck(world, b);
-    // And THE CURTAIN's core, if the fabric is shoved clear of it (`curtain-shot.ts`).
-    curtainStruck(world, b);
-    // And THE TASTER's fan, where the colour that breaks a blade is the one it
-    // is not (`taster-shot.ts`).
-    tasterStruck(world, b);
-    // And THE LEDGER's seam, which only the middle column of it is, and only
-    // in the colour it is showing (`ledger-shot.ts`).
-    ledgerStruck(world, b);
-    // And THE LEAD's air: a bolt out of the top is put in flight above the
-    // field, to be judged against the body on a later beat (`lead-shot.ts`).
-    leadStruck(world, b);
-    // And THE SCUTTLE's live part, struck off its socket while it hangs if
-    // the bolt is in its column and its colour (`scuttle-shot.ts`).
-    scuttleStruck(world, b);
-    // And THE ANTIPHON's rail: a bolt out of the top is a colour in a column,
-    // which is one candidate or none (`antiphon-shot.ts`).
-    antiphonStruck(world, b);
-    // And THE HIVE's underside: an open breach in the bolt's column and
-    // colour is sealed, the wrong colour provokes it (`hive-shot.ts`).
-    // And THE GIMBAL's leaking seam, the one thing in that whole fight a
-    // cannon has to do, and either colour does it (`gimbal-shot.ts`).
-    gimbalStruck(world, b);
-    // And THE HASP's loose bolt, the same shape and the same either colour
-    // (`hasp-shot.ts`).
-    haspStruck(world, b);
-    // And THE RATCHET's, the same again (`ratchet-shot.ts`).
-    ratchetStruck(world, b);
-    hiveStruck(world, b);
+    shotLeaves(world, b, to);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

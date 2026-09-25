@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — A cannon shot flies on to the top of the screen
+
+- reading: 10 min. Where a bolt is spent (`bullets.ts`), the layout's sky above
+  row 0, the fifteen boss hooks up there, and where an event is registered.
+- writing: 10 min. `sim/shot-out.ts` and its event, `render/shot-out.ts`,
+  `drawShot` lifted out of `drawBullets`, and a test on each side.
+- looking: 10 min. The browser pane first, then two strips from `frames`.
+- friction: 5 min. The pane's keys did not reach the page and an overlay of
+  captured frames was not what its screenshot showed; `frames --press` was.
+- landing: 5 min. `check:fast`, `bun run index`, the commit, `land`.
+
+The bottleneck was **looking**: a bolt in flight is under a second on screen,
+and only `frames --press` held it still at a known tick.
+
 ## 2026-09-25 — Every fault says what it is doing beside the lantern
 
 - reading: 5 min. The fault kinds, the lantern in `fault-emitter.ts`, where

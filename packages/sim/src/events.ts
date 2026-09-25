@@ -72,6 +72,19 @@ export type SimEvent =
   /** A shot went out through a lobe that was not full yet, and took the fill with it. */
   | { type: "lanceSpilled"; col: number }
   /**
+   * A shot went past the top of the field and the simulation is done with it
+   * (`shot-out.ts`). `atMilli` is where it stood, in thousandths of a row and
+   * negative; `taken` is whether something hanging above the field answered it.
+   */
+  | {
+      type: "shotOut";
+      col: number;
+      driftMilli: number;
+      atMilli: number;
+      color: Color;
+      taken: boolean;
+    }
+  /**
    * A body was destroyed. `kind` is what it was **drawn as** and not what it
    * was — `wornKind`, never `c.kind` — because a lure is a full-size slick or
    * bulb in every pixel player 1 owns right up to the beat it goes, and an

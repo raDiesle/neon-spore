@@ -78,6 +78,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "signal.markSet", pan: panForCol(e.col, cols) };
     case "lanceSpilled":
       return { id: "signal.markMissed", pan: panForCol(e.col, cols) };
+    case "shotOut":
+      // The bolt was heard leaving; what it flies on into is sky, and a boss
+      // that took it up there says so in its own event.
+      return null;
     // The six a shot meeting a body makes, in `bind-impact.ts` — the most
     // played group in the catalogue, and the one `bind.ts` had the least room
     // left to explain.

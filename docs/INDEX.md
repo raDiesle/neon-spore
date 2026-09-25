@@ -518,6 +518,7 @@ by hand never moves.
 | `packages/sim/src/lead-step.ts` | THE LEAD's clock — the pace, the judgment, the run's litter, the still and the pass |
 | `packages/sim/src/lead.ts` | THE LEAD: where it will be |
 | `packages/sim/src/shot-reach.ts` | **What a shot meets on a stretch of a column**, and the one place that question is answered |
+| `packages/sim/src/shot-out.ts` | A shot past the top row: every boss hook up there, then the `shotOut` event |
 | `packages/sim/src/ship-verbs.ts` | **Which commands are a seat talking to the ship**, as against the host talking to the run |
 | `packages/sim/src/beatbox-round.ts` | **What happens to a soundbox**: the thumb that lands on it, the run being committed |
 | `packages/sim/src/beatbox.ts` | THE BEATBOX: a soundbox that swells on every beat |
@@ -1511,6 +1512,7 @@ by hand never moves.
 | `packages/render/src/shield-outage.ts` | The shield's line burnt out in places, which is what a wall costs instead of a scar |
 | `packages/render/src/shatter-fall.ts` | Where a piece is, some time after the body came apart |
 | `packages/render/src/shatter.ts` | Cutting a body into the pieces it came apart into |
+| `packages/render/src/shot-out.ts` | A bolt carried on from the top row to the top of the screen after the sim spends it |
 | `packages/render/src/magnet-bounce.ts` | A shot turned away by the plate under a magnet, coming back down |
 | `packages/render/src/fence-shards.ts` | The pieces of wall a bolt knocks out of a column it cuts |
 | `packages/render/src/fence-strike.ts` | A wall landing on the ship, remembered: the outage and the shock it leaves |

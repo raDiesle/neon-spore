@@ -125,6 +125,7 @@ export const SILENT = [
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.
   "lanceSpilled", // Likewise — the fill emptying is the whole picture.
+  "shotOut", // The bolt flies on to the top of the screen — `shot-out.ts`, no burst.
   "deflect", // `effects.ts` builds its own bursts once the rock arrives.
   "podTaken", // `effects.ts` throws sparks inward directly — see `swallow.ts`.
   "breach", // `effects.ts` waits for a falling rock before it bursts anything.

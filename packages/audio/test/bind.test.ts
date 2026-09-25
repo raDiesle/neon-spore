@@ -52,6 +52,7 @@ const SAMPLES: Record<string, SimEvent> = {
   fire: { type: "fire", col: 3, color: "red", lance: false },
   lanceFull: { type: "lanceFull", col: 3 },
   lanceSpilled: { type: "lanceSpilled", col: 3 },
+  shotOut: { type: "shotOut", col: 3, driftMilli: 0, atMilli: -80, color: "red", taken: false },
   destroy: { type: "destroy", col: 3, row: 4, color: "cyan", kind: "bulb" },
   hole: { type: "hole", col: 2, row: 5 },
   reject: { type: "reject", col: 2, row: 5 },
@@ -466,7 +467,10 @@ describe("bindings", () => {
   // deliberate silence: the gesture landing is not yet the body opening, the
   // screen is already shaking from the arrow that started it, and a third
   // sound on top would say the same thing three ways (`bind-choir.ts`).
-  const SILENT_BY_DESIGN = new Set(["needWave", "choirMerge"]);
+  // `shotOut` is the third: the bolt was heard leaving the muzzle, and where
+  // it goes out of the top there is nothing but sky to hear — anything up
+  // there that took it has its own event, and its own sound.
+  const SILENT_BY_DESIGN = new Set(["needWave", "choirMerge", "shotOut"]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {
     for (const [type, e] of Object.entries(SAMPLES)) {
