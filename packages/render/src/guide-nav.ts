@@ -11,9 +11,10 @@
  * answered. What is left here is the vocabulary both sides are written in, and
  * two numbers that outlived the bar because other drawings measure off them.
  *
- * The three buttons themselves, and why each is what it is — NEXT saying its
- * name, REPLAY in place of a loop that restarted itself, the dots in place of
- * a numbered step — are in `guide-tide.ts` with the drawing that makes them.
+ * The four buttons themselves, and why each is what it is — NEXT saying its
+ * name, REPLAY in place of a loop that restarted itself, SKIP beside NEXT, the
+ * dots in place of a numbered step — are in `guide-tide-bar.ts` with the
+ * drawing that makes them.
  */
 
 /** How far the bar's shadow reaches up over the game it is lying on
@@ -44,6 +45,8 @@ export interface NavButtons {
   back: NavBox;
   replay: NavBox;
   next: NavBox;
+  /** The narrow »» on NEXT's right: straight to the gate, and READY there. */
+  skip: NavBox;
   /** The bar itself, so a press on it never falls through to the field. */
   bar: NavBox;
 }
@@ -58,8 +61,11 @@ export interface NavState {
   pages: number;
   /** Whether BACK answers anything — off once this seat has said READY. */
   back?: boolean;
-  /** Whether there is a film on this page for REPLAY to play again. */
+  /** Whether REPLAY answers: a film to play again, or on the gate the guide
+   * to read again from its first page. */
   replay?: boolean;
+  /** Whether SKIP answers — off once this seat has said READY. */
+  skip?: boolean;
   /** Whether the page has played through at least once, so NEXT can say so. */
   played?: boolean;
   /** Seconds the page has been up, for anything that breathes. */

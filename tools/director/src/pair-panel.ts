@@ -50,20 +50,10 @@ import type { SimConfig } from "@neon-spore/sim";
  * owner, 24 September 2026, *add briefing button on screen*). Both flip the one
  * switch and both light together, the way the role buttons' two copies do.
  */
-export interface PairPanel {
-  /**
-   * Briefings on, if they were off — what a click on a rehearsal's page asks
-   * for first, since a stage with them off has no guide to open a page of
-   * (`guide-scene-note.ts`, `stage-panel.ts` `openPage`). The button follows,
-   * the same as a press on it would.
-   */
-  briefingsOn(): void;
-}
-
 /** RUN's button, and the phone's copy of it over the field. */
 const BRIEF_IDS = ["briefToggle", "briefToggleField"] as const;
 
-export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
+export function bindPairPanel(cfg: SimConfig, onChange: () => void): void {
   const buttons = BRIEF_IDS.map((id) => document.getElementById(id)).filter(
     (b): b is HTMLElement => b !== null,
   );
@@ -78,9 +68,4 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
   };
   paint(cfg.briefings);
   for (const b of buttons) b.addEventListener("click", () => set(!cfg.briefings));
-  return {
-    briefingsOn(): void {
-      if (!cfg.briefings) set(true);
-    },
-  };
 }

@@ -491,18 +491,15 @@ wave is restarted twenty times in an afternoon. A press on a guide in the
 is both seats — the owner's own answer to the question that raised it.
 
 The other half of the same question — what the wave being edited actually puts
-in front of a pair — is answered by the `WAVE` tab's `GUIDE` section itself,
-under `NAME`, and by the `✎` beside the wave in the rail. On a filmed wave the
-section is the film's pages, each a button that opens the stage there, and
-nothing to type; on one of the ten still in words it is the three fields,
-labelled with the blocks the game draws them under. A film carries no words
-beside it (the owner, 25 September 2026), so there is no ADD GUIDE: a new guide
-is a rehearsal, written in `packages/content/src/scenes/`. A
-`BRIEFING` line used to say it in prose above them and a `▣ DOCUMENTATION →
-GUIDES` sheet used to list every wave that carried one; the sheet went on 14
-September 2026 when the words moved into this tab, and the line went on the
-16th, because a sentence describing the fields directly under it is a second
-place to keep the same fact true.
+in front of a pair — is answered by the stage itself, with `briefings` on, and
+by the `✎` beside the wave in the rail. The `WAVE` tab had a `GUIDE` section
+under `NAME` — the film's pages as buttons, or three fields on a wave still in
+words — until the owner took it off on 25 September 2026: *it is enough to
+navigate in the game itself and see it.* A guide is written in
+`packages/content` — a rehearsal in `packages/content/src/scenes/`
+(`.claude/skills/new-tutorial`) — and read on the stage. A `▣ DOCUMENTATION →
+GUIDES` sheet used to list every wave that carried one; it went on 14 September
+2026.
 
 ## MUSIC
 

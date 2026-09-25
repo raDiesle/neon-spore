@@ -1,13 +1,21 @@
 import { waveHasGuide } from "@neon-spore/content";
 import { type Layout, lostHit, navHit, onNavBar } from "@neon-spore/render";
-import { type Command, introHolds, lostAsks, onReadyPage, type World } from "@neon-spore/sim";
+import {
+  type Command,
+  guidePage,
+  guidePages,
+  introHolds,
+  lostAsks,
+  onReadyPage,
+  type World,
+} from "@neon-spore/sim";
 
 /**
  * A press on the stage while a wave's opening is up.
  *
  * The wave has not started, so the press belongs to its opening and not to the
  * cannon. It answers exactly what the phone answers — the introduction, the
- * three buttons on a page of a stepped guide, and the hold that fills the gate
+ * four buttons on a page of a stepped guide, and the hold that fills the gate
  * — from exactly the same geometry (`render/guide-nav.ts`), so a button here
  * cannot be somewhere the phone's is not. The gate is the whole page minus that
  * bar, on the owner's instruction, and so it is here too.
@@ -59,14 +67,24 @@ export function openingPress(p: OpeningPress): readonly (1 | 2)[] | null {
     push(2, { kind: "brief" });
     return null;
   }
-  // A guide is paged rather than held through: the three buttons are where they
+  // A guide is paged rather than held through: the four buttons are where they
   // are drawn, and only the gate has anything to hold.
+  // SKIP is every page forward and the hold, on the same tick, and nothing
+  // lets go of it — the phone's own (`apps/game/src/briefing.ts`). REPLAY on
+  // the gate is every page back to the first.
   const nav = navHit(layout, point.x, point.y);
-  if (nav) {
-    if (nav === "replay") p.replay();
-    else for (const seat of seats) push(seat, { kind: "guideStep", back: nav === "back" });
-    return null;
-  }
+  const turn = (back: boolean, times = 1): void => {
+    for (const seat of seats)
+      for (let i = 0; i < times; i++) push(seat, { kind: "guideStep", back });
+  };
+  if (nav === "skip") {
+    turn(false, guidePages(world));
+    hold(seats, push);
+  } else if (nav === "replay" && onReadyPage(world, seats[0]!)) {
+    turn(true, guidePage(world, seats[0]!));
+  } else if (nav === "replay") p.replay();
+  else if (nav) turn(nav === "back");
+  if (nav) return null;
   if (!onReadyPage(world, seats[0]!) || onNavBar(layout, point.y)) return null;
   return hold(seats, push);
 }

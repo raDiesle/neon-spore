@@ -172,14 +172,19 @@ export function drawReadyPage(
   // be possible to go back through the steps of the tutorial.* It always was;
   // there was no button on the glass to say so.
   GUIDE_LOOK.band(ctx, l, {});
-  // BACK only, and on the same bar the film's pages use so it does not move
-  // under a thumb between the last page and this one. NEXT has nowhere to go,
-  // and BACK has nowhere to go either once this seat has committed. REPLAY has
-  // nothing to play: there is no film on this page.
+  // On the same bar the film's pages use so it does not move under a thumb
+  // between the last page and this one. NEXT has nowhere to go. REPLAY reads
+  // the guide again from its first page — the owner, 25 September 2026, *when
+  // repeat button is pressed on "ready" screen it should start the tutorial
+  // from the beginning* — and SKIP says READY without the hold. All three are
+  // dead once this seat has committed: a READY does not come back
+  // (`sim/guide-steps.ts`).
   GUIDE_LOOK.nav(ctx, l, {
     page: pages - 1,
     pages,
     back: !iAmReady,
+    replay: !iAmReady,
+    skip: !iAmReady,
     age: beat,
     pointer: view.pointer,
   });

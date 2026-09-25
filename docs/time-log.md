@@ -20462,3 +20462,18 @@ The bottleneck was **landing**: `timeout-cap.test.ts` wanted the new test
 file to call `setDefaultTimeout`, which only the full render shard asks.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — SKIP beside NEXT, REPLAY on the gate reads again, no GUIDE section in the director
+
+- reading: 5 min. `guide-tide-bar.ts`'s row, `navHit`, the phone's and the
+  director's press handlers, and what the GUIDE section was wired into.
+- writing: 5 min. The narrow »» plate and its geometry, SKIP as turns plus a
+  hold that is never let go, REPLAY on the gate, the director's GUIDE section
+  deleted, the tests, the skill and the spec.
+- looking: 5 min. The bar and the gate in the browser pane at phone width.
+- friction: 0 min.
+- landing: 5 min. `check:fast` (a skill one line past its known length), the
+  commit, `land`.
+
+The bottleneck was **writing**: the bar's file was at its line limit, so the
+sign plates had to move into their own file before SKIP could join the row.

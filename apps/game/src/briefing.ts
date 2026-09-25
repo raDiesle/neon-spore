@@ -46,7 +46,13 @@ export interface BriefingOptions {
 }
 
 /**
- * A guide's presses: BACK, NEXT, and the hold that says READY.
+ * A guide's presses: BACK, REPLAY, NEXT, SKIP, and the hold that says READY.
+ *
+ * **REPLAY on the gate reads the guide again.** There is no film on the ready
+ * page for it to play, so it goes back to the first page instead — the owner,
+ * 25 September 2026: *when repeat button is pressed on "ready" screen it
+ * should start the tutorial from the beginning.* A seat that has said READY
+ * cannot turn at all (`sim/guide-steps.ts`), and the bar draws it dead then.
  *
  * **The whole stage used to be the button.** It could be, when a guide was one
  * card with one thing to do to it. Every guide has pages now — the owner asked
@@ -110,6 +116,20 @@ export function bindBriefing({
     for (let i = 0; i < Math.abs(page - at); i++) turn(page < at);
   };
 
+  /**
+   * Straight to the gate and READY there — SKIP, the narrow »» beside NEXT.
+   *
+   * **The hold, not a latch,** for the reason `dismiss` gives: the gate fills
+   * over `readyHoldMs` and this is the same hold a thumb makes, only nobody has
+   * to keep it down — nothing lets go of it, because `down` never went true.
+   * It is 150 ms, so it reads as at once. Enough turns to reach the gate from
+   * anywhere, landing on the same tick as the hold and before it.
+   */
+  const skip = (): void => {
+    for (let i = 0; i < guidePages(world); i++) turn(false);
+    hold(true);
+  };
+
   let down = false;
   /** Where the thumb went down, while it is still down: a swipe is measured
    * from it, and it is forgotten on the lift. */
@@ -122,14 +142,14 @@ export function bindBriefing({
     if (!p) return;
     const l = layout();
     const nav = navHit(l, p.x, p.y);
-    if (nav) {
-      if (nav === "replay") replay();
-      else turn(nav === "back");
-      return;
-    }
+    if (nav === "skip") skip();
+    else if (nav === "replay" && onReadyPage(world, seat())) turnTo(0);
+    else if (nav === "replay") replay();
+    else if (nav) turn(nav === "back");
+    if (nav) return;
     // The row of marks over NEXT, which says which step this is and is now
     // also how a step is reached (`render/guide-look.ts`). Asked after the
-    // three buttons and before the bar swallows the press.
+    // four buttons and before the bar swallows the press.
     const mark = navStepHit(l, guidePages(world), p.x, p.y);
     if (mark !== null) {
       turnTo(mark);
@@ -183,8 +203,7 @@ export function bindBriefing({
       // to reach the gate from anywhere, because the commands all land on the
       // same tick and cannot see each other land — a turn past the last page is
       // clamped rather than an error (`sim/guide-steps.ts`).
-      for (let i = 0; i < guidePages(world); i++) turn(false);
-      hold(true);
+      skip();
     },
     holds: () => guideHolds(world),
   };

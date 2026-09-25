@@ -6,7 +6,6 @@ import {
 } from "@neon-spore/content";
 import { bindBossTypeField } from "./boss-type-field.js";
 import { renderControlSetNote } from "./control-set-note.js";
-import { bindGuideFields } from "./guide-fields.js";
 import { bindRailFilter } from "./rail-filter.js";
 import { renderRows } from "./rail-list.js";
 import { bindWaveSteps } from "./rail-steps.js";
@@ -18,6 +17,9 @@ import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
  *
  * There is no `sentence` field under `name` any more: the owner took it off
  * every wave on 25 September 2026 — *name of wave and number is good enough*.
+ * Nor a GUIDE section, which went the same day: *it is enough to navigate in
+ * the game itself and see it*. A guide is written in `packages/content`, and
+ * read with BRIEFINGS on, on the stage.
  *
  * The control set sits at the same level as `name` for the
  * same reason `boss.ts` gets its own panel rather than a cell in the grid:
@@ -30,13 +32,7 @@ export interface RailPanel {
   render(): void;
 }
 
-export function bindRail(
-  store: Store,
-  onSelect: () => void,
-  onEdit: () => void,
-  /** A page of the rehearsal, asked for by its caption (`guide-scene-note.ts`). */
-  onPage?: (page: number) => void,
-): RailPanel {
+export function bindRail(store: Store, onSelect: () => void, onEdit: () => void): RailPanel {
   const list = document.getElementById("waveList");
   const name = document.getElementById("fName") as HTMLInputElement | null;
   const controlsField = document.getElementById("fControlSet") as HTMLSelectElement | null;
@@ -54,9 +50,6 @@ export function bindRail(
   // above — the owner's *either or is enough* (`rail-symbols.ts`).
   const symbols = bindRailSymbols(document.getElementById("waveMarksFilter"), () => renderList());
 
-  // Directly under NAME. See `guide-fields.ts` for why its fields are built
-  // rather than declared in `index.html`.
-  const guideFields = bindGuideFields(document.getElementById("guideFields"), onPage);
   // Over the control set, for the reason it is over it in the markup: which
   // kind of boss this is, on the waves that have one (`boss-type-field.ts`).
   const bossTypeField = bindBossTypeField(document.getElementById("bossTypeField"));
@@ -93,7 +86,6 @@ export function bindRail(
     // What the choice puts in their hands, beside the choice itself.
     renderControlSetNote(controlsRoster, active);
 
-    guideFields.render(wave);
     bossTypeField.render(wave);
 
     // A boss wave cannot be copied or deleted (see the two guards in
@@ -124,7 +116,7 @@ export function bindRail(
   // A control set is a shape choice, the same weight as the boss: it changes
   // what the band would draw, not just what a wave says about itself. So it
   // goes through `onSelect` (the caller's full refresh) rather than `onEdit`
-  // the way `name` and the guide do.
+  // the way `name` does.
   controlsField?.addEventListener("change", () => {
     const wave = currentWave(store);
     if (!wave || !controlsField) return;
@@ -140,17 +132,6 @@ export function bindRail(
     const wave = currentWave(store);
     if (!wave?.boss) return;
     wave.bossType = type;
-    store.dirty = true;
-    onEdit();
-  });
-
-  // Through `onEdit`, not `onSelect`: a guide is prose like `name`, and
-  // restarting the stage on every keystroke of it would make
-  // the wave unwritable. What reads it next is the wave note above the fields.
-  guideFields.onChange((guide) => {
-    const wave = currentWave(store);
-    if (!wave) return;
-    wave.guide = guide;
     store.dirty = true;
     onEdit();
   });

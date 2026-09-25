@@ -1,17 +1,17 @@
 import { halo } from "./glow.js";
 import type { GuideLook } from "./guide-look.js";
 import { inside, type NavBox, type NavButtons } from "./guide-nav.js";
-import { arrow, CORNER, CREST_H, plate, wordPlate } from "./guide-tide-plate.js";
+import { CORNER, wordPlate } from "./guide-tide-plate.js";
+import { signPlate } from "./guide-tide-signs.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { drawBeads, loopSign } from "./nav-button.js";
 import { drawNavFeeder } from "./nav-feeder.js";
 import { slab } from "./nav-slab.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 
 /**
- * TIDE's bar, and the row of three a guide is turned by.
+ * TIDE's bar, and the row of four a guide is turned by.
  *
  * Out of `guide-tide.ts` on line count on 16 September 2026, when the badge's
  * rows were measured and the file went past 250. The seam is the one the page
@@ -36,6 +36,13 @@ import { seatSkin } from "./seat-skin.js";
  * *NEXT must say "Next" in text also, to be easier to find and to click* — and
  * it is the button that had the room.
  *
+ * **SKIP is NEXT's narrow tail.** The owner, 25 September 2026: *add some
+ * additional part of "next" button to the right of it, which shows maybe just
+ * two arrows, it should be small width* — a press on it goes straight to the
+ * gate and says READY there (`apps/game/src/briefing.ts`). It is `SKIP_W`,
+ * narrower than BACK and REPLAY, because it is the press a pair makes least
+ * and NEXT is the one that has to stay easy to find.
+ *
  * **The pages are drawn to be counted.** CONSOLE filled the ones already read
  * in amber and the rest in `#332B57` on a near-black bezel — *can we make the
  * remaining steps more visible, because black on black is not so visible.* So
@@ -58,14 +65,14 @@ const WORD_FONT = '700 20px "Courier New",monospace';
  */
 const SMALL_W = 54;
 const SMALL_MIN = 38;
+/** SKIP's width and floor: narrower than the other two small ones. */
+const SKIP_W = 44;
+const SKIP_MIN = 32;
 const NEXT_H = 58;
 const GAP = 12;
 /** Between the two small ones and NEXT: closer than the bar's own margin, so
  * the three read as one row rather than as a pair and a button. */
 const ROW_GAP = 10;
-/** How big a sign on an icon-only plate is. NEXT's own arrow is eleven, and
- * the three read as one kit only while they are the same size. */
-const SIGN_R = 11;
 /** Seconds the bar stays lit after a press on the picture (`guide-nav.ts`). */
 const NUDGE_S = 0.6;
 
@@ -73,13 +80,16 @@ export function buttons(l: Layout): NavButtons {
   const top = l.height - NAV_HEIGHT;
   const edge = GAP + 8;
   const small = Math.max(SMALL_MIN, Math.min(SMALL_W, Math.round(l.width * 0.14)));
+  const skip = Math.max(SKIP_MIN, Math.min(SKIP_W, Math.round(l.width * 0.11)));
   const y = top + 26;
   const step = small + ROW_GAP;
+  const nextW = l.width - edge * 2 - step * 2 - skip - ROW_GAP;
   return {
     bar: { x: 0, y: top, w: l.width, h: NAV_HEIGHT },
     back: { x: edge, y, w: small, h: NEXT_H },
     replay: { x: edge + step, y, w: small, h: NEXT_H },
-    next: { x: edge + step * 2, y, w: l.width - edge * 2 - step * 2, h: NEXT_H },
+    next: { x: edge + step * 2, y, w: nextW, h: NEXT_H },
+    skip: { x: l.width - edge - skip, y, w: skip, h: NEXT_H },
   };
 }
 
@@ -117,6 +127,14 @@ export const nav: GuideLook["nav"] = (ctx, l, s) => {
     PALETTE.pod,
     age * 1.1 + 4.2,
   );
+  drawNavFeeder(
+    ctx,
+    b.skip.x + b.skip.w / 2,
+    b.bar.y + 2,
+    b.skip.y + 8,
+    PALETTE.pod,
+    age * 1.1 + 6.3,
+  );
   signPlate(
     ctx,
     { ...b.back, ...paint, live: canBack, hex: PALETTE.hull, glow: 0, hover: over(b.back) },
@@ -142,37 +160,20 @@ export const nav: GuideLook["nav"] = (ctx, l, s) => {
     WORD_FONT,
     11,
   );
+  signPlate(
+    ctx,
+    {
+      ...b.skip,
+      ...paint,
+      live: s.skip ?? true,
+      hex: PALETTE.pod,
+      glow: 0,
+      hover: over(b.skip),
+    },
+    "skip",
+  );
   steps(ctx, l, s.page, s.pages);
 };
-
-/**
- * An icon-only plate: TIDE's cut body with one of the bar's own signs on the
- * face of it, centred, and a bead hanging off the sign the way NEXT's arrow
- * has one.
- *
- * **The signs are `nav-button.ts`'s**, not new ones. That file drew the whole
- * bar before TIDE and its two shapes — the grown arrow with the concave back,
- * the loop with a head tangent to its own line — were each argued out with the
- * owner. A second pair drawn here would be the same two shapes disagreeing.
- */
-function signPlate(
-  ctx: CanvasRenderingContext2D,
-  p: NavBox & { live: boolean; hex: string; glow: number; hover: boolean },
-  sign: "back" | "replay",
-): void {
-  plate(ctx, p, p);
-  const lit = p.live && (p.hover || p.glow > 0);
-  const size = SIGN_R * (1 + 0.12 * p.glow);
-  ctx.fillStyle = p.live ? (lit ? "#FFF6E4" : p.hex) : "#3A3160";
-  ctx.strokeStyle = ctx.fillStyle;
-  // On the middle of the body below the crest, the way a word is: the crest
-  // takes the top of the plate and a sign centred on the box rides high.
-  const cy = p.y + (p.h + CREST_H) / 2;
-  const cx = p.x + p.w / 2;
-  if (sign === "replay") loopSign(ctx, cx, cy, size);
-  else arrow(ctx, cx, cy, size, -1);
-  if (p.live) drawBeads(ctx, cx + size * 0.1, cy + size * 1.05, size);
-}
 
 /**
  * Where each step's mark is, from the stage and the count alone.

@@ -1267,24 +1267,18 @@ added quietly back here.
 
 ### 3.7 The director · built, except the animation
 
-- **The GUIDE section**, three fields, in the WAVE tab directly under
-  NAME (under SENTENCE until that field came off every wave, 25 September
-  2026). `guide-fields.ts` builds it; `serialize.ts` writes it back out under
-  `name` in the act file.
+- **No GUIDE section.** The WAVE tab carried one directly under NAME — three
+  fields, then the film's pages as buttons — until the owner took it off on 25
+  September 2026: *it is enough to navigate in the game itself and see it.* A
+  guide is written in `packages/content` and read on the stage with BRIEFINGS
+  on. `serialize.ts` still writes a wave's guide back out as it was loaded.
 - **A mark in the wave rail**, the way `♛` marks a boss wave: `✎` on every wave
   that carries a guide. It is a lookup now rather than a derivation, which is
   the whole of what moving the help into the wave bought.
-- **Nothing above the fields.** There was a `BRIEFING` note there saying what
-  the pair would meet — the introduction, and then the guide or nothing — and
-  it went on 16 September 2026 because it said in a sentence what the fields
-  under it already say by existing. The heading outlived the sentence by a day
-  and read as a panel that had failed to load, which is why this bullet says
-  what is *not* there rather than being deleted.
 - **No sheet of its own.** `✎ GUIDES` was a full-screen sheet of every wave
   that carries one, and `◇ NOT BUILT YET → GUIDES` held both halves of each
   side by side; the owner took both off on 14 September 2026, when the words
-  moved into the WAVE tab. A guide is read where it is written now, and the
-  stage is where it is watched.
+  moved into the WAVE tab. The stage is where a guide is watched.
 - `refuse()` rejects a wave with no name and no sentence, and does **not**
   reject a wave with no guide. A wave that introduces nothing is supposed to
   have none; the test in `content` is what holds the other direction, because

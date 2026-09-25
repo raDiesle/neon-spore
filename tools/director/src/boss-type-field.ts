@@ -16,7 +16,7 @@ import type { BossType, Wave } from "@neon-spore/content";
  *
  * Its own file rather than a slab in `rail.ts` for that file's reason: it is
  * at its line limit, and build-a-select-read-it-back is a whole small thing on
- * its own, which is the cut `guide-fields.ts` and `fault-notes.ts` made.
+ * its own, which is the cut `fault-notes.ts` made.
  */
 
 export interface BossTypeField {

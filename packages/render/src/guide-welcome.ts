@@ -15,7 +15,7 @@ import { PALETTE } from "./palette.js";
  * (`apps/game/src/welcome.ts` holds the film's clock at zero). What is added
  * is a scrim over the picture, so the bar under it is the one bright thing on
  * the screen, and labels in the caption's own box (`label-box.ts`) beside the
- * three buttons the pair will be turning every guide with. The owner asked
+ * four buttons the pair will be turning every guide with. The owner asked
  * for it on 14 September 2026 as the third half of *a tutorial says it is
  * one*: a stepper nobody has explained is a stepper somebody presses the
  * picture instead of, and the picture does nothing.
@@ -42,7 +42,7 @@ const ROW_CLEAR = 8;
 const TITLE = ["WELCOME", "LET'S START WITH THE TUTORIAL"];
 const WAITS = ["THE PICTURE WAITS FOR YOU", "THE BAR TURNS THE PAGES"];
 const BEGIN = "PRESS ANYWHERE TO BEGIN";
-const SIGNS: readonly [string, string, string] = ["BACK", "PLAY AGAIN", "NEXT"];
+const SIGNS: readonly [string, string, string, string] = ["BACK", "PLAY AGAIN", "NEXT", "SKIP"];
 
 /** The welcome, over a page already drawn. `age` is seconds it has been up. */
 export function drawGuideWelcome(ctx: CanvasRenderingContext2D, l: Layout, age: number): void {
@@ -65,7 +65,7 @@ export function drawGuideWelcome(ctx: CanvasRenderingContext2D, l: Layout, age: 
   drawLabelGround(ctx, title);
   drawLabelLines(ctx, title, TITLE);
 
-  // The three, one label each, beside the button it names with a leader to it.
+  // The four, one label each, beside the button it names with a leader to it.
   // `GUIDE_LOOK.buttons` is where the bar draws them, so a label cannot point
   // at a place a button is not — and since a chrome decides *where* its three
   // go, each label is placed off its own button rather than off a shared row:
@@ -80,7 +80,7 @@ export function drawGuideWelcome(ctx: CanvasRenderingContext2D, l: Layout, age: 
   // from the bar and its leader simply grows. The leader is vertical and runs
   // from the button's own middle, which no stepped-back label is over: it is
   // the labels that are wide, not the gaps between the buttons.
-  const boxes = [b.back, b.replay, b.next] as const;
+  const boxes = [b.back, b.replay, b.next, b.skip] as const;
   const rowH = labelSize(ctx, [SIGNS[0]]).h;
   let lowest = b.bar.y;
   /** What is already written on each row, per side, as spans across. */

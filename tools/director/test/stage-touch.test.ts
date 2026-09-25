@@ -302,6 +302,33 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     ]);
   });
 
+  it("SKIP goes straight to the gate and fills the circle with nobody holding it", () => {
+    // The narrow »» beside NEXT, from the very first page: the owner asked for
+    // it to skip *and* make the ready circle ready, so no second press follows.
+    const s = armed("p1");
+    const box = GUIDE_LOOK.buttons(s.layout).skip;
+    s.downAt(box.x + box.w / 2, box.y + box.h / 2);
+    s.tick();
+    expect(guidePage(s.world, 1)).toBe(guidePages(s.world) - 1);
+    s.tick(readyHoldTicks(cfg));
+    expect(seatReady(s.world, 1)).toBe(true);
+    // A lift reaches nothing: SKIP's hold is never let go.
+    s.up();
+    expect(seatReady(s.world, 1)).toBe(true);
+    expect(seatReady(s.world, 2)).toBe(false);
+  });
+
+  it("REPLAY on the gate reads the guide again from the first page", () => {
+    const s = armed("test");
+    s.toGate();
+    const box = GUIDE_LOOK.buttons(s.layout).replay;
+    s.downAt(box.x + box.w / 2, box.y + box.h / 2);
+    s.up();
+    expect(guidePage(s.world, 1)).toBe(0);
+    expect(guidePage(s.world, 2)).toBe(0);
+    expect(seatReady(s.world, 1)).toBe(false);
+  });
+
   it("a hold in a single seat's own screen (p1/p2) fills only that seat", () => {
     const s = armed("p1");
     s.toGate();

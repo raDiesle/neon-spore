@@ -171,10 +171,8 @@ textarea {
   padding: 4px 6px;
   width: 100%;
 }
-/* Every textarea grows to fit what is typed into it instead of
-   scrolling — `autoGrowTextarea` in guide-fields.ts sets the height
-   inline on every keystroke, so there is nothing left here for a drag
-   handle to do. */
+/* No drag handle and no scrollbar on a textarea: the GUIDE fields grew to
+   fit their words, and went with the GUIDE section on 25 September 2026. */
 textarea {
   resize: none;
   overflow: hidden;
@@ -250,33 +248,4 @@ label.field {
 .plainwords code,
 .md pre {
   font-family: var(--mono);
-}
-
-/* The read-only GUIDE note on a wave whose guide plays a rehearsal: what the
-   pair actually meets, page by page (`guide-scene-note.ts`). A filmed guide
-   carries no words, so this is the whole section there. */
-.guide-scene {
-  margin: 10px 0 0;
-}
-.guide-pages {
-  margin: 6px 0 0;
-  padding-left: 20px;
-  font-size: 0.8rem;
-  color: var(--dim);
-  line-height: 1.6;
-}
-/* Each page is a button that opens the stage on it: drawn as the line it was,
-   lit on hover so it reads as one. `block`, because a button cannot be
-   `inline` — the browser makes it an inline-block, and the list's number then
-   sits on the *last* line of a caption that wraps. */
-.guide-page {
-  all: unset;
-  display: block;
-  cursor: pointer;
-  color: inherit;
-}
-.guide-page:hover,
-.guide-page:focus-visible {
-  color: var(--ink);
-  text-decoration: underline;
 }

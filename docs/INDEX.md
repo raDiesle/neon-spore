@@ -1224,7 +1224,8 @@ by hand never moves.
 | `packages/render/src/guide-tide-companion.ts` | The second thing a page is about, ringed and never written on |
 | `packages/render/src/guide-tide-membrane.ts` | The living top: three sheets of fluid lying over each other, each with its own drift |
 | `packages/render/src/guide-tide-plate.ts` | TIDE's one body, and the shape every piece of its chrome is cut from: a square with the corners taken off |
-| `packages/render/src/guide-tide-bar.ts` | TIDE's bar, and the two of its three that are not on it |
+| `packages/render/src/guide-tide-bar.ts` | TIDE's bar, and the row of four a guide is turned by |
+| `packages/render/src/guide-tide-signs.ts` | The bar's icon-only plates: BACK, REPLAY and SKIP, each TIDE's cut body with one sign on the face of it |
 | `packages/render/src/guide-tide.ts` | the band across the top of every page of a guide: the living top, and the badge naming the seat |
 | `packages/render/src/guide-seat.ts` | one seat's screen inside a guide's rehearsal, drawn through the shipping four passes |
 | `packages/render/src/guide-switch.ts` | the slide from one player's screen to the other in a tutorial: the lit seam, and what the band naming the seat has to be told |
@@ -2125,8 +2126,6 @@ by hand never moves.
 | `tools/director/src/glows/swarm.ts` | One soft cloud under the whole figure, rather than a halo per body |
 | `tools/director/src/glows/trail.ts` | A luminous tail that lingers behind the body as it moves |
 | `tools/director/src/glows/types.ts` | What a glow is, and what it is told |
-| `tools/director/src/guide-fields.ts` | The GUIDE section `rail.ts` shows directly under NAME: what a wave opens on, edited where the wave is edited |
-| `tools/director/src/guide-scene-note.ts` | the rehearsal a wave's guide plays, named over the GUIDE fields with a caption per page |
 | `tools/director/src/hits/dim.ts` | The body simply goes dark for a beat |
 | `tools/director/src/hits/flash.ts` | One bright frame, then gone |
 | `tools/director/src/hits/ring.ts` | A circle leaving the body and fading — the shockwave |

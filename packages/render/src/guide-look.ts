@@ -11,7 +11,7 @@ import type { SeatNames } from "./seat-name.js";
 /**
  * The tutorial's furniture, as one record: the band across the top that says
  * TUTORIAL and whose screen this is, the bar the pages are turned by, where
- * that bar's three buttons are, and the words a page writes beside its subject.
+ * that bar's four buttons are, and the words a page writes beside its subject.
  *
  * **It is a seam.** Every one of these was a function called by name, and a
  * candidate look for the chrome had nowhere to stand: VERSUS patches *records*
@@ -43,12 +43,12 @@ export interface GuideLook {
   bandFoot: number;
   /** The band across the top of every page of a guide. */
   band: (ctx: CanvasRenderingContext2D, l: Layout, p: CornerPlate) => void;
-  /** Where the bar's three are, from the stage alone. Drawn and hit-tested from this. */
+  /** Where the bar's four are, from the stage alone. Drawn and hit-tested from this. */
   buttons: (l: Layout) => NavButtons;
   /** Where the row of step marks is, one box per page, in page order. The
    * same promise as `buttons`: the row is drawn from it and pressed on it. */
   steps: (l: Layout, pages: number) => NavBox[];
-  /** The bar: BACK, REPLAY, NEXT and the dots. */
+  /** The bar: BACK, REPLAY, NEXT, SKIP and the dots. */
   nav: (ctx: CanvasRenderingContext2D, l: Layout, s: NavState) => void;
   /** A page's words, beside the thing they are about. */
   caption: (
@@ -74,12 +74,16 @@ export const GUIDE_LOOK: GuideLook = {
   caption,
 };
 
-/** Which of the bar's three a point is on, or null. `null` on a point outside the bar. */
-export function navHit(l: Layout, x: number, y: number): "back" | "replay" | "next" | null {
+/** The bar's four, by name. */
+export type NavHit = "back" | "replay" | "next" | "skip";
+
+/** Which of the bar's four a point is on, or null. `null` on a point outside the bar. */
+export function navHit(l: Layout, x: number, y: number): NavHit | null {
   const b = GUIDE_LOOK.buttons(l);
   if (inside(b.back, x, y)) return "back";
   if (inside(b.replay, x, y)) return "replay";
   if (inside(b.next, x, y)) return "next";
+  if (inside(b.skip, x, y)) return "skip";
   return null;
 }
 

@@ -57,16 +57,6 @@ export interface StagePanel {
    * one is the same disagreement with the numbers swapped.
    */
   closeRound(): void;
-  /**
-   * A fresh run of the wave, opened on one page of its guide with both seats'
-   * cursors on it — what a click on a page's caption in the GUIDE panel asks
-   * for (`guide-scene-note.ts`). The film plays that page from its first tick,
-   * the way NEXT would have reached it, because the page is world state and
-   * the renderer reads it (`sim/guide-steps.ts`, `render/guide-play.ts`).
-   * Says nothing unless `cfg.briefings` is on, which is the caller's to turn
-   * (`pair-panel.ts`): with it off the world has no guide to be on a page of.
-   */
-  openPage(page: number): void;
   /** The round the field is being held on, for the panel that offers the
    * choice to mark — one answer, read rather than kept twice. */
   round(): number;

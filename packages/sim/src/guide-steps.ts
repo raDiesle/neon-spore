@@ -81,10 +81,10 @@ export function toReadyPage(world: World, player: 1 | 2): void {
 }
 
 /**
- * This seat straight to any page, clamped to the gate — the director's, when
- * a click on a page's caption asks the stage for that page rather than for
- * the presses that would reach it (`tools/director/src/guide-scene-note.ts`).
- * No thumb has this route: a thumb turns one page at a time, and the wire
+ * This seat straight to any page, clamped to the gate. `toReadyPage` is it
+ * with the gate named; the director's page captions were the other caller,
+ * and went with its GUIDE section on 25 September 2026. No thumb has this
+ * route: a thumb turns one page at a time, and the wire
  * carries only `guideStep`.
  */
 export function toGuidePage(world: World, player: 1 | 2, page: number): void {

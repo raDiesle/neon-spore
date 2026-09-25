@@ -8,8 +8,8 @@ import { readyCircles } from "../src/ready-page.js";
  * A button is answered exactly where it is drawn.
  *
  * The rule `bandLobes` already plays by one layer down, applied to the bar a
- * stepped guide carries: `GUIDE_LOOK.buttons` is what the drawing places BACK, REPLAY
- * and NEXT from *and* what a thumb is hit-tested against
+ * stepped guide carries: `GUIDE_LOOK.buttons` is what the drawing places BACK, REPLAY,
+ * NEXT and SKIP from *and* what a thumb is hit-tested against
  * (`apps/game/src/briefing.ts`, `tools/director/src/stage-opening.ts`). The
  * failure this guards is silent in both places at once — a NEXT drawn an inch
  * from where it answers looks fine in a screenshot and does nothing under a
@@ -39,19 +39,20 @@ describe("the bar a stepped guide is turned by", () => {
       expect(navHit(l, b.back.x + b.back.w / 2, b.back.y + b.back.h / 2)).toBe("back");
       expect(navHit(l, b.replay.x + b.replay.w / 2, b.replay.y + b.replay.h / 2)).toBe("replay");
       expect(navHit(l, b.next.x + b.next.w / 2, b.next.y + b.next.h / 2)).toBe("next");
+      expect(navHit(l, b.skip.x + b.skip.w / 2, b.skip.y + b.skip.h / 2)).toBe("skip");
     }
   });
 
-  it("keeps all three inside the stage and clear of each other", () => {
+  it("keeps all four inside the stage and clear of each other", () => {
     for (const size of SIZES) {
       const l = computeLayout(size, DEFAULT_CONFIG, "p1");
       const b = GUIDE_LOOK.buttons(l);
-      // On the stage, all three, and none of them on top of another. *Where*
+      // On the stage, all four, and none of them on top of another. *Where*
       // each one is belongs to the chrome and is not checked here: TIDE keeps
       // BACK and REPLAY up in the top bezel and gives NEXT the whole width at
       // the foot (`guide-tide.ts`), and a test that insisted on one row would
       // be a test of the answer rather than of the promise.
-      for (const box of [b.back, b.replay, b.next]) {
+      for (const box of [b.back, b.replay, b.next, b.skip]) {
         expect(box.x).toBeGreaterThanOrEqual(0);
         expect(box.x + box.w).toBeLessThanOrEqual(l.width);
         expect(box.y).toBeGreaterThanOrEqual(0);
@@ -61,13 +62,16 @@ describe("the bar a stepped guide is turned by", () => {
         [b.back, b.replay],
         [b.back, b.next],
         [b.replay, b.next],
+        [b.next, b.skip],
+        [b.back, b.skip],
+        [b.replay, b.skip],
       ] as const) {
         const apart =
           one.x + one.w <= two.x ||
           two.x + two.w <= one.x ||
           one.y + one.h <= two.y ||
           two.y + two.h <= one.y;
-        expect(apart, `${size.width}: two of the three overlap`).toBe(true);
+        expect(apart, `${size.width}: two of the four overlap`).toBe(true);
       }
       expect(b.bar.y + b.bar.h).toBe(l.height);
     }
@@ -83,6 +87,9 @@ describe("the bar a stepped guide is turned by", () => {
       expect(navHit(l, gapX, gapY)).toBe(null);
       // And just off NEXT's own edge, on its own row.
       expect(navHit(l, b.next.x - 4, b.next.y + b.next.h / 2)).toBe(null);
+      // And in the gap between NEXT and the narrow SKIP beside it.
+      const seam = (b.next.x + b.next.w + b.skip.x) / 2;
+      expect(navHit(l, seam, b.next.y + b.next.h / 2)).toBe(null);
       // But the bar itself still swallows the press: a thumb on the page
       // number must not fall through to whatever is drawn under it.
       expect(onNavBar(l, b.bar.y + 2)).toBe(true);

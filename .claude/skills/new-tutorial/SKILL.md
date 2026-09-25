@@ -114,9 +114,9 @@ shared page **last**, where it is the consequence of the pages above it.
 > repeat the current step.*
 
 A page plays through and stands on its last frame for as long as the seat
-reading it wants. REPLAY plays it again; NEXT moves on. Each seat has its own
-cursor: *every player has their own time to go through the tutorial, and just
-at the end both need to say they are ready.*
+reading it wants. REPLAY plays it again (on the gate: from page one); NEXT moves
+on; »» (SKIP) goes to the gate and says READY. Each seat has its own cursor:
+*every player has their own time to go through the tutorial, and just at the end…*
 
 **NEXT gets louder once the page has played** — *when the animation is finished
 for a step, the next must raise more attention.*

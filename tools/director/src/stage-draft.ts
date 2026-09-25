@@ -33,8 +33,8 @@ export function draftControlSet(store: Store): ControlSet {
  *
  * `null` and never `undefined` when the draft has no guide. `undefined` means
  * *ask the shipped list* (`render/renderer.ts`), which is what a stage playing
- * a draft is getting away from — and an author who has just emptied the three
- * GUIDE fields means the wave has none, not that nobody has said.
+ * a draft is getting away from — and a draft wave with no guide has none,
+ * not one nobody has said.
  */
 export function draftGuide(store: Store): WaveGuide | null {
   return currentWave(store)?.guide ?? null;
