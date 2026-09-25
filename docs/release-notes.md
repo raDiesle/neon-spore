@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · ebf337263 — SNAKE goes home into the ship between arenas
+
+A cleared arena is no longer a round won. The clock stops, the ship's mouth opens, and player 2 steers the body onto the one tile of the floor under the middle column, marked by a green arrow. Past it the body goes straight down into the ship on a quicker step, and the next arena opens with the body coming out of the same mouth. After the last arena the mouth closes behind the tail. Missing the mouth is a crash like any other wall.
+
 ## 2026-09-25 · d5cac3ebd — Queue: the shield pushes cannon creatures back up, once
 
 The owner decided on 25 September 2026 that the shield answers almost every creature: in the column and on time, it pushes the body high back up the field once, and the cannon still has to kill it. Three lanes are queued in order — the rule, the red shield with ONE LAST CHANCE, and a wave with a guide that teaches it — with the list of creatures that are not pushed.
