@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 282d64c49 — On HARD a shot that hits nothing loses the wave
+
+On HARD, a shot that flies out of the top of the field with nothing taking it now loses the wave, just as a hit on the hull does. EASY and MEDIUM keep every rule they had. The level sets the rule together with the tempo, in one place (`playDifficulty`). The rule is off while a boss hangs above the field, because that boss's sky takes every bolt, armour included. It is also off in the rest after a clear, on THE WELL and in a film. A bolt that goes into one of those bosses is no longer drawn flying on past it to the top of the screen.
+
 ## 2026-09-25 · a074a5e21 — THE SPLICE's pipes are living trunks and its straws are gut
 
 The SUCK pipes are no longer cylinders with a rim. Each one is now a trunk of flesh that breathes and bows on the beat, with veins down it. It flares into a lobed lip with feelers that wave, and while it sucks they curl in and light up. The straws feeding the pipes are now pink gut with uneven creases instead of grey ringed hose, and nothing on them moves, so they are still easy to trace. Every pipe still says SUCK on both screens, and the pipe under the cannon, the done mark and the swelling for a number inside work as before.
