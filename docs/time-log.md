@@ -20305,3 +20305,5 @@ which were the rule took longer than removing them.
 
 The bottleneck was **writing**: one field became a list, and every reader of
 it had to become a loop.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

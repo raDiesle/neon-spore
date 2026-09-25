@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · dc012eb8 — THE SPLICE's cannon may suck the next while one is still falling
+
+While a number travels down its straw, the cannon can slide to another pipe and SUCK again: each suck puts another number on its way, they land in the order they were sucked, and each is judged against the order as it lands — so a pair that trusts its reading can pour a round down, and a wrong one landing first costs exactly as it did alone. A suck at a straw whose number is already falling is still nothing. The clock does not bite while any is in the air (the owner, 25 September 2026). `SpliceState.feedFrom`/`feedBeat` became `flights`, hashed whole; every flight is drawn with its own pipe swelling, and the director's AUTO hand slides on after each suck.
+
 ## 2026-09-25 · 7965a33d — THE FLIP's turned screen draws the mirror down its middle
 
 The seat whose field is turned was told so only by the fault's beam on both walls, and nothing said where the picture is folded. It now draws a pane of glass down the vertical middle of the field — two thin edges, a sheen on each face and a glint running down it — with a pair of swap arrows (⇄) crossing it at three heights. It is under every body and only on the turned screen; the seat with the true picture is shown nothing. A look the owner asked for by name.
