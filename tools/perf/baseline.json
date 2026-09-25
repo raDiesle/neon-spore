@@ -990,8 +990,18 @@
       "unmeasured": true
     },
     {
-      "id": "theHusk",
+      "id": "theDark",
       "wave": 96,
+      "name": "THE DARK",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theHusk",
+      "wave": 97,
       "name": "THE HUSK",
       "bodies": 0,
       "typical": 0,
@@ -1001,7 +1011,7 @@
     },
     {
       "id": "theFilament",
-      "wave": 97,
+      "wave": 98,
       "name": "THE FILAMENT",
       "bodies": 0,
       "typical": 0,
@@ -1011,7 +1021,7 @@
     },
     {
       "id": "theGimbal",
-      "wave": 98,
+      "wave": 99,
       "name": "THE GIMBAL",
       "bodies": 0,
       "typical": 0,
@@ -1021,7 +1031,7 @@
     },
     {
       "id": "theSpool",
-      "wave": 99,
+      "wave": 100,
       "name": "THE SPOOL",
       "bodies": 0,
       "typical": 0,
@@ -1031,7 +1041,7 @@
     },
     {
       "id": "theHasp",
-      "wave": 100,
+      "wave": 101,
       "name": "THE HASP",
       "bodies": 0,
       "typical": 0,
@@ -1041,7 +1051,7 @@
     },
     {
       "id": "theRatchet",
-      "wave": 101,
+      "wave": 102,
       "name": "THE RATCHET",
       "bodies": 0,
       "typical": 0,

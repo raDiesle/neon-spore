@@ -800,3 +800,15 @@ The stub is 685 lines and the test 345. The stub grew a `strokeText` in this lan
 recording (`texts`, `measureText`, `fillText`, `strokeText`) into a file of
 its own, and THE THROAT's cue test by moment: the gum, the body in the mouth,
 the rock in the mouth, the climb. `bun run check` holds both.
+
+## Split touch.ts, malfunction.ts and the field-controls page
+
+- **Found:** 2026-09-25, claude/fault-brush-darkness-28adad
+- **Files:** `packages/render/src/touch.ts`, `packages/sim/src/malfunction.ts`, `tools/director/src/field-controls-page.ts`
+
+THE DARK took `touch.ts` to 249 lines and `malfunction.ts` to 250, and only
+fit because comments were shortened; the field-controls page is at 230. The
+next fault or field gesture pushes all three over. `touch.ts`: move
+`touchMove`'s per-hold dispatch into its own file beside `touch-hold.ts`.
+`malfunction.ts`: move the per-kind swallow table out. The page: split the
+entries by which seat holds them. `bun run check` holds all three.

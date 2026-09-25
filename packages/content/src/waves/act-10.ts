@@ -137,6 +137,26 @@ export const WAVES_ACT_10: Wave[] = [
     faults: [{ kind: "flip", seat: 1, at: 6 }],
   },
   {
+    id: "theDark",
+    name: "THE DARK",
+    guide: {
+      scene: "theDark",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 4, col: 1, color: "cyan" },
+      { beat: 8, col: 5, color: "red" },
+      { beat: 12, col: 2, color: "cyan" },
+      { beat: 16, col: 4, color: "red" },
+      { beat: 20, col: 0, color: "cyan" },
+      { beat: 24, col: 6, color: "red" },
+      { beat: 28, col: 3, color: "cyan" },
+      { beat: 32, col: 1, color: "red" },
+      { beat: 36, col: 5, color: "cyan" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
     id: "theHusk",
     name: "THE HUSK",
     guide: {

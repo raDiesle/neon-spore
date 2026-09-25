@@ -4,6 +4,7 @@ import { drawCandleField } from "./candle-dark.js";
 import { HeldHost } from "./canvas2d-held.js";
 import { drawStageSeam, paintOutside } from "./canvas2d-stage.js";
 import { drawTakeover } from "./canvas2d-takeover.js";
+import { drawDarkField } from "./dark-field.js";
 import {
   drawBodies,
   drawFieldBack,
@@ -172,6 +173,9 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     // THE CANDLE: the field goes black here, over every body on it and under
     // the ship, whose own glow is a light the dark leaves (`candle-dark.ts`).
     drawCandleField(ctx, l, view, this.held.effects);
+    // THE DARK, on the same station: the field put out, and a finger's light
+    // the only way back into it (`dark-field.ts`; `seenView` took the bodies out).
+    drawDarkField(ctx, l, view);
     // And, on the same station, THE SLOW's window: over every body on the
     // field and under the ship, because the band is how the pair answers the
     // hurry and must not be dimmed by a picture of it. It draws nothing until

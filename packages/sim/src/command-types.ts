@@ -203,6 +203,13 @@ export type Command =
    * with no mine on it at all finds nothing and does nothing.
    */
   | { kind: "tapTile"; col: number; row: number }
+  /**
+   * A finger on THE DARK's field, from either seat: the square to light
+   * (`dark.ts`). `tapTile`'s two numbers for its reason — two phones share a
+   * tile and no pixel — and its own kind rather than that one, because a
+   * light is dragged and a mine's press must not be.
+   */
+  | { kind: "light"; col: number; row: number }
   | { kind: "restart" }
   /**
    * The answer to a lost wave (`wave-fail.ts`). The field holds on a screen

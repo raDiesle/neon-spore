@@ -6,6 +6,7 @@ import {
   type World,
   wispOnField,
 } from "@neon-spore/sim";
+import { drawDarkField } from "./dark-field.js";
 import { Effects } from "./effects.js";
 import { FieldPose } from "./field-pose.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
@@ -81,6 +82,8 @@ export class SeatView {
       surfaceSampler(hull),
       skinSampler(hull),
     );
+    // THE DARK's black, on the game's station for it (`canvas2d.ts`).
+    drawDarkField(ctx, l, view);
     drawShip(ctx, l, world, view, this.effects, mood, this.pose.at, hull);
     // No scene of its own, and that is the whole of the recursion guard: a
     // rehearsal's config has `briefings` off, so the opening pass finds

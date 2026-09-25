@@ -23,6 +23,7 @@
 
 import type { PlacedFault } from "./fault-placed.js";
 import { MALFUNCTION_COLORS, MALFUNCTION_KINDS } from "./malfunction.js";
+import type { LitTile } from "./world-faults.js";
 
 /**
  * Every fault on the wave, with its rows and whatever its own arm of the union
@@ -36,7 +37,7 @@ import { MALFUNCTION_COLORS, MALFUNCTION_KINDS } from "./malfunction.js";
  * tag in this package is: zero is what a fault without that field contributes,
  * so the first entry of a list must not also be zero.
  */
-export function faultHashParts(faults: readonly PlacedFault[]): number[] {
+export function faultHashParts(faults: readonly PlacedFault[], lit: readonly LitTile[]): number[] {
   const out: number[] = [faults.length];
   for (const fault of faults) {
     out.push(MALFUNCTION_KINDS.indexOf(fault.kind), fault.at, fault.beats);
@@ -51,5 +52,10 @@ export function faultHashParts(faults: readonly PlacedFault[]): number[] {
     // — the index + 1 rule above is about a list whose first entry is zero.
     if (fault.kind === "flip") out.push(fault.seat);
   }
+  // THE DARK's lit squares, which the fault leaves on the world rather than
+  // on its placement. Here and not in `hash.ts` because that file is at its
+  // ceiling, and because they are nothing but what one fault has left behind.
+  out.push(lit.length);
+  for (const t of lit) out.push(t.col, t.row, t.untilTick);
   return out;
 }

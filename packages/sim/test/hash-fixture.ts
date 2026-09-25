@@ -70,6 +70,8 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   // rows that are not zero, so a fixture that stopped hashing either of them
   // would be caught (`sim/fault-placed.ts`).
   world.faults = [{ kind: "cannon", color: "alternating", at: 2, beats: 6 }];
+  // A lit square of THE DARK, with every number off zero (`sim/dark.ts`).
+  world.lit = [{ col: 3, row: 5, untilTick: 900 }];
   // First, not last: a boss that stands on the field has already put its own
   // body in this list, and the walk only ever mutates element zero. Behind a
   // queen, the fixture's creature — the one carrying every optional field —

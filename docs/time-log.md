@@ -20793,3 +20793,17 @@ The bottleneck was **writing**: nine drawers, each one needing its own form
 for the light to fall on it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE DARK: the field goes out, and a thumb lights it on both screens
+
+- reading: 5 min. THE FLIP's commit for every table a new fault kind reaches,
+  `seenView`, and the touch pipeline's order.
+- writing: 15 min. `sim/dark.ts` and the `light` command, `dark-field.ts`,
+  `dark-tap.ts`, the wave, its film, the brush, the pose, three test files.
+- looking: 0 min. No frame was taken.
+- friction: 5 min. The film's pages broke two page rules and had to be
+  re-timed twice, and a grep that found nothing ran the whole suite.
+- landing: 5 min. `check:fast`, two doc-drift fixes, the commit, `land`.
+
+Bottleneck: a fault kind reaches about forty files through `Record` tables and
+page rules that are only found when they fail, one at a time.

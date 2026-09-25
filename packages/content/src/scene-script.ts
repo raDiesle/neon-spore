@@ -52,7 +52,11 @@ export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
       {
         tick: act.tick,
         player: act.tile,
-        command: { kind: "tapTile", col: actCol(act, cfg.cols), row: act.row ?? 0 },
+        command: {
+          kind: act.light ? "light" : "tapTile",
+          col: actCol(act, cfg.cols),
+          row: act.row ?? 0,
+        },
       },
     ];
   }

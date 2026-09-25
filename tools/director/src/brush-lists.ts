@@ -59,6 +59,9 @@ export const FAULT_BRUSHES = [
   // turned is the author's decision, so the palette grows a picker for it
   // beside the cannon's colour, on the row it is placed on (`fault-config.ts`).
   "fault:flip",
+  // **THE DARK**, 25 September 2026: the field above the ship put out, and a
+  // finger on it the only light (`sim/dark.ts`).
+  "fault:dark",
   // **THE LEECH and THE LIMPET**, added on 15 September 2026 when the owner
   // settled what they are: *they should only exist as brush, but once they are
   // placed on a tile, for a defined period of time, the malfunction is

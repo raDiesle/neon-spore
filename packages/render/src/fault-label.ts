@@ -29,6 +29,7 @@ export const FAULT_LABEL: Record<MalfunctionKind, string> = {
   leech: "KEEP CANNON MOVING",
   limpet: "KEEP SHIELD MOVING",
   flip: "MIRRORED",
+  dark: "LIGHTS OUT",
 };
 
 /** Whether this screen is told about a fault of this kind at all. */

@@ -109,6 +109,11 @@ export const MALFUNCTION_KINDS = [
   // authored and hashed, and `flip.ts` is why it lives in the simulation at
   // all.
   "flip",
+  // **THE DARK**: the field above the ship goes out on both screens, and a
+  // finger from either seat lights the squares under it for two beats. It
+  // swallows nothing — THE FLIP's kind again, where what has gone is the
+  // picture — and the light is a command, so both screens show it (`dark.ts`).
+  "dark",
 ] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
@@ -137,6 +142,7 @@ export type Malfunction =
   | { kind: "codex" }
   | { kind: "leech" }
   | { kind: "limpet" }
+  | { kind: "dark" }
   /**
    * THE HANDOVER. It used to be the one fault an author wrote numbers on —
    * `at`, `beats` and `every`, because it was the only one that had ever
@@ -189,7 +195,7 @@ function eats(m: Malfunction, c: Command): boolean {
   // means (`codex.ts`), whose screen it is on (`handover.ts`), what standing
   // still now costs (`harpoon.ts`), or where the field really is (`flip.ts`).
   if (m.kind === "codex" || m.kind === "handover" || isHarpoonKind(m.kind)) return false;
-  if (m.kind === "flip") return false;
+  if (m.kind === "flip" || m.kind === "dark") return false;
   return c.kind === "guard";
 }
 
@@ -233,7 +239,7 @@ function actOn(world: World, m: PlacedFault): void {
   // harpoons are watched every *tick* rather than every beat — a count of a
   // beat and a half cannot be judged on the beat (`stepHarpoons`).
   if (m.kind === "codex" || m.kind === "handover" || isHarpoonKind(m.kind)) return;
-  if (m.kind === "flip") return;
+  if (m.kind === "flip" || m.kind === "dark") return;
   if (m.kind === "steer") {
     stepChoke(world);
     return;

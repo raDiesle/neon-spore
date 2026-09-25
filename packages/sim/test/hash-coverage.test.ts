@@ -287,6 +287,7 @@ describe("the fingerprint covers the world", () => {
         "leechStillTicks",
         "limpetHarpoonId",
         "limpetStillTicks",
+        "lit",
         "hasLance",
         "heldTick",
         "gripP1",

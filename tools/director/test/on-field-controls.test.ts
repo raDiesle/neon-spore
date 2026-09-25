@@ -65,6 +65,7 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
     case "shot":
     case "grip":
     case "drag":
+    case "light":
       return "field";
     default:
       return assertNever(kind);
@@ -394,7 +395,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
 describe("FIELD_CONTROLS against touch.ts's own types", () => {
   test("every field-kind Hold has a FIELD_CONTROLS entry", () => {
     const fieldKinds: Hold["kind"][] = (
-      ["cannon", "shield", "guard", "shot", "grip", "drag"] as const
+      ["cannon", "shield", "guard", "shot", "grip", "drag", "light"] as const
     ).filter((k) => documentedHoldKind(k) === "field");
     for (const kind of fieldKinds) {
       expect(
@@ -506,6 +507,11 @@ const GESTURES: readonly { why: string; hold: Hold; at?: { x: number; y: number 
     hold: { kind: "shot", originX: 40 },
     at: { x: 340, y: 700 },
   },
+  {
+    why: "a thumb dragged across the dark into a new square",
+    hold: { kind: "light", player: 2, col: 0, row: 0 },
+    at: { x: 300, y: 300 },
+  },
   ...(["mazeString", "wardenTether", "lidString"] as const).map((target: DragTarget) => ({
     why: `${target} let go of`,
     hold: { kind: "drag", target, player: 1, originX: 40, originY: 200 } as Hold,
@@ -519,7 +525,16 @@ describe("FIELD_CONTROLS against what touch.ts actually sends", () => {
     // new kind cannot be added to `Hold` without this file failing to compile
     // — and this says the kind is not merely named here but actually pressed.
     const driven = new Set(GESTURES.map((g) => g.hold.kind));
-    for (const kind of ["cannon", "shield", "guard", "grip", "held", "shot", "drag"] as const) {
+    for (const kind of [
+      "cannon",
+      "shield",
+      "guard",
+      "grip",
+      "held",
+      "shot",
+      "drag",
+      "light",
+    ] as const) {
       expect(driven.has(kind), `${kind} is never driven`).toBe(true);
       documentedHoldKind(kind);
     }

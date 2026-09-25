@@ -1,3 +1,4 @@
+import { darkView } from "./dark-field.js";
 import type { ViewState } from "./renderer.js";
 
 /**
@@ -49,11 +50,14 @@ import type { ViewState } from "./renderer.js";
  */
 export function seenView(view: ViewState): ViewState {
   const { creatures } = view.world;
-  if (!creatures.some((c) => c.unseen)) return view;
+  // THE DARK takes out every body no light reaches, on the same terms and in
+  // the same place, so the rehearsal's seats and the game's screen cannot
+  // disagree about it (`dark-field.ts`).
+  if (!creatures.some((c) => c.unseen)) return darkView(view);
   const seen = creatures.filter((c) => !c.unseen);
-  return {
+  return darkView({
     ...view,
     unseen: creatures.length - seen.length,
     world: { ...view.world, creatures: seen },
-  };
+  });
 }

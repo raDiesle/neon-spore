@@ -12,6 +12,7 @@
  */
 
 export { steerCol, steered, steerHeading } from "./choke.js";
+export { darkBeats, darkInWave, darkOn, litNow } from "./dark.js";
 export { faultFiresThisBeat } from "./fault-clock.js";
 // A fault is placed on the map now, so the shape it is placed as, the
 // no-end tell and the two questions a picture asks about one are all out

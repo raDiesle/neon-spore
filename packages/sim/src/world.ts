@@ -2,16 +2,17 @@ import { emptyRunStats, type RunStats } from "./balance.js";
 import type { BossState } from "./boss-union.js";
 import { type Briefings, newBriefings } from "./briefing.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
-import type { PlacedFault } from "./fault-placed.js";
 import { createRng, type Rng } from "./rng.js";
 import { NO_SLOW } from "./slow.js";
 import { newSpendLedger, type SpendLedger } from "./spend.js";
 import { startWave } from "./wave-start.js";
+import { type FaultState, newFaultState } from "./world-faults.js";
 import { newShipState, type ShipState } from "./world-ship.js";
 
 export type { BossEntry, MazeEntry, MirrorEntry, QueenEntry } from "./boss-entries.js";
 export type { PodEntry, SpawnEntry } from "./entries.js";
 export type { SimEvent } from "./events.js";
+export type { FaultState, LitTile } from "./world-faults.js";
 export type { ShipState } from "./world-ship.js";
 
 import type { PodEntry, SpawnEntry } from "./entries.js";
@@ -32,9 +33,10 @@ export { step } from "./step.js";
  * The ship's own twenty-odd fields — both hands, the arm, the crank and the
  * three stages of a shot — are `ShipState` in `world-ship.ts`, extended rather
  * than nested so `world.cannonCol` stays where every reader already looks.
- * What is left here is the field, the wave and the run.
+ * The faults and what they leave behind are `FaultState` in `world-faults.ts`,
+ * the same way. What is left here is the field, the wave and the run.
  */
-export interface World extends ShipState {
+export interface World extends ShipState, FaultState {
   cfg: SimConfig;
   rng: Rng;
   tick: number;
@@ -48,42 +50,6 @@ export interface World extends ShipState {
    */
   beat: number;
   nextId: number;
-
-  /**
-   * **The faults placed on this wave's map**, each with the beat it enters on
-   * and the number of beats it holds — empty for every wave played straight.
-   * Installed by `startWave` from the wave's own list, exactly the way the
-   * arrivals are, and never written again while the wave runs.
-   *
-   * It was one `Malfunction | null` for the whole wave until 15 September
-   * 2026, when the owner asked for a fault to be *a pencil placed on the map*
-   * (`fault-placed.ts`). Read through `faultsNow`, `faultOn` and
-   * `faultWindow` rather than by index: what is in force has been a question
-   * about the beat rather than about the wave ever since.
-   */
-  faults: PlacedFault[];
-
-  /**
-   * Ticks the cannon has stood still with a leech on it, and the plate with a
-   * limpet — nought while neither is there and nought again on every move.
-   *
-   * Two fields rather than a record, for `guardTick`'s reason: the world's own
-   * counters are numbers with names, and a map keyed by a union is a second
-   * thing to keep in step with that union. Ticks and not beats because the
-   * count is a beat and a half (`harpoon.ts`).
-   */
-  leechStillTicks: number;
-  limpetStillTicks: number;
-
-  /**
-   * The id of the body each harpoon fault has out, or `NO_HARPOON`.
-   *
-   * By id, because the same two bodies still arrive as creatures on the waves
-   * that spawn them: a fault that reeled in whatever it found of the right
-   * kind would take away one a wave had placed (`harpoon.ts`).
-   */
-  leechHarpoonId: number;
-  limpetHarpoonId: number;
 
   /**
    * Whether **holding** a colour fills the cannon lobe on this wave's panel.
@@ -205,11 +171,7 @@ export function createWorld(
     beat: 0,
     nextId: 1,
     ...newShipState(cfg),
-    faults: [],
-    leechStillTicks: 0,
-    limpetStillTicks: 0,
-    leechHarpoonId: 0,
-    limpetHarpoonId: 0,
+    ...newFaultState(),
     hasLance: true,
     slowFromBeat: NO_SLOW,
     slowToBeat: NO_SLOW,

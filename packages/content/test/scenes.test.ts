@@ -131,6 +131,7 @@ describe("the rehearsals a guide can show", () => {
           continue;
         }
         expect(act.row, `${id}: an act at tick ${act.tick} names a row`).toBeUndefined();
+        expect(act.light, `${id}: a light at tick ${act.tick} is not on a tile`).toBeUndefined();
         if (act.grip === undefined && act.drag !== "lidString") {
           // And a hold on an ordinary control only makes sense on one a thumb
           // stays on — the lance, the gauge's two valve slabs and the bucket's

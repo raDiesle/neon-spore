@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — ninety-two of the hundred and one waves today, and a wave
+   new carries one — ninety-three of the hundred and two waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to

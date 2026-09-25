@@ -82,6 +82,19 @@ export interface MalfunctionConfig {
    * other reason: a call has to have left a mouth before the beat it is about).
    */
   handoverWarnBeats: number;
+  /**
+   * Beats a square of THE DARK's field stays lit after a finger lands on it
+   * (`dark.ts`). Two, which the owner named on 25 September 2026: long enough
+   * to see what is there and say it, too short to light the field once and
+   * keep it.
+   */
+  darkLitBeats: number;
+  /**
+   * How far round a lit square the dark is lifted, in thousandths of a tile.
+   * A thumb is wider than a square, and a light the size of one would leave
+   * half of a body it landed on still in the dark.
+   */
+  darkLitRadiusMilli: number;
 }
 
 export const MALFUNCTION_DEFAULTS: MalfunctionConfig = {
@@ -90,4 +103,6 @@ export const MALFUNCTION_DEFAULTS: MalfunctionConfig = {
   handoverAtBeat: 9,
   handoverHoldBeats: 8,
   handoverWarnBeats: 2,
+  darkLitBeats: 2,
+  darkLitRadiusMilli: 1400,
 };

@@ -20,6 +20,7 @@ import {
   until,
 } from "./pose-kit.js";
 import { ANTIPHON_PULL, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
+import { DARK_LIGHT } from "./poses-field-controls-dark.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
@@ -215,6 +216,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     SPOOL_BRAKE,
     ...HASP_GRIPS,
     ...RATCHET_GRIPS,
+    DARK_LIGHT,
     GUIDE_HOLD,
   ],
 };

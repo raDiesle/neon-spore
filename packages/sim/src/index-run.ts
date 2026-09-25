@@ -95,6 +95,7 @@ export {
 export {
   type BossEntry,
   createWorld,
+  type LitTile,
   MILLI,
   type MirrorEntry,
   type PodEntry,

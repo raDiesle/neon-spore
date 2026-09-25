@@ -78,6 +78,8 @@ export type Hold =
    */
   | { kind: "grip"; id: number; player: 1 | 2; originX: number; well?: { angle: number } }
   | { kind: "held"; control: ControlId; player: 1 | 2 }
+  /** THE DARK: a finger lighting the field, and the square it lit last (`dark-tap.ts`). */
+  | { kind: "light"; player: 1 | 2; col: number; row: number }
   /**
    * Player 2's thumb on the muzzle. The press says nothing at all — it is the
    * *lift* that fires, and which colour it fires is how far the muzzle was

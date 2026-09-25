@@ -129,6 +129,13 @@ export interface SceneAct {
   /** The row a `tile` act lands in. Only a tile carries one. */
   row?: number;
   /**
+   * **The square is lit rather than pressed** — THE DARK's finger
+   * (`sim/dark.ts`). The same hand on the same bare square, so it is a `tile`
+   * with this beside it rather than a sixth gesture; it sends `light` in
+   * place of `tapTile`. A film's swipe is a run of these a few ticks apart.
+   */
+  light?: true;
+  /**
    * A hand on a **cord, a string or a rope** — the third gesture that is not a
    * press on a button, and the one that had no way of being written down.
    *

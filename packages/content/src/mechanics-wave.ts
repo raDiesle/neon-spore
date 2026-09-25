@@ -43,7 +43,8 @@ export type WaveMechanicId =
   | "steerFault"
   | "codexFault"
   | "handoverFault"
-  | "flipFault";
+  | "flipFault"
+  | "darkFault";
 
 /**
  * Which row a fault is, by kind — a table rather than a chain, and `satisfies`
@@ -66,6 +67,7 @@ export const FAULT_MECHANIC = {
   codex: "codexFault",
   handover: "handoverFault",
   flip: "flipFault",
+  dark: "darkFault",
   leech: "leech",
   limpet: "limpet",
 } as const satisfies Record<MalfunctionKind, MechanicId>;
@@ -89,6 +91,10 @@ export const WAVE_MECHANICS = {
   },
   flipFault: {
     what: "One screen shows the field mirrored left to right. The other screen says every column out loud. The mirrored one counts from the other wall.",
+    reach: "wave",
+  },
+  darkFault: {
+    what: "The field above the ship goes dark on both screens. Touch or swipe it to light it for two beats. Say what you found and where.",
     reach: "wave",
   },
   handoverFault: {

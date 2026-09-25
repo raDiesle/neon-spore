@@ -105,6 +105,7 @@ by hand never moves.
 | `packages/sim/src/types.ts` | creatures, bullets, scars, commands |
 | `packages/sim/src/world.ts` | the `World` shape and `createWorld`; `step` itself lives in `step.ts` |
 | `packages/sim/src/world-ship.ts` | `ShipState`: the hull’s own fields of `World` — both hands, the arm, the crank, a shot |
+| `packages/sim/src/world-faults.ts` | **The faults and what they leave behind them on the world.** Every field of `World` that is a malfunction's |
 | `packages/sim/src/beat.ts` | the beat: spawning, gliding, the hull, the guard rule |
 | `packages/sim/src/commands.ts` | what a press does: the cannon, the shield, the trigger, the grip, the lance |
 | `packages/sim/src/grip.ts` | THE GRIP: a hand held on a rock, and how much it slows |
@@ -142,6 +143,7 @@ by hand never moves.
 | `packages/sim/src/creature-kinds.ts` | every body that can stand on the field, as a name, in the fixed order the world fingerprint writes it in |
 | `packages/sim/src/creature-rules.ts` | the state machines the bestiary asks for that are small enough to be one function each |
 | `packages/sim/src/dart.ts` | THE DART: the first body that does not hold its lane |
+| `packages/sim/src/dark.ts` | THE DARK: |
 | `packages/sim/src/events.ts` | everything the simulation reports about a tick, and the whole of what it says to anybody |
 | `packages/sim/src/gauge-round.ts` | THE GAUGE's clock: the three phases, the way in and the way out |
 | `packages/sim/src/gauge-band.ts` | **The band between the two marks**: where it lands, where it walks, and how wide it is at this moment |
@@ -698,6 +700,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-rock.ts` | THE ROCK's rehearsal: the first thing in the game neither of them can do alone |
 | `packages/content/src/scenes/the-torch.ts` | TORCH's rehearsal: the warning strip, and the fact that only one of them has it |
 | `packages/content/src/scenes/the-dart.ts` | THE DART's rehearsal: the column you were given is the column it has already left |
+| `packages/content/src/scenes/the-dark.ts` | THE DARK's rehearsal: a field put out, a thumb lighting it, and the body nobody lit |
 | `packages/content/src/scenes/the-diastole.ts` | THE DIASTOLE's rehearsal: a count said out loud, and then two of them |
 | `packages/content/src/scenes/the-lure.ts` | THE LURE's rehearsal: the shot you are waiting for must never come |
 | `packages/content/src/scenes/the-throb.ts` | THE THROB's rehearsal: the wave where firing on sight is the miss |
@@ -1698,6 +1701,8 @@ by hand never moves.
 | `packages/render/src/tile-seed.ts` | The seed a picture of one tile is drawn from |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
+| `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |
+| `packages/render/src/dark-tap.ts` | **A finger on THE DARK**: a press anywhere on the field lights the square under it |
 | `packages/render/src/diastole-draw.ts` | you are drawing THE DIASTOLE — the two chambers above row 0, which seat is shown which one beating, and the bridge parting |
 | `packages/render/src/diastole-bridge.ts` | the bundle between THE DIASTOLE's two chambers, and why it never lights on the coincidence |
 | `packages/render/src/diastole-clamp.ts` | **THE DIASTOLE's clamp**: the one thing on the twin lobe a hand takes hold of |
@@ -2184,6 +2189,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
+| `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |

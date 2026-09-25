@@ -94,7 +94,7 @@ export function hashWorld(world: World): number {
   push(world.lastFireTick);
   // The wave's faults, with their rows and whatever each kind carries of its
   // own (`hash-faults.ts`).
-  for (const n of faultHashParts(world.faults)) push(n);
+  for (const n of faultHashParts(world.faults, world.lit)) push(n);
   // And whether this wave's panel fills the lobe at all. Script like the fault
   // and hashed like it: two devices that disagree about it disagree about
   // whether a column burns (`lance.ts`).

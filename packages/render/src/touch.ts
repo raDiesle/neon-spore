@@ -2,6 +2,7 @@ import { controlPress, type Point } from "@neon-spore/content";
 import { NO_GRIP } from "@neon-spore/sim";
 import { beatboxUnder } from "./beatbox-tap.js";
 import { creatureAt } from "./creature-under.js";
+import { darkUnder, lightMove } from "./dark-tap.js";
 import { gimbalRingTurn } from "./gimbal-grip.js";
 import { handleUnder } from "./handles.js";
 import { colFromX, type Layout } from "./layout.js";
@@ -62,9 +63,11 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     // refuses a hand outright (`beatbox-tap.ts`) so `creatureAt` skips it.
     const tap = beatboxUnder(l, field, x, y);
     if (tap) return tap;
-    // The seat, because what a hand is worth depends on it: a rock is a brake
-    // for either player and a living body is an aim only the pilot has, so a
-    // navigator's thumb finds nothing over a slick (`sim/hand.ts`).
+    // THE DARK: a press on the field is a light, never a hand (`dark-tap.ts`).
+    const light = darkUnder(l, field, x, y);
+    if (light) return light;
+    // The seat decides what a hand is worth: a rock is a brake for either
+    // player, a living body an aim only the pilot has (`sim/hand.ts`).
     const held = creatureAt(l, field, x, y);
     // And last of all, a bare square: the one press in this game that is not
     // on anything drawn, from the seat a mine is hidden from (`mine-tap.ts`).
@@ -95,12 +98,9 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
  * exception that proves both halves: it is absolute like a strip and it is
  * measured in thousandths of a *turn* (`touch-drag.ts`).
  *
- * **A grip answers now**, and it answers as a displacement like any other
- * drag. A hand on something falling used to only slow it; carried sideways it
- * also steps the body a column, which is one hold and two gestures — the
- * arrangement the cannon already has (`sim/grip-push.ts`). What it sends is a
- * `drag` at `gripBody`, so nothing on the wire and nothing in the simulation
- * had to learn a new shape of message.
+ * **A grip answers now**, as a displacement like any other drag: carried
+ * sideways it steps the body a column (`sim/grip-push.ts`), and what it sends
+ * is a `drag` at `gripBody`, so the wire learned no new shape of message.
  *
  * **There is a `y` now.** A pull was one number across for as long as the only
  * handle in the game hung under a rim and was swung *aside*; the owner asked
@@ -108,6 +108,7 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
  * still a column and nothing else — go on ignoring the second.
  */
 export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | null {
+  if (hold.kind === "light") return lightMove(l, hold, x, y);
   // A hand taken on THE WELL's ring reads the hour under the finger, and in
   // the seam it reads nothing: the cannon stays where it is, because the seam
   // is the wall between the two ends of the rail (`touch-well.ts`).
@@ -120,11 +121,9 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     return col === null ? null : { player: 2, command: { kind: "shieldCol", col }, hold };
   }
   if (hold.kind === "grip") {
-    // Across only. How fast the body comes down is the grip's other half and a
-    // *hold* rather than a distance (`sim/grip.ts`), so the y of this gesture
-    // would be a number nothing reads — and an absent one is exactly nought.
-    // On the well "across" is round the ring: a column per sector, from the
-    // hour the hand took hold at.
+    // Across only: how fast the body comes down is the grip's *hold*, not a
+    // distance (`sim/grip.ts`). On the well "across" is round the ring, a
+    // column per sector from the hour the hand took hold at.
     const fromMilli = hold.well
       ? wellColsFrom(l, hold.well.angle, x, y)
       : Math.round(((x - hold.originX) * 1000) / l.tile);

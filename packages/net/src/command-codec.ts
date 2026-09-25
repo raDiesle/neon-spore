@@ -62,6 +62,12 @@ export function decodeCommand(x: unknown): Command | null {
       return isNonNegInt(c.col) && isNonNegInt(c.row)
         ? { kind: "tapTile", col: c.col, row: c.row }
         : null;
+    // THE DARK's light, from either seat. A square off the field is refused
+    // by the simulation as a press on nothing (`sim/dark.ts`).
+    case "light":
+      return isNonNegInt(c.col) && isNonNegInt(c.row)
+        ? { kind: "light", col: c.col, row: c.row }
+        : null;
     case "prime":
       return isBool(c.on) && isColor(c.color) ? { kind: "prime", on: c.on, color: c.color } : null;
     case "brief":

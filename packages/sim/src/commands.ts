@@ -5,6 +5,7 @@ import { choirShaken } from "./choir-gesture.js";
 import { leaveHeard } from "./command-leave.js";
 import { pressRefused } from "./command-locks.js";
 import { clampCol } from "./config-derived.js";
+import { lightTile } from "./dark.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
 import { endPrime, primeChargeMilli, priming, spillPrime, startPrime } from "./lance.js";
@@ -166,6 +167,11 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // at (`mine.ts`). Whose press counts is the creature's rule, exactly as
       // the soundbox's is one case up.
       mineTapped(world, timed.player, c.col, c.row);
+      break;
+    case "light":
+      // Either seat's finger on the dark. Nothing on the field hears it; it
+      // only says what both screens may see (`dark.ts`).
+      lightTile(world, c.col, c.row);
       break;
     case "grip": {
       // Either seat may send this one, so it is the player on the command

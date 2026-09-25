@@ -106,6 +106,14 @@ function endsFor(
         out.push({ x: tileCX(l, col), y: l.gridTop + l.tile, r: l.tile * 0.5 });
       }
     }
+  } else if (m.kind === "dark") {
+    // **Into the dark itself, on both screens.** THE DARK takes no control
+    // either — it has taken the field — so its two beams go down into the
+    // black either side of the middle, the thing gone wrong being the air the
+    // lantern hangs in (`dark-field.ts`). Two for THE HANDOVER's reason: one
+    // straight down from the middle column is a bar across the field.
+    const y = l.gridTop + (l.rows / 2) * l.tile;
+    for (const col of [1, l.cols - 2]) out.push({ x: tileCX(l, col), y, r: l.tile * 0.6 });
   } else if (m.kind === "leech" || m.kind === "limpet") {
     // **No beam at all, and it is the only fault that gets none.** These two do
     // not reach down and hold a control from a distance — they *fire a body at

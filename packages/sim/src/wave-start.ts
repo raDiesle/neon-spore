@@ -95,6 +95,8 @@ export function startWave(
   world.limpetStillTicks = 0;
   world.leechHarpoonId = 0;
   world.limpetHarpoonId = 0;
+  // And no square lit: a light is the last wave's finger (`dark.ts`).
+  world.lit = [];
   // The arm home and empty. A wave that inherited one halfway up a column
   // would open with a hand reaching for something the last wave had.
   world.reachDir = 0;

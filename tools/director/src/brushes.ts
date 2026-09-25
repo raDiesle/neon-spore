@@ -65,6 +65,11 @@ const FAULT_LOOK: { brush: Brush; label: string; note: string }[] = [
     note: "the two panels change screens for a window",
   },
   { brush: "fault:flip", label: "FLIP", note: "one seat's field is drawn mirrored; nothing else" },
+  {
+    brush: "fault:dark",
+    label: "DARK",
+    note: "the field goes dark; a touch lights it for two beats",
+  },
   { brush: "fault:leech", label: "LEECH", note: "a body on the cannon; keep the cannon moving" },
   { brush: "fault:limpet", label: "LIMPET", note: "a body on the dome; keep the dome moving" },
 ];

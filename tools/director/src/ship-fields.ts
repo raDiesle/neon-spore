@@ -72,6 +72,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   handoverAtBeat: "THE MALFUNCTION — a control that acts by itself",
   handoverHoldBeats: "THE MALFUNCTION — a control that acts by itself",
   handoverWarnBeats: "THE MALFUNCTION — a control that acts by itself",
+  darkLitBeats: "THE MALFUNCTION — a control that acts by itself",
+  darkLitRadiusMilli: "THE MALFUNCTION — a control that acts by itself",
   readyHoldMs: "OPENING — the introduction, the guide and the ready gate",
   intakeWindowMs: "MAW — taking a pod in",
   podFallTilesPerBeat: "POD — shot loose, then caught",

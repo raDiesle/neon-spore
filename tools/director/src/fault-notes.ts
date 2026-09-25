@@ -53,6 +53,7 @@ export const FAULT_NOTE: Record<MalfunctionKind, string> = {
     "A body is fired at the cannon and sticks there for as long as the pencil is long. Both seats keep every button; what is gone is standing still. A cannon that has not moved for harpoonStillBeats loses the round, and player 2 — who can see the count and cannot move it — is the one who has to keep saying so.",
   limpet:
     "The leech's wave with the seats swapped: the body is fired at the plate, the shield is what has to keep moving, and player 1 is the seat that can see the count and cannot move it.",
+  dark: "Both screens go dark above the ship and show no body. Both players touch or swipe the field to light it for darkLitBeats; the light shows on both screens. Every button works.",
 };
 
 /** What a runaway cannon is loaded with. Nothing else reads a fault's colour. */

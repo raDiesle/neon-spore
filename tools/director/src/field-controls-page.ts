@@ -200,6 +200,19 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   // `field-controls-bosses.ts`.
   ...BOSS_FIELD_CONTROLS,
   {
+    name: "THE LIGHT",
+    where: "anywhere on the field, while THE DARK is down",
+    seat: "either seat — the light is on both screens",
+    gesture: "press",
+    does:
+      "Lights the square under the finger for darkLitBeats, and every " +
+      "square a drag crosses; the bodies there show again (sim/dark.ts).",
+    source: "dark-tap.ts — darkUnder() under touchDown(), lightMove()",
+    holdKind: "light",
+    sends: ["light"],
+    pose: "DARK · A SWIPE OF LIGHT",
+  },
+  {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",
     seat: "both, independently — each seat fills its own circle",
