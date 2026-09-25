@@ -30,11 +30,13 @@ export const THE_DARK: GuideScene = {
     { beat: 12, col: 5, color: "red" },
   ],
   acts: [
-    // The swipe: three squares of the row the body is falling into, a few
-    // ticks apart, the way `lightMove` sends one per square crossed.
-    { tick: 570, tile: 1, col: 2, row: 9, light: true },
-    { tick: 580, tile: 1, col: 3, row: 9, light: true },
-    { tick: 590, tile: 1, col: 4, row: 9, light: true },
+    // The swipe: three squares of the row the body is *drawn* in, a few ticks
+    // apart, the way `lightMove` sends one per square crossed. Drawn, not
+    // stored: a falling body glides in from the row above its own, and a thumb
+    // lights what it sees (`render/dark-field.ts` asks the drawn row too).
+    { tick: 570, tile: 1, col: 2, row: 8, light: true },
+    { tick: 580, tile: 1, col: 3, row: 8, light: true },
+    { tick: 590, tile: 1, col: 4, row: 8, light: true },
     { tick: 750, control: "fireCyan" },
   ],
   steps: [

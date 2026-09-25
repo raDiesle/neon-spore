@@ -20809,6 +20809,18 @@ for the light to fall on it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-25 — THE DARK's film lights the body it points at, and LIGHTS OUT shows
+
+- reading: 0 min.
+- writing: 5 min. The film's swipe one row up, the lantern redrawn over the
+  cover, one test.
+- looking: 5 min. Three film frames; the first showed both defects.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the first lane landed without a frame, and the frame is what
+found both defects.
+
 ## 2026-09-25 — THE DARK: the field goes out, and a thumb lights it on both screens
 
 - reading: 5 min. THE FLIP's commit for every table a new fault kind reaches,

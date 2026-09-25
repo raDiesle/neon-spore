@@ -7,6 +7,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawnCol, drawnRow } from "./depth.js";
+import { drawFaultEmitter } from "./fault-emitter.js";
+import { drawFaultLabels } from "./fault-label.js";
 import { fieldCol } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
@@ -110,4 +112,11 @@ export function drawDarkField(ctx: CanvasRenderingContext2D, l: Layout, view: Vi
     }
   }
   ctx.globalAlpha = 1;
+  // **The lantern and its LIGHTS OUT again, over the black.** Both are drawn
+  // among the bodies (`frame-field.ts`), so the cover put out the one thing
+  // on the field that says the field is out. The first frame of the film
+  // showed the label as a ghost; drawn again here, it is the brightest thing
+  // above the ship, which is what the owner asked for.
+  drawFaultEmitter(ctx, l, world, view.time);
+  drawFaultLabels(ctx, l, world);
 }

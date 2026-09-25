@@ -7,10 +7,18 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { darkView, lightAt } from "../src/dark-field.js";
+import { darkView, drawDarkField, lightAt } from "../src/dark-field.js";
+import { computeLayout } from "../src/layout.js";
 import type { ViewState } from "../src/renderer.js";
 import { seenView } from "../src/unseen.js";
-import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  ROLES,
+  runFrames,
+  stubCanvas,
+} from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -81,6 +89,16 @@ describe("how lit a square is", () => {
 });
 
 describe("a frame of it", () => {
+  it("says LIGHTS OUT over the black, not under it", () => {
+    // The lantern and its line are drawn among the bodies, so the cover put
+    // them out too until the film's first frame showed it.
+    const { ctx } = stubCanvas();
+    ctx.texts = [];
+    const l = computeLayout({ width: 390, height: 844, dpr: 1 }, CFG, "p1");
+    drawDarkField(ctx as unknown as CanvasRenderingContext2D, l, view(darkWorld()));
+    expect(ctx.texts.map((t) => t.text)).toContain("LIGHTS OUT");
+  });
+
   for (const role of ROLES) {
     it(`draws on ${role}, lit and unlit`, () => {
       const run = runFrames(darkWorld(), role, TPB * 3, {
