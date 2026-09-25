@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 1ae6aa3e1 — THE INSTAR's fire is tapped out between the bites and during the third
+
+Between the breath's first and second bites the jaws are forced open on the fire and player 2 taps it out, eight taps. The third bite is now three marks: player 2 pulls the upper jaw against the push while player 1 taps the fire out, six taps, and then pulls the lower jaw up to meet it. The fireball shrinks with every tap. A fire already out waits two beats for player 1's jaw and is lit again after that.
+
 ## 2026-09-25 · 8c27449ec — Comments in render stop arguing from three removed bosses
 
 Thirty-one files in packages/render named THE DIASTOLE, THE ORRERY or THE CANDLE as the reason for an arrangement, or as the test it copied. Each now states the reason itself or names a boss still in the game (THE THROAT's pairing, THE GORGE's and THE VANE's place above row 0), and the lists lose the three. Comments only.
