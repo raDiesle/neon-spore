@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 11cd43707 — The map's trash asks nothing, and a drag along it marks many rows
+
+Pressing a row's trash in the director takes the row out at once, with no question about what is on it. Pressing the trash and dragging up or down along the trash column marks a run of rows; a press on any trash inside the mark removes them all, and a press anywhere else or Escape lets the mark go. A tool, not a look: nothing the game draws changes.
+
 ## 2026-09-25 · ad4dc2152 — The director's stage takes no hand on the hull, and under TEST one strip slides the cannon and the shield together
 
 The cannon and shield lobes on the hull no longer answer the mouse on the director's stage (`ship: false`, the game's own default); the strips are the way to both. Under TEST, a slide on either strip is sent again as the other seat's slide to the same column, so the two lobes travel as one — only where the wave's panel has both controls. A look the owner asked for by name.
