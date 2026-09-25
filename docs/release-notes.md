@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 5d569008 — A rock touches the hull on the tick it breaks it, and rolls off sooner and slower
+
+A rock's last six rows now bend it a little above its row, so it touches the skin at the end of its landing beat, not a beat early. The hull's red flash, the sparks, the crack and the crater now all show on the frame it touches. It presses into its hole over 0.08 s, lets go at 0.12 s instead of 0.8 s, and starts rolling from rest, so it gathers pace slowly. A look the owner asked for by name, 25 September 2026.
+
 ## 2026-09-25 · 8cfa676a — THE GAUGE is an alien ship with a wound, and the ship's cannon shoots it
 
 The claw and the pods are gone. Behind the hull stands a big alien ship, THE MOTHER's shape, with its mouth open round our crown. The rim of the mouth is grey armour, and on P2's screen a wound is torn in it: its two ends are cut square at exactly the span a call is judged by, so a shot lands in the flesh on exactly the calls that count. On the crown the ship's own cannon turns through the same half-round the needle did, loaded cyan or red. The colour turns over on each hit, and the wound and the CALL button wear it. The aim ring lights on P2's screen while the cannon points into the wound. A hit bursts in the wound with a green ring and a fresh wound tears open elsewhere. A miss throws grey sparks off the armour and the cannon rattles on its jammed valve. The words say cannon and wound now.

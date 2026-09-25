@@ -19996,3 +19996,5 @@ span's own rays, so every piece of it is drawn along the rim, not placed.
 The bottleneck was **looking**: the row above the hull is drawn within a
 few pixels of the skin, and only a crop of real frames showed the rock
 sitting on it before the flash.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
