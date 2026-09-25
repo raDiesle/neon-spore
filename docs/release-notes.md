@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · e3549c288 — Queue and time log: four more bosses wear the blow
+
+The roll-out entry names THE GIMBAL, THE RATCHET, THE HIVE and THE GORGE as wearing the blow of a landed sequence, and how a drawer with no time or no fx of its own is given it.
+
+## 2026-09-25 · 895795137 — THE GORGE shakes and goes red when an intake ruptures
+
+An intake ruptured (filled in one colour, then pierced for the count), and the beam that ends the fight, now deal THE GORGE the blow every boss takes: the sack and the rings on it shake sideways and the skin washes red for half a second. A nick that leaves a count owing deals nothing. A look the owner asked for by name (24 September 2026).
+
+## 2026-09-25 · ea536e3b2 — THE HIVE shakes and goes red when a breach is sealed
+
+A breach sealed (the swell called, the colour called, the bolt in), and the last seal, now deal THE HIVE the blow every boss takes: the mass shakes sideways and its wax washes red for half a second. A site opening deals nothing. A look the owner asked for by name (24 September 2026).
+
+## 2026-09-25 · c4971aa66 — THE RATCHET shakes and goes red when a clean tooth lands
+
+A clean tooth (her catch set and his press in the window), and the lock giving at five, now deal THE RATCHET the blow every boss takes: the strut shakes sideways and every plate of the rack washes red for half a second. Setting the catch alone deals nothing. A look the owner asked for by name (24 September 2026).
+
+## 2026-09-25 · 72be33902 — THE GIMBAL shakes and goes red when a tooth pair shears
+
+A tooth pair sheared off the rings, and the hatch splitting the drum, now deal THE GIMBAL the blow every boss takes: the whole cradle shakes sideways and both leaves of the drum wash red for half a second. Coming true alone deals nothing. A look the owner asked for by name (24 September 2026).
+
 ## 2026-09-25 · 5c1277eba — THE INSTAR's hide is lit flesh, scaled, wet and dripping
 
 Every plate of THE INSTAR is now lit under the key light as rounded flesh, with a wet shoulder toward the light and a cool bounce along the far rim, and scales laid along it. Venom hangs off the jaws, the eyes sit in wet sockets with a glint, the fangs, horns and tail blades are shaded bone, the wings glow through at the wrist and fork with veins, the tail is ringed, the belly has scutes, and the eggs are translucent shells in a pool of slime.
