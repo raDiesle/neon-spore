@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · fce3fada — THE SLOW's fuse hangs below the top chrome, bigger, and warns in orange before red
+
+The fuse counting a window down now stands clear of the menu button and the seat pill instead of flush on the screen's edge, where it read as cut off. It is thicker, with round ends and whole sparks, and it goes orange at half the window before red for the last two beats. The owner kept it over the three VERSUS answers (ebb, halo, rails), which are dropped. A look the owner asked for by name.
+
 ## 2026-09-25 · bcec375d — Every fault says what it is doing, in a few words beside the lantern
 
 The lantern hanging top-centre now carries a line beside it for the fault in force: MIRRORED, SHIELD STUCK ON, CANNON FIRES ALONE, CANNON WALKS ALONE, COLOURS SWAP, SCREENS SWAPPED, KEEP CANNON MOVING, KEEP SHIELD MOVING. It shows only where the lantern's news is the screen's own: THE CODEX's on the pilot's screen, THE FLIP's on the turned one.

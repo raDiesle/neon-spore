@@ -20241,3 +20241,5 @@ thin enough to see the nucleus through.
 
 The bottleneck was **writing**: the fuse was redrawn as strokes rather than
 rectangles, and its test had to find a new way to measure it.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
