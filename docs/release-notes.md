@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · d280d2a10 — The director's map stays on the wave's row once the wave is not playing
+
+The map marked the beat counted off the tick, and the tick keeps counting through the introduction and guide, the lost screen and the rest after a clear — so the marked row walked on down past the end of a wave that was already over, and down the map while the briefing was still being read. It now follows the wave's own beat while the wave is live: the first row through a briefing, and the row the wave ended on after it is won or lost.
+
 ## 2026-09-25 · 22a8f8ccf — THE FILAMENT shows whose move it is, on both screens
 
 Both thumbs are on both screens now. Your own ring is green when your move is open, and red with WAIT when it is not. Arrows march the way your thumb goes. Pips and a red bar show how far apart the two of you may get. The partner the line is waiting on wears a clock, and an arc round the ring runs down to the strike. A pulled filament turns green, says PULLED and how many are left, and the body shakes red.

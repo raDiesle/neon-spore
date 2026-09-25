@@ -20587,3 +20587,5 @@ other seat's mark, the wrong direction, and under half the pull's need.
 
 The bottleneck was **reading**: the map's beat came from the tick, three files
 away from the sim's own `waveBeat`, which already stood still in the right places.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
