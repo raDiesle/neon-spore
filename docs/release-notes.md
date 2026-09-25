@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 07d4d7b1e — The director's `3` key is gone; AUTO plays both seats
+
+The stage's cue key pressed what the field was asking for, both seats at once. The autopilot does that now, so the key, its held thumbs on THE INSTAR, the tick hook that moved them and the help row are removed, and render no longer exports the cue reading it read. The game's own desk `3` (both seats' hand under TEST) is untouched. Not a look.
+
 ## 2026-09-25 · aa98a10e3 — The compared looks' poses are two lists, by what they show
 
 `poses-versus.ts` sat thirteen lines under the ceiling and grew a row and an import per VERSUS slot. Its poses now live in `poses-versus-bodies.ts` (a creature or a body under a hand) and `poses-versus-states.ts` (the panel, damage, and the states borrowed from THE SLOW, the handover and the guide), and `poses-versus.ts` only joins the two. Nothing the game draws changed.
