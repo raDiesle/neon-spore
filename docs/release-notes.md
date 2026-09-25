@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 75973506 — A swiped egg falls from THE INSTAR's clutch to the hull
+
+Every counted swipe on THE INSTAR's eggs takes one egg off the clutch, and that egg falls straight down to the hull and breaks there, so the swipe and the picture go the same way. The clutch now holds one egg per swipe the mark needs — five — instead of three that did not drop one at a time.
+
 ## 2026-09-25 · cfa3546d — `body:glow` closes with nothing taken: bodies keep the thin edge
 
 The owner looked at the pair on 25 September 2026 and could not see every difference between the thin edge and the full one, so `full` is rejected. `bun run versus drop` removed its directory, regenerated the registry to no candidates, took the row out of the director's `SLOT_POSE` map and wrote the answer to `tools/versus/DECIDED.md`. `BODY_GLOW.onScreen` stays 0, so nothing the game draws changed.
