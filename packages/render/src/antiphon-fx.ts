@@ -6,6 +6,7 @@ import {
   antiphonPitSpot,
   PIT_R,
 } from "./antiphon-shape.js";
+import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -33,6 +34,10 @@ import { showsAntiphonRail } from "./view-role-clocks-b.js";
  * one thing the pilot's screen keeps from him, and a spark at it would say
  * it (`view-role-clocks-b.ts`). Everything after the shot is at the column
  * the shot went up, which both screens know.
+ *
+ * **A pit is a sequence landed** — the organ's colour brought to its column
+ * — and so is the burst, so both deal the body the blow every boss takes
+ * (`boss-hurt.ts`). A growth deals nothing.
  */
 
 /** How far an erupting pit's contour reaches, in tiles, and how much longer than a pit it takes to get there. */
@@ -49,6 +54,8 @@ interface Eruption {
 export class AntiphonFx {
   private pits: number[] = [];
   private eruptions: Eruption[] = [];
+  /** The blow a pit or the burst deals the body. */
+  readonly hurt = new BossHurt();
 
   /** The pits on the body this frame, by shape, for the eruption. */
   note(pits: readonly number[]): void {
@@ -79,6 +86,7 @@ export class AntiphonFx {
           at(organ(e.col), e.organs > 1 ? 4 : 6, PALETTE.hullRim);
           break;
         case "antiphonPit":
+          this.hurt.hit();
           at(perch(e.col), 10, PALETTE.hullRim);
           at(antiphonPitSpot(l, cfg, e.pits - 1), 6, PALETTE.hull);
           break;
@@ -98,6 +106,7 @@ export class AntiphonFx {
           at(organ(e.col), 8, PALETTE.hullRim);
           break;
         case "antiphonBurst":
+          this.hurt.hit();
           this.erupt(l, cfg, spb, at);
           break;
         case "antiphonOut":
@@ -128,6 +137,7 @@ export class AntiphonFx {
   update(dt: number): void {
     for (const e of this.eruptions) e.left = Math.max(0, e.left - dt);
     if (this.eruptions.length > 0 && this.eruptions.every((e) => e.left <= 0)) this.eruptions = [];
+    this.hurt.update(dt);
   }
 
   /** Each erupting pit: its contour pushing out from pit size to `ERUPT_TILES`, thinning as it goes. */
@@ -155,5 +165,6 @@ export class AntiphonFx {
   clear(): void {
     this.pits = [];
     this.eruptions = [];
+    this.hurt.clear();
   }
 }

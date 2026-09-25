@@ -30,6 +30,7 @@ import {
   PIT_R,
   RAIL_R,
 } from "./antiphon-shape.js";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -49,7 +50,8 @@ import { showsAntiphonOrgan, showsAntiphonRail } from "./view-role-clocks-b.js";
  * is its silhouette: a pit a shape named, and the body goes glassy and
  * still when they are all there. Down, the body closes in on its middle and
  * fades over `antiphonOutBeats` while the pits erupt. What outlives a frame
- * — the push of a growth, the shrivel to a pit, the eruption — is
+ * — the push of a growth, the shrivel to a pit, the eruption, the blow a
+ * pit deals — is
  * `effects.boss.antiphon` (`antiphon-fx.ts`).
  *
  * **The organ is drawn on the screen shown the organ, the rail on the
@@ -77,7 +79,8 @@ export function drawAntiphon(
   fx.note(s.pits);
 
   ctx.save();
-  drawBody(ctx, l, cfg, time, fade, still);
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  drawBody(ctx, l, cfg, time, fade, still, fx.hurt.value);
   for (let i = 0; i < s.pits.length; i++) {
     drawPit(ctx, l, cfg, i, s.pits[i] ?? 0, time, fade);
   }
@@ -135,13 +138,15 @@ function drawBody(
   time: number,
   fade: number,
   still: boolean,
+  hurt: number,
 ): void {
   const box = antiphonBox(l, cfg);
   const mid = (box.left + box.right) * 0.5;
   const hw = (box.right - box.left) * 0.5 * fade;
+  const path = antiphonBodyPath(l, cfg, fade, time, still ? 0 : 1);
   paintMantle(
     ctx,
-    antiphonBodyPath(l, cfg, fade, time, still ? 0 : 1),
+    path,
     {
       left: mid - hw,
       right: mid + hw,
@@ -153,6 +158,7 @@ function drawBody(
     fade,
     still,
   );
+  drawHurt(ctx, path, hurt * fade);
 }
 
 /** A pit: the shape that made it, sunk into the body small and dark, a wet socket. */

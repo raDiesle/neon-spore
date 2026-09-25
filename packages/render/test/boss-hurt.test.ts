@@ -167,6 +167,15 @@ const ROWS: Row[] = [
     hurt: (fx) => fx.boss.undertow.hurt,
     world: undertowStanding,
   },
+  {
+    boss: "antiphon",
+    land: [
+      { type: "antiphonPit", shape: 0, pits: 1, col: 3 },
+      { type: "antiphonBurst", pits: 4, col: 5 },
+    ],
+    part: [{ type: "antiphonGrow", shape: 0, organs: 1, col: 3 }],
+    hurt: (fx) => fx.boss.antiphon.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {
