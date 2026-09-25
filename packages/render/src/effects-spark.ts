@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { handedBurst } from "./effects-spark-handed.js";
 import { isSilent } from "./effects-spark-silent.js";
 import { wornBurst } from "./effects-spark-worn.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { bodyX, type Layout, tileCX, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
 import { PALETTE } from "./palette.js";
 
@@ -243,5 +243,7 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
 }
 
 function at(l: Layout, col: number, row: number, n: number, hex: string): Burst {
-  return { x: tileCX(l, col), y: tileCY(l, row), n, hex };
+  // `bodyX`: a burst flies from where the body was drawn, which under THE FLIP
+  // is not always where it stood (`field-flip.ts`).
+  return { x: bodyX(l, col, row), y: tileCY(l, row), n, hex };
 }

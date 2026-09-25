@@ -15,7 +15,7 @@ import { ingestMouth } from "./effects-ingest-pod.js";
 import { isIngestSilent } from "./effects-ingest-silent.js";
 import type { ShipMoods } from "./effects-ship.js";
 import type { HuskDeflates } from "./husk-deflate.js";
-import { fieldX, type Layout, tileCY } from "./layout.js";
+import { bodyX, fieldX, type Layout, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
 import type { RockImpactFx } from "./rock-impact.js";
 import type { Sparks } from "./sparks.js";
@@ -71,9 +71,9 @@ const REJECT_FLASH = 0.35;
  * that tile. Sized off the flat tile on the well too: a sprite is a picture
  * the atlas decided, not a body the depth scale grows. */
 function spawnSprite(ctx: IngestOneCtx, col: number, row: number): void {
-  // `fieldX` and not `tileCX`: every column in this file is a body's, and a
-  // body's column turns with the field under THE FLIP (`field-flip.ts`).
-  const at = ctx.put(fieldX(ctx.l, col), tileCY(ctx.l, row));
+  // `bodyX` and not `tileCX`: a body's column turns with the field under THE
+  // FLIP, until the last two tiles above the hull (`field-flip.ts`).
+  const at = ctx.put(bodyX(ctx.l, col, row), tileCY(ctx.l, row));
   ctx.spriteBursts.spawn(at.x, at.y, ctx.l.tile * 2.4);
 }
 

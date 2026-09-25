@@ -1,7 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { IngestOneCtx } from "./effects-ingest.js";
 import { castHuskFlight } from "./husk-deflate.js";
-import { fieldX } from "./layout.js";
+import { bodyX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -28,7 +28,7 @@ export function ingestMouth(
   if (e.type === "podTaken") {
     // Sparks flying *inwards*: the one moment in the game where the ship
     // takes something instead of losing it.
-    const mouth = ctx.put(fieldX(ctx.l, e.col), ctx.l.hullY);
+    const mouth = ctx.put(bodyX(ctx.l, e.col, ctx.l.rows - 1), ctx.l.hullY);
     ctx.sparks.implode(mouth.x, mouth.y, 22, PALETTE.pod, ctx.l.tile * 1.9);
     ctx.ship.swallowPod(e.kind);
     return;

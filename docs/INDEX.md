@@ -1447,6 +1447,7 @@ by hand never moves.
 | `packages/render/src/fleet-grip-fx.ts` | **The five moments of THE FLEET's wound** — the water coming in, the thumb that keeps it coming |
 | `packages/render/src/fleet-grip.ts` | **THE FLEET's three thumbs on the chart** — the plume, the rake and the wreck |
 | `packages/render/src/flip-seam.ts` | **THE FLIP's fold, drawn** — a pane of glass down the middle of the turned screen, and ⇄ across it |
+| `packages/render/src/flip-reveal.ts` | **THE FLIP's projection breaking up** — two tiles above the hull, the mirrored body tears into strips and the true one arrives in its own column |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |

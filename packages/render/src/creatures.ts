@@ -6,6 +6,7 @@ import { drawOverBody } from "./creature-over.js";
 import { centerAt, creatureCenter } from "./creature-place.js";
 import { DART_LOOK } from "./dart-look.js";
 import { byDepth, depthScale, drawnRow, glidePhase, nearness } from "./depth.js";
+import { drawProjected } from "./flip-reveal.js";
 import { mountPlace } from "./gyre-place.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { landingY } from "./landing.js";
@@ -131,36 +132,40 @@ export function drawCreatures(
     ctx.translate(x, y);
     ctx.scale(k, k);
     ctx.translate(-x, -y);
-    // Under the body it is pushing, so the contour sits on its own exhaust
-    // rather than inside it. Inside the perspective transform with everything
-    // else, so a jet at the bottom of the field grows the way its body does.
-    if (c.kind === "dart") DART_LOOK.jet(ctx, l, c, x, y, beatPhase);
-    // **The one body draw, chosen by a table** (`creature-body.ts`). It used to
-    // be an `if / else if` chain here, and adding THE VEER put a plain `if`
-    // between two of its rungs: every kind after the cut fell through to
-    // `drawLiving`, and a torch was asked for a silhouette it has not got. A
-    // lookup cannot be severed by a statement landing in the middle of it,
-    // which is why the choice moved out and the things laid *over* a body
-    // stayed here as the separate `if`s they already were.
-    bodyDraw(c.kind)({
-      ctx,
-      l,
-      world,
-      c,
-      x,
-      y,
-      time,
-      beats,
-      beatPhase,
-      near,
-      blocked,
-      turn,
-      tailFrom: flown?.from,
+    // Under THE FLIP, the whole body — jet, contour and whatever covers it —
+    // goes through the projection's tear near the hull (`flip-reveal.ts`).
+    drawProjected(ctx, l, c.id, row, x, y, time, () => {
+      // Under the body it is pushing, so the contour sits on its own exhaust
+      // rather than inside it. Inside the perspective transform with everything
+      // else, so a jet at the bottom of the field grows the way its body does.
+      if (c.kind === "dart") DART_LOOK.jet(ctx, l, c, x, y, beatPhase);
+      // **The one body draw, chosen by a table** (`creature-body.ts`). It used to
+      // be an `if / else if` chain here, and adding THE VEER put a plain `if`
+      // between two of its rungs: every kind after the cut fell through to
+      // `drawLiving`, and a torch was asked for a silhouette it has not got. A
+      // lookup cannot be severed by a statement landing in the middle of it,
+      // which is why the choice moved out and the things laid *over* a body
+      // stayed here as the separate `if`s they already were.
+      bodyDraw(c.kind)({
+        ctx,
+        l,
+        world,
+        c,
+        x,
+        y,
+        time,
+        beats,
+        beatPhase,
+        near,
+        blocked,
+        turn,
+        tailFrom: flown?.from,
+      });
+      // Everything laid *over* that body — the veil's cloud, the carom's crust,
+      // the coil's dome, the clasp's shield — is `creature-over.ts`: one `if` per
+      // covering, each an addition to what the table drew, inside this transform.
+      drawOverBody(ctx, l, world, c, x, y, time, beats, beatPhase, near, turn, claspImage);
     });
-    // Everything laid *over* that body — the veil's cloud, the carom's crust,
-    // the coil's dome, the clasp's shield — is `creature-over.ts`: one `if` per
-    // covering, each an addition to what the table drew, inside this transform.
-    drawOverBody(ctx, l, world, c, x, y, time, beats, beatPhase, near, turn, claspImage);
     ctx.restore();
   }
   // The cords, after every body: flat, outside the perspective transform, and

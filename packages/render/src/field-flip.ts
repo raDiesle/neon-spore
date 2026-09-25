@@ -75,3 +75,34 @@ export function fieldCol(l: Layout, col: number): number {
 export function fieldX(l: Layout, col: number): number {
   return tileCX(l, fieldCol(l, col));
 }
+
+/**
+ * **How far above the ship a turned screen stops lying**, in tiles from the
+ * membrane to a body's centre. The owner asked for this on 25 September 2026.
+ * About two tiles out, the projection breaks up (`flip-reveal.ts`), and the
+ * body is then shown in the column it is really in, for the last of its fall.
+ * The crater, the scar and the flash it lands with are the *ship's*, drawn
+ * through `tileCX` in the true column. So until then, a body hit the hull a
+ * whole field's width away from where it had been falling.
+ */
+export const FLIP_TRUTH_TILES = 2;
+
+/** A drawn row, measured as tiles above the membrane (`l.hullY`). */
+export function tilesAboveHull(l: Layout, row: number): number {
+  return l.rows - 1.5 - row;
+}
+
+/**
+ * `fieldCol` for a body that stands on a row: mirrored while the body is
+ * still high up the field, and true within `FLIP_TRUTH_TILES` of the hull.
+ * `centerAt` calls it, so a finger follows the body across the change, and so
+ * does everything that bursts from where a body stood.
+ */
+export function bodyCol(l: Layout, col: number, row: number): number {
+  return tilesAboveHull(l, row) > FLIP_TRUTH_TILES ? fieldCol(l, col) : col;
+}
+
+/** `fieldX`, for a body on a row: the pixel of `bodyCol`. */
+export function bodyX(l: Layout, col: number, row: number): number {
+  return tileCX(l, bodyCol(l, col, row));
+}

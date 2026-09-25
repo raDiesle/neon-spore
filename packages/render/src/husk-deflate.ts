@@ -1,6 +1,6 @@
 import type { PodKind } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import { fieldX, type Layout, tileCY } from "./layout.js";
+import { bodyX, type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPodBody, POD_TILES } from "./pods.js";
 
@@ -151,6 +151,6 @@ export function castHuskFlight(
   l: Layout,
   put: (x: number, y: number) => { x: number; y: number },
 ): void {
-  const at = put(fieldX(l, e.col), tileCY(l, e.row));
+  const at = put(bodyX(l, e.col, e.row), tileCY(l, e.row));
   fx.cast(at.x, at.y, l.tile * POD_TILES, e.kind, e.col);
 }

@@ -20307,3 +20307,17 @@ The bottleneck was **writing**: one field became a list, and every reader of
 it had to become a loop.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE FLIP's projection breaks up two tiles above the ship
+
+- reading: 10 min. Every site a body's column is drawn from, and which of
+  them are the field and which are the ship.
+- writing: 15 min. The switch in `field-flip.ts`, the tear in
+  `flip-reveal.ts`, the body draw wrapped in it, and the test.
+- looking: 15 min. The first body to breach falls down the middle column,
+  which is its own mirror, so a shot had to clear it for a side body to land.
+- friction: 5 min. Two frames runs refused a press from the wrong seat.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: the wave's first landing shows nothing,
+because the middle column is its own mirror.

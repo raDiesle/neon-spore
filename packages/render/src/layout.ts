@@ -179,7 +179,7 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
 /** THE FLIP: this screen's own column, and the layout that carries the fold.
  * Re-exported so a caller holding a layout is holding the answer; the subject
  * itself is `field-flip.ts`, out of the way of the arithmetic. */
-export { fieldCol, fieldX, flippedLayout } from "./field-flip.js";
+export { bodyX, fieldCol, fieldX, flippedLayout } from "./field-flip.js";
 /** The rectangle the picture is drawn into, and the band's share of the
  * height it is cut around. Re-exported because a caller holding a layout was
  * already asking this file where the game is (`layout-stage.ts`). */
