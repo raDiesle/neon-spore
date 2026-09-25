@@ -20357,3 +20357,15 @@ The bottleneck was **writing**: one body in two holes is three files of
 drawing and a fourth for what comes out of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SPLICE's pipes are living trunks and its straws are gut
+
+- reading: 5 min. The pipe, the straws' tube, and the palette's hold colours.
+- writing: 15 min. The waisted, breathing trunk with veins, the lobed lip,
+  the feelers, the straws re-toned to gut with uneven creases.
+- looking: 10 min. Four frames on both seats, the lip and feelers tuned twice.
+- friction: 0 min.
+- landing: 5 min. The size ceiling, `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: the first trunk still read as a vase, and it
+took two passes on the lip to make it a mouth.

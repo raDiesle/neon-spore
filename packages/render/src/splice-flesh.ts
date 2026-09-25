@@ -7,10 +7,11 @@ import type { SpliceCurve } from "./splice-straws.js";
  * **What THE SPLICE's straws are made of**: gut, not wire
  * (`new-boss-more` §6.3).
  *
- * A straw is a tube — a dark casing, a translucent wall, a wet line of light
- * down its upper-left side — ringed across at even steps like a windpipe, so
- * it reads as a grown hose from end to end. Each one ends in the top of its
- * mouth's pipe (`splice-pipe.ts`).
+ * A straw is a gut — a dark casing, a pink translucent wall with a paler core,
+ * a wet line of light down its upper-left side — creased across at uneven
+ * steps, so it reads as grown rather than made from end to end (the owner,
+ * 25 September 2026: *more living and not mechanical*). Each one ends in the
+ * top of its mouth's trunk (`splice-pipe.ts`).
  *
  * **What the navigator traces is unchanged.** Each straw is drawn whole
  * before the next, so a crossing is still one hose passing behind another,
@@ -19,7 +20,10 @@ import type { SpliceCurve } from "./splice-straws.js";
  * **Every width is off the tile.**
  */
 
-/** How far apart a straw's rings are, in tiles. */
+/** Feelers round the lip. */
+const FEELERS = 7;
+
+/** How far apart a straw's creases are on average, in tiles. */
 const RING_STEP = 0.42;
 
 /** A point and the unit direction of travel, `t` along the curve. */
@@ -49,23 +53,28 @@ export function drawTube(
   wide: number,
 ): void {
   ctx.lineCap = "round";
-  ctx.strokeStyle = PALETTE.rockDark;
+  ctx.strokeStyle = PALETTE.sheenDeep;
   ctx.lineWidth = wide;
   curve(ctx, c);
-  ctx.strokeStyle = rgba(PALETTE.rock, 0.55);
-  ctx.lineWidth = wide * 0.62;
+  ctx.strokeStyle = rgba(PALETTE.sheenWarm, 0.5);
+  ctx.lineWidth = wide * 0.68;
+  curve(ctx, c);
+  ctx.strokeStyle = rgba(PALETTE.sheenRim, 0.4);
+  ctx.lineWidth = wide * 0.34;
   curve(ctx, c);
 
+  // Creases, bowed and unevenly spaced, the way a gut folds where it bends.
   const length = Math.hypot(c.cx - c.x0, c.cy - c.y0) + Math.hypot(c.x1 - c.cx, c.y1 - c.cy);
   const rings = Math.max(2, Math.floor(length / (l.tile * RING_STEP)));
-  const half = wide * 0.36;
-  ctx.strokeStyle = rgba(PALETTE.rockDark, 0.7);
-  ctx.lineWidth = Math.max(0.8, wide * 0.14);
+  const half = wide * 0.34;
+  ctx.strokeStyle = rgba(PALETTE.sheenDeep, 0.45);
+  ctx.lineWidth = Math.max(0.7, wide * 0.1);
   ctx.beginPath();
   for (let i = 1; i < rings; i++) {
-    const p = along(c, i / rings);
+    const p = along(c, (i + 0.3 * Math.sin(i * 2.7)) / rings);
+    const bow = wide * 0.12;
     ctx.moveTo(p.x - p.dy * half, p.y + p.dx * half);
-    ctx.lineTo(p.x + p.dy * half, p.y - p.dx * half);
+    ctx.quadraticCurveTo(p.x + p.dx * bow, p.y + p.dy * bow, p.x + p.dy * half, p.y - p.dx * half);
   }
   ctx.stroke();
 
@@ -97,10 +106,53 @@ export function drawTubeStub(
     return g;
   };
   ctx.lineCap = "round";
-  ctx.strokeStyle = fade(PALETTE.rockDark, 1);
+  ctx.strokeStyle = fade(PALETTE.sheenDeep, 1);
   ctx.lineWidth = wide;
   curve(ctx, c);
-  ctx.strokeStyle = fade(PALETTE.rock, 0.6);
+  ctx.strokeStyle = fade(PALETTE.sheenWarm, 0.55);
   ctx.lineWidth = wide * 0.55;
   curve(ctx, c);
+}
+
+/**
+ * The feelers round a mouth's lip (`splice-pipe.ts`), waving on their own and
+ * curled in under the throat while it pulls (`curl` 1).
+ */
+export function drawFeelers(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  rx: number,
+  t: number,
+  b: number,
+  seed: number,
+  curl: number,
+): void {
+  ctx.lineCap = "round";
+  ctx.strokeStyle = rgba(PALETTE.sheenWarm, 0.8);
+  ctx.lineWidth = Math.max(1, t * 0.07);
+  const tips: { x: number; y: number }[] = [];
+  ctx.beginPath();
+  for (let i = 0; i < FEELERS; i++) {
+    const u = (i + 0.5) / FEELERS;
+    const bx = x - rx + u * rx * 2;
+    const by = y + Math.sin(u * Math.PI) * t * 0.1;
+    const out = (u - 0.5) * 2;
+    const wave = Math.sin(b * Math.PI * 1.5 + i * 1.7 + seed) * t * 0.06;
+    const len = t * (0.26 + 0.08 * Math.sin(i * 2.3 + seed));
+    // Out and down while idle; drawn in under the throat while it pulls.
+    const tx = bx + out * len * (0.6 - curl * 1.2) + wave;
+    const ty = by + len * (1 - curl * 0.5);
+    ctx.moveTo(bx, by);
+    ctx.quadraticCurveTo(bx + out * len * 0.5 + wave, by + len * 0.6, tx, ty);
+    tips.push({ x: tx, y: ty });
+  }
+  ctx.stroke();
+  // A bead on each tip, lit while it pulls.
+  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.55 + 0.4 * curl);
+  for (const p of tips) {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, t * 0.045, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
