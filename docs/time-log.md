@@ -20838,3 +20838,5 @@ page rules that are only found when they fail, one at a time.
 
 The bottleneck was **writing**: the long tail of cross-references in prose,
 tools and documents, each found only by a red test.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

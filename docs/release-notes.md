@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 93c9b73a7 — THE DIASTOLE, THE ORRERY and THE CANDLE leave the game
+
+The three bosses are deleted whole at the owner's word, not switched off: the simulation, the render, their sounds, guide scenes, waves, the director's cards and poses, the frames rig's ring, and every registration that named them. Their design sections in docs/spec/bosses.md move under Retired, and `git log -S diastoleClamp`, `orreryRing` and `candleWick` find the code. The game now has ninety-eight waves, eighty-nine of them guided.
+
 ## 2026-09-25 · b6a5f4353 — Queue and time log: three more bosses wear the blow
 
 THE SURGE, THE TASTER and THE UNDERTOW are added to the queue entry's worn-so-far list, with the note that THE STARE never wears it, and the lane's time is logged.
