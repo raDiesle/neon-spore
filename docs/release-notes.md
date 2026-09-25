@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 7965a33d — THE FLIP's turned screen draws the mirror down its middle
+
+The seat whose field is turned was told so only by the fault's beam on both walls, and nothing said where the picture is folded. It now draws a pane of glass down the vertical middle of the field — two thin edges, a sheen on each face and a glint running down it — with a pair of swap arrows (⇄) crossing it at three heights. It is under every body and only on the turned screen; the seat with the true picture is shown nothing. A look the owner asked for by name.
+
 ## 2026-09-25 · 759f505b — THE SPLICE and THE ANTIPHON wait without a box
 
 The WAIT frame riding THE SPLICE's number down its straw, and the STILL frame on THE ANTIPHON's body for the four beats it stands still, are gone: the owner, 25 September 2026, "for the player it is clear to wait". Both waits are drawn on the field already — the number in the air, the body gone still on both screens — so the frame only covered what the player was watching. THE STARE's STILL stays, because there being still is the rule, and so do SINEW's and THE SURGE's LIFT, which ask for a press.
