@@ -20226,3 +20226,18 @@ The bottleneck was **looking**: the layers only read once the membrane was
 thin enough to see the nucleus through.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SLOW's fuse hangs below the top chrome, bigger, and warns in orange before red
+
+- reading: 5 min. The top chrome's CSS, the palette's orange, and what the
+  test canvas logs.
+- writing: 10 min. The fuse as round-ended strokes clear of the chrome, the
+  orange stage, the test and three documents.
+- looking: 5 min. The top of THE INSTAR's window at its open, in the orange
+  and in the red, magnified.
+- friction: 5 min. The test canvas does not log path builders, so the line
+  is read off its sparks.
+- landing: 5 min. The VERSUS drop, `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: the fuse was redrawn as strokes rather than
+rectangles, and its test had to find a new way to measure it.

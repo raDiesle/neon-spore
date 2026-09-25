@@ -1140,3 +1140,11 @@ halo does not earn a place; bodies keep the edge they wear today
 and a later answer to the same question arrives through it.
 
 The other answer offered was `full`; it went with the slot.
+
+## `slow:measure` — nothing taken, 2026-09-25
+
+The owner kept the fuse the game already draws; ebb, halo and rails rejected,
+25 September 2026.
+
+The other answers offered were `ebb`, `halo` and `rails`; they went with the
+slot.

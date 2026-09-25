@@ -78,9 +78,9 @@ item naming the rule, never a fix made in passing.
   owner took it out on 24 September 2026 (*it was a stupid idea*) — but on
   the 25th he asked for *some progress indicator* back, *remaining time left
   to take damage when not succeeding*: a **fuse along the top of the screen**
-  burns in to the middle and goes red for the last two beats
-  (`render/slow-fuse.ts`), and the other answers stand in VERSUS against it
-  (`slow:measure`). **The slow's light runs from the top of the screen**,
+  burns in to the middle, orange from half the window and red for the last
+  two beats (`render/slow-fuse.ts`); he kept it over three VERSUS answers the
+  same day, and asked for it bigger and clear of the top edge. **The slow's light runs from the top of the screen**,
   never from an edge the player cannot see (24 September).
 - **No `CARRY` on the glass**, generic, 24 September 2026: *why we need the
   keyword of "Carry"? … "Pull up" its clear he has to take action.* A verb

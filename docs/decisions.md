@@ -1109,8 +1109,8 @@ window down, so once the window was the asking it read as *time left to
 answer before the step fails* rather than as a rest between steps. The owner
 took it out on 24 September 2026 (*it was a stupid idea to introduce it*) and
 asked for *some progress indicator* back the next day: a fuse along the top of
-the screen, away from the body, burning in to the middle and red for the last
-two beats (`render/slow-fuse.ts`). It draws only on a window of five beats or
+the screen, away from the body, burning in to the middle, orange from half
+the window and red for the last two beats (`render/slow-fuse.ts`). It draws only on a window of five beats or
 more, because nothing in the world says whether a window asks for something
 and the ones that do not are a beat or four long.
 
