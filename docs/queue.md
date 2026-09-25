@@ -691,6 +691,7 @@ test taps a moving mark at the wrong place and gets nothing.
 ## THE INSTAR, lunge: one holds the brow, one strikes an eye
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Taken:** 2026-09-25, claude/instar-boss-enhancements-1ae51f (claim: claude/queue-the-instar-lunge-one-holds-the-brow-one-strikes)
 - **Files:** `packages/content/src/instar-script.ts`, `packages/render/src/instar-head.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/test/instar-frame.test.ts`
 
 Step 4 asks both thumbs for the same hold. The combination it does not have yet
