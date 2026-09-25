@@ -20929,3 +20929,5 @@ be corrected by one.
 Bottleneck: bosses whose landing is seen later than its event — a wreck
 waiting out a shell, a verdict still in flight — which the event-driven blow
 does not fit.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · ee50e9689 — Queue and time log: three more bosses wear the blow
+
+THE SCUTTLE, THE FLEET and THE QUEEN join the list; THE REPRISE is noted as never wearing it, and what THE MIRROR needs first is written down.
+
+## 2026-09-25 · 3fcde2682 — THE QUEEN goes red when a petal comes off
+
+A petal off is the sequence the pair landed on her, and her shell now washes red for half a second as it goes — the blow every boss takes, whose shake on her is the shudder she already had. A flinch still shudders her and deals no red: a thumb bounced off her armour is no sequence.
+
+## 2026-09-25 · 96da6cd08 — THE FLEET shakes and goes red when a hull is wrecked or sunk
+
+A hull raked end to end and the navigator's pull that sinks it are each a sequence the pair landed, and each now deals the fleet the blow every boss takes: every hull the screen shows shakes and washes red for half a second. A single rake or a hit deals nothing. The hull outline is traced onto any path now, so the blow's red follows the plate exactly.
+
+## 2026-09-25 · 29f1673f1 — THE SCUTTLE shakes and goes red when a part is struck off
+
+A part struck off, with the live one named and a shot in its column and colour while it hangs, and the beam are sequences landed. Each deals THE SCUTTLE's slab the blow every boss takes: a shake and a red wash for half a second. A shot rebuffed deals nothing. A look the owner asked for by name (24 September 2026).
+
 ## 2026-09-25 · 76b602644 — Six ways to take THE INSTAR further, queued one per sequence
 
 Each of the boss's poses has a sized next step in the queue. The jaws press back open. The eggs crack while nobody takes them. The tail sweeps across the field instead of standing still. The lunge has one seat hold the brow while the other strikes an eye. The coil's blades wind opposite ways. A last step is the moult, the one thing the boss's name promises and the fight never shows.
