@@ -20691,3 +20691,5 @@ the first frame put the cannon one column off the lobe.
 
 The bottleneck was **reading**: what the fight actually costs lives in four
 simulation files, and the old film's comment was the only summary of it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 0a33f98bb — Time log for THE THROAT's guide
+
+## 2026-09-25 · df3bbb0bd — THE THROAT's guide says the goal and shows a swallow healing a ring
+
+The film now opens on GOAL · 5 GUMS IN ITS MOUTH, says the deadline on the shot (SHOOT IT BEFORE THE INHALE), and ends on the mouth swallowing a rock after a gum has choked a ring, so the ring comes back on screen: IT EATS A BODY · RING HEALS. ONE RING SLACK · IT SLIDES, which read as a ring the player could move, is now 1 RING DOWN · MOUTH MOVES. The old film let a rock be swallowed before any ring was slack, so the cost of leaving a body alone was never shown.
+
 ## 2026-09-25 · ff679756b — THE UNDERTOW's tutorial boxes stand over the hull, and the fight says SUCK
 
 The captions on the cannon, the maw and the shield stood just over their controls, which on THE UNDERTOW is on top of the plating the lobes come through, so the enemy was hidden behind the words. They now stand a lobe and a half above the hull. All twelve captions are reworded in plainer words (BOW is BULGE, the maw is SUCK, the reasons name the thing), and in the fight the cue over a lobe says SUCK for player 1 and SHOOT for player 2 in place of OPEN and BURN — the words on the buttons. A look the owner asked for by name.
