@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · cfa3546d — `body:glow` closes with nothing taken: bodies keep the thin edge
+
+The owner looked at the pair on 25 September 2026 and could not see every difference between the thin edge and the full one, so `full` is rejected. `bun run versus drop` removed its directory, regenerated the registry to no candidates, took the row out of the director's `SLOT_POSE` map and wrote the answer to `tools/versus/DECIDED.md`. `BODY_GLOW.onScreen` stays 0, so nothing the game draws changed.
+
 ## 2026-09-24 · 8deded4e — A swipe is drawn as a track the length of the swipe, not as a ring
 
 THE INSTAR's SWIPE DOWN is now a rounded bar from the egg clutch down, like a slider's path with no knob, and its green fill runs down the bar as the thumb carries. The end of the bar is where letting go counts, so the swipe is one and a half tiles now — at 0.6 the bar was a stub under the eggs. The word next to a mark moves to the mark's other side when this side would push it back over the mark.
