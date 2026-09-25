@@ -400,6 +400,7 @@ Each boss lands as *a look the owner asked for by name*.
 ## Eighteen captions point at a corner that is empty until a retry
 
 - **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4
+- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-eighteen-captions-point-at-a-corner-that-is-empt)
 - **Files:** `packages/render/src/caption-anchor.ts`, `packages/content/src/scene-step-types.ts`
 
 The files are also every scene in the content package's scenes folder
