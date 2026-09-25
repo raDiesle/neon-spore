@@ -14,13 +14,18 @@
 
 import { byFamily, CATALOGUE, Engine, families, type SoundDef, THEMES } from "@neon-spore/audio";
 import { bindMusicPage } from "./music-page.js";
+import { readRemembered, writeRemembered } from "./remembered.js";
 import { mountSheet } from "./session.js";
 import { plotLegend } from "./sound-plot.js";
 import { line, row } from "./sound-row.js";
 import { bindTabs } from "./tabs.js";
 
 const engine = new Engine({ volume: 0.8 });
-let status: "all" | "bound" | "spare" = "all";
+type Status = "all" | "bound" | "spare";
+/** Which status the pages show, remembered across a reload (`remembered.ts`). */
+const STATUS_KEY = "sound-status";
+const stored = readRemembered(STATUS_KEY);
+let status: Status = stored === "bound" || stored === "spare" ? stored : "all";
 
 function shown(family: string): SoundDef[] {
   const list = family === "all" ? [...CATALOGUE] : byFamily(family as SoundDef["family"]);
@@ -62,6 +67,7 @@ function renderPage(family: string): void {
     b.className = status === value ? "on" : "";
     b.addEventListener("click", () => {
       status = value;
+      writeRemembered(STATUS_KEY, value === "all" ? null : value);
       renderAll();
     });
     bar.appendChild(b);

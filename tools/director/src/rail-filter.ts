@@ -1,4 +1,5 @@
 import { controlSet, DEFAULT_CONTROL_SET_ID, type Wave } from "@neon-spore/content";
+import { readRemembered, writeRemembered } from "./remembered.js";
 import { BRUSHES, brushOf, podBrushOf } from "./state.js";
 
 /**
@@ -30,8 +31,9 @@ import { BRUSHES, brushOf, podBrushOf } from "./state.js";
  * inside common English — while a whole-word match would have lost the
  * prefixes worth typing, which is most of what anybody types into a filter.
  *
- * Nothing is stored: a filter is a way of looking at the list for a minute,
- * not a setting.
+ * What is typed is remembered across a reload (`remembered.ts`), which the
+ * owner asked for on 25 September 2026; Escape still empties it, and an empty
+ * field is forgotten rather than stored.
  */
 
 /**
@@ -120,6 +122,9 @@ export interface RailFilter {
   report(matched: number, total: number, marked?: boolean): void;
 }
 
+/** Where the field's text is kept between loads (`remembered.ts`). */
+const FILTER_KEY = "wave-filter";
+
 /**
  * Binds the field to the list. `onChange` is the list's own redraw and nothing
  * more — a filter never touches the store, never changes which wave is
@@ -130,7 +135,17 @@ export function bindRailFilter(onChange: () => void): RailFilter {
   const field = document.getElementById("waveFilter") as HTMLInputElement | null;
   const note = document.getElementById("waveFilterNote");
 
-  field?.addEventListener("input", onChange);
+  // Put back what was typed before the reload. The list's first draw comes
+  // after this, so it is already filtered when it appears.
+  // Nothing stored leaves the field as it is.
+  const kept = readRemembered(FILTER_KEY);
+  if (field && kept !== null) field.value = kept;
+  const changed = (): void => {
+    writeRemembered(FILTER_KEY, field?.value ?? "");
+    onChange();
+  };
+
+  field?.addEventListener("input", changed);
   // Escape empties it rather than only blurring it, which is what a search
   // field does everywhere else — and the list comes straight back, so there is
   // no second step to undo a filter with.
@@ -138,7 +153,7 @@ export function bindRailFilter(onChange: () => void): RailFilter {
     if (e.key !== "Escape" || !field.value) return;
     e.preventDefault();
     field.value = "";
-    onChange();
+    changed();
   });
 
   const query = (): string => field?.value ?? "";

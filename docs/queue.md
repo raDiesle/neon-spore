@@ -530,3 +530,17 @@ builder beside `tether-track.ts` (from where the hand took it, the taut
 distance long, the way the field fits it straight) and call
 `drawPullTrack` in place of the ring. Grips that are held rather than
 pulled keep their ring. Each lands as *a look the owner asked for by name*.
+
+## `director-here` opens its tab on port 3000, not the director's
+
+- **Found:** 2026-09-25, claude/director-filter-persistence-884bb6
+- **Files:** `.claude/launch.json`, `tools/dev/supervise.ts`, `docs/working-with-claude.md`
+
+`preview_start` with `director-here` started the director on a free port
+(56239 here, from `DIRECTOR_PORT=0`) but the desktop harness opened its tab at
+`http://localhost:3000`, where nothing answers, because the entry says
+`"port": 0, "autoPort": true` and the harness cannot read the port from the
+log. `navigate` to the real port was then refused; `preview_start` with
+`{url: "http://localhost:<port>/"}` worked. Either pin the entry to the
+tree's derived port (`tools/ports.ts`) so the harness knows it, or write the
+workaround into `docs/working-with-claude.md` beside the `here` route.

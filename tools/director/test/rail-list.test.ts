@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { WAVES } from "@neon-spore/content";
 import { bindRail } from "../src/rail.js";
+import { writeRemembered } from "../src/remembered.js";
 import type { Store } from "../src/state.js";
 import { FakeEl, installDom } from "./fake-dom.js";
 
@@ -140,6 +141,23 @@ describe("the wave list under a filter", () => {
       expect(note.textContent).toEndWith(`of ${WAVES.length}`);
       // The selected wave is the extra row, and it is not a match.
       expect(list.children.length).toBe(matched + 1);
+    } finally {
+      restore();
+    }
+  });
+
+  // The owner, 25 September 2026: a reload keeps the filter it was left on.
+  test("a filter left from the last load is already applied on the first draw", () => {
+    const { list, note, restore } = page("");
+    try {
+      writeRemembered("wave-filter", "boss");
+      bindRail(
+        store(0),
+        () => {},
+        () => {},
+      );
+      expect(list.children.length).toBeLessThan(WAVES.length);
+      expect(note.hidden).toBe(false);
     } finally {
       restore();
     }

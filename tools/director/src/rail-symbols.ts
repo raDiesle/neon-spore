@@ -1,5 +1,6 @@
 import type { Wave } from "@neon-spore/content";
 import { MARKS, type MarkId, marksOn } from "./rail-marks.js";
+import { readRemembered, writeRemembered } from "./remembered.js";
 
 /**
  * **THE ROW OF SYMBOLS OVER THE FILTER**: the rail's own four marks, made
@@ -21,8 +22,8 @@ import { MARKS, type MarkId, marksOn } from "./rail-marks.js";
  * list. Whatever is typed still narrows further, so `♛ + queen` is the boss
  * waves that say queen.
  *
- * Nothing is stored, for `rail-filter.ts`'s reason: a filter is a way of
- * looking at the list for a minute, not a setting.
+ * Which marks are pressed is remembered across a reload, with the field's
+ * text and for the same request (`remembered.ts`).
  */
 
 export interface RailSymbols {
@@ -48,10 +49,24 @@ export function marksMatch(
   return marksOn(waves, index).some((id) => pressed.has(id));
 }
 
+/** Where the pressed marks are kept between loads (`remembered.ts`). */
+const MARKS_KEY = "wave-marks";
+
+/**
+ * Pure: the pressed marks a stored value names. An id no mark has any more —
+ * a stored value outlives the code that wrote it — is dropped, not kept.
+ */
+export function parsePressed(raw: string | null): Set<MarkId> {
+  const known = new Set<string>(MARKS.map(([id]) => id));
+  const pressed = new Set<MarkId>();
+  for (const id of (raw ?? "").split(",")) if (known.has(id)) pressed.add(id as MarkId);
+  return pressed;
+}
+
 /** Binds the row into `host`. `onChange` is the list's own redraw, the same one
  * the field is given. */
 export function bindRailSymbols(host: HTMLElement | null, onChange: () => void): RailSymbols {
-  const pressed = new Set<MarkId>();
+  const pressed = parsePressed(readRemembered(MARKS_KEY));
   if (!host) return { passes: () => true, active: () => false };
 
   for (const [id, glyph, word] of MARKS) {
@@ -62,10 +77,12 @@ export function bindRailSymbols(host: HTMLElement | null, onChange: () => void):
     // The word the field would have taken for the same thing, so the row
     // teaches the vocabulary rather than replacing it (`rail-filter.ts`).
     button.title = `Only waves with a ${word}`;
+    button.classList.toggle("on", pressed.has(id));
     button.addEventListener("click", () => {
       if (pressed.has(id)) pressed.delete(id);
       else pressed.add(id);
       button.classList.toggle("on", pressed.has(id));
+      writeRemembered(MARKS_KEY, [...pressed].join(","));
       onChange();
     });
     host.appendChild(button);

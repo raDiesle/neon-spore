@@ -19947,3 +19947,17 @@ The bottleneck was **reading**: four handles, three drawings, and the one
 comment that said why the maze's was left out.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The director remembers the wave list's filters across a reload
+
+- reading: 5 min. `rail-filter.ts`, `rail-symbols.ts`, the sounds page's
+  status bar, and how `brush-category.ts` already keeps a choice.
+- writing: 5 min. `remembered.ts`, the three call sites, two tests.
+- looking: 5 min. The director in the browser pane: filter typed, ♛
+  pressed, reloaded, both still on.
+- friction: 5 min. `director-here` opened its tab on port 3000, not the
+  director's; reopened it by URL, and queued.
+- landing: 5 min. `check:fast`, red once on `docs/INDEX.md`, then green.
+
+The bottleneck was **friction**: the preview entry pointed the tab at a port
+nobody was serving.
