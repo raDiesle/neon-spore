@@ -20807,3 +20807,5 @@ for the light to fall on it.
 
 Bottleneck: a fault kind reaches about forty files through `Record` tables and
 page rules that are only found when they fail, one at a time.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

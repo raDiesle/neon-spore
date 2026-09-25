@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 46ddb61bb — THE DARK: a fault that puts the field out, and a thumb that lights it
+
+The owner's idea for another fault brush. While THE DARK is down, the field above the ship is black on both screens and no body shows. Either player can press anywhere on the field, or swipe across it, and the squares under the finger light up for two beats (`darkLitBeats`). The bodies there show again, then the square goes dark. Every button still works. What the pair has lost is sight, and what they gain is a job for a free hand: whoever finds a body says where it is.
+
 ## 2026-09-25 · e3549c288 — Queue and time log: four more bosses wear the blow
 
 The roll-out entry names THE GIMBAL, THE RATCHET, THE HIVE and THE GORGE as wearing the blow of a landed sequence, and how a drawer with no time or no fx of its own is given it.
