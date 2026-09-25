@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 15268df07 — The `here` servers answer on the port the harness opens
+
+An `autoPort` launch entry is started with `PORT` set to the harness's own pick, and its tab opens there. `director-here`, `director-once` and `game-here` ignored it and asked the OS for a free port, so the tab opened on 3000 where nothing answered. They now take the harness's `PORT` when it is set (`tools/dev/harness-port.ts`) and a free port otherwise. `director-here` started from the pane now serves the director on its tab.
+
 ## 2026-09-25 · fd103e22a — `bun run imports` reads past a comment beside a name
 
 The scan decided whether a name was only a property by looking at the character before it, skipping whitespace but not comments. A comment ending in `.` above `setDefaultTimeout(FRAME_TIMEOUT_MS);` made the call read as `.setDefaultTimeout`, so a live import was called unused. The scan now skips comments on both sides of a hit, and a case holds that shape. The use scan moved to `tools/imports/uses.ts`, which leaves `imports.ts` at 150 lines.
