@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 8693399c — The owner's generic rules are written down for every boss
+
+A line marked generic in the new-boss skill's owner record is now said to bind every boss and mechanic, the ones that ship through a queue item. Two rules from 24 September join it: the order of a step is said by its marks, never by a line, and every control answers wider than it is drawn.
+
 ## 2026-09-25 · c4dca831 — The partner's mark shows a waiting clock, not the gesture
 
 On THE INSTAR, a mark that belongs to the other player no longer shows the gesture inside it: a gesture on a mark read as this player's next move. It shows a clock face with its hand going round instead, on rings and on the swipe's track, and the box beside it still says whose it is.

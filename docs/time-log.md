@@ -19928,3 +19928,5 @@ disc wider than the track it covers.
 
 The bottleneck was **reading**: the touch reach's figures live in
 `hit.ts`, not in `layout.ts` where the note had them.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
