@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · ad4dc2152 — The director's stage takes no hand on the hull, and under TEST one strip slides the cannon and the shield together
+
+The cannon and shield lobes on the hull no longer answer the mouse on the director's stage (`ship: false`, the game's own default); the strips are the way to both. Under TEST, a slide on either strip is sent again as the other seat's slide to the same column, so the two lobes travel as one — only where the wave's panel has both controls. A look the owner asked for by name.
+
 ## 2026-09-25 · 6ed48c4f5 — THE FILAMENT's tools strike the heart and are spat onto the next vein
 
 On a pull both tools ride up the lead into the heart. There the heart swells, shakes and glows red, then spits them out on two arcs to the next vein's free end. They rest there, nested, through the arm. On player 1's screen the next vein grows down from the heart. HEART HIT and how many veins are left show from the strike, and the guide says vein and heart.

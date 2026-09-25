@@ -20719,3 +20719,5 @@ simulation files, and the old film's comment was the only summary of it.
 
 The bottleneck was **reading**: the switch for the hull already existed and
 only had to be found.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
