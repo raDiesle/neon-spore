@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · aa98a10e3 — The compared looks' poses are two lists, by what they show
+
+`poses-versus.ts` sat thirteen lines under the ceiling and grew a row and an import per VERSUS slot. Its poses now live in `poses-versus-bodies.ts` (a creature or a body under a hand) and `poses-versus-states.ts` (the panel, damage, and the states borrowed from THE SLOW, the handover and the guide), and `poses-versus.ts` only joins the two. Nothing the game draws changed.
+
 ## 2026-09-25 · 15268df07 — The `here` servers answer on the port the harness opens
 
 An `autoPort` launch entry is started with `PORT` set to the harness's own pick, and its tab opens there. `director-here`, `director-once` and `game-here` ignored it and asked the OS for a free port, so the tab opened on 3000 where nothing answered. They now take the harness's `PORT` when it is set (`tools/dev/harness-port.ts`) and a free port otherwise. `director-here` started from the pane now serves the director on its tab.
