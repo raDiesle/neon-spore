@@ -20852,3 +20852,19 @@ The bottleneck was **writing**: the long tail of cross-references in prose,
 tools and documents, each found only by a red test.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE INSTAR asks twice as much in half the time, over seven steps
+
+- reading: 5 min. The script, the poses, `deformed`, the egg tables and the
+  tests that read the shipped script.
+- writing: 15 min. Seven steps, two new poses, the egg tables out to their
+  own file at sixteen and ten, and the key rig's tapping thumb made to
+  follow a blade the taps push away.
+- looking: 5 min. The three new steps framed; the coil's tail ran off the
+  right edge and its rear came in.
+- friction: 0 min.
+- landing: 5 min. Two `check:fast` runs, the index row, the commit, `land`.
+
+Bottleneck: the director's key test, which plays the shipped script and
+found that twenty taps push a blade out from under the thumb the rig kept
+putting down in one place.

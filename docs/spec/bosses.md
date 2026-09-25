@@ -6264,7 +6264,13 @@ up, `landBeats` of the part giving before the next morph — and an
 **arrival**, how the body flies into the pose while it morphs: `approach`
 from far off, `passes` out of the frame and across twice, `cross` out one
 side and in the other (`INSTAR_ARRIVALS`, in `sim/instar-words.ts`). The
-script is three poses since 25 September 2026: *breath*, *brood*, *lash*.
+script is seven steps over five poses since 25 September 2026: *breath*,
+*brood*, *lash*, *lunge* — one mark on the brow for both seats to hold —
+*breath* again with the seats swapped on the jaws, *coil* — both blades
+wound two turns — and *lash* again with one blade tapped and one wound.
+Every window is four beats, five for the hold, and every need was doubled
+the same day: a jaw four tiles, the nests sixteen eggs and ten, a blade
+twenty taps.
 
 **The rule, in one sentence.** The body morphs into a pose over its
 `morphBeats` (`instarMorph`, `instarShow` when the marks come up), and

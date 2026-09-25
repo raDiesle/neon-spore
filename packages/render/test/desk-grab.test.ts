@@ -164,10 +164,13 @@ describe("a press on THE INSTAR's marks", () => {
     if (!second?.hold || !first?.hold) throw new Error("a jaw took no hold");
     expect(s.thumbs[markOf(s, "p1")]).toBe(1);
     expect(s.thumbs[markOf(s, "p2")]).toBe(2);
-    // Pushed shut together, a step at a time, one finger then the other.
+    // Pushed shut together, a step at a time, one finger then the other, a
+    // little past the deeper of the two needs.
+    const need = Math.max(...(s.steps[s.cursor]?.marks.map((m) => m.need) ?? [0]));
+    const reach = ((need + 100) * L.tile) / 1000;
     for (let i = 1; i <= 40; i++) {
-      send(touchMove(L, second.hold, upper.x, upper.y + i * 6));
-      send(touchMove(L, first.hold, lower.x, lower.y - i * 6));
+      send(touchMove(L, second.hold, upper.x, upper.y + (i * reach) / 40));
+      send(touchMove(L, first.hold, lower.x, lower.y - (i * reach) / 40));
     }
     expect(s.phase).toBe("land");
   });

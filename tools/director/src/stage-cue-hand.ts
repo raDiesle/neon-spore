@@ -98,9 +98,14 @@ export function cueHand(
       if (go.do === "again") {
         // Off and straight back on, which is what a slap is: the count is of
         // grabs, and a thumb left down is one of them (`sim/instar-hand.ts`).
+        // A slap pushes its part back, and twenty of them push a blade out
+        // from under the spot the first went down on; a slap that lands on
+        // nothing frees the seat, and the key puts it on the mark where the
+        // mark now is (`stage-cue-key.ts`, `arm`).
         up(l, t, true);
         const hold = down(l, seat, t.x, t.y);
         if (hold) t.hold = hold;
+        else thumbs.delete(seat);
         continue;
       }
       const r = touchMove(l, hold, go.x, go.y);

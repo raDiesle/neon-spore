@@ -25,9 +25,9 @@ import { installDom } from "./fake-dom.js";
  * somewhere else, so from the second pose on there was a key held over a
  * hand that had nothing in it. The key now looks again on every tick, which
  * is what this pins: one press at the first pose, held, and THE INSTAR's own
- * five-pose script is played to the end **without a single strike on the
- * hull** — five morphs, nine marks, both seats, three gestures that count and
- * two that are a depth.
+ * script is played to the end **without a single strike on the hull** —
+ * seven morphs, thirteen marks, both seats and a mark they share, and each
+ * one of the six gestures.
  *
  * It is the one test that runs the shipped script rather than a made-up step,
  * on purpose: the figures in `content/instar-script.ts` are what the pair is
@@ -59,7 +59,7 @@ function fieldOf(world: World, seat: 1 | 2): Field {
 }
 
 describe("the key over a whole scene", () => {
-  test("one press, held, plays THE INSTAR's five poses and never takes a strike", () => {
+  test("one press, held, plays THE INSTAR's whole script and never takes a strike", () => {
     const world = createWorld({ ...CFG }, 4);
     startWave(world, 0, [], [], { kind: "instar", steps: INSTAR_SCRIPT });
     const l = computeLayout(VIEWPORT, CFG, "test");
@@ -77,7 +77,7 @@ describe("the key over a whole scene", () => {
       dom.press("3");
       // Long enough for every morph, window and landing in the script, and
       // for the body to hang after the last of them (`instarOutBeats`).
-      for (let i = 0; i < ticksPerBeat(CFG) * 90 && world.boss !== null; i++) {
+      for (let i = 0; i < ticksPerBeat(CFG) * 160 && world.boss !== null; i++) {
         hand.tick();
         step(world, pending.splice(0));
         for (const e of world.events) if (e.type.startsWith("instar")) seen.push(e.type);
@@ -87,7 +87,7 @@ describe("the key over a whole scene", () => {
     }
     expect(seen).not.toContain("instarStrike");
     expect(seen).not.toContain("instarSlip");
-    // Five poses landed, and the body down after the last of them.
+    // Every step landed, and the body down after the last of them.
     expect(seen.filter((e) => e === "instarLand")).toHaveLength(INSTAR_SCRIPT.length);
     expect(seen).toContain("instarDown");
     expect(world.boss).toBeNull();

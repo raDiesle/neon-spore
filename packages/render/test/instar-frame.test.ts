@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import { buildBoss, buildQueue, INSTAR_SCRIPT } from "@neon-spore/content";
 import {
   createWorld,
   type InstarState,
@@ -34,7 +34,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * The states are **set** rather than played to, `hive-frame.test.ts`'s
  * arrangement: `sim/test/instar.test.ts` proves the script, the thumbs and
  * the landing, and what this file asks is whether every branch of the
- * picture is one a canvas accepts — each of the three poses mid-morph and
+ * picture is one a canvas accepts — every step of the script mid-morph and
  * acting, face-on and side-on, a mark under a thumb, a mark done, the body
  * down, out, and the three strikes — and the
  * two things nothing else could catch: that the marks are drawn **only
@@ -147,7 +147,7 @@ const PLATE = rgba(PALETTE.sheenDeep, 0.9);
 const HIDE = PLATE.slice(0, PLATE.lastIndexOf(","));
 
 describe("THE INSTAR's body", () => {
-  const STEPS = [0, 1, 2];
+  const STEPS = INSTAR_SCRIPT.map((_, i) => i);
 
   it.each(ROLES)("draws every pose mid-morph and acting on %s", (role) => {
     for (const cursor of STEPS) {
@@ -179,14 +179,17 @@ describe("THE INSTAR's body", () => {
   });
 
   it("draws the same body on both screens and a different word over each mark", () => {
-    // Every step asks one mark of each seat: the same rings, the pilot's
+    // A step that asks one mark of each seat: the same rings, the pilot's
     // bright on his screen and the navigator's on hers — two different
     // pictures of one body. Each seat's own frame is in its own colours, so
     // the pictures are compared by what the body and the marks are painted in.
+    // A mark for both seats is bright on both, so its step is the same
+    // picture everywhere and only the first two hold.
     for (const cursor of STEPS) {
       const at = (role: ViewRole) => frame(role, (w) => acting(w, cursor));
       expect(count(at("p1").text, PLATE)).toBe(count(at("p2").text, PLATE));
       expect(count(at("p1").text, PALETTE.text)).toBe(count(at("p2").text, PALETTE.text));
+      if (INSTAR_SCRIPT[cursor]?.marks.some((m) => m.seat === "both")) continue;
       // The test screen holds both seats, so both words are the gesture's, bright.
       expect(count(at("test").text, PALETTE.text)).toBeGreaterThan(
         count(at("p1").text, PALETTE.text),
@@ -194,21 +197,27 @@ describe("THE INSTAR's body", () => {
     }
   });
 
-  it.each(["jaw", "eggs", "tail"] as const)("draws the %s's strike over the field", (part) => {
-    const run = (strike: boolean): number => {
-      const world = hung();
-      acting(world, part === "jaw" ? 0 : part === "eggs" ? 1 : 2);
-      const { ctx } = runFrames(world, "p1", 9, {
-        every: 3,
-        onTick: (tick, w) => {
-          step(w, []);
-          if (strike && tick === 0) w.events.push({ type: "instarStrike", part, col: 5 });
-        },
-      });
-      return ctx.calls;
-    };
-    expect(run(true)).toBeGreaterThan(run(false));
-  });
+  it.each(["jaw", "eggs", "tail", "head"] as const)(
+    "draws the %s's strike over the field",
+    (part) => {
+      const run = (strike: boolean): number => {
+        const world = hung();
+        acting(
+          world,
+          INSTAR_SCRIPT.findIndex((s) => s.marks.some((m) => m.part === part)),
+        );
+        const { ctx } = runFrames(world, "p1", 9, {
+          every: 3,
+          onTick: (tick, w) => {
+            step(w, []);
+            if (strike && tick === 0) w.events.push({ type: "instarStrike", part, col: 5 });
+          },
+        });
+        return ctx.calls;
+      };
+      expect(run(true)).toBeGreaterThan(run(false));
+    },
+  );
 
   it.each(ROLES)("fills a mark's arc under a thumb and dots it when done, on %s", (role) => {
     const bare = frame(role, (w) => acting(w, 0));

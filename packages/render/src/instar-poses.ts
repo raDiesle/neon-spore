@@ -49,7 +49,7 @@ const BREATH: Figure = {
  * (`instar-flight.ts`). */
 export const ENTER: Figure = { ...BREATH, jawUp: 0.6, jawDown: 0.6, eye: 0.4, wing: 0.6 };
 
-/** The three poses the script names. */
+/** The five poses the script names. */
 export const POSES: Record<InstarPose, Figure> = {
   breath: BREATH,
   // Side-on, head to the left, the back running through the two nests: the
@@ -86,6 +86,36 @@ export const POSES: Record<InstarPose, Figure> = {
     nestX: 380,
     nestY: 200,
     tail: 1,
+  },
+  // Face-on and lower, the head thrust down at the ship to butt it, the jaws
+  // shut behind the brow both seats hold it off by, at 500/300.
+  lunge: {
+    ...BREATH,
+    headY: 400,
+    headR: 220,
+    jawUp: 0.1,
+    jawDown: 0.15,
+    reach: 1,
+  },
+  // Side-on and low, the back through the nests down near the hull, the tail
+  // wound up high over it to spring, the blades at 380 and 620 over the back.
+  coil: {
+    ...BREATH,
+    headX: 220,
+    headY: 440,
+    headR: 140,
+    jawUp: 0.2,
+    jawDown: 0.3,
+    side: 1,
+    wing: 0.5,
+    rearX: 740,
+    rearY: 470,
+    eggsX: 640,
+    eggsY: 460,
+    nestX: 380,
+    nestY: 470,
+    tail: 1,
+    tailY: 330,
   },
 };
 

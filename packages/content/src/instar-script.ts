@@ -1,7 +1,7 @@
 import type { BossSequenceStep } from "@neon-spore/sim";
 
 /**
- * THE INSTAR's script: three poses, and what the pair does to each.
+ * THE INSTAR's script: seven steps over five poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -21,7 +21,7 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *
  * 1. *Breath* — it comes in from far off, small, and flies at the ship until
  *    it fills the field, jaws already open on a fire turning in its mouth.
- *    Player 2 pushes the upper jaw down and player 1 the lower jaw up, two
+ *    Player 2 pushes the upper jaw down and player 1 the lower jaw up, four
  *    tiles each, so the jaws meet; both must be at depth at once, and a jaw
  *    let go of opens again. Left open, it breathes the fire over the field.
  * 2. *Brood* — it flies off, crosses the frame twice, and comes in to stay
@@ -34,13 +34,27 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    forked tail comes at the ship. Each seat taps its own blade of the fork
  *    back, player 1 the left and player 2 the right, and again the two counts
  *    must finish together. Left alone, the tail hits the hull.
+ * 4. *Lunge* — it comes in face on and drives its head down at the ship to
+ *    butt it. One mark, on the brow, for **both** thumbs: both seats hold it
+ *    off together for three beats, and either thumb lifting lets it come on
+ *    again. Left alone, the head hits the hull.
+ * 5. *Breath, turned round* — the fire again, **the hands swapped**: player 1
+ *    pushes the upper jaw down and player 2 the lower up. The pair that
+ *    learned whose jaw was whose has to say it again.
+ * 6. *Coil* — it passes twice and comes in low, side on, its tail wound up
+ *    high over its back to spring. Each seat **winds** its blade of the fork
+ *    back, two turns each, clockwise. Left alone, it springs at the hull.
+ * 7. *Lash, mixed* — the tail at the ship once more, and each blade asks a
+ *    different thing: player 1 taps the left back, player 2 winds the right.
+ *    Two counts in two gestures, finishing together.
  *
  * **The clocks.** A morph is the flight: eight beats for the entrance, which
  * the owner asked to be slow — *so it starts small in the background, then it
  * looks like it more and more flies towards the users screen* — twelve for
- * the two passes, seven for the crossing. A window is eight beats; a landing
- * three, four for the last. The reasoning for each figure being the step's
- * and not tuning: `sim/config-instar.ts`.
+ * the two passes, seven for the crossing, and less for a pose the body
+ * reaches from close by. A window is four beats, five for the hold, whose
+ * need is itself beats; a landing three, four for the last. The reasoning for
+ * each figure being the step's and not tuning: `sim/config-instar.ts`.
  *
  * **The windows were doubled and every need raised on 22 September 2026**,
  * on the owner's ask, and it is the rule for a choreographed scene rather
@@ -55,41 +69,92 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  * have is huge, it's too much.* The doubling was measured in beats, and a
  * window is played wholly inside THE SLOW, which went from a third to a
  * quarter rate the same day — so twenty-four beats had become a minute of
- * wall clock. Eight is twenty seconds in the hand, which still holds the
- * saying; the needs stay where the doubling put them.
+ * wall clock.
+ *
+ * **Then every need doubled and every window halved on 25 September 2026**,
+ * and four steps added: the owner, *the actions for each scene to finish are
+ * to fast finished, so i suggest to double the required actions for every
+ * scene. also we can reduce the available time for a scene by around the
+ * half* — and *more choreographed states and actions required by players in
+ * different variations and combinations*. So a jaw is four tiles, a nest
+ * sixteen eggs and ten, a blade twenty taps, in four beats; and the new steps
+ * are the variations: a mark both seats share, the seats swapped on a pose
+ * they already know, a gesture the script had never asked for, and two
+ * gestures on one part.
  */
 export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   {
     pose: "breath",
     arrive: "approach",
     morphBeats: 8,
-    windowBeats: 8,
+    windowBeats: 4,
     landBeats: 3,
     marks: [
-      { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 2000 },
-      { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 2000 },
+      { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
+      { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 4000 },
     ],
   },
   {
     pose: "brood",
     arrive: "passes",
     morphBeats: 12,
-    windowBeats: 8,
+    windowBeats: 4,
     landBeats: 3,
     marks: [
-      { seat: "p1", part: "eggs", gesture: "tap", xMilli: 320, yMilli: 380, need: 8 },
-      { seat: "p2", part: "eggs", gesture: "swipeDown", xMilli: 660, yMilli: 360, need: 5 },
+      { seat: "p1", part: "eggs", gesture: "tap", xMilli: 320, yMilli: 380, need: 16 },
+      { seat: "p2", part: "eggs", gesture: "swipeDown", xMilli: 660, yMilli: 360, need: 10 },
     ],
   },
   {
     pose: "lash",
     arrive: "cross",
     morphBeats: 7,
-    windowBeats: 8,
+    windowBeats: 4,
+    landBeats: 3,
+    marks: [
+      { seat: "p1", part: "tail", gesture: "tap", xMilli: 380, yMilli: 560, need: 20 },
+      { seat: "p2", part: "tail", gesture: "tap", xMilli: 620, yMilli: 560, need: 20 },
+    ],
+  },
+  {
+    pose: "lunge",
+    arrive: "approach",
+    morphBeats: 6,
+    windowBeats: 5,
+    landBeats: 3,
+    marks: [{ seat: "both", part: "head", gesture: "hold", xMilli: 500, yMilli: 300, need: 3 }],
+  },
+  {
+    pose: "breath",
+    arrive: "cross",
+    morphBeats: 6,
+    windowBeats: 4,
+    landBeats: 3,
+    marks: [
+      { seat: "p1", part: "jaw", gesture: "pullDown", xMilli: 440, yMilli: 220, need: 4000 },
+      { seat: "p2", part: "jaw", gesture: "pullUp", xMilli: 560, yMilli: 500, need: 4000 },
+    ],
+  },
+  {
+    pose: "coil",
+    arrive: "passes",
+    morphBeats: 10,
+    windowBeats: 4,
+    landBeats: 3,
+    marks: [
+      { seat: "p1", part: "tail", gesture: "turn", xMilli: 380, yMilli: 330, need: 2000 },
+      { seat: "p2", part: "tail", gesture: "turn", xMilli: 620, yMilli: 330, need: 2000 },
+    ],
+  },
+  {
+    pose: "lash",
+    arrive: "cross",
+    morphBeats: 7,
+    windowBeats: 4,
     landBeats: 4,
     marks: [
-      { seat: "p1", part: "tail", gesture: "tap", xMilli: 380, yMilli: 560, need: 10 },
-      { seat: "p2", part: "tail", gesture: "tap", xMilli: 620, yMilli: 560, need: 10 },
+      { seat: "p1", part: "tail", gesture: "tap", xMilli: 380, yMilli: 560, need: 20 },
+      { seat: "p2", part: "tail", gesture: "turn", xMilli: 620, yMilli: 560, need: 2000 },
     ],
   },
 ];

@@ -631,13 +631,13 @@ clears one ordinary wave headless.
 - **Found:** 2026-09-25, claude/instar-boss-choreography-01e4c7
 - **Files:** `packages/sim/src/instar-words.ts`, `packages/render/src/instar-strike.ts`, `packages/render/src/instar-shape.ts`, `packages/render/src/instar-poses.ts`
 
-`INSTAR_PARTS` still lists `hand`, `tongue` and `head`, and the figure still
-carries `reach`, from the five poses of 17 September. Since the dragon of 25
-September no step of `content/instar-script.ts` names those parts and no pose
-sets `reach`, so `instar-strike.ts` gives the three a slam it never draws and
-`deformed` pushes a head nothing pushes. Cut the three parts from the list (and
-from the cue, the director's sheet and any switch over them that `tsc` then
-names), drop `reach` from `Figure`, and prove it with `bun run check`.
+`INSTAR_PARTS` still lists `hand` and `tongue`, from the five poses of 17
+September. No step of `content/instar-script.ts` names either, so
+`instar-strike.ts` gives the two a slam it never draws. (`head` and the
+figure's `reach` are the *lunge*'s since 25 September,
+claude/instar-boss-enhancements-1ae51f, and stay.) Cut the two parts from the
+list (and from the cue, the director's sheet and any switch over them that
+`tsc` then names), and prove it with `bun run check`.
 
 ## `land` stops on a time-log conflict it says it merges
 

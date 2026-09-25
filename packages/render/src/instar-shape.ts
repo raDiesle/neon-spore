@@ -25,7 +25,7 @@ import type { Layout } from "./layout.js";
  * per seat**: both screens see the same body, and the split of this boss is
  * in whose thumb each mark wants.
  *
- * **A pose is a figure, and a morph is a lerp.** Each of the three poses is
+ * **A pose is a figure, and a morph is a lerp.** Each of the five poses is
  * one `Figure` (`instar-poses.ts`); the body between two of them is the
  * straight blend, eased, over the part of the step's `morphBeats` the flight
  * takes (`instar-flight.ts`), so the body has its new pose by the time it

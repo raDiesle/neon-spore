@@ -29,8 +29,11 @@ export type InstarGesture = (typeof INSTAR_GESTURES)[number];
 
 /** The poses the body morphs between, one per step, named for the picture:
  * the jaws open on a fire it is about to breathe, its side with the brood on
- * its back, and its tail swung at the ship. */
-export const INSTAR_POSES = ["breath", "brood", "lash"] as const;
+ * its back, its tail swung at the ship, its head thrust down at the ship to
+ * butt it, and its tail wound up high over the back to spring. A pose may
+ * come round again in a later step with other marks on it; the list is the
+ * pictures, not the steps. */
+export const INSTAR_POSES = ["breath", "brood", "lash", "lunge", "coil"] as const;
 export type InstarPose = (typeof INSTAR_POSES)[number];
 
 /**

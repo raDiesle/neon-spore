@@ -1,5 +1,6 @@
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import { SPOTS, SPOTS_NEST } from "./instar-egg-spots.js";
 import { drawGlint } from "./instar-hide.js";
 import { faded, type Look } from "./instar-plate.js";
 import { instarAt, type Point } from "./instar-shape.js";
@@ -31,27 +32,6 @@ import { PALETTE, STROKE } from "./palette.js";
  * drawn off the figure every frame (`instar-profile.ts`).
  */
 
-/** Where the swiped nest's eggs sit round its middle, in head radii: two over three. */
-const SPOTS: readonly (readonly [number, number])[] = [
-  [-0.12, -0.18],
-  [0.12, -0.18],
-  [-0.24, 0.02],
-  [0.24, 0.02],
-  [0, -0.02],
-];
-
-/** Where the squashed nest's eggs sit: three over five. */
-const SPOTS_NEST: readonly (readonly [number, number])[] = [
-  [-0.2, -0.22],
-  [0, -0.26],
-  [0.2, -0.22],
-  [-0.36, -0.02],
-  [-0.18, 0],
-  [0, -0.04],
-  [0.18, 0],
-  [0.36, -0.02],
-];
-
 /** How many eggs the swiped nest holds: one per swipe its mark needs. */
 export const CLUTCH = SPOTS.length;
 
@@ -59,8 +39,8 @@ export const CLUTCH = SPOTS.length;
 export const NEST = SPOTS_NEST.length;
 
 /** An egg's half-width and half-height, in head radii. */
-const EGG_W = 0.12;
-const EGG_H = 0.15;
+const EGG_W = 0.1;
+const EGG_H = 0.13;
 /** How long an egg takes from the nest to the hull, in seconds. */
 const FALL_SECONDS = 0.55;
 /** How long the broken egg stays on the hull, in seconds. */
