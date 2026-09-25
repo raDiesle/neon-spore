@@ -1,6 +1,7 @@
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
+import { drawInstarWait } from "./instar-mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -11,7 +12,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * like … a slider … minimum the bar path of a slider, but without the circle
  * of it.* So a swipe mark is a track — a rounded bar from where the thumb goes
  * down to the length the lift counts at — with the chevrons running along it
- * and no knob. The green fill runs down the bar as the carry goes
+ * and no knob — on the partner's screen, a waiting clock instead of the
+ * chevrons (`instar-mark-feedback.ts`). The green fill runs down the bar as the carry goes
  * (`sim/instar.ts` `instarSwipeAlong`), so the end of the bar is the end of
  * the swipe, said in the picture.
  *
@@ -80,10 +82,15 @@ export function drawInstarTrack(
   }
   const rim = held || awaited ? PALETTE.redRim : PALETTE.red;
   strokeGlow(ctx, p, along >= 1 ? PALETTE.good : rim, STROKE.inner, mine ? 1.3 : 0.4);
+  const mid = (t.top + t.bottom) / 2;
+  if (!mine) {
+    drawInstarWait(ctx, t.x, mid, r * 1.2, time);
+    return;
+  }
   ctx.save();
-  ctx.strokeStyle = ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-  ctx.globalAlpha = mine ? 0.9 : 0.5;
-  drawInstarGlyph(ctx, "swipeDown", t.x, (t.top + t.bottom) / 2, r * 1.1, time);
+  ctx.strokeStyle = ctx.fillStyle = PALETTE.text;
+  ctx.globalAlpha = 0.9;
+  drawInstarGlyph(ctx, "swipeDown", t.x, mid, r * 1.1, time);
   ctx.restore();
 }
 

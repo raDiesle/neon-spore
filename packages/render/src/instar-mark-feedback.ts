@@ -17,6 +17,12 @@ import { PALETTE, STROKE } from "./palette.js";
  *   round it, dim, which says *someone is being waited on here* without the
  *   light that would invite this seat's thumb onto it — the wrong thumb is
  *   still refused, and still told so in red.
+ * - **The partner's open mark shows a clock, not the gesture** (the owner, 24
+ *   September 2026: *it's not clear enough that other player has not to
+ *   touch it, he might think he has to wait and then he has to use it next*).
+ *   A gesture drawn on a mark reads as *your next move*, so on the partner's
+ *   it is replaced by a clock face whose hand goes round: *waiting on the
+ *   other seat*. The box beside it still names whose it is (`P1'S`).
  *
  * The fourth half — a gesture begun the right way says so — is the progress
  * arc going green as the part gives (`instar-marks.ts`), which is the
@@ -63,6 +69,36 @@ export function drawInstarTheirs(
   ctx.lineDashOffset = -time * r * 1.2;
   ctx.beginPath();
   ctx.arc(x, y, r * 1.45, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+/** How long the waiting clock's hand takes to go round, in seconds. */
+const CLOCK_TURN_SECONDS = 1.6;
+
+/** The partner's open mark, inside: a clock face, its hand going round. */
+export function drawInstarWait(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  time: number,
+): void {
+  const face = r * 0.55;
+  const hand = -Math.PI / 2 + (time / CLOCK_TURN_SECONDS) * Math.PI * 2;
+  ctx.save();
+  // A dark disc under the face, so it reads over a track narrower than it.
+  ctx.fillStyle = rgba(PALETTE.background, 0.9);
+  ctx.fill(new Path2D(circleSubpath(x, y, face * 1.25)));
+  ctx.strokeStyle = rgba(PALETTE.text, 0.85);
+  ctx.lineWidth = STROKE.outline * 1.3;
+  ctx.lineCap = "round";
+  ctx.stroke(new Path2D(circleSubpath(x, y, face)));
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x, y - face * 0.5);
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + Math.cos(hand) * face * 0.75, y + Math.sin(hand) * face * 0.75);
   ctx.stroke();
   ctx.restore();
 }

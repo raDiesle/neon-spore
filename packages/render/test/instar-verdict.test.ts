@@ -103,6 +103,19 @@ describe("THE INSTAR's verdict on a touch", () => {
     expect(count(drawn("test", []), theirs)).toBe(0);
   });
 
+  it("shows a waiting clock on the partner's mark, ring or track, and none on this seat's", () => {
+    // The owner, 24 September 2026: a gesture drawn on the partner's mark
+    // read as *your next move*, so it is a clock there (`instar-mark-feedback.ts`).
+    const clock = rgba(PALETTE.text, 0.85);
+    const s = instarBoss(acting()) as InstarState;
+    const swipe = s.steps.findIndex((st) => st.marks.some((m) => m.gesture === "swipeDown"));
+    for (const at of [0, swipe]) {
+      expect(count(drawn("p1", [], acting(at)), clock)).toBeGreaterThan(0);
+      expect(count(drawn("p2", [], acting(at)), clock)).toBeGreaterThan(0);
+      expect(count(drawn("test", [], acting(at)), clock)).toBe(0);
+    }
+  });
+
   it.each(ROLES)("fills a swipe's arc green on its way, before the lift, on %s", (role) => {
     // The owner, 24 September 2026, generic: a swipe begun the right way
     // says so while it travels (`sim/instar.ts` `instarSwipeAlong`).

@@ -14,7 +14,7 @@ import type { CueKind } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
-import { drawInstarHalo, drawInstarTheirs } from "./instar-mark-feedback.js";
+import { drawInstarHalo, drawInstarTheirs, drawInstarWait } from "./instar-mark-feedback.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import {
@@ -225,8 +225,9 @@ function drawRing(
   ctx.save();
   ctx.strokeStyle = ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
   ctx.globalAlpha = mine ? 0.95 : 0.5;
-  drawInstarGlyph(ctx, gesture, x, y, r, time);
+  if (mine) drawInstarGlyph(ctx, gesture, x, y, r, time);
   ctx.restore();
+  if (!mine) drawInstarWait(ctx, x, y, r, time);
   if (along <= 0) return;
   // Green: the part is giving, so the carry is going the right way — the
   // simulation holds a pull the wrong way at nought, so an arc at all is

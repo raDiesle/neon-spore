@@ -99,7 +99,12 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   1. **The action wanted right now is the brightest thing on the screen**
      — more glow, more highlighting, on the mark itself.
   2. **The other seat's turn shows too, and where**: this seat can see that
-     the partner is the one being waited on, and at which mark.
+     the partner is the one being waited on, and at which mark. **The
+     partner's mark never shows the gesture** (the same day, a second
+     time: *not clear enough that other player has not to touch it*): a
+     gesture on a mark reads as *your next move*, so the partner's wears a
+     waiting clock whose hand goes round, and its box names whose it is —
+     `drawInstarWait` in `render/src/instar-mark-feedback.ts`.
   3. **A touch is judged on the mark it touched, at once**: green for right,
      red for wrong, animated, and never a sound or a burst somewhere else.
   4. **A gesture started the right way says so while it is still going** —

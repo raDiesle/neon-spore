@@ -19901,3 +19901,16 @@ The bottleneck was **reading**: the cord a pulse has to follow is private to
 GLAND's nerves, and it takes a knob on one screen and not on the other.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The partner's mark shows a waiting clock, not the gesture
+
+- reading: 5 min. What the partner's ring and track draw today.
+- writing: 10 min. `drawInstarWait`, the ring and the track calling it on
+  the other seat's screen, and its test.
+- looking: 10 min. Two frames: the first clock was too small to read on
+  the swipe's narrow track.
+- friction: 0 min.
+- landing: 5 min. `check:fast`.
+
+The bottleneck was **looking**: the clock only read once it sat on a dark
+disc wider than the track it covers.
