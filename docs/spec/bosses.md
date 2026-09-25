@@ -2148,11 +2148,17 @@ readable under a mouth that has just been fed the wrong number.
 of them spent shaking loose at its top end with the air rushing past it into
 the straw, because the owner asked for a suck that does not take the number on
 the instant it is pressed — which is long enough to watch which straw it came
-out of and far too short to do anything about it. A suck with no mouth
-under the cannon, or one while a number is already falling, is nothing at all
-rather than a mistake — neither is a *feed*, and only a feed can be the wrong
-one, so a pair fishing for a column does not lose the wave to a press they had
-not finished thinking about.
+out of and far too short to do anything about it. **While one falls, the
+cannon may slide on and SUCK the next** (the owner, 25 September 2026: *while it
+is falling down, the player can already move to another pipe*): each suck at
+another straw puts another number on its way (`SpliceState.flights`), they land
+in the order they were sucked, and each is judged against the order as it
+lands — so a pair that trusts its reading can pour a round down, and a wrong
+one landing first costs exactly as it did alone. The clock does not bite while
+any is in the air. A suck with no mouth under the cannon, or at a straw whose
+number is already falling, is nothing at all rather than a mistake — neither is
+a *feed*, and only a feed can be the wrong one, so a pair fishing for a column
+does not lose the wave to a press they had not finished thinking about.
 
 **The clock is a creature, the eater** (25 September 2026, the owner's ask:
 *why* is time running out). It grows out of the hold's right wall, part of
@@ -2180,7 +2186,7 @@ the frame tests watch a round go wrong without ending the wave.
 **The words** (`render/src/boss-cue-read-d.ts`, beside THE STARE's on the page
 for the cues whose ask is a **stop**). **None, since 25 September 2026.** From
 19 September a `WAIT` in the kind `STILL` rode the number coming down its straw,
-on the seat holding the maw, for the beats a second suck is dropped. The owner
+on the seat holding the maw, for the beats a second suck was dropped. The owner
 took it off: *for the player it is clear to wait* — the number is in the air on
 the curve she has been tracing, and the frame round it only covered it.
 **Four silences, and they were most of the

@@ -6,7 +6,7 @@ import {
   type Color,
   cairnState,
   spliceRound,
-  spliceWanted,
+  spliceWantedAfterFlights,
   type TimedCommand,
   undertowBoss,
   type World,
@@ -75,15 +75,16 @@ export const cairnHoldHand: Hand = (w) => {
 
 /**
  * THE SPLICE: the cannon under the entrance whose straw carries the number
- * wanted next (`spliceWanted`) and the maw opened there, while no number is
- * on its way down and the round is not yet passed (`spliceHeard`). The pair
+ * wanted next and the maw opened there, counting the numbers already on their
+ * way down as fed (`spliceWantedAfterFlights`) — so it slides on and sucks the
+ * next while one is still falling — until the round is passed (`spliceHeard`). The pair
  * reads the straw off the tangle; the hand reads the permutation, because
  * what it poses is the verdict and the pass, not the tracing.
  */
 export const spliceHand: Hand = (w) => {
   const s = spliceRound(w);
-  if (s === null || s.feedFrom !== -1 || s.passBeat !== -1) return [];
-  const col = s.entranceCols[spliceWanted(s)];
+  if (s === null || s.passBeat !== -1) return [];
+  const col = s.entranceCols[spliceWantedAfterFlights(s)];
   if (col === undefined) return [];
   if (w.cannonCol !== col) return [aim(col)];
   return [intake()];

@@ -20291,3 +20291,17 @@ The bottleneck was **reading**: deciding which of the `STILL`s were waits and
 which were the rule took longer than removing them.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SPLICE's cannon may suck the next while one is still falling
+
+- reading: 5 min. `splice-round.ts`, and every reader of `feedFrom`.
+- writing: 15 min. `flights` as a list in the sim and the hash, every flight
+  drawn with its own pipe swelling, the director's hand, three new sim tests,
+  the scene and the spec.
+- looking: 5 min. Two numbers in the air on the navigator's screen, both landing.
+- friction: 5 min. `boss-surface.ts` and `bosses.ts` both at their line
+  limits, so THE SPLICE's names got a surface page of their own.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: one field became a list, and every reader of
+it had to become a loop.

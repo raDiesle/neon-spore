@@ -22,8 +22,9 @@ import type { GuideScene } from "../scene-types.js";
  *
  * **One feed and not two.** The second is the first again, and the three beats a
  * number spends shaking loose and travelling are the whole of what the page after the suck is
- * for: a pair that presses again while one is in the air has not understood
- * that the answer is still coming (`sim/splice-round.ts`).
+ * for. The cannon may slide on and suck the next while one is still in the air
+ * (`sim/splice-round.ts`, since 25 September 2026), but that is a pair's own
+ * discovery once they trust their reading, not the film's first lesson.
  *
  * **And the page that said *one comes down*** says what the picture does not:
  * that the three beats of shake and travel are spent from the round's own

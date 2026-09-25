@@ -25,7 +25,8 @@ import { splinePath } from "./spline.js";
  * said before it.
  *
  * A number inside a pipe swells it where it is (`bulgeY`), which is the whole
- * of what the last stretch of the travel looks like from outside.
+ * of what the last stretch of the travel looks like from outside. Several may
+ * be on their way at once, each down its own straw into its own pipe.
  */
 
 /** Widths, in tiles: the body, the rim, and the rim's height over the mouth. */
@@ -176,8 +177,8 @@ function drawPipe(
 }
 
 /**
- * Every pipe, one per straw. `flightY` is the number in flight, or null; the
- * pipe it is inside swells round it.
+ * Every pipe, one per straw. `flights` are the numbers on their way down and
+ * how far down each is; a pipe with one inside it swells round it.
  */
 export function drawPipes(
   ctx: CanvasRenderingContext2D,
@@ -187,19 +188,20 @@ export function drawPipes(
   full: boolean,
   cannonCol: number,
   b: number,
-  flightY: number | null,
+  flights: readonly { straw: number; y: number }[],
 ): void {
   const top = splicePipeTopY(l, cfg);
   const mouth = spliceMouthY(l, cfg);
   for (let e = 0; e < s.entranceCols.length; e++) {
     const col = s.entranceCols[e] ?? 0;
-    const sucking = e === s.feedFrom;
-    const inside = sucking && flightY !== null && flightY > top && flightY < mouth;
+    const flight = flights.find((f) => f.straw === e);
+    const sucking = flight !== undefined;
+    const inside = flight !== undefined && flight.y > top && flight.y < mouth;
     drawPipe(ctx, l, tileCX(l, col), top, mouth, b, e, {
       done: (s.topOf[e] ?? 0) < s.fed,
       under: !full && col === cannonCol,
       sucking,
-      bulgeY: inside ? flightY : null,
+      bulgeY: inside ? flight.y : null,
     });
   }
   ctx.lineWidth = 1;

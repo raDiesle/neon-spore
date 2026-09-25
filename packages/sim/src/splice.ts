@@ -114,14 +114,15 @@ export interface SpliceState {
   /** How many numbers have been fed. The next one wanted is `fed + 1`. */
   fed: number;
   /**
-   * The entrance whose number is travelling down its straw, or -1 while none
-   * is. A feed is judged when it **arrives**, not when it is sucked, so the
-   * pair watches the answer come down the field — and a second suck while one
-   * is in flight is a maw that is already busy.
+   * The numbers travelling down their straws, in the order they were sucked,
+   * which is the order they arrive in. A feed is judged when it **arrives**,
+   * not when it is sucked, so the pair watches the answer come down the field
+   * — and, since 25 September 2026, the cannon may slide on and SUCK the next
+   * straw while one is still in the air (the owner: *while it is falling, the
+   * player can already move to another pipe to suck it*). A straw whose number
+   * is already coming down cannot be sucked again until it lands.
    */
-  feedFrom: number;
-  /** The beat that number left its top end. */
-  feedBeat: number;
+  flights: SpliceFlight[];
   /**
    * The beat the round's clock ran out and **the eater** took the number
    * wanted next, or -1 while it has not.
@@ -147,6 +148,12 @@ export interface SpliceState {
   verdictStraw: number;
 }
 
+/** One number on its way down: the entrance it goes to, and the beat it left its top end. */
+export interface SpliceFlight {
+  straw: number;
+  beat: number;
+}
+
 /** The round being played. Clamped, so a state read past the last one still answers. */
 export function spliceCurrent(s: SpliceState): SpliceRound {
   const round = s.rounds[Math.min(s.round, s.rounds.length - 1)];
@@ -168,4 +175,14 @@ export function spliceNumberAt(s: SpliceState, entrance: number): number {
  */
 export function spliceWanted(s: SpliceState): number {
   return s.topOf.indexOf(s.fed);
+}
+
+/**
+ * The entrance to suck next **with the numbers already on their way down
+ * counted as fed**, or -1 when there is none — what a pair that trusts its
+ * last suck slides on to. `spliceWanted` is what the maw judges an arrival
+ * against; this is only ever a guess about the future, for a hand.
+ */
+export function spliceWantedAfterFlights(s: SpliceState): number {
+  return s.topOf.indexOf(s.fed + s.flights.length);
 }

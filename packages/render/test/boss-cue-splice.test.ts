@@ -73,15 +73,14 @@ function cue(world: World, role: ViewRole, beatPhase = 0): BossCue | null {
 /** A number of the right straw put in the air, as a suck would. */
 function feeding(world: World, s: SpliceState): number {
   const straw = spliceWanted(s);
-  s.feedFrom = straw;
-  s.feedBeat = world.beat;
+  s.flights = [{ straw, beat: world.beat }];
   return straw;
 }
 
 describe("THE SPLICE's word", () => {
   it("says nothing while the maw is free, whoever is under whichever mouth", () => {
     const { world, s } = opened();
-    expect(s.feedFrom).toBe(-1);
+    expect(s.flights).toEqual([]);
     for (const col of s.entranceCols) {
       world.cannonCol = col;
       expect(cue(world, "p1"), `cannon in ${col}`).toBeNull();
@@ -106,8 +105,7 @@ describe("THE SPLICE's word", () => {
   it("says nothing to the pilot at any point of the flight, on any straw", () => {
     const { world, s } = opened();
     for (let straw = 0; straw < s.entranceCols.length; straw++) {
-      s.feedFrom = straw;
-      s.feedBeat = world.beat;
+      s.flights = [{ straw, beat: world.beat }];
       world.cannonCol = s.entranceCols[straw] ?? 0;
       for (const phase of [0, 0.5, 1, 1.5]) {
         expect(cue(world, "p1", phase), `straw ${straw} at ${phase}`).toBeNull();

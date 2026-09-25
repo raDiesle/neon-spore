@@ -1,4 +1,9 @@
-import { type SimConfig, type SpliceState, spliceEntranceRow } from "@neon-spore/sim";
+import {
+  type SimConfig,
+  type SpliceFlight,
+  type SpliceState,
+  spliceEntranceRow,
+} from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { drawTube, drawTubeStub } from "./splice-flesh.js";
 
@@ -123,8 +128,8 @@ export function spliceAt(c: SpliceCurve, t: number): { x: number; y: number } {
 }
 
 /**
- * **Where the number in flight is**, or `null` while none is — one straw's
- * curve and the fraction of it the travel has covered, in one call.
+ * **Where a number in flight is** — its straw's curve and the fraction of it
+ * the travel has covered, in one call.
  *
  * `beat` is the beat *and its phase*, so the token moves between beats rather
  * than jumping on them. For `SPLICE_SHAKE_BEATS` it stays on its top end —
@@ -135,21 +140,19 @@ export function spliceAt(c: SpliceCurve, t: number): { x: number; y: number } {
  * drawn a phase past that would otherwise put the number below its own mouth.
  *
  * It is here rather than inside `drawFlight` because two callers want it and
- * the arithmetic is not theirs to keep a copy of: the picture draws the number,
- * and the cue stands its own frame on it (`boss-cue-read-d.ts`). A word beside
- * the line the number is inside is the one mistake this whole picture cannot
- * afford, and two copies of a lerp is how that happens.
+ * the arithmetic is not theirs to keep a copy of: the number drawn, and the
+ * pipe it swells on its last stretch (`splice-pipe.ts`).
  */
 export function spliceFlightAt(
   l: Layout,
   cfg: SimConfig,
   s: SpliceState,
+  f: SpliceFlight,
   beat: number,
-): { x: number; y: number } | null {
-  if (s.feedFrom === -1) return null;
+): { x: number; y: number } {
   const travel = Math.max(1, cfg.spliceFeedBeats - SPLICE_SHAKE_BEATS);
-  const u = Math.max(0, Math.min(1, (beat - s.feedBeat - SPLICE_SHAKE_BEATS) / travel));
-  return spliceAt(spliceCurve(l, cfg, s, s.feedFrom), u * (0.35 + 0.65 * u));
+  const u = Math.max(0, Math.min(1, (beat - f.beat - SPLICE_SHAKE_BEATS) / travel));
+  return spliceAt(spliceCurve(l, cfg, s, f.straw), u * (0.35 + 0.65 * u));
 }
 
 /**

@@ -141,7 +141,7 @@ describe("THE SPLICE, drawn", () => {
       every: 3,
       onTick: (tick, w) => {
         const s = w.boss?.kind === "splice" ? w.boss : null;
-        if (s !== null && s.feedFrom === -1 && s.passBeat === -1 && tick % TPB === 0) {
+        if (s !== null && s.flights.length === 0 && s.passBeat === -1 && tick % TPB === 0) {
           const col = s.entranceCols[spliceWanted(s)] ?? w.cannonCol;
           step(w, [{ tick: w.tick, player: 1, command: { kind: "cannonCol", col } }]);
           step(w, [{ tick: w.tick, player: 2, command: { kind: "intake" } }]);

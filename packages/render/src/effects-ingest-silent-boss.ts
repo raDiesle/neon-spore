@@ -37,8 +37,8 @@ export const INGEST_SILENT_BOSS = [
   // its frame: the two events that *do* start a clock here are `choirArm` and
   // `choirMerge`, and both are in the switch next door.
   // THE SPLICE's four, each answered by a burst (`effects-spark.ts`) and a
-  // sound. The number coming down its straw and the verdict under it are drawn
-  // every frame off `feedBeat` and `verdictBeat`, fields of the fight's own
+  // sound. The numbers coming down their straws and the verdict under them are
+  // drawn every frame off `flights` and `verdictBeat`, fields of the fight's own
   // state (`splice.ts`); the hull damage rides on the `breach` beside it.
   "spliceFeed",
   "spliceFed",

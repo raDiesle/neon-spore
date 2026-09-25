@@ -14,6 +14,7 @@ import {
   spliceSpreadCol,
   spliceStraws,
   spliceWanted,
+  spliceWantedAfterFlights,
   startWave,
   step,
   ticksPerBeat,
@@ -26,8 +27,9 @@ import {
  * Almost everything here is about **when** something is judged rather than
  * what. The fight's one verb is the SUCK the pair already has, so there is no
  * new command to test; what is new is that the answer to it arrives
- * `spliceFeedBeats` after the press, that a second press in between is nothing
- * at all, that a wrong one costs the hull in the column it was made in, and
+ * `spliceFeedBeats` after the press, that a press at another straw in between
+ * is a second number on its way and one at the same straw is nothing, that
+ * they land in the order they were sucked, that a wrong one costs the hull in the column it was made in, and
  * that a spent clock is the eater — a verdict on the beat it bites and a
  * breach on the beat it lands.
  *
@@ -104,26 +106,59 @@ describe("THE SPLICE", () => {
     const world = spliceWorld([40]);
     const s = fight(world);
     feed(world, spliceWanted(s));
-    expect(s.feedFrom, "the number left its top end").not.toBe(-1);
+    expect(s.flights.length, "the number left its top end").toBe(1);
     expect(s.fed, "judged on the press").toBe(0);
     beats(world, CFG.spliceFeedBeats);
     expect(s.fed, "judged on arrival").toBe(1);
-    expect(s.feedFrom).toBe(-1);
+    expect(s.flights).toEqual([]);
     expect(failHolds(world), "a right feed cost the hull").toBe(false);
   });
 
-  it("is a maw already busy while a number is coming down", () => {
+  it("takes the next suck at another straw while a number is coming down", () => {
+    // The owner, 25 September 2026: while it is falling, the cannon may already
+    // be at the next pipe. Both arrive, first sucked first, and both are right.
+    const world = spliceWorld([40]);
+    const s = fight(world);
+    const first = spliceWanted(s);
+    feed(world, first);
+    beats(world, 1);
+    const second = spliceWantedAfterFlights(s);
+    expect(second, "the next straw is the other one").toBe(first === 0 ? 1 : 0);
+    feed(world, second);
+    expect(s.flights.map((f) => f.straw)).toEqual([first, second]);
+    beats(world, CFG.spliceFeedBeats - 1);
+    expect(s.fed, "the first landed on its own beat").toBe(1);
+    beats(world, 1);
+    expect(s.fed, "the second landed a beat later").toBe(2);
+    expect(s.passBeat, "the round was not cleared").not.toBe(-1);
+    expect(failHolds(world)).toBe(false);
+  });
+
+  it("will not suck a straw whose number is already coming down", () => {
+    // Its top end is empty: there is nothing there to take, so the press is
+    // nothing rather than a second number — and not a mistake either.
     const world = spliceWorld([40]);
     const s = fight(world);
     const right = spliceWanted(s);
     feed(world, right);
-    const from = s.feedFrom;
-    // The other entrance, pressed mid-flight. It is the wrong one, and it is
-    // still nothing: a pair fishing for a column may not lose the wave to a
-    // press they had not finished thinking about.
-    feed(world, right === 0 ? 1 : 0);
-    expect(s.feedFrom, "a second suck took hold").toBe(from);
+    const before = s.flights.map((f) => ({ ...f }));
+    beats(world, 1);
+    feed(world, right);
+    expect(s.flights, "a second suck took hold").toEqual(before);
     expect(failHolds(world)).toBe(false);
+  });
+
+  it("judges numbers in the order they land, so the wrong one first costs", () => {
+    const world = spliceWorld([40]);
+    const s = fight(world);
+    const right = spliceWanted(s);
+    const wrong = right === 0 ? 1 : 0;
+    feed(world, wrong);
+    feed(world, right);
+    expect(s.flights.length).toBe(2);
+    beats(world, CFG.spliceFeedBeats);
+    expect(s.fed).toBe(0);
+    expect(failHolds(world), "a wrong number landing first is free").toBe(true);
   });
 
   it("costs the hull for a wrong feed, in the column it was made in", () => {
@@ -170,7 +205,7 @@ describe("THE SPLICE", () => {
     beats(world, 5);
     expect(s.eatBeat).not.toBe(-1);
     feed(world, spliceWanted(s));
-    expect(s.feedFrom, "a suck took hold of a round already lost").toBe(-1);
+    expect(s.flights, "a suck took hold of a round already lost").toEqual([]);
   });
 
   it("does not let the clock take a round while a number is in the air", () => {

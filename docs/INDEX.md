@@ -240,6 +240,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
 | `packages/sim/src/boss-surface-clocks-c.ts` | **The clock bosses' half of the surface, the third page** — THE WELL's face and the thumb on its seam |
 | `packages/sim/src/boss-surface-snake.ts` | **SNAKE's names on `@neon-spore/sim`'s surface** |
+| `packages/sim/src/boss-surface-splice.ts` | **THE SPLICE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 25 September 2026 |
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-ledger.ts` | **THE LEDGER's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |

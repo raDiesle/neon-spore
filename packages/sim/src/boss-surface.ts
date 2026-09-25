@@ -21,6 +21,8 @@ export * from "./boss-surface-pinball.js";
 // And SNAKE's, whole: the round with two axes of state and the only one with
 // a gesture on its own body (`boss-surface-snake.ts`).
 export * from "./boss-surface-snake.js";
+// THE SPLICE's, since its flights became a list (`boss-surface-splice.ts`).
+export * from "./boss-surface-splice.js";
 export {
   BOSS_KINDS,
   // The union itself: `render/touch-field.ts` carries one boss rather than one
@@ -154,11 +156,6 @@ export {
   type ScoutPhase,
   type ScoutPoint,
   type ScoutState,
-  SPLICE_FIRST_STRAWS,
-  SPLICE_SETTLE_BEATS,
-  type SpliceEntry,
-  type SpliceRound,
-  type SpliceState,
   scoutAtHome,
   scoutCleared,
   scoutCurrent,
@@ -178,13 +175,6 @@ export {
   shipCol,
   shipCovers,
   shipRow,
-  spliceCurrent,
-  spliceEntranceRow,
-  spliceNumberAt,
-  spliceRound,
-  spliceSpreadCol,
-  spliceStraws,
-  spliceWanted,
   stepBall,
   UNDERTOW_BREACH_STAGES,
   UNDERTOW_PHASES,

@@ -33,8 +33,8 @@ import { showsSpliceTangle } from "./view-role.js";
  * what the pilot sees is it arriving out of the fade, which is the last stretch
  * of the same curve the navigator has been watching it cross.
  *
- * Nothing here is held between frames. The number in flight is a fraction of
- * `world.beat - feedBeat` over `spliceFeedBeats`, and the verdict is a fraction
+ * Nothing here is held between frames. Each number in flight is a fraction of
+ * `world.beat` less the beat it was sucked, over `spliceFeedBeats`, and the verdict is a fraction
  * of `world.beat - verdictBeat` — both read off the fight's own state every
  * frame, which is the one thing a restart cannot leave stale
  * (`packages/render/test/restart.test.ts`).
@@ -59,8 +59,8 @@ export function drawSplice(
   drawHold(ctx, l, cfg, b, 1 - beatPhase);
   if (full) drawStraws(ctx, l, cfg, s);
   else drawStubs(ctx, l, cfg, s);
-  const at = spliceFlightAt(l, cfg, s, b);
-  drawPipes(ctx, l, cfg, s, full, cannonCol, b, at?.y ?? null);
+  const flying = s.flights.map((f) => ({ straw: f.straw, y: spliceFlightAt(l, cfg, s, f, b).y }));
+  drawPipes(ctx, l, cfg, s, full, cannonCol, b, flying);
   // The number the eater has bitten is in its mouth, not on its top end.
   if (full) drawNumbers(ctx, l, cfg, s, b, s.eatBeat === -1 ? -1 : spliceWanted(s));
   drawEater(ctx, l, cfg, s, full, cannonCol, b);
@@ -95,7 +95,7 @@ function drawNumbers(
   const late =
     s.eatBeat === -1 && s.passBeat === -1 ? Math.max(0, (spliceSpent(s, b) - 0.8) * 5) : 0;
   for (let e = 0; e < s.entranceCols.length; e++) {
-    if (e === s.feedFrom || e === gone) continue;
+    if (e === gone || s.flights.some((f) => f.straw === e)) continue;
     const n = spliceNumberAt(s, e);
     const top = s.topOf[e] ?? e;
     const x = tileCX(l, s.topCols[top] ?? 0);
@@ -110,7 +110,7 @@ function spliceBallR(l: Layout): number {
 }
 
 /**
- * The number on its way down, and the verdict where it landed.
+ * The numbers on their way down, and the verdict where the last one landed.
  *
  * It rides the straw's own curve, so the navigator watches it cross every
  * other straw exactly where the line does. On the pilot's screen the curve is
@@ -119,9 +119,7 @@ function spliceBallR(l: Layout): number {
  * actually waiting on.
  *
  * **The place comes out of `spliceFlightAt`** rather than out of a lerp of its
- * own, because the cue's frame stands on this same point on the seat that holds
- * the maw (`boss-cue-read-d.ts`): a word beside the number rather than round it
- * would be the picture and the field disagreeing about where the answer is.
+ * own, because the pipe it swells on the last stretch reads the same point.
  */
 function drawFlight(
   ctx: CanvasRenderingContext2D,
@@ -148,26 +146,27 @@ function drawFlight(
     }
   }
   const b = beat + beatPhase;
-  const at = spliceFlightAt(l, cfg, s, b);
-  if (at === null) return;
-  // On the pilot's screen the straw above the band does not exist, so neither
-  // does the number on it: it comes out of the fade rather than floating over
-  // a field with nothing to hang from.
-  if (!full && at.y < spliceStubTopY(l, cfg)) return;
   const r = spliceBallR(l);
-  // The rumble: for the first beat the ball shakes on its top end, harder as
-  // the beat goes, with the air rushing in round it — the suck taking hold
-  // before it takes the number (the owner, 25 September 2026).
-  const since = b - s.feedBeat;
-  const shake = since < SPLICE_SHAKE_BEATS ? Math.min(1, since / SPLICE_SHAKE_BEATS) : 0;
-  if (shake > 0) drawAirRush(ctx, at.x, at.y, r, b, 0.4 + 0.6 * shake);
-  // Inside its pipe it is seen through the wall the pipe swells round it with.
-  const inPipe = at.y > splicePipeTopY(l, cfg) + r * 0.5;
-  const label = String(spliceNumberAt(s, s.feedFrom));
-  drawSlimeBall(ctx, at.x, at.y, inPipe ? r * 0.85 : r, b, s.feedFrom, label, {
-    shake: Math.max(shake, since < SPLICE_SHAKE_BEATS ? 0 : 0.3),
-    alpha: inPipe ? 0.6 : 1,
-  });
+  for (const f of s.flights) {
+    const at = spliceFlightAt(l, cfg, s, f, b);
+    // On the pilot's screen the straw above the band does not exist, so
+    // neither does the number on it: it comes out of the fade rather than
+    // floating over a field with nothing to hang from.
+    if (!full && at.y < spliceStubTopY(l, cfg)) continue;
+    // The rumble: for the first beat the ball shakes on its top end, harder as
+    // the beat goes, with the air rushing in round it — the suck taking hold
+    // before it takes the number (the owner, 25 September 2026).
+    const since = b - f.beat;
+    const shake = since < SPLICE_SHAKE_BEATS ? Math.min(1, since / SPLICE_SHAKE_BEATS) : 0;
+    if (shake > 0) drawAirRush(ctx, at.x, at.y, r, b, 0.4 + 0.6 * shake);
+    // Inside its pipe it is seen through the wall the pipe swells round it with.
+    const inPipe = at.y > splicePipeTopY(l, cfg) + r * 0.5;
+    const label = String(spliceNumberAt(s, f.straw));
+    drawSlimeBall(ctx, at.x, at.y, inPipe ? r * 0.85 : r, b, f.straw, label, {
+      shake: Math.max(shake, since < SPLICE_SHAKE_BEATS ? 0 : 0.3),
+      alpha: inPipe ? 0.6 : 1,
+    });
+  }
 }
 
 /**

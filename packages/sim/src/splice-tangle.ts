@@ -80,8 +80,7 @@ export function spliceLay(world: World, s: SpliceState, straws: number): void {
   s.midCols = Array.from({ length: straws }, () => nextInt(world.rng, cols));
   s.topOf = spliceShuffle(world, straws);
   s.fed = 0;
-  s.feedFrom = -1;
-  s.feedBeat = -1;
+  s.flights = [];
   s.passBeat = -1;
   s.eatBeat = -1;
   s.roundBeat = world.beat;

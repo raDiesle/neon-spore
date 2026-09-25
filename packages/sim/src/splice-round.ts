@@ -52,8 +52,7 @@ export function installSplice(world: World, rounds: readonly { beats: number }[]
     midCols: [],
     topOf: [],
     fed: 0,
-    feedFrom: -1,
-    feedBeat: -1,
+    flights: [],
     eatBeat: -1,
     eatCol: -1,
     passBeat: -1,
@@ -82,17 +81,25 @@ export function stepSplice(world: World, s: SpliceState): void {
     if (world.beat - s.eatBeat >= world.cfg.spliceEatBeats) land(world, s);
     return;
   }
-  if (s.feedFrom !== -1 && world.beat - s.feedBeat >= world.cfg.spliceFeedBeats) {
-    arrive(world, s);
-    return;
+  // Every number whose travel is done, first sucked first. Two may land on the
+  // one beat — two sucks inside a beat — and a wrong one or the round's last
+  // one ends what the others were for.
+  let landed = false;
+  while (s.eatBeat === -1 && s.passBeat === -1) {
+    const f = s.flights[0];
+    if (f === undefined || world.beat - f.beat < world.cfg.spliceFeedBeats) break;
+    s.flights.shift();
+    arrive(world, s, f.straw);
+    landed = true;
   }
+  if (landed) return;
   if (s.passBeat !== -1) {
     if (world.beat - s.passBeat >= SPLICE_SETTLE_BEATS) advance(world, s);
     return;
   }
   // A number still coming down is the pair's answer already given: the clock
-  // cannot take a round off them while it is in the air.
-  if (s.feedFrom !== -1) return;
+  // cannot take a round off them while one is in the air.
+  if (s.flights.length > 0) return;
   if (world.beat - s.roundBeat >= spliceCurrent(s).beats) bite(world, s);
 }
 
@@ -101,20 +108,21 @@ export function stepSplice(world: World, s: SpliceState): void {
  * intake, whether or not the maw had anything else to do with it.
  *
  * A suck with no entrance under the cannon is a suck at the plating, and a
- * suck while a number is already coming down is a maw that is busy — both are
- * nothing at all rather than a mistake, because neither is a **feed** and only
- * a feed can be the wrong one. A pair fishing for the right column would
+ * suck at a straw whose number is already coming down has nothing at its top
+ * end to take — both are nothing at all rather than a mistake, because neither
+ * is a **feed** and only a feed can be the wrong one. A suck at any *other*
+ * straw while one is in the air is a feed like any other, and joins the queue
+ * behind it. A pair fishing for the right column would
  * otherwise lose the wave to a press they had not finished thinking about.
  * A suck after the eater has bitten is nothing too: the round is already lost.
  */
 export function spliceHeard(world: World): void {
   const s = spliceRound(world);
-  if (s === null || world.over || s.feedFrom !== -1 || s.passBeat !== -1) return;
+  if (s === null || world.over || s.passBeat !== -1) return;
   if (s.eatBeat !== -1) return;
   const entrance = s.entranceCols.indexOf(world.cannonCol);
-  if (entrance === -1) return;
-  s.feedFrom = entrance;
-  s.feedBeat = world.beat;
+  if (entrance === -1 || s.flights.some((f) => f.straw === entrance)) return;
+  s.flights.push({ straw: entrance, beat: world.beat });
   world.events.push({
     type: "spliceFeed",
     col: world.cannonCol,
@@ -125,10 +133,8 @@ export function spliceHeard(world: World): void {
 }
 
 /** The number reaches the maw, and is either the next one or is not. */
-function arrive(world: World, s: SpliceState): void {
-  const entrance = s.feedFrom;
+function arrive(world: World, s: SpliceState, entrance: number): void {
   const wanted = spliceWanted(s);
-  s.feedFrom = -1;
   s.verdictBeat = world.beat;
   s.verdictStraw = entrance;
   if (entrance !== wanted) {
@@ -144,7 +150,11 @@ function arrive(world: World, s: SpliceState): void {
     number: s.fed,
     of: s.topOf.length,
   });
-  if (s.fed >= s.topOf.length) s.passBeat = world.beat;
+  if (s.fed < s.topOf.length) return;
+  // Cleared. Anything still in the air is a straw sucked a second time after
+  // its number was in, and a round already won has no use for it.
+  s.passBeat = world.beat;
+  s.flights = [];
 }
 
 /**
@@ -212,7 +222,7 @@ function land(world: World, s: SpliceState): void {
 /** What a held hull sees after either: the order from 1 again, the clock restarted. */
 function restart(world: World, s: SpliceState): void {
   s.fed = 0;
-  s.feedFrom = -1;
+  s.flights = [];
   s.eatBeat = -1;
   s.roundBeat = world.beat;
 }
