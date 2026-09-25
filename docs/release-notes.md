@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · e6295c02 — THE INSTAR looks like a dragon of a living ship
+
+It flies in from far and small, growing at the screen, and stands face-on with its jaws wide and a fireball turning in the mouth that grows as the window runs and is squeezed out as the pair push the jaws shut. It flies out and passes back side-on with two rumbling silk nests on its back, eight eggs to squash and five to swipe, then crosses out and in from the other side and swings its forked tail at the ship, pushed back by every tap. A part not stopped floods the screen with fire, hatches a swarm onto the hull, or slams the tail down.
+
 ## 2026-09-25 · fce3fada — THE SLOW's fuse hangs below the top chrome, bigger, and warns in orange before red
 
 The fuse counting a window down now stands clear of the menu button and the seat pill instead of flush on the screen's edge, where it read as cut off. It is thicker, with round ends and whole sparks, and it goes orange at half the window before red for the last two beats. The owner kept it over the three VERSUS answers (ebb, halo, rails), which are dropped. A look the owner asked for by name.
