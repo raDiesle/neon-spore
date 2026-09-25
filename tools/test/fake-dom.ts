@@ -39,6 +39,8 @@ export class FakeEl {
    * name on a button, and whether a screen is up on the body. */
   readonly dataset: Record<string, string> = {};
   readonly attrs: Record<string, string> = {};
+  /** Inline style, as the plain record a page writes a grid placement into. */
+  readonly style: Record<string, string> = {};
   readonly children: FakeEl[] = [];
   parent: FakeEl | null = null;
   tagName = "";

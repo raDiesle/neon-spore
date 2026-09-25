@@ -135,7 +135,7 @@ describe("the malfunction block under the map", () => {
 
 /**
  * What the map says about a fault: the stripe down the beat column
- * (`grid-rows.ts`) and the name at the end of the row it enters on
+ * (`grid-rows.ts`) and the name across the row it enters on
  * (`grid-row-acts.ts`). A length typed in a box with nothing on the map
  * agreeing with it is a pencil an author can put down and then not find, so
  * the window is drawn as what it is — a run of rows with its kind written at
@@ -183,14 +183,15 @@ describe("what the map marks", () => {
 });
 
 /**
- * The strip at the end of the row, which is where that name is written. The
- * owner asked for it on 18 September 2026 — the stripe said *a fault holds
- * here* and nothing said *which* — and it goes beside the trash rather than
- * over the map: a label laid across the cells would hide the arrival the
- * author is looking at. He then asked whether the text says which rows it is
- * active for, and it did not, so the range is written under the name.
+ * The name written across the row a fault enters on. The owner asked for a
+ * name on 18 September 2026 — the stripe said *a fault holds here* and nothing
+ * said *which* — and then whether the text says which rows it is active for,
+ * so the range is written beside the name. It lived in a strip beside the
+ * trash until 25 September 2026, when he asked for it across the middle of the
+ * row instead, to give the map its width back and to be read at a size that
+ * can be read.
  */
-describe("the end of a row", () => {
+describe("a fault's name on the map", () => {
   const acts = (): RowActs => {
     dom();
     const grid = new FakeEl();
@@ -206,38 +207,39 @@ describe("the end of a row", () => {
     holds,
     ends,
   });
-  const lines = (strip: FakeEl): string[] => {
-    const tags = strip.children.find((c) => c.classes.has("rowtags"));
-    return (tags?.children ?? []).flatMap((t) => t.children.map((c) => c.textContent));
-  };
+  const lines = (band: FakeEl | null): string[] =>
+    (band?.children ?? []).flatMap((t) => t.children.map((c) => c.textContent));
 
-  test("writes the kind and the rows it is active for, beside the trash", () => {
-    const strip = acts().end(9, mark([{ name: "HANDOVER", from: 9, to: 16 }])) as unknown as FakeEl;
-    expect(lines(strip)).toEqual(["HANDOVER", "9–16"]);
-    expect(strip.children.find((c) => c.classes.has("rowtags"))?.title).toBe(
-      "HANDOVER — beats 9 to 16",
-    );
-    expect(strip.children.some((c) => c.classes.has("rowdel"))).toBe(true);
+  test("writes the kind and the rows it is active for, across the row's cells", () => {
+    const band = acts().band(9, mark([{ name: "HANDOVER", from: 9, to: 16 }])) as unknown as FakeEl;
+    expect(lines(band)).toEqual(["HANDOVER", "9–16"]);
+    expect(band.title).toBe("HANDOVER — beats 9 to 16");
+    expect(band.style.gridRow).toBe("11 / 12");
+    expect(band.style.gridColumn).toBe("2 / -2");
   });
 
   test("says so in words when a fault has no end written", () => {
-    const strip = acts().end(1, mark([{ name: "CODEX", from: 1, to: null }])) as unknown as FakeEl;
-    expect(lines(strip)).toEqual(["CODEX", "1–end"]);
-    expect(strip.children.find((c) => c.classes.has("rowtags"))?.title).toBe(
-      "CODEX — beat 1 to the end of the wave",
-    );
+    const band = acts().band(1, mark([{ name: "CODEX", from: 1, to: null }])) as unknown as FakeEl;
+    expect(lines(band)).toEqual(["CODEX", "1–end"]);
+    expect(band.title).toBe("CODEX — beat 1 to the end of the wave");
   });
 
-  test("brackets the rows it holds, capped where it enters and where it leaves", () => {
+  test("is nothing on a row no fault enters on, even one a fault holds", () => {
+    expect(acts().band(4, undefined)).toBeNull();
+    expect(acts().band(4, mark([]))).toBeNull();
+  });
+
+  test("leaves the end of the row the trash and the bracket", () => {
     const enter = acts().end(2, mark([{ name: "STEER", from: 2, to: 4 }])) as unknown as FakeEl;
     expect([...enter.classes]).toContain("fault-at");
+    expect(enter.children.map((c) => c.className)).toEqual(["rowdel"]);
     const middle = acts().end(3, mark([])) as unknown as FakeEl;
     expect([...middle.classes]).toEqual(["rowend", "fault-in"]);
     const last = acts().end(4, mark([], true, true)) as unknown as FakeEl;
     expect([...last.classes]).toContain("fault-end");
   });
 
-  test("writes nothing at all on a row no fault reaches", () => {
+  test("writes nothing at all at the end of a row no fault reaches", () => {
     const strip = acts().end(4, undefined) as unknown as FakeEl;
     expect(strip.children.map((c) => c.className)).toEqual(["rowdel"]);
     expect([...strip.classes]).toEqual(["rowend"]);

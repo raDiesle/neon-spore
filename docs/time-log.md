@@ -51,6 +51,21 @@ The bottleneck was the picture: the pane opened the wrong port and
 The bottleneck was getting the picture: `bun run shot --click` got the PNG
 where the pane could not.
 
+## 2026-09-25 — A fault's name is written across the map row it enters on
+
+- reading: 10 min. `grid-row-acts.ts`, `grid-metrics.ts`, the map's
+  stylesheet and the two tests that pin the strip and the width.
+- writing: 10 min. The band over the row's cells, the strip back to 22px,
+  `--map-w` with it, and the tests moved from the strip to the band.
+- looking: 10 min. The director in the pane, then `bun run shot` on THE
+  FLIP's map.
+- friction: 5 min. The pane's preview port was the supervisor's, not the
+  director's, and the shared fake element had no `style`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: the director's port had to be read off the
+server log before anything could be photographed.
+
 ## 2026-09-25 — THE INSTAR's script is the owner's dragon choreography
 
 - reading: 10 min. §11.32, the script, `instar.ts`, `instar-step.ts`, the

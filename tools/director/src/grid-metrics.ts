@@ -25,20 +25,16 @@ export const GAP_PX = 2;
 /** The beat numbers, with room at their left for the `+` that opens a row. */
 export const BEAT_LABEL_PX = 40;
 /**
- * The strip on the right that carries what is true of the **row** rather than
- * of any cell in it: the fault standing on it, and the trash that takes the
- * row out.
+ * The strip on the right that carries the trash that takes the row out, and
+ * the bracket down the rows a fault holds.
  *
- * It was 22px and held the trash alone. The owner asked on 18 September 2026
- * to *see it visible on which row it's placed and which fault type it is*, and
- * a name has to be written somewhere no arrival can be under it — the beat
- * column is the number and the `+` badge, and anything laid over the cells
- * hides the thing being authored. So the strip is wide enough for the longest
- * fault's name (HANDOVER) with the trash beside it, and a row with no fault
- * spends the width on nothing, which is the price of a map that does not
- * change width between waves.
+ * It was 70px for eight days, wide enough to write the longest fault's name
+ * (HANDOVER) beside the trash, and every row without a fault spent the width
+ * on nothing. The owner asked on 25 September 2026 for the name to go across
+ * the middle of its row instead (`grid-row-acts.ts`'s `band`), so the strip is
+ * back to the trash alone.
  */
-export const ROW_ACT_PX = 70;
+export const ROW_ACT_PX = 22;
 
 /** The nine tracks: the numbers, the seven authored columns, the buttons. */
 export function gridTemplateColumns(): string {

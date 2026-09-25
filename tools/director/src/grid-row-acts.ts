@@ -5,8 +5,8 @@ import type { Selection } from "./selection.js";
 /**
  * The two row verbs as things you can see: a line between two rows that opens
  * a beat where it is drawn, and a trash button at the right end of a row that
- * takes the row out — **and, in the same strip as the trash, the name of any
- * fault that enters on that row**.
+ * takes the row out — **and, laid across the cells of the row, the name of
+ * any fault that enters on it**.
  *
  * They were a `+` and a `−` tucked into the beat number's own column, which
  * is where every editor that has them puts them and where the owner never
@@ -34,17 +34,25 @@ import type { Selection } from "./selection.js";
  */
 export interface RowActs {
   /**
-   * The last track of this beat's own row: the faults standing on it, named,
-   * and the trash that takes the row out.
-   *
-   * The two are one element because they are one grid cell. The trash comes
-   * and goes with the pointer; the name is there as long as the fault is, and
-   * a fault is what the author is looking for when they scan the map
-   * (`grid-metrics.ts` for why the strip is as wide as it is).
+   * The last track of this beat's own row: the bracket down the rows a fault
+   * holds, and the trash that takes the row out.
    */
   end(beat: number, fault: FaultMark | undefined): HTMLElement;
   /** This beat's two insert lines, one above the row and one below it. */
   rail(beat: number): HTMLElement;
+  /**
+   * The faults entering on this row, written **across the row's own cells**,
+   * or null on a row no fault enters on.
+   *
+   * It was a 70px strip at the right of the map, beside the trash, and the
+   * owner asked on 25 September 2026 for the text to go across the middle of
+   * the row instead: the strip cost the map a third of a column of width on
+   * every row for the few rows that carry a name, and a name squeezed into
+   * 70px was set small enough to be hard to read. The overlay takes no pointer
+   * and goes faint on the row under the pointer, so the arrival under it can
+   * still be seen and clicked (`director-map.css`).
+   */
+  band(beat: number, fault: FaultMark | undefined): HTMLElement | null;
 }
 
 export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selection): RowActs {
@@ -53,7 +61,7 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
   const settle = (): void => {
     const hot = hovered ?? selection.at()?.beat ?? null;
     const want = hot === null ? null : String(hot);
-    for (const el of grid.querySelectorAll<HTMLElement>(".rowrail, .rowdel")) {
+    for (const el of grid.querySelectorAll<HTMLElement>(".rowrail, .rowdel, .rowtags")) {
       el.classList.toggle("hot", want !== null && el.dataset.beat === want);
     }
   };
@@ -79,14 +87,12 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
       const strip = document.createElement("div");
       strip.className = "rowend";
       strip.dataset.beat = String(beat);
-      // The bracket: the rows this placement holds, marked down the strip the
-      // name is written in rather than only down the far side of the map. A
-      // label at one edge and its extent at the other is two facts the eye has
-      // to carry across seven columns of cells to join.
+      // The bracket: the rows this placement holds, marked down the right of
+      // the map as well as the left, so the window closes on both sides of
+      // the name written between them.
       if (fault?.holds) strip.classList.add("fault-in");
       if (fault?.enters.length) strip.classList.add("fault-at");
       if (fault?.ends) strip.classList.add("fault-end");
-      if (fault?.enters.length) strip.appendChild(tags(fault.enters));
       const button = document.createElement("button");
       button.type = "button";
       button.className = "rowdel";
@@ -124,6 +130,17 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
       );
       return rail;
     },
+    band(beat, fault) {
+      if (!fault?.enters.length) return null;
+      const host = tags(fault.enters);
+      host.dataset.beat = String(beat);
+      // The seven cell tracks of this row and nothing either side: the beat
+      // number and the trash stay clear of it. Both lines, for the reason
+      // `rail` gives.
+      host.style.gridRow = `${beat + 2} / ${beat + 3}`;
+      host.style.gridColumn = "2 / -2";
+      return host;
+    },
   };
 }
 
@@ -132,9 +149,10 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
  *
  * The owner asked on 18 September 2026 whether the text says which rows a
  * fault is active for, and it did not: the name was at one edge of the map and
- * the window was a stripe at the other. Two lines per placement fit inside a
- * 32px row, so the range is written out rather than left to be counted —
- * `9–16`, or `9–end` for a fault with no end on it.
+ * the window was a stripe at the other. So the range is written beside the
+ * name rather than left to be counted — `9–16`, or `9–end` for a fault with no
+ * end on it — one placement to a line, two side by side when two enter on one
+ * row.
  *
  * The block under the map is still what a placement is *edited* in; this is
  * what it is *found* by.

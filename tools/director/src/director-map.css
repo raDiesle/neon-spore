@@ -10,7 +10,7 @@
    stacked above and below the map is capped at it and a stale cap is a column
    that is quietly wider than its own grid. */
 :root {
-  --map-w: 350px;
+  --map-w: 302px;
 }
 
 #grid {
@@ -151,66 +151,68 @@
 #grid .rowrail .ins:hover .line {
   opacity: 0.95;
 }
-/* THE END OF A ROW: WHAT IS TRUE OF THE ROW AND OF NO CELL IN IT.
-
-   A fault's name, and the trash, in one track. The name is a label rather than
-   a control — the block under the map is where a placement is edited — so it
-   takes no pointer and leaves the press to the button beside it. It is
-   ellipsised rather than wrapped: a row that grew taller for a long name would
-   put the map's own rows out of step with the beats they are. */
+/* THE END OF A ROW: THE TRASH, AND THE BRACKET. */
 #grid .rowend {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 3px;
+  justify-content: center;
   min-width: 0;
 }
+/* A FAULT'S NAME, ACROSS THE ROW IT ENTERS ON (`grid-row-acts.ts`'s `band`).
+
+   Laid over the seven cells, centred, one line: the kind and the rows it is
+   active for in figures. It is a label rather than a control — the block under
+   the map is where a placement is edited — so it takes no pointer, and on the
+   row under the pointer (`.hot`) it all but goes, so the arrival under it can
+   be seen and pressed. Positioned into its row's own grid area the way a rail
+   is, so it moves no cell. */
 #grid .rowtags {
-  flex: 1 1 auto;
-  min-width: 0;
+  position: absolute;
+  inset: 0;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+  gap: 10px;
   overflow: hidden;
   pointer-events: none;
+  background: color-mix(in srgb, var(--gold) 9%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
+  transition: opacity 0.12s;
 }
-/* Two lines inside one 32px row: the kind, and the rows it is active for in
-   figures. The second line is why it is two — a name on its own says a fault
-   starts here and leaves *how far* to be counted off a stripe at the other
-   edge of the map. */
+#grid .rowtags.hot {
+  opacity: 0.15;
+}
 #grid .rowtag {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  max-width: 100%;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  white-space: nowrap;
 }
 #grid .rowtag .who,
 #grid .rowtag .span {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 1.05;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   color: var(--gold);
+  line-height: 1.1;
 }
 #grid .rowtag .who {
-  font-size: 0.6rem;
-  opacity: 0.9;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 #grid .rowtag .span {
-  font-size: 0.55rem;
-  opacity: 0.6;
+  font-size: 0.72rem;
+  opacity: 0.75;
 }
-/* THE BRACKET, DOWN THE SIDE THE NAME IS ON.
+/* THE BRACKET, DOWN THE RIGHT OF THE MAP.
 
-   The same window the beat column stripes, drawn again against the last cells
-   of each row: the label and the rows it is about are then one shape rather
-   than two marks at opposite edges of the map. Capped at both ends — solid on
-   the row it enters and on the row it leaves — so a window that closes looks
-   different from one that runs to the end of the wave, which simply runs off
-   the bottom with no cap at all. */
+   The same window the beat column stripes, drawn again at the far end of each
+   row, so the name written across the row sits between two edges of one
+   shape. Capped at both ends — solid on the row it enters and on the row it
+   leaves — so a window that closes looks different from one that runs to the
+   end of the wave, which simply runs off the bottom with no cap at all. */
 #grid .rowend.fault-in {
   box-shadow: inset 3px 0 0 color-mix(in srgb, var(--gold) 40%, transparent);
 }

@@ -154,7 +154,13 @@ export function bindGrid(
     }
     // Last, so a rail is drawn over the row it belongs to rather than under
     // it — each one names its own row, so the order here is only paint order.
-    if (acts) for (let b = 0; b < beats; b++) grid.appendChild(acts.rail(b));
+    if (acts) {
+      for (let b = 0; b < beats; b++) grid.appendChild(acts.rail(b));
+      for (let b = 0; b < beats; b++) {
+        const band = acts.band(b, faults[b]);
+        if (band) grid.appendChild(band);
+      }
+    }
     mark(markedBeat);
   };
 
