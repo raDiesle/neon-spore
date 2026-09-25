@@ -20066,3 +20066,5 @@ comments across four packages that each said *two beats*.
 
 The bottleneck was **writing**: the funnel had to be the snap window drawn,
 so the bezel, the door and the rule all ask one file for its width.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

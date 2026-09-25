@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · ce9ba170 — THE MAZE's way in flares into a funnel as wide as its snap
+
+The rim's cut now opens outward into a funnel: narrow where it meets the corridor, and at its mouth exactly as wide as the window a way in clicks onto the ship's column from. So the part of the rim that will catch is the part that looks like it will. The lit door's green cut ends follow the same lips.
+
 ## 2026-09-25 · 0a55520c — THE MAZE's way in snaps from further off, and holds until pulled firmly
 
 A way in now catches on the column under the drum from about five and a half degrees away, where it used to need two, and the click pulls it exactly onto the column wherever it caught. Coming off a click takes a fifth of a tile of hand travel instead of a twelfth, so the snap is felt rather than lost to a thumb's jitter. The wheel's four feel settings moved into `config-maze-turn.ts`.
