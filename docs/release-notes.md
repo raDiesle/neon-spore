@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 53ea13da — Every pull handle is a thin channel, a big circle to start, and a wide grab
+
+THE WARDEN's rope and THE MAZE's lever now draw the way to pull as a thin, quiet channel with a big breathing circle where the thumb goes. A press is answered about three times wider than the circle drawn, because a handle that moves is hard to catch. THE MAZE's channel is the whole ring round the drum, against its rim with no gap, and the green fills lap after lap. The rule is written for every boss and wave in the new-boss owner notes, the controls spec and the new-creature skill.
+
 ## 2026-09-25 · 44b600e8 — THE MAZE turns from a lever that runs round the drum
 
 The string and its amber ball are gone. An arm is clamped to the drum's rim with a knob on its end, and it runs in a channel on a circle round the drum, filling green from the rest either way the hand takes it; chevrons point both ways while nobody has it. The arm swings round the drum's own middle, so the wheel turning reads as the lever's doing. A thumb is read by how far round the drum it went, not by how far sideways, so following the channel turns the wheel naturally. Under the heart's grip the lever stays as the brace, without a channel.

@@ -20031,3 +20031,5 @@ rim reading had to fold into THE WELL's branch before it could go in at all.
 
 The bottleneck was **writing**: the rule had to go into four documents as
 well as the code, so it would be the one every later handle reads.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
