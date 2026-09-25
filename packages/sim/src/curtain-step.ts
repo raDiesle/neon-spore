@@ -76,8 +76,7 @@ export function installCurtain(world: World): CurtainState {
 }
 
 /**
- * Into a state, and the clock with it — `enterCandle`'s shape and for its
- * reason: every count in this fight is `world.beat - c.phaseBeat`, so the one
+ * Into a state, and the clock with it, because every count in this fight is `world.beat - c.phaseBeat`, so the one
  * place the phase moves is the one place the clock is set. What the state
  * *says* is pushed by the caller, because only the caller knows the column.
  *

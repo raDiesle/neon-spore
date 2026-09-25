@@ -47,8 +47,7 @@ import type { World } from "./world.js";
 /**
  * The phases, in the order `throat-hash.ts` numbers them by.
  *
- * A list rather than a bare union for `DIASTOLE_PHASES`' reason: a phase goes
- * into `hashWorld` as its index, so the order is a wire value and a name
+ * A list rather than a bare union, because a phase goes into `hashWorld` as its index, so the order is a wire value and a name
  * inserted in the middle would renumber the ones after it.
  *
  * - `still` — the mouth hangs over the middle column and does not move.
@@ -211,7 +210,7 @@ export function throatSnap(cfg: SimConfig, col: number, stride: number): number 
 }
 
 /** Where the mouth hangs on the first beat of the fight: the middle column,
- * for THE DIASTOLE's reason — a fixture placed off centre would have a long
+ * because a fixture placed off centre would have a long
  * side and a short one, and the pair is already doing arithmetic. */
 export function throatHomeCol(cfg: SimConfig): number {
   return midCol(cfg);
@@ -219,7 +218,7 @@ export function throatHomeCol(cfg: SimConfig): number {
 
 /**
  * The boss, if it is the one installed. Narrowing in one place rather than
- * four (`diastoleBoss`), and it is **here** rather than beside the clock in
+ * four, and it is **here** rather than beside the clock in
  * `throat-step.ts` so that `throat-pull.ts` can ask without the two files
  * importing each other at runtime. `World` comes back as a type only, which is
  * erased — the cycle `bullet-types.ts` already stands in.

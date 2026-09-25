@@ -20,7 +20,7 @@ import { MILLI, type World } from "./world.js";
  * **bearing** rather than a displacement, because a finger going round the
  * same circle for four turns is back where it grabbed four times over. That
  * argument, and the three numbers it is written in, are `bearing.ts` — this
- * was the first mechanism in the game to need them and THE ORRERY's rings are
+ * was the first mechanism in the game to need them and THE GIMBAL's rings are
  * the second.
  *
  * **The turning is what winds, and the simulation is what turns it into

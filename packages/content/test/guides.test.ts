@@ -8,7 +8,7 @@ import { WAVES } from "../src/index.js";
  * September 2026 they sat in `render/test/briefing.test.ts` — so a lane that
  * edited only guide text changed `packages/content`, `check:fast` ran
  * content's tests and never reached them, and the 7a–7g words lane went green
- * there and red inside `bun run land`, two characters over on THE DIASTOLE.
+ * there and red inside `bun run land`, two characters over on one wave.
  * `briefing.test.ts` keeps what it draws.
  *
  * A guide with the same line for both players is a guide that teaches half of

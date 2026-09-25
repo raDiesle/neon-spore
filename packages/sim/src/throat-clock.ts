@@ -45,7 +45,7 @@ export function throatEvertBeatsLeft(cfg: SimConfig, b: ThroatState, beat: numbe
  * Counted from `phaseBeat` rather than from the wave's start, so a cadence
  * that tightens starts its new count where the phase did. A pair who had to
  * subtract an old origin from a new number would be doing the boss's
- * bookkeeping instead of its arithmetic (`diastoleContracts`, same argument).
+ * bookkeeping instead of its arithmetic.
  *
  * **The cadence and the breath are two questions**, and this one is the grid.
  * A thumb on a slack ring steals the inhale this answers `true` for and owes
@@ -63,8 +63,7 @@ export function throatInhales(cfg: SimConfig, b: ThroatState, beat: number): boo
  * **Beats until the next inhale**, 0 on an inhale beat — player 2's bar, and
  * the one number she has to say out loud.
  *
- * Here rather than in `render/` for `diastoleSince`'s reason: the cadence's
- * origin and its stride are the boss, and a second copy of the modulo in the
+ * Here rather than in `render/` because the cadence's origin and its stride are the boss, and a second copy of the modulo in the
  * file that draws the bar is a throat that inhales on one screen and waits on
  * the other under any change to either number.
  */

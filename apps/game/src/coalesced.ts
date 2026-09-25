@@ -14,8 +14,8 @@
  *
  * It costs nothing on the cannon and the shield, which report a column and are
  * idempotent: the same column sent four times is the same column. The gain is
- * entirely on the three gestures that read a bearing — the crank, THE INSTAR's
- * `turn` mark and THE ORRERY's ring.
+ * entirely on the gestures that read a bearing — the crank, THE INSTAR's
+ * `turn` mark and THE GIMBAL's rings.
  *
  * **The fallback is the event itself, twice over.** The method is absent in
  * older browsers and in the fake DOM a test drives, and it is specified to

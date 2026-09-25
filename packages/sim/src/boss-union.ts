@@ -39,7 +39,7 @@ import type { WellState } from "./well.js";
  * check behind it.
  *
  * **Its own file, and the seam is which half grows.** It sat at the foot of
- * `boss-state.ts` until THE ORRERY, which would have taken that file to 252
+ * `boss-state.ts` until one more boss would have taken that file to 252
  * lines against a rule this page already states — and the two halves grow at
  * completely different rates. Next door is the state of the **four oldest
  * bosses**, the ones that landed before a fight kept its own fields beside its

@@ -84,9 +84,9 @@ export interface SceneCommand {
   atBody?: true;
   /**
    * A strip press whose column is **the boss's**, found the same way and for
-   * the same hole in `mapCol` — with no body on the field to find. THE
-   * DIASTOLE's left chamber hangs over a column no author can write, and THE
-   * UNDERTOW's first lobe comes up wherever the rng put it; `bossAnswerCol` is
+   * the same hole in `mapCol` — with no body on the field to find. A boss can
+   * hang over a column no author can write, and THE UNDERTOW's first lobe
+   * comes up wherever the rng put it; `bossAnswerCol` is
    * the one reading of where the cannon has to stand, per boss and per phase
    * (`boss-answer.ts`). A boss with no answer leaves the press as written.
    */

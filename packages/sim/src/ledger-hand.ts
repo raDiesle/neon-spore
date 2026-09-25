@@ -166,8 +166,8 @@ function pull(world: World, t: LedgerState, on: boolean): void {
  * return after all, with a gesture instead of a trigger.
  *
  * `fromYMilli` is how far **down** the thumb has come from where it grabbed,
- * cut to `ledgerHaulMilli`, and a carry upward is no carry — THE CANDLE's wick
- * and THE TASTER's interlock, read the same way. It is reset to nought on a
+ * cut to `ledgerHaulMilli`, and a carry upward is no carry — THE TASTER's
+ * interlock, read the same way. It is reset to nought on a
  * tick the plate is in the column, so a thumb held on the cord through her
  * walking back into the socket has to start again when she leaves it.
  */

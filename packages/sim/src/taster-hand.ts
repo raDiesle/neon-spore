@@ -53,7 +53,7 @@ import type { World } from "./world.js";
  *   cannon and she still needs him under the crest.
  *
  * **A seat's thumb on the other's handle is dropped without a sound**, as it
- * is on THE FLEET's chart and THE CANDLE's wick. On the tick rather than the
+ * is on THE FLEET's chart. On the tick rather than the
  * beat (`step.ts`): a pin is down when it lands, the cut a carry makes is
  * where the thumb is now, and the tick the interlock comes apart is the tick
  * her beam starts being worth something.
@@ -178,7 +178,7 @@ function wipe(world: World, t: TasterState, on: boolean, col: number, fromMilli:
  *
  * `fromYMilli` is how far *down* the thumb has come from where it grabbed, cut
  * to `tasterPryMilli`; a carry upward is no carry, which is what the
- * `Math.max(0, …)` is — THE CANDLE's wick, read the same way. The bottom is
+ * `Math.max(0, …)` is — THE LEDGER's cord, read the same way. The bottom is
  * the event, and the depth is left standing where it is so the picture has
  * something to draw a half-opened interlock from until he lifts.
  *

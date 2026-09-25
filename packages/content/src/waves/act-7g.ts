@@ -21,8 +21,8 @@ import type { Wave } from "../wave-types.js";
  *
  * **It became `act-7g.ts` in turn on 20 September 2026**, the same way and
  * for the same reason: `act-7c.ts` had no room left for another wave and no
- * letter of its own to give one, so THE DIASTOLE and THE BATON — `act-7c.ts`'s
- * own last two waves — took the new `act-7d.ts`, and every page from there on
+ * letter of its own to give one, so `act-7c.ts`'s own last two waves, THE
+ * BATON among them, took the new `act-7d.ts`, and every page from there on
  * shifted up one letter (`docs/queue.md`'s *Act seven has no room* entry).
  *
  * **THE LEAD's arrivals are the shots the pair cannot spare.** The body is
@@ -35,13 +35,14 @@ import type { Wave } from "../wave-types.js";
  * itself — a torch in the column it left, a rock in the column a shot has to
  * go to (`sim/lead-step.ts`) — so the authored list thins out from the
  * middle of the wave rather than thickening. Nothing is placed against the
- * body's own column, for THE DIASTOLE's reason: where it is on a beat
- * depends on which shots the pair has landed, which no author can know.
+ * body's own column, for THE TASTER's reason on the page before: where it is
+ * on a beat depends on which shots the pair has landed, which no author can
+ * know.
  *
  * **THE SCUTTLE authors nothing.** Every body that falls in its wave is a
  * part of the frame thrown down its own column, and which part goes next
  * is the frame's clock; the wave is the frame (`sim/scuttle-step.ts`,
- * `bossFillsWave`) — THE ORRERY's shape, one page back.
+ * `bossFillsWave`).
  *
  * **THE ANTIPHON authors nothing either.** What falls in its wave is what
  * the pair got wrong — a candidate a pit rejected, an organ left to sink —

@@ -59,8 +59,8 @@ export interface SceneAct {
   atBody?: true;
   /**
    * **Put the strip where the boss is answered from**, for the same hole and
-   * with no body to find: THE DIASTOLE's left chamber hangs over a column
-   * `mapCol` never reaches, and THE UNDERTOW's first lobe comes up wherever
+   * with no body to find: a boss can hang over a column `mapCol` never
+   * reaches, and THE UNDERTOW's first lobe comes up wherever
    * the rng put it. `SceneRun` asks `bossAnswerCol` at the moment the thumb
    * goes down (`sim/boss-answer.ts`), which is the boss's own reading of where
    * the cannon has to stand this phase; `col` is what a boss with no answer

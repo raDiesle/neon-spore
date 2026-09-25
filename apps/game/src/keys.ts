@@ -109,7 +109,7 @@ export function bindKeys({
    * else in this file has to know they have a timer (`keys-slide.ts`). */
   const sliding = bindSliding(layout, midCol(cfg), send, controls);
   /** And the two keys that *turn* something for as long as they are held —
-   * THE CLAW's crank and THE ORRERY's ring — which no key can do by itself
+   * THE CLAW's crank and THE GIMBAL's rings — which no key can do by itself
    * (`keys-turn.ts`). */
   const turning = bindTurning(cfg, send, controls);
 
@@ -151,8 +151,8 @@ export function bindKeys({
     if (sliding.down(e.code)) return;
     // The crank before the panel's own answer: that key is a control like any
     // other, and what it sends while it is held is the half `panelKey` has no
-    // way to say. THE ORRERY's ring is in the same rig and is a letter of its
-    // own, because it is a handle on the field rather than a button
+    // way to say. THE GIMBAL's rings are in the same rig and are letters of
+    // their own, because they are handles on the field rather than buttons
     // (`keys-turn.ts`).
     if (turning.down(e.code, e.shiftKey)) return;
     if (panelKey(e.code)) return;

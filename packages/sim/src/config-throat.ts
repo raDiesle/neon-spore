@@ -50,8 +50,7 @@ export interface ThroatConfig {
    * What that becomes once two rings are slack.
    *
    * 4, the design's tightening. Not a fraction of six on purpose: the pair has
-   * counted sixes for half the fight and has to *re-count*, which is the same
-   * ask THE DIASTOLE's seven makes and for the same reason.
+   * counted sixes for half the fight and has to *re-count*.
    */
   throatTightBeats: number;
   /** Columns the mouth steps a beat once it starts sliding. 1: a column a

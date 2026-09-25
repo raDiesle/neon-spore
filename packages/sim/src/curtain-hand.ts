@@ -42,7 +42,7 @@ import type { World } from "./world.js";
  * `fromYMilli` is how far the thumb has come from where it grabbed and is
  * negative going *up* the screen, so the lift is `-fromYMilli` cut to
  * `curtainLiftMilli`; a carry downward is no lift, which is what the
- * `Math.max(0, …)` is. Unlike THE CANDLE's pull there is no bottom that
+ * `Math.max(0, …)` is. Unlike THE TASTER's pry there is no bottom that
  * spends the gesture: the gap is open **while** the hem is at the top and
  * shuts the tick it is not, so the pair has to fire into a hand that is still
  * holding (`curtainHemHigh`, `curtainCoreBare`).

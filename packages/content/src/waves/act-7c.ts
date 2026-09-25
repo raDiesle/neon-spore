@@ -21,8 +21,8 @@ import type { Wave } from "../wave-types.js";
  * touching anything at all, and the rock that crosses the field in front of
  * the cannon and leaves.
  *
- * **THE DIASTOLE and THE BATON left for a new `act-7d.ts` on 20 September
- * 2026**, this page's own last two waves, when this page sat at 241 of 250
+ * **Its last two waves, THE BATON among them, left for a new `act-7d.ts` on
+ * 20 September 2026**, when this page sat at 241 of 250
  * lines with no room left for another wave and no letter of its own to give
  * one: it is not the last page of act seven, so the overflow could not simply
  * take the next free letter without playing every wave after it out of order.

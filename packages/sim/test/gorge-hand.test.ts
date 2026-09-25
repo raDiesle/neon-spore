@@ -22,8 +22,7 @@ import type { Bullet, Color } from "../src/types.js";
  * intake, which holds its vent off for as long as it stays and restarts the
  * count from the lift; and player 2's **pry** on the mouth, a window of
  * `gorgePryBeats` for `gorgePryFills` beams, without which the beam is clenched on and past which the
- * thumb is thrown off with a bead. One receipt per rule, the way
- * `diastole-clamp.test.ts` gives them.
+ * thumb is thrown off with a bead. One receipt per rule.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;

@@ -131,14 +131,14 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     both: () => o.role() === "test" && desk.both(),
     handed: () => handedOver(world),
     cfg: world.cfg,
-    // **The boss, whatever it is.** Thirteen of them hang a handle on the field —
-    // THE MAZE's string, THE WARDEN's rope, THE ORRERY's rings, THE SINEW's two,
-    // THE SURGE's bulb, THE ANTIPHON's organ, THE INSTAR's marks, THE
-    // FILAMENT's, THE STARE's lid, THE BULB QUEEN's, THE DIASTOLE's clamp, THE
-    // MIRROR's lobes, THE GORGE's intakes — and each used to be named here, and three more times in
+    // **The boss, whatever it is.** Most of them hang a handle on the field —
+    // THE MAZE's string, THE WARDEN's rope, THE SINEW's two, THE SURGE's bulb,
+    // THE ANTIPHON's organ, THE INSTAR's marks, THE FILAMENT's, THE STARE's
+    // lid, THE BULB QUEEN's, THE MIRROR's lobes, THE GORGE's intakes, and
+    // more since — and each used to be named here, and three more times in
     // `input.ts`, as `world.boss?.kind === k ? world.boss : null`. The hit test
     // narrows it itself now, where it draws the handle (`render/touch-field.ts`
-    // `bossOf`), so a fourteenth costs this file nothing.
+    // `bossOf`), so one more costs this file nothing.
     boss: () => world.boss,
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),

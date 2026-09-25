@@ -21,7 +21,7 @@ import type { BossEntry, World } from "./world.js";
 /**
  * **Which boss a wave installs, and what each of them leaves on the field.**
  *
- * Cut out of `wave-start.ts` when THE DIASTOLE took that file six lines over
+ * Cut out of `wave-start.ts` when one more boss took that file six lines over
  * its 250-line limit, and along the seam that file was always going to be cut
  * on: everything left next door is **what a wave resets** — the hull's ticks,
  * the hands, the fault, the panel — which is one fixed list that grows by a

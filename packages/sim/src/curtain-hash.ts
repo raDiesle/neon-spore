@@ -11,8 +11,7 @@ import { CURTAIN_PHASES, type CurtainState } from "./curtain.js";
  * shot that takes nothing off on the other phone. The fabric's own column is
  * not here because it is the body's, and the creature walk already has it.
  *
- * `liftMilli` is here for `candlePinchMilli`'s reason: how far the hem has
- * come decides whether the core can be shot at all (`curtainHemHigh`), so two
+ * `liftMilli` is here because how far the hem has come decides whether the core can be shot at all (`curtainHemHigh`), so two
  * devices holding different depths is two devices disagreeing about whether
  * a hit landed. The phase goes in as its index in `CURTAIN_PHASES`, which is
  * the whole reason that list is ordered and exported.

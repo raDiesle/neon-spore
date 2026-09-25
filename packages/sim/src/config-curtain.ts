@@ -53,9 +53,9 @@ export interface CurtainConfig {
  *
  * A hit also jams the rail for twelve beats — one shove cycle's worth, so the
  * pair is never waiting on it with nothing to do — and the hem is lifted two
- * tiles and a half in that time, a little under THE CANDLE's pull
- * (`candlePinchMilli`) because it is carried against a rail rather than down
- * a column and wants to read as heavier per millimetre, not longer.
+ * tiles and a half in that time, short of a whole column's pull because it
+ * is carried against a rail rather than down a column and wants to read as
+ * heavier per millimetre, not longer.
  *
  * **Doubled on the owner's rule, 24 September 2026** (`docs/spec/
  * choreographed-windows.md`): both windows twice as long — the soft set and

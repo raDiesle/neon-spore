@@ -15,8 +15,8 @@ import type { Wave } from "../wave-types.js";
  * have played them seven waves later than the game has always played them.
  *
  * **It moved again on 20 September 2026**, to `act-7f.ts`, when `act-7c.ts`
- * hit the same shape of overflow: THE DIASTOLE and THE BATON — `act-7c.ts`'s
- * own last two waves — needed a page of their own between it and this one,
+ * hit the same shape of overflow: `act-7c.ts`'s own last two waves, THE
+ * BATON among them, needed a page of their own between it and this one,
  * so this page and every page after it shifted up a letter, the way
  * `docs/queue.md`'s *Act seven has no room* entry names as the standing
  * convention for exactly this shape of overflow.
@@ -27,9 +27,9 @@ import type { Wave } from "../wave-types.js";
  * one wave where a body answered *without* firing is worth something. Rocks
  * for the shield, and three slicks and three bulbs, evenly split and
  * alternating, so the lean is a decision the pair makes rather than one the
- * wave makes for them. Nothing is placed against the fan's own count, for THE
- * DIASTOLE's reason: which beat a blade sets its edge on depends on when the
- * pair sheared the last one, a beat nobody can know at authoring time.
+ * wave makes for them. Nothing is placed against the fan's own count: which
+ * beat a blade sets its edge on depends on when the pair sheared the last
+ * one, a beat nobody can know at authoring time.
  */
 export const WAVES_ACT_7F: Wave[] = [
   {

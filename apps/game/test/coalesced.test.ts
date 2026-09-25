@@ -7,7 +7,7 @@ import { samplesOf } from "../src/coalesced.js";
  * The browser coalesces moves to roughly one event per animation frame and
  * keeps the samples in between on the event. Nothing here asked for them, so
  * a gesture that reads a *bearing* — the crank, THE INSTAR's turn mark, THE
- * ORRERY's ring — was sampled at ~60 Hz against a rule built on the opposite
+ * GIMBAL's rings — was sampled at ~60 Hz against a rule built on the opposite
  * assumption (`sim/bearing.ts`'s `MAX_BEARING_STEP`). What that costs is in
  * `packages/sim/test/crank.test.ts`: a flick read as the other way round.
  */

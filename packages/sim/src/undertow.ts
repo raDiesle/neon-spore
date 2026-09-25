@@ -18,7 +18,7 @@ import type { World } from "./world.js";
  * and the arrivals over it are the ones the wave's own author wrote. What it
  * puts on the field it puts *in the hull* — a lobe withdrawn untaken leaves a
  * scar in `world.scars`, the pair's own record of their losses — and that is
- * the DIASTOLE lane's exception spoken for: the column is the one the boss
+ * the one exception a fixture is allowed: the column is the one the boss
  * pushed at, the beat is the one the pair failed to answer on, and neither is
  * writable by an author in advance.
  *

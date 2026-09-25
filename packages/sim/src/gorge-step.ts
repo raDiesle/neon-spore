@@ -61,7 +61,7 @@ function standing(g: GorgeState): number {
 /**
  * **A shot that nothing on the field stopped, leaving through the top** of
  * a column the sack hangs over: from `bullets.ts` and `lance-burn.ts` beside
- * `candleStruck`, a no-op unless THE GORGE is the boss and the column its own.
+ * `vaneStruck`, a no-op unless THE GORGE is the boss and the column its own.
  *
  * A ruptured intake hangs open and the shot goes through. A full one is
  * pierced by any colour, bolt or beam, and ruptures on the `gorgeVentShots`th;

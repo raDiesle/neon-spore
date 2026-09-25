@@ -21,7 +21,7 @@ import type { Color } from "./types.js";
  * **It is a fixture and not a body** (`bossFillsWave`): the arm hangs in one
  * column and falls nothing, so the arrivals around it are the ones the wave's
  * own author wrote. The one thing it puts on the field by itself is a shed
- * shell (`batonShed`), and that is the DIASTOLE lane's exception spoken for:
+ * shell (`batonShed`), and that is the one exception a fixture is allowed:
  * the rock falls down the arm's own column, on the beat the pair's own
  * handovers reached the sixth dark socket, from the row of the socket that
  * went dark first — three numbers no author can write because the pair

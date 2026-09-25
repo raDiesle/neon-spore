@@ -69,7 +69,7 @@ export {
   batonMergeSocket,
   batonSwelling,
   // THE SINEW's whole surface (19 September 2026), out of order and on this
-  // page for THE BATON's reason three lines up: `orreryAdrift` arrived and
+  // page for THE BATON's reason three lines up: a new reading arrived and
   // page one was exactly at its limit, so a block had to cross the seam.
   // This one crossed because it is the only block on that page with no
   // comment inside it — every name is read off `sinew.ts`'s own header — so
@@ -196,7 +196,7 @@ export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";
 // biome-ignore format: and the readings, for the same reason
 export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalMarkMilli, gimbalOpen, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTurning, INNER, NO_SEAM, OUTER } from "./gimbal.js";
 // And the one figure off its hand: how far a desk key turns a ring in a tick,
-// asked for rather than chosen, THE ORRERY's ring's arrangement exactly
+// asked for rather than chosen, THE CLAW's crank's arrangement exactly
 // (`gimbal-hand.ts`, `apps/game/src/keys-turn.ts`).
 export { gimbalTurnPerTickMilli } from "./gimbal-hand.js";
 // THE HASP's door: whether a clasp is up to be worked, whether the latch is

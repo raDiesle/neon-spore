@@ -12,9 +12,9 @@ import { WAVES } from "../src/waves.js";
  * `DEFAULT_CONFIG`, which every film test builds on, has none. A film's bolts
  * therefore leave up to half a beat later in the game than in its test, and
  * for most films that is the same kill a row lower. For six it was not, swept
- * on 23 September 2026: THE THIRD SHOT and THE ORRERY breached the hull, THE
- * JAM's presses were refused, THE CANDLE never dimmed, THE TASTER thickened
- * twice and THE ANTIPHON sank two organs and never burst — all green in their
+ * on 23 September 2026: THE THIRD SHOT and another breached the hull, THE
+ * JAM's presses were refused, a boss since removed never dimmed, THE TASTER
+ * thickened twice and THE ANTIPHON sank two organs and never burst — all green in their
  * tests, all playing wrong on a phone. Each now names the grid it was proved
  * on (`chargeBeats`, `scene-types.ts`), as THE HIVE names the one it was
  * written for.

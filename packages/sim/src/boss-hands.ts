@@ -29,7 +29,7 @@ import type { World } from "./world.js";
  * **The choreographed bosses' hands, read on the tick** — the second page
  * of what `step.ts` does with a command before the clock moves.
  *
- * Cut out of `step.ts` when THE DIASTOLE's clamp would have put it over its
+ * Cut out of `step.ts` when one more boss's hand would have put it over its
  * 250-line limit, at the seam that file's own comments had drawn seven times
  * running: each of these is one boss's thumb, heard off the wire on the
  * tick for a reason of its own that is written beside it, and none of them

@@ -14,7 +14,7 @@
  */
 
 // The vocabulary a bearing is written in, which two mechanisms now share: THE
-// CLAW's crank on the panel and THE ORRERY's rings on the field
+// CLAW's crank on the panel and THE GIMBAL's rings on the field
 // (`bearing.ts`).
 export { MAX_BEARING_STEP, NO_BEARING, TURN as BEARING_TURN } from "./bearing.js";
 // THE CODEX: whether this wave has one and whether its key is turned over right
