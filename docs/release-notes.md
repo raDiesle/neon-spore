@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · db0bf200 — THE SPLICE's clock is an eater that swallows the next number
+
+When a round's beats run out, a creature takes the number wanted next and comes down on the ship with it. The hull breaks when it lands, three beats later, in the column the cannon stood in when it bit. The maw is shut from the bite on. A suck now takes three beats: the number shakes loose for one, then races down for two. Each round is one beat longer per straw to pay for that: 18, 27 and 36. Neither a wrong feed nor the eater hits the hull as a rock any more; both land as slime.
+
 ## 2026-09-25 · 53ea13da — Every pull handle is a thin channel, a big circle to start, and a wide grab
 
 THE WARDEN's rope and THE MAZE's lever now draw the way to pull as a thin, quiet channel with a big breathing circle where the thumb goes. A press is answered about three times wider than the circle drawn, because a handle that moves is hard to catch. THE MAZE's channel is the whole ring round the drum, against its rim with no gap, and the green fills lap after lap. The rule is written for every boss and wave in the new-boss owner notes, the controls spec and the new-creature skill.

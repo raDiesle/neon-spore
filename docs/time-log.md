@@ -20048,3 +20048,5 @@ well as the code, so it would be the one every later handle reads.
 
 The bottleneck was **reading**: the timing change had to be found in six
 comments across four packages that each said *two beats*.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
