@@ -423,50 +423,6 @@ Per boss, the work is:
 
 Each boss lands as *a look the owner asked for by name*.
 
-## Every boss shows the blow of a sequence the pair landed
-
-- **Found:** 2026-09-25, claude/instar-ui-refinements-b5cec4
-- **Taken:** 2026-09-25, claude/task-queue-work-37db18 (claim: claude/queue-every-boss-shows-the-blow-of-a-sequence-the-pair)
-- **Files:** `packages/render/src/boss-hurt.ts`, `packages/render/src/instar-fx.ts`, `packages/render/test/boss-hurt.test.ts`
-
-The owner's generic rule of 24 September 2026 (`owner.md`): a landed
-sequence shakes the boss and washes its body red for a moment. THE INSTAR
-wears it (`instar-fx.ts`, `instar-draw.ts`); no other boss does. The work
-is in each boss's own fx file beside `instar-fx.ts`. Per boss:
-find the event that means *a sequence landed* (not one part of it), hold a
-`BossHurt` in its fx class, `hit()` it there, add `shakeX` to the body's
-translate and `drawHurt` over its plates, and add a case to
-`boss-hurt.test.ts`. Each lands as *a look the owner asked for by name*.
-
-**Worn so far** (25 September 2026): THE INSTAR, THE WARDEN (a plate off),
-THE SPOOL (a rib eased), THE HASP (a hasp wound open), THE SINEW (a fibre
-parted), THE GIMBAL (a tooth pair sheared), THE RATCHET (a clean tooth),
-THE HIVE (a breach sealed), THE GORGE (an intake ruptured), THE SURGE (a
-vent), THE TASTER (a blade struck off), THE UNDERTOW (a lobe taken — worn by
-what still stands, since the lobe taken is gone that tick), THE ANTIPHON (a
-pit), THE LEDGER (a seam widened — the halves shake, the cord rooted in the
-ship does not), THE LEAD (a hit — the stalk shakes, the ridge does not),
-THE CURTAIN (a core hit), THE SCUTTLE (a part struck off), THE FLEET (a
-hull wrecked or pulled under — every hull the screen shows), THE QUEEN (a
-petal off — the red only, her shudder was already the shake), THE THROAT (a
-ring choked), THE BATON (a struck bead landed — the rings go red, the spine
-only shakes), THE CAIRN (a unit pulled) and THE VANE (a pin knocked out —
-watched off the pin count, since no event says so). Those four had no fx
-class and keep their blows together in `boss-blows.ts`. THE STARE never
-wears it: the eye takes no damage by design (`sim/stare.ts`); nor does THE
-REPRISE, which is survived, not hurt, and has no event to hang it on. THE
-MIRROR is next and is drawn by `drawHull`, which is at 249 lines: its red
-needs the hull's filled path out of `hull.ts` first, and the blow belongs on
-the first verdict glyph landing (`simon-verdict.ts`), not on the event. A drawer with no
-`time` of its own is handed `view.time` by its `boss-draw-clocks*.ts` caller;
-one handed no fx at all (`drawGorge`) is shaken by the caller and given the
-blow's `value`. `boss-hurt.test.ts` is a table now: a boss is one row — the landing
-events, one part-of-a-sequence event that must deal nothing, and where its
-fx keeps the blow — and the frame case stubs `hit()` out of the control run,
-so the red it counts is the blow's alone. A boss whose drawer takes an
-interface rather than its fx class (`hasp-draw.ts`) adds `hurt: BossHurt`
-to it. The rest are each boss's own `*-fx.ts` in `packages/render/src/`.
-
 ## The other pull handles show the path they can be pulled
 
 - **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
@@ -538,7 +494,8 @@ calls `tileCY` rather than `landingY`. Add a case beside `landing.test.ts`'s.
 Under `check:fast` on a loaded machine, *takes the same strip twice,
 settles and all* failed with `frame 2: 3 of 987480 channel bytes differ,
 first at x=81, y=271`. It passed alone twice and in the next full
-`check:fast`. Something in the capture reads wall time or a leftover from
+`check:fast`. Seen again on claude/boss-blow-g, the same three bytes
+at the same pixel, and green alone and on the next run. Something in the capture reads wall time or a leftover from
 the first take. Loop the test under load until it fails, then find what
 at that pixel is drawn from anything but the tick and the frame's `dt`.
 
@@ -917,7 +874,7 @@ pair beat THE VANE's bearing is silent, and the render side has to watch the
 pin count to show the blow (`BossBlows.seeVane`). Push a `vanePin` event
 there with the pins left and the column, give it a sound in the catalogue
 beside the other bosses' landings, deal the blow off `BLOW_OF` instead of the
-watcher, and drop `seeVane` and `boss-hurt-vane.test.ts` for a row in
+watcher, and drop `seeVane` and its case in `boss-hurt-drawn.test.ts` for a row in
 `boss-hurt.test.ts`. `bun run check` holds it.
 
 ## Split boss-hurt.test.ts, past 250 lines

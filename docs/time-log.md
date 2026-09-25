@@ -21005,3 +21005,19 @@ and it took a picture to see that every "light" effect needs the room keyed
 away first.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE MAZE and THE MIRROR take the blow, and the roll-out ends
+
+- reading: 10 min. The maze heart's wound timing, `drawHull`'s contour and
+  `VerdictFx`'s flight clock, and the nine bosses left to check for a body.
+- writing: 15 min. The heart's shake and red, `hull-outline.ts` out of
+  `hull.ts`, the verdict's blow, two cases in `boss-hurt-drawn.test.ts`, and
+  the list of bosses that never wear it in `boss-hurt.ts`.
+- looking: 0 min. No picture: the blow is the one already sent twice.
+- friction: 5 min. THE MIRROR's frame case ran 45 ticks at 120 Hz, short of
+  the half-second flight, and `opening.test.ts`'s queued flake came back once.
+- landing: 5 min. Three `check:fast` runs, three commits, `land`.
+
+Bottleneck: THE MIRROR's blow lands half a second after its event, so its
+test had to wait out a flight whose length is in seconds while the harness
+counts ticks.

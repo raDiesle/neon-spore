@@ -14,8 +14,21 @@ import { PALETTE, STROKE } from "./palette.js";
  *
  * The decay is linear rather than eased, so the blow is over in a known time
  * and a test can wait it out. It is a transient, held in `Effects` and
- * cleared in `Effects.reset()` (`restart.test.ts`). THE INSTAR is the first
- * to wear it (`instar-fx.ts`); the roll-out is `docs/queue.md`'s.
+ * cleared in `Effects.reset()` (`restart.test.ts`). THE INSTAR was the
+ * first to wear it (`instar-fx.ts`); `boss-hurt.test.ts` has a row for each
+ * boss whose blow is an event, `boss-hurt-drawn.test.ts` a case for each
+ * whose blow is watched or timed by the picture.
+ *
+ * **Every boss with a body the pair can hurt wears it** (25 September 2026).
+ * The four with no fx class of their own keep theirs in `boss-blows.ts`;
+ * THE FILAMENT and THE MAZE time theirs off their own picture through
+ * `hurtShake`; THE MIRROR's lands with the first glyph thrown back into the
+ * copy (`simon-verdict.ts`). The rest never wear it, and none of them is
+ * missing it: THE STARE takes no damage by design (`sim/stare.ts`); THE
+ * REPRISE is survived, not hurt; THE GAUGE, THE SNAKE, THE PINBALL, THE PULSE
+ * and THE SCOUT are rounds with no boss body and no blow; THE WELL is a
+ * projection with nothing to redden; THE SPLICE is a puzzle, and the thing
+ * that eats it is a clock.
  */
 
 /** How long the blow shows, in seconds. */
