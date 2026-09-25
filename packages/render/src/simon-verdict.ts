@@ -1,4 +1,5 @@
 import type { MirrorStep, MirrorVerdictReason } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -17,6 +18,12 @@ import { drawStepGlyph } from "./simon-glyph.js";
  *
  * The field's two edges wash green or red at the same time, so the verdict is
  * legible from the corner of an eye that is busy watching a lobe.
+ *
+ * **A right answer is a blow, and it lands with the first glyph** — the
+ * owner's generic rule of 24 September 2026 (`boss-hurt.ts`). Not on the
+ * verdict itself: the copy shaking half a second before anything reaches it
+ * would be the boss flinching at a word, so `hurt` is dealt on the frame the
+ * first glyph's flight ends at its skin.
  */
 
 /**
@@ -63,6 +70,8 @@ export class VerdictFx {
   private toY = 0;
   private elapsed = 0;
   private left = 0;
+  /** The blow a right sequence deals THE MIRROR as it arrives (`mirror.ts`). */
+  readonly hurt = new BossHurt();
 
   /** 0..1, how hard the edges are washing. Nothing to draw at 0. */
   get wash(): number {
@@ -99,9 +108,12 @@ export class VerdictFx {
   }
 
   update(dt: number): void {
+    this.hurt.update(dt);
     if (this.left <= 0) return;
+    const was = this.elapsed;
     this.left = Math.max(0, this.left - dt);
     this.elapsed += dt;
+    if (this.right && was < FLIGHT_TIME && this.elapsed >= FLIGHT_TIME) this.hurt.hit();
   }
 
   clear(): void {
@@ -112,6 +124,7 @@ export class VerdictFx {
     this.toY = 0;
     this.elapsed = 0;
     this.left = 0;
+    this.hurt.clear();
   }
 
   /** The green or red down both edges of the field. */

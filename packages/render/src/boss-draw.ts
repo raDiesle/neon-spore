@@ -207,21 +207,21 @@ export function drawBoss(
 
   // The mirror is a whole ship, so it is drawn here rather than among the
   // effects — and its ghost shots under it, the way the player's shots are
-  // drawn under the player's own hull.
+  // drawn under the player's own hull. The blow of a right sequence shakes
+  // the copy and everything on it as one; the pair's own hand is not its.
   if (boss.kind !== "mirror") return;
   const fx = effects.boss.mirror;
-  drawMirror(ctx, l, world.cfg, boss, world.shieldCol, view.time, {
-    armed: fx.armed,
-    intake: fx.intake,
-    chew: 0,
-    charge: 0,
-  });
+  const mood = { armed: fx.armed, intake: fx.intake, chew: 0, charge: 0 };
+  ctx.save();
+  ctx.translate(fx.hurt.shakeX(view.time, l.tile), 0);
+  drawMirror(ctx, l, world.cfg, boss, world.shieldCol, view.time, mood, fx.hurt.value);
   fx.drawGhosts(ctx, l, world.cfg);
   // Its lobes as a control, over its rim: the rings the world says, the
   // thrown ring of a pin landing or leaving, and this device's own hand on
   // one of them, upside down (`mirror-grip.ts`).
   drawMirrorGrip(ctx, l, world.cfg, boss, world.shieldCol, world.beat, view.beatPhase, view.time);
   fx.grip.draw(ctx, l, world.cfg, boss, world.shieldCol);
+  ctx.restore();
   const hand = view.hand?.mirror ? view.hand : undefined;
   drawShipHand(
     ctx,

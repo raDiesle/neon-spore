@@ -1706,6 +1706,7 @@ by hand never moves.
 | `packages/render/src/hull-break-gape.ts` | The hole shown to have an inside: ribs of the frame standing in the dark where the skin used to be |
 | `packages/render/src/hull-break.ts` | **What the ship wears where something went through it.** One call per open hole |
 | `packages/render/src/hull-mood.ts` | what the ship is doing this frame — `HullMood`, the eased state of its membrane, and `LobePositions`, where its lobes stand — re-exported from `hull-frame.ts` |
+| `packages/render/src/hull-outline.ts` | The hull's contour and the body it closes, as paths — `drawHull`'s, and THE MIRROR's blow laid over the same outline |
 | `packages/render/src/husk-deflate.ts` | **A husk refused: a balloon let go.** The owner asked for this by name on 15 September 2026 |
 | `packages/render/src/husk-mark.ts` |  |
 | `packages/render/src/husk-look.ts` | How a husk is told from a pod — the one record VERSUS can offer a second answer through |

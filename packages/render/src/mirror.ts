@@ -1,5 +1,8 @@
 import type { MirrorState, SimConfig } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { drawHull, type HullMood, type LobePositions, MIRROR_SKIN } from "./hull.js";
+import { frame } from "./hull-frame.js";
+import { hullOutline } from "./hull-outline.js";
 import type { Layout } from "./layout.js";
 import { drawMirrorChamber } from "./mirror-chamber.js";
 import type { ShieldSegment } from "./shield.js";
@@ -13,7 +16,10 @@ import type { ShieldSegment } from "./shield.js";
  * exact copy of your ship" is a claim a second drawing of a similar shape
  * cannot make and a mirrored transform cannot fail to make. Its chamber is the
  * band's, under the same flip (`mirror-chamber.ts`). All this file decides is
- * where the flip goes and which skin the copy wears.
+ * where the flip goes and which skin the copy wears — and, since the owner's
+ * rule of 24 September 2026 (`boss-hurt.ts`), how red the copy's body still
+ * shows from a right sequence: the same contour, filled once more over the
+ * hull it was drawn from (`hull-outline.ts`). Its shake is the caller's.
  */
 
 /**
@@ -94,9 +100,13 @@ export function drawMirror(
   shieldCol: number,
   time: number,
   mood: HullMood,
+  hurt = 0,
 ): void {
   const lm = mirrorLayout(l, cfg);
   const at: LobePositions = { cannon: m.cannonCol, shield: stillShield(shieldCol) };
+  // Built here rather than inside `drawHull`, so the blow reddens the very
+  // contour the hull was drawn along.
+  const f = frame(lm, time, mood, at);
 
   // Flip about the line that sends the local hull surface to the screen row
   // the mirror lives on. `scale(1, -1)` after the translate, so a local y of
@@ -116,7 +126,10 @@ export function drawMirror(
     // Its rim fades with its own hull, the way the ship's used to with the
     // ship's; the boss still has points (`hash-boss.ts`), the ship has none.
     { ...MIRROR_SKIN, rimGlow: Math.max(0.25, m.hullMilli / 100_000) },
+    { x: 0, y: 0 },
+    f,
   );
+  if (hurt > 0) drawHurt(ctx, hullOutline(lm, f).filled, hurt);
   // Over the hull's belly and inside the same flip: the inside of the copy.
   drawMirrorChamber(ctx, lm, time);
   ctx.restore();

@@ -7,6 +7,7 @@ import {
   type SimConfig,
   type SimEvent,
 } from "@neon-spore/sim";
+import type { BossHurt } from "./boss-hurt.js";
 import type { Layout } from "./layout.js";
 import { mirrorHullY } from "./mirror.js";
 import { MirrorGripFx } from "./mirror-grip-fx.js";
@@ -64,6 +65,11 @@ export class MirrorFx {
   /** 0..1 towards the mirror's shield being held open, for its hull's mood. */
   get armed(): number {
     return Math.min(1, this.armedFor / (GESTURE_LIFE * 0.6));
+  }
+
+  /** The blow of a right sequence, as its first glyph lands (`simon-verdict.ts`). */
+  get hurt(): BossHurt {
+    return this.verdict.hurt;
   }
 
   /** The same for its maw. */

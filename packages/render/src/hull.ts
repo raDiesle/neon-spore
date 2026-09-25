@@ -15,6 +15,7 @@ import {
   surface,
 } from "./hull-frame.js";
 import { HULL_LIGHT } from "./hull-light.js";
+import { hullOutline } from "./hull-outline.js";
 import { HULL_SHEEN } from "./hull-sheen.js";
 import { type HullSkin, OWN_SKIN } from "./hull-skin.js";
 import { drawHullSplashes } from "./hull-splash.js";
@@ -25,7 +26,6 @@ import { STROKE } from "./palette.js";
 import { clipOutPlates, drawPlateGaps, type PlateGap, plateGaps } from "./plate-gap.js";
 import { drawScars } from "./scars.js";
 import { drawShieldRim } from "./shield.js";
-import { splinePath, splineSkirt } from "./spline.js";
 
 export type { HullMood, LobePositions, SurfaceY } from "./hull-frame.js";
 export { hullSkinY, surfaceSampler } from "./hull-frame.js";
@@ -45,17 +45,6 @@ export { type HullSkin, MIRROR_SKIN, OWN_SKIN } from "./hull-skin.js";
  * as a height field over x (`hullPointAtX`), so a lobe stands above the column
  * it belongs to instead of leaning towards the middle of the field.
  */
-/** How far past the stage's edges to sample, so the contour never ends in view. */
-const MARGIN = 0.12;
-
-function pointsAcross(f: HullFrame, l: Layout, steps: number) {
-  const from = -MARGIN * l.gridWidth;
-  const to = l.width + MARGIN * l.gridWidth;
-  const pts = [];
-  for (let i = 0; i <= steps; i++) pts.push(surface(f, from + (to - from) * (i / steps)));
-  return pts;
-}
-
 export function drawHull(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -95,13 +84,10 @@ export function drawHull(
    */
   arm = false,
 ): void {
-  // High resolution: the swelling has to read as one unbroken transition, not
-  // as a bump glued to a line.
-  const pts = pointsAcross(f, l, 140);
-
+  // The contour and the body it closes, sampled past the stage's edges
+  // (`hull-outline.ts`).
+  const { pts, body, filled } = hullOutline(l, f);
   const bottom = hullBottom(l);
-  const body = splinePath(pts, false);
-  const filled = splineSkirt(pts, l.width, bottom, 0, bottom);
 
   // The hull is cut off at the stage, not at the columns: the contour is
   // sampled past both edges so it never ends in view. It was cut at the

@@ -4,6 +4,7 @@ import { createWorld, startWave, step, ticksPerBeat, type World } from "@neon-sp
 import { BossBlows } from "../src/boss-blows.js";
 import { BossHurt } from "../src/boss-hurt.js";
 import { PALETTE } from "../src/palette.js";
+import { VerdictFx } from "../src/simon-verdict.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -18,8 +19,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * The blows `boss-hurt.test.ts`'s table cannot hold, because no event deals
  * them. THE VANE's pin knocked out pushes none, so the blow is a count of pins
  * lower than the last frame drew (`boss-blows.ts`); THE MAZE's is timed by
- * the right verdict on the picture, as its wound is (`maze-heart.ts`). The
- * cases here change the world rather than push a landing.
+ * the right verdict on the picture, as its wound is (`maze-heart.ts`); THE
+ * MIRROR's does have an event, but it lands half a second after it, with the
+ * first glyph thrown into the copy (`simon-verdict.ts`). The cases here
+ * change the world, or wait, rather than push a landing and look at once.
  */
 
 beforeAll(installCanvasGlobals);
@@ -87,7 +90,45 @@ describe("THE MAZE's blow", () => {
   });
 });
 
-function fourBeatsIn(boss: "vane" | "maze" = "vane"): World {
+describe("THE MIRROR's blow", () => {
+  it("lands with the first glyph of a right sequence, never a wrong one, and is forgotten on clear", () => {
+    const flights = [{ step: "fireRed" as const, x: 0, r: 1 }];
+    const fx = new VerdictFx();
+    fx.start(flights, false, "step", 0, 100);
+    for (let i = 0; i < 60; i++) fx.update(1 / 60);
+    expect(fx.hurt.value).toBe(0);
+    fx.start(flights, true, "step", 100, 0);
+    for (let i = 0; i < 29; i++) fx.update(1 / 60);
+    expect(fx.hurt.value).toBe(0);
+    for (let i = 0; i < 2; i++) fx.update(1 / 60);
+    expect(fx.hurt.value).toBeGreaterThan(0.9);
+    fx.clear();
+    expect(fx.hurt.value).toBe(0);
+  });
+
+  it("washes the copy red on the frames after a right sequence arrives", () => {
+    const rims = (dealt: boolean): number => {
+      const off = dealt ? null : spyOn(BossHurt.prototype, "hit").mockImplementation(() => {});
+      const log: string[] = [];
+      runFrames(fourBeatsIn("mirror"), "p1", 84, {
+        every: 3,
+        onCanvas: (c) => {
+          c.log = log;
+        },
+        onTick: (tick, w) => {
+          step(w, []);
+          if (tick === 0)
+            w.events.push({ type: "mirrorVerdict", right: true, col: 3, reason: "step" });
+        },
+      });
+      off?.mockRestore();
+      return log.join("|").split(PALETTE.redRim).length;
+    };
+    expect(rims(true)).toBeGreaterThan(rims(false));
+  });
+});
+
+function fourBeatsIn(boss: "vane" | "maze" | "mirror" = "vane"): World {
   const world = createWorld(CFG, 3);
   const index = waveWith(boss);
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
