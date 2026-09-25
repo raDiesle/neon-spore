@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 9c1e3b9a — A rock that hits the hull rolls off it like a ball and scuffs the skin
+
+A rock that breaks the hull now lets go after 0.2 s instead of 0.8, then starts slowly and keeps speeding up the further it goes. It rests on the skin and turns by its distance over its radius, where before it hovered, bobbed and slid sideways (a plain meteor never turned at all). As it rolls it leaves small marks that fade in 1.6 s: a char smudge, a scratch in the rock's own colour and two chips.
+
 ## 2026-09-25 · 8c870f3d — TOUCH THE SHIP: the cannon and the shield answer a finger on the hull only when turned on
 
 A new SETTINGS switch, off by default: with it off, a press on the cannon or the shield where they are drawn does nothing to them — the panel is the only way to slide, fire or trigger them, and the press goes to whatever is behind the lobe. Turned on, the hull answers exactly as before, flat or on THE WELL. The owner asked for it by name. `bun run frames --hand` turns it on for its own capture.
