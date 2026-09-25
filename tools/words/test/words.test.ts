@@ -62,9 +62,11 @@ describe("the measure", () => {
 });
 
 describe("the inventory", () => {
-  it("reaches every wave's name, sentence and guide, and every mechanic", () => {
+  it("reaches every wave's name and worded guide, and every mechanic", () => {
     const entries = playerText();
-    expect(entries.length).toBeGreaterThan(700);
+    // Fewer than it was: a filmed guide carries no words since 25 September
+    // 2026, and a film's captions are `scenes.test.ts`'s to hold.
+    expect(entries.length).toBeGreaterThan(250);
     for (const kind of Object.keys(BUDGET)) {
       expect(
         entries.some((e) => e.kind === kind),

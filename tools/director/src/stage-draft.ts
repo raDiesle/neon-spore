@@ -28,8 +28,8 @@ export function draftControlSet(store: Store): ControlSet {
 }
 
 /**
- * The guide this wave opens on: its three blocks of words and the rehearsal it
- * may carry.
+ * The guide this wave opens on: the rehearsal it plays, or — on the few still
+ * owed a film — its three blocks of words.
  *
  * `null` and never `undefined` when the draft has no guide. `undefined` means
  * *ask the shipped list* (`render/renderer.ts`), which is what a stage playing

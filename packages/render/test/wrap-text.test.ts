@@ -33,7 +33,7 @@ describe("wrapText", () => {
 
   it("gives every boss step a line of its own on a phone", () => {
     for (const w of WAVES) {
-      if (!w.boss || !w.guide) continue;
+      if (!w.boss || !w.guide || w.guide.scene !== undefined) continue;
       for (const half of [w.guide.p1, w.guide.p2]) {
         const steps = half.split("\n");
         const lines = wrapText(ctx(), half, 390 - 56);

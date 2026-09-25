@@ -56,7 +56,8 @@ export function playerText(): TextEntry[] {
   const out: TextEntry[] = [];
   for (const wave of WAVES) {
     out.push({ id: `${wave.name} · name`, kind: "name", text: wave.name });
-    if (!wave.guide) continue;
+    // A filmed guide's words are its captions, held by `scenes.test.ts`.
+    if (!wave.guide || wave.guide.scene !== undefined) continue;
     out.push(...lines(wave.name, "both", wave.guide.both));
     out.push(...lines(`${wave.name} · P1`, "half", wave.guide.p1));
     out.push(...lines(`${wave.name} · P2`, "half", wave.guide.p2));

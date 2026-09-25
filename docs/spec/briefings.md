@@ -9,7 +9,7 @@
 > with no guide — and a wave gone again, which skips its guide — opens instead
 > on its introduction: those two lines alone, plain text on the field, which
 > pass on a timer.
-> §3.2 says which five are still prose and why the count is a test rather than
+> §3.2 says which ten are still prose and why the count is a test rather than
 > a sentence anybody has to remember.
 >
 > **Three decisions below have been overturned on the way in**, and the
@@ -551,8 +551,16 @@ naming what and how, the guide only needs to say that a bright mark is the
 pair's own and a dim one is watched, and drops from three steps to two on each
 phone.
 
-A wave with a film keeps its prose as well: the three strings are what the pair
-reads on a phone that has already watched the film once.
+**A wave with a film carries no prose.** Until 25 September 2026 this said a
+filmed wave kept its three strings as well, for a phone that had already
+watched the film once — but the game never drew them once a film was up, and
+the director showed them as dimmed fields nobody read. The owner's word that
+day: a wave is a plain wave that shows its name, *or* a guide that explains in
+the game step by step, not both. So `WaveGuide` is a film or words
+(`content/wave-types.ts`), the eighty-two filmed guides lost their strings, and
+the ten still in words each have a `docs/queue.md` entry to become a film.
+Where a paragraph in §3.2 says something *is the prose*, read it as what the
+film leaves out.
 
 **It was a card first, and the card is what the owner rejected.** The first
 build drew both devices as thumbnails above a block of prose. What came back

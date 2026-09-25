@@ -309,11 +309,22 @@ describe("wave content", () => {
     }
   });
 
-  it("writes all three halves of every guide it does carry", () => {
+  /**
+   * A guide is a film or words, never both (`WaveGuide`, the owner's 25
+   * September 2026). The type already refuses a literal carrying both; this is
+   * the half a type cannot hold — a guide of words writes all three of them,
+   * because one half written is half an instruction on a screen.
+   */
+  it("writes all three halves of every worded guide and no words beside a film", () => {
     for (const wave of WAVES) {
-      if (!wave.guide) continue;
+      const guide = wave.guide;
+      if (!guide) continue;
       for (const part of ["both", "p1", "p2"] as const) {
-        expect(wave.guide[part], `${wave.name}: guide has no ${part}`).toMatch(/\S/);
+        if (guide.scene !== undefined) {
+          expect(guide[part], `${wave.name}: a filmed guide carries ${part}`).toBeUndefined();
+        } else {
+          expect(guide[part], `${wave.name}: guide has no ${part}`).toMatch(/\S/);
+        }
       }
     }
   });

@@ -102,9 +102,6 @@ export const WAVES_ACT_10: Wave[] = [
     id: "theReprise",
     name: "THE REPRISE",
     guide: {
-      both: "Everything you clear comes back down unseen, in the same columns, colours and spacing. New arrivals wait. No shield helps: shoot each body, or lose the wave.",
-      p1: "1. Only your strip picks a column: slide it where they say it was.\n2. Say the colours back, in order. Your partner has the two buttons.\n3. The shield does nothing this wave. One body on the hull loses it.",
-      p2: "1. Say every column while it is still lit, and again as the field goes dark.\n2. Press the colour they call, up the column they are standing in.\n3. Your shield does nothing here. Only the shot stops a body.",
       scene: "theReprise",
     },
     entries: [
@@ -123,9 +120,6 @@ export const WAVES_ACT_10: Wave[] = [
     id: "theFlip",
     name: "THE FLIP",
     guide: {
-      both: "Six beats in, Player 1's screen turns into a mirror. A body on the left wall is really on the right. Buttons still work. Only the picture turned.",
-      p1: "1. Your field is backwards and your cannon is not.\n2. A body on your left wall is one to shoot on your right.\n3. Only the middle column stays put. Trust your partner's number, not your eyes.",
-      p2: "1. Yours is the only true picture, so the columns are all yours.\n2. Say each one early, and again while your partner aims.\n3. Your partner will not believe their eyes.\n4. Answer a repeated column with a number.",
       scene: "theFlip",
     },
     entries: [
@@ -146,9 +140,6 @@ export const WAVES_ACT_10: Wave[] = [
     id: "theHusk",
     name: "THE HUSK",
     guide: {
-      both: "Three pods hang, and one is hollow. It looks, beats and falls like the others. Swallow it and you lose. Let it reach a shut maw for free.",
-      p1: "1. Your screen cannot tell them apart, so do not decide.\n2. Open the maw only for a pod your partner calls safe.\n3. Let every unnamed pod pass.",
-      p2: "1. Only your screen frames the hollow one.\n2. Name the two real pods, by column, before either comes loose.\n3. Then name the fake and say to leave it.\n4. Saying nothing loses this wave.",
       scene: "theHusk",
     },
     entries: [

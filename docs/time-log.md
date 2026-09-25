@@ -3549,7 +3549,6 @@ licence test: the two seats' halves are a column and a path, the word itself was
 settled in a minute, and everything after that was working out which of the three
 places it could stand hands a seat something it is not shown.
 
-
 ## 2026-09-19 — queue-the-lead — the word that cannot exist, and the beat the stalk already added
 
 The seventh of this family and the first whose finding is an **absence**. THE
@@ -7951,7 +7950,6 @@ it made; `repo.ts` split along its git seam into `git.ts`. About 25 min.
 Bottleneck: **writing** — the fix is ten lines and the test that proves it
 in a real repository is a hundred.
 
-
 ## 2026-09-11 · hit-looks — the queue: shipped-looks caught up
 
 Four sections written into `docs/shipped-looks.md` — the chute, the coil, the
@@ -7968,7 +7966,6 @@ dart and the echo — from the four `*-look.ts` records, the adopted paint and
 
 Bottleneck: **reading** — every number in a table is in a different file
 from the one that says why it is there.
-
 
 ## 2026-09-11 · hit-looks — the gyre slot answered
 
@@ -20419,3 +20416,17 @@ The bottleneck was **friction**: the frame tool cannot set the difficulty, and
 the ricochet only happens on HARD.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — A guide is a film or words, and a filmed wave carries no words
+
+- reading: 10 min. Every reader of `both`/`p1`/`p2`, the director's GUIDE
+  section and its scene note, and the three tests that required the words.
+- writing: 20 min. The union type, 82 guides cut to their scene, the GUIDE
+  panel rewritten, the tests inverted, the skills and the spec, seven queue items.
+- looking: 0 min. Nothing the game draws moved: it never drew those words.
+- friction: 5 min. The guard refused a heredoc with a doubled backslash a
+  second time; the edit went through the Edit tool.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+The bottleneck was **writing**: the rule "a filmed wave keeps its words" was
+written into four skills, a spec section, the director and three tests.

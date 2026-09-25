@@ -24,7 +24,8 @@ function waveHaystack(index: number): string {
   if (!wave) return "";
   const parts: string[] = [String(index + 1), wave.id, wave.name];
   if (wave.guide) {
-    parts.push(wave.guide.both, wave.guide.p1, wave.guide.p2, wave.guide.scene ?? "");
+    const g = wave.guide;
+    parts.push(...(g.scene === undefined ? [g.both, g.p1, g.p2] : [g.scene]));
   }
   if (wave.boss) parts.push("boss", wave.boss.kind);
   for (const fault of wave.faults ?? []) parts.push("fault", "malfunction", fault.kind);

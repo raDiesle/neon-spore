@@ -93,9 +93,6 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theLure",
     name: "THE LURE",
     guide: {
-      both: "One of these is not what it looks like. Only one of you can tell.",
-      p1: "1. You will see a body worth shooting, and nothing will happen.\n2. Believe your partner and move. Your column is the one you are losing.",
-      p2: "1. The one in the corner frame is a lure. Ignore it.\n2. Do not wait for a question. Say its column, then the column to go to.",
       scene: "theLure",
     },
     entries: [
@@ -112,9 +109,6 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theThrob",
     name: "THE THROB",
     guide: {
-      both: "Red on one side, cyan on the other, turning clockwise as it falls. The half facing the cannon is the colour that kills it. The other wastes a shot.",
-      p1: "Say which colour is facing you, and say it again the moment it turns over.",
-      p2: "Fire the colour just called. Not the one you loaded a turn ago.",
       scene: "theThrob",
     },
     entries: [{ beat: 0, col: 3, kind: "throb", color: "red" }],
@@ -140,9 +134,6 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theThirdShot",
     name: "THE SHELL",
     guide: {
-      both: "A slick or a bulb inside armour, in two pieces, one per column. Any colour chips a piece off. Only when both are gone does its own colour kill it.",
-      p1: "1. Two pieces, two columns. Say which one still has armour.\n2. Stand under that one. A shot up the bare column does nothing.",
-      p2: "1. Fire any colour while a piece is still on.\n2. When the last one goes, load the colour you could see all along. Not before.",
       scene: "theThirdShot",
     },
     entries: [
@@ -155,9 +146,6 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theClasp",
     name: "THE CLASP",
     guide: {
-      both: "A slick or a bulb in a shield of its own. Shots bounce off. Trigger your own shield under it to open it. Then shoot it in its colour.",
-      p1: "1. Your strip says where they come in.\n2. Trigger while the shield is under one, and it comes apart.\n3. The shield holds one column, and the rocks want it too.\n4. Say which you spend it on.",
-      p2: "1. Put the shield in the column your partner names, and hold it.\n2. Do not fire until the clasp opens. A shot at a shut one does nothing.\n3. The colour shows through, so load it early.",
       scene: "theClasp",
     },
     entries: [
@@ -173,9 +161,6 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theDart",
     name: "THE DART",
     guide: {
-      both: "A dart never falls straight down. Every other beat it jumps two rows down and two columns to one side. In between, it hangs for one beat, already aimed.",
-      p1: "1. The column under it is the wrong column.\n2. Wait for the side, then move two columns that way.\n3. Be there before the beat turns over.",
-      p2: "1. Only your screen shows the arrow over it.\n2. Say the side while it hangs, not while it moves.\n3. Once it moves, your partner sees it anyway.",
       scene: "theDart",
     },
     entries: [
@@ -191,9 +176,6 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theVeil",
     name: "THE VEIL",
     guide: {
-      both: "A thundercloud, and something is falling inside it. The lightning is on the beat. Count it.",
-      p1: "1. You can see into the cloud. Your partner cannot.\n2. Say the body and how long: “cyan, two beats”.\n3. The ring over it is the clock.",
-      p2: "1. You have only a corner frame, so ask.\n2. Fire on what your partner says now, not on what you heard before.\n3. A wrong colour shuts the cloud for two seconds. The answer changes meanwhile.",
       scene: "theVeil",
     },
     entries: [

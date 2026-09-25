@@ -2125,7 +2125,7 @@ by hand never moves.
 | `tools/director/src/glows/swarm.ts` | One soft cloud under the whole figure, rather than a halo per body |
 | `tools/director/src/glows/trail.ts` | A luminous tail that lingers behind the body as it moves |
 | `tools/director/src/glows/types.ts` | What a glow is, and what it is told |
-| `tools/director/src/guide-fields.ts` | The GUIDE section `rail.ts` shows directly under NAME: the three lines a wave's guide is made of |
+| `tools/director/src/guide-fields.ts` | The GUIDE section `rail.ts` shows directly under NAME: what a wave opens on, edited where the wave is edited |
 | `tools/director/src/guide-scene-note.ts` | the rehearsal a wave's guide plays, named over the GUIDE fields with a caption per page |
 | `tools/director/src/hits/dim.ts` | The body simply goes dark for a beat |
 | `tools/director/src/hits/flash.ts` | One bright frame, then gone |

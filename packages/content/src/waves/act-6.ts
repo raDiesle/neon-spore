@@ -112,9 +112,6 @@ export const WAVES_ACT_6: Wave[] = [
     id: "theVeer",
     name: "THE VEER",
     guide: {
-      both: "A rock with a rider on it. Every third row it steps to one side, and it never stops.\nThe last step lands one row above the ship.\nYou cannot shoot any of it. What lands is still a rock. Put the shield under it.",
-      p1: "1. Only you see the arrow over its hat. It aims again every three rows.\n2. Say the side out loud every single time.\n3. Keep your thumb on SHIELD. Saying it does not stop it.",
-      p2: "1. You see where it is, not where it is going.\n2. Move the shield on what you are told, not on what you see.\n3. Never park it. Every three rows, what you last heard stops being true.",
       scene: "theVeer",
     },
     entries: [
@@ -128,9 +125,6 @@ export const WAVES_ACT_6: Wave[] = [
     id: "theStrand",
     name: "THE STRAND",
     guide: {
-      both: "Beads on one thread, red and cyan in turn. It comes apart from the ends inward.\nOnly one bead at a time takes a shot. A shot at any other brings a dead one back to life.",
-      p1: "1. You see the colours, not which bead is lit.\n2. Wait to hear which one. Put the cannon under it.\n3. Say its colour out loud before the trigger comes.",
-      p2: "1. You see which bead is lit, but no colour. It jumps ends.\n2. Count it from the left and say the number every time.\n3. Then load what you are told, not what you guess.",
       scene: "theStrand",
     },
     entries: [
@@ -143,9 +137,6 @@ export const WAVES_ACT_6: Wave[] = [
     id: "theCrawler",
     name: "THE CRAWLER",
     guide: {
-      both: "A maggot that walks along the ship instead of falling on it. It cannot hurt you while it walks.\nIt must not reach the far wall. Every ring has to come off.\nA crosshair marks each ring. A shield above a ring means the shield takes it: head, tail and every third segment.",
-      p1: "1. Take the cannon under a colour ring. Say which colour you are under.\n2. The shield rings are not yours to shoot. The shield trigger is.\n3. Keep a thumb on SHIELD. Press when you hear the shield is under one.",
-      p2: "1. Load what you are told and fire straight up.\n2. When the next ring shows the shield mark, take the shield under it yourself.\n3. Say when you are there. You cannot trigger it, and they cannot move it.",
       scene: "theCrawler",
     },
     entries: [
@@ -158,9 +149,6 @@ export const WAVES_ACT_6: Wave[] = [
     id: "theFence",
     name: "THE FENCE",
     guide: {
-      both: "A live wire right across the field, twice as fast as anything else. The trigger does nothing to it. Where the wire is broken, the ship lives.",
-      p1: "Only your screen shows where it is open. Every wall in this wave is open in the middle.",
-      p2: "Your wire looks whole. The shield is already in the middle, and you never move it here.",
       scene: "theFence",
     },
     entries: [
@@ -173,9 +161,6 @@ export const WAVES_ACT_6: Wave[] = [
     id: "theGap",
     name: "THE GAP",
     guide: {
-      both: "The same wall, opening somewhere else every time. Only Player 1 sees where. Only Player 2 can move the shield.",
-      p1: "Count the gap from the left and say the number early. SHIELD does nothing here.",
-      p2: "1. Ask. Then move into the column you hear, before it lands.\n2. In the gap, the current stops reaching the shield.",
       scene: "theGap",
     },
     entries: [
@@ -190,9 +175,6 @@ export const WAVES_ACT_6: Wave[] = [
     id: "theCut",
     name: "THE CUT",
     guide: {
-      both: "A wall with no way through at all, and one crack in it. A shot opens the crack. Nothing else opens anything.",
-      p1: "1. Only your screen shows the crack.\n2. Say its column and its colour.\n3. Take the cannon under it.",
-      p2: "1. Load the colour you are told. Fire straight up.\n2. Then take the shield to the hole you both just made.",
       scene: "theCut",
     },
     entries: [

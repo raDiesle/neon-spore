@@ -55,7 +55,8 @@ export function waveHaystack(waves: readonly Wave[], index: number): string {
   const parts: string[] = [String(index + 1), wave.id, wave.name];
 
   if (wave.guide) {
-    parts.push("guide", wave.guide.both, wave.guide.p1, wave.guide.p2, wave.guide.scene ?? "");
+    const g = wave.guide;
+    parts.push("guide", ...(g.scene === undefined ? [g.both, g.p1, g.p2] : [g.scene]));
   }
 
   // The panel by name and by id, and the word itself — an author looking for

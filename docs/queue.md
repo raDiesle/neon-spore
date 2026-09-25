@@ -746,3 +746,98 @@ around with a throwaway probe that drove Chrome by hand. Add `--level
 easy|medium|hard`, written by `addInitScript` beside `--seat`'s, and split
 `flags.ts` (247 lines) and `spec.ts` (249) first, since both are at the limit.
 Prove it with a `tools/frames/test` parse test and `bun run check`.
+
+## Film THE COUNT's guide, and delete its words
+
+- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Files:** `packages/content/src/waves/act-3.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+
+THE COUNT's guide is still `both`/`p1`/`p2`, one of the ten the owner's *a film
+or words, not both* (25 September 2026) left owed a film. Write its rehearsal
+in `packages/content/src/scenes/` the way `.claude/skills/new-tutorial` says —
+what the three strings teach, as captions on each seat's own screen — add it to
+`SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
+the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
+and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
+`bun run check` proves it.
+
+## Film THE CHOKE's guide, and delete its words
+
+- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Files:** `packages/content/src/waves/act-7a.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+
+THE CHOKE's guide is still `both`/`p1`/`p2`, one of the ten the owner's *a film
+or words, not both* (25 September 2026) left owed a film. Write its rehearsal
+in `packages/content/src/scenes/` the way `.claude/skills/new-tutorial` says —
+what the three strings teach, as captions on each seat's own screen — add it to
+`SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
+the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
+and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
+`bun run check` proves it.
+
+## Film THE LIMPET's guide, and delete its words
+
+- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Files:** `packages/content/src/waves/act-7a.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+
+THE LIMPET's guide is still `both`/`p1`/`p2`, one of the ten the owner's *a film
+or words, not both* (25 September 2026) left owed a film. Write its rehearsal
+in `packages/content/src/scenes/` the way `.claude/skills/new-tutorial` says —
+what the three strings teach, as captions on each seat's own screen — add it to
+`SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
+the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
+and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
+`bun run check` proves it.
+
+## Film THE LEECH's guide, and delete its words
+
+- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Files:** `packages/content/src/waves/act-7a.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+
+THE LEECH's guide is still `both`/`p1`/`p2`, one of the ten the owner's *a film
+or words, not both* (25 September 2026) left owed a film. Write its rehearsal
+in `packages/content/src/scenes/` the way `.claude/skills/new-tutorial` says —
+what the three strings teach, as captions on each seat's own screen — add it to
+`SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
+the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
+and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
+`bun run check` proves it.
+
+## Film THE CODEX's guide, and delete its words
+
+- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+
+THE CODEX's guide is still `both`/`p1`/`p2`, one of the ten the owner's *a film
+or words, not both* (25 September 2026) left owed a film. Write its rehearsal
+in `packages/content/src/scenes/` the way `.claude/skills/new-tutorial` says —
+what the three strings teach, as captions on each seat's own screen — add it to
+`SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
+the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
+and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
+`bun run check` proves it.
+
+## Film THE GIMBAL, THE HASP and THE RATCHET once each is drawn
+
+- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/src/waves/act-11.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+
+Three of the ten guides still in words, and blocked rather than forgotten:
+none of the three bosses is drawn yet (`scenes-prose.test.ts` says why beside
+each), and a film rehearses the game's own screen. Whichever lane draws one
+films it in the same sitting, as the five items above do, and deletes its
+`both`/`p1`/`p2`. Until then the words are what the pair reads, and they stay.
+Not startable by a fresh session before the look lands — take it after.
+
+## Whether THE INSTAR and THE FILAMENT need a film at all
+
+- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Files:** `packages/content/src/waves/act-7g.ts`, `packages/content/src/waves/act-10.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/content/test/waves.test.ts`, `docs/spec/briefings.md`
+- **Asks:** A boss that says its own verbs on the field — THE INSTAR's scanner box, THE FILAMENT's words beside the rings — do you want (a) a film written for each, like every other boss, or (b) the guide dropped, so the wave opens on its number and name and the field does the teaching?
+
+Both guides are still `both`/`p1`/`p2`. Under the owner's *a film or words, not
+both* (25 September 2026) the words are a stopgap, and these two are the case
+where the field may already say everything. (a) is the five items above, twice.
+(b) deletes each `guide` and needs `waves.test.ts`'s *first to carry a boss
+has a guide* rule to name these two as the exception, the way it names wave 1
+and THE HAND's; `STILL_PROSE` and §3.2 lose both names either way.

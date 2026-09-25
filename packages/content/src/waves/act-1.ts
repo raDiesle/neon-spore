@@ -30,9 +30,6 @@ export const WAVES_ACT_1: Wave[] = [
     id: "firstStep",
     name: "FIRST STEP",
     guide: {
-      both: "One ship, two screens, and they show different things. One shows what is coming. The other holds the control that answers it. This first one is always red.",
-      p1: "1. The cannon, the shield's trigger and the maw are yours.\n2. Slide your strip until the cannon stands in its column.\n3. Say which column.",
-      p2: "The shield and the two colours are yours. Press red. Nothing leaves the hull until you do.",
       scene: "firstStep",
     },
     entries: [
@@ -51,9 +48,6 @@ export const WAVES_ACT_1: Wave[] = [
     id: "cyan",
     name: "CYAN",
     guide: {
-      both: "Round, swollen, and always cyan. Red is spent on one of these and nothing comes apart.",
-      p1: "Nothing changes for you. Stand in the column and say which one it is.",
-      p2: "There is a second button beside red now. Both of these are cyan.",
       scene: "cyan",
     },
     entries: [
@@ -85,9 +79,6 @@ export const WAVES_ACT_1: Wave[] = [
     id: "theRock",
     name: "THE ROCK",
     guide: {
-      both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
-      p1: "Your strip shows it first. You have a trigger now. Fire the shield as it lands, not before.",
-      p2: "The shield already stands in that column. Your panel cannot move it yet. Call the moment it lands.",
       scene: "theRock",
     },
     entries: [{ beat: 0, col: 3, kind: "meteor", color: null }],
@@ -97,9 +88,6 @@ export const WAVES_ACT_1: Wave[] = [
     id: "twoRocks",
     name: "TWO ROCKS",
     guide: {
-      both: "Two rocks, and the second one lands somewhere else. The shield moves now. One of you carries it. The other fires it.",
-      p1: "The trigger is yours. The shield is not. Say when it lands, and not before.",
-      p2: "The strip under the shield is new. Slide it to the column he calls. You cannot fire it.",
       scene: "twoRocks",
     },
     entries: [
@@ -112,9 +100,6 @@ export const WAVES_ACT_1: Wave[] = [
     id: "theHand",
     name: "THE HAND",
     guide: {
-      both: "Three rocks, one beat, one shield. Either of you can hold one back with a finger on the field. It falls slower while you hold it. That costs a hand.",
-      p1: "1. Hold the far one. Slide the same thumb sideways to move it a column.\n2. Your thumb is off your strip now. Say what you hold and where it goes.",
-      p2: "1. Take the near one with the shield.\n2. Then go and get the one your partner holds, in the column they leave it.",
       scene: "theHand",
     },
     entries: [
@@ -128,9 +113,6 @@ export const WAVES_ACT_1: Wave[] = [
     id: "torch",
     name: "TORCH",
     guide: {
-      both: "Rock again, twice as wide, and the fastest thing in the field. It cannot be shot either.",
-      p1: "It is on your strip and on nobody else's. Call it before it arrives.",
-      p2: "It covers two columns at once. The shield has to sit across both of them.",
       scene: "torch",
     },
     entries: [

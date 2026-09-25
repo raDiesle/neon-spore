@@ -68,9 +68,6 @@ export const WAVES_ACT_7G: Wave[] = [
     id: "theLedger",
     name: "THE LEDGER",
     guide: {
-      both: "Hit the split five times in its colour. Each hit comes back, sooner each time. Put the shield in the socket, or lose the wave. Let the last one land.",
-      p1: "1. Only you see the return coming. Count it down aloud.\n2. Trigger on the beat it lands. The column is hers.\n3. From the second hit, every shot costs. Each shield catch widens the split.\n4. The last one: do not press.",
-      p2: "1. Only you see the socket. Say the column it walks to, every time.\n2. Load the colour the split shows. It fires up his column.\n3. Put the shield in the socket before his beat.\n4. On the last return, take the shield off.",
       scene: "theLedger",
     },
     entries: [
@@ -90,9 +87,6 @@ export const WAVES_ACT_7G: Wave[] = [
     id: "theSurge",
     name: "THE SURGE",
     guide: {
-      both: "Both thumbs on the bulb charge it. Let go together inside the band. Five notches, and from the second it keeps what it has and feeds on the wave.",
-      p1: "1. Only you see the band. Say OFF as the pressure reaches it.\n2. Lift on OFF, never alone: one thumb loses it.\n3. From the second notch it holds the charge with no hand on.\n4. From the third, a burst shuts a notch.",
-      p2: "1. Only you see the pressure. Read it out every beat.\n2. Lift the instant your partner says OFF. Over the band it bursts.\n3. From the second notch it stops leaking between tries.\n4. From the third your thumb adds double.",
       scene: "theSurge",
     },
     entries: [
@@ -112,9 +106,6 @@ export const WAVES_ACT_7G: Wave[] = [
     id: "theLead",
     name: "THE LEAD",
     guide: {
-      both: "Shoot the body where it will be. Five segments. It walks faster after a hit. The last stands dead eight beats. Then two beams in its path end it.",
-      p1: "1. Say LEFT or RIGHT every beat: where it goes next.\n2. Cannon two ahead of her column, four on a run.\n3. With two left the stalk adds the beat for you.\n4. On the last it stands dead, then leans the way out. Say it.",
-      p2: "1. Say the column it stands in, every beat.\n2. Fire when your partner says the cannon is under where it will be.\n3. Standing dead, nothing touches it. Hold the colour then, and beam it twice on the run.",
       scene: "theLead",
     },
     entries: [
@@ -134,9 +125,6 @@ export const WAVES_ACT_7G: Wave[] = [
     id: "theScuttle",
     name: "THE SCUTTLE",
     guide: {
-      both: "Shoot each part off the frame while it hangs. It throws a part you miss at you. If the frame runs out, you lose. Beam the last one.",
-      p1: "1. Say how many parts are left. She cannot see them.\n2. At twelve, two hang and one counts. At seven, faster.\n3. Cannon under the column she calls. Trigger her shield.\n4. Suck a pod: every throw after is a beat slower.",
-      p2: "1. Say which part is live, its colour and its column.\n2. Load that colour. A shot leaves his column, not yours.\n3. Put the shield under thrown rocks. He triggers it.\n4. On the last, hold any colour: the beam ignores it.",
       scene: "theScuttle",
     },
     entries: [],
@@ -147,9 +135,6 @@ export const WAVES_ACT_7G: Wave[] = [
     id: "theAntiphon",
     name: "THE ANTIPHON",
     guide: {
-      both: "Describe the organ, find it on the rail, shoot it in its column and colour. Six pits. The last organ is your own ship. From three pits, rejects fall.",
-      p1: "1. Say its shape in your words: lobes, leaning, hollow.\n2. Turn it under your thumb: it looks, it never answers.\n3. Cannon to the column she calls. You cannot see it.\n4. From five pits one a cycle is a shape you named.",
-      p2: "1. Find the one he describes. Ask what tells them apart.\n2. Say its column and colour. Fire when the cannon is there.\n3. A wrong one widens the rail for the rest.\n4. The window is fourteen beats, eight from two pits.",
       scene: "theAntiphon",
     },
     entries: [],
@@ -160,9 +145,6 @@ export const WAVES_ACT_7G: Wave[] = [
     id: "theHive",
     name: "THE HIVE",
     guide: {
-      both: "Seal all nine breaches: shoot each in its colour while it is open. CARRY and PRESS mark where and when. The colour and the swell are yours to say.",
-      p1: "1. Say each breach's colour as it opens: THREE IS RED.\n2. CARRY marks an open breach: go to it.\n3. When she says where the next opens, be there before it does.\n4. Trigger the shield on rocks.",
-      p2: "1. Say the column where the next breach swells, three beats ahead.\n2. Load the colour he gave. PRESS lights once he is under it: fire.\n3. Move the shield under the rocks.",
       scene: "theHive",
     },
     entries: [],

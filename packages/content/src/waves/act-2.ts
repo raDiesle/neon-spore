@@ -17,9 +17,6 @@ export const WAVES_ACT_2: Wave[] = [
     id: "bulbQueen",
     name: "BULB QUEEN",
     guide: {
-      both: "Shoot the queen through her real mark while she is open. Put the shield under the torch that drops.",
-      p1: "1. Say the shape and the colour of what is coming.\n2. Slide the cannon under the mark your partner calls real.\n3. Trigger the shield when the torch drops.",
-      p2: "1. Load the colour your partner calls.\n2. Say which mark is real: LEFT or RIGHT.\n3. Fire when the queen opens.\n4. Say which wing drops, and move the shield under it.",
       scene: "bulbQueen",
     },
     entries: [],
@@ -32,9 +29,6 @@ export const WAVES_ACT_2: Wave[] = [
     id: "theMirror",
     name: "THE MIRROR",
     guide: {
-      both: "The boss shows a run of your own moves. Give the whole run back, in order.",
-      p1: "1. Say each move out loud as the boss shows it.\n2. When it stops, do your moves again, in the same order.",
-      p2: "1. Press nothing while the boss is still showing.\n2. Remember the moves your partner calls out.\n3. When it stops, do your moves again, in the same order.",
       scene: "theMirror",
     },
     entries: [],
@@ -53,9 +47,6 @@ export const WAVES_ACT_2: Wave[] = [
     id: "theMaze",
     name: "THE MAZE",
     guide: {
-      both: "Shoot the heart through the one open gap. A shot into a dead end restarts the stage.",
-      p1: "1. Pull the string to turn the maze.\n2. Stop when a gap clicks onto a column and lights up.\n3. Say the column. If it was a dead end, turn on to the next gap.",
-      p2: "1. Load the colour the heart is beating in.\n2. Wait until your partner says a gap is lit.\n3. Fire once, up the lit column.",
       scene: "theMaze",
     },
     entries: [],
@@ -67,9 +58,6 @@ export const WAVES_ACT_2: Wave[] = [
     id: "theGauge",
     name: "THE GAUGE",
     guide: {
-      both: "Point the cannon into the wound, then call. Five times.",
-      p1: "1. Hold the valve.\n2. Turn it the way your partner says.\n3. Stop when they say STOP, and hold it there.",
-      p2: "1. Say which way to turn, and how far.\n2. Say STOP when the cannon points into the wound.\n3. Press CALL. The wound moves: start again.",
       scene: "theGauge",
     },
     entries: [],
@@ -81,9 +69,6 @@ export const WAVES_ACT_2: Wave[] = [
     id: "theWarden",
     name: "THE WARDEN",
     guide: {
-      both: "Open the hatch and shoot the eye. Each hit takes a piece off the rim. Five hits, and the hatch asks for a new hand as they go.",
-      p1: "1. Slide the cannon under the eye.\n2. Take the rope's handle and pull it aside. Keep pulling.\n3. Say OPEN when the hatch is all the way over, and hold.\n4. Last piece, no rope: swipe across the hatch and say NOW.",
-      p2: "1. Load the rim's colour.\n2. Wait for OPEN.\n3. Fire once, up the eye's column. Say HIT.\n4. From the third piece, rest a thumb on the eye too, or the lids stay shut.\n5. Last piece: fire on NOW, fast.",
       scene: "theWarden",
     },
     entries: [],
@@ -95,9 +80,6 @@ export const WAVES_ACT_2: Wave[] = [
     id: "theFleet",
     name: "THE FLEET",
     guide: {
-      both: "Sink all five ships before the clock runs out.",
-      p1: "1. Find a ship on your chart.\n2. Say its square: the letter, then the number.\n3. Keep saying it until the sights are on it.\n4. Press FIRE.",
-      p2: "1. Move the sights one square a press: LEFT, RIGHT, UP, DOWN.\n2. Read back the square you are on, letter and number.\n3. Stop when it matches, and say so.",
       scene: "theFleet",
     },
     entries: [],

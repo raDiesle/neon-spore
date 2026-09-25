@@ -32,9 +32,6 @@ export const WAVES_ACT_7D: Wave[] = [
     id: "theDiastole",
     name: "THE DIASTOLE",
     guide: {
-      both: "Two chambers beat on different counts. Hit each while it contracts. Once both beat, lance the middle column on the beat they share.",
-      p1: "1. Count the left chamber out loud, in threes.\n2. Say which beat both chambers meet on.\n3. Cannon in the middle column, held still for the lance.\n4. With your chamber gone, clamp the grey one when your partner says now.",
-      p2: "1. Count the right chamber out loud in fives. Later it goes to sevens.\n2. Take your partner's threes off it: they meet once in fifteen.\n3. Hold a colour to fill the lance three beats early.\n4. Alone, say now on its beat.",
       scene: "theDiastole",
     },
     entries: [
@@ -62,9 +59,6 @@ export const WAVES_ACT_7D: Wave[] = [
     id: "theBaton",
     name: "THE BATON",
     guide: {
-      both: "Pass the bead down the arm, one socket at a time. Launch it, shoot it in the air, and take turns.",
-      p1: "1. Slide the cannon under the bead.\n2. Press the trigger to launch it. Your phone greys for a beat.\n3. Say the colour: it flips on every landing.\n4. After four dark sockets the arm swings: be under the bead first.",
-      p2: "1. Load the bead's colour.\n2. Fire up the bead's column while it flies, not before. Your phone greys for a beat.\n3. Say the colour back as it lands.\n4. Put the shield under the dark sockets that drop as rocks.",
       scene: "theBaton",
     },
     entries: [

@@ -3,14 +3,8 @@ import { guideScene, type SceneId } from "@neon-spore/content";
 /**
  * **What the pair actually meets, on a wave whose guide plays a rehearsal.**
  *
- * The three GUIDE textareas are the whole of the panel, and on the sixty-odd
- * waves that name a `scene` they are the wrong half of it: a guide with a
- * rehearsal plays the film and never draws the words (`render/briefing.ts`
- * returns as soon as a scene is up), so the panel showed prose nobody reads
- * and said nothing at all about the pages they do. FIRST STEP is the plainest
- * case — three paragraphs written, and what opens is four pages of film.
- *
- * So this says it: the rehearsal's name, how many pages it is, and each page's
+ * A filmed guide carries no words (`content/wave-types.ts`), so on a wave that
+ * names a `scene` this note is the whole GUIDE section. It says the rehearsal's name, how many pages it is, and each page's
  * caption with the seat it is written to. A picker over the catalogue is the
  * larger version of this and wants the owner's word on whether a scene should
  * be choosable at all; what a reader needs first is to stop being told the
@@ -22,12 +16,7 @@ import { guideScene, type SceneId } from "@neon-spore/content";
  * of NEXT on the field. `onPage` is handed the page's index and the stage does
  * the rest (`stage.ts` `openPage`); without it the list is the read-only note
  * it was.
- *
- * **The words are dimmed and not disabled.** They are unread by the game and
- * still required by `packages/content/test/waves.test.ts`, which holds that a
- * wave carrying a guide writes all three halves — so they are not dead text an
- * author may leave wrong, and a field nobody can fix is worse than a field
- * nobody reads.
+
  */
 
 export interface SceneNote {
@@ -74,7 +63,7 @@ export function bindSceneNote(
         return;
       }
       const count = found.length;
-      head.textContent = `REHEARSAL ${scene} — ${count} ${count === 1 ? "page" : "pages"} of film, played instead of the words below`;
+      head.textContent = `REHEARSAL ${scene} — ${count} ${count === 1 ? "page" : "pages"} of film`;
       pages.replaceChildren(
         ...found.map((step, i) => {
           const li = document.createElement("li");

@@ -42,59 +42,57 @@ export type BossType = "special" | "normal";
  * The help a wave carries: a concrete instruction about a control or a concept
  * the pair is about to meet for the first time.
  *
- * **An object with named parts, and that is the whole point of it being one.**
- * The owner has said plainly that a guide may one day be more than words — a
- * guidance animation, a picture, a scene stepped through — and that it will be
- * built one piece at a time. So a guide is never three loose fields on `Wave`
- * and never a bare string: motion arrives here as *another key beside these
- * three*, and no wave file has to move to make room for it. Anything added is
- * optional, so the sixteen waves that carry words today keep carrying only
- * words.
+ * **A film or words, never both.** The owner, 25 September 2026: *we have
+ * either just a simple wave with no guide/tutorial which shows wave name, or we
+ * have guide/tutorial which explains in game step by step. not both.* So a
+ * guide is one of two shapes, and the type will not hold the other half:
  *
- * **Every guide is split, and the split is the point.** Three lines: one both
- * screens carry, and one each. A guide that put all of it on both screens
- * would teach the pair, in the first ten seconds of the game, that they do not
- * need to talk to each other — which is the one thing this game cannot survive
- * (`docs/spec/roles.md`). So neither half is ever a restatement of the other,
- * and neither is optional: `both` says what the thing *is*, and the two halves
- * say what each player does about it. Read alone, a guide is half an
- * instruction.
+ * - `FilmedGuide` names a rehearsal (`scene`) and nothing else. The film is
+ *   the screen, its pages are its steps and then the gate, and its captions
+ *   are the only words the pair reads.
+ * - `WordedGuide` is the three lines and the gate, and nothing that moves. It
+ *   is what a guide was before the films, and every one left is a film owed
+ *   — `packages/content/test/scenes-prose.test.ts` names them, and
+ *   `docs/queue.md` has an entry for each.
  *
- * Keep the lines short. They are read on a phone, under a beat, by someone who
- * is about to have to say them out loud. The heading is the wave's own `name`,
- * so a guide never carries a title of its own.
+ * Until that day a filmed guide kept its three lines as well, as the
+ * director's reference (the owner, 17 September 2026). No player ever read
+ * them, and the owner took them off.
  *
- * **On a wave with a `scene`, the three lines reach no player.** The film is
- * the screen, and its pages are the film's steps and then the gate; the prose
- * is drawn only by a guide with no film. The owner decided on 17 September
- * 2026 that the words stay on those waves all the same, as the director's own
- * reference — the plainest statement of what the wave is, in the panel and in
- * a search — so a lane rewriting them for a filmed wave is writing for the
- * director, not the phone, and should not spend a morning on their look.
+ * **Words are split, and the split is the point.** One line both screens
+ * carry, and one each. A guide that put all of it on both screens would teach
+ * the pair, in the first ten seconds of the game, that they do not need to
+ * talk to each other — which is the one thing this game cannot survive
+ * (`docs/spec/roles.md`). So neither half is a restatement of the other, and
+ * neither is optional: `both` says what the thing *is*, and the two halves say
+ * what each player does about it. The heading is the wave's own `name`, so a
+ * guide never carries a title of its own.
  */
-export interface WaveGuide {
+export type WaveGuide = FilmedGuide | WordedGuide;
+
+export interface FilmedGuide {
+  /**
+   * The rehearsal this guide plays, by name. A *name* rather than the
+   * choreography itself, for `Wave.controls`' reason: a named scene is
+   * something a person can be shown and told to change, it is one line for
+   * the director to write back out (`tools/director/src/serialize.ts`), and a
+   * hundred lines of timing in the middle of a list of arrivals is not a wave
+   * file anybody can read. `packages/content/src/scenes.ts` holds them.
+   */
+  scene: SceneId;
+  both?: never;
+  p1?: never;
+  p2?: never;
+}
+
+export interface WordedGuide {
+  scene?: never;
   /** The line both screens carry. Never the whole of it. */
   both: string;
   /** Player 1's half: the cannon, the shield's trigger, the maw. */
   p1: string;
   /** Player 2's half: the shield itself, and the two colours. */
   p2: string;
-  /**
-   * The rehearsal this guide shows above its words, by name, or nothing.
-   *
-   * **The key this interface was built to take** — the paragraph above has
-   * been promising it since the guide stopped being a bare string. It is a
-   * *name* rather than the choreography itself, for `Wave.controls`' reason:
-   * a named scene is something a person can be shown and told to change, it
-   * is one line for the director to write back out
-   * (`tools/director/src/serialize.ts`), and a hundred lines of timing in the
-   * middle of a list of arrivals is not a wave file anybody can read.
-   * `packages/content/src/scenes.ts` holds them.
-   *
-   * A guide with no scene is the sixteen guides that shipped before this one:
-   * the three lines, the ready gate, and nothing that moves.
-   */
-  scene?: SceneId;
 }
 
 export interface Wave {

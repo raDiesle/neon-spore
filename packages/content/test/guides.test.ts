@@ -17,7 +17,8 @@ import { WAVES } from "../src/index.js";
  * guide, so it fits.
  */
 
-const GUIDED = WAVES.filter((w) => w.guide);
+/** The guides made of words — a filmed guide's words are its captions. */
+const GUIDED = WAVES.filter((w) => w.guide && w.guide.scene === undefined);
 
 /** The most a guide's half may say, in characters. */
 const HALF_MAX = 220;
@@ -35,7 +36,7 @@ describe("the guides the waves carry", () => {
 
   it("keeps a line short enough to read on a phone under a beat", () => {
     for (const wave of GUIDED) {
-      for (const part of [wave.guide!.p1, wave.guide!.p2]) {
+      for (const part of [wave.guide!.p1!, wave.guide!.p2!]) {
         expect(part.length, `${wave.name} has a long half: ${part}`).toBeLessThanOrEqual(HALF_MAX);
       }
     }

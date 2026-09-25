@@ -118,12 +118,12 @@ the creature is defined **against**, and put that in the wave if the answer is
 not "the empty field".
 
 **The guide.** A `guide` on that same wave, written directly under
-`name`, and it is **three texts, not one**: `both` for what the thing is,
-then `p1` and `p2` for what each seat now does about it — the split is the
-point, and a guide whose `p1` and `p2` say the same thing is a guide that has
-not understood the game. ON THE BEAT's are worth copying as a shape: *"Call
-the beat it swells on, out loud, the way you call a column"* against *"Fire on
-the count, not on sight."*
+`name`, and it is **a film**: `guide: { scene: "<sceneId>" }`, a rehearsal of
+the wave on the game's own screen, authored the way `.claude/skills/new-tutorial`
+says. Its captions carry the split — what each seat does about the thing, on
+that seat's own screen — and a film whose two seats are shown doing the same
+thing has not understood the game. It carries no words beside it
+(`WaveGuide`, the owner's 25 September 2026: not both).
 
 Say what the *wave* is about, not what the creature is in the abstract. The
 abstract sentence has its own home — the `what` row in

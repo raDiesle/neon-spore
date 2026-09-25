@@ -17,7 +17,7 @@ guide would ask for. `bun run words` is the same brief as numbers.
 
 | Where | Field | Drawn on |
 |---|---|---|
-| `packages/content/src/waves/act-*.ts` | `guide.both`, `guide.p1`, `guide.p2` | the guide screen a wave opens on |
+| `packages/content/src/waves/act-*.ts` | `guide.both`, `guide.p1`, `guide.p2` | the prose guide on the ten waves still owed a film — a filmed guide carries none |
 | `packages/content/src/waves/act-*.ts` | `name` | the HUD, the wave list, the guide's last page |
 | `packages/content/src/mechanics-*.ts` | `what` | **a menu button** — the DEMOS page (`apps/game/src/demo-menu.ts`) |
 | `packages/content/src/screen-words.ts` | `LINK_WORDS[].what` | the card when the line to the other phone drops (`apps/game/src/hold.ts`) |

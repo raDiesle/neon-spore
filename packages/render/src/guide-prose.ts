@@ -70,7 +70,8 @@ export function drawProsePage(
   // and `??` would fall through to the shipped wave's and draw the words the
   // author has just deleted. The spelling `band.ts` reserves, for its reason.
   const guide = view.guide === undefined ? WAVES[world.wave]?.guide : view.guide;
-  if (!guide) return;
+  // A filmed guide carries no words to draw: its captions are the film's.
+  if (!guide || guide.scene !== undefined) return;
   const both = role === "test";
   const age = fx?.age ?? SETTLED_AGE;
 

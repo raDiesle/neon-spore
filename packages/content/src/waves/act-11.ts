@@ -68,9 +68,6 @@ export const WAVES_ACT_11: Wave[] = [
     id: "theSpool",
     name: "THE SPOOL",
     guide: {
-      both: "A spool pays a line down to the hull. One of you brakes it, the other reads how fast it should run. Hold it right and a rib eases.",
-      p1: "1. The brake is yours. Hold it at a depth.\n2. Shallow lets the line run. Deep slows it. No hand at all runs fastest.\n3. You are shown nothing but your own grip. Ask them.",
-      p2: "1. You see how much line should be out, and how much is.\n2. Say faster or slower, and keep saying it.\n3. Out of the band and the leg starts again. Later on, a rock falls down their column.",
       scene: "theSpool",
     },
     entries: [],

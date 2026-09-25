@@ -31,7 +31,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
 const PHONE = { width: 390, height: 844, dpr: 1 };
 /** A wave with words to be drawn instead of. */
-const WITH_WORDS = WAVES.findIndex((w) => w.guide !== undefined);
+const WITH_WORDS = WAVES.findIndex((w) => w.guide !== undefined && w.guide.scene === undefined);
 
 beforeAll(installCanvasGlobals);
 
@@ -113,7 +113,7 @@ describe("a stated guide with a rehearsal", () => {
     const world = guided(SCENED);
     const stage = new GuideStage();
     const play = (scene: SceneId): void => {
-      stage.update(world, 1 / CFG.tickHz, "p1", { guide: { both: "", p1: "", p2: "", scene } });
+      stage.update(world, 1 / CFG.tickHz, "p1", { guide: { scene } });
     };
     // Far enough that the first film has run out and is standing on its last
     // frame, which is the state a stale run would be caught in.
@@ -130,9 +130,8 @@ describe("a stated guide with a rehearsal", () => {
   it("puts a rehearsal away when the host takes the scene off mid-play", () => {
     const world = guided(SCENED);
     const stage = new GuideStage();
-    const scene = WAVES[SCENED]?.guide?.scene;
-    for (let i = 0; i < 30; i++)
-      stage.update(world, 1 / CFG.tickHz, "p1", { guide: { both: "", p1: "", p2: "", scene } });
+    const scene = WAVES[SCENED]!.guide!.scene!;
+    for (let i = 0; i < 30; i++) stage.update(world, 1 / CFG.tickHz, "p1", { guide: { scene } });
     expect(stage.active).toBe(true);
     stage.update(world, 1 / CFG.tickHz, "p1", { guide: { both: "", p1: "", p2: "" } });
     expect(stage.active, "the film outlived the scene that was deleted").toBe(false);

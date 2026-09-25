@@ -110,9 +110,6 @@ export const WAVES_ACT_8: Wave[] = [
     id: "theBeatbox",
     name: "THE BEATBOX",
     guide: {
-      both: "A soundbox swells each beat and wants a number of taps. No shot touches it. Tap it once a beat, then stop. Wrong, it hits the hull.",
-      p1: "1. Only you see the number over the box.\n2. Say it early and say it once.\n3. Once your partner starts tapping, it is too late to hear it.",
-      p2: "1. Only you can tap the body, once a beat, on the beat.\n2. Each tap grows an arm on it.\n3. Stop on your partner's number. Extra is as wrong as missing.",
       scene: "theBeatbox",
     },
     entries: [
@@ -127,9 +124,6 @@ export const WAVES_ACT_8: Wave[] = [
     id: "theWeight",
     name: "THE WEIGHT",
     guide: {
-      both: "A heavy sac falls a row a beat. No shot or shield stops it. Both of you press it on the same beat. One thumb alone looks the same.",
-      p1: "1. You call it. Say the beat out loud: on the three.\n2. Put your thumb on the body on that beat.\n3. Your thumb is off the strip while it is down. Call one you can afford.",
-      p2: "1. Do not count. Press on the beat your partner calls.\n2. Hold your thumb there until it gives.\n3. While your thumb is down, the shield waits. Your partner spends your dome.",
       scene: "theWeight",
     },
     entries: [
@@ -144,9 +138,6 @@ export const WAVES_ACT_8: Wave[] = [
     id: "theCairn",
     name: "THE CAIRN",
     guide: {
-      both: "Take the pile apart by hand. Put the shield under every rock that comes away. Leave it eight beats and it drops one itself. Only Player 1 sees where.",
-      p1: "1. Only you see the column it drops into by itself. Say it.\n2. It changes every time a rock leaves.\n3. Eight beats of patience, and every pull resets it.\n4. Trigger the shield under every rock.",
-      p2: "1. Say how many you can be under, and which side to pull.\n2. A pulled rock lands in twelve beats. Put the shield under it.\n3. The pile's own rock falls eight beats later. Your colours are dead.",
       scene: "theCairn",
     },
     entries: [],

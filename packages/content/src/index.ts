@@ -173,12 +173,14 @@ export { placedFaults, type WaveFault } from "./wave-faults.js";
 export { freshWaveId } from "./wave-types.js";
 export {
   type BossType,
+  type FilmedGuide,
   guideSteps,
   PROSE_PAGES,
   WAVES,
   type Wave,
   type WaveEntry,
   type WaveGuide,
+  type WordedGuide,
   waveGuideSteps,
   waveHasGuide,
 } from "./waves.js";

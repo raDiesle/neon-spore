@@ -492,7 +492,12 @@ is both seats — the owner's own answer to the question that raised it.
 
 The other half of the same question — what the wave being edited actually puts
 in front of a pair — is answered by the `WAVE` tab's `GUIDE` section itself,
-three fields under `NAME`, and by the `✎` beside the wave in the rail. A
+under `NAME`, and by the `✎` beside the wave in the rail. On a filmed wave the
+section is the film's pages, each a button that opens the stage there, and
+nothing to type; on one of the ten still in words it is the three fields,
+labelled with the blocks the game draws them under. A film carries no words
+beside it (the owner, 25 September 2026), so there is no ADD GUIDE: a new guide
+is a rehearsal, written in `packages/content/src/scenes/`. A
 `BRIEFING` line used to say it in prose above them and a `▣ DOCUMENTATION →
 GUIDES` sheet used to list every wave that carried one; the sheet went on 14
 September 2026 when the words moved into this tab, and the line went on the

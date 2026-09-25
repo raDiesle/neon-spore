@@ -151,9 +151,6 @@ export const WAVES_ACT_9: Wave[] = [
     id: "theLeak",
     name: "THE LEAK",
     guide: {
-      both: "Back on the panel from before THE LANCE. Every tap still fires, but holding fills nothing. No beam, so three of a colour takes three shots.",
-      p1: "1. Nothing on your strip is dead, and standing still buys nothing.\n2. Call the next column while your partner fires at this one.\n3. The crossing costs here, not the shots.",
-      p2: "1. Tap. Holding a colour fills nothing.\n2. The body keeps falling while your thumb is down.\n3. Take them one at a time and let go between.\n4. Three of a colour is three presses.",
       scene: "theLeak",
     },
     entries: [
@@ -180,9 +177,6 @@ export const WAVES_ACT_9: Wave[] = [
     id: "theSplice",
     name: "THE SPLICE",
     guide: {
-      both: "Straws cross the field. Player 2 sees each number and where it goes. Player 1 sees the mouths. Feed them in order. A wrong feed loses the wave.",
-      p1: "1. Count the mouths from the left. A ring marks the one you are under.\n2. Slide to the one your partner names, then say THERE: they cannot see the cannon.\n3. The two beats a number falls are yours: be on the next mouth.",
-      p2: "1. Trace 1 down to its mouth, count from the left, say it.\n2. Only you can open the maw, and only on your partner's THERE.\n3. Eight beats a straw: the two it falls come off your clock. Trace the next then.",
       scene: "theSplice",
     },
     entries: [],
@@ -194,9 +188,6 @@ export const WAVES_ACT_9: Wave[] = [
     id: "theMine",
     name: "THE MINE",
     guide: {
-      both: "Something sits on a tile, on one screen only. No shot touches it. Your partner must press that exact square. Miss by one tile and the hull pays.",
-      p1: "1. First, you press. Hear the letter and number, and press that square on the field.\n2. The cannon plays no part.\n3. The second one is yours to see. Say the square twice.",
-      p2: "1. The first is yours to see, not touch. Say the square at once.\n2. Letter, then number, then the count on it. That is your partner's time.\n3. The second you press blind. Go straight there. Feeling around costs a beat.",
       scene: "theMine",
     },
     entries: [
@@ -212,9 +203,6 @@ export const WAVES_ACT_9: Wave[] = [
     id: "theMoult",
     name: "THE MOULT",
     guide: {
-      both: "One body turns rock, then cargo, every five beats. The dome turns the rock away. The maw swallows the cargo. Low down, it slides to the cannon.",
-      p1: "1. The column, the trigger and the maw are yours.\n2. Park the cannon under it early. It comes to you.\n3. Do what your partner counts: rock, trigger. Cargo, open the maw.\n4. Never fire at it.",
-      p2: "1. Only you see what it turns into next. Say the count aloud: rock now, cargo in two.\n2. Put the shield where your partner parks the cannon, and leave it.\n3. The rock half still needs it there.",
       scene: "theMoult",
     },
     entries: [

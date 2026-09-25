@@ -19,9 +19,6 @@ export const WAVES_ACT_1B: Wave[] = [
     id: "salvage",
     name: "SALVAGE",
     guide: {
-      both: "The panel is complete. The maw is the last button, and this wave is for it. The pod hangs until a shot frees it. Then it sinks and drifts.",
-      p1: "1. SUCK is new, beside your trigger.\n2. Chase the pod with the cannon. Open the maw as it reaches the hull.\n3. A pod that breaks on the skin loses the wave. One you take clears the field.",
-      p2: "Free it with a shot of either colour, then say which way it is drifting.",
       scene: "salvage",
     },
     entries: [
@@ -35,9 +32,6 @@ export const WAVES_ACT_1B: Wave[] = [
     id: "catchAndAim",
     name: "CATCH AND AIM",
     guide: {
-      both: "A wreck on one side, bodies on the other, one cannon. A finger on a body marks it. While it stays, every shot steers into it. The colour still counts.",
-      p1: "1. Keep the cannon on the pod's side.\n2. Hold a body with your other thumb. It slows and wears a frame.\n3. The next shot hits it. Say which one you have.",
-      p2: "1. Fire the colour your partner names. Stop naming columns.\n2. A wrong colour still bounces off.\n3. While the hand is down, a shot can go nowhere else.",
       scene: "catchAndAim",
     },
     entries: [

@@ -103,12 +103,14 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     expect(WAVES.length, fix).toBe(101);
   });
 
-  it("keeps the prose beside a film rather than instead of it", () => {
-    // The section says a wave with a film keeps its three strings. A film that
-    // arrived with the prose deleted would leave a pair with nothing to read on
-    // the second time through.
+  it("puts a film instead of the prose rather than beside it", () => {
+    // The section said, until 25 September 2026, that a wave with a film keeps
+    // its three strings. The game never drew them once a film was up, and the
+    // owner's word that day was *either … not both*: a film arriving is the
+    // prose leaving, in the same commit.
     for (const w of guided) {
-      expect(w.guide?.both, `${w.name} carries a guide with no words in it`).toBeTruthy();
+      if (w.guide?.scene === undefined) continue;
+      expect(w.guide.both, `${w.name} keeps its words beside a film`).toBeUndefined();
     }
   });
 });

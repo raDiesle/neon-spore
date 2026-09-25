@@ -54,9 +54,6 @@ export const WAVES_ACT_7C: Wave[] = [
     id: "theScout",
     name: "THE SCOUT",
     guide: {
-      both: "Fly the little ship to every mote. Touch nothing that moves. Carrying more than three makes it heavy.",
-      p1: "1. Hold ◀ or ▶ to swing the nose to the o'clock they give.\n2. BURN for as long as they say. It keeps drifting after.\n3. Ask what is crossing before every burn.\n4. Heavy ship: drag it to prime, or the burn does nothing.",
-      p2: "1. Say an o'clock for the nearest mote, and how long to burn.\n2. Say what is moving across before they burn.\n3. Open the MAW when it is home.\n4. Four aboard: a thumb on it reels it home. Check the line first.",
       scene: "theScout",
     },
     entries: [],
@@ -68,9 +65,6 @@ export const WAVES_ACT_7C: Wave[] = [
     id: "theStare",
     name: "THE STARE",
     guide: {
-      both: "An eye watches one of you at a time. Only the other screen is told who, seven beats early. The other keeps playing.",
-      p1: "1. Every time it turns, listen for YOU or THEM. Your screen is not told.\n2. YOU: a touch breaks the hull. Say what is falling.\n3. THEM: play on, or pull the lid shut. Shut, they are free. Open, it looks at you.",
-      p2: "1. Say who it picks, each turn: YOU or THEM. They are not told.\n2. YOU: a touch breaks the hull. Your partner moves the shield.\n3. THEM: play on, or pull the lid shut. Shut, they are free. Open, it looks at you.",
       scene: "theStare",
     },
     entries: [
@@ -97,9 +91,6 @@ export const WAVES_ACT_7C: Wave[] = [
     id: "theCrossing",
     name: "THE CROSSING",
     guide: {
-      both: "A rock comes over a side wall. It holds one row and crosses two columns a beat. It never reaches the ship. It blocks the cannon's shots as it passes.",
-      p1: "1. Only you see the arrow at the edge.\n2. It shows the row, the side and the way it flies.\n3. Say the row. Count it across.\n4. Your column is yours only until it arrives.",
-      p2: "1. You see it only once it is on the field.\n2. The trigger is still yours. Fire on their word.\n3. A shot that meets a rock dies there. The body above goes on falling.",
       scene: "theCrossing",
     },
     entries: [
@@ -117,9 +108,6 @@ export const WAVES_ACT_7C: Wave[] = [
     id: "theChoir",
     name: "THE CHOIR",
     guide: {
-      both: "Two grey balls sit in one column. No shot reaches them. To open them, shake the phone twice, or carry both big arrows outward. Do it in two beats.",
-      p1: "1. This is yours, and it is not a button.\n2. Shake the phone twice.\n3. No answer? Carry one arrow off its edge, then the other.\n4. Two moves, two beats. Stop after one and it sings, and the hull pays.",
-      p2: "1. You cannot open it. A shot before it opens hits nothing.\n2. The glow says it has started. The colour says which trigger.\n3. Load it, wait for them to close, then fire up their column.",
       scene: "theChoir",
     },
     entries: [
@@ -133,9 +121,6 @@ export const WAVES_ACT_7C: Wave[] = [
     id: "pulse",
     name: "THE PULSE",
     guide: {
-      both: "Things fall into four sockets. Press the matching button as each one lands. A grey shape is one only your partner can name. The bar is yours together.",
-      p1: "1. Press the button for each thing as it lands.\n2. A grey shape is theirs to name: press what they say.\n3. Say what the shape marked CALL is, early and once.\n4. Bar low: a thumb on it carries them, but you stop playing.",
-      p2: "1. Press the button for each thing as it lands.\n2. Say what the shape marked CALL is, early and once.\n3. A grey shape is theirs to name: press what they say.\n4. Bar nearly gone: both thumbs on it, or it keeps falling.",
       scene: "thePulse",
     },
     entries: [],
@@ -147,9 +132,6 @@ export const WAVES_ACT_7C: Wave[] = [
     id: "theBalloon",
     name: "THE BALLOON",
     guide: {
-      both: "They drift up, turning at the walls. At the top one falls back as a torch. Pull both its handles out together, and hold. It splits, then pops.",
-      p1: "1. Left handles are yours. Carry them left, and far.\n2. Name the one you take, its column and height, before you take it.\n3. A pull on your own does nothing. Let go early and you lose the hold.",
-      p2: "1. Right handles are yours. Carry them right, and far.\n2. Say which one you take back before you take it.\n3. Hold until it gives.\n4. A half nobody agreed on gets away. It comes back down as a torch.",
       scene: "theBalloon",
     },
     entries: [

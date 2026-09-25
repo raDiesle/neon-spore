@@ -47,24 +47,29 @@ demonstrating.
 The wave opens on its number and its name — plain text on the field, on a
 timer, nothing pressed. After that, and only if the wave is the **first** to
 carry a creature, a pod kind, a boss or a mechanic, it opens on a `guide`,
-written directly under `name`:
+written directly under `name`, and **a guide is a film**:
 
 ```ts
 {
+  id: "theRock",
   name: "THE ROCK",
   guide: {
-    both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
-    p1: "It announces itself on your strip, before it is on the field. Trigger the shield at the moment it lands — not before.",
-    p2: "Slide the shield into its column and hold it there. You cannot fire it yourself.",
+    scene: "theRock",
   },
   entries: [{ beat: 0, col: 3, kind: "meteor", color: null }],
 }
 ```
 
-Three texts, never one. `both` says what the thing is; `p1` and `p2` say what
-each seat does about it, and a guide whose two halves say the same thing is a
-guide that has not understood the game. The guide is drawn under the wave's own
-name, so it needs no title.
+The film is a rehearsal of the wave on the game's own screen, one page per
+step, authored in `packages/content/src/scenes/` and named in `SceneId` —
+`.claude/skills/new-tutorial` is how. **A film carries no words beside it** (the owner, 25 September 2026:
+either a plain wave or a guide that explains step by step, not both), and
+`WaveGuide`'s type refuses the pair.
+
+The other shape — `both`, `p1`, `p2`, three blocks of words — survives on ten
+waves nobody has filmed yet, each with a `docs/queue.md` entry to become one.
+Do not write a new one: a wave whose thing is not drawn yet waits for its look
+lane to draw it and is filmed then.
 
 **A wave that carries nothing new writes no guide.** Padding one with a guide
 is the same failure as padding it with entries, and

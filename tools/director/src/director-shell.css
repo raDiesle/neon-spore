@@ -252,11 +252,9 @@ label.field {
   font-family: var(--mono);
 }
 
-/* The read-only note over the three GUIDE fields, on a wave whose guide plays
-   a rehearsal: what the pair actually meets, page by page
-   (`guide-scene-note.ts`). The fields under it are dimmed rather than
-   disabled — the game never draws those words, and `waves.test.ts` still
-   requires them, so they have to stay fixable. */
+/* The read-only GUIDE note on a wave whose guide plays a rehearsal: what the
+   pair actually meets, page by page (`guide-scene-note.ts`). A filmed guide
+   carries no words, so this is the whole section there. */
 .guide-scene {
   margin: 10px 0 0;
 }
@@ -281,7 +279,4 @@ label.field {
 .guide-page:focus-visible {
   color: var(--ink);
   text-decoration: underline;
-}
-.guide-unread {
-  opacity: 0.45;
 }

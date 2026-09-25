@@ -110,9 +110,6 @@ export const WAVES_ACT_7B: Wave[] = [
     id: "theClaw",
     name: "THE CLAW",
     guide: {
-      both: "The cannon is an arm. REACH sends it up to grab the first thing it meets. Power-ups cross sideways. A rock it grabs falls like a torch.",
-      p1: "1. The arm is all you have. No trigger, no shield.\n2. Slide ahead of a power-up, not at it. Then REACH.\n3. Never REACH up a column with a rock in it. It falls on you.",
-      p2: "1. SUCK is all you have. You catch nothing without it.\n2. The arm brings a power-up down to the hull.\n3. Count the arm down. Open your mouth as it lands.",
       scene: "theClaw",
     },
     entries: [

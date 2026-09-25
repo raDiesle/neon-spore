@@ -120,9 +120,6 @@ export const WAVES_ACT_4: Wave[] = [
     id: "theWisp",
     name: "THE WISP",
     guide: {
-      both: "One of you cannot see it at all. It never falls toward you. It jumps and lands somewhere else.\nSay where with the lettered grid under the field.",
-      p1: "1. You never see it. Put the cannon on the square you are told.\n2. That square is where it goes next, not where it is. Be there early.\n3. The box moving over the grid is not it.",
-      p2: "1. Only your screen has it. An arc shows its next square the moment it lands.\n2. Say that square at once. They have the whole wait to get there.\n3. Either colour kills it.",
       scene: "theWisp",
     },
     entries: [
@@ -135,9 +132,6 @@ export const WAVES_ACT_4: Wave[] = [
     id: "theGhost",
     name: "THE GHOST",
     guide: {
-      both: "Something is falling that only one of your screens draws. The other gets a band across the row it is in, and nothing at all about the column.",
-      p1: "1. You never see it. Read the band for how long you have.\n2. Take the column you are told.\n3. Say the number back. Standing there shows you heard it.",
-      p2: "1. Only you can see it, and you cannot move the cannon.\n2. Say the column as a digit, not “there”. Repeat it until they are under it.\n3. The last one crosses. Call where it is going.",
       scene: "theGhost",
     },
     entries: [
@@ -150,9 +144,6 @@ export const WAVES_ACT_4: Wave[] = [
     id: "snake",
     name: "SNAKE",
     guide: {
-      both: "Shoot the enemies, swallow the points, never touch a meteor. Clear them all and the round is over. The longer the body gets, the more it asks of you.",
-      p1: "1. Say where the next thing is, and whether to shoot or swallow it.\n2. FIRE when the head points at an enemy.\n3. Open the MAW before a point.\n4. Once the jaws stick, MAW is dead: drag them open on the head.",
-      p2: "1. Steer on their word only: LEFT or RIGHT is a quarter turn.\n2. Turn away from every meteor.\n3. Say when one is ahead: a shot stops dead on it.\n4. Long body: a thumb on the tail takes its last tiles off the board.",
       scene: "snake",
     },
     entries: [],
@@ -164,9 +155,6 @@ export const WAVES_ACT_4: Wave[] = [
     id: "theEcho",
     name: "THE ECHO",
     guide: {
-      both: "It falls at half speed and splits as it falls. The seam shows which way it splits.\nFirst sideways, then up and down. It stretches wide just before it splits.\nEach wait is longer than the last. A quiet one is not the end.",
-      p1: "1. Get the cannon under it while it is still one.\n2. The fast bodies can wait a beat. This one cannot.\n3. Every beat you spend elsewhere means one more body to reach.",
-      p2: "1. Fire on the beat they are under it, not the beat you are free.\n2. Once it splits, call each body by column and by row: top or bottom.\n3. Take them in that order.",
       scene: "theEcho",
     },
     entries: [
@@ -182,9 +170,6 @@ export const WAVES_ACT_4: Wave[] = [
     id: "pinball",
     name: "PINBALL",
     guide: {
-      both: "Fire one ball up through the table and catch it under the cannon when it comes down. Only the amber pieces have to go.",
-      p1: "1. Slide the cannon to where the shot should start.\n2. Press SET the moment your partner calls the angle.\n3. Get back under wherever the ball is coming down.",
-      p2: "1. Talk your partner onto the angle while the needle sweeps.\n2. Wait until they have stopped it.\n3. Press FIRE when the bar fills to the strength you want.",
       scene: "pinball",
     },
     entries: [],
