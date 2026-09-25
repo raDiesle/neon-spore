@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — Four more bosses take the blow of a landed sequence
+
+- reading: 10 min. The queue entry, `boss-hurt.ts`, THE INSTAR's wiring, and
+  each boss's events file for the one that means *a sequence landed*.
+- writing: 20 min. THE WARDEN, THE SPOOL, THE HASP and THE SINEW, and
+  `boss-hurt.test.ts` turned into a table with a control run.
+- looking: 10 min. One before/after of THE SINEW six ticks after a fibre
+  parted, found by trying three pulls.
+- friction: 5 min. `check:fast` wanted `bun install --force` first; a
+  `--hold` without `@tick` waited out the `--until` and never gripped.
+- landing: 10 min. Four `check:fast` runs, four commits, `land`.
+
+Bottleneck: finding a pull that makes the real fight land a sequence, so
+the frame shows the event rather than a pushed one.
+
 ## 2026-09-25 — The map's trash asks nothing, and a drag along it marks many rows
 
 - reading: 5 min. `grid-rows.ts`, `grid-row-acts.ts`, `removeBeat` and who

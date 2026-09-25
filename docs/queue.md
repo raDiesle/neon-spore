@@ -412,6 +412,15 @@ find the event that means *a sequence landed* (not one part of it), hold a
 translate and `drawHurt` over its plates, and add a case to
 `boss-hurt.test.ts`. Each lands as *a look the owner asked for by name*.
 
+**Worn so far** (25 September 2026): THE INSTAR, THE WARDEN (a plate off),
+THE SPOOL (a rib eased), THE HASP (a hasp wound open), THE SINEW (a fibre
+parted). `boss-hurt.test.ts` is a table now: a boss is one row — the landing
+events, one part-of-a-sequence event that must deal nothing, and where its
+fx keeps the blow — and the frame case stubs `hit()` out of the control run,
+so the red it counts is the blow's alone. A boss whose drawer takes an
+interface rather than its fx class (`hasp-draw.ts`) adds `hurt: BossHurt`
+to it. The rest are each boss's own `*-fx.ts` in `packages/render/src/`.
+
 ## The other pull handles show the path they can be pulled
 
 - **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
