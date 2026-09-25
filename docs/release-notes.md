@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · d76829a5c — Queue and time log: every boss with a body now wears the blow
+
+The roll-out of the owner's generic rule of 24 September 2026 is finished, and its queue item is done. boss-hurt.ts now names which bosses never wear the blow, and why: they have no body the pair can hurt, or they take no damage by design. The VANE-sound item now names the test file the VANE case lives in, and the opening.test.ts flake records that it came back.
+
+## 2026-09-25 · 345478505 — THE MIRROR shakes and goes red when a right sequence lands
+
+When the pair answers a round right, the first glyph thrown back into the copy lands half a second later, and on that frame the copy takes the blow: its body washes red for half a second and the copy, its ghost shots and its lobe rings shake as one. A wrong answer deals nothing, and the pair's own hand on the copy does not shake.
+
+## 2026-09-25 · 5b7206a44 — THE MAZE's heart shakes and goes red when a right shot lands
+
+A right verdict now shakes the heart and washes its muscle red for as long as the wound shows, on top of the flare and the ring it already threw. It is timed by the verdict on the picture, as THE FILAMENT's strike is, so nothing is held between frames. The blood and the veins' far ends stay where the room is; only the muscle and its roots shake.
+
 ## 2026-09-25 · 33ecf06dd — THE SLOW's window goes to VERSUS again: swallow, prism, punch, grade, implode
 
 Five new answers for how the slowed window looks, in a new slot, slow:pull, each keeping the fuse the owner took and replacing the streams: SWALLOW smears every lit edge on the field into the boss's head; PRISM splits red and blue apart about it, kicking on each slowed beat; PUNCH snaps the room in toward the boss when the window opens and springs back when it shuts; GRADE drains the room cold and grey while the boss burns hotter; IMPLODE drops a refracting ring into the boss once a beat and flashes as it lands. Offered in VERSUS, not shipped — nothing the game draws changes.

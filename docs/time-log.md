@@ -21021,3 +21021,5 @@ away first.
 Bottleneck: THE MIRROR's blow lands half a second after its event, so its
 test had to wait out a flight whose length is in seconds while the harness
 counts ticks.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
