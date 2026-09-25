@@ -193,6 +193,20 @@ filed rightly, and there is no second list to change.
 
 ### Mechanics
 
+- **The stolen egg** — the owner, 24 September 2026, on THE INSTAR: the egg
+  a swipe takes off the clutch falls to the hull (built as a look,
+  `render/src/instar-eggs.ts`), and could become **a power-up the pair
+  steals**: *swipe down, collect, swipe down, collect*. It attaches to the
+  swipe mark already on the body and to the hull the egg lands on. Unworked
+  out: what collecting is — a press on the egg where it lands, the cannon
+  standing under it, or the maw taking it in; which seat collects, and
+  whether it is the seat that did not swipe (the split would then be *one
+  steals, the other catches*); what the power-up gives, when nothing the pair
+  controls travels — a shield charge, a slower window, a mark done for free;
+  whether an egg not collected hatches into a body on the field; and whether
+  this stays THE INSTAR's or becomes a mechanic any boss with a part to take
+  off may use.
+
 - **The point score** — one shared figure (`World.score`, in `hashWorld`),
   paid at fifty-one places in the simulation from `score*` fields: the
   ordinary body's `scoreDestroy` 100 and `scoreDeflect` 150, `scoreWave` 300

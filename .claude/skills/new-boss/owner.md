@@ -106,6 +106,10 @@ feedback on a boss says one, with the date, in his words where he gave them.**
      path of a slider without its knob, from where the thumb goes to the
      length the lift counts at, so the end of the bar is the end of the swipe
      (`render/src/instar-track.ts`).
+     **A gesture's direction is the picture's**: what the thumb does, the
+     part does — a swipe down takes an egg off THE INSTAR's clutch and it
+     falls straight down to the hull (`render/src/instar-eggs.ts`), one egg
+     per swipe the mark needs.
   THE INSTAR is the worked example he asked for before the rest
   (`render/grip-verdict.ts`); the roll-out is `docs/queue.md`'s.
 - **Open, for his feedback:** which of the three kinds the next one should be;

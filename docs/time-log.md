@@ -19820,3 +19820,17 @@ The bottleneck was **friction**: the worktree's workspace links were missing
 and only a forced install writes them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — A swiped egg falls from THE INSTAR's clutch to the hull
+
+- reading: 10 min. How the clutch is drawn and counted, and which event
+  says a swipe was counted.
+- writing: 15 min. `instar-eggs.ts`, the clutch at one egg per swipe, the
+  drop wired into `InstarFx`, and its test.
+- looking: 5 min. One frame of the five-egg clutch.
+- friction: 20 min. Trying to film the fall: `bun run frames` has no press
+  for an INSTAR mark, and a drag sent by hand to a preview was not heard.
+- landing: 5 min. `check:fast`, red once on the index.
+
+The bottleneck was **friction**: nothing can film a gesture on an INSTAR
+mark, so the fall is proved by a test and not a picture (queued).

@@ -67,7 +67,7 @@ export function drawInstar(
   drawEyes(ctx, f, head, r, time, fade);
   drawInstarLimbs(ctx, l, f, head, r, shoulders, time, fade);
   ctx.restore();
-  fx.place(l, s, sway);
+  fx.place(l, s, sway, r);
   drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role, fx.verdicts);
 }
 

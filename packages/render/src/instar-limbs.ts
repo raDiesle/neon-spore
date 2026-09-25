@@ -1,6 +1,7 @@
 import { blobPoints } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
 import { drawPlate, faded } from "./instar-draw.js";
+import { drawClutch } from "./instar-eggs.js";
 import { type Figure, instarAt, type Point } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -35,7 +36,7 @@ export function drawInstarLimbs(
   drawArm(ctx, shoulders[1], rHand, r, 1, time, fade);
   drawClub(ctx, lHand, r, -1, f.lWeapon, fade);
   drawClub(ctx, rHand, r, 1, f.rWeapon, fade);
-  drawEggs(ctx, l, f, r, time, fade);
+  drawClutch(ctx, l, f, r, time, fade);
   drawTongue(ctx, l, f, head, r, time, fade);
 }
 
@@ -109,37 +110,6 @@ function drawClub(
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(club);
   ctx.restore();
-}
-
-/** The clutch on the flank: up to three eggs, pulsing, one fewer per swipe. */
-function drawEggs(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  f: Figure,
-  r: number,
-  time: number,
-  fade: number,
-): void {
-  const n = Math.round(f.eggs * 3);
-  if (n <= 0) return;
-  const at = instarAt(l, f.eggsX, f.eggsY);
-  const pulse = 1 + 0.05 * Math.sin(time * 4);
-  const spots: Point[] = [
-    { x: at.x, y: at.y - r * 0.12 },
-    { x: at.x - r * 0.16, y: at.y + r * 0.1 },
-    { x: at.x + r * 0.16, y: at.y + r * 0.1 },
-  ];
-  for (let i = 0; i < n; i++) {
-    const s = spots[i];
-    if (s === undefined) continue;
-    const p = new Path2D();
-    p.ellipse(s.x, s.y, r * 0.15 * pulse, r * 0.19 * pulse, 0, 0, Math.PI * 2);
-    ctx.save();
-    ctx.fillStyle = faded(PALETTE.bile, fade, 0.8);
-    ctx.fill(p);
-    ctx.restore();
-    strokeGlow(ctx, p, faded(PALETTE.bileRim, fade), STROKE.inner, 0.6 * fade);
-  }
 }
 
 /** The tongue: out of the mouth to its tip, coiling as it goes, winding back in with the turn. */

@@ -493,3 +493,19 @@ captions that say *loses the wave* or *the hull pays* still ring that
 corner. Point them at `{ at: "hull" }`, where the hit lands, and retire
 `retries` as an anchor if nothing is left on it; `caption-anchor.test.ts`
 and the scene tests say which still resolve.
+
+## `bun run frames` cannot swipe, pull or turn an INSTAR mark
+
+- **Found:** 2026-09-25, claude/instar-ui-refinements-b5cec4
+- **Files:** `tools/frames/press-seats.ts`, `tools/frames/press-command.ts`, `tools/frames/press.ts`
+
+A mark is answered by a `drag` on `instarMark` with an `id`
+(`render/src/instar-mark-grip.ts`), and `--press` has no verb for it, so
+nothing the pair does to THE INSTAR can be filmed: the falling egg of 25
+September went unfilmed and was proved only by `instar-eggs.test.ts`.
+Sending the drag through `window.neonSpore.send` by hand was not heard
+either (`wouldHear(2, …)` said false on a preview at wave 82), which is the
+first thing to find out. Add `instar=<id>:<fromYMilli>` and `instarLift=<id>`
+(seat from the mark), and a `tools/frames/test` case that a swipe press
+reaches `instarAnswer`.
+

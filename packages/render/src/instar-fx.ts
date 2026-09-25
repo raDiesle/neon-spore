@@ -1,6 +1,7 @@
 import { type InstarState, instarStep, type SimEvent } from "@neon-spore/sim";
 import { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
+import { FallingEggs } from "./instar-eggs.js";
 import { instarAt, instarMarkPoint, type Point } from "./instar-shape.js";
 import type { Sway } from "./instar-sway.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -10,7 +11,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * What THE INSTAR leaves behind a frame: the **jolt** of a landing and of
  * the last, the **flinch** at a refused thumb or a slipped mark — a lateral
  * shiver of the whole body — the **lash** a strike draws from the part to
- * the hull, and the bursts its eleven receipts throw.
+ * the hull, the **eggs** a swipe takes off the clutch falling to the hull
+ * (`instar-eggs.ts`), and the bursts its eleven receipts throw.
  *
  * Everything else is drawn off the world every frame (`instar-draw.ts`).
  * These are here for THE HIVE's reason: a landing is one tick in the
@@ -41,9 +43,12 @@ export class InstarFx {
   private flinchNow = 0;
   private marks: Point[] = [];
   private head: Point | null = null;
+  private headR = 0;
   private lash: { from: Point; x: number; life: number } | null = null;
   /** Whether the last touch on each mark of this step was right, by index. */
   readonly verdicts = new GripVerdicts();
+  /** The eggs swiped off the clutch, on their way down to the hull. */
+  readonly eggs = new FallingEggs();
 
   /** How far the body is lifted right now, in tiles. */
   get jolt(): number {
@@ -58,9 +63,11 @@ export class InstarFx {
   /**
    * Told by the drawer where the marks and the head are this frame, swing
    * included — a burst thrown at a mark the body has swung away from lands
-   * on empty field (`instar-sway.ts`).
+   * on empty field (`instar-sway.ts`). `r` is the head's radius, which an
+   * egg is sized by.
    */
-  place(l: Layout, s: InstarState, sway: Sway): void {
+  place(l: Layout, s: InstarState, sway: Sway, r: number): void {
+    this.headR = r;
     const step = instarStep(s);
     this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway));
     this.head = instarAt(l, 500 + sway.xMilli, 300 + sway.yMilli);
@@ -93,6 +100,7 @@ export class InstarFx {
         case "instarAnswer":
           at(mark(e.mark), 3, PALETTE.redRim);
           this.verdicts.mark(e.mark, true);
+          if (e.part === "eggs") this.eggs.drop(mark(e.mark), l.hullY, this.headR || l.tile);
           break;
         case "instarDone":
           at(mark(e.mark), 8, PALETTE.hullRim);
@@ -146,10 +154,13 @@ export class InstarFx {
       if (this.lash.life <= 0) this.lash = null;
     }
     this.verdicts.update(step);
+    this.eggs.update(step);
   }
 
-  /** The lash: a red line from the part that was not undone to the hull it struck. */
+  /** The falling eggs, and the lash: a red line from the part that was not
+   * undone to the hull it struck. */
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
+    this.eggs.draw(ctx);
     if (this.lash === null) return;
     const a = this.lash.life / LASH_SECONDS;
     ctx.save();
@@ -169,6 +180,8 @@ export class InstarFx {
     this.marks = [];
     this.head = null;
     this.lash = null;
+    this.headR = 0;
     this.verdicts.clear();
+    this.eggs.clear();
   }
 }
