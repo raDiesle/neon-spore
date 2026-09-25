@@ -20512,3 +20512,5 @@ sim, audio, render and the director, and each is found by the typecheck.
 
 The bottleneck was **friction**: one duplicated heading made every landing's
 ledger merge refuse, silently, until somebody read why.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

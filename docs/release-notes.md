@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 610fc26fb — The time log merges on its own again: a duplicated entry had stopped every landing's merge
+
+The AUTO lane's entry was in docs/time-log.md twice, a draft above the final, under one heading with two bodies. The record merge refuses that on every side, so each landing that hour stopped on the ledger and was resolved by hand. The draft is gone, and a test now holds that the ledger as it stands merges.
+
 ## 2026-09-25 · 28e3d5b02 — THE FILAMENT has a clock, and every fault loses the wave
 
 A snap, a recoil and a dark line now strike the hull, which is the wave lost and played again. The line also has a clock: 12 beats for the first tile, 6 for every one after, restarted by either thumb. When it runs out, the line strikes the hull under the thumb it was waiting on (`filamentLate`, with its own sound). The guide says so. `filament-turn.ts` tells the screens whose move it is (P1's, P2's, or either's), whether a second tile would snap, and on which beat the line strikes. The next lane draws all of it.
