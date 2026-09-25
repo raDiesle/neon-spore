@@ -20957,3 +20957,18 @@ waiting out a shell, a verdict still in flight — which the event-driven blow
 does not fit.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE THROAT, THE BATON, THE CAIRN and THE VANE take the blow
+
+- reading: 15 min. Four bosses with no fx class of their own; the sim's
+  events for each, and THE VANE's `vaneStruck`, which pushes none.
+- writing: 25 min. `boss-blows.ts` to hold the four, the drawers' red and
+  the callers' shake, three test rows and a test of THE VANE's watcher.
+- looking: 0 min. No picture: the blow is the one already sent twice.
+- friction: 5 min. A missing `docs/INDEX.md` row for the new file, and THE
+  CAIRN's shake raising its wave's `save` count by one, remeasured.
+- landing: 10 min. Four `check:fast` runs, four commits, `land`.
+
+Bottleneck: THE VANE has no event for the blow to hang on, and giving it one
+means a sound — so the render side watches the pin count and the event is
+queued.

@@ -448,7 +448,11 @@ pit), THE LEDGER (a seam widened — the halves shake, the cord rooted in the
 ship does not), THE LEAD (a hit — the stalk shakes, the ridge does not),
 THE CURTAIN (a core hit), THE SCUTTLE (a part struck off), THE FLEET (a
 hull wrecked or pulled under — every hull the screen shows), THE QUEEN (a
-petal off — the red only, her shudder was already the shake). THE STARE never
+petal off — the red only, her shudder was already the shake), THE THROAT (a
+ring choked), THE BATON (a struck bead landed — the rings go red, the spine
+only shakes), THE CAIRN (a unit pulled) and THE VANE (a pin knocked out —
+watched off the pin count, since no event says so). Those four had no fx
+class and keep their blows together in `boss-blows.ts`. THE STARE never
 wears it: the eye takes no damage by design (`sim/stare.ts`); nor does THE
 REPRISE, which is survived, not hurt, and has no event to hang it on. THE
 MIRROR is next and is drawn by `drawHull`, which is at 249 lines: its red
@@ -916,3 +920,26 @@ under sits afloat for two beats before it starts to go, while the
 blow (`fleet-fx.ts`) is already over. Drop the subtraction and its paragraph,
 and add a case to the fleet frame tests that a hull pulled under is sinking on
 the next frame. A fix to something wrong, not a look.
+
+## THE VANE's pin knocked out has no event and no sound
+
+- **Found:** 2026-09-25, claude/boss-blow-f
+- **Files:** `packages/sim/src/vane.ts`, `packages/sim/src/events.ts`, `packages/audio/src/bind.ts`, `packages/render/src/boss-blows.ts`
+
+`vaneStruck` does `b.pins -= 1` and pushes nothing, so the one moment the
+pair beat THE VANE's bearing is silent, and the render side has to watch the
+pin count to show the blow (`BossBlows.seeVane`). Push a `vanePin` event
+there with the pins left and the column, give it a sound in the catalogue
+beside the other bosses' landings, deal the blow off `BLOW_OF` instead of the
+watcher, and drop `seeVane` and `boss-hurt-vane.test.ts` for a row in
+`boss-hurt.test.ts`. `bun run check` holds it.
+
+## Split boss-hurt.test.ts, past 250 lines
+
+- **Found:** 2026-09-25, claude/boss-blow-f
+- **Files:** `packages/render/test/boss-hurt.test.ts`
+
+It was 332 lines on `main` before this lane and is 362 now: the table grows
+by a row a boss. Move `ROWS` into a `boss-hurt-rows.ts` beside it, with the
+two world builders (`instarMorphing`, `undertowStanding`), and keep the cases
+in the test. `bun run check` holds it.
