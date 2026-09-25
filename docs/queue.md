@@ -374,6 +374,7 @@ its ink.
 ## THE HANDOVER re-signs a press the desk picked a seat for
 
 - **Found:** 2026-09-24, claude/test-mode-control-pull-order
+- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-the-handover-re-signs-a-press-the-desk-picked-a)
 - **Files:** `apps/game/src/input.ts`, `packages/render/src/desk-grab.ts`
 
 On the test screen with no seat key held, a press now takes the seat the
