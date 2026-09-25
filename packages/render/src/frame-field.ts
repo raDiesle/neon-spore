@@ -14,6 +14,7 @@ import { drawFaultEmitter } from "./fault-emitter.js";
 import { drawFaultLabels } from "./fault-label.js";
 import { drawFences } from "./fence.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
+import { drawFlipSeam } from "./flip-seam.js";
 import { drawGhostRows } from "./ghost-row.js";
 import { drawGhostTrails } from "./ghost-trail.js";
 import { drawGrips } from "./grip.js";
@@ -120,10 +121,11 @@ export function drawBodies(
   drawFaultEmitter(ctx, l, world, view.time);
   // And beside it, in words, what it is doing (`fault-label.ts`).
   drawFaultLabels(ctx, l, world);
-  // THE CODEX's shimmer, over the field's own light and under the bodies: the
-  // air between the pilot and the field, on the pilot's screen and on nothing
-  // the navigator is shown (`codex.ts`).
+  // THE CODEX's shimmer and THE FLIP's seam, over the field's own light and
+  // under the bodies: the air between one seat and the field, on that seat's
+  // screen and on nothing the other is shown (`codex.ts`, `flip-seam.ts`).
   drawCodexShimmer(ctx, l, world, view.time);
+  drawFlipSeam(ctx, l, view.time);
   // The wind between every wheel and the mouth, under everything: it is the
   // one picture in the pass that must never cross in front of a colour, and
   // it reaches from the middle of the field down to the hull (`gyre-wind.ts`).

@@ -37,6 +37,21 @@ End each entry with the one bottleneck, in a sentence.
 The bottleneck was **looking**: where the words could stand was only found by
 photographing THE FLIP's sideways beams and a short phone's top edge.
 
+## 2026-09-25 — THE FLIP's turned screen draws the mirror down its middle
+
+- reading: 10 min. `field-flip.ts`, the fault's beam ends, THE CODEX's
+  overlay and where the field pass draws it.
+- writing: 10 min. `flip-seam.ts`, its call in `frame-field.ts`, a test that
+  it is on the turned screen alone, the index row.
+- looking: 10 min. THE FLIP on P1 a second before the breach, twice: the
+  first seam was too faint to read at phone size.
+- friction: 5 min. The new test file needed its own timeout line and an
+  index row, each found by a red `check:fast`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: the first pass was the right shape at half
+the strength a phone needs.
+
 ## 2026-09-25 — AUTO: the director plays a seat live, with its finger drawn
 
 - reading: 5 min. The boss hands, `touch.ts`'s drag carry, the stage's step
