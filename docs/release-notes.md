@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 58ab4e0da — A narrow SKIP beside NEXT readies the seat, and REPLAY on the gate starts the guide over
+
+The guide bar has a fourth plate, a narrow »» to the right of NEXT. Pressing it turns this seat straight to the ready page and fills its circle with no thumb held down, the same hold a press makes, only never let go. On the ready page REPLAY is no longer dead: it goes back to the first page of the guide. The director's WAVE tab loses its GUIDE section; a guide is read by playing it on the stage.
+
 ## 2026-09-25 · 5c1f9529a — THE HANDOVER re-signs only a press on the band, not a hand on the field
 
 While THE HANDOVER had the two panels traded, the game signed every press as this device's. That is right for the band, which is drawn for the other seat then, and wrong for the field: on the test screen the navigator's handle, picked by what is under the mouse, went out as player 1 and was refused. A press is now told apart by where it landed (`pressSeat`), and a hand on the field keeps the seat it was found for.

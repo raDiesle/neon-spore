@@ -20477,3 +20477,5 @@ file to call `setDefaultTimeout`, which only the full render shard asks.
 
 The bottleneck was **writing**: the bar's file was at its line limit, so the
 sign plates had to move into their own file before SKIP could join the row.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
