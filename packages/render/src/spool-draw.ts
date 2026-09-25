@@ -1,5 +1,6 @@
 import { facet, pin } from "@neon-spore/content";
 import { SPOOL_RIBS, type SpoolState, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -64,16 +65,17 @@ export function drawSpool(
   ctx.save();
   ctx.globalAlpha = Math.min(1, 0.15 + 0.85 * enter * (1 - 0.8 * drift) + 0.3 * fx.glare);
   const alpha = ctx.globalAlpha;
-  ctx.translate(at.x, at.y + fx.jolt * l.tile);
+  ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + fx.jolt * l.tile);
   ctx.rotate(fx.shudder * 0.025 * Math.sin(time * 44));
   ctx.translate(-at.x, -at.y);
 
   drawSpoolLine(ctx, l, cfg, s, pose, beat, beatPhase, time, run);
   ctx.globalAlpha = alpha;
-  drawFlange(ctx, l, pose, side, false);
-  drawBarrel(ctx, l, pose, run, drift);
+  const hurt = fx.hurt.value;
+  drawFlange(ctx, l, pose, side, false, hurt);
+  drawBarrel(ctx, l, pose, run, drift, hurt);
   drawRibs(ctx, l, world, s, pose, side, beat, beatPhase);
-  drawFlange(ctx, l, pose, -side as -1 | 1, true);
+  drawFlange(ctx, l, pose, -side as -1 | 1, true, hurt);
   if (s.phase !== "slack" && showsSpoolBrake(l.role)) drawSpoolBrake(ctx, l, cfg, s, pose, time);
   if (s.phase !== "slack" && showsSpoolZone(l.role)) {
     drawSpoolGauge(ctx, l, cfg, s, pose, beat, beatPhase, time);
@@ -87,12 +89,14 @@ function drawFlange(
   pose: SpoolPose,
   end: -1 | 1,
   facing: boolean,
+  hurt: number,
 ): void {
   const alpha = ctx.globalAlpha;
   const path = spoolFlangePath(l, pose, end, facing);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(path);
   strokeGlow(ctx, path, PALETTE.rock, STROKE.outline, 0.8, alpha);
+  drawHurt(ctx, path, hurt);
   ctx.globalAlpha = alpha;
   if (!facing || pose.turn < 0.05) return;
   // The face the turn brings round: a hub and five spokes, which were edge on
@@ -128,6 +132,7 @@ function drawBarrel(
   pose: SpoolPose,
   run: number,
   drift: number,
+  hurt: number,
 ): void {
   const alpha = ctx.globalAlpha;
   const path = spoolBarrelPath(l, pose);
@@ -150,6 +155,7 @@ function drawBarrel(
     ctx.stroke(wrap);
   }
   strokeGlow(ctx, path, PALETTE.rock, STROKE.inner, 0.5, alpha);
+  drawHurt(ctx, path, hurt);
   ctx.globalAlpha = alpha;
 }
 

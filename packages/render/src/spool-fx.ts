@@ -1,4 +1,5 @@
 import { type SimConfig, type SimEvent, SPOOL_RIBS } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -24,6 +25,10 @@ import { type SpoolPose, spoolHome, spoolRibX, spoolSide } from "./spool-shape.j
  * lights under the thumb, and only the pilot is shown it — a burst would tell
  * the navigator what her screen is built not to. Everything is cleared in
  * `Effects.reset()` (`restart.test.ts`).
+ *
+ * **A rib eased is a sequence landed** — a whole movement held in its zone —
+ * and so is the last, so both deal the body the blow every boss takes
+ * (`boss-hurt.ts`). A leg is only a part of one, and deals nothing.
  */
 
 const SHUDDER_DECAY = 6;
@@ -40,6 +45,8 @@ export class SpoolFx {
   private shudderNow = 0;
   private joltNow = 0;
   private glareNow = 0;
+  /** The blow a rib eased deals the casing. */
+  readonly hurt = new BossHurt();
 
   /** How hard the casing is shaking after a slip, 0..1. */
   get shudder(): number {
@@ -85,12 +92,14 @@ export class SpoolFx {
           const i = Math.min(SPOOL_RIBS - 1, Math.max(0, SPOOL_RIBS - e.ribs - 1));
           burst(spoolRibX(l, pose, spoolSide(l, cfg), i), at.y, 14, PALETTE.wispRim);
           this.joltNow = JOLT_TILES;
+          this.hurt.hit();
           break;
         }
         case "spoolSlack":
           burst(at.x, at.y, 28, PALETTE.hull);
           this.joltNow = JOLT_TILES * 1.6;
           this.glareNow = 1;
+          this.hurt.hit();
           break;
         case "spoolDrift":
           burst(at.x, at.y, 8, PALETTE.wisp);
@@ -113,11 +122,13 @@ export class SpoolFx {
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.glareNow = Math.max(0, this.glareNow - this.glareNow * GLARE_DECAY * step);
     if (this.glareNow < 0.002) this.glareNow = 0;
+    this.hurt.update(step);
   }
 
   clear(): void {
     this.shudderNow = 0;
     this.joltNow = 0;
     this.glareNow = 0;
+    this.hurt.clear();
   }
 }
