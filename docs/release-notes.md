@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 5a12affd9 — Comments in the game, content and sim stop arguing from three removed bosses
+
+Thirty files in apps/game, packages/content and packages/sim still explained themselves by THE DIASTOLE, THE ORRERY or THE CANDLE, a week after the three left the game. Each now states the reason itself, or names a boss still in the game with the same arrangement: THE GIMBAL for a ring turned by a bearing, THE TASTER and THE LEDGER for a pull read one way. Lists of handles lose the three and their count. Comments only.
+
 ## 2026-09-25 · da18ae10d — SNAKE: both screens see the whole body and everything in the arena
 
 Player 1 used to see the head and tail with nothing between them, and player 2 saw no enemies or points. Now both screens draw the whole body, every enemy and every point, as the owner asked on 25 September 2026. The split between the two players is only in who presses what: player 2 steers, player 1 shoots and eats. The panel lines and the film's caption say so.
