@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -25,6 +26,11 @@ import { PALETTE, STROKE } from "./palette.js";
  * above the loop, for THE SINEW's reason: the thirteen are one family and the
  * spark table is at its limit. The ones with no row on them are thrown at
  * the bulb as it was last drawn, which `note` is told every frame.
+ *
+ * **A vent is a sequence landed** — both thumbs on, the pressure brought
+ * into the band, both off inside it — and so is the eversion, so both deal
+ * the bulb the blow every boss takes (`boss-hurt.ts`). The pressure coming
+ * into the band deals nothing.
  */
 
 /** The sink: how many beats the bulb takes to ease down its new row. */
@@ -48,6 +54,8 @@ export class SurgeFx {
   private bulbX = 0;
   private bulbY = 0;
   private noted = false;
+  /** The blow a vent deals the bulb. */
+  readonly hurt = new BossHurt();
 
   /** Where the bulb was drawn this frame, for the receipts with no row of their own. */
   note(x: number, y: number): void {
@@ -108,6 +116,7 @@ export class SurgeFx {
           this.sinkLeft = this.sinkLife;
           this.jetLife = JET_BEATS * spb;
           this.jetLeft = this.jetLife;
+          this.hurt.hit();
           break;
         case "surgeBurst":
           atBulb(18, PALETTE.hull);
@@ -131,6 +140,7 @@ export class SurgeFx {
           break;
         case "surgeEvert":
           atBulb(16, PALETTE.hullRim);
+          this.hurt.hit();
           break;
         case "surgeOut":
           atBulb(20, PALETTE.hullRim);
@@ -145,6 +155,7 @@ export class SurgeFx {
     this.sinkLeft = Math.max(0, this.sinkLeft - dt);
     this.joltLeft = Math.max(0, this.joltLeft - dt);
     this.jetLeft = Math.max(0, this.jetLeft - dt);
+    this.hurt.update(dt);
   }
 
   /** The jet: a violet streak up out of the seam, thinning as it goes. */
@@ -175,5 +186,6 @@ export class SurgeFx {
     this.bulbX = 0;
     this.bulbY = 0;
     this.noted = false;
+    this.hurt.clear();
   }
 }

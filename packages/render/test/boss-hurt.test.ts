@@ -138,6 +138,15 @@ const ROWS: Row[] = [
     part: [{ type: "gorgeNick", color: "red", owed: 1, col: 3 }],
     hurt: (fx) => fx.boss.gorge.hurt,
   },
+  {
+    boss: "surge",
+    land: [
+      { type: "surgeVent", notches: 1, row: 3, col: 5 },
+      { type: "surgeEvert", row: 4, col: 5 },
+    ],
+    part: [{ type: "surgeNear", col: 5 }],
+    hurt: (fx) => fx.boss.surge.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

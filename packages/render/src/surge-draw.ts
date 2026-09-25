@@ -8,6 +8,7 @@ import {
   surgeWarding,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -87,6 +88,7 @@ export function drawSurge(
 
   ctx.save();
   ctx.globalAlpha = fade;
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
   drawBody(
     ctx,
     cfg,
@@ -100,6 +102,7 @@ export function drawSurge(
     inside,
     showsSurgePressure(l.role),
     l.tile,
+    fx.hurt.value,
   );
   drawSurgeGauge(ctx, l, cfg, s, c, rx, ry, time, everting);
   if (!everting) drawSurgeGrips(ctx, l, cfg, s, c, rx, ry, time, sealing, surgeWarding(s, world));
@@ -127,6 +130,7 @@ function drawBody(
   inside: boolean,
   warms: boolean,
   tile: number,
+  hurt: number,
 ): void {
   const path = surgeBulbPath(c, rx, ry, time);
   const warm = warms ? pressure * 0.4 : 0;
@@ -138,6 +142,7 @@ function drawBody(
   const rim = sealing ? PALETTE.rock : inside ? PALETTE.hull : PALETTE.hullRim;
   const glow = sealing ? 0 : warms ? pressure : 0;
   paintSac(ctx, path, { c, rx, ry, tile }, hex, rim, inside ? 0.8 : 0.6, glow, sealing ? 0.5 : 1);
+  drawHurt(ctx, path, hurt);
   if (surgeHoldsCharge(s, cfg) && !sealing) {
     ctx.save();
     ctx.fillStyle = rgba(PALETTE.hullRim, 0.12 + 0.05 * Math.sin(time * 2));
