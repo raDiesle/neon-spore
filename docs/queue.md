@@ -655,6 +655,7 @@ list (and from the cue, the director's sheet and any switch over them that
 ## THE INSTAR, breath: the jaws press back open
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Taken:** 2026-09-25, claude/instar-boss-enhancements-1ae51f (claim: claude/queue-the-instar-breath-the-jaws-press-back-open)
 - **Files:** `packages/sim/src/instar-hand.ts`, `packages/sim/src/instar-step.ts`, `packages/sim/src/config-instar.ts`, `packages/sim/test/instar.test.ts`, `packages/render/src/instar-head.ts`
 
 Steps 1 and 5 of `content/instar-script.ts`. The owner asked on 25 September
