@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · cd004b90b — A guide is a film or words, and a filmed wave carries no words
+
+The eighty-two waves whose guide plays a film no longer carry the three blocks of words beside it; the game never drew them, and the director showed them as dimmed fields. `WaveGuide` is now a film or words and refuses both. In the director, a filmed wave's GUIDE section is the film's pages alone, and there is no ADD GUIDE. The ten waves still in words each have a queue entry to become a film. Two of those entries ask the owner whether THE INSTAR and THE FILAMENT need a film at all.
+
 ## 2026-09-25 · 651eabb58 — On HARD a wasted shot glances off the top and comes down on the hull
 
 A shot that hits nothing on HARD now flies on to the top edge of the screen, glances off it with a spit of light, and comes back down at a slant onto the ship's hull well toward the middle, where it goes off in a flash. It lands inside the second the field holds the fail, so the hit is seen before the lost screen comes up. The wave was already lost on the tick the shot left; this is only the picture of it.
