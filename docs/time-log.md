@@ -19945,3 +19945,5 @@ The bottleneck was **reading**: the touch reach's figures live in
 
 The bottleneck was **reading**: four handles, three drawings, and the one
 comment that said why the maze's was left out.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

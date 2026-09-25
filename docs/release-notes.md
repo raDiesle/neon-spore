@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 50685cc0 — THE WARDEN's rope shows the path it can be pulled
+
+The ring and its dial on the rope's end are gone. A channel runs from where the hand takes hold, straight down the seven tiles to taut, and fills green behind the hand as the pull goes in; chevrons run ahead of it. Once the hand has gone a handle's width, the channel turns to the way it is going. The rope ends in a knot, and PULL stands at the top.
+
 ## 2026-09-25 · 8693399c — The owner's generic rules are written down for every boss
 
 A line marked generic in the new-boss skill's owner record is now said to bind every boss and mechanic, the ones that ship through a queue item. Two rules from 24 September join it: the order of a step is said by its marks, never by a line, and every control answers wider than it is drawn.
