@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 239407f53 — THE REPRISE's map marks the row each echo is sent again after
+
+The director draws a line under the last row of every stretch THE REPRISE sends again unseen, tagged with how many bodies come back and from which rows. The rows come from `reprisePlan`, which walks the simulation's own clock over the entries' beats and is held to the real world by a test; a stretch covers one row fewer than its beat count, because the beat the dark falls on is itself held. `repriseClock` is added beside it for the measure the game will draw along the top of the screen.
+
 ## 2026-09-25 · 58ab4e0da — A narrow SKIP beside NEXT readies the seat, and REPLAY on the gate starts the guide over
 
 The guide bar has a fourth plate, a narrow »» to the right of NEXT. Pressing it turns this seat straight to the ready page and fills its circle with no thumb held down, the same hold a press makes, only never let go. On the ready page REPLAY is no longer dead: it goes back to the first page of the guide. The director's WAVE tab loses its GUIDE section; a guide is read by playing it on the stage.
