@@ -98,7 +98,6 @@ export function bindStage(
     },
     keys,
     auto: auto.commands,
-    cueTick: touch.cueTick, // `3`'s held thumbs move into the tick that follows them
     running: () => running,
     role: () => role,
     controls: currentControlSet,

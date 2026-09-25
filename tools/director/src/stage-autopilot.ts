@@ -8,9 +8,9 @@ import { autopilotHand } from "./autopilot-hands.js";
  *
  * The owner, 25 September 2026: *I still have problems how to test my game
  * alone … when at the same time players need to press and pull at the same
- * time controls, e.g. THE FILAMENT.* `3` presses the marks a boss draws and
- * carries nothing on the field (`stage-cue-key.ts`), and one mouse is one
- * thumb. The director already had a hand that plays every boss right — the
+ * time controls, e.g. THE FILAMENT.* One mouse is one thumb, and the old `3`
+ * key, which pressed the marks a boss draws and carried nothing on the field,
+ * is gone in its favour. The director already had a hand that plays every boss right — the
  * poses reach each state with it (`boss-hands-*.ts`) — and only ever ran it
  * off screen, to stand a picture up. This runs the same hand on the stage's
  * own tick, at the stage's own tempo, for the seats this row names:

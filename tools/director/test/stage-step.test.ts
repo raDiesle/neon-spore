@@ -16,8 +16,7 @@ import { stageStep } from "../src/stage-step.js";
  *
  * `bindStage` is `ResizeObserver` and `requestAnimationFrame` end to end, so
  * everything it held could only be checked by playing the director — which is
- * how the paused drain and the order of the cue key against the world's tick
- * came to be two comments and no test. Cut into `stage-step.ts` when `stage.ts`
+ * how the paused drain came to be a comment and no test. Cut into `stage-step.ts` when `stage.ts`
  * reached its 250-line ceiling, the pieces arrive as calls, and a stub answers
  * each of them here: a renderer that keeps its frames, keys that write down
  * which tick they were drained on, and a real `World`, since what is on trial
@@ -44,7 +43,6 @@ function rig(startRunning = true, cfg: SimConfig = DEFAULT_CONFIG) {
         return [];
       },
     },
-    cueTick: () => order.push("cue"),
     running: () => running,
     role: () => "test",
     controls: () => undefined,
@@ -79,10 +77,10 @@ describe("one tick of the stage", () => {
     expect(r.order).toEqual(["drain"]);
   });
 
-  it("moves the cue key's held thumbs before the world steps", () => {
+  it("drains the keys and steps the world once a tick", () => {
     const r = rig();
     r.step.advance();
-    expect(r.order).toEqual(["cue", "drain"]);
+    expect(r.order).toEqual(["drain"]);
     expect(r.world.tick).toBe(1);
   });
 
@@ -90,8 +88,7 @@ describe("one tick of the stage", () => {
     const r = rig(false);
     r.step.stepOnce();
     expect(r.world.tick).toBe(1);
-    // SEEK and the page's own handle replay a wave while it is paused; the cue
-    // key is the transport's and is not moved by either.
+    // SEEK and the page's own handle replay a wave while it is paused.
     expect(r.order).toEqual(["drain"]);
   });
 });

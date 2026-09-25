@@ -13,7 +13,6 @@ import {
 } from "@neon-spore/render";
 import { briefingHolds, type Command, lostAsks, type World } from "@neon-spore/sim";
 import { balloonBothHands } from "./stage-balloon-both.js";
-import { bindCueKey } from "./stage-cue-key.js";
 import { openingPress } from "./stage-opening.js";
 import type { StagePoint } from "./stage-point.js";
 import { stripBothHands } from "./stage-strip-both.js";
@@ -94,11 +93,6 @@ export interface StageTouch {
  */
 export interface StageHand {
   hand: () => ShipHand | undefined;
-  /** One tick of whatever the `3` key is holding down, for the stage's loop
-   * to call before it steps: on THE INSTAR a thumb has to *move* to answer
-   * its mark (`stage-cue-gesture.ts`), and on every other boss this does
-   * nothing at all. */
-  cueTick: () => void;
   /** Where the mouse is resting on the stage, for whatever lights up under it
    * (`render/hover.ts`). The desk is the only place this exists. */
   pointer: () => { x: number; y: number } | undefined;
@@ -134,12 +128,6 @@ export function bindStageTouch({
       stripBothHands(role(), player, command, field().controls);
     if (both) push(both.player, both.command);
   };
-  // **And the key that presses what the field is asking for**, both seats at
-  // once (`stage-cue-key.ts`). Bound here rather than in `keys.ts` because
-  // everything it needs is this binding's — the layout, the field, the world
-  // and the `send` above, which is the one place THE BALLOON's second hand is
-  // answered. It sends through that same `send` for exactly that reason.
-  const cueKey = bindCueKey({ layout, field, world, role, send });
   let hand: ShipHand | undefined;
   let pointer: { x: number; y: number } | undefined;
   const setHand = (h: ShipHand | null): void => {
@@ -175,8 +163,7 @@ export function bindStageTouch({
     }
     const p = at(e);
     // Both seats on THE INSTAR's HOLD BOTH ring, which one mouse could
-    // otherwise never start. `3` is not the game's both-seats key here: it is
-    // this stage's cue key (`stage-cue-key.ts`).
+    // otherwise never start.
     const touches = deskDownAll(layout(), p.x, p.y, seats(), field);
     if (touches.length === 0) return;
     e.preventDefault();
@@ -235,5 +222,5 @@ export function bindStageTouch({
   window.addEventListener("pointerup", lift);
   window.addEventListener("pointercancel", lift);
 
-  return { hand: () => hand, pointer: () => pointer, cueTick: cueKey.tick };
+  return { hand: () => hand, pointer: () => pointer };
 }

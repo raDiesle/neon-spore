@@ -81,21 +81,9 @@ const NONE: readonly BossCue[] = [];
  * `packages/sim`: `boss-draw-clocks.ts` reads the union exactly this way, and
  * twelve imported guards whose whole body is `boss.kind === "x"` would be the
  * same list written twice.
- *
- * **Exported for the desk, and for nothing that draws.** A screen is owed one
- * cue and takes `bossCue` below; the director's `3` key answers *both* seats
- * at once, which is the one thing a single mouse could never do — two marks
- * wanted on the same beat are the pair's whole problem and the desk could
- * only ever press one of them (`tools/director/src/stage-cue-key.ts`). It is
- * the list or a second reading of every boss, and a second reading would be a
- * key pressing where the mark is not.
+ * A screen is owed one cue and takes `bossCue` below.
  */
-export function bossCues(
-  l: Layout,
-  world: World,
-  beatPhase: number,
-  skinY: SurfaceY,
-): readonly BossCue[] {
+function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): readonly BossCue[] {
   const boss = world.boss;
   if (boss === null) return NONE;
   switch (boss.kind) {

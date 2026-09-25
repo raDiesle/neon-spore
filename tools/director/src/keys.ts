@@ -43,11 +43,9 @@ import { isTyping } from "./typing.js";
  * the body nearest the hull, as player 2, because the mouse on the stage is
  * player 1's hand and the other seat's grip is the half worth seeing; and 1
  * and 2, held, make the mouse that seat's hand on the field under TEST, for
- * every gesture a field answers (`render/desk-seat.ts`); and 3 presses what
- * the field is *asking* for, both seats at once, which is the one thing one
- * mouse could never do (`stage-cue-key.ts` — the press itself is bound
- * there, beside the field it is tested against). None is a control on any
- * panel, so none has a slot to be read out of.
+ * every gesture a field answers (`render/desk-seat.ts`). Playing both seats
+ * at once is AUTO's (`stage-autopilot.ts`). None is a control on any panel,
+ * so none has a slot to be read out of.
  *
  * **Which body `G` takes hold of is not typed out twice either.** This file
  * kept its own `nearestHull` once, differing from the game's in a branch it
@@ -97,16 +95,6 @@ const HOST_KEYS: readonly KeyBinding[] = [
     key: "2",
     seat: 2,
     does: "hold: the mouse is this seat's hand on the field (TEST)",
-  },
-  // Not this file's own press: it is bound where the field and the pointer's
-  // sender already are (`stage-cue-key.ts`). It is listed here because this
-  // is the table the help modal prints, and a key nobody can find is a key
-  // nobody has.
-  {
-    code: "Digit3",
-    key: "3",
-    seat: "both",
-    does: "do what the field is asking, for both seats at once",
   },
 ];
 

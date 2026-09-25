@@ -35,8 +35,6 @@ export interface StageStepParts {
   keys: Pick<Keys, "drain">;
   /** AUTO's commands for this tick, beside the desk's (`stage-autopilot.ts`). */
   auto?(w: World): TimedCommand[];
-  /** The cue key's held thumbs, moved into the tick that follows them. */
-  cueTick(): void;
   /** The transport. False holds the world still while frames keep coming. */
   running(): boolean;
   role(): ViewRole;
@@ -113,7 +111,6 @@ export function stageStep(parts: StageStepParts): StageStep {
         keys.drain(world().tick);
         return;
       }
-      parts.cueTick();
       stepOnce();
     },
     paint(dt: number): void {

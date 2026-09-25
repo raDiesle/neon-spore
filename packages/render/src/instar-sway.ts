@@ -95,7 +95,7 @@ export function instarSway(s: InstarState, cfg: SimConfig, beat: number, beatPha
  * first alone would put the head one place and the marks another. The `sway`
  * comes back with the figure because the marks are not part of it — they are
  * the script's own coordinates and take the same offset from the caller
- * (`instar-marks.ts`, `boss-cue-instar.ts`, `instar-fx.ts`).
+ * (`instar-marks.ts`, `instar-mark-grip.ts`, `instar-fx.ts`).
  */
 export function instarBody(
   s: InstarState,

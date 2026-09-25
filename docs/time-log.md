@@ -22,6 +22,17 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — The director's `3` key is gone; AUTO plays both seats
+
+- reading: 5 min. Where the cue key was bound, stepped and documented.
+- writing: 10 min. Seven files deleted, the tick hook and the help row out.
+- looking: 0 min. Nothing the game draws moved.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: the key's reading reached across three packages' comments, each
+naming its file, and every one had to be found by name.
+
 ## 2026-09-25 — THE INSTAR's fire is tapped out between the bites and during the third
 
 - reading: 5 min. How a strike, a flood and a mark's word pick their part.

@@ -91,10 +91,10 @@ function bearing(l: Layout, cx: number, cy: number, x: number, y: number): numbe
  * met, which is where a thumb about to go on is about to go on.
  *
  * **The ring is named rather than worked out from the role**, which every
- * other handle in the game could do without: the desk asks for both seats'
+ * other handle in the game could do without: a rig may ask for both seats'
  * marks on one beat and a screen asks for its own, and a reading that took
  * the ring off `l.role` would answer the pilot's question on the navigator's
- * ring whenever the rig's screen asked (`tools/director/src/stage-cue-key.ts`).
+ * ring whenever the rig's screen asked.
  */
 export function gimbalRingCircle(
   l: Layout,

@@ -895,7 +895,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
-| `packages/render/src/boss-cue-instar.ts` | **THE INSTAR's marks, read as cues** — for the desk's `3` key, and for nothing that draws |
 | `packages/render/src/boss-cue-shape.ts` | what a cue is — `CueKind`, `BossCue`, and which screen is owed one |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |
 | `packages/render/src/boss-hurt.ts` | The shake and red glow any boss shows for a moment after the pair lands a sequence |
@@ -2656,9 +2655,6 @@ by hand never moves.
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/director/src/stage-draft.ts` | **What the wave being edited says about itself**, read fresh on every call |
 | `tools/director/src/stage-field.ts` | **What the stage hands a hit test**, and nothing else |
-| `tools/director/src/stage-cue-key.ts` | **`3` does what the field is asking**, for both seats at once |
-| `tools/director/src/stage-cue-gesture.ts` | **What the held `3` does next**, on the one boss whose marks are not a press |
-| `tools/director/src/stage-cue-hand.ts` | **The desk's two thumbs**: what `3` has hold of, and what it does with it on every tick it stays down |
 | `tools/director/src/stage-step.ts` | **one tick of the stage's world and one frame of its picture** — what the loop next door calls, and the first of the stage's own running `bun test` can drive |
 | `tools/director/src/stage-strip-both.ts` | **One strip carries the cannon and the shield together**, and only under TEST |
 | `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |

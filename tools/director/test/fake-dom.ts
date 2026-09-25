@@ -45,14 +45,14 @@ export interface FakeDom {
    * A key pressed on the window, for the three panels that listen there rather
    * than on an element — a selection, and a wave, outlive the node a press
    * arrives on (`grid.ts`, `rail.ts`). The event carries both a `key` and the
-   * `code` that key sits at, because two bindings read the latter: the seat
-   * keys (`desk-seat.ts`) and `3` (`stage-cue-key.ts`).
+   * `code` that key sits at, because the seat keys read the latter
+   * (`desk-seat.ts`).
    */
   press(key: string, target?: unknown): void;
   /**
-   * The same key let go. A binding that holds a thumb down for as long as the
-   * key is down (`stage-cue-key.ts`) is only half tested by a press, and a
-   * `keyup` nobody fires is a thumb nobody lifts.
+   * The same key let go. A binding that holds something for as long as the
+   * key is down is only half tested by a press, and a `keyup` nobody fires is
+   * a key nobody lifts.
    */
   lift(key: string, target?: unknown): void;
   /**
