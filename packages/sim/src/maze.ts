@@ -173,7 +173,10 @@ export function mazeClickAngle(
   col: number,
 ): number {
   const target = col * 1000 + 500;
-  const span = 4 * cfg.mazeSnapMilli + 4000;
+  // Twice the snap window as an angle at the rim (57_296 thousandths of a
+  // degree to the radian), and a degree more: wherever in the window the way
+  // in caught, the column's exact angle is inside the search.
+  const span = Math.ceil((2 * cfg.mazeSnapMilli * 57_296) / mazeRadiusMilli(cfg)) + 1000;
   let lo = angleMilli - span;
   let hi = angleMilli + span;
   for (let i = 0; i < 24 && hi - lo > 1; i++) {

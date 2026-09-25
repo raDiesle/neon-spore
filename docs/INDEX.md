@@ -390,6 +390,7 @@ by hand never moves.
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
 | `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until it is torn out by hand (`maze-hand.ts` |
+| `packages/sim/src/config-maze-turn.ts` | THE MAZE's wheel under the hand: how fast it turns, how far a pull carries it, and how its click catches and lets go |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |

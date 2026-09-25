@@ -1676,10 +1676,14 @@ beats. `mazeDragMilliPerTile` is how far it turns for one tile of hand travel on
 the string, forty-five degrees, so a pull is one hand movement rather than a
 series of them. `mazeSnapMilli` is how near a column's centre a way in has to
 come before it clicks onto it — wider than the rim moves in one tick, so a
-column cannot be turned straight past, and narrow enough that a lit mouth reads
-as standing on the column. `mazeDragBreakMilli` is how far the hand has to carry
-on past a click before it breaks: the detent's hysteresis, so a thumb jittering
-on the handle does not undo a click the pair had just agreed on.
+column cannot be turned straight past, and inside the column's half-width. It
+is wide on purpose (the owner, 25 September 2026: *the entrance should snap a
+little, so it is easier to position*): the click centres the mouth wherever it
+caught, so the window only decides how near is near enough, and the way in's
+funnel is drawn to exactly that width. `mazeDragBreakMilli` is how far the hand
+has to carry on past a click before it breaks — a fifth of a tile: the
+detent's hysteresis, so a thumb jittering on the handle does not undo a click
+the pair had just agreed on, and firm enough that the click is felt.
 
 **What the field says** (`render/src/boss-cue-read-e.ts`, 18 September 2026,
 `docs/decisions.md` #34). Three words, all of them a seat's own verb, and only

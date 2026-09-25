@@ -13,6 +13,7 @@ import { INSTAR_DEFAULTS, type InstarConfig } from "./config-instar.js";
 import { LEAD_DEFAULTS, type LeadConfig } from "./config-lead.js";
 import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { MAZE_GRIP_DEFAULTS, type MazeGripConfig } from "./config-maze-grip.js";
+import { MAZE_TURN_DEFAULTS, type MazeTurnConfig } from "./config-maze-turn.js";
 import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
 import { RATCHET_DEFAULTS, type RatchetConfig } from "./config-ratchet.js";
@@ -84,6 +85,7 @@ export interface BossClockConfig
     RatchetConfig,
     MirrorConfig,
     MazeGripConfig,
+    MazeTurnConfig,
     WardenHandConfig,
     VaneHandConfig,
     CairnConfig,
@@ -115,6 +117,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...RATCHET_DEFAULTS,
   ...MIRROR_DEFAULTS,
   ...MAZE_GRIP_DEFAULTS,
+  ...MAZE_TURN_DEFAULTS,
   ...WARDEN_HAND_DEFAULTS,
   ...VANE_HAND_DEFAULTS,
   ...CAIRN_DEFAULTS,

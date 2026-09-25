@@ -3,6 +3,7 @@ import {
   MAZE_TURN,
   mazeBottomCol,
   mazeCenterMilli,
+  mazeClickAngle,
   mazeCosMilli,
   mazeEntranceCol,
   mazeEntranceX,
@@ -29,9 +30,9 @@ test("the click is wider than a tick, so no column can be turned past", () => {
   expect(step1).toBeGreaterThan(0);
   expect(perTick).toBeGreaterThan(0);
   expect(CFG.mazeSnapMilli).toBeGreaterThan(perTick);
-  // And narrower than a fifth of a tile, so a lit mouth reads as standing on
-  // the column rather than merely near it.
-  expect(CFG.mazeSnapMilli).toBeLessThan(200);
+  // And inside the column's own half-width, so a way in only ever catches on
+  // the column it is actually over; the click itself centres it.
+  expect(CFG.mazeSnapMilli).toBeLessThan(500);
 });
 
 test("the wheel is about six sevenths of the field, and clears the hull", () => {
@@ -85,4 +86,23 @@ test("the sine table is a sine, and the near half of the rim is the near half", 
     expect(mazeSinMilli(a)).toBe(mazeSinMilli(a + MAZE_TURN));
     expect(Math.abs(mazeSinMilli(a))).toBeLessThanOrEqual(1000);
   }
+});
+
+/**
+ * The snap window is wide (the owner, 25 September 2026: *snap a little*), so
+ * a way in can catch well off the column. Wherever it caught, the click must
+ * still stand it on the column's centre, or the lit mouth would stand beside
+ * the column the pair is about to say out loud.
+ */
+test("a way in caught anywhere in the window clicks onto the column's centre", () => {
+  const col = mazeBottomCol(CFG);
+  const target = col * 1000 + 500;
+  let caught = 0;
+  for (let angle = MAZE_TURN - 20_000; angle < MAZE_TURN + 20_000; angle += 250) {
+    if (mazeEntranceCol(CFG, PAIR, angle, 0) !== col) continue;
+    caught++;
+    const on = mazeClickAngle(CFG, PAIR, angle, 0, col);
+    expect(Math.abs(mazeEntranceX(CFG, PAIR, on, 0) - target)).toBeLessThanOrEqual(10);
+  }
+  expect(caught).toBeGreaterThan(20);
 });
