@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 33ecf06dd — THE SLOW's window goes to VERSUS again: swallow, prism, punch, grade, implode
+
+Five new answers for how the slowed window looks, in a new slot, slow:pull, each keeping the fuse the owner took and replacing the streams: SWALLOW smears every lit edge on the field into the boss's head; PRISM splits red and blue apart about it, kicking on each slowed beat; PUNCH snaps the room in toward the boss when the window opens and springs back when it shuts; GRADE drains the room cold and grey while the boss burns hotter; IMPLODE drops a refracting ring into the boss once a beat and flashes as it lands. Offered in VERSUS, not shipped — nothing the game draws changes.
+
 ## 2026-09-25 · 6eeeb25a7 — THE INSTAR bites three times, and the jaws push back
 
 THE INSTAR's first scene now has three bites. After the jaws meet, the dragon forces them open again where it is, a new arrival `stay` with no flight. On the second bite the jaws push back against both thumbs every beat, and on the third twice as hard. A jaw shut early and held still opens again under the thumb, so each pull has to go further and the two jaws have to meet at once.
