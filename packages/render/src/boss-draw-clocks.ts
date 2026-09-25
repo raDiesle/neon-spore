@@ -147,10 +147,15 @@ export function drawClockBoss(
 
   // THE GORGE: a sack across seven columns above row 0, the seat read off
   // the layout inside (`gorge-draw.ts`).
+  // The blow of a landed rupture shakes the sack and the rings on it as one.
   if (boss.kind === "gorge") {
-    drawGorge(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    const hurt = effects.boss.gorge.hurt;
+    ctx.save();
+    ctx.translate(hurt.shakeX(view.time, l.tile), 0);
+    drawGorge(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time, hurt.value);
     // And its two thumbs' rings, on the seat's screen each is (`gorge-grip.ts`).
     drawGorgeGrip(ctx, l, world.cfg, boss, l.role, world.beat, view.beatPhase, view.time);
+    ctx.restore();
     return;
   }
 

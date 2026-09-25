@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { hash01 } from "./backdrop.js";
+import { BossHurt } from "./boss-hurt.js";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -33,6 +34,11 @@ import { PALETTE } from "./palette.js";
  * The two thumbs' bursts are small and white — a thumb landing is the
  * handle's colour, not the sack's — and the clench is the sack's rock, a
  * mouth shutting on something.
+ *
+ * **An intake ruptured is a sequence landed** — filled in one colour, then
+ * pierced for the count — and so is the beam that ends it, so both deal the
+ * sack the blow every boss takes (`boss-hurt.ts`). A nick that leaves a
+ * count owing deals nothing.
  */
 
 /** Seconds a bead takes to leave the top of the frame. */
@@ -52,6 +58,8 @@ interface Riser {
 export class GorgeFx {
   private risers: Riser[] = [];
   private seed = 0;
+  /** The blow an intake ruptured deals the sack. */
+  readonly hurt = new BossHurt();
 
   ingest(
     events: readonly SimEvent[],
@@ -72,6 +80,7 @@ export class GorgeFx {
           break;
         case "gorgeRupture":
           burst(tileCX(l, e.col), top, 16, PALETTE.rock);
+          this.hurt.hit();
           break;
         case "gorgeNick":
           burst(tileCX(l, e.col), top, 6, PALETTE.rock);
@@ -87,6 +96,7 @@ export class GorgeFx {
           break;
         case "gorgeOut":
           this.release(l, e.col, e.beads, top);
+          this.hurt.hit();
           break;
         case "gorgePinch":
           burst(tileCX(l, e.col), top - l.tile * 0.5, 6, PALETTE.text);
@@ -131,6 +141,7 @@ export class GorgeFx {
       r.left -= dt;
     }
     this.risers = this.risers.filter((r) => r.left > 0);
+    this.hurt.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -151,5 +162,6 @@ export class GorgeFx {
   clear(): void {
     this.risers = [];
     this.seed = 0;
+    this.hurt.clear();
   }
 }

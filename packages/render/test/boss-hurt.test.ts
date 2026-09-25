@@ -129,6 +129,15 @@ const ROWS: Row[] = [
     part: [{ type: "hiveOpen", color: "red", col: 3 }],
     hurt: (fx) => fx.boss.hive.hurt,
   },
+  {
+    boss: "gorge",
+    land: [
+      { type: "gorgeRupture", left: 3, col: 3 },
+      { type: "gorgeOut", beads: 0, col: 3 },
+    ],
+    part: [{ type: "gorgeNick", color: "red", owed: 1, col: 3 }],
+    hurt: (fx) => fx.boss.gorge.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

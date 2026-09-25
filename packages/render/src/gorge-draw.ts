@@ -6,6 +6,7 @@ import {
   gorgeSink,
   type SimConfig,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { paintSack, paintSackGone } from "./gorge-flesh.js";
 import { drawLobe, lobeHex } from "./gorge-lobe.js";
@@ -103,6 +104,8 @@ export function drawGorge(
   beat: number,
   beatPhase: number,
   time: number,
+  /** The blow a landed rupture deals the skin, 0..1 (`boss-hurt.ts`). */
+  hurt = 0,
 ): void {
   const y = gorgeIntakeY(l, g, cfg);
   const phase = gorgePhase(g, cfg);
@@ -126,6 +129,7 @@ export function drawGorge(
   // and the skin is the one thing on the screen in neither.
   const lobes = g.intakes.map((_, i) => tileCX(l, g.col + i));
   paintSack(ctx, body, { ...sack, tile: l.tile }, breath, lobes, y);
+  drawHurt(ctx, body, hurt);
 
   const nearest = showsGorgeNearest(l.role) ? gorgeNearestFull(g) : -1;
   for (let i = 0; i < g.intakes.length; i++) {
