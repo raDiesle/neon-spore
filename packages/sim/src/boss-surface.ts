@@ -63,6 +63,7 @@ export {
   gaugeJammed,
   gaugeRound,
   gaugeSeated,
+  gaugeSeatedBy,
   gaugeSettling,
   gaugeSpanNow,
   installMaze,

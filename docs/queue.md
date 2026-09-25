@@ -544,3 +544,22 @@ log. `navigate` to the real port was then refused; `preview_start` with
 `{url: "http://localhost:<port>/"}` worked. Either pin the entry to the
 tree's derived port (`tools/ports.ts`) so the harness knows it, or write the
 workaround into `docs/working-with-claude.md` beside the `here` route.
+
+## THE GAUGE's cannon colour is a picture, not a rule
+
+- **Found:** 2026-09-25, claude/gauge-cannon-visual-clarity-82d0c7
+- **Files:** `packages/sim/src/gauge.ts`, `packages/sim/src/gauge-band.ts`, `packages/content/src/controls-round.ts`, `packages/render/src/gauge-load.ts`, `packages/render/src/gauge-button.ts`
+- **Asks:** Should the wound's colour stay a picture, or should P2 get a red and a cyan fire button and a hit need the colour that matches?
+
+The owner asked for the wound to be *mixed up with colour of cannon to hit*.
+What shipped is the picture half: the cannon's loaded colour turns cyan and
+red with every hit (`loadedAfter(marks)`), and the wound and P2's one call
+button wear it. The call is still one comparison of two angles, so nothing
+can be fired in the wrong colour. The two options: (a) leave it as it is,
+where the colour only ties the wound to the gun and says *new wound*; (b) a
+rule, where the call becomes two commands (`call` with a colour), the wound's
+colour is drawn by the sim's `Rng` on each `drawBand` and hashed, a wrong
+colour is a miss that jams the valve, and P2's panel gets the two regular
+fire buttons in place of CALL. (b) is a sim change with a new `GaugeState`
+field, the codec, the director's `field-controls-gauge.ts`, and the guide's
+three steps.

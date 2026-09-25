@@ -127,10 +127,10 @@ export function drawReachArm(
  * than off its direction, so an arm coming home empty comes home open — which
  * is the one frame that says the reach found nothing, without a word on screen.
  *
- * Exported, in pixels rather than tiles, because THE GAUGE's claw is this hand
- * on a round with no tiles in it (`gauge-claw.ts`): it turns the canvas and
- * draws these same fingers upward, rather than keeping a second copy of what
- * the ship's hand looks like.
+ * Exported, in pixels rather than tiles, so a picture with no tiles in it can
+ * turn the canvas and draw these same fingers, rather than keeping a second
+ * copy of what the ship's hand looks like — THE GAUGE's claw did, until it
+ * became the cannon on 25 September 2026.
  */
 export function drawClawFingers(
   ctx: CanvasRenderingContext2D,

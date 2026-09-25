@@ -1,6 +1,6 @@
 import { GAUGE_LEAD_BEATS, type GaugeState, gaugeBeatsLeft } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
-import { type Dial, drawGauge, showsGaugeMarks } from "./gauge.js";
+import { type Dial, type DialView, drawGauge, drawGaugeFoe, showsGaugeMarks } from "./gauge.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import { drawHull } from "./hull.js";
@@ -10,7 +10,7 @@ import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
 
-/** Room above the half-circle for the line's end and the pod's glow, as a
+/** Room above the half-circle for the rim's armour and the wound's glow, as a
  * share of the radius. */
 const HEADROOM = 0.16;
 /** The tally's pips and bar, under the title: from the title's last row to
@@ -37,10 +37,11 @@ function restHull(l: Layout, time: number): HullFrame {
  * `drawHull` paints under the round — SNAKE's ship and this one are the same
  * ship (the owner, 20 September 2026: *fit the regular ship hull*). It is
  * measured at time zero, so a finger and a frame agree on it; the skin's
- * breathing under the claw's joint is a pixel or two the joint covers.
+ * breathing under the cannon's lobe is a pixel or two the lobe covers.
  *
- * The pod's far edge and the dotted line past it stop a breath under the
- * tally, which stands under the title's last row (`gauge-claw.ts`).
+ * The rim's armour stops a breath under the tally, which stands under the
+ * title's last row; the alien's arms reach on behind the words
+ * (`gauge-alien.ts`).
  */
 export function gaugeDial(l: Layout): Dial {
   const top = l.playHeight * 0.14;
@@ -69,8 +70,8 @@ export function gaugeDial(l: Layout): Dial {
  * is the round's first condition: the field is gone, not dimmed and not
  * re-skinned. A round that borrowed the eleven columns would be a wave in a
  * costume. The hull and the band stay, as they do on SNAKE: neither is the
- * field, they are the ship, and the claw stands on its crown where the
- * cannon would.
+ * field, they are the ship, and the cannon stands on its crown where it
+ * always does.
  *
  * It is a boss wave now rather than a category of its own, and this file is
  * what did not change when that happened — which was the point. The two screens
@@ -89,9 +90,20 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   ctx.fillStyle = PALETTE.background;
   ctx.fillRect(0, 0, l.width, l.height);
 
+  // The alien first: it hangs over the ship with its mouth round it, and the
+  // hull stands in front of the half of it below the crown (`gauge.ts`).
+  const dial = gaugeDial(l);
+  const dialView: DialView = {
+    showMarks: showsGaugeMarks(view.role),
+    beatPhase: view.beatPhase,
+    tick: view.world.tick,
+    time: view.time,
+  };
+  drawGaugeFoe(ctx, dial, view.world.cfg, boss, dialView);
+
   const f = restHull(l, view.time);
-  // `arm`: the cannon lobe carries the claw rather than a mouth, as THE
-  // CLAW's panel does, so the laying pass stays undrawn under its joint.
+  // `arm`: the cannon lobe carries the turning cannon rather than the laying
+  // mouth, so the laying pass stays undrawn under its lobe.
   const skin = seatSkin(view.role).hull;
   drawHull(
     ctx,
@@ -112,12 +124,7 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   const top = l.playHeight * 0.14;
   drawGaugeTitle(ctx, l, view.role, top);
   drawTally(ctx, l, view, boss, top + GAUGE_TITLE_DEPTH + 14);
-  const dial = gaugeDial(l);
-  drawGauge(ctx, dial, view.world.cfg, boss, {
-    showMarks: showsGaugeMarks(view.role),
-    beatPhase: view.beatPhase,
-    tick: view.world.tick,
-  });
+  drawGauge(ctx, dial, view.world.cfg, boss, dialView);
   // The two thumbs the round can be taken hold of by, after the dial they
   // stand on (`gauge-grip.ts`). That file asks this one for `gaugeDial` and
   // this one asks it back for the rings: the pair is `handles.ts` and

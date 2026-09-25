@@ -264,7 +264,7 @@ bezel and the notched dial of 18 September are gone, and so is the round's
 in their place is the ship: a stretch of the hull across the stage with the
 cannon lobe at its middle, and on its crown **THE CLAW's own hand**, turning
 on a joint through the half-round the needle swept rather than sliding along
-the hull (`render/gauge-claw.ts`, the fingers `reach-arm.ts`'s). A line of
+the hull (the claw's own file, since deleted, the fingers `reach-arm.ts`'s). A line of
 dots runs out of its fingertips to say where it will grab — that line is the
 needle now, on both screens — and on the navigator's screen alone a **pod**
 stands where the band was.
@@ -275,7 +275,7 @@ of the mark's; the pod is drawn at `R·tan θ` either side of its middle, so the
 dotted line passes inside it on exactly the calls that land, and a band wound
 tight is a smaller pod. Its height follows from its width, and it is held at
 one instant of the moored pod's contour so the width it is judged by does not
-breathe. `render/test/gauge-claw.test.ts` holds that, and that the pod is on
+breathe. A test held that, and that the pod is on
 her screen and never on his. **Not one number of the round moved**: the claw
 and the pod stand at `gauge.ts`'s readings about `gaugeDial`'s pivot, where
 the needle and the band always did.
@@ -289,7 +289,7 @@ swallows it at the crown, while the navigator's next pod swells in where the
 band has gone. A miss is an absence: the hand shuts on the dark in a grey
 puff and comes back closed and rattling on the valve that has just jammed.
 Both screens — the pod in the hand is where the pilot stopped, and it is the
-one way he learns his stop was right (`render/gauge-catch.ts`). It is timed
+one way he learns his stop was right (the catch's own file, since deleted). It is timed
 from `calledTick`, the one field the simulation gained, and it is over inside
 the rest between two calls.
 
@@ -306,6 +306,27 @@ the claw's heading and the arc a turn swings it through, SNAKE's wheel on
 THE SCOUT's nose; the navigator's call is THE CLAW's REACH, lit while the arm
 is out (`render/gauge-button.ts`). `touchDown` answers them like any other
 lobe, so the round's listeners in the game and the director were deleted.
+
+**The alien, the wound and the cannon** (25 September 2026). The owner: *the
+area of acceptance to activate the needle is not clear enough … show a big
+alien ship, and the line where needle is correct is the visual of an open
+wound … replace this needle claw with the regular cannon, cyan or red … also
+remove the pods.* The claw, the pod and the catch above are gone
+(their three files deleted). Behind the
+hull stands THE MOTHER's shape from the shape collection, centred on the
+pivot, with its mouth open round our crown (`render/gauge-alien.ts`). The
+mouth's rim is armour everywhere, grey plates, and on the navigator's screen
+alone a **wound** is torn in it (`render/gauge-wound.ts`): its two ends are
+cut square along the rays at `mark ± gaugeSpanNow`, so a shot lands in the
+flesh on exactly the calls that land. A band wound tight is the wound sewn
+shut from both ends. On the crown the ship's own cannon turns through the
+half-round (`render/gauge-cannon.ts`), loaded cyan or red — the colour turns
+over on every hit, and the wound and the call button wear the same one
+(`render/gauge-load.ts`). The aim ring lights on her screen while the needle
+is seated (`gaugeSeatedBy`). A call is a shot: a burst and a green ring in
+the wound, or grey sparks off the armour and a rattling cannon
+(`render/gauge-shot.ts`). The colour is a picture and not a rule: whether it
+should become one is in [the queue](../queue.md).
 
 **What is not built.** Neither state has a pose of its own in the director's
 gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live

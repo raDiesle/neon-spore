@@ -71,9 +71,9 @@ export const WAVES_ACT_2: Wave[] = [
     name: "THE GAUGE",
     sentence: "The one where the field is gone and neither of you has more than half a dial.",
     guide: {
-      both: "Hold the needle between the two marks. Five times.",
+      both: "Point the cannon into the wound, then call. Five times.",
       p1: "1. Hold the valve.\n2. Turn it the way your partner says.\n3. Stop when they say STOP, and hold it there.",
-      p2: "1. Say which way to turn, and how far.\n2. Say STOP when the needle is between the marks.\n3. Press CALL. The marks move: start again.",
+      p2: "1. Say which way to turn, and how far.\n2. Say STOP when the cannon points into the wound.\n3. Press CALL. The wound moves: start again.",
       scene: "theGauge",
     },
     entries: [],

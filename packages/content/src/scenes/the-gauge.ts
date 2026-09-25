@@ -3,9 +3,9 @@ import type { GuideScene } from "../scene-types.js";
 /**
  * THE GAUGE's rehearsal: neither of them has more than half a dial.
  *
- * The field is gone. One needle and two marks, and the pair between them holds
- * one instrument: player 1 has the valve and cannot see where the needle has to
- * go, player 2 can see exactly where and cannot turn anything. Five calls
+ * The field is gone. One cannon and one wound in the alien over it, and the
+ * pair between them holds one gun: player 1 has the valve and cannot see where
+ * the cannon has to point, player 2 can see exactly where and cannot turn anything. Five calls
  * landed between the marks and the field comes back.
  *
  * Three pages since the field learned to say her verb. The first two are the
@@ -38,7 +38,7 @@ export const THE_GAUGE: GuideScene = {
     // On the dial (`render/caption-anchor-boss-f.ts`, 21 September 2026). It
     // was on the hull, which this round does not have: the field is gone, and
     // the anchor was pointing at the middle of a plating nothing draws.
-    { tick: 0, seat: 2, text: "ONE NEEDLE, TWO MARKS", anchor: { at: "boss" } },
+    { tick: 0, seat: 2, text: "ONE CANNON, ONE WOUND", anchor: { at: "boss" } },
     // Two pages until 18 September 2026: this one on the hull and PLAYER 1
     // TURNS THE VALVE on the valve itself. They are one page now, said on the
     // thumb that does it — the split is what he needs and the verb is what the
@@ -46,7 +46,7 @@ export const THE_GAUGE: GuideScene = {
     {
       tick: 180,
       seat: 1,
-      text: "PLAYER 1 CANNOT SEE THEM",
+      text: "PLAYER 1 CANNOT SEE IT",
       anchor: { at: "control", control: "gaugeRight" },
     },
     // PLAYER 2 CALLS IT stood here, and the field writes `PRESS` / `CALL` on
@@ -59,7 +59,7 @@ export const THE_GAUGE: GuideScene = {
     {
       tick: 590,
       seat: 2,
-      text: "EACH GOOD CALL MOVES THEM",
+      text: "EACH HIT MOVES THE WOUND",
       anchor: { at: "control", control: "gaugeCall" },
     },
   ],

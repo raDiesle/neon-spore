@@ -991,10 +991,12 @@ by hand never moves.
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
 | `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name, the one sentence that teaches this seat its half, and where the other half is |
 | `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
-| `packages/render/src/gauge-claw.ts` | THE GAUGE as the ship's own hand — the owner, 20 September 2026: *the control idea should stay |
-| `packages/render/src/gauge-catch.ts` | What a THE GAUGE call looks like: the claw reaches, shuts, and comes back holding the pod or holding nothing |
-| `packages/render/src/gauge-pod.ts` | THE GAUGE's pod, whose width is the span, and the same body in the claw's hand |
 | `packages/render/src/gauge-button.ts` | THE GAUGE's three presses, as faces on the band's own lobes |
+| `packages/render/src/gauge-alien.ts` | THE GAUGE's enemy: a big alien ship hung over ours with its mouth open round it — the owner |
+| `packages/render/src/gauge-cannon.ts` | THE GAUGE's cannon: the ship's own, standing on the crown where it always stands and **turning** through the… |
+| `packages/render/src/gauge-load.ts` | **Which colour THE GAUGE's cannon is loaded with** — cyan, then red, turn about with every hit |
+| `packages/render/src/gauge-shot.ts` | What a call looks like: the cannon fires, the bolt crosses the mouth |
+| `packages/render/src/gauge-wound.ts` | THE GAUGE's wound: where the band is, drawn as a place the alien's armour is torn open and the flesh under it… |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |

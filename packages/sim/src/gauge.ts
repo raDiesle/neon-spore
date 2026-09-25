@@ -1,4 +1,4 @@
-import { drawBand, driftBand, gaugeSpanNow } from "./gauge-band.js";
+import { drawBand, driftBand, gaugeSeatedBy } from "./gauge-band.js";
 import { gaugeJammed, gaugeSettling } from "./gauge-hand.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -88,9 +88,9 @@ export interface GaugeState {
   calledGood: boolean;
   /**
    * `world.tick` of the most recent call. The beat is what the rest between
-   * calls is counted in; this is what the claw's reach is timed from, because
+   * calls is counted in; this is what the shot's flight is timed from, because
    * a call made late in a beat would otherwise be drawn as half over the
-   * moment it was made (`render/gauge-catch.ts`).
+   * moment it was made (`render/gauge-shot.ts`).
    */
   calledTick: number;
   /**
@@ -175,7 +175,7 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
 
 /** Whether the needle is between the two marks, which is the whole judgement. */
 export function gaugeSeated(world: World, gauge: GaugeState): boolean {
-  return Math.abs(gauge.needleMilli - gauge.markMilli) <= gaugeSpanNow(world.cfg, gauge);
+  return gaugeSeatedBy(world.cfg, gauge);
 }
 
 /**

@@ -7,8 +7,8 @@ import {
   gaugeSettling,
   type World,
 } from "@neon-spore/sim";
-import { drawActionButton } from "./controls.js";
-import { gaugeClawOut } from "./gauge-catch.js";
+import { drawFireButton } from "./controls.js";
+import { gaugeLoaded } from "./gauge-load.js";
 import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
@@ -26,14 +26,15 @@ import type { SeatSkin } from "./seat-skin.js";
  * `band-control.ts` puts every control in, and this file draws only what is
  * *on* each face.
  *
- * **The pilot's two carry the claw's heading, live**, with the arc a turn
+ * **The pilot's two carry the cannon's heading, live**, with the arc a turn
  * swings it through — THE SCOUT's nose and SNAKE's wheel, the same call,
  * because it is the same act: a thing on the field pointing somewhere, and a
  * thumb swinging it. A turn lights while its thumb is on it.
  *
- * **The navigator's one is REACH**, THE CLAW's own button, because a call *is*
- * the claw reaching (`gauge-catch.ts`) — lit for as long as the arm is out,
- * which is the one thing she needs off it, as REACH's is.
+ * **The navigator's one is the ship's own fire button**, in the colour the
+ * cannon is loaded with (`gauge-load.ts`), because a call *is* the cannon
+ * firing (`gauge-shot.ts`) — the owner, 25 September 2026: *the regular
+ * cannon, cyan or red*. It turns colour with the cannon on every hit.
  *
  * A button the round would refuse right now is drawn faint rather than
  * hidden: the turns while the valve is jammed, the call while her thumb holds
@@ -67,8 +68,7 @@ export function drawGaugeLobe(
   ctx.save();
   if (!armed) ctx.globalAlpha = REFUSED;
   if (which === "call") {
-    const out = live && gaugeClawOut(world.cfg, round, world.tick);
-    drawActionButton(ctx, x, y, r, out, PALETTE.hull, "#150A22", "reach", skin.dead[0]);
+    drawFireButton(ctx, x, y, r, round === null ? "cyan" : gaugeLoaded(round), skin);
     ctx.restore();
     return;
   }
@@ -83,7 +83,7 @@ export function drawGaugeLobe(
   const ink = on ? "#1B0630" : hex;
   // The needle as a heading from straight up, clockwise positive: the dial's
   // left end is a quarter turn anticlockwise and its right end a quarter turn
-  // clockwise, which is where the claw on the crown points at either.
+  // clockwise, which is where the cannon on the crown points at either.
   const turn = ((round?.needleMilli ?? GAUGE_FULL / 2) / GAUGE_FULL - 0.5) * Math.PI;
   drawNose(ctx, x, y, r, ink, Math.sin(turn), Math.cos(turn));
   drawSwing(ctx, x, y, r, ink, dir);
@@ -98,7 +98,7 @@ export function drawGaugeLobe(
  * is holding the band open or while his needle is still settling. The rest
  * between two calls is not in here — it is two beats, and a button that
  * blinked every time she pressed would read as a fault rather than a rhythm;
- * the claw being out already says it.
+ * the shot in the air already says it.
  */
 export function gaugeLobeArmed(world: World, round: GaugeState, which: GaugeLobe): boolean {
   if (which !== "call") return !gaugeJammed(round);

@@ -698,7 +698,7 @@ hand still draws.
 | THE MAZE | `PLAYER 1 TURNS THE WHEEL` | — the page is gone | `CARRY` / `TURN` on the string's handle, his alone, while nothing has clicked |
 | THE MAZE | `PLAYER 2 FIRES UP THE COLUMN` | `THE HEART TAKES ONE COLOUR` | `PRESS` / `FIRE` on the lit doorway, hers alone, for as long as one stands |
 | THE GAUGE | `PLAYER 1 TURNS THE VALVE` | — merged into the page above it | none: the field can tell the pilot nothing true, and says so |
-| THE GAUGE | `PLAYER 2 CALLS IT` | `EACH GOOD CALL MOVES THEM` | `PRESS` / `CALL` on the end of the needle, hers alone, while it is seated and the call is armed |
+| THE GAUGE | `PLAYER 2 CALLS IT` | `EACH HIT MOVES THE WOUND` | `PRESS` / `CALL` on the end of the needle, hers alone, while it is seated and the call is armed |
 | THE WARDEN | `PULL IT AND KEEP PULLING` | — the page is gone | `CARRY` / `PULL` on the handle once his hand is on it, then `HOLD` when the line goes taut, his alone |
 | THE WARDEN | `ONLY WHILE IT IS OPEN` | `THE SHOT IS THE RIM'S COLOUR` | `PRESS` / `FIRE` on the pupil, hers alone, for exactly the beats the eye stands open |
 | THE WARDEN | — the guide teaches WATCH only | — | `HOLD` / `HOLD` on the shut eye, hers, under NARROW while a line hangs and her thumb is not down; `CARRY` / `SWIPE` on the hatch, his, under GLARE until it is thrown — one word for each of the two later hands, said by the cue and never by the ring (`warden-grip.ts`) |

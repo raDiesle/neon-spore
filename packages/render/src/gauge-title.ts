@@ -4,7 +4,7 @@ import { PALETTE } from "./palette.js";
 /**
  * THE GAUGE's header: the name, the one sentence that teaches this seat its
  * half, and where the other half is. Its own file because `gauge.ts` is the
- * claw and the pod, and the two grew past the line count together when the
+ * cannon and the wound, and the two grew past the line count together when the
  * header learned to make room for a rehearsal's plate.
  */
 
@@ -39,11 +39,11 @@ export function drawGaugeTitle(
  * under it sit at +22 and +38, and the last is nine pixels tall.
  */
 export const GAUGE_TITLE_DEPTH = 42;
-/** What this screen does, in the round's own two things: the claw and the pod. */
+/** What this screen does, in the round's own two things: the cannon and the wound. */
 function taught(role: ViewRole): string {
-  if (role === "p1") return "swing the claw where they tell you";
-  if (role === "p2") return "tell them where the pod is, then call";
-  return "one of you swings the claw, the other calls it";
+  if (role === "p1") return "turn the cannon where they tell you";
+  if (role === "p2") return "tell them where the wound is, then call";
+  return "one of you turns the cannon, the other calls it";
 }
 
 /**
@@ -54,7 +54,7 @@ function taught(role: ViewRole): string {
  * change on 20 September 2026.
  */
 function otherHalf(role: ViewRole): string {
-  if (role === "p1") return "THE POD IS ON THEIR SCREEN";
-  if (role === "p2") return "THE CLAW IS IN THEIR HANDS";
-  return "ONE SEES THE POD, THE OTHER SWINGS THE CLAW";
+  if (role === "p1") return "THE WOUND IS ON THEIR SCREEN";
+  if (role === "p2") return "THE CANNON IS IN THEIR HANDS";
+  return "ONE SEES THE WOUND, THE OTHER TURNS THE CANNON";
 }

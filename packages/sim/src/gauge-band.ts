@@ -38,6 +38,15 @@ export function gaugeSpanNow(cfg: SimConfig, gauge: GaugeState): number {
 }
 
 /**
+ * Whether the needle is between the two marks, from the config alone — the
+ * whole judgement, for a picture that has a config and no world
+ * (`render/gauge.ts` lights her aim ring with it). `gaugeSeated` is this.
+ */
+export function gaugeSeatedBy(cfg: SimConfig, gauge: GaugeState): boolean {
+  return Math.abs(gauge.needleMilli - gauge.markMilli) <= gaugeSpanNow(cfg, gauge);
+}
+
+/**
  * The band walks one step a beat and turns round at the ends rather than
  * stopping there. A band that parked against an end would hand the pair a
  * target that never moves again, which is the round solving itself.

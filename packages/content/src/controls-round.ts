@@ -39,7 +39,7 @@ import type { ControlDef } from "./controls.js";
  * 20 September 2026: *improve the buttons a lot so they fit the regular ship
  * hull and control set visuals* — the request the four rounds above had
  * already had granted. The two turns stand in the pilot's sockets and the call
- * in the navigator's, faced with the claw they move (`gauge-button.ts`).
+ * in the navigator's, faced with the cannon they turn (`gauge-button.ts`).
  *
  * `CONTROLS` spreads this in place, so nothing that reads the vocabulary had
  * to learn there are two files.
@@ -57,21 +57,21 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     player: 1,
     form: "lobe",
     label: "LEFT",
-    does: "Held. Swings THE GAUGE's claw left for as long as a thumb is on it.",
+    does: "Held. Turns THE GAUGE's cannon left for as long as a thumb is on it.",
   },
   {
     id: "gaugeRight",
     player: 1,
     form: "lobe",
     label: "RIGHT",
-    does: "Held. Swings THE GAUGE's claw right for as long as a thumb is on it.",
+    does: "Held. Turns THE GAUGE's cannon right for as long as a thumb is on it.",
   },
   {
     id: "gaugeCall",
     player: 2,
     form: "lobe",
     label: "CALL",
-    does: "Sends the claw out along its line. It comes back with the pod, or with nothing and jammed.",
+    does: "Fires the cannon along its line. A shot in the wound counts. A shot on the armour jams the valve.",
   },
   {
     id: "salvo",

@@ -30,20 +30,18 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
       7,
     ),
     motion: SWELL,
-    // Free, not draft, since 11 September 2026: The Mother left the act order
-    // with every other unbuilt name (docs/decisions.md #30), so there is no
-    // idea on the page for this to be offered to. Her design is still
-    // bosses.md 11.1, and this is still the shape drawn for it — a picture
-    // waiting for a boss again, which is what `free` means.
-    status: "free",
+    // Taken 25 September 2026, by THE GAUGE's alien. Her design is still
+    // bosses.md 11.1, unbuilt: the round wears the shape, not the boss.
+    status: "taken",
     slot: "boss",
     owner:
-      "nothing wears it: drawn for The Mother while she held act 70 — she gives back what the pair destroyed, so the shape is built around the opening it comes back out of rather than around a body with an attack: the arms say how far she reaches and the mouth says what she is for, and the pair can name both before anything happens",
+      "THE GAUGE's alien, taken 25 September 2026: centred on the cannon's pivot with its mouth open round our crown, the rim of the mouth held still as the dial and armoured, and the wound the navigator calls torn in it (`render/gauge-alien.ts`). Before that: drawn for The Mother while she held act 70 — she gives back what the pair destroyed, so the shape is built around the opening it comes back out of rather than around a body with an attack: the arms say how far she reaches and the mouth says what she is for, and the pair can name both before anything happens",
   },
   {
     subject: bloom("THE VESSEL", "one core, six arms, each at its own length", 60, 6, 0.62, 9),
     motion: TURN,
-    // Free for the same reason as THE MOTHER's; the design is 11.2.
+    // Free since 11 September 2026, when it left the act order with every
+    // other unbuilt name (docs/decisions.md #30). The design is 11.2.
     status: "free",
     slot: "boss",
     owner:

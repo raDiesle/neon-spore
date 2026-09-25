@@ -19963,3 +19963,18 @@ The bottleneck was **friction**: the preview entry pointed the tab at a port
 nobody was serving.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE GAUGE is an alien with a wound, and the cannon shoots it
+
+- reading: 25 min. The claw, the pod and the catch, `gaugeDial`, the band's
+  arithmetic, THE MOTHER's draft, and every reader of the needle tip.
+- writing: 45 min. Five render files for the alien, the wound, the cannon,
+  the load and the shot, `gaugeSeatedBy`, two tests, the words.
+- looking: 10 min. Four frames of P2 and P1, seated, a shot, a burst and
+  a miss, found by sweeping the valve's stop tick for a `gaugeMark`.
+- friction: 10 min. The line cap on `sim/gauge.ts` pushed `gaugeSeatedBy`
+  into `gauge-band.ts`, and a heredoc with a backslash was refused.
+- landing: 5 min. `check:fast` and `land`.
+
+The bottleneck was **writing**: the wound's two ends had to be cut on the
+span's own rays, so every piece of it is drawn along the rim, not placed.

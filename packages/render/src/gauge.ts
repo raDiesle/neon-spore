@@ -1,33 +1,42 @@
-import { GAUGE_FULL, type GaugeState, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
-import { callAge, clawPose, drawGaugeCatch, gaugeLineShown, gaugePodGrown } from "./gauge-catch.js";
-import { drawGaugeClaw, drawGaugeLine } from "./gauge-claw.js";
-import { drawGaugePod, POD_REACH } from "./gauge-pod.js";
+import { type GaugeState, gaugeSeatedBy, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
+import { drawGaugeAlien, rimPoint } from "./gauge-alien.js";
+import { drawGaugeAim, drawGaugeCannon } from "./gauge-cannon.js";
+import { gaugeLoaded, gaugeShotLoad } from "./gauge-load.js";
+import {
+  callAge,
+  cannonPose,
+  drawGaugeShot,
+  gaugeAimShown,
+  gaugeFlinch,
+  gaugeScarLeft,
+  gaugeWoundGrown,
+} from "./gauge-shot.js";
+import { drawGaugeScar, drawGaugeWound } from "./gauge-wound.js";
 import type { ViewRole } from "./layout.js";
 
 /**
- * THE GAUGE's picture: the ship's claw turning on the crown of the hull, a
- * dotted line out of it saying where it will grab, and a pod that only one of
- * the two screens carries. How each is drawn is `gauge-claw.ts`; this file is
- * the order they go down in, the readings they are drawn at, and the split.
+ * THE GAUGE's picture: a big alien ship with its mouth open round ours, a
+ * wound torn in the armour of that mouth that only one of the two screens
+ * carries, and the ship's own cannon turning on the crown to shoot it. How
+ * each is drawn is `gauge-alien.ts`, `gauge-wound.ts`, `gauge-cannon.ts` and
+ * `gauge-shot.ts`; this file is the order they go down in, the readings they
+ * are drawn at, and the split.
  *
- * It was a half-round dial set in a milled plate, and the owner took that away
- * on 20 September 2026 — *the control idea should stay, but the visual a
- * lot*. The round's rule that it is slabs and glyphs, never blobs, went with
- * it for the one body the owner named: the band is a pod now, because a pod is
- * what this game already spends on "here, this is the thing", and the claw is
- * the hand THE CLAW's panel already carries. Nothing the pair reads is new.
+ * It was THE CLAW's hand reaching for a pod, and the owner took that away on
+ * 25 September 2026: *the area of acceptance to activate the needle is not
+ * clear enough … the line where the needle is correct is the visual of an
+ * open wound, we need to hit*. The control idea stayed exactly as it was.
  *
- * No new colours either. Violet and white are the ship's own; the pod is
- * `pod` amber; a catch is `good` green and a hand shut on nothing is
- * `sparkDim`, which are already right and wrong everywhere else.
+ * Two passes, because the alien stands *behind* our hull and the cannon on
+ * it: `drawGaugeFoe` before `drawHull`, `drawGauge` after (`gauge-round.ts`).
  *
  * Stateless, like every other draw in this package: everything it shows is on
- * the world — the call's answer too, read off `calledBeat` and the beat — so
+ * the world — the call's answer too, read off `calledTick` and the tick — so
  * nothing here outlives a frame and `Effects.reset` has nothing of it to clear.
  */
 
 /**
- * The navigator sees the pod. The pilot's screen is the same picture without
+ * The navigator sees the wound. The pilot's screen is the same picture without
  * it — not a different picture, which is what makes "I cannot see it, tell
  * me" the obvious thing for him to say.
  *
@@ -43,29 +52,52 @@ export const showsGaugeValve = (role: ViewRole): boolean => role !== "p2";
 
 export interface Dial {
   cx: number;
-  /** The pivot, at the bottom of the half-circle. */
+  /** The pivot: the cannon's lobe, on the crown of the hull. */
   cy: number;
   r: number;
 }
 
 export interface DialView {
-  /** Whether this screen is the one that can see the two marks. */
+  /** Whether this screen is the one that can see the wound. */
   showMarks: boolean;
   beatPhase: number;
-  /** `world.tick`, which a call's reach is timed from (`gauge-catch.ts`). */
+  /** `world.tick`, which a call's flight is timed from (`gauge-shot.ts`). */
   tick: number;
+  /** The renderer's clock, which the alien breathes on. */
+  time: number;
 }
 
-/** Where a value on the dial sits, as a canvas angle. Left is 0, right is full. */
-function angleFor(milli: number): number {
-  return Math.PI + (milli / GAUGE_FULL) * Math.PI;
+/** The alien, and on her screen the wound in it. Before the hull. */
+export function drawGaugeFoe(
+  ctx: CanvasRenderingContext2D,
+  dial: Dial,
+  cfg: SimConfig,
+  gauge: GaugeState,
+  view: DialView,
+): void {
+  const age = callAge(cfg, gauge, view.tick);
+  drawGaugeAlien(ctx, dial, view.time, gaugeFlinch(gauge, age));
+  // The scar of a hit is on both screens: it is where *he* stopped.
+  drawGaugeScar(ctx, dial, gauge.calledMilli, gaugeShotLoad(gauge), gaugeScarLeft(gauge, age));
+  if (!view.showMarks) return;
+  // The width **now**, not the one in the config: the band winds tight every
+  // few marks and her thumb gives it back, and a wound that stood at the full
+  // width through the bind would have her calling a shot the screen shows
+  // inside it and being told it was not (`gauge-band.ts`).
+  const glow = 0.5 + 0.5 * Math.cos(view.beatPhase * Math.PI * 2);
+  drawGaugeWound(
+    ctx,
+    dial,
+    gauge.markMilli,
+    gaugeSpanNow(cfg, gauge),
+    cfg.gaugeSpanMilli,
+    gaugeLoaded(gauge),
+    glow,
+    gaugeWoundGrown(gauge, age),
+  );
 }
 
-function pointOn(dial: Dial, milli: number, radius: number): { x: number; y: number } {
-  const a = angleFor(milli);
-  return { x: dial.cx + Math.cos(a) * radius, y: dial.cy + Math.sin(a) * radius };
-}
-
+/** The cannon's line, the shot, and the cannon itself. After the hull. */
 export function drawGauge(
   ctx: CanvasRenderingContext2D,
   dial: Dial,
@@ -73,49 +105,31 @@ export function drawGauge(
   gauge: GaugeState,
   view: DialView,
 ): void {
-  // The claw last, which is the object's own order: the hand stands on the
-  // hull (`gauge-round.ts` draws the ship before this), the pod is out in the
-  // dark it points into, and nothing drawn after the claw may cover the thing
-  // the pilot is turning (`gauge-claw.ts`).
   const age = callAge(cfg, gauge, view.tick);
-  // The width **now**, not the one in the config: the band winds tight every
-  // few marks and her thumb gives it back, and a pod that stood at the full
-  // width through the bind would have her calling a claw the screen shows
-  // inside it and being told it was not (`gauge-band.ts`).
-  if (view.showMarks) {
-    const glow = 0.5 + 0.5 * Math.cos(view.beatPhase * Math.PI * 2);
-    const grown = gaugePodGrown(gauge, age);
-    drawGaugePod(ctx, dial, gauge.markMilli, gaugeSpanNow(cfg, gauge), glow, grown);
-  }
-  // A call is the claw going out and coming back, with the pod or without it,
-  // on both screens (`gauge-catch.ts`); the line is hidden while the arm is
-  // out along it.
-  drawGaugeLine(ctx, dial, gauge.needleMilli, gaugeLineShown(age));
-  drawGaugeCatch(ctx, dial, gauge, age);
-  drawGaugeClaw(ctx, dial, clawPose(dial, gauge, age));
+  const load = gaugeLoaded(gauge);
+  // Only her screen lights the ring for a shot that would land: his own screen
+  // telling him he had arrived would be the band, drawn a second way.
+  const hot = view.showMarks && gaugeSeatedBy(cfg, gauge) && gaugeWoundGrown(gauge, age) >= 1;
+  drawGaugeAim(ctx, dial, gauge.needleMilli, load, gaugeAimShown(age), hot);
+  drawGaugeShot(ctx, dial, gauge, age);
+  drawGaugeCannon(ctx, dial, cannonPose(gauge, age), load);
 }
 
 /**
- * Where the needle points, out on the claw's dotted line just short of its
- * end. Exported because the cue frames it at the moment it is seated
- * (`boss-cue-read-w.ts`): the line is the only thing on this screen that
- * moves, so the word goes on it and not on the button, and a second opinion
- * about where it points would be a frame beside its own line.
+ * Where the cannon's line meets the rim — where the shot will land. Exported
+ * because the cue frames it at the moment it is seated (`boss-cue-read-w.ts`)
+ * and the pilot's thumb takes hold of it (`gauge-grip.ts`): the line is the
+ * one thing on his screen that moves, so the word and the ring go on it.
  */
 export function gaugeNeedleTip(dial: Dial, gauge: GaugeState): { x: number; y: number } {
-  return pointOn(dial, gauge.needleMilli, dial.r * NEEDLE_REACH);
+  return rimPoint(dial, gauge.needleMilli);
 }
 
-/** How far up the radius the needle's point is — inside the line's reach. */
-const NEEDLE_REACH = 0.94;
-
 /**
- * The middle of the pod. Exported for the cue, which frames it while the band
- * is wound tight and asks her to hold it open (`boss-cue-read-w.ts`): the pod
- * is on her screen alone, so the mark stands on something she is already
- * shown, and a second opinion about where its middle is would be a frame
- * beside its own pod.
+ * The middle of the wound. Exported for the cue, which frames it while the
+ * band is wound tight and asks her to hold it open (`boss-cue-read-w.ts`),
+ * and for her thumb's ring (`gauge-grip.ts`).
  */
 export function gaugeBandMid(dial: Dial, gauge: GaugeState): { x: number; y: number } {
-  return pointOn(dial, gauge.markMilli, dial.r * POD_REACH);
+  return rimPoint(dial, gauge.markMilli);
 }
