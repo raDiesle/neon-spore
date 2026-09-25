@@ -15,17 +15,11 @@
  * for the cut to take with it. Cutting the field's hands out of `step.ts` on
  * 23 September 2026 stranded fourteen such statements, not one with a comment
  * over it, and all fourteen were printed for a person and cut by a script.
- *
- * A name stays whenever there is any doubt. It is dropped only when it occurs
- * nowhere else in the file outside a comment — a use in a string, a type
- * position or a template's substitution all keep it, and so does a mention the
- * scanner is unsure about. A property or object key of the same spelling is
- * not a mention: `bead.flying` kept an unused `flying` in three lists when
- * `baton.test.ts` was split on 24 September 2026.
  */
 
-import { CODE, COMMENT, classify } from "./classify.js";
+import { classify } from "./classify.js";
 import { type ImportDecl, importDecls } from "./scan.js";
+import { usedElsewhere } from "./uses.js";
 
 /** A statement every one of whose names is unused, under a comment: left alone, and reported. */
 export type Left = {
@@ -48,58 +42,6 @@ function lineOf(text: string, offset: number): number {
   let line = 1;
   for (let i = 0; i < offset && i < text.length; i++) if (text[i] === "\n") line++;
   return line;
-}
-
-/** The nearest character before `at` that is not whitespace, or "". */
-function before(text: string, at: number): string {
-  let i = at - 1;
-  while (i >= 0 && /\s/.test(text[i] ?? "")) i--;
-  return text[i] ?? "";
-}
-
-/** The nearest character from `at` on that is not whitespace, or "". */
-function after(text: string, at: number): string {
-  let i = at;
-  while (i < text.length && /\s/.test(text[i] ?? "")) i++;
-  return text[i] ?? "";
-}
-
-/**
- * Whether a hit in code is only a name *spelled* the same: a property after
- * `.` or `?.` — never a spread's `...`, which reads the binding — or an
- * object key that is not a shorthand, `{ name: 1 }` or `, name: 1`. A key
- * after anything else stays a use, because `c ? name : d` is one.
- */
-function sameSpelling(text: string, at: number, end: number): boolean {
-  const prev = before(text, at);
-  if (prev === ".") {
-    const dot = text.lastIndexOf(".", at - 1);
-    return text.slice(dot - 2, dot + 1) !== "...";
-  }
-  return (prev === "{" || prev === ",") && after(text, end) === ":";
-}
-
-/**
- * Whether `name` is written anywhere in `text` that is neither a comment, an
- * import, nor a property or key of the same spelling. A hit in a string still
- * counts, since the scanner cannot tell a string from a type there.
- */
-function usedElsewhere(
-  name: string,
-  text: string,
-  kind: Uint8Array,
-  decls: readonly ImportDecl[],
-): boolean {
-  if (name === "") return true;
-  const word = new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "g");
-  for (let hit = word.exec(text); hit !== null; hit = word.exec(text)) {
-    const at = hit.index;
-    if (kind[at] === COMMENT) continue;
-    if (decls.some((d) => at >= d.start && at < d.end)) continue;
-    if (kind[at] === CODE && sameSpelling(text, at, at + name.length)) continue;
-    return true;
-  }
-  return false;
 }
 
 /**

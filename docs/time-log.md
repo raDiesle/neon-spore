@@ -21085,3 +21085,18 @@ reason"), and each had to be read to find out whether the reason survives
 without the name or has to be written out.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — `bun run imports` reads past a comment beside a name
+
+- reading: 10 min. The scanner, the pruner and the runner, and the file
+  the finding named, at the commit where it went wrong.
+- writing: 10 min. Skipping comments beside a hit, one case, and the
+  use scan cut out into `uses.ts`.
+- looking: 0 min. A tool; nothing drawn moved.
+- friction: 5 min. The guard refused a heredoc with a doubled backslash,
+  and the size hook asked for the seam in the same diff.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: the finding blamed a top-level call, and the cause was the
+comment above it, whose last character read as a property dot. It took a
+reproduction to tell the two apart.

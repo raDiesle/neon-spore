@@ -322,19 +322,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run imports` calls a name used only in a top-level call unused
-
-- **Found:** 2026-09-25, claude/remove-three-bosses-cdb822
-- **Taken:** 2026-09-25, claude/queue-bun-run-imports-calls-a-name-used-only-in-a-top
-- **Files:** `tools/imports/scan.ts`, `tools/imports/run.ts`, `packages/render/test/boss-anchor-c.test.ts`
-
-After the three bosses left, `bun run imports` listed `setDefaultTimeout` in
-`boss-anchor-c.test.ts` as unused beside three names that were, then found its
-own cut left `setDefaultTimeout(FRAME_TIMEOUT_MS);` undeclared and put
-everything back, so none of the three real ones were cut; they were taken out
-by hand. The scan misses a use that is a bare statement at module level. Add
-that file's shape to `tools/imports/test` and make the scan count it.
-
 ## On HARD, whether a shot into a sky boss's armour is a wasted shot
 
 - **Found:** 2026-09-25, claude/hard-wasted-shot

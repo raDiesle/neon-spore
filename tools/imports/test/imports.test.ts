@@ -147,6 +147,17 @@ describe("pruneImports", () => {
     expect(text).toContain("// a is explained here and nowhere else");
   });
 
+  it("counts a bare call under a comment that ends in a dot as a use", () => {
+    // `boss-anchor-c.test.ts`'s shape: the comment's last `.` is not a
+    // property access on the name after it.
+    const source =
+      'import { a, b } from "./m.ts";\n\n// The cap (`m.ts`).\na(b);\n' +
+      "/* and a block. */ b.a;\n";
+    expect(pruneImports(source).text).toBe(source);
+    const key = 'import { a, b } from "./m.ts";\nexport const z = { /* x, */ a: b };\n';
+    expect(pruneImports(key).dropped.map((d) => d.name)).toEqual(["a"]);
+  });
+
   it("reads a URL in a string as a string, not as the start of a comment", () => {
     // The dangerous direction: a `//` taken for a comment hides the use below
     // it, and the name is dropped out from under live code.
