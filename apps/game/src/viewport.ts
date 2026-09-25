@@ -2,7 +2,6 @@ import {
   clientOfStage,
   computeLayout,
   computeStage,
-  type Insets,
   type Layout,
   NO_INSET,
   pointOnStage,
@@ -13,63 +12,7 @@ import {
 import type { SimConfig } from "@neon-spore/sim";
 import type { RunState } from "./run-state.js";
 import { safeArea, smallHeight } from "./safe-area.js";
-
-/** The rectangle actually showing, in CSS pixels, how dense it is, and the
- * strips of it the phone keeps for itself (`safe-area.ts`). */
-interface Viewport {
-  width: number;
-  height: number;
-  dpr: number;
-  inset: Insets;
-}
-
-/**
- * How big the picture may be right now.
- *
- * `window.innerHeight` is the *layout* viewport, which on a phone includes the
- * strip the address bar is sitting over: it grows by the bar's height the
- * moment the bar collapses and shrinks again when it comes back, and it reports
- * each of those after the fact. `visualViewport` is the rectangle the player
- * can actually see — the bar excluded, the on-screen keyboard excluded — and it
- * reports the change while it is still animating. Where there is no such
- * object, the window's own numbers are all there is.
- *
- * Rounded, because the visual viewport is fractional under a pinch and the
- * renderer is sized in whole pixels.
- *
- * The inset is handed in, not read here: reading it forces a style and layout
- * flush, and this runs on every event of an address bar's slide. `small` is
- * the same kind of reading and is handed in beside it: the height with the
- * bars out (`safe-area.ts`), which the picture is never taller than — so a
- * height frozen for a run can never put the lobes under a bar coming back.
- */
-function measure(inset: Insets, small: number): Viewport {
-  const seen = window.visualViewport;
-  const height = Math.round(seen?.height ?? window.innerHeight);
-  return {
-    width: Math.round(seen?.width ?? window.innerWidth),
-    height: small > 0 ? Math.min(height, small) : height,
-    dpr: Math.min(window.devicePixelRatio || 1, 2),
-    inset,
-  };
-}
-
-/**
- * The measurement in two halves, each as one string.
- *
- * *Did anything move* is asked twice below and about different halves of the
- * answer, and spelling either out as four comparisons is how a field comes to
- * be left out of one of them. Across: the width, the density, and the
- * furniture at the sides. Down: the height and the furniture above and below
- * it — which is the half the address bar moves and the half a run refuses.
- */
-function across(v: Viewport): string {
-  return `${v.width}:${v.dpr}:${v.inset.left}:${v.inset.right}`;
-}
-
-function down(v: Viewport): string {
-  return `${v.height}:${v.inset.top}:${v.inset.bottom}`;
-}
+import { across, down, measure, type Viewport } from "./viewport-measure.js";
 
 /**
  * The window's size, and the two things every listener in the app asks of it:
@@ -178,6 +121,10 @@ export function bindViewport(
     if (sameAcross && !forced && run.running()) return;
     viewport = next;
     renderer.resize(viewport);
+    // Here the measurement is the answer, so this host writes it; the renderer
+    // sets only the backing store (`Canvas2DRenderer.resize`).
+    canvas.style.width = `${viewport.width}px`;
+    canvas.style.height = `${viewport.height}px`;
   };
 
   const resize = (): void => apply(false);
@@ -205,10 +152,9 @@ export function bindViewport(
   run.onChange(() => apply(true));
   resize();
 
-  // The window is still what the renderer is *sized* to: `renderer.resize`
-  // writes that size onto the canvas as a CSS width, so measuring the canvas
-  // to decide how big to make it would pin the game at whatever size it first
-  // opened at. The canvas's own box is what a pointer is measured against,
+  // The window is still what the canvas is *sized* to: `apply` writes that
+  // size onto it as a CSS width, so measuring the canvas to decide how big to
+  // make it would pin the game at whatever size it first opened at. The canvas's own box is what a pointer is measured against,
   // which is a different question and the one that was being guessed.
   const inStage = (e: { clientX: number; clientY: number }): { x: number; y: number } | null => {
     const s = stage();

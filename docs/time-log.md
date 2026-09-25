@@ -20514,3 +20514,17 @@ The bottleneck was **friction**: one duplicated heading made every landing's
 ledger merge refuse, silently, until somebody read why.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The canvas's size on the page is its host's, not the renderer's
+
+- reading: 0 min. `Canvas2DRenderer.resize`, the game's `bindViewport`, the
+  director's `stageGeometry` and the four other renderer hosts.
+- writing: 5 min. Two lines moved from the renderer into the game's host, the
+  director's `removeProperty` pair gone, `viewport.ts`'s measurement split into
+  `viewport-measure.ts`, and a refit test through a real renderer.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **the ceiling**: `viewport.ts` went to 245 lines with the
+two new lines, and its measurement had to move out before anything landed.

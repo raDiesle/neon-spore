@@ -1891,6 +1891,7 @@ by hand never moves.
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
 | `apps/game/src/lost.ts` | The two presses on a lost wave's screen: RETRY WAVE and QUIT (`render/lost-screen.ts`) |
 | `apps/game/src/viewport.ts` | the window's size, and the stage and layout derived from it |
+| `apps/game/src/viewport-measure.ts` | how big the picture may be now, and whether it moved across or down |
 | `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `touch.ts` |
 | `apps/game/src/field-input.ts` | Everything a finger on the glass reaches: the field itself, a shake |
 | `apps/game/src/keys.ts` | commands from the keyboard — the test rig, not the game |

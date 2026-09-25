@@ -36,6 +36,8 @@ export interface Screen {
   furniture: (inset: { top?: number; bottom?: number; left?: number; right?: number }) => void;
   /** Every size the renderer was told about, oldest first. */
   sized: { width: number; height: number; dpr: number }[];
+  /** The canvas's inline CSS size, which this host writes and the renderer does not. */
+  style: { width?: string; height?: string };
   /** The height with every bar out (`100svh`); 0, the default, is a browser
    * that cannot say. Read at the same moments the furniture is. */
   bars: (small: number) => void;
@@ -109,7 +111,9 @@ export function screen(visual: boolean): Screen {
   const run = createRunState();
   // The canvas covers the window, which is what the app does to it — so the
   // scale `pointOnStage` works out is 1 and a `clientY` is a window pixel.
+  const style: { width?: string; height?: string } = {};
   const canvas = {
+    style,
     getBoundingClientRect: () => ({
       left: 0,
       top: 0,
@@ -126,6 +130,7 @@ export function screen(visual: boolean): Screen {
 
   return {
     sized,
+    style,
     reads: () => reads,
     run,
     bind: () => bindViewport(canvas, renderer, DEFAULT_CONFIG, () => "test", run),

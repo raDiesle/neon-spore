@@ -78,22 +78,17 @@ export function stageGeometry(
 ): StageGeometry {
   let viewport: Viewport = { width: 0, height: 0, dpr: 1 };
   /**
-   * **The sheet says how big the canvas is; the renderer only echoes it.**
+   * **The sheet says how big the canvas is; the renderer only matches it.**
    *
-   * `Canvas2DRenderer.resize` writes the size it was handed back as an inline
-   * `style.width`/`style.height`, because in `apps/game` the renderer is the
-   * one that decides. Here the sheet decides — `min(100cqh, 100cqw / 0.56)` on
-   * a desk, the whole pane on a phone (`director-field.css`,
-   * `director-phone.css`) — and an inline length beats a sheet. So the first
-   * measurement stuck: the canvas kept the pixels it was born with, and a
-   * rotation, a phone's address bar sliding back in or a dragged column
-   * resizer left the picture at the old size with no way back. Clearing the
-   * two lines first is what hands the question to the sheet again; the rect is
-   * read after, and `onResize` writes the answer back.
+   * Here the sheet decides — `min(100cqh, 100cqw / 0.56)` on a desk, the whole
+   * pane on a phone (`director-field.css`, `director-phone.css`) — and the
+   * rect is read off it; `onResize` sizes the backing store to match. Nothing
+   * on this side writes an inline length: one would beat the sheet, and the
+   * first measurement would stick through a rotation, a phone's address bar
+   * or a dragged column resizer — which is what the renderer's own inline
+   * size did until 25 September 2026.
    */
   const measure = (): void => {
-    canvas.style.removeProperty("width");
-    canvas.style.removeProperty("height");
     const rect = canvas.getBoundingClientRect();
     if (rect.width < 1 || rect.height < 1) return;
     viewport = {

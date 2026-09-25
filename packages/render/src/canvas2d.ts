@@ -55,12 +55,12 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     this.ctx = ctx;
   }
 
+  /** The backing store only. Its size on the page is the host's: the game's
+   * viewport writes its px, the director's sheet sizes the stage (`stage-point.ts`). */
   resize(viewport: Viewport): void {
     this.viewport = viewport;
     this.canvas.width = Math.round(viewport.width * viewport.dpr);
     this.canvas.height = Math.round(viewport.height * viewport.dpr);
-    this.canvas.style.width = `${viewport.width}px`;
-    this.canvas.style.height = `${viewport.height}px`;
     this.ctx.setTransform(viewport.dpr, 0, 0, viewport.dpr, 0, 0);
   }
 

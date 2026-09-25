@@ -22,6 +22,9 @@ describe("bindViewport", () => {
     const s = screen(true);
     s.bind();
     expect(s.sized).toEqual([{ width: 375, height: 730, dpr: 2 }]);
+    // And the canvas is put on the page at that size by this host: the
+    // renderer sets its backing store only (`Canvas2DRenderer.resize`).
+    expect(s.style).toEqual({ width: "375px", height: "730px" });
   });
 
   it("falls back to the window where there is no visual viewport", () => {
