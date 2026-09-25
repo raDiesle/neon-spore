@@ -7,6 +7,7 @@ import {
   startWave,
   step,
   ticksPerBeat,
+  undertowBoss,
   type World,
 } from "@neon-spore/sim";
 import { BossHurt } from "../src/boss-hurt.js";
@@ -156,6 +157,16 @@ const ROWS: Row[] = [
     part: [{ type: "tasterPare", layers: 1, col: 3 }],
     hurt: (fx) => fx.boss.taster.hurt,
   },
+  {
+    boss: "undertow",
+    land: [
+      { type: "undertowTaken", col: 3 },
+      { type: "undertowSwallowed", col: 5 },
+    ],
+    part: [{ type: "undertowBow", col: 3 }],
+    hurt: (fx) => fx.boss.undertow.hurt,
+    world: undertowStanding,
+  },
 ];
 
 describe("the blow a boss takes", () => {
@@ -228,5 +239,21 @@ function instarMorphing(): World {
   s.cursor = 1;
   s.phase = "morph";
   s.phaseBeat = world.beat;
+  return world;
+}
+
+/** THE UNDERTOW with a lobe up in a breach: nothing of it shows otherwise. */
+function undertowStanding(): World {
+  const world = fourBeatsIn("undertow")();
+  const u = undertowBoss(world);
+  if (u === null) throw new Error("the undertow wave installed no floor");
+  u.breaches.push({
+    col: 3,
+    stage: "standing",
+    stageBeat: world.beat - 2,
+    tall: false,
+    widthMilli: 0,
+    widened: false,
+  });
   return world;
 }

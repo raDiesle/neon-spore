@@ -135,7 +135,13 @@ export function drawClockBoss(
   // over where it came from. The plate it came up through, the seams and the
   // rise are on the finished ship instead (`undertow-draw.ts`).
   if (boss.kind === "undertow") {
-    drawUndertowLobes(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time, skinY);
+    // The blow of a lobe taken shakes whatever of it still stands, and only
+    // that: the plate is on the ship and stays where the hull is.
+    const hurt = effects.boss.undertow.hurt;
+    const shake = hurt.shakeX(view.time, l.tile);
+    const { beatPhase, time } = view;
+    const cfg = world.cfg;
+    drawUndertowLobes(ctx, l, cfg, boss, world.beat, beatPhase, time, skinY, hurt.value, shake);
     return;
   }
 

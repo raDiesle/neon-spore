@@ -1,5 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { type SimConfig, type UndertowState, undertowLastCol } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -28,7 +29,9 @@ import { bodyHeight, bodyPass, lobeHeight, PLATE_HALF } from "./undertow-shape.j
  * beam burns it, so it carries both, the way THE WISP does: cyan on its top
  * third and red on its bottom, which cannot be said as either.
  *
- * Nothing here is held between frames.
+ * Nothing here is held between frames. The blow of a lobe taken is handed
+ * in — how hard it still shows, and the sideways shake it puts through
+ * everything of the boss still standing (`undertow-fx.ts`).
  */
 
 /** Half a lobe's width, in tiles: a column's worth, and a little more for a tall one. */
@@ -48,19 +51,21 @@ export function drawUndertowLobes(
   beatPhase: number,
   time: number,
   skinY: SurfaceY,
+  hurt = 0,
+  shake = 0,
 ): void {
   for (const b of u.breaches) {
     const h = lobeHeight(cfg, u, b, beat, beatPhase);
     if (h <= 0) continue;
     const x = tileCX(l, b.col);
-    drawLobe(ctx, l, x, skinY(x), h, b.tall, time, b.col);
+    drawLobe(ctx, l, x + shake, skinY(x), h, b.tall, time, b.col, hurt);
   }
   const pass = bodyPass(cfg, u, beat, beatPhase);
   if (pass < 0) return;
   // The sim clears the breaches at the swallow, so the hole the body is
   // squeezing through is the last lobe's own: a plate's width, dead centre.
   const x = tileCX(l, undertowLastCol(cfg));
-  drawBody(ctx, l, x, skinY(x), bodyHeight(pass), time);
+  drawBody(ctx, l, x + shake, skinY(x), bodyHeight(pass), time, hurt);
 }
 
 /** One lobe: a blob standing on end, seeded per column so two are not one. */
@@ -73,6 +78,7 @@ function drawLobe(
   tall: boolean,
   time: number,
   seed: number,
+  hurt: number,
 ): void {
   const hw = l.tile * (tall ? TALL_HALF : LOBE_HALF);
   const top = skin - tiles * l.tile;
@@ -85,7 +91,9 @@ function drawLobe(
     const m = 1 + 0.07 * Math.sin(a * 3 + seed) + 0.03 * Math.sin(time * 1.3 + a * 2 + seed);
     pts.push({ x: x + Math.cos(a) * hw * m, y: mid + Math.sin(a) * hh * m });
   }
-  paintLobe(ctx, splinePath(pts, true), { x, top, skin, hw, tile: l.tile }, tall);
+  const path = splinePath(pts, true);
+  paintLobe(ctx, path, { x, top, skin, hw, tile: l.tile }, tall);
+  drawHurt(ctx, path, hurt);
 }
 
 /**
@@ -106,6 +114,7 @@ function drawBody(
   skin: number,
   tiles: number,
   time: number,
+  hurt: number,
 ): void {
   if (tiles <= 0.05) return;
   const t = l.tile;
@@ -123,4 +132,5 @@ function drawBody(
   const right = side(1).reverse();
   const path = splinePath([...left, { x: x + sway, y: skin - H }, ...right], true);
   paintBody(ctx, path, { x: x + sway, top: skin - H, skin, hw: swell, tile: t });
+  drawHurt(ctx, path, hurt);
 }

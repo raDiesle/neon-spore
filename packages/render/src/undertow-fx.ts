@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { SurfaceY } from "./hull-frame.js";
@@ -28,6 +29,13 @@ import { showsUndertowBow } from "./view-role-clocks.js";
  * never saw this plate rise, and a plate settling on her screen would be one
  * lifting for no reason. The seam's light dies with the lift, and at the
  * end a brief glow along the seam says *seated*.
+ *
+ * **A lobe taken is a sequence landed** — the maw held open over it, or the
+ * beam burned it — and so is the swallow, so both deal the boss the blow
+ * every boss takes (`boss-hurt.ts`), on both screens. The lobe taken is
+ * gone that tick, so the blow is worn by what still stands of it: the other
+ * lobes, and at the swallow the body (`undertow-lobe.ts`). A bow deals
+ * nothing.
  */
 
 /** Beats the plate takes to settle: the bow's own count, halved — it falls faster than it rose. */
@@ -43,6 +51,8 @@ interface Closing {
 
 export class UndertowFx {
   private closing: Closing[] = [];
+  /** The blow a lobe taken deals the boss. */
+  readonly hurt = new BossHurt();
 
   ingest(
     events: readonly SimEvent[],
@@ -52,6 +62,9 @@ export class UndertowFx {
     spb: number,
     role: ViewRole,
   ): void {
+    for (const e of events) {
+      if (e.type === "undertowTaken" || e.type === "undertowSwallowed") this.hurt.hit();
+    }
     if (!showsUndertowBow(role)) return;
     for (const e of events) {
       if (e.type !== "undertowClosed") continue;
@@ -63,6 +76,7 @@ export class UndertowFx {
   update(dt: number): void {
     for (const c of this.closing) c.left -= dt;
     this.closing = this.closing.filter((c) => c.left > 0);
+    this.hurt.update(dt);
   }
 
   /** On the finished ship, over the rim, where the bow itself is drawn. */
@@ -84,5 +98,6 @@ export class UndertowFx {
 
   clear(): void {
     this.closing = [];
+    this.hurt.clear();
   }
 }
