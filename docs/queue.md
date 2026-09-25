@@ -325,6 +325,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run imports` calls a name used only in a top-level call unused
 
 - **Found:** 2026-09-25, claude/remove-three-bosses-cdb822
+- **Taken:** 2026-09-25, claude/queue-bun-run-imports-calls-a-name-used-only-in-a-top
 - **Files:** `tools/imports/scan.ts`, `tools/imports/run.ts`, `packages/render/test/boss-anchor-c.test.ts`
 
 After the three bosses left, `bun run imports` listed `setDefaultTimeout` in
