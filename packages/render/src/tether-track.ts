@@ -2,7 +2,7 @@ import type { Point } from "@neon-spore/content";
 import type { SimConfig, WardenState } from "@neon-spore/sim";
 import { fieldPoint } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
-import type { PullTrack } from "./pull-track.js";
+import { PULL_TRACK_W, type PullTrack } from "./pull-track.js";
 
 /**
  * **Where THE WARDEN's rope can be pulled**, as the channel `pull-track.ts`
@@ -49,6 +49,6 @@ export function wardenRopeTrack(
       { x: from.x, y: from.y },
       { x: from.x + dx * len, y: from.y + dy * len },
     ],
-    w: rest.r * 0.6,
+    w: rest.r * PULL_TRACK_W,
   };
 }

@@ -519,16 +519,19 @@ translate and `drawHurt` over its plates, and add a case to
 ## The other pull handles show the path they can be pulled
 
 - **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
-- **Files:** `packages/render/src/lid-string.ts`, `packages/render/src/candle-grip.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/diastole-clamp.ts`, `packages/render/src/stare-lid.ts`, `packages/render/src/pull-track.ts`
+- **Files:** `packages/render/src/lid-string.ts`, `packages/render/src/candle-grip.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/diastole-clamp.ts`, `packages/render/src/stare-lid.ts`, `packages/render/src/pull-track.ts`, `packages/render/src/pull-knob.ts`
 
 The owner's generic rule of 25 September 2026 (`owner.md`): a handle you
-pull is drawn as a channel along its travel that fills green behind the
-hand, not a ring with a dial. THE WARDEN's rope wears it (`tether.ts`,
-`tether-track.ts`). The five files above still draw `drawHandleRest` and
-`drawHandleRing` for a pull measured as a distance: give each a track
-builder beside `tether-track.ts` (from where the hand took it, the taut
-distance long, the way the field fits it straight) and call
-`drawPullTrack` in place of the ring. Grips that are held rather than
+pull is drawn as a thin channel along its travel that fills green behind
+the hand, a big circle to start, and a grab far wider than the circle — not
+a ring with a dial. THE WARDEN's rope and THE MAZE's lever wear it
+(`tether.ts`, `tether-track.ts`, `maze-string.ts`). The five files above
+still draw `drawHandleRest` and `drawHandleRing` for a pull measured as a
+distance: give each a track builder beside `tether-track.ts` (from where the
+hand took it, the taut distance long, the way the field fits it straight,
+half-width `PULL_TRACK_W` of the knob), call `drawPullTrack` in place of the
+ring and `drawPullKnob` over it, and widen its grab circle by `PULL_GRAB`
+(`pull-knob.ts`). Grips that are held rather than
 pulled keep their ring. Each lands as *a look the owner asked for by name*.
 
 ## `director-here` opens its tab on port 3000, not the director's
@@ -587,3 +590,20 @@ first at x=81, y=271`. It passed alone twice and in the next full
 `check:fast`. Something in the capture reads wall time or a leftover from
 the first take. Loop the test under load until it fails, then find what
 at that pixel is drawn from anything but the tick and the frame's `dt`.
+
+## THE MAZE's lever turns the drum 2.6 times per lap of its ring
+
+- **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
+- **Files:** `packages/sim/src/config-boss.ts`, `packages/render/src/maze-string.ts`, `packages/sim/test/maze*.test.ts`
+- **Asks:** should one lap of the lever round the drum be one turn of the drum?
+
+The lever's channel is now the whole ring round the drum (owner, 25
+September 2026), about 21 tiles round, and `mazeDragMilliPerTile` is 45°
+a tile — so a thumb that goes once round the ring turns the drum about
+2.6 times, and the knob and the gaps in the rings drift apart as it goes.
+The options: **1:1** — `mazeDragMilliPerTile` ≈ 17_000 (360° over the
+ring's circumference in tiles), the knob stays on the same gap all the way
+round, and a way in takes about a third of a lap rather than an eighth; or
+**keep 45°/tile** — short gestures, as tuned, with the knob and the drum
+geared. 1:1 is a one-number change plus the maze tests that count pulls to
+an alignment.

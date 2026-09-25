@@ -77,6 +77,15 @@ If the creature needs a per-creature field, add it to `Creature` in
 `packages/sim/src/types.ts` and to `hashWorld` in `hash.ts` — a field missing
 from the hash is a field that can silently desync two devices.
 
+**A handle the players pull is never drawn fresh.** Every boss and every wave
+wears the same three pieces (the owner, 25 September 2026, generic;
+`.claude/skills/new-boss/owner.md`): a thin channel along the travel that fills
+green behind the hand (`drawPullTrack`, `render/src/pull-track.ts` — a track
+builder beside `tether-track.ts` is all a new one writes), a big circle to start
+(`drawPullKnob`, `render/src/pull-knob.ts`), and a press answered at the knob's
+radius times `PULL_GRAB`. A turn with no end gets a closed ring round what it
+turns. A handle *held* rather than pulled keeps its ring.
+
 ## 4. Timing
 
 If beating the creature needs a spoken exchange, it needs **at least 4 seconds**

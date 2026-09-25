@@ -1,7 +1,7 @@
 import { NO_TETHER } from "@neon-spore/sim";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
-import { mazeStringCircle, mazeStringRim } from "./maze-string.js";
+import { mazeStringGrab, mazeStringRim } from "./maze-string.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -25,7 +25,7 @@ import { bossOf } from "./touch-field.js";
 export function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const phase = bossOf(field, "maze")?.phase; // under `grip` the hand is the brace (`maze-grip.ts`)
   if ((phase !== "read" && phase !== "grip") || field.seat !== 1) return null;
-  if (!hitCircle(mazeStringCircle(l, field.cfg), x, y)) return null;
+  if (!hitCircle(mazeStringGrab(l, field.cfg), x, y)) return null;
   return {
     player: 1,
     command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0, fromYMilli: 0 },

@@ -143,6 +143,24 @@ item naming the rule, never a fix made in passing.
      something follows the thing it turns — THE MAZE's runs round the
      drum's rim, from a lever clamped to it, so the wheel turning is the
      plain consequence of the hand.
+     **Refined the same morning, generic** — *make the pull direction helper
+     more decent, smaller, but the circle to start must stay bigger, so it is
+     clear to start there*, and *the area of starting the pull must be much
+     bigger than the visual … as it's also moving*. So every pull handle is
+     three things, and all three are shared, never redrawn per boss:
+     1. **a thin, quiet channel** — `drawPullTrack`, half-width
+        `PULL_TRACK_W` of the knob's radius (`render/src/pull-track.ts`);
+     2. **a big, loud circle to start** at the handle's full radius,
+        breathing until taken, lit while held — `drawPullKnob`
+        (`render/src/pull-knob.ts`), drawn last, over channel and rope;
+     3. **a press answered far outside it** — the knob's radius times
+        `PULL_GRAB`, then `hitCircle`'s own half again: about three times the
+        circle drawn. A handle that moves gets this, never the bare
+        `HIT_REACH`.
+     **A turn with no end has a channel with no end**: THE MAZE's wheel turns
+     a full circle and more, so its channel is the whole ring round the drum
+     (`closed: true`), hard against the rim with no gap, and the green wraps
+     lap after lap. Never an arc of it.
      **A gesture's direction is the picture's**: what the thumb does, the
      part does — a swipe down takes an egg off THE INSTAR's clutch and it
      falls straight down to the hull (`render/src/instar-eggs.ts`), one egg

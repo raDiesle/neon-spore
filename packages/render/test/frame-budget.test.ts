@@ -423,7 +423,9 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
-      "new Path2D": 78,
+      // One more on 25 September 2026: the circle to start at the rope's end
+      // is `drawPullKnob`'s disc, a path of its own (`pull-knob.ts`).
+      "new Path2D": 79,
       fillText: 2,
     },
     {
@@ -435,7 +437,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       drawImage: 29,
       createLinearGradient: 12,
       createRadialGradient: 8,
-      "new Path2D": 53,
+      // One more on 25 September 2026, the rope's knob, as in frame 0.
+      "new Path2D": 54,
       fillText: 2,
     },
   ],

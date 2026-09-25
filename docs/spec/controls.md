@@ -100,6 +100,16 @@ to notice by hand.
 
 ## The in-screen controls, as of this entry
 
+**Every handle that is pulled looks and answers the same**, whichever boss or
+wave it belongs to (the owner, 25 September 2026, generic): a thin channel the
+whole of its travel that fills green behind the hand (`pull-track.ts`), a big
+circle to start at the handle's radius (`pull-knob.ts`), and a press answered
+at that radius times `PULL_GRAB` — about three times the circle drawn, because
+a handle that moves is hard to catch. A turn with no end has a channel with no
+end: THE MAZE's is the whole ring round the drum. The reasoning is in
+`.claude/skills/new-boss/owner.md`; which handles still wear the older ring is
+the queue's.
+
 | Control | Where | Seat | Gesture | Does |
 |---|---|---|---|---|
 | GRIP | on the field, over anything currently falling | either seat | hold | Slows the fall for as long as the finger stays down; letting it through costs the hull (`sim/grip.ts`). |
@@ -110,9 +120,9 @@ to notice by hand.
 | THE SHIELD PLATE | on the shield swelling itself, wherever it is standing | player 2 only | grab and drag | Slides the shield along the hull, the same absolute column the strip sends. |
 | THE SHIELD TRIGGER | on the same shield swelling, on player 1's screen | player 1 only | press | Opens the guard window where the plate is standing, and does not move it. |
 | THE MUZZLE SWIPE | on the cannon swelling, on player 2's screen | player 2 only | grab and drag | Carry the muzzle left for red or right for cyan and let go; a hand that comes back to the middle fires nothing. |
-| THE MAZE'S STRING | the drum's resting circle, while the wheel is being read; and again under `grip`, with HOLD over it | player 1 only | grab and drag | Turns the wheel by how far the hand has come from where it grabbed. Under `grip` it turns nothing: the press is the brace the tear needs (`sim/maze-controls.ts`). |
+| THE MAZE'S STRING | the knob of a lever clamped to the drum's rim, answered at `PULL_GRAB` times its radius, while the wheel is being read — in a channel that is the whole ring round the drum; and again under `grip`, with HOLD over it | player 1 only | grab and drag round the drum | Turns the wheel by how far round the ring the hand has come from where it grabbed, any number of laps. Under `grip` it turns nothing: the press is the brace the tear needs (`sim/maze-controls.ts`). |
 | THE MAZE'S HEART | a ring on the heart in the middle of the drum, on player 2's screen once the right shot is in it; nowhere on player 1's; on the test screen | player 2 only — the navigator, whose colour the shot was | grab and drag | Tears the heart out: with P1 braced on the string, the thumb drags it down `mazeHeartPullMilli` of a tile before `mazeGripBeats` run out. Lifted early, or with no brace, the heart springs back and the count runs on (`sim/maze-hand.ts`, `render/maze-grip.ts`). |
-| THE WARDEN'S TETHER | the tether's resting circle, while one hangs from the rim | player 1 only | grab and drag | Pulls the line taut; held taut long enough it opens a hatch. |
+| THE WARDEN'S TETHER | the knob at the tether's end, answered at `PULL_GRAB` times its radius, while one hangs from the rim — in a thin channel straight down | player 1 only | grab and drag | Pulls the line taut; held taut long enough it opens a hatch. |
 | THE WARDEN'S THUMB | a ring on the shut eye, where the pupil stands, on player 2's screen under NARROW — from the second plate off; nowhere on player 1's; on the test screen | player 2 only — the seat firing into an eye that will not show until she holds it | hold | Parts the lids behind the hatch and pins the pupil for as long as the thumb stays. The eye shows only while P1's rope is taut **and** this thumb is down: both hands, then the shot, from the same seat as the thumb (`sim/warden-hand.ts`, `render/warden-grip.ts`). |
 | THE WARDEN'S SWIPE | a ring on the hatch on player 1's screen under GLARE — the last plate, with no rope coming down; nowhere on player 2's; on the test screen; a dial round the eye on both while it is thrown | player 1 only — the seat whose rope is gone, given the door instead | grab and drag | Carried `wardenThrowMilli` of a tile and let go, the hatch is thrown open for `wardenThrowBeats` — the dial on both screens is that count running out — then slams. A lift short of the swipe throws nothing (`sim/warden-hand.ts`). |
 | THE LID'S CORD | the cord's resting circle, a tile beside every armoured eye on the field — on the side toward the middle — riding down with it, held or not | player 1 only | grab and drag | Parts the plates over the lens in proportion to the pull, and only while they stand fully apart does a shot land; letting go shuts them. The one drag target that is a creature, so the command names which body by id. |

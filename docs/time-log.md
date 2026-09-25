@@ -20015,3 +20015,19 @@ The bottleneck was **writing**: `touch.ts` sat at its 250-line limit, so the
 rim reading had to fold into THE WELL's branch before it could go in at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — Every pull handle is a thin channel, a big circle to start, and a wide grab
+
+- reading: 10 min. The last lane's `pull-track.ts`, `hit.ts`'s reach, the
+  maze drag's sim, and the four documents the rule has to live in.
+- writing: 35 min. The thin channel, the closed ring with a wrapping fill,
+  `pull-knob.ts` with `PULL_GRAB`, the unclamped lever, both grab circles, and
+  the rule written into `owner.md`, the controls spec and the creature skill.
+- looking: 10 min. THE MAZE at rest and held a lap round, THE WARDEN at rest
+  and half pulled, and crops of both knobs.
+- friction: 10 min. A scripted split of `pull-track.ts` matched the wrong
+  comment and mangled both interfaces; put back by hand.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: the rule had to go into four documents as
+well as the code, so it would be the one every later handle reads.

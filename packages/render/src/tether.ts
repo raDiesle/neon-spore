@@ -13,6 +13,7 @@ import { drawHandleHint, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawPullKnob, PULL_GRAB } from "./pull-knob.js";
 import { drawPullTrack } from "./pull-track.js";
 import { TETHER_LOOK } from "./tether-looks.js";
 import { wardenRopeTrack } from "./tether-track.js";
@@ -29,9 +30,10 @@ import { wardenRopeAnchor } from "./warden.js";
  * (the owner asked for them by name, which is what exempts this file from *a
  * look is offered, never replaced*):
  *
- * 1. the handle reads as something to take hold of, and which way — the path
- *    it can be pulled, a channel the whole of its travel, with a word at the
- *    top while nobody has it (`pull-track.ts`, the owner, 25 September 2026);
+ * 1. the handle reads as something to take hold of, and which way — a big
+ *    circle to start at the rope's end, a thin channel the whole of its
+ *    travel, and a word while nobody has it (`pull-knob.ts`, `pull-track.ts`,
+ *    the owner, 25 September 2026);
  * 2. the moment it is held is visible — the channel lights and the word goes;
  * 3. pulling builds tension and more pulling builds more, **continuously**: the
  *    rope goes taut, thin and bright, and the channel fills green behind it;
@@ -67,29 +69,21 @@ export function tetherHandleCircle(l: Layout, cfg: SimConfig, pupilCol: number):
 }
 
 /**
- * How much wider than the drawn handle a finger may land and still be taken to
- * have meant it.
- *
  * **The rope was the hardest control in the game to pick up, and twice over.**
  * Its resting column is the *pupil's*, which walks a column or two a beat
  * (`sim/warden-rope.ts`'s `ropeRest`), and the press was answered at the ring's
  * fixed middle instead — so the ball a player could see was outside its own
  * button for most of every cycle. That is fixed above, by both sides asking for
- * the same column. This is the other half: even over the ball, the target was a
- * circle of `handleRadiusMilli` widened by `hitCircle`'s own 30%, which comes to
- * under thirty pixels across on a phone — smaller than the thumb reaching for
- * it. The owner asked for the area to be bigger, and this is that number.
- *
- * It costs nothing to be generous here. The wave THE WARDEN owns has no entries
- * at all (`content/waves/act-2.ts`), so the rope is the only thing on the field
- * a press could have meant.
+ * the same column. The other half is size: the owner asked twice for the area
+ * to be bigger than the circle drawn, the second time for every pull handle
+ * (`PULL_GRAB`, `pull-knob.ts`). It costs nothing to be generous here: the wave
+ * THE WARDEN owns has no entries at all (`content/waves/act-2.ts`), so the rope
+ * is the only thing on the field a press could have meant.
  */
-const GRAB = 1.8;
-
-/** The circle a press is answered in — the resting one, widened by `GRAB`. */
+/** The circle a press is answered in — the resting one, widened by `PULL_GRAB`. */
 export function tetherGrabCircle(l: Layout, cfg: SimConfig, pupilCol: number): Circle {
   const rest = tetherHandleCircle(l, cfg, pupilCol);
-  return { x: rest.x, y: rest.y, r: rest.r * GRAB };
+  return { x: rest.x, y: rest.y, r: rest.r * PULL_GRAB };
 }
 
 export function drawTether(
@@ -125,26 +119,12 @@ export function drawTether(
   const d = { ctx, anchor, head, held, pull, time, tile: l.tile, hex, rim };
   // The way the pull goes, drawn along the whole of it and filling green
   // behind the hand (`pull-track.ts`), under the rope so the line lies in its
-  // channel; then the rope's own end, where the thumb has it.
+  // channel; then the circle to start, at the rope's end, where the thumb has
+  // it (`pull-knob.ts`).
   const track = wardenRopeTrack(l, cfg, b, head, rest);
   drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time });
   TETHER_LOOK.rope(d);
   TETHER_LOOK.root(d);
-  drawRopeEnd(ctx, head, rest.r, held ? rim : hex);
-  if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.7, HINT_LOUD);
-}
-
-/** The rope's end: a knot where the thumb takes it, not a ring to press. */
-function drawRopeEnd(
-  ctx: CanvasRenderingContext2D,
-  at: { x: number; y: number },
-  r: number,
-  hex: string,
-): void {
-  ctx.save();
-  ctx.fillStyle = hex;
-  ctx.beginPath();
-  ctx.arc(at.x, at.y, r * 0.42, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
+  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time });
+  if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.75, HINT_LOUD);
 }

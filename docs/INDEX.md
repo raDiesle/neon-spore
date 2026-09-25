@@ -1674,7 +1674,8 @@ by hand never moves.
 | `packages/render/src/baton-flesh.ts` | **What THE BATON's arm is made of**: a tendon hung from above the field |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
-| `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, not as a place to press** — every pull handle's channel, filling green behind the hand |
+| `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |
+| `packages/render/src/pull-knob.ts` | **Where a pull starts**: the big circle a thumb goes on (`drawPullKnob`), and `PULL_GRAB`, how far outside it a press is still taken |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |

@@ -1,4 +1,4 @@
-import { circleSubpath, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -17,7 +17,9 @@ import { PALETTE, STROKE } from "./palette.js";
 /**
  * The arm, from a clamp on the rim straight out to the knob, on the spoke the
  * knob stands on — so the arm swings round the drum's own middle, and the
- * drum turning under it reads as the arm's doing.
+ * drum turning under it reads as the arm's doing. Short, now the ring runs
+ * against the rim; the knob itself is every pull handle's (`pull-knob.ts`)
+ * and is drawn over the end of it.
  */
 export function drawMazeLever(
   ctx: CanvasRenderingContext2D,
@@ -49,14 +51,4 @@ export function drawMazeLever(
   clamp.moveTo(foot.x - nx * r * 0.7, foot.y - ny * r * 0.7);
   clamp.lineTo(foot.x + nx * r * 0.7, foot.y + ny * r * 0.7);
   strokeGlow(ctx, clamp, live, r * 0.35, 1);
-
-  const p = new Path2D(circleSubpath(knob.x, knob.y, r * 0.7));
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(p);
-  ctx.fillStyle = held ? PALETTE.text : PALETTE.grid;
-  ctx.globalAlpha = held ? 0.9 : 0.7;
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, live, STROKE.inner, 1);
 }
