@@ -20135,3 +20135,5 @@ The bottleneck was **friction**: the pose the slot was pointed at shuts its
 window before a measure can draw, and the freeze's clock runs on another
 axis inside the slow, so the camera had to be learned before it showed
 anything.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

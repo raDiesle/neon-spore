@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 817fa9dd — THE SLOW's measure goes to VERSUS: ebb, halo and rails against the fuse
+
+Three answers to how long a window has left stand beside the fuse the game now draws: the light round the boss thinning as the window runs out (ebb), a ring closing onto the boss (halo), and two rails burning down the screen's edges to the hull (rails). They are judged on a new pose, THE SLOW · A WINDOW RUNNING OUT, where nobody answers THE INSTAR's step and the strike lands.
+
 ## 2026-09-25 · 16f1e67b — THE SLOW counts its window down with a fuse along the top of the screen
 
 While the game is slowed for a step, a bright line across the top edge of the screen burns in from both ends and meets in the middle on the beat the step fails, turning red for the last two beats. It is drawn on every boss's window of five beats or more, and a step answered early takes it away with the window. Nothing is drawn under the boss or between the marks.
