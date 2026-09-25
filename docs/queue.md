@@ -374,6 +374,7 @@ its ink.
 ## `versus adopt` writes a record literal biome rejects
 
 - **Found:** 2026-09-24, claude/scuttle-hang-versus-swap
+- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-versus-adopt-writes-a-record-literal-biome-rejec)
 - **Files:** `tools/versus/record-edit.ts`, `tools/versus/test/record-edit.test.ts`
 
 Adopting `scuttle:hang` / `apart` rewrote `SCUTTLE_ROWS` as
