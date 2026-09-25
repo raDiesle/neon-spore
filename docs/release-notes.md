@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 5c1277eba — THE INSTAR's hide is lit flesh, scaled, wet and dripping
+
+Every plate of THE INSTAR is now lit under the key light as rounded flesh, with a wet shoulder toward the light and a cool bounce along the far rim, and scales laid along it. Venom hangs off the jaws, the eyes sit in wet sockets with a glint, the fangs, horns and tail blades are shaded bone, the wings glow through at the wrist and fork with veins, the tail is ringed, the belly has scutes, and the eggs are translucent shells in a pool of slime.
+
 ## 2026-09-25 · 42451a382 — Queue: the blow's roll-out names the bosses that wear it
 
 ## 2026-09-25 · 59ecb3282 — THE SINEW shakes and goes red when a fibre parts
