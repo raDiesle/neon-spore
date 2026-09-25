@@ -20402,3 +20402,18 @@ The bottleneck was **landing**: the field is read in five packages, so the
 diff reaches most of the test suite.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — On HARD a wasted shot glances off the top and comes down on the hull
+
+- reading: 5 min. The fly-out, the layout's hull line and the ship pass's
+  over-the-hull draws.
+- writing: 15 min. `RicochetFx`, its registration, a flash on the skin, and
+  the test that the hit lands inside the fail's hold.
+- looking: 15 min. Three captures: the slant widened once, the hit moved over
+  the hull because under it the burst was painted out.
+- friction: 15 min. `frames` has no way to play HARD, so a scratch probe drove
+  Chrome by hand, after the browser pane could not write a PNG.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: the frame tool cannot set the difficulty, and
+the ricochet only happens on HARD.

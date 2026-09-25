@@ -18,7 +18,8 @@ import { PALETTE } from "./palette.js";
  * its tail has cleared the top of the stage — which is clipped, so that is
  * where it is cut. A bolt out of the top while a boss hangs above the field
  * (`taken`) is not carried: it went into that boss, which draws what it did.
- * Neither is one on THE WELL, whose field is a disc with no top to fly out of.
+ * Neither is one on THE WELL, whose field is a disc with no top to fly out of,
+ * nor a wasted one on HARD, which comes back down (`ricochet.ts`).
  *
  * Kept in `Effects` and cleared on restart, because it outlives the frame.
  */
@@ -39,7 +40,7 @@ export class ShotOutFx {
     if (well) return;
     const speed = cfg.bulletTilesPerBeat / beatSeconds(cfg);
     for (const e of events) {
-      if (e.type !== "shotOut" || e.taken) continue;
+      if (e.type !== "shotOut" || e.taken || e.wasted) continue;
       this.flights.push({
         col: e.col + e.driftMilli / 1000,
         row: e.atMilli / 1000,

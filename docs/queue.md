@@ -732,3 +732,17 @@ at the end in the same hour — the plain two-appends case. Resolved by hand wit
 `git rebase main`, keeping both entries. Reproduce it in a repo test with two
 branches each appending one `## ` entry after the same last entry, find why the
 ledger merge declines it, and prove with `bun run check`.
+
+## `bun run frames` cannot photograph a wave on HARD
+
+- **Found:** 2026-09-25, claude/hard-wasted-ricochet
+- **Files:** `tools/frames/flags.ts`, `tools/frames/spec.ts`, `tools/frames/page.ts`, `tools/frames/run.ts`
+
+The difficulty a run is played at lives in `localStorage` (`neon-spore.progress`,
+read once at boot by `apps/game/src/main-world.ts`), and `frames` has no flag
+that writes it, so nothing HARD-only — the wasted shot's ricochet
+(`render/ricochet.ts`), THE WELL's tempo — could be photographed with it. Worked
+around with a throwaway probe that drove Chrome by hand. Add `--level
+easy|medium|hard`, written by `addInitScript` beside `--seat`'s, and split
+`flags.ts` (247 lines) and `spec.ts` (249) first, since both are at the limit.
+Prove it with a `tools/frames/test` parse test and `bun run check`.

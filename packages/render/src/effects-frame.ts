@@ -66,6 +66,7 @@ export function ingestAll(
   fx.harpoonLine.ingest(events, l);
   fx.volleyShards.ingest(events, l, cfg);
   fx.shotOut.ingest(events, cfg, well);
+  fx.ricochet.ingest(events, l, cfg, well);
   for (const e of events) {
     const spark = burstFor(e, l);
     if (spark) burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
@@ -118,6 +119,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.harpoonLine.update(dt);
   e.volleyShards.update(dt);
   e.shotOut.update(dt, l);
+  e.ricochet.update(dt, (x, y, n, hex) => e.sparks.burst(x, y, n, hex));
   e.crawler.update(dt);
   e.spriteBursts.update(dt);
   e.huskDeflates.update(dt);
@@ -177,6 +179,7 @@ export function resetAll(e: Effects): void {
   e.harpoonLine.reset();
   e.volleyShards.clear();
   e.shotOut.clear();
+  e.ricochet.clear();
   e.crawler.clear();
   e.spriteBursts.clear();
   e.huskDeflates.clear();

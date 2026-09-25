@@ -1197,6 +1197,7 @@ by hand never moves.
 | `packages/render/src/rind-burr.ts` | BURR — a rind wearing knobs, and it loses knobs with its layers |
 | `packages/render/src/rind-flakes.ts` | FLAKES — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/rind-pod.ts` | POD — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
+| `packages/render/src/ricochet.ts` | **A wasted shot on HARD, coming back.** The shot that hit nothing loses the wave there (`sim/shot-out.ts`'s… |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
 | `packages/render/src/snake-contour.ts` | Where a body's edge is: the two banks of a tapered ribbon along a run of joints |

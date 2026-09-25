@@ -76,6 +76,16 @@ const BUSY: SimEvent[] = [
     taken: false,
     wasted: false,
   },
+  // And one on HARD that hit nothing, coming back down (`ricochet.ts`).
+  {
+    type: "shotOut",
+    col: 5,
+    driftMilli: 0,
+    atMilli: -80,
+    color: "red",
+    taken: false,
+    wasted: true,
+  },
   { type: "petal", col: 5, row: 2, left: 3 },
   { type: "tether", col: 4, color: "red" },
   { type: "plate", col: 6, row: 2, left: 2, color: "cyan" },

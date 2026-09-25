@@ -118,8 +118,10 @@ export function drawShip(
   drawReachArm(ctx, l, world, surfaceSampler(f), arm, f.cannonX);
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
   drawOtherHand(ctx, l, world, view.time, mood, at, f);
-  // In front of the hull, unlike the rest of Effects.draw() — `Effects.rockImpact`.
-  effects.rockImpact.draw(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x, f));
+  // In front of the hull, unlike the rest of Effects.draw(): a rock's last step, a ricochet.
+  const skin = (x: number) => hullSkinY(l, view.time, mood, at, x, f);
+  effects.rockImpact.draw(ctx, l, view.time, skin);
+  effects.ricochet.draw(ctx, l, skin);
   effects.drawBanner(ctx, l);
   if (world.boss?.kind === "mirror") {
     effects.boss.mirror.draw(ctx, l, world.cfg, world.boss, world.beat, view.beatPhase);
