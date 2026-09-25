@@ -20913,3 +20913,19 @@ eighty on disk, so the figures had to be read off `WAVES` before any could
 be corrected by one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SCUTTLE, THE FLEET and THE QUEEN take the blow
+
+- reading: 15 min. THE FLEET's sink comes from the wreck pull now, not a
+  shell, which took reading `fleet-flood.ts`; THE REPRISE and THE MIRROR
+  read to the point of deciding not to wire them in this batch.
+- writing: 15 min. Three fx classes and drawers, three test rows; the hull
+  outline traced onto any path so the fleet's red follows the plate.
+- looking: 0 min. No picture: the blow is the one already sent twice.
+- friction: 5 min. A `check:fast` piped through `tail` let a commit through
+  red — `effects-ingest.ts` at 252 lines — and was amended.
+- landing: 10 min. Three `check:fast` runs, three commits, `land`.
+
+Bottleneck: bosses whose landing is seen later than its event — a wreck
+waiting out a shell, a verdict still in flight — which the event-driven blow
+does not fit.

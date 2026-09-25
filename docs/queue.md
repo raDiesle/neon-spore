@@ -446,8 +446,14 @@ vent), THE TASTER (a blade struck off), THE UNDERTOW (a lobe taken — worn by
 what still stands, since the lobe taken is gone that tick), THE ANTIPHON (a
 pit), THE LEDGER (a seam widened — the halves shake, the cord rooted in the
 ship does not), THE LEAD (a hit — the stalk shakes, the ridge does not),
-THE CURTAIN (a core hit). THE STARE never
-wears it: the eye takes no damage by design (`sim/stare.ts`). A drawer with no
+THE CURTAIN (a core hit), THE SCUTTLE (a part struck off), THE FLEET (a
+hull wrecked or pulled under — every hull the screen shows), THE QUEEN (a
+petal off — the red only, her shudder was already the shake). THE STARE never
+wears it: the eye takes no damage by design (`sim/stare.ts`); nor does THE
+REPRISE, which is survived, not hurt, and has no event to hang it on. THE
+MIRROR is next and is drawn by `drawHull`, which is at 249 lines: its red
+needs the hull's filled path out of `hull.ts` first, and the blow belongs on
+the first verdict glyph landing (`simon-verdict.ts`), not on the event. A drawer with no
 `time` of its own is handed `view.time` by its `boss-draw-clocks*.ts` caller;
 one handed no fx at all (`drawGorge`) is shaken by the caller and given the
 blow's `value`. `boss-hurt.test.ts` is a table now: a boss is one row — the landing
