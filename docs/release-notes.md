@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · d5cac3ebd — Queue: the shield pushes cannon creatures back up, once
+
+The owner decided on 25 September 2026 that the shield answers almost every creature: in the column and on time, it pushes the body high back up the field once, and the cannon still has to kill it. Three lanes are queued in order — the rule, the red shield with ONE LAST CHANCE, and a wave with a guide that teaches it — with the list of creatures that are not pushed.
+
 ## 2026-09-25 · 07d4d7b1e — The director's `3` key is gone; AUTO plays both seats
 
 The stage's cue key pressed what the field was asking for, both seats at once. The autopilot does that now, so the key, its held thumbs on THE INSTAR, the tick hook that moved them and the help row are removed, and render no longer exports the cue reading it read. The game's own desk `3` (both seats' hand under TEST) is untouched. Not a look.
