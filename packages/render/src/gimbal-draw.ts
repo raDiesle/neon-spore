@@ -1,4 +1,5 @@
 import { type GimbalState, gimbalLeaking, INNER, OUTER, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import {
@@ -76,11 +77,11 @@ export function drawGimbal(
   // mark that shook loose of its own rim would be the boss lying about the
   // one thing it may not lie about (`gimbal-fx.ts`).
   ctx.globalAlpha = Math.min(1, 0.15 + 0.85 * lit + 0.3 * fx.glare);
-  ctx.translate(at.x, at.y + fx.kick * l.tile);
+  ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + fx.kick * l.tile);
   ctx.rotate(fx.shake * 0.05 * Math.sin(time * 38));
   ctx.translate(-at.x, -at.y);
   drawYoke(ctx, l, at, lit);
-  drawDrum(ctx, l, at, open, time);
+  drawDrum(ctx, l, at, open, time, fx.hurt.value);
   if (gimbalLeaking(s)) drawLeak(ctx, l, world, s, at, beat, beatPhase, open);
   if (showsGimbalOuter(l.role)) drawGimbalRing(ctx, l, world, s, OUTER, at, beat, beatPhase, time);
   if (showsGimbalInner(l.role)) drawGimbalRing(ctx, l, world, s, INNER, at, beat, beatPhase, time);
@@ -107,6 +108,7 @@ function drawDrum(
   at: Point,
   open: number,
   time: number,
+  hurt: number,
 ): void {
   const r = gimbalDrumR(l);
   if (open > 0) {
@@ -125,6 +127,7 @@ function drawDrum(
     ctx.lineWidth = STROKE.outline;
     ctx.strokeStyle = PALETTE.rock;
     ctx.stroke(leaf);
+    drawHurt(ctx, leaf, hurt);
   }
   if (open < 0.6) {
     ctx.lineWidth = STROKE.inner;

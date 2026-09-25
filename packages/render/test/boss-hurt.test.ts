@@ -102,6 +102,15 @@ const ROWS: Row[] = [
     part: [{ type: "sinewEnter", col: 3 }],
     hurt: (fx) => fx.boss.sinew.hurt,
   },
+  {
+    boss: "gimbal",
+    land: [
+      { type: "gimbalShear", teeth: 2, col: 3 },
+      { type: "gimbalHatch", col: 3 },
+    ],
+    part: [{ type: "gimbalTrue", col: 3 }],
+    hurt: (fx) => fx.boss.gimbal.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

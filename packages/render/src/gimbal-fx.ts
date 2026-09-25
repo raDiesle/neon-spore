@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -21,6 +22,10 @@ import { PALETTE } from "./palette.js";
  * its limit (`effects-spark-silent-boss-b.ts` keeps the rows, for the reason
  * written over them). Everything is cleared in `Effects.reset()`
  * (`restart.test.ts`).
+ *
+ * **A tooth pair sheared is a sequence landed** — both rings held true for
+ * the count — and so is the hatch, so both deal the drum the blow every boss
+ * takes (`boss-hurt.ts`). Coming true deals nothing.
  */
 
 const KICK_TILES = 0.2;
@@ -32,6 +37,8 @@ export class GimbalFx {
   private kickNow = 0;
   private shakeNow = 0;
   private glareNow = 0;
+  /** The blow a tooth pair sheared deals the drum. */
+  readonly hurt = new BossHurt();
 
   /** How far the cradle is thrown right now, in tiles. */
   get kick(): number {
@@ -71,6 +78,7 @@ export class GimbalFx {
         case "gimbalShear":
           burst(at.x, at.y, 16, PALETTE.hullRim);
           this.kickNow = KICK_TILES;
+          this.hurt.hit();
           break;
         case "gimbalLeak":
           burst(at.x, at.y, 10, PALETTE.red);
@@ -87,6 +95,7 @@ export class GimbalFx {
         case "gimbalHatch":
           burst(at.x, at.y, 26, PALETTE.wispRim);
           this.kickNow = KICK_TILES * 1.6;
+          this.hurt.hit();
           break;
         case "gimbalOut":
           burst(at.x, at.y, 30, PALETTE.wisp);
@@ -106,11 +115,13 @@ export class GimbalFx {
     if (this.shakeNow < 0.002) this.shakeNow = 0;
     this.glareNow = Math.max(0, this.glareNow - this.glareNow * GLARE_DECAY * step);
     if (this.glareNow < 0.002) this.glareNow = 0;
+    this.hurt.update(dt);
   }
 
   clear(): void {
     this.kickNow = 0;
     this.shakeNow = 0;
     this.glareNow = 0;
+    this.hurt.clear();
   }
 }
