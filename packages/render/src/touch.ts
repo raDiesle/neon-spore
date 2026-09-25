@@ -15,7 +15,7 @@ export type { Field } from "./touch-field.js";
 export type { Hold, Touch } from "./touch-hold.js";
 
 import { bandUnder } from "./touch-band.js";
-import { crankTurn, dragging, turnAbout } from "./touch-drag.js";
+import { crankTurn, dragging, rimFrom, turnAbout } from "./touch-drag.js";
 import type { Field } from "./touch-field.js";
 import { sucksOnLift, swipeColor } from "./touch-hand.js";
 import type { Hold, Touch } from "./touch-hold.js";
@@ -152,14 +152,15 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     // **And THE INSTAR's `turn` mark**, a crank drawn on the body: the press
     // flagged the hold, so the reading is the crank's about the mark's centre.
     if (hold.turns) return turnAbout(hold, x, y);
-    // **And THE WELL's seam**, carried round the clock face: the press wrote
-    // down the hour it grabbed at, and what a move reports is how far round
-    // the ring the thumb has come, in thousandths of a sector. The same
-    // reading `grip` gets on this picture, and for the same reason — a
-    // displacement across the screen is not a distance on a circle
-    // (`touch-well.ts`).
-    if (hold.well) {
-      const round = wellColsFrom(l, hold.well.angle, x, y);
+    // **And THE WELL's seam and THE MAZE's lever**, carried round a circle: the
+    // press wrote down the angle it grabbed at, and a move reports how far
+    // round the thumb has come — in sectors of the clock face on the well
+    // (`touch-well.ts`), in tiles along the drum's rim on the maze
+    // (`rimFrom`). A displacement across the screen is not a distance on one.
+    const round = hold.well
+      ? wellColsFrom(l, hold.well.angle, x, y)
+      : hold.rim && rimFrom(hold.rim, l.tile, x, y);
+    if (round !== undefined) {
       return { player: hold.player, command: dragging(hold, round, 0, true), hold };
     }
     // Both axes now: the owner asked for a handle to be carriable any way at

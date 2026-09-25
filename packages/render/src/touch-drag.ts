@@ -107,3 +107,24 @@ export function dragging(
     ...(id === undefined ? {} : { id }),
   };
 }
+
+/**
+ * How far round a rim a thumb has come since the press, in thousandths of a
+ * tile along the arc — positive the way a thumb under the circle goes when it
+ * moves right, which is the sign a sideways carry had before the lever. A
+ * finger off the arc is read by its angle alone, so wandering in or out
+ * costs nothing and only going round counts.
+ */
+export function rimFrom(
+  rim: { cx: number; cy: number; r: number; angle: number },
+  tile: number,
+  x: number,
+  y: number,
+): number {
+  let d = Math.atan2(y - rim.cy, x - rim.cx) - rim.angle;
+  if (d > Math.PI) d -= 2 * Math.PI;
+  if (d < -Math.PI) d += 2 * Math.PI;
+  // `|| 0`: a move straight out along the spoke rounds to -0, and a command
+  // is compared and sent as it is.
+  return Math.round((-d * rim.r * 1000) / tile) || 0;
+}

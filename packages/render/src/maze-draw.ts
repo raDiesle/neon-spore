@@ -92,7 +92,7 @@ export function drawMaze(
     beatPhase,
     mazeHeartPull(l, m),
   );
-  drawMazeString(ctx, l, cfg, m, role);
+  drawMazeString(ctx, l, cfg, m, role, time);
   drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase, fall);
   drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);
   drawMazeGrip(ctx, l, cfg, m, role, beat, beatPhase, time);

@@ -150,6 +150,14 @@ export type Hold =
        * pixels means nothing on a picture where sideways is a circle.
        */
       well?: { angle: number };
+      /**
+       * THE MAZE's lever, which is carried **round the drum's rim**: the
+       * drum's middle, the radius the lever's grip rides at and the angle it
+       * was taken at, in pixels and radians, so a move reports how far along
+       * that arc the thumb has come in thousandths of a tile — the distance
+       * the wheel already measures a pull in (`sim/maze-controls.ts`).
+       */
+      rim?: { cx: number; cy: number; r: number; angle: number };
     };
 
 export interface Touch {

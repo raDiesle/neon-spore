@@ -17,7 +17,7 @@ import {
 } from "@neon-spore/sim";
 import { flatCenter } from "../src/creature-place.js";
 import { bandLobes, computeLayout, hitCircle, tileCX, type ViewRole } from "../src/layout.js";
-import { mazeStringCircle } from "../src/maze-string.js";
+import { mazeStringCircle, mazeStringRim } from "../src/maze-string.js";
 import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
 
 /**
@@ -341,6 +341,7 @@ describe("a hand on THE MAZE's string", () => {
         player: 1,
         originX: handle().x,
         originY: handle().y,
+        rim: mazeStringRim(l, CFG, handle().x, handle().y),
       },
     });
   });
@@ -348,31 +349,25 @@ describe("a hand on THE MAZE's string", () => {
   /**
    * The point of the whole lane. A move reports how far the hand has come from
    * where it grabbed, in thousandths of a tile — not where it is on the screen,
-   * which is what the two strips answer and what a wheel cannot use.
+   * which is what the two strips answer and what a wheel cannot use. And it is
+   * the distance *round the drum*: the lever runs in a channel on the rim, so a
+   * thumb that follows the channel turns the wheel as far as it went, and the
+   * part of a move straight out from the middle turns nothing.
    */
-  it("reports the distance from the grab, in thousandths of a tile", () => {
+  it("reports the arc from the grab round the drum, in thousandths of a tile", () => {
     const hold = grab(mazeField(1))?.hold;
-    if (hold?.kind !== "drag") throw new Error("the handle was not grabbed");
-    expect(touchMove(l, hold, hold.originX + l.tile * 2, hold.originY)?.command).toEqual({
-      kind: "drag",
-      target: "mazeString",
-      on: true,
-      fromMilli: 2000,
-      fromYMilli: 0,
-    });
-    expect(touchMove(l, hold, hold.originX - l.tile / 2, hold.originY)?.command).toEqual({
-      kind: "drag",
-      target: "mazeString",
-      on: true,
-      fromMilli: -500,
-      fromYMilli: 0,
-    });
-    // Both axes: a hand may carry a handle any way at all now, so a move down
-    // the screen is a move and not a rounding of one across it.
-    expect(touchMove(l, hold, hold.originX, hold.originY + l.tile * 1.5)?.command).toMatchObject({
-      fromMilli: 0,
-      fromYMilli: 1500,
-    });
+    if (hold?.kind !== "drag" || !hold.rim) throw new Error("the handle was not grabbed");
+    const rim = hold.rim;
+    const along = (tiles: number, out = 0) => {
+      const a = rim.angle - (tiles * l.tile) / rim.r;
+      const r = rim.r + out * l.tile;
+      return touchMove(l, hold, rim.cx + r * Math.cos(a), rim.cy + r * Math.sin(a))?.command;
+    };
+    // Round to the right under the drum is positive, as the handle is drawn.
+    expect(along(2)).toMatchObject({ target: "mazeString", fromMilli: 2000, fromYMilli: 0 });
+    expect(along(-0.5)).toMatchObject({ fromMilli: -500, fromYMilli: 0 });
+    // Straight out along the spoke is no turn at all.
+    expect(along(0, 1)).toMatchObject({ fromMilli: 0 });
     // Back where it started is zero again, however it got there: the origin is
     // fixed at the press, so a move can never accumulate.
     expect(touchMove(l, hold, hold.originX, hold.originY)?.command).toMatchObject({

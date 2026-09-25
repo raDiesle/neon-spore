@@ -90,8 +90,8 @@ export function handleCircle(
   if (target === "mazeString") {
     const m = world.boss?.kind === "maze" ? world.boss : null;
     if (m === null || m.phase !== "read") return null;
-    const rest = mazeStringCircle(l, cfg);
-    return { x: mazeStringHandle(l, cfg, m).x, y: rest.y, r: rest.r };
+    const knob = mazeStringHandle(l, cfg, m);
+    return { x: knob.x, y: knob.y, r: mazeStringCircle(l, cfg).r };
   }
   // Every handle hung off one of the clock bosses is next door, a branch
   // each, and answers `undefined` for a target that is not one of them

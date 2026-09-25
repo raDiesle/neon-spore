@@ -8,7 +8,7 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { type Layout, tileCX } from "./layout.js";
 import { mazeDoorMouth } from "./maze-door.js";
-import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
+import { mazeStringHandle } from "./maze-string.js";
 import { mazeDrum } from "./maze-walls.js";
 import { mirrorHullY } from "./mirror.js";
 
@@ -149,7 +149,7 @@ export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCu
 
   if (m.lockedCol === -1) {
     const handle = mazeStringHandle(l, world.cfg, m);
-    out.push(markAt(1, "CARRY", "TURN", handle.x, mazeStringCircle(l, world.cfg).y, l, 65));
+    out.push(markAt(1, "CARRY", "TURN", handle.x, handle.y, l, 65));
     return out;
   }
 
@@ -165,7 +165,7 @@ function mazeGripCues(l: Layout, world: World, m: MazeState): readonly BossCue[]
   const out: BossCue[] = [];
   if (!m.dragging) {
     const handle = mazeStringHandle(l, world.cfg, m);
-    out.push(markAt(1, "CARRY", "HOLD", handle.x, mazeStringCircle(l, world.cfg).y, l, 75));
+    out.push(markAt(1, "CARRY", "HOLD", handle.x, handle.y, l, 75));
   }
   const d = mazeDrum(l, world.cfg);
   out.push(markAt(2, "CARRY", "PULL", d.cx, d.cy, l, 76));

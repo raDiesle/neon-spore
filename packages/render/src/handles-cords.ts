@@ -1,7 +1,7 @@
 import { NO_TETHER } from "@neon-spore/sim";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
-import { mazeStringCircle } from "./maze-string.js";
+import { mazeStringCircle, mazeStringRim } from "./maze-string.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -29,7 +29,15 @@ export function mazeStringUnder(l: Layout, x: number, y: number, field: Field): 
   return {
     player: 1,
     command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target: "mazeString", player: 1, originX: x, originY: y },
+    hold: {
+      kind: "drag",
+      target: "mazeString",
+      player: 1,
+      originX: x,
+      originY: y,
+      // Read round the drum, not sideways: the lever's channel is an arc.
+      rim: mazeStringRim(l, field.cfg, x, y),
+    },
   };
 }
 

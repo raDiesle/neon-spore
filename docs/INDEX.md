@@ -1016,7 +1016,7 @@ by hand never moves.
 | `packages/render/src/lure-alarm.ts` | The alarm player 2 sees over a lure, and player 1 never does |
 | `packages/render/src/lure-vanish.ts` | A lure going, and the one moment of this creature both screens show identically |
 | `packages/render/src/maze-draw.ts` | THE MAZE's picture: a real maze of rings turning over the ship, with the one gap in its rim lit when it has clicked onto a column |
-| `packages/render/src/maze-string.ts` | THE MAZE's string, and the handle on it: the one thing in this round either player can put a hand on |
+| `packages/render/src/maze-string.ts` | THE MAZE's lever, and the way it goes: the one thing in this round either player can put a hand on |
 | `packages/render/src/meteor.ts` | The rock |
 | `packages/render/src/muzzle.ts` | The fire opening — the one place on the hull that two different things now draw into |
 | `packages/render/src/other-hand.ts` | THE OTHER HAND: the cheapest presence a two-device co-op game can show — not what a control is doing, only |
@@ -1551,6 +1551,7 @@ by hand never moves.
 | `packages/render/src/maze-drips.ts` | The half of a refused shot that lands on the ship: a pool across the top of the hull |
 | `packages/render/src/maze-spill.ts` | What a shot the heart refuses throws back, and how far it gets |
 | `packages/render/src/maze-look.ts` | the one record a candidate MAZE patches — the drum standing still |
+| `packages/render/src/maze-lever.ts` | THE MAZE's lever, drawn: an arm bolted to the drum's rim with a knob on its end |
 | `packages/render/src/maze-relief.ts` | THE MAZE's drum given depth: a floor under every corridor, and a wall that stands on it |
 | `packages/render/src/maze-pulse.ts` | the numbers THE MAZE's heart runs on — which blood the round is on, the double thump, the tempo from whole to hurt, how long a wound lasts — beside `maze-heart.ts` |
 | `packages/render/src/maze-plate.ts` | THE MAZE's drum as a made thing: a bezel and bolts round the rim, gloss over the plate, and the socket the heart sits in |

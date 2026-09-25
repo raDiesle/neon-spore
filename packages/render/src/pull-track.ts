@@ -113,23 +113,26 @@ function chevrons(
 ): void {
   const total = lengths(t.pts).at(-1) ?? 0;
   const span = Math.abs(to - from) * total;
-  const gap = t.w * CHEVRON_EVERY;
-  if (span < gap) return;
+  // Closer together on a short run, so a lever's half-channel still says
+  // which way; none once there is not room for one.
+  const gap = Math.min(t.w * CHEVRON_EVERY, span / 1.5);
+  if (span < t.w * 1.5) return;
   const way = to > from ? 1 : -1;
   const drift = ((time * 1.2) % 1) * gap;
   ctx.strokeStyle = PALETTE.text;
   ctx.lineWidth = STROKE.outline;
-  for (let d = gap * 0.5 + drift; d < span - gap * 0.3; d += gap) {
+  for (let d = drift; d < span - gap * 0.3; d += gap) {
+    if (d < gap * 0.3) continue;
     const q = pullTrackPoint(t, from + (way * d) / total);
     const fx = q.dx * way;
     const fy = q.dy * way;
     const s = t.w * 0.55;
-    ctx.globalAlpha = 0.75 * Math.min(1, (span - d) / gap);
-    ctx.beginPath();
-    ctx.moveTo(q.x - fx * s - fy * s, q.y - fy * s + fx * s);
-    ctx.lineTo(q.x, q.y);
-    ctx.lineTo(q.x - fx * s + fy * s, q.y - fy * s - fx * s);
-    ctx.stroke();
+    ctx.globalAlpha = 0.75 * Math.min(1, (span - d) / gap, d / gap);
+    const v = new Path2D();
+    v.moveTo(q.x - fx * s - fy * s, q.y - fy * s + fx * s);
+    v.lineTo(q.x, q.y);
+    v.lineTo(q.x - fx * s + fy * s, q.y - fy * s - fx * s);
+    ctx.stroke(v);
   }
 }
 

@@ -19998,3 +19998,18 @@ few pixels of the skin, and only a crop of real frames showed the rock
 sitting on it before the flash.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE MAZE turns from a lever that runs round the drum
+
+- reading: 5 min. `mazeStringHeard`'s drag, the three callers of
+  `mazeStringHandle`, and how `touch.ts` reads THE WELL's round drag.
+- writing: 25 min. The rim reading on the drag hold (`rimFrom`), the arc
+  channel and the lever with its clamp, the split into `maze-lever.ts`, the
+  callers' `y`, and the touch test rewritten for arc length.
+- looking: 10 min. Rest and held frames of THE MAZE, crops of the lever, a
+  chevron fix for a channel too short for one, and THE WARDEN again after it.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: `touch.ts` sat at its 250-line limit, so the
+rim reading had to fold into THE WELL's branch before it could go in at all.
