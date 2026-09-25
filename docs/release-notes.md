@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 46c6b630 — The director remembers the wave list's filters across a reload
+
+What is typed into the wave filter, which of its marks are pressed, and the sounds page's ALL / BOUND / SPARE choice are kept in localStorage and put back on the next load, so the list is already filtered on its first draw. Escape or an emptied field forgets the text; a stored mark no longer in the row is dropped.
+
 ## 2026-09-25 · 50685cc0 — THE WARDEN's rope shows the path it can be pulled
 
 The ring and its dial on the rope's end are gone. A channel runs from where the hand takes hold, straight down the seven tiles to taut, and fills green behind the hand as the pull goes in; chevrons run ahead of it. Once the hand has gone a handle's width, the channel turns to the way it is going. The rope ends in a knot, and PULL stands at the top.

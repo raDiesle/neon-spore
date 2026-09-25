@@ -19961,3 +19961,5 @@ comment that said why the maze's was left out.
 
 The bottleneck was **friction**: the preview entry pointed the tab at a port
 nobody was serving.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
