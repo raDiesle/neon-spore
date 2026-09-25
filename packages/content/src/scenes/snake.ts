@@ -2,14 +2,14 @@ import type { GuideScene } from "../scene-types.js";
 import { SNAKE_ROUNDS } from "../snake-rounds.js";
 
 /**
- * SNAKE's rehearsal: the ship is the body, and the one who can see it cannot
+ * SNAKE's rehearsal: the ship is the body, and the one who shoots it cannot
  * steer it.
  *
- * The ship folds into a snake and never stops. Player 2 has both turns and is
- * shown the body and the meteors and nothing else; player 1 has the trigger
- * and the mouth, cannot steer at all, and is the only one the enemies and the
- * points are drawn for. So a round is read out loud — *two ahead of you, turn
- * right after it* — and the film is one exchange of exactly that.
+ * The ship folds into a snake and never stops. Player 2 has both turns;
+ * player 1 has the trigger and the mouth and cannot steer at all. Both see the
+ * whole arena (the owner, 25 September 2026), so a round is two people agreeing
+ * out loud — *two ahead of you, turn right after it* — and the film is one
+ * exchange of exactly that.
  *
  * Four pages: what each of them holds, a shot at the enemy standing in the
  * opening lane, a turn, and a shot at the one the turn was for. Nothing in it
@@ -59,7 +59,7 @@ export const SNAKE: GuideScene = {
     {
       tick: 300,
       seat: 1,
-      text: "PLAYER 1 SEES THE ENEMY",
+      text: "PLAYER 1 SHOOTS IT",
       anchor: { at: "control", control: "snakeFire" },
     },
     {

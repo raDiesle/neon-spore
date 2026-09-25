@@ -21023,3 +21023,17 @@ test had to wait out a flight whose length is in seconds while the harness
 counts ticks.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — SNAKE: both screens see the whole round
+
+- reading: 20 min. The round's render files, the body's ribbon and its cut
+  ends, the cues, the panel lines and the spec's split paragraph.
+- writing: 15 min. The body and the items drawn on both screens, the panel
+  lines, the film's caption, and every comment that named the old split.
+- looking: 5 min. Two frames, one per screen.
+- friction: 5 min. `index.ts` still re-exported the two deleted gates, and
+  the typecheck first ran against a stale install.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: the split was written into eleven files' comments, so taking it
+out was mostly reading.

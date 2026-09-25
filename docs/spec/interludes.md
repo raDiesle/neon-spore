@@ -377,12 +377,13 @@ SNAKE splits both halves at once and it is worth reading as a pattern rather
 than as a second example. The **verbs** are split by job: player 2 has the
 whole of the steering — two quarter turns, relative, the arcade game's own
 controls — and player 1 has the two things the body does when it arrives, a
-shot out of the head and a mouth. The **information** is split to match:
-`showsSnakeFood` gives player 1 the enemies, the points and both ends of the
-body, `showsSnakeBody` gives player 2 the whole length and none of the things
-either of them can act on. So the seat that can reach a thing cannot see it and
-the seat that can see it cannot reach it, and every verb in the round is
-somebody answering a sentence.
+shot out of the head and a mouth. The **information** used to be split to
+match — player 1 shown the enemies, the points and both ends of the body,
+player 2 the whole length and nothing in the arena — and on 25 September 2026
+the owner asked for it to be one picture: *all is seen by both*. Both screens
+now carry the whole body and everything standing in the arena, and the split
+is the hands alone. The seat with the wheel cannot shoot or eat, and the seat
+with the trigger cannot turn.
 
 **The shot carries three tiles and no further** (`snakeShotTiles`). It used to
 carry the width of the arena, which quietly took the steering out of the round:
@@ -401,13 +402,11 @@ comes out on the last step before it is owed and never earlier — and `PRESS` /
 `FIRE` on the enemy a shot taken this instant would actually reach, which is
 `snakeShotStop`'s answer and not a second walk of the arena, so the word cannot
 promise a hit a meteor would take. The point comes first, because it expires
-first. Both marks stand on things drawn on his screen alone
-(`showsSnakeFood`), and both go out with the phase.
+first. Both go out with the phase.
 
 **The driver gets no word, and that is the reading rather than a gap in it.**
-Her screen is the body and the meteors, so everything that would make a `TURN`
-come out is either the half she is not shown or the one thing she is: *which
-way* is the answer, and it is his to say. A cue that turned her would be a
+She sees what he sees since 25 September 2026, and *which way* is still the
+answer the two of them agree out loud. A cue that turned her would be a
 second driver.
 
 ### Three shots, three hands

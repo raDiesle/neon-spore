@@ -29,8 +29,7 @@ import { bossOf } from "./touch-field.js";
  * **Neither ring covers what the pair is reading.** `drawHandleRing` fills
  * opaquely, and the head is the muzzle, the mouth and the heading all at once —
  * the one thing on this arena both seats aim with. So the pilot's ring sits a
- * tile back, on the first segment of the neck, which is body player 1 is not
- * shown anyway (`showsSnakeBody`): his thumb lands behind the jaws and pulls,
+ * tile back, on the first segment of the neck: his thumb lands behind the jaws and pulls,
  * which is what prising them apart is. Hers is on the tail's last joint, where
  * there is nothing else drawn at all.
  *

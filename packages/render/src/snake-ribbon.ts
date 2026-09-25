@@ -1,5 +1,5 @@
 import { PALETTE } from "./palette.js";
-import { ribbonCutPath, ribbonPath, ribbonSides } from "./snake-contour.js";
+import { ribbonPath, ribbonSides } from "./snake-contour.js";
 import type { Arena } from "./snake-draw.js";
 import {
   backGradient,
@@ -25,8 +25,8 @@ import {
  */
 
 /**
- * A body from a list of joints and nothing else — the whole length or the two
- * ends of it.
+ * A body from a list of joints and nothing else, the whole length of it on
+ * both screens.
  *
  * Exported because the pause after a crash draws a body that is not on the
  * world any more (`snake-crash.ts`): the joints it hands in are the folded-up
@@ -38,11 +38,9 @@ export function drawJointRibbon(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
   joints: { x: number; y: number }[],
-  showBody: boolean,
 ): void {
   if (joints.length < 2) return;
-  if (showBody) drawLength(ctx, arena, joints);
-  else drawEnds(ctx, arena, joints);
+  drawLength(ctx, arena, joints);
 }
 
 /**
@@ -68,15 +66,14 @@ function drawLength(
   const half = bodyHalf(arena, joints.length);
   const sides = ribbonSides(joints, half);
   const path = ribbonPath(joints, sides);
-  paintSkin(ctx, arena, joints, half, path, path);
+  paintSkin(ctx, arena, joints, half, path);
   drawSpine(ctx, arena, joints, 0, joints.length);
 }
 
 /**
- * The passes every piece of this body is painted with: a shadow on the floor,
- * the arena's gradient as the fill, the scales and the lit side of the back
- * inside a clip of the contour, then the rim — `rim` being the contour itself,
- * or the same outline left open where the body is cut off.
+ * The passes the body is painted with: a shadow on the floor, the arena's
+ * gradient as the fill, the scales and the lit side of the back inside a clip
+ * of the contour, then the rim.
  */
 function paintSkin(
   ctx: CanvasRenderingContext2D,
@@ -84,7 +81,6 @@ function paintSkin(
   joints: { x: number; y: number }[],
   half: (i: number) => number,
   path: Path2D,
-  rim: Path2D,
 ): void {
   castShadow(ctx, arena);
   ctx.fillStyle = backGradient(ctx, arena);
@@ -97,7 +93,7 @@ function paintSkin(
   litRibbon(ctx, joints, half);
   ctx.restore();
 
-  rimStroke(ctx, rim);
+  rimStroke(ctx, path);
 }
 
 /** Where the neck is narrowest, and how many joints it takes to swell out of
@@ -158,34 +154,4 @@ function drawSpine(
     ctx.fill();
   }
   ctx.globalAlpha = 1;
-}
-
-/**
- * The tail alone — player 1's half of the body.
- *
- * **The last two joints and not one more.** It is the same contour the whole
- * length is drawn with, so the end player 1 sees is the end player 2 is
- * looking at rather than a triangle that resembles it; and it stops at two
- * because a third would hand the seat with the trigger a tile of the middle,
- * which is the one thing they are not allowed to know.
- *
- * **The whole body's own widths and markings, read at its end.** Until 23
- * September 2026 this had widths of its own — a quarter-tile flaring to the
- * tip whatever the length — and no spine, so coming out of the ship it was a
- * straight-sided tube that did not match the body on the other screen. Now
- * the joints are placed on the whole length (`bodyHalf`, `drawSpine`) and
- * only the rim is left open where the cut is (`snake-contour.ts`).
- */
-function drawEnds(
-  ctx: CanvasRenderingContext2D,
-  arena: Arena,
-  joints: { x: number; y: number }[],
-): void {
-  const from = joints.length - 2;
-  const tail = joints.slice(from);
-  const whole = bodyHalf(arena, joints.length);
-  const half = (i: number): number => whole(from + i);
-  const sides = ribbonSides(tail, half);
-  paintSkin(ctx, arena, tail, half, ribbonPath(tail, sides), ribbonCutPath(tail, sides));
-  drawSpine(ctx, arena, tail, from, joints.length);
 }

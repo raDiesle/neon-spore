@@ -1,5 +1,5 @@
 import type { SimConfig, SnakeState } from "@neon-spore/sim";
-import type { Layout, ViewRole } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawSnakeEnemy, drawSnakePoint, drawSnakeRock } from "./snake-items.js";
 
@@ -17,11 +17,11 @@ import { drawSnakeEnemy, drawSnakePoint, drawSnakeRock } from "./snake-items.js"
  * collected is amber,
  * because amber is what this game has always meant by "take that in".
  *
- * **Two screens, two pictures.** Player 1 is shown the food and both ends of
- * the body; player 2 is shown the whole body and no food. So neither seat can
- * play a corner alone even in the frame, and the two verbs follow the two
- * halves — the shot and the mouth are player 1's because the food is theirs
- * to see, the steering is player 2's because the body about to be hit is.
+ * **Two screens, one picture.** Both are shown the whole body and everything
+ * standing in the arena. Until 25 September 2026 player 1 saw the food and
+ * only the ends of the body and player 2 the body and no food, and the owner
+ * asked for all of it to be seen by both. The split is in the hands: player 2
+ * steers, player 1 shoots and eats, and neither can do the other's half.
  *
  * Stateless, like every other draw here: everything is read off the world, so
  * nothing outlives a frame and `Effects.reset` has nothing of it to clear.
@@ -35,11 +35,6 @@ export interface Arena {
   cols: number;
   rows: number;
 }
-
-/** Player 1 is the one who can see what there is to eat. */
-export const showsSnakeFood = (role: ViewRole): boolean => role !== "p2";
-/** Player 2 is the one who can see the body between its two ends. */
-export const showsSnakeBody = (role: ViewRole): boolean => role !== "p1";
 
 /**
  * Where SNAKE's name sits when nothing is over it, in play heights — THE
@@ -135,9 +130,7 @@ export function drawArena(ctx: CanvasRenderingContext2D, arena: Arena): void {
  * What is standing in the arena: the enemies to be shot and the points to be
  * swallowed.
  *
- * Drawn only on the screen that is allowed to see them, which is player 1's —
- * the seat that can shoot and open the mouth and cannot steer. What each of
- * them looks like is `snake-items.ts`, and the short of it is that neither is
+ * Drawn on both screens. What each of them looks like is `snake-items.ts`, and the short of it is that neither is
  * a new shape: an enemy is a slick or a bulb and a point is a pod, borrowed
  * whole off the field so the seat with the trigger never has to be told which
  * is which.
@@ -161,12 +154,9 @@ export function drawSnakeItems(
 }
 
 /**
- * The meteors, on **both** screens.
- *
- * Every other thing in the arena is one seat's to see, and this is the
- * exception that proves why: a meteor can be neither shot nor taken, so
- * telling player 1 about one buys the pair nothing — the only answer to it is
- * the steering, and the steering is player 2's. Drawn *under* the body: the
+ * The meteors, on both screens like everything else in the arena. A meteor
+ * can be neither shot nor taken, so the only answer to it is the steering.
+ * Drawn *under* the body: the
  * head goes over the top of one on the frame it hits it, which is the frame
  * the pair needs to see. What one looks like is `snake-items.ts`, with the
  * other two things that stand on a tile.

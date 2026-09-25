@@ -106,18 +106,14 @@ function ease(i: number): number {
 }
 
 /**
- * The body, head first.
- *
- * `showBody` is the middle of it. Without it player 2's screen is all there is
- * of the length and player 1 gets the two ends and nothing between them, which
- * is exactly what they are meant to have: a pair of landmarks to steer between
- * and no idea what is strung across.
+ * The body, head first, whole on both screens. Player 1 used to get the two
+ * ends and nothing between them, and the owner asked for all of it to be seen
+ * by both (25 September 2026): the split is in the hands now, never the eyes.
  */
 export function drawSnakeBody(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
   snake: SnakeState,
-  showBody: boolean,
   t: number,
   gape = 0,
   flick = 0,
@@ -125,6 +121,6 @@ export function drawSnakeBody(
   const joints = snakeJoints(arena, snake, t);
   const head = joints[0];
   if (!head) return;
-  drawJointRibbon(ctx, arena, joints, showBody);
+  drawJointRibbon(ctx, arena, joints);
   drawSnakeHead(ctx, arena, head, snake.dirCol, snake.dirRow, gape, flick);
 }

@@ -21,8 +21,7 @@ import type { ViewState } from "./renderer.js";
 
 /**
  * The name, and the one line that teaches this seat its half. Different on the
- * two screens because the halves are: a pair reading the same sentence would
- * have nothing to tell each other.
+ * two screens because the hands are, though the picture under them is one.
  */
 export function drawTitle(
   ctx: CanvasRenderingContext2D,
@@ -53,12 +52,12 @@ export function drawTitle(
  */
 const LINES: Record<ViewRole, { emerging: string; taught: string }> = {
   p1: {
-    emerging: "it is coming out — yours is the shot and the mouth",
-    taught: "shoot them, and open on the amber — you cannot steer",
+    emerging: "it is coming out. You shoot and eat.",
+    taught: "you shoot and eat. Player 2 steers.",
   },
   p2: {
-    emerging: "it is coming out — yours is the whole of the steering",
-    taught: "left and right — you cannot see what is there",
+    emerging: "it is coming out. You steer it.",
+    taught: "you steer, left and right. Player 1 shoots and eats.",
   },
   test: {
     emerging: "the body is coming out of the ship",

@@ -4,10 +4,9 @@ import type { SnakeRound } from "@neon-spore/sim";
  * SNAKE's rounds: three maps, and the map is the fight.
  *
  * The body folds out of the ship and never stops. Player 2 turns it a quarter
- * turn at a time and can see nothing standing in the arena; player 1 sees
- * every enemy and every point and can only shoot and open the mouth. So a
- * round is read out loud — "two ahead of you, turn right after it" — and what
- * is written here is what there is to say.
+ * turn at a time; player 1 can only shoot and open the mouth. Both see the
+ * whole arena. So a round is agreed out loud — "two ahead of you, turn right
+ * after it" — and what is written here is what there is to say.
  *
  * **Authored, never generated**, for the reason THE FLEET's chart is: where a
  * thing stands decides how long the pair has to say it. A random arena would

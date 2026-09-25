@@ -10,12 +10,12 @@
  * (`packages/content/src/snake-rounds.ts`, `tools/director`). Clear both lists
  * and the round is won.
  *
- * **The split is that neither seat can see the other's half of it.** Player 1
- * is shown the enemies and the points and both ends of the body; player 2 is
- * shown the whole body and none of the things in the arena. So the seat with
- * the wheel is driving on somebody's word, and the seat with the trigger
- * cannot line a shot up on its own. That is the whole round, and it is what
- * makes a game famously played by one person a game for two.
+ * **The split is in the hands, not the eyes.** Both screens are shown the
+ * whole body and everything in the arena (the owner, 25 September 2026; it
+ * used to be split too). The seat with the wheel cannot shoot or eat, and the
+ * seat with the trigger cannot turn, so every corner is two people agreeing
+ * out loud. That is what makes a game famously played by one person a game
+ * for two.
  *
  * **Getting it wrong is the wave lost.** A wall, its own body, a touched
  * enemy, or a point swallowed with the mouth shut: all four are a hit on the

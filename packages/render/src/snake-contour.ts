@@ -1,4 +1,4 @@
-import { splinePath, splineSealed } from "./spline.js";
+import { splineSealed } from "./spline.js";
 
 /**
  * Where a body's edge is: the two banks of a tapered ribbon along a run of
@@ -73,20 +73,6 @@ const TIP_REACH = 3.2;
 export function ribbonPath(joints: Point[], sides: { left: Point[]; right: Point[] }): Path2D {
   const outline = ribbonOutline(joints, sides);
   return outline.length === 0 ? new Path2D() : splineSealed(outline);
-}
-
-/**
- * The same contour with the cut left open: the two banks and the tip between
- * them, and no line across the other end.
- *
- * For the stub the second seat sees (`snake-ribbon.ts`). That end is not an
- * edge — it is where the body goes on being there and stops being drawn — and
- * rimming it laid a bright bar across the top of the stub, which turned the
- * tail of an animal into a cone with a lid on it.
- */
-export function ribbonCutPath(joints: Point[], sides: { left: Point[]; right: Point[] }): Path2D {
-  const outline = ribbonOutline(joints, sides);
-  return outline.length === 0 ? new Path2D() : splinePath(outline, false);
 }
 
 /** Up the left bank, round the tip, back down the right: the contour's points

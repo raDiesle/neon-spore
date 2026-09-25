@@ -53,12 +53,11 @@ export function drawSnakeCrash(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
   snake: SnakeState,
-  showBody: boolean,
   crash: number,
 ): void {
   const joints = foldedJoints(arena, snake, crash);
   const head = joints[0];
-  drawJointRibbon(ctx, arena, joints, showBody);
+  drawJointRibbon(ctx, arena, joints);
   // Shut, and with no tongue out: `drawSnakeHead` takes a gape and a flick,
   // and both are zero here on purpose.
   if (head) drawSnakeHead(ctx, arena, head, snake.dirCol, snake.dirRow, 0, 0);

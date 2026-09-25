@@ -18,8 +18,6 @@ import {
   drawSnakeRocks,
   SNAKE_HEADER,
   SNAKE_NAME_Y,
-  showsSnakeBody,
-  showsSnakeFood,
   snakeArena,
 } from "./snake-draw.js";
 import { clipAboveHull, drawEmergeSlime, emergeIntake, emergeOffset } from "./snake-emerge.js";
@@ -127,9 +125,9 @@ export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
 }
 
 /**
- * What is standing in the arena before the body arrives: the meteors both
- * screens carry, and the arena's own things on the one screen that gets them.
- * Under the hull, because nothing of it is ever inside the ship.
+ * What is standing in the arena before the body arrives: the meteors, the
+ * enemies and the points, on both screens. Under the hull, because nothing of
+ * it is ever inside the ship.
  */
 function drawStanding(
   ctx: CanvasRenderingContext2D,
@@ -139,7 +137,7 @@ function drawStanding(
 ): void {
   const pulse = Math.abs(0.5 - view.beatPhase) * 2;
   drawSnakeRocks(ctx, arena, round);
-  if (showsSnakeFood(view.role)) drawSnakeItems(ctx, arena, round, pulse);
+  drawSnakeItems(ctx, arena, round, pulse);
 }
 
 /**
@@ -159,14 +157,13 @@ function drawBody(
   round: SnakeState,
 ): { dx: number; dy: number; rise: number } | null {
   const t = emerge01(view.world, view.beatPhase, round);
-  const shows = showsSnakeBody(view.role);
   // The bump after a crash. While it runs the body is drawn folding up
   // against what stopped it, in place of itself; once it is spent the body
   // is drawn as ever, standing where it stopped, for as long as the field
   // holds (`snake-crash.ts`).
   const crash = crash01(round, view.world.tick);
   if (crash !== null) {
-    drawSnakeCrash(ctx, arena, round, shows, crash);
+    drawSnakeCrash(ctx, arena, round, crash);
     return null;
   }
   const at = t < 1 ? emergeOffset(l, arena, round, t) : null;
@@ -176,7 +173,6 @@ function drawBody(
     ctx,
     arena,
     round,
-    shows,
     snakeSlide(round, view.world.tick),
     gape(view.world.cfg, view.world.tick, round),
     flick(view.world.tick),

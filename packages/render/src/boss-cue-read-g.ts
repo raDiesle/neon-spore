@@ -131,18 +131,14 @@ function tileMid(a: Arena, col: number, row: number): { x: number; y: number } {
 }
 
 /**
- * SNAKE. Two words, both the pilot's, and the driver is told nothing at all.
+ * SNAKE. Two words, both player 1's, and the driver is told nothing at all.
  *
- * **She cannot be told anything true.** Her screen is the body and the
- * meteors; the enemies and the points are not drawn on it
- * (`showsSnakeFood`), so the only word the field could put on her wheel is
- * `TURN`, and everything that would make it come out — an enemy ahead, a
- * point ahead, a wall coming — is either the half she is not shown or the one
- * thing she is: *which way* is the answer, and it is his to say. A cue that
- * turned her would be a second driver, and there is only one round in here.
+ * Both screens carry the whole arena (the owner, 25 September 2026), but the
+ * only word the field could put on her wheel is `TURN`, and *which way* is the
+ * answer the pair has to agree on out loud. A cue that turned her would be a
+ * second driver, and there is only one round in here.
  *
- * **He is told his own two verbs, each at the moment it will land**, and both
- * marks stand on things drawn on his screen and on no other.
+ * **He is told his own two verbs, each at the moment it will land.**
  *
  * - `PRESS` / `OPEN` on a point standing in the tile the head is about to
  *   step onto. The mouth is a window rather than a hold and the rest is at
