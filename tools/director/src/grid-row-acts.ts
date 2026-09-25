@@ -1,3 +1,4 @@
+import { bindRowMark } from "./grid-row-mark.js";
 import type { RowVerbs } from "./grid-rows.js";
 import type { FaultMark, FaultSpan } from "./paint-fault.js";
 import type { Selection } from "./selection.js";
@@ -81,6 +82,9 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
     settle();
   });
   selection.watch(settle);
+  // What a press on the trash does — one row, or a span dragged along the
+  // trash column (`grid-row-mark.ts`).
+  bindRowMark(grid, verbs);
 
   return {
     end(beat, fault) {
@@ -98,8 +102,7 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
       button.className = "rowdel";
       button.dataset.beat = String(beat);
       button.textContent = "🗑";
-      button.title = `Remove beat ${beat}. Every row below moves up one.`;
-      button.addEventListener("click", () => verbs.removeRow(beat));
+      button.title = `Remove beat ${beat}. Every row below moves up one. Drag along the trash to mark many rows.`;
       strip.appendChild(button);
       return strip;
     },

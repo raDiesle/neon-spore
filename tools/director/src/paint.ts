@@ -131,27 +131,21 @@ export function insertBeat(wave: Wave, beat: number): void {
 }
 
 /**
- * **Take a beat out.** Whatever is on it is gone, and everything after moves
- * one beat earlier — the inverse of `insertBeat`, so an empty row added by
- * mistake can be taken back, beat 0 included: the editor has no undo, and a
- * wave whose first beat is empty simply starts a beat late. A row with
- * anything on it is the caller's to ask about first (`beatIsEmpty`).
+ * **Take beats out**, `from` to `to` inclusive — one beat when `to` is left
+ * off. Whatever is on them is gone, and everything after moves up by as many
+ * beats as went — the inverse of `insertBeat`, so an empty row added by
+ * mistake can be taken back, beat 0 included: a wave whose first beat is empty
+ * simply starts a beat late. Nothing is asked first: the owner, 25 September
+ * 2026, took the question out and asked for many rows at once instead.
  */
-export function removeBeat(wave: Wave, beat: number): void {
-  wave.entries = wave.entries.filter((e) => e.beat !== beat);
-  for (const e of wave.entries) if (e.beat > beat) e.beat -= 1;
-  const pods = (wave.pods ?? []).filter((p) => p.beat !== beat);
-  for (const p of pods) if (p.beat > beat) p.beat -= 1;
+export function removeBeat(wave: Wave, from: number, to = from): void {
+  const n = to - from + 1;
+  const gone = (beat: number): boolean => beat >= from && beat <= to;
+  wave.entries = wave.entries.filter((e) => !gone(e.beat));
+  for (const e of wave.entries) if (e.beat > to) e.beat -= n;
+  const pods = (wave.pods ?? []).filter((p) => !gone(p.beat));
+  for (const p of pods) if (p.beat > to) p.beat -= n;
   wave.pods = pods.length ? pods : undefined;
-}
-
-/** How many things a beat row holds — entries and pods together — so a
- * removal of a row with something on it can say so before it happens. */
-export function onBeat(wave: Wave, beat: number): number {
-  return (
-    wave.entries.filter((e) => e.beat === beat).length +
-    (wave.pods ?? []).filter((p) => p.beat === beat).length
-  );
 }
 
 /**

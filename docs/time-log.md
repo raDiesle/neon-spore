@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — The map's trash asks nothing, and a drag along it marks many rows
+
+- reading: 5 min. `grid-rows.ts`, `grid-row-acts.ts`, `removeBeat` and who
+  else reached `onBeat`.
+- writing: 10 min. `grid-row-mark.ts`, the span in `removeBeat`, the band's
+  CSS, two tests.
+- looking: 5 min. A drag down, a drag up, Escape and a one-row press in the
+  director.
+- friction: 5 min. `director-here` served another worktree until `bun run
+  here` pointed it at this one.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the preview served the wrong tree first, because `bun run here`
+was skipped.
+
 ## 2026-09-25 — THE FILAMENT's tools strike the heart and are spat onto the next vein
 
 - reading: 5 min. The pull's timing in the step, and which tests pinned

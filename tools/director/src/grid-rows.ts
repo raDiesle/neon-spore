@@ -1,6 +1,6 @@
 import type { FaultMark } from "./paint-fault.js";
 import type { Selection } from "./selection.js";
-import { currentWave, insertBeat, onBeat, removeBeat, type Store } from "./state.js";
+import { currentWave, insertBeat, removeBeat, type Store } from "./state.js";
 
 /**
  * The beat labels down the left of the map, and the two verbs a row carries.
@@ -11,21 +11,27 @@ import { currentWave, insertBeat, onBeat, removeBeat, type Store } from "./state
  * cell down one at a time — and then never found them, because two glyphs the
  * width of a digit inside a column of digits do not read as buttons. The
  * verbs are the line between the rows and the trash at the end of one now
- * (`grid-row-acts.ts`); what is left here is the asking and the edit.
+ * (`grid-row-acts.ts`); what is left here is the edit.
  *
  * The edits themselves are `paint.ts`'s (`insertBeat`, `removeBeat`).
  */
 
 export interface RowVerbs {
   insertRow(beat: number): void;
-  removeRow(beat: number): void;
+  /** Beats `from` to `to` inclusive, gone without a question. */
+  removeRows(from: number, to: number): void;
 }
 
 /**
  * The two verbs, each marking the wave dirty and settling what an edit
  * touches, the way the cell verbs in `grid.ts` do. The selection follows the
- * cell it was on and is dropped with a removed row. **A row with anything on
- * it is asked about first, in plain words** — the editor has no undo.
+ * cell it was on and is dropped with a removed row.
+ *
+ * **A removal is not asked about.** It was, for a row with anything on it,
+ * and the owner took the question out on 25 September 2026 — the trash is
+ * pressed on purpose, and a dialog per row made clearing a stretch of the
+ * wave a dialog per row. Many rows go at once by dragging along the trash
+ * instead (`grid-row-mark.ts`).
  */
 export function bindRowVerbs(store: Store, selection: Selection, onEdit: () => void): RowVerbs {
   const insertRow = (beat: number): void => {
@@ -37,25 +43,17 @@ export function bindRowVerbs(store: Store, selection: Selection, onEdit: () => v
     store.dirty = true;
     onEdit();
   };
-  const removeRow = (beat: number): void => {
+  const removeRows = (from: number, to: number): void => {
     const wave = currentWave(store);
     if (!wave) return;
-    const held = onBeat(wave, beat);
-    if (held > 0) {
-      const what = held === 1 ? "one thing" : `${held} things`;
-      const ok = window.confirm(
-        `Beat ${beat} has ${what} on it. Remove the beat and what is on it? Every row below moves up one beat.`,
-      );
-      if (!ok) return;
-    }
-    removeBeat(wave, beat);
+    removeBeat(wave, from, to);
     const at = selection.at();
-    if (at && at.beat === beat) selection.set(null);
-    else if (at && at.beat > beat) selection.set({ beat: at.beat - 1, col: at.col });
+    if (at && at.beat >= from && at.beat <= to) selection.set(null);
+    else if (at && at.beat > to) selection.set({ beat: at.beat - (to - from + 1), col: at.col });
     store.dirty = true;
     onEdit();
   };
-  return { insertRow, removeRow };
+  return { insertRow, removeRows };
 }
 
 /** One beat's label: the number, which seeks. A `div` rather than a button

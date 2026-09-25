@@ -2534,8 +2534,9 @@ by hand never moves.
 | `tools/director/src/cell-config-moult.ts` | **THE MOULT's one row under the selected cell** |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
-| `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a beat taken out, with the asking a removal does first |
+| `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a span of beats taken out, without a question |
 | `tools/director/src/grid-row-acts.ts` | The row verbs as things you can see: a line between two rows that opens a beat where it is drawn, and a trash at the row's right end, both worn by the row under the pointer or the row of the cell being edited |
+| `tools/director/src/grid-row-mark.ts` | **Many rows out at once**: a drag along the trash column marks rows, and a press on any marked trash takes them all; a press without a drag takes its one row |
 | `tools/director/src/grid-reprise.ts` | **Where THE REPRISE's dark falls, on the map**: a line under the row each stretch is sent again after, with its count and rows |
 | `tools/director/src/grid-follow.ts` | The map follows the beat that is playing, keeping the next few rows on screen too, in steps rather than by the beat — and stands aside as soon as a hand scrolls |
 | `tools/director/src/grid-metrics.ts` | The map's own arithmetic: the width of a cell, of the beat numbers, of the strip of row buttons, and what the nine tracks add up to |

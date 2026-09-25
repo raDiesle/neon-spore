@@ -241,6 +241,41 @@
   opacity: 1;
   filter: drop-shadow(0 0 4px rgba(255, 84, 112, 0.8));
 }
+/* MANY ROWS MARKED BY DRAGGING ALONG THE TRASH (`grid-row-mark.ts`).
+
+   The trash of every marked row shows and glows, because any of them is the
+   one that removes the lot; the band tints the rows they take. The band takes
+   no pointer — the trash under it has to stay pressable. `touch-action` so a
+   drag along the trash on a phone marks rows instead of scrolling the map. */
+#grid .rowdel {
+  touch-action: none;
+  user-select: none;
+}
+#grid .rowdel.doomed {
+  visibility: visible;
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(255, 84, 112, 0.8));
+}
+#grid .rowmark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: rgba(255, 84, 112, 0.14);
+  border: 1px solid rgba(255, 84, 112, 0.7);
+  border-radius: 4px;
+}
+#grid .rowmark .say {
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  color: #ff5470;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
 #grid .cell {
   width: 32px;
   height: 32px;

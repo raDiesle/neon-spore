@@ -17,7 +17,6 @@ export {
   eraseAt,
   insertBeat,
   moveCell,
-  onBeat,
   paint,
   removeBeat,
 } from "./paint.js";

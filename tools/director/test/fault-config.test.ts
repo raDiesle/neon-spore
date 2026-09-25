@@ -196,7 +196,7 @@ describe("a fault's name on the map", () => {
     const grid = new FakeEl();
     return bindRowActs(
       grid as unknown as HTMLElement,
-      { insertRow: () => {}, removeRow: () => {} },
+      { insertRow: () => {}, removeRows: () => {} },
       { at: () => null, set: () => {}, watch: () => {} } as unknown as Selection,
     );
   };

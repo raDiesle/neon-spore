@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { emptyWave, entryAt, insertBeat, onBeat, paint, podAt, removeBeat } from "../src/state.js";
+import { emptyWave, entryAt, insertBeat, paint, podAt, removeBeat } from "../src/state.js";
 
 /**
  * A BEAT ROW OPENED, AND A BEAT ROW TAKEN OUT.
@@ -12,6 +12,14 @@ import { emptyWave, entryAt, insertBeat, onBeat, paint, podAt, removeBeat } from
  * so an empty row opened by mistake can be taken back in an editor with no
  * undo, the first row included.
  */
+
+/** How many things a row holds, entries and pods together. */
+function onBeat(wave: ReturnType<typeof emptyWave>, beat: number): number {
+  return (
+    wave.entries.filter((e) => e.beat === beat).length +
+    (wave.pods ?? []).filter((p) => p.beat === beat).length
+  );
+}
 
 function threeBeats() {
   const wave = emptyWave();
@@ -92,11 +100,21 @@ describe("removeBeat", () => {
   });
 });
 
-describe("onBeat", () => {
-  test("counts entries and pods on the row, so a removal can say what it takes", () => {
+describe("removeBeat across a span", () => {
+  test("takes every row from the first to the last and moves the rest up by as many", () => {
     const wave = threeBeats();
-    expect(onBeat(wave, 2)).toBe(2);
-    expect(onBeat(wave, 0)).toBe(1);
-    expect(onBeat(wave, 1)).toBe(0);
+    removeBeat(wave, 1, 3);
+    expect(entryAt(wave, 0, 1)).toBeDefined();
+    expect(entryAt(wave, 1, 0)).toBeDefined();
+    expect(wave.entries).toHaveLength(2);
+    expect(wave.pods).toBeUndefined();
+  });
+
+  test("is what one row at a time would have done, taken from the top", () => {
+    const one = threeBeats();
+    const span = threeBeats();
+    for (let i = 0; i < 3; i++) removeBeat(one, 0);
+    removeBeat(span, 0, 2);
+    expect(JSON.stringify(span)).toBe(JSON.stringify(one));
   });
 });
