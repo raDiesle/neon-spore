@@ -1,47 +1,71 @@
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
-import { faded } from "./instar-draw.js";
-import { type Figure, instarAt, type Point } from "./instar-shape.js";
+import { faded, type Look } from "./instar-plate.js";
+import { instarAt, type Point } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
- * **THE INSTAR's clutch, and the eggs the pair swipe off it.**
+ * **THE INSTAR's two nests, and the eggs the pair swipe off one.**
  *
- * The owner, 24 September 2026: *when swiping down, an egg should be dragged
- * away from the nest of the boss to fall down to ship*. So the clutch holds
- * one egg per swipe the mark needs (`CLUTCH`, held to the script by
- * `test/instar-eggs.test.ts`), every counted swipe takes one off it, and the
- * one taken falls from the clutch straight down to the hull — the way the
- * thumb went — and breaks there. The gesture and the picture say the same
- * direction.
+ * The owner, 25 September 2026: *the eggs we see on his back like a cocoon
+ * of spiders, which are rumbling like mini dragons are going to crouch out of
+ * egg … the other player also has eggs, but he has to tap it to squash them
+ * to dead*. So there are two nests on the back, each a mound of silk with the
+ * eggs half out of it, each egg with a hatchling curled dark inside, and the
+ * eggs shiver — harder as the window runs (`instarThreat`) — until the pair
+ * clear them or they hatch (`instar-strike.ts`).
+ *
+ * One nest is squashed: it holds one egg per tap its mark needs (`NEST`), and
+ * each counted tap bursts one where it lies (`instar-fx.ts`). The other is
+ * swiped, and holds one egg per swipe (`CLUTCH`); the owner, 24 September
+ * 2026: *when swiping down, an egg should be dragged away from the nest of
+ * the boss to fall down to ship*. So every counted swipe takes one off it and
+ * the one taken falls from the nest straight down to the hull — the way the
+ * thumb went — and breaks there. Both counts are held to the script by
+ * `test/instar-eggs.test.ts`.
  *
  * The falling egg outlives the frame that counted it, so it is kept here and
- * held by `InstarFx`, and cleared with it (`restart.test.ts`). The clutch is
- * drawn off the figure every frame (`instar-limbs.ts`).
+ * held by `InstarFx`, and cleared with it (`restart.test.ts`). The nests are
+ * drawn off the figure every frame (`instar-profile.ts`).
  */
 
-/** Where the clutch's eggs sit round its middle, in head radii: two over three. */
+/** Where the swiped nest's eggs sit round its middle, in head radii: two over three. */
 const SPOTS: readonly (readonly [number, number])[] = [
-  [-0.1, -0.16],
-  [0.1, -0.16],
-  [-0.2, 0.08],
-  [0.2, 0.08],
-  [0, 0.12],
+  [-0.12, -0.18],
+  [0.12, -0.18],
+  [-0.24, 0.02],
+  [0.24, 0.02],
+  [0, -0.02],
 ];
 
-/** How many eggs a full clutch holds: one per swipe the eggs mark needs. */
+/** Where the squashed nest's eggs sit: three over five. */
+const SPOTS_NEST: readonly (readonly [number, number])[] = [
+  [-0.2, -0.22],
+  [0, -0.26],
+  [0.2, -0.22],
+  [-0.36, -0.02],
+  [-0.18, 0],
+  [0, -0.04],
+  [0.18, 0],
+  [0.36, -0.02],
+];
+
+/** How many eggs the swiped nest holds: one per swipe its mark needs. */
 export const CLUTCH = SPOTS.length;
+
+/** How many eggs the squashed nest holds: one per tap its mark needs. */
+export const NEST = SPOTS_NEST.length;
 
 /** An egg's half-width and half-height, in head radii. */
 const EGG_W = 0.12;
 const EGG_H = 0.15;
-/** How long an egg takes from the clutch to the hull, in seconds. */
+/** How long an egg takes from the nest to the hull, in seconds. */
 const FALL_SECONDS = 0.55;
 /** How long the broken egg stays on the hull, in seconds. */
 const SPLAT_SECONDS = 0.3;
 
-/** One egg: a bile oval, rimmed. */
+/** One egg: a bile oval, rimmed, a hatchling curled dark inside it. */
 function drawEgg(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -55,26 +79,60 @@ function drawEgg(
   ctx.save();
   ctx.fillStyle = faded(PALETTE.bile, fade, 0.8);
   ctx.fill(p);
+  ctx.strokeStyle = faded(PALETTE.bileDeep, fade, 0.9);
+  ctx.lineWidth = Math.max(1, r * 0.03);
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.arc(x, y + r * 0.01, r * EGG_W * 0.5, tilt - 0.6, tilt + 3.6);
+  ctx.stroke();
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.bileRim, fade), STROKE.inner, 0.6 * fade);
 }
 
-/** The clutch on the flank: up to `CLUTCH` eggs, pulsing, one fewer per swipe. */
-export function drawClutch(
+/** The two nests on the back, each shivering with the window, one egg
+ * fewer for every tap and every swipe. */
+export function drawNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
+  const { f } = look;
+  drawNest(ctx, look, instarAt(l, f.nestX, f.nestY), Math.round(f.nest * NEST), SPOTS_NEST, 3);
+  drawNest(ctx, look, instarAt(l, f.eggsX, f.eggsY), Math.round(f.eggs * CLUTCH), SPOTS, 7);
+}
+
+function drawNest(
   ctx: CanvasRenderingContext2D,
-  l: Layout,
-  f: Figure,
-  r: number,
-  time: number,
-  fade: number,
+  look: Look,
+  at: Point,
+  n: number,
+  spots: readonly (readonly [number, number])[],
+  seed: number,
 ): void {
-  const n = Math.round(f.eggs * CLUTCH);
   if (n <= 0) return;
-  const at = instarAt(l, f.eggsX, f.eggsY);
-  const pulse = 1 + 0.05 * Math.sin(time * 4);
-  for (const [dx, dy] of SPOTS.slice(0, n)) {
-    drawEgg(ctx, at.x + dx * r, at.y + dy * r, r * pulse, 0, fade);
+  const { r, time, fade, threat } = look;
+  // The silk: a low mound, and threads crossing over it.
+  const silk = new Path2D();
+  silk.ellipse(at.x, at.y + r * 0.05, r * 0.5, r * 0.26, 0, Math.PI, Math.PI * 2);
+  silk.closePath();
+  ctx.save();
+  ctx.fillStyle = faded(PALETTE.text, fade, 0.14);
+  ctx.fill(silk);
+  ctx.restore();
+  const rumble = 0.25 + 0.75 * threat;
+  spots.slice(0, n).forEach(([dx, dy], i) => {
+    const k = time * (24 + i) + i * 2.1 + seed;
+    const jx = Math.sin(k) * r * 0.03 * rumble;
+    const jy = Math.cos(k * 1.3) * r * 0.02 * rumble;
+    drawEgg(ctx, at.x + dx * r + jx, at.y + dy * r + jy, r, Math.sin(k * 0.5) * 0.2 * rumble, fade);
+  });
+  ctx.save();
+  ctx.strokeStyle = faded(PALETTE.text, fade, 0.3);
+  ctx.lineWidth = STROKE.inner;
+  for (let i = 0; i < 4; i++) {
+    const x = at.x + (i - 1.5) * r * 0.26;
+    ctx.beginPath();
+    ctx.moveTo(x - r * 0.2, at.y + r * 0.05);
+    ctx.quadraticCurveTo(x, at.y - r * 0.42, x + r * 0.22, at.y + r * 0.05);
+    ctx.stroke();
   }
+  ctx.restore();
 }
 
 interface Falling {
@@ -88,9 +146,14 @@ interface Falling {
 export class FallingEggs {
   private eggs: Falling[] = [];
 
-  /** An egg off the clutch at `from`, falling to `hullY`; `r` is the head's radius. */
+  /** An egg off the nest at `from`, falling to `hullY`; `r` is the head's radius. */
   drop(from: Point, hullY: number, r: number): void {
     this.eggs.push({ from, hullY, r, age: 0 });
+  }
+
+  /** A tapped egg burst where it lay: the splat alone, at `at`. */
+  squash(at: Point, r: number): void {
+    this.eggs.push({ from: at, hullY: at.y, r, age: FALL_SECONDS });
   }
 
   get count(): number {

@@ -744,13 +744,13 @@ export const COPIES: Copy[] = [
     pattern: /spoolRateFastMilli\s*-\s*\w+\s*\)/,
   },
   {
-    // **Where THE INSTAR's chain leaves the frame.** The plates hang from it
+    // **Where THE INSTAR's body ends.** The body is drawn back to its engines
     // and the slow window's light is kept off the whole body along it, and
-    // the second of those wrote the two numbers out again because the first
-    // was private to `instar-draw.ts`. Re-hang the chain and a copy lets the
-    // light cross the top plate with nothing red to say so.
-    call: "instarChainTop",
+    // the second of those once wrote the far end out again because the first
+    // was private to `instar-draw.ts`. Move the engines and a copy lets the
+    // light cross the rear plates with nothing red to say so.
+    call: "instarFarEnd",
     owner: "packages/render/src/instar-shape.ts",
-    pattern: /gridTop\s*-\s*\w+\.tile\s*\*\s*1\.3\b/,
+    pattern: /instarAt\(\s*\w+,\s*\w+\.rearX,\s*\w+\.rearY\s*\)/,
   },
 ];

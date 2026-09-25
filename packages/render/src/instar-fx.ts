@@ -1,18 +1,19 @@
 import { type InstarState, instarStep, type SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { GripVerdicts } from "./grip-verdict.js";
-import { rgba } from "./hex.js";
 import { FallingEggs } from "./instar-eggs.js";
 import { instarAt, instarMarkPoint, type Point } from "./instar-shape.js";
+import { InstarStrike } from "./instar-strike.js";
 import type { Sway } from "./instar-sway.js";
 import { type Layout, tileCX } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * What THE INSTAR leaves behind a frame: the **jolt** of a landing and of
  * the last, the **flinch** at a refused thumb or a slipped mark — a lateral
- * shiver of the whole body — the **lash** a strike draws from the part to
- * the hull, the **eggs** a swipe takes off the clutch falling to the hull
+ * shiver of the whole body — the **strike** of a part the pair did not stop,
+ * fire or swarm or tail (`instar-strike.ts`), the **eggs** a swipe takes off
+ * its nest falling to the hull and the ones a tap bursts where they lie
  * (`instar-eggs.ts`), the **hurt** of a step the pair landed — a shake and
  * a red glow on the body (`boss-hurt.ts`) — and the bursts its eleven
  * receipts throw.
@@ -38,8 +39,6 @@ const JOLT_TILES = 0.15;
 const JOLT_DECAY = 8;
 const FLINCH = 1;
 const FLINCH_DECAY = 7;
-/** How long the strike's lash stays on the screen, in seconds. */
-const LASH_SECONDS = 0.6;
 
 export class InstarFx {
   private joltNow = 0;
@@ -50,11 +49,12 @@ export class InstarFx {
   private swipes: boolean[] = [];
   private head: Point | null = null;
   private headR = 0;
-  private lash: { from: Point; x: number; life: number } | null = null;
   /** Whether the last touch on each mark of this step was right, by index. */
   readonly verdicts = new GripVerdicts();
-  /** The eggs swiped off the clutch, on their way down to the hull. */
+  /** The eggs swiped off the nest, on their way down to the hull. */
   readonly eggs = new FallingEggs();
+  /** What a part the pair did not stop does to the ship. */
+  readonly strike = new InstarStrike();
   /** The blow a landed step deals the body. */
   readonly hurt = new BossHurt();
 
@@ -72,14 +72,14 @@ export class InstarFx {
    * Told by the drawer where the marks and the head are this frame, swing
    * included — a burst thrown at a mark the body has swung away from lands
    * on empty field (`instar-sway.ts`). `r` is the head's radius, which an
-   * egg is sized by.
+   * egg is sized by, and `head` is where the fire comes out of.
    */
-  place(l: Layout, s: InstarState, sway: Sway, r: number): void {
+  place(l: Layout, s: InstarState, sway: Sway, head: Point, r: number): void {
     this.headR = r;
     const step = instarStep(s);
     this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway));
     this.swipes = step === null ? [] : step.marks.map((m) => m.gesture === "swipeDown");
-    this.head = instarAt(l, 500 + sway.xMilli, 300 + sway.yMilli);
+    this.head = head;
   }
 
   ingest(
@@ -109,8 +109,9 @@ export class InstarFx {
         case "instarAnswer":
           at(mark(e.mark), 3, PALETTE.redRim);
           this.verdicts.mark(e.mark, true);
-          if (e.part === "eggs" && this.swipes[e.mark] !== false)
-            this.eggs.drop(mark(e.mark), l.hullY, this.headR || l.tile);
+          if (e.part !== "eggs") break;
+          if (this.swipes[e.mark] === false) this.eggs.squash(mark(e.mark), this.headR || l.tile);
+          else this.eggs.drop(mark(e.mark), l.hullY, this.headR || l.tile);
           break;
         case "instarDone":
           at(mark(e.mark), 8, PALETTE.hullRim);
@@ -129,11 +130,11 @@ export class InstarFx {
           break;
         case "instarStrike":
           at({ x: tileCX(l, e.col), y: l.hullY }, 16, PALETTE.red);
-          this.lash = {
-            from: this.marks[0] ?? this.headOr(l),
-            x: tileCX(l, e.col),
-            life: LASH_SECONDS,
-          };
+          this.strike.hit(
+            e.part,
+            e.part === "jaw" ? [this.headOr(l)] : this.marks,
+            tileCX(l, e.col),
+          );
           this.joltNow = JOLT_TILES * 2;
           break;
         case "instarDown":
@@ -154,37 +155,23 @@ export class InstarFx {
     return this.head ?? instarAt(l, 500, 300);
   }
 
-  /** The jolt settled, the flinch stilled, the lash faded. */
+  /** The jolt settled, the flinch stilled, the strike spent. */
   update(dt: number): void {
     const step = Math.min(dt, 1 / 30);
     this.joltNow = Math.max(0, this.joltNow - this.joltNow * JOLT_DECAY * step);
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.flinchNow = Math.max(0, this.flinchNow - this.flinchNow * FLINCH_DECAY * step);
     if (this.flinchNow < 0.002) this.flinchNow = 0;
-    if (this.lash !== null) {
-      this.lash.life -= step;
-      if (this.lash.life <= 0) this.lash = null;
-    }
+    this.strike.update(step);
     this.verdicts.update(step);
     this.eggs.update(step);
     this.hurt.update(step);
   }
 
-  /** The falling eggs, and the lash: a red line from the part that was not
-   * undone to the hull it struck. */
+  /** The falling and the burst eggs, and the strike over everything. */
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
     this.eggs.draw(ctx);
-    if (this.lash === null) return;
-    const a = this.lash.life / LASH_SECONDS;
-    ctx.save();
-    ctx.strokeStyle = rgba(PALETTE.red, a);
-    ctx.lineWidth = STROKE.outline * (1 + 2 * a);
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    ctx.moveTo(this.lash.from.x, this.lash.from.y);
-    ctx.lineTo(this.lash.x, l.hullY);
-    ctx.stroke();
-    ctx.restore();
+    this.strike.draw(ctx, l);
   }
 
   clear(): void {
@@ -193,7 +180,7 @@ export class InstarFx {
     this.marks = [];
     this.swipes = [];
     this.head = null;
-    this.lash = null;
+    this.strike.clear();
     this.headR = 0;
     this.verdicts.clear();
     this.eggs.clear();

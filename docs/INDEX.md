@@ -1401,21 +1401,28 @@ by hand never moves.
 | `packages/render/src/intro-controls.ts` | THE TWO CONTROLS A SHOUT ASKS FOR, and the thumb landing on them |
 | `packages/render/src/intro-ear.ts` | **AN EAR, AND NOTHING BUT AN EAR.** The other half of the owner's instruction of 16 September 2026 |
 | `packages/render/src/intro-mouth.ts` | **A MOUTH, AND NOTHING BUT A MOUTH.** The owner, 16 September 2026, on the intro's two people |
-| `packages/render/src/instar-draw.ts` | **THE INSTAR**: a larva the size of the field |
+| `packages/render/src/instar-draw.ts` | **THE INSTAR**: a living dragon of a ship, the size of the field (§11.32) |
 | `packages/render/src/instar-fx.ts` | What THE INSTAR leaves behind a frame: the **jolt** of a landing and of the last |
+| `packages/render/src/instar-fire.ts` | **The fire in THE INSTAR's mouth**: a ball of flame turning on itself in the middle of the open jaws |
+| `packages/render/src/instar-flight.ts` | **How THE INSTAR arrives**, step by step: the flight the whole body takes over the first part of a morph |
+| `packages/render/src/instar-front.ts` | **THE INSTAR face-on**: a living ship coming at the screen |
 | `packages/render/src/instar-glyphs.ts` | **The gesture, drawn inside the ring** — one glyph per member of `INSTAR_GESTURES` |
-| `packages/render/src/instar-limbs.ts` | **What THE INSTAR holds and grows**, pose by pose: the two arms and their clawed hands |
 | `packages/render/src/instar-marks.ts` | **THE INSTAR's marks: the only control on the screen.** A red ring on the part the script wants moved |
 | `packages/render/src/instar-mark-grip.ts` | THE INSTAR's marks under a thumb — the hit test alone |
 | `packages/render/src/instar-mark-feedback.ts` | **Which mark is wanted, and by whom**: the halo on this seat's open mark, the turning ring on the partner's |
-| `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the body as it enters, the five the script names |
-| `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head, the jaws, the two hands and what they hold |
-| `packages/render/src/instar-sway.ts` | **THE INSTAR swings**, and everything of it swings together |
+| `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the dragon as it comes in, the three the script names |
+| `packages/render/src/instar-plate.ts` | **What every part of THE INSTAR is drawn with**: the hide |
+| `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
+| `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
+| `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |
+| `packages/render/src/instar-strike.ts` | **What THE INSTAR does when the pair do not stop it**, one picture per part |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
+| `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
 | `packages/render/src/instar-track.ts` | **A swipe is drawn as the way the thumb goes, not as a place to press.** The owner, 24 September 2026 |
-| `packages/render/src/instar-chain.ts` | The chain up out of the frame: four segments from above the top of the grid down to the back of the head |
+| `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
 | `packages/render/src/instar-eggs.ts` | THE INSTAR's clutch, one egg per swipe, and the egg each counted swipe drops to the hull |
+| `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |

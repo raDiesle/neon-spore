@@ -1,0 +1,113 @@
+import { strokeGlow } from "./glow.js";
+import { drawPlate, faded, type Look, toward } from "./instar-plate.js";
+import { instarAt, type Point } from "./instar-shape.js";
+import type { Layout } from "./layout.js";
+import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
+
+/**
+ * **THE INSTAR's tail**: plated, spined, and forked at the end into two
+ * blades. At rest it trails up behind the rear; in the lash it curls up over
+ * the back and down at the ship, the two blades over the hull where the two
+ * seats' marks are — the owner, 25 September 2026: *he tries with tail to hit
+ * us, and during the movement of tail, both players have to tap tap so the
+ * tail is pushed back*.
+ *
+ * So the fork stands at `tail` of the way from its rest to the hull, and
+ * every tap takes its share of that back (`instar-shape.ts`, `deformed`).
+ * While the window runs the blades shiver, harder as it closes, and glow red
+ * with what they are about to do (`instarThreat`).
+ */
+
+/** The blades' tips either side of the fork, and the fork above them, in
+ * thousandths of the field. */
+const BLADE_SPREAD = 120;
+const FORK_RISE = 110;
+
+/** Samples along the tail. */
+const N = 18;
+
+export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, rear: Point): void {
+  const { f, r, fade, hurt, time, threat } = look;
+  const rest = { x: rear.x + r * 0.9, y: rear.y - r * 1.3 };
+  const aimed = instarAt(l, f.tailX, f.tailY - FORK_RISE);
+  const shiver = r * 0.05 * threat;
+  const fork = toward(rest, aimed, f.tail);
+  fork.x += Math.sin(time * 23) * shiver + Math.sin(time * 1.9) * r * 0.06 * f.tail;
+  fork.y += Math.cos(time * 19) * shiver;
+  const c1 = { x: rear.x + r * (0.4 + 0.9 * f.tail), y: rear.y - r * 1.5 };
+  const c2 = { x: fork.x + r * (0.4 + 1.2 * f.tail), y: fork.y - r * (0.3 + 0.9 * f.tail) };
+  const at = (u: number): Point => {
+    const v = 1 - u;
+    return {
+      x: v * v * v * rear.x + 3 * v * v * u * c1.x + 3 * v * u * u * c2.x + u * u * u * fork.x,
+      y: v * v * v * rear.y + 3 * v * v * u * c1.y + 3 * v * u * u * c2.y + u * u * u * fork.y,
+    };
+  };
+  const mid = Array.from({ length: N + 1 }, (_, i) => at(i / N));
+  const left: Point[] = [];
+  const right: Point[] = [];
+  const spikes: [Point, Point][] = [];
+  mid.forEach((p, i) => {
+    const q = mid[Math.min(N, i + 1)] ?? p;
+    const o = mid[Math.max(0, i - 1)] ?? p;
+    const len = Math.hypot(q.x - o.x, q.y - o.y) || 1;
+    const nx = (q.y - o.y) / len;
+    const ny = -(q.x - o.x) / len;
+    const w = r * (0.3 - 0.2 * (i / N));
+    left.push({ x: p.x + nx * w, y: p.y + ny * w });
+    right.push({ x: p.x - nx * w, y: p.y - ny * w });
+    if (i % 3 === 1)
+      spikes.push([
+        { x: p.x + nx * w, y: p.y + ny * w },
+        { x: nx, y: ny },
+      ]);
+  });
+  drawPlate(ctx, splinePath([...left, ...right.reverse()], true), fade, 0.5, hurt);
+  ctx.save();
+  ctx.fillStyle = faded(PALETTE.rock, fade, 0.9);
+  for (const [p, n] of spikes) {
+    const tx = -n.y;
+    const ty = n.x;
+    ctx.beginPath();
+    ctx.moveTo(p.x + tx * r * 0.06, p.y + ty * r * 0.06);
+    ctx.lineTo(p.x - tx * r * 0.06, p.y - ty * r * 0.06);
+    ctx.lineTo(p.x + n.x * r * 0.16, p.y + n.y * r * 0.16);
+    ctx.closePath();
+    ctx.fill();
+  }
+  ctx.restore();
+  for (const s of [-1, 1]) {
+    const tip = instarAt(l, f.tailX + s * BLADE_SPREAD, f.tailY);
+    const reach = { x: tip.x - aimed.x, y: tip.y - aimed.y };
+    const k = 0.35 + 0.65 * f.tail;
+    drawBlade(ctx, fork, { x: fork.x + reach.x * k, y: fork.y + reach.y * k }, s, look);
+  }
+}
+
+/** One blade of the fork: a hooked crescent from the fork to its tip. */
+function drawBlade(ctx: CanvasRenderingContext2D, from: Point, tip: Point, s: number, look: Look) {
+  const { r, fade, threat } = look;
+  const mx = (from.x + tip.x) / 2;
+  const my = (from.y + tip.y) / 2;
+  const len = Math.hypot(tip.x - from.x, tip.y - from.y) || 1;
+  // Out, away from the other blade, is the blade's back.
+  const sx = (s * (tip.y - from.y)) / len;
+  const sy = (-s * (tip.x - from.x)) / len;
+  const p = new Path2D();
+  p.moveTo(from.x - s * r * 0.1, from.y);
+  p.quadraticCurveTo(mx + sx * len * 0.4, my + sy * len * 0.4, tip.x, tip.y);
+  p.quadraticCurveTo(
+    mx + sx * len * 0.1,
+    my + sy * len * 0.1,
+    from.x + s * r * 0.1,
+    from.y + r * 0.05,
+  );
+  p.closePath();
+  ctx.save();
+  ctx.fillStyle = faded(PALETTE.rockDark, fade);
+  ctx.fill(p);
+  ctx.restore();
+  strokeGlow(ctx, p, faded(PALETTE.rock, fade), STROKE.inner, 0.4 * fade);
+  if (threat > 0) strokeGlow(ctx, p, faded(PALETTE.red, fade), STROKE.outline, threat * fade);
+}

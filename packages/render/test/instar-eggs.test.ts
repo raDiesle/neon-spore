@@ -11,7 +11,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { CLUTCH } from "../src/instar-eggs.js";
+import { CLUTCH, NEST } from "../src/instar-eggs.js";
 import { InstarFx } from "../src/instar-fx.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -27,10 +27,11 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * The eggs a swipe takes off THE INSTAR's clutch (`instar-eggs.ts`): the
- * clutch holds one per swipe, each counted swipe drops one, and the dropped
- * egg falls to the hull, breaks, and is gone — a transient `Effects.reset()`
- * clears like the rest (`restart.test.ts`).
+ * THE INSTAR's two nests (`instar-eggs.ts`): the swiped one holds one egg
+ * per swipe and each counted swipe drops one, which falls to the hull,
+ * breaks, and is gone; the tapped one holds one per tap and each counted tap
+ * bursts one where it lies — transients `Effects.reset()` clears like the
+ * rest (`restart.test.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -42,7 +43,32 @@ const EGGS_STEP = INSTAR_SCRIPT.findIndex((s) => s.marks.some(swiped));
 const EGGS_MARK = INSTAR_SCRIPT[EGGS_STEP]?.marks.findIndex(swiped) ?? -1;
 const answer = { type: "instarAnswer", mark: EGGS_MARK, part: "eggs", col: 7 } as const;
 
-describe("THE INSTAR's clutch", () => {
+const tapped = (m: { part: string; gesture: string }): boolean =>
+  m.part === "eggs" && m.gesture === "tap";
+
+describe("THE INSTAR's nests", () => {
+  it("holds one egg in the tapped nest for every tap its mark needs", () => {
+    const needs = INSTAR_SCRIPT.flatMap((s) => s.marks)
+      .filter(tapped)
+      .map((m) => m.need);
+    expect(needs.length).toBeGreaterThan(0);
+    for (const need of needs) expect(need).toBe(NEST);
+  });
+
+  it("bursts a tapped egg where it lies rather than dropping it", () => {
+    const world = hung();
+    const s = acting(world);
+    const tap = INSTAR_SCRIPT[EGGS_STEP]?.marks.findIndex(tapped) ?? -1;
+    expect(tap).toBeGreaterThanOrEqual(0);
+    const fx = new InstarFx();
+    fx.place(L, s, { xMilli: 0, yMilli: 0 }, { x: 0, y: 0 }, 40);
+    fx.ingest([{ type: "instarAnswer", mark: tap, part: "eggs", col: 3 }], L, () => {});
+    expect(fx.eggs.count).toBe(1);
+    // A burst is the splat alone, which is gone in well under the fall.
+    for (let i = 0; i < 10; i++) fx.update(1 / 30);
+    expect(fx.eggs.count).toBe(0);
+  });
+
   it("holds one egg for every swipe its mark needs", () => {
     const needs = INSTAR_SCRIPT.flatMap((s) => s.marks)
       .filter(swiped)

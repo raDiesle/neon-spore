@@ -2,7 +2,7 @@ import type { SimConfig } from "@neon-spore/sim";
 import { beatSeconds, gripsCreature, instarBoss, MILLI, type World } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
-import { instarAt, instarChainTop, instarLen } from "./instar-shape.js";
+import { instarAt, instarFarEnd, instarLen } from "./instar-shape.js";
 import { instarBody } from "./instar-sway.js";
 import { type Layout, tileCX } from "./layout.js";
 import type { SlowWindow } from "./slow-look.js";
@@ -93,9 +93,9 @@ export function aim(world: World, l: Layout, beat: number, beatPhase: number): A
   if (instar !== null) {
     const { f } = instarBody(instar, world.cfg, beat, beatPhase);
     const { x, y } = instarAt(l, f.headX, f.headY);
-    // Where the chain leaves the field, which is the far end of the body —
-    // the same point `drawInstarChain` hangs it from (`instar-shape.ts`).
-    const top = instarChainTop(l);
+    // The far end of the body, where its engines burn — the same point the
+    // drawers run the body back to (`instar-shape.ts`).
+    const top = instarFarEnd(l, f);
     return { x, y, r: instarLen(l, f.headR), ax: top.x, ay: top.y };
   }
   // Whose grip it is belongs to `grip.ts`, so each body is asked rather than

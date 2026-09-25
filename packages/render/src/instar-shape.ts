@@ -10,29 +10,37 @@ import { BEATEN, ENTER, POSES } from "./instar-poses.js";
 import type { Layout } from "./layout.js";
 
 /**
- * **Where THE INSTAR is**, as one figure of numbers: the head, the jaws, the
- * two hands and what they hold, the clutch of eggs, the tongue, the tail —
- * every one a place in thousandths of the field, the same grid the script's
- * marks are written in (`packages/content/src/instar-script.ts`), so a mark
- * on a hand sits on the hand because the hand is drawn *at the mark*.
+ * **Where THE INSTAR is**, as one figure of numbers: the head and its two
+ * jaws, the eyes, how far the body has turned side-on, the wings, the far end
+ * of the body, the two nests on its back, the tail's fork — every one a place
+ * in thousandths of the field, the same grid the script's marks are written
+ * in (`packages/content/src/instar-script.ts`), so a mark on a jaw sits on
+ * the jaw because the jaw is drawn *at the mark*.
  *
  * Its own file for THE HIVE's reason (`hive-shape.ts`): the drawer stands
- * the body on these (`instar-draw.ts`, `instar-limbs.ts`), the marks are
- * drawn at them (`instar-marks.ts`) and the transients throw their bursts
- * at them (`instar-fx.ts`). Everything here is a pure function of the state
- * and the beat, and **nothing here is per seat**: both screens see the same
- * body, and the split of this boss is in whose thumb each mark wants.
+ * the body on these (`instar-draw.ts`, `instar-head.ts`,
+ * `instar-profile.ts`), the marks are drawn at them (`instar-marks.ts`) and
+ * the transients throw their bursts at them (`instar-fx.ts`). Everything
+ * here is a pure function of the state and the beat, and **nothing here is
+ * per seat**: both screens see the same body, and the split of this boss is
+ * in whose thumb each mark wants.
  *
- * **A pose is a figure, and a morph is a lerp.** Each of the five poses is
- * one `Figure` below; the body between two of them is the straight blend,
- * eased, over the step's `morphBeats`. While the marks are up the figure is
- * the pose's, **deformed by how far each mark has got** — the jaw at the
- * depth the thumb has pulled it, the club slipping from a hand slapped four
- * times of six, one egg fewer per swipe, the tongue winding in with the
- * turn, the tail lifting with the pull, the head pushed back with the hold.
- * A morph starts from the last pose *with its marks done*, so nothing snaps
- * back into the hand at the beat the body begins to change.
+ * **A pose is a figure, and a morph is a lerp.** Each of the three poses is
+ * one `Figure` (`instar-poses.ts`); the body between two of them is the
+ * straight blend, eased, over the part of the step's `morphBeats` the flight
+ * takes (`instar-flight.ts`), so the body has its new pose by the time it
+ * comes to rest and the marks glow up on it. While the marks are up the
+ * figure is the pose's, **deformed by how far each mark has got** — each jaw
+ * pushed shut as far as the thumb has pushed it, one egg fewer per tap and
+ * per swipe, the fork pushed back with every tap. A morph starts from the
+ * last pose *with its marks done*, so nothing opens again at the beat the
+ * body begins to change.
  */
+
+/** The part of a morph the flight takes (`instar-flight.ts`) and the pose's
+ * blend with it; the rest is the body at rest, its marks glowing up
+ * (`instar-marks.ts`). */
+export const INSTAR_FLIGHT_ENDS = 0.6;
 
 export interface Point {
   x: number;
@@ -49,31 +57,28 @@ export interface Figure {
   jawDown: number;
   /** How open the eyes are, 0..1. */
   eye: number;
-  /** How far the body has turned its back, 0..1: the eyes go, the tail is out. */
-  back: number;
-  /** The two hands, and how firmly each holds its club, 0..1. */
-  lHandX: number;
-  lHandY: number;
-  lWeapon: number;
-  rHandX: number;
-  rHandY: number;
-  rWeapon: number;
-  /** How much of the clutch is on the flank, 0..1, and where. */
+  /** How far the body has turned side-on, 0..1: 0 is the face at the ship,
+   * 1 the dragon in profile, head to the left, back up, tail out behind. */
+  side: number;
+  /** How far the wings are spread, 0..1. */
+  wing: number;
+  /** The far end of the body — the root of the tail, where the engines burn. */
+  rearX: number;
+  rearY: number;
+  /** The nest a swipe clears, 0..1 of its eggs, and where it sits on the back. */
   eggs: number;
   eggsX: number;
   eggsY: number;
-  /** How far the tongue is out, 0..1, and where its tip coils. */
-  tongue: number;
-  tongueX: number;
-  tongueY: number;
-  /** How far the tail is over the hull, 0..1, and where its barb hangs. */
+  /** The nest a tap squashes, 0..1 of its eggs, and where. */
+  nest: number;
+  nestX: number;
+  nestY: number;
+  /** How far the tail's fork is over the hull, 0..1, and where its fork stands. */
   tail: number;
   tailX: number;
   tailY: number;
   /** The lunge: how far the head is thrust at the ship, 0..1. */
   reach: number;
-  /** The moult: how much of the shed husk still hangs off the body, 0..1. */
-  slough: number;
 }
 
 /** The pose's figure after its marks are done: the parts the pair undid. */
@@ -88,18 +93,20 @@ export function deformed(
   along: (i: number) => number,
 ): Figure {
   const g = { ...f };
+  const tails = marks.filter((m) => m.part === "tail").length;
   marks.forEach((m, i) => {
     const p = Math.max(0, Math.min(1, along(i)));
     // A jaw is pushed shut: the upper one down, the lower one up.
     if (m.part === "jaw") {
       if (m.gesture === "pullDown") g.jawUp = f.jawUp * (1 - p);
       else g.jawDown = f.jawDown * (1 - p);
-    } else if (m.part === "hand") {
-      if (m.xMilli < 500) g.lWeapon = f.lWeapon * (1 - p);
-      else g.rWeapon = f.rWeapon * (1 - p);
-    } else if (m.part === "eggs") g.eggs = f.eggs * (1 - p);
-    else if (m.part === "tongue") g.tongue = f.tongue * (1 - p);
-    else if (m.part === "tail") g.tail = f.tail * (1 - p);
+    } else if (m.part === "eggs") {
+      // A tap squashes an egg where it lies; a swipe drags one off its nest.
+      if (m.gesture === "tap") g.nest = f.nest * (1 - p);
+      else g.eggs = f.eggs * (1 - p);
+    }
+    // The fork is one tail: every thumb on it pushes its share of it back.
+    else if (m.part === "tail") g.tail -= (f.tail * p) / tails;
     else if (m.part === "head") g.reach = f.reach * (1 - p);
   });
   return g;
@@ -126,7 +133,10 @@ export function instarFigure(s: InstarState, beat: number, beatPhase: number): F
     // The last landing's figure sagging into the beaten one over the out beats.
     return lerp(from, BEATEN, smoothstep(at / 2));
   }
-  if (s.phase === "morph") return lerp(from, POSES[step.pose], smoothstep(at / step.morphBeats));
+  if (s.phase === "morph") {
+    const t = at / (step.morphBeats * INSTAR_FLIGHT_ENDS);
+    return lerp(from, POSES[step.pose], smoothstep(Math.min(1, t)));
+  }
   const pose = POSES[step.pose];
   return deformed(pose, step.marks, (i) => {
     const need = step.marks[i]?.need ?? 1;
@@ -140,6 +150,15 @@ export function instarMorphAt(s: InstarState, beat: number, beatPhase: number): 
   const step = instarStep(s);
   if (s.phase !== "morph" || step === null) return 1;
   return Math.min(1, instarPhaseAt(s, beat, beatPhase) / step.morphBeats);
+}
+
+/** How far the window has run, 0..1 — nought outside it. What the pair are
+ * defending against grows by it: the fire in the mouth, the eggs' rumble,
+ * the fork's wind-up (`instar-draw.ts`). */
+export function instarThreat(s: InstarState, beat: number, beatPhase: number): number {
+  const step = instarStep(s);
+  if (s.phase !== "act" || step === null) return 0;
+  return Math.min(1, instarPhaseAt(s, beat, beatPhase) / step.windowBeats);
 }
 
 /** The body's opacity: whole until the last landing, then gone over `instarOutBeats`. */
@@ -162,13 +181,14 @@ export function instarAt(l: Layout, xMilli: number, yMilli: number): Point {
 }
 
 /**
- * **Where THE INSTAR's chain leaves the frame**: above the middle of the
- * grid, a tile and a bit over its top edge. `drawInstarChain` hangs the four
- * plates from here and `slow-intake-aim.ts` keeps the light off the whole
- * body along the same line, so the chain is re-hung here or not at all.
+ * **Where THE INSTAR's body goes away to**: the far end of it, the root of
+ * the tail. Seen face-on the body runs back and up into the dark above the
+ * head, and side-on it is the end of the back. `slow-intake-aim.ts` stops
+ * the slow's light along the line from here to the head, so the light stands
+ * round the whole body rather than crossing it.
  */
-export function instarChainTop(l: Layout): Point {
-  return { x: instarAt(l, 500, 0).x, y: l.gridTop - l.tile * 1.3 };
+export function instarFarEnd(l: Layout, f: Figure): Point {
+  return instarAt(l, f.rearX, f.rearY);
 }
 
 /** A length in thousandths of the field's width, in pixels. */

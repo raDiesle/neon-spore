@@ -7270,26 +7270,35 @@ scanner box next to the red circle, and above it what kind of action is
 required; what is explained during the boss wave must be skipped in the
 briefing*. Both are in the picture.
 
-- **A larva the size of the field, hung head-down over the ship** on a
-  chain of four plated segments that runs up out of the top of the frame
-  (`render/instar-draw.ts`): a lobed head with two eyes pooled in its
-  fluid and a toothed mouth between two jaws; two hands on jointed arms
-  with three claws each; pose by pose a club in a hand, a clutch of eggs
-  on the flank, a tongue out and coiled, a barbed tail swung over the
-  hull, the head thrust at the ship (`instar-limbs.ts`). Every part is
-  drawn **at its mark's place in thousandths** (`instar-shape.ts`), so a
-  mark on a hand sits on the hand because the hand is drawn there.
+- **A dragon of a living ship**, since 25 September 2026 — the owner:
+  *change boss so it looks more like a dragon alien space ship living*
+  (`render/instar-draw.ts`). Face-on (`instar-front.ts`, `instar-head.ts`):
+  a horned head with two slit gold eyes, the jaws wide and fanged, a
+  fireball turning in the mouth and growing with the window
+  (`instar-fire.ts`), bat wings spread off the shoulders
+  (`instar-wings.ts`), the plated body running back into the dark to two
+  engines, lit with gold lamps. Side-on (`instar-profile.ts`): the head to
+  the left, the long body across the field with the two silk nests on its
+  back (`instar-eggs.ts`) — eight eggs to squash, five to swipe, each
+  rumbling harder as the window runs — the near wing up, and the forked,
+  spined tail (`instar-tail.ts`). Every part is drawn **at its mark's place
+  in thousandths** (`instar-shape.ts`), so a mark on a lip sits on the lip.
+- **It flies** (`instar-flight.ts`), a transform over the first
+  `INSTAR_FLIGHT_ENDS` of each morph and over before the marks glow up:
+  the **approach** in from far and small, growing at the screen; the
+  **passes** — up and out, a far pass across, a near pass back, in from
+  the side; the **cross** — out one side and in from the other.
 - **A pose is a figure and a morph is a lerp** (`instar-poses.ts`): the
-  five poses are five figures, the body between two is the eased blend
-  over `morphBeats`, and every morph starts from the last pose *with its
-  marks done* so nothing snaps back into the hand. *Turned* is the change
-  of perspective the owner asked for: the face goes, the spine of
-  knuckles down the back of the head comes, the tail is out over the hull.
-  *Moulted* hangs the shed husk under the body. While the marks are up the
-  figure is **deformed by how far each is along** — the jaw at the depth
-  the thumb has it, a club slipping from a hand slapped four of six, one
-  egg fewer per swipe, the tongue winding in with the turn, the tail
-  lifting, the head pushed back by the hold.
+  three poses are three figures, the body between two is the eased blend,
+  and the turn from face-on to side-on is a crossfade by the figure's
+  `side`. While the marks are up the figure is **deformed by how far each
+  is along** — each lip pushed to the bite by its thumb and the fire
+  squeezed out between them, one egg fewer per tap and per swipe, the tail
+  pushed back up by its share of every tap.
+- **What it does when it is not stopped** (`instar-strike.ts`): the fire
+  floods the whole screen; a swarm of tiny dragons hatches off the nests
+  and gnaws along the hull; the tail's blades come down on the hull with a
+  shock ring.
 - **The marks** (`instar-marks.ts`): a breathing red ring at each, with a
   **glyph** in it saying the gesture — an arrow for a pull, a dot in a
   flaring ring for a tap, three chevrons for the swipe, a three-quarter

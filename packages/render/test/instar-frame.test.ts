@@ -34,8 +34,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * The states are **set** rather than played to, `hive-frame.test.ts`'s
  * arrangement: `sim/test/instar.test.ts` proves the script, the thumbs and
  * the landing, and what this file asks is whether every branch of the
- * picture is one a canvas accepts — each of the five poses mid-morph and
- * acting, a mark under a thumb, a mark done, the body down, out — and the
+ * picture is one a canvas accepts — each of the three poses mid-morph and
+ * acting, face-on and side-on, a mark under a thumb, a mark done, the body
+ * down, out, and the three strikes — and the
  * two things nothing else could catch: that the marks are drawn **only
  * while the window is open**, and that the split is **the hands** — the
  * same body on both screens, a mark's word and brightness differing by
@@ -142,16 +143,20 @@ function frame(role: ViewRole, arrange: (world: World) => void): { calls: number
 
 /** The body's own fill: the deep sheen at nine tenths, which nothing else on the field wears. */
 const PLATE = rgba(PALETTE.sheenDeep, 0.9);
+/** The same sheen at any opacity. */
+const HIDE = PLATE.slice(0, PLATE.lastIndexOf(","));
 
 describe("THE INSTAR's body", () => {
-  const STEPS = [0, 1, 2, 3, 4];
+  const STEPS = [0, 1, 2];
 
   it.each(ROLES)("draws every pose mid-morph and acting on %s", (role) => {
     for (const cursor of STEPS) {
       const morph = frame(role, (w) => morphing(w, cursor));
       const act = frame(role, (w) => acting(w, cursor));
       expect(morph.calls).toBeGreaterThan(200);
-      expect(count(morph.text, PLATE)).toBeGreaterThan(0);
+      // Mid-turn both views are drawn, each at its share of the turn, so the
+      // hide is counted in the sheen at any opacity.
+      expect(count(morph.text, HIDE)).toBeGreaterThan(0);
       expect(count(act.text, PLATE)).toBeGreaterThan(0);
       expect(morph.text).not.toBe(act.text);
     }
@@ -174,22 +179,35 @@ describe("THE INSTAR's body", () => {
   });
 
   it("draws the same body on both screens and a different word over each mark", () => {
-    // The gape asks one mark of each seat: the same rings, the pilot's bright
-    // on his screen and the navigator's on hers — two different pictures of
-    // one body. The lunge asks one mark of both: the same picture on each.
-    // Each seat's own frame is in its own colours, so the pictures are
-    // compared by what the body and the marks are painted in.
-    const gape = (role: ViewRole) => frame(role, (w) => acting(w, 0));
-    const lunge = (role: ViewRole) => frame(role, (w) => acting(w, 4));
-    expect(count(gape("p1").text, PLATE)).toBe(count(gape("p2").text, PLATE));
-    expect(count(gape("p1").text, PALETTE.text)).toBe(count(gape("p2").text, PALETTE.text));
-    expect(count(lunge("p1").text, PALETTE.text)).toBe(count(lunge("p2").text, PALETTE.text));
-    // The test screen holds both seats, so both of the gape's words are the
-    // gesture's, bright; the lunge's one mark is both seats' on every screen.
-    expect(count(gape("test").text, PALETTE.text)).toBeGreaterThan(
-      count(gape("p1").text, PALETTE.text),
-    );
-    expect(count(lunge("test").text, PALETTE.text)).toBe(count(lunge("p1").text, PALETTE.text));
+    // Every step asks one mark of each seat: the same rings, the pilot's
+    // bright on his screen and the navigator's on hers — two different
+    // pictures of one body. Each seat's own frame is in its own colours, so
+    // the pictures are compared by what the body and the marks are painted in.
+    for (const cursor of STEPS) {
+      const at = (role: ViewRole) => frame(role, (w) => acting(w, cursor));
+      expect(count(at("p1").text, PLATE)).toBe(count(at("p2").text, PLATE));
+      expect(count(at("p1").text, PALETTE.text)).toBe(count(at("p2").text, PALETTE.text));
+      // The test screen holds both seats, so both words are the gesture's, bright.
+      expect(count(at("test").text, PALETTE.text)).toBeGreaterThan(
+        count(at("p1").text, PALETTE.text),
+      );
+    }
+  });
+
+  it.each(["jaw", "eggs", "tail"] as const)("draws the %s's strike over the field", (part) => {
+    const run = (strike: boolean): number => {
+      const world = hung();
+      acting(world, part === "jaw" ? 0 : part === "eggs" ? 1 : 2);
+      const { ctx } = runFrames(world, "p1", 9, {
+        every: 3,
+        onTick: (tick, w) => {
+          step(w, []);
+          if (strike && tick === 0) w.events.push({ type: "instarStrike", part, col: 5 });
+        },
+      });
+      return ctx.calls;
+    };
+    expect(run(true)).toBeGreaterThan(run(false));
   });
 
   it.each(ROLES)("fills a mark's arc under a thumb and dots it when done, on %s", (role) => {
@@ -213,7 +231,7 @@ describe("THE INSTAR's body", () => {
     expect(count(gone.text, PLATE)).toBe(0);
   });
 
-  it("keeps the jolt, the flinch and the lash as transients the next run does not inherit", () => {
+  it("keeps the jolt, the flinch and the strike as transients the next run does not inherit", () => {
     const fx = new Effects();
     fx.ingest(
       [

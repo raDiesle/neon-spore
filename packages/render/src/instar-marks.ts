@@ -15,7 +15,7 @@ import { strokeGlow } from "./glow.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import { drawInstarHalo, drawInstarTheirs, drawInstarWait } from "./instar-mark-feedback.js";
-import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
+import { INSTAR_FLIGHT_ENDS, instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import {
   drawInstarDone,
@@ -87,8 +87,9 @@ export function instarMarkWord(mark: InstarMark, role: ViewRole): { kind?: CueKi
   return { word: mark.seat === "p1" ? "P1'S" : "P2'S" };
 }
 
-/** The morph's last stretch over which the marks glow up on their parts. */
-const ANTICIPATE_FROM = 0.6;
+/** The morph's last stretch over which the marks glow up on their parts:
+ * from the moment the body's flight is over (`instar-flight.ts`). */
+const ANTICIPATE_FROM = INSTAR_FLIGHT_ENDS;
 
 export function drawInstarMarks(
   ctx: CanvasRenderingContext2D,

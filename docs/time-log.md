@@ -20243,3 +20243,20 @@ The bottleneck was **writing**: the fuse was redrawn as strokes rather than
 rectangles, and its test had to find a new way to measure it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE INSTAR looks like a dragon of a living ship
+
+- reading: 5 min. The old larva's drawers, the script's marks, and the
+  frames tool's `--boss` flag for photographing a later step.
+- writing: 20 min. The face-on head, fire and wings, the side-on body, the
+  nests, the tail, the flight, the three strike pictures, the drawer, and the
+  tests and write-up for them.
+- looking: 5 min. The entrance, the fire at the ship, the brood, the lash, and
+  the flood of a missed jaw.
+- friction: 5 min. The purity table caught a private hash and a smoothstep,
+  and a guard refused a heredoc with a doubled backslash.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: two whole views of one body, and a crossfade
+between them, had to stand on the same marks the script already placed.
+

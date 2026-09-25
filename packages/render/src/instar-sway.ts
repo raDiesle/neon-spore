@@ -2,7 +2,7 @@ import type { InstarState, SimConfig } from "@neon-spore/sim";
 import { type Figure, instarFigure, instarPhaseAt } from "./instar-shape.js";
 
 /**
- * **THE INSTAR swings**, and everything of it swings together.
+ * **THE INSTAR weaves**, and everything of it weaves together.
  *
  * The owner asked for it on 22 September 2026 — *make the body of boss do
  * some more moving, so it moves around game* — and gave the reason in the
@@ -12,13 +12,12 @@ import { type Figure, instarFigure, instarPhaseAt } from "./instar-shape.js";
  * crossing a third of the field a beat says it in one frame, and the pair see
  * the slow rather than being told about it.
  *
- * **It is a pendulum, because the body hangs from a chain.** One anchor at
- * the top of the field, plates down to the head (`instar-draw.ts`), and a
- * thing on a chain that moves at all moves this way. The swing is written as
- * a displacement rather than a rotation on purpose: every part of the figure
- * and every mark takes the same offset, so the body does not shear, the
- * plates follow because they are drawn from the anchor to the head, and no
- * drawer of this boss needs a transform it did not have.
+ * **It is a flier's weave**: side to side, lifting at each end of the
+ * swing the way a thing holding itself up on its wings does between beats of
+ * them (`instar-draw.ts`). The weave is written as a displacement rather than
+ * a rotation on purpose: every part of the figure and every mark takes the
+ * same offset, so the body does not shear, and no drawer of this boss needs
+ * a transform it did not have.
  *
  * **Nothing here is the simulation's.** The marks' own coordinates in
  * `content/instar-script.ts` are where the body *is* when it hangs straight,
@@ -47,8 +46,8 @@ export interface Sway {
  * width.
  *
  * At 240 the body covers very nearly half the field across one swing, and the
- * marks nearest an edge — the eggs at 720, the left hand at 280 — come to 960
- * and 40 without leaving it. Wider than that and a thumb reaching the mark at
+ * marks nearest an edge — the two nests, at 320 and 660 — come to 80 and 900
+ * without leaving it. Wider than that and a thumb reaching the mark at
  * the end of its travel would be reaching off the screen.
  */
 const REACH = 240;
@@ -81,7 +80,7 @@ export function instarSway(s: InstarState, cfg: SimConfig, beat: number, beatPha
       : 1;
   return {
     xMilli: REACH * alive * Math.sin(swing),
-    // A pendulum is highest at the ends of its travel and lowest through the
+    // The weave is highest at the ends of its travel and lowest through the
     // middle, so the rise is the swing at twice the rate, and `yMilli` grows
     // downward: the body is carried *up* by a negative one.
     yMilli: -RISE * alive * (1 - Math.cos(swing * 2)) * 0.5,
@@ -111,14 +110,12 @@ export function instarBody(
       ...f,
       headX: f.headX + sway.xMilli,
       headY: f.headY + sway.yMilli,
-      lHandX: f.lHandX + sway.xMilli,
-      lHandY: f.lHandY + sway.yMilli,
-      rHandX: f.rHandX + sway.xMilli,
-      rHandY: f.rHandY + sway.yMilli,
+      rearX: f.rearX + sway.xMilli,
+      rearY: f.rearY + sway.yMilli,
       eggsX: f.eggsX + sway.xMilli,
       eggsY: f.eggsY + sway.yMilli,
-      tongueX: f.tongueX + sway.xMilli,
-      tongueY: f.tongueY + sway.yMilli,
+      nestX: f.nestX + sway.xMilli,
+      nestY: f.nestY + sway.yMilli,
       tailX: f.tailX + sway.xMilli,
       tailY: f.tailY + sway.yMilli,
     },
