@@ -1,6 +1,7 @@
 import type { Driver } from "./drive.js";
 import { pressPlan } from "./press-plan.js";
 import type { PressSpec } from "./press-spec.js";
+import { pressNote } from "./report.js";
 import { missedNote, type UntilSpec } from "./until.js";
 
 /**
@@ -55,7 +56,13 @@ export async function reachFirstFrame(
     else if (step.advance > 0) await d.advance(step.advance);
     if (step.press) await d.press(step.press);
   }
-  if (until && at === null) throw new Error(missedNote(until, from, d.heard(), reach.holdsAfter));
+  if (until && at === null) {
+    // The presses the round refused are the likeliest reason, and the report
+    // that names them is never printed when the run ends here.
+    const unheard = pressNote(d.sent(), d.heard());
+    const missed = missedNote(until, from, d.heard(), reach.holdsAfter);
+    throw new Error(unheard === null ? missed : `${missed}\n${unheard}`);
+  }
   return at;
 }
 

@@ -61,5 +61,14 @@ function why(refused: readonly Sent[], fired: readonly Fired[]): string {
       "a smaller --ticks, or --hold <name>=<distance>@<tick>, puts them in it"
     );
   }
+  // THE INSTAR is the one round that says so out loud, and what it says is
+  // whose the mark is (`sim/instar-hand.ts`).
+  const refuse = fired.find((f) => f.type === "instarRefuse");
+  if (refuse !== undefined) {
+    return (
+      `THE INSTAR said instarRefuse (${refuse.detail ?? "a mark"}): that mark is the other ` +
+      "seat's — instarMark is the pilot's thumb and instarMark2 the navigator's"
+    );
+  }
   return "The round refused them: a phase that takes no press, or a state the control does nothing in";
 }

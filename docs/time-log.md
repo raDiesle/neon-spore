@@ -20543,3 +20543,16 @@ The bottleneck was **the ceiling**: `viewport.ts` went to 245 lines with the
 two new lines, and its measurement had to move out before anything landed.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — `frames --hold` on THE INSTAR lands a pull, a swipe, or says whose the mark is
+
+- reading: 5 min. `hold.ts`, `until.ts`, `reach.ts`, `report.ts`, and
+  `instar-hand.ts`'s six gestures; a probe of the step's marks.
+- writing: 5 min. The recipe corrected, `instarSwipe` as grab, carry and lift,
+  a miss that names the refused presses and THE INSTAR's seat rule, a test.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. Three real `frames` runs, `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: the recipe was wrong three ways at once — the
+other seat's mark, the wrong direction, and under half the pull's need.

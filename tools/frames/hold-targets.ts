@@ -123,6 +123,14 @@ export const ID_CHOICES: Record<string, readonly number[]> = {
  */
 export const CARRIES = ["throatTube", ...rows.flatMap(([name, r]) => (r.lift ? [name] : []))];
 
+/**
+ * Handles that are carried **and then** let go of: THE INSTAR's swipe arms on
+ * the carry and counts on the lift (`instar-hand.ts`), so neither a hold nor
+ * a `CARRIES` pair is the gesture — the first never lifts, the second never
+ * carries while down. Three commands, all on the one tick.
+ */
+export const SWIPES = rows.flatMap(([name, r]) => (r.swipe ? [name] : []));
+
 /** Every handle this flag knows, in the order the recipes list them. */
 export const DRAGS = [
   "mazeString",

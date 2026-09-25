@@ -1,4 +1,4 @@
-import { CARRIES, DRAGS, ID_CHOICES, NEEDS_ID, SEAT, TARGET } from "./hold-targets.js";
+import { CARRIES, DRAGS, ID_CHOICES, NEEDS_ID, SEAT, SWIPES, TARGET } from "./hold-targets.js";
 import type { HoldSpec } from "./spec.js";
 
 /**
@@ -24,8 +24,9 @@ import type { HoldSpec } from "./spec.js";
  *   --hold surgeBulb2=0             and the navigator's, on the same bulb
  *   --hold antiphonOrgan=0          THE ANTIPHON: the pilot's thumb on the organ
  *   --hold antiphonRail=0,y=500,id=0  the navigator's, pulling candidate 0 off the rail
- *   --hold instarMark=0,y=750,id=0  THE INSTAR: the pilot's thumb on mark 0, half a jaw down
- *   --hold instarMark2=0,y=-750,id=1  and the navigator's on mark 1, pulled up
+ *   --hold instarMark=0,y=-1000,id=1  THE INSTAR's first step: the pilot pulling mark 1 up
+ *   --hold instarMark2=0,y=1000,id=0  and the navigator pulling mark 0 down
+ *   --hold instarSwipe2=0,y=1600,id=1  its second step: the navigator's swipe, lifted
  *   --hold wardenEye=0              THE WARDEN under NARROW: the navigator's thumb on the eye
  *   --hold wardenHatch=0            and under GLARE: the pilot's thumb on the hatch, not yet swiped
  *   --hold queenMark=0,id=0         BULB QUEEN: the pilot's thumb on her left mark
@@ -88,6 +89,13 @@ import type { HoldSpec } from "./spec.js";
  * `swung` at -1 is the other half of it: `scuttleSwingable` is false once a
  * part has been carried this cycle, so a state carried over from an earlier
  * beat photographs a frame with no rings on it and a press nothing heard.
+ *
+ * **THE INSTAR's marks are each one seat's, and the step says whose.** The
+ * first step is mark 0 pulled down by the navigator and mark 1 pulled up by
+ * the pilot, 2000 deep; a pull says `instarAnswer` once, at half that, so a
+ * `--until instarAnswer` needs 1000 in the mark's own direction. Pressed by
+ * the other seat, a mark says `instarRefuse` and the run's miss says so
+ * (`report.ts`). `--boss cursor=1` is the second step, which has the swipe.
  *
  * **And one handle is let go of rather than held**, which is the second shape
  * this flag builds. THE THROAT's haul is spent on the *lift*: `tubeHeard`
@@ -176,6 +184,13 @@ export function parseHold(value: string): HoldSpec[] {
     command.id = id;
   }
   const player = SEAT[name0] ?? 1;
+  // A swipe is carried down and then let go of, on the one tick (`SWIPES`).
+  if (SWIPES.includes(name0)) {
+    return [grab, { ...command, on: true }, { ...command, on: false }].map((c) => ({
+      player,
+      command: c,
+    }));
+  }
   return [
     { player, command: grab },
     { player, command },

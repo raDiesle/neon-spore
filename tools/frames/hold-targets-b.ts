@@ -22,12 +22,15 @@
  *   lobe, and which one is the hand file's.
  * - `lift` — the gesture is spent on the lift: the hand file returns on
  *   `command.on` and reads the distance off the command that lets go.
+ * - `swipe` — the carry is read while the thumb is down and counted when it
+ *   comes off, so a hold is three commands: the grab, the carry, the lift.
  */
 export interface Row {
   seat?: 2;
   as?: string;
   id?: true;
   lift?: true;
+  swipe?: true;
 }
 
 export const ROWS: Record<string, Row> = {
@@ -97,4 +100,8 @@ export const ROWS: Record<string, Row> = {
   haspWheel: { seat: 2 },
   ratchetCatch: { seat: 2 },
   ratchetPawl: {},
+  // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
+  // same wire name as `instarMark`, which holds rather than lets go.
+  instarSwipe: { as: "instarMark", id: true, swipe: true },
+  instarSwipe2: { seat: 2, as: "instarMark", id: true, swipe: true },
 };

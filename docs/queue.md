@@ -397,31 +397,6 @@ Per boss, the work is:
 
 Each boss lands as *a look the owner asked for by name*.
 
-## `frames --hold …@TICK` never fired `--until instarAnswer`
-
-- **Found:** 2026-09-24, claude/bellows-gameplay-clarity
-- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-frames-hold-tick-never-fired-until-instaranswer)
-- **Files:** `tools/frames/run.ts`
-
-Taking THE INSTAR's green verdict for the owner, this command ran for 3000
-ticks and reported no `instarAnswer`, with mark 0 and with mark 1:
-`bun run frames . --wave "THE INSTAR" --seat p1 --boss phase=act,phaseBeat=now --hold "instarMark=0,y=900,id=0@20" --until instarAnswer`
-Its own error says a bare hold only goes on after the wait, so the timed form
-was the one to try. Either that hold never reaches the mark during the wait,
-or `phaseBeat=now` puts the window where a pull cannot land. The picture was
-sent without the flash, and the flash is proved only by the canvas log
-(`packages/render/test/instar-verdict.test.ts`). Find which it is. Then make
-the command above land a pull, or make it refuse the pair with a sentence that
-says why.
-
-The same on 25 September, for a swipe: filming the egg THE INSTAR drops on
-a counted swipe found no way to swipe — `--hold instarMark` is a pull's
-depth, not a lift — and a `drag` on `instarMark` sent by hand through
-`window.neonSpore.send` to a preview at wave 82 was not heard either
-(`wouldHear(2, …)` said false). The fall is proved only by
-`packages/render/test/instar-eggs.test.ts`. A swipe needs a lift after its
-carry, so whatever fixes the hold should take an `instarLift` too.
-
 ## Two sim surface files are under ten lines from the ceiling
 
 - **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4
@@ -789,3 +764,19 @@ What worked was `--path "/?wave=93"`, with the index worked out by a scratch
 script. Add `--wave "<name or id>"` that resolves the index from `WAVES` and
 sets the path, and fail loudly when it matches nothing; name it in
 `docs/commands.md`. Provable with a test on `readShotFlags`.
+
+## `wouldHear` asks each press of a one-tick gesture alone
+
+- **Found:** 2026-09-25, claude/task-queue-work-efc91a
+- **Files:** `apps/game/src/handle-press.ts`, `tools/frames/drive.ts`, `tools/frames/report.ts`
+
+`bun run frames . --wave "THE INSTAR" --boss cursor=1,phase=act,phaseBeat=now
+--hold "instarSwipe2=0,y=1600,id=1@20" --until instarAnswer` lands the swipe
+and still prints `unheard: 1 of 3 … 20:2:drag`: the lift, asked on a world
+where the grab and the carry sent a moment earlier have not been applied, arms
+nothing. `wouldHear` steps one command against the tick's world, and a hold is
+two or three commands sent on the same tick — THE THROAT's grab reads unheard
+the same way. Ask each press against a copy that already has the tick's
+earlier sends in it (the page knows them; `ns.send` queues them), so the
+report names only a press the round actually dropped. Provable with a test on
+`wouldHear` with a queued grab and carry before the lift.
