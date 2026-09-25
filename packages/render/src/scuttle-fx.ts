@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -26,6 +27,11 @@ import { showsScuttleLive } from "./view-role-clocks-b.js";
  * navigator's screen alone is shown is *which* hanging part counts, so the
  * detachment of a live part bursts in the lock's tone only where the lock
  * is drawn (`view-role-clocks-b.ts`), and everywhere else in grey.
+ *
+ * **A part struck off is a sequence landed** — the live one named, and a
+ * shot in its column and colour while it hangs — and so is the beam, so both
+ * deal the slab the blow every boss takes (`boss-hurt.ts`). A shot rebuffed
+ * deals nothing.
  */
 
 /** The jolt: how far it kicks, in tiles, and how fast it settles. */
@@ -46,6 +52,8 @@ export class ScuttleFx {
   private tumbleX = 0;
   private tumbleY = 0;
   private tumbleHex = PALETTE.rock;
+  /** The blow a part struck off deals the slab. */
+  readonly hurt = new BossHurt();
 
   /** Where the live part hung this frame, for the strike that takes it. */
   note(x: number, y: number): void {
@@ -88,6 +96,7 @@ export class ScuttleFx {
           this.joltNow = JOLT_TILES;
           break;
         case "scuttleStruck":
+          this.hurt.hit();
           at(this.noted ? { x: this.hangX, y: this.hangY } : socket(e.socket), 14, PALETTE.hullRim);
           this.tumbleLife = TUMBLE_BEATS * spb;
           this.tumbleLeft = this.tumbleLife;
@@ -109,6 +118,7 @@ export class ScuttleFx {
           this.joltNow = JOLT_TILES * 2;
           break;
         case "scuttleDown":
+          this.hurt.hit();
           at(col(e.col, -0.9), 24, PALETTE.hullRim);
           this.joltNow = JOLT_TILES * 2;
           break;
@@ -126,6 +136,7 @@ export class ScuttleFx {
     this.joltNow = Math.max(0, this.joltNow - this.joltNow * JOLT_DECAY * Math.min(dt, 1 / 30));
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.tumbleLeft = Math.max(0, this.tumbleLeft - dt);
+    this.hurt.update(dt);
   }
 
   /** The plate that came off: turning as it falls from where the part hung, fading as it goes. */
@@ -152,5 +163,6 @@ export class ScuttleFx {
     this.tumbleX = 0;
     this.tumbleY = 0;
     this.tumbleHex = PALETTE.rock;
+    this.hurt.clear();
   }
 }

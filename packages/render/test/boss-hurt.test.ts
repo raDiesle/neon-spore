@@ -213,6 +213,15 @@ const ROWS: Row[] = [
     ],
     hurt: (fx) => fx.boss.curtain.hurt,
   },
+  {
+    boss: "scuttle",
+    land: [
+      { type: "scuttleStruck", socket: 0, left: 3, col: 4 },
+      { type: "scuttleDown", col: 5 },
+    ],
+    part: [{ type: "scuttleRebuff", col: 4 }],
+    hurt: (fx) => fx.boss.scuttle.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

@@ -9,6 +9,7 @@ import {
   scuttleWinding,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ScuttleFx } from "./scuttle-fx.js";
@@ -73,7 +74,8 @@ export function drawScuttle(
   const lively = showsScuttleLive(l.role);
 
   ctx.save();
-  drawSlab(ctx, l, cfg, rise, time, fade);
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  drawSlab(ctx, l, cfg, rise, time, fade, fx.hurt.value);
   for (let i = 0; i < s.parts.length; i++) {
     const part = s.parts[i] ?? null;
     const loose = s.loose.includes(i);
@@ -111,13 +113,15 @@ function drawSlab(
   rise: number,
   time: number,
   fade: number,
+  hurt: number,
 ): void {
   const box = scuttleBox(l, cfg);
   const mid = (box.left + box.right) * 0.5;
   const hw = (box.right - box.left) * 0.5 * fade;
+  const path = scuttleSlabPath(l, cfg, rise, fade, time);
   paintSlab(
     ctx,
-    scuttleSlabPath(l, cfg, rise, fade, time),
+    path,
     {
       left: mid - hw,
       right: mid + hw,
@@ -127,6 +131,7 @@ function drawSlab(
     },
     fade,
   );
+  drawHurt(ctx, path, hurt * fade);
 }
 
 /** A part in its socket, or hanging under it: a plate of rock. */
