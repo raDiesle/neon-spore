@@ -20649,3 +20649,5 @@ an anchor of its own.
 
 The bottleneck was **looking**: the count had to be seen at phone size to find
 out that a hollow ring reads as a digit.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

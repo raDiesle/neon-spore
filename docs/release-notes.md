@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · d0fd4001c — THE REPRISE is a camera: a lens that records and plays back, and eggs for its count
+
+THE REPRISE is now a sac hung through the tear, with a camera lens for an eye. While a stretch is recorded, a red dot blinks in the pupil; recording starts with a shutter blink. While the echo plays, a triangle stands in the pupil and a beam falls across the whole field; playback starts with a rewind. The row of teeth is gone: a ring of eggs round the lens counts the bodies held or owed, and a dashed shell stands for every unseen body still falling, how many and never where. A halo pulses behind the boss on the beat, so it is the first thing the eye finds on an empty field.
+
 ## 2026-09-25 · 77500a89a — A guide's page on what a miss costs rings the hull, not an empty corner
 
 Nineteen films pointed their page on the cost at the run's line in the top-left corner, which has stood empty since the clock left it on 24 September and a guide never reaches a first retry. The anchor is `hit` now and is drawn at the hull, where the hit lands. It stays apart from `hull`, which is a place, because the scene tests count a film's pages on the cost.
