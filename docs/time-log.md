@@ -19899,3 +19899,5 @@ hold, not an INSTAR field, and the red has to reach every plate.
 
 The bottleneck was **reading**: the cord a pulse has to follow is private to
 GLAND's nerves, and it takes a knob on one screen and not on the other.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

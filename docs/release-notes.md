@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 0ab570b6 — A shot runs from its button up the cord to the cannon
+
+When a shot leaves, the button that fired it flashes in the shot's colour, a bright pulse runs up the cord from that button to the cannon, and the top of the cannon bursts where the pulse arrives, red or cyan. On player 1's screen the pulse runs the cord from the cannon's knob to the hull.
+
 ## 2026-09-25 · 101cd690 — A step the pair lands shakes THE INSTAR and washes its body red
 
 When the pair land a step of THE INSTAR, and when they land its last, the body shakes sideways and its head and neck glow red for half a second, so the boss is seen to take the blow. One mark done on its own does not do it. The effect is written for any boss to hold (render/src/boss-hurt.ts); the roll-out to the others is queued.
