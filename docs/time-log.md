@@ -20868,3 +20868,5 @@ tools and documents, each found only by a red test.
 Bottleneck: the director's key test, which plays the shipped script and
 found that twenty taps push a blade out from under the thumb the rig kept
 putting down in one place.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 6e44a2c02 — THE INSTAR asks twice as much in half the time, over seven steps
+
+Every need is doubled and every window halved, on the owner's ask: a jaw is pushed four tiles, the nests hold sixteen eggs to tap and ten to swipe, a blade takes twenty taps, all in four beats. Four steps are added after the first three: a lunge whose brow both seats hold off together, the fire again with the seats swapped on the jaws, a coil whose two blades are each wound two turns, and a last lash with one blade tapped and the other wound.
+
 ## 2026-09-25 · 26cb47b73 — THE DARK's film lights the body it points at, and LIGHTS OUT shows over the black
 
 Two defects, found by the first frame of THE DARK's film. First, the swipe on the film's second page lit the row under the body. A falling body is drawn gliding in from the row above its own, and the light is measured against the drawn row, so the page said PLAYER 1 LIGHTS THE DARK over a light with nothing in it. The swipe is now one row up, and the bulb shows under its caption. Second, the fault's lantern and its LIGHTS OUT line are drawn among the bodies, so the dark covered the one thing on the field that says the field is out. `drawDarkField` now draws both again over the black, and a test holds that LIGHTS OUT is in the dark pass.
