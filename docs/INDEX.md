@@ -1073,6 +1073,7 @@ by hand never moves.
 | `packages/render/src/tether-cord.ts` | CORD — the rope is round, and it has a side the light is on |
 | `packages/render/src/tether-sinew.ts` | SINEW — the rope is a piece of the boss, and pulling it is felt all the way up |
 | `packages/render/src/tether-twist.ts` | TWIST — the rope is two strands laid round each other, and the twist is what the tension does |
+| `packages/render/src/tether-track.ts` | **Where THE WARDEN's rope can be pulled**, as the channel `pull-track.ts` draws |
 | `packages/render/src/vane-draw.ts` | THE VANE, drawn: an arm sweeping the top of the field, and the bearing it turns on |
 | `packages/render/src/vane-spar.ts` | THE VANE's lever, as metal — the spar, its bracing, the counterweight and the fork |
 | `packages/render/src/vane-bearing.ts` | THE VANE's bearing — the mount, the hub and the bolt circle the pair is spending |
@@ -1669,6 +1670,7 @@ by hand never moves.
 | `packages/render/src/baton-flesh.ts` | **What THE BATON's arm is made of**: a tendon hung from above the field |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
+| `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, not as a place to press** — every pull handle's channel, filling green behind the hand |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |

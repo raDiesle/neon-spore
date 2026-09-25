@@ -8,12 +8,14 @@ import {
   wardenHandleMilli,
   wardenPullMilli,
 } from "@neon-spore/sim";
-import { drawHandleRest, drawHandleRing, fieldPoint, handleRadius } from "./handle-draw.js";
+import { fieldPoint, handleRadius } from "./handle-draw.js";
 import { drawHandleHint, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawPullTrack } from "./pull-track.js";
 import { TETHER_LOOK } from "./tether-looks.js";
+import { wardenRopeTrack } from "./tether-track.js";
 import { wardenRopeAnchor } from "./warden.js";
 
 /**
@@ -27,11 +29,12 @@ import { wardenRopeAnchor } from "./warden.js";
  * (the owner asked for them by name, which is what exempts this file from *a
  * look is offered, never replaced*):
  *
- * 1. the handle reads as something to take hold of — a ring, not a blob, with a
- *    word under it while nobody has it;
- * 2. the moment it is held is visible — the ring fills and the word goes;
+ * 1. the handle reads as something to take hold of, and which way — the path
+ *    it can be pulled, a channel the whole of its travel, with a word at the
+ *    top while nobody has it (`pull-track.ts`, the owner, 25 September 2026);
+ * 2. the moment it is held is visible — the channel lights and the word goes;
  * 3. pulling builds tension and more pulling builds more, **continuously**: the
- *    rope goes taut, thin and bright, and a gauge closes around the handle;
+ *    rope goes taut, thin and bright, and the channel fills green behind it;
  * 4. the hatch opens in proportion, which is `warden.ts` next door and is the
  *    same number this file draws.
  *
@@ -117,17 +120,31 @@ export function drawTether(
   const pull = wardenPullMilli(world, b) / 1000;
   const held = b.pulling;
 
-  // The rope is its own gauge, and there is no widget anywhere saying how far
-  // the pull has got: whatever `TETHER_LOOK` draws it from, the line has to
-  // change with `pull` alone (`tether-look.ts`). The line first and the root
-  // over it, then the handle, which is shared with the other cords and is not
-  // the look's to change.
+  // The rope changes with `pull` alone, whatever `TETHER_LOOK` draws it from
+  // (`tether-look.ts`); the channel under it says how far there is to go.
   const d = { ctx, anchor, head, held, pull, time, tile: l.tile, hex, rim };
+  // The way the pull goes, drawn along the whole of it and filling green
+  // behind the hand (`pull-track.ts`), under the rope so the line lies in its
+  // channel; then the rope's own end, where the thumb has it.
+  const track = wardenRopeTrack(l, cfg, b, head, rest);
+  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time });
   TETHER_LOOK.rope(d);
   TETHER_LOOK.root(d);
-  // The column it hangs in, marked faintly, so the swing reads as a distance
-  // from somewhere rather than as a handle that happens to be over there.
-  if (held) drawHandleRest(ctx, rest, hex);
-  drawHandleRing(ctx, { x: head.x, y: head.y, r: rest.r, hex, rim, held, pull, time });
+  drawRopeEnd(ctx, head, rest.r, held ? rim : hex);
   if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.7, HINT_LOUD);
+}
+
+/** The rope's end: a knot where the thumb takes it, not a ring to press. */
+function drawRopeEnd(
+  ctx: CanvasRenderingContext2D,
+  at: { x: number; y: number },
+  r: number,
+  hex: string,
+): void {
+  ctx.save();
+  ctx.fillStyle = hex;
+  ctx.beginPath();
+  ctx.arc(at.x, at.y, r * 0.42, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }

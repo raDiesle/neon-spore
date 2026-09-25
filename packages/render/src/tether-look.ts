@@ -16,10 +16,10 @@ import { splinePath } from "./spline.js";
  * game's first open contour — a line with two ends — and it is drawn as one
  * stroke of one width, which is the picture a rope has when nothing is telling
  * the eye it is round. `rope` is that line, from where it leaves the eye to
- * where the hand has it; `root` is where it comes out of the boss. The handle
- * on the end is **not** here: `drawHandleRing` is shared with THE LID's cord
- * and the balloon strings, so a look for it would be a look for three controls
- * at once and a vote nobody could cast on one (`handle-draw.ts`).
+ * where the hand has it; `root` is where it comes out of the boss. The channel
+ * the hand pulls it along is **not** here: `pull-track.ts` is every pull
+ * handle's, so a look for it would be a look for several controls at once and
+ * a vote nobody could cast on one.
  *
  * **The rule that binds every candidate.** The rope is its own gauge — there
  * is no widget anywhere saying how far the pull has got — so whatever a look

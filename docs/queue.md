@@ -516,3 +516,17 @@ find the event that means *a sequence landed* (not one part of it), hold a
 translate and `drawHurt` over its plates, and add a case to
 `boss-hurt.test.ts`. Each lands as *a look the owner asked for by name*.
 
+## The other pull handles show the path they can be pulled
+
+- **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
+- **Files:** `packages/render/src/lid-string.ts`, `packages/render/src/candle-grip.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/diastole-clamp.ts`, `packages/render/src/stare-lid.ts`, `packages/render/src/pull-track.ts`
+
+The owner's generic rule of 25 September 2026 (`owner.md`): a handle you
+pull is drawn as a channel along its travel that fills green behind the
+hand, not a ring with a dial. THE WARDEN's rope wears it (`tether.ts`,
+`tether-track.ts`). The five files above still draw `drawHandleRest` and
+`drawHandleRing` for a pull measured as a distance: give each a track
+builder beside `tether-track.ts` (from where the hand took it, the taut
+distance long, the way the field fits it straight) and call
+`drawPullTrack` in place of the ring. Grips that are held rather than
+pulled keep their ring. Each lands as *a look the owner asked for by name*.

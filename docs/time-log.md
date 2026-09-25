@@ -19930,3 +19930,18 @@ The bottleneck was **reading**: the touch reach's figures live in
 `hit.ts`, not in `layout.ts` where the note had them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE WARDEN's rope shows the path it can be pulled
+
+- reading: 15 min. How THE MAZE's string, THE WARDEN's rope and THE
+  INSTAR's swipe track are each drawn, and why the maze's never joined
+  the shared ring.
+- writing: 15 min. `pull-track.ts`, `tether-track.ts`, the rope calling
+  them, the owner's rule and the queue item for the other pulls.
+- looking: 10 min. Two frames: the channel first leaned along the rope and
+  pointed off the field.
+- friction: 0 min.
+- landing: 5 min. `check:fast`.
+
+The bottleneck was **reading**: four handles, three drawings, and the one
+comment that said why the maze's was left out.

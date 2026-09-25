@@ -135,6 +135,14 @@ item naming the rule, never a fix made in passing.
      path of a slider without its knob, from where the thumb goes to the
      length the lift counts at, so the end of the bar is the end of the swipe
      (`render/src/instar-track.ts`).
+     **A handle you pull is drawn as the path it can be pulled**, generic,
+     25 September 2026 — *change the circle to look like the path it can be
+     pulled*, THE MAZE's and THE WARDEN's alike, and green: a channel the
+     whole of the travel that fills green behind the hand, never a ring
+     with a dial round it (`render/src/pull-track.ts`). A pull that turns
+     something follows the thing it turns — THE MAZE's runs round the
+     drum's rim, from a lever clamped to it, so the wheel turning is the
+     plain consequence of the hand.
      **A gesture's direction is the picture's**: what the thumb does, the
      part does — a swipe down takes an egg off THE INSTAR's clutch and it
      falls straight down to the hull (`render/src/instar-eggs.ts`), one egg
