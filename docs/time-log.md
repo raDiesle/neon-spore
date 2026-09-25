@@ -20321,3 +20321,5 @@ it had to become a loop.
 
 The bottleneck was **looking**: the wave's first landing shows nothing,
 because the middle column is its own mirror.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

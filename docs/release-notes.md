@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 88f077084 — THE FLIP's projection breaks up two tiles above the ship
+
+On the turned screen, a body two tiles above the hull now tears into jumping strips, like an interrupted projection. It then arrives in the column it is really in and falls the last rows onto the ship, which is where the ship's crater and flash already were. A finger follows the body across the switch. Kill bursts on the turned screen now fly from the mirrored body, instead of from its true column.
+
 ## 2026-09-25 · dc012eb8 — THE SPLICE's cannon may suck the next while one is still falling
 
 While a number travels down its straw, the cannon can slide to another pipe and SUCK again: each suck puts another number on its way, they land in the order they were sucked, and each is judged against the order as it lands — so a pair that trusts its reading can pour a round down, and a wrong one landing first costs exactly as it did alone. A suck at a straw whose number is already falling is still nothing. The clock does not bite while any is in the air (the owner, 25 September 2026). `SpliceState.feedFrom`/`feedBeat` became `flights`, hashed whole; every flight is drawn with its own pipe swelling, and the director's AUTO hand slides on after each suck.
