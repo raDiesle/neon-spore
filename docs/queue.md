@@ -563,3 +563,27 @@ colour is a miss that jams the valve, and P2's panel gets the two regular
 fire buttons in place of CALL. (b) is a sim change with a new `GaugeState`
 field, the codec, the director's `field-controls-gauge.ts`, and the guide's
 three steps.
+
+## A rock's hole puffs sit below the rock in its last six rows
+
+- **Found:** 2026-09-25, claude/meteor-impact-animation-timing-53afba
+- **Files:** `packages/render/src/effects-spark.ts`, `packages/render/src/rock-fall.ts`
+
+A rock's last six rows are now drawn higher than its row, by a bend that
+puts it on the skin at the end of its landing beat (`rock-fall.ts`). A
+`hole` event's puffs are still thrown at `tileCY(row)`, up to about a tile
+under the rock the pair is looking at. Place them with `rockFallY` for a
+wardable kind, and grep render/ for any other reader of a rock's row that
+calls `tileCY` rather than `landingY`. Add a case beside `landing.test.ts`'s.
+
+## `opening.test.ts`'s twice-taken strip differed by three bytes once
+
+- **Found:** 2026-09-25, claude/meteor-impact-animation-timing-53afba
+- **Files:** `tools/frames/test/opening.test.ts`
+
+Under `check:fast` on a loaded machine, *takes the same strip twice,
+settles and all* failed with `frame 2: 3 of 987480 channel bytes differ,
+first at x=81, y=271`. It passed alone twice and in the next full
+`check:fast`. Something in the capture reads wall time or a leftover from
+the first take. Loop the test under load until it fails, then find what
+at that pixel is drawn from anything but the tick and the frame's `dt`.

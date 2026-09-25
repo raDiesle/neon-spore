@@ -19980,3 +19980,19 @@ The bottleneck was **writing**: the wound's two ends had to be cut on the
 span's own rays, so every piece of it is drawn along the rim, not placed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — A rock touches the hull on the tick it breaks it, and rolls off sooner and slower
+
+- reading: 5 min. `landing.ts`, `rock-impact.ts`, `rock-drift.ts`, and
+  where the sim breaks the hull on a rock's landing beat.
+- writing: 5 min. `rock-fall.ts`, its use in three callers, the press and
+  the new roll constants, and the tests.
+- looking: 5 min. THE WARD's breach at ticks 735–865, before and after,
+  cropped to the hull.
+- friction: 5 min. The first waves tried breached with a bulb or a slick,
+  and `rock-impact.ts` went five lines over the ceiling.
+- landing: 5 min. `check:fast`, red once on the old half-sunk rest.
+
+The bottleneck was **looking**: the row above the hull is drawn within a
+few pixels of the skin, and only a crop of real frames showed the rock
+sitting on it before the flash.

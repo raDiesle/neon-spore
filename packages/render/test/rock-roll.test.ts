@@ -27,8 +27,8 @@ describe("a rock leaving the hull", () => {
   const landed = { t: 0, fallLife: 0.1, embed: true, x0: 200, dir: 1 as const };
   const at = (s: number) => travelled({ ...landed, t: stickStart(landed) + s });
 
-  it("lets go within a quarter of a second of landing", () => {
-    expect(stickStart(landed) - landed.fallLife).toBeLessThanOrEqual(0.25);
+  it("lets go just a moment after it hits", () => {
+    expect(stickStart(landed) - landed.fallLife).toBeLessThanOrEqual(0.12);
   });
 
   it("starts slowly and keeps getting faster", () => {
@@ -41,9 +41,13 @@ describe("a rock leaving the hull", () => {
       expect(step).toBeGreaterThan(last);
       last = step;
     }
-    // And on a phone it is gone from mid-field — half the field plus the
-    // margin `driftedOffscreen` allows — inside about a second.
-    expect(at(1.05)).toBeGreaterThan(PHONE.gridWidth * 0.8);
+    // Much slower off the mark than it was: a third of a second in, under
+    // half the twenty-five pixels it used to have gone (the owner, the same
+    // day, *the speed of rolling must start much slower*).
+    expect(at(1 / 3)).toBeLessThan(12);
+    // And on a phone it is still gone from mid-field — half the field plus
+    // the margin `driftedOffscreen` allows — inside a second and a quarter.
+    expect(at(1.2)).toBeGreaterThan(PHONE.gridWidth * 0.8);
   });
 
   /** Runs one missed rock from impact until it has rolled `seconds` past

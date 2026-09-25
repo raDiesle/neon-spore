@@ -3,7 +3,15 @@ import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { drawRockBody, wearsRockLook } from "./meteor.js";
 import { PALETTE } from "./palette.js";
-import { currentX, driftedOffscreen, liftoffRise, stickStart, travelled } from "./rock-drift.js";
+import {
+  currentX,
+  driftedOffscreen,
+  liftoffRise,
+  stickStart,
+  sunkIn,
+  travelled,
+} from "./rock-drift.js";
+import { rockFallY } from "./rock-fall.js";
 import type { Impact } from "./rock-impact-state.js";
 import { RockScuffs, scuffStep } from "./rock-scuffs.js";
 import { rockRadius, torchRotation } from "./rock-size.js";
@@ -11,12 +19,9 @@ import { drawTorchRock, drawTorchTail } from "./torch.js";
 
 /**
  * **The last step of a rock's fall, and what becomes of the rock after it.**
- * The simulation removes a body the same tick the beat's motion is computed,
- * so render/ never gets a frame to glide it through that final step; this
- * replays it at the speed every earlier beat had. A miss then sinks into the
- * skin and rolls off the field, a deflect hands its point to `DeflectFx` and
- * is gone. How fast it rolls off is `rock-drift.ts`; the marks it leaves on
- * the way are `rock-scuffs.ts`.
+ * A miss hits, sinks into the skin and rolls off the field; a deflect hands
+ * its point to `DeflectFx` and is gone. When it sinks, lets go and how fast it
+ * rolls is `rock-drift.ts`; the marks it leaves on the way, `rock-scuffs.ts`.
  */
 
 /** How long the torch's tail lasts once it is in the hull — long enough not
@@ -30,8 +35,9 @@ const TAIL_LIFE = 0.15;
  * earlier beat had: the sim removes a creature the same tick its motion is
  * computed, so `creatures.ts` never gets a frame to glide it through that
  * final step (`fallTilesPerBeat`, sim/types.ts) — without this a fast rock
- * vanishes mid-air and reappears at the hull. `onArrive` fires only once the
- * replay actually reaches the hull's skin, not at the instant of impact.
+ * vanishes mid-air and reappears at the hull. `onArrive` fires the frame the
+ * replay *touches* the hull's skin — the hit, with the hole, the sparks and
+ * the crack — and the rock is pressed into its hole after that, not before.
  *
  * Every rock that misses sinks in and drifts off afterwards, sized by the
  * `span` it is handed (`rockRadius`); a deflected one never embeds — `onArrive`
@@ -80,6 +86,7 @@ export class RockImpactFx {
       embed,
       x0: x,
       y0: tileCY(l, fromRow),
+      fromRow,
       fallSpeed: (fallTiles * l.tile) / beatSeconds,
       r: rockRadius(l, span),
       dir: x < mid ? -1 : 1,
@@ -99,10 +106,8 @@ export class RockImpactFx {
     for (let i = this.impacts.length - 1; i >= 0; i--) {
       const im = this.impacts[i]!;
       im.t += dt;
-      // A drifting rock keeps drifting — accelerating the whole way
-      // (`rock-drift.ts`) — until it is actually gone from view, not for some
-      // fixed time regardless of where that leaves it. A non-embedding
-      // impact (a deflect) has nothing left to draw once it has arrived.
+      // A rolling rock is kept until it is out of view, not for a fixed time;
+      // a deflect has nothing left to draw once it has arrived.
       const done = !im.embed && im.arrived;
       if (done || driftedOffscreen(l, currentX(im))) this.impacts.splice(i, 1);
     }
@@ -118,21 +123,26 @@ export class RockImpactFx {
     for (const im of this.impacts) {
       const x = currentX(im);
       const surfaceY = skinAt(x);
+      // Touching the skin, and sunk half its radius into it — exactly the
+      // crater's own depth, so it sits in the hole it made.
+      const contactY = surfaceY - im.r;
       const stuckY = surfaceY - im.r * 0.5;
-      // Where the field pass left it. A rock that has already landed — the
-      // sim breaks the hull on the beat *after* the one it is drawn coming
-      // down (`sim/hull.ts`) — is standing in the skin, not on its row's
-      // centre under the membrane (`landing.ts`), and its replay is
-      // then no fall at all: it is stuck from the first frame, and the hole,
-      // the sparks and the crack all show on that frame.
-      im.y0 = Math.min(im.y0, stuckY);
+      // Where the field pass left it, on the bent last rows of its fall
+      // (`rock-fall.ts`). A rock that has already landed — the sim breaks the
+      // hull on the beat *after* the one it is drawn coming down
+      // (`sim/hull.ts`) — is touching the skin, and its replay is then no fall
+      // at all: the hole, the sparks and the crack all show on its first frame.
+      if (im.fallLife === 0) {
+        im.y0 = rockFallY(l, im.fromRow, im.y0, contactY);
+        if (im.embed) im.y0 = Math.min(im.y0, contactY);
+      }
       // A deflected rock never sinks: the rule turns it at `shieldRow`, a
       // whole tile above the plating, and that is where its bounce starts.
       // Never *above* where the replay began, though — a rock the shield
       // answers on the last beat of all is already standing on the ship
       // (`hull.ts`), and a bounce a tile higher than the rock the player is
       // looking at is a jump, not a deflection.
-      const arriveY = im.embed ? stuckY : Math.max(im.y0, surfaceY - l.tile);
+      const arriveY = im.embed ? contactY : Math.max(im.y0, surfaceY - l.tile);
       if (im.fallLife === 0) im.fallLife = Math.max(0.001, (arriveY - im.y0) / im.fallSpeed);
       const stuckAt = stickStart(im);
 
@@ -156,13 +166,13 @@ export class RockImpactFx {
       // it runs away (`rock-drift.ts`).
       const roll = (im.dir * travelled(im)) / im.r;
 
-      // Sunk half its radius into the hull — exactly the crater's own depth,
-      // so it sits in the hole it made — and riding the same surface point,
-      // so the ship's motion carries it while stuck. Letting go, it climbs out
-      // onto the skin and rolls on it: its centre a radius off the skin along
-      // the dome's own normal, touching it at `x`, never hovering over it.
+      // Driven into its hole the instant it hits (`sunkIn`), and riding the
+      // same surface point, so the ship's motion carries it while stuck.
+      // Letting go, it climbs out onto the skin and rolls on it: its centre a
+      // radius off the skin along the dome's own normal, touching it at `x`,
+      // never hovering over it.
       let cx = x;
-      let y = stuckY;
+      let y = contactY + (stuckY - contactY) * sunkIn(im);
       if (falling) y = im.y0 + im.fallSpeed * im.t;
       else if (rolling) {
         const slope = (skinAt(x + 2) - skinAt(x - 2)) / 4;

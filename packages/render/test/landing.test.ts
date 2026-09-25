@@ -31,8 +31,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * touches the ship for some moments then switches to it* — and the case below
  * it holds the two halves of the answer apart: a living body is **off** the
  * plating through the middle of its last beat and **in** it by the end, so the
- * frame it is seen to touch is the frame the hull flashes. A rock keeps the
- * even glide, which is why the case above still asserts one.
+ * frame it is seen to touch is the frame the hull flashes.
+ *
+ * His fourth, 25 September 2026, is the rock's side of the third: *in the
+ * exact moment the meteor hits the ship's skin top, the damage is taken
+ * immediately.* A rock's last rows are bent so it touches the skin at the end
+ * of its landing beat and not a beat early (`rock-fall.ts`), and it is pressed
+ * into its hole by the replay after the hull has broken.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -48,23 +53,37 @@ function rock(kind: Creature["kind"], row: number, fromRow: number): Creature {
 
 describe("a landing beat", () => {
   const skin = () => L.hullY;
-  const rest = L.hullY - rockRadius(L, 1) * 0.5;
+  const r = rockRadius(L, 1);
+  const touching = L.hullY - r;
+  const rest = L.hullY - r * 0.5;
+  /** A one-tile-a-beat rock at fractional row `p`, where the field draws it. */
+  const fall = (p: number) => {
+    const c = rock("meteor", Math.ceil(p), Math.ceil(p) - 1);
+    return landingY(L, CFG, c, 400, tileCY(L, p), p - c.fromRow, skin);
+  };
 
-  it("ends half-sunk in the skin, not on the hull row's centre under it", () => {
-    const c = rock("meteor", HULL, HULL - 1);
-    // The centre of the ship's row is below the skin — that is the whole bug.
+  it("ends with a rock touching the skin, not in it or under it", () => {
+    // The centre of the ship's row is below the skin — the first bug.
     expect(tileCY(L, HULL)).toBeGreaterThan(L.hullY);
-    const x = 400;
-    const start = landingY(L, CFG, c, x, tileCY(L, HULL - 1), 0, skin);
-    const end = landingY(L, CFG, c, x, tileCY(L, HULL), 1, skin);
-    expect(start).toBeCloseTo(tileCY(L, HULL - 1), 5);
-    expect(end).toBeCloseTo(rest, 5);
-    // And it is one even glide between the two, not a stop at the skin.
-    const mid = landingY(L, CFG, c, x, 0, 0.5, skin);
-    expect(mid).toBeCloseTo((start + end) / 2, 5);
+    expect(fall(HULL)).toBeCloseTo(touching, 5);
+    // And not a beat early: at the start of its landing beat the rock is well
+    // clear of the plating, where the grid alone had it within a few pixels.
+    expect(touching - fall(HULL - 1)).toBeGreaterThan(L.tile * 0.6);
   });
 
-  it("is where the replay takes the rock over: stuck from its first frame", () => {
+  it("hits at the grid's own speed, and never slows by more than a third", () => {
+    const speed = (p: number) => (fall(p + 0.01) - fall(p)) / 0.01;
+    // It does not brake into the ship: the last hundredth of a row is covered
+    // at the pace every row above the bend is.
+    expect(speed(HULL - 0.01)).toBeCloseTo(L.tile, 0);
+    expect(speed(HULL - 9)).toBeCloseTo(L.tile, 5);
+    for (let p = HULL - 9; p < HULL; p += 0.1) {
+      expect(speed(p)).toBeGreaterThan(L.tile * (2 / 3));
+      expect(speed(p)).toBeLessThanOrEqual(L.tile + 1e-6);
+    }
+  });
+
+  it("is where the replay takes the rock over, hit on its first frame", () => {
     const fx = new RockImpactFx();
     const { ctx } = stubCanvas();
     const ys: number[] = [];
@@ -84,6 +103,14 @@ describe("a landing beat", () => {
     // The first `translate` places the rock; the rest are its own look's,
     // relative to it (`drawRockBody`).
     expect(ys.length).toBeGreaterThan(0);
+    // On the skin, a frame's worth into the press and less than half of it.
+    const y0 = ys[0] as number;
+    expect(y0).toBeGreaterThan(touching);
+    expect(y0).toBeLessThan((touching + rest) / 2);
+    // And a tenth of a second on it is in the hole it made.
+    for (let i = 0; i < 5; i++) fx.update(1 / 60, L);
+    ys.length = 0;
+    fx.draw(ctx as unknown as CanvasRenderingContext2D, L, 6 / 60, skin);
     expect(ys[0]).toBeCloseTo(rest, 5);
   });
 
@@ -99,8 +126,8 @@ describe("a landing beat", () => {
   });
 
   it("leaves every higher row's glide alone", () => {
-    const c = rock("meteorFastest", HULL - 2, HULL - 5);
-    const y = tileCY(L, HULL - 3);
+    const c = rock("meteorFastest", HULL - 8, HULL - 11);
+    const y = tileCY(L, HULL - 9.8);
     expect(landingY(L, CFG, c, 400, y, 0.4, skin)).toBe(y);
   });
 

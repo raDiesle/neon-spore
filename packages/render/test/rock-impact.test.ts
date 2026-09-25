@@ -133,9 +133,8 @@ describe("RockImpactFx deflect arrival target", () => {
     // itself. Shifting up a `tile` from the skin would put the bounce above
     // the rock the player is looking at — a jump, not a deflection — so the
     // arrival never rises above where the replay began. Where it began is
-    // where the field pass left the rock: half-sunk in the skin, which is
-    // above the hull row's centre (`landing.ts`), never under the
-    // membrane.
+    // where the field pass left the rock: touching the skin, which is above
+    // the hull row's centre (`rock-fall.ts`), never under the membrane.
     const fx = new RockImpactFx();
     const { ctx } = stubCanvas();
     let arriveY = Number.NaN;
@@ -152,9 +151,9 @@ describe("RockImpactFx deflect arrival target", () => {
       fx.draw(ctx as unknown as CanvasRenderingContext2D, L, t, skinAt);
     }
     expect(arriveY).toBeGreaterThan(L.hullY - L.tile);
-    const rest = L.hullY - rockRadius(L, 1) * 0.5;
-    expect(rest).toBeLessThan(tileCY(L, fromRow));
-    expect(arriveY).toBeCloseTo(rest, 5);
+    const touching = L.hullY - rockRadius(L, 1);
+    expect(touching).toBeLessThan(tileCY(L, fromRow));
+    expect(arriveY).toBeCloseTo(touching, 5);
   });
 });
 

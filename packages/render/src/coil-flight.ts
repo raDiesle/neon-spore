@@ -1,6 +1,7 @@
 import { type Creature, type SimEvent, spanOf } from "@neon-spore/sim";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { rockFallY } from "./rock-fall.js";
 import { rockRadius } from "./rock-size.js";
 import { drawTorchTail } from "./torch.js";
 
@@ -105,15 +106,16 @@ export class CoilFlightFx {
     if (!f) return undefined;
     if (Number.isNaN(f.life)) {
       // First frame: the phase the throw is seen to start on, and the landing
-      // — the rock's own resting depth in the skin (`landing.ts`).
+      // — where the field pass would have the rock at the end of this beat,
+      // touching the skin if this is its last (`rock-fall.ts`).
       const tau = f.age / f.beatSeconds;
       const phase0 = (((beats - tau) % 1) + 1) % 1;
       f.life = Math.max(0.001, (1 - phase0) * f.beatSeconds);
       f.r = rockRadius(l, spanOf(c));
       f.col1 = c.col;
       f.x1 = tileCX(l, c.col);
-      const rest = skinY ? skinY(f.x1) - f.r * 0.5 : Number.POSITIVE_INFINITY;
-      f.y1 = Math.min(tileCY(l, c.row), rest);
+      const flat = tileCY(l, c.row);
+      f.y1 = skinY ? rockFallY(l, c.row, flat, skinY(f.x1) - f.r) : flat;
     }
     const u = Math.min(1, f.age / f.life);
     const x1 = f.x1 ?? f.x0;

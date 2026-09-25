@@ -2,8 +2,8 @@ import { smoothstep } from "./ease.js";
 import type { Layout } from "./layout.js";
 
 /**
- * **How a rock leaves the ship it broke** — the waiting and the rolling, and
- * the arithmetic of both. Split out of `rock-impact.ts` when that file hit
+ * **How a rock leaves the ship it broke** — the press into its hole, the
+ * waiting and the rolling, and the arithmetic of all three. Split out of `rock-impact.ts` when that file hit
  * its line ceiling, and this is the seam: everything here is a pure function
  * of *how long ago the rock landed*, with no canvas and no impact state
  * beyond the two numbers `Drifting` names. What is left next door is the
@@ -26,12 +26,16 @@ export interface Drifting {
   dir: -1 | 1;
 }
 
-/** How long a missed rock sits sunk into the hull before it starts to roll
- * off. Long enough for the hit to register as a hit — the hole and the sparks
- * are seen with the rock in them — and no longer. It was 0.8 s until 25
- * September 2026, when the owner asked for the rock to start moving away much
- * sooner: at 0.8 it read as the rock resting on the ship. */
-const STICK_LIFE = 0.2;
+/** How long a rock takes to drive itself half its radius into the skin, from
+ * the frame it touches it. The hit is that frame — the hole, the sparks, the
+ * crack and the hull's flash — so this is the rock following through, and it
+ * is short: a slow press would be the rock resting on the ship again. */
+const SINK_TIME = 0.08;
+/** How long a missed rock is held in the hull, counted from the hit and the
+ * press included, before it starts to roll off. It was 0.8 s, then 0.2 on 25
+ * September 2026, and the same day the owner asked again for it to start
+ * *just some moment after hitting*. */
+const STICK_LIFE = 0.12;
 /**
  * How long the rock takes to climb out of its own hole onto the skin. It is
  * sunk half its radius (`rock-impact.ts`) and rolls on the skin once out, so
@@ -39,22 +43,24 @@ const STICK_LIFE = 0.2;
  * bob.
  */
 const RISE_TIME = 0.3;
-/** Sideways speed the instant it lets go, in px/s. Small on purpose: a ball
- * tipping out of a dent starts slowly and gathers, and the owner asked for
- * exactly that — slow at first, faster the further it has gone. It was 110,
- * which read as the rock being slid sideways at a constant pace. */
-const DRIFT_SPEED = 12;
-/** Sideways acceleration the instant it lets go, in px/s². */
-const DRIFT_ACCEL = 260;
+/** Sideways speed the instant it lets go, in px/s: none. A ball tipping out
+ * of a dent starts from rest and gathers. It was 110, which read as the rock
+ * being slid sideways, then 12 with a 260 px/s² push, which the owner still
+ * found too quick off the mark (25 September 2026: *the speed of rolling must
+ * start much slower*). */
+const DRIFT_SPEED = 0;
+/** Sideways acceleration the instant it lets go, in px/s² — a sixth of what it
+ * was, so a third of a second in it has gone a third as far. */
+const DRIFT_ACCEL = 40;
 /**
  * How fast the acceleration itself grows, in px/s³ — the "faster the more the
  * distance" half of the ask. With acceleration alone the rock gathers speed
  * at one rate and the far half of the roll looks like the near half; with
  * this it visibly runs away off the edge. The three together clear a rock
- * from mid-field in about a second after it lets go (at 1 s it has gone
- * about 310 px), where the old pair took nearly one and a half.
+ * from mid-field on a phone about 1.2 s after it lets go (at 1 s it has gone
+ * about 200 px); the slow start costs less than a fifth of a second of that.
  */
-const DRIFT_JERK = 1000;
+const DRIFT_JERK = 1100;
 
 /** When the stuck hold ends and drift-off begins, in `im.t` — meaningless for
  * a non-embedding impact, which is gone the moment it lands. */
@@ -72,6 +78,14 @@ export function travelled(im: Drifting): number {
 /** Screen x right now. */
 export function currentX(im: Drifting): number {
   return im.x0 + im.dir * travelled(im);
+}
+
+/** 0 the frame it touches the skin, 1 once it is half its radius into it —
+ * fast out and settling, so the blow is in the first frames. */
+export function sunkIn(im: Drifting): number {
+  if (!im.embed) return 0;
+  const u = Math.min(1, Math.max(0, im.t - im.fallLife) / SINK_TIME);
+  return 1 - (1 - u) * (1 - u);
 }
 
 /** Seconds since it let go of the hull — 0 while it is still stuck. */

@@ -1,8 +1,10 @@
 import { type Creature, isWardable, type SimConfig, spanOf } from "@neon-spore/sim";
 import { flatRadius } from "./creature-place.js";
+import { drawnRow } from "./depth.js";
 import { smoothstep } from "./ease.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCY } from "./layout.js";
+import { rockFallY } from "./rock-fall.js";
 import { rockRadius } from "./rock-size.js";
 
 /**
@@ -27,13 +29,12 @@ import { rockRadius } from "./rock-size.js";
  * at the end of that beat is a body whose contact and whose flash are the same
  * moment.
  *
- * **Half-sunk and not resting tangent on it.** For a rock the number is
- * `RockImpactFx`'s own, the radius sunk by half (`rock-impact.ts`), asked one
- * beat earlier so the field pass hands the rock over standing exactly where the
- * replay picks it up. For everything living it is the same number for its own
- * reason: a body one row above the hull is already drawn touching the skin, so
- * a glide that ended tangent would not move at all, and a landing nothing moves
- * on is a landing the pair cannot see happen. Sunk by half, the last beat is a
+ * **Half-sunk and not resting tangent on it** — for everything living. A rock
+ * is the exception and ends its beat tangent, touching: the half-sink is the
+ * hit itself, drawn by the replay after the hull breaks (`rock-fall.ts`). For a
+ * living body the number is its own: a body one row above the hull is already
+ * drawn touching the skin, so a glide that ended tangent would not move at
+ * all, and a landing nothing moves on is a landing the pair cannot see happen. Sunk by half, the last beat is a
  * short press into the plating that finishes on the beat the hull breaks.
  *
  * Every other row is left alone: the clamp only ever *raises* the end of a
@@ -55,12 +56,14 @@ import { rockRadius } from "./rock-size.js";
  * the ship answers. It reads as the thing rearing back to hit the hull, which
  * is what it is doing.
  *
- * **A rock does not gather.** It keeps the even glide it has had since
- * September 11: a meteor hopping before it landed would be a meteor with
- * muscles, and its rest is shallower and its row-above clearance larger, so
- * the beat was never the slick's beat. `isWardable` is the same split
- * `restRadius` below already makes, for the same reason — what is falling and
- * what is alive.
+ * **A rock does not gather**: a meteor hopping before it landed would be a
+ * meteor with muscles. It kept an even glide into the half-sunk rest until
+ * 25 September 2026, and the owner's fourth report is what that looked like —
+ * the rock on the plating a beat before the hull broke. Its last rows are bent
+ * instead (`rock-fall.ts`), so that it *touches* the skin at the end of this
+ * beat, and the press into the hole is the replay's, after the hit
+ * (`rock-impact.ts`). `isWardable` is the same split `restRadius` below
+ * already makes, for the same reason — what is falling and what is alive.
  */
 export function landingY(
   l: Layout,
@@ -77,10 +80,10 @@ export function landingY(
   if (!skinY) return y;
   const r = restRadius(l, cfg, c);
   const skin = skinY(x);
+  if (isWardable(c.kind)) return rockFallY(l, drawnRow(c, glide), y, skin - r);
   const yEnd = Math.min(tileCY(l, c.row), skin - r * SUNK);
   if (yEnd === tileCY(l, c.row)) return y;
   const yStart = Math.min(tileCY(l, c.fromRow), yEnd);
-  if (isWardable(c.kind)) return yStart + (yEnd - yStart) * glide;
   return strike(yStart, yEnd, skin - r * CLEAR, glide);
 }
 

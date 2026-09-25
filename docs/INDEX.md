@@ -1243,12 +1243,13 @@ by hand never moves.
 | `packages/render/src/orrery-flesh.ts` | **What THE ORRERY is made of**: organs like wet beads strung on their orbits |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
-| `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
+| `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the press into its hole, the waiting and the rolling |
 | `packages/render/src/rock-wake-fire.ts` | What burns behind a rock: `tongue` and `flame`, the two fire shapes the three meteor looks are built from |
 | `packages/render/src/rock-wake.ts` | What a burning rock leaves behind it — puffs of smoke, chips, threads and the phase that keeps them on the rock — shared by the three meteor looks |
 | `packages/render/src/rock-window.ts` | THE PART OF THE SCREEN A ROCK'S FIRE CAN REACH |
 | `packages/render/src/rock-size.ts` | how big a rock is on screen and which way it faces — `rockRadius`, `torchRadius`, `torchRotation` — four numbers and nothing drawn |
 | `packages/render/src/rock-scuffs.ts` | the small, fading marks a rock grinds into the skin rolling off the hull — a char smudge, a scratch in the rock's colour and two chips |
+| `packages/render/src/rock-fall.ts` | **A rock touches the skin on the tick the hull breaks, and not before.** The owner, 25 September 2026 |
 | `packages/render/src/ship-marks.ts` | The marks round the cup: what letting go of this swelling would do |
 | `packages/render/src/touch-hand.ts` | What a hand on the ship should be *shown* as — the cup that says which swelling is under the finger |
 | `packages/render/src/guide-prose.ts` | A guide with no rehearsal, read a page at a time on the game's own screen |
