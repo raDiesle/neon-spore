@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE SURGE, THE TASTER and THE UNDERTOW take the blow
+
+- reading: 10 min. Three events files and drawers, and THE STARE's, which
+  takes no damage by design and so wears nothing.
+- writing: 15 min. Three fx classes and drawers, three rows of
+  `boss-hurt.test.ts`; THE UNDERTOW's row sets a lobe standing, since four
+  beats in shows nothing of it.
+- looking: 0 min. No picture: the blow is the one already sent twice.
+- friction: 5 min. Biome widened a ten-argument call; two names read off
+  `view` brought it back under the line.
+- landing: 10 min. Three `check:fast` runs, three commits, `land`.
+
+Bottleneck: THE UNDERTOW's taken lobe leaves the picture the tick it is
+taken, so what wears the blow had to be decided before it could be wired.
+
 ## 2026-09-25 — THE GIMBAL, THE RATCHET, THE HIVE and THE GORGE take the blow
 
 - reading: 10 min. Each boss's events file for the one that means *a
