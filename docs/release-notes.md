@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 362d27bcc — THE INSTAR lunges twice: once held together, once split
+
+THE INSTAR's script gains an eighth step, after the coil: the lunge again, but player 1 holds the brow alone while player 2 taps the right eye twelve times, and the eye flinches shut as the taps land. A hold on a mark of one seat's own now counts that seat's thumb alone; a hold on a mark for both still waits for two thumbs.
+
 ## 2026-09-25 · 946550268 — THE FILAMENT opens with no guide, like THE INSTAR
 
 The owner's answer to the queue's question was both guides go. The wave opens on its number and name, and the field teaches the rest: each ring says whether its move is open, and three pips under it are the window. `waves.test.ts` names both waves in `SAYS_ITSELF`, and `briefings.md` counts eighty-eight guided waves, eighty films and eight in words.
