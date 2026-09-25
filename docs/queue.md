@@ -688,20 +688,6 @@ the pose's `tailX` today, and would aim at the mark instead). A mark stays on it
 it sits still says whose it is. Every new field goes in `hashWorld`, and the
 test taps a moving mark at the wrong place and gets nothing.
 
-## THE INSTAR, lunge: one holds the brow, one strikes an eye
-
-- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-25, claude/instar-boss-enhancements-1ae51f (claim: claude/queue-the-instar-lunge-one-holds-the-brow-one-strikes)
-- **Files:** `packages/content/src/instar-script.ts`, `packages/render/src/instar-head.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/test/instar-frame.test.ts`
-
-Step 4 asks both thumbs for the same hold. The combination it does not have yet
-is two different gestures on one head: a second lunge step later in the
-script where player 1 holds the brow and player 2 taps the right eye twelve
-times, and the eye flinches shut a little with each tap (`drawEye` already
-narrows with the pose's `eye`). It is content and a picture, with no new
-gesture: the eye's mark goes where `instar-head.ts` draws the right eye in the
-lunge pose, and the frame test finds it there.
-
 ## THE INSTAR, coil: the blades wind opposite ways
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f

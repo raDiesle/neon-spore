@@ -5,7 +5,7 @@ import type { InstarFx } from "./instar-fx.js";
 import { drawInstarMarks } from "./instar-marks.js";
 import type { Look } from "./instar-plate.js";
 import { drawProfile } from "./instar-profile.js";
-import { instarAt, instarFade, instarLen, instarMorphAt, instarThreat } from "./instar-shape.js";
+import { instarAt, instarFade, instarHeadAt, instarMorphAt, instarThreat } from "./instar-shape.js";
 import { instarBody } from "./instar-sway.js";
 import type { Layout } from "./layout.js";
 
@@ -54,8 +54,7 @@ export function drawInstar(
   const { f, sway } = instarBody(s, cfg, beat, beatPhase);
   const morph = instarMorphAt(s, beat, beatPhase);
   const threat = instarThreat(s, beat, beatPhase);
-  const head = instarAt(l, f.headX, f.headY);
-  const r = instarLen(l, f.headR) * (1 + 0.25 * f.reach);
+  const { head, r } = instarHeadAt(l, f);
   const breath = instarStep(s)?.pose === "breath";
   const fire =
     s.phase === "act" && breath

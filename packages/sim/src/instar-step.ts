@@ -34,9 +34,9 @@ import type { World } from "./world.js";
  * on the other phone is not two ticks late — the window the pair is given is
  * said in beats, and a beat is the unit they can hear.
  *
- * And the beat is what counts a **hold**: a mark both thumbs are on gains one
- * unit per beat they stay, which is the one gesture with no command of its
- * own — it is two presses and no lift, and time.
+ * And the beat is what counts a **hold**: a mark whose thumbs are all on it
+ * gains one unit per beat they stay, which is the one gesture with no command
+ * of its own — a press and no lift, and time.
  */
 
 export function installInstar(world: World, steps: readonly BossSequenceStep[]): InstarState {
@@ -90,12 +90,19 @@ function slipLonely(world: World, s: InstarState): void {
   }
 }
 
-/** Both thumbs on a hold mark is one more beat of it. */
+/** Which thumbs a hold mark wants, as the bits `s.thumbs` keeps: player 1's
+ * is 1, player 2's is 2. */
+const HOLDERS = { p1: 1, p2: 2, both: 3 } as const;
+
+/** Every thumb a hold mark wants on it is one more beat of it — both on a
+ * `both` mark, and one seat's alone on a mark of its own, which is the
+ * lunge holding its brow while the other seat strikes the eye. */
 function countHolds(world: World, s: InstarState): void {
   const step = instarStep(s);
   if (step === null) return;
   for (let i = 0; i < step.marks.length; i++) {
-    if (step.marks[i]?.gesture !== "hold" || s.thumbs[i] !== 3) continue;
+    const mark = step.marks[i];
+    if (mark?.gesture !== "hold" || s.thumbs[i] !== HOLDERS[mark.seat]) continue;
     answerMark(world, s, i, 1);
   }
 }

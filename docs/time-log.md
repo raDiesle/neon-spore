@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE INSTAR's lunge, split: one holds the brow, one strikes an eye
+
+- reading: 10 min. `countHolds`, `slipLonely`, the hand's lift, and where
+  the head puts its eyes against where the script puts a mark.
+- writing: 20 min. The lone hold, the `eye` part and its wince, the eighth
+  step, two test files and the section in `bosses.md`.
+- looking: 5 min. One frame at the step's window, from player 2's seat.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: the eye's place is in head radii and a mark's in field
+thousandths, so the mark's coordinates had to be worked out from the layout
+and then held to the eye by a test.
+
 ## 2026-09-25 — THE FILAMENT carries no guide either
 
 - reading: 5 min. `act-10.ts`'s comment, which called the guide the only

@@ -13,8 +13,10 @@ export const INSTAR_SEATS = ["p1", "p2", "both"] as const;
 export type InstarSeat = (typeof INSTAR_SEATS)[number];
 
 /** The parts of the body a mark can sit on — each one a threat if its mark
- * is left undone, which is what the strike is named after. */
-export const INSTAR_PARTS = ["jaw", "hand", "eggs", "tongue", "tail", "head"] as const;
+ * is left undone, which is what the strike is named after. `eye` is last
+ * because the hash names a part by its place in this list (`instar-hash.ts`):
+ * the lunge's second visit strikes the right eye while the brow is held. */
+export const INSTAR_PARTS = ["jaw", "hand", "eggs", "tongue", "tail", "head", "eye"] as const;
 export type InstarPart = (typeof INSTAR_PARTS)[number];
 
 /**
@@ -22,7 +24,8 @@ export type InstarPart = (typeof INSTAR_PARTS)[number];
  * `pullDown`/`pullUp` — thousandths of a tile the thumb must carry the part,
  * and hold there; `tap` — presses; `swipeDown` — carries past
  * `instarSwipeMilli` that end in a lift; `turn` — thousandths of a turn wound
- * clockwise; `hold` — beats both seats' thumbs stay on the one mark.
+ * clockwise; `hold` — beats the mark's own thumbs stay on it: both seats' on a
+`both` mark, one seat's on its own.
  */
 export const INSTAR_GESTURES = ["pullDown", "pullUp", "tap", "swipeDown", "turn", "hold"] as const;
 export type InstarGesture = (typeof INSTAR_GESTURES)[number];

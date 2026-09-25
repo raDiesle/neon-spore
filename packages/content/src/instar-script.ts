@@ -1,7 +1,7 @@
 import type { BossSequenceStep } from "@neon-spore/sim";
 
 /**
- * THE INSTAR's script: seven steps over five poses, and what the pair does to each.
+ * THE INSTAR's script: eight steps over five poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -44,7 +44,12 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  * 6. *Coil* — it passes twice and comes in low, side on, its tail wound up
  *    high over its back to spring. Each seat **winds** its blade of the fork
  *    back, two turns each, clockwise. Left alone, it springs at the hull.
- * 7. *Lash, mixed* — the tail at the ship once more, and each blade asks a
+ * 7. *Lunge, split* — the head down at the ship again, and this time one
+ *    thumb holds it: player 1 holds the brow off, left of the seam, for
+ *    three beats, while player 2 strikes the right eye, twelve taps, and it
+ *    flinches shut a little with each. Two gestures on one head, and the hold
+ *    has to last until the eye is done — a lift is the brow let go.
+ * 8. *Lash, mixed* — the tail at the ship once more, and each blade asks a
  *    different thing: player 1 taps the left back, player 2 winds the right.
  *    Two counts in two gestures, finishing together.
  *
@@ -80,7 +85,8 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  * sixteen eggs and ten, a blade twenty taps, in four beats; and the new steps
  * are the variations: a mark both seats share, the seats swapped on a pose
  * they already know, a gesture the script had never asked for, and two
- * gestures on one part.
+ * gestures on one part. The eighth, the split lunge, came the same day, the
+ * first of the queue's next steps: one seat holding while the other strikes.
  */
 export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   {
@@ -144,6 +150,17 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     marks: [
       { seat: "p1", part: "tail", gesture: "turn", xMilli: 380, yMilli: 330, need: 2000 },
       { seat: "p2", part: "tail", gesture: "turn", xMilli: 620, yMilli: 330, need: 2000 },
+    ],
+  },
+  {
+    pose: "lunge",
+    arrive: "cross",
+    morphBeats: 7,
+    windowBeats: 5,
+    landBeats: 3,
+    marks: [
+      { seat: "p1", part: "head", gesture: "hold", xMilli: 440, yMilli: 300, need: 3 },
+      { seat: "p2", part: "eye", gesture: "tap", xMilli: 632, yMilli: 280, need: 12 },
     ],
   },
   {

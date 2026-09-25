@@ -6264,11 +6264,15 @@ up, `landBeats` of the part giving before the next morph — and an
 **arrival**, how the body flies into the pose while it morphs: `approach`
 from far off, `passes` out of the frame and across twice, `cross` out one
 side and in the other (`INSTAR_ARRIVALS`, in `sim/instar-words.ts`). The
-script is seven steps over five poses since 25 September 2026: *breath*,
+script is eight steps over five poses since 25 September 2026: *breath*,
 *brood*, *lash*, *lunge* — one mark on the brow for both seats to hold —
 *breath* again with the seats swapped on the jaws, *coil* — both blades
-wound two turns — and *lash* again with one blade tapped and one wound.
-Every window is four beats, five for the hold, and every need was doubled
+wound two turns — *lunge* again, split — player 1 holds the brow alone
+while player 2 taps the right eye shut, twelve taps — and *lash* again
+with one blade tapped and one wound. A hold on a mark of one seat's own
+counts that seat's thumb alone (`countHolds`, `sim/instar-step.ts`); the
+struck eye is its own part, `eye`, last in `INSTAR_PARTS` because the hash
+names a part by its place. Every window is four beats, five for a hold, and every need was doubled
 the same day: a jaw four tiles, the nests sixteen eggs and ten, a blade
 twenty taps.
 

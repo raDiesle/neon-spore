@@ -47,6 +47,7 @@ const LIFE: Record<InstarPart, number> = {
   hand: SLAM_SECONDS,
   tongue: SLAM_SECONDS,
   head: SLAM_SECONDS,
+  eye: SLAM_SECONDS,
 };
 
 export class InstarStrike {

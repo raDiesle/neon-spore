@@ -28,6 +28,7 @@ const BREATH: Figure = {
   jawUp: 1,
   jawDown: 1,
   eye: 1,
+  wince: 0,
   side: 0,
   wing: 1,
   rearX: 500,

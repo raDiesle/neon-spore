@@ -3,7 +3,7 @@ import { drawFireball } from "./instar-fire.js";
 import { drawEye, drawHorns, drawSinews, drawTeeth, r2 } from "./instar-head-parts.js";
 import { drawDrip, drawScales } from "./instar-hide.js";
 import { drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
-import type { Point } from "./instar-shape.js";
+import type { Figure, Point } from "./instar-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -55,9 +55,20 @@ const LOWER: readonly (readonly [number, number])[] = [
   [-0.72, 0.22],
 ];
 
+/** The upper lip's middle, which the whole top of the head hangs off. */
+function upperLip(f: Figure, head: Point, r: number): Point {
+  return { x: head.x, y: head.y - r * (LIP_SHUT + LIP_OPEN * f.jawUp) };
+}
+
+/** Where the face-on head draws an eye, `s` -1 for the left and 1 for the
+ * right — the place a mark on the eye has to sit (`instar-script.ts`). */
+export function frontEyeAt(f: Figure, head: Point, r: number, s: -1 | 1): Point {
+  return r2(upperLip(f, head, r), r, s * 0.48, -0.44);
+}
+
 export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
   const { f, head, r, fade, hurt, time } = look;
-  const up = { x: head.x, y: head.y - r * (LIP_SHUT + LIP_OPEN * f.jawUp) };
+  const up = upperLip(f, head, r);
   const down = { x: head.x, y: head.y + r * (LIP_SHUT + LIP_OPEN * f.jawDown) };
   const gap = (down.y - up.y) / r;
   for (const s of [-1, 1]) drawHorns(ctx, up, r, s, fade);
@@ -142,5 +153,8 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     ctx.fill();
   }
   ctx.restore();
-  for (const s of [-1, 1]) drawEye(ctx, r2(up, r, s * 0.48, -0.44), r, s, f.eye, time, fade);
+  for (const s of [-1, 1] as const) {
+    const open = s === 1 ? f.eye * (1 - 0.8 * f.wince) : f.eye;
+    drawEye(ctx, frontEyeAt(f, head, r, s), r, s, open, time, fade);
+  }
 }

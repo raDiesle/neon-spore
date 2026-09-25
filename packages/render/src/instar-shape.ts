@@ -57,6 +57,9 @@ export interface Figure {
   jawDown: number;
   /** How open the eyes are, 0..1. */
   eye: number;
+  /** How far the right eye is struck shut, 0..1, on top of `eye`: the split
+   * lunge's taps, one flinch each. */
+  wince: number;
   /** How far the body has turned side-on, 0..1: 0 is the face at the ship,
    * 1 the dragon in profile, head to the left, back up, tail out behind. */
   side: number;
@@ -108,6 +111,8 @@ export function deformed(
     // The fork is one tail: every thumb on it pushes its share of it back.
     else if (m.part === "tail") g.tail -= (f.tail * p) / tails;
     else if (m.part === "head") g.reach = f.reach * (1 - p);
+    // An eye struck flinches shut by as much of its count as has landed.
+    else if (m.part === "eye") g.wince = p;
   });
   return g;
 }
@@ -194,6 +199,12 @@ export function instarFarEnd(l: Layout, f: Figure): Point {
 /** A length in thousandths of the field's width, in pixels. */
 export function instarLen(l: Layout, milli: number): number {
   return (milli * l.gridWidth) / 1000;
+}
+
+/** Where the head is drawn and how big, in pixels: the lunge thrusts it a
+ * quarter larger at the ship. */
+export function instarHeadAt(l: Layout, f: Figure): { head: Point; r: number } {
+  return { head: instarAt(l, f.headX, f.headY), r: instarLen(l, f.headR) * (1 + 0.25 * f.reach) };
 }
 
 /**
