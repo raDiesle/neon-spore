@@ -96,6 +96,9 @@ export interface Bindings {
    */
   cannonCol: () => number;
   shieldCol: () => number;
+  /** Whether those swellings answer a finger at all: SETTINGS' TOUCH THE
+   * SHIP, read on every press so a switch turned mid-run takes hold on the next. */
+  ship: () => boolean;
   /**
    * Whether the wave's opening is up. Only the ring reads it, and only to stay
    * dark: while a wave is held the simulation drops every press but the
@@ -149,6 +152,7 @@ export function fieldFrom(b: Bindings, seat?: 1 | 2): Field {
     creatures: b.creatures(),
     cannonCol: b.cannonCol(),
     shieldCol: b.shieldCol(),
+    ship: b.ship(),
     beatPhase: b.beatPhase(),
     skinY: b.skinY(),
     beat: b.beat(),

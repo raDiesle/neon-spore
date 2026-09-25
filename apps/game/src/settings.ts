@@ -57,6 +57,19 @@ export interface Settings {
    * why the request is also asked of `atADesk` before it is made.
    */
   fullscreen: boolean;
+  /**
+   * Whether the cannon and the shield answer a finger **where they are drawn
+   * on the hull** — slid, pressed, the muzzle swiped — as well as on the panel
+   * below (`render/touch-ship.ts`).
+   *
+   * **Off by default**, the owner, 25 September 2026: the panel is the control
+   * scheme, and a hull that also answers is a second way in a player turns on
+   * when they want it. Off, a press on a lobe goes to whatever is behind it,
+   * as though the ship were not there. It changes which command a press
+   * sends, never what a command does, so two devices set differently still
+   * agree about the world.
+   */
+  shipTouch: boolean;
 }
 
 /**
@@ -72,6 +85,7 @@ export const DEFAULT_SETTINGS: Settings = {
   motion: true,
   haptics: false,
   fullscreen: true,
+  shipTouch: false,
 };
 
 /** Whatever was stored, read as settings. Unreadable means the defaults. */
@@ -85,6 +99,7 @@ export function parseSettings(raw: string | null): Settings {
       motion: flag(read.motion, DEFAULT_SETTINGS.motion),
       haptics: flag(read.haptics, DEFAULT_SETTINGS.haptics),
       fullscreen: flag(read.fullscreen, DEFAULT_SETTINGS.fullscreen),
+      shipTouch: flag(read.shipTouch, DEFAULT_SETTINGS.shipTouch),
     };
   } catch {
     return DEFAULT_SETTINGS;

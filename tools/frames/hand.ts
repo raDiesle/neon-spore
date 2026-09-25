@@ -72,6 +72,14 @@ export async function putHand(page: Page, hand: HandSpec, hover: boolean): Promi
         "13 September 2026 or later",
     );
   }
+  // The hull answers a finger only where the player turned TOUCH THE SHIP on
+  // (`apps/game/src/settings.ts` `shipTouch`), and a fresh browser has not.
+  // Read on every press, so storing it here is in time for the one below.
+  await page.evaluate(() => {
+    const key = "neon-spore.settings";
+    const held = JSON.parse(localStorage.getItem(key) ?? "{}") as Record<string, unknown>;
+    localStorage.setItem(key, JSON.stringify({ ...held, shipTouch: true }));
+  });
   await page.mouse.move(grab.clientX, grab.clientY);
   if (hover) return;
   await page.mouse.down();

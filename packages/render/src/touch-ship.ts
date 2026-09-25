@@ -87,6 +87,7 @@ export function shipCircle(
  * every body on it, and a hand goes to whatever is on top.
  */
 export function shipUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  if (field.ship === false) return null;
   const cannon = cannonGrab(l, field.cannonCol);
   const shield = shieldGrab(l, field.shieldCol);
   const onCannon = hitCircle(cannon, x, y);

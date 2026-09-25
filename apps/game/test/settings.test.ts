@@ -19,6 +19,11 @@ describe("what a device that has said nothing gets", () => {
     expect(DEFAULT_SETTINGS.haptics).toBe(false);
   });
 
+  it("opens with the hull deaf to a finger, because the panel is the control scheme", () => {
+    expect(DEFAULT_SETTINGS.shipTouch).toBe(false);
+    expect(parseSettings(JSON.stringify({ shipTouch: true })).shipTouch).toBe(true);
+  });
+
   it("is what an unreadable store falls back to, in every direction", () => {
     for (const raw of ["", "{", "null", "7", '"yes"', "[]", '{"sound":"loud"}']) {
       expect(parseSettings(raw)).toEqual(DEFAULT_SETTINGS);

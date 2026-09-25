@@ -76,6 +76,15 @@ export const TOGGLES: ToggleRow[] = [
       if (!value) leaveFullscreen();
     },
   },
+  {
+    key: "shipTouch",
+    label: "TOUCH THE SHIP",
+    on: "Drag the cannon and the shield on the ship itself, or use the panel.",
+    off: "Only the panel moves the cannon and the shield.",
+    // Read by the field on every press (`field-input.ts`), so it takes hold
+    // on the next one and has nothing to do here.
+    apply: () => {},
+  },
 ];
 
 export function toggleRow(row: ToggleRow, hooks: SettingsHooks): HTMLElement {

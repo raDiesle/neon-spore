@@ -178,6 +178,7 @@ export function wellColsFrom(l: Layout, originAngle: number, x: number, y: numbe
  * the flat hull's, handed the hour under the finger for the column.
  */
 function wellShipUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  if (field.ship === false) return null; // TOUCH THE SHIP off (`Field.ship`)
   const cannon = wellCannonGrab(l, field.cannonCol);
   const shield = wellShieldGrab(l, field.shieldCol);
   const onCannon = hitCircle(cannon, x, y);

@@ -22,6 +22,7 @@ import { type BriefingBinding, bindBriefing } from "./briefing.js";
 import { bindControls, type Controls, type InputBuffer } from "./input.js";
 import { bindLost } from "./lost.js";
 import type { RunState } from "./run-state.js";
+import { readSettings } from "./settings.js";
 import { bindShake } from "./shake.js";
 
 /**
@@ -151,6 +152,8 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     // The ship answers a finger where it is drawn, not only on the strips below.
     cannonCol: () => world.cannonCol,
     shieldCol: () => world.shieldCol,
+    // Off unless the player turned it on (`settings.ts` `shipTouch`).
+    ship: () => readSettings().shipTouch,
     opening: () => briefingHolds(world),
     beatPhase,
     skinY: o.skinY,

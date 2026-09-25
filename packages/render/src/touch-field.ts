@@ -165,6 +165,18 @@ export interface Field {
    * one thing `touch.ts` exists to prevent.
    */
   well: boolean;
+  /**
+   * Whether the hull's two lobes answer a hand at all. `false` is a player who
+   * has left SETTINGS' TOUCH THE SHIP off, which is the game's default: the
+   * press goes on to whatever is behind the lobe, as though the ship were not
+   * there, and the panel is the only way to the cannon and the shield.
+   *
+   * **Optional, and absent means yes** — the one field here that is. Its only
+   * caller that can say no is the game (`apps/game/src/input-bindings.ts`),
+   * which always states it, and every other caller — the director's stage and
+   * the tests — is judging the whole control scheme, the hull included.
+   */
+  ship?: boolean;
 }
 
 /**
