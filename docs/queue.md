@@ -325,6 +325,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Comments still argue from THE DIASTOLE, THE ORRERY and THE CANDLE
 
 - **Found:** 2026-09-25, claude/remove-three-bosses-cdb822
+- **Taken:** 2026-09-25, claude/queue-comments-still-argue-from-the-diastole-the-orrer
 - **Files:** `packages/render/src/boss-cue-read-c.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/touch-field.ts`, `packages/render/test/boss-cue-gorge.test.ts`, `packages/sim/src/boss-union.ts`, `packages/sim/src/throat.ts`, `apps/game/src/keys.ts`, `apps/game/src/field-input.ts`, `tools/director/src/poses-bosses-kit.ts`
 
 The three bosses left the game on 25 September 2026, and every file that
