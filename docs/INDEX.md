@@ -126,6 +126,7 @@ by hand never moves.
 | `packages/sim/src/hash.ts` | world fingerprint — desync detection |
 | `packages/sim/src/replay.ts` | the test format: inputs in, fingerprint out |
 | `packages/sim/src/reprise-state.ts` | **THE REPRISE**: the cursors into the wave's own script that the echo is read back off |
+| `packages/sim/src/reprise-plan.ts` | **THE REPRISE's schedule, read off a script without playing it**: which stretches are sent again, and after which row — the director's map reads it |
 | `packages/sim/src/reprise.ts` | **THE REPRISE's clock**: holds the wave's own arrivals and sends the stretch just gone down again, unseen |
 | `packages/sim/src/boss-state.ts` | everything the Bulb Queen encounter remembers between beats |
 | `packages/sim/src/briefing.ts` | how a wave opens, and the only part of it the simulation owns |
@@ -2518,6 +2519,7 @@ by hand never moves.
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
 | `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a beat taken out, with the asking a removal does first |
 | `tools/director/src/grid-row-acts.ts` | The row verbs as things you can see: a line between two rows that opens a beat where it is drawn, and a trash at the row's right end, both worn by the row under the pointer or the row of the cell being edited |
+| `tools/director/src/grid-reprise.ts` | **Where THE REPRISE's dark falls, on the map**: a line under the row each stretch is sent again after, with its count and rows |
 | `tools/director/src/grid-follow.ts` | The map follows the beat that is playing, keeping the next few rows on screen too, in steps rather than by the beat — and stands aside as soon as a hand scrolls |
 | `tools/director/src/grid-metrics.ts` | The map's own arithmetic: the width of a cell, of the beat numbers, of the strip of row buttons, and what the nine tracks add up to |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |

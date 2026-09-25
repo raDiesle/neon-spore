@@ -48,7 +48,7 @@ export function renderRepriseEditor(
         "the top — same bodies, same columns, same spacing — with nothing drawn " +
         "on either screen. The wave's own arrivals wait until it has finished, " +
         "so a longer stretch is a longer thing to remember rather than a " +
-        "busier field.",
+        "busier field. The map marks the row each echo falls after.",
     ),
   );
 }

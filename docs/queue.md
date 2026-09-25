@@ -805,3 +805,16 @@ where the field may already say everything. (a) is the five items above, twice.
 (b) deletes each `guide` and needs `waves.test.ts`'s *first to carry a boss
 has a guide* rule to name these two as the exception, the way it names wave 1
 and THE HAND's; `STILL_PROSE` and §3.2 lose both names either way.
+
+## `bun run shot` has no way to name a wave, and the filter route misses it
+
+- **Found:** 2026-09-25, claude/reprise-boss-visibility-timing-6c7bb7
+- **Files:** `tools/frames/shot-flags.ts`, `tools/frames/shot.ts`, `docs/commands.md`
+
+`bun run shot "#grid" out.png --serve --type "#waveFilter=REPRISE" --click
+".wave-row"` photographed the first wave on the list, not THE REPRISE: the
+click lands before the filter has re-rendered the rail, and nothing says so.
+What worked was `--path "/?wave=93"`, with the index worked out by a scratch
+script. Add `--wave "<name or id>"` that resolves the index from `WAVES` and
+sets the path, and fail loudly when it matches nothing; name it in
+`docs/commands.md`. Provable with a test on `readShotFlags`.

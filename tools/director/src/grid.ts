@@ -6,6 +6,7 @@ import { bindFollow } from "./grid-follow.js";
 import { bindCellGestures, watchStrokeEnd } from "./grid-gestures.js";
 import { CELL_PX, GAP_PX, gridTemplateColumns } from "./grid-metrics.js";
 import { bindGridNote } from "./grid-note.js";
+import { repriseBand, repriseEchoes } from "./grid-reprise.js";
 import { bindRowActs } from "./grid-row-acts.js";
 import { beatLabel, bindRowVerbs } from "./grid-rows.js";
 import type { Held } from "./held.js";
@@ -160,6 +161,11 @@ export function bindGrid(
         const band = acts.band(b, faults[b]);
         if (band) grid.appendChild(band);
       }
+    }
+    // THE REPRISE's echoes, each across the row its dark falls after
+    // (`grid-reprise.ts`).
+    for (const echo of repriseEchoes(wave)) {
+      if (echo.lastRow < beats) grid.appendChild(repriseBand(echo));
     }
     mark(markedBeat);
   };

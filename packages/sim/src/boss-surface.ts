@@ -223,3 +223,7 @@ export {
   wardenPullMilli,
   wardenTether,
 } from "./bosses.js";
+// And THE REPRISE's schedule and its clock, which the director and the
+// measure along the top of the screen read (`reprise-plan.ts`).
+export { type RepriseEcho, reprisePlan } from "./reprise-plan.js";
+export { type RepriseClock, repriseClock, repriseEvery } from "./reprise-state.js";

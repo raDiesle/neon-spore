@@ -212,3 +212,28 @@ button.pin-cell.mBlockLit {
   align-items: center;
   margin: 6px 0;
 }
+/* THE REPRISE'S DARK, ON THE MAP (`grid-reprise.ts`).
+
+   A band across the last row a stretch covers, and a heavy line under it:
+   the row below waits until the echo has been sent. Violet rather than the
+   faults' gold, so an echo and a malfunction on one row are two marks. */
+#grid .rowtags.reprise-cut {
+  /* A line under the row and a tag hung off it, never a fill across the row:
+     a body on the last row of a stretch has to stay visible. */
+  inset: auto 0 -3px 0;
+  height: 3px;
+  overflow: visible;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: var(--dim);
+  z-index: 2;
+}
+#grid .reprise-cut .rowtag {
+  transform: translateY(3px);
+  border-radius: 0 0 3px 3px;
+  background: var(--dim);
+}
+#grid .reprise-cut .rowtag .who,
+#grid .reprise-cut .rowtag .span {
+  color: var(--ink);
+}

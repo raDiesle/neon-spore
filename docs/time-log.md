@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE REPRISE's map marks the row each echo falls after
+
+- reading: 5 min. `reprise.ts`'s clock, `onBeat`'s order, the director's
+  fault bands as the pattern.
+- writing: 5 min. `reprisePlan`, `repriseClock`, the band, and a test that
+  plays the real world beside the plan over five scripts.
+- looking: 5 min. Three `bun run shot`s of the map: the tag first covered a
+  body on the row and ran past the edge.
+- friction: 5 min. `shot --type/--click` photographed the first wave rather
+  than the filtered one; `--path "/?wave=93"` reached it.
+- landing: 5 min. The import sort and two INDEX rows.
+
+Bottleneck: reaching one wave in the director from a shot — the filter-and-click
+route silently lands on another wave.
+
 ## 2026-09-25 — On HARD a wasted shot loses the wave
 
 - reading: 15 min. `failWave`, the difficulty levels and where they are set,

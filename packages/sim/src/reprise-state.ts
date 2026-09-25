@@ -109,6 +109,38 @@ export function repriseLeft(world: World): number {
 }
 
 /**
+ * **Where the running stretch or echo stands**, for the measure the picture
+ * draws along the top of the screen (the owner, 25 September 2026: *some
+ * loading indicator … when the next invisible starts, and also when it's the
+ * beats of invisible time*).
+ *
+ * Recording, `done` runs from nought on the beat a stretch starts to
+ * `beats - 1` on the last beat before the dark; the echo opens on the next.
+ * Echoing, it runs from nought on the beat the first body is sent to
+ * `beats - 1` on the beat the last one is, which is the beat the field is
+ * the pair's own again. `count` is the bodies recorded so far, or still owed.
+ * Whole beats: render adds the drawn beat's phase.
+ */
+export interface RepriseClock {
+  echo: boolean;
+  beats: number;
+  done: number;
+  count: number;
+}
+
+export function repriseClock(world: World): RepriseClock | null {
+  const boss = world.boss;
+  if (boss === null || boss.kind !== "reprise") return null;
+  if (boss.at < 0) {
+    const done = world.waveBeat - boss.held - boss.since;
+    return { echo: false, beats: boss.every, done, count: world.spawned - boss.from };
+  }
+  const base = world.queue[boss.from]?.beat ?? 0;
+  const last = world.queue[boss.cursor + boss.left - 1]?.beat ?? base;
+  return { echo: true, beats: last - base + 1, done: world.waveBeat - boss.at, count: boss.left };
+}
+
+/**
  * Every number two devices have to agree about. `every` is authored and is in
  * here for `mazeHashParts`' reason — two phones on two builds of `content`
  * would send the wave again at different beats, and nothing else in the
