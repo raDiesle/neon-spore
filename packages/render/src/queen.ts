@@ -1,5 +1,6 @@
 import { crystalPath, QUEEN_SHELL } from "@neon-spore/content";
 import type { Creature, QueenState, SimConfig } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -52,6 +53,7 @@ export function drawQueen(
   beatPhase: number,
   shake: number,
   eggGrowShare: number,
+  hurt: number,
 ): void {
   const f = QUEEN_FIGURE;
   const tile = l.tile;
@@ -95,6 +97,7 @@ export function drawQueen(
     queen.id,
     time,
     healthShare,
+    hurt,
   );
   // The rings player 1's thumb answers with, over the shell's lip, and the
   // pry and the hold read off the beat (`queen-grip.ts`).
@@ -171,6 +174,7 @@ function drawShell(
   id: number,
   time: number,
   healthShare: number,
+  hurt: number,
 ): void {
   const shape = QUEEN_SHELL;
   const phase = (id % 7) * 0.9;
@@ -182,6 +186,7 @@ function drawShell(
   ctx.save();
   ctx.translate(x, y);
   QUEEN_LOOK.shell({ ctx, path, rx, ry, t, time, healthShare });
+  drawHurt(ctx, path, hurt);
   ctx.restore();
 }
 

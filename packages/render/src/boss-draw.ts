@@ -60,6 +60,7 @@ export function drawBoss(
       view.beatPhase,
       effects.queenShake,
       world.cfg.queenEggGrowShare,
+      effects.ship.queenHurt.value,
     );
     return;
   }

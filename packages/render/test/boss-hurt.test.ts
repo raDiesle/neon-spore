@@ -234,6 +234,12 @@ const ROWS: Row[] = [
     ],
     hurt: (fx) => fx.boss.fleet.hurt,
   },
+  {
+    boss: "queen",
+    land: [{ type: "petal", col: 5, row: 2, left: 3 }],
+    part: [{ type: "queenFlinch", col: 4, row: 2, side: -1 }],
+    hurt: (fx) => fx.ship.queenHurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

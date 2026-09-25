@@ -171,7 +171,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // A flinch is a shudder too: a thumb bounced off her armour (`queen-hand.ts`).
     case "petal":
     case "queenFlinch":
-      ctx.ship.shudder();
+      ctx.ship.shudder(e.type === "petal");
       break;
     case "fire":
       ctx.ship.layEcho.start(ctx.beatSeconds, e.color);

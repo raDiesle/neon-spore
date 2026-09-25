@@ -1,5 +1,6 @@
 import type { PodKind } from "@neon-spore/sim";
 import { drawBanner } from "./banner.js";
+import { BossHurt } from "./boss-hurt.js";
 import { FireVein } from "./fire-vein.js";
 import { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
@@ -29,6 +30,10 @@ export class ShipMoods {
   private guardHit = 0;
   /** Counts down after she loses a petal. There is only ever one queen. */
   private queenShakeUntil = 0;
+  /** The red a petal off washes her shell with — the blow every boss takes
+   * (`boss-hurt.ts`), whose shake here is her own shudder above. A flinch
+   * shudders her and deals none of it: a thumb bounced off is no sequence. */
+  readonly queenHurt = new BossHurt();
   /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
    * `HullMood.lay`, the way it reads `armed` off the mirror. */
   readonly layEcho = new LayEcho();
@@ -64,14 +69,16 @@ export class ShipMoods {
     this.guardHit = BANNER_LIFE;
   }
 
-  /** A petal is off the queen. */
-  shudder(): void {
+  /** A petal is off the queen (`petal`), or a thumb bounced off her. */
+  shudder(petal: boolean): void {
     this.queenShakeUntil = QUEEN_SHAKE_LIFE;
+    if (petal) this.queenHurt.hit();
   }
 
   update(dt: number): void {
     this.guardHit = Math.max(0, this.guardHit - dt);
     this.queenShakeUntil = Math.max(0, this.queenShakeUntil - dt);
+    this.queenHurt.update(dt);
     this.swallow.update(dt);
     this.layEcho.update(dt);
     this.fireVein.update(dt);
@@ -80,6 +87,7 @@ export class ShipMoods {
   clear(): void {
     this.guardHit = 0;
     this.queenShakeUntil = 0;
+    this.queenHurt.clear();
     this.swallow.clear();
     this.layEcho.clear();
     this.fireVein.clear();
