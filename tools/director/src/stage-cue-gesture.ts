@@ -59,13 +59,16 @@ export function instarGesture(
   if (s === null || held.id === undefined) return null;
   const mark = instarStep(s)?.marks[held.id];
   if (mark === undefined || instarMarkDone(s, held.id)) return null;
+  // What the part has pushed back while this thumb was on it (`pushMilli`,
+  // `sim/instar-step.ts`): the finger goes that much further, as a hand would.
+  const pushed = Math.max(0, s.ref[held.id] ?? 0);
   switch (mark.gesture) {
     case "hold":
       return null;
     case "pullDown":
-      return { do: "move", x: held.x, y: held.y + depth(l, mark.need + OVERSHOOT) };
+      return { do: "move", x: held.x, y: held.y + depth(l, mark.need + pushed + OVERSHOOT) };
     case "pullUp":
-      return { do: "move", x: held.x, y: held.y - depth(l, mark.need + OVERSHOOT) };
+      return { do: "move", x: held.x, y: held.y - depth(l, mark.need + pushed + OVERSHOOT) };
     case "swipeDown":
       // Down past the line on the first tick, off on the next: an egg is
       // counted on the lift that follows the carry, never on the carry.

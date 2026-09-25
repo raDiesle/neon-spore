@@ -6264,8 +6264,12 @@ up, `landBeats` of the part giving before the next morph — and an
 **arrival**, how the body flies into the pose while it morphs: `approach`
 from far off, `passes` out of the frame and across twice, `cross` out one
 side and in the other (`INSTAR_ARRIVALS`, in `sim/instar-words.ts`). The
-script is eight steps over five poses since 25 September 2026: *breath*,
-*brood*, *lash*, *lunge* — one mark on the brow for both seats to hold —
+script is ten steps over five poses since 25 September 2026: *breath*
+three times — the jaws shut, forced open again where it stays (the arrival
+`stay`), and shut against a push, `pushMilli` thousandths of a tile taken
+back off each pull every beat a thumb is on it, 250 on the second bite and
+500 on the third, so a jaw shut early and held still opens again under the
+thumb — *brood*, *lash*, *lunge* — one mark on the brow for both seats to hold —
 *breath* again with the seats swapped on the jaws, *coil* — both blades
 wound two turns — *lunge* again, split — player 1 holds the brow alone
 while player 2 taps the right eye shut, twelve taps — and *lash* again

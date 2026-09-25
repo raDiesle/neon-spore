@@ -23,7 +23,9 @@ import type { World } from "./world.js";
  *
  * - `tap` counts grabs. A thumb held down is one slap, not a slap a tick.
  * - `pullDown` / `pullUp` **stand at** the depth the thumb is carrying the part,
- *   in its own direction; the other direction is nought. A lift before the
+ *   in its own direction, less what the part has pushed back while the thumb
+ *   was on it (`ref`, grown by the beat — `instar-step.ts`); the other
+ *   direction is nought. A lift before the
  *   step lands lets the part go — back to nought, and the partner's pull
  *   slips with it on the beat if it was already there (`instar-step.ts`).
  * - `swipeDown` arms on a carry past `instarSwipeMilli` and counts on the lift
@@ -88,7 +90,8 @@ function pull(world: World, s: InstarState, i: number, mark: InstarMark, command
     return;
   }
   const depth = command.fromYMilli ?? 0;
-  const along = Math.max(0, mark.gesture === "pullDown" ? depth : -depth);
+  const pushed = Math.max(0, s.ref[i] ?? NO_BEARING);
+  const along = Math.max(0, (mark.gesture === "pullDown" ? depth : -depth) - pushed);
   // Said once, halfway: a pull that spoke on every tick of the carry would
   // be a hum, and the part giving is `instarDone`'s own sound.
   const half = Math.floor(mark.need / 2);

@@ -45,13 +45,18 @@ export type InstarPose = (typeof INSTAR_POSES)[number];
  * the entrance: small and far off, flying in at the ship until it fills the
  * field. `passes` flies it out of the frame and across twice before it comes
  * in to stay. `cross` takes it out one side and back in from the other.
+ * `stay` does not fly at all: the body is where the last step left it, and
+ * the morph is only the pose coming back — the jaws forced open again after
+ * a bite, the second and third time of three (the owner, 25 September 2026:
+ * *the dragon tries to keep mouth open and it tries to push back*). Last in
+ * the list because the hash names an arrival by its place.
  *
  * The flight is the picture's, drawn in `packages/render`; the simulation
  * only knows the morph takes its beats. It is authored here because a script
  * is the whole of the scene, and two devices handed different flights would
  * be showing different scenes.
  */
-export const INSTAR_ARRIVALS = ["approach", "passes", "cross"] as const;
+export const INSTAR_ARRIVALS = ["approach", "passes", "cross", "stay"] as const;
 export type InstarArrival = (typeof INSTAR_ARRIVALS)[number];
 
 /** Where the scene is: the body morphing with its marks hidden, the marks up
@@ -81,6 +86,14 @@ export interface BossSequenceStep {
   windowBeats: number;
   /** Beats the landed beat plays out before the next morph. */
   landBeats: number;
+  /** **How hard the part pushes back against a pull**, in thousandths of a
+   * tile a beat: every beat a thumb is on a `pullDown`/`pullUp` mark, the
+   * part takes back this much of the carry, and the thumb has to go that much
+   * further to stand where it stood — a jaw already shut opens again under
+   * it, so a pull done early and left waiting for its partner is lost. The
+   * owner, 25 September 2026: *pulling it is required to be stronger*.
+   * Absent is nought: the part stays where the thumb puts it. */
+  pushMilli?: number;
   marks: readonly InstarMark[];
 }
 

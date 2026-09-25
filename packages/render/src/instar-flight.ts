@@ -20,6 +20,8 @@ import { INSTAR_FLIGHT_ENDS, instarPhaseAt } from "./instar-shape.js";
  *   pass back, and in from the right to stay. The turn side-on happens during
  *   the passes, while the body is small and moving.
  * - **cross**: off to the left, head first, and in from the right.
+ * - **stay**: no flight. The body is where the last step left it and only
+ *   the pose comes back — the second and third bite of the breath.
  *
  * **It is the picture's alone.** The flight is a transform round the body's
  * middle, and it is over by `INSTAR_FLIGHT_ENDS` of the morph — the moment
@@ -59,6 +61,8 @@ export function flown(arrive: InstarArrival, t: number): Flight {
     return { dxMilli: weave, dyMilli: -320 * (1 - scale), scale };
   }
   if (arrive === "passes") return passes(t);
+  // Stay: it never left. The morph is the jaws forced open where it is.
+  if (arrive === "stay") return AT_REST;
   // Cross: off to the left, and in from the right.
   if (t < 0.45) {
     const e = smoothstep(t / 0.45);

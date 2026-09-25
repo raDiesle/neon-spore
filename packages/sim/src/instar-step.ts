@@ -1,3 +1,4 @@
+import { NO_BEARING } from "./bearing.js";
 import { midCol } from "./config.js";
 import { breachHull } from "./hull-damage.js";
 import {
@@ -7,6 +8,7 @@ import {
   instarHeld,
   instarMarkCol,
   instarMarkDone,
+  instarPulled,
   instarStep,
   instarStrikeBeat,
   NOT_DONE,
@@ -33,6 +35,12 @@ import type { World } from "./world.js";
  * *done* was together. On the beat and not the tick so a hand two ticks late
  * on the other phone is not two ticks late — the window the pair is given is
  * said in beats, and a beat is the unit they can hear.
+ *
+ * The beat is also **the part pushing back** against a pull on a step that
+ * says it does (`pushMilli`): each beat a thumb is on the mark, the carry
+ * loses that much, and a jaw that was shut is open again until the thumb goes
+ * further. On the beat, like the slip, so the shove is a pulse the pair can
+ * feel in the music rather than a drift.
  *
  * And the beat is what counts a **hold**: a mark whose thumbs are all on it
  * gains one unit per beat they stay, which is the one gesture with no command
@@ -90,6 +98,22 @@ function slipLonely(world: World, s: InstarState): void {
   }
 }
 
+/** The part pushes back against every thumb on a pull, by the step's
+ * `pushMilli`: what it has taken back is kept in `ref` (`NO_BEARING` until
+ * the first shove of a grab), so the next move is judged against it. */
+function pushBack(s: InstarState): void {
+  const step = instarStep(s);
+  const push = step?.pushMilli ?? 0;
+  if (step === null || push <= 0) return;
+  for (let i = 0; i < step.marks.length; i++) {
+    const mark = step.marks[i];
+    if (mark === undefined || !instarPulled(mark.gesture) || (s.thumbs[i] ?? 0) === 0) continue;
+    s.ref[i] = Math.max(0, s.ref[i] ?? NO_BEARING) + push;
+    s.progress[i] = Math.max(0, (s.progress[i] ?? 0) - push);
+    if ((s.progress[i] ?? 0) < mark.need) s.doneBeat[i] = NOT_DONE;
+  }
+}
+
 /** Which thumbs a hold mark wants, as the bits `s.thumbs` keeps: player 1's
  * is 1, player 2's is 2. */
 const HOLDERS = { p1: 1, p2: 2, both: 3 } as const;
@@ -137,6 +161,7 @@ export function stepInstar(world: World, s: InstarState): void {
   }
   if (s.phase === "act") {
     slipLonely(world, s);
+    pushBack(s);
     countHolds(world, s);
     // A hold that landed the step this beat has closed the window itself.
     if (instarActing(s) && world.beat >= instarStrikeBeat(s)) strike(world, s);

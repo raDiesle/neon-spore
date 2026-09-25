@@ -57,6 +57,7 @@ export const BOSS_ENTRIES_C = {
         morphBeats: 2,
         windowBeats: 6,
         landBeats: 2,
+        pushMilli: 250,
         marks: [
           { seat: "p1", part: "jaw", gesture: "pullDown", xMilli: 500, yMilli: 440, need: 1000 },
           { seat: "p2", part: "jaw", gesture: "pullUp", xMilli: 500, yMilli: 240, need: 1000 },

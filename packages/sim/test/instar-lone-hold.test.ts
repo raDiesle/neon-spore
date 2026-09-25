@@ -14,7 +14,7 @@ import {
 
 /**
  * **One seat holds while the other strikes**: the split lunge of THE
- * INSTAR's script (`content/instar-script.ts`, step 7). A hold on a mark of
+ * INSTAR's script (`content/instar-script.ts`, the ninth step). A hold on a mark of
  * one seat's own counts that seat's thumb alone, where a `both` mark waits
  * for two (`instar.test.ts`); the tap beside it is an ordinary count, and the
  * step lands when the two are done inside the together beats. A lift before

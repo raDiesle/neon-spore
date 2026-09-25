@@ -1,7 +1,7 @@
 import type { BossSequenceStep } from "@neon-spore/sim";
 
 /**
- * THE INSTAR's script: eight steps over five poses, and what the pair does to each.
+ * THE INSTAR's script: ten steps over five poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -24,6 +24,13 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    Player 2 pushes the upper jaw down and player 1 the lower jaw up, four
  *    tiles each, so the jaws meet; both must be at depth at once, and a jaw
  *    let go of opens again. Left open, it breathes the fire over the field.
+ *    **Three times** (the owner, 25 September 2026: *you repeat 3 times so
+ *    dragon tries to keep mouth open and it tries to push back*): the jaws
+ *    meet, it forces them open again where it is (`stay`), and the second
+ *    bite pushes back against both thumbs every beat, the third twice as
+ *    hard (`pushMilli`) — a jaw shut early and held there waiting for the
+ *    other opens again under the thumb, so the pull has to be *stronger*,
+ *    further, and the two jaws have to meet at once.
  * 2. *Brood* — it flies off, crosses the frame twice, and comes in to stay
  *    side on, with a brood of eggs on its back, one nest over each half.
  *    Player 1 taps the left nest's eggs until every one is squashed; player 2
@@ -53,12 +60,16 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    different thing: player 1 taps the left back, player 2 winds the right.
  *    Two counts in two gestures, finishing together.
  *
+ * (Steps 2–8 below are the script's steps 4–10: the breath's three bites are
+ * one item because they are one scene.)
+ *
  * **The clocks.** A morph is the flight: eight beats for the entrance, which
  * the owner asked to be slow — *so it starts small in the background, then it
  * looks like it more and more flies towards the users screen* — twelve for
- * the two passes, seven for the crossing, and less for a pose the body
- * reaches from close by. A window is four beats, five for the hold, whose
- * need is itself beats; a landing three, four for the last. The reasoning for
+ * the two passes, seven for the crossing, three for a bite it stays for,
+ * and less for a pose the body reaches from close by. A window is four
+ * beats, five for the hold, whose need is itself beats; a landing three,
+ * two between the bites, four for the last. The reasoning for
  * each figure being the step's and not tuning: `sim/config-instar.ts`.
  *
  * **The windows were doubled and every need raised on 22 September 2026**,
@@ -95,6 +106,30 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     morphBeats: 8,
     windowBeats: 4,
     landBeats: 3,
+    marks: [
+      { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
+      { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 4000 },
+    ],
+  },
+  {
+    pose: "breath",
+    arrive: "stay",
+    morphBeats: 3,
+    windowBeats: 4,
+    landBeats: 2,
+    pushMilli: 250,
+    marks: [
+      { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
+      { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 4000 },
+    ],
+  },
+  {
+    pose: "breath",
+    arrive: "stay",
+    morphBeats: 3,
+    windowBeats: 4,
+    landBeats: 3,
+    pushMilli: 500,
     marks: [
       { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
       { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 4000 },

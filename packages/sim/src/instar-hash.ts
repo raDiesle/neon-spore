@@ -42,6 +42,7 @@ export function instarHashParts(s: InstarState): number[] {
       step.morphBeats,
       step.windowBeats,
       step.landBeats,
+      step.pushMilli ?? 0,
       step.marks.length,
     );
     for (const m of step.marks)

@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE INSTAR bites three times, and the jaws push back
+
+- reading: 10 min. The pull in the hand, the beat's slip and hold, the
+  flight, and the hash's script fingerprint.
+- writing: 20 min. `pushMilli` and its beat, the `stay` arrival, the two new
+  bites, a test file, the spec and two queue items.
+- looking: 5 min. One frame of the second bite, both jaws half shut.
+- friction: 5 min. The director's key parked a jaw on its line and the push
+  opened it under it; it now goes as far past as it was pushed.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: a pull stands at the thumb's depth, so the push had to be kept
+as an offset the next move is judged against, not taken off the count once.
+
 ## 2026-09-25 — THE INSTAR's lunge, split: one holds the brow, one strikes an eye
 
 - reading: 10 min. `countHolds`, `slipLonely`, the hand's lift, and where

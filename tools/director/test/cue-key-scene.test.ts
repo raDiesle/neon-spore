@@ -26,7 +26,7 @@ import { installDom } from "./fake-dom.js";
  * hand that had nothing in it. The key now looks again on every tick, which
  * is what this pins: one press at the first pose, held, and THE INSTAR's own
  * script is played to the end **without a single strike on the hull** —
- * seven morphs, thirteen marks, both seats and a mark they share, and each
+ * every morph and every mark, both seats and a mark they share, and each
  * one of the six gestures.
  *
  * It is the one test that runs the shipped script rather than a made-up step,

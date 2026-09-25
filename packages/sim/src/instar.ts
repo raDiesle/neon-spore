@@ -134,6 +134,12 @@ export function instarHeld(gesture: InstarGesture): boolean {
   return gesture === "pullDown" || gesture === "pullUp" || gesture === "hold";
 }
 
+/** Whether a gesture is a pull, which stands at the thumb's depth and which
+ * a step's `pushMilli` pushes back against (`instar-step.ts`). */
+export function instarPulled(gesture: InstarGesture): boolean {
+  return gesture === "pullDown" || gesture === "pullUp";
+}
+
 /**
  * **How far the swipe under the thumb is to counting**, in thousandths — nought
  * with no thumb on it, a thousand once the lift would take an egg off.

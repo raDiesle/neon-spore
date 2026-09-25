@@ -652,21 +652,6 @@ claude/instar-boss-enhancements-1ae51f, and stay.) Cut the two parts from the
 list (and from the cue, the director's sheet and any switch over them that
 `tsc` then names), and prove it with `bun run check`.
 
-## THE INSTAR, breath: the jaws press back open
-
-- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-25, claude/instar-boss-enhancements-1ae51f (claim: claude/queue-the-instar-breath-the-jaws-press-back-open)
-- **Files:** `packages/sim/src/instar-hand.ts`, `packages/sim/src/instar-step.ts`, `packages/sim/src/config-instar.ts`, `packages/sim/test/instar.test.ts`, `packages/render/src/instar-head.ts`
-
-Steps 1 and 5 of `content/instar-script.ts`. The owner asked on 25 September
-2026 for THE INSTAR to be taken further, one sequence at a time; this is the
-first. A pull today *stands at* the depth the thumb has carried it, so a thumb
-that reaches four tiles and parks there has finished. The fire should push
-back: while the window runs, a pull loses a named share of its depth each beat
-(`instarJawPushMilli` in `InstarConfig`, hashed with the rest), so both thumbs
-keep pressing until the partner's jaw is there too. The lips tremble in
-`instar-head.ts` with the push, and the test drives a parked thumb to a slip.
-
 ## THE INSTAR, brood: eggs that crack while nobody takes them
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
@@ -944,3 +929,28 @@ It was 332 lines on `main` before this lane and is 362 now: the table grows
 by a row a boss. Move `ROWS` into a `boss-hurt-rows.ts` beside it, with the
 two world builders (`instarMorphing`, `undertowStanding`), and keep the cases
 in the test. `bun run check` holds it.
+
+## THE INSTAR, breath: the shove is seen and heard
+
+- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Files:** `packages/render/src/instar-head.ts`, `packages/render/src/instar-shape.ts`, `packages/sim/src/instar-step.ts`, `.claude/skills/new-boss-state`
+
+The second and third bites of the breath push back against both thumbs every
+beat (`pushMilli`, `sim/instar-step.ts` `pushBack`), and today the only sign
+is the jaw drawn a little more open. The lips should tremble on the beat of a
+shove, stronger at the third bite's push, and the shove should have a sound —
+which is a new event, `instarShove`, and so the twelve registrations
+`.claude/skills/new-boss-state` lists. A look the owner asked for by name
+(*player really feels when pulling it is required to be stronger*).
+
+## THE INSTAR, breath: a second gesture during the bite
+
+- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Files:** `packages/content/src/instar-script.ts`, `packages/sim/test/instar-push.test.ts`, `packages/render/src/instar-draw.ts`
+- **Asks:** Which gesture goes with the third bite — (a) between the bites, a mark on the fire in the mouth that one seat taps out while the jaws are forced open, (b) during the third bite, one seat pulls its jaw while the other taps the fire, then both pull, or (c) none, the push is enough?
+
+The owner, 25 September 2026, on the breath's three bites: *or combine with
+some other movement action in between or during.* The three bites and the
+push landed; the combination did not, because it picks a gesture and a part
+the owner has not named. A mark on the fire would be a new part, last in
+`INSTAR_PARTS` for the hash.
