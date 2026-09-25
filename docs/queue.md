@@ -833,6 +833,7 @@ Not startable by a fresh session before the look lands — take it after.
 ## Whether THE FILAMENT needs a film at all
 
 - **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Taken:** 2026-09-25, claude/instar-boss-enhancements-1ae51f (claim: claude/queue-whether-the-filament-needs-a-film-at-all)
 - **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/content/test/waves.test.ts`, `docs/spec/briefings.md`
 - **Asks:** A boss that says its own verbs on the field — THE FILAMENT's words beside the rings — do you want (a) a film written for it, like every other boss, or (b) the guide dropped, so the wave opens on its number and name and the field does the teaching?
 
