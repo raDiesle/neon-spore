@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 28e3d5b02 — THE FILAMENT has a clock, and every fault loses the wave
+
+A snap, a recoil and a dark line now strike the hull, which is the wave lost and played again. The line also has a clock: 12 beats for the first tile, 6 for every one after, restarted by either thumb. When it runs out, the line strikes the hull under the thumb it was waiting on (`filamentLate`, with its own sound). The guide says so. `filament-turn.ts` tells the screens whose move it is (P1's, P2's, or either's), whether a second tile would snap, and on which beat the line strikes. The next lane draws all of it.
+
 ## 2026-09-25 · 239407f53 — THE REPRISE's map marks the row each echo is sent again after
 
 The director draws a line under the last row of every stretch THE REPRISE sends again unseen, tagged with how many bodies come back and from which rows. The rows come from `reprisePlan`, which walks the simulation's own clock over the entries' beats and is held to the real world by a test; a stretch covers one row fewer than its beat count, because the beat the dark falls on is itself held. `repriseClock` is added beside it for the measure the game will draw along the top of the screen.

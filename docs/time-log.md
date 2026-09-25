@@ -20510,3 +20510,5 @@ sign plates had to move into their own file before SKIP could join the row.
 
 The bottleneck was **writing**: one new event is fourteen registrations across
 sim, audio, render and the director, and each is found by the typecheck.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
