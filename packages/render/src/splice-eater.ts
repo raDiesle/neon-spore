@@ -9,40 +9,43 @@ import { rgba } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawSlimeBall } from "./splice-ball.js";
-import { drawEaterBody } from "./splice-eater-body.js";
+import { drawEaterBody, type EaterPose } from "./splice-eater-body.js";
 import { spliceTopY } from "./splice-straws.js";
 
 /**
  * **THE SPLICE's clock, as the thing that eats the number** (the owner,
- * 25 September 2026: *an alien approaches and eats the ball itself*).
+ * 25 September 2026: *an alien approaches and eats the ball itself*; and the
+ * same day: *out of the right-hand wall, part of the ship, and plainly trying
+ * to eat*).
  *
- * It hangs out of an orifice in the hold's ceiling (`splice-hold.ts`) and
- * lets itself down as the round's beats are spent, so how far down it is *is*
- * how long is left — on the navigator's screen alone, the one the countdown was
- * always drawn on. In the last stretch its mouth opens. When the clock runs out
- * (`SpliceState.eatBeat`) its tongue takes the number the pair owed next, and
- * it drops onto the hull at the column the cannon was in — on **both**
- * screens, because that fall is the verdict and the verdict is both seats'.
- * It lands as slime, the `slick` breach the simulation files it under.
+ * It grows out of a socket in the hold's right wall (`splice-hold.ts`) and is
+ * out from the round's first beat. As the beats are spent it lengthens, its
+ * drool gets longer, and its tongue snaps at the number the pair owes next —
+ * once a beat and a little faster as it gets hungry, each snap reaching further
+ * along the way, until the last one touches. How far the tongue gets *is* how
+ * long is left, on the navigator's screen alone, the one the countdown was
+ * always drawn on.
  *
- * The body is the shape sheet's TENDRIL draft (`splice-eater-body.ts`).
+ * When the clock runs out (`SpliceState.eatBeat`) the tongue takes the number,
+ * the eater chews it, and spits what is left of it at the hull where the
+ * cannon stood — on **both** screens from the chew on, because that is the
+ * verdict and the verdict is both seats'. It lands as the `slick` breach the
+ * simulation files it under.
  */
 
-/** How far across the grid the orifice is, and how many tiles over the top ends. */
-const ORIFICE_ACROSS = 0.8;
-const ORIFICE_UP = 3.4;
+/** The socket: tiles in from the right edge, and tiles over the top ends. */
+const SOCKET_IN = 0.45;
+const SOCKET_UP = 2.2;
 /** Its length at the start of a round and at the end, in tiles. */
-const REACH_FROM = 0.5;
-const REACH_TO = 2.5;
-/** Beats of the bite spent reaching for the number and pulling it in. */
+const REACH_FROM = 1.3;
+const REACH_TO = 2.8;
+/** Beats of the bite: reaching, pulling in, chewing; the rest is the spit. */
 const REACH_BEATS = 0.35;
 const BITE_BEATS = 0.8;
+const CHEW_BEATS = 1.3;
 
-export function spliceOrifice(l: Layout, cfg: SimConfig): { x: number; y: number } {
-  return {
-    x: l.gridLeft + l.gridWidth * ORIFICE_ACROSS,
-    y: spliceTopY(l, cfg) - l.tile * ORIFICE_UP,
-  };
+export function spliceSocket(l: Layout, cfg: SimConfig): { x: number; y: number } {
+  return { x: l.width - l.tile * SOCKET_IN, y: spliceTopY(l, cfg) - l.tile * SOCKET_UP };
 }
 
 /** How much of the round's clock is spent, 0 to 1. */
@@ -51,9 +54,45 @@ export function spliceSpent(s: SpliceState, b: number): number {
   return Math.max(0, Math.min(1, (b - s.roundBeat) / beats));
 }
 
+/** A snap: out in the first sixth of its cycle, back slowly over the rest. */
+function snap(phase: number): number {
+  const f = ((phase % 1) + 1) % 1;
+  return f < 0.16 ? f / 0.16 : (1 - (f - 0.16) / 0.84) ** 2;
+}
+
+function drawTongue(
+  ctx: CanvasRenderingContext2D,
+  t: number,
+  from: { x: number; y: number },
+  to: { x: number; y: number },
+): void {
+  const d = Math.hypot(to.x - from.x, to.y - from.y);
+  if (d < t * 0.1) return;
+  const cx = (from.x + to.x) / 2;
+  const cy = Math.max(from.y, to.y) + d * 0.25;
+  ctx.lineCap = "round";
+  ctx.strokeStyle = PALETTE.redRim;
+  ctx.lineWidth = Math.max(1.5, t * 0.1);
+  ctx.beginPath();
+  ctx.moveTo(from.x, from.y);
+  ctx.quadraticCurveTo(cx, cy, to.x, to.y);
+  ctx.stroke();
+  // The sticky tip, split in two.
+  ctx.fillStyle = PALETTE.redRim;
+  for (const side of [-1, 1]) {
+    ctx.beginPath();
+    ctx.arc(to.x, to.y + side * t * 0.07, t * 0.08, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function ballAt(l: Layout, cfg: SimConfig, s: SpliceState, e: number) {
+  return { x: tileCX(l, s.topCols[s.topOf[e] ?? 0] ?? 0), y: spliceTopY(l, cfg) };
+}
+
 /**
  * The eater, wherever it is. `b` is the beat and its phase. The clock only
- * ever shows on her screen, so on his it is not drawn until it drops.
+ * ever shows on her screen, so on his it is not drawn until it has bitten.
  */
 export function drawEater(
   ctx: CanvasRenderingContext2D,
@@ -65,73 +104,87 @@ export function drawEater(
   b: number,
 ): void {
   const t = l.tile;
-  const o = spliceOrifice(l, cfg);
-  const sway = Math.sin(b * Math.PI * 0.5) * t * 0.18;
+  const o = spliceSocket(l, cfg);
+  const sag = t * (0.3 + 0.1 * Math.sin(b * Math.PI * 0.5));
+  const pose = (reach: number, open: number, hunger: number): EaterPose => ({
+    len: t * (REACH_FROM + (REACH_TO - REACH_FROM) * reach),
+    wide: t * (0.75 + 0.2 * reach),
+    sag,
+    open,
+    hunger,
+  });
+
   if (s.eatBeat === -1) {
-    if (!full || s.passBeat !== -1) return;
+    if (!full) return;
+    if (s.passBeat !== -1) {
+      // Beaten: it shrinks back into the wall over a beat, mouth shut.
+      const gone = b - s.passBeat;
+      if (gone >= 1) return;
+      const p = pose(spliceSpent(s, s.passBeat), 0, 0);
+      drawEaterBody(ctx, o.x, o.y, { ...p, len: p.len * (1 - gone) }, b);
+      return;
+    }
     const p = spliceSpent(s, b);
-    const open = Math.max(0, (p - 0.7) / 0.3);
-    drawEaterBody(
-      ctx,
-      o.x,
-      o.y - t * 0.1,
-      t * (REACH_FROM + (REACH_TO - REACH_FROM) * p),
-      t * (0.6 + 0.3 * p),
-      sway,
-      open,
-      b,
-    );
+    const mouth = drawEaterBody(ctx, o.x, o.y, pose(p, 0.3 + 0.7 * p, p), b);
+    const w = spliceWanted(s);
+    if (w === -1) return;
+    const ball = ballAt(l, cfg, s, w);
+    const k = snap((b - s.roundBeat) * (1 + 0.6 * p)) * (0.15 + 0.8 * p);
+    drawTongue(ctx, t, mouth, {
+      x: mouth.x + (ball.x - mouth.x) * k,
+      y: mouth.y + (ball.y - mouth.y) * k,
+    });
     return;
   }
+
   const e = b - s.eatBeat;
   const taken = spliceWanted(s);
   if (e < BITE_BEATS) {
     if (!full) return;
-    const mouth = drawEaterBody(ctx, o.x, o.y - t * 0.1, t * REACH_TO, t * 0.9, sway, 1, b);
+    const mouth = drawEaterBody(ctx, o.x, o.y, pose(1, 1, 1), b);
     if (taken === -1) return;
-    const ball = { x: tileCX(l, s.topCols[s.topOf[taken] ?? 0] ?? 0), y: spliceTopY(l, cfg) };
+    const ball = ballAt(l, cfg, s, taken);
     const out =
       e < REACH_BEATS ? e / REACH_BEATS : 1 - (e - REACH_BEATS) / (BITE_BEATS - REACH_BEATS);
     const tip = { x: mouth.x + (ball.x - mouth.x) * out, y: mouth.y + (ball.y - mouth.y) * out };
-    ctx.strokeStyle = PALETTE.redRim;
-    ctx.lineWidth = Math.max(1.5, t * 0.09);
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    ctx.moveTo(mouth.x, mouth.y);
-    ctx.quadraticCurveTo((mouth.x + tip.x) / 2, Math.max(mouth.y, tip.y) + t * 0.4, tip.x, tip.y);
-    ctx.stroke();
+    drawTongue(ctx, t, mouth, tip);
     const r = t * 0.42 * (e < REACH_BEATS ? 1 : 0.4 + 0.6 * out);
-    const at = e < REACH_BEATS ? ball : tip;
-    drawSlimeBall(ctx, at.x, at.y, r, b, taken, String(spliceNumberAt(s, taken)), {
+    drawSlimeBall(ctx, tip.x, tip.y, r, b, taken, String(spliceNumberAt(s, taken)), {
       shake: 1,
       alpha: 1,
     });
     return;
   }
-  // The drop: out of the ceiling, faster as it goes, onto the column the
-  // cannon was in when it bit.
-  const q = Math.max(
-    0,
-    Math.min(1, (e - BITE_BEATS) / Math.max(0.1, cfg.spliceEatBeats - BITE_BEATS)),
-  );
-  const len = t * (1.7 + 0.5 * q);
+
+  const spit = cfg.spliceEatBeats;
+  if (e < CHEW_BEATS) {
+    // Chewing: the head swells on each gulp with the number glowing in it.
+    const gulp = Math.abs(Math.sin((e - BITE_BEATS) * Math.PI * 4));
+    const p = pose(1, 0.1, 0.6);
+    const mouth = drawEaterBody(ctx, o.x, o.y, { ...p, wide: p.wide * (1 + 0.12 * gulp) }, b);
+    const glow = ctx.createRadialGradient(
+      mouth.x + t * 0.3,
+      mouth.y,
+      0,
+      mouth.x + t * 0.3,
+      mouth.y,
+      t * 0.45,
+    );
+    glow.addColorStop(0, rgba(PALETTE.pod, 0.8));
+    glow.addColorStop(1, rgba(PALETTE.pod, 0));
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(mouth.x + t * 0.3, mouth.y, t * 0.45, 0, Math.PI * 2);
+    ctx.fill();
+    return;
+  }
+  // The spit: what is left of the number, in an arc onto the hull where the
+  // cannon stood. The simulation restarts the round on the beat it lands.
+  const mouth = drawEaterBody(ctx, o.x, o.y, pose(1, 1, 0.4), b);
+  const q = (e - CHEW_BEATS) / Math.max(0.1, spit - CHEW_BEATS);
   const col = s.eatCol === -1 ? cannonCol : s.eatCol;
-  const x = o.x + (tileCX(l, col) - o.x) * (1 - (1 - q) * (1 - q));
-  const top = o.y + (l.hullY - len - o.y) * q * q;
-  const mouth = drawEaterBody(ctx, x, top, len, t * 0.95, sway * (1 - q), 1, b);
-  // The number, swallowed, glowing through it.
-  const glow = ctx.createRadialGradient(
-    mouth.x,
-    mouth.y - len * 0.35,
-    0,
-    mouth.x,
-    mouth.y - len * 0.35,
-    t * 0.4,
-  );
-  glow.addColorStop(0, rgba(PALETTE.pod, 0.85));
-  glow.addColorStop(1, rgba(PALETTE.pod, 0));
-  ctx.fillStyle = glow;
-  ctx.beginPath();
-  ctx.arc(mouth.x, mouth.y - len * 0.35, t * 0.4, 0, Math.PI * 2);
-  ctx.fill();
+  const to = { x: tileCX(l, col), y: l.hullY - t * 0.3 };
+  const x = mouth.x + (to.x - mouth.x) * q;
+  const y = mouth.y + (to.y - mouth.y) * q * q - t * 1.5 * 4 * q * (1 - q);
+  drawSlimeBall(ctx, x, y, t * 0.36, b, taken, "", { shake: 0.5, alpha: 1 });
 }

@@ -3,7 +3,8 @@ import type { SimConfig } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { spliceOrifice } from "./splice-eater.js";
+import { spliceSocket } from "./splice-eater.js";
+import { spliceTopY } from "./splice-straws.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -12,13 +13,14 @@ import { splinePath } from "./spline.js";
  * space, and they should look like part of an alien vessel that is alive.
  *
  * So the field gets a hold: a wall of flesh up each edge, ribbed; ribs across
- * the ceiling with the orifice the eater comes out of (`splice-eater.ts`); and
+ * the ceiling; the socket in the right wall the eater grows out of
+ * (`splice-eater.ts`); and
  * veins on the back wall that brighten on the beat, the ship's own pulse.
  *
  * **It is a back, and it stays one.** Everything is dim, low in contrast and
  * away from the columns the pipes and the numbers stand in, so the straws the
  * navigator traces stay the brightest lines on the screen. Nothing in it moves
- * with the clock — the orifice breathes on the beat on both screens, and a
+ * with the clock — the socket breathes on the beat on both screens, and a
  * pulse that quickened as time ran out would hand the countdown to the pilot.
  * The hull, drawn after the field, covers where the walls meet it.
  */
@@ -74,7 +76,8 @@ export function drawHold(
   flash: number,
 ): void {
   const t = l.tile;
-  const o = spliceOrifice(l, cfg);
+  const o = spliceSocket(l, cfg);
+  const ceil = spliceTopY(l, cfg) - t * 3.4;
 
   // Veins on the back wall, pulsing on the beat.
   ctx.lineCap = "round";
@@ -88,27 +91,27 @@ export function drawHold(
   ctx.stroke();
 
   // The ceiling: a dark vault with two ribs across it, bowing down.
-  const vault = ctx.createLinearGradient(0, 0, 0, o.y + t * 0.6);
+  const vault = ctx.createLinearGradient(0, 0, 0, ceil + t * 0.6);
   vault.addColorStop(0, rgba(PALETTE.sheenDeep, 0.95));
   vault.addColorStop(1, rgba(PALETTE.sheenDeep, 0));
   ctx.fillStyle = vault;
-  ctx.fillRect(0, 0, l.width, o.y + t * 0.6);
+  ctx.fillRect(0, 0, l.width, ceil + t * 0.6);
   ctx.strokeStyle = rgba(PALETTE.sheenMid, 0.22);
   ctx.lineWidth = Math.max(1.5, t * 0.14);
   ctx.beginPath();
   for (const dy of [-0.9, 0.1]) {
-    ctx.moveTo(0, o.y + t * (dy - 0.3));
-    ctx.quadraticCurveTo(l.width / 2, o.y + t * (dy + 0.7), l.width, o.y + t * (dy - 0.3));
+    ctx.moveTo(0, ceil + t * (dy - 0.3));
+    ctx.quadraticCurveTo(l.width / 2, ceil + t * (dy + 0.7), l.width, ceil + t * (dy - 0.3));
   }
   ctx.stroke();
 
   drawWall(ctx, l, 0, b);
   drawWall(ctx, l, 1, b);
 
-  // The orifice, seen from under: a puckered ring, dark in its middle.
+  // The socket, seen side on: a puckered ring in the wall, dark in its middle.
   const breath = 1 + 0.06 * Math.sin(b * Math.PI);
   const ring = splinePath(
-    blobPoints(o.x, o.y, t * 0.62 * breath, t * 0.3 * breath, 7, 0.12, 0.05, b * 0.3, 5.3, 28),
+    blobPoints(o.x, o.y, t * 0.3 * breath, t * 0.62 * breath, 7, 0.12, 0.05, b * 0.3, 5.3, 28),
     true,
   );
   const g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, t * 0.66);

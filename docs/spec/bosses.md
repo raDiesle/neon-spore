@@ -2155,11 +2155,13 @@ one, so a pair fishing for a column does not lose the wave to a press they had
 not finished thinking about.
 
 **The clock is a creature, the eater** (25 September 2026, the owner's ask:
-*why* is time running out). For as long as a round lasts it creeps along the
-top of the field toward the number wanted next, on the navigator's screen; when
-the beats are spent it swallows that number (`SpliceState.eatBeat`) and comes
-down on the ship with it, landing `spliceEatBeats` later in the column the
-cannon stood in when it bit (`eatCol`). The verdict is the bite — `spliceWrong`
+*why* is time running out). It grows out of the hold's right wall, part of
+the ship, and is out from a round's first beat; for as long as the round lasts
+it lengthens, drools and snaps its tongue at the number wanted next, each snap
+reaching further, on the navigator's screen. When the beats are spent it
+swallows that number (`SpliceState.eatBeat`), chews, and spits what is left at
+the ship, landing `spliceEatBeats` later in the column the cannon stood in when
+it bit (`eatCol`). The verdict is the bite — `spliceWrong`
 with `clock` set, the maw shut from that beat — and the breach is the landing,
 the rule every arrival on this field follows and THE MAZE's drum's shape.
 **Nothing in this fight breaks the hull as a rock**: a wrong number bursting in

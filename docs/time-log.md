@@ -20137,3 +20137,17 @@ axis inside the slow, so the camera had to be learned before it showed
 anything.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SPLICE's eater grows out of the right wall and snaps at the number
+
+- reading: 0 min. Everything it touched was written in the lane before.
+- writing: 5 min. The body on its side with a lamprey mouth, eyes, suckers,
+  drool and the wall's lip; the snapping tongue; the chew and the spit; the
+  socket in the hold; the spec's paragraph.
+- looking: 5 min. Early, late, bite, chew on the pilot's seat and the spit,
+  and a crop of the head — which found the sac the wrong way round.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: the head came out thin until a crop showed
+the TENDRIL's fat end was at the wall.
