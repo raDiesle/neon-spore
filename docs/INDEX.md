@@ -1530,6 +1530,7 @@ by hand never moves.
 | `packages/render/src/fence-skull.ts` | **The skull the current draws over the dome when the wall above it is shut.** A fence is answered by the… |
 | `packages/render/src/fault-emitter.ts` | the malfunction's visible cause: the LANTERN emitter hanging from the top of the field and its beam down to the button, dome or muzzle the fault has taken on this screen |
 | `packages/render/src/fault-beam-ends.ts` | Where the fault's beam lands on this screen — GUARD or the dome, the colour lobes or the muzzle, the cannon strip's node for THE CHOKE |
+| `packages/render/src/fault-label.ts` | the words beside the fault's lantern — MIRRORED, SHIELD STUCK ON — one line per fault in force, on the screens it is meant for |
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/grip-beam.ts` | The beam of a brake — the one part of a hand on a rock that is visible from across the room |
 | `packages/render/src/grip-rings.ts` | The three rings a thumb on a boss's picture is drawn with: asked for, held, thrown off — the queen's and the mirror's |

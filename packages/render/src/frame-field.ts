@@ -11,6 +11,7 @@ import { drawDartGuides } from "./dart-path.js";
 import { drawDartQueries } from "./dart-query.js";
 import type { Effects } from "./effects.js";
 import { drawFaultEmitter } from "./fault-emitter.js";
+import { drawFaultLabels } from "./fault-label.js";
 import { drawFences } from "./fence.js";
 import { drawBackground, drawGrid, drawRadar } from "./field.js";
 import { drawGhostRows } from "./ghost-row.js";
@@ -117,6 +118,8 @@ export function drawBodies(
   // fault has taken (`fault-emitter.ts`). A body falling down the middle
   // column crosses in front of it.
   drawFaultEmitter(ctx, l, world, view.time);
+  // And beside it, in words, what it is doing (`fault-label.ts`).
+  drawFaultLabels(ctx, l, world);
   // THE CODEX's shimmer, over the field's own light and under the bodies: the
   // air between the pilot and the field, on the pilot's screen and on nothing
   // the navigator is shown (`codex.ts`).

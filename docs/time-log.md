@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — Every fault says what it is doing beside the lantern
+
+- reading: 5 min. The fault kinds, the lantern in `fault-emitter.ts`, where
+  THE FLIP's and THE CODEX's beams are kept from a screen.
+- writing: 10 min. `fault-label.ts`, its call in `frame-field.ts`, a test per
+  fault kind and the two screens a label is kept from.
+- looking: 15 min. Four frames: the first too small and on THE FLIP's beam,
+  the next up under a short phone's menu button, then below-right and clear.
+- friction: 5 min. Two frames past the lost screen with a leech on, and a box
+  measured in device pixels against a width in CSS pixels.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **looking**: where the words could stand was only found by
+photographing THE FLIP's sideways beams and a short phone's top edge.
+
 ## 2026-09-25 — AUTO: the director plays a seat live, with its finger drawn
 
 - reading: 5 min. The boss hands, `touch.ts`'s drag carry, the stage's step
