@@ -9,6 +9,7 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { paintBreach, paintLobe } from "./hive-cell.js";
 import type { HiveFx } from "./hive-fx.js";
@@ -82,8 +83,8 @@ export function drawHive(
   const rise = hiveClenchRise(s, cfg, beat, beatPhase);
 
   ctx.save();
-  ctx.translate(0, -(fx.jolt + rise) * l.tile);
-  drawMass(ctx, l, cfg, s, open, time, fade);
+  ctx.translate(fx.hurt.shakeX(time, l.tile), -(fx.jolt + rise) * l.tile);
+  drawMass(ctx, l, cfg, s, open, time, fade, fx.hurt.value);
   for (let i = 0; i < s.cols.length; i++) {
     const c = hiveSite(l, s, i);
     if (s.sealed[i]) drawScar(ctx, l, c, open, fade);
@@ -107,12 +108,15 @@ function drawMass(
   open: number,
   time: number,
   fade: number,
+  hurt: number,
 ): void {
   const box = hiveBox(l, cfg);
   const mid = (box.left + box.right) * 0.5;
   const hw = (box.right - box.left) * 0.5 * open;
   const wax = { ...box, left: mid - hw, right: mid + hw, tile: l.tile };
-  paintWax(ctx, hiveMassPath(l, cfg, s, open, time), wax, fade);
+  const path = hiveMassPath(l, cfg, s, open, time);
+  paintWax(ctx, path, wax, fade);
+  drawHurt(ctx, path, hurt * fade);
 }
 
 /** A lobe of the mass's own wax hung at `c`, `drop` lower, its lower wall lit in `rim` — shut, it is only this. */

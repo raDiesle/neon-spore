@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { hiveUnderY, type Point } from "./hive-shape.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -26,6 +27,10 @@ import { showsHiveColor } from "./view-role-clocks-b.js";
  * under this boss — what one screen alone is shown is a breach's *colour*,
  * so an opening bursts in that colour only where the colour is drawn
  * (`view-role-clocks-b.ts`), and everywhere else in the body's own wax.
+ *
+ * **A breach sealed is a sequence landed** — the swell called, the colour
+ * called, the bolt in — and so is the last, so both deal the mass the blow
+ * every boss takes (`boss-hurt.ts`). A site opening deals nothing.
  */
 
 /** The clench: how far the mass draws in, as a share of its width, and how fast it lets go. */
@@ -49,6 +54,8 @@ const JOLT_DECAY = 9;
 export class HiveFx {
   private clenchNow = 0;
   private joltNow = 0;
+  /** The blow a breach sealed deals the mass. */
+  readonly hurt = new BossHurt();
 
   /** How far the mass is drawn in right now, as a share of its width. */
   get clench(): number {
@@ -114,10 +121,12 @@ export class HiveFx {
         case "hiveSeal":
           at(site(e.col, 0.2), 14, PALETTE.hullRim);
           this.joltNow = JOLT_TILES;
+          this.hurt.hit();
           break;
         case "hiveDown":
           at(site(e.col, -0.3), 24, PALETTE.hullRim);
           this.joltNow = JOLT_TILES * 2;
+          this.hurt.hit();
           break;
         case "hiveOut":
           at(site(e.col, -0.6), 12, PALETTE.dim);
@@ -135,10 +144,12 @@ export class HiveFx {
     if (this.clenchNow < 0.002) this.clenchNow = 0;
     this.joltNow = Math.max(0, this.joltNow - this.joltNow * JOLT_DECAY * step);
     if (this.joltNow < 0.002) this.joltNow = 0;
+    this.hurt.update(dt);
   }
 
   clear(): void {
     this.clenchNow = 0;
     this.joltNow = 0;
+    this.hurt.clear();
   }
 }

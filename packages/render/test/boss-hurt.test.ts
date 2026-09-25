@@ -120,6 +120,15 @@ const ROWS: Row[] = [
     part: [{ type: "ratchetSet", col: 5 }],
     hurt: (fx) => fx.boss.ratchet.hurt,
   },
+  {
+    boss: "hive",
+    land: [
+      { type: "hiveSeal", left: 3, col: 3 },
+      { type: "hiveDown", col: 3 },
+    ],
+    part: [{ type: "hiveOpen", color: "red", col: 3 }],
+    hurt: (fx) => fx.boss.hive.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {
