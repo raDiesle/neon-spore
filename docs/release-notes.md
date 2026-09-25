@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 0a6610e96 — THE REPRISE has a fuse along the top of the screen
+
+While a stretch is recorded, THE SLOW's fuse burns down to the beat the field goes dark, turning orange at half and red for the last two beats. While the echo plays it fills back up in the tear's grey and is whole on the beat the last body is sent, so one line carries both clocks. It is gone after the last echo. A look the owner asked for by name.
+
 ## 2026-09-25 · d447cddbc — The canvas's size on the page is its host's, not the renderer's
 
 `Canvas2DRenderer.resize` sets the backing store only. The game's viewport, which decides the size, now writes the px itself, and the director's stage no longer deletes an inline length before every measurement: the sheet is the one answer there. `viewport.ts`'s measurement moved to `viewport-measure.ts` to keep it under the ceiling.
