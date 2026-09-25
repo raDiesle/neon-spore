@@ -1,8 +1,6 @@
 import { repriseClock, wardenHatchMilli, wardenLidsMilli, wardenTether } from "@neon-spore/sim";
 import { drawClockBoss, isClockBoss } from "./boss-draw-clocks.js";
-import { cairnBody, drawCairn } from "./cairn.js";
-import { drawPileHand } from "./cairn-hand.js";
-import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
+import { drawCairn } from "./cairn.js";
 import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
 import { drawFleetGrip } from "./fleet-grip-draw.js";
@@ -113,20 +111,10 @@ export function drawBoss(
     return;
   }
 
+  // THE CAIRN: the pile, the hand on it and the lane it drops into next, and
+  // the blow of a pulled unit through all three (`cairn.ts`).
   if (boss.kind === "cairn") {
-    const body = cairnBody(world, boss);
-    if (!body) return; // The last unit came away; there is no pile left.
-    drawCairn(ctx, l, body, boss, view.time);
-    // A hand on it, over the stack rather than under it — the field's grip
-    // pass runs before the boss is drawn, and a ring behind seven rocks was
-    // no ring at all (`cairn-hand.ts`).
-    drawPileHand(ctx, l, world, body, boss.units, view.time, view.names);
-    // And, on one screen of the two, the lane the pile is about to drop one
-    // into. After the pile, because it stands on the stone that is going and
-    // has to be read over it (`cairn-settle.ts`).
-    if (showsCairnSettle(l)) {
-      drawCairnSettle(ctx, l, world, boss, body, view.beatPhase, view.time);
-    }
+    drawCairn(ctx, l, view, boss, effects.boss.blows.cairn);
     return;
   }
 

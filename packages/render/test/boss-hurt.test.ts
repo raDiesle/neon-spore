@@ -264,6 +264,12 @@ const ROWS: Row[] = [
     ],
     hurt: (fx) => fx.boss.blows.baton,
   },
+  {
+    boss: "cairn",
+    land: [{ type: "cairnPulled", player: 1, col: 3, row: 2 }],
+    part: [{ type: "cairnHeld", col: 3, row: 2 }],
+    hurt: (fx) => fx.boss.blows.cairn,
+  },
 ];
 
 describe("the blow a boss takes", () => {

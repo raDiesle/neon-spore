@@ -528,6 +528,9 @@ const SCENES: readonly Scene[] = [
     // it is drawn, where the pile used to stroke one path once, so `stroke`
     // is fifteen higher; the coat and the strands under the pile are the
     // new paths, fills and saves, and a gradient each frame for the coat.
+    // `save` one higher on 25 September 2026: the blow of a pulled unit
+    // shakes the pile, its hand and its lane mark under one translate
+    // (`cairn.ts`), and that is one save a frame whether or not it is shaking.
     rows: {
       p1: [
         {
@@ -535,7 +538,7 @@ const SCENES: readonly Scene[] = [
           stroke: 177,
           fill: 293,
           clip: 14,
-          save: 189,
+          save: 190,
           drawImage: 49,
           createLinearGradient: 133,
           createRadialGradient: 79,
@@ -547,7 +550,7 @@ const SCENES: readonly Scene[] = [
           stroke: 179,
           fill: 294,
           clip: 14,
-          save: 189,
+          save: 190,
           drawImage: 49,
           createLinearGradient: 122,
           createRadialGradient: 57,
@@ -561,7 +564,7 @@ const SCENES: readonly Scene[] = [
           stroke: 180,
           fill: 300,
           clip: 14,
-          save: 190,
+          save: 191,
           drawImage: 48,
           createLinearGradient: 132,
           createRadialGradient: 79,
@@ -573,7 +576,7 @@ const SCENES: readonly Scene[] = [
           stroke: 182,
           fill: 301,
           clip: 14,
-          save: 190,
+          save: 191,
           drawImage: 48,
           createLinearGradient: 121,
           createRadialGradient: 57,
