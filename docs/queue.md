@@ -416,6 +416,7 @@ pulled keep their ring. Each lands as *a look the owner asked for by name*.
 ## `director-here` opens its tab on port 3000, not the director's
 
 - **Found:** 2026-09-25, claude/director-filter-persistence-884bb6
+- **Taken:** 2026-09-25, claude/queue-director-here-opens-its-tab-on-port-3000-not-the
 - **Files:** `.claude/launch.json`, `tools/dev/supervise.ts`, `docs/working-with-claude.md`
 
 `preview_start` with `director-here` started the director on a free port
