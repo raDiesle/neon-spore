@@ -397,18 +397,6 @@ Per boss, the work is:
 
 Each boss lands as *a look the owner asked for by name*.
 
-## Two sim surface files are under ten lines from the ceiling
-
-- **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4
-- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-two-sim-surface-files-are-under-ten-lines-from-t)
-- **Files:** `packages/sim/src/boss-surface-clocks-b.ts`, `packages/sim/src/bosses-clocks-b.ts`
-
-Both are export lists, at 244 and 242 lines after `instarSwipeAlong` joined
-them. The next export pushes either past 250 and `limits.test.ts` fails.
-THE INSTAR's block is the seam in both: move it into its own surface file
-(for example `boss-surface-instar.ts`) and re-export it from the same places.
-`bun run check` proves that nothing lost its import.
-
 ## `render/src/index.ts` is 20 lines under the ceiling
 
 - **Found:** 2026-09-24, claude/instar-ui-refinements-b5cec4

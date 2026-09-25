@@ -20589,3 +20589,14 @@ The bottleneck was **reading**: the map's beat came from the tick, three files
 away from the sim's own `waveBeat`, which already stood still in the right places.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE INSTAR's names are one surface page, not two lists
+
+- reading: 0 min. The two export lists and the queue item's seam.
+- writing: 5 min. `boss-surface-instar.ts`, and both pages `export *` it.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `imports:sort`, `check:fast`, the commit, `land`.
+
+The bottleneck was **the sort**: Biome orders `export *` lines among the named
+lists, and the new line had to go where it says.

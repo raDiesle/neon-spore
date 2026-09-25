@@ -28,6 +28,8 @@
 export { BOSS_PHASES } from "./boss-phases.js";
 // THE WELL's names, the last rows this page held (`boss-surface-clocks-c.ts`).
 export * from "./boss-surface-clocks-c.js";
+// THE INSTAR's script and the scene's place in it (`boss-surface-instar.ts`).
+export * from "./boss-surface-instar.js";
 // THE HIVE's entry, which authors nothing, and THE INSTAR's, which authors
 // its script: both travel out of `boss-entries.ts` through `bosses.ts`.
 export type {
@@ -110,10 +112,6 @@ export {
   throatHolds,
 } from "./bosses.js";
 export {
-  // The script and where the scene is in it: every mark is drawn from the
-  // step under the cursor, by the seat it belongs to, and the content that
-  // authors a script needs the step's shape and the closed lists it is written in.
-  type BossSequenceStep,
   diastoleClamped,
   // THE DIASTOLE's clamp: the window the picture holds the chamber open
   // for, whose thumb it is, and the coincidence the director primes on.
@@ -167,34 +165,8 @@ export {
   hiveSwellingAt,
   hiveTwins,
   hiveWrungAt,
-  INSTAR_ARRIVALS,
-  INSTAR_GESTURES,
-  INSTAR_PARTS,
-  INSTAR_PHASES,
-  INSTAR_POSES,
-  INSTAR_SEATS,
-  type InstarArrival,
-  type InstarGesture,
-  type InstarMark,
-  type InstarPart,
-  type InstarPhase,
-  type InstarPose,
-  type InstarSeat,
-  type InstarState,
-  instarActing,
-  instarAllDone,
-  instarBoss,
-  instarDown,
-  instarHeld,
-  instarMarkCol,
-  instarMarkDone,
-  instarSeatHears,
-  instarStep,
-  instarStrikeBeat,
-  instarSwipeAlong,
   NO_GRAB,
   NO_PINCH,
-  NOT_DONE,
   NOT_DRAWN,
   // THE VANE's arm once a thumb is on it, and its bearing under all three
   // phases — read, never re-derived from the cycle (`vane-open.ts`).

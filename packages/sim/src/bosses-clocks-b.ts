@@ -55,6 +55,9 @@ export {
   batonMergeSocket,
   batonSwelling,
 } from "./baton-hand.js";
+// THE INSTAR's clock is the script's: a morph, a window, a landing, per step
+// (`instar.ts`). Its names are one page, shared with the surface.
+export * from "./boss-surface-instar.js";
 // And THE WARDEN's openness, handed to the third page on 22 September 2026
 // when another boss's names took this one to its limit — the last block on the
 // page goes, never the boss being worked on (`bosses-clocks-c.ts`).
@@ -137,37 +140,6 @@ export {
   hiveWrungAt,
   NO_PINCH,
 } from "./hive-lobe.js";
-// THE INSTAR's clock is the script's: a morph, a window, a landing, per step
-// (`instar.ts`) — and the engine every choreographed scene runs on.
-export {
-  type BossSequenceStep,
-  INSTAR_ARRIVALS,
-  INSTAR_GESTURES,
-  INSTAR_PARTS,
-  INSTAR_PHASES,
-  INSTAR_POSES,
-  INSTAR_SEATS,
-  type InstarArrival,
-  type InstarGesture,
-  type InstarMark,
-  type InstarPart,
-  type InstarPhase,
-  type InstarPose,
-  type InstarSeat,
-  type InstarState,
-  instarActing,
-  instarAllDone,
-  instarBoss,
-  instarDown,
-  instarHeld,
-  instarMarkCol,
-  instarMarkDone,
-  instarSeatHears,
-  instarStep,
-  instarStrikeBeat,
-  instarSwipeAlong,
-  NOT_DONE,
-} from "./instar.js";
 export {
   type ScuttlePart,
   type ScuttlePartKind,
