@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · da18ae10d — SNAKE: both screens see the whole body and everything in the arena
+
+Player 1 used to see the head and tail with nothing between them, and player 2 saw no enemies or points. Now both screens draw the whole body, every enemy and every point, as the owner asked on 25 September 2026. The split between the two players is only in who presses what: player 2 steers, player 1 shoots and eats. The panel lines and the film's caption say so.
+
 ## 2026-09-25 · d76829a5c — Queue and time log: every boss with a body now wears the blow
 
 The roll-out of the owner's generic rule of 24 September 2026 is finished, and its queue item is done. boss-hurt.ts now names which bosses never wear the blow, and why: they have no body the pair can hurt, or they take no damage by design. The VANE-sound item now names the test file the VANE case lives in, and the opening.test.ts flake records that it came back.
