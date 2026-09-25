@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · df543a64 — The director's RUN has an AUTO row that plays a seat for you, live
+
+AUTO OFF / BOTH / P1 / P2 sits next to TEST / P1 / P2. On P2 the machine plays player 2 at the stage's own tempo while your mouse plays player 1, and on P1 the other way round. On BOTH you watch the whole boss played right. Each of its thumbs is drawn on the field as a ringed disc labelled AUTO P1 or AUTO P2, carried the way a real swipe would be, so THE FILAMENT's draw-and-follow can be played alone. On a phone, the one AUTO button in the role strip steps through the modes. It covers every boss the poses already had a hand for, which is all of them but THE PULSE and THE REPRISE, and says so on those.
+
 ## 2026-09-25 · 84d175d9 — THE SPLICE's eater grows out of the right wall and snaps at the number
 
 The eater is out from a round's first beat, grown from a socket in the hold's right wall with the wall's lip round its root. It lengthens as the beats are spent, drools more as it gets hungry, and snaps its tongue at the number owed next, each snap reaching further until the last one touches. When time runs out it takes the number, chews it on both screens, and spits it onto the hull where the cannon stood.
