@@ -19978,3 +19978,5 @@ nobody was serving.
 
 The bottleneck was **writing**: the wound's two ends had to be cut on the
 span's own rays, so every piece of it is drawn along the rim, not placed.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

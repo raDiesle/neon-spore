@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 8cfa676a — THE GAUGE is an alien ship with a wound, and the ship's cannon shoots it
+
+The claw and the pods are gone. Behind the hull stands a big alien ship, THE MOTHER's shape, with its mouth open round our crown. The rim of the mouth is grey armour, and on P2's screen a wound is torn in it: its two ends are cut square at exactly the span a call is judged by, so a shot lands in the flesh on exactly the calls that count. On the crown the ship's own cannon turns through the same half-round the needle did, loaded cyan or red. The colour turns over on each hit, and the wound and the CALL button wear it. The aim ring lights on P2's screen while the cannon points into the wound. A hit bursts in the wound with a green ring and a fresh wound tears open elsewhere. A miss throws grey sparks off the armour and the cannon rattles on its jammed valve. The words say cannon and wound now.
+
 ## 2026-09-25 · 46c6b630 — The director remembers the wave list's filters across a reload
 
 What is typed into the wave filter, which of its marks are pressed, and the sounds page's ALL / BOUND / SPARE choice are kept in localStorage and put back on the next load, so the list is already filtered on its first draw. Escape or an emptied field forgets the text; a stored mark no longer in the row is dropped.
