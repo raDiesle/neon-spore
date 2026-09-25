@@ -1,4 +1,5 @@
 import { HASP_COUNT, type HaspState, haspLoose, type World } from "@neon-spore/sim";
+import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
@@ -38,6 +39,7 @@ export function drawHasp(
   s: HaspState,
   beat: number,
   beatPhase: number,
+  time: number,
   fx: HaspFx,
 ): void {
   const cfg = world.cfg;
@@ -49,11 +51,11 @@ export function drawHasp(
   // The jolt of a hasp giving drops the whole row in its mounting — applied to
   // the context, so the clasps, the hubs and the latch stay one rigid door.
   ctx.globalAlpha = 0.15 + 0.85 * lit;
-  ctx.translate(0, fx.jolt * l.tile);
+  ctx.translate(fx.hurt.shakeX(time, l.tile), fx.jolt * l.tile);
   if (clearing > 0) drawPassage(ctx, l, world, clearing);
   for (let i = 0; i < HASP_COUNT; i++) {
     const gape = haspGape(s, cfg, i, beat, beatPhase, wheel);
-    drawClasp(ctx, l, world, s, i, gape);
+    drawClasp(ctx, l, world, s, i, gape, fx.hurt.value);
     if (wheel) drawHaspWheel(ctx, l, cfg, s, i, beat, beatPhase);
     else drawHaspCap(ctx, l, cfg, i);
   }
@@ -74,6 +76,7 @@ export function drawHasp(
 /** What the drawer needs of the transients, taken as an interface so this page
  * does not import the class it is handed (`hasp-fx.ts`). */
 interface HaspFx {
+  readonly hurt: BossHurt;
   readonly jolt: number;
   readonly flare: number;
   readonly dim: number;
@@ -91,6 +94,7 @@ function drawClasp(
   s: HaspState,
   i: number,
   gape: number,
+  hurt: number,
 ): void {
   const shell = haspShellPath(l, world.cfg, i, gape);
   const spent = haspOpened(s, i) && s.phase !== "clear";
@@ -99,6 +103,7 @@ function drawClasp(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = spent ? rgba(PALETTE.rock, 0.45) : PALETTE.rock;
   ctx.stroke(shell);
+  drawHurt(ctx, shell, hurt);
 }
 
 /**

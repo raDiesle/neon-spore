@@ -1,4 +1,5 @@
 import { HASP_COUNT, type SimConfig, type SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { haspBarAt, haspCentre } from "./hasp-shape.js";
@@ -31,6 +32,10 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  * Read above the loop like THE SPOOL's, rather than as rows in a spark table
  * at its limit (`effects-spark-silent-boss-b.ts`). Everything is cleared in
  * `Effects.reset()` (`restart.test.ts`).
+ *
+ * **A hasp wound open is a sequence landed** — latch held, wheel wound — so
+ * it deals the row the blow every boss takes (`boss-hurt.ts`), on both
+ * screens. A grip is only half of one, and deals nothing.
  */
 
 const JOLT_TILES = 0.2;
@@ -49,6 +54,8 @@ export class HaspFx {
   private shockLife = 1;
   /** The clasp the latest receipt was about, counted from the ship. */
   private at = 0;
+  /** The blow a hasp wound open deals the row. */
+  readonly hurt = new BossHurt();
 
   /** How far the row is thrown down in its mounting right now, in tiles. */
   get jolt(): number {
@@ -123,6 +130,7 @@ export class HaspFx {
           this.joltNow = JOLT_TILES;
           this.shockLife = SHOCK_BEATS * beatSeconds;
           this.shockLeft = this.shockLife;
+          this.hurt.hit();
           break;
         }
         case "haspBolt":
@@ -155,6 +163,7 @@ export class HaspFx {
     if (this.flareNow < 0.002) this.flareNow = 0;
     this.dimLeft = Math.max(0, this.dimLeft - dt);
     this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.hurt.update(step);
   }
 
   /** The shudder down the plating as a hasp gives, on the finished ship (`frame-on-ship.ts`). */
@@ -171,5 +180,6 @@ export class HaspFx {
     this.shockLeft = 0;
     this.shockLife = 1;
     this.at = 0;
+    this.hurt.clear();
   }
 }

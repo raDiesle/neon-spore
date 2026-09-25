@@ -87,6 +87,12 @@ const ROWS: Row[] = [
     part: [{ type: "spoolLeg", leg: 0, col: 3 }],
     hurt: (fx) => fx.boss.spool.hurt,
   },
+  {
+    boss: "hasp",
+    land: [{ type: "haspOpen", hasps: 2, col: 3 }],
+    part: [{ type: "haspGrip", col: 3 }],
+    hurt: (fx) => fx.boss.hasp.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

@@ -75,7 +75,7 @@ export function drawPairBoss(
   // flare of a burn, the jolt of a hasp giving — is `effects.boss.hasp`
   // (`hasp-draw.ts`, `hasp-fx.ts`).
   if (boss.kind === "hasp") {
-    drawHasp(ctx, l, world, boss, beat, beatPhase, effects.boss.hasp);
+    drawHasp(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hasp);
     return;
   }
 
