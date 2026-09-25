@@ -13,7 +13,7 @@ import { WAVES } from "../src/waves.js";
  */
 
 describe("the rehearsal for THE THROAT", () => {
-  it("clears one body, lets one be swallowed, then chokes a ring with a gum", () => {
+  it("clears one body, chokes a ring with a gum, then heals it off a rock", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theThroat");
     const run = new SceneRun(sceneScript("theThroat", wave, DEFAULT_CONFIG));
     const flungAt: number[] = [];
@@ -26,14 +26,16 @@ describe("the rehearsal for THE THROAT", () => {
     }
     const boss = run.world.boss;
     if (boss?.kind !== "throat") throw new Error("no throat");
-    // The red creature is shot before the inhale at beat 12; only the rock is
-    // ever swallowed, on the inhale at 18.
-    expect(boss.fedBeat).toBe(18);
-    // The gum flies for one beat and chokes on the next; the mouth is sliding
-    // by the end of the film with one ring gone.
-    expect(flungAt).toEqual([26]);
-    expect(slackAt).toBe(27);
-    expect(boss.slack).toBe(1);
+    // The gum flies for one beat and chokes on the next, which sets the mouth
+    // sliding.
+    expect(flungAt).toEqual([18]);
+    expect(slackAt).toBe(19);
     expect(boss.phase).toBe("slide");
+    // The red creature is shot before the inhale at beat 12, so the only body
+    // ever swallowed is the rock, on the inhale at 31 — and the ring the gum
+    // choked is tight again. That is the film's last page, and the answer to
+    // *should we let it be sucked in*.
+    expect(boss.fedBeat).toBe(31);
+    expect(boss.slack).toBe(0);
   });
 });
