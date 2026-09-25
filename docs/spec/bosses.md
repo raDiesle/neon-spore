@@ -2140,12 +2140,28 @@ narrower phone simply spaces them closer and there is nothing for
 readable under a mouth that has just been fed the wrong number.
 
 **A feed is judged when it arrives, not when it is sucked.** The number takes
-`spliceFeedBeats` to come down, which is long enough to watch which straw it
-came out of and far too short to do anything about it. A suck with no mouth
+`spliceFeedBeats` to come down — three beats since 25 September 2026, the first
+of them spent shaking loose at its top end with the air rushing past it into
+the straw, because the owner asked for a suck that does not take the number on
+the instant it is pressed — which is long enough to watch which straw it came
+out of and far too short to do anything about it. A suck with no mouth
 under the cannon, or one while a number is already falling, is nothing at all
 rather than a mistake — neither is a *feed*, and only a feed can be the wrong
 one, so a pair fishing for a column does not lose the wave to a press they had
 not finished thinking about.
+
+**The clock is a creature, the eater** (25 September 2026, the owner's ask:
+*why* is time running out). For as long as a round lasts it creeps along the
+top of the field toward the number wanted next, on the navigator's screen; when
+the beats are spent it swallows that number (`SpliceState.eatBeat`) and comes
+down on the ship with it, landing `spliceEatBeats` later in the column the
+cannon stood in when it bit (`eatCol`). The verdict is the bite — `spliceWrong`
+with `clock` set, the maw shut from that beat — and the breach is the landing,
+the rule every arrival on this field follows and THE MAZE's drum's shape.
+**Nothing in this fight breaks the hull as a rock**: a wrong number bursting in
+the maw and the eater with the right one in its gut both land as a living body
+(`slick`), because every number is a ball of slime — a power-up the ship is
+there to collect.
 
 **A wrong feed fails the wave, and the round has no second try.** The design
 this was built from says the fed numbers return to their tops and the order

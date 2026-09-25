@@ -35,11 +35,14 @@ export function spliceHashParts(b: SpliceState): number[] {
   for (const col of b.topCols) push(col);
   for (const col of b.midCols) push(col);
   for (const top of b.topOf) push(top);
-  // The fight: what is fed, what is on its way down, and whether it is over.
+  // The fight: what is fed, what is on its way down, whether the eater has
+  // taken the round, and whether it is over.
   push(b.fed);
   push(b.feedFrom);
   push(b.feedBeat);
   push(b.passBeat);
+  push(b.eatBeat);
+  push(b.eatCol);
   push(b.verdict);
   push(b.verdictBeat);
   push(b.verdictStraw);

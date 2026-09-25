@@ -207,6 +207,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   spliceEntranceRows: "THE SPLICE — straws fed in the order the numbers say",
   spliceTopRow: "THE SPLICE — straws fed in the order the numbers say",
   spliceFeedBeats: "THE SPLICE — straws fed in the order the numbers say",
+  spliceEatBeats: "THE SPLICE — straws fed in the order the numbers say",
   repriseBeats: "THE REPRISE — the wave sent again unseen",
   // THE WELL's clock: the rest before the face starts to slip, how fast it
   // slips, how far it slips before it stops, and how long a thumb on the seam

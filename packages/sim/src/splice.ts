@@ -55,7 +55,7 @@ import { hullRow, type SimConfig } from "./config.js";
  * next to a board it does not have, arrived at from the other end.
  */
 export interface SpliceRound {
-  /** Beats one attempt at the round lasts. Running out costs the hull. */
+  /** Beats one attempt at the round lasts. Running out sends the eater, which costs the hull. */
   beats: number;
 }
 
@@ -122,6 +122,21 @@ export interface SpliceState {
   feedFrom: number;
   /** The beat that number left its top end. */
   feedBeat: number;
+  /**
+   * The beat the round's clock ran out and **the eater** took the number
+   * wanted next, or -1 while it has not.
+   *
+   * The clock is a creature rather than a readout: something crawling along
+   * the top of the field toward the next number for as long as the round
+   * lasts, which is why the time running out is a thing the navigator can
+   * see coming rather than a count. When the beats are spent it swallows that
+   * number and comes down on the ship with it; the hull breaks when it lands,
+   * `spliceEatBeats` later (`splice-round.ts`), and until then the maw is
+   * shut — the round is already lost and nothing may be fed into it.
+   */
+  eatBeat: number;
+  /** The column the eater comes down on — the cannon's, on the beat it bit. */
+  eatCol: number;
   /** `world.beat` the round was cleared on, -1 until it is. */
   passBeat: number;
   /** The last verdict: 1 right, -1 wrong, 0 none yet. render only. */

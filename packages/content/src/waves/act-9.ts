@@ -63,9 +63,9 @@ import type { Wave } from "../wave-types.js";
  * plating, a straw out of each running the height of the field, and a number
  * at the far end of every one. Three rounds, two straws then three then four
  * (`spliceStraws`), and the only thing authored is how long the pair has —
- * sixteen beats, then twenty-four, then thirty-two. Against two straws, then
- * three, then four, that is **eight beats a feed throughout**, two of which are
- * the number's own travel — and the travel is spent from the same clock, which
+ * eighteen beats, then twenty-seven, then thirty-six. Against two straws, then
+ * three, then four, that is **nine beats a feed throughout**, three of which are
+ * the number's own shake and travel — and they are spent from the same clock, which
  * `stepSplice` only stops *checking* while something is in the air — so what
  * the count really buys is six beats a straw to trace one and say it. The
  * figures are written here rather than beside the entry because the director
@@ -189,7 +189,7 @@ export const WAVES_ACT_9: Wave[] = [
       scene: "theSplice",
     },
     entries: [],
-    boss: { kind: "splice", rounds: [{ beats: 16 }, { beats: 24 }, { beats: 32 }] },
+    boss: { kind: "splice", rounds: [{ beats: 18 }, { beats: 27 }, { beats: 36 }] },
     bossType: "special",
     controls: "splice",
   },

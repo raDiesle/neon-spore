@@ -28,7 +28,8 @@ export const BOSS_NOTES = {
     "(well.ts): how the picture reads is a VERSUS candidate, not a slider.",
   "THE SPLICE — straws fed in the order the numbers say":
     "How far over the plating the mouths stand, what row the numbers sit on, " +
-    "and how long a number takes to come down its straw. How many straws a " +
+    "how long a number takes to shake loose and come down its straw, and how " +
+    "long the eater takes to land once the clock has run out. How many straws a " +
     "round has and where they run are not here: the count follows from the " +
     "round and the tangle is laid from the run's own seed (sim/splice-tangle.ts).",
   "THE REPRISE — the wave sent again unseen":

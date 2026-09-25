@@ -83,5 +83,6 @@ export function spliceLay(world: World, s: SpliceState, straws: number): void {
   s.feedFrom = -1;
   s.feedBeat = -1;
   s.passBeat = -1;
+  s.eatBeat = -1;
   s.roundBeat = world.beat;
 }

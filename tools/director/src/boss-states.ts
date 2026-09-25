@@ -38,8 +38,9 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // field in any of them: the state is where the picture puts things, and
   // the wave under it is the wave its author wrote (`well.ts`).
   well: ["still", "rolling", "held", "wound"],
-  // A straw being fed, a round passed, the verdict held (`spliceCurrent`).
-  splice: ["feeding", "passed", "verdict"],
+  // A straw being fed, a round passed, the verdict held, and the clock spent
+  // with the eater coming down (`spliceCurrent`, `SpliceState.eatBeat`).
+  splice: ["feeding", "passed", "verdict", "eaten"],
   // Running the wave, sending a stretch of it back, held by a hand
   // (`repriseEchoing`, `repriseHeld`).
   reprise: ["running", "echoing", "held"],

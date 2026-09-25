@@ -25,9 +25,11 @@ import {
  *
  * Almost everything here is about **when** something is judged rather than
  * what. The fight's one verb is the SUCK the pair already has, so there is no
- * new command to test; what is new is that the answer to it arrives two beats
- * after the press, that a second press in between is nothing at all, and that
- * a wrong one costs the hull in the column it was made in.
+ * new command to test; what is new is that the answer to it arrives
+ * `spliceFeedBeats` after the press, that a second press in between is nothing
+ * at all, that a wrong one costs the hull in the column it was made in, and
+ * that a spent clock is the eater — a verdict on the beat it bites and a
+ * breach on the beat it lands.
  *
  * The tangle itself is laid from the seeded rng, so a test may not author one —
  * it asks the state what it laid and plays against that, which is also what a
@@ -146,12 +148,29 @@ describe("THE SPLICE", () => {
     });
   });
 
-  it("costs the hull when the round's beats run out with nothing coming down", () => {
+  it("sends the eater when the round's beats run out with nothing coming down", () => {
     const world = spliceWorld([6]);
+    const s = fight(world);
     const said = beats(world, 7);
-    expect(failHolds(world), "the clock was free").toBe(true);
     // No straw was at fault, which is what -1 says and what `clock` is for.
     expect(said.find((e) => e.type === "spliceWrong")).toMatchObject({ straw: -1, clock: true });
+    expect(s.eatBeat, "nothing took the number").not.toBe(-1);
+    expect(s.eatCol).toBe(world.cannonCol);
+    // The verdict is on the bite; the hull waits for the eater to arrive.
+    expect(failHolds(world), "the hull broke before the eater landed").toBe(false);
+    const landed = beats(world, CFG.spliceEatBeats);
+    expect(failHolds(world), "the clock was free").toBe(true);
+    // Slime, not a rock: the thing that came down is alive.
+    expect(landed.find((e) => e.type === "breach")).toMatchObject({ col: s.eatCol, kind: "slick" });
+  });
+
+  it("shuts the maw once the eater has bitten", () => {
+    const world = spliceWorld([4]);
+    const s = fight(world);
+    beats(world, 5);
+    expect(s.eatBeat).not.toBe(-1);
+    feed(world, spliceWanted(s));
+    expect(s.feedFrom, "a suck took hold of a round already lost").toBe(-1);
   });
 
   it("does not let the clock take a round while a number is in the air", () => {
@@ -160,8 +179,9 @@ describe("THE SPLICE", () => {
     const s = fight(world);
     beats(world, 3);
     feed(world, spliceWanted(s));
-    beats(world, 1);
+    beats(world, CFG.spliceFeedBeats - 1);
     expect(failHolds(world), "the clock ran on a pair who had answered").toBe(false);
+    expect(s.eatBeat, "the eater bit a number already in the air").toBe(-1);
     beats(world, 1);
     expect(s.fed).toBe(1);
   });

@@ -64,6 +64,12 @@ export const TAKE_HAND_POSES: Pose[] = [
     { crop: F, hand: spliceHand, want: spliceIs((s) => s.passBeat !== -1), hold: TPB * 2 },
   ),
   bossPose(
+    "splice",
+    "eaten",
+    "The clock ran out and the eater swallowed the next number. P1 can do nothing now; P2 watches it come down.",
+    { crop: F, want: spliceIs((s) => s.eatBeat !== -1), hold: TPB },
+  ),
+  bossPose(
     "reprise",
     "echoing",
     "The stretch just past comes down again, undrawn. P1 aims as he did the first time; P2 fires the same.",

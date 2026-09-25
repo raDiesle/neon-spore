@@ -20,8 +20,8 @@ import type { GuideScene } from "../scene-types.js";
  * slide, then the suck, then the number coming down its own straw while both
  * of them watch it.
  *
- * **One feed and not two.** The second is the first again, and the two beats a
- * number spends travelling are the whole of what the page after the suck is
+ * **One feed and not two.** The second is the first again, and the three beats a
+ * number spends shaking loose and travelling are the whole of what the page after the suck is
  * for: a pair that presses again while one is in the air has not understood
  * that the answer is still coming (`sim/splice-round.ts`).
  *
@@ -29,7 +29,7 @@ import type { GuideScene } from "../scene-types.js";
  * on the number coming down its straw, on the seat holding the maw and for
  * exactly the beats her button is busy (`render/boss-cue-read-d.ts`) — so the
  * page that said *one comes down* says what no word on the field may: that the
- * two beats of travel are spent from the round's own clock, which is drawn on
+ * three beats of shake and travel are spent from the round's own clock, which is drawn on
  * her screen and on no other. Nothing else on this film loses anything, because
  * the field names **neither gesture**: a mark on the mouth the cannon is under
  * would hand the pilot's half of the sentence to the seat who is shown no
@@ -72,10 +72,10 @@ export const THE_SPLICE: GuideScene = {
       text: "SLIDE UNDER THE ONE CALLED",
       anchor: { at: "control", control: "cannon" },
     },
-    // The suck is at 1200 and the number lands two beats later, inside this
+    // The suck is at 1200 and the number lands three beats later, inside this
     // page: the press and the answer are apart on purpose and the page has to
     // hold both or it teaches a control that does nothing. `WAIT` stands on the
-    // number for those two beats now, so what is left to write is where they are
+    // number for those beats now, so what is left to write is where they are
     // spent from — the clock over the tangle, which only this seat is shown
     // (`splice-draw.ts`'s `drawClock`).
     {

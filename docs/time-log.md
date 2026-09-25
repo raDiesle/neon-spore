@@ -20033,3 +20033,18 @@ The bottleneck was **writing**: the rule had to go into four documents as
 well as the code, so it would be the one every later handle reads.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SPLICE's clock is an eater that swallows the next number
+
+- reading: 15 min. The four `splice*.ts` files in sim and three in render,
+  THE MAZE's clock-out that lands on the ship, `breachHull`'s kinds, and the
+  new-boss-state registrations.
+- writing: 20 min. `eatBeat` and `eatCol` through state, lay and hash; the
+  bite and the landing; `spliceEatBeats`; the three-beat feed and the wave's
+  longer rounds; two tests; the director's card, field row and note; the spec.
+- looking: 0 min. Nothing drawn changed in this half.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: the timing change had to be found in six
+comments across four packages that each said *two beats*.

@@ -4,12 +4,12 @@ import type { SoundDef } from "../types.js";
 /**
  * THE SPLICE, as four sounds, and the ear is carrying the *waiting*.
  *
- * The fight's one press is two beats from its own answer (`spliceFeedBeats`),
+ * The fight's one press is three beats from its own answer (`spliceFeedBeats`),
  * on purpose: the number has to be seen travelling down its straw, and the
  * pair has to watch it come. So the first of these four is the press landing
  * and the next two are the arrival — the split THE FLEET already has, arrived
  * at from a different direction. Without the first one the pilot sucks into
- * silence and waits two beats to find out whether anything happened at all.
+ * silence and waits three beats to find out whether anything happened at all.
  *
  * They are spaced by *material*, like the fleet's: a draw of air up a hollow
  * tube, a swallow, a refusal, and the knot coming apart. Nothing here is

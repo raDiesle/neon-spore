@@ -54,6 +54,8 @@ export function installSplice(world: World, rounds: readonly { beats: number }[]
     fed: 0,
     feedFrom: -1,
     feedBeat: -1,
+    eatBeat: -1,
+    eatCol: -1,
     passBeat: -1,
     verdict: 0,
     verdictBeat: -1,
@@ -64,16 +66,22 @@ export function installSplice(world: World, rounds: readonly { beats: number }[]
 }
 
 /**
- * One beat of the fight: the number in flight arriving, the cleared round
- * giving way to the next, and the round's own clock running out.
+ * One beat of the fight: the eater landing, the number in flight arriving,
+ * the cleared round giving way to the next, and the round's own clock running
+ * out.
  *
  * In that order, and the order is the whole of the timing. A feed that lands
  * on the beat a round's last one was due is a round cleared rather than a
  * round lost, because the pair did the thing in time and the clock is what
- * they did it against.
+ * they did it against. The eater is first because a round it has taken is
+ * over: nothing else in it is still happening.
  */
 export function stepSplice(world: World, s: SpliceState): void {
   if (world.over) return;
+  if (s.eatBeat !== -1) {
+    if (world.beat - s.eatBeat >= world.cfg.spliceEatBeats) land(world, s);
+    return;
+  }
   if (s.feedFrom !== -1 && world.beat - s.feedBeat >= world.cfg.spliceFeedBeats) {
     arrive(world, s);
     return;
@@ -85,7 +93,7 @@ export function stepSplice(world: World, s: SpliceState): void {
   // A number still coming down is the pair's answer already given: the clock
   // cannot take a round off them while it is in the air.
   if (s.feedFrom !== -1) return;
-  if (world.beat - s.roundBeat >= spliceCurrent(s).beats) cost(world, s, -1);
+  if (world.beat - s.roundBeat >= spliceCurrent(s).beats) bite(world, s);
 }
 
 /**
@@ -97,10 +105,12 @@ export function stepSplice(world: World, s: SpliceState): void {
  * nothing at all rather than a mistake, because neither is a **feed** and only
  * a feed can be the wrong one. A pair fishing for the right column would
  * otherwise lose the wave to a press they had not finished thinking about.
+ * A suck after the eater has bitten is nothing too: the round is already lost.
  */
 export function spliceHeard(world: World): void {
   const s = spliceRound(world);
   if (s === null || world.over || s.feedFrom !== -1 || s.passBeat !== -1) return;
+  if (s.eatBeat !== -1) return;
   const entrance = s.entranceCols.indexOf(world.cannonCol);
   if (entrance === -1) return;
   s.feedFrom = entrance;
@@ -138,8 +148,19 @@ function arrive(world: World, s: SpliceState): void {
 }
 
 /**
- * What a wrong feed and a spent clock both cost: the hull, in the column the
- * mistake was made in — and with it the wave (`wave-fail.ts`).
+ * **What breaks the hull in this fight is slime, never a rock.** Every number
+ * is a living ball — a power-up the ship is there to collect — so a wrong one
+ * bursting in the maw and the eater coming down with the right one in its gut
+ * both land as a body does: a burst at the plating and a crack, with no rock
+ * falling in front of it (`render/effects-breach.ts`). Both were
+ * `meteorFastest` until 25 September 2026, and the owner asked for the damage
+ * to be about the thing that did it.
+ */
+const SPLICE_BREACH_KIND = "slick";
+
+/**
+ * A wrong feed: the hull, in the column the mistake was made in — and with it
+ * the wave (`wave-fail.ts`).
  *
  * **The round does not get a second try, and could not.** The owner's rule of
  * 12 September 2026 is that every hull damage fails the wave, so the field
@@ -152,15 +173,47 @@ function arrive(world: World, s: SpliceState): void {
  * round go wrong without ending the wave — and for nothing else.
  */
 function cost(world: World, s: SpliceState, entrance: number): void {
-  const col = entrance === -1 ? world.cannonCol : (s.entranceCols[entrance] ?? world.cannonCol);
+  const col = s.entranceCols[entrance] ?? world.cannonCol;
   s.verdict = -1;
   s.verdictBeat = world.beat;
   s.verdictStraw = entrance;
   const row = spliceEntranceRow(world.cfg);
-  world.events.push({ type: "spliceWrong", col, row, straw: entrance, clock: entrance === -1 });
-  breachHull(world, col, "meteorFastest", row, "heavy");
+  world.events.push({ type: "spliceWrong", col, row, straw: entrance, clock: false });
+  breachHull(world, col, SPLICE_BREACH_KIND, row, "heavy");
+  restart(world, s);
+}
+
+/**
+ * The clock is spent: the eater swallows the number wanted next, and the
+ * round is lost **now** — the verdict is said on this beat, the maw is shut
+ * from it — while the hull waits for the eater to arrive (`land`).
+ *
+ * It comes down on the column the cannon stood in when it bit, kept here
+ * rather than read again when it lands: the ship is what it goes for, and a
+ * cannon slid away in the beats between would otherwise be a way to dodge it
+ * — and nothing on this field dodges.
+ */
+function bite(world: World, s: SpliceState): void {
+  s.eatBeat = world.beat;
+  s.eatCol = world.cannonCol;
+  s.verdict = -1;
+  s.verdictBeat = world.beat;
+  s.verdictStraw = -1;
+  const row = spliceEntranceRow(world.cfg);
+  world.events.push({ type: "spliceWrong", col: s.eatCol, row, straw: -1, clock: true });
+}
+
+/** The eater reaches the ship. The breach is from the top row, where it came from. */
+function land(world: World, s: SpliceState): void {
+  breachHull(world, s.eatCol, SPLICE_BREACH_KIND, world.cfg.spliceTopRow, "heavy");
+  restart(world, s);
+}
+
+/** What a held hull sees after either: the order from 1 again, the clock restarted. */
+function restart(world: World, s: SpliceState): void {
   s.fed = 0;
   s.feedFrom = -1;
+  s.eatBeat = -1;
   s.roundBeat = world.beat;
 }
 

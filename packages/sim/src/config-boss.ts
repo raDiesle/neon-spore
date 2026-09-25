@@ -175,11 +175,24 @@ export interface BossConfig {
    * Beats a number takes to travel its straw, from the top end to the maw.
    *
    * The feed is judged when it **arrives**, so this is also how long the pair
-   * has to watch an answer coming — two beats, a little over a second, which
-   * is long enough to see which straw it came down and far too short to do
-   * anything about it.
+   * has to watch an answer coming. Three beats: the first is the number
+   * shaking loose at its top end with the air rushing past it into the straw,
+   * the other two its race down — long enough to see which straw it came down
+   * and far too short to do anything about it. It was two, with no shake,
+   * until the owner asked on 25 September 2026 for a suck that does not take
+   * the number on the instant it is pressed.
    */
   spliceFeedBeats: number;
+  /**
+   * Beats from the round's clock running out to the hull breaking.
+   *
+   * The clock is a creature (`SpliceState.eatBeat`): it creeps along the top
+   * of the field toward the number wanted next for as long as the round
+   * lasts, and when the beats are spent it swallows it and comes down on the
+   * ship with it. The breach waits for it to land, which is the rule every
+   * other arrival on this field follows — THE MAZE's drum is the same shape.
+   */
+  spliceEatBeats: number;
   /**
    * Beats of seen wave THE REPRISE lets run before it sends that stretch back
    * at the pair unseen — the default for a wave that authors no number of its
@@ -221,6 +234,7 @@ export const BOSS_DEFAULTS: BossConfig = {
   mazeSnapMilli: 180,
   spliceEntranceRows: 2,
   spliceTopRow: 1,
-  spliceFeedBeats: 2,
+  spliceFeedBeats: 3,
+  spliceEatBeats: 3,
   repriseBeats: 16,
 };

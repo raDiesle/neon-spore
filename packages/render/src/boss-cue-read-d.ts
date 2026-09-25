@@ -127,7 +127,7 @@ const TOKEN_HALF = 0.45;
  * (`content/src/scenes/the-splice.ts`). The word is not the kind here, unlike
  * THE STARE's and THE LEAD's: this stillness has an end she can see coming, so
  * `STILL` says which of the five it is and the verb says what to do with the
- * two beats.
+ * three beats.
  *
  * **The mark rides the number and never the mouth.** It is put at
  * `spliceFlightAt`, the same point the picture draws the token at, so the frame
@@ -153,7 +153,7 @@ const TOKEN_HALF = 0.45;
  * **And it is hers because it could not be his.** On his screen the straw above
  * the mouths does not exist and neither does the number on it until the last
  * stretch (`drawFlight`), so a word there would hang over an empty field; and
- * the two beats are not his to wait through at all — the maw being busy is
+ * the three beats are not his to wait through at all — the maw being busy is
  * exactly when he should be sliding to the mouth she names next, which is the
  * guide's sentence and not the field's.
  *
