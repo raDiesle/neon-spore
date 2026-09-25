@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 84d175d9 — THE SPLICE's eater grows out of the right wall and snaps at the number
+
+The eater is out from a round's first beat, grown from a socket in the hold's right wall with the wall's lip round its root. It lengthens as the beats are spent, drools more as it gets hungry, and snaps its tongue at the number owed next, each snap reaching further until the last one touches. When time runs out it takes the number, chews it on both screens, and spits it onto the hull where the cannon stood.
+
 ## 2026-09-25 · 817fa9dd — THE SLOW's measure goes to VERSUS: ebb, halo and rails against the fuse
 
 Three answers to how long a window has left stand beside the fuse the game now draws: the light round the boss thinning as the window runs out (ebb), a ring closing onto the boss (halo), and two rails burning down the screen's edges to the hull (rails). They are judged on a new pose, THE SLOW · A WINDOW RUNNING OUT, where nobody answers THE INSTAR's step and the strike lands.
