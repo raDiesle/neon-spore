@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 0524e9c59 — THE SPLICE's eater breaks through the wall twice and pours venom on the hull
+
+The eater is a big red alien head on a neck, broken through the hold's right wall near the top, with the back end of the same body broken through lower down. Its tongue snaps at the number nearest to it rather than the one the pair owes next, so it no longer points at the answer. When the clock runs out it eats that number, the lump goes down inside the wall, and the back end pours it out as venom onto the hull where the cannon stood — landing on the beat the slick breach is filed. The neck and back end are TENDRIL, the head is SYMBIOSIS held merged; both holes are torn, with flaps of wall over the roots.
+
 ## 2026-09-25 · 88f077084 — THE FLIP's projection breaks up two tiles above the ship
 
 On the turned screen, a body two tiles above the hull now tears into jumping strips, like an interrupted projection. It then arrives in the column it is really in and falls the last rows onto the ship, which is where the ship's crater and flash already were. A finger follows the body across the switch. Kill bursts on the turned screen now fly from the mirrored body, instead of from its true column.

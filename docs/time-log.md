@@ -20338,3 +20338,5 @@ because the middle column is its own mirror.
 
 The bottleneck was **writing**: one body in two holes is three files of
 drawing and a fourth for what comes out of it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
