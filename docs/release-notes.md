@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · fd103e22a — `bun run imports` reads past a comment beside a name
+
+The scan decided whether a name was only a property by looking at the character before it, skipping whitespace but not comments. A comment ending in `.` above `setDefaultTimeout(FRAME_TIMEOUT_MS);` made the call read as `.setDefaultTimeout`, so a live import was called unused. The scan now skips comments on both sides of a hit, and a case holds that shape. The use scan moved to `tools/imports/uses.ts`, which leaves `imports.ts` at 150 lines.
+
 ## 2026-09-25 · 4061bdb00 — Comments in the director stop arguing from three removed bosses
 
 The last nine files that named THE DIASTOLE, THE ORRERY or THE CANDLE as a reason now state the reason or name a boss still in the game. The ON THE FIELD test's "`orreryRing`'s walk" is now "the walk", defined once in its header. THE HASP's row says the bearing is THE GIMBAL's gesture, without the removed boss beside it. The index tool's drift fixtures keep the names, because they are its history. This closes the queue item.
