@@ -140,16 +140,16 @@ describe("the pages a rehearsal is read off", () => {
     // about the split; a film with none of them never names the price of
     // getting it wrong.
     //
-    // `hull` is deliberately not counted with it. That anchor is a *place* —
+    // The page is `hit`, drawn at the hull since the corner lost its clock and
+    // stood empty until a first retry. `hull` is deliberately not counted with
+    // it, though the two draw in one spot. That anchor is a *place* —
     // the middle of the field — and what stands there is not always the same
     // on the two screens: THE FLEET's chart fills it and carries the ships on
     // one phone and nothing but water on the other, which is the split itself
     // rather than an escape from it.
     for (const id of SCENE_IDS) {
-      const paid = SCENES[id].steps.filter((s) => s.anchor.at === "retries");
-      expect(paid.length, `${id} spends ${paid.length} pages on the retries`).toBeLessThanOrEqual(
-        1,
-      );
+      const paid = SCENES[id].steps.filter((s) => s.anchor.at === "hit");
+      expect(paid.length, `${id} spends ${paid.length} pages on the hit`).toBeLessThanOrEqual(1);
     }
   });
 

@@ -121,9 +121,18 @@ export type SceneAnchor =
    */
   | { at: "boss"; part?: BossPart }
   | { at: "hull" }
-  /** The run's line in the corner — the retry count, which a hit puts up.
-   * It was `health`, the hull bar, until the hull lost its points. */
-  | { at: "retries" };
+  /**
+   * **What a miss costs**, pointed at where it lands: the hull. A place and a
+   * cost are two anchors even where they draw in one spot — `hull` says
+   * *there*, this says *that was paid for*, and the scene tests count a film's
+   * pages on the cost (`scenes.test.ts`, `scene-pages.test.ts`).
+   *
+   * It was `health`, the hull bar, until the hull lost its points, then
+   * `retries`, the run's line in the corner — until the clock left that corner
+   * on 24 September 2026 and it stood empty until a first retry, which a guide
+   * never has.
+   */
+  | { at: "hit" };
 
 /**
  * One step of the film: a screen, a few words, and what they point at.

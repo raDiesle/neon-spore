@@ -56,6 +56,6 @@ export const THE_WEIGHT: GuideScene = {
     // once the body has gone.
     { tick: 600, seat: 1, text: "BOTH ON ONE BEAT · IT GIVES", anchor: { at: "body" } },
     // Seventeen beats: the second sac falls the whole field and lands.
-    { tick: 810, seat: 1, text: "LEFT ALONE, IT ENDS THE WAVE", anchor: { at: "retries" } },
+    { tick: 810, seat: 1, text: "LEFT ALONE, IT ENDS THE WAVE", anchor: { at: "hit" } },
   ],
 };

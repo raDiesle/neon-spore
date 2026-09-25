@@ -88,6 +88,6 @@ export const PINBALL: GuideScene = {
       text: "PLAYER 2 TAKES THE POWER",
       anchor: { at: "control", control: "pinLaunch" },
     },
-    { tick: 1100, seat: 1, text: "MISS IT AND THE WAVE IS LOST", anchor: { at: "retries" } },
+    { tick: 1100, seat: 1, text: "MISS IT AND THE WAVE IS LOST", anchor: { at: "hit" } },
   ],
 };

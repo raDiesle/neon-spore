@@ -52,11 +52,10 @@ export const THE_LURE: GuideScene = {
     // The film's one shared page, spent on the thing neither screen owns: a
     // bolt fired at a lure does not merely miss, it sets the body off two rows
     // up and breaks the hull in three places for it (`resolveLure`,
-    // `bullet-hit.ts`). That is the whole reason the corner frame is worth
-    // reading out loud. The words still point at the bar rather than at the
-    // holes: the blast is the loudest thing on the screen by then, and the one
-    // thing it does not say is how much of the run it just spent.
-    { tick: 660, seat: 2, text: "FIRING AT IT LOSES THE WAVE", anchor: { at: "retries" } },
+    // `bullet-hit.ts`). That is the whole reason the hit is worth reading out
+    // loud: the blast is the loudest thing on the screen by then, and the one
+    // thing it does not say is that it just cost the wave.
+    { tick: 660, seat: 2, text: "FIRING AT IT LOSES THE WAVE", anchor: { at: "hit" } },
     {
       tick: 920,
       seat: 1,

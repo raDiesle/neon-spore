@@ -5,7 +5,6 @@ import { creatureHalfAxes } from "./creature-axes.js";
 import { creatureCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { handleCircle } from "./handles.js";
-import { runLineBox } from "./hud.js";
 import { bandLobes, type Layout, tileCX } from "./layout.js";
 import { podCenter } from "./pods.js";
 import { queenMarksBox } from "./queen-figure.js";
@@ -151,11 +150,9 @@ export function anchorPoint(
   // A boss's own fixture, per kind — the one branch that is a file of its
   // own, because every boss answers it differently (`caption-anchor-boss.ts`).
   if (anchor.at === "boss") return bossAnchor(l, world, anchor.part, beatPhase);
-  if (anchor.at === "hull") return { x: l.width / 2, y: l.hullY, r: l.tile, clear: CLEAR };
-  // The run's line in the corner, where a hit shows as the retry count going
-  // up. `drawHud` owns where it is; this asks it rather than knowing.
-  const line = runLineBox(l);
-  return { x: line.x + line.w / 2, y: line.y + line.h / 2, r: 12, clear: CLEAR };
+  // A place and a cost, drawn in one spot: the hull is where a hit lands
+  // (`scene-step-types.ts` says why the two are kept apart).
+  return { x: l.width / 2, y: l.hullY, r: l.tile, clear: CLEAR };
 }
 
 /**

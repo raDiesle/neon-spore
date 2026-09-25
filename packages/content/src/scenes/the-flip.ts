@@ -80,6 +80,6 @@ export const THE_FLIP: GuideScene = {
       anchor: { at: "control", control: "cannon" },
     },
     { tick: 1500, seat: 2, text: "IT IS FIVE · NOBODY SAID SO", anchor: { at: "body" } },
-    { tick: 1740, seat: 1, text: "BELIEVED · IT WAS THE FIVE", anchor: { at: "retries" } },
+    { tick: 1740, seat: 1, text: "BELIEVED · IT WAS THE FIVE", anchor: { at: "hit" } },
   ],
 };

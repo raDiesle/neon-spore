@@ -103,6 +103,6 @@ export const THE_CAIRN: GuideScene = {
       anchor: { at: "control", control: "shield" },
     },
     // Seven beats: the rock the pile let go comes the rest of the way down.
-    { tick: 1200, seat: 1, text: "THE ONE NOBODY PULLED LANDS", anchor: { at: "retries" } },
+    { tick: 1200, seat: 1, text: "THE ONE NOBODY PULLED LANDS", anchor: { at: "hit" } },
   ],
 };

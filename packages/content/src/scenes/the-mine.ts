@@ -65,6 +65,6 @@ export const THE_MINE: GuideScene = {
     // finger is about to land on — which is the page: *that* square, and
     // nothing drawn on it.
     { tick: 180, seat: 1, text: "PLAYER 1 PRESSES THAT SQUARE", anchor: { at: "body" } },
-    { tick: 360, seat: 2, text: "ONE TILE OFF COSTS THE HULL", anchor: { at: "retries" } },
+    { tick: 360, seat: 2, text: "ONE TILE OFF COSTS THE HULL", anchor: { at: "hit" } },
   ],
 };

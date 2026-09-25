@@ -113,6 +113,6 @@ export const THE_STARE: GuideScene = {
       text: "THEY FREEZE · YOUR SHIELD",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 3120, seat: 2, text: "TOUCHED · THE HULL PAYS", anchor: { at: "retries" } },
+    { tick: 3120, seat: 2, text: "TOUCHED · THE HULL PAYS", anchor: { at: "hit" } },
   ],
 };

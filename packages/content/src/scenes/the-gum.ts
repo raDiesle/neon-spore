@@ -48,6 +48,6 @@ export const THE_GUM: GuideScene = {
     { tick: 900, seat: 2, text: "NOBODY TAKES THIS ONE", anchor: { at: "body" } },
     // Fourteen beats after it appeared it is standing on the hull, and a beat
     // later the ship has taken it; the splash runs out over the page.
-    { tick: 1740, seat: 1, text: "IT SPLASHES ACROSS THE SHIP", anchor: { at: "retries" } },
+    { tick: 1740, seat: 1, text: "IT SPLASHES ACROSS THE SHIP", anchor: { at: "hit" } },
   ],
 };

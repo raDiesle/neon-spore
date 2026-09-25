@@ -84,10 +84,10 @@ export const FIRST_STEP: GuideScene = {
     // The miss and what it costs are one page, not two: the second slick
     // reaches the hull on beat 25, which is tick 1500 at this tempo, so a page
     // that opens at 1200 says the words, then lets the pair watch the thing
-    // arrive and the bar drop, with three beats left to look at what it cost.
-    // It points at the bar rather than at the body, because the bar is the
+    // arrive and land, with three beats left to look at what it cost.
+    // It points at the hull rather than at the body, because the hit is the
     // half nobody notices on their own — and it is on player 1's screen
     // because the column that was never taken was player 1's to take.
-    { tick: 1200, seat: 1, text: "A MISS LOSES THE WAVE", anchor: { at: "retries" } },
+    { tick: 1200, seat: 1, text: "A MISS LOSES THE WAVE", anchor: { at: "hit" } },
   ],
 };

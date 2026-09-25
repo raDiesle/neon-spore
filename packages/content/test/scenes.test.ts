@@ -295,11 +295,11 @@ describe("the rehearsals a guide can show", () => {
       const run = new SceneRun(sceneScript(id, wave, DEFAULT_CONFIG));
       const spent: SimEvent[] = [];
       for (let t = 0; t < SCENES[id].ticks - 1; t++) run.advance(spent);
-      const paid = SCENES[id].steps.some((s) => s.anchor.at === "retries");
+      const paid = SCENES[id].steps.some((s) => s.anchor.at === "hit");
       expect(
         failHolds(run.world),
         paid
-          ? `${id} points a page at the retries and never costs one`
+          ? `${id} points a page at the hit and never costs one`
           : `${id} takes a hit with no page saying why`,
       ).toBe(paid);
     }

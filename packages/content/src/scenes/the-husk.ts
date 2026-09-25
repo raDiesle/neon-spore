@@ -98,6 +98,6 @@ export const THE_HUSK: GuideScene = {
       text: "AND OPENED FOR IT",
       anchor: { at: "control", control: "intake" },
     },
-    { tick: 2400, seat: 1, text: "A HUSK IN · THE WAVE WITH IT", anchor: { at: "retries" } },
+    { tick: 2400, seat: 1, text: "A HUSK IN · THE WAVE WITH IT", anchor: { at: "hit" } },
   ],
 };

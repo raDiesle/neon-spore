@@ -57,6 +57,6 @@ export const THE_COIL: GuideScene = {
     },
     { tick: 210, seat: 2, text: "A ROCK BELOW HOLDS IT SHUT", anchor: { at: "body" } },
     { tick: 570, seat: 2, text: "THE COLUMN CLEARS, IT OPENS", anchor: { at: "body" } },
-    { tick: 870, seat: 1, text: "THE DOME LOSES YOU THE WAVE", anchor: { at: "retries" } },
+    { tick: 870, seat: 1, text: "THE DOME LOSES YOU THE WAVE", anchor: { at: "hit" } },
   ],
 };

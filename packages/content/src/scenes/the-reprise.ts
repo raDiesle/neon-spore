@@ -118,6 +118,6 @@ export const THE_REPRISE: GuideScene = {
     // nobody named is crossing the field toward the plating, and the plating
     // is what it is about to cost. Pointing at the body would name it.
     { tick: 1500, seat: 1, text: "UNSEEN · STILL FALLING", anchor: { at: "hull" } },
-    { tick: 1860, seat: 1, text: "UNSAID · IT LANDS ANYWAY", anchor: { at: "retries" } },
+    { tick: 1860, seat: 1, text: "UNSAID · IT LANDS ANYWAY", anchor: { at: "hit" } },
   ],
 };

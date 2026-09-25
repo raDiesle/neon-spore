@@ -4558,7 +4558,7 @@ eating; *only player 1 sees its face*, held on the hull; then the one
 authored slide in the film, to the column it faces, and the shot from there
 is eaten on player 2's screen; player 1 slides back under the glow, two clean
 fires stop it, and the beam's one step puts it out, with the two black beats after. A
-film takes a hit only from a page anchored at `retries`, and none is: the
+film takes a hit only from a page anchored at `hit`, and none is: the
 eaten shot costs nothing, which is the lesson. Proved in
 `content/test/scene-candle.test.ts` as the sequence of dims, the one `candleFed`
 and the `candleOut`, all inside the loop. Four of its pages were rewritten on
@@ -4724,7 +4724,7 @@ back down the middle column, where player 1 slides under it and its own
 colour breaks it two thirds of the way down. It ends two ruptures short of
 the mouth: what it teaches is the restraint, and the mouth and the beam are
 the guide's prose. Every column is authored — the sack does not move — and
-the seed matters to nothing. No page is anchored at `retries` and the film
+the seed matters to nothing. No page is anchored at `hit` and the film
 takes no hit. Proved in `content/test/scene-gorge.test.ts` as the seventeen
 swallows, emptyings, fulls, ruptures, the spit and the break, beat by beat,
 with nothing venting and no mouth. One of its pages was rewritten on 19
@@ -5066,7 +5066,7 @@ cannon's column and the lobe over it has to be soft when the fifth page says
 so, which seed 64 does. The film ends on the drift and takes no hit; the
 torch and the tear are the guide's prose, because a bolt sent up the core's
 column while the torch comes down it would meet the torch. No page is
-anchored at `retries`. Proved in `content/test/scene-curtain.test.ts` as the
+anchored at `hit`. Proved in `content/test/scene-curtain.test.ts` as the
 bounce, the lobe off, the shoves beat by beat, the reroll, the hit, the second
 lobe and the shadow, with nothing fired, torn or out. Two of its pages were
 rewritten on 19 September 2026, when the field learnt to say the column:

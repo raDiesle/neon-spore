@@ -20617,3 +20617,17 @@ The bottleneck was **reading**: the seam had to be drawn by who imports each
 name, and one name that looked like touch was a drawing's.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — A guide's page on what a miss costs rings the hull, not an empty corner
+
+- reading: 5 min. The anchor, the HUD's corner, and the two scene tests that
+  count a film's pages on the cost.
+- writing: 5 min. `retries` renamed `hit` and resolved at the hull, across the
+  nineteen films, the type, the tests and the spec's three mentions.
+- looking: 0 min. Not photographed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: the queue said point the pages at `hull`, and
+the scene tests use the anchor to tell a cost from a place, so the cost kept
+an anchor of its own.
