@@ -61,9 +61,8 @@ export function strokeGlow(
  * scale, and until 23 September 2026 not the glow's spread, so the spread was
  * counted in the body's units too: at the median scale on a phone, 0.27, a
  * glow written to reach 5 px reached 1.4. That thin neon edge is what every
- * body has worn, and whether it stays is the owner's call through VERSUS
- * (`body:glow`), since the full reach roughly triples the edge on every body
- * on the field.
+ * body has worn, and it stays: VERSUS offered the full reach as `body:glow`
+ * and the owner left it on 25 September 2026 (`tools/versus/DECIDED.md`).
  */
 export interface BodyGlow {
   /** How much of `STROKE.glowSpread` is counted on the screen rather than in

@@ -1129,3 +1129,14 @@ Written into `packages/render/src/scuttle-shape.ts`, `SCUTTLE_ROWS`: `drop`,
 `pitch` and `rise`.
 
 The other answer offered was `short`; it went with the slot.
+
+## `body:glow` — nothing taken, 2026-09-25
+
+The owner looked at the pair on 25 September 2026 and could not see every
+difference between the thin edge and the full one at phone size, so the wider
+halo does not earn a place; bodies keep the edge they wear today
+(`BODY_GLOW.onScreen` stays 0, in
+`packages/render/src/glow.ts`). The seam stays: it is a refactor, not a look,
+and a later answer to the same question arrives through it.
+
+The other answer offered was `full`; it went with the slot.

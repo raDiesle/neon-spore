@@ -6,6 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { BODY_FULL } from "./body-glow/full/index.js";
 
-export const VARIANTS: Variant[] = [BODY_FULL];
+export const VARIANTS: Variant[] = [];
