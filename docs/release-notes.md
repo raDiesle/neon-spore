@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 8c870f3d — TOUCH THE SHIP: the cannon and the shield answer a finger on the hull only when turned on
+
+A new SETTINGS switch, off by default: with it off, a press on the cannon or the shield where they are drawn does nothing to them — the panel is the only way to slide, fire or trigger them, and the press goes to whatever is behind the lobe. Turned on, the hull answers exactly as before, flat or on THE WELL. The owner asked for it by name. `bun run frames --hand` turns it on for its own capture.
+
 ## 2026-09-25 · 75973506 — A swiped egg falls from THE INSTAR's clutch to the hull
 
 Every counted swipe on THE INSTAR's eggs takes one egg off the clutch, and that egg falls straight down to the hull and breaks there, so the swipe and the picture go the same way. The clutch now holds one egg per swipe the mark needs — five — instead of three that did not drop one at a time.

@@ -19849,3 +19849,5 @@ mark, so the fall is proved by a test and not a picture (queued).
 
 The bottleneck was **reading**: `Field` has sixty constructors, so the flag
 had to be the one optional field on it rather than a required one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
