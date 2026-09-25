@@ -21066,3 +21066,5 @@ out was mostly reading.
 
 Bottleneck: the tutorial film is timed to the tick against the map, so it had
 to be probed and re-timed by hand once the grid moved.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

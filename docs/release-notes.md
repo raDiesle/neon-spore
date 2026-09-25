@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 9d639d75a — SNAKE: four small tiles to each old one, a slower body, a longer shot
+
+The arena is 17x21 small tiles, where it was 9x11 big ones. The body now steps one small tile at a time, so steering is finer. It also crosses the screen about a third slower than before. Enemies, points and meteors each take one small tile. The shot now reaches ten small tiles, which is five of the old ones. The three maps are the old ones doubled, with the gaps in the walls filled. The tutorial film is re-timed: it now turns onto the second enemy's row and shoots down it.
+
 ## 2026-09-25 · 1ae6aa3e1 — THE INSTAR's fire is tapped out between the bites and during the third
 
 Between the breath's first and second bites the jaws are forced open on the fire and player 2 taps it out, eight taps. The third bite is now three marks: player 2 pulls the upper jaw against the push while player 1 taps the fire out, six taps, and then pulls the lower jaw up to meet it. The fireball shrinks with every tap. A fire already out waits two beats for player 1's jaw and is lit again after that.
