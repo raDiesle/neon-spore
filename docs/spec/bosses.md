@@ -1864,8 +1864,8 @@ lands.
 
 **The words** (`render/src/boss-cue-read-q.ts`, 19 September 2026, page
 seventeen: it was written onto page four beside THE STARE's and moved off it the
-same day, when THE SPLICE's `WAIT` took that page and two readings would have
-carried it past 250 lines). One, `CARRY` over `PULL` on the middle of the stack, and it is the
+same day, when THE SPLICE's `WAIT` — gone since 25 September — took that page
+and two readings would have carried it past 250 lines). One, `CARRY` over `PULL` on the middle of the stack, and it is the
 word for **the gesture this boss is named after** — which it did not have: the
 reading fell through `cuesOf`'s default and the field said nothing at all, on
 the one boss where both bands are dead. Nothing fired reaches the pile and the
@@ -2177,34 +2177,13 @@ MIRROR each found after writing one. It is kept for the single caller that can
 still reach it, a held hull (`hullInvulnerable`), which is how the director and
 the frame tests watch a round go wrong without ending the wave.
 
-**The words** (`render/src/boss-cue-read-d.ts`, 19 September 2026, beside THE
-STARE's on the page for the cues whose ask is a **stop**). One, and the fight
-could not have a second: `WAIT` in the kind `STILL`, on the seat holding the
-maw, riding the number coming down its straw for exactly the beats it is in the
-air. That is the one moment in this fight where a control has quietly stopped
-working — `spliceHeard` drops a suck while `feedFrom` is set, because a maw with
-something already coming down it is busy — and it is the failure the film was
-built around: *a pair that presses again while one is in the air has not
-understood that the answer is still coming*. The word is **not** the kind, unlike
-THE STARE's and THE LEAD's, because this stillness has an end the seat can see
-coming: `STILL` says which of the five it is and the verb says what to do with
-the two beats. **The mark rides the number and never the mouth.** It is put at
-`spliceFlightAt`, the same point `drawFlight` draws the token at, so the frame is
-*on* the thing she is already watching; a frame on the mouth it is coming **to**
-was the obvious place and is forbidden, because it would stand there from the
-first beat of the flight and trace the straw to its end for her, and tracing the
-straw is the entire fight. **The verb steps over the mark for the last stretch**,
-because riding the number all the way means ending the flight inside the mouth:
-watched at tempo on 21 September 2026 the word spent its final beat written
-across the mouth's own ring, illegible on the beat a thumb is likeliest to press
-again. The reading names the top of that ring as the cue's `wordFloor` and the
-flip `cueWordY` already had for the plating does the rest — the mouths stand two
-tiles clear of the hull, so the floor stamped on by default says nothing about
-them. And it is hers because it could not be his: above the
-mouths his straws do not exist and neither does the number on them until the
-last stretch, and the two beats are not his to wait through anyway — a busy maw
-is exactly when he should be sliding to the mouth she names next, which is the
-guide's sentence and not the field's. **Four silences, and they are most of the
+**The words** (`render/src/boss-cue-read-d.ts`, beside THE STARE's on the page
+for the cues whose ask is a **stop**). **None, since 25 September 2026.** From
+19 September a `WAIT` in the kind `STILL` rode the number coming down its straw,
+on the seat holding the maw, for the beats a second suck is dropped. The owner
+took it off: *for the player it is clear to wait* — the number is in the air on
+the curve she has been tracing, and the frame round it only covered it.
+**Four silences, and they were most of the
 design.** No `SUCK`: the verb of the fight has one place, the mouth the cannon is
 standing under, and she is shown no cannon — a mark there would hand her his half
 of the sentence, and a word that went out only while he was under a mouth would
@@ -2225,10 +2204,9 @@ measurement rather than a choice: a two-straw round stands its mouths in 3 and 7
 and the permutation is never the identity, so number one is always the
 right-hand mouth, and 4 is what an author can write that reaches column 7 on the
 eleven the game is played on. One feed and not two, because the second is the
-first again. **The page the field took over** is the last one: `WAIT` stands on
-the number for the two beats of its travel now, so *SUCK. ONE COMES DOWN* says
-instead what no word on the field may — that those two beats are spent from the
-round's own clock, and that clock is drawn on her screen and on no other. Its
+first again. **The last page** says what the picture does not: the number in
+the air shows its own travel, so *SUCK. ONE COMES DOWN* says instead that those
+beats are spent from the round's own clock, and that clock is drawn on her screen and on no other. Its
 other three pages keep their verbs, which no other film in this family can say:
 the field names **neither** of this fight's gestures.
 
@@ -7073,15 +7051,13 @@ candidates are drawn at `RAIL_R * grow` and reach full size exactly as
 that beat and falls from it. *Which* is the whole question, and the field says
 the verb and never the answer.
 
-**What was missing is the still** (`boss-cue-read-p.ts`, and its own page because
-page three is at 229 of 250). At `antiphonPits` the body stops breathing, rims
-bright and stands for `antiphonStillBeats` with nothing out of it at all, so
-every bolt is refused, and then grows their own ship. Four beats of a trigger
-that has quietly stopped working, on the beat before the fight asks its hardest
-question, and neither screen said so. `STILL` on the body's middle, hers because
-the press is hers, and safe because the stilling is drawn to **both** — `drawBody`
-takes `still` whatever the role. Nothing to him there: the organs are gone, so
-`TURN` goes quiet by itself and turning nothing is not a thing to ask for.
+**And no word on the still** (`boss-cue-read-p.ts`, its own page because page
+three is at 229 of 250). At `antiphonPits` the body stops breathing, rims bright
+and stands for `antiphonStillBeats` with nothing out of it at all, so every bolt
+is refused, and then grows their own ship. A `STILL` stood on the body's middle
+for those beats from 18 September until the owner took it off on 25 September
+2026: *for the player it is clear to wait*. The stilling is drawn to **both**
+screens — `drawBody` takes `still` whatever the role — so the picture says it.
 Nothing in the rest between cycles either, where her rail is empty and an empty
 rail says so, nor on a spilled candidate or a fired organ, which arrive as
 ordinary bodies down ordinary columns. Proved in
@@ -7110,7 +7086,7 @@ hull (`docs/queue.md`, the gauge item); the film takes no hit. Two of its
 pages moved on 19 September 2026: *two pits, now eight beats* was on the
 pilot's screen and the window is drawn beside the rail and nowhere else, so
 the page named a number its reader cannot see and the seat racing it was not
-told; and *six pits, it goes still* is `STILL` on her screen now, so his page
+told; and *six pits, it goes still* is drawn on both screens, so his page
 says the length instead. The film still never turns the organ, which is a
 queue entry rather than a page here.
 

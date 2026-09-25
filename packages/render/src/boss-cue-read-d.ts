@@ -1,24 +1,20 @@
 import type { SpliceState, StareState, World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import type { Layout } from "./layout.js";
-import { spliceFlightAt, spliceMouthR, spliceMouthY } from "./splice-straws.js";
 import { stareLidRest } from "./stare-lid.js";
 import { stareEye, stareGazeFootY } from "./stare-shape.js";
 
 /**
  * **What the bosses whose ask is a stop are asking for** — page four of the
- * readings, opened for THE STARE and joined on 19 September 2026 by THE
- * SPLICE, whose one word is the same kind.
+ * readings, opened for THE STARE. THE SPLICE joined it on 19 September 2026
+ * with a `WAIT` and left it silent on 25 September (below).
  *
- * The three pages before this one each mark the place a thumb goes; the two
- * words that open this one mark a place a thumb must **not**. What THE STARE
- * wants from the watched seat is that no thumb goes anywhere for as long as the
- * look lasts, and what THE SPLICE wants from the seat holding the maw is that it
- * is not pressed a second time while the answer to the first is still coming
- * down — so both are the fifth kind (`boss-cue.ts`, `CueKind`), the one the
- * simulation can tell was *not* done. Each page has a gesture of its own beside
- * it: THE STARE's lid, below, and on THE SPLICE nothing at all, which is the
- * argument over `spliceCues`.
+ * The three pages before this one each mark the place a thumb goes; THE
+ * STARE's word marks a place a thumb must **not**. What it wants from the
+ * watched seat is that no thumb goes anywhere for as long as the look lasts,
+ * so it is the fifth kind (`boss-cue.ts`, `CueKind`), the one the simulation
+ * can tell was *not* done — and here the stillness is the rule itself, which
+ * the picture alone does not say. Its gesture is the lid, below.
  *
  * **When THE STARE's may be said, and when it may not.** The eye's tell — the seven
  * beats of `turning` — is the fight: the seat about to be frozen is *not*
@@ -91,73 +87,13 @@ export function stareCues(l: Layout, world: World, s: StareState): readonly Boss
 }
 
 /**
- * **How far the frame reaches from the number in flight**, in tiles.
+ * **THE SPLICE says nothing, since 25 September 2026.** A `WAIT` rode the
+ * number down its straw, on the seat holding the maw, for the beats a second
+ * suck would do nothing. The owner took it off: *for the player it is clear to
+ * wait* — the number is in the air, on the curve she has been tracing, and the
+ * frame round it only covered the thing she was watching.
  *
- * Not THE CHOIR's `HALF_W`/`HALF_H` above, which are a body's: what this mark
- * stands on is a coin with one digit in it, `spliceNumberAt` drawn at a little
- * under half a tile (`splice-draw.ts`), and a frame of a body's width round it
- * would read as a frame round the *straw* — which is a line the navigator is
- * tracing and the one thing on this field a box must not claim.
- */
-const TOKEN_HALF = 0.45;
-
-/**
- * **THE SPLICE.** One word, and it is the fifth kind: `WAIT` over the number
- * coming down its straw, on the seat holding the maw. Everything else this
- * fight could be told is the answer to it.
- *
- * **The panel, first, because the boss's own file had it the wrong way round
- * until 19 September 2026** (`sim/splice.ts`, `content/src/scenes/the-splice.ts`).
- * The strip is player 1's and the **only** SUCK is player 2's — `["cannon",
- * "mawTake"]`, THE CLAW's arrangement reached from the other end
- * (`content/src/control-sets-table.ts`) — and player 2 is also the seat shown
- * the tangle, the numbers and the round's clock (`showsSpliceTangle`). So the
- * one press in the fight is hers, she is shown no cannon at all, and he is
- * shown a hand's width of straw over each mouth and nothing above it. A feed is
- * two sentences, *the third mouth from the left* and *I am on it*, and neither
- * seat can say both.
- *
- * **`WAIT`, for the beats a number is in the air.** `spliceHeard` drops a suck
- * while `feedFrom` is set, because a maw with something already coming down it
- * is busy: for `spliceFeedBeats` her one button does nothing at all
- * (`sim/splice-round.ts`). That is the trigger that has quietly stopped working
- * which this whole family exists to say, and on this boss it is also the
- * failure the film was built around — *a pair that presses again while one is
- * in the air has not understood that the answer is still coming*
- * (`content/src/scenes/the-splice.ts`). The word is not the kind here, unlike
- * THE STARE's and THE LEAD's: this stillness has an end she can see coming, so
- * `STILL` says which of the five it is and the verb says what to do with the
- * three beats.
- *
- * **The mark rides the number and never the mouth.** It is put at
- * `spliceFlightAt`, the same point the picture draws the token at, so the frame
- * is *on* the thing she is already watching and moves with it. A frame on the
- * mouth the number is coming **to** was the obvious place and is forbidden: it
- * would stand there from the first beat of the flight and trace the straw to
- * its end for her, and tracing the straw is the entire fight. On the token
- * nothing is given away that her own picture has not already given — the digit
- * leaves its top end when the feed starts (`drawNumbers`) and the curve it
- * rides is the curve she has been following.
- *
- * **The last stretch is written over the mark and not under it.** A flight
- * ends with the number sitting in the mouth it was fed to, so the verb hung
- * `halfH + WORD_GAP` under the token spent its final beat across the mouth's
- * own ring — a smear, and a smear at the moment a thumb is likeliest to press
- * again, which is the whole of what the word is for. The top of that ring is
- * this cue's `wordFloor`, and the flip `cueWordY` already had for the plating
- * does the rest: `WAIT` steps over the coin for the last stretch and `STILL`
- * follows it up. The mouths are two tiles clear of the hull, so the default
- * floor `bossCue()` stamps on says nothing about them — seen at tempo, 21
- * September 2026.
- *
- * **And it is hers because it could not be his.** On his screen the straw above
- * the mouths does not exist and neither does the number on it until the last
- * stretch (`drawFlight`), so a word there would hang over an empty field; and
- * the three beats are not his to wait through at all — the maw being busy is
- * exactly when he should be sliding to the mouth she names next, which is the
- * guide's sentence and not the field's.
- *
- * **What it never says.** Four silences, and they are most of the design.
+ * **And what it never said.** Four silences, and they were most of the design.
  *
  * - **No `SUCK`.** The verb of the fight has one place — the mouth the cannon
  *   is standing under — and she is not shown the cannon. A mark there would
@@ -176,24 +112,10 @@ const TOKEN_HALF = 0.45;
  *   round already won is a word about nothing.
  */
 export function spliceCues(
-  l: Layout,
-  world: World,
-  s: SpliceState,
-  beatPhase: number,
+  _l: Layout,
+  _world: World,
+  _s: SpliceState,
+  _beatPhase: number,
 ): readonly BossCue[] {
-  const at = spliceFlightAt(l, world.cfg, s, world.beat + beatPhase);
-  if (at === null) return [];
-  return [
-    {
-      seat: 2,
-      kind: "STILL",
-      word: "WAIT",
-      x: at.x,
-      y: at.y,
-      halfW: l.tile * TOKEN_HALF,
-      halfH: l.tile * TOKEN_HALF,
-      seed: 93,
-      wordFloor: spliceMouthY(l, world.cfg) - spliceMouthR(l),
-    },
-  ];
+  return [];
 }

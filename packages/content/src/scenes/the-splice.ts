@@ -25,12 +25,11 @@ import type { GuideScene } from "../scene-types.js";
  * for: a pair that presses again while one is in the air has not understood
  * that the answer is still coming (`sim/splice-round.ts`).
  *
- * **And the pages the field took over.** The fight says one word now — `WAIT`
- * on the number coming down its straw, on the seat holding the maw and for
- * exactly the beats her button is busy (`render/boss-cue-read-d.ts`) — so the
- * page that said *one comes down* says what no word on the field may: that the
- * three beats of shake and travel are spent from the round's own clock, which is drawn on
- * her screen and on no other. Nothing else on this film loses anything, because
+ * **And the page that said *one comes down*** says what the picture does not:
+ * that the three beats of shake and travel are spent from the round's own
+ * clock, which is drawn on her screen and on no other. The field says no word
+ * on this fight (`render/boss-cue-read-d.ts`; its `WAIT` went on 25 September
+ * 2026 — the number in the air says it). Nothing else on this film is cut, because
  * the field names **neither gesture**: a mark on the mouth the cannon is under
  * would hand the pilot's half of the sentence to the seat who is shown no
  * cannon, so the slide and the suck are the rehearsal's to teach and stay
@@ -74,8 +73,8 @@ export const THE_SPLICE: GuideScene = {
     },
     // The suck is at 1200 and the number lands three beats later, inside this
     // page: the press and the answer are apart on purpose and the page has to
-    // hold both or it teaches a control that does nothing. `WAIT` stands on the
-    // number for those beats now, so what is left to write is where they are
+    // hold both or it teaches a control that does nothing. The number in the air
+    // says those beats itself, so what is left to write is where they are
     // spent from — the clock over the tangle, which only this seat is shown
     // (`splice-draw.ts`'s `drawClock`).
     {

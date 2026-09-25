@@ -41,8 +41,8 @@ import type { GuideScene } from "../scene-types.js";
  * 6, lands during the second still and is warded by a shield `atBody`,
  * because no column a film can name is 6.
  *
- * **And the two pages the field took over.** It says `STILL` on the body for
- * the eight beats nothing can touch it and `BURN` on it through the pass
+ * **And the two pages the field took over.** It says `HOLD` on the stalk for
+ * the eight beats nothing can touch the body and `BURN` on it through the pass
  * (`render/boss-cue-read-c.ts`), so the page that said *it stops dead* says why
  * nothing lands instead, and the page that said *hold the beam in its way* says
  * whose lane the beam leaves by. Everything with a number or a direction in it
@@ -120,7 +120,7 @@ export const THE_LEAD: GuideScene = {
       text: "TORCH · SHIELD · TWO MORE",
       anchor: { at: "control", control: "guard" },
     },
-    // `STILL` stands on the body for the eight beats it does (`boss-cue-read-c.ts`),
+    // `HOLD` stands on the stalk for the eight beats it does (`boss-cue-read-c.ts`),
     // so the page says the part the word cannot: *why* nothing lands.
     { tick: 900, seat: 2, text: "NOTHING TOUCHES IT NOW", anchor: { at: "boss" } },
     {

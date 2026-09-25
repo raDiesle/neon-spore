@@ -28,10 +28,11 @@ import type { GuideScene } from "../scene-types.js";
  * second strip ninety-five ticks after the first so the first is a pit
  * before `atBoss` is asked again.
  *
- * **And the pages the field took over.** The body says `STILL` for the four
- * beats before the ship, hers because the press is hers
- * (`render/boss-cue-read-p.ts`), so the page that announced the still says the
- * length instead — a number no word may carry. The organ has said `TURN` since
+ * **And the pages the field took over.** The body goes still for the four
+ * beats before the ship on both screens, and the field says no word over it
+ * (`render/boss-cue-read-p.ts`; its `STILL` went on 25 September 2026), so the
+ * page that announced the still says the length instead — a number the picture
+ * cannot carry. The organ has said `TURN` since
  * the handle shipped (`render/antiphon-grip.ts`); the film turns it once now,
  * a thumb held on it through the gap between the wrong shot and the first
  * pit, and the page that used to repeat what the navigator's own pages
@@ -206,9 +207,8 @@ export const THE_ANTIPHON: GuideScene = {
       text: "SHOOT THE FOUR THAT FALL",
       anchor: { at: "control", control: "fireCyan" },
     },
-    // `STILL` stands on the body for her now (`render/boss-cue-read-p.ts`) and
-    // the stilling is drawn to both screens, so what is left to write is the
-    // number the word cannot say.
+    // The stilling is drawn to both screens, so what is left to write is the
+    // number the picture cannot say.
     { tick: 2760, seat: 1, text: "FOUR BEATS · NOTHING LANDS", anchor: { at: "boss" } },
     {
       tick: 2940,

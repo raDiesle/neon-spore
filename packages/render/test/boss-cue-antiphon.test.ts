@@ -10,7 +10,6 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { antiphonCentre } from "../src/antiphon-shape.js";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import type { TextBox } from "./canvas-stub.js";
@@ -26,7 +25,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE ANTIPHON's one word, and the two it may never say**
+ * **THE ANTIPHON's reading, which says nothing**
  * (`render/src/boss-cue-read-p.ts`).
  *
  * Its queue entry said *it says nothing on the field at all* and `TURN` had
@@ -52,9 +51,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * There is no `FIRE` either, and for the other reason: she is already told *when*
  * twice on her own screen, by the rail's candidates reaching full size as
  * `antiphonGrowBeats` runs out and by the window gauge beginning to fall
- * (`antiphon-draw.ts`). What was missing is the **still** — four beats at
- * `antiphonPits` where the body stops breathing and `antiphonStruck` refuses
- * every bolt, on the beat before the fight asks for their own ship.
+ * (`antiphon-draw.ts`). And no `STILL` on the four beats at `antiphonPits` where
+ * the body stops breathing and `antiphonStruck` refuses every bolt: it stood
+ * there until 25 September 2026, when the owner took it off — *for the player
+ * it is clear to wait*, and the stilling is drawn to both screens.
  *
  * The states are set rather than played into, as `antiphon-frame.test.ts` sets
  * them: `sim/test/antiphon.test.ts` proves the cycle, the pit, the hardening and
@@ -117,21 +117,12 @@ function stilled(world: World, s: AntiphonState): void {
   s.stillBeat = world.beat;
 }
 
-describe("THE ANTIPHON's word", () => {
-  it("asks her to hold off through the still, where no bolt lands at all", () => {
+describe("THE ANTIPHON's reading", () => {
+  it("says nothing through the still, where no bolt lands at all", () => {
     const { world, s } = hung();
     stilled(world, s);
-    const hers = cue(world, "p2");
-    expect(hers?.word).toBe("STILL");
-    expect(hers?.kind).toBe("STILL");
-    // On the body, whose stilling is drawn to both screens (`drawBody` takes
-    // `still` whatever the role), so the word adds the verb and no reading.
-    const at = antiphonCentre(LAYOUT.p2, CFG);
-    expect(hers?.x).toBeCloseTo(at.x, 5);
-    expect(hers?.y).toBeCloseTo(at.y, 5);
-    // Nothing to him: the organs are gone, so `TURN` goes quiet by itself and
-    // turning nothing is not a thing to ask for.
-    expect(word(world, "p1")).toBeNull();
+    expect(cue(world, "p1")).toBeNull();
+    expect(cue(world, "p2")).toBeNull();
   });
 
   it("says nothing to either seat while an organ stands, at any column", () => {
@@ -161,14 +152,14 @@ describe("THE ANTIPHON's word", () => {
     if (o === undefined) throw new Error("no organ was grown");
     o.grownBeat = world.beat;
     expect(word(world, "p2")).toBeNull();
-    // And the still's word goes with the body.
+    // And once the body is down.
     stilled(world, s);
     s.downBeat = world.beat;
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("draws the still on her screen and not on his", () => {
+  it("draws no still on either screen", () => {
     const drawn = (role: ViewRole): string[] => {
       const { world, s } = hung();
       stilled(world, s);
@@ -181,7 +172,7 @@ describe("THE ANTIPHON's word", () => {
       });
       return texts.map((t) => t.text);
     };
-    expect(drawn("p2")).toContain("STILL");
+    expect(drawn("p2")).not.toContain("STILL");
     expect(drawn("p1")).not.toContain("STILL");
   });
 

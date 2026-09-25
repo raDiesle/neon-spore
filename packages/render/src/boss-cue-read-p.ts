@@ -1,5 +1,4 @@
 import type { AntiphonState, World } from "@neon-spore/sim";
-import { antiphonCentre, antiphonStill } from "./antiphon-shape.js";
 import type { BossCue } from "./boss-cue.js";
 import type { Layout } from "./layout.js";
 
@@ -52,23 +51,16 @@ import type { Layout } from "./layout.js";
  * on a thing she alone chooses, leaves the field nothing to add: *which* is the
  * question, and #34's third rule is that it says the verb and never the answer.
  *
- * **The one word missing was the still.** At `antiphonPits` the body stops
- * breathing, rims bright and stands there for `antiphonStillBeats` with nothing
- * out of it at all — `antiphonStruck` refuses every bolt while no organ stands
- * — and then grows the last organ, which is their own ship among ships subtly
- * wrong. Four beats of a trigger that has quietly stopped working, on the beat
- * before this boss asks its hardest question, and neither screen said so. It is
- * safe because the stilling is drawn to **both**: `drawBody` takes `still`
- * whatever the role, and the breath goes to nought and the rim to seven tenths
- * on every screen (`antiphon-draw.ts`). So the word adds the verb and no
- * reading, which is `sinewEnter`'s licence a third time.
+ * **And no `STILL` on the four beats it stands still, since 25 September
+ * 2026.** At `antiphonPits` the body stops breathing, rims bright and stands
+ * there for `antiphonStillBeats` while `antiphonStruck` refuses every bolt.
+ * A word stood on it for those beats until the owner took it off: *for the
+ * player it is clear to wait*. The stilling is drawn to **both** screens —
+ * the breath goes to nought and the rim to seven tenths whatever the role
+ * (`antiphon-draw.ts`) — so the picture already says it, and the frame and
+ * its word were only in the way.
  *
- * It is hers because the press is hers (`content/src/controls.ts`), and there is
- * nothing to him: the organs are gone, so `drawAntiphonGrip`'s loop runs over
- * none and `TURN` goes quiet by itself. Turning nothing is not a thing to ask
- * for.
- *
- * **Three more silences.**
+ * **Three more silences, each for the same reason.**
  *
  * - **The rest between cycles** (`antiphonRestBeats`), where a bolt is refused
  *   for the same reason. Her rail is empty then and an empty rail says it
@@ -81,29 +73,11 @@ import type { Layout } from "./layout.js";
  *   boss — THE SURGE's gums, and THE SCUTTLE's thrown parts.
  */
 
-/** THE CHOIR's frame, in tiles: the size of this mark. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
 /**
- * THE ANTIPHON. **One word on this page, and it is the four beats the trigger
- * stops working**; the two on the handles are drawn where the handles are
- * (`antiphon-grip.ts`, `antiphon-rail-grip.ts`), and the rest of this fight is
- * a conversation the field must not join.
+ * THE ANTIPHON. **No word on this page**; the two it says are drawn where the
+ * handles are (`antiphon-grip.ts`, `antiphon-rail-grip.ts`), and the rest of
+ * this fight is a conversation the field must not join.
  */
-export function antiphonCues(l: Layout, world: World, s: AntiphonState): readonly BossCue[] {
-  if (!antiphonStill(s)) return [];
-  const at = antiphonCentre(l, world.cfg);
-  return [
-    {
-      seat: 2,
-      kind: "STILL",
-      word: "STILL",
-      x: at.x,
-      y: at.y,
-      halfW: l.tile * HALF_W,
-      halfH: l.tile * HALF_H,
-      seed: 93,
-    },
-  ];
+export function antiphonCues(_l: Layout, _world: World, _s: AntiphonState): readonly BossCue[] {
+  return [];
 }

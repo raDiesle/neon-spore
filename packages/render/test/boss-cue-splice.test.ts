@@ -10,9 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { cueWordY } from "../src/boss-cue-text.js";
-import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
-import { spliceFlightAt, spliceMouthR, spliceMouthY, spliceTopY } from "../src/splice-straws.js";
+import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import type { TextBox } from "./canvas-stub.js";
 import {
   CFG,
@@ -26,11 +24,9 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE SPLICE's one word, and the four things it will not say**
+ * **THE SPLICE's silence, and the four things it never said**
  * (`render/src/boss-cue-read-d.ts`).
  *
- * The queue said this boss *says nothing on the field at all*, and what the
- * reading it grew is mostly about is everything it still says nothing about.
  * The panel is two buttons on two seats — the strip is his and the only SUCK is
  * hers (`content/src/control-sets-table.ts`) — and the split crosses the other
  * way: she is shown the tangle, the numbers and the clock, and no cannon at all
@@ -38,17 +34,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * and *I am on it* is his, and a field that marked either of them would be the
  * fight played for the pair.
  *
- * What is left is the maw standing busy. A suck while a number is already
- * coming down is dropped (`sim/splice-round.ts`), so for `spliceFeedBeats` her
- * one button does nothing, and the film was built around a pair pressing again
- * because the first press looked as though it had failed. `WAIT`, in THE
- * STARE's `STILL`, on the number itself.
- *
- * The cases below hold three things a helpful lane would break: that the word
- * stands where the picture draws the token and not on the mouth it is coming to
- * — a frame there traces the straw for her, which is the whole fight — that the
- * pilot is told nothing at any point of any round, and that nothing is ever
- * said about a clock only she can see, however few beats are left on it.
+ * A `WAIT` rode the number down its straw until 25 September 2026, when the
+ * owner took it off: *for the player it is clear to wait*. So the cases below
+ * hold that nothing is said at any point of a round — in flight, to either
+ * seat, about the clock or over a verdict.
  *
  * The reading is asked directly, as `boss-cue-mirror.test.ts` asks THE
  * MIRROR's; the states are set rather than played into, because the flight, the
@@ -105,53 +94,13 @@ describe("THE SPLICE's word", () => {
     expect(cue(world, "p2")).toBeNull();
   });
 
-  it("asks the seat holding the maw to WAIT while a number is coming down", () => {
+  it("says nothing to either seat while a number is coming down", () => {
     const { world, s } = opened();
     feeding(world, s);
-    const hers = cue(world, "p2");
-    expect(hers?.word).toBe("WAIT");
-    // The fifth kind — the one the simulation can tell was not done — and not
-    // the word, because this stillness has an end she can see coming.
-    expect(hers?.kind).toBe("STILL");
-    expect(hers?.seat).toBe(2);
-  });
-
-  it("stands on the number and not on the mouth it is coming to", () => {
-    const { world, s } = opened();
-    const straw = feeding(world, s);
-    for (const phase of [0, 0.5, 1, 1.5]) {
-      const at = spliceFlightAt(LAYOUT.p2, CFG, s, world.beat + phase);
-      const c = cue(world, "p2", phase);
-      expect({ phase, x: c?.x, y: c?.y }).toEqual({ phase, x: at?.x, y: at?.y });
+    for (const phase of [0, 0.5, 1, CFG.spliceFeedBeats]) {
+      expect(cue(world, "p1", phase), `p1 at ${phase}`).toBeNull();
+      expect(cue(world, "p2", phase), `p2 at ${phase}`).toBeNull();
     }
-    // And on the beat the feed leaves, the mark is on the numbered top end it
-    // came out of and a whole field away from the mouth: a frame at the
-    // entrance would trace the straw to its end for her from the first beat of
-    // the flight, and tracing it is the fight.
-    const start = cue(world, "p2");
-    expect(start?.x).toBe(tileCX(LAYOUT.p2, s.topCols[s.topOf[straw] ?? 0] ?? 0));
-    expect(start?.y).toBe(spliceTopY(LAYOUT.p2, CFG));
-    expect(start?.y).toBeLessThan(spliceMouthY(LAYOUT.p2, CFG) - LAYOUT.p2.tile);
-  });
-
-  it("steps the verb over the mark for the last stretch, clear of the mouth", () => {
-    const l = LAYOUT.p2;
-    const { world, s } = opened();
-    feeding(world, s);
-    const ringTop = spliceMouthY(l, CFG) - spliceMouthR(l);
-    // Halfway down, the mark is in clear sky and the verb hangs under it,
-    // which is the side #34 puts it on and where it stays for most of a flight.
-    const midway = cue(world, "p2", CFG.spliceFeedBeats / 2);
-    expect(midway).not.toBeNull();
-    expect(cueWordY(midway as BossCue)).toBeGreaterThan((midway as BossCue).y);
-    // At the end the number is sitting in the mouth it was fed to, so `WAIT`
-    // written under it is written across the mouth's own ring — a smear on a
-    // real frame, on the beat a thumb is likeliest to press again. The floor
-    // the reading names is the top of that ring and the flip does the rest.
-    const landed = cue(world, "p2", CFG.spliceFeedBeats);
-    expect(landed).not.toBeNull();
-    expect((landed as BossCue).wordFloor).toBe(ringTop);
-    expect(cueWordY(landed as BossCue)).toBeLessThan(ringTop);
   });
 
   it("says nothing to the pilot at any point of the flight, on any straw", () => {
@@ -188,7 +137,7 @@ describe("THE SPLICE's word", () => {
     expect(cue(world, "p2")).toBeNull();
   });
 
-  it("draws the word on her glass and on no other, through a real suck", () => {
+  it("draws no word on either glass, through a real suck", () => {
     const said = (role: ViewRole): string[] => {
       const { world, s } = opened();
       const col = s.entranceCols[spliceWanted(s)] ?? world.cannonCol;
@@ -216,9 +165,9 @@ describe("THE SPLICE's word", () => {
       });
       return texts.map((t) => t.text);
     };
-    const hers = said("p2");
-    expect(hers).toContain("WAIT");
-    expect(hers).toContain("STILL");
-    expect(said("p1")).not.toContain("WAIT");
+    for (const role of ["p1", "p2"] as const) {
+      expect(said(role)).not.toContain("WAIT");
+      expect(said(role)).not.toContain("STILL");
+    }
   });
 });

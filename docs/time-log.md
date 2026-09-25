@@ -20261,3 +20261,16 @@ The bottleneck was **writing**: two whole views of one body, and a crossfade
 between them, had to stand on the same marks the script already placed.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SPLICE and THE ANTIPHON wait without a box
+
+- reading: 10 min. Every boss's `STILL` read to tell a wait the picture
+  already shows from a rule the picture does not.
+- writing: 10 min. Two readings silenced, two tests turned round, and the
+  scenes, act 9, `bosses.md` and `briefings.md` brought to it.
+- looking: 5 min. One frame of a number in flight.
+- friction: 5 min. Two wrong `--press` control names before the frame rendered.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: deciding which of the `STILL`s were waits and
+which were the rule took longer than removing them.

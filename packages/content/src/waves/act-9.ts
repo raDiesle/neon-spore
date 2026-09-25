@@ -80,10 +80,9 @@ import type { Wave } from "../wave-types.js";
  * sentence each way — *the third mouth from the left*, *I am on it* — and
  * neither seat is sitting with nothing to press.
  *
- * **The field says one word on it and no more** (`render/boss-cue-read-d.ts`,
- * 19 September 2026): `WAIT` on the number coming down its straw, on the seat
- * holding the maw, for the beats her one button is busy. Neither gesture can be
- * named — a mark on the mouth the cannon is under would be player 1's half of
+ * **The field says no word on it** (`render/boss-cue-read-d.ts`): the `WAIT`
+ * that rode the number down its straw went on 25 September 2026, because the
+ * number in the air already says it. Neither gesture can be named — a mark on the mouth the cannon is under would be player 1's half of
  * the sentence handed to player 2, who is shown no cannon — so the guide's two
  * halves are the counting and the clock rather than the slide and the press.
  *

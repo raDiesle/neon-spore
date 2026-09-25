@@ -532,8 +532,9 @@ nobody else can see and carries the arithmetic — eight beats a straw, two of t
 the number's own travel and spent from the same clock — and his on the ring that
 marks the mouth he is under and the two beats that are his to spend rather than
 wait through. Only one page of its film changed, because the field names neither
-of this fight's gestures: the last one said *SUCK. ONE COMES DOWN*, which `WAIT`
-on the falling number now says, and it says the cost instead. Writing the words
+of this fight's gestures: the last one said *SUCK. ONE COMES DOWN*, which the
+falling number says for itself, and it says the cost instead. (The `WAIT` went
+on 25 September 2026, the owner's word: *for the player it is clear to wait*.) Writing the words
 found the boss's own file (`sim/splice.ts`) and the film's own paragraph
 describing the panel backwards — the navigator with no SUCK and the pilot holding
 both buttons — against `["cannon", "mawTake"]`, which is what a lane deciding
