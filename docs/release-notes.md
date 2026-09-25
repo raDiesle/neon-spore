@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · f4d3e5e97 — Queue and time log: four more bosses wear the blow
+
+THE THROAT, THE BATON, THE CAIRN and THE VANE are on the list of bosses that wear the blow. Two findings are queued: THE VANE's pin has no event and no sound, and boss-hurt.test.ts is past 250 lines.
+
+## 2026-09-25 · e85e79a1f — THE VANE shakes and goes red when a pin is knocked out
+
+A shot that knocks a pin out of the bearing now shakes the whole mechanism and washes the hub and the spar red for a moment, as every other boss the pair can beat already does. The sim pushes no event for a pin, so the boss pass watches the count instead: a pin fewer than last frame is the blow.
+
+## 2026-09-25 · e6c87d15c — THE CAIRN shakes and goes red when a unit is pulled off
+
+A unit hauled off the pile now shakes the pile, the hand on it and the lane mark as one, and lays red over the pile's outline for half a second. A thumb holding the pile deals nothing. The red goes over `cairn-units.ts`' outline after the look has painted it, so a VERSUS pile goes red the same way. `boss-draw.ts`' cairn arm moved into `drawCairn`, and the budget's `save` row is one higher for the shake's translate.
+
+## 2026-09-25 · 58852f376 — THE BATON shakes and goes red when a struck bead lands
+
+A struck bead coming down in the next socket, and the arm folding at the end, now shake the arm and the rings on it and wash every socket red for half a second. The spine is an open stroke, so it only shakes. The launch and the strike are parts of a pass and deal nothing.
+
+## 2026-09-25 · 996e8d91b — THE THROAT shakes and goes red when a ring is choked
+
+A flung gum arriving at the mouth, and the last ring going slack, now shake the gullet and wash its skin red for half a second. Holding it by the ring or hauling the mouth deals nothing. THE THROAT had no fx class, so its blow is kept in a new `BossBlows`, which holds the blow for the four bosses that keep nothing else between frames.
+
 ## 2026-09-25 · 362d27bcc — THE INSTAR lunges twice: once held together, once split
 
 THE INSTAR's script gains an eighth step, after the coil: the lunge again, but player 1 holds the brow alone while player 2 taps the right eye twelve times, and the eye flinches shut as the taps land. A hold on a mark of one seat's own now counts that seat's thumb alone; a hold on a mark for both still waits for two thumbs.

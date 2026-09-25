@@ -20972,3 +20972,5 @@ does not fit.
 Bottleneck: THE VANE has no event for the blow to hang on, and giving it one
 means a sound — so the render side watches the pin count and the event is
 queued.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
