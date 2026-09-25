@@ -20369,3 +20369,5 @@ drawing and a fourth for what comes out of it.
 
 The bottleneck was **looking**: the first trunk still read as a vase, and it
 took two passes on the lip to make it a mouth.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

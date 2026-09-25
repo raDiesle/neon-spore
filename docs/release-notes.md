@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · a074a5e21 — THE SPLICE's pipes are living trunks and its straws are gut
+
+The SUCK pipes are no longer cylinders with a rim. Each one is now a trunk of flesh that breathes and bows on the beat, with veins down it. It flares into a lobed lip with feelers that wave, and while it sucks they curl in and light up. The straws feeding the pipes are now pink gut with uneven creases instead of grey ringed hose, and nothing on them moves, so they are still easy to trace. Every pipe still says SUCK on both screens, and the pipe under the cannon, the done mark and the swelling for a number inside work as before.
+
 ## 2026-09-25 · 2ea95088f — THE MAZE takes one shot per trigger on the game's shot grid too
 
 On a phone a press waits for the half-beat, so it lays a charge and no bullet yet, and the bullet THE MAZE drops when the drum takes a shot was not there to drop. Half a beat later an ordinary bolt went up the column and off the top of the field while the drum walked the shot it had taken. The charge is now marked when the drum takes it, and goes out as a muzzle flash with no bolt. A fix to something wrong rather than unlovely.
