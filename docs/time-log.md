@@ -20615,3 +20615,5 @@ lists, and the new line had to go where it says.
 
 The bottleneck was **reading**: the seam had to be drawn by who imports each
 name, and one name that looked like touch was a drawing's.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

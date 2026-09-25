@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 67812f609 — render's touch names are a barrel page of their own
+
+`packages/render/src/index.ts` stood at 237 of its 250 lines. The names a host reads to answer a finger — `touch*`, the ship and well grabs, the desk's seats and `stage-point` — are `index-touch.ts` now, re-exported whole, so no import moved and the barrel is at 222 lines.
+
 ## 2026-09-25 · 78be87749 — THE INSTAR's names are one surface page, not two lists
 
 `bosses-clocks-b.ts` and `boss-surface-clocks-b.ts` each listed THE INSTAR's twenty-nine names and stood at 246 and 248 of their 250 lines. The list lives in `boss-surface-instar.ts` now and both `export *` it; they are at 218 and 220 lines. Nothing outside `packages/sim` changed its import.
