@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 4cccf9394 — A wave carries its number and its name, and no sentence
+
+The owner took the one-sentence description off every wave: "name of wave and number is good enough." `Wave.sentence` is gone from the type and from all 101 waves, so the introduction, the ready gate's page and the JUMP TO WAVE list show the wave's number and name only, and the director's WAVE tab has no SENTENCE field. The one-sentence test stays, as something the author says in the commit rather than a field the save refuses without.
+
 ## 2026-09-25 · 282d64c49 — On HARD a shot that hits nothing loses the wave
 
 On HARD, a shot that flies out of the top of the field with nothing taking it now loses the wave, just as a hit on the hull does. EASY and MEDIUM keep every rule they had. The level sets the rule together with the tempo, in one place (`playDifficulty`). The rule is off while a boss hangs above the field, because that boss's sky takes every bolt, armour included. It is also off in the rest after a clear, on THE WELL and in a film. A bolt that goes into one of those bosses is no longer drawn flying on past it to the top of the screen.
