@@ -9,6 +9,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { paintKnuckle } from "./baton-flesh.js";
+import { drawHurt } from "./boss-hurt.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { splinePath } from "./spline.js";
 
@@ -133,6 +134,8 @@ export function drawSocket(
   beat: number,
   beatPhase: number,
   time: number,
+  /** How red the blow of a landed bead still shows (`boss-blows.ts`). */
+  hurt = 0,
 ): void {
   const state = b.sockets[socket];
   if (state === BATON_SOCKET_SHED) return;
@@ -163,5 +166,8 @@ export function drawSocket(
     ),
     true,
   );
+  const alpha = ctx.globalAlpha;
   paintKnuckle(ctx, ring, { x, y, r, tile: l.tile, lit, breath, swell });
+  drawHurt(ctx, ring, hurt * alpha);
+  ctx.globalAlpha = alpha;
 }

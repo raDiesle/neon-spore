@@ -252,6 +252,18 @@ const ROWS: Row[] = [
     ],
     hurt: (fx) => fx.boss.blows.throat,
   },
+  {
+    boss: "baton",
+    land: [
+      { type: "batonLanded", col: 3, socket: 1 },
+      { type: "batonDown", col: 3 },
+    ],
+    part: [
+      { type: "batonLaunch", col: 3, socket: 0 },
+      { type: "batonStruck", col: 3, socket: 0 },
+    ],
+    hurt: (fx) => fx.boss.blows.baton,
+  },
 ];
 
 describe("the blow a boss takes", () => {

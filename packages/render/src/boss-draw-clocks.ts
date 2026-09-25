@@ -80,11 +80,17 @@ export function drawClockBoss(
   // is greyed for a beat (`band-lock.ts`). Off the tick and not only the
   // beat, because the bead's flight is three beats long and a shot has to
   // meet it where the simulation says it is (`baton-draw.ts`).
+  // The blow of a landed bead shakes the arm and the rings on it as one.
   if (boss.kind === "baton") {
-    drawBaton(ctx, l, world.cfg, boss, world.tick, world.beat, view.beatPhase, view.time);
+    const hurt = effects.boss.blows.baton;
+    const { beatPhase, time } = view;
+    ctx.save();
+    ctx.translate(hurt.shakeX(time, l.tile), 0);
+    drawBaton(ctx, l, world.cfg, boss, world.tick, world.beat, beatPhase, time, hurt.value);
     // And the two rings the arm itself asks for, after it, so they stand on
     // the sockets and nothing stands on them (`baton-grip.ts`).
-    drawBatonGrip(ctx, l, world.cfg, boss, l.role, world.beat, view.beatPhase, view.time);
+    drawBatonGrip(ctx, l, world.cfg, boss, l.role, world.beat, beatPhase, time);
+    ctx.restore();
     return;
   }
 

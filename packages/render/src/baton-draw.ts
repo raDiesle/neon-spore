@@ -38,8 +38,9 @@ import { splinePath } from "./spline.js";
  * arm back, and the sim clears the beat with it.
  *
  * Nothing here is held between frames. Every number comes off the boss, the
- * tick and the beat, so there is no `Effects` field to clear and a restart
- * cannot show this fight the last one's arm.
+ * tick and the beat, so a restart cannot show this fight the last one's arm.
+ * The one thing handed in is the blow of a landed bead — how red the sockets
+ * still show (`boss-blows.ts`); its shake is the caller's.
  */
 
 /** The arm's spine is this share of a tile wide. */
@@ -70,6 +71,7 @@ export function drawBaton(
   beat: number,
   beatPhase: number,
   time: number,
+  hurt = 0,
 ): void {
   // The fold at the end: the whole arm goes out over `batonDownBeats`, which
   // is exactly as long as the sim keeps the boss installed for (`stepBaton`).
@@ -90,7 +92,7 @@ export function drawBaton(
   for (let i = 0; i < b.sockets.length; i++) {
     const grow = Math.max(0, Math.min(1, shown - i));
     if (grow <= 0) break;
-    drawSocket(ctx, l, cfg, b, i, grow, thread, beat, beatPhase, time);
+    drawSocket(ctx, l, cfg, b, i, grow, thread, beat, beatPhase, time, hurt);
   }
   // The crossing is the last flight, and the bead is the whole of it.
   if (b.stage === "passing" || b.stage === "crossing")
