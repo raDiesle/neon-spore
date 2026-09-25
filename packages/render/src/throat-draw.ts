@@ -1,5 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import type { SimConfig, ThroatState } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
 import { drawEversion, evertedRings } from "./throat-evert.js";
@@ -44,8 +45,9 @@ import { type Ring, rings } from "./throat-shape.js";
  * nothing can be fired at. `throat-mouth.ts` argues the one exception.
  *
  * Nothing here is held between frames. Every number comes off the boss and the
- * beat (`throat-shape.ts`), so there is no `Effects` field to clear and a
- * restart cannot show this fight the last one's gullet.
+ * beat (`throat-shape.ts`), so a restart cannot show this fight the last
+ * one's gullet. The one thing handed in is the blow of a choked ring — how
+ * red the skin still shows (`boss-blows.ts`); its shake is the caller's.
  */
 
 /** How far past a ring the skin between two of them bows outward. */
@@ -62,6 +64,7 @@ export function drawThroat(
   /** Whether the throat is holding a body right now — `boss-cue-read-k.ts`'s
    * own question, asked again here for `drawThroatLock`'s reason. */
   crowded: boolean,
+  hurt = 0,
 ): void {
   // The eversion feeds the tube through its own mouth, so the gullet above
   // shortens from the top as it goes: the rings still to come through are the
@@ -75,7 +78,7 @@ export function drawThroat(
     // Two rings or more, or there is no *between* for the skin to be: a lone
     // ring left at the end of the eversion drew a flat line across the field,
     // which the last frames of it made plain.
-    if (shape.length > 1) drawSkin(ctx, l, shape, time);
+    if (shape.length > 1) drawSkin(ctx, l, shape, time, hurt);
     // Top down, so a ring's band sits over the skin above it and the gullet
     // reads as a stack of muscles seen from outside rather than as a ladder of
     // hoops. The top one is the gullet's opening.
@@ -100,7 +103,13 @@ export function drawThroat(
  * it — and dark, so a taut ring reads as a highlight on a body and not as a
  * wire in space. A wet streak runs down its lit side (`throat-flesh.ts`).
  */
-function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, shape: Ring[], time: number): void {
+function drawSkin(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  shape: Ring[],
+  time: number,
+  hurt: number,
+): void {
   const left: Point[] = [];
   const right: Point[] = [];
   const lit: Point[] = [];
@@ -125,6 +134,7 @@ function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, shape: Ring[], time:
   }
   const skin = splinePath([...left, ...right.reverse()], true);
   paintTube(ctx, skin, splinePath(lit, false), l.tile);
+  drawHurt(ctx, skin, hurt);
 }
 
 /**

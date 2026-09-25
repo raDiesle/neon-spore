@@ -94,9 +94,15 @@ export function drawClockBoss(
   // reason — and it is the first boss the field is drawn *through*: shots pass
   // up the tube and bodies are hauled up the column under the mouth
   // (`throat-draw.ts`).
+  // The blow of a choked ring shakes the whole gullet, the readout with it.
   if (boss.kind === "throat") {
     const crowded = world.creatures.some((c) => throatHolds(world, c));
-    drawThroat(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time, crowded);
+    const hurt = effects.boss.blows.throat;
+    const { beatPhase, time } = view;
+    ctx.save();
+    ctx.translate(hurt.shakeX(time, l.tile), 0);
+    drawThroat(ctx, l, world.cfg, boss, world.beat, beatPhase, time, crowded, hurt.value);
+    ctx.restore();
     return;
   }
 

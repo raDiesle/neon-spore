@@ -62,6 +62,7 @@ export class BossTransients extends BossRoster {
     this.ratchet.ingest(events, l, cfg, beatSeconds, role, burst);
     this.fleet.ingest(events, beatSeconds);
     this.fleetGrip.ingest(events, l, burst);
+    this.blows.ingest(events);
   }
 
   /** `burst` is for the fleet alone: a salvo's particles are thrown on the
@@ -92,6 +93,7 @@ export class BossTransients extends BossRoster {
     this.ratchet.update(dt);
     this.fleet.update(dt, l, burst);
     this.fleetGrip.update(dt);
+    this.blows.update(dt);
   }
 
   /** The ten drawn under the hull with everything else. The mirror, the
@@ -136,6 +138,7 @@ export class BossTransients extends BossRoster {
     this.spool.clear();
     this.hasp.clear();
     this.ratchet.clear();
+    this.blows.clear();
   }
 }
 

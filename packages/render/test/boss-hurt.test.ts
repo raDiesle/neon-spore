@@ -240,6 +240,18 @@ const ROWS: Row[] = [
     part: [{ type: "queenFlinch", col: 4, row: 2, side: -1 }],
     hurt: (fx) => fx.ship.queenHurt,
   },
+  {
+    boss: "throat",
+    land: [
+      { type: "throatChoke", col: 3 },
+      { type: "throatEvert", col: 3 },
+    ],
+    part: [
+      { type: "throatCinch", col: 3 },
+      { type: "throatHaul", col: 3 },
+    ],
+    hurt: (fx) => fx.boss.blows.throat,
+  },
 ];
 
 describe("the blow a boss takes", () => {

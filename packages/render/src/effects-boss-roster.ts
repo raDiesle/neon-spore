@@ -1,4 +1,5 @@
 import { AntiphonFx } from "./antiphon-fx.js";
+import { BossBlows } from "./boss-blows.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
@@ -147,4 +148,8 @@ export class BossRoster {
    * set and a let-go on the catch's screens alone, a burnt tooth nowhere
    * (`ratchet-fx.ts`, `view-role-clocks-c.ts`). */
   readonly ratchet = new RatchetFx();
+  /** The blow for the bosses with no fx class of their own — THE THROAT,
+   * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
+   * (`boss-blows.ts`). */
+  readonly blows = new BossBlows();
 }

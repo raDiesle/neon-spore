@@ -899,6 +899,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-shape.ts` | what a cue is — `CueKind`, `BossCue`, and which screen is owed one |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |
 | `packages/render/src/boss-hurt.ts` | The shake and red glow any boss shows for a moment after the pair lands a sequence |
+| `packages/render/src/boss-blows.ts` | The blow for the bosses with no fx class of their own — throat, vane, cairn, baton — dealt off one event table |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
