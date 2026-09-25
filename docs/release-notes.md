@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · bcec375d — Every fault says what it is doing, in a few words beside the lantern
+
+The lantern hanging top-centre now carries a line beside it for the fault in force: MIRRORED, SHIELD STUCK ON, CANNON FIRES ALONE, CANNON WALKS ALONE, COLOURS SWAP, SCREENS SWAPPED, KEEP CANNON MOVING, KEEP SHIELD MOVING. It shows only where the lantern's news is the screen's own: THE CODEX's on the pilot's screen, THE FLIP's on the turned one.
+
 ## 2026-09-25 · 54115bdf — A fault's name is written across the map row it enters on
 
 The director's map wrote a malfunction's name and its rows in a 70px strip beside the trash, at a size that was hard to read, and every row spent that width whether a fault was on it or not. The name and its range now sit on one line centred across the seven cells of the row it enters on, over a faint amber band, and fade on the row under the pointer so the arrival beneath can be seen and pressed. The strip is the trash and the bracket again, and the map is 48px narrower.
