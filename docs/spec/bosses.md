@@ -7535,7 +7535,9 @@ the teeth stand out round it: player 1 the rasp (THE RASP, steel, turning as it
 bores), player 2 the corona (THE CORONA, gold, turning slower), this screen's
 own bright and the partner's at half (`drawFilamentTool`). The free end pulses
 in `wispRim` on every screen while it is armed, with *READY* beside it, or *NEXT* from the
-second filament on. **What each screen draws** (`view-role-clocks-b.ts`,
+second filament on, and both tools rest on it nested, the rasp inside the
+corona's ring; on the pilot's screen the dashed way grows down from the heart
+to the free end over the arm, so the next vein is seen appearing. **What each screen draws** (`view-role-clocks-b.ts`,
 `filament-turn-draw.ts`, `filament-turn-marks.ts`) was the owner's on 25
 September 2026 — *not clear when following is correct or not*: every screen
 has the lit run from the free end to the head and **both thumbs** — its own
@@ -7551,13 +7553,19 @@ thumbs and red when full, and a red bar across the pilot's path on the last
 tile he may light. **The partner the line waits on** wears the waiting clock
 and a *P1* or *P2* box (`drawInstarWait`), and **the line's clock** is an arc
 round every ring it waits on, emptying to the strike in the fuse's colours:
-white, orange from half, red for the last two beats. **The pull**: the whole run lit green and sliding up into the body as it fades
-(`filamentPullRise`), the body a strand narrower under it, shaking and red
-(`BossHurt`), and *PULLED* over the field with how many filaments are left. **Down**: the heart
+white, orange from half, red for the last two beats. **The pull** is the
+owner's *both weapons are applied … and it spits them out and a new vene is
+appearing* (`filament-strike.ts`): the whole run lit green and sliding up into
+the heart as it fades (`filamentPullRise`), both tools riding up the lead into
+the heart, **the strike** when they reach it — the heart swells, shakes and
+glows red, timed by the picture rather than the event (`hurtShake`) — then
+**the spit**, the two thrown out on arcs either way down to the next vein's
+free end, or off the field after the last. *HEART HIT* is over the field from
+the strike, with how many veins are left. **Down**: the heart
 fades out over `filamentOutBeats`. What outlives a frame is
 `effects.boss.filament` (`filament-fx.ts`): the whip of a snap or a recoil
 throws the line a quarter tile sideways and back, the dark of a gap dims the
-path ahead, a pull and the down jolt the body up and hurt it. The grab is a circle on the
+path ahead, a pull and the down jolt the body up, and the down hurts it. The grab is a circle on the
 head for player 1 and on the tail for player 2 (`filamentGrabCircle`,
 `filamentGrabUnder` in `render/handles.ts`); the director's sheet has the row
 (`field-controls-filament.ts`, `docs/spec/controls.md`). Proved by
@@ -7569,9 +7577,11 @@ window, the held ring is greener, the clock reddens as it runs out, the
 waiting clock is on the partner the line waits on, the pull is green and has
 no ring and a narrower body, the down fades
 and the out has no body, and the transients reset; and by
-`filament-heart-frame.test.ts`, four: the heart is rimmed in the warm sheen,
+`filament-heart-frame.test.ts`, eight: the heart is rimmed in the warm sheen,
 the vein has a wall the arm has not, each screen's own tool is bright and the
-partner's at half, and no tool is carried before the thumbs count.
+partner's at half, both tools rest on the free end through the arm, the next
+vein grows over the arm, and both tools are in the strike and the spit, which
+differ; the pull is red at the strike and not at the spit.
 
 **What is not built** is the film: the eleven events are drawn by the picture
 and no longer silent by omission, but the guide is still prose

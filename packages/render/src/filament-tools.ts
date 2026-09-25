@@ -91,9 +91,25 @@ export function drawFilamentTool(
 ): void {
   const c = filamentGrabCircle(l, s, seat);
   if (c === null) return;
-  const r = c.r * (own ? REACH : THEIR_REACH);
-  const path =
-    seat === 1 ? filamentRaspPath(c.x, c.y, r, time) : filamentCoronaPath(c.x, c.y, r, time);
+  drawFilamentToolAt(ctx, seat, c.x, c.y, filamentToolR(c.r, own), own, time);
+}
+
+/** A tool's reach on a ring of radius `ringR`: this screen's own past the ring, the partner's closer in. */
+export function filamentToolR(ringR: number, own: boolean): number {
+  return ringR * (own ? REACH : THEIR_REACH);
+}
+
+/** A seat's tool at `(x, y)`, `r` to its tips, anywhere it rides — a ring, the lead, the heart. */
+export function drawFilamentToolAt(
+  ctx: CanvasRenderingContext2D,
+  seat: 1 | 2,
+  x: number,
+  y: number,
+  r: number,
+  own: boolean,
+  time: number,
+): void {
+  const path = seat === 1 ? filamentRaspPath(x, y, r, time) : filamentCoronaPath(x, y, r, time);
   const hex = seat === 1 ? PALETTE.rock : PALETTE.pod;
   const dark = seat === 1 ? PALETTE.rockDark : PALETTE.podDark;
   const a = own ? 1 : THEIRS;

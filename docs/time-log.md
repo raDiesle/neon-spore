@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE FILAMENT's tools strike the heart and are spat onto the next vein
+
+- reading: 5 min. The pull's timing in the step, and which tests pinned
+  *PULLED* and the event's hurt.
+- writing: 10 min. `filament-strike.ts`, the tool drawn anywhere, the lead as
+  one curve for the path and the flight, the growing way, the guide words.
+- looking: 5 min. Three frames: the strike, the spit, the arm.
+- friction: 0 min.
+- landing: 5 min. The spec's look paragraph, `check:fast`.
+
+Bottleneck: the canvas stub logs neither a dash nor a text, so the tests had
+to count strokes and colour prefixes instead of the words themselves.
+
 ## 2026-09-25 — THE FILAMENT is a heart, its filaments veins, and each thumb carries a tool
 
 - reading: 5 min. Who stood on the old body helpers, and which shape-sheet

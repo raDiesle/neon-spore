@@ -1,12 +1,6 @@
 import { circleSubpath } from "@neon-spore/content";
-import {
-  type FilamentState,
-  filamentsLeft,
-  filamentTiles,
-  filamentTracing,
-  type World,
-} from "@neon-spore/sim";
-import { drawHurt } from "./boss-hurt.js";
+import { type FilamentState, filamentTiles, filamentTracing, type World } from "@neon-spore/sim";
+import { drawHurt, hurtShake } from "./boss-hurt.js";
 import type { FilamentFx } from "./filament-fx.js";
 import {
   filamentHeart,
@@ -20,10 +14,15 @@ import {
   filamentGrabCircle,
   filamentLeadPath,
   filamentPullPhase,
-  filamentPullRise,
   filamentRunPath,
   filamentStrands,
 } from "./filament-shape.js";
+import {
+  drawFilamentPulled,
+  drawFilamentResting,
+  filamentStrike,
+  struckHeart,
+} from "./filament-strike.js";
 import { drawFilamentTool } from "./filament-tools.js";
 import { drawFilamentClock, drawFilamentOwn, drawFilamentTheirs } from "./filament-turn-draw.js";
 import { drawFilamentVein } from "./filament-vein.js";
@@ -58,9 +57,10 @@ import { showsFilamentAhead, showsFilamentBehind } from "./view-role-clocks-b.js
  * clock — and the unlit path is still the pilot's alone, so which way the
  * line turns next is his to say (`view-role-clocks-b.ts`,
  * `filament-turn-draw.ts`). A pull is the pair's win and says so: the line
- * green as it slides out, the body shaken red (`boss-hurt.ts`), the word
- * over the field and how many are left, and `NEXT` on the free end that
- * arms after it.
+ * green as it slides out, both tools into the heart, the heart struck and
+ * spitting them out onto the next vein's free end, the word over the field
+ * and how many are left (`filament-strike.ts`); then the next vein grows
+ * down from the heart on the pilot's screen, and `NEXT` on its free end.
  */
 export function drawFilament(
   ctx: CanvasRenderingContext2D,
@@ -78,21 +78,28 @@ export function drawFilament(
   fx.place(l, s);
   ctx.save();
   const strands = filamentStrands(s, cfg, beat, beatPhase);
-  const heart = filamentHeart(l, cfg, strands, beatPhase);
-  ctx.translate(fx.hurt.shakeX(time, l.tile), -fx.jolt * l.tile);
-  drawHeart(ctx, heart, strands, time, fade, fx.hurt.value);
+  const pull = filamentPullPhase(s, cfg, beat, beatPhase);
+  const strike = s.phase === "pull" ? filamentStrike(pull) : 0;
+  const hurt = Math.max(fx.hurt.value, strike);
+  const heart = struckHeart(filamentHeart(l, cfg, strands, beatPhase), strike);
+  ctx.translate(hurtShake(hurt, time, l.tile), -fx.jolt * l.tile);
+  drawHeart(ctx, heart, strands, time, fade, hurt);
   ctx.restore();
   if (filamentTiles(s) === null) return;
   const ahead = showsFilamentAhead(l.role);
   const behind = showsFilamentBehind(l.role);
-  const pull = filamentPullPhase(s, cfg, beat, beatPhase);
+  const own = [ahead, behind] as const;
   ctx.save();
   ctx.translate(fx.whip * l.tile * 0.25, 0);
-  if (s.phase === "pull") drawPulled(ctx, l, s, pull);
-  else {
-    if (ahead) drawAhead(ctx, l, s, heart, fx.dark);
-    if (s.phase === "arm") drawArmed(ctx, l, s, filamentArmPhase(s, cfg, beat, beatPhase), time);
-    else if (filamentTracing(s)) {
+  if (s.phase === "pull") drawFilamentPulled(ctx, l, s, heart, pull, own, time);
+  else if (s.phase === "arm") {
+    const arm = filamentArmPhase(s, cfg, beat, beatPhase);
+    if (ahead) drawAhead(ctx, l, s, heart, fx.dark, arm);
+    drawFilamentResting(ctx, l, s, own, time);
+    drawArmed(ctx, l, s, arm, time);
+  } else {
+    if (ahead) drawAhead(ctx, l, s, heart, fx.dark, 1);
+    if (filamentTracing(s)) {
       drawFilamentVein(ctx, l, s, fx.dark, time);
       drawFilamentTool(ctx, l, s, 2, behind, time);
       drawFilamentTool(ctx, l, s, 1, ahead, time);
@@ -137,17 +144,23 @@ function drawHeart(
   }
 }
 
-/** Player 1's half: the whole vein faint from end to root, and the lead from the root into the heart. */
+/**
+ * Player 1's half: the lead from the root into the heart, and the whole vein
+ * faint from root to end — grown down from the root over the arm, `grown`
+ * of the way, so the new vein is seen appearing.
+ */
 function drawAhead(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   s: FilamentState,
   heart: Heart,
   dark: number,
+  grown: number,
 ): void {
   const tiles = filamentTiles(s);
   if (tiles === null) return;
-  const path = filamentRunPath(l, s, 0, tiles.length - 1);
+  const last = tiles.length - 1;
+  const path = filamentRunPath(l, s, Math.round((1 - grown) * last), last);
   ctx.save();
   ctx.strokeStyle = PALETTE.dim;
   ctx.lineWidth = STROKE.inner;
@@ -178,38 +191,4 @@ function drawArmed(
   // The next filament is a new round, and says so on the end it starts from.
   const side = c.x < l.gridLeft + (l.cols * l.tile) / 2 ? -1 : 1;
   drawInstarWord(ctx, l, s.cursor > 0 ? "NEXT" : "READY", c.x + side * c.r * 1.6, c.y, side, true);
-}
-
-/**
- * The pull: the whole filament green, sliding up into the body and going as
- * it does, and the win said over the field with how many are left — the
- * owner's *very clear visible the success, and that a new level is going to
- * start*.
- */
-function drawPulled(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  s: FilamentState,
-  pull: number,
-): void {
-  const tiles = filamentTiles(s);
-  if (tiles === null) return;
-  const path = filamentRunPath(l, s, 0, tiles.length - 1, filamentPullRise(pull));
-  if (path !== null) {
-    strokeGlow(ctx, path, rgba(PALETTE.good, 1 - pull), STROKE.outline * 1.5, 1.5 * (1 - pull));
-  }
-  const left = filamentsLeft(s) - 1;
-  const x = l.gridLeft + (l.cols * l.tile) / 2;
-  const y = l.gridTop + l.gridHeight * 0.45;
-  ctx.save();
-  ctx.globalAlpha = Math.min(1, 2 * (1 - pull) + 0.2);
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = PALETTE.good;
-  ctx.font = `700 ${Math.round(l.tile * 0.7)}px system-ui, sans-serif`;
-  ctx.fillText("PULLED", x, y);
-  ctx.fillStyle = PALETTE.goodRim;
-  ctx.font = `600 ${Math.round(l.tile * 0.35)}px system-ui, sans-serif`;
-  if (left > 0) ctx.fillText(`${left} LEFT`, x, y + l.tile * 0.7);
-  ctx.restore();
 }

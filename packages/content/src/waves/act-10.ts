@@ -156,8 +156,8 @@ export const WAVES_ACT_10: Wave[] = [
     id: "theFilament",
     name: "THE FILAMENT",
     guide: {
-      both: "One of you draws the line, the other follows. One tile a beat. Stay within three tiles. Never share a tile until the last. A mistake loses the wave.",
-      p1: "1. Put your thumb on the lit end and draw up the filament, one tile a beat.\n2. Say your next tile before you take it.\n3. Faster than a beat snaps it. Wait for your partner.\n4. Wait too long and the ship is hit.",
+      both: "Carry your tools up a vein to the heart. One draws, one follows. One tile a beat. Stay within three tiles. A mistake loses the wave.",
+      p1: "1. Put your thumb on the lit end and draw up the vein, one tile a beat.\n2. Say your next tile before you take it.\n3. Faster than a beat snaps it. Wait for your partner.\n4. Wait too long and the ship is hit.",
       p2: "1. Put your thumb on the lit end. Follow the lit tiles behind your partner.\n2. Say how far behind you are. Past three, it goes dark.\n3. Never land on their tile before the last.\n4. Wait too long and the ship is hit.",
     },
     entries: [],

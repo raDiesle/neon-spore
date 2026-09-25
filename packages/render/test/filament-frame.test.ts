@@ -116,7 +116,9 @@ describe("THE FILAMENT's body", () => {
     const pull = frame(role, pulled);
     const trace = frame(role, (w) => tracing(w, 3, 1));
     expect(pull.text).not.toBe(trace.text);
-    expect(count(pull.text, PALETTE.red)).toBe(0);
+    // The heart is struck red while the tools are in it, and only then: a pull is no fault.
+    expect(count(pull.text, PALETTE.redRim)).toBeGreaterThan(0);
+    expect(count(frame(role, (w) => pulled(w, 2)).text, PALETTE.redRim)).toBe(0);
     expect(count(pull.text, BODY)).toBeGreaterThan(0);
     // The win is green, and a traced line is not.
     expect(count(pull.text, rgba(PALETTE.good, 1).slice(0, 12))).toBeGreaterThan(0);
@@ -143,6 +145,7 @@ describe("THE FILAMENT's body", () => {
         { type: "filamentSnap", col: 5 },
         { type: "filamentDark", col: 5 },
         { type: "filamentPulled", index: 0, col: 5 },
+        { type: "filamentDown", col: 5 },
       ],
       L,
       0,

@@ -40,7 +40,7 @@ export class BossHurt {
 
   /** The body's sideways shake this frame, in pixels. */
   shakeX(time: number, tile: number): number {
-    return this.now * tile * SHAKE_TILES * Math.sin(time * SHAKE_RATE);
+    return hurtShake(this.now, time, tile);
   }
 
   update(dt: number): void {
@@ -50,6 +50,15 @@ export class BossHurt {
   clear(): void {
     this.now = 0;
   }
+}
+
+/**
+ * The sideways shake of a blow at `value` 0..1, in pixels — for a drawer
+ * whose blow is timed by its own picture rather than by an event
+ * (`filament-strike.ts`).
+ */
+export function hurtShake(value: number, time: number, tile: number): number {
+  return value * tile * SHAKE_TILES * Math.sin(time * SHAKE_RATE);
 }
 
 /** The red over one plate of a body that took the blow: a wash and a hot rim. */

@@ -10,9 +10,10 @@ import { PALETTE } from "./palette.js";
  * snapping back to its free end — a lateral throw of the whole line, one
  * way for the snap and the other for the recoil — the **dark** a gap opened
  * too far leaves over the line, the **jolt** of the body as a filament is
- * pulled out of it, the **hurt** of a pull — the owner's shake and red of 24
- * September, on the body the pair just took a filament out of
- * (`boss-hurt.ts`) — and the bursts its eleven receipts throw.
+ * pulled out of it, the **hurt** of the last vein — the owner's shake and red
+ * of 24 September (`boss-hurt.ts`) — and the bursts its eleven receipts
+ * throw. The blow of every other pull is timed by the picture, when the two
+ * tools reach the heart, not by the event (`filament-strike.ts`).
  *
  * Everything else — the lit tiles, the two thumbs, the gap — is read off the
  * boss every frame (`filament-draw.ts`). These are here for THE HIVE's
@@ -38,7 +39,7 @@ export class FilamentFx {
   private whipNow = 0;
   private darkNow = 0;
   private joltNow = 0;
-  /** A filament pulled out of the body: the body shakes and glows red. */
+  /** The last vein out: the heart shakes and glows red. */
   readonly hurt = new BossHurt();
   private head: Point | null = null;
   private end: Point | null = null;
@@ -109,7 +110,6 @@ export class FilamentFx {
         case "filamentPulled":
           at(this.end ?? tile(e.col, 0), 14, PALETTE.good);
           this.joltNow = JOLT_TILES;
-          this.hurt.hit();
           break;
         case "filamentDown":
           at(body, 30, PALETTE.sheenRim);

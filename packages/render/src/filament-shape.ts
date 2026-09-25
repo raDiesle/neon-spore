@@ -77,10 +77,33 @@ export function filamentLeadPath(l: Layout, s: FilamentState, heart: Heart): Pat
   if (root === undefined) return null;
   const at = filamentPoint(l, root);
   const tip = filamentHeartPoint(heart);
+  const [c1, c2] = leadControls(at, tip);
   const p = new Path2D();
   p.moveTo(at.x, at.y);
-  p.bezierCurveTo(at.x, (at.y + tip.y) * 0.5, tip.x, at.y, tip.x, tip.y);
+  p.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, tip.x, tip.y);
   return p;
+}
+
+/** A point `u` of the way along the lead from `at` to `tip`, where the tools ride into the heart. */
+export function filamentLeadAt(at: Point, tip: Point, u: number): Point {
+  const [c1, c2] = leadControls(at, tip);
+  const w = 1 - u;
+  const k0 = w * w * w;
+  const k1 = 3 * w * w * u;
+  const k2 = 3 * w * u * u;
+  const k3 = u * u * u;
+  return {
+    x: k0 * at.x + k1 * c1.x + k2 * c2.x + k3 * tip.x,
+    y: k0 * at.y + k1 * c1.y + k2 * c2.y + k3 * tip.y,
+  };
+}
+
+/** The lead's two handles: straight up off the root, then across into the heart's point. */
+function leadControls(at: Point, tip: Point): [Point, Point] {
+  return [
+    { x: at.x, y: (at.y + tip.y) * 0.5 },
+    { x: tip.x, y: at.y },
+  ];
 }
 
 /** The ring a thumb takes hold at: the pilot's on the head, the navigator's on the tail. */

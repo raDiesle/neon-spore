@@ -1221,6 +1221,7 @@ by hand never moves.
 | `packages/render/src/filament-fx.ts` | What THE FILAMENT leaves behind a frame: the **whip** of a filament snapping back to its free end |
 | `packages/render/src/filament-grip.ts` | **A thumb on THE FILAMENT's line**: the pilot's on the head, the navigator's on the tail |
 | `packages/render/src/filament-shape.ts` | **Where THE FILAMENT is**, in field pixels: every tile of the armed filament at its tile's centre |
+| `packages/render/src/filament-strike.ts` | **The strike, and the spit** — the owner, 25 September 2026: *when both reach … the hearth inside |
 | `packages/render/src/filament-turn-draw.ts` | **Whose move THE FILAMENT is, drawn** — the owner, 25 September 2026 |
 | `packages/render/src/filament-turn-marks.ts` | **The small marks round THE FILAMENT's thumbs**: the arrows that march the way a thumb goes next |
 | `packages/render/src/filament-tools.ts` | **The two tools the thumbs carry up the vein** — the owner, 25 September 2026: *player 1 … with some weapon |

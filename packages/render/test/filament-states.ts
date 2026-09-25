@@ -65,13 +65,13 @@ export function tracing(world: World, head: number, tail: number, cursor = 0): F
   return s;
 }
 
-/** The first filament traced end to end and a beat into its pull. */
-export function pulled(world: World): FilamentState {
+/** The first filament traced end to end and `beats` into its pull: one is the strike, two the spit. */
+export function pulled(world: World, beats = 1): FilamentState {
   const s = body(world);
   const last = (s.tiles[0]?.length ?? 1) - 1;
   const p = tracing(world, last, last);
   p.phase = "pull";
-  p.phaseBeat = world.beat - 1;
+  p.phaseBeat = world.beat - beats;
   return p;
 }
 
