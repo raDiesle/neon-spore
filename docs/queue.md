@@ -664,3 +664,26 @@ bodies and creatures in one, damage and boss-borrowed states (THE SLOW's two,
 the handover, the guide) in another — and have `poses-versus.ts` concatenate
 them. Prove it with `bun run check`: `versus-pose.test.ts` and the pose-row
 test still find every slot's pose.
+
+## AUTO has no hand for THE PULSE or THE REPRISE
+
+- **Found:** 2026-09-25, claude/game-multiplayer-testing-601794
+- **Files:** `tools/director/src/autopilot-hands.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/src/boss-hands-handles.ts`
+
+The director's AUTO row (OFF/BOTH/P1/P2) plays a boss live with the hand the
+poses reach its defeat with, and no pose has one for these two, so AUTO says
+*no hand for this boss* on them. Write a hand for each that plays it right
+(beside the others, or in a file of its own), add its row to `AUTOPILOT_HANDS`, and
+take its name out of `NO_HAND` in the test, which then proves the row exists.
+
+## AUTO plays bosses only, and only in the director
+
+- **Found:** 2026-09-25, claude/game-multiplayer-testing-601794
+- **Files:** `tools/director/src/stage-autopilot.ts`, `tools/director/src/autopilot-ghost.ts`, `apps/game/src/`
+
+AUTO covers the bosses because the director's hands only exist for them; an
+ordinary wave's co-op controls (cannon and shield together) have no hand, and
+the game's own TEST view on a phone has no AUTO at all. A seat-playing hand
+for ordinary waves would reach both. Keep it out of `sim`: it is a player's
+input, fed through `step` like a thumb's. Prove it with a test that AUTO BOTH
+clears one ordinary wave headless.

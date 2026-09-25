@@ -222,6 +222,15 @@
           <button type="button" data-role="test" class="role on">TEST</button>
           <button type="button" data-role="p1" class="role">P1</button>
           <button type="button" data-role="p2" class="role">P2</button>
+          <!-- AUTO: the boss's own hand plays the seats named, live, and the
+               mouse is taken off them — so one person plays one seat against
+               a partner who plays it right (stage-autopilot.ts). -->
+          <span class="auto-label" title="The machine plays these seats, live">AUTO</span>
+          <button type="button" data-auto="off" class="auto on">OFF</button>
+          <button type="button" data-auto="both" class="auto">BOTH</button>
+          <button type="button" data-auto="p1" class="auto">P1</button>
+          <button type="button" data-auto="p2" class="auto">P2</button>
+          <span id="autoNote" class="auto-note"></span>
           <button type="button" id="keyHelpOpen" title="What the keyboard does, and whose hand it is">
             ⌨ KEYS
           </button>
@@ -242,6 +251,10 @@
             <button type="button" data-role="test" class="role on">TEST</button>
             <button type="button" data-role="p1" class="role">P1</button>
             <button type="button" data-role="p2" class="role">P2</button>
+            <!-- And AUTO, as one button that steps OFF → BOTH → P1 → P2: the
+                 strip is a column down the field's edge, with no room for
+                 RUN's four. -->
+            <button type="button" class="auto-cycle" title="The machine plays these seats, live">AUTO</button>
             <!-- And RUN's BRIEFINGS and ↺ WAVE, the two a phone reaches for
                  between tries (the owner, 24 September 2026); bound beside
                  their RUN copies in pair-panel.ts and stage-transport.ts. -->

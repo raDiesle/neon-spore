@@ -15,6 +15,7 @@ import {
 import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
+import { stageAutopilot } from "./stage-autopilot.js";
 import { draftControlSet, draftGuide } from "./stage-draft.js";
 import { stageField } from "./stage-field.js";
 import { exposeStageHandle } from "./stage-handle.js";
@@ -46,7 +47,7 @@ export function bindStage(
   // The renderer draws into a phone-shaped rectangle inside this canvas, so a
   // layout built from the canvas answers every control somewhere the picture
   // is not — `stage-point.ts` owns the measuring and the whole of that.
-  const { layout, at } = stageGeometry(
+  const { layout, at, viewport, stage } = stageGeometry(
     canvas,
     cfg,
     () => role,
@@ -67,16 +68,22 @@ export function bindStage(
   // Ink off the end of a mouse, over the field and nowhere else, and none of
   // it on a phone (`stage-trail.ts`).
   bindStageTrail(canvas);
+  // What a hit test is handed, read fresh on every press (`stage-field.ts`).
+  const fieldFor = (seat?: 1 | 2) =>
+    stageField(world, role, currentControlSet(), cfg, seat ?? desk.seat(), renderer.skinY);
+  // AUTO: a boss's hand on the seats the row names (`stage-autopilot.ts`).
+  const auto = stageAutopilot(
+    { layout: () => handedLayout(layout(), world), field: fieldFor },
+    document,
+  );
   const touch = bindStageTouch({
     canvas,
     at,
     layout: () => handedLayout(layout(), world), // answered where it is drawn.
-    // What a hit test is handed, read fresh on every press (`stage-field.ts`).
     // A seat may be asked for: with neither key held the press is run for one
     // seat and then the other until one of them answers (`render/desk-grab.ts`).
-    field: (seat?: 1 | 2) =>
-      stageField(world, role, currentControlSet(), cfg, seat ?? desk.seat(), renderer.skinY),
-    seats: () => pointerSeats(role, desk.seat()),
+    field: fieldFor,
+    seats: () => auto.seats(pointerSeats(role, desk.seat())),
     push: keys.push,
     world: () => world,
     role: () => role,
@@ -89,8 +96,14 @@ export function bindStage(
   const stepper = stageStep({
     cfg,
     world: () => world,
-    renderer,
+    renderer: {
+      draw: (seen) => {
+        renderer.draw(seen);
+        auto.paint(canvas, viewport(), stage(), world); // AUTO's fingers, over the frame
+      },
+    },
     keys,
+    auto: auto.commands,
     cueTick: touch.cueTick, // `3`'s held thumbs move into the tick that follows them
     running: () => running,
     role: () => role,
@@ -116,6 +129,7 @@ export function bindStage(
     // on the wrong sheet is a world the panel is already lying about, and the
     // two used to be two statements a caller had to put in the right order.
     world = buildStageWorld(store, cfg, wantedRound);
+    auto.reset();
     stepper.opened();
     afterRun.paint(); // a fresh world is never over
     repeat.hide();

@@ -2064,6 +2064,7 @@ by hand never moves.
 | `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `tools/director/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
 | `tools/director/src/boss-hands-scout.ts` | **THE SCOUT's own hand** — the flight test's stupid autopilot, holding any burn that two beats of flying on would be caught after |
+| `tools/director/src/boss-hands-stare.ts` | The free seat's thumb on THE STARE's lid: pulled to the bottom the tick the eye looks at the other seat |
 | `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
@@ -2213,6 +2214,7 @@ by hand never moves.
 | `tools/director/src/skins/wrinkle.ts` | WRINKLE — meridians of fold that come up across the body on the beat and smooth away again |
 | `tools/director/src/snake-editor.ts` | SNAKE's arena, edited on the grid the pair will play it on |
 | `tools/director/src/stage-afterrun.ts` | The after-run screen honours its own instruction |
+| `tools/director/src/stage-autopilot.ts` | **AUTO: the machine plays a seat, live, while you play the other** — the OFF/BOTH/P1/P2 row in RUN |
 | `tools/director/src/stage-handle.ts` | The handle headless checks drive the stage through |
 | `tools/director/src/stage-loop.ts` | The stage's clock: a fixed-timestep loop of its own rather than the game's |
 | `tools/director/src/stage-repeat.ts` | A cleared wave stops and asks, rather than starting itself again |
@@ -2713,6 +2715,8 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
+| `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
+| `tools/director/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
 | `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |
 | `tools/imports/imports.ts` | Dropping the names a file split strands in an import list, and refusing to delete a statement |
 | `tools/imports/run.ts` | `bun run imports` — drop the names a file split stranded in an import list |

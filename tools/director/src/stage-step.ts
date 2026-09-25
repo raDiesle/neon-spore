@@ -4,6 +4,7 @@ import {
   type SimConfig,
   type SimEvent,
   step,
+  type TimedCommand,
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
@@ -33,6 +34,8 @@ export interface StageStepParts {
   /** Where a frame goes. Narrower than `Canvas2DRenderer` on purpose. */
   renderer: { draw(seen: ViewState): void };
   keys: Pick<Keys, "drain">;
+  /** AUTO's commands for this tick, beside the desk's (`stage-autopilot.ts`). */
+  auto?(w: World): TimedCommand[];
   /** The cue key's held thumbs, moved into the tick that follows them. */
   cueTick(): void;
   /** The transport. False holds the world still while frames keep coming. */
@@ -78,7 +81,8 @@ export function stageStep(parts: StageStepParts): StageStep {
 
   const stepOnce = (): void => {
     const w = world();
-    step(w, keys.drain(w.tick));
+    const auto = parts.auto?.(w) ?? [];
+    step(w, auto.length > 0 ? [...keys.drain(w.tick), ...auto] : keys.drain(w.tick));
     if (w.events.length > 0) {
       frameEvents.push(...w.events);
       for (const e of w.events) if (e.type === "needWave") parts.onNeedWave(e.retry === true);

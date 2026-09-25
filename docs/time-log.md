@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — AUTO: the director plays a seat live, with its finger drawn
+
+- reading: 5 min. The boss hands, `touch.ts`'s drag carry, the stage's step
+  and seat plumbing.
+- writing: 10 min. The hand table, the stage row, the ghost that runs the hit
+  test backwards, five tests.
+- looking: 5 min. The browser pane and `bun run shot`, and the labels moved
+  apart after the first picture.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, one index row per new file.
+
+The bottleneck was the picture: the pane opened the wrong port and
+`bun run shot --click` was the way to a PNG.
+
+## 2026-09-25 — AUTO: the director plays a seat live, with its finger drawn
+
+- reading: 5 min. The boss hands, `touch.ts`'s drag carry, the stage's step
+  and seat plumbing.
+- writing: 10 min. The hand table, the stage row, the ghost that runs the hit
+  test backwards, five tests.
+- looking: 5 min. The browser pane and `bun run shot`, and the labels moved
+  apart after the first picture.
+- friction: 5 min. The pane opened the game's port rather than the
+  director's, and a stray `cat` in one shell command waited on stdin.
+- landing: 5 min. `check:fast`, one index row per new file.
+
+The bottleneck was getting the picture: `bun run shot --click` got the PNG
+where the pane could not.
+
 ## 2026-09-25 — THE INSTAR's script is the owner's dragon choreography
 
 - reading: 10 min. §11.32, the script, `instar.ts`, `instar-step.ts`, the

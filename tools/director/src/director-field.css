@@ -128,6 +128,18 @@
 .transport .note {
   margin: 4px 0 8px;
 }
+/* AUTO's row in RUN (stage-autopilot.ts): a word in front of its four, and
+   what it says when the wave has nothing for it to play. */
+.auto-label,
+.auto-note {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  align-self: center;
+}
+.auto-note:empty {
+  display: none;
+}
 
 /* KEYBINDINGS: "for the time being" — a modal over the field, not a
    settings page and not the full-screen shell CARDS/SHIP/CONTROL SETS
