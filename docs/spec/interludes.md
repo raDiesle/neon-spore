@@ -385,12 +385,21 @@ now carry the whole body and everything standing in the arena, and the split
 is the hands alone. The seat with the wheel cannot shoot or eat, and the seat
 with the trigger cannot turn.
 
-**The shot carries three tiles and no further** (`snakeShotTiles`). It used to
-carry the width of the arena, which quietly took the steering out of the round:
-an enemy eight tiles up column four was answered from the opening square, and
-player 2 had nothing to do with it. A spit that reaches three tiles turns the
-sentence the pair says most from "it is lined up" into "bring me to it", which
-is the sentence the round is for. The picture says so — the venom lands in
+**The shot carries ten small tiles and no further** (`snakeShotTiles`). It used
+to carry the width of the arena, which quietly took the steering out of the
+round: an enemy eight tiles up column four was answered from the opening square,
+and player 2 had nothing to do with it. Then it carried three of the old big
+tiles, and the owner asked for more (25 September 2026). Ten small tiles is five
+big ones, still short of the arena, so the sentence the pair says most is still
+"bring me to it", which is the sentence the round is for.
+
+**The arena is 17x21 small tiles** (`snakeCols`, `snakeRows`), where it was 9x11
+big ones. The owner asked for four small tiles to one big one, because a body
+that jumped a big tile per step felt clumsy to steer, and for a slower body. The
+old tile (c, r) is the small tile (2c, 2r), so the authored maps doubled and the
+arena stayed the same size on the screen. Every length doubled with it, and each
+step is a small tile at 45, 36 and 28 ticks, a third slower across the screen
+than before. The picture says so — the venom lands in
 mid-air when it found nothing, which is the pair being told the reach ran out
 rather than the aim did.
 

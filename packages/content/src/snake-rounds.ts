@@ -14,8 +14,8 @@ import type { SnakeRound } from "@neon-spore/sim";
  * shape neither player can describe.
  *
  * **How to read a row.** `enemies` must be shot before the head reaches them —
- * touching one starts the attempt over, and the spit only carries three tiles
- * (`snakeShotTiles`), so an enemy has to be driven *at* before it can be
+ * touching one starts the attempt over, and the spit only carries ten small
+ * tiles (`snakeShotTiles`), so an enemy has to be driven *at* before it can be
  * answered. `points` must be driven over with the
  * mouth open, and driven over with it shut starts the attempt over too.
  * `rocks` are meteors: they cannot be shot and cannot be taken, they stop a
@@ -23,101 +23,108 @@ import type { SnakeRound } from "@neon-spore/sim";
  * Clear the first two lists and the next round opens; the meteors are what
  * stands between the pair and doing it in a straight line.
  *
- * The arena is nine wide by eleven deep (`SnakeConfig`), `col` 0 on the left
- * and `row` 0 at the top. The body starts three long in column 4 at the bottom
- * heading up, so anything in column 4 low down is the thing the pair meets
- * before they have finished reading their screens — which is why round one
- * puts exactly one enemy there and nothing else.
+ * The arena is seventeen small tiles wide by twenty-one deep (`SnakeConfig`),
+ * `col` 0 on the left and `row` 0 at the top. Every map was written on the old
+ * 9x11 grid and doubled: the old tile (c, r) is (2c, 2r) here, and a wall of
+ * meteors is filled in between so the body cannot slip through the gap the
+ * doubling opened. The body starts six long in column 8 at the bottom heading
+ * up, so anything in column 8 low down is the thing the pair meets before they
+ * have finished reading their screens.
  *
- * **The step, in ticks.** At 120 ticks a second, 60 is half a second a tile and
- * 38 is under a third. The body slides between tiles rather than jumping
- * (`snake-body.ts`), so these are the speeds of a thing that moves rather than
- * of a thing that ticks. The mouth stands open for 84 ticks whatever the round
- * (`snakeMawTicks`), so the press that is well over a step in round one is
- * barely two by round three — the round gets harder in the one place it
- * should, without a second number saying so.
+ * **The step, in ticks.** At 120 ticks a second, 45 is under two fifths of a
+ * second a small tile and 28 under a quarter. A small tile is half a big one,
+ * so the body crosses the screen about a third slower than it did on the old
+ * grid, which the owner asked for (25 September 2026). The body slides between
+ * tiles rather than jumping (`snake-body.ts`). The mouth stands open for 84
+ * ticks whatever the round (`snakeMawTicks`), so the press that is two steps
+ * in round one is three by round three.
  */
 export const SNAKE_ROUNDS: SnakeRound[] = [
-  // Learning what the two seats are. One enemy straight ahead, standing at the
-  // far end of the spit's reach on the tile the body opens on, so the first
-  // thing player 1 ever does is fire at something already in range — and three
-  // points spread wide enough that each one is a turn somebody has to call.
+  // Learning what the two seats are. One enemy straight ahead and inside the
+  // spit's reach from the tile the body opens on, so the first thing player 1
+  // ever does is fire at something already in range. Three points spread wide
+  // enough that each one is a turn somebody has to call.
   {
     enemies: [
-      { col: 4, row: 5 },
-      { col: 1, row: 2 },
+      { col: 8, row: 10 },
+      { col: 2, row: 4 },
     ],
     points: [
-      { col: 2, row: 8 },
-      { col: 7, row: 7 },
-      { col: 6, row: 2 },
+      { col: 4, row: 16 },
+      { col: 14, row: 14 },
+      { col: 12, row: 4 },
     ],
     // Two meteors, well clear of the opening run: the first round teaches what
     // they are by putting one somewhere the pair will drive past rather than
     // into.
     rocks: [
-      { col: 6, row: 5 },
-      { col: 2, row: 5 },
+      { col: 12, row: 10 },
+      { col: 4, row: 10 },
     ],
-    beats: 40,
-    stepTicks: 60,
+    beats: 60,
+    stepTicks: 45,
   },
   // Two enemies on the same row as a point, which is the round where "shoot it
   // first" stops being advice and starts being an order.
   {
     enemies: [
+      { col: 8, row: 12 },
       { col: 4, row: 6 },
-      { col: 2, row: 3 },
-      { col: 7, row: 4 },
+      { col: 14, row: 8 },
     ],
     points: [
-      { col: 1, row: 9 },
-      { col: 7, row: 9 },
-      { col: 4, row: 1 },
-      { col: 0, row: 5 },
+      { col: 2, row: 18 },
+      { col: 14, row: 18 },
+      { col: 8, row: 2 },
+      { col: 0, row: 10 },
     ],
     // A short wall across the middle with one way through it, and a meteor
-    // standing in front of the enemy at (7,4): the shot cannot answer that one
-    // from below, so the pair has to come round.
+    // standing in front of the enemy at (14,8): the shot cannot answer that
+    // one from below, so the pair has to come round.
     rocks: [
-      { col: 3, row: 5 },
-      { col: 4, row: 5 },
-      { col: 5, row: 5 },
-      { col: 7, row: 5 },
+      { col: 6, row: 10 },
+      { col: 7, row: 10 },
+      { col: 8, row: 10 },
+      { col: 9, row: 10 },
+      { col: 10, row: 10 },
+      { col: 14, row: 10 },
     ],
-    beats: 44,
-    stepTicks: 48,
+    beats: 66,
+    stepTicks: 36,
   },
-  // Five and five at under half a second a tile, with the body long enough by
-  // the end to be in its own way. This is the round the pair has to have
-  // agreed about *before* the corner arrives.
+  // Five and five at the fastest step, with the body long enough by the end
+  // to be in its own way. This is the round the pair has to have agreed about
+  // *before* the corner arrives.
   {
     enemies: [
-      { col: 4, row: 7 },
-      { col: 3, row: 3 },
-      { col: 6, row: 3 },
-      { col: 1, row: 6 },
-      { col: 7, row: 7 },
+      { col: 8, row: 12 },
+      { col: 6, row: 6 },
+      { col: 12, row: 6 },
+      { col: 2, row: 12 },
+      { col: 14, row: 14 },
     ],
     points: [
-      { col: 2, row: 1 },
-      { col: 6, row: 1 },
-      { col: 0, row: 9 },
-      { col: 8, row: 5 },
-      { col: 4, row: 4 },
+      { col: 4, row: 2 },
+      { col: 12, row: 2 },
+      { col: 0, row: 18 },
+      { col: 16, row: 10 },
+      { col: 8, row: 8 },
     ],
-    // Six, in two diagonals. There is no straight line left across the middle
-    // of the arena, which at this speed is the whole round: every one of the
-    // five enemies has to be lined up from a place the pair chose.
+    // Two diagonals of three and two singles. There is no straight line left
+    // across the middle of the arena, which at this speed is the whole round:
+    // every one of the five enemies has to be lined up from a place the pair
+    // chose.
     rocks: [
-      { col: 2, row: 5 },
-      { col: 3, row: 6 },
-      { col: 6, row: 5 },
-      { col: 5, row: 6 },
-      { col: 1, row: 3 },
-      { col: 7, row: 3 },
+      { col: 4, row: 10 },
+      { col: 5, row: 11 },
+      { col: 6, row: 12 },
+      { col: 12, row: 10 },
+      { col: 11, row: 11 },
+      { col: 10, row: 12 },
+      { col: 2, row: 6 },
+      { col: 14, row: 6 },
     ],
-    beats: 48,
-    stepTicks: 38,
+    beats: 72,
+    stepTicks: 28,
   },
 ];

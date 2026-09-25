@@ -122,7 +122,7 @@ describe("SNAKE draws on all three screens", () => {
     boss.phase = "play";
     boss.dirCol = 0;
     boss.dirRow = -1;
-    boss.body = Array.from({ length: 9 }, (_, i) => ({ col: 4, row: 3 + i }));
+    boss.body = Array.from({ length: CFG.snakeShedTiles + 2 }, (_, i) => ({ col: 4, row: 3 + i }));
     boss.stepTick = world.tick;
     // Both held, which is the only state either ring draws its dial in: the
     // mouth **standing** open — half way through its window rather than on the

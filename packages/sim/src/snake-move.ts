@@ -156,14 +156,15 @@ function advance(world: World, snake: SnakeState): false | null {
  *
  * Hit-scan and not a travelling bullet, and the reason is the sentence rather
  * than the arithmetic: the head *is* the gun, so what player 1 is answering is
- * "it is lined up now", and a shot that took three tiles to arrive would be
+ * "it is lined up now", and a shot that took a few tiles to arrive would be
  * answering where the body was when they pressed. It stops at the first
  * standing enemy, its own body or the wall, whichever comes first.
  *
  * **And it is short.** `snakeShotTiles` is the whole of its reach, counted
  * from the tile in front of the head. A spit that carried the arena made the
- * steering irrelevant to the trigger; one that carries three tiles makes
- * "bring me to it" the sentence the pair says most.
+ * steering irrelevant to the trigger; one that carries ten small tiles, five
+ * of the old big ones, still makes "bring me to it" the sentence the pair
+ * says most.
  *
  * Returns whether it found something, and leaves where it stopped on the state
  * for the picture to draw.

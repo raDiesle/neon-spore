@@ -123,7 +123,7 @@ function square(round: SnakeRound, col: number, row: number, redraw: () => void)
   if (enemy !== -1) cell.classList.add("enemy");
   if (point !== -1) cell.classList.add("point");
   if (rock !== -1) cell.classList.add("rock");
-  // The three tiles the body already fills are marked rather than forbidden:
+  // The tiles the body already fills are marked rather than forbidden:
   // an author may want a point one step off the start, and the only thing that
   // would actually be unplayable is a thing *under* the opening body.
   if (isStart(col, row)) cell.classList.add("start");

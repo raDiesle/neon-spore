@@ -42,9 +42,9 @@ const WAVE = 6;
 /** An arena with nothing in the body's way: the grips are the subject here. */
 const ROUNDS = [
   {
-    enemies: [{ col: 8, row: 0 }],
+    enemies: [{ col: CFG.snakeCols - 1, row: 0 }],
     points: [
-      { col: 4, row: 6 },
+      { col: 1, row: 1 },
       { col: 0, row: 0 },
     ],
     rocks: [],
@@ -209,29 +209,28 @@ describe("the tail, under shed", () => {
     const into = (held: boolean): boolean => {
       const world = open();
       const snake = round(world);
-      // A body curled so that the tile straight ahead of the head is its own
-      // tail: head at (4,4) going up, and the tail brought round in front.
+      // A body curled so that the tile straight ahead of the head is near
+      // its own tail: head going up, the body down one column and back up
+      // the next, and the tail brought round in front.
       const head = snake.body[0];
       if (!head) throw new Error("a body with no head");
       snake.dirCol = 0;
       snake.dirRow = -1;
-      snake.body = [
-        { col: head.col, row: head.row },
-        { col: head.col + 1, row: head.row },
-        { col: head.col + 1, row: head.row - 1 },
-        { col: head.col + 1, row: head.row - 2 },
-        { col: head.col, row: head.row - 2 },
-        { col: head.col, row: head.row - 1 },
-      ];
-      // Eight tiles by the time the last two are added, which is `shed`.
-      snake.body.push({ col: head.col - 1, row: head.row - 1 });
-      snake.body.push({ col: head.col - 1, row: head.row });
+      const { col, row } = head;
+      snake.body = [{ col, row }];
+      for (let r = row; r <= row + 4; r++) snake.body.push({ col: col + 1, row: r });
+      for (let r = row + 4; r >= row - 2; r--) snake.body.push({ col: col + 2, row: r });
+      snake.body.push({ col: col + 1, row: row - 2 });
+      snake.body.push({ col, row: row - 2 });
+      snake.body.push({ col, row: row - 1 });
+      snake.body.push({ col: col - 1, row: row - 1 });
+      snake.body.push({ col: col - 1, row });
       expect(snakeGrip(CFG, snake)).toBe("shed");
       if (held) press(world, 2, tail(true));
       for (let i = 0; i < ROUNDS[0]!.stepTicks + 2; i++) step(world, []);
       return round(world).crashTick >= 0;
     };
-    // The tile straight ahead is the body's sixth of eight, so it is among the
+    // The tile straight ahead is the third from the tail, so it is among the
     // last `snakeTailTiles` and her thumb takes it off the arena. Driven into
     // with the tail down it is a crash and the wave lost; with the thumb on it
     // the head goes through where the tail was standing.

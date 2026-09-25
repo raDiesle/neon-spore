@@ -36,6 +36,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 const CFG = DEFAULT_CONFIG;
 const STANDARD: ControlSet = controlSet("default");
 
+/** A body length in each of the three states (`snakeGrip`). */
+const CRAWL = CFG.snakeGorgeTiles - 1;
+const GORGE = CFG.snakeGorgeTiles + 1;
+const SHED = CFG.snakeShedTiles + 2;
+
 const layout = (role: ViewRole = "p1"): Layout =>
   computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
@@ -103,7 +108,7 @@ function tail(l: Layout, f: Field, s: SnakeState) {
 describe("the pilot's pull on SNAKE's jaws", () => {
   it("takes hold of the neck once the jaws have stuck", () => {
     const l = layout("p1");
-    const { world, snake } = playing(7);
+    const { world, snake } = playing(GORGE);
     const f = field(world, 1);
     const at = jaws(l, f, snake);
     const touch = touchDown(l, at.x, at.y, f);
@@ -124,7 +129,7 @@ describe("the pilot's pull on SNAKE's jaws", () => {
     // from the beat would answer the neck up to a tile behind itself — and on
     // a round whose body is nine tiles wide, a tile is the whole target.
     const l = layout("p1");
-    const { world, snake } = playing(7);
+    const { world, snake } = playing(GORGE);
     const round = snake.rounds[snake.round];
     if (round === undefined) throw new Error("a round with no rounds to play");
     const still = field(world, 1);
@@ -146,7 +151,7 @@ describe("the pilot's pull on SNAKE's jaws", () => {
 
   it("is nothing while the body still crawls and the press still works", () => {
     const l = layout("p1");
-    const { world, snake } = playing(4);
+    const { world, snake } = playing(CRAWL);
     const f = field(world, 1);
     const at = jaws(l, f, snake);
     expect(target(touchDown(l, at.x, at.y, f))).not.toBe("snakeJaws");
@@ -154,7 +159,7 @@ describe("the pilot's pull on SNAKE's jaws", () => {
 
   it("is nothing while the mouth is still resting from its last opening", () => {
     const l = layout("p1");
-    const { world, snake } = playing(7);
+    const { world, snake } = playing(GORGE);
     snake.mawTick = world.tick;
     const f = field(world, 1);
     const at = jaws(l, f, snake);
@@ -163,7 +168,7 @@ describe("the pilot's pull on SNAKE's jaws", () => {
 
   it("is nothing once the body is folded up against what stopped it", () => {
     const l = layout("p1");
-    const { world, snake } = playing(7);
+    const { world, snake } = playing(GORGE);
     snake.crashTick = world.tick;
     const f = field(world, 1);
     const at = jaws(l, f, snake);
@@ -172,7 +177,7 @@ describe("the pilot's pull on SNAKE's jaws", () => {
 
   it("is the pilot's alone", () => {
     const l = layout("p2");
-    const { world, snake } = playing(7);
+    const { world, snake } = playing(GORGE);
     const f = field(world, 2);
     const at = jaws(l, f, snake);
     expect(target(touchDown(l, at.x, at.y, f))).not.toBe("snakeJaws");
@@ -183,7 +188,7 @@ describe("the pilot's pull on SNAKE's jaws", () => {
     // and the heading at once. The ring is a tile back, so the two circles do
     // not overlap however the crawl swings the neck.
     const l = layout("p1");
-    const { world, snake } = playing(7);
+    const { world, snake } = playing(GORGE);
     const f = field(world, 1);
     const at = jaws(l, f, snake);
     // Where the head itself is: a one-tile body's last joint is its first, so
@@ -198,7 +203,7 @@ describe("the pilot's pull on SNAKE's jaws", () => {
 describe("the driver's thumb on SNAKE's tail", () => {
   it("takes hold of the tail once it drags", () => {
     const l = layout("p2");
-    const { world, snake } = playing(9);
+    const { world, snake } = playing(SHED);
     const f = field(world, 2);
     const at = tail(l, f, snake);
     const touch = touchDown(l, at.x, at.y, f);
@@ -208,7 +213,7 @@ describe("the driver's thumb on SNAKE's tail", () => {
 
   it("is nothing while the body is only gorged", () => {
     const l = layout("p2");
-    const { world, snake } = playing(7);
+    const { world, snake } = playing(GORGE);
     const f = field(world, 2);
     const at = tail(l, f, snake);
     expect(target(touchDown(l, at.x, at.y, f))).not.toBe("snakeTail");
@@ -218,7 +223,7 @@ describe("the driver's thumb on SNAKE's tail", () => {
     // The hold *is* the control and letting go is how it ends, so nothing
     // about `tailHeld` closes the handle (`dragHeard`).
     const l = layout("p2");
-    const { world, snake } = playing(9);
+    const { world, snake } = playing(SHED);
     snake.tailHeld = true;
     const f = field(world, 2);
     const at = tail(l, f, snake);
@@ -227,7 +232,7 @@ describe("the driver's thumb on SNAKE's tail", () => {
 
   it("is the driver's alone", () => {
     const l = layout("p1");
-    const { world, snake } = playing(9);
+    const { world, snake } = playing(SHED);
     const f = field(world, 1);
     const at = tail(l, f, snake);
     expect(target(touchDown(l, at.x, at.y, f))).not.toBe("snakeTail");
@@ -235,7 +240,7 @@ describe("the driver's thumb on SNAKE's tail", () => {
 
   it("is nothing before the body is out of the ship", () => {
     const l = layout("p2");
-    const { world, snake } = playing(9);
+    const { world, snake } = playing(SHED);
     snake.phase = "morph";
     const f = field(world, 2);
     const at = tail(l, f, snake);
@@ -246,7 +251,7 @@ describe("the driver's thumb on SNAKE's tail", () => {
 describe("a field with no round on it", () => {
   it("answers neither handle where they would have stood", () => {
     const l = layout("p1");
-    const { world, snake } = playing(9);
+    const { world, snake } = playing(SHED);
     const f = field(world, 1);
     const at = jaws(l, f, snake);
     const none: Field = { ...f, boss: null };

@@ -21053,3 +21053,16 @@ Bottleneck: the split was written into eleven files' comments, so taking it
 out was mostly reading.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — SNAKE on a grid four times finer, slower, with a longer shot
+
+- reading: 10 min. The config, the three maps, how the jaw drag is measured,
+  and which tests named a tile.
+- writing: 20 min. The 17x21 arena, the doubled maps and lengths, the steps,
+  the shot, and the rigs rebuilt on the config instead of on column 4.
+- looking: 10 min. A probe of the film against the new grid, and one frame.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: the tutorial film is timed to the tick against the map, so it had
+to be probed and re-timed by hand once the grid moved.

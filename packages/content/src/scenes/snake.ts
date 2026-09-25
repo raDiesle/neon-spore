@@ -12,19 +12,21 @@ import { SNAKE_ROUNDS } from "../snake-rounds.js";
  * exchange of exactly that.
  *
  * Four pages: what each of them holds, a shot at the enemy standing in the
- * opening lane, a turn, and a shot at the one the turn was for. Nothing in it
- * is staged — the body is stepped by the round's own clock at sixty ticks a
- * tile, the spit carries its authored three tiles, and both enemies are the
- * ones round one is written with.
+ * opening column, a turn, and a shot at the one the turn was for. Nothing in
+ * it is staged — the body is stepped by the round's own clock at forty-five
+ * ticks a small tile, the spit carries its authored ten, and both enemies are
+ * the ones round one is written with.
  *
  * **Four pages still, and the last one changed on 18 September 2026.** The
  * field writes `PRESS` / `FIRE` on an enemy a shot would actually reach and
  * `PRESS` / `OPEN` on a point the head is one step from, on player 1's screen
  * and nowhere else (`decisions.md` #34, `render/boss-cue-read-g.ts`) — so the
- * page that was the second shot says the rule behind both of them instead: a
- * meteor stops the spit, and the only answer to one is the steering. It could
- * not simply come out, because that shot is the film's last act and a page is
- * what puts his screen in front of the reader (`docs/spec/briefings.md`).
+ * page that was the second shot says the rule behind both of them instead:
+ * the steering lines the shot up. It could not simply come out, because that
+ * shot is the film's last act and a page is what puts his screen in front of
+ * the reader (`docs/spec/briefings.md`). On the finer grid (25 September
+ * 2026) the turn is onto the second enemy's own row and the shot goes the
+ * length of it.
  *
  * **The turn is late on its page, and that is the lesson.** Every other film
  * puts its press a beat and a half after the words; this one waits nearly four
@@ -34,7 +36,7 @@ import { SNAKE_ROUNDS } from "../snake-rounds.js";
  * react to.
  */
 export const SNAKE: GuideScene = {
-  ticks: 990,
+  ticks: 1080,
   bpm: 120,
   seed: 1,
   entries: [],
@@ -46,8 +48,8 @@ export const SNAKE: GuideScene = {
     // standing in. A turn is relative and queued rather than applied
     // (`SnakeState.turn`), so the tick it is sent on is the tick that decides
     // which corner the body turns.
-    { tick: 740, control: "snakeLeft" },
-    { tick: 870, control: "snakeFire" },
+    { tick: 870, control: "snakeLeft" },
+    { tick: 950, control: "snakeFire" },
   ],
   steps: [
     {
@@ -69,9 +71,9 @@ export const SNAKE: GuideScene = {
       anchor: { at: "control", control: "snakeLeft" },
     },
     {
-      tick: 780,
+      tick: 880,
       seat: 1,
-      text: "A METEOR STOPS THE SHOT",
+      text: "LINE IT UP, THEN SHOOT",
       anchor: { at: "control", control: "snakeFire" },
     },
   ],

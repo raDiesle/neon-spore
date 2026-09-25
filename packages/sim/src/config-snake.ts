@@ -32,7 +32,7 @@ export interface SnakeConfig {
    * Tiles the body has to be past before the jaws stick and MAW stops working
    * — the length `gorge` begins at (`snakeGrip`).
    *
-   * 5, which is two points into a round that opens at three: early enough that
+   * 10, which is two points into a round that opens at six: early enough that
    * the pair meets the second gesture in the first round rather than reading
    * about it, and late enough that the first two points are the round teaching
    * the mouth with the press that still answers it.
@@ -41,7 +41,7 @@ export interface SnakeConfig {
   /**
    * And the length `shed` begins at, where the tail starts dragging.
    *
-   * 7, which is four points in. Round three authors five, so the last state of
+   * 14, which is four points in. Round three authors five, so the last state of
    * the body is on the way to winning the round rather than off the end of it
    * — and the two rounds before it never reach it, which is what makes the
    * third one feel like the third one.
@@ -52,15 +52,16 @@ export interface SnakeConfig {
    * for the lift to read as prising the jaws rather than brushing them.
    *
    * 1500: a tile and a half, the travel every swipe in this game asks for
-   * (`wardenThrowMilli`, `vaneHaulMilli`). It is a *tile* of the arena and not
-   * of the field, because in here there is no field.
+   * (`wardenThrowMilli`, `vaneHaulMilli`). The drag is measured in the
+   * field's tile like every other one, not the arena's small one, so the carry
+   * did not change when the arena's tiles halved.
    */
   snakeJawsMilli: number;
   /**
    * Tiles of the tail lifted clear while player 2's thumb is on it, under
    * `shed`.
    *
-   * 3, against a body of eight by then: enough that the corner she is about to
+   * 6, against a body of sixteen by then: enough that the corner she is about to
    * cut is passable, and far short of the body — a thumb that lifted the whole
    * length would be a thumb that turned the round off.
    */
@@ -93,8 +94,9 @@ export interface SnakeConfig {
    * It used to carry the width of the arena, which made the shot a thing the
    * pair *aimed* rather than a thing they had to be brought to: an enemy eight
    * tiles up column four was answered from the opening tile, and the steering
-   * had nothing to do with it. A spit is short, and a short spit is what turns
-   * "it is lined up" into "get me closer to it".
+   * had nothing to do with it. Then it carried three of the old tiles, and the
+   * owner asked for it to go further (25 September 2026). Ten small tiles is
+   * five of the old ones: still short of the arena, still a reason to steer.
    */
   snakeShotTiles: number;
 }
@@ -102,21 +104,24 @@ export interface SnakeConfig {
 /**
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
- * A 9x11 arena is the field's shape without being the field's grid — portrait,
- * a couple of dozen tiles a body can be lost in, and small enough that "top
- * left, two down" is a sentence about a place both of them can find.
+ * **17x21 small tiles**, where there were 9x11 big ones. The owner asked for
+ * the grid split four to a tile (25 September 2026): a body that moved a whole
+ * big tile per step felt clumsy to steer. An old tile at (c, r) is the small
+ * tile at (2c, 2r), so the middle column is still the middle and the arena is
+ * the same size on the screen. Odd both ways, so the body starts dead centre.
+ * Every length below is in small tiles, twice what it was.
  */
 export const SNAKE_DEFAULTS: SnakeConfig = {
-  snakeCols: 9,
-  snakeRows: 11,
-  snakeStartTiles: 3,
-  snakeGrowTiles: 1,
-  snakeGorgeTiles: 5,
-  snakeShedTiles: 7,
+  snakeCols: 17,
+  snakeRows: 21,
+  snakeStartTiles: 6,
+  snakeGrowTiles: 2,
+  snakeGorgeTiles: 10,
+  snakeShedTiles: 14,
   snakeJawsMilli: 1500,
-  snakeTailTiles: 3,
-  // Seven tenths of a second, against a step of half of one in the first round
-  // and under a third by the last. It was half a second, and the owner asked
+  snakeTailTiles: 6,
+  // Seven tenths of a second, about two steps in the first round and three by
+  // the last. It was half a second, and the owner asked
   // for a mouth that stands open long enough to be seen standing open: at the
   // old window the jaws were swinging shut about as soon as they had finished
   // swinging apart, which read as a twitch rather than as a mouth.
@@ -124,7 +129,7 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   // The window itself: the mouth reopens the tick it shuts, and not before.
   snakeMawRestTicks: 84,
   snakeFireRestBeats: 1,
-  // Three tiles, which is the far side of the tile the head is entering plus
-  // two. Short enough that the shot is a reason to steer.
-  snakeShotTiles: 3,
+  // Ten small tiles, five of the old ones. Short enough that the shot is
+  // still a reason to steer.
+  snakeShotTiles: 10,
 };

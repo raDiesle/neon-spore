@@ -19,8 +19,8 @@ import { SNAKE_MORPH_BEATS } from "../src/snake-round.js";
  * SNAKE, and the sentence it is built to make true: **one of you drives it and
  * the other one works it**.
  *
- * Player 2 has both quarter turns and can see nothing standing in the arena;
- * player 1 has the shot and the mouth and cannot steer. Everything checked
+ * Player 2 has both quarter turns; player 1 has the shot and the mouth and
+ * cannot steer. Both see the whole arena. Everything checked
  * here is either that split or what it costs to get it wrong — the four ways
  * the body crashes, which are one rule wearing four coats, and the rule is
  * the field's: a hit is the wave lost (`wave-fail.ts`).
@@ -31,10 +31,14 @@ const TPB = ticksPerBeat(CFG);
 /** The wave it is installed on. Any number: it is a wave like any other. */
 const WAVE = 6;
 
+/** The column the body opens in, and the row its head opens on. */
+const MID = Math.floor(CFG.snakeCols / 2);
+const HEAD = CFG.snakeRows - CFG.snakeStartTiles;
+
 /**
  * One round, placed for the rig rather than for a player: the body opens in
- * column 4 heading up, so an enemy at (4,5) is three steps straight ahead —
- * the far end of the spit's reach (`snakeShotTiles`) — and a point at (4,6) is
+ * the middle column heading up, so an enemy there is three steps straight
+ * ahead, well inside the spit's reach (`snakeShotTiles`), and a point is
  * two. The **second** enemy and the second point are in corners nothing here
  * ever reaches, and they are load-bearing: without them, spending the two in
  * the path would clear the arena and move the round on under whichever test
@@ -43,14 +47,14 @@ const WAVE = 6;
 const ROUNDS = [
   {
     enemies: [
-      { col: 4, row: 5 },
-      { col: 8, row: 0 },
+      { col: MID, row: HEAD - 3 },
+      { col: CFG.snakeCols - 1, row: 0 },
     ],
     points: [
-      { col: 4, row: 6 },
+      { col: MID, row: HEAD - 2 },
       { col: 0, row: 0 },
     ],
-    rocks: [{ col: 8, row: 10 }],
+    rocks: [{ col: CFG.snakeCols - 1, row: CFG.snakeRows - 1 }],
     beats: 20,
     stepTicks: 60,
   },
@@ -184,11 +188,11 @@ describe("player 1 shoots, and only player 1", () => {
     press(world, 1, { kind: "snakeFire" });
     expect(snake.struck).toEqual([0]);
     expect(snake.shotHit).toBe(true);
-    expect({ col: snake.shotCol, row: snake.shotRow }).toEqual({ col: 4, row: 5 });
+    expect({ col: snake.shotCol, row: snake.shotRow }).toEqual({ col: MID, row: HEAD - 3 });
   });
 
   /**
-   * The spit carries three tiles and no more, which is what makes the trigger
+   * The spit carries `snakeShotTiles` and no more, which is what makes the trigger
    * a reason to steer: an enemy one tile beyond the reach is answered by
    * driving at it, not by pressing harder.
    */
@@ -198,13 +202,13 @@ describe("player 1 shoots, and only player 1", () => {
     const snake = round(world);
     const enemy = snake.rounds[0]?.enemies[0];
     if (!enemy) throw new Error("the rig's own enemy is missing");
-    enemy.row = 4;
+    enemy.row = HEAD - CFG.snakeShotTiles - 1;
     press(world, 1, { kind: "snakeFire" });
     expect(snake.struck).toEqual([]);
     expect(snake.shotHit).toBe(false);
     expect({ col: snake.shotCol, row: snake.shotRow }).toEqual({
-      col: 4,
-      row: CFG.snakeRows - 3 - CFG.snakeShotTiles,
+      col: MID,
+      row: HEAD - CFG.snakeShotTiles,
     });
   });
 
@@ -241,7 +245,7 @@ describe("the mouth is player 1's, and it is a moment rather than a state", () =
     const world = open();
     play(world);
     const snake = round(world);
-    // Two steps to the point at (4,6), with the enemy beyond it already down.
+    // Two steps to the point, with the enemy beyond it already down.
     snake.struck = [0];
     for (let i = 0; i < ROUNDS[0]!.stepTicks * 2 - 20; i++) step(world, []);
     press(world, 1, { kind: "snakeMaw" }, 40);
@@ -261,7 +265,7 @@ describe("the mouth is player 1's, and it is a moment rather than a state", () =
     expect(failHolds(world)).toBe(true);
     // The body stands where it stopped, a tile short of the point: nothing
     // puts it back, because the wave is the thing that goes again.
-    expect(snake.body[0]).toEqual({ col: 4, row: 7 });
+    expect(snake.body[0]).toEqual({ col: MID, row: HEAD - 1 });
     expect(snake.body.length).toBe(CFG.snakeStartTiles);
   });
 
@@ -326,8 +330,8 @@ describe("the four ways the body crashes, which are one rule", () => {
     for (let i = 0; i < ROUNDS[0]!.stepTicks * 3 + 2; i++) step(world, []);
     expect(snakeCrashed(snake)).toBe(true);
     // Stopped on the tile before it, and the tile it was going for is kept.
-    expect(snake.body[0]).toEqual({ col: 4, row: CFG.snakeRows - 5 });
-    expect({ col: snake.bumpCol, row: snake.bumpRow }).toEqual({ col: 4, row: 5 });
+    expect(snake.body[0]).toEqual({ col: MID, row: HEAD - 2 });
+    expect({ col: snake.bumpCol, row: snake.bumpRow }).toEqual({ col: MID, row: HEAD - 3 });
   });
 });
 
@@ -375,8 +379,8 @@ describe("the field holds where the body crashed", () => {
     const at = snake.body.map((t) => ({ ...t }));
     // Head at the top row, going for the tile above it, which is off the
     // board — where the head *went*, kept for the picture's bump.
-    expect(at[0]).toEqual({ col: 4, row: 0 });
-    expect({ col: snake.bumpCol, row: snake.bumpRow }).toEqual({ col: 4, row: -1 });
+    expect(at[0]).toEqual({ col: MID, row: 0 });
+    expect({ col: snake.bumpCol, row: snake.bumpRow }).toEqual({ col: MID, row: -1 });
     expect([snake.dirCol, snake.dirRow]).toEqual([0, -1]);
     for (let i = 0; i < ROUNDS[0]!.stepTicks * 3; i++) step(world, []);
     expect(snake.body).toEqual(at);
