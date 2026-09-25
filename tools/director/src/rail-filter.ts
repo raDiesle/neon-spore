@@ -52,7 +52,7 @@ import { BRUSHES, brushOf, podBrushOf } from "./state.js";
 export function waveHaystack(waves: readonly Wave[], index: number): string {
   const wave = waves[index];
   if (!wave) return "";
-  const parts: string[] = [String(index + 1), wave.id, wave.name, wave.sentence];
+  const parts: string[] = [String(index + 1), wave.id, wave.name];
 
   if (wave.guide) {
     parts.push("guide", wave.guide.both, wave.guide.p1, wave.guide.p2, wave.guide.scene ?? "");

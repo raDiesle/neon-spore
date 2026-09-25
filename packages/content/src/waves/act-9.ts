@@ -150,7 +150,6 @@ export const WAVES_ACT_9: Wave[] = [
   {
     id: "theLeak",
     name: "THE LEAK",
-    sentence: "The one where the column takes three shots instead of one.",
     guide: {
       both: "Back on the panel from before THE LANCE. Every tap still fires, but holding fills nothing. No beam, so three of a colour takes three shots.",
       p1: "1. Nothing on your strip is dead, and standing still buys nothing.\n2. Call the next column while your partner fires at this one.\n3. The crossing costs here, not the shots.",
@@ -180,7 +179,6 @@ export const WAVES_ACT_9: Wave[] = [
   {
     id: "theSplice",
     name: "THE SPLICE",
-    sentence: "The one where the number is at the straw's far end, and only one of you sees it.",
     guide: {
       both: "Straws cross the field. Player 2 sees each number and where it goes. Player 1 sees the mouths. Feed them in order. A wrong feed loses the wave.",
       p1: "1. Count the mouths from the left. A ring marks the one you are under.\n2. Slide to the one your partner names, then say THERE: they cannot see the cannon.\n3. The two beats a number falls are yours: be on the next mouth.",
@@ -195,7 +193,6 @@ export const WAVES_ACT_9: Wave[] = [
   {
     id: "theMine",
     name: "THE MINE",
-    sentence: "The one where the square has to be found with a finger, not a cannon.",
     guide: {
       both: "Something sits on a tile, on one screen only. No shot touches it. Your partner must press that exact square. Miss by one tile and the hull pays.",
       p1: "1. First, you press. Hear the letter and number, and press that square on the field.\n2. The cannon plays no part.\n3. The second one is yours to see. Say the square twice.",
@@ -214,7 +211,6 @@ export const WAVES_ACT_9: Wave[] = [
   {
     id: "theMoult",
     name: "THE MOULT",
-    sentence: "The one where the answer you agreed on is the wrong one by the time it lands.",
     guide: {
       both: "One body turns rock, then cargo, every five beats. The dome turns the rock away. The maw swallows the cargo. Low down, it slides to the cannon.",
       p1: "1. The column, the trigger and the maw are yours.\n2. Park the cannon under it early. It comes to you.\n3. Do what your partner counts: rock, trigger. Cargo, open the maw.\n4. Never fire at it.",

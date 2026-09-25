@@ -7,13 +7,17 @@ description: Add or change a wave in Neon Spore — the one-sentence test, figur
 
 ## 1. The one-sentence test
 
-Write `sentence` first, before any entries:
+Say the sentence first, before any entries:
 
 > "The one where you never keep the same colour twice."
 > "The one where you are not allowed to dodge."
 
 If no such sentence exists, the wave is padding. Cut it. This test is stricter
 than it sounds — realistically it carries 60–80 waves, not 200.
+
+**The sentence is said, not stored.** A wave has no `sentence` field: the owner
+took it off every wave on 25 September 2026 — *name of wave and number is good
+enough* — and no screen carries one. Put it in the commit message.
 
 ## 2. Author it
 
@@ -24,7 +28,6 @@ field and remapped at runtime; `beat` is the offset from the start of the wave.
 ```ts
 {
   name: "THE WALL",
-  sentence: "The one where the cannon never stops moving.",
   entries: [{ beat: 0, col: 0, color: "red" }],
 }
 ```
@@ -41,15 +44,14 @@ demonstrating.
 
 ## 2a. A guide, if and only if the wave introduces something
 
-The wave opens on its number, its name and its sentence — plain text on the
-field, on a timer, nothing pressed. After that, and only if the wave is the
-**first** to carry a creature, a pod kind, a boss or a mechanic, it opens on a
-`guide`, written directly under `sentence`:
+The wave opens on its number and its name — plain text on the field, on a
+timer, nothing pressed. After that, and only if the wave is the **first** to
+carry a creature, a pod kind, a boss or a mechanic, it opens on a `guide`,
+written directly under `name`:
 
 ```ts
 {
   name: "THE ROCK",
-  sentence: "The one where neither of you can do it alone.",
   guide: {
     both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
     p1: "It announces itself on your strip, before it is on the field. Trigger the shield at the moment it lands — not before.",
@@ -118,7 +120,7 @@ bun test packages/content
 bun run check
 ```
 
-The content tests verify the one-sentence test, the column range and that the
+The content tests verify the column range and that the
 queue builds identically every time.
 
 Neither of them watches the wave. Whether the cannon has time to get there is

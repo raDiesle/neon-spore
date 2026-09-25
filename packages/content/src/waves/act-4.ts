@@ -119,7 +119,6 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "theWisp",
     name: "THE WISP",
-    sentence: "The one where you call the square it is still falling toward.",
     guide: {
       both: "One of you cannot see it at all. It never falls toward you. It jumps and lands somewhere else.\nSay where with the lettered grid under the field.",
       p1: "1. You never see it. Put the cannon on the square you are told.\n2. That square is where it goes next, not where it is. Be there early.\n3. The box moving over the grid is not it.",
@@ -135,7 +134,6 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "theGhost",
     name: "THE GHOST",
-    sentence: "The one where waiting to see it is the miss.",
     guide: {
       both: "Something is falling that only one of your screens draws. The other gets a band across the row it is in, and nothing at all about the column.",
       p1: "1. You never see it. Read the band for how long you have.\n2. Take the column you are told.\n3. Say the number back. Standing there shows you heard it.",
@@ -151,7 +149,6 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "snake",
     name: "SNAKE",
-    sentence: "The one where the ship is the body, and the one who can see it cannot steer it.",
     guide: {
       both: "Shoot the enemies, swallow the points, never touch a meteor. Clear them all and the round is over. The longer the body gets, the more it asks of you.",
       p1: "1. Say where the next thing is, and whether to shoot or swallow it.\n2. FIRE when the head points at an enemy.\n3. Open the MAW before a point.\n4. Once the jaws stick, MAW is dead: drag them open on the head.",
@@ -166,7 +163,6 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "theEcho",
     name: "THE ECHO",
-    sentence: "The one where the slowest thing on the field is the one to take first.",
     guide: {
       both: "It falls at half speed and splits as it falls. The seam shows which way it splits.\nFirst sideways, then up and down. It stretches wide just before it splits.\nEach wait is longer than the last. A quiet one is not the end.",
       p1: "1. Get the cannon under it while it is still one.\n2. The fast bodies can wait a beat. This one cannot.\n3. Every beat you spend elsewhere means one more body to reach.",
@@ -185,7 +181,6 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "pinball",
     name: "PINBALL",
-    sentence: "The one where the thing you fire from is the thing you have to catch it with.",
     guide: {
       both: "Fire one ball up through the table and catch it under the cannon when it comes down. Only the amber pieces have to go.",
       p1: "1. Slide the cannon to where the shot should start.\n2. Press SET the moment your partner calls the angle.\n3. Get back under wherever the ball is coming down.",

@@ -23,7 +23,6 @@ export const WAVES_ACT_3B: Wave[] = [
   {
     id: "theVane",
     name: "THE VANE",
-    sentence: "The one where the column you were told is never the column it lands in.",
     guide: {
       both: "The arm folds every rock to its other side. Aim the shield and the shot where things land. The bearing asks for a new hand as its pins go.",
       p1: "1. Read the column off your strip.\n2. Fold it across the arm's column before you say it.\n3. Say it and slide there early.\n4. Third pin on: the ends stop opening. Hold the arm and say where it stopped.",
@@ -43,8 +42,6 @@ export const WAVES_ACT_3B: Wave[] = [
   {
     id: "theLance",
     name: "THE LANCE",
-    sentence:
-      "The one where three of the same colour arrive in one column and one shot takes all three.",
     guide: {
       both: "Hold a colour instead of tapping it, and the cannon lobe fills. When it is full, the beam burns every body of that colour in the column. Nothing travels.",
       p1: "1. Get under the column, then do not move.\n2. The lobe fills only while the cannon stands still.\n3. Sliding a column empties it.",
@@ -63,7 +60,6 @@ export const WAVES_ACT_3B: Wave[] = [
   {
     id: "thePurge",
     name: "THE PURGE",
-    sentence: "The one where you clear the field by swallowing, not by shooting.",
     guide: {
       both: "A pod again, and this time the field is full when it comes loose. Taking it in clears everything falling.",
       p1: "Hold it for the beat that is about to go wrong, not for the one that already has.",
@@ -80,7 +76,6 @@ export const WAVES_ACT_3B: Wave[] = [
   {
     id: "theWard",
     name: "THE WARD",
-    sentence: "The one where the shield answers four rocks untriggered and the fifth on its own.",
     guide: {
       both: "This pod arms the shield for six beats with no trigger. Its rocks are the fastest yet: three rows a beat, then four, then five.",
       p1: "1. Your trigger is free while it lasts. Spend the hand on something else.\n2. Call each rock from your strip the moment it appears.\n3. Once it is on the field, it is nearly here.",

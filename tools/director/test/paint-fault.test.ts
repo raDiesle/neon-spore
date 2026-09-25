@@ -18,7 +18,6 @@ import { marksMatch } from "../src/rail-symbols.js";
 const wave = (): Wave => ({
   id: "t",
   name: "TEST",
-  sentence: "The one where a test paints on it.",
   entries: [],
 });
 

@@ -4,7 +4,7 @@
  * The inventory is the half of this tool that has to be complete, and it is
  * the half nothing else in the repository holds: guide prose is authored in
  * twenty-odd wave files, a mechanic's sentence in nine mechanics tables, and
- * a wave's own name and sentence beside its entries. Each of the three is
+ * a wave's own name beside its entries. Each of the three is
  * drawn on a different screen and none of them knew about the others, which
  * is how the game came to show a forty-nine-word paragraph on a menu button.
  *
@@ -33,7 +33,7 @@ import { LINK_WORDS, MECHANIC_IDS, MECHANICS, SCREEN_WORDS, WAVES } from "@neon-
  * object as the sentence under a menu button, and one number for both would
  * be too loose for the first and too tight for the second.
  */
-export type TextKind = "both" | "half" | "what" | "sentence" | "name";
+export type TextKind = "both" | "half" | "what" | "name";
 
 export interface TextEntry {
   /** Where to go and change it: the wave or mechanic, then the field. */
@@ -56,7 +56,6 @@ export function playerText(): TextEntry[] {
   const out: TextEntry[] = [];
   for (const wave of WAVES) {
     out.push({ id: `${wave.name} · name`, kind: "name", text: wave.name });
-    out.push({ id: `${wave.name} · sentence`, kind: "sentence", text: wave.sentence });
     if (!wave.guide) continue;
     out.push(...lines(wave.name, "both", wave.guide.both));
     out.push(...lines(`${wave.name} · P1`, "half", wave.guide.p1));

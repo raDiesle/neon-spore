@@ -111,7 +111,6 @@ export const WAVES_ACT_6: Wave[] = [
   {
     id: "theVeer",
     name: "THE VEER",
-    sentence: "The one where parking the shield under it is what loses it.",
     guide: {
       both: "A rock with a rider on it. Every third row it steps to one side, and it never stops.\nThe last step lands one row above the ship.\nYou cannot shoot any of it. What lands is still a rock. Put the shield under it.",
       p1: "1. Only you see the arrow over its hat. It aims again every three rows.\n2. Say the side out loud every single time.\n3. Keep your thumb on SHIELD. Saying it does not stop it.",
@@ -128,7 +127,6 @@ export const WAVES_ACT_6: Wave[] = [
   {
     id: "theStrand",
     name: "THE STRAND",
-    sentence: "The one where firing on what you can see is what puts a body back.",
     guide: {
       both: "Beads on one thread, red and cyan in turn. It comes apart from the ends inward.\nOnly one bead at a time takes a shot. A shot at any other brings a dead one back to life.",
       p1: "1. You see the colours, not which bead is lit.\n2. Wait to hear which one. Put the cannon under it.\n3. Say its colour out loud before the trigger comes.",
@@ -144,7 +142,6 @@ export const WAVES_ACT_6: Wave[] = [
   {
     id: "theCrawler",
     name: "THE CRAWLER",
-    sentence: "The one where nothing is falling and standing still is what loses it.",
     guide: {
       both: "A maggot that walks along the ship instead of falling on it. It cannot hurt you while it walks.\nIt must not reach the far wall. Every ring has to come off.\nA crosshair marks each ring. A shield above a ring means the shield takes it: head, tail and every third segment.",
       p1: "1. Take the cannon under a colour ring. Say which colour you are under.\n2. The shield rings are not yours to shoot. The shield trigger is.\n3. Keep a thumb on SHIELD. Press when you hear the shield is under one.",
@@ -160,7 +157,6 @@ export const WAVES_ACT_6: Wave[] = [
   {
     id: "theFence",
     name: "THE FENCE",
-    sentence: "The one where the way through is already under you.",
     guide: {
       both: "A live wire right across the field, twice as fast as anything else. The trigger does nothing to it. Where the wire is broken, the ship lives.",
       p1: "Only your screen shows where it is open. Every wall in this wave is open in the middle.",
@@ -176,7 +172,6 @@ export const WAVES_ACT_6: Wave[] = [
   {
     id: "theGap",
     name: "THE GAP",
-    sentence: "The one where the number has to cross the room before the wire lands.",
     guide: {
       both: "The same wall, opening somewhere else every time. Only Player 1 sees where. Only Player 2 can move the shield.",
       p1: "Count the gap from the left and say the number early. SHIELD does nothing here.",
@@ -194,7 +189,6 @@ export const WAVES_ACT_6: Wave[] = [
   {
     id: "theCut",
     name: "THE CUT",
-    sentence: "The one where the only way through is the one you make.",
     guide: {
       both: "A wall with no way through at all, and one crack in it. A shot opens the crack. Nothing else opens anything.",
       p1: "1. Only your screen shows the crack.\n2. Say its column and its colour.\n3. Take the cannon under it.",

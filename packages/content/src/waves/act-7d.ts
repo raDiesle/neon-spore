@@ -31,8 +31,6 @@ export const WAVES_ACT_7D: Wave[] = [
   {
     id: "theDiastole",
     name: "THE DIASTOLE",
-    sentence:
-      "The one where you are each counting a different number and neither of you can see the other's.",
     guide: {
       both: "Two chambers beat on different counts. Hit each while it contracts. Once both beat, lance the middle column on the beat they share.",
       p1: "1. Count the left chamber out loud, in threes.\n2. Say which beat both chambers meet on.\n3. Cannon in the middle column, held still for the lance.\n4. With your chamber gone, clamp the grey one when your partner says now.",
@@ -63,8 +61,6 @@ export const WAVES_ACT_7D: Wave[] = [
   {
     id: "theBaton",
     name: "THE BATON",
-    sentence:
-      "The one where acting locks you out of the next beat, so you both become a metronome.",
     guide: {
       both: "Pass the bead down the arm, one socket at a time. Launch it, shoot it in the air, and take turns.",
       p1: "1. Slide the cannon under the bead.\n2. Press the trigger to launch it. Your phone greys for a beat.\n3. Say the colour: it flips on every landing.\n4. After four dark sockets the arm swings: be under the bead first.",

@@ -42,7 +42,6 @@ export const WAVES_ACT_8B: Wave[] = [
   {
     id: "theWell",
     name: "THE WELL",
-    sentence: "The one where the column beside it is the other end of the field.",
     guide: {
       both: "One field, a clock on one screen and rows on the other. Columns are hours, and the cannon is the hand. Only Player 2 sees the warning strip.",
       p1: "1. Your clock has no warning marks. Every arrival shows on your partner's strip alone.\n2. Near the rim, four beats cover a third of a tile. The last beat, as much again.\n3. Eleven and one are your rail's two ends.",
@@ -64,7 +63,6 @@ export const WAVES_ACT_8B: Wave[] = [
   {
     id: "theHandover",
     name: "THE HANDOVER",
-    sentence: "The one where your thumb lands on their button.",
     guide: {
       both: "Nine beats in, your panels swap screens. Every button works, but none is the one you know. The band counts down to it, then eight beats back.",
       p1: "1. Before the swap, the cannon and the trigger are yours.\n2. After it, you hold the shield and the two colours.\n3. Say where the cannon was going while the strip is still yours.",

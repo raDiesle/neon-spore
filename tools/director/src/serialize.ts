@@ -85,10 +85,8 @@ function serializeWave(wave: Wave): string {
   // and a save must carry it forward untouched — see `Wave.id`.
   lines.push(...textField("id", wave.id));
   lines.push(...textField("name", wave.name));
-  lines.push(...textField("sentence", wave.sentence));
-  // Directly under `sentence`, which is where the owner asked for it and where
-  // it is read: a wave's prose is its name, why it exists, and what the pair
-  // has to be told before it starts.
+  // Directly under `name`: a wave's prose is its name and what the pair has
+  // to be told before it starts.
   if (wave.guide) lines.push(...serializeGuide(wave.guide));
 
   if (wave.entries.length === 0) {

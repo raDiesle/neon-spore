@@ -19,7 +19,10 @@ import type { WaveFault } from "./wave-faults.js";
  * and remapped by `buildQueue`; `beat` is the offset from the start of the wave.
  *
  * Every wave must pass the one-sentence test (docs/spec/wave-design.md):
- * if `sentence` cannot be written, the wave is padding and gets cut.
+ * if the sentence cannot be said, the wave is padding and gets cut. It is
+ * said, not stored: the owner took `sentence` off every wave on 25 September
+ * 2026 — *name of wave and number is good enough* — so the test is the
+ * author's, at the moment a wave is written, and no screen carries it.
  *
  * **What one arrival is** — `WaveEntry` — is `wave-entry.ts` next door, cut
  * out when THE CRAWLER's two fields took this file over its limit: that is the
@@ -113,16 +116,11 @@ export interface Wave {
   id: string;
   /** What a person reads, on the HUD and in the wave list. Renameable. */
   name: string;
-  /** The one-sentence test. Not flavour text — the reason the wave exists. */
-  sentence: string;
   /**
    * The help this wave opens on, after its introduction, or nothing.
    *
-   * Written directly under `sentence` because that is where it is read: a
-   * wave's three lines of prose are its name, why it exists, and what the pair
-   * has to be told before it starts. A wave that introduces nothing new writes
-   * no guide at all, and padding one with a guide is the same failure as
-   * padding it with entries.
+   * A wave that introduces nothing new writes no guide at all, and padding
+   * one with a guide is the same failure as padding it with entries.
    *
    * The first wave to carry a creature, a pod kind, a boss or a mechanic must
    * have one — `packages/content/test/waves.test.ts` is the invariant, and

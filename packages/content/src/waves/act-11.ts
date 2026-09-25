@@ -67,7 +67,6 @@ export const WAVES_ACT_11: Wave[] = [
   {
     id: "theSpool",
     name: "THE SPOOL",
-    sentence: "The one where the line runs out at the speed one of you reads.",
     guide: {
       both: "A spool pays a line down to the hull. One of you brakes it, the other reads how fast it should run. Hold it right and a rib eases.",
       p1: "1. The brake is yours. Hold it at a depth.\n2. Shallow lets the line run. Deep slows it. No hand at all runs fastest.\n3. You are shown nothing but your own grip. Ask them.",
@@ -81,7 +80,6 @@ export const WAVES_ACT_11: Wave[] = [
   {
     id: "theHasp",
     name: "THE HASP",
-    sentence: "The one where one of you only has to hold on, and cannot.",
     guide: {
       both: "Three hasps on a door. He holds the latch down. She turns the wheel, and it only moves while he holds. His hand burns if he holds too long.",
       p1: "1. Drag the latch down and keep holding it.\n2. The wheel only turns while you hold. Say the moment you let go.\n3. Your hand burns if you hold too long. Only you see the heat.",
@@ -94,7 +92,6 @@ export const WAVES_ACT_11: Wave[] = [
   {
     id: "theRatchet",
     name: "THE RATCHET",
-    sentence: "The one where every step you take stays taken.",
     guide: {
       both: "A rack of seven teeth. One of you holds the catch, the other presses the pawl. Every press climbs one tooth, for good. Five clean and it opens.",
       p1: "1. Press the pawl. Each press climbs one tooth.\n2. It is clean only while they hold the catch. You cannot see their hand.\n3. Wait until they say it is set. Wait too long and a tooth is lost.",

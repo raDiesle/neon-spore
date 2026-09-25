@@ -161,14 +161,10 @@ describe("wave content", () => {
     }
   });
 
-  it("passes the one-sentence test", () => {
-    for (const wave of WAVES) {
-      expect(wave.sentence, `${wave.name} has no one-sentence description`).toMatch(/\S/);
-      expect(
-        wave.sentence.split(".").length,
-        `${wave.name}: more than one sentence`,
-      ).toBeLessThanOrEqual(2);
-    }
+  // The one-sentence test is the author's and no longer a field: the owner
+  // took `sentence` off every wave on 25 September 2026 (`wave-types.ts`).
+  it("carries no sentence", () => {
+    for (const wave of WAVES) expect("sentence" in wave, wave.name).toBe(false);
   });
 
   /**

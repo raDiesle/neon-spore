@@ -176,7 +176,7 @@ a film with nothing to cut is a film already written against question 1 below.
 
 ### The last page is the gate, and it says as little as possible
 
-Wave number, name, sentence, then two circles. *Shorten text to a minimum.* The
+Wave number, name, then two circles. *Shorten text to a minimum.* The
 name goes **under** each circle, big, clear of the ring that breathes around
 it; READY goes **inside** the circle; the whole page above the bar is what a
 thumb presses.

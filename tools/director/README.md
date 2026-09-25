@@ -396,7 +396,7 @@ this same server on `/game`, so it needs no preview running beside it — with
 front door: a plain address lands there and `?play` is the way past it. The
 link is kept as it is because it says what it means, and because the director
 is still the door a person opens the menu from. From the menu: the first wave,
-any of the authored waves by the sentence it exists for, the demonstrations,
+any of the authored waves by its number and name, the demonstrations,
 the room screen, the tuning panel, the seat, and the keys.
 
 It is a hot bundle of the working tree, like `bun run dev:game` — **not** what a
@@ -413,9 +413,10 @@ regenerated. You review the result as a `git diff`, like any other change.
 formatting: it asserts that serializing the waves that are already in the file
 reproduces the file exactly.
 
-A wave without a name, a sentence, a hint or a single entry does not save. The
-sentence is the one-sentence test from `docs/spec/wave-design.md`, applied at
-the moment the wave is made rather than in review.
+A wave without a name or a single entry does not save. There is no sentence
+field: the one-sentence test from `docs/spec/wave-design.md` is applied by
+whoever writes the wave, and the owner took the field off every wave on 25
+September 2026.
 
 ## Shipping
 
@@ -491,7 +492,7 @@ is both seats — the owner's own answer to the question that raised it.
 
 The other half of the same question — what the wave being edited actually puts
 in front of a pair — is answered by the `WAVE` tab's `GUIDE` section itself,
-three fields under `SENTENCE`, and by the `✎` beside the wave in the rail. A
+three fields under `NAME`, and by the `✎` beside the wave in the rail. A
 `BRIEFING` line used to say it in prose above them and a `▣ DOCUMENTATION →
 GUIDES` sheet used to list every wave that carried one; the sheet went on 14
 September 2026 when the words moved into this tab, and the line went on the

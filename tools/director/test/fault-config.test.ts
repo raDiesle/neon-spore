@@ -33,7 +33,6 @@ function dom(): void {
 const wave = (): Wave => ({
   id: "t",
   name: "TEST",
-  sentence: "The one where a test paints on it.",
   entries: [],
 });
 

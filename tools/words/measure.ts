@@ -40,7 +40,6 @@ export interface Finding {
  */
 export const BUDGET: Record<string, number> = {
   name: 4,
-  sentence: 20,
   both: 30,
   half: 18,
   what: 30,

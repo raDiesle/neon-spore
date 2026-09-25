@@ -2,12 +2,12 @@ import type { Wave, WaveGuide } from "@neon-spore/content";
 import { bindSceneNote, type SceneNote } from "./guide-scene-note.js";
 
 /**
- * The GUIDE section `rail.ts` shows directly under SENTENCE: the three lines a
+ * The GUIDE section `rail.ts` shows directly under NAME: the three lines a
  * wave's guide is made of, edited where the wave is edited.
  *
  * This replaces a dropdown that picked which *catalogue card* a wave raised.
  * There is no catalogue any more — the owner asked for the words themselves to
- * live in the wave, under `sentence`, in a section called Guide — so what used
+ * live in the wave, in a section called Guide — so what used
  * to be a choice among prewritten subjects is now three fields of prose.
  *
  * Its own file rather than a slab inside `rail.ts` because that file is
@@ -43,8 +43,8 @@ const PARTS = [
 
 /**
  * A textarea that grows to fit what is typed into it: no scrollbar inside the
- * field, no corner to drag. There are four textareas in this panel — this one
- * plus SENTENCE, bound the same way from `rail.ts` — and the owner asked for
+ * field, no corner to drag. There are three textareas in this panel, and the
+ * owner asked for
  * the behaviour in general, not field by field, so it lives here once and
  * every caller gets it by construction.
  */

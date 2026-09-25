@@ -150,7 +150,6 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theMagnet",
     name: "THE MAGNET",
-    sentence: "The one where standing under it is how you miss.",
     guide: {
       both: "A horseshoe with two poles, one red and one cyan. Armour hangs under it.\nA shot straight up its column bounces off the armour.\nPlayer 1 holds a thumb on it from another column. The shot climbs, turns and comes in sideways.\nThe side it arrives from is the pole it meets. Only that pole's colour kills it.",
       p1: "1. Never stand under it. Take the cannon two or three columns to one side.\n2. Hold your thumb on the body. Say which side you come in from.\n3. That is your whole half. The colour is not yours to pick.",
@@ -168,7 +167,6 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theJam",
     name: "THE JAM",
-    sentence: "The one where the gun never stops, and you only choose where it points.",
     guide: {
       both: "Something hangs from the top of the field, and it has the gun. Its beam is on RED, CYAN and the muzzle.\nThe cannon fires by itself every beat, up Player 1's column. Red, cyan, red, cyan.\nThe beam shows the next shot's colour. RED and CYAN are dead. Nothing stops the gun or reaches the thing holding it.",
       p1: "1. You are not shooting now. You are aiming.\n2. Slide onto a body on the beat its colour comes up.\n3. Get off a lure's column before the next shot lands.",
@@ -190,7 +188,6 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theCoil",
     name: "THE COIL",
-    sentence: "The one where the shield never goes away, and it opens whatever it can see.",
     guide: {
       both: "Something hangs from the top of the field. Its beam holds the shield up over Player 2's column, every beat.\nNobody can put it away, and nothing reaches the thing holding it.\nNew here: a rock inside a dome. It comes in at the right wall and crosses left, sinking at each wall.\nNothing touches it while the dome is on. Stand the shield under a dome and the dome comes off.\nA rock falling between them blocks it. What comes out runs for the wall furthest from the shield.\nThe charge then jumps to another dome and opens it too. SHIELD does nothing on Player 1's panel.",
       p1: "1. Only your screen shows the charge. You say which dome opens next.\n2. Call the column the moment it leaves. They have four beats.\n3. SHIELD does nothing this wave.",

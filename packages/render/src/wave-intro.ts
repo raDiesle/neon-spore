@@ -4,12 +4,11 @@ import type { Layout } from "./layout.js";
 import { SETTLED_AGE } from "./opening-fx.js";
 import { PALETTE } from "./palette.js";
 import { drop } from "./text-drop.js";
-import { wrapText } from "./wrap-text.js";
 
 /**
- * A wave's number, its name and its sentence, as **plain text on the field**.
- * No panel, no border, no card — the owner asked for exactly that, and the
- * reason is that the three lines are not a thing to be dismissed. A frame
+ * A wave's number and its name, as **plain text on the field**. No panel, no
+ * border, no card — the owner asked for exactly that, and the reason is that
+ * the two lines are not a thing to be dismissed. A frame
  * around text says "press me"; text on the field says "read this, it is about
  * to start".
  *
@@ -29,8 +28,12 @@ import { wrapText } from "./wrap-text.js";
  * nothing at all. A line falls, stretched the way a drop is stretched by its
  * own speed, lands, flattens once, and is then ordinary type standing still.
  *
- * The three lines are staggered, so the eye is led down them in the order they
- * are meant to be read: the number, then the name, then the sentence.
+ * The two lines are staggered, so the eye is led down them in the order they
+ * are meant to be read: the number, then the name.
+ *
+ * **There is no third line.** A wave's sentence stood under its name until the
+ * owner took it off every wave, 25 September 2026: *name of wave and number is
+ * good enough*.
  */
 
 /**
@@ -47,7 +50,7 @@ export const INTRO_SECONDS = 5.5;
  * How long it stands on every try after the first. The owner, 20 September
  * 2026: *when players lost the same wave, try and retry, shorten the time to
  * show the text and start the wave rows earlier.* A pair going again has read
- * these three lines already; what they need is the TRY count and the field.
+ * these two lines already; what they need is the TRY count and the field.
  *
  * **One shorter value, not a fall per retry**, and half the first: the whole
  * opening plays at double speed — entrance, standing and fade alike — so the
@@ -64,11 +67,8 @@ export function introSeconds(tries: number): number {
 
 /** How long the exit takes. The entrance is `text-drop.ts`'s own. */
 const FADE = 0.55;
-/** The three baselines, as the gaps between them — `bottom` measures with these. */
+/** The gap between the two baselines. */
 const NAME_DROP = 30;
-const SENTENCE_DROP = 28;
-const LINE = 18;
-const BODY = '13px "Courier New",monospace';
 
 /**
  * What this wave is called, or the honest thing to say past the last authored
@@ -96,7 +96,6 @@ export function drawIntroduction(
   top?: number,
 ): void {
   const name = waveName(world);
-  const sentence = WAVES[world.wave]?.sentence ?? "";
   // The exit is the entrance played backwards into nothing, and it only exists
   // where something is counting: on the ready page the pair is what ends this,
   // and text that had begun to fade would be text that looked like a mistake.
@@ -107,8 +106,6 @@ export function drawIntroduction(
 
   ctx.textAlign = "center";
   const mid = l.width / 2;
-  ctx.font = BODY;
-  const lines = wrapText(ctx, sentence, l.width - 64);
   // Centred in the play area rather than low down where the old wave banner
   // sat. That banner shared the screen with a wave already running and had to
   // keep off a boss; nothing is on the field behind this, because the wave has
@@ -131,20 +128,6 @@ export function drawIntroduction(
     ctx.fillStyle = PALETTE.hullRim;
     ctx.fillText(name, 0, 0);
   });
-
-  y += SENTENCE_DROP;
-  // The sentence's own lines share one place in the stagger, so they fall
-  // together. Staggered against each other they overlapped on the way down —
-  // two lines of type through one another is the one thing the entrance is not
-  // allowed to cost.
-  for (const text of lines) {
-    drop(ctx, mid, y, t, line, out, () => {
-      ctx.font = BODY;
-      ctx.fillStyle = PALETTE.text;
-      ctx.fillText(text, 0, 0);
-    });
-    y += LINE;
-  }
 
   ctx.textAlign = "left";
 }

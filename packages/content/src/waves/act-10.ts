@@ -101,7 +101,6 @@ export const WAVES_ACT_10: Wave[] = [
   {
     id: "theReprise",
     name: "THE REPRISE",
-    sentence: "The one where the wave you have just beaten comes back with nothing to see.",
     guide: {
       both: "Everything you clear comes back down unseen, in the same columns, colours and spacing. New arrivals wait. No shield helps: shoot each body, or lose the wave.",
       p1: "1. Only your strip picks a column: slide it where they say it was.\n2. Say the colours back, in order. Your partner has the two buttons.\n3. The shield does nothing this wave. One body on the hull loses it.",
@@ -123,7 +122,6 @@ export const WAVES_ACT_10: Wave[] = [
   {
     id: "theFlip",
     name: "THE FLIP",
-    sentence: "The one where the column you can see is the one it is not in.",
     guide: {
       both: "Six beats in, Player 1's screen turns into a mirror. A body on the left wall is really on the right. Buttons still work. Only the picture turned.",
       p1: "1. Your field is backwards and your cannon is not.\n2. A body on your left wall is one to shoot on your right.\n3. Only the middle column stays put. Trust your partner's number, not your eyes.",
@@ -147,7 +145,6 @@ export const WAVES_ACT_10: Wave[] = [
   {
     id: "theHusk",
     name: "THE HUSK",
-    sentence: "The one where taking the pod in is the mistake.",
     guide: {
       both: "Three pods hang, and one is hollow. It looks, beats and falls like the others. Swallow it and you lose. Let it reach a shut maw for free.",
       p1: "1. Your screen cannot tell them apart, so do not decide.\n2. Open the maw only for a pod your partner calls safe.\n3. Let every unnamed pod pass.",
@@ -167,7 +164,6 @@ export const WAVES_ACT_10: Wave[] = [
   {
     id: "theFilament",
     name: "THE FILAMENT",
-    sentence: "The one where you follow a line the other of you is still drawing.",
     guide: {
       both: "One of you draws the line, the other follows. One tile a beat, never faster. Stay within three tiles. Never share a tile until the last. Seven filaments.",
       p1: "1. Put your thumb on the lit end and draw up the filament, one tile a beat.\n2. You see how far ahead you are. Say your next tile before you take it.\n3. Faster than a beat snaps it. Wait for your partner.",
@@ -181,7 +177,6 @@ export const WAVES_ACT_10: Wave[] = [
   {
     id: "theGimbal",
     name: "THE GIMBAL",
-    sentence: "The one where the same turn is not the same turn.",
     guide: {
       both: "A drum hangs in two rings, one each. Turn your ring to your mark and hold it. Both true breaks a tooth off each. A spark leaks late: shoot it.",
       p1: "1. The outer ring is yours. Drag round its rim to turn it.\n2. Hold it on your mark until both of you are true.\n3. Let go and your ring falls back to the top.",

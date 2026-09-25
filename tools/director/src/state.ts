@@ -74,12 +74,11 @@ function copyBoss(boss: Wave["boss"]): Wave["boss"] {
 }
 
 /**
- * A new wave, deliberately unnamed and unsentenced. The save refuses it until
- * both are written, which is the one-sentence test doing its job at the moment
- * the wave is made rather than in review.
+ * A new wave, deliberately unnamed. The save refuses it until a name is
+ * written.
  */
 export function emptyWave(taken: Iterable<string> = []): Wave {
-  return { id: freshWaveId(taken), name: "", sentence: "", entries: [] };
+  return { id: freshWaveId(taken), name: "", entries: [] };
 }
 
 export function copyWave(wave: Wave, taken: Iterable<string> = []): Wave {
@@ -88,7 +87,6 @@ export function copyWave(wave: Wave, taken: Iterable<string> = []): Wave {
     // original's would make two waves one thing to everything that points.
     id: freshWaveId(taken),
     name: `${wave.name} COPY`,
-    sentence: wave.sentence,
     guide: wave.guide ? { ...wave.guide } : undefined,
     entries: wave.entries.map((e) => ({ ...e })),
     pods: wave.pods?.map((p) => ({ ...p })),
@@ -100,7 +98,6 @@ export function copyWave(wave: Wave, taken: Iterable<string> = []): Wave {
 export function refuse(waves: Wave[]): string | null {
   for (const [i, w] of waves.entries()) {
     if (!w.name.trim()) return `wave ${i + 1} has no name`;
-    if (!w.sentence.trim()) return `wave ${i + 1} has no sentence — it is padding`;
     // A boss wave is the boss: it is the whole wave, not an entry in it.
     if (!w.entries.length && !w.boss) return `wave ${i + 1} is empty`;
     // THE MIRROR is nothing but its rounds, and a round nobody can answer

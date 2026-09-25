@@ -92,7 +92,6 @@ export const WAVES_ACT_7B: Wave[] = [
   {
     id: "theTwitch",
     name: "THE TWITCH",
-    sentence: "The one where opening one of them opens all of them, on a beat nobody chose.",
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 10, col: 6, kind: "coil", color: null },
@@ -110,7 +109,6 @@ export const WAVES_ACT_7B: Wave[] = [
   {
     id: "theClaw",
     name: "THE CLAW",
-    sentence: "The one where the gun is a hand, and the hand cannot see what it is reaching for.",
     guide: {
       both: "The cannon is an arm. REACH sends it up to grab the first thing it meets. Power-ups cross sideways. A rock it grabs falls like a torch.",
       p1: "1. The arm is all you have. No trigger, no shield.\n2. Slide ahead of a power-up, not at it. Then REACH.\n3. Never REACH up a column with a rock in it. It falls on you.",

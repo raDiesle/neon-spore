@@ -54,8 +54,8 @@ describe("the introduction on a wave gone again", () => {
   it("has every line arrived well before a retry's words leave", () => {
     const words = wordsAt(worldOnTry(2), RETRY_INTRO_SECONDS / 2);
     expect(words.some((w) => w.text.includes("TRY 2"))).toBe(true);
-    // The number, the name and at least one line of the sentence.
-    expect(words.length).toBeGreaterThanOrEqual(3);
+    // The number and the name.
+    expect(words.length).toBeGreaterThanOrEqual(2);
   });
 
   it("is gone when a retry's seconds run out, while a first try still stands", () => {
@@ -63,7 +63,7 @@ describe("the introduction on a wave gone again", () => {
     // A hair past the end: the fade's last frame is a float away from zero.
     expect(wordsAt(worldOnTry(2), RETRY_INTRO_SECONDS + 0.01)).toHaveLength(0);
     expect(wordsAt(worldOnTry(2), age)).toHaveLength(0);
-    expect(wordsAt(worldOnTry(1), age).length).toBeGreaterThanOrEqual(3);
+    expect(wordsAt(worldOnTry(1), age).length).toBeGreaterThanOrEqual(2);
     expect(wordsAt(worldOnTry(1), INTRO_SECONDS + 0.01)).toHaveLength(0);
   });
 });

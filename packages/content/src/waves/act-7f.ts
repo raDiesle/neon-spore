@@ -35,7 +35,6 @@ export const WAVES_ACT_7F: Wave[] = [
   {
     id: "theTaster",
     name: "THE TASTER",
-    sentence: "The one where the colour you keep firing is the colour that stops working.",
     guide: {
       both: "Strike each blade off with the colour it is not. Cut the gaps to stop the fan re-edging. The last two lock over the body. Pull them apart, beam twice.",
       p1: "1. Say the colour on the next blade.\n2. Hold the cannon on that blade's column.\n3. Once three grow at once, hold one so it cannot decide.\n4. On the last two, drag the locked blades apart for the beam.",
@@ -60,7 +59,6 @@ export const WAVES_ACT_7F: Wave[] = [
   {
     id: "theSinew",
     name: "THE SINEW",
-    sentence: "The one that asks how hard, not when, and only the two of you together can say.",
     guide: {
       both: "Pull both handles. Hold the sum inside the band for four beats. Six fibres. From the fourth, it creeps slack. Both of you letting go resets it.",
       p1: "1. Only you can see the band. Call the number to aim at.\n2. HOLD means the sum is in: stop moving, four beats.\n3. LIFT means no pull can reach it. Both thumbs off, together.\n4. On the fall, say which way is clear.",

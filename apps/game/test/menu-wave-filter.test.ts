@@ -38,11 +38,12 @@ describe("waveMatches", () => {
   });
 
   test("a term matches from the start of a word and not mid-word", () => {
-    // `act-4.ts`'s "still falling toward" must not answer `ward`, or the
-    // filter would be a substring search wearing this one's name.
-    const toward = WAVES.findIndex((w) => w.sentence.includes("toward"));
-    expect(toward, "no wave's sentence says toward").toBeGreaterThan(-1);
-    expect(waveMatches(toward, "ward")).toBe(false);
+    // THE WARDEN must not answer `arden`, or the filter would be a
+    // substring search wearing this one's name.
+    const warden = indexOf("THE WARDEN");
+    expect(warden, "no wave is called THE WARDEN").toBeGreaterThan(-1);
+    expect(waveMatches(warden, "arden")).toBe(false);
+    expect(waveMatches(warden, "warden")).toBe(true);
   });
 
   test("every boss wave answers boss", () => {

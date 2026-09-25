@@ -21,7 +21,7 @@ import { drawIntroduction } from "./wave-intro.js";
  *
  * **The name is at the top and the gate is well below it.** He asked for the
  * column to sit at the top, and then for the gate to be moved further down away
- * from the name and the sentence under it — which is the right correction: a
+ * from the name — which is the right correction: a
  * circle a few points under a paragraph reads as part of the paragraph, and the
  * gap is the only thing saying *this is the part you do*.
  *
@@ -47,10 +47,11 @@ const GAP = 86;
 const TOP = 0.16;
 /**
  * The column, as the gaps between its rows. `readyCircles` places the circles
- * from the layout alone — a circle whose place moved with the length of a
- * wave's sentence would sit differently in every wave — so the name block is
- * given the room three wrapped lines need and most waves leave some of it
- * empty, which is the cheap half of that bargain.
+ * from the layout alone, so the name block is a fixed height. It was sized for
+ * the three wrapped lines a wave's sentence could take, and kept at that when
+ * the sentence came off every wave (25 September 2026): the circles stand
+ * where every hand already reaches for them, and the room under the name is
+ * the owner's own *move the ready part more down from the wave name*.
  */
 const NAME_BLOCK = 94;
 const ASK_GAP = 92;
@@ -75,7 +76,7 @@ export function readyCircles(l: Layout): { p1: ReadyCircle; p2: ReadyCircle } {
 }
 
 /**
- * The gap between the wave's sentence and the question under it.
+ * The gap between the wave's name block and the question under it.
  *
  * `ASK_GAP` is what the owner asked for — *move everything center top, and then
  * move the ready part more down from the wave name and description* — and on

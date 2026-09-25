@@ -53,8 +53,6 @@ export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theScout",
     name: "THE SCOUT",
-    sentence:
-      "The one where the ship sends something small into the dark and only one of you sees it.",
     guide: {
       both: "Fly the little ship to every mote. Touch nothing that moves. Carrying more than three makes it heavy.",
       p1: "1. Hold ◀ or ▶ to swing the nose to the o'clock they give.\n2. BURN for as long as they say. It keeps drifting after.\n3. Ask what is crossing before every burn.\n4. Heavy ship: drag it to prime, or the burn does nothing.",
@@ -69,8 +67,6 @@ export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theStare",
     name: "THE STARE",
-    sentence:
-      "The one where something is watching, and the one it is watching has to sit on their hands.",
     guide: {
       both: "An eye watches one of you at a time. Only the other screen is told who, seven beats early. The other keeps playing.",
       p1: "1. Every time it turns, listen for YOU or THEM. Your screen is not told.\n2. YOU: a touch breaks the hull. Say what is falling.\n3. THEM: play on, or pull the lid shut. Shut, they are free. Open, it looks at you.",
@@ -100,8 +96,6 @@ export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theCrossing",
     name: "THE CROSSING",
-    sentence:
-      "The one where something you cannot shoot keeps crossing the column you are aiming up.",
     guide: {
       both: "A rock comes over a side wall. It holds one row and crosses two columns a beat. It never reaches the ship. It blocks the cannon's shots as it passes.",
       p1: "1. Only you see the arrow at the edge.\n2. It shows the row, the side and the way it flies.\n3. Say the row. Count it across.\n4. Your column is yours only until it arrives.",
@@ -122,7 +116,6 @@ export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theChoir",
     name: "THE CHOIR",
-    sentence: "The one where the half-made gesture is worse than none at all.",
     guide: {
       both: "Two grey balls sit in one column. No shot reaches them. To open them, shake the phone twice, or carry both big arrows outward. Do it in two beats.",
       p1: "1. This is yours, and it is not a button.\n2. Shake the phone twice.\n3. No answer? Carry one arrow off its edge, then the other.\n4. Two moves, two beats. Stop after one and it sings, and the hull pays.",
@@ -139,7 +132,6 @@ export const WAVES_ACT_7C: Wave[] = [
   {
     id: "pulse",
     name: "THE PULSE",
-    sentence: "The one where you both play the same song and neither of you can read all of it.",
     guide: {
       both: "Things fall into four sockets. Press the matching button as each one lands. A grey shape is one only your partner can name. The bar is yours together.",
       p1: "1. Press the button for each thing as it lands.\n2. A grey shape is theirs to name: press what they say.\n3. Say what the shape marked CALL is, early and once.\n4. Bar low: a thumb on it carries them, but you stop playing.",
@@ -154,7 +146,6 @@ export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theBalloon",
     name: "THE BALLOON",
-    sentence: "The one where a hand on each of two different bodies is no hands at all.",
     guide: {
       both: "They drift up, turning at the walls. At the top one falls back as a torch. Pull both its handles out together, and hold. It splits, then pops.",
       p1: "1. Left handles are yours. Carry them left, and far.\n2. Name the one you take, its column and height, before you take it.\n3. A pull on your own does nothing. Let go early and you lose the hold.",

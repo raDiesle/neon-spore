@@ -83,7 +83,6 @@ export const WAVES_ACT_7A: Wave[] = [
   {
     id: "theChoke",
     name: "THE CHOKE",
-    sentence: "The one where the gun steers itself and a trigger that waits for it is the mistake.",
     guide: {
       both: "Something at the top of the field has the steering. No shot reaches it. The cannon walks by itself, a column a beat, wall to wall. The trigger still works.",
       p1: "1. You cannot steer.\n2. The light off the cannon shows where it goes next. Only you see it.\n3. Call the column it will be under on the next beat.\n4. Say when it turns at a wall.",
@@ -106,7 +105,6 @@ export const WAVES_ACT_7A: Wave[] = [
   {
     id: "theLimpet",
     name: "THE LIMPET",
-    sentence: "The one where a shield that stands still is the mistake.",
     guide: {
       both: "A hooked body sticks to the shield. No shot touches it. Keep the shield moving, a new column each beat, or you lose. Its timer says when it leaves.",
       p1: "1. You cannot move the shield. MOVE SHIELD! is under your dial.\n2. Say it the moment the body lands. Keep saying it.\n3. Call the rocks so your partner knows where to be.",
@@ -128,7 +126,6 @@ export const WAVES_ACT_7A: Wave[] = [
   {
     id: "theLeech",
     name: "THE LEECH",
-    sentence: "The one where a cannon that stands still is the mistake.",
     guide: {
       both: "The same body sticks to the cannon. No shot touches it. Keep the cannon moving, a new column each beat, or you lose. Its timer says when it leaves.",
       p1: "1. You hold the cannon, and the body holds it too.\n2. Keep it walking, a column a beat.\n3. Never park it under a body to line up the shot.\n4. It fires from wherever it is.",

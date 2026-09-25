@@ -17,7 +17,7 @@ import { brushOf } from "../src/state.js";
  * it matches what the wave sends. */
 function prose(wave: Wave): string {
   const g = wave.guide;
-  return `${wave.name} ${wave.sentence} ${g ? `${g.both} ${g.p1} ${g.p2}` : ""}`.toLowerCase();
+  return `${wave.name} ${g ? `${g.both} ${g.p1} ${g.p2}` : ""}`.toLowerCase();
 }
 
 /** The index of a wave by name, so a test can say what it means. */
@@ -39,11 +39,10 @@ describe("filterTerms", () => {
 });
 
 describe("a wave's haystack", () => {
-  test("carries its number, name and sentence", () => {
+  test("carries its number and name", () => {
     const i = indexOf(WAVES[0]!.name);
     const hay = waveHaystack(WAVES, i);
     expect(hay).toContain(WAVES[0]!.name.toLowerCase());
-    expect(hay).toContain(WAVES[0]!.sentence.toLowerCase());
     expect(hay).toContain(String(i + 1));
   });
 
@@ -96,7 +95,7 @@ describe("waveMatches", () => {
     // Both the brush and the word on its button: a rock is placed with the one
     // METEOR brush, and neither name is the one a wave author has to have
     // guessed. Not an equality — a term is matched against the wave's prose
-    // too, so `rock` also finds a wave whose sentence says "two rocks", which
+    // too, so `rock` also finds a wave whose guide says "two rocks", which
     // is the filter doing its job rather than a leak.
     let checked = 0;
     for (const [i, wave] of WAVES.entries()) {

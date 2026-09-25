@@ -18,7 +18,7 @@ guide would ask for. `bun run words` is the same brief as numbers.
 | Where | Field | Drawn on |
 |---|---|---|
 | `packages/content/src/waves/act-*.ts` | `guide.both`, `guide.p1`, `guide.p2` | the guide screen a wave opens on |
-| `packages/content/src/waves/act-*.ts` | `name`, `sentence` | the HUD, the wave list, the guide's last page |
+| `packages/content/src/waves/act-*.ts` | `name` | the HUD, the wave list, the guide's last page |
 | `packages/content/src/mechanics-*.ts` | `what` | **a menu button** — the DEMOS page (`apps/game/src/demo-menu.ts`) |
 | `packages/content/src/screen-words.ts` | `LINK_WORDS[].what` | the card when the line to the other phone drops (`apps/game/src/hold.ts`) |
 | `packages/content/src/screen-words.ts` | `SCREEN_WORDS[].name`, `.what` | the menu's screen chooser (`apps/game/src/menu-seats.ts`) |
@@ -61,7 +61,7 @@ splits it.
 
 ### One line, one budget
 
-`name` 4 words · `sentence` 20 · `both` 30 · `half` 18 · `what` 30.
+`name` 4 words · `both` 30 · `half` 18 · `what` 30.
 
 `half` is tightest because it is the one a player reads **and then says**. A
 `\n` ends a line, so a numbered list spends the budget per step, not per field

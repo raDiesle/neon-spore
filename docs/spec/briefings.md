@@ -5,9 +5,9 @@
 > a **rehearsal** — the game's own screen at full size, playing the wave the
 > pair is about to meet, one device at a time, with the words inside the picture
 > beside the things they explain. It ends on the ready gate, whose page is the
-> wave's number, name and sentence, and crossing it starts the wave. A wave
+> wave's number and name, and crossing it starts the wave. A wave
 > with no guide — and a wave gone again, which skips its guide — opens instead
-> on its introduction: those three lines alone, plain text on the field, which
+> on its introduction: those two lines alone, plain text on the field, which
 > pass on a timer.
 > §3.2 says which five are still prose and why the count is a test rather than
 > a sentence anybody has to remember.
@@ -59,7 +59,7 @@ guide as one movement — is [between-waves](between-waves.md).
 ## The rule it is built on, which is the opposite of the rule it used to be
 
 Help is **placed, not derived**. A guide is written inside the wave that plays
-it, in `packages/content/src/waves/act-*.ts`, directly under `sentence`.
+it, in `packages/content/src/waves/act-*.ts`, directly under `name`.
 
 This file has now argued both sides, so both arguments belong here.
 
@@ -76,7 +76,7 @@ list of subjects in `packages/sim/src/briefing.ts` and a catalogue in
 **It is placed again now, and the reason is not that the derivation broke.** It
 is that a derived card can only ever be about a *creature*, in the abstract,
 because a subject is a kind and not a wave. The owner asked for the help to be
-part of the wave's own configuration, under its sentence, and the thing that
+part of the wave's own configuration, under its name, and the thing that
 buys is a guide that can speak about *this wave* — the three rocks and the pod
 that arrive together, not "a rock is dead rock". It also gives the help
 somewhere to grow: a guide is an object with named parts, so a picture, a scene
@@ -218,7 +218,7 @@ at a tempo nobody could keep up with, and *every player has their own time to go
 through the tutorial, and just at the end both need to say they are ready.*
 
 **The last page is the gate, and it is the introduction.** Its picture is the
-game's own screen with the wave's number, its name and its sentence over it, and
+game's own screen with the wave's number and its name over it, and
 the two circles under them — so a guided wave has no separate introduction
 behind it, and crossing the gate starts the field. The whole column sits at the
 top of the screen, over the sky rather than over the ship.
@@ -271,7 +271,8 @@ before a room is even joined.
 ### 3.1 Data — `packages/content` · built
 
 - `wave-types.ts`: a `WaveGuide` is `{ both, p1, p2 }`, and `Wave.guide` is an
-  optional one, written directly under `sentence`.
+  optional one, written directly under `name`. (`sentence` stood between the
+  two until the owner took it off every wave, 25 September 2026.)
 - **It is an object with named parts, and that is the whole point.** Never
   three loose fields on `Wave` and never a bare string. The owner has said
   plainly that a guide may one day be more than words — a guidance animation,
@@ -1259,8 +1260,9 @@ added quietly back here.
 ### 3.7 The director · built, except the animation
 
 - **The GUIDE section**, three fields, in the WAVE tab directly under
-  SENTENCE — the owner's own placement. `guide-fields.ts` builds it;
-  `serialize.ts` writes it back out under `sentence` in the act file.
+  NAME (under SENTENCE until that field came off every wave, 25 September
+  2026). `guide-fields.ts` builds it; `serialize.ts` writes it back out under
+  `name` in the act file.
 - **A mark in the wave rail**, the way `♛` marks a boss wave: `✎` on every wave
   that carries a guide. It is a lookup now rather than a derivation, which is
   the whole of what moving the help into the wave bought.

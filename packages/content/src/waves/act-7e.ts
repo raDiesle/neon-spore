@@ -71,7 +71,6 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theUndertow",
     name: "THE UNDERTOW",
-    sentence: "The one that comes up through the floor, where only the maw points the right way.",
     guide: {
       both: "Lobes rise through your own hull. Swallow each one with the maw as it comes through. Hold the maw open under the last.",
       p1: "1. Say the column where the floor bows.\n2. Slide the cannon under it and open the maw as the lobe comes through.\n3. If it bows under you, slide off twice in four beats: it follows.\n4. On the last lobe, hold the maw open.",
@@ -92,7 +91,6 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theThroat",
     name: "THE THROAT",
-    sentence: "The one where the only thing that hurts it is something you give it.",
     guide: {
       both: "Throw a gum level along the mouth's row, into the mouth. Nothing else hurts it. Clear its column before every inhale.",
       p1: "1. Bring a gum down to the mouth's row.\n2. Carry your thumb sideways to fling it level along that row.\n3. Carry the cannon into the mouth's column before the count runs out. Brake a rock climbing it.",
@@ -123,7 +121,6 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theOrrery",
     name: "THE ORRERY",
-    sentence: "The one where you each see two of the three rings.",
     guide: {
       both: "Shoot the core up the middle column, on a beat when every ring's gap is at the bottom.",
       p1: "1. The middle ring is yours alone. The outer one you both see.\n2. Say when the middle ring's gap is at the bottom.\n3. Count with your partner to the beat all three gaps meet, and say it.",
@@ -137,7 +134,6 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theCandle",
     name: "THE CANDLE",
-    sentence: "The one you fight in the dark, lit only by your own shots.",
     guide: {
       both: "The field is dark. Any colour dims the glow, five times. Never shoot into the column it faces.",
       p1: "1. Say the column the glow faces, every time it turns.\n2. Keep the cannon under the glow and slide with it.\n3. If it faces its own column, say BEAM. It eats a shot there, never the beam.",
@@ -156,7 +152,6 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theGorge",
     name: "THE GORGE",
-    sentence: "The one that eats your shots, until you overfeed one part of it.",
     guide: {
       both: "Fill one intake with four beads of one colour, then two more shots pierce it. A full one torches its column in eight beats.",
       p1: "1. Pick a column and say it.\n2. Pinch a full one: it waits, and the eight beats restart when you lift.\n3. Say the count: four beads, then two more.\n4. Trigger the shield on bodies: a shot past one is a bead.",
@@ -181,7 +176,6 @@ export const WAVES_ACT_7E: Wave[] = [
   {
     id: "theCurtain",
     name: "THE CURTAIN",
-    sentence: "The one that is in the way, and you both shove it aside a column at a time.",
     guide: {
       both: "Shove the curtain aside, bare the core, shoot it in its colour. Three times. A hem with no lobes left tears off the rail instead.",
       p1: "1. Say which side of the hem is soft, so a shot can take it off.\n2. Shove the curtain the way your partner says.\n3. Keep a hand on it: four beats with none and it rolls back.",

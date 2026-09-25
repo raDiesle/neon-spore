@@ -1,7 +1,7 @@
 # Wave design
 
-> **Status: partly built.** The one-sentence test is enforced in the data
-> structure and eleven waves exist. Figures, acts and the modifier system are
+> **Status: partly built.** The one-sentence test is applied by the author
+> (`.claude/skills/new-wave`), not stored, and a hundred waves exist. Figures, acts and the modifier system are
 > design only.
 
 **Goal:** a very long playing time made of through-composed waves with a low
@@ -67,9 +67,10 @@ figure layer above it. Figures are the next authoring step, and
 The wave test is stricter than it sounds. Realistically it carries 60–80 waves,
 not 200.
 
-Enforced: `Wave.sentence` is a required field of the data structure
-(`packages/content/src/waves.ts`), and the skill at `.claude/skills/new-wave`
-applies the test. `.claude/skills/new-creature` applies the second filter.
+Applied, not stored: `Wave` had a required `sentence` until the owner took it
+off every wave on 25 September 2026 (*name of wave and number is good enough*),
+so the skill at `.claude/skills/new-wave` applies the test when a wave is
+written, and the sentence goes in its commit. `.claude/skills/new-creature` applies the second filter.
 
 ## 8.4 The ten pillars as an act structure — not built
 

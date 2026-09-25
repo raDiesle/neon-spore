@@ -152,15 +152,12 @@
                thing about a wave; it is the first thing here. -->
           <label class="field" for="fName">NAME</label>
           <input id="fName" />
-          <label class="field" for="fSentence">SENTENCE — the one where…</label>
-          <textarea id="fSentence" rows="2"></textarea>
-
-          <!-- GUIDE sits directly under SENTENCE because that is where it is
-               read: a wave's prose is its name, why it exists, and what the
-               pair has to be told before it starts. `rail.ts` builds the three
-               fields; leaving them out of the markup keeps the empty case
-               (a wave that introduces nothing) from looking like a form
-               somebody forgot to fill in. -->
+          <!-- SENTENCE stood here until 25 September 2026, when the owner
+               took it off every wave: the name and the number are enough.
+               GUIDE is directly under NAME. `rail.ts` builds its fields;
+               leaving them out of the markup keeps the empty case (a wave
+               that introduces nothing) from looking like a form somebody
+               forgot to fill in. -->
           <div id="guideFields"></div>
 
           <!-- Which of the two kinds this wave's boss is, under the prose and

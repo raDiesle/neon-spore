@@ -12,7 +12,6 @@ import { mapColMilli } from "../src/queue.js";
 const wave = (entries: Wave["entries"]): Wave => ({
   id: "test4",
   name: "T",
-  sentence: "t",
   entries,
 });
 

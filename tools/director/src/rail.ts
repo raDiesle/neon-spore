@@ -6,7 +6,7 @@ import {
 } from "@neon-spore/content";
 import { bindBossTypeField } from "./boss-type-field.js";
 import { renderControlSetNote } from "./control-set-note.js";
-import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
+import { bindGuideFields } from "./guide-fields.js";
 import { bindRailFilter } from "./rail-filter.js";
 import { renderRows } from "./rail-list.js";
 import { bindWaveSteps } from "./rail-steps.js";
@@ -16,11 +16,10 @@ import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 /**
  * The wave list and the fields every wave must carry.
  *
- * `sentence` sits directly under `name` and above the grid on purpose. It is
- * the test a wave has to pass, and a field you scroll past is a field nobody
- * fills in.
+ * There is no `sentence` field under `name` any more: the owner took it off
+ * every wave on 25 September 2026 — *name of wave and number is good enough*.
  *
- * The control set sits at the same level as `name` and `sentence` for the
+ * The control set sits at the same level as `name` for the
  * same reason `boss.ts` gets its own panel rather than a cell in the grid:
  * *this wave is not the ordinary thing*. Unlike the boss it needs no panel
  * of its own — every set is a name in `CONTROL_SETS`, so a `<select>` says
@@ -40,7 +39,6 @@ export function bindRail(
 ): RailPanel {
   const list = document.getElementById("waveList");
   const name = document.getElementById("fName") as HTMLInputElement | null;
-  const sentence = document.getElementById("fSentence") as HTMLTextAreaElement | null;
   const controlsField = document.getElementById("fControlSet") as HTMLSelectElement | null;
   const controlsWhy = document.getElementById("fControlSetWhy");
   const controlsRoster = document.getElementById("fControlSetRoster");
@@ -56,13 +54,8 @@ export function bindRail(
   // above — the owner's *either or is enough* (`rail-symbols.ts`).
   const symbols = bindRailSymbols(document.getElementById("waveMarksFilter"), () => renderList());
 
-  // One of the four textareas that grow with their content; the other three are the guide's.
-  if (sentence) autoGrowTextarea(sentence);
-
-  // Directly under SENTENCE, which is where the owner asked for it: a wave's
-  // prose is its name, why it exists, and what the pair has to be told before
-  // it starts. See `guide-fields.ts` for why the three fields are built rather
-  // than declared in `index.html`.
+  // Directly under NAME. See `guide-fields.ts` for why its fields are built
+  // rather than declared in `index.html`.
   const guideFields = bindGuideFields(document.getElementById("guideFields"), onPage);
   // Over the control set, for the reason it is over it in the markup: which
   // kind of boss this is, on the waves that have one (`boss-type-field.ts`).
@@ -94,7 +87,6 @@ export function bindRail(
   const renderFields = (): void => {
     const wave = currentWave(store);
     if (name) name.value = wave?.name ?? "";
-    if (sentence) setGrownValue(sentence, wave?.sentence ?? "");
     const active = controlSet(wave?.controls);
     if (controlsField) controlsField.value = active.id;
     if (controlsWhy) controlsWhy.textContent = active.why;
@@ -128,18 +120,11 @@ export function bindRail(
     renderList();
     onEdit();
   });
-  sentence?.addEventListener("input", () => {
-    const wave = currentWave(store);
-    if (!wave || !sentence) return;
-    wave.sentence = sentence.value;
-    store.dirty = true;
-    onEdit();
-  });
 
   // A control set is a shape choice, the same weight as the boss: it changes
   // what the band would draw, not just what a wave says about itself. So it
   // goes through `onSelect` (the caller's full refresh) rather than `onEdit`
-  // the way `name`, `sentence` and the guide do.
+  // the way `name` and the guide do.
   controlsField?.addEventListener("change", () => {
     const wave = currentWave(store);
     if (!wave || !controlsField) return;
@@ -159,8 +144,8 @@ export function bindRail(
     onEdit();
   });
 
-  // Through `onEdit`, not `onSelect`: a guide is prose like `name` and
-  // `sentence`, and restarting the stage on every keystroke of it would make
+  // Through `onEdit`, not `onSelect`: a guide is prose like `name`, and
+  // restarting the stage on every keystroke of it would make
   // the wave unwritable. What reads it next is the wave note above the fields.
   guideFields.onChange((guide) => {
     const wave = currentWave(store);

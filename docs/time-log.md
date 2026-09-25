@@ -20386,3 +20386,17 @@ The bottleneck was **looking**: the first trunk still read as a vase, and it
 took two passes on the lip to make it a mouth.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — A wave carries its number and its name, and no sentence
+
+- reading: 5 min. Where `sentence` is read: the intro, the ready page, the
+  menu list, the director rail, the save, the words tool, the skills.
+- writing: 10 min. The field off the type and 101 waves, every reader after
+  it by the typecheck, and the docs that told an author to write one.
+- looking: 5 min. One `frames --opening intro` pair of wave 3.
+- friction: 5 min. The Bash guard refused a heredoc with a doubled
+  backslash, and the whole command with it.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+The bottleneck was **landing**: the field is read in five packages, so the
+diff reaches most of the test suite.

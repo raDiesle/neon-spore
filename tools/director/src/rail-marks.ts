@@ -77,7 +77,7 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
    * file had been written and the page reloaded.
    *
    * No `title` — a tooltip here is what the owner rejected — and no second
-   * copy of the guide's own text, which already sits under SENTENCE. It is a
+   * copy of the guide's own text, which already sits under NAME. It is a
    * glance-level flag and nothing else: it was a shortcut into DOCUMENTATION's
    * GUIDES tab until the owner took that room off the sheet on 14 September
    * 2026, and a mark that opens a page that is not there is worse than a mark

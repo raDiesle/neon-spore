@@ -29,7 +29,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "firstStep",
     name: "FIRST STEP",
-    sentence: "The one where you only have to be in the right column.",
     guide: {
       both: "One ship, two screens, and they show different things. One shows what is coming. The other holds the control that answers it. This first one is always red.",
       p1: "1. The cannon, the shield's trigger and the maw are yours.\n2. Slide your strip until the cannon stands in its column.\n3. Say which column.",
@@ -51,7 +50,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "cyan",
     name: "CYAN",
-    sentence: "The one where the second button is the only one that works.",
     guide: {
       both: "Round, swollen, and always cyan. Red is spent on one of these and nothing comes apart.",
       p1: "Nothing changes for you. Stand in the column and say which one it is.",
@@ -67,7 +65,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "twoColours",
     name: "TWO COLOURS",
-    sentence: "The one where both colours arrive in the same wave.",
     entries: [
       { beat: 0, col: 2, color: "red" },
       { beat: 3, col: 4, color: "cyan" },
@@ -77,7 +74,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "alternating",
     name: "ALTERNATING",
-    sentence: "The one where you never keep the same colour twice.",
     entries: [
       { beat: 0, col: 1, color: "cyan" },
       { beat: 2, col: 3, color: "red" },
@@ -88,7 +84,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "theRock",
     name: "THE ROCK",
-    sentence: "The one where a shot is no answer and the timing is everything.",
     guide: {
       both: "Dead rock. It cannot be shot, and it stops a shot of yours going up its column.",
       p1: "Your strip shows it first. You have a trigger now. Fire the shield as it lands, not before.",
@@ -101,7 +96,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "twoRocks",
     name: "TWO ROCKS",
-    sentence: "The one where neither of you can do it alone.",
     guide: {
       both: "Two rocks, and the second one lands somewhere else. The shield moves now. One of you carries it. The other fires it.",
       p1: "The trigger is yours. The shield is not. Say when it lands, and not before.",
@@ -117,7 +111,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "theHand",
     name: "THE HAND",
-    sentence: "The one where three arrive on the same beat and the shield is one column.",
     guide: {
       both: "Three rocks, one beat, one shield. Either of you can hold one back with a finger on the field. It falls slower while you hold it. That costs a hand.",
       p1: "1. Hold the far one. Slide the same thumb sideways to move it a column.\n2. Your thumb is off your strip now. Say what you hold and where it goes.",
@@ -134,7 +127,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "torch",
     name: "TORCH",
-    sentence: "The one where the only warning is on the other player's screen.",
     guide: {
       both: "Rock again, twice as wide, and the fastest thing in the field. It cannot be shot either.",
       p1: "It is on your strip and on nobody else's. Call it before it arrives.",
@@ -151,7 +143,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "shieldThenCannon",
     name: "SHIELD, THEN CANNON",
-    sentence: "The one where you switch jobs mid-wave.",
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 5, col: 3, color: "cyan" },
@@ -161,7 +152,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "theWall",
     name: "THE WALL",
-    sentence: "The one where the cannon never stops moving.",
     entries: [
       { beat: 0, col: 0, color: "cyan" },
       { beat: 1, col: 2, color: "red" },
@@ -173,7 +163,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "shootAndShield",
     name: "SHOOT AND SHIELD",
-    sentence: "The one that alternates between the two jobs on a fixed beat.",
     entries: [
       { beat: 0, col: 2, color: "cyan" },
       { beat: 3, col: 4, kind: "meteor", color: null },
@@ -185,7 +174,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "inItsShadow",
     name: "IN ITS SHADOW",
-    sentence: "The one where you hold back the very thing you are trying to shoot.",
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 1, col: 3, color: "red" },
@@ -197,7 +185,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "crowded",
     name: "CROWDED",
-    sentence: "The one where the jobs overlap and you have to say what you are doing.",
     entries: [
       { beat: 0, col: 1, color: "red" },
       { beat: 1, col: 5, color: "cyan" },

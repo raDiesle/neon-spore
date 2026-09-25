@@ -10,11 +10,10 @@ import { WAVES } from "@neon-spore/content";
  * that editor, and the game bundle has no business depending on a dev tool's
  * code for a runtime feature. So this is the same algorithm — a term matches
  * if it starts a word anywhere in what a wave *is* — over a smaller
- * vocabulary: a wave's number, its name, its sentence, its guide, and its
- * boss.
+ * vocabulary: a wave's number, its name, its guide, and its boss.
  *
- * `ward` finds THE WARD and THE WARDEN and not the waves whose sentence
- * happens to say *toward*, because a term has to start a word rather than
+ * `ward` finds THE WARD and THE WARDEN and not a wave whose guide happens
+ * to say *toward*, because a term has to start a word rather than
  * appear anywhere in one; `boss` finds every wave that carries one. Terms are
  * ANDed, so typing more narrows rather than widens.
  */
@@ -23,7 +22,7 @@ import { WAVES } from "@neon-spore/content";
 function waveHaystack(index: number): string {
   const wave = WAVES[index];
   if (!wave) return "";
-  const parts: string[] = [String(index + 1), wave.id, wave.name, wave.sentence];
+  const parts: string[] = [String(index + 1), wave.id, wave.name];
   if (wave.guide) {
     parts.push(wave.guide.both, wave.guide.p1, wave.guide.p2, wave.guide.scene ?? "");
   }

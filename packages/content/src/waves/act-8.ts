@@ -109,7 +109,6 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theBeatbox",
     name: "THE BEATBOX",
-    sentence: "The one where the tap you did not make is the one that counts.",
     guide: {
       both: "A soundbox swells each beat and wants a number of taps. No shot touches it. Tap it once a beat, then stop. Wrong, it hits the hull.",
       p1: "1. Only you see the number over the box.\n2. Say it early and say it once.\n3. Once your partner starts tapping, it is too late to hear it.",
@@ -127,7 +126,6 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theWeight",
     name: "THE WEIGHT",
-    sentence: "The one where holding it alone looks exactly like holding it together.",
     guide: {
       both: "A heavy sac falls a row a beat. No shot or shield stops it. Both of you press it on the same beat. One thumb alone looks the same.",
       p1: "1. You call it. Say the beat out loud: on the three.\n2. Put your thumb on the body on that beat.\n3. Your thumb is off the strip while it is down. Call one you can afford.",
@@ -145,7 +143,6 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theCairn",
     name: "THE CAIRN",
-    sentence: "The one where the rock you did not pull is the one that lands.",
     guide: {
       both: "Take the pile apart by hand. Put the shield under every rock that comes away. Leave it eight beats and it drops one itself. Only Player 1 sees where.",
       p1: "1. Only you see the column it drops into by itself. Say it.\n2. It changes every time a rock leaves.\n3. Eight beats of patience, and every pull resets it.\n4. Trigger the shield under every rock.",
@@ -159,7 +156,6 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theCodex",
     name: "THE CODEX",
-    sentence: "The one where the button you pressed is not the shot you fired.",
     guide: {
       both: "Every four beats, something swaps what the two colours kill. Red kills what cyan should, and cyan what red should. The shot looks and sounds the same.",
       p1: "1. Only you see it. The air moves in slow bands while the colours swap.\n2. Say which it is, and again every time it turns.",

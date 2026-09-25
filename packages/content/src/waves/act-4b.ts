@@ -44,7 +44,6 @@ export const WAVES_ACT_4B: Wave[] = [
   {
     id: "theRind",
     name: "THE RIND",
-    sentence: "The one where the shot that lands does not close the column.",
     guide: {
       both: "Three times the size of a normal body. The matching colour only takes one layer off.\nThree sizes, three shots. Its size tells you how many are left.",
       p1: "1. Keep the cannon in its column until it is gone.\n2. The first two shots only make it smaller.\n3. Move off early and you pay for it twice.",

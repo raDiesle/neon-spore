@@ -103,7 +103,8 @@ both. A creature nobody can play is not shipped, and a wave that introduces
 something with nothing said about it is a wave the pair reads by guessing.
 
 **The wave.** One entry in one of `packages/content/src/waves/act-*.ts`,
-passing the one-sentence test the way any wave must — THE RUNT is *"The one where a shot
+passing the one-sentence test the way any wave must — the sentence is said in
+the commit, never stored on the wave — and THE RUNT's is *"The one where a shot
 that lands is the mistake"*, ON THE BEAT is *"The one where firing on sight is
 the miss."* Both name the **mistake the creature exists to punish**, not the
 creature. That is the test: if the sentence describes the body rather than what
@@ -117,7 +118,7 @@ the creature is defined **against**, and put that in the wave if the answer is
 not "the empty field".
 
 **The guide.** A `guide` on that same wave, written directly under
-`sentence`, and it is **three texts, not one**: `both` for what the thing is,
+`name`, and it is **three texts, not one**: `both` for what the thing is,
 then `p1` and `p2` for what each seat now does about it — the split is the
 point, and a guide whose `p1` and `p2` say the same thing is a guide that has
 not understood the game. ON THE BEAT's are worth copying as a shape: *"Call

@@ -50,7 +50,7 @@ export function buildWaves(
     button.append(el("span", "n", String(i + 1).padStart(2, "0")));
     const name = el("span", "label", wave.name);
     if (wave.boss) name.append(el("span", "boss", " ✦"));
-    button.append(name, el("span", "s", wave.sentence));
+    button.append(name);
     button.addEventListener("click", () => onWave(i));
     page.append(button);
     return button;

@@ -67,7 +67,6 @@ export const WAVES_ACT_7G: Wave[] = [
   {
     id: "theLedger",
     name: "THE LEDGER",
-    sentence: "The one where every hit you land comes back at your own hull.",
     guide: {
       both: "Hit the split five times in its colour. Each hit comes back, sooner each time. Put the shield in the socket, or lose the wave. Let the last one land.",
       p1: "1. Only you see the return coming. Count it down aloud.\n2. Trigger on the beat it lands. The column is hers.\n3. From the second hit, every shot costs. Each shield catch widens the split.\n4. The last one: do not press.",
@@ -90,7 +89,6 @@ export const WAVES_ACT_7G: Wave[] = [
   {
     id: "theSurge",
     name: "THE SURGE",
-    sentence: "The one you beat by letting go, and only if you both let go at once.",
     guide: {
       both: "Both thumbs on the bulb charge it. Let go together inside the band. Five notches, and from the second it keeps what it has and feeds on the wave.",
       p1: "1. Only you see the band. Say OFF as the pressure reaches it.\n2. Lift on OFF, never alone: one thumb loses it.\n3. From the second notch it holds the charge with no hand on.\n4. From the third, a burst shuts a notch.",
@@ -113,7 +111,6 @@ export const WAVES_ACT_7G: Wave[] = [
   {
     id: "theLead",
     name: "THE LEAD",
-    sentence: "The one you shoot where it will be, not where it is.",
     guide: {
       both: "Shoot the body where it will be. Five segments. It walks faster after a hit. The last stands dead eight beats. Then two beams in its path end it.",
       p1: "1. Say LEFT or RIGHT every beat: where it goes next.\n2. Cannon two ahead of her column, four on a run.\n3. With two left the stalk adds the beat for you.\n4. On the last it stands dead, then leans the way out. Say it.",
@@ -136,7 +133,6 @@ export const WAVES_ACT_7G: Wave[] = [
   {
     id: "theScuttle",
     name: "THE SCUTTLE",
-    sentence: "The one that throws itself at you, a part at a time, and each part is a window.",
     guide: {
       both: "Shoot each part off the frame while it hangs. It throws a part you miss at you. If the frame runs out, you lose. Beam the last one.",
       p1: "1. Say how many parts are left. She cannot see them.\n2. At twelve, two hang and one counts. At seven, faster.\n3. Cannon under the column she calls. Trigger her shield.\n4. Suck a pod: every throw after is a beat slower.",
@@ -150,7 +146,6 @@ export const WAVES_ACT_7G: Wave[] = [
   {
     id: "theAntiphon",
     name: "THE ANTIPHON",
-    sentence: "The one that grows a thing nobody can name, and one of you has to name it.",
     guide: {
       both: "Describe the organ, find it on the rail, shoot it in its column and colour. Six pits. The last organ is your own ship. From three pits, rejects fall.",
       p1: "1. Say its shape in your words: lobes, leaning, hollow.\n2. Turn it under your thumb: it looks, it never answers.\n3. Cannon to the column she calls. You cannot see it.\n4. From five pits one a cycle is a shape you named.",
@@ -164,7 +159,6 @@ export const WAVES_ACT_7G: Wave[] = [
   {
     id: "theHive",
     name: "THE HIVE",
-    sentence: "The one you seal, and every breach you have not sealed yet is spilling.",
     guide: {
       both: "Seal all nine breaches: shoot each in its colour while it is open. CARRY and PRESS mark where and when. The colour and the swell are yours to say.",
       p1: "1. Say each breach's colour as it opens: THREE IS RED.\n2. CARRY marks an open breach: go to it.\n3. When she says where the next opens, be there before it does.\n4. Trigger the shield on rocks.",
@@ -178,8 +172,6 @@ export const WAVES_ACT_7G: Wave[] = [
   {
     id: "theInstar",
     name: "THE INSTAR",
-    sentence:
-      "The one with no panel, where its body marks where it hurts you and whose thumb it wants.",
     guide: {
       both: "No buttons. The body marks in red where it wants a hand. A word says what, a line above says what kind.",
       p1: "1. The bright mark is yours: do what its two words say, before the ring closes.\n2. A dim mark is hers: watch it, and say when she has it.",
