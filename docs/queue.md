@@ -844,3 +844,67 @@ shove, stronger at the third bite's push, and the shove should have a sound —
 which is a new event, `instarShove`, and so the twelve registrations
 `.claude/skills/new-boss-state` lists. A look the owner asked for by name
 (*player really feels when pulling it is required to be stronger*).
+
+## The shield pushes a cannon creature back up, once
+
+- **Found:** 2026-09-25, claude/shield-enemy-knockback-6364bd
+- **Files:** `packages/sim/src/hull.ts`, `packages/sim/src/ward.ts`, `packages/sim/src/volley.ts`, `packages/sim/src/own-step.ts`, `packages/sim/src/kinds.ts`, `packages/sim/src/config-volley.ts`, `packages/sim/src/hash-creature-late.ts`, `docs/spec/roles.md`
+
+The owner asked for it on 25 September 2026: the shield answers **almost every
+creature**, not only rocks. Shield in the column (player 2) and the trigger on
+time (player 1): the body is pushed high back up the field and then carries on
+with its own rule, so it still has to be killed the ordinary way. **Once per
+creature** — the second arrival lands on the hull as it does today. Rocks keep
+their rule (turned and gone); THE VOLLEY keeps its own climb.
+
+Not pushed, agreed with the owner: gum, carom, crystal, coil, fence, clasp,
+limpet, leech, moult and every boss body (queen included). Also out, because
+they never fall onto the hull the ordinary way: strand beads, mine, wisp,
+balloon, gyre and its mounts, crawler, cairn, curtain, tether. Everything else
+that falls onto the hull is pushed — slick, bulb, lure, throb, shell, veil,
+rind, recoil, lid, weight, magnet, countdown, beatbox, choir, echo, dart,
+ghost, veer if it is not already a rock; decide chute after reading `chute.ts`.
+
+The shape the code already has: THE VOLLEY does exactly this (`volleyReturn`,
+`climb`, `stepVolley`). Lift the climb into a general pushed-back state — a
+rise count and a one-push flag on `Creature`, both hashed — with an allow-list
+`isPushable(kind)` beside `isWardable` rather than a list of exceptions, so a
+new creature is not pushed by default. In `resolveHull` a pushable body is
+asked at `shieldRow` like a rock; `wardTurns` gets a third answer that pushes
+and emits one new event (say `shieldPush`, with id, col, row) and returns true.
+The climb is asked first in `steppedInsteadOfFalling`, before every kind's own
+rule. Rows and beats of the push are new `SimConfig` fields; "very high" was
+the owner's word. Keep the guard record and `markMoment` for rocks only — a
+push is a rescue, not the ward the balance sheet teaches. The shield control is
+**not** added to waves that do not already show it. Update the shield paragraph
+in `docs/spec/roles.md` ("Against creatures the shield does nothing"). Replay
+tests: pushed once and killed; pushed once and landed the second time.
+`bun run check` holds it.
+
+## The push-back is shown as a mistake: red shield, a sound, ONE LAST CHANCE
+
+- **Found:** 2026-09-25, claude/shield-enemy-knockback-6364bd
+- **Files:** `packages/render/src/shield.ts`, `packages/render/src/shield-flash.ts`, `packages/render/src/effects-ingest.ts`, `packages/audio/src/bind.ts`, `packages/audio/src/bind-volley.ts`
+
+**After "The shield pushes a cannon creature back up, once" has landed** — it
+needs that entry's event. A look the owner asked for by name (25 September
+2026): pushing back a creature that belongs to the cannon is the wrong answer
+that still saves the hull, so the shield lights **red** for a moment with an
+effect, a "wrong" sound plays, and the pushed body carries the words **ONE LAST
+CHANCE** while it is in the air. The body is seen to bounce off the dome, not
+from inside it — `volleyReturn`'s `fromRow` comment has why. Words through
+`.claude/skills/game-words`; drawn again in `packages/render/test/frame.test.ts`;
+the effect cleared in `Effects.reset()`. `bun run check` holds it.
+
+## A wave and its guide that teach the push-back
+
+- **Found:** 2026-09-25, claude/shield-enemy-knockback-6364bd
+- **Files:** `.claude/skills/new-wave/SKILL.md`, `.claude/skills/new-tutorial/SKILL.md`, `packages/content/src/scenes/the-volley.ts`
+
+**After the two entries above have landed.** The owner asked for a new wave
+with a guide explaining the mechanic (25 September 2026). One sentence: the
+shield saves the hull from a creature once, but only the cannon kills it.
+Slicks and bulbs with a rock or two, the shield shown; the guide's rehearsal
+shows a push, the red shield and ONE LAST CHANCE, then the cannon finishing it.
+Follow both skills; THE VOLLEY's rehearsal is the nearest pattern.
+`bun run check` holds it.

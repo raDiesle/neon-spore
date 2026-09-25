@@ -21141,3 +21141,15 @@ down; one launch and a look at the process's environment answered it.
 Bottleneck: none worth the name; the seam was already named in the item.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The shield pushes creatures back: decided and queued
+
+- reading: 15 min. The shield's path through `hull.ts`, `ward.ts`, THE
+  VOLLEY's climb and the forty-seven kinds, to answer whether it is simple.
+- writing: 5 min. Three queue entries, one per lane.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+The bottleneck was the design, not the code: deciding which of forty-seven
+kinds the shield may push took longer than finding where the push goes.
