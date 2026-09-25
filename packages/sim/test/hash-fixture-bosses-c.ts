@@ -52,7 +52,8 @@ export const BOSS_ENTRIES_C = {
     kind: "instar",
     steps: [
       {
-        pose: "gape",
+        pose: "breath",
+        arrive: "approach",
         morphBeats: 2,
         windowBeats: 6,
         landBeats: 2,

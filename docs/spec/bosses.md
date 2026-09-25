@@ -7142,8 +7142,11 @@ hand's reference for a turn's bearing or an armed swipe, and which seats'
 thumbs are on it as two bits. A step is a **pose** the body morphs into,
 up to two **marks** on it, and three clocks that are the step's own and
 not tuning — `morphBeats` with the marks hidden, `windowBeats` with them
-up, `landBeats` of the part giving before the next morph. The script is
-five poses: *gape*, *armed*, *moulted*, *turned*, *lunge*.
+up, `landBeats` of the part giving before the next morph — and an
+**arrival**, how the body flies into the pose while it morphs: `approach`
+from far off, `passes` out of the frame and across twice, `cross` out one
+side and in the other (`INSTAR_ARRIVALS`, in `sim/instar-words.ts`). The
+script is three poses since 25 September 2026: *breath*, *brood*, *lash*.
 
 **The rule, in one sentence.** The body morphs into a pose over its
 `morphBeats` (`instarMorph`, `instarShow` when the marks come up), and
@@ -7198,8 +7201,8 @@ the tick, so a hand two ticks late on the other phone is not two ticks
 late: the window the pair is given is in beats, the unit they can hear.
 
 **The window closing is the wave.** A mark still undone when the window
-runs out is the part doing what the mark was there to stop — the weapon
-on the hull, the eggs hatched, the tongue's poison, the tail's blow — and
+runs out is the part doing what the mark was there to stop — the fire
+breathed, the eggs hatched, the tail's blow — and
 that is `instarStrike` and one `breachHull` at the mark's column, which
 under the owner's rule of 12 September 2026 is the wave lost
 (`wave-fail.ts`). A strike is never two: the failed field is held from
@@ -7210,16 +7213,27 @@ hull skips the loss and still says the strike.
 and every mark is the same red — the owner asked for *red circles*, and
 this game's rule is that geometry says whose, not colour, so a mark on the
 left of the body is player 1's, on the right player 2's, one in the
-middle wants both. On the *gape* he pulls the lower jaw down and she the
-upper jaw up, one and a half tiles each, and both must be at depth at
-once. On *armed* he slaps the hand six times and she swipes the eggs off
-three times, downward, and the last of each has to fall inside two beats
-of the other. On *moulted* the sides swap — the morph is six beats,
-because the pair is meant to watch it: she slaps the second hand eight
-times and he winds the tongue back in, a turn and a half. On *turned* she
-alone pulls the tail up two tiles and he has nothing to do but watch and
-say when she has it. On the *lunge* both thumbs on the head for four
-beats. The guide says the rule in two halves and no more
+middle wants both. **The owner's choreography of 25 September 2026** is
+the script: *change boss so it looks more like a dragon alien space ship
+living*, and four beats of it. It comes in slowly, small and far off,
+flying at the ship until it fills the field (`approach`, eight beats). On
+the *breath* its jaws are already open on a fire turning in its mouth —
+*its not logical to me why we need to open mouth to succeed … we have to
+close the mouth, so he cant spit out the fire* — so she pushes the upper
+jaw down and he the lower jaw up, two tiles each, both at depth at once;
+left open, it breathes the fire over the field. It flies off, crosses the
+frame twice and comes in to stay side on (`passes`, twelve beats): on the
+*brood* the eggs on its back are rumbling, and he taps the left nest's
+eggs until all eight are squashed while she swipes the right nest's five
+off, and the last of each has to land inside two beats of the other; left
+alone, they hatch and the brood eats the ship. It goes out one side and in
+the other (`cross`, seven beats), and on the *lash* its forked tail comes
+at the ship: each seat taps its own blade back, ten each, together; left
+alone, the tail hits the hull. The script before that day — the jaws
+pulled *open*, a club slapped from a hand, a tongue wound in, a tail
+pulled up, a lunge held with both thumbs — is in git; the engine still
+reads all six gestures (`sim/test/instar.test.ts` pins them on scripts of
+its own). The guide says the rule in two halves and no more
 (`waves/act-7g.ts`), and the wave's control set is `scene` — no cannon, no
 shield, no colours, nothing on the band.
 
@@ -7228,16 +7242,17 @@ each argued by name. **The circles are not two colours**: every mark is
 red, and whose it is is where it is drawn, because a colour on a mark
 would be a third colour rule for the pair to learn and the choreographed
 page's own rule is that geometry says whose. **The eggs do not hatch into
-bees**: nothing this boss does spawns a creature, because it fills its
-wave and a scripted body with free bees under it is two waves; undone
-eggs are a strike like every other undone mark. **A missed beat is the
+creatures**: nothing this boss does spawns one, because it fills its
+wave and a scripted body with free creatures under it is two waves; the
+brood that eats the ship is the strike's picture, and undone eggs are a
+strike like every other undone mark. **A missed beat is the
 wave and not a step back**: the owner's sequence says *else it damages
 the hull* at every step and hull damage is the wave by his own rule, so
 `StepBack` stays unbuilt and the brief's *failure should not mean you
 lose* is answered by the slip — a beat missed by a hair costs the beat,
-not the wave. **The sequence is five steps**: the four he named and the
-lunge that ends it; his *and so on* is one more entry in the script, and
-nothing else has to change for it. And one thing that is not a departure
+not the wave. **The sequence is three steps**: the three he named on 25
+September 2026, with the entrance as the first step's arrival rather than
+a step of its own, because nothing is asked of the pair while it flies in. And one thing that is not a departure
 but a judgment: **it fills its wave**, which is THE SCUTTLE's case on the
 choreographed page — the ruling that *a boss on this page is fed by its
 wave* is about a boss that reads the wave, and this one reads nothing

@@ -53,7 +53,14 @@ function mark(seat: InstarSeat, gesture: InstarGesture, need: number) {
 }
 
 function scripted(...marks: ReturnType<typeof mark>[]): BossSequenceStep {
-  return { pose: "gape", morphBeats: MORPH, windowBeats: WINDOW, landBeats: LAND, marks };
+  return {
+    pose: "breath",
+    arrive: "approach",
+    morphBeats: MORPH,
+    windowBeats: WINDOW,
+    landBeats: LAND,
+    marks,
+  };
 }
 
 function install(steps: BossSequenceStep[], seed = 0): World {
@@ -116,7 +123,7 @@ describe("THE INSTAR comes in", () => {
     expect(s.phase).toBe("morph");
     expect(s.cursor).toBe(0);
     expect(world.events.some((e) => e.type === "instarEnter")).toBe(true);
-    expect(world.events.some((e) => e.type === "instarMorph" && e.pose === "gape")).toBe(true);
+    expect(world.events.some((e) => e.type === "instarMorph" && e.pose === "breath")).toBe(true);
     const seen = runTo(world, TPB * MORPH - 1);
     expect(seen.has("instarShow")).toBe(false);
     expect(s.phase).toBe("morph");

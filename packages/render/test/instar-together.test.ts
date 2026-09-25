@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
+  type BossSequenceStep,
   createWorld,
   type InstarState,
   instarBoss,
@@ -93,10 +94,12 @@ describe("the together window, read", () => {
 
   it("is no question for a step with one mark, which has nobody to be late", () => {
     const world = hung();
-    // The tail: one mark, the navigator's, and no partner to wait for.
-    const single = s5(world);
-    expect(single).not.toBeNull();
-    const s = acting(world, single ?? 0);
+    // One mark, the navigator's, and no partner to wait for. The shipped
+    // script has no such step since 25 September 2026, so the test gives it one.
+    const s = acting(world, 0);
+    s.steps[0] = { ...(s.steps[0] ?? SOLO), marks: SOLO.marks };
+    s.progress = [0];
+    s.doneBeat = [NOT_DONE];
     s.doneBeat[0] = world.beat;
     expect(instarTogetherLeft(s, CFG, 0, world.beat, 0)).toBeNull();
   });
@@ -130,13 +133,15 @@ function counted(world: World): number {
   return i;
 }
 
-/** The first step in the script with a single mark, if there is one. */
-function s5(world: World): number | null {
-  const s = instarBoss(world);
-  if (s === null) return null;
-  const i = s.steps.findIndex((st) => st.marks.length === 1);
-  return i < 0 ? null : i;
-}
+/** A step of one tap, the navigator's. */
+const SOLO: BossSequenceStep = {
+  pose: "lash",
+  arrive: "cross",
+  morphBeats: 2,
+  windowBeats: 8,
+  landBeats: 2,
+  marks: [{ seat: "p2", part: "tail", gesture: "tap", xMilli: 620, yMilli: 560, need: 4 }],
+};
 
 describe("the together window, drawn", () => {
   it.each(ROLES)("a mark waiting says so, in a word, on %s", (role) => {

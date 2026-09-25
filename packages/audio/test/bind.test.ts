@@ -295,7 +295,7 @@ const SAMPLES: Record<string, SimEvent> = {
   hiveDown: { type: "hiveDown", col: 7 },
   hiveOut: { type: "hiveOut", col: 5 },
   instarEnter: { type: "instarEnter", col: 5 },
-  instarMorph: { type: "instarMorph", col: 5, step: 1, pose: "armed" },
+  instarMorph: { type: "instarMorph", col: 5, step: 1, pose: "brood" },
   instarShow: { type: "instarShow", col: 5, step: 1 },
   instarRefuse: { type: "instarRefuse", col: 3, mark: 0, player: 2 },
   instarAnswer: { type: "instarAnswer", col: 3, mark: 0, part: "hand" },

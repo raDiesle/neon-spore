@@ -1,6 +1,7 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, controlSet, controlSetForWave } from "@neon-spore/content";
 import {
+  type BossSequenceStep,
   createWorld,
   DEFAULT_CONFIG,
   type GaugeState,
@@ -56,10 +57,34 @@ function hung(): World {
   return world;
 }
 
-/** One pose of the script acting, its marks up and untouched. */
-function acting(world: World, cursor: number): InstarState {
+/**
+ * The two shapes of step the desk has to answer that the shipped script no
+ * longer asks for since 25 September 2026 — one seat's mark alone, and one
+ * mark held by both — so a case puts them on the body itself.
+ */
+const ALONE: BossSequenceStep = {
+  pose: "lash",
+  arrive: "cross",
+  morphBeats: 4,
+  windowBeats: 6,
+  landBeats: 3,
+  marks: [{ seat: "p2", part: "tail", gesture: "pullUp", xMilli: 500, yMilli: 500, need: 3000 }],
+};
+const TOGETHER: BossSequenceStep = {
+  pose: "lash",
+  arrive: "cross",
+  morphBeats: 4,
+  windowBeats: 9,
+  landBeats: 4,
+  marks: [{ seat: "both", part: "head", gesture: "hold", xMilli: 500, yMilli: 320, need: 6 }],
+};
+
+/** One pose of the script acting, its marks up and untouched — or `put` in
+ * its place, for a shape of step the script does not have. */
+function acting(world: World, cursor: number, put?: BossSequenceStep): InstarState {
   const s = instarBoss(world);
   if (s === null) throw new Error("the instar wave hung no body");
+  if (put !== undefined) s.steps[cursor] = put;
   s.cursor = cursor;
   s.phase = "act";
   s.phaseBeat = world.beat;
@@ -119,7 +144,7 @@ describe("a press on THE INSTAR's marks", () => {
     expect(deskDown(L, navigator.x, navigator.y, BOTH, field)?.player).toBe(2);
   });
 
-  it("lets two thumbs on one phone hold both jaws at once, the navigator's first", () => {
+  it("lets two thumbs on one phone push both jaws at once, the navigator's first", () => {
     // The owner, on a phone, 24 September 2026: *pull both players' controls
     // at the same time and in any order, like players can.* Two fingers are
     // two presses, each deciding its own seat, and both held to the end.
@@ -137,19 +162,20 @@ describe("a press on THE INSTAR's marks", () => {
     send(first);
     expect([second?.player, first?.player]).toEqual([2, 1]);
     if (!second?.hold || !first?.hold) throw new Error("a jaw took no hold");
-    expect(s.thumbs).toEqual([1, 2]);
-    // Pulled apart together, a step at a time, one finger then the other.
+    expect(s.thumbs[markOf(s, "p1")]).toBe(1);
+    expect(s.thumbs[markOf(s, "p2")]).toBe(2);
+    // Pushed shut together, a step at a time, one finger then the other.
     for (let i = 1; i <= 40; i++) {
-      send(touchMove(L, second.hold, upper.x, upper.y - i * 6));
-      send(touchMove(L, first.hold, lower.x, lower.y + i * 6));
+      send(touchMove(L, second.hold, upper.x, upper.y + i * 6));
+      send(touchMove(L, first.hold, lower.x, lower.y - i * 6));
     }
     expect(s.phase).toBe("land");
   });
 
   it("answers the pose that is one seat's alone", () => {
     const world = hung();
-    // The fourth: the navigator pulls the tail up and the pilot has nothing.
-    const s = acting(world, 3);
+    // The navigator pulls the tail up and the pilot has nothing.
+    const s = acting(world, 0, ALONE);
     const at = ringAt(s, world, markOf(s, "p2"));
     const t = deskDown(L, at.x, at.y, BOTH, (seat) => instarField(world, seat));
     expect(t?.player).toBe(2);
@@ -158,9 +184,9 @@ describe("a press on THE INSTAR's marks", () => {
 
   it("leaves a mark both hands may take with the seat the pointer already had", () => {
     const world = hung();
-    // The fifth is held by the pair together, so there is no seat to read off
-    // it and the desk's unasked seat stands.
-    const s = acting(world, 4);
+    // Held by the pair together, so there is no seat to read off it and the
+    // desk's unasked seat stands.
+    const s = acting(world, 0, TOGETHER);
     const at = ringAt(s, world, markOf(s, "both"));
     expect(deskDown(L, at.x, at.y, BOTH, (seat) => instarField(world, seat))?.player).toBe(1);
   });
@@ -185,7 +211,7 @@ describe("one mouse on a ring that wants both thumbs", () => {
     // BOTH to continue on one screen — when I hold with the mouse it should
     // be for both players.*
     const world = hung();
-    const s = acting(world, 4);
+    const s = acting(world, 0, TOGETHER);
     const id = markOf(s, "both");
     const at = ringAt(s, world, id);
     const field = (seat: 1 | 2): Field => instarField(world, seat);
@@ -199,7 +225,7 @@ describe("one mouse on a ring that wants both thumbs", () => {
       ),
     );
     expect(s.thumbs[id]).toBe(3);
-    const need = s.steps[4]?.marks[id]?.need ?? 0;
+    const need = s.steps[0]?.marks[id]?.need ?? 0;
     for (let i = 0; i < TPB * (need + 1) && s.phase === "act"; i++) step(world, []);
     expect(s.phase).toBe("land");
     expect(world.over).toBe(false);
@@ -207,7 +233,7 @@ describe("one mouse on a ring that wants both thumbs", () => {
 
   it("stays one hand on a phone, where the pointer has one seat", () => {
     const world = hung();
-    const s = acting(world, 4);
+    const s = acting(world, 0, TOGETHER);
     const at = ringAt(s, world, markOf(s, "both"));
     const touches = deskDownAll(L, at.x, at.y, [1], (seat) => instarField(world, seat));
     expect(touches.map((t) => t.player)).toEqual([1]);
@@ -226,7 +252,7 @@ describe("the desk's 3 held", () => {
 
   it("is both hands on the HOLD BOTH ring too", () => {
     const world = hung();
-    const s = acting(world, 4);
+    const s = acting(world, 0, TOGETHER);
     const at = ringAt(s, world, markOf(s, "both"));
     const touches = deskDownAll(L, at.x, at.y, BOTH, (seat) => instarField(world, seat), true);
     expect(touches.map((t) => t.player)).toEqual([1, 2]);

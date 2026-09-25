@@ -6,6 +6,7 @@ import { FLEET_PHASES } from "../src/fleet-state.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
 import {
+  INSTAR_ARRIVALS,
   INSTAR_GESTURES,
   INSTAR_PARTS,
   INSTAR_PHASES,
@@ -106,6 +107,7 @@ const FAMILIES: readonly (readonly string[])[] = [
   INSTAR_PARTS,
   INSTAR_GESTURES,
   INSTAR_POSES,
+  INSTAR_ARRIVALS,
   INSTAR_PHASES,
 ];
 

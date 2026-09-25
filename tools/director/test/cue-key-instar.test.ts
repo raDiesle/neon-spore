@@ -40,7 +40,7 @@ function mark(seat: InstarSeat, gesture: InstarGesture, xMilli: number) {
 /** A scene of one step, morphed through, with its marks up. */
 function acting(...marks: ReturnType<typeof mark>[]): World {
   const steps: BossSequenceStep[] = [
-    { pose: "gape", morphBeats: MORPH, windowBeats: 8, landBeats: 2, marks },
+    { pose: "breath", arrive: "approach", morphBeats: MORPH, windowBeats: 8, landBeats: 2, marks },
   ];
   const world = createWorld({ ...CFG }, 4);
   startWave(world, 0, [], [], { kind: "instar", steps });
@@ -83,7 +83,8 @@ describe("the marks, read as cues", () => {
       kind: "instar",
       steps: [
         {
-          pose: "gape",
+          pose: "breath",
+          arrive: "approach",
           morphBeats: MORPH,
           windowBeats: 8,
           landBeats: 2,

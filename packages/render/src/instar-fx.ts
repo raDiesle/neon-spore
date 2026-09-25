@@ -45,6 +45,9 @@ export class InstarFx {
   private joltNow = 0;
   private flinchNow = 0;
   private marks: Point[] = [];
+  /** Whether each mark of this step is a swipe, which is what drops an egg:
+   * a tap on the brood squashes it where it lies. */
+  private swipes: boolean[] = [];
   private head: Point | null = null;
   private headR = 0;
   private lash: { from: Point; x: number; life: number } | null = null;
@@ -75,6 +78,7 @@ export class InstarFx {
     this.headR = r;
     const step = instarStep(s);
     this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway));
+    this.swipes = step === null ? [] : step.marks.map((m) => m.gesture === "swipeDown");
     this.head = instarAt(l, 500 + sway.xMilli, 300 + sway.yMilli);
   }
 
@@ -105,7 +109,8 @@ export class InstarFx {
         case "instarAnswer":
           at(mark(e.mark), 3, PALETTE.redRim);
           this.verdicts.mark(e.mark, true);
-          if (e.part === "eggs") this.eggs.drop(mark(e.mark), l.hullY, this.headR || l.tile);
+          if (e.part === "eggs" && this.swipes[e.mark] !== false)
+            this.eggs.drop(mark(e.mark), l.hullY, this.headR || l.tile);
           break;
         case "instarDone":
           at(mark(e.mark), 8, PALETTE.hullRim);
@@ -186,6 +191,7 @@ export class InstarFx {
     this.joltNow = 0;
     this.flinchNow = 0;
     this.marks = [];
+    this.swipes = [];
     this.head = null;
     this.lash = null;
     this.headR = 0;

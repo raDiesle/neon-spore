@@ -36,14 +36,16 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 beforeAll(installCanvasGlobals);
 
 const L = computeLayout(VIEWPORT, CFG, "test");
-const EGGS_STEP = INSTAR_SCRIPT.findIndex((s) => s.marks.some((m) => m.part === "eggs"));
-const EGGS_MARK = INSTAR_SCRIPT[EGGS_STEP]?.marks.findIndex((m) => m.part === "eggs") ?? -1;
+const swiped = (m: { part: string; gesture: string }): boolean =>
+  m.part === "eggs" && m.gesture === "swipeDown";
+const EGGS_STEP = INSTAR_SCRIPT.findIndex((s) => s.marks.some(swiped));
+const EGGS_MARK = INSTAR_SCRIPT[EGGS_STEP]?.marks.findIndex(swiped) ?? -1;
 const answer = { type: "instarAnswer", mark: EGGS_MARK, part: "eggs", col: 7 } as const;
 
 describe("THE INSTAR's clutch", () => {
   it("holds one egg for every swipe its mark needs", () => {
     const needs = INSTAR_SCRIPT.flatMap((s) => s.marks)
-      .filter((m) => m.part === "eggs")
+      .filter(swiped)
       .map((m) => m.need);
     expect(needs.length).toBeGreaterThan(0);
     for (const need of needs) expect(need).toBe(CLUTCH);

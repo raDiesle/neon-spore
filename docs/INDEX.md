@@ -444,6 +444,7 @@ by hand never moves.
 | `packages/sim/src/instar-hash.ts` | What THE INSTAR puts into `hashWorld`, and nothing else |
 | `packages/sim/src/instar-marks.ts` | What happens to one mark: armed, answered, done, slipped |
 | `packages/sim/src/instar-step.ts` | THE INSTAR's clock: the morph, the window, the landing, the next pose |
+| `packages/sim/src/instar-words.ts` | **The words THE INSTAR's script is written in**: whose thumb, which part, which gesture, which pose |
 | `packages/sim/src/instar.ts` | THE INSTAR: a body over the field that will not move on until the pair has done what its own picture asks |
 | `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
 | `packages/sim/src/bullet-hit-shut.ts` | **The bodies a bolt never kills**, and what each of them does with one instead |
@@ -722,7 +723,7 @@ by hand never moves.
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
-| `packages/content/src/instar-script.ts` | THE INSTAR's script: five poses, and what the pair does to each |
+| `packages/content/src/instar-script.ts` | THE INSTAR's script: three poses, and what the pair does to each |
 | `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |

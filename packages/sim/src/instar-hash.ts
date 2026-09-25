@@ -1,4 +1,5 @@
 import {
+  INSTAR_ARRIVALS,
   INSTAR_GESTURES,
   INSTAR_PARTS,
   INSTAR_PHASES,
@@ -37,6 +38,7 @@ export function instarHashParts(s: InstarState): number[] {
   for (const step of s.steps) {
     out.push(
       INSTAR_POSES.indexOf(step.pose) + 1,
+      INSTAR_ARRIVALS.indexOf(step.arrive) + 1,
       step.morphBeats,
       step.windowBeats,
       step.landBeats,

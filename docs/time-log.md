@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE INSTAR's script is the owner's dragon choreography
+
+- reading: 10 min. §11.32, the script, `instar.ts`, `instar-step.ts`, the
+  hash and the poses, and the render tests that read the shipped script.
+- writing: 10 min. Three steps with an arrival each, `INSTAR_ARRIVALS`
+  through the hash and the coverage families, the vocabulary cut into
+  `instar-words.ts`, three render tests given their own steps.
+- looking: 0 min. The picture is the next lane.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, red on a comment naming a file of the next
+  lane and on the index, then green.
+
+The bottleneck was **reading**: four render tests leaned on the old script
+having a one-seat step and a held step, and only running them said so.
+
 ## 2026-09-24 — The lost screen says WAVE 7 LOST and its buttons came up
 
 - reading: 10 min. The five `lost-*.ts` files, the frame's draw order in

@@ -167,6 +167,18 @@ item naming the rule, never a fix made in passing.
      per swipe the mark needs.
   THE INSTAR is the worked example he asked for before the rest
   (`render/grip-verdict.ts`); the roll-out is `docs/queue.md`'s.
+- **The gesture is the defence against what the picture is about to do**,
+  25 September 2026, on THE INSTAR: *its not logical to me why we need to
+  open mouth to succeed. more sense makes that the enemy already has open
+  mouth to spit out fire like a dragon … and we have to close the mouth, so
+  he cant spit out the fire.* So a step shows the threat already coming — a
+  fireball growing in the jaws, eggs rumbling on the back, a tail swinging
+  in — and the gesture stops it, and **a missed window is drawn as the threat
+  carried out**: the fire over the whole field, the brood hatching and eating
+  the ship, the tail hitting the hull. He asked for the entrance to *create
+  some excitement* — slow, small in the background, flying at the screen —
+  and for the body to leave and come back between steps, so a turn of
+  perspective is something it flies into rather than a cut.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

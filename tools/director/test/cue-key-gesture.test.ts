@@ -37,7 +37,8 @@ const MORPH = 2;
 function scene(gesture: InstarGesture, need: number): World {
   const steps: BossSequenceStep[] = [
     {
-      pose: "gape",
+      pose: "breath",
+      arrive: "approach",
       morphBeats: MORPH,
       windowBeats: 12,
       landBeats: 2,

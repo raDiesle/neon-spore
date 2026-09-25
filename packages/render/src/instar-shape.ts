@@ -90,9 +90,10 @@ export function deformed(
   const g = { ...f };
   marks.forEach((m, i) => {
     const p = Math.max(0, Math.min(1, along(i)));
+    // A jaw is pushed shut: the upper one down, the lower one up.
     if (m.part === "jaw") {
-      if (m.gesture === "pullUp") g.jawUp = Math.max(g.jawUp, p);
-      else g.jawDown = Math.max(g.jawDown, p);
+      if (m.gesture === "pullDown") g.jawUp = f.jawUp * (1 - p);
+      else g.jawDown = f.jawDown * (1 - p);
     } else if (m.part === "hand") {
       if (m.xMilli < 500) g.lWeapon = f.lWeapon * (1 - p);
       else g.rWeapon = f.rWeapon * (1 - p);

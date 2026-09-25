@@ -43,47 +43,29 @@ export const ENTER: Figure = {
   slough: 0,
 };
 
-/** The five poses, each written as what differs from the body as it entered. */
+/** The three poses, each written as what differs from the body as it entered. */
 export const POSES: Record<InstarPose, Figure> = {
-  // The jaws: the head down over the field, the mouth part open, the two
-  // jaw marks on the lips at 240 and 440.
-  gape: { ...ENTER, headY: 340, headR: 200, jawUp: 0.3, jawDown: 0.3, eye: 1 },
-  // A club in the left hand, held out over the hull at 280/400; the clutch on
-  // the right flank at 720/460.
-  armed: {
+  // The jaws wide on the fire, the upper lip at 220 and the lower at 500.
+  breath: { ...ENTER, headY: 360, headR: 230, jawUp: 1, jawDown: 1, eye: 1 },
+  // The brood: one nest at 320/380 for the thumb that squashes, one at
+  // 660/360 for the thumb that swipes.
+  brood: {
     ...ENTER,
     headY: 250,
     headR: 170,
     jawUp: 0.1,
     jawDown: 0.15,
     eye: 1,
-    lHandX: 280,
-    lHandY: 400,
-    lWeapon: 1,
+    lHandX: 300,
+    lHandY: 330,
     rHandX: 700,
     rHandY: 300,
     eggs: 1,
+    eggsX: 660,
+    eggsY: 360,
   },
-  // Shed: the husk hangs off, the second club is in the right hand at 720/380
-  // and the tongue is out to 380/320.
-  moulted: {
-    ...ENTER,
-    headY: 260,
-    headR: 180,
-    jawUp: 0.35,
-    jawDown: 0.45,
-    eye: 1,
-    lHandX: 270,
-    lHandY: 340,
-    rHandX: 720,
-    rHandY: 380,
-    rWeapon: 1,
-    tongue: 1,
-    slough: 1,
-  },
-  // Its back to the ship: no eyes, the hands tucked, the tail over the hull at
-  // 500/500.
-  turned: {
+  // The tail over the hull, its fork at 380 and 620.
+  lash: {
     ...ENTER,
     headY: 220,
     headR: 150,
@@ -94,20 +76,7 @@ export const POSES: Record<InstarPose, Figure> = {
     rHandX: 670,
     rHandY: 300,
     tail: 1,
-  },
-  // The head thrust at the ship, huge, the mouth wide, both hands reaching.
-  lunge: {
-    ...ENTER,
-    headY: 320,
-    headR: 260,
-    jawUp: 0.6,
-    jawDown: 0.7,
-    eye: 1,
-    lHandX: 250,
-    lHandY: 340,
-    rHandX: 750,
-    rHandY: 340,
-    reach: 1,
+    tailY: 560,
   },
 };
 

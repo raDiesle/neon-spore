@@ -139,11 +139,13 @@ export {
 // (`instar.ts`) — and the engine every choreographed scene runs on.
 export {
   type BossSequenceStep,
+  INSTAR_ARRIVALS,
   INSTAR_GESTURES,
   INSTAR_PARTS,
   INSTAR_PHASES,
   INSTAR_POSES,
   INSTAR_SEATS,
+  type InstarArrival,
   type InstarGesture,
   type InstarMark,
   type InstarPart,
