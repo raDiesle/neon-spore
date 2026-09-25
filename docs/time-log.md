@@ -21102,3 +21102,16 @@ comment above it, whose last character read as a property dot. It took a
 reproduction to tell the two apart.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The `here` servers answer on the harness's port
+
+- reading: 10 min. The launch entries, `supervise.ts`'s pin, `preview-here.ts`
+  and `preview.ts`'s claim.
+- writing: 5 min. `harness-port.ts`, its two callers and a test.
+- looking: 5 min. `director-here` started from the pane before and after:
+  a dead tab on 3000, then the director on it.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: whether the harness passes its port anywhere was not written
+down; one launch and a look at the process's environment answered it.

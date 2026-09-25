@@ -36,6 +36,7 @@
 import { watch } from "node:fs";
 import { freePort } from "../ports.js";
 import { announce } from "../running.js";
+import { harnessPort } from "./harness-port.js";
 import { hereRoot } from "./here.js";
 import { gitDirOf, isTreeMove, locked, lockStamp } from "./tree-moves.js";
 
@@ -53,14 +54,17 @@ const root = here ? hereRoot(process.cwd()) : Bun.fileURLToPath(new URL("../../"
 
 /**
  * `--pin=NAME`: an environment variable holding `0`, meaning "any free port",
- * is settled to a real one here and handed to every child. Without it a
+ * is settled to a real one here and handed to every child — the harness's own
+ * pick when it made one (`harness-port.ts`). Without it a
  * restart would move a throwaway server to an address the open tab has never
  * heard of, which is a worse way to lose a page than the one this file fixes.
  */
 const env = { ...process.env };
 if (argv[0]?.startsWith("--pin=")) {
   const name = argv.shift()!.slice("--pin=".length);
-  if (env[name] === "0" || env[name] === undefined) env[name] = String(await freePort());
+  if (env[name] === "0" || env[name] === undefined) {
+    env[name] = String(harnessPort(env) ?? (await freePort()));
+  }
   // A port nobody can derive is a port nobody can find, and it is printed once
   // — on a stdout a session reading it with `| head` never sees. Written down
   // so `bun run port` can report what is running (`tools/running.ts`).

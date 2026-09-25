@@ -22,11 +22,13 @@
  * its own file sits in, which is the tree the pointer named. A built preview
  * is a snapshot on purpose, so nothing here watches for a rebase either.
  *
- * On a free port (`PREVIEW_PORT=0`) unless one is given, because the harness
- * entry cannot know a worktree's derived port; `preview.ts` writes it down for
- * `bun run port`.
+ * On the port the harness picked for the entry (`harness-port.ts`), or a free
+ * one (`PREVIEW_PORT=0`) outside it, unless one is given, because the entry
+ * cannot know a worktree's derived port; `preview.ts` writes a free one down
+ * for `bun run port`.
  */
 
+import { harnessPort } from "./harness-port.js";
 import { hereRoot } from "./here.js";
 
 const tree = hereRoot(process.cwd());
@@ -38,5 +40,5 @@ const build = Bun.spawnSync(["bun", "run", "build"], {
 });
 if (build.exitCode !== 0) process.exit(build.exitCode ?? 1);
 
-process.env.PREVIEW_PORT ??= "0";
+process.env.PREVIEW_PORT ??= String(harnessPort(process.env) ?? 0);
 await import(Bun.pathToFileURL(`${tree}/apps/game/preview.ts`).href);
