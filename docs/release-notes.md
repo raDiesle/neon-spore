@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 101cd690 — A step the pair lands shakes THE INSTAR and washes its body red
+
+When the pair land a step of THE INSTAR, and when they land its last, the body shakes sideways and its head and neck glow red for half a second, so the boss is seen to take the blow. One mark done on its own does not do it. The effect is written for any boss to hold (render/src/boss-hurt.ts); the roll-out to the others is queued.
+
 ## 2026-09-25 · 9c1e3b9a — A rock that hits the hull rolls off it like a ball and scuffs the skin
 
 A rock that breaks the hull now lets go after 0.2 s instead of 0.8, then starts slowly and keeps speeding up the further it goes. It rests on the skin and turns by its distance over its radius, where before it hovered, bobbed and slid sideways (a plain meteor never turned at all). As it rolls it leaves small marks that fade in 1.6 s: a char smudge, a scratch in the rock's own colour and two chips.
