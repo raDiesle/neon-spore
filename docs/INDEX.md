@@ -2591,6 +2591,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
+| `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
 | `tools/director/src/ship-notes-hidden.ts` | The paragraph under each card for a **body one seat is not drawn at all**: THE WISP |

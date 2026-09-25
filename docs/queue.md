@@ -322,6 +322,25 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
+## On HARD, whether a shot into a sky boss's armour is a wasted shot
+
+- **Found:** 2026-09-25, claude/hard-wasted-shot
+- **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/orrery-shot.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/test/wasted-shot.test.ts`
+- **Asks:** under a boss that hangs above the field, should a shot that meets nothing up there lose the wave on HARD too, or keep costing nothing, as it does now?
+
+HARD's rule (a shot out of the top that nothing took loses the wave) is off
+while any of the fifteen bosses in `SKY_BOSSES` is up. Several of them let a
+shot into shut armour cost nothing, by design: THE ORRERY's shut shaft, THE
+VANE's shut housing, THE DIASTOLE's slack chamber, THE CANDLE's last step.
+Their right-colour hits push no event either, so the calls in `shotLeaves`
+cannot tell a bolt that met armour from one that met the sky. Two answers:
+**keep the exemption** (nothing to do; delete this entry), or **judge each sky
+boss on HARD**. That means each `*Struck` hook returns whether the bolt met
+anything, the silent armour paths return true, the rest false, and
+`shotLeaves` asks the hooks rather than `SKY_BOSSES`. THE LEAD's later
+`leadMiss` (`lead-step.ts`) is the same question a beat late. About fifteen
+small hook files, and a test per boss in `wasted-shot.test.ts`.
+
 ## THE SCUTTLE's thread is drawn backwards and never leaves its socket
 
 - **Found:** 2026-09-24, claude/scuttle-hang-versus-swap

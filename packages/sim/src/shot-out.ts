@@ -15,6 +15,7 @@ import { scuttleStruck } from "./scuttle-shot.js";
 import { tasterStruck } from "./taster-shot.js";
 import type { Bullet } from "./types.js";
 import { vaneStruck } from "./vane.js";
+import { failWave } from "./wave-fail.js";
 import type { World } from "./world.js";
 
 /**
@@ -39,7 +40,9 @@ import type { World } from "./world.js";
  * the game that are not on the grid at all (docs/spec/bosses.md §11.5).
  */
 export function shotLeaves(world: World, b: Bullet, to: number): void {
-  const said = world.events.length;
+  // Asked before the calls, because the last pin out of THE VANE takes the
+  // boss off the world in the same breath as the shot that pulled it.
+  const taken = skyTaken(world);
   vaneStruck(world, b);
   diastoleStruck(world, b, world.beat);
   // THE ORRERY's core, which is three rings up: a bolt that got here on a
@@ -78,17 +81,65 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   // THE HIVE's underside: an open breach in the bolt's column and colour is
   // sealed, the wrong colour provokes it (`hive-shot.ts`).
   hiveStruck(world, b);
+  const wasted = wastes(world, taken);
   world.events.push({
     type: "shotOut",
     col: b.col,
     driftMilli: b.driftMilli,
     atMilli: to,
     color: bulletShown(b),
-    // **Whether something above the field answered it**, read as whether any
-    // of the calls above said anything. Every one of them that takes a bolt
-    // says so in an event; a bolt that met nothing up there is the only kind
-    // the picture carries on to the top of the screen, because one that
-    // struck a boss hanging there stopped where it struck.
-    taken: world.events.length !== said,
+    taken,
+    wasted,
   });
+  // After the event, so the picture has the shot's own word before the
+  // wave's: the bolt that lost it is the one it draws coming back.
+  if (wasted) failWave(world);
+}
+
+/**
+ * The bosses that hang above the field, each with a call above. While one of
+ * them is up the sky is its own: a bolt out of the top has gone into it, and
+ * whatever it did there is that boss's answer — including, on purpose, no
+ * answer at all. THE ORRERY's shut shaft and THE VANE's shut housing are
+ * armour a shot goes into for nothing (`orrery-shot.ts`), and a right-colour
+ * ring cracked says nothing in an event either, so no count of what the calls
+ * said could tell a bolt that met one from a bolt that met the sky.
+ */
+export const SKY_BOSSES: ReadonlySet<string> = new Set([
+  "vane",
+  "diastole",
+  "orrery",
+  "candle",
+  "gorge",
+  "curtain",
+  "taster",
+  "ledger",
+  "lead",
+  "scuttle",
+  "antiphon",
+  "gimbal",
+  "hasp",
+  "ratchet",
+  "hive",
+]);
+
+/** Whether a boss is hanging above the field to take a bolt out of the top. */
+function skyTaken(world: World): boolean {
+  return world.boss !== null && SKY_BOSSES.has(world.boss.kind);
+}
+
+/**
+ * **HARD's rule: a shot that met nothing loses the wave.** The owner, 25
+ * September 2026 — *wave is lost, if a shot is hitting nothing, basically
+ * wasted and hitting the top line of game screen.* A shot is only ever here if
+ * nothing on the grid stopped it, so what is left to ask is whether anything
+ * above the grid did, and whether the wave is still being played: a bolt still
+ * climbing when the last body went is not a shot at nothing, it is a shot the
+ * rest after a clear caught in the air (`clearHolds`). THE WELL is out of it
+ * as well: its field is a disc, and a disc has no top line to hit.
+ */
+function wastes(world: World, taken: boolean): boolean {
+  if (!world.cfg.wastedShotFails || taken) return false;
+  if (world.boss?.kind === "well") return false;
+  return world.restBeat === 0;
 }

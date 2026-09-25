@@ -38,6 +38,7 @@ export {
 } from "./ship-groups.js";
 
 import { BALLOON_FIELDS } from "./ship-fields-balloon.js";
+import { CANNON_FIELDS } from "./ship-fields-cannon.js";
 import { ROUND_FIELD_GROUP } from "./ship-fields-round.js";
 import type { GroupName } from "./ship-groups.js";
 
@@ -83,6 +84,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   gripPushMilli: "GRIP — a hand on the field",
   gripPushPauseBeats: "GRIP — a hand on the field",
   hullInvulnerable: "PLUMBING — not a dial a person turns",
+  // Set by the difficulty picker with the tempo, never on its own.
+  wastedShotFails: "PLUMBING — not a dial a person turns",
   maxHoles: "HULL — damage and repair",
   maxScars: "HULL — damage and repair",
   waveRestBeats: "THE BEAT",
@@ -220,17 +223,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   ...ROUND_FIELD_GROUP,
   // PairConfig
   briefings: "OPENING — the introduction, the guide and the ready gate",
-  // ShotConfig
-  bulletTilesPerBeat: "AIM — colour and column",
-  lancePrimeBeats: "LANCE — a column marked, then spent",
-  lanceBeamBeats: "LANCE — a column marked, then spent",
-  fireEveryBeats: "AIM — colour and column",
-  shotChargeBeats: "AIM — colour and column",
-  colourArmourMs: "AIM — colour and column",
-  hitHeightMilli: "PLUMBING — not a dial a person turns",
-  // ClawConfig
-  reachTilesPerBeat: "THE CLAW — the cannon replaced by an arm",
-  windTilesPerTurn: "THE CLAW — the cannon replaced by an arm",
+  ...CANNON_FIELDS,
   fleetRows: "THE FLEET — a chart only one of you can read",
   fleetRoundBeats: "THE FLEET — a chart only one of you can read",
   fleetSalvoRestBeats: "THE FLEET — a chart only one of you can read",

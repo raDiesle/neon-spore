@@ -38,10 +38,18 @@ export interface RunConfig {
    * to record that the run was played this way.
    */
   hullInvulnerable: boolean;
+  /**
+   * A shot that meets nothing and flies out of the top of the field loses the
+   * wave, as a hit on the hull does. HARD's rule, and the only rule a level
+   * changes (`difficulty.ts`, `shot-out.ts`); off everywhere else, and off in
+   * every film, which is a rehearsal and not the pair's play.
+   */
+  wastedShotFails: boolean;
 }
 
 export const RUN_DEFAULTS: RunConfig = {
   waveRestBeats: 6,
   waveFailBeats: 2,
   hullInvulnerable: false,
+  wastedShotFails: false,
 };

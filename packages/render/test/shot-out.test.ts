@@ -31,6 +31,7 @@ const OUT: SimEvent = {
   atMilli: -80,
   color: "cyan",
   taken: false,
+  wasted: false,
 };
 
 function drawCalls(fx: ShotOutFx): number {

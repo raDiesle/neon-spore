@@ -30,6 +30,15 @@
 > YET → Mechanics); the balance sheet leads with the clock and the retries,
 > the wave intro says `TRY n` on a retry, and the room's greeting and the
 > menu's line remember a run as *wave · time · retries*.
+>
+> **Since 25 September 2026, on HARD, a wasted shot fails the wave too.** The
+> owner: a shot that hits nothing and reaches the top of the screen loses the
+> wave. A shot out of the top that nothing took fails it the way a hull hit
+> does (`wastedShotFails`, `sim/shot-out.ts`), set with HARD's tempo by
+> `playDifficulty` (`sim/difficulty.ts`). EASY and MEDIUM keep every rule they
+> had. It does not apply while a boss hangs above the field (its sky takes
+> every bolt, armour included), in the rest after a clear, on THE WELL, or
+> in a film.
 
 - Waves come **all at once as a closed set**, then a short rest, then the next
 - Wave length 30–60 s; the rests shrink as the wave number rises

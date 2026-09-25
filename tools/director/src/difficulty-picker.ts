@@ -1,8 +1,8 @@
 import {
   DIFFICULTIES,
-  DIFFICULTY_BPM,
   type Difficulty,
   difficultyOf,
+  playDifficulty,
   type SimConfig,
 } from "@neon-spore/sim";
 
@@ -102,7 +102,7 @@ export function bindDifficultyPicker(cfg: SimConfig, onChange: () => void): Diff
     const level = select.value;
     if (level === CUSTOM) return;
     if (!(DIFFICULTIES as readonly string[]).includes(level)) return;
-    cfg.bpm = DIFFICULTY_BPM[level as Difficulty];
+    playDifficulty(cfg, level as Difficulty);
     render();
     onChange();
   });

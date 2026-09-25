@@ -74,7 +74,8 @@ export type SimEvent =
   /**
    * A shot went past the top of the field and the simulation is done with it
    * (`shot-out.ts`). `atMilli` is where it stood, in thousandths of a row and
-   * negative; `taken` is whether something hanging above the field answered it.
+   * negative; `taken` is whether a boss hanging above the field had it, and
+   * `wasted` whether it lost the wave for meeting nothing (HARD's rule).
    */
   | {
       type: "shotOut";
@@ -83,6 +84,7 @@ export type SimEvent =
       atMilli: number;
       color: Color;
       taken: boolean;
+      wasted: boolean;
     }
   /**
    * A body was destroyed. `kind` is what it was **drawn as** and not what it

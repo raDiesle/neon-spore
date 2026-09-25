@@ -16,8 +16,8 @@ import { PALETTE } from "./palette.js";
  * So the bolt is carried on from exactly where the simulation left it, at the
  * speed it climbed, drawn by the same `drawShot` the field's bolts are, until
  * its tail has cleared the top of the stage — which is clipped, so that is
- * where it is cut. A bolt something above the field took (`taken`) is not
- * carried: it stopped where it struck, and a boss hanging there draws the hit.
+ * where it is cut. A bolt out of the top while a boss hangs above the field
+ * (`taken`) is not carried: it went into that boss, which draws what it did.
  * Neither is one on THE WELL, whose field is a disc with no top to fly out of.
  *
  * Kept in `Effects` and cleared on restart, because it outlives the frame.

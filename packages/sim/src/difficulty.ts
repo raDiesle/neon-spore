@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG } from "./config.js";
+import { DEFAULT_CONFIG, type SimConfig } from "./config.js";
 
 /**
  * **EASY, MEDIUM and HARD, and the one number they move: the tempo.**
@@ -22,9 +22,16 @@ import { DEFAULT_CONFIG } from "./config.js";
  * **What it does *not* touch.** The guard and the intake windows are in
  * milliseconds (`config.ts`), so a faster beat tightens them against the beat
  * without anybody choosing a second number — which is the right direction and
- * is why the hull's hits stayed out of this. Nothing here changes a rule, and
- * no wave is re-timed: a wave is authored in beats and every beat is still a
- * beat.
+ * is why the hull's hits stayed out of this. No wave is re-timed: a wave is
+ * authored in beats and every beat is still a beat.
+ *
+ * **And one rule, on HARD only.** The owner, 25 September 2026: *in Difficulty
+ * "Hard", i suggest wave is lost, if a shot is hitting nothing — basically
+ * wasted and hitting the top line of game screen.* So on HARD a shot out of
+ * the top that nothing up there took fails the wave the way a hit on the hull
+ * does (`wastedShotFails`, `shot-out.ts`). EASY and MEDIUM keep every rule
+ * they had. `playDifficulty` is the one place a level is written onto a
+ * config, so the tempo and the rule cannot be set apart.
  */
 
 export const DIFFICULTIES = ["easy", "medium", "hard"] as const;
@@ -37,6 +44,14 @@ export const DIFFICULTY_BPM: Record<Difficulty, number> = {
   medium: DEFAULT_CONFIG.bpm,
   hard: 120,
 };
+
+/** A level onto a live config: its tempo, and whether a wasted shot loses the
+ * wave. Written onto the config rather than returned as a new one, because
+ * `SimConfig` is read live by the world that already holds it. */
+export function playDifficulty(cfg: SimConfig, level: Difficulty): void {
+  cfg.bpm = DIFFICULTY_BPM[level];
+  cfg.wastedShotFails = level === "hard";
+}
 
 /** What a run starts at when nobody has chosen: the game as it has always been. */
 export const DEFAULT_DIFFICULTY: Difficulty = "medium";

@@ -22,6 +22,21 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — On HARD a wasted shot loses the wave
+
+- reading: 15 min. `failWave`, the difficulty levels and where they are set,
+  films' configs, the rest after a clear, and an audit of the fifteen sky
+  hooks, delegated to an Explore agent.
+- writing: 15 min. `wastedShotFails`, `playDifficulty`, the rule in
+  `shotLeaves`, `SKY_BOSSES`, the tests, the spec paragraph, and the
+  director's cannon page cut out of `ship-fields.ts`.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. `doc-drift` wanted the new config field named in a spec.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: an event count could not say whether a sky
+boss took a bolt, and only the audit showed that three of them take it silently.
+
 ## 2026-09-25 — A cannon shot flies on to the top of the screen
 
 - reading: 10 min. Where a bolt is spent (`bullets.ts`), the layout's sky above

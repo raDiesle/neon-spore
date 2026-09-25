@@ -2,9 +2,9 @@ import { buildPods, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
-  DIFFICULTY_BPM,
   type Difficulty,
   PAIR_ON,
+  playDifficulty,
   resetClock,
   type SimConfig,
   type World,
@@ -48,11 +48,11 @@ export function openWorld(audio: GameAudio, buffer: InputBuffer): OpenWorld {
   // (`cannon-maw.ts`). Shorten it on the director's TUNING → PAIR slider
   // rather than here. Off in `DEFAULT_CONFIG` so every replay keeps its timing
   // exact.
-  // And the tempo this device last played at, which is the whole of a
-  // difficulty (`sim/difficulty.ts`). Medium for a device that has never
-  // chosen, which is `DEFAULT_CONFIG.bpm` and therefore no change at all.
+  // And the level this device last played at: its tempo, and on HARD the
+  // wasted-shot rule (`sim/difficulty.ts`). Medium for a device that has never
+  // chosen, which is `DEFAULT_CONFIG` and therefore no change at all.
   const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, shotChargeBeats: 0.5 };
-  cfg.bpm = DIFFICULTY_BPM[readProgress().level];
+  playDifficulty(cfg, readProgress().level);
   const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
   const progression = createWaveProgression({ world, cfg, audio, buffer });
   const jumpToWave = progression.jumpToWave;
@@ -88,7 +88,7 @@ export function openWorld(audio: GameAudio, buffer: InputBuffer): OpenWorld {
      * no longer exists.
      */
     playAt: (level) => {
-      cfg.bpm = DIFFICULTY_BPM[level];
+      playDifficulty(cfg, level);
     },
   };
 }

@@ -160,6 +160,9 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     ...(scene.pinballRows === undefined ? {} : { pinballRows: scene.pinballRows }),
     // A rehearsal held behind its own opening would be a guide inside a guide.
     briefings: false,
+    // And a film's shots are the film's, not the pair's: one that goes out of
+    // the top on HARD is not a wave lost (`wastedShotFails`).
+    wastedShotFails: false,
   };
   return {
     cfg: sceneCfg,
