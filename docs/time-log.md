@@ -22,6 +22,18 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE INSTAR's next six, queued one per sequence
+
+- reading: 10 min. The gestures, the config, the fire, eggs, tail and eye
+  drawers, for what each step could ask next.
+- writing: 10 min. Six queue entries, one per pose and one for a moult.
+- looking: 0 min. No picture: nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: each entry's `Files:` line had to name what the tree draws today,
+and the eye is in `instar-head.ts` rather than the front view it was guessed in.
+
 ## 2026-09-25 — THE ANTIPHON, THE LEDGER, THE LEAD and THE CURTAIN take the blow
 
 - reading: 10 min. Four events files for *a sequence landed*, and which part

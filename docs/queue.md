@@ -642,6 +642,85 @@ claude/instar-boss-enhancements-1ae51f, and stay.) Cut the two parts from the
 list (and from the cue, the director's sheet and any switch over them that
 `tsc` then names), and prove it with `bun run check`.
 
+## THE INSTAR, breath: the jaws press back open
+
+- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Files:** `packages/sim/src/instar-hand.ts`, `packages/sim/src/instar-step.ts`, `packages/sim/src/config-instar.ts`, `packages/sim/test/instar.test.ts`, `packages/render/src/instar-head.ts`
+
+Steps 1 and 5 of `content/instar-script.ts`. The owner asked on 25 September
+2026 for THE INSTAR to be taken further, one sequence at a time; this is the
+first. A pull today *stands at* the depth the thumb has carried it, so a thumb
+that reaches four tiles and parks there has finished. The fire should push
+back: while the window runs, a pull loses a named share of its depth each beat
+(`instarJawPushMilli` in `InstarConfig`, hashed with the rest), so both thumbs
+keep pressing until the partner's jaw is there too. The lips tremble in
+`instar-head.ts` with the push, and the test drives a parked thumb to a slip.
+
+## THE INSTAR, brood: eggs that crack while nobody takes them
+
+- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Files:** `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-egg-spots.ts`, `packages/render/test/instar-eggs.test.ts`, `packages/content/src/instar-script.ts`
+
+Step 2. The nests are sixteen and ten eggs that sit still until the window
+closes. Let the eggs still standing crack as the window runs (`instarThreat`):
+a hairline at a quarter, a split with something moving inside at three
+quarters, drawn on the egg and never as a bar. Then a second brood step late in
+the script with the counts swapped between the seats, player 1 swiping and
+player 2 tapping, so a pair that learned the nest has to say it again. It
+lands under a look the owner asked for by name.
+
+## THE INSTAR, lash: a tail that sweeps rather than stands
+
+- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-marks.ts`, `packages/sim/src/instar-hash.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-marks.ts`, `packages/content/src/instar-script.ts`
+
+Steps 3 and 7. The blades hang over two fixed points, so twenty taps are
+twenty presses in one place. Give `InstarMark` an optional sweep, a distance
+in thousandths that the mark travels across the field over the window, and
+let the fork carry its blades along the same line (`instar-tail.ts` aims at
+the pose's `tailX` today, and would aim at the mark instead). A mark stays on its own seat's half of the field, so where
+it sits still says whose it is. Every new field goes in `hashWorld`, and the
+test taps a moving mark at the wrong place and gets nothing.
+
+## THE INSTAR, lunge: one holds the brow, one strikes an eye
+
+- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Files:** `packages/content/src/instar-script.ts`, `packages/render/src/instar-head.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/test/instar-frame.test.ts`
+
+Step 4 asks both thumbs for the same hold. The combination it does not have yet
+is two different gestures on one head: a second lunge step later in the
+script where player 1 holds the brow and player 2 taps the right eye twelve
+times, and the eye flinches shut a little with each tap (`drawEye` already
+narrows with the pose's `eye`). It is content and a picture, with no new
+gesture: the eye's mark goes where `instar-head.ts` draws the right eye in the
+lunge pose, and the frame test finds it there.
+
+## THE INSTAR, coil: the blades wind opposite ways
+
+- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-hand.ts`, `packages/render/src/instar-glyphs.ts`, `packages/render/src/instar-word.ts`, `packages/content/src/instar-script.ts`, `packages/sim/test/instar.test.ts`
+
+Step 6. Both seats wind clockwise, the crank's direction. Add `turnBack`,
+anticlockwise, as a seventh gesture in `INSTAR_GESTURES`, with its own
+arrow glyph and word, and let the coil ask player 1 to wind the left blade
+back while player 2 winds the right forward, so the two thumbs mirror each
+other. The gesture rides the one `instarMark` target, so the command codec
+does not change; the test proves a clockwise wind on a `turnBack` mark counts
+nothing.
+
+## THE INSTAR, a last step: the moult
+
+- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Files:** `packages/sim/src/instar-words.ts`, `packages/render/src/instar-poses.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-draw.ts`, `packages/content/src/instar-script.ts`, `docs/spec/bosses.md`
+
+An instar is the stage between two moults, and the boss never moults. Put an
+eighth step at the end: a `moult` pose where the hide splits along the back
+and the new body shows pale through the split. Each seat swipes its half of
+the old skin off, downward, with the two finishing together, and left alone
+the new body hardens and the fight is lost. A new pose is two lanes: the
+simulation and script first (`INSTAR_POSES`, the step, `bosses.md` §11.32),
+then the picture, which lands under a look the owner asked for by name.
+
 ## `land` stops on a time-log conflict it says it merges
 
 - **Found:** 2026-09-25, claude/drop-wait-cues
