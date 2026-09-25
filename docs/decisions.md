@@ -1197,6 +1197,16 @@ is its own word rather than `HOLD`, because a player told to hold would hold
 the trigger. It is said only once the look has landed, never during the tell:
 *who* the eye chose is the answer, and the field never says one.
 
+**A reason under the verb, 25 September 2026.** The owner played THE THROAT and
+could not tell whether a gum should go in, or whether a body sucked in was good
+or bad: *add some ingame text help what i have to do in the moments.* So THE
+THROAT's cues carry a second line, `BossCue.why` — `FIRE` over `OR THE THROAT
+HEALS`, `FLING` over `INTO THE MOUTH` — and a gum still above the mouth's row is
+`WAIT`, where it was silent. The mouth writes what the last thing into it did
+(`RING DOWN`, `SWALLOWED · RING HEALS`). This gives back one thing the paragraph
+above kept in the briefing, *what a mistake costs*, and only for this boss. The
+line still never says a column, a colour or a count (`render/src/throat-say.ts`).
+
 **Reconsider if:** a cue starts carrying a column, a colour or a count. That is
 the pair's own sentence, and a field that says it has taken the game's subject
 away.

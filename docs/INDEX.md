@@ -1482,11 +1482,13 @@ by hand never moves.
 | `packages/render/src/throat-draw.ts` | THE THROAT, drawn: a gullet of ring muscles hanging from the top of the frame |
 | `packages/render/src/throat-mouth.ts` | The mouth, the lip, and the column of field the inhale is holding |
 | `packages/render/src/throat-shape.ts` | Where every part of THE THROAT is, as numbers — no canvas in this file |
+| `packages/render/src/throat-say.ts` | The reason under each of THE THROAT's cue verbs (`BossCue.why`), and the receipt words |
 | `packages/render/src/throat-evert.ts` | **The eversion**: with every ring slack the tube can no longer hold its own shape |
 | `packages/render/src/throat-lock.ts` | NEXT INHALE: the column the mouth will be standing in on the beat it next takes something |
 | `packages/render/src/throat-grip.ts` | **THE THROAT's two hands**, and the two circles the drawing and the hit test share |
 | `packages/render/src/throat-flesh-lip.ts` | **What THE THROAT's mouth is made of**, and the inside it turns out through it at the end |
 | `packages/render/src/throat-flesh.ts` | **What THE THROAT is made of**: a wet gullet of ring muscle, lit from above and to the left |
+| `packages/render/src/throat-receipt.ts` | What the last thing into the mouth did, for two beats: `RING DOWN` or `SWALLOWED · RING HEALS` |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
 | `packages/render/src/crawler-ring.ts` | **One ring of a maggot, as a shape** — the three sets of proportions the parts of a worm are drawn at |

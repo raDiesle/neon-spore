@@ -7,6 +7,7 @@ import { paintBand, paintLimp, paintTube } from "./throat-flesh.js";
 import { drawThroatGrips } from "./throat-grip.js";
 import { drawThroatLock } from "./throat-lock.js";
 import { drawMouth } from "./throat-mouth.js";
+import { drawThroatReceipt } from "./throat-receipt.js";
 import { type Ring, rings } from "./throat-shape.js";
 
 /**
@@ -86,6 +87,8 @@ export function drawThroat(
   // (`throat-grip.ts`).
   if (b.phase !== "everts") drawThroatGrips(ctx, l, cfg, b, beat, beatPhase, time);
   drawThroatLock(ctx, l, cfg, b, beat, beatPhase, time, crowded);
+  // What the last thing into the mouth did, on both screens (`throat-receipt.ts`).
+  drawThroatReceipt(ctx, l, cfg, b, beat, beatPhase);
 }
 
 /**

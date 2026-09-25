@@ -100,6 +100,17 @@ export interface BossCue {
    * already has does the rest.
    */
   wordFloor?: number;
+  /**
+   * **What the verb is for**, in a few plain words, written small under it —
+   * `FLING` / `INTO THE MOUTH`, `FIRE` / `OR THE THROAT HEALS`.
+   *
+   * The owner, 25 September 2026, on THE THROAT: *add some ingame text help
+   * what i have to do in the moments.* One word said *what* and never *why*,
+   * and a pair who did not know what the fight is for could not tell a gum
+   * to fling from a gum to let go. It is #34's rule and not an exception to
+   * it: never a column, a colour or a count, only the reason.
+   */
+  why?: string;
 }
 
 /** Whether this screen is the one being asked. */

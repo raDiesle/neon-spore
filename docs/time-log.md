@@ -20707,6 +20707,18 @@ the first frame put the cannon one column off the lobe.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-25 — THE THROAT's fight says why under each word
+
+- reading: 5 min. The cue shape, its text drawing and THE THROAT's readings.
+- writing: 10 min. The reason lines, `WAIT`, the receipt, and their tests.
+- looking: 5 min. Three frames, one crop of the reason over the tube.
+- friction: 5 min. The canvas stub had no `strokeText`, and the dark rim's
+  first colour was one the cue chrome may not share.
+- landing: 5 min. The file map, `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: two rules about the test canvas, found one
+`check:fast` at a time.
+
 ## 2026-09-25 — THE THROAT's guide says the goal and shows a swallow healing a ring
 
 - reading: 15 min. The film, §1 of the choreographed spec, the throat's

@@ -19,6 +19,7 @@ import {
   throatTubeCircle,
   throatTubeGrippable,
 } from "./throat-grip.js";
+import { THROAT_WHY } from "./throat-say.js";
 
 /**
  * **What THE THROAT is asking for** — page eleven of the readings, and its own
@@ -73,7 +74,8 @@ function markAt(
   l: Layout,
   seed: number,
 ): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
+  const why = THROAT_WHY[word];
+  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed, why };
 }
 
 /**
@@ -203,13 +205,18 @@ export function throatCues(
   const flings: BossCue[] = [];
   const standing: BossCue[] = [];
   const climbing: BossCue[] = [];
+  let waiting: { c: Creature; cue: BossCue } | null = null;
   // One word however many rocks are in the mouth: the handle is the gullet's
   // and not the body's, so a second copy of it would be two frames on one ring.
   let warded: BossCue | null = null;
   for (const c of world.creatures) {
-    if (c.kind === "gum" && !gumIsFlung(c) && c.row === mouth) {
+    if (c.kind === "gum" && !gumIsFlung(c) && c.row <= mouth) {
       const at = creatureCenter(l, world, c, beatPhase);
-      flings.push(markAt(1, "CARRY", "FLING", at.x, at.y, l, 51));
+      if (c.row === mouth) flings.push(markAt(1, "CARRY", "FLING", at.x, at.y, l, 51));
+      // Still above the row: the nearest one is the one to wait for.
+      else if (waiting === null || c.row > waiting.c.row) {
+        waiting = { c, cue: markAt(1, "CARRY", "WAIT", at.x, at.y, l, 56) };
+      }
       continue;
     }
     // `throatHolds` and not a column test written out here: the body the fall
@@ -229,5 +236,6 @@ export function throatCues(
     const at = creatureCenter(l, world, c, beatPhase);
     climbing.push(markAt(null, "HOLD", "BRAKE", at.x, at.y, l, 53));
   }
-  return [...flings, ...standing, ...(warded === null ? [] : [warded]), ...climbing];
+  const last = waiting === null ? [] : [waiting.cue];
+  return [...flings, ...standing, ...(warded === null ? [] : [warded]), ...climbing, ...last];
 }

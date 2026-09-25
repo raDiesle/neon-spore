@@ -123,12 +123,14 @@ describe("the gum, and the one row it is worth flinging from", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("says nothing about one still falling towards it", () => {
+  it("tells the pilot to wait for one still falling towards it", () => {
     // The case the old reading got wrong, and the reason this file exists: a
-    // thumb lifted here throws the gum along a row the mouth is not on.
+    // thumb lifted here throws the gum along a row the mouth is not on. It was
+    // silence until the owner could not tell what to do with it (25 September
+    // 2026), so it is `WAIT` now — never `FLING` — and still his alone.
     const { world, t } = opened();
     put(world, "gum", elsewhere(world, t), throatMouthRow(CFG) - 1);
-    expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p1")).toBe("WAIT");
     expect(word(world, "p2")).toBeNull();
   });
 

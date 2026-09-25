@@ -41,6 +41,15 @@ import { PALETTE } from "./palette.js";
  * The verb's is exported for a drawing that has to know how wide it is. */
 export const WORD_FONT = '700 11px "Courier New",monospace';
 const KIND_FONT = '700 8px "Courier New",monospace';
+const WHY_FONT = '700 9px "Courier New",monospace';
+/** How far the reason stands off the verb, and off the canvas's side. */
+const WHY_DROP = 12;
+const WHY_MARGIN = 4;
+/** The dark rim's width under the reason, in pixels. */
+const WHY_RIM = 3;
+/** The field's own dark, as a literal: the cue chrome shares no colour a
+ * frame test counts (`frame-colours.test.ts`), and the palette's background is one. */
+const WHY_RIM_INK = "rgba(7,6,15,.85)";
 
 /** Pixels between the frame and each line of text. */
 const WORD_GAP = 18;
@@ -61,7 +70,13 @@ const KIND_ALPHA = 0.7;
 /** A line's height: the least the kind line stands off the verb, either side. */
 const KIND_DROP = 11;
 
-export function drawCueText(ctx: CanvasRenderingContext2D, cue: BossCue, time: number): void {
+export function drawCueText(
+  ctx: CanvasRenderingContext2D,
+  cue: BossCue,
+  time: number,
+  /** The canvas's width, so a `why` line near a wall stays on it. */
+  width = Number.POSITIVE_INFINITY,
+): void {
   ctx.save();
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.rock;
@@ -86,6 +101,7 @@ export function drawCueText(ctx: CanvasRenderingContext2D, cue: BossCue, time: n
     ctx.font = KIND_FONT;
     ctx.fillText(cue.kind, cue.x, kindY(cue.y, cue.halfH, wordY, floor));
   }
+  if (cue.why !== undefined) drawWhy(ctx, cue, cue.why, wordY, breath, width);
   ctx.restore();
   ctx.textAlign = "left";
 }
@@ -149,4 +165,36 @@ export function cueWordY(cue: BossCue, floor: number = TOP_EDGE): number {
 function kindY(y: number, halfH: number, wordY: number, floor: number): number {
   const above = Math.max(y - halfH - KIND_GAP, floor);
   return above <= wordY - KIND_DROP ? above : wordY + KIND_DROP;
+}
+
+/**
+ * **The reason, under the verb** (`BossCue.why`): on the far side of the verb
+ * from the mark, so it never lands on the frame or on the kind line — under
+ * it when the verb is under the mark, over it when the ship pushed the verb
+ * up. Brighter than the kind line and smaller than the verb, because it is
+ * read once and then known, and moved in from a wall when the mark is near
+ * one, because a line of twenty letters is wider than a column.
+ */
+function drawWhy(
+  ctx: CanvasRenderingContext2D,
+  cue: BossCue,
+  why: string,
+  wordY: number,
+  breath: number,
+  width: number,
+): void {
+  ctx.globalAlpha = Math.min(1, breath + 0.15);
+  ctx.font = WHY_FONT;
+  const half = ctx.measureText(why).width / 2 + WHY_MARGIN;
+  const x = Math.max(half, Math.min(width - half, cue.x));
+  const y = wordY > cue.y ? wordY + WHY_DROP : wordY - WHY_DROP;
+  // A dark rim under the letters: the line is longer than the mark and often
+  // crosses the boss it is about, and a tube behind it ate the words.
+  ctx.save();
+  ctx.lineJoin = "round";
+  ctx.lineWidth = WHY_RIM;
+  ctx.strokeStyle = WHY_RIM_INK;
+  ctx.strokeText(why, x, y);
+  ctx.restore();
+  ctx.fillText(why, x, y);
 }

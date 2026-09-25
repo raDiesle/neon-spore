@@ -35,5 +35,5 @@ export function drawBossCue(
   if (cue.framed !== false) {
     drawTargetLock(ctx, cue.x, cue.y, cue.halfW, cue.halfH, PALETTE.rock, time, 0.85, cue.seed);
   }
-  drawCueText(ctx, cue, time);
+  drawCueText(ctx, cue, time, l.width);
 }

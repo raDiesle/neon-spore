@@ -561,6 +561,14 @@ export class StubContext {
     nums("strokeRect", a);
     this.calls++;
   }
+  // A rim under letters, always followed by the `fillText` that records the
+  // box, so it is counted and checked and never recorded a second time.
+  strokeText(text: string, x: number, y: number): void {
+    nums("strokeText", [x, y]);
+    if (/NaN|undefined/.test(text)) fail("strokeText", `text reads "${text}"`);
+    this.calls++;
+    this.mark("strokeText", undefined, [x, y]);
+  }
   fillText(text: string, x: number, y: number): void {
     nums("fillText", [x, y]);
     if (/NaN|undefined/.test(text)) fail("fillText", `text reads "${text}"`);

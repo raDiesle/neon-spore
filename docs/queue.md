@@ -775,3 +775,14 @@ it says so honestly rather than pretending. Step until `world.waveBeat` reaches
 the beat (acking the briefing with `ackBriefing` for both seats first, or
 seeking with the opening skipped), with a cap for a wave that ends first.
 Provable with a test beside "the row the map follows".
+
+## Split the canvas stub and THE THROAT's cue test, both past 250 lines
+
+- **Found:** 2026-09-25, claude/throat-boss-guide-8b22d2
+- **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/boss-cue-throat.test.ts`
+
+The stub is 685 lines and the test 345. The stub grew a `strokeText` in this lane, the first caller of it in
+`packages/render`, and was already far past the limit. Split the text-box
+recording (`texts`, `measureText`, `fillText`, `strokeText`) into a file of
+its own, and THE THROAT's cue test by moment: the gum, the body in the mouth,
+the rock in the mouth, the climb. `bun run check` holds both.
