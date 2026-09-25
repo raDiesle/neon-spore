@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 77500a89a — A guide's page on what a miss costs rings the hull, not an empty corner
+
+Nineteen films pointed their page on the cost at the run's line in the top-left corner, which has stood empty since the clock left it on 24 September and a guide never reaches a first retry. The anchor is `hit` now and is drawn at the hull, where the hit lands. It stays apart from `hull`, which is a place, because the scene tests count a film's pages on the cost.
+
 ## 2026-09-25 · 67812f609 — render's touch names are a barrel page of their own
 
 `packages/render/src/index.ts` stood at 237 of its 250 lines. The names a host reads to answer a finger — `touch*`, the ship and well grabs, the desk's seats and `stage-point` — are `index-touch.ts` now, re-exported whole, so no import moved and the barrel is at 222 lines.
