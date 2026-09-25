@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 44b600e8 — THE MAZE turns from a lever that runs round the drum
+
+The string and its amber ball are gone. An arm is clamped to the drum's rim with a knob on its end, and it runs in a channel on a circle round the drum, filling green from the rest either way the hand takes it; chevrons point both ways while nobody has it. The arm swings round the drum's own middle, so the wheel turning reads as the lever's doing. A thumb is read by how far round the drum it went, not by how far sideways, so following the channel turns the wheel naturally. Under the heart's grip the lever stays as the brace, without a channel.
+
 ## 2026-09-25 · 5d569008 — A rock touches the hull on the tick it breaks it, and rolls off sooner and slower
 
 A rock's last six rows now bend it a little above its row, so it touches the skin at the end of its landing beat, not a beat early. The hull's red flash, the sparks, the crack and the crater now all show on the frame it touches. It presses into its hole over 0.08 s, lets go at 0.12 s instead of 0.8 s, and starts rolling from rest, so it gathers pace slowly. A look the owner asked for by name, 25 September 2026.
