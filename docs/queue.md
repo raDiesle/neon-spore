@@ -371,22 +371,6 @@ Whichever is picked, fix the guard to test the same 2 × `SOCKET_HALF_H` the
 drawing spends, and make the test assert the thread's direction rather than
 its ink.
 
-## `versus adopt` writes a record literal biome rejects
-
-- **Found:** 2026-09-24, claude/scuttle-hang-versus-swap
-- **Taken:** 2026-09-25, claude/task-queue-work-efc91a (claim: claude/queue-versus-adopt-writes-a-record-literal-biome-rejec)
-- **Files:** `tools/versus/record-edit.ts`, `tools/versus/test/record-edit.test.ts`
-
-Adopting `scuttle:hang` / `apart` rewrote `SCUTTLE_ROWS` as
-`{ rise: 0.4, pitch: 0.6, drop: 0.26};` — the space before the closing brace
-is dropped — and `bun run lint` failed on the one line the command had just
-written. `bun run format` fixes it, and the command's own closing words are
-*now `bun run check`*, so every adoption of a single-line record pays a red
-lint and a format run before anything it is meant to prove gets a chance to
-run. Rewrite the literal with the spacing biome wants, or run biome over the
-file the command edited before it reports success, and add a case to the
-adoption test that lints its own output.
-
 ## THE HANDOVER re-signs a press the desk picked a seat for
 
 - **Found:** 2026-09-24, claude/test-mode-control-pull-order

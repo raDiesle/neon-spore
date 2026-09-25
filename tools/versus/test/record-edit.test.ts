@@ -1,5 +1,11 @@
 import { describe, expect, it } from "bun:test";
+import { fileCosts } from "../../test/figure.js";
 import { isRefusal, type Rewrite, rewriteRecord } from "../record-edit.js";
+import { ROOT } from "../root.js";
+
+// One `bunx biome format`, for the case that proves an adoption's output is
+// already what the formatter would print.
+fileCosts(200);
 
 /**
  * `adopt` writes into a shipped record, which is the one thing in this tool
@@ -90,5 +96,25 @@ describe("writing a field into a record", () => {
     const out = text(rewriteRecord(SRC, "TORCH_LOOK", { lift: 9 }, { lift: 3 }));
     expect(out.split("\n").length).toBe(SRC.split("\n").length);
     expect(out).toContain("/** The shipped look. */");
+  });
+
+  /**
+   * An adoption ends by telling the session to run `bun run check`, so what it
+   * writes has to be what biome would print — or the first thing the check
+   * reports is the line adopt just wrote. A one-line record is the case that
+   * failed: its last field's span runs up to the closing brace, and the space
+   * before the brace went out with the old value.
+   */
+  it("writes a one-line record the way biome prints it", () => {
+    const one = "export const SCUTTLE_ROWS = { rise: 0.4, pitch: 0.6, drop: 0.32 };\n";
+    const out = text(
+      rewriteRecord(one, "SCUTTLE_ROWS", { drop: 0.26, rise: 0.5 }, { drop: 0.32, rise: 0.4 }),
+    );
+    expect(out).toBe("export const SCUTTLE_ROWS = { rise: 0.5, pitch: 0.6, drop: 0.26 };\n");
+    const run = Bun.spawnSync(["bunx", "biome", "format", "--stdin-file-path=record.ts"], {
+      cwd: ROOT,
+      stdin: Buffer.from(out),
+    });
+    expect(new TextDecoder().decode(run.stdout)).toBe(out);
   });
 });

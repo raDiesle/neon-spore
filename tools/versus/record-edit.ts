@@ -201,8 +201,14 @@ export function rewriteRecord(
   // `gravityTile 1411`.
   for (const { field, at } of [...spans].sort((a, b) => (b.at?.from ?? 0) - (a.at?.from ?? 0))) {
     if (!at) continue;
-    const lead = /^\s*/.exec(src.slice(at.from, at.to))?.[0] ?? " ";
-    out = out.slice(0, at.from) + lead + show(fields[field]) + out.slice(at.to);
+    // The whitespace on both sides of the value stays as the file had it. The
+    // last field of a one-line record ends at its closing brace, so its span
+    // carries the space before `}`, and dropping it wrote `drop: 0.26};` —
+    // one line `bun run lint` refused straight after an adoption.
+    const was = src.slice(at.from, at.to);
+    const lead = /^\s*/.exec(was)?.[0] ?? " ";
+    const tail = /\s*$/.exec(was)?.[0] ?? "";
+    out = out.slice(0, at.from) + lead + show(fields[field]) + tail + out.slice(at.to);
   }
   return { text: out, edits };
 }
