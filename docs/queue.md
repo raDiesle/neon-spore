@@ -518,20 +518,6 @@ freeze's ticks, and a cadenced rebuild during a pending freeze resets both.
 Prove it with a test that a freeze inside a slowed window lands on the tick
 its seconds name, and that two freezes a cadence apart differ.
 
-## `poses-versus.ts` is at 237 lines and grows a row per slot
-
-- **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
-- **Taken:** 2026-09-25, claude/queue-poses-versus-ts-is-at-237-lines-and-grows-a-row
-- **Files:** `tools/director/src/poses-versus.ts`, `tools/director/src/poses-slow.ts`
-
-Every slot that needs its own state adds an import and a row to
-`VERSUS_POSES`, and the file is 13 lines under the ceiling
-(`packages/sim/test/limits.test.ts`). Split the list by what the poses show —
-bodies and creatures in one, damage and boss-borrowed states (THE SLOW's two,
-the handover, the guide) in another — and have `poses-versus.ts` concatenate
-them. Prove it with `bun run check`: `versus-pose.test.ts` and the pose-row
-test still find every slot's pose.
-
 ## AUTO has no hand for THE PULSE or THE REPRISE
 
 - **Found:** 2026-09-25, claude/game-multiplayer-testing-601794

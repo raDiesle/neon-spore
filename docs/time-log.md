@@ -21117,3 +21117,14 @@ Bottleneck: whether the harness passes its port anywhere was not written
 down; one launch and a look at the process's environment answered it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The compared looks' poses are two lists
+
+- reading: 5 min. `poses-versus.ts` and who imports from it.
+- writing: 10 min. A script that moved the poses into
+  `poses-versus-bodies.ts` and `poses-versus-states.ts`, and the join left behind.
+- looking: 0 min. A tool; the game draws nothing new.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: none worth the name; the seam was already named in the item.

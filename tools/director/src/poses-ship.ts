@@ -11,7 +11,7 @@ import {
   until,
   ward,
 } from "./pose-kit.js";
-import { WAVE_WITH_BOTH_FACES } from "./poses-versus.js";
+import { WAVE_WITH_BOTH_FACES } from "./poses-versus-states.js";
 
 /**
  * What a player's own hands put the ship into.
