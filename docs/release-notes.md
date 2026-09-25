@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · b6a5f4353 — Queue and time log: three more bosses wear the blow
+
+THE SURGE, THE TASTER and THE UNDERTOW are added to the queue entry's worn-so-far list, with the note that THE STARE never wears it, and the lane's time is logged.
+
+## 2026-09-25 · 56639c5f2 — THE UNDERTOW shakes and goes red when a lobe is taken
+
+A lobe taken, by the maw or the beam, and the swallow are sequences landed, and each deals THE UNDERTOW the blow every boss takes: a shake and a red wash for half a second. The lobe taken is gone that tick, so the blow is worn by what of the boss still stands — the other lobes, and at the swallow the body. A bow deals nothing. A look the owner asked for by name (24 September 2026).
+
+## 2026-09-25 · 988f65b66 — THE TASTER shakes and goes red when a blade is struck off
+
+A blade struck off, and the fan unlocking at the end, now deal THE TASTER the blow every boss takes: the crest and the rings on it shake sideways and the crest's gum washes red for half a second. A layer pared off a thickened blade deals nothing. A look the owner asked for by name (24 September 2026).
+
+## 2026-09-25 · 0c73d7de7 — THE SURGE shakes and goes red when it vents
+
+A vent (both thumbs on, the pressure brought into the band, both off inside it), and the eversion, now deal THE SURGE the blow every boss takes: the bulb shakes sideways and its sac washes red for half a second. The pressure coming into the band deals nothing. A look the owner asked for by name (24 September 2026).
+
 ## 2026-09-25 · 46ddb61bb — THE DARK: a fault that puts the field out, and a thumb that lights it
 
 The owner's idea for another fault brush. While THE DARK is down, the field above the ship is black on both screens and no body shows. Either player can press anywhere on the field, or swipe across it, and the squares under the finger light up for two beats (`darkLitBeats`). The bodies there show again, then the square goes dark. Every button still works. What the pair has lost is sight, and what they gain is a job for a free hand: whoever finds a body says where it is.
