@@ -79,6 +79,7 @@ export function drawFleetHulls(
   world: World,
   boss: FleetState,
   beatPhase: number,
+  time: number,
   fx: FleetFx,
 ): void {
   const c = chartOf(l, world);
@@ -89,7 +90,7 @@ export function drawFleetHulls(
     if (sinking >= 1) continue;
     // Afloat and this is the navigator's screen: there is nothing here.
     if (sinking < 0 && !seen) continue;
-    drawHull(ctx, c, boss, boss.ships[at]!, at, sinking, fx);
+    drawHull(ctx, c, boss, boss.ships[at]!, at, sinking, time, fx);
   }
 }
 
@@ -107,6 +108,7 @@ function drawHull(
   ship: FleetShip,
   at: number,
   sinking: number,
+  time: number,
   fx: FleetFx,
 ): void {
   const skin = HULLS[at % HULLS.length]!;
@@ -125,12 +127,13 @@ function drawHull(
     ctx.globalAlpha = Math.max(0, 1 - sinking);
     ctx.translate(0, sinking * sinking * c.tile * 1.3);
   }
-  ctx.translate(cx, cy);
+  ctx.translate(cx + fx.hurt.shakeX(time, c.tile), cy);
   if (ship.dir === "v") ctx.rotate(Math.PI / 2);
   if (sinking >= 0) ctx.rotate(sinking * 0.34);
 
   const nose = Math.min(long * 0.35, c.tile * 0.42);
-  paintHull(ctx, { long, across, nose, tile: c.tile, len: ship.len, skin, sinking });
+  const hurt = fx.hurt.value;
+  paintHull(ctx, { long, across, nose, tile: c.tile, len: ship.len, skin, sinking, hurt });
   ctx.restore();
 
   // The water closing over it, on top of the hull rather than under it: what

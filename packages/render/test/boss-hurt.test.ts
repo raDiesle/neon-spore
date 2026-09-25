@@ -222,6 +222,18 @@ const ROWS: Row[] = [
     part: [{ type: "scuttleRebuff", col: 4 }],
     hurt: (fx) => fx.boss.scuttle.hurt,
   },
+  {
+    boss: "fleet",
+    land: [
+      { type: "fleetWreck", col: 3, row: 2 },
+      { type: "fleetSunk", col: 3, row: 2, len: 3, left: 2 },
+    ],
+    part: [
+      { type: "fleetRake", col: 3, row: 2 },
+      { type: "fleetHit", col: 3, row: 2 },
+    ],
+    hurt: (fx) => fx.boss.fleet.hurt,
+  },
 ];
 
 describe("the blow a boss takes", () => {

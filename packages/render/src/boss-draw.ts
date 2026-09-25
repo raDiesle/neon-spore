@@ -197,7 +197,7 @@ export function drawBoss(
   if (boss.kind === "fleet") {
     const fleet = effects.boss.fleet;
     drawFleetChart(ctx, l, world, boss, view.beatPhase, view.time);
-    drawFleetHulls(ctx, l, world, boss, view.beatPhase, fleet);
+    drawFleetHulls(ctx, l, world, boss, view.beatPhase, view.time, fleet);
     drawFleetMarks(ctx, l, world, boss, fleet);
     drawFleetSights(ctx, l, world, boss, view.beatPhase);
     // The wound the flood and the wreck are worked on, over the record and

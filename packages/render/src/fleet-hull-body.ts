@@ -1,3 +1,4 @@
+import { drawHurt } from "./boss-hurt.js";
 import { fittings, seams } from "./fleet-hull-detail.js";
 import { halo } from "./glow.js";
 import { mixHex } from "./hex.js";
@@ -70,19 +71,14 @@ export const BRIDGE = { at: 0.3, half: 0.13, rise: 1.5 } as const;
  * The hull's contour: a cut transom, a sheer that lifts to a bridge and falls
  * away to a point at the bow, and a fuller bilge under it.
  *
- * `beginPath` rather than a `Path2D`: five of these are built every frame the
- * pilot's chart is up, and a held path would be a cache keyed on a length, a
- * beam and a heading that change with the layout.
+ * Traced onto the context's own path rather than a `Path2D`: five of these
+ * are built every frame the pilot's chart is up, and a held path would be a
+ * cache keyed on a length, a beam and a heading that change with the layout.
+ * The one `Path2D` is the blow's, and only on the frames it shows.
  */
-export function hullOutline(
-  ctx: CanvasRenderingContext2D,
-  long: number,
-  across: number,
-  nose: number,
-): void {
+export function hullOutline(ctx: CanvasPath, long: number, across: number, nose: number): void {
   const bx = long * BRIDGE.at;
   const bw = long * BRIDGE.half;
-  ctx.beginPath();
   ctx.moveTo(-long, -across * 0.55);
   ctx.quadraticCurveTo(-long + nose * 0.5, -across, -long + nose * 0.9, -across);
   // The sheer, over the bridge and down again. The bridge is part of the
@@ -123,12 +119,16 @@ export interface HullPaint {
   /** -1 afloat, else 0..1 under. A hull going down is lit harder, because it
    * is the one moment the navigator is shown a hull at all. */
   readonly sinking: number;
+  /** The blow the fleet took, 0..1 (`fleet-fx.ts`). */
+  readonly hurt: number;
 }
 
 /** One hull, in a frame already translated to its middle and turned to its
  * heading. Everything is drawn from `(0, 0)` along `+x` toward the bow. */
 export function paintHull(ctx: CanvasRenderingContext2D, p: HullPaint): void {
   const { long, across, nose, tile, len, skin, sinking } = p;
+  const alpha = ctx.globalAlpha;
+  ctx.beginPath();
   hullOutline(ctx, long, across, nose);
   ctx.fillStyle = plate(ctx, across, skin);
   ctx.fill();
@@ -142,4 +142,9 @@ export function paintHull(ctx: CanvasRenderingContext2D, p: HullPaint): void {
 
   seams(ctx, long, across, tile, len, skin);
   fittings(ctx, long, across, nose, skin);
+  if (p.hurt <= 0) return;
+  const path = new Path2D();
+  hullOutline(path, long, across, nose);
+  drawHurt(ctx, path, p.hurt * alpha);
+  ctx.globalAlpha = alpha;
 }

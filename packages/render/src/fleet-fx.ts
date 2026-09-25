@@ -1,4 +1,5 @@
 import { FLEET_SHELL_BEATS, type SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import type { Chart } from "./fleet-chart.js";
 import { drawFleetHitBurst, drawFleetSplashBurst } from "./fleet-impact.js";
 import { drawShell, drawShellShadow, shellPose } from "./fleet-shell.js";
@@ -23,6 +24,11 @@ import { PALETTE } from "./palette.js";
  * pair have seen anything reach it. That is the rule `Arrivals` keeps for a
  * falling rock, kept here for a rising one.
  *
+ * **A hull raked end to end is a sequence landed** — the pilot's rake along
+ * the whole of it — and so is the navigator's pull that sinks it, so both
+ * deal the fleet the blow every boss takes (`boss-hurt.ts`): every hull this
+ * screen shows shakes and goes red. A single rake or a hit deals nothing.
+ *
  * A restart clears it (`Effects.reset`), which is what makes a shell fired in
  * an abandoned run unable to land on the new one's chart.
  */
@@ -45,6 +51,8 @@ interface Shell {
 
 export class FleetFx {
   private shells: Shell[] = [];
+  /** The blow a wreck or a sinking deals the hulls. */
+  readonly hurt = new BossHurt();
 
   /**
    * A salvo leaving, and what it is going to find.
@@ -57,6 +65,7 @@ export class FleetFx {
    */
   ingest(events: readonly SimEvent[], beatSeconds: number): void {
     for (const e of events) {
+      if (e.type === "fleetWreck" || e.type === "fleetSunk") this.hurt.hit();
       if (e.type !== "fleetSalvo") continue;
       const hit = events.some((o) => o.type === "fleetHit" && o.col === e.col && o.row === e.row);
       const sank = events.some((o) => o.type === "fleetSunk" && o.col === e.col && o.row === e.row);
@@ -86,6 +95,7 @@ export class FleetFx {
     l: Layout,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.hurt.update(dt);
     for (const s of this.shells) {
       s.age += dt;
       if (s.landed || s.age < s.flight) continue;
@@ -149,5 +159,6 @@ export class FleetFx {
 
   clear(): void {
     this.shells = [];
+    this.hurt.clear();
   }
 }

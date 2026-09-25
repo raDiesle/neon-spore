@@ -925,3 +925,16 @@ next fault or field gesture pushes all three over. `touch.ts`: move
 `touchMove`'s per-hold dispatch into its own file beside `touch-hold.ts`.
 `malfunction.ts`: move the per-kind swallow table out. The page: split the
 entries by which seat holds them. `bun run check` holds all three.
+
+## A sunk hull waits a shell's flight that no longer flies
+
+- **Found:** 2026-09-25, claude/boss-blow-e
+- **Files:** `packages/render/src/fleet-hulls.ts`, `packages/sim/src/fleet-flood.ts`
+
+`sinkPhase` subtracts `FLEET_SHELL_BEATS` from a sinking because *the shell
+is still in the air* — but a salvo no longer sinks anything: the only writer
+of `sunkBeat` is `sinkFleetWreck`, on the navigator's pull. So a wreck pulled
+under sits afloat for two beats before it starts to go, while the
+blow (`fleet-fx.ts`) is already over. Drop the subtraction and its paragraph,
+and add a case to the fleet frame tests that a hull pulled under is sinking on
+the next frame. A fix to something wrong, not a look.
