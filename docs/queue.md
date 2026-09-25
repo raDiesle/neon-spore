@@ -521,6 +521,7 @@ its seconds name, and that two freezes a cadence apart differ.
 ## `poses-versus.ts` is at 237 lines and grows a row per slot
 
 - **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
+- **Taken:** 2026-09-25, claude/queue-poses-versus-ts-is-at-237-lines-and-grows-a-row
 - **Files:** `tools/director/src/poses-versus.ts`, `tools/director/src/poses-slow.ts`
 
 Every slot that needs its own state adds an import and a row to
