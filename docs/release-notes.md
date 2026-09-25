@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 651eabb58 — On HARD a wasted shot glances off the top and comes down on the hull
+
+A shot that hits nothing on HARD now flies on to the top edge of the screen, glances off it with a spit of light, and comes back down at a slant onto the ship's hull well toward the middle, where it goes off in a flash. It lands inside the second the field holds the fail, so the hit is seen before the lost screen comes up. The wave was already lost on the tick the shot left; this is only the picture of it.
+
 ## 2026-09-25 · 4cccf9394 — A wave carries its number and its name, and no sentence
 
 The owner took the one-sentence description off every wave: "name of wave and number is good enough." `Wave.sentence` is gone from the type and from all 101 waves, so the introduction, the ready gate's page and the JUMP TO WAVE list show the wave's number and name only, and the director's WAVE tab has no SENTENCE field. The one-sentence test stays, as something the author says in the commit rather than a field the save refuses without.
