@@ -75,6 +75,11 @@ export function drawBoss(
     // thumb under NARROW — the second number, and the second hand shown.
     const openness = wardenHatchMilli(world, boss) / 1000;
     const lids = wardenLidsMilli(world, boss) / 1000;
+    // A plate off shakes the whole of it, rope and rings with the body
+    // (`boss-hurt.ts`); the rope is gone the tick a plate comes off.
+    const fx = effects.boss.warden;
+    ctx.save();
+    ctx.translate(fx.hurt.shakeX(view.time, l.tile), 0);
     drawWarden(
       ctx,
       l,
@@ -87,6 +92,7 @@ export function drawBoss(
       view.time,
       openness,
       lids,
+      fx.hurt.value,
     );
     // The rope is drawn after the ring it comes out of, and before the snap-back
     // a cut one leaves behind — which `effects` draws with everything else that
@@ -95,13 +101,14 @@ export function drawBoss(
     if (wardenTether(world)) drawTether(ctx, l, world, boss, body, openness, view.time);
     // A rope that snapped back no longer exists in the world, so its leaving is
     // the one part of this boss the picture has to remember for itself.
-    effects.boss.warden.draw(ctx, l, world.cfg, anchor);
+    fx.draw(ctx, l, world.cfg, anchor);
     // The eye as a handle, under NARROW and GLARE, over the rope and the
     // snap-back (`warden-grip.ts`); and the rings the thumb, the throw and
     // the slam leave behind them, which the picture remembers for itself.
     const { role, beatPhase, time } = view;
     drawWardenGrip(ctx, l, world.cfg, world, body, boss, role, beatPhase, time);
-    effects.boss.warden.grip.draw(ctx, wardenGripCircle(l, body, boss));
+    fx.grip.draw(ctx, wardenGripCircle(l, body, boss));
+    ctx.restore();
     return;
   }
 

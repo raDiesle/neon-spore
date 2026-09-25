@@ -1,5 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -24,6 +25,10 @@ import { WardenGripFx } from "./warden-grip-fx.js";
  * The second and third hands' moments — the thumb landing, the hatch thrown
  * and slamming — are `grip` (`warden-grip-fx.ts`), walked here by every verb
  * so the boss stays one entry in `effects-boss.ts`.
+ *
+ * **A plate off is a sequence landed** — the rope held, the hatch open, the
+ * shot through — so it deals the body the blow every boss takes
+ * (`boss-hurt.ts`), and so does the last one.
  */
 
 /** Seconds a cut rope takes to whip back up into the rim and go out. */
@@ -36,11 +41,16 @@ interface Snap {
 export class WardenFx {
   private snaps: Snap[] = [];
   readonly grip = new WardenGripFx();
+  /** The blow a plate off deals the body. */
+  readonly hurt = new BossHurt();
 
   ingest(events: readonly SimEvent[]): void {
     // `plate` is THE WARDEN's alone — the queen sheds `petal` — and a plate is
     // exactly the moment the rope is taken away from the hand holding it.
-    for (const e of events) if (e.type === "plate") this.snaps.push({ left: SNAP_LIFE });
+    for (const e of events) {
+      if (e.type === "plate") this.snaps.push({ left: SNAP_LIFE });
+      if (e.type === "plate" || e.type === "wardenDown") this.hurt.hit();
+    }
     this.grip.ingest(events);
   }
 
@@ -48,11 +58,13 @@ export class WardenFx {
     for (const s of this.snaps) s.left -= dt;
     this.snaps = this.snaps.filter((s) => s.left > 0);
     this.grip.update(dt);
+    this.hurt.update(dt);
   }
 
   reset(): void {
     this.snaps = [];
     this.grip.clear();
+    this.hurt.clear();
   }
 
   /**

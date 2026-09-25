@@ -7,6 +7,7 @@ import {
   wardenColor,
   wardenCycle,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { type Circle, type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { splineInto } from "./spline.js";
@@ -140,6 +141,8 @@ export function drawWarden(
   openness: number,
   /** How far the lids behind the hatch are parted, 0..1; the hatch's own under WATCH. */
   lids: number = openness,
+  /** How hard the blow of a plate off still shows, 0..1 (`boss-hurt.ts`). */
+  hurt = 0,
 ): void {
   const cx = tileCX(l, body.col + (WARDEN_COLS - 1) / 2);
   const cy = tileCY(l, body.row);
@@ -195,6 +198,7 @@ export function drawWarden(
     openness,
     lip: openness > 0 ? rim : hex,
   });
+  drawHurt(ctx, body2d, hurt);
   drawHatch(ctx, cx + dx, cy, pupilR * HATCH, openness);
   // The eye behind the door — the same one THE LID wears, `eye.ts`. The fluid
   // and the fringe are drawn whether or not the hatch is open, because they are
