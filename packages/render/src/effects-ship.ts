@@ -1,5 +1,6 @@
 import type { PodKind } from "@neon-spore/sim";
 import { drawBanner } from "./banner.js";
+import { FireVein } from "./fire-vein.js";
 import { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { SwallowFx } from "./swallow.js";
@@ -31,6 +32,8 @@ export class ShipMoods {
   /** The fire opening relaxing after a shot — `canvas2d.ts` folds it onto
    * `HullMood.lay`, the way it reads `armed` off the mirror. */
   readonly layEcho = new LayEcho();
+  /** A shot running from the button up the cord to the cannon (`fire-vein.ts`). */
+  readonly fireVein = new FireVein();
 
   get deflectFlash(): number {
     return this.guardHit;
@@ -71,6 +74,7 @@ export class ShipMoods {
     this.queenShakeUntil = Math.max(0, this.queenShakeUntil - dt);
     this.swallow.update(dt);
     this.layEcho.update(dt);
+    this.fireVein.update(dt);
   }
 
   clear(): void {
@@ -78,6 +82,7 @@ export class ShipMoods {
     this.queenShakeUntil = 0;
     this.swallow.clear();
     this.layEcho.clear();
+    this.fireVein.clear();
   }
 
   /** The word itself, over the hull — DEFLECTED, or a pod's one-word receipt. */

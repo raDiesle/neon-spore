@@ -190,6 +190,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
       open: isOpen,
       fx: this.held.effects.opening,
       surfaceY,
+      shots: this.held.effects.ship.fireVein.shots,
     });
     // Over the ship too, because it is about the ship: a lure shot by mistake (`lure-blast.ts`).
     this.held.lureBlast.draw(ctx, l);

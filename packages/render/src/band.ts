@@ -12,9 +12,10 @@ import { BAND_JOIN } from "./band-join.js";
 import { drawBatonGrey, drawLock } from "./band-lock.js";
 import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop, seamY } from "./band-seam.js";
 import { drawChokeStrip } from "./choke-strip.js";
+import { drawFireFlash, drawFireVein, type FireShot } from "./fire-vein.js";
 import { bandLobes, type Layout, type Lobe, showsCannon, showsShield, tileCX } from "./layout.js";
 import { seatSkin } from "./seat-skin.js";
-import { SHIP_NERVES } from "./ship-nerves.js";
+import { type NerveDraw, SHIP_NERVES } from "./ship-nerves.js";
 import { BAND_SLIME } from "./slime-look.js";
 
 /**
@@ -76,6 +77,8 @@ export function drawBand(
   /** The hull's membrane, so a nerve from a control can end on the skin the
    * eye is looking at (`ship-nerves.ts`). Absent on a host with no ship. */
   surfaceY: ((x: number) => number) | null = null,
+  /** Shots on their way from a button to the cannon (`fire-vein.ts`). */
+  shots: readonly FireShot[] = [],
 ): void {
   // A boss can take the controls away (`mirrorHoldsControls`). When it has,
   // the band is drawn dead and says so: a control that quietly does nothing
@@ -124,7 +127,7 @@ export function drawBand(
   );
   const cannonX = tileCX(l, world.cannonCol);
   const shieldX = tileCX(l, world.shieldCol);
-  SHIP_NERVES.draw({
+  const nerves: NerveDraw = {
     ctx,
     l,
     time,
@@ -137,13 +140,16 @@ export function drawBand(
     surfaceY,
     armed,
     open,
-  });
+  };
+  SHIP_NERVES.draw(nerves);
+  drawFireVein(nerves, shots);
 
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
 
   if (showsCannon(l.role)) drawHalf(ctx, l, world, set, 1, armed, open, time, lead);
   if (showsShield(l.role)) drawHalf(ctx, l, world, set, 2, armed, open, time, lead);
+  drawFireFlash(nerves, shots);
 
   ctx.restore();
   if (locked) drawLock(ctx, l);

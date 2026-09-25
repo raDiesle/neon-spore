@@ -177,6 +177,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       break;
     case "fire":
       ctx.ship.layEcho.start(ctx.beatSeconds, e.color);
+      if (!e.lance) ctx.ship.fireVein.start(e.color);
       break;
     case "breach":
       ingestBreach(e, ctx.l, ctx.time, ctx.beatSeconds, {

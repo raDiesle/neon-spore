@@ -19,6 +19,8 @@ import { splineInto } from "./spline.js";
  */
 
 interface Cord {
+  /** The control it leaves, or `cannon`/`shield` for a knob's own cord. */
+  readonly id: string;
   readonly from: Point;
   readonly to: Point;
   readonly hot: boolean;
@@ -32,14 +34,17 @@ function organEnd(d: NerveDraw, x: number): Point {
 /** Every cord on the screen: knob to organ, and button to knob. */
 function cords(d: NerveDraw): Cord[] {
   const out: Cord[] = [];
-  if (d.cannon) out.push({ from: d.cannon, to: organEnd(d, d.cannonX), hot: d.open, seed: 3 });
-  if (d.shield) out.push({ from: d.shield, to: organEnd(d, d.shieldX), hot: d.armed, seed: 7 });
+  if (d.cannon)
+    out.push({ id: "cannon", from: d.cannon, to: organEnd(d, d.cannonX), hot: d.open, seed: 3 });
+  if (d.shield)
+    out.push({ id: "shield", from: d.shield, to: organEnd(d, d.shieldX), hot: d.armed, seed: 7 });
   for (const [i, lobe] of d.lobes.entries()) {
     const id = lobe.control.id;
     const toCannon = id === "fireRed" || id === "fireCyan" || id === "intake";
     if (!toCannon && id !== "guard") continue;
     const knob = toCannon ? d.cannon : d.shield;
     out.push({
+      id,
       from: { x: lobe.circle.x, y: lobe.circle.y },
       to: knob ?? organEnd(d, toCannon ? d.cannonX : d.shieldX),
       hot: toCannon ? d.open : d.armed,
@@ -61,6 +66,23 @@ function cordLine(c: Cord, tile: number, time: number): Point[] {
     { x: c.to.x - bow * 0.5, y: c.from.y + dy * 0.72 },
     STEPS,
   );
+}
+
+/**
+ * The way a shot of this colour runs up to the cannon on this screen, as the
+ * points of the cords it runs along: from its own button, if this screen has
+ * it, on through the knob, if this screen draws the strip, to the organ. Empty
+ * on a screen with neither. The same `cordLine` the cords are drawn with, so a
+ * pulse on it lies on the cord the eye is looking at (`fire-vein.ts`).
+ */
+export function cannonRoute(d: NerveDraw, button: string): Point[] {
+  const all = cords(d);
+  const out: Point[] = [];
+  for (const id of [button, "cannon"]) {
+    const c = all.find((cord) => cord.id === id);
+    if (c) out.push(...cordLine(c, d.l.tile, d.time));
+  }
+  return out;
 }
 
 /** The cords, and `beads` bodies walking each one. */

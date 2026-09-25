@@ -19884,3 +19884,18 @@ The bottleneck was **writing**: the blow had to be a class any boss can
 hold, not an INSTAR field, and the red has to reach every plate.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — A shot runs from its button up the cord to the cannon
+
+- reading: 5 min. The cords in `gland-cord.ts`, the `fire` event and
+  `LayEcho`, and which screen's cord reaches the cannon through the knob.
+- writing: 5 min. `fire-vein.ts`, the route off the cords, the clock in
+  `ShipMoods`, and the pass through the band.
+- looking: 5 min. Red and cyan strips on player 2's screen; the first tail
+  was drawn in short segments and read as beads.
+- friction: 0 min. `--press 60` lands on tick 76, so the first strips were
+  taken before the shot; `--until fire` found it.
+- landing: 5 min. `check:fast`, red once on the index.
+
+The bottleneck was **reading**: the cord a pulse has to follow is private to
+GLAND's nerves, and it takes a knob on one screen and not on the other.

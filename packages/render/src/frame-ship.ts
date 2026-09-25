@@ -8,6 +8,7 @@ import type { Effects } from "./effects.js";
 import { faultBeamEnds } from "./fault-beam-ends.js";
 import { drawFaultBeam } from "./fault-emitter.js";
 import { drawFenceArcs } from "./fence-arc.js";
+import type { FireShot } from "./fire-vein.js";
 import type { GuideStage } from "./guide-scene.js";
 import { HANDOVER_LOOK } from "./handover-look.js";
 import { drawControlHover } from "./hover.js";
@@ -142,6 +143,8 @@ export interface OverlayState {
   scene?: GuideStage;
   /** The opening's own clock (`opening-fx.ts`). */
   fx?: OpeningFx;
+  /** Shots running up the cord to the cannon (`fire-vein.ts`). */
+  shots?: readonly FireShot[];
 }
 
 /** What sits on top of a finished frame: HUD, alarms and the wave's opening. */
@@ -152,7 +155,7 @@ export function drawOverlays(
   view: ViewState,
   state: OverlayState,
 ): void {
-  const { armed: isArmed, open: isOpen, scene, fx, surfaceY } = state;
+  const { armed: isArmed, open: isOpen, scene, fx, surfaceY, shots } = state;
   drawHud(ctx, l, view);
   drawTorchAlarm(ctx, l, world, view.time);
   // And the pilot's own call, on the pilot's screen alone (`magnet-alarm.ts`).
@@ -179,6 +182,7 @@ export function drawOverlays(
     view.controls,
     view.leadTicks ?? 0,
     surfaceY ?? null,
+    shots,
   );
   // Over the finished band, from the emitter at the top of the field down to
   // the button the fault has taken on this screen (`fault-emitter.ts`).
