@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE ANTIPHON, THE LEDGER, THE LEAD and THE CURTAIN take the blow
+
+- reading: 10 min. Four events files for *a sequence landed*, and which part
+  of each drawing is the body rather than the ground it stands on.
+- writing: 20 min. Four fx classes and drawers, four rows of
+  `boss-hurt.test.ts`; THE CURTAIN's drawer had no fx and is shaken by its
+  caller.
+- looking: 0 min. No picture: the blow is the one already sent twice.
+- friction: 0 min.
+- landing: 10 min. Four `check:fast` runs, four commits, `land`.
+
+Bottleneck: deciding, per boss, what shakes — a cord rooted in the ship or a
+ridge under a stalk is the ship's, and has to stay put.
+
 ## 2026-09-25 — THE SURGE, THE TASTER and THE UNDERTOW take the blow
 
 - reading: 10 min. Three events files and drawers, and THE STARE's, which
