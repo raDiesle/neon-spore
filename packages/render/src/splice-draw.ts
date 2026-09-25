@@ -8,7 +8,7 @@ import {
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawAirRush, drawSlimeBall, drawSpentBall } from "./splice-ball.js";
-import { drawEater, spliceSpent } from "./splice-eater.js";
+import { drawEater, spliceEaterTarget, spliceSpent } from "./splice-eater.js";
 import { drawHold } from "./splice-hold.js";
 import { drawPipes } from "./splice-pipe.js";
 import {
@@ -62,7 +62,7 @@ export function drawSplice(
   const flying = s.flights.map((f) => ({ straw: f.straw, y: spliceFlightAt(l, cfg, s, f, b).y }));
   drawPipes(ctx, l, cfg, s, full, cannonCol, b, flying);
   // The number the eater has bitten is in its mouth, not on its top end.
-  if (full) drawNumbers(ctx, l, cfg, s, b, s.eatBeat === -1 ? -1 : spliceWanted(s));
+  if (full) drawNumbers(ctx, l, cfg, s, b, s.eatBeat === -1 ? -1 : spliceEaterTarget(s));
   drawEater(ctx, l, cfg, s, full, cannonCol, b);
   drawFlight(ctx, l, cfg, s, cannonCol, beat, beatPhase, full);
   if (full) drawClock(ctx, l, cfg, s, beat);

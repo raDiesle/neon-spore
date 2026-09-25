@@ -1491,6 +1491,8 @@ by hand never moves.
 | `packages/render/src/splice-flesh.ts` | What THE SPLICE's straws and mouths are made of: ringed tubes and puckered lips |
 | `packages/render/src/splice-ball.ts` | **THE SPLICE's numbers, as something to collect**: an amber drop of slime with the digit in it, a halo |
 | `packages/render/src/splice-eater-body.ts` | THE SPLICE eater's body (`splice-eater.ts` says when and where): the shape sheet's TENDRIL draft |
+| `packages/render/src/splice-eater-head.ts` | THE SPLICE eater's head (`splice-eater-body.ts` puts it on its neck): a big red alien head, upright |
+| `packages/render/src/splice-eater-venom.ts` | What comes out of THE SPLICE's eater (`splice-eater.ts` says when): the tongue it snaps with |
 | `packages/render/src/splice-eater.ts` | **THE SPLICE's clock, as the thing that eats the number** (the owner, 25 September 2026 |
 | `packages/render/src/splice-hold.ts` | **Where THE SPLICE is fought**: the inside of a living ship |
 | `packages/render/src/splice-pipe.ts` | **THE SPLICE's mouths, as pipes**: each straw goes into the top of a short grown pipe that hangs over the… |

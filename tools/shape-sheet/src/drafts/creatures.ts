@@ -75,11 +75,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       floor: 0.12,
     }),
     motion: SHIVER,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "Symbiosis",
     owner:
-      "vulnerable only while apart, so the window is a shape and not a timer: the membrane thins to a waist and finally parts, and both players can see the same instant coming",
+      "THE SPLICE eater's head, taken 25 September 2026 (`render/splice-eater-head.ts`): held merged, a cranium and a jaw in one membrane, the jaw dropping away from it as the mouth opens, on TENDRIL's neck. Before that: vulnerable only while apart, so the window is a shape and not a timer: the membrane thins to a waist and finally parts, and both players can see the same instant coming",
   },
   {
     subject: blob(
@@ -136,7 +135,7 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
     status: "taken",
     slot: "creature",
     owner:
-      "THE SPLICE's eater, taken 25 September 2026 (`render/splice-eater-body.ts`): the round's clock, let down out of the hold's ceiling as the beats are spent, which eats the number the pair did not suck in time. Before that: the Colony's root or brood fibre — taller than it is wide, so it reads against every round thing on the field, and the wave runs its length rather than around it",
+      "THE SPLICE's eater, taken 25 September 2026 (`render/splice-eater-body.ts`): the round's clock, a neck through the hold's right wall that lengthens as the beats are spent under SYMBIOSIS's head, and the back end of the same body through the wall lower down, which eats the number the pair did not suck in time. Before that: the Colony's root or brood fibre — taller than it is wide, so it reads against every round thing on the field, and the wave runs its length rather than around it",
   },
   {
     subject: hooked("NOTCH 1", "a barb, and the barb is the aim", 32, 30, 0.85, 5),

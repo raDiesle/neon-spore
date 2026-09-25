@@ -97,6 +97,12 @@ export const PALETTE = {
    * there is nothing in that picture for it to be confused with, and the round
    * is over before any of the other three can be on screen again.
    *
+   * **And THE SPLICE eater's poison, since 25 September 2026**: what its back
+   * end pours onto the hull after it has eaten a number (`splice-eater-venom.ts`),
+   * the owner's *peeing, poisoning the ship*. That screen does show `good` —
+   * a fed ball's ghost, the right-feed ring — and the distance is the hue
+   * again: a yellow-green stream against a mint mark, never on the same beat.
+   *
    * It is also the one colour in the round that is not the ship's. That is the
    * point of it: everything the body is made of is hull violet and shield
    * cyan, so the thing it *spits* has to be the one thing that is not.

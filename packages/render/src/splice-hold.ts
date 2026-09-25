@@ -1,11 +1,9 @@
-import { blobPoints } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { spliceSocket } from "./splice-eater.js";
+import { spliceRearHole, spliceSocket } from "./splice-eater.js";
 import { spliceTopY } from "./splice-straws.js";
-import { splinePath } from "./spline.js";
 
 /**
  * **Where THE SPLICE is fought**: the inside of a living ship. The owner asked
@@ -13,14 +11,14 @@ import { splinePath } from "./spline.js";
  * space, and they should look like part of an alien vessel that is alive.
  *
  * So the field gets a hold: a wall of flesh up each edge, ribbed; ribs across
- * the ceiling; the socket in the right wall the eater grows out of
+ * the ceiling; the two holes the eater has torn in the right wall
  * (`splice-eater.ts`); and
  * veins on the back wall that brighten on the beat, the ship's own pulse.
  *
  * **It is a back, and it stays one.** Everything is dim, low in contrast and
  * away from the columns the pipes and the numbers stand in, so the straws the
  * navigator traces stay the brightest lines on the screen. Nothing in it moves
- * with the clock — the socket breathes on the beat on both screens, and a
+ * with the clock — the walls breathe on the beat on both screens, and a
  * pulse that quickened as time ran out would hand the countdown to the pilot.
  * The hull, drawn after the field, covers where the walls meet it.
  */
@@ -39,6 +37,49 @@ function wallX(l: Layout, side: number, y: number, b: number): number {
   const d =
     l.tile * (WALL + 0.12 * Math.sin(y / (l.tile * 0.8) + side * 2) + 0.03 * Math.sin(b * Math.PI));
   return side === 0 ? d : l.width - d;
+}
+
+/**
+ * A hole torn in the wall, seen side on: a jagged dark opening, its edge lit,
+ * and cracks run out across the wall from it. Fixed — a tear does not breathe.
+ */
+function drawTear(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, seed: number) {
+  const n = 13;
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2;
+    const k = i % 2 === 0 ? 1 : 0.72 + 0.12 * Math.sin(seed * (i + 1));
+    const px = x + Math.cos(a) * r * 0.55 * k;
+    const py = y + Math.sin(a) * r * k;
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.closePath();
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+  g.addColorStop(0, PALETTE.background);
+  g.addColorStop(0.7, PALETTE.sheenDeep);
+  g.addColorStop(1, rgba(PALETTE.redDark, 0.9));
+  ctx.fillStyle = g;
+  ctx.fill();
+  ctx.strokeStyle = rgba(PALETTE.sheenWarm, 0.55);
+  ctx.lineWidth = Math.max(1, r * 0.06);
+  ctx.stroke();
+  // Cracks out across the wall, zigzagging.
+  ctx.strokeStyle = rgba(PALETTE.sheenRim, 0.3);
+  ctx.lineWidth = Math.max(0.8, r * 0.035);
+  ctx.beginPath();
+  for (const a of [-2.3, -1.4, 1.5, 2.4, Math.PI]) {
+    let px = x + Math.cos(a) * r * 0.6;
+    let py = y + Math.sin(a) * r;
+    ctx.moveTo(px, py);
+    for (let k = 1; k <= 3; k++) {
+      const jog = (k % 2 === 0 ? 1 : -1) * 0.35;
+      px += Math.cos(a + jog) * r * 0.28;
+      py += Math.sin(a + jog) * r * 0.28;
+      ctx.lineTo(px, py);
+    }
+  }
+  ctx.stroke();
 }
 
 function drawWall(ctx: CanvasRenderingContext2D, l: Layout, side: number, b: number): void {
@@ -108,20 +149,10 @@ export function drawHold(
   drawWall(ctx, l, 0, b);
   drawWall(ctx, l, 1, b);
 
-  // The socket, seen side on: a puckered ring in the wall, dark in its middle.
-  const breath = 1 + 0.06 * Math.sin(b * Math.PI);
-  const ring = splinePath(
-    blobPoints(o.x, o.y, t * 0.3 * breath, t * 0.62 * breath, 7, 0.12, 0.05, b * 0.3, 5.3, 28),
-    true,
-  );
-  const g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, t * 0.66);
-  g.addColorStop(0, PALETTE.background);
-  g.addColorStop(0.55, PALETTE.sheenDeep);
-  g.addColorStop(1, rgba(PALETTE.sheenMid, 0.75));
-  ctx.fillStyle = g;
-  ctx.fill(ring);
-  ctx.strokeStyle = rgba(PALETTE.sheenRim, 0.35);
-  ctx.lineWidth = Math.max(1, t * 0.05);
-  ctx.stroke(ring);
+  // The two holes the eater broke through the right wall with, torn and not
+  // puckered: the head's near the top, its back end's lower down.
+  drawTear(ctx, o.x, o.y, t * 0.7, 5.3);
+  const rear = spliceRearHole(l, cfg);
+  drawTear(ctx, rear.x, rear.y, t * 0.5, 2.9);
   ctx.lineWidth = 1;
 }

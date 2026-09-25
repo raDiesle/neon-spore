@@ -20323,3 +20323,18 @@ The bottleneck was **looking**: the wave's first landing shows nothing,
 because the middle column is its own mirror.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SPLICE's eater breaks through the wall twice and pours venom on the hull
+
+- reading: 5 min. The eater, the hold, and the shape sheet's free drafts.
+- writing: 25 min. The head on SYMBIOSIS, a neck and back end on TENDRIL,
+  torn holes, the swallow and the venom stream, the nearest-ball target and
+  its test.
+- looking: 10 min. Five frames down the bite, the back end and the stream sized
+  up once.
+- friction: 5 min. A top-middle head half written before the owner's second
+  message replaced it.
+- landing: 5 min. The catalogue's draft count, `check:fast`, the commit, `land`.
+
+The bottleneck was **writing**: one body in two holes is three files of
+drawing and a fourth for what comes out of it.
