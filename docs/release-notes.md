@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 76b602644 — Six ways to take THE INSTAR further, queued one per sequence
+
+Each of the boss's poses has a sized next step in the queue. The jaws press back open. The eggs crack while nobody takes them. The tail sweeps across the field instead of standing still. The lunge has one seat hold the brow while the other strikes an eye. The coil's blades wind opposite ways. A last step is the moult, the one thing the boss's name promises and the fight never shows.
+
 ## 2026-09-25 · 5a3d41976 — THE INSTAR opens with no guide: its marks say what to do
 
 The wave's words and ready gate are gone; it opens on its number and name, like any wave without a guide, and the body's own marks and scanner boxes do the teaching. The owner asked for this by name. `waves.test.ts` names it as the one wave first on a panel with nothing to say (`SAYS_ITSELF`), and §1 and §3.2 of `briefings.md` count what is on disk again: eighty-nine guided waves, eighty films, nine in words.
