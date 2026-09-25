@@ -636,3 +636,31 @@ store it as a hashed `World` field (`hash.ts`), pass it at every `openSlow` call
 and have the fuse read it instead of the length. Prove it with a sim test that
 THE INSTAR's step window asks and its fall does not, and a render test that
 the fuse draws on the first and not the second.
+
+## A VERSUS freeze inside THE SLOW does not land where its seconds say
+
+- **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
+- **Files:** `tools/director/src/versus-pair.ts`, `tools/director/src/versus-pair-freeze.ts`, `tools/director/test/versus-freeze.test.ts`
+
+`Freeze` counts its target in ticks at `cfg.tickHz`, but while a window is
+open the pair steps at `stageTickHz` (a quarter) and its cadence `clock`
+still gains `FREEZE_STRIDE / tickHz` per paint — so on `THE SLOW · A WINDOW
+RUNNING OUT` `--freeze 4.2` lands near the window's end, and `--freeze 10`
+and `--freeze 17` came back as the same frame, forty per cent in. Make one
+axis of it: either the freeze counts the pair's clock or the clock counts the
+freeze's ticks, and a cadenced rebuild during a pending freeze resets both.
+Prove it with a test that a freeze inside a slowed window lands on the tick
+its seconds name, and that two freezes a cadence apart differ.
+
+## `poses-versus.ts` is at 237 lines and grows a row per slot
+
+- **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
+- **Files:** `tools/director/src/poses-versus.ts`, `tools/director/src/poses-slow.ts`
+
+Every slot that needs its own state adds an import and a row to
+`VERSUS_POSES`, and the file is 13 lines under the ceiling
+(`packages/sim/test/limits.test.ts`). Split the list by what the poses show —
+bodies and creatures in one, damage and boss-borrowed states (THE SLOW's two,
+the handover, the guide) in another — and have `poses-versus.ts` concatenate
+them. Prove it with `bun run check`: `versus-pose.test.ts` and the pose-row
+test still find every slot's pose.

@@ -6,5 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { SLOW_EBB } from "./slow-measure/ebb/index.js";
+import { SLOW_HALO } from "./slow-measure/halo/index.js";
+import { SLOW_RAILS } from "./slow-measure/rails/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [SLOW_EBB, SLOW_HALO, SLOW_RAILS];

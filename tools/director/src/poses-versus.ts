@@ -23,7 +23,7 @@ import { GUIDE_FILM_POSE, LOST_SCREEN_POSE } from "./poses-guide.js";
 import { HANDOVER_TRADE_POSE } from "./poses-handover.js";
 import { HUSK_POSE } from "./poses-husk.js";
 import { COIL_POSE, TETHER_POSE } from "./poses-link.js";
-import { SLOW_WINDOW_POSE } from "./poses-slow.js";
+import { SLOW_RUNS_OUT_POSE, SLOW_WINDOW_POSE } from "./poses-slow.js";
 import { BREAK_POSE, BULB_STRUCK_POSE } from "./poses-struck.js";
 
 /**
@@ -227,6 +227,7 @@ export const VERSUS_POSES: Pose[] = [
   LOST_SCREEN_POSE,
   HUSK_POSE,
   SLOW_WINDOW_POSE,
+  SLOW_RUNS_OUT_POSE,
 ];
 
 export const VERSUS_GROUP: PoseGroup = {

@@ -20118,3 +20118,20 @@ The bottleneck was **reading**: the world does not say whether a window asks
 for anything, and the answer had to come from every boss's window length.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SLOW's measure goes to VERSUS: ebb, halo and rails against the fuse
+
+- reading: 5 min. The VERSUS candidate shape, the slot's pose row, and the
+  pair's loop and freeze under a slowed stage.
+- writing: 10 min. Three candidates, a pose that lets a window run out, and
+  its cadence.
+- looking: 15 min. The first pairs showed no window at all; then freezes
+  across the window, and each candidate at its red end.
+- friction: 15 min. `A WINDOW OPEN` answers its step on the first tick, and
+  a freeze inside the slow does not land where its seconds say (queued).
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **friction**: the pose the slot was pointed at shuts its
+window before a measure can draw, and the freeze's clock runs on another
+axis inside the slow, so the camera had to be learned before it showed
+anything.
