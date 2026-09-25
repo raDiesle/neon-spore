@@ -82,6 +82,9 @@ export interface Figure {
   tailY: number;
   /** The lunge: how far the head is thrust at the ship, 0..1. */
   reach: number;
+  /** How much of the fire in the mouth is still burning, 0..1: tapped out
+   * by a mark on it, lit again when the next bite comes. */
+  flame: number;
 }
 
 /** The pose's figure after its marks are done: the parts the pair undid. */
@@ -113,6 +116,8 @@ export function deformed(
     else if (m.part === "head") g.reach = f.reach * (1 - p);
     // An eye struck flinches shut by as much of its count as has landed.
     else if (m.part === "eye") g.wince = p;
+    // The fire in the mouth is tapped out by as much of its count as has landed.
+    else if (m.part === "fire") g.flame = f.flame * (1 - p);
   });
   return g;
 }

@@ -102,10 +102,16 @@ export function cueHand(
         // from under the spot the first went down on; a slap that lands on
         // nothing frees the seat, and the key puts it on the mark where the
         // mark now is (`stage-cue-key.ts`, `arm`).
+        // The same goes for a slap that lands on a neighbour's mark once the
+        // body has swung: the thumb comes off it rather than hold a mark that
+        // is not this seat's (`instar-sway.ts`).
         up(l, t, true);
         const hold = down(l, seat, t.x, t.y);
-        if (hold) t.hold = hold;
-        else thumbs.delete(seat);
+        if (hold?.kind === "drag" && hold.id === id) t.hold = hold;
+        else {
+          if (hold) up(l, { ...t, hold }, true);
+          thumbs.delete(seat);
+        }
         continue;
       }
       const r = touchMove(l, hold, go.x, go.y);

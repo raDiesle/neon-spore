@@ -43,6 +43,7 @@ const BREATH: Figure = {
   tailX: 500,
   tailY: 560,
   reach: 0,
+  flame: 1,
 };
 
 /** The body as it comes in, before the first morph: the same face, the mouth

@@ -1,7 +1,7 @@
 import type { BossSequenceStep } from "@neon-spore/sim";
 
 /**
- * THE INSTAR's script: ten steps over five poses, and what the pair does to each.
+ * THE INSTAR's script: eleven steps over five poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -30,7 +30,12 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    bite pushes back against both thumbs every beat, the third twice as
  *    hard (`pushMilli`) — a jaw shut early and held there waiting for the
  *    other opens again under the thumb, so the pull has to be *stronger*,
- *    further, and the two jaws have to meet at once.
+ *    further, and the two jaws have to meet at once. **Between the first
+ *    and second bites** the jaws are forced open on the fire and player 2
+ *    taps it out, eight taps; **the third bite** is three marks — player 2
+ *    pulls the upper jaw against the push while player 1 taps the fire out,
+ *    six, and then pulls the lower jaw up to meet it (the owner, the same
+ *    day: *combine with some other movement action in between or during*).
  * 2. *Brood* — it flies off, crosses the frame twice, and comes in to stay
  *    side on, with a brood of eggs on its back, one nest over each half.
  *    Player 1 taps the left nest's eggs until every one is squashed; player 2
@@ -60,7 +65,7 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    different thing: player 1 taps the left back, player 2 winds the right.
  *    Two counts in two gestures, finishing together.
  *
- * (Steps 2–8 below are the script's steps 4–10: the breath's three bites are
+ * (Steps 2–8 below are the script's steps 5–11: the breath's three bites are
  * one item because they are one scene.)
  *
  * **The clocks.** A morph is the flight: eight beats for the entrance, which
@@ -117,6 +122,14 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     morphBeats: 3,
     windowBeats: 4,
     landBeats: 2,
+    marks: [{ seat: "p2", part: "fire", gesture: "tap", xMilli: 540, yMilli: 360, need: 8 }],
+  },
+  {
+    pose: "breath",
+    arrive: "stay",
+    morphBeats: 3,
+    windowBeats: 4,
+    landBeats: 2,
     pushMilli: 250,
     marks: [
       { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
@@ -132,6 +145,7 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     pushMilli: 500,
     marks: [
       { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
+      { seat: "p1", part: "fire", gesture: "tap", xMilli: 460, yMilli: 360, need: 6 },
       { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 4000 },
     ],
   },

@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE INSTAR's fire is tapped out between the bites and during the third
+
+- reading: 5 min. How a strike, a flood and a mark's word pick their part.
+- writing: 15 min. The `fire` part and `flame`, two script steps, two test
+  files, the spec.
+- looking: 5 min. One frame of the third bite from player 1's seat.
+- friction: 15 min. The director's key pressed the partner's ring on the
+  split lunge once the new steps shifted the swing's phase: its cues read the
+  swing at the top of the beat; they now read it at the frame's own phase.
+- landing: 5 min. One `check:fast`, one commit, `land`.
+
+Bottleneck: the desk key's cue sat up to a third of the field off its ring,
+and nothing failed until the script's timing moved.
+
 ## 2026-09-25 — THE INSTAR bites three times, and the jaws push back
 
 - reading: 10 min. The pull in the hand, the beat's slip and hold, the

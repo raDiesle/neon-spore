@@ -1,4 +1,4 @@
-import { instarActing, instarMarkDone, instarStep, type World } from "@neon-spore/sim";
+import { framePhase, instarActing, instarMarkDone, instarStep, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { INSTAR_WORDS } from "./instar-marks.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
@@ -45,11 +45,11 @@ export function instarCues(l: Layout, world: World): readonly BossCue[] {
   const step = instarStep(boss);
   if (step === null) return [];
   const r = instarMarkRadius(l, world.cfg);
-  // The swing at the top of the beat, because a cue is read off a `World` and
-  // a world carries no sub-beat. That is within one beat of where the ring is
-  // drawn, and this is the cue *key* — what to say and roughly where — rather
-  // than the ring itself (`instar-sway.ts`).
-  const sway = instarSway(boss, world.cfg, world.beat, 0);
+  // The swing at the frame's own sub-beat, the one the ring is drawn and hit
+  // at (`instar-mark-grip.ts`). The top of the beat is up to a third of the
+  // field off at the fastest of the swing, which is a press on the partner's
+  // ring when two sit that close — the lunge's brow and its eye.
+  const sway = instarSway(boss, world.cfg, world.beat, framePhase(world));
   const out: BossCue[] = [];
   step.marks.forEach((mark, id) => {
     if (instarMarkDone(boss, id)) return;

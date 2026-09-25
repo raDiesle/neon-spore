@@ -57,11 +57,12 @@ export function drawInstar(
   const { head, r } = instarHeadAt(l, f);
   const breath = instarStep(s)?.pose === "breath";
   const fire =
-    s.phase === "act" && breath
+    f.flame *
+    (s.phase === "act" && breath
       ? 0.3 + 0.7 * threat
       : s.phase === "morph" && breath
         ? 0.3 * morph
-        : 0;
+        : 0);
 
   ctx.save();
   const shake = fx.flinch * l.tile * 0.25 * Math.sin(time * 40) + fx.hurt.shakeX(time, l.tile);

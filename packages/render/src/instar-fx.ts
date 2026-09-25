@@ -132,7 +132,7 @@ export class InstarFx {
           at({ x: tileCX(l, e.col), y: l.hullY }, 16, PALETTE.red);
           this.strike.hit(
             e.part,
-            e.part === "jaw" ? [this.headOr(l)] : this.marks,
+            e.part === "jaw" || e.part === "fire" ? [this.headOr(l)] : this.marks,
             tileCX(l, e.col),
           );
           this.joltNow = JOLT_TILES * 2;

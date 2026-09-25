@@ -48,6 +48,7 @@ const LIFE: Record<InstarPart, number> = {
   tongue: SLAM_SECONDS,
   head: SLAM_SECONDS,
   eye: SLAM_SECONDS,
+  fire: FIRE_SECONDS,
 };
 
 export class InstarStrike {
@@ -72,7 +73,8 @@ export class InstarStrike {
     const s = this.now;
     if (s === null) return;
     const t = s.age / LIFE[s.part];
-    if (s.part === "jaw") drawFlood(ctx, l, s.from[0] ?? { x: l.width / 2, y: l.gridTop }, t);
+    if (s.part === "jaw" || s.part === "fire")
+      drawFlood(ctx, l, s.from[0] ?? { x: l.width / 2, y: l.gridTop }, t);
     else if (s.part === "eggs") drawSwarm(ctx, l, s.from, s.age);
     else drawSlam(ctx, l, s.from, s.x, t);
   }

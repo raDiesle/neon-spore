@@ -184,11 +184,16 @@ describe("THE INSTAR's body", () => {
     // pictures of one body. Each seat's own frame is in its own colours, so
     // the pictures are compared by what the body and the marks are painted in.
     // A mark for both seats is bright on both, so its step is the same
-    // picture everywhere and only the first two hold.
+    // picture everywhere and only the first two hold. A step that asks one
+    // seat for more — the fire tapped out between the bites, the third bite's
+    // tap and pull — is brighter on that seat's screen.
     for (const cursor of STEPS) {
       const at = (role: ViewRole) => frame(role, (w) => acting(w, cursor));
+      const marks = INSTAR_SCRIPT[cursor]?.marks ?? [];
+      const ask = (seat: string) => marks.filter((m) => m.seat === seat).length;
+      const bright = (role: ViewRole) => count(at(role).text, PALETTE.text);
       expect(count(at("p1").text, PLATE)).toBe(count(at("p2").text, PLATE));
-      expect(count(at("p1").text, PALETTE.text)).toBe(count(at("p2").text, PALETTE.text));
+      expect(Math.sign(bright("p1") - bright("p2"))).toBe(Math.sign(ask("p1") - ask("p2")));
       if (INSTAR_SCRIPT[cursor]?.marks.some((m) => m.seat === "both")) continue;
       // The test screen holds both seats, so both words are the gesture's, bright.
       expect(count(at("test").text, PALETTE.text)).toBeGreaterThan(

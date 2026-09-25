@@ -15,8 +15,19 @@ export type InstarSeat = (typeof INSTAR_SEATS)[number];
 /** The parts of the body a mark can sit on — each one a threat if its mark
  * is left undone, which is what the strike is named after. `eye` is last
  * because the hash names a part by its place in this list (`instar-hash.ts`):
- * the lunge's second visit strikes the right eye while the brow is held. */
-export const INSTAR_PARTS = ["jaw", "hand", "eggs", "tongue", "tail", "head", "eye"] as const;
+ * the lunge's second visit strikes the right eye while the brow is held.
+ * `fire` is the fire turning in the open mouth, tapped out between the
+ * breath's bites and during the third, and last for the same reason. */
+export const INSTAR_PARTS = [
+  "jaw",
+  "hand",
+  "eggs",
+  "tongue",
+  "tail",
+  "head",
+  "eye",
+  "fire",
+] as const;
 export type InstarPart = (typeof INSTAR_PARTS)[number];
 
 /**

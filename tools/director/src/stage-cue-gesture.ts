@@ -21,7 +21,8 @@ import { BEARING_TURN, instarBoss, instarMarkDone, instarStep, type World } from
  * **It stops at the mark's own line and no further.** A mark already answered
  * asks for nothing (`instarMarkDone`) — but the thumb stays down, because a
  * pull let go of before the beat lands slips back to nought and takes the
- * partner's with it (`instar-step.ts`).
+ * partner's with it (`instar-step.ts`). A tap is the exception: its count
+ * stays when the thumb comes off, so the thumb does, for the seat's next mark.
  */
 
 /** What the desk's finger does this tick. `null` is: stay exactly where it is. */
@@ -58,7 +59,11 @@ export function instarGesture(
   const s = instarBoss(world);
   if (s === null || held.id === undefined) return null;
   const mark = instarStep(s)?.marks[held.id];
-  if (mark === undefined || instarMarkDone(s, held.id)) return null;
+  if (mark === undefined) return null;
+  // A count of taps is not held once it is answered, so the thumb comes off
+  // and the seat is free for its next mark — the breath's third bite asks
+  // one seat to tap the fire out and then pull its jaw (`instar-script.ts`).
+  if (instarMarkDone(s, held.id)) return mark.gesture === "tap" ? { do: "lift" } : null;
   // What the part has pushed back while this thumb was on it (`pushMilli`,
   // `sim/instar-step.ts`): the finger goes that much further, as a hand would.
   const pushed = Math.max(0, s.ref[held.id] ?? 0);

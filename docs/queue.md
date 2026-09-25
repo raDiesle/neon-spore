@@ -900,16 +900,3 @@ shove, stronger at the third bite's push, and the shove should have a sound —
 which is a new event, `instarShove`, and so the twelve registrations
 `.claude/skills/new-boss-state` lists. A look the owner asked for by name
 (*player really feels when pulling it is required to be stronger*).
-
-## THE INSTAR, breath: a second gesture during the bite
-
-- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-25, claude/instar-boss-enhancements-1ae51f (claim: claude/queue-the-instar-breath-a-second-gesture-during-the-bi)
-- **Files:** `packages/content/src/instar-script.ts`, `packages/sim/test/instar-push.test.ts`, `packages/render/src/instar-draw.ts`
-- **Asks:** Which gesture goes with the third bite — (a) between the bites, a mark on the fire in the mouth that one seat taps out while the jaws are forced open, (b) during the third bite, one seat pulls its jaw while the other taps the fire, then both pull, or (c) none, the push is enough?
-
-The owner, 25 September 2026, on the breath's three bites: *or combine with
-some other movement action in between or during.* The three bites and the
-push landed; the combination did not, because it picks a gesture and a part
-the owner has not named. A mark on the fire would be a new part, last in
-`INSTAR_PARTS` for the hash.
