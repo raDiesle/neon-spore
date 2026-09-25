@@ -414,7 +414,11 @@ translate and `drawHurt` over its plates, and add a case to
 
 **Worn so far** (25 September 2026): THE INSTAR, THE WARDEN (a plate off),
 THE SPOOL (a rib eased), THE HASP (a hasp wound open), THE SINEW (a fibre
-parted). `boss-hurt.test.ts` is a table now: a boss is one row — the landing
+parted), THE GIMBAL (a tooth pair sheared), THE RATCHET (a clean tooth),
+THE HIVE (a breach sealed), THE GORGE (an intake ruptured). A drawer with no
+`time` of its own is handed `view.time` by its `boss-draw-clocks*.ts` caller;
+one handed no fx at all (`drawGorge`) is shaken by the caller and given the
+blow's `value`. `boss-hurt.test.ts` is a table now: a boss is one row — the landing
 events, one part-of-a-sequence event that must deal nothing, and where its
 fx keeps the blow — and the frame case stubs `hit()` out of the control run,
 so the red it counts is the blow's alone. A boss whose drawer takes an

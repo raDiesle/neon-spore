@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE GIMBAL, THE RATCHET, THE HIVE and THE GORGE take the blow
+
+- reading: 10 min. Each boss's events file for the one that means *a
+  sequence landed*, and its fx and drawer for where the body is painted.
+- writing: 15 min. Four fx classes and drawers, four rows of
+  `boss-hurt.test.ts`; two drawers took `time`, one was shaken by its caller.
+- looking: 10 min. One before/after of THE HIVE six ticks after a real seal,
+  driven by `--press` from the tick `--events` said the breach opened.
+- friction: 5 min. `frames <sha>~1` pairs that sha with *its* parent, so the
+  first pair came back identical; the commit's own sha was the right one.
+- landing: 10 min. Four `check:fast` runs, four commits, `land`.
+
+Bottleneck: splitting one test file across four commits, one boss each.
+
 ## 2026-09-25 — Four more bosses take the blow of a landed sequence
 
 - reading: 10 min. The queue entry, `boss-hurt.ts`, THE INSTAR's wiring, and
