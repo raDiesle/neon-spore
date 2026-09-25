@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · b5754a821 — THE FILAMENT is an alien's heart, its filaments veins, and each thumb carries a tool
+
+The body over the field is now a beating heart, and each filament is a vein running into its point. The lit run is drawn as a tube with a pulse flowing toward the heart. Player 1's thumb carries the rasp, a spinning steel burr. Player 2's thumb carries the corona, a gold ring of nodes. Every screen shows its own tool bright and the partner's at half. The heart loses a vessel and shrinks with every pull.
+
 ## 2026-09-25 · d0fd4001c — THE REPRISE is a camera: a lens that records and plays back, and eggs for its count
 
 THE REPRISE is now a sac hung through the tear, with a camera lens for an eye. While a stretch is recorded, a red dot blinks in the pupil; recording starts with a shutter blink. While the echo plays, a triangle stands in the pupil and a beam falls across the whole field; playback starts with a rewind. The row of teeth is gone: a ring of eggs round the lens counts the bodies held or owed, and a dashed shell stands for every unseen body still falling, how many and never where. A halo pulses behind the boss on the beat, so it is the first thing the eye finds on an empty field.
