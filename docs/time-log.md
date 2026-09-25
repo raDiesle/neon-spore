@@ -20445,3 +20445,18 @@ written into four skills, a spec section, the director and three tests.
 The bottleneck was **landing**: the fix was one line and the check is minutes.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE HANDOVER re-signs only a press on the band
+
+- reading: 0 min. `input.ts`'s `from`, `deskDown`, `touchDown`'s field and
+  band split, and how `touch-ship.ts` signs a hand on the ship.
+- writing: 5 min. `pressSeat`, the press's y kept per finger, and a test of
+  a handed-over test screen on THE GAUGE's band and the shield's strip.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min. The guard refused a heredoc with a doubled backslash; the
+  edit went through a script written with the Write tool.
+- landing: 5 min. `check:fast` twice — a new render test has to state its
+  own frame timeout — the commit, `land`.
+
+The bottleneck was **landing**: `timeout-cap.test.ts` wanted the new test
+file to call `setDefaultTimeout`, which only the full render shard asks.

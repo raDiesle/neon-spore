@@ -1,4 +1,11 @@
-import { deskDownAll, type Hold, shipUnder, touchMove, touchUp } from "@neon-spore/render";
+import {
+  deskDownAll,
+  type Hold,
+  pressSeat,
+  shipUnder,
+  touchMove,
+  touchUp,
+} from "@neon-spore/render";
 import { samplesOf } from "./coalesced.js";
 import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
@@ -39,12 +46,16 @@ export function bindControls(bindings: Bindings): Controls {
    * than one hold on a finger is the desk's mouse being both seats' hand
    * (`render/desk-grab.ts` `deskDownAll`); a phone's finger always has one. */
   const holding = new Map<number, Hold[]>();
-  /** **Who a press is from: this device, always.** `touch.ts` signs a press
-   * with the half of the band it landed on, and THE HANDOVER trades which half
-   * this screen draws — so while the panels are away that signature is the
-   * other player's, and a lockstep refuses a press attributed to the peer
-   * (`Bindings.handed`). A hand on the *field* is already this seat's. */
-  const from = (t: { player: 1 | 2 }): 1 | 2 => (handed() ? player() : t.player);
+  /** Where each finger still down first landed, for `from`. */
+  const pressY = new Map<number, number>();
+  /** **Who a press is from.** `touch.ts` signs a press on the band with the
+   * half it landed on, and THE HANDOVER trades which half this screen draws —
+   * so while the panels are away a band press is re-signed as this device's,
+   * and a lockstep never sees one attributed to the peer (`Bindings.handed`).
+   * A hand on the *field* keeps the seat it was found for
+   * (`render/desk-grab.ts` `pressSeat`). */
+  const from = (t: { player: 1 | 2 }, id: number): 1 | 2 =>
+    pressSeat(layout(), pressY.get(id) ?? 0, t, handed(), player());
   const hand = new ShipHandWatch();
   /** A desk has a hover and a phone does not. Undefined until a mouse moves. */
   let pointer: { x: number; y: number } | undefined;
@@ -63,6 +74,7 @@ export function bindControls(bindings: Bindings): Controls {
     // with `3` held (`render/desk-grab.ts`). One seat everywhere else, which is
     // every phone.
     const touches = deskDownAll(layout(), x, y, seats(), field, both());
+    pressY.set(id, y);
     const holds = touches.flatMap((t) => (t.hold ? [t.hold] : []));
     const [first] = holds;
     if (first) {
@@ -71,7 +83,8 @@ export function bindControls(bindings: Bindings): Controls {
     }
     // Null for the one press that takes hold and says nothing yet: player
     // 2's thumb landing on the muzzle, decided on the lift (`render/touch-ship.ts`).
-    for (const t of touches) if (t.command) buffer.push(from(t), t.command);
+    for (const t of touches) if (t.command) buffer.push(from(t, id), t.command);
+    if (!first) pressY.delete(id);
   };
 
   /**
@@ -90,8 +103,9 @@ export function bindControls(bindings: Bindings): Controls {
       // `touchUp`. Losing the window is not a shot the player took.
       for (const hold of holds) {
         const t = touchUp(layout(), hold);
-        if (t?.command) buffer.push(from(t), t.command);
+        if (t?.command) buffer.push(from(t, id), t.command);
       }
+      pressY.delete(id);
     }
     hand.clear();
     pointer = undefined;
@@ -144,7 +158,7 @@ export function bindControls(bindings: Bindings): Controls {
       hand.down(layout(), hold, at.x, at.y);
       for (const h of holds) {
         const t = touchMove(layout(), h, at.x, at.y);
-        if (t?.command) buffer.push(from(t), t.command);
+        if (t?.command) buffer.push(from(t, e.pointerId), t.command);
       }
     }
   });
@@ -155,8 +169,9 @@ export function bindControls(bindings: Bindings): Controls {
     hand.clear();
     for (const hold of holds) {
       const t = touchUp(layout(), hold, at);
-      if (t?.command) buffer.push(from(t), t.command);
+      if (t?.command) buffer.push(from(t, e.pointerId), t.command);
     }
+    pressY.delete(e.pointerId);
   };
   canvas.addEventListener("pointerup", (e) => up(e, inStage(e) ?? undefined));
   // A cancel is the browser taking the gesture away — a system edge swipe, a

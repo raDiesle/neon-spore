@@ -98,3 +98,29 @@ export function deskDownAll(
   const second = touchDown(l, x, y, fieldFor(other));
   return second !== null && second.player === other ? [first, second] : [first];
 }
+
+/**
+ * **Who a press is from while THE HANDOVER has the two panels traded**
+ * (`sim/handover.ts`): the band is drawn for the other seat then, so a press
+ * on it comes back signed with the half it landed on — the peer's — and a
+ * lockstep refuses a press attributed to the peer outright. The band's press
+ * is therefore this device's.
+ *
+ * **A hand on the field is not re-signed.** It was already signed with the
+ * seat the hit test was asked for, which on a phone is this device's and on
+ * the test screen is the seat `deskDown` picked by what is under the thumb.
+ * Re-signing that one sent the navigator's mark as player 1 all through the
+ * handover, and the simulation refused it.
+ *
+ * Told apart by where the press *landed*, the same line `touchDown` asks
+ * first, and kept for the move and the lift, since those are that press's.
+ */
+export function pressSeat(
+  l: Layout,
+  pressY: number,
+  t: { player: 1 | 2 },
+  handed: boolean,
+  device: 1 | 2,
+): 1 | 2 {
+  return handed && pressY >= l.bandTop ? device : t.player;
+}
