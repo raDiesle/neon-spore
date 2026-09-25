@@ -1,3 +1,4 @@
+import { FILAMENT_CORONA, FILAMENT_RASP } from "@neon-spore/content";
 import type { CatalogueEntry } from "../catalogue.js";
 import { clubbed, guarded, haloed, shed, spanned, studded } from "../forms/index.js";
 import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH, WIND } from "../motions.js";
@@ -40,22 +41,17 @@ import { LURCH, SETTLE, SHIVER, SWELL, TURN, TWITCH, WIND } from "../motions.js"
  */
 export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
   {
-    subject: studded("THE RASP", "a small round body under a dense ring of short spines", {
-      rx: 44,
-      ry: 42,
-      studs: 20,
-      reach: 0.26,
-      width: 0.34,
-      blunt: 0.0,
-      lobes: 3,
-      depth: 0.04,
-      seed: 6.7,
-    }),
+    // The numbers are the game's since THE FILAMENT took it (`content/filament-look.ts`).
+    subject: studded(
+      "THE RASP",
+      "a small round body under a dense ring of short spines",
+      FILAMENT_RASP,
+    ),
     motion: SHIVER,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing carries it: converted from the small spiked discs falling around that boss, the ones that read as viruses. Spines rather than lobes is a claim this bestiary has never made — every living body it draws is smooth — so a rim of two dozen needles is the cheapest way to add a kind that is unmistakable at creature size and says nothing about colour. What it has to survive is 26 px, where a needle is one pixel and a slick's outline is already ragged with its own wobble",
+      "THE FILAMENT, taken 25 September 2026, as the rasp player 1 carries up the vein, turning as it bores (`render/filament-tools.ts`). Before that: nothing carried it: converted from the small spiked discs falling around that boss, the ones that read as viruses. Spines rather than lobes is a claim this bestiary has never made — every living body it draws is smooth — so a rim of two dozen needles is the cheapest way to add a kind that is unmistakable at creature size and says nothing about colour. What it has to survive is 26 px, where a needle is one pixel and a slick's outline is already ragged with its own wobble",
   },
   {
     subject: studded("THE BRISTLE", "a lozenge in a fine fringe, longer than it is tall", {
@@ -77,26 +73,18 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       "nothing carries it: converted from the capsule-shaped bodies in the same frame, which wear a fringe of fine hairs all round a rounded rectangle. It is deliberately the same form as THE RASP at more than twice the count and half the width, so the two differ in exactly the numbers that separate a spine from a hair, and the body under it is squared off rather than round — and standing them beside each other is how you find out whether that difference is visible on a phone or only in the source file",
   },
   {
-    subject: haloed("THE CORONA", "a ring of nodes that turns, with one wide gap in it", {
-      r: 96,
-      // Wide: `ring.test.ts` holds a ring to enclosing its material rather than
-      // its opening, and a band this thin is also truer to the source, which
-      // is a small core inside a wide circle of satellites.
-      hole: 0.56,
-      nodes: 11,
-      bump: 0.2,
-      // A shade under a fifth of a turn per beat: the gap comes round in about
-      // six beats, which is long enough to be waited for and short enough that
-      // waiting is a decision rather than a delay.
-      spin: 0.19,
-      missing: 2,
-      seed: 8.3,
-    }),
+    // The numbers are the game's since THE FILAMENT took it (`content/filament-look.ts`),
+    // and the reasons for two of them are there: the wide hole and the spin.
+    subject: haloed(
+      "THE CORONA",
+      "a ring of nodes that turns, with one wide gap in it",
+      FILAMENT_CORONA,
+    ),
     motion: TURN,
-    status: "free",
+    status: "taken",
     slot: "boss",
     owner:
-      "nothing carries it: converted from Neon Pulsefire's arena boss, a core inside a circle of orbiting satellites. It is very nearly THE WARDEN arrived at independently, and that is the reason to be careful with it rather than the reason to build it — what it has that ours does not is that the opening *comes round* instead of being moved, so waiting is a thing the pair can do. It belongs beside the warden in a VERSUS pair and never instead of it",
+      "THE FILAMENT, taken 25 September 2026, as the corona player 2 carries up the vein behind the rasp (`render/filament-tools.ts`). Before that: nothing carried it: converted from Neon Pulsefire's arena boss, a core inside a circle of orbiting satellites. It is very nearly THE WARDEN arrived at independently, and that is the reason to be careful with it rather than the reason to build it — what it has that ours does not is that the opening *comes round* instead of being moved, so waiting is a thing the pair can do. It belongs beside the warden in a VERSUS pair and never instead of it",
   },
   {
     subject: shed("THE RIND", "three sizes, stepped down, and the rim smooths as it goes", {

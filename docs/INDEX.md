@@ -658,6 +658,7 @@ by hand never moves.
 | `packages/content/src/controls.ts` | every button either player can be given, one row each, listed rather than switched on |
 | `packages/content/src/creatures-table.ts` | adding a creature means adding one entry here |
 | `packages/content/src/hull-shape.ts` | the hull's own geometry, split out of `shapes.ts` when that file hit its size cap |
+| `packages/content/src/haloed.ts` | A ring with nodes standing on it, the nodes travelling, and one wide gap where some are missing |
 | `packages/content/src/light.ts` | where the light is — the one named direction every sheen, crater and glow reads against |
 | `packages/content/src/maze-rounds.ts` | THE MAZE's drum, copied wall for wall off the sheet the owner sent, and the five rounds played against it |
 | `packages/content/src/mechanics-table.ts` | the rows themselves, lifted out of `mechanics.ts` when that file crossed the 250-line limit |
@@ -857,6 +858,7 @@ by hand never moves.
 | `packages/content/src/rooted.ts` | A bulb held down by roots: a round body with narrow tendrils reaching from its underside |
 | `packages/content/src/antiphon-contours.ts` | **THE ANTIPHON's table of contours** — the sixteen shapes the body can grow |
 | `packages/content/src/filament-script.ts` | THE FILAMENT's seven filaments: where each hangs, and the line it makes |
+| `packages/content/src/filament-look.ts` | **THE FILAMENT as the inside of an alien** — the owner, 25 September 2026 |
 
 ### packages/render
 
@@ -1218,9 +1220,12 @@ by hand never moves.
 | `packages/render/src/filament-draw.ts` | **THE FILAMENT**: a body over the top of the field made of loose filaments the way a nerve is a bundle |
 | `packages/render/src/filament-fx.ts` | What THE FILAMENT leaves behind a frame: the **whip** of a filament snapping back to its free end |
 | `packages/render/src/filament-grip.ts` | **A thumb on THE FILAMENT's line**: the pilot's on the head, the navigator's on the tail |
-| `packages/render/src/filament-shape.ts` | **Where THE FILAMENT is**, in field pixels: the body hung over the top of the field above row 0 — a bundle |
+| `packages/render/src/filament-shape.ts` | **Where THE FILAMENT is**, in field pixels: every tile of the armed filament at its tile's centre |
 | `packages/render/src/filament-turn-draw.ts` | **Whose move THE FILAMENT is, drawn** — the owner, 25 September 2026 |
 | `packages/render/src/filament-turn-marks.ts` | **The small marks round THE FILAMENT's thumbs**: the arrows that march the way a thumb goes next |
+| `packages/render/src/filament-tools.ts` | **The two tools the thumbs carry up the vein** — the owner, 25 September 2026: *player 1 … with some weapon |
+| `packages/render/src/filament-heart.ts` | **Where THE FILAMENT's heart is**, in field pixels — the owner, 25 September 2026 |
+| `packages/render/src/filament-vein.ts` | **The lit run as a vein** — the owner, 25 September 2026: *the vene to travel with some weapon* |
 | `packages/render/src/fire-vein.ts` | **A shot, running from the thumb to the cannon**: the button's flash, a pulse up its cord in the shot's colour, the release at the top of the cannon |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the state — which page, which seat, whether it has finished — beside the slide and the page it draws |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |

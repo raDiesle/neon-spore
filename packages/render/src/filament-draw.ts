@@ -4,24 +4,29 @@ import {
   filamentsLeft,
   filamentTiles,
   filamentTracing,
-  type SimConfig,
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import type { FilamentFx } from "./filament-fx.js";
 import {
+  filamentHeart,
+  filamentHeartPath,
+  filamentHeartVessel,
+  type Heart,
+} from "./filament-heart.js";
+import {
   filamentArmPhase,
-  filamentBodyPath,
   filamentFade,
   filamentGrabCircle,
   filamentLeadPath,
   filamentPullPhase,
   filamentPullRise,
   filamentRunPath,
-  filamentStrandInBody,
   filamentStrands,
 } from "./filament-shape.js";
+import { drawFilamentTool } from "./filament-tools.js";
 import { drawFilamentClock, drawFilamentOwn, drawFilamentTheirs } from "./filament-turn-draw.js";
+import { drawFilamentVein } from "./filament-vein.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { drawInstarWord } from "./instar-word.js";
@@ -31,19 +36,19 @@ import { splinePath } from "./spline.js";
 import { showsFilamentAhead, showsFilamentBehind } from "./view-role-clocks-b.js";
 
 /**
- * **THE FILAMENT**: a body over the top of the field made of loose
- * filaments the way a nerve is a bundle, one of them hanging down the field
- * as a line of tiles at a time — lit from its free end as far as the pilot's
- * thumb has drawn it, dark past that — with a ring on the head for his thumb
- * and one on the tail for hers (§11.33).
+ * **THE FILAMENT**: the inside of an alien — its heart over the top of the
+ * field (`filament-heart.ts`), and one of its veins at a time hanging down the
+ * field as a line of tiles, lit from its free end as far as player 1's thumb
+ * has drawn it, dark past that, with a ring on the head for his thumb and his
+ * rasp, and one on the tail for hers and her corona (§11.33).
  *
  * Read off the world every frame and drawn in the order the eye reads it:
- * the body and the strands still in it, the lead from the root, the unlit
- * path, the lit run, the two rings and their words. Its health is the
- * bundle: a filament traced end to end slides up out of the field and the
- * body is a strand narrower; after the seventh it fades over
- * `filamentOutBeats`. What outlives a frame — the whip of a snap, the dark
- * of a gap, the jolt of a pull — is `effects.boss.filament`
+ * the heart and a vessel on it for each vein still to go, the lead from the
+ * root, the unlit path, the lit vein, the two tools, the two rings and their
+ * words. Its health is the heart: a filament traced end to end slides up out
+ * of the field and the heart is a vessel fewer and smaller; after the seventh
+ * it fades over `filamentOutBeats`. What outlives a frame — the whip of a
+ * snap, the dark of a gap, the jolt of a pull — is `effects.boss.filament`
  * (`filament-fx.ts`).
  *
  * **Each seat sees both thumbs; only the pilot sees the way ahead.** The
@@ -72,8 +77,10 @@ export function drawFilament(
   if (fade <= 0) return;
   fx.place(l, s);
   ctx.save();
+  const strands = filamentStrands(s, cfg, beat, beatPhase);
+  const heart = filamentHeart(l, cfg, strands, beatPhase);
   ctx.translate(fx.hurt.shakeX(time, l.tile), -fx.jolt * l.tile);
-  drawBody(ctx, l, cfg, filamentStrands(s, cfg, beat, beatPhase), time, fade, fx.hurt.value);
+  drawHeart(ctx, heart, strands, time, fade, fx.hurt.value);
   ctx.restore();
   if (filamentTiles(s) === null) return;
   const ahead = showsFilamentAhead(l.role);
@@ -83,10 +90,12 @@ export function drawFilament(
   ctx.translate(fx.whip * l.tile * 0.25, 0);
   if (s.phase === "pull") drawPulled(ctx, l, s, pull);
   else {
-    if (ahead) drawAhead(ctx, l, cfg, s, fx.dark);
+    if (ahead) drawAhead(ctx, l, s, heart, fx.dark);
     if (s.phase === "arm") drawArmed(ctx, l, s, filamentArmPhase(s, cfg, beat, beatPhase), time);
     else if (filamentTracing(s)) {
-      drawTrace(ctx, l, s, fx.dark);
+      drawFilamentVein(ctx, l, s, fx.dark, time);
+      drawFilamentTool(ctx, l, s, 2, behind, time);
+      drawFilamentTool(ctx, l, s, 1, ahead, time);
       if (ahead) drawFilamentOwn(ctx, l, cfg, s, 1, beat, time);
       else drawFilamentTheirs(ctx, l, cfg, s, 1, time);
       if (behind) drawFilamentOwn(ctx, l, cfg, s, 2, beat, time);
@@ -102,39 +111,38 @@ function faded(hex: string, fade: number, alpha = 1): string {
   return fade >= 1 && alpha >= 1 ? hex : rgba(hex, alpha * fade);
 }
 
-/** The body: a dark bundle rimmed in the sheen, a strand in it a filament still to be drawn. */
-function drawBody(
+/** The heart: dark, rimmed in the sheen's warm end, a vessel on its face for each filament still to be traced. */
+function drawHeart(
   ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
+  h: Heart,
   strands: number,
   time: number,
   fade: number,
   hurt: number,
 ): void {
-  const p = filamentBodyPath(l, cfg, strands, time);
+  const p = filamentHeartPath(h, time);
   ctx.save();
   ctx.fillStyle = faded(PALETTE.background, fade);
   ctx.fill(p);
   ctx.fillStyle = faded(PALETTE.sheenDeep, fade, 0.9);
   ctx.fill(p);
   ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.sheenRim, fade), STROKE.inner, 0.45 * fade);
+  strokeGlow(ctx, p, faded(PALETTE.sheenWarm, fade), STROKE.inner, 0.6 * fade);
   drawHurt(ctx, p, hurt * fade);
   const n = Math.ceil(strands);
   for (let i = 0; i < n; i++) {
     const last = i === n - 1 ? strands - (n - 1) : 1;
-    const strand = splinePath(filamentStrandInBody(l, cfg, strands, i, time), false);
-    strokeGlow(ctx, strand, faded(PALETTE.wisp, fade), STROKE.inner, 0.5 * last * fade);
+    const vessel = splinePath(filamentHeartVessel(h, i, n, time), false);
+    strokeGlow(ctx, vessel, faded(PALETTE.wisp, fade), STROKE.inner, 0.5 * last * fade);
   }
 }
 
-/** The pilot's half: the whole filament faint from end to root, and the lead from the root up into the body. */
+/** Player 1's half: the whole vein faint from end to root, and the lead from the root into the heart. */
 function drawAhead(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
   s: FilamentState,
+  heart: Heart,
   dark: number,
 ): void {
   const tiles = filamentTiles(s);
@@ -147,7 +155,7 @@ function drawAhead(
   ctx.setLineDash([l.tile * 0.12, l.tile * 0.14]);
   ctx.globalAlpha = 0.5 * (1 - 0.6 * dark);
   if (path !== null) ctx.stroke(path);
-  const lead = filamentLeadPath(l, cfg, s);
+  const lead = filamentLeadPath(l, s, heart);
   ctx.setLineDash([]);
   ctx.globalAlpha = 0.3;
   if (lead !== null) ctx.stroke(lead);
@@ -170,12 +178,6 @@ function drawArmed(
   // The next filament is a new round, and says so on the end it starts from.
   const side = c.x < l.gridLeft + (l.cols * l.tile) / 2 ? -1 : 1;
   drawInstarWord(ctx, l, s.cursor > 0 ? "NEXT" : "READY", c.x + side * c.r * 1.6, c.y, side, true);
-}
-
-/** The trace: the lit run from the free end to the head, on every screen — dimmed while the line is dark. */
-function drawTrace(ctx: CanvasRenderingContext2D, l: Layout, s: FilamentState, dark: number): void {
-  const lit = filamentRunPath(l, s, 0, s.head);
-  if (lit !== null) strokeGlow(ctx, lit, PALETTE.wispRim, STROKE.outline, 1 - 0.7 * dark);
 }
 
 /**

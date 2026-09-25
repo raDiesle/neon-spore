@@ -7515,14 +7515,26 @@ is (`decisions.md` #33): a filament coming out of the body is the beat the
 pair earned.
 
 **The look** (`render/filament-draw.ts`, `filament-shape.ts`, `filament-fx.ts`,
-`filament-grip.ts`): a bundle hung over the top of the field — a domed body
-with breathing flanks and one sag in its underside per filament still in it
-(`filamentBodyPath`), a `wisp` strand drawn inside for each, the last one at
-the fraction of a pull it has left, so the body reads a strand narrower every
-pull and the count is the silhouette. The armed filament hangs from the
-body's underside down the field as a spline through its tiles' centres
-(`filamentRunPath`, `filamentLeadPath`), the free end pulsing in `wispRim` on
-every screen while it is armed, with *READY* beside it, or *NEXT* from the
+`filament-grip.ts`, `filament-heart.ts`, `filament-vein.ts`,
+`filament-tools.ts`, `content/filament-look.ts`) was the owner's on 25
+September 2026 — *its the inner of its body and the vene to travel with some
+weapon … the other player needs some other tool … the hearth inside*. **The
+body is the alien's heart**, hung over the top of the field with its point in
+rows 0 to 3, where no filament reaches: THE WEIGHT's sac at a lighter sag,
+turned over, with the slumped draft's crown dent centred as the notch between
+the lobes (`heartPoints`). It beats on the beat, a lub and a softer dub, and
+wears a `wisp` vessel on its face for each filament still in it, the last at
+the fraction of a pull it has left, so it is a vessel fewer and smaller every
+pull and the count is the silhouette. **Each filament is a vein** into its
+point: a spline through its tiles' centres (`filamentRunPath`), and on the
+pilot's screen a lead from its root into the heart's point
+(`filamentLeadPath`). The lit run is drawn as a tube — a dark wall, a magenta
+lumen, the `wispRim` rim, and a pulse running along it toward the heart
+(`drawFilamentVein`). **Each thumb carries a tool**, larger than its ring so
+the teeth stand out round it: player 1 the rasp (THE RASP, steel, turning as it
+bores), player 2 the corona (THE CORONA, gold, turning slower), this screen's
+own bright and the partner's at half (`drawFilamentTool`). The free end pulses
+in `wispRim` on every screen while it is armed, with *READY* beside it, or *NEXT* from the
 second filament on. **What each screen draws** (`view-role-clocks-b.ts`,
 `filament-turn-draw.ts`, `filament-turn-marks.ts`) was the owner's on 25
 September 2026 — *not clear when following is correct or not*: every screen
@@ -7541,7 +7553,7 @@ and a *P1* or *P2* box (`drawInstarWait`), and **the line's clock** is an arc
 round every ring it waits on, emptying to the strike in the fuse's colours:
 white, orange from half, red for the last two beats. **The pull**: the whole run lit green and sliding up into the body as it fades
 (`filamentPullRise`), the body a strand narrower under it, shaking and red
-(`BossHurt`), and *PULLED* over the field with how many filaments are left. **Down**: the body
+(`BossHurt`), and *PULLED* over the field with how many filaments are left. **Down**: the heart
 fades out over `filamentOutBeats`. What outlives a frame is
 `effects.boss.filament` (`filament-fx.ts`): the whip of a snap or a recoil
 throws the line a quarter tile sideways and back, the dark of a gap dims the
@@ -7556,7 +7568,10 @@ ring is green when its move is open and red when it is too soon or at the
 window, the held ring is greener, the clock reddens as it runs out, the
 waiting clock is on the partner the line waits on, the pull is green and has
 no ring and a narrower body, the down fades
-and the out has no body, and the transients reset.
+and the out has no body, and the transients reset; and by
+`filament-heart-frame.test.ts`, four: the heart is rimmed in the warm sheen,
+the vein has a wall the arm has not, each screen's own tool is bright and the
+partner's at half, and no tool is carried before the thumbs count.
 
 **What is not built** is the film: the eleven events are drawn by the picture
 and no longer silent by omission, but the guide is still prose

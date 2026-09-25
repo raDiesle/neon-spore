@@ -1,6 +1,7 @@
 import type { FilamentState, SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
-import { filamentBodyPoint, filamentPoint, type Point } from "./filament-shape.js";
+import { filamentBodyPoint } from "./filament-heart.js";
+import { filamentPoint, type Point } from "./filament-shape.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 

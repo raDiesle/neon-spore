@@ -40,12 +40,20 @@ export {
   PULSE_STEPS,
 } from "./crawler-shape.js";
 export {
+  FILAMENT_CORONA,
+  FILAMENT_RASP,
+  HEART_POINT,
+  HEART_TOP,
+  heartPoints,
+} from "./filament-look.js";
+export {
   GHOST,
   type GhostSilhouette,
   ghostOutline,
   ghostPath,
   ghostPoints,
 } from "./ghost-shape.js";
+export { type HaloedOpts, haloedContour, haloedHole } from "./haloed.js";
 export {
   type Bump,
   bumpAdd,

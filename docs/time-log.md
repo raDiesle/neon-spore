@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE FILAMENT is a heart, its filaments veins, and each thumb carries a tool
+
+- reading: 5 min. Who stood on the old body helpers, and which shape-sheet
+  cards were free for a heart, a burr and a ring.
+- writing: 10 min. `filament-look.ts` in content, the heart, the vein and the
+  tools in render, the shared test states, the cards marked taken.
+- looking: 5 min. A sheet of six heart contours to pick from, then two frames.
+- friction: 0 min.
+- landing: 5 min. The spec's look paragraph, INDEX, `check:fast`.
+
+Bottleneck: the heart's contour, which read as a cup until the taper started
+above the centre instead of at it.
+
 ## 2026-09-25 — THE REPRISE's fuse along the top of the screen
 
 - reading: 5 min. THE SLOW's fuse, the REPRISE arm of `boss-draw.ts`, what
