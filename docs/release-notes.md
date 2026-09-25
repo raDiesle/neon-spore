@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 0a55520c — THE MAZE's way in snaps from further off, and holds until pulled firmly
+
+A way in now catches on the column under the drum from about five and a half degrees away, where it used to need two, and the click pulls it exactly onto the column wherever it caught. Coming off a click takes a fifth of a tile of hand travel instead of a twelfth, so the snap is felt rather than lost to a thumb's jitter. The wheel's four feel settings moved into `config-maze-turn.ts`.
+
 ## 2026-09-25 · db0bf200 — THE SPLICE's clock is an eater that swallows the next number
 
 When a round's beats run out, a creature takes the number wanted next and comes down on the ship with it. The hull breaks when it lands, three beats later, in the column the cannon stood in when it bit. The maw is shut from the bite on. A suck now takes three beats: the number shakes loose for one, then races down for two. Each round is one beat longer per straw to pay for that: 18, 27 and 36. Neither a wrong feed nor the eater hits the hull as a rock any more; both land as slime.
