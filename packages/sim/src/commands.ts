@@ -197,6 +197,7 @@ function firePress(world: World, color: Color): void {
   // The ids this press is about to hand out, so a shot the drum swallows
   // can be told from one that was already in the air up the same column.
   const before = world.nextId;
+  const laid = world.charge;
   fire(world, color);
   mirrorHeard(world, fireStep(color), "panel");
   // And THE MAZE hears it too. When a gap is standing on the cannon's
@@ -205,7 +206,10 @@ function firePress(world: World, color: Color): void {
   // the gap and round the corridors — is the maze's own picture of it
   // (`maze-controls.ts`). Everything else about the press already
   // happened, so the cooldown and the lobe are spent either way.
+  // On a shot grid the press made no bullet yet, only a charge: that is
+  // marked instead, and dropped when it goes out (`releaseShot`).
   if (mazeHeard(world, color)) {
     world.bullets = world.bullets.filter((b) => b.id < before);
+    if (world.charge !== null && world.charge !== laid) world.charge.swallowed = true;
   }
 }

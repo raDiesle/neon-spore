@@ -136,7 +136,7 @@ export const scar = (): Required<Scar> => ({
   plate: true,
 });
 
-export const charge = (): Required<ShotCharge> => ({ left: 5, color: "red" });
+export const charge = (): Required<ShotCharge> => ({ left: 5, color: "red", swallowed: true });
 
 export const prime = (): Required<Prime> => ({ tick: 19, color: "cyan", spent: false });
 

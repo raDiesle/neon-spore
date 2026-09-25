@@ -113,7 +113,9 @@ export function hashWorld(world: World): number {
   // pushed only when there is one.
   const shot = world.charge;
   push(shot === null ? -1 : shot.left);
-  if (shot !== null) push(shot.color === "red" ? 1 : 2);
+  // A shot THE MAZE swallowed on the press is 3 or 4, so every charge that
+  // was not keeps the value it always hashed to.
+  if (shot !== null) push((shot.color === "red" ? 1 : 2) + (shot.swallowed ? 2 : 0));
   // The beam standing in a column after THE LANCE has burnt it. Nothing about
   // it is decided after the tick it is lit, but two devices that disagree
   // about where it is or how long it has left are two devices drawing

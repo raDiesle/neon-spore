@@ -31,7 +31,10 @@ End each entry with the one bottleneck, in a sentence.
 - looking: 10 min. The browser pane first, then two strips from `frames`.
 - friction: 5 min. The pane's keys did not reach the page and an overlay of
   captured frames was not what its screenshot showed; `frames --press` was.
-- landing: 5 min. `check:fast`, `bun run index`, the commit, `land`.
+- landing: 15 min. `check:fast`, `bun run index`, the commit, then a `land`
+  that stopped on THE MAZE's film: on the game's shot grid the drum took the
+  shot and a second bolt still flew out of the top, and fixing it was a
+  second commit.
 
 The bottleneck was **looking**: a bolt in flight is under a second on screen,
 and only `frames --press` held it still at a known tick.

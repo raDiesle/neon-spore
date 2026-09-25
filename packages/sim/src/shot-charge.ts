@@ -66,6 +66,14 @@ export interface ShotCharge {
   /** Ticks left before it goes. Zero means this tick. */
   left: number;
   color: Color;
+  /**
+   * THE MAZE took this shot on the press (`mazeHeard`): the drum walks it,
+   * so when the charge goes out the muzzle flashes and no bullet is left on
+   * the field. Without it a laid shot came out as a second, ordinary bolt up
+   * the column and off the top — two shots for one trigger, on the half-beat
+   * grid the game plays on and never on the test's.
+   */
+  swallowed?: boolean;
 }
 
 /**

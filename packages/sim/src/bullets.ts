@@ -105,7 +105,9 @@ export function releaseShot(world: World): void {
   const shot = world.charge;
   if (!chargeDue(world) || shot === null) return;
   endCharge(world);
+  const before = world.nextId;
   launch(world, shot.color);
+  if (shot.swallowed) world.bullets = world.bullets.filter((b) => b.id < before);
 }
 
 export function advanceBullets(world: World): void {
