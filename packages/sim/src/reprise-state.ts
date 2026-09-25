@@ -119,7 +119,9 @@ export function repriseLeft(world: World): number {
  * Echoing, it runs from nought on the beat the first body is sent to
  * `beats - 1` on the beat the last one is, which is the beat the field is
  * the pair's own again. `count` is the bodies recorded so far, or still owed.
- * Whole beats: render adds the drawn beat's phase.
+ * Whole beats: render adds the drawn beat's phase. `null` once the whole
+ * script has been sent again, when the mechanism is only waiting for the
+ * field to empty and there is no dark left to count down to.
  */
 export interface RepriseClock {
   echo: boolean;
@@ -132,6 +134,7 @@ export function repriseClock(world: World): RepriseClock | null {
   const boss = world.boss;
   if (boss === null || boss.kind !== "reprise") return null;
   if (boss.at < 0) {
+    if (boss.from >= world.queue.length) return null;
     const done = world.waveBeat - boss.held - boss.since;
     return { echo: false, beats: boss.every, done, count: world.spawned - boss.from };
   }

@@ -76,7 +76,7 @@ export const FUSE_MIN_BEATS = 5;
 
 /** The fuse's colours for how much of the window is left: the ship's violet,
  * then the ember's orange, then red. */
-function colours(win: SlowWindow): { body: string; core: string } {
+export function fuseColours(win: SlowWindow): { body: string; core: string } {
   if (win.left <= URGENT) return { body: PALETTE.red, core: PALETTE.redRim };
   if (win.left <= win.beats * WARN) return { body: PALETTE.ember, core: PALETTE.emberRim };
   return { body: PALETTE.hull, core: PALETTE.hullRim };
@@ -87,12 +87,27 @@ export function drawFuse(ctx: CanvasRenderingContext2D, l: Layout, win: SlowWind
   if (win.beats < FUSE_MIN_BEATS) return;
   const rest = win.left / win.beats;
   if (rest <= 0) return;
+  const { body, core } = fuseColours(win);
+  drawFuseLine(ctx, l, rest, body, core);
+}
 
+/**
+ * **The line itself**, `rest` of its whole length centred on the screen, with
+ * a spark at each end. Shared with THE REPRISE's measure (`reprise-fuse.ts`),
+ * so the two fuses in the game are one drawing and only what they count
+ * differs.
+ */
+export function drawFuseLine(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  rest: number,
+  body: string,
+  core: string,
+): void {
   const mid = l.width / 2;
   const half = (mid - l.tile * SIDE) * rest;
   const y = FUSE_TOP_PX;
   const thick = l.tile * THICK;
-  const { body, core } = colours(win);
   const line = (width: number, colour: string): void => {
     ctx.lineWidth = width;
     ctx.strokeStyle = colour;

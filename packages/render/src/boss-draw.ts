@@ -1,4 +1,5 @@
 import {
+  repriseClock,
   repriseEchoing,
   repriseLeft,
   wardenHatchMilli,
@@ -22,6 +23,7 @@ import { drawMirrorGrip, mirrorHandPlace } from "./mirror-grip.js";
 import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawReprise } from "./reprise-draw.js";
+import { drawRepriseFuse } from "./reprise-fuse.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawSplice } from "./splice-draw.js";
 import { drawTether } from "./tether.js";
@@ -135,6 +137,9 @@ export function drawBoss(
     echo.note(boss.at < 0 ? -1 : boss.left);
     const seen = repriseEchoing(world);
     drawReprise(ctx, l, world.cfg, seen, repriseLeft(world), echo.swallow, view.time);
+    // And how long until the dark, or how far through it (`reprise-fuse.ts`).
+    const clock = repriseClock(world);
+    if (clock) drawRepriseFuse(ctx, l, clock, view.beatPhase);
     return;
   }
   // The clock bosses next door: nine of them hang over the top of the field

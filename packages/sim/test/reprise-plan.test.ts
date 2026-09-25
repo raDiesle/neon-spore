@@ -120,4 +120,20 @@ describe("THE REPRISE's clock", () => {
     // starts then is recorded from nought.
     expect(seen[17]).toBe("R0/12:0");
   });
+
+  it("goes quiet once the whole script has been sent again", () => {
+    const world = createWorld(CFG, 5);
+    startWave(world, 3, [...at([0, 3])], [], { kind: "reprise", beat: 6 });
+    let waiting = 0;
+    for (let beat = 0; beat < 80 && world.boss !== null; beat++) {
+      for (let t = 0; t < TPB; t++) step(world, []);
+      const boss = world.boss;
+      if (boss?.kind !== "reprise" || boss.at >= 0 || boss.from < world.queue.length) continue;
+      // The last echo has closed and its bodies are still falling: the
+      // mechanism is installed, and there is no dark left to count down to.
+      waiting += 1;
+      expect(repriseClock(world)).toBeNull();
+    }
+    expect(waiting, "never saw the wait after the last echo").toBeGreaterThan(0);
+  });
 });

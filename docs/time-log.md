@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-25 — THE REPRISE's fuse along the top of the screen
+
+- reading: 5 min. THE SLOW's fuse, the REPRISE arm of `boss-draw.ts`, what
+  the clock reads after the last echo.
+- writing: 5 min. The shared line in `slow-fuse.ts`, `reprise-fuse.ts`, its
+  test, and the quiet clock once the script is spent.
+- looking: 5 min. Two frames, recorded and echoing, side by side.
+- friction: 0 min.
+- landing: 5 min. One INDEX row, the spec paragraph.
+
+Bottleneck: none worth the name; the slow's fuse was already the right shape to
+share.
+
 ## 2026-09-25 — THE REPRISE's map marks the row each echo falls after
 
 - reading: 5 min. `reprise.ts`'s clock, `onBeat`'s order, the director's

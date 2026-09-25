@@ -2577,6 +2577,20 @@ remembered and a column would hand the pilot the other half. The tear shuts to
 a seam while a stretch is running seen, so the silhouette alone says whether
 the field in front of the pair is one they can see.
 
+**And a fuse along the top of the screen, since 25 September 2026**
+(`render/src/reprise-fuse.ts`), the owner's: *some loading indicator … when
+the next invisible starts again, and also loading when it's the beats of
+invisible time*. It is THE SLOW's fuse, the same line in the same place, and
+it carries both of this fight's clocks. While a stretch is recorded it burns in
+from both ends and meets in the middle on the beat the field goes dark,
+orange at half and red for the last two beats. While the echo plays it fills
+back out from the middle in the tear's grey and is whole on the beat the last
+body is sent. It is read off `repriseClock` and says nothing the pair could
+not have counted: when the dark falls follows from `every`, and when it lifts
+follows from the stretch they watched. After the last echo it is gone, because
+there is no dark left to count down to. The director's map marks the row each
+echo falls after, from `reprisePlan`, which walks the same clock.
+
 The count is a shape and never a digit, which is the arrangement
 `beatbox-count.ts` already argues for: a row says *this many are still to come*
 at a glance, and a number has to be read. The one going out is drawn shortening
