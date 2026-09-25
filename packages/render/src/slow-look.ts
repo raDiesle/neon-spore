@@ -16,9 +16,9 @@ import { intakeWindow } from "./slow-intake.js";
  * (`docs/queue.md`).
  *
  * **What ships is `slow-intake.ts`**, taken out of the slot on 22 September
- * 2026: a notched bar above the hull that says how much window is left, and
- * soft streams of light running inward all the way round the boss and stopping
- * at its skin. It is still one field on a record and not a drawing in this
+ * 2026: soft streams of light running inward all the way round the boss and
+ * stopping at its skin, and since 25 September a fuse along the top of the
+ * screen that says how much window is left (`slow-fuse.ts`). It is still one field on a record and not a drawing in this
  * file, because that is the seam a later answer is argued at
  * (`tools/versus/README.md`, `tools/versus/DECIDED.md`).
  *

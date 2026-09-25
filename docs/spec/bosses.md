@@ -7314,9 +7314,10 @@ briefing*. Both are in the picture.
 - **Every window is THE SLOW** (`decisions.md` #33): the field runs at a
   third from the tick the marks come up until the tick the step is
   answered or missed, on both screens together — the asking slowed rather
-  than the reward, which is the owner's rule of 22 September 2026. No bar
-  counts it down: the one under the body was taken out on 24 September
-  2026, and the ring closing on each mark is the clock.
+  than the reward, which is the owner's rule of 22 September 2026. A fuse
+  along the top of the screen counts it down (`slow-fuse.ts`, 25 September
+  2026), where the bar under the body was taken out the day before; the
+  ring closing on each mark says the same where the thumb is.
 - **What outlives a frame** is `effects.boss.instar` (`instar-fx.ts`,
   `effects-boss.ts`): a jolt of the whole body on a landing and the fall,
   a flinch at a refused or slipped mark, a red lash from the striking part

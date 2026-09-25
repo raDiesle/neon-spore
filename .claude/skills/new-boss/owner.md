@@ -74,11 +74,14 @@ item naming the rule, never a fix made in passing.
   beat already won. The slow is *time to talk in*, and the only moment the
   pair need it is while they are working out whose mark is whose. A death or
   a fall, which asks for nothing, keeps its own plain window
-  (`decisions.md` #33, `sim/slow.ts`). **No bar measures the window** —
-  the owner took the one under the boss out on 24 September 2026 (*it was a
-  stupid idea*); the ring closing on each mark is the only clock. **The
-  slow's light runs from the top of the screen**, never from an edge the
-  player cannot see (the same day).
+  (`decisions.md` #33, `sim/slow.ts`). **No bar under the boss** — the
+  owner took it out on 24 September 2026 (*it was a stupid idea*) — but on
+  the 25th he asked for *some progress indicator* back, *remaining time left
+  to take damage when not succeeding*: a **fuse along the top of the screen**
+  burns in to the middle and goes red for the last two beats
+  (`render/slow-fuse.ts`), and the other answers stand in VERSUS against it
+  (`slow:measure`). **The slow's light runs from the top of the screen**,
+  never from an edge the player cannot see (24 September).
 - **No `CARRY` on the glass**, generic, 24 September 2026: *why we need the
   keyword of "Carry"? … "Pull up" its clear he has to take action.* A verb
   that is a motion — `PULL UP`, `SWIPE`, `MOVE` — draws alone; the kind line

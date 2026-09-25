@@ -620,3 +620,19 @@ disc over the lit door and hides the funnel's right lip (seen in
 Either draw the lit door's lips and floor after the knob, or keep the knob
 out of the door's arc. Prove it with a test that the door's draw comes
 later in the op list than the knob's disc.
+
+## THE SLOW does not say whether a window asks for something
+
+- **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
+- **Files:** `packages/sim/src/slow.ts`, `packages/sim/src/hash.ts`, `packages/render/src/slow-fuse.ts`, `packages/sim/src/instar-step.ts`
+
+The fuse that counts a window down (`slow-fuse.ts`) should only draw on a
+window that fails the pair when it runs out — a step, a pry, a grip — and
+never on a dramatic beat that asks for nothing (THE INSTAR's fall, a flash, a
+landing). `World` carries only `slowFromBeat` and `slowToBeat`, so the fuse
+guesses by length: `FUSE_MIN_BEATS = 5`, since the asking windows today run
+six beats and up and the others one to four. Give `openSlow` an `asks` flag,
+store it as a hashed `World` field (`hash.ts`), pass it at every `openSlow` call,
+and have the fuse read it instead of the length. Prove it with a sim test that
+THE INSTAR's step window asks and its fall does not, and a render test that
+the fuse draws on the first and not the second.

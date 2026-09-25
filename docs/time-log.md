@@ -20101,3 +20101,18 @@ The bottleneck was **writing**: five pictures, each with its own motion, had to
 be drawn off the beat alone without leaking the clock to the pilot.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SLOW counts its window down with a fuse along the top of the screen
+
+- reading: 15 min. The bar's removal and why, the slow look, the streams and
+  their aim, every `openSlow` caller's window length, and the top chrome.
+- writing: 10 min. The fuse and its test, and the four documents that said
+  no measure was drawn.
+- looking: 10 min. THE INSTAR's first window at its open, as a strip across
+  it, and in its last beat, with the top strip magnified.
+- friction: 5 min. The seat pill covers the middle of the fuse's glow, and
+  the test's colour match first assumed spaces in `rgba`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was **reading**: the world does not say whether a window asks
+for anything, and the answer had to come from every boss's window length.
