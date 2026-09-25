@@ -35,6 +35,21 @@ End each entry with the one bottleneck, in a sentence.
 Bottleneck: none worth the name; the slow's fuse was already the right shape to
 share.
 
+## 2026-09-25 — THE FILAMENT shows whose move it is, on both screens
+
+- reading: 5 min. `filament-draw.ts`, THE INSTAR's word boxes and waiting
+  clock, and the turn readings lane one had just put in `filament-turn.ts`.
+- writing: 15 min. The turn drawer and its marks, the green pull, the hurt,
+  five frame tests rewritten or new, and the spec and director rows.
+- looking: 5 min. One `bun run frames` of the trace.
+- friction: 5 min. The size hook stopped the turn drawer at 238 lines. The
+  marks were cut off into their own file.
+- landing: 5 min. The format pass, `check:fast`, and a time-log conflict
+  that `land` would not merge.
+
+Bottleneck: the frame tests pinned the old split word by word, so the owner's
+reversal of it meant rewriting half the file rather than adding to it.
+
 ## 2026-09-25 — THE REPRISE's map marks the row each echo falls after
 
 - reading: 5 min. `reprise.ts`'s clock, `onBeat`'s order, the director's

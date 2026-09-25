@@ -1,12 +1,13 @@
 import { circleSubpath } from "@neon-spore/content";
 import {
   type FilamentState,
+  filamentsLeft,
   filamentTiles,
   filamentTracing,
-  NO_GRAB,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import type { FilamentFx } from "./filament-fx.js";
 import {
   filamentArmPhase,
@@ -20,6 +21,7 @@ import {
   filamentStrandInBody,
   filamentStrands,
 } from "./filament-shape.js";
+import { drawFilamentClock, drawFilamentOwn, drawFilamentTheirs } from "./filament-turn-draw.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { drawInstarWord } from "./instar-word.js";
@@ -44,9 +46,16 @@ import { showsFilamentAhead, showsFilamentBehind } from "./view-role-clocks-b.js
  * of a gap, the jolt of a pull — is `effects.boss.filament`
  * (`filament-fx.ts`).
  *
- * **Each seat is shown one distance.** The pilot the path ahead and his own
- * thumb, the navigator the lit run behind and hers; the gap between the two
- * is on neither screen (`view-role-clocks-b.ts`).
+ * **Each seat sees both thumbs; only the pilot sees the way ahead.** The
+ * owner, 25 September 2026: *player 2 should more clearly see what player 1
+ * is doing right now*. So the lit run and both rings are on every screen —
+ * this screen's bright, green or red, the partner's dim with the waiting
+ * clock — and the unlit path is still the pilot's alone, so which way the
+ * line turns next is his to say (`view-role-clocks-b.ts`,
+ * `filament-turn-draw.ts`). A pull is the pair's win and says so: the line
+ * green as it slides out, the body shaken red (`boss-hurt.ts`), the word
+ * over the field and how many are left, and `NEXT` on the free end that
+ * arms after it.
  */
 export function drawFilament(
   ctx: CanvasRenderingContext2D,
@@ -63,8 +72,8 @@ export function drawFilament(
   if (fade <= 0) return;
   fx.place(l, s);
   ctx.save();
-  ctx.translate(0, -fx.jolt * l.tile);
-  drawBody(ctx, l, cfg, filamentStrands(s, cfg, beat, beatPhase), time, fade);
+  ctx.translate(fx.hurt.shakeX(time, l.tile), -fx.jolt * l.tile);
+  drawBody(ctx, l, cfg, filamentStrands(s, cfg, beat, beatPhase), time, fade, fx.hurt.value);
   ctx.restore();
   if (filamentTiles(s) === null) return;
   const ahead = showsFilamentAhead(l.role);
@@ -76,7 +85,14 @@ export function drawFilament(
   else {
     if (ahead) drawAhead(ctx, l, cfg, s, fx.dark);
     if (s.phase === "arm") drawArmed(ctx, l, s, filamentArmPhase(s, cfg, beat, beatPhase), time);
-    else if (filamentTracing(s)) drawTrace(ctx, l, s, ahead, behind, fx.dark, time);
+    else if (filamentTracing(s)) {
+      drawTrace(ctx, l, s, fx.dark);
+      if (ahead) drawFilamentOwn(ctx, l, cfg, s, 1, beat, time);
+      else drawFilamentTheirs(ctx, l, cfg, s, 1, time);
+      if (behind) drawFilamentOwn(ctx, l, cfg, s, 2, beat, time);
+      else drawFilamentTheirs(ctx, l, cfg, s, 2, time);
+      drawFilamentClock(ctx, l, cfg, s, [1, 2], beat, beatPhase);
+    }
   }
   ctx.restore();
 }
@@ -94,6 +110,7 @@ function drawBody(
   strands: number,
   time: number,
   fade: number,
+  hurt: number,
 ): void {
   const p = filamentBodyPath(l, cfg, strands, time);
   ctx.save();
@@ -103,6 +120,7 @@ function drawBody(
   ctx.fill(p);
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.sheenRim, fade), STROKE.inner, 0.45 * fade);
+  drawHurt(ctx, p, hurt * fade);
   const n = Math.ceil(strands);
   for (let i = 0; i < n; i++) {
     const last = i === n - 1 ? strands - (n - 1) : 1;
@@ -149,61 +167,23 @@ function drawArmed(
   const pulse = 0.6 + 0.4 * Math.sin(time * 9) * arm;
   const p = new Path2D(circleSubpath(c.x, c.y, c.r * (0.5 + 0.5 * arm)));
   strokeGlow(ctx, p, PALETTE.wispRim, STROKE.outline, pulse);
+  // The next filament is a new round, and says so on the end it starts from.
+  const side = c.x < l.gridLeft + (l.cols * l.tile) / 2 ? -1 : 1;
+  drawInstarWord(ctx, l, s.cursor > 0 ? "NEXT" : "READY", c.x + side * c.r * 1.6, c.y, side, true);
+}
+
+/** The trace: the lit run from the free end to the head, on every screen — dimmed while the line is dark. */
+function drawTrace(ctx: CanvasRenderingContext2D, l: Layout, s: FilamentState, dark: number): void {
+  const lit = filamentRunPath(l, s, 0, s.head);
+  if (lit !== null) strokeGlow(ctx, lit, PALETTE.wispRim, STROKE.outline, 1 - 0.7 * dark);
 }
 
 /**
- * The trace: the lit run from the free end, as far as this screen is shown
- * it — to the head for the pilot, to the tile past the tail for the
- * navigator — and the ring of the thumb this screen owns, with its word.
+ * The pull: the whole filament green, sliding up into the body and going as
+ * it does, and the win said over the field with how many are left — the
+ * owner's *very clear visible the success, and that a new level is going to
+ * start*.
  */
-function drawTrace(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  s: FilamentState,
-  ahead: boolean,
-  behind: boolean,
-  dark: number,
-  time: number,
-): void {
-  const litTo = ahead ? s.head : Math.min(s.tail + 1, s.head);
-  const lit = filamentRunPath(l, s, 0, litTo);
-  if (lit !== null) {
-    strokeGlow(ctx, lit, PALETTE.wispRim, STROKE.outline, 1 - 0.7 * dark);
-  }
-  // A ring is drawn only on the screen whose thumb it wants, so it is always
-  // that screen's own — bright, with its verb — unlike THE INSTAR's marks.
-  if (ahead) drawRing(ctx, l, s, 1, "DRAW", s.grab[0] !== NO_GRAB, time);
-  if (behind) drawRing(ctx, l, s, 2, "FOLLOW", s.grab[1] !== NO_GRAB, time);
-}
-
-/** A thumb's ring: red, breathing until the thumb lands, the word for its verb beside it — never a sentence (`docs/decisions.md` #34). */
-function drawRing(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  s: FilamentState,
-  seat: 1 | 2,
-  word: string,
-  held: boolean,
-  time: number,
-): void {
-  const c = filamentGrabCircle(l, s, seat);
-  if (c === null) return;
-  const breathe = held ? 1 : 1 + 0.08 * Math.sin(time * 4);
-  const p = new Path2D(circleSubpath(c.x, c.y, c.r * breathe));
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(p);
-  ctx.fillStyle = PALETTE.red;
-  ctx.globalAlpha = held ? 0.55 : 0.22;
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, held ? PALETTE.redRim : PALETTE.red, STROKE.inner, held ? 1.2 : 0.9);
-  // Beside the ring, on the side away from the field's middle.
-  const side = c.x < l.gridLeft + (l.cols * l.tile) / 2 ? -1 : 1;
-  drawInstarWord(ctx, l, word, c.x + side * c.r * 1.6, c.y, side, true);
-}
-
-/** The pull: the whole filament lit, sliding up into the body and going as it does. */
 function drawPulled(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -213,6 +193,21 @@ function drawPulled(
   const tiles = filamentTiles(s);
   if (tiles === null) return;
   const path = filamentRunPath(l, s, 0, tiles.length - 1, filamentPullRise(pull));
-  if (path === null) return;
-  strokeGlow(ctx, path, rgba(PALETTE.wispRim, 1 - pull), STROKE.outline, 1.2 * (1 - pull));
+  if (path !== null) {
+    strokeGlow(ctx, path, rgba(PALETTE.good, 1 - pull), STROKE.outline * 1.5, 1.5 * (1 - pull));
+  }
+  const left = filamentsLeft(s) - 1;
+  const x = l.gridLeft + (l.cols * l.tile) / 2;
+  const y = l.gridTop + l.gridHeight * 0.45;
+  ctx.save();
+  ctx.globalAlpha = Math.min(1, 2 * (1 - pull) + 0.2);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = PALETTE.good;
+  ctx.font = `700 ${Math.round(l.tile * 0.7)}px system-ui, sans-serif`;
+  ctx.fillText("PULLED", x, y);
+  ctx.fillStyle = PALETTE.goodRim;
+  ctx.font = `600 ${Math.round(l.tile * 0.35)}px system-ui, sans-serif`;
+  if (left > 0) ctx.fillText(`${left} LEFT`, x, y + l.tile * 0.7);
+  ctx.restore();
 }

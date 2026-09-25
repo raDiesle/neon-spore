@@ -16,14 +16,14 @@ export const FILAMENT_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE FILAMENT'S LINE",
     where:
-      "a red ring on the armed filament with its word beside it, while it is " +
-      "being traced: on the head — the last tile lit — on player 1's screen, " +
-      "with the whole path faint ahead of it; on the tail — the tile the " +
-      "navigator is on — on player 2's, with only the lit run behind it and " +
-      "one lit tile past it; both on the test screen",
+      "a ring on the armed filament with its word beside it, green when the " +
+      "move is open and red with WAIT when it is not: on the head on player " +
+      "1's screen, with the path faint ahead and arrows marching up it; on the " +
+      "tail on player 2's, with arrows up the lit run; the partner's ring dim " +
+      "on both, and both on the test screen",
     seat:
-      "player 1 draws, player 2 follows — one ring each, and neither screen " +
-      "shows the other's; the test screen is both",
+      "player 1 draws, player 2 follows — one ring each, and each screen " +
+      "shows the other's dim, with a clock when the line waits on it",
     gesture: "grab and drag",
     does:
       "DRAW: the pilot's thumb carried a tile along the filament lights it, " +
@@ -31,7 +31,7 @@ export const FILAMENT_CONTROLS: readonly FieldControlDef[] = [
       "to its free end. FOLLOW: the navigator's thumb carried onto the next " +
       "lit tile takes it, never the head's — her thumb reaching his is the " +
       "recoil — and never more than filamentGapTiles behind, or the filament " +
-      "goes dark and starts again. Her thumb arriving on the root with his " +
+      "goes dark. Every fault, and a line standing past its clock, strikes the hull. Her thumb arriving on the root with his " +
       "pulls the filament out of the body, in THE SLOW, and the body is a " +
       "strand narrower; the seventh is the last (sim/filament-hand.ts).",
     source: "touch.ts — filamentGrabUnder() under handleUnder()",

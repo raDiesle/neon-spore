@@ -182,6 +182,16 @@ item naming the rule, never a fix made in passing.
   some excitement* — slow, small in the background, flying at the screen —
   and for the body to leave and come back between steps, so a turn of
   perspective is something it flies into rather than a cut.
+- **A turn the pair takes in order shows whose it is, on both screens**,
+  25 September 2026, on THE FILAMENT: *not clear when following is correct or
+  not … glow red before … player 2 should more clearly see what player 1 is
+  doing … some timer when it is too late to follow.* So both thumbs are on
+  both screens, the own ring green when its move is open and red with *WAIT*
+  when not, arrows march the way the thumb goes, the window between them is
+  drawn, the partner the line waits on wears the waiting clock, and a line
+  standing still has a clock of its own that strikes the hull — any fault
+  loses the wave. A landed round is *PULLED* in green with how many are left
+  (`render/filament-turn-draw.ts`, `sim/filament-turn.ts`).
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

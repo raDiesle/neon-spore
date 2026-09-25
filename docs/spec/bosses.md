@@ -7502,29 +7502,40 @@ the fraction of a pull it has left, so the body reads a strand narrower every
 pull and the count is the silhouette. The armed filament hangs from the
 body's underside down the field as a spline through its tiles' centres
 (`filamentRunPath`, `filamentLeadPath`), the free end pulsing in `wispRim` on
-every screen while it is armed. **The split is what of the line each screen
-draws** (`view-role-clocks-b.ts`): the pilot's screen has the whole path
-ahead as a dashed `dim` line — dimmed further while the filament is dark —
-the lit run from the free end to his tile, and a red breathing ring on his
-tile with *DRAW* beside it, the ring going `redRim` while his thumb holds
-(`drawInstarWord`, `decisions.md` #34); the navigator's has no path ahead at
-all — the lit run from the free end to one tile past hers, so the tile she
-may take next is the last thing lit, and a ring on her tile with *FOLLOW*;
-the test seat draws both. The gap is on neither, which is the encounter.
-**The pull**: the whole run lit and sliding up into the body as it fades
-(`filamentPullRise`), the body a strand narrower under it. **Down**: the body
+every screen while it is armed, with *READY* beside it, or *NEXT* from the
+second filament on. **What each screen draws** (`view-role-clocks-b.ts`,
+`filament-turn-draw.ts`, `filament-turn-marks.ts`) was the owner's on 25
+September 2026 — *not clear when following is correct or not*: every screen
+has the lit run from the free end to the head and **both thumbs** — its own
+ring, and the partner's dimmer and smaller. Only the pilot's has the way
+ahead, as a dashed `dim` line. **A ring is green when its move is open and red
+when it must wait**, with *DRAW*, *FOLLOW* or *WAIT* beside it: the pilot waits
+while a second tile this beat would snap it or while he is at the window, the
+navigator while the next lit tile is his. A small ring marks the tile the
+thumb goes to next and **arrows march** the way it goes: ahead of the head on
+the pilot's screen, up the lit run on the navigator's. **The window** is
+`filamentGapTiles` pips under the own ring, one lit per tile between the
+thumbs and red when full, and a red bar across the pilot's path on the last
+tile he may light. **The partner the line waits on** wears the waiting clock
+and a *P1* or *P2* box (`drawInstarWait`), and **the line's clock** is an arc
+round every ring it waits on, emptying to the strike in the fuse's colours:
+white, orange from half, red for the last two beats. **The pull**: the whole run lit green and sliding up into the body as it fades
+(`filamentPullRise`), the body a strand narrower under it, shaking and red
+(`BossHurt`), and *PULLED* over the field with how many filaments are left. **Down**: the body
 fades out over `filamentOutBeats`. What outlives a frame is
 `effects.boss.filament` (`filament-fx.ts`): the whip of a snap or a recoil
 throws the line a quarter tile sideways and back, the dark of a gap dims the
-path ahead, a pull and the down jolt the body up. The grab is a circle on the
+path ahead, a pull and the down jolt the body up and hurt it. The grab is a circle on the
 head for player 1 and on the tail for player 2 (`filamentGrabCircle`,
 `filamentGrabUnder` in `render/handles.ts`); the director's sheet has the row
 (`field-controls-filament.ts`, `docs/spec/controls.md`). Proved by
-`render/test/filament-frame.test.ts`, fifteen: the arm pulses without a
+`render/test/filament-frame.test.ts`, nineteen: the arm pulses without a
 ring, the words are on both seats and twice on the test seat, the dashed
-path is the pilot's alone, the rings are the test seat's both, the pilot's
-frame does not move with her tail and hers does not move with his head, the
-held ring is redder, the pull has no ring and a narrower body, the down fades
+path is the pilot's alone and each screen moves with the partner's thumb, a
+ring is green when its move is open and red when it is too soon or at the
+window, the held ring is greener, the clock reddens as it runs out, the
+waiting clock is on the partner the line waits on, the pull is green and has
+no ring and a narrower body, the down fades
 and the out has no body, and the transients reset.
 
 **What is not built** is the film: the eleven events are drawn by the picture

@@ -1218,6 +1218,8 @@ by hand never moves.
 | `packages/render/src/filament-fx.ts` | What THE FILAMENT leaves behind a frame: the **whip** of a filament snapping back to its free end |
 | `packages/render/src/filament-grip.ts` | **A thumb on THE FILAMENT's line**: the pilot's on the head, the navigator's on the tail |
 | `packages/render/src/filament-shape.ts` | **Where THE FILAMENT is**, in field pixels: the body hung over the top of the field above row 0 — a bundle |
+| `packages/render/src/filament-turn-draw.ts` | **Whose move THE FILAMENT is, drawn** — the owner, 25 September 2026 |
+| `packages/render/src/filament-turn-marks.ts` | **The small marks round THE FILAMENT's thumbs**: the arrows that march the way a thumb goes next |
 | `packages/render/src/fire-vein.ts` | **A shot, running from the thumb to the cannon**: the button's flash, a pulse up its cord in the shot's colour, the release at the top of the cannon |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the state — which page, which seat, whether it has finished — beside the slide and the page it draws |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |

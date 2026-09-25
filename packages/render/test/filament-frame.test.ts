@@ -35,10 +35,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * arrangement: `sim/test/filament.test.ts` proves the drawing, the
  * following and the pull, and what this file asks is whether every branch
  * of the picture is one a canvas accepts — armed, traced, pulled, down, out
- * — and the two things nothing else could catch: that the split is **one
- * line, one distance each** — the pilot's screen the same whatever the
- * tail does, the navigator's the same whatever the head does — and that the
- * whip is a transient the next run does not inherit.
+ * — and what nothing else could catch: that each screen shows **both
+ * thumbs** and only the pilot's the way ahead, that a ring is green when its
+ * move is open and red when it must wait, that the line's clock reddens as it
+ * runs out, and that the whip and the hurt are transients the next run does
+ * not inherit.
  */
 
 beforeAll(() => {
@@ -84,6 +85,7 @@ function tracing(world: World, head: number, tail: number, cursor = 0): Filament
   s.head = head;
   s.tail = tail;
   s.headBeat = world.beat - 1;
+  s.stillBeat = world.beat;
   s.grab = [head, tail];
   return s;
 }
@@ -142,54 +144,67 @@ describe("THE FILAMENT's body", () => {
     expect(count(arm.text, PALETTE.red)).toBe(0);
   });
 
-  it("shows the path ahead to the pilot alone and the ring behind to the navigator alone", () => {
-    // The stub logs where a word was set down, not the word: one ring's word
-    // a frame on each seat's screen over the armed frames' text, two on the test screen.
-    const words = (role: ViewRole) =>
-      count(frame(role, (w) => tracing(w, 3, 1)).text, "fillText(") -
-      count(frame(role, (w) => armed(w, 0)).text, "fillText(");
-    expect(words("p1")).toBeGreaterThan(0);
-    expect(words("p2")).toBe(words("p1"));
-    expect(words("test")).toBe(words("p1") * 2);
+  it("shows the way ahead to the pilot alone, and both thumbs on every screen", () => {
     const p1 = frame("p1", (w) => tracing(w, 3, 1));
     const p2 = frame("p2", (w) => tracing(w, 3, 1));
-    const test = frame("test", (w) => tracing(w, 3, 1));
     // The unlit path is dashed in the dim, and only where the pilot looks.
     expect(count(p1.text, PALETTE.dim)).toBeGreaterThan(count(p2.text, PALETTE.dim));
-    expect(count(test.text, PALETTE.red)).toBeGreaterThan(count(p1.text, PALETTE.red));
-    expect(count(test.text, PALETTE.red)).toBeGreaterThan(count(p2.text, PALETTE.red));
-  });
-
-  it("draws the pilot's screen the same whatever the tail does, and the navigator's whatever the head does", () => {
-    // He has the distance ahead and nothing of her: the tail moving changes
-    // nothing on his screen. She has the distance behind and nothing of him:
-    // the head moving on changes nothing on hers, past the one tile she may take.
-    expect(frame("p1", (w) => tracing(w, 4, 1)).text).toBe(
+    // The owner, 25 September 2026: each screen follows the partner's thumb too.
+    expect(frame("p1", (w) => tracing(w, 4, 1)).text).not.toBe(
       frame("p1", (w) => tracing(w, 4, 3)).text,
     );
-    expect(frame("p2", (w) => tracing(w, 3, 1)).text).toBe(
+    expect(frame("p2", (w) => tracing(w, 3, 1)).text).not.toBe(
       frame("p2", (w) => tracing(w, 4, 1)).text,
     );
-    // And each screen does change with its own thumb.
-    expect(frame("p1", (w) => tracing(w, 2, 1)).text).not.toBe(
-      frame("p1", (w) => tracing(w, 4, 1)).text,
-    );
-    expect(frame("p2", (w) => tracing(w, 4, 1)).text).not.toBe(
-      frame("p2", (w) => tracing(w, 4, 3)).text,
-    );
-    // The test screen holds both, so it changes with either.
-    expect(frame("test", (w) => tracing(w, 4, 1)).text).not.toBe(
-      frame("test", (w) => tracing(w, 4, 3)).text,
-    );
+  });
+
+  it("draws this screen's ring green when its move is open and red when it must wait", () => {
+    const open = frame("p1", (w) => tracing(w, 2, 1));
+    // A tile already lit this beat: a second would snap it.
+    const soon = frame("p1", (w) => {
+      tracing(w, 2, 1).headBeat = w.beat;
+    });
+    // She is at the window: a tile more would put the line dark.
+    const full = frame("p1", (w) => tracing(w, CFG.filamentGapTiles, 0));
+    expect(count(open.text, PALETTE.good)).toBeGreaterThan(count(soon.text, PALETTE.good));
+    expect(count(soon.text, PALETTE.red)).toBeGreaterThan(count(open.text, PALETTE.red));
+    expect(count(full.text, PALETTE.red)).toBeGreaterThan(count(open.text, PALETTE.red));
+    // Her next lit tile is his: she waits.
+    const hers = frame("p2", (w) => tracing(w, 3, 1));
+    const his = frame("p2", (w) => tracing(w, 3, 2));
+    expect(count(his.text, PALETTE.red)).toBeGreaterThan(count(hers.text, PALETTE.red));
   });
 
   it.each(ROLES)("lights the ring under a thumb that has taken hold, on %s", (role) => {
+    // A gap of two: both moves are open, so both rings are green.
     const held = frame(role, (w) => tracing(w, 3, 1));
     const bare = frame(role, (w) => {
       tracing(w, 3, 1).grab = [NO_GRAB, NO_GRAB];
     });
     expect(held.text).not.toBe(bare.text);
-    expect(count(held.text, PALETTE.redRim)).toBeGreaterThan(count(bare.text, PALETTE.redRim));
+    expect(count(held.text, PALETTE.goodRim)).toBeGreaterThan(count(bare.text, PALETTE.goodRim));
+  });
+
+  it.each(ROLES)(
+    "runs the line's clock round the ring it waits on, red at the end, on %s",
+    (role) => {
+      const fresh = frame(role, (w) => tracing(w, 1, 0));
+      const ending = frame(role, (w) => {
+        const s = tracing(w, 1, 0);
+        s.stillBeat = w.beat - CFG.filamentStallBeats + 1;
+      });
+      expect(count(ending.text, PALETTE.red)).toBeGreaterThan(count(fresh.text, PALETTE.red));
+    },
+  );
+
+  it("puts the waiting clock on the partner's ring when the line waits on the partner", () => {
+    // A gap of one is his move alone: her screen shows him waited on.
+    const face = rgba(PALETTE.text, 0.85);
+    expect(count(frame("p2", (w) => tracing(w, 1, 0)).text, face)).toBeGreaterThan(0);
+    // At the window it is hers alone: his screen shows her waited on, hers does not show him.
+    const full = (w: World) => tracing(w, CFG.filamentGapTiles, 0);
+    expect(count(frame("p1", full).text, face)).toBeGreaterThan(0);
+    expect(count(frame("p2", full).text, face)).toBe(0);
   });
 
   it.each(ROLES)("slides a pulled filament up and narrows the body, on %s", (role) => {
@@ -198,6 +213,8 @@ describe("THE FILAMENT's body", () => {
     expect(pull.text).not.toBe(trace.text);
     expect(count(pull.text, PALETTE.red)).toBe(0);
     expect(count(pull.text, BODY)).toBeGreaterThan(0);
+    // The win is green, and a traced line is not.
+    expect(count(pull.text, rgba(PALETTE.good, 1).slice(0, 12))).toBeGreaterThan(0);
     // Every filament in the body but the last: a strand fewer to draw.
     const late = frame(role, (w) => tracing(w, 2, 1, 6));
     expect(count(late.text, PALETTE.wisp)).toBeLessThan(count(trace.text, PALETTE.wisp));
@@ -231,6 +248,7 @@ describe("THE FILAMENT's body", () => {
     expect(fx.boss.filament.whip).not.toBe(0);
     expect(fx.boss.filament.dark).toBeGreaterThan(0);
     expect(fx.boss.filament.jolt).toBeGreaterThan(0);
+    expect(fx.boss.filament.hurt.value).toBeGreaterThan(0);
     expect(fx).not.toEqual(new Effects());
     fx.reset();
     expect(fx).toEqual(new Effects());

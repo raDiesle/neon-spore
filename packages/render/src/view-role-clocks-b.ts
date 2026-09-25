@@ -115,18 +115,15 @@ export const showsStareLid = (role: ViewRole, watching: 1 | 2): boolean =>
   showsStareTarget(role, watching);
 
 /**
- * THE FILAMENT's two, and the split is the eyes, each way, on **one line**:
- * the pilot is shown **the distance ahead** — the whole armed filament,
- * faint, from its free end up to the root and the lead into the body, the
- * part he has drawn lit behind his thumb — and nothing of the navigator's
- * thumb: where she is on the lit part is hers to say. The navigator is
- * shown **the distance behind** — the lit tiles from the free end up to her
- * thumb and the one lit tile past it, the next she may take — and nothing of
- * the unlit path, the head, or the lead: how far ahead he is, and which way
- * the line turns next, are his to say. The gap between the two thumbs is
- * the number neither screen has whole, and it is the sentence this boss
- * exists to make them say (`sim/filament.ts`, `filament-draw.ts`,
- * `docs/spec/bosses.md` §11.33). `test` is both.
+ * THE FILAMENT's two. Since 25 September 2026 both thumbs and the lit run are
+ * on every screen — the owner: *player 2 should more clearly see what player
+ * 1 is doing right now* — so the split is what is left of it: **the way
+ * ahead**, the unlit path from the head to the root and the lead into the
+ * body, is the pilot's alone, and which way the line turns next is his to
+ * say. `Ahead` is also whose ring this screen draws as its own, bright with
+ * its verb; `Behind` the navigator's. The other ring is drawn dim, with the
+ * waiting clock when the line waits on it (`filament-draw.ts`,
+ * `filament-turn-draw.ts`, `docs/spec/bosses.md` §11.33). `test` is both.
  */
 export const showsFilamentAhead = (role: ViewRole): boolean => role !== "p2";
 export const showsFilamentBehind = (role: ViewRole): boolean => role !== "p1";

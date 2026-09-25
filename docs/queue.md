@@ -781,3 +781,18 @@ the same way. Ask each press against a copy that already has the tick's
 earlier sends in it (the page knows them; `ns.send` queues them), so the
 report names only a press the round actually dropped. Provable with a test on
 `wouldHear` with a queued grab and carry before the lift.
+
+## `land` cannot merge two time-log entries written at the top of the file
+
+- **Found:** 2026-09-25, claude/filament-picture-clarity
+- **Files:** `tools/land/ledger-merge.ts`, `tools/land/record-merge.ts`, `docs/time-log.md`
+
+`bun run land --keep` stopped with "conflicts in docs/time-log.md" when the
+trunk and the lane had each added an entry. `mergeLedger` merges with
+`"last"`, on the argument that entries are appended at the end. But the lanes
+of 25 September 2026 write theirs at the top, under the preamble, newest
+first. So both sides insert at the same place, and the resolver gives up.
+The conflict was resolved by hand, keeping both entries. Decide which end the
+ledger grows from. Then either merge at that end, or have the resolver accept
+an insertion at either end. Add a test in `tools/land/test` that uses two
+top-inserted entries. Provable with `bun run check`.

@@ -1,4 +1,5 @@
 import type { FilamentState, SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
 import { filamentBodyPoint, filamentPoint, type Point } from "./filament-shape.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -8,7 +9,9 @@ import { PALETTE } from "./palette.js";
  * snapping back to its free end — a lateral throw of the whole line, one
  * way for the snap and the other for the recoil — the **dark** a gap opened
  * too far leaves over the line, the **jolt** of the body as a filament is
- * pulled out of it, and the bursts its ten receipts throw.
+ * pulled out of it, the **hurt** of a pull — the owner's shake and red of 24
+ * September, on the body the pair just took a filament out of
+ * (`boss-hurt.ts`) — and the bursts its eleven receipts throw.
  *
  * Everything else — the lit tiles, the two thumbs, the gap — is read off the
  * boss every frame (`filament-draw.ts`). These are here for THE HIVE's
@@ -34,6 +37,8 @@ export class FilamentFx {
   private whipNow = 0;
   private darkNow = 0;
   private joltNow = 0;
+  /** A filament pulled out of the body: the body shakes and glows red. */
+  readonly hurt = new BossHurt();
   private head: Point | null = null;
   private end: Point | null = null;
 
@@ -101,12 +106,14 @@ export class FilamentFx {
           this.darkNow = 1;
           break;
         case "filamentPulled":
-          at(this.end ?? tile(e.col, 0), 14, PALETTE.wispRim);
+          at(this.end ?? tile(e.col, 0), 14, PALETTE.good);
           this.joltNow = JOLT_TILES;
+          this.hurt.hit();
           break;
         case "filamentDown":
           at(body, 30, PALETTE.sheenRim);
           this.joltNow = JOLT_TILES * 2;
+          this.hurt.hit();
           break;
         case "filamentOut":
           at(body, 12, PALETTE.dim);
@@ -126,12 +133,14 @@ export class FilamentFx {
     if (this.darkNow < 0.002) this.darkNow = 0;
     this.joltNow = Math.max(0, this.joltNow - this.joltNow * JOLT_DECAY * step);
     if (this.joltNow < 0.002) this.joltNow = 0;
+    this.hurt.update(dt);
   }
 
   clear(): void {
     this.whipNow = 0;
     this.darkNow = 0;
     this.joltNow = 0;
+    this.hurt.clear();
     this.head = null;
     this.end = null;
   }
