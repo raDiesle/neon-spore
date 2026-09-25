@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · ca9bce52 — THE SPLICE's numbers are living spore pods
+
+Each number is a see-through membrane with hairs waving round its rim, veins running into a nucleus, and the nucleus beating on the beat with the digit in it. The twinkle star is gone. A pod about to be sucked shakes and its hairs thrash.
+
 ## 2026-09-25 · df543a64 — The director's RUN has an AUTO row that plays a seat for you, live
 
 AUTO OFF / BOTH / P1 / P2 sits next to TEST / P1 / P2. On P2 the machine plays player 2 at the stage's own tempo while your mouse plays player 1, and on P1 the other way round. On BOTH you watch the whole boss played right. Each of its thumbs is drawn on the field as a ringed disc labelled AUTO P1 or AUTO P2, carried the way a real swipe would be, so THE FILAMENT's draw-and-follow can be played alone. On a phone, the one AUTO button in the role strip steps through the modes. It covers every boss the poses already had a hand for, which is all of them but THE PULSE and THE REPRISE, and says so on those.
