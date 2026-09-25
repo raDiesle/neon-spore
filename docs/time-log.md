@@ -20988,3 +20988,18 @@ means a sound — so the render side watches the pin count and the event is
 queued.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE SLOW's window: five more answers in VERSUS
+
+- reading: 5 min. The slot's history in `DECIDED.md`, the paint station in
+  `canvas2d.ts`, and what `aim`, `ramp` and the fuse hand a candidate.
+- writing: 5 min. A shared `lens.ts` — the frame copied, the boss found in
+  device pixels — and swallow, prism, punch, grade and implode on it.
+- looking: 5 min. A shot of each; swallow's first try stacked the room's
+  ground into boxes and was rebuilt as a keyed, compounding blur.
+- friction: 0 min.
+- landing: 5 min. `check:fast` caught grade's flare pushing alpha past one.
+
+Bottleneck: a copy of the frame added over itself adds its dark ground too,
+and it took a picture to see that every "light" effect needs the room keyed
+away first.

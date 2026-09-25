@@ -501,6 +501,13 @@ export class StubContext {
     nums("transform", a);
     this.mul(a);
   }
+  /** The transform as a real context hands it back: a pass that works on the
+   * frame's own pixels has to know where a point landed on them
+   * (`tools/versus/candidates/slow-pull/lens.ts`). */
+  getTransform(): { a: number; b: number; c: number; d: number; e: number; f: number } {
+    const [a, b, c, d, e, f] = this.m;
+    return { a, b, c, d, e, f };
+  }
   /** Logged as well as checked, unlike `translate`/`scale`/`rotate`: a
    * surface that wipes itself has to put the identity on first, and the log
    * is the only place a test can see that it did (`surface-clear.test.ts`). */
