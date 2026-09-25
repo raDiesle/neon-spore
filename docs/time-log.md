@@ -20460,3 +20460,5 @@ The bottleneck was **landing**: the fix was one line and the check is minutes.
 
 The bottleneck was **landing**: `timeout-cap.test.ts` wanted the new test
 file to call `setDefaultTimeout`, which only the full render shard asks.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
