@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 6ed48c4f5 — THE FILAMENT's tools strike the heart and are spat onto the next vein
+
+On a pull both tools ride up the lead into the heart. There the heart swells, shakes and glows red, then spits them out on two arcs to the next vein's free end. They rest there, nested, through the arm. On player 1's screen the next vein grows down from the heart. HEART HIT and how many veins are left show from the strike, and the guide says vein and heart.
+
 ## 2026-09-25 · 0a33f98bb — Time log for THE THROAT's guide
 
 ## 2026-09-25 · df3bbb0bd — THE THROAT's guide says the goal and shows a swallow healing a ring
