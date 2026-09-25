@@ -7,6 +7,13 @@ held to 250 lines (`packages/sim/test/limits.test.ts`).
 On record, with where. **This list is his to grow — add a line every time
 feedback on a boss says one, with the date, in his words where he gave them.**
 
+**A line marked *generic* is his rule for every boss and every mechanic,
+not the one he said it about** (24 September 2026: *all what i say generic
+should go into some instruction … that later on we can apply our best
+practices to existing bosses or create new*). A new boss is built to it from
+the start; a boss that already ships and breaks one is a `docs/queue.md`
+item naming the rule, never a fix made in passing.
+
 - **Dislikes, in his words:** THE TELL, built and removed on 11 September
   2026 — *"I do not like it and its hard to understand for players. too far
   away from the actual game setup and how it should feel."* A rule table
@@ -83,6 +90,17 @@ feedback on a boss says one, with the date, in his words where he gave them.**
   boss's fx holds one `BossHurt` (`render/src/boss-hurt.ts`), hits it on the
   event that means a sequence landed — never on one mark alone — shifts the
   body by `shakeX` and lays `drawHurt` over its plates. Half a second.
+- **The order is said by the marks, never by a line**, generic, 24
+  September 2026 — he took *either order* off the glass over the cannon.
+  Two marks up at once are the pose saying *either order*; an order that
+  matters shows one seat's mark first and the other's after it is answered.
+  No sentence for the step as a whole (`render/test/pair-order.test.ts`).
+- **Every control answers wider than it is drawn**, generic, 24 September
+  2026: *the area should be bigger than visible so players can touch it*.
+  Half again the radius drawn, never under a 48px target; one number for the
+  game, `HIT_REACH` in `render/src/hit.ts`, and every ring, lobe, handle and
+  mark is found through `hitCircle`. Where two reaches overlap, the nearest
+  centre wins.
 - **Dislikes, in his words:** THE BELLOWS, played and removed on 24
   September 2026 — *"it's not clear to me how to play … what does 'push'
   means? … it's not clear what is goal … why on a curtain a jam is going out,

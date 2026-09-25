@@ -19916,3 +19916,15 @@ The bottleneck was **looking**: the clock only read once it sat on a dark
 disc wider than the track it covers.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The owner's generic rules are written down for every boss
+
+- reading: 5 min. Which of the day's generic rules `owner.md` already held.
+- writing: 5 min. The preamble saying a *generic* line binds every boss,
+  the order said by the marks, and the touch reach.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`.
+
+The bottleneck was **reading**: the touch reach's figures live in
+`hit.ts`, not in `layout.ts` where the note had them.
