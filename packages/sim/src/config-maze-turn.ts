@@ -54,7 +54,7 @@ export interface MazeTurnConfig {
    * mouth exactly onto the column wherever in the window it caught
    * (`mazeClickAngle`), so a wider window costs no precision in the picture;
    * it only means a pull that stops near enough is caught. It is also the
-   * width the way in's funnel is drawn to, so what a pair
+   * width the way in's funnel is drawn to (`maze-funnel.ts`), so what a pair
    * sees is what catches.
    */
   mazeSnapMilli: number;

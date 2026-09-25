@@ -1,7 +1,8 @@
 import { KEY } from "@neon-spore/content";
-import { MAZE_TURN, type MazeWheel, mazeCircleMilli } from "@neon-spore/sim";
+import { MAZE_TURN, type MazeWheel, mazeCircleMilli, type SimConfig } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import type { MazeBreakup } from "./maze-fall.js";
+import { drawMazeFunnels, FUNNEL_DEPTH, mazeFunnelHalfMilli } from "./maze-funnel.js";
 import { mazeCanvasAngle, mazeRimHalfGapMilli, mazeRingGone } from "./maze-walls.js";
 import { PALETTE } from "./palette.js";
 
@@ -137,6 +138,7 @@ export function drawMazeBezel(
   wheel: MazeWheel,
   angleMilli: number,
   breakup: MazeBreakup,
+  cfg: SimConfig,
 ): void {
   const { cx, cy, r } = drum;
   const rim = mazeRingGone(drum, wheel, wheel.rings, breakup);
@@ -146,6 +148,9 @@ export function drawMazeBezel(
   const turn = angleMilli + rim.spinMilli;
   const cuts = wheel.openings[wheel.rings] ?? [];
   const half = mazeRimHalfGapMilli(wheel, R);
+  // The cut flares as it goes out: the way in's funnel, whose mouth is the
+  // snap window (`maze-funnel.ts`), passes through the bezel on its way.
+  const flare = mazeFunnelHalfMilli(cfg, wheel, R, BEZEL / FUNNEL_DEPTH) - half;
   const out = R * (1 + BEZEL);
 
   ctx.save();
@@ -167,26 +172,27 @@ export function drawMazeBezel(
   // Stroked per sector, so it stops at the cut the way the band does.
   ctx.strokeStyle = rgba(PALETTE.hullRim, 0.3);
   ctx.lineWidth = 1;
-  const sector = (from: number, to: number) => {
+  const sector = (from: number, to: number, cut: number) => {
     ctx.beginPath();
-    ctx.arc(cx, y, out, phi(from), phi(to), true);
+    ctx.arc(cx, y, out, phi(from + cut), phi(to - cut), true);
     ctx.arc(cx, y, R, phi(to), phi(from), false);
     ctx.closePath();
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(cx, y, out, phi(from), phi(to), true);
+    ctx.arc(cx, y, out, phi(from + cut), phi(to - cut), true);
     ctx.stroke();
   };
   if (cuts.length === 0) {
-    sector(turn, turn + MAZE_TURN - 1);
+    sector(turn, turn + MAZE_TURN - 1, 0);
   } else {
     for (const [i, cut] of cuts.entries()) {
       const after = cuts[(i + 1) % cuts.length] ?? cut;
       const from = turn + cut + half;
       const to = turn + (after > cut ? after : after + MAZE_TURN) - half;
-      if (to > from) sector(from, to);
+      if (to - flare > from + flare) sector(from, to, flare);
     }
   }
+  drawMazeFunnels(ctx, { cx, cy: y, r: R }, cfg, wheel, turn);
   // The bolts, turning with the drum and skipping the cut ends. Each is a
   // dark head with the key's highlight on its shoulder — two arcs, because
   // sixteen of them are drawn every frame.

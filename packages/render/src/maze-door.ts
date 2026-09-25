@@ -6,6 +6,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
+import { mazeFunnelLips } from "./maze-funnel.js";
 import { mazeCanvasAngle, mazeDrum, mazeRimHalfGapMilli } from "./maze-walls.js";
 import { PALETTE } from "./palette.js";
 
@@ -35,6 +36,10 @@ import { PALETTE } from "./palette.js";
  * own width (`maze-walls.ts`, which is where the rim is broken), so the wedge
  * standing on its two ends comes out twice as wide with no second number, and
  * the marks on the ends are drawn heavier to match.
+ *
+ * **Its cut ends are a funnel's lips** (the owner, 25 September 2026): lit,
+ * they burn along the flare out to the mouth rather than straight out from
+ * the rim, because the mouth is how near a way in has to come to be caught.
  */
 
 /** How far down the column the light reaches, as a share of the way to the hull. */
@@ -157,13 +162,16 @@ export function drawMazeDoors(
     ctx.fill();
     ctx.restore();
 
+    // The funnel's two lips burn, from the cut ends out to its mouth: the
+    // shape that caught the column, lit (`maze-funnel.ts`).
     ctx.strokeStyle = PALETTE.good;
     ctx.lineWidth = 4.2;
     ctx.globalAlpha = 0.95;
-    for (const p of [a, b]) {
+    const at = mazeEntranceAngle(wheel, m.angleMilli, way);
+    for (const lip of mazeFunnelLips(cfg, wheel, d, at)) {
       ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
-      ctx.lineTo(p.x + (p.x - d.cx) * 0.09, p.y + (p.y - d.cy) * 0.09);
+      ctx.moveTo(lip.from.x, lip.from.y);
+      ctx.lineTo(lip.to.x, lip.to.y);
       ctx.stroke();
     }
     ctx.globalAlpha = 1;

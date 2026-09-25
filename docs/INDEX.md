@@ -1422,6 +1422,7 @@ by hand never moves.
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
+| `packages/render/src/maze-funnel.ts` | **THE MAZE's way in is a funnel**: the rim's cut flares out to a mouth exactly as wide as the snap window |
 | `packages/render/src/maze-stage.ts` | How far through THE MAZE the pair is: one cell per stage, top right where the hull bar was |
 | `packages/render/src/lure-blast.ts` | A LURE GOING UP, AND THE WHOLE SCREEN WITH IT |
 | `packages/render/src/eye-rim.ts` | **The eye's box, and the rim hung on it.** The third piece of one eye — `eye.ts` holds the wet parts |

@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { MAZE_TURN, type MazeWheel, mazeWheel } from "@neon-spore/sim";
+import { DEFAULT_CONFIG as CFG, MAZE_TURN, type MazeWheel, mazeWheel } from "@neon-spore/sim";
 import { MAZE_WHOLE } from "../src/maze-fall.js";
 import { drawMazeBed, drawMazeBezel } from "../src/maze-plate.js";
 import { mazeCanvasAngle, mazeRimHalfGapMilli } from "../src/maze-walls.js";
@@ -62,7 +62,7 @@ function arcsOf(draw: (ctx: CanvasRenderingContext2D) => void) {
 describe("THE MAZE's plate", () => {
   it("cuts the bezel where the rim is cut, one sector per stretch", () => {
     const w = wheel();
-    const arcs = arcsOf((ctx) => drawMazeBezel(ctx, DRUM, w, 0, MAZE_WHOLE));
+    const arcs = arcsOf((ctx) => drawMazeBezel(ctx, DRUM, w, 0, MAZE_WHOLE, CFG));
     const out = DRUM.r * 1.05;
     // Two cuts, two sectors: each is an outer arc, an inner arc and the
     // hairline on the outer edge — six arcs at the two radii, no full circle.
@@ -72,7 +72,7 @@ describe("THE MAZE's plate", () => {
 
   it("stands no bolt in a way in", () => {
     const w = wheel();
-    const arcs = arcsOf((ctx) => drawMazeBezel(ctx, DRUM, w, 0, MAZE_WHOLE));
+    const arcs = arcsOf((ctx) => drawMazeBezel(ctx, DRUM, w, 0, MAZE_WHOLE, CFG));
     const heads = arcs.filter((a) => a.r < DRUM.r * 0.02 && a.r > DRUM.r * 0.01);
     expect(heads.length).toBeGreaterThan(8);
     const half = mazeRimHalfGapMilli(w, DRUM.r);
@@ -90,7 +90,7 @@ describe("THE MAZE's plate", () => {
   it("goes with the rim when the drum comes apart", () => {
     const w = wheel();
     const gone = { fall: 1, crash: 0, hullY: 0 };
-    expect(arcsOf((ctx) => drawMazeBezel(ctx, DRUM, w, 0, gone)).length).toBe(0);
+    expect(arcsOf((ctx) => drawMazeBezel(ctx, DRUM, w, 0, gone, CFG)).length).toBe(0);
     expect(arcsOf((ctx) => drawMazeBed(ctx, DRUM, w, gone)).length).toBe(0);
     expect(arcsOf((ctx) => drawMazeBed(ctx, DRUM, w, MAZE_WHOLE)).length).toBeGreaterThan(0);
   });

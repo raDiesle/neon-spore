@@ -20050,3 +20050,19 @@ The bottleneck was **reading**: the timing change had to be found in six
 comments across four packages that each said *two beats*.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — THE MAZE's way in is a funnel as wide as its snap
+
+- reading: 15 min. `mazeEntranceCol` and `mazeClickAngle`, the detent's
+  break, the bezel's sectors in `maze-plate.ts` and the lit door's cut ends.
+- writing: 30 min. The wider snap and firmer break, `config-maze-turn.ts`
+  split off `config-boss.ts`, the click's bisection window, `maze-funnel.ts`
+  and its three tests, the bezel's narrowed arcs, the door's lips.
+- looking: 15 min. The drum at rest and held onto a click, before and after,
+  and 5× crops of the lit and unlit cut.
+- friction: 5 min. The size hook on `config-boss.ts`, and a doc-drift test
+  failing on a comment that named a file not written yet.
+- landing: 10 min. Two `check:fast` runs, two commits, two `land`s.
+
+The bottleneck was **writing**: the funnel had to be the snap window drawn,
+so the bezel, the door and the rule all ask one file for its width.

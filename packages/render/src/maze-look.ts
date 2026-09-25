@@ -44,10 +44,10 @@ export interface MazeLook {
 }
 
 export const MAZE_LOOK: MazeLook = {
-  // The shipped function takes no `cfg` and does not need one; the record
-  // carries it because a candidate that shades a corridor has to know how wide
-  // the rings are in the simulation's own units, and a look reaching for a
-  // config the call site already holds is better than one guessing at it.
+  // The record carries `cfg` because a candidate that shades a corridor has
+  // to know how wide the rings are in the simulation's own units, and a look
+  // reaching for a config the call site already holds is better than one
+  // guessing at it.
   //
   // **Three calls in one order, and the order is the whole picture.** The
   // floors go down first, the sheet's own lines over them, the posts on top of
@@ -60,12 +60,14 @@ export const MAZE_LOOK: MazeLook = {
   // gloss on the floors and the heart's socket — goes down before the lines
   // so no stroke of the sheet is washed by it, and the bezel with its bolts
   // goes on after the posts, outside the rim, cut where the rim is cut
-  // (`maze-plate.ts`). The three in the middle are untouched.
-  walls: (ctx, drum, wheel, angleMilli, breakup) => {
+  // (`maze-plate.ts`). The three in the middle are untouched. The bezel is
+  // the one that takes `cfg`: its cut flares into the way in's funnel, whose
+  // mouth is the simulation's snap window (`maze-funnel.ts`).
+  walls: (ctx, drum, wheel, angleMilli, breakup, cfg) => {
     drawMazeFloors(ctx, drum, wheel);
     drawMazeBed(ctx, drum, wheel, breakup);
     drawMazeWalls(ctx, drum, wheel, angleMilli, breakup);
     drawMazePosts(ctx, drum, wheel, angleMilli);
-    drawMazeBezel(ctx, drum, wheel, angleMilli, breakup);
+    drawMazeBezel(ctx, drum, wheel, angleMilli, breakup, cfg);
   },
 };
