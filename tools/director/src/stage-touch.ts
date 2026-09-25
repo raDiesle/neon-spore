@@ -16,6 +16,7 @@ import { balloonBothHands } from "./stage-balloon-both.js";
 import { bindCueKey } from "./stage-cue-key.js";
 import { openingPress } from "./stage-opening.js";
 import type { StagePoint } from "./stage-point.js";
+import { stripBothHands } from "./stage-strip-both.js";
 
 /**
  * The stage answers a finger the way the phone does — the same `touch.ts` the
@@ -119,15 +120,18 @@ export function bindStageTouch({
   const holding = new Map<number, Hold[]>();
   /**
    * Every command this stage sends, and the second seat's copy of it where
-   * there is one. The only thing that has one is THE BALLOON's pair of handles
-   * under TEST, where the desk's single mouse speaks for both hands
-   * (`stage-balloon-both.ts`) — everything else goes through unchanged, so a
+   * there is one. Two things have one, both under TEST, where the desk's
+   * single mouse speaks for both hands: THE BALLOON's pair of handles
+   * (`stage-balloon-both.ts`), and the cannon and shield strips, which slide
+   * together (`stage-strip-both.ts`) — everything else goes through unchanged, so a
    * control that behaves differently here than on a phone is impossible except
    * where this file says so out loud.
    */
   const send = (player: 1 | 2, command: Command): void => {
     push(player, command);
-    const both = balloonBothHands(role(), player, command);
+    const both =
+      balloonBothHands(role(), player, command) ??
+      stripBothHands(role(), player, command, field().controls);
     if (both) push(both.player, both.command);
   };
   // **And the key that presses what the field is asking for**, both seats at

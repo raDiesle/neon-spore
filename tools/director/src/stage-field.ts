@@ -30,7 +30,11 @@ export function stageField(
 ): Field {
   return {
     creatures: world.creatures,
-    // The ship answers a finger where it is drawn (`render/touch-ship.ts`).
+    // The hull's two lobes do **not** answer the mouse here: the owner, 25
+    // September 2026 — *in director, disable the in screen controls for
+    // cannon and shield.* The strips are the stage's way to both, which is
+    // also the game's default (SETTINGS' TOUCH THE SHIP, `Field.ship`).
+    ship: false,
     cannonCol: world.cannonCol,
     shieldCol: world.shieldCol,
     beatPhase: framePhase(world),

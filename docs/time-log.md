@@ -20706,3 +20706,16 @@ The bottleneck was **reading**: what the fight actually costs lives in four
 simulation files, and the old film's comment was the only summary of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-25 — The director's stage: no hand on the hull, and one strip for both under TEST
+
+- reading: 5 min. `stage-touch.ts`, `touch-ship.ts`'s `Field.ship` switch,
+  and THE BALLOON's both-hands precedent.
+- writing: 5 min. `stage-strip-both.ts`, `ship: false` in `stage-field.ts`,
+  the test.
+- looking: 0 min. Nothing drawn changed; the stage's pointer test drives it.
+- friction: 0 min.
+- landing: 5 min. A pointer test that expected one strip, INDEX, `check:fast`.
+
+The bottleneck was **reading**: the switch for the hull already existed and
+only had to be found.

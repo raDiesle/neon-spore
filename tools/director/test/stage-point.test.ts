@@ -164,6 +164,10 @@ describe("the stage's pointer conversion", () => {
       ...onScreen(l.gridLeft + middle * l.tile + l.tile / 2, l.cannonStrip.y),
     });
 
-    expect(sent).toEqual([{ player: 1, command: { kind: "cannonCol", col: middle } }]);
+    // And the shield with it: under TEST one strip carries both (`stage-strip-both.ts`).
+    expect(sent).toEqual([
+      { player: 1, command: { kind: "cannonCol", col: middle } },
+      { player: 2, command: { kind: "shieldCol", col: middle } },
+    ]);
   });
 });

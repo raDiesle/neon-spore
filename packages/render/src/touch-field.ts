@@ -171,10 +171,11 @@ export interface Field {
    * press goes on to whatever is behind the lobe, as though the ship were not
    * there, and the panel is the only way to the cannon and the shield.
    *
-   * **Optional, and absent means yes** — the one field here that is. Its only
-   * caller that can say no is the game (`apps/game/src/input-bindings.ts`),
-   * which always states it, and every other caller — the director's stage and
-   * the tests — is judging the whole control scheme, the hull included.
+   * **Optional, and absent means yes** — the one field here that is. Two
+   * callers say no: the game (`apps/game/src/input-bindings.ts`), which always
+   * states it, and the director's stage, where the owner turned the lobes off
+   * (`tools/director/src/stage-field.ts`). The tests are judging the whole
+   * control scheme, the hull included.
    */
   ship?: boolean;
 }
