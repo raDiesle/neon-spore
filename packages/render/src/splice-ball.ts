@@ -4,16 +4,18 @@ import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
 /**
- * **THE SPLICE's numbers, as something to collect**: an amber drop of slime
- * with the digit in it, a halo, a glint and a drip — a power-up, because
- * getting it down the right straw is the prize (the owner, 25 September 2026).
+ * **THE SPLICE's numbers, as something to collect**: a living spore pod — a
+ * see-through membrane with hairs waving round it, veins in it, and a nucleus
+ * that beats with the digit in it — a power-up, because getting it down the
+ * right straw is the prize (the owner, 25 September 2026: *more natural, alien,
+ * living*).
  *
  * The amber is the pod's, which is what a pickup already is in this game, so
  * the ball reads as *take this* before its number is read. A ball already fed
  * is a green ghost of one — still there, because the order is what the
  * navigator is reading, and spent.
  *
- * Nothing here is held between frames: the wobble, the glint and the drip run
+ * Nothing here is held between frames: the wobble, the hairs and the beat run
  * off the beat the caller hands in.
  */
 
@@ -25,6 +27,33 @@ export interface BallLook {
 }
 
 const STILL: BallLook = { shake: 0, alpha: 1 };
+
+/** Hairs round a pod's rim, each waving on its own phase. */
+function drawCilia(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  b: number,
+  seed: number,
+  shake: number,
+): void {
+  const n = 14;
+  ctx.strokeStyle = rgba(PALETTE.pod, 0.8);
+  ctx.lineWidth = Math.max(0.8, r * 0.07);
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2 + seed;
+    const wave = Math.sin(b * Math.PI * (1 + shake * 3) + i * 1.3) * (0.35 + shake * 0.4);
+    const len = r * (0.3 + 0.08 * Math.sin(i * 2.7 + seed));
+    const bx = x + Math.cos(a) * r * 0.95;
+    const by = y + Math.sin(a) * r * 0.95;
+    ctx.moveTo(bx, by);
+    ctx.lineTo(bx + Math.cos(a + wave) * len, by + Math.sin(a + wave) * len);
+  }
+  ctx.stroke();
+}
 
 export function drawSlimeBall(
   ctx: CanvasRenderingContext2D,
@@ -42,70 +71,79 @@ export function drawSlimeBall(
   const stretch = 1 + look.shake * 0.18;
   ctx.globalAlpha = look.alpha;
 
-  const pulse = 0.5 + 0.5 * Math.sin((b + seed * 0.25) * Math.PI);
-  const halo = ctx.createRadialGradient(x, y, r * 0.6, x, y, r * (1.8 + 0.25 * pulse));
-  halo.addColorStop(0, rgba(PALETTE.pod, 0.4 + 0.2 * look.shake));
+  // A heartbeat: a quick double swell on each beat, the nucleus leading it.
+  const f = (((b + seed * 0.13) % 1) + 1) % 1;
+  const beatSwell = Math.max(0, Math.sin(f * Math.PI * 4)) * (f < 0.5 ? 1 : 0);
+  const halo = ctx.createRadialGradient(x, y, r * 0.5, x, y, r * 1.9);
+  halo.addColorStop(0, rgba(PALETTE.pod, 0.28 + 0.12 * beatSwell + 0.2 * look.shake));
   halo.addColorStop(1, rgba(PALETTE.pod, 0));
   ctx.fillStyle = halo;
   ctx.beginPath();
-  ctx.arc(x, y, r * 2.1, 0, Math.PI * 2);
+  ctx.arc(x, y, r * 1.9, 0, Math.PI * 2);
   ctx.fill();
 
-  // The drip first, so the body sits over its root.
+  drawCilia(ctx, x, y, r, b, seed, look.shake);
+
+  // The drip first, so the membrane sits over its root.
   const drip = (b * 0.4 + seed * 0.31) % 1;
   ctx.beginPath();
-  ctx.moveTo(x - r * 0.3, y + r * 0.7);
-  ctx.quadraticCurveTo(x, y + r * (1.15 + 0.45 * drip), x + r * 0.3, y + r * 0.7);
-  ctx.fillStyle = PALETTE.ember;
+  ctx.moveTo(x - r * 0.25, y + r * 0.8);
+  ctx.quadraticCurveTo(x, y + r * (1.15 + 0.4 * drip), x + r * 0.25, y + r * 0.8);
+  ctx.fillStyle = rgba(PALETTE.ember, 0.8);
   ctx.fill();
 
-  const body = splinePath(
-    blobPoints(x, y, r / Math.sqrt(stretch), r * stretch, 3, 0.025, 0.035, b * 0.6, seed, 28),
+  // The membrane: see-through, so what is alive in it shows.
+  const skin = splinePath(
+    blobPoints(x, y, r / Math.sqrt(stretch), r * stretch, 4, 0.04, 0.05, b * 0.5, seed, 28),
     true,
   );
-  const fill = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.1, x, y, r * 1.1);
-  fill.addColorStop(0, PALETTE.podRim);
-  fill.addColorStop(0.45, PALETTE.pod);
-  fill.addColorStop(1, PALETTE.ember);
+  const fill = ctx.createRadialGradient(x - r * 0.3, y - r * 0.35, r * 0.1, x, y, r * 1.05);
+  fill.addColorStop(0, rgba(PALETTE.podRim, 0.3));
+  fill.addColorStop(0.6, rgba(PALETTE.pod, 0.14));
+  fill.addColorStop(1, rgba(PALETTE.ember, 0.55));
   ctx.fillStyle = fill;
-  ctx.fill(body);
-  ctx.strokeStyle = rgba(PALETTE.podDark, 0.55);
-  ctx.lineWidth = Math.max(1, r * 0.08);
-  ctx.stroke(body);
+  ctx.fill(skin);
+  ctx.strokeStyle = rgba(PALETTE.pod, 0.9);
+  ctx.lineWidth = Math.max(1, r * 0.07);
+  ctx.stroke(skin);
 
-  // Two bubbles in the slime, and the wet glint on its upper left.
-  ctx.fillStyle = rgba(PALETTE.podRim, 0.5);
+  // Veins from the membrane in to the nucleus.
+  ctx.strokeStyle = rgba(PALETTE.ember, 0.95);
+  ctx.lineWidth = Math.max(0.8, r * 0.06);
   ctx.beginPath();
-  ctx.arc(x + r * 0.42, y + r * 0.3, r * 0.1, 0, Math.PI * 2);
-  ctx.arc(x - r * 0.3, y + r * 0.45, r * 0.07, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = rgba(PALETTE.text, 0.9);
-  ctx.beginPath();
-  ctx.ellipse(x - r * 0.38, y - r * 0.42, r * 0.26, r * 0.13, -0.6, 0, Math.PI * 2);
-  ctx.fill();
-
-  // The pickup's twinkle, a four-point star riding the rim.
-  const tw = Math.max(0, Math.sin((b * 0.5 + seed * 0.4) * Math.PI * 2));
-  if (tw > 0.2) {
-    const sx = x + r * 0.75;
-    const sy = y - r * 0.7;
-    const k = r * 0.45 * tw;
-    ctx.beginPath();
-    ctx.moveTo(sx, sy - k);
-    ctx.lineTo(sx + k * 0.2, sy);
-    ctx.lineTo(sx, sy + k);
-    ctx.lineTo(sx - k * 0.2, sy);
-    ctx.closePath();
-    ctx.moveTo(sx - k, sy);
-    ctx.lineTo(sx, sy + k * 0.2);
-    ctx.lineTo(sx + k, sy);
-    ctx.lineTo(sx, sy - k * 0.2);
-    ctx.closePath();
-    ctx.fillStyle = rgba(PALETTE.podRim, 0.9);
-    ctx.fill();
+  for (let i = 0; i < 4; i++) {
+    const a = seed * 1.7 + i * 1.6;
+    const bend = a + 0.5;
+    ctx.moveTo(x + Math.cos(a) * r * 0.9, y + Math.sin(a) * r * 0.9);
+    ctx.quadraticCurveTo(
+      x + Math.cos(bend) * r * 0.75,
+      y + Math.sin(bend) * r * 0.75,
+      x + Math.cos(a + 0.9) * r * 0.55,
+      y + Math.sin(a + 0.9) * r * 0.55,
+    );
   }
+  ctx.stroke();
 
-  const size = Math.max(9, Math.round(r * 1.15));
+  // The nucleus, beating, with the number in it.
+  const nr = r * (0.55 + 0.08 * beatSwell);
+  const nucleus = splinePath(blobPoints(x, y, nr, nr, 3, 0.06, 0.04, b * 0.8, seed + 2, 20), true);
+  const core = ctx.createRadialGradient(x - nr * 0.3, y - nr * 0.3, 0, x, y, nr);
+  core.addColorStop(0, PALETTE.podRim);
+  core.addColorStop(0.5, PALETTE.pod);
+  core.addColorStop(1, PALETTE.ember);
+  ctx.fillStyle = core;
+  ctx.fill(nucleus);
+  ctx.strokeStyle = rgba(PALETTE.podDark, 0.35);
+  ctx.lineWidth = Math.max(0.8, r * 0.04);
+  ctx.stroke(nucleus);
+
+  // A wet glint on the membrane.
+  ctx.fillStyle = rgba(PALETTE.text, 0.75);
+  ctx.beginPath();
+  ctx.ellipse(x - r * 0.5, y - r * 0.5, r * 0.18, r * 0.08, -0.7, 0, Math.PI * 2);
+  ctx.fill();
+
+  const size = Math.max(9, Math.round(r * 1.05));
   ctx.font = `800 ${size}px "Courier New",monospace`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
