@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · 78be87749 — THE INSTAR's names are one surface page, not two lists
+
+`bosses-clocks-b.ts` and `boss-surface-clocks-b.ts` each listed THE INSTAR's twenty-nine names and stood at 246 and 248 of their 250 lines. The list lives in `boss-surface-instar.ts` now and both `export *` it; they are at 218 and 220 lines. Nothing outside `packages/sim` changed its import.
+
 ## 2026-09-25 · d280d2a10 — The director's map stays on the wave's row once the wave is not playing
 
 The map marked the beat counted off the tick, and the tick keeps counting through the introduction and guide, the lost screen and the rest after a clear — so the marked row walked on down past the end of a wave that was already over, and down the map while the briefing was still being read. It now follows the wave's own beat while the wave is live: the first row through a briefing, and the row the wave ended on after it is won or lost.

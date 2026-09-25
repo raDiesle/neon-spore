@@ -20600,3 +20600,5 @@ away from the sim's own `waveBeat`, which already stood still in the right place
 
 The bottleneck was **the sort**: Biome orders `export *` lines among the named
 lists, and the new line had to go where it says.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
