@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-25 · c2008a088 — `versus adopt` keeps the space before a one-line record's closing brace
+
+Adopting a slot into a record written on one line, such as `SCUTTLE_ROWS`, used to write `drop: 0.26};`, and `bun run lint` failed on the line the command had just written. The whitespace after a value now stays as the file had it, and a test pipes an adoption's output through `biome format`.
+
 ## 2026-09-25 · cd004b90b — A guide is a film or words, and a filmed wave carries no words
 
 The eighty-two waves whose guide plays a film no longer carry the three blocks of words beside it; the game never drew them, and the director showed them as dimmed fields. `WaveGuide` is now a film or words and refuses both. In the director, a filmed wave's GUIDE section is the film's pages alone, and there is no ADD GUIDE. The ten waves still in words each have a queue entry to become a film. Two of those entries ask the owner whether THE INSTAR and THE FILAMENT need a film at all.
