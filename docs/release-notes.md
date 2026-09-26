@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 168faab97 — The shot sweep is measured and left as it is
+
+A headless bench timed every shot's scan of the bodies and pods on the field. It costs 3.6 µs a tick at 20 bodies and 10 shots, and 26 µs at 60 and 30. The heaviest case is 0.3% of a frame. A column bucket would have to be rebuilt every tick, because bodies mid-move, wide bodies and the queen each stand in lanes of their own. So it would cost the same pass it saves. The figures are in the September performance audit, and the queue item is closed with no change to the simulation.
+
 ## 2026-09-26 · 30a7b03ed — byDepth's per-frame sort is measured and left uncached
 
 The audit guessed that `byDepth` copying and sorting the creature list every frame was a real cost. A bun loop timing it alone says otherwise: 2.6 µs a frame at 60 bodies and 9 µs at 150, well under a thousandth of a frame. A cache would need state in `Effects` and a check for the glide reordering bodies mid-beat, which is as much work as the sort itself. The audit now carries the figures and says the gyre half of it is fixed.
