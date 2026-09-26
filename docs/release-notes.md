@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 29123e6dc — §36 THE HALTER: pair RestraintGate with ChordHold, the simulation lane
+
+Wave 115, THE HALTER: a wary seam on the hull's spine that only opens while one seat sends nothing at all and the other holds both grips. Seven steps: rest and chord on the left mark, then the right, a red shot at the bared centre, two guards either way round with a cyan and a white shot. Fourteen sounds bound, twenty-five tests; the seven departures from §36's rows are written in §11.53.
+
 ## 2026-09-26 · 98106e512 — THE SLOW follows THE TRIVET's lurch, and its hit and turned needle burst where they happen
 
 THE SLOW's light stands round the hub swung over while a lurch is lit, as wide as before; a lurch's hub hit bursts over the column it was shot in rather than the middle, and a needle turned throws the shield's sparks at the hull under its column. The TRIVET's story-step paragraphs move from THE OCULUS's section of the spec into §11.47, and its status lines stop saying the lurch and the needle are undrawn.

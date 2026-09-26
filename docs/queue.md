@@ -2735,3 +2735,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 29123e6dc: THE HALTER never watched at tempo
+
+- **Found:** 2026-09-26, claude/queue-36-the-halter-the-simulation-lane
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
+
+*§36 THE HALTER: pair RestraintGate with ChordHold, the simulation lane* landed from a session that could not look at it. The commit touched 55 more files. What went unchecked:
+
+- THE HALTER never watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
