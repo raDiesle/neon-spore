@@ -7736,6 +7736,15 @@ over. `FIRE` goes at the hull under the middle column while the socket is open,
 on both screens; it never names the colour the socket wants. `FIRE` goes under
 a falling rock, ahead of the rest.
 
+**And its hand** (26 September 2026, `hands/boss-hands-keel.ts`). Each lit
+joint is tapped by the seat whose half it sits over, Player 1 taking one over
+the middle column; the socket is shot up the middle in its own colour; a
+thrown rock is shot out of its column first, ahead of everything, since it is
+the one blow no window forgives. AUTO plays it to straight with nothing
+missed (`tools/director/test/autopilot-keel.test.ts`), and the STATES sheet
+poses all eight phases (`tools/director/src/poses-bosses-hands-keel.ts`).
+Lane two is complete.
+
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
 > A drum stands over the field with a wheel in its face and a pin beside it.

@@ -27,11 +27,9 @@ import { BOSS_GROUPS, BOSS_POSES, statesOwed } from "../src/poses-bosses.js";
  */
 
 const OWED: Partial<Record<BossKind, readonly string[]>> = {
-  // THE KEEL's simulation lane has landed with no look yet, so none of its
-  // eight phases has a pose to draw them from (`docs/spec/bosses-choreographed.md`
-  // §24). Struck the day the look lane lands.
-  keel: ["still", "joint", "rest", "split", "socket", "rigid", "rock", "straight"],
-  // THE VALVE the same, §25: its six.
+  // THE VALVE's simulation lane has landed with no look yet, so none of its
+  // six phases has a pose to draw them from (`docs/spec/bosses-choreographed.md`
+  // §25). Struck the day the look lane lands.
   valve: ["still", "turn", "hold", "frozen", "list", "open"],
   // THE SEAM the same, §26: its four.
   seam: ["still", "lit", "rest", "split"],

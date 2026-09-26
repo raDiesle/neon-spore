@@ -468,25 +468,6 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## §24 THE KEEL — its hands, the second half of its look
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Needs:** §24 THE KEEL — the look, half one (the body), landed first
-- **Files:** `packages/render/src/keel-marks.ts`, `packages/render/src/keel-shape.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `apps/game/src/`
-
-The body is drawn: the arch, the plates, the ring and the socket. What is
-left is everything a thumb or an event touches, THE MANTLE's half two in the
-same order. **The grip has landed** (`render/keel-grip.ts`, the director's
-row and pose, `keelJoint: "field"`). **The fx and the hurt have landed**
-(`render/keel-fx.ts`: the lock's snap and jolt, the socket shutting in its
-colour, the hull hits and their shudder, the blow on a lock and a shut; the
-sixteen events stay on the silent lists, read above the loop like THE
-MANTLE's). **The cue's words have landed** (`render/boss-cue-read-zd.ts`:
-TAP on the lit joint for its seat, FIRE under the socket and under the rock).
-Left: **the autopilot hand**, and the STATES poses, OWED and NO_HAND rows the
-other bosses carry. `keel-shape.ts` is at 238 lines, so
-the grip's hit test goes in a file of its own.
-
 ## §25 THE VALVE — the look
 
 - **Found:** 2026-09-26, this session
