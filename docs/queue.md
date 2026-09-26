@@ -773,6 +773,7 @@ take the events off the silent lists, and give the steps their cue words
 ## §33 THE GRINDSTONE — autopilot hand
 
 - **Found:** 2026-09-26, tmp-grindstone-look
+- **Taken:** 2026-09-26, claude/queue-33-the-grindstone-autopilot-hand
 - **Files:** `packages/sim/src/grindstone-hand.ts`, `packages/sim/src/boss-hands.ts`
 
 There is no autopilot hand for wave 112, so a solo or a watched run stands
