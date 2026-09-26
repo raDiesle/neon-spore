@@ -102,7 +102,7 @@ export function aim(world: World, l: Layout, beat: number, beatPhase: number): A
     return { x, y, r: instarLen(l, f.headR), ax: top.x, ay: top.y };
   }
   // A boss that stands still is registered by kind (`slow-boss-aim.ts`).
-  const boss = bossAim(world, l);
+  const boss = bossAim(world, l, beat, beatPhase);
   if (boss !== null) return boss;
   // Whose grip it is belongs to `grip.ts`, so each body is asked rather than
   // the two grip fields read (`world-ship.ts`, and `focus` does the same).

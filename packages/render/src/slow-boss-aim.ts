@@ -13,6 +13,7 @@ import type { Layout } from "./layout.js";
 import { mantleCentre, mantleReach } from "./mantle-shape.js";
 import { oculusCentre, oculusRadius } from "./oculus-shape.js";
 import { plumbCore, plumbHook, plumbSacMiddle } from "./plumb-shape.js";
+import { lateBossAim, longer, still } from "./slow-boss-aim-b.js";
 import type { Aim } from "./slow-intake-aim.js";
 import { trivetCentre, trivetReach } from "./trivet-shape.js";
 import { trivetStoryDx } from "./trivet-story.js";
@@ -38,11 +39,11 @@ import { viseCentre, viseRadius } from "./vise-shape.js";
  *
  * THE INSTAR is not a row: its head moves and turns, and `aim()` asks it
  * first with the far end of its chain. Every row here is a body with nothing
- * hanging off it, so its axis is a point. The rest of the bosses that open a
- * window are queued (*THE SLOW's prism aims at the cannon for every boss but
- * THE INSTAR*, `docs/queue.md`).
+ * hanging off it, so its axis is a point. A kind with no row here is asked of
+ * page two (`slow-boss-aim-b.ts`), whose rows may read the beat; the bosses
+ * neither page has a row for are queued in `docs/queue.md`.
  */
-export function bossAim(world: World, l: Layout): Aim | null {
+export function bossAim(world: World, l: Layout, beat = world.beat, beatPhase = 0): Aim | null {
   const boss = world.boss;
   if (boss === null) return null;
   switch (boss.kind) {
@@ -89,16 +90,6 @@ export function bossAim(world: World, l: Layout): Aim | null {
     case "cyst":
       return still(cystCentre(l, world.cfg), cystR(l) * 1.4);
     default:
-      return null;
+      return lateBossAim(world, l, beat, beatPhase);
   }
-}
-
-/** A body with nothing hanging off it: its axis is its own centre. */
-function still({ x, y }: { x: number; y: number }, r: number): Aim {
-  return { x, y, r, ax: x, ay: y };
-}
-
-/** An oval's longer half-axis, so the light stops clear of its whole outline. */
-function longer({ rx, ry }: { rx: number; ry: number }): number {
-  return Math.max(rx, ry);
 }

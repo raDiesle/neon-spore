@@ -25108,3 +25108,17 @@ Bottleneck: friction — a landing that has to beat seven other lanes to the
 trunk spends more time checking than the lane spent working.
 
 *Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SLOW's aim, page two: five bosses with a point to call
+
+- reading: 10 min. The aim table and its test, and seventeen bosses' shape
+  files to learn which already name a centre and an extent — five do.
+- writing: 10 min. `slow-boss-aim-b.ts`, the beat passed through, its test,
+  the queue entry rewritten to the thirteen left.
+- looking: 0 min. The rows are the shape files' own points, and the test
+  holds them there.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: most of the seventeen keep their geometry inline in their
+draw files, so the entry was cut by what could be called, not by boss.
