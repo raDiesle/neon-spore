@@ -913,6 +913,7 @@ Follow both skills; THE VOLLEY's rehearsal is the nearest pattern.
 ## SNAKE: the hull and the band at half height in this round
 
 - **Found:** 2026-09-25, claude/snake-game-mechanics-ee4ed4
+- **Taken:** 2026-09-26, claude/snake-game-mechanics-ee4ed4 (claim: claude/queue-snake-the-hull-and-the-band-at-half-height-in-th)
 - **Files:** `packages/render/src/layout.ts`, `packages/render/src/field-flip.ts`, `packages/render/src/well-roll.ts`, `apps/game/src/viewport.ts`, `apps/game/src/field-input.ts`, `packages/render/src/hull-frame.ts`, `packages/render/src/snake-draw.ts`
 
 The owner, 25 September 2026: *have hull ship height around half of regular
