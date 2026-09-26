@@ -621,6 +621,15 @@ run it, look at the PNG — that is the loop.
   the skin and veiled by it, the half in front after — which is the reveal a
   lens alone never gives. The rim is on the edge turned from the key and
   slides with the turn; a rim all the way round is an outline.
+- **A long body that cannot bow its outline bows in its light**
+  (`antiphon-depth.ts`). When the outline and everything hung on it are
+  read by the rules — THE ANTIPHON's pits, perches and rail — the depth goes
+  into paint over the flat skin: each lobe of the hem lit as its own pouch
+  and gone deep at its sides, both ends hazed toward the field with the one
+  the `breath` turn takes back hazed more, the film streak sliding with the
+  turn, a rim on the far end only, and a contact shadow round the root of
+  whatever grows out of it. A body that goes still stops turning, so its
+  stillness is seen in the light as well as in the breath.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency

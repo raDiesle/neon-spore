@@ -8,6 +8,7 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import { budContact, mantleTurn, paintMantleDepth, paintPitLip } from "./antiphon-depth.js";
 import { faded, paintBud, paintMantle, paintPit } from "./antiphon-flesh.js";
 import type { AntiphonFx } from "./antiphon-fx.js";
 import { drawAntiphonGrip } from "./antiphon-grip.js";
@@ -80,7 +81,7 @@ export function drawAntiphon(
 
   ctx.save();
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
-  drawBody(ctx, l, cfg, time, fade, still, fx.hurt.value);
+  const body = drawBody(ctx, l, cfg, time, fade, still, fx.hurt.value);
   for (let i = 0; i < s.pits.length; i++) {
     drawPit(ctx, l, cfg, i, s.pits[i] ?? 0, time, fade);
   }
@@ -99,6 +100,7 @@ export function drawAntiphon(
         o,
         at,
         ORGAN_R * grow,
+        body,
         PALETTE.hull,
         PALETTE.hullRim,
         time,
@@ -115,7 +117,8 @@ export function drawAntiphon(
       const organ = antiphonIsOrgan(s, c);
       const lobes = c.shape === ANTIPHON_SHIP && !organ ? antiphonDecoyLobes(decoy++) : undefined;
       const [hex, rim] = tone(c.color);
-      drawContour(ctx, l, c, antiphonPerch(l, c.col), RAIL_R * grow, hex, rim, time, fade, lobes);
+      const at = antiphonPerch(l, c.col);
+      drawContour(ctx, l, c, at, RAIL_R * grow, body, hex, rim, time, fade, lobes);
     }
     drawWindow(ctx, l, cfg, antiphonWindowLeft(s, cfg, beat, beatPhase), fade);
     // Her rings on the rail, over the candidates so each stands on its own
@@ -130,7 +133,11 @@ function tone(color: Color): [string, string] {
   return color === "red" ? [PALETTE.red, PALETTE.redRim] : [PALETTE.cyan, PALETTE.cyanRim];
 }
 
-/** The body: a mantle of membrane breathing, glassier once it is still, closing in on its way out (`antiphon-flesh.ts`). */
+/**
+ * The body: a mantle of membrane breathing, glassier once it is still,
+ * closing in on its way out (`antiphon-flesh.ts`), bowed and turning in
+ * depth (`antiphon-depth.ts`). Returns its outline, for what grows out of it.
+ */
 function drawBody(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -139,26 +146,24 @@ function drawBody(
   fade: number,
   still: boolean,
   hurt: number,
-): void {
+): Path2D {
   const box = antiphonBox(l, cfg);
   const mid = (box.left + box.right) * 0.5;
   const hw = (box.right - box.left) * 0.5 * fade;
   const path = antiphonBodyPath(l, cfg, fade, time, still ? 0 : 1);
-  paintMantle(
-    ctx,
-    path,
-    {
-      left: mid - hw,
-      right: mid + hw,
-      top: box.top,
-      bottom: box.bottom,
-      tile: l.tile,
-      lobes: antiphonHemLobes(cfg),
-    },
-    fade,
-    still,
-  );
+  const mantle = {
+    left: mid - hw,
+    right: mid + hw,
+    top: box.top,
+    bottom: box.bottom,
+    tile: l.tile,
+    lobes: antiphonHemLobes(cfg),
+  };
+  const turn = mantleTurn(time, still);
+  paintMantle(ctx, path, mantle, fade, still, turn);
+  paintMantleDepth(ctx, path, mantle, turn, fade);
   drawHurt(ctx, path, hurt * fade);
+  return path;
 }
 
 /** A pit: the shape that made it, sunk into the body small and dark, a wet socket. */
@@ -173,16 +178,23 @@ function drawPit(
 ): void {
   const at = antiphonPitSpot(l, cfg, i);
   const r = l.tile * PIT_R * fade;
-  paintPit(ctx, antiphonContourPath(shape, at, r, time), at.y, r, l.tile, fade);
+  const pit = antiphonContourPath(shape, at, r, time);
+  paintPit(ctx, pit, at.y, r, l.tile, fade);
+  paintPitLip(ctx, pit, at.y, r, l.tile, fade);
 }
 
-/** An organ or a candidate hanging off the underside: its contour, a bud of `hex` lit inside in `rim`, breathing. */
+/**
+ * An organ or a candidate hanging off the underside: its contour, a bud of
+ * `hex` lit inside in `rim`, breathing, in a contact shadow on the `body`
+ * it grows out of.
+ */
 function drawContour(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   c: AntiphonCandidate,
   at: { x: number; y: number },
   rTiles: number,
+  body: Path2D,
   hex: string,
   rim: string,
   time: number,
@@ -193,6 +205,7 @@ function drawContour(
   if (rTiles <= 0) return;
   const r = l.tile * rTiles * (1 + 0.03 * Math.sin(time * 4));
   const p = antiphonContourPath(c.shape, at, r, time * 0.3, lobes, turn);
+  budContact(ctx, body, at.x, at.y, r, fade);
   paintBud(ctx, p, at.x, at.y, r, l.tile, hex, rim, fade);
 }
 

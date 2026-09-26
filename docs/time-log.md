@@ -22906,3 +22906,16 @@ for a named subject, so ruling one out means reading the files.
 
 Bottleneck: friction — the file split was unplanned work the registration
 itself caused, not the boss concept.
+
+## 2026-09-26 — THE ANTIPHON's mantle turns in depth, its hem lobes rounded into pouches
+
+- reading: 5 min. The draw, the flesh, the shape, and what the fx read.
+- writing: 10 min. `antiphon-depth.ts`, the pouches, the haze, the rim, the
+  buds' contact, the pits' lip, and the style-guide bullet.
+- looking: 10 min. The first pouches read as glowing spots and the first rim
+  as a line under the hem; both were cut back.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — only the frame showed the pouches' highlights reading
+as spots rather than as roundness.

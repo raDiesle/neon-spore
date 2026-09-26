@@ -1,3 +1,4 @@
+import { mantleSlide } from "./antiphon-depth.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 
@@ -48,6 +49,7 @@ export function paintMantle(
   m: Mantle,
   fade: number,
   still: boolean,
+  turn = 0,
 ): void {
   const { left, right, top, bottom, tile } = m;
   const h = bottom - top;
@@ -89,9 +91,10 @@ export function paintMantle(
   ctx.fill(body);
   band(ctx, body, m, top - tile, top + h * 0.25, faded(PALETTE.hull, fade), 0.3);
   ctx.restore();
-  // The film: a long streak along the top, glassier when still.
+  // The film: a long streak along the top, glassier when still, sliding as
+  // the body turns under the light (`antiphon-depth.ts`).
   const a = (still ? 0.3 : 0.18) * fade;
-  const fx = left + (right - left) * 0.3;
+  const fx = left + (right - left) * 0.3 + mantleSlide(m, turn);
   const fy = top + h * 0.28;
   ctx.save();
   ctx.fillStyle = rgba(PALETTE.sheenRim, a);

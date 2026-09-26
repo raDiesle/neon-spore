@@ -1762,6 +1762,7 @@ by hand never moves.
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
+| `packages/render/src/antiphon-depth.ts` | **THE ANTIPHON in depth**: the mantle is not a band painted across the top of the field but a long soft body… |
 | `packages/render/src/antiphon-fx.ts` | What THE ANTIPHON leaves behind a frame |
 | `packages/render/src/antiphon-flesh.ts` | **What THE ANTIPHON is made of**: a long mantle of membrane |
 | `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
