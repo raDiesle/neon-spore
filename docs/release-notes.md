@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d1f1aa255 — AUTO plays THE PULSE and THE REPRISE
+
+The director's AUTO row had no hand for these two and said "no hand for this boss" on them. Now it has one for each, in `boss-hands-unseen.ts`. On THE PULSE both seats press every arrow on its own tick, veiled ones included, and the round ends spent with the meter full. On THE REPRISE the cannon goes under the body nearest the hull, echoed or not, and fires that body's colour. It plays the wave out with nothing reaching the hull. Every boss in the game now has a row.
+
 ## 2026-09-26 · b58a58cae — A VERSUS freeze inside THE SLOW lands on the second it names
 
 `freeze=<seconds>` now counts the pair's own clock, tick by tick, each tick for the seconds it takes on the running pair — so a window THE SLOW opened is crossed at its own rate rather than four times too fast. The cadence clock and the freeze's count move together in one function, `freezeTick`, and the cadence is asked per tick, so a rebuild during a pending freeze lands on the same tick every time. On `THE SLOW · A WINDOW RUNNING OUT`, `freeze=4.2` is 4.2 seconds in, and `freeze=10` and `freeze=17` are two frames seven seconds apart.

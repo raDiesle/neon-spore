@@ -21364,3 +21364,5 @@ because that is what a person reading `freeze=` on a running pair counts.
 
 Bottleneck: reading the two fights closely enough to say what playing them
 right is — every arrow twice, and the field played straight in the dark.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
