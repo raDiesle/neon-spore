@@ -434,6 +434,7 @@ an alignment.
 ## `packages/content/src/scenes.ts` is at 250 lines
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
+- **Taken:** 2026-09-26, claude/queue-bun-run-frames-until-misses-an-event-that-fires (claim: claude/queue-packages-content-src-scenes-ts-is-at-250-lines)
 - **Files:** `packages/content/src/scenes.ts`
 
 ONE LAST CHANCE's film took the last line; the header paragraph on the
