@@ -29,6 +29,18 @@ entry at the end whichever end it was written at (`tools/land/ledger-merge.ts`).
 The entries dated 25 and 26 September 2026 above the first old one were
 written at the top before that was said, and are left where they are.
 
+## 2026-09-26 — a dragged tail has a verlet chain in Effects
+
+- reading: 10 min. `solid-motion.ts`, `Effects`, `resetAll`, `restart.test.ts`,
+  model space's axes in `solid.ts`.
+- writing: 15 min. `solid-verlet.ts`, the `Effects.chains` field, six tests.
+- looking: 0 min. Nothing the game draws uses it yet.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the step had to be frame-rate independent, and that
+decided the substeps, the damping and the root's path before a line of it.
+
 ## 2026-09-26 — a thin tube is sliced more coarsely along its length
 
 - reading: 10 min. `solid-tube-draw.ts`, the section-gradient cache in

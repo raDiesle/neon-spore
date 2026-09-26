@@ -198,4 +198,5 @@ export function resetAll(e: Effects): void {
   e.quake.clear();
   e.beatboxWaves.clear();
   e.beatboxSilences.clear();
+  e.chains.clear();
 }

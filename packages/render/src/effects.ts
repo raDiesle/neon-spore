@@ -25,6 +25,7 @@ import { RicochetFx } from "./ricochet.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { ShieldPushFx } from "./shield-push-fx.js";
 import { ShotOutFx } from "./shot-out.js";
+import { VerletChains } from "./solid-verlet.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
 import { VolleyShardsFx } from "./volley-shards.js";
@@ -149,6 +150,9 @@ export class Effects {
   /** And its silencings, which are the same picture with nowhere to go
    * (`beatbox-silence.ts`). */
   readonly beatboxSilences = new BeatboxSilences();
+  /** A boss's dragged parts — a tail that sags and swings on after the body
+   * stops — stepped by the pass that draws them (`solid-verlet.ts`). */
+  readonly chains = new VerletChains();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {

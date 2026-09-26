@@ -2040,6 +2040,7 @@ by hand never moves.
 | `packages/render/src/solid-tube-light.ts` | The light across a tube's section: one gradient per stepped light, laid across each slice by a transform |
 | `packages/render/src/solid-tube-screen.ts` | **Where a tube of a rig lands on the screen**, for the one body drawn at any size and anywhere |
 | `packages/render/src/solid-sheet.ts` | A SHEET OF A RIG: skin stretched flat between bones — a wing's membrane, a fin, a sail |
+| `packages/render/src/solid-verlet.ts` | A TRAILING PART THAT IS DRAGGED: a verlet chain, for the one case `chainAt` (`solid-motion.ts`) is not |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |
 | `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes and, once, its body — the half of the boss that is *above* the hull line |

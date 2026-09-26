@@ -1014,19 +1014,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## CLOUD ONLY — a dragged tail wants a verlet chain in Effects
-
-- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
-- **Taken:** 2026-09-26, main (claim: claude/queue-cloud-only-a-dragged-tail-wants-a-verlet-chain-i)
-- **Files:** `packages/render/src/solid-motion.ts`, `packages/render/test/restart.test.ts`
-
-`chainAt` is follow-through as a delay: link `i` replays the root `lag·i`
-earlier. It cannot sag under its own weight or swing when the root stops. A
-verlet chain (positions, previous positions, one length constraint pass) held
-in `Effects`, stepped per frame and cleared in `Effects.reset()`, would give a
-boss's trailing part real inertia. It must pass `restart.test.ts` and must be
-a render-side effect only — nothing in sim reads it.
-
 ## DEFERRED — CLOUD ONLY — move one boss a lane onto the solid rig, from the roster
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side

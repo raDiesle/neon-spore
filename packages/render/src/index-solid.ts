@@ -26,3 +26,4 @@ export {
   sheetPath,
 } from "./solid-sheet.js";
 export { drawTube, rimTube, type Skin, tubePath } from "./solid-tube-draw.js";
+export { type ChainFeel, VerletChains } from "./solid-verlet.js";

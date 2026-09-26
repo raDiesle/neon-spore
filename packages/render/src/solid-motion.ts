@@ -18,7 +18,7 @@ import { smoothstep } from "./ease.js";
  *   *earlier*, and a little less. That lag is most of what a verlet chain
  *   looks like, at none of its cost and with none of its memory. A real
  *   verlet chain — one that is dragged and settles — is the one case this is
- *   not, and it belongs in `Effects` (`docs/queue.md`, CLOUD ONLY).
+ *   not, and it is kept in `Effects.chains` (`solid-verlet.ts`).
  *
  * Time is in seconds, from whatever clock the caller holds.
  */

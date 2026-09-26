@@ -110,6 +110,8 @@ describe("a wave restart", () => {
     const used = new Effects();
 
     used.ingest(BUSY, L, 0, () => 42, CFG);
+    // A dragged tail is not fed by an event; the pass that draws it steps it.
+    used.chains.follow("tail", { x: 0, y: 0, z: 0 }, 5, 12, 1 / 60);
     // Draw as well as ingest: the impacts only reach their `onArrive` — and so
     // the arrival latch — from inside `draw`, so ingesting alone would leave
     // the one collection this whole guard exists for empty.
