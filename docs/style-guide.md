@@ -282,7 +282,12 @@ constant in between**, which is the same still life with extra arithmetic:
 THE INSTAR's long body (`instar-profile.ts`) turns its `angle` from the neck
 to the tail, both of which sit still for beats at a time between morphs, so
 it gets the same wobble as the skull, on its own period so the two lit
-shoulders do not slide together (`BODY_WOBBLE`/`BODY_WOBBLE_PERIOD`).
+shoulders do not slide together (`BODY_WOBBLE`/`BODY_WOBBLE_PERIOD`). Its
+actual tail (`instar-tail.ts`) turns its `angle` from the rear to the fork
+the same way — the fork only moves once the tail is raised or lashing, so
+at rest it is the identical still life — and gets a third, differently
+perioded wobble rather than sharing either existing one
+(`TAIL_WOBBLE`/`TAIL_WOBBLE_PERIOD`).
 
 **A glow inside the body is a different cue from a lit surface**, and the
 owner asked for it by name alongside gradients and fills on 26 September

@@ -31,6 +31,19 @@ const FORK_RISE = 110;
 /** Samples along the tail. */
 const N = 18;
 
+/**
+ * The tail's own idle wobble on `Form.angle`, same reasoning as the body's
+ * `BODY_WOBBLE` (`instar-profile.ts`) and the skull's `CROWN_WOBBLE`
+ * (`instar-side-head.ts`, `docs/style-guide.md`'s "Depth on a body that
+ * already ships"): `fork` only actually moves once the tail is raised or
+ * lashing (`threat`, `f.tail` above), so at rest — trailing behind the
+ * rear, which is most frames — the shading angle from `rear` to `fork` was
+ * another still life. Its own period so the three lit shoulders do not
+ * slide in step ("phase offset is the cheapest detail available").
+ */
+const TAIL_WOBBLE = 0.06;
+const TAIL_WOBBLE_PERIOD = 6.4;
+
 export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, rear: Point): void {
   const { f, r, fade, hurt, time, threat } = look;
   const rest = { x: rear.x + r * 0.9, y: rear.y - r * 1.3 };
@@ -71,12 +84,13 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
   right.reverse();
   const m = mid[Math.round(N / 2)] as Point;
   const chord = Math.hypot(fork.x - rear.x, fork.y - rear.y);
+  const wobble = TAIL_WOBBLE * Math.sin((time * (Math.PI * 2)) / TAIL_WOBBLE_PERIOD);
   drawPlate(ctx, hide, fade, 0.5, hurt, {
     x: m.x,
     y: m.y,
     r: Math.max(r * 0.3, chord / 2),
     ry: r * 0.3,
-    angle: Math.atan2(fork.y - rear.y, fork.x - rear.x),
+    angle: Math.atan2(fork.y - rear.y, fork.x - rear.x) + wobble,
   });
   drawRings(ctx, left, right, r, fade);
   ctx.save();
