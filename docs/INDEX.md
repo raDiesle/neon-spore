@@ -2422,6 +2422,7 @@ by hand never moves.
 | `tools/raster/src/solid-demo.ts` | The test rig the solid sheet turns: not a boss, only the parts a boss is made of — a long body |
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
+| `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
 | `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |
 | `tools/raster/verify.ts` | `bun run raster:verify` — opens the generated assets in a real browser and says whether they decode |
 | `tools/shape-sheet/src/contour.ts` | An open contour must not be filled — SVG would close it across the ends |

@@ -178,16 +178,36 @@ and this is a glowing hull in dark space, so it read as a smudge. Do not build
 them again — `spec/graphics.md` has the whole reasoning so the gap is not
 mistaken for an oversight.
 
-## Depth — flat assets that read as solid
+## Depth — bodies that look three-dimensional
 
-**This is a direction the owner named, on 8 September 2026:** the graphics
-should look three-dimensional while staying 2D, and a flying body should turn
-just enough that *what was behind it comes into view*. Both halves are
-reachable, they are reachable by different machinery, and mixing them up is
-what makes an attempt read as a coin flipping.
+**The graphics look 3D; the game does not move in 3D.** The owner named the
+direction on 8 September 2026 — the graphics should look three-dimensional,
+and a flying body should turn just enough that *what was behind it comes into
+view* — and corrected how it had been read on 26 September 2026: *"i want to
+allow 3d, just that the game does not move into 3d"*. The first note was
+written down as "look three-dimensional while staying 2D" and taken as a ban
+on drawing anything built in three dimensions, so the bosses got flat
+outlines with shading painted on, and they looked flat. **That was a
+misunderstanding, and it is withdrawn.**
 
-**Depth is never a z axis.** It is layering, a fixed light, and things coming
-round a limb.
+- **What stays 2D is the play**: the field is a plane, the hull is fixed,
+  nothing the players control travels (`CLAUDE.md`), and the simulation has
+  no z. None of that is about how a body is drawn.
+- **How a body is drawn is free.** A body modelled in three dimensions and
+  projected every frame — the rig, **A boss seen from any side** below — is
+  the preferred way for anything large that turns. Lit sprites, real
+  perspective, a real z for ordering, and a small 3D library are all allowed.
+- **The limits are the phone's, not the dimension's.** Battery and frame time
+  matter to the owner more than any look. No full engine — PixiJS, Three.js,
+  Rive, Lottie — the owner, 26 September 2026. Anything that runs per frame
+  on the GPU or adds a library is tried as a candidate with its cost measured
+  before it reaches the field.
+
+**On a body still drawn as a flat outline**, the rest of this section up to
+the rig is how it reads as solid: layering, a fixed light, and things coming
+round a limb. Both halves of that are reachable by different machinery, and
+mixing them up is what makes an attempt read as a coin flipping. A body that
+has to turn further than a lean is better rebuilt as a rig than tuned here.
 
 **The pairing is the whole effect.** An `sx` cosine with no shading is a coin
 or a body being squashed; `light.ts` builds a convincing ball and a ball that
@@ -492,7 +512,7 @@ lock pieces.
 The owner, 26 September 2026: the bosses should be shown *from different
 angles and perspective … but to look correct and 3d*. A pose cannot do it (the
 one rule above), so a body that has to be seen from more than one side is
-built as a **rig**: parts in three dimensions, turned and projected every
+**modelled in three dimensions and projected** — a **rig**: parts in three dimensions, turned and projected every
 frame. `bun run solid` draws the test rig from the side, the three-quarter and
 the front, at eye level and looked down on, and across time. Change a part,
 run it, look at the PNG — that is the loop.
@@ -531,6 +551,23 @@ run it, look at the PNG — that is the loop.
   `noise1` is a hashed value noise, `breath` a period that wanders by it,
   `chainAt(root, t, i, lag)` is link `i` doing what the root did `lag·i`
   earlier. A tail is a chain; nothing is simulated, so nothing outlives a frame.
+
+**Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
+the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency
+of `tools/raster` for that sheet only, never of the game). Zdog turns and
+orders one body correctly, but every part is one flat colour: no key light, no
+haze, no contact, so a turn reads as a paper cut-out rotating. Adding a light
+to it means writing what `solid-tube-draw.ts` already does, on top of 7 KB
+gzipped of a library last released in 2019 with no types. What is worth
+borrowing is its way of authoring — a part hangs off an anchor and inherits
+its turn — which a rig can grow as a `group` of parts without the library.
+
+**A GPU pass is a candidate, never the default.** A WebGL glow over the 2D
+canvas uploads the whole frame to the GPU every frame and runs a shader over
+it, which is battery on a phone. If it is tried, it is bloom on the bright
+layer only, at half or quarter resolution, behind a switch, in
+`tools/versus/candidates/`, and it is judged on what it costs a real phone as
+much as on how it looks.
 
 ## Motion
 

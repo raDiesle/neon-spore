@@ -22522,3 +22522,13 @@ Bottleneck: writing — a shot spark's event says only its column, so the fuse i
 Bottleneck: looking — banding and seams in the tube shading only showed on the rendered sheet, three rounds of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — 3D-looking graphics allowed, and Zdog weighed against the rig
+
+- reading: 10 min. The style guide's Depth section, the depth skill, Zdog's API.
+- writing: 25 min. The corrected rule in `docs/style-guide.md` and the skill, the Zdog comparison page, the verdict, the WebGL glow entry.
+- looking: 10 min. Two renders of the comparison sheet until Zdog turned the same way as the rig.
+- friction: 5 min. Zdog ships no types and its turn runs the opposite way to ours.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the old rule was read as "stay 2D" in three places, and each had to say the same corrected thing.

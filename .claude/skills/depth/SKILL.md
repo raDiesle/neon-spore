@@ -1,17 +1,21 @@
 ---
 name: depth
-description: Make a flat asset read as solid in Neon Spore — the pose-versus-place rule, the projection to call rather than re-derive, the two cues a squash cannot fake, and how to add shading that costs no frames. Use when asked to make something look three-dimensional, rounder, more solid or less flat; when writing a light, a shadow, a highlight or a turn; when a body should reveal what was behind it; or when adding any shading to packages/render.
+description: Make a body look three-dimensional in Neon Spore — the rig for a body that turns (modelled in 3D and projected), the pose-versus-place rule for an outline, the projection to call rather than re-derive, the two cues a squash cannot fake, and how to add shading that costs no frames. Use when asked to make something look three-dimensional, rounder, more solid or less flat; when writing a light, a shadow, a highlight or a turn; when a body should reveal what was behind it; or when adding any shading to packages/render.
 ---
 
-# A flat asset that reads as solid
+# A body that looks three-dimensional
 
-The direction is the owner's, named on 8 September 2026: the graphics should
-look three-dimensional while staying 2D, and a flying body should turn just
-enough that *what was behind it comes into view*. `docs/style-guide.md`'s
+The direction is the owner's, named on 8 September 2026 and corrected on
+26 September: **the graphics look 3D; the game does not move in 3D.** A body
+may be modelled in three dimensions and projected — that is the rig, and it is
+the first choice for a big body that turns. What stays 2D is the play: the
+field, the hull, what travels. The old reading, "look 3D while staying 2D",
+was a misunderstanding and is withdrawn. The limits are battery and frame
+time on a phone, and no full engine. `docs/style-guide.md`'s
 **Depth** section is the rule and `docs/dimensional.md` is the measurement.
 This is how it is carried out.
 
-## The one rule
+## The one rule, for a body still drawn as an outline
 
 > **A body's silhouette is posed; its surface is placed.**
 

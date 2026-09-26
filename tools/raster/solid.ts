@@ -7,16 +7,20 @@
  * The render-and-look loop for `packages/content/src/solid.ts` and the
  * `solid-*.ts` drawing in render: change a part, run this, look at the PNG.
  * The page is bundled from `src/solid-page.ts` and drawn by a real browser's
- * canvas, the one the game draws on.
+ * canvas, the one the game draws on. `--zdog` draws the Zdog comparison
+ * instead (`src/zdog-page.ts`).
  */
 
 import { resolve } from "node:path";
 import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
 
-const out = resolve(process.argv[2] ?? ".claude/tmp/solid-sheet.png");
+const args = process.argv.slice(2);
+const zdog = args.includes("--zdog");
+const named = args.find((a) => !a.startsWith("--"));
+const out = resolve(named ?? `.claude/tmp/${zdog ? "zdog" : "solid"}-sheet.png`);
 
 const built = await Bun.build({
-  entrypoints: [resolve(import.meta.dir, "src/solid-page.ts")],
+  entrypoints: [resolve(import.meta.dir, zdog ? "src/zdog-page.ts" : "src/solid-page.ts")],
   target: "browser",
   format: "iife",
 });

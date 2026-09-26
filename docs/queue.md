@@ -816,7 +816,7 @@ promote it out of "read" into its own queued fix.
 
 **The pattern**, already fixed six times over (WARDEN, SINEW, GUM, THE
 SURGE's sac, THE SPLICE's membrane/nucleus/eater-head, THE THROAT's everted
-ring — `docs/style-guide.md`'s "Depth — flat assets that read as solid"): a
+ring — `docs/style-guide.md`'s "Depth — bodies that look three-dimensional"): a
 body shades itself with a `createRadialGradient`/`createLinearGradient`
 whose own centre is a fixed fraction of the body's own radius toward the
 light, while the silhouette it lights — built with `blobPoints` on a `time`
@@ -1271,3 +1271,23 @@ you leave behind, and leave the rest listed.
 `frame.test.ts` does, because no wave draws one yet. The first boss that ships
 on a rig adds its wave there, at SIDE, THREE_QUARTER and FRONT if the fight
 reaches them.
+
+## A WebGL glow pass, tried as a candidate with its battery cost measured
+
+- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Files:** `packages/render/src/glow.ts`, `tools/versus/candidates/registry.ts`, `docs/performance.md`
+- **Where:** local
+
+The owner, 26 September 2026: a GPU glow is worth trying if it is best
+practice, and battery and performance matter to him. Glow today is layered
+strokes plus baked additive halos (`glow.ts`), all on the 2D canvas. Build the
+alternative as a VERSUS candidate, never on the field: draw the bright layer
+(halos, rims, lamps) to its own canvas at half or quarter resolution, run a
+two-pass blur in one WebGL context, composite it additively over the frame,
+and put the whole pass behind a switch so it is off by default. Then measure
+it on a real phone against the shipped glow, over the busiest boss wave:
+frame time from `bun run perf --wave "<wave>"` on the owner's weekly run, and
+battery drain over ten minutes of play with the pass on and off. Write both
+numbers into `docs/performance.md`. It ships only if the owner picks it in
+VERSUS and the phone numbers hold; otherwise the candidate stays as the
+record of why.
