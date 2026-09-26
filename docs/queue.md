@@ -632,32 +632,6 @@ doc with the numbers, distinct from the existing read/headless sections. If
 either read finding (`byDepth()`, `gyres(world)`) shows up as real cost,
 promote it out of "read" into its own queued fix.
 
-## The wider graphics-improvement pass has no single owner yet
-
-- **Found:** 2026-09-26, cloud session (this session, stopping here per the
-- **Taken:** 2026-09-26, claude/task-queue-work-aab360 (claim: claude/queue-the-wider-graphics-improvement-pass-has-no-singl)
-  owner's *"slow down"* request)
-- **Files:** `docs/style-guide.md`
-
-The owner asked, 2026-09-26, for a general investigation — beyond bosses —
-into how the game's graphics overall can read as more three-dimensional and
-alive: *"make first some investigation how in general we can improve
-graphics all over... maybe strategies like gradient, fillings, shadows,
-glows inside of body can help."* The still-life fix and the secondary-motion
-audit above are the two concrete threads pulled out of that so far, both
-scoped to boss "flesh" files. **Not yet covered**: whether the same two
-patterns (a fixed-offset gradient under a wobbling silhouette; a silhouette
-with no secondary motion of its own) also show up outside bosses — creature
-sprites (`packages/content/src/creatures.ts`-registered bodies drawn
-elsewhere in `packages/render/src/`), the hull itself, and any wave-level
-ambient shading. A fresh session should grep the same two signatures
-(`createRadialGradient`/`createLinearGradient` with a fixed fractional
-offset; a `blobPoints` silhouette wobble with no matching gradient-offset
-wobble) across the rest of `packages/render/src/`, outside the boss files
-already covered above, and file what it finds as its own queue entries
-rather than fixing on sight — this entry is the research-scope handoff, not
-the fix.
-
 ## Unverified at 4a47be3b6: THE OCULUS wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-27-the-oculus-the-simulation-lane
@@ -3088,3 +3062,131 @@ a landing. `tools/test/build-stamp.test.ts` had the same disease and now asks
 `git grep` instead. Do the same here: `git grep -l -E` with the regex over
 `packages/sim/src/*.ts`, with `--untracked`, and exit code 1 meaning none found.
 Done when the test reads no file itself and `bun run check` is green.
+
+## Every living creature's light stands still while its outline wobbles
+
+- **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
+- **Files:** `packages/render/src/living-skin.ts`, `packages/render/src/living-draw.ts`, `packages/render/src/key-light.ts`
+
+The creature half of the still-life sweep the bosses already had
+(`docs/style-guide.md`, "Depth on a body that already ships"), and the
+largest single case of it, because one paint function draws most of the
+field. `living-draw.ts:119` makes `t = contourClock(c.id, time)` and
+`:139` walks the outline with `livingPoints(shape, t, 28)`, whose
+`blobRadiusMul` wobbles it on `t * 0.9 / 0.53 / 0.31`. The paint it hands
+the body to, `LIVING_SKIN.paint` (`living-skin.ts`), never receives `t`:
+`BodyPaint` (`living-skin.ts:44-67`) has no time field, the key light is
+`litRound(ctx, 0, 0, reach, "value", p.rot)` at `:134` — `rot` only turns
+the pose's sway back out — and the sheen sprite sits at a fixed
+`-reach * SHEEN_UP` (0.34) at `:142`. Beautifully lit and a still life, on
+every body that goes through `drawLiving`: slick, bulb, dart, countdown,
+lure, mount, beatbox, rind, recoil, throb, mine, a falling leech or
+limpet, strand and the veil's core on the seat that sees colour, and the
+worn slick/bulb inside clasp, echo, carom, chute and the gyre's rim
+mounts. `snake-items.ts:115/173` calls the same paint and `litRound` over
+`livingPath(shape, t)` / `blobPoints(..., t, ...)` the same way.
+
+Do: add `t` to `BodyPaint`, pass it from `living-draw.ts:169`, and fold a
+small `LIT_WOBBLE`/`LIT_WOBBLE_RATE` into the `x, y` handed to `litRound`
+and the sheen's offset together, on a rate none of the three contour terms
+shares — the SINEW fix exactly, one level up. `litRound` quantises its
+radius to 4 px and caches by it; an offset moves the draw, not the cache
+key, so it costs no sprite. A throb's `rot` is live (its rule-driven spin)
+and stays as it is; only the wobble is uncovered there.
+
+**It changes a frame of nearly every wave**, and the owner asked for this
+pass by name only for bosses (26 September 2026). `LIVING_SKIN` is a
+record built so a second answer can stand beside it (`docs/versus.md`), so
+offer it as a VERSUS candidate on that record rather than landing it
+straight on the field, and say so in the commit.
+
+Checked in the same audit and **not** filed, so the next one need not
+re-read them: the hull body ramp (`hull.ts:119`, rebuilt from the
+contour's top every frame); the hull crown (`hull-barrel.ts:151`, anchored
+on the contour, cached on 8 px steps); the cannon egg's depth fill
+(`egg-skin.ts:113`, fixed in unit space, but its highlight drifts on
+`t * 0.9` so the pair already moves); the rock-wake flame
+(`rock-wake-fire.ts:130`, an emission ramp foot to crown, not a light);
+THE SHELL's plate specular (`shell-plate.ts:166`, fixed on purpose so the
+plate reads hard); THE GYRE's specular (`gyre-core.ts:115`, the fixed
+`KEY` half of the pairing, over orbit bands that travel); meteor, torch,
+coil, veer and moult rocks (they tumble, or wobble 0.01); crystal's shell
+(wobble 0.012); balloon, choir, crawler, lid, magnet, tether, volley, veil
+cloud, ghost and fence (the light already follows, or the shape is rigid).
+The field moves too: wash, corner light and ship air breathe in alpha,
+shafts and motes drift (`backdrop.ts`, `light-shafts.ts`).
+
+## THE WISP's arms leave their own light when they sway
+
+- **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
+- **Files:** `packages/render/src/wisp-arms.ts`
+
+Each arm is a ribbon lit across its width — lit edge on `KEY`'s side,
+shade on the other — with `createLinearGradient(rootX - width, 0, rootX +
+width, 0)` at `wisp-arms.ts:142`. The band is centred on the *root*, but
+the tip is at `rootX * splay + drag + sway` (`:116`), with
+`sway = sin(t * 1.4 + i * 1.6) * rx * 0.22` (`:115`). Past the band's ends
+a linear gradient is its end colour, so the lower half of a swinging arm
+goes flat all-lit or all-shade as it crosses, and the one-light-across-a-
+sheet reading the comment at `:143` asks for holds only near the root.
+The light should follow the ribbon's own centreline, not the root: build
+the band from the arm's mid-point (`(rootX + tipX) / 2`, widened by half
+their gap), or tilt it along root-to-tip. A fix to something wrong rather
+than unlovely — the file's own comment says what it should look like. Say
+so in the commit; `packages/render/test/frame.test.ts` must still draw it.
+
+## COUNTDOWN, BEATBOX and THROB have no motion of their own
+
+- **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
+- **Files:** `packages/render/src/body-interior.ts`, `packages/render/src/creature-detail.ts`, `packages/render/src/beatbox-air.ts`, `packages/render/src/throb-pores.ts`
+
+The creature half of "Living secondary motion is uneven across the boss
+roster". Every other creature kind has at least one part on a rate of its
+own — a slick's vein bead (`body-bloom.ts:134`, 1.1), a bulb's spores
+(`body-spores.ts:80`, 0.42), a limpet's hooklets (`cling.ts:88`), a
+mine's fuse pip, a mount's roots, a leech's or rind's studs breathing
+(`content/src/studded.ts:71`). Three have nothing but the smoke puffs every
+living body shares (`creature-detail.ts:71`, `t * 0.9`):
+
+- **countdown** — interior is `twoCores` (`body-interior.ts:59`), two dots
+  at a fixed place; its iris blade moves on the beat.
+- **beatbox** — the swell, the air rings (`beatbox-air.ts:163`) and the
+  wash are all locked to `beatPhase`; interior is `twoCores`.
+- **throb** — its pores are carried by its rule-driven spin
+  (`throb-pores.ts`, `facet(p, turn)`), not on a phase of their own;
+  interior is `twoCores`.
+
+`twoCores` is the seam: `body-interior.ts:87-96` says it exists to stop
+being identical and that *what else it might draw* is the next question it
+will be asked. One cheap term on `p.t` at a rate the contour does not use
+(the two cores drifting round each other, or pulsing out of step) answers
+all three — and dart and a falling leech/limpet, which draw it too. **This
+changes a frame** of every wave these five are on: a look, offered as a
+VERSUS candidate on `BODY_LOOK`, never landed straight. Keep it inside the
+body at 0.8 tile — the nameability gate (`bun run shapes:report`) must
+still hold them apart.
+
+## sheen.ts carries three dead exports, and two comments say what the code does not
+
+- **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
+- **Files:** `packages/render/src/sheen.ts`, `packages/render/src/key-light.ts`, `packages/render/src/body-interior.ts`, `packages/render/src/shell-draw.ts`
+
+`sheen.ts` exports `innerLight` (`:50`), `iridescence` (`:70`) and
+`bloom` (`:141`), and nothing in `packages/`, `apps/` or `tools/` imports
+any of them (a `bloom` in `body-bloom.ts` and one in
+`tools/shape-sheet/src/forms/radial.ts` are other functions of the same
+name; so is `tools/director/src/library/wisp-comb.ts`'s `iridescence`).
+Only `sweep` and `dither` are used. Remove the three, and move the reason
+`key-light.ts:189` cites (*`sheen.ts`'s `bloom` rounds its halo radius*)
+onto something that still exists — `litRound`'s own rounding says it.
+
+Two stale comments found beside it:
+
+- `body-interior.ts:91-93` says a rind and every lure draw two dots. They
+  draw the slick's or bulb's interior: `living-draw.ts:189` calls
+  `drawDetails` with `look = wornKind(c)`.
+- `shell-draw.ts:101-103` says nothing the shipped plate draws reads
+  `rot`. `shell-plate.ts:125-126` does — `keyIn(ink.rot)` and
+  `litFace(piece, ink.rot)`.
+
+`bun run check` proves it: nothing else changes.

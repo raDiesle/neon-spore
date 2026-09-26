@@ -24953,3 +24953,16 @@ Bottleneck: friction — two file splits the size hook asked for, about as
 long as the slosh itself took.
 
 *Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — the still-life audit outside the bosses
+
+- **reading** — 15 min. Three read-only agents over the creatures, the hull
+  and the field in parallel, then each finding checked against its file.
+- **writing** — 10 min. Four queue entries.
+- **looking** — 0 min. Research; nothing drawn changed.
+- **friction** — 5 min. The first item taken was already held by a branch
+  the listing had not shown yet.
+- **landing** — 5 min
+
+Bottleneck: reading — forty creature kinds, and most of them turned out to
+be one paint function.
