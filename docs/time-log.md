@@ -23668,3 +23668,5 @@ Bottleneck: writing — a crack with lips needs its own outline, not a stroke.
 
 Bottleneck: looking — the rear and the spread only showed they had nothing
 coming at their rings once they were photographed.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

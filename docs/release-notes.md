@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ed5b4de48 — THE INSTAR's second act throws its fire and lights its heart
+
+The rear now spits two globs of fire out of its jaws, each arcing down onto its SHIELD ring as the window closes; the spread shakes embers off its wings onto its SUCK rings; and the bare body after the moult has a heart that beats on the music at its SHOOT ring and goes dark shot by shot. A look with no shipped alternative: these steps had rings with nothing visibly coming at them.
+
 ## 2026-09-26 · d4eafbf4c — THE SEAM's timeout blow is its own crack running down to the hull
 
 When THE SEAM's window runs out, its crack does not stop at the ridge: it splits on out of the bottom lobe, a jagged rift in the dark with the stone's own edge at its lips, down to the column the pair left open. It throws the ridge's grit off the plating, then closes from the top down. This replaces the shared lash for THE SEAM.
