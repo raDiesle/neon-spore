@@ -1,10 +1,23 @@
+import {
+  type Ring,
+  type SeenRing,
+  SIDE,
+  seeTube,
+  tubeFrames,
+  type View,
+  view,
+} from "@neon-spore/content";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
-import { drawGlint } from "./instar-hide.js";
+import { mixHex } from "./hex.js";
 import { instarAt, type Point } from "./instar-place.js";
-import { drawPlate, faded, type Look, toward } from "./instar-plate.js";
+import { faded, type Look, toward } from "./instar-plate.js";
+import { drawBlade } from "./instar-tail-blade.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { splinePath } from "./spline.js";
+import { drawContact } from "./solid-haze.js";
+import { breath, chainAt } from "./solid-motion.js";
+import { drawTube, rimTube } from "./solid-tube-draw.js";
 
 /**
  * **THE INSTAR's tail**: plated, spined, and forked at the end into two
@@ -21,6 +34,11 @@ import { splinePath } from "./spline.js";
  * under the ring a thumb is chasing.
  * While the window runs the blades shiver, harder as it closes, and glow red
  * with what they are about to do (`instarThreat`).
+ *
+ * **The tail is a tube of the rig** (`solid-tube.ts`, `drawTube`), one ring
+ * per sample of the curve, lit across its width, with a rim along its edge
+ * and a contact shadow where it goes into the rear — and it swings on its
+ * own, a wave running down it to the fork (`SWING_*` below).
  */
 
 /** The blades' tips either side of the fork, and the fork above them, in
@@ -28,21 +46,39 @@ import { splinePath } from "./spline.js";
 const BLADE_SPREAD = 120;
 const FORK_RISE = 110;
 
-/** Samples along the tail. */
-const N = 18;
+/** Rings along the tail — dense, for the curl is tight — and how many of them
+ * one groove and one spike span. */
+const N = 36;
+const GROOVE = 4;
+const SPIKE = 6;
 
 /**
- * The tail's own idle wobble on `Form.angle`, same reasoning as the body's
- * roll (`instar-profile-life.ts`) and the skull's `CROWN_WOBBLE`
- * (`instar-side-head.ts`, `docs/style-guide.md`'s "Depth on a body that
- * already ships"): `fork` only actually moves once the tail is raised or
- * lashing (`threat`, `f.tail` above), so at rest — trailing behind the
- * rear, which is most frames — the shading angle from `rear` to `fork` was
- * another still life. Its own period so the three lit shoulders do not
- * slide in step ("phase offset is the cheapest detail available").
+ * The swing, the tail's own life: a breath (`solid-motion.ts`) at the root
+ * that each ring does a little later and a little more (`chainAt`), so a
+ * wave runs down it to the fork like a whip rather than the whole tail
+ * rocking as one. It swings two ways at once, on two phases of one clock —
+ * across the picture, pinned at both ends so the root stays in the rear and
+ * the blades stay over their marks, and in depth, toward the player and
+ * away, which moves nothing on the screen and everything in the light: the
+ * rings turn their flanks to the key and back, and the lens swells the near
+ * end and shrinks the far one (`SWING_*`, `LENS`).
  */
-const TAIL_WOBBLE = 0.06;
-const TAIL_WOBBLE_PERIOD = 6.4;
+const SWING_ACROSS = 0.18;
+const SWING_DEPTH = 0.55;
+const SWING_PERIOD = 3.6;
+/** Seconds the fork is behind the root, and how much wider it swings: over the
+ * whole tail, dealt out per ring. */
+const SWING_LAG = 1.1 / N;
+const SWING_GROW = 1.5 ** (1 / N);
+/** How far off the eye is, in head radii: near enough that a tip swung at the player grows. */
+const LENS = 7;
+
+const W_OF = new Map<number, View>();
+const SKIN = {
+  base: mixHex(PALETTE.sheenDeep, PALETTE.hull, 0.25),
+  lift: PALETTE.hull,
+  sheen: PALETTE.sheenRim,
+};
 
 export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, rear: Point): void {
   const { f, r, fade, hurt, time, threat } = look;
@@ -61,49 +97,74 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
       y: v * v * v * rear.y + 3 * v * v * u * c1.y + 3 * v * u * u * c2.y + u * u * u * fork.y,
     };
   };
-  const mid = Array.from({ length: N + 1 }, (_, i) => at(i / N));
+  const chord = Math.hypot(fork.x - rear.x, fork.y - rear.y) || 1;
+  const across = { x: -(fork.y - rear.y) / chord, y: (fork.x - rear.x) / chord };
+  const sway = (t: number) => breath(t, SWING_PERIOD, 0.35, 11);
+  const lens = r * LENS;
+  const rings: Ring[] = [];
+  for (let i = 0; i <= N; i++) {
+    const u = i / N;
+    const p = at(u);
+    const side = chainAt(sway, time, i, SWING_LAG, SWING_GROW) * SWING_ACROSS * r * 4 * u * (1 - u);
+    const z =
+      chainAt(sway, time - SWING_PERIOD / 4, i, SWING_LAG, SWING_GROW) * SWING_DEPTH * r * u;
+    // The lens divided back out of the centre, so the ring lands where the
+    // curve put it and only its girth and its light know how near it is.
+    const s = lens / (lens - z);
+    const x = (p.x - rear.x + across.x * side) / s;
+    const y = (p.y - rear.y + across.y * side) / s;
+    rings.push({ c: { x, y, z }, r: r * (0.3 - 0.2 * u) });
+  }
+  const seen = seeTube(rings, tubeFrames(rings), lensView(lens));
   const left: Point[] = [];
   const right: Point[] = [];
-  const spikes: [Point, Point][] = [];
-  mid.forEach((p, i) => {
-    const q = mid[Math.min(N, i + 1)] ?? p;
-    const o = mid[Math.max(0, i - 1)] ?? p;
+  const spikes: [Point, Point, number, number][] = [];
+  seen.forEach((ring, i) => {
+    const q = (seen[Math.min(N, i + 1)] as SeenRing).c;
+    const o = (seen[Math.max(0, i - 1)] as SeenRing).c;
     const len = Math.hypot(q.x - o.x, q.y - o.y) || 1;
     const nx = (q.y - o.y) / len;
     const ny = -(q.x - o.x) / len;
-    const w = r * (0.3 - 0.2 * (i / N));
-    left.push({ x: p.x + nx * w, y: p.y + ny * w });
-    right.push({ x: p.x - nx * w, y: p.y - ny * w });
-    if (i % 3 === 1)
-      spikes.push([
-        { x: p.x + nx * w, y: p.y + ny * w },
-        { x: nx, y: ny },
-      ]);
+    const { c, r: w } = ring;
+    left.push({ x: c.x + nx * w, y: c.y + ny * w });
+    right.push({ x: c.x - nx * w, y: c.y - ny * w });
+    if (i % SPIKE === 2)
+      spikes.push([{ x: c.x + nx * w, y: c.y + ny * w }, { x: nx, y: ny }, c.s, i]);
   });
-  const hide = splinePath([...left, ...right.reverse()], true);
-  right.reverse();
-  const m = mid[Math.round(N / 2)] as Point;
-  const chord = Math.hypot(fork.x - rear.x, fork.y - rear.y);
-  const wobble = TAIL_WOBBLE * Math.sin((time * (Math.PI * 2)) / TAIL_WOBBLE_PERIOD);
-  drawPlate(ctx, hide, fade, 0.5, hurt, {
-    x: m.x,
-    y: m.y,
-    r: Math.max(r * 0.3, chord / 2),
-    ry: r * 0.3,
-    angle: Math.atan2(fork.y - rear.y, fork.x - rear.x) + wobble,
-  });
-  drawRings(ctx, left, right, r, fade);
+  // Curled over the back, the tail doubles on itself at the top of the curl,
+  // tighter than it is thick: one tube there folds its outline through
+  // itself. So it is two, split at the top — the root going up, then the lash
+  // coming down over it.
+  const top = apex(seen);
   ctx.save();
-  ctx.fillStyle = faded(PALETTE.rock, fade, 0.9);
-  for (const [p, n] of spikes) {
-    const tx = -n.y;
-    const ty = n.x;
-    ctx.beginPath();
-    ctx.moveTo(p.x + tx * r * 0.06, p.y + ty * r * 0.06);
-    ctx.lineTo(p.x - tx * r * 0.06, p.y - ty * r * 0.06);
-    ctx.lineTo(p.x + n.x * r * 0.16, p.y + n.y * r * 0.16);
-    ctx.closePath();
-    ctx.fill();
+  ctx.translate(rear.x, rear.y);
+  const pieces: [number, number][] =
+    top > 0
+      ? [
+          [0, top],
+          [top, N],
+        ]
+      : [[0, N]];
+  for (const [from, to] of pieces) {
+    const hide = drawTube(ctx, seen.slice(from, to + 1), SKIN, fade);
+    strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
+    drawHurt(ctx, hide, hurt * fade);
+    drawRings(ctx, left, right, r, fade, from, to);
+    // Where the tail goes into the rear.
+    if (from === 0) drawContact(ctx, hide, 0, 0, r * 0.4, 0.8 * fade);
+    rimTube(ctx, hide, PALETTE.sheenRim, r * 0.05, fade);
+    ctx.fillStyle = faded(PALETTE.rock, fade, 0.9);
+    for (const [p, n, k, i] of spikes) {
+      if (i < from || i >= to) continue;
+      const tx = -n.y * r * 0.06 * k;
+      const ty = n.x * r * 0.06 * k;
+      ctx.beginPath();
+      ctx.moveTo(p.x + tx, p.y + ty);
+      ctx.lineTo(p.x - tx, p.y - ty);
+      ctx.lineTo(p.x + n.x * r * 0.16 * k, p.y + n.y * r * 0.16 * k);
+      ctx.closePath();
+      ctx.fill();
+    }
   }
   ctx.restore();
   for (const s of [-1, 1]) {
@@ -114,19 +175,47 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
   }
 }
 
-/** The tail's rings: a dark groove across it every other sample, lit just
- * behind on the side toward the key. */
+/**
+ * Where the curl tops out: the highest ring, when it is well inside the tail
+ * and the tail comes back down from it — else 0, and the tail is one tube.
+ */
+function apex(seen: readonly SeenRing[]): number {
+  let k = 0;
+  for (let i = 1; i < seen.length; i++)
+    if ((seen[i] as SeenRing).c.y < (seen[k] as SeenRing).c.y) k = i;
+  const last = seen[seen.length - 1] as SeenRing;
+  const rise = last.c.y - (seen[k] as SeenRing).c.y;
+  return k > 1 && k < seen.length - 2 && rise > (seen[k] as SeenRing).r * 2 ? k : 0;
+}
+
+/** The side view at the tail's lens, one per head radius the field has been drawn at. */
+function lensView(lens: number): View {
+  const key = Math.round(lens);
+  let w = W_OF.get(key);
+  if (!w) {
+    if (W_OF.size > 8) W_OF.clear();
+    w = view(SIDE, 0, key);
+    W_OF.set(key, w);
+  }
+  return w;
+}
+
+/** The tail's rings from `from` to before `to`: a dark groove across it every
+ * `GROOVE` rings, lit just behind on the side toward the key. */
 function drawRings(
   ctx: CanvasRenderingContext2D,
   left: readonly Point[],
   right: readonly Point[],
   r: number,
   fade: number,
+  from: number,
+  to: number,
 ): void {
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineWidth = Math.max(1, r * 0.028);
-  for (let i = 2; i < N; i += 2) {
+  for (let i = GROOVE; i < N; i += GROOVE) {
+    if (i < from || i >= to) continue;
     const a = left[i] as Point;
     const b = right[i] as Point;
     const bow = {
@@ -145,39 +234,4 @@ function drawRings(
     ctx.stroke();
   }
   ctx.restore();
-}
-
-/** One blade of the fork: a hooked crescent from the fork to its tip. */
-function drawBlade(ctx: CanvasRenderingContext2D, from: Point, tip: Point, s: number, look: Look) {
-  const { r, fade, threat } = look;
-  const mx = (from.x + tip.x) / 2;
-  const my = (from.y + tip.y) / 2;
-  const len = Math.hypot(tip.x - from.x, tip.y - from.y) || 1;
-  // Out, away from the other blade, is the blade's back.
-  const sx = (s * (tip.y - from.y)) / len;
-  const sy = (-s * (tip.x - from.x)) / len;
-  const p = new Path2D();
-  p.moveTo(from.x - s * r * 0.1, from.y);
-  p.quadraticCurveTo(mx + sx * len * 0.4, my + sy * len * 0.4, tip.x, tip.y);
-  p.quadraticCurveTo(
-    mx + sx * len * 0.1,
-    my + sy * len * 0.1,
-    from.x + s * r * 0.1,
-    from.y + r * 0.05,
-  );
-  p.closePath();
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.rockDark, fade);
-  ctx.fill(p);
-  // Bone, ground to an edge: pale along the back, dark down the cutting side.
-  const back = { x: mx + sx * len * 0.3, y: my + sy * len * 0.3 };
-  const g = ctx.createLinearGradient(back.x, back.y, mx, my);
-  g.addColorStop(0, faded(PALETTE.rock, fade, 0.6));
-  g.addColorStop(1, faded(PALETTE.rock, fade, 0));
-  ctx.fillStyle = g;
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.rock, fade), STROKE.inner, 0.4 * fade);
-  drawGlint(ctx, toward(from, tip, 0.8), r * 0.025, fade, 0.6);
-  if (threat > 0) strokeGlow(ctx, p, faded(PALETTE.red, fade), STROKE.outline, threat * fade);
 }

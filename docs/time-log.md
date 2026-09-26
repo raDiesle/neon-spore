@@ -22760,3 +22760,17 @@ Bottleneck: reading — which gesture could ask iOS for the navigator without
 putting a prompt in front of every game's READY.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's tail is a lit tube that swings
+
+- reading: 5 min. The tail drawer, `chainAt` and `breath`, the tube draw.
+- writing: 15 min. The tail as rig rings off the rear, the swing across and
+  in depth, and the split at the top of the curl.
+- looking: 15 min. Three rounds: the curl folded through itself as one tube,
+  then showed elbows at 18 rings, then doubling the rings doubled the swing
+  because the chain's lag was per ring.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — the lash's curl is tighter than the tail is thick, and
+only a frame of it showed what that does to a tube.

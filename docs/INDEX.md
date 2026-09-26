@@ -1522,6 +1522,7 @@ by hand never moves.
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
 | `packages/render/src/instar-track.ts` | **A swipe is drawn as the way the thumb goes, not as a place to press.** The owner, 24 September 2026 |
 | `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
+| `packages/render/src/instar-tail-blade.ts` | THE INSTAR's tail ends in a fork of two of these (`instar-tail.ts`) |
 | `packages/render/src/instar-eggs.ts` | THE INSTAR's clutch, one egg per swipe, and the egg each counted swipe drops to the hull |
 | `packages/render/src/instar-egg-spots.ts` | **Where THE INSTAR's eggs sit in their two nests**, in head radii from the nest's middle |
 | `packages/render/src/instar-egg-crack.ts` | **An egg nobody has taken yet, cracking as the window runs**: a hairline at a quarter of it, a split with an eye moving inside at three quarters |

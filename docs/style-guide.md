@@ -589,6 +589,18 @@ run it, look at the PNG — that is the loop.
   it, the lens divided back out, so the body keeps its footprint and gains its
   roundness. Pinch the girth at every seam — a smooth tube seen end-on reads
   as a horn, a pinched one as plates going away.
+- **A tail is a tube that swings in depth as well as across**
+  (`instar-tail.ts`). Its follow-through is `chainAt` on a `breath`: each
+  ring does what the root did a moment earlier and a little more, so a wave
+  runs to the tip. Swing it across the picture pinned at both ends, so what
+  the tip is aimed at stays under it, and swing it toward the player and
+  away with the lens divided out of the centre: nothing moves on the screen,
+  but the rings turn in the light and the near end swells. Where it curls
+  tighter than it is thick, split it into two tubes at the top of the curl
+  and draw the root first — one tube there folds its outline through itself.
+  Sample it densely enough that a tight bend is not a row of elbows, and deal
+  a chain's lag and growth out per ring from a whole-tail figure, so the
+  motion does not change when the ring count does.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency
