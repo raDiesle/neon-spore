@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e484fbf32 — Queue: the still-life-wobble fix proven on THE INSTAR is boss-by-boss work
+
+A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, starting with THE INSTAR, now landed in full (skull, body, tail, jaw, brow, front-body segments — four documented cases in docs/style-guide.md's "Depth on a body that already ships").
+
 ## 2026-09-26 · 584b23ff5 — THE CHOKE's guide is a film: nobody steers, and the shot waits for the cannon
 
 The wave's three strings are gone, replaced by a rehearsal in three pages, played under the wave's own steer fault. On player 2's screen the cannon walks by itself. Player 1 is shown the light that marks its next step as it turns at the right wall. Player 2 fires on the beat it is back under the body. The press is timed on the game's half-beat shot grid, because half a beat later the bolt leaves from the next column. `scene-choke.test.ts` pins the walk and the kill. §3.2 now counts eighty-three films and seven guides still in prose.
