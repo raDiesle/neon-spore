@@ -24038,3 +24038,13 @@ session's landing on the same boss, and its records had to be merged by
 hand before this lane could start.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's fourth act walked step to step, and what its turns cost
+
+- reading: 0 min. The fourth act's five figures and steps, and whether the fire reaches them.
+- writing: 0 min. The loom's comment, a queue entry for the turn's cost.
+- looking: 5 min. The one-tick probe over twenty-eight steps; ten mid-change frames, three taken again where the body was still far off or offscreen.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, this entry, `land`.
+
+Bottleneck: looking — a mid-change frame of a pass or an approach is mostly sky or a speck, and finding the tick where the body is on screen and halfway is by trial.

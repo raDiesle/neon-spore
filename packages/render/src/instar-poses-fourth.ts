@@ -96,7 +96,8 @@ export function fourthAct(breath: Figure): Record<Fourth & InstarPose, Figure> {
       flame: 0.5,
     },
     // Looming face-on so close the head fills the field, the jaws wide, the
-    // lips at 197 and 563, the fire deep in the mouth.
+    // lips at 197 and 563. It bites rather than burns (§11.32): its `flame`
+    // is never lit, since only the breath, the rear and the roar are (`instarFire`).
     loom: {
       ...breath,
       headY: 380,
