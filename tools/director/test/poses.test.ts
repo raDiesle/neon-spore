@@ -23,7 +23,11 @@ import { BOSS_GROUPS } from "../src/poses-bosses.js";
 // named state arrives, which is arithmetic and nothing else, so under a full
 // check it is slow for the machine's reasons and not its own. It was on bun's
 // flat five seconds and went red on one of three runs of the same green tree.
-setDefaultTimeout(cpuTimeout(1_000));
+// Raised 26 September 2026: two hundred and ten poses became two hundred and
+// sixty-one as bosses shipped, and this file's own idle cost on a quiet cloud
+// container (load average at or below one core) measured 9.7 s against the
+// 8 s the old constant allowed — not a flake, arithmetic that grew.
+setDefaultTimeout(cpuTimeout(1_300));
 
 const ALL = POSE_GROUPS.flatMap((g) => g.poses.map((p) => [g.title, p] as const));
 
