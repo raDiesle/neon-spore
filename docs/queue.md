@@ -1719,6 +1719,7 @@ owner has looked.
 ## §23 THE MANTLE — a revised simulation lane, more visual states and a brace beat
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
+- **Taken:** 2026-09-26, claude/queue-34-the-cyst-the-simulation-lane (claim: claude/queue-23-the-mantle-a-revised-simulation-lane-more-vis)
   bosses added today for a fuller story arc, more distinct visual states and
   more SLOW beats that ask for action
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
