@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 89bae1d3b — THE INSTAR's parts are the six its script names
+
+`INSTAR_PARTS` still listed `hand` and `tongue` from the five poses of 17 September, and no step of the script has named either since. They are cut from the list and from the strike's table, which gave both a slam that was never drawn; the tests that borrowed `hand` as an arbitrary part use `jaw`. The prose in `instar.ts` and the director's field-controls sheet now names the parts the boss has.
+
 ## 2026-09-26 · 8e81c9176 — AUTO plays an ordinary wave: the cannon and the shield together
 
 AUTO in the director was bosses only. On a wave with no boss it now plays the field: player 1 stands the cannon under the body nearest the hull and player 2 fires its colour; player 2 carries the shield under the nearest rock and player 1 triggers the dome in the last stretch of the beat before it arrives. BOTH clears 43 of the 65 ordinary waves with the hull unscarred; the 22 whose creatures have a verb of their own are named in the test and queued, as is AUTO in the game's own TEST view, which needs the hands in a package the app can import.
