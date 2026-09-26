@@ -434,6 +434,7 @@ an alignment.
 ## `bun run frames --until` misses an event that fires between two presses
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
+- **Taken:** 2026-09-26, claude/queue-queue-next-sends-a-worktree-session-to-a-tree-it (claim: claude/queue-bun-run-frames-until-misses-an-event-that-fires)
 - **Files:** `tools/frames/reach.ts`, `tools/frames/until.ts`
 
 `reachFirstFrame` hands `until.event` to `d.advance` only on the last segment
