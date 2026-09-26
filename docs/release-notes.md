@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 75f50597c — Keep a queue entry's Files line to paths the tree has
+
+"Living secondary motion is uneven across the boss roster" named a glob and a clause in its Files line, which the doc-drift test reads as paths and fails on. The Files line now names docs/style-guide.md alone and the audit's wider scope moves into the body.
+
+## 2026-09-26 · 70a1656bd — Add THE SEAM's simulation lane: a crack answered with the cannon and the shield, in order
+
+Wave 105 THE SEAM is a shelled ridge down the middle column with a script of nine steps on the wave. Each step lights under THE SLOW and is answered with a standard control: a point shot in its colour, grit taken on the shield under the ridge with a guard pressed after it lit, a rock shot in its own column, or grit and a rock at once. Three sealing points are its health, and a step run out breaches the hull. The nine sounds are bound. Nothing is drawn yet and there is no autopilot hand; bosses.md §11.43 argues the seven departures from §26. The wave went in unweighed.
+
 ## 2026-09-26 · 1e08ce8da — Queue the claim whose rejected push still hands the item out
 
 Two sessions built §25 THE VALVE's simulation lane: `queue next` warned that its push to origin/main was refused, then printed the prompt anyway. The duplicate lane is dropped unlanded; the fix is queued.
