@@ -22976,3 +22976,13 @@ Bottleneck: writing — six phases, each needing a pose that reads apart from
 its neighbours in a counted log rather than to an eye.
 
 *Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — The style guide says no library, and that detail is baked rather than shipped
+
+- reading: 5 min. The Depth section, the queue's atlas entries, the build.
+- writing: 5 min. Two bullets, the stale "small 3D library" taken out.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, the land.
+
+Bottleneck: none — a document correction found while answering what the rig costs.

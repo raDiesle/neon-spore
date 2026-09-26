@@ -196,7 +196,19 @@ misunderstanding, and it is withdrawn.**
 - **How a body is drawn is free.** A body modelled in three dimensions and
   projected every frame — the rig, **A boss seen from any side** below — is
   the preferred way for anything large that turns. Lit sprites, real
-  perspective, a real z for ordering, and a small 3D library are all allowed.
+  perspective and a real z for ordering are all allowed.
+- **No library, our own code.** Ideas are borrowed — Zdog's rig of a few
+  shapes turned in 3D is the model — and the code is written for this game:
+  *"i am not a fan of integrating a library, but we may be inspired of it"*,
+  the owner, 26 September 2026. Zdog stays a devDependency of the comparison
+  sheet only (below).
+- **Detail that would be an image is baked, not shipped.** The first choice
+  is to draw it with our own code once, onto an offscreen canvas at load, and
+  blit it (`bakedCache()`): it costs no download. Only what cannot be drawn
+  is a file, and then it is a lossy WebP atlas of a few frames, fetched with
+  its wave, with the motion between frames done by transforms and one base
+  tinted rather than a frame per colour. Never an APNG or an animated WebP
+  on the field.
 - **The limits are the phone's, not the dimension's.** Battery and frame time
   matter to the owner more than any look. No full engine — PixiJS, Three.js,
   Rive, Lottie — the owner, 26 September 2026. Anything that runs per frame
