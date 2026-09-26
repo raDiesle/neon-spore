@@ -1896,6 +1896,7 @@ by hand never moves.
 | `packages/audio/src/bind-scout-hand.ts` | THE SCOUT's two hands on its picture, in a file of their own for `bind-pinball-hand.ts`' reason |
 | `packages/audio/src/bind-stare.ts` | THE STARE's three, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
+| `packages/audio/src/bind-ship.ts` | **The ship's own six**: a bolt leaving the cannon, a lance filling or spilling |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
@@ -2644,6 +2645,7 @@ by hand never moves.
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
+| `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |

@@ -21935,3 +21935,17 @@ Bottleneck: reading — the event touches the simulation, the ear and the
 picture, and each had its own place to register it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `bind.ts` and `ship-fields.ts` come off their line ceiling
+
+- reading: 5 min. `bind-fleet.ts`'s guard, and the seams in both files.
+- writing: 10 min. The ship's six to `bind-ship.ts`; the ship and creature
+  families behind guards as THE FLEET's are; the non-choreographed bosses'
+  rows to `ship-fields-boss.ts`, spread back where they stood.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. The first cut of `bind.ts` took the impact cases with it,
+  and one `bind-ship.ts` cut alone still left the file at the size hook's line.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a case list is cheapest to shorten by a guard, and it
+took one cut that did not reach far enough to see it.

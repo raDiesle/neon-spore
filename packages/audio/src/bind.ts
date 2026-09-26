@@ -21,7 +21,7 @@ import { choreographedCue } from "./bind-choreographed.js";
 import { clingCue } from "./bind-cling.js";
 import { coilCue } from "./bind-coil.js";
 import { crawlerCue } from "./bind-crawler.js";
-import { creatureCue } from "./bind-creatures.js";
+import { creatureCue, isCreatureEvent } from "./bind-creatures.js";
 import type { Cue } from "./bind-cue.js";
 import { fenceCue } from "./bind-fence.js";
 import { fleetCue, isFleetEvent } from "./bind-fleet.js";
@@ -29,8 +29,9 @@ import { gumCue } from "./bind-gum.js";
 import { handedCue } from "./bind-handed.js";
 import { impactCue } from "./bind-impact.js";
 import { mirrorCue } from "./bind-mirror.js";
-import { panForCol, pitchForRow } from "./bind-place.js";
+import { panForCol } from "./bind-place.js";
 import { podCue } from "./bind-pod.js";
+import { isShipEvent, shipCue } from "./bind-ship.js";
 import { spliceCue } from "./bind-splice.js";
 import { stareCue } from "./bind-stare.js";
 import { volleyCue } from "./bind-volley.js";
@@ -50,6 +51,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
   // THE FLEET's ten, read by their guard rather than as ten cases here: the
   // family carries more of the fight than any other and `bind-fleet.ts` is it.
   if (isFleetEvent(e)) return fleetCue(e, cols, rows);
+  // The ship's own six and one body's twenty, each family behind its guard in
+  // `bind-ship.ts` and `bind-creatures.ts`. A guard narrows the rest of the
+  // switch as a case does, so a new event is still a compile error below.
+  if (isShipEvent(e)) return shipCue(e, cols, rows);
+  if (isCreatureEvent(e)) return creatureCue(e, cols, rows);
   switch (e.type) {
     case "beat":
       return { id: e.beat % 4 === 0 ? "beat.accent" : "beat.tick" };
@@ -65,23 +71,8 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       // Leaving, in the menu's own word for it: the run is being walked out
       // of, on both phones, and the other one hears the door.
       return { id: "ui.menuBack" };
-    case "fire":
-      // A lance is a different sound, not a louder one: the pair spent three
-      // beats of held thumb and a silence on it, and it has to be audible that
-      // what left the lobe was the thing they were waiting for.
-      if (e.lance) return { id: "signal.markHit", pan: panForCol(e.col, cols) };
-      return {
-        id: e.color === "red" ? "ship.fireRed" : "ship.fireCyan",
-        pan: panForCol(e.col, cols),
-      };
-    case "lanceFull":
-      return { id: "signal.markSet", pan: panForCol(e.col, cols) };
-    case "lanceSpilled":
-      return { id: "signal.markMissed", pan: panForCol(e.col, cols) };
-    case "shotOut":
-      // The bolt was heard leaving; what it flies on into is sky, and a boss
-      // that took it up there says so in its own event.
-      return null;
+    // The ship's own, in `bind-ship.ts`: a bolt leaving, a lance filling or
+    // spilling, and the grip's two gestures.
     // The six a shot meeting a body makes, in `bind-impact.ts` — the most
     // played group in the catalogue, and the one `bind.ts` had the least room
     // left to explain.
@@ -92,21 +83,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "deflect":
     case "petal":
       return impactCue(e, cols, rows);
-    case "grip":
-      return { id: "ship.gripTake", pan: panForCol(e.col, cols), pitch: pitchForRow(e.row, rows) };
-    // THE PUSH, the same hand's second gesture. Deliberately not another
-    // `ship.gripTake`: the pair has already heard the grab, and a carry that
-    // sounded like one would say a hand had landed on something new. What the
-    // seat without the thumb on it needs is the *column*, which the pan says —
-    // and the direction, which lifts or drops it about a semitone on top of
-    // the row's own pitch. Neither is visible to an eye on the other half of
-    // the screen, and both are what the pair is about to say aloud.
-    case "carry":
-      return {
-        id: "ship.gripCarry",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows) * (e.dir === 1 ? 1.06 : 0.94),
-      };
     // The maw, in `bind-pod.ts`: a pod freed, taken or broken, and the husk
     // that is the same arrival paying the other way.
     case "podLoose":
@@ -162,37 +138,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "spliceWrong":
     case "spliceDown":
       return spliceCue(e, cols);
-    // What a covering did — armour chipping, a membrane coming off, a cage
-    // buckling, a crust cracking, a body turning at a wall — and, below it,
-    // what a body one of them cannot see did: a disguise going, a cloud
-    // shutting or opening, a tile expiring. `bind-creatures.ts` next door,
-    // listed case by case rather than reached through a `default`: a default
-    // would have taken the exhaustiveness of this switch with it, and the
-    // exhaustiveness is what makes a new event a compile error here instead of
-    // a silence nobody hears.
-    case "shellBreak":
-    case "shellBare":
-    case "rindShed":
-    case "recoilBounce":
-    case "claspBreak":
-    case "veilMorph":
-    case "veilRebuff":
-    case "veilTorn":
-    case "lureHit":
-    case "lureSeen":
-    case "lureVanished":
-    case "wispHop":
-    case "ghostRelease":
-    case "ghostTurn":
-    case "ghostCharge":
-    case "strandBead":
-    case "strandSwell":
-    case "magnetPlate":
-    // A bolt spent on a body the cannon cannot answer, which sounds like the
-    // one spent on a magnet's plate and for the same reason (`bind-creatures.ts`).
-    case "bounce":
-    case "magnetBreak":
-      return creatureCue(e, cols, rows);
     // Each group below lives in its own `bind-*.ts`, cut out the way its
     // events were cut out of `events-creature.ts`, and **named here rather
     // than reached through a default** — a new event is a compile error.

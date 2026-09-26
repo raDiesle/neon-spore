@@ -21,41 +21,41 @@ import { veilCue } from "./bind-veil.js";
  * thrown clear and a canopy, against a list of incidents that happen to be
  * about bodies. `cueFor` names those four itself.
  *
- * `cueFor` names each of these cases and delegates, rather than reaching this
- * file through a `default` — a default would take that switch's exhaustiveness
- * with it, and the exhaustiveness is what makes a new event a compile error
- * rather than a silence nobody notices.
+ * `cueFor` reaches this file through `isCreatureEvent`, never a `default` — a
+ * default would take that switch's exhaustiveness with it, and the
+ * exhaustiveness is what makes a new event a compile error rather than a
+ * silence nobody notices. The guard narrows the switch as the cases did.
  */
-export function creatureCue(
-  e: Extract<
-    SimEvent,
-    {
-      type:
-        | "shellBreak"
-        | "shellBare"
-        | "rindShed"
-        | "recoilBounce"
-        | "claspBreak"
-        | "veilMorph"
-        | "veilRebuff"
-        | "veilTorn"
-        | "lureHit"
-        | "lureSeen"
-        | "lureVanished"
-        | "wispHop"
-        | "ghostRelease"
-        | "ghostTurn"
-        | "ghostCharge"
-        | "strandBead"
-        | "strandSwell"
-        | "magnetPlate"
-        | "bounce"
-        | "magnetBreak";
-    }
-  >,
-  cols: number,
-  rows: number,
-): Cue | null {
+/** The family, so `cueFor` reads one guard rather than twenty cases. */
+const CREATURE_EVENTS = [
+  "shellBreak",
+  "shellBare",
+  "rindShed",
+  "recoilBounce",
+  "claspBreak",
+  "veilMorph",
+  "veilRebuff",
+  "veilTorn",
+  "lureHit",
+  "lureSeen",
+  "lureVanished",
+  "wispHop",
+  "ghostRelease",
+  "ghostTurn",
+  "ghostCharge",
+  "strandBead",
+  "strandSwell",
+  "magnetPlate",
+  "bounce",
+  "magnetBreak",
+] as const;
+type CreatureEvent = Extract<SimEvent, { type: (typeof CREATURE_EVENTS)[number] }>;
+
+export function isCreatureEvent(e: SimEvent): e is CreatureEvent {
+  return (CREATURE_EVENTS as readonly string[]).includes(e.type);
+}
+
+export function creatureCue(e: CreatureEvent, cols: number, rows: number): Cue | null {
   switch (e.type) {
     // THE VEIL's three, next door. `bind-carom.ts` and `bind-coil.ts` are
     // reached from `cueFor` itself; this one is reached from here, because

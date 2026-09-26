@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## `bind.ts` and `ship-fields.ts` sit at their line ceiling
-
-- **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
-- **Taken:** 2026-09-26, claude/queue-the-instar-breath-the-shove-is-seen-and-heard (claim: claude/queue-bind-ts-and-ship-fields-ts-sit-at-their-line-cei)
-- **Files:** `packages/audio/src/bind.ts`, `tools/director/src/ship-fields.ts`
-
-The shield push landed one `case` in `bind.ts`, which is now exactly 250
-lines, and two fields in `ship-fields.ts`, now 243 — the hook asked for a seam.
-The next event or `SimConfig` key will push either over `limits.test.ts`.
-Cut `bind.ts` the way `bind-volley.ts`, `bind-carom.ts` and `bind-gum.ts`
-were cut (the shared-defence cases — deflect, guard, shield push — are a
-natural file), and split `FIELD_GROUP` by group into a second page imported
-back. Proof: `bun run check`, both files well under 230.
-
 ## `queue next` sends a worktree session to a tree it may not write
 
 - **Found:** 2026-09-26, claude/queue-the-other-pull-handles-show-the-path-they-can-be

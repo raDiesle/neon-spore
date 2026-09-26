@@ -13,16 +13,17 @@ import type { SimConfig } from "@neon-spore/sim";
  * over creature kinds is the same idea against a union instead of an object.
  *
  * **The error names this file; the row it wants may not belong here.** This
- * object is assembled from three pages, spread in — `...BALLOON_FIELDS`,
- * `...ROUND_FIELD_GROUP` — and `ROUND_FIELD_GROUP` itself spreads in
+ * object is assembled from pages spread in — `...BALLOON_FIELDS`,
+ * `...BOSS_FIELDS`, `...ROUND_FIELD_GROUP`, `...CANNON_FIELDS` — and
+ * `ROUND_FIELD_GROUP` itself spreads in
  * `CHOREO_FIELD_GROUP` (`ship-fields-round.ts`, `ship-fields-choreo.ts`, and
  * `-choreo-b.ts` once that page fills), so `TS2741: Property '…' is missing`
  * always reports this file's own line regardless of which page the field
  * belongs on. A round's field goes in `ship-fields-round.ts`; a
  * choreographed boss's goes in `ship-fields-choreo.ts` (or `-choreo-b.ts`),
  * with its paragraph added beside it in `ship-notes-choreo.ts` (or
- * `-choreo-b.ts`) the same way; only the ship's own dials — the ones with no
- * boss or round of their own — are rows here.
+ * `-choreo-b.ts`) the same way; any other boss's in `ship-fields-boss.ts`;
+ * only the ship's own dials and the creatures' are rows here.
  */
 
 // The cards themselves — their names, their order and the prose under each —
@@ -38,6 +39,7 @@ export {
 } from "./ship-groups.js";
 
 import { BALLOON_FIELDS } from "./ship-fields-balloon.js";
+import { BOSS_FIELDS } from "./ship-fields-boss.js";
 import { CANNON_FIELDS } from "./ship-fields-cannon.js";
 import { ROUND_FIELD_GROUP } from "./ship-fields-round.js";
 import type { GroupName } from "./ship-groups.js";
@@ -181,49 +183,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   handleRadiusMilli: "GRIP — a hand on the field",
   depthNearScale: "PLUMBING — not a dial a person turns",
   depthHaze: "PLUMBING — not a dial a person turns",
-  // BossConfig
-  queenRow: "QUEEN",
-  queenEggGrowShare: "QUEEN",
-  queenHoldBeats: "QUEEN",
-  wardenRow: "WARDEN",
-  wardenCycleBeats: "WARDEN",
-  wardenHangRows: "WARDEN",
-  wardenTautMilli: "WARDEN",
-  wardenPlates: "WARDEN",
-  wardenThrowMilli: "WARDEN",
-  wardenThrowBeats: "WARDEN",
-  cairnRow: "THE CAIRN — a pile of rocks taken apart by hand",
-  cairnUnits: "THE CAIRN — a pile of rocks taken apart by hand",
-  cairnShedBeats: "THE CAIRN — a pile of rocks taken apart by hand",
-  cairnHoldBeats: "THE CAIRN — a pile of rocks taken apart by hand",
-  mirrorRow: "MIRROR",
-  mirrorCarryMilli: "MIRROR",
-  mirrorHoldBeats: "MIRROR",
-  mirrorHoldWindowBeats: "MIRROR",
-  mazeRow: "MAZE",
-  mazeSpanMilli: "MAZE",
-  mazeTurnMilli: "MAZE",
-  mazeDragMilliPerTile: "MAZE",
-  mazeDragBreakMilli: "MAZE",
-  mazeSnapMilli: "MAZE",
-  mazeHeartPullMilli: "MAZE",
-  mazeGripBeats: "MAZE",
-  vanePins: "VANE",
-  vanePinBeats: "VANE",
-  vaneHaulMilli: "VANE",
-  spliceEntranceRows: "THE SPLICE — straws fed in the order the numbers say",
-  spliceTopRow: "THE SPLICE — straws fed in the order the numbers say",
-  spliceFeedBeats: "THE SPLICE — straws fed in the order the numbers say",
-  spliceEatBeats: "THE SPLICE — straws fed in the order the numbers say",
-  repriseBeats: "THE REPRISE — the wave sent again unseen",
-  // THE WELL's clock: the rest before the face starts to slip, how fast it
-  // slips, how far it slips before it stops, and how long a thumb on the seam
-  // can hold it still (`sim/config-well.ts`). The first dials this boss has
-  // had — it shipped as a projection with nothing to turn.
-  wellStillBeats: "THE WELL — the field drawn inside out on one screen",
-  wellRollMilli: "THE WELL — the field drawn inside out on one screen",
-  wellRollSectors: "THE WELL — the field drawn inside out on one screen",
-  wellHoldBeats: "THE WELL — the field drawn inside out on one screen",
+  // BossConfig, in `ship-fields-boss.ts`.
+  ...BOSS_FIELDS,
   ...ROUND_FIELD_GROUP,
   // PairConfig
   briefings: "OPENING — the introduction, the guide and the ready gate",
