@@ -36,6 +36,13 @@ import type { Wave } from "../wave-types.js";
  * second settle (`docs/spec/bosses-choreographed.md` §31, `sim/plumb.ts`).
  * Both weights true light the core, which is shot in its colour; between the
  * shots both seats hold level at once to keep the weights true under it.
+ *
+ * **THE SLING is the first boss answered at the lift**, the same shape a
+ * fifth time: a fork over the middle column, each seat's arm drawn by
+ * holding a finger down for the count and loosed by swiping toward the lit
+ * side as it leaves (`docs/spec/bosses-choreographed.md` §32,
+ * `sim/sling.ts`). Both arms drawn light the yoke, which is shot in its
+ * colour; between the shots both seats draw and loose at once to keep it lit.
  */
 export const WAVES_ACT_12: Wave[] = [
   {
@@ -134,6 +141,31 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "fire", rangeMilli: 0, color: "cyan", beats: 3 },
         { ask: "both", rangeMilli: 5000, color: "either", beats: 3 },
         { ask: "fire", rangeMilli: 0, color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theSling",
+    name: "THE SLING",
+    guide: {
+      both: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
+      p1: "1. Hold a finger down when the left arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. Swipe toward the lit side as you let go.",
+      p2: "1. Hold a finger down when the right arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. White takes either colour. Draw with the other one when both light.",
+    },
+    entries: [],
+    boss: {
+      kind: "sling",
+      steps: [
+        { ask: "left", aim: "left", color: "either", beats: 5 },
+        { ask: "left", aim: "right", color: "either", beats: 4 },
+        { ask: "right", aim: "right", color: "either", beats: 5 },
+        { ask: "right", aim: "left", color: "either", beats: 4 },
+        { ask: "fire", aim: "left", color: "red", beats: 3 },
+        { ask: "both", aim: "left", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "cyan", beats: 3 },
+        { ask: "both", aim: "right", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

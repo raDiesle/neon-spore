@@ -19,6 +19,7 @@ import { rimeHashParts } from "./rime-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
 import { seamHashParts } from "./seam-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
+import { slingHashParts } from "./sling-hash.js";
 import { spoolHashParts } from "./spool-hash.js";
 import { stareHashParts } from "./stare-hash.js";
 import { surgeHashParts } from "./surge-hash.js";
@@ -162,6 +163,11 @@ export function clockHashParts(boss: BossState): number[] {
   // leans and the script (`plumb-hash.ts`).
   if (boss.kind === "plumb") {
     for (const n of plumbHashParts(boss)) out.push(n);
+  }
+  // THE SLING: the phase, the cursor, the arms, the hits, both fingers, both
+  // counts and the script (`sling-hash.ts`).
+  if (boss.kind === "sling") {
+    for (const n of slingHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

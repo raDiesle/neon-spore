@@ -150,6 +150,7 @@ export const MECHANICS = {
   rime: BOSS_MECHANICS.rime,
   trivet: BOSS_MECHANICS.trivet,
   plumb: BOSS_MECHANICS.plumb,
+  sling: BOSS_MECHANICS.sling,
   vane: {
     what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",
     reach: "spawn",

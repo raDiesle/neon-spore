@@ -167,26 +167,13 @@ export function serializeBoss(boss: BossEntry): string {
     );
     return `{ kind: "seam", steps: [${steps.join(", ")}] }`;
   }
-  // THE OCULUS's the same.
-  if (boss.kind === "oculus") {
+  // THE OCULUS's the same, and THE VISE's and THE RIME's, which author the
+  // same three fields a step.
+  if (boss.kind === "oculus" || boss.kind === "vise" || boss.kind === "rime") {
     const steps = boss.steps.map(
       (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
     );
-    return `{ kind: "oculus", steps: [${steps.join(", ")}] }`;
-  }
-  // THE VISE's the same.
-  if (boss.kind === "vise") {
-    const steps = boss.steps.map(
-      (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
-    );
-    return `{ kind: "vise", steps: [${steps.join(", ")}] }`;
-  }
-  // THE RIME's the same.
-  if (boss.kind === "rime") {
-    const steps = boss.steps.map(
-      (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
-    );
-    return `{ kind: "rime", steps: [${steps.join(", ")}] }`;
+    return `{ kind: "${boss.kind}", steps: [${steps.join(", ")}] }`;
   }
   // THE TRIVET's the same, and each step says how many pads its chord is.
   if (boss.kind === "trivet") {
@@ -202,6 +189,13 @@ export function serializeBoss(boss: BossEntry): string {
         `{ ask: "${s.ask}", rangeMilli: ${s.rangeMilli}, color: "${s.color}", beats: ${s.beats} }`,
     );
     return `{ kind: "plumb", steps: [${steps.join(", ")}] }`;
+  }
+  // THE SLING's the same, and each step says which side a draw is loosed toward.
+  if (boss.kind === "sling") {
+    const steps = boss.steps.map(
+      (s) => `{ ask: "${s.ask}", aim: "${s.aim}", color: "${s.color}", beats: ${s.beats} }`,
+    );
+    return `{ kind: "sling", steps: [${steps.join(", ")}] }`;
   }
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is

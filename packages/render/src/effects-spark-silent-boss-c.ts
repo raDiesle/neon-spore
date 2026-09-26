@@ -172,4 +172,17 @@ export const SILENT_BOSS_C = [
   "plumbMiss",
   "plumbFree",
   "plumbOut",
+  // THE SLING's twelve, the same (`packages/audio/src/bind-sling.ts`).
+  "slingEnter",
+  "slingLight",
+  "slingSlack",
+  "slingLoose",
+  "slingSpring",
+  "slingYoke",
+  "slingHit",
+  "slingSteady",
+  "slingDim",
+  "slingMiss",
+  "slingFree",
+  "slingOut",
 ] as const satisfies readonly SimEvent["type"][];

@@ -22854,3 +22854,18 @@ drawn line.
 Bottleneck: writing — eight poses, each needing a note that names both seats.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SLING, the simulation lane
+
+- reading: 5 min. THE PLUMB's lane as the template, and §32's beat list.
+- writing: 10 min. The seven sim files, the rig and its tests, the
+  registrations across content, net, render, audio and the director, and
+  §11.49.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. Three pages at the line limit, `boss-nothing.ts` folded
+  into one list and `serialize-boss.ts` into one branch; a hash fixture
+  whose colour already held the value the test set.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the registrations' pages were full, so a fifth
+scene of the same shape had to refactor two director files to fit.

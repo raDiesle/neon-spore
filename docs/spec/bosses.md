@@ -8489,6 +8489,132 @@ the fight. Whether any of it *reads* — whether a phone held flat under a
 voice is a stillness or a wobble — is the owner's eye, after lane two, on two real
 phones.
 
+## 11.49 THE SLING — the boss two draws loose, then shoot into
+
+> A forked arm bolted over the middle of the field, both draw-arms slack.
+> Your arm's cup lights: hold a finger down until it is drawn home, then
+> swipe toward the lit side as you let go. Two draws lock an arm, both arms
+> drawn light the yoke. Shoot it in its colour, and when the arms creep
+> slack, both of you draw and loose again.
+
+Designed as §32 of [bosses-choreographed](bosses-choreographed.md), the
+fifth of the concepts written to spend a gesture nobody had claimed — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. Where THE
+PLUMB is answered by a pose held, this is **answered at the lift**: the
+hold only earns the right to be judged, and the way the finger leaves is
+the answer.
+
+**It is four draws and three hits, and they are its health.** The state
+(`sim/sling.ts`, hashed in `sim/sling-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, the loosed **draws** on each
+arm, the **hits** landed, whether the **yoke** is lit, whether each seat's
+finger is **down**, the beats each has held in the lit step, and, in a
+`both` step, which seats have already loosed. The script is the wave's
+(`SlingEntry.steps`), copied at install: each step asks `left`, `right`,
+`fire` or `both`, toward an aim of `left` or `right`, in a colour or
+`either`, for its own beats.
+
+**The rule, in one sentence.** Hold your draw until it is home, then loose
+it toward the lit side; shoot the lit yoke in its colour.
+
+**The split.** Geometry, THE MANTLE's rule: `slingDrawLeft` is Player 1's
+and `slingDrawRight` Player 2's, and the wrong seat's finger is not heard
+(`sim/sling-hand.ts`). A fire step is the ordinary shot — Player 1's cannon
+under the middle column, Player 2's trigger in its colour. A `both` step is
+both seats drawing and loosing at once, each on its own arm.
+
+**The clock** (`sim/sling-step.ts`). The fork settles for `slingStillBeats`,
+then the first step lights under THE SLOW (`openSlow(…, "ask")`). Each beat
+the asked seat's finger is down counts one, up to the step's own beats. A
+draw step stays lit `slingGraceBeats` past its count. The fourth loosed
+draw lights the yoke. An answered step closes THE SLOW and the fork rests
+`slingRestBeats` before the next lights. With the script done the fork
+snaps forward, and falls away `slingFreeBeats` before the wave may end.
+
+**The answers.** A finger down and a lift are heard on the tick
+(`sim/sling-hand.ts`). A draw is counted on the beat, because what it asks
+is a number of beats; it is judged at the lift, the one instant the beat
+cannot see. A lift that has held the step's beats and swipes toward its aim
+looses the arm true; a lift too soon, toward the wrong side, or with no
+swipe at all springs it slack — the count gone, the step still lit, to be
+drawn again. A lift in a step that does not ask that seat only lets go. A
+shot is judged where a bolt leaves the top of the field
+(`sim/sling-shot.ts`): only with the yoke lit, only while a fire step is
+lit, only in the middle column, and only in its colour unless it is
+`either`. The wrong colour is a colour missed on the balance sheet and
+nothing else, THE SEAM's rule.
+
+**Where this departs from the design, and why.** Nine places.
+
+- **A fire step run out is a hull hit, and a hull hit is the wave.** §32's
+  rows 6 and 8 say "ordinary hull hit" and row 10 says the yoke "stays lit".
+  This game has no ordinary hit (`wave-fail.ts`), so every fire step run out
+  breaches the hull under the fork — THE SEAM's, THE OCULUS's, THE VISE's,
+  THE RIME's, THE TRIVET's and THE PLUMB's precedent.
+- **The aim is authored as a side, and the look picks the column.** §32
+  lights a column and reads the release against the half it falls in. The
+  simulation needs only the half, so the script carries `aim: "left"` or
+  `"right"`; which column of that half is lit is the picture's, lane two's.
+  A lit column the players are told about and the sim never reads would be
+  a number with two owners.
+- **`DrawRelease` rides the drag.** §32 names `slingLeftDrawnMilli` and
+  `slingRightDrawnMilli`; on the wire the finger down is a drag on
+  `slingDrawLeft` or `slingDrawRight` with `on: true`, and the lift is the
+  same drag with `on: false` whose `fromMilli` carries the swipe — its sign
+  alone, left below nought, right above it, nought a lift with no swipe.
+  How far the finger went is not read: §32 reads the direction coarse, and
+  a magnitude on the wire would invite a threshold the design never set.
+- **A draw run out is tried again, not lost.** Rows 2 and 4 say "retry"; a
+  draw step whose window runs out springs its arm (`slingSpring`), rests,
+  and lights the same step again, and a `both` run out dims the yoke
+  (`slingDim`) the same way. Neither is a hull hit — §32 never asks one.
+- **A draw is given grace.** §32's windows are "5 beats, held"; a window
+  exactly its count long could only be met by a finger already down on its
+  first beat, and never lifted in time. The step stays lit
+  `slingGraceBeats` longer for the finger to find its panel and the lift to
+  be made.
+- **A finger down before the step lights is counted.** A hold begun in the
+  rest counts from the lit step's first beat, the same as THE PLUMB's lean;
+  only the lift is judged.
+- **"Retry from row 2" is the same step relit.** Rows 3 and 5 have a second
+  draw run out go back to the first. A draw already loosed stays loosed, so
+  the cursor stays where it was and the same step lights again after the
+  rest.
+- **The draws and the hits are the health together.** §32 names two arms
+  plus a yoke of three hits; the script is nine steps, and the fork snaps
+  free when the last is answered, which is the third hit.
+- **Row 7's lost fire beats are the `both` step asked again.** "Fire beats
+  lost until both arms redraw true" is written as the rule a `both` step
+  run out already has: the yoke dims, the same `both` lights again, and no
+  fire step lights until both seats have loosed true. A seat that has
+  loosed in a `both` is not asked again until its partner has.
+
+**The simulation lane has landed.** Nothing in `apps/game` sends a
+`slingDraw*` drag yet, so the fork cannot be answered on a real phone — the
+touch sender is queued with the look (`docs/queue.md`). Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+carry all twelve of its events until lane two. The twelve sounds *are*
+bound (`audio/src/bind-sling.ts`), heard where they happen, the loose
+pitched up per draw and the hit per hit. There is no autopilot hand yet
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/sling.test.ts`): the fork comes in still with both arms slack,
+the yoke dark and no finger down, and lights its first draw under THE SLOW;
+no shot is taken while the yoke is dark; a draw counts only while held and
+only for the seat asked, no further than its step's count; a lift home
+toward the aim looses the arm, toward the other side, too soon or with no
+swipe springs it slack with the step still lit; the other arm's lift only
+lets go; the wrong seat is not heard; a finger already down counts from the
+step's first beat; a draw run out springs the arm and lights the same step
+again; the fourth draw lights the yoke; a fire step wants its colour and the
+middle column, and run out is the wave; a `both` is not answered by one arm,
+does not ask that arm twice, and run out dims the yoke until both redraw;
+and a script answered whole snaps the fork free and ends the fight. Whether
+any of it *reads* — whether a swipe at the lift under a voice is a flick or
+a fumble — is the owner's eye, after lane two and the touch sender, on two
+real phones.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

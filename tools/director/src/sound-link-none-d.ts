@@ -84,4 +84,17 @@ export const NO_SUBJECT_D: Record<string, string> = {
   "boss.plumbMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
   "boss.plumbFree": "both weights snapping loose. Same argument.",
   "boss.plumbOut": "the bob gone and the wave ending. Same argument, and an absence.",
+  // THE SLING's twelve: a fork over the field, the same argument.
+  "boss.slingEnter": "the fork bolting in over the field. A fixture, not a body on a grid.",
+  "boss.slingLight": "a step lighting on the fork. Same argument.",
+  "boss.slingSlack": "a draw let go too soon, which is a gesture and no body. Same argument.",
+  "boss.slingLoose": "a draw loosed true. Same argument.",
+  "boss.slingSpring": "an arm springing back undrawn. Same argument.",
+  "boss.slingYoke": "both arms drawn and the yoke lit. Same argument.",
+  "boss.slingHit": "a shot into the yoke. Same argument.",
+  "boss.slingSteady": "both arms redrawn under the yoke. Same argument.",
+  "boss.slingDim": "the yoke springing loose. Same argument.",
+  "boss.slingMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
+  "boss.slingFree": "the fork snapping forward, spent. Same argument.",
+  "boss.slingOut": "the fork gone and the wave ending. Same argument, and an absence.",
 };

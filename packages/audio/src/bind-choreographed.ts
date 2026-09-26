@@ -60,7 +60,8 @@ type ChoreographedEvent =
           | `vise${string}`
           | `rime${string}`
           | `trivet${string}`
-          | `plumb${string}`;
+          | `plumb${string}`
+          | `sling${string}`;
       }
     >
   // And the events added to bosses that had already shipped, which have to be

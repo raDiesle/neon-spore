@@ -189,4 +189,20 @@ export const CHOREO_NOTES_C = {
     "past its count. Nothing reads a phone's lean yet. Only the simulation " +
     "lane has landed — see sim/plumb.ts, sim/plumb-step.ts, " +
     "sim/plumb-hand.ts, sim/plumb-shot.ts, sim/config-plumb.ts.",
+  "THE SLING — the boss two draws loose, then shoot into":
+    "Asked for in docs/spec/bosses-choreographed.md §32: a draw, each seat " +
+    "holding a finger down to pull its own arm of a fork over the middle " +
+    "column, then loosing it by swiping toward the lit side as it lifts, and " +
+    "a script the wave authors, aims and all. A left or right step looses " +
+    "that arm once the finger has held for the step's beats and leaves " +
+    "toward its aim; a lift too soon, the wrong way or with no swipe springs " +
+    "the arm slack with the step still lit, and a step run out springs it " +
+    "and relights it. Two draws an arm light the yoke; a fire step wants a " +
+    "shot in its colour; a both step is both seats drawing and loosing at " +
+    "once, and one run out dims the yoke until it is redrawn. A fire step " +
+    "run out is a hull hit, which is the wave. The grace (slingGraceBeats) " +
+    "is how long a draw step stays lit past its count. Nothing on the phone " +
+    "sends a draw yet. Only the simulation lane has landed — see " +
+    "sim/sling.ts, sim/sling-step.ts, sim/sling-hand.ts, sim/sling-shot.ts, " +
+    "sim/config-sling.ts.",
 } satisfies Partial<Record<GroupName, string>>;

@@ -260,6 +260,10 @@ const ACCEPTED: Command[] = [
   // in thousandths of a degree either way (`sim/plumb-hand.ts`).
   { kind: "drag", target: "plumbLevelLeft", on: true, fromMilli: -4500 },
   { kind: "drag", target: "plumbLevelRight", on: false, fromMilli: 90000 },
+  // THE SLING's draws are held, one arm a seat, the lift's swipe on
+  // `fromMilli` by its sign alone (`sim/sling-hand.ts`).
+  { kind: "drag", target: "slingDrawLeft", on: true, fromMilli: 0 },
+  { kind: "drag", target: "slingDrawRight", on: false, fromMilli: -1 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -422,6 +426,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   trivetPadRear: true,
   plumbLevelLeft: true,
   plumbLevelRight: true,
+  slingDrawLeft: true,
+  slingDrawRight: true,
   crank: true,
 };
 

@@ -27,6 +27,7 @@ import type { ScuttleState } from "./scuttle.js";
 import type { SeamState } from "./seam.js";
 import type { MirrorState } from "./simon.js";
 import type { SinewState } from "./sinew.js";
+import type { SlingState } from "./sling.js";
 import type { SnakeState } from "./snake.js";
 import type { SpliceState } from "./splice.js";
 import type { SpoolState } from "./spool.js";
@@ -113,4 +114,5 @@ export type BossState =
   | ViseState
   | RimeState
   | TrivetState
-  | PlumbState;
+  | PlumbState
+  | SlingState;

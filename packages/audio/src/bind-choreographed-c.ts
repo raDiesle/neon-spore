@@ -64,6 +64,7 @@ type LateEvent = Extract<
       | `rime${string}`
       | `trivet${string}`
       | `plumb${string}`
+      | `sling${string}`
       | `undertow${string}`;
   }
 >;

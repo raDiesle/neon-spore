@@ -1,39 +1,44 @@
-import type {
-  AntiphonEntry,
-  BatonEntry,
-  BossEntry,
-  CurtainEntry,
-  FilamentEntry,
-  GaugeEntry,
-  GimbalEntry,
-  GorgeEntry,
-  HaspEntry,
-  HiveEntry,
-  InstarEntry,
-  KeelEntry,
-  LeadEntry,
-  LedgerEntry,
-  MantleEntry,
-  NettleEntry,
-  OculusEntry,
-  PlumbEntry,
-  RatchetEntry,
-  RimeEntry,
-  ScoutEntry,
-  ScuttleEntry,
-  SeamEntry,
-  SinewEntry,
-  SpoolEntry,
-  StareEntry,
-  SurgeEntry,
-  TasterEntry,
-  ThroatEntry,
-  TrivetEntry,
-  UndertowEntry,
-  ValveEntry,
-  ViseEntry,
-  WellEntry,
-} from "@neon-spore/sim";
+import type { BossEntry } from "@neon-spore/sim";
+
+/** The kinds, one row each; the guard below narrows by exactly these. */
+const AUTHORS_NOTHING = [
+  "gauge",
+  "well",
+  "scout",
+  "stare",
+  "baton",
+  "throat",
+  "undertow",
+  "gorge",
+  "curtain",
+  "taster",
+  "sinew",
+  "ledger",
+  "surge",
+  "lead",
+  "scuttle",
+  "antiphon",
+  "hive",
+  "instar",
+  "nettle",
+  "filament",
+  "gimbal",
+  "spool",
+  "hasp",
+  "ratchet",
+  "mantle",
+  "keel",
+  "valve",
+  "seam",
+  "oculus",
+  "vise",
+  "rime",
+  "trivet",
+  "plumb",
+  "sling",
+] as const satisfies readonly BossEntry["kind"][];
+
+const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
 
 /**
  * **The bosses with nothing on this panel to author**, and the reason for each.
@@ -167,7 +172,8 @@ import type {
  *   No column, the ridge is `midCol`; no number, the points are the health.
  * - **THE OCULUS**'s script the same, and the same two answers: the eye is
  *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
- *   THE VISE's, THE RIME's, THE TRIVET's and THE PLUMB's too: all `midCol`.
+ *   THE VISE's, THE RIME's, THE TRIVET's, THE PLUMB's and THE SLING's too:
+ *   all `midCol`.
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
@@ -175,76 +181,8 @@ import type {
  */
 export function bossAuthorsNothing(
   boss: BossEntry,
-): boss is
-  | GaugeEntry
-  | WellEntry
-  | ScoutEntry
-  | StareEntry
-  | BatonEntry
-  | ThroatEntry
-  | UndertowEntry
-  | GorgeEntry
-  | CurtainEntry
-  | TasterEntry
-  | SinewEntry
-  | LedgerEntry
-  | SurgeEntry
-  | LeadEntry
-  | ScuttleEntry
-  | AntiphonEntry
-  | HiveEntry
-  | InstarEntry
-  | NettleEntry
-  | FilamentEntry
-  | GimbalEntry
-  | SpoolEntry
-  | HaspEntry
-  | RatchetEntry
-  | MantleEntry
-  | KeelEntry
-  | ValveEntry
-  | SeamEntry
-  | OculusEntry
-  | ViseEntry
-  | RimeEntry
-  | TrivetEntry
-  | PlumbEntry {
-  // A guard rather than a boolean, so the caller's chain still narrows: the
-  // four leave the union before the queen's form reads a column off the rest.
-  const { kind } = boss;
-  return (
-    kind === "gauge" ||
-    kind === "well" ||
-    kind === "scout" ||
-    kind === "stare" ||
-    kind === "baton" ||
-    kind === "throat" ||
-    kind === "undertow" ||
-    kind === "gorge" ||
-    kind === "curtain" ||
-    kind === "taster" ||
-    kind === "sinew" ||
-    kind === "ledger" ||
-    kind === "surge" ||
-    kind === "lead" ||
-    kind === "scuttle" ||
-    kind === "antiphon" ||
-    kind === "hive" ||
-    kind === "instar" ||
-    kind === "nettle" ||
-    kind === "filament" ||
-    kind === "gimbal" ||
-    kind === "spool" ||
-    kind === "hasp" ||
-    kind === "ratchet" ||
-    kind === "mantle" ||
-    kind === "keel" ||
-    kind === "valve" ||
-    kind === "seam" ||
-    kind === "oculus" ||
-    kind === "vise" ||
-    kind === "rime" ||
-    kind === "trivet" ||
-    kind === "plumb"
-  );
+): boss is Extract<BossEntry, { kind: (typeof AUTHORS_NOTHING)[number] }> {
+  // A guard rather than a boolean, so the caller's chain still narrows: these
+  // leave the union before the queen's form reads a column off the rest.
+  return NOTHING.has(boss.kind);
 }

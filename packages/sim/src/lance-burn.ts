@@ -21,6 +21,7 @@ import { rimeStruck } from "./rime-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
 import { firstAlong } from "./shot-reach.js";
+import { slingStruck } from "./sling-shot.js";
 import { spendShot } from "./spend.js";
 import { tasterStruck } from "./taster-shot.js";
 import { trivetStruck } from "./trivet-shot.js";
@@ -188,6 +189,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   trivetStruck(world, b);
   // And THE PLUMB's lit core (`plumb-shot.ts`).
   plumbStruck(world, b);
+  // And THE SLING's lit yoke (`sling-shot.ts`).
+  slingStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

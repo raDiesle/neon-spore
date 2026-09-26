@@ -109,6 +109,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", rangeMilli: 0, color: "red", beats: 3 },
     ],
   },
+  // THE SLING authors its script; two steps rather than the shipped nine
+  // (`sling-hash.ts`).
+  sling: {
+    kind: "sling",
+    steps: [
+      { ask: "left", aim: "right", color: "red", beats: 4 },
+      { ask: "fire", aim: "left", color: "cyan", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -275,5 +284,19 @@ export function patchBossD(boss: BossState): void {
     boss.coreLit = true;
     boss.tiltMilli = [300, -700];
     boss.heldBeats = 2;
+  }
+  if (boss.kind === "sling") {
+    // The left arm drawn once and the right home, the yoke lit, the pilot's
+    // finger down mid-draw and the navigator loosed — every field given a
+    // value (`sling-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.arms = [1, 2];
+    boss.hits = 1;
+    boss.yokeLit = true;
+    boss.holding = [true, false];
+    boss.drawnBeats = [2, 0];
+    boss.loosed = [false, true];
   }
 }

@@ -7,10 +7,16 @@
  * seam: build order, with the *last* boss on the full page handed across
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
- * THE PLUMB's levels were written on it. `drag-targets.ts` unions the pages
+ * THE PLUMB's levels were written on it, and THE SLING's draws after them. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
-export type DragTargetE = "trivetPadFront" | "trivetPadRear" | "plumbLevelLeft" | "plumbLevelRight";
+export type DragTargetE =
+  | "trivetPadFront"
+  | "trivetPadRear"
+  | "plumbLevelLeft"
+  | "plumbLevelRight"
+  | "slingDrawLeft"
+  | "slingDrawRight";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -40,4 +46,18 @@ export type DragTargetE = "trivetPadFront" | "trivetPadRear" | "plumbLevelLeft" 
  * over beats with a start and an end, which is what a drag already is.
  * Geometry says whose is whose, `viseLobeLeft`'s reason, and the wrong seat's
  * reading does nothing (`plumb-hand.ts`). `id` is unused.
+ */
+
+/**
+ * `slingDrawLeft` and `slingDrawRight` are the eighty-third and
+ * eighty-fourth: THE SLING's left draw-arm under the pilot's finger, and its
+ * right under the navigator's.
+ *
+ * Read as **one drag a draw**, `DrawRelease`, §32's primitive: `on: true` is
+ * the finger down anywhere on the seat's own panel, and the lift carries the
+ * way the finger left on `fromMilli` — its sign alone, below nought left and
+ * above it right, nought a lift with no swipe — because a draw is decided at
+ * its release and the direction is the answer. Geometry says whose is whose,
+ * `viseLobeLeft`'s reason, and the wrong seat's hold does nothing
+ * (`sling-hand.ts`). `id` is unused.
  */

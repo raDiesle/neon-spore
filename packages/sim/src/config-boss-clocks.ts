@@ -22,6 +22,7 @@ import { RIME_DEFAULTS, type RimeConfig } from "./config-rime.js";
 import { SCUTTLE_DEFAULTS, type ScuttleConfig } from "./config-scuttle.js";
 import { SEAM_DEFAULTS, type SeamConfig } from "./config-seam.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
+import { SLING_DEFAULTS, type SlingConfig } from "./config-sling.js";
 import { SPOOL_DEFAULTS, type SpoolConfig } from "./config-spool.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
@@ -91,6 +92,7 @@ export interface BossClockConfig
     RimeConfig,
     TrivetConfig,
     PlumbConfig,
+    SlingConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -129,6 +131,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...RIME_DEFAULTS,
   ...TRIVET_DEFAULTS,
   ...PLUMB_DEFAULTS,
+  ...SLING_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

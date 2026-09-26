@@ -153,4 +153,11 @@ export const CHOREO_FIELD_GROUP_C = {
   plumbRestBeats: "THE PLUMB — the boss two phones hold level, then shoot into",
   plumbGraceBeats: "THE PLUMB — the boss two phones hold level, then shoot into",
   plumbFreeBeats: "THE PLUMB — the boss two phones hold level, then shoot into",
+  // SlingConfig — the rests around the steps, the grace a draw is given on
+  // top of its count, and the snap free (`config-sling.ts`). The script is
+  // the wave's own, aims and all.
+  slingStillBeats: "THE SLING — the boss two draws loose, then shoot into",
+  slingRestBeats: "THE SLING — the boss two draws loose, then shoot into",
+  slingGraceBeats: "THE SLING — the boss two draws loose, then shoot into",
+  slingFreeBeats: "THE SLING — the boss two draws loose, then shoot into",
 } satisfies Record<string, GroupName>;

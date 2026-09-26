@@ -39,6 +39,7 @@ import type { PlumbEntry } from "./plumb.js";
 import type { RimeEntry } from "./rime.js";
 import type { SeamEntry } from "./seam.js";
 import type { MirrorStep } from "./simon.js";
+import type { SlingEntry } from "./sling.js";
 import type { TrivetEntry } from "./trivet.js";
 import type { ValveEntry } from "./valve.js";
 import type { ViseEntry } from "./vise.js";
@@ -186,7 +187,9 @@ export type BossEntry =
   // The one that authors chords as well as shots: a stand planted by two seats' pads (`trivet.ts`).
   | TrivetEntry
   // The one that authors leans as well as shots: a bob held level by two phones (`plumb.ts`).
-  | PlumbEntry;
+  | PlumbEntry
+  // The one that authors draws as well as shots: a fork loosed by two seats' holds (`sling.ts`).
+  | SlingEntry;
 
 // The three this page had no room left for, handed across on 22 September
 // 2026 — the last rows it held, the way every overflowing page in the
@@ -233,6 +236,7 @@ export type { OculusEntry, OculusStep } from "./oculus.js";
 export type { PlumbEntry, PlumbStep } from "./plumb.js";
 export type { RimeEntry, RimeStep } from "./rime.js";
 export type { SeamEntry, SeamStep } from "./seam.js";
+export type { SlingEntry, SlingStep } from "./sling.js";
 export type { TrivetEntry, TrivetStep } from "./trivet.js";
 export type { ValveEntry } from "./valve.js";
 export type { ViseEntry, ViseStep } from "./vise.js";

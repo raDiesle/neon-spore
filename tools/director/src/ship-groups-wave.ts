@@ -67,6 +67,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE RIME — the boss two rubs wipe clear, then shoot into",
   "THE TRIVET — the boss two chords plant, then shoot into",
   "THE PLUMB — the boss two phones hold level, then shoot into",
+  "THE SLING — the boss two draws loose, then shoot into",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

@@ -890,25 +890,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §32 THE SLING — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-32-the-sling-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-The first choreographed body on this page whose gesture resolves at
-release rather than at the moment a threshold is crossed: `DrawRelease`
-(new — a hold counted while down, resolved by the coarse left/right
-direction of its release against a column already lit) draws
-`slingLeftDrawnMilli` then `slingRightDrawnMilli`, and the lit yoke takes
-three fire hits with two defensive re-draw beats (both seats at once)
-against it springing loose. Eleven steps, three movements. The full beat
-list and primitive table entry are §32 of
-`docs/spec/bosses-choreographed.md`. `HOLD, THEN SWIPE` moves from
-`consider` to `specd` in `tools/director/src/gesture-unbuilt.ts` as part of
-this lane — already done, land it with the rest. THE SLOW on every draw
-and fire window. `bun run check` proves it.
-
 ## §32 THE SLING — the look
 
 - **Found:** 2026-09-26, this session
@@ -919,6 +900,15 @@ Lane two, read against `docs/style-guide.md`: a forked arm that bends back
 under load rather than fading taut, and the yoke's lit core answering the
 cannon's colour once both arms have drawn true. Nothing here is drawn yet
 and stays unverified at tempo until the owner has looked.
+
+**The touch sender rides this lane**, with the panels it draws: the
+simulation (wave 111, `docs/spec/bosses.md` §11.49) hears `slingDrawLeft`
+from Player 1 and `slingDrawRight` from Player 2, a drag whose `on: true` is
+a finger down anywhere on the seat's own panel and whose `on: false` at the
+lift carries the swipe on `fromMilli` by its sign alone — negative left,
+positive right, nought no swipe (`packages/sim/src/sling-hand.ts`). Nothing
+in `apps/game` sends one yet, so the fork is unanswerable on a phone until
+this lands; a test that a lift sends one command with the swipe's sign.
 
 ## §32 THE SLING — sprite atlas experiment: the arm drawing home
 

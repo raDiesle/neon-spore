@@ -23,6 +23,7 @@ import type { ScoutEvent } from "./events-scout.js";
 import type { ScuttleEvent } from "./events-scuttle.js";
 import type { SeamEvent } from "./events-seam.js";
 import type { SinewEvent } from "./events-sinew.js";
+import type { SlingEvent } from "./events-sling.js";
 import type { SnakeEvent } from "./events-snake.js";
 import type { SpliceEvent } from "./events-splice.js";
 import type { SpoolEvent } from "./events-spool.js";
@@ -85,6 +86,7 @@ export type BossEvent =
   | RimeEvent
   | TrivetEvent
   | PlumbEvent
+  | SlingEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -124,6 +126,7 @@ export type { ScoutEvent } from "./events-scout.js";
 export type { ScuttleEvent } from "./events-scuttle.js";
 export type { SeamEvent } from "./events-seam.js";
 export type { SinewEvent } from "./events-sinew.js";
+export type { SlingEvent } from "./events-sling.js";
 export type { SnakeEvent } from "./events-snake.js";
 export type { SpliceEvent } from "./events-splice.js";
 export type { SpoolEvent } from "./events-spool.js";

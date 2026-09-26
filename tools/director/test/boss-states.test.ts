@@ -41,6 +41,7 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   rime: ["still", "lit", "rest", "shattered"],
   trivet: ["still", "lit", "rest", "collapse"],
   plumb: ["still", "lit", "rest", "free"],
+  sling: ["still", "lit", "rest", "free"],
 };
 
 describe("the BOSSES category", () => {

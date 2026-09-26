@@ -152,6 +152,27 @@ export {
   seamWantsShield,
   seamWantsShot,
 } from "./seam.js";
+// THE SLING's fork: the phase, the lit step, the arms and both seats'
+// draws, for the picture, the cue and the director's hand. Straight off
+// `sling.ts` (`docs/spec/bosses-choreographed.md` §32).
+export {
+  freshSling,
+  SLING_AIMS,
+  SLING_ASKS,
+  SLING_DRAWS_PER_ARM,
+  SLING_PHASES,
+  type SlingAim,
+  type SlingAsk,
+  type SlingEntry,
+  type SlingPhase,
+  type SlingState,
+  type SlingStep,
+  slingAsks,
+  slingBoss,
+  slingDone,
+  slingLitStep,
+  slingSwipe,
+} from "./sling.js";
 // THE TRIVET's stand: the phase, the lit step, the feet and both seats' pads,
 // for the picture, the cue and the director's hand. Straight off `trivet.ts`
 // (`docs/spec/bosses-choreographed.md` §30).

@@ -406,6 +406,8 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   trivetPadRear: "unbuilt",
   plumbLevelLeft: "unbuilt",
   plumbLevelRight: "unbuilt",
+  slingDrawLeft: "unbuilt",
+  slingDrawRight: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

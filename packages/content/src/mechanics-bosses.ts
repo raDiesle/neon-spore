@@ -46,6 +46,7 @@ type BossId = Extract<
   | "rime"
   | "trivet"
   | "plumb"
+  | "sling"
 >;
 
 /**
@@ -227,6 +228,10 @@ export const BOSS_MECHANICS = {
   },
   plumb: {
     what: "Hold your phone level until your weight hangs true. Both weights true light the core. Shoot it in its colour. When both levels light, hold both phones level.",
+    reach: "spawn",
+  },
+  sling: {
+    what: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

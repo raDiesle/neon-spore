@@ -20,7 +20,7 @@ import { stepRime } from "./rime-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSeam } from "./seam-step.js";
 import { stepSinew } from "./sinew-step.js";
-import { stepSpool } from "./spool-step.js";
+import { stepSling } from "./sling-step.js";
 import { stepStare } from "./stare-step.js";
 import { stepSurge } from "./surge-step.js";
 import { stepTaster } from "./taster-step.js";
@@ -225,14 +225,12 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepPlumb(world, boss);
     return;
   }
-  // THE SPOOL is nearly all clock, because a brake is a level rather than an
-  // edge: the line paying out, the zone moving under a correction, the slip and
-  // the rib easing are every one of them a beat's question (`spool-step.ts`).
-  if (boss.kind === "spool") {
-    stepSpool(world, boss);
+  // THE SLING: steps lit, draws counted, and the snap free (`sling-step.ts`).
+  if (boss.kind === "sling") {
+    stepSling(world, boss);
     return;
   }
-  // And the six that are not stepped here at all, with THE HASP, THE RATCHET, THE VANE,
+  // And the six that are not stepped here at all, with THE SPOOL, THE HASP, THE RATCHET, THE VANE,
   // THE CAIRN, THE MAZE, THE SPLICE, THE FLEET and THE WELL, are on the
   // second page (`boss-others-b.ts`). The first hand-across was on 22 September 2026, when
   // THE GIMBAL's branch took this one over its 250-line limit, and a later

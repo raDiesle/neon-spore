@@ -23,6 +23,7 @@ import { RIME_PHASES } from "./rime.js";
 import { SCOUT_LOADS, SCOUT_PHASES } from "./scout.js";
 import { SEAM_PHASES } from "./seam.js";
 import type { MirrorPhase } from "./simon.js";
+import { SLING_PHASES } from "./sling.js";
 import { SNAKE_GRIPS, SNAKE_PHASES } from "./snake.js";
 import { SPOOL_PHASES } from "./spool.js";
 import { STARE_PHASES } from "./stare.js";
@@ -125,5 +126,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   rime: RIME_PHASES,
   trivet: TRIVET_PHASES,
   plumb: PLUMB_PHASES,
+  sling: SLING_PHASES,
   fleet: FLEET_PHASES,
 };

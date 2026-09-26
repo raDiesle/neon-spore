@@ -4,6 +4,7 @@ import { oculusCue } from "./bind-oculus.js";
 import { plumbCue } from "./bind-plumb.js";
 import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
+import { slingCue } from "./bind-sling.js";
 import { trivetCue } from "./bind-trivet.js";
 import { undertowCue } from "./bind-undertow.js";
 import { valveCue } from "./bind-valve.js";
@@ -30,6 +31,7 @@ type LaterEvent = Extract<
       | `rime${string}`
       | `trivet${string}`
       | `plumb${string}`
+      | `sling${string}`
       | `undertow${string}`;
   }
 >;
@@ -125,6 +127,19 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "plumbFree":
     case "plumbOut":
       return plumbCue(e, cols);
+    case "slingEnter":
+    case "slingLight":
+    case "slingSlack":
+    case "slingLoose":
+    case "slingSpring":
+    case "slingYoke":
+    case "slingHit":
+    case "slingSteady":
+    case "slingDim":
+    case "slingMiss":
+    case "slingFree":
+    case "slingOut":
+      return slingCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

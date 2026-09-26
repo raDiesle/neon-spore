@@ -22,6 +22,7 @@ import { rimeGuarded } from "./rime-guard.js";
 import { rimeHeard } from "./rime-hand.js";
 import { scuttleHeard } from "./scuttle-hand.js";
 import { seamGuarded } from "./seam-guard.js";
+import { slingHeard } from "./sling-hand.js";
 import { spoolHeard } from "./spool-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
@@ -119,6 +120,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE PLUMB's leans, the same: a drift is the instant a lean leaves range
   // (`plumb-hand.ts`).
   for (const c of commands) plumbHeard(world, c.player, c.command);
+  // THE SLING's draws, the same: a draw is judged the instant it lifts
+  // (`sling-hand.ts`).
+  for (const c of commands) slingHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

@@ -7,6 +7,7 @@ import { stepHasp } from "./hasp-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepSplice } from "./splice-round.js";
+import { stepSpool } from "./spool-step.js";
 import { stepVane } from "./vane.js";
 import { stepWell } from "./well-step.js";
 import type { World } from "./world.js";
@@ -33,7 +34,7 @@ import type { World } from "./world.js";
  *
  * **THE RATCHET came across on 26 September 2026**, the last row on the first
  * page when THE RIME's branch filled it, and **THE HASP** the same day, when
- * THE PLUMB's did.
+ * THE PLUMB's did, and **THE SPOOL** after it, when THE SLING's did.
  *
  * **The check next door is unchanged.** `stepOtherBoss` ends by calling this
  * rather than by falling off its own end, so a boss stepped nowhere still
@@ -41,6 +42,13 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE SPOOL is nearly all clock, because a brake is a level rather than an
+  // edge: the line paying out, the zone moving under a correction, the slip and
+  // the rib easing are every one of them a beat's question (`spool-step.ts`).
+  if (boss.kind === "spool") {
+    stepSpool(world, boss);
+    return;
+  }
   // THE HASP on the beat is the latches, the heat, the one bolt and the row
   // swinging clear — and the *saying* of the gate, once per change. Whether
   // the wheel turns at all is asked on the tick, where the hand is

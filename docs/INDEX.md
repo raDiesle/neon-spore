@@ -333,6 +333,7 @@ by hand never moves.
 | `packages/sim/src/config-scout.ts` | THE SCOUT's numbers — how the little ship flies |
 | `packages/sim/src/config-scuttle.ts` | THE SCUTTLE's numbers — how many sockets the frame has and how many of the parts in them are pods |
 | `packages/sim/src/config-slow.ts` | THE SLOW's two numbers — the fraction of wall-clock rate a slowed tick is consumed at, and how long an ordinary window runs |
+| `packages/sim/src/config-sling.ts` | THE SLING's tuning: the rests around its steps, the grace a draw is given |
 | `packages/sim/src/config-sinew.ts` | THE SINEW's numbers — how many fibres the tendon has, how deep a hand may pull |
 | `packages/sim/src/config-surge.ts` | THE SURGE's numbers — how many notches the seam has, how fast a hand charges the bulb and how fast it leaks |
 | `packages/sim/src/config-spool.ts` | THE SPOOL's tuning: how far the brake travels, how fast and how slow the line runs at either end of it |
@@ -348,11 +349,17 @@ by hand never moves.
 | `packages/sim/src/events-scout.ts` | **What THE SCOUT's two hands on its picture do that neither screen already says** |
 | `packages/sim/src/events-snake.ts` | **What SNAKE's two hands on the body do that neither screen already says** |
 | `packages/sim/src/events-seam.ts` | What THE SEAM says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-sling.ts` | What THE SLING says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
 | `packages/sim/src/creature-state-veer.ts` | **THE VEER's two fields**, a side and a width |
 | `packages/sim/src/slow-fall.ts` | The bodies that come down **slower than a tile a beat** |
 | `packages/sim/src/slow.ts` | you want a span of beats played slowly on both devices at once — `openSlow`, and the two hashed beats that bound it |
+| `packages/sim/src/sling-hand.ts` | Two draws on THE SLING, one arm each |
+| `packages/sim/src/sling-hash.ts` | What THE SLING puts into `hashWorld`, and nothing else |
+| `packages/sim/src/sling-shot.ts` | **THE SLING's shot**: the lit yoke, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/sling-step.ts` | THE SLING's clock: the fork settling, each step lighting, the beats a draw is held being counted |
+| `packages/sim/src/sling.ts` | THE SLING: a forked arm bolted mid-hull |
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 | `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
@@ -1615,6 +1622,7 @@ by hand never moves.
 | `packages/render/src/effects-ingest-silent-boss.ts` | **The bosses' half of the silent list**, and nothing else |
 | `packages/render/src/effects-ingest-silent-boss-b.ts` | **The bosses' half of the silent list, the second page** — from THE ANTIPHON on |
 | `packages/render/src/effects-ingest-silent-boss-c.ts` | **The bosses' half of the silent list, the third page** — THE WELL's four and THE GIMBAL's ten |
+| `packages/render/src/effects-ingest-silent-boss-d.ts` | **The bosses' half of the silent list, the fourth page** — THE SLING's twelve, and the bosses after it |
 | `packages/render/src/effects-ingest-pod.ts` | **What the mouth leaves on screen**, for the two cargoes that leave anything |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
@@ -1995,6 +2003,7 @@ by hand never moves.
 | `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-ship.ts` | **The ship's own six**: a bolt leaving the cannon, a lance filling or spilling |
 | `packages/audio/src/bind-seam.ts` | THE SEAM's nine, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-sling.ts` | THE SLING's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
@@ -2258,7 +2267,7 @@ by hand never moves.
 | `tools/director/src/backlog-entry.ts` | One card on the NOT BUILT YET page: the name, its frame, the plain-English rows |
 | `tools/director/src/backlog-bosses.ts` | The BOSSES page of the NOT BUILT YET sheet: what is left to do on a boss |
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
-| `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
+| `tools/director/src/boss-nothing.ts` | The kinds, one row each; the guard below narrows by exactly these |
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
