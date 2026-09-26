@@ -886,6 +886,7 @@ a back-and-forth rub sends a rising count and a pad lift sends its `id`.
 ## §34 THE CYST — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/cyst-story (claim: claude/queue-34-the-cyst-the-look)
 - **Needs:** §34 THE CYST's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
