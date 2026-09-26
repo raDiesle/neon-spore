@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · cceb969f — Director: CONTROLS › GESTURES draws every gesture and phone event
+
+A fourth inner tab under DOCUMENTATION › CONTROLS catalogues what the game's controls can be built from: thirty-three gestures, each drawn as a hand on a phone beside the pointer, touch or sensor events it fires on a timeline, and grouped by where it stands — built (with the files that read it), specified by a boss in the spec, worth considering, and missed on purpose (with why not). Under them, the eighteen raw browser events with what an iPhone and an Android do with each and which file of the game listens.
+
 ## 2026-09-26 · e5c983ee5 — THE INSTAR's moult is drawn: the hide split on a pale body, peeled per swipe
 
 The last step's hide now stands split along the back with the next body pale in the split, and every counted swipe peels a strip more of its own half down — the half by the head is player 1's, the one by the rear player 2's — the torn lip curled dark under it. Left undone, the strike sets the split dark and whole on the body before its shock comes down on the hull, and it stays set until the next morph.
