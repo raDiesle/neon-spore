@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 3315fbcaa — Queue: THE VALVE's fuller story arc is done
+
 ## 2026-09-26 · babf72274 — THE VALVE's story states are drawn: the jet, the brace, the wipe, the seal
 
 The first pin out blows pale steam from its empty slot, the lip glowing ember. The second shudders the whole drum, less as both thumbs hold, with a half-ring lit under each held thumb and a disc filling with the beats held. The last lays a dripping film over the face that each rub clears from the left, and the bare seal splits a white seam that widens as it strains.
