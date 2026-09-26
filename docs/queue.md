@@ -635,6 +635,7 @@ promote it out of "read" into its own queued fix.
 ## Unverified at b66adf07c: THE MANTLE's pull read at tempo: the bow, the cord and…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, claude/queue-unverified-at-4a47be3b6-the-oculus-wave-never-wa (claim: claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/mantle-handle.ts`
 
 *THE MANTLE is drawn: a plated shell over the field, bowing as both thumbs pull* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
