@@ -646,6 +646,7 @@ the other ring, and pin it in `packages/render/test/instar-word.test.ts`.
 ## THE INSTAR's render tests each stand the body up their own way
 
 - **Found:** 2026-09-26, claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-instars-render-tests-each-stand-the-body-up)
 - **Files:** `packages/render/test/instar-kit.ts`, `packages/render/test/desk-grab.test.ts`, `packages/render/test/instar-eggs.test.ts`, `packages/render/test/instar-frame.test.ts`, `packages/render/test/instar-together.test.ts`
 
 `hung()` and `acting()` are written five times over, near enough the same.
