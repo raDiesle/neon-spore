@@ -835,6 +835,7 @@ and THE TRIVET's hands; a sim test that the autopilot clears wave 112.
 ## THE BATON's flesh has no secondary motion of its own
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/queue-the-batons-flesh-has-no-secondary-motion-of-its
 - **Files:** `packages/render/src/baton-flesh.ts`, `packages/render/src/baton-socket-draw.ts`
 
 Confirmed, not sampled: `paintKnuckle`'s `breath` (the socket's glow-and-pool
