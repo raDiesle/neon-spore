@@ -3,6 +3,7 @@ import { THE_CHOKE } from "./scenes/the-choke.js";
 import { THE_DARK } from "./scenes/the-dark.js";
 import { THE_FLIP } from "./scenes/the-flip.js";
 import { THE_HANDOVER } from "./scenes/the-handover.js";
+import { THE_LEECH } from "./scenes/the-leech.js";
 import { THE_LIMPET } from "./scenes/the-limpet.js";
 
 /**
@@ -20,7 +21,13 @@ import { THE_LIMPET } from "./scenes/the-limpet.js";
  * id, so nothing that asks the list for a film has to know which file it
  * came from.
  */
-export type FaultSceneId = "theHandover" | "theFlip" | "theDark" | "theChoke" | "theLimpet";
+export type FaultSceneId =
+  | "theHandover"
+  | "theFlip"
+  | "theDark"
+  | "theChoke"
+  | "theLimpet"
+  | "theLeech";
 
 export const SCENES_FAULTS: Record<FaultSceneId, GuideScene> = {
   theHandover: THE_HANDOVER,
@@ -28,4 +35,5 @@ export const SCENES_FAULTS: Record<FaultSceneId, GuideScene> = {
   theDark: THE_DARK,
   theChoke: THE_CHOKE,
   theLimpet: THE_LIMPET,
+  theLeech: THE_LEECH,
 };

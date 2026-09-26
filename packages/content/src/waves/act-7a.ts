@@ -123,9 +123,7 @@ export const WAVES_ACT_7A: Wave[] = [
     id: "theLeech",
     name: "THE LEECH",
     guide: {
-      both: "The same body sticks to the cannon. No shot touches it. Keep the cannon moving, a new column each beat, or you lose. Its timer says when it leaves.",
-      p1: "1. You hold the cannon, and the body holds it too.\n2. Keep it walking, a column a beat.\n3. Never park it under a body to line up the shot.\n4. It fires from wherever it is.",
-      p2: "1. You cannot move the cannon. MOVE CANNON! is under your dial.\n2. Say it while the body is on.\n3. Call the bodies so your partner walks the cannon through them.",
+      scene: "theLeech",
     },
     entries: [
       { beat: 0, col: 3, color: "red" },

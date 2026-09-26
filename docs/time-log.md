@@ -21648,3 +21648,16 @@ Bottleneck: the empty field — the first cut cleared the wave on page two and
 never reached the loss it was written to show.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE LEECH's guide is a film
+
+- reading: 0 min. THE LIMPET's film, landed minutes before, is this one on
+  the other half of the ship.
+- writing: 5 min. The film and its test mirrored, the fault registered, the
+  guide swapped, the prose list and §3.2 moved by one.
+- looking: 5 min. One capture of the navigator's page.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — the sibling fault's film was the template,
+and the words tool's floors no longer move under it.

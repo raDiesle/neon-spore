@@ -14,7 +14,7 @@ import { SCENES } from "../src/scenes.js";
  * (`sim/test/copies-table.ts`). So the numbers in that section are here, in the
  * package that owns them.
  *
- * Both directions matter. A film written for one of the six below fails this
+ * Both directions matter. A film written for one of the five below fails this
  * and the failure says to update the section; a guide that loses its film fails
  * it the other way. Neither is a defect in the film — it is the document being
  * asked to keep up, which is the only thing that was ever wrong with it.
@@ -38,7 +38,8 @@ const STILL_PROSE = [
   // to the wall and back, and the bolt on the beat it is under the body.
   // And THE LIMPET: `scenes/the-limpet.ts` is the shield walked a column a
   // beat under the body, and the round lost when the thumb stops.
-  "THE LEECH",
+  // And THE LEECH after it: `scenes/the-leech.ts` is the same film on the
+  // cannon, with the word on the other screen.
   "THE CODEX",
   // THE HIVE left this list on 21 September 2026: the wave it could not be
   // filmed against — nobody could finish it — was fixed on the 20th, and
@@ -82,9 +83,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-four films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-five films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Eighty-four, which is the number in the section. A film with no wave
+    // Eighty-five, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
