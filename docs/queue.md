@@ -1880,6 +1880,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 ## §30 THE TRIVET — a revised simulation lane, a ring left to settle
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
+- **Taken:** 2026-09-26, claude/queue-29-the-rime-a-revised-simulation-lane-a-film-lef (claim: claude/queue-30-the-trivet-a-revised-simulation-lane-a-ring-l)
   bosses added today for a fuller story arc, more distinct visual states and
   more SLOW beats that ask for action
 - **Files:** `docs/spec/bosses-choreographed.md`
