@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d4eafbf4c — THE SEAM's timeout blow is its own crack running down to the hull
+
+When THE SEAM's window runs out, its crack does not stop at the ridge: it splits on out of the bottom lobe, a jagged rift in the dark with the stone's own edge at its lips, down to the column the pair left open. It throws the ridge's grit off the plating, then closes from the top down. This replaces the shared lash for THE SEAM.
+
 ## 2026-09-26 · 4c7090ce0 — THE OCULUS's receipts drawn: a shut pair thuds, a core hit flashes wider each time
 
 A pair of leaves held shut now presses the lens down a touch and sends a soft shudder down the plating, with the red blow every boss takes; a reseal thuds the same, quieter, and deals nothing. A core hit flashes white over the socket — a thin flare the first time, filling the socket the third — bursts in the core's colour and deals the blow; the shatter flashes the whole lens. A missed core is left to the boss's own blow at the hull, which every striking boss now shares. A step lighting, a thumb slipping, a pair springing open and the socket swallowed throw small bursts.

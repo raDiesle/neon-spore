@@ -23655,3 +23655,5 @@ gesture) meant the new states only needed new pictures, not new mechanics.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing — a crack with lips needs its own outline, not a stroke.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
