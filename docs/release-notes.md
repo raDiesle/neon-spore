@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 81cb582f1 — Sprites baked at load: THE INSTAR's egg and nest offered, and `bun run sprite`
+
+Detail can now be drawn once, by our own code, onto an offscreen canvas at load and blitted every frame after: a grey body and light strip per size, tinted once per colour pair. Two examples on THE INSTAR show it: an egg with veins, speckle and a hatchling that stirs through four frames, and a nest wound from a hundred and sixty silk strands with dew. They add about 2 kB gzipped each and draw in half the canvas calls of the shipped drawings. They are offered, not wired into the game. `bun run sprite` renders the strips beside the shipped drawing and prints each sprite's code bytes, bake time, picture weight and draw cost; `.claude/skills/sprite` says how to author one.
+
 ## 2026-09-26 · 4bd82343a — A cloud session lands and pushes every queue item it works
 
 A cloud session working the queue now puts two pushes on origin/main per item: the claim, which `take` already pushes, and the finished item, landed and pushed before the next one is claimed. The owner's rule for every cloud session, written into CLAUDE.md and docs/cloud-session.md.

@@ -23088,3 +23088,5 @@ than writing the new coupling itself.
 
 Bottleneck: writing the painters — the detail is hand-placed strand by
 strand, and every value had to be read off the sheet before it looked right.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
