@@ -24163,3 +24163,5 @@ Bottleneck: reading — forcing a fire step meant finding the script's first
 
 Bottleneck: finding why the split lunge slipped — the eye was done before a
 hold that cannot be hurried.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

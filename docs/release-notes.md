@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · f42ade3a8 — THE INSTAR plays through, and the split lunge's eye no longer slips
+
+A headless run of the whole fight with the right answer to every step now guards the script: all twenty-eight steps land in order with no strike, refusal or slip. Its first run found a trap in the split lunge — the eye tapped shut before the brow's three-beat hold was up went back to nought and had to be tapped again. A hold is now waited for the way a panel shot is.
+
+## 2026-09-26 · c632f25be — THE INSTAR's third and fourth acts open in the director
+
+Ten gallery cards, INSTAR · CROUCHED through INSTAR · LOOMING, each three beats into its pose's window with the marks up, so a look can be checked in any of them without a throwaway edit. `falling()` now takes any pose.
+
 ## 2026-09-26 · 00c2806d0 — THE VISE's timeout blow is a husk seed spat at the hull
 
 When a fire step runs out with the kernel unshot, the seed-case spits a seed from its heavy end. The seed is a husk in the case's own dry brown, the kernel's pointed oval, and it tumbles down the middle column. It lands point first, cracks down its length, and its two halves spring apart the way the case's lobes do. It replaces the generic lash.
