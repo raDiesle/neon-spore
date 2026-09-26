@@ -115,8 +115,23 @@ theSpool   creatures   0-> 2   0.7 us/tick   heap +0.03 MB retained after GC
 Nothing here retains unbounded memory — heap growth after a forced GC is
 under a megabyte for every wave over 30 simulated seconds — so there is no
 sign of a leak in the sim step itself. The standing creature counts are too
-low to say anything about peak-population cost; that gap is the queue item
-below.
+low to say anything about peak-population cost.
+
+**Measured afterwards, with the hull defended** (26 September 2026).
+`tools/probe/world.ts` gained `played`, which steps a wave with AUTO's hand on
+both seats. A scratch bench ran every wave for 12,000 ticks (160 beats) that
+way at seed 1. The busiest were:
+
+```
+theStrand   peak 8 bodies   mean 5.8   0.6 us/tick
+theGyre     peak 7          mean 0.2   1.8 us/tick
+oneLastChance, theWard, theCrawler   peak 5
+```
+
+Every other wave peaked at 4 or fewer. After warm-up, no wave's step cost more
+than 5 µs a tick on average. A defended wave does not stand at twenty bodies:
+the pair answers them as fast as they come. So peak population is not where
+the sim's time goes, at any population the game reaches.
 
 ## What this doesn't answer
 

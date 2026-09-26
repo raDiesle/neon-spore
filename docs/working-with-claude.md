@@ -270,9 +270,10 @@ bun run probe scratch/<name>       # a throwaway of your own
 ```
 
 `tools/probe/` depends on all five packages — `sim`, `content`, `render`, `net`
-and `audio` — so that no probe is ever the wrong shape for the place it has to
-live in; `world.ts` has the three helpers a probe is written on
-(`waveWorld` by **id**, `beats`, `field`);
+and `audio` — and on `hands`, so that no probe is ever the wrong shape for the
+place it has to live in. `world.ts` has the helpers a probe is written on:
+`waveWorld` by **id**, `beats`, `field`, and `played`, which is `beats` with
+AUTO's hand on both seats, for a wave the pair defends;
 `scratch/` is git-ignored, so a probe left behind is neither committed nor in
 anybody's way. It is a rig and not a test: a question worth asking twice is a
 test in the package that owns the answer.

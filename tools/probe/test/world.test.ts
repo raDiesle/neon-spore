@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
 import { read } from "../../../packages/sim/test/source-scan.ts";
 import { counted } from "../../hooks/file-size.ts";
-import { beats, field, waveWorld } from "../world.js";
+import { beats, field, played, playedBeat, waveWorld } from "../world.js";
 
 const ROOT = new URL("../../../", import.meta.url);
 
@@ -48,6 +48,33 @@ describe("a probe's world", () => {
 
   it("says so plainly when there is nothing on the field", () => {
     expect(field(waveWorld("theCoil"))).toContain("(empty)");
+  });
+});
+
+/**
+ * `played` is what a benchmark of a defended wave stands on. If the hand ever
+ * stopped reaching the world, it would quietly measure `beats` again. So the
+ * test is the one thing the hand changes: a rock left alone scars the hull and
+ * a played one does not.
+ */
+describe("a played wave", () => {
+  it("is defended, where the same wave left alone is scarred", () => {
+    const alone = waveWorld("theRock");
+    const defended = waveWorld("theRock");
+    beats(alone, 48);
+    played(defended, 48);
+    expect(alone.scars.length).toBeGreaterThan(0);
+    expect(defended.scars).toHaveLength(0);
+  });
+
+  it("has a hand for an ordinary wave, and plays the same way twice", () => {
+    const once = waveWorld("theStrand");
+    const twice = waveWorld("theStrand");
+    expect(playedBeat(once)).toBe(true);
+    playedBeat(twice);
+    played(once, 12);
+    played(twice, 12);
+    expect(field(once)).toBe(field(twice));
   });
 });
 

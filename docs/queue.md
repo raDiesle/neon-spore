@@ -813,27 +813,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The headless sim benchmark under-represents a busy boss fight
-
-- **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-the-headless-sim-benchmark-under-represents-a-bu)
-- **Files:** `tools/probe/world.ts`
-
-`waveWorld()` stands a wave up with an empty command stream and nothing
-defends the hull, so a benchmark that runs `step()` in a loop with no
-commands sees creatures spawn, cross the field, and get removed on arrival —
-real per-tick cost, but never more than one or two creatures alive at once,
-which undershoots the standing population of an actual busy boss fight (the
-thing `docs/perf-audit-2026-09.md` was asked to cover). `tools/probe/` has no
-helper that holds a wave at a high standing population — one that plays a
-simple defend policy (shield under whatever is about to reach the hull, or
-just never removes a creature that reaches it) so a probe script can measure
-`step()` cost with, say, twenty-plus creatures on the field at once the way a
-real boss fight runs. This is a missing tool rather than a bug: add a
-`heldWorld`-style helper beside `waveWorld` in `tools/probe/world.ts`, or a
-second `beat`-like function that takes a defend callback, and use it from a
-`scratch/` benchmark the next time this is measured.
-
 ## `docs/perf-audit-2026-09.md` has no real-device numbers yet
 
 - **Found:** 2026-09-26, claude/perf-audit-real-run

@@ -22356,3 +22356,13 @@ Bottleneck: reading — the lane rule for wide bodies, bodies mid-move and the q
 Bottleneck: reading — the pod's rules are spread over four files, and THE WARD's lone scar took a trace to show it was the wave, not the hand.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — the probe plays a wave with AUTO
+
+- reading: 5 min. The queue entry, `tools/probe/world.ts`, `packages/hands`' autopilot and how the game feeds it.
+- writing: 10 min. `played`/`playedBeat`, the dependency, two tests, the docs paragraph, the audit's figures.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the bench across every wave was the time; it showed a defended wave never stands above eight bodies.

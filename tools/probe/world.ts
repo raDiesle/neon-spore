@@ -7,6 +7,7 @@ import {
   setLance,
   WAVES,
 } from "@neon-spore/content";
+import { autopilotHand } from "@neon-spore/hands";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -88,6 +89,37 @@ export function beat(world: World): void {
 export function beats(world: World, count: number, onBeat: (n: number) => void = () => {}): void {
   for (let n = 1; n <= count; n++) {
     beat(world);
+    onBeat(n);
+  }
+}
+
+/**
+ * **One beat of ticks with AUTO on both seats**: each tick's presses come from
+ * the same hand the TEST panel and the director play with (`autopilotHand`).
+ * That is the boss's hand where there is a boss, and the cannon and shield
+ * together where there is none.
+ *
+ * `beat` sends nothing, so nothing defends the hull. Every body is removed as
+ * it arrives, and a benchmark built on it never saw more than two on the field
+ * at once. This one sees a wave the way a pair that answers it sees it.
+ * Returns false when there is no hand for the boss on the field (the wave is
+ * then stepped with no commands, as `beat` would).
+ */
+export function playedBeat(world: World): boolean {
+  const ticks = ticksPerBeat(world.cfg);
+  let handless = false;
+  for (let i = 0; i < ticks; i++) {
+    const hand = world.over ? null : autopilotHand(world);
+    if (hand === null && !world.over) handless = true;
+    step(world, hand === null ? [] : hand(world).map((c) => ({ ...c, tick: world.tick })));
+  }
+  return !handless;
+}
+
+/** `beats`, played by AUTO rather than left alone. */
+export function played(world: World, count: number, onBeat: (n: number) => void = () => {}): void {
+  for (let n = 1; n <= count; n++) {
+    playedBeat(world);
     onBeat(n);
   }
 }
