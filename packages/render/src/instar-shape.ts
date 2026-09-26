@@ -6,7 +6,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import { BEATEN, ENTER, POSES } from "./instar-poses.js";
+import { BEATEN, ENTER, placed } from "./instar-poses.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -89,7 +89,7 @@ export interface Figure {
 
 /** The pose's figure after its marks are done: the parts the pair undid. */
 function landed(pose: InstarPose, marks: readonly InstarMark[]): Figure {
-  return deformed(POSES[pose], marks, () => 1);
+  return deformed(placed(pose, marks), marks, () => 1);
 }
 
 /** One mark's part moved by how far along it is, 0..1. */
@@ -145,9 +145,9 @@ export function instarFigure(s: InstarState, beat: number, beatPhase: number): F
   }
   if (s.phase === "morph") {
     const t = at / (step.morphBeats * INSTAR_FLIGHT_ENDS);
-    return lerp(from, POSES[step.pose], smoothstep(Math.min(1, t)));
+    return lerp(from, placed(step.pose, step.marks), smoothstep(Math.min(1, t)));
   }
-  const pose = POSES[step.pose];
+  const pose = placed(step.pose, step.marks);
   return deformed(pose, step.marks, (i) => {
     const need = step.marks[i]?.need ?? 1;
     return (s.progress[i] ?? 0) / need;

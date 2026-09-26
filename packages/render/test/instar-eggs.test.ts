@@ -13,6 +13,7 @@ import {
 } from "@neon-spore/sim";
 import { CLUTCH, NEST } from "../src/instar-eggs.js";
 import { InstarFx } from "../src/instar-fx.js";
+import { placed } from "../src/instar-poses.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
@@ -67,6 +68,20 @@ describe("THE INSTAR's nests", () => {
     // A burst is the splat alone, which is gone in well under the fall.
     for (let i = 0; i < 10; i++) fx.update(1 / 30);
     expect(fx.eggs.count).toBe(0);
+  });
+
+  it("stands each nest on the side of the seat that works it, on both broods", () => {
+    const broods = INSTAR_SCRIPT.filter((s) => s.pose === "brood");
+    expect(broods.length).toBe(2);
+    for (const brood of broods) {
+      const f = placed(brood.pose, brood.marks);
+      for (const m of brood.marks) {
+        const x = tapped(m) ? f.nestX : f.eggsX;
+        expect(x).toBe(m.xMilli);
+        // Left is player 1's, right is player 2's.
+        expect(x < 500).toBe(m.seat === "p1");
+      }
+    }
   });
 
   it("holds one egg for every swipe its mark needs", () => {

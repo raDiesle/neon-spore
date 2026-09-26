@@ -1,5 +1,6 @@
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import { drawEggCrack } from "./instar-egg-crack.js";
 import { SPOTS, SPOTS_NEST } from "./instar-egg-spots.js";
 import { drawGlint } from "./instar-hide.js";
 import { faded, type Look } from "./instar-plate.js";
@@ -15,8 +16,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * egg … the other player also has eggs, but he has to tap it to squash them
  * to dead*. So there are two nests on the back, each a mound of silk with the
  * eggs half out of it, each egg with a hatchling curled dark inside, and the
- * eggs shiver — harder as the window runs (`instarThreat`) — until the pair
- * clear them or they hatch (`instar-strike.ts`).
+ * eggs shiver — harder as the window runs (`instarThreat`), and crack with
+ * it (`instar-egg-crack.ts`) — until the pair clear them or they hatch
+ * (`instar-strike.ts`).
  *
  * One nest is squashed: it holds one egg per tap its mark needs (`NEST`), and
  * each counted tap bursts one where it lies (`instar-fx.ts`). The other is
@@ -128,7 +130,11 @@ function drawNest(
     const k = time * (24 + i) + i * 2.1 + seed;
     const jx = Math.sin(k) * r * 0.03 * rumble;
     const jy = Math.cos(k * 1.3) * r * 0.02 * rumble;
-    drawEgg(ctx, at.x + dx * r + jx, at.y + dy * r + jy, r, Math.sin(k * 0.5) * 0.2 * rumble, fade);
+    const x = at.x + dx * r + jx;
+    const y = at.y + dy * r + jy;
+    const tilt = Math.sin(k * 0.5) * 0.2 * rumble;
+    drawEgg(ctx, x, y, r, tilt, fade);
+    drawEggCrack(ctx, x, y, r * EGG_W, r * EGG_H, tilt, threat, fade, time, i + seed);
   });
   ctx.save();
   ctx.strokeStyle = faded(PALETTE.text, fade, 0.3);

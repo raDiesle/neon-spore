@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE INSTAR, brood: eggs that crack while nobody takes them
-
-- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-26, claude/queue-the-instars-words-still-name-parts-no-pose-draws (claim: claude/queue-the-instar-brood-eggs-that-crack-while-nobody-ta)
-- **Files:** `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-egg-spots.ts`, `packages/render/test/instar-eggs.test.ts`, `packages/content/src/instar-script.ts`
-
-Step 2. The nests are sixteen and ten eggs that sit still until the window
-closes. Let the eggs still standing crack as the window runs (`instarThreat`):
-a hairline at a quarter, a split with something moving inside at three
-quarters, drawn on the egg and never as a bar. Then a second brood step late in
-the script with the counts swapped between the seats, player 1 swiping and
-player 2 tapping, so a pair that learned the nest has to say it again. It
-lands under a look the owner asked for by name.
-
 ## THE INSTAR, lash: a tail that sweeps rather than stands
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
@@ -523,7 +509,8 @@ what the three strings teach, as captions on each seat's own screen — add it t
 `SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
 the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
 and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
-`bun run check` proves it.
+`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## Film THE CHOKE's guide, and delete its words
 
@@ -537,7 +524,8 @@ what the three strings teach, as captions on each seat's own screen — add it t
 `SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
 the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
 and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
-`bun run check` proves it.
+`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## Film THE LIMPET's guide, and delete its words
 
@@ -551,7 +539,8 @@ what the three strings teach, as captions on each seat's own screen — add it t
 `SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
 the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
 and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
-`bun run check` proves it.
+`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## Film THE LEECH's guide, and delete its words
 
@@ -565,7 +554,8 @@ what the three strings teach, as captions on each seat's own screen — add it t
 `SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
 the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
 and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
-`bun run check` proves it.
+`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## Film THE CODEX's guide, and delete its words
 
@@ -579,7 +569,8 @@ what the three strings teach, as captions on each seat's own screen — add it t
 `SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
 the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
 and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
-`bun run check` proves it.
+`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## Film THE GIMBAL, THE HASP and THE RATCHET once each is drawn
 
@@ -819,7 +810,8 @@ the health, three pull-together movements, a two-seat alternating tap finish
 on the bared core. The full beat list, mechanic and departures are §23 of
 `docs/spec/bosses-choreographed.md`. Every row of
 `.claude/skills/new-boss/registrations.md` for a field-adjacent choreographed
-scene, THE SLOW on every pull window, `bun run check` proves it.
+scene, THE SLOW on every pull window, `bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## §24 THE KEEL — the simulation lane
 
@@ -832,7 +824,8 @@ lights is the one the cue calls, with no `Alternation` refusal and no per-step
 authored seat. One standard-control fire step at the midpoint (movement 2).
 The full beat list is §24 of `docs/spec/bosses-choreographed.md`. THE SLOW on
 every joint window except the fast re-lit run in movement 3, which is at
-tempo on purpose. `bun run check` proves it.
+tempo on purpose. `bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## §25 THE VALVE — the simulation lane
 
@@ -847,7 +840,8 @@ away from its mark before it can hold. The full beat list is §25 of
 `docs/spec/bosses-choreographed.md`. New member on `Hold["kind"]`, so
 `tools/director/test/on-field-controls.test.ts`'s exhaustive switch is part of this
 lane and not a follow-up. THE SLOW on every freeze and every pull.
-`bun run check` proves it.
+`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## §26 THE SEAM — the simulation lane
 
@@ -860,7 +854,8 @@ the health. The cheapest of the five — proof that a choreographed scene can
 be built entirely out of the standard controls DavidDe asked to keep for
 specific sequences. The full beat list is §26 of
 `docs/spec/bosses-choreographed.md`. THE SLOW on every fire and shield
-window. `bun run check` proves it.
+window. `bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## §27 THE OCULUS — the simulation lane
 
@@ -874,7 +869,8 @@ shut, a `SceneBreak` (named here for the first time) hands the scene to an
 ordinary gated shot at the bared core, with two more held-reseal beats
 defending it. The full beat list is §27 of
 `docs/spec/bosses-choreographed.md`. THE SLOW on every hold and every fire.
-`bun run check` proves it.
+`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## §23 THE MANTLE — the look
 
@@ -967,3 +963,16 @@ test — end scarred or never clear. Give each such creature its answer in the
 hand (a file per few creatures, as the boss hands are split), taking its name
 out of `HALF_PLAYED` as it goes; the test already fails for any wave the hand
 stops clearing clean.
+
+## instar-shape.ts is 236 lines: split the pixels from the figure
+
+- **Found:** 2026-09-26, claude/queue-the-instar-brood-eggs-that-crack-while-nobody-ta
+- **Files:** `packages/render/src/instar-shape.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/filament-shape.ts`
+
+The file holds two things: the figure's arithmetic (`Figure`, `deformed`,
+`instarFigure`, the morph, threat and fade clocks) and the figure turned into
+pixels (`instarAt`, `instarLen`, `instarFarEnd`, `instarHeadAt`,
+`instarMarkPoint`, `instarMarkRadius`, about seventy lines). Move the second
+into `instar-place.ts` and point the importers at it; no drawing changes, and
+`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
+and four tests; `grep -rl instar-shape packages/render` lists them.

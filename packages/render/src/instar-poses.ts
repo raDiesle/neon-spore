@@ -1,4 +1,4 @@
-import type { InstarPose } from "@neon-spore/sim";
+import type { InstarMark, InstarPose } from "@neon-spore/sim";
 import type { Figure } from "./instar-shape.js";
 
 /**
@@ -134,3 +134,24 @@ export const BEATEN: Figure = {
   nestY: 290,
   tail: 0,
 };
+
+/**
+ * The pose with each nest stood where its mark is: the tapped nest at the
+ * tap's mark, the swiped one at the swipe's. The brood is played twice, the
+ * second time with the seats' counts swapped (`instar-script.ts`), and since
+ * left is player 1's the nests change sides with them.
+ */
+export function placed(pose: InstarPose, marks: readonly InstarMark[]): Figure {
+  const g = { ...POSES[pose] };
+  for (const m of marks) {
+    if (m.part !== "eggs") continue;
+    if (m.gesture === "tap") {
+      g.nestX = m.xMilli;
+      g.nestY = m.yMilli;
+    } else {
+      g.eggsX = m.xMilli;
+      g.eggsY = m.yMilli;
+    }
+  }
+  return g;
+}

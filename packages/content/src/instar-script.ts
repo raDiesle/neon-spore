@@ -1,7 +1,7 @@
 import type { BossSequenceStep } from "@neon-spore/sim";
 
 /**
- * THE INSTAR's script: eleven steps over five poses, and what the pair does to each.
+ * THE INSTAR's script: twelve steps over five poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -61,11 +61,15 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    three beats, while player 2 strikes the right eye, twelve taps, and it
  *    flinches shut a little with each. Two gestures on one head, and the hold
  *    has to last until the eye is done — a lift is the brow let go.
- * 8. *Lash, mixed* — the tail at the ship once more, and each blade asks a
+ * 8. *Brood, turned round* — the eggs again, **the counts swapped**: the
+ *    nests change sides, so player 1 swipes the left nest's ten off and
+ *    player 2 taps the right nest's sixteen flat. The pair that learned the
+ *    nest has to say it again, the breath's turning-round played on the eggs.
+ * 9. *Lash, mixed* — the tail at the ship once more, and each blade asks a
  *    different thing: player 1 taps the left back, player 2 winds the right.
  *    Two counts in two gestures, finishing together.
  *
- * (Steps 2–8 below are the script's steps 5–11: the breath's three bites are
+ * (Steps 2–9 below are the script's steps 5–12: the breath's three bites are
  * one item because they are one scene.)
  *
  * **The clocks.** A morph is the flight: eight beats for the entrance, which
@@ -210,6 +214,17 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     marks: [
       { seat: "p1", part: "head", gesture: "hold", xMilli: 440, yMilli: 300, need: 3 },
       { seat: "p2", part: "eye", gesture: "tap", xMilli: 632, yMilli: 280, need: 12 },
+    ],
+  },
+  {
+    pose: "brood",
+    arrive: "passes",
+    morphBeats: 10,
+    windowBeats: 4,
+    landBeats: 3,
+    marks: [
+      { seat: "p1", part: "eggs", gesture: "swipeDown", xMilli: 320, yMilli: 380, need: 10 },
+      { seat: "p2", part: "eggs", gesture: "tap", xMilli: 660, yMilli: 360, need: 16 },
     ],
   },
   {

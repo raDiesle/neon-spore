@@ -31,10 +31,13 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   const rear = instarFarEnd(l, f);
   const nest = instarAt(l, f.nestX, f.nestY);
   const eggs = instarAt(l, f.eggsX, f.eggsY);
+  // The nearer nest to the head first, whichever it is, so the back does not
+  // double on itself when the brood's nests change sides.
+  const [near, far] = nest.x <= eggs.x ? [nest, eggs] : [eggs, nest];
   const knots = [
     { x: head.x + r * 0.7, y: head.y + r * 0.15 },
-    { x: nest.x, y: nest.y + r * 0.42 },
-    { x: eggs.x, y: eggs.y + r * 0.42 },
+    { x: near.x, y: near.y + r * 0.42 },
+    { x: far.x, y: far.y + r * 0.42 },
     rear,
   ];
   const spine = Array.from({ length: N + 1 }, (_, i) => along(knots, i / N));
