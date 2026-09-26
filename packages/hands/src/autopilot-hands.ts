@@ -16,6 +16,7 @@ import { oculusHand } from "./boss-hands-oculus.js";
 import { plumbHand } from "./boss-hands-plumb.js";
 import { queenHand } from "./boss-hands-queen.js";
 import { ratchetHand } from "./boss-hands-ratchet.js";
+import { rimeHand } from "./boss-hands-rime.js";
 import { mazeHand, mirrorHand, pinballHand } from "./boss-hands-rounds.js";
 import { instarHand, nettleHand } from "./boss-hands-scene.js";
 import { scoutHand } from "./boss-hands-scout.js";
@@ -82,6 +83,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   queen: queenHand,
   ratchet: ratchetHand,
   reprise: repriseHand,
+  rime: rimeHand,
   scout: scoutHand,
   scuttle: scuttleHand,
   sinew: sinewHand,

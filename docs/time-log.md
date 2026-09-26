@@ -25018,3 +25018,15 @@ Bottleneck: looking — a hidden pane runs nothing at tempo, so the watching
 had to move to headless strips.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE RIME's autopilot hand
+
+- reading: 5 min. THE RIME's hand, shot and shield rules and its script;
+  THE GRINDSTONE's rub and THE OCULUS's shield were the patterns.
+- writing: 5 min. `boss-hands-rime.ts`, its two registrations, the test, the
+  queue entry rewritten to the four lanes left.
+- looking: 0 min. The test plays THE RIME to the end; nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: none worth the name — the rub copied straight from THE GRINDSTONE.

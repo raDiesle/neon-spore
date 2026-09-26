@@ -2211,6 +2211,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-trivet.ts` | **THE TRIVET played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
 | `packages/hands/src/boss-hands-ratchet.ts` | **THE RATCHET played right, and played blind**, for the STATES sheet |
+| `packages/hands/src/boss-hands-rime.ts` | **THE RIME played right**, for the autopilot: each lit half wiped clear by its own seat |
 | `packages/hands/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
 | `packages/hands/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
 | `packages/hands/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |

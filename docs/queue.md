@@ -2169,9 +2169,8 @@ what the rest of this file holds.
 ## §29 THE RIME — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
-- **Taken:** 2026-09-26, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
 - **Needs:** §29 THE RIME — the look, half one (the body), landed first
-- **Files:** `packages/render/src/rime-marks.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`, `packages/hands/src/`
+- **Files:** `packages/render/src/rime-marks.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
 
 The body is drawn: BULB · PEBBLE's pane of dull glass split down the spine,
 THE CAIRN's seven sheets of frost over it with their seams showing, a half's
@@ -2181,16 +2180,15 @@ colour and smaller per hit, and the shatter dropping the sheets apart
 (`render/rime-*.ts`, `test/rime-frame.test.ts`). What is left, in lanes:
 **the rub on the field** — a thumb down on a half sends `rimeHalfLeft` or
 `rimeHalfRight` with its reversal count as the drag's `id`, and nothing on
-the field sends one yet; **the autopilot hand** (`NO_HAND` in
-`tools/director/test/autopilot.test.ts` until then); **the fx**, in
-`Effects` and cleared in `reset()` — flakes shaved off under a rub, a half's
+the field sends one yet; **the fx**, in `Effects` and cleared in `reset()` — flakes shaved off under a rub, a half's
 clear, the core's hit flash and the shatter's, the twelve `rime*` events off
 the two silent lists as each gets its burst, and row 11's refreeze film;
 **the cue's words** (WIPE on the lit half, FIRE on the lit core, SHIELD on a
 surge); and **THE SLOW's aim** on the lens, one arm in `slow-boss-aim.ts`,
 `case "rime": return still(rimeCentre(l, world.cfg), longer(rimeRadius(l)))`,
 with its row in `slow-boss-aim.test.ts`. Unverified at tempo until the owner
-has looked.
+has looked. The autopilot hand is done (`hands/boss-hands-rime.ts`,
+`director/test/autopilot-rime.test.ts`).
 
 ## The step colour is written three times: hoist it
 
