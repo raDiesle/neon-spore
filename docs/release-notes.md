@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c5ee13c6d — `bun run shot --wave` opens the director on a named wave
+
+The filter route photographed wave one: the click on the first row landed before the rail had re-rendered under the filter, and nothing said so. `--wave "THE REPRISE"` takes a name, an id or the HUD's number, read the way `bun run frames --wave` reads it, and opens the director at that wave's own `?wave=`. A name that matches nothing throws, and so does a `--path` beside it.
+
 ## 2026-09-26 · 6ee3c4a00 — THE UNDERTOW's lobes were lit from a spot their own rim outgrew
 
 A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, moving through the already-shipped bosses.

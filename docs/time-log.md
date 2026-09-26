@@ -21777,3 +21777,5 @@ file of their own with its own copy of the setup.
 
 Bottleneck: confirming the director's wave index is `WAVES`' own, which took
 three greps through its store.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
