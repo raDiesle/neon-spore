@@ -434,6 +434,7 @@ an alignment.
 ## Film THE GIMBAL, THE HASP and THE RATCHET once each is drawn
 
 - **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Taken:** 2026-09-26, claude/queue-film-the-codexs-guide-and-delete-its-words (claim: claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea)
 - **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/src/waves/act-11.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
 
 Three of the ten guides still in words, and blocked rather than forgotten:
