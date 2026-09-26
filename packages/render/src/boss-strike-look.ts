@@ -1,5 +1,6 @@
 import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
+import { gimbalBlow } from "./gimbal-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { haspBlow } from "./hasp-blow.js";
 import type { Layout } from "./layout.js";
@@ -87,6 +88,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // The jam shoots the rack's head plate down the strut; the loose bolt,
   // already fallen in sight, is driven home as THE HASP's is.
   ratchet: ratchetBlow,
+  // Its seam's bead has already run the column; the hull opens along that seam.
+  gimbal: gimbalBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

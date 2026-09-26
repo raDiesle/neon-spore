@@ -24062,3 +24062,16 @@ Bottleneck: looking — a mid-change frame of a pass or an approach is mostly sk
 Bottleneck: friction — the audio switch and the spark list were full, and THE KEEL's rows had to move to a fresh page before a line of them could go in.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE GIMBAL's own blow at the hull
+
+- reading: 5 min. `gimbal-step.ts`'s `spendSeam`, `gimbal-draw.ts`'s `drawLeak`.
+- writing: 10 min. The bead pressed into the skin and the plating split
+  along a seam in the colour it vented.
+- looking: 15 min. Frames forced with `--boss-json '{"seamCol":5,"seamBeat":"now"}'`;
+  the first seam was drawn flat in the air over the cannon's hump.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — the blow lands under the cannon, where the skin
+humps, so a straight seam floated off it until it was bent over the hump.
