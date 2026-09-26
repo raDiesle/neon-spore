@@ -25226,3 +25226,5 @@ sixteen bosses, and each state file had to be opened to learn which.
 
 The bottleneck: reading — the wheel moves by the step between two reports
 rather than to where the thumb is, and the third mark wants a full lap first.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

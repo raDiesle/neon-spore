@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 395652828 — AUTO plays THE VALVE: turns each mark, freezes and pulls, plays the story between
+
+The director's AUTO now has a hand for THE VALVE. The pilot's thumb turns the wheel clockwise onto each mark, going the full lap first in the third movement. The navigator taps the pin to freeze the wheel and draws it out. Between the pins the hand caps the jet, shoots the spark, holds the brace and the seal with both thumbs, and rubs the film off. It plays to the end with no window run out and the hull never struck.
+
 ## 2026-09-26 · 17045470d — The director shows which step of its choreography a boss is on
 
 RUN now reads `STEP 7 / 28 · 21 TO GO · BROOD` beside ↺ WAVE whenever the wave's boss has a script, and nothing on any other wave. The count comes from one sim read, `bossScript` (packages/sim/src/boss-script.ts), across the four names a script goes by — steps, marks, tiles, thresholds — so the director and the game's HUD will count the same way. A test installs every boss wave the game ships and fails by name on one that keeps a cursor with no script found. The spec's `18 LEFT` became `18 TO GO`: nine bosses have an ask called left.
