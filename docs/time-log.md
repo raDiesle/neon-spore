@@ -24339,3 +24339,5 @@ Bottleneck: looking — the glow's strength only showed in a real frame.
 - landing: 5 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: friction — a paragraph repeated word for word across sections turns any edit by text into an edit of all of them.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

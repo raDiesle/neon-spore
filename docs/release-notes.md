@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e1c951018 — THE KEEL and THE OCULUS no longer claim THE VALVE's story as theirs
+
+The landing that drew THE VALVE's story states wrote its paragraph into `docs/spec/bosses.md` by replacing a sentence five sections share word for word, so THE KEEL's and THE OCULUS's sections each described THE VALVE's jet, brace, wipe and seal as their own (THE SEAM's lane took it out of its own section in the meantime). The two are put back to what they said before; THE VALVE's own section and THE TRIVET's keep their new text. That the restored paragraphs were already stale is queued.
+
 ## 2026-09-26 · cf255d60d — Queue: THE SEAM's turn and glow are done
 
 ## 2026-09-26 · 819111adf — THE SEAM is drawn turning its back, and glowing from within
