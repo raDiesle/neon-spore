@@ -1,9 +1,8 @@
-import { type MantleState, mantleBracing, type World } from "@neon-spore/sim";
+import { type MantleState, mantleBracing, mantleBuckling, type World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { mantleKnobCircle } from "./mantle-grip.js";
-import { mantleOpen } from "./mantle-pose.js";
 import { mantleReach, type Point } from "./mantle-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -43,10 +42,9 @@ export function mantleShudder(l: Layout, world: World, s: MantleState, time: num
 }
 
 /** How much of the seam is cracked, tail up: a share per pair sheared, and none once it splits. */
-export function mantleCrack(s: MantleState, beat: number, beatPhase: number): number {
-  if (s.cursor === 0 || mantleOpen(s, beat, beatPhase) > 0) return 0;
+export function mantleCrack(s: MantleState): number {
   const pairs = s.thresholds.length;
-  if (pairs < 2) return 0;
+  if (s.cursor === 0 || s.cursor >= pairs || pairs < 2) return 0;
   return Math.min(1, s.cursor / (pairs - 1));
 }
 
@@ -60,10 +58,9 @@ export function drawMantleSeam(
   world: World,
   s: MantleState,
   at: Point,
-  beat: number,
   beatPhase: number,
 ): void {
-  const crack = mantleCrack(s, beat, beatPhase);
+  const crack = mantleCrack(s);
   if (crack === 0) return;
   const { ry } = mantleReach(l);
   const tail = at.y + ry * 0.92;
@@ -84,7 +81,11 @@ export function drawMantleSeam(
   strokeGlow(ctx, path, PALETTE.red, STROKE.inner, glow);
 }
 
-/** Both knobs' rings while bracing: grey and breathing let go, lit and steady held. */
+/**
+ * Both knobs' rings while bracing or buckling: grey and breathing let go, lit
+ * and steady held — and under the buckle, held means laid on and eased, since
+ * a thumb pulling there presses nothing flat (`sim/mantle-story.ts`).
+ */
 export function drawMantleBraceRings(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -92,9 +93,12 @@ export function drawMantleBraceRings(
   s: MantleState,
   beatPhase: number,
 ): void {
-  if (!mantleBracing(s)) return;
+  const buckling = mantleBuckling(s);
+  if (!mantleBracing(s) && !buckling) return;
   for (const side of [-1, 1] as const) {
-    const held = s.held[side === -1 ? 0 : 1];
+    const index = side === -1 ? 0 : 1;
+    const eased = !buckling || s.depthMilli[index] < world.cfg.mantleFloorMilli;
+    const held = s.held[index] && eased;
     const knob = mantleKnobCircle(l, world.cfg, s, side, world.beat, beatPhase);
     const breathe = held ? 0 : 0.5 + 0.5 * Math.sin(beatPhase * Math.PI * 2);
     const ring = new Path2D();

@@ -1,15 +1,18 @@
 import {
   type MantleState,
   mantleBracing,
+  mantleBuckling,
   mantleFinale,
   mantleLeaking,
   mantlePulling,
+  mantleTurning,
+  mantleVenting,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
-import { mantleCoreCircle, mantleKnobCircle, mantleSide } from "./mantle-grip.js";
+import { mantleCoreCircle, mantleKnobCircle, mantleSide, mantleVentCircle } from "./mantle-grip.js";
 
 /**
  * **What THE MANTLE is asking for** — page twenty-nine of the readings, and
@@ -31,6 +34,13 @@ import { mantleCoreCircle, mantleKnobCircle, mantleSide } from "./mantle-grip.js
  * let go** (§23 rows 7 and 8): the gesture is a thumb laid on and kept still,
  * so the kind is `HOLD`, and it goes the moment the thumb is down — a lift
  * brings it back, which is the whole of what the slip needs to say.
+ *
+ * **The story between says the same three words** (§23 rows 7 to 12):
+ * `HOLD` on a knob the buckle wants laid on and eased, and it stays while
+ * that thumb pulls, since pulling presses nothing flat; `TAP` on the vent
+ * for either seat, since either shuts it; and `PULL` on a knob the turn
+ * wants past the floor, going once it is there — the turn is the one pull
+ * where *how far* is only *enough*.
  *
  * **`TAP` on the core ring for the seat whose tap the finish is waiting on**
  * (`heartbeatNext`), and nothing on the other screen: a wrong-seat tap is
@@ -74,6 +84,27 @@ export function mantleCues(
       const knob = mantleKnobCircle(l, cfg, s, mantleSide(seat), world.beat, beatPhase);
       const seed = seat === 1 ? 128 : 129;
       out.push({ seat, kind: "HOLD", word: "HOLD", x: knob.x, y: knob.y, ...frame, seed });
+    }
+  }
+  if (mantleBuckling(s)) {
+    for (const seat of [1, 2] as const) {
+      const index = seat === 1 ? 0 : 1;
+      if (s.held[index] && s.depthMilli[index] < cfg.mantleFloorMilli) continue;
+      const knob = mantleKnobCircle(l, cfg, s, mantleSide(seat), world.beat, beatPhase);
+      const seed = seat === 1 ? 130 : 131;
+      out.push({ seat, kind: "HOLD", word: "HOLD", x: knob.x, y: knob.y, ...frame, seed });
+    }
+  }
+  if (mantleVenting(s)) {
+    const vent = mantleVentCircle(l, cfg);
+    out.push({ seat: null, kind: "PRESS", word: "TAP", x: vent.x, y: vent.y, ...frame, seed: 132 });
+  }
+  if (mantleTurning(s)) {
+    for (const seat of [1, 2] as const) {
+      if (s.depthMilli[seat === 1 ? 0 : 1] >= cfg.mantleFloorMilli) continue;
+      const knob = mantleKnobCircle(l, cfg, s, mantleSide(seat), world.beat, beatPhase);
+      const seed = seat === 1 ? 133 : 134;
+      out.push({ seat, kind: "CARRY", word: "PULL", x: knob.x, y: knob.y, ...frame, seed });
     }
   }
   if (mantleFinale(s)) {

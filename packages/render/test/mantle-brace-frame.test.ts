@@ -50,16 +50,16 @@ describe("THE MANTLE's brace", () => {
     const world = hung();
     const s = pulling(world, 0, 0, 0);
     const pairs = s.thresholds.length;
-    expect(mantleCrack(s, world.beat, 0)).toBe(0);
+    expect(mantleCrack(s)).toBe(0);
     s.cursor = 1;
-    const first = mantleCrack(s, world.beat, 0);
+    const first = mantleCrack(s);
     s.cursor = pairs - 1;
     expect(first).toBeGreaterThan(0);
-    expect(mantleCrack(s, world.beat, 0)).toBeGreaterThan(first);
+    expect(mantleCrack(s)).toBeGreaterThan(first);
     s.phase = "heartbeat";
     s.phaseBeat = world.beat - 4;
     s.cursor = pairs;
-    expect(mantleCrack(s, world.beat, 0)).toBe(0);
+    expect(mantleCrack(s)).toBe(0);
   });
 
   it("shudders only while bracing, and less as the hold counts", () => {

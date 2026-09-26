@@ -1,6 +1,7 @@
 import { type MantleState, mantleDone, mantleFinale, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import type { Side, ValvePose } from "./mantle-shape.js";
+import { MANTLE_TURN_TOP, mantleBulge, mantleInto, mantleTurnOpen } from "./mantle-story.js";
 
 /**
  * **The clock THE MANTLE is posed off** (§23, *Animation*): five poses — shut;
@@ -16,6 +17,8 @@ import type { Side, ValvePose } from "./mantle-shape.js";
 
 /** How far the flanks bow out at a full pull, in tiles. */
 const BOW = 0.42;
+/** How far the buckle bulges the flanks out, in tiles: past any pull's bow. */
+const BULGE = 0.6;
 /** How far past the threshold the bow keeps growing before it stops, as a share. */
 const BOW_OVER = 1.15;
 /** How far a handle's own pull drags its valve's tail down, per tile of pull. */
@@ -24,10 +27,7 @@ const DRAG = 0.3;
 const SHED_BEATS = 1;
 const SPLIT_BEATS = 1.5;
 
-/** How far into its phase the shell is, in beats, the fraction of this one included. */
-function into(s: MantleState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
+const into = mantleInto;
 
 /**
  * The drop into frame: row 1 of the beat list, the shell arriving closed with
@@ -43,9 +43,9 @@ export function mantleArrived(
   return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.mantleStillBeats));
 }
 
-/** How lit the handles are: coming up over half a beat when a pull begins, dark otherwise. */
+/** How lit the handles are: coming up over half a beat when a pull or the turn begins, dark otherwise. */
 export function mantleHandlesLit(s: MantleState, beat: number, beatPhase: number): number {
-  if (s.phase !== "pull" && s.phase !== "spark") return 0;
+  if (s.phase !== "pull" && s.phase !== "spark" && s.phase !== "turn") return 0;
   return smoothstep(into(s, beat, beatPhase) / 0.5);
 }
 
@@ -73,11 +73,22 @@ export function mantleShed(s: MantleState, beat: number, beatPhase: number): num
   return smoothstep(into(s, beat, beatPhase) / SHED_BEATS);
 }
 
-/** How far the shell has split down its seam: 0 shut, 1 swung wide. */
-export function mantleOpen(s: MantleState, beat: number, beatPhase: number): number {
+/**
+ * How far the shell has split down its seam: 0 shut, 1 swung wide — part-way
+ * while the pair guide the turn (`mantle-story.ts`), and the rest of the way
+ * from there once the core is bared.
+ */
+export function mantleOpen(
+  s: MantleState,
+  cfg: SimConfig,
+  beat: number,
+  beatPhase: number,
+): number {
   if (mantleDone(s)) return 1;
+  if (s.phase === "turn") return mantleTurnOpen(s, cfg, beat, beatPhase);
   if (!mantleFinale(s)) return 0;
-  return smoothstep(into(s, beat, beatPhase) / SPLIT_BEATS);
+  const swing = smoothstep(into(s, beat, beatPhase) / SPLIT_BEATS);
+  return MANTLE_TURN_TOP + (1 - MANTLE_TURN_TOP) * swing;
 }
 
 /**
@@ -94,11 +105,13 @@ export function mantleValvePose(
 ): ValvePose {
   const pulling = s.phase === "pull" || s.phase === "spark";
   const share = pulling ? Math.min(BOW_OVER, mantleSumShare(s, cfg)) : 0;
-  const depth = pulling ? s.depthMilli[side < 0 ? 0 : 1] : 0;
+  const bulge = BULGE * mantleBulge(s, cfg, beat, beatPhase);
+  const dragged = pulling || s.phase === "turn";
+  const depth = dragged ? s.depthMilli[side < 0 ? 0 : 1] : 0;
   return {
-    bow: BOW * share,
+    bow: BOW * share + bulge,
     drop: DRAG * Math.min(1.6, depth / 1000),
-    open: mantleOpen(s, beat, beatPhase),
+    open: mantleOpen(s, cfg, beat, beatPhase),
   };
 }
 

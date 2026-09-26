@@ -4,7 +4,6 @@ import {
   haspWorking,
   hiveClenched,
   INNER,
-  mantleFinale,
   OUTER,
   type World,
 } from "@neon-spore/sim";
@@ -14,7 +13,7 @@ import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js
 import { hiveHaulCircle } from "./hive-grip.js";
 import { keelJointCircle } from "./keel-grip.js";
 import type { Circle, Layout } from "./layout.js";
-import { mantleCoreCircle, mantleKnobStanding, mantleTakesPull } from "./mantle-grip.js";
+import { mantleCoreTarget, mantleKnobStanding, mantleTakesPull } from "./mantle-grip.js";
 import { oculusHalfStanding, oculusTakesHold } from "./oculus-grip.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
 import { sinewHandleAt } from "./sinew-handles.js";
@@ -133,9 +132,10 @@ export function bossHandleCircle(
     return mantleKnobStanding(l, world, b, target === "mantleLeft" ? 1 : 2, beatPhase);
   }
   if (target === "mantleCore") {
-    // And the ring round its bared core, for as long as the finish runs.
+    // And the vent while it hisses, then the ring round its bared core for
+    // as long as the finish runs — the one target, two places (`mantle-grip.ts`).
     const b = world.boss?.kind === "mantle" ? world.boss : null;
-    return b !== null && mantleFinale(b) ? mantleCoreCircle(l, cfg) : null;
+    return b === null ? null : mantleCoreTarget(l, cfg, b);
   }
   if (target === "keelJoint") {
     // THE KEEL's ring round the lit joint, round the segment as it hangs this

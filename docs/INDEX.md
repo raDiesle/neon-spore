@@ -1887,9 +1887,11 @@ by hand never moves.
 | `packages/render/src/mantle-handle.ts` | **THE MANTLE's marks**: the two handles and the one cord between them while the shell is being pried |
 | `packages/render/src/mantle-pose.ts` | **The clock THE MANTLE is posed off** (§23, *Animation*): five poses |
 | `packages/render/src/mantle-shape.ts` | **Where THE MANTLE is**, in field pixels: the two valves of its shell, the plates they are laid in |
+| `packages/render/src/mantle-story.ts` | **How far along THE MANTLE's four story beats are** — the buckle's bulge, the vent's gape, the cross crack and the turn's swing |
 | `packages/render/src/mantle-grip.ts` | **The thumbs on THE MANTLE** — half two of the look lane |
 | `packages/render/src/mantle-fx.ts` | What THE MANTLE leaves behind a frame: the **kick** of the shell as a plate-pair shears |
 | `packages/render/src/mantle-brace.ts` | **THE MANTLE's brace, drawn**: the seam's crack and glow, the shudder, and each knob's hold ring |
+| `packages/render/src/mantle-vent.ts` | **THE MANTLE's vent and its crosswise crack, drawn** — the red slot with its hiss, and the crack across the seam |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
 | `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |

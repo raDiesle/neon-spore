@@ -23858,3 +23858,17 @@ Bottleneck: looking — the pin is a quarter of a tile wide, and the first
 frames had the cannon parked on top of it.
 
 *Measured: 12 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE's buckle, vent, cross crack and turn, drawn
+
+- reading: 15 min. The brace's look, the pose's open and the cue reader.
+- writing: 60 min. `mantle-story.ts` for the numbers, `mantle-vent.ts` for
+  the slot and the crack, the pose's bulge and turn, three cue arms, a test
+  file of twenty-two.
+- looking: 10 min. One frame of the vent on the pilot's screen.
+- friction: 10 min. The vent tap had no touch target (the core was only
+  answered in the finale); two signatures changed under their callers.
+- landing: 15 min. `check:fast`, the commit, `bun run land --keep`.
+
+The bottleneck was finding that the vent's `TAP` had nothing under it to
+touch: the sim took the tap, but the touch layer only knew the finale's core.

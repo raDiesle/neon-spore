@@ -2,6 +2,7 @@ import {
   type MantleState,
   mantleDone,
   mantleFinale,
+  mantleVenting,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
@@ -13,6 +14,7 @@ import {
   mantleHandleRest,
   mantleKnobDrop,
   mantleLift,
+  mantleReach,
   mantleRing,
   type Side,
 } from "./mantle-shape.js";
@@ -96,6 +98,22 @@ export function mantleCoreCircle(l: Layout, cfg: SimConfig): Circle {
 }
 
 /**
+ * The vent on the seam's crack (§23 row 9), which is what shutting it is
+ * answered on: a little above the shell's middle, clear of both knobs.
+ */
+export function mantleVentCircle(l: Layout, cfg: SimConfig): Circle {
+  const at = mantleCentre(l, cfg);
+  const { rx, ry } = mantleReach(l);
+  return { x: at.x, y: at.y + ry * 0.05, r: Math.max(handleRadius(l, cfg), rx * 0.42) };
+}
+
+/** What a tap on the core is answered on this frame: the vent while it hisses, the ring while the finish runs. */
+export function mantleCoreTarget(l: Layout, cfg: SimConfig, s: MantleState): Circle | null {
+  if (mantleVenting(s)) return mantleVentCircle(l, cfg);
+  return mantleFinale(s) ? mantleCoreCircle(l, cfg) : null;
+}
+
+/**
  * A press on this seat's knob. `bossOf(field, "mantle")` is `null` on every
  * wave without the shell. The grab reports no depth: the knob is at the top
  * of its groove, and every move after it is how far down the thumb has
@@ -116,11 +134,11 @@ export function mantleHandleUnder(l: Layout, x: number, y: number, field: Field)
   };
 }
 
-/** A tap on the bared core, from either seat, for as long as the finish runs. */
+/** A tap on the vent or the bared core, from either seat, for as long as either is open. */
 export function mantleCoreUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "mantle");
-  if (s === null || !mantleFinale(s)) return null;
-  if (!hitCircle(mantleCoreCircle(l, field.cfg), x, y)) return null;
+  const circle = s === null ? null : mantleCoreTarget(l, field.cfg, s);
+  if (circle === null || !hitCircle(circle, x, y)) return null;
   const seat = field.seat;
   return {
     player: seat,

@@ -30,6 +30,7 @@ import {
   type Side,
   type ValvePose,
 } from "./mantle-shape.js";
+import { drawMantleCrossCrack, drawMantleVent } from "./mantle-vent.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
@@ -89,7 +90,9 @@ export function drawMantle(
   drawCore(ctx, l, world, s, at, beat, beatPhase, fx.flare);
   for (const side of [-1, 1] as const)
     drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time, fx.hurt.value);
-  drawMantleSeam(ctx, l, world, s, at, beat, beatPhase);
+  drawMantleSeam(ctx, l, world, s, at, beatPhase);
+  drawMantleCrossCrack(ctx, l, world, s, at, beat, beatPhase);
+  drawMantleVent(ctx, l, world, s, beat, beatPhase, time);
   drawMantleBraceRings(ctx, l, world, s, beatPhase);
   const lit = mantleHandlesLit(s, beat, beatPhase);
   if (mantleFinale(s)) drawMantleRing(ctx, l, s, at, beatPhase);
@@ -114,7 +117,7 @@ function drawCore(
   flare: number,
 ): void {
   const { rx, ry } = mantleReach(l);
-  const open = mantleOpen(s, beat, beatPhase);
+  const open = mantleOpen(s, world.cfg, beat, beatPhase);
   const life = mantleCoreLife(s, world.cfg, beat, beatPhase);
   const pulse = mantleFinale(s) ? mantleCoreBeat(beatPhase) : 0;
   const grow = 1 + 0.08 * pulse * open;

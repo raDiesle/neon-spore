@@ -7750,6 +7750,23 @@ go, lit and steady held. The handles stand unlit through it, and the cue says
 `HOLD` on each seat's own knob until that side is held. Its four events stay
 silent in `render/`, because nothing of the brace outlives a frame.
 
+**The story between is drawn** (26 September 2026, `render/mantle-story.ts`
+for the numbers and `mantle-vent.ts` for the vent and the crack), off the
+world each frame like the brace. **The buckle** swells both valves out past
+any pull's bow and throbs, lying a step flatter with each beat both thumbs
+lie eased on them; the knobs' rings are the brace's, lit only while that
+thumb is laid on *and* eased, and `HOLD` stays on a knob until it is.
+**The vent** is a red slot gaping on the seam's crack with hiss rising off
+it and a ring breathing round it, and a tap from either seat is answered
+there (`mantleVentCircle`, the one `mantleCore` target in two places);
+`TAP` says so on both screens. **The crosswise crack** runs out both ways
+across the seam over the cross's beats and stays, pulsing, through the brace
+and the last pull. **The turn** stands the split halves part-way open,
+rocking on their hinges, and opens them further as the lesser pull nears the
+floor; the handles are lit and `PULL` stays on a knob until it is past the
+floor. The heartbeat swings them the rest of the way from there, never from
+shut. Its test: `render/test/mantle-story-frame.test.ts`.
+
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/mantle.test.ts`): it installs still and lights on cue; a shear
 needs both handles above the floor and the sum past the threshold, and a
