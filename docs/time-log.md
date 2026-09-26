@@ -24151,3 +24151,15 @@ Bottleneck: reading — forcing a fire step meant finding the script's first
 `fire` in `act-12.ts`.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's director poses, and the fight played through
+
+- reading: 5 min. `falling()` and the scene's slip rule.
+- writing: 15 min. Ten gallery cards, a playthrough test, a one-line fix.
+- looking: 0 min. The cards are built by the director's own tests.
+- friction: 5 min. A first fix that also stopped pulls slipping, caught by
+  the third bite's test.
+- landing: 10 min. `check:fast`, two commits, `bun run land --keep`.
+
+Bottleneck: finding why the split lunge slipped — the eye was done before a
+hold that cannot be hurried.

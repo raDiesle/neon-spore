@@ -117,7 +117,12 @@ function slipLonely(world: World, s: SceneState): void {
   // Together is only asked of thumbs on the body. A mark done while what is
   // left is the panel's waits for the panel: the cannon has to get there,
   // and a pair cannot shoot and tap *at once* in any sense worth saying.
-  const body = step.marks.some((m, i) => !instarPanel(m.gesture) && !instarMarkDone(s, i));
+  // A hold is waited for the same way: it is beats, not a count, so it cannot
+  // be hurried to meet a partner — the split lunge's eye, tapped shut before
+  // the brow's three beats were up, slipped and had to be tapped again.
+  const body = step.marks.some(
+    (m, i) => !instarPanel(m.gesture) && m.gesture !== "hold" && !instarMarkDone(s, i),
+  );
   if (!body) return;
   for (let i = 0; i < step.marks.length; i++) {
     const mark = step.marks[i];

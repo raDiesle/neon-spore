@@ -6692,6 +6692,14 @@ no two new ones run together.
 The director's `down` pose, which plays the whole script through, has its
 budget raised to 430 beats for the seventy-four the act adds.
 
+**Played through, headless** (`tools/director/test/instar-playthrough.test.ts`):
+the right answer to every step lands all twenty-eight in order with no
+strike, refusal or slip. Its first run found one trap, in the split lunge:
+the eye's twelve taps done before the brow's three-beat hold was up slipped
+back to nought, because a count waits `instarTogetherBeats` for its partner
+and a hold cannot be hurried to meet it. A hold is now waited for the way a
+panel shot is (`slipLonely`, `sim/instar-step.ts`).
+
 ## 11.33 THE FILAMENT — the boss whose line one of you draws while the other follows it
 
 > The one that is a trace, and the trace is not fixed. One thumb lays the
