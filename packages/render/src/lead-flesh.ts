@@ -65,7 +65,10 @@ export function paintMound(
   film(ctx, x - rx * 0.4, y - ry * 0.55, rx * 0.2, tile * 0.04, 0.25 * fade);
 }
 
-/** The stalk's stem: a cord of `hex`, with a thin wet line down its lit side. */
+/** The stem's width, in tiles. */
+export const STEM = 0.07;
+
+/** The stalk's stem: a cord of `hex`, its back gone deep on the side from the key, with a thin wet line down its lit side. */
 export function paintStem(
   ctx: CanvasRenderingContext2D,
   stem: Path2D,
@@ -73,13 +76,20 @@ export function paintStem(
   tile: number,
   a: number,
 ): void {
-  const w = tile * 0.07;
+  const w = tile * STEM;
   ctx.save();
   ctx.lineCap = "round";
   ctx.globalAlpha = a;
   ctx.strokeStyle = hex;
   ctx.lineWidth = w;
   ctx.stroke(stem);
+  ctx.save();
+  ctx.translate(w * 0.25, 0);
+  ctx.globalAlpha = a * 0.5;
+  ctx.strokeStyle = PALETTE.sheenDeep;
+  ctx.lineWidth = w * 0.45;
+  ctx.stroke(stem);
+  ctx.restore();
   ctx.translate(-w * 0.25, 0);
   ctx.globalAlpha = a * 0.5;
   ctx.strokeStyle = PALETTE.sheenRim;

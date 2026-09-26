@@ -22933,3 +22933,17 @@ as spots rather than as roundness.
 - landing: 10 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: friction — the thread's test was tied to the stroke it measured.
+
+## 2026-09-26 — THE LEAD's ridge is a ledge and its stalk a cord with a back
+
+- reading: 10 min. The draw, the rock, the flesh, the shape and the frame
+  test's hex counts.
+- writing: 10 min. `lead-depth.ts`, the ridge, mound and stalk wired to it,
+  the stem's width named.
+- looking: 5 min. The first top plane was too faint to see on a band that
+  thin; a brighter front edge and a darker crease made it a ledge.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, and `reconcile` still refused by
+  the main checkout's two uncommitted files.
+
+Bottleneck: landing — the main checkout carries another session's work.

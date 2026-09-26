@@ -3,7 +3,8 @@ import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
-import { paintBead, paintMound, paintStem } from "./lead-flesh.js";
+import { beadRim, moundContact, moundRim, paintLedge, stemHide } from "./lead-depth.js";
+import { paintBead, paintMound, paintStem, STEM } from "./lead-flesh.js";
 import type { LeadFx } from "./lead-fx.js";
 import { faded, paintRidge } from "./lead-rock.js";
 import {
@@ -16,6 +17,7 @@ import {
   type Point,
 } from "./lead-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawContact } from "./solid-haze.js";
 import { drawTargetLock } from "./target-lock.js";
 import { showsLeadCol } from "./view-role-clocks.js";
 
@@ -66,7 +68,8 @@ export function drawLead(
   fx.note(foot.x, foot.y, tip.x, tip.y);
 
   ctx.save();
-  drawRidge(ctx, l, time, fade);
+  const ridge = drawRidge(ctx, l, time, fade);
+  if (placed) moundContact(ctx, ridge, foot.x, foot.y, l.tile * 0.5, fade);
   drawFlights(ctx, l, cfg, s, beat, beatPhase, time, fade);
   // The blow of a hit shakes the body and not the ridge it stands on.
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
@@ -90,16 +93,15 @@ export function drawLead(
   ctx.restore();
 }
 
-/** The ridge: rock, dark, lit along its top (`lead-rock.ts`). */
-function drawRidge(ctx: CanvasRenderingContext2D, l: Layout, time: number, fade: number): void {
+/** The ridge: rock, dark, lit along its top (`lead-rock.ts`), a ledge seen from above (`lead-depth.ts`). */
+function drawRidge(ctx: CanvasRenderingContext2D, l: Layout, time: number, fade: number): Path2D {
   const { top, bottom } = leadRidgeY(l);
   const right = l.gridLeft + l.cols * l.tile;
-  paintRidge(
-    ctx,
-    leadRidgePath(l, time),
-    { left: l.gridLeft, right, top, bottom, tile: l.tile },
-    fade,
-  );
+  const body = leadRidgePath(l, time);
+  const ridge = { left: l.gridLeft, right, top, bottom, tile: l.tile };
+  paintRidge(ctx, body, ridge, fade);
+  paintLedge(ctx, body, ridge, fade);
+  return body;
 }
 
 /** How far above the ridge a flight climbs before it is judged, in tiles, and a bolt's length. */
@@ -160,6 +162,7 @@ function drawMound(
   const hex = still ? PALETTE.dim : PALETTE.hull;
   const rim = still ? PALETTE.rock : PALETTE.hullRim;
   paintMound(ctx, p, foot.x, foot.y, rx, ry, l.tile, hex, rim, fade);
+  moundRim(ctx, foot.x, foot.y, rx, ry, l.tile, still ? 0.4 * fade : fade);
   drawHurt(ctx, p, hurt);
 }
 
@@ -201,12 +204,19 @@ function drawStalk(
   stem.moveTo(foot.x, foot.y);
   stem.lineTo(tip.x, tip.y);
   paintStem(ctx, stem, hex, l.tile, still ? 0.5 : 0.85);
+  // Where the cord goes into the underside of each bead, a dark on the cord.
+  const hide = stemHide(foot, tip, l.tile * STEM);
+  for (let i = 1; i <= s.segments; i++) {
+    const under = leadAlong(foot, angle, (length * (i - 0.5)) / s.segments - l.tile * BEAD);
+    drawContact(ctx, hide, under.x, under.y, l.tile * BEAD * 1.2);
+  }
   const beads = new Path2D();
   for (let i = 1; i <= s.segments; i++) {
     const at = leadAlong(foot, angle, (length * (i - 0.5)) / s.segments);
     const last = i === s.segments;
     const r = l.tile * (last ? TIP : BEAD) * (1 + (last && !still ? 0.08 * Math.sin(time * 5) : 0));
     paintBead(ctx, at.x, at.y, r, last ? rim : hex, last ? 0.95 : 0.8, last);
+    beadRim(ctx, at.x, at.y, r, still ? 0.4 : 1);
     beads.moveTo(at.x + r, at.y);
     beads.arc(at.x, at.y, r, 0, Math.PI * 2);
   }

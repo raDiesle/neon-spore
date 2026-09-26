@@ -639,6 +639,16 @@ run it, look at the PNG — that is the loop.
   stays where the fight puts it and only the cord's girth and light change.
   What reads as health — the knuckles and how many are lit — takes no lens.
   A cord thinned to a hair is a stroke again: at that width a tube is all rim.
+- **A long band across the field is a ledge seen from above** (`lead-depth.ts`).
+  THE LEAD's ridge takes a top plane — hazed at its back edge, lit at its
+  front — a dark crease where the top turns down into the face, and its two
+  ends hazed as they go away at the sides of the screen. What stands on it
+  sits in a contact shadow squashed flat onto that plane, never a disc. A
+  cord too thin to light as a tube (a few pixels) gets its back from one dark
+  stroke offset from the key and a contact where it goes under each bead;
+  each bead and the mound take a cold rim on the edge turned from the key.
+  Every mark is laid on things in place: the angle, the bead count and the
+  bead sizes are the readout and are never touched.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency
