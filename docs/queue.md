@@ -1919,26 +1919,6 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## §27 THE OCULUS — a revised simulation lane, a spent core left to burn out
-
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-26, claude/queue-27-the-oculus-a-revised-simulation-lane-a-spent
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-THE OCULUS already ships as a choreographed scene of held leaf-pairs and
-gated core shots (`docs/spec/bosses.md` §27). This adds a new closing row 11
-where the spent core sparks against the shut leaves and the pair must hold
-both hands off entirely — reading off `SENDING NOTHING`, already built for
-THE KEEL, THE SEAM, THE HALTER and THE FLUE, a reuse rather than a first use,
-so no gesture-registration edit is needed. It is the fight's one beat that
-asks for neither a hold nor a shot, after three movements built from nothing
-else. This is one new boolean field, no new sim state beyond it. `bun run
-check` proves the sim half; the sixth pose (spent core crackling, unheld)
-and the escalating core-flash brightness across rows 6, 8 and 10 are a look
-task, queued separately once this lane lands.
-
 ## §28 THE VISE — a revised simulation lane, a kernel left to burn out
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
