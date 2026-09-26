@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 84ca0c796 — Mark §23 THE MANTLE's revised simulation lane done
+
+## 2026-09-26 · afa67457a — §23 THE MANTLE: a held brace before the last pair
+
+Before the last pair the seam glows under THE SLOW and asks both players to hold their handles still, not pull, for three beats; a lifted thumb slips it and the hold starts over. Held, the shell steadies and the last pull lights with a window of its own, which resets when it runs out rather than costing the wave. Simulation and sound only: the brace's look is queued.
+
 ## 2026-09-26 · 4e3cfa718 — THE INSTAR's baked hide offered in VERSUS, and a byte ceiling for sprites
 
 A tile of scales is painted once at load, each scale lit, keeled, pitted and lapping the one below, and laid over a plate as a pattern in one fill. The shipped hide strokes the scales a row of arcs at a time. It is offered on `instar:hide`, judged on the jaw half pulled, where the skull, the chin and the body's bands carry it. It costs +1.4 kB gzipped, and 20 canvas calls a draw against 162. A new test fails when any baked sprite adds more than 3 kB gzipped beside the drawing it is offered against.
