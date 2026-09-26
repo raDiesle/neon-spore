@@ -2132,3 +2132,23 @@ early and costs one extra beat. THE SLOW, Presentation, Animation (five
 poses to six), Colour, Payoff and Cost sections are updated to match; one
 new boolean for row 11's hold. `bun run check` proves the sim half; the
 sixth pose is a look task, queued separately once this lane lands.
+
+## §33 THE GRINDSTONE — a revised simulation lane, a grind left to die out
+
+- **Found:** 2026-09-26, this session, at the owner's direction: revise the
+  bosses added today for a fuller story arc, more distinct visual states and
+  more SLOW beats that ask for action
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+THE GRINDSTONE's fight ran ten beats deep on `RUB` and `CHORD` — grind a
+flat, clamp the caliper, guard a fire step, never once ask the pair to do
+neither. Row 11 is new: the spent axle grinds faintly against the locked
+caliper for three beats, and the pair passes it by sending nothing — no
+grind, no chord (`SENDING NOTHING`, a reuse, already built for THE KEEL,
+THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET, THE PLUMB, THE
+SLING, THE HALTER and THE FLUE — no `gesture-unbuilt.ts` edit needed). A
+reflex grind or chord jars the caliper loose and costs one extra beat. THE
+SLOW, Presentation, Animation (five poses to six), Colour, Payoff and Cost
+sections are updated to match; one new boolean for row 11's hold. `bun run
+check` proves the sim half; the sixth pose is a look task, queued
+separately once this lane lands.

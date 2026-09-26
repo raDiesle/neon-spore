@@ -3938,40 +3938,50 @@ word, is what tells two identical screens apart on this page.
 | 8 | Axle flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
 | 9 | Caliper creeps loose a second time, faster | P1+P2 | chord together, re-clamp | 3 beats, held | stays locked | springs loose, retry |
 | 10 | Axle flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, axle spent | stays lit |
-| 11 | The caliper snaps off and the wheel spins free, spent | — | — | — | — | — |
+| 11 | The spent axle grinds faintly against the locked caliper, straining toward the grit again | P1+P2 | send nothing — no grind, no chord (`SENDING NOTHING`) | 3 beats, seen | the grind dies out, caliper holds on its own | a reflex grind or chord jars the caliper loose, one extra beat before it resets |
+| 12 | The caliper snaps off and the wheel spins free, spent | — | — | — | — | — |
 
 **THE SLOW** opens on every grind window (rows 2–5) and every chord and
 fire window (rows 6–10) — the grind windows most of all, exactly THE
 RIME's own argument, since a reversal count read at ordinary speed looks
-like nothing is happening at all.
+like nothing is happening at all. Row 11 opens it on the opposite motion:
+after ten beats spent grinding or clamping, the fight's last beat asks for
+neither.
 
 **Presentation.** Sparks flicking off in small bursts as a flat clears
 (the existing particle machinery, no new kind); the caliper's jaw a flat
-metallic clack shutting; no camera.
+metallic clack shutting; no camera. Row 11's faint grind dies out on its
+own, the one beat with no clack and no spark.
 
-**Animation.** Five poses: rough wheel; left ground; both ground, caliper
-closing; axle guarded, caliper creeping loose; caliper snapped off, wheel
-spinning free. Grinding is drawn as a spreading clear patch exactly as THE
-RIME draws it; the caliper shuts by swinging down and locking exactly as
-THE TRIVET's feet do — both drawn-as-mechanism choices reused whole rather
-than redrawn.
+**Animation.** Six poses: rough wheel; left ground; both ground, caliper
+closing; axle guarded, caliper creeping loose; spent axle grinding faintly,
+caliper untouched; caliper snapped off, wheel spinning free. Grinding is
+drawn as a spreading clear patch exactly as THE RIME draws it; the caliper
+shuts by swinging down and locking exactly as THE TRIVET's feet do — both
+drawn-as-mechanism choices reused whole rather than redrawn.
 
 **Colour.** Wheel a dull quarried grey, the ground flats a pale sandy tan;
 the axle is the only lit colour on the body, lit in whichever cannon
-colour a given beat wants, THE SEAM's and THE OCULUS's rule again.
+colour a given beat wants, THE SEAM's and THE OCULUS's rule again. Row
+11's faint grind carries no cannon colour, the axle fading from white back
+to the wheel's own quarried grey.
 
 **Payoff.** Rows 7 and 9 — `CHORD` asked for defensively, re-clamping the
 caliper under a `FIRE` step already under way, the same shape as THE
 OCULUS's row 7, THE VISE's rows 7/9, THE TRIVET's rows 7/9, THE PLUMB's
 rows 7/9 and THE SLING's rows 7/9 — spent here on the same body a
-different primitive already ground clean.
+different primitive already ground clean. Row 11 is the fight's other
+payoff: the one beat that asks the pair to neither grind nor clamp, after
+ten beats that asked for nothing else.
 
 **Cost. Very low.** No new primitive at all — `RUB` and `CHORD` are both
 already built for THE RIME and THE TRIVET, and both threshold shapes
 (regrowing shave, plant-and-spring) are already carried by those bodies.
 The only new code is the wheel's own two-field, two-gesture wiring: no new
 field type, no new gesture, no new registration category beyond what
-adding any boss already asks.
+adding any boss already asks; row 11 adds one boolean, a read off
+`SENDING NOTHING`, already built for THE KEEL, THE SEAM, THE OCULUS, THE
+VISE, THE RIME, THE TRIVET, THE PLUMB, THE SLING, THE HALTER and THE FLUE.
 
 **Reusable.** The pairing itself — grind with one gesture, lock with
 another, rather than a single primitive answering every movement of its

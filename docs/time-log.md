@@ -23366,3 +23366,14 @@ which of them is missing.
 - landing: 5 min. `check:fast`, commit, push.
 
 Bottleneck: none — a direct revision of an existing section is faster than drafting a new one from scratch.
+
+## 2026-09-26 — §33 THE GRINDSTONE: a grind left to die out, at the owner's request
+
+- reading: 5 min. §33's existing section, rows 1–11, five poses.
+- writing: 10 min. Row 11, THE SLOW, Presentation, Animation, Colour,
+  Payoff and Cost, the queue and time-log entries.
+- looking: 0 min. Spec and registration only — the look is queued separately.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, commit, push.
+
+Bottleneck: none — a direct revision of an existing section is faster than drafting a new one from scratch.
