@@ -21833,3 +21833,5 @@ which a one-file scratch run settled faster than reading the history.
 
 Bottleneck: `stage.ts` is DOM end to end, so the seek had to move into the
 stepper before a test could reach it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

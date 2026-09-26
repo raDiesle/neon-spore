@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 273ab9401 — The director's SEEK lands on the row it was sent to, past the briefing
+
+SEEK stepped `beat * ticksPerBeat` ticks, and with briefings on the introduction and the guide hold the wave's beat at 0 while the tick counts, so a row picked on the map came up as row 0 behind the briefing. The stepper now seeks: both seats are done with the briefing at once, and it steps until `waveBeat` is the row, stopping where the wave ended if it ends first.
+
 ## 2026-09-26 · ccdfe0b9f — The time log grows at its end, and says so
 
 Two lanes that both wrote their entry at the top of `docs/time-log.md` no longer stop a landing — the duplicate-heading fix had already made that merge go through — and the arriving entry is put at the end, where `land` stamps the measured line. The ledger's preamble now tells a session to write there, and a test holds two top-written entries merging with nothing lost.
