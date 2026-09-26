@@ -3343,34 +3343,50 @@ holds which is ever said aloud.
 | **Movement 3 — the last hit, held through** ||||||
 | 9 | Two more leaves crack apart, longer window | P1+P2 | hold to reseal (`HOLD`) | 4 beats, held | reseal holds | socket closes, retry |
 | 10 | The core flashes white — either colour answers it | either seat | fire it (`FIRE`) | 3 beats, seen | third hit lands, core spent | stays lit |
-| 11 | Every leaf springs open at once and the lens shatters | — | — | — | — | — |
+| 11 | The spent core sparks wildly against the shut leaves, straining to slam over it and feed it further | P1+P2 | send nothing — hands off both leaves (`SENDING NOTHING`) | 3 beats, seen | the core burns itself out, dims to nothing | a reflex grab on either leaf reseals it early and feeds the spark, one extra beat added before it dims |
+| 12 | Every leaf springs open at once and the lens shatters | — | — | — | — | — |
 
 **THE SLOW** opens on every hold window (rows 2–4, 7, 9) and every fire
 window (rows 6, 8, 10) — a sustained hold is exactly the kind of window the
 owner's 22 September rule already argues needs more seconds than beats, since
 most of it is the pair confirming out loud that both thumbs are actually down.
+Row 11 opens it too, on the opposite gesture: the fight's last beat asks
+both hands off the leaves entirely, after eleven beats that have asked for
+nothing but a hold or a shot, so the finish reads as the pair letting the
+core burn out rather than one more thing to grip.
 
 **Presentation.** No camera. Each shut pair of leaves is a soft hull-shock
 thud; a resealed pair mid-socket is the same, quieter; each core hit is an
-ordinary shot's flash.
+ordinary shot's flash, brighter and wider than the last — the first hit a
+thin flare, the second fuller, the third a flash that fills the socket. Row
+11's spent core crackles and dims across its window, a sound with nothing to
+press against, then goes dark a beat before the shatter.
 
-**Animation.** Five poses: open; two leaves shut; four shut; all six shut
-with the socket cracking; shattered. The leaves close as a real iris does —
-each pair sliding across the face rather than fading out — which is the one
-place on this page a body's motion is drawn as mechanism rather than as flesh.
+**Animation.** Six poses: open; two leaves shut; four shut; all six shut
+with the socket cracking; spent core crackling, unheld, leaves straining at
+its edge; shattered. The leaves close as a real iris does — each pair
+sliding across the face rather than fading out — which is the one place on
+this page a body's motion is drawn as mechanism rather than as flesh.
 
 **Colour.** The lens rim shell-grey, the leaves themselves a dull glass tone;
 the core is the only lit colour on the body, and it is lit in whichever
-cannon colour a given beat wants, the same rule THE SEAM spends.
+cannon colour a given beat wants, the same rule THE SEAM spends, escalating
+in brightness across rows 6, 8 and 10. Row 11's spent core burns a flat
+white with no cannon colour in it, cooling to grey as it dims.
 
-**Payoff.** Row 7 — the one beat on this page where a `HOLD` is asked for
-*defensively*, to protect a `FIRE` step already under way rather than to
-progress the fight on its own.
+**Payoff.** Row 7 — the one beat in the fight's middle where a `HOLD` is
+asked for *defensively*, to protect a `FIRE` step already under way rather
+than to progress the fight on its own. Row 11 is the fight's other payoff:
+after three movements built entirely from holding two leaves or firing on
+a lit core, the last beat asks for neither, and getting it wrong looks
+exactly like the reflex the first ten beats spent the whole fight teaching.
 
 **Cost. Low–medium.** Two hold targets (shipped kind), one `SceneBreak`
 (named for the first time, costing only the label — the machinery already
-exists as an authored long `landBeats`), and the ordinary shot command gated
-by step the way THE SEAM already gates it.
+exists as an authored long `landBeats`), the ordinary shot command gated by
+step the way THE SEAM already gates it, and one boolean for row 11's hold —
+a read off `SENDING NOTHING`, already built for THE KEEL, THE SEAM, THE
+HALTER and THE FLUE.
 
 **Reusable.** A *held-open* `SimultaneousAction` rather than a released one,
 and `SceneBreak` itself, finally named rather than left as an anonymous

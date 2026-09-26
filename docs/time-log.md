@@ -23239,3 +23239,17 @@ drafting a new one from scratch.
 
 Bottleneck: none — a direct revision of an existing section is faster than
 drafting a new one from scratch.
+
+## 2026-09-26 — §27 THE OCULUS: a spent core left to burn out, at the owner's request
+
+- reading: 5 min. The existing section, the `SENDING NOTHING` primitive's
+  where-array, the queue and time-log templates from the prior revisions.
+- writing: 15 min. The new restraint row, the renumbered beat list, THE
+  SLOW, Presentation, Animation, Colour, Payoff and Cost updated to match.
+- looking: 0 min. Spec and registration only — the look is queued
+  separately.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, this entry, the commit.
+
+Bottleneck: none — a direct revision of an existing section is faster than
+drafting a new one from scratch.
