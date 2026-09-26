@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 98a4a0869 — THE INSTAR's tail wobbles its lit fork the same way the body and skull do
+
+The fork's shading angle was an atan2 from the rear to the fork, which only moves once the tail is raised or lashing — at rest, most frames, it was another still life. A look the owner asked for by name (26 September 2026): gives it the same idle wobble as the body's shoulder and the skull's crown, on its own period. Documented in the style guide alongside the two existing examples.
+
 ## 2026-09-26 · 0d04759bc — `bun run frames` photographs a wave on a chosen level: --level easy|medium|hard
 
 The level a run plays at lives in the page's storage, in the progress record the game reads once at boot, so nothing HARD-only — the wasted shot's ricochet, THE WELL's tempo — could be photographed without a probe driving Chrome by hand. `--level` is now written into that record before the bundle runs, beside `--seat`, keeping whatever else the record held. `flags.ts` and `spec.ts` were split first, both at the line limit: the repeating flags went to `flag-lists.ts`, the fields that say how the page is opened to `stage-spec.ts`, and the storage writes out of `page.ts` to `page-storage.ts`.
