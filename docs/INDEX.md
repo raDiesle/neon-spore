@@ -1571,6 +1571,7 @@ by hand never moves.
 | `packages/render/src/instar-strike.ts` | **What THE INSTAR does when the pair do not stop it**, one picture per part |
 | `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
 | `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |
+| `packages/render/src/instar-spit.ts` | THE INSTAR's rear globs and spread embers, falling on their marks while the window is open |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers — and solid |
 | `packages/render/src/instar-wing-baked.ts` | **THE INSTAR's wing membrane, baked** — the fourth example (`sprite-bake.ts`) |
@@ -1585,6 +1586,7 @@ by hand never moves.
 | `packages/render/src/instar-egg-baked.ts` | **THE INSTAR's egg, baked** — the first example of detail drawn once at load (`sprite-bake.ts`) |
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
 | `packages/render/src/instar-head-parts.ts` | **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and the sinew strung between the jaws |
+| `packages/render/src/instar-heart.ts` | THE INSTAR's bare heart: a glow beating at the heart mark, put out by each shot |
 | `packages/render/src/instar-hide.ts` | **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays down |
 | `packages/render/src/instar-hide-baked.ts` | **THE INSTAR's hide, baked** — the third example (`sprite-bake.ts`) |
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |

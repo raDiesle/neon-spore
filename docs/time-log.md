@@ -23657,3 +23657,14 @@ gesture) meant the new states only needed new pictures, not new mechanics.
 Bottleneck: writing — a crack with lips needs its own outline, not a stroke.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's second act, the look lane
+
+- reading: 15 min. The real script order, the mark placement and the strike rows.
+- writing: 30 min. The rear's globs, the spread's embers, the bare heart, the fire in the rear's jaws, their test.
+- looking: 20 min. Frames of glare, dive, spread, bare and rear, before and after.
+- friction: 10 min. Cursor numbers off by one (four bites, not three), and zsh not splitting a loop.
+- landing: 5 min. `check:fast`, the index rows, the commit, `land`.
+
+Bottleneck: looking — the rear and the spread only showed they had nothing
+coming at their rings once they were photographed.

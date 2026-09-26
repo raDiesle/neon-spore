@@ -2,11 +2,13 @@ import { type InstarState, instarStep, type World } from "@neon-spore/sim";
 import { instarFlight } from "./instar-flight.js";
 import { drawFront } from "./instar-front.js";
 import type { InstarFx } from "./instar-fx.js";
+import { drawInstarHeart } from "./instar-heart.js";
 import { drawInstarMarks } from "./instar-marks.js";
 import { instarAt, instarHeadAt } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { drawProfile } from "./instar-profile.js";
 import { instarFade, instarMorphAt, instarThreat } from "./instar-shape.js";
+import { drawInstarSpit } from "./instar-spit.js";
 import { instarBody } from "./instar-sway.js";
 import { instarHandover } from "./instar-turn.js";
 import type { Layout } from "./layout.js";
@@ -58,7 +60,9 @@ export function drawInstar(
   const morph = instarMorphAt(s, beat, beatPhase);
   const threat = instarThreat(s, beat, beatPhase);
   const { head, r } = instarHeadAt(l, f);
-  const breath = instarStep(s)?.pose === "breath";
+  // The rear lights the same fire in its jaws: its globs are spat out of it.
+  const pose = instarStep(s)?.pose;
+  const breath = pose === "breath" || pose === "rear";
   const fire =
     f.flame *
     (s.phase === "act" && breath
@@ -98,6 +102,10 @@ export function drawInstar(
   if (side < 0.99) drawFront(ctx, l, { ...look, fade: fade * (1 - side) });
   if (side > 0.01) drawProfile(ctx, l, { ...look, fade: fade * side });
   ctx.restore();
+  // The second act's own things: the heart lit in the bare body, and what the
+  // rear and the spread throw at the hull on its way down (§11.32).
+  drawInstarHeart(ctx, l, s, f, sway, beatPhase, fade);
+  drawInstarSpit(ctx, l, s, sway, threat, { x: head.x, y: head.y + r * 0.9 }, time);
   fx.place(l, s, sway, threat, head, r);
   drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role, fx.verdicts);
 }
