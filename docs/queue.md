@@ -2514,27 +2514,6 @@ they name, that a thumb on a mark is not taken as a pinch, and that THE
 SLOW lands on the lit step. Fix anything wrong, rather than unlovely, and
 queue each look as its own item.
 
-## Living bosses — the director shows which choreography step is playing
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-26, claude/queue-unverified-at-7a259b7f7-the-vise-wave-never-watc (claim: claude/queue-living-bosses-the-director-shows-which-choreogra)
-- **Files:** `tools/director/src/stage-transport.ts`, `tools/director/src/stage.ts`, `packages/sim/src/instar.ts`, `packages/sim/src/gimbal.ts`, `packages/sim/src/filament.ts`, `docs/spec/living-bosses.md`
-
-The owner, 26 September 2026: the director should say which step of a
-choreographed boss is playing and how many are left. `docs/spec/living-bosses.md`
-section 3 is the design. Add a readout to the stage, beside play and
-restart, shown only when the wave has a choreographed boss:
-`STEP 7 / 25 · 18 LEFT`, then the step's pose name where it has one. Read it
-through one adapter per state shape in a new file under `tools/director/src/`:
-the shared scene state (`cursor`, `steps.length`) covers THE INSTAR and THE
-NETTLE, and THE GIMBAL and THE FILAMENT get one line each. Numbers count from
-1 for a person; `cursor === steps.length` reads `DONE`.
-
-Done when: the readout follows the step as THE INSTAR plays under AUTO; a
-test walks every boss wave whose state has a `cursor` and fails if it has no
-adapter; a wave with no choreographed boss shows nothing. `bun run check`
-proves it.
-
 ## Living bosses — the director jumps to any choreography step
 
 - **Found:** 2026-09-26, claude/living-motion-spec

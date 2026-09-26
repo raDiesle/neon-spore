@@ -25198,3 +25198,18 @@ Bottleneck: reading — one `shut` feeds both the blade and the lit edge, and
 finding that was most of it.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## The director shows a choreographed boss's step — 2026-09-26
+
+`bossScript` in `packages/sim/src/boss-script.ts` reads any boss's place in
+its script, across the four list names, and the director's RUN column shows
+`STEP 7 / 28 · 21 TO GO · BROOD`. A test walks every boss wave the game ships.
+
+- **reading** — 15 min
+- **writing** — 10 min
+- **looking** — 5 min
+- **friction** — 5 min. The director's `?wave=` wants an index, not a name.
+- **landing** — 5 min
+
+Bottleneck: reading — the script sits under four different names across
+sixteen bosses, and each state file had to be opened to learn which.

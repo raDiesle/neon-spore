@@ -18,6 +18,7 @@ import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
 import { bindStageRepeat } from "./stage-repeat.js";
 import { stageStep } from "./stage-step.js";
+import { bindStageStepReadout } from "./stage-step-readout.js";
 import { bindStageTouch } from "./stage-touch.js";
 import { bindStageTrail } from "./stage-trail.js";
 import { bindStageTransport } from "./stage-transport.js";
@@ -87,6 +88,7 @@ export function bindStage(
   // One tick and one frame, and everything either of them reads
   // (`stage-step.ts`). `repeat` is stood up below and asked for by call, which
   // is the only order this file has left to get wrong.
+  const paintStep = bindStageStepReadout(document); // STEP n / N, beside ↺ WAVE
   const stepper = stageStep({
     cfg,
     world: () => world,
@@ -94,6 +96,7 @@ export function bindStage(
       draw: (seen) => {
         renderer.draw(seen);
         auto.paint(canvas, viewport(), stage(), world); // AUTO's fingers, over the frame
+        paintStep(world);
       },
     },
     keys,

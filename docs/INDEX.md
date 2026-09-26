@@ -268,6 +268,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-ledger.ts` | **THE LEDGER's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-instar.ts` | **THE INSTAR's names, on a page of their own** — the script and where the scene is in it |
+| `packages/sim/src/boss-script.ts` | **Where a choreographed boss is in its script**: which step is up, out of how many |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again; the clock and retries text |
@@ -3088,6 +3089,7 @@ by hand never moves.
 | `tools/director/src/stage-draft.ts` | **What the wave being edited says about itself**, read fresh on every call |
 | `tools/director/src/stage-field.ts` | **What the stage hands a hit test**, and nothing else |
 | `tools/director/src/stage-step.ts` | **one tick of the stage's world and one frame of its picture** — what the loop next door calls, and the first of the stage's own running `bun test` can drive |
+| `tools/director/src/stage-step-readout.ts` | **Which step of its choreography a boss is on**, in RUN beside `↺ WAVE` |
 | `tools/director/src/stage-strip-both.ts` | **One strip carries the cannon and the shield together**, and only under TEST |
 | `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
