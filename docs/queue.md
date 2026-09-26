@@ -1017,6 +1017,7 @@ what the rest of this file holds.
 ## CLOUD ONLY — a dragged tail wants a verlet chain in Effects
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Taken:** 2026-09-26, main (claim: claude/queue-cloud-only-a-dragged-tail-wants-a-verlet-chain-i)
 - **Files:** `packages/render/src/solid-motion.ts`, `packages/render/test/restart.test.ts`
 
 `chainAt` is follow-through as a delay: link `i` replays the root `lag·i`
