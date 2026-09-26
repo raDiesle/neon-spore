@@ -602,6 +602,7 @@ owner's, unverified until he has looked.
 ## Other bosses' plates are still lifes the same way THE INSTAR's were
 
 - **Found:** 2026-09-26, queue-boss-depth-wobble-beyond-instar
+- **Taken:** 2026-09-26, claude/queue-other-bosses-plates-are-still-lifes-the-same-way
 - **Files:** `docs/style-guide.md`, `packages/render/src/instar-hide.ts`, `packages/render/src/warden-plates.ts`, `packages/render/src/warden-surface.ts`, `packages/render/src/shell-plate.ts`, `packages/render/src/lid-plates.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/hasp-draw.ts`, `packages/render/src/sinew-draw.ts`, `packages/render/src/choke-hull.ts`, `packages/render/src/slow-look.ts`, `packages/render/src/gum.ts`, `packages/render/src/ratchet-draw.ts`, `packages/render/src/rind-skin.ts`, `packages/render/src/undertow-draw.ts`, `packages/render/src/magnet-break.ts`
 
 "Depth on a body that already ships" (`docs/style-guide.md`) is now proven
