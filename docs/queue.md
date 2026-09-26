@@ -237,6 +237,20 @@ question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
 ```
+## SNAKE · SHED's two builds brush the ten-second test cap
+
+- **Found:** 2026-09-26, claude/jolly-ramanujan-a02i5z
+- **Files:** `tools/director/test/poses.test.ts`, `tools/director/src/poses.ts`
+
+The per-pose "is built fresh" test for SNAKE · SNAKE · SHED took 10.8 s against
+a 10.4 s cap in a `check:fast` on a four-core cloud machine, and passed alone at
+about 12 s for the two tests that name it — so it fails whenever the shard
+shares the machine. The split into one test per pose (26 September 2026) was the
+last fix; the build itself is what is slow now. Find what SHED's `build()`
+steps through and shorten it — fewer ticks to the state it is named after, or a
+cheaper way into it — rather than raising the cap. Worked around here by
+rerunning the file alone.
+
 ## A button says two words where a sentence was asked for
 
 - **Found:** 2026-09-06, claude/some-lane

@@ -14,7 +14,7 @@ import type { SlowWindow } from "./slow-look.js";
  * the look stands this frame.
  *
  * A sibling rather than lines inside the paint because two passes need both
- * answers — the streams have to know where to stop and the bar has to know
+ * answers — the light has to know where to stop and the bar has to know
  * when to be gone — and an answer written twice is an answer that drifts.
  */
 

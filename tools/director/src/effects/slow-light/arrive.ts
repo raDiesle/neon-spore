@@ -2,9 +2,10 @@ import { smoothstep } from "../../../../../packages/render/src/ease.js";
 import { sinHash } from "../../../../../packages/render/src/hash.js";
 import { rgba } from "../../../../../packages/render/src/hex.js";
 import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { glowStroke, reach, spent } from "../../../../../packages/render/src/slow-crawl.js";
 import { clipRoundBody } from "../../../../../packages/render/src/slow-keep-out.js";
 import { beatFrac } from "../../../../../packages/render/src/slow-lens.js";
-import { glowStroke, reach, spent, withLight } from "../window.js";
+import { withLight } from "./window.js";
 
 /** Stars round the boss. Enough that the burst reads as a field, not a fan. */
 const STARS = 56;

@@ -23377,3 +23377,20 @@ Bottleneck: none — a direct revision of an existing section is faster than dra
 - landing: 5 min. `check:fast`, commit, push.
 
 Bottleneck: none — a direct revision of an existing section is faster than drafting a new one from scratch.
+
+## 2026-09-26 — THE SLOW's light is CRAWL; the rest of `slow:light` kept on GRAPHICS → EFFECTS
+
+- reading: 20 min. The VERSUS variant and pair, how `versus drop` unwinds a
+  slot, the LIBRARY's card row, and every file that still named the streams.
+- writing: 50 min. `slow-crawl.ts`, the four kept paints moved under the
+  director, the effect list, its page on `versus.html?effect=…`, the
+  EFFECTS view, a test holding each one to its pose, the docstrings.
+- looking: 5 min. One shot of the CRAWL page frozen mid-window.
+- friction: 25 min. The effects test drew at describe time before a canvas
+  existed; SNAKE · SHED's pose test timing out at the cap — queued; and the
+  shallow clone read by hand as a `main` fifty commits diverged, which
+  `land` would have unshallowed itself (`docs/cloud-session.md`).
+- landing: 15 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — the kept effects had to become something the director
+opens on its own, since VERSUS only knows how to show two sides of a slot.

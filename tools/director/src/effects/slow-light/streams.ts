@@ -1,12 +1,17 @@
-import { smoothstep } from "./ease.js";
-import { sinHash } from "./hash.js";
-import { rgba } from "./hex.js";
-import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
-import type { Aim } from "./slow-intake-aim.js";
-import { clearOf, clipRoundBody } from "./slow-keep-out.js";
+import { smoothstep } from "../../../../../packages/render/src/ease.js";
+import { sinHash } from "../../../../../packages/render/src/hash.js";
+import { rgba } from "../../../../../packages/render/src/hex.js";
+import type { Layout } from "../../../../../packages/render/src/layout.js";
+import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import type { Aim } from "../../../../../packages/render/src/slow-intake-aim.js";
+import { clearOf, clipRoundBody } from "../../../../../packages/render/src/slow-keep-out.js";
+import { withLight } from "./window.js";
 
 /**
+ * THE SLOW's light from 22 to 26 September 2026, when CRAWL took its place
+ * (`packages/render/src/slow-crawl.ts`). Kept on GRAPHICS → EFFECTS; the
+ * header below is the one it shipped with.
+ *
  * **The field runs inward, all the way round the body, and stops at its skin.**
  *
  * The owner's two corrections to the `indraw` candidate this came out of
@@ -165,3 +170,8 @@ export function drawStreams(
   }
   ctx.restore();
 }
+
+/** The streams in the shipped window, prism under and fuse over, as they were in the game. */
+export const streamsWindow = withLight((ctx, l, at, up, win) =>
+  drawStreams(ctx, l, at, up, win.through),
+);

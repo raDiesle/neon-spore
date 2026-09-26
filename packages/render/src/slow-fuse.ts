@@ -13,8 +13,8 @@ import type { SlowWindow } from "./slow-look.js";
  * four answers put to him this is the one he had built into the game, and he
  * kept it over the other three in VERSUS (`tools/versus/DECIDED.md`).
  *
- * **Where the light already starts.** The streams run in from the top of the
- * screen (`slow-intake-streams.ts`), so the measure sits along that edge
+ * **Where the light already starts.** The light runs in from the edge of the
+ * screen (`slow-crawl.ts`), so the measure sits along the top edge
  * rather than in the field: nothing under the boss, nothing between the
  * marks, and no third place to look beside the body and the band.
  *

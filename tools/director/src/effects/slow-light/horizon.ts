@@ -1,9 +1,10 @@
 import { sinHash } from "../../../../../packages/render/src/hash.js";
 import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
 import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { glowStroke, spent } from "../../../../../packages/render/src/slow-crawl.js";
 import { clipRoundBody } from "../../../../../packages/render/src/slow-keep-out.js";
 import { beatFrac } from "../../../../../packages/render/src/slow-lens.js";
-import { glowStroke, spent, withLight } from "../window.js";
+import { withLight } from "./window.js";
 
 /** Rings of knots round the boss, in body radii, inner first. */
 const RINGS = [1.25, 1.55, 1.9] as const;

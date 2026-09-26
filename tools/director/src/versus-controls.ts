@@ -11,11 +11,11 @@ import type { Pair } from "./versus-pair.js";
  * it with.
  */
 
-const RATES = [0.25, 0.5, 1, 2];
+export const RATES = [0.25, 0.5, 1, 2];
 
 /** A button that remembers whether it is on. `hook` is a class `bun run shot
  * --click` can name, for the ones a picture has to be taken through. */
-function toggle(label: string, on: (state: boolean) => void, hook = ""): HTMLButtonElement {
+export function toggle(label: string, on: (state: boolean) => void, hook = ""): HTMLButtonElement {
   const b = button(label);
   if (hook) b.classList.add(hook);
   b.addEventListener("click", () => {
@@ -37,7 +37,7 @@ function toggle(label: string, on: (state: boolean) => void, hook = ""): HTMLBut
  * burning for one beat of a two-second replay stretches past the whole window,
  * so every frame carries it and a picture of it stops being a lottery.
  */
-function picker<T>(
+export function picker<T>(
   items: readonly T[],
   name: (x: T) => string,
   on: (x: T) => void,

@@ -5,7 +5,8 @@ import type { Aim } from "./slow-intake-aim.js";
  * **The body THE SLOW's light may not cross**, as a shape a pass can clip to
  * and a distance a pass can fade by.
  *
- * Out of `slow-intake-streams.ts` on 26 September 2026, when the `slow:light`
+ * Out of the streams (`tools/director/src/effects/slow-light/streams.ts` now)
+ * on 26 September 2026, when the `slow:light`
  * slot opened with four more answers to the same question and every one of
  * them owed the owner's *stop before body of boss* (22 September 2026). Two
  * copies of a keep-out are two bodies the light stops at.

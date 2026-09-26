@@ -1164,3 +1164,20 @@ kicked wider on every beat
 
 The other answers offered were `grade`, `implode`, `punch` and `swallow`; they
 went with the slot.
+
+## `slow:light` / `crawl` — taken by hand, 2026-09-26
+
+The owner: *apply this to game "SLOW:LIGHT · CRAWL"*, and move the others,
+with the streams the game drew until then, to a tab of their own on GRAPHICS —
+*I want to use it for upcoming boss effects animations likely*.
+
+Taken by hand rather than through `adopt`, as `slow:pull` was: CRAWL was a
+light inside the shipped window, not a field on a record, so its body went to
+`packages/render/src/slow-crawl.ts` and `slow-intake.ts` calls it where it
+called the streams; the prism under it and the fuse over it are untouched. The
+slot was then closed with `drop`.
+
+Nothing went with the slot this time. `arrive`, `freeze` and `horizon`, and the
+streams (`slow-intake-streams.ts` until today), moved to
+`tools/director/src/effects/slow-light/` and are listed on GRAPHICS → EFFECTS,
+each opening live on `versus.html?effect=slow-light/<name>`.

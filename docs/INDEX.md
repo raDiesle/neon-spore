@@ -1174,11 +1174,11 @@ by hand never moves.
 | `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record the look is one field on, and the pass that reads it |
 | `packages/render/src/slow-lens.ts` | **What a lens over THE SLOW's window needs and is not about**: the frame's own pixels |
 | `packages/render/src/slow-intake-aim.ts` | Where the body a window is about stands and how wide it is, and how far up the look stands this frame |
-| `packages/render/src/slow-intake-streams.ts` | The light running inward all the way round the boss, stopping at its skin and never crossing it |
 | `packages/render/src/slow-intake.ts` | THE SLOW's window as it ships: the prism, the streams round the boss, then the bar over them |
 | `packages/render/src/slow-fuse.ts` | **A fuse along the top of the screen: how long the pair has left before the step fails.** The owner asked on… |
 | `packages/render/src/slow-prism.ts` | The frame's colours split about the boss on every slowed downbeat and closing across the beat, under the streams |
 | `packages/render/src/slow-keep-out.ts` | **The body THE SLOW's light may not cross**, as a shape a pass can clip to and a distance a pass can fade by |
+| `packages/render/src/slow-crawl.ts` | Rays round the boss, and sparks of light strung along each one at once |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/sprite-bake.ts` | **A SPRITE BAKED AT LOAD**: detail drawn by our own code, once, onto an offscreen canvas |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
@@ -2803,6 +2803,8 @@ by hand never moves.
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
 | `tools/director/src/entry-fields-mine.ts` | **THE MINE's two per-arrival facts**, and the first pair in this game that are not about how a body moves or… |
 | `tools/director/src/entry-fields-moult.ts` | **THE MOULT's one per-arrival fact**: what it is carrying for the beats it is wearing its cargo rather than… |
+| `tools/director/src/effects-page.ts` | `versus.html?effect=…` — one kept effect, alone, live, at phone size |
+| `tools/director/src/effects-panel.ts` | The EFFECTS view on GRAPHICS: a list of doors, one per kept effect, grouped by the fight it belongs to |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
@@ -2995,5 +2997,10 @@ by hand never moves.
 | `tools/words/measure.ts` | What makes a line of player-facing text readable, as numbers a test can hold |
 | `tools/words/run.ts` | `bun run words` — every line a player reads, measured against the rules in `.claude/skills/game-words` |
 | `tools/words/text.ts` | Every string in `packages/content` that a player reads, collected once |
+| `tools/director/src/effects/slow-light/arrive.ts` | Stars round the boss |
+| `tools/director/src/effects/slow-light/freeze.ts` | Rings set off per beat |
+| `tools/director/src/effects/slow-light/horizon.ts` | Rings of knots round the boss, in body radii, inner first |
+| `tools/director/src/effects/slow-light/streams.ts` | THE SLOW's light from 22 to 26 September 2026, when CRAWL took its place (`packages/render/src/slow-crawl.ts`) |
+| `tools/director/src/effects/slow-light/window.ts` | **What every kept `slow:light` answer draws round its light**: the prism under it and the fuse over it |
 
 <!-- index:code:end -->

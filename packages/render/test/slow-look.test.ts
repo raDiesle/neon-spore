@@ -24,7 +24,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * the one moment the picture said nothing about (`docs/queue.md`, 19 September
  * 2026). What lands here is the record the pass reads and, since the owner
  * settled the slot on 22 September 2026, the look that answers it: the notched
- * bar above the hull and the streams that run in round the boss
+ * bar above the hull and the light that runs in round the boss
  * (`src/slow-intake.ts`). The first cases below are the only ones of these a
  * regression would show up in the running game.
  *

@@ -1,6 +1,7 @@
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
 import { el } from "./dom.js";
+import { routeEffect } from "./effects-page.js";
 import { bindKeepAlive } from "./keep-alive.js";
 import { renderCandidate } from "./versus-one.js";
 import { shotParams } from "./versus-shot.js";
@@ -15,6 +16,8 @@ import { shotParams } from "./versus-shot.js";
  * screen — a door that opens onto nothing is worse than a door that says it is
  * locked. `?page=animations` was the second destination until 7 September
  * 2026; it now falls through to the same message as any other stale link.
+ * `?effect=…` is the second now, since 26 September 2026: one kept effect from
+ * GRAPHICS → EFFECTS, drawn the same way with one side (`effects-page.ts`).
  *
  * Two flags ride on that route and exist for the camera rather than the eye:
  * `&freeze=<seconds>` holds the replay at a chosen point and `&only=…` mounts
@@ -49,7 +52,8 @@ void fetch("/__director")
   .catch(() => true)
   .then(bindKeepAlive);
 
-routeCandidate(host, params.get("slot"), params.get("name"));
+if (params.has("effect")) routeEffect(host, params.get("effect"), shotParams(params));
+else routeCandidate(host, params.get("slot"), params.get("name"));
 
 /** One candidate, named by its slot and its own name — the two fields
  * `versus-open.ts` writes into the link. */

@@ -1,8 +1,9 @@
 import { smoothstep } from "../../../../../packages/render/src/ease.js";
 import { mixHex, rgba } from "../../../../../packages/render/src/hex.js";
 import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { glowStroke, reach, spent } from "../../../../../packages/render/src/slow-crawl.js";
 import { clipRoundBody } from "../../../../../packages/render/src/slow-keep-out.js";
-import { glowStroke, reach, spent, withLight } from "../window.js";
+import { withLight } from "./window.js";
 
 /** Rings set off per beat. */
 const PER_BEAT = 4;
