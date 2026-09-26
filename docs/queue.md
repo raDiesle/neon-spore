@@ -2682,3 +2682,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at d75b9936b: THE SLOW's light round THE TRIVET seen in a frame
+
+- **Found:** 2026-09-26, tmp-trivet-aim
+- **Files:** `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/slow-boss-aim.ts`, `packages/render/src/trivet-shape.ts`, `packages/render/test/slow-boss-aim.test.ts`
+
+*THE SLOW's light stands round THE TRIVET* landed from a session that could not look at it. What went unchecked:
+
+- THE SLOW's light round THE TRIVET seen in a frame
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
