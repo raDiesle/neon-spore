@@ -12,6 +12,7 @@ import { keelHashParts } from "./keel-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { mantleHashParts } from "./mantle-hash.js";
+import { oculusHashParts } from "./oculus-hash.js";
 import { ratchetHashParts } from "./ratchet-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
 import { seamHashParts } from "./seam-hash.js";
@@ -132,6 +133,11 @@ export function clockHashParts(boss: BossState): number[] {
   // and the script (`seam-hash.ts`).
   if (boss.kind === "seam") {
     for (const n of seamHashParts(boss)) out.push(n);
+  }
+  // THE OCULUS: the phase, the cursor, the leaves, the hits, both thumbs
+  // and the script (`oculus-hash.ts`).
+  if (boss.kind === "oculus") {
+    for (const n of oculusHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

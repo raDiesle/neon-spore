@@ -22380,3 +22380,18 @@ Bottleneck: writing — the bench across every wave was the time; it showed a de
 Bottleneck: friction — the game's own config has no ready rig outside `apps/game/test`, so the check on it was a copied test deleted after.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS, the simulation lane
+
+- reading: 20 min. §27's beat list, THE SEAM's and THE MANTLE's files as the
+  two halves it is built from, and the boss registration list.
+- writing: 75 min. Seven sim files, some forty registrations across audio,
+  content, render, net and the director, two full pages split, sixteen
+  tests, §11.44.
+- looking: 0 min. Nothing drawn.
+- friction: 10 min. A heredoc blocked by the guard hook, and the hash test
+  finding a fixture colour equal to its mutation.
+- landing: 15 min. `check:fast`, the commit, `land`.
+
+Bottleneck: registrations — twelve events and four config fields each have
+to be named in a dozen files the typecheck does not reach.

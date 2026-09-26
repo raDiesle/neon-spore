@@ -434,21 +434,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## §27 THE OCULUS — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, main (claim: claude/queue-27-the-oculus-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-Two hold targets, `oculusLeafLeft` and `oculusLeafRight`, close a six-leaf
-iris two at a time — a *held* `SimultaneousAction` rather than a released
-one, reopening if either thumb lets go before the window's beat count. Once
-shut, a `SceneBreak` (named here for the first time) hands the scene to an
-ordinary gated shot at the bared core, with two more held-reseal beats
-defending it. The full beat list is §27 of
-`docs/spec/bosses-choreographed.md`. THE SLOW on every hold and every fire.
-`bun run check` proves it.
-
 ## THE NETTLE — the look
 
 - **Found:** 2026-09-26, this session (DavidDe's handoff from a session he gave the same task by accident)

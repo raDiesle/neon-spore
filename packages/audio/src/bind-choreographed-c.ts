@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { antiphonCue } from "./bind-antiphon.js";
+import { laterCue } from "./bind-choreographed-d.js";
 import type { Cue } from "./bind-cue.js";
 import { filamentCue } from "./bind-filament.js";
 import { gimbalCue } from "./bind-gimbal.js";
@@ -10,10 +11,7 @@ import { keelCue } from "./bind-keel.js";
 import { mantleCue } from "./bind-mantle.js";
 import { ratchetCue } from "./bind-ratchet.js";
 import { scuttleCue } from "./bind-scuttle.js";
-import { seamCue } from "./bind-seam.js";
 import { spoolCue } from "./bind-spool.js";
-import { undertowCue } from "./bind-undertow.js";
-import { valveCue } from "./bind-valve.js";
 
 /**
  * **The tail of `bind-choreographed.ts`**, cut off it the day THE SCUTTLE's
@@ -39,6 +37,10 @@ import { valveCue } from "./bind-valve.js";
  * parameter names the undertow's events one by one. So a boss of this family
  * gaining an event it never binds is a type error here, exactly as it was a
  * type error there — the guarantee moved with the arm rather than thinning.
+ *
+ * **And three more went on to `bind-choreographed-d.ts` on 26 September
+ * 2026**, THE VALVE and THE SEAM with THE UNDERTOW's default, when THE OCULUS
+ * came to be bound on a page eight lines from the limit.
  */
 type LateEvent = Extract<
   SimEvent,
@@ -57,6 +59,7 @@ type LateEvent = Extract<
       | `keel${string}`
       | `valve${string}`
       | `seam${string}`
+      | `oculus${string}`
       | `undertow${string}`;
   }
 >;
@@ -212,31 +215,8 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "keelStraight":
     case "keelOut":
       return keelCue(e, cols);
-    case "valveEnter":
-    case "valveLight":
-    case "valveHold":
-    case "valveSlip":
-    case "valveLapse":
-    case "valveFreeze":
-    case "valveThaw":
-    case "valvePull":
-    case "valveSpark":
-    case "valveSparkOut":
-    case "valveSparkHit":
-    case "valveOpen":
-    case "valveOut":
-      return valveCue(e, cols);
-    case "seamEnter":
-    case "seamLight":
-    case "seamDim":
-    case "seamSeal":
-    case "seamRockOut":
-    case "seamBlock":
-    case "seamMiss":
-    case "seamSplit":
-    case "seamOut":
-      return seamCue(e, cols);
+    // THE VALVE, THE SEAM, THE OCULUS and the default: `bind-choreographed-d.ts`.
     default:
-      return undertowCue(e, cols);
+      return laterCue(e, cols);
   }
 }

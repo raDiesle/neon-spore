@@ -15,6 +15,7 @@ import type {
   LedgerEntry,
   MantleEntry,
   NettleEntry,
+  OculusEntry,
   RatchetEntry,
   ScoutEntry,
   ScuttleEntry,
@@ -166,6 +167,9 @@ import type {
  *   No column, the ridge is `midCol`; no number, the points are the health
  *   (`sim/seam.ts`).
  *
+ * - **THE OCULUS**'s script the same, and the same two answers: the eye is
+ *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
+ *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
  * is what this question exists to stop.
@@ -200,7 +204,8 @@ export function bossAuthorsNothing(
   | MantleEntry
   | KeelEntry
   | ValveEntry
-  | SeamEntry {
+  | SeamEntry
+  | OculusEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -233,6 +238,7 @@ export function bossAuthorsNothing(
     kind === "mantle" ||
     kind === "keel" ||
     kind === "valve" ||
-    kind === "seam"
+    kind === "seam" ||
+    kind === "oculus"
   );
 }

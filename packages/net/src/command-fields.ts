@@ -33,6 +33,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "mantleLeft", "mantleRight", "mantleCore",
   "keelJoint",
   "valveWheel", "valvePin",
+  "oculusLeafLeft", "oculusLeafRight",
 ];
 
 export const isColor = (x: unknown): x is Color =>

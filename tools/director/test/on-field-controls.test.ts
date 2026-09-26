@@ -388,6 +388,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   keelJoint: "unbuilt",
   valveWheel: "unbuilt",
   valvePin: "unbuilt",
+  // THE OCULUS, the same.
+  oculusLeafLeft: "unbuilt",
+  oculusLeafRight: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

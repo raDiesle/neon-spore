@@ -122,4 +122,17 @@ export const CHOREO_NOTES_C = {
     "sealing points are the health. THE SLOW spans every step. Only the " +
     "simulation lane has landed — see sim/seam.ts, sim/seam-step.ts, " +
     "sim/seam-shot.ts, sim/seam-guard.ts, sim/config-seam.ts.",
+  "THE OCULUS — the boss both hands hold shut, then shoot into":
+    "Asked for in docs/spec/bosses-choreographed.md §27: two seats holding at " +
+    "once, for as long as the count runs. An eye over the middle column behind " +
+    "six leaves, and a script the wave authors. A shut step closes two leaves " +
+    "once both seats have held their leaf for its beats; a thumb lifted starts " +
+    "the count again, and a shut run out springs the leaves and relights it. " +
+    "The break opens the socket; a fire step wants a shot in its colour; a " +
+    "reseal is a hold that keeps the socket open, and one run out swallows it. " +
+    "A fire step run out is a hull hit, which is the wave. The grace " +
+    "(oculusGraceBeats) is how long a hold step stays lit past its count. " +
+    "THE SLOW spans every step but the break. Only the simulation lane has " +
+    "landed — see sim/oculus.ts, sim/oculus-step.ts, sim/oculus-hand.ts, " +
+    "sim/oculus-shot.ts, sim/config-oculus.ts.",
 } satisfies Partial<Record<GroupName, string>>;

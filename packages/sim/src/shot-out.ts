@@ -9,6 +9,7 @@ import { keelStruck } from "./keel-shot.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerStruck } from "./ledger-shot.js";
 import { mantleStruck } from "./mantle-shot.js";
+import { oculusStruck } from "./oculus-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
@@ -78,6 +79,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   valveStruck(world, b);
   // THE SEAM's lit point, in its colour, or its rock (`seam-shot.ts`).
   seamStruck(world, b);
+  // THE OCULUS's open socket, in its colour (`oculus-shot.ts`).
+  oculusStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -126,6 +129,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "keel",
   "valve",
   "seam",
+  "oculus",
   "hasp",
   "ratchet",
   "hive",

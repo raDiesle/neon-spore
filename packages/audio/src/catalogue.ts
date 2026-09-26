@@ -27,6 +27,7 @@ import { BOSS_KEEL_SOUNDS } from "./sounds/boss-keel.js";
 import { BOSS_LEAD_SOUNDS } from "./sounds/boss-lead.js";
 import { BOSS_LEDGER_SOUNDS } from "./sounds/boss-ledger.js";
 import { BOSS_MANTLE_SOUNDS } from "./sounds/boss-mantle.js";
+import { BOSS_OCULUS_SOUNDS } from "./sounds/boss-oculus.js";
 import { BOSS_PINBALL_HAND_SOUNDS } from "./sounds/boss-pinball-hand.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
 import { BOSS_PULSE_HAND_SOUNDS } from "./sounds/boss-pulse-hand.js";
@@ -96,6 +97,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_KEEL_SOUNDS,
   ...BOSS_VALVE_SOUNDS,
   ...BOSS_SEAM_SOUNDS,
+  ...BOSS_OCULUS_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

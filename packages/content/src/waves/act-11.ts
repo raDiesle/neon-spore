@@ -93,6 +93,12 @@ import type { Wave } from "../wave-types.js";
  * §26). It authors the whole script, and nothing that falls: three
  * movements, one sealing point each — learn the crack, both colours closer
  * together, then the white point and both at once.
+ *
+ * **THE OCULUS behind it**: an eye both seats shut by holding their leaves
+ * together, then shoot in the socket it cracks
+ * (`docs/spec/bosses-choreographed.md` §27). It authors the whole script, and
+ * nothing that falls: three pairs of leaves, the break, then fire and reseal
+ * in turn up to the white last hit.
  */
 export const WAVES_ACT_11: Wave[] = [
   {
@@ -195,6 +201,31 @@ export const WAVES_ACT_11: Wave[] = [
         { ask: "rock", color: "cyan", offset: 2, seals: false },
         { ask: "point", color: "either", offset: 0, seals: true },
         { ask: "both", color: "either", offset: -2, seals: false },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theOculus",
+    name: "THE OCULUS",
+    guide: {
+      both: "Hold your leaf with the other one's until the pair shuts. Three pairs crack the eye. Shoot it in its colour. When leaves open, hold both again.",
+      p1: "1. Hold the left leaf down and say so.\n2. Keep holding until the pair shuts.\n3. When the eye shows a colour, fire it. Then hold again.",
+      p2: "1. Hold the right leaf down and say so.\n2. Keep holding until the pair shuts.\n3. White takes either colour. Hold again if leaves open.",
+    },
+    entries: [],
+    boss: {
+      kind: "oculus",
+      steps: [
+        { ask: "shut", color: "either", beats: 4 },
+        { ask: "shut", color: "either", beats: 4 },
+        { ask: "shut", color: "either", beats: 4 },
+        { ask: "break", color: "either", beats: 2 },
+        { ask: "fire", color: "red", beats: 3 },
+        { ask: "reseal", color: "either", beats: 3 },
+        { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "reseal", color: "either", beats: 4 },
+        { ask: "fire", color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

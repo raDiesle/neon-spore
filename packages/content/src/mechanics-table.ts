@@ -145,6 +145,7 @@ export const MECHANICS = {
   keel: BOSS_MECHANICS.keel,
   valve: BOSS_MECHANICS.valve,
   seam: BOSS_MECHANICS.seam,
+  oculus: BOSS_MECHANICS.oculus,
   vane: {
     what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",
     reach: "spawn",

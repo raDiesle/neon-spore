@@ -108,4 +108,17 @@ export const SILENT_BOSS_C = [
   "seamMiss",
   "seamSplit",
   "seamOut",
+  // THE OCULUS's twelve, the same (`packages/audio/src/bind-oculus.ts`).
+  "oculusEnter",
+  "oculusLight",
+  "oculusSlip",
+  "oculusShut",
+  "oculusSpring",
+  "oculusBreak",
+  "oculusHit",
+  "oculusReseal",
+  "oculusSwallow",
+  "oculusMiss",
+  "oculusShatter",
+  "oculusOut",
 ] as const satisfies readonly SimEvent["type"][];

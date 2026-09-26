@@ -30,7 +30,9 @@ export type DragTargetD =
   | "mantleCore"
   | "keelJoint"
   | "valveWheel"
-  | "valvePin";
+  | "valvePin"
+  | "oculusLeafLeft"
+  | "oculusLeafRight";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -177,4 +179,16 @@ export type DragTargetD =
  * `fromYMilli` pulls it (`valve-hand.ts`). A new `Hold["kind"]` for the tap
  * was not added: the press is already a message the wire carries, and what it
  * looks like is the look lane's.
+ */
+
+/**
+ * `oculusLeafLeft` and `oculusLeafRight` are the seventy-third and
+ * seventy-fourth: one leaf of THE OCULUS's lens under each seat's thumb.
+ *
+ * Holds, `mantleLeft`'s shape, and read as a **level** — down or up, nothing
+ * about how far — and geometry says whose is whose, `gimbalOuter`'s reason:
+ * the pilot's is always the left leaf and the navigator's the right, so the
+ * wrong seat's message does nothing (`oculus-hand.ts`). What a hold is worth
+ * is a number of beats both are down together, counted on the beat. No `id`:
+ * one lens, two leaves.
  */

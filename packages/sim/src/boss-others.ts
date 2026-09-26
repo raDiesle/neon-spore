@@ -15,6 +15,7 @@ import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
 import { stepMantle } from "./mantle-step.js";
 import { stepMirror } from "./mirror.js";
+import { stepOculus } from "./oculus-step.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSeam } from "./seam-step.js";
@@ -198,6 +199,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE SEAM: each step lit and run out, and the split (`seam-step.ts`).
   if (boss.kind === "seam") {
     stepSeam(world, boss);
+    return;
+  }
+  // THE OCULUS: steps lit, holds counted, and the shatter (`oculus-step.ts`).
+  if (boss.kind === "oculus") {
+    stepOculus(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

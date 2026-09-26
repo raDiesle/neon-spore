@@ -12,6 +12,7 @@ import type { KeelEvent } from "./events-keel.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
 import type { MantleEvent } from "./events-mantle.js";
+import type { OculusEvent } from "./events-oculus.js";
 import type { PinballEvent } from "./events-pinball.js";
 import type { PulseEvent } from "./events-pulse.js";
 import type { QueenEvent } from "./events-queen.js";
@@ -75,6 +76,7 @@ export type BossEvent =
   | KeelEvent
   | ValveEvent
   | SeamEvent
+  | OculusEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -103,6 +105,7 @@ export type { KeelEvent } from "./events-keel.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
 export type { MantleEvent } from "./events-mantle.js";
+export type { OculusEvent } from "./events-oculus.js";
 export type { PinballEvent } from "./events-pinball.js";
 export type { PulseEvent } from "./events-pulse.js";
 export type { QueenEvent } from "./events-queen.js";

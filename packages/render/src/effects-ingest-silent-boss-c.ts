@@ -163,6 +163,19 @@ export const INGEST_SILENT_BOSS_C = [
   "seamMiss",
   "seamSplit",
   "seamOut",
+  // THE OCULUS's twelve, for the same reason (`packages/audio/src/bind-oculus.ts`).
+  "oculusEnter",
+  "oculusLight",
+  "oculusSlip",
+  "oculusShut",
+  "oculusSpring",
+  "oculusBreak",
+  "oculusHit",
+  "oculusReseal",
+  "oculusSwallow",
+  "oculusMiss",
+  "oculusShatter",
+  "oculusOut",
   // THE GAUGE's four, the first events this round has had at all: the needle,
   // the band, the jam and the bind are every one of them world state, read off
   // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame

@@ -41,6 +41,7 @@ type BossId = Extract<
   | "keel"
   | "valve"
   | "seam"
+  | "oculus"
 >;
 
 /**
@@ -202,6 +203,10 @@ export const BOSS_MECHANICS = {
   },
   seam: {
     what: "A point on the crack lights in a colour. Shoot it in that colour. Shield the grit it throws. Seal three points and the ridge splits.",
+    reach: "spawn",
+  },
+  oculus: {
+    what: "Both hold your leaf together until the pair shuts. Six shut, the eye cracks. Shoot it in its colour, and hold again when leaves open.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

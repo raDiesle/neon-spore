@@ -7869,6 +7869,97 @@ for both halves in either order; and a script answered whole splits the ridge
 and ends the fight. Whether any of it *reads* is the owner's eye, after lane
 two.
 
+## 11.44 THE OCULUS — the boss both hands hold shut, then shoot into
+
+> A great lens over the middle of the field, six leaves open across its face.
+> A pair lights: both of you hold your leaf until it shuts. Three pairs shut,
+> the eye cracks open. Shoot it in its colour, and when leaves open again,
+> hold them shut together.
+
+Designed as §27 of [bosses-choreographed](bosses-choreographed.md), the last
+of the owner's batch of five choreographed bosses of 26 September 2026 that
+read the same on both screens — a choreographed scene, the third kind in
+`.claude/skills/new-boss`. Where THE MANTLE asks two hands to *pull* at once,
+this asks them to **keep holding** at once: the count only runs while both
+thumbs are down, and one lifted starts it again.
+
+**It is six leaves and three hits, and they are its health.** The state
+(`sim/oculus.ts`, hashed in `sim/oculus-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, the leaves **shut** and the
+**hits** landed, whether the **socket is open**, the two **leaves held**, and
+the beats both have been **held** together. The script is the wave's
+(`OculusEntry.steps`), copied at install: each step asks to `shut`, `break`,
+`fire` or `reseal`, in a colour or `either`, for its own beats.
+
+**The rule, in one sentence.** Hold both leaves together until the pair
+shuts, and shoot the eye in its colour once it is open.
+
+**The split.** Geometry, THE MANTLE's rule: `oculusLeafLeft` is Player 1's
+and `oculusLeafRight` Player 2's, and the wrong seat's thumb is not heard
+(`sim/oculus-hand.ts`). A fire step is the ordinary shot — Player 1's cannon
+under the middle column, Player 2's trigger in its colour.
+
+**The clock** (`sim/oculus-step.ts`). The lens settles for
+`oculusStillBeats`, then the first step lights under THE SLOW
+(`openSlow(…, "ask")`). A hold step (`shut`, `reseal`) counts each beat both
+leaves are down, and is answered when the count reaches the step's beats; it
+stays lit for those beats plus `oculusGraceBeats`, so two thumbs have time to
+find their leaves. An answered step closes THE SLOW and the lens rests
+`oculusRestBeats` before the next lights. The `break` opens the socket and
+moves on by itself. With the script done the lens shatters, and hangs
+`oculusShatterBeats` before the wave may end.
+
+**The answers.** A thumb lifted while both were down, in a lit hold step, is
+a slip: the count goes back to nought, and nothing else is lost. A shot is
+judged where a bolt leaves the top of the field (`sim/oculus-shot.ts`): only
+while a fire step is lit, only in the middle column, and only in its colour
+unless it is `either`. The wrong colour is a colour missed on the balance
+sheet and nothing else, THE SEAM's rule.
+
+**Where this departs from the design, and why.** Six places.
+
+- **A fire step run out is a hull hit, and a hull hit is the wave.** §27's
+  rows 6 and 8 say "ordinary hull hit" and row 10 says the core "stays lit".
+  In this game there is no ordinary hit (`wave-fail.ts`), so every fire step
+  run out breaches the hull under the eye and the wave is lost — THE SEAM's
+  precedent, and one rule rather than two.
+- **A hold step run out is tried again.** A shut run out springs its pair
+  open; a reseal run out swallows the socket shut. Either way the lens rests
+  and lights *the same step* again, so row 7's "fire beats are lost until it
+  reopens" is the reseal asked again before the next fire step can light.
+- **The break is a timed reveal with no THE SLOW, and cannot be missed.**
+  Row 5 asks nothing of either seat; slowing a beat nobody answers would only
+  make the pair wait. The step is the `SceneBreak` §27 names: an authored
+  pause with a label.
+- **A leaf is recorded whenever the lens is present.** A pair already
+  holding when a hold step lights is counted from its first beat — otherwise
+  the pair would have to lift and press again to be heard.
+- **A hold is given grace past its count.** §27's "4 beats, held" is the
+  count; the window is that plus `oculusGraceBeats`. A window exactly the
+  count long could only be met by two thumbs down on the tick it lit.
+- **The leaves and the hits are the health together.** §27 names six leaves
+  plus a core of three hits; the script is nine steps, and the lens shatters
+  when the last is answered, which is the third hit.
+
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+carry all twelve of its events until lane two. The twelve sounds *are* bound
+(`audio/src/bind-oculus.ts`), heard where they happen, the shut pitched up
+per pair and the hit per hit. There is no autopilot hand yet either
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/oculus.test.ts`): the lens comes in still with every leaf open and
+the socket shut, and lights its first shut under THE SLOW; no shot is taken
+while the socket is shut; one thumb counts nothing, a thumb lifted starts the
+count again, and the wrong seat's thumb is not heard; a shut run out springs
+and relights the same step; the break opens the socket with no slow; a fire
+step wants its colour and the middle column, and run out is the wave; a
+reseal run out swallows the socket until it is held again; and a script
+answered whole shatters the lens and ends the fight. Whether any of it
+*reads* — whether four beats of holding is long or short with a voice in the
+way — is the owner's eye, after lane two.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

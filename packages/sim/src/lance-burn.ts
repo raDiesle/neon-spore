@@ -13,6 +13,7 @@ import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { mantleStruck } from "./mantle-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
+import { oculusStruck } from "./oculus-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
@@ -173,6 +174,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   valveStruck(world, b);
   // And THE SEAM's lit point or rock (`seam-shot.ts`).
   seamStruck(world, b);
+  // And THE OCULUS's open socket (`oculus-shot.ts`).
+  oculusStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

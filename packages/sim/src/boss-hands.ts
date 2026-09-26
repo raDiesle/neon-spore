@@ -14,6 +14,7 @@ import { ledgerHandsHeard } from "./ledger-hand.js";
 import { mantleHeard } from "./mantle-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
+import { oculusHeard } from "./oculus-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { ratchetHeard } from "./ratchet-hand.js";
 import { scuttleHeard } from "./scuttle-hand.js";
@@ -96,6 +97,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE SEAM's shield, once a tick after the commands: no handle of its
   // own, only the guard and the plate read against its lit step (`seam-guard.ts`).
   seamGuarded(world);
+  // THE OCULUS's two leaves, on the tick because a slip is the instant a
+  // thumb lifts; the beats held are counted on the beat (`oculus-hand.ts`).
+  for (const c of commands) oculusHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

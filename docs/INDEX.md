@@ -446,6 +446,11 @@ by hand never moves.
 | `packages/sim/src/config-coil.ts` | THE COIL's numbers: how far it crosses the field each beat, how far it sinks at a wall |
 | `packages/sim/src/events-coil.ts` | **THE COIL's two**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/sim/src/own-step.ts` | **The bodies that move by a rule of their own instead of falling** |
+| `packages/sim/src/oculus-hand.ts` | Two thumbs on THE OCULUS, one leaf each |
+| `packages/sim/src/oculus-hash.ts` | What THE OCULUS puts into `hashWorld`, and nothing else |
+| `packages/sim/src/oculus-shot.ts` | **THE OCULUS's shot**: the open socket, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/oculus-step.ts` | THE OCULUS's clock: the lens settling, each step lighting, the beats both leaves are held being counted |
+| `packages/sim/src/oculus.ts` | THE OCULUS: a lens of six leaves over the middle column, shut two at a time by both seats holding at once |
 | `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
 | `packages/sim/src/pod-effects.ts` | What a pod *gives*, once the mouth has closed on it |
@@ -590,6 +595,7 @@ by hand never moves.
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's five and THE MAZE's five** |
 | `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-keel.ts` | What THE KEEL says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-oculus.ts` | What THE OCULUS says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -614,6 +620,7 @@ by hand never moves.
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
 | `packages/sim/src/config-instar.ts` | THE INSTAR's tuning: the rules that hold across every step of a scene |
 | `packages/sim/src/config-keel.ts` | THE KEEL's tuning: how many segments the spine has |
+| `packages/sim/src/config-oculus.ts` | THE OCULUS's tuning: the rests around its steps and the grace a hold is given… |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
@@ -1899,6 +1906,7 @@ by hand never moves.
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |
 | `packages/audio/src/bind-choreographed-b.ts` | **The hands the §6.2 lanes added to bosses that had already shipped** |
 | `packages/audio/src/bind-choreographed-c.ts` | **The tail of `bind-choreographed.ts`** |
+| `packages/audio/src/bind-choreographed-d.ts` | **The tail of `bind-choreographed-c.ts`** |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
@@ -1935,6 +1943,7 @@ by hand never moves.
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's sixteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-oculus.ts` | THE OCULUS's twelve, in a file of their own for `bind-gorge.ts`' reason |
 
 ### packages/hands
 
@@ -2638,6 +2647,7 @@ by hand never moves.
 | `tools/director/src/sound-link-none.ts` | The sounds that are wired up and have nothing to draw, with the reason |
 | `tools/director/src/sound-link-none-b.ts` | The sounds wired up with nothing to draw, the second page — from THE SCUTTLE on |
 | `tools/director/src/sound-link-none-c.ts` | The sounds wired up with nothing to draw, the third page — from THE GAUGE on |
+| `tools/director/src/sound-link-none-d.ts` | The sounds wired up with nothing to draw, the fourth page — from THE SEAM on |
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |

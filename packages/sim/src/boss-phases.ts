@@ -14,6 +14,7 @@ import { KEEL_PHASES } from "./keel.js";
 import { LEDGER_PHASES } from "./ledger.js";
 import { MANTLE_PHASES } from "./mantle.js";
 import { MAZE_PHASES } from "./maze.js";
+import { OCULUS_PHASES } from "./oculus.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
 import { RATCHET_PHASES } from "./ratchet.js";
@@ -115,5 +116,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   keel: KEEL_PHASES,
   valve: VALVE_PHASES,
   seam: SEAM_PHASES,
+  oculus: OCULUS_PHASES,
   fleet: FLEET_PHASES,
 };

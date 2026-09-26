@@ -21,6 +21,7 @@
  */
 import { NO_SUBJECT_B } from "./sound-link-none-b.js";
 import { NO_SUBJECT_C } from "./sound-link-none-c.js";
+import { NO_SUBJECT_D } from "./sound-link-none-d.js";
 import { PULSE_NO_SUBJECT } from "./sound-link-pulse.js";
 
 export const NO_SUBJECT: Record<string, string> = {
@@ -217,4 +218,5 @@ export const NO_SUBJECT: Record<string, string> = {
   // it by the same rule, and spread here so the test reads one table.
   ...NO_SUBJECT_B,
   ...NO_SUBJECT_C,
+  ...NO_SUBJECT_D,
 };

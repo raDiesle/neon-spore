@@ -95,13 +95,13 @@ describe("buildBacklog", () => {
     // THE MANTLE (§23) already has a ledger row ("claimed, simulation lane
     // starting") the moment it was written, so it never appears here — the
     // group is read off the ledger, not off a status word on the Contents
-    // list. THE KEEL (§24), THE VALVE (§25) and THE SEAM (§26) left it when
-    // their simulation lanes landed; the last of the same batch has no row yet.
+    // list. THE KEEL (§24), THE VALVE (§25), THE SEAM (§26) and THE OCULUS
+    // (§27) left it when their simulation lanes landed.
     expect(proposedNames).not.toContain("THE MANTLE");
     expect(proposedNames).not.toContain("THE KEEL");
     expect(proposedNames).not.toContain("THE VALVE");
     expect(proposedNames).not.toContain("THE SEAM");
-    expect(proposedNames).toContain("THE OCULUS");
+    expect(proposedNames).not.toContain("THE OCULUS");
   });
 
   test("every group is populated, so a heading renamed in the spec is caught", async () => {

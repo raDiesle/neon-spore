@@ -64,6 +64,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "both", color: "either", offset: -2, seals: false },
     ],
   },
+  // THE OCULUS authors its script; two steps rather than the shipped nine
+  // (`oculus-hash.ts`).
+  oculus: {
+    kind: "oculus",
+    steps: [
+      { ask: "shut", color: "cyan", beats: 4 },
+      { ask: "fire", color: "red", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -168,5 +177,17 @@ export function patchBossD(boss: BossState): void {
     boss.litTick = 40;
     boss.shot = true;
     boss.guarded = true;
+  }
+  if (boss.kind === "oculus") {
+    // The first pair held with the socket open — every field given a value
+    // (`oculus-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.leavesShut = 2;
+    boss.hits = 1;
+    boss.socketOpen = true;
+    boss.held = [true, true];
+    boss.heldBeats = 2;
   }
 }

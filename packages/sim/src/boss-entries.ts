@@ -34,6 +34,7 @@ import type { GimbalEntry } from "./gimbal.js";
 import type { InstarEntry, NettleEntry } from "./instar.js";
 import type { KeelEntry } from "./keel.js";
 import type { MantleEntry } from "./mantle.js";
+import type { OculusEntry } from "./oculus.js";
 import type { SeamEntry } from "./seam.js";
 import type { MirrorStep } from "./simon.js";
 import type { ValveEntry } from "./valve.js";
@@ -171,7 +172,9 @@ export type BossEntry =
   // The one that authors a bearing: the mark the wheel is turned onto (`valve.ts`).
   | ValveEntry
   // The one that authors a whole script of standard-control steps (`seam.ts`).
-  | SeamEntry;
+  | SeamEntry
+  // The one that authors holds as well as shots: a lens shut by two thumbs (`oculus.ts`).
+  | OculusEntry;
 
 // The three this page had no room left for, handed across on 22 September
 // 2026 — the last rows it held, the way every overflowing page in the
@@ -214,5 +217,6 @@ export type { GimbalEntry } from "./gimbal.js";
 export type { InstarEntry, NettleEntry } from "./instar.js";
 export type { KeelEntry } from "./keel.js";
 export type { MantleEntry } from "./mantle.js";
+export type { OculusEntry, OculusStep } from "./oculus.js";
 export type { SeamEntry, SeamStep } from "./seam.js";
 export type { ValveEntry } from "./valve.js";

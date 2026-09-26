@@ -189,6 +189,8 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // THE SEAM the same: its ridge is `midCol` and a rock is authored as an
   // offset from it, clamped to whatever width the field has.
   if (boss.kind === "seam") return { ...boss };
+  // THE OCULUS the same: its eye is `midCol` and nothing else has a place.
+  if (boss.kind === "oculus") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

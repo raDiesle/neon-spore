@@ -231,14 +231,4 @@ export const NO_SUBJECT_C: Record<string, string> = {
   "boss.valveSparkHit": "the spark on the hull, which the hull's own sounds have.",
   "boss.valveOpen": "the drum's face falling open. Same argument.",
   "boss.valveOut": "the drum gone and the wave ending. Same argument, and an absence.",
-  // THE SEAM's nine: a ridge over the field, the same argument.
-  "boss.seamEnter": "the ridge rising over the field. A fixture, not a body on a grid.",
-  "boss.seamLight": "a step lighting on the crack. Same argument.",
-  "boss.seamDim": "a point shot dark without closing. Same argument.",
-  "boss.seamSeal": "a point shot shut. Same argument.",
-  "boss.seamRockOut": "a rock from the crack shot out. A rock here is a target. Same argument.",
-  "boss.seamBlock": "grit on the shield, which is no creature. Same argument.",
-  "boss.seamMiss": "a step unanswered, on the hull, which the hull's own sounds have.",
-  "boss.seamSplit": "the ridge splitting down its crack. Same argument.",
-  "boss.seamOut": "the ridge gone and the wave ending. Same argument, and an absence.",
 };

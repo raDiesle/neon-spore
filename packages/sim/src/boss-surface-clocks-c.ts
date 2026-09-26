@@ -57,6 +57,25 @@ export {
   mantlePulling,
   NO_SPARK,
 } from "./mantle.js";
+// THE OCULUS's lens: the phase, the lit step, the leaves and both thumbs, for
+// the picture, the cue and the director's hand. Straight off `oculus.ts`
+// (`docs/spec/bosses-choreographed.md` §27).
+export {
+  freshOculus,
+  OCULUS_ASKS,
+  OCULUS_LEAVES,
+  OCULUS_PHASES,
+  type OculusAsk,
+  type OculusEntry,
+  type OculusPhase,
+  type OculusState,
+  type OculusStep,
+  oculusBoss,
+  oculusBothHeld,
+  oculusDone,
+  oculusHolding,
+  oculusLitStep,
+} from "./oculus.js";
 export {
   NO_CATCH,
   RATCHET_CLEAN,

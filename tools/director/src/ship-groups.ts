@@ -45,6 +45,7 @@ export type GroupName =
   | "THE KEEL — the boss whose next joint is whichever thumb is nearer"
   | "THE VALVE — the boss one hand turns and the other hand stops"
   | "THE SEAM — the boss answered with the cannon and the shield, in order"
+  | "THE OCULUS — the boss both hands hold shut, then shoot into"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -140,6 +141,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   "THE VALVE — the boss one hand turns and the other hand stops",
   "THE SEAM — the boss answered with the cannon and the shield, in order",
+  "THE OCULUS — the boss both hands hold shut, then shoot into",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",

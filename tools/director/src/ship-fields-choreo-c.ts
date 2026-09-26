@@ -114,4 +114,11 @@ export const CHOREO_FIELD_GROUP_C = {
   seamBothBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
   seamRestBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
   seamSplitBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  // OculusConfig — the rests around the steps, the grace a hold is given on
+  // top of its count, and the shatter (`config-oculus.ts`). The script is the
+  // wave's own.
+  oculusStillBeats: "THE OCULUS — the boss both hands hold shut, then shoot into",
+  oculusRestBeats: "THE OCULUS — the boss both hands hold shut, then shoot into",
+  oculusGraceBeats: "THE OCULUS — the boss both hands hold shut, then shoot into",
+  oculusShatterBeats: "THE OCULUS — the boss both hands hold shut, then shoot into",
 } satisfies Record<string, GroupName>;

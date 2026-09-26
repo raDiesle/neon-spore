@@ -240,6 +240,10 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "valveWheel", on: true, fromMilli: 875 },
   { kind: "drag", target: "valvePin", on: true, fromMilli: 0, fromYMilli: 640 },
   { kind: "drag", target: "valvePin", on: false, fromMilli: 0 },
+  // THE OCULUS's leaves are holds, one a seat, read down or up
+  // (`sim/oculus-hand.ts`).
+  { kind: "drag", target: "oculusLeafLeft", on: true, fromMilli: 0 },
+  { kind: "drag", target: "oculusLeafRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -392,6 +396,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   keelJoint: true,
   valveWheel: true,
   valvePin: true,
+  oculusLeafLeft: true,
+  oculusLeafRight: true,
   crank: true,
 };
 
