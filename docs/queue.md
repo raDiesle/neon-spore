@@ -434,6 +434,7 @@ an alignment.
 ## `land` cannot merge two time-log entries written at the top of the file
 
 - **Found:** 2026-09-25, claude/filament-picture-clarity
+- **Taken:** 2026-09-26, claude/queue-wouldhear-asks-each-press-of-a-one-tick-gesture (claim: claude/queue-land-cannot-merge-two-time-log-entries-written-a)
 - **Files:** `tools/land/ledger-merge.ts`, `tools/land/record-merge.ts`, `docs/time-log.md`
 
 `bun run land --keep` stopped with "conflicts in docs/time-log.md" when the
