@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 448d98d6c — THE GRINDSTONE: the simulation lane — a wheel two thumbs grind true, then shoot into
+
+Wave 112 THE GRINDSTONE is in: a stone wheel on an axle over the middle column, the first choreographed body with no gesture of its own. Each seat rubs its own flat clean twice, heard as THE RIME hears a half; both flats clean bite the caliper shut, and the axle is shot in its colour; between the shots both seats hold every pad of their jaws down, heard as THE TRIVET hears a foot, or the caliper springs loose and the clamp is asked again. The thirteen sounds are bound; nothing in the game sends a grind or a clamp from a touch yet — that rides the look — nothing is drawn, and there is no autopilot hand (docs/spec/bosses.md §11.50, eight departures argued).
+
 ## 2026-09-26 · 81086e0ef — The style guide says no library, and that detail is baked rather than shipped
 
 The Depth section still allowed a small 3D library, which the owner ruled out on 26 September. It now says ideas are borrowed and the code is our own, and that detail which would be an image is drawn once at load and blitted; only what cannot be drawn is a file, a small lossy WebP atlas fetched with its wave, never an APNG or animated WebP on the field.

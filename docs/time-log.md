@@ -23003,3 +23003,5 @@ Bottleneck: none — a document correction found while answering what the rig co
 
 Bottleneck: writing — two borrowed gestures meant two hands' worth of
 rules to restate for one body, each departure argued against §33's rows.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -1698,6 +1698,17 @@ Unverified at tempo until the owner has looked.
 
 - THE VALVE's drum watched at tempo: the wheel's turn, the freeze, the list
 
+## Unverified at 448d98d6c: THE GRINDSTONE is undrawn and never watched at tempo
+
+- **Found:** 2026-09-26, claude/queue-33-the-grindstone-the-simulation-lane
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
+
+*THE GRINDSTONE: the simulation lane — a wheel two thumbs grind true, then shoot into* landed from a session that could not look at it. The commit touched 55 more files. What went unchecked:
+
+- THE GRINDSTONE is undrawn and never watched at tempo
+- THE GRINDSTONE has no touch sender, so it cannot be answered on a phone
+- THE GRINDSTONE has no autopilot hand
+
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
