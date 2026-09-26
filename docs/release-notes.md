@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 069340650 — THE OCULUS glares at the hull and looks down another column
+
+Two new steps in THE OCULUS's script, both under THE SLOW and both a hull hit if left: the glare, answered only by the shield under the eye, and the look, answered by a shot up the column the eye has rolled toward, in its colour. The script is eleven steps now and AUTO answers both. Neither is drawn yet; the look lane is next.
+
 ## 2026-09-26 · 89325a27f — THE PLUMB is drawn: a bronze bob on a hook, two weights on chains, a level glass under each
 
 Half one of §31's look. THE WEIGHT's sac hangs as a bob of old bronze off a hook over the middle column, with a beam across it and THE POMMEL's balls on chains at its ends. The pilot's ball is the heavier, so the bob hangs lopsided and comes level a quarter per settle as a steady phone brings its weight true. Under each ball is a spirit level: lit while its step asks, the bubble at the lean the phone reports and bright inside the range. The sac is seen edge-on until both weights are true, then turns face-on to show the core, which is lit in its colour with a ring closing, smaller and brighter per hit. The weights sway off true as a `both` step runs out, and the bob swings free at the end. Both screens are drawn the same.

@@ -24373,3 +24373,5 @@ and two glasses is more drawing than any single-body boss before it.
 - landing: 5 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: writing — the story steps are two rules, but a boss state is eleven registrations outside the simulation.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
