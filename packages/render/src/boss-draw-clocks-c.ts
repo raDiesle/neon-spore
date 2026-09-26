@@ -1,22 +1,16 @@
 import type { World } from "@neon-spore/sim";
-import { drawCyst } from "./cyst-draw.js";
-import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGimbal } from "./gimbal-draw.js";
-import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHasp } from "./hasp-draw.js";
 import { drawKeel } from "./keel-draw.js";
 import type { Layout } from "./layout.js";
 import { drawMantle } from "./mantle-draw.js";
 import { drawOculus } from "./oculus-draw.js";
-import { drawPlumb } from "./plumb-draw.js";
 import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawRime } from "./rime-draw.js";
 import { drawSeam } from "./seam-draw.js";
-import { drawSling } from "./sling-draw.js";
 import { drawSpool } from "./spool-draw.js";
-import { drawTrivet } from "./trivet-draw.js";
 import { drawValve } from "./valve-draw.js";
 import { drawVise } from "./vise-draw.js";
 
@@ -38,7 +32,8 @@ import { drawVise } from "./vise-draw.js";
 /** Whichever boss is installed, once the null is out of the way. */
 type Installed = NonNullable<World["boss"]>;
 
-/** The kinds this file draws. Appended, like every list of boss kinds. */
+/** The kinds this file draws. Full at THE RIME: a new pair appends to page
+ * four's list (`boss-draw-clocks-d.ts`), not this one. */
 export const PAIR_KINDS = [
   "gimbal",
   "spool",
@@ -51,12 +46,6 @@ export const PAIR_KINDS = [
   "oculus",
   "vise",
   "rime",
-  "sling",
-  "trivet",
-  "plumb",
-  "davit",
-  "cyst",
-  "grindstone",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -188,63 +177,5 @@ export function drawPairBoss(
   // are drawn the same — the other seat has to see which half is lit to say
   // so (`rime-draw.ts`). Nothing of it outlives a frame yet: its hands and
   // effects are the second half of its look.
-  if (boss.kind === "rime") {
-    drawRime(ctx, l, world, boss, beat, beatPhase, time);
-    return;
-  }
-
-  // THE SLING: a fork over the middle column, a cord off each tine drawn by
-  // its own seat's thumb, loosed toward whichever column the cup asks for.
-  // Both screens are drawn the same — the other seat has to see which cord is
-  // lit and which is already drawn to say so (`sling-draw.ts`). Nothing of it
-  // outlives a frame yet: its hands and effects are the second half of its
-  // look.
-  if (boss.kind === "sling") {
-    drawSling(ctx, l, world, boss, beat, beatPhase, time);
-    return;
-  }
-
-  // THE TRIVET: a three-legged stand splayed over the middle of the field,
-  // each outer foot swung down by one seat's chord and the hub, once both are
-  // planted, shot. Both screens are drawn the same — the other seat has to see
-  // which foot is lit to say so (`trivet-draw.ts`). What outlives a frame —
-  // a plant's thud, a clamp's flare, the hub's flash, the hull's shudder — is
-  // `effects.boss.trivet` (`trivet-fx.ts`).
-  if (boss.kind === "trivet") {
-    drawTrivet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.trivet);
-    return;
-  }
-
-  // THE PLUMB: a lopsided bob hung over the middle column, a ball on a chain
-  // at each end of its beam brought true by one seat holding its phone level,
-  // a core in its belly both cannons are asked to hit. Both screens are drawn
-  // the same — the other seat has to see whose bubble is off to say so
-  // (`plumb-draw.ts`). A weight's settle, a drift's jolt, the core's hit and
-  // the free swing's release are `effects.boss.plumb` (`plumb-fx.ts`).
-  if (boss.kind === "plumb") {
-    drawPlumb(ctx, l, world, boss, beat, beatPhase, time, effects.boss.plumb);
-    return;
-  }
-
-  // THE DAVIT: a crane boom over the middle column, swung by whichever seat's
-  // lean is steering it and let go by a loose off each seat's own thumb, a
-  // hook on the end of its slack chain both cannons are asked to hit. Both
-  // screens are drawn the same — the other seat has to see which half the
-  // lean is steering and how far the lit step's window has run
-  // (`davit-draw.ts`).
-  if (boss.kind === "davit") {
-    drawDavit(ctx, l, world, boss, beat, beatPhase, time);
-    return;
-  }
-
-  // THE CYST: a four-lobed sac, each flank tapped still by one seat and
-  // pinched shut by the other, a core both cannons hit (`cyst-draw.ts`); a
-  // crack's thud, a sprung flank and the core's flash are `cyst-fx.ts`.
-  if (boss.kind === "cyst") {
-    drawCyst(ctx, l, world, boss, beat, beatPhase, time, effects.boss.cyst);
-    return;
-  }
-
-  // THE GRINDSTONE: two flats ground, a caliper bitten, the axle shot.
-  drawGrindstone(ctx, l, world, boss, beat, beatPhase, time);
+  drawRime(ctx, l, world, boss, beat, beatPhase, time);
 }

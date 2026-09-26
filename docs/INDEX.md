@@ -1010,6 +1010,7 @@ by hand never moves.
 | `packages/render/src/boss-draw-clocks.ts` | **The clock bosses, drawn** — the ones from `docs/spec/bosses-choreographed.md` whose whole difficulty is a… |
 | `packages/render/src/boss-draw-clocks-b.ts` | **The clock bosses, drawn — page two**: the ones whose picture keeps something that outlives a frame |
 | `packages/render/src/boss-draw-clocks-c.ts` | **The clock bosses, drawn — page three**: the pairs asked for by name |
+| `packages/render/src/boss-draw-clocks-d.ts` | **The clock bosses, drawn — page four**: the pairs from THE SLING on |
 | `packages/render/src/boss-cue-draw.ts` | **The cue this screen is owed, drawn**: the frame on the mark, and the two lines beside it |
 | `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER and THE VANE are asking for** — page two of the readings |
 | `packages/render/src/boss-cue-read-c.ts` | **What THE LEAD is asking for** — page three of the readings, its page alone |

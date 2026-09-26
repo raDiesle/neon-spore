@@ -3,6 +3,7 @@ import { drawBaton } from "./baton-draw.js";
 import { drawBatonGrip } from "./baton-grip.js";
 import { drawFxBoss, FX_KINDS, isFxBoss } from "./boss-draw-clocks-b.js";
 import { drawPairBoss, isPairBoss, PAIR_KINDS } from "./boss-draw-clocks-c.js";
+import { drawLatePairBoss, isLatePairBoss, LATE_PAIR_KINDS } from "./boss-draw-clocks-d.js";
 import { drawCurtain } from "./curtain-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
@@ -49,6 +50,7 @@ const CLOCK_KINDS = [
   "taster",
   ...FX_KINDS,
   ...PAIR_KINDS,
+  ...LATE_PAIR_KINDS,
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -174,7 +176,9 @@ export function drawClockBoss(
 
   // The ones since THE SINEW, each with a transient of its own, are page
   // two's (`boss-draw-clocks-b.ts`), and the pairs from THE GIMBAL on, each
-  // with a half to a seat, page three's (`boss-draw-clocks-c.ts`).
+  // with a half to a seat, page three's (`boss-draw-clocks-c.ts`) up to
+  // THE RIME and page four's (`boss-draw-clocks-d.ts`) from THE SLING on.
   if (isFxBoss(boss)) drawFxBoss(ctx, l, view, boss, effects);
   else if (isPairBoss(boss)) drawPairBoss(ctx, l, view, boss, effects);
+  else if (isLatePairBoss(boss)) drawLatePairBoss(ctx, l, view, boss, effects);
 }

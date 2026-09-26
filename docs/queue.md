@@ -603,6 +603,7 @@ owner's, unverified until he has looked.
 
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
 - **Files:** `apps/game/src/fullscreen.ts`, `apps/game/src/join-room-step.ts`, `apps/game/test/shake-permission.test.ts`, `docs/queue.md`, `docs/time-log.md`
+- **Where:** phone
 
 *The screen is asked for as the thumb lifts off READY, not as it goes down* landed from a session that could not look at it. What went unchecked:
 
@@ -780,19 +781,6 @@ this lane touched anything. Offered, never replacing: the procedural draw
 stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
-
-## boss-draw-clocks-c.ts is at its 250-line limit
-
-- **Found:** 2026-09-26, main (THE CYST and THE GRINDSTONE landing side by side)
-- **Taken:** 2026-09-26, claude/task-queue-work-497b6b (claim: claude/queue-boss-draw-clocks-c-ts-is-at-its-250-line-limit)
-- **Files:** `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/boss-draw-clocks.ts`
-
-THE CYST and THE GRINDSTONE both appended an arm the same day and put the
-page at 254 lines; three comments were cut to bring it to exactly 250. The
-next boss added here fails `limits.test.ts`. Cut a page four
-(`boss-draw-clocks-d.ts`) from THE SLING on, the way page three was cut
-from page two, with its own `PAIR_KINDS` list dispatched from wherever page
-three is; `bun run check` proves it.
 
 ## §33 THE GRINDSTONE — the touch sender
 
