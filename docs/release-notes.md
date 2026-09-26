@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 69764810f — THE TRIVET has an autopilot hand, and the STATES sheet poses its four phases
+
+AUTO now puts down each seat's lit pads in order, fires the named colour down the middle column while the hub is lit, and walks the stand to its collapse unaided; the director's STATES sheet poses it still, lit, at rest and collapsing. A director tool and a test hand, not a look.
+
 ## 2026-09-26 · 952864272 — THE VISE bites and spits once its kernel is bare
 
 Two new story steps under THE SLOW replace a beat where the pair did nothing: the case bites down at the hull and wants the shield under the middle, and the kernel spits a seed two columns over that wants a shot up that column in red. Either run out is a hull hit. The script is eleven steps. The picture of both is the next lane. Nothing delegated.

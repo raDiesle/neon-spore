@@ -24469,3 +24469,5 @@ Bottleneck: writing — the registrations outside the simulation, eleven files f
 - landing: 10 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: friction — two landings racing on the same status paragraphs and the same file tails.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
