@@ -1299,3 +1299,17 @@ fully carried by `sparkCol` — or enter it on the leak and leave it when the
 spark is shot or lands. The first is smaller and matches what the
 simulation already does. Prove it with a test that walks every phase
 `MANTLE_PHASES` names through the step.
+
+## Unverified at 1711568bc: AUTO playing THE MANTLE to dark, watched at tempo
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/boss-hands-mantle.ts`, `packages/hands/src/index.ts`, `tools/director/src/poses-bosses-hands-mantle.ts`
+
+*THE MANTLE has a hand: AUTO pulls both knobs, shoots the spark and taps the core dark* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
+
+- AUTO playing THE MANTLE to dark, watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

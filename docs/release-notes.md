@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 1711568bc — THE MANTLE has a hand: AUTO pulls both knobs, shoots the spark and taps the core dark
+
+AUTO now plays THE MANTLE through to the end. Each seat carries its knob to half the threshold, never below the floor, and presses again only when the handles light back to nought. The leaking spark is shot out of its column, and the core is tapped every half beat by the seat it is waiting on. The STATES sheet poses all five of its phases off the same hand.
+
 ## 2026-09-26 · 65443d517 — THE MANTLE says what it wants: PULL on each knob, TAP on the core, FIRE over the spark
 
 Each seat is shown PULL on its own knob while the handles are lit and nobody holds it, and the word goes the moment a thumb is on, below the floor or past it. In the finish, only the seat whose tap the core is waiting on is shown TAP on the ring. A leaking spark puts FIRE at the hull under it, on both screens, ahead of either. The exemption: a look with no shipped alternative — the boss had no words at all.
