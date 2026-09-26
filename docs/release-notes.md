@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 88666459a — THE GORGE's veins and mouths move on clocks of their own
+
+The veins between the lobes now sway and pulse slowly, one after another along the row, and each pucker under a lobe gapes and purses out of step with the others. Until now the sack's skin moved only with the beat's breath, which the whole sack takes at once, so it looked pumped rather than alive. Exemption: a look the owner asked for by name, the boss depth pass.
+
 ## 2026-09-26 · 115c7f2cf — THE GRINDSTONE answers a thumb: its flats rubbed, its jaws held
 
 A press on a seat's own flat now takes a rub, and its count of turns back is sent as the drag's id at every reversal (nought on the press, the count with `on: false` at the lift). A press on that seat's jaw is one finger of a chord, counted pad by pad the way THE TRIVET's feet are. Wave 112 can now be played on a phone. The hit test reads the wheel where the draw puts it: dropped in, caliper swung. `apps/game`'s pinch, chord and rub counters sit behind one `Fingers` host, which keeps `input.ts` under its limit. THE RIME's halves can reuse the rub counter unchanged.
