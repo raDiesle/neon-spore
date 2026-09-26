@@ -63,7 +63,11 @@ export const SPECIFIED: readonly Gesture[] = [
         { event: "pointerup", marks: [2, 5, 8] },
       ],
     },
-    where: [`${SPEC} RepeatedTap`, "docs/spec/bosses-cinematic.md THE RATCHET"],
+    where: [
+      `${SPEC} RepeatedTap`,
+      "docs/spec/bosses-cinematic.md THE RATCHET",
+      `${SPEC} §38 THE GALL`,
+    ],
   },
   {
     name: "RUB",
@@ -114,7 +118,7 @@ export const SPECIFIED: readonly Gesture[] = [
       note: "the gap between the two, not either one",
     },
     platform: "iPhone also fires gesturechange for it, which is the one to refuse.",
-    where: [`${SPEC} §28 THE VISE`, `${SPEC} §34 THE CYST`],
+    where: [`${SPEC} §28 THE VISE`, `${SPEC} §34 THE CYST`, `${SPEC} §38 THE GALL`],
   },
   {
     name: "CHORD",

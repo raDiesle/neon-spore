@@ -4210,6 +4210,86 @@ third verb.
 
 ---
 
+### §38 THE GALL — a growth that moves once the pinch that closes it lands
+
+**Question.** THE RATCHET's own idea — a mark that moves between presses
+so a count cannot be spent standing in one place — has so far only met
+`TAPS ON A MOVING TARGET`, a discrete tap. This concept asks whether the
+same anti-camping shape reads against `SQUEEZE ONE BODY`'s continuous
+pinch instead: a body a seat must find and close by feel, that relocates
+the instant it is closed rather than the instant it is touched.
+
+**Silhouette.** A soft nodule riding a raised seam that runs the width of
+the hull, four resting points along the seam it can occupy, a duller
+colour than the hull it grows from. Health is three closures.
+
+**Mechanic.** `gallPosMilli` places the nodule at one of the seam's four
+points; `gallGapMilli` is `SQUEEZE ONE BODY`'s own gap, read exactly as
+THE VISE reads it, closing the nodule once the two fingers pinch it shut.
+The moment a close lands, `gallPosMilli` jumps to a different one of the
+four points — never the one just spent, otherwise the same rule THE
+RATCHET's mark already keeps — and the fingers must find it there instead
+of pinching where they already are. THE VISE's own forgiving shape
+carries over unchanged: letting go early loses no ground, the gap simply
+widens back out and the same point is still there to find again.
+
+**Player 1 and Player 2.** Both screens show the seam and the nodule at
+its true position — there is nothing to keep from either seat, since
+finding it is the whole difficulty rather than a secret one seat holds
+for the other. Only whichever seat is nearer the nodule's current point,
+by the seam's own geometry, does the closing; the other seat's screen
+shows the same point lit but out of reach, so a wide seam asks the pair
+to notice together which of them it is nearer to this time, in beat
+rather than out loud.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| 1 | The nodule sits at the seam's first point, dull and slack | — | — | — | — | — |
+| 2 | The nodule swells, ready to close | nearer seat | pinch it shut (`SQUEEZE ONE BODY`) | 5 beats, gap closing | first closure, nodule jumps to a new point | gap widens back, retry in place |
+| 3 | The nodule reappears at a different point on the seam | whichever seat is nearer now | pinch it shut | 5 beats, gap closing | second closure, jumps again | widens, retry |
+| 4 | Nodule at a third point, seam pulsing faster | nearer seat | pinch it shut, quicker window | 4 beats, gap closing | third closure, nodule spent, seam smooths flat | widens, retry |
+
+**THE SLOW** opens on every closing window (rows 2–4) — the same argument
+`SQUEEZE ONE BODY` already carries at THE VISE, sharpened here since a
+seat must first place its fingers on a point neither screen had marked a
+beat earlier.
+
+**Presentation.** No camera; the nodule's jump between points is a single
+frame, not a slide, so the pair reads it as relocated rather than rolling
+— a rolling nodule would read as a target to lead, which is a different
+game.
+
+**Animation.** Four poses: slack at point one; swelling under a pinch;
+spent and flattened into the seam; the seam's own idle ripple between
+closures. The closing pinch draws exactly as THE VISE's own gap-closing
+frames do, reused rather than redrawn.
+
+**Colour.** Seam and nodule both a duller cast of the hull's own colour
+family — nothing about this body is lit on its own, since what marks a
+closing window is the swell, not a colour change, the way THE VISE keeps
+its own body unlit until squeezed.
+
+**Payoff.** None beyond the closures themselves — this concept spends its
+whole cost on the relocation, and every row is the same gesture read
+against a new position rather than a held defensive beat.
+
+**Cost. Very low.** No new primitive — `SQUEEZE ONE BODY` is already
+built for THE VISE and THE CYST, and the relocate-on-close behaviour is
+ordinary per-boss wiring: a position field with four fixed values and a
+jump rule, no new field type.
+
+**Reusable.** Applying "the mark moves so the count cannot be spent in
+one place" to a continuous gesture rather than a discrete one — moving
+the target on the *gesture's own completion* rather than on a timer or a
+touch — is a shape distinct from THE RATCHET's tap-driven relocation;
+any future concept pairing a held or continuous gesture with an
+anti-camping body can reach for a closure-triggered jump before inventing
+a new relocation rule of its own.
+
+---
+
 ## The reusable boss mechanic library
 
 The brief asks for the primitives extracted. Here they are, and the useful
