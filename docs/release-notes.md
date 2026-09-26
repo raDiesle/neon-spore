@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 40adcdf3f — INDEX.md drops a second row for boss-cue-read-zg.ts that named THE TRIVET
+
+THE TRIVET's cue landed with two index rows for THE RIME's page, and the drift test was red on main for every lane after it. The TRIVET row for `boss-cue-read-zh.ts` stays. How the landing let it through is queued.
+
+## 2026-09-26 · 63bc9a5d5 — A dragged tail has a verlet chain to hang from, kept in Effects
+
+`Effects.chains` holds the chains of points a boss's trailing part can hang from. `chainAt` only delays the root's motion, so it cannot do what these do: sag under their own weight, get dragged, and swing on after the body stops. The pass that draws a part steps its chain with that pass's `dt`. It uses fixed substeps of 1/120 s and damping per second, so 30 and 60 frames a second swing alike. After each substep a single pass from the root sets every link back to its exact length. If the root jumps several chain-lengths, the chain is laid out again rather than whipped. `Effects.reset()` clears it.
+
 ## 2026-09-26 · 48ad4d936 — THE TRIVET's cue says HOLD on each foot a lit chord asks for, and FIRE under the lit hub
 
 The boss cue now reads THE TRIVET: HOLD sits on the foot of each seat whose chord is lit and not yet held, and comes off the moment that chord is down; FIRE sits on the hull under the middle column while the hub is lit. Still, rest and collapse say nothing. Exemption: a look with no shipped alternative.
