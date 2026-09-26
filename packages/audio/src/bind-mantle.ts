@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE MANTLE's fourteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Almost nothing here pans anywhere**, the same as THE GIMBAL's: the shell
  * hangs in the middle of the field and both handles pull toward it, so all
@@ -32,7 +32,15 @@ export function mantleCue(
         | "mantleGlow"
         | "mantleSlip"
         | "mantleSteady"
-        | "mantleLapse";
+        | "mantleLapse"
+        | "mantleBuckle"
+        | "mantleFlat"
+        | "mantleVent"
+        | "mantleSeal"
+        | "mantleCross"
+        | "mantleTurn"
+        | "mantleSwing"
+        | "mantleTurned";
     }
   >,
   cols: number,
@@ -70,5 +78,21 @@ export function mantleCue(
       return { id: "boss.mantleSteady", pan };
     case "mantleLapse":
       return { id: "boss.mantleLapse", pan };
+    case "mantleBuckle":
+      return { id: "boss.mantleBuckle", pan };
+    case "mantleFlat":
+      return { id: "boss.mantleFlat", pan };
+    case "mantleVent":
+      return { id: "boss.mantleVent", pan };
+    case "mantleSeal":
+      return { id: "boss.mantleSeal", pan };
+    case "mantleCross":
+      return { id: "boss.mantleCross", pan };
+    case "mantleTurn":
+      return { id: "boss.mantleTurn", pan };
+    case "mantleSwing":
+      return { id: "boss.mantleSwing", pan };
+    case "mantleTurned":
+      return { id: "boss.mantleTurned", pan };
   }
 }

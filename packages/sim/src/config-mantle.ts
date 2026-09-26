@@ -26,6 +26,18 @@ export interface MantleConfig {
   mantleBraceBeats: number;
   /** Beats the last pair's pull has before its window resets (§23 row 8). */
   mantleLastBeats: number;
+  /** Beats both handles must be held eased off, under the floor, to press
+   * the buckle flat (§23 row 7). */
+  mantleBuckleBeats: number;
+  /** Beats the buckle bulges before it tears and a spark leaks. */
+  mantleBuckleWindowBeats: number;
+  /** Beats the vent stays open before it feeds a spark (§23 row 8). */
+  mantleVentBeats: number;
+  /** Beats the crosswise crack shows before the brace (§23 row 9). */
+  mantleCrossBeats: number;
+  /** Beats the split halves wait to be guided open before they swing back
+   * and ask again (§23 row 12). */
+  mantleTurnBeats: number;
 }
 
 export const MANTLE_DEFAULTS: MantleConfig = {
@@ -37,4 +49,9 @@ export const MANTLE_DEFAULTS: MantleConfig = {
   mantleOpenBeats: 2,
   mantleBraceBeats: 3,
   mantleLastBeats: 3,
+  mantleBuckleBeats: 2,
+  mantleBuckleWindowBeats: 4,
+  mantleVentBeats: 2,
+  mantleCrossBeats: 2,
+  mantleTurnBeats: 3,
 };

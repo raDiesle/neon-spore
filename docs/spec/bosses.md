@@ -7616,14 +7616,26 @@ bank progress against.
 `mantleStillBeats`, then both handles light and stay lit until the sum
 clears — there is no window and no timeout on the first three pulls. A
 plate-pair sheared under THE SLOW (`mantleSlowBeats`) relights the next pair.
-**The shear before the last pair lights the brace instead** (§23 row 7,
-26 September 2026): the seam glows (`mantleGlow`) and THE SLOW asks while both
+**The shear before the last pair starts the shell fighting back** (§23 rows
+7 to 10, 26 September 2026, `sim/mantle-story.ts`), each beat under THE SLOW.
+First **the buckle** (`mantleBuckle`): the last pair bulges, and both thumbs
+laid on their handles and eased under the floor for `mantleBuckleBeats` press
+it flat (`mantleFlat`); left for `mantleBuckleWindowBeats` it tears and leaks
+a spark. Then **the vent** (`mantleVent`): one tap on the core from either
+seat shuts it (`mantleSeal`); left `mantleVentBeats` it leaks a spark, never a
+second while one is leaking. Then **the crosswise crack** (`mantleCross`), a
+picture beat asking nothing for `mantleCrossBeats`, and then the brace: the
+seam glows (`mantleGlow`) and THE SLOW asks while both
 handles are held, not pulled, for `mantleBraceBeats` — `CHORD` read off the
 same two drags, a thumb on each. Either lifting slips it (`mantleSlip`) and
 the hold starts over from the glow. Held, the shell steadies (`mantleSteady`)
 and the last pull lights under THE SLOW with `mantleLastBeats`; a window run
 out resets (`mantleLapse`) with the thumbs where they are, and never reaches
-the hull. The last shear splits the shell and starts the alternating finish. A spark leaks from the open gap the
+the hull. The last shear splits the shell and **the halves swing on their hinges**
+(`mantleTurn`, §23 row 12): both handles pulled past the floor guide them open
+(`mantleTurned`) and start the alternating finish; a `mantleTurnBeats` window
+run out swings them back to try again (`mantleSwing`), never the hull. Row 17,
+a closing beat of sending nothing, is not built. A spark leaks from the open gap the
 instant the *second* pair shears (`s.cursor === 2`), the fight's one ordinary
 hazard: either colour answers it within `mantleSparkBeats` or it strikes the
 hull. Once split, the bare core takes an alternating tap from whichever seat
@@ -7631,7 +7643,7 @@ hull. Once split, the bare core takes an alternating tap from whichever seat
 rule — for `mantleHeartbeatTaps`; the last one darkens the core, and it hangs
 `mantleOpenBeats` before the wave may end.
 
-**Where this departs from the design, and why.** Four places.
+**Where this departs from the design, and why.** Five places.
 
 - **No window or timeout on the first three pulls, and the last one's
   window resets rather than strikes.** §23's beat list gives each
@@ -7647,6 +7659,10 @@ rule — for `mantleHeartbeatTaps`; the last one darkens the core, and it hangs
   the glow's own event is `mantleSlip`, which the look and the sound read as
   the worse shudder. A number for how bad the shudder is would be one no
   seat could answer differently.
+- **A torn buckle leaks one spark, and shears nothing.** Row 7's miss
+  shears the next pair for free and doubles the spark; a free shear would
+  skip the brace the third movement builds to, and two sparks on one column
+  are one spark.
 - **The spark takes either colour.** §23 says *own colour*; a spark is not a
   body with a colour the pair could have got wrong, the same rule THE
   GIMBAL's seam already uses. What it costs to miss is the column, not the

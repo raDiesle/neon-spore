@@ -3,10 +3,13 @@ import {
   type MantleState,
   mantleBoss,
   mantleBracing,
+  mantleBuckling,
   mantleFinale,
   mantlePulling,
+  mantleTurning,
+  mantleVenting,
 } from "./mantle.js";
-import { glowMantle } from "./mantle-step.js";
+import { glowMantle, sealMantle } from "./mantle-story.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -31,6 +34,11 @@ import type { World } from "./world.js";
  * brace before the last pair (§23 row 7) is `CHORD` read off the same two
  * drags: both thumbs down counts, and either lifting mid-brace slips it —
  * the shudder worsens and the hold starts over from the glow.
+ *
+ * **The buckle and the turn read the depth too** (§23 rows 7 and 12): the
+ * buckle wants both thumbs down and eased off, the turn both pulled once
+ * more past the floor. **The vent is shut by `mantleCore`**, from either
+ * seat — it opens down the middle, where the core will show.
  *
  * **The core's tap is either seat's, and alternates.** Once the shell is
  * split, `mantleCore` answers a tap from whichever seat `heartbeatNext`
@@ -58,12 +66,16 @@ function pull(world: World, s: MantleState, player: 1 | 2, command: Command): vo
   const lifted = s.held[side] && !command.on;
   s.held[side] = command.on;
   if (mantleBracing(s) && lifted) glowMantle(world, s, "mantleSlip");
-  if (!mantlePulling(s)) return;
+  if (!mantlePulling(s) && !mantleBuckling(s) && !mantleTurning(s)) return;
   s.depthMilli[side] = command.on ? Math.max(0, command.fromYMilli ?? 0) : 0;
 }
 
 function tap(world: World, s: MantleState, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || !command.on) return;
+  if (mantleVenting(s)) {
+    sealMantle(world, s);
+    return;
+  }
   if (!mantleFinale(s)) return;
   const wants: 1 | 2 = s.heartbeatNext === 0 ? 1 : 2;
   if (player !== wants) return;

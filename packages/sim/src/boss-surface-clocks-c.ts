@@ -59,6 +59,7 @@ export {
   type MantleState,
   mantleBoss,
   mantleBracing,
+  mantleBuckling,
   mantleCharged,
   mantleDone,
   mantleFinale,
@@ -66,6 +67,8 @@ export {
   mantleLeaking,
   mantlePairsLeft,
   mantlePulling,
+  mantleTurning,
+  mantleVenting,
   NO_SPARK,
 } from "./mantle.js";
 // THE OCULUS's lens: the phase, the lit step, the leaves and both thumbs, for

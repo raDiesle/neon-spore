@@ -1,6 +1,7 @@
 import { midCol } from "./config.js";
 import { breachHull } from "./hull-damage.js";
 import {
+  type MantlePhase,
   type MantleState,
   mantleCharged,
   mantleFinale,
@@ -8,6 +9,14 @@ import {
   mantleLeaking,
   NO_SPARK,
 } from "./mantle.js";
+import {
+  buckleMantle,
+  stepBuckle,
+  stepCross,
+  stepTurn,
+  stepVent,
+  turnMantle,
+} from "./mantle-story.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -27,6 +36,11 @@ import type { World } from "./world.js";
  * Held, the last pull lights with `mantleLastBeats`, and a window run out
  * resets rather than strikes — the only window on the body, and it costs
  * time, never the wave.
+ *
+ * **The shell fights back before it braces, and turns before it bares the
+ * core** (§23 rows 7 to 12): the buckle, the vent and the crosswise crack
+ * come between the third shear and the brace, and the guided turn between
+ * the last shear and the heartbeat — `mantle-story.ts`, all four.
  */
 
 export function installMantle(world: World, thresholds: readonly number[]): MantleState {
@@ -47,6 +61,14 @@ export function installMantle(world: World, thresholds: readonly number[]): Mant
   world.events.push({ type: "mantleEnter", col: midCol(world.cfg) });
   return s;
 }
+
+/** The shell's four story beats, each stepped by `mantle-story.ts`. */
+const STORY: Partial<Record<MantlePhase, (world: World, s: MantleState) => void>> = {
+  buckle: stepBuckle,
+  vent: stepVent,
+  cross: stepCross,
+  turn: stepTurn,
+};
 
 export function stepMantle(world: World, s: MantleState): void {
   const cfg = world.cfg;
@@ -70,6 +92,11 @@ export function stepMantle(world: World, s: MantleState): void {
     stepBrace(world, s);
     return;
   }
+  const story = STORY[s.phase];
+  if (story !== undefined) {
+    story(world, s);
+    return;
+  }
   if (mantleCharged(s, cfg.mantleFloorMilli)) shear(world, s);
   else if (mantleLastPull(s) && world.beat - s.phaseBeat >= cfg.mantleLastBeats) lapse(world, s);
 }
@@ -83,21 +110,6 @@ function stepBrace(world: World, s: MantleState): void {
   world.events.push({ type: "mantleSteady", col: midCol(world.cfg) });
   light(world, s);
   openSlow(world, world.cfg.mantleLastBeats, "ask");
-}
-
-/** The seam glows and the shell shudders: hold both handles, from nought.
- * `mantleSlip` when a lift mid-brace sent it back here. */
-export function glowMantle(
-  world: World,
-  s: MantleState,
-  why: "mantleGlow" | "mantleSlip" = "mantleGlow",
-): void {
-  s.phase = "brace";
-  s.phaseBeat = world.beat;
-  s.braceBeats = 0;
-  s.depthMilli = [0, 0];
-  openSlow(world, world.cfg.mantleBraceBeats + 1, "ask");
-  world.events.push({ type: why, col: midCol(world.cfg) });
 }
 
 /** The last pair's window ran out: it resets, the thumbs where they are. */
@@ -123,13 +135,10 @@ function shear(world: World, s: MantleState): void {
   openSlow(world, cfg.mantleSlowBeats, "show");
   world.events.push({ type: "mantleShear", left, col: midCol(cfg) });
   if (left === 0) {
-    // The shell is fully split: the bare core shows, and the alternating
-    // finish begins rather than another pull movement.
+    // The shell is fully split: the halves swing on their hinges, and the
+    // pair guide them open before the core's alternating finish (row 12).
     world.events.push({ type: "mantleSplit", col: midCol(cfg) });
-    s.phase = "heartbeat";
-    s.phaseBeat = world.beat;
-    s.heartbeatNext = 0;
-    s.heartbeatDone = 0;
+    turnMantle(world, s);
     return;
   }
   // A spark leaks from the open gap the instant the second pair shears — the
@@ -139,8 +148,9 @@ function shear(world: World, s: MantleState): void {
     s.sparkBeat = world.beat;
     world.events.push({ type: "mantleLeak", col: s.sparkCol });
   }
-  // The last pair is braced for before it is pulled (§23 row 7).
-  if (left === 1 && s.thresholds.length > 1) glowMantle(world, s);
+  // The shell fights back before the last pair is braced for and pulled
+  // (§23 rows 7 to 10): the buckle first, and the brace at the end of it.
+  if (left === 1 && s.thresholds.length > 1) buckleMantle(world, s);
   else light(world, s);
 }
 

@@ -71,6 +71,14 @@ export const SILENT_BOSS_C = [
   "mantleSlip",
   "mantleSteady",
   "mantleLapse",
+  "mantleBuckle",
+  "mantleFlat",
+  "mantleVent",
+  "mantleSeal",
+  "mantleCross",
+  "mantleTurn",
+  "mantleSwing",
+  "mantleTurned",
   // THE KEEL's sixteen, no burst from this table: each is thrown above the
   // loop by its own fx file (`keel-fx.ts`).
   "keelEnter",

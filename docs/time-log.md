@@ -23715,3 +23715,17 @@ and nearly every line of it is geometry decided for the first time.
 Bottleneck: friction — the trunk moved under the previous landing's check three times.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE fights back: the buckle, the vent, the crack and the turn
+
+- reading: 15 min. §23 rows 7 to 12, the brace's step, and every list a new
+  MANTLE event is a name in.
+- writing: 45 min. `mantle-story.ts`, five config fields, eight events through
+  the sound, the silent lists and the director, the hand, four cards, §11.40.
+- looking: 0 min. The look is the next lane.
+- friction: 15 min. A spark and a torn buckle land on the same beat, and three
+  older tests held their thumbs through a beat that now wants them lifted.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — eight new events are forty registrations across seven
+packages, and only the typecheck finds them one at a time.

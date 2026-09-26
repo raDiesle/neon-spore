@@ -34,7 +34,18 @@ import type { World } from "./world.js";
  * to stop pulling together to finish the fight.
  */
 
-export const MANTLE_PHASES = ["still", "pull", "spark", "heartbeat", "dark", "brace"] as const;
+export const MANTLE_PHASES = [
+  "still",
+  "pull",
+  "spark",
+  "heartbeat",
+  "dark",
+  "brace",
+  "buckle",
+  "vent",
+  "cross",
+  "turn",
+] as const;
 export type MantlePhase = (typeof MANTLE_PHASES)[number];
 
 /** The seam has no spark leaking from it. */
@@ -75,8 +86,8 @@ export interface MantleState {
   /** Whether each handle has a thumb on it, in any phase — the chord the
    * brace reads (`CHORD`). Index as `depthMilli`. */
   held: [boolean, boolean];
-  /** Beats the brace has been held by both thumbs at once; nought again the
-   * moment either lifts. */
+  /** Beats the brace has been held by both thumbs at once, or the buckle
+   * pressed flat by both; nought again the moment either lifts. */
   braceBeats: number;
 }
 
@@ -98,6 +109,21 @@ export function mantlePulling(s: MantleState): boolean {
 /** The shell shuddering before the last pair: both handles held, not pulled. */
 export function mantleBracing(s: MantleState): boolean {
   return s.phase === "brace";
+}
+
+/** The weakened valve bulging out: both thumbs down and eased off, not pulled. */
+export function mantleBuckling(s: MantleState): boolean {
+  return s.phase === "buckle";
+}
+
+/** A vent hissing open along the crack: one tap on it shuts it. */
+export function mantleVenting(s: MantleState): boolean {
+  return s.phase === "vent";
+}
+
+/** The split halves swinging open: both handles pulled once more, gently. */
+export function mantleTurning(s: MantleState): boolean {
+  return s.phase === "turn";
 }
 
 /** Whether the pull under way is the last pair's, the one with a window. */

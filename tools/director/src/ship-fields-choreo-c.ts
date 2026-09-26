@@ -77,6 +77,12 @@ export const CHOREO_FIELD_GROUP_C = {
   mantleOpenBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
   mantleBraceBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
   mantleLastBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleBuckleBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleBuckleWindowBeats:
+    "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleVentBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleCrossBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleTurnBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
   // KeelConfig — how many segments, and the patience of every row of the
   // beat list: the joint's window per movement, the rest, the split, the
   // socket, the rigid hold, the rock's fall and the end (`config-keel.ts`).

@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { mantlePairsLeft } from "../src/index.js";
 import { slowing } from "../src/slow.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
-import { beat, brace, CFG, install, lit, mantle, pull, runTo } from "./mantle-rig.js";
+import { beat, brace, CFG, install, lit, mantle, pull, runTo, story } from "./mantle-rig.js";
 
 /**
  * THE MANTLE's brace (§23 rows 7 and 8): before the last pair the seam glows
@@ -15,19 +15,23 @@ import { beat, brace, CFG, install, lit, mantle, pull, runTo } from "./mantle-ri
  * window run out resets rather than strikes.
  */
 
-/** The first of two pairs sheared: the shell is glowing. */
+/** The first of two pairs sheared and the story told: the shell is glowing,
+ * both thumbs put down on it. */
 function toGlow(): ReturnType<typeof install> {
   const world = install();
   lit(world);
   const t = world.tick;
   runTo(world, t + 1, [pull(t, 1, 800), pull(t, 2, 800)]);
-  const seen = beat(world);
+  beat(world);
+  const seen = story(world);
   if (!seen.has("mantleGlow")) throw new Error("the shell never glowed");
+  const t2 = world.tick;
+  runTo(world, t2 + 1, [pull(t2, 1, 0), pull(t2, 2, 0)]);
   return world;
 }
 
 describe("the glow", () => {
-  it("comes on the shear before the last pair, under THE SLOW, asking", () => {
+  it("comes after the story that follows the shear before the last pair, under THE SLOW, asking", () => {
     const world = toGlow();
     expect(mantle(world).phase).toBe("brace");
     expect(mantlePairsLeft(mantle(world))).toBe(1);
@@ -42,7 +46,8 @@ describe("the glow", () => {
     const seen = runTo(world, t + 1, [pull(t, 1, 800), pull(t, 2, 800)]);
     for (const e of beat(world)) seen.add(e);
     expect(seen.has("mantleGlow")).toBe(false);
-    expect(mantle(world).phase).toBe("heartbeat");
+    expect(seen.has("mantleBuckle")).toBe(false);
+    expect(mantle(world).phase).toBe("turn");
   });
 });
 
@@ -107,6 +112,6 @@ describe("the last pull", () => {
     const t = world.tick;
     runTo(world, t + 1, [pull(t, 1, 1200), pull(t, 2, 1200)]);
     expect(beat(world).has("mantleSplit")).toBe(true);
-    expect(mantle(world).phase).toBe("heartbeat");
+    expect(mantle(world).phase).toBe("turn");
   });
 });

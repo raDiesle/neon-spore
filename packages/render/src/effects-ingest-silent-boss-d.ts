@@ -15,6 +15,17 @@ import type { SimEvent } from "@neon-spore/sim";
  * *this event leaves nothing behind for the next frame*.
  */
 export const INGEST_SILENT_BOSS_D = [
+  // THE MANTLE's story beats, landed after page three filled: the buckle,
+  // the vent, the crosswise crack and the turn are read off the state each
+  // frame, and nothing of them outlives one (`sim/mantle-story.ts`).
+  "mantleBuckle",
+  "mantleFlat",
+  "mantleVent",
+  "mantleSeal",
+  "mantleCross",
+  "mantleTurn",
+  "mantleSwing",
+  "mantleTurned",
   // THE SLING's twelve: nothing is drawn yet, so nothing outlives a frame
   // (`packages/audio/src/bind-sling.ts`).
   "slingEnter",

@@ -204,6 +204,14 @@ export const NO_SUBJECT_C: Record<string, string> = {
   "boss.mantleSteady": "the brace held and the shudder settling. Same argument, and an absence.",
   "boss.mantleLapse":
     "the last pull's window run out and the stiff pair clapping shut. Same argument.",
+  "boss.mantleBuckle": "the last pair bulging, to be held down eased. Same argument.",
+  "boss.mantleFlat": "the bulge pressed flat. Same argument, and an absence.",
+  "boss.mantleVent": "the vent hissing open along the crack. Same argument.",
+  "boss.mantleSeal": "the vent tapped shut. Same argument, and an absence.",
+  "boss.mantleCross": "the second crack crossing the first. Same argument.",
+  "boss.mantleTurn": "the halves swinging loose, to be guided open. Same argument.",
+  "boss.mantleSwing": "the turn's window run out and the halves swinging back. Same argument.",
+  "boss.mantleTurned": "the halves guided open onto the core. Same argument.",
   // THE KEEL's sixteen. A spine arched over the field: a fixture, THE
   // MANTLE's argument, and nothing about it is drawn yet (`sim/events-keel.ts`).
   "boss.keelEnter": "the spine settling over the field. A fixture, not a body on a grid.",

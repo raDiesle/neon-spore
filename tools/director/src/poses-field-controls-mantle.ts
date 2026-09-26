@@ -1,6 +1,8 @@
 import { MANTLE_SCRIPT } from "@neon-spore/content";
+import { mantleHand } from "@neon-spore/hands";
 import type { TimedCommand, World } from "@neon-spore/sim";
 import { fresh, type Pose, run, runUntil, POSE_TPB as TPB } from "./pose-kit.js";
+import { phaseOf, runHand } from "./poses-bosses-kit.js";
 
 /**
  * THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on
@@ -66,11 +68,9 @@ const MANTLE_CORE: Pose = {
   role: "p1",
   build: () => {
     const w = fresh([], [], { kind: "mantle", thresholds: MANTLE_SCRIPT });
-    for (let i = 0; i < MANTLE_SCRIPT.length; i++) {
-      run(w, TPB * 3);
-      run(w, TPB, [pulled(w.tick, 1, 1300), pulled(w.tick, 2, 1300)]);
-    }
-    runUntil(w, "the split", [], (x) => x.boss?.kind === "mantle" && x.boss.phase === "heartbeat");
+    // The whole story played by the hand that plays it on the STATES sheet:
+    // the pulls, the buckle, the vent, the brace and the turn.
+    runHand(w, "the split", mantleHand, (x) => phaseOf(x) === "heartbeat", TPB * 160);
     const tap: TimedCommand = {
       tick: w.tick,
       player: 1,

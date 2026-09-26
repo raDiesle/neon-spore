@@ -31,6 +31,22 @@ export type MantleEvent =
   | ({ type: "mantleSteady" } & MantleColEvent)
   /** The last pair's window ran out unsheared: it resets, and asks again. */
   | ({ type: "mantleLapse" } & MantleColEvent)
+  /** The third shear left one pair: the weakened valve bulges out. */
+  | ({ type: "mantleBuckle" } & MantleColEvent)
+  /** Both handles held eased off: the bulge pressed flat. */
+  | ({ type: "mantleFlat" } & MantleColEvent)
+  /** A vent hisses open along the crack. */
+  | ({ type: "mantleVent" } & MantleColEvent)
+  /** The vent tapped shut. */
+  | ({ type: "mantleSeal" } & MantleColEvent)
+  /** A second crack crosses the first, the core's light behind it. */
+  | ({ type: "mantleCross" } & MantleColEvent)
+  /** The split halves swing on their hinges, waiting to be guided open. */
+  | ({ type: "mantleTurn" } & MantleColEvent)
+  /** The turn's window ran out: the halves swing back, and it asks again. */
+  | ({ type: "mantleSwing" } & MantleColEvent)
+  /** Both handles guided the halves open: the core sits bared. */
+  | ({ type: "mantleTurned" } & MantleColEvent)
   /** The core's spark leaks, unanswered. */
   | ({ type: "mantleLeak" } & MantleColEvent)
   /** The leaking spark was shot out, in either colour. */

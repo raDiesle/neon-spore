@@ -452,6 +452,7 @@ by hand never moves.
 | `packages/sim/src/mantle-hash.ts` | What THE MANTLE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/mantle-shot.ts` | **THE MANTLE's one target**: the spark leaking from the bared core once the shell is fully split (§23 |
 | `packages/sim/src/mantle-step.ts` | THE MANTLE's clock: the handles lighting, the sum judged every beat, the shear, the spark, the brace |
+| `packages/sim/src/mantle-story.ts` | **THE MANTLE fighting back** (§23 rows 7 to 12) |
 | `packages/sim/src/mantle.ts` | THE MANTLE: a hinged carapace shell, closed over a soft core, pried open by two hands pulling **together** |
 | `packages/sim/src/moult.ts` | THE MOULT: one body that is a rock half the time and a cargo the other half |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
@@ -2057,7 +2058,7 @@ by hand never moves.
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-grindstone.ts` | THE GRINDSTONE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
-| `packages/audio/src/bind-mantle.ts` | THE MANTLE's fourteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hasp.ts` | THE HASP's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
@@ -2725,7 +2726,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's five states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
-| `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's six states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
+| `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
 | `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's eight states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |

@@ -90,7 +90,9 @@ describe("the second shear leaks a spark", () => {
     expect(mantle(world).sparkCol).not.toBe(NO_SPARK);
     const seen = beat(world, CFG.mantleSparkBeats + 1);
     expect(seen.has("mantleSparkHit")).toBe(true);
-    expect(mantle(world).sparkCol).toBe(NO_SPARK);
+    // The buckle left bulging tears on the same beat and leaks another, so the
+    // strike is read off the wave rather than off an empty seam.
+    expect(world.failTick).not.toBe(NOT_FAILED);
   });
 
   it("and nothing strikes the pair for taking as long as they like otherwise", () => {

@@ -1,5 +1,5 @@
 /**
- * THE MANTLE's fourteen, in a file of their own for `boss-gorge.ts`' reason.
+ * THE MANTLE's twenty-two, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **hinged carapace shell over a soft core**, and everything
  * here is the sound of hinged metal giving way rather than turned metal —
@@ -17,6 +17,7 @@
  * The brace before the last pair is a low groan under the seam's glow; the
  * slip is the groan catching, a dull knock; the steady is the groan settling
  * onto one held note; the lapse is the stiff last pair clapping back shut.
+ * Between: a creak, a knock, a hiss, its click, a crack, and loose hinges.
  * Low and soft under the band, or short and high above it, as ever
  * (`docs/spec/audio.md` §1).
  */
@@ -173,5 +174,77 @@ export const BOSS_MANTLE_SOUNDS: SoundDef[] = [
     use: "The last pull's window ran out unsheared: it resets, and asks again.",
     level: 0.42,
     layers: [tick(0.2, 0, 2000), after(0.01, thud(200, 110, 0.1, 0.28))],
+  },
+  {
+    id: "boss.mantleBuckle",
+    family: "boss",
+    blurb: "The weakened valve bulging: a low metal creak.",
+    status: "bound",
+    use: "The third shear: the last pair bulges out, to be held down eased.",
+    level: 0.4,
+    layers: [sub(58, 0.5, 0.3), after(0.06, metal(180, 0.4, 0.14, 160))],
+  },
+  {
+    id: "boss.mantleFlat",
+    family: "boss",
+    blurb: "The bulge pressed back: a soft dull knock.",
+    status: "bound",
+    use: "Both handles held eased for its beats: the buckle lies flat.",
+    level: 0.36,
+    layers: [thud(170, 90, 0.1, 0.26), after(0.03, soft(0.5, glint(1400, 0.3, 0.08)))],
+  },
+  {
+    id: "boss.mantleVent",
+    family: "boss",
+    blurb: "A seam aperture hissing open.",
+    status: "bound",
+    use: "The vent opens along the crack: one tap on it shuts it.",
+    level: 0.34,
+    layers: [air(2200, 900, 0.3, 0.12, 1.2), after(0.02, tick(0.12, 0, 2400))],
+  },
+  {
+    id: "boss.mantleSeal",
+    family: "boss",
+    blurb: "The vent clicked shut.",
+    status: "bound",
+    use: "A tap on the open vent: it shuts, and no spark is fed.",
+    level: 0.36,
+    layers: [tick(0.16, 0, 2800), after(0.02, thud(210, 110, 0.08, 0.24))],
+  },
+  {
+    id: "boss.mantleCross",
+    family: "boss",
+    blurb: "A second crack crossing the first, the core's light behind it.",
+    status: "bound",
+    use: "The crosswise crack: a picture beat before the brace.",
+    level: 0.4,
+    layers: [metal(240, 0.3, 0.18, 220), after(0.1, soft(0.6, glint(1600, 0.5, 0.1)))],
+  },
+  {
+    id: "boss.mantleTurn",
+    family: "boss",
+    blurb: "The halves swinging loose on their hinges.",
+    status: "bound",
+    use: "The last shear: the halves swing, to be guided open with both handles.",
+    level: 0.4,
+    layers: [swell(90, 0.6, 0.14), after(0.2, metal(200, 0.3, 0.12, 180))],
+  },
+  {
+    id: "boss.mantleSwing",
+    family: "boss",
+    blurb: "The halves swinging back to shut.",
+    status: "bound",
+    use: "The turn's window ran out: the halves swing back, and ask again.",
+    level: 0.38,
+    layers: [thud(180, 100, 0.1, 0.28), after(0.04, metal(220, 0.25, 0.1, 200))],
+  },
+  {
+    id: "boss.mantleTurned",
+    family: "boss",
+    blurb: "The hinges opening wide onto the core.",
+    status: "bound",
+    use: "Both handles guided the halves open: the core is bared.",
+    level: 0.42,
+    layers: [swell(120, 0.4, 0.16), after(0.12, sub(48, 0.5, 0.3))],
   },
 ];

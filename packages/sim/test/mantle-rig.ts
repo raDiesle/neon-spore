@@ -14,7 +14,7 @@ import {
 /**
  * THE MANTLE's test rig: a shell installed, a thumb on a handle or the core
  * as the pair would put it there, and the fight driven to its finish. Shared
- * by `mantle.test.ts` and `mantle-brace.test.ts`.
+ * by `mantle.test.ts`, `mantle-brace.test.ts` and `mantle-story.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -88,13 +88,39 @@ export function brace(world: World): Set<string> {
   return seen;
 }
 
-/** Every pair but the last sheared, the brace held, and the last pair pulled. */
+/** The buckle pressed flat with both thumbs eased, both let go and the vent
+ * tapped shut, and the crosswise crack shown: the shell glowing, asking for
+ * the brace. */
+export function story(world: World): Set<string> {
+  const t = world.tick;
+  const seen = runTo(world, t + 1, [pull(t, 1, 0), pull(t, 2, 0)]);
+  for (const e of beat(world, CFG.mantleBuckleBeats + 1)) seen.add(e);
+  const t2 = world.tick;
+  const up = [pull(t2, 1, 0, false), pull(t2, 2, 0, false), tapCore(t2, 1)];
+  for (const e of runTo(world, t2 + 1, up)) seen.add(e);
+  for (const e of beat(world, CFG.mantleCrossBeats + 1)) seen.add(e);
+  return seen;
+}
+
+/** Both handles pulled past the floor while the halves swing: the core bared. */
+export function guideOpen(world: World): Set<string> {
+  const t = world.tick;
+  const seen = runTo(world, t + 1, [pull(t, 1, 1200), pull(t, 2, 1200)]);
+  for (const e of beat(world)) seen.add(e);
+  return seen;
+}
+
+/** Every pair sheared, the story told and braced between, and the halves
+ * guided open onto the core. */
 export function toFinale(world: World): void {
   for (let i = 0; i < THRESHOLDS.length; i++) {
-    if (i === THRESHOLDS.length - 1) brace(world);
-    else lit(world);
+    if (i === THRESHOLDS.length - 1) {
+      story(world);
+      brace(world);
+    } else lit(world);
     const t = world.tick;
     runTo(world, t + 1, [pull(t, 1, 1200), pull(t, 2, 1200)]);
     beat(world);
   }
+  guideOpen(world);
 }

@@ -2,9 +2,12 @@ import {
   type MantleState,
   mantleBoss,
   mantleBracing,
+  mantleBuckling,
   mantleFinale,
   mantleLeaking,
   mantlePulling,
+  mantleTurning,
+  mantleVenting,
   type TimedCommand,
   ticksPerBeat,
   type World,
@@ -27,6 +30,11 @@ import {
  * the shell reports let go is pressed at the top of its groove, and nothing
  * lifts until the last pull lights.
  *
+ * **The story between** (§23 rows 7 to 12): the buckle is the brace's thumb
+ * laid on at nought, eased rather than pulling; the vent is one tap on the
+ * core, player 1's, the finish's edge; the turn is both handles at the floor,
+ * which is the least that guides the halves open.
+ *
  * **The finish is an edge**: a tap is judged on the press, so the seat whose
  * turn it is presses once every half beat and lets go on the tick after,
  * which is a thumb and not a held finger.
@@ -40,11 +48,11 @@ type Press = Omit<TimedCommand, "tick">;
 export const mantleHand = (w: World): Press[] => {
   const s = mantleBoss(w);
   if (s === null) return [];
-  return [...spark(s), ...brace(s), ...pull(w, s), ...tap(w, s)];
+  return [...spark(s), ...brace(s), ...pull(w, s), ...turn(w, s), ...vent(w, s), ...tap(w, s)];
 };
 
 function brace(s: MantleState): Press[] {
-  if (!mantleBracing(s)) return [];
+  if (!mantleBracing(s) && !mantleBuckling(s)) return [];
   const out: Press[] = [];
   for (const index of [0, 1] as const) {
     if (s.held[index]) continue;
@@ -78,6 +86,29 @@ function pull(w: World, s: MantleState): Press[] {
     });
   }
   return out;
+}
+
+function turn(w: World, s: MantleState): Press[] {
+  if (!mantleTurning(s)) return [];
+  const depth = w.cfg.mantleFloorMilli;
+  const out: Press[] = [];
+  for (const index of [0, 1] as const) {
+    if (s.depthMilli[index] >= depth) continue;
+    const target = index === 0 ? "mantleLeft" : "mantleRight";
+    const player = index === 0 ? 1 : 2;
+    out.push({
+      player,
+      command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: depth },
+    });
+  }
+  return out;
+}
+
+function vent(w: World, s: MantleState): Press[] {
+  if (!mantleVenting(s)) return [];
+  const at = w.tick % Math.max(2, Math.floor(ticksPerBeat(w.cfg) / 2));
+  if (at === 0) return [core(1, true)];
+  return at === 1 ? [core(1, false)] : [];
 }
 
 function tap(w: World, s: MantleState): Press[] {

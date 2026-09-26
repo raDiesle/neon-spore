@@ -209,6 +209,14 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "mantleSlip":
     case "mantleSteady":
     case "mantleLapse":
+    case "mantleBuckle":
+    case "mantleFlat":
+    case "mantleVent":
+    case "mantleSeal":
+    case "mantleCross":
+    case "mantleTurn":
+    case "mantleSwing":
+    case "mantleTurned":
       return mantleCue(e, cols);
     case "keelEnter":
     case "keelLight":
