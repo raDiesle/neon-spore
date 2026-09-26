@@ -634,6 +634,7 @@ promote it out of "read" into its own queued fix.
 ## The still-life gradient fix has five more boss flesh files to check
 
 - **Found:** 2026-09-26, cloud session (this session, stopping here per the
+- **Taken:** 2026-09-26, claude/queue-the-still-life-gradient-fix-has-five-more-boss-f
   owner's *"slow down the project's parallelization"*)
 - **Files:** `packages/render/src/baton-flesh.ts`,
   `packages/render/src/gorge-flesh.ts`,
