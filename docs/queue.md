@@ -434,6 +434,7 @@ an alignment.
 ## THE INSTAR, a last step: the moult
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Taken:** 2026-09-26, claude/queue-the-instar-coil-the-blades-wind-opposite-ways (claim: claude/queue-the-instar-a-last-step-the-moult)
 - **Files:** `packages/sim/src/instar-words.ts`, `packages/render/src/instar-poses.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-draw.ts`, `packages/content/src/instar-script.ts`, `docs/spec/bosses.md`
 
 An instar is the stage between two moults, and the boss never moults. Put an
