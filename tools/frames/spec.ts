@@ -14,9 +14,10 @@ import type { Crop } from "./crop.js";
 import type { FaultSpec } from "./fault.js";
 import type { OpeningStop } from "./opening.js";
 import type { HandSpec, HoldSpec, PressSpec } from "./press-spec.js";
+import type { StageSpec } from "./stage-spec.js";
 import type { UntilSpec } from "./until.js";
 
-export interface FrameSpec {
+export interface FrameSpec extends StageSpec {
   /** 0-based wave index, the same number `jumpToWave` already takes. */
   wave: number;
   /**
@@ -56,32 +57,6 @@ export interface FrameSpec {
   frames?: number;
   /** Ticks between frames of a strip. Ignored when `frames` is 1. */
   strideTicks?: number;
-  /** CSS viewport the phone is drawn at. A fixed size is part of what makes
-   * two captures comparable — the layout math reads the viewport back. */
-  viewport?: { width: number; height: number };
-  /**
-   * Whose screen this is. Omitted leaves the build's own default, which is the
-   * test rig showing both halves at once.
-   *
-   * A creature whose whole point is that the two devices carry two different
-   * pictures — THE VEIL, THE LURE, THE DART — cannot be photographed at all
-   * without this: the rig's frame is neither of the two frames a player sees,
-   * and it is the one this tool used to be able to take.
-   */
-  seat?: "p1" | "p2" | "test";
-  /**
-   * Open the page with `?raster=1`, so the baked looks the game keeps behind
-   * that flag are fetched and installed — the burst over a destroyed creature
-   * and THE CLASP's hand-painted shield (`apps/game/src/raster.ts`).
-   *
-   * It exists because those looks were unphotographable. CLAUDE.md's rule is
-   * to send the owner the frame rather than ask him to open anything, and the
-   * one thing an offered look needs is a picture of it beside the shipped one;
-   * without this the only way to see either was to type the flag into a
-   * browser by hand, which is exactly what this tool exists to have ended.
-   * Off by default, so every capture ever taken means the same thing it did.
-   */
-  raster?: boolean;
   /**
    * How many pages into the rehearsal to stand, counted from the first — `1`
    * is the second page. Only with `opening: "guide"`.
@@ -182,15 +157,6 @@ export interface FrameSpec {
    */
   at?: Crop;
   /**
-   * How much of the browser's own resolution to spend on it: the device scale
-   * factor the page is opened at.
-   *
-   * A *magnification*, not a resize. At 3 the game is drawn at three times the
-   * pixel density and the layout is untouched, so a cropped rectangle comes
-   * back sharp instead of as forty pixels stretched over a hundred and twenty.
-   */
-  zoom?: number;
-  /**
    * Stand in the wave's own opening instead of running past it.
    *
    * Every capture this tool has ever taken went through `clearOpening`
@@ -242,6 +208,7 @@ export interface FrameSpec {
  * already asked this file for one of them is asking the right question.
  */
 export type { HandSpec, HoldSpec, PressSpec } from "./press-spec.js";
+export type { StageSpec } from "./stage-spec.js";
 
 // The handle itself — every field of `window.neonSpore` a capture reaches
 // for, and why each of them is optional. Imported for its side effect: a

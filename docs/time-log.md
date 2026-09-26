@@ -21547,3 +21547,16 @@ Bottleneck: **reading** — the pure merge passed on today's file, and the cause
 only showed on the ledger as it stood that day, where every base refused.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `bun run frames --level easy|medium|hard`
+
+- reading: 5 min. The frames flags, the spec, the page's seat script, and where
+  the game keeps and reads the level.
+- writing: 5 min. `flags.ts` and `spec.ts` split first, the level written into
+  the progress record before boot beside the seat, a parse and storage test.
+- looking: 0 min. Three captures compared by hash: Medium twice and Hard once.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — the seat already showed where a value read
+at boot has to be written.

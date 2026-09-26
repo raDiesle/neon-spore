@@ -2283,6 +2283,7 @@ by hand never moves.
 | `tools/frames/serve.ts` | Getting one *revision* of this game running, so a frame can be taken off it: a scratch worktree, an install |
 | `tools/frames/shot.ts` | `bun run shot <#selector> <out.png> [--serve] [--open "≡ RELEASE NOTES"] [--tab GRAPHICS]` — one element of the running director |
 | `tools/frames/spec.ts` | What a capture is asked for, and what it finds in the page when it gets there |
+| `tools/frames/stage-spec.ts` | How a capture's page is opened: size, zoom, seat, level, the baked looks |
 | `tools/frames/svg.ts` | `bun run png <in.svg> <out.png>` — turn a sheet into something a phone shows |
 | `tools/hooks/guard.ts` | The PreToolUse guard: a handful of Bash commands that are wrong in this repo specifically |
 | `tools/hooks/scope.ts` | The Stop hook typechecks unconditionally and then decides which test directories can possibly have moved |
@@ -2400,6 +2401,7 @@ by hand never moves.
 | `tools/maze/draw.ts` | Draw a sheet for THE MAZE: the walls of one circular maze |
 | `tools/maze/run.ts` | `bun run maze` — draw a sheet for THE MAZE, ready to paste into `packages/content/src/maze-rounds.ts` |
 | `tools/frames/page.ts` | Getting a tab to the moment the world is the capture's, before the first tick |
+| `tools/frames/page-storage.ts` | The seat and the level written into a capture's page storage before it boots |
 | `tools/maze/carve.ts` | The walls of THE MAZE's grid: which of them are opened |
 | `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
@@ -2661,7 +2663,8 @@ by hand never moves.
 | `tools/frames/crank.ts` | A turn of THE CLAW's crank, expanded from one `--press` into the stream of bearings that winds rope |
 | `tools/frames/drive.ts` | The three verbs a capture drives the page with, and the rule each of them carries |
 | `tools/frames/director-serve.ts` | GETTING A DIRECTOR RUNNING SO A PICTURE CAN BE TAKEN OFF IT |
-| `tools/frames/flags.ts` | Every `--hold` on the command line rather than the first, and the one tick line the ticked ones join |
+| `tools/frames/flags.ts` | The whole `frames` command line, read and validated once into a `FrameSpec` |
+| `tools/frames/flag-lists.ts` | Every `--hold` and `--press` on the command line rather than the first, and the one tick line they join |
 | `tools/frames/fault.ts` | `--fault <kind>[:<numbers>]` — the wave's fault, written on the world from outside it |
 | `tools/frames/frame-files.ts` |  |
 | `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |

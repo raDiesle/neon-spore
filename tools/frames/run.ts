@@ -36,10 +36,11 @@ import { dirname, join } from "node:path";
  * | `--opening` | `opening.ts`; a rehearsal's own clock in `guide-film.ts` |
  * | `--guide-page` | `opening-hold.ts` |
  * | `--at`, `--zoom` | `crop.ts` |
- * | `--hold` | `hold.ts`; every one of them, not the first, in `flags.ts` |
+ * | `--hold` | `hold.ts`; every one of them, not the first, in `flag-lists.ts` |
  * | `--hand`, `--hand-over` | `hand.ts` |
  * | `--press` | `press.ts`; the column it names in `press-column.ts` |
- * | `--settle`, `--boss-round`, `--seat`, `--ticks`, `--size` | `spec.ts`, on the field each one sets |
+ * | `--settle`, `--boss-round`, `--ticks` | `spec.ts`, on the field each one sets |
+ * | `--seat`, `--level`, `--size`, `--raster` | `stage-spec.ts`; the stored two in `page-storage.ts` |
  * | `--wave` | `wave.ts`, which answers it against the right list |
  *
  * What is left here is one **recipe** per flag, which is what somebody reaching
@@ -58,6 +59,7 @@ import { dirname, join } from "node:path";
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames . --wave 21 --seat p1 --size 390x660   a short phone, its bars out
+ *   bun run frames . --wave 3 --level hard   on HARD: its tempo, and the wasted shot's ricochet
  *   bun run frames . --wave "THE CLASP" --raster   the baked looks, which are off by default
  *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  a thumb on a cord
  *   bun run frames <sha> --wave 21 --hold balloonLeft=-1600,id=1 --hold balloonRight=1600,id=1   both hands
@@ -107,7 +109,7 @@ async function main(): Promise<void> {
   const sha = argv[0];
   if (!sha || sha.startsWith("--")) {
     throw new Error(
-      'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
+      'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] [--level easy|medium|hard] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
         "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
         "[--settle N] [--size WxH] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] " +

@@ -3,7 +3,8 @@ import { controlSetForWave, WAVES } from "@neon-spore/content";
 import { MALFUNCTION_KINDS } from "@neon-spore/sim";
 import { crankPresses } from "../crank.js";
 import { FAULT_FLAG_KINDS, parseFault, TO_THE_END } from "../fault.js";
-import { collectHolds, parseFrameSpec, tickLine } from "../flags.js";
+import { collectHolds, tickLine } from "../flag-lists.js";
+import { parseFrameSpec } from "../flags.js";
 import { parseHoldFlag } from "../hold.js";
 import { parsePress } from "../press.js";
 

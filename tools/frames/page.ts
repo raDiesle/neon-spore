@@ -4,6 +4,7 @@ import { installFault } from "./fault.js";
 import { type OffOrigin, refuseOffOrigin } from "./offline.js";
 import { clearOpening } from "./opening.js";
 import { turnGuide } from "./opening-hold.js";
+import { storeBeforeBoot } from "./page-storage.js";
 import type { FrameSpec } from "./spec.js";
 
 /**
@@ -19,17 +20,6 @@ import type { FrameSpec } from "./spec.js";
  */
 
 const DEFAULT_VIEWPORT = { width: 390, height: 844 } as const;
-
-/**
- * `STORAGE_KEY` from `apps/game/src/view.ts`, copied for `OPENING_PLAY`'s
- * reason: the line that reads it runs in the browser, before the bundle loads,
- * where nothing this file imports exists. The view switch restores the seat
- * from this key on startup, so writing it is the same as having pressed the
- * button — and a key that went stale would leave every seated capture silently
- * back on the test rig, which is why the string is named here rather than
- * inlined at the call.
- */
-const SEAT_KEY = "neon-spore.view";
 
 /** Where a page's own thrown errors are collected, so the frame loop can
  * refuse to keep photographing a broken build. */
@@ -68,22 +58,9 @@ export async function openStage(
   // not depend on a third party being up (`offline.ts`).
   const offOrigin = await refuseOffOrigin(page, baseUrl);
 
-  // Before the bundle runs, not after: the view switch reads its seat once
-  // on startup and the layout is computed from it, so a seat set afterwards
-  // would be a second frame's worth of work and a first frame of the wrong
-  // screen.
-  if (spec.seat) {
-    // A refusal to store leaves the capture on whatever the build defaults
-    // to, which is the same shape `view.ts` takes when storage says no.
-    await page.addInitScript(
-      ([key, seat]: string[]) => {
-        try {
-          localStorage.setItem(key as string, seat as string);
-        } catch {}
-      },
-      [SEAT_KEY, spec.seat],
-    );
-  }
+  // Before the bundle runs, not after: the seat and the level are read once
+  // on startup (`page-storage.ts`).
+  await storeBeforeBoot(page, spec);
 
   // **The loop is parked before the bundle can start it**, and that is the only
   // place it can be parked from: `window.neonSpore` appears during module
