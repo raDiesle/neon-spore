@@ -2695,3 +2695,17 @@ both sides' rows. The verlet lane dropped the row. What to do: find where
 `land`/`reconcile` merges `docs/INDEX.md`, make it re-run `bun run index`
 (or refuse) when two rows share a path, and prove it with a test that feeds
 it the two sides this commit had.
+
+## Unverified at 8a048e010: THE TRIVET's plant thud, clamp flare, hub flash and co…
+
+- **Found:** 2026-09-26, tmp-trivet-fx
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`
+
+*THE TRIVET's receipts drawn: a plant thuds, a clamp flares as it locks, a hub hit flashes wider each time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
+
+- THE TRIVET's plant thud, clamp flare, hub flash and collapse seen at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8a048e010 — THE TRIVET's receipts drawn: a plant thuds, a clamp flares as it locks, a hub hit flashes wider each time
+
+A foot driven home now presses the whole stand down a touch, throws grit off its plate and sends a shudder down the plating; the plant that locks a clamp flares along it. A hub hit flashes in the lit step's colour, wider for every hit the stand has taken, and both deal the blow every boss takes. The collapse flashes the hub pale and shudders the hull harder. Steps lighting, slips, springs, the brace and the rock throw small bursts only.
+
 ## 2026-09-26 · 17331e932 — THE TRIVET lurches onto one foot and flings a needle, two action steps under THE SLOW
 
 The lurch: the stand leans hard onto a foot and the hub swings two columns off the middle; that foot's seat holds its chord while the pair shoots the swung hub in its colour. The needle: the hub flings one down a column two to the other side, turned by the shield under it (trivetTurn, the shield's own deflect). Either run out is a hull hit over its own column. The script is now eleven steps and four hits; the AUTO hand answers both, and the wave editor keeps a step's offset when it saves. Simulation only: neither is drawn yet. Nothing delegated.

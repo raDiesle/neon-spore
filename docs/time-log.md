@@ -24656,3 +24656,5 @@ Bottleneck: writing — the rig's `answer` had to learn the two new asks before 
 - landing: 10 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: friction — two sessions writing the next reading page at once, found only at the rebase.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
