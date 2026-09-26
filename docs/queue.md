@@ -434,6 +434,7 @@ an alignment.
 ## `wouldHear` asks each press of a one-tick gesture alone
 
 - **Found:** 2026-09-25, claude/task-queue-work-efc91a
+- **Taken:** 2026-09-26, claude/queue-bun-run-shot-has-no-way-to-name-a-wave-and-the-f (claim: claude/queue-wouldhear-asks-each-press-of-a-one-tick-gesture)
 - **Files:** `apps/game/src/handle-press.ts`, `tools/frames/drive.ts`, `tools/frames/report.ts`
 
 `bun run frames . --wave "THE INSTAR" --boss cursor=1,phase=act,phaseBeat=now
