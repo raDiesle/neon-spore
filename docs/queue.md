@@ -2297,6 +2297,7 @@ when the wave misses unattended), or land it `--unverified` if it does not.
 ## THE GIMBAL's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-26, claude/gimbal-blow (claim: claude/queue-the-gimbals-own-blow-at-the-hull)
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
 
 THE GIMBAL's timeout already calls `bossStrikesHull` (`packages/sim/src/gimbal-step.ts`)
