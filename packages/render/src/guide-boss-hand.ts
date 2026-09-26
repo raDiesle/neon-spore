@@ -55,5 +55,9 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
     if (b.gapMilli[seat === 1 ? 0 : 1] >= world.cfg.viseOpenMilli) return null;
     return handleCircle(l, world, seat === 1 ? "viseLobeLeft" : "viseLobeRight", beatPhase);
   }
+  if (b?.kind === "sling") {
+    if (!b.holding[seat === 1 ? 0 : 1]) return null;
+    return handleCircle(l, world, seat === 1 ? "slingDrawLeft" : "slingDrawRight", beatPhase);
+  }
   return null;
 }

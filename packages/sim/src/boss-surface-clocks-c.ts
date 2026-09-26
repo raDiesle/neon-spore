@@ -192,6 +192,7 @@ export {
   slingLitStep,
   slingSwipe,
 } from "./sling.js";
+export { slingWindowBeats } from "./sling-step.js";
 // THE TRIVET's stand: the phase, the lit step, the feet and both seats' pads,
 // for the picture, the cue and the director's hand. Straight off `trivet.ts`
 // (`docs/spec/bosses-choreographed.md` §30).

@@ -1195,6 +1195,11 @@ by hand never moves.
 | `packages/render/src/sinew-shape.ts` | **Where THE SINEW is**, in field pixels: the root the tendon hangs from, the mass on the end of it |
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
+| `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |
+| `packages/render/src/sling-grip.ts` | **THE SLING's two cords as controls**: `slingDrawLeft` is the pilot's (seat 1) |
+| `packages/render/src/sling-marks.ts` | A step's colour on the canvas: its cannon's, or the hull's rim for one either answers (§32) |
+| `packages/render/src/sling-pose.ts` | **The clock THE SLING is posed off** (§32) |
+| `packages/render/src/sling-shape.ts` | **THE SLING's geometry**: a forked bracket bolted over the middle column |
 | `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record the look is one field on, and the pass that reads it |
 | `packages/render/src/slow-lens.ts` | **What a lens over THE SLOW's window needs and is not about**: the frame's own pixels |
 | `packages/render/src/slow-intake-aim.ts` | Where the body a window is about stands and how wide it is, and how far up the look stands this frame |

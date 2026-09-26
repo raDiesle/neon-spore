@@ -17,6 +17,7 @@ import { mantleCoreTarget, mantleKnobStanding, mantleTakesPull } from "./mantle-
 import { oculusHalfStanding, oculusTakesHold } from "./oculus-grip.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
 import { sinewHandleAt } from "./sinew-handles.js";
+import { slingDrawCircle } from "./sling-grip.js";
 import { spoolKnobStanding, spoolTakesHand } from "./spool-grip.js";
 import { surgeBulbCircle } from "./surge-shape.js";
 import { viseLobeStanding, viseTakesPinch } from "./vise-grip.js";
@@ -156,6 +157,13 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "vise" ? world.boss : null;
     if (b === null || !viseTakesPinch(b)) return null;
     return viseLobeStanding(l, world, b, target === "viseLobeLeft" ? 1 : 2, beatPhase);
+  }
+  if (target === "slingDrawLeft" || target === "slingDrawRight") {
+    // THE SLING's two cords, each at the rest handle where its own seat's
+    // thumb takes it — the fork's own tines never move (`sling-grip.ts`).
+    const b = world.boss?.kind === "sling" ? world.boss : null;
+    if (b === null) return null;
+    return slingDrawCircle(l, cfg, b, target === "slingDrawLeft" ? 0 : 1, world.beat, beatPhase);
   }
   return undefined;
 }

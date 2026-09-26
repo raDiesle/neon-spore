@@ -201,4 +201,8 @@ export const CREATURE_HUES = {
    */
   rimeFrost: "#CDD6E0",
   rimeFrostDeep: "#6D7885",
+  /** THE SLING's fork: scoured steel, its shadow, and the cord drawn off each tine. */
+  slingSteel: "#8B95A3",
+  slingSteelDark: "#333A44",
+  slingCord: "#C9BFA8",
 } as const;

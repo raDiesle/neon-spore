@@ -10,6 +10,7 @@ import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawRime } from "./rime-draw.js";
 import { drawSeam } from "./seam-draw.js";
+import { drawSling } from "./sling-draw.js";
 import { drawSpool } from "./spool-draw.js";
 import { drawValve } from "./valve-draw.js";
 import { drawVise } from "./vise-draw.js";
@@ -45,6 +46,7 @@ export const PAIR_KINDS = [
   "oculus",
   "vise",
   "rime",
+  "sling",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -176,5 +178,16 @@ export function drawPairBoss(
   // are drawn the same — the other seat has to see which half is lit to say
   // so (`rime-draw.ts`). Nothing of it outlives a frame yet: its hands and
   // effects are the second half of its look.
-  drawRime(ctx, l, world, boss, beat, beatPhase, time);
+  if (boss.kind === "rime") {
+    drawRime(ctx, l, world, boss, beat, beatPhase, time);
+    return;
+  }
+
+  // THE SLING: a fork over the middle column, a cord off each tine drawn by
+  // its own seat's thumb, loosed toward whichever column the cup asks for.
+  // Both screens are drawn the same — the other seat has to see which cord is
+  // lit and which is already drawn to say so (`sling-draw.ts`). Nothing of it
+  // outlives a frame yet: its hands and effects are the second half of its
+  // look.
+  drawSling(ctx, l, world, boss, beat, beatPhase, time);
 }

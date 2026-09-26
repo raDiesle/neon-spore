@@ -28,6 +28,7 @@ import { ratchetCatchUnder, ratchetPawlUnder } from "./ratchet-grip.js";
 import { scoutGripUnder } from "./scout-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
+import { slingDrawUnder } from "./sling-grip.js";
 import { snakeGripUnder } from "./snake-grip.js";
 import { spoolBrakeUnder } from "./spool-grip.js";
 import { stareLidUnder } from "./stare-lid.js";
@@ -130,7 +131,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     mantleCoreUnder(l, x, y, field) ?? // And the ring round its bared core, either seat's, in the finish (`mantle-grip.ts`).
     keelJointUnder(l, x, y, field) ?? // THE KEEL's lit joint, either seat's tap, the wrong one refused by the simulation (`keel-grip.ts`).
     oculusLeafUnder(l, x, y, field) ?? // THE OCULUS's lens, this seat's half of it held down (`oculus-grip.ts`).
-    viseLobeUnder(l, x, y, field) // THE VISE's case, one finger of this seat's pinch in its zone (`vise-grip.ts`).
+    viseLobeUnder(l, x, y, field) ?? // THE VISE's case, one finger of this seat's pinch in its zone (`vise-grip.ts`).
+    slingDrawUnder(l, x, y, field) // THE SLING's own cord, held then loosed toward the lit column (`sling-grip.ts`).
   );
 }
 
