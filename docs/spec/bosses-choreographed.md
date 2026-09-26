@@ -4113,6 +4113,101 @@ somethings in sequence or in dependency; any future concept wanting one
 seat to prove restraint while the other proves grip can reach for it
 before inventing a third verb.
 
+### §37 THE CAPSTAN — a drum one hand steers, that the other hand wears down
+
+**Question.** THE VALVE's `FreezeTap` has only ever stopped a pull dead;
+THE RIME's `RubCount` has only ever worn down whatever one body sat under
+it. THE CYST proved a hold can *gate* whether a squeeze does anything;
+THE DAVIT proved a hold can *aim* what a release is judged against. No
+concept on this page has asked a hold to *redirect*, live, which of two
+targets an ongoing continuous gesture is currently wearing down, with
+neither target's progress lost while it is not the chosen one — a
+retarget rather than a gate or an aim, the wipe never resetting, only
+pausing.
+
+**Silhouette.** A squat rusted drum mid-hull on a cradle that rocks to
+one side or the other, one grated band on each face — health is both
+bands worn bright, plus a soft core under the drum's cap once both are
+bare; the core takes three ordinary hits.
+
+**Mechanic.** `capstanTiltMilli` is `TILT, AS A LEVEL`, read exactly as
+THE PLUMB reads its lean, and rocks the cradle to whichever side it is
+held toward, exposing that face's band to the wipe and swinging the
+other out of reach. `capstanWearLeftMilli` / `capstanWearRightMilli` are
+`RUB`, read exactly as THE RIME reads its reversals, but only the
+exposed face's counter takes them — the hidden face's own count holds
+exactly where it was, spending no reversal and losing none, until the
+cradle rocks back and bares it again. Either band worn to
+`capstanWearThreshold` cracks bright for good; both bright bares the
+core.
+
+**Player 1 and Player 2.** Identical screens, both bands and the core
+visible on both — but **the seat steering the cradle is never the seat
+wearing the exposed band**: Player 1 rocks the cradle for Player 2 to
+wipe whichever face it bares, then the two trade so Player 2 rocks for
+Player 1, the same cross THE CYST's freezing hand already makes literal.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left band** ||||||
+| 1 | The drum sits rusted, cradle centred, neither band exposed | — | — | — | — | — |
+| 2 | The cradle's left mark lights | P1 | lean the cradle left (`TILT, AS A LEVEL`) | held, steered | left band exposed | cradle drifts back centre, band hidden again |
+| 3 | The exposed left band sits bare to the wipe | P2 | wipe it bright (`RUB`) | held, wears down | left band cracks bright | P1 lets the lean drift off, wipe pauses in place, resume once re-exposed |
+| **Movement 2 — the right band, roles swapped** ||||||
+| 4 | The cradle's right mark lights | P2 | lean the cradle right | held, steered | right band exposed | cradle drifts back centre |
+| 5 | The exposed right band | P1 | wipe it bright | held, wears down | right band cracks bright, core bared | steering drifts off, wipe pauses, resume once re-exposed |
+| **Movement 3 — the core, held bared while fired** ||||||
+| 6 | The bared core flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | The cradle creeps back toward centred over the core | P1+P2 | one steers it fully over while the other keeps wiping | held, steered | core stays bared | cradle re-centres, movement's fire beats lost until both bands crack bright again |
+| 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Cradle creeps back a second time, faster | P1+P2 | steer and wipe again, roles free to trade | held, steered | stays bared | re-centres, retry |
+| 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, drum spent | stays lit |
+| 11 | Both bands sit worn bright and the cap swings open, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every steer-and-wipe window (rows 2–3, 4–5, 7, 9)
+together — the lean and the reversal count are one thing to watch rather
+than two, since a cradle let to drift a half-beat early strands the
+wiping hand's progress exactly where it stood, the same forgiving
+pause-not-reset shape that makes this pairing gentler than THE CYST's
+outright springback.
+
+**Presentation.** No camera. The drum a small continuous rattle with no
+particle of its own; the cradle's rock a slow, visible lean rather than a
+snap, so which face is exposed is always readable at a glance, the same
+legibility THE PLUMB's own weight asks for.
+
+**Animation.** Five poses: rusted whole, cradle centred; left exposed and
+worn bright; both worn bright, core bared; core guarded, cradle creeping
+back; cap open, spent. The rattle is a continuous uneven judder rather
+than a loop, so a wipe that pauses mid-stroke reads by the judder alone
+continuing under a hand that has stopped moving.
+
+**Colour.** Drum a dull corroded rust, the exposed band's mark a plain
+white the way THE PLUMB's level mark is; the core is the only lit colour,
+lit in whichever cannon colour a given beat wants.
+
+**Payoff.** Rows 7 and 9 — a live steer and a live wipe asked of both
+seats at once, holding a `FIRE` step already under way; no earlier body
+on this page has asked one seat's continuous lean to keep deciding, beat
+to beat, where the other seat's continuous wipe is even allowed to land.
+
+**Cost. Low.** No new primitive — `TILT, AS A LEVEL` and `RUB` are both
+already built, for THE PLUMB and THE RIME. The only new code is the
+per-face wear counters that pause rather than reset when their face is
+hidden, and the cradle's own two-position drive, both ordinary per-boss
+wiring rather than a new field type or gesture.
+
+**Reusable.** The pause-not-reset retarget itself — a hold continuously
+choosing which of two targets a running gesture's progress applies to,
+with the untouched target's progress held rather than lost or spent — is
+the first proof on this page that a pairing can share one continuous
+gesture across two targets by steering rather than by gating or aiming;
+any future concept wanting one seat to pick where the other seat's
+ongoing effort currently counts can reach for it before inventing a
+third verb.
+
 ---
 
 ## The reusable boss mechanic library

@@ -81,7 +81,7 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       note: "a reversal is where x changes sign",
     },
-    where: [`${SPEC} §29 THE RIME`, `${SPEC} §33 THE GRINDSTONE`],
+    where: [`${SPEC} §29 THE RIME`, `${SPEC} §33 THE GRINDSTONE`, `${SPEC} §37 THE CAPSTAN`],
   },
   {
     name: "SQUEEZE ONE BODY",
@@ -146,7 +146,7 @@ export const SPECIFIED: readonly Gesture[] = [
       note: "gamma: degrees left and right",
     },
     platform: "Same gate as the shake on an iPhone; Android asks nothing.",
-    where: [`${SPEC} §31 THE PLUMB`, `${SPEC} §35 THE DAVIT`],
+    where: [`${SPEC} §31 THE PLUMB`, `${SPEC} §35 THE DAVIT`, `${SPEC} §37 THE CAPSTAN`],
   },
   {
     name: "HOLD, THEN SWIPE",
