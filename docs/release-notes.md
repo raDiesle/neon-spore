@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 0ef9fb223 — Queue: the push-back's look is done
+
+## 2026-09-26 · f3ff7c254 — The shield's push shows as a mistake: a red rim, the error buzzer, ONE LAST CHANCE
+
+When the shield pushes a creature back up the field, its rim goes red for a little over half a second and a red spray leaves the dome. The game's error buzzer plays, and the body carries ONE LAST CHANCE on both screens until it dies, because the shield will not answer it again. The words are in the text colour, so they are never read as the colour to fire.
+
 ## 2026-09-26 · 39e279958 — Queue: the shield push is done
 
 ## 2026-09-26 · 61e730c6a — The shield pushes a creature back up the field, once
