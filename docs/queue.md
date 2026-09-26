@@ -431,19 +431,22 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE INSTAR, a last step: the moult
+## THE INSTAR, moult: the split hide and the pale body in it
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-26, claude/queue-the-instar-coil-the-blades-wind-opposite-ways (claim: claude/queue-the-instar-a-last-step-the-moult)
-- **Files:** `packages/sim/src/instar-words.ts`, `packages/render/src/instar-poses.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-draw.ts`, `packages/content/src/instar-script.ts`, `docs/spec/bosses.md`
+- **Files:** `packages/render/src/instar-poses.ts`, `packages/render/src/instar-draw.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-strike.ts`, `packages/render/src/instar-shape.ts`
 
-An instar is the stage between two moults, and the boss never moults. Put an
-eighth step at the end: a `moult` pose where the hide splits along the back
-and the new body shows pale through the split. Each seat swipes its half of
-the old skin off, downward, with the two finishing together, and left alone
-the new body hardens and the fight is lost. A new pose is two lanes: the
-simulation and script first (`INSTAR_POSES`, the step, `bosses.md` §11.32),
-then the picture, which lands under a look the owner asked for by name.
+The moult's simulation and script landed 26 September 2026
+(claude/queue-the-instar-a-last-step-the-moult): the last step is the
+`moult` pose, each seat swiping its half of the `hide` off, eight swipes
+each. What is left is the picture. Today the pose is only a side-on body
+with the back low (`POSES.moult`), and its strike borrows the tail's slam
+(`LIFE.hide`). Draw the hide split along the back with the next body pale in
+the split, peeling a strip off each half per counted swipe (a `Figure` field
+the `placedBy` branch for `hide` drives, the way the nests shrink), and a
+strike of its own: the pale body hardening dark and whole. It lands under a
+look the owner asked for by name (the item's own ask), with a frame in
+`packages/render/test/frame.test.ts`.
 
 ## `land` stops on a time-log conflict it says it merges
 

@@ -7,7 +7,7 @@ import { INSTAR_SCRIPT } from "../src/instar-script.js";
  * marks (`sweepMilli`): nothing in the simulation refuses a sweep that
  * carries a ring over the seam, and the ring would go on being refused to
  * the thumb whose half it had come into. And the coil's two winds, which are
- * the step only if they go opposite ways.
+ * the step only if they go opposite ways. And the moult, which is the last.
  */
 const swept = INSTAR_SCRIPT.flatMap((step) => step.marks).filter((m) => (m.sweepMilli ?? 0) !== 0);
 
@@ -43,5 +43,18 @@ describe("THE INSTAR's script", () => {
     const coil = INSTAR_SCRIPT.find((step) => step.pose === "coil");
     const ways = new Set(coil?.marks.map((m) => m.gesture));
     expect(ways).toEqual(new Set(["turn", "turnBack"]));
+  });
+
+  it("ends on the moult, each seat swiping its own half of the hide off", () => {
+    const last = INSTAR_SCRIPT.at(-1);
+    expect(last?.pose).toBe("moult");
+    const marks = last?.marks ?? [];
+    expect(marks.map((m) => m.seat).sort()).toEqual(["p1", "p2"]);
+    for (const m of marks) {
+      expect(m.part).toBe("hide");
+      expect(m.gesture).toBe("swipeDown");
+      // Left is player 1's, right is player 2's.
+      expect(m.xMilli < 500).toBe(m.seat === "p1");
+    }
   });
 });

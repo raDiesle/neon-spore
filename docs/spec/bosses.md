@@ -6264,7 +6264,7 @@ up, `landBeats` of the part giving before the next morph — and an
 **arrival**, how the body flies into the pose while it morphs: `approach`
 from far off, `passes` out of the frame and across twice, `cross` out one
 side and in the other (`INSTAR_ARRIVALS`, in `sim/instar-words.ts`). The
-script is eleven steps over five poses since 25 September 2026: *breath*
+script is thirteen steps over six poses since 26 September 2026: *breath*
 four times — the jaws shut; forced open again where it stays (the arrival
 `stay`) while player 2 taps the fire in the mouth out, eight taps; shut
 against a push, `pushMilli` thousandths of a tile taken back off each pull
@@ -6274,11 +6274,17 @@ third bite three marks, player 2 pulling the upper jaw while player 1 taps
 the fire out, six, and then pulls the lower jaw up to meet it. The fire is
 its own part, `fire`, last in `INSTAR_PARTS`, and a count of taps, so it
 waits `instarTogetherBeats` for player 1's jaw and is lit again after —
-*brood*, *lash*, *lunge* — one mark on the brow for both seats to hold —
-*breath* again with the seats swapped on the jaws, *coil* — both blades
-wound two turns — *lunge* again, split — player 1 holds the brow alone
-while player 2 taps the right eye shut, twelve taps — and *lash* again
-with one blade tapped and one wound. A hold on a mark of one seat's own
+*brood*, *lash* — both blades sweeping leftward along the hull as the
+window runs, `sweepMilli` — *lunge* — one mark on the brow for both seats
+to hold — *breath* again with the seats swapped on the jaws, *coil* — the
+blades wound two turns, player 1's anticlockwise (`turnBack`) and player
+2's clockwise — *lunge* again, split — player 1 holds the brow alone while
+player 2 taps the right eye shut, twelve taps — *brood* again with the
+counts swapped, *lash* again with one blade tapped and one wound, and last
+the *moult*: the hide split along the back, each seat swiping its half off,
+eight swipes each, and left alone the new body hardens and the fight is
+lost. The hide is its own part, `hide`, and the moult its own pose, each
+last in its list for the hash. A hold on a mark of one seat's own
 counts that seat's thumb alone (`countHolds`, `sim/instar-step.ts`); the
 struck eye is its own part, `eye`, last in `INSTAR_PARTS` because the hash
 names a part by its place. Every window is four beats, five for a hold, and every need was doubled

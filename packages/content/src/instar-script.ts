@@ -2,7 +2,7 @@ import type { BossSequenceStep } from "@neon-spore/sim";
 import { INSTAR_BREATH } from "./instar-script-breath.js";
 
 /**
- * THE INSTAR's script: twelve steps over five poses, and what the pair does to each.
+ * THE INSTAR's script: thirteen steps over six poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -63,8 +63,14 @@ import { INSTAR_BREATH } from "./instar-script-breath.js";
  *    Two counts in two gestures, finishing together. This fork stands still:
  *    a turn winds about where its ring was when the thumb came down, so a
  *    wound blade never sweeps (`sweepMilli`).
+ * 10. *Moult* — an instar is the stage between two moults, and this is the
+ *    one it has been coming to: it passes twice and comes in side on, still,
+ *    its hide split along the back and the next body pale in the split. Each
+ *    seat swipes its half of the old skin off, downward, a strip a swipe,
+ *    eight each, the two finishing together. Left alone, the new body
+ *    hardens, and the fight is lost.
  *
- * (Steps 2–9 below are the script's steps 5–12: the breath's three bites are
+ * (Steps 2–10 below are the script's steps 5–13: the breath's three bites are
  * one item because they are one scene.)
  *
  * **The clocks.** A morph is the flight: eight beats for the entrance, which
@@ -200,10 +206,21 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     arrive: "cross",
     morphBeats: 7,
     windowBeats: 4,
-    landBeats: 4,
+    landBeats: 3,
     marks: [
       { seat: "p1", part: "tail", gesture: "tap", xMilli: 380, yMilli: 560, need: 20 },
       { seat: "p2", part: "tail", gesture: "turn", xMilli: 620, yMilli: 560, need: 2000 },
+    ],
+  },
+  {
+    pose: "moult",
+    arrive: "passes",
+    morphBeats: 10,
+    windowBeats: 4,
+    landBeats: 4,
+    marks: [
+      { seat: "p1", part: "hide", gesture: "swipeDown", xMilli: 380, yMilli: 400, need: 8 },
+      { seat: "p2", part: "hide", gesture: "swipeDown", xMilli: 620, yMilli: 390, need: 8 },
     ],
   },
 ];

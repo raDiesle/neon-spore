@@ -17,8 +17,10 @@ export type InstarSeat = (typeof INSTAR_SEATS)[number];
  * because the hash names a part by its place in this list (`instar-hash.ts`):
  * the lunge's second visit strikes the right eye while the brow is held.
  * `fire` is the fire turning in the open mouth, tapped out between the
- * breath's bites and during the third, and last for the same reason. */
-export const INSTAR_PARTS = ["jaw", "eggs", "tail", "head", "eye", "fire"] as const;
+ * breath's bites and during the third, and last for the same reason. `hide`
+ * is the old skin split along the back at the moult, swiped off in halves,
+ * last again. */
+export const INSTAR_PARTS = ["jaw", "eggs", "tail", "head", "eye", "fire", "hide"] as const;
 export type InstarPart = (typeof INSTAR_PARTS)[number];
 
 /**
@@ -55,10 +57,12 @@ export type InstarGesture = (typeof INSTAR_GESTURES)[number];
 /** The poses the body morphs between, one per step, named for the picture:
  * the jaws open on a fire it is about to breathe, its side with the brood on
  * its back, its tail swung at the ship, its head thrust down at the ship to
- * butt it, and its tail wound up high over the back to spring. A pose may
- * come round again in a later step with other marks on it; the list is the
+ * butt it, its tail wound up high over the back to spring, and — last, as
+ * the hash wants a new name — its hide split along the back with the next
+ * body pale in the split, the moult an instar is named for. A pose may come
+ * round again in a later step with other marks on it; the list is the
  * pictures, not the steps. */
-export const INSTAR_POSES = ["breath", "brood", "lash", "lunge", "coil"] as const;
+export const INSTAR_POSES = ["breath", "brood", "lash", "lunge", "coil", "moult"] as const;
 export type InstarPose = (typeof INSTAR_POSES)[number];
 
 /**

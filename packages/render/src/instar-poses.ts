@@ -51,7 +51,7 @@ const BREATH: Figure = {
  * (`instar-flight.ts`). */
 export const ENTER: Figure = { ...BREATH, jawUp: 0.6, jawDown: 0.6, eye: 0.4, wing: 0.6 };
 
-/** The five poses the script names. */
+/** The six poses the script names. */
 export const POSES: Record<InstarPose, Figure> = {
   breath: BREATH,
   // Side-on, head to the left, the back running through the two nests: the
@@ -118,6 +118,26 @@ export const POSES: Record<InstarPose, Figure> = {
     nestY: 470,
     tail: 1,
     tailY: 330,
+  },
+  // Side-on and still, the wings folded, the back low and long through the
+  // two halves of the hide it is shedding, at 380/400 and 620/390. The split
+  // and the pale body in it are the moult's own picture, still to be drawn.
+  moult: {
+    ...BREATH,
+    headX: 230,
+    headY: 330,
+    headR: 140,
+    jawUp: 0.1,
+    jawDown: 0.2,
+    eye: 0.6,
+    side: 1,
+    wing: 0.2,
+    rearX: 860,
+    rearY: 400,
+    eggsX: 620,
+    eggsY: 390,
+    nestX: 380,
+    nestY: 400,
   },
 };
 

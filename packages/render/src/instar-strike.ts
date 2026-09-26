@@ -47,6 +47,8 @@ const LIFE: Record<InstarPart, number> = {
   head: SLAM_SECONDS,
   eye: SLAM_SECONDS,
   fire: FIRE_SECONDS,
+  // The new body hardened in its split: until the moult has its own, the slam.
+  hide: SLAM_SECONDS,
 };
 
 export class InstarStrike {

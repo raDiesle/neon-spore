@@ -21483,3 +21483,17 @@ Bottleneck: the test's first anticlockwise step was past the half-turn a
 bearing may move in one tick, and read as nothing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR moults at the end, the simulation and the script
+
+- reading: 0 min. The part and pose lists, what the render keys on a part,
+  and §11.32's list of steps.
+- writing: 5 min. `hide` and `moult` appended for the hash, the last step,
+  a side-on pose and a borrowed strike for it, the spec's step list brought
+  up to date, a test.
+- looking: 0 min. The moult step with its two marks up.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — the pose table and the strike's table are
+typed by the lists, so the compiler named every place the new names had to go.
