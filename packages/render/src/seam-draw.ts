@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
+  SEAM_POINTS,
   type SeamState,
   seamLitStep,
   seamStepBeats,
@@ -29,6 +30,7 @@ import {
   seamCrackPath,
   seamHalfHeight,
   seamLift,
+  seamLobe,
   seamMouth,
   seamRidgePath,
 } from "./seam-shape.js";
@@ -116,7 +118,7 @@ function drawRidge(
   ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
   ctx.stroke(ridge);
   if (turn >= 0.5) drawSeamBack(ctx, l, ridge, half);
-  else drawFace(ctx, l, world, s, ridge, open, beat, beatPhase);
+  else drawFace(ctx, l, world, s, ridge, open, beat, beatPhase, time);
   ctx.restore();
 }
 
@@ -130,11 +132,13 @@ function drawFace(
   open: number[],
   beat: number,
   beatPhase: number,
+  time: number,
 ): void {
   const gritting = seamWantsShield(s);
   const crack = seamCrackPath(l, open, seamGape(s, gritting, beat, beatPhase));
   ctx.fillStyle = rgba(PALETTE.background, 0.9);
   ctx.fill(crack);
+  drawEmber(ctx, l, crack, time);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.rock, s.phase === "lit" ? 0.7 : 0.35);
   ctx.stroke(crack);
@@ -147,6 +151,30 @@ function drawFace(
   }
   if (step.ask !== "point") return;
   drawSeamPoint(ctx, l, seamLitPoint(s), step, left, beatPhase);
+}
+
+/**
+ * The light inside the crack, creeping up and down the spine on a clock of its
+ * own: where along it the light sits, from the first widening point to the
+ * last, how fast it wanders in radians a second, and how bright it gets. Shell
+ * grey, never a step's colour, so it is not read as one; the glow step's white
+ * is laid over it. The ridge's outline wobble is its silhouette and the rest
+ * is the beat, so this is the one part alive on its own (`docs/style-guide.md`,
+ * *Motion*).
+ */
+const EMBER_RATE = 0.35;
+const EMBER_ALPHA = 0.3;
+
+function drawEmber(ctx: CanvasRenderingContext2D, l: Layout, crack: Path2D, time: number): void {
+  const top = seamLobe(l, 0).y;
+  const bottom = seamLobe(l, SEAM_POINTS - 1).y;
+  const y = top + (bottom - top) * (0.5 + 0.5 * Math.sin(time * EMBER_RATE));
+  const r = l.tile * 0.6;
+  const ember = ctx.createRadialGradient(0, y, 0, 0, y, r);
+  ember.addColorStop(0, rgba(PALETTE.rock, EMBER_ALPHA));
+  ember.addColorStop(1, rgba(PALETTE.rock, 0));
+  ctx.fillStyle = ember;
+  ctx.fill(crack);
 }
 
 /**

@@ -2808,19 +2808,6 @@ Done when: `life` reaches every drawer that calls `partDrift`; the chosen
 source sets it; a test proves the part angles are the parent's at 0.
 `bun run check` proves it.
 
-## THE SEAM's ridge has no secondary motion of its own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-26, claude/queue-the-seams-ridge-has-no-secondary-motion-of-its-o
-- **Files:** `packages/render/src/seam-draw.ts`, `packages/render/src/seam-shape.ts`
-
-From the secondary-motion audit. `seamRidgePath(l, open, time * 0.6)` is the
-silhouette's wobble, `seam-marks.ts`'s turning rings are the touch feedback,
-and the rest is the light's drift and the beat. Touch: the crack's inner
-glow creeps along the spine on a period of its own, brightest at a point
-that wanders between the three widening points, so the shell reads as
-something alive inside. A look: offered through VERSUS.
-
 ## THE VALVE's pins have no secondary motion of their own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos

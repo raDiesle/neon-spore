@@ -25228,3 +25228,16 @@ The bottleneck: reading — the wheel moves by the step between two reports
 rather than to where the thumb is, and the third mark wants a full lap first.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SEAM's crack has a light of its own
+
+- reading: 5 min. Where the crack is filled and stroked, and which colour is free.
+- writing: 5 min. `drawEmber` in `seam-draw.ts`, written by the lane that was
+  cut off and finished by the session that took it over.
+- looking: 0 min. A faint grey ember inside the crack.
+- friction: 5 min. The first session lost its subscription mid-edit; this one
+  read its transcript to learn what was written.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: friction — the lane had to be recovered from another
+session's transcript before it could be finished.
