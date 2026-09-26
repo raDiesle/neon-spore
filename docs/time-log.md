@@ -21733,3 +21733,17 @@ rate to wind the first hasp open inside a page, and it was a local sum until
 it became an export.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE RATCHET's guide is a film
+
+- reading: 5 min. The ratchet's hand and step: whose catch, whose pawl, and
+  what a clean click does to the hand still on the catch.
+- writing: 10 min. The catch's reach and seat, a pawl carried nowhere, both
+  ghost hands, the film and its test, and the prose list and §3.2 moved.
+- looking: 5 min. One probe of the click and the burn, one capture of the
+  pilot's burned tooth.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — THE HASP had already taught the film a
+held depth, so the ratchet needed two table rows and a ghost hand.

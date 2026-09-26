@@ -1,4 +1,4 @@
-import { INNER, NO_LATCH, OUTER, type World } from "@neon-spore/sim";
+import { INNER, NO_CATCH, NO_LATCH, OUTER, type World } from "@neon-spore/sim";
 import { gimbalHeld } from "./gimbal-grip.js";
 import { handleCircle } from "./handles.js";
 import { haspWheelHand } from "./hasp-grip.js";
@@ -20,6 +20,8 @@ import type { Circle, Layout } from "./layout.js";
  * pilot's, held while it has a depth; the wheel is the navigator's, and her
  * thumb is drawn where her hand has gone round to rather than where the
  * wheel stands, so a seized wheel is a hand going round a wheel that is not.
+ * THE RATCHET's catch is the navigator's, drawn while it has a depth, and its
+ * pawl the pilot's, drawn for as long as his thumb is down on the pad.
  */
 export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: number): Circle | null {
   const b = world.boss;
@@ -31,6 +33,11 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
     if (seat === 2) return haspWheelHand(l, world.cfg, b);
     if (b.latchMilli === NO_LATCH) return null;
     return handleCircle(l, world, "haspLatch", beatPhase);
+  }
+  if (b?.kind === "ratchet") {
+    if (seat === 1) return b.pawlDown ? handleCircle(l, world, "ratchetPawl", beatPhase) : null;
+    if (b.catchMilli === NO_CATCH) return null;
+    return handleCircle(l, world, "ratchetCatch", beatPhase);
   }
   return null;
 }

@@ -72,6 +72,11 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // THE HASP's latch is held down, and held is a depth past `haspGripMilli`
   // (`sim/hasp.ts`): left out, a film carries it the whole reach.
   if (target === "haspLatch") return cfg.haspReachMilli;
+  // THE RATCHET's catch is the same level on the other seat (`sim/ratchet.ts`),
+  // and its pawl is a press that reads no distance at all: the tick it goes
+  // down is the whole of it (`sim/ratchet-hand.ts`).
+  if (target === "ratchetCatch") return cfg.ratchetReachMilli;
+  if (target === "ratchetPawl") return 0;
   return cfg.mazeTurnMilli;
 }
 
@@ -132,6 +137,7 @@ const NAVIGATORS: ReadonlySet<DragTarget> = new Set([
   "sinewRight",
   "gimbalInner",
   "haspWheel",
+  "ratchetCatch",
 ]);
 
 export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
@@ -142,8 +148,9 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   if (target === "surgeBulb" || target === "hiveLobe") return hand ?? 1;
   // And THE SINEW's right handle, the second: one handle per seat, each
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
-  // THE GIMBAL's inner ring and THE HASP's wheel are the navigator's, by
-  // geometry and by the design (`sim/gimbal-hand.ts`, `sim/hasp-hand.ts`).
+  // THE GIMBAL's inner ring, THE HASP's wheel and THE RATCHET's catch are the
+  // navigator's, by geometry and by the design (`sim/gimbal-hand.ts`,
+  // `sim/hasp-hand.ts`, `sim/ratchet-hand.ts`).
   return NAVIGATORS.has(target) ? 2 : 1;
 }
 

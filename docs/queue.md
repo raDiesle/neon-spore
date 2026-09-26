@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## Film THE RATCHET
-
-- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
-- **Taken:** 2026-09-26, claude/queue-film-the-codexs-guide-and-delete-its-words (claim: claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea)
-- **Files:** `packages/content/src/waves/act-11.ts`, `packages/content/src/scene-drag.ts`, `packages/render/src/guide-boss-hand.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
-
-The last of the three guides still in words whose bosses are now drawn.
-THE GIMBAL's landed on 26 September 2026 (`scenes/the-gimbal.ts`) and taught
-the film a ring turned and held (`ringCommands`) and a hand on a clock boss
-(`guide-boss-hand.ts`); THE HASP's the same day (`scenes/the-hasp.ts`) taught
-it a depth held and a wheel turned for as long as the act lasts. The
-ratchet's catch (held) and pawl (pressed) are taught the same way first, then
-its film, its `both`/`p1`/`p2` deleted, and `STILL_PROSE` and §3.2 moved by one.
-
 ## A ring let go of while THE GIMBAL shears stays held
 
 - **Found:** 2026-09-26, claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea

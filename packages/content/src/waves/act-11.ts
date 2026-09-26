@@ -104,9 +104,7 @@ export const WAVES_ACT_11: Wave[] = [
     id: "theRatchet",
     name: "THE RATCHET",
     guide: {
-      both: "A rack of seven teeth. One of you holds the catch, the other presses the pawl. Every press climbs one tooth, for good. Five clean and it opens.",
-      p1: "1. Press the pawl. Each press climbs one tooth.\n2. It is clean only while they hold the catch. You cannot see their hand.\n3. Wait until they say it is set. Wait too long and a tooth is lost.",
-      p2: "1. Hold the catch down, then tell them it is set.\n2. After each clean tooth, lift your hand and hold again.\n3. Two teeth may be lost. A third and the rack jams. A piece works loose. Shoot it.",
+      scene: "theRatchet",
     },
     entries: [],
     boss: { kind: "ratchet" },
