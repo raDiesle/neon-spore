@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ea45b6b15 — iOS is asked for the motion sensor when the pilot lifts off READY
+
+iOS 13 and later deliver no `devicemotion` until `DeviceMotionEvent.requestPermission()` is called from a gesture, and nothing called it, so on an iPhone THE CHOIR could only be played with the arrows. `askForMotion` in `shake.ts` now asks from the pilot's READY circle as the thumb lifts — a touch `pointerup` grants activation where a `pointerdown` does not — and ignores a refusal. Never asked at load, never on the gunner's phone; a stubbed room in `shake-permission.test.ts` shows both. Fullscreen, still asked on the `pointerdown`, is queued for the same move.
+
 ## 2026-09-26 · d4b527758 — `hash.ts` folds the controls' fields in from `hash-ship.ts`
 
 `hashWorld` stood at 250 lines. The pushes from the cannon down to the last shot — hands, the thumb on a colour, the hull's ticks, THE CLAW's arm and THE CHOIR's gesture — are now `shipHashParts`, a list folded back in at the same place and in the same order, so no fingerprint moved. The exceptions comment stays in `hash.ts`; it is at 199 lines, the new file at 78.
