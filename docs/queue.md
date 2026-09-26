@@ -940,6 +940,7 @@ comparison is the owner's, unverified until he has looked.
 ## §33 THE GRINDSTONE — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-33-the-grindstone-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 No new primitive: the first choreographed body spent entirely on two
