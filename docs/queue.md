@@ -2654,3 +2654,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at acbd58fe9: THE VISE's receipts at tempo: a crack's thud, a sprung…
+
+- **Found:** 2026-09-26, claude/vise-fx
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`
+
+*THE VISE's receipts drawn: a crack thuds, a sprung lobe rings open, a kernel hit flashes wider each time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
+
+- THE VISE's receipts at tempo: a crack's thud, a sprung lobe ringing, the kernel's flash and the split's, never seen in a real frame
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

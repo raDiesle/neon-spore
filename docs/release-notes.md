@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · acbd58fe9 — THE VISE's receipts drawn: a crack thuds, a sprung lobe rings open, a kernel hit flashes wider each time
+
+A seam cracking now presses the case down a touch, throws dry husk dust off the lobe that gave and sends a soft thud down the plating, with the red blow every boss takes. A pinch run out throws its lobe open past where it rests, to ring back down to it. A kernel hit flashes white over the hollow — a thin flare the first time, the whole hollow by the third — bursts in the kernel's colour and deals the blow; the split flashes the whole case. A step lighting, a slip, the lobes held off, the kernel bared and the lobes closing back over it throw small bursts; a missed kernel is left to the boss's own blow at the hull.
+
 ## 2026-09-26 · 40d1ce2b9 — THE MANTLE's spark bursts on the hull itself, not a rock
 
 A spark nobody shot used to break the hull with a rock falling from the top of the field. Now the spark that ran down the column in sight bursts where it landed: the bead squashes flat on the plating, throws a spatter of drops and leaves a red scald spreading. The wave is lost the same way, with the same scar and sound.
