@@ -431,22 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## A VERSUS freeze inside THE SLOW does not land where its seconds say
-
-- **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
-- **Taken:** 2026-09-26, claude/queue-the-slow-does-not-say-whether-a-window-asks-for (claim: claude/queue-a-versus-freeze-inside-the-slow-does-not-land-wh)
-- **Files:** `tools/director/src/versus-pair.ts`, `tools/director/src/versus-pair-freeze.ts`, `tools/director/test/versus-freeze.test.ts`
-
-`Freeze` counts its target in ticks at `cfg.tickHz`, but while a window is
-open the pair steps at `stageTickHz` (a quarter) and its cadence `clock`
-still gains `FREEZE_STRIDE / tickHz` per paint — so on `THE SLOW · A WINDOW
-RUNNING OUT` `--freeze 4.2` lands near the window's end, and `--freeze 10`
-and `--freeze 17` came back as the same frame, forty per cent in. Make one
-axis of it: either the freeze counts the pair's clock or the clock counts the
-freeze's ticks, and a cadenced rebuild during a pending freeze resets both.
-Prove it with a test that a freeze inside a slowed window lands on the tick
-its seconds name, and that two freezes a cadence apart differ.
-
 ## AUTO has no hand for THE PULSE or THE REPRISE
 
 - **Found:** 2026-09-25, claude/game-multiplayer-testing-601794

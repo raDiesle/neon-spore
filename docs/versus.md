@@ -63,11 +63,12 @@ bun run shot .versus-stage out.png --port <p>   --path "/versus.html?slot=creatu
 bun run shot .versus-stage out.png --port <p> --select ".versus-rate=0.25"   --path "/versus.html?slot=creature:dart&name=ember"
 ```
 
-- **`freeze=<seconds>`** stops the pair after that many *simulated* seconds. It
-  is counted in the pair's own ticks and never off the wall, and while a freeze
-  is pending the loop runs one tick per animation frame at a fixed `dt` — so the
-  number of frames drawn before it lands is the number of ticks asked for and
-  nothing else. That is what makes the held frame **byte-identical across runs**,
+- **`freeze=<seconds>`** stops the pair after that many seconds of its own
+  clock. It is counted tick by tick and never off the wall, each tick for the
+  seconds it takes on the running pair — four times as long inside a window THE
+  SLOW opened — and while a freeze is pending the loop runs a fixed stride of
+  ticks per animation frame — so the number of frames drawn before it lands is
+  set by the ticks asked for and nothing else. That is what makes the held frame **byte-identical across runs**,
   which is the whole point: the moment is chosen from what the pose does rather
   than from what the browser happened to be doing. `pair.freeze()` and not
   `setRunning(false)`, so nothing wears a `hud.ts` "PAUSED" caption.

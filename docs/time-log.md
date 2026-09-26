@@ -21335,3 +21335,16 @@ Bottleneck: the sorting — each call site had to be read to say whether its
 window fails the pair when it runs out.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A VERSUS freeze inside THE SLOW lands on the second it names
+
+- reading: 10 min. `Freeze`, the pair's loop and `stageTickHz`, the cadence
+  check, and the pose the entry measured on.
+- writing: 10 min. `Freeze` on the pair's clock, `freezeTick` for one pending
+  tick, the pair calling it, three tests, the line in `docs/versus.md`.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: deciding which clock is the axis — the pair's seconds won,
+because that is what a person reading `freeze=` on a running pair counts.

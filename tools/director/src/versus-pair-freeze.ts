@@ -1,3 +1,8 @@
+import type { SimEvent, World } from "@neon-spore/sim";
+import { cadenceElapsed, type Pose } from "./pose-kit.js";
+import { stageTickHz } from "./stage-loop.js";
+import { advance } from "./versus-advance.js";
+
 /**
  * Stopping a VERSUS pair on a moment somebody chose, rather than one the
  * machine happened to reach
@@ -13,9 +18,11 @@
  * Three things had to be true before a held frame came back the same twice, and
  * each of them was a run of photographs that did not:
  *
- * 1. **The freeze is counted in ticks, never in seconds off the wall.** A
+ * 1. **The freeze is counted tick by tick, never in seconds off the wall.** A
  *    `setTimeout` lands on whatever tick the loop had reached, so "1.2 seconds
- *    in" was a different world every time.
+ *    in" was a different world every time. Each tick counts for the seconds it
+ *    takes on the running pair (`Freeze.elapsed`), so a window THE SLOW
+ *    opened is not crossed at four times its speed.
  * 2. **While a freeze is pending the loop runs on the tick too** — one
  *    simulated tick per animation frame, at a fixed `dt`. Otherwise the number
  *    of frames drawn on the way is a property of the machine, and everything
@@ -42,31 +49,42 @@
 export const FREEZE_STRIDE = 4;
 
 export class Freeze {
-  /** The tick to stop on, or null for a pair nobody is photographing. */
-  readonly atTick: number | null;
-  /** Ticks stepped since the pair was built — the axis the freeze is on. */
+  /** The second of the pair's clock to stop on, or null for a pair nobody is photographing. */
+  readonly atSeconds: number | null;
+  /** Ticks stepped since the pair was built — what the held frame is seeded with. */
   stepped = 0;
+  /**
+   * Seconds of the pair's own clock since it was built: each tick adds its own
+   * length at the rate it was spent at, so a tick inside a window THE SLOW
+   * opened is four times as long as one outside it — the same seconds the
+   * running pair shows. A cadenced rebuild zeroes the pair's clock and not
+   * this: `freeze=10` on a six-second pose is four seconds into its second run.
+   */
+  elapsed = 0;
   frozen = false;
 
-  constructor(seconds: number | null | undefined, tickHz: number) {
-    this.atTick = seconds === null || seconds === undefined ? null : Math.round(seconds * tickHz);
+  constructor(seconds: number | null | undefined) {
+    this.atSeconds = seconds === null || seconds === undefined ? null : seconds;
   }
 
   /** Whether a freeze is still coming, which is when the loop runs on the tick. */
   get pending(): boolean {
-    return this.atTick !== null && !this.frozen;
+    return this.atSeconds !== null && !this.frozen;
   }
 
   /**
-   * Called once per simulated tick. `false` means the pair is there: do not
-   * advance the world, and hold everything where it is.
+   * Called once per simulated tick, with the rate that tick is spent at.
+   * `false` means the pair is there: do not advance the world, and hold
+   * everything where it is. The half-microsecond is float dust: a hundred and
+   * twenty twelfths of a second summed are not quite one.
    */
-  step(): boolean {
-    if (this.atTick !== null && this.stepped >= this.atTick) {
+  step(hz: number): boolean {
+    if (this.atSeconds !== null && this.elapsed >= this.atSeconds - 5e-7) {
       this.frozen = true;
       return false;
     }
     this.stepped++;
+    this.elapsed += 1 / hz;
     return true;
   }
 
@@ -84,4 +102,35 @@ export class Freeze {
   seed(frames: number): number {
     return (this.frozen ? this.stepped : frames) + 1;
   }
+}
+
+/** Where a pair stands between ticks: its world, what this frame has to draw, its cadence clock. */
+export interface PairAt {
+  readonly world: World;
+  readonly events: SimEvent[];
+  readonly clock: number;
+}
+
+/**
+ * **One tick of a pair whose freeze is pending**, with its clock and the
+ * freeze's count moved by the same amount — the one axis. The clock used to
+ * gain `FREEZE_STRIDE / tickHz` a paint while the loop stepped
+ * `stageTickHz` worth of ticks, a quarter as many inside a window, so the
+ * cadence ran four times ahead of the world and the freeze, counting ticks at
+ * the full rate, landed near the window's end for a second a fifth of the way
+ * in. Here the tick is spent, then its length goes onto both, then the
+ * cadence is asked — per tick, so a rebuild lands on the same tick every time.
+ *
+ * `null` once the freeze has landed. A world that is not `at.world` is a
+ * rebuild, with its clock at zero.
+ */
+export function freezeTick(freeze: Freeze, pose: Pose, at: PairAt): PairAt | null {
+  const hz = stageTickHz(at.world);
+  if (!freeze.step(hz)) return null;
+  const next = advance(at.world, () => pose.build(), pose);
+  if (next.world !== at.world) return { world: next.world, events: next.events, clock: 0 };
+  const clock = at.clock + 1 / hz;
+  if (!cadenceElapsed(pose, clock)) return { world: at.world, events: next.events, clock };
+  const rebuilt = pose.build();
+  return { world: rebuilt, events: [...rebuilt.events], clock: 0 };
 }

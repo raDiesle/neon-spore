@@ -7,7 +7,7 @@ import { runStageLoop, stageTickHz } from "./stage-loop.js";
 import { advance } from "./versus-advance.js";
 import { type CropSide, CropWindow, makeCropSide } from "./versus-crop.js";
 import { hashCanvas } from "./versus-hash.js";
-import { FREEZE_STRIDE, Freeze } from "./versus-pair-freeze.js";
+import { FREEZE_STRIDE, Freeze, freezeTick } from "./versus-pair-freeze.js";
 
 /**
  * One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet.
@@ -81,7 +81,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
   // pose's own rectangle, and a tile crop follows its body (`versus-crop.ts`).
   const crop = new CropWindow([left, right], PAIR_PHONE, pose, role, world);
   let running = true;
-  const freeze = new Freeze(opts.freezeSeconds, world.cfg.tickHz);
+  const freeze = new Freeze(opts.freezeSeconds);
   let rate = 1;
   let blink = false;
   let showing: "left" | "right" = "left";
@@ -168,10 +168,17 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     scale: (real) =>
       freeze.pending ? FREEZE_STRIDE / world.cfg.tickHz : stepping() ? real * rate : 0,
     advance: () => {
-      // Own-motion's clock joins the simulated axis as the freeze lands.
-      if (!freeze.step()) {
-        clock = freeze.stepped / world.cfg.tickHz;
-        freeze.mark(left.frame, right.frame);
+      if (freeze.frozen) return;
+      // A pending freeze moves the clock per tick, with its own count
+      // (`freezeTick`), and the cadence is asked there rather than in `paint`.
+      if (freeze.pending) {
+        const at = freezeTick(freeze, pose, { world, events, clock });
+        if (at === null) freeze.mark(left.frame, right.frame);
+        else if (at.world !== world) rebuiltTo(at.world);
+        else {
+          events.push(...at.events);
+          clock = at.clock;
+        }
         return;
       }
       const next = advance(world, () => pose.build(), pose);
@@ -181,7 +188,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
       else events.push(...next.events);
     },
     paint: (dt, real) => {
-      if (stepping()) {
+      if (stepping() && !freeze.pending) {
         clock += dt;
         // The one place a cadenced pose ever rebuilds.
         if (cadenceElapsed(pose, clock)) rebuiltTo(pose.build());
