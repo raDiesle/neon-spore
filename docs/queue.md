@@ -2094,22 +2094,6 @@ blind: send a PNG of the timeout (`bun run frames . --wave "THE SLING" --until b
 when the wave misses unattended), or land it `--unverified` if it does not.
 
 
-## THE PLUMB's own blow at the hull
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-26, claude/plumb-blow (claim: claude/queue-the-plumbs-own-blow-at-the-hull)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
-- **Waits on:** THE PLUMB's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
-
-THE PLUMB's timeout already calls `bossStrikesHull` (`packages/sim/src/plumb-step.ts`)
-and draws the default lash, a red tendril out of the body to the column and
-back. That lash is a floor, not the picture. Give THE PLUMB a `LOOK` row in
-`boss-strike-look.ts` made from its own body, the part of it that acts, in
-its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
-The blow must reach the hull at `reach = 1`, when the crack and the sparks
-start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
-blind: send a PNG of the timeout (`bun run frames . --wave "THE PLUMB" --until breach`
-when the wave misses unattended), or land it `--unverified` if it does not.
 
 ## THE KEEL's and THE FILAMENT's timeout hits are looked at
 

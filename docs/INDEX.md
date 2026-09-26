@@ -1966,6 +1966,7 @@ by hand never moves.
 | `packages/render/src/plumb-marks.ts` | **THE PLUMB's marks**: a level's glass with its bubble, and the lit core in its step's colour |
 | `packages/render/src/plumb-pose.ts` | **The clock THE PLUMB is posed off** (§31, *Animation*) |
 | `packages/render/src/plumb-shape.ts` | **THE PLUMB's geometry**: where the bob hangs, and the paths it is made of |
+| `packages/render/src/plumb-blow.ts` | THE PLUMB's own blow at the hull: a small bob drops down its plumb line and strikes point first |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
 | `packages/render/src/hull-barrel.ts` | THE SHIP LIT BY ITS OWN NORMAL, instead of by a straight ramp across its box |

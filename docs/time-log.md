@@ -24224,6 +24224,18 @@ had put on hold.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-26 — THE PLUMB's own blow at the hull
+
+- reading: 5 min. `plumb-step.ts`'s `miss`, `plumb-shape.ts`'s hook and sac.
+- writing: 10 min. A small bob on the sac's own plumb line, dropped down the
+  column point first and reeled back up.
+- looking: 15 min. The bob was first turned over, blunt end down, and its
+  brass point sat inside the sac until it was moved past the low end.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — three passes to get the bob to strike point first.
+
 ## 2026-09-26 — THE TRIVET's own blow at the hull
 
 - reading: 5 min. `trivet-step.ts`'s `miss`, `trivet-shape.ts`'s legs and plates.

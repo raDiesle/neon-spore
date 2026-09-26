@@ -11,6 +11,8 @@ import { mantleCentre } from "./mantle-shape.js";
 import { oculusBlow } from "./oculus-blow.js";
 import { oculusCentre } from "./oculus-shape.js";
 import { PALETTE } from "./palette.js";
+import { plumbBlow } from "./plumb-blow.js";
+import { plumbHook, plumbSacBottom, plumbSacMiddle } from "./plumb-shape.js";
 import { ratchetBlow } from "./ratchet-blow.js";
 import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 import { rimeBlow } from "./rime-blow.js";
@@ -79,6 +81,11 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   // The body's underside, where the cord leaves it: the side the plate is
   // wrenched toward (`ledger-blow.ts`).
   ledger: (l, cfg) => ({ x: fieldX(l, midCol(cfg)), y: ledgerBodyY(l).bottom }),
+  // The sac's low end, where the plumb line leaves it (`plumb-blow.ts`).
+  plumb: (l, cfg) => {
+    const h = plumbHook(l, cfg);
+    return { x: h.x, y: h.y + plumbSacMiddle(l).y + plumbSacBottom(l) };
+  },
   // The pawl's seam, where the jammed rack lets its head plate go
   // (`ratchet-blow.ts`).
   ratchet: (l, cfg) => ({ x: ratchetX(l, cfg), y: ratchetPawlY(l) }),
@@ -129,6 +136,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   stare: stareBlow,
   // A core left unshot: the lens drops a frosted sheet that bursts and frosts the skin.
   rime: rimeBlow,
+  // A core left unshot: the sac lets a small bob down its own plumb line.
+  plumb: plumbBlow,
   // A hub left unshot: the middle needle stamps the stand's footprint into the skin.
   trivet: trivetBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
