@@ -1,17 +1,23 @@
 import {
   drawBakedEgg,
+  drawBakedGlob,
+  drawBakedHeart,
   drawBakedIris,
   drawBakedMembrane,
   drawBakedNests,
   drawBakedPale,
   drawBakedScales,
   drawBakedSeam,
+  drawBakedSpark,
   drawEgg,
   drawEggCrack,
   drawHideScales,
   drawNests,
   EGG_SPRITE,
   EYE_SPRITE,
+  GLOB_SPRITE,
+  HEART_LOOK,
+  HEART_SPRITE,
   HIDE_SPRITE,
   IRIS_LOOK,
   NEST_SPRITE,
@@ -20,11 +26,24 @@ import {
   PALETTE,
   RING_LOOK,
   SEAM_SPRITE,
+  SPARK_SPRITE,
+  SPIT_LOOK,
   type SpriteSpec,
   WING_LOOK,
   WING_SPRITE,
 } from "@neon-spore/render";
-import { flat, iris, look, plate, ring, split, wing } from "./sprite-fixtures.js";
+import {
+  beat,
+  flat,
+  glob,
+  iris,
+  look,
+  plate,
+  ring,
+  spark,
+  split,
+  wing,
+} from "./sprite-fixtures.js";
 
 /**
  * **What `bun run sprite` can show**: each baked sprite beside the drawing it
@@ -111,6 +130,36 @@ export const DEMOS: readonly SpriteDemo[] = [
     },
   },
   {
+    name: "instar-glob",
+    spec: GLOB_SPRITE,
+    base: PALETTE.ember,
+    glow: PALETTE.podRim,
+    playH: (r) => r * 0.12 * 3.6,
+    threats: [0],
+    box: [-0.3, -0.4, 0.25, 0.25],
+    shipped(ctx, x, y, r, _threat, time) {
+      SPIT_LOOK.glob(ctx, glob(x, y, r, time));
+    },
+    baked(ctx, x, y, r, _threat, time, dpr) {
+      drawBakedGlob(ctx, glob(x, y, r, time), SPIT_LOOK.glob, dpr);
+    },
+  },
+  {
+    name: "instar-heart",
+    spec: HEART_SPRITE,
+    base: PALETTE.red,
+    glow: PALETTE.redRim,
+    playH: (r) => r * 0.25 * 4.4,
+    threats: [0],
+    box: [-0.6, -0.6, 0.6, 0.6],
+    shipped(ctx, x, y, r) {
+      HEART_LOOK.paint(ctx, beat(x, y, r));
+    },
+    baked(ctx, x, y, r, _threat, _time, dpr) {
+      drawBakedHeart(ctx, beat(x, y, r), HEART_LOOK.paint, dpr);
+    },
+  },
+  {
     name: "instar-hide",
     spec: HIDE_SPRITE,
     base: PALETTE.hullRim,
@@ -155,6 +204,21 @@ export const DEMOS: readonly SpriteDemo[] = [
     },
     baked(ctx, x, y, r, _threat, _time, dpr) {
       drawBakedSeam(ctx, ring(ctx, x, y, r), dpr);
+    },
+  },
+  {
+    name: "instar-spark",
+    spec: SPARK_SPRITE,
+    base: PALETTE.ember,
+    glow: PALETTE.emberRim,
+    playH: (r) => r * 0.025 * 4.8,
+    threats: [0],
+    box: [-0.08, -0.08, 0.08, 0.08],
+    shipped(ctx, x, y, r) {
+      SPIT_LOOK.spark(ctx, spark(x, y, r));
+    },
+    baked(ctx, x, y, r, _threat, _time, dpr) {
+      drawBakedSpark(ctx, spark(x, y, r), SPIT_LOOK.spark, dpr);
     },
   },
   {

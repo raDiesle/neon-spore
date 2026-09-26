@@ -4,6 +4,7 @@ import { GUIDE_FILM_POSE, LOST_SCREEN_POSE } from "./poses-guide.js";
 import { HANDOVER_TRADE_POSE } from "./poses-handover.js";
 import { INSTAR_BARE_POSE } from "./poses-instar-bare.js";
 import { INSTAR_BROOD_POSE } from "./poses-instar-brood.js";
+import { INSTAR_REAR_POSE, INSTAR_SPREAD_POSE } from "./poses-instar-spit.js";
 import { SLOW_RUNS_OUT_POSE, SLOW_WINDOW_POSE } from "./poses-slow.js";
 import { BREAK_POSE, BULB_STRUCK_POSE } from "./poses-struck.js";
 
@@ -63,4 +64,6 @@ export const VERSUS_STATE_POSES: Pose[] = [
   SLOW_RUNS_OUT_POSE,
   INSTAR_BROOD_POSE,
   INSTAR_BARE_POSE,
+  INSTAR_REAR_POSE,
+  INSTAR_SPREAD_POSE,
 ];

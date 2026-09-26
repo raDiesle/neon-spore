@@ -7,17 +7,21 @@
 
 import type { Variant } from "../variant.js";
 import { INSTAR_EYE_BAKED } from "./instar-eye/baked/index.js";
+import { INSTAR_HEART_BAKED } from "./instar-heart/baked/index.js";
 import { INSTAR_HIDE_BAKED } from "./instar-hide/baked/index.js";
 import { INSTAR_MOULT_BAKED } from "./instar-moult/baked/index.js";
 import { INSTAR_NEST_BAKED } from "./instar-nest/baked/index.js";
 import { INSTAR_SEAM_BAKED } from "./instar-seam/baked/index.js";
+import { INSTAR_SPIT_BAKED } from "./instar-spit/baked/index.js";
 import { INSTAR_WING_BAKED } from "./instar-wing/baked/index.js";
 
 export const VARIANTS: Variant[] = [
   INSTAR_EYE_BAKED,
+  INSTAR_HEART_BAKED,
   INSTAR_HIDE_BAKED,
   INSTAR_MOULT_BAKED,
   INSTAR_NEST_BAKED,
   INSTAR_SEAM_BAKED,
+  INSTAR_SPIT_BAKED,
   INSTAR_WING_BAKED,
 ];

@@ -134,6 +134,15 @@ export function tintedSprite(spec: SpriteSpec, px: number, base: string, glow: s
 }
 
 /**
+ * A height in device pixels, rounded up to a power of two: the key for a
+ * sprite drawn at a size that swells every frame (a thump, a growing glob),
+ * so the swell bakes a few sizes rather than one per step.
+ */
+export function spritePow2(cssHeight: number, dpr: number): number {
+  return 2 ** Math.ceil(Math.log2(Math.max(SPRITE_STEP, cssHeight * dpr)));
+}
+
+/**
  * Frame `i` of `s`, centred on `(x, y)`, `h` CSS pixels tall, turned by `rot`
  * and at `alpha` — the in-between motion a baked frame does not carry.
  */

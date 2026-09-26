@@ -2,11 +2,14 @@ import {
   type BodyRing,
   type EyeIris,
   type Form,
+  type GlobBall,
+  type HeartBeat,
   type Layout,
   type Look,
   lightHide,
   PALETTE,
   type PaleSkin,
+  type Spark,
   type WingSkin,
 } from "@neon-spore/render";
 
@@ -119,4 +122,21 @@ export function iris(x: number, y: number, r: number): EyeIris {
   const eye = new Path2D();
   eye.ellipse(x, y, r * 0.17, r * 0.075 * 0.8, -0.35, 0, Math.PI * 2);
   return { at: { x, y }, r, open: 0.8, look: r * 0.02, fade: 1, eye };
+}
+
+/** A glob at a head radius of `r`, halfway down, a trail of five behind it. */
+export function glob(x: number, y: number, r: number, time: number): GlobBall {
+  const g = r * 0.12;
+  const trail = [1, 2, 3, 4, 5].map((k) => ({ x: x - k * g * 0.3, y: y - k * g * 0.45 }));
+  return { at: { x, y }, r: g, trail, time, i: 0 };
+}
+
+/** An ember at a head radius of `r`, fully lit. */
+export function spark(x: number, y: number, r: number): Spark {
+  return { at: { x, y }, r: r * 0.025, flicker: 1, k: 0 };
+}
+
+/** The heart at a head radius of `r`, on the thump. */
+export function beat(x: number, y: number, r: number): HeartBeat {
+  return { at: { x, y }, r: r * 0.25, thump: 1, a: 1 };
 }

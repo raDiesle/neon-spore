@@ -2,11 +2,15 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { drawBakedEgg, EGG_SPRITE, stirAt } from "../src/instar-egg-baked.js";
 import { drawBakedIris } from "../src/instar-eye-baked.js";
 import { IRIS_LOOK } from "../src/instar-head-parts.js";
+import { HEART_LOOK } from "../src/instar-heart.js";
+import { drawBakedHeart } from "../src/instar-heart-baked.js";
 import { drawBakedScales } from "../src/instar-hide-baked.js";
 import { drawBakedPale } from "../src/instar-moult-baked.js";
 import { drawBakedNests } from "../src/instar-nest-baked.js";
 import type { Look } from "../src/instar-plate.js";
 import { drawBakedSeam } from "../src/instar-seam-baked.js";
+import { SPIT_LOOK } from "../src/instar-spit.js";
+import { drawBakedGlob, drawBakedSpark } from "../src/instar-spit-baked.js";
 import { drawBakedMembrane } from "../src/instar-wing-baked.js";
 import type { Layout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -67,7 +71,7 @@ describe("a sprite baked at load", () => {
     expect([0, 0.3, 0.55, 0.9, 1.5].map(stirAt)).toEqual([0, 1, 2, 3, 3]);
   });
 
-  it("draws the baked egg, nests, hide, wing, pale body, rings and eye with values a canvas accepts", () => {
+  it("draws the baked egg, nests, hide, wing, pale body, rings, eye, fire and heart with values a canvas accepts", () => {
     const { ctx: stub } = stubCanvas();
     const ctx = stub as unknown as CanvasRenderingContext2D;
     for (let i = 0; i < 40; i++) {
@@ -116,6 +120,9 @@ describe("a sprite baked at load", () => {
         IRIS_LOOK.paint,
         3,
       );
+      drawBakedGlob(ctx, { at: o, r: 2 + i, trail: [o, o], time: i / 60, i }, SPIT_LOOK.glob, 3);
+      drawBakedSpark(ctx, { at: o, r: 1 + i / 4, flicker: threat, k: i }, SPIT_LOOK.spark, 3);
+      drawBakedHeart(ctx, { at: o, r: 1 + i, thump: threat, a: 1 - threat }, HEART_LOOK.paint, 3);
     }
     expect(stub.calls).toBeGreaterThan(0);
   });

@@ -39,6 +39,8 @@ const SLOT_POSE: Record<string, string> = {
   "instar:nest": "INSTAR · THE BROOD",
   "instar:seam": "INSTAR · THE BROOD",
   "instar:eye": "INSTAR · THE JAW HALF PULLED",
+  "instar:heart": "INSTAR · BARE",
+  "instar:spit": "INSTAR · THE GLOBS FALLING",
   "instar:wing": "INSTAR · THE JAW HALF PULLED",
 };
 

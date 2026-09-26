@@ -23,6 +23,14 @@ export const BYTES: Record<string, { shipped: [string, string]; baked: [string, 
     shipped: ["instar-head-parts.ts", "drawEye"],
     baked: ["instar-eye-baked.ts", "drawBakedIris"],
   },
+  "instar-glob": {
+    shipped: ["instar-spit.ts", "SPIT_LOOK"],
+    baked: ["instar-spit-baked.ts", "drawBakedGlob"],
+  },
+  "instar-heart": {
+    shipped: ["instar-heart.ts", "HEART_LOOK"],
+    baked: ["instar-heart-baked.ts", "drawBakedHeart"],
+  },
   "instar-hide": {
     shipped: ["instar-hide.ts", "drawScales"],
     baked: ["instar-hide-baked.ts", "drawBakedScales"],
@@ -34,6 +42,10 @@ export const BYTES: Record<string, { shipped: [string, string]; baked: [string, 
   "instar-seam": {
     shipped: ["instar-profile.ts", "drawProfile"],
     baked: ["instar-seam-baked.ts", "drawBakedSeam"],
+  },
+  "instar-spark": {
+    shipped: ["instar-spit.ts", "SPIT_LOOK"],
+    baked: ["instar-spit-baked.ts", "drawBakedSpark"],
   },
   "instar-wing": {
     shipped: ["instar-wings.ts", "drawWing"],

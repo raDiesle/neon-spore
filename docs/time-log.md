@@ -23917,3 +23917,13 @@ fails on the same tick, so every frame after it is held.
 Bottleneck: reading — each boss had to be asked whether it still moves when its window opens.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's fire and heart, baked (claude/sprite-detail)
+
+- reading: 10 min. `instar-spit.ts` and `instar-heart.ts`, to cut the seams they draw through.
+- writing: 35 min. The two seams, three sprites, the size key that swells, two candidates, two poses.
+- looking: 20 min. The first glob read as a spinning blade; repainted as puffs of flame.
+- friction: 5 min. The spit had no pose with a glob in flight, so one was written.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — a fire painted with sharp tongues reads as a blade at the size it plays.

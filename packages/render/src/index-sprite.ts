@@ -9,6 +9,8 @@ export { drawEggCrack } from "./instar-egg-crack.js";
 export { drawEgg, drawNests } from "./instar-eggs.js";
 export { drawBakedIris, EYE_SPRITE } from "./instar-eye-baked.js";
 export { type EyeIris, IRIS_LOOK } from "./instar-head-parts.js";
+export { HEART_LOOK, type HeartBeat } from "./instar-heart.js";
+export { drawBakedHeart, HEART_SPRITE } from "./instar-heart-baked.js";
 export { drawScales as drawHideScales, type Form, lightHide } from "./instar-hide.js";
 export { drawBakedScales, HIDE_SPRITE } from "./instar-hide-baked.js";
 export { PALE_LOOK, type PaleSkin } from "./instar-moult.js";
@@ -17,6 +19,8 @@ export { drawBakedNests, NEST_SPRITE } from "./instar-nest-baked.js";
 export type { Look } from "./instar-plate.js";
 export { type BodyRing, RING_LOOK } from "./instar-profile.js";
 export { drawBakedSeam, SEAM_SPRITE } from "./instar-seam-baked.js";
+export { type GlobBall, SPIT_LOOK, type Spark } from "./instar-spit.js";
+export { drawBakedGlob, drawBakedSpark, GLOB_SPRITE, SPARK_SPRITE } from "./instar-spit-baked.js";
 export { drawBakedMembrane, WING_SPRITE } from "./instar-wing-baked.js";
 export { WING_LOOK, type WingSkin } from "./instar-wings.js";
 export {
@@ -25,6 +29,7 @@ export {
   SPRITE_STEP,
   type Sprite,
   type SpriteSpec,
+  spritePow2,
   spritePx,
   spriteRng,
   tintedSprite,

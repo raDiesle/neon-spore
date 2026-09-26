@@ -1586,6 +1586,7 @@ by hand never moves.
 | `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
 | `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |
 | `packages/render/src/instar-spit.ts` | THE INSTAR's rear globs and spread embers, falling on their marks while the window is open |
+| `packages/render/src/instar-spit-baked.ts` | **THE INSTAR's fire, baked** — the eighth and ninth examples (`sprite-bake.ts`) |
 | `packages/render/src/instar-seam-baked.ts` | **THE INSTAR's body rings, baked** — the sixth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers — and solid |
@@ -1603,6 +1604,7 @@ by hand never moves.
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
 | `packages/render/src/instar-head-parts.ts` | **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and the sinew strung between the jaws |
 | `packages/render/src/instar-heart.ts` | THE INSTAR's bare heart: a glow beating at the heart mark, put out by each shot |
+| `packages/render/src/instar-heart-baked.ts` | **THE INSTAR's heart, baked** — the tenth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-hide.ts` | **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays down |
 | `packages/render/src/instar-hide-baked.ts` | **THE INSTAR's hide, baked** — the third example (`sprite-bake.ts`) |
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |
@@ -2764,6 +2766,7 @@ by hand never moves.
 | `tools/director/src/poses-guide.ts` | A page of a tutorial's film, on player 1's phone |
 | `tools/director/src/poses-instar-brood.ts` | THE INSTAR in its brood, the two nests on its back full and the marks up over them |
 | `tools/director/src/poses-instar-bare.ts` | THE INSTAR bare after the moult, side-on |
+| `tools/director/src/poses-instar-spit.ts` | THE INSTAR's fire on its way down, three beats into the window, while nobody answers |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-advance.ts` | **One tick of a pose's world**, and the one thing four tests and the seat probe want out of `versus-pair.ts`… |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
