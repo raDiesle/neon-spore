@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 124616f91 — THE VOLLEY's shell breaks below the volley in its last six rows
+
+The ball bends onto the skin the same way a rock does, on the field's last six rows before the hull — but its shell fragments and burst squares were still thrown from the row's flat centre, up to a tile above the ball the pair were actually looking at. A ward or a hatch there now breaks the shell where it is drawn: `volley-shards.ts` and `effects-spark-worn.ts` place the pieces with `rockFallY` against the skin the host passes in, less the ball's own radius, the way `effects-spark-hole.ts` already places a crater's puffs.
+
 ## 2026-09-26 · 7aca9e687 — THE INSTAR's coil winds its two blades opposite ways
 
 On the coil, player 1 now winds the left blade back, anticlockwise, while player 2 winds the right one forward, so the two thumbs mirror each other and "turn it" is no longer enough: which way has to be said. The new gesture, `turnBack`, has its own arc running the other way inside the ring and its own word, TURN BACK; a clockwise wind on it counts nothing, as an anticlockwise one on a `turn` never did.
