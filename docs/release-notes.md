@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d0baa0268 — THE OCULUS's open leaves settle about their pins
+
+Each open leaf of the iris now settles about a degree and a half about its pin, slowly and on its own phase. The lit edge of a shut pair follows its blade, and a fully shut leaf holds exactly still, so the iris reads as clearly as before. Exemption: a look the owner asked for by name, the boss depth pass.
+
 ## 2026-09-26 · 7b28b8b06 — THE GRINDSTONE's receipts drawn: grit off a rubbed flat, a clean flash, the caliper's bite, the axle's flash
 
 Every reversal on a flat now throws a pinch of grit off it, and a pass ground clean flashes along the flat's face. The caliper flares along both jaws and presses the wheel down, with a shudder down the plating, as it bites and as a clamp is held home. An axle hit flashes wider for every hit, in the shot's colour, and a clean pass and a hit both deal the blow every boss takes. Spinning free flashes pale and shudders the hull harder.
