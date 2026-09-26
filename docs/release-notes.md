@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · fd6a88f24 — THE SLOW's light stands round five more bosses rather than the cannon
+
+A second page of THE SLOW's aim table (`slow-boss-aim-b.ts`), handed the beat so a row can follow a body that moves: THE RIME's lens, THE SURGE's bulb, THE SINEW's mass where it hangs (not its root), THE FILAMENT's heart as big as the strands left in it, and THE SPOOL across the top — each the point its own shape file already names. Before, each was aimed at the cannon's column at the hull, so the boss up top was split widest. Exemption: a fix to something wrong — PRISM promises the boss does not split. The queue entry now lists the thirteen still falling through, each needing a point exported from its shape file first.
+
 ## 2026-09-26 · 25eda4aa8 — THE MANTLE's pull watched through: the bow, the cord and the shed plates all read
 
 AUTO BOTH wins wave 102 in eleven seconds with no retries, and a strip at each step shows the shell bowing, the cord bending under it and the plates falling away. Landing it lost the race to main five times in a row, each after a full check; that is now a queue entry of its own.

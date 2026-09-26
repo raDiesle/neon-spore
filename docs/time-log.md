@@ -25122,3 +25122,5 @@ trunk spends more time checking than the lane spent working.
 
 The bottleneck: most of the seventeen keep their geometry inline in their
 draw files, so the entry was cut by what could be called, not by boss.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
