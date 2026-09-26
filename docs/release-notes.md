@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e49bba08b — AUTO answers THE LID and THE CLASP
+
+AUTO on both seats now clears THE LID and THE CLASP with the hull unscarred. On a lid, player 1 pulls the cord taut, in the first direction the field leaves room for, and player 2 holds fire until the lens is bare. A clasp is broken by raising the dome in its column, and the cannon waits for the body underneath. Ten ordinary waves are still half played; the queue entry names them.
+
 ## 2026-09-26 · b66adf07c — THE MANTLE is drawn: a plated shell over the field, bowing as both thumbs pull
 
 Half one of §23's look, the body. THE CASE's wing-case valve laid with THE SLATER's lapped plates, four to a valve, is shed a pair at a time tail first, with the core's red showing through each gap. Both flanks bow on the one summed pull, and each tail drops under its own handle. Both handles, with the floor's notch and half the threshold's, and the one cord that lights inward from each knob by that handle's counted share (grey below the floor) are drawn the same on both screens. The spark runs down the middle column, and the shell splits on its hinge round the beating core and the finish's two half-rings.
