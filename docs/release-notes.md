@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b322509d4 — docs/INDEX.md: add rows for plumb-fx.ts and boss-hands-plumb.ts
+
+Regenerated after the rebase brought the file map out of date.
+
+## 2026-09-26 · 3546f8db8 — THE PLUMB's hands, the fx and the cue: the second half of its look
+
+The autopilot hand holds both seats' leans dead level on whichever side is lit and fires the cannon at the core once it is. The fx ring the weights' settles, a drift's jolt and the core's hits and free swing off the sim's twelve events; the cue speaks LEVEL on the asked glass, FIRE on the lit core and BOTH across both; THE SLOW's aim tracks the bob.
+
 ## 2026-09-26 · 29123e6dc — §36 THE HALTER: pair RestraintGate with ChordHold, the simulation lane
 
 Wave 115, THE HALTER: a wary seam on the hull's spine that only opens while one seat sends nothing at all and the other holds both grips. Seven steps: rest and chord on the left mark, then the right, a red shot at the bared centre, two guards either way round with a cyan and a white shot. Fourteen sounds bound, twenty-five tests; the seven departures from §36's rows are written in §11.53.
