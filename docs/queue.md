@@ -854,27 +854,6 @@ already walks the array once a beat (`onBeat`) instead of once a frame. Pin it
 with a case in `packages/render/test/frame.test.ts` or a small dedicated test
 that counts calls to the comparator across repeated frames of a still field.
 
-## `gyres(world)` filters `world.creatures` twice a frame, then once more per wheel
-
-- **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-gyres-world-filters-world-creatures-twice-a-fram)
-- **Files:** `packages/render/src/gyre.ts`, `packages/render/src/gyre-wind.ts`
-
-`gyres(world)` (`gyre.ts:47`) is `world.creatures.filter(kind === "gyre")`,
-and it runs twice every frame from two independent call sites —
-`drawGyreWind` (`gyre-wind.ts:76`) and `drawGyres` (`gyre.ts:69`) — neither
-aware of the other. `drawGyres` then filters the whole creature list again
-**inside its own loop, once per wheel** (`gyre.ts:75`,
-`world.creatures.filter(m => m.gyreId === c.id)`), so a wave with several
-gyres rescans every creature once per wheel on top of the two whole-list
-filters. Compute the gyre list once per frame (pass it into both draw
-functions, or read the same cached value they already share for other
-per-frame data) and, inside `drawGyres`, group the wobbling bodies by
-`gyreId` in one pass instead of filtering per wheel. `packages/render/test/frame.test.ts`
-already stands a wave with gyres up; a call-count assertion on the filter (or
-just the resulting draw order, which the grouping must preserve) is enough to
-pin it.
-
 ## The shot sweep rescans every creature and every pod, per bullet, per tick
 
 - **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26

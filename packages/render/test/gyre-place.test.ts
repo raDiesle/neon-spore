@@ -13,7 +13,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { creatureCenter } from "../src/creature-place.js";
-import { drawGyres } from "../src/gyre.js";
+import { drawGyres, gyreCarried, gyres } from "../src/gyre.js";
 import { gyreCenter, gyreCorners, mountPlace } from "../src/gyre-place.js";
 import { drawGyreWind } from "../src/gyre-wind.js";
 import { computeLayout } from "../src/layout.js";
@@ -123,13 +123,30 @@ describe("the rim itself", () => {
     for (const p of at) expect(Number.isFinite(p.x) && Number.isFinite(p.y)).toBe(true);
   });
 
+  it("carries, sorted in one pass, exactly what a filter per wheel found", () => {
+    const world = withGyre(20);
+    const carried = gyreCarried(world, gyres(world));
+    expect(carried.get(hub(world).id)).toEqual(
+      world.creatures.filter((c) => c.gyreId === hub(world).id),
+    );
+    expect(carried.get(hub(world).id)?.length).toBeGreaterThan(0);
+  });
+
   it("draws, wind and all, with the maw shut and open", () => {
     const { ctx } = stubCanvas();
     for (const open of [false, true]) {
       const world = withGyre(20, open);
       for (const phase of [0, 0.37, 0.99]) {
-        drawGyreWind(ctx as unknown as CanvasRenderingContext2D, l, world, phase, phase * 3);
-        drawGyres(ctx as unknown as CanvasRenderingContext2D, l, world, phase, phase * 3);
+        const wheels = gyres(world);
+        drawGyreWind(
+          ctx as unknown as CanvasRenderingContext2D,
+          l,
+          world,
+          wheels,
+          phase,
+          phase * 3,
+        );
+        drawGyres(ctx as unknown as CanvasRenderingContext2D, l, world, wheels, phase, phase * 3);
       }
     }
   });

@@ -43,7 +43,8 @@ import type { Layout } from "./layout.js";
  * the mounts above it and under the ones below.
  */
 
-/** Every wheel on the field. Exported so the armature and the wind ask once. */
+/** Every wheel on the field — asked once a frame, by `frame-field.ts`, and
+ * handed to the armature and the wind rather than asked by each. */
 export function gyres(world: World): Creature[] {
   return world.creatures.filter((c) => c.kind === "gyre");
 }
@@ -63,16 +64,24 @@ export function drawGyres(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
+  live: readonly Creature[],
   beatPhase: number,
   time: number,
 ): void {
-  const live = gyres(world);
   if (live.length === 0) return;
   const pull = gyreSucked(world) ? 1 : 0;
-  for (const c of live) {
-    // The bodies this wheel is actually carrying, so the rim is built from the
-    // things it holds rather than from an angle they ought to be at.
-    const carried = world.creatures.filter((m) => m.gyreId === c.id);
-    drawWheel(ctx, l, world, c, carried, beatPhase, time, pull);
-  }
+  const carried = gyreCarried(world, live);
+  for (const c of live) drawWheel(ctx, l, world, c, carried.get(c.id) ?? [], beatPhase, time, pull);
+}
+
+/**
+ * The bodies each wheel is actually carrying, so the rim is built from the
+ * things it holds rather than from an angle they ought to be at — sorted into
+ * their wheels in one pass over the field, in the field's own order, rather
+ * than the whole field read again for every wheel.
+ */
+export function gyreCarried(world: World, live: readonly Creature[]): Map<number, Creature[]> {
+  const carried = new Map<number, Creature[]>(live.map((c) => [c.id, []]));
+  for (const m of world.creatures) if (m.gyreId !== undefined) carried.get(m.gyreId)?.push(m);
+  return carried;
 }

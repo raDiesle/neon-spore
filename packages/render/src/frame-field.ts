@@ -18,7 +18,7 @@ import { drawFlipSeam } from "./flip-seam.js";
 import { drawGhostRows } from "./ghost-row.js";
 import { drawGhostTrails } from "./ghost-trail.js";
 import { drawGrips } from "./grip.js";
-import { drawGyres } from "./gyre.js";
+import { drawGyres, gyres } from "./gyre.js";
 import { drawGyreWind } from "./gyre-wind.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { drawHuskMarks } from "./husk-mark.js";
@@ -129,11 +129,11 @@ export function drawBodies(
   // The wind between every wheel and the mouth, under everything: it is the
   // one picture in the pass that must never cross in front of a colour, and
   // it reaches from the middle of the field down to the hull (`gyre-wind.ts`).
-  drawGyreWind(ctx, l, world, view.beatPhase, view.time);
-  // Then the wheels themselves, in one pass and behind their own bodies —
-  // an armature five rows tall cannot take its turn inside a loop that
-  // sorts body by body (`gyre.ts`).
-  drawGyres(ctx, l, world, view.beatPhase, view.time);
+  // Then the wheels, behind their own bodies — an armature five rows tall
+  // cannot take its turn in a loop that sorts body by body (`gyre.ts`).
+  const wheels = gyres(world);
+  drawGyreWind(ctx, l, world, wheels, view.beatPhase, view.time);
+  drawGyres(ctx, l, world, wheels, view.beatPhase, view.time);
   // And every thread, before the bodies for the same reason a wheel is: a
   // strand spans up to five columns and `byDepth` sorts body by body, so a
   // line taking its turn in that order would be over some of the beads it

@@ -22276,3 +22276,15 @@ Bottleneck: writing — a boss is still named in some thirty files before the
 first check runs.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE GYRE's wheels are asked for once a frame
+
+- reading: 5 min. The queue entry, `gyre.ts`, `gyre-wind.ts`, the two calls
+  in `frame-field.ts`.
+- writing: 10 min. The list passed into both draws, `gyreCarried` sorting the
+  bodies in one pass, a test that it matches the per-wheel filter.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the checks outlast a change this size.

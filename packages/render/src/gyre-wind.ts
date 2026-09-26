@@ -1,5 +1,5 @@
-import { gyreSucked, type World } from "@neon-spore/sim";
-import { gyreRadiusPx, gyres } from "./gyre.js";
+import { type Creature, gyreSucked, type World } from "@neon-spore/sim";
+import { gyreRadiusPx } from "./gyre.js";
 import { gyreCenter } from "./gyre-place.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -70,10 +70,10 @@ export function drawGyreWind(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
+  live: readonly Creature[],
   beatPhase: number,
   time: number,
 ): void {
-  const live = gyres(world);
   if (live.length === 0) return;
   const pull = gyreSucked(world) ? 1 : 0;
   const seconds = pull > 0 ? PULL_SECONDS : DRIFT_SECONDS;
