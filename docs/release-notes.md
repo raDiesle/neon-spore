@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 56d3d0a40 — Queue: §29 THE RIME done
+
+## 2026-09-26 · c8f257bd8 — THE RIME's whiteout fogs the pane and its icicle hangs over the column to shield
+
+The whiteout now lights both halves white at once and rolls a pale fog over the lens that thins as the pair rub it clear. The icicle is a long frost shard swung out over its column, sinking toward the hull as its step runs out, with a dotted sight down to where the shield has to stand. The field says FIRE under the middle while the bared core is lit, and SHIELD under the middle on a surge or under the icicle's own column on an icicle.
+
 ## 2026-09-26 · 3847118c1 — THE DAVIT gets a look: a boom on a mast, steered and loosed
 
 A steel boom stands off a mast over the middle column, settling out of stowed and swinging toward whichever half the live lean points into. A halo rings it while a swing or a reland wants steering; a fire step drops the halo and lights the hook instead, in that step's own colour, with a ring that closes as the window runs out. A window run out breaks the hull with the boom's own blow, the hook paying its chain out and hauled back taut.

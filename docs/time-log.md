@@ -24600,3 +24600,5 @@ surface as a red check well after the drawing is finished.
 - landing: 5 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: writing — placing the icicle in the lens's frame so its sight lands on the hull under its own column.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
