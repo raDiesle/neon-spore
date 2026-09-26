@@ -3908,6 +3908,103 @@ than a sequence; any future concept wanting one seat to visibly need the
 other's hand, not just their timing, can reach for it before inventing a
 third verb.
 
+### §35 THE DAVIT — a boom one hand steers for the other to loose
+
+**Question.** THE PLUMB's `LevelTilt` has only ever answered its own
+weight; THE SLING's `DrawRelease` has only ever aimed itself, at a column
+lit on the hull and nothing else. Neither concept has asked one seat's
+continuous pose to *drive* what the other seat's committed release is
+judged against — THE CYST proved a hold can gate whether a squeeze does
+anything; this one proves a hold can steer the very target the other
+seat's release has to catch, live, rather than merely permit or deny it.
+
+**Silhouette.** A crane boom pivoted off the hull's spine, swinging loose
+on a slack chain, hook empty. **Health is the two swings**, each a boom
+steered onto a lit column by one seat's held tilt and loosed there by the
+other seat's draw, plus a lit pivot once both swings have landed; the
+pivot takes three ordinary hits.
+
+**Mechanic.** `davitAimMilli`, a single shared reading, tracks whichever
+seat is currently steering: while that seat's `LevelTilt` sits inside its
+threshold, the boom's on-screen reticle follows the tilt one-to-one
+rather than merely counting a hold, so a seat correcting a lean nudges
+the boom in real time; outside the threshold the boom swings free on its
+own slow drift instead. The other seat's `davitLeftDrawnMilli` /
+`davitRightDrawnMilli`, read by `DrawRelease`, only counts a loose as
+landed if the release falls while the steering seat's tilt is still
+inside threshold *and* the release direction matches the half the lit
+column sits in at that instant — a swipe timed against a target the
+other hand is still moving, not one already fixed. Losing the tilt
+mid-draw, or loosing before it settles, springs the arm slack rather than
+losing the step outright, the same forgiving shape THE VALVE's freeze,
+THE VISE's pinch, THE TRIVET's chord, THE PLUMB's lean and THE SLING's
+draw all use.
+
+**Player 1 and Player 2.** Identical screens — a tilt half and a draw
+half both drawn on every phone — but only one is live on a given swing;
+the steering seat and the drawing seat trade which half lights on each
+movement, the same role-swap-by-movement THE CYST's freezing and
+squeezing hands use rather than a fixed left seat / right seat split.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left swing** ||||||
+| 1 | The boom swings loose, hook empty, pivot dark | — | — | — | — | — |
+| 2 | A column lights; P1's tilt half lights to steer it | P1 steers, P2 looses | P1 leans level (`TILT, AS A LEVEL`) while P2 holds, then looses at it (`HOLD, THEN SWIPE`) | 6 beats, held together | left swing lands | tilt drifts or loose mistimed: boom swings free, retry |
+| 3 | A second column, roles held | P1 steers, P2 looses | steer and loose again | 4 beats, held together | left swing locked | swings free, retry from row 2 |
+| **Movement 2 — the right swing** ||||||
+| 4 | A column lights; P2's tilt half lights | P2 steers, P1 looses | P2 leans level while P1 holds, then looses | 6 beats, held together | right swing lands | swings free, retry |
+| 5 | A second column, roles held | P2 steers, P1 looses | steer and loose again | 4 beats, held together | right swing locked, pivot lights | swings free, retry from row 4 |
+| **Movement 3 — the pivot, held true** ||||||
+| 6 | The pivot flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | The boom creeps off true under the pivot | P1+P2, either steering | steer and loose together to reland it | 3 beats, held together | pivot stays lit | pivot dims, movement's fire beats lost until relanded |
+| 8 | Pivot flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Boom creeps off a second time, faster | P1+P2, either steering | steer and loose together | 3 beats, held together | stays lit | dims, retry |
+| 10 | Pivot flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, pivot spent | stays lit |
+| 11 | The boom swings free once more, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every steer-and-loose window (rows 2, 3, 4, 5, 7, 9)
+and every fire window (rows 6, 8, 10) — two different holds, on two
+different phones, resolving on one one shared instant is a harder read
+than either THE PLUMB's or THE SLING's own window alone, and needs
+seconds rather than beats to be read at all.
+
+**Presentation.** No camera. A landed swing a taut snap into the hook;
+each pivot hit an ordinary shot's flash; a mistimed loose a slack, empty
+thud with no snap.
+
+**Animation.** Five poses: boom swinging loose; left landed; both
+landed, pivot lit; pivot guarded, boom creeping loose; both swings spent,
+boom locked hard over. The boom eases toward wherever the live tilt
+points rather than snapping to it — the same drawn-as-mechanism choice
+THE OCULUS, THE VISE, THE RIME, THE TRIVET, THE PLUMB and THE SLING all
+make.
+
+**Colour.** Boom and chain a scoured steel grey, the hook a hot amber
+once landed; the pivot is the only lit colour on the body, lit in
+whichever cannon colour a given beat wants, THE SEAM's and THE OCULUS's
+rule again.
+
+**Payoff.** Rows 7 and 9 — steer-and-loose asked for defensively,
+relanding the boom under a `FIRE` step already under way, the same shape
+as THE OCULUS's row 7, THE VISE's, THE TRIVET's, THE PLUMB's and THE
+SLING's rows 7/9, spent here on two seats' holds resolving together
+instead of one.
+
+**Cost. Low.** No new primitive — `LevelTilt` and `DrawRelease` are both
+already built for THE PLUMB and THE SLING. The only new code is the
+shared aim field one primitive writes and the other reads, and the
+role-swap wiring THE CYST's freeze/squeeze pairing already proved out.
+
+**Reusable.** The steering pairing itself — one seat's continuous pose
+driving the live value the other seat's committed release is judged
+against, rather than a hold merely gating a separate step — is the first
+proof on this page that a pairing can be a hand-off in real time; any
+future concept wanting one seat to visibly aim for the other to fire can
+reach for it before inventing a third verb.
+
 ---
 
 ## The reusable boss mechanic library

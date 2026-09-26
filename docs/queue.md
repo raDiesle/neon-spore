@@ -1172,3 +1172,38 @@ into that item's own audit, since that one is still open and this is a
 single found case. Give a lit knuckle's pool or glow its own small period,
 distinct from `beatPhase`, the way `well-flesh.ts`'s `breath` runs on
 `time * 0.9` rather than the beat.
+
+## §35 THE DAVIT — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+No new primitive: `LevelTilt` (THE PLUMB's) and `DrawRelease` (THE
+SLING's) paired so one seat's held tilt drives a shared aim reading in
+real time and the other seat's release only lands while that tilt is
+in threshold and the release direction matches the aim at that instant
+— a hand-off rather than THE GRINDSTONE's sequence or THE CYST's
+dependency. Eleven steps, three movements, the steering half and the
+drawing half swapping seat by movement the way THE CYST's freezing and
+squeezing hands do. The full beat list and primitive table entry are
+§35 of `docs/spec/bosses-choreographed.md`. `LevelTilt` and
+`DrawRelease` each gain a second `where` entry in
+`tools/director/src/gesture-unbuilt.ts` — already done, land it with
+the rest. THE SLOW on every steer-and-loose window and every fire
+window. `bun run check` proves it.
+
+## §35 THE DAVIT — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §35 THE DAVIT's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (check
+`packages/content/src/silhouettes*.ts` first, then
+`tools/shape-sheet/src/drafts/`) for a pivoted crane boom on a slack
+chain, and the boom easing toward wherever the live tilt points as its
+own tell rather than a snap. No sprite-atlas experiment queued: the
+boom's motion is driven by the live shared aim reading every tick, not
+resolved once per beat, the same reasoning THE CYST's shudder was ruled
+out on. Nothing here is drawn yet and stays unverified at tempo until
+the owner has looked.

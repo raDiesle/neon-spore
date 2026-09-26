@@ -146,7 +146,7 @@ export const SPECIFIED: readonly Gesture[] = [
       note: "gamma: degrees left and right",
     },
     platform: "Same gate as the shake on an iPhone; Android asks nothing.",
-    where: [`${SPEC} §31 THE PLUMB`],
+    where: [`${SPEC} §31 THE PLUMB`, `${SPEC} §35 THE DAVIT`],
   },
   {
     name: "HOLD, THEN SWIPE",
@@ -170,7 +170,7 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       window: { from: 1, to: 6, label: "held" },
     },
-    where: [`${SPEC} §32 THE SLING`],
+    where: [`${SPEC} §32 THE SLING`, `${SPEC} §35 THE DAVIT`],
   },
 ];
 
