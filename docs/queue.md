@@ -471,6 +471,7 @@ into the roster. `bun run check` proves it.
 ## §24 THE KEEL — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-24-the-keel-the-look)
 - **Needs:** §24 THE KEEL's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
