@@ -21445,3 +21445,5 @@ phone, and the first stroke was thinner than the egg's own outline.
 
 Bottleneck: the script file's line limit — two marks written out long took it
 over, and the cut had to be found before anything could be tested.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

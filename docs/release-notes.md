@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 418ed2bed — THE INSTAR's lash sweeps along the hull, and the thumbs follow it
+
+On the first lash the forked tail no longer stands over two fixed points: both blades travel 110 thousandths leftward as the window runs, the fork carried with them, and each seat's twenty taps have to chase its own blade. Player 2's blade stops short of the seam, so where a mark is still says whose it is. The mixed lash stays still, because a wound blade turns about a fixed place.
+
 ## 2026-09-26 · 8e6e6e71 — A RESEARCH tab: other games' touch fights, co-op, and the inputs a phone offers
 
 The director's NOT BUILT YET sheet gains a RESEARCH tab that renders docs/spec/transfers-touch.md in full: choreographed touch games (Rhythm Heaven, Thumper, Infinity Blade, TWEWY, Elite Beat Agents and more), co-op games that are played by talking (Spaceteam, Tick Tock, Operation Tango, Space Alert, Captain Sonar), twenty boss sequences mapped to the primitive library, and an inventory of the inputs a phone browser offers — used, specified, missed and worth having, missed and rightly so. Each game carries a video thumbnail and links to its video and store page; the renderer now makes an https link a real link. The links come from search results and were not opened.
