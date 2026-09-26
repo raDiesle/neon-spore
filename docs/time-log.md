@@ -22566,3 +22566,5 @@ named in a dozen files, and two files the line limit made room in.
 
 Bottleneck: reading — the rule for a held knob came from the cord's grey end,
 which is in the drawing, not in the queue item.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 65443d517 — THE MANTLE says what it wants: PULL on each knob, TAP on the core, FIRE over the spark
+
+Each seat is shown PULL on its own knob while the handles are lit and nobody holds it, and the word goes the moment a thumb is on, below the floor or past it. In the finish, only the seat whose tap the core is waiting on is shown TAP on the ring. A leaking spark puts FIRE at the hull under it, on both screens, ahead of either. The exemption: a look with no shipped alternative — the boss had no words at all.
+
 ## 2026-09-26 · 81ea644c1 — Wave 108 THE RIME: rub each half of the lens clear before it frosts back, then shoot the core
 
 A frosted lens over the middle of the field, iced in two halves. A half lights and its own seat rubs it back and forth: every fresh reversal shaves frost, and a beat nobody rubbed it grows some back. Two wipes a half bare the core, a fire step is the ordinary shot in its colour into the middle column, and a shield step is the guard pressed with the shield under the lens. The first spend of the unclaimed RUB gesture, the reversal count riding the drag's id. Specified in docs/spec/bosses.md §11.46, with ten departures from §29 argued by name.
