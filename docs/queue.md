@@ -2300,6 +2300,7 @@ window closes, and prove it with a test in `tools/frames/test/`.
 ## §25 THE VALVE — a fuller story arc: a backdraught, a brace, a wipe, and a fade
 
 - **Found:** 2026-09-26, main, at the owner's request: existing bosses should
+- **Taken:** 2026-09-26, claude/keel-story-look (claim: claude/queue-25-the-valve-a-fuller-story-arc-a-backdraught-a)
   carry more visually distinct states and more SLOW beats that read as a
   story, before any new boss is started; §25 THE VALVE's first pass only had
   its original three-pin race and a plain chord finish.
