@@ -24227,3 +24227,24 @@ Bottleneck: writing — twelve events is twelve rows in six registration files
 before the first test can run.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §32 THE SLING — the look (claude/queue-32-the-sling-the-look)
+
+- reading: 20 min. `sling-marks.ts`, `sling-shape.ts`, `sling-pose.ts`, the
+  simulation's own `sling.test.ts`, and which skill's checklist actually
+  governs a first-time look versus a new phase on a shipped boss.
+- writing: 45 min. `sling-grip.ts`'s thumb-anywhere-on-the-panel hit test and
+  its swipe lift, `packages/render/test/sling-grip.test.ts`, and
+  `packages/render/test/sling-frame.test.ts`'s eleven poses across three
+  screens.
+- looking: 10 min. `bun run frames` twice, at rest and mid-draw, to see the
+  cup's glow and the tines swing out.
+- friction: 15 min. A wrong belief that `on-field-controls.test.ts`'s
+  `TARGET_PLACE` registration belonged to this lane rather than to the
+  hands lane, caught by re-reading `new-boss` and `new-boss-state` side by
+  side; a stray queue claim on the follow-up entry, taken back.
+- landing: 15 min. `check:fast` red once on a queue entry naming files that
+  do not exist yet, fixed; `bun run land`.
+
+Bottleneck: friction — the two skills' checklists overlap enough that the
+wrong one reads as right until they are compared line by line.

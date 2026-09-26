@@ -9043,14 +9043,24 @@ nothing else, THE SEAM's rule.
   fire step lights until both seats have loosed true. A seat that has
   loosed in a `both` is not asked again until its partner has.
 
-**The simulation lane has landed.** Nothing in `apps/game` sends a
-`slingDraw*` drag yet, so the fork cannot be answered on a real phone — the
-touch sender is queued with the look (`docs/queue.md`). Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
-carry all twelve of its events until lane two. The twelve sounds *are*
-bound (`audio/src/bind-sling.ts`), heard where they happen, the loose
-pitched up per draw and the hit per hit. There is no autopilot hand yet
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+**The look.** Steel tines fork out of the hull at rest, folded flat before
+the fork arrives and swung out as it drops
+(`render/sling-shape.ts`, `render/sling-pose.ts`). Each side's cord hangs
+slack in cord-brown until the lit step asks that seat's arm, when it glows
+the hull's own white and draws further home as the pull holds
+(`render/sling-marks.ts`, `drawSlingCord`). The cup at the crotch is dark
+steel until a fire step lights it in the step's own colour, brightens once
+the yoke has answered, and a closing ring counts the window down
+(`drawSlingCup`). A thumb is heard anywhere on the seat's own panel while
+its arm is asked, not only on the rest handle's circle — the sim's own rule
+(`render/sling-grip.ts`); the lift carries the swipe's side the way THE
+WARDEN's hatch does. `render/test/sling-frame.test.ts` and
+`render/test/sling-grip.test.ts` cover every pose on all three screens and
+the thumb's own hit test. The twelve sounds are bound
+(`audio/src/bind-sling.ts`), heard where they happen, the loose pitched up
+per draw and the hit per hit. **Not yet built**: the director's pose cards
+and its autopilot hand (`tools/director/test/autopilot.test.ts`'s
+`NO_HAND`), queued separately.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/sling.test.ts`): the fork comes in still with both arms slack,
