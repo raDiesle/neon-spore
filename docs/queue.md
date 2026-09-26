@@ -434,6 +434,7 @@ an alignment.
 ## §24 THE KEEL — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/queue-the-spec-calls-mutualrelease-unbuilt-the-surge-b (claim: claude/queue-24-the-keel-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 A six-segment spine whose one tap target, `keelJoint`, walks between the
