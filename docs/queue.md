@@ -1434,6 +1434,7 @@ what the rest of this file holds.
 ## §26 THE SEAM — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, claude/queue-26-the-seam-its-hands-the-second-half-of-its-loo
 - **Needs:** §26 THE SEAM — the look, half one (the body), landed first
 - **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
 
