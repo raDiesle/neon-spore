@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## §24 THE KEEL — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/queue-the-spec-calls-mutualrelease-unbuilt-the-surge-b (claim: claude/queue-24-the-keel-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-A six-segment spine whose one tap target, `keelJoint`, walks between the
-left and right half of the body — whichever seat is nearer the mark when it
-lights is the one the cue calls, with no `Alternation` refusal and no per-step
-authored seat. One standard-control fire step at the midpoint (movement 2).
-The full beat list is §24 of `docs/spec/bosses-choreographed.md`. THE SLOW on
-every joint window except the fast re-lit run in movement 3, which is at
-tempo on purpose. `bun run check` proves it.
-
 ## §25 THE VALVE — the simulation lane
 
 - **Found:** 2026-09-26, this session

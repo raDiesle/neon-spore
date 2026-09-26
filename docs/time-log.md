@@ -22047,3 +22047,17 @@ Bottleneck: reading — the judge lived in `beat-clock.ts`, not the files the
 entry named.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — Add THE KEEL's simulation lane: a joint whose seat is read off where it sits
+
+- reading: 15 min. §24's beat list, THE MANTLE's lane as the model,
+  `registrations.md`, `slow.ts`, `hull-damage.ts`.
+- writing: 50 min. Eight sim files, the sounds and their binding, some
+  thirty registrations, fifteen tests, §11.41.
+- looking: 0 min. Nothing drawn moved.
+- friction: 10 min. The test file ran to 295 lines and was split in three;
+  the first copies pattern matched `lid.ts`.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a boss is some thirty files it has to be named in
+before the first check will run.

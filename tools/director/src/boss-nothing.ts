@@ -10,6 +10,7 @@ import type {
   HaspEntry,
   HiveEntry,
   InstarEntry,
+  KeelEntry,
   LeadEntry,
   LedgerEntry,
   MantleEntry,
@@ -150,6 +151,11 @@ import type {
  *   read by index rather than a per-wave form. No column, the shell hangs over
  *   `midCol`; no number, the plate-pairs left are the health (`sim/mantle.ts`).
  *
+ * - **THE KEEL**'s socket colour and fast-run order are two fields on the
+ *   wave, too few for a form. No column, its segments are spread over the
+ *   field and its socket is `midCol`; no number, the loose segments are the
+ *   health (`sim/keel.ts`).
+ *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
  * is what this question exists to stop.
@@ -181,7 +187,8 @@ export function bossAuthorsNothing(
   | SpoolEntry
   | HaspEntry
   | RatchetEntry
-  | MantleEntry {
+  | MantleEntry
+  | KeelEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -211,6 +218,7 @@ export function bossAuthorsNothing(
     kind === "spool" ||
     kind === "hasp" ||
     kind === "ratchet" ||
-    kind === "mantle"
+    kind === "mantle" ||
+    kind === "keel"
   );
 }

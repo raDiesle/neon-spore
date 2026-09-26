@@ -198,4 +198,22 @@ export const NO_SUBJECT_C: Record<string, string> = {
   "boss.mantleDark": "the last tap landed and the core going dark. Same argument, and an absence.",
   "boss.mantleOut":
     "the dark hatch falling away and the wave ending. Same argument, and an absence.",
+  // THE KEEL's sixteen. A spine arched over the field: a fixture, THE
+  // MANTLE's argument, and nothing about it is drawn yet (`sim/events-keel.ts`).
+  "boss.keelEnter": "the spine settling over the field. A fixture, not a body on a grid.",
+  "boss.keelLight": "a joint lighting. A mark on the fixture. Same argument.",
+  "boss.keelLock": "a joint seating. Same argument.",
+  "boss.keelMiss": "a joint going dull untapped. Same argument, and an absence.",
+  "boss.keelSlip": "a segment working loose again. Same argument.",
+  "boss.keelSplit": "the middle of the spine opening. Same argument.",
+  "boss.keelSocket": "the open middle flashing a colour. Same argument.",
+  "boss.keelShut": "the socket shot in its colour. Same argument.",
+  "boss.keelSocketHit": "the socket's lash on the hull, which the hull's own sounds have.",
+  "boss.keelDim": "the whole spine going quiet. Same argument, and an absence.",
+  "boss.keelRigid": "the spine held stiff. Same argument.",
+  "boss.keelThrow": "the tail throwing a rock. A rock is not a creature. Same argument.",
+  "boss.keelRockOut": "that rock shot out, in either colour. Same argument.",
+  "boss.keelRockHit": "the rock on the hull, which the hull's own sounds have.",
+  "boss.keelStraight": "the spine easing flat. Same argument.",
+  "boss.keelOut": "the spine gone and the wave ending. Same argument, and an absence.",
 };

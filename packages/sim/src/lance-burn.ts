@@ -7,6 +7,7 @@ import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
+import { keelStruck } from "./keel-shot.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
@@ -164,6 +165,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE MANTLE's bared-core spark, the same shape and the same either
   // colour (`mantle-shot.ts`).
   mantleStruck(world, b);
+  // And THE KEEL's socket and rock, the socket in its own colour (`keel-shot.ts`).
+  keelStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

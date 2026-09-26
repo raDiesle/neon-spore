@@ -8,6 +8,7 @@ import { gorgeHeard } from "./gorge-hand.js";
 import { haspHeard } from "./hasp-hand.js";
 import { hiveHeard } from "./hive-hand.js";
 import { instarHeard } from "./instar-hand.js";
+import { keelHeard } from "./keel-hand.js";
 import { leadHeard } from "./lead-hand.js";
 import { ledgerHandsHeard } from "./ledger-hand.js";
 import { mantleHeard } from "./mantle-hand.js";
@@ -84,6 +85,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // handle's depth is where the thumb is now and a released handle has to
   // reach nought before the next beat judges the sum (`mantle-hand.ts`).
   for (const c of commands) mantleHeard(world, c.player, c.command);
+  // THE KEEL's joint, on the tick because a tap is an edge and the window
+  // it lands in is judged against the beat it lit on (`keel-hand.ts`).
+  for (const c of commands) keelHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

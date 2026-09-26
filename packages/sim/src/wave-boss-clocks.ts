@@ -7,6 +7,7 @@ import { installGorge } from "./gorge-step.js";
 import { installHasp } from "./hasp-step.js";
 import { installHive } from "./hive-step.js";
 import { installInstar, installNettle } from "./instar-step.js";
+import { installKeel } from "./keel-step.js";
 import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
 import { installMantle } from "./mantle-step.js";
@@ -65,6 +66,7 @@ const CLOCK_KINDS = [
   "ratchet",
   "nettle",
   "mantle",
+  "keel",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -181,6 +183,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // handles at its valves, and four thresholds its wave authored for the
     // summed pull to cross (`mantle-step.ts`).
     world.boss = installMantle(world, boss.thresholds);
+  } else if (boss.kind === "keel") {
+    // No creature and no row: a six-segment spine arched along the top of
+    // the field, every segment loose, and the socket's colour and the tempo
+    // run's order its wave authored (`keel-step.ts`).
+    world.boss = installKeel(world, boss.socket, boss.reprise);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

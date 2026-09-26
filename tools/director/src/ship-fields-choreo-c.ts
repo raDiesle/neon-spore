@@ -75,4 +75,19 @@ export const CHOREO_FIELD_GROUP_C = {
   mantleSlowBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
   mantleHeartbeatTaps: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
   mantleOpenBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  // KeelConfig — how many segments, and the patience of every row of the
+  // beat list: the joint's window per movement, the rest, the split, the
+  // socket, the rigid hold, the rock's fall and the end (`config-keel.ts`).
+  // The socket's colour and the fast run's order are the wave's own.
+  keelSegments: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelStillBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelJointBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelRestBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelSplitBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelSocketBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelLastJointBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelTempoBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelRigidBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelRockBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelOpenBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
 } satisfies Record<string, GroupName>;

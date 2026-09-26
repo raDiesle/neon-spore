@@ -27,6 +27,7 @@ export type {
   HaspEntry,
   HiveEntry,
   InstarEntry,
+  KeelEntry,
   LeadEntry,
   LedgerEntry,
   MantleEntry,

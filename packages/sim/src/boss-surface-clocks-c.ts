@@ -17,6 +17,29 @@
 // whether a bolt is loose — for the picture, the sound, the cue and the
 // director's hand. Straight off `ratchet.ts` (`docs/spec/bosses.md` §11.38).
 export type { RatchetEntry } from "./boss-entries-clocks-b.js";
+// THE KEEL's spine: the phase, the movement, where the joint sits and whose
+// thumb it wants, the locked segments and the tail's rock, for the picture,
+// the cue and the director's hand. Straight off `keel.ts`
+// (`docs/spec/bosses-choreographed.md` §24); `geometrySeat` is the spec's
+// `GeometrySeat`, for the cue that has to put `PRESS` on the right screen.
+export { geometrySeat } from "./geometry-seat.js";
+export {
+  KEEL_PHASES,
+  type KeelEntry,
+  type KeelPhase,
+  type KeelState,
+  keelBoss,
+  keelDone,
+  keelJointCol,
+  keelLit,
+  keelLoose,
+  keelNextJoint,
+  keelSeat,
+  keelSegCol,
+  keelThrown,
+  NO_JOINT,
+  NO_ROCK,
+} from "./keel.js";
 // THE MANTLE's shell: the phase, the cursor, both handles' depths and the
 // bared core's spark and finish, for the picture, the cue and the director's
 // hand. Straight off `mantle.ts` (`docs/spec/bosses-choreographed.md` §23).

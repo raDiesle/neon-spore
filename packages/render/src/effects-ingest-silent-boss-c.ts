@@ -121,6 +121,24 @@ export const INGEST_SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
+  // THE KEEL's sixteen, for THE MANTLE's reason: only its simulation lane
+  // has landed (`packages/audio/src/bind-keel.ts`).
+  "keelEnter",
+  "keelLight",
+  "keelLock",
+  "keelMiss",
+  "keelSlip",
+  "keelSplit",
+  "keelSocket",
+  "keelShut",
+  "keelSocketHit",
+  "keelDim",
+  "keelRigid",
+  "keelThrow",
+  "keelRockOut",
+  "keelRockHit",
+  "keelStraight",
+  "keelOut",
   // THE GAUGE's four, the first events this round has had at all: the needle,
   // the band, the jam and the bind are every one of them world state, read off
   // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame

@@ -66,4 +66,22 @@ export const SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
+  // THE KEEL's sixteen, for THE MANTLE's reason: nothing on the field yet
+  // for a burst to land on (`packages/audio/src/bind-keel.ts`).
+  "keelEnter",
+  "keelLight",
+  "keelLock",
+  "keelMiss",
+  "keelSlip",
+  "keelSplit",
+  "keelSocket",
+  "keelShut",
+  "keelSocketHit",
+  "keelDim",
+  "keelRigid",
+  "keelThrow",
+  "keelRockOut",
+  "keelRockHit",
+  "keelStraight",
+  "keelOut",
 ] as const satisfies readonly SimEvent["type"][];

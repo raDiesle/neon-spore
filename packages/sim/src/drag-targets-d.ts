@@ -27,7 +27,8 @@ export type DragTargetD =
   | "ratchetPawl"
   | "mantleLeft"
   | "mantleRight"
-  | "mantleCore";
+  | "mantleCore"
+  | "keelJoint";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -151,4 +152,15 @@ export type DragTargetD =
  * `heartbeatNext` names, and it alternates with every landed tap. No target
  * before it has let both seats answer the same name — a pair discover which
  * of them the core wants by watching whose tap counts.
+ */
+
+/**
+ * `keelJoint` is the seventieth, and the first whose seat is **read off where
+ * it is rather than authored**.
+ *
+ * A press, `ratchetPawl`'s shape, with no `id`: one joint on one spine. It
+ * walks the spine, and the seat that may press it is the one whose half of the
+ * screen it sits over as it lights (`geometrySeat`); the other seat's message
+ * does nothing, `gimbalOuter`'s reason, except that which seat is the wrong one
+ * changes every time the joint moves (`keel-hand.ts`).
  */

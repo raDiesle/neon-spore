@@ -10,6 +10,7 @@ import { stepGorge } from "./gorge-step.js";
 import { stepHasp } from "./hasp-step.js";
 import { stepHive } from "./hive-step.js";
 import { stepInstar } from "./instar-step.js";
+import { stepKeel } from "./keel-step.js";
 import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
 import { stepMantle } from "./mantle-step.js";
@@ -179,6 +180,12 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // question, not a tick's (`mantle-step.ts`).
   if (boss.kind === "mantle") {
     stepMantle(world, boss);
+    return;
+  }
+  // THE KEEL is a beat list: a joint lighting, its window running out, the
+  // socket and the rock are every one of them a beat's question (`keel-step.ts`).
+  if (boss.kind === "keel") {
+    stepKeel(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

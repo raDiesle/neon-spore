@@ -231,6 +231,10 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "mantleRight", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "mantleCore", on: true, fromMilli: 0 },
   { kind: "drag", target: "mantleCore", on: false, fromMilli: 0 },
+  // THE KEEL's joint is a press with no id — one joint lit at a time, and
+  // which seat may press it is read off where it sits (`sim/keel-hand.ts`).
+  { kind: "drag", target: "keelJoint", on: true, fromMilli: 0 },
+  { kind: "drag", target: "keelJoint", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -380,6 +384,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   mantleLeft: true,
   mantleRight: true,
   mantleCore: true,
+  keelJoint: true,
   crank: true,
 };
 

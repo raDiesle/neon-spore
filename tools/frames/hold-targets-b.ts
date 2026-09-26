@@ -1,8 +1,8 @@
 /**
  * The handles `--hold` did not know until 23 September 2026: every name on
  * the wire's own list (`DRAG_TARGETS`, `packages/net/src/command-fields.ts`)
- * that `hold-targets.ts` had no row for — forty-six of them, from the crank
- * to THE MANTLE's core.
+ * that `hold-targets.ts` had no row for — forty-seven of them, from the crank
+ * to THE KEEL's joint.
  *
  * A table rather than four more lists, because the four lists next door were
  * written one row at a time and a row here is a handle's whole story on one
@@ -102,6 +102,9 @@ export const ROWS: Record<string, Row> = {
   mantleLeft: {},
   mantleRight: { seat: 2 },
   mantleCore: {},
+  // `keel-hand.ts`: a press either seat may send; where the joint sits
+  // decides whose counts.
+  keelJoint: {},
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },

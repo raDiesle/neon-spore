@@ -95,9 +95,10 @@ describe("buildBacklog", () => {
     // THE MANTLE (§23) already has a ledger row ("claimed, simulation lane
     // starting") the moment it was written, so it never appears here — the
     // group is read off the ledger, not off a status word on the Contents
-    // list. The other four of the same batch have no row yet.
+    // list. THE KEEL (§24) left it when its simulation lane landed; the other
+    // three of the same batch have no row yet.
     expect(proposedNames).not.toContain("THE MANTLE");
-    expect(proposedNames).toContain("THE KEEL");
+    expect(proposedNames).not.toContain("THE KEEL");
     expect(proposedNames).toContain("THE VALVE");
     expect(proposedNames).toContain("THE SEAM");
     expect(proposedNames).toContain("THE OCULUS");

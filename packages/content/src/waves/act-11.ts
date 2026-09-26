@@ -78,6 +78,11 @@ import type { Wave } from "../wave-types.js";
  * both screens read the true combined pull, never one seat's own half of it
  * (`docs/spec/bosses-choreographed.md` §23). Four plate-pairs, then the bare
  * core's alternating tap.
+ *
+ * **THE KEEL came in behind that the same day**: a spine of six joints, and
+ * whose tap a joint wants is read off which half of the screen it sits on,
+ * never authored (`docs/spec/bosses-choreographed.md` §24). It authors the
+ * socket's colour and the order of the fast run, and nothing that falls.
  */
 export const WAVES_ACT_11: Wave[] = [
   {
@@ -133,6 +138,18 @@ export const WAVES_ACT_11: Wave[] = [
     },
     entries: [],
     boss: { kind: "mantle", thresholds: MANTLE_SCRIPT },
+    bossType: "normal",
+  },
+  {
+    id: "theKeel",
+    name: "THE KEEL",
+    guide: {
+      both: "Six joints. When one lights, tap it if it is on your half. The middle opens: shoot it in its colour. Then the joints light fast. Shoot the rock.",
+      p1: "1. Tap a lit joint on the left half of the spine.\n2. Move the cannon under the open middle, then under the rock.\n3. The joints light fast at the end. Watch which half.",
+      p2: "1. Tap a lit joint on the right half of the spine.\n2. Fire the open middle in the colour it shows.\n3. Fire the rock the tail throws before it lands.",
+    },
+    entries: [],
+    boss: { kind: "keel", socket: "red", reprise: [4, 3, 0] },
     bossType: "normal",
   },
 ];

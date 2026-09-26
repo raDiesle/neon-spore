@@ -86,4 +86,18 @@ export const CHOREO_NOTES_C = {
     "hangs mantleOpenBeats before the fight ends. Only the simulation lane " +
     "has landed — see sim/mantle.ts, sim/mantle-hand.ts, " +
     "sim/config-mantle.ts.",
+  "THE KEEL — the boss whose next joint is whichever thumb is nearer":
+    "Asked for in docs/spec/bosses-choreographed.md §24: whose tap is it, " +
+    "when neither seat is named. A spine of keelSegments segments arches over " +
+    "the field; one joint lights at a time, and only the seat whose half of the " +
+    "screen it sits over may tap it (geometrySeat) — the middle column either. " +
+    "Movement one lights the ends inward, alternating; at two loose the middle " +
+    "opens and its socket flashes the wave's colour, which only that colour's " +
+    "shot shuts, locking a joint for free; unanswered it is a hit on the hull " +
+    "and flashes again. Movement three dims the spine and relights it at " +
+    "keelTempoBeats in the wave's own order, with no SLOW; a miss there slips " +
+    "the segment loose. Then the spine goes rigid and the tail throws one rock " +
+    "down its column — either colour answers it. THE SLOW spans every joint and " +
+    "the socket before movement three. Only the simulation lane has landed — " +
+    "see sim/keel.ts, sim/keel-step.ts, sim/keel-hand.ts, sim/config-keel.ts.",
 } satisfies Partial<Record<GroupName, string>>;

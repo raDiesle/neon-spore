@@ -6,6 +6,7 @@ import { gimbalCue } from "./bind-gimbal.js";
 import { haspCue } from "./bind-hasp.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
+import { keelCue } from "./bind-keel.js";
 import { mantleCue } from "./bind-mantle.js";
 import { ratchetCue } from "./bind-ratchet.js";
 import { scuttleCue } from "./bind-scuttle.js";
@@ -51,6 +52,7 @@ type LateEvent = Extract<
       | `hasp${string}`
       | `ratchet${string}`
       | `mantle${string}`
+      | `keel${string}`
       | `undertow${string}`;
   }
 >;
@@ -189,6 +191,23 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "mantleDark":
     case "mantleOut":
       return mantleCue(e, cols);
+    case "keelEnter":
+    case "keelLight":
+    case "keelLock":
+    case "keelMiss":
+    case "keelSlip":
+    case "keelSplit":
+    case "keelSocket":
+    case "keelShut":
+    case "keelSocketHit":
+    case "keelDim":
+    case "keelRigid":
+    case "keelThrow":
+    case "keelRockOut":
+    case "keelRockHit":
+    case "keelStraight":
+    case "keelOut":
+      return keelCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

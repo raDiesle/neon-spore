@@ -49,6 +49,9 @@ export const BOSS_ENTRIES_D = {
   // fingerprint's job is the cursor and both handles' depths, not the length
   // of the list (`mantle-hash.ts`).
   mantle: { kind: "mantle", thresholds: [1400, 1700] },
+  // THE KEEL authors its socket and its tempo run; two joints rather than the
+  // shipped three, for the same reason (`keel-hash.ts`).
+  keel: { kind: "keel", socket: "cyan", reprise: [4, 0] },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -115,5 +118,18 @@ export function patchBossD(boss: BossState): void {
     boss.sparkBeat = 5;
     boss.heartbeatNext = 1;
     boss.heartbeatDone = 2;
+  }
+  if (boss.kind === "keel") {
+    // Into the tempo run with a joint lit and a rock in the air at once —
+    // never both in play, but every field given a value so the walk can
+    // tell a hashed one from one it never sees change (`keel-hash.ts`).
+    boss.phase = "joint";
+    boss.phaseBeat = 3;
+    boss.movement = 3;
+    boss.joint = 4;
+    boss.locked = [true, true, false, true, true, true];
+    boss.repriseCursor = 1;
+    boss.rockCol = 10;
+    boss.rockBeat = 5;
   }
 }

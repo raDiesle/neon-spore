@@ -31,6 +31,8 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // five phases has a pose to draw them from (`docs/spec/bosses-choreographed.md`
   // §23). Struck the day the look lane lands.
   mantle: ["still", "pull", "spark", "heartbeat", "dark"],
+  // THE KEEL the same, §24: its eight.
+  keel: ["still", "joint", "rest", "split", "socket", "rigid", "rock", "straight"],
 };
 
 describe("the BOSSES category", () => {

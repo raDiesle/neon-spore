@@ -384,6 +384,8 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   mantleLeft: "unbuilt",
   mantleRight: "unbuilt",
   mantleCore: "unbuilt",
+  // THE KEEL, the same.
+  keelJoint: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

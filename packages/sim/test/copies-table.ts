@@ -750,4 +750,15 @@ export const COPIES: Copy[] = [
     owner: "packages/sim/src/beat-clock.ts",
     pattern: /\b\w*[lL]ift\w*\s*\+\s*(?:tpb|ticksPerBeat\s*\()/,
   },
+  {
+    // **Whose thumb a mark wants, read off where it sits** — the spec's
+    // `GeometrySeat`, built by THE KEEL. One caller today (`keel.ts`), and the
+    // row is here before a second for the spool's reason: the next boss whose
+    // mark changes seat as it moves is one `< cols ? 1 : 2` away from a middle
+    // column that belongs to nobody.
+    call: "geometrySeat",
+    owner: "packages/sim/src/geometry-seat.ts",
+    pattern:
+      /<\s*(?:\w+\.)*cols\s*(?:\)\s*return\s*1\b|\?\s*1\s*:\s*2\b)|midCol\([^)]*\)\s*\?\s*1\s*:\s*2\b/,
+  },
 ];

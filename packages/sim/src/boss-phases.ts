@@ -10,6 +10,7 @@ import { HASP_PHASES } from "./hasp.js";
 import { HIVE_PHASES } from "./hive.js";
 import { HIVE_LOBES } from "./hive-lobe.js";
 import { INSTAR_PHASES } from "./instar.js";
+import { KEEL_PHASES } from "./keel.js";
 import { LEDGER_PHASES } from "./ledger.js";
 import { MANTLE_PHASES } from "./mantle.js";
 import { MAZE_PHASES } from "./maze.js";
@@ -109,5 +110,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   hasp: HASP_PHASES,
   ratchet: RATCHET_PHASES,
   mantle: MANTLE_PHASES,
+  keel: KEEL_PHASES,
   fleet: FLEET_PHASES,
 };

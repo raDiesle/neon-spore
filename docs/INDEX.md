@@ -376,6 +376,11 @@ by hand never moves.
 | `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as four events (`gauge.ts`, `gauge-hand.ts`) |
 | `packages/sim/src/events-gimbal.ts` | What THE GIMBAL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
+| `packages/sim/src/keel-hand.ts` | THE KEEL's one thumb: a tap on the lit joint, from the seat whose half of the screen it sits over |
+| `packages/sim/src/keel-hash.ts` | What THE KEEL puts into `hashWorld`, and nothing else |
+| `packages/sim/src/keel-shot.ts` | **THE KEEL's two targets**: the midpoint's socket (movement 2) and the tail's rock (movement 3) |
+| `packages/sim/src/keel-step.ts` | THE KEEL's clock: every row of §24's beat list that is a beat's question — a joint lighting |
+| `packages/sim/src/keel.ts` | THE KEEL: a six-segment spine arched along the top of the field |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-crystal.ts` | THE CRYSTAL's numbers: how it crosses the field, what splitting one is worth, what a whole one costs |
 | `packages/sim/src/creature-roster.ts` | **The fixed order every kind is written into the world fingerprint in.** Cut out of `creature-kinds.ts` when… |
@@ -423,6 +428,7 @@ by hand never moves.
 | `packages/sim/src/gimbal-shot.ts` | **THE GIMBAL's one target**: the spark leaking from the drum's seam once two tooth pairs are off (§18, row 9) |
 | `packages/sim/src/gimbal-step.ts` | THE GIMBAL's clock: the marks lighting, the hold being counted, the shear, the seam, and the hatch |
 | `packages/sim/src/gimbal.ts` | THE GIMBAL: a sealed drum hung inside two nested rings set at right angles |
+| `packages/sim/src/geometry-seat.ts` | **Whose thumb a mark wants, read off where it is** |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
 | `packages/sim/src/config-cling.ts` | THE LIMPET's and THE LEECH's numbers: how many beats a control may stand still with one on it before it goes… |
@@ -574,6 +580,7 @@ by hand never moves.
 | `packages/sim/src/events-push.ts` | **The shield pushing a creature back up the field** (`shield-push.ts`) |
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's five and THE MAZE's five** |
 | `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-keel.ts` | What THE KEEL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -597,6 +604,7 @@ by hand never moves.
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
 | `packages/sim/src/config-instar.ts` | THE INSTAR's tuning: the rules that hold across every step of a scene |
+| `packages/sim/src/config-keel.ts` | THE KEEL's tuning: how many segments the spine has |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
@@ -1909,6 +1917,7 @@ by hand never moves.
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-keel.ts` | THE KEEL's sixteen, in a file of their own for `bind-gorge.ts`' reason |
 
 ### apps/game
 

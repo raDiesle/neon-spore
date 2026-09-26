@@ -153,6 +153,11 @@ export function serializeBoss(boss: BossEntry): string {
   // THE MANTLE's thresholds are named for the same reason
   // (`packages/content/src/mantle-script.ts`).
   if (boss.kind === "mantle") return '{ kind: "mantle", thresholds: MANTLE_SCRIPT }';
+  // THE KEEL's two fields are short enough to read on one line, SPLICE's
+  // reason: a colour and three segment indices.
+  if (boss.kind === "keel") {
+    return `{ kind: "keel", socket: "${boss.socket}", reprise: [${boss.reprise.join(", ")}] }`;
+  }
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

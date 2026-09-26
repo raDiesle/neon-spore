@@ -8,6 +8,7 @@ import { gorgeHashParts } from "./gorge-hash.js";
 import { haspHashParts } from "./hasp-hash.js";
 import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
+import { keelHashParts } from "./keel-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { mantleHashParts } from "./mantle-hash.js";
@@ -114,6 +115,11 @@ export function clockHashParts(boss: BossState): number[] {
   // spark and the heartbeat finale (`mantle-hash.ts`).
   if (boss.kind === "mantle") {
     for (const n of mantleHashParts(boss)) out.push(n);
+  }
+  // THE KEEL: the socket, the phase and movement, the joint, the run's cursor,
+  // the rock, every segment's lock and the authored order (`keel-hash.ts`).
+  if (boss.kind === "keel") {
+    for (const n of keelHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

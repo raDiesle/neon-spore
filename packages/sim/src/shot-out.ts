@@ -5,6 +5,7 @@ import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
+import { keelStruck } from "./keel-shot.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerStruck } from "./ledger-shot.js";
 import { mantleStruck } from "./mantle-shot.js";
@@ -68,6 +69,9 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   // THE MANTLE's bared-core spark, the same shape and the same either colour
   // (`mantle-shot.ts`).
   mantleStruck(world, b);
+  // THE KEEL's socket, in its own colour, and its tail's rock, in either
+  // (`keel-shot.ts`).
+  keelStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -113,6 +117,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "antiphon",
   "gimbal",
   "mantle",
+  "keel",
   "hasp",
   "ratchet",
   "hive",

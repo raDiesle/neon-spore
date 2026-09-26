@@ -7576,6 +7576,104 @@ other's; the last tap darkens the core and ends the wave after
 `mantleOpenBeats`; and the fingerprint is deterministic and diverges on any
 differing input. Whether any of it *reads* is the owner's eye, after lane two.
 
+## 11.41 THE KEEL — the boss whose next joint is whichever thumb is nearer
+
+> A spine of six joints arches over the field, every one of them loose. When
+> one lights, the one whose half of the screen it is on taps it. Halfway, the
+> middle splits and a socket flashes: shoot it in its colour. Then the joints
+> come fast, and the tail throws one rock.
+
+Designed as §24 of [bosses-choreographed](bosses-choreographed.md), one of the
+owner's batch of five choreographed bosses of 26 September 2026 that read the
+same on both screens — the second of the three kinds in
+`.claude/skills/new-boss`, a choreographed scene. Every boss before it that
+hands a step to one seat names the seat: an authored `seat` on the step,
+THE BATON's alternation, THE MANTLE's left and right handles. This one names
+nobody. The question is whether two people can read *whose turn it is* off
+where the mark sits, with nothing on the step saying so.
+
+**It is six segments (`keelSegments`), and they are its health.** The state (`sim/keel.ts`,
+hashed in `sim/keel-hash.ts`) is the **phase** and the beat it began, the
+**movement** (1 to 3), the lit **joint**, which segments are **locked**, the
+wave's **socket** colour and its **reprise** (the third movement's order),
+how far along the reprise the run is, and the rock's column and beat. A
+segment locked is one fewer loose; the last one seated straightens the spine.
+
+**The rule, in one sentence.** A joint lights; the seat whose half of the
+screen it is on taps it; any other tap does nothing.
+
+**The seat is read off the column** (`sim/geometry-seat.ts`,
+`geometrySeat(col, cols)`): the left half is Player 1's, the right half
+Player 2's, and the middle column of an odd field is either's. It is the
+spec's `GeometrySeat`, built here for the first time, and the purity test's
+COPIES table holds every other file to calling it rather than writing the
+ternary again. With six segments across eleven columns no segment sits on the
+middle column, so on the wave as shipped the either-seat branch is never
+reached; it is there for a wave with a different spine.
+
+**The clock** (`sim/keel-step.ts`). The spine hangs still for
+`keelStillBeats`. Movement one lights the ends inward, left first —
+segments 0, 5, 1, 4 — each under THE SLOW (`openSlow(…, "ask")`) for
+`keelJointBeats`; THE SLOW closes the moment the tap lands. With two segments
+still loose the midpoint splits (`keelSplitBeats`) and the socket flashes for
+`keelSocketBeats`, under THE SLOW: the cannon under the middle column, in the
+wave's colour, answers it and seats one loose segment for free (the leftmost).
+The last loose segment is movement two's, on the shorter `keelLastJointBeats`.
+Then the spine goes dim and movement three runs the wave's `reprise` at tempo,
+`keelTempoBeats` a joint and no SLOW, on purpose; when every segment is seated
+it holds rigid for `keelRigidBeats` and the tail — the rightmost segment —
+throws a rock down its column, with `keelRockBeats` before it reaches the
+hull. Either colour under that column shoots it out, the spine straightens,
+and it hangs `keelOpenBeats` before the wave may end. Between any two joints
+there is a `rest` of `keelRestBeats`.
+
+**Where this departs from the design, and why.** Five places.
+
+- **A missed joint in movements one and two costs only the beat.** §24 gives
+  a missed joint a thrash and, with every segment loose, a breach. A breach
+  is the wave (`breachHull` sets `failTick`), and the first movement is where
+  a pair is working out *whose* joint it is — failing the wave for the answer
+  to the question the boss is asking would end most first attempts before the
+  rule was found. The joint re-lights where it was, a rest later.
+- **The third movement's order is authored, not drawn.** §24 says the joints
+  re-light "in a new order"; the order is the wave's `reprise` (`[4, 3, 0]`
+  on THE KEEL), so a run is the same run every time and a pair can learn it.
+  A miss at tempo works that segment loose again, and it re-lights after the
+  reprise, leftmost first.
+- **A missed socket is a hit on the hull.** It is the one standard-control
+  step of the fight and the one place the SLOW is spent on the cannon, so it
+  is the one place a miss costs the wave, the way THE MANTLE's spark does.
+- **The rock takes either colour; the socket takes only its own.** The rock
+  is a hazard, not a body the pair could have got the colour of wrong —
+  THE MANTLE's spark and THE GIMBAL's seam argue it the same way. The socket
+  *is* the colour question, so it keeps it.
+- **The tail is the rightmost segment**, since §24 names a tail and not
+  which end; the rock falls on Player 2's half.
+
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
+carry all sixteen of its events until lane two. The sixteen sounds *are*
+bound (`audio/src/bind-keel.ts`), each panned to the column it happens in,
+the lock pitched up per joint seated. There is no autopilot hand yet either
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`), since a hand plays a
+boss against poses that do not exist.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/keel.test.ts`, `sim/test/keel-tempo.test.ts`): `geometrySeat`
+splits both an odd and an even field; the spine comes in still with every
+segment loose and keeps only the reprise indices that name a segment;
+movement one lights 0, 5, 1, 4 under THE SLOW and each tap closes it; the
+other seat's tap on a lit joint is refused; a missed joint re-lights where it
+was and the wave does not fail; the midpoint splits at two loose; the socket
+refuses the wrong colour and the wrong column and seats a segment on the
+right shot; the socket left unanswered fails the wave; movement three runs
+the reprise with no SLOW, then holds rigid and throws from the tail's column;
+a miss at tempo slips a segment loose and it comes back after the reprise;
+the rock shot out straightens the spine and ends the fight, and left alone
+fails the wave; and the fingerprint is deterministic and diverges on a
+different reprise. Whether any of it *reads* is the owner's eye, after lane
+two.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
