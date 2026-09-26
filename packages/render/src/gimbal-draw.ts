@@ -1,3 +1,4 @@
+import { LIGHT_HALF } from "@neon-spore/content";
 import { type GimbalState, gimbalLeaking, INNER, OUTER, type World } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
@@ -138,7 +139,7 @@ function drawDrum(
     ctx.save();
     ctx.clip(leaf);
     const wobble = DRUM_WOBBLE * Math.sin((time * (Math.PI * 2)) / DRUM_WOBBLE_PERIOD + side);
-    litRound(ctx, at.x, at.y, r, "value", wobble);
+    litRound(ctx, at.x, at.y, r, LIGHT_HALF.rock, wobble);
     ctx.restore();
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.rock, 0.45);
