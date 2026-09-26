@@ -2179,6 +2179,7 @@ what the rest of this file holds.
 ## §24 THE KEEL — a fuller story arc, a flip, a reveal, a cooldown
 
 - **Found:** 2026-09-26, this session, at the owner's direction, sharpened by
+- **Taken:** 2026-09-26, claude/mantle-blow (claim: claude/queue-24-the-keel-a-fuller-story-arc-a-flip-a-reveal-a)
   the coordinator session's own review: the earlier closing-beat-only pass
   across §23–§33 was too thin against the owner's ask for bosses that read as
   a story through distinct visual states and SLOW beats. THE KEEL is second
