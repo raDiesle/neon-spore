@@ -9,8 +9,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * **THE OCULUS's marks**: the two things that say what a step asks — the lit
  * pair, which is *both hold now*, and the lit core, which is *shoot here, in
  * this colour*. Cut from `oculus-draw.ts` the day it was written, along the
- * line its second half will grow on — the cue words come here, and the
- * flashes `oculus-fx.ts` times are drawn here.
+ * line its second half grew on: the flashes `oculus-fx.ts` times are drawn
+ * here. The words over the marks are the cue's, every boss's way
+ * (`boss-cue-read-ze.ts`).
  */
 
 /** A step's colour on the canvas: its cannon's, or white for a step either answers (§27, *Colour*). */

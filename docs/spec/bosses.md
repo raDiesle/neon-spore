@@ -8240,6 +8240,13 @@ core is the lens's own blow at the hull, which every boss that strikes draws
 the same way (`boss-strike-fx.ts`). A shut pair and a core hit deal the blow
 every boss takes (`render/oculus-fx.ts`, `test/oculus-fx.test.ts`).
 
+**Its cue says two words** (26 September 2026), #34's: `HOLD` on each seat's
+half of the lens while a pair is lit, a shut or a reseal, gone the moment
+that seat's thumb is down; and `FIRE` at the hull under the middle column
+while the core is lit, to either seat and never naming the colour. Nothing
+between steps, through the break or as it shatters
+(`render/boss-cue-read-ze.ts`, `test/boss-cue-oculus.test.ts`).
+
 ## 11.45 THE VISE — the boss two pinches crack, then shoot into
 
 > A dry seed-case over the middle of the field, two lobes clamped on a

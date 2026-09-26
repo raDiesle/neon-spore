@@ -26,6 +26,7 @@ import { spoolCues } from "./boss-cue-read-za.js";
 import { ratchetCues } from "./boss-cue-read-zb.js";
 import { mantleCues } from "./boss-cue-read-zc.js";
 import { keelCues } from "./boss-cue-read-zd.js";
+import { oculusCues } from "./boss-cue-read-ze.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -159,6 +160,9 @@ function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): 
     // And THE KEEL's, a word to the seat whose joint is lit and one over the socket or the rock (`boss-cue-read-zd.ts`).
     case "keel":
       return keelCues(l, world, boss, beatPhase);
+    // And THE OCULUS's, a word to each seat not yet on its half of a lit pair and one under the lit core (`boss-cue-read-ze.ts`).
+    case "oculus":
+      return oculusCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

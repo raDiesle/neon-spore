@@ -23731,3 +23731,14 @@ Bottleneck: writing — eight new events are forty registrations across seven
 packages, and only the typecheck finds them one at a time.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS's cue words (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 5 min. THE KEEL's and THE MANTLE's cue pages as the pattern.
+- writing: 10 min. `boss-cue-read-ze.ts`, its `case`, the test, the specs.
+- looking: 0 min. Nothing seen; queued as unverified.
+- friction: 15 min. The previous lane's rebase over the new timeout blow,
+  which drew THE OCULUS's missed core twice until its own burst came out.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: friction — a rebase onto a rule that landed mid-lane.

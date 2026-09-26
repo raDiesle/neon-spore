@@ -473,19 +473,19 @@ into the roster. `bun run check` proves it.
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
 - **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-27-the-oculus-its-hands-the-second-half-of-its-l)
 - **Needs:** §27 THE OCULUS — the look, half one (the body), landed first
-- **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `apps/game/src/`
+- **Files:** `packages/render/src/slow-intake-aim.ts`, `apps/game/src/`
 
 The body is drawn: the rim and its pins, the six leaves as iris blades, the
 lit pair sliding shut as it is held, a reseal's cracked pair, the socket's
 break, the core in its colour and smaller per hit, and the shatter. What is
-left is the aim and the words. The on-field leaf holds landed 26
-September 2026 (`render/oculus-grip.ts`: each seat's half of the lens is its
-leaf, by geometry), and the autopilot hand and the STATES poses after them
-(`hands/boss-hands-oculus.ts`), and the fx the same day
-(`render/oculus-fx.ts`: the thud, the flashes, the hull shock and the
-bursts). **THE SLOW's aim** on the lens (the prism splits it today — the
-item below on the prism's aim is the general case). **The cue's words**
-(HOLD on the lit pair, FIRE on the lit core).
+left is the aim. The on-field leaf holds landed 26 September 2026
+(`render/oculus-grip.ts`: each seat's half of the lens is its leaf, by
+geometry), and the autopilot hand and the STATES poses after them
+(`hands/boss-hands-oculus.ts`), the fx the same day (`render/oculus-fx.ts`:
+the thud, the flashes, the hull shock and the bursts), and the cue's words
+(`render/boss-cue-read-ze.ts`: HOLD on each seat's half of a lit pair, FIRE
+under the lit core). **THE SLOW's aim** on the lens (the prism splits it
+today — the item below on the prism's aim is the general case).
 Unverified at tempo until the owner has looked.
 
 ## §28 THE VISE — its hands, the second half of its look
