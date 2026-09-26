@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ad98df0f0 — THE VISE has a hand: AUTO pinches the lit lobe shut and shoots the kernel
+
+`hands/boss-hands-vise.ts` plays THE VISE right: the lit lobe pinched shut by its own seat, both lobes on a `both` step, let go once the step is answered, and the bared kernel shot up the middle in its colour. AUTO plays the fight to the split with all four seams cracked, no pinch slipped or sprung, the kernel never covered again and the hull never struck, and the STATES sheet poses all four phases. THE VISE leaves NO_HAND and the OWED list.
+
 ## 2026-09-26 · 394267839 — THE MANTLE's buckle, vent, cross crack and turn are drawn
 
 The four story beats the shell gained in the last landing now show on both screens. The buckle swells the valves and throbs, lying flatter each beat both thumbs hold them eased, with HOLD on a knob until it is. The vent is a red slot gaping on the seam with hiss rising off it, and TAP from either player is answered on it. A crack runs out across the seam through the cross and stays through the brace. The turn stands the split halves part-way open, rocking, and opens them further as both pulls near the floor, with PULL on each knob; the heartbeat opens them the rest of the way from there.

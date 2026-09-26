@@ -23887,3 +23887,5 @@ touch: the sim took the tap, but the touch layer only knew the finale's core.
 
 Bottleneck: reading — the whole lane was THE OCULUS's shape, and the only
 question was whether a lift after a crack could be heard as a slip.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
