@@ -23053,3 +23053,22 @@ Bottleneck: reading — the claim half was already built, so the work was
 finding that out before writing only the other half.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §42 THE SLUICE: a pinch that must be re-won, not merely held, to gate a draw
+
+- reading: 15 min. §41 THE WINCH in full as the template; §28 THE VISE for
+  `SqueezeGap`'s own regrowth; the `where` arrays in `gesture-unbuilt.ts`
+  across every spec'd boss to confirm `SQUEEZE ONE BODY` + `HOLD, THEN
+  SWIPE` was still an unused pairing.
+- writing: 20 min. The spec entry, the beat list, and the two `where`
+  registrations.
+- looking: 0 min. Nothing drawn yet — spec and registrations only.
+- friction: 5 min. Checked `packages/content/src/silhouettes*.ts` and
+  `tools/shape-sheet/src/drafts/` for a sluice- or jaw-pinch-shaped
+  silhouette before writing the look entry; found only an unrelated `GATE`
+  draft (a bar across a lane), no collision.
+- landing: 10 min. `check:fast`, the queue entries, this entry, the commit.
+
+Bottleneck: reading — confirming no existing boss already couples a
+continuous SqueezeGap read against a different seat's gesture took longer
+than writing the new coupling itself.

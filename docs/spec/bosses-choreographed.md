@@ -4610,6 +4610,108 @@ new kind of coupling.
 
 ---
 
+### §42 THE SLUICE — a gate two thumbs must keep pinched shut for a draw somewhere else to count
+
+**Question.** THE WINCH asked whether a chord held by one seat can gate a
+wholly different seat's release-resolved draw; the gate there is binary,
+locked or sprung, exactly as `CHORD` reads every other control it has ever
+touched. `SqueezeGap` has never played that role — THE VISE, THE CYST and
+THE GALL all judge it on its own, a gap closed or reopened against its own
+threshold, never underwriting a gesture somewhere else. This asks whether a
+*continuously drifting* seal — a pinch that widens back the instant a thumb
+eases, the same reflex THE VISE's own gap already has — can gate a partner's
+draw exactly as a chord does, so the gating seat is fighting the gap's own
+give for as long as the draw is open, not just holding two controls flat.
+
+**Silhouette.** A hull-set sluice gate mid-spillway, two lobed jaws pinched
+shut over the flow, a geared handle drawn back along a track to the side that
+looses a bolt into a lit column. Health is the two draws, one per seat, each
+loosed at a lit column, plus a lit core once both are locked home; the core
+takes three ordinary hits.
+
+**Mechanic.** `sluiceGapLeft` / `sluiceGapRight`, one per seat, read by
+`SqueezeGap` exactly as THE VISE reads its lobes — held shut only while the
+two-finger pinch stays at or under `sluiceShutMilli`, and a gap widened past
+it starting the seal over. `sluiceDrawnMilli`, the other seat, read by
+`HOLD, THEN SWIPE` exactly as THE SLING's and THE WINCH's hook: held, then
+resolved at release against a lit column. But the draw only ever looses true
+while the *other* seat's gap is currently pinched shut — a release timed true
+against the column with the gate sprung open springs the bolt back slack all
+the same, precisely as THE WINCH's brake lifting already does; the gate
+opening mid-draw costs nothing banked so far, only the draw in flight. Unlike
+THE WINCH's brake, nothing here is a flat hold: the pinching seat must
+actively re-shut the gap against its own regrowth for the whole span the
+other seat draws, the same fight THE VISE's own pinch already is, now spent
+underwriting a stranger's gesture rather than closing on its own body.
+
+**Player 1 and Player 2.** Identical screens, both jaws and the handle
+visible on both — but **the seat pinching the gate is never the seat drawing
+the handle**: Player 1 seals for Player 2 to draw, then the two trade so
+Player 2 seals for Player 1, the same cross THE WINCH's brake-and-hook
+already make literal, now with a gate that must be worked rather than merely
+held.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left draw** ||||||
+| 1 | The bolt hangs slack at the spillway, both jaws open, core dark | — | — | — | — | — |
+| 2 | The left jaw glows | P1 | pinch the gap shut and hold it there (`SqueezeGap`, held at or under the shut threshold) | held, steadying, regrowing if eased | gate sealed | gap widens past the threshold, retry |
+| 3 | The handle's grip lights, a column lit to match | P2 | hold, then loose it toward the lit column (`HOLD, THEN SWIPE`), gate sealed throughout | 5 beats, held, then released true, gate shut at release | left draw locked home | gate springs open before release, held too short, or wrong direction: bolt springs slack, retry from row 2 |
+| **Movement 2 — the right draw, roles swapped** ||||||
+| 4 | The right jaw glows for the other seat | P2 | pinch and hold the gap shut | held, regrowing if eased | gate sealed | springs open, retry |
+| 5 | The handle lights, column lit | P1 | hold, then loose it true, gate sealed throughout | 5 beats, held, then released true, gate shut at release | right draw locked home, core lights | springs slack, retry from row 4 |
+| **Movement 3 — the core, held down** ||||||
+| 6 | The core flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | Both bolts creep slack under the core | P1+P2 | one seals the gate while the other redraws | held, then released true | core stays down | gate opens or draw springs, movement's fire beats lost until both draws lock home again |
+| 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Bolts creep slack a second time, faster | P1+P2 | seal and redraw again, roles free to trade | held, then released true | stays down | springs, retry |
+| 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, sluice spent | stays lit |
+| 11 | Both jaws spring open for good and the spillway floods, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every seal-and-draw window (rows 2–3, 4–5, 7, 9)
+together — the pinch and the draw are one thing to watch rather than two,
+the same seconds-not-beats argument THE VISE's and THE SLING's own windows
+already make, sharpened here because the gate is never simply down: it is
+always mid-regrowth, so the seconds must show a seal actively being re-won
+rather than a state merely held.
+
+**Presentation.** No camera. Each locked draw a taut snap, THE SLING's own;
+each jaw held shut a wet compressing creak that catches and releases as the
+thumb re-seals it; a bolt sprung by a widened gate the same slack, empty
+thud `DrawRelease` already gives a wrong-direction release.
+
+**Animation.** Five poses: both bolts slack, jaws open; left drawn, gate
+sealed; both drawn, core lit; core guarded, a bolt creeping slack; jaws
+open for good, spillway flooded. The gate closes by the two lobes visibly
+fighting the flow shut rather than fading in, the same drawn-as-mechanism
+choice THE VISE and THE WINCH both make.
+
+**Colour.** Gate and jaws a cold iron blue-grey, the bolt a hot amber when
+drawn true, same as THE SLING's cup; the core is the only lit colour on the
+body, in whichever cannon colour a given beat wants.
+
+**Payoff.** Rows 3 and 5 — a draw already timed true against its column
+undone by a hand that was never on it, here by a seal that was always one
+eased thumb from springing back rather than a chord that only ever flips,
+distinct from THE WINCH's binary brake and from THE CAPSTAN's
+pause-without-loss.
+
+**Cost. Low.** No new primitive — `SqueezeGap` is already built for THE
+VISE, THE CYST and THE GALL, `HOLD, THEN SWIPE` for THE SLING and THE WINCH.
+The only new code is reading the sealing seat's gap state at the instant the
+drawing seat releases, ordinary per-boss wiring rather than a new field
+type.
+
+**Reusable.** Gating a release-resolved gesture on a continuously-drifting
+pinch, rather than on a flat chord, is a shape distinct from THE WINCH's own
+coupling; any future concept wanting a partner's held-but-fighting-to-stay
+state to underwrite another seat's aim can reach for `SqueezeGap` in that
+role before assuming `CHORD` is the only gate that fits.
+
+---
+
 ## The reusable boss mechanic library
 
 The brief asks for the primitives extracted. Here they are, and the useful

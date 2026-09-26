@@ -1627,6 +1627,50 @@ the shudder, not a colour change, the same drawn-as-mechanism choice
 THE VALVE's freeze and THE FLUE's ember drift both make. Nothing here is
 drawn yet and stays unverified at tempo until the owner has looked.
 
+## §42 THE SLUICE — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
+
+No new gesture, no new primitive: `SqueezeGap` (THE VISE's `SqueezeGap`)
+paired with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first
+time — the seam, as with THE WINCH, is which seat governs which, but the
+governing gesture is a continuously-read pinch rather than a flat chord.
+One seat pinches a gap shut and must actively re-shut it against its own
+regrowth (the same widen-back THE VISE's own gap already has); the other
+draws and releases toward a lit column exactly as THE SLING already
+resolves it, but the draw only counts while the sealing seat's gap is
+currently at or under its shut threshold. The gate opening at any point
+mid-draw springs the draw back slack, the same "spring back rather than
+lose the step outright" `DrawRelease` already uses for an early or
+wrong-direction release. This is a finer-grained version of THE WINCH's
+coupling: a chord is either held or not, but a pinch drifts, so the
+sealing seat is fighting the gap the whole span the draw is open rather
+than simply holding two controls flat. The full beat list and primitive
+table entry are §42 of `docs/spec/bosses-choreographed.md`. `SQUEEZE ONE
+BODY` and `HOLD, THEN SWIPE` each already carry a §42 THE SLUICE entry in
+their `where` arrays in `tools/director/src/gesture-unbuilt.ts` — land it
+with the rest. THE SLOW on every seal-and-draw window. `bun run check`
+proves it.
+
+## §42 THE SLUICE — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §42 THE SLUICE's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (checked
+this session against `packages/content/src/silhouettes*.ts` and every
+file under `tools/shape-sheet/src/drafts/` — nothing sluice- or
+jaw-pinch-shaped exists to reuse or collide with; a `GATE` draft is a bar
+across a lane, an unrelated shape) for two lobed jaws over a spillway,
+the seal visibly straining and creeping open the instant a thumb eases
+rather than snapping between two fixed states, and a bolt that pays out
+smoothly while the seal holds and snaps taut with a shudder the instant
+the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
+and THE WINCH's brake both make. Nothing here is drawn yet and stays
+unverified at tempo until the owner has looked.
+
 ## DEFERRED — §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 
 - **Found:** 2026-09-26, this session
