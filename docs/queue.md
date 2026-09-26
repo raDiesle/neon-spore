@@ -694,21 +694,6 @@ again beside `trunkRaced`, just before the move, and take the `merge --ff-only`
 path in the tree that now holds the trunk; pin it with a unit case on the
 planner that feeds it a holder appearing after the plan.
 
-## `next` from a clean session worktree marks the spent branch as worked
-
-- **Found:** 2026-09-26, claude/queue-queue-next-sends-a-worktree-session-to-a-tree-it
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-next-from-a-clean-session-worktree-marks-the-spe)
-- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`, `tools/queue/mark.ts`
-
-`claim` writes `takenMark(branch, today, headBranch(root))`, so a session
-standing in its own clean worktree on the branch it just landed marks the new
-item `<spent branch> (claim: <claim branch>)` — and `next`'s prompt now tells
-that same session to `git checkout` the claim branch (`sessionTree`), so the
-mark names the one branch the work will never be on. `take`, draining several
-items on one lane branch, needs the head recorded as it is. Have `next` (not
-`take`) pass the claim branch as `actual` when `sessionTree()` is non-empty;
-pin it in `claim-here.test.ts` beside the existing `lane (claim: …)` case.
-
 ## Fullscreen is asked for on a touch `pointerdown`, which carries no activation
 
 - **Found:** 2026-09-26, claude/queue-shaking-the-phone-never-reaches-the-choir-on-an

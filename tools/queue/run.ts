@@ -43,6 +43,7 @@ import {
   headBranch,
   onTrunk,
   PATHS,
+  ROOT,
   refs,
   trunkRef,
   trunkTaken,
@@ -97,7 +98,7 @@ if (!command || command === "list") {
     if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
     refuseUnlessFits(item, kind);
     refuseUnlessWhole(item);
-    const branch = claim(item);
+    const branch = claim(item, ROOT, true);
     console.log(`\n${briefFor(item, branch, items)}`);
     // Said last, where a truncated read of this output ends: running `next`
     // again to see the rest claims a second item (`show.ts`).

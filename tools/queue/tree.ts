@@ -65,6 +65,22 @@ export function headBranch(root = ROOT): string {
   return r.ok && r.out !== "HEAD" ? r.out : "";
 }
 
+/**
+ * The branch a fresh claim's work will really be on.
+ *
+ * The branch `claim` makes checks nothing out, so the worktree's own `HEAD`
+ * is still whatever it was — the branch a coordinator dealt this session, most
+ * of the time, and the right answer for `take`, which drains several items on
+ * the one lane it stands on. **`next` from a clean worktree of its own is the
+ * exception** (`dealt`): its prompt tells that session to `git checkout` the
+ * claim right there (`sessionTree`, `prompt.ts`), so its `HEAD` is the lane it
+ * has just landed and will never commit on again. Until 26 September 2026 the
+ * mark named that spent branch as the worked one.
+ */
+export function workedOn(branch: string, root = ROOT, dealt = false): string {
+  return dealt && sessionTree(root) ? branch : headBranch(root);
+}
+
 /** Every branch this checkout can see — its own and, if it has one, origin's. */
 export function refs(): string[] {
   const r = git("for-each-ref", "--format=%(refname:short)", "refs/heads", "refs/remotes/origin");

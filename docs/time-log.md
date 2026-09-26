@@ -22063,3 +22063,15 @@ Bottleneck: writing — a boss is some thirty files it has to be named in
 before the first check will run.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `queue next` from a clean session worktree marks the claim as the worked branch
+
+- reading: 5 min. The entry, `claim`, `takenMark`, `sessionTree` and the two
+  tests that build a scratch repository.
+- writing: 5 min. `workedOn` in `tree.ts`, the `dealt` flag, four cases.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. `repo.ts` went past its ceiling and the helper moved to
+  `tree.ts`; the guard refused a heredoc with a doubled backslash.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the file the fix belonged in had four lines of room.

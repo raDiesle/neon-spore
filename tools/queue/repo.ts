@@ -18,7 +18,7 @@ import { commitOnRef, gitIn, gitWith } from "./git.js";
 import { takenMark } from "./mark.js";
 import type { Item } from "./queue.js";
 import type { Trunk } from "./stale.js";
-import { git, hasBranch, headBranch, ROOT, TRUNK } from "./tree.js";
+import { git, hasBranch, ROOT, TRUNK, workedOn } from "./tree.js";
 
 // The facts about the checkout live in `tree.ts` now; they are said again here
 // because this file is the door the tool comes in by.
@@ -183,15 +183,15 @@ export function unmark(item: Item, root = ROOT): void {
  * the branch and the line, the branch goes before the error does, so the next
  * attempt starts from nothing rather than from a ghost.
  */
-export function claim(item: Item, root = ROOT): string {
+export function claim(item: Item, root = ROOT, dealt = false): string {
   const branch = branchFor(item);
   const made = gitIn(root, "branch", branch, TRUNK);
   if (!made.ok) throw new Error(`could not claim ${JSON.stringify(item.title)}: ${made.err}`);
-  // The branch creation above does not check anything out, so the worktree's
-  // own `HEAD` is still whatever it was — the branch a coordinator dealt this
-  // session, most of the time, and `branch` itself only when the claim came
-  // from `bun run queue next` (`takenMark`).
-  const mark = takenMark(branch, new Date().toISOString().slice(0, 10), headBranch(root));
+  const mark = takenMark(
+    branch,
+    new Date().toISOString().slice(0, 10),
+    workedOn(branch, root, dealt),
+  );
   const edit = (md: string) => markTaken(md, item.title, mark);
   try {
     if (!trunkHas(item, root)) {
