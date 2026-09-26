@@ -26,6 +26,7 @@ import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
 import { KEEL_GRIPS } from "./poses-field-controls-keel.js";
 import { MANTLE_GRIPS } from "./poses-field-controls-mantle.js";
+import { OCULUS_GRIPS } from "./poses-field-controls-oculus.js";
 import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { SINEW_PULL } from "./poses-field-controls-sinew.js";
 import { SPOOL_BRAKE } from "./poses-field-controls-spool.js";
@@ -184,6 +185,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...RATCHET_GRIPS,
     ...MANTLE_GRIPS,
     ...KEEL_GRIPS,
+    ...OCULUS_GRIPS,
     DARK_LIGHT,
     GUIDE_HOLD,
   ],

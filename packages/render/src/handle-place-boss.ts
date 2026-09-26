@@ -15,6 +15,7 @@ import { hiveHaulCircle } from "./hive-grip.js";
 import { keelJointCircle } from "./keel-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { mantleCoreCircle, mantleKnobStanding, mantleTakesPull } from "./mantle-grip.js";
+import { oculusHalfStanding, oculusTakesHold } from "./oculus-grip.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
 import { sinewHandleAt } from "./sinew-handles.js";
 import { spoolKnobStanding, spoolTakesHand } from "./spool-grip.js";
@@ -140,6 +141,13 @@ export function bossHandleCircle(
     // frame. Null between joints, where no ring is drawn (`keel-grip.ts`).
     const b = world.boss?.kind === "keel" ? world.boss : null;
     return b === null ? null : keelJointCircle(l, cfg, b, world.beat, beatPhase);
+  }
+  if (target === "oculusLeafLeft" || target === "oculusLeafRight") {
+    // THE OCULUS's two halves, the middle of each seat's side of the lens as
+    // it stands this frame. Null once it shatters (`oculus-grip.ts`).
+    const b = world.boss?.kind === "oculus" ? world.boss : null;
+    if (b === null || !oculusTakesHold(b)) return null;
+    return oculusHalfStanding(l, world, b, target === "oculusLeafLeft" ? 1 : 2, beatPhase);
   }
   return undefined;
 }

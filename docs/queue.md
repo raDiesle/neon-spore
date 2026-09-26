@@ -471,17 +471,15 @@ into the roster. `bun run check` proves it.
 ## §27 THE OCULUS — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-27-the-oculus-its-hands-the-second-half-of-its-l)
 - **Needs:** §27 THE OCULUS — the look, half one (the body), landed first
-- **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
+- **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
 
 The body is drawn: the rim and its pins, the six leaves as iris blades, the
 lit pair sliding shut as it is held, a reseal's cracked pair, the socket's
 break, the core in its colour and smaller per hit, and the shatter. What is
-left is everything an event or a hand touches. **The on-field leaf holds**:
-`oculusLeafLeft` and `oculusLeafRight` are still "unbuilt" in
-`on-field-controls.test.ts` — a thumb's target on each half of the lens, one
-per seat by geometry, THE MANTLE's grip. **The fx**, in `Effects` and cleared
+left is everything an event or a hand touches, but the on-field leaf holds,
+which landed 26 September 2026 (`render/oculus-grip.ts`: each seat's half of
+the lens is its leaf, by geometry). **The fx**, in `Effects` and cleared
 in `reset()`: each shut pair's soft hull-shock thud (§27, *Presentation*),
 the spring of a pair let go, the socket swallowed shut, the core's hit flash
 and the shatter's; the twelve `oculus*` events come off the two silent lists
@@ -1871,6 +1869,20 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Stale: three boss status rows carry THE OCULUS's body sentence
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+The status table's rows for §30 THE TRIVET, §29 THE RIME and §28 THE VISE
+each end in the same sentence as §27 THE OCULUS's row: "Half one, the body,
+landed 26 September 2026: THE SLATER — SHUT's lapped plates … (`render/oculus-shape.ts`
+…). Half two, the hands, is queued …". None of those three bosses has a
+look yet; the sentence was pasted from THE OCULUS's row. Cut it from the
+three rows and say instead that lane two, the look, is queued (`docs/queue.md`
+§28 THE VISE — the look, and its siblings). `bun run check` proves the
+links still resolve.
 
 ## Unverified at e72d91c4b: THE OCULUS's lens watched at tempo: the pair sliding s…
 

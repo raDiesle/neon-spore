@@ -23339,3 +23339,17 @@ render and the director.
 - landing: 5 min. `check:fast`, commit, push.
 
 Bottleneck: none — a direct revision of an existing section is faster than drafting a new one from scratch.
+
+## 2026-09-26 — THE OCULUS answers a thumb (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 10 min. THE MANTLE's and THE KEEL's grip commits as the pattern,
+  `oculus-hand.ts` for which seat each target answers.
+- writing: 20 min. `oculus-grip.ts`, the three render hooks, the director's
+  two rows and their pose, the test, the spec rows.
+- looking: 0 min. Nothing drawn changes; the ghost thumb is tested, not seen.
+- friction: 5 min. The on-field test wants the spec's table row, which is
+  only found by running it.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — a grip is seven registrations, and only the test says
+which of them is missing.

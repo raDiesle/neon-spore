@@ -18,6 +18,7 @@ import { LEDGER_CONTROLS } from "./field-controls-ledger.js";
 import { MANTLE_CONTROLS } from "./field-controls-mantle.js";
 import { MAZE_CONTROLS } from "./field-controls-maze.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
+import { OCULUS_CONTROLS } from "./field-controls-oculus.js";
 import { PINBALL_CONTROLS } from "./field-controls-pinball.js";
 import { PULSE_CONTROLS } from "./field-controls-pulse.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
@@ -148,4 +149,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE KEEL's lit joint, whose seat moves with where it sits
   // (`field-controls-keel.ts`).
   ...KEEL_CONTROLS,
+  // THE OCULUS's two leaf holds, a half of the lens a seat by geometry
+  // (`field-controls-oculus.ts`).
+  ...OCULUS_CONTROLS,
 ];

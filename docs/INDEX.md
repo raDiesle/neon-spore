@@ -1368,6 +1368,7 @@ by hand never moves.
 | `packages/render/src/oculus-marks.ts` | **THE OCULUS's marks**: the two things that say what a step asks — the lit pair, which is *both hold now* |
 | `packages/render/src/oculus-pose.ts` | **The clock THE OCULUS is posed off** (§27, *Animation*): five poses — open, two leaves shut, four |
 | `packages/render/src/oculus-shape.ts` | **THE OCULUS's geometry**: where the lens stands, and the paths it is made of |
+| `packages/render/src/oculus-grip.ts` | **The thumbs on THE OCULUS** — the first of its hands lanes |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the press into its hole, the waiting and the rolling |
@@ -2379,6 +2380,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
 | `tools/director/src/poses-field-controls-keel.ts` | THE KEEL's one hand: the first joint lit and waiting for its tap |
+| `tools/director/src/poses-field-controls-oculus.ts` | THE OCULUS's two hands: a thumb on each half of the lens, holding the first pair shut |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2839,6 +2841,7 @@ by hand never moves.
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
+| `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

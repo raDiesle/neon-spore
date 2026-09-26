@@ -393,10 +393,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE VALVE: simulation lane only, no look yet.
   valveWheel: "unbuilt",
   valvePin: "unbuilt",
-  // THE OCULUS, the same.
-  oculusLeafLeft: "unbuilt",
-  oculusLeafRight: "unbuilt",
-  // THE VISE, the same.
+  // THE OCULUS's two halves of the lens, one a seat by geometry though both
+  // screens draw both (`render/oculus-grip.ts`, `docs/spec/bosses.md` §11.44).
+  oculusLeafLeft: "field",
+  oculusLeafRight: "field",
+  // THE VISE: simulation lane only, no look yet.
   viseLobeLeft: "unbuilt",
   viseLobeRight: "unbuilt",
   // THE RIME, the same.

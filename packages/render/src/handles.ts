@@ -20,6 +20,7 @@ import { ledgerPullUnder } from "./ledger-pull.js";
 import { mantleCoreUnder, mantleHandleUnder } from "./mantle-grip.js";
 import { mazeHeartUnder } from "./maze-grip.js";
 import { mirrorLobeUnder } from "./mirror-grip.js";
+import { oculusLeafUnder } from "./oculus-grip.js";
 import { pinballGripUnder } from "./pinball-grip.js";
 import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
@@ -126,7 +127,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     ratchetPawlUnder(l, x, y, field) ?? // And its pawl, the pilot's, pressed on her SET (`ratchet-grip.ts`).
     mantleHandleUnder(l, x, y, field) ?? // THE MANTLE's knob on this seat's side, pulled down its groove (`mantle-grip.ts`).
     mantleCoreUnder(l, x, y, field) ?? // And the ring round its bared core, either seat's, in the finish (`mantle-grip.ts`).
-    keelJointUnder(l, x, y, field) // THE KEEL's lit joint, either seat's tap, the wrong one refused by the simulation (`keel-grip.ts`).
+    keelJointUnder(l, x, y, field) ?? // THE KEEL's lit joint, either seat's tap, the wrong one refused by the simulation (`keel-grip.ts`).
+    oculusLeafUnder(l, x, y, field) // THE OCULUS's lens, this seat's half of it held down (`oculus-grip.ts`).
   );
 }
 

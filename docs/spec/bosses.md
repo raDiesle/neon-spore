@@ -8108,7 +8108,17 @@ their plates (`render/oculus-shape.ts`, `oculus-pose.ts`, `oculus-draw.ts`,
 `oculus-marks.ts`). **Half two, the hands, is queued**: the leaves' thud and
 the spring, the swallow, the hit's flash and the shatter's, the twelve
 events off the silent lists, the cue's words, THE SLOW's aim on the lens,
-the on-field leaf holds, and the autopilot hand.
+and the autopilot hand.
+
+**The on-field leaf holds are built** (26 September 2026). Each seat's half
+of the lens is that seat's leaf, by geometry, on both phones: a press on the
+left half is the pilot's `oculusLeafLeft`, on the right half the navigator's
+`oculusLeafRight`, and the other seat's thumb there falls through. The press
+is sent held and the lift lets go; where the thumb wanders between means
+nothing. The lens takes a hold from the drop into frame until it shatters,
+so a pair of thumbs laid on early is counted from the first beat, and the
+ghost thumb stands on a half only while its leaf is held
+(`render/oculus-grip.ts`, `test/oculus-grip.test.ts`).
 
 ## 11.45 THE VISE — the boss two pinches crack, then shoot into
 
