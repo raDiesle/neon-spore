@@ -1,10 +1,12 @@
 import type { ViewRole, ViewState } from "@neon-spore/render";
 import {
+  ackBriefing,
   framePhase,
   type SimConfig,
   type SimEvent,
   step,
   type TimedCommand,
+  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 import type { Keys } from "./keys.js";
@@ -65,12 +67,20 @@ export interface StageStep {
   /** One tick of the world whatever the transport says — what SEEK and the
    * page's own handle step with. */
   stepOnce(): void;
+  /**
+   * On to the wave's row `beat`, past the briefing — what SEEK does to a world
+   * it has just rebuilt. Counted in the wave's own beat, not in ticks.
+   */
+  seek(beat: number): void;
   paint(dt: number): void;
   /** The beat the field is holding. */
   beat(): number;
   /** A fresh world has been stood up: the beat is zero, and said so. */
   opened(): void;
 }
+
+/** How far past its row SEEK will step a wave before it gives up on it. */
+const SEEK_SLACK_BEATS = 8;
 
 export function stageStep(parts: StageStepParts): StageStep {
   const { world, renderer, keys } = parts;
@@ -101,8 +111,29 @@ export function stageStep(parts: StageStepParts): StageStep {
     }
   };
 
+  /**
+   * SEEK used to step `beat * ticksPerBeat` ticks, and with briefings on — the
+   * director on a phone, or the SHIP toggle — the introduction and the guide
+   * hold `waveBeat` at 0 while the tick counts, so a row picked on the map
+   * came up as row 0 behind the briefing. Both seats are done with it at once,
+   * as a caller with no thumbs is (`sim/briefing.ts`), and the steps go until
+   * the wave's own beat is there. The slack is a cap, for a wave that ends
+   * before the row: it stops wherever the wave did.
+   */
+  const seek = (beat: number): void => {
+    const cap = (beat + SEEK_SLACK_BEATS) * ticksPerBeat(parts.cfg);
+    for (let i = 0; i < cap; i++) {
+      const w = world();
+      if (w.waveBeat >= beat || w.over || w.restBeat !== 0) return;
+      ackBriefing(w, 1);
+      ackBriefing(w, 2);
+      stepOnce();
+    }
+  };
+
   return {
     stepOnce,
+    seek,
     advance(): void {
       // Paused, the keys are still drained: a thumb held through a pause is a
       // command that would otherwise arrive on the tick after it, out of the

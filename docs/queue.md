@@ -431,21 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## The director's SEEK counts ticks, so a briefing eats the row it was sent to
-
-- **Found:** 2026-09-25, claude/wave-row-positioning-director-11eb05
-- **Taken:** 2026-09-26, claude/queue-land-cannot-merge-two-time-log-entries-written-a (claim: claude/queue-the-directors-seek-counts-ticks-so-a-briefing-ea)
-- **Files:** `tools/director/src/stage.ts`, `tools/director/test/stage-step.test.ts`
-
-`seek(beat)` in `stage.ts` rebuilds the world and steps `beat * ticksPerBeat` ticks. With
-`briefings` on — the director on a phone, or the SHIP toggle — the wave's
-introduction and guide hold `waveBeat` at 0 while the tick counts, so a press
-on row 12 lands on row 0 behind the briefing. The map now marks `waveBeat`, so
-it says so honestly rather than pretending. Step until `world.waveBeat` reaches
-the beat (acking the briefing with `ackBriefing` for both seats first, or
-seeking with the opening skipped), with a cap for a wave that ends first.
-Provable with a test beside "the row the map follows".
-
 ## Split the canvas stub and THE THROAT's cue test, both past 250 lines
 
 - **Found:** 2026-09-25, claude/throat-boss-guide-8b22d2

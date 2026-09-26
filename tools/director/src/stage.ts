@@ -5,7 +5,7 @@ import {
   pointerSeats,
   type ViewRole,
 } from "@neon-spore/render";
-import { createWorld, type SimConfig, ticksPerBeat, type World } from "@neon-spore/sim";
+import { createWorld, type SimConfig, type World } from "@neon-spore/sim";
 import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
@@ -185,8 +185,7 @@ export function bindStage(
 
   const seek = (beat: number): void => {
     rebuild();
-    const ticks = beat * ticksPerBeat(cfg);
-    for (let i = 0; i < ticks; i++) stepper.stepOnce();
+    stepper.seek(beat); // the wave's row, past the briefing (`stage-step.ts`)
     running = false;
     paintPlay();
   };

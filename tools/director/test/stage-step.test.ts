@@ -131,6 +131,26 @@ describe("the row the map follows", () => {
     expect(r.beats).toEqual([0]);
   });
 
+  it("is where SEEK stops, with the briefing up", () => {
+    // SEEK stepped ticks, and the briefing held the row at 0 behind it: a
+    // press on row 12 of the map came up on row 0.
+    const r = rig(true, { ...DEFAULT_CONFIG, briefings: true });
+    startWave(r.world, 0, [...late], [], null, true, 2);
+    r.step.opened();
+    r.step.seek(12);
+    expect(r.world.waveBeat).toBe(12);
+    expect(r.step.beat()).toBe(12);
+  });
+
+  it("stops SEEK where the wave ended, when it ends before the row", () => {
+    const r = rig();
+    startWave(r.world, 0, []);
+    r.step.opened();
+    r.step.seek(40);
+    expect(r.world.restBeat).not.toBe(0);
+    expect(r.world.waveBeat).toBeLessThan(40);
+  });
+
   it("stays on the row a lost wave was lost on", () => {
     const r = rig();
     startWave(r.world, 0, [...late]);
