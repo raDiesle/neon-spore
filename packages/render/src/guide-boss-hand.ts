@@ -24,7 +24,8 @@ import type { Circle, Layout } from "./layout.js";
  * pawl the pilot's, drawn for as long as his thumb is down on the pad.
  * THE MANTLE's knobs are one a seat, left the pilot's and right the
  * navigator's, each drawn while the simulation has it pulled down its groove.
- * THE OCULUS's halves are the same pair, each drawn while its leaf is held.
+ * THE OCULUS's halves are the same pair, each drawn while its leaf is held,
+ * and THE VISE's lobes, each drawn while a pinch is on it.
  */
 export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: number): Circle | null {
   const b = world.boss;
@@ -49,6 +50,10 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
   if (b?.kind === "oculus") {
     if (!b.held[seat === 1 ? 0 : 1]) return null;
     return handleCircle(l, world, seat === 1 ? "oculusLeafLeft" : "oculusLeafRight", beatPhase);
+  }
+  if (b?.kind === "vise") {
+    if (b.gapMilli[seat === 1 ? 0 : 1] >= world.cfg.viseOpenMilli) return null;
+    return handleCircle(l, world, seat === 1 ? "viseLobeLeft" : "viseLobeRight", beatPhase);
   }
   return null;
 }

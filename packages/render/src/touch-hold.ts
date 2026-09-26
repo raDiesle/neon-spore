@@ -160,6 +160,13 @@ export type Hold =
        * the wheel already measures a pull in (`sim/maze-controls.ts`).
        */
       rim?: { cx: number; cy: number; r: number; angle: number };
+      /**
+       * One finger of a **pinch** — THE VISE's lobes: what it sends is the gap
+       * to a second finger on the same body, so neither its move nor its lift
+       * says anything alone, and the pair is answered by whoever owns the
+       * pointers (`pinch.ts`, `apps/game/src/pinch.ts`).
+       */
+      pinch?: true;
     };
 
 export interface Touch {

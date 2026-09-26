@@ -34,6 +34,7 @@ import { TASTER_CONTROLS } from "./field-controls-taster.js";
 import { THROAT_CONTROLS } from "./field-controls-throat.js";
 import { UNDERTOW_CONTROLS } from "./field-controls-undertow.js";
 import { VANE_CONTROLS } from "./field-controls-vane.js";
+import { VISE_CONTROLS } from "./field-controls-vise.js";
 import { WARDEN_CONTROLS } from "./field-controls-warden.js";
 import { WELL_CONTROLS } from "./field-controls-well.js";
 
@@ -152,4 +153,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE OCULUS's two leaf holds, a half of the lens a seat by geometry
   // (`field-controls-oculus.ts`).
   ...OCULUS_CONTROLS,
+  // THE VISE's two lobe pinches, the only two-finger gesture in the game
+  // (`field-controls-vise.ts`).
+  ...VISE_CONTROLS,
 ];

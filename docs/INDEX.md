@@ -1255,6 +1255,7 @@ by hand never moves.
 | `packages/render/src/vise-marks.ts` | **THE VISE's marks**: the two things that say what a step asks — the lit seam |
 | `packages/render/src/vise-pose.ts` | **The clock THE VISE is posed off** (§28, *Animation*): intact; a lobe cracked |
 | `packages/render/src/vise-shape.ts` | **THE VISE's geometry**: where the seed-case stands, and the paths it is made of |
+| `packages/render/src/vise-grip.ts` | **The pinch on THE VISE** — the first of its hands lanes |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-button.ts` | SNAKE's four presses, as faces on the band's own lobes |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |
@@ -1908,6 +1909,7 @@ by hand never moves.
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/render/src/pinball-socket.ts` | **The wet socket every piece on PINBALL's table stands in.** The owner, 18 September 2026 |
+| `packages/render/src/pinch.ts` | **`SqueezeGap` from two fingers** — the one gesture in the game read off two touches at once |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
@@ -2233,6 +2235,7 @@ by hand never moves.
 | `apps/game/src/interpolate.ts` | the picture drawn between ticks rather than on them, behind `?interpolate=1` |
 | `apps/game/src/perf-page.ts` | The readout `?perf=1` puts on the screen |
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
+| `apps/game/src/pinch.ts` | A pinch's answer, and the seat it is from |
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
 | `apps/game/src/menu-door.ts` | Whether a URL opens on the menu or goes straight to the field |
 | `apps/game/src/menu-bindings.ts` | **What the menu is handed, and what it hands back** — the shape, away from the knot that reads one |
@@ -2416,6 +2419,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
 | `tools/director/src/poses-field-controls-keel.ts` | THE KEEL's one hand: the first joint lit and waiting for its tap |
 | `tools/director/src/poses-field-controls-oculus.ts` | THE OCULUS's two hands: a thumb on each half of the lens, holding the first pair shut |
+| `tools/director/src/poses-field-controls-vise.ts` | THE VISE's two hands: a pinch on each lobe, both seats holding the case shut together |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2880,6 +2884,7 @@ by hand never moves.
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-vise.ts` | THE VISE's two lobe pinches, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
 | `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |

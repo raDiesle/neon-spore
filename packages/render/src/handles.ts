@@ -37,6 +37,7 @@ import { throatGripUnder } from "./throat-grip.js";
 import type { Field, Touch } from "./touch.js";
 import { undertowGripUnder } from "./undertow-grip.js";
 import { vaneGripUnder } from "./vane-grip.js";
+import { viseLobeUnder } from "./vise-grip.js";
 import { wardenGripUnder } from "./warden-grip.js";
 
 /**
@@ -128,7 +129,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     mantleHandleUnder(l, x, y, field) ?? // THE MANTLE's knob on this seat's side, pulled down its groove (`mantle-grip.ts`).
     mantleCoreUnder(l, x, y, field) ?? // And the ring round its bared core, either seat's, in the finish (`mantle-grip.ts`).
     keelJointUnder(l, x, y, field) ?? // THE KEEL's lit joint, either seat's tap, the wrong one refused by the simulation (`keel-grip.ts`).
-    oculusLeafUnder(l, x, y, field) // THE OCULUS's lens, this seat's half of it held down (`oculus-grip.ts`).
+    oculusLeafUnder(l, x, y, field) ?? // THE OCULUS's lens, this seat's half of it held down (`oculus-grip.ts`).
+    viseLobeUnder(l, x, y, field) // THE VISE's case, one finger of this seat's pinch in its zone (`vise-grip.ts`).
   );
 }
 

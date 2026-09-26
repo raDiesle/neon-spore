@@ -8332,9 +8332,10 @@ balance sheet and nothing else, THE SEAM's rule.
   `gesturechange` stopped — are the app's, and wait for lane two with the
   body they are read on.
 
-**The simulation lane and the body have landed; the hands have not.** The
-render package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
-carry all twelve of its events until half two. The twelve sounds *are* bound
+**The simulation lane, the body and the pinch have landed; the rest of the
+hands has not.** The render package's silent-event lists and
+`tools/director/src/sound-link-none-d.ts` carry all twelve of its events until
+the fx lane. The twelve sounds *are* bound
 (`audio/src/bind-vise.ts`), heard where they happen, the crack pitched up per
 seam and the hit per hit. There is no autopilot hand yet either
 (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
@@ -8370,9 +8371,23 @@ lights it in the step's colour, white for either, with a ring closing off
 `viseWindowBeats`, the number the simulation judges by — smaller and
 brighter for every hit. The case splits by throwing both lobes out and down
 (`render/vise-shape.ts`, `vise-pose.ts`, `vise-draw.ts`, `vise-marks.ts`).
-**Half two, the hands, is queued**: the pinch drawn on the field, the crack's
-thud and the spring, the flashes, the twelve events off the silent lists, the
-cue's words, THE SLOW's aim on the case, and the autopilot hand.
+**Half two, the hands, is three lanes**, THE OCULUS's cut. **The pinch landed
+26 September 2026**, the first two-finger gesture in the game: a press in a
+seat's zone — its side of the spine, the field's width, the rows the case
+stands in and half a tile either way — takes hold and says nothing, because a
+finger alone is not a pinch; the second finger of the same seat on the same
+lobe makes the pair, and from then the gap between the fingertips is the
+drag's `fromMilli` on every move that changes it. The gap is the middles'
+distance less `FINGERTIPS_MILLI`, a fingertip's width: two fingertips pressed
+together stand nearly two tiles apart middle to middle on a phone, and read
+straight could never reach the shut line. Either finger lifting lets the lobe
+go. Which fingers pair is the game's (`apps/game/src/pinch.ts`), what a pair
+means is render's (`render/pinch.ts`), so THE CYST's flanks can spend the same
+sender; a ghost thumb stands on a lobe while it is pinched
+(`render/vise-grip.ts`, `test/vise-grip.test.ts`, the director's two rows and
+poses). **Still queued**: the autopilot hand and the STATES poses, then the
+crack's thud and the spring, the flashes, the twelve events off the silent
+lists, the cue's words and THE SLOW's aim on the case.
 
 ## 11.46 THE RIME — the boss two rubs wipe clear, then shoot into
 

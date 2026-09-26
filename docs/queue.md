@@ -499,17 +499,20 @@ The body is drawn: the seed-case of two bristled half-shells hinged at the
 spine, standing open by their seams, narrowed by the gap pinched on each, the
 lit seam white and cracking down by the share held, a `both` step's creep
 over the bared kernel, the kernel in its colour and smaller per hit, and the
-split (`render/vise-*.ts`). What is left is everything an event or a hand
-touches. **The pinch on the field**: each seat's thumb and finger on its
-lobe, read as `SqueezeGap` and sent as `viseLobeLeft`/`viseLobeRight` (THE
-MANTLE's geometry — nothing sends it from a touch yet). **The fx**, in
-`Effects` and cleared in `reset()`: each crack's dry thud, the spring of a
-pinch run out, the cover closing back over the kernel, the kernel's hit
-flash and the split's; the twelve `vise*` events come off the two silent
-lists as each gets its burst. **THE SLOW's aim** on the case. **The cue's
-words** (SHUT on the lit lobe, FIRE on the lit kernel), **the autopilot
-hand** and its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES
-poses. Unverified at tempo until the owner has looked.
+split (`render/vise-*.ts`). **The pinch on the field landed 26 September
+2026**: a press in a seat's zone takes hold silently, the second finger of the
+same seat pairs with it, and the gap between the fingertips is sent as
+`viseLobeLeft`/`viseLobeRight`'s `fromMilli` (`render/vise-grip.ts`,
+`render/pinch.ts`, `apps/game/src/pinch.ts`, the director's two rows). What is
+left, in two lanes as THE OCULUS's went: **the autopilot hand** — a
+hands/boss-hands-vise.ts that pinches the lit lobe (both on a `both` step)
+and fires the kernel, its row out of `autopilot.test.ts`'s `NO_HAND`, and the
+STATES poses; then **the fx**, in `Effects` and cleared in `reset()`: each
+crack's dry thud, the spring of a pinch run out, the cover closing back over
+the kernel, the kernel's hit flash and the split's, the twelve `vise*` events
+off the two silent lists as each gets its burst, **THE SLOW's aim** on the
+case and **the cue's words** (SHUT on the lit lobe, FIRE on the lit kernel).
+Unverified at tempo until the owner has looked.
 
 ## §29 THE RIME — the look
 
@@ -2601,3 +2604,31 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## The director's stage does not pair a pinch
+
+- **Found:** 2026-09-26, claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo
+- **Files:** `tools/director/src/stage-touch.ts`, `apps/game/src/pinch.ts`
+
+THE VISE's lobes are the first pinch: a press takes hold and says nothing,
+and the gap is sent only by the host that pairs two pointers. The game does
+(`apps/game/src/input.ts` through `Pinches`); the director's stage answers
+pointers through `touchDown`/`touchMove`/`touchUp` alone, so two fingers on
+a lobe there send nothing and the case cannot be played by hand from the
+director. Move `Pinches` to `packages/render` (it keeps no DOM) or import it
+from the stage, feed it the stage's down/move/up the way `input.ts` does, and
+prove it with a stage test that two pointers on `viseLobeLeft` send a drag
+with the gap.
+
+## `bun run push` refuses while a lane's worktree is still on disk
+
+- **Found:** 2026-09-26, claude/jolly-ramanujan-a02i5z
+- **Files:** `tools/land/push.ts`
+
+After `bun run land --keep` from inside a cloud session's worktree, `bun run
+push` from the main checkout refused on the untracked `.claude/worktrees/<lane>`
+directory and went through only once the worktree was removed by hand with
+`git worktree remove`. Either have `push` ignore `.claude/worktrees/` (it is a
+working tool, and `.gitignore` could say so), or have `land --keep` print the
+removal command a cloud session needs; prove it with a test that `push`'s
+clean-tree check passes with a registered worktree under `.claude/worktrees/`.

@@ -10,6 +10,7 @@ import { samplesOf } from "./coalesced.js";
 import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
+import { type Pinched, Pinches } from "./pinch.js";
 import { ShipHandWatch } from "./ship-hand.js";
 
 export type { Bindings } from "./input-bindings.js";
@@ -57,6 +58,11 @@ export function bindControls(bindings: Bindings): Controls {
   const from = (t: { player: 1 | 2 }, id: number): 1 | 2 =>
     pressSeat(layout(), pressY.get(id) ?? 0, t, handed(), player());
   const hand = new ShipHandWatch();
+  /** Two fingers on one pinch body, paired here and read by `render/pinch.ts`. */
+  const pinches = new Pinches();
+  const say = (s: Pinched | null, id: number): void => {
+    if (s) buffer.push(from(s, id), s.command);
+  };
   /** A desk has a hover and a phone does not. Undefined until a mouse moves. */
   let pointer: { x: number; y: number } | undefined;
   /** The field as a given seat sees it — asked once per seat while a press is
@@ -84,6 +90,7 @@ export function bindControls(bindings: Bindings): Controls {
     // Null for the one press that takes hold and says nothing yet: player
     // 2's thumb landing on the muzzle, decided on the lift (`render/touch-ship.ts`).
     for (const t of touches) if (t.command) buffer.push(from(t, id), t.command);
+    say(pinches.down(layout(), id, holds, x, y), id);
     if (!first) pressY.delete(id);
   };
 
@@ -105,6 +112,7 @@ export function bindControls(bindings: Bindings): Controls {
         const t = touchUp(layout(), hold);
         if (t?.command) buffer.push(from(t, id), t.command);
       }
+      say(pinches.up(id), id);
       pressY.delete(id);
     }
     hand.clear();
@@ -156,6 +164,7 @@ export function bindControls(bindings: Bindings): Controls {
       const at = inStage(sample);
       if (!at) continue;
       hand.down(layout(), hold, at.x, at.y);
+      say(pinches.move(layout(), e.pointerId, at.x, at.y), e.pointerId);
       for (const h of holds) {
         const t = touchMove(layout(), h, at.x, at.y);
         if (t?.command) buffer.push(from(t, e.pointerId), t.command);
@@ -171,6 +180,7 @@ export function bindControls(bindings: Bindings): Controls {
       const t = touchUp(layout(), hold, at);
       if (t?.command) buffer.push(from(t, e.pointerId), t.command);
     }
+    say(pinches.up(e.pointerId), e.pointerId);
     pressY.delete(e.pointerId);
   };
   canvas.addEventListener("pointerup", (e) => up(e, inStage(e) ?? undefined));

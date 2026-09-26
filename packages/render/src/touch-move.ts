@@ -52,6 +52,8 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     return { player: hold.player, command: drag, hold };
   }
   if (hold.kind === "drag") {
+    // **A pinch's finger says nothing alone**: the gap is the pair's (`pinch.ts`).
+    if (hold.pinch) return null;
     // **The crank is not carried anywhere, it is turned**, and what a turn
     // reports is an angle rather than a distance (`touch-drag.ts`).
     if (hold.target === "crank") return crankTurn(hold, x, y);

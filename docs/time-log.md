@@ -23786,3 +23786,18 @@ lands on a fire step was only in `act-11.ts`.
 Bottleneck: judging brightness at play size, which only a full VERSUS shot shows.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §28 THE VISE, its hands, lane one of three: the pinch
+
+- reading: 20 min. THE OCULUS's grip lane as the pattern, `touch.ts`'s
+  stateless answer and `input.ts`'s pointer map, `sim/vise-hand.ts`'s gap.
+- writing: 50 min. The pinch's meaning in render, the pairing in the game,
+  the zone, two tests, the director's rows and poses, the spec rows.
+- looking: 0 min. Nothing seen by an eye — a pinch wants two real fingers.
+- friction: 10 min. A file written one directory too high, and a
+  replace in the choreographed status table that caught four other bosses.
+- landing: 15 min. `check:fast`, the land and the push.
+
+Bottleneck: writing — the first two-finger gesture in a pipeline built to
+answer one finger at a time, so the pairing had to find a home before any
+of the VISE's own code could.

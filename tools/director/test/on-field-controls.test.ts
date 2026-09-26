@@ -397,10 +397,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // screens draw both (`render/oculus-grip.ts`, `docs/spec/bosses.md` §11.44).
   oculusLeafLeft: "field",
   oculusLeafRight: "field",
-  // THE VISE: simulation lane only, no look yet.
-  viseLobeLeft: "unbuilt",
-  viseLobeRight: "unbuilt",
-  // THE RIME, the same.
+  // THE VISE's two lobes, pinched one a seat by geometry though both screens
+  // draw both (`render/vise-grip.ts`, `docs/spec/bosses.md` §11.45).
+  viseLobeLeft: "field",
+  viseLobeRight: "field",
+  // THE RIME: simulation lane only, no look yet.
   rimeHalfLeft: "unbuilt",
   rimeHalfRight: "unbuilt",
   trivetPadFront: "unbuilt",

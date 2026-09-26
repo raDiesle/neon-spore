@@ -140,6 +140,9 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
     // maw's rule on the boss's own ship (`sim/mirror-hand.ts`) — so the lift
     // says where the hand ended; THE WARDEN's hatch is the second, a swipe
     // (`sim/warden-hand.ts`). Every other drag's lift only lets go.
+    // A pinch's finger lets go of nothing alone: the pair's lift is the one
+    // that opens the lobe again (`pinch.ts`).
+    if (hold.pinch) return null;
     const swiped = hold.target === "mirrorLobe" || hold.target === "wardenHatch";
     const carried = swiped && at !== undefined;
     const dx = carried ? Math.round(((at.x - hold.originX) * 1000) / l.tile) : 0;
