@@ -22106,3 +22106,5 @@ before the trunk could be brought up.
 
 Bottleneck: reading — the plan's holder is read in four places after the move,
 and the note's commit would have failed the same way.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
