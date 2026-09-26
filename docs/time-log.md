@@ -23670,3 +23670,16 @@ Bottleneck: looking — the rear and the spread only showed they had nothing
 coming at their rings once they were photographed.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's far pass flies head first
+
+- reading: 5 min. The fall, the strike and the flight, for any change
+  that still cuts from one frame to the next.
+- writing: 5 min. The far pass reversed, a test that no arrival moves
+  against the way the head faces.
+- looking: 5 min. A sheet of the moult's passes before, four frames after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, this entry, `land`.
+
+Bottleneck: looking — the far pass is a quarter of the body's size, so
+which way it flew was only plain on a sheet of the whole flight.

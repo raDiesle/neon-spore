@@ -20,7 +20,7 @@ import { INSTAR_FLIGHT_ENDS, instarPhaseAt } from "./instar-shape.js";
  *   distance by the same law run backwards, swerving wide, to the speck the
  *   approach starts from — never gone from full size to a speck in a frame.
  * - **passes**: up and off the top, then a pass across far away, a nearer
- *   pass back, and in from the right to stay. The turn side-on happens during
+ *   one, and in from the right to stay — every pass head first, right to left. The turn side-on happens during
  *   the passes, while the body is small and moving.
  * - **cross**: off to the left, head first, and in from the right.
  * - **stay**: no flight. The body is where the last step left it and only
@@ -91,12 +91,13 @@ function passes(t: number): Flight {
     return { dxMilli: 0, dyMilli: -1000 * e * e, scale: 1 + 0.6 * e };
   }
   if (t < 0.5) {
-    // Far off, across the top, left to right.
+    // Far off, across the top, right to left: the way its head faces, as
+    // every pass goes — the other way it flew backwards, tail first.
     const e = (t - 0.2) / 0.3;
-    return { dxMilli: -1100 + 2200 * e, dyMilli: -220, scale: 0.35 };
+    return { dxMilli: 1100 - 2200 * e, dyMilli: -220, scale: 0.35 };
   }
   if (t < 0.75) {
-    // Nearer, and back the other way, head first.
+    // Nearer, in again from the right, head first.
     const e = (t - 0.5) / 0.25;
     return { dxMilli: 1300 - 2600 * e, dyMilli: -60, scale: 0.7 };
   }
