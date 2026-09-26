@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4320d1cdb — The clock bosses' drawing gets a page four, from THE SLING on
+
+`boss-draw-clocks-c.ts` sat at exactly 250 lines after THE CYST and THE GRINDSTONE landed side by side, so the next boss would have failed the file-size test. Its last six bosses — THE SLING, THE TRIVET, THE PLUMB, THE DAVIT, THE CYST and THE GRINDSTONE — move to `boss-draw-clocks-d.ts`, with their own kind list, dispatched from `boss-draw-clocks.ts` beside page three. Nothing drawn changes. The Android READY check is now marked `Where: phone`, so `queue next` stops handing it to a session at a desk.
+
 ## 2026-09-26 · ca0597a6c — Four more bosses' flesh stops being lit like a still life
 
 ## 2026-09-26 · 5fc229846 — The build-stamp scan asks git grep instead of walking the disk
