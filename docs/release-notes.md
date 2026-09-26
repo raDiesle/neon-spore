@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 92e55e431 — THE INSTAR's far pass flies head first
+
+Before the moult, the far pass across the top went left to right while the profile looks left, so the body flew backwards, tail first. It now crosses right to left like every other pass, and a test holds every arrival to the way the head faces.
+
 ## 2026-09-26 · ed5b4de48 — THE INSTAR's second act throws its fire and lights its heart
 
 The rear now spits two globs of fire out of its jaws, each arcing down onto its SHIELD ring as the window closes; the spread shakes embers off its wings onto its SUCK rings; and the bare body after the moult has a heart that beats on the music at its SHOOT ring and goes dark shot by shot. A look with no shipped alternative: these steps had rings with nothing visibly coming at them.

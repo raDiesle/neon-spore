@@ -23683,3 +23683,5 @@ coming at their rings once they were photographed.
 
 Bottleneck: looking — the far pass is a quarter of the body's size, so
 which way it flew was only plain on a sheet of the whole flight.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
