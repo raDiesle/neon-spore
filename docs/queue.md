@@ -1949,6 +1949,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 ## §27 THE OCULUS — a revised simulation lane, a spent core left to burn out
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
+- **Taken:** 2026-09-26, claude/queue-27-the-oculus-a-revised-simulation-lane-a-spent
   bosses added today for a fuller story arc, more distinct visual states and
   more SLOW beats that ask for action
 - **Files:** `docs/spec/bosses-choreographed.md`
