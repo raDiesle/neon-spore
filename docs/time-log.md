@@ -24325,3 +24325,17 @@ Bottleneck: writing — every new event is five registrations outside `sim`.
 Bottleneck: looking — the glow's strength only showed in a real frame.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VALVE's story text taken back out of three other bosses' sections (claude/valve-story-misplaced)
+
+- reading: 5 min. The VALVE landing's diff to `bosses.md`, which put its
+  story paragraph into five sections where one was meant.
+- writing: 5 min. The three restored to what they said before, the stale
+  wording they carry queued.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. My own TRIVET landing hit the same trap first — one
+  Python `replace` over a paragraph five sections share — and the two
+  collided in a rebase.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: friction — a paragraph repeated word for word across sections turns any edit by text into an edit of all of them.
