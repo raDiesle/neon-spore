@@ -21994,3 +21994,14 @@ in ticks, which only `until-on.test.ts` says plainly.
 Bottleneck: reading — the seam was already named by three files next door.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `hash.ts` folds the controls' fields in from `hash-ship.ts`
+
+- reading: 5 min. `hash.ts`, `hash-pods.ts` and how `hash-coverage.test.ts`
+  finds a field — by changing it, not by reading the source.
+- writing: 5 min. The cannon-to-last-shot pushes moved, in order, to a list.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — keeping the push order was the whole of the risk.

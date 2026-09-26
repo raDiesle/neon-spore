@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## `packages/sim/src/hash.ts` is at 250 lines
-
-- **Found:** 2026-09-26, claude/queue-the-slow-does-not-say-whether-a-window-asks-for
-- **Taken:** 2026-09-26, claude/queue-packages-content-src-scenes-ts-is-at-250-lines (claim: claude/queue-packages-sim-src-hash-ts-is-at-250-lines)
-- **Files:** `packages/sim/src/hash.ts`, `packages/sim/test/hash-coverage.test.ts`
-
-THE SLOW's `slowAsks` took the last line, and a comment was folded to make
-room. The next `World` field pushes it over. `hashWorld` is one function of
-about 220 lines. Move the per-field pushes for one self-contained group, such as
-the ship and shield fields or the slow and spend ledger, into a helper file
-imported back, the way the bosses' hashes live in `*-hash.ts`. Keep the
-exceptions comment in `hash.ts`, where `hash-coverage.test.ts` and CLAUDE.md
-point. Proof: `bun run check`, both files well under 230.
-
 ## Shaking the phone never reaches THE CHOIR on an iPhone
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0

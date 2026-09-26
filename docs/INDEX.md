@@ -462,6 +462,7 @@ by hand never moves.
 | `packages/sim/src/hash-creature-tail.ts` | **The end of one body's fingerprint**, from THE BALLOON's eight to THE CRYSTAL's leg |
 | `packages/sim/src/hash-faults.ts` | the fault half of the world fingerprint |
 | `packages/sim/src/hash-pods.ts` | The pods on the field, folded into the world hash |
+| `packages/sim/src/hash-ship.ts` | The ship's own fields, folded into the world hash: where the cannon and the shield stand |
 | `packages/sim/src/hasp-hand.ts` | **The two hands on THE HASP**, off the wire, on the tick — and the gate between them, which is the whole boss |
 | `packages/sim/src/hasp-hash.ts` | What THE HASP puts into `hashWorld`, and nothing else |
 | `packages/sim/src/hasp-shot.ts` | **THE HASP's one target**: the bolt the second hasp's spring throws loose (§20, row 7) |
