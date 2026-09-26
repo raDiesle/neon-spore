@@ -8459,6 +8459,27 @@ here `oculusCentre`, as wide as the rim (`render/slow-boss-aim.ts`,
 VALVE and THE VISE took their rows the same day — the outer ring, the clasp
 being worked, and each oval's longer axis; the rest are queued.
 
+**The story steps** (§27's queue item of 26 September 2026, the owner's
+13:12 brief: more states, each a slow window the pair must act in). Two
+steps the eye had not told before, both in the shipped script, both under
+THE SLOW and both run out a hull hit (`bossStrikesHull`):
+
+- **The glare** (`glare`). The open eye stares down at the hull: no shot is
+  taken, and only the shield under the middle column, pressed after the
+  step lit, answers it (`sim/oculus-guard.ts`, `oculusBlock`). The step
+  keeps the tick it lit on (`litTick`, hashed) so a shield raised before it
+  is not an answer.
+- **The look** (`look`, `offset`). The eye rolls aside and looks down
+  another column, `offset` from the middle (`oculusLookCol`): a shot up
+  that column in the step's colour answers it (`oculusGlance`), and is not
+  a hit on the core.
+
+The script is eleven steps now: the glare after the first fire, the look
+after the first reseal (`content/waves/act-11.ts`). AUTO answers both
+(`hands/boss-hands-oculus.ts`). **Neither is drawn yet**: the look lane is
+next, in the current style (`sim/test/oculus-story.test.ts` proves the
+rules).
+
 ## 11.45 THE VISE — the boss two pinches crack, then shoot into
 
 > A dry seed-case over the middle of the field, two lobes clamped on a

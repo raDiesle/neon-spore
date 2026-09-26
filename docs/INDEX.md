@@ -492,6 +492,7 @@ by hand never moves.
 | `packages/sim/src/oculus-hash.ts` | What THE OCULUS puts into `hashWorld`, and nothing else |
 | `packages/sim/src/oculus-shot.ts` | **THE OCULUS's shot**: the open socket, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/oculus-step.ts` | THE OCULUS's clock: the lens settling, each step lighting, the beats both leaves are held being counted |
+| `packages/sim/src/oculus-guard.ts` | **THE OCULUS's shield**, asked once a tick after the commands are heard — THE SEAM's grit |
 | `packages/sim/src/oculus.ts` | THE OCULUS: a lens of six leaves over the middle column, shut two at a time by both seats holding at once |
 | `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
@@ -2141,7 +2142,7 @@ by hand never moves.
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-rime.ts` | THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-oculus.ts` | THE OCULUS's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-oculus.ts` | THE OCULUS's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-davit.ts` | THE DAVIT's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 
 ### packages/hands

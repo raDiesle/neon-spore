@@ -16,7 +16,7 @@ interface OculusColEvent {
 export type OculusEvent =
   /** The lens settles into frame, every leaf open. */
   | ({ type: "oculusEnter" } & OculusColEvent)
-  /** A step lit: a pair to shut, a shot at the core, or the socket to hold open. */
+  /** A step lit: a pair to shut, a shot at the core, the socket to hold open, a glare or a look. */
   | ({ type: "oculusLight"; ask: OculusAsk } & OculusColEvent)
   /** A thumb lifted while both leaves were down: the count starts over. */
   | ({ type: "oculusSlip" } & OculusColEvent)
@@ -32,7 +32,11 @@ export type OculusEvent =
   | ({ type: "oculusReseal" } & OculusColEvent)
   /** A reseal step ran out: the socket swallows itself, to be held again. */
   | ({ type: "oculusSwallow" } & OculusColEvent)
-  /** A fire step ran out with the core unshot: the hull takes it. */
+  /** The glare met by the shield under the eye. */
+  | ({ type: "oculusBlock" } & OculusColEvent)
+  /** The look answered by a shot up the column the eye looks down; `col` is that column. */
+  | ({ type: "oculusGlance" } & OculusColEvent)
+  /** A fire, glare or look step ran out unanswered: the hull takes it. */
   | ({ type: "oculusMiss" } & OculusColEvent)
   /** The script is done and the lens shatters. */
   | ({ type: "oculusShatter" } & OculusColEvent)

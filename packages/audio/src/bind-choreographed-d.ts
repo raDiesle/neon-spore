@@ -118,6 +118,8 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "oculusHit":
     case "oculusReseal":
     case "oculusSwallow":
+    case "oculusBlock":
+    case "oculusGlance":
     case "oculusMiss":
     case "oculusShatter":
     case "oculusOut":

@@ -141,9 +141,9 @@ export const CHOREO_NOTES_C = {
     "reseal is a hold that keeps the socket open, and one run out swallows it. " +
     "A fire step run out is a hull hit, which is the wave. The grace " +
     "(oculusGraceBeats) is how long a hold step stays lit past its count. " +
-    "THE SLOW spans every step but the break. Only the simulation lane has " +
-    "landed — see sim/oculus.ts, sim/oculus-step.ts, sim/oculus-hand.ts, " +
-    "sim/oculus-shot.ts, sim/config-oculus.ts.",
+    "THE SLOW spans every step but the break. A glare wants the shield under " +
+    "the eye, a look a shot up the column it looks down — sim/oculus*.ts, " +
+    "sim/config-oculus.ts.",
   "THE VISE — the boss two pinches crack, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §28: a pinch, each seat on " +
     "its own lobe of a case clamping a kernel over the middle column, and a " +

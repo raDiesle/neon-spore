@@ -4,6 +4,7 @@ import {
   oculusBoss,
   oculusHolding,
   oculusLitStep,
+  oculusLookCol,
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
@@ -20,14 +21,15 @@ import {
  * heard while a hold step is lit.
  *
  * **The shot** wants the step's colour; a white core takes either, and the
- * navigator fires cyan.
+ * navigator fires cyan. **A look** is the same shot up the column the eye
+ * looks down, and **a glare** is the shield carried under the eye and pressed.
  */
 type Press = Omit<TimedCommand, "tick">;
 
 export const oculusHand = (w: World): Press[] => {
   const s = oculusBoss(w);
   if (s === null) return [];
-  return [...hold(s), ...shoot(w, s)];
+  return [...hold(s), ...shoot(w, s), ...shield(w, s)];
 };
 
 function hold(s: OculusState): Press[] {
@@ -44,9 +46,17 @@ function hold(s: OculusState): Press[] {
 
 function shoot(w: World, s: OculusState): Press[] {
   const step = oculusLitStep(s);
-  if (step?.ask !== "fire" || !s.socketOpen) return [];
+  if ((step?.ask !== "fire" && step?.ask !== "look") || !s.socketOpen) return [];
+  const col = step.ask === "look" ? oculusLookCol(midCol(w.cfg), step) : midCol(w.cfg);
   return [
-    { player: 1, command: { kind: "cannonCol", col: midCol(w.cfg) } },
+    { player: 1, command: { kind: "cannonCol", col } },
     { player: 2, command: { kind: "fire", color: step.color === "either" ? "cyan" : step.color } },
   ];
+}
+
+function shield(w: World, s: OculusState): Press[] {
+  if (oculusLitStep(s)?.ask !== "glare") return [];
+  const col = midCol(w.cfg);
+  if (w.shieldCol !== col) return [{ player: 2, command: { kind: "shieldCol", col } }];
+  return [{ player: 1, command: { kind: "guard" } }];
 }

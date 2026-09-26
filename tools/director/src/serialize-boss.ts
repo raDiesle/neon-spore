@@ -167,7 +167,8 @@ export function serializeBoss(boss: BossEntry): string {
     return `{ kind: "seam", steps: [${steps.join(", ")}] }`;
   }
   // THE OCULUS's the same, and THE VISE's, THE RIME's, THE GRINDSTONE's and
-  // THE CYST's, which author the same three fields a step.
+  // THE CYST's, which author the same three fields a step — and a fourth,
+  // where a step has one: THE OCULUS's look says the column it looks down.
   if (
     boss.kind === "oculus" ||
     boss.kind === "vise" ||
@@ -175,9 +176,10 @@ export function serializeBoss(boss: BossEntry): string {
     boss.kind === "grindstone" ||
     boss.kind === "cyst"
   ) {
-    const steps = boss.steps.map(
-      (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
-    );
+    const steps = boss.steps.map((s) => {
+      const offset = "offset" in s && s.offset !== undefined ? `, offset: ${s.offset}` : "";
+      return `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats}${offset} }`;
+    });
     return `{ kind: "${boss.kind}", steps: [${steps.join(", ")}] }`;
   }
   // THE TRIVET's the same, and each step says how many pads its chord is.

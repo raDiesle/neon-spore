@@ -40,6 +40,10 @@ export const INGEST_SILENT_BOSS_D = [
   // THE SEAM's glow, landed after page three filled: how much of it is
   // left is read off the state each frame (`sim/seam-shot.ts`).
   "seamQuench",
+  // THE OCULUS's glare met and look answered, landed after page three
+  // filled: what they draw is read off the state (`sim/oculus-guard.ts`).
+  "oculusBlock",
+  "oculusGlance",
   // THE SLING's twelve: nothing is drawn yet, so nothing outlives a frame
   // (`packages/audio/src/bind-sling.ts`).
   "slingEnter",

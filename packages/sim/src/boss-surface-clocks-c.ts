@@ -92,8 +92,10 @@ export {
   oculusBoss,
   oculusBothHeld,
   oculusDone,
+  oculusGlaring,
   oculusHolding,
   oculusLitStep,
+  oculusLookCol,
 } from "./oculus.js";
 export { oculusWindowBeats } from "./oculus-step.js";
 // THE PLUMB's bob: the phase, the lit step, the weights and both seats'

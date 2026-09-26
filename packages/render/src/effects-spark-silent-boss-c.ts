@@ -122,7 +122,7 @@ export const SILENT_BOSS_C = [
   "seamMiss",
   "seamSplit",
   "seamOut",
-  // THE OCULUS's twelve, no burst from this table: each is thrown above the
+  // THE OCULUS's fourteen, no burst from this table: each is thrown above the
   // loop by its own fx file (`oculus-fx.ts`).
   "oculusEnter",
   "oculusLight",
@@ -133,6 +133,8 @@ export const SILENT_BOSS_C = [
   "oculusHit",
   "oculusReseal",
   "oculusSwallow",
+  "oculusBlock",
+  "oculusGlance",
   "oculusMiss",
   "oculusShatter",
   "oculusOut",

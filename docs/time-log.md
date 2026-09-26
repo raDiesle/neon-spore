@@ -24360,3 +24360,16 @@ Bottleneck: writing — four render files for a boss with a beam, two chains
 and two glasses is more drawing than any single-body boss before it.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS's glare and look, the simulation
+
+- reading: 10 min. SEAM's story steps and shield rule, the OCULUS files,
+  the hand, and which re-export hop carries its predicates.
+- writing: 30 min. Two steps, the guard, the look column, the rig's shared
+  answers, the story tests, the registrations and the docs.
+- looking: 0 min. Nothing drawn moved; the look lane follows.
+- friction: 5 min. A context compaction mid-lane, and re-reading the tree
+  to pick the thread back up.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — the story steps are two rules, but a boss state is eleven registrations outside the simulation.

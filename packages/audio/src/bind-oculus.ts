@@ -2,10 +2,10 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE OCULUS's twelve, in a file of their own for `bind-gorge.ts`' reason.
+ * THE OCULUS's fourteen, in a file of their own for `bind-gorge.ts`' reason.
  *
- * **Heard where they happen**: the eye stands over `midCol`, so every one of
- * them is in the middle.
+ * **Heard where they happen**: the eye stands over `midCol`, so every one but
+ * the look's is in the middle, and that one is heard down the column it looks.
  *
  * **A leaf shut and a hit are pitched up as they add up**, so how far the
  * pair are along can be heard without either of them counting.
@@ -32,6 +32,12 @@ export function oculusCue(e: Extract<SimEvent, { type: `oculus${string}` }>, col
       return { id: "boss.oculusReseal", pan };
     case "oculusSwallow":
       return { id: "boss.oculusSwallow", pan };
+    case "oculusBlock":
+      // The glare met: the shield's own clang, THE SEAM's grit sound.
+      return { id: "boss.seamBlock", pan };
+    case "oculusGlance":
+      // The look answered: the core's hit, lower, since the core took nothing.
+      return { id: "boss.oculusHit", pan, pitch: 0.85 };
     case "oculusMiss":
       return { id: "boss.oculusMiss", pan };
     case "oculusShatter":

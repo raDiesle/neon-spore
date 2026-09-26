@@ -17,6 +17,7 @@ import { ledgerHandsHeard } from "./ledger-hand.js";
 import { mantleHeard } from "./mantle-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
+import { oculusGuarded } from "./oculus-guard.js";
 import { oculusHeard } from "./oculus-hand.js";
 import { plumbHeard } from "./plumb-hand.js";
 import { queenHeard } from "./queen-hand.js";
@@ -109,6 +110,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE OCULUS's two leaves, on the tick because a slip is the instant a
   // thumb lifts; the beats held are counted on the beat (`oculus-hand.ts`).
   for (const c of commands) oculusHeard(world, c.player, c.command);
+  // Its glare, THE SEAM's shield once a tick after the commands (`oculus-guard.ts`).
+  oculusGuarded(world);
   // THE VISE's two gaps, on the tick for the same reason: a slip is the
   // instant a gap widens back past shut (`vise-hand.ts`).
   for (const c of commands) viseHeard(world, c.player, c.command);

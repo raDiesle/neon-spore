@@ -12,6 +12,7 @@ export function oculusHashParts(s: OculusState): number[] {
   const out = [
     OCULUS_PHASES.indexOf(s.phase) + 1,
     s.phaseBeat,
+    s.litTick,
     s.cursor,
     s.leavesShut,
     s.hits,
@@ -25,6 +26,7 @@ export function oculusHashParts(s: OculusState): number[] {
     out.push(OCULUS_ASKS.indexOf(step.ask) + 1);
     out.push(step.color === "red" ? 1 : step.color === "cyan" ? 2 : 3);
     out.push(step.beats);
+    out.push(step.offset ?? 0);
   }
   return out;
 }

@@ -261,6 +261,7 @@ export function patchBossD(boss: BossState): void {
     // (`oculus-hash.ts`).
     boss.phase = "lit";
     boss.phaseBeat = 3;
+    boss.litTick = 40;
     boss.cursor = 1;
     boss.leavesShut = 2;
     boss.hits = 1;

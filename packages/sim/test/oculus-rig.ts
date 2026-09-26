@@ -9,13 +9,20 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
-import { type OculusState, type OculusStep, oculusBoss } from "../src/oculus.js";
+import {
+  type OculusState,
+  type OculusStep,
+  oculusBoss,
+  oculusLitStep,
+  oculusLookCol,
+} from "../src/oculus.js";
+import { oculusStruck } from "../src/oculus-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 
 /**
  * THE OCULUS's test rig: a script installed, a thumb on a leaf as the pair
  * would put it there, and a step driven to its answer. Shared by
- * `oculus.test.ts`.
+ * `oculus.test.ts` and `oculus-story.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -29,7 +36,9 @@ export const SCRIPT: readonly OculusStep[] = [
   { ask: "shut", color: "either", beats: 4 },
   { ask: "break", color: "either", beats: 2 },
   { ask: "fire", color: "red", beats: 3 },
+  { ask: "glare", color: "either", beats: 3 },
   { ask: "reseal", color: "either", beats: 3 },
+  { ask: "look", color: "either", beats: 4, offset: -2 },
   { ask: "fire", color: "cyan", beats: 3 },
   { ask: "reseal", color: "either", beats: 4 },
   { ask: "fire", color: "either", beats: 3 },
@@ -108,4 +117,37 @@ export function shot(color: Color, col = MID): Bullet {
 /** A colour the step takes. */
 export function rightColor(step: OculusStep): Color {
   return step.color === "either" ? "cyan" : step.color;
+}
+
+/** The shield carried under the eye and pressed, as the two seats would. */
+export function shieldUnder(world: World): string[] {
+  tick(world, [{ tick: world.tick, player: 2, command: { kind: "shieldCol", col: MID } }]);
+  return tick(world, [{ tick: world.tick, player: 1, command: { kind: "guard" } }]);
+}
+
+/** The lit step answered: held, shot, shielded or let run, as it asks. */
+export function answer(world: World): void {
+  const step = oculusLitStep(oculus(world));
+  if (step === null) throw new Error("nothing is lit");
+  if (step.ask === "fire") oculusStruck(world, shot(rightColor(step)));
+  else if (step.ask === "look")
+    oculusStruck(world, shot(rightColor(step), oculusLookCol(MID, step)));
+  else if (step.ask === "glare") shieldUnder(world);
+  else if (step.ask === "break") runUntil(world, (w) => oculus(w).phase === "rest");
+  else {
+    holdBoth(world);
+    runUntil(world, (w) => oculus(w).phase === "rest");
+    releaseBoth(world);
+  }
+}
+
+/** A lens with the steps before `n` answered and step `n` lit. */
+export function toStep(n: number, steps: readonly OculusStep[] = SCRIPT): World {
+  const world = install(steps);
+  toLit(world);
+  while (oculus(world).cursor < n) {
+    answer(world);
+    toLit(world);
+  }
+  return world;
 }

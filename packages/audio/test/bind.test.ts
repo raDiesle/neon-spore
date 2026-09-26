@@ -457,6 +457,8 @@ const SAMPLES: Record<string, SimEvent> = {
   oculusHit: { type: "oculusHit", col: 5, hits: 2 },
   oculusReseal: { type: "oculusReseal", col: 5 },
   oculusSwallow: { type: "oculusSwallow", col: 5 },
+  oculusBlock: { type: "oculusBlock", col: 5 },
+  oculusGlance: { type: "oculusGlance", col: 3 },
   oculusMiss: { type: "oculusMiss", col: 5 },
   oculusShatter: { type: "oculusShatter", col: 5 },
   oculusOut: { type: "oculusOut", col: 5 },

@@ -17,7 +17,8 @@ import type { World } from "./world.js";
  * the cursor where it was: §27 has a missed shut spring the pair back open and
  * a missed reseal swallow the socket, and neither is a hull hit. **A shot that
  * runs out is the hull**, THE SEAM's rule (`seam-step.ts`): this game has no
- * hull hit that is not the wave.
+ * hull hit that is not the wave. So is a glare left unshielded and a look
+ * left unanswered, the two story steps (`oculus-guard.ts`, `oculus-shot.ts`).
  */
 
 export function installOculus(world: World, steps: readonly OculusStep[]): OculusState {
@@ -60,8 +61,8 @@ function lit(world: World, s: OculusState, since: number): void {
   }
   if (since < oculusWindowBeats(world, step)) return;
   if (step.ask === "break") rest(world, s, true);
-  else if (step.ask === "fire") miss(world, s);
-  else slipped(world, s, step);
+  else if (hold) slipped(world, s, step);
+  else miss(world, s);
 }
 
 /** A hold step held its beats: a pair of leaves shut, or the socket kept open. */
@@ -110,6 +111,7 @@ function next(world: World, s: OculusState): void {
   }
   s.phase = "lit";
   s.phaseBeat = world.beat;
+  s.litTick = world.tick;
   s.heldBeats = 0;
   if (step.ask === "break") {
     s.socketOpen = true;
@@ -120,7 +122,10 @@ function next(world: World, s: OculusState): void {
   world.events.push({ type: "oculusLight", ask: step.ask, col });
 }
 
-/** A fire step ran out with the core unshot: the hull takes it, and the wave is lost. */
+/**
+ * A step with no second try ran out — the core unshot, the glare unshielded,
+ * the look unanswered: the hull takes it, and the wave is lost.
+ */
 function miss(world: World, s: OculusState): void {
   const col = midCol(world.cfg);
   world.events.push({ type: "oculusMiss", col });

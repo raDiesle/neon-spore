@@ -32,10 +32,12 @@ export type OculusPhase = (typeof OCULUS_PHASES)[number];
 
 /**
  * What a step asks: a pair of leaves held shut, the socket breaking open (a
- * beat to look, no answer owed), a shot at the core, or the socket held open
- * against its reseal.
+ * beat to look, no answer owed), a shot at the core, the socket held open
+ * against its reseal — and the two story steps once it is open: the eye
+ * **glaring** down at the hull, answered by the shield under it, and the eye
+ * **looking** aside, answered by a shot up the column it looks down.
  */
-export const OCULUS_ASKS = ["shut", "break", "fire", "reseal"] as const;
+export const OCULUS_ASKS = ["shut", "break", "fire", "reseal", "glare", "look"] as const;
 export type OculusAsk = (typeof OCULUS_ASKS)[number];
 
 /** One step of the script, authored on the wave. */
@@ -48,6 +50,8 @@ export interface OculusStep {
    * step waits for its shot, how long a break shows.
    */
   beats: number;
+  /** Columns from the middle the eye looks down. Only a look step reads it. */
+  offset?: number;
 }
 
 /** What a wave authors: the whole script, in order. */
@@ -63,6 +67,8 @@ export interface OculusState {
   phase: OculusPhase;
   /** `world.beat` the phase began. */
   phaseBeat: number;
+  /** `world.tick` the lit step lit: a shield pressed before it answers no glare. */
+  litTick: number;
   /** The step lit, or the next to light. */
   cursor: number;
   /** Leaves shut so far: nought up to `OCULUS_LEAVES`. */
@@ -98,6 +104,16 @@ export function oculusBothHeld(s: OculusState): boolean {
   return s.held[0] && s.held[1];
 }
 
+/** Whether the lit step is the glare, answered by the shield under the eye. */
+export function oculusGlaring(s: OculusState): boolean {
+  return oculusLitStep(s)?.ask === "glare";
+}
+
+/** The column a look step's eye looks down: the middle, moved by its offset. */
+export function oculusLookCol(mid: number, step: OculusStep): number {
+  return mid + (step.offset ?? 0);
+}
+
 /** The lens shattered: the fight is over and it is only falling. */
 export function oculusDone(s: OculusState): boolean {
   return s.phase === "shatter";
@@ -110,6 +126,7 @@ export function freshOculus(beat: number, steps: readonly OculusStep[]): OculusS
     steps: steps.map((step) => ({ ...step })),
     phase: "still",
     phaseBeat: beat,
+    litTick: 0,
     cursor: 0,
     leavesShut: 0,
     hits: 0,

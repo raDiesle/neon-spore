@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import type { World } from "../src/index.js";
-import { OCULUS_LEAVES, oculusLitStep } from "../src/oculus.js";
+import { OCULUS_LEAVES } from "../src/oculus.js";
 import { oculusStruck } from "../src/oculus-shot.js";
 import { slowing } from "../src/slow.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
@@ -11,12 +10,11 @@ import {
   install,
   leaf,
   oculus,
-  releaseBoth,
-  rightColor,
   runUntil,
   SCRIPT,
   shot,
   toLit,
+  toStep,
 } from "./oculus-rig.js";
 
 /**
@@ -29,31 +27,6 @@ import {
  * that a shot outside its step or in the wrong colour does nothing, and that
  * a shot run out is the wave.
  */
-
-/** The lit step answered: both held until it rests, or shot in its colour. */
-function answer(world: World): void {
-  const s = oculus(world);
-  const step = oculusLitStep(s);
-  if (step === null) throw new Error("nothing is lit");
-  if (step.ask === "fire") oculusStruck(world, shot(rightColor(step)));
-  else if (step.ask === "break") runUntil(world, (w) => oculus(w).phase === "rest");
-  else {
-    holdBoth(world);
-    runUntil(world, (w) => oculus(w).phase === "rest");
-    releaseBoth(world);
-  }
-}
-
-/** A lens with the steps before `n` answered and step `n` lit. */
-function toStep(n: number): World {
-  const world = install();
-  toLit(world);
-  while (oculus(world).cursor < n) {
-    answer(world);
-    toLit(world);
-  }
-  return world;
-}
 
 describe("THE OCULUS comes in", () => {
   it("still, every leaf open, the socket shut", () => {
@@ -186,31 +159,31 @@ describe("a fire step", () => {
 
 describe("a reseal", () => {
   it("held its beats, keeps the socket open", () => {
-    const world = toStep(5);
+    const world = toStep(6);
     holdBoth(world);
     const seen = runUntil(world, (w) => oculus(w).phase === "rest");
     expect(seen.has("oculusReseal")).toBe(true);
     expect(oculus(world).socketOpen).toBe(true);
-    expect(oculus(world).cursor).toBe(6);
+    expect(oculus(world).cursor).toBe(7);
   });
 
   it("run out, swallows the socket until it is held again", () => {
-    const world = toStep(5);
+    const world = toStep(6);
     const seen = runUntil(world, (w) => oculus(w).phase === "rest");
     expect(seen.has("oculusSwallow")).toBe(true);
     expect(oculus(world).socketOpen).toBe(false);
-    expect(oculus(world).cursor).toBe(5);
+    expect(oculus(world).cursor).toBe(6);
     toLit(world);
     holdBoth(world);
     runUntil(world, (w) => oculus(w).phase === "rest");
     expect(oculus(world).socketOpen).toBe(true);
-    expect(oculus(world).cursor).toBe(6);
+    expect(oculus(world).cursor).toBe(7);
   });
 });
 
 describe("the end", () => {
   it("answered whole, the lens shatters and the fight ends", () => {
-    const world = toStep(8);
+    const world = toStep(10);
     oculusStruck(world, shot("red"));
     expect(oculus(world).hits).toBe(3);
     const seen = runUntil(world, (w) => w.boss === null);
