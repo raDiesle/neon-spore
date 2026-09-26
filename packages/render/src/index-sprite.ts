@@ -7,6 +7,8 @@
 export { drawBakedEgg, EGG_SPRITE, stirAt } from "./instar-egg-baked.js";
 export { drawEggCrack } from "./instar-egg-crack.js";
 export { drawEgg, drawNests } from "./instar-eggs.js";
+export { drawScales as drawHideScales, type Form, lightHide } from "./instar-hide.js";
+export { drawBakedScales, HIDE_SPRITE } from "./instar-hide-baked.js";
 export { drawBakedNests, NEST_SPRITE } from "./instar-nest-baked.js";
 export type { Look } from "./instar-plate.js";
 export {

@@ -13,6 +13,9 @@ import { fresh, type Pose, run, runUntil } from "./pose-kit.js";
  * word PULL DOWN over it, the window ring closing in — and, beside it, the
  * navigator's mark on the upper jaw dim, with P2'S over it and its
  * arc empty, because she has not pulled yet (`render/instar-marks.ts`).
+ *
+ * VERSUS judges `instar:hide` here: head-down and face-on, the skull, the
+ * chin and the body's bands all carry the scales `drawScales` lays.
  */
 export const INSTAR_PULL: Pose = {
   name: "INSTAR · THE JAW HALF PULLED",

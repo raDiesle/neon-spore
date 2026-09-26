@@ -23295,3 +23295,18 @@ drafting a new one from scratch.
 
 Bottleneck: none — a direct revision of an existing section is faster than
 drafting a new one from scratch.
+
+## 2026-09-26 — THE INSTAR's baked hide offered in VERSUS, and a byte ceiling for sprites
+
+- reading: 10 min. `drawScales` and its callers, and which view the
+  three-quarter lane left drawing the scales face-on.
+- writing: 35 min. The scale tile and its pattern fill, the `HIDE_LOOK`
+  seam, the candidate, the sprite-sheet demo and the byte-ceiling test.
+- looking: 15 min. Three passes of `bun run sprite instar-hide` to close the
+  gaps between scales and turn the lap the right way, then the VERSUS shot.
+- friction: 15 min. Waiting for the three-quarter view to leave the hide's
+  files, and a shell guard that refuses a heredoc with a doubled backslash.
+- landing: 10 min. `check:fast`, the index, the commit, `land`, `push`.
+
+Bottleneck: waiting on another thread to finish with the files the seam had
+to go in.

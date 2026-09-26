@@ -1,12 +1,17 @@
 import {
   drawBakedEgg,
   drawBakedNests,
+  drawBakedScales,
   drawEgg,
   drawEggCrack,
+  drawHideScales,
   drawNests,
   EGG_SPRITE,
+  type Form,
+  HIDE_SPRITE,
   type Layout,
   type Look,
+  lightHide,
   NEST_SPRITE,
   PALETTE,
   type SpriteSpec,
@@ -71,6 +76,17 @@ function look(x: number, y: number, r: number, threat: number, time: number): Lo
   } as unknown as Look;
 }
 
+/** A plate of hide a head radius long, lit as the body lights its own, for scales to lie on. */
+function plate(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): [Path2D, Form] {
+  const form: Form = { x, y, r: r * 0.6, ry: r * 0.3, angle: -0.25 };
+  const p = new Path2D();
+  p.ellipse(x, y, form.r, form.ry ?? form.r, form.angle ?? 0, 0, Math.PI * 2);
+  ctx.fillStyle = PALETTE.hull;
+  ctx.fill(p);
+  lightHide(ctx, p, form, 1);
+  return [p, form];
+}
+
 export const DEMOS: readonly SpriteDemo[] = [
   {
     name: "instar-egg",
@@ -101,6 +117,23 @@ export const DEMOS: readonly SpriteDemo[] = [
     },
     baked(ctx, x, y, r, threat, time, dpr) {
       drawBakedNests(ctx, flat(dpr), look(x, y, r, threat, time));
+    },
+  },
+  {
+    name: "instar-hide",
+    spec: HIDE_SPRITE,
+    base: PALETTE.hullRim,
+    glow: PALETTE.text,
+    playH: (r) => 4 * 0.8 * r * 0.13,
+    threats: [0],
+    box: [-0.66, -0.4, 0.66, 0.4],
+    shipped(ctx, x, y, r) {
+      const [p, form] = plate(ctx, x, y, r);
+      drawHideScales(ctx, p, form, r * 0.13, 1);
+    },
+    baked(ctx, x, y, r, _threat, _time, dpr) {
+      const [p, form] = plate(ctx, x, y, r);
+      drawBakedScales(ctx, p, form, r * 0.13, 1, dpr);
     },
   },
 ];

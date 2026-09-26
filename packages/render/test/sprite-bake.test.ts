@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { drawBakedEgg, EGG_SPRITE, stirAt } from "../src/instar-egg-baked.js";
+import { drawBakedScales } from "../src/instar-hide-baked.js";
 import { drawBakedNests } from "../src/instar-nest-baked.js";
 import type { Look } from "../src/instar-plate.js";
 import type { Layout } from "../src/layout.js";
@@ -10,7 +11,7 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./frame-harn
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * Sprites baked at load (`sprite-bake.ts`) and the two examples on THE INSTAR:
+ * Sprites baked at load (`sprite-bake.ts`) and the examples on THE INSTAR:
  * a key that stands still while the body grows a little, a tint composed once
  * per colour pair, and every value either example hands the canvas one a
  * canvas accepts — the offered look is not drawn by the game, so
@@ -61,13 +62,21 @@ describe("a sprite baked at load", () => {
     expect([0, 0.3, 0.55, 0.9, 1.5].map(stirAt)).toEqual([0, 1, 2, 3, 3]);
   });
 
-  it("draws the baked egg and nests with values a canvas accepts", () => {
+  it("draws the baked egg, nests and hide with values a canvas accepts", () => {
     const { ctx: stub } = stubCanvas();
     const ctx = stub as unknown as CanvasRenderingContext2D;
     for (let i = 0; i < 40; i++) {
       const threat = i / 40;
       drawBakedEgg(ctx, 100, 100, 150, 0.2, 1, threat, i / 60, i, 3);
       drawBakedNests(ctx, L, look(threat, i / 60));
+      drawBakedScales(
+        ctx,
+        new Path2D(),
+        { x: 300, y: 200, r: 150, ry: 90, angle: i / 10 },
+        4 + i,
+        threat,
+        3,
+      );
     }
     expect(stub.calls).toBeGreaterThan(0);
   });

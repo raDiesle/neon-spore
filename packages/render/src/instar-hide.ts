@@ -105,6 +105,27 @@ export function drawScales(
   size: number,
   fade: number,
 ): void {
+  HIDE_LOOK.paint(ctx, p, form, size, fade);
+}
+
+type PaintScales = (
+  ctx: CanvasRenderingContext2D,
+  p: Path2D,
+  form: Form,
+  size: number,
+  fade: number,
+) => void;
+
+/** What lays the scales, read on every call so VERSUS can offer another (`tools/versus`). */
+export const HIDE_LOOK: { paint: PaintScales } = { paint: drawShippedScales };
+
+function drawShippedScales(
+  ctx: CanvasRenderingContext2D,
+  p: Path2D,
+  form: Form,
+  size: number,
+  fade: number,
+): void {
   const ry = form.ry ?? form.r;
   if (size < 2 || fade <= 0) return;
   ctx.save();

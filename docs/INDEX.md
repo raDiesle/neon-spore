@@ -1568,6 +1568,7 @@ by hand never moves.
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
 | `packages/render/src/instar-head-parts.ts` | **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and the sinew strung between the jaws |
 | `packages/render/src/instar-hide.ts` | **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays down |
+| `packages/render/src/instar-hide-baked.ts` | **THE INSTAR's hide, baked** — the third example (`sprite-bake.ts`) |
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
@@ -2515,6 +2516,7 @@ by hand never moves.
 | `tools/raster/src/spec.ts` | The one description of the burst — the only place its numbers are written |
 | `tools/raster/src/sprite-demos.ts` | **What `bun run sprite` can show**: each baked sprite beside the drawing it is offered against |
 | `tools/raster/src/sprite-page.ts` | The sprite sheet's page: bundled for the browser by `sprite.ts` and run there, so the bake |
+| `tools/raster/src/sprite-bytes.ts` | What a baked sprite costs the game's bundle — the only bytes it ships |
 | `tools/raster/src/solid-demo.ts` | The test rig the solid sheet turns: not a boss, only the parts a boss is made of — a long body |
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
