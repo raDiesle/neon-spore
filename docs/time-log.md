@@ -21560,3 +21560,5 @@ only showed on the ledger as it stood that day, where every base refused.
 
 Bottleneck: none worth the name — the seat already showed where a value read
 at boot has to be written.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

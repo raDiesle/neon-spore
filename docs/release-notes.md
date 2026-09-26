@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 0d04759bc — `bun run frames` photographs a wave on a chosen level: --level easy|medium|hard
+
+The level a run plays at lives in the page's storage, in the progress record the game reads once at boot, so nothing HARD-only — the wasted shot's ricochet, THE WELL's tempo — could be photographed without a probe driving Chrome by hand. `--level` is now written into that record before the bundle runs, beside `--seat`, keeping whatever else the record held. `flags.ts` and `spec.ts` were split first, both at the line limit: the repeating flags went to `flag-lists.ts`, the fields that say how the page is opened to `stage-spec.ts`, and the storage writes out of `page.ts` to `page-storage.ts`.
+
 ## 2026-09-26 · e62d7b973 — THE INSTAR's long body idles and glows: a wobble on its lit shoulder, an ember pulse in its chest
 
 A look the owner asked for by name (25/26 September 2026): the boss visuals should look more three-dimensional, with a constant living motion that makes the depth visible. The side-on skull's own still-life fix already landed (crown wobble); this carries the same technique to the long body's plate, whose `Form.angle` was likewise a bare constant between morphs, and adds the "glow inside of body" the owner named directly — a soft ember pulse showing through the chest, on its own clock so it does not slide in step with the skull's wobble.
