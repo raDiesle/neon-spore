@@ -1832,6 +1832,7 @@ Unverified at tempo until the owner has looked.
 ## THE SLOW's prism aims at the cannon for every boss but THE INSTAR
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (photographing THE SEAM's lit point)
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-slows-prism-aims-at-the-cannon-for-every-bos)
 - **Files:** `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`
 
 PRISM's promise is *the room splits into its colours, and the boss does
