@@ -21902,3 +21902,5 @@ reading pixels — the navigator's screen, which draws no hull that floats.
 
 Bottleneck: `boss-hurt.test.ts` was 362 lines, so a row could not go in until
 its table had been cut into two pages.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

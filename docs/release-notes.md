@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · f5fe09ff1 — THE VANE's knocked-out pin is an event, with a sound and a blow
+
+A shot through the split that takes a pin out of the bearing now pushes `vaneKnock`, with the column and the pins left, and `boss.vaneKnock` plays it — an iron crack and the arm's weight settling, below the speech band. The blow on the hub is dealt off `BossBlows`' event table like THE THROAT's and THE BATON's, and the watcher that compared the pin count frame to frame (`seeVane`) is gone. The blow test's rows moved into two pages, `boss-hurt-rows.ts` and `-b.ts`, to make room for THE VANE's. A look with no shipped alternative: the moment had no sound, and the wash is the one it already showed.
+
 ## 2026-09-26 · d964e6408 — A wreck pulled under starts to sink on the next frame
 
 The sinking waited `FLEET_SHELL_BEATS` for a shell to land, but only the navigator's pull sinks a ship now, and nothing is in flight when it does — so a wreck sat afloat for two beats after its blow was over. The wait is gone, and `fleet-sink.test.ts` holds that the navigator's screen, which shows no floating hull, draws the wreck going under one tick after the pull. A fix to something wrong, not a look.
