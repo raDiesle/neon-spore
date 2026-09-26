@@ -36,35 +36,36 @@ import { type Entry, join, split } from "./queue-merge.js";
 export type Newest = "first" | "last";
 
 /**
- * Entries by heading, or `null` when one heading is used twice **and the two
- * say different things**.
+ * Each entry under the key it is followed by across the three sides: its
+ * heading, and for a heading used again, which time it is.
  *
- * Keying by title is what lets an entry be followed across three sides that
- * each wrote to the same end. It is also the assumption that would lose an
- * entry if it were wrong, so it is checked rather than trusted: a release
- * note's heading carries its own sha, a ledger heading its own date and lane,
- * and a side that files two different bodies under one of those gets a refusal
- * instead of a silent overwrite.
+ * Keying by heading alone is what refused every merge of the ledger for a
+ * day. `docs/time-log.md` carried "AUTO: the director plays a seat live, with
+ * its finger drawn" twice on 25 September 2026 — one lane, landed in two
+ * parts under one subject, two different bodies — and a map by heading has
+ * room for only one of them, so the merge declined the whole file and every
+ * landing that hour stopped on two plain appends at its other end. Before
+ * that it was `docs/release-notes.md`, with `8995ded7` written twice word for
+ * word from 19 September 2026.
  *
- * **A heading repeated with byte-identical text is not that.** It is one note
- * written twice, which `docs/release-notes.md` carried from 19 September 2026:
- * `8995ded7` appears in it twice, word for word, and every `bun run reconcile`
- * from then on refused the whole file over a pair of blocks that agree
- * perfectly. There is nothing to decide between two copies of one sentence, so
- * the second is passed over and the record merges. `notes.ts` is where the
- * double write itself is stopped.
+ * **The count runs from the oldest end**, the one nobody writes to: an entry
+ * a side adds at its newest end is always the last of its heading, so it
+ * never renumbers one already there, and a second body under an old heading
+ * is a row added rather than a row overwritten.
  */
-function byTitle(entries: readonly Entry[]): Map<string, string> | null {
-  const map = new Map<string, string>();
-  for (const entry of entries) {
-    const seen = map.get(entry.title);
-    if (seen !== undefined) {
-      if (seen !== entry.block) return null;
-      continue;
-    }
-    map.set(entry.title, entry.block);
-  }
-  return map;
+function keyed(entries: readonly Entry[], newest: Newest): Entry[] {
+  const seen = new Map<string, number>();
+  const oldestFirst = newest === "last" ? entries : [...entries].reverse();
+  const out = oldestFirst.map((entry) => {
+    const n = seen.get(entry.title) ?? 0;
+    seen.set(entry.title, n + 1);
+    return { title: n === 0 ? entry.title : `${entry.title}\u0000${n}`, block: entry.block };
+  });
+  return newest === "last" ? out : out.reverse();
+}
+
+function byTitle(entries: readonly Entry[]): Map<string, string> {
+  return new Map(entries.map((entry) => [entry.title, entry.block]));
 }
 
 /**
@@ -100,24 +101,27 @@ export function mergeRecord(
   const baseParts = split(base);
   const trunkParts = split(trunk);
   const laneParts = split(lane);
+  const trunkEntries = keyed(trunkParts.entries, newest);
+  const laneEntries = keyed(laneParts.entries, newest);
 
   const preamble = mergePreamble(baseParts.preamble, trunkParts.preamble, laneParts.preamble);
   if (preamble === null) return null;
 
-  const baseAt = byTitle(baseParts.entries);
-  const trunkAt = byTitle(trunkParts.entries);
-  const laneAt = byTitle(laneParts.entries);
-  if (baseAt === null || trunkAt === null || laneAt === null) return null;
+  const baseAt = byTitle(keyed(baseParts.entries, newest));
+  const trunkAt = byTitle(trunkEntries);
+  const laneAt = byTitle(laneEntries);
 
   // An entry the lane no longer has is a record that lost a row, not a side
   // that decided something. Refuse, the way a session resolving this by hand
-  // would stop and look.
-  for (const title of baseAt.keys()) {
-    if (!laneAt.has(title)) return null;
+  // would stop and look — unless the row is still there word for word, which
+  // is a copy of one note taken out rather than a note lost.
+  const laneBlocks = new Set(laneAt.values());
+  for (const [title, block] of baseAt) {
+    if (!laneAt.has(title) && !laneBlocks.has(block)) return null;
   }
 
   const kept: Entry[] = [];
-  for (const entry of trunkParts.entries) {
+  for (const entry of trunkEntries) {
     const mine = laneAt.get(entry.title);
     if (mine === undefined || mine === entry.block) {
       kept.push(entry);
@@ -132,7 +136,7 @@ export function mergeRecord(
   }
   // What this side wrote, which is what the whole merge exists for.
   const mine: Entry[] = [];
-  for (const entry of laneParts.entries) {
+  for (const entry of laneEntries) {
     if (trunkAt.has(entry.title) || baseAt.has(entry.title)) continue;
     mine.push(entry);
   }

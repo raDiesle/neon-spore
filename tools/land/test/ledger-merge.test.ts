@@ -78,11 +78,24 @@ describe("the ledger's own merge", () => {
     expect(mergeLedger(BASE, trunk, lane)).toBeNull();
   });
 
-  test("refuses a side that uses one heading twice", () => {
-    // Keying by heading is what follows an entry across three sides; a
-    // duplicate would make one of them overwrite the other in silence.
+  test("keeps both bodies when a side files a second one under an old heading", () => {
+    // A lane landed in two parts under one subject. Followed by heading and
+    // occurrence, the second is a row added, and the first is not overwritten.
     const lane = `${BASE}\n${entry("first-lane", 9)}`;
-    expect(mergeLedger(BASE, BASE, lane)).toBeNull();
+    const trunk = `${BASE}\n${entry("their-lane", 10)}`;
+    const out = mergeLedger(BASE, trunk, lane) as string;
+    expect(out).toContain("| reading | 5 |");
+    expect(out).toContain("| reading | 9 |");
+    expect(out.indexOf("their-lane")).toBeLessThan(out.indexOf("| reading | 9 |"));
+  });
+
+  test("merges two appends onto a ledger that already uses one heading twice", () => {
+    // `main` on 25 September 2026: "AUTO: the director plays a seat live" twice,
+    // two bodies, and every landing that day refused over it.
+    const twice = `${BASE}\n${entry("first-lane", 7)}`;
+    const trunk = `${twice}\n${entry("their-lane", 10)}`;
+    const lane = `${twice}\n${entry("my-lane", 15)}`;
+    expect(mergeLedger(twice, trunk, lane)).toBe(`${trunk}\n${entry("my-lane", 15)}`);
   });
 });
 

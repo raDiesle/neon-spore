@@ -18,6 +18,11 @@ import { replay } from "../replay.js";
  * So: one real repository, two real commits appending to the same end of the
  * ledger, one real `git rebase`. The pattern is `repo.test.ts`'s, `realpath` on
  * the way in for the same reason it gives.
+ *
+ * The ledger they both append to is the one `main` really carried on 25
+ * September 2026: one heading written twice with two different bodies, far
+ * from the end both sides wrote to. That alone made every landing that day
+ * stop on two plain appends (`record-merge.ts`, `keyed`).
  */
 
 let root = "";
@@ -33,6 +38,10 @@ function entry(name: string): string {
   return `\n## 2026-09-16 — ${name} — what it did\n\n| activity | minutes |\n|---|---|\n| reading | 5 |\n\nThe bottleneck was reading.\n`;
 }
 
+/** One lane landed in two parts under one subject, each with its own entry. */
+const TWICE = `${entry("two-parts").replace("reading | 5", "reading | 10")}${entry("two-parts")}`;
+const BASE = PREAMBLE + TWICE;
+
 async function ledger(text: string, message: string): Promise<void> {
   await writeFile(join(root, "docs", "time-log.md"), text);
   await git(["add", "docs/time-log.md"]);
@@ -44,15 +53,15 @@ beforeAll(async () => {
   await git(["init", "-b", "main", "--quiet"]);
   await git(["config", "user.email", "test@example.com"]);
   await git(["config", "user.name", "Test"]);
-  await Bun.write(join(root, "docs", "time-log.md"), PREAMBLE);
+  await Bun.write(join(root, "docs", "time-log.md"), BASE);
   await git(["add", "."]);
   await git(["commit", "-q", "-m", "the ledger"]);
 
   // The lane branches here, then both sides append to the same last line.
   await git(["switch", "-c", "lane", "--quiet"]);
-  await ledger(PREAMBLE + entry("my-lane"), "my lane, and its entry");
+  await ledger(BASE + entry("my-lane"), "my lane, and its entry");
   await git(["switch", "main", "--quiet"]);
-  await ledger(PREAMBLE + entry("their-lane"), "their lane, landed first");
+  await ledger(BASE + entry("their-lane"), "their lane, landed first");
   await git(["switch", "lane", "--quiet"]);
 }, repoTimeout(14));
 
@@ -80,8 +89,9 @@ describe("two lanes appending to the ledger in the same hour", () => {
       expect(text).toContain("their-lane");
       expect(text).toContain("my-lane");
       expect(text.indexOf("their-lane")).toBeLessThan(text.indexOf("my-lane"));
-      // The preamble survived a merge that touched neither end of it.
-      expect(text.startsWith(PREAMBLE)).toBe(true);
+      // The preamble and both bodies under the doubled heading survived a
+      // merge that touched neither of them.
+      expect(text.startsWith(BASE)).toBe(true);
     },
     repoTimeout(2),
   );

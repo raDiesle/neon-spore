@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## `land` stops on a time-log conflict it says it merges
-
-- **Found:** 2026-09-25, claude/drop-wait-cues
-- **Taken:** 2026-09-26, claude/queue-the-instar-moult-the-split-hide-and-the-pale-bod (claim: claude/queue-land-stops-on-a-time-log-conflict-it-says-it-mer)
-- **Files:** `tools/land/replay.ts`, `tools/land/ledger-merge.ts`, `tools/land/test/ledger-merge.test.ts`
-
-`replay.ts` lists `docs/time-log.md` as a conflict it settles on its own, but
-twice on 25 September `bun run land --keep` stopped with *does not replay onto
-main … conflicts in docs/time-log.md* when another lane had appended an entry
-at the end in the same hour — the plain two-appends case. Resolved by hand with
-`git rebase main`, keeping both entries. Reproduce it in a repo test with two
-branches each appending one `## ` entry after the same last entry, find why the
-ledger merge declines it, and prove with `bun run check`.
-
 ## `bun run frames` cannot photograph a wave on HARD
 
 - **Found:** 2026-09-25, claude/hard-wasted-ricochet
