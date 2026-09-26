@@ -2549,6 +2549,7 @@ what the rest of this file holds.
 ## THE MANTLE's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall; THE INSTAR's half landed on its own
+- **Taken:** 2026-09-26, claude/mantle-blow (claim: claude/queue-the-mantles-own-blow-at-the-hull)
 - **Files:** `packages/sim/src/mantle-step.ts`, `packages/render/src/boss-strike-look.ts`, `packages/sim/test/boss-strike.test.ts`
 
 THE MANTLE still drops a rock on a timeout (`mantle-step.ts` `spendSpark`).
