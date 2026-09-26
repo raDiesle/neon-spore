@@ -8870,7 +8870,7 @@ nothing else, THE SEAM's rule.
   already has: the hub rocks up and goes dark, the same `both` lights again,
   and no fire step lights until it is held.
 
-**The simulation, the body and the pads are in; the rest of the hands are not.** The body landed
+**The simulation, the body, the pads and AUTO's hand are in; the rest of the hands are not.** The body landed
 26 September 2026: SINKER's hub in dull gunmetal with one of CALTROP's
 needles run out to each foot as a leg — the needle only, since CALTROP's
 body is THE LEECH's — the two outer feet each on a plate of
@@ -8891,8 +8891,14 @@ the cue's words and THE SLOW's aim are queued — the render package's silent-ev
 `tools/director/src/sound-link-none-d.ts` carry all twelve of its events
 until then. The twelve sounds *are* bound
 (`audio/src/bind-trivet.ts`), heard where they happen, the plant pitched up
-per level and the hit per hit. There is no autopilot hand yet either
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+per level and the hit per hit. **AUTO has a hand for it** (26 September
+2026): each seat puts down exactly the pads its lit step lights, one drag a
+pad, and lifts them once the step is answered, both seats on a `both` step,
+and the lit hub is shot up the middle in its colour, cyan for a white one.
+BOTH plays the fight to the collapse with all four plants, both braces and
+three hits, no chord slipped or sprung, the hub never rocked and the hull
+never struck, and the STATES sheet poses all four phases
+(`hands/boss-hands-trivet.ts`, `director/test/autopilot-trivet.test.ts`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/trivet.test.ts`): the stand comes in still with both feet lifted

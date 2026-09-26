@@ -22,6 +22,7 @@ import { snakeHand } from "./boss-hands-snake.js";
 import { spoolHand } from "./boss-hands-spool.js";
 import { lidHand } from "./boss-hands-stare.js";
 import { antiphonHand, cairnHand, spliceHand, undertowHand } from "./boss-hands-takes.js";
+import { trivetHand } from "./boss-hands-trivet.js";
 import { pulseHand, repriseHand } from "./boss-hands-unseen.js";
 import { viseHand } from "./boss-hands-vise.js";
 import { wellHoldHand, wellWindHand } from "./boss-hands-well.js";
@@ -87,6 +88,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   surge: surgeHand,
   taster: tasterHand,
   throat: throatHand,
+  trivet: trivetHand,
   undertow: undertowHand,
   vane: vaneHand,
   vise: viseHand,

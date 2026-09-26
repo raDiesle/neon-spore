@@ -35,7 +35,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   seam: ["still", "lit", "rest", "split"],
   // THE RIME the same, §29: its four.
   rime: ["still", "lit", "rest", "shattered"],
-  trivet: ["still", "lit", "rest", "collapse"],
   plumb: ["still", "lit", "rest", "free"],
   sling: ["still", "lit", "rest", "free"],
   grindstone: ["still", "lit", "rest", "free"],

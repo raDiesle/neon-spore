@@ -2166,6 +2166,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
 | `packages/hands/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
+| `packages/hands/src/boss-hands-trivet.ts` | **THE TRIVET played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
 | `packages/hands/src/boss-hands-ratchet.ts` | **THE RATCHET played right, and played blind**, for the STATES sheet |
 | `packages/hands/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
@@ -2790,6 +2791,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
+| `tools/director/src/poses-bosses-hands-trivet.ts` | **THE TRIVET's four states**, posed with a hand on the controls (`boss-hands-trivet.ts`) |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's five states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |

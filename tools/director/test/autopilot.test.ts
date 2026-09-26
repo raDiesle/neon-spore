@@ -29,25 +29,16 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
 /**
  * Bosses AUTO has no hand for. THE PULSE and THE REPRISE got theirs, and THE
- * MANTLE, THE KEEL, THE OCULUS and THE VISE their own (`autopilot-mantle.test.ts`,
- * `autopilot-keel.test.ts`, `autopilot-oculus.test.ts`, `autopilot-vise.test.ts`);
- * THE VALVE, THE SEAM, THE RIME, THE TRIVET, THE PLUMB, THE SLING, THE GRINDSTONE, THE
- * CYST and THE DAVIT are here for one reason — only their simulation lanes
+ * MANTLE, THE KEEL, THE OCULUS, THE VISE and THE TRIVET their own
+ * (`autopilot-mantle.test.ts`, `autopilot-keel.test.ts`, `autopilot-oculus.test.ts`,
+ * `autopilot-vise.test.ts`, `autopilot-trivet.test.ts`); THE VALVE, THE SEAM,
+ * THE RIME, THE PLUMB, THE SLING, THE GRINDSTONE, THE CYST and THE DAVIT are
+ * here for one reason — only their simulation lanes
  * have landed (`docs/spec/bosses.md` §11.42–§11.52),
  * and an autopilot hand plays a boss against poses that do not exist yet. A
  * new boss is a row in `AUTOPILOT_HANDS` or a name here.
  */
-const NO_HAND = new Set([
-  "valve",
-  "seam",
-  "rime",
-  "trivet",
-  "plumb",
-  "sling",
-  "grindstone",
-  "cyst",
-  "davit",
-]);
+const NO_HAND = new Set(["valve", "seam", "rime", "plumb", "sling", "grindstone", "cyst", "davit"]);
 
 function rig(w: () => World) {
   const l = computeLayout(VIEWPORT, w().cfg, "test");

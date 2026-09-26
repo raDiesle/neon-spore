@@ -2604,8 +2604,9 @@ and smaller per hit, and the collapse (`render/trivet-*.ts`,
 a seat's fingers in its zone are a chord, each finger a pad by the order it
 landed in (`render/trivet-grip.ts`, `render/chord.ts`,
 `apps/game/src/chord.ts`), with a ghost thumb on a held foot and both rows
-on ON THE FIELD. What is left, in lanes: **the autopilot hand** (`NO_HAND`
-in `tools/director/test/autopilot.test.ts` until then); **the fx**, in
+on ON THE FIELD. **AUTO's hand landed the same day** (`hands/boss-hands-trivet.ts`,
+`director/test/autopilot-trivet.test.ts`, the STATES sheet's four poses).
+What is left, in lanes: **the fx**, in
 `Effects` and cleared in `reset()` — a foot's plant thud and its clamp, the
 hub's hit flash and the collapse, the twelve `trivet*` events off the two
 silent lists as each gets its burst, and row 11's ring under the spent hub;
