@@ -2715,3 +2715,17 @@ packages/hands/src/boss-hands-cyst.ts, the way
 on a swell both flanks at once; on fire, spit and bud the cannon or the
 shield at `cystStepCol` — then take THE CYST out of `NO_HAND` and prove it
 with `bun run check`.
+
+## Unverified at d30a4b113: THE GRINDSTONE's body never watched at tempo
+
+- **Found:** 2026-09-26, tmp-grindstone-look
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/grindstone-draw.ts`
+
+*§33 THE GRINDSTONE: the body — THE SMART's wheel ground flat and THE HOOD's caliper biting* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
+
+- THE GRINDSTONE's body never watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
