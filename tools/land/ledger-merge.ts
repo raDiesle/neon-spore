@@ -26,6 +26,14 @@ export const LEDGER_FILE = "docs/time-log.md";
  * `base` is what the lane branched from, `trunk` what it is landing onto,
  * `lane` what it wrote. Trunk order first, the lane's own entry after it:
  * entries are appended here, so the end is where a new one belongs.
+ *
+ * **The end, and only the end**, settled on 26 September 2026. The lanes of
+ * the 25th had written theirs at the top, under the preamble, and the queue
+ * asked which end the ledger grows from. The tools had already answered:
+ * `stamp.ts` stamps the *last* entry, and this merge puts a lane's new entry
+ * last. So an entry written at the top still merges — nothing is lost — and
+ * arrives at the end, which is where the stamp then finds it. The ledger's
+ * preamble says so to the next session.
  */
 export function mergeLedger(base: string, trunk: string, lane: string): string | null {
   return mergeRecord(base, trunk, lane, "last");

@@ -431,22 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## `land` cannot merge two time-log entries written at the top of the file
-
-- **Found:** 2026-09-25, claude/filament-picture-clarity
-- **Taken:** 2026-09-26, claude/queue-wouldhear-asks-each-press-of-a-one-tick-gesture (claim: claude/queue-land-cannot-merge-two-time-log-entries-written-a)
-- **Files:** `tools/land/ledger-merge.ts`, `tools/land/record-merge.ts`, `docs/time-log.md`
-
-`bun run land --keep` stopped with "conflicts in docs/time-log.md" when the
-trunk and the lane had each added an entry. `mergeLedger` merges with
-`"last"`, on the argument that entries are appended at the end. But the lanes
-of 25 September 2026 write theirs at the top, under the preamble, newest
-first. So both sides insert at the same place, and the resolver gives up.
-The conflict was resolved by hand, keeping both entries. Decide which end the
-ledger grows from. Then either merge at that end, or have the resolver accept
-an insertion at either end. Add a test in `tools/land/test` that uses two
-top-inserted entries. Provable with `bun run check`.
-
 ## The director's SEEK counts ticks, so a briefing eats the row it was sent to
 
 - **Found:** 2026-09-25, claude/wave-row-positioning-director-11eb05

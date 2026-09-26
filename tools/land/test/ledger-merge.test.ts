@@ -89,6 +89,18 @@ describe("the ledger's own merge", () => {
     expect(out.indexOf("their-lane")).toBeLessThan(out.indexOf("| reading | 9 |"));
   });
 
+  test("keeps two entries written at the top, and moves the arriving one to the end", () => {
+    // The lanes of 25 September 2026 wrote theirs under the preamble, newest
+    // first. The ledger grows at its end — `stamp.ts` stamps the last entry —
+    // so the one arriving is put there, and the trunk's stays where it stood.
+    const at = BASE.indexOf("## ");
+    const top = (name: string, minutes: number) =>
+      `${BASE.slice(0, at)}${entry(name, minutes)}\n${BASE.slice(at)}`;
+    const trunk = top("their-lane", 10);
+    const out = mergeLedger(BASE, trunk, top("my-lane", 15));
+    expect(out).toBe(`${trunk}\n${entry("my-lane", 15)}`);
+  });
+
   test("merges two appends onto a ledger that already uses one heading twice", () => {
     // `main` on 25 September 2026: "AUTO: the director plays a seat live" twice,
     // two bodies, and every landing that day refused over it.

@@ -22,6 +22,13 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+**A new entry goes at the end of the file**, below the last one — never up
+here under the preamble. `bun run land` stamps its measured line under the
+*last* entry, and a landing that has to merge this file puts the arriving
+entry at the end whichever end it was written at (`tools/land/ledger-merge.ts`).
+The entries dated 25 and 26 September 2026 above the first old one were
+written at the top before that was said, and are left where they are.
+
 ## 2026-09-26 — CONTROLS › GESTURES: every gesture and phone event, drawn
 
 - reading: 15 min. §4 of `transfers-touch.md`, the CONTROLS inner tabs, which
@@ -21795,3 +21802,18 @@ Bottleneck: picking a boss whose lift is silent alone, and THE GIMBAL's ring
 with no hand on it was the shortest.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — The ledger grows at its end, and says so
+
+- reading: 10 min. The queue entry, `ledger-merge.ts`, `record-merge.ts`,
+  `stamp.ts`, and a scratch run showing two top-written entries already
+  merge since the duplicate-heading fix.
+- writing: 5 min. A test of two top-written entries, the decision in the
+  merge's comment and in the ledger's own preamble.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. The Bash guard refused a heredoc with a doubled
+  backslash; the test went in through Edit.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding that the refusal the entry described was already gone,
+which a one-file scratch run settled faster than reading the history.
