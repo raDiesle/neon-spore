@@ -90,9 +90,46 @@ export {
 } from "./silhouettes.js";
 export { LEECH, LIMPET } from "./silhouettes-cling.js";
 export { GUM, SAC_SKIN, type SacSkin, sacPoints } from "./silhouettes-gum.js";
+export {
+  addScaled,
+  cross,
+  dot,
+  FRONT,
+  facing,
+  farFirst,
+  litIn,
+  type Seen,
+  SIDE,
+  see,
+  THREE_QUARTER,
+  turn,
+  unit,
+  type Vec3,
+  type View,
+  view,
+} from "./solid.js";
+export {
+  type Frame,
+  onRing,
+  type Ring,
+  ringLight,
+  ringNormal,
+  type SeenRing,
+  seeTube,
+  tubeFrames,
+} from "./solid-tube.js";
 export { type StuddedOpts, studdedContour } from "./studded.js";
 export type { Pin } from "./surface.js";
-export { type Facet, facet, LAT_LIMIT, limbX, pin, surfaceDim, surfaceLit } from "./surface.js";
+export {
+  type Facet,
+  facet,
+  keyLit,
+  LAT_LIMIT,
+  limbX,
+  pin,
+  surfaceDim,
+  surfaceLit,
+} from "./surface.js";
 // THE VEER's rider, as figures and as loops — one description of the clown.
 // The shape is one file and the arithmetic that places it on a rock is
 // another; both come through here, so a caller sees one clown.

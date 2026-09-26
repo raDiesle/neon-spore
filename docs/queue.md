@@ -1222,3 +1222,52 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## CLOUD ONLY — a densified tube costs a gradient per slice, per frame
+
+- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Files:** `packages/render/src/solid-tube-draw.ts`, `packages/render/src/solid-rig.ts`
+
+`drawTube` inserts a ring every 6 px and fills one linear gradient per slice,
+so a 230 px body is about forty `createLinearGradient` calls a frame before
+its tail and fins. Add an op-count budget test for `drawRig` on the demo rig
+(`tools/raster/src/solid-demo.ts`) beside the other `*-budget.test.ts`, then
+cap it: a coarser step when the drawn radius is small, or a gradient reused
+between slices whose stops round to the same six-step mix. The sheet from
+`bun run solid` must look the same before and after — say *unverified* if no
+eye saw it.
+
+## CLOUD ONLY — a dragged tail wants a verlet chain in Effects
+
+- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Files:** `packages/render/src/solid-motion.ts`, `packages/render/test/restart.test.ts`
+
+`chainAt` is follow-through as a delay: link `i` replays the root `lag·i`
+earlier. It cannot sag under its own weight or swing when the root stops. A
+verlet chain (positions, previous positions, one length constraint pass) held
+in `Effects`, stepped per frame and cleared in `Effects.reset()`, would give a
+boss's trailing part real inertia. It must pass `restart.test.ts` and must be
+a render-side effect only — nothing in sim reads it.
+
+## CLOUD ONLY — move one boss a lane onto the solid rig, from the roster
+
+- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Files:** `packages/render/src/solid-rig.ts`, `docs/style-guide.md`
+
+`drawRig` draws tubes and balls from any side with a fixed key, haze and
+contact. Bosses whose bodies are tubes and balls already — THE GORGE, THE
+ANTIPHON, THE BATON, THE LEAD — could each be rebuilt as a rig so they turn
+correctly when the fight turns them. **Each one is a look**: it goes to
+`tools/versus/candidates/` beside the shipped body, one boss per lane, with
+`bun run solid`'s pattern for its own sheet. Take one, name it in the entry
+you leave behind, and leave the rest listed.
+
+## CLOUD ONLY — the rig has no frame.test coverage until a boss uses it
+
+- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Files:** `packages/render/test/frame.test.ts`, `packages/render/test/solid.test.ts`
+
+`solid.test.ts` draws the rig through the stub from every side; nothing in
+`frame.test.ts` does, because no wave draws one yet. The first boss that ships
+on a rig adds its wave there, at SIDE, THREE_QUARTER and FRONT if the fight
+reaches them.

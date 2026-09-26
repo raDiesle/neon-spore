@@ -78,7 +78,17 @@ export const LAT_LIMIT = 0.82;
  * the fixed light meet.
  */
 export function surfaceLit(cosLat: number, sinLat: number, sinA: number, cosA: number): number {
-  return Math.max(0, cosLat * sinA * LX + sinLat * LY + cosLat * cosA * LZ);
+  return keyLit(cosLat * sinA, sinLat, cosLat * cosA);
+}
+
+/**
+ * The same lambert term for a unit normal already turned into the view —
+ * `x` right, `y` down, `z` toward the viewer. `surfaceLit` is this with the
+ * normal written as a latitude and an apparent longitude; `solid.ts` calls it
+ * with the normal of a part of a rig that has been turned as a whole.
+ */
+export function keyLit(nx: number, ny: number, nz: number): number {
+  return Math.max(0, nx * LX + ny * LY + nz * LZ);
 }
 
 /**

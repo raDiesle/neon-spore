@@ -136,3 +136,22 @@ replacement: `tools/versus/candidates/`, beside the shipped look, and the owner
 decides by looking. `ship:light` / `barrel` is the worked example — a record for
 the seam, a candidate for the answer, and the shipped pass untouched. The three
 exemptions in `CLAUDE.md` apply unchanged.
+
+## A body seen from more than one side is a rig
+
+When a boss has to be seen from the side *and* the front — THE INSTAR is the
+first — neither a pose nor a placed surface is enough: build it from tubes and
+balls in three dimensions and let `drawRig` turn, order, haze and light it.
+The convention, the shading and the motion are `docs/style-guide.md`'s
+**A boss seen from any side**. The research behind the choice, 26 September
+2026: of the ways to make a 2D canvas read as 3D — lit sprites, noise and
+chain motion, a real 3D engine, SDF shaders, pre-rendered turnarounds — the
+two that keep the house's cost and look are **lit sprites baked on a
+quantised key** (`solid-ball.ts`) and **motion from noise and follow-through**
+(`solid-motion.ts`). Everything else was judged too heavy for a phone or too
+far from the palette.
+
+**Render and look, every change.** `bun run solid` writes a PNG of the test
+rig turned five ways, twice, and across time. Read it before calling a rig
+right; a sort bug, a lit side that turns with the body, or a banded tube is
+obvious there and invisible in a test.

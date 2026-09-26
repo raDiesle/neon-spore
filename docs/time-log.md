@@ -22510,3 +22510,13 @@ Bottleneck: reading — each creature's rule lives in two or three sim files, an
 Bottleneck: writing — a shot spark's event says only its column, so the fuse is timed a second time on the render side to throw the burst where the bead had got to.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — a boss seen from any side: the solid rig
+
+- reading: 30 min. `surface.ts`, `key-light.ts`, the depth skill, the raster tool's browser capture.
+- writing: 120 min. `solid.ts`, `solid-tube.ts`, five render modules, the sheet tool, two test files, the style-guide section, four queue entries.
+- looking: 30 min. `bun run solid` sheets until the tube stopped banding and seaming.
+- friction: 20 min. The copies test moving motion to render; a wrong edge assumption in a test.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — banding and seams in the tube shading only showed on the rendered sheet, three rounds of it.

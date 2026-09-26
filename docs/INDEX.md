@@ -899,6 +899,8 @@ by hand never moves.
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
+| `packages/content/src/solid-tube.ts` | A LONG PART OF A RIG: a body, a neck, a tail — a spine of rings |
+| `packages/content/src/solid.ts` | A BOSS SEEN FROM ANY SIDE |
 | `packages/content/src/rooted.ts` | A bulb held down by roots: a round body with narrow tendrils reaching from its underside |
 | `packages/content/src/antiphon-contours.ts` | **THE ANTIPHON's table of contours** — the sixteen shapes the body can grow |
 | `packages/content/src/filament-script.ts` | THE FILAMENT's seven filaments: where each hangs, and the line it makes |
@@ -1496,6 +1498,7 @@ by hand never moves.
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
 | `packages/render/src/instar-body-shade.ts` | The body's own light and shadow, top to bottom across its width, one segment of the spine at a time |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
+| `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
@@ -1845,6 +1848,11 @@ by hand never moves.
 | `packages/render/src/surge-grip.ts` | **THE SURGE's one handle, taken by both seats**: the bulb itself |
 | `packages/render/src/surge-shape.ts` | **Where THE SURGE is**, in field pixels: the bulb's centre, its two radii, its outline |
 | `packages/render/src/surge-word.ts` | **What THE SURGE is asking of one thumb**, and the three silences beside the one that shipped |
+| `packages/render/src/solid-ball.ts` | A ROUND PART OF A RIG — a head, a knuckle, an eye, a nest — lit once and stamped |
+| `packages/render/src/solid-haze.ts` | DEPTH ACROSS A RIG: what makes the far wing read as further than the near one when both are the same size on… |
+| `packages/render/src/solid-motion.ts` | MOTION THAT A RIG HAS WITHOUT BEING TOLD: the always-on life of a body, as pure functions of time |
+| `packages/render/src/solid-rig.ts` | A RIG, DRAWN FROM ANY SIDE: a boss as a list of parts, each a tube or a ball |
+| `packages/render/src/solid-tube-draw.ts` | A TUBE OF A RIG, DRAWN: the outline `seeTube` found, filled |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |
 | `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes and, once, its body — the half of the boss that is *above* the hull line |
@@ -2411,7 +2419,10 @@ by hand never moves.
 | `tools/raster/src/png.ts` | The parts of the PNG container an animator needs, and nothing else |
 | `tools/raster/src/render.ts` | Draws the burst in a real browser and brings the bytes back |
 | `tools/raster/src/spec.ts` | The one description of the burst — the only place its numbers are written |
+| `tools/raster/src/solid-demo.ts` | The test rig the solid sheet turns: not a boss, only the parts a boss is made of — a long body |
+| `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
+| `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |
 | `tools/raster/verify.ts` | `bun run raster:verify` — opens the generated assets in a real browser and says whether they decode |
 | `tools/shape-sheet/src/contour.ts` | An open contour must not be filled — SVG would close it across the ends |
 | `tools/shape-sheet/src/drawn-size.ts` | The 20–26 px floor `docs/spec/graphics.md` sets for a body to stay nameable |

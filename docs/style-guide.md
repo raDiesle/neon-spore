@@ -487,6 +487,51 @@ ribs proud of the barrel were left unlit: too small and too mechanical to read
 a gradient at their width, the same call that ruled out RATCHET's pawl and
 lock pieces.
 
+### A boss seen from any side
+
+The owner, 26 September 2026: the bosses should be shown *from different
+angles and perspective … but to look correct and 3d*. A pose cannot do it (the
+one rule above), so a body that has to be seen from more than one side is
+built as a **rig**: parts in three dimensions, turned and projected every
+frame. `bun run solid` draws the test rig from the side, the three-quarter and
+the front, at eye level and looked down on, and across time. Change a part,
+run it, look at the PNG — that is the loop.
+
+- **The convention.** `packages/content/src/solid.ts`. A rig is authored
+  side-on in pixels: x along the body with the head negative, y down, z toward
+  the player. `view(yaw, pitch, lens)` — `SIDE` is 0, `FRONT` brings the head
+  toward the player, `THREE_QUARTER` is half way, positive pitch looks down on
+  the back. `lens` is a perspective distance, so the near end swells; `Infinity`
+  is orthographic.
+- **The light does not turn.** Normals are turned into the view and lit by
+  `keyLit`, the same `KEY` `surfaceLit` uses. A body lit in its own frame
+  carries its highlight round with it, which is the still-life failure in
+  three dimensions.
+- **Two part kinds.** A *tube* is rings along a spine (`solid-tube.ts`, with a
+  rotation-minimising frame so a ridge does not slide round a bent body); a
+  *ball* is a centre and a radius. Anything a boss has is one or the other, or
+  several of them.
+- **The painter orders parts, not triangles.** `farFirst` sorts by mean depth.
+  A part long enough to be both in front of and behind another is split in
+  two where it crosses — the demo's tail is two tubes for that reason.
+- **Depth reads through three cues at once**: the far part is hazed toward the
+  background in six steps (`solid-haze.ts`'s `hazeSkin`), a ball that sits on
+  a tube lays a cool contact shadow clipped to that tube (`drawContact`, the
+  one shadow allowed because it is on the body it touches, not cast across the
+  field), and the near end of a tube gets a lit dome for a cap.
+- **A tube is shaded in opaque stops, densified.** `solid-tube-draw.ts` fills
+  the outline, clips to it, and lays a linear gradient across each slice —
+  shadow, lit shoulder, sheen, bounce — as *opaque* mixes of the skin, with
+  rings inserted every 6 px. Translucent stops stack where the quads overlap
+  and band; quads that only meet leave a seam. They overlap by a little and
+  are pushed out past the outline so the clip makes the edge.
+- **A ball is a baked sprite** (`solid-ball.ts`), keyed on skin and a radius
+  rounded to 4 px, so a breathing head bakes twice, not once a frame.
+- **Motion is a function of time, and it follows through.** `solid-motion.ts`:
+  `noise1` is a hashed value noise, `breath` a period that wanders by it,
+  `chainAt(root, t, i, lag)` is link `i` doing what the root did `lag·i`
+  earlier. A tail is a chain; nothing is simulated, so nothing outlives a frame.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring

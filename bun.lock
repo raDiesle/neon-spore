@@ -186,6 +186,7 @@
       "name": "@neon-spore/raster",
       "version": "0.0.0",
       "dependencies": {
+        "@neon-spore/content": "workspace:*",
         "@neon-spore/frames": "workspace:*",
         "@neon-spore/render": "workspace:*",
       },
