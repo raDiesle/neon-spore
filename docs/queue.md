@@ -782,6 +782,7 @@ comparison is the owner's, unverified until he has looked.
 ## boss-draw-clocks-c.ts is at its 250-line limit
 
 - **Found:** 2026-09-26, main (THE CYST and THE GRINDSTONE landing side by side)
+- **Taken:** 2026-09-26, claude/task-queue-work-497b6b (claim: claude/queue-boss-draw-clocks-c-ts-is-at-its-250-line-limit)
 - **Files:** `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/boss-draw-clocks.ts`
 
 THE CYST and THE GRINDSTONE both appended an arm the same day and put the
