@@ -24134,3 +24134,5 @@ Bottleneck: writing — three states, each a pose, a mark, a grip and a cue, in 
 Bottleneck: reading — the one fact that decided the design, that `advance`
 never passes through the loop that presses AUTO, was three files away from
 the flag.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

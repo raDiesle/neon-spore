@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b444e0272 — bun run frames --auto plays the game's own AUTO to a boss's receipt
+
+`--auto both|p1|p2` switches on the hands the phone's TEST panel plays with, for the ticks a capture steps, so `--wave "THE VISE" --auto both --until viseHit --until-on 2` is a frame of the first kernel flash (tick 1922) with no list of presses written by hand. The page's `advance` now presses AUTO where the frame loop does, after the keys and before the tick drains; off, which is every capture before this, presses nothing.
+
 ## 2026-09-26 · 54202e6f4 — THE KEEL's flip, marrow and cooldown are drawn
 
 The flip swings the spine through flat to a bow the wrong way, shuddering, with a ring round each end joint: the pad inside lights under a held thumb and the chord counts round both rings, pulling the bow back toward flat. Each seat is taken only on its own end, and the field says HOLD there. The marrow is a red and cyan lens where the middle two meet, each half filling as its bolt goes in, with FIRE over the middle column. The cooldown banks the spine from white to iron segment by segment, a flare lengthening it; any segment takes a tap, and nothing is said.
