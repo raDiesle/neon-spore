@@ -848,6 +848,7 @@ which is a new event, `instarShove`, and so the twelve registrations
 ## The push-back is shown as a mistake: red shield, a sound, ONE LAST CHANCE
 
 - **Found:** 2026-09-25, claude/shield-enemy-knockback-6364bd
+- **Taken:** 2026-09-26, claude/shield-enemy-knockback-6364bd (claim: claude/queue-the-push-back-is-shown-as-a-mistake-red-shield-a)
 - **Files:** `packages/render/src/shield.ts`, `packages/render/src/shield-flash.ts`, `packages/render/src/effects-ingest.ts`, `packages/audio/src/bind.ts`, `packages/audio/src/bind-volley.ts`
 
 **After "The shield pushes a cannon creature back up, once" has landed** — it
