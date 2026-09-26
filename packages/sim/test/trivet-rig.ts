@@ -9,13 +9,21 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
-import { type TrivetState, type TrivetStep, trivetBoss } from "../src/trivet.js";
+import {
+  type TrivetState,
+  type TrivetStep,
+  trivetBoss,
+  trivetLitStep,
+  trivetStepCol,
+  trivetTipSide,
+} from "../src/trivet.js";
+import { trivetStruck } from "../src/trivet-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 
 /**
  * THE TRIVET's test rig: a script installed, a seat's pads pressed as the
  * pair would press them, and a step driven to its answer. Shared by
- * `trivet.test.ts`.
+ * `trivet.test.ts` and `trivet-story.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -30,7 +38,9 @@ export const SCRIPT: readonly TrivetStep[] = [
   { ask: "rear", pads: 3, color: "either", beats: 4 },
   { ask: "fire", pads: 2, color: "red", beats: 3 },
   { ask: "both", pads: 2, color: "either", beats: 3 },
+  { ask: "tip", pads: 3, color: "either", beats: 4, offset: -2 },
   { ask: "fire", pads: 2, color: "cyan", beats: 3 },
+  { ask: "needle", pads: 2, color: "either", beats: 4, offset: 2 },
   { ask: "both", pads: 2, color: "either", beats: 3 },
   { ask: "fire", pads: 2, color: "either", beats: 3 },
 ];
@@ -119,4 +129,49 @@ export function shot(color: Color, col = MID): Bullet {
 /** A colour the step takes. */
 export function rightColor(step: TrivetStep): Color {
   return step.color === "either" ? "cyan" : step.color;
+}
+
+/** The shield slid under `col`, then the guard pressed a tick later; every event type seen. */
+export function shield(world: World, col = MID): Set<string> {
+  const seen = new Set(
+    tick(world, [{ tick: world.tick, player: 2, command: { kind: "shieldCol", col } }]),
+  );
+  for (const t of tick(world, [{ tick: world.tick, player: 1, command: { kind: "guard" } }]))
+    seen.add(t);
+  return seen;
+}
+
+const FOOT = ["front", "rear"] as const;
+
+/**
+ * The lit step answered: its chord or chords held until it rests, shot in its
+ * colour, the lurch's foot held and the swung hub shot, or the needle turned.
+ */
+export function answer(world: World): void {
+  const step = trivetLitStep(trivet(world));
+  if (step === null) throw new Error("nothing is lit");
+  if (step.ask === "fire") trivetStruck(world, shot(rightColor(step)));
+  else if (step.ask === "needle") shield(world, trivetStepCol(MID, step));
+  else if (step.ask === "tip") {
+    const foot = FOOT[trivetTipSide(step)];
+    chord(world, foot, step.pads);
+    trivetStruck(world, shot(rightColor(step), trivetStepCol(MID, step)));
+    lift(world, foot);
+  } else {
+    if (step.ask === "both") chordBoth(world, step.pads);
+    else chord(world, step.ask, step.pads);
+    runUntil(world, (w) => trivet(w).phase === "rest");
+    liftBoth(world);
+  }
+}
+
+/** A stand with the steps before `n` answered and step `n` lit. */
+export function toStep(n: number, steps: readonly TrivetStep[] = SCRIPT): World {
+  const world = install(steps);
+  toLit(world);
+  while (trivet(world).cursor < n) {
+    answer(world);
+    toLit(world);
+  }
+  return world;
 }

@@ -18,8 +18,15 @@ import type { World } from "./world.js";
  * feet home light the hub, and after that the script alternates a shot at the
  * hub with both seats chording to keep the feet planted under it.
  *
- * **Its health is the four plants and the three shots.** A chord that runs
- * out is tried again; a shot that runs out is a hull hit, which is the wave.
+ * **Two story steps** break the alternation. **The lurch** (`tip`): the stand
+ * leans hard onto one foot and the hub swings out over another column; that
+ * foot's seat holds its chord to keep the stand from going over while the
+ * pair shoots the swung hub there, in its colour. **The needle**: the hub
+ * flings a needle down a column off the middle, turned by the shield under it.
+ *
+ * **Its health is the four plants and the four shots.** A chord that runs
+ * out is tried again; a shot or a needle that runs out is a hull hit, which
+ * is the wave.
  */
 
 /** Sockets on each foot — a figure of the silhouette, `SEAM_POINTS`' reason. */
@@ -37,24 +44,30 @@ export type TrivetPhase = (typeof TRIVET_PHASES)[number];
 
 /**
  * What a step asks: the pilot's chord on the front foot, the navigator's on
- * the rear, a shot at the hub, or both chords at once to keep the feet
- * planted under it.
+ * the rear, a shot at the hub, both chords at once to keep the feet planted
+ * under it, the lurch (a chord held and the swung hub shot), or the needle.
  */
-export const TRIVET_ASKS = ["front", "rear", "fire", "both"] as const;
+export const TRIVET_ASKS = ["front", "rear", "fire", "both", "tip", "needle"] as const;
 export type TrivetAsk = (typeof TRIVET_ASKS)[number];
 
 /** One step of the script, authored on the wave. */
 export interface TrivetStep {
   ask: TrivetAsk;
-  /** Pads a chord step lights, from the first: two or `TRIVET_PADS`. Only a chord step reads it. */
+  /** Pads a chord or lurch step lights, from the first: two or `TRIVET_PADS`. */
   pads: number;
-  /** The colour a shot must be, or `"either"`. Only a fire step reads it. */
+  /** The colour a shot must be, or `"either"`. A fire or lurch step reads it. */
   color: Color | "either";
   /**
    * Beats: how long a chord must be held, how long a fire step waits for its
    * shot.
    */
   beats: number;
+  /**
+   * Columns off the middle the lurch swings the hub, or the needle falls:
+   * below nought the lurch leans on the front foot, above on the rear. Only
+   * a lurch or a needle reads it.
+   */
+  offset?: number;
 }
 
 /** What a wave authors: the whole script, in order. */
@@ -82,6 +95,8 @@ export interface TrivetState {
   padsDown: [number, number];
   /** Beats of the lit chord step its chord(s) have been held. */
   heldBeats: number;
+  /** `world.tick` the lit step lit: a shield pressed before it turns no needle. */
+  litTick: number;
 }
 
 export function trivetBoss(world: World): TrivetState | null {
@@ -92,6 +107,16 @@ export function trivetBoss(world: World): TrivetState | null {
 /** The step lit, or null between steps. */
 export function trivetLitStep(s: TrivetState): TrivetStep | null {
   return s.phase === "lit" ? (s.steps[s.cursor] ?? null) : null;
+}
+
+/** The column a lurch swings the hub over, or a needle falls down. */
+export function trivetStepCol(mid: number, step: TrivetStep): number {
+  return mid + (step.offset ?? 0);
+}
+
+/** The foot a lurch leans on: the front, the pilot's, below the middle. */
+export function trivetTipSide(step: TrivetStep): 0 | 1 {
+  return (step.offset ?? 0) < 0 ? 0 : 1;
 }
 
 /** Whether the lit step is a chord: one foot, or both. */
@@ -135,5 +160,6 @@ export function freshTrivet(beat: number, steps: readonly TrivetStep[]): TrivetS
     hubLit: false,
     padsDown: [0, 0],
     heldBeats: 0,
+    litTick: 0,
   };
 }

@@ -8353,6 +8353,21 @@ while a fire step is lit, only in the middle column, and only in its colour
 unless it is `either`. The wrong colour is a colour missed on the balance
 sheet and nothing else, THE SEAM's rule.
 
+**Two story steps, 26 September 2026**, so the fight is more than plant and
+shoot (the owner's 13:12 brief: more states where the pair must act, told as
+a story). **The lurch** (`tip`): the stand leans hard onto one foot and the
+hub swings out over another column, two to the pilot's side in the script.
+The leaning foot's seat holds its chord — every lit pad down — while the
+pair shoots the swung hub in its colour; a shot there with that foot let
+go, or up the middle, is not heard (`sim/trivet-shot.ts`). **The needle**:
+the hub flings a needle down a column two to the navigator's side, turned
+by the shield under that column while it is armed, the guard pressed after
+the step lit — THE RIME's icicle (`sim/trivet-guard.ts`, `trivetTurn`,
+bound to the shield's own deflect). A shield under the stand turns nothing.
+Both are under THE SLOW, and either run out is a hull hit over its own
+column (`trivetMiss`). The script is eleven steps: two plants a foot, a
+shot, a brace, the lurch, a shot, the needle, a brace, a shot.
+
 **Where this departs from the design, and why.** Six places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §27's
@@ -8838,14 +8853,15 @@ RIME asks each thumb to **keep turning back**, this asks one seat for
 pads has been held down together, and any one of them lifting starts it
 again.
 
-**It is four plants and three hits, and they are its health.** The state
+**It is four plants and four hits, and they are its health.** The state
 (`sim/trivet.ts`, hashed in `sim/trivet-hash.ts`) is the **phase** and the
 beat it began, the **cursor** into the script, the **plants** on each foot,
 the **hits** landed, whether the **hub** is lit, each seat's **pads down**
 as a mask, and the beats the lit chord has been held. The script is the
 wave's (`TrivetEntry.steps`), copied at install: each step asks `front`,
-`rear`, `fire` or `both`, on two or three pads, in a colour or `either`,
-for its own beats.
+`rear`, `fire`, `both`, `tip` or `needle`, on two or three pads, in a
+colour or `either`, for its own beats, the last two at an `offset` of
+columns off the middle.
 
 **The rule, in one sentence.** Hold your foot's lit pads down together for
 the count, and shoot the lit hub in its colour.
@@ -8904,8 +8920,9 @@ nothing else, THE SEAM's rule.
   home; the script lights it with the fourth plant, whichever foot that is,
   and the next step is the first shot.
 - **The plants and the hits are the health together.** §30 names the two
-  outer feet plus a hub of three hits; the script is nine steps, and the
-  stand collapses when the last is answered, which is the third hit.
+  outer feet plus a hub of three hits; the script is eleven steps, and the
+  stand collapses when the last is answered, which is the fourth hit — the
+  lurch's shot is one of them.
 - **Row 7's lost fire beats are the `both` step asked again.** "Fire beats
   lost until both feet replant" is written as the rule a `both` step run out
   already has: the hub rocks up and goes dark, the same `both` lights again,

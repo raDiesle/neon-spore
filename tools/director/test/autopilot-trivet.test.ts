@@ -46,7 +46,7 @@ describe("AUTO on THE TRIVET", () => {
     expect(collapsed).toBe(true);
     expect(plants).toEqual(["0:1", "0:2", "1:1", "1:2"]);
     expect(braces).toBe(2);
-    expect(hits).toEqual([1, 2, 3]);
+    expect(hits).toEqual([1, 2, 3, 4]);
     expect(wrong).toBe(0);
     expect(world.scars).toEqual([]);
     expect(trivetBoss(world)).toBeNull();

@@ -1,7 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { World } from "../src/index.js";
 import { slowing } from "../src/slow.js";
-import { TRIVET_PLANTS_PER_FOOT, trivetLitStep } from "../src/trivet.js";
+import { TRIVET_PLANTS_PER_FOOT } from "../src/trivet.js";
 import { trivetStruck } from "../src/trivet-shot.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
 import {
@@ -11,13 +10,12 @@ import {
   chordBoth,
   install,
   lift,
-  liftBoth,
   pad,
-  rightColor,
   runUntil,
   SCRIPT,
   shot,
   toLit,
+  toStep,
   trivet,
 } from "./trivet-rig.js";
 
@@ -32,31 +30,6 @@ import {
  * again rather than lost, that a shot outside its step or in the wrong colour
  * does nothing, and that a shot run out is the wave.
  */
-
-/** The lit step answered: its chord or chords held until it rests, or shot in its colour. */
-function answer(world: World): void {
-  const s = trivet(world);
-  const step = trivetLitStep(s);
-  if (step === null) throw new Error("nothing is lit");
-  if (step.ask === "fire") trivetStruck(world, shot(rightColor(step)));
-  else {
-    if (step.ask === "both") chordBoth(world, step.pads);
-    else chord(world, step.ask, step.pads);
-    runUntil(world, (w) => trivet(w).phase === "rest");
-    liftBoth(world);
-  }
-}
-
-/** A stand with the steps before `n` answered and step `n` lit. */
-function toStep(n: number): World {
-  const world = install();
-  toLit(world);
-  while (trivet(world).cursor < n) {
-    answer(world);
-    toLit(world);
-  }
-  return world;
-}
 
 describe("THE TRIVET comes in", () => {
   it("still, both feet lifted, the hub dark", () => {
@@ -256,9 +229,9 @@ describe("a both", () => {
 
 describe("the end", () => {
   it("answered whole, the stand collapses and the fight ends", () => {
-    const world = toStep(8);
+    const world = toStep(SCRIPT.length - 1);
     trivetStruck(world, shot("red"));
-    expect(trivet(world).hits).toBe(3);
+    expect(trivet(world).hits).toBe(4);
     const seen = runUntil(world, (w) => w.boss === null);
     expect(seen.has("trivetCollapse")).toBe(true);
     expect(seen.has("trivetOut")).toBe(true);

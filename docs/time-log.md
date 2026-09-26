@@ -24630,3 +24630,13 @@ Bottleneck: writing — placing the icicle in the lens's frame so its sight land
 Bottleneck: landing — the full suite for one page of reading.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE TRIVET's lurch and needle, the simulation
+
+- reading: 10 min. THE RIME's guard and story test, THE TRIVET's step and shot.
+- writing: 30 min. Two asks, the guard, the column-aware miss, the hand, the rig, the story test.
+- looking: 0 min. Nothing is drawn in this lane.
+- friction: 10 min. A heredoc that hung, and two files pushed to 251 lines by one row each.
+- landing: 10 min. The guide, the spec, the ship note, `check:fast`, `land`, `push`.
+
+Bottleneck: writing — the rig's `answer` had to learn the two new asks before any step past them could be reached in a test.

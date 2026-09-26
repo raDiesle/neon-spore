@@ -211,7 +211,7 @@ export const INGEST_SILENT_BOSS_C = [
   "rimeMiss",
   "rimeShatter",
   "rimeOut",
-  // THE TRIVET's twelve, for the same reason (`packages/audio/src/bind-trivet.ts`).
+  // THE TRIVET's thirteen, for the same reason (`packages/audio/src/bind-trivet.ts`).
   "trivetEnter",
   "trivetLight",
   "trivetSlip",
@@ -222,6 +222,7 @@ export const INGEST_SILENT_BOSS_C = [
   "trivetBrace",
   "trivetRock",
   "trivetMiss",
+  "trivetTurn",
   "trivetCollapse",
   "trivetOut",
   // THE PLUMB's twelve, for the same reason (`packages/audio/src/bind-plumb.ts`).
@@ -237,12 +238,10 @@ export const INGEST_SILENT_BOSS_C = [
   "plumbMiss",
   "plumbFree",
   "plumbOut",
-  // THE GAUGE's four, the first events this round has had at all: the needle,
-  // the band, the jam and the bind are every one of them world state, read off
-  // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame
-  // (`render/gauge.ts`, `docs/queue.md`, 19 September 2026). Sound is what was
-  // missing, not a picture — nothing about a mark, a miss, a jam or a bind
-  // outlives the frame it happens on.
+  // THE GAUGE's four, its first events: the needle, band, jam and bind are world
+  // state, read off `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every
+  // frame (`render/gauge.ts`, 19 September 2026). Sound was what was missing —
+  // nothing about a mark, a miss, a jam or a bind outlives its frame.
   "gaugeMark",
   "gaugeMiss",
   "gaugeJam",

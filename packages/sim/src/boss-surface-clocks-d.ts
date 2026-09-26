@@ -105,6 +105,8 @@ export {
   trivetClosed,
   trivetDone,
   trivetLitStep,
+  trivetStepCol,
+  trivetTipSide,
 } from "./trivet.js";
 export { trivetWindowBeats } from "./trivet-step.js";
 // THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for

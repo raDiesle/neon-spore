@@ -179,11 +179,11 @@ export const CHOREO_NOTES_C = {
     "pad lifted starts the count again, and a step run out springs the foot " +
     "and relights it. Two plants a foot light the hub; a fire step wants a " +
     "shot in its colour; a both step is both chords held at once, and one run " +
-    "out rocks the hub dark until it is held again. A fire step run out is a " +
-    "hull hit, which is the wave. The grace (trivetGraceBeats) is how long a " +
-    "chord step stays lit past its count. Only the simulation lane has " +
-    "landed — see sim/trivet.ts, sim/trivet-step.ts, sim/trivet-hand.ts, " +
-    "sim/trivet-shot.ts, sim/config-trivet.ts.",
+    "out rocks the hub dark until it is held again; a lurch holds its foot and shoots " +
+    "the swung hub, a needle is shielded; any of the three run out is the wave. The " +
+    "grace (trivetGraceBeats) is how long a chord step stays lit past its count. See " +
+    "sim/trivet.ts, sim/trivet-step.ts, sim/trivet-hand.ts, " +
+    "sim/trivet-shot.ts, sim/trivet-guard.ts, sim/config-trivet.ts.",
   "THE PLUMB — the boss two phones hold level, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §31: a lean, each seat " +
     "holding its own phone level to hang its weight true under a bob over " +

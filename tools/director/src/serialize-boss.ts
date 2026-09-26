@@ -184,9 +184,10 @@ export function serializeBoss(boss: BossEntry): string {
   }
   // THE TRIVET's the same, and each step says how many pads its chord is.
   if (boss.kind === "trivet") {
-    const steps = boss.steps.map(
-      (s) => `{ ask: "${s.ask}", pads: ${s.pads}, color: "${s.color}", beats: ${s.beats} }`,
-    );
+    const steps = boss.steps.map((s) => {
+      const offset = s.offset !== undefined ? `, offset: ${s.offset}` : "";
+      return `{ ask: "${s.ask}", pads: ${s.pads}, color: "${s.color}", beats: ${s.beats}${offset} }`;
+    });
     return `{ kind: "trivet", steps: [${steps.join(", ")}] }`;
   }
   // THE PLUMB's the same, and each step says how far off level still counts.

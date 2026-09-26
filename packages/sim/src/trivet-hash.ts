@@ -20,6 +20,7 @@ export function trivetHashParts(s: TrivetState): number[] {
     s.padsDown.length,
     ...s.padsDown,
     s.heldBeats,
+    s.litTick,
     s.steps.length,
   ];
   for (const step of s.steps) {
@@ -27,6 +28,7 @@ export function trivetHashParts(s: TrivetState): number[] {
     out.push(step.pads);
     out.push(step.color === "red" ? 1 : step.color === "cyan" ? 2 : 3);
     out.push(step.beats);
+    out.push(step.offset ?? 0);
   }
   return out;
 }

@@ -5,9 +5,10 @@ import type { TrivetAsk } from "./trivet.js";
  * sound answer.
  *
  * Every event carries `col`, the column it happened over, for the sounds to
- * pan to. The stand stands over the middle, so every one is there; the ones
- * about a foot say which with `side`, the pilot's nought and the navigator's
- * one.
+ * pan to. The stand stands over the middle, so nearly every one is there —
+ * a lurch's hit or miss is over the column the hub swung to, and a needle's
+ * over its own; the ones about a foot say which with `side`, the pilot's
+ * nought and the navigator's one.
  */
 
 interface TrivetColEvent {
@@ -34,8 +35,10 @@ export type TrivetEvent =
   | ({ type: "trivetBrace" } & TrivetColEvent)
   /** A `both` step ran out: the hub rocks back up, to be held down again. */
   | ({ type: "trivetRock" } & TrivetColEvent)
-  /** A fire step ran out with the hub unshot: the hull takes it. */
+  /** A fire or lurch step ran out with the hub unshot, or a needle unturned: the hull takes it. */
   | ({ type: "trivetMiss" } & TrivetColEvent)
+  /** A needle turned by the shield under its column. */
+  | ({ type: "trivetTurn" } & TrivetColEvent)
   /** The script is done and all three feet buckle at once. */
   | ({ type: "trivetCollapse" } & TrivetColEvent)
   /** The collapsed stand has fallen `trivetCollapseBeats`; the wave may end. */

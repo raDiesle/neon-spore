@@ -390,6 +390,7 @@ by hand never moves.
 | `packages/sim/src/trivet-hash.ts` | What THE TRIVET puts into `hashWorld`, and nothing else |
 | `packages/sim/src/trivet-shot.ts` | **THE TRIVET's shot**: the lit hub, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/trivet-step.ts` | THE TRIVET's clock: the stand settling, each step lighting, the beats a chord is held being counted |
+| `packages/sim/src/trivet-guard.ts` | **THE TRIVET's needle, turned**, asked once a tick after the commands are heard |
 | `packages/sim/src/trivet.ts` | THE TRIVET: a three-legged stand splayed over the middle column |
 | `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
@@ -2154,7 +2155,7 @@ by hand never moves.
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
-| `packages/audio/src/bind-trivet.ts` | THE TRIVET's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-trivet.ts` | THE TRIVET's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-rime.ts` | THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason |

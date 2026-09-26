@@ -32,6 +32,7 @@ import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
 import { tasterHandsHeard } from "./taster-hand.js";
 import { throatHeard } from "./throat-hand.js";
+import { trivetGuarded } from "./trivet-guard.js";
 import { trivetHeard } from "./trivet-hand.js";
 import type { TimedCommand } from "./types.js";
 import { undertowHandsHeard } from "./undertow-hand.js";
@@ -126,6 +127,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE TRIVET's pads, on the tick for the same reason: a slip is the instant
   // a pad of the lit chord lifts (`trivet-hand.ts`).
   for (const c of commands) trivetHeard(world, c.player, c.command);
+  // Its needle, THE SEAM's shield once a tick after the commands (`trivet-guard.ts`).
+  trivetGuarded(world);
   // THE PLUMB's leans, the same: a drift is the instant a lean leaves range
   // (`plumb-hand.ts`).
   for (const c of commands) plumbHeard(world, c.player, c.command);

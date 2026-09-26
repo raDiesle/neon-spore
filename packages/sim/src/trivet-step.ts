@@ -7,6 +7,7 @@ import {
   type TrivetState,
   type TrivetStep,
   trivetClosed,
+  trivetStepCol,
 } from "./trivet.js";
 import type { World } from "./world.js";
 
@@ -23,6 +24,8 @@ import type { World } from "./world.js";
  * the cursor where it was: §30 has a foot spring back up and a hub rock back
  * up, and neither is a hull hit. **A shot that runs out is the hull**, THE
  * VISE's rule (`vise-step.ts`): this game has no hull hit that is not the wave.
+ * So is a lurch unshot, over the column the hub swung to, and a needle
+ * unturned, down its own.
  */
 
 export function installTrivet(world: World, steps: readonly TrivetStep[]): TrivetState {
@@ -46,9 +49,14 @@ export function stepTrivet(world: World, s: TrivetState): void {
   else if (s.phase === "lit") lit(world, s, since);
 }
 
-/** How long the lit step stays lit: a chord's own beats and the grace, or a shot's beats. */
+/** Whether a step is a chord counted in held beats: one foot, or both. */
+function counted(step: TrivetStep): boolean {
+  return step.ask === "front" || step.ask === "rear" || step.ask === "both";
+}
+
+/** How long the lit step stays lit: a chord's beats and the grace, or a shot's or a shield's beats. */
 export function trivetWindowBeats(world: World, step: TrivetStep): number {
-  return step.ask === "fire" ? step.beats : step.beats + world.cfg.trivetGraceBeats;
+  return counted(step) ? step.beats + world.cfg.trivetGraceBeats : step.beats;
 }
 
 function lit(world: World, s: TrivetState, since: number): void {
@@ -62,8 +70,8 @@ function lit(world: World, s: TrivetState, since: number): void {
     }
   }
   if (since < trivetWindowBeats(world, step)) return;
-  if (step.ask === "fire") miss(world, s);
-  else slipped(world, s, step);
+  if (counted(step)) slipped(world, s, step);
+  else miss(world, s, trivetStepCol(midCol(world.cfg), step));
 }
 
 /** A chord step held its beats: a foot planted, or both feet kept down under the hub. */
@@ -118,13 +126,13 @@ function next(world: World, s: TrivetState): void {
   s.phase = "lit";
   s.phaseBeat = world.beat;
   s.heldBeats = 0;
+  s.litTick = world.tick;
   openSlow(world, trivetWindowBeats(world, step), "ask");
   world.events.push({ type: "trivetLight", ask: step.ask, col });
 }
 
-/** A fire step ran out with the hub unshot: the hull takes it, and the wave is lost. */
-function miss(world: World, s: TrivetState): void {
-  const col = midCol(world.cfg);
+/** A shot, a lurch or a needle ran out unanswered: the hull takes it at `col`, and the wave is lost. */
+function miss(world: World, s: TrivetState, col: number): void {
   world.events.push({ type: "trivetMiss", col });
   closeSlow(world);
   rest(world, s, true);

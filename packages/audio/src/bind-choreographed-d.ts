@@ -162,6 +162,7 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "trivetBrace":
     case "trivetRock":
     case "trivetMiss":
+    case "trivetTurn":
     case "trivetCollapse":
     case "trivetOut":
       return trivetCue(e, cols);

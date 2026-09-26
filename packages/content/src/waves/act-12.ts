@@ -118,9 +118,9 @@ export const WAVES_ACT_12: Wave[] = [
     id: "theTrivet",
     name: "THE TRIVET",
     guide: {
-      both: "Hold your foot's lit pads down together until it plants. Two plants each light the hub. Shoot it in its colour. When both light, hold together.",
-      p1: "1. Hold the front foot's lit pads down together and say so.\n2. Keep every one down until the foot plants.\n3. When the hub shows a colour, fire it.",
-      p2: "1. Hold the rear foot's lit pads down together and say so.\n2. Keep every one down until the foot plants.\n3. White takes either colour. Hold with the other one when both light.",
+      both: "Hold your foot's lit pads until it plants. Shoot the lit hub in its colour. When it leans, hold that foot and shoot where the hub swung. Shield the needle.",
+      p1: "1. Hold the front foot's lit pads down together and say so.\n2. Keep every one down until the foot plants.\n3. When the hub shows a colour, fire it.\n4. When it leans on your foot, hold it and fire where the hub swung.",
+      p2: "1. Hold the rear foot's lit pads down together and say so.\n2. Keep every one down until the foot plants.\n3. When both light, hold with the other one.\n4. A needle falls: slide the shield under it.",
     },
     entries: [],
     boss: {
@@ -132,7 +132,9 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "rear", pads: 3, color: "either", beats: 4 },
         { ask: "fire", pads: 2, color: "red", beats: 3 },
         { ask: "both", pads: 2, color: "either", beats: 3 },
+        { ask: "tip", pads: 3, color: "either", beats: 4, offset: -2 },
         { ask: "fire", pads: 2, color: "cyan", beats: 3 },
+        { ask: "needle", pads: 2, color: "either", beats: 4, offset: 2 },
         { ask: "both", pads: 2, color: "either", beats: 3 },
         { ask: "fire", pads: 2, color: "either", beats: 3 },
       ],

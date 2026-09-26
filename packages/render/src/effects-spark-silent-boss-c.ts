@@ -167,7 +167,7 @@ export const SILENT_BOSS_C = [
   "rimeMiss",
   "rimeShatter",
   "rimeOut",
-  // THE TRIVET's twelve, the same (`packages/audio/src/bind-trivet.ts`).
+  // THE TRIVET's thirteen, the same (`packages/audio/src/bind-trivet.ts`).
   "trivetEnter",
   "trivetLight",
   "trivetSlip",
@@ -178,6 +178,7 @@ export const SILENT_BOSS_C = [
   "trivetBrace",
   "trivetRock",
   "trivetMiss",
+  "trivetTurn",
   "trivetCollapse",
   "trivetOut",
   // THE PLUMB's twelve, the same (`packages/audio/src/bind-plumb.ts`).
