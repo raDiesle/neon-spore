@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ae90febd6 — Ten bosses filed for a part that moves on a clock of its own
+
+The secondary-motion audit went through the whole boss roster, checking the draw files for a clock that is not the beat, the outline's wobble or the light's drift. THE CYST, THE HASP, THE OCULUS, THE SEAM, THE VALVE, THE VISE, THE RIME, THE TRIVET, THE GRINDSTONE and THE RATCHET have none. Each is now its own queue entry with one small touch to try, offered through VERSUS. THE DAVIT and THE SLING are left to their open look lanes. The style guide's Motion section now says what counts as such a part.
+
 ## 2026-09-26 · 8cb8e2524 — Living bosses: every part of a boss moves on its own, in the spec
 
 The owner asked that a boss's head, body, hands and limbs each tilt, turn and rotate a little and never stay fixed. The living-bosses spec now has a part drift on top of the body drift, with small slow ranges per part, follow-through down each chain, and parts that never move in step. It also has a map of which bosses can take it now and which must have their parts split out first. The queue's drift tasks carry it, and five new entries split the merged parts, swing the mechanisms' hinges, and ask what should turn the motion down.

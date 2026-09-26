@@ -24920,3 +24920,5 @@ one and filed each as its own entry, and the rule went into the style guide.
 
 Bottleneck: reading — `litRound`'s drift and a real part look the same to a
 grep, so each of ~150 hits was sorted by eye.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
