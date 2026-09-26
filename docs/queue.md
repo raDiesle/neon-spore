@@ -504,10 +504,14 @@ shows the glass under it, and a regrowth surge visibly creeping back before
 a shield stops it. Nothing here is drawn yet and stays unverified at tempo
 until the owner has looked.
 
-## §28 THE VISE — sprite atlas experiment: the kernel crack
+## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, this session
 - **Needs:** §28 THE VISE's look, above, landed first
+- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
+  new graphics stay on THE INSTAR only, as the one example, until he says
+  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
+  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
@@ -532,10 +536,14 @@ burst and THE CLASP's shield. `bun run raster:verify` and `bun run check`
 prove it; the visual comparison is the owner's, unverified until he has
 looked.
 
-## §29 THE RIME — sprite atlas experiment: the bare-core reveal
+## DEFERRED — §29 THE RIME — sprite atlas experiment: the bare-core reveal
 
 - **Found:** 2026-09-26, this session
 - **Needs:** §29 THE RIME's look, above, landed first
+- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
+  new graphics stay on THE INSTAR only, as the one example, until he says
+  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
+  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
@@ -594,10 +602,14 @@ bubble-in-a-glass twin `LevelTilt` needs so the tilt reads without seeing
 the other phone move. Nothing here is drawn yet and stays unverified at
 tempo until the owner has looked.
 
-## §30 THE TRIVET — sprite atlas experiment: the feet planting home
+## DEFERRED — §30 THE TRIVET — sprite atlas experiment: the feet planting home
 
 - **Found:** 2026-09-26, this session
 - **Needs:** §30 THE TRIVET's look, above, landed first
+- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
+  new graphics stay on THE INSTAR only, as the one example, until he says
+  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
+  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
@@ -621,10 +633,14 @@ look until the owner compares them on the RASTER tab. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## §31 THE PLUMB — sprite atlas experiment: the bob settling true
+## DEFERRED — §31 THE PLUMB — sprite atlas experiment: the bob settling true
 
 - **Found:** 2026-09-26, this session
 - **Needs:** §31 THE PLUMB's look, above, landed first
+- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
+  new graphics stay on THE INSTAR only, as the one example, until he says
+  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
+  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
@@ -886,10 +902,14 @@ positive right, nought no swipe (`packages/sim/src/sling-hand.ts`). Nothing
 in `apps/game` sends one yet, so the fork is unanswerable on a phone until
 this lands; a test that a lift sends one command with the swipe's sign.
 
-## §32 THE SLING — sprite atlas experiment: the arm drawing home
+## DEFERRED — §32 THE SLING — sprite atlas experiment: the arm drawing home
 
 - **Found:** 2026-09-26, this session
 - **Needs:** §32 THE SLING's look, above, landed first
+- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
+  new graphics stay on THE INSTAR only, as the one example, until he says
+  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
+  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
