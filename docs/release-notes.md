@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 37ca43371 — docs/queue.md: the rounds' own timeout hit, planned as a VERSUS candidate
+
+The owner asked for the rounds' timeout hit as a VERSUS version to compare on the page, so the question on the queue item is answered and replaced by the plan: the sim names the round on the breach, the choice of rock or picture is made at draw time, one shared candidate of the window closing on the ship, and a pose where a round's window runs out unattended. Nothing is built yet; the owner is winding the session down.
+
 ## 2026-09-26 · 99063dd92 — Living bosses: the concept, and ten queue entries to build it
 
 docs/spec/living-bosses.md designs three things the owner asked for on 26 September 2026. First, every visible boss kept alive by a slow, capped drift of body yaw, pitch, roll and head yaw, which never snaps and stays inside the battery budget. Second, THE INSTAR modelled with one head on the rig, a heavier tapered body, and a flight that undulates like a Chinese dragon. Third, the director's readout of which choreography step is playing and how many are left, with a jump to any step. The queue gets ten entries in order. The director and the drift helper come first, needing no screen. THE INSTAR's four looks follow as VERSUS candidates, then the rig bosses and the outline tier, all local only. Nothing is built yet.

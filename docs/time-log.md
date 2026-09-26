@@ -24833,3 +24833,5 @@ Bottleneck: reading — the rig, the three INSTAR head paths and the director's 
 - landing: 5 min. `check:fast`, `land`, `push`.
 
 Bottleneck: friction — the full check's capture test times out when several lanes land at once.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
