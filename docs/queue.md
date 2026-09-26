@@ -848,6 +848,7 @@ which is a new event, `instarShove`, and so the twelve registrations
 ## The shield pushes a cannon creature back up, once
 
 - **Found:** 2026-09-25, claude/shield-enemy-knockback-6364bd
+- **Taken:** 2026-09-26, claude/shield-enemy-knockback-6364bd (claim: claude/queue-the-shield-pushes-a-cannon-creature-back-up-once)
 - **Files:** `packages/sim/src/hull.ts`, `packages/sim/src/ward.ts`, `packages/sim/src/volley.ts`, `packages/sim/src/own-step.ts`, `packages/sim/src/kinds.ts`, `packages/sim/src/config-volley.ts`, `packages/sim/src/hash-creature-late.ts`, `docs/spec/roles.md`
 
 The owner asked for it on 25 September 2026: the shield answers **almost every
