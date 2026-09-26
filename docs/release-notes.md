@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · babf72274 — THE VALVE's story states are drawn: the jet, the brace, the wipe, the seal
+
+The first pin out blows pale steam from its empty slot, the lip glowing ember. The second shudders the whole drum, less as both thumbs hold, with a half-ring lit under each held thumb and a disc filling with the beats held. The last lays a dripping film over the face that each rub clears from the left, and the bare seal splits a white seam that widens as it strains.
+
 ## 2026-09-26 · 899c01eb2 — Five boss blows in the queue now say they wait on the boss's body
 
 THE CYST, THE GRINDSTONE, THE SLING, THE TRIVET and THE PLUMB draw nothing on the field yet, so their timeout blows have no part of the boss to be made from. Each queue entry now says so, and to take it after that boss's look lands.

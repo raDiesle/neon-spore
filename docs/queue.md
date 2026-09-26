@@ -2656,3 +2656,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at babf72274: THE VALVE's story states watched at tempo: the jet, th…
+
+- **Found:** 2026-09-26, claude/queue-25-the-valve-a-fuller-story-arc-a-backdraught-a
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/valve-draw.ts`, `packages/render/src/valve-marks.ts`, `packages/render/src/valve-pose.ts`, `packages/render/src/valve-shape.ts`
+
+*THE VALVE's story states are drawn: the jet, the brace, the wipe, the seal* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
+
+- THE VALVE's story states watched at tempo: the jet, the brace's shudder, the wipe's film, the seal's seam
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

@@ -24263,3 +24263,5 @@ wrong one reads as right until they are compared line by line.
 
 Bottleneck: writing — four states is four drawings, each with its own answer
 to show.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
