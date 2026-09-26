@@ -24776,3 +24776,5 @@ Bottleneck: the context compaction, which cost re-reading the files already writ
 - landing: 10 min. `check:fast`, `land`, `push`.
 
 Bottleneck: writing — twelve new events each need four registrations outside the simulation.
+
+*Measured: 19 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
