@@ -23,6 +23,7 @@ import { spoolHand } from "./boss-hands-spool.js";
 import { lidHand } from "./boss-hands-stare.js";
 import { antiphonHand, cairnHand, spliceHand, undertowHand } from "./boss-hands-takes.js";
 import { pulseHand, repriseHand } from "./boss-hands-unseen.js";
+import { viseHand } from "./boss-hands-vise.js";
 import { wellHoldHand, wellWindHand } from "./boss-hands-well.js";
 import type { Hand } from "./hand.js";
 
@@ -88,6 +89,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   throat: throatHand,
   undertow: undertowHand,
   vane: vaneHand,
+  vise: viseHand,
   warden: wardenHand,
   // The hold while the face slips, then the wind home once it has stopped.
   well: either(wellWindHand, wellHoldHand),

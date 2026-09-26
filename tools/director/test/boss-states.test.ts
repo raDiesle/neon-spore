@@ -33,8 +33,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   valve: ["still", "turn", "hold", "frozen", "list", "open"],
   // THE SEAM the same, §26: its four.
   seam: ["still", "lit", "rest", "split"],
-  // THE VISE the same, §28: its four.
-  vise: ["still", "lit", "rest", "split"],
   // THE RIME the same, §29: its four.
   rime: ["still", "lit", "rest", "shattered"],
   trivet: ["still", "lit", "rest", "collapse"],

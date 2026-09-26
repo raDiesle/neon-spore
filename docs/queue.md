@@ -473,7 +473,7 @@ into the roster. `bun run check` proves it.
 - **Found:** 2026-09-26, claude/queue-28-the-vise-the-look
 - **Taken:** 2026-09-26, main (claim: claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo)
 - **Needs:** §28 THE VISE — the look, half one (the body), landed first
-- **Files:** `packages/render/src/vise-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
+- **Files:** `packages/render/src/vise-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
 
 The body is drawn: the seed-case of two bristled half-shells hinged at the
 spine, standing open by their seams, narrowed by the gap pinched on each, the
@@ -483,11 +483,10 @@ split (`render/vise-*.ts`). **The pinch on the field landed 26 September
 2026**: a press in a seat's zone takes hold silently, the second finger of the
 same seat pairs with it, and the gap between the fingertips is sent as
 `viseLobeLeft`/`viseLobeRight`'s `fromMilli` (`render/vise-grip.ts`,
-`render/pinch.ts`, `apps/game/src/pinch.ts`, the director's two rows). What is
-left, in two lanes as THE OCULUS's went: **the autopilot hand** — a
-hands/boss-hands-vise.ts that pinches the lit lobe (both on a `both` step)
-and fires the kernel, its row out of `autopilot.test.ts`'s `NO_HAND`, and the
-STATES poses; then **the fx**, in `Effects` and cleared in `reset()`: each
+`render/pinch.ts`, `apps/game/src/pinch.ts`, the director's two rows), and
+**the autopilot hand** the same day (`hands/boss-hands-vise.ts`, the STATES
+poses, `autopilot-vise.test.ts`). What is left is one lane, **the fx**, in
+`Effects` and cleared in `reset()`: each
 crack's dry thud, the spring of a pinch run out, the cover closing back over
 the kernel, the kernel's hit flash and the split's, the twelve `vise*` events
 off the two silent lists as each gets its burst, **THE SLOW's aim** on the

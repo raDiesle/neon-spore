@@ -29,9 +29,9 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
 /**
  * Bosses AUTO has no hand for. THE PULSE and THE REPRISE got theirs, and THE
- * MANTLE, THE KEEL and THE OCULUS their own (`autopilot-mantle.test.ts`,
- * `autopilot-keel.test.ts`, `autopilot-oculus.test.ts`); THE VALVE, THE SEAM,
- * THE VISE, THE RIME, THE TRIVET, THE PLUMB, THE SLING, THE GRINDSTONE, THE
+ * MANTLE, THE KEEL, THE OCULUS and THE VISE their own (`autopilot-mantle.test.ts`,
+ * `autopilot-keel.test.ts`, `autopilot-oculus.test.ts`, `autopilot-vise.test.ts`);
+ * THE VALVE, THE SEAM, THE RIME, THE TRIVET, THE PLUMB, THE SLING, THE GRINDSTONE, THE
  * CYST and THE DAVIT are here for one reason — only their simulation lanes
  * have landed (`docs/spec/bosses.md` §11.42–§11.52),
  * and an autopilot hand plays a boss against poses that do not exist yet. A
@@ -40,7 +40,6 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 const NO_HAND = new Set([
   "valve",
   "seam",
-  "vise",
   "rime",
   "trivet",
   "plumb",

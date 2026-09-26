@@ -8444,9 +8444,15 @@ go. Which fingers pair is the game's (`apps/game/src/pinch.ts`), what a pair
 means is render's (`render/pinch.ts`), so THE CYST's flanks can spend the same
 sender; a ghost thumb stands on a lobe while it is pinched
 (`render/vise-grip.ts`, `test/vise-grip.test.ts`, the director's two rows and
-poses). **Still queued**: the autopilot hand and the STATES poses, then the
-crack's thud and the spring, the flashes, the twelve events off the silent
-lists, the cue's words and THE SLOW's aim on the case.
+poses). **AUTO has a hand for it** (26 September 2026): the lit lobe
+pinched shut by its own seat, both on a `both` step, and let go once the step
+is answered, and the bared kernel shot up the middle in its colour, cyan for
+a white one. BOTH plays the fight to the split with all four seams cracked,
+no pinch slipped or sprung, the kernel never covered again and the hull never
+struck, and the STATES sheet poses all four phases
+(`hands/boss-hands-vise.ts`, `director/test/autopilot-vise.test.ts`).
+**Still queued**: the crack's thud and the spring, the flashes, the twelve
+events off the silent lists, the cue's words and THE SLOW's aim on the case.
 
 ## 11.46 THE RIME — the boss two rubs wipe clear, then shoot into
 

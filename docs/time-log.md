@@ -23874,3 +23874,16 @@ The bottleneck was finding that the vent's `TAP` had nothing under it to
 touch: the sim took the tap, but the touch layer only knew the finale's core.
 
 *Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §28 THE VISE, its hands, lane two of three: the autopilot hand
+
+- reading: 10 min. THE OCULUS's hand lane as the pattern, `sim/vise*.ts`'s
+  steps, the wave's script.
+- writing: 15 min. The hand, its four STATES poses, the AUTO test, the rows
+  out of `NO_HAND` and `OWED`, the spec's status lines.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. A rebase of lane one over a trunk that had moved.
+- landing: 10 min. `check:fast`, the land and the push.
+
+Bottleneck: reading — the whole lane was THE OCULUS's shape, and the only
+question was whether a lift after a crack could be heard as a slip.
