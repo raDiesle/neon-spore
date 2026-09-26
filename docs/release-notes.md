@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ba2c4f8f8 — `bind.ts` and `ship-fields.ts` come off their line ceiling
+
+The ship's six cues move to `bind-ship.ts`, and the ship and creature families reach `cueFor` through guards, as THE FLEET's do, so `bind.ts` is 195 lines. The non-choreographed bosses' rows of `FIELD_GROUP` move to `ship-fields-boss.ts`, spread back where they stood, so `ship-fields.ts` is 204 lines. Nothing plays or reads differently.
+
 ## 2026-09-26 · 7b4422c74 — THE INSTAR's shove is seen and heard
 
 On the second and third bites of the breath the jaw pushes back against every thumb on it once a beat, and until now the only sign was the jaw drawn a little more open. Each shove is now `instarShove`, with the push: the lip it shoved jumps outward and quivers as it settles (`instar-shove.ts`), and `boss.instarShove` sounds a low grinding heave — both twice as hard at the third bite's push as at the second's. A look the owner asked for by name: *player really feels when pulling it is required to be stronger*.

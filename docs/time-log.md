@@ -21949,3 +21949,5 @@ picture, and each had its own place to register it.
 
 Bottleneck: writing — a case list is cheapest to shorten by a guard, and it
 took one cut that did not reach far enough to see it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
