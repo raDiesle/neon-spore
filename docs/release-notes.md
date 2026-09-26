@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 123b57848 — AUTO answers THE MOULT, THE LIMPET and THE LEECH
+
+AUTO's field hand now catches THE MOULT as cargo and turns it with the shield as a rock, and keeps a control that THE LIMPET or THE LEECH has harpooned moving once a beat. All three waves are played through with no scar; twelve ordinary waves are still half played, and the queue item names them.
+
 ## 2026-09-26 · 0aa70d110 — AUTO answers THE SHELL and THE LURE
 
 AUTO's field hand now aims at a shell's first standing piece rather than its left edge, and leaves a lure to the shield instead of firing into it. Both waves are played through with no scar; fifteen ordinary waves are still half played, and the queue item names them.

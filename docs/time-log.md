@@ -22419,3 +22419,5 @@ Bottleneck: reading — a diagnostic of every half-played wave was needed to fin
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: reading — each creature's answer is in its own long sim file, and the hand needs one rule out of each.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
