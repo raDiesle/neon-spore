@@ -1017,6 +1017,7 @@ what the rest of this file holds.
 ## CLOUD ONLY — a densified tube costs a gradient per slice, per frame
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Taken:** 2026-09-26, main (claim: claude/queue-cloud-only-a-densified-tube-costs-a-gradient-per)
 - **Files:** `packages/render/src/solid-tube-draw.ts`, `packages/render/src/solid-rig.ts`
 
 `drawTube` inserts a ring every 6 px and fills one linear gradient per slice,
