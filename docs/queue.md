@@ -872,6 +872,7 @@ that counts calls to the comparator across repeated frames of a still field.
 ## `gyres(world)` filters `world.creatures` twice a frame, then once more per wheel
 
 - **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-gyres-world-filters-world-creatures-twice-a-fram)
 - **Files:** `packages/render/src/gyre.ts`, `packages/render/src/gyre-wind.ts`
 
 `gyres(world)` (`gyre.ts:47`) is `world.creatures.filter(kind === "gyre")`,
