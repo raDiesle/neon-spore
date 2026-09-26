@@ -949,6 +949,32 @@ move the other four onto it, keeping any variant a test genuinely needs (the
 desk's `put` step, the frame test's `morphing`/`down`) as a parameter or a
 local wrapper, and `bun run check` proves it.
 
+## Other bosses' plates are still lifes the same way THE INSTAR's were
+
+- **Found:** 2026-09-26, queue-boss-depth-wobble-beyond-instar
+- **Files:** `docs/style-guide.md`, `packages/render/src/instar-hide.ts`, `packages/render/src/warden-plates.ts`, `packages/render/src/warden-surface.ts`, `packages/render/src/shell-plate.ts`, `packages/render/src/lid-plates.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/hasp-draw.ts`, `packages/render/src/sinew-draw.ts`, `packages/render/src/choke-hull.ts`, `packages/render/src/slow-look.ts`, `packages/render/src/gum.ts`, `packages/render/src/ratchet-draw.ts`, `packages/render/src/rind-skin.ts`, `packages/render/src/undertow-draw.ts`, `packages/render/src/magnet-break.ts`
+
+"Depth on a body that already ships" (`docs/style-guide.md`) is now proven
+four times over on THE INSTAR: a lit, moving body needs its own-motion
+folded into the same field its shading reads, on a period no other wobbling
+part shares, or it reads as a still life no matter how good the light is.
+THE INSTAR's version of this is mechanical — a `Form.angle` read by
+`lightHide` (`instar-hide.ts`, `form.angle ?? 0`) — and that exact machinery
+is INSTAR-only; none of the files above import it. Each other boss draws its
+own lit plates its own way (WARDEN's `warden-plates.ts`/`warden-surface.ts`,
+THE SHELL's `shell-plate.ts`, THE LID's `lid-plates.ts`, THE SPOOL's
+`spool-draw.ts`, THE HASP's `hasp-draw.ts`, THE SINEW's `sinew-draw.ts`, THE
+CHOKE's `choke-hull.ts`, THE SLOW's `slow-look.ts`, THE GUM's `gum.ts`, and
+THE RATCHET's, THE RIND's, THE UNDERTOW's and the magnet-break boss's own
+files), so this is one boss at a time, not a rename: read the boss's own
+shading pass, find whatever plays the part of THE INSTAR's `Form.angle` (a
+bare constant, an `atan2` off a point that only moves at pose transitions,
+or missing outright), and give it the same small own-motion wobble, each on
+its own period. `bun run frames . --wave "<BOSS NAME>" --boss ...` and a
+cropped PNG is how each one gets checked once drawn. A boss with no lit
+plates at all (mechanism-only bodies, THE OCULUS among the unbuilt ones) has
+nothing to fix.
+
 ## `land` fails when the trunk gets a holder during its check
 
 - **Found:** 2026-09-26, claude/slow-visual-versus-page-a1e86e
