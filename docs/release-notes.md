@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 5442f450a — THE RATCHET's guide is a film: a clean tooth, then one pressed with nothing set
+
+Player 2 holds the catch down and says set, and player 1 presses the pawl on her word: the rack climbs a clean tooth. The click spends her catch, so she lifts; he presses the next tooth with nothing set, and it burns. She sets it again, and the film ends on the catch held and the pawl waiting. The three strings are gone in the same commit. The film learnt the catch as the navigator's depth and the pawl as a press carried nowhere, and the ghost hands sit on the catch's bar and the pawl's pad.
+
 ## 2026-09-26 · 087dfd9ab — THE HASP's guide is a film: the wheel turned while the latch is held
 
 Player 1 holds the latch down and player 2 turns the wheel; let go, and the wheel seizes while her hand keeps going round; take it again, say so, and the first hasp winds open. The three strings are gone in the same commit. The film learnt a wheel's bearing on the ring stream (at the simulation's own turn rate, now one export) and a latch held at its full reach, and the ghost hand sits on the wheel's rim.
