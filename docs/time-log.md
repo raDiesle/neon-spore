@@ -25182,3 +25182,5 @@ THE OCULUS's hand already carried both.
 
 Bottleneck: writing — the fx file came out near its limit on a clock nine
 other files already copy, so that clock became `HullShock` first.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

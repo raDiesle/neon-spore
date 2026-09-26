@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 7b28b8b06 — THE GRINDSTONE's receipts drawn: grit off a rubbed flat, a clean flash, the caliper's bite, the axle's flash
+
+Every reversal on a flat now throws a pinch of grit off it, and a pass ground clean flashes along the flat's face. The caliper flares along both jaws and presses the wheel down, with a shudder down the plating, as it bites and as a clamp is held home. An axle hit flashes wider for every hit, in the shot's colour, and a clean pass and a hit both deal the blow every boss takes. Spinning free flashes pale and shudders the hull harder.
+
 ## 2026-09-26 · fa47719d2 — AUTO plays THE SEAM: shoots each point and rock, takes the grit on the shield
 
 The autopilot's hand for THE SEAM: a lit point, rock or glow is shot in the step's colour up its own column until it has had enough, and grit, thrown blind or not, is taken on the shield under the ridge — both on a step that asks for both. A test plays THE SEAM to the end with all three points sealed, four throws turned, both rocks shot out and no scar. THE SEAM leaves NO_HAND, and §26's entry no longer lists the hand.
