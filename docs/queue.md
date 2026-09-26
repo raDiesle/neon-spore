@@ -2479,6 +2479,7 @@ After the tubes were sliced by screen size and off-field views culled, the turn'
 ## §30 THE TRIVET — the lurch and the needle drawn
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, tmp-trivet-lurch (claim: claude/queue-30-the-trivet-the-lurch-and-the-needle-drawn)
 - **Files:** `packages/render/src/trivet-pose.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-fx.ts`, `packages/render/src/boss-cue-read-zh.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/trivet-frame.test.ts`
 
 The lurch (`tip`) and the needle landed in the simulation after the look
