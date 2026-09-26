@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 7baa61a6c — THE INSTAR's tail is a lit tube that swings
+
+The tail is now a tube of the rig: round and lit across its width, with a rim along its edge and a contact shadow where it goes into the rear. It swings on its own, a wave running from the root to the fork, across the picture and toward the player and away, so the rings turn in the light and the near end swells. Where the lash curls tighter than the tail is thick it is drawn as two tubes, root first, so it no longer folds through itself. The fork still lands over the marks the players tap.
+
 ## 2026-09-26 · 3e44d9370 — THE PLUMB: the lean reader — a phone's roll goes out as its seat's weight
 
 Wave 110 can now be played on a real phone. The phone's gamma goes out as the seat's own `plumbLevel*` drag, but only after it has moved half a degree since the last reading sent, never once per event, and only while a bob is on the field. A hidden page sends `on: false` once. iOS asks for the sensor when the thumb lifts off READY on THE PLUMB's own guide, so the navigator is asked there too. A desk key that leans is queued, with the question of which slot it takes.
