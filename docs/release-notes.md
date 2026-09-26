@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 24789b995 — `queue next` says `git checkout` to a session in its own clean worktree
+
+A desktop session opened in a worktree may write nowhere else, so the `git worktree add` the prompt always printed made a tree it could not edit. `sessionTree` now finds a clean worktree that is not the main checkout, and the prompt prints `git -C <tree> checkout <branch>` there, `bun install` still after it; the lane skill says the same. The claim mark still names the spent head branch in that case, queued.
+
 ## 2026-09-26 · ba2c4f8f8 — `bind.ts` and `ship-fields.ts` come off their line ceiling
 
 The ship's six cues move to `bind-ship.ts`, and the ship and creature families reach `cueFor` through guards, as THE FLEET's do, so `bind.ts` is 195 lines. The non-choreographed bosses' rows of `FIELD_GROUP` move to `ship-fields-boss.ts`, spread back where they stood, so `ship-fields.ts` is 204 lines. Nothing plays or reads differently.
