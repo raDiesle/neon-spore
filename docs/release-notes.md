@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e58c0f6c4 — THE INSTAR's horns are cones of bone that lean in depth, and its jaw breathes
+
+Both heads' horns are tubes of the rig now: tapered to a point, lit across their width, ringed with the ridges they grew in, and leaning toward the player or away. Face-on they sweep back off the brow, their points drawn smaller by the lens and hazed toward the field; side-on the far horn stands back and the near one comes forward. They turn with the skull's own idle turn, so the horns and the light on the skull move together. The side-on jaw breathes on its hinge.
+
 ## 2026-09-26 · fc7070475 — THE KEEL snaps as it locks: a seam flares, the spine jolts, the hull shudders
 
 A joint locked in its window now flares its seam white and jolts the whole spine up a touch, with the red blow every boss takes; the shot that shuts the socket bursts in the socket's colour and snaps the middle two; the open socket and the tail's rock each burst red where they hit the hull and send a shudder down the plating; a rock shot out bursts where it had fallen to. A joint lighting, missing or slipping throws a small burst and deals nothing.
