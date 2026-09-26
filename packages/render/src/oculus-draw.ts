@@ -122,6 +122,25 @@ export function drawOculus(
   ctx.restore();
 }
 
+/**
+ * How far an open leaf settles about its pin on its own, as a share of the
+ * leaf's whole swing (a degree and a half), and how fast in radians a second.
+ * The part of this mechanism that hangs: the lens's outline wobble is its
+ * silhouette and the rest is the beat, so without it the open iris is a
+ * picture of one (`docs/style-guide.md`, *Motion*).
+ */
+const LEAF_SETTLE = 0.02;
+const LEAF_SETTLE_RATE = 0.9;
+
+/**
+ * Leaf `k` at `shut`, settling. Scaled by how open it is, so a shut leaf is
+ * held exactly where the iris is read, and phased by the leaf, so the six do
+ * not settle together.
+ */
+function hung(shut: number, k: number, time: number): number {
+  return shut - LEAF_SETTLE * (1 - shut) * Math.sin(time * LEAF_SETTLE_RATE + k * 1.1);
+}
+
 /** The lens whole: glass face, the leaves across it, the socket and core behind, the rim over their roots, the blow over the rim. */
 function drawLens(
   ctx: CanvasRenderingContext2D,
@@ -138,7 +157,7 @@ function drawLens(
   ctx.fillStyle = rgba(PALETTE.background, 0.9);
   ctx.fill(face);
 
-  const shut = oculusShut(s, world.cfg, beat, beatPhase);
+  const shut = oculusShut(s, world.cfg, beat, beatPhase).map((v, k) => hung(v, k, time));
   ctx.save();
   ctx.clip(face);
   for (let k = 0; k < OCULUS_LEAVES; k++) {

@@ -2829,20 +2829,6 @@ Done when: `life` reaches every drawer that calls `partDrift`; the chosen
 source sets it; a test proves the part angles are the parent's at 0.
 `bun run check` proves it.
 
-## THE OCULUS's leaves have no secondary motion of their own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-26, claude/queue-the-oculuss-leaves-have-no-secondary-motion-of-t
-- **Files:** `packages/render/src/oculus-draw.ts`, `packages/render/src/oculus-shape.ts`
-
-From the secondary-motion audit. The rim's outline wobble
-(`oculusRimPath(l, time * 0.6)`, `oculus-draw.ts` line 181) is the
-silhouette, and the rest is the light's drift and beat pulses. The body is
-mechanism on purpose (`oculus-shape.ts`: *drawn as mechanism rather than
-flesh*), so the touch is a mechanism's: each leaf *hangs from its pin*, so
-let an open leaf settle a degree or two about its pin on its own slow period,
-offset per leaf. A look: offered through VERSUS.
-
 ## THE SEAM's ridge has no secondary motion of its own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos

@@ -25184,3 +25184,15 @@ Bottleneck: writing — the fx file came out near its limit on a clock nine
 other files already copy, so that clock became `HullShock` first.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS's open leaves settle about their pins
+
+- **reading** — 5 min. Where `shut` is read, so that the blade and its lit
+  edge take the same settle.
+- **writing** — 5 min
+- **looking** — 0 min. A degree and a half does not show in a still frame.
+- **friction** — 0 min
+- **landing** — 5 min
+
+Bottleneck: reading — one `shut` feeds both the blade and the lit edge, and
+finding that was most of it.
