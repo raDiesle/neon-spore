@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ec8fa58d6 — THE CYST's core moves under its skin
+
+While the sac is whole, the core's shadow under the skin now rises and sinks a little within its column and squashes as it goes, on two slow clocks that never line up with the beat. Before this, nothing in the sac moved under the skin. Once bared, the core is the target and holds still, as before.
+
 ## 2026-09-26 · 5a89448e0 — THE GRINDSTONE's cue words: RUB on the lit flat, HOLD on each jaw, FIRE at the axle
 
 The field now says what the wheel wants. RUB stands on the lit flat for its seat's thumb, for the whole pass; on a clamp, HOLD stands on each jaw until both its pads are down, and comes back for a jaw let go; and FIRE stands at the hull under the middle column once the caliper is locked on a fire step. Never a count or the axle's colour. The effects are still to come.

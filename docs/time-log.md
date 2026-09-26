@@ -25086,3 +25086,5 @@ sender and the autopilot hand were missing, and were brought up to date first.
 - **landing** — 5 min
 
 Bottleneck: reading — deciding which state may move without moving the target.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
