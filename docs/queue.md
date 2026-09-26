@@ -434,6 +434,7 @@ an alignment.
 ## THE INSTAR, brood: eggs that crack while nobody takes them
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Taken:** 2026-09-26, claude/queue-the-instars-words-still-name-parts-no-pose-draws (claim: claude/queue-the-instar-brood-eggs-that-crack-while-nobody-ta)
 - **Files:** `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-egg-spots.ts`, `packages/render/test/instar-eggs.test.ts`, `packages/content/src/instar-script.ts`
 
 Step 2. The nests are sixteen and ten eggs that sit still until the window
