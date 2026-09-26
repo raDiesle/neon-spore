@@ -434,6 +434,7 @@ an alignment.
 ## Split touch.ts, malfunction.ts and the field-controls page
 
 - **Found:** 2026-09-25, claude/fault-brush-darkness-28adad
+- **Taken:** 2026-09-26, claude/queue-split-the-canvas-stub-and-the-throats-cue-test-b (claim: claude/queue-split-touch-ts-malfunction-ts-and-the-field-cont)
 - **Files:** `packages/render/src/touch.ts`, `packages/sim/src/malfunction.ts`, `tools/director/src/field-controls-page.ts`
 
 THE DARK took `touch.ts` to 249 lines and `malfunction.ts` to 250, and only
