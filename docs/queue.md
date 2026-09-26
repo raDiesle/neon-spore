@@ -2448,6 +2448,7 @@ what the rest of this file holds.
 ## THE INSTAR drawn as a speck still pays for every glow pass and scale
 
 - **Found:** 2026-09-26, claude/instar-third-between
+- **Taken:** 2026-09-26, main (claim: claude/queue-the-instar-drawn-as-a-speck-still-pays-for-every)
 - **Files:** `packages/render/src/glow.ts`, `packages/render/src/solid-tube-draw.ts`, `packages/render/src/instar-horn.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-profile-surface.ts`
 - **Asks:** may a body drawn under a flight scale below about a quarter skip its sub-pixel detail (glow's layered passes collapsed to one, hide scales and horn ridges left out), which changes pixels a few wide, or must the speck stay pixel-exact and the cost stay?
 
