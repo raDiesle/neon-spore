@@ -634,7 +634,7 @@ Every in-screen control is in [controls](controls.md).
 | Tap rhythm against the beat | built | THE BEATBOX, THE PULSE |
 | Two thumbs on one phone | built | the pointer map in `input.ts`; strip plus lobe |
 | Both seats inside one window | built | THE BATON, THE PULSE, THE MIRROR, THE BALLOON |
-| Shake | built, **Android only in practice** | `apps/game/src/shake.ts`, `sim/choir-gesture.ts`, with the arrows as the twin |
+| Shake | built; iOS asked from the pilot's READY lift (`askForMotion`) | `apps/game/src/shake.ts`, `sim/choir-gesture.ts`, with the arrows as the twin |
 | Tap that freezes the other seat's drag | spec'd | `FreezeTap`, THE VALVE (§25) |
 | Sending nothing for N beats | spec'd | `RestraintGate` |
 | Tap on a moving target, counted | spec'd | `RepeatedTap` |

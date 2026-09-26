@@ -431,23 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## Shaking the phone never reaches THE CHOIR on an iPhone
-
-- **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
-- **Taken:** 2026-09-26, claude/queue-packages-sim-src-hash-ts-is-at-250-lines (claim: claude/queue-shaking-the-phone-never-reaches-the-choir-on-an)
-- **Files:** `apps/game/src/shake.ts`, `apps/game/src/join-room-step.ts`, `apps/game/src/fullscreen.ts`
-
-iOS 13 and later deliver no `devicemotion` event until
-`DeviceMotionEvent.requestPermission()` has been called from a user gesture and
-granted. `shake.ts` names that in its comment and nothing in the app calls it,
-so on an iPhone the listener is silent and the pilot is left with the arrows.
-Call it once, guarded by `typeof DeviceMotionEvent.requestPermission ===
-"function"`, from the same press that asks for fullscreen — the READY press in
-`join-room-step.ts` through `fullscreen.ts` — and ignore a refusal, since the
-arrows stay either way. A unit test with a stubbed `DeviceMotionEvent` proves
-the call is made from the press and never at load. Found while writing the
-input inventory in `docs/spec/transfers-touch.md` (§4.2).
-
 ## A long press on the field can open the iOS callout and a pinch can zoom the page
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
@@ -763,3 +746,19 @@ mark names the one branch the work will never be on. `take`, draining several
 items on one lane branch, needs the head recorded as it is. Have `next` (not
 `take`) pass the claim branch as `actual` when `sessionTree()` is non-empty;
 pin it in `claim-here.test.ts` beside the existing `lane (claim: …)` case.
+
+## Fullscreen is asked for on a touch `pointerdown`, which carries no activation
+
+- **Found:** 2026-09-26, claude/queue-shaking-the-phone-never-reaches-the-choir-on-an
+- **Files:** `apps/game/src/join-room-step.ts`, `apps/game/src/fullscreen.ts`
+
+`goFullscreen()` runs on the READY circle's `pointerdown`. In the HTML spec's
+list of activation-triggering events a `pointerdown` counts only when its
+`pointerType` is `"mouse"`; for a touch it is the `pointerup` (or `touchend`)
+that grants activation, so on an Android phone `requestFullscreen` is likely
+refused every time — silently, by design. The motion permission was put on the
+same circle's `pointerup` for exactly this reason (`askForMotion`, `shake.ts`).
+Move `goFullscreen()` to that `pointerup` listener as well (it already exists
+beside the `pointerdown` one), keep `fullscreen.ts`'s header in step with the
+new press, and extend `apps/game/test/shake-permission.test.ts`'s stubbed room
+to show fullscreen is asked on the lift and not on the press.

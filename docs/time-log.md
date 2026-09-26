@@ -22007,3 +22007,15 @@ Bottleneck: reading — the seam was already named by three files next door.
 Bottleneck: reading — keeping the push order was the whole of the risk.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — iOS is asked for the motion sensor when the pilot lifts off READY
+
+- reading: 5 min. `shake.ts`, `fullscreen.ts`, the READY circle in
+  `join-room-step.ts`, and which events grant a page activation.
+- writing: 10 min. `askForMotion`, its listener, a test on a stubbed room.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry named the press that goes down, and a touch
+going down grants no activation, so the lift had to be found instead.

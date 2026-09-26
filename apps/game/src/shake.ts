@@ -62,11 +62,9 @@ const COOLDOWN = 0.8;
  * writes into outlives every wave and every link session, and a `shake` sent
  * at a field with no membrane on it does nothing at all (`choirShaken`).
  *
- * **iOS's permission is not asked for here**, and that is deliberate rather
- * than an omission: it can only be requested from inside a user gesture, and
- * this function is called while the game is starting up. The arrows work
- * without it, so a phone that never grants it is a phone that plays the
- * creature the other way — which is exactly what the arrows are for.
+ * **iOS's permission is not asked for here**: it can only be requested from
+ * inside a user gesture, and this function is called while the game is
+ * starting up. `askForMotion` below asks, from the READY press.
  */
 export function bindShake(buffer: InputBuffer): void {
   if (typeof window === "undefined" || !("DeviceMotionEvent" in window)) return;
@@ -92,4 +90,28 @@ export function bindShake(buffer: InputBuffer): void {
     buffer.push(1, { kind: "shake" });
   };
   window.addEventListener("devicemotion", onMotion);
+}
+
+/**
+ * **Ask iOS for the sensor, from inside a press.** iOS 13 and later deliver no
+ * `devicemotion` at all until `DeviceMotionEvent.requestPermission()` has been
+ * called from a user gesture and granted, so without this the listener above
+ * is silent on every iPhone and the pilot is left with the arrows.
+ *
+ * Called from the thumb *lifting* off the READY circle (`join-room-step.ts`),
+ * not from it going down: a touch `pointerdown` is not one of the events that
+ * grant a page activation, and a `pointerup` is. A browser with no such method
+ * is every one that never asks, and it is skipped; a refusal is ignored,
+ * because the arrows stay either way.
+ */
+export function askForMotion(): void {
+  const motion = (globalThis as { DeviceMotionEvent?: { requestPermission?: unknown } })
+    .DeviceMotionEvent;
+  const ask = motion?.requestPermission;
+  if (typeof ask !== "function") return;
+  try {
+    void Promise.resolve(ask.call(motion)).catch(() => {});
+  } catch {
+    // Refused synchronously — outside a gesture on an older WebKit.
+  }
 }

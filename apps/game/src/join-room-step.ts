@@ -4,6 +4,7 @@ import { goFullscreen } from "./fullscreen.js";
 import { circleLook, holdFraction, mayHold, mayShape } from "./join-room.js";
 import { seatWord } from "./join-words.js";
 import { quitBy } from "./quit.js";
+import { askForMotion } from "./shake.js";
 
 /** What step 4 can ask of the link — the room-shaping half of `JoinBindings`. */
 export interface RoomStepBindings {
@@ -148,6 +149,11 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
       downAt = performance.now();
       paintCircles(last);
       requestAnimationFrame(tick);
+    });
+    // And the pilot's phone asks for its sensor as the thumb comes off, the
+    // first moment a touch carries the activation iOS wants (`shake.ts`).
+    node?.addEventListener("pointerup", () => {
+      if (last?.player === 1) askForMotion();
     });
   }
   const lift = (): void => {
