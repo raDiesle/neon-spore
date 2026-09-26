@@ -535,6 +535,7 @@ colour a beat wants. Stays unverified at tempo until the owner has looked.
 ## §28 THE VISE — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/peaceful-keller-lmm4gr (claim: claude/queue-28-the-vise-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 Two lobes read as a depth rather than a position: `SqueezeGap` (new — the
