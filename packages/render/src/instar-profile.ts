@@ -1,8 +1,9 @@
 import { halo } from "./glow.js";
+import { drawScutes, shadeBody } from "./instar-body-shade.js";
 import { drawNests } from "./instar-eggs.js";
 import { drawScales } from "./instar-hide.js";
 import { drawMoult } from "./instar-moult.js";
-import { drawLamp, drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
+import { drawLamp, drawPlate, drawSeam, type Look } from "./instar-plate.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-shape.js";
 import { drawSideHead } from "./instar-side-head.js";
 import { drawTail } from "./instar-tail.js";
@@ -109,6 +110,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
     angle: Math.atan2(rear.y - from.y, rear.x - from.x) + wobble,
   };
   drawPlate(ctx, hide, fade, 0.5, hurt, form);
+  shadeBody(ctx, hide, top, bottom, fade);
   drawScales(ctx, hide, { ...form, y: form.y - r * 0.12, ry: r * 0.3 }, r * 0.13, fade);
   drawScutes(ctx, bottom, spine, r, fade);
   const glowAt = spine[Math.round(EMBER_GLOW_AT * N)] as Point;
@@ -132,36 +134,6 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   drawWing(ctx, look, back(0.42), back(0.7), wingAt);
   drawNests(ctx, l, look);
   drawSideHead(ctx, look);
-}
-
-/** The belly: broad plates across the underside, each lit at its front edge
- * and shadowed at its back, the way a snake's run. */
-function drawScutes(
-  ctx: CanvasRenderingContext2D,
-  bottom: readonly Point[],
-  spine: readonly Point[],
-  r: number,
-  fade: number,
-): void {
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineWidth = Math.max(1, r * 0.03);
-  for (let i = 1; i < N - 1; i++) {
-    const b = bottom[i] as Point;
-    const s = spine[i] as Point;
-    const inner = { x: b.x + (s.x - b.x) * 0.45, y: b.y + (s.y - b.y) * 0.45 };
-    ctx.strokeStyle = faded(PALETTE.background, fade, 0.55);
-    ctx.beginPath();
-    ctx.moveTo(b.x, b.y);
-    ctx.lineTo(inner.x, inner.y);
-    ctx.stroke();
-    ctx.strokeStyle = faded(PALETTE.hullRim, fade, 0.18);
-    ctx.beginPath();
-    ctx.moveTo(b.x - r * 0.03, b.y);
-    ctx.lineTo(inner.x - r * 0.03, inner.y);
-    ctx.stroke();
-  }
-  ctx.restore();
 }
 
 /** A point `u` of the way along a Catmull-Rom spline through `k`. */

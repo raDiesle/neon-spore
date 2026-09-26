@@ -108,11 +108,36 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
     ctx.fillStyle = faded(PALETTE.rockDark, fade);
     ctx.fill(horn);
     const tip = at(tx, ty);
-    const g = ctx.createLinearGradient(b.x, b.y, tip.x, tip.y);
-    g.addColorStop(0, faded(PALETTE.rock, fade, 0));
-    g.addColorStop(1, faded(PALETTE.rock, fade, 0.55));
-    ctx.fillStyle = g;
+    // Round it: a spike is a cone, and a cone's light runs across its width,
+    // not along its length. The old gradient ran base-to-tip and mostly
+    // faded alpha over a dark fill, which is why it read as a flat grey
+    // triangle. This one crosses the horn's own axis — key-lit edge bright,
+    // far edge dark again — so the spike reads as round from any angle it
+    // is drawn at.
+    const dx = tip.x - b.x;
+    const dy = tip.y - b.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len;
+    const ny = dx / len;
+    const half = r * 0.16;
+    const round = ctx.createLinearGradient(
+      b.x - nx * half,
+      b.y - ny * half,
+      b.x + nx * half,
+      b.y + ny * half,
+    );
+    round.addColorStop(0, faded(PALETTE.rockDark, fade, 0.85));
+    round.addColorStop(0.42, faded(PALETTE.rock, fade, 0.9));
+    round.addColorStop(0.62, faded(PALETTE.rock, fade, 0.3));
+    round.addColorStop(1, faded(PALETTE.rockDark, fade, 0.8));
+    ctx.fillStyle = round;
     ctx.fill(horn);
+    // A contact shadow where it roots in the skull, so it reads as planted
+    // rather than pasted on.
+    ctx.fillStyle = faded(PALETTE.rockDark, fade, 0.5);
+    ctx.beginPath();
+    ctx.ellipse(b.x, b.y, r * 0.13, r * 0.05, Math.atan2(dy, dx), 0, Math.PI * 2);
+    ctx.fill();
     ctx.restore();
     strokeGlow(ctx, horn, faded(PALETTE.rock, fade), STROKE.inner, 0.3 * fade);
   }

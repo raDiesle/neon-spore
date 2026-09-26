@@ -360,6 +360,33 @@ wall-clock period, under the plate rather than clipped to it: cheap (one
 cached sprite), and it needs no new zone in `lightHide` because it is not a
 light falling on the surface at all.
 
+**A spike's light runs across its width, not along its length.** THE
+INSTAR's horns (`instar-side-head.ts`) were shaded with a gradient run
+base-to-tip along the horn's own long axis, fading alpha over a dark fill —
+nearly invisible, reading as a flat grey triangle, because a cone's roundness
+is a cross-section, not a length. The fix is a gradient perpendicular to the
+horn's own axis instead — key-lit edge bright, far edge dark again — plus a
+small contact-shadow ellipse where it roots in the skull, so it reads as
+round and as planted rather than pasted on, from whatever angle it is drawn
+at. The same swap applies to any spike, thorn or claw shaded the first,
+length-wise way.
+
+**A gradient sized to a plate's length starves its width.** `lightHide`'s
+radial body pass (`instar-hide.ts`) sizes itself off a `Form`'s `r` — right
+for the skull and the jaw, whose `r` and `ry` sit close together, so the
+gradient's falloff has plenty left to spend crossing the plate as well as
+running down it. THE INSTAR's long body (`instar-profile.ts`) has an `r`
+(half its neck-to-tail length) several times its `ry`, so the same gradient
+spends nearly all of itself reaching the ends and has almost nothing left
+for top-to-bottom contrast — beautifully lit at the skull, nearly flat three
+plates down the same hide. The fix is not a change to `lightHide`, which is
+still right for the round plates it already shades: a second, dedicated pass
+(`shadeBody`, `instar-body-shade.ts`) fills each segment between the spine's
+`top`/`bottom` offset arrays with its own short linear gradient, lit side to
+shadowed side, so the contrast is sized to the plate's width instead of its
+length. Any plate whose `r` far exceeds its `ry` gets the same treatment
+rather than a tweak to the shared radial pass.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring
