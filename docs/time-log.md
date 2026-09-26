@@ -23744,3 +23744,16 @@ packages, and only the typecheck finds them one at a time.
 Bottleneck: friction — a rebase onto a rule that landed mid-lane.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's baked body rings offered in VERSUS
+
+- reading: 5 min. How `drawProfile` strokes each ring between the back and
+  the belly, side-on.
+- writing: 20 min. The joint painting, the `RING_LOOK` seam, the candidate,
+  the demo, its byte row and the test call.
+- looking: 20 min. Shots on three poses before one showed rings at all, then
+  a pass to make the groove and lip read at play size.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the index, the commit, `land`, `push`.
+
+Bottleneck: finding a director pose that shows the side-on body uncovered.

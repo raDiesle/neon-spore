@@ -1579,6 +1579,7 @@ by hand never moves.
 | `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
 | `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |
 | `packages/render/src/instar-spit.ts` | THE INSTAR's rear globs and spread embers, falling on their marks while the window is open |
+| `packages/render/src/instar-seam-baked.ts` | **THE INSTAR's body rings, baked** — the sixth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers — and solid |
 | `packages/render/src/instar-wing-baked.ts` | **THE INSTAR's wing membrane, baked** — the fourth example (`sprite-bake.ts`) |
@@ -2551,6 +2552,7 @@ by hand never moves.
 | `tools/raster/src/sprite-demos.ts` | **What `bun run sprite` can show**: each baked sprite beside the drawing it is offered against |
 | `tools/raster/src/sprite-page.ts` | The sprite sheet's page: bundled for the browser by `sprite.ts` and run there, so the bake |
 | `tools/raster/src/sprite-bytes.ts` | What a baked sprite costs the game's bundle — the only bytes it ships |
+| `tools/raster/src/sprite-fixtures.ts` | The things `sprite-demos.ts` draws its sprites on: a nest's layout and window, a plate of hide |
 | `tools/raster/src/solid-demo.ts` | The test rig the solid sheet turns: not a boss, only the parts a boss is made of — a long body |
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |

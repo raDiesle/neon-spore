@@ -54,6 +54,22 @@ const SKIN = {
  * 2026. It breathes with the chest (`instar-profile-life.ts`). */
 const EMBER_GLOW_AT = 0.22;
 
+/** One ring round the body, where two segments meet: from the back's edge to the belly's. */
+export interface BodyRing {
+  top: Point;
+  bottom: Point;
+  r: number;
+  fade: number;
+  /** The body's outline, for a look that must stay on it. */
+  hide: Path2D;
+}
+
+/** The seam drawn at each ring, bowed toward the rear; VERSUS offers another. */
+export const RING_LOOK: { paint: (ctx: CanvasRenderingContext2D, ring: BodyRing) => void } = {
+  paint: (ctx, { top: a, bottom: b, r, fade }) =>
+    drawSeam(ctx, a, { x: (a.x + b.x) / 2 + r * 0.12, y: (a.y + b.y) / 2 }, b, fade, 0.35),
+};
+
 export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   const { f, head, r, fade, hurt, time } = look;
   const nest = instarAt(l, f.nestX, f.nestY);
@@ -114,7 +130,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   for (let i = EVERY * 2; i < N - 1; i += EVERY * 2) {
     const a = top[i] as Point;
     const b = bottom[i] as Point;
-    drawSeam(ctx, a, { x: (a.x + b.x) / 2 + r * 0.12, y: (a.y + b.y) / 2 }, b, fade, 0.35);
+    RING_LOOK.paint(ctx, { top: a, bottom: b, r, fade, hide });
   }
   drawLamps(ctx, body, r, roll, time, fade, EVERY * 2);
   drawRidge(ctx, body, r, roll, fade, false, EVERY);
