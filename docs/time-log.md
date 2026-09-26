@@ -23310,3 +23310,5 @@ drafting a new one from scratch.
 
 Bottleneck: waiting on another thread to finish with the files the seam had
 to go in.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

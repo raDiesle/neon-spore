@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4e3cfa718 — THE INSTAR's baked hide offered in VERSUS, and a byte ceiling for sprites
+
+A tile of scales is painted once at load, each scale lit, keeled, pitted and lapping the one below, and laid over a plate as a pattern in one fill. The shipped hide strokes the scales a row of arcs at a time. It is offered on `instar:hide`, judged on the jaw half pulled, where the skull, the chin and the body's bands carry it. It costs +1.4 kB gzipped, and 20 canvas calls a draw against 162. A new test fails when any baked sprite adds more than 3 kB gzipped beside the drawing it is offered against.
+
 ## 2026-09-26 · 4b3bc2cbd — THE INSTAR seen a third of the way round, not square on
 
 Face-on, THE INSTAR now turns its snout toward the left with its body going away behind it to the right: the flank shows, the near wing spreads larger than the far one, and the far cheek is squeezed and goes into the cool dark. The two eyes and the lips' marks stay exactly where they were, because the head is drawn as two planes fitted to hold them. The head costs about a sixth more drawing, not twice as much.
