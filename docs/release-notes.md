@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · dd69266c3 — Close the still-life plates sweep: the rest of the roster had nothing to fix
+
+The entry named fourteen boss files. Six had already been given their own wobble by earlier lanes (WARDEN, SPOOL, HASP, SINEW, GUM, UNDERTOW). The other eight have no still life. THE SHELL's specular stays put on purpose, with the plate breathing under it. RATCHET's plates and SPOOL's barrel are lit with `litBox`, which has no bearing to wobble and steps in eight pixels. THE RIND's sheds and the magnet's hung stone already move. THE LID, THE CHOKE, THE SLOW and the warden surface have no lit plate. The style guide now says when a fixed light is not a still life. Nothing drawn changes.
+
 ## 2026-09-26 · 37ca43371 — docs/queue.md: the rounds' own timeout hit, planned as a VERSUS candidate
 
 The owner asked for the rounds' timeout hit as a VERSUS version to compare on the page, so the question on the queue item is answered and replaced by the plan: the sim names the round on the breach, the choice of rock or picture is made at draw time, one shared candidate of the window closing on the ship, and a pose where a round's window runs out unattended. Nothing is built yet; the owner is winding the session down.
