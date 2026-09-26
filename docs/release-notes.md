@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 0aa70d110 — AUTO answers THE SHELL and THE LURE
+
+AUTO's field hand now aims at a shell's first standing piece rather than its left edge, and leaves a lure to the shield instead of firing into it. Both waves are played through with no scar; fifteen ordinary waves are still half played, and the queue item names them.
+
 ## 2026-09-26 · 4a47be3b6 — THE OCULUS: an eye both seats hold shut, then shoot into
 
 Wave 106 THE OCULUS is a lens over the middle column with six leaves and a script of nine steps on the wave. Both seats hold their own leaf (Player 1 the left, Player 2 the right) and a shut step counts the beats both are down; a thumb lifted starts the count again, and a shut run out springs the pair and lights the same step again. Three pairs shut, the break opens the socket, and fire steps take the ordinary shot in the middle column in their colour, with reseal holds between them that swallow the socket if they run out. A fire step run out breaches the hull. The twelve sounds are bound. Nothing is drawn yet and there is no autopilot hand; bosses.md §11.44 argues the six departures from §27. No look was added, since nothing is drawn. The wave went in unweighed.

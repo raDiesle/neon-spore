@@ -22407,3 +22407,5 @@ to be named in a dozen files the typecheck does not reach.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: reading — a diagnostic of every half-played wave was needed to find which ones were an aiming rule rather than a verb.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
