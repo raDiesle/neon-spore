@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d4b527758 — `hash.ts` folds the controls' fields in from `hash-ship.ts`
+
+`hashWorld` stood at 250 lines. The pushes from the cannon down to the last shot — hands, the thumb on a colour, the hull's ticks, THE CLAW's arm and THE CHOIR's gesture — are now `shipHashParts`, a list folded back in at the same place and in the same order, so no fingerprint moved. The exceptions comment stays in `hash.ts`; it is at 199 lines, the new file at 78.
+
 ## 2026-09-26 · c14ba71ee — `scenes.ts` spreads the waves' films in from `scenes-waves.ts`
 
 The sixty films that belong to no family of their own — their imports, ids and rows — move to `scenes-waves.ts`, spread into `SCENES` first as they stood, beside the choreographed, fault and owed tables. `scenes.ts` is 69 lines, the new table 197; the tutorial skill names where a new film goes.
