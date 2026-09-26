@@ -4290,6 +4290,103 @@ a new relocation rule of its own.
 
 ---
 
+### §39 THE BURGEE — a flag that will not hold still long enough to aim
+
+**Question.** `FREEZE TAP` has only ever stilled something the *other*
+seat was dragging by hand (THE VALVE, THE CYST); `HOLD, THEN SWIPE` has
+only ever aimed at a column the hull already holds still (THE SLING, THE
+DAVIT). Neither concept has asked a tapped freeze to still the very thing
+a held-and-released swipe is aimed at. This one asks whether stilling a
+target long enough to read it, then committing a separate seat's aim at
+it, reads as a different fight from either gesture answering its own
+body alone.
+
+**Silhouette.** A small pennant on a free-swinging boom mid-hull,
+sweeping back and forth across the lit columns on its own, never
+resting. **Health is two catches**, each a swing stilled by one seat and
+released at by the other, plus a lit spindle once both catches have
+landed; the spindle takes three ordinary hits.
+
+**Mechanic.** `burgeeSwingMilli` sweeps back and forth across the
+columns under the simulation's own clock, never a player's to move
+directly. One seat's `FREEZE TAP`, timed against a mark exactly as THE
+VALVE reads it, stops the sweep dead for a few beats rather than
+stopping whatever a hand is dragging; the other seat's `HOLD, THEN
+SWIPE` only lands a catch if the release falls while the sweep is
+frozen *and* the swipe's direction matches the column the flag is
+frozen over — a swipe thrown at where the flag was still moving a
+moment before reads as a miss even if the freeze itself held. A freeze
+let lapse before the swipe releases, or a swipe loosed before any freeze
+lands at all, springs nothing and costs nothing beyond the beats spent:
+the sweep simply resumes, the same forgiving shape THE VALVE's freeze
+and THE SLING's draw both already use.
+
+**Player 1 and Player 2.** Identical screens, a freeze-tap half and a
+hold-then-swipe half both drawn on every phone; only one is live on a
+given catch, and the seat holding each half trades every movement, the
+same role-swap-by-movement THE CYST's and THE DAVIT's pairings both use
+rather than a fixed left seat / right seat split.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the first catch** ||||||
+| 1 | The flag sweeps loose across the columns, spindle dark | — | — | — | — | — |
+| 2 | A column lights | P1 freezes, P2 aims | P1 taps the flag still on the mark (`FREEZE TAP`) while P2 holds, then looses at it once still (`HOLD, THEN SWIPE`) | 6 beats, held together | first catch lands | freeze missed or swipe mistimed: flag resumes sweeping, retry |
+| **Movement 2 — the second catch** ||||||
+| 3 | A second column lights, roles swapped | P2 freezes, P1 aims | P2 taps it still while P1 holds, then looses | 5 beats, held together | second catch lands, spindle lights | resumes sweeping, retry from row 2 |
+| **Movement 3 — the spindle, held caught** ||||||
+| 4 | The spindle flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 5 | The flag creeps loose off the spindle | P1+P2, either freezing | freeze and swipe together to recatch it | 3 beats, held together | spindle stays lit | dims, movement's fire beats lost until recaught |
+| 6 | Spindle flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 7 | Flag creeps loose a second time, faster | P1+P2, either freezing | freeze and swipe together | 3 beats, held together | stays lit | dims, retry |
+| 8 | Spindle flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, spindle spent | stays lit |
+| 9 | The flag sweeps free once more, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every catch window (rows 2, 3, 5, 7) — a tapped
+freeze on one phone answered by a held-and-released swipe on the other,
+both judged against a single frozen instant, is a harder read than
+either THE VALVE's freeze or THE SLING's draw alone.
+
+**Presentation.** No camera. A landed catch a short taut snap as the
+flag goes still; each spindle hit an ordinary shot's flash; a mistimed
+swipe a limp flutter with no snap, and the sweep simply picks back up.
+
+**Animation.** Four poses: flag sweeping loose; first catch held;
+both caught, spindle lit; spindle guarded, flag creeping loose. The flag
+eases into stillness on a landed freeze rather than snapping to a stop —
+the same drawn-as-mechanism choice THE VALVE's freeze and THE PLUMB's
+lean both make.
+
+**Colour.** Boom and spindle a scoured steel grey, the flag itself a
+dull canvas tan that only brightens once caught; the spindle is the only
+lit colour on the body, lit in whichever cannon colour a given beat
+wants, THE SEAM's and THE OCULUS's rule again.
+
+**Payoff.** Rows 5 and 7 — freeze-and-swipe asked for defensively,
+recatching the flag under a `FIRE` step already under way, the same
+shape as THE DAVIT's rows 7/9 and every earlier body's own defensive
+reuse of its pairing.
+
+**Cost. Low.** No new primitive — `FREEZE TAP` and `HOLD, THEN SWIPE`
+are both already built, for THE VALVE/THE CYST and THE SLING/THE DAVIT.
+The only new code is the simulation's own free sweep for the freeze to
+catch, and the role-swap wiring THE CYST's and THE DAVIT's pairings
+already proved out.
+
+**Reusable.** Stilling a body the simulation itself keeps moving, so
+that a separate seat's committed release can be judged against a target
+neither seat controls directly, is a shape distinct from THE DAVIT's
+live-steered aim (where a seat's own hold *is* the target) and from THE
+RATCHET's or THE GALL's relocating marks (where the target moves only on
+a miss or a landed count); any future concept wanting a target that
+drifts on its own, rather than at either seat's hand, can reach for a
+tap-stilled sweep before inventing a new kind of motion for a body to
+carry.
+
+---
+
 ## The reusable boss mechanic library
 
 The brief asks for the primitives extracted. Here they are, and the useful

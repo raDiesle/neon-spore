@@ -28,7 +28,7 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       window: { from: 5, to: 9, label: "frozen" },
     },
-    where: [`${SPEC} §25 THE VALVE`, `${SPEC} §34 THE CYST`],
+    where: [`${SPEC} §25 THE VALVE`, `${SPEC} §34 THE CYST`, `${SPEC} §39 THE BURGEE`],
   },
   {
     name: "SENDING NOTHING",
@@ -174,7 +174,7 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       window: { from: 1, to: 6, label: "held" },
     },
-    where: [`${SPEC} §32 THE SLING`, `${SPEC} §35 THE DAVIT`],
+    where: [`${SPEC} §32 THE SLING`, `${SPEC} §35 THE DAVIT`, `${SPEC} §39 THE BURGEE`],
   },
 ];
 
