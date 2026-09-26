@@ -25,6 +25,16 @@ const HASP_WOBBLE = 0.05;
 const HASP_WOBBLE_PERIOD = 6.9;
 
 /**
+ * How far a swung clasp's halves sway on their hinge, as a share of the gape
+ * they hang at, and how fast in radians a second. Only a spent clasp: a sealed
+ * one is shut and says so, a hub is §20's secret on one screen and the seized
+ * tell on the other, so the loose half-shells are the one part free to move
+ * on a clock of their own (`docs/style-guide.md`, *Motion*).
+ */
+const HASP_SLACK = 0.12;
+const HASP_SLACK_RATE = 1.4;
+
+/**
  * **THE HASP**: three sealed clasps down the middle of the field, each two
  * hinged half-shells pinned over a hub, and the one boss whose question is
  * whether a grip nobody can see is the one holding the door (§11.37, §20).
@@ -110,8 +120,11 @@ function drawClasp(
   hurt: number,
   time: number,
 ): void {
-  const shell = haspShellPath(l, world.cfg, i, gape);
   const spent = haspOpened(s, i) && s.phase !== "clear";
+  // A swung clasp hangs slack on its hinge and sways there, each out of step
+  // with the others — the part of this machine that has come loose.
+  const slack = spent ? 1 + HASP_SLACK * Math.sin(time * HASP_SLACK_RATE + i * 1.9) : 1;
+  const shell = haspShellPath(l, world.cfg, i, gape * slack);
   ctx.fillStyle = rgba(PALETTE.rockDark, spent ? 0.5 : 0.88);
   ctx.fill(shell);
   if (!spent) {

@@ -25124,3 +25124,16 @@ The bottleneck: most of the seventeen keep their geometry inline in their
 draw files, so the entry was cut by what could be called, not by boss.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE HASP's swung clasps hang slack and sway
+
+- **reading** — 10 min. The entry asked for the hub to creep; the hub is
+  §20's secret on the pilot's screen and the seized tell on the navigator's,
+  so the part had to be another one.
+- **writing** — 5 min
+- **looking** — 0 min. A still frame shows none of it.
+- **friction** — 0 min
+- **landing** — 5 min
+
+Bottleneck: reading — the entry's suggestion crossed a design rule, and
+finding the part that could move took the time.

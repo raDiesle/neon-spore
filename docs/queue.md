@@ -2856,19 +2856,6 @@ Done when: `life` reaches every drawer that calls `partDrift`; the chosen
 source sets it; a test proves the part angles are the parent's at 0.
 `bun run check` proves it.
 
-## THE HASP's clasps have no secondary motion of their own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-26, claude/queue-the-hasps-clasps-have-no-secondary-motion-of-the
-- **Files:** `packages/render/src/hasp-draw.ts`, `packages/render/src/hasp-shape.ts`
-
-From the secondary-motion audit. `HASP_WOBBLE` (`hasp-draw.ts` line 121) is
-the light's drift inside each shell, not a part moving; everything else in
-the seven `hasp-*.ts` files is state or beat. Touch: the hub riveted over a
-sealed clasp's seam creeps round a few degrees and back on its own period,
-offset per clasp by its index, so a shut row reads as held rather than
-painted. A look: offered through VERSUS.
-
 ## THE OCULUS's leaves have no secondary motion of their own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
