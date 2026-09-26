@@ -54,6 +54,14 @@ details.more > summary:hover {
   color: var(--cyan);
   font-size: 0.8rem;
 }
+/* A link out — a video or a store page on RESEARCH. The browser's own
+   #00e is near-invisible on this sheet's black. */
+.md a {
+  color: var(--cyan);
+}
+.md a:visited {
+  color: var(--ink);
+}
 .md h3,
 .md h4,
 .md h5,
