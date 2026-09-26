@@ -22727,3 +22727,5 @@ out not to be a miss once its sibling was read.
 
 Bottleneck: looking — the front view is only seen during the breath, washed
 in its light, so every detail of it is judged through the glare.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

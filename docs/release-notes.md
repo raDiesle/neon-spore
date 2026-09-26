@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · bdc1a253a — THE INSTAR's body face-on is a round tube going back into the dark
+
+The body behind the head, seen face-on during the breath, was five flat plates stacked smaller. It is now one tube of the rig whose spine runs into depth: lit across its width, rimmed, pinched in at every seam so it reads as plates going away, with the scales, seams and gold lamps on each band. It covers what the plates covered, and it swims — a slow wave through the middle, the neck and the engines held where they are.
+
 ## 2026-09-26 · 94ea68ac6 — THE PLUMB: the simulation lane — a bob two phones hold level, then shoot into
 
 Wave 110 THE PLUMB is in: a bob hung skewed over the middle column whose two weights are settled true by each seat holding its own phone level inside a range for the count, the second settle inside a narrower one, spending the unclaimed TILT, AS A LEVEL gesture as LevelTilt for the first time. Four settles light the core, which is shot in its colour; between the shots both seats hold level at once to keep it lit. The twelve sounds are bound; nothing reads a phone's lean yet — that reader is queued — nothing is drawn, and there is no autopilot hand (docs/spec/bosses.md §11.48, nine departures argued).
