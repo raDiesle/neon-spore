@@ -404,6 +404,19 @@ of phase so their shoulders do not slide together. Any other sealed, rounded
 body drawn as a flat fill — a pod, a shell, a drum, a tank — gets the same
 `litRound`-plus-idle-spin pair rather than a bespoke gradient.
 
+**A creature's `litRound` half has no lift, so its base fill needs room to
+darken into.** `LIGHT_HALF.creature` is `"value"` — `docs/alive.md`'s hue-lock,
+no brightening, ever, only `shadeAt`'s darkening. THE FILAMENT's heart
+(`filament-draw.ts`) clipped to `litRound` exactly like the drum, over its old
+flat fill (`PALETTE.sheenDeep`, already close to black) — and came out reading
+just as flat as before, because a ramp that can only darken has nothing to show
+against a floor it is already standing on. The fix is not a different half; the
+rule about hue is the reason the effect exists. It is a brighter base
+(`HEART_LIT`, `sheenDeep` mixed toward `sheenWarm`) so the same darkening-only
+ramp has a range to move through. Any other creature body this dark before
+`litRound` is added needs the same check: does the flat fill sit far enough
+above the ramp's floor for `shade` alone to read?
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring

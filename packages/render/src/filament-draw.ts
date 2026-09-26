@@ -27,12 +27,36 @@ import { drawFilamentTool } from "./filament-tools.js";
 import { drawFilamentClock, drawFilamentOwn, drawFilamentTheirs } from "./filament-turn-draw.js";
 import { drawFilamentVein } from "./filament-vein.js";
 import { strokeGlow } from "./glow.js";
-import { rgba } from "./hex.js";
+import { mixHex, rgba } from "./hex.js";
 import { drawInstarWord } from "./instar-word.js";
+import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { showsFilamentAhead, showsFilamentBehind } from "./view-role-clocks-b.js";
+
+/**
+ * The heart's own idle turn, wall-clock seconds there and back — the same
+ * reasoning as `gimbal-draw.ts`'s `DRUM_WOBBLE`: the heartbeat swells and
+ * settles it, but never turns it, so `litRound`'s shading would otherwise sit
+ * on the same shoulder every frame. Feeds `litRound`'s own `spin` rather than
+ * a second mechanism (`docs/style-guide.md`, "Depth on a body that already
+ * ships").
+ */
+const HEART_WOBBLE = 0.06;
+const HEART_WOBBLE_PERIOD = 5.8;
+
+/**
+ * The heart's own lit floor: `sheenDeep` toward `sheenWarm`, a shade brighter
+ * than the flat fill it replaces. `LIGHT_HALF.creature` is `"value"` — no
+ * lift, ever, so the whole ramp on this body is `shadeAt`'s darkening alone
+ * (`docs/alive.md`'s hue-lock). Painted straight over `sheenDeep`, that
+ * darkening had nowhere to go: the fill was already close to the ramp's own
+ * floor, so a body clipped and lit exactly like the drum came out reading as
+ * flat as before. Brightening the base gives the same shading room a lighter
+ * rock already has, without moving its hue.
+ */
+export const HEART_LIT = mixHex(PALETTE.sheenDeep, PALETTE.sheenWarm, 0.22);
 
 /**
  * **THE FILAMENT**: the inside of an alien — its heart over the top of the
@@ -131,8 +155,14 @@ function drawHeart(
   ctx.save();
   ctx.fillStyle = faded(PALETTE.background, fade);
   ctx.fill(p);
-  ctx.fillStyle = faded(PALETTE.sheenDeep, fade, 0.9);
+  ctx.fillStyle = faded(HEART_LIT, fade, 0.9);
   ctx.fill(p);
+  ctx.save();
+  ctx.clip(p);
+  ctx.globalAlpha = fade;
+  const wobble = HEART_WOBBLE * Math.sin((time * (Math.PI * 2)) / HEART_WOBBLE_PERIOD);
+  litRound(ctx, h.x, h.y, Math.max(h.rx, h.ry), "value", wobble);
+  ctx.restore();
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.sheenWarm, fade), STROKE.inner, 0.6 * fade);
   drawHurt(ctx, p, hurt * fade);

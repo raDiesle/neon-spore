@@ -10,9 +10,9 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { HEART_LIT } from "../src/filament-draw.js";
 import { rgba } from "../src/hex.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import { PALETTE } from "../src/palette.js";
 import { CFG, runFrames, VIEWPORT, waveWith } from "./frame-harness.js";
 
 /**
@@ -113,5 +113,5 @@ export function frame(
   return drawn(world, role, 9);
 }
 
-/** The body's own fill: the deep sheen at nine tenths, THE INSTAR's plate. */
-export const BODY = rgba(PALETTE.sheenDeep, 0.9);
+/** The heart's own fill: `HEART_LIT` at nine tenths (`filament-draw.ts`). */
+export const BODY = rgba(HEART_LIT, 0.9);
