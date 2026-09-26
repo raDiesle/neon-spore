@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b8bc73338 — THE INSTAR's face-on jaw, brow and body segments wobble their shading too
+
+A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, starting with THE INSTAR.
+
 ## 2026-09-26 · f8bf140fd — THE COUNT's guide is a film: a shot on sight shuts it, a shot on zero lands
 
 The wave's three strings are gone, replaced by a rehearsal in four pages. Player 1 sees the blades. Player 2 fires on sight: the body is refused and shut grey. Player 1 counts down out loud. Player 2 fires on zero, and the body is destroyed. Both shots are real. `scene-count.test.ts` pins them to the zeros that seed 1 rolls. §3.2 now counts eighty-two films and eight guides still in prose.
