@@ -434,6 +434,7 @@ an alignment.
 ## Shaking the phone never reaches THE CHOIR on an iPhone
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
+- **Taken:** 2026-09-26, claude/queue-packages-sim-src-hash-ts-is-at-250-lines (claim: claude/queue-shaking-the-phone-never-reaches-the-choir-on-an)
 - **Files:** `apps/game/src/shake.ts`, `apps/game/src/join-room-step.ts`, `apps/game/src/fullscreen.ts`
 
 iOS 13 and later deliver no `devicemotion` event until
