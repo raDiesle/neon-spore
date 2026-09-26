@@ -431,22 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## Film THE LIMPET's guide, and delete its words
-
-- **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
-- **Taken:** 2026-09-26, claude/queue-film-the-chokes-guide-and-delete-its-words (claim: claude/queue-film-the-limpets-guide-and-delete-its-words)
-- **Files:** `packages/content/src/waves/act-7a.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
-
-THE LIMPET's guide is still `both`/`p1`/`p2`, one of the ten the owner's *a film
-or words, not both* (25 September 2026) left owed a film. Write its rehearsal
-in `packages/content/src/scenes/` the way `.claude/skills/new-tutorial` says —
-what the three strings teach, as captions on each seat's own screen — add it to
-`SceneId` and `SCENES`, and replace the wave's guide with `{ scene }` alone in
-the same commit (`WaveGuide` refuses both). Take the name out of `STILL_PROSE`
-and move the counts in `scenes-prose.test.ts` and `briefings.md` §3.2 by one;
-`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
-and four tests; `grep -rl instar-shape packages/render` lists them.
-
 ## Film THE LEECH's guide, and delete its words
 
 - **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a

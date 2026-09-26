@@ -21630,3 +21630,19 @@ Bottleneck: the shot grid — on the game's half-beat grid the first press left
 a beat late from the next column, so the film is written against it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE LIMPET's guide is a film
+
+- reading: 5 min. The harpoon's grip and still-beat loss in the simulation,
+  the fault list, THE CHOKE's film next door.
+- writing: 10 min. The film, its test, the fault registered, the guide
+  swapped, the prose list and §3.2 moved by one.
+- looking: 5 min. Probes of the grip and the loss, then one capture of the
+  pilot's page.
+- friction: 10 min. A film with nothing left to spawn is a cleared wave and
+  rested instead of failing; a late arrival holds it open. And the words
+  tool's two floors fell under this film, so they are read off the guides now.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the empty field — the first cut cleared the wave on page two and
+never reached the loss it was written to show.

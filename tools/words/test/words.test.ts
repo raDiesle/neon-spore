@@ -1,9 +1,17 @@
 import { describe, expect, it } from "bun:test";
+import { WAVES, type WordedGuide } from "@neon-spore/content";
 import { CEILING, CLEAN } from "../clean.js";
 import { BUDGET, findings, sentences, words } from "../measure.js";
 import { playerText, type TextEntry } from "../text.js";
 
 const subject = (entry: TextEntry): string => entry.id.split(" · ")[0] ?? entry.id;
+
+/** The waves whose guide is still words rather than a film. */
+function worded(): { name: string; guide: WordedGuide }[] {
+  return WAVES.flatMap((w) =>
+    w.guide && w.guide.scene === undefined ? [{ name: w.name, guide: w.guide }] : [],
+  );
+}
 
 describe("the measure", () => {
   it("passes the register the boss guides are already written in", () => {
@@ -64,15 +72,18 @@ describe("the measure", () => {
 describe("the inventory", () => {
   it("reaches every wave's name and worded guide, and every mechanic", () => {
     const entries = playerText();
-    // Fewer than it was: a filmed guide carries no words since 25 September
-    // 2026, and a film's captions are `scenes.test.ts`'s to hold.
-    expect(entries.length).toBeGreaterThan(250);
-    for (const kind of Object.keys(BUDGET)) {
-      expect(
-        entries.some((e) => e.kind === kind),
-        `nothing of kind ${kind}`,
-      ).toBe(true);
+    const ids = new Set(entries.map((e) => e.id));
+    // Read off the waves rather than counted: a filmed guide carries no words
+    // since 25 September 2026, and a floor under the count fell with every
+    // guide that became a film, until moving it was a step of every such lane.
+    for (const wave of WAVES) expect(ids, wave.name).toContain(`${wave.name} · name`);
+    for (const wave of worded()) {
+      expect(ids, wave.name).toContain(`${wave.name} · both`);
+      expect(ids, wave.name).toContain(`${wave.name} · P1 · half`);
+      expect(ids, wave.name).toContain(`${wave.name} · P2 · half`);
     }
+    expect(entries.some((e) => e.kind === "what")).toBe(true);
+    expect(Object.keys(BUDGET).sort()).toEqual(["both", "half", "name", "what"]);
   });
 
   it("reaches the six sentences the game draws outside a wave", () => {
@@ -88,10 +99,12 @@ describe("the inventory", () => {
 
   it("makes one entry per line, because a numbered step is read one at a time", () => {
     const steps = playerText().filter((e) => /^\d\.\s/.test(e.text));
-    // A floor that proves the steps are reached, not a count of them: every
-    // guide taken off for its field takes its steps with it (THE INSTAR's and
-    // THE FILAMENT's, 25 September 2026, took it from sixty-one to forty-nine).
-    expect(steps.length).toBeGreaterThan(40);
+    // Every numbered line the worded guides hold, and no more — a count read
+    // off the guides, because a floor fell with every guide taken off.
+    const written = worded()
+      .flatMap(({ guide }) => [guide.both, guide.p1, guide.p2].flatMap((t) => t.split("\n")))
+      .filter((line) => /^\d\.\s/.test(line.trim()));
+    expect(steps).toHaveLength(written.length);
     for (const step of steps) expect(step.text).not.toContain("\n");
   });
 });

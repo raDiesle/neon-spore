@@ -104,9 +104,7 @@ export const WAVES_ACT_7A: Wave[] = [
     id: "theLimpet",
     name: "THE LIMPET",
     guide: {
-      both: "A hooked body sticks to the shield. No shot touches it. Keep the shield moving, a new column each beat, or you lose. Its timer says when it leaves.",
-      p1: "1. You cannot move the shield. MOVE SHIELD! is under your dial.\n2. Say it the moment the body lands. Keep saying it.\n3. Call the rocks so your partner knows where to be.",
-      p2: "1. You hold the shield, and the body holds it too.\n2. Keep it moving, a column a beat. Never park it, not even under a rock.\n3. Meet a rock on the beat it lands. Be gone on the next.",
+      scene: "theLimpet",
     },
     entries: [
       { beat: 0, col: 2, kind: "meteor", color: null },
