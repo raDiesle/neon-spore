@@ -23903,3 +23903,15 @@ Bottleneck: looking — the bill only comes on a forced bead, and the wave
 fails on the same tick, so every frame after it is held.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SLOW's light stands round five more bosses (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 15 min. Six shape files, their lifts and arrivals, where each
+  boss opens a window, and how CRAWL and the keep-out read the aim.
+- writing: 10 min. Five rows, a case each in the test, the queue item
+  rewritten to what is left, the specs.
+- looking: 5 min. One frame of THE VISE's first lit seam under THE SLOW.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: reading — each boss had to be asked whether it still moves when its window opens.

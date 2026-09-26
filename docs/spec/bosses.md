@@ -8304,7 +8304,9 @@ cannon's column at the hull, so the lens at the top of the field was the
 thing split widest. It is the first row of a table of the bosses that open
 a window, by kind, each aimed at the point its own shape already names —
 here `oculusCentre`, as wide as the rim (`render/slow-boss-aim.ts`,
-`test/slow-boss-aim.test.ts`). The other rows are queued.
+`test/slow-boss-aim.test.ts`). THE GIMBAL, THE HASP, THE MANTLE, THE
+VALVE and THE VISE took their rows the same day — the outer ring, the clasp
+being worked, and each oval's longer axis; the rest are queued.
 
 ## 11.45 THE VISE — the boss two pinches crack, then shoot into
 

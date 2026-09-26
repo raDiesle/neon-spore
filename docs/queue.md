@@ -1828,25 +1828,30 @@ on the lit point and the rock, SHIELD on the grit), **the autopilot hand**
 and its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
 Unverified at tempo until the owner has looked.
 
-## THE SLOW's prism aims at the cannon for every boss but THE INSTAR
+## THE SLOW's prism still aims at the cannon for seventeen drawn bosses
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (photographing THE SEAM's lit point)
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-slows-prism-aims-at-the-cannon-for-every-bos)
 - **Files:** `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`
 
 PRISM's promise is *the room splits into its colours, and the boss does
-not*: a point's fringe is as wide as it is far from the aim. But `aim()`
-asks only THE INSTAR where its head is; every other boss that opens THE
-SLOW — THE HASP, THE KEEL, THE VALVE, THE SEAM and some thirty more
-(`grep -l openSlow packages/sim/src`) — falls through to a held body or the
-cannon's column at the hull, so a boss hung at the top of the field is the
-thing split *widest*, red and blue outlines a quarter-tile apart
+not*: a point's fringe is as wide as it is far from the aim, and a boss with
+no row in `render/slow-boss-aim.ts` is aimed at the cannon's column at the
+hull, so one hung at the top of the field is the thing split *widest*
 (`bun run frames . --wave 105 --until seamLight --until-on 30`). The table
-exists since 26 September 2026: `render/slow-boss-aim.ts`, from boss kind
-to the point its own `-shape.ts` already names, consulted after THE INSTAR
-and before the fallbacks, with THE OCULUS as its one row. What is left is a
-row for each other boss that opens a window (`valveCentre`, `seamCentre`,
-…) and a case for each in its test.
+has THE OCULUS, THE GIMBAL, THE HASP, THE MANTLE, THE VALVE and THE VISE
+since 26 September 2026, each a centre and an extent its own shape file
+names, and a case each in the test. Still falling through, all with a look
+and a named point: THE BATON, THE CURTAIN, THE FILAMENT
+(`filamentBodyPoint`), THE GORGE, THE HIVE, THE KEEL, THE LEAD, THE LEDGER,
+THE RATCHET, THE SCUTTLE, THE SINEW (`sinewAnchor`), THE SPOOL
+(`spoolHome`), THE SURGE (`surgeBulbCentre`), THE TASTER, THE THROAT and THE
+UNDERTOW — several move, so a row may need the pose rather than the home —
+and THE ANTIPHON, whose body is the width of the field: a disc round it is
+the whole top of the screen, so its row is a capsule along the box
+(`antiphonBox`) or the pilot's organ, not a centre. THE SEAM's row rides
+its hands (*§26 THE SEAM — its hands*). THE CYST, THE DAVIT, THE
+GRINDSTONE, THE PLUMB, THE RIME, THE SLING and THE TRIVET have no look yet
+and take their row with it.
 
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
 

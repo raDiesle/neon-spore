@@ -2,16 +2,24 @@ import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
+  HASP_COUNT,
+  haspBoss,
+  OUTER,
   oculusBoss,
   startWave,
   step,
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { gimbalCentre, gimbalRingR } from "../src/gimbal-shape.js";
+import { haspCentre, haspShellRadius } from "../src/hasp-shape.js";
 import { computeLayout } from "../src/layout.js";
+import { mantleCentre, mantleReach } from "../src/mantle-shape.js";
 import { oculusCentre, oculusRadius } from "../src/oculus-shape.js";
 import { bossAim } from "../src/slow-boss-aim.js";
 import { aim } from "../src/slow-intake-aim.js";
+import { valveCentre, valveReach } from "../src/valve-shape.js";
+import { viseCentre, viseRadius } from "../src/vise-shape.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -39,6 +47,22 @@ function lens(): World {
   return world;
 }
 
+/** `kind`'s wave stood, and nothing stepped: every row but THE HASP's reads no state. */
+function stood(kind: Parameters<typeof waveWith>[0]): World {
+  const world = createWorld(CFG, 5);
+  const index = waveWith(kind);
+  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+  return world;
+}
+
+const round = (at: { x: number; y: number }, r: number) => ({
+  x: at.x,
+  y: at.y,
+  r,
+  ax: at.x,
+  ay: at.y,
+});
+
 describe("THE SLOW's aim at a boss", () => {
   it("stands on THE OCULUS's lens, as wide as its rim, rather than on the cannon", () => {
     const world = lens();
@@ -46,6 +70,29 @@ describe("THE SLOW's aim at a boss", () => {
     const mid = oculusCentre(L, CFG);
     expect(at).toEqual({ x: mid.x, y: mid.y, r: oculusRadius(L).rim, ax: mid.x, ay: mid.y });
     expect(at.y).toBeLessThan(L.hullY - 2 * L.tile);
+  });
+
+  it.each([
+    ["gimbal", () => round(gimbalCentre(L, CFG), gimbalRingR(L, OUTER))],
+    ["mantle", () => round(mantleCentre(L, CFG), Math.max(mantleReach(L).rx, mantleReach(L).ry))],
+    ["valve", () => round(valveCentre(L, CFG), Math.max(valveReach(L).rx, valveReach(L).ry))],
+    ["vise", () => round(viseCentre(L, CFG), Math.max(viseRadius(L).rx, viseRadius(L).ry))],
+  ] as const)("stands round THE %s's whole body, over the middle column", (kind, want) => {
+    const at = aim(stood(kind), L, 0, 0);
+    expect(at).toEqual(want());
+    expect(at.y).toBeLessThan(L.hullY - 2 * L.tile);
+  });
+
+  it("stands round the clasp THE HASP is being worked on, and moves up the door with it", () => {
+    const world = stood("hasp");
+    const s = haspBoss(world);
+    if (s === null) throw new Error("the hasp wave stood no door");
+    const r = haspShellRadius(L);
+    expect(aim(world, L, 0, 0)).toEqual(round(haspCentre(L, CFG, 0), r));
+    s.hasps = HASP_COUNT - 1;
+    const next = aim(world, L, 0, 0);
+    expect(next).toEqual(round(haspCentre(L, CFG, 1), r));
+    expect(next.y).not.toBe(haspCentre(L, CFG, 0).y);
   });
 
   it("has no row for a field with no boss, which still aims at the cannon's column", () => {
