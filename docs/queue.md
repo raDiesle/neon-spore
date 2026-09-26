@@ -2678,3 +2678,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 48ad4d936: THE TRIVET's HOLD and FIRE seen on the field at tempo
+
+- **Found:** 2026-09-26, tmp-trivet-cue
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zh.ts`, `packages/render/src/boss-cue.ts`, `packages/render/test/boss-cue-trivet.test.ts`
+
+*THE TRIVET's cue says HOLD on each foot a lit chord asks for, and FIRE under the lit hub* landed from a session that could not look at it. What went unchecked:
+
+- THE TRIVET's HOLD and FIRE seen on the field at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

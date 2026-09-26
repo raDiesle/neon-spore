@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 48ad4d936 — THE TRIVET's cue says HOLD on each foot a lit chord asks for, and FIRE under the lit hub
+
+The boss cue now reads THE TRIVET: HOLD sits on the foot of each seat whose chord is lit and not yet held, and comes off the moment that chord is down; FIRE sits on the hull under the middle column while the hub is lit. Still, rest and collapse say nothing. Exemption: a look with no shipped alternative.
+
 ## 2026-09-26 · 56d3d0a40 — Queue: §29 THE RIME done
 
 ## 2026-09-26 · c8f257bd8 — THE RIME's whiteout fogs the pane and its icicle hangs over the column to shield
