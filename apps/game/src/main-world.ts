@@ -30,6 +30,12 @@ export interface OpenWorld {
   playAt: (level: Difficulty) => void;
 }
 
+/** The config this build plays at, before a level is put on it — a fresh
+ * object each call, because the world holds it and the TEST panel writes it. */
+export function playConfig(): SimConfig {
+  return { ...DEFAULT_CONFIG, ...PAIR_ON, shotChargeBeats: 0.5 };
+}
+
 export function openWorld(audio: GameAudio, buffer: InputBuffer): OpenWorld {
   // **The hull breaks here like it does anywhere else.** It used to be held by
   // default in this build so a wave being looked at could finish, and the
@@ -51,7 +57,7 @@ export function openWorld(audio: GameAudio, buffer: InputBuffer): OpenWorld {
   // And the level this device last played at: its tempo, and on HARD the
   // wasted-shot rule (`sim/difficulty.ts`). Medium for a device that has never
   // chosen, which is `DEFAULT_CONFIG` and therefore no change at all.
-  const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, shotChargeBeats: 0.5 };
+  const cfg = playConfig();
   playDifficulty(cfg, readProgress().level);
   const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
   const progression = createWaveProgression({ world, cfg, audio, buffer });

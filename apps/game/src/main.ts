@@ -2,6 +2,7 @@ import { Canvas2DRenderer } from "@neon-spore/render";
 import { framePhase } from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
+import { gameAutopilot } from "./autopilot.js";
 import { bindAwake } from "./awake.js";
 import { bindCanvasSheets } from "./canvas-sheets.js";
 import { bindFieldInput } from "./field-input.js";
@@ -115,7 +116,10 @@ const input = bindFieldInput({
 });
 const { tick: tickKeys, hand, pointer } = input;
 
-const testPanel = bindTestControls({ world, jumpToWave, run });
+// AUTO under the TEST panel: the hand presses into the same buffer, on the
+// tick, just after the keyboard has (`autopilot.ts`).
+const auto = gameAutopilot();
+const testPanel = bindTestControls({ world, jumpToWave, run, auto });
 
 /**
  * Two devices. Solo until a room is joined, and joining is the only thing that
@@ -179,7 +183,10 @@ const frames = startFrames({
   menuIdle: menuIdleHz(location.href),
   hand,
   pointer,
-  tickKeys,
+  tickKeys: () => {
+    tickKeys();
+    auto.press(world, buffer);
+  },
   link,
   progression,
 });

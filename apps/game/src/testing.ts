@@ -1,4 +1,5 @@
 import type { SimConfig, World } from "@neon-spore/sim";
+import { AUTO_MODES, type GameAutopilot } from "./autopilot.js";
 import type { RunState } from "./run-state.js";
 
 /**
@@ -21,6 +22,8 @@ export interface TestBindings {
   jumpToWave: (wave: number) => void;
   /** The five holds, and the only thing that decides whether a tick runs. */
   run: RunState;
+  /** AUTO: which seats the machine plays (`autopilot.ts`). */
+  auto: GameAutopilot;
 }
 
 /** Only the numeric tunables can sit behind a slider. */
@@ -52,7 +55,7 @@ const SLIDERS: SliderSpec[] = [
   { key: "podFallTilesPerBeat", label: "Pod fall", min: 0.5, max: 5, s: 0.1, unit: " tiles/beat" },
 ];
 
-export function bindTestControls({ world, jumpToWave, run }: TestBindings): TestPanel {
+export function bindTestControls({ world, jumpToWave, run, auto }: TestBindings): TestPanel {
   const el = (id: string): HTMLElement | null => document.getElementById(id);
   const panel = el("panel");
   const pauseBtn = el("pauseBtn");
@@ -115,10 +118,45 @@ export function bindTestControls({ world, jumpToWave, run }: TestBindings): Test
     }
   }
 
+  const refreshAuto = autoRow(world, auto, el("autoRow"), el("autoNote"));
+
   refreshWave();
   paint();
-  window.setInterval(refreshWave, 250);
+  window.setInterval(() => {
+    refreshWave();
+    refreshAuto();
+  }, 250);
   return { open: openPanel };
+}
+
+/**
+ * OFF / BOTH / P1 / P2, one lit, and a note when AUTO is on over a boss no
+ * hand plays. The answer to the note is asked on the panel's own timer,
+ * because the wave under it changes without the row being touched.
+ */
+function autoRow(
+  world: World,
+  auto: GameAutopilot,
+  row: HTMLElement | null,
+  note: HTMLElement | null,
+): () => void {
+  const buttons = AUTO_MODES.map((mode) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = mode.toUpperCase();
+    b.addEventListener("click", () => {
+      auto.setMode(mode);
+      refresh();
+    });
+    row?.appendChild(b);
+    return { mode, b };
+  });
+  const refresh = (): void => {
+    for (const { mode, b } of buttons) b.classList.toggle("on", auto.mode() === mode);
+    if (note) note.textContent = auto.handless(world) ? "no hand for this boss" : "";
+  };
+  refresh();
+  return refresh;
 }
 
 function sliderRow(world: World, spec: SliderSpec): HTMLElement {

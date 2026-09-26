@@ -758,22 +758,6 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## The game's TEST view has no AUTO
-
-- **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-games-test-view-has-no-auto)
-- **Files:** `apps/game/src/testing.ts`, `apps/game/package.json`, `packages/hands/src/autopilot-hands.ts`
-
-The second half of "AUTO plays bosses only, and only in the director". The
-director's AUTO now plays an ordinary wave as well as every boss, but a phone
-alone under the game's TEST panel still has no second thumb. The hands are in
-`packages/hands` now (`fieldHand`, `AUTOPILOT_HANDS`, `autopilotHand`, the
-`Hand` type), moved there on 26 September 2026 so that `apps/game` can import
-them; what is left is the game's half. Give `testing.ts` an OFF/BOTH/P1/P2 row
-that adds the hand's commands to the tick the way the director's
-`stage-autopilot.ts` does, and prove it with a test that the game's loop, AUTO
-on BOTH, clears ONE LAST CHANCE headless.
-
 ## AUTO's field hand half plays 22 ordinary waves
 
 - **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director

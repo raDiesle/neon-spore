@@ -730,6 +730,27 @@ body.in-room #viewSwitch {
   letter-spacing: 2px;
 }
 
+/* The TEST panel's AUTO row (`testing.ts`): four small buttons, one lit. */
+#autoRow {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+}
+#panel #autoRow button {
+  margin-top: 0;
+  padding: 5px 8px;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+#panel #autoRow button.on {
+  background: #ffc24b;
+  color: #120c24;
+}
+#autoNote {
+  flex: 1;
+  text-align: left;
+}
+
 /* The question a destructive button asks in place of itself (`confirm.ts`).
    It takes the button's slot, so nothing shifts and no overlay arrives under a
    thumb already travelling; SURE? sits first, where the press just landed, so

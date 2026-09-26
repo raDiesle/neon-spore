@@ -22306,3 +22306,14 @@ Bottleneck: diagnosis — the refusal came from a stale `main`, not a race,
 and only origin's log and the reflog showed it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — AUTO under the game's TEST panel
+
+- reading: 5 min. `frame.ts`'s tick order, the lockstep's own-seat filter, the guide's gate.
+- writing: 10 min. `autopilot.ts`, the row in `testing.ts`, the `main.ts` wiring, the test.
+- looking: 0 min. The row is not seen yet — queued as unverified.
+- friction: 10 min. The test sat on ONE LAST CHANCE's guide for 17,000 ticks;
+  no hand reads a guide, so the test's pair turns pages and holds READY itself.
+- landing: 5 min. `check:fast`, the index line, the commit, `land`.
+
+Bottleneck: friction — a wave opened by the TEST panel opens on its guide, and nothing said so until a trace did.

@@ -19,6 +19,7 @@
         "@firebase/auth": "^1.13.6",
         "@neon-spore/audio": "workspace:*",
         "@neon-spore/content": "workspace:*",
+        "@neon-spore/hands": "workspace:*",
         "@neon-spore/net": "workspace:*",
         "@neon-spore/render": "workspace:*",
         "@neon-spore/sim": "workspace:*",
