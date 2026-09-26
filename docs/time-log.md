@@ -23519,3 +23519,16 @@ a count of colours could tell apart.
 Bottleneck: finding three states that read as a real reversal rather than a
 fourth identical joint, while spending no gesture the sim does not already
 build.
+
+## 2026-09-26 — THE INSTAR's baked pale body offered in VERSUS
+
+- reading: 5 min. How `drawMoult` fills the split and where the bare pose
+  starts, from the states thread's landing.
+- writing: 25 min. The fold tile, the `PALE_LOOK` seam, the director's bare
+  pose, the candidate, the demo and its byte row.
+- looking: 20 min. Three passes at the tile until it read as wet skin, not
+  wallpaper, then two VERSUS shots to make it show at play size.
+- friction: 5 min. A name clash in `drawMoult`.
+- landing: 10 min. `check:fast`, the index, the commit, `land`, `push`.
+
+Bottleneck: tuning a repeating tile so it stops reading as stripes.

@@ -2,6 +2,7 @@ import {
   drawBakedEgg,
   drawBakedMembrane,
   drawBakedNests,
+  drawBakedPale,
   drawBakedScales,
   drawEgg,
   drawEggCrack,
@@ -14,7 +15,10 @@ import {
   type Look,
   lightHide,
   NEST_SPRITE,
+  PALE_LOOK,
+  PALE_SPRITE,
   PALETTE,
+  type PaleSkin,
   type SpriteSpec,
   WING_LOOK,
   WING_SPRITE,
@@ -122,6 +126,22 @@ function wing(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): W
   };
 }
 
+/** A split a head radius and a half long down a tilted back, gaping as the bare pose opens it. */
+function split(x: number, y: number, r: number): PaleSkin {
+  const back = Array.from({ length: 13 }, (_, i) => {
+    const u = i / 12 - 0.5;
+    return { x: x + u * r * 1.5, y: y - r * 0.3 + u * r * 0.25 - Math.cos(u * Math.PI) * r * 0.08 };
+  });
+  const pale = new Path2D();
+  for (const p of back) pale.lineTo(p.x, p.y);
+  for (let i = back.length - 1; i >= 0; i--) {
+    const p = back[i] ?? { x, y };
+    pale.lineTo(p.x, p.y + Math.sin((Math.PI * i) / 12) ** 0.6 * r * 0.6);
+  }
+  pale.closePath();
+  return { pale, back, crest: back[6] ?? { x, y }, r, fade: 1, breath: 1 };
+}
+
 export const DEMOS: readonly SpriteDemo[] = [
   {
     name: "instar-egg",
@@ -169,6 +189,21 @@ export const DEMOS: readonly SpriteDemo[] = [
     baked(ctx, x, y, r, _threat, _time, dpr) {
       const [p, form] = plate(ctx, x, y, r);
       drawBakedScales(ctx, p, form, r * 0.13, 1, dpr);
+    },
+  },
+  {
+    name: "instar-moult",
+    spec: PALE_SPRITE,
+    base: PALETTE.sheenMid,
+    glow: PALETTE.text,
+    playH: (r) => r * 0.42,
+    threats: [0],
+    box: [-0.8, -0.45, 0.8, 0.35],
+    shipped(ctx, x, y, r) {
+      PALE_LOOK.paint(ctx, split(x, y, r));
+    },
+    baked(ctx, x, y, r, _threat, _time, dpr) {
+      drawBakedPale(ctx, split(x, y, r), PALE_LOOK.paint, dpr);
     },
   },
   {

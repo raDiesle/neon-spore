@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { drawBakedEgg, EGG_SPRITE, stirAt } from "../src/instar-egg-baked.js";
 import { drawBakedScales } from "../src/instar-hide-baked.js";
+import { drawBakedPale } from "../src/instar-moult-baked.js";
 import { drawBakedNests } from "../src/instar-nest-baked.js";
 import type { Look } from "../src/instar-plate.js";
 import { drawBakedMembrane } from "../src/instar-wing-baked.js";
@@ -63,7 +64,7 @@ describe("a sprite baked at load", () => {
     expect([0, 0.3, 0.55, 0.9, 1.5].map(stirAt)).toEqual([0, 1, 2, 3, 3]);
   });
 
-  it("draws the baked egg, nests, hide and wing with values a canvas accepts", () => {
+  it("draws the baked egg, nests, hide, wing and pale body with values a canvas accepts", () => {
     const { ctx: stub } = stubCanvas();
     const ctx = stub as unknown as CanvasRenderingContext2D;
     for (let i = 0; i < 40; i++) {
@@ -92,6 +93,13 @@ describe("a sprite baked at load", () => {
           lit: 1,
           sheen: threat,
         },
+        3,
+      );
+      const back = [o, { x: 260, y: 200 + i }, { x: 320, y: 210 }];
+      drawBakedPale(
+        ctx,
+        { pale: new Path2D(), back, crest: back[1] ?? o, r: 150, fade: 1 - threat, breath: 0.9 },
+        () => {},
         3,
       );
     }

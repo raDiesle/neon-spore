@@ -56,16 +56,9 @@ export function drawMoult(
   pale.closePath();
   // The new body: soft, wet, breathing under the hide it is coming out of.
   const breath = 0.85 + 0.15 * Math.sin(time * 3);
+  const crest = back[STEPS / 2] ?? { x: 0, y: 0 };
   ctx.save();
-  ctx.fillStyle = faded(PALETTE.sheenRim, fade, 0.9 * breath);
-  ctx.fill(pale);
-  // Rounded under the key: lit along the back, flushed deeper toward the lip.
-  const top0 = back[STEPS / 2] ?? { x: 0, y: 0 };
-  const shade = ctx.createLinearGradient(top0.x, top0.y, top0.x, top0.y + r * 0.6);
-  shade.addColorStop(0, faded(PALETTE.sheenMid, fade, 0));
-  shade.addColorStop(1, faded(PALETTE.sheenMid, fade, 0.55));
-  ctx.fillStyle = shade;
-  ctx.fill(pale);
+  PALE_LOOK.paint(ctx, { pale, back, crest, r, fade, breath });
   // Not stopped, it sets: the split filled dark as the hide, and the torn
   // lips gone into it, whole again (`InstarStrike.harden`).
   ctx.fillStyle = faded(PALETTE.sheenDeep, fade, look.harden);
@@ -75,6 +68,37 @@ export function drawMoult(
   strokeGlow(ctx, pale, faded(PALETTE.sheenRim, fade, soft), STROKE.inner, 0.8 * fade * breath);
   if (soft > 0.01) drawLip(ctx, lip, r, fade * soft);
 }
+
+/** The new body in the split, as `drawMoult` hands it over. */
+export interface PaleSkin {
+  /** The split's outline: along the back, and back along the torn lip. */
+  pale: Path2D;
+  /** The back line the split runs along, head end first. */
+  back: readonly Point[];
+  /** The middle of the back, where the light stands. */
+  crest: Point;
+  r: number;
+  fade: number;
+  /** The new body's breath, 0.7..1. */
+  breath: number;
+}
+
+/** Soft, wet, and rounded under the key: lit along the back, flushed deeper toward the lip. */
+function paintPale(ctx: CanvasRenderingContext2D, skin: PaleSkin): void {
+  const { pale, crest, r, fade, breath } = skin;
+  ctx.fillStyle = faded(PALETTE.sheenRim, fade, 0.9 * breath);
+  ctx.fill(pale);
+  const shade = ctx.createLinearGradient(crest.x, crest.y, crest.x, crest.y + r * 0.6);
+  shade.addColorStop(0, faded(PALETTE.sheenMid, fade, 0));
+  shade.addColorStop(1, faded(PALETTE.sheenMid, fade, 0.55));
+  ctx.fillStyle = shade;
+  ctx.fill(pale);
+}
+
+/** How the new body's skin is painted: a seam VERSUS offers another through (`tools/versus/candidates/instar-moult`). */
+export const PALE_LOOK: { paint: (ctx: CanvasRenderingContext2D, skin: PaleSkin) => void } = {
+  paint: paintPale,
+};
 
 /** The torn edge of the old hide: a dark curl with its rim lit, and rags
  * hanging off it where the strips tore. */

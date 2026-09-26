@@ -1576,6 +1576,7 @@ by hand never moves.
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
+| `packages/render/src/instar-moult-baked.ts` | **THE INSTAR's new body, baked** — the fifth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
@@ -2718,6 +2719,7 @@ by hand never moves.
 | `tools/director/src/poses-husk.ts` | The state a candidate for `pod:husk-tell` is judged on |
 | `tools/director/src/poses-guide.ts` | A page of a tutorial's film, on player 1's phone |
 | `tools/director/src/poses-instar-brood.ts` | THE INSTAR in its brood, the two nests on its back full and the marks up over them |
+| `tools/director/src/poses-instar-bare.ts` | THE INSTAR bare after the moult, side-on |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-advance.ts` | **One tick of a pose's world**, and the one thing four tests and the seat probe want out of `versus-pair.ts`… |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
