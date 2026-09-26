@@ -202,6 +202,8 @@ export function patchBossD(boss: BossState): void {
     boss.sparkBeat = 5;
     boss.heartbeatNext = 1;
     boss.heartbeatDone = 2;
+    boss.held = [true, false];
+    boss.braceBeats = 2;
   }
   if (boss.kind === "keel") {
     // Into the tempo run with a joint lit and a rock in the air at once —

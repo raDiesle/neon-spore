@@ -27,6 +27,9 @@ import { BOSS_GROUPS, BOSS_POSES, statesOwed } from "../src/poses-bosses.js";
  */
 
 const OWED: Partial<Record<BossKind, readonly string[]>> = {
+  // THE MANTLE's brace, §23 revised: the simulation landed before its pose
+  // (`docs/queue.md`, "the brace's look, and its hand").
+  mantle: ["brace"],
   // THE VALVE's simulation lane has landed with no look yet, so none of its
   // six phases has a pose to draw them from (`docs/spec/bosses-choreographed.md`
   // §25). Struck the day the look lane lands.

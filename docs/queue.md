@@ -2063,3 +2063,20 @@ everything, after three movements that never once asked for that. This is
 one new boolean field, no new sim state beyond it. `bun run check` proves
 the sim half; the sixth pose (feet ringing under the spent hub, unheld) is
 a look task, queued separately once this lane lands.
+
+## §23 THE MANTLE — the brace's look, and its hand
+
+- **Found:** 2026-09-26, claude/queue-23-the-mantle-a-revised-simulation-lane-more-vis, landing the brace's simulation
+- **Files:** `packages/render/src/mantle-pose.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/hands/src/boss-hands-mantle.ts`, `tools/director/src/poses-bosses-hands-mantle.ts`, `docs/spec/bosses.md`
+
+THE MANTLE's `brace` phase is in the simulation (`mantleBracing`, `held`,
+`braceBeats`, the events `mantleGlow`, `mantleSlip`, `mantleSteady`,
+`mantleLapse`) and nothing draws it: `mantle-pose.ts` reads it as not
+pulling, so the handles stand unlit through the whole hold. A look with no
+shipped alternative: the seam glowing, the shell shuddering (worse on a
+slip), the shudder settling on the steady, a `HOLD` word on each knob while
+unheld, the seam's crack in three lengths (hairline, full, gone) and the
+core's heartbeat quickening across the alternating rounds. Take the four
+events out of the silent lists' reason, add the brace pose to the STATES
+sheet, and make the hand keep both knobs down through the brace. Prove it
+in `render/test/mantle-frame.test.ts` and `autopilot-mantle.test.ts`.

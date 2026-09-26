@@ -2,11 +2,11 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE MANTLE's ten, in a file of their own for `bind-gorge.ts`' reason.
+ * THE MANTLE's fourteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Almost nothing here pans anywhere**, the same as THE GIMBAL's: the shell
- * hangs in the middle of the field and both handles pull toward it, so nine
- * of the ten come from the middle. The one that does not is the bared core's
+ * hangs in the middle of the field and both handles pull toward it, so all
+ * but one come from the middle. The one that does not is the bared core's
  * spark, which leaks where it leaks and is the only thing in the fight the
  * cannon answers.
  *
@@ -28,7 +28,11 @@ export function mantleCue(
         | "mantleSparkHit"
         | "mantleBeat"
         | "mantleDark"
-        | "mantleOut";
+        | "mantleOut"
+        | "mantleGlow"
+        | "mantleSlip"
+        | "mantleSteady"
+        | "mantleLapse";
     }
   >,
   cols: number,
@@ -58,5 +62,13 @@ export function mantleCue(
       return { id: "boss.mantleDark", pan };
     case "mantleOut":
       return { id: "boss.mantleOut", pan };
+    case "mantleGlow":
+      return { id: "boss.mantleGlow", pan };
+    case "mantleSlip":
+      return { id: "boss.mantleSlip", pan };
+    case "mantleSteady":
+      return { id: "boss.mantleSteady", pan };
+    case "mantleLapse":
+      return { id: "boss.mantleLapse", pan };
   }
 }

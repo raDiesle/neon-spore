@@ -22,6 +22,10 @@ export function mantleHashParts(s: MantleState): number[] {
     s.sparkBeat,
     s.heartbeatNext,
     s.heartbeatDone,
+    s.held.length,
+    s.held[0] ? 1 : 0,
+    s.held[1] ? 1 : 0,
+    s.braceBeats,
   ];
   for (const t of s.thresholds) out.push(t);
   return out;

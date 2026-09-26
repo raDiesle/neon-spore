@@ -34,7 +34,7 @@ import type { World } from "./world.js";
  * to stop pulling together to finish the fight.
  */
 
-export const MANTLE_PHASES = ["still", "pull", "spark", "heartbeat", "dark"] as const;
+export const MANTLE_PHASES = ["still", "pull", "spark", "heartbeat", "dark", "brace"] as const;
 export type MantlePhase = (typeof MANTLE_PHASES)[number];
 
 /** The seam has no spark leaking from it. */
@@ -72,6 +72,12 @@ export interface MantleState {
   heartbeatNext: 0 | 1;
   /** Taps landed so far in the finish; `mantleHeartbeatTaps` ends the fight. */
   heartbeatDone: number;
+  /** Whether each handle has a thumb on it, in any phase — the chord the
+   * brace reads (`CHORD`). Index as `depthMilli`. */
+  held: [boolean, boolean];
+  /** Beats the brace has been held by both thumbs at once; nought again the
+   * moment either lifts. */
+  braceBeats: number;
 }
 
 export function mantleBoss(world: World): MantleState | null {
@@ -87,6 +93,16 @@ export function mantlePairsLeft(s: MantleState): number {
 /** Whether the handles count at all: lit, and nothing else under way. */
 export function mantlePulling(s: MantleState): boolean {
   return s.phase === "pull";
+}
+
+/** The shell shuddering before the last pair: both handles held, not pulled. */
+export function mantleBracing(s: MantleState): boolean {
+  return s.phase === "brace";
+}
+
+/** Whether the pull under way is the last pair's, the one with a window. */
+export function mantleLastPull(s: MantleState): boolean {
+  return mantlePulling(s) && s.thresholds.length > 1 && mantlePairsLeft(s) === 1;
 }
 
 /** Whether the bared core's spark is leaking and there is something to shoot. */

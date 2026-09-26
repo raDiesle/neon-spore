@@ -22,6 +22,15 @@ export type MantleEvent =
   | ({ type: "mantleShear"; left: number } & MantleColEvent)
   /** The shell fully split: the bare core is showing. */
   | ({ type: "mantleSplit" } & MantleColEvent)
+  /** The last pair is next: the seam glows and the shell shudders, asking
+   * for both handles held still. */
+  | ({ type: "mantleGlow" } & MantleColEvent)
+  /** A hand lifted mid-brace: the shudder worsens and the hold starts over. */
+  | ({ type: "mantleSlip" } & MantleColEvent)
+  /** The brace held `mantleBraceBeats`: the shudder settles. */
+  | ({ type: "mantleSteady" } & MantleColEvent)
+  /** The last pair's window ran out unsheared: it resets, and asks again. */
+  | ({ type: "mantleLapse" } & MantleColEvent)
   /** The core's spark leaks, unanswered. */
   | ({ type: "mantleLeak" } & MantleColEvent)
   /** The leaking spark was shot out, in either colour. */

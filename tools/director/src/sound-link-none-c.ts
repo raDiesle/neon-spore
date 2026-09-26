@@ -177,7 +177,7 @@ export const NO_SUBJECT_C: Record<string, string> = {
   // (`sound-link-none.ts`, boss.tasterRise).
   "boss.tasterPryFill":
     "a right beam into the pried interlock short of the last, one still owed. The fan's, and a fan of blades is not a card.",
-  // THE MANTLE's ten. A hinged carapace shell hung over the middle of the
+  // THE MANTLE's fourteen. A hinged carapace shell hung over the middle of the
   // field: a fixture, THE GIMBAL's own answer said about a shell instead of a
   // drum. Only the simulation lane has landed, so nothing about it is drawn
   // yet at all (`sim/events-mantle.ts`).
@@ -198,6 +198,12 @@ export const NO_SUBJECT_C: Record<string, string> = {
   "boss.mantleDark": "the last tap landed and the core going dark. Same argument, and an absence.",
   "boss.mantleOut":
     "the dark hatch falling away and the wave ending. Same argument, and an absence.",
+  "boss.mantleGlow":
+    "the seam glowing before the last pair, asking for both handles held. The fixture's own seam. Same argument.",
+  "boss.mantleSlip": "a hand lifted mid-brace and the shudder worsening. Same argument.",
+  "boss.mantleSteady": "the brace held and the shudder settling. Same argument, and an absence.",
+  "boss.mantleLapse":
+    "the last pull's window run out and the stiff pair clapping shut. Same argument.",
   // THE KEEL's sixteen. A spine arched over the field: a fixture, THE
   // MANTLE's argument, and nothing about it is drawn yet (`sim/events-keel.ts`).
   "boss.keelEnter": "the spine settling over the field. A fixture, not a body on a grid.",

@@ -21,6 +21,11 @@ export interface MantleConfig {
   mantleHeartbeatTaps: number;
   /** Beats the dark core hangs before the wave may end. */
   mantleOpenBeats: number;
+  /** Beats both handles must be held at once, still, to steady the shell
+   * before the last pair's pull lights (§23 row 7). */
+  mantleBraceBeats: number;
+  /** Beats the last pair's pull has before its window resets (§23 row 8). */
+  mantleLastBeats: number;
 }
 
 export const MANTLE_DEFAULTS: MantleConfig = {
@@ -30,4 +35,6 @@ export const MANTLE_DEFAULTS: MantleConfig = {
   mantleSlowBeats: 2,
   mantleHeartbeatTaps: 6,
   mantleOpenBeats: 2,
+  mantleBraceBeats: 3,
+  mantleLastBeats: 3,
 };

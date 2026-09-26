@@ -1,20 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import {
-  createWorld,
-  DEFAULT_CONFIG,
-  hashWorld,
-  type MantleState,
-  mantleBoss,
-  mantlePairsLeft,
-  NO_SPARK,
-  type SimConfig,
-  startWave,
-  step,
-  type TimedCommand,
-  ticksPerBeat,
-  type World,
-} from "../src/index.js";
+import { hashWorld, mantlePairsLeft, NO_SPARK } from "../src/index.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
+import { beat, CFG, install, lit, mantle, pull, runTo, tapCore, toFinale } from "./mantle-rig.js";
 
 /**
  * THE MANTLE: a hinged shell pried open by two hands pulling together.
@@ -25,71 +12,9 @@ import { NOT_FAILED } from "../src/wave-fail.js";
  * pull, at once, with no drift to bank progress against. That the second
  * shear leaks a spark that reaches the hull unanswered, and either colour
  * answers it. That the last pair splits the shell and hands the fight to an
- * alternating single tap, which the wrong seat's thumb cannot touch.
+ * alternating single tap, which the wrong seat's thumb cannot touch. The
+ * brace before the last pair: `mantle-brace.test.ts`.
  */
-
-const CFG: SimConfig = { ...DEFAULT_CONFIG };
-const TPB = ticksPerBeat(CFG);
-
-/** Two thresholds, so the first shear leaves one pair and the second splits it. */
-const THRESHOLDS = [1400, 1700];
-
-function install(thresholds: readonly number[] = THRESHOLDS): World {
-  const world = createWorld({ ...CFG }, 0);
-  startWave(world, 0, [], [], { kind: "mantle", thresholds });
-  return world;
-}
-
-function mantle(world: World): MantleState {
-  const s = mantleBoss(world);
-  if (s === null) throw new Error("the wave installed no mantle");
-  return s;
-}
-
-/** A thumb on a handle, held at `atMilli` thousandths of a tile. */
-const pull = (tick: number, player: 1 | 2, atMilli: number, on = true): TimedCommand => ({
-  tick,
-  player,
-  command: {
-    kind: "drag",
-    target: player === 1 ? "mantleLeft" : "mantleRight",
-    on,
-    fromMilli: 0,
-    fromYMilli: atMilli,
-  },
-});
-
-const tapCore = (tick: number, player: 1 | 2): TimedCommand => ({
-  tick,
-  player,
-  command: { kind: "drag", target: "mantleCore", on: true, fromMilli: 0 },
-});
-
-/** Step to a tick, feeding commands on the tick they are stamped for, and say
- * which event types went by — `world.events` is one tick's worth. */
-function runTo(world: World, tick: number, cmds: TimedCommand[] = []): Set<string> {
-  const seen = new Set<string>();
-  while (world.tick < tick) {
-    const before = world.tick;
-    step(
-      world,
-      cmds.filter((c) => c.tick === world.tick),
-    );
-    for (const e of world.events) seen.add(e.type);
-    if (world.tick === before) throw new Error("the tick stopped advancing");
-  }
-  return seen;
-}
-
-/** A beat on, with nothing sent. */
-function beat(world: World, n = 1): Set<string> {
-  return runTo(world, world.tick + TPB * n);
-}
-
-/** Past the still: the handles are lit. */
-function lit(world: World): Set<string> {
-  return runTo(world, world.tick + TPB * (CFG.mantleStillBeats + 1));
-}
 
 describe("THE MANTLE comes in", () => {
   it("closed, dark and still, with every pair on the shell", () => {
@@ -178,15 +103,6 @@ describe("the second shear leaks a spark", () => {
 });
 
 describe("the last pair splits the shell", () => {
-  function toFinale(world: World): void {
-    for (let i = 0; i < THRESHOLDS.length; i++) {
-      lit(world);
-      const t = world.tick;
-      runTo(world, t + 1, [pull(t, 1, 1200), pull(t, 2, 1200)]);
-      beat(world);
-    }
-  }
-
   it("and hands the fight to an alternating tap the wrong seat cannot touch", () => {
     const world = install();
     toFinale(world);

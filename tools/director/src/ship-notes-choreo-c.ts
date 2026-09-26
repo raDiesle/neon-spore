@@ -79,7 +79,10 @@ export const CHOREO_NOTES_C = {
     "other is at nought shears nothing. THE SLOW spans every shear. A spark " +
     "leaks from the open shell between the second and third movements: " +
     "either colour shot at it in mantleSparkBeats answers it, and unanswered " +
-    "it is one strike on the hull, which is the wave. The last pair splits " +
+    "it is one strike on the hull, which is the wave. Before the last pair " +
+    "the seam glows: both handles held still for mantleBraceBeats, a lift " +
+    "starting the hold over; then the last pull has mantleLastBeats, and a " +
+    "window run out resets rather than strikes. The last pair splits " +
     "the shell and bares the core, whose alternating finish " +
     "(mantleHeartbeatTaps taps, mantleCore, whichever seat is next) is the " +
     "one place in the fight the pair stop pulling together. The dark core " +

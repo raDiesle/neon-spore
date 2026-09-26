@@ -7506,7 +7506,8 @@ hiding anything from the other.
 hashed in `sim/mantle-hash.ts`) is the **phase** and the beat it began, the
 **cursor** (plate-pairs sheared), each handle's live pull depth
 (`depthMilli`), the bared core's hazard spark column and the beat it started,
-and the alternating finish's next seat and taps landed. Its health is the four
+the alternating finish's next seat and taps landed, whether each handle has
+a thumb on it (`held`), and the beats the brace has held. Its health is the four
 plate-pairs named by `MANTLE_SCRIPT` (`content/src/mantle-script.ts`,
 `[1400, 1700, 1900, 2200]`) — a wave's own thresholds, so a heavier or
 lighter shell never touches this file.
@@ -7528,10 +7529,16 @@ bank progress against.
 
 **The clock** (`sim/mantle-step.ts`). The shell hangs still for
 `mantleStillBeats`, then both handles light and stay lit until the sum
-clears — there is no window and no timeout on a pull movement, unlike every
-other choreographed boss's step. A plate-pair sheared under THE SLOW
-(`mantleSlowBeats`) relights the next pair; the last shear splits the shell
-instead and starts the alternating finish. A spark leaks from the open gap the
+clears — there is no window and no timeout on the first three pulls. A
+plate-pair sheared under THE SLOW (`mantleSlowBeats`) relights the next pair.
+**The shear before the last pair lights the brace instead** (§23 row 7,
+26 September 2026): the seam glows (`mantleGlow`) and THE SLOW asks while both
+handles are held, not pulled, for `mantleBraceBeats` — `CHORD` read off the
+same two drags, a thumb on each. Either lifting slips it (`mantleSlip`) and
+the hold starts over from the glow. Held, the shell steadies (`mantleSteady`)
+and the last pull lights under THE SLOW with `mantleLastBeats`; a window run
+out resets (`mantleLapse`) with the thumbs where they are, and never reaches
+the hull. The last shear splits the shell and starts the alternating finish. A spark leaks from the open gap the
 instant the *second* pair shears (`s.cursor === 2`), the fight's one ordinary
 hazard: either colour answers it within `mantleSparkBeats` or it strikes the
 hull. Once split, the bare core takes an alternating tap from whichever seat
@@ -7539,14 +7546,22 @@ hull. Once split, the bare core takes an alternating tap from whichever seat
 rule — for `mantleHeartbeatTaps`; the last one darkens the core, and it hangs
 `mantleOpenBeats` before the wave may end.
 
-**Where this departs from the design, and why.** Three places.
+**Where this departs from the design, and why.** Four places.
 
-- **No window or timeout on a pull movement.** §23's beat list gives each
+- **No window or timeout on the first three pulls, and the last one's
+  window resets rather than strikes.** §23's beat list gives each
   pull-together beat a beat count and a "missed" outcome — a handle drifting
   back if let go before the sum is reached. There is no drift to walk back:
   letting go already costs the whole pull at once, so a second penalty for
   running out of time would be the same lesson said twice. A pair can take as
-  long as they need to find the together of it.
+  long as they need to find the together of it. Only row 8, after the
+  brace, carries a window, because the design asks for it by name ("window
+  resets"): it costs the pair time and nothing else.
+- **A slip is the glow again, not a worse shudder.** Row 7's miss says the
+  shudder worsens; the simulation says the hold starts over from nought and
+  the glow's own event is `mantleSlip`, which the look and the sound read as
+  the worse shudder. A number for how bad the shudder is would be one no
+  seat could answer differently.
 - **The spark takes either colour.** §23 says *own colour*; a spark is not a
   body with a colour the pair could have got wrong, the same rule THE
   GIMBAL's seam already uses. What it costs to miss is the column, not the
@@ -7590,7 +7605,11 @@ plays it to dark (`tools/director/test/autopilot-mantle.test.ts`) and the
 STATES sheet poses all five phases off it
 (`tools/director/src/poses-bosses-hands-mantle.ts`). What is left of half
 two: no sounds are bound — `tools/director/src/sound-link-none-c.ts` carries
-all ten of its events until it lands.
+all ten of its events until it lands. **The brace is the simulation only**
+(26 September 2026): its four events are bound to sounds of their own and
+silent in `render/`, and nothing draws the glow, the shudder or the steady
+yet — during it the handles stand unlit — and the STATES sheet has no
+pose for it; both are queued (`docs/queue.md`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/mantle.test.ts`): it installs still and lights on cue; a shear
@@ -7598,7 +7617,10 @@ needs both handles above the floor and the sum past the threshold, and a
 handle below the floor contributes nothing even at maximum depth; letting go
 resets a handle to nought rather than banking it; the second shear leaks a
 spark that either colour answers or that reaches the hull unanswered; the
-finish takes alternating taps only from the named seat and refuses the
+shear before the last pair glows under THE SLOW and asks for both
+handles held, a lift slips it and starts the hold over, nothing pulled while
+bracing counts, and the last pull's window run out resets rather than strikes
+(`sim/test/mantle-brace.test.ts`); the finish takes alternating taps only from the named seat and refuses the
 other's; the last tap darkens the core and ends the wave after
 `mantleOpenBeats`; and the fingerprint is deterministic and diverges on any
 differing input. Whether any of it *reads* is the owner's eye, after lane two.

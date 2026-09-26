@@ -65,6 +65,12 @@ export const SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
+  // THE MANTLE's brace before the last pair, from the revised lane: the
+  // simulation only, and its look is queued (`docs/queue.md`).
+  "mantleGlow",
+  "mantleSlip",
+  "mantleSteady",
+  "mantleLapse",
   // THE KEEL's sixteen, no burst from this table: each is thrown above the
   // loop by its own fx file (`keel-fx.ts`).
   "keelEnter",

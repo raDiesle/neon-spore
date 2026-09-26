@@ -23312,3 +23312,17 @@ Bottleneck: waiting on another thread to finish with the files the seam had
 to go in.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE, the brace before the last pair (the simulation)
+
+- reading: 10 min. §23's revised rows 7 and 8, the MANTLE sim and tests, and
+  where its ten events are registered.
+- writing: 25 min. The brace phase, `held` and `braceBeats`, the last pull's
+  window, four events and their sounds, the test rig split out of
+  `mantle.test.ts`, and §11.40.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. The hash coverage wanted the tuple's length hashed.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — four events are nine registrations each across audio,
+render and the director.

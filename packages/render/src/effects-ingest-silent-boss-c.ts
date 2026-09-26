@@ -120,6 +120,12 @@ export const INGEST_SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
+  // THE MANTLE's brace before the last pair, from the revised lane: the
+  // simulation only, and its look is queued (`docs/queue.md`).
+  "mantleGlow",
+  "mantleSlip",
+  "mantleSteady",
+  "mantleLapse",
   // THE KEEL's sixteen: its jolt, snaps, shock and bursts are `keel-fx.ts`',
   // read above the loop with the rest of each boss's; which segments are
   // locked stays read off the state.

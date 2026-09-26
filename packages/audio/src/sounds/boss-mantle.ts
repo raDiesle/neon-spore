@@ -1,5 +1,5 @@
 /**
- * THE MANTLE's ten, in a file of their own for `boss-gorge.ts`' reason.
+ * THE MANTLE's fourteen, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **hinged carapace shell over a soft core**, and everything
  * here is the sound of hinged metal giving way rather than turned metal —
@@ -14,6 +14,9 @@
  * spark arriving on the hull, a dull heavy strike. The beat is the finish's
  * own alternating tap, a small dry click pitched up per tap landed; the dark
  * is the core going out, a soft low thud; the out is the hatch dropping away.
+ * The brace before the last pair is a low groan under the seam's glow; the
+ * slip is the groan catching, a dull knock; the steady is the groan settling
+ * onto one held note; the lapse is the stiff last pair clapping back shut.
  * Low and soft under the band, or short and high above it, as ever
  * (`docs/spec/audio.md` §1).
  */
@@ -134,5 +137,41 @@ export const BOSS_MANTLE_SOUNDS: SoundDef[] = [
       after(0.4, glint(3000, 0.5, 0.14)),
       after(0.5, air(4200, 8800, 0.9, 0.16, 1.5)),
     ],
+  },
+  {
+    id: "boss.mantleGlow",
+    family: "boss",
+    blurb: "A low groan under the seam: the shell fighting to shut.",
+    status: "bound",
+    use: "The seam glows before the last pair: hold both handles still.",
+    level: 0.4,
+    layers: [swell(58, 1.2, 0.1), after(0.1, soft(0.5, metal(180, 0.8, 0.14, 200)))],
+  },
+  {
+    id: "boss.mantleSlip",
+    family: "boss",
+    blurb: "The groan catching: a dull knock in the shell.",
+    status: "bound",
+    use: "A hand lifted mid-brace: the shudder worsens, and the hold starts over.",
+    level: 0.4,
+    layers: [thud(150, 80, 0.12, 0.3), after(0.03, metal(220, 0.3, 0.16, 200))],
+  },
+  {
+    id: "boss.mantleSteady",
+    family: "boss",
+    blurb: "The groan settling onto one held note.",
+    status: "bound",
+    use: "The brace held: the shudder settles and the last pull lights.",
+    level: 0.38,
+    layers: [sub(64, 0.6, 0.28), after(0.08, soft(0.5, glint(1700, 0.4, 0.1)))],
+  },
+  {
+    id: "boss.mantleLapse",
+    family: "boss",
+    blurb: "The stiff last pair clapping back shut.",
+    status: "bound",
+    use: "The last pull's window ran out unsheared: it resets, and asks again.",
+    level: 0.42,
+    layers: [tick(0.2, 0, 2000), after(0.01, thud(200, 110, 0.1, 0.28))],
   },
 ];

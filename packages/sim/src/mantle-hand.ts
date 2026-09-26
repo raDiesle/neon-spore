@@ -1,5 +1,12 @@
 import { midCol } from "./config.js";
-import { type MantleState, mantleBoss, mantleFinale, mantlePulling } from "./mantle.js";
+import {
+  type MantleState,
+  mantleBoss,
+  mantleBracing,
+  mantleFinale,
+  mantlePulling,
+} from "./mantle.js";
+import { glowMantle } from "./mantle-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -20,6 +27,11 @@ import type { World } from "./world.js";
  * on purpose, since the two-hand rule this boss exists to test only means
  * something if a released handle cannot be quietly walked back up alone.
  *
+ * **A thumb on a handle is kept in every phase**, pulling or not, so the
+ * brace before the last pair (§23 row 7) is `CHORD` read off the same two
+ * drags: both thumbs down counts, and either lifting mid-brace slips it —
+ * the shudder worsens and the hold starts over from the glow.
+ *
  * **The core's tap is either seat's, and alternates.** Once the shell is
  * split, `mantleCore` answers a tap from whichever seat `heartbeatNext`
  * names; the other seat's tap does nothing, the ordinary silent refusal —
@@ -32,17 +44,21 @@ export function mantleHeard(world: World, player: 1 | 2, command: Command): void
   const s = mantleBoss(world);
   if (s === null) return;
   if (command.target === "mantleLeft" || command.target === "mantleRight") {
-    pull(s, player, command);
+    pull(world, s, player, command);
     return;
   }
   if (command.target === "mantleCore") tap(world, s, player, command);
 }
 
-function pull(s: MantleState, player: 1 | 2, command: Command): void {
+function pull(world: World, s: MantleState, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
   const side: 0 | 1 = command.target === "mantleLeft" ? 0 : 1;
   const wants: 1 | 2 = side === 0 ? 1 : 2;
-  if (player !== wants || !mantlePulling(s)) return;
+  if (player !== wants) return;
+  const lifted = s.held[side] && !command.on;
+  s.held[side] = command.on;
+  if (mantleBracing(s) && lifted) glowMantle(world, s, "mantleSlip");
+  if (!mantlePulling(s)) return;
   s.depthMilli[side] = command.on ? Math.max(0, command.fromYMilli ?? 0) : 0;
 }
 
