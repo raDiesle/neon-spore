@@ -205,4 +205,14 @@ export const CREATURE_HUES = {
   slingSteel: "#8B95A3",
   slingSteelDark: "#333A44",
   slingCord: "#C9BFA8",
+  /**
+   * THE TRIVET's stand (§30, *Colour*): a dull gunmetal and its shadow, the
+   * rock's cold blue-grey taken darker so the stand reads as worked metal
+   * rather than stone; and its sockets lit, a cold blue-white paler than
+   * `rimeFrost` and far from `cyan`, so a lit socket says *press here* and
+   * never *load cyan*.
+   */
+  trivetMetal: "#5B616E",
+  trivetMetalDark: "#23262E",
+  trivetSocket: "#D9E8FA",
 } as const;

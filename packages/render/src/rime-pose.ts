@@ -49,8 +49,3 @@ export function rimeSurge(s: RimeState, beat: number, beatPhase: number): number
   if (rimeLitStep(s)?.ask !== "shield") return 0;
   return 1 - rimeLeft(s, beat, beatPhase);
 }
-
-/** The core's size and how bright it burns: a little smaller and brighter for every hit, THE VISE's figure. */
-export function rimeCoreHurt(hits: number): { size: number; bright: number } {
-  return { size: Math.max(0.55, 1 - 0.12 * hits), bright: Math.min(1, 0.55 + 0.2 * hits) };
-}

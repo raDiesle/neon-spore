@@ -1905,6 +1905,10 @@ by hand never moves.
 | `packages/render/src/touch-band.ts` | A press on the panel below the field: the buttons, and the two strips |
 | `packages/render/src/touch-move.ts` | The same finger, moved, and the two kinds of answer it can have |
 | `packages/render/src/tile-seed.ts` | The seed a picture of one tile is drawn from |
+| `packages/render/src/trivet-draw.ts` | How far the hub sinks as the stand collapses, in tiles |
+| `packages/render/src/trivet-marks.ts` | **THE TRIVET's marks**: the two things that say what a step asks — the lit sockets on a foot |
+| `packages/render/src/trivet-pose.ts` | **The clock THE TRIVET is posed off** (§30, *Animation*) |
+| `packages/render/src/trivet-shape.ts` | **THE TRIVET's geometry**: where the stand is, and the paths it is made of |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |

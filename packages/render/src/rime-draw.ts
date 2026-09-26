@@ -5,14 +5,7 @@ import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawRimeCore, drawRimeLitHalf, drawRimeSurge } from "./rime-marks.js";
-import {
-  rimeArrived,
-  rimeClear,
-  rimeCoreHurt,
-  rimeLeft,
-  rimeShatter,
-  rimeSurge,
-} from "./rime-pose.js";
+import { rimeArrived, rimeClear, rimeLeft, rimeShatter, rimeSurge } from "./rime-pose.js";
 import {
   RIME_SHEETS,
   rimeCentre,
@@ -24,6 +17,7 @@ import {
   rimeRadius,
   rimeSheet,
 } from "./rime-shape.js";
+import { viseKernelHurt } from "./vise-pose.js";
 
 /**
  * **THE RIME**: a frosted pane of glass over the middle column, each half
@@ -64,7 +58,8 @@ export function drawRime(
   const step = rimeLitStep(s);
   const firing = step !== null && step.ask === "fire" && s.bared;
   const lit = firing ? { color: step.color, left: rimeLeft(s, beat, beatPhase) } : null;
-  const hurt = rimeCoreHurt(s.hits);
+  // THE VISE's figure, called: a core is smaller and brighter per hit the same way a kernel is.
+  const hurt = viseKernelHurt(s.hits);
   drawRimeCore(ctx, l, hurt.size * (1 - 0.6 * shatter), hurt.bright, s.bared, lit, beatPhase);
   ctx.globalAlpha = alpha;
 

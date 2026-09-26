@@ -12,6 +12,7 @@ import { drawRime } from "./rime-draw.js";
 import { drawSeam } from "./seam-draw.js";
 import { drawSling } from "./sling-draw.js";
 import { drawSpool } from "./spool-draw.js";
+import { drawTrivet } from "./trivet-draw.js";
 import { drawValve } from "./valve-draw.js";
 import { drawVise } from "./vise-draw.js";
 
@@ -47,6 +48,7 @@ export const PAIR_KINDS = [
   "vise",
   "rime",
   "sling",
+  "trivet",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -189,5 +191,15 @@ export function drawPairBoss(
   // lit and which is already drawn to say so (`sling-draw.ts`). Nothing of it
   // outlives a frame yet: its hands and effects are the second half of its
   // look.
-  drawSling(ctx, l, world, boss, beat, beatPhase, time);
+  if (boss.kind === "sling") {
+    drawSling(ctx, l, world, boss, beat, beatPhase, time);
+    return;
+  }
+
+  // THE TRIVET: a three-legged stand splayed over the middle of the field,
+  // each outer foot swung down by one seat's chord and the hub, once both are
+  // planted, shot. Both screens are drawn the same — the other seat has to see
+  // which foot is lit to say so (`trivet-draw.ts`). Nothing of it outlives a
+  // frame yet: its hands and effects are the second half of its look.
+  drawTrivet(ctx, l, world, boss, beat, beatPhase, time);
 }

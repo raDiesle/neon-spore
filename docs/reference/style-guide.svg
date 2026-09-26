@@ -304,6 +304,11 @@
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">slingCord</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#C9BFA8 42°</text>
     </g>
+    <g transform="translate(116 1856)">
+      <rect width="66" height="46" rx="4" fill="#D9E8FA" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">trivetSocket</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#D9E8FA 213°</text>
+    </g>
 <text x="40" y="1962" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">THE FILM</text>
 <text x="150" y="1962" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">not a colour but a sweep: THE BALLOON's skin runs 245°–290°–320° and back, so no hue on it ever holds still long enough to be named.</text>
     <g transform="translate(40 1978)">
@@ -342,6 +347,16 @@
       <rect width="66" height="46" rx="4" fill="#3C3F49" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">rockDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#3C3F49 226°</text>
+    </g>
+    <g transform="translate(192 2100)">
+      <rect width="66" height="46" rx="4" fill="#5B616E" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">trivetMetal</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#5B616E 221°</text>
+    </g>
+    <g transform="translate(268 2100)">
+      <rect width="66" height="46" rx="4" fill="#23262E" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">trivetMetalDark</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#23262E 224°</text>
     </g>
 <text x="40" y="2206" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">NEUTRALS</text>
 <text x="150" y="2206" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">one desaturated violet, 247°–252°, so the whole picture sits inside the hull's hue. A neutral says `nothing to report`.</text>

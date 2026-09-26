@@ -24277,3 +24277,21 @@ to show.
 Bottleneck: writing — a view can only be left undrawn by a box it provably stays inside, and measuring that box over the whole script was most of the work.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE TRIVET's body: a gunmetal stand on three needles (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 5 min. THE RIME's and THE VISE's body files, the trivet state
+  and its hand, the drafts for a hub and a leg.
+- writing: 10 min. Four render files, the arm in the clock dispatcher, three
+  palette entries and the style guide, the frame test, THE RIME's hurt
+  figure called rather than kept, the drafts marked taken, the specs, the
+  queue item rewritten to the hands.
+- looking: 5 min. Posed frames of a chord, the fire step, a `both` step and
+  the collapse; the legs sunk into the hub and the collapse turned outward
+  after a look.
+- friction: 5 min. Frame jobs sent to the background in one chained line
+  wrote to `/` rather than the scratchpad, and CALTROP's card said free for
+  a body THE LEECH has worn since it landed.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — legs that stopped short of the hub and a collapse that folded inward only showed in a frame.

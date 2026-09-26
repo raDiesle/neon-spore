@@ -1,7 +1,7 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
  * and the thumb on its seam, THE GRINDSTONE's wheel, THE CYST's sac,
- * THE DAVIT's boom and THE VISE's seed-case.
+ * THE DAVIT's boom, THE VISE's seed-case and THE TRIVET's stand.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -82,6 +82,28 @@ export {
   grindstoneJawHeld,
   grindstoneLitStep,
 } from "./grindstone.js";
+// THE TRIVET's stand: the phase, the lit step, the feet and both seats' pads,
+// for the picture, the cue and the director's hand. Straight off `trivet.ts`
+// (`docs/spec/bosses-choreographed.md` §30).
+export {
+  chording,
+  freshTrivet,
+  TRIVET_ASKS,
+  TRIVET_PADS,
+  TRIVET_PHASES,
+  TRIVET_PLANTS_PER_FOOT,
+  type TrivetAsk,
+  type TrivetEntry,
+  type TrivetPhase,
+  type TrivetState,
+  type TrivetStep,
+  trivetBoss,
+  trivetChordHeld,
+  trivetClosed,
+  trivetDone,
+  trivetLitStep,
+} from "./trivet.js";
+export { trivetWindowBeats } from "./trivet-step.js";
 // THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for
 // the picture, the cue and the director's hand. Straight off `vise.ts`
 // (`docs/spec/bosses-choreographed.md` §28).

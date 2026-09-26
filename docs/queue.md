@@ -525,18 +525,6 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## §30 THE TRIVET — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-30-the-trivet-the-look)
-- **Needs:** §30 THE TRIVET's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a three-legged stand whose
-feet swing down and lock rather than fade in, and the hub's lit core
-answering the cannon's colour once both outer feet are planted. Nothing
-here is drawn yet and stays unverified at tempo until the owner has looked.
-
 ## §31 THE PLUMB — a desk key that leans
 
 - **Found:** 2026-09-26, claude/queue-31-the-plumb-the-lean-reader
@@ -571,7 +559,7 @@ tempo until the owner has looked.
 ## DEFERRED — §30 THE TRIVET — sprite atlas experiment: the feet planting home
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §30 THE TRIVET's look, above, landed first
+- **Needs:** §30 THE TRIVET — its hands, the second half of its look, landed first
 - **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
   new graphics stay on THE INSTAR only, as the one example, until he says
   otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
@@ -2650,3 +2638,42 @@ what the rest of this file holds.
 - **Asks:** may a body drawn under a flight scale below about a quarter skip its sub-pixel detail (glow's layered passes collapsed to one, hide scales and horn ridges left out), which changes pixels a few wide, or must the speck stay pixel-exact and the cost stay?
 
 After the tubes were sliced by screen size and off-field views culled, the turn's worst frames are 1050–1125 draws and 90–140 gradients against 700–800 and 50–65 at rest (`test/instar-budget.test.ts`). What is left is frames where both views are really on the field, most of them with the body at a flight scale of 0.15–0.3: a speck about 60 px across that still draws about 430 ops a view. The biggest: `solid-tube-draw.ts:179` (205), `glow.ts:47` strokeGlow's layered passes (198), `glow.ts:52` (66), `instar-horn.ts:136` (60), `instar-hide.ts:148` (58), `instar-profile-surface.ts:201` (52). A level of detail keyed on `tubeScale()` would take most of it, and it goes to VERSUS as a candidate unless the owner answers yes.
+
+## §30 THE TRIVET — its hands, the second half of its look
+
+- **Found:** 2026-09-26, claude/queue-30-the-trivet-the-look
+- **Needs:** §30 THE TRIVET — the look, half one (the body), landed first
+- **Files:** `packages/render/src/trivet-marks.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`, `packages/hands/src/`
+
+The body is drawn: SINKER's hub in gunmetal with a CALTROP needle run out
+to each foot, the outer feet's socket plates lit a cold blue-white while a
+chord wants them and drawn pressed under a held pad, a foot swinging down by
+the share held and clamped on its second plant, the hub lit in its colour
+and smaller per hit, and the collapse (`render/trivet-*.ts`,
+`test/trivet-frame.test.ts`). What is left, in lanes: **the pads on the
+field** — a thumb down on a lit socket sends `trivetPadFront` or
+`trivetPadRear` with the pad as the drag's `id`, and its lift the same with
+`on: false`; nothing on the field sends one yet, and `trivetSocketAt` in
+`trivet-shape.ts` is where a socket is; **the autopilot hand** (`NO_HAND`
+in `tools/director/test/autopilot.test.ts` until then); **the fx**, in
+`Effects` and cleared in `reset()` — a foot's plant thud and its clamp, the
+hub's hit flash and the collapse, the twelve `trivet*` events off the two
+silent lists as each gets its burst, and row 11's ring under the spent hub;
+**the cue's words** (HOLD on the lit foot, FIRE under the middle column
+while the hub is lit); and **THE SLOW's aim** on the stand, one arm in
+`slow-boss-aim.ts` round `trivetCentre` and `trivetHubR`, with its row in
+`slow-boss-aim.test.ts`. Unverified at tempo until the owner has looked.
+
+## `queue next` hands out a DEFERRED entry
+
+- **Found:** 2026-09-26, claude/queue-30-the-trivet-the-look
+- **Files:** `tools/queue/run.ts`, `tools/queue/asking.ts`
+
+`next` skips an entry still waiting on the owner (`asking.ts`'s `waiting`)
+and nothing else, so an entry whose title starts `DEFERRED —` — work the
+owner narrowed out of scope, `- **Deferred:**` under it — is handed out
+like any other; a session following *continue to work on the queue* has to
+know to pass it by `take`. Skip it in the automatic pick the way `waiting`
+is skipped (a `- **Deferred:**` line, or the title's prefix), keep `take`
+and `next <n>` handing it over, and add the case to
+`tools/queue/test/`. `bun run check` proves it.

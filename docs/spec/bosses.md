@@ -8837,20 +8837,22 @@ nothing else, THE SEAM's rule.
   already has: the hub rocks up and goes dark, the same `both` lights again,
   and no fire step lights until it is held.
 
-**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
-over the drum in its own frame, all white and iron so either seat answers.
-The jet is pale steam puffing down and out of the first empty slot, its lip
-glowing ember, the socket flashing for the tap. The brace shudders the whole
-drum, less as the chord counts; a half-ring each side of the socket lights
-under each held thumb, P1 left and P2 right, and a disc fills inside it with
-the beats held. The wipe is a pale film over the face, dripping, cleared from
-the left a share per rub. The seal is a white seam split down the face,
-widening as its window runs, pulsing, with the two half-rings back for the
-hold. Each window closes as the arc round the socket, read off the story's
-own beats. No cue word or grip yet: those are half two's.
-
-**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
-carry all twelve of its events until lane two. The twelve sounds *are* bound
+**The simulation and the body are in; the hands are not.** The body landed
+26 September 2026: SINKER's hub in dull gunmetal with one of CALTROP's
+needles run out to each foot as a leg — the needle only, since CALTROP's
+body is THE LEECH's — the two outer feet each on a plate of
+`TRIVET_PADS` sockets, lit a cold blue-white while a chord wants them and
+drawn pressed under a held pad, the foot swinging down by the share held
+and clamped at its ankle on the second plant; the hub dark, bare metal once
+both feet hold it, lit in its fire step's colour with its ring closing,
+smaller and brighter per hit (THE VISE's figure, `viseKernelHurt`); and the
+collapse splaying the legs flat as the hub sinks (`render/trivet-shape.ts`,
+`trivet-pose.ts`, `trivet-draw.ts`, `trivet-marks.ts`,
+`test/trivet-frame.test.ts`). **The hands are queued**: nothing sends a pad
+from a touch on the field, and the receipts, the cue's words and THE
+SLOW's aim wait on them — the render package's silent-event lists and
+`tools/director/src/sound-link-none-d.ts` carry all twelve of its events
+until then. The twelve sounds *are* bound
 (`audio/src/bind-trivet.ts`), heard where they happen, the plant pitched up
 per level and the hit per hit. There is no autopilot hand yet either
 (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).

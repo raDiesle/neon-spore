@@ -35,17 +35,17 @@ export const MINE_DRAFTS: CatalogueEntry[] = [
       seed: 4.4,
     }),
     motion: SWELL,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "drawn for THE MINE and not chosen — the rule as a picture: a needle stands into each of the four tiles a tap must not land on, and nothing points at the diagonals, which are safe. It swells on the fuse and does nothing else — a body that will go off should look like one filling",
+      "THE LEECH, taken the day it landed, the draft's numbers whole (`content/silhouettes-cling.ts`) — which is why THE MINE was refused it on 15 September 2026 (`silhouettes-mine.ts`); this card said free until 26 September 2026, when THE TRIVET found it spent. THE TRIVET borrows the needle and not the body: three of them, run from SINKER's roots out to its feet as legs, which four needles standing off a round body are not (`render/trivet-shape.ts`). Before that, drawn for THE MINE and not chosen — the rule as a picture: a needle stands into each of the four tiles a tap must not land on, and nothing points at the diagonals, which are safe. It swells on the fuse and does nothing else — a body that will go off should look like one filling",
   },
   {
     subject: rooted("SINKER", "a round body held to the field by roots", 30, 28, 8, 1.0, 0.2, 6),
     motion: SWELL,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "drawn for THE MINE and not chosen — the half the other two leave out: why it does not fall. Roots into the field say fixed, and a fixed body on an empty field is the first thing the pilot should be told about. The roots say nothing about the four tiles — that is the trade, and the card is here so the trade can be seen",
+      "THE TRIVET, taken 26 September 2026, its hub, at its own numbers, the three roots `rootedContour` grows on the underside the stand's three sockets, one of CALTROP's needles run from each out to a foot as a leg — the needle only, since CALTROP's body is THE LEECH's (`render/trivet-shape.ts`). The swell is not used. Before that, drawn for THE MINE and not chosen — the half the other two leave out: why it does not fall. Roots into the field say fixed, and a fixed body on an empty field is the first thing the pilot should be told about. The roots say nothing about the four tiles — that is the trade, and the card is here so the trade can be seen",
   },
 ];

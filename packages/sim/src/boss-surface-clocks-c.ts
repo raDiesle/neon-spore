@@ -12,7 +12,8 @@
  * **A fourth page opened when THE GRINDSTONE's names would have taken this
  * one past 250**, and THE WELL's rows went across, the last ones here
  * (`boss-surface-clocks-d.ts`); THE VISE's followed, the last again, when
- * this page reached 252.
+ * this page reached 252, and THE TRIVET's when its window length took this
+ * page to 238 — the boss being drawn went across, since it was the one open.
  *
  * The rule the first page states holds here unchanged: a name on these pages
  * is one something outside `packages/sim` imports.
@@ -22,8 +23,8 @@
 // whether a bolt is loose — for the picture, the sound, the cue and the
 // director's hand. Straight off `ratchet.ts` (`docs/spec/bosses.md` §11.38).
 export type { RatchetEntry } from "./boss-entries-clocks-b.js";
-// THE WELL's names, THE GRINDSTONE's and THE VISE's, the last rows this page held
-// (`boss-surface-clocks-d.ts`).
+// THE WELL's names, THE GRINDSTONE's, THE VISE's and THE TRIVET's, the last
+// rows this page held (`boss-surface-clocks-d.ts`).
 export * from "./boss-surface-clocks-d.js";
 // THE KEEL's spine: the phase, the movement, where the joint sits and whose
 // thumb it wants, the locked segments and the tail's rock, for the picture,
@@ -193,27 +194,6 @@ export {
   slingSwipe,
 } from "./sling.js";
 export { slingWindowBeats } from "./sling-step.js";
-// THE TRIVET's stand: the phase, the lit step, the feet and both seats' pads,
-// for the picture, the cue and the director's hand. Straight off `trivet.ts`
-// (`docs/spec/bosses-choreographed.md` §30).
-export {
-  chording,
-  freshTrivet,
-  TRIVET_ASKS,
-  TRIVET_PADS,
-  TRIVET_PHASES,
-  TRIVET_PLANTS_PER_FOOT,
-  type TrivetAsk,
-  type TrivetEntry,
-  type TrivetPhase,
-  type TrivetState,
-  type TrivetStep,
-  trivetBoss,
-  trivetChordHeld,
-  trivetClosed,
-  trivetDone,
-  trivetLitStep,
-} from "./trivet.js";
 // THE VALVE's drum: the phase, the movement, the pins, the wheel and its mark,
 // and the spark, for the picture, the cue and the director's hand. Straight
 // off `valve.ts` (`docs/spec/bosses-choreographed.md` §25).
