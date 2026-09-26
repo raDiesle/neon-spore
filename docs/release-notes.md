@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d08eb0292 — THE KEEL has a body: six iron segments arched over the field, locking rigid one joint at a time
+
+The spine is THE CANOPY's faceted arc laid with THE BRISTLE's squared-off lozenges, one segment over each of its columns, with ribs hung underneath. A loose segment is dull, sags and sways on its own count. A locked one is lit, rigid and seamed white, and the arch tightens as more of it locks. The lit joint carries a white ring whose arc closes with the window. The midpoint hinges apart round a socket of the wave's colour. The tempo run dims every joint and brings the answered ones back up. Then the spine holds rigid, the tail whips and drops its rock down its column, and the spine snaps straight. Both screens draw the same picture.
+
 ## 2026-09-26 · c4028ae19 — A rig part hangs off an anchor and turns with it
 
 A jaw, a wing or an eye on a rig is now authored about its own hinge, and an `Anchor` says where that hinge sits on its parent and how far it is turned: roll lifts a wing, pitch drops a jaw, yaw turns a head, and a child hangs off its parent so the skull turns and the jaw goes with it. `drawRig` poses each anchor once per call before the painter sorts. The solid sheet's fins now beat about their shoulders and its eyes ride the head. Nothing the game draws changes: no boss uses an anchor yet.

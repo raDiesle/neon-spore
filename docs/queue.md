@@ -1312,3 +1312,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at d08eb0292: THE KEEL's body watched at tempo
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/keel-draw.ts`, `packages/render/src/keel-marks.ts`
+
+*THE KEEL has a body: six iron segments arched over the field, locking rigid one joint at a time* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
+
+- THE KEEL's body watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
