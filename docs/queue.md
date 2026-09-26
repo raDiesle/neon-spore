@@ -603,6 +603,7 @@ stops clearing clean.
 ## instar-shape.ts is 236 lines: split the pixels from the figure
 
 - **Found:** 2026-09-26, claude/queue-the-instar-brood-eggs-that-crack-while-nobody-ta
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-instar-shape-ts-is-236-lines-split-the-pixels-fr)
 - **Files:** `packages/render/src/instar-shape.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/filament-shape.ts`
 
 The file holds two things: the figure's arithmetic (`Figure`, `deformed`,
