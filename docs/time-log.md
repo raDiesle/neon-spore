@@ -22075,3 +22075,5 @@ before the first check will run.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction — the file the fix belonged in had four lines of room.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

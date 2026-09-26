@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e327a8585 — `queue next` from a clean session worktree marks the claim as the worked branch
+
+A session standing in its own clean worktree, on the lane it has just landed, is told by `next` to `git checkout` the claim right there — but the `Taken:` line named that spent lane as the worked branch, the one branch the work would never be on. `next` now passes `dealt`, and `workedOn` in `tree.ts` answers the claim itself when `sessionTree()` is non-empty; `take`, which drains items onto the lane it stands on, still records the head.
+
 ## 2026-09-26 · a66afb7cd — Add THE KEEL's simulation lane: a joint whose seat is read off where it sits
 
 Wave 103 THE KEEL is a six-segment spine with one tap target, `keelJoint`. Whose tap a lit joint wants is read off which half of the screen it sits on — `geometrySeat`, the spec's `GeometrySeat`, built here and held by the COPIES table. A socket at the midpoint takes the cannon in the wave's colour, a third movement runs the wave's own order at tempo, and the tail throws one rock. The sixteen sounds are bound; nothing is drawn yet, and `docs/spec/bosses.md` §11.41 argues the five departures from §24.
