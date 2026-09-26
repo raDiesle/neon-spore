@@ -1,6 +1,14 @@
 import { LIGHT_HALF } from "@neon-spore/content";
-import { type RimeState, rimeLitStep, rimeWiping, type World } from "@neon-spore/sim";
+import {
+  midCol,
+  type RimeState,
+  rimeIcicleCol,
+  rimeLitStep,
+  rimeRubbing,
+  type World,
+} from "@neon-spore/sim";
 import { coreHurt } from "./core-hurt.js";
+import { fieldX } from "./field-flip.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -18,6 +26,7 @@ import {
   rimeRadius,
   rimeSheet,
 } from "./rime-shape.js";
+import { drawRimeFog, drawRimeIcicle, rimeFog, rimeIcicle, rimeSink } from "./rime-story.js";
 
 /**
  * **THE RIME**: a frosted pane of glass over the middle column, each half
@@ -67,12 +76,24 @@ export function drawRime(
     ctx.restore();
     return;
   }
-  const wiping = rimeWiping(s);
+  const asked =
+    step !== null && (step.ask === "left" || step.ask === "right" || step.ask === "both");
   for (const side of [0, 1] as const) {
-    // The half a wipe asks for stands out by the other going dull.
-    const film = wiping === null || wiping === side ? 0.88 : 0.6;
+    // The half a wipe asks for stands out by the other going dull; the whiteout lights both.
+    const rubbing = rimeRubbing(s, side);
+    const film = !asked || rubbing ? 0.88 : 0.6;
     drawFrost(ctx, l, side, rimeClear(s, side), film);
-    if (wiping === side) drawRimeLitHalf(ctx, l, side, beatPhase);
+    if (rubbing) drawRimeLitHalf(ctx, l, side, beatPhase);
+    ctx.globalAlpha = alpha;
+  }
+  const clear = Math.min(rimeClear(s, 0), rimeClear(s, 1));
+  drawRimeFog(ctx, l, rimeFog(s, beat, beatPhase), clear, time);
+  ctx.globalAlpha = alpha;
+  if (step?.ask === "icicle") {
+    const dx = fieldX(l, rimeIcicleCol(midCol(cfg), step)) - home.x;
+    const toHull = l.hullY - (home.y - rimeLift(l, arrived));
+    const sink = rimeSink(s, beat, beatPhase);
+    drawRimeIcicle(ctx, l, rimeIcicle(s, beat, beatPhase), sink, dx, toHull, beatPhase);
     ctx.globalAlpha = alpha;
   }
   const surge = rimeSurge(s, beat, beatPhase);

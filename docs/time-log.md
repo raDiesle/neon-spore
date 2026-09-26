@@ -24590,3 +24590,13 @@ than the code itself does, an index row and a palette filing, and both only
 surface as a red check well after the drawing is finished.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE RIME's whiteout and icicle, drawn
+
+- reading: 5 min. THE VISE's story page and cue page, THE OCULUS's sight.
+- writing: 20 min. The fog, the icicle and its sink, the cue page, two tests.
+- looking: 5 min. One frame of the icicle over its column, taken with `--boss-json`.
+- friction: 5 min. A tint test counted the glow's colour, which the stub logs baked.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — placing the icicle in the lens's frame so its sight lands on the hull under its own column.

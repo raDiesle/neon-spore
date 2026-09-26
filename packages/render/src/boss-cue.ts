@@ -28,6 +28,7 @@ import { mantleCues } from "./boss-cue-read-zc.js";
 import { keelCues } from "./boss-cue-read-zd.js";
 import { oculusCues } from "./boss-cue-read-ze.js";
 import { viseCues } from "./boss-cue-read-zf.js";
+import { rimeCues } from "./boss-cue-read-zg.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -167,6 +168,9 @@ function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): 
     // And THE VISE's, a word on each lobe a lit pinch asks for, gone once it is shut, and one under the lit kernel (`boss-cue-read-zf.ts`).
     case "vise":
       return viseCues(l, world, boss, beatPhase);
+    // And THE RIME's, a word under the lit core and one where the shield is wanted (`boss-cue-read-zg.ts`).
+    case "rime":
+      return rimeCues(l, world, boss);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

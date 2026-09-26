@@ -8778,8 +8778,20 @@ runs out:
   column.
 
 No new event: the whiteout ends on `rimeBare`, the icicle on `rimeBlock`, and
-either run out on `rimeMiss`. `sim/test/rime-story.test.ts` proves both. The
-two are not drawn yet; that is the next lane.
+either run out on `rimeMiss`. `sim/test/rime-story.test.ts` proves both.
+
+**The look of the two** (`render/src/rime-story.ts`, the same on both
+screens). The whiteout lights both halves white at once and rolls a pale fog
+over the pane, three bands drifting across the glass, thinning as the frost
+under it goes and gone the moment both halves are clear. The icicle is one of
+the pane's own frost sheets broken off long and thin, swung out over its
+column and sinking toward the hull as its step runs out, with THE OCULUS's
+dotted sight from its point down to the hull there. The field says `FIRE`
+under the middle while the bared core is lit and `SHIELD` under the column
+the shield is wanted in: the middle on a surge, the icicle's own column on an
+icicle (`boss-cue-read-zg.ts`). No word on a half, since no touch on the field
+rubs one yet. `render/test/rime-story-frame.test.ts` and
+`boss-cue-rime.test.ts` draw and read both.
 
 **The simulation lane and half one of the look have landed.** The body is
 drawn (`render/rime-draw.ts`, 26 September 2026): BULB · PEBBLE's featureless
