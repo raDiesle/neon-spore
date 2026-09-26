@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · a66afb7cd — Add THE KEEL's simulation lane: a joint whose seat is read off where it sits
+
+Wave 103 THE KEEL is a six-segment spine with one tap target, `keelJoint`. Whose tap a lit joint wants is read off which half of the screen it sits on — `geometrySeat`, the spec's `GeometrySeat`, built here and held by the COPIES table. A socket at the midpoint takes the cannon in the wave's colour, a third movement runs the wave's own order at tempo, and the tail throws one rock. The sixteen sounds are bound; nothing is drawn yet, and `docs/spec/bosses.md` §11.41 argues the five departures from §24.
+
 ## 2026-09-26 · 101166687 — The spec marks `MutualRelease` built by THE SURGE, and a copy of its window is refused
 
 Four tables across the choreographed and cinematic pages still listed `MutualRelease` — two lifts within a beat — as unbuilt. THE SURGE built it: the lift is a `drag` with `on: false`, and the window is `liftTogetherUntil` in `beat-clock.ts`. The rows now say so and name the files, and a later boss calls that function: a row in the copies table refuses `lift + tpb` written out anywhere else.
