@@ -14,6 +14,7 @@ import { ledgerHashParts } from "./ledger-hash.js";
 import { mantleHashParts } from "./mantle-hash.js";
 import { ratchetHashParts } from "./ratchet-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
+import { seamHashParts } from "./seam-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
 import { spoolHashParts } from "./spool-hash.js";
 import { stareHashParts } from "./stare-hash.js";
@@ -126,6 +127,11 @@ export function clockHashParts(boss: BossState): number[] {
   // travel, the pin's thumb, the spark and the marks (`valve-hash.ts`).
   if (boss.kind === "valve") {
     for (const n of valveHashParts(boss)) out.push(n);
+  }
+  // THE SEAM: the phase, the cursor, the sealed points, the answers owed
+  // and the script (`seam-hash.ts`).
+  if (boss.kind === "seam") {
+    for (const n of seamHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

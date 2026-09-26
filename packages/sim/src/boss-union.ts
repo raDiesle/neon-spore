@@ -21,6 +21,7 @@ import type { RatchetState } from "./ratchet.js";
 import type { RepriseState } from "./reprise-state.js";
 import type { ScoutState } from "./scout.js";
 import type { ScuttleState } from "./scuttle.js";
+import type { SeamState } from "./seam.js";
 import type { MirrorState } from "./simon.js";
 import type { SinewState } from "./sinew.js";
 import type { SnakeState } from "./snake.js";
@@ -101,4 +102,5 @@ export type BossState =
   | NettleState
   | MantleState
   | KeelState
-  | ValveState;
+  | ValveState
+  | SeamState;

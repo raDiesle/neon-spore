@@ -73,6 +73,25 @@ export {
   ratchetWindowBeats,
   ratchetWorking,
 } from "./ratchet.js";
+// THE SEAM's ridge: the phase, the lit step and what it still wants, and the
+// points sealed, for the picture, the cue and the director's hand. Straight
+// off `seam.ts` (`docs/spec/bosses-choreographed.md` §26).
+export {
+  SEAM_ASKS,
+  SEAM_PHASES,
+  SEAM_POINTS,
+  type SeamAsk,
+  type SeamEntry,
+  type SeamPhase,
+  type SeamState,
+  type SeamStep,
+  seamBoss,
+  seamDone,
+  seamLitStep,
+  seamStepCol,
+  seamWantsShield,
+  seamWantsShot,
+} from "./seam.js";
 // THE VALVE's drum: the phase, the movement, the pins, the wheel and its mark,
 // and the spark, for the picture, the cue and the director's hand. Straight
 // off `valve.ts` (`docs/spec/bosses-choreographed.md` §25).

@@ -111,4 +111,15 @@ export const CHOREO_NOTES_C = {
     "mark only counts after a full lap one way (valveLapMilli). THE SLOW spans " +
     "every freeze and pull window. Only the simulation lane has landed — see " +
     "sim/valve.ts, sim/valve-step.ts, sim/valve-hand.ts, sim/config-valve.ts.",
+  "THE SEAM — the boss answered with the cannon and the shield, in order":
+    "Asked for in docs/spec/bosses-choreographed.md §26: a choreographed scene " +
+    "built out of nothing but the standard controls. A ridge down the middle " +
+    "column, and a script the wave authors. Each step lights one thing: a point " +
+    "shot in its colour (seamPointBeats), grit taken on the shield under the " +
+    "ridge (seamGritBeats), a rock shot in its column (seamRockBeats), or grit " +
+    "and a rock at once (seamBothBeats). A shot or a shield outside its step " +
+    "does nothing; a step run out is a hull hit, which is the wave. Three " +
+    "sealing points are the health. THE SLOW spans every step. Only the " +
+    "simulation lane has landed — see sim/seam.ts, sim/seam-step.ts, " +
+    "sim/seam-shot.ts, sim/seam-guard.ts, sim/config-seam.ts.",
 } satisfies Partial<Record<GroupName, string>>;

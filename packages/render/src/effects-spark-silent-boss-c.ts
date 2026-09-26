@@ -98,4 +98,14 @@ export const SILENT_BOSS_C = [
   "valveSparkHit",
   "valveOpen",
   "valveOut",
+  // THE SEAM's nine, the same (`packages/audio/src/bind-seam.ts`).
+  "seamEnter",
+  "seamLight",
+  "seamDim",
+  "seamSeal",
+  "seamRockOut",
+  "seamBlock",
+  "seamMiss",
+  "seamSplit",
+  "seamOut",
 ] as const satisfies readonly SimEvent["type"][];

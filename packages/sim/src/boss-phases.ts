@@ -18,6 +18,7 @@ import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
 import { RATCHET_PHASES } from "./ratchet.js";
 import { SCOUT_LOADS, SCOUT_PHASES } from "./scout.js";
+import { SEAM_PHASES } from "./seam.js";
 import type { MirrorPhase } from "./simon.js";
 import { SNAKE_GRIPS, SNAKE_PHASES } from "./snake.js";
 import { SPOOL_PHASES } from "./spool.js";
@@ -113,5 +114,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   mantle: MANTLE_PHASES,
   keel: KEEL_PHASES,
   valve: VALVE_PHASES,
+  seam: SEAM_PHASES,
   fleet: FLEET_PHASES,
 };

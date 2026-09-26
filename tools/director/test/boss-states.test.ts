@@ -35,6 +35,8 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   keel: ["still", "joint", "rest", "split", "socket", "rigid", "rock", "straight"],
   // THE VALVE the same, §25: its six.
   valve: ["still", "turn", "hold", "frozen", "list", "open"],
+  // THE SEAM the same, §26: its four.
+  seam: ["still", "lit", "rest", "split"],
 };
 
 describe("the BOSSES category", () => {

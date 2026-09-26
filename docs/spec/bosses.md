@@ -7778,6 +7778,97 @@ third movement's mark refuses a hand worked back and forth and takes a full
 lap either way round; and the last pin opens the face and ends the fight.
 Whether any of it *reads* is the owner's eye, after lane two.
 
+## 11.43 THE SEAM — the boss answered with the cannon and the shield, in order
+
+> A shelled ridge down the middle of the field, one crack along its spine.
+> A point on the crack lights in a colour: shoot it in that colour. Grit
+> flies: bring the shield up under the ridge. Seal three points and the
+> ridge splits.
+
+Designed as §26 of [bosses-choreographed](bosses-choreographed.md), one of the
+owner's batch of five choreographed bosses of 26 September 2026 that read the
+same on both screens — the third of the three kinds in
+`.claude/skills/new-boss`, a choreographed scene. THE INSTAR's brief asked
+for no control set at all; this is the other half of the same breath, **a
+scene built out of nothing but the standard controls**: every step is a
+shot or a shield, and what makes it a scene rather than a field boss is that
+each one is only heard inside its own step.
+
+**It is three points (`SEAM_POINTS`), and they are its health.** The state
+(`sim/seam.ts`, hashed in `sim/seam-hash.ts`) is the **phase** and the beat
+it began, the **cursor** into the script, the points **sealed**, the tick the
+lit step lit, and whether its **shot** and its **shield** have landed. The
+script itself is the wave's (`SeamEntry.steps`), copied at install: each step
+asks for a `point`, `grit`, a `rock` or `both`, in a colour or `either`, at
+an offset from the middle, and says whether it `seals`.
+
+**The rule, in one sentence.** Shoot the lit point in its colour, and shield
+the grit it throws.
+
+**The split.** Nothing new — the seats the game already has. A point wants
+Player 1's cannon under it and Player 2's trigger in its colour; grit wants
+Player 2's shield under the ridge and Player 1's guard; the last step wants
+all four at once, one of them on the shield while the other fires.
+
+**The clock** (`sim/seam-step.ts`). The ridge settles for `seamStillBeats`,
+then the first step lights under THE SLOW (`openSlow(…, "ask")`) for its own
+beats — `seamPointBeats`, `seamGritBeats`, `seamRockBeats` or
+`seamBothBeats`. An answered step closes THE SLOW and the ridge rests
+`seamRestBeats` before the next lights; with the script done the sealed ridge
+splits, and hangs `seamSplitBeats` before the wave may end.
+
+**The answers.** A shot is judged where a bolt leaves the top of the field
+(`sim/seam-shot.ts`): only the lit step's column — the middle for a point,
+the middle plus the step's offset for a rock — and only its colour, unless it
+is `either`. The wrong colour is a colour missed on the balance sheet and
+nothing else, THE KEEL's socket's rule. The shield is asked once a tick after
+the commands (`sim/seam-guard.ts`, called from `boss-hands.ts`): the plate
+under the ridge, armed, by a guard pressed since the step lit — THE LEDGER's
+test with one term more, and billed the way THE LEDGER bills a ward.
+
+**Where this departs from the design, and why.** Seven places.
+
+- **Three points, one per movement.** §26 lights more points than three; the
+  script lights seven, but only one per movement is marked `seals`. Row 4's
+  "second point" is movement one's point taking its second colour, so the
+  three sealed points are still the silhouette's three.
+- **Row 5's two points are two steps.** "Two at once, a beat apart" is two
+  windows in a row here, each with its own colour and its own THE SLOW; two
+  targets in one column at once would be one shot answering both.
+- **A miss is a hull hit, and a hull hit is the wave.** §26 says the point
+  stays lit and the hull takes an ordinary hit. In this game there is no
+  ordinary hit (`wave-fail.ts`), so a step run out breaches the hull at its
+  column and the wave is lost.
+- **Row 9's rock takes either colour.** Row 7's has a colour and keeps it;
+  the last step already asks for four things at once, and a colour on top is
+  a fifth.
+- **A guard must come after the step lit.** A guard window still open from a
+  press a moment before would otherwise answer grit nobody had seen yet.
+- **The script is authored on the entry.** §26 names `BossSequenceStep`; the
+  steps are data on the wave rather than a script file, THE KEEL's order's
+  argument, so a wave may ask for a different crack without touching `sim/`.
+- **The shield is checked every tick.** Grit has no body falling onto the
+  shield row for `resolveHull` to meet, so the plate and the guard are read
+  against the lit step directly, once a tick, after the commands.
+
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
+carry all nine of its events until lane two. The nine sounds *are* bound
+(`audio/src/bind-seam.ts`), heard where they happen, the seal pitched up per
+point closed. There is no autopilot hand yet either
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/seam.test.ts`): the ridge comes in still with nothing sealed and
+lights its first step under THE SLOW; no shot is taken before a step is lit;
+a point wants its own colour and column and dims or seals when it gets them;
+grit is taken only on a shield under the ridge with a guard pressed after it
+lit, and takes no shot; a step run out is the wave; a rock is shot in its own
+column and colour; the white point takes either; grit and a rock at once wait
+for both halves in either order; and a script answered whole splits the ridge
+and ends the fight. Whether any of it *reads* is the owner's eye, after lane
+two.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

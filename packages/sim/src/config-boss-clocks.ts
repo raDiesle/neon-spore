@@ -17,6 +17,7 @@ import { MAZE_TURN_DEFAULTS, type MazeTurnConfig } from "./config-maze-turn.js";
 import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
 import { RATCHET_DEFAULTS, type RatchetConfig } from "./config-ratchet.js";
 import { SCUTTLE_DEFAULTS, type ScuttleConfig } from "./config-scuttle.js";
+import { SEAM_DEFAULTS, type SeamConfig } from "./config-seam.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
 import { SPOOL_DEFAULTS, type SpoolConfig } from "./config-spool.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
@@ -79,6 +80,7 @@ export interface BossClockConfig
     MantleConfig,
     KeelConfig,
     ValveConfig,
+    SeamConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -111,6 +113,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...MANTLE_DEFAULTS,
   ...KEEL_DEFAULTS,
   ...VALVE_DEFAULTS,
+  ...SEAM_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

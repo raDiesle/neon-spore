@@ -10,6 +10,7 @@ import { keelCue } from "./bind-keel.js";
 import { mantleCue } from "./bind-mantle.js";
 import { ratchetCue } from "./bind-ratchet.js";
 import { scuttleCue } from "./bind-scuttle.js";
+import { seamCue } from "./bind-seam.js";
 import { spoolCue } from "./bind-spool.js";
 import { undertowCue } from "./bind-undertow.js";
 import { valveCue } from "./bind-valve.js";
@@ -55,6 +56,7 @@ type LateEvent = Extract<
       | `mantle${string}`
       | `keel${string}`
       | `valve${string}`
+      | `seam${string}`
       | `undertow${string}`;
   }
 >;
@@ -224,6 +226,16 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "valveOpen":
     case "valveOut":
       return valveCue(e, cols);
+    case "seamEnter":
+    case "seamLight":
+    case "seamDim":
+    case "seamSeal":
+    case "seamRockOut":
+    case "seamBlock":
+    case "seamMiss":
+    case "seamSplit":
+    case "seamOut":
+      return seamCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

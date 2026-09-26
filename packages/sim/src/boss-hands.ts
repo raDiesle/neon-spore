@@ -17,6 +17,7 @@ import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { ratchetHeard } from "./ratchet-hand.js";
 import { scuttleHeard } from "./scuttle-hand.js";
+import { seamGuarded } from "./seam-guard.js";
 import { spoolHeard } from "./spool-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
@@ -92,6 +93,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE VALVE's wheel and pin, on the tick because a turn is a bearing and
   // the freeze an edge (`valve-hand.ts`).
   for (const c of commands) valveHeard(world, c.player, c.command);
+  // THE SEAM's shield, once a tick after the commands: no handle of its
+  // own, only the guard and the plate read against its lit step (`seam-guard.ts`).
+  seamGuarded(world);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

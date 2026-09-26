@@ -16,6 +16,7 @@ import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
+import { seamStruck } from "./seam-shot.js";
 import { firstAlong } from "./shot-reach.js";
 import { spendShot } from "./spend.js";
 import { tasterStruck } from "./taster-shot.js";
@@ -170,6 +171,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   keelStruck(world, b);
   // And THE VALVE's spark, in either colour (`valve-shot.ts`).
   valveStruck(world, b);
+  // And THE SEAM's lit point or rock (`seam-shot.ts`).
+  seamStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

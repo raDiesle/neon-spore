@@ -153,6 +153,16 @@ export const INGEST_SILENT_BOSS_C = [
   "valveSparkHit",
   "valveOpen",
   "valveOut",
+  // THE SEAM's nine, for the same reason (`packages/audio/src/bind-seam.ts`).
+  "seamEnter",
+  "seamLight",
+  "seamDim",
+  "seamSeal",
+  "seamRockOut",
+  "seamBlock",
+  "seamMiss",
+  "seamSplit",
+  "seamOut",
   // THE GAUGE's four, the first events this round has had at all: the needle,
   // the band, the jam and the bind are every one of them world state, read off
   // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame

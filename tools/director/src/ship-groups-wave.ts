@@ -61,6 +61,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE MANTLE — the boss both hands have to pull at once, or neither counts",
   "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   "THE VALVE — the boss one hand turns and the other hand stops",
+  "THE SEAM — the boss answered with the cannon and the shield, in order",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

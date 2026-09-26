@@ -55,6 +55,15 @@ export const BOSS_ENTRIES_D = {
   // THE VALVE authors its marks; two rather than the shipped three, for the
   // same reason (`valve-hash.ts`).
   valve: { kind: "valve", marks: [250, 600] },
+  // THE SEAM authors its script; two steps rather than the shipped nine
+  // (`seam-hash.ts`).
+  seam: {
+    kind: "seam",
+    steps: [
+      { ask: "point", color: "red", offset: 0, seals: true },
+      { ask: "both", color: "either", offset: -2, seals: false },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -148,5 +157,16 @@ export function patchBossD(boss: BossState): void {
     boss.pinDown = true;
     boss.sparkCol = 10;
     boss.sparkBeat = 5;
+  }
+  if (boss.kind === "seam") {
+    // The second step lit with both halves answered — every field given a
+    // value (`seam-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.sealed = 1;
+    boss.litTick = 40;
+    boss.shot = true;
+    boss.guarded = true;
   }
 }

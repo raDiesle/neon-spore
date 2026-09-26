@@ -22260,3 +22260,17 @@ Bottleneck: the claim — `queue next` reported success when its push was
 rejected, so a whole lane duplicated another session's.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — Add THE SEAM's simulation lane: a crack answered with the cannon and the shield, in order
+
+- reading: 5 min. §26's beat list, THE VALVE's lane as the model,
+  THE LEDGER's shield test and THE KEEL's socket colour rule.
+- writing: 35 min. Seven sim files, the nine sounds and their binding,
+  some thirty registrations, sixteen tests, §11.43.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. A heredoc with a doubled backslash was refused by the
+  guard hook; the registration script was edited in place instead.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a boss is still named in some thirty files before the
+first check runs.

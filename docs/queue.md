@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## §26 THE SEAM — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/queue-26-the-seam-the-simulation-lane
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-Nothing new: an authored `BossSequenceStep` list gating the ordinary shot and
-shield commands at a lit point on a cracked ridge, three widened points as
-the health. The cheapest of the five — proof that a choreographed scene can
-be built entirely out of the standard controls DavidDe asked to keep for
-specific sequences. The full beat list is §26 of
-`docs/spec/bosses-choreographed.md`. THE SLOW on every fire and shield
-window. `bun run check` proves it.
-
 ## §27 THE OCULUS — the simulation lane
 
 - **Found:** 2026-09-26, this session

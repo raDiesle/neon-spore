@@ -160,6 +160,13 @@ export function serializeBoss(boss: BossEntry): string {
   }
   // THE VALVE's marks are three bearings, the same reason.
   if (boss.kind === "valve") return `{ kind: "valve", marks: [${boss.marks.join(", ")}] }`;
+  // THE SEAM's script, a step to a line's worth each.
+  if (boss.kind === "seam") {
+    const steps = boss.steps.map(
+      (s) => `{ ask: "${s.ask}", color: "${s.color}", offset: ${s.offset}, seals: ${s.seals} }`,
+    );
+    return `{ kind: "seam", steps: [${steps.join(", ")}] }`;
+  }
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

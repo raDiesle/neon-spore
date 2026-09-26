@@ -18,6 +18,7 @@ import type { QueenEvent } from "./events-queen.js";
 import type { RatchetEvent } from "./events-ratchet.js";
 import type { ScoutEvent } from "./events-scout.js";
 import type { ScuttleEvent } from "./events-scuttle.js";
+import type { SeamEvent } from "./events-seam.js";
 import type { SinewEvent } from "./events-sinew.js";
 import type { SnakeEvent } from "./events-snake.js";
 import type { SpliceEvent } from "./events-splice.js";
@@ -73,6 +74,7 @@ export type BossEvent =
   | MantleEvent
   | KeelEvent
   | ValveEvent
+  | SeamEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -107,6 +109,7 @@ export type { QueenEvent } from "./events-queen.js";
 export type { RatchetEvent } from "./events-ratchet.js";
 export type { ScoutEvent } from "./events-scout.js";
 export type { ScuttleEvent } from "./events-scuttle.js";
+export type { SeamEvent } from "./events-seam.js";
 export type { SinewEvent } from "./events-sinew.js";
 export type { SnakeEvent } from "./events-snake.js";
 export type { SpliceEvent } from "./events-splice.js";

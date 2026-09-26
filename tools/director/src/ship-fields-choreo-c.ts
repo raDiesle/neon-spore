@@ -105,4 +105,13 @@ export const CHOREO_FIELD_GROUP_C = {
   valveListBeats: "THE VALVE — the boss one hand turns and the other hand stops",
   valveSparkBeats: "THE VALVE — the boss one hand turns and the other hand stops",
   valveOpenBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  // SeamConfig — how long each kind of step stays lit, and the rests
+  // around them (`config-seam.ts`). The script is the wave's own.
+  seamStillBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  seamPointBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  seamGritBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  seamRockBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  seamBothBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  seamRestBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  seamSplitBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
 } satisfies Record<string, GroupName>;

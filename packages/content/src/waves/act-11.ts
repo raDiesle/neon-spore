@@ -87,6 +87,12 @@ import type { Wave } from "../wave-types.js";
  * **THE VALVE came in behind that on 26 September**: a wheel one seat turns
  * and a pin the other taps to stop it (`docs/spec/bosses-choreographed.md`
  * §25). It authors where each movement's mark sits, and nothing that falls.
+ *
+ * **THE SEAM the same day**: a ridge answered with nothing but the cannon
+ * and the shield, one step at a time (`docs/spec/bosses-choreographed.md`
+ * §26). It authors the whole script, and nothing that falls: three
+ * movements, one sealing point each — learn the crack, both colours closer
+ * together, then the white point and both at once.
  */
 export const WAVES_ACT_11: Wave[] = [
   {
@@ -166,6 +172,31 @@ export const WAVES_ACT_11: Wave[] = [
     },
     entries: [],
     boss: { kind: "valve", marks: [250, 600, 850] },
+    bossType: "normal",
+  },
+  {
+    id: "theSeam",
+    name: "THE SEAM",
+    guide: {
+      both: "A point on the crack lights in a colour. Shoot it in that colour. When grit flies, bring the shield up under it. Three points close the crack.",
+      p1: "1. Move the cannon under the lit point.\n2. When grit flies, press the shield.\n3. A rock falls to one side. Slide the cannon under it.",
+      p2: "1. Fire the lit point in its colour. White takes either.\n2. Slide the shield under the ridge when grit flies.\n3. At the end one of you shields while the other fires.",
+    },
+    entries: [],
+    boss: {
+      kind: "seam",
+      steps: [
+        { ask: "point", color: "red", offset: 0, seals: false },
+        { ask: "grit", color: "either", offset: 0, seals: false },
+        { ask: "point", color: "cyan", offset: 0, seals: true },
+        { ask: "point", color: "red", offset: 0, seals: false },
+        { ask: "point", color: "cyan", offset: 0, seals: true },
+        { ask: "grit", color: "either", offset: 0, seals: false },
+        { ask: "rock", color: "cyan", offset: 2, seals: false },
+        { ask: "point", color: "either", offset: 0, seals: true },
+        { ask: "both", color: "either", offset: -2, seals: false },
+      ],
+    },
     bossType: "normal",
   },
 ];

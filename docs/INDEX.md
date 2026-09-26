@@ -325,6 +325,7 @@ by hand never moves.
 | `packages/sim/src/config-sinew.ts` | THE SINEW's numbers — how many fibres the tendon has, how deep a hand may pull |
 | `packages/sim/src/config-surge.ts` | THE SURGE's numbers — how many notches the seam has, how fast a hand charges the bulb and how fast it leaks |
 | `packages/sim/src/config-spool.ts` | THE SPOOL's tuning: how far the brake travels, how fast and how slow the line runs at either end of it |
+| `packages/sim/src/config-seam.ts` | THE SEAM's tuning: the beats each kind of step stays lit |
 | `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
 | `packages/sim/src/events-stare.ts` | **Everything THE STARE does that neither screen already says**, as one event |
@@ -335,6 +336,7 @@ by hand never moves.
 | `packages/sim/src/events-scuttle.ts` | **Everything THE SCUTTLE does that neither screen already says**, as events |
 | `packages/sim/src/events-scout.ts` | **What THE SCOUT's two hands on its picture do that neither screen already says** |
 | `packages/sim/src/events-snake.ts` | **What SNAKE's two hands on the body do that neither screen already says** |
+| `packages/sim/src/events-seam.ts` | What THE SEAM says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
 | `packages/sim/src/creature-state-veer.ts` | **THE VEER's two fields**, a side and a width |
@@ -631,6 +633,11 @@ by hand never moves.
 | `packages/sim/src/surge-step.ts` | THE SURGE's clock — the charge, the leak, the feeding, the burst at the top of the gauge, the eversion |
 | `packages/sim/src/surge-rock.ts` | **The rock THE SURGE spits while the pair is charging it** — the fight's third gesture |
 | `packages/sim/src/surge.ts` | THE SURGE: whether you can stop |
+| `packages/sim/src/seam-guard.ts` | **THE SEAM's shield**, asked once a tick after the commands are heard |
+| `packages/sim/src/seam-hash.ts` | What THE SEAM puts into `hashWorld`, and nothing else |
+| `packages/sim/src/seam-shot.ts` | **THE SEAM's shot**: a lit point on the ridge, or a rock spat from it |
+| `packages/sim/src/seam-step.ts` | THE SEAM's clock: the ridge settling, each step of the script lighting and running out |
+| `packages/sim/src/seam.ts` | THE SEAM: a shelled ridge down the middle column with one crack along its spine |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/pinball-hand.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/sim/src/pinball-hash.ts` | What PINBALL puts into `hashWorld`, and nothing else |
@@ -1916,6 +1923,7 @@ by hand never moves.
 | `packages/audio/src/bind-stare.ts` | THE STARE's three, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-ship.ts` | **The ship's own six**: a bolt leaving the cannon, a lance filling or spilling |
+| `packages/audio/src/bind-seam.ts` | THE SEAM's nine, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |

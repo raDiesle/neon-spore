@@ -36,6 +36,7 @@ export type {
   RepriseEntry,
   ScoutEntry,
   ScuttleEntry,
+  SeamEntry,
   SinewEntry,
   SnakeEntry,
   SpliceEntry,

@@ -17,6 +17,7 @@ import { stepMantle } from "./mantle-step.js";
 import { stepMirror } from "./mirror.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepScuttle } from "./scuttle-step.js";
+import { stepSeam } from "./seam-step.js";
 import { stepSinew } from "./sinew-step.js";
 import { stepSpool } from "./spool-step.js";
 import { stepStare } from "./stare-step.js";
@@ -192,6 +193,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE VALVE: the windows, the list and the spark (`valve-step.ts`).
   if (boss.kind === "valve") {
     stepValve(world, boss);
+    return;
+  }
+  // THE SEAM: each step lit and run out, and the split (`seam-step.ts`).
+  if (boss.kind === "seam") {
+    stepSeam(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

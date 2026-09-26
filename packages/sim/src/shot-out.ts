@@ -12,6 +12,7 @@ import { mantleStruck } from "./mantle-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
+import { seamStruck } from "./seam-shot.js";
 import { tasterStruck } from "./taster-shot.js";
 import type { Bullet } from "./types.js";
 import { valveStruck } from "./valve-shot.js";
@@ -75,6 +76,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   keelStruck(world, b);
   // THE VALVE's spark, in either colour (`valve-shot.ts`).
   valveStruck(world, b);
+  // THE SEAM's lit point, in its colour, or its rock (`seam-shot.ts`).
+  seamStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -122,6 +125,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "mantle",
   "keel",
   "valve",
+  "seam",
   "hasp",
   "ratchet",
   "hive",
